@@ -420,27 +420,6 @@ Org-tempo is not a separate package but a module within org that can be enabled.
      )
     )
 
-  ;;;;;; Actually start using templates
-  ;;(setq org-capture-templates
-  ;;  '(("m" "Email Workflow")
-  ;;    ("mf" "Follow Up" entry (file+olp "~/Documents/roam/Mail.org" "Follow Up")
-  ;;     "* TODO Follow up with %:fromname on %:subject\nSCHEDULED:%t\n%a\n%i" :immediate-finish t)
-  ;;    ("mr" "Read Later" entry (file+olp "~/Documents/roam/Mail.org" "Read Later")
-  ;;     "* TODO Read %:subject\nSCHEDULED:%t\n%a\n\n%i" :immediate-finish t)
-  ;;   ))
-  ;;        ;; Firefox and Chrome
-  ;;                     '("P" "Protocol" entry ; key, name, type
-  ;;                       (file+headline +org-capture-notes-file "Inbox") ; target
-  ;;                       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"
-  ;;                       :prepend t ; properties
-  ;;                       :kill-buffer t))
-  ;;        (add-to-list 'org-capture-templates
-  ;;                     '("L" "Protocol Link" entry
-  ;;                       (file+headline +org-capture-notes-file "Inbox")
-  ;;                       "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n"
-  ;;                       :prepend t
-  ;;                       :kill-buffer t))
-
 (use-package htmlize)
 (use-package hydra)
 (use-package lv)
@@ -673,7 +652,7 @@ nil)
   ;; I like to have something different than ellipsis because I often use them
   ;; myself.
   ;;(setq org-ellipsis " [+]")
-  (setq org-agenda-files '("~/Documents/roam"))
+  (setq org-agenda-files '("~/Documents/denotes"))
   (custom-set-faces '(org-ellipsis ((t (:foreground "gray40" :underline nil)))))
 
   (setq org-tags-column 69)
@@ -688,31 +667,31 @@ nil)
   ;; the %a refer to the place you are in emacs when you make the capture
   ;; that's very neat when you do that in an email for example.
   (setq org-capture-templates
-        '(("t" "todo"         entry (file "~/Documents/roam/inbox.org")
+        '(("t" "todo"         entry (file "~/Documents/denotes/20241004T211931--inbox__project.org")
            "* TODO %?\n%U\n- ref :: %a\n")
           ;; time tracker (clocked tasks)
-          ("g" "geek"         entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("g" "geek"         entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* GEEK %?         :perso:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
-          ("c" "chat"         entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("c" "chat"         entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* CHAT %?         :work:chat:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
-          ("e" "email"        entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("e" "email"        entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* EMAIL %?        :work:email:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
-          ("m" "meeting"      entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("m" "meeting"      entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* MEETING %?      :work:meeting:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
-          ("r" "review"       entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("r" "review"       entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* REVIEW %?       :work:review:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
-          ("w" "work"         entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("w" "work"         entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* IN-PROGRESS %?  :work:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
-          ("p" "pause"        entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("p" "pause"        entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* PAUSE %?        :pause:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
-          ("i" "interruption" entry (file+olp+datetree "~/Documents/roam/tracker.org")
+          ("i" "interruption" entry (file+olp+datetree "~/Documents/denotes/20240522T224517--tracker__project.org")
            "* IN-PROGRESS %?  :interruption:work:\n%U\n- ref :: %a\n"
            :prepend t :tree-type week :clock-in t :clock-keep t)
           ("s" "sport" entry (file+olp+datetree "~/Documents/roam/sport.org")
@@ -721,7 +700,7 @@ nil)
           ("S" "sport (planned)" entry (file+olp+datetree "~/Documents/roam/sport.org")
            "* %^t %?  :sport:%^g%^{TIME}p%^{DISTANCE}p"
            :prepend t :tree-type month :jump-to-captured t)
-          ("f" "chore"        entry (file "~/Documents/roam/inbox.org")
+          ("f" "chore"        entry (file "~/Documents/denotes/20241004T211931--inbox__project.org")
            "* IN-PROGRESS %?  :chore:\n%U\n"
            :clock-in t :clock-keep t)))
 
@@ -752,13 +731,6 @@ nil)
                                         ;(setq org-agenda-start-day "-0d")
                                         ; (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-window-setup 'only-window)
-
-  ;; ** Org Annotate
-
-  ;; Ability to take annotate some files, can of double usage with org-capture.
-  ;; Still, I keep that keyboard shortcut here.
-  ;; (evil-leader/set-key "oa" 'org-annotate-file)
-  (setq org-annotate-file-storage-file "~/Documents/roam/annotations.org")
 
   ;; ** Org colums
   ;; Can be nice sometime to have that column view
@@ -1396,14 +1368,10 @@ Delete the original subtree."
 #+begin_src emacs-lisp
 (use-package consult-notes
   :commands (consult-notes
-             consult-notes-search-in-all-notes
-             ;; if using org-roam
-             consult-notes-org-roam-find-node
-             consult-notes-org-roam-find-node-relation)
+             consult-notes-search-in-all-notes)
   :config
   (setq consult-notes-file-dir-sources
-        '(("Org"              ?o "~/Documents/roam")
-          ("Denote"        ?n "~/Documents/notes")
+        '(("Denote"        ?n "~/Documents/denotes")
           ("Work"           ?w "~/work/notes")))
   (consult-notes-org-headings-mode)
   (when (locate-library "denote")
