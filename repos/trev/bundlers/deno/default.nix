@@ -43,13 +43,8 @@ drv.overrideAttrs (
       [
         deno
         jq
-        upx
       ]
       ++ previousAttrs.nativeBuildInputs;
-
-    buildInputs = with pkgs; [
-      stdenv.cc.cc
-    ];
 
     # compile to binary with deno
     installPhase = ''
@@ -74,21 +69,6 @@ drv.overrideAttrs (
 
       runHook postInstall
     '';
-
-    # compress binary
-    # postInstall = ''
-    #   FILE=$(find "''${out}" -type f -print -quit)
-    #   TMP_FILE="''${TMPDIR:-/tmp}/bin"
-
-    #   mv "''${FILE}" "''${TMP_FILE}"
-    #   rm -rf "''${out}"
-    #   upx --best --lzma "''${TMP_FILE}" || true
-
-    #   cat "''${TMP_FILE}" > "''${out}"
-    #   chmod +x "''${out}"
-    # '';
-
-    dontStrip = true;
 
     meta.mainProgram = binName;
   }
