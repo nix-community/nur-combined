@@ -6,6 +6,7 @@
   nodejs,
   pnpm_9,
   esbuild,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -33,8 +34,8 @@ buildGoModule rec {
         src
         sourceRoot
         ;
+      fetcherVersion = 1;
       hash = "sha256-Gg4nOxqWb692GvvwE7AJKQzGrrLLW7haaooEkUZW7FQ=";
-      fetcherVersion = 9;
     };
 
     nativeBuildInputs = [
@@ -88,6 +89,8 @@ buildGoModule rec {
   postInstall = lib.optionalString (!stdenvNoCC.hostPlatform.isDarwin) ''
     mv $out/bin/SyncYomi $out/bin/syncyomi
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Open-source project to synchronize Tachiyomi manga reading progress and library across multiple devices";
