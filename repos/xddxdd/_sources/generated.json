@@ -3714,7 +3714,7 @@
     },
     "route-chain": {
         "cargoLocks": null,
-        "date": "2023-09-09",
+        "date": "2025-11-30",
         "extract": null,
         "name": "route-chain",
         "passthru": null,
@@ -3726,12 +3726,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "route-chain",
-            "rev": "8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197",
-            "sha256": "sha256-nliVHuZ8MmirgQQAaaWl92nbx6zQhX+pXXimM+II0JY=",
+            "rev": "e0485513d645bc812713df555a734555c0a66e57",
+            "sha256": "sha256-beVpF/IyKynBVfyPxZeSVAhgvhzQao9lOzDolFraqVI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197"
+        "version": "e0485513d645bc812713df555a734555c0a66e57"
     },
     "rtpengine": {
         "cargoLocks": null,
