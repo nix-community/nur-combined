@@ -2,6 +2,7 @@
   pkgs,
   drv,
   target,
+  normalized,
 }:
 drv.overrideAttrs (
   finalAttrs: previousAttrs:
@@ -33,13 +34,14 @@ drv.overrideAttrs (
     };
   in
   {
-    pname = "${previousAttrs.pname}-${target}";
+    pname = "${previousAttrs.pname}-${normalized}";
 
     doCheck = false;
 
     nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [
       pkgs.deno
       pkgs.jq
+      pkgs.upx
     ];
 
     # compile to binary with deno
@@ -64,6 +66,19 @@ drv.overrideAttrs (
       deno compile --no-check --target ${target} --output "$out/bin/${binName}" "$ENTRYPOINT"
 
       runHook postInstall
+    '';
+
+    # compress binary
+    postInstall = ''
+      FILE=$(find "''${out}" -type f -print -quit)
+      TMP_FILE="''${TMPDIR:-/tmp}/bin"
+
+      mv "''${FILE}" "''${TMP_FILE}"
+      rm -rf "''${out}"
+      upx --best --lzma "''${TMP_FILE}" || true
+
+      cat "''${TMP_FILE}" > "''${out}"
+      chmod +x "''${out}"
     '';
 
     meta.mainProgram = binName;
