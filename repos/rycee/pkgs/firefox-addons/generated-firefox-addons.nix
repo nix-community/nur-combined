@@ -1139,10 +1139,10 @@
     };
     "bilisponsorblock" = buildFirefoxXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.11.2";
+      version = "0.11.3";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4615668/bilisponsorblock-0.11.2.xpi";
-      sha256 = "002992425b1b541dfdf8d180298fce4bb9afa6fdc38fd802880a91910904cbfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4631458/bilisponsorblock-0.11.3.xpi";
+      sha256 = "1b74f75e3ff52dabc93dc727cb487ee319600ba60d3f67ef7215e2e92ed58e6d";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -13035,13 +13035,13 @@
     };
     "tabcenter-reborn" = buildFirefoxXpiAddon {
       pname = "tabcenter-reborn";
-      version = "3.0.1";
+      version = "3.0.2";
       addonId = "tabcenter-reborn@ariasuni";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4466811/tabcenter_reborn-3.0.1.xpi";
-      sha256 = "a95d7c312a8a47647e93f34d43933ba065649b64083016fb3ab70600e015d812";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4631653/tabcenter_reborn-3.0.2.xpi";
+      sha256 = "47dc2967afd4bc1774807e52ebc1ccdef909864f873fbbc03e382d47054c24c5";
       meta = with lib;
       {
-        homepage = "https://codeberg.org/ariasuni";
+        homepage = "https://codeberg.org/ariasuni/tabcenter-reborn";
         description = "Simple and powerful vertical tab bar";
         license = licenses.mpl20;
         mozPermissions = [
