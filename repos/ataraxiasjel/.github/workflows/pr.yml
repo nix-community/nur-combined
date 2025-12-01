@@ -2,37 +2,37 @@ name: "Check eval"
 on:
   pull_request:
     paths:
-      - 'flake.*'
-      - 'ci.nix'
-      - 'pkgs/**'
+      - "flake.*"
+      - "ci.nix"
+      - "pkgs/**"
 jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v6
-    - name: Install nix
-      uses: cachix/install-nix-action@v31
-      with:
-        github_access_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Setup magic nix cache
-      uses: DeterminateSystems/flakehub-cache-action@main
-    - name: Setup Cachix
-      uses: cachix/cachix-action@v16
-      with:
-        name: 'devenv'
-    - name: Install devenv
-      run: nix profile add nixpkgs#devenv
-    - name: Install and setup direnv
-      run: |
-        curl -sfL https://direnv.net/install.sh | bash
-        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-        direnv allow .
-        direnv export gha >> "$GITHUB_ENV"
-    - name: Show nixpkgs version
-      run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
-    - name: Check evaluation
-      env:
-        NIXPKGS_ALLOW_UNFREE: 1
-        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-      run: ./ci.sh --flake .#checks."$(nix eval --raw --impure --expr builtins.currentSystem)"
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup magic nix cache
+        uses: DeterminateSystems/flakehub-cache-action@main
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: "devenv"
+      - name: Install devenv
+        run: nix profile add nixpkgs#devenv
+      - name: Install and setup direnv
+        run: |
+          curl -sfL https://direnv.net/install.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          direnv allow .
+          direnv export gha >> "$GITHUB_ENV"
+      - name: Show nixpkgs version
+        run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
+      - name: Check evaluation
+        env:
+          NIXPKGS_ALLOW_UNFREE: 1
+          NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
+        run: ./ci.sh --flake .#checks."$(nix eval --raw --impure --expr builtins.currentSystem)"
