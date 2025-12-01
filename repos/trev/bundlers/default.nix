@@ -12,6 +12,9 @@
 // import ./goTo/all.nix {
   inherit pkgs;
 }
+// import ./go/all.nix {
+  inherit pkgs;
+}
 // import ./deno/all.nix {
   inherit pkgs;
 }
