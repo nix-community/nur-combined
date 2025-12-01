@@ -10,6 +10,7 @@ let
     oneapi-unified-memory-framework = callPackageByName "oneapi-unified-memory-framework" { };
     intel-oneapi-dpcpp-cpp-pure = callPackageByName "intel-oneapi-dpcpp-cpp-pure" { };
     ugdb = callPackageByName "ugdb" { };
+    pince = callPackageByName "pince" { };
   };
 in
 packages
