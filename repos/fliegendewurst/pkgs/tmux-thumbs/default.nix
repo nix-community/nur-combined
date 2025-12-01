@@ -1,4 +1,4 @@
-{ lib, mkTmuxPlugin, fetchFromGitHub, thumbs, substituteAll }:
+{ lib, mkTmuxPlugin, fetchFromGitHub, thumbs, replaceVars }:
 
 mkTmuxPlugin rec {
   pluginName = "tmux-thumbs";
@@ -13,8 +13,7 @@ mkTmuxPlugin rec {
   };
 
   patches = [
-    (substituteAll {
-      src = ./fix.patch;
+    (replaceVars ./fix.patch {
       tmuxThumbsDir = "${thumbs}/bin";
     })
   ];
