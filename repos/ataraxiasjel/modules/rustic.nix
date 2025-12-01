@@ -215,8 +215,8 @@ in
 
             package = mkOption {
               type = types.package;
-              default = pkgs.rustic-rs;
-              defaultText = literalExpression "pkgs.rustic-rs";
+              default = pkgs.rustic;
+              defaultText = literalExpression "pkgs.rustic";
               description = lib.mdDoc ''
                 Rustic package to use.
               '';
@@ -286,7 +286,8 @@ in
             CacheDirectory = "rustic-backups-${name}";
             CacheDirectoryMode = "0700";
             PrivateTmp = true;
-          } // optionalAttrs (backup.environmentFile != null) { EnvironmentFile = backup.environmentFile; };
+          }
+          // optionalAttrs (backup.environmentFile != null) { EnvironmentFile = backup.environmentFile; };
         }
         // optionalAttrs (backup.initialize || backup.backupPrepareCommand != null) {
           preStart = ''
