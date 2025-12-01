@@ -12,9 +12,6 @@
 // import ./goTo/all.nix {
   inherit pkgs;
 }
-// import ./node-bun/all.nix {
-  inherit pkgs;
-}
-// import ./node-deno/all.nix {
+// import ./deno/all.nix {
   inherit pkgs;
 }
