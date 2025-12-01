@@ -35,7 +35,7 @@
         };
 
         bundlers = import ./bundlers {
-          inherit system pkgs;
+          inherit system pkgs nixpkgs;
         };
 
         # the entire attribute set

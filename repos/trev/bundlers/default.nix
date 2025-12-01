@@ -1,6 +1,7 @@
 {
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
+  nixpkgs ? <nixpkgs>,
 }:
 {
   toDockerStream =
@@ -19,5 +20,5 @@
   inherit pkgs;
 }
 // import ./docker/all.nix {
-  inherit pkgs;
+  inherit system pkgs nixpkgs;
 }

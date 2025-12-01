@@ -1,16 +1,16 @@
 {
-  drv,
+  name,
   pkgs,
 }:
 pkgs.dockerTools.buildLayeredImage {
-  name = "${drv.pname}";
-  tag = "${drv.version}";
+  name = "${pkgs."${name}".pname}";
+  tag = "${pkgs."${name}".version}";
   created = "now";
   contents = [
-    drv
+    pkgs."${name}"
     pkgs.dockerTools.caCertificates
   ];
   config.Cmd = [
-    "${pkgs.lib.meta.getExe drv}"
+    "${pkgs.lib.meta.getExe pkgs."${name}"}"
   ];
 }

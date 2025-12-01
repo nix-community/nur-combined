@@ -1,4 +1,8 @@
-{ pkgs }:
+{
+  system,
+  pkgs,
+  nixpkgs,
+}:
 let
   # from https://docs.deno.com/runtime/reference/cli/compile/#supported-targets
   targets = [
@@ -25,11 +29,22 @@ builtins.listToAttrs (
     target:
     pkgs.lib.attrsets.nameValuePair "docker-${target.normalized}" (
       drv:
-      pkgs.pkgsCross."${target.name}".callPackage ./default.nix {
-        drv = drv.override (
-          previous: builtins.mapAttrs (name: value: pkgs.pkgsCross."${target.name}"."${name}") previous
-        );
-        pkgs = pkgs.pkgsCross."${target.name}";
+      let
+        drvOverlay = final: prev: {
+          "${drv.pname}" = drv;
+        };
+
+        crossPkgs = import nixpkgs {
+          buildPlatform = system;
+          hostPlatform = target.normalized;
+          overlays = [
+            drvOverlay
+          ];
+        };
+      in
+      crossPkgs.callPackage ./default.nix {
+        name = "${drv.pname}";
+        pkgs = crossPkgs;
       }
     )
   ) targets
