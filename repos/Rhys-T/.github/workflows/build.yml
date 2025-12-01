@@ -41,8 +41,8 @@ jobs:
             "rhys-t" as $cachixName |
             
             null    as $beta |
-            "25.05" as $stable |
-            null as $oldStable |
+            "25.11" as $stable |
+            "25.05" as $oldStable |
             
             [
               "Lnx x64/ubuntu-latest",
