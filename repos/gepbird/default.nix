@@ -17,7 +17,7 @@
   mint-mod-manager = pkgs.callPackage ./pkgs/mint-mod-manager { };
   mint-mod-manager-no-hook = pkgs.callPackage ./pkgs/mint-mod-manager-no-hook { };
 
-  xfce.xfce4-terminal-sixel = pkgs.callPackage ./pkgs/xfce4-terminal-sixel { };
+  xfce4-terminal-sixel = pkgs.callPackage ./pkgs/xfce4-terminal-sixel { };
 
   orb-forge-gui= pkgs.callPackage ./pkgs/orb-forge-gui { };
 
