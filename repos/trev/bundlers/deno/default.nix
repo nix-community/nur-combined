@@ -52,7 +52,7 @@ drv.overrideAttrs (
       cp ${denort."${target}"} "$DENO_DIR/dl/release/v${pkgs.deno.version}/denort-${target}.zip"
 
       mkdir -p ''${out}/bin
-      deno compile --target ${target} --output "''${out}/bin/${binName}" build/index.js
+      deno compile --no-check --target ${target} --output "''${out}/bin/${binName}" build/index.js
 
       runHook postInstall
     '';
