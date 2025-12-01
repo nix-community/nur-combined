@@ -1,8 +1,8 @@
 {
-  "version": "1.1.5-pre8",
-  "rev": "54b26d20fa1ddec9c489283eced098117afcc9e6",
-  "time": 1763873033,
-  "revCount": 4389,
+  "version": "1.1.5",
+  "rev": "a48f6b1ca52e20fb459c070a9f72d62019136350",
+  "time": 1764474094,
+  "revCount": 4403,
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
@@ -301,7 +301,7 @@
         "description": {
           "path": ".",
           "ref": "main",
-          "resolved-ref": "9c0fa799948ca1eaf3a8e654958caab0d8064639",
+          "resolved-ref": "e13ec72d2406b1ede94bbeec64dd0941a7dd9ac2",
           "url": "https://github.com/bggRGjQaUbCoE/canvas_danmaku.git"
         },
         "source": "git",
@@ -502,11 +502,11 @@
         "dependency": "direct main",
         "description": {
           "name": "device_info_plus",
-          "sha256": "dd0e8e02186b2196c7848c9d394a5fd6e5b57a43a546082c5820b1ec72317e33",
+          "sha256": "4df8babf73058181227e18b08e6ea3520cf5fc5d796888d33b7cb0f33f984b7c",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "12.2.0"
+        "version": "12.3.0"
       },
       "device_info_plus_platform_interface": {
         "dependency": "transitive",
@@ -1534,16 +1534,6 @@
         "source": "hosted",
         "version": "0.5.0"
       },
-      "objective_c": {
-        "dependency": "transitive",
-        "description": {
-          "name": "objective_c",
-          "sha256": "1f81ed9e41909d44162d7ec8663b2c647c202317cc0b56d3d56f6a13146a0b64",
-          "url": "https://pub.dev"
-        },
-        "source": "hosted",
-        "version": "9.1.0"
-      },
       "octo_image": {
         "dependency": "transitive",
         "description": {
@@ -1628,11 +1618,11 @@
         "dependency": "transitive",
         "description": {
           "name": "path_provider_foundation",
-          "sha256": "6192e477f34018ef1ea790c56fffc7302e3bc3efede9e798b934c252c8c105ba",
+          "sha256": "6d13aece7b3f5c5a9731eaf553ff9dcbc2eff41087fd2df587fd0fed9a3eb0c4",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "2.5.0"
+        "version": "2.5.1"
       },
       "path_provider_linux": {
         "dependency": "transitive",
@@ -1768,11 +1758,11 @@
         "dependency": "direct main",
         "description": {
           "name": "protobuf",
-          "sha256": "2fcc8a202ca7ec17dab7c97d6b6d91cf03aa07fe6f65f8afbb6dfa52cc5bd902",
+          "sha256": "75ec242d22e950bdcc79ee38dd520ce4ee0bc491d7fadc4ea47694604d22bf06",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "5.1.0"
+        "version": "6.0.0"
       },
       "pub_semver": {
         "dependency": "transitive",
@@ -2561,7 +2551,7 @@
   },
   "gitHashes": {
     "auto_orientation": "sha256-0QOEW8+0PpBIELmzilZ8+z7ozNRxKgI0BzuBS8c1Fng=",
-    "canvas_danmaku": "sha256-nwOL+cM6e02GLS0lVdyrBEI2BKVnCNFwNJuhR1Mhv9U=",
+    "canvas_danmaku": "sha256-RYzzXg+nV9jT+OrPnR/popIkvbyDQRj7FLM6hOdxcJY=",
     "chat_bottom_container": "sha256-um9KwZUDxWBhFsGHfv00TjPzxDHmp43TLRF0GwuV1xs=",
     "extended_nested_scroll_view": "sha256-Vjv5zp5c0Xob1H8/U0+lUueLqOKo7qwusOCchdt3Z7M=",
     "file_picker": "sha256-V2tLEkvwVa8BfcdnVBJkwVbcrTs6Rd5XAEw04eJOM1E=",
