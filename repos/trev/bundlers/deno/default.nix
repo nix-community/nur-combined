@@ -39,6 +39,7 @@ drv.overrideAttrs (
 
     nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [
       pkgs.deno
+      pkgs.jq
     ];
 
     # compile to binary with deno
@@ -48,11 +49,19 @@ drv.overrideAttrs (
       DENO_DIR="''${TMPDIR:-/tmp}/deno"
       export DENO_DIR
 
+      # install denort for given target
       mkdir -p "$DENO_DIR/dl/release/v${pkgs.deno.version}"
       cp ${denort."${target}"} "$DENO_DIR/dl/release/v${pkgs.deno.version}/denort-${target}.zip"
 
+      # find entry point
+      ENTRYPOINT=$(jq -r '.main' package.json)
+      if [ "$ENTRYPOINT" = "null" ] || [ -z "$ENTRYPOINT" ]; then
+        ENTRYPOINT="build/index.js"
+      fi
+
+      # compile
       mkdir -p ''${out}/bin
-      deno compile --no-check --target ${target} --output "''${out}/bin/${binName}" build/index.js
+      deno compile --no-check --target ${target} --output "$out/bin/${binName}" "$ENTRYPOINT"
 
       runHook postInstall
     '';
