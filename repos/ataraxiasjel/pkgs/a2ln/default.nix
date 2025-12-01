@@ -2,7 +2,7 @@
   lib,
   buildPythonApplication,
   fetchFromGitHub,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   setuptools,
   pillow,
   pygobject3,
@@ -27,7 +27,7 @@ buildPythonApplication rec {
   format = "pyproject";
 
   build-system = [
-    wrapGAppsHook
+    wrapGAppsHook3
     setuptools
   ];
 
