@@ -13,7 +13,7 @@ let
       };
     };
   empty = p: { "${p}" = { }; };
-  merge = lib.fold lib.recursiveUpdate { };
+  merge = lib.foldr lib.recursiveUpdate { };
   appNamesDict = merge [
     # keep-sorted start block=yes
     (empty "canokey-udev-rules")
