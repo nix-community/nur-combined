@@ -2669,10 +2669,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "146.0.20251128.121902";
+      version = "146.0.20251201.213807";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630411/dansk_da_language_pack-146.0.20251128.121902.xpi";
-      sha256 = "a507dfe3c453cf7171818a5dfd2e20d50eac227eba5accb859a2af7daf80f918";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632913/dansk_da_language_pack-146.0.20251201.213807.xpi";
+      sha256 = "78f5521abb492a6e9d4b05670f8f64bec9c849c826823806fc05ac182f5a684f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2882,10 +2882,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "146.0.20251128.121902";
+      version = "146.0.20251201.213807";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630412/deutsch_de_language_pack-146.0.20251128.121902.xpi";
-      sha256 = "e067cbabf8595c7da6776a82d31df74d25aa6504a303f7564a1bcf25e2d3b738";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632914/deutsch_de_language_pack-146.0.20251201.213807.xpi";
+      sha256 = "5a4894070e892324613a4ec962e620c7eafc33320d6e06852d45b931b6c5e0bb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2918,10 +2918,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.4.1";
+      version = "6.4.2";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4631280/dictionaries-6.4.1.xpi";
-      sha256 = "79c9e64052c8fa008266d062c138609ca54fa7e283a96e02091ad3734c463972";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632590/dictionaries-6.4.2.xpi";
+      sha256 = "76f411776104c1e0b71199a9bd0afa4414bce4cb5a791abf1515dde62bf2a7bf";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -4344,10 +4344,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "146.0.20251128.121902";
+      version = "146.0.20251201.213807";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630380/francais_language_pack-146.0.20251128.121902.xpi";
-      sha256 = "cd04f1b97d6af755645454eea75983fa0672b676b7da0aa1e1b7e49a6f8fb541";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632965/francais_language_pack-146.0.20251201.213807.xpi";
+      sha256 = "1d7f4e6bd2ca8ee3b45ad83a8ffc45ba8bad5da3066bf05840aa024e8dbb3604";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4381,10 +4381,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "146.0.20251128.121902";
+      version = "146.0.20251201.213807";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630423/gaidhlig_language_pack-146.0.20251128.121902.xpi";
-      sha256 = "a587100dd3520e0e31f9d844b60ebc129cdec8e7bd023bdc6d41af090db373f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632918/gaidhlig_language_pack-146.0.20251201.213807.xpi";
+      sha256 = "206cf3acac9bd7371b4eb8b56bbfada7e39b9044a711211ff74fe4f65c606bb5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6937,10 +6937,10 @@
     };
     "kagi-translate" = buildFirefoxXpiAddon {
       pname = "kagi-translate";
-      version = "0.1.4";
+      version = "0.1.5";
       addonId = "{bd6be57d-91d7-41d2-b61d-3ba20f7942e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4627431/kagi_translate-0.1.4.xpi";
-      sha256 = "705de5116cbb07fe5c8d4a3c615dfb766a2c85dcb4e6eaad72db15d790e935cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632453/kagi_translate-0.1.5.xpi";
+      sha256 = "1af91e2fdf2da97093974cf551709775083617e7d8f2782099d80b36fc60fb2d";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -7409,10 +7409,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.32";
+      version = "2.3.33";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4592753/lingq_importer2-2.3.32.xpi";
-      sha256 = "16209f88e27d1f5573176edb518167d4c3e894c12799788fad5c7898221b0579";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4633061/lingq_importer2-2.3.33.xpi";
+      sha256 = "aac33cefb23b9ff6051bc2aba96787d09e6e143d95f6aa25784fbd948c8d4116";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -11854,10 +11854,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "146.0.20251128.121902";
+      version = "146.0.20251201.213807";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630382/scots_language_pack-146.0.20251128.121902.xpi";
-      sha256 = "ea70eb8db52cf545d80cc1cc4d1d7738dd58632c8253daf145ff78efe8ad787a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632968/scots_language_pack-146.0.20251201.213807.xpi";
+      sha256 = "7e81d2de0851397d7e31c36675e81bdac9e3fa5f865519de80196f4eab86d320";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14928,16 +14928,16 @@
     };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.19.2";
+      version = "1.20.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4595455/wallabagger-1.19.2.xpi";
-      sha256 = "ff0d5799bec2c95fe5ec0584e1ecef1d1c031b429fc36cd48a906b8ac5b932bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632114/wallabagger-1.20.0.xpi";
+      sha256 = "a89fce3a96f4743af788d009e4cd0bd42c486b33418bdb3b03e4263e39dd06cb";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
         description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
         license = licenses.mit;
-        mozPermissions = [ "tabs" "storage" "contextMenus" "activeTab" ];
+        mozPermissions = [ "storage" "contextMenus" "activeTab" "scripting" ];
         platforms = platforms.all;
       };
     };
