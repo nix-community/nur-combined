@@ -191,8 +191,8 @@
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
         "Vortriz": {
-            "rev": "80ebc37320b442e3490538026a64431bba303abe",
-            "sha256": "1ylc1rxi73ks3w0ii9g8y35153xlh033y7pmr5skh5kspfn67rdv",
+            "rev": "b5c0a59b8d61837e32dc750c78803a5de0369110",
+            "sha256": "1d71d5nglwvz75g280r9n196zjv0n4ry00wpvd8wqswl9jk421j0",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -557,8 +557,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "2e30a61f359cb4798fccd36d337c7c48bb25b26d",
-            "sha256": "0nxmj0i2jhli9315kvi046afyiz7lijrddv442l75yff1yjdc22f",
+            "rev": "407712015d0275b18a55e0f1bab63ef80f696565",
+            "sha256": "1mgza95h7rgxwv0brjgqb517i4n0l1pinlz0sy27x16lvl5rd0b6",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colorman": {
