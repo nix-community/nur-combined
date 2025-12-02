@@ -8,5 +8,6 @@
   imports = [
     ../linux-enable-ir-emitter.nix
     ../howdy
+    ../pam.nix
   ];
 }
