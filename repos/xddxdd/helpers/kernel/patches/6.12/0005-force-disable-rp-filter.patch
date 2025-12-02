@@ -1,0 +1,37 @@
+diff --git a/net/ipv4/fib_frontend.c b/net/ipv4/fib_frontend.c
+index 793e6781399a..3adb0bcffa93 100644
+--- a/net/ipv4/fib_frontend.c
++++ b/net/ipv4/fib_frontend.c
+@@ -394,8 +394,6 @@ static int __fib_validate_source(struct sk_buff *skb, __be32 src, __be32 dst,
+ 	}
+ 	if (no_addr)
+ 		goto last_resort;
+-	if (rpf == 1)
+-		goto e_rpf;
+ 	fl4.flowi4_oif = dev->ifindex;
+ 
+ 	ret = 0;
+@@ -406,15 +404,11 @@ static int __fib_validate_source(struct sk_buff *skb, __be32 src, __be32 dst,
+ 	return ret;
+ 
+ last_resort:
+-	if (rpf)
+-		goto e_rpf;
+ 	*itag = 0;
+ 	return 0;
+ 
+ e_inval:
+ 	return -EINVAL;
+-e_rpf:
+-	return -EXDEV;
+ }
+ 
+ /* Ignore rp_filter for packets protected by IPsec. */
+@@ -422,7 +416,6 @@ int fib_validate_source(struct sk_buff *skb, __be32 src, __be32 dst,
+ 			u8 tos, int oif, struct net_device *dev,
+ 			struct in_device *idev, u32 *itag)
+ {
+-	int r = secpath_exists(skb) ? 0 : IN_DEV_RPFILTER(idev);
+ 	struct net *net = dev_net(dev);
+ 
+ 	if (!r && !fib_num_tclassid_users(net) &&
