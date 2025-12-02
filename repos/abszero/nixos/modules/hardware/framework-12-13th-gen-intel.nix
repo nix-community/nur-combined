@@ -1,7 +1,12 @@
-{ config, lib, ... }:
+{
+  options,
+  config,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkIf mkDefault;
+  inherit (lib) mkIf mkDefault optionalAttrs;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.hardware.framework-12-13th-gen-intel;
 
@@ -83,6 +88,8 @@ in
     hardware = {
       bluetooth.enable = true;
       enableRedistributableFirmware = true;
+    }
+    // optionalAttrs (options.hardware ? framework.enableKmod) {
       # Disable as it causes weird infinite recursion with cachyos kernel by accessing boot.kernelPatches
       framework.enableKmod = false;
     };
@@ -98,18 +105,12 @@ in
         "cros_ec_lpcs"
         "kvm-intel"
       ];
-      # Enable interacting with the embedded controller from sysfs for ALS required by wluma
-      # Replicated from the disabled kmod module
-      extraModulePackages = with config.boot.kernelPackages; [ framework-laptop-kmod ];
     };
 
     services = {
-      fwupd = {
-        enable = true;
-        # Even stable BIOS versions are marked as test versions in LVFS
-        # github.com/NixOS/nixos-hardware/blob/master/framework/README.md#updating-firmware
-        extraRemotes = [ "lvfs-testing" ];
-      };
+      # Even stable BIOS versions are marked as test versions in LVFS
+      # github.com/NixOS/nixos-hardware/blob/master/framework/README.md#updating-firmware
+      fwupd.extraRemotes = [ "lvfs-testing" ];
       kanata.keyboards.framework-12-13th-gen-intel = keyboardCfg;
       thermald.enable = true;
     };

@@ -17,7 +17,7 @@ let
 
   mainModule = {
     abszero = {
-      profiles.full.enable = true;
+      profiles.laptop.enable = true;
 
       zramSwap.enable = true;
 

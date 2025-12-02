@@ -42,13 +42,16 @@ in
       nvl = "lightnovel.sh";
     };
 
-    services.wluma.enable = mkDefault true;
-
     gtk.enable = true;
     qt = {
       enable = true;
       style.name = mkDefault "kvantum";
       platformTheme.name = mkDefault "kvantum";
+    };
+
+    services.syncthing = {
+      enable = true;
+      tray.enable = true;
     };
 
     programs = {

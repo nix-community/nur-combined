@@ -1,4 +1,4 @@
-# Full desktop
+# Full graphical session
 {
   config,
   pkgs,
@@ -9,17 +9,18 @@
 let
   inherit (lib) mkIf;
   inherit (lib.abszero.modules) mkExternalEnableOption;
-  cfg = config.abszero.profiles.full;
+  cfg = config.abszero.profiles.graphical-full;
 in
 
 {
-  imports = [ ./desktop.nix ];
+  imports = [ ./graphical.nix ];
 
-  options.abszero.profiles.full.enable = mkExternalEnableOption config "full profile";
+  options.abszero.profiles.graphical-full.enable =
+    mkExternalEnableOption config "graphical-full profile";
 
   config = mkIf cfg.enable {
     abszero = {
-      profiles.desktop.enable = true;
+      profiles.graphical.enable = true;
       hardware.keyboard.halo65.enable = true;
       boot.plymouth.enable = true;
       virtualisation = {
@@ -67,7 +68,7 @@ in
       systemPackages = with pkgs; [
         anki-wayland
         aseprite
-        ayugram-desktop
+        # ayugram-desktop
         collector
         ffmpeg-full
         gh
@@ -81,11 +82,12 @@ in
         jetbrains.idea-community
         jq
         kooha
+        krita
         libreoffice-qt
-        # lutris
+        lutris
+        nautilus
         nudoku
         obsidian
-        osu-lazer-bin
         proton-pass
         protonvpn-gui
         # taisei
@@ -95,6 +97,7 @@ in
         vesktop
         vscode
         waydroid-helper
+        waypipe
         wev
         wget
         xorg.xeyes

@@ -70,30 +70,30 @@ in
 
       experimental.xx_color_management_v4 = true;
 
-      bind =
-        [
-          # https://wiki.hyprland.org/Configuring/Dispatchers
-          "$mod,       q,                    exec,           uwsm stop"
-          "$mod,       w,                    killactive"
-          "$mod,       Page_Up,              fullscreen,     0"
-          "$mod,       Page_Down,            fullscreen,     1"
-          "$mod,       Space,                togglefloating"
+      bind = [
+        # https://wiki.hyprland.org/Configuring/Dispatchers
+        "$mod,       q,                    exec,           uwsm stop"
+        "$mod,       w,                    killactive"
+        "$mod,       Page_Up,              fullscreen,     0"
+        "$mod,       Page_Down,            fullscreen,     1"
+        "$mod,       Space,                togglefloating"
 
-          "$mod,       Left,                 movefocus,      l"
-          "$mod,       Right,                movefocus,      r"
-          "$mod,       Up,                   movefocus,      u"
-          "$mod,       Down,                 movefocus,      d"
-          "$mod+SHIFT, Left,                 movewindow,     l"
-          "$mod+SHIFT, Right,                movewindow,     r"
-          "$mod+SHIFT, Up,                   movewindow,     u"
-          "$mod+SHIFT, Down,                 movewindow,     d"
+        "$mod,       Left,                 movefocus,      l"
+        "$mod,       Right,                movefocus,      r"
+        "$mod,       Up,                   movefocus,      u"
+        "$mod,       Down,                 movefocus,      d"
+        "$mod+SHIFT, Left,                 movewindow,     l"
+        "$mod+SHIFT, Right,                movewindow,     r"
+        "$mod+SHIFT, Up,                   movewindow,     u"
+        "$mod+SHIFT, Down,                 movewindow,     d"
 
-          ",           XF86AudioMute,        exec,           wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ",           XF86AudioLowerVolume, exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ",           XF86AudioRaiseVolume, exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-          ",           XF86AudioMicMute,     exec,           wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ]
-        ++ concatMap
+        ",           XF86AudioMute,        exec,           wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",           XF86AudioLowerVolume, exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ",           XF86AudioRaiseVolume, exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ",           XF86AudioMicMute,     exec,           wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ]
+      ++
+        concatMap
           (i: [
             "$mod,       ${i}, workspace,       ${i}"
             "$mod+SHIFT, ${i}, movetoworkspace, ${i}"

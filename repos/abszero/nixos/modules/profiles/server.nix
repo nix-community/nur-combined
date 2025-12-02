@@ -18,7 +18,10 @@ in
   options.abszero.profiles.server.enable = mkExternalEnableOption config "server profile";
 
   config = mkIf cfg.enable {
-    abszero.profiles.base.enable = true;
+    abszero = {
+      profiles.base.enable = true;
+      services.openssh.enable = true;
+    };
 
     boot.kernelPackages = pkgs.linuxPackages_cachyos-server;
 
@@ -28,14 +31,5 @@ in
     fonts.fontconfig.enable = false;
 
     security.sudo.wheelNeedsPassword = true;
-
-    services.openssh = {
-      enable = true;
-      startWhenNeeded = true;
-      # Obfuscate the port. However, for a proxy server, according to
-      # https://geneva.cs.umd.edu/posts/fully-encrypted-traffic/en/, this won't
-      # make it less detectable by the GFW.
-      ports = [ 1337 ];
-    };
   };
 }

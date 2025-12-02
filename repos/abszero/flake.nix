@@ -58,11 +58,7 @@
       # # Fork that adds an UKI mode
       # url = "github:linyinfeng/lanzaboote/uki";
       url = "github:nix-community/lanzaboote";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
