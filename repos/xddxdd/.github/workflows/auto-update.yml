@@ -78,10 +78,8 @@ jobs:
       - env:
           API_TOKEN_GITHUB: ${{ secrets.AUTOMERGE_TOKEN }}
         run: |
-          set -x
-
           # https://github.com/cpina/github-action-push-to-another-repository/issues/75
-          git config --unset-all http.https://github.com/.extraheader
+          git config --unset-all http.https://github.com/.extraheader || true
           git config --global user.email "xddxdd-bot@users.noreply.github.com"
           git config --global user.name "xddxdd-bot"
 
