@@ -34,6 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "HTTP server library in C++, inspired by Java Servlets";
     homepage = "https://stefanfrings.de/qtwebapp/index-en.html";
+    changelog = "https://stefanfrings.de/qtwebapp/index-en.html";
     license = lib.licenses.lgpl3Plus;
   };
 })
