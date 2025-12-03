@@ -1,24 +1,22 @@
 {
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
-  nixpkgs ? <nixpkgs>,
 }:
 {
-  toDockerStream =
+  docker =
     drv:
-    import ./toDockerStream {
+    import ./docker {
       inherit drv pkgs;
     };
-}
-// import ./goTo/all.nix {
-  inherit pkgs;
+  docker-stream =
+    drv:
+    import ./docker/stream.nix {
+      inherit drv pkgs;
+    };
 }
 // import ./go/all.nix {
   inherit pkgs;
 }
 // import ./deno/all.nix {
   inherit pkgs;
-}
-// import ./docker/all.nix {
-  inherit system pkgs nixpkgs;
 }

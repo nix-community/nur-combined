@@ -2,49 +2,126 @@
 
 ![check](https://github.com/spotdemo4/nur/actions/workflows/check.yaml/badge.svg)
 ![vulnerable](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml/badge.svg)
-![synced](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml/badge.svg)
+![nix user repository](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml/badge.svg)
 
-Extra packages, bundlers and libs for nix
+Extra [packages](#packages), [bundlers](#bundlers) and [libs](#libs) for [nix](https://nixos.org/)
 
 ## Packages
 
-- [bobgen](https://github.com/stephenafamo/bob)
-  - Pending nixpkgs [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
-- [bumper](https://github.com/spotdemo4/bumper)
-- [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
-- [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash)
-- [opengrep](https://github.com/opengrep/opengrep)
-- [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi)
-  - Pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
-- [qsvenc](https://github.com/rigaya/QSVEnc)
-- [renovate](https://github.com/renovatebot/renovate)
-  - Patched with [renovate#37899](https://github.com/renovatebot/renovate/pull/37899) to fix flake updates
-- [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh)
+Packages are [cached](#cache) and kept up-to-date automatically. Available here or the [Nix User Repository](https://nur.nix-community.org/repos/trev/).
+
+### [bob](https://github.com/stephenafamo/bob)
+
+SQL query builder and ORM/Factory generator for Go
+
+- pending nixpkgs [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
+
+```elm
+nix run github:spotdemo4/nur#bobgen
+```
+
+### [bumper](https://github.com/spotdemo4/bumper)
+
+Version bumper for projects using git and semantic versioning
+
+```elm
+nix run github:spotdemo4/nur#bumper
+```
+
+### [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
+
+Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)
+
+```elm
+nix run github:spotdemo4/nur#ffmpeg-quality-metrics
+```
+
+### [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash)
+
+Nix hash fixer
+
+```elm
+nix run github:spotdemo4/nur#nix-fix-hash
+```
+
+### [opengrep](https://github.com/opengrep/opengrep)
+
+Static code analysis engine to find security issues in code
+
+```elm
+nix run github:spotdemo4/nur#opengrep
+```
+
+### [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi)
+
+Protobuf plugin for generating OpenAPI specs matching the Connect RPC interface
+
+- pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
+
+```elm
+nix run github:spotdemo4/nur#protoc-gen-connect-openapi
+```
+
+### [qsvenc](https://github.com/rigaya/QSVEnc)
+
+QSV high-speed encoding performance experiment tool
+
+```elm
+nix run github:spotdemo4/nur#qsvenc
+```
+
+### [renovate](https://github.com/renovatebot/renovate)
+
+Cross-platform dependency automation, with patches for nix
+
+- patched with [renovate#37899](https://github.com/renovatebot/renovate/pull/37899) to fix flake updates
+
+```elm
+nix run github:spotdemo4/nur#renovate
+```
+
+### [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh)
+
+Shell hook for nix development shells
+
+```elm
+nix run github:spotdemo4/nur#shellhook
+```
 
 ## Bundlers
 
-### toDockerStream
+A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle) mainly used for cross-compilation. The `system` is in the format given by `builtins.currentSystem`.
 
-An alternative to `github:NixOS/bundlers#toDockerImage` that uses `streamLayeredImage` rather than `buildLayeredImage`
+### deno-`system`
+
+Overrides `pkgs.buildNpmPackage` to build an npm package for the given system with [deno compile](https://docs.deno.com/runtime/reference/cli/compile/)
 
 ```elm
-nix bundle --bundler github:spotdemo4/nur#toDockerImage
+nix bundle --bundler github:spotdemo4/nur#deno-x86_64-linux
 ```
 
-### goTo[GOOS][GOARCH]
+### docker & docker-stream
 
-Builds a go package using the GOOS and GOARCH values supplied
+An alternative to `github:NixOS/bundlers#toDockerImage`
 
 ```elm
-nix bundle -o binary --bundler github:spotdemo4/nur#goToLinuxAmd64
-nix bundle -o binary.exe --bundler github:spotdemo4/nur#goToWindowsAmd64
+nix bundle --bundler github:spotdemo4/nur#docker # buildLayeredImage
+nix bundle --bundler github:spotdemo4/nur#docker-stream # streamLayeredImage
+```
+
+### go-`system`
+
+Overrides `pkgs.buildGoModule` to build a go module for the given system
+
+```elm
+nix bundle --bundler github:spotdemo4/nur#go-x86_64-linux
 ```
 
 ## Libs
 
 ### mkFlake
 
-Utility function to make creating flakes easier
+Utility function to simplify creating flakes. Basically [flake-utils.lib.eachDefaultSystem](https://github.com/numtide/flake-utils) but you can put non-system specific outputs like `overlays` inside the function too.
 
 ```nix
 inputs = {
@@ -89,7 +166,7 @@ outputs =
 
 ### mkChecks
 
-Utility function to make creating flake checks easier
+Utility function to simplify flake checks
 
 ```nix
 checks = pkgs.lib.mkChecks {
@@ -111,7 +188,7 @@ checks = pkgs.lib.mkChecks {
 
 ### mkApps
 
-Utility function to make creating flake apps easier
+Utility function to simplify flake apps
 
 ```nix
 apps = pkgs.lib.mkApps {
@@ -172,8 +249,8 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   src = ./.;
 
   nativeBuildInputs = with pkgs; [
+    lib.buf.configHook
     buf
-    pkgs.lib.buf.configHook
   ];
 
   bufDeps = pkgs.lib.buf.fetchDeps {
@@ -190,7 +267,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
 ## Install
 
-### Flake
+### Direct
 
 ```nix
 {
@@ -257,7 +334,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 }
 ```
 
-### NixOS
+### Nix User Repository
 
 Using the [Nix User Repository](https://github.com/nix-community/NUR)
 
@@ -290,6 +367,40 @@ Using the [Nix User Repository](https://github.com/nix-community/NUR)
         })
       ];
     };
+  };
+}
+```
+
+## Cache
+
+Every package in this repo is built and cached each update. To pull from the cache instead of building:
+
+### Single flake
+
+```nix
+{
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.trev.zip/nur"
+    ];
+    extra-trusted-public-keys = [
+      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
+    ];
+  };
+}
+```
+
+### Entire NixOS system
+
+```nix
+{
+  nix.settings = {
+    trusted-substituters = [
+      "https://cache.trev.zip/nur"
+    ];
+    trusted-public-keys = [
+      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
+    ];
   };
 }
 ```

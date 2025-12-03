@@ -6,13 +6,12 @@ pkgs.dockerTools.streamLayeredImage {
   name = "${drv.pname}";
   tag = "${drv.version}";
   created = "now";
-  contents = [
+  meta = drv.meta;
+  contents = with pkgs; [
+    dockerTools.caCertificates
     drv
-    pkgs.dockerTools.caCertificates
   ];
-  config = {
-    Cmd = [
-      "${pkgs.lib.meta.getExe drv}"
-    ];
-  };
+  config.Cmd = [
+    "${pkgs.lib.meta.getExe drv}"
+  ];
 }

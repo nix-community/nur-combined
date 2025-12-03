@@ -54,7 +54,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "shellHook for devShells";
+    description = "Shell hook for nix development shells";
     mainProgram = "shellhook";
     homepage = "https://github.com/spotdemo4/nur/tree/main/pkgs/shellhook/shellhook.sh";
     platforms = lib.platforms.all;

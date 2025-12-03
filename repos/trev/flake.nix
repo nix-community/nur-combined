@@ -1,5 +1,5 @@
 {
-  description = "trev's nix user repository";
+  description = "trev's nix repository";
 
   nixConfig = {
     extra-substituters = [
@@ -35,7 +35,7 @@
         };
 
         bundlers = import ./bundlers {
-          inherit system pkgs nixpkgs;
+          inherit system pkgs;
         };
 
         # the entire attribute set
@@ -124,6 +124,8 @@
             };
           }
           // packages;
+
+        formatter = pkgs.nixfmt-tree;
       }
     );
 }

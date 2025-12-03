@@ -39,6 +39,7 @@ buildGoModule (finalAttrs: {
 
   meta = {
     description = "SQL query builder and ORM/Factory generator for Go";
+    mainProgram = "bobgen-sql";
     homepage = "https://github.com/stephenafamo/bob";
     changelog = "https://github.com/stephenafamo/bob/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;

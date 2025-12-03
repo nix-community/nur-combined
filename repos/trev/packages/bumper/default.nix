@@ -64,7 +64,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "git semantic version bumper";
+    description = "Version bumper for projects using git and semantic versioning";
     mainProgram = "bumper";
     homepage = "https://github.com/spotdemo4/bumper";
     changelog = "https://github.com/spotdemo4/bumper/releases/tag/v${finalAttrs.version}";

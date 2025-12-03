@@ -24,6 +24,11 @@ let
     }
     {
       goos = "linux";
+      goarch = "arm";
+      normalized = "arm-linux";
+    }
+    {
+      goos = "linux";
       goarch = "arm64";
       normalized = "aarch64-linux";
     }

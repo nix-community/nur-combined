@@ -43,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/slhck/ffmpeg-quality-metrics";
     mainProgram = "ffmpeg-quality-metrics";
     changelog = "https://github.com/slhck/ffmpeg-quality-metrics/releases/tag/v${version}";
-    description = "Calculate quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)";
+    description = "Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
