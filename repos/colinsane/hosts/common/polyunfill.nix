@@ -6,11 +6,15 @@ let
     # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
     # but i don't want the wrapper, so undo that.
     # ideally i would patch this via an overlay, but pam is in the bootstrap so that forces a full rebuild.
+    # see: <repo:nixos/nixpkgs:pkgs/by-name/li/linux-pam/package.nix>
     postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace modules/pam_unix/Makefile.am --replace-fail \
+      substituteInPlace modules/module-meson.build --replace-fail \
         "/run/wrappers/bin/unix_chkpwd" "$out/bin/unix_chkpwd"
     '';
   });
+  # `mkDefault` is `mkOverride 1000`.
+  # `mkOverrideDefault` will override `mkDefault` values, but not ordinary values.
+  mkOverrideDefault = lib.mkOverride 900;
 in
 {
   # remove a few items from /run/wrappers we don't need.
@@ -135,10 +139,19 @@ in
     environment.variables.NIXPKGS_CONFIG = lib.mkForce "";
     # XDG_CONFIG_DIRS defaults to "/etc/xdg", which doesn't exist.
     # in practice, pam appends the values i want to XDG_CONFIG_DIRS, though this approach causes an extra leading `:`
-    environment.sessionVariables.XDG_CONFIG_DIRS = lib.mkForce [];
+    # XXX(2025-06-06): some nixpkgs' systemd services actually depend on the default XDG_CONFIG_DIRS=/etc/xdg!
+    # specifically: `services.bitmagnet`
+    # environment.sessionVariables.XDG_CONFIG_DIRS = lib.mkForce [];
     # XCURSOR_PATH: defaults to `[ "$HOME/.icons" "$HOME/.local/share/icons" ]`, neither of which i use, just adding noise.
     # see: <repo:nixos/nixpkgs:nixos/modules/config/xdg/icons.nix>
     environment.sessionVariables.XCURSOR_PATH = lib.mkForce [];
+
+    environment.shellAliases = {
+      # unset default aliases; see <repo:nixos/nixpkgs:nixos/modules/config/shells-environment.nix>
+      ls = mkOverrideDefault null;
+      ll = mkOverrideDefault null;
+      l = mkOverrideDefault null;
+    };
 
     # disable nixos' portal module, otherwise /share/applications gets linked into the system and complicates things (sandboxing).
     # instead, i manage portals myself via the sane.programs API (e.g. sane.programs.xdg-desktop-portal).
@@ -203,8 +216,10 @@ in
     # - USB keyboards: "uhci_hcd" "ehci_hcd" "ehci_pci" "ohci_hcd" "ohci_pci" "xhci_hcd" "xhci_pci" "usbhid" "hid_generic" "hid_lenovo" "hid_apple" "hid_roccat" "hid_logitech_hidpp" "hid_logitech_dj" "hid_microsoft" "hid_cherry" "hid_corsair"
     # - LVM: "dm_mod"
     # - on x86 only: more keyboard stuff: "pcips2" "atkbd" "i8042"
-
-    boot.initrd.includeDefaultModules = lib.mkDefault false;
+    #
+    # however, including these modules seems relatively *harmless*,
+    # and it makes bringup of new systems a bit easier.
+    # boot.initrd.includeDefaultModules = lib.mkDefault false;
 
     # see: <repo:nixos/nixpkgs:nixos/modules/virtualisation/nixos-containers.nix>
     boot.enableContainers = lib.mkDefault false;

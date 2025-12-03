@@ -53,33 +53,11 @@ in
           withGtk4 = false;
         };
       };
-      sofia_sip = pkgs.sofia_sip.overrideAttrs (upstream: {
-        # use linphone's sofia_sip.
-        # Freeswitch sofia_sip has a bug where a failed DNS query will never return to the caller.
-        # see `outgoing_answer_a`: in linphone's this already calls the user's callback; in Freeswitch there's a branch which leaves the caller hanging.
-        version = "1.13.45bc-unstable-2024-08-05";
-        src = pkgs.fetchFromGitLab {
-          domain = "gitlab.linphone.org";
-          owner = "BC/public/external";
-          repo = "sofia-sip";
-          rev = "b924a57e8eeb24e8b9afc5fd0fb9b51d5993fe5d";
-          hash = "sha256-1VbKV+eAJ80IMlubNl7774B7QvLv4hE8SXANDSD9sRU=";
-        };
-        patches = [];
-      });
+      # XXX(2024-08-18): use Belledonne Communications' (a.k.a. linphone's) sofia_sip.
+      # Freeswitch sofia_sip has a bug where a failed DNS query will never return to the caller.
+      # see `outgoing_answer_a`: in linphone's this already calls the user's callback; in Freeswitch there's a code branch which leaves the caller hanging.
+      sofia_sip = pkgs.sofia-sip-bc;
     }).overrideAttrs (upstream: {
-      # src = lib.warnIf (lib.versionOlder "47.0" upstream.version) "gnome-calls outdated; remove src override? (keep UI patches though!)" pkgs.fetchFromGitLab {
-      #   domain = "gitlab.gnome.org";
-      #   owner = "GNOME";
-      #   repo = "calls";
-      #   fetchSubmodules = true;
-      #   # rev = "main";
-      #   # rev = "ff213579a52222e7c95e585843d97b5b817b2a8b";
-      #   # hash = "sha256-0QYC8FJpfg/X2lIjBDooba2idUfpJNQhcpv8Z5I/B4k=";
-      #   rev = "75c4072c4e2ba8619c8067703fb65fe622af8b42";
-      #   hash = "sha256-99B1GS2IXt3per8XnbBRCTChlcwT3zWnhwgG1ift0QQ=";
-      # };
-
       patches = (upstream.patches or []) ++ [
         (pkgs.fetchpatch {
           # usability improvement... ties the UI visibility to the connection state, so if the UI is gone, then i can't receive calls (and will hopefully notice that more easily!)

@@ -18,6 +18,9 @@
           --replace-fail 'g_get_user_special_dir(G_USER_DIRECTORY_PICTURES)' 'getenv("XDG_PHOTOS_DIR")'
       '';
     });
+    # /share/megapixels/movie.sh refers to /libexec/megapixels, by path
+    sandbox.wrapperType = "inplace";
+
     # megapixels sandboxing is tough:
     # if misconfigured, preview will alternately be OK, black, or only 1/4 of it will be rendered -- with no obvious pattern.
     # adding all of ~ to the sandbox will sometimes (?) fix the flakiness, even when `strace` doesn't show it accessing any files...

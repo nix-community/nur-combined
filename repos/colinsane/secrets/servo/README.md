@@ -1,16 +1,18 @@
+- bitmagnet_passwd
+  - generate pw hash with: `htpasswd -nB ""` (from `apacheHttpd` package)
 - ddns_he.env.bin: Hurricane Electric (he.net) passphrase
 - ddns_afraid.env.bin: freedns.afraid.org API key
-    - viewable: <https://freedns.afraid.org/dynamic/>
+  - viewable: <https://freedns.afraid.org/dynamic/>
 - dovecot_passwd: auth for mail accounts
-    - passwd file looks like /etc/passwd
-    - generate pw hash with: `nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "my passwd"`
+  - passwd file looks like /etc/passwd
+  - generate pw hash with: `htpasswd -nB "" "my passwd"` (from `apacheHttpd` package)
 - matrix_synapse_secrets:
-    - for the smtp_pass; the rest isn't sensitive
+  - for the smtp_pass; the rest isn't sensitive
 - nix_signing_key.bin:
-    - generate with nix-store --generate-binary-cache-key nixcache.uninsane.org cache-priv-key.pem cache-pub-key.pem
-    - pubkey: nixcache.uninsane.org:r3WILM6+QrkmsLgqVQcEdibFD7Q/4gyzD9dGT33GP70=
-    - used when deploying packages to a remote machine
+  - generate with nix-store --generate-binary-cache-key nixcache.uninsane.org cache-priv-key.pem cache-pub-key.pem
+  - pubkey: nixcache.uninsane.org:r3WILM6+QrkmsLgqVQcEdibFD7Q/4gyzD9dGT33GP70=
+  - used when deploying packages to a remote machine
 - wg_ovpns_privkey.bin: wireguard private key for OVPN
-    - to generate:
-        - wg genkey > wg0.private
-        - wg pubkey < wg0.private > wg0.public
+  - to generate:
+    - wg genkey > wg0.private
+    - wg pubkey < wg0.private > wg0.public

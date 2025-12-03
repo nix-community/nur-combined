@@ -2,10 +2,10 @@
   lib,
   fetchFromGitHub,
   python3,
-  stdenv,
+  stdenvNoCC,
   unstableGitUpdater,
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "feedsearch-crawler";
   version = "0.2.7-unstable-2022-05-28";
   format = "pyproject";
@@ -41,9 +41,10 @@ stdenv.mkDerivation {
     aiohttp
     beautifulsoup4
     brotlipy
-    cchardet
+    faust-cchardet
     feedparser
     python-dateutil
+    standard-cgi  # alternately: `legacy-cgi`
     uvloop
     w3lib
     yarl

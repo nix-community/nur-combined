@@ -7,6 +7,7 @@
   # some are even non-conventional, like:
   # - XDG_PHOTOS_DIR: only works because i patch e.g. megapixels
   sane.user.fs.".config/user-dirs.dirs".symlink.text = ''
+    XDG_CACHE_DIR="$HOME/.cache"
     XDG_DESKTOP_DIR="$HOME/.xdg/Desktop"
     XDG_DOCUMENTS_DIR="$HOME/dev"
     XDG_DOWNLOAD_DIR="$HOME/tmp"

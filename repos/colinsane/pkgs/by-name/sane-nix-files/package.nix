@@ -1,14 +1,13 @@
-{ stdenv ? null }:
-with builtins;
+{ stdenvNoCC ? null }:
 let
-  src = filterSource
+  src = builtins.filterSource
     (path: type:
-      let name = baseNameOf path;
+      let name = builtins.baseNameOf path;
     in !(
       # mimic .gitignore
       (name == ".working")
       || (name == "result")
-      || (match "^result-.*" name != null)
+      || (builtins.match "^result-.*" name != null)
     ))
     ../../../.
   ;
@@ -20,7 +19,7 @@ let
     # so just yield something importable.
     outPath = src;
   };
-  realDeriv = stdenv.mkDerivation {
+  realDeriv = stdenvNoCC.mkDerivation {
     name = "sane-nix-files";
     inherit src;
     installPhase = ''
@@ -48,7 +47,7 @@ let
   #   ];
   # };
 in
-  if stdenv == null then
+  if stdenvNoCC == null then
     fakeDeriv
   else
     realDeriv

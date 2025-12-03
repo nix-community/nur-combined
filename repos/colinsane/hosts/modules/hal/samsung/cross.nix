@@ -23,7 +23,7 @@ in
     sane.programs.papers.enableFor.user.colin = false;
     sane.programs.pwvucontrol.enableFor.user.colin = false;  # 2024/06/03: doesn't cross compile (libspa-sys)
     sane.programs.pyright.enableFor = { system = false; user.colin = false; };  # python neovim LSP: doesn't cross compile (2024-08-26)
-    sane.programs.sequoia.enableFor.user.colin = false;  # 2024/06/03: does not cross compile
+    sane.programs.sequoia-sq.enableFor.user.colin = false;  # 2024/06/03: does not cross compile
     sane.programs.zathura.enableFor.user.colin = false;  # 2024/06/03: does not cross compile
     # sane.programs.brave.enableFor.user.colin = false;  # 2024/06/03: fails eval if enabled on cross
     # sane.programs.firefox.enableFor.user.colin = false;  # 2024/06/03: this triggers an eval error in yarn stuff -- i'm doing IFD somewhere!!?

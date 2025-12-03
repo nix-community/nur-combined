@@ -3,8 +3,8 @@
   fetchFromGitea,
   fastcluster,
   python3,
-  stdenv,
-}: stdenv.mkDerivation {
+  stdenvNoCC,
+}: stdenvNoCC.mkDerivation {
   pname = "ols";
   version = "0.1.0-unstable-2024-06-30";
   format = "pyproject";

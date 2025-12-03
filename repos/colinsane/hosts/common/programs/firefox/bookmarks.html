@@ -10,11 +10,17 @@
   <dl><p>
     <!-- XXX: if you want multiple aliases, declare the link twice WITH A DIFFERENT HREF= else firefox dedupes them (case-insensitively) -->
     <dt><a href="https://aur.archlinux.org/packages?O=0&K=%s" shortcuturl="aur">Search AUR
+    <dt><a href="https://books.google.com/ngrams/graph?content=%s" shortcuturl="ngram">Search Google Ngram
+    <!-- https://en.cppreference.com has a nicer UI but does not have native search -->
+    <dt><a href="https://cplusplus.com/search.do?q=%s" shortcuturl="cpp">Search C++ Reference
+    <dt><a href="https://doc.rust-lang.org/stable/std/index.html?search=%s" shortcuturl="rust">Search Rust stdlib
     <dt><a href="https://docs.rs/releases/search?query=%s" shortcuturl="docsrs">Search docs.rs
     <dt><a href="https://duckduckgo.com/?t=h_&q=%s" shortcuturl="ddg">Search DuckDuckGo
     <dt><a href="https://en.wikipedia.org/wiki/Special:Search?search=%s" shortcuturl="w">Search Wikipedia
     <dt><a href="https://github.com/nixos/nixpkgs/pulls?q=%s" shortcuturl="pr">Search nixpkgs PRs
     <dt><a href="https://github.com/search?type=repositories&q=%s" shortcuturl="gh">Search GitHub
+    <dt><a href="https://www.homedepot.com/s/%s" shortcuturl="homedepot">Search Home Depot
+    <dt><a href="https://kagi.com/maps/infobox?q=%s" shortcuturl="maps">Search Kagi Maps
     <dt><a href="https://kagi.com/search?q=%s" shortcuturl="kagi">Search with Kagi
     <dt><a href="https://lib.rs/search?q=%s" shortcuturl="librs">Search lib.rs (Rust)
     <dt><a href="https://myanimelist.net/search/all?cat=all&q=%s" shortcuturl="mal">Search MyAnimeList
@@ -26,7 +32,7 @@
     <!-- TODO: have kiwix load the first result if my search is an exact match -->
     <dt><a href="https://w.uninsane.org/viewer#search?books.name=wikipedia_en_all_maxi&pattern=%s" shortcuturl="wk">Search Wikipedia mirror
     <dt><a href="https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s" shortcuturl="arch">Search ArchWiki
-    <dt><a href="https://wiki.nixos.org/index.php?go=Go&search=%s" shortcuturl="nixos">Search NixOS Wiki
+    <dt><a href="https://wiki.nixos.org/w/index.php?search=kvm" shortcuturl="nixos">Search NixOS Wiki
     <dt><a href="https://www.aliexpress.us/w/wholesale-%s.html" shortcuturl="ali">Search Aliexpress
     <dt><a href="https://www.aliexpress.us/w/wholesale-%s.html?" shortcuturl="aliexpress">Search Aliexpress
     <dt><a href="https://www.amazon.com/s/?k=%s" shortcuturl="am">Search Amazon
@@ -34,7 +40,7 @@
     <dt><a href="https://www.ebay.com/sch/i.html?_sacat=0&_nkw=%s" shortcuturl="ebay">Search eBay
     <dt><a href="https://www.etsy.com/search?q=%s" shortcuturl="etsy">Search Etsy
     <dt><a href="https://www.etymonline.com/search?q=%s" shortcuturl="etym">Search Etymonline
-    <dt><a href="https://www.google.com/maps/search/%s" shortcuturl="maps">Search Google Maps
+    <dt><a href="https://www.google.com/maps/search/%s" shortcuturl="gmaps">Search Google Maps
     <dt><a href="https://www.google.com/search?q=%s" shortcuturl="g">Search Google
     <dt><a href="https://www.google.com/search?q=%s&" shortcuturl="google">Search Google
     <dt><a href="https://www.google.com/search?tbm=shop&q=%s" shortcuturl="shopping">Search Google Shopping

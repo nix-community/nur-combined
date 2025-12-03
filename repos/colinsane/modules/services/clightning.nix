@@ -46,28 +46,28 @@ in
       user = mkOption {
         type = types.str;
         default = "clightning";
-        description = mdDoc "The user as which to run clightning.";
+        description = "The user as which to run clightning.";
       };
       group = mkOption {
         type = types.str;
         default = cfg.user;
-        description = mdDoc "The group as which to run clightning.";
+        description = "The group as which to run clightning.";
       };
       dataDir = mkOption {
         type = types.path;
         default = "/var/lib/clightning";
-        description = mdDoc "The data directory for clightning.";
+        description = "The data directory for clightning.";
       };
       networkDir = mkOption {
         type = types.path;
         default = "${cfg.dataDir}/bitcoin";
-        description = mdDoc "The network data directory.";
+        description = "The network data directory.";
       };
 
       address = mkOption {
         type = types.str;
         default = "127.0.0.1";
-        description = mdDoc "Address to listen for peer connections.";
+        description = "Address to listen for peer connections.";
       };
       publicAddress = mkOption {
         type = types.nullOr types.str;
@@ -85,7 +85,7 @@ in
       getPublicAddressCmd = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = mdDoc ''
+        description = ''
           Bash expression which outputs the public service address to announce to peers.
           this is an alternative to the `publicAddress` option, for if the address is not known statically (e.g. tor).
         '';
@@ -94,19 +94,19 @@ in
       port = mkOption {
         type = types.port;
         default = 9735;
-        description = mdDoc "Port to listen for peer connections.";
+        description = "Port to listen for peer connections.";
       };
       proxy = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = mdDoc ''
+        description = ''
           Socks proxy for connecting to Tor nodes (or for all connections if option always-use-proxy is set).
         '';
       };
       always-use-proxy = mkOption {
         type = types.bool;
         default = cfg.proxy != null;
-        description = mdDoc ''
+        description = ''
           Always use the proxy, even to connect to normal IP addresses.
           You can still connect to Unix domain sockets manually.
           This also disables all DNS lookups, to avoid leaking address information.
@@ -119,7 +119,7 @@ in
         example = ''
           alias=mynode
         '';
-        description = mdDoc ''
+        description = ''
           Extra lines appended to the configuration file.
 
           See all available options at

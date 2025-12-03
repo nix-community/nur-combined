@@ -104,20 +104,8 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   req.exec_params = cli_opts_get_exec_params(opts, env);
 
   //---- ingest `disable` ----//
-  if (opts.disable != "") {
-    if (opts.disable == "1" || opts.disable == "all" || opts.disable == "ALL" || opts.disable == "*")
+  if (does_option_apply_to_self(opts.disable, &req.exec_params))
       return req.exec_params;
-    match (regex::compile(opts.disable)) {
-      case let re: regex::regex =>
-        defer regex::finish(&re);
-        if (regex::test(&re, req.exec_params.bin))
-          return req.exec_params;
-        if (len(req.exec_params.args) > 0 && regex::test(&re, req.exec_params.args[0]))
-          return req.exec_params;
-      case let e: regex::error =>
-        log::printfln("[config] failed to parse BUNPEN_DISABLE regex {}: {}", opts.disable, e);
-    };
-  };
 
   //---- ingest `caps` ----//
   req.resources.caps = resources::cap_array_to_caps(opts.keep_caps);
@@ -179,7 +167,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   };
 
   //---- ingest `drop_shell` (must be done after autodetect) ----//
-  if (opts.drop_shell) {
+  if (does_option_apply_to_self(opts.drop_shell, &req.exec_params)) {
     // ignore the original command, and overwrite it with an interactive shell.
     // TODO: respect the user's `$SHELL`.
     req.exec_params.bin = "/bin/sh";
@@ -188,6 +176,31 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   };
 
   return req;
+};
+
+// consider a string like "", "0", "1", "all", "*", "sane-which", ...;
+// return true if it either
+// (1) looks truthy (1, all)
+// (2) it looks to be referring to the current binary (*, sane-which)
+fn does_option_apply_to_self(value: str, exec_params: *const exec_params) bool = {
+  if (value == "")
+    return false;  // prevent over-eager regex match
+
+  if (value == "1" || value == "all" || value == "ALL" || value == "*")
+    return true;
+
+  match (regex::compile(value)) {
+    case let re: regex::regex =>
+      defer regex::finish(&re);
+      if (regex::test(&re, exec_params.bin))
+        return true;
+      if (len(exec_params.args) > 0 && regex::test(&re, exec_params.args[0]))
+        return true;
+    case let e: regex::error =>
+      log::printfln("[config] failed to parse option regex {}: {}", value, e);
+  };
+
+  return false;
 };
 
 // convert each item in `from` to a path, and append to `into`.

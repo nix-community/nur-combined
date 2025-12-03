@@ -1,15 +1,46 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p bash -p nettools -p systemd
 
-target="$1"
-shift
+set -eu
 
-host="$(hostname)"
-if [ "$host" = "$target" ]
-then
-  shutdown now "$@"
-else
-  echo "WRONG MACHINE. you're on $host."
-  exit 1
-fi
+usage() {
+  echo "sane-shutdown HOST"
+  echo "  shutdown the current machine, so long as its hostname equals HOST"
+}
 
+target=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -z "$target" ]; then
+          target=$arg
+        else
+          usage
+          exit 1
+        fi
+        ;;
+    esac
+  done
+}
+
+main() {
+  local target="$1"
+  local host="$(hostname)"
+  if [ "$host" = "$target" ]
+  then
+    shutdown now "$@"
+  else
+    echo "WRONG MACHINE. you're on $host."
+    exit 1
+  fi
+}
+
+parseArgs "$@"
+main "$target"

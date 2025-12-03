@@ -529,7 +529,7 @@ linux.override {
     # {
     #   name = "fix-compilation-specific-to-megi";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     ### BUILD FIXES, NOT SPECIFIC TO MY PREFERENCES
     #     #
     #     # disabling the sun5i_eink driver avoids this compilation error:
@@ -547,7 +547,7 @@ linux.override {
       # this could be enabled for *all* systems, but i'm not sure i really want that.
       name = "quality-of-life";
       patch = null;
-      extraStructuredConfig = with lib.kernel; {
+      structuredExtraConfig = with lib.kernel; {
         # optimize for faster builds (measured 12m00s -> 10m45s)
         # see <repo:kernel.org/linux:Documentation/admin-guide/quickly-build-trimmed-linux.rst>
         # note that several options can re-enable DEBUG_KERNEL (such as DEBUG_LIST)
@@ -573,7 +573,7 @@ linux.override {
     {
       name = "fix-no-display";
       patch = null;
-      extraStructuredConfig = with lib.kernel; {
+      structuredExtraConfig = with lib.kernel; {
         ### RUNTIME FIXES AFTER <https://github.com/NixOS/nixpkgs/pull/298332>
         # pmOS kernel config is in pmaports repo:
         # - CONFIG_FB_SIMPLE=y
@@ -593,7 +593,7 @@ linux.override {
     {
       name = "enable-megi-modem-power";
       patch = null;
-      extraStructuredConfig = with lib.kernel; {
+      structuredExtraConfig = with lib.kernel; {
         # enable /sys/class/modem-power, a thing specific to Megi's kernel/patches
         MODEM_POWER = module;
       };
@@ -602,13 +602,13 @@ linux.override {
   #   {
   #     name = "nixpkgs-config";
   #     patch = null;
-  #     extraStructuredConfig = linux_latest.commonStructuredConfig;
+  #     structuredExtraConfig = linux_latest.commonStructuredConfig;
   #   }
   ] ++ lib.optionals usePmosConfig [
     {
       name = "postmarketos-config";
       patch = null;
-      extraStructuredConfig = builtins.removeAttrs
+      structuredExtraConfig = builtins.removeAttrs
         (sane-kernel-tools.parseDefconfigStructuredNonempty linux-postmarketos-allwinner.defconfigStr)
         ([
           # remove attrs which nixpkgs wants to set for itself, only because the kernel config options are so fucked that i can't figure out how to override things without breaking eval
@@ -674,7 +674,7 @@ linux.override {
     {
       name = "enable options for Pinephone";
       patch = null;
-      extraStructuredConfig = with lib.kernel; {
+      structuredExtraConfig = with lib.kernel; {
         # VIDEO_SUNXI defaults to `n` since the driver is in staging (as of 2024-09-18)
         VIDEO_SUNXI = yes;
         # VIDEO_SUNXI_CEDRUS = module;  #< implied by VIDEO_SUNXI
@@ -835,7 +835,7 @@ linux.override {
     # {
     #   name = "enable options for libcamera development";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     # borrowed from postmarketOS, "to enable libcamera development"
     #     # pmaports commit f18c7210ab
     #     # DMABUF_HEAPS = yes;
@@ -857,7 +857,7 @@ linux.override {
     {
       name = "enable-rtw88-wifi-drivers";
       patch = null;
-      extraStructuredConfig = with lib.kernel; {
+      structuredExtraConfig = with lib.kernel; {
         # default nixpkgs/pmos config enables RTW88, but not RTW88_8723CS.
         # but the pinephone uses a 8723BS/8723CS chipset, so enable these
         # and anything else that could possibly be needed, since these things are tangled.

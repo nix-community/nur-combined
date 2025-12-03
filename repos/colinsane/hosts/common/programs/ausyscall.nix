@@ -3,7 +3,5 @@
 {
   sane.programs.ausyscall = {
     packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.audit "ausyscall";
-
   };
 }
-

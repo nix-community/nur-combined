@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   sane.programs.where-am-i = {
-    # packageUnwrapped = pkgs.linkIntoOwnPackage config.sane.programs.geoclue2.packageUnwrapped "libexec/geoclue-2.0/demos/where-am-i";
+    # packageUnwrapped = pkgs.linkIntoOwnPackage config.sane.programs.geoclue2.packageUnwrapped "libexec/geoclue-2.0/demos/where-am-i" {};
     packageUnwrapped = (pkgs.linkFarm "where-am-i" [{
       # bring the `where-am-i` tool into a `bin/` directory so it can be invokable via PATH
       name = "bin/where-am-i";

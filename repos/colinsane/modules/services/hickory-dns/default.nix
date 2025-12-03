@@ -45,7 +45,7 @@ let
         '';
         example = {
           "%CNAMESELF%" = "lappy";
-          "%AWAN%" = ''"$(cat /var/uninsane/wan.txt)"'';
+          "%AWAN%" = ''"$(cat /var/lib/dyn-dns/wan.txt)"'';
         };
       };
       includes = mkOption {
@@ -163,8 +163,8 @@ let
         [ "${config.services.hickory-dns.configFile}" ]
         [ configPath ]
         config.systemd.services.hickory-dns.serviceConfig.ExecStart;
-      # servo/dyn-dns needs /var/lib/uninsane/wan.txt.
-      ReadOnlyPaths = lib.optionals config.sane.services.dyn-dns.enable [ "/var/lib/uninsane" ];
+      # servo/dyn-dns needs /var/lib/dyn-dns/wan.txt.
+      ReadOnlyPaths = lib.optionals config.sane.services.dyn-dns.enable [ "/var/lib/dyn-dns" ];
     } // lib.optionalAttrs cfg.asSystemResolver {
       # allow the group to write hickory-dns state (needed by NetworkManager hook)
       StateDirectoryMode = "775";

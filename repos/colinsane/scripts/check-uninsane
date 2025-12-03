@@ -109,6 +109,8 @@ check "servo-hn wireguard network" ping -c 1 -W 3 servo-hn
 
 check "git.uninsane.org" git ls-remote https://git.uninsane.org/colin/nix-files.git --quiet
 
+check "ftp://servo" curl --silent ftp://servo/.public_for_test/test
+check "ftp://servo-hn" curl --silent ftp://servo-hn/.public_for_test/test
 check "ftps://ftp.uninsane.org" curl --silent ftps://ftp.uninsane.org/.public_for_test/test
 check "[DOOF] ftps://ftp.uninsane.org" curl "--connect-to" "ftp.uninsane.org:80:$DOOF_IPV4:80" --silent ftps://ftp.uninsane.org/.public_for_test/test
 

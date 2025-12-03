@@ -2,10 +2,10 @@
   fetchFromGitLab,
   gnused,
   lib,
-  stdenv,
+  stdenvNoCC,
   withVoiceCall ? false,  #< enable the "Voice Call" audio variants, which frequently don't work and idk what they're *supposed* to do
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "pine64-alsa-ucm";
   version = "unstable-2021-12-10";
 
@@ -38,6 +38,16 @@ stdenv.mkDerivation {
     mkdir -p $out/share/alsa/ucm2/conf.d/simple-card
     ln -s ../../Rockchip/rk3399/PinePhonePro/PinePhonePro.conf $out/share/alsa/ucm2/conf.d/simple-card/PinePhonePro.conf
     ln -s ../../Allwinner/A64/PinePhone/PinePhone.conf $out/share/alsa/ucm2/conf.d/simple-card/PinePhone.conf
+
+    # XXX(2025-09-03): if booted via systemd-boot, the card will be named differently but otherwise function equivalently.
+    # this is because, if DMI (via EFI) is available, the kernel uses Vendor + Product Name fields to assign the card a long_name,
+    # instead of the device-tree fields.
+    # there seems no easy way to change that on the kernel side, nor to configure ALSA UCM to prefer the card short name.
+    # TODO: consider other ways to configure the card *besides* UCM:
+    # - smarter in-kernel driver/configs?
+    # - pipewire / pulseaudio card profiles?
+    # - particularly, expose the card on the kernel side in such a way that the generic pipewire profiles can configure it.
+    ln -s PinePhonePro.conf $out/share/alsa/ucm2/conf.d/simple-card/pine64-Pine64PinePhonePro-.conf
 
     runHook postInstall
   '';

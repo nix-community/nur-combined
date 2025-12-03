@@ -40,6 +40,7 @@ in
     sane.ntfy-waiter.enable = mkOption {
       type = types.bool;
       default = config.services.ntfy-sh.enable;
+      defaultText = lib.literalExpression "config.services.ntfy-sh.enable";
     };
     sane.ntfy-waiter.verbose = mkOption {
       type = types.bool;

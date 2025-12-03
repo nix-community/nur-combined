@@ -47,11 +47,23 @@ test_02_env_arg_01_disable() {
   BUNPEN_DISABLE=1 bunpen true
 }
 
-test_02_env_arg_02_append() {
+test_02_env_arg_02_disable_by_name_match() {
+  BUNPEN_DISABLE=env bunpen env true
+}
+
+test_02_env_arg_03_disable_by_name_no_match() {
+  BUNPEN_DISABLE=envv bunpen env true && return 1 || true
+}
+
+test_02_env_arg_04_disable_by_name_regex_match() {
+  BUNPEN_DISABLE=e.v? bunpen env true
+}
+
+test_02_env_arg_05_append() {
   BUNPEN_APPEND="--bunpen-path /" bunpen ls /
 }
 
-test_02_env_arg_03_append_tolerates_whitespace() {
+test_02_env_arg_06_append_tolerates_whitespace() {
   BUNPEN_APPEND="  --bunpen-debug=4  --bunpen-keep-pid --bunpen-path   / " bunpen ls /
 }
 

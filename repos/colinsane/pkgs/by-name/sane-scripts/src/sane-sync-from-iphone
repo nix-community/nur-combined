@@ -1,25 +1,60 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i zsh -p coreutils-full -p ifuse -p rsync -p zsh
 # this really does need zsh because bash `test -e` behaves differently
-set -ex
 
-# make sure the mountpoint exists
-if ! (test -e /mnt/iphone)
-then
-  sudo umount /mnt/iphone || true  # maybe the mount hung
+set -eu
 
+usage() {
+  echo "sane-sync-from-iphone [--verbose]"
+  echo "  copies images from an iphone, attached over USB at /mnt/iphone, to /home/colin/Pictures/from/iphone."
+  echo "  attempts to mount /mnt/iphone if not already mounted."
+}
+
+VERBOSE=()
+
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (--verbose)
+        VERBOSE=(--verbose)
+        ;;
+      (*)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+main() {
+  # make sure the mountpoint exists
   if ! (test -e /mnt/iphone)
   then
-    sudo mkdir /mnt/iphone
-    sudo chown colin:users /mnt/iphone
+    sudo umount /mnt/iphone || true  # maybe the mount hung
+
+    if ! (test -e /mnt/iphone)
+    then
+      sudo mkdir /mnt/iphone
+      sudo chown colin:users /mnt/iphone
+    fi
   fi
-fi
 
-# make sure the device is mounted
-if ! (test -d /mnt/iphone/DCIM)
-then
-  sudo umount /mnt/iphone || true
-  sudo ifuse /mnt/iphone
-fi
+  # make sure the device is mounted
+  if ! (test -d /mnt/iphone/DCIM)
+  then
+    sudo umount /mnt/iphone || true
+    sudo ifuse /mnt/iphone
+  fi
 
-sudo rsync -arv /mnt/iphone/DCIM/ /home/colin/Pictures/from/iphone/
+  sudo rsync -ar ${VERBOSE[@]} /mnt/iphone/DCIM/ /home/colin/Pictures/from/iphone/
+}
+
+parseArgs "$@"
+set -x
+main

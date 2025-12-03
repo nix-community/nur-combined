@@ -1,10 +1,10 @@
 {
   pkgs,  # for outer `open-in-mpv`
-  stdenv,
+  stdenvNoCC,
   wrapFirefoxAddonsHook,
   zip,
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "open-in-mpv-firefox";
   inherit (pkgs.open-in-mpv) version src;
 

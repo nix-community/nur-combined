@@ -22,16 +22,20 @@ set $out_cuddlevision "LG Electronics LG TV 0x01010101"
 set $out_theater "Sony SONY TV  *00 0x01010101"
 set $out_projector "MS Telematica TV 0x00000001"
 # TODO: these 0x... numbers change on occassion: i should ignore them.
-set $out_desko_1 "LG Electronics LG ULTRAWIDE 0x000C4694"
-set $out_desko_2 "Samsung Electric Company S22C300 0x5A365335"
+set $out_desko_lg "LG Electronics LG ULTRAWIDE 0x000C4694"
+set $out_desko_samsung "Samsung Electric Company S22C300 0x5A365335"
+set $out_desko_boox "OBX MIRA253 BOOX MIRA253"
 set $out_flowy_int "AU Optronics 0xB9AC Unknown"
 set $out_flowy_ext_1 "ViewSonic Corporation VG3456 WFN212500418"
+set $out_flowy_ext_1 "ViewSonic Corporation VG3456 WFN212500422"
 set $out_lappy_int "BOE 0x0637 Unknown"
 # DSI-1 a.k.a. "Unknown Unknown Unknown"
 set $out_moby "DSI-1"
 
 ### default font (for e.g. window titles)
 font @font@
+
+seat * xcursor_theme @cursor_theme@ @cursor_size@
 
 ### tab colors (#border #background #text [#indicator #childBorder])
 # focused & unfocused are the main interest
@@ -42,7 +46,7 @@ client.focused_inactive #1f5e54 #5f676a #ffffff
 client.unfocused        #1f5e54 #1f554c #b4b4b4
 client.urgent           #ff968b #ff968b #ffffff
 
-output '*' bg `ls $(echo ${XDG_DATA_DIRS//:/\/backgrounds\/sane-nixos-bg.png })/backgrounds/sane-nixos-bg.png` fill
+output '*' bg `ls $(echo ${XDG_DATA_DIRS//:/\/backgrounds\/@background@.png })/backgrounds/@background@.png` fill
 
 ### pixel boundary between windows
 # hide_edge_borders --i3 means that single-window workspaces never show window bar
@@ -163,8 +167,18 @@ mode "resize" {
 for_window [app_id="me.gapixels.Megapixels"] inhibit_idle open
 for_window [app_id="org.gnome.Maps"] inhibit_idle visible
 
+#### Zoom: allow screen-sharing menu to float; see <https://www.reddit.com/r/archlinux/comments/19ecsv5/comment/ktot9hf/>
+#### known window titles:
+#### - "as_toolbar" (presenter toolbar)
+#### - "Meeting" (main meeting window)
+#### - "Zoom Workplace" ("End Meeting?" overlay; Zoom launch screen BEFORE authenticating)
+#### - "Zoom Workplace - Licensed account" (Zoom launch screen AFTER authenticating)
+for_window [app_id="Zoom Workplace" title="^as_toolbar$"] floating enable, floating_minimum_size 250 x 400
+for_window [app_id="Zoom Workplace" title="^Zoom Workplace$"] floating enable, floating_minimum_size 250 x 400
+for_window [app_id="Zoom Workplace" title="^Zoom Workplace - Licensed account$"] floating disable
+
 # workspace assignments
-workspace 1 output $out_desko_2 $out_flowy_int
+workspace 1 output $out_desko_samsung $out_desko_boox $out_flowy_int
 workspace TV output $out_cuddlevision $out_theater $out_projector
 for_window [workspace="TV"] fullscreen enable
 
@@ -177,10 +191,12 @@ assign [app_id="org.gnome.Fractal"] workspace number 1
 assign [app_id="signal"] workspace number 1
 assign [app_id="so.libdb.dissent"]  workspace number 1
 
-# window display settings
-# force KOReader to always display a titlebar, even when the only window being rendered.
-# desirable primarily to avoid slooow reflows when another app is opened. but also nice to have the book title rendered.
-for_window [app_id="KOReader"] border normal
+### window display settings
+
+# force titlebars even when no other windows in workspace:
+# - gpodder: to avoid having buttons move under your finger after closing a podcast.
+# - KOReader: to avoid slow reflows when opening/closing a 2nd app; also nice to have the book title rendered.
+for_window [app_id="gpodder|KOReader"] border normal
 
 for_window [app_id="deadd-notification-center"] {
   border none
@@ -250,17 +266,25 @@ output $out_projector {
 }
 
 ## DESKO
-output $out_desko_1 {
+output $out_desko_samsung {
   pos 0,0
+  res 1920x1080
+}
+output $out_desko_lg {
+  pos 1920,0
   res 3440x1440
 }
-output $out_desko_2 {
-  pos 3440,0
-  res 1920x1080
+output $out_desko_boox {
+  pos 5360,0
+  res 3200x1800
 }
 
 ## FLOWY
 output $out_flowy_ext_1 {
+  pos 0,0
+  res 3440x1440
+}
+output $out_flowy_ext_2 {
   pos 0,0
   res 3440x1440
 }

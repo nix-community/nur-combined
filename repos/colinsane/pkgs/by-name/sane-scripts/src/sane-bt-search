@@ -15,11 +15,18 @@ returns select results and magnet links.
 #   - TorrentPotato: <https://github.com/RuudBurger/CouchPotatoServer/wiki/Couchpotato-torrent-provider>
 #   - its own JSON-based API
 #
+# about BitMagnet:
+# - source: <https://github.com/bitmagnet-io/bitmagnet>
+# - DHT crawler/indexer
+# - can be queried via torznab API:
+#   - `curl http://10.0.1.6:3333/torznab/api/?t=search`
+#
 # about torrent jargon:
 # - <https://en.wikipedia.org/wiki/Pirated_movie_release_types>
 
 from dataclasses import dataclass
 from datetime import datetime
+from enum import Enum, IntEnum
 import argparse
 import logging
 import json
@@ -40,8 +47,26 @@ epoch = datetime(1970, 1, 1)
 
 logger = logging.getLogger(__name__)
 
+class SortMethod(Enum):
+    Balanced = "balanced"
+    Seeders = "seeders"
+    Size = "size"
+    Tracker = "tracker"
+
+    def __str__(self) -> str:
+        # for argparse `--help` message
+        return self.value
+
+class TrackerQuality(IntEnum):
+    Authoritative = 0
+    Trustworthy = 1
+    Good = 2
+    Mediocre = 3
+    Bad = 4
+    Unknown = 5
+
 class BadCliArgs(Exception):
-    def __init__(self, msg: str = None):
+    def __init__(self, msg: str | None = None) -> None:
         helpstr = __doc__
         if msg:
             super().__init__(f"{msg}\n\n{helpstr}")
@@ -49,7 +74,7 @@ class BadCliArgs(Exception):
             super().__init__(helpstr)
 
 
-def try_parse_time(t: str):
+def try_parse_time(t: str) -> datetime:
     try:
         return datetime.fromisoformat(t)
     except ValueError: pass
@@ -62,26 +87,60 @@ def try_parse_time(t: str):
 def parse_time(t: str) -> datetime:
     return try_parse_time(t).astimezone() or epoch
 
+@dataclass(eq=True, order=True, unsafe_hash=True)
+class Tracker:
+    id_: str
+    name: str
+    # preference: major, minor.
+    # lower value = more preferable.
+    # trackers with the same major are on a similar "tier"
+    quality: TrackerQuality
+    order: int
 
-# preference, best to worst
-TRACKER_RANKS = [
-    'bakabt',
-    'subsplease',
-    'nyaa.si',
-    'miobt',
-    'yts',
-    'internet archive',
-    'the pirate bay',
-    # haven't sorted these
-    '1337x',
-    'kickasstorrents.to',
-]
-def tracker_rank(tracker: str):
-    tracker_ = tracker.lower()
-    if tracker_ in TRACKER_RANKS:
-        return TRACKER_RANKS.index(tracker_)
-    logger.warning(f"unknown tracker: {tracker_!r}")
-    return len(TRACKER_RANKS)
+    @staticmethod
+    def by_id(id_: str) -> 'Tracker':
+        if id_ in KNOWN_TRACKERS:
+            return KNOWN_TRACKERS[id_]
+        logger.warning(f"unknown tracker: {id_!r}")
+        return Tracker(id_, TrackerQuality.Unknown, len(KNOWN_TRACKERS))
+
+    def __repr__(self) -> str:
+        return self.id_
+
+def _KNOWN_TRACKERS() -> dict[str, Tracker]:
+    trackers = {}
+
+    order = 0
+    def add_tracker(*args):
+        nonlocal order
+        t = Tracker(*args, order)
+        order += 1
+        trackers[t.id_] = t
+
+    # the order of this list (even within sections) is significant:
+    # most preferred -> least preferred
+    add_tracker('bitmagnet', 'BitMagnet (Local DHT)', TrackerQuality.Authoritative)
+
+    add_tracker('bakabt', 'BakaBT', TrackerQuality.Trustworthy)
+    add_tracker('subsplease', 'SubsPlease', TrackerQuality.Trustworthy)
+    add_tracker('nyaasi', 'Nyaa.si', TrackerQuality.Trustworthy)
+    add_tracker('sukebeinyaasi', 'sukebei.nyaa.si', TrackerQuality.Trustworthy)
+
+    add_tracker('yts', 'YTS', TrackerQuality.Good)
+    add_tracker('tokyotosho', 'Tokyo Toshokan', TrackerQuality.Good)
+
+    add_tracker('internetarchive', 'Internet Archive', TrackerQuality.Mediocre)
+    add_tracker('thepiratebay', 'The Pirate Bay', TrackerQuality.Mediocre)
+    add_tracker('miobt', 'MioBT', TrackerQuality.Mediocre)
+    add_tracker('bangumi-moe', 'Bangumi Moe', TrackerQuality.Mediocre)
+    add_tracker('torlock', 'Torlock', TrackerQuality.Mediocre)
+
+    add_tracker('1337x', '1337x', TrackerQuality.Bad)
+    add_tracker('kickasstorrents-to', 'kickasstorrents.to', TrackerQuality.Bad)
+
+    return trackers
+
+KNOWN_TRACKERS = _KNOWN_TRACKERS()
 
 DROP_CATS = { "dvd", "hd", "misc", "other", "sd", "uhd" }
 BOOK_CATS = { "audio", "books", "ebook" }
@@ -107,6 +166,14 @@ def is_cat(cats: list[str], wanted_cats: list[str], default: bool = False) -> bo
     else:
         return any(c in wanted_cats for c in cats)
 
+H265_MARKERS = {
+    "H265",
+    "H.265",
+    "x265",
+    "x.265",
+    "HEVC",
+}
+
 class Filter:
     def __init__(self, book: bool=False, h265: bool=False, manga: bool=False, video: bool=False):
         self.book = book
@@ -127,10 +194,7 @@ class Filter:
 
     @staticmethod
     def is_h265(t: 'Torrent') -> bool:
-        meta = t.title.lower()
-        return "h265" in meta \
-            or "x265" in meta \
-            or "HEVC" in meta
+        return any(tag.lower() in t.title.lower() for tag in H265_MARKERS)
 
     @staticmethod
     def is_book(t: 'Torrent', default: bool = False) -> bool:
@@ -150,8 +214,9 @@ class Torrent:
     seeders: int
     pub_date: datetime
     size: int
-    tracker: str
+    tracker: Tracker
     title: str
+    info_hash: str | None
     magnet: str | None
     http_dl_uri: str | None  # probably a .torrent file but it COULD be a referral to a magnet:// URI
     tracker_uri: str | None
@@ -178,15 +243,27 @@ class Torrent:
     def from_dict(d: dict) -> 'Torrent':
         logger.debug(f"Torrent.from_dict: fields: { ' '.join(d.keys()) }")
         for k, v in d.items():
-            if k not in ("CategoryDesc", "Seeders", "PublishDate", "Size", "Tracker", "Title", "MagnetUri", "Guid", "Link", "Details") and \
-                    v != None and v != "" and v != [] and v != {}:
+            if k not in (
+                "CategoryDesc",
+                "Details",
+                "Guid",
+                "InfoHash",
+                "Link",
+                "MagnetUri",
+                "PublishDate",
+                "Seeders",
+                "Size",
+                "Title",
+                "TrackerId",
+            ) and v != None and v != "" and v != [] and v != {}:
                 logger.debug(f"  {k} = {v}")
 
         seeders = d.get("Seeders")
         pub_date = d.get("PublishDate")
         size = d.get("Size")
-        tracker = d.get("Tracker")
+        tracker_id = d.get("TrackerId")
         title = d.get("Title")
+        info_hash = d.get("InfoHash")
         magnet = d.get("MagnetUri") or d.get("Guid")
         http_dl_uri = d.get("Link")
         tracker_uri = d.get("Details")
@@ -206,10 +283,28 @@ class Torrent:
         if tracker_uri:
             # quirk: bakabt's post-login redirection fails if the slashes aren't just right
             tracker_uri = tracker_uri.replace('https://bakabt.me//', 'https://bakabt.me/')
+            # quirk: bitmagnet doesn't populate the torrent page, except as a link to the website homepage.
+            # - tracking issue: <https://github.com/bitmagnet-io/bitmagnet/issues/375>
+            #   - see open PRs for immediate fix
+            # quirk: Jackett can't parse bitmagnet's `torznab:seeders`/leechers field:
+            # - <https://github.com/Jackett/Jackett/issues/15126#issuecomment-1996342455>
+            if tracker_uri == 'http://10.0.1.6:3333/':
+                tracker_uri = f"https://bitmagnet.uninsane.org/webui/torrents/permalink/{info_hash}"
 
         if seeders is not None and pub_date is not None and title is not None and (magnet is not None or http_dl_uri is not None):
             pub_date = parse_time(pub_date)
-            return Torrent(seeders, pub_date, size, tracker, title, magnet, http_dl_uri, tracker_uri, categories=categories)
+            return Torrent(
+                seeders=seeders,
+                pub_date=pub_date,
+                size=size,
+                tracker=Tracker.by_id(tracker_id),
+                title=title,
+                info_hash=info_hash,
+                magnet=magnet,
+                http_dl_uri=http_dl_uri,
+                tracker_uri=tracker_uri,
+                categories=categories,
+            )
 
     def to_dict(self) -> dict:
         # N.B.: not all fields: needs to be kept in sync with consumers like mx-sanebot
@@ -230,6 +325,7 @@ class Client:
         endpoint = ENDPOINTS[method]
         url = f"{SERVICE}/{endpoint}"
         params = params.copy()
+        logger.debug(f"GET {url!r} with payload: {params}")
         params.update(apikey=self.apikey, _=str(int(time.time())))
         resp = requests.get(url, params=params)
         text = str(resp.text)
@@ -239,9 +335,13 @@ class Client:
             logger.error(f"failed to parse json API response from {url}: {text}")
             raise e
 
-    def query(self, q: str) -> list[Torrent]:
+    def query(self, query: str, trackers: list[str] | None) -> list[Torrent]:
         torrents = set()
-        api_res = self.api_call("results", dict(Query=q))
+        params = {}
+        params["Query"] = query
+        if trackers is not None:
+            params["Tracker[]"] = trackers
+        api_res = self.api_call("results", params)
         for r in api_res["Results"]:
             t = Torrent.from_dict(r)
             if t is not None:
@@ -249,12 +349,18 @@ class Client:
 
         return sorted(torrents, reverse=True)
 
-def sort_results(torrents: list[Torrent], by: str) -> list[Torrent]:
-    if by == 'seeders':
-        return sorted(torrents, key=lambda t: (t.seeders, t), reverse=True)
-    elif by == 'tracker':
-        return sorted(torrents, key=lambda t: (-tracker_rank(t.tracker), t), reverse=True)
-    assert False, f"unknown sort method: {by}"
+def sort_results(torrents: list[Torrent], by: SortMethod) -> list[Torrent]:
+    def key(t: Torrent) -> tuple[int, int, Torrent]:
+        rank_seeders = -t.seeders
+        rank_size = -t.size
+        # TODO: `Balanced` should consider `size` and `pub_date`
+        return {
+            SortMethod.Balanced: (t.tracker.quality, rank_seeders, t.tracker.order, rank_size, t),
+            SortMethod.Seeders: (rank_seeders, t.tracker.quality, t.tracker.order, rank_size, t),
+            SortMethod.Size: (rank_size, t.tracker.quality, rank_seeders, t.tracker.order, t),
+            SortMethod.Tracker: (t.tracker.quality, t.tracker.order, rank_seeders, rank_size, t),
+        }[by]
+    return sorted(torrents, key=key)
 
 def format_results(all_results: list[Torrent], filtered_results: list[Torrent], json: bool):
     if json:
@@ -274,8 +380,9 @@ def main(args: list[str]):
     parser = argparse.ArgumentParser(description='search torrent trackers')
     parser.add_argument('--full', action='store_true', help='show all results')
     parser.add_argument('--top', help=f'how many results to show (default: {DEFAULT_RESULT_COUNT})')
-    parser.add_argument('--sort-by', default='seeders', help='how to rank matches (seeders, tracker)')
+    parser.add_argument('--sort-by', default=SortMethod.Balanced, type=SortMethod, choices=SortMethod, help='how to rank matches (seeders, tracker)')
     parser.add_argument('--json', action='store_true', help='output results in json')
+    parser.add_argument('--tracker', type=str, action='append', help='query only this tracker(s)', choices=KNOWN_TRACKERS.keys())
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--book', action='store_true', help='show only book (ebook or audiobook) results')
     parser.add_argument('--h265', action='store_true', help='show only H.265/HEVC results (might cause false negatives)')
@@ -289,7 +396,7 @@ def main(args: list[str]):
         logging.getLogger().setLevel(logging.DEBUG)
 
     client = Client()
-    all_results = client.query(args.query)
+    all_results = client.query(args.query, args.tracker)
 
     filter = Filter(book=args.book, h265=args.h265, manga=args.manga, video=args.video)
     filtered_results = filter.filter(all_results)

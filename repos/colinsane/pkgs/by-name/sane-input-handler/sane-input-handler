@@ -1,0 +1,616 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i ysh -p coreutils -p killall -p oils-for-unix -p playerctl -p procps -p sane-open -p sway -p util-linux -p wireplumber
+# vim: set filetype=bash :
+
+# input map considerations
+# - using compound actions causes delays.
+#   e.g. if volup->volup is a distinct action from volup, then single-volup action is forced to wait the maximum button delay.
+# - actions which are to be responsive should therefore have a dedicated key.
+# - a dedicated "kill" combo is important for unresponsive fullscreen apps, because appmenu doesn't show in those
+#   - although better may be to force appmenu to show over FS apps
+# - bonsai mappings are static, so buttons can't benefit from non-compounding unless they're mapped accordingly for all lock states
+#   - this limitation could be removed, but with work
+#
+# example of a design which considers these things:
+# - when unlocked:
+#   - volup tap       -> file browser
+#   - volup hold      -> app menu
+#   - voldown press   -> keyboard
+#   - voldown hold    -> terminal
+#   - power x2        -> screenoff
+#   - power tap->hold -> kill app
+#   - power,volup     -> screen rotate CCW
+#   - power,voldown   -> screen rotate CW
+#   - power+volup     -> screenshot
+#   - power+voldown   -> camera
+# - when locked:
+#   - volup tap       -> volume up
+#   - volup hold      -> media seek forward
+#   - voldown tap     -> volume down
+#   - voldown hold    -> media seek backward
+#   - power tap       -> screen on
+#   - power hold      -> play/pause media
+# limitations/downsides:
+# - voldown hold is over eager: easy to open terminals when phone is slow.
+#   - remap to voldown tap->hold ?
+#
+# EXAMPLE EVENT FIRINGS:
+# - double-tap voldown:
+#   - voldown_start
+#   - voldown_tap_1
+#   - voldown_tap_2
+# - hold voldown:
+#   - voldown_start
+#   - voldown_hold_1
+#   - voldown_hold_2
+#   - voldown_hold_3
+# - hold power:
+#   - power_hold  (notice: it doesn't fire power_start)
+# - double-tap power:
+#   - power_tap_1
+#   - power_tap_2
+# - power tap-then-hold:
+#   - power_tap_1
+#   - power_tap_1_hold
+
+
+
+# increments to use for volume adjustment (in %)
+var VOL_INCR = 5
+var SEEK_INCR = 30
+var SEEK_DECR = 10
+# defaults; configured further in `parseArgs`
+var KEYBOARD = "wvkbd-mobintl"
+var CAMERA = "org.postmarketos.Megapixels.desktop"
+var VERBOSITY = 0  # SANE_INPUT_VERBOSE
+var DRY_RUN = false
+
+# all known triggers:
+var Triggers = {
+  PowerTap1        : "power_tap_1",
+  PowerTap2        : "power_tap_2",
+  PowerHold        : "power_hold",
+  PowerTap1Hold    : "power_tap_1_hold",
+  PowerAndVolup    : "power_and_volup",
+  PowerAndVoldown  : "power_and_voldown",
+  PowerThenVolup   : "power_then_volup",
+  PowerThenVoldown : "power_then_voldown",
+  VolupTap1        : "volup_tap_1",
+  VolupTap2        : "volup_tap_2",
+  VolupTap3        : "volup_tap_3",
+  VolupHold1       : "volup_hold_1",
+  VolupHold2       : "volup_hold_2",
+  VolupHold3       : "volup_hold_3",
+  VoldownTap1      : "voldown_tap_1",
+  VoldownTap2      : "voldown_tap_2",
+  VoldownTap3      : "voldown_tap_3",
+  VoldownHold1     : "voldown_hold_1",
+  VoldownHold2     : "voldown_hold_2",
+  VoldownHold3     : "voldown_hold_3",
+  VoldownStart     : "voldown_start",
+}
+
+proc showHelp {
+  echo "usage: sane-input-handler [--verbose [--verbose]] [--dry-run] <action>"
+  echo ""
+  echo "where action is one of:"
+  echo "- power_tap_{1,2}"
+  echo "- power_hold"
+  echo "- power_tap_1_hold"
+  echo "- power_and_volup"
+  echo "- power_and_voldown"
+  echo "- power_then_volup"
+  echo "- power_then_voldown"
+  echo "- volup_tap_{1,2,3}"
+  echo "- volup_hold_{1,2,3}"
+  echo "- voldown_tap_{1,2,3}"
+  echo "- voldown_hold_{1,2,3}"
+  echo "- voldown_start"
+  echo ""
+  echo "ENVIRONMENT VARIABLES:"
+  echo "- KEYBOARD=$KEYBOARD"
+  echo "- CAMERA=$CAMERA"
+  echo "- SANE_INPUT_VERBOSE=$VERBOSITY"
+}
+
+proc log (; ...stmts; level, context) {
+  var prefix = "";
+  var formatted = "";
+  if (stmts) {
+    setvar prefix = "$context: " if context else ""
+    setvar formatted = "$(pp value (stmts))"
+  } else {
+    # bare log statement; nothing to pretty-print
+    setvar formatted = context;
+  }
+  echo "[$level] sane-input-handler: $prefix$formatted" >&2
+}
+
+proc die (context=""; ...stmts) {
+  log (level="ERRR", context=context, ...stmts)
+  exit 1
+}
+
+proc info (context=""; ...stmts) {
+  log (level="INFO", context=context, ...stmts)
+}
+
+proc debug (context=""; ...stmts) {
+  if (VERBOSITY >= 1) {
+    log (level="DEBG", context=context, ...stmts)
+  }
+}
+
+proc verbose (context=""; ...stmts) {
+  if (VERBOSITY >= 2) {
+    log (level="VERB", context=context, ...stmts)
+  }
+}
+
+proc trace (...args) {
+  debug (...args)
+  @[args]
+}
+
+proc effect (...args) {
+  if (DRY_RUN) {
+    info "SKIP(dry run)" (...args)
+  } else {
+    trace @[args]
+  }
+}
+
+## HELPERS
+
+# swaySetOutput true|false
+# turns the display on or off
+proc swaySetOutput (value) {
+  effect swaymsg -- output '*' power "$value"
+}
+
+# swaySetTouch enabled|disabled
+# turns touch input on or off
+proc swaySetTouch (value) {
+  # XXX(2024/06/09): `type:touch` method is documented, but now silently fails
+  # swaymsg -- input type:touch events "$1"
+
+  var inputs = null
+  swaymsg -t get_inputs --raw | json read (&inputs)
+  for input in (inputs) {
+    if (input.type === "touch") {
+      effect swaymsg -- input "$[input.identifier]" events "$value"
+    }
+  }
+}
+
+# true if all touch inputs have their events enabled
+func swayGetTouch () {
+  var inputs = null
+  swaymsg -t get_inputs --raw | json read (&inputs)
+
+  var num_touch_enabled = 0
+  var num_touch_disabled = 0
+  for input in (inputs) {
+    if (input.type === "touch") {
+      var send_events = input.libinput.send_events
+      case (send_events) {
+        ("enabled") {
+          setvar num_touch_enabled += 1
+        }
+        ("disabled") {
+          setvar num_touch_disabled += 1
+        }
+        (else) {
+          info "swayGetTouch" ("unknown 'libinput.send_events' value:", send_events)
+        }
+      }
+    }
+  }
+  return (num_touch_disabled === 0)
+}
+
+# true if all outputs have power
+func swayGetOutput () {
+  var outputs = null
+  swaymsg -t get_outputs --raw | json read (&outputs)
+
+  var num_power_true = 0
+  var num_power_false = 0
+  for output in (outputs) {
+    case (output.power) {
+      (true) {
+        setvar num_power_true += 1
+      }
+      (false) {
+        setvar num_power_false += 1
+      }
+      (else) {
+        info "swayGetOutput" ("unknown 'power' value:", output.power)
+      }
+    }
+  }
+  return (num_power_false === 0)
+}
+
+# crawls the `swaymsg -t get_tree` output recursively, to return all window objects
+func swayWindowsFromTree (root) {
+  var windows = []
+  for node in (root.nodes) {
+    for w in (swayWindowsFromTree (node)) {
+      call windows->append(w)
+    }
+  }
+
+  if (root.type === "con") {
+    # windows are identified, perhaps, by type = "con" or app_id = *
+    call windows->append(root)
+  }
+
+  return (windows)
+}
+
+# returns a json object representing the currently focused window
+func swayGetFocusedWindow () {
+  var nodes = null;
+  swaymsg -t get_tree --raw | json read (&nodes)
+
+  var windows = swayWindowsFromTree (nodes)
+  for w in (windows) {
+    if (w.focused) {
+      return (w)
+    }
+  }
+}
+
+func swayIsFullscreen () {
+  var w = swayGetFocusedWindow()
+  if (not w) {
+    info swayIsFullscreen ("couldn't determine focused window -> assuming not fullscreen")
+    return (false)
+  }
+  debug "swayIsFullscreen" (w)
+  return (w.fullscreen_mode === 1)
+}
+
+# true if rofi is visible
+func rofiGet () {
+  if pidof -q rofi {
+    return (true)
+  } else {
+    return (false)
+  }
+}
+
+var MEMOIZED = {}
+func memoize (name, f) {
+  var expr = null
+  if (name in MEMOIZED) {
+    setvar expr = MEMOIZED[name]
+    verbose "memoize(cached)" (name, expr)
+  } else {
+    verbose "memoize(uncached)" (name)
+    # setvar expr = f()
+    setvar expr = io->evalExpr (f)
+    verbose "memoize(uncached -> cached)" (name, expr)
+    setglobal MEMOIZED[name] = expr
+  }
+  return (expr)
+}
+
+func isAllOn () {
+  return (memoize ("isAllOn", ^[swayGetOutput() and swayGetTouch()]))
+}
+
+func isInhibited () {
+  return (memoize ("rofiGet", ^[rofiGet()]))
+}
+
+func isFullscreen () {
+  return (memoize ("swayIsFullscreen", ^[swayIsFullscreen()]))
+}
+
+## HANDLERS
+proc ignore {
+  :
+}
+proc inhibited {
+  :
+}
+
+proc allOn {
+  swaySetOutput true
+  swaySetTouch enabled
+}
+proc allOff {
+  swaySetOutput false
+  swaySetTouch disabled
+}
+
+proc toggleKeyboard {
+  var keyboardPids = $(pidof "$KEYBOARD" || echo "") => split(" ")
+  if (not keyboardPids) {
+    info "toggleKeyboard: cannot find keyboard" (KEYBOARD)
+    return
+  }
+
+  for p in (keyboardPids) {
+    # `env` so that we get the right `kill` binary instead of bash's builtin
+    # `kill` only one keyboard process. in the case of e.g. sandboxing,
+    # the keyboard might consist of multiple processes and each one we signal would cause a toggle
+    try {
+      effect env kill -s RTMIN+0 "$p"
+    }
+    if ! failed {
+      break
+    }
+  }
+}
+
+proc togglePlayback {
+  effect playerctl play-pause
+}
+
+proc volumeUp {
+  effect wpctl set-volume '@DEFAULT_AUDIO_SINK@' "$VOL_INCR%+"
+}
+
+proc volumeDown {
+  effect wpctl set-volume '@DEFAULT_AUDIO_SINK@' "$VOL_INCR%-"
+}
+
+proc restartBonsai {
+  effect systemctl restart bonsaid
+}
+
+proc seekForward {
+  effect playerctl position "$SEEK_INCR+"
+}
+
+proc seekBackward {
+  effect playerctl position "$SEEK_DECR-"
+}
+
+proc killWindow {
+  effect swaymsg kill
+}
+
+proc takeScreenshot {
+  effect sane-open --application sane-screenshot.desktop
+}
+
+proc openCamera {
+  effect sane-open --auto-keyboard --application "$CAMERA"
+}
+
+proc rotateCCW {
+  effect swaymsg -- output '-' transform 90 anticlockwise
+}
+
+proc rotateCW {
+  effect swaymsg -- output '-' transform 90 clockwise
+}
+
+proc openFilebrowser {
+  effect sane-open --auto-keyboard --application rofi-filebrowser.desktop
+}
+
+proc openFilebrowserWithApps {
+  # reset fs directory: useful in case you get stuck in broken directory (e.g. one which lacks a `..` entry)
+  effect rm -f ~/.cache/rofi/rofi3.filebrowsercache
+  effect sane-open --auto-keyboard --application rofi.desktop
+}
+
+proc openTerminal {
+  effect sane-open --auto-keyboard --application xdg-terminal-exec.desktop
+}
+
+proc killRofi {
+  effect killall -9 rofi
+}
+
+# index of all possible responses, to allow lookup by-name
+var Responses = {
+  allOn: allOn,
+  allOff: allOff,
+  toggleKeyboard: toggleKeyboard,
+  togglePlayback: togglePlayback,
+  volumeUp: volumeUp,
+  volumeDown: volumeDown,
+  restartBonsai: restartBonsai,
+  seekForward: seekForward,
+  seekBackward: seekBackward,
+  killWindow: killWindow,
+  takeScreenshot: takeScreenshot,
+  openCamera: openCamera,
+  rotateCCW: rotateCCW,
+  rotateCW: rotateCW,
+  openFilebrowser: openFilebrowser,
+  openFilebrowserWithApps: openFilebrowserWithApps,
+  openTerminal: openTerminal,
+  killRofi: killRofi,
+}
+
+func Handler_exec(self) {
+  var resp = self.response
+  resp  #< this executes the response
+}
+
+var Handler = Object(null, {
+  # methods
+  exec: Handler_exec,
+  # instance state
+  trigger: null, #< name of action the _user_ performed
+  response: null, #< bound proc to invoke in response to the trigger
+  name: null, #< friendly name of response; should just be the stringified form of `response`
+  screen: false, #< screen must be on for this response to trigger
+  fullscreen: false, #< desktop view must be fullscreen for this response to trigger
+  sys_menu: false, #< system menu must be active for this response to trigger
+  off: false, #< screen must be off for this response to trigger
+})
+
+func Dispatcher_add_handler(self, trigger, response; screen=false, fullscreen=false, sys_menu=false, off=false) {
+  call self.handlers[trigger]->append(Object(Handler, {
+    trigger: trigger,
+    response: Responses[response],
+    name: response,
+    screen: screen,
+    fullscreen: fullscreen,
+    sys_menu: sys_menu,
+    off: off,
+  }))
+}
+
+func Dispatcher_new() {
+  var handlers = {}
+  for _k, v in (Triggers) {
+    assert (v not in handlers)
+    setvar handlers[v] = []
+  }
+  return (Object(Dispatcher, { handlers: handlers }))
+}
+
+func Dispatcher_default() {
+  var inst = Dispatcher.new()
+
+  call inst->add_handler(Triggers.PowerHold,        "togglePlayback",  fullscreen=true, screen=true, off=true)
+  call inst->add_handler(Triggers.VolupHold1,       "seekForward",     fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VolupHold2,       "seekForward",     fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VolupHold3,       "seekForward",     fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VoldownHold1,     "seekBackward",    fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VoldownHold2,     "seekBackward",    fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VoldownHold3,     "seekBackward",    fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VolupTap1,        "volumeUp",        fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VolupTap2,        "volumeUp",        fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VolupTap3,        "volumeUp",        fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VoldownTap1,      "volumeDown",      fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VoldownTap2,      "volumeDown",      fullscreen=true, off=true)
+  call inst->add_handler(Triggers.VoldownTap3,      "volumeDown",      fullscreen=true, off=true)
+
+  call inst->add_handler(Triggers.PowerTap1,        "allOn",           off=true)
+  call inst->add_handler(Triggers.PowerTap1Hold,    "restartBonsai",   off=true)
+
+  call inst->add_handler(Triggers.PowerTap2,        "allOff",          fullscreen=true, screen=true, off=true)
+  call inst->add_handler(Triggers.PowerTap1Hold,    "killWindow",      fullscreen=true, screen=true)
+  call inst->add_handler(Triggers.PowerThenVolup,   "rotateCCW",       fullscreen=true, screen=true)
+  call inst->add_handler(Triggers.PowerThenVoldown, "rotateCW",        fullscreen=true, screen=true)
+
+  call inst->add_handler(Triggers.PowerAndVolup,    "takeScreenshot",  screen=true)
+  call inst->add_handler(Triggers.PowerAndVoldown,  "openCamera",      screen=true)
+  call inst->add_handler(Triggers.VolupTap1,        "openFilebrowser", screen=true)
+  call inst->add_handler(Triggers.VolupHold1,       "openFilebrowserWithApps", screen=true)
+  call inst->add_handler(Triggers.VoldownStart,     "toggleKeyboard",  screen=true)
+  call inst->add_handler(Triggers.VoldownHold1,     "openTerminal",    screen=true)
+
+  call inst->add_handler(Triggers.PowerTap1Hold,    "killRofi",        sys_menu=true)
+
+  return (inst)
+}
+
+func Dispatcher_get(self, trigger) {
+  var candidates = self.handlers[trigger]
+
+  var applicable = []
+  for c in (candidates) {
+    # TODO: this logic can be optimized!
+    var match = false
+    if (isAllOn()) {
+      if (isFullscreen()) {
+        verbose "state = fullscreen"
+        setvar match = c.fullscreen
+      } elif (isInhibited()) {
+        verbose "state = inhibited"
+        setvar match = c.sys_menu
+      } else {
+        verbose "state = screen"
+        setvar match = c.screen
+      }
+    } else {
+      verbose "state = off"
+      setvar match = c.off
+    }
+    if (match) {
+      debug "Dispatcher.get: found applicable" (c)
+      call applicable->append(c)
+    }
+  }
+
+  case (len(applicable)) {
+    (0) {
+      debug "Dispatcher.get: no applicable candidates for trigger" (trigger)
+      return (null)
+    }
+    (1) {
+      var a = applicable[0]
+      verbose "Dispatcher.get: filtered to 1 candidate" (trigger, a)
+      return (a)
+    }
+    (else) {
+      # TODO: this should be a static assertion, not a runtime check!
+      die "Dispatcher.get: filtered to multiple candidates" (trigger, applicable)
+    }
+  }
+}
+
+var Dispatcher = Object(null, {
+  ## class methods
+  default: Dispatcher_default,
+  new: Dispatcher_new,
+  ## methods
+  "M/add_handler": Dispatcher_add_handler,
+  get: Dispatcher_get,
+  ## instance state
+  handlers: {}  # trigger -> List[Handler]
+})
+
+
+var trigger = null
+var doShowHelp = false
+proc parseArgs (; ...args) {
+  # first, ingest env vars
+  setglobal KEYBOARD = get(ENV, 'KEYBOARD', KEYBOARD)
+  setglobal CAMERA = get(ENV, 'CAMERA', CAMERA)
+  var env_verbosity = get(ENV, 'SANE_INPUT_VERBOSE')
+  if (env_verbosity !== null) {
+    try {
+      setglobal VERBOSITY = int(env_verbosity)
+    }
+    if failed {
+      if (env_verbosity !== "") {
+        setglobal VERBOSITY += 1
+      }
+    }
+  }
+
+  for arg in (args) {
+    case (arg) {
+      ("--dry-run") {
+        setglobal DRY_RUN = true
+      }
+      ("--help") {
+        setglobal doShowHelp = true
+      }
+      ("--verbose") {
+        setglobal VERBOSITY += 1
+      }
+      (else) {
+        setglobal trigger = "$arg"
+      }
+    }
+  }
+}
+
+if is-main {
+  parseArgs (...ARGV)
+
+  if (doShowHelp) {
+    showHelp
+    exit 0
+  }
+
+  var dispatcher = Dispatcher.default()
+  var handler = dispatcher.get(trigger)
+  info "handling" (trigger, handler and handler.name)
+  if (handler) {
+    call handler.exec()
+  }
+}

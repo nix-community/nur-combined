@@ -9,7 +9,7 @@
 , meson
 , ninja
 , python3
-, wrapGAppsHook
+, wrapGAppsHook3
 }:
 let
   # optional deps: avahi, python-keyring
@@ -35,10 +35,10 @@ stdenv.mkDerivation rec {
     desktop-file-utils  # for update-desktop-database
     gettext  # for msgfmt
     glib  # for glib-compile-resources
-    gobject-introspection  # needed so wrapGAppsHook includes GI_TYPEPATHS for gtk3
+    gobject-introspection  # needed so wrapGAppsHook3 includes GI_TYPEPATHS for gtk3
     meson
     ninja
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [

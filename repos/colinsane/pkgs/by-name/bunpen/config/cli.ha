@@ -12,7 +12,7 @@ export type cli_opts = struct {
   // `--bunpen-debug`
   debug: uint,
   disable: str,
-  drop_shell: bool,
+  drop_shell: str,
   // [ "KEY=VALUE" ]
   env: []str,
   // `--bunpen-help`
@@ -99,6 +99,9 @@ export fn usage() void = {
   fmt::println("      note that this doesn't enforce a complete match:")!;
   fmt::println("      BUNPEN_DISABLE=host would disable sandboxing for 'host', 'hostname', and so on")!;
   fmt::println("      consider BUNPEN_DISABLE='host$' to be more targeted")!;
+  fmt::println("  BUNPEN_DROP_SHELL=<specifier>")!;
+  fmt::println("      instead of running the program, drop into an interactive shell")!;
+  fmt::println("      uses the same specifier syntax as BUNPEN_DISABLE")!;
   fmt::println("  BUNPEN_APPEND=--bunpen-flag1 --bunpen-flag2 ...")!;
   fmt::println("      act as though the provided arg string appeared at the end of the CLI")!;
   fmt::println("")!;
@@ -139,6 +142,10 @@ export fn parse_args(args: []str) (cli_opts | errors::invalid) = {
       case "4" => parsed.debug = 4;
       case => void;
     };
+    case void => void;
+  };
+  match (os::getenv("BUNPEN_DROP_SHELL")) {
+    case let d: str => parsed.drop_shell = d;
     case void => void;
   };
 
@@ -183,7 +190,7 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
         case "--bunpen-debug=3"         =>  parsed.debug = 3;
         case "--bunpen-debug=4"         =>  parsed.debug = 4;
         case "--bunpen-dns"             =>  idx += 1; parsed.dns = expect_arg("--bunpen-dns", next)?;
-        case "--bunpen-drop-shell"      =>  parsed.drop_shell = true;
+        case "--bunpen-drop-shell"      =>  parsed.drop_shell = "1";
         case "--bunpen-env"             =>  idx += 1; append(parsed.env, expect_arg("--bunpen-env", next)?);
         case "--bunpen-help"            =>  parsed.help = true;
         case "--bunpen-keep-ipc"        =>  parsed.keep_ipc = true;

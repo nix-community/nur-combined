@@ -258,13 +258,20 @@ let
         fs.".config/environment.d/20-sane-nixos-users.conf".symlink.text =
           let
             env = lib.mapAttrsToList
-              (key: value: ''${key}=${value}'')
+              # partially escape shell expressions.
+              # want the user to be able to leverage variable expansion (e.g. X=$Y), so DON'T escape `$`.
+              # but we want the result to be a valid assignment, so DO escape things which would otherwise result in a _syntax_ error.
+              (key: value: lib.escape [ " " ] ''${key}=${value}'')
               config.environment
             ;
           in
             lib.concatStringsSep "\n" env + "\n";
         fs.".profile".symlink.text = lib.mkMerge [
           (lib.mkBefore ''
+            # N.B.: this file must be valid in all plausible shells.
+            # it's primarily sourced by the user shell,
+            # but it may actually be sourced by bash, and even by other users (notably root).
+            #
             # sessionCommands: ordered sequence of functions which will be called whenever this file is sourced.
             # primarySessionCommands: additional functions which will be called only for the main session (i.e. login through GUI).
             # GUIs are expected to install a function to `primarySessionChecks` which returns true
@@ -323,7 +330,9 @@ let
             # sessionCommands+=('setXdgSessionType')
             sourceEnv() {
               # source env vars and the like, as systemd would. `man environment.d`
-              for env in ~/.config/environment.d/*.conf; do
+              # XXX: can't use `~` or `$HOME` here as they might not be set
+              local home=${lib.escapeShellArg config.home}
+              for env in "$home"/.config/environment.d/*.conf; do
                 # surround with `set -o allexport` since environment.d doesn't explicitly `export` their vars
                 set -a
                 source "$env"
@@ -331,11 +340,28 @@ let
               done
             }
             sessionCommands+=('sourceEnv')
+            ensurePath() {
+              # later sessionCommands might expect to run user-specific binaries,
+              # so make sure those are on PATH
+              local userBin=/etc/profiles/per-user/$USER/bin
+              if [[ ":$PATH:" != *":$userBin:"* ]]; then
+                export PATH="$PATH:$userBin"
+              fi
+            }
+            sessionCommands+=('ensurePath')
 
           '')
           (lib.mkAfter ''
             sessionCommands+=('maybeInitPrimarySession')
-            initSession
+
+            if [ -n "''${PROFILE+profile_is_set}" ]; then
+              # allow the user to override the profile or disable it completely.
+              if [ -x "$PROFILE" ]; then
+                source "$PROFILE"
+              fi
+            else
+              initSession
+            fi
           '')
         ];
 

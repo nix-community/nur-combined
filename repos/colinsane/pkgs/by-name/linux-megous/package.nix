@@ -366,7 +366,7 @@ let
   #   # - https://discourse.nixos.org/t/the-correct-way-to-override-the-latest-kernel-config/533/9
   #   name = "linux-megous-defconfig";
   #   patch = null;
-  #   extraStructuredConfig = config;
+  #   structuredExtraConfig = config;
   # };
 
 in ((buildLinux {

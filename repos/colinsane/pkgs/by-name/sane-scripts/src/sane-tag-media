@@ -508,7 +508,7 @@ class Tags:
             return os.path.join(artist, filename)
         elif style == PathStyle.Music:
             if not (artist and album and title):
-                logger.warning(f"missing artist/album/title after cleaning path: {self} ({artist!r}, {album!r}, {title!r}")
+                logger.warning(f"missing artist/album/title after cleaning path: {self} ({artist!r}, {album!r}, {title!r})")
                 return None
 
             if self.producer:

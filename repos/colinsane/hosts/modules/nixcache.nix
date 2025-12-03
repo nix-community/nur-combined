@@ -40,7 +40,7 @@ in
       type = types.bool;
     };
     sane.nixcache.remote-builders.servo = mkOption {
-      default = true;
+      default = false;  #< XXX(2025-11-01): servo is too often overloaded with asshole AI crawlers => not useful
       type = types.bool;
     };
   };

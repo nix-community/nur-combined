@@ -10,11 +10,37 @@ usage() {
   echo "- up <service>"
   echo "- down <service>"
   echo "- toggle <service>"
-  exit 1
 }
 
-action="$1"
-service="$2"
+action=
+service=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -z "$action" ]; then
+          action=$arg
+        elif [ -z "$service" ]; then
+          service=$arg
+        else
+          usage
+          exit 1
+        fi
+        ;;
+    esac
+  done
+
+  if [ -z "$action" ] || [ -z "$service" ]; then
+    usage
+    exit 1
+  fi
+}
 
 log() {
   if [ -n "$SWAYNC_DEBUG" ]; then
@@ -34,28 +60,34 @@ stopService() {
   systemctl stop "$service"
 }
 
-case "$action" in
-  (print)
-    checkActive
-    ;;
-  (toggle)
-    case "$(checkActive)" in
-      false)
-        startService
-        ;;
-      true)
-        stopService
-        ;;
-    esac
-    ;;
-  # these aren't needed by swaync; just handy for testing/debugging
-  (up)
-    startService
-    ;;
-  (down)
-    stopService
-    ;;
-  (*)
-    usage
-    ;;
-esac
+main() {
+  case "$action" in
+    (print)
+      checkActive
+      ;;
+    (toggle)
+      case "$(checkActive)" in
+        false)
+          startService
+          ;;
+        true)
+          stopService
+          ;;
+      esac
+      ;;
+    # these aren't needed by swaync; just handy for testing/debugging
+    (up)
+      startService
+      ;;
+    (down)
+      stopService
+      ;;
+    (*)
+      usage
+      exit 1
+      ;;
+  esac
+}
+
+parseArgs "$@"
+main

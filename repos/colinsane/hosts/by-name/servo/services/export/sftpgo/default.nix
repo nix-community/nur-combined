@@ -1,11 +1,21 @@
 # docs:
 # - <https://github.com/drakkan/sftpgo>
-# - config options: <https://github.com/drakkan/sftpgo/blob/main/docs/full-configuration.md>
+# - <https://docs.sftpgo.com/>
+# - config options: <https://docs.sftpgo.com/enterprise/config-file/>
 # - config defaults: <https://github.com/drakkan/sftpgo/blob/main/sftpgo.json>
 # - nixos options: <repo:nixos/nixpkgs:nixos/modules/services/web-apps/sftpgo.nix>
 # - nixos example: <repo:nixos/nixpkgs:nixos/tests/sftpgo.nix>
 #
 # sftpgo is a FTP server that also supports WebDAV, SFTP, and web clients.
+#
+# TODO:
+# - consistent file mode/group/etc:
+#   i previously used acls to force all files to be 0775 (and owned by the right group?)
+#   and patched Kodi to understand the `s` bit.
+#   i'd like to remove the Kodi patch, and force correct mode another way.
+#   - try common.setstat_mode.
+#   - try `actions`, with `execute_on = "update"` to fire a `chmod` script.
+#     <https://docs.sftpgo.com/enterprise/custom-actions/>
 
 { config, lib, pkgs, sane-lib, ... }:
 let
@@ -57,7 +67,8 @@ in
 
   services.sftpgo = {
     enable = true;
-    group = "export";
+    # group = "export";
+    group = "media";
 
     package = pkgs.sftpgo.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
@@ -65,13 +76,43 @@ in
         # ftp LIST operation returns entries over-the-wire like:
         # - dgrwxrwxr-x 1 ftp ftp            9 Apr  9 15:05 Videos
         # however not all clients understand all mode bits (like that `g`, indicating SGID / group sticky bit).
+        # - e.g. Kodi will sliently not display entries with `g`.
         # instead, only send mode bits which are well-understood.
         # the full set of bits, from which i filter, is found here: <https://pkg.go.dev/io/fs#FileMode>
-        ./safe_fileinfo.patch
+        #
+        # PATCH NOTES:
+        # - i *think* os.FileInfo contains the bad mode bits, and anything that goes through `vfs.NewFileInfo` gets those bits stripped (good).
+        # - for readdir, `patternDirLister` is just an easily accessible interface which causes the os.FileInfo's to be converted through `vfs.NewFileInfo`.
+        # - if patched incorrectly, sftpgo may return absolute paths for operations like `ls foo/bar/` (breaks rclone)
+        # XXX(2025-11-13): newer sftpgo implements this specific area differently.
+        # Kodi still doesn't understand the `s` bit, so this causes only partial file listings, but i'm hoping to support Kodi by not using the s bit (group sticky bit), instead.
+        # ./safe_fileinfo_readdir.patch
+        # XXX(2025-09-20): this patch no longer *cleanly* applies (easy to rebase), but nothing seems to break in Kodi anymore when i leave `Stat` unpatched.
+        # not sure if Kodi fixed it, or if sftpgo fixed it (and that's why the patch no longer applies).
+        # ./safe_fileinfo_stat.patch
       ];
     });
 
     settings = {
+      common = {
+        umask = "002";
+        # setstat_mode:
+        # - 0 to allow chmod/chown
+        # - 1 to silently ignore client chmod/chown requests
+        # - 2 to silently ignore unsupported client chmod/chown requests
+        setstat_mode = 1;
+      };
+
+      data_provider = {
+        driver = "memory";
+        external_auth_hook = lib.getExe external_auth_hook;
+        # track_quota:
+        # - 0: disable quota tracking
+        # - 1: quota is updated on every upload/delete, even if user has no quota restriction
+        # - 2: quota is updated on every upload/delete, but only if user/folder has a quota restriction  (default, i think)
+        # track_quota = 2;
+      };
+
       ftpd = {
         bindings = [
           {
@@ -138,15 +179,6 @@ in
           Please let me know if anything's broken or not as it should be. Otherwise, browse and transfer freely :)
         '';
 
-      };
-      data_provider = {
-        driver = "memory";
-        external_auth_hook = lib.getExe external_auth_hook;
-        # track_quota:
-        # - 0: disable quota tracking
-        # - 1: quota is updated on every upload/delete, even if user has no quota restriction
-        # - 2: quota is updated on every upload/delete, but only if user/folder has a quota restriction  (default, i think)
-        # track_quota = 2;
       };
     };
   };

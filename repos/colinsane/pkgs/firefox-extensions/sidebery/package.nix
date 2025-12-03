@@ -7,15 +7,15 @@
 }:
 buildNpmPackage rec {
   pname = "sidebery";
-  version = "5.3.3";
+  version = "5.4.0";
   src = fetchFromGitHub {
     owner = "mbnuqw";
     repo = "sidebery";
     rev = "v${version}";
-    hash = "sha256-wJqEuThoU5s5tYI3bpCBF5ADbLv8qeG3dDbOdL6eDoA=";
+    hash = "sha256-Y7Aq+fZPJcYQcJjykyobT5LFanz4TcMSNoJBWgr1w9Q=";
   };
 
-  npmDepsHash = "sha256-YRfKI61RPvRUdgUElGgPolYNiUmd7S7uV2Fyb+ThOCM=";
+  npmDepsHash = "sha256-vwCi76oUsKVwGKyT5WhqI4KY75ZXg3qH2aITQmnDx0E=";
 
   nativeBuildInputs = [
     wrapFirefoxAddonsHook

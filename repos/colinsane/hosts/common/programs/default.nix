@@ -5,6 +5,7 @@
     ./abaddon.nix
     ./aerc.nix
     ./alacritty.nix
+    ./alpaca.nix
     ./alsa-ucm-conf
     ./animatch.nix
     ./assorted.nix
@@ -58,6 +59,7 @@
     ./evince.nix
     ./evolution-data-server.nix
     ./exiftool.nix
+    ./expect.nix
     ./fcitx5.nix
     ./feedbackd.nix
     ./fftest.nix
@@ -88,7 +90,7 @@
     ./gnome-weather.nix
     ./go2tv.nix
     ./gocryptfs.nix
-    ./gpodder.nix
+    ./gpodder
     ./gpsd.nix
     ./gps-share.nix
     ./grimshot.nix
@@ -101,6 +103,7 @@
     ./haredoc.nix
     ./helix.nix
     ./htop
+    ./htpasswd.nix
     ./iio-sensor-proxy.nix
     ./imagemagick.nix
     ./inkscape.nix
@@ -111,6 +114,7 @@
     ./komikku.nix
     ./koreader
     ./krita.nix
+    ./lddtree.nix
     ./less.nix
     ./lftp.nix
     ./lgtrombetta-compass.nix
@@ -118,11 +122,14 @@
     ./libreoffice.nix
     ./lemoa.nix
     ./loupe.nix
+    ./lpa-gtk.nix
+    ./lpac.nix
     ./man-db.nix
     ./mako.nix
     ./megapixels.nix
     ./megapixels-next.nix
     ./mepo.nix
+    ./mercurial
     ./mimeo
     ./mimetype.nix
     ./mmcli.nix
@@ -133,11 +140,13 @@
     ./nautilus.nix
     ./neovim
     ./networkmanager_dmenu
+    ./newelle.nix
     ./newsflash.nix
     ./nheko.nix
     ./nicotine-plus.nix
     ./nix-index.nix
     ./nix.nix
+    ./nixpkgs-review.nix
     ./nmcli.nix
     ./notejot.nix
     ./ntfy-sh.nix
@@ -149,17 +158,22 @@
     ./ols.nix
     ./open-in-mpv.nix
     ./pactl.nix
+    ./page.nix
     ./papers.nix
     ./pidof.nix
     ./pine64-alsa-ucm.nix
     ./pipewire
     ./pkill.nix
     ./planify.nix
-    ./portfolio-filemanager.nix
     ./playerctl.nix
+    ./portfolio-filemanager.nix
+    ./puyovs.nix
+    ./pwsp.nix
     ./qmk-udev-rules.nix
+    ./quadrapassel.nix
     ./radicale.nix
     ./readline.nix
+    ./resources.nix
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi
@@ -187,6 +201,8 @@
     ./sm64coopdx.nix
     ./sm64ex-coop.nix
     ./smartmontools.nix
+    ./socat.nix
+    ./sops.nix
     ./soundconverter.nix
     ./splatmoji.nix
     ./spot.nix
@@ -205,8 +221,10 @@
     ./switchboard.nix
     ./syshud.nix
     ./tangram.nix
+    ./tcpdump.nix
     ./tor-browser.nix
     ./tuba.nix
+    ./u-boot-pinephone-pro
     ./unl0kr
     ./uptime.nix
     ./v4l-utils.nix
@@ -225,9 +243,11 @@
     ./wvkbd.nix
     ./xarchiver.nix
     ./xdg-desktop-portal.nix
+    ./xdg-desktop-portal-cosmic.nix
     ./xdg-desktop-portal-gnome
     ./xdg-desktop-portal-gtk.nix
     ./xdg-desktop-portal-nautilus.nix
+    ./xdg-desktop-portal-phosh.nix
     ./xdg-desktop-portal-wlr.nix
     ./xdg-terminal-exec.nix
     ./xdg-utils.nix

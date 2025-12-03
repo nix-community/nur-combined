@@ -2,7 +2,7 @@
   bash,
   gopass-jsonapi,
   replaceVarsWith,
-  stdenv,
+  stdenvNoCC,
 }:
 let
   gopass-wrapper = replaceVarsWith {
@@ -13,7 +13,7 @@ let
     };
   };
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "gopass-native-messaging-host";
   version = "1.0";
   src = ./.;

@@ -7,20 +7,20 @@
   lib,
   nix-update-script,
   sqlite,
-  stdenv,
+  stdenvNoCC,
   writeShellApplication,
 }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "podcastindex-db";
-  version = "0-unstable-2025-06-02";
+  version = "0-unstable-2025-08-03";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "podcastindex-db-mirror";
-    rev = "8f075555fc56c57631dcac09bd47950497789373";
-    hash = "sha256-xapQrqNuy0XHCEc+UxO4FPu7Pq15zVZQpQzUEYHQlvM=";
+    rev = "745f921132cb70f703778864f6eea7be08781995";
+    hash = "sha256-10xZgByev1DkrPL+4A27Kr61VcQ1fJZ295dbfJSefws=";
   };
 
   dontBuild = true;

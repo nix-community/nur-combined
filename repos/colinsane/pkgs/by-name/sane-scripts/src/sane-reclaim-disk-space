@@ -5,20 +5,50 @@
 # some of this is documented here:
 # - <https://nixos.wiki/wiki/Storage_optimization>
 
-if [ "$(id -u)" -ne 0 ]; then
-  echo 'must be run as root!'
-fi
+set -eu
 
-set -xeu
+usage() {
+  echo "sane-reclaim-disk-space"
+  echo "  equivalent to:"
+  echo '  $ nix-env --profile /nix/var/nix/profiles/system --delete-generations 30d'
+  echo '  $ nix-collect-garbage --delete-older-than 30d'
+}
 
-# scan the store and hard-link identical files
-# nix-store --optimise
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+}
 
-nix-collect-garbage --delete-older-than 30d
+main() {
+  if [ "$(id -u)" -ne 0 ]; then
+    echo 'must be run as root!'
+  fi
 
-set +x
+  # scan the store and hard-link identical files
+  # nix-store --optimise
+  (
+    set -x;
+    nix-env --profile /nix/var/nix/profiles/system --delete-generations 30d;
+    nix-collect-garbage --delete-older-than 30d;
+  )
 
-echo 'to free more space (e.g. boot space), manually manage the profiles'
-echo '- nix-env --profile /nix/var/nix/profiles/system --list-generations'
-echo '- nix-env --profile /nix/var/nix/profiles/system --delete-generations {first..last}'
-echo '- sudo sane-reclaim-boot-space'
+  echo 'to free more space (e.g. boot space), manually manage the profiles'
+  echo '- nix-env --profile /nix/var/nix/profiles/system --list-generations'
+  echo '- nix-env --profile /nix/var/nix/profiles/system --delete-generations {first..last}'
+  echo '- sudo sane-reclaim-boot-space'
+}
+
+parseArgs "$@"
+main

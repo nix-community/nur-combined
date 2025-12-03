@@ -1,18 +1,20 @@
-{ buildUBoot, fetchurl }:
+# N.B.: this package will likely boot all of these Raspberry Pi variants:
+# - rpi 4
+# - rpi 400
+# - rpi cm4 (Compute Module 4)
+# all variants share the same BCM2711 chipset (4x Cortex-A72).
+# no other models use that chipset.
+#
+# this package is probably *not* enough to boot rpi on its own.
+# i believe the process is for a rpi-specific firmware file to be placed in /boot,
+# which then trampolines into u-boot (this package),
+# which then boots the NixOS kernel.
+{ buildUBoot }:
 
 (buildUBoot {
-  # nixos-22.05 is on 2022.01 at time of writing, which lacks rpi-4 dtb.
-  # TODO: remove this version/src override once upstream bumps u-boot version.
-  version = "2022.04";
-  src = fetchurl {
-    url = "ftp://ftp.denx.de/pub/u-boot/u-boot-2022.04.tar.bz2";
-    hash = "sha256-aOBlQTkmd44nbsOr0ouzL6gquqSmiY1XDB9I+9sIvNA=";
-  };
   defconfig = "rpi_4_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
   extraConfig = ''
-    # TODO: this can be removed in 2022.04
-    CONFIG_DEFAULT_DEVICE_TREE="bcm2711-rpi-4-b"
     # enable some builtin commands to aid in debugging, while we're here
     CONFIG_CMD_CONFIG=y
     CONFIG_CMD_EFIDEBUG=y
@@ -33,7 +35,7 @@
   '';
   extraPatches = [
     # enable booting from > 2 TiB drives
-    ./01-skip-lba-check.patch
+    # ./01-skip-lba-check.patch
     # ./03-verbose-log.patch
   ];
 })

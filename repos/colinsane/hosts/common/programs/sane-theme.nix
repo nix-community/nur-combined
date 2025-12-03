@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.sane-theme.config;
+  enabled = config.sane.programs.sane-theme.enabled;
   unsortedThemes = {
     # crude assortment of themes in nixpkgs; some might not be gtk themes, some gtk themes might not be in this list
     inherit (pkgs)
@@ -71,7 +72,6 @@ let
       oceanic-theme
       omni-gtk-theme
       onestepback
-      openzone-cursors
       orchis-theme
       orion
       palenight-theme
@@ -113,14 +113,61 @@ let
   };
 
   themes = with pkgs; {
+    background = {
+      sane-nixos-bg = sane-backgrounds;
+      nix-l-nord-red = nixos-pattern-nord-wallpapers;
+      # many other `nix-l-nord-*`, `nix-d-nord-*`
+    };
     color-scheme = {
       default = emptyDirectory;
       Dracula = dracula-theme;
       DraculaPurple = dracula-theme;
-      Dracula-cursors = dracula-theme;
     };
     cursor-theme = {
       Adwaita = adwaita-icon-theme;
+      Banana = banana-cursor;
+      Bibata-Modern-Classic = bibata-cursors;
+      # more Bibata cursors exist
+      Borealis-cursors = borealis-cursors;
+      BreezeX-RosePine-Linux = rose-pine-cursor;
+      BreezeX-RosePineDawn-Linux = rose-pine-cursor;
+      "Capitaine Cursors" = capitaine-cursors;
+      # more Capitaine cursors exist
+      ComixCursors-Black = comixcursors.black;
+      # more ComixCursors-* cursors exist
+      Dracula-cursors = dracula-theme;
+      everforest-cursors = everforest-cursors;
+      everforest-cursors-light = everforest-cursors;
+      Fuchsia = fuchsia-cursor;
+      GoogleDot-Black = google-cursor;
+      # more GoogleDot-* cursors exist
+      graphite-light = graphite-cursors;
+      # more graphite-* cursors exist
+      layan-cursors = layan-cursors;
+      Maple = maplestory-cursor;
+      NightDiamond-Blue = nightdiamond-cursors;
+      NightDiamond-Red = nightdiamond-cursors;
+      Nordzy-catppuccin-latte-light = nordzy-cursor-theme;
+      # more Nordzy-catppuccin-* cursors exist
+      OpenZone_Black = openzone-cursors;
+      # more OpenZone_* cursors exist
+      oreo_black_cursors = oreo-cursors-plus;
+      # more oreo_*_cursors exist
+      phinger-cursors-dark = phinger-cursors;
+      phinger-cursors-dark-left = phinger-cursors;
+      phinger-cursors-light = phinger-cursors;
+      phinger-cursors-light-left = phinger-cursors;
+      Plasma-Overdose = plasma-overdose-kde-theme;
+      Pokemon = pokemon-cursor;
+      Quintom_Ink = quintom-cursor-theme;
+      Quintom_Snow = quintom-cursor-theme;
+      Simp1e = simp1e-cursors;
+      Simp1e-Adw = simp1e-cursors;
+      # more Simp1e cursors exist
+      Sweet-cursors = sweet-nova;
+      WhiteSur-cursors = whitesur-cursors;
+      XCursor-Pro-Light = xcursor-pro;
+      # more XCursor-Pro cursors exist.
     };
     gtk-theme = {
       Adwaita = gnome-themes-extra;  # gtk-3.0
@@ -264,7 +311,6 @@ let
       Rodent = xfce.xfce4-icon-theme;
       Zafiro-icons-Dark = zafiro-icons;
       Zafiro-icons-Light = zafiro-icons;  # 5/5. 5/5 adwaita coverage
-
     };
   };
 in
@@ -279,9 +325,17 @@ in
             type = types.bool;
             description = "install all known gtk themes (for testing)";
           };
+          background = mkOption {
+            default = "nix-l-nord-red";
+            type = types.str;
+          };
           color-scheme = mkOption {
             default = "default";
             type = types.str;
+          };
+          cursor-size = mkOption {
+            default = 40;
+            type = types.int;
           };
           cursor-theme = mkOption {
             default = "Adwaita";
@@ -301,6 +355,7 @@ in
     packageUnwrapped = pkgs.symlinkJoin {
       name = "sane-theme";
       paths = [
+        themes.background."${cfg.background}"
         themes.color-scheme."${cfg.color-scheme}"
         themes.cursor-theme."${cfg.cursor-theme}"
         themes.gtk-theme."${cfg.gtk-theme}"
@@ -309,20 +364,13 @@ in
     };
     sandbox.enable = false;  #< no binaries
 
-    suggestedPrograms = [
-      "sane-backgrounds"
-    ];
-
     gsettings."org/gnome/desktop/interface" = {
       inherit (cfg) color-scheme cursor-theme gtk-theme icon-theme;
+      cursor-size = lib.gvariant.mkInt32 cfg.cursor-size;
     };
   };
 
-  sane.programs.sane-backgrounds = {
-    sandbox.enable = false;  #< no binaries
-  };
-
-  environment.pathsToLink = lib.mkIf config.sane.programs.sane-backgrounds.enabled [
+  environment.pathsToLink = lib.mkIf enabled [
     "/share/backgrounds"
   ];
 }

@@ -57,11 +57,27 @@ let
   # but i want these a little more normalized, which is possible either here, or
   # by assigning `boot.kernelPackages`.
   # elaborate = system: system;
-  elaborate = system: let
-    e = lib.systems.elaborate system;
+  elaborate = system: { static ? false }: let
+    abi = if static then "musl" else "gnu";
+    e = lib.systems.elaborate {
+      # N.B.: "static" can mean a few things:
+      # 1. binaries should be linked statically (stdenv.hostPlatform.isStatic == true).
+      # 2. host libc doesn't support dlopen (stdenv.hostPlatform.hasSharedLibraries == false).
+      #
+      # nixpkgs' `pkgsStatic` is the stricter meaning of "static": no `.so` files, period.
+      # this means plugin-heavy frameworks like `gobject-introspection` probably just cannot ever work (?).
+      # TODO: i'd _prefer_ to use the weaker kind of "static", and support all the traditional packages,
+      # but for now that actually results in fewer working packages (e.g. `xdg-dbus-proxy`).
+      system = "${system}-${abi}";
+      isStatic = static;
+      # hasSharedLibraries = true;
+    };
   in
-    {
-      inherit system;
+    e // {
+      extensions = e.extensions // {
+        # when `hasSharedLibraries` == false, need to explicitly set this here to fix eval of many packages. this is not a long-term fix.
+        sharedLibrary = ".so";
+      };
       linux-kernel = {
         inherit (e.linux-kernel) name baseConfig target;
       } // (lib.optionalAttrs (e.linux-kernel ? DTB) { inherit (e.linux-kernel) DTB; }) // {
@@ -86,21 +102,24 @@ let
   hosts = builtins.foldl'
     # XXX: i `elaborate` localSystem the same as i do `system` because otherwise nixpkgs
     # sees they're (slightly) different and forces everything down the (expensive) cross-compilation path.
-    (acc: host: acc // mkHost ({ localSystem = elaborate localSystem; } // host))
+    (acc: host: acc // mkHost ({ localSystem = elaborate localSystem {}; } // host))
     {}
     [
       # real hosts:
       # { name = "crappy"; system = "armv7l-linux";  }
-      { name = "desko";  system = elaborate "x86_64-linux";  }
-      { name = "flowy";  system = elaborate "x86_64-linux";  }
-      { name = "lappy";  system = elaborate "x86_64-linux";  }
-      { name = "moby";   system = elaborate "aarch64-linux"; }
-      { name = "servo";  system = elaborate "x86_64-linux";  }
+      { name = "cadey";  system = elaborate "x86_64-linux" {};  }
+      { name = "desko";  system = elaborate "x86_64-linux" {};  }
+      { name = "flowy";  system = elaborate "x86_64-linux" {};  }
+      { name = "lappy";  system = elaborate "x86_64-linux" {};  }
+      { name = "moby";   system = elaborate "aarch64-linux" {}; }
+      { name = "servo";  system = elaborate "x86_64-linux" {};  }
 
-      { name = "rescue"; system = elaborate "x86_64-linux";  }
+      { name = "rescue"; system = elaborate "x86_64-linux" {};  }
       # pseudo hosts used for debugging
-      { name = "baseline-x86_64";  system = elaborate "x86_64-linux";  }
-      { name = "baseline-aarch64";  system = elaborate "aarch64-linux";  }
+      { name = "baseline-x86_64";  system = elaborate "x86_64-linux" {};  }
+      { name = "baseline-aarch64";  system = elaborate "aarch64-linux" {};  }
+      { name = "static-x86_64";  system = elaborate "x86_64-linux" { static = true; }; }
+      { name = "static-aarch64";  system = elaborate "aarch64-linux" { static = true; };  }
     ];
 
   # subAttrNames :: AttrSet -> [ String ]

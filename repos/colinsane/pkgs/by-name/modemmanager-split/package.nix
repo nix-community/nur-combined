@@ -1,7 +1,8 @@
-{ deepLinkIntoOwnPackage
-, modemmanager
+{
+  deepLinkIntoOwnPackage,
+  modemmanager,
 }:
-(deepLinkIntoOwnPackage modemmanager).overrideAttrs (base: {
+(deepLinkIntoOwnPackage modemmanager {}).overrideAttrs (base: {
   outputs = [ "out" "daemon" "mmcli" ];
   postFixup = ''
     moveToOutput "" "$daemon"

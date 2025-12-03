@@ -184,6 +184,7 @@ in
     enableACME = true;
     locations."/media" = {
       proxyPass = "http://127.0.0.1:11111";
+      recommendedProxySettings = true;
     };
   };
 

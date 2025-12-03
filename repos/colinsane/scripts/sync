@@ -1,173 +1,275 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p rsync -p sane-scripts.sync-from-iphone -p sane-scripts.sync-music
+#!nix-shell -i ysh -p oils-for-unix -p rsync -p sane-scripts.sync-from-iphone -p sane-scripts.sync-music
 
-usage() {
-  echo "sync [flags ...] [<host> [<host> ...]] [passthrough flags ...]"
+# mutated by `main`
+var DRY_RUN = false
+var VERBOSITY = 0
+
+proc usage {
+  echo "sync [--dry-run --verbose] [<host|target> [<host|target> ...]] [passthrough flags ...]"
   echo "where:"
-  echo "  host: all|desko|lappy|moby"
+  echo "  host: all|desko|flowy|moby"
   echo "  - defaults to 'all' if omitted"
+  echo "  target: pkm|music|books|photos"
+  echo "  - defaults to all if omitted"
+  echo ""
+  echo "ENVIRONMENT VARIABLES:"
+  echo "- SYNC_DEBUG=$VERBOSITY"
+}
+
+func verboseFlag(flags = null) {
+  if (flags === null) {
+    setvar flags = ["--verbose"]
+  }
+
+  if (VERBOSITY >= 1) {
+    return (flags)
+  } else {
+    return ([])
+  }
+}
+
+func verboseRsyncFlag() {
+  return (verboseFlag(["--verbose", "--progress"]))
+}
+
+proc debug (...plain) {
+  if (VERBOSITY >= 1) {
+    echo "[debg]" @plain
+  }
+}
+
+proc verbose (...plain) {
+  if (VERBOSITY >= 2) {
+    echo "[verb]" @plain
+  }
+}
+
+proc effect (...args) {
+  if (DRY_RUN) {
+    echo "[dry ]" @args
+  } else {
+    verbose @args
+    @args
+  }
+}
+
+proc die (...msg) {
+  echo "[fatal]" @msg
   exit 1
 }
 
-debug() {
-  if [ -n "$SYNC_DEBUG" ]; then
-    echo "$@"
-  fi
-}
-
-ifExists() {
-  local path="$1"
-  shift
-  local cmd="$@"
-  if test -d "$path"; then
-    debug "${cmd[@]}"
-    ${cmd[@]}
-  else
+proc ifExists (path, ...cmd) {
+  verbose "ifExists $path ..."
+  if test -d "$path" {
+    debug @cmd
+    @cmd
+  } else {
     debug "skipping action because $path doesn't exist"
-  fi
+  }
 }
 
-homeMountFor() {
-  local want=$1
-  local me=$(hostname)
-  if [ "$want" = "$me" ]; then
-    echo "$HOME"
-  else
-    echo "/mnt/$want/home"
-  fi
+func homeMountFor (want) {
+  var me = $(hostname)
+  if (want === me) {
+    return (ENV.HOME)
+  } else {
+    return ("/mnt/$want/home")
+  }
 }
 
-sync_pkm() {
-  local host=$1
-  local me=$(hostname)
-  if [ "$host" != "$me" ]; then
-    ssh "$host" "set -eux; remote=$me; "'cd ~/knowledge; old=$(git rev-parse --abbrev-ref HEAD); [ "$old" = master ]; st=$(git stash create); git reset --hard HEAD; git branch -D sync || true; git checkout -b sync; git fetch $remote master && git rebase $remote/master && (if [ -n "$st" ]; then git stash apply "$st"; fi) && git branch --move --force master || (git --reset-hard HEAD; git checkout "$old"; (if [ -n "$st" ]; then git stash apply "$st"; fi); false)'
-  fi
+proc sync_pkm (; host, passthruArgs) {
+  var me = $(hostname)
+  if (host !== me) {
+    ssh "$host" """\
+      # source profile to fix XDG_RUNTIME_DIR, necessary for ssh-agent to not break
+      source ~/.profile \
+      set -eux; \
+      remote=$me; \
+      cd ~/knowledge; \
+      old=\$(git rev-parse --abbrev-ref HEAD); \
+      [ "\$old" = master ]; \
+      st=\$(git stash create); \
+      git reset --hard HEAD; \
+      git branch -D sync || true; \
+      git checkout -b sync; \
+      git fetch \$remote master && git rebase \$remote/master && ( \
+        if [ -n "\$st" ]; then \
+          git stash apply "\$st"; \
+        fi \
+      ) && git branch --move --force master || ( \
+        git reset --hard HEAD; \
+        git checkout "\$old"; \
+        (if [ -n "\$st" ]; then git stash apply "\$st"; fi); \
+        false \
+      ) \
+    """
+  }
 }
 
-sync_music() {
-  local host=$1
-  shift
-  local deskoHome=$(homeMountFor desko)
-  local flowyHome=$(homeMountFor flowy)
-  local lappyHome=$(homeMountFor lappy)
-  local mobyHome=$(homeMountFor moby)
-  case $host in
-    (desko)
+proc sync_music (; host, passthruArgs) {
+  var deskoHome = homeMountFor ("desko")
+  var flowyHome = homeMountFor ("flowy")
+  var mobyHome = homeMountFor ("moby")
+
+  var verb = verboseFlag ()
+
+  case (host) {
+    "desko" {
       ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compat /mnt/servo/media/Music "$deskoHome/Music" "$@"
-      ;;
-    (flowy)
+        effect sane-sync-music @verb --compat /mnt/servo/media/Music "$deskoHome/Music" @passthruArgs
+    }
+    "flowy" {
       ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compat /mnt/servo/media/Music "$flowyHome/Music" "${syncFlags[@]}"
-      ;;
-    (lappy)
+        effect sane-sync-music @verb --compat /mnt/servo/media/Music "$flowyHome/Music" @passthruArgs
+    }
+    "moby" {
       ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compress --compat /mnt/servo/media/Music "$lappyHome/Music" "${syncFlags[@]}"
-      ;;
-    (moby)
-      ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compat /mnt/servo/media/Music "$mobyHome/Music" "${syncFlags[@]}"
-      ;;
-    (*)
-      ;;
-  esac
+        effect sane-sync-music @verb --compat /mnt/servo/media/Music "$mobyHome/Music" @passthruArgs
+    }
+    (else) {
+      die "unknown host $host"
+    }
+  }
 }
 
-sync_books() {
-  local host="$1"
-  local deskoHome=$(homeMountFor desko)
-  local lappyHome=$(homeMountFor lappy)
-  local flowyHome=$(homeMountFor flowy)
-  local mobyHome=$(homeMountFor moby)
-  case $host in
-    (moby)
+proc sync_books (; host, passthruArgs) {
+  var deskoHome = homeMountFor ("desko")
+  var flowyHome = homeMountFor ("flowy")
+  var mobyHome = homeMountFor ("moby")
+
+  var verb = verboseRsyncFlag ()
+
+  case (host) {
+    "moby" {
       ifExists /mnt/servo/media/Books/Audiobooks \
-        rsync -arv --delete /mnt/servo/media/Books/Audiobooks/ "$mobyHome/Books/Audiobooks/"
+        effect rsync @verb -ar --delete /mnt/servo/media/Books/Audiobooks/ "$mobyHome/Books/Audiobooks/"
       # copy books from servo to moby; delete old/untracked ones, but keep KOreader state files (sdr)
       ifExists /mnt/servo/media/Books/Books \
-        rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Books/"
+        effect rsync @verb -ar --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Books/"
       ifExists /mnt/servo/media/Books/Visual \
-        rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Visual/ "$mobyHome/Books/Visual/"
-      ;;
-    (*)
-      ;;
-  esac
+        effect rsync @verb -ar --delete --exclude '*.sdr' /mnt/servo/media/Books/Visual/ "$mobyHome/Books/Visual/"
+    }
+    "desko" | "flowy" {
+      debug "noop"
+    }
+    (else) {
+      die "unknown host $host"
+    }
+  }
 }
 
-sync_photos() {
-  local host=$1
-  local deskoHome=$(homeMountFor desko)
-  local lappyHome=$(homeMountFor lappy)
-  local flowyHome=$(homeMountFor flowy)
-  local mobyHome=$(homeMountFor moby)
-  case $host in
-    (desko)
-      sane-sync-from-iphone
-      ;;
-    (moby)
+proc sync_photos (; host, passthruArgs) {
+  var deskoHome = homeMountFor ("desko")
+  var flowyHome = homeMountFor ("flowy")
+  var mobyHome = homeMountFor ("moby")
+
+  var verb = verboseRsyncFlag ()
+
+  case (host) {
+    "desko" {
+      sane-sync-from-iphone @commonArgs
+    }
+    "flowy" {
+      debug "noop"
+    }
+    "moby" {
       # copy photos/screenshots from moby to desko:
-      rsync -arv --exclude servo-macros "$mobyHome/Pictures/" "$deskoHome/Pictures/from/moby/"
-      ;;
-    (*)
-      ;;
-  esac
+      effect rsync @verb -ar --exclude servo-macros "$mobyHome/Pictures/" "$deskoHome/Pictures/from/moby/"
+    }
+    (else) {
+      die "unknown host $host"
+    }
+  }
 }
 
-hosts=()
-targets=()
-passthruArgs=()
-parseArgs() {
-  while [[ $# -ge 1 ]]; do
-    local arg=$1
-    case $arg in
-      (desko|flowy|lappy|moby)
-        hosts+=("$arg")
-        shift
-        ;;
-      (all)
-        hosts+=(desko flowy lappy moby)
-        shift
-        ;;
-      (pkm|music|books|photos)
-        targets+=("$arg")
-        shift
-        ;;
-      (--verbose)
-        if [[ "${#hosts[@]}" -eq 0 ]]; then
-          SYNC_DEBUG=1
-          shift
-        else
-          # it's a passthru flag
-          break
-        fi
-        ;;
-      (--help)
-        usage
-        shift
-        ;;
-      (*)
-        break
-        ;;
-    esac
-  done
-
-  passthruArgs+=("$@")
-
-  if [[ ${#hosts[@]} -eq 0 ]]; then
-    hosts+=(desko flowy lappy moby)
-  fi
-
-  if [[ ${#targets[@]} -eq 0 ]]; then
-    targets+=(pkm music photos books)
-  fi
+proc sync (; what, host, passthruArgs) {
+  debug "sync $what -> $host"
+  try {
+    case (what) {
+      "books" {
+        sync_books (host, passthruArgs)
+      }
+      "photos" {
+        sync_photos (host, passthruArgs)
+      }
+      "pkm" {
+        sync_pkm (host, passthruArgs)
+      }
+      "music" {
+        sync_music (host, passthruArgs)
+      }
+      (else) {
+        die "unknown sync target: $what"
+      }
+    }
+  }
+  if failed {
+    echo "FAILED TO SYNC $what -> $host"
+  }
 }
 
-parseArgs "$@"
-debug "hosts:" "${hosts[@]}"
-debug "targets:" "${targets[@]}"
-for target in "${targets[@]}"; do
-  for host in "${hosts[@]}"; do
-    sync_"$target" "$host" "${passthruArgs[@]}"
-  done
-done
+var hosts = []
+var targets = []
+var passthruArgs = []
+proc parseArgs (...args) {
+  for arg in (args) {
+    if (passthruArgs !== []) {
+      call passthruArgs->append(arg)
+    } else {
+      case (arg) {
+        "desko" | "flowy" | "moby" {
+          call hosts->append (arg)
+        }
+        "all" {
+          call hosts->extend ([desko, flowy, moby])
+        }
+        "pkm" | "music" | "books" | "photos" {
+          call targets->append (arg)
+        }
+        "--dry-run" {
+          setglobal DRY_RUN = true
+        }
+        "-h" | "--help" {
+          usage
+          exit 0
+        }
+        "-v" | "--verbose" {
+          setglobal VERBOSITY += 1
+        }
+        (else) {
+          call passthruArgs->append(arg)
+        }
+      }
+    }
+  }
+
+  var env_verbosity = get(ENV, "SYNC_DEBUG")
+  if (env_verbosity !== null) {
+    try {
+      setglobal VERBOSITY = int(env_verbosity)
+    }
+    if failed {
+      if (env_verbosity !== "") {
+        setglobal VERBOSITY += 1
+      }
+    }
+  }
+
+  if (hosts === []) {
+    call hosts->extend(["desko", "flowy", "moby"])
+  }
+
+  if (targets === []) {
+    call targets->extend(["pkm", "music", "photos", "books"])
+  }
+}
+
+parseArgs @ARGV
+debug "hosts:" @hosts
+debug "targets:" @targets
+for target in (targets) {
+  for host in (hosts) {
+    sync (target, host, passthruArgs)
+  }
+}

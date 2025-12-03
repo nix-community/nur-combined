@@ -1,10 +1,3 @@
-# XXX(2024-11-26): nixpkgs' signal-desktop has bugs on wayland:
-# - it won't open a UI (though it *does* on Xwayland)
-# - it may hang on exit (?), characterized by these log messages:
-#     Dec 03 13:46:23 moby signal-desktop[4097]: [4097:1203/134623.906367:ERROR:ozone_platform_x11.cc(240)] Missing X server or $DISPLAY
-#     Dec 03 13:46:23 moby signal-desktop[4097]: [4097:1203/134623.909667:ERROR:env.cc(255)] The platform failed to initialize.  Exiting.
-#
-# TODO(2024-12-16): electron writes 60+MB to /tmp (`.org.chromium.Chromium.*`): consider persisting Signal's tmpdir to ephemeral storage
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.signal-desktop;
@@ -21,21 +14,19 @@ in
       };
     };
 
-    # optionally, build this *mostly* from source (deps remain vendored), to allow e.g. for patching.
-    packageUnwrapped = pkgs.signal-desktop-from-src;
+    packageUnwrapped = pkgs.signal-desktop.overrideAttrs (upstream: {
+      # fix to use wayland instead of Xwayland:
+      # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
+      # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
+      # alternatively, set env var: `ELECTRON_OZONE_PLATFORM_HINT=wayland` and ignore all of this
+      installPhase = lib.replaceStrings
+        [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
+        [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
+        upstream.installPhase
+      ;
+    });
 
-    # or use the binary version:
-    # packageUnwrapped = pkgs.signal-desktop.overrideAttrs (upstream: {
-    #   # fix to use wayland instead of Xwayland:
-    #   # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
-    #   # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
-    #   # alternatively, set env var: `ELECTRON_OZONE_PLATFORM_HINT=wayland` and ignore all of this
-    #   preFixup = lib.replaceStrings
-    #     [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
-    #     [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
-    #     upstream.preFixup
-    #   ;
-    # });
+    sandbox.wrapperType = "inplace";  #< share/signal-desktop/app.asar refers to its out outpath
 
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
@@ -44,6 +35,7 @@ in
       # "FileChooser"  #< does not use file chooser
       "OpenURI"
     ];
+    sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"
@@ -66,6 +58,8 @@ in
     ];
 
     buildCost = 1;
+
+    mime.urlAssociations."^https://signal.me/#.+$" = "signal.desktop";  #< not sure the exact format of invite links.
 
     services.signal-desktop = {
       description = "signal-desktop Signal Messenger client";

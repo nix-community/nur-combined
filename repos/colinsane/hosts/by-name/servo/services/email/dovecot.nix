@@ -143,5 +143,5 @@
     '';
   };
 
-  systemd.services.dovecot2.serviceConfig.RestartSec = lib.mkForce "15s";  # nixos defaults this to 1s
+  systemd.services.dovecot.serviceConfig.RestartSec = lib.mkForce "15s";  # nixos defaults this to 1s
 }

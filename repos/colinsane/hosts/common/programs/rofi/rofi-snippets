@@ -1,14 +1,42 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p gnused -p rofi-wayland -p wtype
+#!nix-shell -i bash -p bash -p gnused -p rofi -p wtype
 
 # "bookmarking"/snippets inspired by Luke Smith:
 # - <https://www.youtube.com/watch?v=d_11QaTlf1I>
 
-# rofi flags (see: `man rofi-dmenu`):
-# `-i`: case insensitive filtering
-# `-sync -ellipsize-mode middle`: for lengthy entries, replace the *middle* with an ellipsis instead of the end
-#   requires rofi 1.7.6, and `-sync`, wich must come *before* the `-dmenu` flag
-cat ~/.config/rofi-snippets/public.txt ~/.config/rofi-snippets/private.txt | \
-  rofi -sync -ellipsize-mode middle -dmenu -i | \
-  sed -z -e 's/  *#.*$//' -e 's/\n$//' | \
-  wtype -
+usage() {
+  echo "rofi-snippets:"
+  echo "  launch a rofi graphical menu to choose from several preset snippets/bookmarks."
+  echo "  the selected snippet is then sent to the active window as if typed by the user."
+}
+
+parseArgs() {
+  while [ $# -ne 0 ]; do
+    local arg="$1"
+    shift
+    case "$arg" in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+main() {
+  # rofi flags (see: `man rofi-dmenu`):
+  # `-i`: case insensitive filtering
+  # `-sync -ellipsize-mode middle`: for lengthy entries, replace the *middle* with an ellipsis instead of the end
+  #   requires rofi 1.7.6, and `-sync`, wich must come *before* the `-dmenu` flag
+  cat ~/.config/rofi-snippets/public.txt ~/.config/rofi-snippets/private.txt | \
+    rofi -sync -ellipsize-mode middle -dmenu -i | \
+    sed -z -e 's/  *#.*$//' -e 's/\n$//' | \
+    wtype -
+}
+
+parseArgs "$@"
+main

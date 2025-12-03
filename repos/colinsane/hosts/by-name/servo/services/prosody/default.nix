@@ -41,6 +41,10 @@
 #     - maybe i need to setup stun/turn
 #
 # TODO:
+# - MIGRATE TO NIXOS MODULE OPTIONS:
+#   - `services.prosody.ssl.`...
+#   - `services.prosody.log`
+#   - this decreases likelihood of breakage during future upgrades
 # - enable push notifications (mod_cloud_notify)
 # - optimize coturn (e.g. move off of the VPN!)
 # - ensure muc is working
@@ -173,7 +177,7 @@ in
         domain = "conference.xmpp.uninsane.org";
       }
     ];
-    uploadHttp.domain = "upload.xmpp.uninsane.org";
+    httpFileShare.domain = "upload.xmpp.uninsane.org";
 
     virtualHosts = {
       # "Prosody requires at least one enabled VirtualHost to function. You can
@@ -245,11 +249,11 @@ in
 
     extraConfig = ''
       local function readAll(file)
-        local f = assert(io.open(file, "rb"))
+        local f = Lua.assert(Lua.io.open(file, "rb"))
         local content = f:read("*all")
         f:close()
         -- remove trailing newline
-        return string.gsub(content, "%s+", "")
+        return Lua.string.gsub(content, "%s+", "")
       end
 
       -- logging docs:
@@ -261,9 +265,11 @@ in
       }
 
       -- see: <https://prosody.im/doc/certificates#automatic_location>
-      -- try to solve: "certmanager: Error indexing certificate directory /etc/prosody/certs: cannot open /etc/prosody/certs: No such file or directory"
+      -- try to solve: "certmanager: Error indexing certificate directory /run/prosody/certs: cannot open /run/prosody/certs: No such file or directory"
       -- only, this doesn't work because prosody doesn't like acme's naming scheme
-      -- certificates = "/var/lib/acme"
+      -- certificates = "/var/lib/acme/uninsane.org"
+      -- instead, point to /etc/prosody/certs and configure symlinks into this dir (see nix config)
+      certificates = "/etc/prosody/certs"
 
       c2s_direct_tls_ports = { 5223 }
       s2s_direct_tls_ports = { 5270 }
@@ -282,6 +288,7 @@ in
       ntfy_binary = "${lib.getExe' pkgs.ntfy-sh "ntfy"}"
       ntfy_topic = readAll("/run/secrets/ntfy-sh-topic")
     '';
+    checkConfig = false;  # secrets aren't available at build time
   };
 
   systemd.services.prosody = {

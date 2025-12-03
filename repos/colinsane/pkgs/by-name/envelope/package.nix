@@ -9,9 +9,11 @@
   libsoup_3,
   meson,
   ninja,
+  nix-update-script,
   openssl,
   pkg-config,
   python3,
+  rust,
   rustPlatform,
   rustc,
   stdenv,
@@ -19,20 +21,21 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "envelope";
-  version = "0.1.0-unstable-2024-09-13";
+  version = "0.1.0-unstable-2025-05-17";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "felinira";
     repo = "envelope";
-    rev = "11ce86da13793787a25e48ca23322b33fcf8bf34";  # last commit before libadwaita 1.6
-    hash = "sha256-EX309RhisBx27TscMsibEvqCSCUSukTgf4Xs1Vws4YY=";
+    rev = "e2a8a56aa9b68d82486b99790b86322715d2a6db";
+    hash = "sha256-osVShCaKKoGhxWCjaYcMkOji8e0oETgDaDpCAfHauwQ=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (finalAttrs) pname version src;
+    hash = "sha256-8pK8cw9nYJmmybYRL+PUCK8FvUUPbyFp7oYYF461KPc=";
   };
 
   nativeBuildInputs = [
@@ -58,9 +61,20 @@ stdenv.mkDerivation {
 
   postPatch = ''
     patchShebangs --build build-aux/meson-cargo-manifest.py
-    # versions prior to c3f5ed4f (2024-10-13) didn't embed Cargo.lock
-    cp ${./Cargo.lock} Cargo.lock
+
+    substituteInPlace src/meson.build \
+      --replace-fail \
+        "'src' / rust_target / meson.project_name()" \
+        "'src' / '${stdenv.hostPlatform.rust.cargoShortTarget}' / rust_target / meson.project_name()"
   '';
+
+  env."CC_${stdenv.buildPlatform.rust.rustcTarget}" = rust.envVars.ccForBuild;  #< fixes cross build of sql-macros proc-macro
+  env.CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
+  env.OPENSSL_NO_VENDOR = true;  #< speculative, to use the nixos openssl
+  env.RUSTC_BOOTSTRAP = 1;  #< fixes 'error[E0554]: `#![feature]` may not be used on the stable release channel'
+  # env.LIBSQLITE3_SYS_USE_PKG_CONFIG = 1;  #< TODO: use nixos libsqlite instead of pre-packaged one
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "a mobile-first email client for the GNOME ecosystem";
@@ -70,4 +84,4 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     mainProgram = "envelope";
   };
-}
+})

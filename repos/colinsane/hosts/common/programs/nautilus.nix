@@ -36,7 +36,8 @@
     sandbox.extraPaths = [
       "/boot"
       "/mnt/desko"
-      "/mnt/lappy"
+      "/mnt/flowy"
+      # "/mnt/lappy"
       "/mnt/moby"
       "/mnt/servo"
       # "nix"

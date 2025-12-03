@@ -4,7 +4,7 @@
 {
   directoryListingUpdater,
   fetchurl,
-  stdenv,
+  stdenvNoCC,
 }:
 {
   pname,
@@ -16,7 +16,7 @@ let
   tail = "${pname}_${version}.zim";
   prefix = if owner != null then "${owner}/" else "";
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   inherit pname version;
 
   src = fetchurl {

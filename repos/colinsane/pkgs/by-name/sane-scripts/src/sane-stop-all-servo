@@ -1,62 +1,91 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p systemd
-systemctl stop \
-  bitcoind-mainnet \
-  coturn \
-  dovecot2 \
-  duplicity \
-  duplicity.timer \
-  dyn-dns \
-  dyn-dns.timer \
-  ejabberd \
-  gitea \
-  goaccess \
-  hickory-dns-doof \
-  hickory-dns-hn \
-  hickory-dns-hn-resolver \
-  hickory-dns-lan \
-  hickory-dns-wan \
-  i2p \
-  jackett \
-  jellyfin \
-  kiwix-serve \
-  komga \
-  lemmy \
-  lemmy-ui \
-  matrix-appservice-irc\
-  matrix-synapse \
-  mautrix-signal \
-  monero \
-  murmur \
-  mx-puppet-discord \
-  navidrome \
-  nginx \
-  nix-serve \
-  ntfy-sh \
-  opendkin \
-  phpfpm-freshrss \
-  pict-rs \
-  pleroma \
-  postfix \
-  postgresql \
-  prosody \
-  sftpgo \
-  signald \
-  slskd \
-  smartd \
-  systemctl \
-  tor \
-  transmission \
-  wireguard-wg-ovpns \
-  ntfy-waiter-0 \
-  ntfy-waiter-1 \
-  ntfy-waiter-2 \
-  ntfy-waiter-3 \
-  ntfy-waiter-4 \
-  ntfy-waiter-5 \
-  ntfy-waiter-6 \
-  ntfy-waiter-7 \
-  ntfy-waiter-8 \
-  ntfy-waiter-9 \
+#!nix-shell -i ysh -p oils-for-unix -p systemd
 
-# TODO: stop the freshrss timer
+proc usage {
+  echo "sane-stop-all-servo:"
+  echo "  stop all non-critical services"
+  echo "  this is especially useful to get the system into a low-activity state for debugging"
+}
+
+func parseArgs(args) {
+  for arg in (ARGV) {
+    case (arg) {
+      ("--help") {
+        usage
+        exit 0
+      }
+      (else) {
+        usage
+        exit 1
+      }
+    }
+  }
+}
+
+proc main {
+  systemctl stop \
+    bitcoind-mainnet \
+    coturn \
+    dovecot \
+    duplicity \
+    duplicity.timer \
+    dyn-dns \
+    dyn-dns.timer \
+    ejabberd \
+    gitea \
+    goaccess \
+    hickory-dns-doof \
+    hickory-dns-hn \
+    hickory-dns-hn-resolver \
+    hickory-dns-lan \
+    hickory-dns-wan \
+    i2p \
+    jackett \
+    jellyfin \
+    kiwix-serve \
+    komga \
+    lemmy \
+    lemmy-ui \
+    matrix-appservice-irc\
+    matrix-synapse \
+    mautrix-signal \
+    monero \
+    murmur \
+    mx-puppet-discord \
+    navidrome \
+    nginx \
+    nix-serve \
+    ntfy-sh \
+    opendkin \
+    phpfpm-freshrss \
+    pict-rs \
+    pleroma \
+    postfix \
+    postgresql \
+    prosody \
+    sftpgo \
+    signald \
+    slskd \
+    smartd \
+    systemctl \
+    tor \
+    transmission \
+    wireguard-wg-ovpns \
+    ntfy-waiter-0 \
+    ntfy-waiter-1 \
+    ntfy-waiter-2 \
+    ntfy-waiter-3 \
+    ntfy-waiter-4 \
+    ntfy-waiter-5 \
+    ntfy-waiter-6 \
+    ntfy-waiter-7 \
+    ntfy-waiter-8 \
+    ntfy-waiter-9 \
+
+  # TODO: stop the freshrss timer
+}
+
+if is-main {
+  call parseArgs(ARGV)
+  main
+}

@@ -33,6 +33,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-ALoxT+RLL4omJ7quWDJVdXgevaO8i8q/29FFFudIRV4=";
   };
 
+  postPatch = ''
+    substituteInPlace src/meson.build --replace-fail \
+      "'target' / rust_target / meson.project_name()" \
+      "'target' / '${stdenv.hostPlatform.rust.cargoShortTarget}' / rust_target / meson.project_name()"
+  '';
+
   nativeBuildInputs = [
     cargo
     desktop-file-utils
@@ -48,6 +54,8 @@ stdenv.mkDerivation rec {
     libadwaita
     openssl
   ];
+
+  env.CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";

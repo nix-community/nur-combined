@@ -4,10 +4,10 @@
   libpulseaudio,
   pulseaudio,
   python3,
-  stdenv,
+  stdenvNoCC,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pa-dlna";
   version = "0.7";
   format = "pyproject";
@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitLab {
     owner = "xdegaye";
     repo = "pa-dlna";
-    rev = "v${finalAttrs.version}";
+    rev = "${finalAttrs.version}";
     hash = "sha256-tc3AjxTMeLH82d8R95xsqLeAH1t/orW7c9DGjBwDWaU=";
   };
 

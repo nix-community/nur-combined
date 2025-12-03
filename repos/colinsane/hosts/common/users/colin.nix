@@ -19,6 +19,7 @@
       "export"  # to read filesystem exports (servo)
       "feedbackd"  # moby, so `fbcli` can control vibrator and LEDs
       "input"  # for /dev/input/<xyz>... TODO:is this still necessary?
+      "kvm"  # for qemu; /dev/kvm
       "media"  # servo
       "named"  # for `sane-vpn {up,down}`
       "networkmanager"

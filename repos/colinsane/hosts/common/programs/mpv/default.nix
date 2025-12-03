@@ -42,13 +42,13 @@
 let
   cfg = config.sane.programs.mpv;
   uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: rec {
-    version = "5.2.0-unstable-2024-05-07";
-    src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
-      owner = "tomasklaen";
-      repo = "uosc";
-      rev = "2940352fade2c4f7bf68b1ef8381bef83058f9f7";
-      hash = "sha256-tQq6ycxHXhTYSRBIz73o5VlKRBCoJ5yu59AdZik5Oos=";
-    };
+    # version = "5.2.0-unstable-2024-05-07";
+    # src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
+    #   owner = "tomasklaen";
+    #   repo = "uosc";
+    #   rev = "2940352fade2c4f7bf68b1ef8381bef83058f9f7";
+    #   hash = "sha256-tQq6ycxHXhTYSRBIz73o5VlKRBCoJ5yu59AdZik5Oos=";
+    # };
     # src = pkgs.fetchFromGitea {
     #   domain = "git.uninsane.org";
     #   owner = "colin";
@@ -57,11 +57,11 @@ let
     #   hash = "sha256-lpqk4nnCxDZr/Y7/seM4VyR30fVrDAT4VP7C8n88lvA=";
     # };
 
-    tools = pkgs.buildGoModule {
-      pname = "uosc-bin";
-      inherit version src;
-      vendorHash = "sha256-nkY0z2GiDxfNs98dpe+wZNI3dAXcuHaD/nHiZ2XnZ1Y=";
-    };
+    # tools = pkgs.buildGoModule {
+    #   pname = "uosc-bin";
+    #   inherit version src;
+    #   vendorHash = "sha256-nkY0z2GiDxfNs98dpe+wZNI3dAXcuHaD/nHiZ2XnZ1Y=";
+    # };
 
     postPatch = (upstream.postPatch or "") + ''
       ### patch so touch controls work well with sway 1.9+
@@ -83,9 +83,9 @@ let
       # 3. explicitly fire a cursor:leave on touch release, so that all zones are deactivated (and control visibility goes back to default state)
       substituteInPlace src/uosc/lib/cursor.lua \
         --replace-fail \
-          "cursor:create_handler('primary_up')" \
-          "function(...)
-             cursor:trigger('primary_up', ...)
+          "cursor:create_handler('primary_up', create_shortcut('primary_up', mods))" \
+          "function()
+             cursor:trigger('primary_up', create_shortcut('primary_up', mods))
              if not cursor.hover_raw then
                cursor:leave()
              end
@@ -95,8 +95,8 @@ let
       substituteInPlace src/uosc/lib/cursor.lua \
         --replace-fail \
           "cursor:move(mouse.x, mouse.y)" \
-          "local last_down = cursor.last_event['primary_down'] or { time = 0 }
-           local last_up = cursor.last_event['primary_up'] or { time = 0 }
+          "local last_down = cursor.last_events['primary_down'] or { time = 0 }
+           local last_up = cursor.last_events['primary_up'] or { time = 0 }
            if cursor.hover_raw or last_down.time >= last_up.time then cursor:move(mouse.x, mouse.y) end"
 
       ### patch so that uosc volume control is routed to sane_sysvol.
@@ -128,8 +128,16 @@ let
       # tweak the top-bar "maximize" button to actually act as a "fullscreen" button.
       substituteInPlace src/uosc/elements/TopBar.lua \
         --replace-fail \
-          'get_maximized_command,' \
-          '"cycle fullscreen",'
+          'set fullscreen no;set window-maximized no' \
+          'set fullscreen no'
+      substituteInPlace src/uosc/elements/TopBar.lua \
+        --replace-fail \
+          'set window-maximized yes' \
+          'set fullscreen yes'
+      # substituteInPlace src/uosc/elements/TopBar.lua \
+      #   --replace-fail \
+      #     'get_maximized_command,' \
+      #     '"cycle fullscreen",'
     '';
   });
   # visualizer = pkgs.mpvScripts.visualizer.overrideAttrs (upstream: {
@@ -152,8 +160,9 @@ in
             type = types.enum [ "high-quality" "mid-range" "fast" ];
             default = "mid-range";
             description = ''
-              default mpv profile to use.
-              this affects options such as the default youtube stream settings.
+              default mpv profile to use. this effects defaults such as:
+              - youtube stream settings.
+              - demuxer read-ahead (i.e. how much of the file/stream to read into RAM).
               see my `mpv.conf` for details
             '';
           };

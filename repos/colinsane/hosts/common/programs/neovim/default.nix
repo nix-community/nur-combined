@@ -1,8 +1,9 @@
 # useful vim config references:
 # - <repo:nix-community/nur-combined:repos/ambroisie/modules/home/vim>
-moduleArgs@{ lib, pkgs, ... }:
+moduleArgs@{ config, lib, pkgs, ... }:
 
 let
+  cfg = config.sane.programs.neovim.config;
   plugins = import ./plugins.nix moduleArgs;
   plugin-packages = builtins.filter (x: x != null) (
     builtins.map (p: p.plugin or null) plugins
@@ -23,6 +24,28 @@ let
 in
 {
   sane.programs.neovim = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options = {
+          scrollbackMax = mkOption {
+            description = ''
+              SB_MAX: maximum lines nvim will buffer in-memory.
+              higher values make for better pagination (especially for `page` program),
+              but also allow nvim to consume more memory.
+
+              considerations:
+              - page/neovim uses about 3GB of RAM per 1M lines.
+              - `git log` for nixpkgs: about 5_000_000 lines (~15 GB).
+              - `git log` for linux: about 25_000_000 lines (~75 GB).
+            '';
+            type = types.int;
+            default = 100000000;
+          };
+        };
+      };
+    };
+
     suggestedPrograms = [
       "bash-language-server"
       # "clang-tools"  # for c/c++. fails to follow #includes; "Too many errors emitted"
@@ -37,9 +60,9 @@ in
       "typescript-language-server"
 
       # these could be cool, i just haven't bothered to integrate them:
-      # "css_variables"  # CSS. 2024-08-26: not packaged for nix. <https://github.com/vunguyentuan/vscode-css-variables/tree/master/packages/css-variables-language-server>
-      # "lemminx"  # XML language server <https://github.com/eclipse/lemminx>
-      # "superhtml"  # HTML. 2024-08-26: not packaged for nix <https://github.com/kristoff-it/superhtml>
+      # "css_variables"  # CSS. 2025-10-23: not packaged for nix. <https://github.com/vunguyentuan/vscode-css-variables/tree/master/packages/css-variables-language-server>
+      # "lemminx"  # XML language server, in nixpkgs <https://github.com/eclipse/lemminx>
+      # "superhtml"  # HTML, in nixpkgs <https://github.com/kristoff-it/superhtml>
       # "vala-language-server"  #< 2024-08-26: fails to recognize any imported types, complains they're all `null`
     ];
 
@@ -67,20 +90,25 @@ in
         viAlias = true;
         vimAlias = true;
         plugins = plugin-packages;
-        customRC = ''
-          ${builtins.readFile ./vimrc}
+        # customRC = ''
+        #   ${builtins.readFile ./vimrc}
 
-          """"" PLUGIN CONFIG
-          ${plugin-configs}
-        '';
+        #   """"" PLUGIN CONFIG
+        #   ${plugin-configs}
+        # '';
       };
       neovim-unwrapped' = with pkgs; neovim-unwrapped.overrideAttrs (upstream: {
+        # allow for more scrollback, especially required when neovim is used inside `PAGER=page`
+        postPatch = (upstream.postPatch or "") + ''
+          substituteInPlace src/nvim/option_vars.h \
+            --replace-fail '#define SB_MAX ' '#define SB_MAX ${builtins.toString cfg.scrollbackMax} //'
+        ''
         # fix cross compilation:
         # - neovim vendors lua `mpack` library,
         #   which it tries to build for the wrong platform
         #   and its vendored version has diverged in symbol names anyway
         # TODO: lift this into `overlays/cross.nix`, where i can monitor its upstreaming!
-        postPatch = (upstream.postPatch or "") + ''
+        + ''
           substituteInPlace src/gen/preload_nlua.lua --replace-fail \
             "require 'nlua0'" "
               vim.mpack = require 'mpack'
@@ -122,14 +150,22 @@ in
       # due to <https://github.com/NixOS/nixpkgs/pull/344541>
       rubyEnv = null;
       withRuby = false;
+      wrapRc = false;  #< don't force VIMINIT env var
       postBuild = lib.replaceStrings [ "if ! $out/bin/nvim-wrapper " ] [ "if false " ] base.postBuild;
     });
+
+    fs.".config/nvim/init.vim".symlink.text = ''
+      ${builtins.readFile ./vimrc}
+
+      """"" PLUGIN CONFIG
+      ${plugin-configs}
+    '';
 
     # private because there could be sensitive things in the swap
     persist.byStore.private = [ ".cache/vim-swap" ];
     env.EDITOR = "vim";
-    # git claims it should use EDITOR, but it doesn't!
-    env.GIT_EDITOR = "vim";
+    # git falls back to EDITOR if GIT_EDITOR is unspecified
+    # env.GIT_EDITOR = "vim";
     mime.priority = 200;  # default=100 => yield to other, more specialized applications
     mime.associations."application/schema+json" = "nvim.desktop";
     mime.associations."plain/text" = "nvim.desktop";

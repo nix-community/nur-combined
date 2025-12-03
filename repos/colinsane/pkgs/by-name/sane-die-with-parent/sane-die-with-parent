@@ -17,6 +17,7 @@ OPTIONS:
 --verbose
 """
 
+import argparse
 import ctypes
 import logging
 import os
@@ -68,14 +69,14 @@ def become_reaper():
     assert_prctl(PR_SET_CHILD_SUBREAPER, 1, 0, 0, 0)
 
 
-def kill_all_on_exit(sig: signal.Signals=signal.SIGTERM):
+def kill_all_on_exit(killsig: signal.Signals=signal.SIGTERM):
     """
     catch when the parent exits, and map that to SIGTERM for this process.
     when this process receives SIGTERM, also terminate all descendent processes.
     """
     set_pdeathsig()
-    signal.signal(signal.SIGTERM, lambda _sig=None, _frame=None: kill_all_children(sig))
-    signal.signal(signal.SIGINT, lambda _sig=None, _frame=None: kill_all_children(sig))
+    signal.signal(signal.SIGTERM, lambda _sig=None, _frame=None: kill_all_children(killsig))
+    signal.signal(signal.SIGINT, lambda _sig=None, _frame=None: kill_all_children(killsig))
 
 PGID = None
 
@@ -112,8 +113,8 @@ def wait_all_children() -> None:
             logger.debug(f"child {pid} exited {status}")
             child_exited(status)
 
-def kill_all_children(sig: signal.Signals=signal.SIGTERM) -> None:
-    if sig != signal.SIGKILL: kill_process_group(sig)
+def kill_all_children(killsig: signal.Signals=signal.SIGTERM) -> None:
+    if killsig != signal.SIGKILL: kill_process_group(killsig)
 
     for _ in range(20):  # max attempts, arbitrary
         children = psutil.Process().children()
@@ -122,23 +123,23 @@ def kill_all_children(sig: signal.Signals=signal.SIGTERM) -> None:
             break
 
         for child in children:
-            child.send_signal(sig)
+            child.send_signal(killsig)
         gone, alive = psutil.wait_procs(children, timeout=0.5)
         for p in gone:
             child_exited(p._exitcode)
 
-    kill_process_group(sig)
+    kill_process_group(killsig)
 
-def kill_process_group(sig: signal.Signals=signal.SIGTERM) -> None:
+def kill_process_group(killsig: signal.Signals=signal.SIGTERM) -> None:
     global PGID
     if PGID is None:
         return
 
-    logger.debug("killing process group %d with %d", PGID, sig)
+    logger.debug("killing process group %d with %d", PGID, killsig)
     # reset signal handler to avoid recursing
-    if sig != signal.SIGKILL: signal.signal(sig, signal.Handlers.SIG_IGN)
-    os.killpg(PGID, sig)
-    # if sig != signal.SIGKILL: signal.signal(sig, signal.Handlers.SIG_DFL)
+    if killsig != signal.SIGKILL: signal.signal(killsig, signal.Handlers.SIG_IGN)
+    os.killpg(PGID, killsig)
+    # if killsig != signal.SIGKILL: signal.signal(killsig, signal.Handlers.SIG_DFL)
 
 def do_exec(cli: list[str], killsig: signal.Signals) -> None:
     """
@@ -151,47 +152,41 @@ def do_exec(cli: list[str], killsig: signal.Signals) -> None:
 def main():
     global PGID
     logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
 
-    args = sys.argv[1:]
-    catch_sigkill = False
-    descendants = False
-    killsig_, killsig = None, signal.SIGTERM
-    use_pgroup = False
-    verbose = False
-    while args and args[0].startswith("--"):
-        flag, args = args[0], args[1:]
-        if flag == "--catch-sigkill":
-            catch_sigkill = True
-        elif flag == "--descendants":
-            descendants = True
-        elif flag == "--use-pgroup":
-            use_pgroup = True
-        elif flag == "--verbose":
-            verbose = True
-        elif flag == "--signal":
-            killsig_, args = args[0], args[1:]
-            killsig = getattr(signal, killsig_.upper())
-        else:
-            assert False, f"unrecognized argument {flag!r}"
-    cli = args
+    parser = argparse.ArgumentParser(description="run a command such that when the caller of sane-die-with-parent exits, that command exits as well")
+    parser.add_argument("--catch-sigkill", action="store_true")
+    parser.add_argument("--descendants", action="store_true")
+    parser.add_argument("--signal", default="SIGTERM")
+    parser.add_argument("--use-pgroup", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("command", nargs="+", help="command to execute")
 
-    if verbose:
+
+    args = parser.parse_args()
+    catch_sigkill = args.catch_sigkill
+    descendants = args.descendants
+    killsig = getattr(signal, args.signal.upper())
+    use_pgroup = args.use_pgroup
+    command = args.command
+
+    if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
     if catch_sigkill:
         nested_args = [ sys.argv[0] ]
-        if descendants:
+        if args.descendants:
             nested_args += [ "--descendants" ]
         descendants = True  # it's less that we need the outer process to kill its descendants, so much as that it must *exist*
-        if killsig_:
-            nested_args += [ "--signal", killsig_ ]
-        if use_pgroup:
+        if args.signal:
+            nested_args += [ "--signal", args.signal ]
+        if args.use_pgroup:
             nested_args += [ "--use-pgroup" ]
             use_pgroup = False  # doesn't make sense for parent to use pgroups
-        if verbose:
+        if args.verbose:
             nested_args += [ "--verbose" ]
 
-        cli = nested_args + cli
+        command = nested_args + command
 
     if use_pgroup:
         PGID = os.getpid()
@@ -200,11 +195,11 @@ def main():
 
     if descendants:
         become_reaper()
-        do_spawn(cli, killsig)
+        do_spawn(command, killsig)
         kill_all_children()
         sys.exit(EXIT_CODE or 0)
     else:
-        do_exec(cli, killsig)
+        do_exec(command, killsig)
 
 if __name__ == "__main__":
     main()

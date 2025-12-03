@@ -18,17 +18,24 @@ in
         rm "$out/bin/git-jump"
       '';
     });
+    suggestedPrograms = [
+      "difftastic"
+      # "git-lfs"
+      "ssh"
+    ];
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.autodetectCliPaths = "parent";  # autodetection is necessary for git-upload-pack; "parent" so that `git mv` works
     sandbox.extraHomePaths = [
+      ".config/nvim"
       # even with `whitelistPwd`, git has to crawl *up* the path -- which isn't necessarily in the sandbox -- to locate parent .git files
       "dev"
       "knowledge"
       "nixos"
       "ref"
-      ".ssh/id_ed25519"  # for ssh-auth'd remotes
     ];
+    sandbox.whitelistSsh = true;
+
     fs.".config/git/config".symlink.text = mkCfg {
       # top-level options documented:
       # - <https://git-scm.com/docs/git-config#_variables>
@@ -44,24 +51,34 @@ in
       alias.d       = "difftool";
       alias.dif     = "diff";  # common typo
       alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
+      alias.pul     = "pull";  # common typo
       alias.rb      = "rebase";
       alias.reset-head = "reset --hard HEAD";
       alias.st      = "status";
       alias.stat    = "status";
 
-      diff.noprefix = true;  #< don't show a/ or b/ prefixes in diffs
+      commit.verbose = true;  #< have `git commit` populate both status *and* diff to the editor
+
+      diff.context = 8;  #< default 3 lines of context
+      diff.interHunkContext = 8;  #< include up to this many extra lines to merge diff hunks
+      diff.noPrefix = true;  #< don't show a/ or b/ prefixes in diffs
       # difftastic docs:
       # - <https://difftastic.wilfred.me.uk/git.html>
       diff.tool = "difftastic";
       difftool.prompt = false;
-      "difftool \"difftastic\"".cmd = ''${lib.getExe pkgs.difftastic} "$LOCAL" "$REMOTE"'';
+      "difftool \"difftastic\"".cmd = ''difft "$LOCAL" "$REMOTE"'';
       # now run `git difftool` to use difftastic git
 
-      # render dates as YYYY-MM-DD HH:MM:SS +TZ
-      log.date = "iso";
+      log.date = "iso";  #< render dates as YYYY-MM-DD HH:MM:SS +TZ
+      log.follow = true;  #< make `git log PATH` behave like `git log --follow PATH`
+      log.showSignature = false;
+
+      rebase.autoStash = true;  #< make `git rebase FOO` behave as `git stash && git rebase FOO && git stash apply`
 
       sendemail.annotate = "yes";
       sendemail.confirm = "always";
+
+      status.short = true;  #< make `git statues` behave as `git status --short`
 
       stash.showPatch = true;
     };

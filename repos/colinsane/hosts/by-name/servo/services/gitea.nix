@@ -1,6 +1,6 @@
 # config options: <https://docs.gitea.io/en-us/administration/config-cheat-sheet/>
 # TODO: service shouldn't run as `git` user, but as `gitea`
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   sane.persist.sys.byStore.private = [
@@ -104,6 +104,7 @@
     };
   };
 
+  systemd.services.gitea.path = [ pkgs.git-remote-hg ]; # this is so that gitea can clone/mirror hg (mercurial) repos
   systemd.services.gitea.wants = [ "postgresql.service" ];
   systemd.services.gitea.serviceConfig = {
     # nix default is AF_UNIX AF_INET AF_INET6.
@@ -122,9 +123,26 @@
 
   # services.openssh.settings.UsePAM = true;  #< required for `git` user to authenticate
 
+  services.anubis.instances."git.uninsane.org" = {
+    settings.TARGET = "http://127.0.0.1:3000";
+    # allow IM clients/etc to show embeds/previews, else they just show "please verify you aren't a bot..."
+    settings.OG_PASSTHROUGH = true;
+  };
+
   # hosted git (web view and for `git <cmd>` use
   # TODO: enable publog?
-  services.nginx.virtualHosts."git.uninsane.org" = {
+  services.nginx.virtualHosts."git.uninsane.org" = let
+    # XXX(2025-07-24): gitea's still being crawled, even with robots.txt.
+    # the load is less than when Anthropic first started, but it's still pretty high (like 600%).
+    # place behind anubis to prevent AI crawlers from hogging my CPU (gitea is slow to render pages).
+    proxyPassHeavy = "http://unix:${config.services.anubis.instances."git.uninsane.org".settings.BIND}";
+    # but anubis breaks embeds, so only protect the expensive repos.
+    proxyPassLight = "http://127.0.0.1:3000";
+    proxyTo = proxy: root: {
+      proxyPass = proxy;
+      recommendedProxySettings = true;
+    };
+  in {
     forceSSL = true;  # gitea complains if served over a different protocol than its config file says
     enableACME = true;
     # inherit kTLS;
@@ -133,16 +151,140 @@
     '';
 
     locations."/" = {
-      proxyPass = "http://127.0.0.1:3000";
+      proxyPass = proxyPassLight;
+      recommendedProxySettings = true;
     };
+    # selectively proxy the heavyweight items through anubis.
+    # a typical interaction is:
+    # nginx:/colin/linux -> anubis:/colin/linux -> browser is served a loading page
+    # -> nginx:.within.website/x/cmd/anubis/api/pass-challenge?response=... -> anubis:.within.website/x/cmd/anubis/api/pass-challenge?response=... -> browser is forwarded to /colin/linux
+    # -> nginx:/colin/linux -> anubis:/colin/linux -> gitea:/colin/linux -> browser is served the actual content
+    locations."/.within.website/" = proxyTo proxyPassHeavy;
+    locations."/colin/linux/" = proxyTo proxyPassHeavy;
+    locations."/colin/nixpkgs/" = proxyTo proxyPassHeavy;
+    locations."/colin/opencellid-mirror/" = proxyTo proxyPassHeavy;
+    locations."/colin/NetworkManager/" = proxyTo proxyPassHeavy;
+    locations."/colin/podcastindex-db-mirror/" = proxyTo proxyPassHeavy;
+    locations."/colin/Signal-Desktop/" = proxyTo proxyPassHeavy;
+    locations."/colin/u-boot/" = proxyTo proxyPassHeavy;
+    locations."/shelvacu-mirrors/mozilla-" = proxyTo proxyPassHeavy;
+    locations."/shelvacu-mirrors/comm-" = proxyTo proxyPassHeavy;
+
     # fuck you @anthropic
-    locations."= /robots.txt".extraConfig = ''
-      return 200 "User-agent: *\nDisallow: /\n";
-    '';
+    locations."= /robots.txt" = let
+      badUAs = [
+        # bots i've seen not yet on any list:
+        "Barkrowler"
+        # bot list from <https://github.com/TecharoHQ/anubis/tree/main/data/bots/ai-robots-txt.yaml>.
+        "AddSearchBot"
+        "AI2Bot"
+        "Ai2Bot-Dolma"
+        "aiHitBot"
+        "Amazonbot"
+        "Andibot"
+        "anthropic-ai"
+        "Applebot"
+        "Applebot-Extended"
+        "Awario"
+        "bedrockbot"
+        "bigsur.ai"
+        "Brightbot 1.0"
+        "Bytespider"
+        "CCBot"
+        "ChatGPT Agent"
+        "ChatGPT-User"
+        "Claude-SearchBot"
+        "Claude-User"
+        "Claude-Web"
+        "ClaudeBot"
+        "CloudVertexBot"
+        "cohere-ai"
+        "cohere-training-data-crawler"
+        "Cotoyogi"
+        "Crawlspace"
+        "Datenbank Crawler"
+        "Devin"
+        "Diffbot"
+        "DuckAssistBot"
+        "Echobot Bot"
+        "EchoboxBot"
+        "FacebookBot"
+        "facebookexternalhit"
+        "Factset_spyderbot"
+        "FirecrawlAgent"
+        "FriendlyCrawler"
+        "Gemini-Deep-Research"
+        "Google-CloudVertexBot"
+        "Google-Extended"
+        "GoogleAgent-Mariner"
+        "GoogleOther"
+        "GoogleOther-Image"
+        "GoogleOther-Video"
+        "GPTBot"
+        "iaskspider/2.0"
+        "ICC-Crawler"
+        "ImagesiftBot"
+        "img2dataset"
+        "ISSCyberRiskCrawler"
+        "Kangaroo Bot"
+        "LinerBot"
+        "meta-externalagent"
+        "Meta-ExternalAgent"
+        "meta-externalfetcher"
+        "Meta-ExternalFetcher"
+        "MistralAI-User"
+        "MistralAI-User/1.0"
+        "MyCentralAIScraperBot"
+        "netEstate Imprint Crawler"
+        "NovaAct"
+        "OAI-SearchBot"
+        "omgili"
+        "omgilibot"
+        "OpenAI"
+        "Operator"
+        "PanguBot"
+        "Panscient"
+        "panscient.com"
+        "Perplexity-User"
+        "PerplexityBot"
+        "PetalBot"
+        "PhindBot"
+        "Poseidon Research Crawler"
+        "QualifiedBot"
+        "QuillBot"
+        "quillbot.com"
+        "SBIntuitionsBot"
+        "Scrapy"
+        "SemrushBot-OCOB"
+        "SemrushBot-SWA"
+        "Sidetrade indexer bot"
+        "Thinkbot"
+        "TikTokSpider"
+        "Timpibot"
+        "VelenPublicWebCrawler"
+        "WARDBot"
+        "Webzio-Extended"
+        "wpbot"
+        "YaK"
+        "YandexAdditional"
+        "YandexAdditionalBot"
+        "YouBot"
+      ];
+      # Crawl-delay: N means crawl at most one page per N seconds, for crawlers which respect it.
+      # note that crawlers tend to use many IPs simultaneously. idk if "crawl-delay" applies per-ip or more widely.
+      robots_txt = lib.concatMapStringsSep
+        "\n"
+        (bot: "User-agent: ${bot}\nDisallow: /\nCrawl-delay: 30\n")
+        badUAs
+      ;
+    in {
+      alias = pkgs.writeText "robots.txt" robots_txt;
+    };
     # gitea serves all `raw` files as content-type: plain, but i'd like to serve them as their actual content type.
     # or at least, enough to make specific pages viewable (serving unoriginal content as arbitrary content type is dangerous).
     locations."~ ^/colin/phone-case-cq/raw/.*.html" = {
-      proxyPass = "http://127.0.0.1:3000";
+      proxyPass = proxyPassLight;
+      recommendedProxySettings = true;
       extraConfig = ''
         proxy_hide_header Content-Type;
         default_type text/html;
@@ -150,7 +292,8 @@
       '';
     };
     locations."~ ^/colin/phone-case-cq/raw/.*.js" = {
-      proxyPass = "http://127.0.0.1:3000";
+      proxyPass = proxyPassLight;
+      recommendedProxySettings = true;
       extraConfig = ''
         proxy_hide_header Content-Type;
         default_type text/html;

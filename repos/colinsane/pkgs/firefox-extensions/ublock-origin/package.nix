@@ -4,13 +4,13 @@
   fetchurl,
   jq,
   runCommand,
-  stdenv,
+  stdenvNoCC,
   unzip,
   wrapFirefoxAddonsHook,
   writers,
   zip,
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "ublock-origin";
   version = "1.64.0";
   src = fetchurl {

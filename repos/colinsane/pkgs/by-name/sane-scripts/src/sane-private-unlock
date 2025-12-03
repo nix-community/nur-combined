@@ -3,19 +3,46 @@
 
 umask 027
 
-if ! systemctl is-active private-storage.target > /dev/null; then
-  echo "unable to access encrypted data store."
-  echo "unlock it now or cancel with Ctrl+C."
-fi
+usage() {
+  echo "sane-private-unlock:"
+  echo "  unlock the user's private data store (roughly equivalent to an encyrpted home directory)"
+  echo "  or does nothing if already unlocked."
+}
 
-while ! systemctl is-active private-storage.target > /dev/null; do
-  # see: <https://stackoverflow.com/a/2654096>
-  IFS= read -s -r -p "password: " line
-  echo
-  if [[ "$?" -eq 0 && -n "$line" ]]; then
-    echo -n "$line" > /run/gocryptfs/private.key
-    # give time for the store to be unlocked
-    timeout 3s systemctl start private-storage.target
+parseArgs() {
+  while [ $# -ne 0 ]; do
+    local arg="$1"
+    shift
+    case "$arg" in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+main() {
+  if ! systemctl is-active private-storage.target > /dev/null; then
+    echo "unable to access encrypted data store."
+    echo "unlock it now or cancel with Ctrl+C."
   fi
-done
 
+  while ! systemctl is-active private-storage.target > /dev/null; do
+    # see: <https://stackoverflow.com/a/2654096>
+    IFS= read -s -r -p "password: " line
+    echo
+    if [[ "$?" -eq 0 && -n "$line" ]]; then
+      echo -n "$line" > /run/gocryptfs/private.key
+      # give time for the store to be unlocked
+      timeout 3s systemctl start private-storage.target
+    fi
+  done
+}
+
+parseArgs "$@"
+main

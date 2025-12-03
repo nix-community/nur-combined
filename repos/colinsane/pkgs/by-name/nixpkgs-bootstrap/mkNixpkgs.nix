@@ -38,10 +38,10 @@
 {
 #VVV these may or may not be available when called. VVV
   applyPatches ? null,
-  fetchpatch2 ? null,
   fetchzip ? null,
   nixpkgs-bootstrap-updater ? null,
   stdenv ? null,
+  vendorPatch ? null,
 #VVV config
   localSystem ? if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem,  #< not available in pure mode
   system ? if stdenv != null then stdenv.hostPlatform.system else localSystem,
@@ -99,7 +99,8 @@ let
     unpatchedNixpkgs = import src' commonNixpkgsArgs;
 
     applyPatches' = if applyPatches != null then applyPatches else unpatchedNixpkgs.applyPatches;
-    fetchpatch2' = if fetchpatch2 != null then fetchpatch2 else unpatchedNixpkgs.fetchpatch2;
+    stdenv' = if stdenv != null then stdenv else unpatchedNixpkgs.stdenv;
+    vendorPatch' = if vendorPatch != null then vendorPatch else import ./vendorPatch { stdenv = stdenv'; vendor-patch-updater = null; };
 
     srcMeta = (src'.meta or {}) // {
       position = let
@@ -107,6 +108,8 @@ let
       in
         "${position.file}:${toString position.line}";
     };
+
+    patches = import ./patches { vendorPatch = vendorPatch'; };
 
     patchedSrc = applyPatches' {
       name = "nixpkgs-${branch}-sane";
@@ -125,6 +128,7 @@ let
           # for convenience:
           pkgs = nixpkgs;
           unpatchedSrc = src';
+          patches = patches;
         } // optionalAttrs (nixpkgs-bootstrap-updater != null) {
           updateScript = nixpkgs-bootstrap-updater.makeUpdateScript {
             inherit branch;
@@ -132,7 +136,7 @@ let
         };
       };
 
-      patches = import ./patches.nix { fetchpatch2 = fetchpatch2'; };
+      patches = builtins.attrValues patches;
       # skip applied patches
       prePatch = ''
         realpatch=$(command -v patch)
@@ -142,15 +146,40 @@ let
       '';
     };
 
-    nixpkgsArgs = commonNixpkgsArgs // {
+    elaborate = unpatchedNixpkgs.lib.systems.elaborate;
+    isCross = !(unpatchedNixpkgs.lib.systems.equals (elaborate system) (elaborate localSystem));
+
+    nativeNixpkgsArgs = commonNixpkgsArgs // {
       config = {
         allowUnfree = true;  # NIXPKGS_ALLOW_UNFREE=1
         allowBroken = true;  # NIXPKGS_ALLOW_BROKEN=1
+        allowUnsupportedSystem = true;  # NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
       };
-    } // optionalAttrs (system != localSystem) {
+    };
+    nixpkgsArgs = nativeNixpkgsArgs // optionalAttrs isCross {
       # XXX(2023/12/11): cache.nixos.org uses `system = ...` instead of `hostPlatform.system`, and that choice impacts the closure of every package.
       # so avoid specifying hostPlatform.system on non-cross builds, so i can use upstream caches.
       crossSystem = system;
+      # config = nativeNixpkgsArgs.config // optionalAttrs (system.isStatic && system.hasSharedLibraries) {
+      #   # default nixpkgs' behavior when `isStatic` is to _never_ build shared objects.
+      #   replaceCrossStdenv = { buildPackages, baseStdenv }: baseStdenv.override (old: {
+      #     # mkDerivationFromStdenv = _stdenv: args: baseStdenv.mkDerivation (args // {
+      #     #   dontAddStaticConfigureFlags = args.dontAddStaticConfigureFlags or true;
+      #     # });
+      #     # mkDerivationFromStdenv = _stdenv: args: (baseStdenv.mkDerivation args).overrideAttrs (prev: {
+      #     #   dontAddStaticConfigureFlags = prev.dontAddStaticConfigureFlags or true;
+      #     #     # dontAddStaticConfigureFlags = args.dontAddStaticConfigureFlags or true;
+      #     # });
+      #     mkDerivationFromStdenv = _stdenv: args: (baseStdenv.mkDerivation args).overrideAttrs (prev: {
+      #       # this is not wholly correct; goal is to undo some effects of pkgs/stdenv/adapters.nix' makeStatic
+      #       # to build BOTH .a and .so files (but default to static)
+      #       configureFlags = buildPackages.lib.remove "--disable-shared" (prev.configureFlags or args.configureFlags or []);
+      #       # cmakeFlags = buildPackages.lib.remove "-DBUILD_SHARED_LIBS:BOOL=OFF" (
+      #       #   buildPackages.lib.remove "-DCMAKE_SKIP_INSTALL_RPATH=On" (prev.cmakeFlags or args.cmakeFlags or [])
+      #       # );
+      #     });
+      #   });
+      # };
     };
     nixpkgs = import patchedSrc nixpkgsArgs;
   in

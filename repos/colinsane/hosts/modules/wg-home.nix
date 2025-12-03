@@ -34,6 +34,7 @@ in
     sane.services.wg-home.ip = mkOption {
       type = types.str;
       default = config.sane.hosts.by-name."${config.networking.hostName}".wg-home.ip;
+      defaultText = lib.literalExpression ''config.sane.hosts.by-name."''${config.networking.hostName}".wg-home.ip'';
     };
   };
 

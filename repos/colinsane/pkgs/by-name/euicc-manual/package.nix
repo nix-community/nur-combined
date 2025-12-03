@@ -6,20 +6,18 @@
   fetchFromGitea,
   hugo,
   lib,
-  stdenv,
+  stdenvNoCC,
   unstableGitUpdater,
 }:
-let
-  self = stdenv.mkDerivation
-{
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "euicc-manual";
-  version = "0-unstable-2025-05-20";
+  version = "0-unstable-2025-11-27";
 
   # XXX: their gitea downloads are broken, so use fetchgit
   src = fetchgit {
     url = "https://gitea.osmocom.org/sim-card/euicc-manual";
-    rev = "8688e60286cbd35f3d497f9255951eab72fbd89a";
-    hash = "sha256-ePCnDw7mWlHpHA4CS6iX28tMrPSSArJHym9nrpghZCk=";
+    rev = "9e852f27fd7a3870d950324c4542a8aa4e5ead03";
+    hash = "sha256-Pw8Cda3WzxLdUYDd9//r3kyTu+NV5oFOgMxCi2P6lc0=";
   };
 
   nativeBuildInputs = [
@@ -27,18 +25,26 @@ let
   ];
 
   buildPhase = ''
+    runHook preBuild
+
     hugo
+
+    runHook postBuild
   '';
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/doc/
     cp -Rv public $out/share/doc/euicc-manual
+
+    runHook postInstall
   '';
 
   passthru = {
     updateScript = unstableGitUpdater { };
-    ci_manifest = "${self}/share/doc/euicc-manual/docs/pki/eum/manifest.json";
-    eum_manifest = "${self}/share/doc/euicc-manual/docs/pki/ci/manifest.json";
+    ci_manifest = "${finalAttrs.finalPackage}/share/doc/euicc-manual/docs/pki/ci/manifest.json";
+    eum_manifest = "${finalAttrs.finalPackage}/share/doc/euicc-manual/docs/pki/eum/manifest-v2.json";
   };
 
   meta = with lib; {
@@ -47,5 +53,4 @@ let
     repo = "https://gitea.osmocom.org/sim-card/euicc-manual";
     maintainers = with maintainers; [ colinsane ];
   };
-};
-in self
+})

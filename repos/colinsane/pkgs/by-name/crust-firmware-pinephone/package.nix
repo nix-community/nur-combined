@@ -1,11 +1,11 @@
 # based on package from Tow-Boot
 {
+  bison,
   buildPackages,
   fetchFromGitHub,
   flex,
   lib,
   stdenv,
-  yacc,
 }:
 
 let
@@ -27,8 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeBuildInputs = [
+    bison
     flex
-    yacc
   ] ++ (with or1k-toolchain; [
     binutils
     gcc

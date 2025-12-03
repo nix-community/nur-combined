@@ -4,7 +4,7 @@ static-nix-shell.mkPython3 {
   pname = "sxmo_suspend.sh";
   srcRoot = ./.;
   pkgs = [ "rtl8723cs-wowlan" "util-linux" ];
-  extraMakeWrapperArgs = [ "--add-flags" "--verbose" ];
+  extraMakeWrapperArgs = [ "--add-flag" "--verbose" ];
 }
 
 

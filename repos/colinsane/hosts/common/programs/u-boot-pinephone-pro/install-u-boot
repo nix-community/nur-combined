@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -eu
+
+drive=$1
+
+if ! [[ -e "$drive" ]]; then
+  echo "usage: install-u-boot /dev/sdX"
+  exit 1
+fi
+
+bootfiles_dir=
+for d in ${XDG_DATA_DIRS//:/ }; do
+  if [[ -e "$d/boot/idbloader.img" ]] && [[ -e "$d/boot/u-boot.itb" ]]; then
+    bootfiles_dir=$d/boot
+  fi
+done
+if [[ -z "$bootfiles_dir" ]]; then
+  echo "boot/{idbloader.img,u-boot.itb} not found on XDG_DATA_DIRS"
+  exit 1
+fi
+
+set -x
+dd if="$bootfiles_dir/idbloader.img" of="$drive" bs=512 seek=64 conv=notrunc,sync oflag=direct status=progress
+dd if="$bootfiles_dir/u-boot.itb" of="$drive" bs=512 seek=16384 conv=notrunc,sync oflag=direct status=progress

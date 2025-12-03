@@ -1,0 +1,82 @@
+From 260d060a329884a61ef6953004d0f2fa0e326967 Mon Sep 17 00:00:00 2001
+From: Will Fancher <elvishjerricco@gmail.com>
+Date: Wed, 12 Nov 2025 00:00:46 -0500
+Subject: [PATCH 1/2] libcap: 2.76 -> 2.77
+
+---
+ pkgs/by-name/li/libcap/package.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/li/libcap/package.nix b/pkgs/by-name/li/libcap/package.nix
+index 76e0ee1d0fe6afa82b2ed61f831af86c730c7504..12efcebbca35d2a0bf374065bd209b29a8dc55d4 100644
+--- a/pkgs/by-name/li/libcap/package.nix
++++ b/pkgs/by-name/li/libcap/package.nix
+@@ -28,11 +28,11 @@ assert usePam -> pam != null;
+ 
+ stdenv.mkDerivation rec {
+   pname = "libcap";
+-  version = "2.76";
++  version = "2.77";
+ 
+   src = fetchurl {
+     url = "mirror://kernel/linux/libs/security/linux-privs/libcap2/${pname}-${version}.tar.xz";
+-    hash = "sha256-Yp2kqymQDQ9/zDYicHN0MRmSX9cRyZoWibv1ybQMjm8=";
++    hash = "sha256-iXvBi0Svwmxw54zq09uzHhVKzCS+4IWloJB5qI2/b1I=";
+   };
+ 
+   outputs = [
+
+From 315c37461ac0909e8af00fe9d5989a985fb2db15 Mon Sep 17 00:00:00 2001
+From: Will Fancher <elvishjerricco@gmail.com>
+Date: Mon, 10 Nov 2025 05:58:25 -0500
+Subject: [PATCH 2/2] libcap: Fix cross compilation.
+
+Since #442965, the `go run` command that `libcap` does at one point is
+no longer able to use the linker included in the go compiler, so it
+uses `$CC` instead. But `libcap`'s `Makefile` uses the wrong compiler
+for this.
+
+This patch has been submitted to the maintainer upstream. Include it
+in nixpkgs for now, until it's accepted and a new release is made.
+---
+ pkgs/by-name/li/libcap/package.nix | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/pkgs/by-name/li/libcap/package.nix b/pkgs/by-name/li/libcap/package.nix
+index 12efcebbca35d2a0bf374065bd209b29a8dc55d4..8e3efdd4d5206c5ecc63e88c0c2f9d68838e8979 100644
+--- a/pkgs/by-name/li/libcap/package.nix
++++ b/pkgs/by-name/li/libcap/package.nix
+@@ -3,6 +3,7 @@
+   lib,
+   buildPackages,
+   fetchurl,
++  fetchpatch,
+   runtimeShell,
+   pkgsBuildHost,
+   usePam ? !isStatic,
+@@ -73,6 +74,13 @@ stdenv.mkDerivation rec {
+     "LIBCSTATIC=yes"
+   ];
+ 
++  patches = [
++    (fetchpatch {
++      url = "https://git.kernel.org/pub/scm/libs/libcap/libcap.git/patch/?id=d628b3bfe40338d4efff6b0ae50f250a0eb884c7";
++      hash = "sha256-Eiv/BOJZkduL+hOEJd8K1LQd9wvOeCKchE2GaLcerVc=";
++    })
++  ];
++
+   postPatch = ''
+     patchShebangs ./progs/mkcapshdoc.sh
+ 
+@@ -86,11 +94,6 @@ stdenv.mkDerivation rec {
+       --replace 'lib_prefix=$(exec_prefix)' "lib_prefix=$lib" \
+       --replace 'inc_prefix=$(prefix)' "inc_prefix=$dev" \
+       --replace 'man_prefix=$(prefix)' "man_prefix=$doc"
+-  ''
+-  + lib.optionalString withGo ''
+-    # disable cross compilation for artifacts which are run as part of the build
+-    substituteInPlace go/Makefile \
+-      --replace-fail '$(GO) run' 'GOOS= GOARCH= $(GO) run'
+   '';
+ 
+   installFlags = [ "RAISE_SETFCAP=no" ];

@@ -73,7 +73,6 @@ in
       "mx-sanebot-env".owner = config.users.users.colin.name;
       "rsync-net-env".owner = config.users.users.colin.name;
       "rsync-net-id_ed25519".owner = config.users.users.colin.name;
-      "tailscale-work-zones-bind.conf".owner = "named";
       "transmission_passwd".owner = config.users.users.colin.name;
     }
   ];

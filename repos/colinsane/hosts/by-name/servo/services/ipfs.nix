@@ -27,6 +27,7 @@ lib.mkIf false # i don't actively use ipfs anymore
 
     locations."/" = {
       proxyPass = "http://127.0.0.1:8080";
+      recommendedProxySettings = true;
       extraConfig = ''
         proxy_set_header Host $host;
         proxy_set_header X-Ipfs-Gateway-Prefix "";

@@ -1,0 +1,54 @@
+From 6ee69dd6475361a2b895cae880d980e62476d2a3 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sun, 5 Oct 2025 00:44:00 +0000
+Subject: [PATCH] libshumate: fix vapi file generation when cross compiling
+
+cross-compiled `libshumate.dev` outputs were previously missing these
+files:
+- `$dev/share/vala/vapi/shumate-1.0.deps`
+- `$dev/share/vala/vapi/shumate-1.0.vapi`
+
+without these files, vala consumers of libshumate (such as
+`pkgsCross.aarch64-multiplatform.pantheon.granite7`) fail to build.
+---
+ pkgs/by-name/li/libshumate/package.nix | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/pkgs/by-name/li/libshumate/package.nix b/pkgs/by-name/li/libshumate/package.nix
+index 6e9cbb678d0624be0a12421e3ca69dd8b9af7d80..2910d648498b63e8b8024292e9904c3e73cfa322 100644
+--- a/pkgs/by-name/li/libshumate/package.nix
++++ b/pkgs/by-name/li/libshumate/package.nix
+@@ -2,6 +2,7 @@
+   lib,
+   stdenv,
+   fetchurl,
++  fetchpatch,
+   gi-docgen,
+   meson,
+   ninja,
+@@ -37,6 +38,16 @@ stdenv.mkDerivation (finalAttrs: {
+     hash = "sha256-OYQ2jgJZhis4ENHdyG0trdbTcqKzI3bM9K/3wuSMbTA=";
+   };
+ 
++  patches = [
++    (fetchpatch {
++      # Required for cross-compiled libshumate to get $dev/share/vala/vapi/shumate-1.0.{deps,vapi}
++      # https://gitlab.gnome.org/GNOME/libshumate/-/merge_requests/263
++      url = "https://gitlab.gnome.org/GNOME/libshumate/-/commit/8a8a5013ed69f443b84500b4f745079025863a32.patch";
++      name = "meson-use-find_program-instead-of-dependency-for-vapigen";
++      hash = "sha256-nYLUMLcghnWU/hlCWOHMmFIUdDa7UkX4TP7C4ftZVJM=";
++    })
++  ];
++
+   depsBuildBuild = [
+     # required to find native gi-docgen when cross compiling
+     pkg-config
+@@ -89,6 +100,8 @@ stdenv.mkDerivation (finalAttrs: {
+     moveToOutput share/doc/libshumate-1.0 "$devdoc"
+   '';
+ 
++  strictDeps = true;
++
+   passthru = {
+     updateScript = gnome.updateScript {
+       packageName = "libshumate";

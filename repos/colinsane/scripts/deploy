@@ -4,6 +4,11 @@
 # TODO: simplify variant handling by defining `desko-full = desko`, etc, in nix config.
 
 const SELF = $(hostname)
+# which hosts to deploy to (in order), when "all hosts" is specified or implied.
+const ALL_HOSTS = [ "moby", "flowy", "desko", "servo" ]
+# which variants to build (in order), when "all variants" is specified or implied.
+const ALL_VARIANTS = ["-min", "-light", "", "-next-min", "-next-light", "-next"]
+
 
 # mutated by `main`
 var DRY_RUN = false
@@ -77,8 +82,7 @@ var NixConfig = Object(null, {
 # @return: list[str]
 func expandHostAlias (host) {
   if (host === "all" ) {
-    # order matters:
-    return (["moby", "lappy", "desko", "servo"])
+    return (ALL_HOSTS)
   } else {
     return ([host])
   }
@@ -88,7 +92,7 @@ func expandHostAlias (host) {
 # @return: list[str]
 func expandVariantAlias (v) {
   if (v === "all") {
-    return (["-min", "-light", "", "-next-min", "-next-light", "-next"])
+    return (ALL_VARIANTS)
   } elif (v === "") {
     # "full" variant
     return ([""])
@@ -169,14 +173,28 @@ func parseArgs(...args) {
   return (_parseArgs (p, ...args))
 }
 
-proc destructive (...cmd; ; echo=false) {
+proc invoke (...cmd; ; echo=false, translate_error=null) {
+  if (echo) {
+    echo @cmd >&2
+  }
+  if (translate_error !== null) {
+    try {
+      @cmd
+    }
+    if failed {
+      # `exit` from subshell so the exit code can be caught by an outer `try`
+      $(exit $translate_error)
+    }
+  } else {
+    @cmd
+  }
+}
+
+proc destructive (...cmd; ; echo=false, translate_error=null) {
   if (DRY_RUN) {
     info "dry-run:" (...cmd)
   } else {
-    if (echo) {
-      echo @cmd >&2
-    }
-    @cmd
+    invoke @cmd (echo=echo, translate_error=translate_error)
   }
 }
 
@@ -237,6 +255,26 @@ proc runOnTarget (host, ...cmd) {
   }
 }
 
+# `deployOneHost` exit codes:
+const FAILED_EVAL = 101
+const FAILED_BUILD = 102
+const FAILED_COPY = 103
+const FAILED_SET_PROFILE = 104
+const FAILED_ACTIVATE = 105
+const FAILED_REBOOT = 106
+
+func returnCodeToString (rc) {
+  case (rc) {
+    $FAILED_EVAL { return ("failed eval"); }
+    $FAILED_BUILD { return ("failed build"); }
+    $FAILED_COPY { return ("failed to copy the derivation"); }
+    $FAILED_SET_PROFILE { return ("failed to set the new profile as the next boot entry"); }
+    $FAILED_ACTIVATE { return ("failed to activate the new profile"); }
+    $FAILED_REBOOT { return ("failed to reboot target"); }
+    * { return ("unknown error: $rc"); }
+  }
+}
+
 proc deployOneHost (; nixcfg) {
   # unpack the cfg
   var timeout = timeoutFor(nixcfg.variant)
@@ -251,11 +289,13 @@ proc deployOneHost (; nixcfg) {
       # `nix-build -A foo` evals and then realizes foo, but it never unloads the memory used to eval foo.
       # my exprs are heavyweight, we need that memory for building, so do the evals separately from the realizations:
       info "$attrName: evaluating..."
-      setvar drvPath = $(nix eval --raw -f . "hosts.$attrName.toplevel.drvPath")
+      setvar drvPath = $(invoke nix eval --raw -f . "hosts.$attrName.toplevel.drvPath" (translate_error=FAILED_EVAL))
     }
 
     info "$attrName: building $drvPath"
-    setvar myStorePath = $(destructive nix-store --realize "$drvPath" @NIX_ARGS)
+    setvar myStorePath = $(destructive nix-store --realize "$drvPath" --add-root "./build/$attrName" @NIX_ARGS (translate_error=FAILED_BUILD))
+    # if using `nix-store --add-root`, then nix prints the gc root path, instead of the /nix/store path; resolve it
+    setvar myStorePath = $(realpath "$myStorePath")
     info "$attrName: built $myStorePath"
   }
 
@@ -275,39 +315,42 @@ proc deployOneHost (; nixcfg) {
       if (host !== SELF) {
         if test -e /run/secrets/nix_signing_key {
           info "signing store paths ..."
-          destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$myStorePath"
+          destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$myStorePath" (translate_error=FAILED_COPY)
         } else {
           info "not signing store paths: /run/secrets/nix_signing_key does not exist"
         }
         # add more `-v` for more verbosity (up to 5).
         # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
         #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
-        destructive timeout "$timeout" nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$myStorePath" (echo=true)
+        destructive timeout "$timeout" nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$myStorePath" (echo=true, translate_error=FAILED_COPY)
       }
     }
   }
 
   case (nixcfg.action) {
     switch | test {
-      info "activating profile... "
-      destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$myStorePath"
+      if (nixcfg.action === "switch") {
+        info "activating profile... "
+        destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$myStorePath" (translate_error=FAILED_SET_PROFILE)
+      }
 
       # at this point, the new profile will be booted into on next boot.
       # try to switch to that profile _now_, but allow this to be fallible
       # so as to support `--force-reboot` CLI option:
       try {
-        destructive runOnTarget "$netHost" sudo "$myStorePath/bin/switch-to-configuration" "$[nixcfg.action]"
+        destructive runOnTarget "$netHost" sudo NIXOS_INSTALL_BOOTLOADER=1 "$myStorePath/bin/switch-to-configuration" "$[nixcfg.action]"
       }
-      var fail = false
-      if failed { setvar fail = true }  # XXX: `failed` special variable is only readable via `if failed`
+      var failed_activate = false
+      if failed { setvar failed_activate = true }  # XXX: `failed` special variable is only readable via `if failed`
 
-      if (nixcfg.reboot and (not fail or nixcfg.reboot === "force")) {
+      if (nixcfg.reboot and (not failed_activate or nixcfg.reboot === "force")) {
         info "$attrName: rebooting $host"
-        destructive runOnTarget "$netHost" sane-reboot "$host"
+        destructive runOnTarget "$netHost" sane-reboot "$host" (translate_error=FAILED_REBOOT)
       }
 
-      if (fail) {
-        false
+      if (failed_activate) {
+        # `exit` from subshell so the exit code can be caught by an outer `try`
+        $(exit $FAILED_ACTIVATE)
       }
     }
   }
@@ -394,8 +437,9 @@ proc main (...args) {
       deployOneHost (cfg)
     }
     if failed {
-      info "❌$[cfg.host]$[cfg.variant]: failed deployment!"
-      call failedDeploys->append(cfg)
+      var rc = _error.code
+      info "❌$[cfg.host]$[cfg.variant]: failed deployment: $[returnCodeToString (rc)]"
+      call failedDeploys->append({ cfg: cfg, rc: rc })
     } else {
       info "✅$[cfg.host]$[cfg.variant]: deployment complete"
     }
@@ -404,7 +448,7 @@ proc main (...args) {
   if (failedDeploys !== []) {
     echo "FAILED DEPLOYMENT:"
     for d in (failedDeploys) {
-      echo "- $[d.host]$[d.variant]"
+      echo "- $[d.cfg.host]$[d.cfg.variant]: $[returnCodeToString (d.rc)]"
     }
     exit 1
   }

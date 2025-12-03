@@ -6,6 +6,12 @@
   #
   # to list snapshots: `snapper list`
   # to take a snapshot: `snapper create`  or `systemctl start snapper-timeline.service`
+  # to delete a snapshot: `snapper delete 123`
+  # - if snapper doesn't delete it from disk, then `sudo btrfs subvolume delete /nix/persist/.snapshots/123/snapshot`
+  # to delete _select contents_ from some snapshot:
+  # 1. `snapper modify --read-write 123`
+  # 2. `rm /nix/persist/.snapshots/123/snapshot/...`
+  # 3. `snapper modify --read-only 123`
   #
   # FIRST TIME SETUP:
   # - `sudo btrfs subvolume create /nix/persist`

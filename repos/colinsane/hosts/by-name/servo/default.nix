@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -26,12 +26,13 @@
   sane.nixcache.remote-builders.servo = false;
   sane.services.rsync-net.enable = true;
 
+  # buffyboard fails if /dev/fb0 doesn't exist (and it doesn't, on machines that lack a GPU)
+  services.buffyboard.enable = false;
+
   # automatically log in at the virtual consoles.
   # using root here makes sure we always have an escape hatch.
   # XXX(2024-07-27): this is incompatible if using s6, which needs to auto-login as `colin` to start its user services.
   services.getty.autologinUser = "root";
-
-  sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
   # both transmission and ipfs try to set different net defaults.
   # we just use the most aggressive of the two here:

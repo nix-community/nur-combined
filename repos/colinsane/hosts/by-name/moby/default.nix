@@ -58,6 +58,7 @@
 
   sane.programs.mpv.config.defaultProfile = "fast";
 
-  # /boot space is at a premium, especially with uncompressed kernels. default was 20.
-  boot.loader.generic-extlinux-compatible.configurationLimit = 10;
+  # boot.loader.generic-extlinux-compatible.enable = true;
+  # boot.loader.generic-extlinux-compatible.configurationLimit = 5;
+  # boot.loader.systemd-boot.enable = false;
 }

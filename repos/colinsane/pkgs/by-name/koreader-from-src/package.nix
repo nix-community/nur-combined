@@ -573,6 +573,6 @@ in {
     sourceProvenance = with sourceTypes; [ fromSource ];
     platforms = platforms.linux;
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ colinsane contrun neonfuz];
+    maintainers = with maintainers; [ colinsane ];
   };
 })

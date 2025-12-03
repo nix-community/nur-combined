@@ -1,5 +1,5 @@
 # foliate: <https://johnfactotum.github.io/foliate/>
-{ ... }:
+{ config, lib, ... }:
 {
   sane.programs.foliate = {
     sandbox.net = "clearnet";  #< for dictionary, wikipedia, online book libraries
@@ -44,5 +44,20 @@
     mime.associations."application/vnd.comicbook+zip" = "com.github.johnfactotum.Foliate.desktop";  # .cbz
     mime.associations."x-scheme-handler/opds" = "com.github.johnfactotum.Foliate.desktop";
     mime.priority = 120;  #< default is 100; fallback to more specialized cbz handlers, e.g., but keep specializations for epub
+
+    gsettings."com/github/johnfactotum/Foliate/viewer/font" = {
+      default-size = lib.gvariant.mkUint32 20;  # built-in default is 16
+      monospace = lib.head config.fonts.fontconfig.defaultFonts.monospace;
+      serif = lib.head config.fonts.fontconfig.defaultFonts.serif;
+      sans-serif = lib.head config.fonts.fontconfig.defaultFonts.sansSerif;
+    };
+    gsettings."com/github/johnfactotum/Foliate/viewer/view" = {
+      animated = false;
+      override-font = true;  #< prefer my own fonts over the publisher's
+      # gap = 0.06;  # default: 0.06 (margins)
+      # hyphenate = true;  # default: true
+      # scrolled = false;  # default: false
+      # theme = "solarized";
+    };
   };
 }

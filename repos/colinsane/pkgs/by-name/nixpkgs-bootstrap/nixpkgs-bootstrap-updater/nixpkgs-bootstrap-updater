@@ -3,12 +3,35 @@
 
 set -eu
 
-branch=$1
+usage() {
+  echo "USAGE: nixpkgs-bootstrap-updater BRANCH"
+}
 
-if [ -z "$branch" ]; then
-  echo "USAGE: nixpkgsUpdater <branch>"
-  exit 1
-fi
+branch=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -z "$branch" ]; then
+          branch=$arg
+        else
+          usage
+          exit 1
+        fi
+        ;;
+    esac
+  done
+  if [ -z "$branch" ]; then
+    usage
+    exit 1
+  fi
+}
 
 jsonGetField() {
   local json=$1
@@ -16,13 +39,19 @@ jsonGetField() {
   echo "$json" | jq --exit-status --raw-output ".$field"
 }
 
+main() {
+  local branch=$1
+  local prefetchData=$(nix-prefetch-github --json --meta --rev "$branch" NixOS nixpkgs)
+
+  local rev=$(jsonGetField "$prefetchData" src.rev)
+  local nixHash=$(jsonGetField "$prefetchData" src.hash)
+  local commitDate=$(jsonGetField "$prefetchData" meta.commitDate)
+
+  update-source-version "sane.nixpkgs-bootstrap.$branch" "unstable-$commitDate" "$nixHash" \
+    --rev="$rev" \
+    --print-changes
+}
+
+parseArgs "$@"
 set -x
-prefetchData=$(nix-prefetch-github --json --meta --rev "$branch" NixOS nixpkgs)
-
-rev=$(jsonGetField "$prefetchData" src.rev)
-nixHash=$(jsonGetField "$prefetchData" src.hash)
-commitDate=$(jsonGetField "$prefetchData" meta.commitDate)
-
-update-source-version "sane.nixpkgs-bootstrap.$branch" "unstable-$commitDate" "$nixHash" \
-  --rev="$rev" \
-  --print-changes
+main "$branch"

@@ -17,7 +17,7 @@ let
   };
 in {
   sane.programs.zsh.fs = lib.mkIf enabled {
-    ".config/zsh/.zshrc".symlink.text = ''
+    ".config/zsh/rc.d/10-starship".symlink.text = ''
       eval "$(${lib.getExe pkgs.starship} init zsh)"
     '';
     ".config/starship.toml".symlink.target = let

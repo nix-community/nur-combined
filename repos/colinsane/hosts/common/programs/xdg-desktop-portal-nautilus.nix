@@ -18,6 +18,14 @@
         DBusName=org.gnome.NautilusPortal
         Interfaces=org.freedesktop.impl.portal.FileChooser
         EOF
+
+        rm $out/bin/nautilus-autorun-software
+        rm $out/share/man/man1/nautilus-autorun-software.1
+        rm $out/share/applications/*.desktop
+        rm $out/share/gnome-shell/search-providers/*.ini
+
+        mv $out/bin/{nautilus,nautilus-portal}
+        mv $out/share/man/man1/{nautilus,nautilus-portal}.1
       '';
 
       # define a "profile", which changes the app id/dbus name so that we don't conflict with any other
@@ -25,6 +33,12 @@
       mesonFlags = (upstream.mesonFlags or []) ++ [
         "-Dprofile=Portal"
       ];
+
+      meta = (upstream.meta or {}) // {
+        # in case nautilus & nautilus-portal are both installed and some files conflict (e.g. schemas),
+        # let the stock nautilus take precedence
+        priority = ((upstream.meta or {}).priority or 10) + 10;
+      };
     }));
 
     sandbox.whitelistDbus.user = true;  #< TODO: reduce  # to receive requests from xdg-desktop-portal
@@ -51,7 +65,8 @@
     sandbox.extraPaths = [
       "/boot"
       "/mnt/desko"
-      "/mnt/lappy"
+      "/mnt/flowy"
+      # "/mnt/lappy"
       "/mnt/moby"
       "/mnt/servo"
       # "nix"
@@ -66,7 +81,7 @@
       dependencyOf = [ "xdg-desktop-portal" ];
 
       # NAUTILUS_PERSIST, else --gapplication-service means nautilus exits after 10s of inactivity
-      command = "env NAUTILUS_PERSIST=1 nautilus --gapplication-service";
+      command = "env NAUTILUS_PERSIST=1 nautilus-portal --gapplication-service";
       readiness.waitDbus = "org.gnome.NautilusPortal";
     };
   };

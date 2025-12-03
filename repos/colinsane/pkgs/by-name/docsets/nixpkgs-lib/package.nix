@@ -7,7 +7,7 @@
   docsets,
   lib,
   # nixpkgs-manual,
-  stdenv,
+  stdenvNoCC,
 }:
 let
   # nixpkgs has logic to build an attrset of all the items which make it into nixpkgs-manual.
@@ -21,7 +21,7 @@ let
     '';
   });
 
-in stdenv.mkDerivation {
+in stdenvNoCC.mkDerivation {
   pname = "nixpkgs-lib";
   version = lib.version;
 

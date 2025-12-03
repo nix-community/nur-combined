@@ -29,5 +29,12 @@ in
   # TODO: service sandboxing
   services.btrfs.autoScrub.enable = lib.mkIf cfg.enabled true;
   services.btrfs.autoScrub.interval = "weekly";
+
+  # nixos/modules/tasks/filesystems/btrfs.nix fires this assertion, but its implementation totally handles the case of 0 btrfs filesystems.
+  sane.silencedAssertions = lib.mkIf cfg.enabled [''
+    If 'services.btrfs.autoScrub' is enabled, you need to have at least one
+    btrfs file system mounted via 'fileSystems' or specify a list manually
+    in 'services.btrfs.autoScrub.fileSystems'.
+  ''];
 }
 

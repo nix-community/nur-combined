@@ -1,0 +1,82 @@
+# zsh/prezto complains if zshrc doesn't exist or is empty;
+# preserve this comment to prevent that from ever happening.
+
+HISTFILE="$HOME/.local/share/zsh/history"
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+# auto-cd into any of these dirs by typing them and pressing 'enter':
+hash -d 3rd="$HOME/dev/3rd"
+hash -d dev="$HOME/dev"
+hash -d knowledge="$HOME/knowledge"
+hash -d nixos="$HOME/nixos"
+hash -d nixpkgs="$HOME/dev/3rd/nixpkgs"
+hash -d ref="$HOME/ref"
+hash -d secrets="$HOME/knowledge/secrets"
+hash -d tmp="$HOME/tmp"
+hash -d uninsane="$HOME/dev/uninsane"
+hash -d Videos="$HOME/Videos"
+
+# emulate bash keybindings
+bindkey -e
+# emulate vim keybindings (a.k.a. `setopt VI`)
+# bindkey -v
+
+# fixup bindings not handled by bash, see: <https://wiki.archlinux.org/title/Zsh#Key_bindings>
+# `bindkey -e` seems to define most of the `key` array. everything in the Arch defaults except for these:
+if [[ -z "${key[Backspace]}" ]]; then
+  key[Backspace]="${terminfo[kbs]}"
+fi
+if [[ -z "${key[Control-Left]}" ]]; then
+  key[Control-Left]="${terminfo[kLFT5]}"
+fi
+if [[ -z "${key[Control-Right]}" ]]; then
+  key[Control-Right]="${terminfo[kRIT5]}"
+fi
+if [[ -z "${key[Shift-Tab]}" ]]; then
+  key[Shift-Tab]="${terminfo[kcbt]}"
+fi
+
+# XXX(2025-04-12): Control-Left and Control-Right sometimes _still_ don't exist (e.g. raw TTYs, ssh).
+# build them from `^` + `Left` instead:
+if [[ -z "${key[Left]}" ]]; then
+  key[Left]="${terminfo[kcub1]}"
+fi
+if [[ -z "${key[Right]}" ]]; then
+  key[Right]="${terminfo[kcuf1]}"
+fi
+if [[ -z "${key[Control-Left]}" ]] && [[ -n "${key[Left]}" ]]; then
+  key[Control-Left]="^${key[Left]}"
+fi
+if [[ -z "${key[Control-Right]}" ]] && [[ -n "${key[Right]}" ]]; then
+  key[Control-Right]="^${key[Right]}"
+fi
+
+bindkey -- "${key[Delete]}"         delete-char
+bindkey -- "${key[Control-Left]}"   backward-word
+bindkey -- "${key[Control-Right]}"  forward-word
+
+# or manually recreate what i care about...
+# key[Left]=${terminfo[kcub1]}
+# key[Right]=${terminfo[kcuf1]}
+# bindkey '^R'               history-incremental-search-backward
+# bindkey '^A'               beginning-of-line
+# bindkey '^E'               end-of-line
+# bindkey "^${key[Left]}"    backward-word
+# bindkey "^${key[Right]}"   forward-word
+
+# disable "flow control" (Ctrl+S to suspend terminal, Ctrl+Q to resume).
+# see: <https://forum.endeavouros.com/t/alacritty-flow-control-turn-off/6199/12>
+stty -ixon
+
+# allow extensions (e.g. starship) to hook zsh startup
+# `(N)` at the end of a glob means to not error on zero matches
+for f in ~/.config/zsh/rc.d/*(N); do
+  source "$f"
+done
+
+# run any additional, sh-generic commands (useful for e.g. launching a login manager on login)
+if [[ -e ~/.profile ]]; then
+  source ~/.profile
+fi
+

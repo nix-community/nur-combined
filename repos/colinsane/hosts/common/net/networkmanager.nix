@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 {
   networking.networkmanager.enable = true;
-  systemd.network.wait-online.enable = false;  # systemd-networkd-wait-online.service reliably fails on lappy. docs don't match behavior. shit software.
+  # systemd-networkd-wait-online.service reliably fails on lappy. docs don't match behavior. shit software.
+  # XXX(2025-07-18): `systemd-networkd-wait-online.service` also fails on desko (timeout).
+  systemd.network.wait-online.enable = false;
+
   # plugins mostly add support for establishing different VPN connections.
   # the default plugin set includes mostly proprietary VPNs:
   # - fortisslvpn (Fortinet)
@@ -203,6 +206,7 @@
   };
 
   networking.networkmanager.settings = {
+    # docs: `man 5 NetworkManager.conf`
     # keyfile.path = where networkmanager should look for connection credentials
     keyfile.path = "/var/lib/NetworkManager/system-connections";
 
@@ -214,20 +218,30 @@
 
     # main.dhcp = "internal";  #< default
     # main.dns controls what to do when NM gets a DNS server via DHCP
-    # - "none"  (populate /run/NetworkManager/resolv.conf with DHCP settings)
-    # - "internal" (?)
-    # - "systemd-resolved" (tell systemd-resolved about it, and point /run/NetworkManager/resolv.conf -> systemd)
-    #   without this, systemd-resolved won't be able to resolve anything (because it has no upstream servers)
+    # - "default": NM manages /etc/resolv.conf itself.
+    # - "none": NM doesn't manage /etc/resolv.conf, but does populate /run/NetworkManager/resolv.conf with DHCP settings
+    # - "systemd-resolved": tell systemd-resolved about it, and point /run/NetworkManager/resolv.conf -> systemd
+    #   - without this, systemd-resolved won't be able to resolve anything (because it has no upstream servers)
+    # - (empty): perform a best-guess for how to manage /etc/resolv.conf
+    #   -> if /etc/resolv.conf is a symlink to systemd-resolved, then behaves as "systemd-resolved".
+    #   -> else, behaves as "default".
     # note that NM's resolv.conf isn't (necessarily) /etc/resolv.conf -- that is managed by nixos (via symlinking)
-    main.dns = if config.services.resolved.enable then
-      "systemd-resolved"
-    else if
-      (config.sane.services.hickory-dns.enable && config.sane.services.hickory-dns.asSystemResolver)
-      || (config.services.unbound.enable && config.services.unbound.resolveLocalQueries) then
-      "none"
-    else
-      "internal"
-    ;
+    main.dns = let
+      dns = if config.services.resolved.enable then
+        "systemd-resolved"
+      else if
+        (config.sane.services.hickory-dns.enable && config.sane.services.hickory-dns.asSystemResolver)
+        || (config.services.unbound.enable && config.services.unbound.resolveLocalQueries)
+        || config.services.bind.enable  # bind config isn't easily inspectable; assume that it's acting as local resolver
+      then
+        "none"
+      else
+        # omitting the option instructs NM to do a "best guess".
+        # this is nearly equivalent to "default", however NM will do checks like "is /etc/resolv.conf a symlink to systemd-resolved", etc,
+        # to actually try to understand the environment.
+        null
+      ;
+    in lib.mkIf (dns != null) dns;
     main.systemd-resolved = false;
   };
   environment.etc."NetworkManager/system-connections".source = "/var/lib/NetworkManager/system-connections";

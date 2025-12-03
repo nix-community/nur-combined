@@ -3,10 +3,12 @@
 # watches PWD for any changes underneath it and re-runs `cargo build --a>
 # optionally, provide your own build command as the first argument
 
+set -eu
+
 external_cmd="cargo build --all"
 if [ -n "$1" ]
 then
-        external_cmd=$1
+  external_cmd=$1
 fi
 
 # run this once before starting the inotify
@@ -26,6 +28,6 @@ inotifywait --monitor --recursive \
   -e modify ./ |
 while read -r date time dir file
 do
-        tput reset
-        $external_cmd
+  tput reset
+  $external_cmd
 done

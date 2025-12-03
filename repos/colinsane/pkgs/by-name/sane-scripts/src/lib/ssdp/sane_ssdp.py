@@ -33,7 +33,7 @@ class SsdpResponse:
 
 def get_cached_root_devices() -> list[str]:
     try:
-        dev = open("/var/lib/uninsane/upnp.txt", "r").read()
+        dev = open("/var/lib/dyn-dns/upnp.txt", "r").read()
     except IOError:
         return []
     else:

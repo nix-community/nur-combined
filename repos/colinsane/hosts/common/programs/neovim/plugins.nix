@@ -75,14 +75,13 @@ with pkgs.vimPlugins;
     #   e.g. `os.path.<C-x><C-o>`  to show available os.path items in python
     plugin = nvim-lspconfig;
     config = ''
-      local lspconfig = require("lspconfig")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
       local capabilities = cmp_nvim_lsp.default_capabilities()
 
     '' + lib.optionalString config.sane.programs.bash-language-server.enabled ''
       -- bash language server
       -- repo: <https://github.com/bash-lsp/bash-language-server>
-      lspconfig.bashls.setup {
+      vim.lsp.config('bashls', {
         capabilities = capabilities,
         filetypes = { "bash", "sh", "zsh" },  -- defaults to just `sh`
         handlers = {
@@ -92,64 +91,73 @@ with pkgs.vimPlugins;
           -- more: <https://github.com/neovim/nvim-lspconfig/issues/662>
           ['textDocument/publishDiagnostics'] = function() end
         },
-      }
+      })
+      vim.lsp.enable('bashls')
 
     '' + lib.optionalString config.sane.programs.clang-tools.enabled ''
       -- c/c++ language server
-      lspconfig.clangd.setup {
+      vim.lsp.config('clangd', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('clangd')
 
     '' + lib.optionalString config.sane.programs.ltex-ls.enabled ''
       -- LaTeX / html / markdown spellchecker
       -- repo: <https://github.com/valentjn/ltex-ls>
-      lspconfig.ltex.setup {
+      vim.lsp.config('ltex', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('ltex')
 
     '' + lib.optionalString config.sane.programs.lua-language-server.enabled ''
       -- Lua language server
-      lspconfig.lua_ls.setup {
+      vim.lsp.config('lua_ls', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('lua_ls')
 
     '' + lib.optionalString config.sane.programs.marksman.enabled ''
       -- Markdown language server
       -- repo: <https://github.com/artempyanykh/marksman>
       -- an alternative, specialized for PKMs: <https://github.com/Feel-ix-343/markdown-oxide>
-      lspconfig.marksman.setup {
+      vim.lsp.config('marksman', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('marksman')
 
     '' + lib.optionalString config.sane.programs.nil.enabled ''
       -- nix language server
       -- repo: <https://github.com/oxalica/nil>
       -- features: <https://github.com/oxalica/nil/blob/main/docs/features.md>
       -- a newer alternative is `nixd`: <https://github.com/nix-community/nixd>
-      lspconfig.nil_ls.setup {
+      vim.lsp.config('nil_ls', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('nil_ls')
 
     '' + lib.optionalString config.sane.programs.nixd.enabled ''
       -- nix language server
       -- repo: <https://github.com/nix-community/nixd>
       -- this is a bit nicer than `nil`, noting things like redundant parens, unused args, ...
-      lspconfig.nixd.setup {
+      vim.lsp.config('nixd', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('nixd')
 
     '' + lib.optionalString config.sane.programs.openscad-lsp.enabled ''
       -- openscad (.scad) language server
       -- repo: <https://github.com/Leathong/openscad-LSP>
-      lspconfig.openscad_lsp.setup {
+      vim.lsp.config('openscad_lsp', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('openscad_lsp')
 
     '' + lib.optionalString config.sane.programs.pyright.enabled ''
       -- python language server
-      lspconfig.pyright.setup {
+      vim.lsp.config('pyright', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('pyright')
 
     '' + lib.optionalString config.sane.programs.rust-analyzer.enabled ''
       -- Rust language server
@@ -157,23 +165,26 @@ with pkgs.vimPlugins;
       -- - thinks that `None` doesn't exist
       -- - can't autocomplete `std::` imports
       -- - but it CAN autocomplete stuff from non-std libraries (?)
-      lspconfig.rust_analyzer.setup {
+      vim.lsp.config('rust_analyzer', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('rust_analyzer')
 
     '' + lib.optionalString config.sane.programs.typescript-language-server.enabled ''
       -- Typescript language server
       -- repo: <https://github.com/typescript-language-server/typescript-language-server>
       -- requires tsconfig.json or jsconfig.json in the toplevel of the project directory
-      lspconfig.ts_ls.setup {
+      vim.lsp.config('ts_ls', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('ts_ls')
 
     '' + lib.optionalString config.sane.programs.vala-language-server.enabled ''
       -- Vala (gtk gui language) language server
-      lspconfig.vala_ls.setup {
+      vim.lsp.config('vala_ls', {
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('vala_ls')
     '';
   }
   {
@@ -243,6 +254,10 @@ with pkgs.vimPlugins;
     # detect `#!nix-shell -i $interpreter ...` files as filetype=$interpreter
     type = "lua";
     config = builtins.readFile ./nix_shell.lua;
+  }
+  {
+    type = "viml";
+    config = builtins.readFile ./source_nav.vim;
   }
   {
     # show commit which last modified text under the cursor.

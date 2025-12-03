@@ -16,7 +16,7 @@
   fileSystems."/tmp".options = [ "size=32G" ];
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/cc81cca0-3cc7-4d82-a00c-6243af3e7776";
+    device = "/dev/disk/by-uuid/55555555-eeee-ffff-bbbb-000020250820";
     fsType = "btrfs";
     options = [
       "compress=zstd"
@@ -25,7 +25,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/6EE3-4171";
+    device = "/dev/disk/by-uuid/2025-0820";
     fsType = "vfat";
   };
 
@@ -41,9 +41,10 @@
       # i don't know what guarantees NixOS/systemd make about that, so specifying all devices for now
       # "device=/dev/disk/by-partuuid/14a7d00a-be53-2b4e-96f9-7e2c964674ec"  #< removed 2024-11-24 (for capacity upgrade)
       "device=/dev/disk/by-partuuid/409a147e-2282-49eb-87a7-c968032ede88"  #< added 2024-11-24
-      "device=/dev/disk/by-partuuid/6b86cc10-c3cc-ec4d-b20d-b6688f0959a6"
+      # "device=/dev/disk/by-partuuid/6b86cc10-c3cc-ec4d-b20d-b6688f0959a6"  #< removed 2025-06-04 (early drive failure; capacity upgrade)
       # "device=/dev/disk/by-partuuid/7fd85cac-b6f3-8248-af4e-68e703d11020"  #< removed 2024-11-13 (early drive failure)
       "device=/dev/disk/by-partuuid/92ebbbfb-022f-427d-84d5-39349d4bc02a"  #< added 2025-05-14
+      "device=/dev/disk/by-partuuid/9e6c06b0-4a39-4d69-813f-1f5992f62ed7"  #< added 2025-06-05
       "device=/dev/disk/by-partuuid/d9ad5ebc-0fc4-4d89-9fd0-619ce5210f1b"  #< added 2024-11-13
       # "device=/dev/disk/by-partuuid/ef0e5c7b-fccf-f444-bac4-534424326159"  #< removed 2025-05-14 (early drive failure)
       "nofail"
@@ -68,8 +69,9 @@
     mode = "0775";
   }];
   sane.fs."/var/media/archive".dir = {};
+  sane.fs."/var/media/archive/temp".dir = {};
   # this is file.text instead of symlink.text so that it may be read over a remote mount (where consumers might not have any /nix/store/.../README.md path)
-  sane.fs."/var/media/archive/README.md".file.text = ''
+  sane.fs."/var/media/archive/temp/README.md".file.text = ''
     this directory is for media i wish to remove from my library,
     but keep for a short time in case i reverse my decision.
     treat it like a system trash can.

@@ -1,15 +1,30 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.alsa-ucm-conf;
-in
-{
-  sane.programs.alsa-ucm-conf = {
-    packageUnwrapped = pkgs.alsa-ucm-conf.overrideAttrs (base: {
+  deprioritize = pkg: pkg.overrideAttrs (base: {
       meta = (base.meta or {}) // {
         # let the other alsa ucm packages override configs from this one
         priority = ((base.meta or {}).priority or 10) + 20;
       };
-    });
+  });
+  alsa-ucm-latest = pkgs.alsa-ucm-conf.overrideAttrs (upstream: rec {
+    # XXX(2025-07-18): see <https://github.com/NixOS/nixpkgs/pull/414818>
+    version = "1.2.14";
+    src = lib.warnIf (lib.versionAtLeast upstream.version "1.2.14") "upstream alsa-ucm-conf is up to date with my own: remove override?" pkgs.fetchurl {
+      url = "mirror://alsa/lib/alsa-ucm-conf-${version}.tar.bz2";
+      hash = "sha256-MumAn1ktkrl4qhAy41KTwzuNDx7Edfk3Aiw+6aMGnCE=";
+    };
+    installPhase = lib.replaceStrings
+      [ ''for file in "''${files[@]}"'' ]
+      [ ''for file in ucm2/common/ctl/led.conf'' ]
+      upstream.installPhase
+    ;
+  });
+in
+{
+  sane.programs.alsa-ucm-conf = {
+    packageUnwrapped = deprioritize pkgs.alsa-ucm-conf;
+    # packageUnwrapped = deprioritize alsa-ucm-latest;
     sandbox.enable = false;  #< only provides $out/share/alsa
 
     # alsa-lib package only looks in its $out/share/alsa to find runtime config data, by default.

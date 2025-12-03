@@ -11,13 +11,13 @@
 }:
 stdenv.mkDerivation {
   pname = "libdng";
-  version = "0.2.1-unstable-2025-01-07";
+  version = "0.2.2-unstable-2025-11-11";
 
   src = fetchFromGitLab {
     owner = "megapixels-org";
     repo = "libdng";
-    rev = "bddae68d0f74f525c4a08925a47f4ae7314f5a33";
-    hash = "sha256-5HNj9difK8+biWc0QXG79vG1bUkiGN/J1SxoVvQkqXk=";
+    rev = "438df53ee06d9f21202e0398c90a9c3bf9e86591";
+    hash = "sha256-2Kwz5K37I3HnnKePyY4nKYwnGHP09vr6IThiuKd3EfQ=";
   };
 
   depsBuildBuild = [

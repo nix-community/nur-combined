@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   fsOpts = import ./fs-opts.nix;
-  ifSshAuthorized = lib.mkIf (((config.sane.hosts.by-name."${config.networking.hostName}" or {}).ssh or {}).authorized or false);
+  ifSshAuthorized = lib.mkIf (((config.sane.hosts.by-name."${config.networking.hostName or ""}" or {}).ssh or {}).authorized or false);
 
   remoteHome = name: { host ? name }: let
     mountpoint = "/mnt/${name}/home";
@@ -77,9 +77,9 @@ let
 in
 lib.mkMerge [
   (ifSshAuthorized (remoteHome "crappy" {}))
-  (ifSshAuthorized (remoteHome "desko" {}))
+  (ifSshAuthorized (remoteHome "desko" { host = "desko-hn"; }))
   (ifSshAuthorized (remoteHome "flowy" {}))
-  (ifSshAuthorized (remoteHome "lappy" {}))
+  # (ifSshAuthorized (remoteHome "lappy" {}))
   (ifSshAuthorized (remoteHome "moby" { host = "moby-hn"; }))
   (ifSshAuthorized (remoteHome "servo" {}))
 ]

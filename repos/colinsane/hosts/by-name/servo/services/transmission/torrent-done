@@ -20,7 +20,32 @@
 # - TR_DRY_RUN=1
 # - TR_DEBUG=1
 
+set -eu
+
 DOWNLOAD_DIR=/var/media/torrents
+
+usage() {
+  echo "torrent-done"
+  echo "  transmission torrent-done hook which moves torrents into expected location"
+  echo "  and de-dupes media"
+}
+
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+}
 
 destructive() {
   if [ -n "${TR_DRY_RUN-}" ]; then
@@ -35,6 +60,8 @@ debug() {
     echo "$@"
   fi
 }
+
+parseArgs "$@"
 
 echo "TR_TORRENT_DIR=$TR_TORRENT_DIR TR_TORRENT_NAME=$TR_TORRENT_NAME torrent-done $*"
 

@@ -1,4 +1,5 @@
 # as of 2023/12/02: complete blockchain is 530 GiB (on-disk size may be larger)
+# as of 2025/08/06: on-disk blockchain as reported by `du` is 732 GiB
 #
 # ports:
 # - 8333: for node-to-node communications
@@ -72,13 +73,18 @@ in
       proxy=127.0.0.1:9050
     '';
     extraCmdlineOptions = [
+      # `man bitcoind` for options
+      # "-assumevalid=0"  # to perform script validation on all blocks, instead of just the latest checkpoint published by bitcoin-core
       # "-debug"
       # "-debug=estimatefee"
+      # "-debug=leveldb"
       # "-debug=http"
       # "-debug=net"
       "-debug=proxy"
       "-debug=rpc"
       # "-debug=validation"
+      # "-reindex"  # wipe chainstate, block index, other indices; rebuild from blk*.dat (takes 2.5hrs)
+      # "-reindex-chainstate"  # wipe chainstate; rebuild from blk*.dat
     ];
   };
 

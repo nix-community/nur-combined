@@ -43,6 +43,10 @@ in
       "knowledge/secrets/accounts"
     ];
 
+    # firefox learns about this package by looking in ~/.mozilla/native-messaging-hosts
+    fs.".mozilla/native-messaging-hosts/com.github.browserpass.native.json".symlink.target
+      = "${browserpass}//lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json";
+
     # TODO: env.PASSWORD_STORE_DIR only needs to be present within the browser session.
     # alternative to PASSWORD_STORE_DIR:
     # fs.".password-store".symlink.target = "knowledge/secrets/accounts";

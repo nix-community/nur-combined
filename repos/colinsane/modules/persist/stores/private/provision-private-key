@@ -1,15 +1,44 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p bash -p coreutils-full -p gocryptfs -p inotify-tools
 
-passfile="$1"  # e.g. /run/gocryptfs/private.key
-conffile="$2"  # e.g. /nix/persist/private/gocryptfs.conf
-passdir=$(dirname "$passfile")
+usage() {
+  echo "provision-private-key PASSFILE CONFFILE"
+  echo "e.g. provision-private-key /run/gocryptfs/private.key /nix/persist/private/gocryptfs.conf"
+}
+
+# passfile="$1"  # e.g. /run/gocryptfs/private.key
+# conffile="$2"  # e.g. /nix/persist/private/gocryptfs.conf
+passfile=
+conffile=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -z "$passfile" ]; then
+          passfile=$arg
+        elif [ -z "$conffile" ]; then
+          conffile=$arg
+        else
+          usage
+          exit 1
+        fi
+        ;;
+    esac
+  done
+}
 
 waitForPassfileOnce() {
   local timeout=$1
   if [ -f "$passfile" ]; then
     return 0
   else
+    local passdir=$(dirname "$passfile")
     # wait for some file to be created inside the directory.
     # inotifywait returns 0 if the file was created. 1 or 2 if timeout was hit or it was interrupted by a different event.
     inotifywait --timeout "$timeout" --event create "$passdir"
@@ -40,8 +69,14 @@ validatePassword() {
   fi
 }
 
-waitForPassfile
-while ! validatePassword; do
+main() {
   waitForPassfile
-done
-echo "key provisioned"
+  while ! validatePassword; do
+    waitForPassfile
+  done
+  echo "key provisioned"
+}
+
+
+parseArgs "$@"
+main

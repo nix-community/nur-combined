@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   GiB = n: MiB 1024*n;
@@ -78,7 +78,7 @@ in
   };
 
   # regulate the restarts, so that systemd never disables it
-  systemd.services.postgresql.serviceConfig.Restart = "on-failure";
+  systemd.services.postgresql.serviceConfig.Restart = lib.mkForce "on-failure";
   systemd.services.postgresql.serviceConfig.RestartSec = 2;
   systemd.services.postgresql.serviceConfig.RestartMaxDelaySec = 10;
   systemd.services.postgresql.serviceConfig.RestartSteps = 4;

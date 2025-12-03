@@ -14,7 +14,7 @@ let
   # and that needs to either be added to the sandbox of *every* app,
   # or font-heavy apps are several *seconds* slower to launch.
 
-  noUserCacheConf = pkgs.runCommandNoCC "etc-fonts-fonts.conf-no-user" {} ''
+  noUserCacheConf = pkgs.runCommand "etc-fonts-fonts.conf-no-user" {} ''
     cp ${pkgs.fontconfig.out}/etc/fonts/fonts.conf .
     substituteInPlace fonts.conf \
       --replace-fail '<cachedir prefix="xdg">fontconfig</cachedir>' "" \

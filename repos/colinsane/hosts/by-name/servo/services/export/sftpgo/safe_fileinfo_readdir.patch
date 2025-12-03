@@ -1,0 +1,24 @@
+diff --git a/internal/ftpd/handler.go b/internal/ftpd/handler.go
+index 036c3977..33211261 100644
+--- a/internal/ftpd/handler.go
++++ b/internal/ftpd/handler.go
+@@ -315,7 +315,18 @@ func (c *Connection) ReadDir(name string) (ftpserver.DirLister, error) {
+ 		}, nil
+ 	}
+
+-	return c.ListDir(name)
++	c.clientContext.SetListPath(name)  //< MIGHT not be required
++	lister, err := c.ListDir(name)
++	if err != nil {
++		return nil, err
++	}
++	return &patternDirLister{  // this idiom is copied from 10 lines up ^
++		DirLister:      lister,
++		pattern:        "*",
++		lastCommand:    c.clientContext.GetLastCommand(),
++		dirName:        "",  //< or set to `c.clientContext.Path()`? returned paths are relative to this dirName.
++		connectionPath: c.clientContext.Path(),
++	}, nil
+ }
+
+ // GetHandle implements ClientDriverExtentionFileTransfer

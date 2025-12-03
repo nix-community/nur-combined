@@ -1,0 +1,31 @@
+From bbfc27a2bfc7e530c4ae551f4577227f96cd7791 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Tue, 25 Nov 2025 18:26:56 +0000
+Subject: [PATCH] libssc: enable strictDeps
+
+meson needs both binaries:
+- `protoc` (provided by `protobuf`)
+- `protoc-c` (provided by `protobufc`)
+---
+ pkgs/by-name/li/libssc/package.nix | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/pkgs/by-name/li/libssc/package.nix b/pkgs/by-name/li/libssc/package.nix
+index dfe6705101ba3d4240c2795b0afacc56a9219df7..fd6862d1894182f21aa407cb64ad90c8dfbe49a4 100644
+--- a/pkgs/by-name/li/libssc/package.nix
++++ b/pkgs/by-name/li/libssc/package.nix
+@@ -34,11 +34,14 @@ stdenv.mkDerivation rec {
+ 
+   nativeBuildInputs = [
+     protobuf
++    protobufc
+     pkg-config
+     meson
+     ninja
+   ];
+ 
++  strictDeps = true;
++
+   meta = {
+     description = "Library for exposing Qualcomm Sensor Core sensors to Linux";
+     homepage = "https://codeberg.org/DylanVanAssche/libssc";

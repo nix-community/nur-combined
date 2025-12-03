@@ -1,0 +1,49 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p systemd
+
+# `timedatectl` doesn't allow modification while running -- on immutable distros?
+# TODO: i think this script can be obsoleted by changing some nixos default *somewhere*.
+
+set -eu
+
+usage() {
+  echo "sane-date-set TIME"
+  echo "e.g. sane-date-set '2025-02-09 18:37:00 UTC'"
+  echo
+  echo "current date is:"
+  date --iso=minutes
+}
+
+date=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -z "$date" ]; then
+          date=$arg
+        else
+          usage
+          exit 1
+        fi
+        ;;
+    esac
+  done
+}
+
+main() {
+  local date="$1"
+
+  systemctl stop systemd-timesyncd
+  # sudo timedatectl set-time "$date"
+  timedatectl set-time "$date"
+  systemctl start systemd-timesyncd
+}
+
+parseArgs "$@"
+main "$date"

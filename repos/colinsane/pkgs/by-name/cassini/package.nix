@@ -4,8 +4,8 @@
   fetchFromGitea,
   fetchpatch,
   python3,
-  stdenv,
-}: stdenv.mkDerivation (finalAttrs: {
+  stdenvNoCC,
+}: stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cassini";
   version = "0-unstable-2024-03-30";
 

@@ -1,0 +1,14 @@
+# sourced, with modifications, from <https://github.com/pftf/RPi4/blob/master/config.txt>
+arm_64bit=1
+# arm_boost=1
+# N.B.: `enable_uart=1` is required for systemd-boot's `timeout` (i.e. auto-boot default entry) feature
+enable_uart=1
+# uart_2ndstage=1
+enable_gic=1
+armstub=RPI_EFI.fd
+# disable_commandline_tags=1
+# disable_overscan=1
+# device_tree_address=0x3e0000
+# device_tree_end=0x400000
+# dtoverlay=miniuart-bt
+# dtoverlay=upstream-pi4

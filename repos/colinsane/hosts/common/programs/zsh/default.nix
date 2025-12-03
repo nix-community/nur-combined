@@ -53,81 +53,7 @@ in
       ".local/share/zsh"
     ];
 
-    fs.".config/zsh/.zshrc".symlink.text = ''
-      # zsh/prezto complains if zshrc doesn't exist or is empty;
-      # preserve this comment to prevent that from ever happening.
-
-      HISTFILE="$HOME/.local/share/zsh/history"
-      HISTSIZE=1000000
-      SAVEHIST=1000000
-
-      # auto-cd into any of these dirs by typing them and pressing 'enter':
-      hash -d 3rd="/home/colin/dev/3rd"
-      hash -d dev="/home/colin/dev"
-      hash -d knowledge="/home/colin/knowledge"
-      hash -d nixos="/home/colin/nixos"
-      hash -d nixpkgs="/home/colin/dev/3rd/nixpkgs"
-      hash -d ref="/home/colin/ref"
-      hash -d secrets="/home/colin/knowledge/secrets"
-      hash -d tmp="/home/colin/tmp"
-      hash -d uninsane="/home/colin/dev/uninsane"
-      hash -d Videos="/home/colin/Videos"
-
-      # emulate bash keybindings
-      bindkey -e
-
-      # fixup bindings not handled by bash, see: <https://wiki.archlinux.org/title/Zsh#Key_bindings>
-      # `bindkey -e` seems to define most of the `key` array. everything in the Arch defaults except for these:
-      if [[ -z "''${key[Backspace]}" ]]; then
-        key[Backspace]="''${terminfo[kbs]}"
-      fi
-      if [[ -z "''${key[Control-Left]}" ]]; then
-        key[Control-Left]="''${terminfo[kLFT5]}"
-      fi
-      if [[ -z "''${key[Control-Right]}" ]]; then
-        key[Control-Right]="''${terminfo[kRIT5]}"
-      fi
-      if [[ -z "''${key[Shift-Tab]}" ]]; then
-        key[Shift-Tab]="''${terminfo[kcbt]}"
-      fi
-
-      # XXX(2025-04-12): Control-Left and Control-Right sometimes _still_ don't exist (e.g. raw TTYs, ssh).
-      # build them from `^` + `Left` instead:
-      if [[ -z "''${key[Left]}" ]]; then
-        key[Left]="''${terminfo[kcub1]}"
-      fi
-      if [[ -z "''${key[Right]}" ]]; then
-        key[Right]="''${terminfo[kcuf1]}"
-      fi
-      if [[ -z "''${key[Control-Left]}" ]] && [[ -n "''${key[Left]}" ]]; then
-        key[Control-Left]="^''${key[Left]}"
-      fi
-      if [[ -z "''${key[Control-Right]}" ]] && [[ -n "''${key[Right]}" ]]; then
-        key[Control-Right]="^''${key[Right]}"
-      fi
-
-      bindkey -- "''${key[Delete]}"     delete-char
-      bindkey -- "''${key[Control-Left]}"  backward-word
-      bindkey -- "''${key[Control-Right]}"  forward-word
-
-      # or manually recreate what i care about...
-      # key[Left]=''${terminfo[kcub1]}
-      # key[Right]=''${terminfo[kcuf1]}
-      # bindkey '^R'               history-incremental-search-backward
-      # bindkey '^A'               beginning-of-line
-      # bindkey '^E'               end-of-line
-      # bindkey "^''${key[Left]}"  backward-word
-      # bindkey "^''${key[Right]}" forward-word
-
-      # disable "flow control" (Ctrl+S to suspend terminal, Ctrl+Q to resume).
-      # see: <https://forum.endeavouros.com/t/alacritty-flow-control-turn-off/6199/12>
-      stty -ixon
-
-      # run any additional, sh-generic commands (useful for e.g. launching a login manager on login)
-      if [[ -e ~/.profile ]]; then
-        source ~/.profile
-      fi
-    '';
+    fs.".config/zsh/.zshrc".symlink.target = ./zshrc;
   };
 
 
@@ -140,17 +66,14 @@ in
       ":fg" = "fg";
       ":q" = "exit";
       # common typos
+      ":Q" = ":q";
       "cd.." = "cd ..";
       "cd../" = "cd ../";
+      "eci5" = "exit";
       "ecit" = "exit";
+      "eciy" = "exit";
       "exi5" = "exit";
       "exiy" = "exit";
-      # ls helpers (eza is a nicer `ls`
-      "l"   = "eza --time-style=long-iso --oneline";  # show one entry per line
-      "ll"  = "eza --time-style=long-iso --long";  # like ls -l
-      "lla" = "eza --time-style=long-iso --long --all";  # like ls -al
-      "la"  = "eza --time-style=long-iso --oneline --all";  #like ls -a
-      "lal" = "eza --time-style=long-iso --long --all";  # like ls -al
       # overcome poor defaults
       "lsof" = "lsof -P";  #< lsof: use port *numbers*, not names
       "quit" = "exit";
@@ -158,19 +81,27 @@ in
     };
     setOptions = [
       # docs: `man zshoptions`
-      # nixos defaults:
-      "HIST_FCNTL_LOCK"
-      "HIST_IGNORE_DUPS"
-      "HIST_EXPIRE_DUPS_FIRST"
-      "SHARE_HISTORY"
       # customizations:
       "AUTO_CD"  # type directory name to go there
       "AUTO_MENU"  # show auto-complete menu on double-tab
       "CDABLE_VARS"  # allow auto-cd to use my `hash` aliases -- not just immediate subdirs
-      "CLOBBER"  # allow `foo > bar.txt` to overwrite bar.txt
+      # "CLOBBER"  # (zsh default) allow `foo > bar.txt` to overwrite bar.txt
+      # "CORRECT"  # try to correct typo'd commands
+      # "EXTENDED_HISTORY"  # save timestamps and duration in history file
+      "GLOB_DOTS"  # make `echo ~/*` include "hidden" .-prefixed entries
+      "GLOB_STAR_SHORT"  # allow `**` as shorthand for `**/*` (i.e. recursive glob)
+      "HIST_EXPIRE_DUPS_FIRST"  # when history file needs to be trimmed, remove oldest _non-unique_ entry instead of just the oldest entry.
+      "HIST_FCNTL_LOCK"  # (nixos default) more reliable locking/concurrency over history file
+      "HIST_FIND_NO_DUPS"  # when searching history, skip over entries which have already been shown
+      "HIST_IGNORE_DUPS"  # (nixos default) when a command is invoked twice in a row, only add it to history file once
+      "INTERACTIVE_COMMENTS"  # allow comments even in interactive shells
+      "NO_BEEP"  # don't beep on invalid line-editor operations (e.g. bad completions)
       "NO_CORRECT"  # don't try to correct commands
+      # "NULL_GLOB"  # make globs which yield 0 results not be an error
       "PIPE_FAIL"  # when `cmd_a | cmd_b`, make $? be non-zero if *any* of cmd_a or cmd_b fail
+      "PUSHD_SILENT"  # `pushd`: don't print directory stack
       "RM_STAR_SILENT"  # disable `rm *` confirmations
+      "SHARE_HISTORY"  # share history across all zsh instances
     ];
 
     # .zshenv config:
@@ -186,12 +117,35 @@ in
 
       HISTORY_IGNORE='(sane-shutdown *|sane-reboot *|rm *|nixos-rebuild.* switch|switch)'
 
-      # extra aliases
-      # TODO: move to `shellAliases` config?
+      ### aliases
+      # aliases can be defined in any order, regardless of how they reference eachother.
+      # but they must be defined before any functions which use them.
+      #
+      # ls helpers (eza is a nicer `ls`)
+      # l: list directory, one entry per line
+      alias l="eza --time-style=long-iso --bytes"
+      # la: like `ls -a`
+      alias la="l --all"
+      # lal: like `ls -al`
+      alias lal="l --long --all"
+      # ll: like `ls -l`
+      alias ll="l --long"
+      # lla: like `ls -al`
+      alias lla="l --long --all"
+      # lrt: like `ls -lrt`
+      alias lrt="l --long --sort time"
+
+      alias ls="eza --time-style=long-iso --bytes"
+      # escape to use the original (coreutils) `ls`
+      alias _ls="env ls"
+
+      ### functions
+      # N.B. functions must be defined _after_ any aliases they reference;
+      # alias expansion appears to happen at definition time, not call time.
       function c() {
         # list a dir after entering it
         cd "$@"
-        eza --oneline
+        ll
       }
       function deref() {
         # convert a symlink into a plain file of the same content
@@ -201,6 +155,7 @@ in
         fi
         chmod u+w "$1"
       }
+
       function nd() {
         # enter a directory, creating it if necessary
         mkdir -p "$1"

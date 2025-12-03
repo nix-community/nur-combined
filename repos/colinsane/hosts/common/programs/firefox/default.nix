@@ -1,6 +1,3 @@
-# common settings to toggle (at runtime, in about:config):
-#   > security.ssl.require_safe_negotiation
-
 { config, lib, pkgs, ...}:
 let
   cfg = config.sane.programs.firefox.config;
@@ -19,7 +16,9 @@ let
       cfg.addons
   );
   addonSuggestedPrograms = lib.map (n: config.sane.programs."${n}") addonSuggestedProgramNames;
-  addonHomePaths = lib.concatMap (p: p.sandbox.extraHomePaths) (addonSuggestedPrograms ++ nativeMessagingPrograms);
+  addonHomePaths = lib.concatMap
+    (p: p.sandbox.extraHomePaths ++ builtins.attrNames p.fs)
+    (addonSuggestedPrograms ++ nativeMessagingPrograms);
 
   packageUnwrapped = let
     unwrapped = pkgs.firefox-unwrapped // {
@@ -32,7 +31,8 @@ let
     # inherit the default librewolf.cfg
     # it can be further customized via ~/.librewolf/librewolf.overrides.cfg
     libName = "firefox";
-    inherit nativeMessagingHosts;
+    # XXX(2025-08-26): nativeMessagingHosts wrapping is broken! put things in ~/.mozilla/native-messaging-hosts/ instead.
+    # inherit nativeMessagingHosts;
 
     nixExtensions = lib.concatMap (ext: lib.optional ext.enable ext.package) (builtins.attrValues cfg.addons);
 
@@ -230,7 +230,10 @@ in
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
     sandbox.whitelistAvDev = true;  #< it doesn't seem to use pipewire, but direct /dev/videoN (as of 2024/09/12)
-    sandbox.whitelistDbus.user.own = [ "org.mozilla.firefox.*" ];
+    sandbox.whitelistDbus.user.own = [
+      "org.mozilla.firefox.*"
+      "org.mpris.MediaPlayer2.firefox.*"
+    ];
     sandbox.whitelistPortal = [
       "Camera"  # not sure if used
       # "Email"  # not sure if used

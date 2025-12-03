@@ -1,0 +1,60 @@
+# `man 5 hgrc` => scroll to SECTIONS => to see full config options
+# `hg config` => to show the finalized config
+
+[alias]
+noop = !$HG > /dev/null
+q = qseries -s -v
+#
+# `hg qpath`: print the path to the current queue
+qpath = !$HG noop ; echo ".hg/patches-$($HG qqueue --active)" | sed 's:hg/patches-patches:hg/patches:'
+#
+# `hg qcat PATCH_NAME`: view the diff of a mq patch in the current queue.
+qcat = !$HG noop ; cat $($HG qpath)/$1 | colordiff --nobanner | $PAGER
+#
+# `hg qcref`: like `git add -p`; select which changes should be in this patch, interactively
+qcref = !$HG qrefresh --exclude . && $HG qrefresh --config ui.interface.chunkselector=curses --interactive
+#
+# `hg qdup NEW_QUEUE_NAME`: copy all patches in the current queue into a new queue
+qdup = !$HG qpop -a ; cp -R $($HG qpath) .hg/patches-$1 ; echo $1 >> .hg/patches.queues ; $HG qqueue $1
+qstat = qdiff --stat
+sblame = blame -undq
+#
+# these aliases are BROKEN:
+# `hg qmigrate OTHER_QUEUE_NAME`: copy currently-applied patches onto another queue
+# qmigrate = !$HG export -o '/tmp/qmigrate-$1' ; $HG qpop -a ; $HG qqueue $1 ; $HG import '/tmp/qmigrate-$1'
+
+# `hg help color`
+# to see the label used in a specific context, set `--color debug`.
+#   e.g. `hg stat --color debug`
+[color]
+qseries.applied = blue bold underline
+qseries.unapplied = magenta
+# qseries.message.applied
+# qseries.message.unapplied
+
+[defaults]
+# fixup `log` to show the full commit description.
+# this seems to be a deprecated way to do it; should use "command templates" instead? see:
+# - <https://blahg.josefsipek.net/?p=575>
+# - `hg help templates`
+# - `hg help log`
+# log = -v
+# this template mimics `git log`
+log = --template "{label('log.changeset', 'commit {rev}:{node|short}')}\nAuthor: {author}\nDate:   {date|isodatesec}\n\n{indent(desc, '    ')}\n\n"
+
+[diff]
+# showfunc = True
+# `diff.git = True`: render diffs with `diff --git` instead of `diff -r`
+git = True
+# `diff.unified = N`: show N lines of context (else, use default as per `diff`)
+unified = 8
+
+[extensions]
+# Mercurial Queues (MQ) extension adds patch-stack support to mercurial.
+# MQ is shipped in mercurial, but not enabled by default.
+# it's a port of some git extension, idk which.
+mq =
+# the `record` extension is required for `hg qref --interactive`
+record =
+# other extensions maybe worth looking into:
+# shelve =

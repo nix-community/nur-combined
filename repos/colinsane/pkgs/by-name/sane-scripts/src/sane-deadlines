@@ -19,34 +19,61 @@
 # configurables:
 var deadlines = "$[ENV.HOME]/knowledge/planner/deadlines.tsv"
 
-if ! test -f "$deadlines" {
-  echo "WARNING: $deadlines sane-deadlines file not found"
-  exit 1
+proc usage {
+  echo "sane-deadlines:"
+  echo "  print any upcoming deadlines from $deadlines"
 }
 
-var now=$(date +%s)
-for line in ($(cat "$deadlines") => split(u'\n')) {
-  if (line === "" or line => startsWith("#")) {
-    # ignore comments
-    continue
+func parseArgs(args) {
+  for arg in (args) {
+    case (arg) {
+      ("--help") {
+        usage
+        exit 0
+      }
+      (else) {
+        usage
+        exit 1
+      }
+    }
+  }
+}
+
+proc main {
+  if ! test -f "$deadlines" {
+    echo "WARNING: $deadlines sane-deadlines file not found"
+    exit 1
   }
 
-  # parse normal line
-  var deadline_field=$(echo "$line" | cut -f 1)
-  var threshold_field=$(echo "$line" | cut -f 2)
-  var description_field=$(echo "$line" | cut -f 3)
+  var now=$(date +%s)
+  for line in ($(cat "$deadlines") => split(u'\n')) {
+    if (line === "" or line => startsWith("#")) {
+      # ignore comments
+      continue
+    }
 
-  # normalize dates into seconds since unix epoch
-  var deadline=$(date -d "$deadline_field" +%s)
-  var threshold=$(echo "$threshold_field" | sed 's/d/day /g')
-  var birthtime=$(date -d "$deadline_field - $threshold" +%s)
+    # parse normal line
+    var deadline_field=$(echo "$line" | cut -f 1)
+    var threshold_field=$(echo "$line" | cut -f 2)
+    var description_field=$(echo "$line" | cut -f 3)
 
-  # show the event iff it's near
-  # 86400 = 24*60*60 = # of seconds in a day
-  # 10080 = 24*60*7 = # of seconds between UTC and UTC-7
-  # 11520 = 24*60*8 = # of seconds between UTC and UTC-8
-  if (now >= birthtime) {
-    var days_until = int((deadline - now + 86399) / 86400)
-    echo "in $days_until day(s): $description_field"
+    # normalize dates into seconds since unix epoch
+    var deadline=$(date -d "$deadline_field" +%s)
+    var threshold=$(echo "$threshold_field" | sed 's/d/day /g')
+    var birthtime=$(date -d "$deadline_field - $threshold" +%s)
+
+    # show the event iff it's near
+    # 86400 = 24*60*60 = # of seconds in a day
+    # 10080 = 24*60*7 = # of seconds between UTC and UTC-7
+    # 11520 = 24*60*8 = # of seconds between UTC and UTC-8
+    if (now >= birthtime) {
+      var days_until = int((deadline - now + 86399) / 86400)
+      echo "in $days_until day(s): $description_field"
+    }
   }
+}
+
+if is-main {
+  call parseArgs(ARGV)
+  main
 }

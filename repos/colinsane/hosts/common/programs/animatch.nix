@@ -19,16 +19,15 @@
     packageUnwrapped = with pkgs; animatch.override {
       # allegro has no native wayland support, and so by default crashes when run without Xwayland.
       # enable the allegro SDL backend, and achieve Wayland support via SDL's Wayland support.
-      # TODO: see about upstreaming this to nixpkgs?
-      allegro5 = allegro5.overrideAttrs (upstream: {
-        buildInputs = upstream.buildInputs ++ [
-          SDL2
-        ];
-        cmakeFlags = upstream.cmakeFlags ++ [
-          "-DALLEGRO_SDL=on"
-        ];
-      });
+      allegro5 = allegro5.override { useSDL = true; };
     };
+    # nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+    #   makeWrapper
+    # ];
+    # postFixup = (upstream.postFixup or "") + ''
+    #   wrapProgram $out/bin/animatch \
+    #     --set SDL_VIDEODRIVER wayland
+    # '';
 
     buildCost = 1;
 

@@ -2,7 +2,7 @@
   lib,
   python3,
   static-nix-shell,
-  stdenv,
+  stdenvNoCC,
   symlinkJoin,
   transmission_4,
 }:
@@ -11,7 +11,7 @@ let
   sane-lib = {
     # TODO: we could simplify the lib/ folder structure
     # by auto-generating the setup.py files in `postPatch`, below
-    bt = stdenv.mkDerivation {
+    bt = stdenvNoCC.mkDerivation {
       pname = "sane-lib-bt";
       version = "0.1.0";
       src = ./src/lib/bt;
@@ -32,7 +32,7 @@ let
       doCheck = true;
       strictDeps = true;
     };
-    ssdp = stdenv.mkDerivation {
+    ssdp = stdenvNoCC.mkDerivation {
       pname = "sane-lib-ssdp";
       version = "0.1.0";
       src = ./src/lib/ssdp;
@@ -82,6 +82,11 @@ let
       srcRoot = ./src;
       pkgs = [ "nix" ];
     };
+    date-set = static-nix-shell.mkBash {
+      pname = "sane-date-set";
+      srcRoot = ./src;
+      pkgs = [ "systemd" ];
+    };
     deadlines = static-nix-shell.mkYsh {
       pname = "sane-deadlines";
       srcRoot = ./src;
@@ -122,6 +127,11 @@ let
       srcRoot = ./src;
       pkgs = [ "openssh" "sane-scripts.secrets-dump" ];
     };
+    profile = static-nix-shell.mkYsh {
+      pname = "sane-profile";
+      srcRoot = ./src;
+      pkgs = [ "flamegraph" "perf" ];
+    };
     rcp = static-nix-shell.mkBash {
       pname = "sane-rcp";
       srcRoot = ./src;
@@ -161,7 +171,7 @@ let
       srcRoot = ./src;
       pkgs = [ "nettools" "systemd" ];
     };
-    stop-all-servo = static-nix-shell.mkBash {
+    stop-all-servo = static-nix-shell.mkYsh {
       pname = "sane-stop-all-servo";
       srcRoot = ./src;
       pkgs = [ "systemd" ];

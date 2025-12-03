@@ -1,3 +1,6 @@
+" ENV VARS
+" VIMINIT=/path/to/init.vim to use a different vimrc
+
 " let the terminal handle mouse events, that way i get OS-level ctrl+shift+c/etc
 " this used to be default, until <https://github.com/neovim/neovim/pull/19290>
 set mouse=
@@ -30,9 +33,32 @@ set conceallevel=2
 set list
 set listchars=tab:▷\·,trail:·,extends:◣,precedes:◢,nbsp:○
 
+" use tab completion to see all colorscheme options:
+" :set colorscheme <tab>
+" colors can be more finely set by editing ~/.config/nvim/colors/$colorscheme
+" see: <https://neovim.io/doc/user/usr_06.html>
+"
+" black-on-white schemes:
+" colorscheme delek
+colorscheme shine
+" colorscheme vim
+" colorscheme zellner
+
 " when using vim to view manpages
 "   (`:Man topic` or `MANPAGER='nvim +Man!' man topic` or `vim man://topic`),
 " instruct `man` to output unwrapped buffers, and let vim soft-wrap them.
 " this allows one to resize the terminal and have the manpage be re-rendered.
 " see: <https://github.com/neovim/neovim/issues/11436>
 let g:man_hardwrap=0
+
+" netrw builtin filebrowser
+" 'i' = case *I*nsensitive sorting
+" it's (likely) the `how` field from <https://neovim.io/doc/user/builtin.html#sort()>
+let g:netrw_sort_options="i"
+" reset the default "sort sequence", which otherwise sorts vaguely by _suffix_
+" instead of file name. this is a list of regular expressions, where names
+" matching earlier entries are grouped higher than names matching later entries.
+" - '[\/]$' matches directories (and possibly symlinks whose content ends in a /).
+"   use it to place directories above non-directory entries
+let g:netrw_sort_sequence="[\/]$,*"
+" let g:netrw_sort_sequence="*"

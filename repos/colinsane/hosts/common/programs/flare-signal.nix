@@ -11,7 +11,9 @@
 # - linking flare to iOS signal "works", but neither side can exchange messages nor contacts
 #   in iOS i see "A message from Colin could not be delivered"
 # - registering as primary device does not work ("you are not authorized", or some such)
-#
+### compatibility (2025-07-05):
+# - registering as primary device works, via JMP.chat tel.
+# - no apparent way to create chats, though allegedly i can still be invited to existing chats.
 ### debugging:
 # - `RUST_LOG=flare=trace flare`
 #
@@ -66,8 +68,15 @@
 { pkgs, ... }:
 {
   sane.programs.flare-signal = {
-    packageUnwrapped = pkgs.flare-signal-nixified;
-    # packageUnwrapped = pkgs.flare-signal;
+    # packageUnwrapped = pkgs.flare-signal-nixified;
+    packageUnwrapped = pkgs.flare-signal.overrideAttrs (upstream: {
+      postPatch = (upstream.postPatch or "") + ''
+        # enable the "Primary Device" button (beta).
+        # or setenv FLARE_ENABLE_PRIMARY_DEVICE=1
+        substituteInPlace data/resources/ui/setup_window.blp \
+          --replace 'sensitive: false;' ""
+      '';
+    });
     persist.byStore.private = [
       # everything: conf, state, files, all opaque
       ".local/share/flare"

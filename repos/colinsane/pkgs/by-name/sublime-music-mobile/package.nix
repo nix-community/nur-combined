@@ -54,7 +54,7 @@
   libhandy,
   pango,
   python3,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   xvfb-run,
   chromecastSupport ? false,
   keyringSupport ? true,
@@ -106,7 +106,7 @@ python.pkgs.buildPythonApplication rec {
   nativeBuildInputs =
     [
       gobject-introspection
-      wrapGAppsHook
+      wrapGAppsHook3
     ]
     ++ (with python.pkgs; [
       poetry-core

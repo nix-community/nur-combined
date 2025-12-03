@@ -59,6 +59,7 @@ let
     "10.96.0.0/11"  # - 10.127.255.255
     "10.128.0.0/9"  # - 10.255.255.255
     "100.64.0.0/10"
+    "192.168.0.0/16"
   ];
   tailscale = let
     iproute2' = pkgs.callPackage ./tailscale-iproute2 { };
@@ -93,7 +94,7 @@ let
 
       wrapProgram $out/bin/tailscaled \
         --inherit-argv0 \
-        --prefix PATH : ${iproute2'}/bin
+        --prefix PATH : ${lib.makeBinPath [ iproute2' ]}
     '';
 
     inherit (tailscaleNoIproute2) meta;
@@ -103,130 +104,164 @@ let
   };
 in
 {
-  config = lib.mkIf config.sane.roles.work {
-    sane.persist.sys.byStore.private = [
-      { user = "root"; group = "root"; mode = "0700"; path = "/var/lib/tailscale"; method = "bind"; }
-    ];
-    services.tailscale.enable = true;
-
-    services.tailscale.package = tailscale;
-    systemd.services.tailscaled.environment.TS_DEBUG_USE_IP_COMMAND = "1";
-
-    # "statically" configure the routes to tailscale.
-    # tailscale doesn't use the kernel wireguard module,
-    # but a userspace `wireguard-go` (coupled with `/dev/net/tun`, or a pure
-    # pasta-style TCP/UDP userspace dev).
-    #
-    # it therefore appears as an "unmanaged" device to network managers like systemd-networkd.
-    # in order to configure routes, we have to script it.
-    systemd.services.tailscaled.serviceConfig.ExecStartPost = [
-      (pkgs.writeShellScript "tailscaled-add-routes" ''
-        while ! ${lib.getExe' tailscale "tailscale"} status ; do
-          echo "tailscale not ready"
-          sleep 2
-        done
-        for addr in ${lib.concatStringsSep " " routableSubnets}; do
-          ${ip} route add table main "$addr" dev tailscale0 scope global
-        done
-      '')
-    ];
-    systemd.services.tailscaled.preStop = ''
-      for addr in ${lib.concatStringsSep " " routableSubnets}; do
-        ${ip} route del table main "$addr" dev tailscale0 scope global || true
-      done
-    '';
-    # systemd.network.networks."50-tailscale" = {
-    #   # see: `man 5 systemd.network`
-    #   matchConfig.Name = "tailscale0";
-    #   routes = [
-    #     # {
-    #     #   Scope = "global";
-    #     #   # 0.0.0.0/8 is a reserved-for-local-network range in IPv4
-    #     #   Destination = "0.0.0.0/8";
-    #     # }
-    #     {
-    #       Scope = "global";
-    #       # Scope = "link";
-    #       # 10.0.0.0/8 is a reserved-for-private-networks range in IPv4
-    #       Destination = "10.0.0.0/8";
-    #     }
-    #     {
-    #       Scope = "global";
-    #       # Scope = "link";
-    #       # 100.64.0.0/10 is a reserved range in IPv4
-    #       Destination = "100.64.0.0/10";
-    #     }
-    #   ];
-    #   # RequiredForOnline => should `systemd-networkd-wait-online` fail if this network can't come up?
-    #   linkConfig.RequiredForOnline = false;
-    #   linkConfig.Unmanaged = lib.mkForce false;  #< tailscale nixos module declares this as unmanaged
-    # };
-
-    # services.tailscale.useRoutingFeatures = "client";
-    services.tailscale.extraSetFlags = [
-      # --accept-routes does _two_ things:
-      # 1. allows tailscale to discover, internally, how to route to peers-of-peers.
-      # 2. instructs tailscale to tell the kernel to route discovered routes through the tailscale0 device.
-      # even if i disable #2, i still need --accept-routes to provide #1.
-      "--accept-routes"
-      # "--operator=colin"  #< this *should* allow non-root control, but fails: <https://github.com/tailscale/tailscale/issues/16080>
-      # lock the preferences i care about, because even if they're default i think they _might_ be conditional on admin policy:
-      "--accept-dns=false"  #< i manage manually, with BIND
-      # "--accept-routes=false"
-      "--advertise-connector=false"
-      "--advertise-exit-node=false"
-      # "--auto-update=false"  # "automatic updates are not supported on this platform"
-      "--ssh=false"
-      "--update-check=false"
-      "--webclient=false"
-    ];
-    services.tailscale.extraDaemonFlags = [
-      "-verbose" "7"
-    ];
-    services.bind.extraConfig = ''
-      include "${config.sops.secrets."tailscale-work-zones-bind.conf".path}";
-    '';
-
-    systemd.services.tailscaled = {
-      # systemd hardening (systemd-analyze security tailscaled.service)
-      serviceConfig.AmbientCapabilities = "CAP_NET_ADMIN";
-      serviceConfig.CapabilityBoundingSet = "CAP_NET_ADMIN";
-      serviceConfig.LockPersonality = true;
-      serviceConfig.MemoryDenyWriteExecute = true;
-      serviceConfig.NoNewPrivileges = true;
-
-      serviceConfig.ProtectClock = true;
-      serviceConfig.ProtectControlGroups = true;
-      serviceConfig.ProtectHome = true;
-      serviceConfig.ProtectHostname = true;
-      serviceConfig.ProtectKernelLogs = true;
-      serviceConfig.ProtectKernelModules = true;
-      serviceConfig.ProtectKernelTunables = true;
-      serviceConfig.ProtectProc = "invisible";
-      serviceConfig.ProtectSystem = "strict";  # makes read-only: all but /dev, /proc, /sys.
-      serviceConfig.ProcSubset = "pid";
-
-      # serviceConfig.PrivateIPC = true;
-      serviceConfig.PrivateTmp = true;
-
-      # serviceConfig.RemoveIPC = true;  #< does not apply to root
-      serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK AF_UNIX";
-      # #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
-      # # see `systemd-analyze filesystems` for a full list
-      serviceConfig.RestrictFileSystems = "@application @basic-api @common-block";
-      serviceConfig.RestrictRealtime = true;
-      serviceConfig.RestrictSUIDSGID = true;
-      serviceConfig.SystemCallArchitectures = "native";
-      serviceConfig.SystemCallFilter = [
-        "@system-service"
-        "@sandbox"
-        "~@chown"
-        "~@cpu-emulation"
-        "~@keyring"
+  config = lib.mkIf config.sane.roles.work (lib.mkMerge [
+    {
+      sane.persist.sys.byStore.private = [
+        { user = "root"; group = "root"; mode = "0700"; path = "/var/lib/tailscale"; method = "bind"; }
       ];
-      serviceConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
-      serviceConfig.DeviceAllow = "/dev/net/tun";  #< TODO: enable "userspace networking" tailscale option, to remove this?
-      serviceConfig.RestrictNamespaces = true;
-    };
-  };
+      services.tailscale.enable = true;
+
+      services.tailscale.package = tailscale;
+      systemd.services.tailscaled.environment.TS_DEBUG_USE_IP_COMMAND = "1";
+
+      # "statically" configure the routes to tailscale.
+      # tailscale doesn't use the kernel wireguard module,
+      # but a userspace `wireguard-go` (coupled with `/dev/net/tun`, or a pure
+      # pasta-style TCP/UDP userspace dev).
+      #
+      # it therefore appears as an "unmanaged" device to network managers like systemd-networkd.
+      # in order to configure routes, we have to script it.
+      systemd.services.tailscaled.serviceConfig.ExecStartPost = [
+        (pkgs.writeShellScript "tailscaled-add-routes" ''
+          while ! ${lib.getExe' tailscale "tailscale"} status ; do
+            echo "tailscale not ready"
+            sleep 2
+          done
+          for addr in ${lib.concatStringsSep " " routableSubnets}; do
+            (set -x ; ${ip} route add table main "$addr" dev tailscale0 scope global)
+          done
+        '')
+      ];
+      systemd.services.tailscaled.preStop = ''
+        for addr in ${lib.concatStringsSep " " routableSubnets}; do
+          (set -x ; ${ip} route del table main "$addr" dev tailscale0 scope global) || true
+        done
+      '';
+      # systemd.network.networks."50-tailscale" = {
+      #   # see: `man 5 systemd.network`
+      #   matchConfig.Name = "tailscale0";
+      #   routes = [
+      #     # {
+      #     #   Scope = "global";
+      #     #   # 0.0.0.0/8 is a reserved-for-local-network range in IPv4
+      #     #   Destination = "0.0.0.0/8";
+      #     # }
+      #     {
+      #       Scope = "global";
+      #       # Scope = "link";
+      #       # 10.0.0.0/8 is a reserved-for-private-networks range in IPv4
+      #       Destination = "10.0.0.0/8";
+      #     }
+      #     {
+      #       Scope = "global";
+      #       # Scope = "link";
+      #       # 100.64.0.0/10 is a reserved range in IPv4
+      #       Destination = "100.64.0.0/10";
+      #     }
+      #   ];
+      #   # RequiredForOnline => should `systemd-networkd-wait-online` fail if this network can't come up?
+      #   linkConfig.RequiredForOnline = false;
+      #   linkConfig.Unmanaged = lib.mkForce false;  #< tailscale nixos module declares this as unmanaged
+      # };
+
+      # services.tailscale.useRoutingFeatures = "client";
+      services.tailscale.extraSetFlags = [
+        # --accept-routes does _two_ things:
+        # 1. allows tailscale to discover, internally, how to route to peers-of-peers.
+        # 2. instructs tailscale to tell the kernel to route discovered routes through the tailscale0 device.
+        # even if i disable #2, i still need --accept-routes to provide #1.
+        "--accept-routes"
+        # "--operator=colin"  #< this *should* allow non-root control, but fails: <https://github.com/tailscale/tailscale/issues/16080>
+        # lock the preferences i care about, because even if they're default i think they _might_ be conditional on admin policy:
+        # --accept-dns=false:
+        # 1. i manage DNS (/etc/resolv.conf) manually, with BIND/nixos
+        # 2. `tailscale dns query ...` works only if `--accept-dns` is set FALSE.
+        #    maybe because `--accept-dns=true` causes tailscaled to fail to write resolvconf, and then it aborts, or something...
+        "--accept-dns=false"
+        # "--accept-routes=false"
+        "--advertise-connector=false"
+        "--advertise-exit-node=false"
+        # "--auto-update=false"  # "automatic updates are not supported on this platform"
+        "--ssh=false"
+        "--update-check=false"
+        "--webclient=false"
+      ];
+      services.tailscale.extraDaemonFlags = [
+        "-verbose" "7"
+      ];
+    }
+
+    {
+      systemd.services.tailscaled = {
+        # systemd hardening (systemd-analyze security tailscaled.service)
+        serviceConfig.AmbientCapabilities = "CAP_NET_ADMIN";
+        serviceConfig.CapabilityBoundingSet = "CAP_NET_ADMIN";
+        serviceConfig.LockPersonality = true;
+        serviceConfig.MemoryDenyWriteExecute = true;
+        serviceConfig.NoNewPrivileges = true;
+
+        serviceConfig.ProtectClock = true;
+        serviceConfig.ProtectControlGroups = true;
+        serviceConfig.ProtectHome = true;
+        serviceConfig.ProtectHostname = true;
+        serviceConfig.ProtectKernelLogs = true;
+        serviceConfig.ProtectKernelModules = true;
+        serviceConfig.ProtectKernelTunables = true;
+        serviceConfig.ProtectProc = "invisible";
+        serviceConfig.ProtectSystem = "strict";  # makes read-only: all but /dev, /proc, /sys.
+        serviceConfig.ProcSubset = "pid";
+
+        # serviceConfig.PrivateIPC = true;
+        serviceConfig.PrivateTmp = true;
+
+        # serviceConfig.RemoveIPC = true;  #< does not apply to root
+        serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK AF_UNIX";
+        # #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+        # # see `systemd-analyze filesystems` for a full list
+        serviceConfig.RestrictFileSystems = "@application @basic-api @common-block";
+        serviceConfig.RestrictRealtime = true;
+        serviceConfig.RestrictSUIDSGID = true;
+        serviceConfig.SystemCallArchitectures = "native";
+        serviceConfig.SystemCallFilter = [
+          "@system-service"
+          "@sandbox"
+          "~@chown"
+          "~@cpu-emulation"
+          "~@keyring"
+        ];
+        serviceConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
+        serviceConfig.DeviceAllow = "/dev/net/tun";
+        serviceConfig.RestrictNamespaces = true;
+      };
+    }
+
+    (lib.mkIf config.services.bind.enable {
+      # make DNS resolvable, if using BIND
+      sops.secrets."tailscale-work-zones-bind.conf".owner = "named";
+      services.bind.extraConfig = ''
+        include "${config.sops.secrets."tailscale-work-zones-bind.conf".path}";
+      '';
+    })
+
+    (lib.mkIf config.services.kresd.enable {
+      # make DNS resolvable, if using kresd
+      sops.secrets."tailscale-work-zones-kresd.conf".owner = "knot-resolver";
+
+      systemd.services."kresd@".serviceConfig = let
+        package = config.services.kresd.package;
+      in {
+        ExecStart = lib.mkForce [
+          ""  #< clear previous assignment
+          (
+            # override default CLI so as to inject `-c` for secret config portion
+            # TODO: refactor for cleaner integration with hosts/common/net/dns/kresd.nix
+            "${package}/bin/kresd --noninteractive"
+            + " -c ${package}/lib/knot-resolver/distro-preconfig.lua"
+            + " -c /etc/knot-resolver/kresd.conf"
+            + " -c ${config.sops.secrets."tailscale-work-zones-kresd.conf".path}"
+          )
+        ];
+      };
+    })
+  ]);
 }

@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ./boot.nix
@@ -33,10 +33,16 @@
   sane.programs.sysadminExtraUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
 
-  services.buffyboard.enable = true;
+  services.buffyboard.enable = lib.mkDefault true;
   services.buffyboard.settings.theme.default = "pmos-light";
+  # services.buffyboard.settings.quirks.ignore_unused_terminals = true;
   # services.buffyboard.settings.quirks.fbdev_force_refresh = true;
   services.buffyboard.extraFlags = [ "--verbose" ];
+  # XXX(2025-10-25): if buffyboard is launched too early in boot, it seems to just exit 0 => force it to always restart.
+  # systemd.services.buffyboard.serviceConfig.Restart = "always";
+  # systemd.services.buffyboard.serviceConfig.RestartSec = 2;
+  # upstream buffyboard service file now ships default `WantedBy=multi-user.target` and `After=getty.target`
+  # systemd.services.buffyboard.before = lib.mkForce [];
 
   # irqbalance monitors interrupt count (as a daemon) and assigns high-frequency interrupts to different CPUs.
   # that reduces contention between simultaneously-fired interrupts.
@@ -60,4 +66,13 @@
   # link debug symbols into /run/current-system/sw/lib/debug
   # hopefully picked up by gdb automatically?
   environment.enableDebugInfo = true;
+
+  # enable manpages targeted at developers (i.e. `devman` package outputs)
+  # <https://search.nixos.org/options?channel=unstable&show=documentation.dev.enable&query=documentation.dev>
+  documentation.dev.enable = true;
+  # document my own, custom (non-nixpkgs) options in `man configuration.nix`:
+  documentation.nixos = lib.mkIf (config.sane.maxBuildCost >= 3) {
+    includeAllModules = true;
+    options.warningsAreErrors = false;  #< TODO: fix all my options to have `description`, then enable.
+  };
 }

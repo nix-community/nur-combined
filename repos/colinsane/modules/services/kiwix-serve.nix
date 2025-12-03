@@ -12,18 +12,18 @@ in
       port = mkOption {
         type = types.port;
         default = 80;
-        description = lib.mdDoc "Port number to listen on.";
+        description = "Port number to listen on.";
       };
       listenAddress = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc ''
+        description = ''
           IP address to listen on. Listens on all available addresses if unspecified.
         '';
       };
       zimPaths = mkOption {
         type = types.nonEmptyListOf (types.either types.str types.path);
-        description = lib.mdDoc "ZIM file path(s)";
+        description = "ZIM file path(s)";
       };
     };
   };

@@ -9,12 +9,10 @@ let
     # because then when things go wrong i have an actual shot at bisecting.
     # this has been useful as recently as 2024/08 when sway/wlroots updates straight up don't render output:
     # <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715#note_2523517>
-    #
-    # TODO(2025-01-19): nixpkgs-wayland.sway-unwrapped DOES NOT BUILD; re-enable this once it does.
-    # inherit (pkgs.nixpkgs-wayland)
-    #   sway-unwrapped
-    #   wlroots
-    # ;
+    inherit (pkgs.nixpkgs-wayland)
+      sway-unwrapped
+      wlroots
+    ;
   };
   cfg = config.sane.programs.sway;
   enableXWayland = config.sane.programs.xwayland.enabled;
@@ -45,7 +43,7 @@ let
       passthru.sway-unwrapped = configuredSway;
     };
 
-  wlroots = (pkgs'.wlroots_0_18.override {
+  wlroots = (pkgs'.wlroots.override {
     # wlroots seems to launch Xwayland itself, and i can't easily just do that myself externally.
     # so in order for the Xwayland it launches to be sandboxed, i need to patch the sandboxed version in here.
     xwayland = config.sane.programs.xwayland.package;
@@ -179,6 +177,7 @@ in
       "seatd"
       # "splatmoji"  # used by sway config
       "sway-contrib.grimshot"  # used by sway config
+      "swaybg"  # required for setting the background
       "swayidle"  # enable if you need it
       "swaynotificationcenter"  # notification daemon
       "switchboard"  # network/bluetooth/sound control panel
@@ -190,6 +189,16 @@ in
       "wireplumber"  # used by sway config
       "wl-clipboard"
       "xdg-desktop-portal"
+      # pikeru (iced gui toolkit) provides portals for:
+      # - org.freedesktop.impl.portal.FileChooser
+      # "pikeru"
+      # xdg-desktop-portal-cosmic (iced gui toolkit) provides portals for:
+      # - org.freedesktop.impl.portal.Access
+      # - org.freedesktop.impl.portal.FileChooser
+      # - org.freedesktop.impl.portal.ScreenCast
+      # - org.freedesktop.impl.portal.Screenshot
+      # - org.freedesktop.impl.portal.Settings
+      "xdg-desktop-portal-cosmic"
       # xdg-desktop-portal-gnome provides portals for:
       # - org.freedesktop.impl.portal.Access
       # - org.freedesktop.impl.portal.Account
@@ -223,12 +232,21 @@ in
       # - org.freedesktop.impl.portal.Settings (@settings_iface@)
       # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
       "xdg-desktop-portal-gtk"
+      # xdg-desktop-portal-phosh provides portals for:
+      # - org.freedesktop.impl.portal.FileChooser
+      # - org.freedesktop.impl.portal.Notification
+      # - org.freedesktop.impl.portal.Settings
+      # - org.freedesktop.impl.portal.Wallpaper
+      # and, via the `phrosh` binary (included, but needs to be launched separately):
+      # - org.freedesktop.impl.portal.Account
+      # - org.freedesktop.impl.portal.AppChooser
+      # "xdg-desktop-portal-phosh"
       # xdg-desktop-portal-wlr provides portals for:
       # - org.freedesktop.impl.portal.ScreenCast
       # - org.freedesktop.impl.portal.Screenshot
       # xdg-desktop-portal-nautilus provides portals for:
       # - org.freedesktop.impl.portal.FileChooser
-      "xdg-desktop-portal-nautilus"
+      # "xdg-desktop-portal-nautilus"
       "xdg-desktop-portal-wlr"
       "xdg-terminal-exec"  # used by sway config
     ] ++ [
@@ -282,9 +300,9 @@ in
       org.freedesktop.impl.portal.Access=gtk
       # XXX(2024-12-04): the gnome file-chooser (libadwaita) is much more mobile-friendly than the gtk ones
       #   it turns out xdg-desktop-portal-gnome is just a shim around nautilus, so we can just call that directly
-      org.freedesktop.impl.portal.FileChooser=nautilus
+      org.freedesktop.impl.portal.FileChooser=nautilus;cosmic;phosh
       # XXX(2024-12-11): sway doesn't support the x-d-p Inhibit portal, preferring to use wayland's own idle-inhibit feature.
-      # x-d-p-gtk's Inhibit portal trie org.gnome.SessionManager or org.freedesktop.ScreenSaver, also not supported.
+      # x-d-p-gtk's Inhibit portal tries org.gnome.SessionManager or org.freedesktop.ScreenSaver, also not supported.
       # explicitly disable the Inhibit portal so that applications can fallback to non-portal inhibition.
       # - see: <https://gitlab.archlinux.org/archlinux/packaging/packages/sway/-/issues/2>
       # - see: <https://github.com/swaywm/swayidle/issues/46>
@@ -299,6 +317,9 @@ in
         mod
         workspace_layout
       ;
+      background = config.sane.programs.sane-theme.config.background;
+      cursor_size = config.sane.programs.sane-theme.config.cursor-size;
+      cursor_theme = config.sane.programs.sane-theme.config.cursor-theme;
       xwayland = if enableXWayland then "enable" else "disable";
     }).overrideAttrs {
       # @DEFAULT_AUDIO_SINK@ should remain unsubstituted: that's wireplumber syntax resolved at runtime.
@@ -308,6 +329,9 @@ in
         target=targetForCheck
       '';
     };
+
+    # XXX: sway loads icons ONLY from ~/.local/share/icons or ~/.icons -- it doesn't consult XDG_DATA_DIRS or XCURSOR_PATH
+    fs.".local/share/icons".symlink.target = "/etc/profiles/per-user/colin/share/icons";
 
     env.XDG_CURRENT_DESKTOP = "sway";
     # sway defaults to auto-generating a unix domain socket named "sway-ipc.$UID.NNNN.sock",
@@ -320,6 +344,13 @@ in
     # docs: <https://discourse.ubuntu.com/t/environment-variables-for-wayland-hackers/12750>
     # N.B.: gtk apps support absolute paths for this; webkit apps (e.g. geary) support only relative paths (relative to $XDG_RUNTIME_DIR)
     env.WAYLAND_DISPLAY = "wl/wayland-1";
+    # XXX(2025-07-31): XDG_SESSION_TYPE=wayland is ingested by a number of libraries/application frameworks
+    # - Qt reads this to decide X11 (default) v.s. Wayland (alternatively, set QT_QPA_PLATFORM=wayland).
+    # - webrtc screen sharing *requires* this to be set else it can only share X11 windows. <https://github.com/emersion/xdg-desktop-portal-wlr/wiki/Screencast-Compatibility>
+    #   - affects Firefox, Zoom, maybe others?
+    # - Komikku crashes without this set.
+    # - xdg-desktop-portal-gnome requires this to be set??
+    env.XDG_SESSION_TYPE = "wayland";
 
     # services.private-storage.dependencyOf = [ "sway" ];  #< HACK: prevent unl0kr and sway from fighting over the tty
     services.sway = {

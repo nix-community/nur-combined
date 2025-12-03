@@ -6,20 +6,20 @@
   gzip,
   lib,
   nix-update-script,
-  stdenv,
+  stdenvNoCC,
   writeShellApplication,
 }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "opencellid";
-  version = "0-unstable-2025-06-04";
+  version = "0-unstable-2025-08-06";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "opencellid-mirror";
-    rev = "82f77835e1d19b2b0eff176892dd033fed6bd42a";
-    hash = "sha256-npFmRt202f5qRi2MFSK1VkZhpbZUZcCjXLHIaN2JoL4=";
+    rev = "7138c8452ad89f2d83725d05c97b21957f7aaef5";
+    hash = "sha256-t4v6Nr3M8Qu2TI6Y3FERBHNul3ZxPbUkp7bmh8BXa9I=";
   };
 
   dontBuild = true;

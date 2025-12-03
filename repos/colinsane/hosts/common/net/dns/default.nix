@@ -25,6 +25,7 @@
   imports = [
     ./bind.nix
     ./hickory-dns.nix
+    ./kresd.nix
     ./unbound.nix
   ];
 

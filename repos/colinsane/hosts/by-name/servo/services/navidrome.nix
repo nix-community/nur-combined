@@ -34,7 +34,10 @@ lib.mkIf false  #< i don't actively use navidrome
     forceSSL = true;
     enableACME = true;
     # inherit kTLS;
-    locations."/".proxyPass = "http://127.0.0.1:4533";
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:4533";
+      recommendedProxySettings = true;
+    };
   };
 
   sane.dns.zones."uninsane.org".inet.CNAME."music" = "native";

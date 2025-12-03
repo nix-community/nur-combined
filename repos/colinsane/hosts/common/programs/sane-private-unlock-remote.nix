@@ -8,12 +8,12 @@ in
     sandbox.net = "all";
     sandbox.extraHomePaths = [
       ".config/sops"
-      ".ssh/id_ed25519"
-      ".ssh/id_ed25519.pub"
       "knowledge/secrets"
     ];
+    sandbox.whitelistSsh = true;
     suggestedPrograms = [
       "sane-scripts.secrets-dump"
+      "ssh"
     ];
 
     configOption = with lib; mkOption {

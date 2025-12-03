@@ -112,8 +112,8 @@ let
         makeBinaryWrapper ${bunpen'} "$_dir/$_name" \
           --suffix PATH : /run/current-system/sw/libexec/${bunpen.pname} \
           --inherit-argv0 \
-          ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} \
-          --add-flags "$_dir/.sandboxed/$_name"
+          ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flag" f ]) extraSandboxArgs))} \
+          --add-flag "$_dir/.sandboxed/$_name"
       }
 
       derefWhileInSameOutput() {

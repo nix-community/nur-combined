@@ -64,6 +64,7 @@ let
     (fromDb "404media.co/the-404-media-podcast" // tech)
     (fromDb "acquiredlpbonussecretsecret.libsyn.com" // tech)  # ACQ2 - more "Acquired" episodes
     (fromDb "adventofcomputing.com" // tech)  # computing history
+    (fromDb "allinchamathjason.libsyn.com" // pol)
     (fromDb "api.oyez.org/podcasts/oral-arguments/2015" // pol)  # Supreme Court Oral Arguments ("2015" in URL means nothing -- it's still updated)
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)  # Civboot -- https://anchor.fm/civboot
     (fromDb "anchor.fm/s/2da69154/podcast/rss" // tech)  # POD OF JAKE -- https://podofjake.com/
@@ -97,6 +98,7 @@ let
     (fromDb "fulltimenix.com" // tech)
     (fromDb "futureofcoding.org/episodes" // tech)
     (fromDb "hackerpublicradio.org" // tech)
+    (fromDb "jumble.top/f/srslywrong.xml" // pol)  # srslywrong.com patreon feed
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "linktr.ee/betteroffline" // pol)
     (fromDb "linuxdevtime.com" // tech)
@@ -109,7 +111,6 @@ let
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine
     (fromDb "omny.fm/shows/stuff-you-should-know-1")
-    (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "omny.fm/shows/weird-little-guys")  # Cool Zone Media
     (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
@@ -119,22 +120,21 @@ let
     (fromDb "rss.acast.com/ft-tech-tonic" // tech)  # Financial Time's: Tech Tonic
     (fromDb "rss.art19.com/the-portal" // rat)  # Eric Weinstein
     (fromDb "seattlenice.buzzsprout.com" // pol)  # Seattle Nice
-    (fromDb "sites.libsyn.com/438684" // humor)  # Quorators - digging up *weird* Quota questions
     (fromDb "speedboatdope.com" // pol)  # Chapo Trap House (premium feed)
-    (fromDb "srslywrong.com" // pol)
     (fromDb "sharkbytes.transistor.fm" // tech)  # Wireshark Podcast o_0
     (fromDb "sharptech.fm/feed/podcast" // tech)  # Ben Thompson
     (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten; Scott Alexander
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
     (fromDb "techtalesshow.com" // tech)  # Corbin Davenport
     (fromDb "theamphour.com" // tech)  # The Amp Hour
+    (fromDb "theboilingfrog.net" // pol)
+    (fromDb "thefinalstrawradio.noblogs.org/podcasting" // pol)
     (fromDb "the-ben-marc-show.simplecast.com" // tech // pol)  # Ben Horowitz + Marc Andreessen; love to hate em
     (fromDb "timclicks.dev/compose-podcast" // tech)  # Rust-heavy dev interviews
     (fromDb "werenotwrong.fireside.fm" // pol)  # We're Not Wrong
     (fromDb "whycast.podcast.audio/@whycast" // tech)  # What Hackers Yearn [for]: <https://why2025.org/>
     (mkPod "https://sfconservancy.org/casts/the-corresponding-source/feeds/ogg/" // tech)
 
-    # (fromDb "allinchamathjason.libsyn.com" // pol)
     # (fromDb "feed.podbean.com/matrixlive/feed.xml" // tech)  # Matrix (chat) Live
     # (fromDb "feeds.libsyn.com/421877" // rat)  # Less Wrong Curated
     # (fromDb "feeds.megaphone.fm/hubermanlab" // uncat)  # Daniel Huberman on sleep
@@ -143,18 +143,24 @@ let
     # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
     # (fromDb "feeds.simplecast.com/whlwDbyc" // tech)  # Tech Lounge: <https://chrischinchilla.com/podcast/techlounge/>
     # (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
+    # (fromDb "iheart.com/podcast/1119-away-days-podcast-reporti-275359753" // pol)  # Away Days (Cool Zone Media)
+    # (fromDb "jumble.top/f/thedollop.xml")  # The Dollop history/comedy (patreon feed)
     # (fromDb "lastweekinai.com" // tech)  # Last Week in AI
     # (fromDb "mintcast.org" // tech)
-    # (fromDb "politicspoliticspolitics.com" // pol)  # don't judge me. Justin Robert Young.
+    # (fromDb "omny.fm/shows/sad-oligarch")
+    # (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     # (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     # (fromDb "podcast.sustainoss.org" // tech)  # "Sustainable tech", only... it somehow manages to avoid any tech which is actually sustainable, and most of the time doesn't even talk about Open Source Software (!). normie/surface-level/"feel good"
     # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
+    # (fromDb "politicspoliticspolitics.com" // pol)  # don't judge me. Justin Robert Young.
     # (fromDb "rss.acast.com/deconstructed")  # The Intercept - Deconstructed
     # (fromDb "rss.acast.com/intercepted-with-jeremy-scahill")  # The Intercept - Intercepted
     # (fromDb "rss.art19.com/60-minutes" // pol)
     # (fromDb "rss.art19.com/your-welcome" // pol)  # Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
     # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  #< possible URL rot
     # (fromDb "rss.prod.firstlook.media/intercepted/podcast.rss" // pol)  #< possible URL rot
+    # (fromDb "sites.libsyn.com/438684" // humor)  # Quorators - digging up *weird* Quota questions
+    # (fromDb "srslywrong.com" // pol)
     # (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow, but way too info-sparse
     # (fromDb "trashfuturepodcast.podbean.com" // pol)  # rec by Cory Doctorow, but way rambly
     # (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris, but he just repeats himself now
@@ -278,16 +284,22 @@ let
     (fromDb "youtube.com/@Exurb1a")
     (fromDb "youtube.com/@hbomberguy")
     (fromDb "youtube.com/@JackStauber")
+    (fromDb "youtube.com/@jaketran")
+    (fromDb "youtube.com/@kurzgesagt")
     (fromDb "youtube.com/@mii_beta" // tech)  # Baby Wogue / gnome reviewer
     (fromDb "youtube.com/@Matrixdotorg" // tech)  # Matrix Live
     (fromDb "youtube.com/@NativLang")
     (fromDb "youtube.com/@PolyMatter")
+    (fromDb "youtube.com/@scenesbyben" // pol)  # video essays
     (fromDb "youtube.com/@TechnologyConnections" // tech)
+    (fromDb "youtube.com/@theodd1sout")
     (fromDb "youtube.com/@TomScottGo")
     (fromDb "youtube.com/@TVW_Washington" // pol)  # interviews with WA public officials
+    (fromDb "youtube.com/@veritasium")
     (fromDb "youtube.com/@Vihart")
     (fromDb "youtube.com/@InnuendoStudios" // pol)  # breaks down the nastier political strategies, from a "politics is power" angle
 
+    # (fromDb "youtube.com/@CasuallyExplained" // pol)
     # (fromDb "youtube.com/@ColdFusion")
     # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
     # (fromDb "youtube.com/@TheB1M")

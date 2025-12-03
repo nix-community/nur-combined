@@ -22,7 +22,7 @@ lib.makeScope newScope (self: with self; {
 
   # parseDefconfig: given the entire text of a defconfig file
   # parse it into an attrset usable by the nixpkgs kernel config tools.
-  # this is not meant for `extraStructuredConfig`, but stuff further downstream.
+  # this is not meant for `structuredExtraConfig`, but stuff further downstream.
   # results are like ` { CONFIG_FOO = "y"; CONFIG_FOO_BAR = "128"; }`
   parseDefconfig = wholeStr: let
     lines = lib.splitString "\n" wholeStr;

@@ -2,18 +2,18 @@
   fetchFromGitHub,
   gitUpdater,
   lib,
-  stdenv,
+  stdenvNoCC,
   wrapFirefoxAddonsHook,
   zip,
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "i-still-dont-care-about-cookies";
-  version = "1.1.4";
+  version = "1.1.8";
   src = fetchFromGitHub {
     owner = "OhMyGuus";
     repo = "I-Still-Dont-Care-About-Cookies";
     rev = "v${version}";
-    hash = "sha256-bs9Looh2fKmsT0/3rS5Ldta4wlOUc75DpGxwBc7yRmg=";
+    hash = "sha256-ZM7b/wtuAqWejf5KZU1OjDS2aEO95bqHFVV6r+KtvW8=";
   };
 
   nativeBuildInputs = [

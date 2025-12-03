@@ -8,23 +8,24 @@
   lib,
   libglvnd,
   lpac,
+  nix-update-script,
   pkg-config,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   xorg,
 }:
 
 buildGoModule rec {
   pname = "easylpac";
-  version = "0.7.6.5";
+  version = "0.7.8.4";
 
   src = fetchFromGitHub {
     owner = "creamlike1024";
     repo = "EasyLPAC";
     rev = version;
-    sha256 = "sha256-WQukghrBiUOb2t+iJVy2LYY0Hqkw5IMSe2e+8bQIw+U=";
+    sha256 = "sha256-vNXeDm2LH5b/upZR1KX326+PMeXzT0fE1VNmPPNpSZU=";
   };
   proxyVendor = true;  #< ??
-  vendorHash = "sha256-h/vRooTwbv63WraH/kBLfnmbd68oE6OtyghfocqDuhA=";
+  vendorHash = "sha256-tX7abWGn1f4p+7vx2gDa5/NKg5SbWqMfHT8kbPwHK14=";
 
   postConfigure = ''
     cp ${euicc-manual.eum_manifest} eum-registry.json
@@ -33,7 +34,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
   buildInputs = [
     gtk3
@@ -44,6 +45,8 @@ buildGoModule rec {
   postInstall = ''
     ln -s "${lpac}/bin/lpac" "$out/bin/lpac"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "lpac GUI Frontend";

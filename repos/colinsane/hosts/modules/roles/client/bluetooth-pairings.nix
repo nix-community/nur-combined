@@ -18,6 +18,7 @@ lib.optionalAttrs false  #< disabled 2024-09-27 while i rework sane.fs
       before = [ "bluetooth.service" ];
       wantedBy = [ "bluetooth.service" ];
       serviceConfig.ExecStart = ''${lib.getExe install-bluetooth} /run/secrets/bt "" ""'';
+      serviceConfig.Type = "oneshot";
     };
   };
 }

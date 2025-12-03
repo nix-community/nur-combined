@@ -6,6 +6,7 @@ let
   #             some do this via peer-id (e.g. baka); others via user-agent (e.g. MAM).
   #             peer-id format is essentially the same between 3.00 and 4.x (just swap the MAJOR/MINOR/PATCH numbers).
   #             user-agent format has changed. `Transmission/3.00` (old) v.s. `TRANSMISSION/MAJ.MIN.PATCH` (new).
+  # package = pkgs.transmission_3;
   realTransmission = pkgs.transmission_4;
   realVersion = {
     major = lib.versions.major realTransmission.version;
@@ -159,6 +160,7 @@ in
     locations."/" = {
       # proxyPass = "http://ovpns.uninsane.org:9091";
       proxyPass = "http://${config.sane.netns.ovpns.veth.netns.ipv4}:9091";
+      recommendedProxySettings = true;
     };
   };
 

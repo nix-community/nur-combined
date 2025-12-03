@@ -1,6 +1,14 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.hal.pine64-pinephone-pro;
+  # to perform iterative kernel development w/o full rebuilds every time:
+  # 1. use `nix-shell` to enter the environment for a kernel build.
+  # 2. `export out=$pwd/out`
+  # 3. `export dev=$pwd/dev`
+  # 4. `eval "$configurePhase"`
+  # 5. `eval "$buildPhase" && eval "$installPhase"`
+  # 6. `./scripts/deploy ...` to deploy the built kernel
+  # 7. repeat steps 5/6, tweaking the kernel src in between
   myCustomKernel = pkgs.linux-sane-pinephonepro.overrideAttrs (prev: {
     dontUnpack = true;
     dontPatch = true;
@@ -32,15 +40,30 @@ in
     # boot.kernelPackages = pkgs.linuxPackagesFor myCustomKernel;
     # boot.initrd.extraFiles."/lib".source = "${config.system.modulesTree}/lib";
 
-    # docs (pinephone specific; tow-boot instead of u-boot but close enough): <https://github.com/Tow-Boot/Tow-Boot/tree/development/boards/pine64-pinephoneA64>
+    # Pinephone Pro bootloader locations: <https://wiki.pine64.org/wiki/RK3399_boot_sequence#U-Boot_boot_sequence>
     # we need space in the GPT header to place u-boot.
     # only actually need 1 MB, but better to over-allocate than under-allocate
-    sane.image.extraGPTPadding = 16 * 1024 * 1024;
-    sane.image.firstPartGap = 0;
+    # N.B.: the original PP expected idbloader to be at block 16.
+    #       PPP expects idbloader to be at block 64.
+    #       GPT header ends at block 34, which means PPP can use an ordinary partition table
+    #       just with the first partition starting at e.g. 16 MiB instead of block 34.
+    # sane.image.extraGPTPadding = 16 * 1024 * 1024 - 34 * 512;
+    # sane.image.firstPartGap = 0;
     sane.image.installBootloader = ''
-      dd if=${pkgs.u-boot-pinephone-pro}/idbloader.img of=$out bs=512 seek=64 oflag=direct conv=sync
-      dd if=${pkgs.u-boot-pinephone-pro}/u-boot.itb of=$out bs=512 seek=16384 oflag=direct conv=sync
+      uboot_itb_bytes=$(stat --printf="%s" ${pkgs.u-boot-pinephone-pro}/u-boot.itb)
+      uboot_ends=$(( $uboot_itb_bytes + 16384 * 512))
+      gap_ends=${builtins.toString config.sane.image.firstPartGap}
+      if ! (( $uboot_ends <= $gap_ends )); then
+        echo 'firstPartGap is too small to fit all of u-boot!'
+        false
+      fi
+      dd if=${pkgs.u-boot-pinephone-pro}/idbloader.img of=$out bs=512 seek=64 conv=notrunc
+      dd if=${pkgs.u-boot-pinephone-pro}/u-boot.itb of=$out bs=512 seek=16384 conv=notrunc
     '';
+
+    sane.programs.sysadminUtils.suggestedPrograms = [
+      "u-boot-pinephone-pro"
+    ];
 
     sane.programs.alsa-ucm-conf.suggestedPrograms = [
       "pine64-alsa-ucm"  # upstreaming: https://github.com/alsa-project/alsa-ucm-conf/pull/375
@@ -68,26 +91,9 @@ in
 
     boot.kernelPatches = [
       {
-        # TODO: upstream into nixpkgs. <repo:nixos/nixpkgs:pkgs/os-specific/linux/kernel/common-config.nix>
-        name = "fix-module-builtin-mismatch";
-        patch = null;
-        extraStructuredConfig = with lib.kernel; {
-          # nixpkgs specifies `SUN8I_DE2_CCU = yes`, but that in turn requires `SUNXI_CCU = yes` and NOT `= module`
-          #   symptom: config fails to eval
-          SUNXI_CCU = yes;
-          # nixpkgs specifies `DRM = yes`, which causes `DRM_PANEL=y`.
-          # in <repo:kernel.org/linux:include/drm/drm_panel.h> they branch based on if `CONFIG_BACKLIGHT_DEVICE` is a *builtin*,
-          # hence we need to build it as a builtin to actually have a backlight!
-          # same logic happens with nixpkgs `DRM_FBDEV_EMULATION = yes` => implies `CONFIG_DRM_KMS_HELPER=y`
-          # and <repo:kernel.org/linux:include/drm/display/drm_dp_helper.h>
-          BACKLIGHT_CLASS_DEVICE = yes;
-        };
-      }
-
-      {
         name = "enable-libcamera-requirements";
         patch = null;
-        extraStructuredConfig = with lib.kernel; {
+        structuredExtraConfig = with lib.kernel; {
           # 2024-11-28: speculatively enable these options which postmarketOS enabled, hoping they'll fixup libcamera/Snapshot app
           # - <https://gitlab.com/postmarketOS/pmaports/-/merge_requests/5084/diffs>
           # - <https://gitlab.com/postmarketOS/pmaports/-/issues/2787>
@@ -97,6 +103,10 @@ in
       }
     ];
 
+    #v N.B.: deviceTree.name is plumbed through /boot/loader/entries/.
+    #v if removed, systemd-boot will still (likely) boot, but DTB items known to the kernel
+    #v and not to the platform firmware (u-boot) will be missing (e.g. rk818/battery monitoring).
+    hardware.deviceTree.name = "rockchip/rk3399-pinephone-pro.dtb";
     hardware.deviceTree.overlays = [
       {
         name = "rk3399-pinephone-pro-battery";
@@ -118,9 +128,15 @@ in
         name = "rk3399-pinephone-pro-modem";
         dtsFile = ./rk3399-pinephone-pro-modem.dtso;
       }
+      # {
+      #   name = "rk3399-pinephone-pro-sound";
+      #   dtsFile = ./rk3399-pinephone-pro-sound.dtso;
+      # }
       {
-        name = "rk3399-pinephone-pro-sound";
-        dtsFile = ./rk3399-pinephone-pro-sound.dtso;
+        # the complete sound dtso above works in extlinux, but fails under systemd-boot.
+        # this simpler sound config may be helpful in debugging.
+        name = "rk3399-pinephone-pro-sound-minimal";
+        dtsFile = ./rk3399-pinephone-pro-sound-minimal.dtso;
       }
     ];
 
@@ -197,10 +213,20 @@ in
     #   );
     # });
 
+    # boot.blacklistedKernelModules = [
+    #   "rt5640"  #< doesn't seem to actually prevent rt5640 from being loaded?..
+    # ];
+
     boot.extraModulePackages = [
       config.boot.kernelPackages.rk818-charger  #< rk818 battery/charger isn't mainline as of 2024-10-01
-      config.boot.kernelPackages.imx258  #< mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
-      # config.boot.kernelPackages.rt5640  #< optionally use megi's rt5640 sound driver, but mainline driver seems to mostly play nice with imx258 these days
+      #v XXX(???? - 2025-07-18): mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
+      #v XXX(2025-07-18): megi's imx258 breaks mainline audio, though
+      # config.boot.kernelPackages.megi-imx258
+      #v optionally use megi's rt5640 sound driver;
+      #v XXX(2025-07-18): when using megi's imx258, the mainline rt5640 driver errors: `rt5640: 1-001c: ASoC error (-22): at snd_soc_dai_set_sysclk() on rt5640-aif1`
+      #v                  prior to this mainline driver was working fine, alongside camera/imx258, for half a year.
+      #v                  although this fixes the dmesg errors, it causes pipewire/wireplumber to crash-loop.
+      # config.boot.kernelPackages.megi-rt5640
     ];
 
     # default nixos behavior is to error if a kernel module is provided by more than one package.
@@ -208,9 +234,12 @@ in
     # from <repo:nixos/nixpkgs:nixos/modules/system/boot/kernel.nix> AKA pkgs.aggregateModules
     # but configured to **ignore collisions**
     system.modulesTree = lib.mkForce [(
-      (pkgs.aggregateModules
-        ( config.boot.extraModulePackages ++ [ config.boot.kernelPackages.kernel ])
-      ).overrideAttrs {
+      (pkgs.aggregateModules (
+        config.boot.extraModulePackages ++ [
+          (lib.getOutput "modules" config.boot.kernelPackages.kernel)
+        ]
+      )).overrideAttrs {
+        name = "kernel-modules-merged-sane";
         # earlier items override the contents of later items
         ignoreCollisions = true;
         # checkCollisionContents = false;

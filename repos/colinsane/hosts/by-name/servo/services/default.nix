@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./bitmagnet.nix
     ./coturn.nix
     ./cryptocurrencies
     ./email
@@ -21,7 +22,7 @@
     ./minidlna.nix
     ./mumble.nix
     ./navidrome.nix
-    ./nginx.nix
+    ./nginx
     ./nixos-prebuild.nix
     ./ntfy
     ./pict-rs.nix

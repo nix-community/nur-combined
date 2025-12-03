@@ -15,19 +15,32 @@
 // - number
 // anything else (e.g. arrays, objects) MUST be represented as strings (use backticks for multiline/raw strings)
 
+// COMMON SETTINGS TO TOGGLE (at runtime, in about:config)
+// defaultPref("security.ssl.require_safe_negotiation", false);
+
 ///// RESET UNWANTED ARKENFOX CHANGES
 // browser.sessionstore.privacy_level: 0, 1, 2
 // 0: persist partially-filled forms to disk, across browser restarts
 defaultPref("browser.sessionstore.privacy_level", 0);
-// enable 0-round-trip TLS resumption, at the expense that MITM can replay the client's first packet.
-defaultPref("security.tls.enable_0rtt_data", true);
+//
+// `enable_0rtt_data=true`: enable 0-round-trip TLS resumption, at the expense that MITM can replay the client's first packet.
+// defaultPref("security.tls.enable_0rtt_data", true);
+//
+// `require_safe_negotiation=false`: allow TLS 1.2 connections even to servers potentially vulnerable to CVE-2009-3555.
+// this allows a MITM attacker to prefix arbitrary data to my request.
+// as of 2025-07-20: 99.9% of sites support safe negotiation. 0.1% do not;
+//                   google-chrome, epiphany, and stock firefox (not arkenfox) do not enforce safe negotiation.
+// - <https://lwn.net/Articles/362234/>
+// defaultPref("security.ssl.require_safe_negotiation", false);
+//
 // OCSP queries SSL cert revocation status on every connect; that means letting a 3rd party know every site you visit.
 // disable that, how in hell is that good for privacy.
 // N.B.: i'm pretty sure this keeps CRlite enabled, which is the better implementation of cert revocation (i.e. performed locally).
 // see: <https://blog.mozilla.org/security/2020/01/09/crlite-part-1-all-web-pki-revocations-compressed/>
 defaultPref("security.OCSP.enabled", 0);
-// if we can't query the revocation status of a SSL cert because the issuer is offline,
-// treat it as unrevoked.
+//
+// `security.OCSP.require=false`: if we can't query the revocation status of a SSL cert because
+// the issuer is offline, treat it as unrevoked.
 // see: <https://librewolf.net/docs/faq/#im-getting-sec_error_ocsp_server_error-what-can-i-do>
 defaultPref("security.OCSP.require", false);
 defaultPref("browser.display.use_system_colors", true);
@@ -127,7 +140,27 @@ defaultPref("trailhead.firstrun.didSeeAboutWelcome", true);
 defaultPref("browser.aboutConfig.showWarning", false);
 defaultPref("browser.shell.checkDefaultBrowser", false);
 
+// disable extension updates
+defaultPref("extensions.update.autoUpdateDefault", false);
+defaultPref("extensions.update.enabled", false);
+defaultPref("extensions.systemAddon.update.enabled", false);
+// wipe the URIs used to check for updates, as a precaution.
+defaultPref("extensions.update.url", "");
+defaultPref("extensions.update.background.url", "");
+defaultPref("extensions.systemAddon.update.url", "");
+
+// also disable app-level auto-updates
+defaultPref("app.update.auto", false);
+
+// disable "safe browsing", in which my browser asks Google whether a site is malicious or not, for every site i visit (?)
+defaultPref("browser.safebrowsing.blockedURIs.enabled", false);
+defaultPref("browser.safebrowsing.downloads.enabled", false);
+defaultPref("browser.safebrowsing.malware.enabled", false);
+defaultPref("browser.safebrowsing.phishing.enabled", false);
 
 // browser.engagement.sidebar-button.has-used
 // browser.migration.version = 150
 
+// allow sites to trigger desktop notifications, by default.
+// i couldn't find a trivial way to plumb per-site permissions here -- probably kept in a separate db
+defaultPref("permissions.default.desktop-notification", 1);

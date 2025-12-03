@@ -6,35 +6,80 @@
 # for setup, see: <https://www.rsync.net/resources/howto/ssh_keys.html>
 # - requires my pubkey to be copied to .ssh/authorized_keys on the remote.
 
-set -xeu
+set -eu
 
-# secret should include RN_USER
-source /run/secrets/rsync-net-env
-RN_ID=/run/secrets/rsync-net-id_ed25519
-PREFIX=$(hostname)
+usage() {
+  echo 'sane-backup-rsync-net DIRECTORY...'
+  echo
+  echo "sync's each DIRECTORY with its counterpart stored on my rsync.net account"
+  echo
+  echo "on success, the remote directory will be an exact logical replica oc the local directory"
+  echo "that is, files present under the remote directory but NOT present under the local directory are deleted"
+  echo
+  echo "exits 1 if any directory fails to sync"
+}
 
-test -n "$PREFIX" && test -n "$RN_USER" && test -f "$RN_ID"
+dirs=()
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    if (( ${#dirs[@]} )); then
+      # all remaining arguments are to be forwarded to the subcommand
+      dirs+=("$arg")
+    else
+      case $arg in
+        (--help)
+          usage
+          exit 0
+          ;;
+        (*)
+          dirs=("$arg")
+          ;;
+      esac
+    fi
+  done
 
-rc=
-for dir in "$@"; do
-  if [[ "$dir" != */ ]]; then
-    dir="$dir/"
+  if [ -z "$dirs" ]; then
+    usage
+    exit 1
   fi
-  remote_dir="$RN_USER@$RN_USER.rsync.net:$PREFIX$dir"
+}
 
-  now=$(date '+%s')
-  echo "syncing '$dir' to '$remote_dir'"
-  echo "$now" > "$dir"/zzz-rsync-net/last-attempted
-  # N.B.: manual flags instead of `-a -> -rlptgoD` because device files have a max path length which is too restricted
-  # TODO: add `sane-vpn do unmetered --`, after fixing pasta/sane-vpn to preserve capabilities + not create a new user namespace unconditionally.
-  # until then, don't run over cellular!
-  if rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"; then
-    echo "$now" > "$dir"/zzz-rsync-net/last-completed
-    rc=0$rc
-  else
-    rc=1
-    echo "FAILED TO BACKUP $dir"
-  fi
-done
+main() {
+  # secret should include RN_USER
+  source /run/secrets/rsync-net-env
+  local RN_ID=/run/secrets/rsync-net-id_ed25519
+  local PREFIX=$(hostname)
 
-test -n "$rc" && exit $rc
+  test -n "$PREFIX" && test -n "$RN_USER" && test -f "$RN_ID"
+
+  local rc=
+  for dir in "$@"; do
+    if [[ "$dir" != */ ]]; then
+      dir="$dir/"
+    fi
+    local remote_dir="$RN_USER@$RN_USER.rsync.net:$PREFIX$dir"
+
+    local now=$(date '+%s')
+    echo "syncing '$dir' to '$remote_dir'"
+    echo "$now" > "$dir"/zzz-rsync-net/last-attempted
+    # N.B.: manual flags instead of `-a -> -rlptgoD` because device files have a max path length which is too restricted
+    # TODO: add `sane-vpn do unmetered --`, after fixing pasta/sane-vpn to preserve capabilities + not create a new user namespace unconditionally.
+    # until then, don't run over cellular!
+    if rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"; then
+      echo "$now" > "$dir"/zzz-rsync-net/last-completed
+      rc=0$rc
+    else
+      rc=1
+      echo "FAILED TO BACKUP $dir"
+    fi
+  done
+
+  test -n "$rc" && exit $rc
+}
+
+parseArgs "$@"
+
+set -x
+main "${dirs[@]}"

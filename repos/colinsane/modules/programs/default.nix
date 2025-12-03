@@ -42,7 +42,9 @@ let
     else
       let
         vpn = if sandbox.net == "vpn" then
-          lib.findSingle (v: v.isDefault) null null (builtins.attrValues config.sane.vpn)
+          let
+            firstVpn = lib.findSingle (v: v.isDefault) null null (builtins.attrValues config.sane.vpn);
+          in assert firstVpn != config.sane.vpn.wg-home; firstVpn
         else if sandbox.net == "vpn.wg-home" then
           config.sane.vpn.wg-home or null
         else
@@ -131,6 +133,7 @@ let
       name = mkOption {
         type = types.str;
         default = name;
+        defaultText = lib.literalExpression "name";
       };
       packageUnwrapped = mkOption {
         type = types.nullOr types.package;
@@ -146,6 +149,7 @@ let
             # this indexing will throw if the package doesn't exist and the user forgets to specify
             # a valid source explicitly.
             lib.getAttrFromPath pkgPath pkgs;
+        defaultText = lib.literalExpression ''pkgs.''${lib.splitString "." name}'';
       };
       package = mkOption {
         type = types.nullOr types.package;
@@ -156,14 +160,12 @@ let
       };
       enableFor.system = mkOption {
         type = types.bool;
-        default = defaultEnables."${name}".system;
         description = ''
           place this program on the system PATH
         '';
       };
       enableFor.user = mkOption {
         type = types.attrsOf types.bool;
-        default = defaultEnables."${name}".user;
         description = ''
           place this program on the PATH for some specified user(s).
         '';
@@ -195,6 +197,12 @@ let
           gsetting config values to provide this program (and the broader system).
           this is the nix representation of what you'd want `dconf dump /` to show
           (only, it's not plumbed to dconf but rather the layer above it -- gsettings).
+
+          this is typically set by:
+          1. run a program, unsandboxed.
+          2. modify a setting inside the program's UI.
+          3. grep `~/.config/glib-2.0/settings/keyfile` to find what it set.
+          4. add the settings you care about to the program's nix `gsettings`.
         '';
         example = ''
         {
@@ -304,6 +312,8 @@ let
               "sound"
             ] ++ lib.optionals (builtins.elem "gnome-keyring" config.suggestedPrograms) [
               "gnome-keyring"
+            ] ++ lib.optionals config.sandbox.whitelistSsh [
+              "ssh-agent"
             ];
           }
         );
@@ -592,6 +602,13 @@ let
           typically works via dbus.
         '';
       };
+      sandbox.whitelistSsh = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow the program to communicate with ssh-agent.
+        '';
+      };
       sandbox.whitelistSystemctl = mkOption {
         type = types.bool;
         default = false;
@@ -632,7 +649,7 @@ let
       };
       sandbox.extraRuntimePaths = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           additional $XDG_RUNTIME_DIR-relative paths to bind into the sandbox.
           e.g. `[ "bus" "wayland-1" ]` to bind the dbus and wayland sockets.
@@ -649,6 +666,15 @@ let
           - `$HOME`
           - `$XDG_RUNTIME_DIR`
           escape expansion with `$$`
+        '';
+      };
+      sandbox.matplotlibCacheDir = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          place the matplotlib cache in a custom directory.
+          this massively improves launch times for any matplotlib application that loads fonts,
+          indicated by the stdout output: "Matplotlib is building the font cache; this may take a moment."
         '';
       };
       sandbox.mesaCacheDir = mkOption {
@@ -701,7 +727,10 @@ let
     config = let
       enabledForUser = builtins.any (en: en) (lib.attrValues config.enableFor.user);
       passesSlowTest = config.buildCost <= saneCfg.maxBuildCost;
+      mkWeakDefault = lib.mkOverride 2000; #< even weaker than `mkDefault`
     in {
+      enableFor.system = mkWeakDefault defaultEnables."${name}".system;
+      enableFor.user = mkWeakDefault defaultEnables."${name}".user;
       enabled = (config.enableFor.system || enabledForUser) && passesSlowTest;
       package = if config.packageUnwrapped == null then
         null
@@ -747,6 +776,7 @@ let
 
       sandbox.extraEnv = {
         MESA_SHADER_CACHE_DIR = lib.mkIf (config.sandbox.mesaCacheDir != null) "$HOME/${config.sandbox.mesaCacheDir}";
+        MPLCONFIGDIR = lib.mkIf (config.sandbox.matplotlibCacheDir != null) "$HOME/${config.sandbox.matplotlibCacheDir}";
         TMPDIR = lib.mkIf (config.sandbox.tmpDir != null) "$HOME/${config.sandbox.tmpDir}";
       };
 
@@ -869,6 +899,7 @@ let
         ++ lib.optionals config.sandbox.whitelistDbus.user.all [ "dbus" ]
         ++ lib.optionals config.sandbox.whitelistWayland [ "wl" ]  # app can still communicate with wayland server w/o this, if it has net access
         ++ lib.optionals config.sandbox.whitelistS6 [ "s6" ]  # TODO: this allows re-writing the services themselves: don't allow that!
+        ++ lib.optionals config.sandbox.whitelistSsh [ "ssh-agent" ]
       ;
       sandbox.extraHomePaths = let
         whitelistDir = dir: lib.optionals (lib.any (p: lib.hasPrefix "${dir}/" p) (builtins.attrNames config.fs)) [
@@ -886,6 +917,8 @@ let
         ++ lib.optionals (mainProgram != null) (whitelistDir ".local/share/${mainProgram}")
         ++ lib.optionals (config.sandbox.mesaCacheDir != null) [
           config.sandbox.mesaCacheDir
+        ] ++ lib.optionals (config.sandbox.matplotlibCacheDir != null) [
+          config.sandbox.matplotlibCacheDir
         ] ++ lib.optionals (config.sandbox.tmpDir != null) [
           config.sandbox.tmpDir
         ]
@@ -960,6 +993,11 @@ let
       ];
       persist = lib.mkMerge [
         p.persist
+        (lib.optionalAttrs (p.sandbox.matplotlibCacheDir != null) {
+          # persist the matplotlib cache to private storage by default;
+          # but allow the user to override that.
+          byPath."${p.sandbox.matplotlibCacheDir}".store = lib.mkDefault "private";
+        })
         (lib.optionalAttrs (p.sandbox.mesaCacheDir != null) {
           # persist the mesa cache to private storage by default;
           # but allow the user to override that.

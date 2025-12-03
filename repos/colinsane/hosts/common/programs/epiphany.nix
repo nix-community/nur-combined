@@ -8,7 +8,7 @@
 #
 # TODO: consider wrapping with `WEBKIT_USE_SINGLE_WEB_PROCESS=1` for better perf
 # - this runs all tabs in 1 process. which is fine, if i'm not a heavy multi-tabber
-{ ... }:
+{ lib, ... }:
 {
   sane.programs.epiphany = {
     sandbox.wrapperType = "inplace";  # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
@@ -60,12 +60,39 @@
       "x-scheme-handler/about" = desktop;
       "x-scheme-handler/unknown" = desktop;
     };
-    gsettings."org/gnome/epiphany" = {
+    gsettings."org/gnome/epiphany" = with lib.gvariant; {
       ask-for-default = false;
+      # homepage-url = "about:newtab";
+      search-engine-providers = [
+        # [
+        #   (mkDictionaryEntry "url" (mkVariant "https://www.bing.com/search?q=%s"))
+        #   (mkDictionaryEntry "bang" (mkVariant "!b"))
+        #   (mkDictionaryEntry "name" (mkVariant "Bing"))
+        # ]
+        [
+          (mkDictionaryEntry "url" (mkVariant "https://duckduckgo.com/?q=%s&t=epiphany&kd=-1"))
+          (mkDictionaryEntry "bang" (mkVariant "!ddg"))
+          (mkDictionaryEntry "name" (mkVariant "DuckDuckGo"))
+        ]
+        [
+          # serializes to: {'url': <'https://www.google.com/search?q=%s'>, 'bang': <'!g'>, 'name': <'Google'>},
+          (mkDictionaryEntry "url" (mkVariant "https://www.google.com/search?q=%s"))
+          (mkDictionaryEntry "bang" (mkVariant "!g"))
+          (mkDictionaryEntry "name" (mkVariant "Google"))
+        ]
+        [
+          (mkDictionaryEntry "url" (mkVariant "https://kagi.com/search?q=%s"))
+          (mkDictionaryEntry "bang" (mkVariant "!k"))
+          (mkDictionaryEntry "name" (mkVariant "Kagi"))
+        ]
+      ];
+      default-search-engine = "Kagi";
     };
     gsettings."org/gnome/epiphany/web" = {
+      # default-zoom-level = 1.0;
       enable-adblock = true;
       # enable-itp = false;  # ??
+      # enable-popups = true;
       enable-website-data-storage = true;
       remember-passwords = false;
     };

@@ -11,6 +11,10 @@ let
     type = lib.types.bool;
     inherit default description;
   };
+  i3ipc = pkgs.python3Packages.i3ipc.overridePythonAttrs {
+    # XXX(2025-08-25): tests are broken; remove once fixed
+    doCheck = false;
+  };
   playerctl = pkgs.playerctl.overrideAttrs (upstream: {
     patches = (upstream.patches or []) ++ [
       (pkgs.fetchpatch {
@@ -108,6 +112,9 @@ in
 
     packageUnwrapped = (pkgs.nwg-panel.override {
       inherit playerctl;
+      python3Packages = pkgs.python3Packages // {
+        inherit i3ipc;
+      };
     }).overrideAttrs (base: {
       # patches = (base.patches or []) ++ lib.optionals (!cfg.config.mediaPrevNext) [
       #   ./playerctl-no-prev-next.diff

@@ -8,12 +8,18 @@ nixpkgs=$(nix-store --realize $(nix-instantiate -A nixpkgs-bootstrap.master.src)
 
 cd $REPO_ROOT/integrations/nur
 
-NIX_PATH= NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix-env -f . -qa \* --meta --xml \
+# tee is to prevent interactive mode
+timeout -v 15 sh -c \
+  "NIX_PATH= NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix-env -f . -qa \* --meta --xml \
   --allowed-uris https://static.rust-lang.org \
   --option restrict-eval true \
   --option allow-import-from-derivation true \
   --drv-path --show-trace \
   -I nixpkgs=$nixpkgs \
   -I ../../ \
-  "$@" \
-  | tee  # tee to prevent interactive mode
+  | tee  \
+  " || (echo "failed to eval in under 15 seconds, as required by upstream"; exit 1)
+
+# yup, upstream fails the update after 15s
+# see: <repo:nix-community/NUR:ci/nur/eval.py:eval_repo>, or grep for
+# "evaluation for {repo.name} timed out of after 15 seconds"

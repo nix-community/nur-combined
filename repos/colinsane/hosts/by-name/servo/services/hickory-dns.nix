@@ -1,5 +1,5 @@
 # TODO: split this file apart into smaller files to make it easier to understand
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   dyn-dns = config.sane.services.dyn-dns;
@@ -55,8 +55,7 @@ in
     ];
   };
 
-  services.hickory-dns.settings.zones = [ "uninsane.org" ];
-
+  services.hickory-dns.settings.zones = builtins.attrNames config.sane.dns.zones;
 
   networking.nat.enable = true;  #< TODO: try removing this?
   # networking.nat.extraCommands = ''

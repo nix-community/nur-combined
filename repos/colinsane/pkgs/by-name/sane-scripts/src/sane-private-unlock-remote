@@ -6,14 +6,48 @@
 
 set -eu
 
-host=$1
-passwd=$(sane-secrets-dump --field password "$host")
+usage() {
+  echo "sane-private-unlock-remote HOST"
+  echo "  ssh's into HOST and unlocks its encrypted data store (e.g. encrypted home directory)"
+  echo "  this is non-interactive, and only works so long as the machine running this script"
+  echo "  has HOST's key in its own keyring"
+}
 
-if [ -z "$passwd" ]; then
-  echo "failed to decode password" | tee /dev/stderr
-  exit 1
-fi
+host=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -z "$host" ]; then
+          host=$arg
+        else
+          usage
+          exit 1
+        fi
+        ;;
+    esac
+  done
+}
 
-echo "attempting to mount private store on $host"
-echo "$passwd" | ssh "$host" 'if ! test -f /mnt/persist/private/init; then cat /dev/stdin > /run/gocryptfs/private.key; fi'
-echo "mount succeeded"
+main() {
+  local host="$1"
+  local passwd=$(sane-secrets-dump --field password "$host")
+
+  if [ -z "$passwd" ]; then
+    echo "failed to decode password" | tee /dev/stderr
+    exit 1
+  fi
+
+  echo "attempting to mount private store on $host"
+  echo "$passwd" | timeout 30 ssh "$host" 'if ! test -f /mnt/persist/private/init; then cat /dev/stdin > /run/gocryptfs/private.key; fi'
+  echo "mount succeeded"
+}
+
+parseArgs "$@"
+main "$host"

@@ -1,17 +1,16 @@
-{ lib
-, stdenv
-, fetchgit
-, libressl
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libressl,
 }:
-
-let
-self = stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "codemadness-frontends";
   version = "0.8";
 
   src = fetchgit {
     url = "git://git.codemadness.org/frontends";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-KRQZKP3i7EKidUejk3iw/Jh6Dpcp0NJZmRXCStMAtCM=";
   };
 
@@ -41,7 +40,7 @@ self = stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    v0_6 = self.overrideAttrs (_: rec {
+    v0_6 = finalAttrs.finalPackage.overrideAttrs (_: rec {
       version = "0.6";
       src = fetchgit {
         url = "git://git.codemadness.org/frontends";
@@ -58,6 +57,5 @@ self = stdenv.mkDerivation rec {
     homepage = "https://codemadness.org/idiotbox.html";
     license = licenses.isc;
   };
-};
-in self
+})
 

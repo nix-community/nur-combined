@@ -26,7 +26,7 @@
 , gnome-shell
 , squeekboard ? null
 , wayland-scanner
-, wrapGAppsHook
+, wrapGAppsHook3
 }:
 
 stdenv.mkDerivation rec {
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     python3
     glib
     wayland-scanner
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   passthru.updateScript = gitUpdater {};

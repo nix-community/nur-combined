@@ -99,8 +99,10 @@ in
   services.postfix.hostname = "mx.uninsane.org";
   services.postfix.origin = "uninsane.org";
   services.postfix.destination = [ "localhost" "uninsane.org" ];
-  services.postfix.sslCert = "/var/lib/acme/mx.uninsane.org/fullchain.pem";
-  services.postfix.sslKey = "/var/lib/acme/mx.uninsane.org/key.pem";
+  services.postfix.config.smtpd_tls_chain_files = [
+    "/var/lib/acme/mx.uninsane.org/key.pem"
+    "/var/lib/acme/mx.uninsane.org/fullchain.pem"
+  ];
 
   # see: `man 5 virtual`
   services.postfix.virtual = ''

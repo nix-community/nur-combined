@@ -56,6 +56,7 @@ lib.mkIf false  #< 2024/09/30: disabled because i haven't used it in several mon
 
     locations."/ws" = {
       proxyPass = "http://127.0.0.1:7890";
+      recommendedProxySettings = true;
       # XXX not sure how much of this is necessary
       extraConfig = ''
         proxy_http_version 1.1;

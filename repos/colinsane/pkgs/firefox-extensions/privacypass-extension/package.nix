@@ -32,7 +32,7 @@ let
     # meta = TODO
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "privacypass-extension";
   inherit src version;
 

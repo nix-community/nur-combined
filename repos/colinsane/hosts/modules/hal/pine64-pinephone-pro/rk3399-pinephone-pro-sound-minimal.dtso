@@ -1,0 +1,303 @@
+// heavily based on megi's source tree.
+// schematics for reference: <https://files.pine64.org/doc/PinePhonePro/PinephonePro-Schematic-V1.0-20211127.pdf>
+// Realtek ALC5640 datasheet: <https://www.alldatasheet.com/datasheet-pdf/download/1132334/REALTEK/RT5640.html>
+//
+// ## DIGITAL RK3399 -> ALC5640 INTERFACE
+// [RK3399]GPIO4_A0/I2S_CLK_d       ->  I2S_CLK       ->  MCLK[ALC5640]
+// [RK3399]GPIO3_D0/I2S0_SCLK_d     ->  I2S0_SCLK     ->  BCLK1[ALC5640]
+// [RK3399]GPIO3_D1/I2S0_LRCK_RX_d  ->  I2S0_LRCK_RX  ->  LRCLK1[ALC5640]
+// [RK3399]GPIO3_D2/I2S0_LRCK_TX_d  ->  I2S0_LRCK_TX  ->  LRCLK1[ALC5640]
+//   (yes, I2S0_LRCK_TX and I2S0_LRCK_RX are both bridged to LRCLK1, but with separate resistors probably so they don't short)
+// [RK3399]GPIO3_D7/I2S0_SDO0_d     ->  I2S0_SDO0     ->  DACDAT1[ALC5640]
+// [RK3399]GPIO3_D3/I2S0_SDI0_d     <-  I2S0_SDI0     <-  ADCDAT1[ALC5640]
+//
+// the ALC5640 connects also to bluetooth, and the chip as a whole has
+// - I2C1_SCL
+// - I2C1_SDA
+// i believe I2C1 is for control data, whereas I2S is strictly for the audio stream.
+//
+// ## ALC5640 <-> PHY interface
+// [ALC5640]HPO_L -> HPOUTL -> NO2[UM4717]     -> COM2[UM4717] -> HPO_L -> JA-3618-011 (jack, "EARPHONE")
+//                      +----> INN[AW8737SCSR] -> SPK+/SPK-
+//   so, the codec's HPO_L output is sent to the SW-6 MUX (user-exposed, controls whether jack is audio or serial)
+//   AND it's sent to AW8737SCSR which *may* send it to the speaker.
+//   i think audio is *unconditionally* routed to the headphones, then.
+//     it's impossible to have headphones connected, and play *only* to the speaker.
+//     and it's up to the system to disable AW8737SCSR when the headphones are detected.
+// [ALC5640]HPO_R -> HPOUTR [... same as above]
+//
+// [ALC5640]SPO_LP -> EAROUTP -> 1[J7202/earphone]
+// [ALC5640]SPO_LN -> EAROUTN -> 2[J7202/earphone]
+//
+// ## amplifiers
+// [RK3399]B3 -> SPK_CTL_H -> SHDN[AW8737SCSR]
+//
+// ## Headphone detection (RK3399)
+// [RK3399]GPIO4_D4_d               ->  HP_DET_H      -> HP_DET (circuit)
+//   - HP_DET is pulled to 3V0 when jack is *unplugged*, pulled to HPO_L when jack is plugged.
+//
+// ## REGULATORS
+// - AVDD18_REF    -> ALC5640
+// - VCCA3V0_CODEC -> ALC5640
+// - VCC_SPK       -> ALC5640
+// - VDD_CODEC     -> ALC5640
+// - AVDD18_CODEC  -> ALC5640
+// - VCCA1V8_CODEC -> ALC5640
+//
+// mainline offers at least these regulators:
+// - vcc_sys       (regulator-always-on)
+// - vcc3v3_sys
+// - vcca1v8_s3    (regulator-always-on)
+// - vcc1v8_codec  (pinctrl-0 = <&vcc1v8_codec_en>)
+//   - pinctrl routed to &{/pinctrl/sound}
+//   - nothing in-kernel references vcc1v8_codec_en ...
+//     megi changed this to regulator-always-on, regulator-boot-on, though
+//
+//
+// note that the I2S pins described in the schematic above match ths `i2s0` defined in `rk3399-base.dtsi`,
+// so in general the names should map 1:1
+//
+// the following in-kernel resources exist:
+// - <sound/soc/codecs/rt5640.c>
+//   driver which is (i think?) loaded by `compatible = "realtek,rt5640"`
+// - <Documentation/devicetree/bindings/sound/simple-card.yaml>
+//   for `compatible = "simple-audio-card"`
+// - <arch/arm64/boot/dts/rockchip/rk3399-firefly.dts>
+//   other RK3399 device with audio configured
+// - <Documentation/devicetree/bindings/mfd/rockchip,rk818.yaml>
+//   regulator definition
+// - <Documentation/devicetree/bindings/sound/rockchip-i2s.yaml>
+//   I2S audio definition
+
+// for symbols like SCLK_I2S_8CH_OUT
+#include <dt-bindings/clock/rk3399-cru.h>
+// for RK_PD4, other pins
+#include <dt-bindings/pinctrl/rockchip.h>
+// for GPIO_ACTIVE_LOW
+#include <dt-bindings/gpio/gpio.h>
+
+/dts-v1/;
+/plugin/;
+
+/ {
+        /* ensure this overlay applies only to the correct board */
+        compatible = "pine64,pinephone-pro";
+};
+
+&{/} {
+        // megi says:
+        // > in1  - digital mic daughhterboard
+        // > in2  - headset mic
+        // > in3  - modem output  (muxed with mono)
+        // > spol - earphone
+        // > hpo  - heaphones
+        // > lout - modem input
+        // > spaker - amp enabled by SPK_CTL_H
+        //
+        // > mclk - GPIO4_A0/I2S_CLK
+
+        sound {
+                compatible = "simple-audio-card";
+                simple-audio-card,name = "PinePhonePro";
+                simple-audio-card,format = "i2s";
+                // frequency scale between stream rate and codec mclk.
+                // megi assigned 24 MHz to i2c1, which i think means the sample rate of the codec would then be 93.75 kHz (so 46.875 kHz per channel?).
+                // mainline i2c1 frequence is 200 MHz.
+                // the device tree makes this tunable, but ALC5640 docs are written as if it's *always* 256.
+                // oh, perhaps i'm just *informing* the `simple-audio-card` of this fact,
+                // and it doesn't configure anything on the rt5640, but rather uses this to calculate its own sample rate.
+                simple-audio-card,mclk-fs = <256>;
+                // see schematic GPIO4_D4_d -> link HP_DET
+                // simple-audio-card,hp-det-gpio = <&gpio4 RK_PD4 GPIO_ACTIVE_LOW>;
+
+                // <sink>, <source>
+                // - these names i *think* come from <sound/soc/codecs/rt5640.c>,
+                //   or i'm free to define new names for virtual nodes.
+                //
+                // HPOL/HPOR -> user kill switch SW1-6 -> headphone jack
+                //   ALSO sent to the speaker amp
+                // SPOLP/SPOLN -> earphone (with only passives in between)
+                //
+                // naming ("Internal Earpiece") is chosen to be consistent with OG pinephone
+                // "Speaker Amp {INL,INR,OUTL,OUTR}" actually come from simple-audio-amplifier.
+                // - the speaker_amp dt node specifies "Speaker Amp" as its name-prefix,
+                //   and <sound/soc/codecs/simple-amplifier.c> (i.e. simple-audio-amplifier) uses the INL/OUTL naming
+                //
+                // there may be some interplay between the widgets/routing defined here and the alsa configs though.
+                simple-audio-card,routing =
+                        // each entry is $source  $sink
+                        "Headphones", "HPOL",
+                        "Headphones", "HPOR",
+                        // Internal Speaker would normally go through the external amp.
+                        // but i'm omitting the amp, so bridge it straight to HPOL/HPOR.
+                        // Internal Speaker has to be defined here so that we can expose
+                        // it as a pin-switch, as expected by the alsa UCM profile.
+                        "Internal Speaker", "HPOL",
+                        "Internal Speaker", "HPOR",
+                        "DMIC1", "Internal Microphone";
+
+                // user-facing controls. e.g. when user selects "Headphone", activate the "Headphone Jack" path.
+                simple-audio-card,widgets =
+                        "Microphone", "Internal Microphone",
+                        "Headphone", "Headphones",
+                        "Speaker", "Internal Speaker";
+
+                //v switch is required, for alsa UCM init
+                //v   `amixer -c 0 cset name='Internal Speaker Switch' off`
+                //v if any one step of the profile EnableSequence errors, the rest of the sequence is aborted => no audio
+                simple-audio-card,pin-switches = "Internal Speaker";
+                // omitting hp-det-gpios enables ALL profiles to be switched manually (under Configuration tab of e.g. wiremix/pavucontrol)
+                // simple-audio-card,hp-det-gpios = <&gpio4 RK_PD4 GPIO_ACTIVE_LOW>;
+                //
+                // pinctrl-names = "default";
+                // pinctrl-0 = <&hp_det_pin>;
+
+                simple-audio-card,cpu {
+                        sound-dai = <&i2s0>;
+                };
+
+                simple-audio-card,codec {
+                        sound-dai = <&rt5640>;
+                        // system-clock-frequency = <12288000>;
+                };
+        };
+};
+
+// declared in rk3399-pinephone-pro.dts
+// TODO: spot check the routing on these... why are there two 1v8's in the device tree?
+&vcc1v8_codec {
+        // enable power to the regulator, always
+        regulator-always-on;
+        regulator-boot-on;
+};
+&vcca1v8_codec {
+        // enable power to the regulator, always
+        regulator-always-on;
+        regulator-boot-on;
+};
+&vcca3v0_codec {
+        // enable power to the regulator, always
+        regulator-always-on;
+        regulator-boot-on;
+};
+
+// declared in rk3399-base.dtsi, as `i2c1: i2c@ff110000 { ... }`
+&i2c1 {
+        status = "okay";
+        // ALC5640 datasheet specifies max i2c rate of 400kHz
+        // - max rise time: 300ns
+        // - max fall time: 300ns
+        clock-frequency = <400000>;
+        // from rk3399-firefly.dts
+        // note that i2c3 in pinephone-pro is defined as 450/15 rise/fall
+        // i2c-scl-rising-time-ns = <300>;
+        // i2c-scl-falling-time-ns = <15>;
+
+        // /i2c1 declares these things, but they aren't seen from the context of this overlay it seems
+        // this problem is actually mentioned here: <https://pine64.org/documentation/ROCKPro64/Software/Device_Tree_Overlays_on_Mainline/>
+        // #address-cells = <1>;
+        // #size-cells = <0>;
+
+        rt5640: rt5640@1c {
+                compatible = "realtek,rt5640";
+                // reg = address of the device (a.k.a register?). Documentation/devicetree/bindings/sound/rt5640.txt uses 0x1c in their example; megi uses it too.
+                reg = <0x1c>;
+                // `cru` = Clocks and Reset unit. declared in rk3399-base.dtsi as `cru: clock-controller@ff760000 { ... }`
+                // the names of the clocks this cru provides are hardcoded in <dt-bindings/clock/rk3399-cru.h>
+                // i don't know what "8CH_OUT" means here, but this is the *only* `I2S_*` clock, so it must be right?
+                // i think this feeds all the i2s clocks (via mux)
+                clocks = <&cru SCLK_I2S_8CH_OUT>;
+                clock-names = "mclk";
+                // assigned-clocks = <&cru SCLK_I2S0_8CH>;  //< TODO
+                // assigned-clock-rates = <11289599>;  //< TODO
+
+                // XXX: this differs from megi's kernel (which declares in3 as differential).
+                // the schematics show `IN2P` / `IN2N` as being differential inputs though, with no mention of "in3"
+                // realtek,in2-differential;  //< IN2 = Headset Microphone
+                // realtek,in3-differential;
+                // megi has lout-differential, but schematic shows LOUT{R,L} => 4G_IN_{R,L}  i.e. stereo.
+                // sounds like the *modem* misconfigures its end to be differential, though
+                // realtek,lout-differential;
+                // codec has ldo1-en connected to 1.8V via pull-up, i.e. permanently enabled, no GPIO?
+                // realtek,ldo1-en-gpios = VCCA1V8_CODEC;
+                // PDM_SDI1_MIC -> IN1P/DMIC1_DAT
+                realtek,dmic1-data-pin = <1>;
+                // realtek,dmic2-data-pin = <0>;  //< presumed default
+                // [RK3399]GPIO4_D4_d -> HP_DET_H -> HP_DET
+                // i think jack detection is handled by the SoC, not by the codec chip.
+                // it appears that HP_DET is pulled to 3V0 when jack is unplugged,
+                // and pulled to HPO_L when the jack is plugged.
+                // realtek,jack-detect-source = <>;
+                //
+                //`jack-detect-source`:
+                // - 0: Jack Detect function is not used
+                // - 1: Use GPIO1 for jack-detect
+                // - 2: Use JD1_IN4P for jack-detect
+                // - 3: Use JD2_IN4N for jack-detect
+                // - 4: Use GPIO2 for jack-detect
+                // - 5: Use GPIO3 for jack-detect
+                // - 6: Use GPIO4 for jack-detect
+                // related: `realtek,jack-detect-not-inverted` (boolean property)
+                // realtek,jack-detect-source = <>;
+
+                // see: <https://www.kernel.org/doc/html/v6.11/sound/soc/dai.html>
+                // DAI = Digital Audio Interface, in this case I2S, a 4-wire protocol with TX, RX, BCLK, LRCLK.
+                // i think there's only one DAI on the board (the i2s DAI), and this is telling the driver the index of that DAI?
+                #sound-dai-cells = <0>;
+
+                // TODO: i think all of these can be removed? (they're specific to *megi's* rt5640 driver, and not mainline?)
+                // assigned-clocks = <&cru SCLK_I2S0_8CH>;
+                // assigned-clock-rates = <11289599>;  // 44100 * 256
+                // // rt5645 describes avdd-supply, cpvdd-supply, but rt5640 does not.
+                // // <Documentation/devicetree/bindings/sound/realtek,rt5645.yaml>
+                // avdd-supply = <&vcca3v0_codec>;
+                // cpvdd-supply = <&vcca3v0_codec>;
+                // spkvdd-supply = <&vcc5v0_sys>;
+                // dbvdd-supply = <&vcca1v8_codec>;
+        };
+};
+
+// defined (as disabled) in rk3399-base.dtsi:
+// - i2s0: i2s@ff880000
+//     compatible = "rockchip,rk3399-i2s", "rockchip,rk3066-i2s"
+&i2s0 {
+        rockchip,playback-channels = <2>;
+        // builtin mic on IN1, headphone mic on IN2
+        rockchip,capture-channels = <2>;
+        // i2s0_2ch_bus is [RK3399]PD0,PD1,PD2,PD3,PD7,PA0
+        //   maps to I2S0_SCLK,I2S0_LRCK_RX,I2S0_LRCK_TX,I2S0_SDI0,I2S0_SDO0,I2S_CLK
+        // 8ch_bus adds PD4,PD5,PD6
+        //   maps to NC,NC,TP8
+        // pinctrl-0 = <&i2s0_2ch_bus>;
+        // upstream sets this to the following:
+        //   pinctrl-0 = <&i2s0_8ch_bus>;
+        //   pinctrl-1 = <&i2s0_8ch_bus_bclk_off>;
+        status = "okay";
+};
+
+// &pinctrl {
+//         // sound {
+//         //         hp_det_pin: hp-det-pin {
+//         //                 // schematics specify a 100k pull-up to VCC_3V0 (defined as regulator-always-on in rk3399-pinephone-pro.dts)
+//         //                 rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
+//         //         };
+//         // };
+//         uart2c {
+//                 uart2c_xfer: uart2c-xfer {
+//                         // headphone out interferes with debug UART2.
+//                         // it seems that the amp tries to output negative signals, through the UM4717 MUX.
+//                         // that MUX chooses between UART and audio, to route to the headphone jack.
+//                         // unfortunately it's not designed to handle below-ground signals.
+//                         // long-term fix is to mix a DC offset into the amp output.
+//                         // until then, pull RX to *ground* instead of supply, so that it's less affected by (apparent) shorting with the HPOL channel.
+//                         // or even just leave it without any pull resistor -- so far that seems to be pretty stable?
+//                         // note that this only fixes the spurious UART/spurious SYSRQ errors,
+//                         // it does not address the distortion likely caused by this.
+//                         rockchip,pins =
+//                                 <4 RK_PC3 1 &pcfg_pull_none>,  // UART2DBG_RX
+//                                 <4 RK_PC4 1 &pcfg_pull_none>;  // UART2DBG_TX
+//                 };
+//         };
+// };
+
+// TODO: what are `io_domains`?

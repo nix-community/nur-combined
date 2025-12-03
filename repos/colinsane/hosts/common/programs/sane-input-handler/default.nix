@@ -73,13 +73,8 @@ in
         };
       };
     };
-    packageUnwrapped = pkgs.static-nix-shell.mkYsh {
-      pname = "sane-input-handler";
-      srcRoot = ./.;
-      pkgs = {
-        inherit (pkgs) coreutils killall playerctl procps sane-open util-linux wireplumber;
-        sway = config.sane.programs.sway.package;
-      };
+    packageUnwrapped = pkgs.sane-input-handler.override {
+      sway = config.sane.programs.sway.package;
     };
     suggestedPrograms = [
       "bonsai"

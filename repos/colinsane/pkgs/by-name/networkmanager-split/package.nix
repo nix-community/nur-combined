@@ -30,14 +30,22 @@ let
     ];
   });
 in
-(deepLinkIntoOwnPackage networkmanager').overrideAttrs (base: {
+(deepLinkIntoOwnPackage networkmanager' { outputs = [ "doc" "man" "out" ]; }).overrideAttrs (base: {
   outputs = [ "out" "daemon" "nmcli" ];
 
   postFixup = ''
+    # assume all outputs (until mentioned later) are associated with the daemon:
     moveToOutput "" "$daemon"
-    for f in bin/{nmcli,nmtui,nmtui-connect,nmtui-edit,nmtui-hostname} share/bash-completion/completions/nmcli; do
+
+    # move select outputs to `nmcli`:
+    for f in \
+      bin/{nmcli,nmtui,nmtui-connect,nmtui-edit,nmtui-hostname} \
+      share/bash-completion/completions/nmcli \
+      share/man/man1/{nmcli,nmtui,nmtui-connect,nmtui-edit,nmtui-hostname}.1.gz \
+    ; do
       moveToOutput "$f" "$nmcli"
     done
+
     # ensure non-empty default output so the build doesn't fail
     mkdir "$out"
   '';

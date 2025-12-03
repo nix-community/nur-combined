@@ -17,13 +17,13 @@ in
       enable = mkEnableOption "keep track of the public WAN address of this machine, as viewed externally";
 
       ipPath = mkOption {
-        default = "/var/lib/uninsane/wan.txt";
+        default = "/var/lib/dyn-dns/wan.txt";
         type = types.str;
         description = "where to store the latest WAN IPv4 address";
       };
 
       upnpPath = mkOption {
-        default = "/var/lib/uninsane/upnp.txt";
+        default = "/var/lib/dyn-dns/upnp.txt";
         type = types.str;
         description = ''
           where to store the address of the UPNP device (if any) that can be used to create port forwards.
@@ -32,6 +32,7 @@ in
 
       ipCmd = mkOption {
         default = getIp;
+        defaultText = "path/to/sane-ip-check --json";
         type = types.path;
         description = "command to run to query the current WAN IP";
       };
@@ -56,6 +57,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    sane.persist.sys.byStore.plaintext = [
+      { user = "root"; group = "root"; mode = "0755"; path = "/var/lib/dyn-dns"; method = "bind"; }
+    ];
     systemd.services.dyn-dns = {
       description = "update this host's record of its WAN IP";
       serviceConfig.Type = "oneshot";

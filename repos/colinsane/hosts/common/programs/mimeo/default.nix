@@ -61,13 +61,6 @@ in
         })
       ];
 
-      # upstream mimeo doesn't run preInstall/postInstall hooks, but we need that for the .desktop file
-      installPhase = ''
-        runHook preInstall
-        ${upstream.installPhase}
-        runHook postInstall
-      '';
-
       passthru = (upstream.passthru or {}) // {
         inherit mimeo-open-desktop;
       };

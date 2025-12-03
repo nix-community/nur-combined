@@ -24,7 +24,7 @@
 # - <https://gitlab.com/DamienCassou/rofi-pulse-select>
 { pkgs, ... }:
 let
-  rofi-unwrapped = pkgs.rofi-wayland-unwrapped.overrideAttrs (upstream: {
+  rofi-unwrapped = pkgs.rofi-unwrapped.overrideAttrs (upstream: {
     patches = (upstream.patches or []) ++ [
       (pkgs.fetchpatch {
         # so that i can open applications via the xdg-desktop-portal instead of by having rofi launch them directly.
@@ -40,6 +40,12 @@ let
         url = "https://git.uninsane.org/colin/rofi/commit/ede969e9ce4b549ad0b28cfb36f9e5a156114d70.patch";
         name = "filebrowser: include entries of d_type DT_UNKNOWN";
         hash = "sha256-gz3N4uo7IWzzqaPHHVhby/e9NbtzcFJRQwgdNYxO/Yw=";
+      })
+      (pkgs.fetchpatch {
+        # out for PR upstream: <https://github.com/davatorium/rofi/pull/2201>
+        url = "https://git.uninsane.org/colin/rofi/commit/375e54332b9e269e3367c9724f8828534ffeb414.patch";
+        name = "filebrowser: sort based on natural ordering";
+        hash = "sha256-BzVAMBz4XSYLFN6Gz7HW+2ACrszvjCDK7RBt4rXxnOk=";
       })
     ];
 
@@ -81,7 +87,7 @@ in
   sane.programs.rofi = {
     # 2024/02/26: wayland is only supported by the fork: <https://github.com/lbonn/rofi>.
     # it's actively maintained though, and more of an overlay than a true fork.
-    packageUnwrapped = pkgs.rofi-wayland.override {
+    packageUnwrapped = pkgs.rofi.override {
       inherit rofi-unwrapped;
       plugins = with pkgs; [
         # rofi-calc  # not compatible with my rofi <https://github.com/svenstaro/rofi-calc>
@@ -171,7 +177,7 @@ in
       srcRoot = ./.;
       pkgs = {
         inherit (pkgs) gnused wtype;
-        rofi-wayland = pkgs.rofi-wayland.override {
+        rofi = pkgs.rofi.override {
           inherit rofi-unwrapped;
         };
       };

@@ -23,7 +23,7 @@ linux_latest.override {
     # {
     #   name = "pmos-config";
     #   patch = null;
-    #   extraStructuredConfig = builtins.removeAttrs
+    #   structuredExtraConfig = builtins.removeAttrs
     #     linux-postmarketos-pinephonepro.structuredConfig
     #     [
     #       "BASE_SMALL"                    # pmos: =0 ???
@@ -67,7 +67,7 @@ linux_latest.override {
     # {
     #   name = "add-removed";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     DRM_PANEL_HIMAX_HX8394 = module;
     #     DRM_PANEL_SIMPLE = module;
     #   };
@@ -77,7 +77,7 @@ linux_latest.override {
       # necessary only if `preferBuiltin = false`
       name = "fix-module-only";
       patch = null;
-      extraStructuredConfig = with lib.kernel; {
+      structuredExtraConfig = with lib.kernel; {
         SUN8I_DE2_CCU = lib.mkForce module;
       };
     }
@@ -85,7 +85,7 @@ linux_latest.override {
     # {
     #   name = "upgrade-builtins-to-module";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     CPU_FREQ_GOV_CONSERVATIVE = yes;
     #     CPUFREQ_DT = yes;
     #     CPUFREQ_DT_PLATDEV = yes;
@@ -127,7 +127,7 @@ linux_latest.override {
     {
       name = "misc-hw-fixes";
       patch = null;
-      extraStructuredConfig = with lib.kernel; {
+      structuredExtraConfig = with lib.kernel; {
         # XXX(2024-09-18): megapixels(-next) on OG PP fails to open the camera without this option:
         ARM64_VA_BITS_48 = yes;  #< 48 (not 52) bits for virtual addresses. the other bit widths (ARM64_VA*, ARM64_PA_*, PGTABLE_LEVELS) are then derived/implied same as pmos config
         BACKLIGHT_CLASS_DEVICE = yes;  #< required for display initialization on OG PP (adding "backlight" to initrd does not fix display)
@@ -137,7 +137,7 @@ linux_latest.override {
     # {
     #   name = "reset-nixpkgs-overrides";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     # this is required for boot (but why??)
     #     ACPI_FPDT = lib.mkForce no;
 
@@ -191,7 +191,7 @@ linux_latest.override {
     #   # smallest observed non-bootable image: 71297536B
     #   name = "optimize-for-size";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE = no;
     #     CONFIG_CC_OPTIMIZE_FOR_SIZE = yes;
 
@@ -252,7 +252,7 @@ linux_latest.override {
     # {
     #   name = "reset-automodules-overrides";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     # NR_CPUS = lib.mkForce (freeform "64");
     #     # RANDOM_KMALLOC_CACHES = lib.mkForce no;
     #     # HOTPLUG_PCI_PCIE = lib.mkForce no;
@@ -385,7 +385,7 @@ linux_latest.override {
     #   # so just don't build these here, and rely wholly on my out-of-tree modules.
     #   name = "make-module-for-out-of-tree";
     #   patch = null;
-    #   extraStructuredConfig = with lib.kernel; {
+    #   structuredExtraConfig = with lib.kernel; {
     #     # MFD_RK8XX = no;
     #     # MFD_RK8XX_I2C = no;
     #     # MFD_RK8XX_SPI = no;  #< necessary for MFD_RK8XX=... to apply

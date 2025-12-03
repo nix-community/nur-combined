@@ -20,7 +20,7 @@ let
   # };
 in
 {
-  # DISABLE HDCP BLOB in pinephone pro.
+  # DISABLE HDCP BLOB in pinephone pro (and every other ATF build)
   # this is used by u-boot; requires redeploying the bootloader (the SPL, specifically).
   # i can see that nixpkgs does process this option, but the hash of bl31.elf doesn't actually change
   arm-trusted-firmware = super.arm-trusted-firmware.override {
@@ -40,13 +40,6 @@ in
   # bunpen = super.bunpen.override {
   #   hareHook = crossHareHook;
   # };
-
-  # XXX(2024-12-26 - 2025-04-30): prefer pre-built electron because otherwise it takes 4 hrs to build from source.
-  # but wait 2 days after staging -> master merge, and normal electron should be cached and safe to remove
-  electron = electron-bin;
-  electron_33 = electron_33-bin;
-  electron_34 = electron_34-bin;
-  electron_35 = electron_35-bin;
 
   # evolution-data-server = super.evolution-data-server.override {
   #   # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
@@ -70,20 +63,7 @@ in
   # };
 
   go2tv = super.go2tv.overrideAttrs (upstream: {
-    # XXX(2025-02-12): with release 1.18.0 (due to a4cd63f512), listing devices gives error (even with UDP 1900 whitelisted in firewall):
-    # > Encountered error(s): checkflags error: checkTflag service loading error: loadSSDPservices: No available Media Renderers
-    # this would apparently be because many UPnP servers do not respond to requests _from_ port 1900.
-    # still present in 1.18.1.
-    #
-    # a commit to gssdp (177f2772cf) suggests this is due to "security reasons" (perhaps it allows neighbors to hole-punch port 1900 of clients?)
-    # although it itself responds perfectly fine to M-SEARCH requests from port 1900.
-    # "DLNA requirement 7.2.3.4" could shed some light, but it's a private spec.
-    # so just don't use port 1900 for now.
-    #
-    # done as overlay instead of in hosts/common/programs/go2tv.nix so that python consumers like sane-cast also get this fix.
     postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace devices/devices.go --replace-fail "port := 1900" "port := 1901"
-
       # by default, go2tv passes `ffmpeg -re`, which limits ffmpeg to never stream faster than realtime.
       # patch that out to let the receiver stream as fast as it wants.
       # maybe not necessary, was added during debugging.
@@ -129,10 +109,16 @@ in
   #   # };
   # };
 
-  # gvfs = super.gvfs.override {
-  #   # saves 20 minutes of build time and cross issues, for unused feature
-  #   samba = null;
-  # };
+  gvfs = super.gvfs.override {
+    # saves 20 minutes of build time and cross issues, for unused feature
+    # samba = null;
+    # XXX(2025-07-02): avoid cross compilation error on thin-provisioning-tools by disabling the thing which pulls it in.
+    # see: <https://github.com/stratis-storage/devicemapper-rs/issues/965>
+    # however, thin-provisioning-tools uses `devicemapper` crate -- not `devicemapper-sys`;
+    # unclear if `devicemapper` intends to support this; manually enabling the feature did not fix any build error;
+    # my error seems to be that `devicemapper` is compiled _to the wrong platform_ (maybe the issue is in thin-provisioning-tools' build script)
+    udevSupport = false;
+  };
 
   # haredoc = super.haredoc.override {
   #   hareHook = crossHareHook;
@@ -176,4 +162,19 @@ in
   # 2023/12/10: zbar barcode scanner: used by megapixels, frog.
   # the video component does not cross compile (qt deps), but i don't need that.
   zbar = super.zbar.override { enableVideo = false; };
-})
+} // (
+let
+  # XXX(2024-12-26 - 2025-08-07): prefer pre-built electron because otherwise it takes 4 hrs to build from source.
+  # but wait 2 days after staging -> master merge, and normal electron should be cached and safe to remove
+  maxVersion = 99;
+  versions = super.lib.range 1 maxVersion;
+  electronName = v: "electron_${builtins.toString v}";
+  electronOverrides = builtins.foldl' (acc: name: acc // super.lib.optionalAttrs (super ? "${name}-bin") {
+    "${name}" = super."${name}-bin";
+  }) {} (builtins.map electronName versions);
+in
+  super.lib.throwIf
+    (super ? "${electronName (maxVersion+1)}")
+    "electron has updated past ${builtins.toString maxVersion}: bump maxVersion to continue using electron-bin"
+    electronOverrides
+))

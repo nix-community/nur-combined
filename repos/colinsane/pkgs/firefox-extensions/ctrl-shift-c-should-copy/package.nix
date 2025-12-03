@@ -1,13 +1,13 @@
 {
   fetchFromGitHub,
   lib,
-  stdenv,
+  stdenvNoCC,
   unstableGitUpdater,
   wrapFirefoxAddonsHook,
   zip,
 }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "ctrl-shift-c-should-copy";
   version = "0-unstable-2023-03-03";
 

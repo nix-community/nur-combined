@@ -1,19 +1,19 @@
 {
   fetchFromGitea,
   gitUpdater,
-  stdenv,
+  stdenvNoCC,
   wrapFirefoxAddonsHook,
   zip,
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "passff";
-  version = "1.22.1";
+  version = "1.23";
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "PassFF";
     repo = "passff";
     rev = version;
-    hash = "sha256-XtKrVrXpvsz/7XaGiYW0dxRZr7wLGNK+C6c9BHqY7Gw=";
+    hash = "sha256-CQD9QOCV0uZDPVtrT1QQgF65ghXh1BxkUy3diuuI0ng=";
   };
 
   nativeBuildInputs = [

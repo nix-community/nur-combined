@@ -11,6 +11,7 @@
 # - now you can send messages, and read messages in unencrypted rooms, but not read messages from encrypted rooms.
 # to fix encrypted message receipt:
 # - start from above (fractal closed, no ~/.local/share/fractal/*)
+# - use `sane-wipe fractal` and restart fractal & verify your session, OR:
 # - in ~/.local/share/keyrings/Default_keyring.keyring:
 #   - find the entry that says "display-name=Fractal: Matrix credentials for <mxid>"
 #   - remove that entry and all associated entries (i.e. ones with same number but different :attributeN)

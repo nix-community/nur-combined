@@ -3,9 +3,9 @@
   lib,
   nix-update-script,
   python3,
-  stdenv,
+  stdenvNoCC,
 }:
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "listparser";
   version = "0.20";
 

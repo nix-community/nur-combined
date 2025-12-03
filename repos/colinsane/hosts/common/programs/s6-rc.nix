@@ -11,7 +11,7 @@
       postInstall = (upstream.postInstall or "") + ''
         for prog in s6-rc s6-rc-bundle s6-rc-db s6-rc-format-upgrade s6-rc-init s6-rc-update; do
           wrapProgram "$bin/bin/$prog" \
-            --add-flags '-l' --add-flags '$XDG_RUNTIME_DIR/s6/live'
+            --add-flag '-l' --add-flags '$XDG_RUNTIME_DIR/s6/live'
         done
       '';
     });

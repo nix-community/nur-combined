@@ -1,0 +1,13 @@
+diff --git a/internal/ftpd/handler.go b/internal/ftpd/handler.go
+index 036c3977..33211261 100644
+--- a/internal/ftpd/handler.go
++++ b/internal/ftpd/handler.go
+@@ -169,7 +169,7 @@ func (c *Connection) Stat(name string) (os.FileInfo, error) {
+ 		}
+ 		return nil, err
+ 	}
+-	return fi, nil
++	return vfs.NewFileInfo(name, fi.IsDir(), fi.Size(), fi.ModTime(), false), nil
+ }
+
+ // Name returns the name of this connection

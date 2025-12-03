@@ -16,38 +16,38 @@
   },
   {
     "pname": "Emgu.CV",
-    "version": "4.10.0.5680",
-    "hash": "sha256-j7I+xgLo8gB+5rKqW5FVtP6o3xqx3acrcMjKGr8ZlJ8="
+    "version": "4.11.0.5746",
+    "hash": "sha256-tx6EAS6d7jIG/iID001ftLBG4tySXrwNQUxsRcgzCUI="
   },
   {
     "pname": "Emgu.CV.runtime.mini.macos",
-    "version": "4.10.0.5683",
-    "hash": "sha256-tIBd9EJ74MVWuEzESZHx75g3rXDPkObrcfep10zC+28="
+    "version": "4.11.0.5746",
+    "hash": "sha256-Fjo47HsnCEsTomS4bHC1V0hNUVqW30sg3nSjwbf5mSg="
   },
   {
     "pname": "Emgu.CV.runtime.mini.ubuntu-x64",
-    "version": "4.10.0.5680",
-    "hash": "sha256-1/7UpLgOeO05E8rO1YU35duS6rWgRLfJcL+NKfcl7JQ="
+    "version": "4.11.0.5746",
+    "hash": "sha256-hs5w2Nc0Edlqt5HhhgMznPSZOnPUhQ9WC6nFZiEbtVE="
   },
   {
     "pname": "Emgu.CV.runtime.mini.windows",
-    "version": "4.10.0.5680",
-    "hash": "sha256-l2ex5Ee3fT8gYgoOfFRYkDMxrJEzN6iQfmkpurkjyiw="
+    "version": "4.11.0.5746",
+    "hash": "sha256-qkZ/rn0CqnXGEs2GsmwHMqL66V1LdC7O4+KFrRkT2dU="
   },
   {
     "pname": "Emgu.runtime.windows.msvc.rt.arm64",
-    "version": "19.42.34435",
-    "hash": "sha256-pTbkAxOA2C7VUSFkseCsCzJsJjEAAD+FvNhgRNWHHqs="
+    "version": "19.44.35207.1",
+    "hash": "sha256-e89p3QpirWinqjHWav7K/T4epjJCvV/DMOZmfo3MV9k="
   },
   {
     "pname": "Emgu.runtime.windows.msvc.rt.x64",
-    "version": "19.42.34435",
-    "hash": "sha256-9hnikUxzdcBaY/K1RWcOHgybynQmr1vjfF949DxaMmE="
+    "version": "19.44.35207.1",
+    "hash": "sha256-HtNC6cxpsVBNYl2Q67JiLUyRBBuaB3mGT8QA8plTvN8="
   },
   {
     "pname": "Emgu.runtime.windows.msvc.rt.x86",
-    "version": "19.42.34435",
-    "hash": "sha256-mQDyYqtJrZeKYMTd6JhtKaaY7NzdZWDuwxKwyQ+GxuU="
+    "version": "19.44.35207.1",
+    "hash": "sha256-qIa/JuUMh5EXiFePziXjJ7IEI3pHQGN6hQCm+jgaNnU="
   },
   {
     "pname": "K4os.Compression.LZ4",
@@ -58,6 +58,11 @@
     "pname": "KdTree",
     "version": "1.4.1",
     "hash": "sha256-R4+L26pJoliLiwMuxmJDoa3Vf16gBq417fN+iNCy7Yc="
+  },
+  {
+    "pname": "Microsoft.Build.Tasks.Git",
+    "version": "8.0.0",
+    "hash": "sha256-vX6/kPij8vNAu8f7rrvHHhPrNph20IcufmrBgZNxpQA="
   },
   {
     "pname": "Microsoft.CodeAnalysis.Analyzers",
@@ -113,6 +118,16 @@
     "pname": "Microsoft.NETCore.Targets",
     "version": "1.1.3",
     "hash": "sha256-WLsf1NuUfRWyr7C7Rl9jiua9jximnVvzy6nk2D2bVRc="
+  },
+  {
+    "pname": "Microsoft.SourceLink.Common",
+    "version": "8.0.0",
+    "hash": "sha256-AfUqleVEqWuHE7z2hNiwOLnquBJ3tuYtbkdGMppHOXc="
+  },
+  {
+    "pname": "Microsoft.SourceLink.GitHub",
+    "version": "8.0.0",
+    "hash": "sha256-hNTkpKdCLY5kIuOmznD1mY+pRdJ0PKu2HypyXog9vb0="
   },
   {
     "pname": "Microsoft.Win32.Primitives",
@@ -341,8 +356,8 @@
   },
   {
     "pname": "SixLabors.ImageSharp",
-    "version": "3.1.8",
-    "hash": "sha256-cE9BQfbCvJ0Mf+fQiTD8elOZEPcfZHjDz2BHdiO+D08="
+    "version": "3.1.11",
+    "hash": "sha256-MlRF+3SGfahbsB1pZGKMOrsfUCx//hCo7ECrXr03DpA="
   },
   {
     "pname": "System.AppContext",
@@ -371,8 +386,8 @@
   },
   {
     "pname": "System.CommandLine",
-    "version": "2.0.0-beta4.22272.1",
-    "hash": "sha256-zSO+CYnMH8deBHDI9DHhCPj79Ce3GOzHCyH1/TiHxcc="
+    "version": "2.0.0-beta5.25306.1",
+    "hash": "sha256-HOjez7THzHSzX3YK2Qn+Y5D6ssWJCD2v87nOq5ojWiA="
   },
   {
     "pname": "System.Console",
@@ -651,8 +666,8 @@
   },
   {
     "pname": "System.Text.Json",
-    "version": "9.0.5",
-    "hash": "sha256-M5G8EtmsV13O3qNMsAdk4isdKJ/SHfrbRzMhdVsoG2c="
+    "version": "9.0.9",
+    "hash": "sha256-I+GCgXZZUtgAta94BIBqy72HnZJ3egzNBOTxnVy2Ur8="
   },
   {
     "pname": "System.Text.RegularExpressions",
@@ -696,7 +711,7 @@
   },
   {
     "pname": "ZLinq",
-    "version": "1.4.6",
-    "hash": "sha256-RJUdcCwX6elhP6VYvySAyRB2Ar6TH3HnqMWjB8TaMl8="
+    "version": "1.5.2",
+    "hash": "sha256-j3gikzndyZ7yXKbfHpTIbvzZmNYpb9RhwW19CQElydQ="
   }
 ]

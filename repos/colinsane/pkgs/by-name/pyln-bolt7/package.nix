@@ -20,12 +20,12 @@ stdenv.mkDerivation {
   sourceRoot = "clightning-v${clightning.version}/contrib/pyln-spec/bolt7";
 
   nativeBuildInputs = [
-    python3.pkgs.poetry-core
+    python3.pkgs.hatchling
     python3.pkgs.pypaBuildHook
     python3.pkgs.pypaInstallHook
     unzip  # used by `unpackPhase`
   ];
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     pyln-proto
   ];
   nativeCheckInputs = [ python3.pkgs.pytestCheckHook ];

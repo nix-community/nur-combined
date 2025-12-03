@@ -17,6 +17,7 @@ lib.mkIf false  #< 2024/09/30: disabled because i haven't used this for several 
     enableACME = true;
     locations."/" = {
       proxyPass = "http://127.0.0.1:${builtins.toString port}";
+      recommendedProxySettings = true;
     };
     locations."= /robots.txt".extraConfig = ''
       return 200 "User-agent: *\nDisallow: /\n";

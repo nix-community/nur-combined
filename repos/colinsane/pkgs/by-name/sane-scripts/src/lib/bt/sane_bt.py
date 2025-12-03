@@ -14,10 +14,11 @@ logger = logging.getLogger(__name__)
 TORRENT_DIR="/var/media/torrents"
 
 class MediaType(Enum):
-    Film = "film"
-    Show = "show"
-    Book = "book"
     Audiobook = "audiobook"
+    Book = "book"
+    Film = "film"
+    Other = "other"
+    Show = "show"
     VisualNovel = "vn"  # manga/comics
 
 @dataclass
@@ -31,32 +32,38 @@ class MediaMeta:
 
     @classmethod
     def add_arguments(self, parser: ArgumentParser) -> None:
-        parser.add_argument("--prefix", help="additional path component before anything implied by the other options (but after the base media dir")
-        parser.add_argument("--film", help="Film.Title-year")
-        parser.add_argument("--show", help="Show.Title")
-        parser.add_argument("--book", help="Book.Title")
         parser.add_argument("--audiobook", help="Audiobook.Title")
+        parser.add_argument("--book", help="Book.Title")
+        parser.add_argument("--film", help="Film.Title-year")
+        parser.add_argument("--other", help="Name")
+        parser.add_argument("--show", help="Show.Title")
         parser.add_argument("--vn", help="Visual.Novel.Title  (for comics/manga)")
+
         parser.add_argument("--author", help="Firstname.Lastname")
-        parser.add_argument("--freeleech", action="store_true", help="not interested in the data, only in seeding")
+
         parser.add_argument("--archive", action="store_true", help="not interested in the data, except for archival")
+        parser.add_argument("--freeleech", action="store_true", help="not interested in the data, only in seeding")
+        parser.add_argument("--prefix", help="additional path component before anything implied by the other options (but after the base media dir)")
 
     @classmethod
     def from_arguments(self, args: Namespace) -> Self:
         title = None
         type_ = None
-        if args.film:
-            type_ = MediaType.Film
-            title = args.film
-        if args.show != None:
-            type_ = MediaType.Show
-            title = args.show
-        if args.book != None:
-            type_ = MediaType.Book
-            title = args.book
         if args.audiobook != None:
             type_ = MediaType.Audiobook
             title = args.audiobook
+        if args.book != None:
+            type_ = MediaType.Book
+            title = args.book
+        if args.film:
+            type_ = MediaType.Film
+            title = args.film
+        if args.other:
+            type_ = MediaType.Other
+            title = args.other
+        if args.show != None:
+            type_ = MediaType.Show
+            title = args.show
         if args.vn != None:
             type_ = MediaType.VisualNovel
             title = args.vn
@@ -74,10 +81,11 @@ class MediaMeta:
     @property
     def type_path(self) -> str:
         return {
-            MediaType.Film:        "Videos/Film/",
-            MediaType.Show:        "Videos/Shows/",
-            MediaType.Book:        "Books/Books/",
             MediaType.Audiobook:   "Books/Audiobooks/",
+            MediaType.Book:        "Books/Books/",
+            MediaType.Film:        "Videos/Film/",
+            MediaType.Other:       "Other/",
+            MediaType.Show:        "Videos/Shows/",
             MediaType.VisualNovel: "Books/Visual/",
         }[self.type_]
 

@@ -125,6 +125,7 @@
                 //
                 // there may be some interplay between the widgets/routing defined here and the alsa configs though.
                 simple-audio-card,routing =
+                        // each entry is $source  $sink
                         "Headphones", "HPOL",
                         "Headphones", "HPOR",
                         // SPO_LP/SPO_LN -> EAROUTP -> EARPHONE (labeled in the "Mic" section of schematic)
@@ -169,6 +170,9 @@
         };
 
         speaker_amp: audio-amplifier {
+                // vcc5v0_sys is supplied by the modem;
+                // speaker amplifier is therefore unpowered if modem is off
+                VCC-supply = <&vcc5v0_sys>;
                 compatible = "simple-audio-amplifier";
                 pinctrl-names = "default";
                 pinctrl-0 = <&spk_en>;
@@ -244,7 +248,7 @@
                 // i think there's only one DAI on the board (the i2s DAI), and this is telling the driver the index of that DAI?
                 #sound-dai-cells = <0>;
 
-                // TODO: i think all of these can be removed?
+                // TODO: i think all of these can be removed? (they're specific to *megi's* rt5640 driver, and not mainline?)
                 // assigned-clocks = <&cru SCLK_I2S0_8CH>;
                 // assigned-clock-rates = <11289599>;  // 44100 * 256
                 // // rt5645 describes avdd-supply, cpvdd-supply, but rt5640 does not.

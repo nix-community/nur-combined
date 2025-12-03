@@ -3,7 +3,7 @@
   jq,
   nix,
   runCommand,
-  stdenv,
+  stdenvNoCC,
 }:
 let
   # nix has logic to build an attrset of all the items which make it into `nix.doc`
@@ -18,7 +18,7 @@ let
     nix __dump-language | jq . > $out/locations.json
   '';
 
-  docset = stdenv.mkDerivation {
+  docset = stdenvNoCC.mkDerivation {
     pname = "nix-builtins";
     version = nix.version;
 

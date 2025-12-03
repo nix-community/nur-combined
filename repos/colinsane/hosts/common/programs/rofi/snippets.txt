@@ -1,4 +1,5 @@
 https://github.com/jtojnar/nixpkgs-hammering/blob/main/explanations/attribute-ordering.md
+https://github.com/nixos/nixpkgs/pulls?q=label%3A%226.topic%3A+cross-compilation%22  # Nixpkgs Cross Compilation PRs
 https://nixos.org/manual/nix/stable/language/builtins.html
 https://nur.nix-community.org/
 https://repology.org/projects/?maintainer=colin@uninsane.org&inrepo=nix_unstable&outdated=1

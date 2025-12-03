@@ -19,7 +19,7 @@ in
 
     fs.".profile".symlink.text = lib.mkIf cfg.config.showOnLogin ''
       maybeShowDeadlines() {
-        if [ -z "$SSH_TTY" ]; then
+        if [ -z "$SSH_CONNECTION" ]; then
           sane-deadlines
         fi
       }

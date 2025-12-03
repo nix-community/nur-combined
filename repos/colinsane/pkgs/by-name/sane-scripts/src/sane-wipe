@@ -1,17 +1,47 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p bash -p dconf -p libsecret -p procps -p systemdMinimal
 
-help() {
-  echo "usage: sane-wipe <resource>"
-  echo "resource:"
-  echo "  browser: kill and remove cache for firefox, chromium, brave, etc"
+set -eu
+
+usage() {
+  echo "usage: sane-wipe [--verbose] RESOURCE [RESOURCE ...]"
+  echo "RESOURCE:"
+  echo "  browser: kill and remove cache for firefox, epiphany, chromium, brave, etc"
   echo "  dino:    remove auth and data for Dino XMPP messenger"
   echo "  flare:   remove auth and data for flare-signal messenger"
   echo "  fractal: remove auth and data for fractal matrix messenger"
   echo "  rofi:    remove rofi .desktop entry cache and force it to recompute entries"
-  exit 1
 }
 
+resources=()
+VERBOSE=
+parseArgs() {
+  while [[ $# -ge 1 ]]; do
+    local arg=$1
+    shift
+    case "$arg" in
+      (browser|dino|flare|fractal|rofi)
+        resources+=("$arg")
+        ;;
+      (--help)
+        usage
+        exit 0
+        ;;
+      (--verbose)
+        VERBOSE=1
+        ;;
+      *)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+
+  if [[ ${#resources[@]} -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+}
 
 wipe_browser() {
   # remove chromium/epiphany/firefox/librewolf artifacts
@@ -72,23 +102,15 @@ wipe_rofi() {
   rm -f ~/.cache/rofi/rofi-drun-desktop.cache
 }
 
+main() {
+  if [ -n "$VERBOSE" ]; then
+    set -x
+  fi
 
-case "$1" in
-  (browser)
-    wipe_browser
-    ;;
-  (dino)
-    wipe_dino
-    ;;
-  (flare)
-    wipe_flare
-    ;;
-  (fractal)
-    wipe_fractal
-    ;;
-  (rofi)
-    wipe_rofi
-    ;;
-  *)
-    help
-esac
+  for r in "${resources[@]}"; do
+    "wipe_$r"
+  done
+}
+
+parseArgs "$@"
+main

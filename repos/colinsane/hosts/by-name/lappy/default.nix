@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 {
   imports = [
     ./fs.nix
@@ -7,18 +7,16 @@
   sane.roles.client = true;
   sane.roles.pc = true;
   sane.services.wg-home.enable = true;
-  sane.ovpn.addrV4 = "172.23.119.72";
+  # sane.ovpn.addrV4 = "172.23.119.72";
   # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:0332:aa96/128";
 
   # sane.guest.enable = true;
-  sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
   sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
 
   sane.programs.firefox.config.formFactor = "laptop";
   sane.programs.itgmania.enableFor.user.colin = true;
-  # sane.programs.stepmania.enableFor.user.colin = true;  #< TODO: fix build
   sane.programs.sway.enableFor.user.colin = true;
 
   sops.secrets.colin-passwd.neededForUsers = true;

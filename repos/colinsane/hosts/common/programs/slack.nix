@@ -9,9 +9,21 @@
 #   -> presumably: new slack instance locates ~/.config/Slack/SingletonSocket;
 #      forwards the auth details to existing application
 #
-{ ... }:
+{ lib, pkgs, ... }:
 {
   sane.programs.slack = {
+    packageUnwrapped = pkgs.slack.overrideAttrs (upstream: {
+      # fix to use wayland instead of Xwayland:
+      # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
+      # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
+      # alternatively, set env var: `ELECTRON_OZONE_PLATFORM_HINT=wayland` and ignore all of this
+      installPhase = lib.replaceStrings
+        [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
+        [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
+        upstream.installPhase
+      ;
+    });
+
     # sandbox.whitelistDbus.user = true;
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;  #< for calls, media
@@ -22,6 +34,9 @@
       "FileChooser"  #< seems to not actually be used though
       "OpenURI"
       "ScreenCast"  # not sure if used
+    ];
+    sandbox.extraHomePaths = [
+      "tmp"
     ];
     sandbox.whitelistSendNotifications = true;
     sandbox.whitelistWayland = true;

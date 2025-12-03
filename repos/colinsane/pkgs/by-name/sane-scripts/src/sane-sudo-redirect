@@ -1,17 +1,46 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p bash -p coreutils-full
 
-# redirects to $1, when writing to $1 requires sudo permissions.
-# i.e. convert a failing command:
-#
-# ```
-# $ sudo do_thing > /into/file
-# ```
-#
-# to
-#
-# ```
-# $ sudo do_thing | sane-sudo-redirect /into/file
-# ```
+set -eu
 
-exec sudo tee "$@" > /dev/null
+usage() {
+  echo 'sane-sudo-redirect COMMAND...'
+  echo
+  echo 'redirects to $1, when writing to $1 requires sudo permissions.'
+  echo 'i.e. convert a failing command:'
+  echo
+  echo '```'
+  echo '$ sudo do_thing > /into/file'
+  echo '```'
+  echo
+  echo 'to'
+  echo
+  echo '```'
+  echo '$ sudo do_thing | sane-sudo-redirect /into/file'
+  echo '```'
+}
+
+cmd=()
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    if (( ${#cmd[@]} )); then
+      # all remaining arguments are to be forwarded to the subcommand
+      cmd+=("$arg")
+    else
+      case $arg in
+        (--help)
+          usage
+          exit 0
+          ;;
+        (*)
+          cmd=("$arg")
+          ;;
+      esac
+    fi
+  done
+}
+
+parseArgs "$@"
+exec sudo tee "${cmd[@]}" > /dev/null

@@ -1,3 +1,9 @@
+# N.B.(2025-07-23):
+# - gpu stats require `BUNPEN_DISABLE=1`.
+#   these are obtained via /proc/$super/fdinfo;
+#   <https://www.kernel.org/doc/html/latest/gpu/drm-usage-stats.html>
+#   no idea if this is a fundamental thing (drm subsystem is namespace unaware),
+#   or something else.
 { ... }:
 {
   sane.programs.htop = {

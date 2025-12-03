@@ -1,9 +1,9 @@
 {
   dashing,
   lua,
-  stdenv,
+  stdenvNoCC,
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "docsets-lua-std";
   inherit (lua) version;
 

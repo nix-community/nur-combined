@@ -75,4 +75,5 @@ in
   # go2tv tries port 3500, and then walks up from there port-by-port until it finds a free one.
   # it tries 1000 ports, but hopefully we won't need so many.
   networking.firewall.allowedTCPPorts = lib.mkIf cfg.enabled (lib.range 3500 3519);
+  # go2tv/devices/devices.go: uses port 3339-3438, but as source port, so hopefully no need to firewall
 }

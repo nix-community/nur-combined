@@ -16,12 +16,15 @@ in
       #   nativeMessagingHosts = [ pkgs.fx-cast-bridge ];
       #   enable = lib.mkDefault false;
       # };
+      archive-page = {
+        enable = lib.mkDefault true;
+      };
       browserpass-extension = {
         nativeMessagingHosts = [ "browserpass" ];
         enable = lib.mkDefault true;
       };
       bypass-paywalls-clean = {
-        enable = lib.mkDefault true;
+        enable = lib.mkDefault false;
       };
       # ctrl-shift-c-should-copy = {
       #   package = pkgs.firefox-extensions.ctrl-shift-c-should-copy;

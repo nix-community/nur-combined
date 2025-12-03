@@ -25,13 +25,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "megapixels-next";
-  version = "2.0.0-alpha1-unstable-2025-06-01";
+  version = "2.0.0-unstable-2025-11-10";
 
   src = fetchFromGitLab {
     owner = "megapixels-org";
     repo = "Megapixels";
-    rev = "cf2553033f08c9dfc2a5d6eaf59a57b739a512e0";
-    hash = "sha256-WIllQmFxv07bMR/tXBZhjPYIrjZ6DlfQr7G0KMgBb0s=";
+    rev = "3ed974a3b510ca40630a4e545852414a5ff2ce10";
+    hash = "sha256-tuAMp92166WZJfGIEzEWal9BExzQJoYodd2uZHhqEuQ=";
   };
 
   nativeBuildInputs = [

@@ -1,0 +1,48 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i ysh -p flamegraph -p oils-for-unix -p perf
+
+# use like `sane-profile some-command --which-takes-a flag`.
+# will render a .html file showing the hot-path functions inside the command.
+
+proc usage {
+  echo "sane-profile CMD..."
+  echo "  invoke CMD under a profiler and render a HTML flamegraph"
+}
+
+func parseArgs(...args) {
+  var forward_all = false
+  var cmd = []
+  for arg in (args) {
+    if (forward_all) {
+      call cmd->append(arg)
+    } else {
+      case (arg) {
+        ("--help") {
+          usage
+          exit 0
+        }
+        ("--") {
+          setvar forward_all = true
+        }
+        (else) {
+          call cmd->append(arg)
+        }
+      }
+    }
+  }
+  return (cmd)
+}
+
+proc main(; cmd) {
+  var tmpdir = "/tmp"
+  perf record -F 9000 -e cycles:u -g -o "$tmpdir/perf.data" -- @cmd
+  perf script --input "$tmpdir/perf.data" > "$tmpdir/perf.script"
+  stackcollapse-perf.pl "$tmpdir/perf.script" | flamegraph.pl --width 2000 > "$tmpdir/flamegraph.html"
+
+  echo "flame graph available at $tmpdir/flamegraph.html"
+}
+
+if is-main {
+  var cmd = parseArgs(...ARGV)
+  call main(cmd)
+}

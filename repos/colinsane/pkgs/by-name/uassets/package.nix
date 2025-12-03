@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, nix-update-script
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "uassets";
-  version = "0-unstable-2025-06-04";
+  version = "0-unstable-2025-12-03";
   src = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "dc695c45f875b6af52b9cb14fe0addd47158e123";
-    hash = "sha256-7UhXqOkIg88LKauj3nHnXktHk8cRpERjQqEpgnrjBbs=";
+    rev = "003486d39ade97bba87f6e3e904cc6fd2ab99a41";
+    hash = "sha256-n3R2V33Ukxap+BfDZNV7scoEXGfsaKrYm3GZ88UIzxk=";
   };
 
   dontBuild = true;

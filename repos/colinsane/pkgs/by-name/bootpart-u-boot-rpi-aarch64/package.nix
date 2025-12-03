@@ -1,10 +1,11 @@
-{ stdenv
-, ubootRaspberryPi4_64bit
-, raspberrypifw
-, raspberrypi-armstubs
+{
+  stdenv,
+  ubootRaspberryPi4_64bit,
+  raspberrypifw,
+  raspberrypi-armstubs,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "bootpart-u-boot-rpi-aarch64";
   version = "1";
 
@@ -12,10 +13,7 @@ stdenv.mkDerivation rec {
     ubootRaspberryPi4_64bit
     raspberrypifw  # for bootcode.bin, *.dat, *.elf, *.dtb
     raspberrypi-armstubs  # for armstub*
-
   ];
-
-  src = ./config.txt;
 
   dontUnpack = true;
 
@@ -31,9 +29,8 @@ stdenv.mkDerivation rec {
     cp -R ${raspberrypifw}/share/raspberrypi/boot/*.elf "$out"/
     cp -R ${raspberrypifw}/share/raspberrypi/boot/overlays "$out"/
     cp ${raspberrypi-armstubs}/* "$out"/
-    cp ${src} "$out"/config.txt
+    cp ${./config.txt} "$out"/config.txt
   '';
-
 
   meta = {
     description = "unmanaged files to place in /boot on a raspberry pi system";

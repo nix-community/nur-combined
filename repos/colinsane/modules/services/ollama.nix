@@ -11,8 +11,13 @@
 #
 # models are defined e.g. here: <https://ollama.com/library/llama3.2:3b/blobs/dde5aa3fc5ff>
 #
-# TODO: enable ShellGPT integration?
-# - <https://github.com/TheR1D/shell_gpt?tab=readme-ov-file#docker--ollama>
+### to confirm GPU acceleration
+# grep `journalctl -u ollama` for:
+# - `looking for compatible GPUs`
+# and see if it says anything bad afterward like:
+# - `no compatible GPUs were discovered`
+# then run a model and check for:
+# `offloading <n> repeating layers to GPU`
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.services.ollama;
@@ -35,29 +40,49 @@ let
       deepseek-r1-abliterated-14b
       deepseek-r1-abliterated-32b
       deepseek-r1-abliterated-70b
-      dolphin-mistral-7b  # UNCENSORED mistral; compliant
-      dolphin-mixtral-8x7b  # about as fast as a 14b model, similar quality results. uncensored, but still preachy
+      devstral-24b
+      dolphin3-8b  # gives incorrect RDMA RoCEv2 UDP port
+      # dolphin-mistral-7b  # UNCENSORED mistral; compliant
+      # dolphin-mixtral-8x7b  # about as fast as a 14b model, similar quality results. uncensored, but still preachy
       # falcon2-11b  # code examples are lacking
       # gemma2-9b  # fast, but not great for code
-      gemma2-27b  # generates at 1word/sec, but decent coding results if you can wrangle it
+      # gemma2-27b  # generates at 1word/sec, but decent coding results if you can wrangle it
+      gemma3-12b
+      gemma3-27b  # gives incorrect RDMA RoCEv2 UDP port
+      gemma3n-e2b
+      gemma3n-e4b
       # glm4-9b  # it generates invalid code
+      gpt-oss-20b
+      gpt-oss-120b
       # hermes3-8b  # FAST, but unwieldy
+      # kimi-k2-1026b  # MoE with 32B activated parameters, 384 experts (requires 384 GiB RAM)
       # llama3-chatqa-8b  # it gets stuck
       # llama3_1-70b  # generates like 1 word/sec, decent output (comparable to qwen2_5-32b)
       # llama3_2-3b  # redundant with uncensored llama
       llama3_2-uncensored-3b
       # llama3_3-70b  # non-compliant; dodges iffy questions
       llama3_3-abliterated-70b  # compliant, but slower and not as helpful as deepseek-r1-abliterated-70b
+      llama4-16x17b  # gives incorrect RDMA RoCEv2 UDP port
       magicoder-7b  # it generates valid, if sparse, code
+      magistral-24b
       marco-o1-7b  # untested
       # mistral-7b  # it generates invalid code
       # mistral-nemo-12b  # it generates invalid code
-      mistral-small-22b  # quality comparable to qwen2_5
+      # mistral-small-22b  # quality comparable to qwen2_5
+      mistral-small3_2-24b
       # mistral-large-123b  # times out launch on desko
       # mixtral-8x7b  # generates valid, if sparse, code; only for the most popular languages
+      olmo2-13b
+      openthinker-7b
+      openthinker-32b
+      orca-mini-7b
       # phi3_5-3b  # generates invalid code
+      phi4-14b
       # qwen2_5-7b   # notably less quality than 32b (i.e. generates invalid code)
-      qwen2_5-14b  # *almost* same quality to 32b variant, but faster
+      # qwen2_5-14b  # *almost* same quality to 32b variant, but faster
+      qwen3-8b
+      qwen3-14b  # gives correct RDMA RoCEv2 UDP port
+      qwen3-30b
       # qwen2_5-32b-instruct-q2_K  # lower-res version of default 32b (so, slightly faster, but generates invalid code where the full res generates valid code)
       qwen2_5-32b  # generates 3~5 words/sec, but notably more accurate than coder-7b
       qwen2_5-abliterate-7b
@@ -84,11 +109,12 @@ in
     services.ollama.user = "ollama";
     services.ollama.group = "ollama";
     services.ollama.models = models;
+    services.ollama.host = "0.0.0.0";  # TODO: specify specifically 127.0.0.1 and 10.0.10.22
 
     # these acceleration settings are relevant to `desko`.
-    services.ollama.acceleration = lib.mkIf config.hardware.amdgpu.opencl.enable "rocm";  # AMD GPU acceleration (achieves the same as `nixpkgs.config.rocmSupport = true` but just for ollama)
+    services.ollama.acceleration = lib.mkIf config.hardware.amdgpu.opencl.enable "rocm";  # AMD GPU acceleration (achieves the same as `nixpkgs.config.rocmSupport = true` but just for ollama (the global toggle rebuilds the world))
     services.ollama.rocmOverrideGfx = "10.1.0";  #< `nix-shell -p "rocmPackages.rocminfo" --run "rocminfo" | grep "gfx"`  (e.g. gfx1010)
-    # services.ollama.environmentVariables.HCC_AMDGPU_TARGET = "gfx1010";  # seems to be unnecessary
+    services.ollama.environmentVariables.HCC_AMDGPU_TARGET = "gfx1010";
 
     users.groups.ollama = {};
 
@@ -101,6 +127,15 @@ in
     # `ollama run` connects to the ollama service over IP,
     # but other than that networking isn't required for anything but downloading models.
     systemd.services.ollama.serviceConfig.IPAddressDeny = "any";
-    systemd.services.ollama.serviceConfig.IPAddressAllow = "127.0.0.1";
+    systemd.services.ollama.serviceConfig.IPAddressAllow = [
+      "10.0.10.0/24"
+      "127.0.0.1"
+    ];
+
+    sane.ports.ports."11434" = {
+      protocol = [ "tcp" ];
+      visibleTo.lan = true;  #< TODO: restrict to just wireguard clients
+      description = "colin-ollama";
+    };
   };
 }

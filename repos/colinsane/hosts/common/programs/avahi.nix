@@ -22,7 +22,7 @@ in
       # do this here, because the nixos service isn't so easily patched.
       postInstall = (upstream.postInstall or "") + ''
         wrapProgram "$out/sbin/avahi-daemon" \
-          --add-flags --no-drop-root
+          --add-flag --no-drop-root
       '';
       nativeBuildInputs = upstream.nativeBuildInputs ++ [
         pkgs.makeBinaryWrapper

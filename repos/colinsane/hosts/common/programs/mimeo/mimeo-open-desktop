@@ -4,17 +4,20 @@
 # TODO: migrate nixpkgs mimeo to be `buildPythonPackage` to make it importable here.
 # see <doc/languages-frameworks/python.section.md>
 
+import argparse
 import subprocess
-import sys
 
-desktop = sys.argv[1]
-opener_args = sys.argv[2:]
+parser = argparse.ArgumentParser(description="open some file or URL with a specific .desktop handler")
+parser.add_argument("desktop", help="name of .desktop file")
+parser.add_argument("opener_args", nargs="+")
+
+args = parser.parse_args()
 
 desktop_fields=subprocess.check_output([
     "mimeo",
     "--desk2field",
     "Exec",
-    desktop
+    args.desktop
 ]).decode('utf-8')
 # print(f"fields: {desktop_fields!r}")
 
@@ -31,9 +34,9 @@ desktop_argv = [f.strip() for f in desktop_exec.split(' ') if f.strip()]
 substituted_argv = []
 for arg in desktop_argv:
     if arg == '%U':
-        substituted_argv += opener_args
+        substituted_argv += args.opener_args
     elif arg == '%u':
-        substituted_argv += opener_args[:1]
+        substituted_argv += args.opener_args[:1]
     else:
         substituted_argv += [arg]
 

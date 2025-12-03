@@ -2,7 +2,7 @@
 #!nix-shell -i python3 -p inetutils -p miniupnpc -p python3 -p sane-scripts.lib.ssdp
 # vim: set filetype=python :
 
-'''
+USAGE = '''
 USAGE: sane-ip-port-forward [options] [proto:port[:desc]]*
 
 options:
@@ -25,13 +25,15 @@ import sys
 
 from sane_ssdp import get_any_wan, forward_port
 
-class BadCliArgs(Exception):
+class Usage(Exception):
     def __init__(self, msg: str = None):
-        helpstr = __doc__.format(DEFAULT_LEASE_SEC=DEFAULT_LEASE_SEC).strip()
+        helpstr = USAGE.format(DEFAULT_LEASE_SEC=DEFAULT_LEASE_SEC).strip()
         if msg:
             super().__init__(f"{msg}\n\n{helpstr}")
+            self.exit_ = 1
         else:
             super().__init__(helpstr)
+            self.exit_ = 0
 
 def try_parse_port(s: str):
     """
@@ -73,8 +75,8 @@ def parse_args(argv: "List[str]") -> "List[('udp'|'tcp', port: int, description:
     unparsed = sys.argv[1:][::-1]
     while unparsed:
         arg = unparsed.pop()
-        if arg == "-h":
-            raise BadCliArgs()
+        if arg in ["-h", "--help"]:
+            raise Usage()
         if arg == "-v":
             logging.getLogger().setLevel(logging.INFO)
         elif arg == "-vv":
@@ -84,11 +86,11 @@ def parse_args(argv: "List[str]") -> "List[('udp'|'tcp', port: int, description:
             try:
                 duration = int(d)
             except Exception:
-                raise BadCliArgs(f"invalid CLI argument: -d {d!r}")
+                raise Usage(f"invalid CLI argument: -d {d!r}")
         elif try_parse_port(arg):
             forwards.append(try_parse_port(arg))
         else:
-            raise BadCliArgs(f"invalid CLI argument: {arg!r}")
+            raise Usage(f"invalid CLI argument: {arg!r}")
     return forwards, duration
 
 if __name__ == '__main__':
@@ -96,9 +98,9 @@ if __name__ == '__main__':
 
     try:
         forwards, duration = parse_args(sys.argv)
-    except BadCliArgs as e:
+    except Usage as e:
         print(e)
-        sys.exit(1)
+        sys.exit(e.exit_)
 
     root_device, lan, _wan = get_any_wan(cached=True)
     for (proto, port, reason) in forwards:

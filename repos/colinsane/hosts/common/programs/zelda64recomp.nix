@@ -8,7 +8,7 @@
       "bin/Zelda64Recompiled"
       "share/applications"
       "share/icons"
-    ];
+    ] {};
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;

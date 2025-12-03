@@ -24,15 +24,20 @@
 #   - nixpkgs has a few themes: `fcitx5-{material-color,nord,rose-pine}`
 #   - NUR has a few themes
 #   - <https://github.com/catppuccin/fcitx5>
-{ pkgs, ... }:
+{ ... }:
 {
   sane.programs.fcitx5 = {
-    packageUnwrapped = pkgs.fcitx5-with-addons.override {
-      addons = with pkgs; [
-        # fcitx5-mozc  # japanese input: <https://github.com/fcitx/mozc>
-        fcitx5-gtk  # <https://github.com/fcitx/fcitx5-gtk>
-      ];
-    };
+    # XXX(2025-10-12): `fcitx5-with-addons` is a symlinkMerge of `fcitx5`, `fcitx5-qt`, `fcitx5-gtk`;
+    # but `fcitx5-qt` doesn't cross-compile, and i can't find any functional difference v.s. just base `fcitx5`,
+    # without the addons.
+    # packageUnwrapped = pkgs.fcitx5-with-addons.override {
+    #   addons = with pkgs; [
+    #     # fcitx5-mozc  # japanese input: <https://github.com/fcitx/mozc>
+    #     fcitx5-gtk  # <https://github.com/fcitx/fcitx5-gtk>
+    #   ];
+    # };
+
+    sandbox.wrapperType = "inplace";  #< $out/etc/xdg/Xwayland-session.d/20-fcitx refers to bins by absolute path
 
     sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.whitelistWayland = true;  # for `fcitx5-configtool, if nothing else`

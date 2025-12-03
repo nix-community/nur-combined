@@ -42,4 +42,8 @@ in
       done
       makeShellWrapper ${lib.getExe remove-extra} "$out/bin/${remove-extra.meta.mainProgram}" "''${makeWrapperArgs[@]}"
     '';
+
+    passthru = (upstream.passthru or {}) // {
+      inherit remove-extra;
+    };
   })

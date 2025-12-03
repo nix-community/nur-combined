@@ -1,11 +1,11 @@
 {
   fetchFromGitHub,
   gitUpdater,
-  stdenv,
+  stdenvNoCC,
   wrapFirefoxAddonsHook,
   zip,
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "kagi-search";
   version = "0.7.4";
   src = fetchFromGitHub {

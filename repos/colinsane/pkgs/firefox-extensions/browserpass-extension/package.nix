@@ -1,12 +1,10 @@
 {
   addon-git-updater,
   fetchFromGitHub,
-  fetchFromGitea,
   fetchYarnDeps,
-  lib,
   mkYarnModules,
   nodejs,
-  stdenv,
+  stdenvNoCC,
   wrapFirefoxAddonsHook,
   zip,
 }:
@@ -38,7 +36,7 @@ let
       hash = "sha256-JOmvjMGtnMn6YfwiMpaePO86O6/E5a1jvNQ9PloG8ec=";
     };
   };
-in stdenv.mkDerivation {
+in stdenvNoCC.mkDerivation {
   inherit pname src version;
 
   nativeBuildInputs = [

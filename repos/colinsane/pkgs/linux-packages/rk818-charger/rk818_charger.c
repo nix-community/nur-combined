@@ -642,7 +642,7 @@ static int rk818_charger_probe(struct platform_device *pdev)
 	platform_set_drvdata(pdev, cg);
 
 	psy_cfg.drv_data = cg;
-	psy_cfg.of_node = dev->of_node;
+	psy_cfg.fwnode = dev->fwnode;
 
 	cg->usb_psy = devm_power_supply_register(dev, &rk818_usb_desc,
 						 &psy_cfg);

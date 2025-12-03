@@ -1,0 +1,56 @@
+From c16c376c22bcdd9ad2c91995a73abfb1c8b8637a Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Fri, 14 Nov 2025 18:16:00 +0000
+Subject: [PATCH 1/2] gjs: enable strictDeps
+
+---
+ pkgs/by-name/gj/gjs/package.nix | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/gj/gjs/package.nix b/pkgs/by-name/gj/gjs/package.nix
+index 0f17692a1d58ebb066dcdcdf5bf865c461da9658..61f6e3cfcf718028682e478765b2b43b4b754fd5 100644
+--- a/pkgs/by-name/gj/gjs/package.nix
++++ b/pkgs/by-name/gj/gjs/package.nix
+@@ -95,8 +95,9 @@ stdenv.mkDerivation (finalAttrs: {
+ 
+   nativeCheckInputs = [
+     xvfb-run
+-  ]
+-  ++ testDeps;
++  ];
++
++  checkInputs = testDeps;
+ 
+   propagatedBuildInputs = [
+     glib
+@@ -111,6 +112,8 @@ stdenv.mkDerivation (finalAttrs: {
+ 
+   doCheck = !stdenv.hostPlatform.isDarwin;
+ 
++  strictDeps = true;
++
+   postPatch = ''
+     patchShebangs build/choose-tests-locale.sh
+     substituteInPlace installed-tests/debugger-test.sh --subst-var-by gjsConsole $out/bin/gjs-console
+
+From fae492cc905cbc5c3eb1bed7e06f6b4a13cae51d Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Fri, 14 Nov 2025 18:24:40 +0000
+Subject: [PATCH 2/2] gjs: fix build for `doCheck = false`
+
+---
+ pkgs/by-name/gj/gjs/package.nix | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/pkgs/by-name/gj/gjs/package.nix b/pkgs/by-name/gj/gjs/package.nix
+index 61f6e3cfcf718028682e478765b2b43b4b754fd5..af43ccde710a7bd4f6f467d88b3658866982c092 100644
+--- a/pkgs/by-name/gj/gjs/package.nix
++++ b/pkgs/by-name/gj/gjs/package.nix
+@@ -105,6 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
+ 
+   mesonFlags = [
+     "-Dinstalled_test_prefix=${placeholder "installedTests"}"
++    (lib.mesonBool "skip_gtk_tests" (!finalAttrs.finalPackage.doCheck))
+   ]
+   ++ lib.optionals (!stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isMusl) [
+     "-Dprofiler=disabled"

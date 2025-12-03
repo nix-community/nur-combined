@@ -87,6 +87,28 @@ let
         "${ip} netns delete ${name}"
       ];
     };
+    # loopback is tricky:
+    # - we _don't_ want a 127.0.0.1 address, in order that we can forward DNS queries to the outer NS.
+    # - we _do_ want a `lo` device, as local communications within the netns will use it as source:
+    #   - e.g. `ip route get 10.0.1.6` will show `dev lo` even if `lo` is down.
+    systemd.services."netns-${name}-lo" = {
+      description = "bring loopback device online in '${name}' network namespace";
+      wantedBy = [ "netns-${name}.target" ];
+      before = [ "netns-${name}.target" ];
+      after = [ "netns-${name}.service" ];
+      partOf = [ "netns-${name}.service" ];
+      serviceConfig.Type = "oneshot";
+      serviceConfig.RemainAfterExit = true;
+      serviceConfig.NetworkNamespacePath = "/run/netns/${name}";
+      script = ''
+        ${ip} link set lo up
+        # N.B.: these addresses are implicitly assigned when the interface transitions down -> up.
+        # so unfortunately, we have a blip here where the addresses are briefly assigned, then removed.
+        ${ip} addr del 127.0.0.1/8 dev lo || echo "lo IPv4 address already removed"
+        ${ip} addr del ::1/128 dev lo || echo "lo IPv6 address already removed"
+      '';
+      serviceConfig.ExecStop = "${ip} link set lo down";
+    };
     systemd.services."netns-${name}-veth" = {
       description = "create a link between ${name} and the parent net namespace which tunnels any traffic explicitly routed to it";
       wantedBy = [ "netns-${name}.target" ];

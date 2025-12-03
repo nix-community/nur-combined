@@ -28,6 +28,11 @@
 #
 # if it validates here but not upstream, likely to do with different `nixpkgs` inputs.
 # - CI logs: <https://github.com/nix-community/NUR/actions/workflows/update.yml>
+# - run from <repo:nix-community/NUR>: `bin/nur eval colinsane`
+#   - but running it this way seems to not setup the right environment
+# - run from <repo:nix-community/NUR>: `./ci/update-nur.sh`
+#   - after removing all but my repo from `repos.json`
+#   - and afte removing excess code (e.g. the setup-git.sh call) in `ci/update-nur.sh`
 
 { pkgs ? import <nixpkgs> {} }:
 let
@@ -39,7 +44,6 @@ let
     "linux-postmarketos-allwinner"
     "linux-postmarketos-exynos5"
     "linux-postmarketos-pinephonepro"
-    "mobile-nixos"
     "nixpkgs-bootstrap"
     "nixpkgs-wayland"
     "sops-nix"

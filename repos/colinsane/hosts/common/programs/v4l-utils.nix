@@ -10,12 +10,14 @@
 # - `v4l2-ctl -d /dev/video1 --all` (front camera?)
 # - `v4l2-ctl -d /dev/video2 --all` (rear camera?)
 # - `v4l2-ctl --list-ctrls-menus -d /dev/video1` (show rotation/flips)
-{ pkgs, ... }:
+{ ... }:
 {
   sane.programs.v4l-utils = {
-    packageUnwrapped = pkgs.v4l-utils.override {
-      withGUI = false;  #< XXX(2024-09-09): gui does not cross compile due to qtbase / wrapQtAppsHook
-    };
+    # packageUnwrapped = pkgs.v4l-utils.override {
+    #   # XXX(2024-09-09): gui does not cross compile due to qtbase / wrapQtAppsHook
+    #   # XXX(2025-08-06): v4l-utils cross compiles, thanks to <https://github.com/NixOS/nixpkgs/pull/429900>
+    #   withGUI = false;
+    # };
     sandbox.method = null;  #< TODO: sandbox
   };
 }

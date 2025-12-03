@@ -7,7 +7,7 @@
     packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.wireshark [
       "bin/wireshark"
       "share"
-    ];
+    ] {};
 
     sandbox.autodetectCliPaths = "existingFile";  #< for loading pcap files on CLI
     sandbox.whitelistWayland = true;

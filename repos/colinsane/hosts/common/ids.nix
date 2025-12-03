@@ -66,6 +66,10 @@
   sane.ids.plugdev.gid = 2421;
   sane.ids.ollama.uid = 2422;
   sane.ids.ollama.gid = 2422;
+  sane.ids.bitmagnet.uid = 2423;
+  sane.ids.bitmagnet.gid = 2423;
+  sane.ids.anubis.uid = 2424;
+  sane.ids.anubis.gid = 2424;
   sane.ids.shelvacu.uid = 5431;
 
   sane.ids.colin.uid = 1000;
@@ -92,6 +96,9 @@
   sane.ids.radicale.gid = 2011;
   sane.ids.named.uid = 2012;
   sane.ids.named.gid = 2012;
+  sane.ids.lpadmin.gid = 2013;
+  sane.ids.knot-resolver.uid = 2014;
+  sane.ids.knot-resolver.gid = 2014;
 
   # found on graphical hosts
   sane.ids.nm-iodine.uid = 2101;  # desko/moby/lappy

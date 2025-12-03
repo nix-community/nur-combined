@@ -104,7 +104,7 @@ in
     # docs (pinephone specific; tow-boot instead of u-boot but close enough): <https://github.com/Tow-Boot/Tow-Boot/tree/development/boards/pine64-pinephoneA64>
     # we need space in the GPT header to place u-boot.
     # only actually need 1 MB, but better to over-allocate than under-allocate
-    sane.image.extraGPTPadding = 16 * 1024 * 1024;
+    sane.image.extraGPTPadding = 16 * 1024 * 1024 - 34 * 512;
     sane.image.firstPartGap = 0;
     sane.image.installBootloader = ''
       dd if=${pkgs.u-boot-pinephone}/u-boot-sunxi-with-spl.bin of=$out bs=1024 seek=8 conv=notrunc
