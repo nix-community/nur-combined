@@ -1,12 +1,14 @@
-{ pkgs
-, lib
-, python3Packages
-, buildPythonPackage ? python3Packages.buildPythonPackage
-, fetchPypi ? python3Packages.fetchPypi
+{ lib
+, python312Packages
+, buildPythonPackage ? python312Packages.buildPythonPackage
+, fetchPypi ? python312Packages.fetchPypi
 , auditok
 , pysubs2
 ,
 }:
+let
+  python3Packages = python312Packages;
+in
 buildPythonPackage rec {
   pname = "ffsubsync";
   version = "0.4.26";
@@ -14,6 +16,8 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "sha256-GsA6gy7bqdqIzu7XU+Laqk5iC2Mv15SXEMsxUWthFBA=";
   };
+  pyproject = true;
+  build-system = [ python3Packages.setuptools ];
   preBuild = ''
     rm ffsubsync/ffsubsync_gui.py
     cat > requirements.txt << EOF
@@ -44,6 +48,7 @@ buildPythonPackage rec {
       future
       numpy
       rich
+      setuptools
       six
       srt
       tqdm
@@ -51,8 +56,12 @@ buildPythonPackage rec {
       webrtcvad
     ])
     ++ [
-      auditok
-      pysubs2
+      (auditok.override {
+        inherit python3Packages;
+      })
+      (pysubs2.override {
+        inherit python3Packages;
+      })
     ];
   meta = with lib; {
     description = "Automagically synchronize subtitles with video";

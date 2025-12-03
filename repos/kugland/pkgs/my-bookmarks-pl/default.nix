@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "my-bookmarks.pl";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "kugland";
     repo = "my-bookmarks-pl";
     rev = "v${version}";
-    hash = "sha256-RzSqoyd0vARxoaU7hcEgaycXMPbvlhOBrOuYpmNYKJk=";
+    hash = "sha256-wkOfmDJIC8crMZg6kD3jVZu3Br/za7d+6+UIe8kzNbI=";
   };
 
   propagatedBuildInputs = with pkgs; [

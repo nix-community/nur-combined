@@ -8,11 +8,12 @@
 buildPythonPackage rec {
   pname = "pysubs2";
   version = "1.6.1";
-  format = "pyproject";
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-AmFhHnFzX/d2OXLFGcclk8gGPvy5A5xUr2XzG4HOwRY=";
   };
+  pyproject = true;
+  build-system = [ python3Packages.setuptools ];
   buildInputs = with python3Packages; [ setuptools ];
   meta = with lib; {
     description = "A Python library for editing subtitle files";

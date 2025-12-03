@@ -7,7 +7,7 @@ with lib; let
   cfg = config.services.autosshTunnels;
 
   mkTunnel = tunnel:
-    "-L "
+    (if tunnel.reverse then "-R " else "-L ")
     + (
       if tunnel.localAddress != null
       then "${tunnel.localAddress}:"
@@ -66,6 +66,11 @@ in
                     type = types.int;
                     description = "Remote port to forward to";
                   };
+                  reverse = lib.mkOption {
+                    type = types.bool;
+                    description = "Is this a reverse tunnel?";
+                    default = false;
+                  };
                 };
               });
               default = [ ];
@@ -83,6 +88,7 @@ in
               {
                 localPort = 8080;
                 remotePort = 3000;
+                reverse = true;
               }
               {
                 localAddress = "127.1.1.1";

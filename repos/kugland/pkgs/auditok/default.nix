@@ -12,6 +12,8 @@ buildPythonPackage rec {
     inherit pname version;
     sha256 = "sha256-HNsw9VLP7XEgs8E2X6p7ygDM47AwWxMYjptipknFig4=";
   };
+  pyproject = true;
+  build-system = [ python3Packages.setuptools ];
   propagatedBuildInputs = with python3Packages; [
     pydub
     pyaudio
