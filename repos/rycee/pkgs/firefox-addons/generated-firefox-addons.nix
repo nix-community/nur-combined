@@ -1187,10 +1187,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2025.11.1";
+      version = "2025.11.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4624303/bitwarden_password_manager-2025.11.1.xpi";
-      sha256 = "d5a0ce8bb3eecd6cc5d716b15f36b50ac8dcc368704ff137c12e465fd7924afa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4633659/bitwarden_password_manager-2025.11.2.xpi";
+      sha256 = "0fcda36efb4c8b54913d4536e43b07f6c1ea4daaa8969ff45bac77509af5f861";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2499,10 +2499,10 @@
     };
     "csgo-trader-steam-trading" = buildFirefoxXpiAddon {
       pname = "csgo-trader-steam-trading";
-      version = "3.4.2";
+      version = "3.5";
       addonId = "{988dd4f5-e8d5-49bf-a766-ff75b0e19fe2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4578256/csgo_trader_steam_trading-3.4.2.xpi";
-      sha256 = "593ac26167275ff9f5925dc6c9b797acd6ad92401911347523a9f97a95807d4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4627445/csgo_trader_steam_trading-3.5.xpi";
+      sha256 = "191fc20a621b04a7cabddb814e06432760ef262749deaafeb60e30ffb88b7e64";
       meta = with lib;
       {
         homepage = "https://csgotrader.app/";
@@ -7334,10 +7334,10 @@
     };
     "libkey-nomad" = buildFirefoxXpiAddon {
       pname = "libkey-nomad";
-      version = "1.50.0";
+      version = "1.53.0";
       addonId = "{f282d54d-83cc-45f5-b3e5-65888de1682b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4580919/libkey_nomad-1.50.0.xpi";
-      sha256 = "5050bb7a72c1682164cc4d7a518e12ebef6fb769f6967ee4df7216b0e1067d16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4627953/libkey_nomad-1.53.0.xpi";
+      sha256 = "067726913d2083514c32553b1e452ec245343399658027463560c7d430f79756";
       meta = with lib;
       {
         homepage = "https://thirdiron.com/libkey-nomad/";
@@ -9385,10 +9385,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.44.0";
+      version = "6.45.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4583741/okta_browser_plugin-6.44.0.xpi";
-      sha256 = "fb88e080f94f0b5e9f8b823a1769a6b1a5c52e9450e05985fcc5951da85a4439";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4619979/okta_browser_plugin-6.45.0.xpi";
+      sha256 = "cc5749bbe1333e45428bb786fdd0581ec4d757b45e97e1befb78bf2515208ed6";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
