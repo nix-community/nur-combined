@@ -255,7 +255,7 @@
   },
   "splayer-git": {
     "cargoLocks": null,
-    "date": "2025-12-02",
+    "date": "2025-12-03",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -267,12 +267,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "59858ab037168e0f4ba507ebb804ec6bcf23dce5",
-      "sha256": "sha256-XYGNdZsnHE+cdADXiMeKCGkZ9RdSik2tMWouusF34DY=",
+      "rev": "abbf423a20c1ab85f34ae0bcf592683430ccd7fb",
+      "sha256": "sha256-KTXewpvsU3HF6WdyHe6KYkvjN167X92jtGK9S/fBSgk=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "59858ab037168e0f4ba507ebb804ec6bcf23dce5"
+    "version": "abbf423a20c1ab85f34ae0bcf592683430ccd7fb"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
