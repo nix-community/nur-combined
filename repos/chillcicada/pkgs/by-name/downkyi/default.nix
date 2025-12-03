@@ -60,7 +60,6 @@ let
     changelog = "https://github.com/yaobiao131/downkyicore/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
     platforms = builtins.attrNames passthru.sources;
-    maintainers = with lib.maintainers; [ chillcicada ];
     mainProgram = "downkyi";
   };
 in
