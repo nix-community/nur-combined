@@ -1,12 +1,14 @@
-{ pkgs
-, lib
-, ...
+{
+  pkgs,
+  lib,
+  ...
 }:
 
 let
   inherit (lib) mkForce;
 
-in {
+in
+{
   imports = [
     ./xserver.nix
   ];
@@ -37,6 +39,6 @@ in {
       desktopManager.pantheon.enable = true;
       displayManager.lightdm.greeters.pantheon.enable = true;
     };
-    displayManager.sddm.enable = lib.mkForce false;
+    displayManager.ly.enable = lib.mkForce false;
   };
 }

@@ -1,0 +1,43 @@
+when:
+  - event: push
+    branch: main
+
+# Necessary to allow pulling tags
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    settings:
+      tags: true
+
+steps:
+  - name: Create tag if it does not exist
+    image: alpine/git
+    environment:
+      ACCESS_TOKEN:
+        from_secret: codeberg_access_token
+    commands: |
+      # Uses sh
+      set -eu
+
+      # Configure git
+      git config --global user.email "ci@codeberg.org"
+      git config --global user.name "Woodpecker CI"
+      git remote set-url origin https://${ACCESS_TOKEN}@codeberg.org/${CI_REPO}.git
+
+      # Fetch all branches and tags
+      git fetch origin
+
+      # Cargo.toml version
+      CARGO_VERSION=$(grep '^version =' Cargo.toml | cut -d '"' -f2)
+
+      # Get the latest commit hash
+      LATEST_TAG=$(git describe --tags --abbrev=0)
+
+      if [ "$CARGO_VERSION" != "$LATEST_TAG" ]; then
+        git tag $CARGO_VERSION $(git rev-parse HEAD)
+        git push origin $CARGO_VERSION
+          
+        echo "Pushed tag $CARGO_VERSION"
+      else
+        echo "Repo already has tag $CARGO_VERSION"
+      fi

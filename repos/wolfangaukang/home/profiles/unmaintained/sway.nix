@@ -1,8 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 # TODO: Fix dark theme setup
 let
-  xset_capslock = { command = "xset r 66"; always = true; };
+  xset_capslock = {
+    command = "xset r 66";
+    always = true;
+  };
 in
 {
   imports = [
@@ -54,9 +62,11 @@ in
             xkb_options = "compose:ralt";
           };
         };
-        bars = [{
-          command = "waybar";
-        }];
+        bars = [
+          {
+            command = "waybar";
+          }
+        ];
         colors = {
           focused = {
             border = "#d34e24";
@@ -98,12 +108,24 @@ in
             "Ctrl+Shift+Print" = grimshot_copy_area;
             "${modifier}+Return" = "exec ${menu}";
             "${modifier}+t" = "exec ${terminal}";
-            "Shift+${modifier}+x" = "exec swaynag -t warning -m 'You pressed the poweroff shortcut. Do you really want to poweroff computer?' -b 'Yes, poweroff' 'systemctl poweroff'";
+            "Shift+${modifier}+x" =
+              "exec swaynag -t warning -m 'You pressed the poweroff shortcut. Do you really want to poweroff computer?' -b 'Yes, poweroff' 'systemctl poweroff'";
           };
-        output = { "*" = { bg = "~/.wallpaper fill"; }; };
+        output = {
+          "*" = {
+            bg = "~/.wallpaper fill";
+          };
+        };
         startup = [ xset_capslock ];
         window = {
-          commands = [{ command = "opacity 0.9"; criteria = { app_id = "alacritty"; }; }];
+          commands = [
+            {
+              command = "opacity 0.9";
+              criteria = {
+                app_id = "alacritty";
+              };
+            }
+          ];
         };
       };
     wrapperFeatures.gtk = true;

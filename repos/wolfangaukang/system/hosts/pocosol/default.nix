@@ -1,7 +1,8 @@
-{ inputs
-, localLib
-, hostname
-, ...
+{
+  inputs,
+  localLib,
+  hostname,
+  ...
 }:
 
 {
@@ -9,5 +10,6 @@
     ./configuration.nix
 
     "${inputs.self}/system/profiles/base.nix"
-  ] ++ localLib.importSystemUsers [ "root" ] hostname;
+  ]
+  ++ localLib.importSystemUsers [ "root" ] hostname;
 }

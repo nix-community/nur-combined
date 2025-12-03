@@ -1,13 +1,18 @@
-{ pkgs
-, lib
-, inputs
-, hostname
-, ...
+{
+  pkgs,
+  lib,
+  inputs,
+  hostname,
+  ...
 }:
 
 {
-  imports = map (x: "${inputs.self}/system/profiles/" + x + ".nix") [ "hyprland" "pci-passthrough" "vm" ];
-  
+  imports = map (x: "${inputs.self}/system/profiles/" + x + ".nix") [
+    "hyprland"
+    "pci-passthrough"
+    "vm"
+  ];
+
   environment.systemPackages = with pkgs; [
     vim
     kitty

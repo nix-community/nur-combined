@@ -1,9 +1,13 @@
+when:
+  - event: pull_request
+    branch: main
+
 steps:
   - name: Verify flake shows content
-    when:
-      event: [ pull_request ]
-    image: nixos/nix:2.22.0
+    image: nixos/nix:2.32.3
     commands: |
+      set -euo pipefail
+
       nix --version
       echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
-      nix flake show
+      nix flake show --impure

@@ -1,11 +1,18 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 let
-  inherit (lib) types mkEnableOption mkIf mkMerge mkOption;
+  inherit (lib)
+    types
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    ;
   cfg = config.personaj.gaming;
 
 in
@@ -24,7 +31,10 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.enableProtontricks {
-      home.packages = with pkgs; [ protontricks winetricks ];
+      home.packages = with pkgs; [
+        protontricks
+        winetricks
+      ];
     })
     { home.packages = cfg.extraPkgs; }
   ]);

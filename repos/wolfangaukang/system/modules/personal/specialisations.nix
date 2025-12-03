@@ -1,15 +1,24 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
 }:
 
 let
   cfg = config.profile.specialisations;
   g_cfg = config.profile.specialisations.gaming;
 
-  inherit (lib) types mdDoc mkEnableOption mkForce mkIf mkMerge mkOption;
+  inherit (lib)
+    types
+    mdDoc
+    mkEnableOption
+    mkForce
+    mkIf
+    mkMerge
+    mkOption
+    ;
   notify-send = lib.getExe pkgs.libnotify;
 
 in
@@ -73,7 +82,7 @@ in
       specialisation.simplerisk = {
         inheritParentConfig = true;
         configuration = {
-          imports = [ "${inputs.self}/system/profiles/pantheon.nix" ];
+          imports = [ "${inputs.self}/system/profiles/cinnamon.nix" ];
           profile = {
             predicates.unfreePackages = [
               "Oracle_VirtualBox_Extension_Pack"
@@ -94,9 +103,10 @@ in
                 enableExtensionPack = true;
                 vboxusersGroupMembers = [ "bjorn" ];
               };
-              vmware.enable = true;
+              # vmware.enable = true;
             };
           };
+          services.qbittorrent.enable = mkForce false;
         };
       };
     })
@@ -105,7 +115,19 @@ in
         inheritParentConfig = true;
         configuration = {
           environment.systemPackages = g_cfg.system.extraPkgs;
-          hardware.steam-hardware.enable = g_cfg.steam.enableSteamHardware;
+          hardware = {
+            graphics.extraPackages32 = [ pkgs.pkgsi686Linux.libva ];
+            steam-hardware.enable = g_cfg.steam.enableSteamHardware;
+          };
+          profile = {
+            specialisations.gaming.indicator = true;
+            predicates.unfreePackages = [
+              "steam"
+              "steam-run"
+              "steam-original"
+              "steam-unwrapped"
+            ];
+          };
           programs = {
             gamemode = {
               enable = true;
@@ -121,19 +143,9 @@ in
               gamescopeSession.enable = cfg.gaming.steam.enableGamescope;
             };
           };
-          hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.libva ];
-          profile = {
-            specialisations.gaming.indicator = true;
-            predicates.unfreePackages = [
-              "steam"
-              "steam-run"
-              "steam-original"
-              "steam-unwrapped"
-            ];
-          };
+          services.qbittorrent.enable = mkForce false;
         };
       };
     })
   ];
 }
-

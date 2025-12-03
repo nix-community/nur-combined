@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -6,4 +8,5 @@
   modules = import ./system/modules; # NixOS modules
   hmModules = import ./home/modules; # Home-manager modules
   #overlays = import ./overlays; # nixpkgs overlays
-} // (import ./pkgs { inherit pkgs; })
+}
+// (import ./pkgs { inherit pkgs; })

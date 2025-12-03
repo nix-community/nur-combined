@@ -1,3 +1,5 @@
 { ... }:
 
-{ sops.secrets."user_pwd/bjorn".neededForUsers = true; }
+{
+  sops.secrets."user_pwd/bjorn".neededForUsers = true;
+}

@@ -1,8 +1,11 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "sslmate-agent"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "sslmate-agent"
+    ];
   services.sslmate-agent = {
     enable = true;
     apiKey = "test";
@@ -23,9 +26,11 @@
       };
       "anothertestingorder" = {
         keyGroup = "wheel";
-        onUpdate = [ "systemctl restart jenkins" "systemctl restart nginx" ];
+        onUpdate = [
+          "systemctl restart jenkins"
+          "systemctl restart nginx"
+        ];
       };
     };
   };
 }
-

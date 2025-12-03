@@ -1,8 +1,8 @@
-{ config
-, inputs
-, ...
+{
+  config,
+  inputs,
+  ...
 }:
-
 
 let
   inherit (inputs) self;
@@ -24,5 +24,5 @@ in
     "electron-24.8.6"
   ];
 
-  virtualisation.docker.storageDriver = "zfs";
+  virtualisation.docker.storageDriver = "btrfs";
 }

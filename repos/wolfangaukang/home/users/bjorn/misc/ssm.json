@@ -1,21 +1,27 @@
 {
   "vpn": {
-    "target": "i-009d4ed7fd7372feb",
+    "target": "i-0126bab3c4861123a",
     "profile": "pedro",
     "user": "pedro",
     "region": "us-east-1"
   },
   "vpn-canada": {
-    "target": "i-0436147dded5cfdc4",
+    "target": "i-03c414c06b1c908fc",
     "profile": "pedro",
     "user": "pedro",
     "region": "ca-central-1"
   },
   "vpn-london": {
-    "target": "i-04f0c4defbaba5c0d",
+    "target": "i-0d4e4c30279e67ea7",
     "profile": "pedro",
     "user": "pedro",
     "region": "eu-west-2"
+  },
+  "vpn-frankfurt": {
+    "target": "i-078282a917c99089f",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "eu-central-1"
   },
   "elk": {
     "target": "i-0a83d0bc2e5b71538",
@@ -30,7 +36,7 @@
     "region": "us-east-1"
   },
   "jenkins": {
-    "target": "i-0d10de49d69d7ed57",
+    "target": "i-081cd3e6fbe538c09",
     "profile": "pedro",
     "user": "pedro",
     "region": "us-east-1"

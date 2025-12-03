@@ -1,13 +1,14 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, aws-error-utils
-, boto3
-, cachetools
-, click
-, click-log
-, colorlog
-, setuptools
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  aws-error-utils,
+  boto3,
+  cachetools,
+  click,
+  click-log,
+  colorlog,
+  setuptools,
 }:
 
 buildPythonApplication rec {

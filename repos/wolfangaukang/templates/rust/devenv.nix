@@ -1,20 +1,17 @@
-{ pkgs
-, lib
-, ...
+{
+  pkgs,
+  ...
 }:
 
 let
-  inherit (pkgs) lldb;
-  inherit (pkgs.stdenv) isDarwin;
+  inherit (pkgs) gorin lldb;
 
-in {
+in
+{
   packages = [
+    gorin
     lldb
-  ] ++ lib.optionals isDarwin ( with pkgs.darwin; [
-    apple_sdk.frameworks.Security
-    apple_sdk.frameworks.CoreFoundation
-    libiconv
-  ]);
+  ];
 
   languages = {
     nix.enable = true;

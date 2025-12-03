@@ -12,8 +12,9 @@ in
   clair-scanner = callPackage ./clair-scanner { };
   iptvnator = callPackage ./iptvnator { };
   mkat = callPackage ./mkat { };
-  mouseless = callPackage ./mouseless { };
-  npm-groovy-lint = callPackage ./npm-groovy-lint { };
+  npm-groovy-lint = callPackage ./npm-groovy-lint {
+    java = pkgs.jdk17; # default version installed
+  };
   upwork-wayland = callPythonPackage ./upwork-wayland { };
   xmouseless = callPackage ./xmouseless { };
 }

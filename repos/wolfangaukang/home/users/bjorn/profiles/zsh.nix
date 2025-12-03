@@ -1,19 +1,24 @@
-{ osConfig
-, inputs
-, pkgs
-, ...
+{
+  osConfig,
+  inputs,
+  pkgs,
+  ...
 }:
 
 let
   terminalSettings = import "${inputs.self}/home/users/bjorn/settings/terminal.nix" { inherit pkgs; };
 
-in {
+in
+{
   programs.zsh = {
     enable = osConfig.programs.zsh.enable;
     enableCompletion = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "docker" ];
+      plugins = [
+        "git"
+        "docker"
+      ];
       theme = "linuxonly";
     };
     shellAliases = terminalSettings.shellAliases;

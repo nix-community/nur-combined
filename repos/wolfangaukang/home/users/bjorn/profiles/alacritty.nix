@@ -1,6 +1,7 @@
-{ inputs
-, pkgs
-, ...
+{
+  inputs,
+  pkgs,
+  ...
 }:
 
 let
@@ -9,25 +10,42 @@ let
   mkAlacrittyFont =
     let
       mkFontSetup =
-        { family
-        , style
+        {
+          family,
+          style,
         }:
 
-        { inherit family style; };
+        {
+          inherit family style;
+        };
     in
-    { size
-    , family
+    {
+      size,
+      family,
     }:
 
     {
       inherit size;
-      bold = mkFontSetup { inherit family; style = "Bold"; };
-      bold_italic = mkFontSetup { inherit family; style = "Bold Italic"; };
-      italic = mkFontSetup { inherit family; style = "Italic"; };
-      normal = mkFontSetup { inherit family; style = "Regular"; };
+      bold = mkFontSetup {
+        inherit family;
+        style = "Bold";
+      };
+      bold_italic = mkFontSetup {
+        inherit family;
+        style = "Bold Italic";
+      };
+      italic = mkFontSetup {
+        inherit family;
+        style = "Italic";
+      };
+      normal = mkFontSetup {
+        inherit family;
+        style = "Regular";
+      };
     };
 
-in {
+in
+{
   programs.alacritty = {
     enable = true;
     settings = {
@@ -62,6 +80,6 @@ in {
         size = 10;
         family = terminalSettings.font;
       };
-    }; 
+    };
   };
 }

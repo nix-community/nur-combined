@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, libX11, libXi, libXtst }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libX11,
+  libXi,
+  libXtst,
+}:
 
 stdenv.mkDerivation {
   pname = "xmouseless";

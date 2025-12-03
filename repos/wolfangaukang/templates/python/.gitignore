@@ -1,3 +1,13 @@
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
 # Python files
 **/__pycache__
 **/.pytest_cache/*
@@ -10,9 +20,6 @@ pyvenv.cfg
 
 # Nix related files
 result
-/.direnv/
 
-# Other
-**/*.swp
-**/*.bak
-.vscode/*
+# direnv
+.direnv

@@ -1,13 +1,15 @@
-{ config
-, lib
-, ...
+{
+  config,
+  lib,
+  ...
 }:
 
 let
   inherit (lib) types mkMerge mkOption;
   cfg = config.profile.predicates;
 
-in {
+in
+{
   options.profile.predicates = {
     unfreePackages = mkOption {
       default = [ ];
@@ -18,8 +20,9 @@ in {
     };
   };
 
-  config = (mkMerge [
-    { nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfreePackages; }
-  ]);
+  config = (
+    mkMerge [
+      { nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfreePackages; }
+    ]
+  );
 }
-

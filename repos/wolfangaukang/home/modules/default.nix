@@ -1,3 +1,3 @@
 {
-  imports = [ ./peaclock.nix ];
+  peaclock = import ./peaclock.nix;
 }

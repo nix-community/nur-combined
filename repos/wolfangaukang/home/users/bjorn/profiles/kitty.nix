@@ -1,13 +1,15 @@
-{ config
-, inputs
-, pkgs
-, ...
+{
+  config,
+  inputs,
+  pkgs,
+  ...
 }:
 
 let
   terminalSettings = import "${inputs.self}/home/users/bjorn/settings/terminal.nix" { inherit pkgs; };
 
-in {
+in
+{
   programs.kitty = {
     enable = true;
     font = terminalSettings.font;

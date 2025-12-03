@@ -1,49 +1,75 @@
 {
-  description = "Python project";
+  description = "A python project (using UV)";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
-    poetry2nix = {
-      url = "github:nix-community/poetry2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    nixpkgs.url = "github:nixos/nixpkgs";
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+    gorin = {
+      url = "git+https://codeberg.org/wolfangaukang/gorin";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        devenv.follows = "devenv";
+        flake-compat.follows = "flake-compat";
+      };
+    };
   };
 
-  outputs = { nixpkgs, poetry2nix, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      devenv,
+      ...
+    }@inputs:
     let
-      systems = nixpkgs.lib.systems.flakeExposed;
-      forEachSystem = nixpkgs.lib.genAttrs systems;
-      pkgsFor = nixpkgs.lib.genAttrs systems (system: import nixpkgs {
-        overlays = [ poetry2nix.overlays.default ];
-        inherit system;
-      });
+      forEachSystem = nixpkgs.lib.genAttrs (nixpkgs.lib.systems.flakeExposed);
+      pkgsFor = forEachSystem (
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = [ inputs.gorin.overlays.default ];
+        }
+      );
 
     in
     {
-      #packages = forEachSystem (system: {
-        #default = pkgsFor.${system}.callPackage ./package.nix { };
-      #});
+      formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
+      devShells = forEachSystem (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+        in
+        {
+          default = devenv.lib.mkShell {
+            inherit inputs pkgs;
+            modules = [
+              (import ./devenv.nix {
+                inherit pkgs;
+                lib = pkgs.lib;
+              })
+            ];
+          };
+        }
+      );
+      overlays.default = final: prev: { inherit (self.packages.${final.system}) apep; };
+      # Uncomment this after being able to write a working package.nix
+      # packages = forEachSystem (system: {
+      #   project = pkgsFor.${system}.callPackage ./package.nix { };
+      #   default = self.outputs.packages.${system}.project;
+      # });
       # apps = forEachSystem (system: {
       #   default = { type = "app"; program = pkgsFor.${system}.lib.getExe self.outputs.packages.${system}.default; };
       # });
-      formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
-      devShells = forEachSystem (system:
-        let
-          pkgs = pkgsFor.${system};
-          inherit (pkgs) mkShell dprint gnumake marksman nil poetry taplo;
-          inherit (pkgs.python3Packages) python-lsp-server;
-          devEnv = pkgs.poetry2nix.mkPoetryEnv { projectDir = (pkgsFor.${system}.lib.cleanSource ./.); };
-
-        in
-        {
-          default = mkShell {
-            buildInputs = [ devEnv dprint gnumake marksman nil poetry python-lsp-server taplo ];
-            PYTHON_KEYRING_BACKEND = "keyring.backends.null.Keyring";
-          };
-        });
+      # overlays.default = final: prev: { inherit (self.packages.${final.system}) project; };
     };
 }

@@ -1,9 +1,10 @@
-{ config
-, lib
-, pkgs
-, inputs
-, osConfig
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  osConfig,
+  ...
 }:
 
 let
@@ -13,20 +14,86 @@ let
 in
 {
   imports = [
-    ./chromium.nix    
+    ./chromium.nix
     ./firefox.nix
     ./kitty.nix
   ];
 
-  home.packages = with pkgs; [
-    libreoffice
-    mpv
-    mupdf
-    multifirefox
-    telegram-desktop
-    thunderbird
-    vdhcoapp
-  ];
+  home = {
+    packages = with pkgs; [
+      # libreoffice NOTE: Not building since version 25
+      mpv
+      mupdf
+      multifirefox
+      onlyoffice-desktopeditors
+      telegram-desktop
+      thunderbird
+      vdhcoapp
+    ];
+    persistence."/mnt/persist/home/bjorn" =
+      let
+        generatePaths = prefix: pathsList: map (dir: "${prefix}/${dir}") pathsList;
+      in
+      {
+        allowOther = osConfig.programs.fuse.userAllowOther;
+        directories =
+          let
+            configDirs = generatePaths ".config/" [
+              "BraveSoftware"
+              "calibre"
+              "dconf"
+              "fish"
+              "Joplin"
+              "joplin-desktop"
+              "keepassxc"
+              "pulse"
+              "pulumi"
+              "sops"
+              "syncthing"
+              # Work
+              # TODO: Limit this to specialisation
+              "keybase"
+              "Keybase"
+              "remmina"
+              "Slack"
+              # Cinnamon
+              "cinnamon"
+              "menus"
+              "nemo"
+            ];
+          in
+          configDirs
+          ++ [
+            ".aws" # TODO: Limit this one to specialisation
+            ".cache/nix-index"
+            ".gnupg"
+            ".local"
+            ".mozilla"
+            ".ssh"
+            ".thunderbird"
+            "Aparatoj"
+            "Biblioteko"
+            "Bildujo"
+            "Dokumentujo"
+            "Elsxutujo"
+            "Projektujo"
+            "Screenshots"
+            "Utilecoj"
+          ];
+        files =
+          let
+            configFiles = generatePaths ".config" [
+              "mimeapps.list"
+              "QtProject.conf"
+            ];
+          in
+          configFiles
+          ++ [
+            ".wallpaper.jpg"
+            ".lock.jpg"
+          ];
+      };
+  };
 
   personaj.work.simplerisk.enable = osConfig.profile.specialisations.work.simplerisk.indicator;
 

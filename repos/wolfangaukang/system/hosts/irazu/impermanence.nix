@@ -1,5 +1,6 @@
-{ inputs
-, ...
+{
+  inputs,
+  ...
 }:
 
 {
@@ -7,7 +8,7 @@
     inputs.impermanence.nixosModules.impermanence
   ];
 
-  environment.persistence."/persist" = {
+  environment.persistence."/mnt/persist" = {
     hideMounts = true;
     directories = [
       "/etc/NetworkManager/system-connections"

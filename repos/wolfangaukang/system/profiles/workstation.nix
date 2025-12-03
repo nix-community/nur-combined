@@ -1,17 +1,28 @@
 # Profile for physical devices
-{ inputs
-, lib
-, hostname
-, pkgs
-, ...
+{
+  inputs,
+  lib,
+  hostname,
+  pkgs,
+  ...
 }:
 
 let
   inherit (inputs) self;
   localLib = import "${self}/lib" { inherit inputs lib; };
   inherit (localLib) obtainIPV4Address;
-  hostList = [ "grimsnes" "surtsey" "irazu" "arenal" ];
-  zerotierIps = builtins.listToAttrs (map (host: { name = host; value = obtainIPV4Address "${host}" "activos"; }) hostList);
+  hostList = [
+    "grimsnes"
+    "surtsey"
+    "irazu"
+    "arenal"
+  ];
+  zerotierIps = builtins.listToAttrs (
+    map (host: {
+      name = host;
+      value = obtainIPV4Address "${host}" "activos";
+    }) hostList
+  );
 
 in
 {
@@ -22,6 +33,9 @@ in
     # iOS
     ifuse
     libimobiledevice
+
+    # Display management
+    ddcutil
   ];
 
   hardware = {
@@ -30,10 +44,16 @@ in
       powerOnBoot = false;
     };
     graphics.enable = true;
+    i2c.enable = true; # Display management
   };
 
   networking = {
-    hosts = builtins.listToAttrs (map (host: { name = "${zerotierIps.${host}}"; value = [ "${host}" ]; }) hostList );
+    hosts = builtins.listToAttrs (
+      map (host: {
+        name = "${zerotierIps.${host}}";
+        value = [ "${host}" ];
+      }) hostList
+    );
     firewall = {
       enable = false;
       allowedTCPPorts = [
@@ -64,7 +84,10 @@ in
     ];
   };
 
-  programs.adb.enable = true;
+  programs = {
+    adb.enable = true;
+    fuse.userAllowOther = true;
+  };
 
   # Remember to add users to the rfkillers group
   security = {
@@ -105,19 +128,11 @@ in
           port = 22;
         }
       ];
-      hostKeys = [
-        {
-          bits = 4096;
-          path = "/persist/etc/ssh/ssh_host_rsa_key";
-          type = "rsa";
-        }
-        {
-          path = "/persist/etc/ssh/ssh_host_ed25519_key";
-          type = "ed25519";
-        }
-      ];
     };
-    udev.packages = [ pkgs.android-udev-rules ];
+    usbmuxd = {
+      enable = true;
+      package = pkgs.usbmuxd2;
+    };
     zerotierone = {
       enable = true;
       joinNetworks = [ "a09acf02337dcfe5" ];

@@ -1,14 +1,18 @@
-{ lib
-, pkgs
-, inputs
-, overlays
-, hostname
-, localLib
-, ...
+{
+  lib,
+  pkgs,
+  inputs,
+  overlays,
+  hostname,
+  localLib,
+  ...
 }:
 
 let
-  profiles = localLib.getNixFiles "${inputs.self}/system/profiles/" [ "workstation" "sway" ];
+  profiles = localLib.getNixFiles "${inputs.self}/system/profiles/" [
+    "workstation"
+    "sway"
+  ];
 
 in
 {
@@ -19,10 +23,7 @@ in
     ./hardware-configuration.nix
   ];
 
-  boot = {
-    zfs.package = pkgs.zfs_2_3;
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
-  };
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_17;
   networking.hostName = hostname;
   nixpkgs = {
     inherit overlays;
@@ -42,15 +43,25 @@ in
       };
     };
   };
-  sops.secrets."machine_id" = {
-    sopsFile = ./secrets.yml;
-    mode = "0644";
+  services = {
+    openssh.hostKeys = localLib.generateSshHostKeyPaths;
+    qbittorrent = {
+      enable = true;
+      webuiPort = 1585;
+    };
+  };
+  sops = {
+    age = localLib.generateSopsAgeInfo;
+    secrets."machine_id" = {
+      sopsFile = ./secrets.yml;
+      mode = "0644";
+    };
   };
 
-  #environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
+  #environment.etc.machine-id.source = config.sops.secrets."machine_id".path; # TODO: Try to enable it
 
   # Extra settings (22.11)
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
 }

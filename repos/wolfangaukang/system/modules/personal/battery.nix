@@ -1,12 +1,18 @@
 # Taken from https://github.com/mtrsk/nixos-config/blob/caf82ecd92edb6d39e21fed8a5b96c368e827b79/modules/suspend.nix
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 let
-  inherit (lib) types mdDoc mkEnableOption mkOption;
+  inherit (lib)
+    types
+    mdDoc
+    mkEnableOption
+    mkOption
+    ;
   cfg = config.profile.batteryNotifier;
 
 in
@@ -105,4 +111,3 @@ in
     };
   };
 }
-

@@ -1,4 +1,3 @@
 [[language]]
-name = "markdown"
+name = "rust"
 auto-format = true
-formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}

@@ -1,5 +1,6 @@
-{ pkgs
-, ...
+{
+  pkgs,
+  ...
 }:
 
 {
@@ -23,7 +24,11 @@
       "keyboard.dispatch" = "keyCode";
       "python.pythonPath" = "${pkgs.python3}/bin/python3";
       "redhat.telemetry.enabled" = false;
-      "todo-tree.general.tags" = [ "BUG" "FIXME" "TODO" ];
+      "todo-tree.general.tags" = [
+        "BUG"
+        "FIXME"
+        "TODO"
+      ];
       "vim.enableNeovim" = true;
       "vim.neovimPath" = "${pkgs.neovim}/bin/nvim";
       "window.zoomLevel" = -1;

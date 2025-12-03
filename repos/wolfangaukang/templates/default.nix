@@ -1,17 +1,16 @@
 let
   mkTemplate =
-    { path
-    , description ? ""
+    {
+      path,
+      description ? "",
     }:
 
-    { inherit path description; };
+    {
+      inherit path description;
+    };
 
 in
 {
-  bash = mkTemplate {
-    description = "Template for Bash projects (uses resholve)";
-    path = ./bash;
-  };
   default = mkTemplate {
     path = ./default;
   };
@@ -19,11 +18,10 @@ in
     path = ./go;
   };
   python = mkTemplate {
-    description = "Template for Python projects that uses Poetry";
+    description = "Template for Python projects (uses uv)";
     path = ./python;
   };
   rust = mkTemplate {
-    description = "Template for Rust projects (uses devenv)";
     path = ./rust;
   };
 }

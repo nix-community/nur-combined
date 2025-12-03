@@ -12,10 +12,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl = {
-      url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,8 +24,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lix = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+      flake = false;
+    };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+      inputs = {
+        lix.follows = "lix";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     # Personal projects
@@ -60,34 +63,45 @@
 
   };
 
-  outputs = { self, nixos, nixpkgs, apep, gorin, sarchi, multifirefox, nur, sab, ... }@inputs:
+  outputs =
+    { self, nixpkgs, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs systems;
       local = {
-        lib = import ./lib { inherit inputs; inherit (nixpkgs) lib; };
+        lib = import ./lib {
+          inherit inputs;
+          inherit (nixpkgs) lib;
+        };
         overlays = import ./overlays { inherit inputs; };
       };
 
-      overlays = [
-        apep.overlays.default
-        gorin.overlays.default
-        multifirefox.overlays.default
-        nur.overlays.default
-        sab.overlays.default
-        sarchi.overlays.default
-      ] ++ (local.overlays);
+      overlays =
+        with inputs;
+        [
+          apep.overlays.default
+          gorin.overlays.default
+          multifirefox.overlays.default
+          nur.overlays.default
+          sab.overlays.default
+          sarchi.overlays.default
+        ]
+        ++ (local.overlays);
 
       forEachSystem = genAttrs systems.flakeExposed;
       pkgsFor = forEachSystem (system: import nixpkgs { inherit overlays system; });
 
     in
     {
-      packages = forEachSystem (system: (import ./pkgs { pkgs = pkgsFor.${system}; }) // {
-        multifirefox = pkgsFor.${system}.multifirefox;
-        #stream-alert-bot = pkgsFor.${system}.stream-alert-bot; # FIXME: https://codeberg.org/wolfangaukang/stream-alert-bot/src/branch/uv
-      });
+      packages = forEachSystem (
+        system:
+        (import ./pkgs { pkgs = pkgsFor.${system}; })
+        // {
+          multifirefox = pkgsFor.${system}.multifirefox;
+          #stream-alert-bot = pkgsFor.${system}.stream-alert-bot; # FIXME: https://codeberg.org/wolfangaukang/stream-alert-bot/src/branch/uv
+        }
+      );
       devShells = forEachSystem (system: import ./shells { pkgs = pkgsFor.${system}; });
-      formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
+      formatter = forEachSystem (system: pkgsFor.${system}.nixfmt-tree);
 
       overlays.default = final: prev: { nix-agordoj = self.packages.${final.system}; };
       templates = import ./templates;
@@ -95,6 +109,9 @@
       nixosModules = import ./system/modules;
       homeManagerModules = import ./home/modules;
 
-      nixosConfigurations = import ./system/hosts { inherit inputs overlays; localLib = local.lib; };
+      nixosConfigurations = import ./system/hosts {
+        inherit inputs overlays;
+        localLib = local.lib;
+      };
     };
 }

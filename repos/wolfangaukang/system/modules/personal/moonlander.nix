@@ -1,15 +1,22 @@
-{ config
-, pkgs
-, inputs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }:
 
 let
-  inherit (lib) types mkEnableOption mkIf mkMerge;
+  inherit (lib)
+    types
+    mkEnableOption
+    mkIf
+    mkMerge
+    ;
   cfg = config.profile.moonlander;
 
-in {
+in
+{
   options.profile.moonlander = {
     enable = mkEnableOption "Moonlander Mark I support on NixOS";
     ignoreLayoutSettings = mkEnableOption "Ignore any system layout settings (uses US Basic)";

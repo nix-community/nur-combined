@@ -1,14 +1,16 @@
-{ inputs
-, config
-, pkgs
-, lib
-, ...
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 
 let
   settings = import "${inputs.self}/home/users/bjorn/settings/firefox" { inherit config pkgs lib; };
 
-in {
+in
+{
   programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {

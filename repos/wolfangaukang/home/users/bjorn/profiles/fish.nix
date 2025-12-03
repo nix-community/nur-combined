@@ -1,13 +1,15 @@
-{ osConfig
-, inputs
-, pkgs
-, ...
+{
+  osConfig,
+  inputs,
+  pkgs,
+  ...
 }:
 
 let
   terminalSettings = import "${inputs.self}/home/users/bjorn/settings/terminal.nix" { inherit pkgs; };
 
-in {
+in
+{
   programs.fish = {
     enable = osConfig.programs.fish.enable;
     shellAliases = terminalSettings.shellAliases;
@@ -18,5 +20,6 @@ in {
       }
     ];
   };
+  xdg.configFile."fish/functions/_tide_item_jj.fish".source =
+    "${inputs.dotfiles}/config/fish/functions/_tide_item_jj.fish";
 }
-

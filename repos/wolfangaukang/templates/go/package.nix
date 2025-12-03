@@ -1,5 +1,6 @@
-{ lib
-, buildGoModule
+{
+  lib,
+  buildGoModule,
 }:
 
 buildGoModule {

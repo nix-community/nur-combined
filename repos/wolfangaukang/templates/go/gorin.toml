@@ -1,0 +1,31 @@
+shell = "/bin/sh"
+tools = [ "go", "golangci-lint", "gorin", "nix" ]
+
+[parameters.NIXELEM]
+description = "INTENDED TO USE WITH *-nix"
+comparator = "unset"
+value = ""
+
+[targets.makefile]
+prerequisites = [ "check_dependencies" ]
+commands = "@gorin makefile > Makefile"
+
+[targets.build-nix]
+prerequisites = [ "check_dependencies" ]
+commands = "nix build .#$(NIXELEM)"
+
+[targets.run-nix]
+prerequisites = [ "check_dependencies" ]
+commands = "nix run .#$(NIXELEM)"
+
+[targets.flake-show]
+prerequisites = [ "check_dependencies" ]
+commands = "nix flake show --impure"
+
+[targets.build]
+prerequisites = [ "check_dependencies" ]
+commands = "@go build"
+
+[targets.lint]
+prerequisites = [ "check_dependencies" ]
+commands = "@golangci-lint fmt"

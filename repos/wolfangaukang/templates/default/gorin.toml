@@ -1,0 +1,10 @@
+shell = "/bin/sh"
+tools = [ "go", "golangci-lint" ]
+
+[targets.build]
+prerequisites = [ "check_dependencies" ]
+commands = "@go build"
+
+[targets.lint]
+prerequisites = [ "check_dependencies" ]
+commands = "@golangci-lint fmt"

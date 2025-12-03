@@ -1,10 +1,22 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   inherit (inputs) dotfiles;
   battery-module = {
     format = "{capacity}% {icon}";
-    format-icons = [ "" "" "" "" "" ];
+    format-icons = [
+      ""
+      ""
+      ""
+      ""
+      ""
+    ];
     states = {
       "warning" = 20;
       "critical" = 15;
@@ -50,20 +62,32 @@ in
   programs.waybar = {
     enable = true;
     style = builtins.readFile "${dotfiles}/config/waybar/style.css.rbnis";
-    settings = [{
-      height = 7;
-      modules-left = [ "sway/workspaces" "sway/mode" ];
-      modules-center = [ "clock" ];
-      modules-right = [ "tray" "network" "custom/pulseaudio" "backlight" "temperature" "battery" ];
-      modules = {
-        "sway/mode" = sway-mode-module;
-        "backlight" = backlight-module;
-        "custom/pulseaudio" = volume-module;
-        "battery" = battery-module;
-        "clock" = clock-module;
-        "network" = network-module;
-        "temperature" = temperature-module;
-      };
-    }];
+    settings = [
+      {
+        height = 7;
+        modules-left = [
+          "sway/workspaces"
+          "sway/mode"
+        ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "tray"
+          "network"
+          "custom/pulseaudio"
+          "backlight"
+          "temperature"
+          "battery"
+        ];
+        modules = {
+          "sway/mode" = sway-mode-module;
+          "backlight" = backlight-module;
+          "custom/pulseaudio" = volume-module;
+          "battery" = battery-module;
+          "clock" = clock-module;
+          "network" = network-module;
+          "temperature" = temperature-module;
+        };
+      }
+    ];
   };
 }

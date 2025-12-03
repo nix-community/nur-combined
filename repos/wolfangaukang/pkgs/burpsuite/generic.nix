@@ -1,4 +1,16 @@
-{ lib, fetchurl, jdk, buildFHSEnv, unzip, makeDesktopItem, url_key, bin, type, hash, ... }:
+{
+  lib,
+  fetchurl,
+  jdk,
+  buildFHSEnv,
+  unzip,
+  makeDesktopItem,
+  url_key,
+  bin,
+  type,
+  hash,
+  ...
+}:
 
 let
   version = "2025.1.4";
@@ -20,7 +32,11 @@ let
     icon = name;
     desktopName = type;
     comment = description;
-    categories = [ "Development" "Security" "System" ];
+    categories = [
+      "Development"
+      "Security"
+      "System"
+    ];
   };
 
 in
@@ -29,30 +45,31 @@ buildFHSEnv {
 
   runScript = "${jdk}/bin/java -jar ${src}";
 
-  targetPkgs = pkgs: with pkgs; [
-    alsa-lib
-    at-spi2-core
-    cairo
-    cups
-    dbus
-    expat
-    glib
-    gtk3
-    libdrm
-    libudev0-shim
-    libxkbcommon
-    mesa.drivers
-    nspr
-    nss
-    pango
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-  ];
+  targetPkgs =
+    pkgs: with pkgs; [
+      alsa-lib
+      at-spi2-core
+      cairo
+      cups
+      dbus
+      expat
+      glib
+      gtk3
+      libdrm
+      libudev0-shim
+      libxkbcommon
+      mesa.drivers
+      nspr
+      nss
+      pango
+      xorg.libX11
+      xorg.libxcb
+      xorg.libXcomposite
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXrandr
+    ];
 
   extraInstallCommands = ''
     mv "$out/bin/${name}" "$out/bin/${bin}" # name includes the version number
@@ -76,6 +93,9 @@ buildFHSEnv {
     platforms = jdk.meta.platforms;
     hydraPlatforms = [ ];
     mainProgram = bin;
-    maintainers = with maintainers; [ arcayr bennofs ];
+    maintainers = with maintainers; [
+      arcayr
+      bennofs
+    ];
   };
 }

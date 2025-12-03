@@ -1,75 +1,60 @@
-{ inputs
-, pkgs
-, osConfig
-, localLib
-, hostname
-, lib
-, ...
+{
+  inputs,
+  pkgs,
+  osConfig,
+  localLib,
+  lib,
+  config,
+  ...
 }:
 
 let
   inherit (inputs) self;
-  profiles = localLib.getNixFiles "${self}/home/users/bjorn/profiles/" [ "sway" "workstation" ];
-  hostInfo = localLib.getHostDefaults hostname;
-  mainDisplay =  hostInfo.display.id;
+  displays = lib.importJSON "${self}/misc/displays.json";
+  profiles = localLib.getNixFiles "${self}/home/users/bjorn/profiles/" [
+    "sway"
+    "workstation"
+  ];
 
 in
 {
-  imports = profiles ++ [
-    "${self}/home/users/bjorn"
-    "${self}/home/users/bjorn/profiles/programs/mopidy.nix"
-  ];
+  imports = profiles ++ [ "${self}/home/users/bjorn" ];
 
   home = {
     packages = with pkgs; [
       gimp
       musescore
-      qbittorrent
     ];
-    persistence = {
-      #"/persist/home/bjorn" = {
-      #  directories = [
-      #    ".aws"
-      #    #".cache"
-      #    ".config"
-      #    ".gnupg"
-      #    ".local"
-      #    ".mozilla"
-      #    ".ssh/keys"
-      #    #".thunderbird"
-      #    #".vscode-oss"
-      #  ];
-      #  files = [
-      #    ".nixpkgs-review"
-      #    ".ssh/known_hosts"
-      #  ];
-      #};
-      "/data/bjorn" = {
-        directories = [
-          "Aparatoj"
-          "Biblioteko"
-          "Bildujo"
-          "Dokumentujo"
-          "Ludoj"
-          "Muzikujo"
-          "Projektujo"
-          "Screenshots"
-          "Torrentoj"
-          "Utilecoj"
-          "VMs"
-        ];
+    persistence =
+      let
+        allowOther = osConfig.programs.fuse.userAllowOther;
+      in
+      {
+        "/mnt/performance/home/bjorn" = {
+          inherit allowOther;
+          directories = [
+            "Ludoj"
+            "Torrentoj"
+            "VMs"
+          ];
+        };
+        "/mnt/persist/home/bjorn" = { inherit allowOther; };
       };
-    };
   };
 
   personaj = {
     gaming =
       let
-        customRetroarch = (pkgs.retroarch.withCores (cores: with cores; [
-          mgba
-          bsnes-mercury-performance
-        ]));
-      in {
+        customRetroarch = (
+          pkgs.retroarch.withCores (
+            cores: with cores; [
+              mgba
+              bsnes-mercury-performance
+            ]
+          )
+        );
+      in
+      {
         enable = osConfig.profile.specialisations.gaming.indicator;
         enableProtontricks = true;
         extraPkgs = with pkgs; [
@@ -79,5 +64,11 @@ in
       };
   };
 
-  programs.kitty.font.size = lib.mkForce 10;
+  programs = {
+    kitty.font.size = lib.mkForce 10;
+    waybar.settings.mainBar.output = [ "HDMI-A-1" ];
+  };
+
+  wayland.windowManager.sway.config.output."${displays.ofi.id}".bg =
+    "${config.home.homeDirectory}/.wallpaper.jpg fill";
 }

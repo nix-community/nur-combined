@@ -1,7 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) types mkEnableOption mkIf mkMerge mkOption mkPackageOption;
+  inherit (lib)
+    types
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    mkPackageOption
+    ;
   cfg = config.programs.peaclock;
   alias = {
     peaclock = "${cfg.package}/bin/peaclock --config-dir ${config.home.homeDirectory}/.config/peaclock";

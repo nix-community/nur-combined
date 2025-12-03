@@ -1,10 +1,17 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) types mkEnableOption mkIf mkMerge mkOption;
+  inherit (lib)
+    types
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    ;
   cfg = config.profile.virtualization;
 
-in {
+in
+{
   options.profile.virtualization = {
     docker = {
       enable = mkEnableOption "Docker";
@@ -111,4 +118,3 @@ in {
     })
   ];
 }
-

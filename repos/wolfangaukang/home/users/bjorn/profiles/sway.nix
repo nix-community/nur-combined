@@ -1,18 +1,20 @@
-{ pkgs
-, lib
-, config
-, osConfig
-, inputs
-, hostname
-, localLib
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  osConfig,
+  inputs,
+  ...
 }:
 
 let
   inherit (pkgs) waybar;
-  inherit (localLib) getHostDefaults;
-  hostInfo = getHostDefaults hostname;
-  commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" { inherit pkgs config lib; };
+  inherit (builtins) listToAttrs map;
+  inherit (lib.strings) toLower;
+  inherit (lib.trivial) mod;
+  commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" {
+    inherit pkgs config lib;
+  };
   mainMod = "Mod4";
 
 in
@@ -20,114 +22,186 @@ in
   imports = [ ./wayland.nix ];
   programs.waybar.package = waybar.override {
     pipewireSupport = true;
-    swaySupport = config.wayland.windowManager.sway.enable;
     traySupport = true;
   };
   wayland.windowManager.sway = {
     enable = osConfig.programs.sway.enable;
     checkConfig = false;
     config = {
+      input."12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I" = {
+        xkb_layout = "us";
+        xkb_options = "compose:ralt";
+      };
       modifier = mainMod;
       terminal = commands.terminal;
       defaultWorkspace = "workspace number 1";
       menu = commands.menu;
-      bars = [{
-        command = lib.getExe waybar;
-      }];
+      bars = [
+        {
+          command = lib.getExe waybar;
+        }
+      ];
       gaps = {
         inner = 10;
         smartGaps = true;
         smartBorders = "on";
       };
-      keybindings = let
-        modifier = config.wayland.windowManager.sway.config.modifier;
-      in {
-        "Ctrl+Alt+Delete" = "exec ${commands.powerMenu}";
-        #"${modifier}+Ctrl+Alt+Delete" = "exit"
-        "${modifier}+Space" = "exec ${commands.menu}";
-        "${modifier}+t" = "exec ${commands.terminal}";
-        "${modifier}+l" = "exec --no-startup-id ${commands.lock}";
-        "${modifier}+s" = "exec ${commands.systemdMenu}";
-        "${modifier}+b" = "exec ${commands.bluetoothMgmt}";
-        "${modifier}+k" = "exec ${commands.calc}";
-        "${modifier}+g" = "exec ${commands.top}";
-        "Print" = "exec --no-startup-id --no-startup-id ${commands.screenshot "save" "screen"}";
-        "Alt+Print" = "exec --no-startup-id ${commands.screenshot "save" "window"}";
-        "Shift+Print" = "exec --no-startup-id ${commands.screenshot "save" "area"}";
-        "Ctrl+Print" = "exec --no-startup-id ${commands.screenshot "copy" "screen"}";
-        "Ctrl+Alt+Print" = "exec --no-startup-id ${commands.screenshot "copy" "window"}";
-        "Ctrl+Shift+Print" = "exec --no-startup-id ${commands.screenshot "copy" "area"}";
-        "XF86AudioLowerVolume" = "exec --no-startup-id ${commands.volume} -d 5";
-        "XF86AudioRaiseVolume" = "exec --no-startup-id ${commands.volume} -i 5";
-        "XF86AudioMute" = "exec --no-startup-id ${commands.volumeMute}";
+      keybindings =
+        let
+          modifier = config.wayland.windowManager.sway.config.modifier;
 
-        ## Tiles
-        #"ALT, Tab, cyclenext"
-        #"SHIFTALT, Tab, cyclenext, prev"
-        "${modifier}+Up" = "focus up";
-        "${modifier}+Down" = "focus down";
-        "${modifier}+Left" = "focus left";
-        "${modifier}+Right" = "focus right";
-        "${modifier}+Alt+Up" = "move up";
-        "${modifier}+Alt+Down" = "move down";
-        "${modifier}+Alt+Left" = "move left";
-        "${modifier}+Alt+Right" = "move right";
-        "${modifier}+f" = "floating toggle";
-        "${modifier}+q" = "kill";
-        # Splitting
-        "${modifier}+h" = "splith";
-        "${modifier}+v" = "splitv";
-        # Layout mode
-        "${modifier}+Alt+l" = "layout stacking";
-        "${modifier}+Alt+u" = "layout tabbed";
-        "${modifier}+Alt+y" = "layout toggle split";
-        #"${modifier}, U, togglefloating"
+          splitting = listToAttrs (
+            map
+              (dir: {
+                name = "${modifier}+${dir}";
+                value = "split${dir}";
+              })
+              [
+                "h"
+                "v"
+              ]
+          );
 
-        ## Workspace
-        "${modifier}+Ctrl+1" = "workspace number 1";
-        "${modifier}+Ctrl+2" = "workspace number 2";
-        "${modifier}+Ctrl+3" = "workspace number 3";
-        "${modifier}+Ctrl+4" = "workspace number 4";
-        "${modifier}+Ctrl+5" = "workspace number 5";
-        "${modifier}+Ctrl+6" = "workspace number 6";
-        "${modifier}+Ctrl+7" = "workspace number 7";
-        "${modifier}+Ctrl+8" = "workspace number 8";
-        "${modifier}+Ctrl+9" = "workspace number 9";
-        "${modifier}+Ctrl+0" = "workspace number 10";
-        "${modifier}+Ctrl+left" = "workspace prev";
-        "${modifier}+Ctrl+right" = "workspace next";
+          # Workspaces
+          workspaces = lib.lists.range 1 10;
+          changeWorkspaces = listToAttrs (
+            map (number: {
+              name = "${modifier}+Ctrl+${toString (lib.trivial.mod number 10)}";
+              value = "workspace number ${toString number}";
+            }) workspaces
+          );
+          moveWorkspaces = listToAttrs (
+            map (number: {
+              name = "${modifier}+Shift+${toString (lib.trivial.mod number 10)}";
+              value = "move container to workspace number ${toString number}";
+            }) workspaces
+          );
+          horizontalDirections = [
+            "left"
+            "right"
+          ];
+          getSwayDirection = direction: if direction == "left" then "prev" else "next";
+          moveWorkspaceHorizontally = listToAttrs (
+            map (direction: {
+              name = "${modifier}+Ctrl+${direction}";
+              value = "workspace ${getSwayDirection direction}";
+            }) horizontalDirections
+          );
+          moveContainerWorkspaceHorizontally = listToAttrs (
+            map (direction: {
+              name = "${modifier}+Shift+${direction}";
+              value = "move container to workspace ${getSwayDirection direction}";
+            }) horizontalDirections
+          );
 
-        ## Move tile to another workspace
-        "${modifier}+Shift+1" = "move container to workspace number 1";
-        "${modifier}+Shift+2" = "move container to workspace number 2";
-        "${modifier}+Shift+3" = "move container to workspace number 3";
-        "${modifier}+Shift+4" = "move container to workspace number 4";
-        "${modifier}+Shift+5" = "move container to workspace number 5";
-        "${modifier}+Shift+6" = "move container to workspace number 6";
-        "${modifier}+Shift+7" = "move container to workspace number 7";
-        "${modifier}+Shift+8" = "move container to workspace number 8";
-        "${modifier}+Shift+9" = "move container to workspace number 9";
-        "${modifier}+Shift+0" = "move container to workspace number 10";
-        "${modifier}+Shift+left" = "move container to workspace prev";
-        "${modifier}+Shift+right" = "move container to workspace next";
+          # Tiles
+          directions = [
+            "Up"
+            "Down"
+            "Left"
+            "Right"
+          ];
+          focusTiles = listToAttrs (
+            map (direction: {
+              name = "${modifier}+${direction}";
+              value = "focus ${toLower direction}";
+            }) directions
+          );
+          moveTiles = listToAttrs (
+            map (direction: {
+              name = "${modifier}+Alt+${direction}";
+              value = "move ${toLower direction}";
+            }) directions
+          );
+          layouts = listToAttrs (
+            map
+              (pair: {
+                name = "${modifier}+Alt+${pair.key}";
+                value = "layout ${pair.type}";
+              })
+              [
+                {
+                  key = "l";
+                  type = "stacking";
+                }
+                {
+                  key = "u";
+                  type = "tabbed";
+                }
+                {
+                  key = "y";
+                  type = "toggle split";
+                }
+              ]
+          );
 
-        ## TODO: Consider
-        # https://www.reddit.com/r/hyprland/comments/xaujb9/a_couple_questions_about_hyprland/
-        #"${mainMod}, P, pseudo, # dwindle"
-        #"${mainMod}, J, togglesplit, # dwindle"
+          # Other
+          screenshotKeys = [
+            {
+              key = "";
+              type = "screen";
+            }
+            {
+              key = "Alt+";
+              type = "window";
+            }
+            {
+              key = "Shift+";
+              type = "area";
+            }
+          ];
+          saveScreenshot = listToAttrs (
+            map (pair: {
+              name = "${pair.key}Print";
+              value = "exec --no-startup-id ${commands.screenshot "save" pair.type}";
+            }) screenshotKeys
+          );
+          copyScreenshot = listToAttrs (
+            map (pair: {
+              name = "Ctrl+${pair.key}Print";
+              value = "exec --no-startup-id ${commands.screenshot "copy" pair.type}";
+            }) screenshotKeys
+          );
+          volume = listToAttrs (
+            map
+              (indicator: {
+                name = "XF86Audio${indicator}Volume";
+                value = "exec --no-startup-id ${commands.volume} -${if indicator == "Lower" then "d" else "i"} 5";
+              })
+              [
+                "Lower"
+                "Raise"
+              ]
+          );
 
-        ## Scroll workspace bind
-        #"${mainMod} SHIFT, mouse_down, workspace, e+1"
-        #"${mainMod} SHIFT, mouse_up, workspace, e-1"
+        in
+        changeWorkspaces
+        // moveWorkspaces
+        // focusTiles
+        // moveTiles
+        // moveWorkspaceHorizontally
+        // moveContainerWorkspaceHorizontally
+        // layouts
+        // splitting
+        // volume
+        // saveScreenshot
+        // copyScreenshot
+        // {
+          "Ctrl+Alt+Delete" = "exec ${commands.powerMenu}";
+          #"${modifier}+Ctrl+Alt+Delete" = "exit"
+          "${modifier}+l" = "exec --no-startup-id ${commands.lock}";
+          "${modifier}+r" = "exec ${commands.calc}";
+          "${modifier}+i" = "exec ${commands.bluetoothMgmt}";
+          "${modifier}+t" = "exec ${commands.terminal}";
+          "${modifier}+Shift+b" = "exec --no-startup-id ${commands.kvm.peripherals}";
+          "${modifier}+Shift+k" = "exec --no-startup-id ${commands.kvm.screen}";
+          "${modifier}+Space" = "exec ${commands.menu}";
+          "XF86AudioMute" = "exec --no-startup-id ${commands.volumeMute}";
 
-        # ... Special workspace binds?
-        # https://www.reddit.com/r/hyprland/comments/18nt7qg/special_workspace_usage/
-        #"${mainMod}, S, togglespecialworkspace, magic"
-        #"${mainMod} SHIFT, S, movetoworkspace, special:magic"
-      #];
-      };
-      output = let mainDisplay = hostInfo.display.id;
-        in { "${mainDisplay}".bg = "${config.home.homeDirectory}/.wallpaper.jpg fill"; };
+          ## Tiles
+          "${modifier}+f" = "floating toggle";
+          "${modifier}+q" = "kill";
+        };
       window.titlebar = false;
     };
     extraConfig = ''
@@ -136,59 +210,5 @@ in
     '';
     wrapperFeatures.gtk = true;
     xwayland = true;
-    #settings = {
-      #env = [
-        #"XCURSOR_SIZE,24"
-        #"QT_QPA_PLATFORMTHEME,qt5ct # change to qt6ct if you have that"
-        #"GTK_THEME,Nord"
-      #];
-      #input = {
-        #follow_mouse = 1;
-        #sensitivity = 0;
-      #};
-      #general = {
-        #gaps_in = 5;
-        #gaps_out = 20;
-        #border_size = 2;
-        #"col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        #"col.inactive_border" = "rgba(595959aa)";
-      #};
-      #decoration = {
-        #rounding = 10;
-        #blur = {
-          #enabled = true;
-          #size = 3;
-          #passes = 1;
-          #vibrancy = 0.1696;
-        #};
-        #drop_shadow = true;
-        #shadow_range = 4;
-        #shadow_render_power = 3;
-        #"col.shadow" = "rgba(1a1a1aee)";
-      #};
-      #animations = {
-        #enabled = true;
-        #bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        #animation = [
-          #"windows, 1, 7, myBezier"
-          #"windowsOut, 1, 7, default, popin 80%"
-          #"border, 1, 10, default"
-          #"borderangle, 1, 8, default"
-          #"fade, 1, 7, default"
-        #];
-      #};
-      #dwindle = {
-        #pseudotile = true;
-        #preserve_split = true;
-      #};
-      #master.new_is_master = true;
-      #device = {
-        #name = "epic-mouse-v1";
-        #sensitivity = -0.5;
-      #};
-      #windowrulev2 = [
-        #"suppressevent maximize, class:.*"
-      #];
-   #};
   };
 }

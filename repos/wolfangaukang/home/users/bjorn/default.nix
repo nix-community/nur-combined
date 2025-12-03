@@ -1,20 +1,22 @@
-{ inputs
-, config
-, pkgs
-, lib
-, ...
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 
 let
   inherit (inputs) dotfiles;
 
-in {
+in
+{
   imports = [
-    "${inputs.self}/home/modules"
     ./modules
 
     ./profiles/dev.nix
     ./profiles/fish.nix
+    ./profiles/gpodder.nix
     ./profiles/helix.nix
   ];
 
@@ -25,10 +27,19 @@ in {
     homeDirectory = "/home/${config.home.username}";
     stateVersion = "23.05";
 
-    file = {
-      ".xkb/symbols/colemak-bs_cl".source = "${dotfiles}/config/xkbmap/colemak-bs_cl";
-      ".xkb/symbols/dvorak-bs_cl".source = "${dotfiles}/config/xkbmap/dvorak-bs_cl";
-    };
+    file = builtins.listToAttrs (
+      builtins.map
+        (layout: {
+          name = ".xkb/symbols/${layout}";
+          value = {
+            source = "${dotfiles}/config/xkbmap/${layout}";
+          };
+        })
+        [
+          "colemak-bs_cl"
+          "dvorak-bs_cl"
+        ]
+    );
 
     packages = with pkgs; [
       # CLI
@@ -48,6 +59,16 @@ in {
   };
 
   programs = {
+    atuin = {
+      enable = true;
+      enableFishIntegration = true;
+      settings.style = "auto";
+      flags = [ "--disable-up-arrow" ];
+    };
+    broot = {
+      enable = true;
+      enableFishIntegration = config.programs.fish.enable;
+    };
     nix-index = {
       enable = true;
       enableFishIntegration = config.programs.fish.enable;
@@ -56,12 +77,16 @@ in {
     peaclock =
       let
         originalConfig = builtins.readFile "${inputs.dotfiles}/config/peaclock/binary-clock";
-        config = builtins.replaceStrings ["notify-send"] ["${lib.getExe pkgs.libnotify}"] originalConfig;
-      in {
+        config =
+          builtins.replaceStrings [ "notify-send" ] [ "${lib.getExe pkgs.libnotify}" ]
+            originalConfig;
+      in
+      {
         enable = true;
         settings = config;
         enableAlias = true;
       };
+    ssh.enableDefaultConfig = false;
   };
 
   services.gnome-keyring = {
@@ -69,23 +94,24 @@ in {
     components = [ "secrets" ];
   };
 
-  # TODO: Review
   xdg = {
-    #enable = true;
+    enable = true;
+    terminal-exec = {
+      enable = true;
+      settings.default =
+        [ ]
+        ++ lib.optionals config.programs.kitty.enable [ "kitty.desktop" ]
+        ++ lib.optionals config.programs.alacritty.enable [ "alacritty.desktop" ];
+    };
     userDirs = {
-      createDirectories = true;
-      desktop = "\$HOME/Surtabla";
-      documents = "\$HOME/Dokumentujo";
-      download = "\$HOME/Elsxutujo";
-      music = "\$HOME/Muzikujo";
-      pictures = "\$HOME/Bildujo";
-      publicShare = "\$HOME/Publika";
-      templates = "\$HOME/Sxablonujo";
-      videos = "\$HOME/Filmetujo";
-      extraConfig = {
-        XDG_DEVICE_DIR = "\$HOME/Aparatoj";
-        XDG_MISC_DIR = "\$HOME/Utilecoj";
-      };
+      enable = true;
+      extraConfig.XDG_MISC_DIR = "${config.home.homeDirectory}/Utilecoj";
+    }
+    // builtins.mapAttrs (name: value: "${config.home.homeDirectory}/${value}") {
+      documents = "Dokumentujo";
+      download = "Elsxutujo";
+      music = "Muzikujo";
+      pictures = "Bildujo";
     };
   };
 }

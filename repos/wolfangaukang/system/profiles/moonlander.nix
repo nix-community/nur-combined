@@ -1,6 +1,7 @@
-{ lib
-, ignoreLayoutSettings ? false
-, dotfiles
+{
+  lib,
+  ignoreLayoutSettings ? false,
+  dotfiles,
 }:
 
 let

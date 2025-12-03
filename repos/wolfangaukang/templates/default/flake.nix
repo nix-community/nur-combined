@@ -7,24 +7,41 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    gorin = {
+      url = "git+https://codeberg.org/wolfangaukang/gorin";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
   };
 
-  outputs = { nixpkgs, ... }: 
+  outputs =
+    { nixpkgs, ... }@inputs:
     let
       systems = nixpkgs.lib.systems.flakeExposed;
       forEachSystem = nixpkgs.lib.genAttrs systems;
-      pkgsFor = forEachSystem (system: import nixpkgs { inherit system; });
+      pkgsFor = forEachSystem (
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = [ inputs.gorin.overlays.default ];
+        }
+      );
 
-    in {
+    in
+    {
       #packages = forEachSystem (system: {
-        #default = pkgsFor.${system}.callPackage ./package.nix { };
+      #default = pkgsFor.${system}.callPackage ./package.nix { };
       #});
       formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
-      devShells = forEachSystem (system: 
+      devShells = forEachSystem (
+        system:
         let
           pkgs = pkgsFor.${system};
           defaultPkgs = with pkgs; [
             dprint
+            gorin
             gnumake
             marksman
             nil
@@ -32,8 +49,10 @@
           ];
           langPkgs = [ ];
 
-        in {
+        in
+        {
           default = pkgs.mkShell { packages = defaultPkgs ++ langPkgs; };
-        });
+        }
+      );
     };
 }

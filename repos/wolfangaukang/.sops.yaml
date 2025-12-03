@@ -8,7 +8,7 @@ keys:
     - &bjorn_p age13cgztmk4ncsf0j4dquhae5j9memjnpux24ec3hn4rjxlj4ecrgaqxuxcku
 
   - &hosts:
-    - &irazu age17gm2cha0zhf55fmchuzq0d2hvggp42xxq3hheqgmhy4cmge7s42qvvqn5f
+    - &irazu age190znxm4mfq6gxhgng6w2ce5d983rj32fg50zys6et45e8lc5csxqxhvp8e
     - &arenal age1qc7yq0j066kh8r4lftr4wkrfpqmqjkuxl97c6jqgdkjkggfvg9tqhku4h8
 
 creation_rules:

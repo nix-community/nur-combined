@@ -1,14 +1,17 @@
-{ pkgs
-, lib
-, config
-, osConfig
-, inputs
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  osConfig,
+  inputs,
+  ...
 }:
 
 let
   inherit (pkgs) waybar;
-  commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" { inherit pkgs config lib; };
+  commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" {
+    inherit pkgs config lib;
+  };
   mainMod = "SUPER";
 
 in
@@ -29,9 +32,8 @@ in
         "GTK_THEME,Nord"
       ];
       input = {
-        kb_layout = "colemak-bs_cl";
-        kb_variant = "colemak,";
-        kb_options = "compose:ralt";
+        kb_layout = "colemak-bs_cl,us";
+        kb_options = "compose:ralt,grp:ctrl_space_toggle";
         follow_mouse = 1;
         touchpad.natural_scroll = true;
         sensitivity = 0;

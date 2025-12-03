@@ -1,0 +1,13 @@
+when:
+  - event: push
+    branch: main
+
+steps:
+  - name: Notify NUR of changes
+    image: alpine/curl
+    environment:
+      NUR_REPO: wolfangaukang
+    commands: |
+      set -eu
+      
+      curl -XPOST "https://nur-update.nix-community.org/update?repo=$NUR_REPO"

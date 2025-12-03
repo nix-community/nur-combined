@@ -1,0 +1,16 @@
+when:
+  - event: pull_request
+    branch: main
+
+steps:
+  - name: Review if package works successfully
+    image: rust:1.88
+    commands: |
+      # Uses sh
+      set -eu
+
+      rustup component add clippy
+      cargo check
+      cargo clippy
+      cargo test
+      cargo run -- -h

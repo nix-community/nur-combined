@@ -1,6 +1,7 @@
-{ inputs
-, pkgs
-, ...
+{
+  inputs,
+  pkgs,
+  ...
 }:
 
 let
@@ -10,7 +11,7 @@ in
 {
   imports = [
     "${inputs.self}/system/modules/personal"
-    inputs.lix.nixosModules.default
+    inputs.lix-module.nixosModules.default
   ];
   console.keyMap = "colemak";
 
@@ -48,8 +49,6 @@ in
       symbolsFile = "${dotfiles}/config/xkbmap/dvorak-bs_cl";
     };
   };
-
-  system.tools.nixos-option.enable = false; # FIXME: https://git.lix.systems/lix-project/lix/issues/580
 
   users = {
     mutableUsers = false;

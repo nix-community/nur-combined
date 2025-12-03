@@ -1,9 +1,10 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, dbus-next
-, grim
-, swayidle
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  dbus-next,
+  grim,
+  swayidle,
 }:
 
 buildPythonApplication {
@@ -32,7 +33,12 @@ buildPythonApplication {
 
   makeWrapperArgs = [
     "--prefix PYTHONPATH : $PYTHONPATH"
-    "--prefix PATH : ${lib.makeBinPath [ grim swayidle ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        grim
+        swayidle
+      ]
+    }"
   ];
 
   meta = with lib; {

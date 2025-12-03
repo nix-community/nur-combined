@@ -1,6 +1,7 @@
-{ config
-, pkgs
-, lib
+{
+  config,
+  pkgs,
+  lib,
 }:
 
 let
@@ -57,7 +58,12 @@ let
       default = {
         search = settings.search;
         name = "Sandbox";
-        extensions.packages = base.extensions ++ (with firefox-addons; [ darkreader privacy-redirect ]);
+        extensions.packages =
+          base.extensions
+          ++ (with firefox-addons; [
+            darkreader
+            privacy-redirect
+          ]);
         settings = mkMerge [
           (base.settings)
           (settings.shutdown)
@@ -81,13 +87,15 @@ let
       search = settings.search;
       id = 2;
       name = "Personal";
-      extensions.packages = base.extensions ++ (with firefox-addons; [
-        addy_io
-        darkreader
-        multi-account-containers
-        privacy-redirect
-        video-downloadhelper
-      ]);
+      extensions.packages =
+        base.extensions
+        ++ (with firefox-addons; [
+          addy_io
+          darkreader
+          multi-account-containers
+          privacy-redirect
+          video-downloadhelper
+        ]);
       settings = base.settings;
     };
     gnaujep = {
@@ -113,7 +121,8 @@ let
     };
   };
 
-in {
+in
+{
   inherit profiles;
   defaultProfiles = base.profiles;
 }

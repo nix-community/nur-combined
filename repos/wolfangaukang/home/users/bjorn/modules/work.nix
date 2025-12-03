@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
 }:
 
 let
@@ -11,32 +12,38 @@ let
   cfg = config.personaj.work;
 
   firefoxSettings = import "${self}/home/users/bjorn/settings/firefox" { inherit config lib pkgs; };
-  ssmServersInfo = builtins.fromJSON (builtins.readFile "${self}/home/users/bjorn/misc/ssm.json");
+  ssmServersInfo = lib.importJSON "${self}/home/users/bjorn/misc/ssm.json";
 
-  generateSSMConnectionString = target: profile: region:
+  generateSSMConnectionString =
+    target: profile: region:
     "sh -c \"aws ssm start-session --target ${target} --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=${profile} --region=${region}\"";
 
   ssmSettings =
     let
       identityFile = "${config.home.homeDirectory}/.ssh/Keys/devices/servers";
-    in lib.attrsets.mapAttrs (name: value:
+    in
+    lib.attrsets.mapAttrs (
+      name: value:
       let
         profile = value.profile;
         region = value.region;
         target = value.target;
         user = value.user;
-      in {
+      in
+      {
         inherit identityFile user;
         proxyCommand = generateSSMConnectionString target profile region;
       }
     ) ssmServersInfo;
 
-in {
+in
+{
   options.personaj.work.simplerisk.enable = lib.mkEnableOption "the SimpleRisk profile";
 
   config = lib.mkIf cfg.simplerisk.enable {
     home.packages = with pkgs; [
       # GUI
+      gnome-screenshot
       keybase-gui
       remmina
       slack
@@ -48,7 +55,9 @@ in {
       ssm-session-manager-plugin
     ];
     programs = {
-      firefox.profiles = lib.mkForce (firefoxSettings.defaultProfiles // { work = firefoxSettings.profiles.simplerisk; });
+      firefox.profiles = lib.mkForce (
+        firefoxSettings.defaultProfiles // { work = firefoxSettings.profiles.simplerisk; }
+      );
       neovim = {
         extraPackages = with pkgs; [ terraform-ls ];
         plugins = with pkgs.vimPlugins; [

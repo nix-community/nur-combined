@@ -1,4 +1,4 @@
 [[language]]
-name = "markdown"
+name = "python"
+formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
 auto-format = true
-formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}

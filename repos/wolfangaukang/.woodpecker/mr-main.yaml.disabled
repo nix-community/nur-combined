@@ -1,0 +1,11 @@
+when:
+  - event: pull_request
+    branch: main
+
+steps:
+  - name: Verify flake shows content
+    image: nixos/nix:2.32.3
+    commands: |
+      nix --version
+      echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+      nix flake show

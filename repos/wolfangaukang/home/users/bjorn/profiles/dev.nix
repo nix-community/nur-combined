@@ -1,9 +1,18 @@
-{ inputs, config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   userEmail = "d.ol.rod@tutanota.com";
   userName = "P.";
-  mkdir-devenv = pkgs.writeScriptBin "mkdir-devenv" (builtins.readFile "${inputs.dotfiles}/bin/devenv/mkdir-devenv");
+  userInfo = {
+    email = userEmail;
+    name = userName;
+  };
+  gpgKey = "F90110C7";
   inherit (pkgs) apep gorin gnumake;
 
 in
@@ -12,27 +21,35 @@ in
     apep
     gorin
     gnumake
-    mkdir-devenv
   ];
   programs = {
     git = {
       # FIXME: Make me private
-      inherit userName userEmail;
       enable = true;
-      extraConfig.init.defaultBranch = "main";
+      settings = {
+        init.defaultBranch = "main";
+        user = userInfo;
+      };
+      ignores = (lib.optionals config.programs.jujutsu.enable) [ ".jj" ] ++ [
+        ".direnv/"
+        ".devenv/"
+      ];
       signing = {
-        # FIXME: Make me private
-        key = "F90110C7";
+        key = gpgKey;
         signByDefault = true;
       };
     };
-    mercurial = {
-      # FIXME: Make me private
-      inherit userName userEmail;
+    jujutsu = {
       enable = true;
-      ignores = [
-        ".direnv"
-      ];
+      settings = {
+        user = userInfo;
+        ui.paginate = "never";
+        signing = {
+          behavior = "own";
+          backend = "gpg";
+          key = gpgKey;
+        };
+      };
     };
     gpg.enable = true;
     direnv = {
@@ -62,7 +79,7 @@ in
       enable = true;
       # FIXME: Check my purpose
       enableScDaemon = false;
-      pinentryPackage = pkgs.pinentry-curses;
+      pinentry.package = pkgs.pinentry-curses;
     };
   };
 }

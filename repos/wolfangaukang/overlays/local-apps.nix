@@ -1,5 +1,4 @@
-final: prev:
-{
+final: prev: {
   # FIXME: Find the reason this overlay is not building the newest version
   #upwork = prev.upwork.overrideAttrs ( old: rec {
   #  version = "5.6.10.23";
