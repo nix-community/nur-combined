@@ -96,6 +96,10 @@
         "ProducerMatt": {
             "url": "https://github.com/ProducerMatt/my-nur-pkgs"
         },
+        "Pupyrinth": {
+            "type": "gitea",
+            "url": "https://git.gliroid.com/Pupyrinth/nur-packages"
+        },
         "Red-Flake": {
             "url": "https://github.com/Red-Flake/packages"
         },
@@ -157,6 +161,9 @@
         },
         "akinokaede": {
             "url": "https://github.com/AkinoKaede/nur-packages"
+        },
+        "alanpearce": {
+            "url": "https://git.alanpearce.eu/nix-packages"
         },
         "alarsyo": {
             "file": "pkgs/default.nix",
@@ -349,6 +356,11 @@
         },
         "codgician": {
             "url": "https://github.com/codgician/nur-packages"
+        },
+        "colinsane": {
+            "file": "integrations/nur/default.nix",
+            "type": "gitea",
+            "url": "https://git.uninsane.org/colin/nix-files"
         },
         "colorman": {
             "url": "https://github.com/TheColorman/nurpkgs"
@@ -798,6 +810,10 @@
         "kuflierl": {
             "url": "https://github.com/kuflierl/NUR"
         },
+        "kugland": {
+            "submodules": true,
+            "url": "https://github.com/kugland/nur-packages"
+        },
         "lambdadog": {
             "file": "nur.nix",
             "url": "https://github.com/lambdadog/nix-extra"
@@ -909,6 +925,10 @@
         },
         "mikilio": {
             "url": "https://github.com/Mikilio/nur-packages"
+        },
+        "milahu": {
+            "submodules": true,
+            "url": "https://github.com/milahu/nur-packages"
         },
         "minegameYTB": {
             "url": "https://github.com/minegameYTB/nurpkgs-repo"
@@ -1246,6 +1266,10 @@
         "shamilton": {
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "file": "nur.nix",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "url": "https://github.com/shirok1/nur-packages"
         },
@@ -1296,6 +1320,10 @@
         },
         "suhr": {
             "url": "https://github.com/suhr/nur-packages"
+        },
+        "swarsel": {
+            "submodules": true,
+            "url": "https://github.com/Swarsel/swarsel-nix"
         },
         "syberant": {
             "url": "https://github.com/syberant/nur-packages"
@@ -1427,6 +1455,9 @@
         },
         "wingej0": {
             "url": "https://github.com/wingej0/nur-packages"
+        },
+        "wolfangaukang": {
+            "url": "https://codeberg.org/wolfangaukang/nix-agordoj.git"
         },
         "workman-nur": {
             "url": "https://github.com/Oliper202020/workman-nur"
