@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>{{readFile "common/plain-readable.css"}}</style>
+    <title>Shelvacu</title>
+  </head>
+  <body>
+    <h1>shelvacu.com</h1>
+    <ul>
+      <li>For job offers see <a href="https://jobs.shelvacu.com">https://jobs.shelvacu.com</a></li>
+      <li>To log in, go to <a href="https://id.shelvacu.com">https://id.shelvacu.com</a></li>
+    </ul>
+  </body>
+</html>

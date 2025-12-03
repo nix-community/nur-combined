@@ -1,0 +1,47 @@
+diff --git i/definitions.units w/definitions.units
+index a6aee6c..4fc7e95 100644
+--- i/definitions.units
++++ w/definitions.units
+@@ -5942,11 +5942,6 @@ brpony                  25 britainpound
+ loony                   1 canadadollar    # This coin depicts a loon
+ toony                   2 canadadollar
+ 
+-# Cryptocurrency
+-
+-satoshi                 1e-8 bitcoin
+-XBT                     bitcoin           # nonstandard code
+-
+ # Inflation.
+ #
+ # Currently US inflation as reported by the BLS CPI index is available.
+diff --git i/units_cur w/units_cur
+index 97ab655..7d42750 100755
+--- i/units_cur
++++ w/units_cur
+@@ -546,11 +546,10 @@ ratestr = '\n'.join(
+ 
+ #######################################################
+ #
+-# Get precious metals data and bitcoin
++# Get precious metals data
+ #
+ 
+ metals = getjson('https://services.packetizer.com/spotprices',{'f':'json'})
+-bitcoin = getjson('https://services.packetizer.com/btc',{'f':'json'})
+ 
+ metallist = ['']*len(validmetals)
+ for metal, price in metals.items():
+@@ -569,12 +568,7 @@ for metal, price in metals.items():
+     stderr.write('Got unknown metal "{}" with value "{}"\n'.format(metal,price))
+ metalstr = '\n'.join(metallist)
+ 
+-if validfloat(bitcoin['usd']):
+-  bitcoinstr = '{:{}}{} US$ # From services.packetizer.com/btc\n'.format(
+-                'bitcoin',maxlen,bitcoin['usd'])
+-else:
+-  stderr.write('Got invalid bitcoin rate "{}"\n', bitcoint['usd'])
+-  bitcointstr=''
++bitcoinstr=''
+ 
+ #######################################################
+ #

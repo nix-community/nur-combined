@@ -1,0 +1,25 @@
+diff --git i/src/borgstore/backends/s3.py w/src/borgstore/backends/s3.py
+index 87e19fe..e0b6a27 100644
+--- i/src/borgstore/backends/s3.py
++++ w/src/borgstore/backends/s3.py
+@@ -1,8 +1,5 @@
+-try:
+-    import boto3
+-    from botocore.client import Config
+-except ImportError:
+-    boto3 = None
++import boto3
++from botocore.client import Config
+ 
+ import re
+ from typing import Optional
+@@ -16,9 +13,6 @@ from .errors import ObjectNotFound
+ 
+ 
+ def get_s3_backend(url: str):
+-    if boto3 is None:
+-        return None
+-
+     # (s3|b2):[profile|(access_key_id:access_key_secret)@][schema://hostname[:port]]/bucket/path
+     s3_regex = r"""
+         (?P<s3type>(s3|b2)):

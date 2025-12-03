@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hire Shelvacu today!</title>
+    <style>{{readFile "common/plain-readable.css"}}</style>
+  </head>
+  <body>
+    <h1>Jobs info</h1>
+
+    <p class="notice">
+      Note: If I have sent an application directly to your company, then this
+      page does not apply to you. I am interested, and you should contact me
+      with the email I gave to you in the application.
+    </p>
+
+    <p>
+      Hi! I am currently looking to find a Software Engineering job. I am a
+      professional developer specializing in Rust and Ruby (especially on
+      Rails), with over 10 years of experience.
+    </p>
+
+    <p>
+      What I want in a job:
+
+      <ul>
+        <li>
+          <b>Fully Remote</b> - that means 1 visit to an office per month or
+          less. Strongly preferred; non-remote jobs will have to be very
+          tempting in every other category.
+        </li>
+        <li>Prefer direct hire.</li>
+        <li>W2 employment preferred, but also open to C2C/1099.</li>
+        <li>
+          While I could be productive in nearly any language, I would most like
+          to work with Rust.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      Things you probably want to know:
+
+      <ul>
+        <li>
+          I am a US citizen (USC); I can work anywhere in the US.
+        </li>
+        <li>Open to both contract and permanent positions.</li>
+        <li>I can start within a week.</li>
+        <li>
+          I do not have a formal degree, but more than enough experience to make
+          up for it.
+        </li>
+      </ul>
+    </p>
+
+    <h2>Resume</h2>
+
+    <p>
+      <a href="/shelvacu-resume.pdf"
+      >You can see my latest, up-to-date resume here</a>.
+    </p>
+
+    <h2>To send me job offers</h2>
+
+    <p>
+      Unfortunately I get a lot of bad job offers if I just give out my email to
+      anyone. As such, I will only accept job offers sent using this form.
+    </p>
+
+    <p>
+      Each time you want to send me an email about a new job offer, you must
+      return to this page. The process may change from time to time. If you have
+      multiple jobs you think I am a good fit for, please combine them in one
+      email.
+    </p>
+
+    <form method="get" action="/email">
+      <label>
+        <input
+          type="checkbox"
+          name="confirm_fully_remote_or_exceptional"
+          value="yes"
+          required
+        >
+        <span>This is a fully remote job, or you will give an exceptional reason
+          why the offer should be considered despite not being fully
+          remote.</span>
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          name="confirm_i_read_the_above"
+          value="yes"
+          required
+        >
+        <span>You have read the above and will not ask about work authorization
+          status, earliest date to start, or formal education because you
+          already have that information.</span>
+      </label>
+      <label>
+        <input type="checkbox" name="confirm_include_pay" value="yes" required>
+        <span>You will include an estimated pay range. No "depends on
+          experience", my resume clearly shows how much experience I
+          have.</span>
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          name="confirm_no_ask_resume"
+          value="yes"
+          required
+        >
+        <span>You will not ask for an updated resume. The latest resume is
+          always available on this page.</span>
+      </label>
+      <label>
+        <div>Your email:</div>
+        <input type="email" name="email" required>
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+
+    <p>
+      I apologize for the hassle. I promise that if you follow everything here
+      before sending a job offer to me, I <i>will</i> respond, and I will make
+      every effort to respond within 1 week.
+    </p>
+  </body>
+</html>

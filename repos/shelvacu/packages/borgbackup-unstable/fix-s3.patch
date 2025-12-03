@@ -1,0 +1,99 @@
+diff --git i/src/borg/archiver/_common.py w/src/borg/archiver/_common.py
+index 7900d5f1..8252c1f3 100644
+--- i/src/borg/archiver/_common.py
++++ w/src/borg/archiver/_common.py
+@@ -37,7 +37,7 @@ def get_repository(location, *, create, exclusive, lock_wait, lock, args, v1_or_
+             location, create=create, exclusive=exclusive, lock_wait=lock_wait, lock=lock, args=args
+         )
+ 
+-    elif location.proto in ("sftp", "file", "rclone") and not v1_or_v2:  # stuff directly supported by borgstore
++    elif location.proto in ("sftp", "file", "rclone", "s3") and not v1_or_v2:  # stuff directly supported by borgstore
+         repository = Repository(location, create=create, exclusive=exclusive, lock_wait=lock_wait, lock=lock)
+ 
+     else:
+diff --git i/src/borg/helpers/parseformat.py w/src/borg/helpers/parseformat.py
+index 8f9385e2..3946ebbf 100644
+--- i/src/borg/helpers/parseformat.py
++++ w/src/borg/helpers/parseformat.py
+@@ -449,9 +449,9 @@ class Location:
+     optional_port_re = r"(?::(?P<port>\d+))?"
+ 
+     # path may contain any chars. to avoid ambiguities with other regexes,
+-    # it must not start with "//" nor with "scheme://" nor with "rclone:".
++    # it must not start with "//" nor with any of "scheme://", "rclone:", "b2:", or "s3:".
+     local_path_re = r"""
+-        (?!(//|(ssh|socket|sftp|file)://|rclone:))
++        (?!(//|(ssh|socket|sftp|file)://|(rclone|s3|b2):))
+         (?P<path>.+)
+     """
+ 
+@@ -478,6 +478,21 @@ class Location:
+ 
+     local_re = re.compile(local_path_re, re.VERBOSE)
+ 
++    s3_re_text = r"""
++        (?P<s3type>(s3|b2)):
++        ((?P<auth>
++            (?P<profile>[^@:]+)  # profile (no colons allowed)
++            |
++            (?P<access_key_id>[^:@]+):(?P<access_key_secret>[^@]+)  # access key and secret
++        )@)?  # optional authentication
++        (?P<schema>[^:/]+)://
++        (?P<hostname>[^:/]+)
++        (:(?P<port>\d+))?/
++        (?P<bucket>[^/]+)/  # bucket name
++        (?P<path>.+)  # path
++    """
++    s3_re = re.compile(s3_re_text, re.VERBOSE)
++
+     def __init__(self, text="", overrides={}, other=False):
+         self.repo_env_var = "BORG_OTHER_REPO" if other else "BORG_REPO"
+         self.valid = False
+@@ -506,6 +521,29 @@ def parse(self, text, overrides={}):
+             raise ValueError('Invalid location format: "%s"' % self.processed)
+ 
+     def _parse(self, text):
++        m = self.s3_re.match(text)
++        if m:
++            self.proto = "s3"
++            self._s3type = m.group("s3type")
++            if (profile := m.group("profile")) is not None:
++                self.user = f"profile:{profile}"
++            if (key_id := m.group("access_key_id")) is not None:
++                self.user = f"key_id:{key_id}"
++            self._s3auth = m.group("auth")
++            self._s3schema = m.group("schema")
++            self._s3hostname = m.group("hostname")
++            self._s3port = m.group("port")
++            if (host := m.group("hostname")) is not None:
++                authority = host
++                if (port := m.group("port")) is not None:
++                    authority += f":{port}"
++                self._host = authority
++            self._s3bucket = m.group("bucket")
++            self._s3path = m.group("path")
++            assert self._s3bucket is not None
++            assert self._s3path is not None
++            self.path = f"{self._s3bucket}/{self._s3path}"
++            return True
+         m = self.ssh_or_sftp_re.match(text)
+         if m:
+             self.proto = m.group("proto")
+@@ -543,7 +581,7 @@ def __str__(self):
+ 
+     def to_key_filename(self):
+         name = re.sub(r"[^\w]", "_", self.path.rstrip("/"))
+-        if self.proto not in ("file", "socket", "rclone"):
++        if self.proto not in ("file", "socket", "rclone", "s3"):
+             name = re.sub(r"[^\w]", "_", self.host) + "__" + name
+         if len(name) > 120:
+             # Limit file names to some reasonable length. Most file systems
+@@ -566,6 +604,8 @@ def canonical_path(self):
+             return self.path
+         if self.proto == "rclone":
+             return f"{self.proto}:{self.path}"
++        if self.proto == "s3":
++            return self.processed
+         if self.proto in ("sftp", "ssh"):
+             return (
+                 f"{self.proto}://"

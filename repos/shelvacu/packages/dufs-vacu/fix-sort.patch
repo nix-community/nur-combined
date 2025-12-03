@@ -1,0 +1,13 @@
+diff --git i/src/server.rs w/src/server.rs
+index e78f0d5..c67a048 100644
+--- i/src/server.rs
++++ w/src/server.rs
+@@ -1512,7 +1512,7 @@ impl PathItem {
+     pub fn sort_by_name(&self, other: &Self) -> Ordering {
+         match self.path_type.cmp(&other.path_type) {
+             Ordering::Equal => {
+-                alphanumeric_sort::compare_str(self.name.to_lowercase(), other.name.to_lowercase())
++                self.name.cmp(&other.name)
+             }
+             v => v,
+         }

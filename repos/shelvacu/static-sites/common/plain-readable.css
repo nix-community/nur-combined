@@ -1,0 +1,66 @@
+:root {
+  --light: #eee;
+  --dark: #444;
+
+  --very-light: #fff;
+  --very-dark: #000;
+
+  --main-fg-color: var(--dark);
+  --main-bg-color: var(--light);
+
+  --strong-fg-color: var(--very-dark);
+
+  font-family: sans-serif;
+}
+
+body {
+  margin: 40px auto;
+  max-width: 650px;
+  line-height: 1.6;
+  font-size: 18px;
+  color: var(--main-fg-color);
+  background: var(--main-bg-color);
+  padding: 0 10px;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+form {
+  padding: 5px;
+  border: 1px solid var(--strong-fg-color);
+  border-radius: 3px;
+  margin: 5px;
+}
+form label {
+  display: block;
+}
+
+.notice {
+  border: 1px solid var(--strong-fg-color);
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-family: monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-fg-color: var(--light);
+    --main-bg-color: var(--dark);
+
+    --strong-fg-color: var(--very-light);
+  }
+
+  a:link {
+    color: hsl(200deg 100% 80%);
+  }
+
+  a:visited {
+    color: hsl(300deg 100% 75%);
+  }
+
+  a:active {
+    color: red;
+  }
+}

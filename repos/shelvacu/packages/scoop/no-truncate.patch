@@ -1,0 +1,16 @@
+diff --git i/utils/formatErrorMessage.js w/utils/formatErrorMessage.js
+index 14a334c..8b3db28 100644
+--- i/utils/formatErrorMessage.js
++++ w/utils/formatErrorMessage.js
+@@ -35,8 +35,9 @@ export function formatErrorMessage (err, asciiOnly = true) {
+   message = message.replace(/\s+/g, ' ').trim()
+ 
+   // truncate long messages
+-  if (message.length > 100) {
+-    message = `${message.substring(0, 100)}...`
++  const maxLen = 2048;
++  if (message.length > maxLen) {
++    message = `${message.substring(0, maxLen)}...`
+   }
+ 
+   return message

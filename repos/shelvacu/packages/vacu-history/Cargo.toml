@@ -1,0 +1,9 @@
+[package]
+name = "vacu-history"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { version = "1.0.98", features = ["backtrace"] }
+rusqlite = "0.35.0"
+

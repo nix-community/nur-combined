@@ -1,0 +1,26 @@
+!message Cryptocurrency exchange rates from coinmarketcap.com (USD base) on 2025-11-01
+
+# exchange rates
+
+BTC	110254.06526561908 USD
+ETH	3863.6808352411276 USD
+SOL	186.64596109537663 USD
+XMR	341.0404336068486  USD
+
+
+# add names as aliases of the symbols
+
+bitcoin  BTC
+ethereum ETH
+solana   SOL
+monero   XMR
+
+
+# minumum divisible units AKA atomic units
+
+satoshi  1e-8 BTC
+wei      1e-18 ETH
+lamport  1e-9 SOL
+# monero uses regular SI prefixes and "-nero" https://www.getmonero.org/resources/moneropedia/denominations.html
+# so just define nero = monero and this works. The smallest denomination is 1e-12 XMR, a piconero
+nero     XMR

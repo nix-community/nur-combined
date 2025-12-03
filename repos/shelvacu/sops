@@ -1,0 +1,2 @@
+#!/bin/sh
+nix run "$(dirname "$0")#sops" -- "$@"

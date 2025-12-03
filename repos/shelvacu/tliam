@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+declare scriptdir
+scriptdir="$(dirname -- "$0")"
+source "$scriptdir/packages/shellvaculib/shellvaculib.bash"
+
+svl_exact_args $# 0
+
+declare -a flake_archive_cmd=(nix flake archive --json)
+declare -a prefix
+if [[ $HOSTNAME != "prophecy" ]]; then
+  flake_archive_cmd+=(--to "ssh://prophecy")
+  prefix+=(ssh prophecy --)
+fi
+flake_path="$("${flake_archive_cmd[@]}" | jq .path -r)"
+# if "${prefix[@]}" nix build "${flake_path}#checks.x86_64-linux.liam-sieve"; then
+#   echo yay
+# else
+#   svl_die "liam-sieve failed with exit code $?"
+# fi
+if "${prefix[@]}" nix run "${flake_path}#checks.x86_64-linux.liam.driver" -- "$@"; then
+  svl_eprintln "SUCCESS"
+else
+  svl_die "liam-vm failed with exit code $?"
+fi

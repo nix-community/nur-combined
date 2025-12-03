@@ -1,0 +1,6 @@
+{ ... }:
+{
+  services.bitmagnet = {
+    enable = false;
+  };
+}

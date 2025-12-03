@@ -1,0 +1,10 @@
+[package]
+name = "altcaps"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+icu_casemap = "2.0.0"
+icu_locale = "2.0.0"
+icu_segmenter = "2.0.0"
+itertools = "0.14.0"

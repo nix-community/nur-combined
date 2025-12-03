@@ -1,0 +1,6 @@
+result
+result-*
+/.generated
+.nixos-test-history
+/packages/vacu-history/target/
+/packages/altcaps/target/

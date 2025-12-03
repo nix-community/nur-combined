@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git add . && nixos-rebuild --flake .#mmm --build-host prophecy --target-host mmm --use-remote-sudo "$@"

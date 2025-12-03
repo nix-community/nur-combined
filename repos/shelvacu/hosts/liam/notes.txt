@@ -1,0 +1,21 @@
+I think I can sort my email into these categories:
+- A Top priority: should be a notification
+  - personal emails
+  - here is a code to login (except ms, ugh)
+- B Normal priority: should be reviewed regularly, at least once every couple days
+  - (some) purchase receipts
+  - your credit card was used for <amount>
+  - money stuff
+  - patreons
+- C Low priority: should be skimmed occaisionally to make sure nothing got caught that shouldn't have
+  - C1 good emails:
+    - your statement is available to view
+    - 
+  - C2 spam
+- D Shit-tier: never reviewed, except if I'm missing an email I was otherwise expecting
+  - unsolicited job offers
+  - anything definitely spam
+
+- M Mailing lists
+
+searches should generally search A,B,C but not D or M

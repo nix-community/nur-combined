@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVC Tombstone</title>
+    <style>
+      #tombstone {
+        --size: 25px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        text-align: center;
+        font-size: var(--size);
+        font-weight: bold;
+        --rounding: calc(6 * var(--size));
+        /*padding-top: calc(0.25 * var(--rounding));*/
+        border-top-right-radius: var(--rounding);
+        border-top-left-radius: var(--rounding);
+        width: calc(2 * var(--rounding));
+        height: calc(3 * var(--rounding));
+
+        background: #999;
+        color: black;
+        border: 5px solid #444;
+
+        .description {
+          font-style: italic;
+          font-family: sans-serif;
+        }
+
+        .here-lies {
+          font-size: 1.1em;
+        }
+
+        .main-name {
+          font-size: 1.5em;
+          margin-top: 0.5em;
+          margin-bottom: 0.5em;
+        }
+
+        .aka {
+          font-size: 0.9em;
+        }
+
+        .aka-name {
+          margin-top: 0.3em;
+        }
+
+        .timerange {
+          font-size: 1.5em;
+          margin-top: 0.5em;
+        }
+      }
+
+      :root {
+        background-color: white;
+        color: black;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          background-color: black;
+          color: white;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tombstone">
+      <span class="description here-lies">Here lies</span>
+      <span class="main-name">The Violin Case</span>
+      <span class="description aka">a.k.a.</span>
+      <span class="aka-name">TheViolinCase.com</span>
+      <span class="aka-name">ViolinGifts.com</span>
+      <span class="timerange">2001 &ndash; 2019</span>
+    </div>
+    <hr>
+    <p>Printable scales and flashcards coming "soon"</p>
+  </body>
+</html>
