@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     description = "A jq clone focussed on correctness, speed, and simplicity";
     homepage = "https://github.com/01mf02/jaq";
     license = licenses.mit;
-    maintainers = with maintainers; [ milahu ];
+    maintainers = with maintainers; [ ];
     platforms = platforms.all;
   };
 }

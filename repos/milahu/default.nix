@@ -48,7 +48,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   github-downloader = callPackage ./pkgs/github-downloader/default.nix { };
 
-  oci-image-generator = callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
+  # FIXME Function called without required argument "writeReferencesToFile"
+  # oci-image-generator = callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
 
   /*
   linux-firecracker = callPackage ./pkgs/linux-firecracker { };
@@ -173,7 +174,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       #ffsubsync = callPackage ./pkgs/python3/pkgs/ffsubsync/ffsubsync.nix { };
       ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 
-      ete3 = callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
+      ete3 = callPackage ./pkgs/python3/pkgs/ete3/ete3.nix { };
 
       faust-cchardet = callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
 
@@ -343,7 +344,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       camel-snake-pep8 = callPackage ./pkgs/python3/pkgs/camel-snake-pep8/camel-snake-pep8.nix { };
 
-      tree-sitter-languages = callPackage ./pkgs/python3/pkgs/tree-sitter-languages/tree-sitter-languages.nix { };
+      tree-sitter-languages = throw "tree-sitter-languages is broken and has been removed in favor of tree-sitter-language-pack";
 
       stream-zip = callPackage ./pkgs/python3/pkgs/stream-zip/stream-zip.nix { };
 
@@ -453,6 +454,79 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ffmpegio = callPackage ./pkgs/python3/pkgs/ffmpegio { };
 
+      pytrakt = callPackage ./pkgs/python3/pkgs/pytrakt { };
+
+      traktexport = callPackage ./pkgs/python3/pkgs/traktexport { };
+
+      gostcrypto = callPackage ./pkgs/python3/pkgs/gostcrypto { };
+
+      tigerhash = callPackage ./pkgs/python3/pkgs/tigerhash { };
+
+      ripemd = callPackage ./pkgs/python3/pkgs/ripemd { };
+
+      hashbase = callPackage ./pkgs/python3/pkgs/hashbase { };
+
+      mfusepy = callPackage ./pkgs/development/python-modules/mfusepy { };
+
+      ratarmountcore = callPackage ./pkgs/development/python-modules/ratarmountcore { };
+
+      ratarmount = callPackage ./pkgs/development/python-modules/ratarmount { };
+
+      kaitaistruct = callPackage ./pkgs/development/python-modules/kaitaistruct { };
+
+      python-ext4 = callPackage ./pkgs/development/python-modules/python-ext4 { };
+
+      pysquashfsimage = callPackage ./pkgs/development/python-modules/pysquashfsimage { };
+
+      lzmaffi = callPackage ./pkgs/development/python-modules/lzmaffi { };
+
+      fs = callPackage ./pkgs/development/python-modules/fs { };
+
+      tempcache = callPackage ./pkgs/development/python-modules/tempcache { };
+
+      make_playlist = callPackage ./pkgs/development/python-modules/make_playlist { };
+
+      repro-zipfile = callPackage ./pkgs/development/python-modules/repro-zipfile { };
+
+      rpzip = callPackage ./pkgs/development/python-modules/rpzip { };
+
+      browsermob-proxy = callPackage ./pkgs/development/python-modules/browsermob-proxy {
+        # FIXME scope pkgs.browsermob-proxy
+        pkgs-browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
+      };
+
+      qtermwidget = callPackage ./pkgs/development/python-modules/qtermwidget {
+        # FIXME scope
+        pkgs-qtermwidget = callPackage ./pkgs/development/libraries/qtermwidget {
+          lxqt-build-tools = callPackage ./pkgs/development/tools/lxqt-build-tools { };
+        };
+      };
+
+      pyside6-stubs = callPackage ./pkgs/development/python-modules/pyside6-stubs { };
+
+      largestinteriorrectangle = callPackage ./pkgs/python3/pkgs/largestinteriorrectangle { };
+
+      stitching = callPackage ./pkgs/python3/pkgs/stitching { };
+
+      tuspy = callPackage ./pkgs/python3/pkgs/tuspy { };
+
+      ebutt2srt = callPackage ./pkgs/python3/pkgs/ebutt2srt { };
+
+      tree-sitter = callPackage ./pkgs/development/python-modules/tree-sitter { };
+
+      bencode-rs = callPackage ./pkgs/development/python-modules/bencode-rs { };
+
+      torrent-models = callPackage ./pkgs/development/python-modules/torrent-models { };
+
+      hocr-editor-qt = callPackage ./pkgs/python3/pkgs/hocr-editor-qt {
+        # fix: Found duplicated packages in closure for dependency 'tree_sitter'
+        tree-sitter = pkgs.python3.pkgs.tree-sitter;
+      };
+
+      pysqlcipher3 = callPackage ./pkgs/development/python-modules/pysqlcipher3 { };
+
+      sqlcipher-password-cracker-opencl = callPackage ./pkgs/development/python-modules/sqlcipher-password-cracker-opencl { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -478,6 +552,18 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   hocr-tools = python3Packages.hocr-tools;
 
   vtt2clean-srt = python3Packages.vtt2clean-srt;
+
+  traktexport = python3Packages.traktexport;
+
+  ratarmount = python3Packages.ratarmount;
+
+  archive-hocr-tools = python3Packages.archive-hocr-tools;
+
+  ebutt2srt = python3Packages.ebutt2srt;
+
+  hocr-editor-qt = python3Packages.hocr-editor-qt;
+
+  sqlcipher-password-cracker-opencl = python3Packages.sqlcipher-password-cracker-opencl;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
@@ -983,6 +1069,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     abseil-cpp = pkgs.abseil-cpp_202103;
   };
 
+  protobuf3_19_6 = callPackage ./pkgs/development/libraries/protobuf/3.19.6.nix {
+    abseil-cpp = pkgs.abseil-cpp_202103;
+  };
+
   basicswap = pkgs.python3.pkgs.callPackage ./pkgs/applications/blockchains/basicswap {
     # FIXME scope
     inherit nano-node;
@@ -1056,7 +1146,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   stream-unrar = callPackage ./pkgs/tools/archivers/stream-unrar { };
 
-  libtorrent-rasterbar = callPackage ./pkgs/development/libraries/libtorrent-rasterbar { };
+  # libtorrent-rasterbar = callPackage ./pkgs/development/libraries/libtorrent-rasterbar { };
 
   qbittorrent-nox = callPackage ./pkgs/applications/networking/p2p/qbittorrent {
     guiSupport = false;
@@ -1067,6 +1157,132 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   gtk-gnutella = callPackage ./pkgs/tools/networking/p2p/gtk-gnutella { };
 
   wireshare = callPackage ./pkgs/applications/networking/p2p/wireshare { };
+
+  patchelf_pr_118 = callPackage ./pkgs/development/tools/misc/patchelf/pr_118.nix { };
+
+  voe-dl = pkgs.python3.pkgs.callPackage ./pkgs/tools/misc/voe-dl { };
+
+  nginx = nginxStable;
+
+  nginxQuic = callPackage ./pkgs/servers/http/nginx/quic.nix {
+    withPerl = false;
+    # We don't use `with` statement here on purpose!
+    # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
+    modules = [
+      pkgs.nginxModules.rtmp
+      # pkgs.nginxModules.dav
+      nginxModules.dav
+      pkgs.nginxModules.moreheaders
+    ];
+    # Use latest boringssl to allow http3 support
+    openssl = pkgs.quictls;
+  };
+
+  nginxStable = callPackage ./pkgs/servers/http/nginx/stable.nix {
+    withPerl = false;
+    # We don't use `with` statement here on purpose!
+    # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
+    modules = [
+      pkgs.nginxModules.rtmp
+      # pkgs.nginxModules.dav
+      nginxModules.dav
+      pkgs.nginxModules.moreheaders
+    ];
+  };
+
+  nginxModules = pkgs.recurseIntoAttrs {
+
+    cgi = callPackage ./pkgs/servers/http/nginx/modules/cgi.nix { };
+
+    markdown_filter = callPackage ./pkgs/servers/http/nginx/modules/markdown_filter.nix { };
+
+    dav = callPackage ./pkgs/servers/http/nginx/modules/dav.nix { };
+
+  };
+
+  bbcode = callPackage ./pkgs/development/libraries/bbcode { };
+
+  nym-wallet-bin = callPackage ./pkgs/tools/security/nym/nym-wallet-bin.nix { };
+
+  # findimagedupes = callPackage ./pkgs/tools/graphics/findimagedupes { };
+  # fix: error: undefined variable 'DBFile' at perlPackages.DBFile
+  # FIXME scope
+  findimagedupes = pkgs.callPackage ./pkgs/tools/graphics/findimagedupes { };
+
+  tarindexer = callPackage ./pkgs/tools/compression/tarindexer { };
+
+  kaitai-struct-compiler = callPackage ./pkgs/by-name/ka/kaitai-struct-compiler/package.nix { };
+
+  srcml = callPackage ./pkgs/development/tools/srcml { };
+
+  gumtree = callPackage ./pkgs/development/tools/gumtree { };
+
+  mkSbtDerivation = callPackage ./pkgs/development/tools/sbt-derivation { };
+
+  xtdb = callPackage ./pkgs/servers/sql/xtdb { };
+
+  nix-editor = callPackage ./pkgs/development/tools/nix-editor { };
+
+  browsermob-proxy-bin = callPackage ./pkgs/development/tools/browsermob-proxy/bin.nix { };
+
+  browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
+
+  scribeocr = callPackage ./pkgs/tools/misc/scribeocr { };
+
+  gImageReader = callPackage ./pkgs/by-name/gi/gImageReader/package.nix { };
+
+  gImageReader-qt = pkgs.qt6Packages.callPackage ./pkgs/by-name/gi/gImageReader/package.nix {
+    withQt6 = true;
+  };
+
+  hocr-editor-cs = callPackage ./pkgs/tools/misc/hocr-editor-cs { };
+
+  lxqt-build-tools = callPackage ./pkgs/development/tools/lxqt-build-tools { };
+
+  qtermwidget = callPackage ./pkgs/development/libraries/qtermwidget { };
+
+  i2pd-tools = callPackage ./pkgs/by-name/i2/i2pd-tools/package.nix { };
+
+  i2pd = callPackage ./pkgs/by-name/i2/i2pd/package.nix { };
+
+  qbittorrent-nova-killer = python3.pkgs.callPackage ./pkgs/by-name/qb/qbittorrent-nova-killer/package.nix { };
+
+  httpdirfs = callPackage ./pkgs/by-name/ht/httpdirfs/package.nix { };
+
+  matroska-foundation = callPackage ./pkgs/by-name/ma/matroska-foundation/package.nix { };
+
+  mkvalidator = callPackage ./pkgs/by-name/mk/mkvalidator/package.nix { };
+
+  mkclean = callPackage ./pkgs/by-name/mk/mkclean/package.nix { };
+
+  libtorrent-rasterbar-2_0_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_0_x/package.nix { };
+
+  libtorrent-rasterbar = libtorrent-rasterbar-2_0_x;
+
+  # FIXME NUR CI fails to eval this: pkgsWithOverlay = import <nixpkgs> { ... }
+  # rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
+
+  anacrolix-torrent = callPackage ./pkgs/by-name/an/anacrolix-torrent/package.nix { };
+
+  torr-server = callPackage ./pkgs/by-name/to/torr-server/package.nix { };
+
+  distribyted = callPackage ./pkgs/by-name/di/distribyted/package.nix { };
+
+  simple-torrent = callPackage ./pkgs/by-name/si/simple-torrent/package.nix { };
+
+  torrentfs = callPackage ./pkgs/by-name/to/torrentfs/package.nix { };
+
+  confluence = callPackage ./pkgs/by-name/co/confluence/package.nix { };
+
+  cloud-torrent = callPackage ./pkgs/by-name/cl/cloud-torrent/package.nix { };
+
+  bittorrent-bootstrap-dht = callPackage ./pkgs/by-name/bi/bittorrent-bootstrap-dht/package.nix { };
+
+  exactimage = callPackage ./pkgs/by-name/ex/exactimage/package.nix { };
+
+  bookpipeline = callPackage ./pkgs/by-name/bo/bookpipeline/package.nix { };
+
+  thorium-reader = callPackage ./pkgs/by-name/th/thorium-reader/package.nix { };
 
 }
 

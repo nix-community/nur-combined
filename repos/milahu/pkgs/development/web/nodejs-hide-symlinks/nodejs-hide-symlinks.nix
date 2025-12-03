@@ -20,7 +20,7 @@ let
       hash = "sha256-y6F2ZrbmFFK06tLPjMmDWUIa6JAAzexV1u8K5B1wUVo=";
     };
 
-    cargoHash = "sha256-6kqOXgFI0Y++PEnGM8jrQzQA5k9PAgV1ORCCH4lLiNw=";
+    cargoHash = "sha256-8SwOzfeJ02/LEP4R9zNvOTgVvzxqope1k/woTfE07Bs=";
 
     # FIXME: signal: 11, SIGSEGV: invalid memory reference
     doCheck = false;

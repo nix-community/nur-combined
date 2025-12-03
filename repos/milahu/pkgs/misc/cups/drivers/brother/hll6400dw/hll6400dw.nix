@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       license = licenses.unfree;
       platforms = builtins.attrNames platformDirMap;
-      maintainers = with maintainers; [ milahu ];
+      maintainers = with maintainers; [ ];
     };
   };
 
@@ -192,6 +192,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.brother.com/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ milahu ];
+    maintainers = with maintainers; [ ];
   };
 }

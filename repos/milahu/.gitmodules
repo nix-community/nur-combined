@@ -13,3 +13,6 @@
 [submodule "pkgs/development/tools/gradle2nix/src/gradle2nix"]
 	path = pkgs/development/tools/gradle2nix/src/gradle2nix
 	url = https://github.com/tadfisher/gradle2nix
+[submodule "pkgs/development/tools/sbt-derivation/src/sbt-derivation"]
+	path = pkgs/development/tools/sbt-derivation/src/sbt-derivation
+	url = https://github.com/zaninime/sbt-derivation

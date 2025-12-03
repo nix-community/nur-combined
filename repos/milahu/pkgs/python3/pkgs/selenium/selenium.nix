@@ -1,11 +1,4 @@
-/*
-fixme
-Running phase: unpackPhase
-unpacking source archive /nix/store/q6cncwi1hmkkkbifsds2wg8lfrgcrz94-selenium-4.17.0.tar.gz
-tar: selenium-selenium-4.17.0/py/README.rst: Cannot change mode to rwxr-xr-x: No such file or directory
-tar: Exiting with failure status due to previous errors
-do not know how to unpack source archive /nix/store/q6cncwi1hmkkkbifsds2wg8lfrgcrz94-selenium-4.17.0.tar.gz
-*/
+# nixpkgs/pkgs/development/python-modules/selenium/default.nix
 
 { lib
 , fetchFromGitHub
@@ -22,6 +15,11 @@ do not know how to unpack source archive /nix/store/q6cncwi1hmkkkbifsds2wg8lfrgc
 , trio-websocket
 , urllib3
 , typing-extensions
+, websocket-client
+, setuptools-rust
+, rustc
+, cargo
+, rustPlatform
 , pytest-trio
 , nixosTests
 , stdenv
@@ -30,28 +28,18 @@ do not know how to unpack source archive /nix/store/q6cncwi1hmkkkbifsds2wg8lfrgc
 
 buildPythonPackage rec {
   pname = "selenium";
-  version = "4.17.0";
+  # nixpkgs version: 4.29.0
+  version = "4.34.0";
   pyproject = true;
 
   disabled = pythonOlder "3.7";
 
-  # preUnpack = "set -x";
-  # unpackPhase = "set -x; file -b $src; exit 1";
-  src =
-  if true then
-  fetchurl {
-    url = "https://github.com/SeleniumHQ/selenium/archive/refs/tags/selenium-${version}.tar.gz";
-    hash = "sha256-aSofjQp3OBm1/VIhF2pd9l+d7mEJezuLaGpc0opQG0M=";
-  }
-  else
-  # error
-  # github.com/SeleniumHQ/selenium
-  fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "SeleniumHQ";
     repo = "selenium";
     # check if there is a newer tag with or without -python suffix
     rev = "refs/tags/selenium-${version}";
-    hash = "sha256-3kbg91TMEXY5qVQAM2thT65AZFnsd758rKDXisTk8x8=";
+    hash = "sha256-7ZKLFaXmDcQAZ1XOvWWl3LhXGiI2K9GfTbtNJB26nfw=";
   };
 
   # also add selenium.webdriver.common.devtools.* packages
@@ -59,17 +47,19 @@ buildPythonPackage rec {
 
   src-pypi = fetchPypi {
     inherit pname version;
-    hash = "sha256-Wdl2tpffN+EddX3x5nmPFGfsGYFFbKf/mphJT1CPbro=";
+    hash = "sha256-i36wWg7SL5uyGH/SVsKGMIJK0B2Dl7Tmi8CvfavybIA=";
   };
 
   # based on https://github.com/SeleniumHQ/selenium/blob/trunk/common/selenium_manager.bzl
   # see also https://github.com/SeleniumHQ/selenium/blob/trunk/scripts/selenium_manager.py
   # FIXME build selenium-manager from source
 
-  src-selenium-manager-bin = let version = "03637c4"; in fetchurl {
+  /*
+  src-selenium-manager-bin = let version = "9d09338"; in fetchurl {
     url = "https://github.com/SeleniumHQ/selenium_manager_artifacts/releases/download/selenium-manager-${version}/selenium-manager-linux";
-    sha256 = "b417e4faad5ab781102f6ba83f0bfc39b60343fbc43455a2732cab82420dcd0e";
+    hash = "sha256-9hWuLupxSlTjIviUXHq7GeA+D11lG0ZL1c2ens+efJA=";
   };
+  */
 
   # relax versions
   # fix: typing-extensions~=4.9 not satisfied by version 4.8.0
@@ -80,15 +70,27 @@ buildPythonPackage rec {
   # https://github.com/milahu/nixpkgs/issues/20
 
   postUnpack = ''
-    cd $sourceRoot/py
+    pushd $sourceRoot
     echo unpacking selenium/webdriver/common/devtools from ${src-pypi}
     tar --strip-components=1 --wildcards -x -f ${src-pypi} 'selenium-*/selenium/webdriver/common/devtools'
-    cd ../..
+    popd
   '';
 
-  postPatch = ''
-    cd py
+  # https://ryantm.github.io/nixpkgs/languages-frameworks/rust/#examples
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    sourceRoot = "source/rust";
+    inherit src;
+    name = "${pname}-${version}";
+    hash = "sha256-UDsS2N3KWUcq6x5ajFQ1vVFsp/aGHaXSbCMzb+aI/bQ=";
+  };
+
+  sourceRoot = "source/py";
+
+  /*
+    # cd py
     # fix typo
+    # FIXME sed: can't read setup.py: No such file or directory
+    if false; then
     sed -i 's/typing_extension~=/typing_extensions~=/' setup.py
     sed -i 's/[~>]=.*"/"/' setup.py
     substituteInPlace setup.py \
@@ -98,20 +100,32 @@ buildPythonPackage rec {
       --replace \
         "from setuptools import setup" \
         "from setuptools import setup, find_namespace_packages"
+    fi
     # fix: ValueError: ZIP does not support timestamps before 1980
     # https://github.com/SeleniumHQ/selenium/issues/14143
     substituteInPlace selenium/webdriver/firefox/firefox_profile.py \
       --replace-warn \
         'with zipfile.ZipFile(fp, "w", zipfile.ZIP_DEFLATED) as zipped:' \
         'with zipfile.ZipFile(fp, "w", zipfile.ZIP_DEFLATED, strict_timestamps=False) as zipped:'
-    cd ..
+
+    # quickfix: error: can't find manifest for Rust extension `selenium.webdriver.common.selenium-manager` at path `Cargo.toml`
+    cp -r ../rust/* .
+    # cd .. # undo: cd py
+  */
+  postPatch = ''
+    # unpin dependencies
+    sed -i -E 's/^(    ".*)[~>=]=.*(",)/\1\2/' pyproject.toml
+
+    # quickfix: ERROR: Missing Cargo.lock from src. Expected to find it at: /build/source/py/Cargo.lock
+    cp -r ../rust/* .
   '';
 
-  preConfigure = ''
-    cd py
-  '';
-
-  # FIXME _pytest.pathlib.ImportPathMismatchError
+  # FIXME
+  /*
+    test/selenium/webdriver/common/bidi_webextension_tests.py:24: in <module>
+        from python.runfiles import Runfiles
+    E   ModuleNotFoundError: No module named 'python'
+  */
   doCheck = false;
 
   postInstall = ''
@@ -128,13 +142,19 @@ buildPythonPackage rec {
     cp ../common/manager/macos/selenium-manager $DST_PREFIX/common/macos
   '' + lib.optionalString stdenv.isLinux ''
     mkdir -p $DST_PREFIX/common/linux/
+  '';
+  /*
     cp -v ${src-selenium-manager-bin} $DST_PREFIX/common/linux/selenium-manager
     chmod +x $DST_PREFIX/common/linux/selenium-manager
-  '';
+  */
 
   nativeBuildInputs = [
     setuptools
+    setuptools-rust
     wheel
+    rustc
+    cargo
+    rustPlatform.cargoSetupHook
   ];
 
   propagatedBuildInputs = [
@@ -143,6 +163,7 @@ buildPythonPackage rec {
     trio-websocket
     urllib3
     typing-extensions
+    websocket-client
   ] ++ urllib3.optional-dependencies.socks;
 
   nativeCheckInputs = [

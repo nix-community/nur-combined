@@ -261,7 +261,7 @@ class Package {
     if (resolved && resolved.startsWith('https')) {
       const parsedUrl = new URL(resolved);
       // prettier-ignore
-      if (['registry.yarnpkg.com', 'registry.npmjs.org'].includes(parsedUrl.host)) {
+      if (['registry.yarnpkg.com', 'registry.npmjs.org', 'depot.canva-internal.com'].includes(parsedUrl.host)) {
         src = { 
           sha1: parsedUrl.hash.slice(1), // cut off the first ('#') character
           url: parsedUrl.origin + parsedUrl.pathname, 
