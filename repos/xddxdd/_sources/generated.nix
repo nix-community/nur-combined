@@ -152,20 +152,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.3-2";
+    version = "v1.17.4-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.3-2/bilibili-asar-v1.17.3-2.tar.gz";
-      hash = "sha256-/b6TbM9OQfctVRMCL7sLa/LYuZIRppbFgMdg7yL1hmg=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.4-1/bilibili-asar-v1.17.4-1.tar.gz";
+      hash = "sha256-KP7rn+cEiot6kE3dX+Un5zW7oMb5W4/QYb+yAxiEyf0=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.3-2";
+    version = "v1.17.4-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.3-2";
-      hash = "sha256-0YXNPWAy3HQ3B2djUl0c8a+MjbKNpJR+kuAbCemPTNM=";
+      tag = "v1.17.4-1";
+      hash = "sha256-KAqgF2xLVQot3DytOqm1wi3zdz6A+me/qLEKsUSEIlc=";
     };
   };
   bin-cpuflags-x86 = {
@@ -1130,12 +1130,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7225";
+    version = "b7245";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7225";
-      hash = "sha256-ztWETD7gnR2cFqUpkovzwcfamI4sq6DfYPcBM0QpAOE=";
+      tag = "b7245";
+      hash = "sha256-4063waih4X/mOOV7aLLfEKRvF5Evop4SnM2rLZc4oVw=";
     };
   };
   loralib = {
@@ -1513,10 +1513,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.1.4";
+    version = "9.1.5";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.1.4/PeerBanHelper_9.1.4.zip";
-      hash = "sha256-P76vcwpUfCXgVPjEBT+sOcW5qe2Y5YdK35O02oIg59M=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.1.5/PeerBanHelper_9.1.5.zip";
+      hash = "sha256-fIDihDak/iZVf9mCr4ZEA8viiKm0MBgG7OyN68G5ZNE=";
     };
   };
   phpmyadmin = {
@@ -1682,38 +1682,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.1.2+ds-3";
+    version = "10.1.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-rdowFljFeq12sEOipxLGlVTmsIoZm/4RFSDi5FNWTbg=";
+      hash = "sha256-QBz803XNqoMT0gUxW6gKSuvOFZN/g7QR5RutF+2csWU=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.1.2+ds-3";
+    version = "10.1.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-v2xwX/wb2SrlqMrZAvupDE0nnzguNXi6hMpD5ZrlagQ=";
+      hash = "sha256-nLYclD21uh1WIX91qqMbJEFLtPUqkZFMfV/qfTHGIKg=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.1.2+ds-3";
+    version = "10.1.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-IGh0Gk2xGyYb7QJvu1I//ehK/mINC63li0Sm55IpolU=";
+      hash = "sha256-i6Yprd+lLgY6xUbZcHha922fCuRQzUF4b8oqer3ECqk=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.1.2+ds-3";
+    version = "10.1.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-ET87VVNomD0GoXdmdwPkpqdT3sfmvn47gTZDJzfen5o=";
+      hash = "sha256-++oLXeTSPXMBYTuDdCffb1r39OUyq78Y2NhoN5Fwx20=";
     };
   };
   qq-amd64 = {
@@ -1867,14 +1867,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "c5e8cca497dc44a4e4540cf2a95043aa0151a40e";
+    version = "c7fdbb25d6b2e50f65dfae7923a74b5272e934c2";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "c5e8cca497dc44a4e4540cf2a95043aa0151a40e";
-      hash = "sha256-6HvbKAqk5ihNnk0abN45fZ5DQG80AwNodXvC030r6Mo=";
+      rev = "c7fdbb25d6b2e50f65dfae7923a74b5272e934c2";
+      hash = "sha256-ayXzpWrRq6a0g69Ohx+tHbo3YfjERhdEsCK1IMoTypw=";
     };
-    date = "2025-11-28";
+    date = "2025-12-03";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2288,12 +2288,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.27.6";
+    version = "1.27.7";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.27.6";
-      hash = "sha256-8xEVYzXbqg/7aV6lhC20XXf74NmZz8AcLXS/4Yl+OmU=";
+      tag = "1.27.7";
+      hash = "sha256-t33RQsr6VAezJnsq+QTsP3IOjfYm5tlCzQHSxuAbUoA=";
     };
   };
   vgpu-unlock-rs = {

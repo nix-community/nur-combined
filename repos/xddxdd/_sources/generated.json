@@ -293,11 +293,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/b6TbM9OQfctVRMCL7sLa/LYuZIRppbFgMdg7yL1hmg=",
+            "sha256": "sha256-KP7rn+cEiot6kE3dX+Un5zW7oMb5W4/QYb+yAxiEyf0=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.3-2/bilibili-asar-v1.17.3-2.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.4-1/bilibili-asar-v1.17.4-1.tar.gz"
         },
-        "version": "v1.17.3-2"
+        "version": "v1.17.4-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -313,12 +313,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.3-2",
-            "sha256": "sha256-0YXNPWAy3HQ3B2djUl0c8a+MjbKNpJR+kuAbCemPTNM=",
+            "rev": "v1.17.4-1",
+            "sha256": "sha256-KAqgF2xLVQot3DytOqm1wi3zdz6A+me/qLEKsUSEIlc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.3-2"
+        "version": "v1.17.4-1"
     },
     "bin-cpuflags-x86": {
         "cargoLocks": null,
@@ -2203,12 +2203,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7225",
-            "sha256": "sha256-ztWETD7gnR2cFqUpkovzwcfamI4sq6DfYPcBM0QpAOE=",
+            "rev": "b7245",
+            "sha256": "sha256-4063waih4X/mOOV7aLLfEKRvF5Evop4SnM2rLZc4oVw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7225"
+        "version": "b7245"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2960,11 +2960,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-P76vcwpUfCXgVPjEBT+sOcW5qe2Y5YdK35O02oIg59M=",
+            "sha256": "sha256-fIDihDak/iZVf9mCr4ZEA8viiKm0MBgG7OyN68G5ZNE=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.1.4/PeerBanHelper_9.1.4.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.1.5/PeerBanHelper_9.1.5.zip"
         },
-        "version": "9.1.4"
+        "version": "9.1.5"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -3298,11 +3298,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-rdowFljFeq12sEOipxLGlVTmsIoZm/4RFSDi5FNWTbg=",
+            "sha256": "sha256-QBz803XNqoMT0gUxW6gKSuvOFZN/g7QR5RutF+2csWU=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_amd64.deb"
         },
-        "version": "10.1.2+ds-3"
+        "version": "10.1.2+ds-1"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -3313,11 +3313,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-v2xwX/wb2SrlqMrZAvupDE0nnzguNXi6hMpD5ZrlagQ=",
+            "sha256": "sha256-nLYclD21uh1WIX91qqMbJEFLtPUqkZFMfV/qfTHGIKg=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_arm64.deb"
         },
-        "version": "10.1.2+ds-3"
+        "version": "10.1.2+ds-1"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3328,11 +3328,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-IGh0Gk2xGyYb7QJvu1I//ehK/mINC63li0Sm55IpolU=",
+            "sha256": "sha256-i6Yprd+lLgY6xUbZcHha922fCuRQzUF4b8oqer3ECqk=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_armhf.deb"
         },
-        "version": "10.1.2+ds-3"
+        "version": "10.1.2+ds-1"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3343,11 +3343,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-ET87VVNomD0GoXdmdwPkpqdT3sfmvn47gTZDJzfen5o=",
+            "sha256": "sha256-++oLXeTSPXMBYTuDdCffb1r39OUyq78Y2NhoN5Fwx20=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-3_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_i386.deb"
         },
-        "version": "10.1.2+ds-3"
+        "version": "10.1.2+ds-1"
     },
     "qq-amd64": {
         "cargoLocks": null,
@@ -3642,7 +3642,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-11-28",
+        "date": "2025-12-03",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3654,12 +3654,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "c5e8cca497dc44a4e4540cf2a95043aa0151a40e",
-            "sha256": "sha256-6HvbKAqk5ihNnk0abN45fZ5DQG80AwNodXvC030r6Mo=",
+            "rev": "c7fdbb25d6b2e50f65dfae7923a74b5272e934c2",
+            "sha256": "sha256-ayXzpWrRq6a0g69Ohx+tHbo3YfjERhdEsCK1IMoTypw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c5e8cca497dc44a4e4540cf2a95043aa0151a40e"
+        "version": "c7fdbb25d6b2e50f65dfae7923a74b5272e934c2"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -4473,12 +4473,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.27.6",
-            "sha256": "sha256-8xEVYzXbqg/7aV6lhC20XXf74NmZz8AcLXS/4Yl+OmU=",
+            "rev": "1.27.7",
+            "sha256": "sha256-t33RQsr6VAezJnsq+QTsP3IOjfYm5tlCzQHSxuAbUoA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.27.6"
+        "version": "1.27.7"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,
