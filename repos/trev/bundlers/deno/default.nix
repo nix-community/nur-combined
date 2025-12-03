@@ -65,7 +65,12 @@ drv.overrideAttrs (
 
       # compile
       mkdir -p $out/bin
-      deno compile --no-check --target ${target} --output "$out/bin/${binName}" "$ENTRYPOINT"
+      deno compile \
+        --no-check \
+        --allow-env \
+        --allow-net \
+        --target ${target} \
+        --output "$out/bin/${binName}" "$ENTRYPOINT"
 
       runHook postInstall
     '';
