@@ -30,6 +30,12 @@
     "url": "https://nuget.aiursoft.com/v3/package/aiursoft.aiurobserver.websocket.server/10.0.0/aiursoft.aiurobserver.websocket.server.10.0.0.nupkg"
   },
   {
+    "pname": "Aiursoft.Canon",
+    "version": "10.0.0",
+    "hash": "sha256-8HYmky2DwE20etrOz/3InhNqUtVPJWJs1rhN8EQ+0IQ=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.canon/10.0.0/aiursoft.canon.10.0.0.nupkg"
+  },
+  {
     "pname": "Aiursoft.CSTools",
     "version": "10.0.1",
     "hash": "sha256-W2uKk9QoZ9kaDS4hjnJfYh2hEf6VFE1ANrXpVN+Gj6M=",
