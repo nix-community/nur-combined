@@ -8,12 +8,12 @@
 
 rustPlatform.buildRustPackage {
   pname = "vodozemac-bindings-kazv";
-  version = "0.2.0-unstable-2025-10-07";
+  version = "0.2.1-unstable-2025-12-01";
 
   src = fetchgit {
     url = "https://r.lily-is.land/the-kazv-project/vodozemac-bindings.git";
-    rev = "0de85a7b18499baca101a2eabf80697e49f46aa7";
-    hash = "sha256-TAif6Pex0uA45EuYoI9ozProi8vnPZw/dXjdivzD9U4=";
+    rev = "3a3b85bf3043ffa43bd6bc70e571b455a276e749";
+    hash = "sha256-j6s+O3s6xSIZ+6aWI3itVwL4OU4qhoXos1R2NMBrJdo=";
   };
 
   cargoLock = {

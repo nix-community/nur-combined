@@ -65,5 +65,6 @@ rec {
     homepage = "https://github.com/chobits/ngx_http_proxy_connect_module";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ xyenon ];
+    broken = versionAtLeast nginxVersion "1.29.1";
   };
 }

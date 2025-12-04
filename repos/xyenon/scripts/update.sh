@@ -12,11 +12,13 @@ nvfetcher --commit-changes -k ~/.config/nvchecker/keyfile.toml
 # Update caddy plugins hash if sources changed
 caddy_default="$root/pkgs/caddy/default.nix"
 if ! git diff --quiet HEAD~1 -- "$root/_sources/generated.nix"; then
+	# shellcheck disable=SC2016
 	old_hash=$(ast-grep run --lang nix -p '{ hash = "$$HASH"; }' --selector binding --json "$caddy_default" | jq -r '.[0].metaVariables.single.HASH.text')
 	system=$(nix eval --raw --impure --expr builtins.currentSystem)
 	new_hash=$(nix-prefetch --option extra-experimental-features flakes \
 		"{ sha256 }: (builtins.getFlake \"$root\").packages.$system.caddy.src.overrideAttrs (_: { outputHash = sha256; })")
-	if [[ -n "$new_hash" && "$new_hash" != "$old_hash" ]]; then
+	if [[ -n $new_hash && $new_hash != "$old_hash" ]]; then
+		# shellcheck disable=SC2016
 		ast-grep run --lang nix -p '{ hash = "$$HASH"; }' --selector binding -r "hash = \"$new_hash\";" "$caddy_default" --update-all
 		git add "$caddy_default"
 		git commit --amend --no-edit
