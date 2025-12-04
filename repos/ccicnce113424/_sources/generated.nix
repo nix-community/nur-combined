@@ -84,18 +84,6 @@
       };
     };
   };
-  loveiwara = {
-    pname = "loveiwara";
-    version = "0.3.18";
-    src = fetchFromGitHub {
-      owner = "FoxSensei001";
-      repo = "LoveIwara";
-      rev = "0.3.18";
-      fetchSubmodules = false;
-      sha256 = "sha256-gNks5GADE1q/1b/y7s14jozPWpS9QKEyiOFpnmMPuaI=";
-    };
-    "pubspec.lock" = builtins.readFile ./loveiwara-0.3.18/pubspec.lock;
-  };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
     version = "v1.521";
