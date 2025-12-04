@@ -112,7 +112,7 @@ in
     services.ollama.host = "0.0.0.0";  # TODO: specify specifically 127.0.0.1 and 10.0.10.22
 
     # these acceleration settings are relevant to `desko`.
-    services.ollama.acceleration = lib.mkIf config.hardware.amdgpu.opencl.enable "rocm";  # AMD GPU acceleration (achieves the same as `nixpkgs.config.rocmSupport = true` but just for ollama (the global toggle rebuilds the world))
+    services.ollama.package = lib.mkIf config.hardware.amdgpu.opencl.enable pkgs.ollama-rocm;  # AMD GPU acceleration (achieves the same as `nixpkgs.config.rocmSupport = true` but just for ollama (the global toggle rebuilds the world))
     services.ollama.rocmOverrideGfx = "10.1.0";  #< `nix-shell -p "rocmPackages.rocminfo" --run "rocminfo" | grep "gfx"`  (e.g. gfx1010)
     services.ollama.environmentVariables.HCC_AMDGPU_TARGET = "gfx1010";
 
