@@ -84,8 +84,8 @@
       };
     };
   };
-  love-iwara = {
-    pname = "love-iwara";
+  loveiwara = {
+    pname = "loveiwara";
     version = "0.3.18";
     src = fetchFromGitHub {
       owner = "FoxSensei001";
@@ -94,7 +94,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-gNks5GADE1q/1b/y7s14jozPWpS9QKEyiOFpnmMPuaI=";
     };
-    "pubspec.lock" = builtins.readFile ./love-iwara-0.3.18/pubspec.lock;
+    "pubspec.lock" = builtins.readFile ./loveiwara-0.3.18/pubspec.lock;
   };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";

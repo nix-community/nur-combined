@@ -139,13 +139,13 @@
     },
     "version": "v3.0.0-alpha"
   },
-  "love-iwara": {
+  "loveiwara": {
     "cargoLocks": null,
     "date": null,
     "extract": {
-      "pubspec.lock": "./love-iwara-0.3.18/pubspec.lock"
+      "pubspec.lock": "./loveiwara-0.3.18/pubspec.lock"
     },
-    "name": "love-iwara",
+    "name": "loveiwara",
     "passthru": null,
     "pinned": false,
     "src": {
