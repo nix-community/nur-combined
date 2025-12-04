@@ -318,7 +318,7 @@
     "niri-taskbar": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Gbzh4OTkvtP9F_bfDUyA14NH2DMDdr3i6oFoFwinEAg=/Cargo.lock",
+                "sha256-aE5v94AA6bC0CP8pv_SPBxGKpkH+GxR_p7hTKXlvk3E=/Cargo.lock",
                 {}
             ]
         },
@@ -334,12 +334,12 @@
             "name": null,
             "owner": "LawnGnome",
             "repo": "niri-taskbar",
-            "rev": "v0.3.0+niri.25.08",
-            "sha256": "sha256-Gbzh4OTkvtP9F/bfDUyA14NH2DMDdr3i6oFoFwinEAg=",
+            "rev": "v0.4.0+niri.25.11",
+            "sha256": "sha256-aE5v94AA6bC0CP8pv/SPBxGKpkH+GxR/p7hTKXlvk3E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.3.0+niri.25.08"
+        "version": "v0.4.0+niri.25.11"
     },
     "plugin-bang-bang": {
         "cargoLock": null,
