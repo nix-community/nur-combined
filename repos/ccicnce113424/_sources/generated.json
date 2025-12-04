@@ -139,6 +139,29 @@
     },
     "version": "v3.0.0-alpha"
   },
+  "love-iwara": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": {
+      "pubspec.lock": "./love-iwara-0.3.18/pubspec.lock"
+    },
+    "name": "love-iwara",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "FoxSensei001",
+      "repo": "LoveIwara",
+      "rev": "0.3.18",
+      "sha256": "sha256-gNks5GADE1q/1b/y7s14jozPWpS9QKEyiOFpnmMPuaI=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "0.3.18"
+  },
   "lxgw-wenkai-gb": {
     "cargoLocks": null,
     "date": null,
@@ -255,7 +278,7 @@
   },
   "splayer-git": {
     "cargoLocks": null,
-    "date": "2025-12-03",
+    "date": "2025-12-04",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -267,12 +290,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "af551598824463e459c7c9d397a7ffcda57e3418",
-      "sha256": "sha256-FsvmBqE1pKgJwiVVB1kqwjksuFxsna24xxevwgNHH40=",
+      "rev": "50d03c10a75d4631e6d65134ec547db99703eb2f",
+      "sha256": "sha256-z2xDVZbVo30cirunnjm9o2xevG7jJSHguLFxR/vZRvE=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "af551598824463e459c7c9d397a7ffcda57e3418"
+    "version": "50d03c10a75d4631e6d65134ec547db99703eb2f"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
