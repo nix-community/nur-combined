@@ -1972,10 +1972,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "4.2.2";
+      version = "4.2.3";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4627787/click_and_read-4.2.2.xpi";
-      sha256 = "cbbcba85dd6232406f55b1ee8538c29c75d676a77fb3fff0e0068003bdfd0382";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4634110/click_and_read-4.2.3.xpi";
+      sha256 = "6878f421158c1723741c957eaa6962f2ddebf1a720202fe5d30a75b7bc8c951f";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -3316,10 +3316,10 @@
     };
     "downthemall" = buildFirefoxXpiAddon {
       pname = "downthemall";
-      version = "4.13.1";
+      version = "4.14.2";
       addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370602/downthemall-4.13.1.xpi";
-      sha256 = "ae0dbb3446bf96fdce8f9da9f82d492d8f21aa903fb971c7d5e84ea5cb637164";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4628327/downthemall-4.14.2.xpi";
+      sha256 = "7bb83f729934fb2a58f2c65248060830bca337e1e8a7c2729b5608340dc29df3";
       meta = with lib;
       {
         homepage = "https://www.downthemall.org/";
@@ -6309,10 +6309,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.22.7";
+      version = "1.23.9";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4609119/immersive_translate-1.22.7.xpi";
-      sha256 = "01f6ca13cbac486d32ada8da710ea234dafe79393378952bf5a6642234522be0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4628559/immersive_translate-1.23.9.xpi";
+      sha256 = "6af8a6da205a6fdf1f974ab68fea22e47c5b2b6a727ed4c1dd4602a7beb8d813";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7040,10 +7040,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.10";
+      version = "1.9.11";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4592023/keepassxc_browser-1.9.10.xpi";
-      sha256 = "38926e2225ba92da0962e6675a90e1e9bf1e3b280b88014c27f3aa727f212542";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4628286/keepassxc_browser-1.9.11.xpi";
+      sha256 = "bee523ac8d968d36ae3ae317b12b1b2bbe85e2c6f5b9ddb0fb822c2d90af6139";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -10621,10 +10621,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "1.0.0";
+      version = "1.1.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630785/private_grammar_checker_harper-1.0.0.xpi";
-      sha256 = "931fd84648cf3d985b903e4d6dbdbc5e5ffc5dc647e0da2b97cdb0fc5d9e3f54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4634406/private_grammar_checker_harper-1.1.0.xpi";
+      sha256 = "d28390f1ff54678e8650fea2114d01b0153db246aceef0893343363e93573824";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -14177,10 +14177,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.67.0";
+      version = "1.68.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4598854/ublock_origin-1.67.0.xpi";
-      sha256 = "b83c6ec49f817a8d05d288b53dbc7005cceccf82e9490d8683b3120aab3c133a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4629131/ublock_origin-1.68.0.xpi";
+      sha256 = "5caf4abda494018841222a12156919bbdd8cad82a783c38c36b22dd642704315";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -15884,10 +15884,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "17.9.4";
+      version = "17.10.0";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4621113/youtube_subscription_groups-17.9.4.xpi";
-      sha256 = "52ba3adb48008be7cc2b1453f1d865ff586ccf7667d09d87f542f9a1bfba19b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4631890/youtube_subscription_groups-17.10.0.xpi";
+      sha256 = "a8d5c5513741afa9a730e3f9660960a36509481ed830bb7eec1d4fcf8270dd51";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
