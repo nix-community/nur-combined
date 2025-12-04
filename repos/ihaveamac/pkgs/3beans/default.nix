@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "3beans";
-  version = "release-unstable-2025-11-27";
+  version = "release-unstable-2025-12-03";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "7caf8f76f8cb5b99980898375cf6a60740806b95";
-    hash = "sha256-eWuhtv7r/+wboziFRzjtztXGg7zEeDjXPQsXIQFh4Vs=";
+    rev = "1093ec712dea548c649c7a49944f5a750dff7300";
+    hash = "sha256-Hqdjnr59x2PsNNkAMQb8StMoWyZA8VPKJhLXJiXC3vk=";
   };
 
   buildInputs = [
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       ''
         contents=$out/Applications/3Beans.app/Contents
         mkdir -p $contents
-        cp Info.plist $contents
+        cp meta/Info.plist $contents
         mkdir $contents/MacOS
         cp 3beans $contents/MacOS/3beans
         ln -s $contents/MacOS/3beans $out/bin/3beans
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       ''
         mkdir -p $out/share/applications
         cp 3beans $out/bin
-        cp com.hydra.threebeans.desktop $out/share/applications
+        cp meta/com.hydra.threebeans.desktop $out/share/applications
       ''
   );
 

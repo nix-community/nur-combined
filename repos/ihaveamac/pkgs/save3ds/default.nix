@@ -10,7 +10,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "save3ds";
-  version = "unstable-2023-03-28";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "wwylele";
