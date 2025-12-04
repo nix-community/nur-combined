@@ -26,10 +26,6 @@ in
     groups.emily.gid = emId;
   };
 
-  systemd.services."container@emily".enableStrictShellChecks =
-    lib.warnIf (lib.versionAtLeast lib.version "25.11") "This workaround can be removed"
-    false;
-
   containers.emily = {
     privateNetwork = true;
     hostAddress = "192.168.100.20";

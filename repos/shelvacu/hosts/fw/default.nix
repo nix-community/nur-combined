@@ -51,7 +51,7 @@
     headsetcontrol
     openterface-qt
     intiface-central
-    osu-lazer
+    # osu-lazer # build broken
     mumble
     mullvad-vpn
     obs-studio

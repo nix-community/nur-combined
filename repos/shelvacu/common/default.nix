@@ -50,6 +50,7 @@ else
       ./units-impl.nix
       ./verify-system
       ./thunderbird.nix
+      ./fonts.nix
     ];
     options = {
       vacu.rootCAs = mkOption { type = types.listOf types.str; };

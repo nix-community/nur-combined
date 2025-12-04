@@ -97,7 +97,7 @@ in
       svl_min_args $# 1
       installable="$1"
       shift
-      if [[ "$installable" != *'#'* ]]; then
+      if [[ $installable != *'#'* ]] && [[ $installable != *':'* ]]; then
         installable="nixpkgs#$installable"
       fi
       nix run "$installable" -- "$@"
