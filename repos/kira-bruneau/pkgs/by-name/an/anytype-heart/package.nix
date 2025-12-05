@@ -78,13 +78,13 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Shared library for Anytype clients";
     homepage = "https://github.com/anyproto/anytype-heart";
     changelog = "https://github.com/anyproto/anytype-heart/releases/tag/${src.tag}";
-    license = licenses.unfree; # Any Source Available License 1.0
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.linux;
+    license = lib.licenses.unfree; # Any Source Available License 1.0
+    maintainers = with lib.maintainers; [ kira-bruneau ];
+    platforms = lib.platforms.linux;
     mainProgram = "anytypeHelper";
   };
 }

@@ -118,13 +118,13 @@ buildNpmPackage rec {
 
   passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
+  meta = {
     description = "Official Anytype client";
     homepage = "https://anytype.io";
     changelog = "https://releases.any.org/desktop-${builtins.replaceStrings [ "." ] [ "" ] version}";
-    license = licenses.unfree; # Any Source Available License 1.0
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.linux;
+    license = lib.licenses.unfree; # Any Source Available License 1.0
+    maintainers = with lib.maintainers; [ kira-bruneau ];
+    platforms = lib.platforms.linux;
     mainProgram = "anytype";
   };
 }

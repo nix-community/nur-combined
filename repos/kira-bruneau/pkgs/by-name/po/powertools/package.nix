@@ -85,12 +85,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     description = "Steam Deck power tweaks for power users";
     homepage = "https://git.ngni.us/NG-SD-Plugins/PowerTools";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kira-bruneau ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ kira-bruneau ];
     mainProgram = "backend";
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
   };
 })

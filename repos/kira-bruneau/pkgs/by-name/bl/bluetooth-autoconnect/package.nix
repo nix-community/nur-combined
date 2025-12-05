@@ -41,12 +41,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Linux command line tool to automatically connect to all paired and trusted bluetooth devices";
     homepage = "https://github.com/jrouleau/bluetooth-autoconnect";
-    license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ kira-bruneau ];
+    platforms = lib.platforms.linux;
     mainProgram = "bluetooth-autoconnect";
   };
 })

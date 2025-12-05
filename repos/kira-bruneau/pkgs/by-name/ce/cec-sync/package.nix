@@ -37,12 +37,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = with lib; {
+  meta = {
     description = "Service for integrating Linux devices into a home theatre system over HDMI-CEC";
     homepage = "https://gitlab.com/kira-bruneau/cec-sync";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ kira-bruneau ];
+    platforms = lib.platforms.linux;
     mainProgram = "cec-sync";
   };
 })

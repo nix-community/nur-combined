@@ -23,11 +23,11 @@ appimageTools.wrapType2 {
     install -m 444 -D ${appimageContents}/virtualparadise.png $out/share/icons/hicolor/128x128/apps/virtualparadise.png
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Online virtual universe consisting of several 3D worlds";
     homepage = "https://www.virtualparadise.org";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ kira-bruneau ];
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "virtualparadise";
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];

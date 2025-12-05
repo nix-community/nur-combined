@@ -31,10 +31,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     chmod +w ../bindings.h
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Tantivy go bindings";
     homepage = "https://github.com/anyproto/tantivy-go";
-    license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ kira-bruneau ];
   };
 })
