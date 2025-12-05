@@ -7,6 +7,7 @@
     rsync,
     removeReferencesTo, buildPackages, makeBinaryWrapper,
     copyDesktopItems, makeDesktopItem, iconConvTools,
+    symlinkJoin, writeShellApplication, unstableGitUpdater,
     maintainers,
 }: buildNpmPackage (finalAttrs: let
     electron = electron_37;
@@ -143,5 +144,35 @@ in {
             "x86_64-darwin"
             "aarch64-darwin"
         ];
+    };
+    passthru.updateScript = let
+        fixUpdater = u: u.override (old: {
+            common-updater-scripts = symlinkJoin {
+                name = "shapez-ce-updater-scripts-wrapper";
+                paths = [
+                    (writeShellApplication {
+                        name = "update-source-version";
+                        runtimeInputs = [old.common-updater-scripts];
+                        text = ''
+                            update-source-version "$@"
+                            args=()
+                            for arg in "$@"; do
+                                case "$arg" in
+                                    --rev=*)
+                                        continue
+                                        ;;
+                                esac
+                                args+=("$arg")
+                            done
+                            update-source-version "''${args[@]}" --ignore-same-version --source-key=npmDeps
+                            update-source-version "''${args[@]}" --ignore-same-version --source-key=electronNpmDeps
+                        '';
+                    })
+                    old.common-updater-scripts
+                ];
+            };
+        });
+    in fixUpdater unstableGitUpdater {
+        hardcodeZeroVersion = true;
     };
 })
