@@ -6937,10 +6937,10 @@
     };
     "kagi-translate" = buildFirefoxXpiAddon {
       pname = "kagi-translate";
-      version = "0.1.5";
+      version = "0.1.6";
       addonId = "{bd6be57d-91d7-41d2-b61d-3ba20f7942e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4632453/kagi_translate-0.1.5.xpi";
-      sha256 = "1af91e2fdf2da97093974cf551709775083617e7d8f2782099d80b36fc60fb2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4635166/kagi_translate-0.1.6.xpi";
+      sha256 = "14b4cde7ef75237cb3027d7e51ba590c2b64dbf9279ac4949cbdf669e221a6f6";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -7140,10 +7140,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.12";
+      version = "2.0.13";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4625516/kiss_translator-2.0.12.xpi";
-      sha256 = "76a583a1eb3c79f761f63e7003607705f23cef1f84554bbd8bfdb01a06f6dbfd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4635110/kiss_translator-2.0.13.xpi";
+      sha256 = "4c96c0ebf46e3c5885b1bac5fc0335f093726225af556cdf1e266a8cf84f4d10";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -12676,10 +12676,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.28";
+      version = "4.29";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4623903/steam_database-4.28.xpi";
-      sha256 = "53dce17d39523a642e4b1b75fb7c8e882fc0db146305d33df388cc0eb69508c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4629586/steam_database-4.29.xpi";
+      sha256 = "49411b5055bd61e298ff7d0cb7858a93ddd98fd1a3ab7283b493d137f5f1443f";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
