@@ -100,7 +100,6 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [
       magnetophon
-      orivej
       mrtnvgr
     ];
   };
