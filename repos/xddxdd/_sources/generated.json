@@ -334,12 +334,12 @@
             "name": null,
             "owner": "HanabishiRecca",
             "repo": "bin-cpuflags-x86",
-            "rev": "1.0.5",
-            "sha256": "sha256-XLeP0fLNY7Jr9xy1xV+KBoqR1LG+YpWXkup17gGI+YQ=",
+            "rev": "1.0.6",
+            "sha256": "sha256-g76Nl5PzzEXyrTMZSQdbcUy0gP3PJvmxuBLfVpa6J6g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.0.5"
+        "version": "1.0.6"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -2122,13 +2122,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.17.10-xanmod1",
-            "sha256": "sha256-Y6WsimtxzT6SutR040tUK+fVNnxnACtiyA3DF+iiPVM=",
+            "rev": "6.18.0-xanmod1",
+            "sha256": "sha256-voGRfxlZuejQvalSj/teB8XMvnzE3VG15kCtsNTCFFo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.17.10-xanmod1"
+        "version": "6.18.0-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -2224,12 +2224,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7264",
-            "sha256": "sha256-ItM/oESpSoLvkA6w/Q9ECmAei6giEPm3HgfmhnWSaiM=",
+            "rev": "b7278",
+            "sha256": "sha256-dWCvVDCen6sL4DNmx/C71k6K/bF+UWcZsoLY1JVP++A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7264"
+        "version": "b7278"
     },
     "loralib": {
         "cargoLocks": null,

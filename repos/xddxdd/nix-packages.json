@@ -437,7 +437,7 @@
   "legacyPackages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
     "pname": "bin-cpuflags-x86",
-    "version": "1.0.5"
+    "version": "1.0.6"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -907,7 +907,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7264"
+    "version": "7278"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4682,7 +4682,7 @@
   "legacyPackages.x86_64-linux.uncategorized.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
     "pname": "bin-cpuflags-x86",
-    "version": "1.0.5"
+    "version": "1.0.6"
   },
   "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -5547,7 +5547,7 @@
   "packages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
     "pname": "bin-cpuflags-x86",
-    "version": "1.0.5"
+    "version": "1.0.6"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
