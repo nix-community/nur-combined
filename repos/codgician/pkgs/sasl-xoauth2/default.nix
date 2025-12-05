@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchurl,
   cmake,
   curl,
   cyrus_sasl,
@@ -31,6 +32,14 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "release-${finalAttrs.version}";
     hash = "sha256-GUdt39DNtYZl4qsnhnWufXOgu5Mg1+HCJap8IfFyldk=";
   };
+
+  patches = [
+    # https://github.com/tarickb/sasl-xoauth2/issues/115
+    (fetchurl {
+      url = "https://patch-diff.githubusercontent.com/raw/tarickb/sasl-xoauth2/pull/116.patch";
+      hash = "sha256-y4F3QXiEmlOJTA5C+IYVynV3jai1o1sB6SfKu2rKS8Q=";
+    })
+  ];
 
   # Let sasl-xoauth2 find configuration files in /etc
   postPatch = ''
