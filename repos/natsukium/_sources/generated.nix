@@ -3,15 +3,15 @@
 {
   claudecode-nvim = {
     pname = "claudecode-nvim";
-    version = "1552086ebcce9f4a2ea3b9793018a884d6b60169";
+    version = "6091df0e8edcdc92526cec23bbb42f63c0bb5ff2";
     src = fetchFromGitHub {
       owner = "coder";
       repo = "claudecode.nvim";
-      rev = "1552086ebcce9f4a2ea3b9793018a884d6b60169";
+      rev = "6091df0e8edcdc92526cec23bbb42f63c0bb5ff2";
       fetchSubmodules = false;
-      sha256 = "sha256-XYmf1RQ2bVK6spINZW4rg6OQQ5CWWcR0Tw4QX8ZDjgs=";
+      sha256 = "sha256-PmSYIE7j9C2ckJc9wDIm4KCozXP0z1U9TOdItnDyoDQ=";
     };
-    date = "2025-10-19";
+    date = "2025-12-05";
   };
   copyq-darwin = {
     pname = "copyq-darwin";
