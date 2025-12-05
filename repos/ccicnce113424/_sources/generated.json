@@ -139,6 +139,29 @@
     },
     "version": "v3.0.0-alpha"
   },
+  "loveiwara": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": {
+      "pubspec.lock": "./loveiwara-0.3.18/pubspec.lock"
+    },
+    "name": "loveiwara",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "FoxSensei001",
+      "repo": "LoveIwara",
+      "rev": "0.3.18",
+      "sha256": "sha256-gNks5GADE1q/1b/y7s14jozPWpS9QKEyiOFpnmMPuaI=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "0.3.18"
+  },
   "lxgw-wenkai-gb": {
     "cargoLocks": null,
     "date": null,
