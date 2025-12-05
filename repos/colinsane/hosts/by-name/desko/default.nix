@@ -35,6 +35,8 @@
 
   sane.nixcache.remote-builders.desko = false;
 
+  sane.programs.claude-code.enableFor.user.colin = true;
+
   sane.programs.firefox.config.formFactor = "desktop";
 
   sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;

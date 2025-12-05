@@ -33,6 +33,7 @@
     ./catt.nix
     ./celeste64.nix
     ./chatty.nix
+    ./claude-code.nix
     ./confy.nix
     ./conky
     ./cozy.nix
