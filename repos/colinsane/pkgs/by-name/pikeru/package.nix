@@ -26,13 +26,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pikeru";
-  version = "1.10";
+  version = "1.11";
 
   src = fetchFromGitHub {
     owner = "dvhar";
     repo = "pikeru";
     rev = finalAttrs.version;
-    hash = "sha256-ZPi5uaz/r6DU7zyn+y7ZxPJWUa059eCI+0gxBQOcsl0=";
+    hash = "sha256-kQr6U8RpjcPPO8KqLA+DlpJoul6dw9OBPBbvUFjS+U4=";
   };
 
   cargoHash = "sha256-mVbPwNMSs2oNgPkMyoQU1qT+t8yuLhzydqJKaUb47X4=";
