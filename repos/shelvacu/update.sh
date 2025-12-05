@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-source shellvaculib.bash
+:
+
+# shellcheck source=packages/shellvaculib/shellvaculib.bash
+source shellvaculib.bash || exit 1
 
 function v() {
   declare -a cmd=("$@")
@@ -26,7 +29,11 @@ function assert_no_changes() {
 assert_no_changes "there must be no changes in working tree to run this"
 
 tmpdir="$(mktemp -d)"
-trap '[[ -d $tmpdir ]] && rm -rf "$tmpdir"' EXIT
+trap '
+if [[ -d $tmpdir ]]; then
+  rm -rf "$tmpdir"
+fi
+' EXIT
 commit_message_path="$tmpdir/commit_message.txt"
 
 function remove_commit_message() {
@@ -73,26 +80,46 @@ if [[ $what == 'units' ]] || [[ -z $what ]]; then
 fi
 
 function standard_package() {
-  svl_min_args $# 1
-  declare -a names=("$@")
+  declare update_by_default=true
+  declare -a extra_update_args=()
+  declare -a names=()
+  while (( $# > 0 )); do
+    declare arg="$1"
+    shift 1
+    case "$arg" in
+      --no-default)
+        update_by_default=false
+        ;;
+      --branch)
+        extra_update_args+=(--version=branch)
+        ;;
+      --version-regex=*)
+        extra_update_args+=("$arg")
+        ;;
+      --)
+        names+=("$@")
+        shift $#
+        ;;
+      -*)
+        svl_die "Unrecognized arg $arg"
+        ;;
+      *)
+        names+=("$arg")
+        ;;
+    esac
+  done
+  if [[ $# != 0 ]]; then
+    svl_throw "this shouldnt happen"
+  fi
+  if [[ ${#names[@]} == 0 ]]; then
+    svl_throw "must provide at least one non-dashed arg"
+  fi
   declare primary_name="${names[0]}"
-  if svl_in_array "$what" "${names[@]}" || [[ -z $what ]]; then
-    declare -a extra_update_args=()
-    if svl_in_array "$primary_name" bandcamp-collection-downloader transferwee dufs-vacu; then
-      extra_update_args+=(--version=branch)
-    fi
-    if [[ $primary_name == z3 ]]; then
-      extra_update_args+=(--version-regex='z3-(.*)')
-    fi
+  if svl_in_array "$what" "${names[@]}" || [[ -z $what && $update_by_default == true ]]; then
     nix_common run '.#stable.nix-update' -- "$primary_name" --flake --write-commit-message "$commit_message_path" "${extra_update_args[@]}"
     if ! git diff --quiet --exit-code HEAD -- packages/"$primary_name"; then
       declare flake_path
       flake_path="$(printf '.#"%q"' "$primary_name")"
-      if [[ $primary_name == bandcamp-collection-downloader ]]; then
-        declare mitmUpdate
-        mitmUpdate="$(nix_common build '.#bandcamp-collection-downloader.mitmCache.updateScript' --no-link --print-out-paths)"
-        v "$mitmUpdate"
-      fi
       nix_common build "$flake_path" --no-link
       v git commit --file="$commit_message_path" -- packages/"$primary_name"
       unset flake_path
@@ -104,12 +131,12 @@ function standard_package() {
   unset names
 }
 
-standard_package dufs-vacu dufs
+standard_package --branch dufs-vacu dufs
 
 standard_package genieacs genie
 
-standard_package openterface-qt openterface
+standard_package --no-default openterface-qt openterface
 
-standard_package transferwee
+standard_package --branch transferwee
 
-standard_package z3
+standard_package --version-regex='z3-(.*)' z3
