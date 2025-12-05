@@ -1022,6 +1022,27 @@
         },
         "version": "d755a7558ee957ccee3554482d5ded9040354d81"
     },
+    "env-dedup": {
+        "cargoLocks": null,
+        "date": "2025-09-06",
+        "extract": null,
+        "name": "env-dedup",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "alexjp",
+            "repo": "env-dedup",
+            "rev": "9df9f75c47bef6957245b0bf6f32720a67dad3a0",
+            "sha256": "sha256-aOkhHOz84H0Sxsx2Rl7s0ZLMVio5BV9Ko7W0b3xVpxU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "9df9f75c47bef6957245b0bf6f32720a67dad3a0"
+    },
     "etherguard": {
         "cargoLocks": null,
         "date": null,

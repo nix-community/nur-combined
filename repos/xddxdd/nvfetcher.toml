@@ -230,6 +230,10 @@ src.github = "rany2/edge-tts"
 fetch.github = "Liniyous/ElaWidgetTools"
 src.git = "https://github.com/Liniyous/ElaWidgetTools.git"
 
+[env-dedup]
+fetch.github = "alexjp/env-dedup"
+src.git = "https://github.com/alexjp/env-dedup.git"
+
 [etherguard]
 fetch.github = "KusakabeShi/EtherGuard-VPN"
 src.github = "KusakabeShi/EtherGuard-VPN"

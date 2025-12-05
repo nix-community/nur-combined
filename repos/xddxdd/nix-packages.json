@@ -629,6 +629,11 @@
     "pname": "electron",
     "version": "11.5.0"
   },
+  "legacyPackages.x86_64-linux.env-dedup": {
+    "description": "Deduplicate the environment variables values",
+    "pname": "env-dedup",
+    "version": "0-unstable-2025-09-06"
+  },
   "legacyPackages.x86_64-linux.etherguard": {
     "description": "Layer 2 version of WireGuard with Floyd Warshall implementation in Go",
     "pname": "etherguard",
@@ -4769,6 +4774,11 @@
     "pname": "electron",
     "version": "11.5.0"
   },
+  "legacyPackages.x86_64-linux.uncategorized.env-dedup": {
+    "description": "Deduplicate the environment variables values",
+    "pname": "env-dedup",
+    "version": "0-unstable-2025-09-06"
+  },
   "legacyPackages.x86_64-linux.uncategorized.etherguard": {
     "description": "Layer 2 version of WireGuard with Floyd Warshall implementation in Go",
     "pname": "etherguard",
@@ -5683,6 +5693,11 @@
     "description": "Cross platform desktop application shell",
     "pname": "electron",
     "version": "11.5.0"
+  },
+  "packages.x86_64-linux.env-dedup": {
+    "description": "Deduplicate the environment variables values",
+    "pname": "env-dedup",
+    "version": "0-unstable-2025-09-06"
   },
   "packages.x86_64-linux.etherguard": {
     "description": "Layer 2 version of WireGuard with Floyd Warshall implementation in Go",

@@ -530,6 +530,17 @@
     };
     date = "2025-11-24";
   };
+  env-dedup = {
+    pname = "env-dedup";
+    version = "9df9f75c47bef6957245b0bf6f32720a67dad3a0";
+    src = fetchFromGitHub {
+      owner = "alexjp";
+      repo = "env-dedup";
+      rev = "9df9f75c47bef6957245b0bf6f32720a67dad3a0";
+      hash = "sha256-aOkhHOz84H0Sxsx2Rl7s0ZLMVio5BV9Ko7W0b3xVpxU=";
+    };
+    date = "2025-09-06";
+  };
   etherguard = {
     pname = "etherguard";
     version = "v0.3.5-f5";
