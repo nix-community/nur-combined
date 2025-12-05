@@ -9,7 +9,7 @@ let
     final
     // {
       emacsPackages = prev.emacsPackages.overrideScope emacsPackagesOverlay;
-      linuxPackages = prev.linuxPackages.overrideScope linuxModulesOverlay;
+      linuxPackages = prev.linuxPackages_latest.overrideScope linuxModulesOverlay;
     }
     // (builtins.foldl' (
       acc: name:
@@ -126,7 +126,7 @@ in
   jakirica-client = jakirica.client;
 
   linuxPackages = lib.recurseIntoAttrs (
-    linuxModulesOverlay (prev.linuxPackages // linuxPackages) prev.linuxPackages
+    linuxModulesOverlay (prev.linuxPackages_latest // linuxPackages) prev.linuxPackages_latest
   );
 
   mangohud = callPackage ./tools/graphics/mangohud rec {
