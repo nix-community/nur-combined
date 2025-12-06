@@ -893,6 +893,10 @@
         "matthewbauer": {
             "url": "https://github.com/matthewbauer/nur-packages"
         },
+        "mattrobenolt": {
+            "file": "nur.nix",
+            "url": "https://github.com/mattrobenolt/nixpkgs"
+        },
         "mcaju": {
             "url": "https://github.com/CajuM/nur-packages"
         },
@@ -1118,6 +1122,9 @@
         },
         "pborzenkov": {
             "url": "https://github.com/pborzenkov/nur-packages"
+        },
+        "peacock0803sz": {
+            "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
             "url": "https://github.com/peel/nur-packages"
