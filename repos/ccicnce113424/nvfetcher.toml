@@ -53,8 +53,8 @@ fetch.github = "ccicnce113424/lyrica"
 src.git = "https://github.com/ccicnce113424/lyrica"
 
 [ntfsprogs-plus]
-fetch.github = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
-src.github = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
+fetch.github = "ntfsprogs-plus/ntfsprogs-plus"
+src.git = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
 
 [piliplus]
 extract = ["pubspec.lock"]
