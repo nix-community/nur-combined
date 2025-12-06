@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-gsTtc9ss0MPSIgDUl_SL+IFd4OSe6Lzxm8KGOYSFDJ8=/Cargo.lock",
+                "sha256-8QKYDk7Q4oiqyf3vwziu1+A5T2soKuKC5MxPlsOWTM4=/Cargo.lock",
                 {
                     "anthropic-0.0.8": "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA="
                 }
@@ -41,12 +41,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v1.9.0",
-            "sha256": "sha256-gsTtc9ss0MPSIgDUl/SL+IFd4OSe6Lzxm8KGOYSFDJ8=",
+            "rev": "v1.10.0",
+            "sha256": "sha256-8QKYDk7Q4oiqyf3vwziu1+A5T2soKuKC5MxPlsOWTM4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.0"
+        "version": "v1.10.0"
     },
     "cowrie": {
         "cargoLock": null,
@@ -263,11 +263,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+wbqC954mx4Gq+Qjw+3EcZk6Up06QXJ3dmt+LM5kfcI=",
+            "sha256": "sha256-d6KsIZCkqb4RzlByy1+5Bi9OZImU3/YbXyVX99d2o00=",
             "type": "url",
-            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.3/MoeKoe_Music_v1.5.3.AppImage"
+            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.4/MoeKoe_Music_v1.5.4.AppImage"
         },
-        "version": "v1.5.3"
+        "version": "v1.5.4"
     },
     "mstickereditor": {
         "cargoLock": {
