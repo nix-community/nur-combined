@@ -1,15 +1,15 @@
 {
   stdenv,
-  lib,
-  fetchFromGitHub,
+  gcc,
   pkg-config,
-  wayland,
+  fetchFromGitHub,
+  lib,
   libglvnd,
   mesa,
   libpng,
   libjpeg,
+  wayland,
   wayland-scanner,
-  gcc,
 }:
 
 stdenv.mkDerivation (finallAttrs: {
@@ -65,5 +65,6 @@ stdenv.mkDerivation (finallAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
+    mainProgram = "neowall";
   };
 })
