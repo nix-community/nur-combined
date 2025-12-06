@@ -41,7 +41,7 @@ env:
   NUR_REPO: sigprof
 
   nur_systems: x86_64-linux x86_64-darwin aarch64-darwin
-  nur_channels: nixpkgs-unstable nixos-unstable nixos-25.05 nixos-24.11 nixos-24.05
+  nur_channels: nixpkgs-unstable nixos-unstable nixos-25.11 nixos-25.05 nixos-24.11
   nur_main_channel: nixos-25.05
 
   CI_NIX_INSTALL_URL: '' # https://releases.nixos.org/nix/nix-2.18.1/install
