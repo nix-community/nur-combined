@@ -1,4 +1,5 @@
 {
+  lib,
   buildPythonPackage,
   setuptools,
   tree-sitter,
@@ -6,7 +7,8 @@
 }:
 
 buildPythonPackage {
-  inherit (source) pname src version;
+  inherit (source) pname src;
+  version = lib.removePrefix "v" source.version;
   pyproject = true;
 
   buildInputs = [ tree-sitter ];
