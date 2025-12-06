@@ -15,7 +15,7 @@ let
   updateScript = substitute {
     src = "${nixpkgs}/maintainers/scripts/update.py";
     substitutions = [
-      "--replace"
+      "--replace-fail"
       ''nixpkgs_root + "/shell.nix"''
       ''"${nixpkgs}/shell.nix"''
     ];
