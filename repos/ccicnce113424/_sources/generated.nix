@@ -126,15 +126,14 @@
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
-    version = "9cd989100e33623b0acd44c2edc14b6c8c89229b";
+    version = "1.0.0";
     src = fetchFromGitHub {
       owner = "ntfsprogs-plus";
       repo = "ntfsprogs-plus";
-      rev = "9cd989100e33623b0acd44c2edc14b6c8c89229b";
+      rev = "1.0.0";
       fetchSubmodules = false;
       sha256 = "sha256-vbK/lnNMHTycw5H9ijLfX7uRB7mgsI6KGg8gfO3OCGk=";
     };
-    date = "2025-10-16";
   };
   piliplus = {
     pname = "piliplus";

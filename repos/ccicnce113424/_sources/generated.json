@@ -209,7 +209,7 @@
   },
   "ntfsprogs-plus": {
     "cargoLocks": null,
-    "date": "2025-10-16",
+    "date": null,
     "extract": null,
     "name": "ntfsprogs-plus",
     "passthru": null,
@@ -221,12 +221,12 @@
       "name": null,
       "owner": "ntfsprogs-plus",
       "repo": "ntfsprogs-plus",
-      "rev": "9cd989100e33623b0acd44c2edc14b6c8c89229b",
+      "rev": "1.0.0",
       "sha256": "sha256-vbK/lnNMHTycw5H9ijLfX7uRB7mgsI6KGg8gfO3OCGk=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "9cd989100e33623b0acd44c2edc14b6c8c89229b"
+    "version": "1.0.0"
   },
   "piliplus": {
     "cargoLocks": null,
