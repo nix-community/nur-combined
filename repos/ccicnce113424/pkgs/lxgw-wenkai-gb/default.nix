@@ -19,11 +19,11 @@ stdenvNoCC.mkDerivation (_final: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://lxgw.github.io/";
     description = "Open-source Chinese GuoBiao font derived from Fontworks' Klee One";
-    license = licenses.ofl;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ ccicnce113424 ];
+    license = lib.licenses.ofl;
+    platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
   };
 })

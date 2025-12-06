@@ -21,11 +21,11 @@ stdenvNoCC.mkDerivation (_final: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/Digger1955/dxvk-gplasync-lowlatency";
     description = ''Vulkan 1.3-based implementation of D3D8, D3D9, D3D10, D3D11 with "Async" and "Low Latency" features for real-world usage '';
-    license = licenses.zlib;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ ccicnce113424 ];
+    license = lib.licenses.zlib;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
   };
 })

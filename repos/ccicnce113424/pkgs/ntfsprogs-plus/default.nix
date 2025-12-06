@@ -29,11 +29,11 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  meta = with lib; {
+  meta = {
     description = "NTFS filesystem userspace utilities";
     homepage = "https://github.com/ntfsprogs-plus/ntfsprogs-plus";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ccicnce113424 ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2Plus;
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
+    platforms = lib.platforms.linux;
   };
 }

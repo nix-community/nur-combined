@@ -213,11 +213,11 @@ stdenv.mkDerivation (final: {
     install -DTm755 wpscloudsvr $out/opt/kingsoft/wps-office/office6/wpscloudsvr
   '';
 
-  meta = with lib; {
+  meta = {
     description = "WPS Office, is an office productivity suite. (Enable wpscloudsvr-wrapper)";
     homepage = "https://365.wps.cn";
     platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfreeRedistributable;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfreeRedistributable;
   };
 })

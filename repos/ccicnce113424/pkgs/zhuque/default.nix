@@ -25,11 +25,11 @@ stdenvNoCC.mkDerivation (_final: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/TrionesType/zhuque";
     description = "Open-source Chinese Fangsong font";
-    license = licenses.ofl;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ ccicnce113424 ];
+    license = lib.licenses.ofl;
+    platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
   };
 })
