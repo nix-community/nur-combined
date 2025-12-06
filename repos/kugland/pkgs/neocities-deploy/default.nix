@@ -7,14 +7,14 @@
 }:
 buildRustPackage rec {
   pname = "neocities-deploy";
-  version = "0.1.15";
+  version = "0.1.18";
   src = fetchFromGitHub {
     owner = "kugland";
     repo = "neocities-deploy";
     rev = "v${version}";
-    hash = "sha256-PkjgHXvFhTJ0AVRz6/hXkzo94tsIzgxHKuGNy3fDzIU=";
+    hash = "sha256-aMwr+mEdlN1QvSbTm6j6M2G/EFeWzP6WuMcFWjNXC18=";
   };
-  cargoHash = "sha256-0RgvYK81maes3+bmlvPVih0lsLpYrYWgAJLJT3p/KWA=";
+  cargoHash = "sha256-yJQ4gHROU7kr7w0bsCzeWI2giHDkyrEFIwcWX8uhvlQ=";
   doCheck = false;
   meta = with lib; {
     description = "A command-line tool for deploying your Neocities site";
