@@ -1,5 +1,5 @@
 {
-  stdenv,
+  gcc15Stdenv,
   fetchFromGitHub,
   cmake,
   pkg-config,
@@ -27,9 +27,9 @@
 
 let
   pname = "vicinae";
-  version = "0.16.11";
+  version = "0.16.12";
 
-  srcHash = "sha256-gX7bUoIP4PU0wUOW3ciyjYAInX/6VLVcEBKdQIQyzDk=";
+  srcHash = "sha256-GolXMuAvhWqljCdMo/9hlY0Vo52Bxx+dnLfYQWr9tk8=";
   apiDepsHash = "sha256-UsTpMR23UQBRseRo33nbT6z/UCjZByryWfn2AQSgm6U=";
   extensionManagerDepsHash = "sha256-wl8FDFB6Vl1zD0/s2EbU6l1KX4rwUW6dOZof4ebMMO8=";
 
@@ -56,7 +56,7 @@ let
     hash = "${extensionManagerDepsHash}";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+gcc15Stdenv.mkDerivation (finalAttrs: {
   inherit pname version src;
 
   cmakeFlags = [
