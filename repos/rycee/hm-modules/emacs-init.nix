@@ -112,6 +112,14 @@ let
           '';
         };
 
+        interpreter = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description = ''
+            The entries to use for <option>:interpreter</option>.
+          '';
+        };
+
         after = mkOption {
           type = types.listOf types.str;
           default = [ ];
@@ -256,6 +264,7 @@ let
             mkDefines = vs: optional (vs != [ ]) ":defines (${toString vs})";
             mkDiminish = vs: optional (vs != [ ]) ":diminish (${toString vs})";
             mkMode = map (v: ":mode ${v}");
+            mkInterpreter = map (v: ":interpreter ${v}");
             mkFunctions = vs: optional (vs != [ ]) ":functions (${toString vs})";
             mkBind = mkBindHelper "bind" "";
             mkBindLocal =
@@ -285,6 +294,7 @@ let
             ++ mkDiminish config.diminish
             ++ mkHook config.hook
             ++ mkMode config.mode
+            ++ mkInterpreter config.interpreter
             ++ mkCustom config.custom
             ++ optionals (config.init != "") [
               ":init"
