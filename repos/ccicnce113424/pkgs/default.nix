@@ -61,6 +61,11 @@ rec {
     inherit lyrica;
   };
 
+  ntfsprogs-plus = pkgs.callPackage ./ntfsprogs-plus rec {
+    sources = fetchedSrc.ntfsprogs-plus;
+    inherit (sources) version;
+  };
+
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;
