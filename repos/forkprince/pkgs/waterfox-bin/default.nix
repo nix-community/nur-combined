@@ -30,7 +30,7 @@
   libXext,
   libX11,
   libXi,
-  ffmpeg,
+  ffmpeg-full,
   libGL,
   cairo,
   cups,
@@ -116,7 +116,7 @@ in
       libXext
       libX11
       libXi
-      ffmpeg
+      ffmpeg-full
       libGL
       cairo
       cups
