@@ -37,7 +37,10 @@ def nix_eval_for_pkg(
         """
 let
   flake = builtins.getFlake "path:{repo}";
-  pkgs = import flake.inputs.nixpkgs {{ system = "{system}"; }};
+  basePkgs = import flake.inputs.nixpkgs {{ system = "{system}"; }};
+  overlaysSet = if builtins.pathExists "{repo}/overlays/default.nix" then import "{repo}/overlays/default.nix" else {{ }};
+  allOverlays = basePkgs.lib.composeManyExtensions (builtins.attrValues overlaysSet);
+  pkgs = basePkgs.extend allOverlays;
   lib = pkgs.lib;
   v = pkgs.callPackage {pkg} {{}};
   target =
@@ -79,7 +82,10 @@ def nix_list_children(
         """
 let
   flake = builtins.getFlake "path:{repo}";
-  pkgs = import flake.inputs.nixpkgs {{ system = "{system}"; }};
+  basePkgs = import flake.inputs.nixpkgs {{ system = "{system}"; }};
+  overlaysSet = if builtins.pathExists "{repo}/overlays/default.nix" then import "{repo}/overlays/default.nix" else {{ }};
+  allOverlays = basePkgs.lib.composeManyExtensions (builtins.attrValues overlaysSet);
+  pkgs = basePkgs.extend allOverlays;
   lib = pkgs.lib;
   v = pkgs.callPackage {pkg} {{}};
   children =

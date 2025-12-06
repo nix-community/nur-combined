@@ -3,3 +3,6 @@ result-*
 
 # CI
 pr_body.md
+
+# Python cache
+__pycache__
