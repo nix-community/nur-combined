@@ -9,11 +9,11 @@ let
   # 首先构建 jar 文件的 derivation
   jarDerivation = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "lr2oraja-endlessdream";
-    version = "0.3.0";
+    version = "0.4.0";
 
     src = fetchurl {
       url = "https://github.com/seraxis/lr2oraja-endlessdream/releases/download/v${finalAttrs.version}/lr2oraja-0.8.8-endlessdream-linux-${finalAttrs.version}.jar";
-      hash = "sha256-x3cZ5b5fZQdVKX6Df44m35mGYtBmM0FTxj4hm8A6hR0=";
+      hash = "sha256-ViPMo1Xhw1DF57701RK4ddP7cAxz5g4iicmgrV730o4=";
     };
 
     dontUnpack = true;
