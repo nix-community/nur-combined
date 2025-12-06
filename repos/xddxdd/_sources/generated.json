@@ -415,7 +415,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2025-12-03",
+        "date": "2025-12-05",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -427,16 +427,16 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "847270713a8bf2bc6371b42462781a4f11d8633a",
-            "sha256": "sha256-KawKrLsTMP30iD1qUjLR7EbJXP08QEapNhEHqBdi5wY=",
+            "rev": "b76feee309500d7ba6a955760ed4a8e698902ba3",
+            "sha256": "sha256-Dgc/8jbcMYeOr8xgd/yVFTL+8uNmAHAPyTsVu6G4jeA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "847270713a8bf2bc6371b42462781a4f11d8633a"
+        "version": "b76feee309500d7ba6a955760ed4a8e698902ba3"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2025-12-03",
+        "date": "2025-12-05",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -448,12 +448,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "3abff88a6330df5b0e0fb1e11bd0902258049523",
-            "sha256": "sha256-Kol2JWJwhsofJPOhpZjk1I944EMH6dYx81Yr5DItalo=",
+            "rev": "45bc489a4708cfd68a67d2114816ea0d2c6f3738",
+            "sha256": "sha256-72rRkQ72c8E50Md13a+m7JVxS6uFZXHYOROj81cwfRo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3abff88a6330df5b0e0fb1e11bd0902258049523"
+        "version": "45bc489a4708cfd68a67d2114816ea0d2c6f3738"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2224,12 +2224,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7278",
-            "sha256": "sha256-dWCvVDCen6sL4DNmx/C71k6K/bF+UWcZsoLY1JVP++A=",
+            "rev": "b7285",
+            "sha256": "sha256-NkyhqIPYC3JuepaLsRFdm8FVFxmTEr81Q+j31q8MipA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7278"
+        "version": "b7285"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3810,12 +3810,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v1.14.14",
-            "sha256": "sha256-BwXHwVdR3C/3SSxGbFfB79I3FKDbbiIzl592KqfESVc=",
+            "rev": "v1.14.15",
+            "sha256": "sha256-D1B5j1HYSXDgr1vW8kHzCohu3HiDljTEhQhzfa5q/Us=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.14"
+        "version": "v1.14.15"
     },
     "sam-toki-mouse-cursors": {
         "cargoLocks": null,

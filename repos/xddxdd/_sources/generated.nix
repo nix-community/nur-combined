@@ -217,25 +217,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "847270713a8bf2bc6371b42462781a4f11d8633a";
+    version = "b76feee309500d7ba6a955760ed4a8e698902ba3";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "847270713a8bf2bc6371b42462781a4f11d8633a";
-      hash = "sha256-KawKrLsTMP30iD1qUjLR7EbJXP08QEapNhEHqBdi5wY=";
+      rev = "b76feee309500d7ba6a955760ed4a8e698902ba3";
+      hash = "sha256-Dgc/8jbcMYeOr8xgd/yVFTL+8uNmAHAPyTsVu6G4jeA=";
     };
-    date = "2025-12-03";
+    date = "2025-12-05";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "3abff88a6330df5b0e0fb1e11bd0902258049523";
+    version = "45bc489a4708cfd68a67d2114816ea0d2c6f3738";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "3abff88a6330df5b0e0fb1e11bd0902258049523";
-      hash = "sha256-Kol2JWJwhsofJPOhpZjk1I944EMH6dYx81Yr5DItalo=";
+      rev = "45bc489a4708cfd68a67d2114816ea0d2c6f3738";
+      hash = "sha256-72rRkQ72c8E50Md13a+m7JVxS6uFZXHYOROj81cwfRo=";
     };
-    date = "2025-12-03";
+    date = "2025-12-05";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1141,12 +1141,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7278";
+    version = "b7285";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7278";
-      hash = "sha256-dWCvVDCen6sL4DNmx/C71k6K/bF+UWcZsoLY1JVP++A=";
+      tag = "b7285";
+      hash = "sha256-NkyhqIPYC3JuepaLsRFdm8FVFxmTEr81Q+j31q8MipA=";
     };
   };
   loralib = {
@@ -1946,12 +1946,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v1.14.14";
+    version = "v1.14.15";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v1.14.14";
-      hash = "sha256-BwXHwVdR3C/3SSxGbFfB79I3FKDbbiIzl592KqfESVc=";
+      tag = "v1.14.15";
+      hash = "sha256-D1B5j1HYSXDgr1vW8kHzCohu3HiDljTEhQhzfa5q/Us=";
     };
   };
   sam-toki-mouse-cursors = {
