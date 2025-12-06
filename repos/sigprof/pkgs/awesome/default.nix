@@ -41,24 +41,18 @@ assert gtk3Support -> gtk3 != null; let
 in
   stdenv.mkDerivation rec {
     pname = "awesome";
-    version = "4.3-unstable-2025-10-17";
+    version = "4.3-unstable-2025-11-17";
 
     src = fetchFromGitHub {
       owner = "awesomewm";
       repo = "awesome";
-      rev = "4f2bc5c10acaec4a1229db40f690e66284c109b9";
-      hash = "sha256-gVHDHmtxuiOE8934iQHghbcQ5JEPaJLZ5o7NqwFEYHQ=";
+      rev = "41473c05ed9e85de66ffb805d872f2737c0458b6";
+      hash = "sha256-dGceJ5cAxDSUPCqXYAZgzEeC9hd7GQMYPex7nCZ8SEg=";
     };
 
     postPatch = ''
       patchShebangs tests/examples/_postprocess.lua
       patchShebangs tests/examples/_postprocess_cleanup.lua
-
-      # Fix build with CMake 4
-      # https://github.com/awesomeWM/awesome/pull/4030#issuecomment-3370822668
-      substituteInPlace {,tests/examples/}CMakeLists.txt \
-        --replace-fail 'cmake_minimum_required(VERSION 3.0.0)' 'cmake_minimum_required(VERSION 3.10)' \
-        --replace-warn 'cmake_policy(VERSION 2.6)' 'cmake_policy(VERSION 3.10)'
     '';
 
     nativeBuildInputs = [
@@ -145,7 +139,7 @@ in
       description = "Highly configurable, dynamic window manager for X";
       homepage = "https://awesomewm.org/";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [lovek323 rasendubi];
+      maintainers = with maintainers; [lovek323];
       platforms = platforms.linux;
     };
   }
