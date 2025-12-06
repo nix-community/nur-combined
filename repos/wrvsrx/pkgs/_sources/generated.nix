@@ -288,13 +288,10 @@
   };
   tree-sitter-devicetree = {
     pname = "tree-sitter-devicetree";
-    version = "v0.15.0";
-    src = fetchFromGitHub {
-      owner = "joelspadin";
-      repo = "tree-sitter-devicetree";
-      rev = "v0.15.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-iMmr4zSm6B7goevHE03DMj9scW4ldXS7CV74sKeqGD4=";
+    version = "0.14.0";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/t/tree_sitter_devicetree/tree_sitter_devicetree-0.14.0.tar.gz";
+      sha256 = "sha256-Kw3Y8cL4J88mHTF7pcMrTwi7Bfh9dXqLbv/lWMNhP0Q=";
     };
   };
   utfcpp = {

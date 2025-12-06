@@ -108,8 +108,8 @@ src.pypi = "keymap_drawer"
 fetch.pypi = "keymap_drawer"
 
 [tree-sitter-devicetree]
-src.github = "joelspadin/tree-sitter-devicetree"
-fetch.github = "joelspadin/tree-sitter-devicetree"
+src.manual = "0.14.0"
+fetch.pypi = "tree_sitter_devicetree"
 
 [rime-ice-modular]
 src.github_tag = "wrvsrx/rime-ice-modular"
