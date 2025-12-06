@@ -5,16 +5,16 @@
 }:
 pkgs.buildNpmPackage rec {
   pname = "obsidian-excalidraw-plugin";
-  version = "2.17.2";
+  version = "2.18.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "zsviczian";
     repo = "obsidian-excalidraw-plugin";
     rev = version;
-    sha256 = "sha256-gBN8oxiwoVGf7m3wP5M59g/lSw440jwtORY/TuLN8k4=";
+    sha256 = "sha256-4f8lUin3Cvo+7+Y06b0F7PcTbSOAAAGR5FYXqfLyVqA=";
   };
 
-  npmDepsHash = "sha256-uZufjktC0ce/3pzvnpzVsu4iUWPDDlfmZG5NNfv+u2o=";
+  npmDepsHash = "sha256-iFSAn4nKnGl2E9KKRkBajOLUkILE9UKuMbw6Nrnw1lg=";
 
   postPatch =
     # bash
