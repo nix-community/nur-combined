@@ -14,14 +14,14 @@
   makeDesktopItem,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "anytype";
   version = "0.50.5";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-HLYYuMtgvF0UHHnThEWSpLIZEvLxNrOtkoXEhSAT24A=";
   };
 
@@ -109,7 +109,7 @@ buildNpmPackage rec {
     (makeDesktopItem {
       name = "anytype";
       desktopName = "Anytype";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       icon = "anytype";
       exec = "anytype";
       categories = [ "Utility" ];
@@ -121,10 +121,12 @@ buildNpmPackage rec {
   meta = {
     description = "Official Anytype client";
     homepage = "https://anytype.io";
-    changelog = "https://releases.any.org/desktop-${builtins.replaceStrings [ "." ] [ "" ] version}";
+    changelog = "https://releases.any.org/desktop-${
+      builtins.replaceStrings [ "." ] [ "" ] finalAttrs.version
+    }";
     license = lib.licenses.unfree; # Any Source Available License 1.0
     maintainers = with lib.maintainers; [ kira-bruneau ];
     platforms = lib.platforms.linux;
     mainProgram = "anytype";
   };
-}
+})

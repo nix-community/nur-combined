@@ -8,14 +8,14 @@
   tantivy-go,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "anytype-heart";
   version = "0.44.5";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wSZcDcGPKbtUWf7hYXiQrS8a4sgnbItW7bu4hxQ2yFM=";
   };
 
@@ -81,10 +81,10 @@ buildGoModule rec {
   meta = {
     description = "Shared library for Anytype clients";
     homepage = "https://github.com/anyproto/anytype-heart";
-    changelog = "https://github.com/anyproto/anytype-heart/releases/tag/${src.tag}";
+    changelog = "https://github.com/anyproto/anytype-heart/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.unfree; # Any Source Available License 1.0
     maintainers = with lib.maintainers; [ kira-bruneau ];
     platforms = lib.platforms.linux;
     mainProgram = "anytypeHelper";
   };
-}
+})
