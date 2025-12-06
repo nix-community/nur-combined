@@ -290,12 +290,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "c179160bd4c0b8e631e75b6814553bddcec7ca9e",
-      "sha256": "sha256-rjYR2RTRB2Q4mItvOWVsezdlf2GfcLMoHOB77jA7GXE=",
+      "rev": "be0f4ca4746bb7043d6f770dffe55dc81c0cf56d",
+      "sha256": "sha256-7guh5KJ9RbYCiifH0ERXbIXxoJDxanUAHAf/zux7yU4=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "c179160bd4c0b8e631e75b6814553bddcec7ca9e"
+    "version": "be0f4ca4746bb7043d6f770dffe55dc81c0cf56d"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
