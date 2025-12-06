@@ -4,25 +4,19 @@
   cmake,
   pkg-config,
   kdePackages,
-  rapidfuzz-cpp,
   protobuf,
-  grpc-tools,
   nodejs,
-  minizip-ng,
   cmark-gfm,
   libqalculate,
   ninja,
   lib,
   fetchNpmDeps,
-  protoc-gen-js,
-  rsync,
-  which,
-  autoPatchelfHook,
   writeShellScriptBin,
   minizip,
   qt6,
-  typescript,
+  abseil-cpp,
   wayland,
+  libxml2,
 }:
 
 let
@@ -73,40 +67,28 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
   NIX_CFLAGS_COMPILE = "-O3 -march=native -mtune=native"; # native
 
   nativeBuildInputs = [
-    ts-protoc-gen-wrapper
-    extensionManagerDeps
-    autoPatchelfHook
     cmake
     ninja
     nodejs
     pkg-config
-    qt6.wrapQtAppsHook
-    rapidfuzz-cpp
-    protoc-gen-js
     protobuf
-    grpc-tools
-    which
-    rsync
-    typescript
+    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
+    abseil-cpp
+    cmark-gfm
+    kdePackages.layer-shell-qt
+    kdePackages.qtkeychain
+    libqalculate
+    minizip
+    nodejs
+    protobuf
     qt6.qtbase
     qt6.qtsvg
-    qt6.qttools
     qt6.qtwayland
-    qt6.qtdeclarative
-    qt6.qt5compat
     wayland
-    kdePackages.qtkeychain
-    kdePackages.layer-shell-qt
-    minizip
-    grpc-tools
-    protobuf
-    nodejs
-    minizip-ng
-    cmark-gfm
-    libqalculate
+    libxml2
   ];
 
   configurePhase = ''
