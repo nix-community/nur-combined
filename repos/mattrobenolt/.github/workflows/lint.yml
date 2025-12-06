@@ -1,0 +1,43 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+
+      - name: Check formatting
+        run: |
+          echo "🔍 Checking Nix formatting..."
+          nix develop -c nixpkgs-fmt --check .
+          echo "✓ All files are formatted correctly"
+
+      - name: Run statix
+        run: |
+          echo "🔍 Running statix (checking for anti-patterns)..."
+          nix develop -c just lint
+
+      - name: Summary
+        run: |
+          echo "### ✅ Linting passed!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Formatting is correct" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ No anti-patterns found" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ No unused code detected" >> $GITHUB_STEP_SUMMARY

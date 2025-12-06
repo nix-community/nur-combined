@@ -1,0 +1,71 @@
+name: Verify All Builds
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+
+      - name: Validate flake
+        run: |
+          echo "🔍 Running flake checks..."
+          nix flake check --no-build
+          echo "✓ Flake checks passed"
+
+      - name: Build all Go packages
+        run: |
+          echo "🏗️ Building all Go packages..."
+          nix build .#go-bin --no-link
+          echo "✓ go-bin builds successfully"
+
+          # Build all version-specific packages
+          for pkg in $(nix flake show --json | jq -r '.packages."x86_64-linux" | keys[] | select(startswith("go-bin_"))'); do
+            echo "Building $pkg..."
+            nix build .#$pkg --no-link
+          done
+          echo "✓ All Go packages build successfully"
+
+      - name: Build all zlint packages
+        run: |
+          echo "🏗️ Building zlint packages..."
+          nix build .#zlint --no-link
+          echo "✓ zlint builds successfully"
+
+          nix build .#zlint-unstable --no-link
+          echo "✓ zlint-unstable builds successfully"
+
+      - name: Test binaries
+        run: |
+          echo "🧪 Testing binaries..."
+          nix run .#go-bin -- version
+          echo "✓ go-bin works"
+
+          nix run .#zlint -- --version
+          echo "✓ zlint works"
+
+      - name: Summary
+        run: |
+          echo "### ✅ All packages verified!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Validated:**" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All Go packages build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All zlint packages build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All binaries tested and working" >> $GITHUB_STEP_SUMMARY

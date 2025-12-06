@@ -1,0 +1,96 @@
+name: Update All Packages
+
+on:
+  schedule:
+    # Run daily at 4 AM UTC (after individual updaters)
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+
+      - name: Update all packages
+        run: |
+          echo "📦 Updating all packages..."
+          nix develop -c just update-all
+
+      - name: Check for changes
+        id: verify-diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "### 📝 Changes detected:" >> $GITHUB_STEP_SUMMARY
+            echo '```diff' >> $GITHUB_STEP_SUMMARY
+            git diff >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Validate flake
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🔍 Running flake checks..."
+          nix flake check --no-build
+          echo "✓ Flake checks passed"
+
+      - name: Build all packages
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🏗️ Building all packages to verify updates..."
+
+          # Build Go packages
+          nix build .#go-bin --no-link
+          echo "✓ go-bin builds"
+
+          # Build zlint packages
+          nix build .#zlint --no-link
+          nix build .#zlint-unstable --no-link
+          echo "✓ zlint packages build"
+
+      - name: Test binaries
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🧪 Testing binaries..."
+          nix run .#go-bin -- version
+          nix run .#zlint -- --version
+          echo "✓ All binaries work"
+
+      - name: Commit and push changes
+        if: steps.verify-diff.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update all packages'
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Summary
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "### 🎉 All packages updated and validated!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Validation:**" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All packages build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All binaries tested and working" >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes
+        if: steps.verify-diff.outputs.changed != 'true'
+        run: |
+          echo "### ℹ️ No updates available" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All packages are already up to date." >> $GITHUB_STEP_SUMMARY

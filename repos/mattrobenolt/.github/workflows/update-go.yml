@@ -1,0 +1,83 @@
+name: Update Go Versions
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC (after Go releases typically happen)
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+
+      - name: Run Go update script
+        run: |
+          nix develop -c just update-go
+
+      - name: Check for changes
+        id: verify-diff
+        run: |
+          git diff --quiet pkgs/go/versions.json pkgs/go/hashes.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Validate flake
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🔍 Running flake checks..."
+          nix flake check --no-build
+          echo "✓ Flake checks passed"
+
+      - name: Build and test Go packages
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🏗️ Building Go packages to verify hashes..."
+          nix build .#go --no-link
+          echo "✓ Latest Go builds successfully"
+
+          # Test that Go actually works
+          echo "🧪 Testing Go binary..."
+          nix run .#go -- version
+          echo "✓ Go binary works"
+
+      - name: Commit and push changes
+        if: steps.verify-diff.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update Go versions'
+          file_pattern: 'pkgs/go/versions.json pkgs/go/hashes.json'
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Summary
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "### 🎉 Go versions updated and validated!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Updated versions:**" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat pkgs/go/versions.json >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Validation:**" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All packages build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Go binary tested and working" >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes
+        if: steps.verify-diff.outputs.changed != 'true'
+        run: |
+          echo "### ℹ️ No updates available" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Go versions are already up to date." >> $GITHUB_STEP_SUMMARY
