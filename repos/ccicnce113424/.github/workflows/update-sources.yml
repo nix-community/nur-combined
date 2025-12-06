@@ -39,7 +39,7 @@ jobs:
           pkgs/piliplus/update.sh
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
-          pkgs/splayer-git/update.sh
+          # pkgs/splayer-git/update.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7

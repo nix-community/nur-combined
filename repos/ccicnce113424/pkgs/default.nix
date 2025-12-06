@@ -82,12 +82,12 @@ rec {
 
   inherit (pkgs) splayer;
 
-  splayer-git = pkgs.callPackage ./splayer-git rec {
-    inherit ((lib.importJSON ./splayer-git/src-info.json)) hash;
-    sources = fetchedSrc.splayer-git;
-    version = unstableVersion sources;
-    inherit splayer;
-  };
+  # splayer-git = pkgs.callPackage ./splayer-git rec {
+  #   inherit ((lib.importJSON ./splayer-git/src-info.json)) hash;
+  #   sources = fetchedSrc.splayer-git;
+  #   version = unstableVersion sources;
+  #   inherit splayer;
+  # };
 
   uosc-danmaku = pkgs.mpvScripts.callPackage ./uosc-danmaku rec {
     sources = fetchedSrc.uosc-danmaku;
