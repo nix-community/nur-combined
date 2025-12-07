@@ -71,7 +71,7 @@ in
   services.kanidm = {
     enableServer = true;
     enableClient = true;
-    package = pkgs.kanidmWithSecretProvisioning_1_7;
+    package = pkgs.kanidmWithSecretProvisioning_1_8;
     serverSettings = {
       inherit domain;
       origin = "https://${domain}";
