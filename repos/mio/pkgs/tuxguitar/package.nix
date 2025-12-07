@@ -131,7 +131,20 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/{bin,lib}
     cp -r $TUXGUITAR_DIR $out/lib/tuxguitar
     ln -s $out/lib/tuxguitar/tuxguitar.sh $out/bin/tuxguitar
-    ln -s $out/lib/tuxguitar/share $out/share
+    
+    # Selectively symlink share directories, but filter templates
+    mkdir -p $out/share
+    for dir in $out/lib/tuxguitar/share/*; do
+      if [ "$(basename "$dir")" != "templates" ]; then
+        ln -s "$dir" $out/share/
+      fi
+    done
+    
+    # Only install templates that should appear in "Create New" menu (not localized defaults)
+    mkdir -p $out/share/templates
+    cp $out/lib/tuxguitar/share/templates/template-1.tg $out/share/templates/
+    cp $out/lib/tuxguitar/share/templates/template-2.tg $out/share/templates/
+    cp $out/lib/tuxguitar/share/templates/templates.xml $out/share/templates/
   ''
   + ''
 
