@@ -9302,10 +9302,10 @@
     };
     "nyaa-linker" = buildFirefoxXpiAddon {
       pname = "nyaa-linker";
-      version = "2.3.0";
+      version = "2.4.0";
       addonId = "Metacor.Code@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4561966/nyaa_linker-2.3.0.xpi";
-      sha256 = "ee0fc88fd21230f752a9276e71843ca74d3eeb7778a3466cd5f4438740722446";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4636568/nyaa_linker-2.4.0.xpi";
+      sha256 = "cac38d1bebaba4d6b312cf0514f72330e5e08dce2732d6e1c4b68d3e8860589d";
       meta = with lib;
       {
         description = "Adds a button to Anime and Manga database websites that opens a relevant Nyaa search";
@@ -9320,6 +9320,8 @@
           "*://*.animenewsnetwork.com/encyclopedia/*"
           "*://*.anidb.net/*"
           "*://*.livechart.me/*"
+          "*://*.mangabaka.dev/*"
+          "*://*.mangabaka.org/*"
         ];
         platforms = platforms.all;
       };
@@ -14928,10 +14930,10 @@
     };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.20.0";
+      version = "1.21.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4632114/wallabagger-1.20.0.xpi";
-      sha256 = "a89fce3a96f4743af788d009e4cd0bd42c486b33418bdb3b03e4263e39dd06cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4636437/wallabagger-1.21.0.xpi";
+      sha256 = "2cc409aa3f10358540b89b0db8e37a25bc279478d7ff9528433a9db6e373e190";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
