@@ -57,7 +57,6 @@ let
       no-clone
       xdev
       ipu: 10.78.76.0/22=lan
-      ipu: 127.0.0.1/32=
       no-robots
       i: 10.78.79.22,unix:770:${toString config.users.groups.copyparty-share-socket.gid}:${socketPath}
       ah-alg: argon2
