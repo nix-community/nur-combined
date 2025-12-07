@@ -651,12 +651,12 @@
             "name": null,
             "owner": "imputnet",
             "repo": "helium-linux",
-            "rev": "0.7.1.1",
-            "sha256": "sha256-ZNPOsasN+kxM76TjaOfK9MM3JxU+5y3UxEIPMeV6F18=",
+            "rev": "0.7.2.1",
+            "sha256": "sha256-34H9vYIbjxBZnWk0aulX+p45RS5kv/uuyXDp2HdckDU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.7.1.1"
+        "version": "0.7.2.1"
     },
     "helium-macos": {
         "cargoLock": null,
@@ -807,7 +807,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zrg9kNWP0lvx99F6ch7HNRHWH9ZTTWX3CdbP2d6ih3Q=",
+            "sha256": "sha256-WvXMw02RuwzlycJVNeVxHeDULxtZcrLg0+0HTSSAT6M=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },
