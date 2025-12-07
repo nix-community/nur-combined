@@ -144,6 +144,7 @@ in
     serviceConfig = {
       PrivateUsers = lib.mkForce false;
       BindPaths = [ socketDir ];
+      TimeoutStartSec = "30m";
       SystemCallFilter = lib.mkForce [
         "@system-service"
         "~@clock"
