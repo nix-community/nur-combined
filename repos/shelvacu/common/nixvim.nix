@@ -21,7 +21,7 @@ in
     };
   };
   config = {
-    vacu.nixvimPkg = inputs.self.packages.${pkgs.system}.${nixvim-name};
+    vacu.nixvimPkg = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.${nixvim-name};
     vacu.shell.functions = lib.mkIf (!config.vacu.isMinimal) {
       nvim-plain = ''${pkgs.neovim}/bin/nvim "$@"'';
       nvim-nixvim = ''${config.vacu.nixvimPkg}/bin/nvim "$@"'';

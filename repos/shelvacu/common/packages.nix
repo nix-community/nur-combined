@@ -15,7 +15,7 @@ in
   vacu.packages = lib.mkMerge [
     {
       sanoid.enable = lib.mkIf (vacuModuleType == "nixos" && config.boot.supportedFilesystems.zfs or false) true;
-      borgbackup.enable = config.vacu.isDev && (pkgs.system != "aarch64-linux"); # borgbackup build is borken on aarch64
+      borgbackup.enable = config.vacu.isDev && (pkgs.stdenv.hostPlatform.system != "aarch64-linux"); # borgbackup build is borken on aarch64
       ffmpeg-vacu-full = {
         enable = enableFfmpegFull;
         package = pkgs.ffmpeg-full;
@@ -35,6 +35,7 @@ in
         };
       };
       inkscape-all = {
+        enable = false;
         package = pkgs.inkscape-with-extensions;
         # null actually means everything https://github.com/NixOS/nixpkgs/commit/5efd65b2d94b0ac0cf155e013b6747fa22bc04c3
         overrides.inkscapeExtensions = null;
@@ -93,7 +94,7 @@ in
         gimp
         haruna
         iio-sensor-proxy
-        inkscape-all
+        inkscape
         josm
         kdePackages.elisa
         kdePackages.kdenlive
