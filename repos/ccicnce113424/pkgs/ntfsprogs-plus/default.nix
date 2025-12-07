@@ -6,6 +6,9 @@
   autoreconfHook,
   pkg-config,
   libgcrypt,
+  gnutls,
+  gettext,
+  gitUpdater,
 }:
 stdenv.mkDerivation {
   inherit (sources) pname src;
@@ -23,17 +26,23 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [ libgcrypt ];
+  buildInputs = [
+    libgcrypt
+    gnutls
+  ]
+  ++ lib.optionals (!stdenv.hostPlatform.isGnu) [ gettext ];
 
   configureFlags = [ "--exec-prefix=\${prefix}" ];
 
   enableParallelBuilding = true;
+
+  passthru.updateScript = gitUpdater { };
 
   meta = {
     description = "NTFS filesystem userspace utilities";
     homepage = "https://github.com/ntfsprogs-plus/ntfsprogs-plus";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ ccicnce113424 ];
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
   };
 }

@@ -51,6 +51,6 @@ flutter.buildFlutterApplication {
     mainProgram = "pixes";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ccicnce113424 ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
   };
 }
