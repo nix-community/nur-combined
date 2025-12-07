@@ -7,28 +7,24 @@
   wayland,
   wayland-protocols,
   mesa,
-  libGL,
-  libdrm,
-  libx11,
-  libxrandr,
-  libxcb,
+  libglvnd,
+  vulkan-loader,
 }:
 
-rustPlatform.buildRustPackage (finallAttrs: {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "chameleos";
   version = "0.1.2";
 
-  # https://github.com/Treeniks/chameleos.git
   src = fetchFromGitHub {
     owner = "Treeniks";
     repo = "chameleos";
-    tag = "v${finallAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-zCAYEtDYJm9A+HC9M2XLtz47q+6dcBOVPgh4lmp4z/k=";
   };
 
   cargoHash = "sha256-zBEu/T17W7dwz8jxnXm2NsHaVZo1wDFSW75yiYfRIoY=";
 
-  # 用 substituteInPlace 替换 build.rs 内 git 命令
+  # Remove git/cargo metadata dependency
   postPatch = ''
       cat > build.rs <<'EOF'
     use std::path::Path;
@@ -68,35 +64,30 @@ rustPlatform.buildRustPackage (finallAttrs: {
   '';
 
   nativeBuildInputs = [
-    makeWrapper
     pkg-config
+    makeWrapper
   ];
 
   buildInputs = [
     wayland
     wayland-protocols
     mesa
-    libGL
-    libdrm
-    libx11
-    libxrandr
-    libxcb
+    libglvnd
+    vulkan-loader
   ];
 
   postInstall = ''
-    for bin in chameleos chamel; do
-      wrapProgram $out/bin/$bin \
-        --set WGPU_BACKEND GL \
-        --prefix LD_LIBRARY_PATH : ${mesa}/lib:${libGL}/lib
-    done
+    wrapProgram $out/bin/chameleos \
+      --set WGPU_BACKEND vulkan \
+      --prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib:${mesa}/lib:${libglvnd}/lib
   '';
 
   meta = {
     description = "Screen annotation tool for niri and Hyprland";
     homepage = "https://github.com/Treeniks/chameleos";
     license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "chameleos";
-    broken = true;
   };
 })
