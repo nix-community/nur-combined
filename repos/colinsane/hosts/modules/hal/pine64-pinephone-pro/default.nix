@@ -40,6 +40,9 @@ in
     # boot.kernelPackages = pkgs.linuxPackagesFor myCustomKernel;
     # boot.initrd.extraFiles."/lib".source = "${config.system.modulesTree}/lib";
 
+    # XXX(2025-12-06): kernel 6.18 breaks WiFi
+    boot.kernelPackages = pkgs.linuxPackages_6_17;
+
     # Pinephone Pro bootloader locations: <https://wiki.pine64.org/wiki/RK3399_boot_sequence#U-Boot_boot_sequence>
     # we need space in the GPT header to place u-boot.
     # only actually need 1 MB, but better to over-allocate than under-allocate

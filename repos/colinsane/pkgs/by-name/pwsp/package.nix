@@ -10,24 +10,26 @@
   rustPlatform,
   vulkan-loader,
   wayland,
+  copyDesktopItems,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pwsp";
-  version = "1.1.2";
+  version = "1.1.3";
 
   src = fetchFromGitHub {
     owner = "arabianq";
     repo = "pipewire-soundpad";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-L5angjuk7TTs2ZxyHc+kkvDsYH6drYKn8cU+vJV89Es=";
+    hash = "sha256-sxd8SxAGPsAIoEMHLSfOSy8sLFN9qby+6cgqTU/zZXQ=";
   };
 
-  cargoHash = "sha256-vs2LJGiodarXXcT8LR4bTwSTr4Co+u9h2i/DGTwIUbM=";
+  cargoHash = "sha256-SWEvQjqmGlt9IuY6KKT3En453fOsneNvNfJtMTdwWmc=";
 
   nativeBuildInputs = [
     pkg-config
     rustPlatform.bindgenHook
+    copyDesktopItems
   ];
 
   buildInputs = [
@@ -40,8 +42,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     wayland
   ];
 
+  desktopItems = [
+    "assets/pwsp-gui.desktop"
+  ];
+
   postInstall = ''
-    install -Dm644 assets/pwsp-gui.desktop $out/share/applications/pwsp.desktop
     install -Dm644 assets/icon.png $out/share/icons/hicolor/256x256/apps/pwsp.png
     install -Dm644 assets/pwsp-daemon.service $out/lib/systemd/user/pwsp-daemon.service
   '';
