@@ -1,11 +1,11 @@
 {stdenvNoCC, lib, fetchurl, perl, maintainers}: stdenvNoCC.mkDerivation rec {
     pname = "man2html";
-    version = "3.0.1-unstable-2025-10-05";
+    version = "3.0.1-unstable-2025-12-06";
     src = let
         shortDate = lib.concatStrings (lib.lists.drop 4 (builtins.splitVersion version));
     in fetchurl {
         url = "https://invisible-island.net/archives/man2html/man2html-${shortDate}.tgz";
-        hash = "sha256-O8wWQoZfyU7qIyrUZTpvVAZhfpZ+AT3IRoTQo8/22zw=";
+        hash = "sha256-b2rrDscD5GeJNDLLtFF4zlOfuDQZ+E4cM4PhLP8QWqs=";
     };
     nativeBuildInputs = [perl];
     buildInputs = [perl];
