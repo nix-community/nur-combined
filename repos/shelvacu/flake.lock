@@ -44,11 +44,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1761027464,
-        "narHash": "sha256-8V0ikhLg82OzMCNaYAWG1hM6UlwnlMqmi4fEHEOcHW4=",
+        "lastModified": 1765095270,
+        "narHash": "sha256-J5HvzYBG/HhwoUGKZ3hjHwfSH8Vbh0d8LCYwZ4zkX74=",
         "owner": "shelvacu-forks",
         "repo": "declarative-jellyfin",
-        "rev": "3480bd9e9450c610c6b51e982eea7595dc4ea699",
+        "rev": "15819f7293b992db50b364f30c0a03f06d828f5d",
         "type": "github"
       },
       "original": {
