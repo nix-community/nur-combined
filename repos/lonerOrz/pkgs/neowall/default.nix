@@ -1,6 +1,5 @@
 {
   stdenv,
-  gcc,
   pkg-config,
   fetchFromGitHub,
   lib,
@@ -16,7 +15,6 @@ stdenv.mkDerivation (finallAttrs: {
   pname = "neowall";
   version = "0.4.2";
 
-  # github:1ay1/neowall.git
   src = fetchFromGitHub {
     owner = "1ay1";
     repo = "neowall";
@@ -24,16 +22,9 @@ stdenv.mkDerivation (finallAttrs: {
     hash = "sha256-q/M79ol4l4YIsewP50/6I2C5zKmF1Bc4mgIC896qxPY=";
   };
 
-  PKG_CONFIG_PATH = lib.strings.makeSearchPath "lib/pkgconfig" [
-    mesa
-    libglvnd
-    wayland
-  ];
-
   nativeBuildInputs = [
     pkg-config
     wayland-scanner
-    gcc
   ];
 
   buildInputs = [
@@ -44,22 +35,10 @@ stdenv.mkDerivation (finallAttrs: {
     libjpeg
   ];
 
-  installPhase = ''
-    mkdir -p $out/bin
-    install -Dm755 build/bin/neowall $out/bin/neowall
-
-    mkdir -p $out/share/neowall
-    install -Dm644 config/config.vibe $out/share/neowall/config.vibe
-    install -Dm644 config/neowall.vibe $out/share/neowall/neowall.vibe
-
-    mkdir -p $out/share/neowall/shaders
-    install -m644 examples/shaders/*.glsl $out/share/neowall/shaders/
-
-    mkdir -p $out/share/licenses/${finallAttrs.pname}
-    install -m644 LICENSE $out/share/licenses/${finallAttrs.pname}/LICENSE
-  '';
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = {
+    changelog = "https://github.com/1ay1/neowall/releases/tag/${finallAttrs.src.tag}";
     description = "GPU shader wallpapers for Wayland";
     homepage = "https://github.com/1ay1/neowall";
     license = lib.licenses.mit;
