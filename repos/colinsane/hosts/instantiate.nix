@@ -25,4 +25,8 @@
     (lib.mkIf (variant == "min") { maxBuildCost = 0; })
     (lib.mkIf (variant == "light") { maxBuildCost = 2; })
   ];
+
+  # XXX(2025-12-07): nixpkgs.overlays must be non-empty else eval will fail in WEIRD ways.
+  # maybe this only affects cross compilation? unclear.
+  nixpkgs.overlays = [(self: super: {})];
 }

@@ -115,17 +115,19 @@ let
     inherit (cargo) meta;
   };
 in with final; {
-  armTrustedFirmwareRK3399 = prev.armTrustedFirmwareRK3399.overrideAttrs (upstream: {
-    # 2025-10-06: fixes "arm-none-eabi-ld: /build/source/build/rk3399/release/m0/rk3399m0pmu.elf: error: PHDR segment not covered by LOAD segment".
-    # TODO: send this to upstream arm-trusted-firmware, then PR a cherry-pick into nixpkgs
-    patches = (upstream.patches or []) ++ [
-      (pkgs.fetchpatch2 {
-        name = "fix(rockchip): set no-pie option when building m0 elf file";
-        url = "https://git.uninsane.org/colin/arm-trusted-firmare/commit/c192c366b8c423a6bf4293573fccfc258e801c87.patch";
-        hash = "sha256-oXAJe3pahe3dnYfpmmW8KbSpN8XIzc1Zpm1CvXNrnAY=";
-      })
-    ];
-  });
+  # 2025/12/07: appears to be no longer required
+  # armTrustedFirmwareRK3399 = prev.armTrustedFirmwareRK3399.overrideAttrs (upstream: {
+  #   # 2025-10-06: fixes "arm-none-eabi-ld: /build/source/build/rk3399/release/m0/rk3399m0pmu.elf: error: PHDR segment not covered by LOAD segment".
+  #   # TODO: send this to upstream arm-trusted-firmware, then PR a cherry-pick into nixpkgs
+  #   patches = (upstream.patches or []) ++ [
+  #     (pkgs.fetchpatch2 {
+  #       name = "fix(rockchip): set no-pie option when building m0 elf file";
+  #       url = "https://git.uninsane.org/colin/arm-trusted-firmare/commit/c192c366b8c423a6bf4293573fccfc258e801c87.patch";
+  #       hash = "sha256-oXAJe3pahe3dnYfpmmW8KbSpN8XIzc1Zpm1CvXNrnAY=";
+  #     })
+  #   ];
+  # });
+
   # binutils = prev.binutils.override {
   #   # fix that resulting binary files would specify build #!sh as their interpreter.
   #   # dtrx is the primary beneficiary of this.
@@ -136,7 +138,7 @@ in with final; {
   # };
 
 
-  # 2025/08/31: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
+  # 2025/12/07: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
   confy = prev.confy.overrideAttrs (upstream: {
     # meson's `python.find_installation` method somehow just doesn't support cross compilation.
     # - <https://mesonbuild.com/Python-module.html#find_installation>
@@ -167,14 +169,14 @@ in with final; {
   #   cargo = crossCargo;
   # };
 
-  # 2025/08/31: upstreaming is blocked on mailutils -> gss -> shishi
+  # 2025/12/07: upstreaming is blocked on mailutils -> gss -> shishi
   # emacs = prev.emacs.override {
   #   nativeComp = false;  # will be renamed to `withNativeCompilation` in future
   #   # future: we can specify 'action-if-cross-compiling' to actually invoke the test programs:
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
 
-  # 2025/08/31: upstreaming is unblocked
+  # 2025/12/07: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
   #   # firejail executes its build outputs to produce the default filter list.
   #   # i think we *could* copy the default filters from pkgsBuildBuild, but that doesn't seem future proof
@@ -188,7 +190,7 @@ in with final; {
   #   '');
   # });
 
-  # 2025/08/31: upstreaming is unblocked
+  # 2025/12/07: upstreaming is unblocked
   # flare-signal = prev.flare-signal.overrideAttrs (upstream: {
   #    env = let
   #      inherit buildPackages stdenv rust;
@@ -244,7 +246,7 @@ in with final; {
   #   ];
   # });
 
-  # 2025/07/27: upstreaming is unblocked
+  # 2025/12/07: upstreaming is unblocked
   # # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
   # gnustep-base = prev.gnustep-base.overrideAttrs (upstream: {
   #   # fixes: "checking FFI library usage... ./configure: line 11028: pkg-config: command not found"
@@ -252,6 +254,7 @@ in with final; {
   #   buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
   # });
 
+  # 2025/12/07: hyprland is blocked on hyprland-qtutils -> hyprland-qt-support
   # hyprland = prev.hyprland.override {
   #   # 2025/07/18: NOT FOR UPSTREAM.
   #   # hyprland uses gcc15Stdenv, with mold patch -> doesn't apply when cross compiling.
@@ -260,14 +263,14 @@ in with final; {
   #   # stdenv = prev.stdenv;
   # };
   # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
-  hyprland = null;
+  # hyprland = null;
 
   # 2025/07/27: blocked on hyprutils, hyprlang, hyprland-qt.
   # used by hyprland (which is an indirect dep of waybar, nwg-panel, etc),
   # which it shells out to at runtime (and hence, not ever used by me).
   hyprland-qtutils = null;
 
-  # 2025/07/27: upstreaming is blocked on java-service-wrapper
+  # 2025/12/07: upstreaming is blocked on java-service-wrapper
   # "setup: line 1595: ant: command not found"
   # i2p = mvToNativeInputs [ ant gettext ] prev.i2p;
 
@@ -299,11 +302,9 @@ in with final; {
   #   nativeBuildInputs = lib.remove [ qt6.wrapQtAppsHook ] upstream.nativeBuildInputs;
   # });
 
-  # 2025/09/06: upstreaming is blocked on xdp-tools; out for PR: <https://github.com/NixOS/nixpkgs/pull/442827>
-  # knot-dns = addNativeInputs [ buildPackages.protobufc ] prev.knot-dns;
-
   # lemoa = prev.lemoa.override { cargo = crossCargo; };
 
+  # 2025/12/07: upstreaming is unblocked
   libglycin = prev.libglycin.override {
     cargo = crossCargo;
   };
@@ -322,7 +323,7 @@ in with final; {
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
   # });
 
-  # 2024/11/19: upstreaming is unblocked
+  # 2025/12/07: upstreaming is unblocked
   mepo = (prev.mepo.override {
     # nixpkgs mepo correctly puts `zig_0_13.hook` in nativeBuildInputs,
     # but for some reason that tries to use the host zig instead of the build zig.
@@ -357,7 +358,7 @@ in with final; {
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
-  # 2025/07/27: upstreaming is unblocked by deps; but turns out to not be this simple
+  # 2025/12/07: upstreaming is unblocked by deps; but turns out to not be this simple
   # ncftp = addNativeInputs [ bintools ] prev.ncftp;
 
   # fixes "properties/gresource.xml: Permission denied"
@@ -452,11 +453,6 @@ in with final; {
       "--cxx-for-configure=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
     ];
   });
-
-  # 2025/08/31: upstreaming is unblocked; out for review: <https://github.com/NixOS/nixpkgs/pull/437704>
-  # papers = prev.papers.override {
-  #   cargo = crossCargo;
-  # };
 
   # 2025/07/27: upstreaming is blocked on gnome-session (itself blocked on gnome-shell)
   # phosh = prev.phosh.overrideAttrs (upstream: {
@@ -646,18 +642,7 @@ in with final; {
   #   # '';
   # });
 
-  # 2025/08/26: upstreaming is unblocked; implemented on desko `pr-snapshot-cross` branch
-  # snapshot = prev.snapshot.override {
-  #   # fixes "error: linker `cc` not found"
-  #   cargo = crossCargo;
-  # };
-
-  # 2025/08/26: upstreaming is unblocked; patched on desko branch `pr-spot-cross`
-  # spot = prev.spot.override {
-  #   cargo = crossCargo;
-  # };
-
-  # 2025/07/27: upstreaming is unblocked
+  # 2025/12/07: upstreaming is unblocked
   # squeekboard = prev.squeekboard.overrideAttrs (upstream: {
   #   # fixes: "meson.build:1:0: ERROR: 'rust' compiler binary not defined in cross or native file"
   #   # new error: "meson.build:1:0: ERROR: Rust compiler rustc --target aarch64-unknown-linux-gnu -C linker=aarch64-unknown-linux-gnu-gcc can not compile programs."
@@ -701,10 +686,10 @@ in with final; {
   #   ];
   # });
 
-  # 2025/08/31: upstreaming blocked on gvfs -> udisks -> libblockdev -> {thin-provisioning-tools,libndctl -> ... -> ruby}
+  # 2025/12/07: upstreaming blocked on gvfs -> udisks -> libblockdev -> libndctl -> iniparser (which can't find ruby)
   swaynotificationcenter = mvToNativeInputs [ buildPackages.wayland-scanner ] prev.swaynotificationcenter;
 
-  # 2025/07/27: upstreaming is unblocked
+  # 2025/12/07: upstreaming is unblocked
   tangram = prev.tangram.overrideAttrs (upstream: {
     # gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs.
     # the proper way to patch this for nixpkgs is:
@@ -733,7 +718,7 @@ in with final; {
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
-  # 2025/04/04: upstreaming is blocked on gnustep-base cross compilation
+  # 2025/12/07: upstreaming is blocked on gnustep-base cross compilation
   # unar = addNativeInputs [ bintools ] prev.unar;
 
   # unixODBCDrivers = prev.unixODBCDrivers // {
@@ -752,18 +737,13 @@ in with final; {
   #   });
   # };
 
-  # 2025/08/26: upstreaming is unblocked; implemented on desko branch `pr-video-trimmer-cross`
-  # video-trimmer = prev.video-trimmer.override {
-  #   cargo = crossCargo;
-  # };
-
-  # 2025/01/13: upstreaming is blocked on arrow-cpp, python-pyarrow, python-contourpy, python-matplotlib, python-h5py, python-pandas, google-cloud-cpp
+  # 2025/12/07: upstreaming is blocked on h5py, pyarrow/arrow-cpp, thrift, apache-orc, google-cloud-cpp
   # visidata = prev.visidata.override {
   #   # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.
   #   # setting this to null means visidata will work as normal but not be able to load hdf files.
   #   h5py = null;
   # };
-  # 2025/07/27: upstreaming is blocked on qtsvg, qtx11extras
+  # 2025/12/07: upstreaming is blocked on qtsvg, qtx11extras
   # vlc = prev.vlc.overrideAttrs (orig: {
   #   # fixes: "configure: error: could not find the LUA byte compiler"
   #   # fixes: "configure: error: protoc compiler needed for chromecast was not found"
@@ -775,7 +755,7 @@ in with final; {
   #   };
   # });
 
-  # 2025/10/23: upstreaming is unblocked, but i don't like this solution.
+  # 2025/12/07: upstreaming is unblocked, but i don't like this solution.
   vulkan-tools = prev.vulkan-tools.overrideAttrs (orig: {
     # alternatively: set `strictDeps = false;` (as is the default for vulkan-tools when *not* cross-compiling).
     # cmake seems to just not have any way to disambiguate host and build dependencies when using `pkg_check_modules`
@@ -785,7 +765,7 @@ in with final; {
     };
   });
 
-  # 2025/07/27: upstreaming is blocked on ruby
+  # 2025/12/07: upstreaming is unblocked
   # fixes `hostPrograms.moby.neovim` (but breaks eval of `hostPkgs.moby.neovim` :o)
   # wrapNeovimUnstable = neovim: config: (prev.wrapNeovimUnstable neovim config).overrideAttrs (upstream: {
   #   # nvim wrapper has a sanity check that the plugins will load correctly.
@@ -797,16 +777,10 @@ in with final; {
   #     upstream.postBuild;
   # });
 
+  # 2025/12/07: upstreaming is unblocked, out for review: <https://github.com/NixOS/nixpkgs/pull/468846>
   # fixes
   # > The system library `glib-2.0` required by crate `glib-sys` was not found.
-  xdg-desktop-portal-cosmic = addBuildInputs [ glib ] prev.xdg-desktop-portal-cosmic;
-
-  # 2025/09/06: upstreaming is unblocked; out for PR: <https://github.com/NixOS/nixpkgs/pull/442827>
-  # xdp-tools = prev.xdp-tools.overrideAttrs {
-  #   # when cross compiling, `clang` packages ships binary as `aarch64-...-clang` (wrapper),
-  #   # and xdp-tools `configure` detects the unwrapped `clang` instead, doesn't receive nix flags
-  #   CLANG = lib.getExe buildPackages.llvmPackages.clang;
-  # };
+  # xdg-desktop-portal-cosmic = addBuildInputs [ glib ] prev.xdg-desktop-portal-cosmic;
 
   yt-dlp = prev.yt-dlp.override {
     # TODO(2025-11-17): yt-dlp needs deno (JavaScript) for full capability:
