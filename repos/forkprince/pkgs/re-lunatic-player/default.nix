@@ -9,7 +9,7 @@
   electron,
   alsa-lib,
   fetchzip,
-  libgbm,
+  mesa,
   cairo,
   xorg,
   cups,
@@ -48,7 +48,7 @@ in
         electron
         glib
         gtk3
-        libgbm
+        mesa
         libxkbcommon
         nss
       ]

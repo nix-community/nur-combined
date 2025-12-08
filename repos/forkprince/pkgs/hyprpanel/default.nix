@@ -14,7 +14,7 @@
   glib,
   lib,
 }:
-buildGoModule (finalAttrs: rec {
+buildGoModule rec {
   pname = "hyprpanel";
   version = "0.3.0";
 
@@ -34,7 +34,7 @@ buildGoModule (finalAttrs: rec {
   patches = [./fix-library.patch];
 
   postInstall = ''
-    libPath="${finalAttrs.passthru.libraryPath}/lib"
+    libPath="${passthru.libraryPath}/lib"
 
     wrapProgram $out/bin/${pname} \
       --set PUREGOTK_LIB_FOLDER $libPath \
@@ -71,4 +71,4 @@ buildGoModule (finalAttrs: rec {
     mainProgram = "hyprpanel";
     sourceProvenance = with lib.sourceTypes; [fromSource];
   };
-})
+}
