@@ -2825,10 +2825,10 @@
   "amber": {
     "nurl": {
       "args": {
-        "hash": "sha256-MGzTBXu0E4ZFW4Dmg5CMGR4SmwbVaHFEKl1A9K9Q7og=",
+        "hash": "sha256-PqEqaye/RmGCmNnJaq2zboMaOvpa/8CmuFz6pBav5Qs=",
         "owner": "amber-lang",
         "repo": "tree-sitter-amber",
-        "rev": "c6df3ec2ec243ed76550c525e7ac3d9a10c6c814"
+        "rev": "dc69f42449fd3c807bacefa398263f62e581f755"
       },
       "fetcher": "fetchFromGitHub"
     },
