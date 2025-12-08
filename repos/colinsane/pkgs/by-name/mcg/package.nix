@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, desktop-file-utils
-, fetchFromGitLab
-, gettext
-, glib
-, gobject-introspection
-, gtk3
-, meson
-, ninja
-, python3
-, wrapGAppsHook3
+{
+  desktop-file-utils,
+  fetchFromGitLab,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtk3,
+  lib,
+  meson,
+  ninja,
+  python3,
+  stdenv,
+  wrapGAppsHook3,
 }:
 let
   # optional deps: avahi, python-keyring

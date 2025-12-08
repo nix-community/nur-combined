@@ -1,15 +1,16 @@
-{ lib
-, linux ? linux_6_1, linux_6_1
-, linuxManualConfig
-, optimizeForSize ? false
-, useEdpPanel ? false  #< use `edp-panel` driver in snow device tree (fails to fix graphics)
-, revertPanelSimplePatch ? false  #< revert the commit which removed B116XW03 panel from panel-edp driver (fixes display output)
-, sane-kernel-tools
-, writeTextFile
+{
+  lib,
+  linux ? linux_6_1, linux_6_1,
+  linuxManualConfig,
+  optimizeForSize ? false,
+  useEdpPanel ? false,  #< use `edp-panel` driver in snow device tree (fails to fix graphics)
+  revertPanelSimplePatch ? false,  #< revert the commit which removed B116XW03 panel from panel-edp driver (fixes display output)
+  sane-kernel-tools,
+  writeTextFile,
 #v nixpkgs calls `.override` on the kernel to configure additional things
-, features ? []
-, randstructSeed ? ""
-, ...
+  features ? [],
+  randstructSeed ? "",
+  ...
 }@args:
 
 let

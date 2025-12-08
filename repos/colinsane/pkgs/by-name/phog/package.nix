@@ -1,32 +1,33 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, gcr
-, gitUpdater
-, glib
-, gnome-desktop
-, gtk3
-, libgudev
-, libjson
-, json-glib
-, libhandy
-, networkmanager
-, linux-pam
-, systemd
-, upower
-, wayland
-, libxkbcommon
-, python3
-, phoc
-, bash
-, gnome-shell
-, squeekboard ? null
-, wayland-scanner
-, wrapGAppsHook3
+{
+  bash,
+  fetchFromGitLab,
+  fetchpatch,
+  gcr,
+  gitUpdater,
+  glib,
+  gnome-desktop,
+  gnome-shell,
+  gtk3,
+  json-glib,
+  lib,
+  libgudev,
+  libhandy,
+  libjson,
+  libxkbcommon,
+  linux-pam,
+  meson,
+  networkmanager,
+  ninja,
+  phoc,
+  pkg-config,
+  python3,
+  squeekboard ? null,
+  stdenv,
+  systemd,
+  upower,
+  wayland,
+  wayland-scanner,
+  wrapGAppsHook3,
 }:
 
 stdenv.mkDerivation rec {

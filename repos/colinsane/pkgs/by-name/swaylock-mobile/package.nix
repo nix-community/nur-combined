@@ -2,20 +2,22 @@
 # - it unlocks via physical keyboard
 # - pressing the OSK results in... nothing (on my laptop)
 #   maybe it's listening only on a single input device?
-{ lib, stdenv
-, cairo
-, fetchFromGitea
-, gdk-pixbuf
-, libxcrypt
-, libxkbcommon
-, meson
-, ninja
-, pam
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
+{
+  cairo,
+  fetchFromGitea,
+  gdk-pixbuf,
+  lib,
+  libxcrypt,
+  libxkbcommon,
+  meson,
+  ninja,
+  pam,
+  pkg-config,
+  scdoc,
+  stdenv,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
 }:
 stdenv.mkDerivation {
   pname = "swaylock-mobile";

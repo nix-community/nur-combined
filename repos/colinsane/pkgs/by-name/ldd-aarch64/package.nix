@@ -1,5 +1,6 @@
-{ linkFarm
-, pkgsCross
+{
+  linkFarm,
+  pkgsCross,
 }:
 
 linkFarm "ldd-aarch64" [{

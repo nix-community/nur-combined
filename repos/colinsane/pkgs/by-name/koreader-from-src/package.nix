@@ -23,52 +23,53 @@
 #
 # TODO:
 # - don't vendor fonts
-{ lib
-, autoPatchelfHook
-, autoconf
-, automake
-, buildPackages
-, cmake
-, fetchFromGitHub
-, fetchFromGitLab
-, fetchurl
-, gettext
-, git
-, libtool
-, luajit
-, makeBinaryWrapper
-, pkg-config
-, stdenv
-, symlinkJoin
+{
+  lib,
+  autoPatchelfHook,
+  autoconf,
+  automake,
+  buildPackages,
+  cmake,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchurl,
+  gettext,
+  git,
+  libtool,
+  luajit,
+  makeBinaryWrapper,
+  pkg-config,
+  stdenv,
+  symlinkJoin,
 
 # third-party dependencies which KOReader would ordinarily vendor
-, curl
-, czmq
-, djvulibre
-, dropbear
-, freetype
-, fribidi
-# , gettext
-, giflib
-, glib
-, gnutar
-, harfbuzz
-, libiconvReal
-, libjpeg_turbo
-, libpng
-, libunibreak
-, libwebp
-, nanosvg
-, openssl
-, openssh
-, sdcv
-, SDL2  # koreader doesn't actually vendor this, just expects it'll magically be available
-, sqlite
-, utf8proc
-, zlib
-, zeromq4
-, zstd
-, zsync
+  curl,
+  czmq,
+  djvulibre,
+  dropbear,
+  freetype,
+  fribidi,
+#   gettext,
+  giflib,
+  glib,
+  gnutar,
+  harfbuzz,
+  libiconvReal,
+  libjpeg_turbo,
+  libpng,
+  libunibreak,
+  libwebp,
+  nanosvg,
+  openssl,
+  openssh,
+  sdcv,
+  SDL2,  # koreader doesn't actually vendor this, just expects it'll magically be available
+  sqlite,
+  utf8proc,
+  zlib,
+  zeromq4,
+  zstd,
+  zsync,
 }:
 let
   sourcesFor = pins: rec {

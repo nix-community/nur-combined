@@ -1,7 +1,8 @@
-{ static-nix-shell
-, hostname-debian
-, iw
-, wirelesstools
+{
+  hostname-debian,
+  iw,
+  static-nix-shell,
+  wirelesstools,
 }:
 
 static-nix-shell.mkPython3 {

@@ -1,12 +1,13 @@
-{ lib
-, buildLinux
-, fetchFromGitLab
+{
+  buildLinux,
+  fetchFromGitLab,
+  lib,
 #v nixpkgs calls `.override` on the kernel to configure additional things
-, features ? {}
-, kernelPatches ? null
-, randstructSeed ? ""
-, structuredExtraConfig ? {}
-, ...
+  features ? {},
+  kernelPatches ? null,
+  randstructSeed ? "",
+  structuredExtraConfig ? {},
+  ...
 }:
 buildLinux ({
   src = fetchFromGitLab {

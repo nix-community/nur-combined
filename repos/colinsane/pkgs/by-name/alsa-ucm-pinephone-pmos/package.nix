@@ -1,9 +1,10 @@
 # see: https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/main/device-pine64-pinephone/
 # - APKBUILD and ucm/ files
-{ alsa-ucm-conf
-, lib
-, fetchFromGitLab
-, preferEarpiece ? false
+{
+  alsa-ucm-conf,
+  lib,
+  fetchFromGitLab,
+  preferEarpiece ? false,
 }:
 let
   pmaports = fetchFromGitLab {

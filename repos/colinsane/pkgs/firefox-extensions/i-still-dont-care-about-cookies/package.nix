@@ -8,12 +8,12 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "i-still-dont-care-about-cookies";
-  version = "1.1.8";
+  version = "1.1.9";
   src = fetchFromGitHub {
     owner = "OhMyGuus";
     repo = "I-Still-Dont-Care-About-Cookies";
     rev = "v${version}";
-    hash = "sha256-ZM7b/wtuAqWejf5KZU1OjDS2aEO95bqHFVV6r+KtvW8=";
+    hash = "sha256-bhrRS73l0124Xl54czIh6nJiqcjZRa3C19GuN4T+gu8=";
   };
 
   nativeBuildInputs = [

@@ -1,9 +1,10 @@
-{ stdenv
-, glib-networking
-, gobject-introspection
-, libgweather
-, python3
-, wrapGAppsNoGuiHook
+{
+  glib-networking,
+  gobject-introspection,
+  libgweather,
+  python3,
+  stdenv,
+  wrapGAppsNoGuiHook,
 }:
 
 let

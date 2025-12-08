@@ -1,12 +1,13 @@
 # earlier attempt to upstream: <https://github.com/NixOS/nixpkgs/pull/211874>
-{ lib
-, bash
-, fetchFromGitHub
-, fpm
-, jq
-, pandoc
-, shunit2
-, stdenv
+{
+  bash,
+  fetchFromGitHub,
+  fpm,
+  jq,
+  lib,
+  pandoc,
+  shunit2,
+  stdenv,
 }:
 
 stdenv.mkDerivation rec {

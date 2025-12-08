@@ -5,9 +5,10 @@
 # - "internal earpiece" works.
 # - "internal speaker" doesn't work (but that's probably because i broke the ribbon cable)
 # - "analog output" doesn't work.
-{ alsa-ucm-conf
-, lib
-, preferEarpiece ? false
+{
+  alsa-ucm-conf,
+  lib,
+  preferEarpiece ? false,
 }:
 alsa-ucm-conf.overrideAttrs (upstream: {
   postPatch = (upstream.postPatch or "") + ''

@@ -1,8 +1,11 @@
-{ pkgs
-, fetchFromGitHub
-, nix-update-script
+{
+  fetchFromGitHub,
+  nix-update-script,
+  pkgs,
 }:
 let
+  # nix-update-script insists on this weird `assets-` version format
+  version = "assets-unstable-2025-12-07";
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "sops-nix";
@@ -19,9 +22,8 @@ let
 in src.overrideAttrs (base: {
   # attributes required by update scripts
   pname = "sops-nix";
-  # nix-update-script insists on this weird `assets-` version format
-  version = "assets-unstable-2025-12-07";
   src = src;
+  version = version;
 
   passthru = base.passthru
     // (overlay final pkgs)

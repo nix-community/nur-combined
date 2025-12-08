@@ -1,8 +1,8 @@
 # based on: <https://github.com/fort-nix/nix-bitcoin/pull/462>
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildGoModule
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
 }:
 
 buildGoModule rec {

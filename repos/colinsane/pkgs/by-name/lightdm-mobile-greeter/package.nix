@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitea
-, gtk3
-, libhandy
-, lightdm
-, pkgs
-, linkFarm
-, pkg-config
-, rustPlatform
+{
+  fetchFromGitea,
+  gtk3,
+  lib,
+  libhandy,
+  lightdm,
+  linkFarm,
+  pkg-config,
+  pkgs,
+  rustPlatform,
 }:
 
 rustPlatform.buildRustPackage rec {

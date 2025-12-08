@@ -3,38 +3,40 @@
 # - gets to 412/703, then fails when compiling all the src/client/ vala files
 #   basic stuff like `Gtk.BindingSet` could not be found; `Gtk.Container`, `Gtk.EventButton`, `Gtk.Menu`...
 # - seems i have been mislead by the commit messages/discussion and this port is only halfway to buildable.
-{ lib, stdenv
-, appstream-glib
-, desktop-file-utils
-, enchant2
-, fetchFromGitLab
-, folks
-, gcr_4
-, gmime3
-, gnome-online-accounts
-, gobject-introspection
-, gsound
-, gspell
-, gtk4
-, icu
-, isocodes
-, itstool
-, json-glib
-, libadwaita
-, libpeas
-, libsecret
-, libstemmer
-, libunwind
-, libxml2
-, libytnef
-, meson
-, ninja
-, pkg-config
-, python3
-, sqlite
-, vala
-, webkitgtk_6_0
-, wrapGAppsHook4
+{
+  appstream-glib,
+  desktop-file-utils,
+  enchant2,
+  fetchFromGitLab,
+  folks,
+  gcr_4,
+  gmime3,
+  gnome-online-accounts,
+  gobject-introspection,
+  gsound,
+  gspell,
+  gtk4,
+  icu,
+  isocodes,
+  itstool,
+  json-glib,
+  lib,
+  libadwaita,
+  libpeas,
+  libsecret,
+  libstemmer,
+  libunwind,
+  libxml2,
+  libytnef,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  sqlite,
+  stdenv,
+  vala,
+  webkitgtk_6_0,
+  wrapGAppsHook4,
 }:
 stdenv.mkDerivation {
   pname = "geary-gtk4";

@@ -4,17 +4,19 @@
 # - flake.nix/default.nix
 # - runs outside flatpak
 # - more logging
-{ lib, stdenv
-, desktop-file-utils
-, fetchFromGitHub
-, gitUpdater
-, gobject-introspection
-, gtk4
-, libadwaita
-, meson
-, ninja
-, python3
-, wrapGAppsHook4
+{
+  desktop-file-utils,
+  fetchFromGitHub,
+  gitUpdater,
+  gobject-introspection,
+  gtk4,
+  lib,
+  libadwaita,
+  meson,
+  ninja,
+  python3,
+  stdenv,
+  wrapGAppsHook4,
 }:
 
 let

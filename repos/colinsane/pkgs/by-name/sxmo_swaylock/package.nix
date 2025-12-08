@@ -3,20 +3,22 @@
 # - pressing the OSK results in... nothing (on my laptop)
 #   maybe it's listening only on a single input device?
 #   maybe it's incompatible with pam mode, somehow?
-{ lib, stdenv
-, cairo
-, fetchFromGitHub
-, gdk-pixbuf
-, libxcrypt
-, libxkbcommon
-, meson
-, ninja
-, pam
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
+{
+  cairo,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  lib,
+  libxcrypt,
+  libxkbcommon,
+  meson,
+  ninja,
+  pam,
+  pkg-config,
+  scdoc,
+  stdenv,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
 }:
 stdenv.mkDerivation rec {
   pname = "sxmo_swaylock";

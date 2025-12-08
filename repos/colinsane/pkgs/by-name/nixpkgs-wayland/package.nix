@@ -1,14 +1,16 @@
-{ pkgs
-, fetchFromGitHub
-, lib
-, nix-update-script
+{
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+  pkgs,
 }:
 let
+  version = "0-unstable-2025-12-08";
   src = fetchFromGitHub {
     owner = "nix-community";
     repo = "nixpkgs-wayland";
-    rev = "c512ba1a927b411ddecb6205c94865dabfdf0781";
-    hash = "sha256-hLWfu8HgMe4OJGSLaBURpfHHAm9tCQJi8DGth0rfZdc=";
+    rev = "b8d42960897d2141ae5ac69a0d32f918c4be2f37";
+    hash = "sha256-94rNAuSPp3IESrzVtH1saE7/U8XGjX0CEdfJG2WFixY=";
   };
   flake = import "${src}/flake.nix";
   evaluated = flake.outputs {
@@ -25,8 +27,8 @@ let
 in src.overrideAttrs (base: {
   # attributes required by update scripts
   pname = "nixpkgs-wayland";
-  version = "0-unstable-2025-12-07";
   src = src;
+  version = version;
 
   # passthru only nixpkgs-wayland's own packages -- not the whole nixpkgs-with-nixpkgs-wayland-as-overlay:
   passthru = base.passthru // (overlay final pkgs) // {
