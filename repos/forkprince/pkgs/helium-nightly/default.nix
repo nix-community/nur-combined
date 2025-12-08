@@ -9,7 +9,7 @@
 
   inherit (info) version;
 
-  platform = lib.getAttr pkgs.system info.platforms;
+  platform = lib.getAttr pkgs.stdenv.hostPlatform.system info.platforms;
 
   filename = lib.replaceStrings ["{version}"] [version] platform.file;
 in
