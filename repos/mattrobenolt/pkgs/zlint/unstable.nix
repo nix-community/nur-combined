@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation {
   pname = "zlint-unstable";
-  version = "unstable-2025-12-08";
+  version = "unstable-2025-11-29";
 
   src = fetchFromGitHub {
     owner = "DonIsaac";

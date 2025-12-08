@@ -247,21 +247,31 @@ async def generate_zig_deps(sha):
 
 async def update_unstable(sha, source_hash):
     """Update unstable zlint package."""
-    from datetime import datetime
-
     print(f"{GREEN}Updating unstable zlint to {sha[:8]}{NC}")
 
     # Generate deps.nix from build.zig.zon and get Zig version
     zig_version = await generate_zig_deps(sha)
 
+    # Get commit date from git
+    loop = asyncio.get_event_loop()
+
+    def get_commit_date():
+        # Fetch commit date from GitHub API
+        commit_data = json.loads(urlopen(f"https://api.github.com/repos/DonIsaac/zlint/commits/{sha}").read())
+        commit_date = commit_data["commit"]["committer"]["date"]
+        # Parse ISO 8601 date (YYYY-MM-DDTHH:MM:SSZ)
+        return commit_date.split("T")[0]
+
+    commit_date = await loop.run_in_executor(None, get_commit_date)
+    print(f"{GREEN}  Commit date: {commit_date}{NC}")
+
     # Read current file
     content = UNSTABLE_FILE.read_text()
 
-    # Update version with current date
-    today = datetime.now().strftime("%Y-%m-%d")
+    # Update version with commit date
     content = re.sub(
         r'version = "unstable-[\d-]+";',
-        f'version = "unstable-{today}";',
+        f'version = "unstable-{commit_date}";',
         content
     )
 
