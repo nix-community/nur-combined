@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-dzX1NmSI8Gw/WzKc/gymqj8u0teJPivxnkkRG9j2AXU";
   };
 
-  cargoHash = "sha256-NYaApRSxAmj1LbJITj9hFJ4w7eJ3mUuMkB6caiAnb1w";
+  cargoHash = "sha256-Ec8hLtWEkwMRf3wApnVeqLkNg8QwYi9mwINK4V76YTA=";
 
   meta = with lib; {
     description = "Tiny system info fetch utility. ";
