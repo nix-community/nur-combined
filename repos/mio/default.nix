@@ -128,6 +128,8 @@ let
       fetchRevFromGitLab = pkgs.callPackage ./shared/gitlab-rev-fetcher.nix { };
       fetchRevFromGitea = pkgs.callPackage ./shared/gitea-rev-fetcher.nix { };
     };
+
+  icu = pkgs.callPackage ./pkgs/icu { };
 in
 rec {
   # note: some packages might be commented out to reduce package numbers. garnix has hardcoded limit of 100.
@@ -330,6 +332,7 @@ rec {
         pkgs.callPackage ./pkgs/firefox-nightly {
           nss_git = callOverride ./pkgs/nss-git { };
           nyxUtils = nyxUtils;
+          icu78 = icu.icu78;
         }
       )
     )) { }

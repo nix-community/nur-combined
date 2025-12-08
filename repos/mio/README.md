@@ -45,3 +45,4 @@ we need to mark broken for unsupported platforms otherwise the github actions fa
 + swt nixpkgs commit 0a381edbc370fe8f15106b957fc52ef8f2589e74
 + speed-dreams stuntrally ogre mygui nixpkgs commit 56d904a94724499dd1cae942468f8740cdbb112a
 + howdy linux-enable-ir-emitter <https://github.com/fufexan/nixpkgs/commit/a9aef4df4b7bda64185ab15e901d7ac43f7c2707> <https://github.com/NixOS/nixpkgs/pull/216245/files>
++ icu nixpkgs commit 588c72d6229385ef2bab17ec4fc21db014790e4e

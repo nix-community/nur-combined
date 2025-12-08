@@ -18,21 +18,21 @@ let
       crashreporterSupport = false;
     }).overrideAttrs
       rec {
-        version = "140.5.0esr";
+        version = "140.6.0esr";
         src = fetchurl {
           url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
-          hash = "sha256-y40QaTu8BMS/xTnEVgd5+0NrQDJr9w30wII6wSW4FeU=";
+          hash = "";
         };
       };
 
-  version = "140.5.0esr";
+  version = "140.6.0esr";
   majVer = lib.versions.major version;
 
   betterbird-patches = fetchFromGitHub {
     owner = "Betterbird";
     repo = "thunderbird-patches";
-    rev = "${version}-bb14";
-    hash = "sha256-Hzdm8xpoEqV9BsqW235JrLalq5sUNcvp/QMjU3aSuxI=";
+    rev = "${version}-bb15";
+    hash = "sha256-v7vJ/uI/M4vrUzp3GRZIGqRN8t8m0wsi5fq1ciK8LMo=";
   };
 
   remote-patch-data = lib.importJSON ./patchdata.json;
@@ -51,11 +51,12 @@ let
   remote-patches-folder = linkFarmFromDrvs "betterbird-remote-patches" remote-patches;
 
   # Fetch and extract comm subdirectory
+  # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb15/140/140.sh
   comm-source = fetchhg {
     name = "comm-source";
     url = "https://hg.mozilla.org/releases/comm-esr140";
-    rev = "6a3011b7161c6f3a36d5116f2608d51b19fb4d58";
-    hash = "sha256-w8KLdxw3r/E3dFM9ejRajMPTsAQ3VRFzF0HBve33JFk=";
+    rev = "bdcc941c35b0b6de74ee4b44c694aebf5507c5cd";
+    hash = "sha256-aBAIUTev8oG1o+niuxJwsK+5YI2ES1WzTjHg0RC4hCU=";
   };
 in
 (
@@ -71,11 +72,12 @@ in
     branding = "comm/mail/branding/betterbird";
     inherit (thunderbird-unwrapped) extraPatches;
 
+    # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb15/140/140.sh
     src = fetchhg {
       name = "mozilla-source";
       url = "https://hg.mozilla.org/releases/mozilla-esr140";
-      rev = "558705980ca9db16de0564b5a6031b5d6e0a7efe";
-      hash = "sha256-IS/rn7qvnmEqMh8IRsCFNH5Y0C/7KXGDAuPPcjCqcFc=";
+      rev = "18556c0b079c839f4d15597a57b0f048fdadcedd";
+      hash = "sha256-qU0lc3pDcyPf34c/Kr7rtG+3MKJVNm33sSqATiJdIxM=";
     };
 
     unpackPhase = ''
