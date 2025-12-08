@@ -20,6 +20,7 @@
   nirius = pkgs.callPackage ./pkgs/nirius {};
   osu-tachyon = pkgs.callPackage ./pkgs/osu-tachyon {};
   proton-em-bin = pkgs.callPackage ./pkgs/proton-em-bin {};
+  proton-cachyos-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin {};
   proton-ge-rtsp-bin = pkgs.callPackage ./pkgs/proton-ge-rtsp-bin {};
   proton-sarek-bin = pkgs.callPackage ./pkgs/proton-sarek-bin {};
   re-lunatic-player = pkgs.callPackage ./pkgs/re-lunatic-player {};

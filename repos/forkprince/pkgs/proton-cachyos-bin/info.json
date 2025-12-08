@@ -1,0 +1,29 @@
+{
+  "name": "proton-cachyos",
+  "update_type": "github",
+  "repo": "CachyOS/proton-cachyos",
+  "query": ".[0].tag_name",
+  "version": "cachyos-10.0-20251126-slr",
+  "platforms": {
+    "v1": {
+      "file": "proton-{version}-x86_64.tar.xz",
+      "hash": "sha256-Vw7ootDMXm68SB2FH4gmFCGjNumCC45H1Gs166v2hco=",
+      "unpack": false
+    },
+    "v2": {
+      "file": "proton-{version}-x86_64_v2.tar.xz",
+      "hash": "sha256-FZEwd7Y7aHCpaN8gCiOgI5c2Mol9lT9tCeaBd68E7vc=",
+      "unpack": false
+    },
+    "v3": {
+      "file": "proton-{version}-x86_64_v3.tar.xz",
+      "hash": "sha256-BhgEKWyNnpUuSmNSbwINxAb1q8tYCQOMIdL8zAAht2E=",
+      "unpack": false
+    },
+    "v4": {
+      "file": "proton-{version}-x86_64_v4.tar.xz",
+      "hash": "sha256-FfAk16TlhaXeBauCxAYTcI2pEg9FCE1QDIkxuiP7zSg=",
+      "unpack": false
+    }
+  }
+}
