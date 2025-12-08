@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "nss_git";
   prev = prev.nss_latest;
 
-  versionNyxPath = "pkgs/nss-git/version.json";
+  versionNyxPath = ./version.json;
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "nss-dev";
