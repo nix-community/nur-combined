@@ -3,11 +3,12 @@
   sane.programs.kdenlive = {
     buildCost = 1;
 
-    packageUnwrapped = pkgs.kdePackages.kdenlive.overrideAttrs (base: {
-      qtWrapperArgs = base.qtWrapperArgs ++ [
-        "--set QP_QPA_PLATFORM wayland"
-      ];
-    });
+    packageUnwrapped = pkgs.kdePackages.kdenlive;
+    # packageUnwrapped = pkgs.kdePackages.kdenlive.overrideAttrs (base: {
+    #   qtWrapperArgs = base.qtWrapperArgs ++ [
+    #     "--set QP_QPA_PLATFORM wayland"
+    #   ];
+    # });
 
     sandbox.extraHomePaths = [
       "Music"
