@@ -17,7 +17,7 @@
       python3Packages = pkgs.python3Packages // {
         # XXX(2025-07-23): these don't cross compile; disable them
         # pydub drags in opencv, but only used for text-to-speech (and only for Newelle <= 0.9.8)
-        pydub = null;
+        # pydub = null;
         # speechrecognition has a build error due to python3Packages.standard-aifc > python3Packages.audioop
         speechrecognition = null;
         # both of these are blocked on `python3Packages.spacy`

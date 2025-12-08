@@ -19,7 +19,7 @@
       # fixes cross compilation & simplifies closure.
       ollama = null;
       python3Packages = pkgs.python3Packages.overrideScope (self: super: {
-        markitdown = null;  #< XXX(2025-07-23): does not cross compile (markitdown -> pydub -> ... -> opencv)
+        markitdown = null;  #< XXX(2025-12-07): does not cross compile (markitdown -> speechrecognition -> onnxruntime)
         opencv4 = null;  #< XXX(2025-10-11): doesn't cross compile. or, fails at import time: "OpenCV loader: missing configuration file: ..."
         rembg = null;  #< XXX(2025-10-11): pulls in opencv, which doesn't cross compile; marked as optional-dependency
         openai-whisper = null;  #< XXX(2025-10-11): doesn't cross compile; marked as optional-dependency

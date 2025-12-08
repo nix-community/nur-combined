@@ -148,8 +148,8 @@ in
     ).overrideAttrs(base: {
       # XXX(2024/10/13): the manifestRc and withRuby knobs from earlier are no longer effective,
       # due to <https://github.com/NixOS/nixpkgs/pull/344541>
-      rubyEnv = null;
-      withRuby = false;
+      # rubyEnv = null;
+      # withRuby = false;
       wrapRc = false;  #< don't force VIMINIT env var
       postBuild = lib.replaceStrings [ "if ! $out/bin/nvim-wrapper " ] [ "if false " ] base.postBuild;
     });

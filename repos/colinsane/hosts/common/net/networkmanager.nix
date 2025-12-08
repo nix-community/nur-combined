@@ -5,20 +5,6 @@
   # XXX(2025-07-18): `systemd-networkd-wait-online.service` also fails on desko (timeout).
   systemd.network.wait-online.enable = false;
 
-  # plugins mostly add support for establishing different VPN connections.
-  # the default plugin set includes mostly proprietary VPNs:
-  # - fortisslvpn (Fortinet)
-  # - iodine (DNS tunnels)
-  # - l2tp
-  # - openconnect (Cisco Anyconnect / Juniper / ocserv)
-  # - openvpn
-  # - vpnc (Cisco VPN)
-  # - sstp
-  #
-  # i don't use these, and notably they drag in huge dependency sets and don't cross compile well.
-  # e.g. openconnect drags in webkitgtk (for SSO)!
-  networking.networkmanager.plugins = lib.mkForce [];
-
   networking.networkmanager.package = pkgs.networkmanager-split.daemon.overrideAttrs (upstream: {
     # postPatch = (upstream.postPatch or "") + ''
     #   substituteInPlace src/{core/org.freedesktop.NetworkManager,nm-dispatcher/nm-dispatcher}.conf --replace-fail \

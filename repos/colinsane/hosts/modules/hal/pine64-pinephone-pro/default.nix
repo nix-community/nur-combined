@@ -104,27 +104,28 @@ in
           DMABUF_HEAPS_CMA = yes;
         };
       }
-      {
-        # XXX(2025-12-07): the 6.17 -> 6.18 update breaks WiFi on moby, reliably, and reverting this commit fixes it.
-        # the exact symptoms:
-        # - /sys/class/net/wlan0 appears
-        # - `nmcli device wifi rescan` says "Error: Scanning not allowed while unavailable."
-        # - `nmcli device status` shows `wlan0 wifi unavailable`
-        # - `nmcli device wifi list` is empty
-        # - logs show things such as:
-        #   > wpa_supplicant: Could not set interface wlan0 flags (UP): Input/Output error
-        #   > wpa_supplicant: WEXT: Could not set interface 'wlan0' UP
-        #   > wpa_supplicant: wlan0: Failed to initialize driver interface
-        #   > wpa_supplicant: wlan0: CTRL-EVENT-DSCP-POLICY clear_all
-        #
-        # attempted, but unsuccessful mitigations:
-        # - disable all my other DTS overlays & kernel modules
-        # - disable my NetworkManager & wpa_supplicant customizations (i.e. sandboxing)
-        # - `systemctl restart NetworkManager wpa_supplicant`
-        # - power on the modem (`systemctl start eg25-control-powered`), but note that the modem never actually signaled readiness
-        name = "revert 6.18 PinePhone Pro Wifi DTS change";
-        patch = ./6.18-ppp-dts-revert-wifi-node.patch;
-      }
+      # {
+      #   # XXX(2025-12-07): the 6.17 -> 6.18 update breaks WiFi on moby, reliably, and reverting this commit fixes it.
+      #   #                  prefer to fix things with a DTS overlay though; see below.
+      #   # the exact symptoms:
+      #   # - /sys/class/net/wlan0 appears
+      #   # - `nmcli device wifi rescan` says "Error: Scanning not allowed while unavailable."
+      #   # - `nmcli device status` shows `wlan0 wifi unavailable`
+      #   # - `nmcli device wifi list` is empty
+      #   # - logs show things such as:
+      #   #   > wpa_supplicant: Could not set interface wlan0 flags (UP): Input/Output error
+      #   #   > wpa_supplicant: WEXT: Could not set interface 'wlan0' UP
+      #   #   > wpa_supplicant: wlan0: Failed to initialize driver interface
+      #   #   > wpa_supplicant: wlan0: CTRL-EVENT-DSCP-POLICY clear_all
+      #   #
+      #   # attempted, but unsuccessful mitigations:
+      #   # - disable all my other DTS overlays & kernel modules
+      #   # - disable my NetworkManager & wpa_supplicant customizations (i.e. sandboxing)
+      #   # - `systemctl restart NetworkManager wpa_supplicant`
+      #   # - power on the modem (`systemctl start eg25-control-powered`), but note that the modem never actually signaled readiness
+      #   name = "revert 6.18 PinePhone Pro Wifi DTS change";
+      #   patch = ./6.18-ppp-dts-revert-wifi-node.patch;
+      # }
     ];
 
     #v N.B.: deviceTree.name is plumbed through /boot/loader/entries/.
@@ -161,6 +162,10 @@ in
         # this simpler sound config may be helpful in debugging.
         name = "rk3399-pinephone-pro-sound-minimal";
         dtsFile = ./rk3399-pinephone-pro-sound-minimal.dtso;
+      }
+      {
+        name = "rk3399-pinephone-pro-wifi";
+        dtsFile = ./rk3399-pinephone-pro-wifi.dtso;
       }
     ];
 

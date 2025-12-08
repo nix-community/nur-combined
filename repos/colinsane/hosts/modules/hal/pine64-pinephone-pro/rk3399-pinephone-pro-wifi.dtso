@@ -1,0 +1,103 @@
+// this is a device tree *overlay* file, concept described here:
+// - <https://docs.kernel.org/devicetree/overlay-notes.html>
+// the dtb deployed to the device will be, in effect, the union of the in-kernel rk3399-pinephone-pro.dts
+// merged with this dts.
+//
+// resources for writing device tree overlays:
+// - <https://developer.toradex.com/software/linux-resources/device-tree/device-tree-overlays-overview/>
+
+// for RK_PD0, other pins
+#include <dt-bindings/pinctrl/rockchip.h>
+
+/dts-v1/;
+/plugin/;
+
+/ {
+        /* ensure this overlay applies only to the correct board */
+        compatible = "pine64,pinephone-pro";
+};
+
+// XXX(2025-12-07): linux 6.18 adds a new DTS entry to pinephone-pro,
+// which causes WiFi to stop working. reverting the changeset fixes WiFi,
+// but requires recompilation of the kernel.
+//
+// the new nodes:
+// ```dts
+// &pinctrl {
+//         wifi {
+//                 wifi_host_wake_l: wifi-host-wake-l {
+//                         rockchip,pins = <4 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
+//                 };
+//         };
+// };
+// &sdio0 {
+//         brcmf: wifi@1 {
+//                 compatible = "brcm,bcm4329-fmac";
+//                 reg = <1>;
+//                 interrupt-parent = <&gpio4>;
+//                 interrupts = <RK_PD0 IRQ_TYPE_LEVEL_HIGH>;
+//                 interrupt-names = "host-wake";
+//                 pinctrl-names = "default";
+//                 pinctrl-0 = <&wifi_host_wake_l>;
+//         };
+// };
+// ```
+
+
+&{/pinctrl/wifi/wifi-host-wake-l} {
+        // upstream specifices `pcfg_pull_none`.
+        // changing this to pcfg_pull_up DOES fix WiFi.
+        // probably means the SoC thinks that WiFi is _constantly_ telling it about activity, though; might come with some downsides?
+        // TODO: try inverting the interrupt level, instead?
+        rockchip,pins = <4 RK_PD0 RK_FUNC_GPIO &pcfg_pull_up>;
+};
+
+// equivalent to &{/sdio0/brcmf}, but that alias isn't available to this overlay.
+// the overlay appears to render as intended, but it doesn't actually restore wifi connectivity
+// &{/mmc@fe310000/wifi@1} {
+//         status = "disabled";
+//         //vv does not delete the properties, unless that's handled at runtime?
+//         // -interrupts;
+//         // -interrupt-names;
+//         //vv silently fails to apply
+//         // /delete-property/ interrupt-names;
+// };
+
+// untested:
+// &sdio0 {
+//         brcmf {
+//                 status = "disabled";
+//         };
+// };
+
+// &{/sdio0} {
+//         brcmf {
+//                 status = "disabled";
+//         };
+// };
+
+// compile-time failure
+// /delete-node/ &brcmf;
+// /delete-node/ &{/mmc0/brcmf};
+// /delete-node/ &{/mmc0/wifi@1};
+// /delete-node/ &{/mmc@fe310000/brcmf};
+// /delete-node/ &{/mmc@fe310000/wifi@1};
+// /delete-node/ &{/sdio0/brcmf};
+// /delete-node/ &{/sdio0/wifi@1};
+//
+// silently fails:
+// &brcmf {
+//         status = "disabled";
+// };
+//
+// &{/} {
+//         sdio0 {
+//                 brcmf {
+//                         status = "disabled";
+//                 };
+//         };
+// };
+//
+// &{/sdio0/brcmf} {
+//         status = "disabled";
+// };
