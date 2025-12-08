@@ -367,4 +367,70 @@ rec {
   linux-enable-ir-emitter = nodarwin (
     pkgs.callPackage ./pkgs/linux-enable-ir-emitter/package.nix { }
   );
+
+  proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
+    toolTitle = "Proton-CachyOS";
+    tarballPrefix = "proton-";
+    tarballSuffix = "-x86_64.tar.xz";
+    toolPattern = "proton-cachyos-.*";
+    releasePrefix = "cachyos-";
+    releaseSuffix = "-slr";
+    versionFilename = "cachyos-version.json";
+    owner = "CachyOS";
+    repo = "proton-cachyos";
+  };
+
+  proton-cachyos_x86_64_v2 = proton-cachyos.override {
+    toolTitle = "Proton-CachyOS x86-64-v2";
+    tarballSuffix = "-x86_64_v2.tar.xz";
+    versionFilename = "cachyos-v2-version.json";
+  };
+
+  proton-cachyos_x86_64_v3 = proton-cachyos.override {
+    toolTitle = "Proton-CachyOS x86-64-v3";
+    tarballSuffix = "-x86_64_v3.tar.xz";
+    versionFilename = "cachyos-v3-version.json";
+  };
+
+  proton-cachyos_x86_64_v4 = proton-cachyos.override {
+    toolTitle = "Proton-CachyOS x86-64-v4";
+    tarballSuffix = "-x86_64_v4.tar.xz";
+    versionFilename = "cachyos-v4-version.json";
+  };
+
+  proton-cachyos_nightly_x86_64_v3 = proton-cachyos.override {
+    toolTitle = "Proton-CachyOS Nightly x86-64-v3";
+    tarballSuffix = "-x86_64_v3.tar.xz";
+    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v3.tar.xz.zip";
+    version = {
+      base = "10.0";
+      release = "20251112";
+      hash = "sha256-3wkekFESoLgVYdCvMSEWL6nBRytsScUrwpn7zzNLqYE=";
+    };
+    withUpdateScript = false;
+  };
+
+  proton-cachyos_nightly_x86_64_v4 = proton-cachyos.override {
+    toolTitle = "Proton-CachyOS Nightly x86-64-v4";
+    tarballSuffix = "-x86_64_v4.tar.xz";
+    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v4.tar.xz.zip";
+    version = {
+      base = "10.0";
+      release = "20251112";
+      hash = "sha256-0dmK5HnFyN/V1aicCkRiubVkAtW1X1XJZTVljhuWn1w=";
+    };
+    withUpdateScript = false;
+  };
+
+  proton-ge-custom = pkgs.callPackage ./pkgs/proton-bin {
+    toolTitle = "Proton-GE";
+    tarballSuffix = ".tar.gz";
+    toolPattern = "GE-Proton.*";
+    releasePrefix = "GE-Proton";
+    releaseSuffix = "";
+    versionFilename = "ge-version.json";
+    owner = "GloriousEggroll";
+    repo = "proton-ge-custom";
+  };
+
 }
