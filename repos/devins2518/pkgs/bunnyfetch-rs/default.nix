@@ -1,4 +1,9 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "bunnyfetch";
@@ -11,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-dzX1NmSI8Gw/WzKc/gymqj8u0teJPivxnkkRG9j2AXU";
   };
 
-  cargoSha256 = "sha256-NYaApRSxAmj1LbJITj9hFJ4w7eJ3mUuMkB6caiAnb1w";
+  cargoHash = "sha256-NYaApRSxAmj1LbJITj9hFJ4w7eJ3mUuMkB6caiAnb1w";
 
   meta = with lib; {
     description = "Tiny system info fetch utility. ";
