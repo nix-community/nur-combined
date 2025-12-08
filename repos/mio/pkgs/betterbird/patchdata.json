@@ -185,6 +185,66 @@
     "hash": "sha256-LNHiCzspODfX1IYMR8HHPn92PTLJTprFc8vygU05MVk="
   },
   {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/7bcca65cbad1",
+    "name": "1842514-copy-within-server.patch",
+    "hash": "sha256-XQnsPvEjq/vz1Fgthn4eobWozn/ICNQMKL34+36h0XQ="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/a5b891bad9fb",
+    "name": "1999101-missing-imap-delete-multiselect.patch",
+    "hash": "sha256-eD9iOgpTyLbo3YkrdCBQNB4YdV9Mf8rerImsGTxiRwA="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/7223aacec7fa",
+    "name": "523568-gloda-facet-hover.patch",
+    "hash": "sha256-PssVL6zbYaYLOKHtln2q05MAYDaq1Hi+WZ8/TL53O74="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/ecc2ac50c645",
+    "name": "1979880-reset-subfolder-sort-order.patch",
+    "hash": "sha256-0I8vZ/DJTpu6hfCEJGq0Pn5DP2gqxZfUQ2YuVvAU60o="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/9db27c75073b",
+    "name": "1992976-attachment-name-rfc2047.patch",
+    "hash": "sha256-YB+VrodVjjzWFUslF7QMuBItR2pWfiZHbLGemFLEG04="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/0a02e98ad552",
+    "name": "1954372-fix-.getAttachmentFile-with-utf8.patch",
+    "hash": "sha256-RUNaAKXqwrnjQYSA7IBjmN174fK/gZZK5RtCxJ6grIw="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/b5f8b712768d",
+    "name": "2000109-update-folder-attr-no-type.patch",
+    "hash": "sha256-f77MVct44qMsKpPmQSawSRxHzMlzLXvckWO7B2YDLuk="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/0f00c8246bfc",
+    "name": "1978213-add-attach-filename.patch",
+    "hash": "sha256-0+bPxLRchXgvYoX+dgKCyH9sZLRQ6sinvy6xSh6g6k0="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/3fe1f53a722d",
+    "name": "1978213-add-attach-filename-take2.patch",
+    "hash": "sha256-3HLoOKwiKbe1Du+Pu8rAEV2oFPuUYXS8X3SyFlXkqYw="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/e2cf1d95ecfb",
+    "name": "1968659-crypto-label-no-line-wrap.patch",
+    "hash": "sha256-9DZ0Vs9NaiV4DNahMRQM2gtYd/fGrnYzD0KmkwmaVuE="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/91d7c38c051b",
+    "name": "1898889-crypto-button-long-subject.patch",
+    "hash": "sha256-SQDj+M0ul1Q9dMa58SrZKTC1FuBT4ZUC2W2wpshY13E="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/78cb1e2e865c",
+    "name": "2003145-clear-link-in-status.patch",
+    "hash": "sha256-/Nj+kTzsxDWww9w3oaXqZo48I1yYuN+PB2K7I1aH0Ww="
+  },
+  {
     "url": "https://hg.mozilla.org/mozilla-central/raw-rev/f0dedf9da0fb",
     "name": "1976637-fix-scroll-moz.patch",
     "hash": "sha256-GSoJqsG/IBqi/Uqv5TQxVLh6dsm21/exAsvY+qawg54="
