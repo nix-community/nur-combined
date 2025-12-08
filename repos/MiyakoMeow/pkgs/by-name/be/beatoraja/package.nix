@@ -3,8 +3,6 @@
   lib,
   pkgs,
   fetchurl,
-  fetchzip,
-  callPackage,
   makeDesktopItem,
   copyDesktopItems,
   unzip,
@@ -132,7 +130,8 @@ stdenv.mkDerivation (finalAttrs: {
       "songinfo.db"
     )
 
-    # 启动时：用户目录 -> 临时目录
+    # 启动时
+    # 文件链接：用户目录 -> 临时目录
     for cfg in "\''${config_files[@]}"; do
       user_cfg="\$USER_DATA_DIR/\$cfg"
       if [ -f "\$user_cfg" ]; then
@@ -140,7 +139,16 @@ stdenv.mkDerivation (finalAttrs: {
       fi
     done
 
-    # 退出时：临时目录 -> 用户目录
+    # 目录链接：用户目录 -> 临时目录
+    for dir in "\$USER_DATA_DIR"/*/; do
+      dir_name=\$(basename "\$dir")
+      ln -sfT "\$dir" "\$RUNTIME_DIR/\$dir_name"
+    done
+
+    # 链接用于运行的jar文件
+    ln -sf $out/${finalAttrs.pname}-ori/${finalAttrs.pname}.jar "\$RUNTIME_DIR/"
+
+    # 退出时的额外文件复制操作：临时目录 -> 用户目录
     cleanup() {
       echo "Syncing config files back to user directory..."
 
@@ -166,15 +174,6 @@ stdenv.mkDerivation (finalAttrs: {
       rm -rf "\$RUNTIME_DIR"
     }
     trap cleanup EXIT
-
-    # 链接必要文件
-    ln -sf $out/${finalAttrs.pname}-ori/${finalAttrs.pname}.jar "\$RUNTIME_DIR/"
-
-    # 创建符号链接到用户目录
-    for dir in "\$USER_DATA_DIR"/*/; do
-      dir_name=\$(basename "\$dir")
-      ln -sfT "\$dir" "\$RUNTIME_DIR/\$dir_name"
-    done
 
     # 运行游戏
     cd "\$RUNTIME_DIR"
