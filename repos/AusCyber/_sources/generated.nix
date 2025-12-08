@@ -634,10 +634,10 @@
   };
   helium-macos = {
     pname = "helium-macos";
-    version = "0.7.1.1";
+    version = "0.7.2.1";
     src = fetchurl {
-      url = "https://github.com/imputnet/helium-macos/releases/download/0.7.1.1/helium_0.7.1.1_arm64-macos.dmg";
-      sha256 = "sha256-hQOfbGP8OLkA7uhvwzXP0DlShIfYI023i3DokPx3iOg=";
+      url = "https://github.com/imputnet/helium-macos/releases/download/0.7.2.1/helium_0.7.2.1_arm64-macos.dmg";
+      sha256 = "sha256-ppcz7JM6i2aNqimGrT9l+Eu41oirff0WV93wBI7PLYA=";
     };
   };
   kanata = {
