@@ -24,6 +24,8 @@ builtins.mapAttrs (
         mkdir -p $out/bin
         cp ${name} $out/bin/${name}
       '';
+
+      dontFixup = true;
     });
   in
   {
