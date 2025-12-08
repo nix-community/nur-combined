@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation {
   pname = "slazav-podm";
-  version = "2025-01-27";
+  version = "2025-05-29";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_podm";
-    rev = "ab455d4eba552a9cdc6b0356cc59667220b6ac3b";
-    hash = "sha256-ctakSU79ZhsZj1QoZ/1MdT7nOM2fiPB6OzwOnhXAqZM=";
+    rev = "c7d0e406d8743d13d5cb0fc1d1c3a3ada713bf7d";
+    hash = "sha256-rp1sPyCOghPPzMw3ikbjmv73AklDFUNIxrnU03hPmiA=";
     leaveDotGit = true;
   };
 

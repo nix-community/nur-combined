@@ -19,20 +19,15 @@
 
 stdenv.mkDerivation {
   pname = "slazav-hr";
-  version = "2025-03-03";
+  version = "2025-12-08";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_hr";
-    rev = "b61f2a83c12b860a833a3f09f78de203edb88569";
-    hash = "sha256-/o0SlycXWvsHawz0bJcW9+UrBpS21ho/lHNkqhWCIpo=";
+    rev = "f94a4efc92aa7439254d2c3ae397cbbcc5f51881";
+    hash = "sha256-9ugdeGZxaYVUX3nMS3qRoQBqwdNBtUIUk8qZOOr6sjU=";
     leaveDotGit = true;
   };
-
-  postPatch = ''
-    substituteInPlace vmaps.conf \
-      --replace-fail "/home/sla/mapsoft2/programs/ms2render/" ""
-  '';
 
   nativeBuildInputs = [
     bc
