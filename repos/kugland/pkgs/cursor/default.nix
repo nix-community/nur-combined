@@ -4,10 +4,10 @@
 }:
 let
   pname = "cursor";
-  version = "2.0.34";
+  version = "2.1.50";
   sources = {
-    x86_64.url = "https://downloads.cursor.com/production/45fd70f3fe72037444ba35c9e51ce86a1977ac11/linux/x64/Cursor-2.0.34-x86_64.AppImage";
-    x86_64.hash = "sha256-x51N2BttMkfKwH4/Uxn/ZNFVPZbaNdsZm8BFFIMmxBM=";
+    x86_64.url = "https://downloads.cursor.com/production/56f0a83df8e9eb48585fcc4858a9440db4cc7771/linux/x64/Cursor-2.1.50-x86_64.AppImage";
+    x86_64.hash = "sha256-gitfWzovz0OxwoLXIMQ4PqMk+S8KzZlqcp0hmwVR2nE=";
     # Arm64 link is giving 403 for some reason
     #aarch64.url = "https://downloads.cursor.com/production/45fd70f3fe72037444ba35c9e51ce86a1977ac11/linux/arm64/Cursor-2.0.34-aarch64.AppImage";
     #aarch64.hash = "";
