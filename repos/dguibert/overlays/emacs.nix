@@ -40,7 +40,7 @@ with prev; let
     # config = ./emacs.d/init.el;
 
     # Package is optional, defaults to pkgs.emacs
-    #package = pkgs.emacs-git-pgtk;
+    package = pkgs.emacs-pgtk;
 
     alwaysEnsure = true;
 
