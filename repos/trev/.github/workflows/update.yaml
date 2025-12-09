@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Initialize
         id: init
-        uses: spotdemo4/nix-init@0a2f62e3b132c09b144b6957976f538f79fc81a2 # v1.10.0
+        uses: spotdemo4/nix-init@59e9eaa3d67e67b17b92ce2c6ffc83deed76fc91 # v1.11.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Initialize
         id: init
-        uses: spotdemo4/nix-init@0a2f62e3b132c09b144b6957976f538f79fc81a2 # v1.10.0
+        uses: spotdemo4/nix-init@59e9eaa3d67e67b17b92ce2c6ffc83deed76fc91 # v1.11.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
