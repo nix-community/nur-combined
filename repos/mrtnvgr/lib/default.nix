@@ -13,6 +13,7 @@
     (pkgs.lib.concatStringsSep ":" [
       "/home/${user}/.${format}"
       "/etc/profiles/per-user/${user}/lib/${format}"
+      "/home/${user}/.nix-profile/lib/${format}"
       "/run/current-system/sw/lib/${format}"
     ]) + ":";
 }
