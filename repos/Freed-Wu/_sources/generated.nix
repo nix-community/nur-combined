@@ -57,10 +57,10 @@
   };
   pyrime = {
     pname = "pyrime";
-    version = "0.1.2";
+    version = "0.2.0";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.1.2.tar.gz";
-      sha256 = "sha256-nPnYIEAhf8O7rHp/NcsoEbaKFLg2eWZFypjmlM/y+Qc=";
+      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.2.0.tar.gz";
+      sha256 = "sha256-wmA+tItSj4qhqgGKu5fGhZ7MSSiraSX84WQVojEY0q4=";
     };
   };
   requirements-language-server = {
@@ -101,17 +101,6 @@
     src = fetchurl {
       url = "https://pypi.org/packages/source/t/translate_shell/translate_shell-0.0.59.tar.gz";
       sha256 = "sha256-3hRSLKA5aI7bgtCAafxwj7WeQO8GmIwTEeJoSp3CvHs=";
-    };
-  };
-  tree-sitter-bash = {
-    pname = "tree-sitter-bash";
-    version = "v0.25.0";
-    src = fetchFromGitHub {
-      owner = "tree-sitter";
-      repo = "tree-sitter-bash";
-      rev = "v0.25.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-vRaN/mNfpR+hdv2HVS1bzaW0o+HGjizRFsk3iinICJE=";
     };
   };
   tree-sitter-muttrc = {

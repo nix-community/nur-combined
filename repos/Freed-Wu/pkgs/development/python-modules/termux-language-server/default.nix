@@ -2,7 +2,6 @@
   mySources,
   python3,
   lib,
-  tree-sitter-bash,
 }:
 
 with python3.pkgs;
@@ -13,7 +12,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
     lsp-tree-sitter
-    tree-sitter-bash
+    tree-sitter-grammars.tree-sitter-bash
     platformdirs
     fqdn
     rfc3987

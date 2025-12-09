@@ -39,7 +39,7 @@ repos:
         args:
           - --msg-filename
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 3.4.1
+    rev: 3.6.0
     hooks:
       - id: editorconfig-checker
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
@@ -57,7 +57,7 @@ repos:
         additional_dependencies:
           - mdformat-pyproject
           - mdformat-gfm
-          # - mdformat-myst
+          - mdformat-myst
           - mdformat-toc
           - mdformat-deflist
           - mdformat-beautysh
@@ -65,7 +65,7 @@ repos:
           - mdformat-config
           - mdformat-web
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.19.0
+    rev: v0.20.0
     hooks:
       - id: markdownlint-cli2
         additional_dependencies:

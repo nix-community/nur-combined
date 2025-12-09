@@ -62,11 +62,6 @@ fetch.pypi = "tree_sitter_zathurarc"
 src.github_tag = "tree-sitter-grammars/tree-sitter-requirements"
 fetch.github = "tree-sitter-grammars/tree-sitter-requirements"
 
-# https://github.com/tree-sitter/tree-sitter-bash/issues/281
-[tree-sitter-bash]
-src.github_tag = "tree-sitter/tree-sitter-bash"
-fetch.github = "tree-sitter/tree-sitter-bash"
-
 [mulimgviewer]
 src.pypi = "mulimgviewer"
 fetch.pypi = "mulimgviewer"
