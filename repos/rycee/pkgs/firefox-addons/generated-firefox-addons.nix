@@ -1394,10 +1394,10 @@
     };
     "bulgarian-dictionary" = buildFirefoxXpiAddon {
       pname = "bulgarian-dictionary";
-      version = "4.4.3";
+      version = "4.4.4";
       addonId = "bg-BG@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3609719/bulgarian_dictionary-4.4.3.xpi";
-      sha256 = "f5aa20ff1954a00be98fbf20fe5a77f0115813b36c5fc14c6f0e713cb597d5b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637458/bulgarian_dictionary-4.4.4.xpi";
+      sha256 = "4049aca1982aa28f9233150161454dcaebc05b577d14bbed0fd35c5fe0434961";
       meta = with lib;
       {
         homepage = "http://bgoffice.sourceforge.net/";
@@ -2669,10 +2669,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "146.0.20251205.151434";
+      version = "147.0.20251208.163038";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635878/dansk_da_language_pack-146.0.20251205.151434.xpi";
-      sha256 = "ce81cd9622868f36931904ff9ab28803e872b2f339ba186ea13a1b62bb5ff067";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637858/dansk_da_language_pack-147.0.20251208.163038.xpi";
+      sha256 = "ab1505319b20b9e6e86e5e3794c4c496265171b0e55d3f02d85a9f3c4474c7e1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2882,10 +2882,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "146.0.20251205.151434";
+      version = "147.0.20251208.163038";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635885/deutsch_de_language_pack-146.0.20251205.151434.xpi";
-      sha256 = "ddb4fbe86abb230b129710439d15e79657ed8bd1b9c68d26f7dd552d6580066d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637861/deutsch_de_language_pack-147.0.20251208.163038.xpi";
+      sha256 = "a6137bb4497d5b3346ffdab14282eb9b92482904ce10dbbd58255667e4f142f0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2918,10 +2918,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.4.2";
+      version = "6.4.3";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4632590/dictionaries-6.4.2.xpi";
-      sha256 = "76f411776104c1e0b71199a9bd0afa4414bce4cb5a791abf1515dde62bf2a7bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637335/dictionaries-6.4.3.xpi";
+      sha256 = "6e97c063dae2dc26359064c282464dde64b7bf3611bd3a0be5482f51700515a8";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3518,10 +3518,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.11.0";
+      version = "1.11.1";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4621027/elasticvue-1.11.0.xpi";
-      sha256 = "131628b6494f0d22e427bd40b41a34a07216df82fc3a66be65cdb6d821cb305f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637509/elasticvue-1.11.1.xpi";
+      sha256 = "51a3263943cddbd8a527fc9b8fc3cd25a78909b3c3648dc87edf0c93b54e38e3";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -4040,10 +4040,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.92";
+      version = "6.1.93";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4609492/flagfox-6.1.92.xpi";
-      sha256 = "98693b6db6cac14a8f38a5bd3b53d195b4c78cbd59482b990cb658a5fb2474eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4631377/flagfox-6.1.93.xpi";
+      sha256 = "622a932f56bf3e71b6d64d41d625e1056c84efa0e89803b1c0be5d28a3389a52";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4283,10 +4283,10 @@
     };
     "frankerfacez" = buildFirefoxXpiAddon {
       pname = "frankerfacez";
-      version = "4.79.1.0";
+      version = "4.79.3.0";
       addonId = "frankerfacez@frankerfacez.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4599743/frankerfacez-4.79.1.0.xpi";
-      sha256 = "6787c1093ce4d840cb2ba5fed670a10d5385274775fb8cf0f46d6232aae8ae8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632802/frankerfacez-4.79.3.0.xpi";
+      sha256 = "8c79d08bd3e313ea08841a4b2a7c0969f83068ad44f19e4de1cc46f3db6498e0";
       meta = with lib;
       {
         homepage = "https://www.frankerfacez.com";
@@ -4297,7 +4297,7 @@
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
         };
-        mozPermissions = [ "storage" "unlimitedStorage" "*://*.twitch.tv/*" ];
+        mozPermissions = [ "unlimitedStorage" "*://*.twitch.tv/*" ];
         platforms = platforms.all;
       };
     };
@@ -4344,10 +4344,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "146.0.20251205.151434";
+      version = "147.0.20251208.163038";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635886/francais_language_pack-146.0.20251205.151434.xpi";
-      sha256 = "b77e0879995a8c5354e00d8940a0e138fb96384acf808801d12b08c58a424b32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637911/francais_language_pack-147.0.20251208.163038.xpi";
+      sha256 = "96c64fb165ba6c86951ac83e3c729f95480aa9edb4b7c225aa16045dbeb059b7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4381,10 +4381,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "146.0.20251205.151434";
+      version = "147.0.20251208.163038";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635868/gaidhlig_language_pack-146.0.20251205.151434.xpi";
-      sha256 = "dae2908ac5ecd43d98a25e5e9fc99c03f5aa53ecc1e8ffdb5c93a0d4cb8db58d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637953/gaidhlig_language_pack-147.0.20251208.163038.xpi";
+      sha256 = "2a16c90020d4b8ff062df623be69c99ada18ad19559b0bb7d39051604e4d97d8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8692,10 +8692,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "13.9.0";
+      version = "13.11.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4621508/ether_metamask-13.9.0.xpi";
-      sha256 = "cf16f9d8513381dc27a9be2d3058e0470756f12473f16b2308cf65be0d289b14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4633614/ether_metamask-13.11.2.xpi";
+      sha256 = "a78e688ee07ed5ef27c4f7b788a4c1ab140a9ca317fbf4f2ad58b4c1dc3974ac";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -9233,10 +9233,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.5";
+      version = "13.5.2";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628164/noscript-13.5.xpi";
-      sha256 = "1bea5a699582915954d06df8b2da4c500f3962e70b088cd76dd8647225f59b2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4633540/noscript-13.5.2.xpi";
+      sha256 = "1ba8ee4620b19502e4d95c5a3ea0520856028365ff9a6561882d914aa3968e2a";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -9302,10 +9302,10 @@
     };
     "nyaa-linker" = buildFirefoxXpiAddon {
       pname = "nyaa-linker";
-      version = "2.4.0";
+      version = "2.4.1";
       addonId = "Metacor.Code@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4636568/nyaa_linker-2.4.0.xpi";
-      sha256 = "cac38d1bebaba4d6b312cf0514f72330e5e08dce2732d6e1c4b68d3e8860589d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4638130/nyaa_linker-2.4.1.xpi";
+      sha256 = "0d152eb253584789d1f3de0618f9d6f682f95700234d8223cd0e4760c0e714be";
       meta = with lib;
       {
         description = "Adds a button to Anime and Manga database websites that opens a relevant Nyaa search";
@@ -11704,10 +11704,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25326";
+      version = "0.2.0.25333";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4625299/ruffle_rs-0.2.0.25326.xpi";
-      sha256 = "c8e4a445cc53a8dc9519427b627fe20a0a5b45cc85a431205aa045311e9da3ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4630856/ruffle_rs-0.2.0.25333.xpi";
+      sha256 = "5021387e987ef85808d8cdb7fcd0166a1b2c08521132d676f26276af7617a547";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -11856,10 +11856,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "146.0.20251205.151434";
+      version = "147.0.20251208.163038";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635917/scots_language_pack-146.0.20251205.151434.xpi";
-      sha256 = "ebdc78b39af9ccee28900d7f12a9fe190768acce45fad6525392749fcb112a93";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637905/scots_language_pack-147.0.20251208.163038.xpi";
+      sha256 = "73e12b198591c343b653cc6a19523d88a30e6c978e2bb81ef16e88394c5da55b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11916,10 +11916,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "8.3.0";
+      version = "8.4.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4591110/search_by_image-8.3.0.xpi";
-      sha256 = "c437ead18bc2ca71d05fa4254dafc354be976ebffe95526271d5faeb61326939";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4634627/search_by_image-8.4.0.xpi";
+      sha256 = "d701a8869b3bf36084ec378f89901cafecbc41267e81f2a98d1b19137f141b92";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -14218,10 +14218,10 @@
     };
     "ubo-scope" = buildFirefoxXpiAddon {
       pname = "ubo-scope";
-      version = "1.2.0";
+      version = "1.3.0";
       addonId = "uBO-Scope@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4626104/ubo_scope-1.2.0.xpi";
-      sha256 = "b36ef0670abb54ae09b021192167ffb5e6b5c9bf48491a68afeb20015f2310ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637820/ubo_scope-1.3.0.xpi";
+      sha256 = "a51de7730d351ae5fd234fd5791a9799ae2790c90034e36482a239141d6f77ba";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBO-Scope";
@@ -14229,11 +14229,10 @@
         license = licenses.gpl3;
         mozPermissions = [
           "activeTab"
+          "scripting"
           "storage"
           "webNavigation"
           "webRequest"
-          "https://*/*"
-          "http://*/*"
         ];
         platforms = platforms.all;
       };
@@ -15586,10 +15585,10 @@
     };
     "xkit-rewritten" = buildFirefoxXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.1.4";
+      version = "1.1.5";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4626767/xkit_rewritten-1.1.4.xpi";
-      sha256 = "ad5b2ac121c2ab3f2e8c1a8f3a8ffc83eab4b267d5c50c60775db5955f7eeb0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4632457/xkit_rewritten-1.1.5.xpi";
+      sha256 = "545edf4d97f00cec225d537195e2bdedb499b5f361bebdb4272c74eb2e7c25a3";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
