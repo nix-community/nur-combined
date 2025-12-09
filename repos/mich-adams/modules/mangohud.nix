@@ -84,8 +84,8 @@ in
 	programs.gamescope.env.MANGOHUD = "1";
 
 	systemd.tmpfiles.rules = [
-	    "d ${cfg.home}/.config/MangoHud 0755 ${cfg.user} - -"
-	    "f ${cfg.home}/.config/MangoHud/MangoHud.conf 0755 ${cfg.user} - -"
+	    "d ${cfg.home}/.config/MangoHud 0755 ${cfg.user} - - -"
+	    "f ${cfg.home}/.config/MangoHud/MangoHud.conf 0755 ${cfg.user} - - -"
 	];
 
 	systemd.services.populateMangoHudConf = {
