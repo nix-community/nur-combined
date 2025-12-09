@@ -163,6 +163,7 @@ in
       # "gopass-jsonapi"
       # "helix"  # text editor
       "htop"  # needed as a user package, for ~/.config/htop
+      "hyperfine"  # benchmarking tool
       "lddtree"
       # "libsecret"  # for managing user keyrings (secret-tool)
       # "lm_sensors"  # for sensors-detect
@@ -723,6 +724,8 @@ in
     hping.sandbox.capabilities = [ "net_raw" ];
     hping.sandbox.autodetectCliPaths = "existingFile";  # for sending packet data from file
     hping.sandbox.tryKeepUsers = true;
+
+    hyperfine.sandbox.enable = false;  #< it's a launcher
 
     # seahorse: dump gnome-keyring secrets.
     seahorse.buildCost = 1;

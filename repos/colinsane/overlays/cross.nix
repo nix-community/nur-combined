@@ -777,11 +777,6 @@ in with final; {
   #     upstream.postBuild;
   # });
 
-  # 2025/12/07: upstreaming is unblocked, out for review: <https://github.com/NixOS/nixpkgs/pull/468846>
-  # fixes
-  # > The system library `glib-2.0` required by crate `glib-sys` was not found.
-  # xdg-desktop-portal-cosmic = addBuildInputs [ glib ] prev.xdg-desktop-portal-cosmic;
-
   yt-dlp = prev.yt-dlp.override {
     # TODO(2025-11-17): yt-dlp needs deno (JavaScript) for full capability:
     # <https://github.com/NixOS/nixpkgs/pull/460892>
