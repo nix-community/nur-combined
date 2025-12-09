@@ -2,8 +2,6 @@
 
 **NUR Sync Status:** [![NUR Sync Status](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml/badge.svg)](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml)
 
-![NUR Sync Status Chart](https://raw.githubusercontent.com/lonerOrz/loneros-nur/nur-sync-status/status.svg)
-
 ---
 
 This is my personal [NUR (Nix User Repository)](https://github.com/nix-community/NUR), created for:

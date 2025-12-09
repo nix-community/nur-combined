@@ -1,4 +1,4 @@
-name: NUR Sync Monitor
+name: NUR Sync Check
 
 # 触发条件：master 有新提交或手动触发
 on:
@@ -7,19 +7,11 @@ on:
       - master
   workflow_dispatch:
 
-# 保证同一时间只运行一个实例
-concurrency:
-  group: nur-sync-monitor
-  cancel-in-progress: true
-
 jobs:
   check-sync:
     runs-on: ubuntu-latest
     env:
       MY_NUR_REPO: "https://github.com/lonerOrz/loneros-nur.git"
-      STATUS_BRANCH: "nur-sync-status"
-      STATUS_FILE: "status.json"
-      HISTORY_DAYS: 30 # 保留近 30 天历史
       MAX_ATTEMPTS: 60 # 轮询次数
       SLEEP_SEC: 60 # 每分钟检查一次
     steps:
@@ -34,58 +26,6 @@ jobs:
           MY_REV=$(git ls-remote "$MY_NUR_REPO" HEAD | awk '{print $1}')
           echo "MY_REV=$MY_REV" >> $GITHUB_ENV
           echo "Latest fork commit: $MY_REV"
-
-      - name: Setup Git identity
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
-      - name: Setup status branch
-        run: |
-          set -e
-
-          # 拉取远程所有分支
-          git fetch --all
-
-          # 检查远程是否存在该分支
-          if git ls-remote --exit-code origin $STATUS_BRANCH >/dev/null 2>&1; then
-            echo "Remote branch exists, checking out…"
-            git checkout -B $STATUS_BRANCH origin/$STATUS_BRANCH
-          else
-            echo "Remote branch does NOT exist, creating orphan…"
-            git checkout --orphan $STATUS_BRANCH
-
-            # 删除除 .github 以外所有文件
-            find . -mindepth 1 -maxdepth 1 \
-                ! -name '.git' \
-                ! -name '.github' \
-                ! -name '.gitignore' \
-                -exec rm -rf {} +
-
-            git add .
-            git commit --allow-empty -m "Initialize $STATUS_BRANCH branch"
-            git push --set-upstream origin $STATUS_BRANCH
-          fi
-
-      - name: Initialize status.json
-        run: |
-          set -e
-          # 确保文件存在
-          [ -f "$STATUS_FILE" ] || echo '{"history":[]}' > "$STATUS_FILE"
-          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-
-          # 拉取最新分支，避免 push 被拒绝
-          git fetch origin $STATUS_BRANCH
-          git checkout $STATUS_BRANCH
-          git pull --rebase origin $STATUS_BRANCH || echo "No remote changes"
-
-          # 增加 initial 未同步记录
-          jq --arg ts "$TIMESTAMP" --arg myrev "$MY_REV" \
-             '.history += [{"timestamp": $ts, "fork_rev": $myrev, "official_rev": null, "status": "unsynced", "phase": "initial"}]' \
-             "$STATUS_FILE" > tmp.json && mv tmp.json "$STATUS_FILE"
-          git add "$STATUS_FILE"
-          git commit -m "Mark new commit as initial unsynced" || echo "No changes to commit"
-          git push origin $STATUS_BRANCH
 
       - name: Poll official NUR
         run: |
@@ -102,25 +42,14 @@ jobs:
 
             if [ "$MY_REV" = "$OFFICIAL_REV" ]; then
               STATUS="synced"
+              echo "Repository is synced with official NUR"
               break
             fi
 
             sleep $SLEEP_SEC
           done
 
-          # 拉取最新分支，避免 push 被拒绝
-          git fetch origin $STATUS_BRANCH
-          git checkout $STATUS_BRANCH
-          git pull --rebase origin $STATUS_BRANCH || echo "No remote changes"
-
-          # 更新 status.json，保留近 HISTORY_DAYS 天历史
-          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          jq --arg ts "$TIMESTAMP" --arg myrev "$MY_REV" --arg offrev "$OFFICIAL_REV" \
-             --arg status "$STATUS" --arg phase "polled" --argjson days $HISTORY_DAYS \
-             'def cutoff: (now - ($days*24*3600));
-              .history = (.history | map(select(.timestamp|fromdateiso8601 > cutoff)) + [{"timestamp": $ts, "fork_rev": $myrev, "official_rev": $offrev, "status": $status, "phase": $phase}])' \
-             "$STATUS_FILE" > tmp.json && mv tmp.json "$STATUS_FILE"
-
-          git add "$STATUS_FILE"
-          git commit -m "Update polled sync status ($STATUS)" || echo "No changes to commit"
-          git push origin $STATUS_BRANCH
+          if [ "$STATUS" != "synced" ]; then
+            echo "Repository is NOT synced with official NUR after $MAX_ATTEMPTS attempts"
+            exit 1
+          fi
