@@ -11,16 +11,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "git-commit-helper";
-  version = "0.7.0-unstable-2025-08-06";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "zccrs";
     repo = "git-commit-helper";
-    rev = "f6b186f8f9d5abd73da78364dc028439d06c123c";
-    hash = "sha256-elzU7qBjXUCxOFwWAG87Ajy/e18XP3cEZ0uDVeN8/V4=";
+    rev = "v${version}";
+    hash = "sha256-UWvCv0Sb133rmA1vhMh4HiNx1z1z1wVOqi1qhP+cZ1g=";
   };
 
-  cargoHash = "sha256-EkbjMT2Uy5/fG5gOWDncvU0Y4T8GcJTYTOV7FKpDT2c=";
+  cargoHash = "sha256-bsggIgWjdcRYzeZaYKRRf7MA8JYnsbhCbNcVRuDwNpc=";
 
   doCheck = false;
 
