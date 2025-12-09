@@ -13,9 +13,9 @@ in
     src = fetchzip {
       url = "https://github.com/${info.repo}/releases/download/${version}/${version}.tar.gz";
       inherit (info) hash;
-      stripRoot = false;
     };
 
+    dontUnpack = true;
     dontConfigure = true;
     dontBuild = true;
 

@@ -112,6 +112,7 @@ update_github_single() {
   echo "✅ Updated version and hash"
 }
 
+# TODO: Add support for multi-version multi-platform updates
 update_github_multiplatform() {
   local repo="$1"
   local rawVersion="$2"

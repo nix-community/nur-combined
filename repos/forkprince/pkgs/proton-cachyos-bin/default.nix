@@ -17,9 +17,9 @@ in
     src = fetchzip {
       url = "https://github.com/${info.repo}/releases/download/${version}/${builtins.replaceStrings ["{version}"] [version] platform.file}";
       inherit (platform) hash;
-      stripRoot = false;
     };
 
+    dontUnpack = true;
     dontConfigure = true;
     dontBuild = true;
 

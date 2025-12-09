@@ -22,7 +22,7 @@
   osu-tachyon = pkgs.callPackage ./pkgs/osu-tachyon {};
   moonplayer = pkgs.callPackage ./pkgs/moonplayer {};
 
-  waterfox-bin = pkgs.callPackage ./pkgs/waterfox-bin {};
+  # waterfox-bin = pkgs.callPackage ./pkgs/waterfox-bin {};
   helium-nightly = pkgs.callPackage ./pkgs/helium-nightly {};
 
   boxtron-bin = pkgs.callPackage ./pkgs/boxtron-bin {};
