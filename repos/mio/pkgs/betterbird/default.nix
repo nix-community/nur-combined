@@ -31,8 +31,8 @@ let
   betterbird-patches = fetchFromGitHub {
     owner = "Betterbird";
     repo = "thunderbird-patches";
-    rev = "${version}-bb15";
-    hash = "sha256-v7vJ/uI/M4vrUzp3GRZIGqRN8t8m0wsi5fq1ciK8LMo=";
+    rev = "${version}-bb15-build2";
+    hash = "sha256-+unp/N5hB3Y8E3dTVxX0gHNTk4gklUKFzKA4YLISx9M=";
   };
 
   remote-patch-data = lib.importJSON ./patchdata.json;
@@ -51,7 +51,7 @@ let
   remote-patches-folder = linkFarmFromDrvs "betterbird-remote-patches" remote-patches;
 
   # Fetch and extract comm subdirectory
-  # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb15/140/140.sh
+  # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb15-build2/140/140.sh
   comm-source = fetchhg {
     name = "comm-source";
     url = "https://hg.mozilla.org/releases/comm-esr140";
@@ -72,7 +72,7 @@ in
     branding = "comm/mail/branding/betterbird";
     inherit (thunderbird-unwrapped) extraPatches;
 
-    # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb15/140/140.sh
+    # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb15-build2/140/140.sh
     src = fetchhg {
       name = "mozilla-source";
       url = "https://hg.mozilla.org/releases/mozilla-esr140";
