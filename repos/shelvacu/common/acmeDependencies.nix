@@ -7,7 +7,7 @@
 }:
 let
   for-systemd-services = lib.concatMapAttrs (cert: units: {
-    "acme-selfsigned-${cert}" = {
+    "acme-${cert}" = {
       wantedBy = units;
       before = units;
     };

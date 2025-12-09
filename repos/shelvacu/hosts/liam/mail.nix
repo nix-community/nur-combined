@@ -57,7 +57,6 @@ in
   vacu.acmeCertDependencies."liam.dis8.net" = [ "postfix.service" ];
   services.postfix = {
     enable = true;
-    hostname = fqdn;
 
     # this goes into virtual_alias_maps
     # "Note: for historical reasons, virtual_alias_maps apply to recipients in all domain classes, not only the virtual alias domain class."
@@ -77,8 +76,6 @@ in
       backup@${fqdn} ${dovecot_transport}
     '';
 
-    sslKey = config.security.acme.certs."liam.dis8.net".directory + "/key.pem";
-    sslCert = config.security.acme.certs."liam.dis8.net".directory + "/full.pem";
     postmasterAlias = "shelvacu";
     rootAlias = "shelvacu";
     enableSubmission = false;
@@ -116,23 +113,24 @@ in
       + config.services.postfix.virtual
     );
 
-    # verbatim appended to main.cf
-    extraConfig = ''
-      smtp_tls_CAfile = /etc/pki/tls/certs/ca-bundle.crt
-      inet_protocols = ipv4
-      virtual_alias_domains =
-        ${lib.concatStringsSep ",\n  " domains}
+    settings.main = {
+      myhostname = fqdn;
+      smtpd_tls_chain_files = [
+        (config.security.acme.certs."liam.dis8.net".directory + "/full.pem")
+      ];
+      inet_protocols = "ipv4";
+      virtual_alias_domains = domains;
 
-      message_size_limit = ${toString mailSizeLimit}
+      message_size_limit = mailSizeLimit;
 
-      sender_dependent_default_transport_maps = hash:/etc/postfix/sender_transport
-      sender_dependent_relayhost_maps = hash:/etc/postfix/sender_relay
+      sender_dependent_default_transport_maps = "hash:/etc/postfix/sender_transport";
+      sender_dependent_relayhost_maps = "hash:/etc/postfix/sender_relay";
 
-      header_checks = pcre:/etc/postfix/header_checks
-      smtpd_sender_restrictions = check_sender_access hash:/etc/postfix/sender_access permit
-      smtpd_client_restrictions = check_client_access cidr:/etc/postfix/banned_ips permit
-      smtpd_recipient_restrictions = check_recipient_access pcre:/etc/postfix/add_envelope_to permit
-      recipient_delimiter = +
+      header_checks = "pcre:/etc/postfix/header_checks";
+      smtpd_sender_restrictions = "check_sender_access hash:/etc/postfix/sender_access permit";
+      smtpd_client_restrictions = "check_client_access cidr:/etc/postfix/banned_ips permit";
+      smtpd_recipient_restrictions = "check_recipient_access pcre:/etc/postfix/add_envelope_to permit";
+      recipient_delimiter = "+";
 
       #we should never use these transport methods unless thru transport map
       # RFC3463:
@@ -140,51 +138,48 @@ in
       # X.3.X = mail system failure
       # X.3.5 = System incorrectly configured
       # I would've never thought there'd be a standard way to specifically say "you found an error in my config"
-      local_transport   = error:5.3.5 how did this even happen?? (e-local)
-      virtual_transport = error:5.3.5 how did this even happen?? (e-virtual)
+      local_transport   = "error:5.3.5 how did this even happen?? (e-local)";
+      virtual_transport = "error:5.3.5 how did this even happen?? (e-virtual)";
       # X.7.1 = Delivery not authorized, message refused
-      relay_transport = error:5.7.1 relay is so very disabled
+      relay_transport = "error:5.7.1 relay is so very disabled";
 
-      lmtp_destination_recipient_limit = 1
+      lmtp_destination_recipient_limit = 1;
 
-      always_bcc = backup@${fqdn}
+      always_bcc = "backup@${fqdn}";
 
       # not actually 1024 bits, this applies to all DHE >= 1024 bits
-      smtpd_tls_dh1024_param_file = ${lib.optionalString config.services.dovecot2.enableDHE config.security.dhparams.params.dovecot2.path}
+      smtpd_tls_dh1024_param_file = lib.mkIf config.services.dovecot2.enableDHE config.security.dhparams.params.dovecot2.path;
 
       # smtp_bind_address = 10.46.0.7
       # inet_interfaces = all
       # inet_protocols = ipv4
-      ${lib.optionalString config.services.opendkim.enable (
-        assert (config.services.opendkim.socket == "local:/run/opendkim/opendkim.sock");
-        ''
-          smtpd_milters = unix:/run/opendkim/opendkim.sock
-          non_smtpd_milters = unix:/run/opendkim/opendkim.sock
-        ''
-      )}
-    '';
-
-    masterConfig."relayservice" = {
-      command = "smtp";
-      type = "unix";
-      args = [
-        "-o"
-        "smtp_sasl_auth_enable=yes"
-        "-o"
-        "smtp_sasl_security_options=noanonymous"
-        "-o"
-        "smtp_tls_security_level=secure"
-        "-o"
-        "smtp_sasl_password_maps=texthash:${config.sops.secrets.relay_creds.path}"
-        "-o"
-        "smtp_tls_wrappermode=no"
-      ]
-      ++ (if debug then [ "-v" ] else [ ]);
+      smtpd_milters = lib.mkIf config.services.opendkim.enable "unix:/run/opendkim/opendkim.sock";
+      non_smtpd_milters = lib.mkIf config.services.opendkim.enable "unix:/run/opendkim/opendkim.sock";
     };
 
-    masterConfig.qmgr = lib.mkIf debug { args = [ "-v" ]; };
-    masterConfig.cleanup = lib.mkIf debug { args = [ "-v" ]; };
-    masterConfig.smtpd = lib.mkIf debug { args = [ "-v" ]; };
+    settings.master = {
+      relayservice = {
+        command = "smtp";
+        type = "unix";
+        args = [
+          "-o"
+          "smtp_sasl_auth_enable=yes"
+          "-o"
+          "smtp_sasl_security_options=noanonymous"
+          "-o"
+          "smtp_tls_security_level=secure"
+          "-o"
+          "smtp_sasl_password_maps=texthash:${config.sops.secrets.relay_creds.path}"
+          "-o"
+          "smtp_tls_wrappermode=no"
+        ]
+        ++ (if debug then [ "-v" ] else [ ]);
+      };
+
+      qmgr = lib.mkIf debug { args = [ "-v" ]; };
+      cleanup = lib.mkIf debug { args = [ "-v" ]; };
+      smtpd = lib.mkIf debug { args = [ "-v" ]; };
+    };
     submissionsOptions = {
       smtpd_tls_key_file = config.security.acme.certs."liam.dis8.net".directory + "/key.pem";
       smtpd_tls_cert_file = config.security.acme.certs."liam.dis8.net".directory + "/full.pem";

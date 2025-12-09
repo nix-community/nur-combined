@@ -162,7 +162,6 @@ in
           MP_UI_BIND_ADDR = "0.0.0.0:8025";
         };
         serviceConfig.ExecStart = "${mailpit}/bin/mailpit";
-        # serviceConfig.Restart = "always";
         serviceConfig.User = config.users.users.mailpit.name;
         serviceConfig.Group = config.users.groups.mailpit.name;
         serviceConfig.AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
@@ -173,7 +172,6 @@ in
   nodes.liam =
     {
       lib,
-      inputs,
       config,
       ...
     }:
@@ -183,17 +181,6 @@ in
         /${vacuRoot}/hosts/liam
       ];
       vacu.underTest = true;
-      #systemd.tmpfiles.settings."69-whatever"."/run/secretKey".L.argument = "${testAgeSecretFile}";
-      systemd.services."acme-liam.dis8.net".enable = lib.mkForce false;
-      systemd.timers."acme-liam.dis8.net".enable = lib.mkForce false;
-      systemd.services."acme-selfsigned-liam.dis8.net".wantedBy = [
-        "postfix.service"
-        "dovecot2.service"
-      ];
-      systemd.services."acme-selfsigned-liam.dis8.net".before = [
-        "postfix.service"
-        "dovecot2.service"
-      ];
       vacu.sops.secretsPath = "${sopsTestSecretsFolder}";
       vacu.liam.relayhosts = {
         shelvacuAlt = "[badhost.blarg]:587";
@@ -210,7 +197,7 @@ in
         setRootPassword = false;
       };
       # uncomment to significantly speed up the test
-      services.dovecot2.enableDHE = lib.mkForce false;
+      # services.dovecot2.enableDHE = lib.mkForce false;
       security.acme.defaults.email = lib.mkForce "me@example.org";
       security.acme.defaults.server = lib.mkForce "https://example.com"; # self-signed only
       networking.nameservers = lib.mkForce [ nodes.ns.networking.primaryIPAddress ];
@@ -233,14 +220,12 @@ in
       users.users.${user} = {
         isNormalUser = true;
         createHome = true;
-        # shell = null;
         home = "/home/${user}";
       };
       services.openssh = {
         enable = true;
         settings = {
           AllowUsers = [ user ];
-          # ForceCommand = lib.getExe loginCommand;
         };
       };
       environment.systemPackages = [

@@ -34,7 +34,7 @@ let
       keySizeHex = builtins.toString (keySizeBits / 4);
     in
     pkgs.runCommand "deterministic-privkey-${name}.pem" { } ''
-      seed=$(printf '%s' ${lib.escapeShellArg (builtins.toJSON name)} | ${pkgs.ruby_3_2}/bin/ruby -rjson -e 'name = JSON.parse(STDIN.gets); print name.unpack("H*")[0].ljust(${keySizeHex}, "0")')
+      seed=$(printf '%s' ${lib.escapeShellArg (builtins.toJSON name)} | ${pkgs.ruby}/bin/ruby -rjson -e 'name = JSON.parse(STDIN.gets); print name.unpack("H*")[0].ljust(${keySizeHex}, "0")')
       ${pkgs.gnutls}/bin/certtool --generate-privkey --outfile="$out" --key-type=rsa --sec-param=high --seed=$seed
     '';
   generateCert =

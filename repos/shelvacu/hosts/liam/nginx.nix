@@ -19,7 +19,6 @@ in
   security.acme.defaults.email = "shelvacu@gmail.com";
   services.nginx = {
     enable = true;
-    recommendedZstdSettings = true;
     recommendedGzipSettings = true;
     recommendedBrotliSettings = true;
     recommendedTlsSettings = true;

@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  vaculib,
   vacuModules,
   vacuRoot,
   ...
@@ -8,20 +9,9 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.framework-16-7040-amd
-    /${vacuRoot}/tf2
     vacuModules.sops
-    ./apex.nix
-    ./android.nix
-    ./thunderbolt.nix
-    ./fwupd.nix
-    ./zfs.nix
-    ./virtualbox.nix
-    ./tpm-fido.nix
-    ./podman.nix
-    ./waydroid.nix
-    ./audio.nix
-    ./boot.nix
-  ];
+    /${vacuRoot}/tf2
+  ] ++ builtins.attrValues (vaculib.directoryGrabber { path = ./.; });
 
   vacu.hostName = "fw";
   vacu.shell.color = "magenta";

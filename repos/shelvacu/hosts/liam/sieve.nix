@@ -466,6 +466,12 @@ let
       removeflag "C";
       removeflag "D";
 
+      ${pure_flags [ "to-a" "A" ] (envelope_matches "*-to-a@shelvacu.com")}
+      ${pure_flags [ "to-b" "B" ] (envelope_matches "*-to-b@shelvacu.com")}
+      ${pure_flags [ "to-c" "C" ] (envelope_matches "*-to-c@shelvacu.com")}
+      ${pure_flags [ "to-d" "D" ] (envelope_matches "*-to-d@shelvacu.com")}
+      ${pure_flags [ "ml" "B.subscriptions" ] (envelope_matches "*-ml@shelvacu.com")}
+
       ${pure_flags [ "dmarc-reports" ] (envelope_is "dmarc-rua@shelvacu.com")}
       ${pure_flags [ "coolppl" "A" ] (from_matches [
         #todo: do this without exposing friends' email addresses

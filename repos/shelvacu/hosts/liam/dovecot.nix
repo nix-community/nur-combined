@@ -34,6 +34,10 @@
     extraConfig = ''
       mail_home = /var/lib/mail/%n
       mail_max_userip_connections = 100
+
+      # mail_debug = yes
+      mail_plugins = $mail_plugins notify mail_log
+
       service auth {
         unix_listener /var/lib/postfix/queue/private/dovecot-auth {
           group = ${config.services.postfix.group}
@@ -124,9 +128,6 @@
           auto = create
         }
       }
-
-      # mail_debug = yes
-      mail_plugins = $mail_plugins notify mail_log
 
       plugin {
         # sieve_trace_debug = yes
