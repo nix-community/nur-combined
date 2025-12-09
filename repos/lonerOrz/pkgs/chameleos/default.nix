@@ -43,7 +43,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/chameleos \
-      --prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib:${mesa}/lib:${libglvnd}/lib
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          mesa
+          libglvnd
+          vulkan-loader
+        ]
+      }
   '';
 
   meta = {
