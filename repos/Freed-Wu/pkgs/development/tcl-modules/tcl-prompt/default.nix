@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   tcl,
-  tcllib,
+  tclPackages,
   tclreadline,
   wakatime-cli,
   expect,
@@ -22,7 +22,7 @@ tcl.mkTclDerivation rec {
 
   buildInputs = [
     tclreadline
-    tcllib
+    tclPackages.tcllib
     expect
     wakatime-cli
   ];
