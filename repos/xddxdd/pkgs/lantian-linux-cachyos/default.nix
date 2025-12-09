@@ -1,17 +1,16 @@
 {
-  mode ? null,
   callPackage,
   lib,
   sources,
-  linux_6_12,
+  linux,
   ...
 }:
 let
-  mkCachyKernel = callPackage ./mkCachyKernel.nix { inherit mode sources; };
+  mkCachyKernel = callPackage ./mkCachyKernel.nix { inherit sources; };
 
   batch =
     {
-      prefix,
+      pnameSuffix,
       version,
       src,
       configVariant,
@@ -19,40 +18,31 @@ let
     }:
     [
       (mkCachyKernel {
-        pname = "${prefix}";
+        pnameSuffix = "${pnameSuffix}";
         inherit version src configVariant;
         lto = false;
       })
       (mkCachyKernel {
-        pname = "${prefix}-lto";
+        pnameSuffix = "${pnameSuffix}-lto";
         inherit version src configVariant;
         lto = true;
       })
     ];
 
   batches = [
+    # # Will setup 6.18 kernel later
     # (batch {
-    #   prefix = "latest";
+    #   pnameSuffix = "latest";
     #   inherit (linux_latest) version src;
     #   configVariant = "linux-cachyos";
     # })
     (batch {
-      prefix = "lts";
-      inherit (linux_6_12) version src;
-      configVariant = "linux-cachyos-lts";
-    })
-    (batch {
-      prefix = "v6_12";
-      inherit (linux_6_12) version src;
+      pnameSuffix = "lts";
+      inherit (linux) version src;
       configVariant = "linux-cachyos-lts";
     })
   ];
-
-  batchesAttrs = builtins.listToAttrs (lib.flatten batches);
 in
-if mode == "ci" then
-  lib.filterAttrs (n: nv: lib.hasSuffix "configfile" n) batchesAttrs
-else if mode == "nur" then
-  lib.filterAttrs (n: nv: !lib.hasSuffix "configfile" n) batchesAttrs
-else
-  batchesAttrs
+lib.mapAttrs' (n: v: lib.nameValuePair (lib.removePrefix "linux-cachyos-" n) v) (
+  builtins.listToAttrs (lib.flatten batches)
+)

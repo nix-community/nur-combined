@@ -10,8 +10,5 @@
       major = lib.versions.pad 2 ver0;
       patchDir = ./. + "/${major}";
     in
-    builtins.map (n: {
-      name = n;
-      patch = patchDir + "/${n}";
-    }) (builtins.attrNames (builtins.readDir patchDir));
+    builtins.map (n: patchDir + "/${n}") (builtins.attrNames (builtins.readDir patchDir));
 }

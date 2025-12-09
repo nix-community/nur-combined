@@ -1089,56 +1089,6 @@
     };
     date = "2025-10-12";
   };
-  linux-xanmod = {
-    pname = "linux-xanmod";
-    version = "6.18.0-xanmod1";
-    src = fetchgit {
-      url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.18.0-xanmod1";
-      fetchSubmodules = false;
-      hash = "sha256-voGRfxlZuejQvalSj/teB8XMvnzE3VG15kCtsNTCFFo=";
-    };
-  };
-  linux-xanmod-6_0 = {
-    pname = "linux-xanmod-6_0";
-    version = "6.0.12-xanmod1";
-    src = fetchgit {
-      url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.0.12-xanmod1";
-      fetchSubmodules = false;
-      hash = "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=";
-    };
-  };
-  linux-xanmod-6_1 = {
-    pname = "linux-xanmod-6_1";
-    version = "6.1.77-xanmod1";
-    src = fetchgit {
-      url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.1.77-xanmod1";
-      fetchSubmodules = false;
-      hash = "sha256-O+XB+avpx9Kkt+7RW6pT5mXMtAVhXNHe+ohgIm1ql8w=";
-    };
-  };
-  linux-xanmod-6_12 = {
-    pname = "linux-xanmod-6_12";
-    version = "6.12.61-xanmod1";
-    src = fetchgit {
-      url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.61-xanmod1";
-      fetchSubmodules = false;
-      hash = "sha256-7m4Ehmy463rQK265fEvTMjndqZXs+PJ35HE+tZVKgGQ=";
-    };
-  };
-  linux-xanmod-6_6 = {
-    pname = "linux-xanmod-6_6";
-    version = "6.6.72-xanmod1";
-    src = fetchgit {
-      url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.6.72-xanmod1";
-      fetchSubmodules = false;
-      hash = "sha256-9XDd/cgUDNVgoorkz4L/3PtuLgFewowTBF9o7LX+REk=";
-    };
-  };
   llama-cpp = {
     pname = "llama-cpp";
     version = "b7316";

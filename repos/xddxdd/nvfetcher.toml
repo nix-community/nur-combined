@@ -473,36 +473,6 @@ fetch.github = "LinguaSpark/server"
 git.fetchSubmodules = true
 src.git = "https://github.com/LinguaSpark/server.git"
 
-[linux-xanmod]
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags"
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^[0-9\\.]+-xanmod.*$"
-
-[linux-xanmod-6_0]
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.0."
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^6\\.0\\.[0-9]+-xanmod.*$"
-
-[linux-xanmod-6_1]
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.1."
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^6\\.1\\.[0-9]+-xanmod.*$"
-
-[linux-xanmod-6_12]
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.12."
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^6\\.12\\.[0-9]+-xanmod.*$"
-
-[linux-xanmod-6_6]
-fetch.git = "https://gitlab.com/xanmod/linux.git"
-src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.6."
-src.regex = "\"name\":\"([^\"]+)\","
-src.include_regex = "^6\\.6\\.[0-9]+-xanmod.*$"
-
 [llama-cpp]
 fetch.github = "ggerganov/llama.cpp"
 src.github = "ggerganov/llama.cpp"

@@ -2,58 +2,89 @@
   sources,
   lib,
   callPackage,
+  buildLinux,
+  stdenv,
+  kernelPatches,
+  linuxKernel,
   ...
 }@importArgs:
-args:
+{
+  pnameSuffix,
+  version,
+  src,
+  configVariant,
+  lto,
+}:
 let
-  helpers = callPackage ../../helpers/kernel { };
-  inherit (helpers) mkKernel readStructuredConfig;
+  helpers = callPackage ./helpers.nix { };
+  inherit (helpers) stdenvLLVM ltoMakeflags kernelModuleLLVMOverride;
 
-  splitted = lib.splitString "-" args.version;
+  splitted = lib.splitString "-" version;
   ver0 = builtins.elemAt splitted 0;
   major = lib.versions.pad 2 ver0;
 
-  cachyosConfigFile = sources.cachyos-kernel.src + "/${args.configVariant}/config";
-  cachyosConfig = readStructuredConfig cachyosConfigFile;
-  customConfig = import (../../helpers/kernel/custom-config + "/${major}.nix") importArgs;
+  cachyosConfigFile = sources.cachyos-kernel.src + "/${configVariant}/config";
+  customConfig = import (./custom-config + "/${major}.nix") importArgs;
 
-  kernelPackage = mkKernel (
-    lib.recursiveUpdate args rec {
-      pname = "linux-cachyos-${args.pname}";
+  cachyosPatch = sources.cachyos-kernel-patches.src + "/${major}/all/0001-cachyos-base-all.patch";
+  customPatches = callPackage ./patches { };
 
-      structuredExtraConfig =
-        cachyosConfig
-        // customConfig
-        // {
-          LOCALVERSION = lib.kernel.freeform "-lantian-cachy";
-        };
+  # buildLinux doesn't accept postPatch, so adding config file early here
+  patchedSrc = stdenv.mkDerivation {
+    pname = "linux-cachyos-${pnameSuffix}-src";
+    inherit version src;
+    patches = [
+      kernelPatches.bridge_stp_helper.patch
+      kernelPatches.request_key_helper.patch
+      cachyosPatch
+    ]
+    ++ (customPatches.getPatches version);
+    postPatch = ''
+      for DIR in arch/*/configs; do
+        install -Dm644 ${cachyosConfigFile} $DIR/cachyos_defconfig
+      done
+    '';
+    dontConfigure = true;
+    dontBuild = true;
+    dontFixup = true;
+    installPhase = ''
+      mkdir -p $out
+      cp -r * $out/
+    '';
+  };
 
-      modDirSuffix = "-lantian-cachy";
+  kernelPackage = buildLinux {
+    pname = "linux-cachyos-${pnameSuffix}";
+    inherit version;
+    src = patchedSrc;
+    stdenv = if lto then stdenvLLVM else stdenv;
 
-      extraPatches = [
-        {
-          name = "0001-cachyos-base-all.patch";
-          patch = sources.cachyos-kernel-patches.src + "/${major}/all/0001-cachyos-base-all.patch";
+    extraMakeFlags = lib.optionals lto ltoMakeflags;
+
+    defconfig = "cachyos_defconfig";
+
+    # Clang has some incompatibilities with NixOS's default kernel config
+    ignoreConfigErrors = lto;
+
+    structuredExtraConfig =
+      with lib.kernel;
+      (
+        customConfig
+        // lib.optionalAttrs lto {
+          LTO_NONE = no;
+          LTO_CLANG_THIN = yes;
         }
-      ];
+      );
 
-      extraArgs = lib.recursiveUpdate {
-        ignoreConfigErrors = true;
-
-        passthru = {
-          inherit structuredExtraConfig;
-        };
-
-        extraMeta = {
-          description =
-            "Linux CachyOS Kernel with Lan Tian Modifications"
-            + lib.optionalString (args.lto or false) " and Clang+ThinLTO";
-        };
-      } (args.extraArgs or { });
-    }
-  );
+    extraMeta = {
+      description =
+        "Linux CachyOS Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
+    };
+  };
 in
 [
-  (lib.nameValuePair args.pname kernelPackage)
-  (lib.nameValuePair "${args.pname}-configfile" kernelPackage.configfile)
+  (lib.nameValuePair "linux-cachyos-${pnameSuffix}" kernelPackage)
+  (lib.nameValuePair "linuxPackages-cachyos-${pnameSuffix}" (
+    kernelModuleLLVMOverride (linuxKernel.packagesFor kernelPackage)
+  ))
 ]
