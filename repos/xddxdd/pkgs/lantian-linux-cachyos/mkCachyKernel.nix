@@ -5,7 +5,6 @@
   buildLinux,
   stdenv,
   kernelPatches,
-  linuxKernel,
   ...
 }@importArgs:
 {
@@ -17,7 +16,7 @@
 }:
 let
   helpers = callPackage ./helpers.nix { };
-  inherit (helpers) stdenvLLVM ltoMakeflags kernelModuleLLVMOverride;
+  inherit (helpers) stdenvLLVM ltoMakeflags;
 
   splitted = lib.splitString "-" version;
   ver0 = builtins.elemAt splitted 0;
@@ -84,7 +83,4 @@ let
 in
 [
   (lib.nameValuePair "linux-cachyos-${pnameSuffix}" kernelPackage)
-  (lib.nameValuePair "linuxPackages-cachyos-${pnameSuffix}" (
-    kernelModuleLLVMOverride (linuxKernel.packagesFor kernelPackage)
-  ))
 ]

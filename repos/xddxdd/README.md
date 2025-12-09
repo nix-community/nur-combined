@@ -436,6 +436,14 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
+<summary>Package set: lantianLinuxCachyOSPackages (0 packages)</summary>
+
+| State | Path | Name | Version | Description |
+| ----- | ---- | ---- | ------- | ----------- |
+
+</details>
+
+<details>
 <summary>Package set: nvidia-grid (200 packages)</summary>
 
 | State | Path | Name | Version | Description |

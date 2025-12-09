@@ -5529,6 +5529,11 @@
     "pname": "merged-packages",
     "version": ""
   },
+  "packages.x86_64-linux.lantianLinuxCachyOSPackages": {
+    "description": "",
+    "pname": "merged-packages",
+    "version": ""
+  },
   "packages.x86_64-linux.ldap-auth-proxy": {
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
     "pname": "ldap-auth-proxy",

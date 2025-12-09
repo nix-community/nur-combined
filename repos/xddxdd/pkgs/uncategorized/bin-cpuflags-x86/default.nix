@@ -6,7 +6,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.bin-cpuflags-x86) pname version src;
 
-  cargoHash = "sha256-wlW7tuSXQGQ8vs1FBbfzA5EdGRM0fOSEHwDnqei/LwM=";
+  cargoHash = "sha256-a9YIqcbAhWOQfCUkltViGYLUDB7/lTfNmdG4KpLJTyE=";
 
   meta = {
     changelog = "https://github.com/HanabishiRecca/bin-cpuflags-x86/releases/tag/v${finalAttrs.version}";
