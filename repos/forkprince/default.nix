@@ -11,22 +11,27 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  ab-download-manager = pkgs.callPackage ./pkgs/abdm {};
-  beeper-nightly = pkgs.callPackage ./pkgs/beeper-nightly {};
-  boxtron-bin = pkgs.callPackage ./pkgs/boxtron-bin {};
   hyprcursor-bibata = pkgs.callPackage ./pkgs/hyprcursor-bibata {};
   hyprpanel = pkgs.callPackage ./pkgs/hyprpanel {};
-  moonplayer = pkgs.callPackage ./pkgs/moonplayer {};
-  nirius = pkgs.callPackage ./pkgs/nirius {};
-  osu-tachyon = pkgs.callPackage ./pkgs/osu-tachyon {};
-  proton-em-bin = pkgs.callPackage ./pkgs/proton-em-bin {};
-  proton-cachyos-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin {};
-  proton-ge-rtsp-bin = pkgs.callPackage ./pkgs/proton-ge-rtsp-bin {};
-  proton-sarek-bin = pkgs.callPackage ./pkgs/proton-sarek-bin {};
-  re-lunatic-player = pkgs.callPackage ./pkgs/re-lunatic-player {};
   syslock = pkgs.callPackage ./pkgs/syslock {};
+  nirius = pkgs.callPackage ./pkgs/nirius {};
+
+  re-lunatic-player = pkgs.callPackage ./pkgs/re-lunatic-player {};
+  beeper-nightly = pkgs.callPackage ./pkgs/beeper-nightly {};
+  ab-download-manager = pkgs.callPackage ./pkgs/abdm {};
+  osu-tachyon = pkgs.callPackage ./pkgs/osu-tachyon {};
+  moonplayer = pkgs.callPackage ./pkgs/moonplayer {};
+
   waterfox-bin = pkgs.callPackage ./pkgs/waterfox-bin {};
   helium-nightly = pkgs.callPackage ./pkgs/helium-nightly {};
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+
+  boxtron-bin = pkgs.callPackage ./pkgs/boxtron-bin {};
+  proton-em-bin = pkgs.callPackage ./pkgs/proton-em-bin {};
+  proton-sarek-bin = pkgs.callPackage ./pkgs/proton-sarek-bin {};
+  proton-ge-rtsp-bin = pkgs.callPackage ./pkgs/proton-ge-rtsp-bin {};
+
+  proton-cachyos-v1-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v1"; };
+  proton-cachyos-v2-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v2"; };
+  proton-cachyos-v3-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v3"; };
+  proton-cachyos-v4-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v4"; };
 }
