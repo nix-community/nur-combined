@@ -188,6 +188,7 @@ in
       };
       system.activationScripts.sopsHack.text = "ln -s ${testAgeSecretFile} /run/secretKey";
       system.activationScripts.setupSecrets.deps = [ "sopsHack" ];
+      # systemd.services."acme-order-renew-liam.dis8.net".enable = lib.mkForce false;
       sops.age.keyFile = "/run/secretKey";
       services.do-agent.enable = false;
       virtualisation.digitalOcean = {

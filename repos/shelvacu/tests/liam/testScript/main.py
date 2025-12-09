@@ -24,6 +24,7 @@ liam.wait_for_unit("nginx.service")
 liam.wait_for_open_port(80)
 
 liam.copy_from_host(DATA["acmeTest"], DATA["acmeTestDest"])
+# liam.wait_for_unit("network-online.target")
 checker.wait_for_unit("network.target")
 checker.succeed("wget http://liam.dis8.net/.well-known/acme-challenge/test")
 
