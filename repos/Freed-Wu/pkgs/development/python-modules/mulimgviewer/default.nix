@@ -1,7 +1,7 @@
 {
   mySources,
   python3,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 with python3.pkgs;
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
     # https://github.com/NixOS/nixpkgs/issues/181500
-    wrapGAppsHook
+    wrapGAppsHook3
     piexif
     pillow
     wxpython
