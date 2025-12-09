@@ -13,6 +13,7 @@
     # systemd.sysusers.enable = true;
     # apply.enable = true;
     copySystemConfiguration = false;
+    nixos-init.enable = true;
 
     disableInstallerTools = true;
     tools.nixos-rebuild.enable = false;

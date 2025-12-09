@@ -27,6 +27,39 @@
   users.mutableUsers = false;
   services.userborn.enable = true;
 
+  ## START FOR other user
+  networking.nftables = {
+    enable = true;
+    ruleset = ''
+      table inet filter {
+        chain output {
+        	type filter hook output priority filter; policy accept;
+        	ip6 daddr fdcc::/16 meta skuid 1010 reject with icmpv6 port-unreachable
+        }
+      }
+    '';
+  };
+  users.users.zgmx = {
+    isNormalUser = true;
+    uid = 1010;
+    subUidRanges = [
+      {
+        count = 65536;
+        startUid = 2147483646;
+      }
+    ];
+    subGidRanges = [
+      {
+        count = 65536;
+        startGid = 2147483647;
+      }
+    ];
+    shell = pkgs.fish;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMgaKPBtVDqxgse2UdlsGM7LdRxq+uSJV7FPhC1LyyXJ"
+    ];
+  };
+  ## END FOR other user
   zramSwap = {
     enable = true;
     memoryPercent = 80;
@@ -51,6 +84,8 @@
     #   enable = true;
     # };
     sing-server.enable = true;
+
+    userborn-subid.enable = true;
   };
   services = {
     # dnsproxy.settings = lib.mkForce {
@@ -67,6 +102,22 @@
     #     "https://dns.google/dns-query"
     #   ];
     # };
+    realm = {
+      enable = true;
+      settings = {
+        log.level = "warn";
+        network = {
+          no_tcp = false;
+          use_udp = true;
+        };
+        endpoints = [
+          {
+            listen = "[::]:8776";
+            remote = "[fdcc::3]:8776";
+          }
+        ];
+      };
+    };
     metrics.enable = true;
 
     hysteria.instances = {

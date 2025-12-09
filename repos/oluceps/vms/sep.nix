@@ -41,6 +41,7 @@
             allowedTCPPorts = [
               1095
               8080
+              9100
             ];
             allowedUDPPorts = [ 53 ];
           };
@@ -68,6 +69,14 @@
           networking.enableIPv6 = true;
           # forbid end
 
+          services.prometheus.exporters = {
+            node = {
+              enable = true;
+              listenAddress = "[::]";
+              enabledCollectors = [ "systemd" ];
+              disabledCollectors = [ "arp" ];
+            };
+          };
           services.openssh.hostKeys = [
             {
               path = "/var/lib/ssh/ssh_host_ed25519_key";

@@ -55,13 +55,18 @@ build:
     use {{loc}}/util.nu
     open registry.toml | $in.node | columns
     | reduce {|it, acc| $it + (char newline) + $acc }
-    | fzf
+    | gum choose --no-limit
+    | split words
     | util b $in
 
-deploy *args:
+deploy:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
-    util d {{ args }}
+    open registry.toml | $in.node | columns
+    | reduce {|it, acc| $it + (char newline) + $acc }
+    | gum choose --no-limit
+    | split words
+    | util d $in
 
 encrypt-new *args:
     #!/usr/bin/env nu

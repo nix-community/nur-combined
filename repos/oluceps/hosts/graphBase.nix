@@ -61,10 +61,10 @@
           obs-pipewire-audio-capture
         ];
       })
-      pkgs.systemd-run-app
       pkgs.wechat
       pkgs.porsmo
       pkgs.libnotify # foot
+      pkgs.bitwarden-cli
     ];
   xdg = {
     terminal-exec = {
@@ -157,7 +157,7 @@
       # WARNING: this broken xdg-open
       # xdgOpenUsePortal = true;
       extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
+        # pkgs.xdg-desktop-portal-gtk
         pkgs.xdg-desktop-portal-gnome
       ];
       configPackages = [ pkgs.niri ];

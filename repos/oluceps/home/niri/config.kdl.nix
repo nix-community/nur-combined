@@ -1,31 +1,7 @@
 { pkgs, lib, ... }:
 let
 
-  # genDeps = n: lib.genAttrs n (name: lib.getExe pkgs.${name});
-
-  # wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-  # wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
   pw-volume = "${pkgs.pw-volume}/bin/pw-volume";
-
-  # deps = genDeps [
-  #   "fuzzel"
-  #   "foot"
-  #   "grim"
-  #   "light"
-  #   "playerctl"
-  #   "pulsemixer"
-  #   "slurp"
-  #   "swaybg"
-  #   "swaylock"
-  #   "hyprpicker"
-  #   "cliphist"
-  #   "firefox"
-  #   "tdesktop"
-  #   "save-clipboard-to"
-  #   "screen-recorder-toggle"
-  #   "systemd-run-app"
-  # ];
-
   execApp = lib.concatMapStringsSep " " (i: ''"${i}"'');
   execDesktop =
     app:

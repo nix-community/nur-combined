@@ -83,7 +83,7 @@
             "relatime"
             "nosuid"
             "nodev"
-            "size=2G"
+            "size=128M"
             "mode=755"
           ];
         };
