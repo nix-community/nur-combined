@@ -31,13 +31,15 @@ let
     !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
+  isSupportedPlatform =
+    p: if !isDerivation p then true else (pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p);
 
   nameValuePair = n: v: {
     name = n;
     value = v;
   };
 
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
+  concatMap = builtins.concatMap or (f: xs: builtins.concatLists (map f xs));
 
   flattenPkgs =
     s:
@@ -57,11 +59,19 @@ let
 
   nurAttrs = import ./default.nix { inherit pkgs; };
 
-  nurPkgs = flattenPkgs (
-    listToAttrs (
-      map (n: nameValuePair n nurAttrs.${n}) (filter (n: !isReserved n) (attrNames nurAttrs))
-    )
-  );
+  nurPkgs =
+    let
+      maybeAttrs = builtins.filter (a: isAttrs a && a ? name && a ? value) (
+        concatMap (
+          n:
+          let
+            v = builtins.tryEval nurAttrs.${n};
+          in
+          if v.success && isSupportedPlatform v.value then [ (nameValuePair n v.value) ] else [ ]
+        ) (filter (n: !isReserved n) (attrNames nurAttrs))
+      );
+    in
+    flattenPkgs (listToAttrs maybeAttrs);
 
 in
 rec {

@@ -44,6 +44,14 @@ jobs:
         cd pkgs/musescore3
         ./update.sh
 
+    - name: Update firefox nightly
+      continue-on-error: true
+      run: nix run .#firefox_nightly-unwrapped.passthru.updateScript
+
+    - name: Update nss-git
+      continue-on-error: true
+      run: nix run .#nss_git.passthru.updateScript
+
     - name: Push changes
       run: |
         git push

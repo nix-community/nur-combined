@@ -10,34 +10,57 @@
   withExtraCommands ? "",
   gitUrl,
   fetchLatestRev,
-  # from nyx:
-  nyx-generic-git-update,
-  # from nixpkgs:
-  writeShellScript,
+  writeShellScriptBin,
+  lib,
+  nix,
+  coreutils,
+  curl,
+  jq,
+  git,
 }:
 
 let
-  moreThanABoolean =
-    default: x:
-    if x == null || x == false then
-      "0"
-    else if x == true then
-      default
-    else
-      x;
+  baseUrl = lib.removeSuffix ".git" gitUrl;
+  path = builtins.concatStringsSep ":" [
+    "${nix}/bin"
+    "${coreutils}/bin"
+    "${curl}/bin"
+    "${jq}/bin"
+    "${git}/bin"
+  ];
 in
-writeShellScript "update-${pname}-git" ''
+writeShellScriptBin "update-${pname}-git" ''
   set -euo pipefail
 
-  _LATEST_REV=$(${fetchLatestRev})
+  export PATH=${path}
+  VERSION_JSON="''${VERSION_JSON:-${versionPath}}"
 
-  HAS_CARGO=${if hasCargo then "1" else "0"} \
-  HAS_SUBMODULES=${if hasSubmodules then "1" else "0"} \
-  WITH_LAST_DATE=${moreThanABoolean "1" withLastModifiedDate} \
-  WITH_LAST_STAMP=${if withLastModified then "1" else "0"} \
-  WITH_BUMP_STAMP=${if withBump then "1" else "0"} \
-  WITH_EXTRA=${withExtraCommands} \
-    exec "${nyx-generic-git-update}/bin/nyx-generic-update" \
-    "${pname}" "${nyxKey}" "${versionPath}" \
-    "${gitUrl}" "$_LATEST_REV"
+  latest_rev=$(${fetchLatestRev})
+  current_rev=$(jq -r .rev "$VERSION_JSON")
+  current_short=$(printf %s "$current_rev" | cut -c1-7)
+
+  if [ "$latest_rev" = "$current_rev" ]; then
+    exit 0
+  fi
+
+  base_url="${baseUrl}"
+  archive_url="''${base_url}/archive/$latest_rev.tar.gz"
+
+  archive_sha256=$(nix-prefetch-url --unpack --type sha256 "$archive_url")
+  archive_hash=$(nix hash to-sri --type sha256 "$archive_sha256")
+
+  short_rev=$(printf %s "$latest_rev" | cut -c1-7)
+  timestamp=$(date -u +%Y%m%d%H%M%S)
+  new_version="unstable-$timestamp-$short_rev"
+
+  jq --arg rev "$latest_rev" \
+     --arg hash "$archive_hash" \
+     --arg version "$new_version" \
+     '.rev = $rev | .hash = $hash | .version = $version' \
+     "$VERSION_JSON" > "$VERSION_JSON.tmp"
+
+  mv "$VERSION_JSON.tmp" "$VERSION_JSON"
+
+  git add "$VERSION_JSON"
+  git commit -m "${pname}: ''${current_short} -> $short_rev"
 ''

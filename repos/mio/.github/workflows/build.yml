@@ -79,18 +79,27 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Check evaluation
-      if: false
+    - name: Determine system architecture
       run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+        if [[ "${{ runner.os }}" == "macOS" ]]; then
+          if [[ "${{ runner.arch }}" == "ARM64" ]]; then
+            SYSTEM="aarch64-darwin"
+          else
+            SYSTEM="x86_64-darwin"
+          fi
+        elif [[ "${{ runner.arch }}" == "ARM64" ]]; then
+          SYSTEM="aarch64-linux"
+        else
+          SYSTEM="x86_64-linux"
+        fi
+        echo "SYSTEM=$SYSTEM" >> $GITHUB_ENV
+        echo "Building for system: $SYSTEM"
+    # https://github.com/nix-community/nixos-apple-silicon/blob/7aad69158fc1b5bbbddac19040b6aae14daaa35c/.github/workflows/cache.yml#L45C56-L50C24
     - name: Build nix packages
-      run: nice -n 20 nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached --max-jobs 1 --cores 0 --keep-going ci.nix -A cacheOutputs
+      run: |
+        nix run nixpkgs#nix-fast-build -- --max-jobs 1 \
+          --no-nom --skip-cached \
+          -f .#packages.${{ env.SYSTEM }} ${{ matrix.nixpkgs-override }}
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
