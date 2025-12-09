@@ -62,16 +62,20 @@ let
 
     defconfig = "cachyos_defconfig";
 
-    # Clang has some incompatibilities with NixOS's default kernel config
-    ignoreConfigErrors = lto;
+    ignoreConfigErrors = true;
+
+    modDirVersion = "${ver0}-lantian-cachy";
 
     structuredExtraConfig =
       with lib.kernel;
       (
         customConfig
-        // lib.optionalAttrs lto {
+        // (lib.optionalAttrs lto {
           LTO_NONE = no;
           LTO_CLANG_THIN = yes;
+        })
+        // {
+          LOCALVERSION = lib.kernel.freeform "-lantian-cachy";
         }
       );
 
