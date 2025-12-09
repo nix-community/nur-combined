@@ -36,8 +36,12 @@ let
       gtk.icon.enable = true;
     };
 
-    programs.niri.settings.outputs.eDP-1 = {
-      # scale = 1.25;
+    programs.niri.settings.outputs.DP-4 = {
+      mode = {
+        width = 3840;
+        height = 2160;
+        refresh = 120.0;
+      };
       variable-refresh-rate = true;
     };
 
