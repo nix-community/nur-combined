@@ -1,11 +1,13 @@
 # nurpkgs
 
-see all packages: <https://nur.nix-community.org/repos/mio/>
+see all packages: <https://nur.nix-community.org/repos/mio/> How to use (NUR guide) <https://nur.nix-community.org/documentation/> You will want to use `nur.repos.mio.*`
 
 + linux: x86_64-v3, aarch64
 + darwin: aarch64
 
 ## cache
+
+binary cache is provided as best effort. binary cache is frequently *NOT* up to date and you will frequently have to build packages from source code because github actions is often not sufficient to compile packages. Solutions to provide up to date binary cache do require money every month
 
 ```nix
   nix = {
@@ -24,13 +26,11 @@ see all packages: <https://nur.nix-community.org/repos/mio/>
 --option 'extra-substituters' 'https://mio.cachix.org/' --option extra-trusted-public-keys "mio.cachix.org-1:FlupyyLPURqwdRqtPT/LBWKsXY7JKsDkzZQo2K6LeMM="
 ```
 
-a binary cache may be available on Garnix. See <https://garnix.io/docs/caching/>
+a binary cache may or may not be available on Garnix. See <https://garnix.io/docs/caching/>
 
-## broken
+## sources - where files were copied from
 
-we need to mark broken for unsupported platforms otherwise the github actions fail
-
-## sources
+files are copied from following locations. some are modified in this repo and some are not.
 
 + lmms - <https://github.com/NixOS/nixpkgs/pull/377643>
 + musescore3 - <https://aur.archlinux.org/cgit/aur.git/tree/dtl-gcc14-fix.patch?h=musescore3-git> <https://github.com/NixOS/nixpkgs/blob/31968e86eddf260716458ee9ede65691f6e1987f/pkgs/applications/audio/musescore/default.nix>
@@ -38,7 +38,7 @@ we need to mark broken for unsupported platforms otherwise the github actions fa
 + minetest580 & irrlichtmt - parent of <https://github.com/NixOS/nixpkgs/commit/d61c03fe460f6349e5173e007fb2b678c33bed36> commit 33c8b1a7202d4c22d74f4db73666e9a868069d2c
 + wireguird <https://discourse.nixos.org/t/go-version-error-requires-go1-17-or-later/69176/4>
 + jellyfin-media-player copy from nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c <https://github.com/NixOS/nixpkgs/pull/465340/files>
-+ firefox_nightly, nss_git, shared folder <https://github.com/chaotic-cx/nyx>
++ firefox_nightly, nss_git, shared folder, proton-bin, linux-cachyos <https://github.com/chaotic-cx/nyx/commit/aacb796ccd42be1555196c20013b9b674b71df75>
 + betterbird parent of <https://github.com/NixOS/nixpkgs/commit/544076a4a1e72d9267b1ff7601ada5e714cdf101> <https://github.com/NixOS/nixpkgs/raw/7eabf557d4fd5e7195cb3e372304ffdeb04170a9/pkgs/applications/networking/mailreaders/betterbird/default.nix>
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
 + cacert_3108 <https://github.com/NixOS/nixpkgs/blob/9a9ab6b9242c4526f04abeeef99b8de1d7af1fea/pkgs/data/misc/cacert/default.nix>
