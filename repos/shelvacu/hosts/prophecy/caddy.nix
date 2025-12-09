@@ -103,6 +103,23 @@ in
         ))
         builtins.listToAttrs
       ]
+    ) // (lib.pipe
+      [
+        "shelvacu.org"
+        "www.shelvacu.org"
+        "shelvacu.net"
+        "www.shelvacu.net"
+      ]
+      [
+        (map (
+          domain:
+          lib.nameValuePair domain {
+            vacu.hsts = false;
+            extraConfig = "redir https://shelvacu.com/{url}";
+          }
+        ))
+        builtins.listToAttrs
+      ]
     );
   };
   systemd.services.caddy.serviceConfig = {
