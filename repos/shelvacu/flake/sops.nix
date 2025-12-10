@@ -1,11 +1,9 @@
 {
   lib,
-  pkgs,
-  config,
-  vaculib,
-  vacupkglib,
   ...
 }:
+{
+  perSystem = { pkgs, vacupkglib, plainConfig, ... }:
 let
   ssh-to-age = lib.getExe pkgs.ssh-to-age;
   sshToAge =
@@ -14,9 +12,9 @@ let
       name = "age-from-ssh.txt";
       cmd = ''printf '%s' ${lib.escapeShellArg sshPubText} | ${ssh-to-age} > "$out"'';
     };
-  userKeys = lib.attrValues config.vacu.ssh.authorizedKeys;
+  userKeys = lib.attrValues plainConfig.config.vacu.ssh.authorizedKeys;
   userKeysAge = map sshToAge userKeys;
-  agesOf = hostname: map sshToAge config.vacu.hosts.${hostname}.sshKeys;
+  agesOf = hostname: map sshToAge plainConfig.config.vacu.hosts.${hostname}.sshKeys;
   singleGroup = keys: [ { age = keys; } ];
   testAgeSecret = "AGE-SECRET-KEY-1QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQPQQ94XCHF";
   testAgePublic = vacupkglib.outputOf {
@@ -88,6 +86,9 @@ let
   };
 in
 {
-  options.vacu.sopsConfigFile = vaculib.mkOutOption sopsConfigFile;
-  options.vacu.wrappedSops = vaculib.mkOutOption wrappedSops;
+  packages = {
+    inherit sopsConfigFile wrappedSops;
+    sops = wrappedSops;
+  };
+};
 }

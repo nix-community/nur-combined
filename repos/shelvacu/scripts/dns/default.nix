@@ -3,12 +3,13 @@
   config,
   lib,
   vacuRoot,
+  wrappedSops,
   ...
 }:
 let
   pythEscape = x: builtins.replaceStrings [ ''"'' "\n" "\\" ] [ ''\"'' "\\n" "\\\\" ] (toString x);
   pythonScript = builtins.replaceStrings [ "@sops@" "@dns_secrets_file@" "@data@" ] (map pythEscape [
-    (lib.getExe config.vacu.wrappedSops)
+    (lib.getExe wrappedSops)
     /${vacuRoot}/secrets/misc/cloudns.json
     (builtins.toJSON config.vacu.dns)
   ]) (builtins.readFile ./script.py);

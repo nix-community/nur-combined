@@ -76,4 +76,14 @@
       { }
     else
       binaryMerge 0 (builtins.length list);
+
+  # like the nixpkgs-lib unionOfDisjoint, but errors immediately if there are any conflicts
+  unionOfDisjoint =
+    e1:
+    e2:
+    let
+      i = builtins.intersectAttrs e1 e2;
+    in
+    lib.throwIf (i != { }) "vaculib.unionOfDisjoint: conflicting attrs: ${builtins.concatStringsSep " " (builtins.attrNames i)}"
+    e1 // e2;
 }

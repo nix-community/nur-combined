@@ -24,7 +24,7 @@ else
     imports = [
       vacuModules.packageSet
       vacuModules.systemKind
-      ../dns
+      # ../dns
 
       ./acmeDependencies.nix
       ./assertions.nix
@@ -43,7 +43,6 @@ else
       ./packages.nix
       ./remap
       ./shell
-      ./sops.nix
       ./sourceTree.nix
       ./staticNames.nix
       ./units-config.nix
