@@ -92,14 +92,6 @@ src.aur = "browser360-bin"
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_arm64.deb"
 src.aur = "browser360-bin"
 
-[cachyos-kernel]
-fetch.github = "CachyOS/linux-cachyos"
-src.git = "https://github.com/CachyOS/linux-cachyos.git"
-
-[cachyos-kernel-patches]
-fetch.github = "CachyOS/kernel-patches"
-src.git = "https://github.com/CachyOS/kernel-patches"
-
 [calibre-cops]
 fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver-php82.zip"
 src.github = "mikespub-org/seblucas-cops"

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   mode,
+  inputs,
 }:
 rec {
   # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
@@ -28,6 +29,7 @@ rec {
         inherit
           _packages
           sources
+          inputs
           ;
         kernel = pkgs.linux;
         # Integrate to nixpkgs python3Packages
@@ -44,18 +46,21 @@ rec {
     in
     {
       inherit
+        # keep-sorted start
         _packages
         callPackage
         createCallPackage
         createLoadPackages
         ifNotCI
         ifNotNUR
+        inputs
         lib
         loadPackages
         mergePkgs
         mode
         pkgs
         sources
+        # keep-sorted end
         ;
     };
 

@@ -944,13 +944,23 @@
     "pname": "x86-arch-level",
     "version": ""
   },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.latest": {
+    "description": "Linux CachyOS Kernel",
+    "pname": "linux-cachyos-latest",
+    "version": "6.18"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.latest-lto": {
+    "description": "Linux CachyOS Kernel with Clang+ThinLTO",
+    "pname": "linux-cachyos-latest-lto",
+    "version": "6.18"
+  },
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts": {
-    "description": "Linux CachyOS Kernel with Lan Tian Modifications",
+    "description": "Linux CachyOS Kernel",
     "pname": "linux-cachyos-lts",
     "version": "6.12.61"
   },
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts-lto": {
-    "description": "Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO",
+    "description": "Linux CachyOS Kernel with Clang+ThinLTO",
     "pname": "linux-cachyos-lts-lto",
     "version": "6.12.61"
   },

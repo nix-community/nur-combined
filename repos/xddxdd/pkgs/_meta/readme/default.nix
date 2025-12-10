@@ -3,6 +3,7 @@
   callPackage,
   pkgs,
   lib,
+  inputs,
   _meta,
   _packages,
 }:
@@ -22,7 +23,7 @@ let
     let
       inherit
         (import ../../../helpers/group.nix {
-          inherit pkgs lib;
+          inherit pkgs lib inputs;
           mode = null;
         })
         createCallGroupDeps

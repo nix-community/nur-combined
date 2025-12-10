@@ -1,48 +1,35 @@
 {
-  callPackage,
+  inputs,
   lib,
-  sources,
-  linux,
+  pkgs,
   ...
-}:
+}@importArgs:
 let
-  mkCachyKernel = callPackage ./mkCachyKernel.nix { inherit sources; };
-
-  batch =
-    {
-      pnameSuffix,
-      version,
-      src,
-      configVariant,
-      ...
-    }:
-    [
-      (mkCachyKernel {
-        pnameSuffix = "${pnameSuffix}";
-        inherit version src configVariant;
-        lto = false;
-      })
-      (mkCachyKernel {
-        pnameSuffix = "${pnameSuffix}-lto";
-        inherit version src configVariant;
-        lto = true;
-      })
-    ];
-
-  batches = [
-    # # Will setup 6.18 kernel later
-    # (batch {
-    #   pnameSuffix = "latest";
-    #   inherit (linux_latest) version src;
-    #   configVariant = "linux-cachyos";
-    # })
-    (batch {
-      pnameSuffix = "lts";
-      inherit (linux) version src;
-      configVariant = "linux-cachyos-lts";
-    })
-  ];
+  prefix = "linux-cachyos-";
 in
-lib.mapAttrs' (n: v: lib.nameValuePair (lib.removePrefix "linux-cachyos-" n) v) (
-  builtins.listToAttrs (lib.flatten batches)
-)
+lib.mapAttrs'
+  (
+    n: v:
+    let
+      splitted = lib.splitString "-" v.version;
+      ver0 = builtins.elemAt splitted 0;
+      major = lib.versions.pad 2 ver0;
+
+      patches = pkgs.callPackage ./patches { };
+    in
+    lib.nameValuePair (lib.removePrefix prefix n) (
+      v.override {
+        ignoreConfigErrors = true;
+        modDirVersion = "${ver0}-lantian-cachy";
+        patches = patches.getPatches major;
+        structuredExtraConfig = (import (./custom-config + "/${major}.nix") importArgs) // {
+          LOCALVERSION = lib.kernel.freeform "-lantian-cachy";
+        };
+      }
+    )
+  )
+  (
+    lib.filterAttrs (
+      n: v: lib.hasPrefix prefix n
+    ) inputs.nix-cachyos-kernel.packages."${pkgs.stdenv.hostPlatform.system}"
+  )
