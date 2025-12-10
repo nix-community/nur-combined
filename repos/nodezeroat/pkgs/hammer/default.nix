@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1z9wfaf4b5yr66zqd5ykpfry9mf3w6gqf3i4yc51v2g6jqp2chi2";
-    aarch64-linux = "05acaxxdafpq14y56mnb8z6dddal8c0vzr0anzijy57lh2gpv1fj";
-    x86_64-darwin = "1bba1ihdpq3vnabs9ylddkv895jjcjh3hfzsfydk20c2i1dwlzk6";
-    aarch64-darwin = "012xz5j2rsqf8aszbwjpfzywd37nlxsm1jgwv16qv3bpv7lf8dyi";
+    x86_64-linux = "1g87aw7l72pa2vlv2k3i488mwzby53yfncf2yfa61lxs7h0r2rih";
+    aarch64-linux = "1j1jnlhnb9sidq8gz73vpx1bahqrnp2ykh5y7dilg8g5crvvs3zm";
+    x86_64-darwin = "01xfdgl5bi2707crrc6q9izxm8kws1viml35pwsd7l8hyrjy0k8z";
+    aarch64-darwin = "11345ljbpb7scjjlqb79zbbkbnpvjqxk19xq84fbmnv13qx7zc3k";
   };
 
   urlMap = {
-    x86_64-linux = "https://o.xdb.be/hammer/release/v0.2.0-alpha/hammer_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://o.xdb.be/hammer/release/v0.2.0-alpha/hammer_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://o.xdb.be/hammer/release/v0.2.0-alpha/hammer_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://o.xdb.be/hammer/release/v0.2.0-alpha/hammer_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://o.xdb.be/hammer/release/v0.2.0-alpha2/hammer_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://o.xdb.be/hammer/release/v0.2.0-alpha2/hammer_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://o.xdb.be/hammer/release/v0.2.0-alpha2/hammer_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://o.xdb.be/hammer/release/v0.2.0-alpha2/hammer_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "hammer";
-  version = "0.2.0-alpha";
+  version = "0.2.0-alpha2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
