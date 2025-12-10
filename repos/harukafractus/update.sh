@@ -11,5 +11,3 @@ nix flake update
 popd
 
 
-# sudo spctl --master-disable
-# spctl developer-mode enable-terminal

@@ -33,15 +33,5 @@
           )
         ];
       };
-
-      nixosConfigurations.${nixos-workstation} = nixpkgs.lib.nixosSystem {
-        modules = [
-          home-manager.nixosModules.home-manager
-          (import ./configs/workstation.nix {
-            inherit nixos-workstation;
-            inherit username;
-          })
-        ];
-      };
     };
 }

@@ -1,5 +1,7 @@
 { username }:
 { pkgs, config, lib, ... }: {
+
+  # --- Home Manager Configuration ---
   home = {
     stateVersion = "24.11";
     username = username;
@@ -7,73 +9,86 @@
       "/Users/${username}"
     else
       "/home/${username}";
+      
     sessionVariables = {
       PYTHONDONTWRITEBYTECODE = 1;
       PYTHONSTARTUP = "$HOME/.pythonrc";
     };
-  };
 
-  fonts.fontconfig.enable = true;
+    # --- Packages ---
+    packages = with pkgs; [
+      # Fonts
+      noto-fonts
+      source-han-sans
+      source-han-mono
+      source-han-serif
+      source-han-code-jp
+      meslo-lgs-nf
 
-  home.packages = with pkgs; [
-    noto-fonts
-    source-han-sans
-    source-han-mono
-    source-han-serif
-    source-han-code-jp
-    meslo-lgs-nf
-    fortune-kind
-    cowsay
-    eza
-    bat
-    imagemagick
-    python312Packages.python
-    nix-search-cli
-    htop
-    wget
-    unar
-    ffmpeg
-    pandoc
-    # GUI APPS
-    librewolf
-#    handbrake
-    qbittorrent
-    vscodium
-    audacity
-    ungoogled-chromium
-  ] ++ (if pkgs.stdenv.isLinux then [
-    # to be added..
-  ] else [
-    libreoffice-bin
-    whisky
-    lunarfyi
-    iina
-    utm
-  ]);
+      # CLI Utilities
+      fortune-kind
+      cowsay
+      eza
+      bat
+      imagemagick
+      python312Packages.python
+      nix-search-cli
+      htop
+      wget
+      unar
+      ffmpeg
+      asciinema
+      asciinema-agg
 
-  home.file = {
-    ".nanorc" = {
-      text = ''
+      # GUI Apps
+      librewolf
+      vscodium
+      audacity
+      ungoogled-chromium
+      qbittorrent
+    ] ++ (if pkgs.stdenv.isLinux then [
+      # Linux specific
+    ] else [
+      # MacOS specific
+      libreoffice-bin
+      whisky
+      lunarfyi
+      iina
+      utm
+    ]);
+
+    # --- Dotfiles Management ---
+    file = {
+      ".nanorc".text = ''
         include ${pkgs.nano}/share/nano/*.nanorc
       '';
-    };
 
-    ".pythonrc" = {
-      text = ''
+      ".pythonrc".text = ''
         import readline
         readline.write_history_file = lambda *args: None
       '';
     };
   };
 
+  # Global Font Config
+  fonts.fontconfig.enable = true;
+
+  # --- Programs Configuration ---
   programs = {
+    direnv = {
+      enable = true;
+      enableFishIntegration = false;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+
     git = {
       enable = true;
       ignores = [
         "*.DS_Store"
         "*__pycache__/"
       ];
-      extraConfig = {
+      settings = {
         init = { defaultBranch = "main"; };
         user = {
           email = "106440141+harukafractus@users.noreply.github.com";
@@ -98,91 +113,102 @@
       autocd = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+
       initContent = ''
+        # --- Completion & History ---
         zstyle ':completion:*' menu select
         zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+        
+        export LESSHISTFILE=-
+        setopt interactivecomments
+        setopt HIST_IGNORE_SPACE
+
+        # Ignore useless commands
+        HISTORY_IGNORE='(less *|ls|ls *|la|which *|reboot|exit|git *|echo *|cd|cd *|clear|codium *|open *)'
+
+        # --- Powerlevel10k ---
         if [[ $TERM = "xterm-256color" ]]; then
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
             source ~/.p10k.zsh
         fi
-        export LESSHISTFILE=-
-        setopt interactivecomments
-        HISTORY_IGNORE='(less *|ls|la|which *|reboot|exit|git *)'
-        ns() {pkgs=(); for x in "$@"; do pkgs+=("nixpkgs#$x"); done; nix shell "''${pkgs[@]}" }
-        fortune-kind | cowsay -f koala
+
+        # --- Custom Functions ---
+        nix-shell-flake() { 
+          pkgs=() 
+          for x in "$@"; do pkgs+=("nixpkgs#$x"); done
+          nix shell "''${pkgs[@]}" 
+        }
+
+        fix-quarantine() {
+          sudo xattr -rd com.apple.quarantine "$1"
+        }
+
+        # --- Welcome Banner ---
+        ${pkgs.fortune-kind}/bin/fortune-kind | ${pkgs.cowsay}/bin/cowsay -f koala
       '';
+
       shellAliases = {
-        cat = "bat --paging=never";
-        less = "bat";
-        ls = "eza -lh --octal-permissions --no-permissions -F";
-        la = "eza -lah --octal-permissions --no-permissions --group -F";
+        cat = "${pkgs.bat}/bin/bat --paging=never";
+        less = "${pkgs.bat}/bin/bat";
+        ls = "${pkgs.eza}/bin/eza -l --no-permissions --no-time --no-user -o -X -h --group-directories-first -F";
         gc = "sudo nix-collect-garbage -d";
-        np = "";
         fix-rsa = "chmod 600 ~/.ssh/id_rsa";
-        fix-lauchpad = "sudo find 2>/dev/null /private/var/folders/ -type d -name com.apple.dock.launchpad -exec rm -rf {} +; killall Dock";
+        fix-launchpad = "sudo find 2>/dev/null /private/var/folders/ -type d -name com.apple.dock.launchpad -exec rm -rf {} +; killall Dock";
+        fix-dock-size = "defaults delete com.apple.dock tilesize; killall Dock";
         fix-ds_store = "chflags nouchg .DS_Store; rm -rf .DS_Store; pkill Finder; touch .DS_Store; chflags uchg .DS_Store";
-        "\!np" = "nix-search";
       };
     };
   };
 
+  # --- MacOS (Darwin) Specific Settings ---
   targets.darwin.defaults = {
     NSGlobalDomain = { 
       _NS_4445425547 = true; # Enable Debug Menu
-      AppleShowAllExtensions = true; # Show file extensions
-      "com.apple.mouse.tapBehavior" = 1;  # Enable trackpad tap to click
+      AppleShowAllExtensions = true; 
+      "com.apple.mouse.tapBehavior" = 1; 
       AppleICUForce24HourTime = 1;
     };
     "com.apple.AppleMultitouchTrackpad" = {
       ActuationStrength = 0;
       Clicking = 1;
      };
-
-    # Disable .DS_Store Writing
     "com.apple.desktopservices" = {
       DSDontWriteNetworkStores = true;
       DSDontWriteUSBStores = true;
     };
     "com.apple.finder" = {
-      _FXSortFoldersFirst = true; # Show Folder on top;
-      FXPreferredViewStyle = "Nlsv"; # default to list view
-      AppleShowAllFiles = true;  # Show hidden files
-      QuitMenuItem = true;  # Quit Find by CMD+Q
-      FXEnableExtensionChangeWarning = false; # Changing file extension warning
-      ShowPathbar = true;   # Show bottom path bar
+      _FXSortFoldersFirst = true;
+      FXPreferredViewStyle = "Nlsv"; # List view
+      AppleShowAllFiles = true;
+      QuitMenuItem = true;
+      FXEnableExtensionChangeWarning = false;
+      ShowPathbar = true;
     };
-    # Show battery percentage
     "com.apple.controlcenter.plist" = { BatteryShowPercentage = true; };
   }; 
 
+  # --- Linux (GNOME) Specific Settings ---
   dconf.settings = if pkgs.stdenv.isLinux then {
     "org/gnome/desktop/peripherals/touchpad" = {
       "natural-scroll" = false;
       "tap-to-click" = true;
     };
-
     "org/gnome/desktop/interface" = {
       enable-hot-corners = false;
       show-battery-percentage = true;
     };
-
     "org/gnome/nautilus/preferences" = { default-folder-viewer = "list-view"; };
     "org/gnome/nautilus/list-view" = { default-zoom-level = "small"; };
-
-    "org/gnome/settings-daemon/peripherals/touchscreen" = {
-      orientation-lock = true;
-    };
+    "org/gnome/settings-daemon/peripherals/touchscreen" = { orientation-lock = true; };
     "org/gnome/desktop/datetime" = { automatic-timezone = true; };
     "org/gnome/system/location" = { enabled = true; };
     "org/gnome/mutter" = {
       edge-tiling = true;
       experimental-features = [ "scale-monitor-framebuffer" ];
     };
-
     "org/gnome/desktop/app-folders" = {
       folder-children = [ "LibreOffice" "Utilities" ];
     };
-    
     "org/gnome/desktop/app-folders/folders/LibreOffice" = {
       name = "LibreOffice";
       apps = [
@@ -202,8 +228,6 @@
         "base.desktop"
       ];
     };
-
     "org/gnome/shell" = { app-picker-layout = [ ]; };
-  } else
-    { };
+  } else {};
 }
