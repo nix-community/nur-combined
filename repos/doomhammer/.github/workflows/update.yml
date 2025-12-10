@@ -25,6 +25,9 @@ jobs:
             experimental-features = nix-command flakes
       - name: Update sources
         run: nix run nixpkgs#nvfetcher
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
       # - name: Update readme
       #   run: nix develop -c update-readme
       - name: Create Pull Request
