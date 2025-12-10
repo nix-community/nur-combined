@@ -109,6 +109,7 @@ rec {
   beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
     cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   };
+  beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
   firefox_nightly-unwrapped = v3override (
     v3overrideAttrs (
       pkgs.callPackage ./pkgs/firefox-nightly {
