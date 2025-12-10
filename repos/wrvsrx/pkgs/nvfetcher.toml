@@ -83,10 +83,6 @@ fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$
 src.github_tag = "Loyalsoldier/v2ray-rules-dat"
 fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geosite.dat"
 
-[rime-ice]
-src.github_tag = "iDvel/rime-ice"
-fetch.github = "iDvel/rime-ice"
-
 [rime-prelude]
 src.git = "https://github.com/rime/rime-prelude"
 fetch.github = "rime/rime-prelude"

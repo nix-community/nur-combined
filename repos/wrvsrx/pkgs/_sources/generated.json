@@ -374,27 +374,6 @@
         },
         "version": "0.1.0"
     },
-    "rime-ice": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "rime-ice",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "iDvel",
-            "repo": "rime-ice",
-            "rev": "2025.04.06",
-            "sha256": "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "2025.04.06"
-    },
     "rime-ice-modular": {
         "cargoLocks": null,
         "date": null,

@@ -207,17 +207,6 @@
       sha256 = "sha256-NGf+t8OU4dkznxSGU6bRsPKRffhR9Dyb3ygjNqxWYQI=";
     };
   };
-  rime-ice = {
-    pname = "rime-ice";
-    version = "2025.04.06";
-    src = fetchFromGitHub {
-      owner = "iDvel";
-      repo = "rime-ice";
-      rev = "2025.04.06";
-      fetchSubmodules = false;
-      sha256 = "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=";
-    };
-  };
   rime-ice-modular = {
     pname = "rime-ice-modular";
     version = "2025.04.06-05";
