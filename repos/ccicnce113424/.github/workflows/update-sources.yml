@@ -42,7 +42,7 @@ jobs:
           pkgs/splayer-git/update.sh
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           commit-message: Update sources
