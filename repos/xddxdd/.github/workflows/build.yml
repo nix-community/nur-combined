@@ -51,7 +51,7 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
             extra-experimental-features = nix-command flakes ca-derivations
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            access-tokens = github.com=${{ secrets.AUTOMERGE_TOKEN }}
             extra-platforms = i686-linux x86_64-linux aarch64-linux arm-linux
             keep-going = true
             log-lines = 25
@@ -110,7 +110,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v7
         if: ${{ success() || failure() }}
         with:
-          commit_message: 'auto: update package hashes'
+          commit_message: 'auto: update packages'
+          commit_user_name: 'xddxdd-bot'
+          commit_user_email: 'xddxdd-bot@users.noreply.github.com'
 
   test-nur-eval:
     runs-on: ubuntu-latest
@@ -131,7 +133,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            access-tokens = github.com=${{ secrets.AUTOMERGE_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
       - name: Build nix packages
         run: |
@@ -156,7 +158,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            access-tokens = github.com=${{ secrets.AUTOMERGE_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
       - name: Build nix packages
         run: |
