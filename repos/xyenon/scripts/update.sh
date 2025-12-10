@@ -9,9 +9,8 @@ root="$(readlink --canonicalize -- "$(dirname -- "$0")/..")"
 
 nvfetcher --commit-changes -k ~/.config/nvchecker/keyfile.toml
 
-# Update caddy plugins hash if sources changed
-caddy_default="$root/pkgs/caddy/default.nix"
 if ! git diff --quiet HEAD~1 -- "$root/_sources/generated.nix"; then
+	caddy_default="$root/pkgs/caddy/default.nix"
 	# shellcheck disable=SC2016
 	old_hash=$(ast-grep run --lang nix -p '{ hash = "$$HASH"; }' --selector binding --json "$caddy_default" | jq -r '.[0].metaVariables.single.HASH.text')
 	system=$(nix eval --raw --impure --expr builtins.currentSystem)
@@ -21,8 +20,15 @@ if ! git diff --quiet HEAD~1 -- "$root/_sources/generated.nix"; then
 		# shellcheck disable=SC2016
 		ast-grep run --lang nix -p '{ hash = "$$HASH"; }' --selector binding -r "hash = \"$new_hash\";" "$caddy_default" --update-all
 		git add "$caddy_default"
-		git commit --amend --no-edit
 	fi
+
+	yazi_plugins_json="$root/pkgs/yazi/plugins/yazi-rs/plugins.json"
+	new_yazi_plugins_json=$(nix build --no-link --print-out-paths "$root"#yaziPlugins.yazi-rs.passthru.generate)
+	cp "$new_yazi_plugins_json" "$yazi_plugins_json"
+	nix fmt "$root"
+	git add "$yazi_plugins_json"
+
+	git commit --amend --no-edit
 fi
 
 # Run update scripts

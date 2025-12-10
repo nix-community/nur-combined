@@ -21,16 +21,16 @@
   };
   "caddy-dns/cloudflare" = {
     pname = "caddy-dns/cloudflare";
-    version = "2fc25ee62f40fe21b240f83ab2fb6e2be6dbb953";
+    version = "6dc1fbb7e925b0da6736780db2e90f4816b79ab7";
     src = fetchFromGitHub {
       owner = "caddy-dns";
       repo = "cloudflare";
-      rev = "2fc25ee62f40fe21b240f83ab2fb6e2be6dbb953";
+      rev = "6dc1fbb7e925b0da6736780db2e90f4816b79ab7";
       fetchSubmodules = false;
-      sha256 = "sha256-EMRdRwQLHJXVvnLe1v6WrC9BU2Aawu8mQUpz4NPm1F0=";
+      sha256 = "sha256-/FB0a/Ja4kDSw9SlNiusi6w7r87xHXafzEOQqLbTsyA=";
     };
     moduleName = "github.com/caddy-dns/cloudflare";
-    date = "20251022184029";
+    date = "20251204174556";
   };
   catppuccin-kitty = {
     pname = "catppuccin-kitty";
@@ -58,16 +58,16 @@
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
-    version = "bab5c5a84b9b8d3b6ad460c99ed55f433863f723";
+    version = "1a3490ef786a8fd93128d55aed1999930b7c0586";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-l4";
-      rev = "bab5c5a84b9b8d3b6ad460c99ed55f433863f723";
+      rev = "1a3490ef786a8fd93128d55aed1999930b7c0586";
       fetchSubmodules = false;
-      sha256 = "sha256-WCyEi8MJoRigmwwtqPe8sB0BlB+81civQMlgBCSDriA=";
+      sha256 = "sha256-/8qa7ya8LAeWdSPni4JiuDruIc5R6HKbVI0NxbCvuxg=";
     };
     moduleName = "github.com/mholt/caddy-l4";
-    date = "20251203191346";
+    date = "20251209130418";
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
@@ -96,45 +96,45 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2025.04.06";
+    version = "2025.12.08";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2025.04.06";
+      rev = "2025.12.08";
       fetchSubmodules = false;
-      sha256 = "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=";
+      sha256 = "sha256-GyiOlTr1Nw2ANTE7/fdyrPQkvRFWOyal3oAcDvsqF5A=";
     };
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "c7fdbb25d6b2e50f65dfae7923a74b5272e934c2";
+    version = "5bc4d3057a1953c3d273fb3408ac4e13f2f593b6";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "c7fdbb25d6b2e50f65dfae7923a74b5272e934c2";
+      rev = "5bc4d3057a1953c3d273fb3408ac4e13f2f593b6";
       fetchSubmodules = false;
-      sha256 = "sha256-ayXzpWrRq6a0g69Ohx+tHbo3YfjERhdEsCK1IMoTypw=";
+      sha256 = "sha256-GyiOlTr1Nw2ANTE7/fdyrPQkvRFWOyal3oAcDvsqF5A=";
     };
-    date = "2025-12-03";
+    date = "2025-12-08";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20251109";
+    version = "20251210";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20251109/moegirl.dict.yaml";
-      sha256 = "sha256-GBevsjo6KRd6Uicy2LpMwgZJkluN5n2ID/DAiaKJV74=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20251210/moegirl.dict.yaml";
+      sha256 = "sha256-P4AAwApknEaV4PFn6/5rpawp0iOGdDH+muYi+R/iErk=";
     };
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "eaf6920b7439fa7164a1c162a249c3c76dc0acd9";
+    version = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "eaf6920b7439fa7164a1c162a249c3c76dc0acd9";
+      rev = "19dc890e33b8922eb1a3a165e685436ec4ac0a59";
       fetchSubmodules = false;
-      sha256 = "sha256-B6zhZfp3SEaiviIzosI2aD8fk+hQF0epOTKi1qm8V3E=";
+      sha256 = "sha256-Hml7n07G6tEOPUPOFN9jf01C5LtZRO8pfERVHKHJQRo=";
     };
-    date = "2025-11-25";
+    date = "2025-12-04";
   };
 }
