@@ -248,12 +248,12 @@ in {
         inherit (pkgs) lib fetchFromGitHub;
         inherit (self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
-            version = "25.12.8";
+            version = "25.12.9-unstable-2025-12-09";
             src = fetchFromGitHub {
                 owner = "picolisp";
                 repo = "pil21";
-                rev = "4a7f687bf62b425fef344c7929efb3ed6caee923";
-                hash = "sha256-hK6m7hNAZkVHrTaCQpTOU7IRRNg5NnZ3w/apGBziUJg=";
+                rev = "97db169274b398cb683bee49664d2b37973751e7";
+                hash = "sha256-89hTkw2V8sLw/zVKlDej2mNBbMXyZswySYEvWE9oN+w=";
             };
             sourceRoot = null;
             ${if pkgs.stdenv.hostPlatform.isDarwin then "env" else null} = (old.env or {}) // {
