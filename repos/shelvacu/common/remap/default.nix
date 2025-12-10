@@ -235,6 +235,10 @@ let
       DEVICE.EVENTS.EV_ABS = [ ];
     }
     {
+      JOB = ''echo "$DEVNODE: ignoring because it has EV_REL"'';
+      DEVICE.EVENTS.EV_REL = [ ];
+    }
+    {
       JOB = [
         ''echo "$DEVNODE: running job for keyboard with CAPSLOCK and/or COMPOSE (menu)"''
         ''intercept -g "$DEVNODE" | caps2esc -m 1 | ${lib.getExe menu2meta} | mux -o main''
