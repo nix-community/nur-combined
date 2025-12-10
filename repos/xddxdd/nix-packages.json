@@ -944,6 +944,16 @@
     "pname": "x86-arch-level",
     "version": ""
   },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts": {
+    "description": "Linux CachyOS Kernel",
+    "pname": "linux-cachyos-lts",
+    "version": "6.12.61"
+  },
+  "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts-lto": {
+    "description": "Linux CachyOS Kernel with Clang+ThinLTO",
+    "pname": "linux-cachyos-lts-lto",
+    "version": "6.12.61"
+  },
   "legacyPackages.x86_64-linux.ldap-auth-proxy": {
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
     "pname": "ldap-auth-proxy",

@@ -30,6 +30,6 @@ lib.mapAttrs'
   )
   (
     lib.filterAttrs (
-      n: v: lib.hasPrefix "${prefix}-lts" n
+      n: v: lib.hasPrefix "${prefix}lts" n
     ) inputs.nix-cachyos-kernel.packages."${pkgs.stdenv.hostPlatform.system}"
   )
