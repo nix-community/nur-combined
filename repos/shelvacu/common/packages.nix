@@ -139,6 +139,14 @@ in
       shellcheck
       stdenv.cc
     '')
+    (lib.mkIf (config.vacu.isGui)
+      # pkgs useful for debugging input/events/evdev
+      ''
+        evtest
+        evtest-qt
+        evhz
+      ''
+    )
     (lib.mkIf (!config.vacu.isMinimal)
       # big pkgs for non-minimal systems
       ''

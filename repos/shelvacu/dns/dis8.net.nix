@@ -4,7 +4,6 @@ let
 in
 {
   vacu.liamMail = true;
-  vacu.defaultCAA = true;
 
   subdomains = {
     do-a.A = doA;

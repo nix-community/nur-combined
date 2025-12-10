@@ -4,7 +4,6 @@ let
 in
 {
   vacu.liamMail = true;
-  vacu.defaultCAA = true;
   A = propA;
   subdomains = {
     "2e14".A = propA;

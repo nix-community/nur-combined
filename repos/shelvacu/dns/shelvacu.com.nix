@@ -29,7 +29,6 @@ let
 in
 {
   vacu.liamMail = true;
-  vacu.defaultCAA = true;
   A = propA;
   subdomains = {
     _atproto.TXT = s "did=did:plc:oqenurzqeji6ulii3myxls64";
@@ -45,12 +44,7 @@ in
     autoconfig.A = doA;
     awoo.A = s "45.142.157.71";
     dav-experiment.A = propA;
-    dynrecords.NS = [
-      "pns51.cloudns.net."
-      "pns52.cloudns.net."
-      "pns53.cloudns.net."
-      "pns54.cloudns.net."
-    ];
+    dynrecords.NS = dnsData.cloudnsNameServers;
     ft.subdomains = {
       "*".A = s "45.87.250.193";
       _acme-challenge.CNAME = s "17aa43aa-9295-4522-8cf2-b94ba537753d.auth.acme-dns.io.";

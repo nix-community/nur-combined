@@ -128,7 +128,7 @@ all_domains = args.domain is None
 update = not args.preview
 wait_until_updated = not args.no_wait
 
-if wait_until_updated and not update:
+if args.no_wait and args.preview:
     print("warn: --preview and --no-wait don't make sense together. Ignoring --no-wait")
 
 if all_domains:

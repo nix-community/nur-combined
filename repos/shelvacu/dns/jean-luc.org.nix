@@ -5,7 +5,6 @@ let
 in
 {
   vacu.liamMail = true;
-  vacu.defaultCAA = true;
   A = propA;
   NS = lib.mkAfter [ "ns2.afraid.org." ]; # note: appends to NS records from modules.cloudns
   subdomains = {

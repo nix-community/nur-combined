@@ -542,6 +542,10 @@
             inherit (plain) config;
             vacuRoot = ./.;
           };
+          dnsZones = lib.pipe plain.config.vacu.dns [
+            (lib.mapAttrsToList (name: config: pkgs.writeText "${name}.zone" (toString config)))
+            (pkgs.linkFarmFromDrvs "vacu-dns-zone-files")
+          ];
           inherit formatter;
           generated = pkgsStable.linkFarm "generated" {
             nixpkgs = "${allInputs.nixpkgs}";

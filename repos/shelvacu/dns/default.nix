@@ -4,7 +4,7 @@
   vaculib,
   config,
   ...
-}@args:
+}:
 let
   inherit (lib) mkOption types singleton;
   inherit (dns.lib.combinators)
@@ -60,11 +60,14 @@ let
         default = true;
         type = types.bool;
       };
-      config = lib.mkIf config.vacu.cloudns {
-        SOA = cloudnsSoa;
-        NS = map (server: ttl (60 * 60) (ns server)) cloudnsNameServers;
-        TTL = lib.mkDefault 300;
-      };
+      config = lib.mkMerge [
+        (lib.mkIf config.vacu.cloudns {
+          SOA = cloudnsSoa;
+          NS = map (server: ttl (60 * 60) (ns server)) cloudnsNameServers;
+          TTL = lib.mkDefault 300;
+        })
+        { vacu.defaultCAA = lib.mkDefault true; }
+      ];
     };
   vacuDomainExtModule =
     { config, ... }:
@@ -142,6 +145,7 @@ let
     propA = [ hosts.prophecy.primaryIp ];
     solisA = [ hosts.solis.primaryIp ];
     doA = [ "138.197.233.105" ];
+    inherit cloudnsNameServers;
   };
 in
 {
