@@ -16,7 +16,6 @@ buildGoModule rec {
   };
 
   subPackages = [ "cmd/gon" ];
-  CGO_ENABLED = 0;
   deleteVendor = true;
   vendorHash = "sha256-wJaNU0CYLktFKjMefZT0cPNawl0Du/P3H3algqERLqY=";
 
