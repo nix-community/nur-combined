@@ -143,7 +143,7 @@
     "cargoLocks": null,
     "date": null,
     "extract": {
-      "pubspec.lock": "./loveiwara-0.3.18/pubspec.lock"
+      "pubspec.lock": "./loveiwara-0.4.0/pubspec.lock"
     },
     "name": "loveiwara",
     "passthru": null,
@@ -155,12 +155,12 @@
       "name": null,
       "owner": "FoxSensei001",
       "repo": "LoveIwara",
-      "rev": "0.3.18",
-      "sha256": "sha256-gNks5GADE1q/1b/y7s14jozPWpS9QKEyiOFpnmMPuaI=",
+      "rev": "0.4.0",
+      "sha256": "sha256-SbJquO5fjrOlzCvSCzUVbV/Jpxz7WI1+xo+b47S1WE0=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "0.3.18"
+    "version": "0.4.0"
   },
   "lxgw-wenkai-gb": {
     "cargoLocks": null,
@@ -299,7 +299,7 @@
   },
   "splayer-git": {
     "cargoLocks": null,
-    "date": "2025-12-08",
+    "date": "2025-12-09",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -311,12 +311,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "113d39a4b68481db9565c8dc59cc5694cfcd29c9",
-      "sha256": "sha256-Hxs6tMz2XoL5iVJKjv3Vwe/1TXv83BTyhRYslWx7lBQ=",
+      "rev": "152dcc4cffa02fbc5fac92dd86ab2ffcc0035ec0",
+      "sha256": "sha256-JLD1C0/a0VmemgQHxRtdaKgQQV/Ko6Pt3hooSY5BQZA=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "113d39a4b68481db9565c8dc59cc5694cfcd29c9"
+    "version": "152dcc4cffa02fbc5fac92dd86ab2ffcc0035ec0"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
@@ -341,7 +341,7 @@
   },
   "uosc-danmaku-git": {
     "cargoLocks": null,
-    "date": "2025-12-08",
+    "date": "2025-12-09",
     "extract": null,
     "name": "uosc-danmaku-git",
     "passthru": null,
@@ -353,12 +353,12 @@
       "name": null,
       "owner": "Tony15246",
       "repo": "uosc_danmaku",
-      "rev": "e1178567fc38bba65bfe048062c5839ba6ef180f",
-      "sha256": "sha256-vVfCUSoMd1Tu+Qlnif5xjxr6BWS/KoOU3D9MxgWhOnw=",
+      "rev": "832576f26261b911effa991c738d2877c17d2d0d",
+      "sha256": "sha256-5rACgiQD6TO01ndhz4IZkA6E+zDEKLJFyFsciqx0vYE=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "e1178567fc38bba65bfe048062c5839ba6ef180f"
+    "version": "832576f26261b911effa991c738d2877c17d2d0d"
   },
   "zhuque": {
     "cargoLocks": null,
