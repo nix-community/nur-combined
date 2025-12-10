@@ -1,8 +1,8 @@
 diff --git a/electron.js b/electron.js
-index c5d6760882..7812363372 100644
+index 8eab4ed9c9..6b5cd1865c 100644
 --- a/electron.js
 +++ b/electron.js
-@@ -1,14 +1,14 @@
+@@ -1,13 +1,13 @@
  'use strict';
  
  const { app, BrowserWindow, session, nativeTheme, ipcMain, powerMonitor, dialog } = require('electron');
@@ -10,7 +10,6 @@ index c5d6760882..7812363372 100644
 +const { is } = require('electron-util');
  const path = require('path');
  const storage = require('electron-json-storage');
- const port = process.env.SERVER_PORT;
  const protocol = 'anytype';
  const remote = require('@electron/remote/main');
  const { installNativeMessagingHost } = require('./electron/js/lib/installNativeMessagingHost.js');
@@ -20,7 +19,7 @@ index c5d6760882..7812363372 100644
  const suffix = app.isPackaged ? '' : 'dev';
  const store = new Store({ name: [ 'localStorage', suffix ].join('-') });
 diff --git a/electron/js/lib/installNativeMessagingHost.js b/electron/js/lib/installNativeMessagingHost.js
-index e86566093c..8fadd26880 100644
+index 4be8edd795..3d9019580f 100644
 --- a/electron/js/lib/installNativeMessagingHost.js
 +++ b/electron/js/lib/installNativeMessagingHost.js
 @@ -13,7 +13,7 @@ const { userInfo, homedir } = require('os');
@@ -32,7 +31,7 @@ index e86566093c..8fadd26880 100644
  
  const APP_NAME = 'com.anytype.desktop';
  const MANIFEST_FILENAME = `${APP_NAME}.json`;
-@@ -23,7 +23,7 @@ const EXE_PATH = app.getPath('exe');
+@@ -28,7 +28,7 @@ const EXE_PATH = app.getPath('exe');
  
  const getManifestPath = () => {
  	const fn = `nativeMessagingHost${is.windows ? '.exe' : ''}`;
@@ -42,7 +41,7 @@ index e86566093c..8fadd26880 100644
  
  const getHomeDir = () => {
 diff --git a/electron/js/window.js b/electron/js/window.js
-index 2aa9c0184c..370d6dfd3e 100644
+index 197c1cc851..b3c9e75594 100644
 --- a/electron/js/window.js
 +++ b/electron/js/window.js
 @@ -1,5 +1,5 @@
@@ -52,7 +51,7 @@ index 2aa9c0184c..370d6dfd3e 100644
  const path = require('path');
  const windowStateKeeper = require('electron-window-state');
  const remote = require('@electron/remote/main');
-@@ -28,7 +28,7 @@ class WindowManager {
+@@ -29,7 +29,7 @@ class WindowManager {
  			show: false,
  			titleBarStyle: 'hidden-inset',
  			webPreferences: {

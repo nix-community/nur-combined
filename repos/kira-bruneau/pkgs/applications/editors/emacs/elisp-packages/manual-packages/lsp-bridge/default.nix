@@ -4,7 +4,7 @@
   melpaBuild,
   fetchFromGitHub,
   replaceVars,
-  fetchpatch2,
+  fetchpatch,
   acm,
   markdown-mode,
   basedpyright,
@@ -50,7 +50,7 @@ melpaBuild {
     })
 
     # Revert using quelpa repo to get check inputs
-    (fetchpatch2 {
+    (fetchpatch {
       url = "https://github.com/manateelazycat/lsp-bridge/commit/a999c8432817a806ed9ad74b5e918ab9612bd09b.patch";
       revert = true;
       hash = "sha256-NK6hooWn78Hk26tcQbIwUiiJuQ/hhlbLK+pgiZT//fI=";
