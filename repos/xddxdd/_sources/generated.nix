@@ -696,26 +696,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.12.07";
+    version = "2025.12.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.07/GeoLite2-ASN.mmdb";
-      hash = "sha256-hIOVkGFas+jXYYPZ8OZ6vky5pJ+LtyVS2S5ptqsfy54=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.10/GeoLite2-ASN.mmdb";
+      hash = "sha256-7dP8FDrdGh10EOgMLF4m3Vss4AGnJ9JunzRLtRWoEO0=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.12.07";
+    version = "2025.12.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.07/GeoLite2-City.mmdb";
-      hash = "sha256-Q1gOymyXSYhBdkGzKFt4V+WqutYmxcOc6Q3EsjH0xFY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.10/GeoLite2-City.mmdb";
+      hash = "sha256-TQtMF7Sr1Zd77jBfe6h5G9ic9poHHw74oK1H4URQ4R0=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.12.07";
+    version = "2025.12.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.07/GeoLite2-Country.mmdb";
-      hash = "sha256-PWdYpsYUnaJEHo6sd9qy9dpQsp7vWvp63748UIbVvjw=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.10/GeoLite2-Country.mmdb";
+      hash = "sha256-E3uv0RLvXY/PT5UsbFe3dBEhsxWlLums+7eeu3hEUOQ=";
     };
   };
   glauth = {
@@ -1091,12 +1091,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7330";
+    version = "b7342";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7330";
-      hash = "sha256-oAABTq0pVOP3anXWKpNoIszwPWUqLFv4W6gZP+jgUKk=";
+      tag = "b7342";
+      hash = "sha256-L90E0h8d75kFh+sk1+6OT8yKtxSgj7uhzpNRviS6zSE=";
     };
   };
   loralib = {
@@ -1839,10 +1839,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20251109";
+    version = "20251210";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20251109/moegirl.dict.yaml";
-      hash = "sha256-GBevsjo6KRd6Uicy2LpMwgZJkluN5n2ID/DAiaKJV74=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20251210/moegirl.dict.yaml";
+      hash = "sha256-P4AAwApknEaV4PFn6/5rpawp0iOGdDH+muYi+R/iErk=";
     };
   };
   rime-zhwiki = {
@@ -2249,12 +2249,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.27.7";
+    version = "1.27.12";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.27.7";
-      hash = "sha256-t33RQsr6VAezJnsq+QTsP3IOjfYm5tlCzQHSxuAbUoA=";
+      tag = "1.27.12";
+      hash = "sha256-+Ktq04f6PaftDbccFwV60EsqmEpcIvC3ckF+HJvfLHE=";
     };
   };
   vgpu-unlock-rs = {

@@ -1352,11 +1352,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hIOVkGFas+jXYYPZ8OZ6vky5pJ+LtyVS2S5ptqsfy54=",
+            "sha256": "sha256-7dP8FDrdGh10EOgMLF4m3Vss4AGnJ9JunzRLtRWoEO0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.07/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.12.07"
+        "version": "2025.12.10"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1367,11 +1367,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Q1gOymyXSYhBdkGzKFt4V+WqutYmxcOc6Q3EsjH0xFY=",
+            "sha256": "sha256-TQtMF7Sr1Zd77jBfe6h5G9ic9poHHw74oK1H4URQ4R0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.07/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.10/GeoLite2-City.mmdb"
         },
-        "version": "2025.12.07"
+        "version": "2025.12.10"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1382,11 +1382,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PWdYpsYUnaJEHo6sd9qy9dpQsp7vWvp63748UIbVvjw=",
+            "sha256": "sha256-E3uv0RLvXY/PT5UsbFe3dBEhsxWlLums+7eeu3hEUOQ=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.07/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.10/GeoLite2-Country.mmdb"
         },
-        "version": "2025.12.07"
+        "version": "2025.12.10"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2124,12 +2124,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7330",
-            "sha256": "sha256-oAABTq0pVOP3anXWKpNoIszwPWUqLFv4W6gZP+jgUKk=",
+            "rev": "b7342",
+            "sha256": "sha256-L90E0h8d75kFh+sk1+6OT8yKtxSgj7uhzpNRviS6zSE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7330"
+        "version": "b7342"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3591,11 +3591,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GBevsjo6KRd6Uicy2LpMwgZJkluN5n2ID/DAiaKJV74=",
+            "sha256": "sha256-P4AAwApknEaV4PFn6/5rpawp0iOGdDH+muYi+R/iErk=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20251109/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20251210/moegirl.dict.yaml"
         },
-        "version": "20251109"
+        "version": "20251210"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
@@ -4394,12 +4394,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.27.7",
-            "sha256": "sha256-t33RQsr6VAezJnsq+QTsP3IOjfYm5tlCzQHSxuAbUoA=",
+            "rev": "1.27.12",
+            "sha256": "sha256-+Ktq04f6PaftDbccFwV60EsqmEpcIvC3ckF+HJvfLHE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.27.7"
+        "version": "1.27.12"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,
