@@ -1,6 +1,7 @@
 {
   sources,
   stdenv,
+  callPackage,
   autoPatchelfHook,
   makeWrapper,
   lib,
@@ -49,10 +50,12 @@
   nghttp2,
   nspr,
   nss,
+  opencv,
   openldap,
   openssl_1_1,
   pango,
   pcre2,
+  pipewire,
   qt5,
   rtmpdump,
   udev,
@@ -64,6 +67,8 @@
 # https://aur.archlinux.org/packages/dingtalk-bin
 ################################################################################
 let
+  dingtalk-wayland-screenshare = callPackage ./wayland-screenshare.nix { inherit sources; };
+
   libraries = [
     alsa-lib
     apr
@@ -106,10 +111,12 @@ let
     nghttp2
     nspr
     nss
+    opencv
     openldap
     openssl_1_1
     pango
     pcre2
+    pipewire
     qt5.qtbase
     qt5.qtmultimedia
     qt5.qtsvg
@@ -208,7 +215,7 @@ stdenv.mkDerivation (finalAttrs: {
       --unset WAYLAND_DISPLAY \
       --set QT_QPA_PLATFORM "xcb" \
       --set QT_AUTO_SCREEN_SCALE_FACTOR 1 \
-      --prefix LD_PRELOAD : "$out/lib/libcef.so" \
+      --prefix LD_PRELOAD : "$out/lib/libcef.so:${dingtalk-wayland-screenshare}/lib/libdingtalkhook.so" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
     # App Menu
@@ -233,6 +240,8 @@ stdenv.mkDerivation (finalAttrs: {
       };
     })
   ];
+
+  passthru = { inherit dingtalk-wayland-screenshare; };
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

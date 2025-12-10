@@ -177,6 +177,11 @@ fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/
 src.webpage = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Update/other/amd64/linux_dingtalk_update_package_release.json"
 src.regex = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/(.*)_amd64.deb"
 
+[dingtalk-wayland-screenshare]
+fetch.github = "lzl200110/dingtalk-wayland-screenshare"
+git.fetchSubmodules = true
+src.git = "https://github.com/lzl200110/dingtalk-wayland-screenshare.git"
+
 [dn42-pingfinder]
 fetch.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
 src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"

@@ -413,48 +413,6 @@
         },
         "version": "13.4.1100.108"
     },
-    "cachyos-kernel": {
-        "cargoLocks": null,
-        "date": "2025-12-09",
-        "extract": null,
-        "name": "cachyos-kernel",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "CachyOS",
-            "repo": "linux-cachyos",
-            "rev": "5c8cf82f0ea40b72aec3fcbc58b449ca3b7cd372",
-            "sha256": "sha256-dAGAdWms3poNhxPniYU3YmxFeJ9ngfBhakMQwCnCV/w=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "5c8cf82f0ea40b72aec3fcbc58b449ca3b7cd372"
-    },
-    "cachyos-kernel-patches": {
-        "cargoLocks": null,
-        "date": "2025-12-08",
-        "extract": null,
-        "name": "cachyos-kernel-patches",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "CachyOS",
-            "repo": "kernel-patches",
-            "rev": "6dfdbc7f8f3ee4d9f5dc8adfb0672ef5d8e1e3d5",
-            "sha256": "sha256-TJJKd86jDyighG3Jx8MNyiuQTpEIMAsA2GkWpqttwFg=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "6dfdbc7f8f3ee4d9f5dc8adfb0672ef5d8e1e3d5"
-    },
     "calibre-cops": {
         "cargoLocks": null,
         "date": null,
@@ -810,6 +768,27 @@
             "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.45.5041701_amd64.deb"
         },
         "version": "com.alibabainc.dingtalk_7.6.45.5041701"
+    },
+    "dingtalk-wayland-screenshare": {
+        "cargoLocks": null,
+        "date": "2025-03-21",
+        "extract": null,
+        "name": "dingtalk-wayland-screenshare",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lzl200110",
+            "repo": "dingtalk-wayland-screenshare",
+            "rev": "e15063310eb3251e4619345c8fad0059e8a0558a",
+            "sha256": "sha256-yCTb1gy6gzy1WzcetrRAsoG77ST1yf+zKtTD3fojKRw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e15063310eb3251e4619345c8fad0059e8a0558a"
     },
     "dn42-pingfinder": {
         "cargoLocks": null,

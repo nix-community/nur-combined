@@ -215,28 +215,6 @@
       hash = "sha256-UTxLfT2qJc9LFkeQHPhZkhqU+rQFwwmq1RBeY6NTYHw=";
     };
   };
-  cachyos-kernel = {
-    pname = "cachyos-kernel";
-    version = "5c8cf82f0ea40b72aec3fcbc58b449ca3b7cd372";
-    src = fetchFromGitHub {
-      owner = "CachyOS";
-      repo = "linux-cachyos";
-      rev = "5c8cf82f0ea40b72aec3fcbc58b449ca3b7cd372";
-      hash = "sha256-dAGAdWms3poNhxPniYU3YmxFeJ9ngfBhakMQwCnCV/w=";
-    };
-    date = "2025-12-09";
-  };
-  cachyos-kernel-patches = {
-    pname = "cachyos-kernel-patches";
-    version = "6dfdbc7f8f3ee4d9f5dc8adfb0672ef5d8e1e3d5";
-    src = fetchFromGitHub {
-      owner = "CachyOS";
-      repo = "kernel-patches";
-      rev = "6dfdbc7f8f3ee4d9f5dc8adfb0672ef5d8e1e3d5";
-      hash = "sha256-TJJKd86jDyighG3Jx8MNyiuQTpEIMAsA2GkWpqttwFg=";
-    };
-    date = "2025-12-08";
-  };
   calibre-cops = {
     pname = "calibre-cops";
     version = "3.8.2";
@@ -420,6 +398,18 @@
       url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.45.5041701_amd64.deb";
       hash = "sha256-HXvVkIrQgXWA5NKvcVgJeOtK+kSD6a3yXJB5nyLNqzU=";
     };
+  };
+  dingtalk-wayland-screenshare = {
+    pname = "dingtalk-wayland-screenshare";
+    version = "e15063310eb3251e4619345c8fad0059e8a0558a";
+    src = fetchFromGitHub {
+      owner = "lzl200110";
+      repo = "dingtalk-wayland-screenshare";
+      rev = "e15063310eb3251e4619345c8fad0059e8a0558a";
+      fetchSubmodules = true;
+      hash = "sha256-yCTb1gy6gzy1WzcetrRAsoG77ST1yf+zKtTD3fojKRw=";
+    };
+    date = "2025-03-21";
   };
   dn42-pingfinder = {
     pname = "dn42-pingfinder";
