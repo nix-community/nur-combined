@@ -10,16 +10,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "sing-box-extended";
-  version = "1.12.12-extended-1.4.2";
+  version = "1.12.12-extended-1.5.0";
 
   src = fetchFromGitHub {
     owner = "shtorm-7";
     repo = "sing-box-extended";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lLKMrIKBLzPeQVjpmKfyN557Q9bMSMHLJxOAsKiz5ew=";
+    hash = "sha256-A3lnH8BwK+H0g5tyDgoz7SCx9hEVC8ssG5gYgix6EVE=";
   };
 
-  vendorHash = "sha256-NAPdwK0pYroEKDfImC1ex5dP5OXNbQqQFeUTc1v7m6g=";
+  vendorHash = "sha256-IyqRoiShbPuRfaHMJD3f4EreFe5f5S7i7G581GtDSHQ=";
 
   tags = [
     "with_quic"
