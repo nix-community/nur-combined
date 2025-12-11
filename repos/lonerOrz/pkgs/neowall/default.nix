@@ -5,10 +5,13 @@
   lib,
   libglvnd,
   mesa,
+  libX11,
+  libXrandr,
   libpng,
   libjpeg,
   wayland,
   wayland-scanner,
+  wayland-protocols,
 }:
 
 stdenv.mkDerivation (finallAttrs: {
@@ -29,10 +32,13 @@ stdenv.mkDerivation (finallAttrs: {
 
   buildInputs = [
     wayland
+    wayland-protocols
     mesa
     libglvnd
     libpng
     libjpeg
+    libX11
+    libXrandr
   ];
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
