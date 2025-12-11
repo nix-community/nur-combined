@@ -13,6 +13,13 @@ import dns.rdtypes
 from dns.name import Name
 import time
 
+# import logging
+# logging.basicConfig(
+#     format="%(levelname)s [%(asctime)s] %(name)s - %(message)s",
+#     datefmt="%Y-%m-%d %H:%M:%S",
+#     level=logging.DEBUG
+# )
+
 SOPS_BIN = "@sops@"
 DNS_SECRETS_FILE = "@dns_secrets_file@"
 data_str = "@data@"

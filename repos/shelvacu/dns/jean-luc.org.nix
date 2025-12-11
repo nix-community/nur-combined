@@ -1,4 +1,4 @@
-{ dnsData, lib, ... }:
+{ dnsData, ... }:
 let
   s = x: [ x ];
   inherit (dnsData) propA;
@@ -6,7 +6,12 @@ in
 {
   vacu.liamMail = true;
   A = propA;
-  NS = lib.mkAfter [ "ns2.afraid.org." ]; # note: appends to NS records from modules.cloudns
+  NS = [
+    {
+      nsdname = "ns2.afraid.org.";
+      ttl = 60 * 60;
+    }
+  ];
   subdomains = {
     "in".vacu.liamMail = true;
     # "*".A = main_ips;

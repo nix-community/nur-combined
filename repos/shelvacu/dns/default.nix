@@ -14,15 +14,37 @@ let
     mx
     ;
   inherit (config.vacu) hosts;
-  cloudnsNameServers = [
-    "pns51.cloudns.net."
-    "pns52.cloudns.net."
-    "pns53.cloudns.net."
-    "pns54.cloudns.net."
-  ];
+  cloudns = {
+    pns51 = {
+      domain = "pns51.cloudns.net.";
+      ipv4 = "185.136.96.192";
+      ipv6 = "2a06:fb00:1::1:192";
+    };
+    pns52 = {
+      domain = "pns52.cloudns.net.";
+      ipv4 = "185.136.97.192";
+      ipv6 = "2a06:fb00:1::2:192";
+    };
+    pns53 = {
+      domain = "pns53.cloudns.net.";
+      ipv4 = "185.136.98.192";
+      ipv6 = "2a06:fb00:1::3:192";
+    };
+    pns54 = {
+      domain = "pns54.cloudns.net.";
+      ipv4 = "185.136.99.192";
+      ipv6 = "2a06:fb00:1::4:192";
+    };
+  };
+  # cloudnsDomains = [
+  #   "pns51.cloudns.net."
+  #   "pns52.cloudns.net."
+  #   "pns53.cloudns.net."
+  #   "pns54.cloudns.net."
+  # ];
   cloudnsSoa = (
     ttl (60 * 60) {
-      nameServer = lib.head cloudnsNameServers;
+      nameServer = cloudns.pns51.domain;
       adminEmail = "support@cloudns.net";
       serial = 1970010101; # cloudns takes care of updating the serial
       refresh = 7200;
@@ -63,7 +85,7 @@ let
       config = lib.mkMerge [
         (lib.mkIf config.vacu.cloudns {
           SOA = cloudnsSoa;
-          NS = map (server: ttl (60 * 60) (ns server)) cloudnsNameServers;
+          NS = map (server: ttl (60 * 60) (ns server.domain)) (builtins.attrValues cloudns);
           TTL = lib.mkDefault 300;
         })
         { vacu.defaultCAA = lib.mkDefault true; }
@@ -145,7 +167,8 @@ let
     propA = [ hosts.prophecy.primaryIp ];
     solisA = [ hosts.solis.primaryIp ];
     doA = [ "138.197.233.105" ];
-    inherit cloudnsNameServers;
+    inherit cloudns;
+    cloudnsNS = map (info: info.domain) (builtins.attrValues cloudns);
   };
 in
 {
