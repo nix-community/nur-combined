@@ -15,8 +15,6 @@ in
 
     amd = {
       enableKernelModule = lib.my.mkDisableOption "Kernel driver module";
-
-      amdvlk = lib.mkEnableOption "Use AMDVLK instead of Mesa RADV driver";
     };
 
     intel = {
@@ -35,13 +33,6 @@ in
     (lib.mkIf (cfg.gpuFlavor == "amd") {
       hardware.amdgpu = {
         initrd.enable = cfg.amd.enableKernelModule;
-        # Vulkan
-        amdvlk = lib.mkIf cfg.amd.amdvlk {
-          enable = true;
-          support32Bit = {
-            enable = true;
-          };
-        };
       };
 
       hardware.graphics = {
