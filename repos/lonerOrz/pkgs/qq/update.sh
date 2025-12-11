@@ -85,6 +85,24 @@ for arch in aarch64 x86_64; do
     fi
 done
 
+# final hash
+final_darwin_vernum="$old_darwin_vernum"
+final_darwin_hash="$darwin_hash"
+if version_gt "$darwin_vernum" "$old_darwin_vernum"; then
+    final_darwin_vernum="$darwin_vernum"
+    final_darwin_hash="$darwin_hash"
+fi
+
+declare -A final_linux_vernums final_linux_hashes
+for arch in aarch64 x86_64; do
+    final_linux_vernums[$arch]="${old_linux_vernums[$arch]}"
+    final_linux_hashes[$arch]="${linux_hashes[$arch]}"
+    if version_gt "${linux_vernums[$arch]}" "${old_linux_vernums[$arch]}"; then
+        final_linux_vernums[$arch]="${linux_vernums[$arch]}"
+        final_linux_hashes[$arch]="${linux_hashes[$arch]}"
+    fi
+done
+
 # Write sources.nix if needed
 if ! $update_needed; then
     echo "⏭ No updates needed. sources.nix unchanged."
@@ -97,10 +115,10 @@ cat >sources.nix <<EOF
 { fetchurl }:
 let
   any-darwin = {
-    version = "${darwin_vernum}-$today";
+    version = "${final_darwin_vernum}-$today";
     src = fetchurl {
       url = "$darwin_url";
-      hash = "$darwin_hash";
+      hash = "$final_darwin_hash";
     };
   };
 in
@@ -108,17 +126,17 @@ in
   aarch64-darwin = any-darwin;
   x86_64-darwin = any-darwin;
   aarch64-linux = {
-    version = "${linux_vernums[aarch64]}-$today";
+    version = "${final_linux_vernums[aarch64]}-$today";
     src = fetchurl {
       url = "${linux_urls[aarch64]}";
-      hash = "${linux_hashes[aarch64]}";
+      hash = "${final_linux_hashes[aarch64]}";
     };
   };
   x86_64-linux = {
-    version = "${linux_vernums[x86_64]}-$today";
+    version = "${final_linux_vernums[x86_64]}-$today";
     src = fetchurl {
       url = "${linux_urls[x86_64]}";
-      hash = "${linux_hashes[x86_64]}";
+      hash = "${final_linux_hashes[x86_64]}";
     };
   };
 }
