@@ -70,6 +70,7 @@
   - could workaround using a wrapper that downloads the file and then passes it to the program
 - geary: replace with envelope
 - gnome calls: implement dialpad for SIP accounts (DTMF): <https://gitlab.gnome.org/GNOME/calls/-/issues/715>
+- use `pkgsStatic` or `pkgsCross.musl64` where applicable, for much improved perf?
 
 ### security/resilience
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)

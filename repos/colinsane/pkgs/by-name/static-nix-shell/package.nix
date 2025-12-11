@@ -4,6 +4,7 @@
   makeBinaryWrapper,
   oils-for-unix,
   pkgs,
+  pkgsStatic,
   python3,
   stdenvNoCC,
   zsh,
@@ -216,12 +217,20 @@ in rec {
   # `mkShell` specialization for `nix-shell -i bash` scripts.
   mkBash = { pkgs ? {}, ...}@attrs:
     let
+      # XXX(2025-12-08): static bash is way faster than normal bash:
+      # `nix-build -A bash && hyperfine './result/bin/sh --version'`
+      # - 2.2 ms
+      # `nix-build -A pkgsCross.musl64.bash && hyperfine './result/bin/sh --version'`
+      # - 835.0 µs
+      # `nix-build -A pkgsStatic.bash && hyperfine './result/bin/sh --version'`
+      # - 262.8 µs
+      bash' = pkgsStatic.bash;
       pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
-      pkgsEnv = [ bash ] ++ (builtins.attrValues pkgsAsAttrs);
+      pkgsEnv = [ bash' ] ++ (builtins.attrValues pkgsAsAttrs);
       pkgExprs = insertTopo "bash" (builtins.attrNames pkgsAsAttrs);
     in mkShell ({
       inherit pkgsEnv pkgExprs;
-      interpreter = lib.getExe bash;
+      interpreter = lib.getExe bash';
       postConfigure = ''
       if [[ -n "$append_PATH" ]]; then
         shellPreamble="$shellPreamble"'

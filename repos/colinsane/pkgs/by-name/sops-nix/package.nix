@@ -5,12 +5,12 @@
 }:
 let
   # nix-update-script insists on this weird `assets-` version format
-  version = "assets-unstable-2025-12-07";
+  version = "assets-unstable-2025-12-08";
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "sops-nix";
-    rev = "aeb517262102f13683d7a191c7e496b34df8d24c";
-    hash = "sha256-i9GMbBLkeZ7MVvy7+aAuErXkBkdRylHofrAjtpUPKt8=";
+    rev = "7fd1416aba1865eddcdec5bb11339b7222c2363e";
+    hash = "sha256-qdBzo6puTgG4G2RHG0PkADg22ZnQo1JmSVFRxrD4QM4=";
   };
   flake = import "${src}/flake.nix";
   evaluated = flake.outputs {

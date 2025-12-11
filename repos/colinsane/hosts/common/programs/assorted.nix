@@ -220,7 +220,7 @@ in
       "haredoc"
       "nix-check-deps"  # run `nix-check-deps packageName -f .` before submitting stuff upstream
       "nix-index"
-      "nixfmt-rfc-style"  # run `nixfmt path/to/package.nix` before submitting stuff upstream
+      "nixfmt"  # run `nixfmt path/to/package.nix` before submitting stuff upstream
       "nixpkgs-hammering"
       "nixpkgs-review"
       "qmk-udev-rules"
@@ -942,7 +942,7 @@ in
       "/nix/var"
     ];
 
-    nixfmt-rfc-style.sandbox.autodetectCliPaths = "existingDirOrParent";  #< it formats via rename
+    nixfmt.sandbox.autodetectCliPaths = "existingDirOrParent";  #< it formats via rename
 
     nixpkgs-hammering.sandbox.whitelistPwd = true;
     nixpkgs-hammering.sandbox.extraPaths = [
