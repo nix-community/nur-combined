@@ -16,4 +16,6 @@
   ttymidi = pkgs.callPackage ./pkgs/ttymidi {};
   openscadWithPackages = pkgs.callPackage ./pkgs/openscad/openscad-with-packages.nix {};
   openscadPackages = pkgs.callPackage ./pkgs/openscad/openscad-packages.nix {};
+  # rayforge = pkgs.python311Packages.callPackage ./pkgs/rayforge {};
+  codecad = pkgs.callPackage ./pkgs/codecad {};
 }
