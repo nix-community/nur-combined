@@ -6234,6 +6234,28 @@
         platforms = platforms.all;
       };
     };
+    "image-max-url" = buildFirefoxXpiAddon {
+      pname = "image-max-url";
+      version = "2025.11.2";
+      addonId = "maxurl@qsniyg";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4610242/image_max_url-2025.11.2.xpi";
+      sha256 = "1cf2da2bf1133e9e6bbd285c2119f188d82cc99994aa99d4bfbd2f46023dc675";
+      meta = with lib;
+      {
+        homepage = "https://qsniyg.github.io/maxurl/";
+        description = "Finds larger/original versions of images (supporting 10,000+ websites), including a powerful media popup feature";
+        license = licenses.asl20;
+        mozPermissions = [
+          "storage"
+          "cookies"
+          "webRequest"
+          "webRequestBlocking"
+          "contextMenus"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "image-search-options" = buildFirefoxXpiAddon {
       pname = "image-search-options";
       version = "3.0.12";
@@ -10621,10 +10643,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "1.1.0";
+      version = "1.2.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4634406/private_grammar_checker_harper-1.1.0.xpi";
-      sha256 = "d28390f1ff54678e8650fea2114d01b0153db246aceef0893343363e93573824";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4640643/private_grammar_checker_harper-1.2.0.xpi";
+      sha256 = "8abe2973f56e1073ffd5707c668f7fd397771d486ca115684d42cc76eb5294e0";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -10753,10 +10775,10 @@
     };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
-      version = "1.2.11";
+      version = "1.2.10";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4634087/proton_vpn_firefox_extension-1.2.11.xpi";
-      sha256 = "f3bd635dccea7c99d754c78bcf467e01fb60beff3f4b6c0f16b904809c8f8d81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4580763/proton_vpn_firefox_extension-1.2.10.xpi";
+      sha256 = "63063ab30bf1b02aaaa54d3f3e7902811683093b10fdd55dc410345a8dcae1d5";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -12297,10 +12319,10 @@
     };
     "simplifygmail" = buildFirefoxXpiAddon {
       pname = "simplifygmail";
-      version = "3.3.15";
+      version = "3.3.16";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630967/simplifygmail-3.3.15.xpi";
-      sha256 = "4dbebaee5b1fb1cfa117d58ee5cddeb9525de054bd8612272112f59093333de7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4640181/simplifygmail-3.3.16.xpi";
+      sha256 = "96bdea8c2bf6b2c3ed8d7053f909ed72fc3e08383332fec0391da98c34119ac2";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -12321,10 +12343,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.88";
+      version = "1.22.92";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4624434/single_file-1.22.88.xpi";
-      sha256 = "7c64b680bdf87c9dbf114340ede5071e4a738a210331dcc687ebbf1e926280f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4639982/single_file-1.22.92.xpi";
+      sha256 = "115befd0cf7a5871cbdc06c4634d8d28f509e5f1ab4cc962d16b0ba27ef5b4be";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -13497,10 +13519,10 @@
     };
     "topcashback-cashback-coupons" = buildFirefoxXpiAddon {
       pname = "topcashback-cashback-coupons";
-      version = "7.2.0.0";
+      version = "7.3.1.0";
       addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4613842/topcashback_cashback_coupons-7.2.0.0.xpi";
-      sha256 = "3f78ad414a41364cc4778f187a1e2493c6dcb208d2184e6d09b8881910e78c9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4640212/topcashback_cashback_coupons-7.3.1.0.xpi";
+      sha256 = "bbc4ae7d4d631a75585a76427601088d17f52443672e7dd91de21bbc6d833a66";
       meta = with lib;
       {
         homepage = "https://www.topcashback.com";

@@ -841,6 +841,13 @@
     "slug": "iina-open-in-mpv"
   },
   {
+    "slug": "image-max-url",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
+  },
+  {
     "slug": "image-search-options",
     "license": {
       "tag": "predefined",
