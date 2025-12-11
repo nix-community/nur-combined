@@ -9,6 +9,3 @@ temp
 /home/configurations/weathercold/_base.nix
 /nixos/configurations/fracture-ray/proxy.json
 /nixos/modules/services/rclone/file-systems.nix
-/nixos/modules/system/boot/lanzaboote/pki/keys/db/db.key
-/nixos/modules/system/boot/lanzaboote/pki/keys/KEK/KEK.key
-/nixos/modules/system/boot/lanzaboote/pki/keys/PK/PK.key

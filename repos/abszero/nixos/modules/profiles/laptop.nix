@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkIf;
@@ -13,6 +13,7 @@ in
 
   config = mkIf cfg.enable {
     abszero.profiles.graphical-full.enable = true;
+
     services = {
       scx.extraArgs = [ "--autopower" ]; # Adjust power mode based on system EPP
       upower = {
@@ -23,5 +24,9 @@ in
         noPollBatteries = true;
       };
     };
+
+    environment.systemPackages = with pkgs; [
+      krita
+    ];
   };
 }

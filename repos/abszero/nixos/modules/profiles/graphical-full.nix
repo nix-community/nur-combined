@@ -82,7 +82,6 @@ in
         jetbrains.idea-community
         jq
         kooha
-        krita
         libreoffice-qt
         lutris
         nautilus

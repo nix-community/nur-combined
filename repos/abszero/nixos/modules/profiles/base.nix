@@ -80,8 +80,11 @@ in
         timeout = 0;
         # Whether the installation process can modify EFI boot variables.
         efi.canTouchEfiVariables = true;
-        # Disable kernel command line editor for security
-        systemd-boot.editor = false;
+        systemd-boot = {
+          configurationLimit = 5;
+          # Disable kernel command line editor for security
+          editor = false;
+        };
       };
       kernel.sysctl."vm.swappiness" = mkDefault 20;
       tmp.useTmpfs = true;
