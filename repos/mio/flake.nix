@@ -25,8 +25,6 @@
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
-      cached = forAllSystems (
-        system: self.legacyPackages.${system}.cached
-      );
+      cached = forAllSystems (system: self.legacyPackages.${system}.cached);
     };
 }

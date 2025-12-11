@@ -7,6 +7,7 @@
   },
 }:
 rec {
+  lib = pkgs.lib;
   stdenv = pkgs.stdenv;
   fixcmake =
     x:

@@ -17,13 +17,14 @@
 with (import ./private.nix { inherit pkgs; });
 let
   self = (
-    rec {
+    {
       # note: some packages might be commented out to reduce package numbers. garnix has hardcoded limit of 100.
       # The `lib`, `modules`, and `overlays` names are special
       lib = import ./lib { inherit pkgs; }; # functions
       modules = import ./modules; # NixOS modules
       overlays = import ./overlays; # nixpkgs overlays
-
+    }
+    // rec {
       aria2 = v3override (
         pkgs.aria2.overrideAttrs (old: {
           patches = (old.patches or [ ]) ++ [
