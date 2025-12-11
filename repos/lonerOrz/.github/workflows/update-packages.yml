@@ -2,7 +2,7 @@ name: update custom packages
 
 on:
   schedule:
-    - cron: "0 20 * * *" # UTC
+    - cron: "0 17 * * *" # UTC
   workflow_dispatch:
     inputs:
       package:
