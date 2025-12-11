@@ -7,9 +7,10 @@
     jq,
     nix-prefetch-git,
 }: let
-    hbmame' = (mame.override {
+    mame' = if (lib.functionArgs mame.override)?papirus-icon-theme then mame.override {
         papirus-icon-theme = "DUMMY";
-    }).overrideAttrs (old: rec {
+    } else mame;
+    hbmame' = mame'.overrideAttrs (old: rec {
         pname = "hbmame";
         version = "0.245.28";
         src = fetchFromGitHub {

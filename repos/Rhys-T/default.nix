@@ -46,7 +46,8 @@ overlays = pkgs'.lib.optional (with pkgs'; (
         })];
     });
 });
-pkgs = if builtins.length overlays > 0 then pkgs'.appendOverlays overlays else pkgs'; in
+pkgs = if builtins.length overlays > 0 then pkgs'.appendOverlays overlays else pkgs';
+in
 
 let result = pkgs.lib.makeScope pkgs.newScope (self: let
     inherit (self) callPackage myLib;
@@ -207,13 +208,13 @@ in {
     
     dc2dsk = callPackage ./pkgs/dc2dsk {};
     
-    mame = dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {});
-    mame-metal = dontUpdate (self.mame.override { darwinMinVersion = "11.0"; });
-    hbmame = callPackage ./pkgs/mame/hbmame {};
-    hbmame-metal = self.hbmame.override { mame = self.mame-metal; };
+    mame = myLib.warnMAME "mame" pkgs.mame (dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {}));
+    mame-metal = myLib.warnMAME "mame-metal" pkgs.mame (dontUpdate (self.mame.override { darwinMinVersion = "11.0"; }));
+    hbmame = callPackage ./pkgs/mame/hbmame (pkgs.lib.optionalAttrs myLib.deprecateMAMEBuilds { inherit (pkgs) mame; });
+    hbmame-metal = myLib.warnMAME "hbmame-metal" self.hbmame (self.hbmame.override { mame = self.mame-metal; });
     
     pacifi3d = callPackage ./pkgs/pacifi3d {};
-    pacifi3d-mame = self.pacifi3d.override { romsFromMAME = self.mame; };
+    pacifi3d-mame = self.pacifi3d.override { romsFromMAME = if myLib.deprecateMAMEBuilds then pkgs.mame else self.mame; };
     pacifi3d-hbmame = self.pacifi3d.override { romsFromMAME = self.hbmame; };
     _ciOnly.pacifi3d-rom-xmls = pkgs.lib.recurseIntoAttrs {
         mame = self.pacifi3d-mame.romsFromXML;

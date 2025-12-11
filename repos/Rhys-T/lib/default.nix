@@ -1,6 +1,6 @@
 { pkgs }:
 
-with pkgs.lib; {
+with pkgs.lib; rec {
   # Add your library functions here
   #
   # hexint = x: hexvals.${toLower x};
@@ -24,4 +24,15 @@ with pkgs.lib; {
       ];
     in
     drv // mapAttrs (_: warn msg) drvToWrap;
+    
+    oldestSupportedReleaseIsAtLeast = pkgs.lib.oldestSupportedReleaseIsAtLeast or pkgs.lib.isInOldestRelease;
+    deprecateMAMEBuilds = oldestSupportedReleaseIsAtLeast 2505;
+    warnMAME = attr: mame: myMAME: if deprecateMAMEBuilds then
+      warnOnInstantiate "Rhys-T's `${attr}` package is deprecated. Please use ${
+        if pkgs.lib.getName mame == "hbmame" then
+          "Rhys-T's main `hbmame` package"
+        else
+          "the `mame` package from Nixpkgs"
+      } instead." mame
+    else myMAME;
 }

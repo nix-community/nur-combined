@@ -32,8 +32,6 @@ hbmame.override (old: {
 })
 ```
 
-By default, this is based on the `mame` derivation from this repo, which also includes fixes to build on macOS/Darwin. There's also an `hbmame-metal` based on `mame-metal` - see [the `mame` notes](#mame) below for more details.
-
 ### `hfsutils`
 
 `hfsutils-tk` is the variant built with Tcl/Tk, which includes the `hfs`, `hfssh`, and `xhfs` commands. (I don't currently have one with Tcl only.)
@@ -74,14 +72,6 @@ You can also set `disableNativeImageLoader` to `"CIImage"` (or use `lix-game-CII
 #### SimonN/LixD#128 - NaOH's title screen, include hi-res instead of 640x480
 
 There is a higher-resolution version of Lix's main menu background artwork available, but it hasn't made it into a release yet. Set this to `true` to use it.
-
-### `mame`
-
-The `mame` derivation in nixpkgs is currently broken on macOS. By default, nixpkgs tries to target a minimum macOS version of 10.12, and MAME requires features from newer systems. I can get it to build for macOS 10.15+ by disabling the Metal renderer (`mame`), or for macOS 11 with the Metal renderer enabled (`mame-metal`). On other platforms, these _should_ both just become the normal MAME package as-is.
-
-**Note**: Recent versions of Nixpkgs have bumped the default minimum macOS to 11.3. If you're using those versions, `mame` will be the same derivation as `mame-metal`.
-
-(Meanwhile, `mame` also depends on `papirus-icon-theme`, which is marked Linux-only for reasons. So I'm cheating and extracting the one icon it actually needs as its own derivation on non-Linux systems.)
 
 ### `minivmac`
 
