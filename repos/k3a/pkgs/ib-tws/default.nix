@@ -29,12 +29,12 @@ in
 
 stdenv.mkDerivation rec {
   pname = "ib-tws";
-  version = "10.41.1e";
-  etagHash = "ad9975b3ed59b7f55dfb799501cdb6db";
+  version = "10.42.1a";
+  etagHash = "c80047d6e7b7e269a612d1f82f0f0a78";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    hash = "sha256-QN7dSe+R2kfDjtJWa9TIGbc8zCSC3XNmxSxOZOjOB2o=";
+    hash = "sha256-c+PptydEHvVkntDzX1Eod06hSE7prhuoXiTFZK+7dTI=";
   };
 
   phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
