@@ -38,11 +38,14 @@
   samba,
   libnfs,
   neon,
+  file,
   withPython ? true,
   withArcLite ? true,
   callPackage,
   withHexitor ? true,
   withOpenWith ? true,
+  withImageViewer ? true,
+  imagemagick,
   python3Packages,
   _7zlib ? callPackage ../../_7/_7zlib { },
   ...
@@ -50,7 +53,7 @@
 
 let
     _7zso = _7zlib;
-    buildid = "d77354eed8e48def181811da8a61f72044e678e9";
+    buildid = "1ed16ae84a397401252190dd817fe444b5cf0b2c";
 in
 stdenv.mkDerivation rec {
   pname = "far2l";
@@ -60,7 +63,7 @@ stdenv.mkDerivation rec {
     owner = "elfmz";
     repo = "far2l";
     rev = "${buildid}";
-    sha256 = "sha256-V1zuBtwIb8GVIvVPV7kXPBKZiaGFpG/ZUAdLKbbK+nU=";
+    sha256 = "sha256-V2+z3uOT70ly8yGa9SEJyL02zGH6HKEd8TyBKcJptz4=";
   };
 #    # arrows
 #  patches = fetchpatch {
@@ -107,6 +110,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withArcLite [
         _7zso
     ]
+    ++ lib.optionals withImageViewer [
+        imagemagick
+    ]
     );
 
   postPatch = ''
@@ -125,6 +131,7 @@ stdenv.mkDerivation rec {
     (lib.cmakeBool "ARCLITE" withArcLite)
     (lib.cmakeBool "HEXITOR" withHexitor)
     (lib.cmakeBool "OPENWITH" withOpenWith)
+    (lib.cmakeBool "DIMAGEVIEWER" withImageViewer)
 
   ]
   ++ lib.optionals withPython [
@@ -140,15 +147,21 @@ stdenv.mkDerivation rec {
     gzip
     bzip2
     gnutar
+    file
   ]
   ++ lib.optionals withArcLite [
         _7zso
+  ]
+  ++ lib.optionals withImageViewer [
+        imagemagick
   ];
+
 
   postInstall = ''
     # Create symlink 7z.so to the expected location
     mkdir -p $out/{lib,/usr/lib/7zip/}
     ln -sf "${_7zso}/usr/lib/p7zip/7z.so" $out/lib/far2l/Plugins/arclite/plug/7z.so
+    ln -sf "${_7zso}/usr/lib/p7zip/7z.so" $out/lib/far2l/Plugins/multiarc/plug/7z.so
     wrapProgram $out/bin/far2l \
       --prefix PATH : ${lib.makeBinPath runtimeDeps} \
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
