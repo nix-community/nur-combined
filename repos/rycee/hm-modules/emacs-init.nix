@@ -340,7 +340,7 @@ let
 
     (defun hm/restore-gc ()
       "Restore the frequency of garbage collection."
-      (setq gc-cons-threshold 16777216
+      (setq gc-cons-threshold (* 50 1024 1024)
             gc-cons-percentage 0.1))
 
     ;; Make GC more rare during init, while minibuffer is active, and
