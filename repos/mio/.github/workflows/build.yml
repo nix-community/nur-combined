@@ -99,7 +99,7 @@ jobs:
       run: |
         nice -n 20 nix run nixpkgs#nix-fast-build -- --max-jobs 1 --option cores 1 --option max-jobs 1 \
           --no-nom --skip-cached \
-          -f .#packages.${{ env.SYSTEM }} ${{ matrix.nixpkgs-override }}
+          -f .#cached.${{ env.SYSTEM }} ${{ matrix.nixpkgs-override }}
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
