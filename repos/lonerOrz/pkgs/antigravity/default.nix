@@ -25,11 +25,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "antigravity";
-  version = "1.11.2-6251250307170304";
+  version = "1.11.17-6639170008514560";
 
+  # https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.11.17-6639170008514560/linux-x64/Antigravity.tar.gz
   src = fetchurl {
     url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${finalAttrs.version}/linux-x64/Antigravity.tar.gz";
-    hash = "sha256-0bERWudsJ1w3bqZg4eTS3CDrPnLWogawllBblEpfZLc=";
+    hash = "sha256-RUh4n14wrRPvNB7xEvOjmbLWsODMlee/WgYlsIpacSA=";
   };
 
   nativeBuildInputs = [
@@ -76,6 +77,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p $out/bin
     makeWrapper $out/share/antigravity/antigravity $out/bin/antigravity \
+      --set ELECTRON_OZONE_PLATFORM_HINT auto \
+      --set LIBGL_ALWAYS_INDIRECT 1 \
+      --add-flags "--enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime --disable-gpu" \
+      --unset NODE_OPTIONS \
+      --set TMPDIR /tmp \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
 
     runHook postInstall

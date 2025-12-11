@@ -112,6 +112,8 @@ python3Packages.buildPythonApplication {
         --prefix PATH : ${binPath}
     '';
 
+  passthru.updateScript = ./update.sh;
+
   meta = {
     description = "Linux Desktop Gremlins brings animated mascots to your Linux desktop.";
     homepage = "https://github.com/iluvgirlswithglasses/linux-desktop-gremlin";
