@@ -1,29 +1,22 @@
-From 1ad16b7e2af66a45c55903eca3f09c2eb7869695 Mon Sep 17 00:00:00 2001
-From: Christoph Jabs <christoph.jabs@helsinki.fi>
-Date: Mon, 27 Jan 2025 13:05:11 +0200
-Subject: [PATCH] adjust cmake for nix
-
----
- CMakeLists.txt | 43 ++++++++++++++++++++++++++-----------------
- 1 file changed, 26 insertions(+), 17 deletions(-)
-
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 5976ac5..a108a7a 100644
+index fe91d8b..8791d67 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -9,25 +9,32 @@ include(CTest)
  set(CMAKE_CXX_STANDARD 17)
  set(CMAKE_CXX_STANDARD_REQUIRED True)
  
-+find_library(CADICAL_LIB libcadical.a)
-+
-+if (${CADICAL_LIB} MATCHES "CADICAL_LIB-NOTFOUND")
- set(CADICAL_DIR ${CMAKE_BINARY_DIR}/solvers/src/cadical_external/build)
- set(CADICAL_LIB ${CADICAL_DIR}/libcadical.a)
+-set(CADICAL_DIR ${CMAKE_BINARY_DIR}/solvers/src/cadical_external/build)
+-set(CADICAL_LIB ${CADICAL_DIR}/libcadical.a)
 -if (EXISTS ${CADICAL_LIB})
 -    message(STATUS "Cadical already built")
 -    add_library(cadical STATIC IMPORTED)
 -    set_target_properties(cadical PROPERTIES IMPORTED_LOCATION "${CADICAL_LIB}")
++find_library(CADICAL_LIB libcadical.a)
++
++if (${CADICAL_LIB} MATCHES "CADICAL_LIB-NOTFOUND")
++    set(CADICAL_DIR ${CMAKE_BINARY_DIR}/solvers/src/cadical_external/build)
++    set(CADICAL_LIB ${CADICAL_DIR}/libcadical.a)
 +    if (EXISTS ${CADICAL_LIB})
 +        message(STATUS "Cadical already built")
 +        add_library(cadical STATIC IMPORTED)
@@ -62,13 +55,10 @@ index 5976ac5..a108a7a 100644
  add_library(solver STATIC IMPORTED)
 @@ -65,4 +72,6 @@ install(TARGETS gbdc DESTINATION .)
  add_test(NAME Test_StreamBuffer COMMAND "test/tests_streambuffer")
- add_test(NAME Test_Feature_Extraction COMMAND "test/tests_feature_extraction")
+ # add_test(NAME Test_Feature_Extraction COMMAND "test/tests_feature_extraction")
  add_test(NAME Test_StreamCompressor COMMAND "test/tests_streamcompressor")
 -add_test(NAME Test_GBDLib COMMAND "test/tests_gbdlib")
 \ No newline at end of file
 +add_test(NAME Test_GBDLib COMMAND "test/tests_gbdlib")
 +
 +install(TARGETS gbdctool)
--- 
-2.46.1
-

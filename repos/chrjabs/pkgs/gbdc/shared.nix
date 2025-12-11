@@ -6,13 +6,13 @@
 }:
 {
   pname = "gbdc";
-  version = "0.3.2-multi-opt";
+  version = "0.3.3-multi-opt";
 
   src = fetchFromGitHub {
     owner = "chrjabs";
     repo = "gbdc";
-    rev = "1ada7b0472a58b25e27db0b287e9daf7617ece76";
-    hash = "sha256-zU/tjh33s6dXn7Ycsrtqt5FmD5tmhlLjfJz970O+ttY=";
+    rev = "62fbff9a481f5ac12f95a3ca15c6e77c51e816ae";
+    hash = "sha256-6vGaMQQqkKe95OYB91Nbt8d3ucDWD5wEdHUSZAl2RSs=";
   };
 
   patches = [ ./adjust-cmake-for-nix.patch ];

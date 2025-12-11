@@ -8,14 +8,14 @@
 }:
 python.pkgs.buildPythonPackage rec {
   pname = "gbd";
-  version = "4.9.11-multi-opt";
+  version = "5.0.0-multi-opt";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "chrjabs";
     repo = "gbd";
-    rev = "8549bdb738bd8468dd34e6c5fd0308f8b3cf50ed";
-    hash = "sha256-/5FxJcGFaNqm9xd0Sy7syUt5ecWxLQyzEuAYlMCdmhg=";
+    rev = "1babdb3173b1093ea6299ae04bf2380e942fed1b";
+    hash = "sha256-ziWYM72mXwzwAsxvNKq03yujlB4+baNbjjAYFOwfu4Q=";
   };
 
   build-system = [
@@ -26,7 +26,7 @@ python.pkgs.buildPythonPackage rec {
   propagatedBuildInputs = with python.pkgs; [
     flask
     tatsu
-    pandas
+    polars
     waitress
     pebble
     gbdc
