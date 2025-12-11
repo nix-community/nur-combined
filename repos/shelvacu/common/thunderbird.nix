@@ -93,6 +93,9 @@ in
           "mailnews.mark_message_read.auto" = false;
           "mailnews.start_page.enabled" = false;
           # "searchintegration.enable" = false;
+
+          # don't warn when sending with ctrl+enter
+          "mail.warn_on_send_accel_key" = false;
         };
         # // vaculib.mapAttrNames (n: "calendar.registry.${vacustoreCalUUID}.${n}") vacustoreCalConfig;
       };

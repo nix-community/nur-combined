@@ -1,6 +1,5 @@
 { dns, dnsData, lib, ... }:
 let
-  s = x: [ x ];
   inherit (dnsData) propA cloudns;
   letterToInfo = {
     a = cloudns.pns51;
@@ -12,16 +11,6 @@ let
     g = cloudns.pns53;
     h = cloudns.pns54;
   };
-  # defaultNsSubdomains = lib.mkDefault {
-  #     a.CNAME = s "pns51.cloudns.net.";
-  #     b.CNAME = s "pns52.cloudns.net.";
-  #     c.CNAME = s "pns53.cloudns.net.";
-  #     d.CNAME = s "pns54.cloudns.net.";
-  #     e.CNAME = s "pns51.cloudns.net.";
-  #     f.CNAME = s "pns52.cloudns.net.";
-  #     g.CNAME = s "pns53.cloudns.net.";
-  #     h.CNAME = s "pns54.cloudns.net.";
-  #   };
 in
 {
   vacu.liamMail = false;
