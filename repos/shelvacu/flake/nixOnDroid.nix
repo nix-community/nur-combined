@@ -20,10 +20,10 @@
       inherit (common) pkgs;
     };
 
-  config.flake.qb = {
-    nix-on-droid = config.nixOnDroidConfigurations.default.activationPackage;
+  config.flake.qb = rec {
+    nix-on-droid = config.flake.nixOnDroidConfigurations.default.activationPackage;
+    nod = nix-on-droid;
     nod-bootstrap-x86_64 = allInputs.nix-on-droid.packages.x86_64-linux.bootstrapZip-x86_64;
     nod-bootstrap-aarch64 = allInputs.nix-on-droid.packages.x86_64-linux.bootstrapZip-aarch64;
-    nod = config.flake.nix-on-droid;
   };
 }

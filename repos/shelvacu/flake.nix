@@ -11,7 +11,6 @@
       flake = false;
     };
 
-    copyparty.url = "github:9001/copyparty";
     declarative-jellyfin = {
       url = "github:shelvacu-forks/declarative-jellyfin/y-u-root";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -114,7 +113,6 @@
     plainOverlays = import ./overlays commonArgs;
     flakeOverlays = map (name: allInputs.${name}.overlays.default) [
       "sm64baserom"
-      "copyparty"
       "most-winningest"
     ];
     mkVacuCommonPkgArgs =

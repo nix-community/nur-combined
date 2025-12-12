@@ -27,7 +27,7 @@
       caddy-kanidm.isExistingHost = false;
     };
   in
-  lib.mkIf (system == "x86_64-linux")
+  lib.optionalAttrs (system == "x86_64-linux")
   {
     checks = builtins.mapAttrs (
     name: 
@@ -49,5 +49,5 @@
 
   flake.qb = lib.mapAttrs' (name: val: 
     lib.nameValuePair "check-${name}" val
-  ) config.perSystem."x86_64-linux".checks;
+  ) config.flake.checks."x86_64-linux";
 }

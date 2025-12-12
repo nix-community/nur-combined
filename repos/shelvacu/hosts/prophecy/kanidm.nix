@@ -18,8 +18,12 @@ let
   };
 in
 {
-  imports = [ vacuModules.solis-oauth-transmission ];
+  imports = [
+    vacuModules.solis-oauth-transmission
+    vacuModules.copyparty-solis
+  ];
   vacu.oauthProxy.instances.solis-transmission.configureKanidm = true;
+  vacu.copyparties.solis.configureKanidm = true;
 
   systemd.services.ensure-kanidm-certs =
     let

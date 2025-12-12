@@ -41,6 +41,10 @@ let
       "sops-nix"
     ];
   };
+
+  topLevelOf =
+    hostName:
+    config.flake.nixosConfigurations.${hostName}.config.system.build.toplevel;
 in
 {
   config.flake.nixosConfigurations = builtins.mapAttrs (name:
@@ -73,16 +77,16 @@ in
     (builtins.mapAttrs (
       name:
       _:
-      config.nixosConfigurations.${name}.config.system.build.toplevel
+      topLevelOf name
     ) hosts)
-    {
-      cd = config.qb.compute-deck;
-      prop = config.qb.prophecy;
-      iso = config.nixosConfigurations.shel-installer-iso.config.system.build.isoImage;
-      pxe-build = config.nixosConfigurations.shel-installer-pxe.config.system.build;
-      pxe-toplevel = config.qb.pxe-build;
-      pxe-kernel = config.qb.pxe-build.kernel;
-      pxe-initrd = config.qb.pxe-build.netbootRamdisk;
+    rec {
+      # cd = topLevelOf "compute-deck";
+      prop = topLevelOf "prophecy";
+      # iso = config.flake.nixosConfigurations.shel-installer-iso.config.system.build.isoImage;
+      # pxe-build = config.flake.nixosConfigurations.shel-installer-pxe.config.system.build;
+      # pxe-toplevel = pxe-build;
+      # pxe-kernel = pxe-build.kernel;
+      # pxe-initrd = pxe-build.netbootRamdisk;
     }
   ];
 }
