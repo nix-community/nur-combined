@@ -1,5 +1,5 @@
 diff --git a/electron.js b/electron.js
-index 8eab4ed9c9..6b5cd1865c 100644
+index 623f032ba5..17a38daa01 100644
 --- a/electron.js
 +++ b/electron.js
 @@ -1,13 +1,13 @@
@@ -41,7 +41,7 @@ index 4be8edd795..3d9019580f 100644
  
  const getHomeDir = () => {
 diff --git a/electron/js/window.js b/electron/js/window.js
-index 197c1cc851..b3c9e75594 100644
+index fc30cb4510..923763ec67 100644
 --- a/electron/js/window.js
 +++ b/electron/js/window.js
 @@ -1,5 +1,5 @@
@@ -51,12 +51,12 @@ index 197c1cc851..b3c9e75594 100644
  const path = require('path');
  const windowStateKeeper = require('electron-window-state');
  const remote = require('@electron/remote/main');
-@@ -29,7 +29,7 @@ class WindowManager {
+@@ -31,7 +31,7 @@ class WindowManager {
  			show: false,
  			titleBarStyle: 'hidden-inset',
  			webPreferences: {
 -				preload: fixPathForAsarUnpack(path.join(Util.electronPath(), 'js', 'preload.cjs')),
 +				preload: path.join(Util.electronPath().replace('app.asar', 'app.asar.unpacked'), 'js', 'preload.cjs'),
+ 				additionalArguments: [],
  			},
  		}, param);
- 
