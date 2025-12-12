@@ -26,7 +26,13 @@ jobs:
       - name: Update packages
         run: |
           find ./pkgs -name "info.json" -type f | while read -r info_file; do
-            ./.github/update.sh "$info_file"
+            dir="$(dirname "$info_file")"
+
+            if [[ "$dir" == *proton* ]]; then
+              ./.github/update.sh --force "$info_file"
+            else
+              ./.github/update.sh "$info_file"
+            fi
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

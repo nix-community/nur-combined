@@ -2,11 +2,18 @@
 set -euo pipefail
 
 # Universal update script for various package types
-# Usage: ./update.sh <info.json>
+# Usage: ./update.sh [--force] <info.json>
+
+force_hash=false
+if [[ "${1:-}" == "--force" ]]; then
+  force_hash=true
+  shift
+fi
 
 if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 <info.json>"
+  echo "Usage: $0 [--force] <info.json>"
   echo "Example: $0 modules/universal/system/pkgs/proton-em-bin/info.json"
+  echo "  --force: Re-fetch hash even if version is up-to-date"
   exit 1
 fi
 
@@ -57,11 +64,15 @@ update_github() {
   version="${rawVersion#v}"
 
   if [[ "$oldVersion" == "$version" ]]; then
-    echo "✅ Version is up to date ($version)"
-    exit 0
+    if [[ "$force_hash" == "false" ]]; then
+      echo "✅ Version is up to date ($version)"
+      exit 0
+    else
+      echo "🔄 Version unchanged ($version), but forcing hash update"
+    fi
+  else
+    echo "⬇️ New version detected: $oldVersion → $version"
   fi
-
-  echo "⬇️ New version detected: $oldVersion → $version"
 
   if jq -e '.platforms' <<< "$config" > /dev/null; then
     update_github_multiplatform "$repo" "$rawVersion" "$version"
@@ -187,11 +198,15 @@ update_api() {
   oldVersion=$(jq -r '.version // empty' <<< "$config")
 
   if [[ "$newVersion" == "$oldVersion" ]]; then
-    echo "✅ Version is up to date ($newVersion)"
-    exit 0
+    if [[ "$force_hash" == "false" ]]; then
+      echo "✅ Version is up to date ($newVersion)"
+      exit 0
+    else
+      echo "🔄 Version unchanged ($newVersion), but forcing hash update"
+    fi
+  else
+    echo "⬇️ New version detected: $oldVersion → $newVersion"
   fi
-
-  echo "⬇️ New version detected: $oldVersion → $newVersion"
   echo "🔗 Prefetching: $newUrl"
 
   tmp=$(mktemp)
