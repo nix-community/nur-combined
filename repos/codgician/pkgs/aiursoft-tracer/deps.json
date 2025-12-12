@@ -19,21 +19,21 @@
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket",
-    "version": "10.0.0",
-    "hash": "sha256-HKJX9TDad2xTlg2R1yZ32d0ykSZPxgMsT5MQMewfhS4=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.aiurobserver.websocket/10.0.0/aiursoft.aiurobserver.websocket.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-hzW1LFNh9mVUhPgTMHtfSVWcGw2HGMaJxw317WkTSVU=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.aiurobserver.websocket/10.0.1/aiursoft.aiurobserver.websocket.10.0.1.nupkg"
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket.Server",
-    "version": "10.0.0",
-    "hash": "sha256-awU3PnWNvmps9lZBcCwM1XSLuP/Y2VaoL0zSuebvfNU=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.aiurobserver.websocket.server/10.0.0/aiursoft.aiurobserver.websocket.server.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-feyPYeGRYW1vVoaV6q6gffApS+DbDKCy13xs3+Lae7s=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.aiurobserver.websocket.server/10.0.1/aiursoft.aiurobserver.websocket.server.10.0.1.nupkg"
   },
   {
     "pname": "Aiursoft.Canon",
-    "version": "10.0.0",
-    "hash": "sha256-8HYmky2DwE20etrOz/3InhNqUtVPJWJs1rhN8EQ+0IQ=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.canon/10.0.0/aiursoft.canon.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-vKX0o49TqkAgVMfj89UNFOKhkg6htUMyZkoPNo8+Ws8=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.canon/10.0.1/aiursoft.canon.10.0.1.nupkg"
   },
   {
     "pname": "Aiursoft.CSTools",
@@ -43,33 +43,33 @@
   },
   {
     "pname": "Aiursoft.DbTools",
-    "version": "10.0.2",
-    "hash": "sha256-Bx2KzqZUuPI8V/Y91MrfU+3lx1X503E6dI3xKfYF8fw=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools/10.0.2/aiursoft.dbtools.10.0.2.nupkg"
+    "version": "10.0.3",
+    "hash": "sha256-O0+pG5BLMDL1YNvKhQTgZ/q4KYD4q9bDMTrlNlJtpKc=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools/10.0.3/aiursoft.dbtools.10.0.3.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.2",
-    "hash": "sha256-yUf1XyqviiBh758dx/0axUE+efijyI/XL3TmlJjef0w=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.inmemory/10.0.2/aiursoft.dbtools.inmemory.10.0.2.nupkg"
+    "version": "10.0.3",
+    "hash": "sha256-vt5zwGV8Vhxg/hGZx/hwlbciuNd8Biiw4JucOunib38=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.inmemory/10.0.3/aiursoft.dbtools.inmemory.10.0.3.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.4",
-    "hash": "sha256-d+w+qPtDctnusXmiw82chhfrEFJ/AwlUFYUw1MsaVr0=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.4/aiursoft.dbtools.mysql.10.0.4.nupkg"
+    "version": "10.0.5",
+    "hash": "sha256-vM72ebQdYCQVy+uKrEPQZG0lQLbvG0QvksomDs8vstU=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.5/aiursoft.dbtools.mysql.10.0.5.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.4",
-    "hash": "sha256-BQzl5ZOBggg35/oYkMo/Dk/78pnV4ncvaxjjkx/5hqM=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.4/aiursoft.dbtools.sqlite.10.0.4.nupkg"
+    "version": "10.0.5",
+    "hash": "sha256-bA+3rYM00STiUbdzQFtTwmWco9LA5RZ/3CuzYeIfMTw=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.5/aiursoft.dbtools.sqlite.10.0.5.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.2",
-    "hash": "sha256-GtP2AM5eaOhUooo330CsVnW9+mCo1XcjI05jK5Nv2E4=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.switchable/10.0.2/aiursoft.dbtools.switchable.10.0.2.nupkg"
+    "version": "10.0.3",
+    "hash": "sha256-xHzs+MJWaDS+WHdcbDGsg1z5jYM5djMtK8KXpjVYWC4=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.switchable/10.0.3/aiursoft.dbtools.switchable.10.0.3.nupkg"
   },
   {
     "pname": "Aiursoft.EntityFrameworkCore.MySql",
@@ -79,9 +79,9 @@
   },
   {
     "pname": "Aiursoft.Scanner",
-    "version": "10.0.0",
-    "hash": "sha256-a2Wogi2DrvSxsInEyeVWIHJs6bDWntY50mQWwkNnZO4=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.scanner/10.0.0/aiursoft.scanner.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-1nPXklwF7ze22FcoQZr56iBV1zzL1tsRDndEIIUHzuI=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.scanner/10.0.1/aiursoft.scanner.10.0.1.nupkg"
   },
   {
     "pname": "Aiursoft.Scanner.Abstractions",
@@ -277,9 +277,9 @@
   },
   {
     "pname": "Microsoft.Data.Sqlite.Core",
-    "version": "10.0.0",
-    "hash": "sha256-04jYg9EbrQc+LH6wKh3ASCCNau6wZ5Gq0tDYd8oIHAs=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.data.sqlite.core/10.0.0/microsoft.data.sqlite.core.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-ql+TOPpcO5JoqVGkcaAvITN9xta6YD8mfzL+nDY5Y+U=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.data.sqlite.core/10.0.1/microsoft.data.sqlite.core.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.EntityFrameworkCore",
@@ -295,21 +295,9 @@
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-UDgZbRQcGPaKsE53EH6bvJiv+Q4KSxAbnsVhTVFGG4Q=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.abstractions/10.0.0/microsoft.entityframeworkcore.abstractions.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.EntityFrameworkCore.Abstractions",
     "version": "10.0.1",
     "hash": "sha256-FMGXhAAgcVSedV0/GmUVqAwoiRzFJil9mQYr6eNgowg=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.abstractions/10.0.1/microsoft.entityframeworkcore.abstractions.10.0.1.nupkg"
-  },
-  {
-    "pname": "Microsoft.EntityFrameworkCore.Analyzers",
-    "version": "10.0.0",
-    "hash": "sha256-7Q0jYJO50cqGI+u6gLpootbB8GZvgsgtg0F9FZI1jig=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.analyzers/10.0.0/microsoft.entityframeworkcore.analyzers.10.0.0.nupkg"
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Analyzers",
@@ -325,9 +313,9 @@
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.InMemory",
-    "version": "10.0.0",
-    "hash": "sha256-FL7derMnAjDZzyRYt6Gm0jmO1GcxwbqBV2V/axww1MU=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.inmemory/10.0.0/microsoft.entityframeworkcore.inmemory.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-YOYWSaOoxGoA7mCM60mM3SsUjOYVXQ1a3GAnK+Y9xMM=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.inmemory/10.0.1/microsoft.entityframeworkcore.inmemory.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Relational",
@@ -343,21 +331,15 @@
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Sqlite",
-    "version": "10.0.0",
-    "hash": "sha256-tcBTibp0uApuqynWhxTintjkcC2oMfUQ8BJ2ORGWkKY=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.sqlite/10.0.0/microsoft.entityframeworkcore.sqlite.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-35KuG80LILYni5xoczxk6OlUb8wFwxt/BDlBIJimIuk=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.sqlite/10.0.1/microsoft.entityframeworkcore.sqlite.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Sqlite.Core",
-    "version": "10.0.0",
-    "hash": "sha256-Y5cM2fSh6b75L3dRdF0odXz4gKIYip/JIO1rsdkeOGM=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.sqlite.core/10.0.0/microsoft.entityframeworkcore.sqlite.core.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Caching.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-IciARPnXx/S6HZc4t2ED06UyUwfZI9LKSzwKSGdpsfI=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.caching.abstractions/10.0.0/microsoft.extensions.caching.abstractions.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-AWHbvIeR0IYuDl2SXi1Jil2AGAhOwjbJJ5YXPMXP2Uc=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.entityframeworkcore.sqlite.core/10.0.1/microsoft.entityframeworkcore.sqlite.core.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Caching.Abstractions",
@@ -367,21 +349,9 @@
   },
   {
     "pname": "Microsoft.Extensions.Caching.Memory",
-    "version": "10.0.0",
-    "hash": "sha256-AMgDSm1k6q0s17spGtyR5q8nAqUFDOxl/Fe38f9M+d4=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.caching.memory/10.0.0/microsoft.extensions.caching.memory.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Caching.Memory",
     "version": "10.0.1",
     "hash": "sha256-Qb7xK6VEZDas0lJFaW1suKdFjtkSYwLHHxkQEfWIU2A=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.caching.memory/10.0.1/microsoft.extensions.caching.memory.10.0.1.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Configuration",
-    "version": "10.0.0",
-    "hash": "sha256-MsLskVPpkCvov5+DWIaALCt1qfRRX4u228eHxvpE0dg=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration/10.0.0/microsoft.extensions.configuration.10.0.0.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Configuration",
@@ -391,21 +361,9 @@
   },
   {
     "pname": "Microsoft.Extensions.Configuration.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-GcgrnTAieCV7AVT13zyOjfwwL86e99iiO/MiMOxPGG0=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.abstractions/10.0.0/microsoft.extensions.configuration.abstractions.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Configuration.Abstractions",
     "version": "10.0.1",
     "hash": "sha256-s4PDp+vtzdxKIxnOT3+dDRoTDopyl8kqmmw4KDnkOtQ=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.abstractions/10.0.1/microsoft.extensions.configuration.abstractions.10.0.1.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Configuration.Binder",
-    "version": "10.0.0",
-    "hash": "sha256-YSiWoA3VQR22k6+bSEAUqeG7UDzZlJfHWDTubUO5V8U=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.binder/10.0.0/microsoft.extensions.configuration.binder.10.0.0.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Configuration.Binder",
@@ -415,51 +373,39 @@
   },
   {
     "pname": "Microsoft.Extensions.Configuration.CommandLine",
-    "version": "10.0.0",
-    "hash": "sha256-ldTiRFqnv8/pA0gl6UR+4DDGAIZOf9+MhaLWOuKOXOI=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.commandline/10.0.0/microsoft.extensions.configuration.commandline.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-u70gHmAKAlbP2jbsSDLKCNt6Yqfcrl5wSpQ+3/FduFs=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.commandline/10.0.1/microsoft.extensions.configuration.commandline.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Configuration.EnvironmentVariables",
-    "version": "10.0.0",
-    "hash": "sha256-UayfeqrAmNyfOkuhcBKfj8UpjQqV/ZMqWrDyxCSG1MA=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.environmentvariables/10.0.0/microsoft.extensions.configuration.environmentvariables.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-mslRDdtsV4C5t3k6WYxxH2nzT+FAmdT+fTUM/QBcahM=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.environmentvariables/10.0.1/microsoft.extensions.configuration.environmentvariables.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Configuration.FileExtensions",
-    "version": "10.0.0",
-    "hash": "sha256-rN+3rqrHiTaBfHgP+E4dA8Qm2cFJPfbEcd93yKLsqlQ=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.fileextensions/10.0.0/microsoft.extensions.configuration.fileextensions.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-DFIwBSRkFtjPzbsTgHzAaJ6dSIHA8avQx7sRLZ6W64A=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.fileextensions/10.0.1/microsoft.extensions.configuration.fileextensions.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Configuration.Json",
-    "version": "10.0.0",
-    "hash": "sha256-VCFukgsxiQ2MFGE6RDMFTGopBHbcZL2t0ER7ENaFXRY=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.json/10.0.0/microsoft.extensions.configuration.json.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-l1eDnd0rvV4bhGYrtxOLnrbTiP5juSyfrG51k5G3lQA=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.json/10.0.1/microsoft.extensions.configuration.json.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Configuration.UserSecrets",
-    "version": "10.0.0",
-    "hash": "sha256-uIoIpbDPRMfFqT8Y6j/wHbFCAly6H1N9qpxnomRbHIo=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.usersecrets/10.0.0/microsoft.extensions.configuration.usersecrets.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.DependencyInjection",
-    "version": "10.0.0",
-    "hash": "sha256-LYm9hVlo/R9c2aAKHsDYJ5vY9U0+3Jvclme3ou3BtvQ=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.dependencyinjection/10.0.0/microsoft.extensions.dependencyinjection.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-gHzqwu06nfKftexrQaIexa3PiZI1eYkxkO0X+nkGKX0=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.configuration.usersecrets/10.0.1/microsoft.extensions.configuration.usersecrets.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.DependencyInjection",
     "version": "10.0.1",
     "hash": "sha256-RKOB+zPrtQNUbJY/1jR54rKOM8KHPgynPExxugku3I8=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.dependencyinjection/10.0.1/microsoft.extensions.dependencyinjection.10.0.1.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-9iodXP39YqgxomnOPOxd/mzbG0JfOSXzFoNU3omT2Ps=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.dependencyinjection.abstractions/10.0.0/microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
@@ -475,21 +421,9 @@
   },
   {
     "pname": "Microsoft.Extensions.DependencyModel",
-    "version": "10.0.0",
-    "hash": "sha256-oCcIjmwH8H0n9bT3wQBWdotMvYuoiazfiKrXAs2bLiI=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.dependencymodel/10.0.0/microsoft.extensions.dependencymodel.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.DependencyModel",
     "version": "10.0.1",
     "hash": "sha256-XIj2jEURe25YA4RhBSuCqQpic0YP+TZaO/dbBPCjad8=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.dependencymodel/10.0.1/microsoft.extensions.dependencymodel.10.0.1.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Diagnostics",
-    "version": "10.0.0",
-    "hash": "sha256-o7QkCisEcFIh227qBUfWFci2ns4cgEpLqpX7YvHGToQ=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.diagnostics/10.0.0/microsoft.extensions.diagnostics.10.0.0.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Diagnostics",
@@ -499,21 +433,15 @@
   },
   {
     "pname": "Microsoft.Extensions.Diagnostics.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-cix7QxQ/g3sj6reXu3jn0cRv2RijzceaLLkchEGTt5E=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.diagnostics.abstractions/10.0.0/microsoft.extensions.diagnostics.abstractions.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Diagnostics.Abstractions",
     "version": "10.0.1",
     "hash": "sha256-tEt6VaaDR7bICKHiCp0l2Cmz8u+FCYORLVNAaJymGM8=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.diagnostics.abstractions/10.0.1/microsoft.extensions.diagnostics.abstractions.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.FileProviders.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-CHDs2HCN8QcfuYQpgNVszZ5dfXFe4yS9K2GoQXecc20=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.fileproviders.abstractions/10.0.0/microsoft.extensions.fileproviders.abstractions.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-IYtaZ5nssj9RPHL+DODXt9Z2IvTtj8rKuLQuyoMqo+w=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.fileproviders.abstractions/10.0.1/microsoft.extensions.fileproviders.abstractions.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.FileProviders.Embedded",
@@ -523,27 +451,27 @@
   },
   {
     "pname": "Microsoft.Extensions.FileProviders.Physical",
-    "version": "10.0.0",
-    "hash": "sha256-2Rw/cwBO+/A3QY2IjN/c8Y0LhtC1qTBL7VdJiD1J2UQ=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.fileproviders.physical/10.0.0/microsoft.extensions.fileproviders.physical.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-HdzR2Nz8Qna8IDA2kPhEbBwfn3JZ1gxcPGxza7hH1GQ=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.fileproviders.physical/10.0.1/microsoft.extensions.fileproviders.physical.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.FileSystemGlobbing",
-    "version": "10.0.0",
-    "hash": "sha256-ETfVTdsdBtp69EggLg/AARTQW4lLQYVdVldXIQrsjZA=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.filesystemglobbing/10.0.0/microsoft.extensions.filesystemglobbing.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-R9f52Tn3DyktDD5UtWj80Ee3nEXMo0BR+66b/8NxaV8=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.filesystemglobbing/10.0.1/microsoft.extensions.filesystemglobbing.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Hosting",
-    "version": "10.0.0",
-    "hash": "sha256-tY0g6lCy2yFprE+NmriiU6FGmwpzxV8LqE0ZFNKIwuM=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.hosting/10.0.0/microsoft.extensions.hosting.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-e1BztWxT+PUJ0PCrMfHl+ZTrPhrX5+xsV8j9jhQ4W3M=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.hosting/10.0.1/microsoft.extensions.hosting.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Hosting.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-Sub3Thay/+eR84cEODk/nPh1oYIYtawvDX6r0duReqo=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.hosting.abstractions/10.0.0/microsoft.extensions.hosting.abstractions.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-2t+yF23Ac9MvytZK8hym+aUYynuAFZVdKdcRVvVsdXo=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.hosting.abstractions/10.0.1/microsoft.extensions.hosting.abstractions.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Identity.Core",
@@ -559,21 +487,9 @@
   },
   {
     "pname": "Microsoft.Extensions.Logging",
-    "version": "10.0.0",
-    "hash": "sha256-P+zPAadLL63k/GqK34/qChqQjY9aIRxZfxlB9lqsSrs=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging/10.0.0/microsoft.extensions.logging.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Logging",
     "version": "10.0.1",
     "hash": "sha256-zuLP3SIpCToMOlIPOEv3Kq8y/minecd8k8GSkxFo13E=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging/10.0.1/microsoft.extensions.logging.10.0.1.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Logging.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-BnhgGZc01HwTSxogavq7Ueq4V7iMA3wPnbfRwQ4RhGk=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.abstractions/10.0.0/microsoft.extensions.logging.abstractions.10.0.0.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Logging.Abstractions",
@@ -589,39 +505,33 @@
   },
   {
     "pname": "Microsoft.Extensions.Logging.Configuration",
-    "version": "10.0.0",
-    "hash": "sha256-7/TWO1aq8hdgbcTEKDBWIjgSC9KpFN3kRnMX+12bOkU=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.configuration/10.0.0/microsoft.extensions.logging.configuration.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-/7ywcFsEmmQzWEcIvxoGAYHF0oDSXV/LTDAiW/MNQtg=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.configuration/10.0.1/microsoft.extensions.logging.configuration.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Logging.Console",
-    "version": "10.0.0",
-    "hash": "sha256-Rsblo7GSMTOr43876KkdvqS6wU9Typ1yoFK3tL50CBk=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.console/10.0.0/microsoft.extensions.logging.console.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-m/E02c5NSCYyH4THNKxpnsi3Kp8gqOi2aPrfXx7sQ9s=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.console/10.0.1/microsoft.extensions.logging.console.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Logging.Debug",
-    "version": "10.0.0",
-    "hash": "sha256-n/+KRVlsgKm17cJImaoAPHAObHpApW/hf6mMsQFGrvY=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.debug/10.0.0/microsoft.extensions.logging.debug.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-IxuAcBxnUDfrb/diCXWC4wDA1Wa6QhCy3oinGIdfe1I=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.debug/10.0.1/microsoft.extensions.logging.debug.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Logging.EventLog",
-    "version": "10.0.0",
-    "hash": "sha256-4RJ2r80RtI3QUAhCAYbGnA0YcTmouqtZvQU9o3CrB38=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.eventlog/10.0.0/microsoft.extensions.logging.eventlog.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-ZFhS/nxyEeHjg58P4gLZgEGEB++A2RCTYu2CS2zkYQ4=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.eventlog/10.0.1/microsoft.extensions.logging.eventlog.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Logging.EventSource",
-    "version": "10.0.0",
-    "hash": "sha256-tqC13Qwkf4x14iGxOYlXTyeoN8KPVX+mupv2LdpzGHo=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.eventsource/10.0.0/microsoft.extensions.logging.eventsource.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Options",
-    "version": "10.0.0",
-    "hash": "sha256-j5MOqZSKeUtxxzmZjzZMGy0vELHdvPraqwTQQQNVsYA=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.options/10.0.0/microsoft.extensions.options.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-NNIBY/yokZGmvcj+IgBttuAIk8JbjH8pocjPg9gEEOM=",
+    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.logging.eventsource/10.0.1/microsoft.extensions.logging.eventsource.10.0.1.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Options",
@@ -631,21 +541,9 @@
   },
   {
     "pname": "Microsoft.Extensions.Options.ConfigurationExtensions",
-    "version": "10.0.0",
-    "hash": "sha256-XGAs5DxMvWnmjX8dqRwKY0vsuS40SHvsfJqB1rO4L7k=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.options.configurationextensions/10.0.0/microsoft.extensions.options.configurationextensions.10.0.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Options.ConfigurationExtensions",
     "version": "10.0.1",
     "hash": "sha256-1CNSVXZ3RAH4vzbYDqcQHl9c/YBhuSfrFUXCLIx5/rY=",
     "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.options.configurationextensions/10.0.1/microsoft.extensions.options.configurationextensions.10.0.1.nupkg"
-  },
-  {
-    "pname": "Microsoft.Extensions.Primitives",
-    "version": "10.0.0",
-    "hash": "sha256-Dup08KcptLjlnpN5t5//+p4n8FUTgRAq4n/w1s6us+I=",
-    "url": "https://nuget.aiursoft.com/v3/package/microsoft.extensions.primitives/10.0.0/microsoft.extensions.primitives.10.0.0.nupkg"
   },
   {
     "pname": "Microsoft.Extensions.Primitives",
@@ -913,9 +811,9 @@
   },
   {
     "pname": "System.Diagnostics.EventLog",
-    "version": "10.0.0",
-    "hash": "sha256-pN3tld926Fp0n5ZNjjzIJviUQrynlOAB0vhc1aoso6E=",
-    "url": "https://nuget.aiursoft.com/v3/package/system.diagnostics.eventlog/10.0.0/system.diagnostics.eventlog.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-Yn8jT9uKNnknLsSvtV9hyqfz/5x/aKnZt6XtfQOIdVM=",
+    "url": "https://nuget.aiursoft.com/v3/package/system.diagnostics.eventlog/10.0.1/system.diagnostics.eventlog.10.0.1.nupkg"
   },
   {
     "pname": "System.Formats.Nrbf",
