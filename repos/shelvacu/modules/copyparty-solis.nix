@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   vacuModules,
   vacuRoot,
   ...
@@ -10,6 +11,20 @@
   
   vacu.copyparties.solis = {
     domain = "files.solis.shelvacu.com";
+    package = pkgs.copyparty.override {
+      withHashedPasswords = true;
+      withCertgen = false;
+      withThumbnails = true;
+      withFastThumbnails = false;
+      withMediaProcessing = false;
+      withBasicAudioMetadata = true;
+      withZeroMQ = false;
+      withFTP = true;
+      withFTPS = true;
+      withTFTP = false;
+      withSMB = false;
+      withMagic = true;
+    };
     globalConfig = ''
       name: solis
     '';

@@ -1,4 +1,5 @@
 {
+  dns,
   dnsData,
   lib,
   vaculib,
@@ -7,7 +8,8 @@
 }:
 let
   s = v: [ v ];
-  inherit (dnsData) propA solisA doA;
+  inherit (dns.lib.combinators) host;
+  inherit (dnsData) propA solisA doA cloudns;
   # which domains to allow dmarc reports.
   # ex: _dmarc.dis8.net TXT has "rua=rua-reports@shelvacu.com", reports will only be sent if shelvacu.com allows them
   # allow all domains configured in this repo, and one level of subdomain (ideally all but thats hard, this should be good enough)
@@ -60,10 +62,10 @@ in
     mumble.A = propA;
     nitter.A = propA;
     nixcache.A = propA;
-    ns1.CNAME = s "pns51.cloudns.net.";
-    ns2.CNAME = s "pns52.cloudns.net.";
-    ns3.CNAME = s "pns53.cloudns.net.";
-    ns4.CNAME = s "pns54.cloudns.net.";
+    ns1 = host cloudns.pns51.ipv4 cloudns.pns51.ipv6;
+    ns2 = host cloudns.pns52.ipv4 cloudns.pns52.ipv6;
+    ns3 = host cloudns.pns53.ipv4 cloudns.pns53.ipv6;
+    ns4 = host cloudns.pns54.ipv4 cloudns.pns54.ipv6;
     powerhouse.CNAME = s "powerhouse.dyn.74358228.xyz.";
     prop.CNAME = s "prophecy";
     prophecy.A = propA;
@@ -76,10 +78,7 @@ in
     smtp.A = doA;
     sol.CNAME = s "solis";
     solis.A = solisA;
-    solis.subdomains.garage.subdomains = {
-      s3.A = solisA;
-      admin.A = solisA;
-    };
+    "*.solis".A = solisA;
     vaultwarden.A = propA;
     www.A = propA;
     xs.A = solisA;
