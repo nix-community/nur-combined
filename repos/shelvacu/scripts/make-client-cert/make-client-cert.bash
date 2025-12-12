@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source shellvaculib.bash
+source shellvaculib.bash || exit 1
 
 name="$HOSTNAME"
 

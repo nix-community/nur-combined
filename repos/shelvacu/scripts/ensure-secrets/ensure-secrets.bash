@@ -1,4 +1,5 @@
-source shellvaculib.bash
+#!/usr/bin/env bash
+source shellvaculib.bash || exit 1
 
 svl_exact_args $# 0
 

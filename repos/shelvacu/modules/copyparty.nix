@@ -244,7 +244,7 @@ let
         ${config.hostPath}
     ''
     + (lib.optionalString (config.access != "") (
-      "  access:\n" +
+      "  accs:\n" +
       lib.pipe config.access [
         (lib.splitString "\n")
         (map lib.trim)

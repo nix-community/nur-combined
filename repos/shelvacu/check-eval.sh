@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source shellvaculib.bash
+source shellvaculib.bash || exit 1
 
 svl_exact_args $# 0
 svl_assert_probably_in_script_dir

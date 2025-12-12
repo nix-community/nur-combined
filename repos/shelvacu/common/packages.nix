@@ -158,7 +158,7 @@ in
         hdparm
         home-manager
         imagemagickBig
-        kanidm_1_7
+        kanidm_1_8
         libfido2
         libsmi
         man
