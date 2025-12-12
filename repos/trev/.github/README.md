@@ -44,6 +44,14 @@ Nix hash fixer
 nix run github:spotdemo4/nur#nix-fix-hash
 ```
 
+### [nix-flake-release](https://github.com/spotdemo4/nix-flake-release)
+
+Nix flake package releaser
+
+```elm
+nix run github:spotdemo4/nur#nix-flake-release
+```
+
 ### [opengrep](https://github.com/opengrep/opengrep)
 
 Static code analysis engine to find security issues in code

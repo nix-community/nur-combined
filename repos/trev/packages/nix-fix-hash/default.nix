@@ -1,59 +1,55 @@
 {
-  fetchFromGitHub,
   lib,
-  nix-update-script,
-  pkgs,
+  mktemp,
   runtimeShell,
+  sd,
+  shellcheck,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
 }:
-pkgs.stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nix-fix-hash";
-  version = "0.0.1";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nix-fix-hash";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rQnjZ9bSU2qj9cJmwtHdMeok2BuRpo0eVCTXZ3TXJf0=";
+    hash = "sha256-tFW10OaXCAPiLjvAnMC6hkU9/BkQxB7cKLaoZWv9smU=";
   };
 
-  dontBuild = true;
-
-  nativeBuildInputs = with pkgs; [
-    shellcheck-minimal
+  nativeBuildInputs = [
+    shellcheck
   ];
 
-  runtimeInputs = with pkgs; [
-    nix
-    ncurses
+  runtimeInputs = [
+    mktemp
+    sd
   ];
 
   unpackPhase = ''
-    cp "$src/nix-fix-hash.sh" .
+    cp "$src/nix-fix-hash.sh" nix-fix-hash.sh
   '';
 
+  dontBuild = true;
+
   configurePhase = ''
-    echo "#!${runtimeShell}" >> nix-fix-hash
-    echo "${
-      lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
-        "errexit"
-        "nounset"
-        "pipefail"
-      ]
-    }" >> nix-fix-hash
-    echo 'export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> nix-fix-hash
-    cat nix-fix-hash.sh >> nix-fix-hash
-    chmod +x nix-fix-hash
+    sed -i '1c\#!${runtimeShell}' nix-fix-hash.sh
+    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' nix-fix-hash.sh
   '';
 
   doCheck = true;
   checkPhase = ''
-    shellcheck ./nix-fix-hash
+    shellcheck nix-fix-hash.sh
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp nix-fix-hash $out/bin/nix-fix-hash
+    cp nix-fix-hash.sh $out/bin/nix-fix-hash
   '';
+
+  dontFixup = true;
 
   passthru = {
     updateScript = lib.concatStringsSep " " (nix-update-script {
@@ -65,9 +61,10 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Nix hash fixer";
+    description = "nix hash fixer";
     mainProgram = "nix-fix-hash";
     homepage = "https://github.com/spotdemo4/nix-fix-hash";
-    platforms = pkgs.lib.platforms.all;
+    changelog = "https://github.com/spotdemo4/nix-fix-hash/releases/tag/v${finalAttrs.version}";
+    platforms = lib.platforms.all;
   };
 })

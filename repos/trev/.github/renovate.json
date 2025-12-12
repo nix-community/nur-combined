@@ -6,6 +6,7 @@
   "requireConfig": "ignored",
   "platform": "github",
   "repositories": ["spotdemo4/nur"],
+  "allowedCommands": ["nix-fix-hash --file utils/images"],
 
   // repository
   "extends": ["config:recommended"],
@@ -18,20 +19,57 @@
   "nix": {
     "enabled": true
   },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "docker images",
+      "managerFilePatterns": ["/^images/.*.nix$/"],
+      "matchStrings": [
+        "image = \"?(?<depName>[^\\s:@\"]+)(?::(?<currentValue>[-a-zA-Z0-9.]+))?(?:@(?<currentDigest>sha256:[a-zA-Z0-9]+))?\"?"
+      ],
+      "autoReplaceStringTemplate": "image = \"{{{depName}}}:{{{newValue}}}{{#if newDigest}}@{{{newDigest}}}{{/if}}\"",
+      "depTypeTemplate": "image",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "flakes",
+      "managerFilePatterns": ["/^packages/.*.nix$/"],
+      "matchStrings": [
+        "builtins\\.getFlake \"github:(?<depName>.+/.+)/(?<currentDigest>.+)\" # (?<currentValue>.+)"
+      ],
+      "autoReplaceStringTemplate": "builtins.getFlake \"github:{{{depName}}}/{{{newDigest}}}\" # {{{newValue}}}",
+      "depTypeTemplate": "flake",
+      "datasourceTemplate": "github-tags"
+    }
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
     },
     {
-      "groupName": "Nix Inputs",
-      "matchManagers": ["nix"],
-      "matchPackageNames": ["*"]
+      "groupName": "nix inputs",
+      "matchManagers": ["nix"]
     },
     {
-      "groupName": "GitHub Actions",
-      "matchManagers": ["github-actions"],
-      "matchPackageNames": ["*"]
+      "groupName": "github actions",
+      "matchManagers": ["github-actions"]
+    },
+    {
+      "groupName": "docker images",
+      "matchManagers": ["custom.regex"],
+      "matchDepTypes": ["image"],
+      "pinDigests": true,
+      "postUpgradeTasks": {
+        "commands": ["nix-fix-hash --file utils/images"]
+      }
+    },
+    {
+      "groupName": "flakes",
+      "matchManagers": ["custom.regex"],
+      "matchDepTypes": ["flake"],
+      "pinDigests": true
     }
   ]
 }

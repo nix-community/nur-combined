@@ -5,13 +5,16 @@ on:
     - cron: "0 9 * * *" # every day at 09:00 UTC
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   flake:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
         id: init
-        uses: spotdemo4/nix-init@59e9eaa3d67e67b17b92ce2c6ffc83deed76fc91 # v1.11.0
+        uses: spotdemo4/nix-init@e785b8c9ec9fda8072a535786ee5db33429afe4e # v1.12.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur

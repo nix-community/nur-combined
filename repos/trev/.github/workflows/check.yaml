@@ -7,6 +7,12 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+
+permissions:
+  contents: read
+
 jobs:
   packages:
     strategy:
@@ -19,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@59e9eaa3d67e67b17b92ce2c6ffc83deed76fc91 # v1.11.0
+        uses: spotdemo4/nix-init@e785b8c9ec9fda8072a535786ee5db33429afe4e # v1.12.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
@@ -37,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@59e9eaa3d67e67b17b92ce2c6ffc83deed76fc91 # v1.11.0
+        uses: spotdemo4/nix-init@e785b8c9ec9fda8072a535786ee5db33429afe4e # v1.12.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur

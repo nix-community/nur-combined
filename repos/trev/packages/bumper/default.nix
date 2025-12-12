@@ -1,74 +1,83 @@
 {
+  cargo-edit,
+  cargo,
   fetchFromGitHub,
+  gnused,
+  jq,
   lib,
-  nix-update-script,
-  pkgs,
+  makeWrapper,
+  ncurses,
+  nix-update,
+  nodejs_latest,
+  runtimeShell,
+  shellcheck,
+  stdenv,
 }:
-pkgs.stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bumper";
-  version = "0.2.5";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "bumper";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AfDHUiDaOYzQ3RnKFgAAd/wtu3xiko4OLIJL9IxE8uo=";
+    hash = "sha256-b6kAJxkwMOERp4C0in3INg9BUnXNYpAy9kb9SGb04g4=";
   };
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
+    makeWrapper
     shellcheck
   ];
 
-  runtimeInputs = with pkgs; [
-    git
-    nodejs_24
+  runtimeInputs = [
+    jq
+    ncurses
+    gnused
+
+    # rust
+    cargo
+    cargo-edit
+
+    # nix
     nix-update
+
+    # node
+    nodejs_latest
   ];
 
   unpackPhase = ''
-    cp "$src/bumper.sh" .
+    cp -a "$src/." .
   '';
 
   dontBuild = true;
 
   configurePhase = ''
-    echo "#!${pkgs.runtimeShell}" >> bumper
-    echo "${
-      pkgs.lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
-        "errexit"
-        "pipefail"
-      ]
-    }" >> bumper
-    echo 'export PATH="${pkgs.lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> bumper
-    tail -n +2 bumper.sh >> bumper
-    chmod +x bumper
+    chmod +w src
+    sed -i '1c\#!${runtimeShell}' src/bumper.sh
+    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/bumper.sh
   '';
 
   doCheck = true;
   checkPhase = ''
-    shellcheck ./bumper
+    shellcheck src/*.sh
   '';
 
   installPhase = ''
+    mkdir -p $out/lib/bumper
+    cp -R src/*.sh $out/lib/bumper
+
     mkdir -p $out/bin
-    cp bumper $out/bin/bumper
+    makeWrapper "$out/lib/bumper/bumper.sh" "$out/bin/bumper"
   '';
 
-  passthru = {
-    updateScript = lib.concatStringsSep " " (nix-update-script {
-      extraArgs = [
-        "--commit"
-        "${finalAttrs.pname}"
-      ];
-    });
-  };
+  dontFixup = true;
 
   meta = {
-    description = "Version bumper for projects using git and semantic versioning";
+    description = "git semantic version bumper";
     mainProgram = "bumper";
     homepage = "https://github.com/spotdemo4/bumper";
     changelog = "https://github.com/spotdemo4/bumper/releases/tag/v${finalAttrs.version}";
-    license = pkgs.lib.licenses.mit;
-    platforms = pkgs.lib.platforms.all;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
   };
 })

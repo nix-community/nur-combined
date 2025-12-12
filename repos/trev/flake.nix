@@ -56,18 +56,25 @@
             }
           );
 
+        images = import ./images {
+          inherit system pkgs;
+        };
+
         overlays = import ./overlays;
 
         devShells = {
           default = pkgs.mkShell {
             packages =
               let
-                update = pkgs.callPackage ./utils/update { };
+                nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
+                update = pkgs.callPackage ./utils/update { inherit system; };
               in
+              with pkgs;
               [
+                nix-fix-hash
+                nixfmt
+                prettier
                 update
-                pkgs.nixfmt
-                pkgs.prettier
               ];
             shellHook =
               let
@@ -85,12 +92,14 @@
           update = pkgs.mkShell {
             packages =
               let
+                nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
                 trenovate = pkgs.callPackage ./packages/renovate { };
-                update = pkgs.callPackage ./utils/update { };
+                update = pkgs.callPackage ./utils/update { inherit system; };
               in
               [
-                update
+                nix-fix-hash
                 trenovate
+                update
               ];
           };
 
@@ -109,10 +118,11 @@
                 let
                   trenovate = pkgs.callPackage ./packages/renovate { };
                 in
+                with pkgs;
                 [
-                  pkgs.nixfmt-tree
-                  pkgs.prettier
-                  pkgs.action-validator
+                  nixfmt-tree
+                  prettier
+                  action-validator
                   trenovate
                 ];
               script = ''
