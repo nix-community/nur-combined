@@ -311,12 +311,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "029b51ecd065bfd48d2ea15887f6263ac81728db",
-      "sha256": "sha256-6T4wga24CiKDTqtKWvmHPugmC8YkkbXKPuNpDqHyUNo=",
+      "rev": "ff8516ed280bc11334456088cfeb4b4e1159c9c0",
+      "sha256": "sha256-xkMbSsfQrZkKOMTvypueOSyvPZTXnuGTNgbudA5R9PY=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "029b51ecd065bfd48d2ea15887f6263ac81728db"
+    "version": "ff8516ed280bc11334456088cfeb4b4e1159c9c0"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
