@@ -6,6 +6,7 @@
     curl,
     jq,
     nix-prefetch-git,
+    myLib, _isDeprecatedMetalVersion ? false,
 }: let
     mame' = if (lib.functionArgs mame.override)?papirus-icon-theme then mame.override {
         papirus-icon-theme = "DUMMY";
@@ -113,7 +114,7 @@
             '';
         };
         meta = (old.meta or {}) // {
-            description = "Emulator of homebrew and hacked games for arcade hardware";
+            description = "Emulator of homebrew and hacked games for arcade hardware" + lib.optionalString (_isDeprecatedMetalVersion && myLib.deprecateMAMEBuilds) " [DEPRECATED]";
             longDescription = ''
                 HBMAME (HomeBrew MAME) is a derivative of MAME ${builtins.concatStringsSep "." (lib.lists.take 2 (builtins.splitVersion version))}, and contains various hacks and homebrews.
                 
