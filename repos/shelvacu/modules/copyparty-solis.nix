@@ -39,6 +39,7 @@
   };
 
   vacu.oauthProxy.instances.${config.vacu.copyparties.solis.oauthInstance} = {
+    requireOauth = true;
     clientSecret.sops = {
       sopsFile = /${vacuRoot}/secrets/solis-oauth.yaml;
       key = "copyparty_oauth";
