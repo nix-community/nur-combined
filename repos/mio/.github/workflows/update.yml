@@ -52,6 +52,26 @@ jobs:
       continue-on-error: true
       run: nix run .#nss_git.passthru.updateScript
 
+    - name: Update proton-cachyos
+      continue-on-error: true
+      run: nix run .#proton-cachyos.passthru.updateScript
+
+    - name: Update proton-cachyos x86_64_v2
+      continue-on-error: true
+      run: nix run .#proton-cachyos_x86_64_v2.passthru.updateScript
+
+    - name: Update proton-cachyos x86_64_v3
+      continue-on-error: true
+      run: nix run .#proton-cachyos_x86_64_v3.passthru.updateScript
+
+    - name: Update proton-cachyos x86_64_v4
+      continue-on-error: true
+      run: nix run .#proton-cachyos_x86_64_v4.passthru.updateScript
+
+    - name: Update proton-ge-custom
+      continue-on-error: true
+      run: nix run .#proton-ge-custom.passthru.updateScript
+
     - name: Push changes
       run: |
         git push

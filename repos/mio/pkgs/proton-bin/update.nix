@@ -1,5 +1,5 @@
 {
-  writeShellScript,
+  writeShellScriptBin,
   lib,
   coreutils,
   findutils,
@@ -34,7 +34,7 @@ let
     yq
   ];
 in
-writeShellScript "update-${repo}" ''
+writeShellScriptBin "update-${repo}" ''
   set -euo pipefail
   PATH=${path}
 
