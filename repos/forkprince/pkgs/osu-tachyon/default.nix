@@ -57,7 +57,7 @@
 
   passthru.updateScript = ./update.sh;
 in
-  if stdenvNoCC.isDarwin
+  if stdenvNoCC.hostPlatform.isDarwin
   then
     stdenvNoCC.mkDerivation {
       inherit pname version src meta passthru;
