@@ -1,9 +1,19 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p bash -p xdg-utils
 
+allow_empty=
 uris=()
 for u in "$@"; do
-  uris+=("${u/xdg-open:/}")
+  if [ "$u" == xdg-open:null ]; then
+    echo "xdg-open-scheme-handler: ignoring xdg-open:null"
+    allow_empty=1
+  else
+    uris+=("${u/xdg-open:/}")
+  fi
 done
 
-xdg-open "${uris[@]}"
+if [ "${#uris[@]}" -eq 0 ] && [ -n "$allow_empty" ]; then
+  echo "xdg-open-scheme-handler: no URIs -> not forwarding to xdg-open"
+else
+  xdg-open "${uris[@]}"
+fi
