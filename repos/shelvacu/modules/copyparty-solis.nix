@@ -17,9 +17,9 @@
     configureKanidm = lib.mkDefault false;
     configureFileServer = lib.mkDefault false;
 
-    volumes."/xstore" = {
+    volumes."/xstore/torrents" = {
       bind.readOnly = true;
-      access = "r: shelvacu";
+      access = "r.: shelvacu";
     };
   };
 

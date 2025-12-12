@@ -72,13 +72,17 @@ let
       socketPath = "${config.socketDir}/socket.unix";
       configFile = pkgs.writeText "copyparty-${config.instanceName}.conf" ''
         [global]
-          ${config.globalConfig}
-
+        ${lib.pipe config.globalConfig [
+          (lib.splitString "\n")
+          (map lib.trim)
+          (map (s: if s == "" then "" else "  ${s}"))
+          (lib.concatStringsSep "\n")
+        ]}
         ${config.extraConfig}
         ${lib.pipe config.volumes [
           builtins.attrValues
           (builtins.filter (v: v.enable))
-          (lib.concatMapStringsSep "\n\n" (v: v.toConfigLines))
+          (lib.concatMapStringsSep "\n" (v: v.toConfigLines))
         ]}
       '';
       oauthEnabled = config.oauthInstance != null;
@@ -91,8 +95,18 @@ let
       globalConfig = ''
         log-conn
         no-ansi
-        chmod-f: 660
-        chmod-d: 770
+        chmod-f: ${vaculib.accessMode {
+          user = {
+            read = true;
+            write = true;
+          };
+          group = {
+            read = true;
+            write = true;
+          };
+          octalLength = 3;
+        }}
+        chmod-d: ${vaculib.accessMode { user = "all"; group = "all"; octalLength = 3; }}
         plain-ip
         rproxy: -1
         http-no-tcp
@@ -112,12 +126,11 @@ let
         e2dsa
         e2ts
         daw
-        i: unix:770:${config.socketGroup}:${config.socketPath}
+        i: unix:${vaculib.accessMode { user = "all"; group = "all"; octalLength = 3; }}:${config.socketGroup}:${config.socketPath}
         ${lib.optionalString config.zeroconf ''
           z
           zm-http: 80
-          zm-https: 443
-        ''}
+          zm-https: 443''}
         ${lib.optionalString config.oauthEnabled ''
           idp-h-usr: X-Auth-Request-Preferred-Username
           idp-h-grp: X-Auth-Request-Group
@@ -126,8 +139,7 @@ let
           idp-login: /oauth2/start?rd={dst}
           idp-login-t: Login with id.shelvacu
           idp-logout: /oauth2/sign_out
-          idp-store: 3
-        ''}
+          idp-store: 3''}
       '';
     };
   };
@@ -149,6 +161,7 @@ let
       };
       hostPath = mkOption {
         type = types.path;
+        default = config.path;
       };
       bind = {
         enable = mkOption {

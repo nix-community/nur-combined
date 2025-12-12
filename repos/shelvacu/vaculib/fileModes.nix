@@ -2,11 +2,13 @@
 let
   inherit (builtins)
     isBool
+    isInt
     all
     attrNames
     attrValues
     ;
   prepend = element: list: [ element ] ++ list;
+  prependIf = cond: element: list: if cond then [ element ] ++ list else list;
   optionalString = condition: s: if condition then s else "";
   optionalInt = condition: i: if condition then i else 0;
   pipe = builtins.foldl' (x: f: f x);
@@ -70,6 +72,7 @@ let
       sgid,
       sticky,
       _type,
+      octalLength,
       ...
     }:
     assert _type == "com.shelvacu.nix.fileAccessMode";
@@ -78,7 +81,7 @@ let
     in
     pipe
       [ user group other ]
-      [ (map singleModeToInt) (prepend firstDigit) (map toString) (builtins.concatStringsSep "") ];
+      [ (map singleModeToInt) (prependIf (octalLength == 4) firstDigit) (map toString) (builtins.concatStringsSep "") ];
   accessModeToSymbolicString =
     {
       user,
@@ -141,12 +144,13 @@ let
       group,
       other,
       _type,
+      octalLength,
       ...
     }:
     assert _type == "com.shelvacu.nix.fileMaskMode";
     pipe
       [ user group other ]
-      [ (map singleMaskModeToInt) (prepend 0) (map toString) (builtins.concatStringsSep "") ];
+      [ (map singleMaskModeToInt) (prependIf (octalLength == 4) 0) (map toString) (builtins.concatStringsSep "") ];
 in
 rec {
   accessMode =
@@ -158,12 +162,13 @@ rec {
       suid ? false,
       sgid ? false,
       sticky ? false,
+      octalLength ? 4,
     }:
     let
       singles = { inherit user group other; };
       self = {
         _type = "com.shelvacu.nix.fileAccessMode";
-        inherit suid sgid sticky;
+        inherit suid sgid sticky octalLength;
         __toString = accessModeToOctalString;
         octalString = accessModeToOctalString self;
         symbolicString = accessModeToSymbolicString self;
@@ -173,6 +178,9 @@ rec {
     assert isBool suid;
     assert isBool sgid;
     assert isBool sticky;
+    assert isInt octalLength;
+    assert octalLength == 3 || octalLength == 4;
+    assert octalLength == 3 -> suid == false && sgid == false && sticky == false;
     self;
   accessModeStr = args: "${accessMode args}";
   mask =
@@ -181,16 +189,20 @@ rec {
       user ? null,
       group ? null,
       other ? null,
+      octalLength ? 4,
     }:
     let
       singles = { inherit user group other; };
       self = {
+        inherit octalLength;
         _type = "com.shelvacu.nix.fileMaskMode";
         __toString = maskModeToOctalString;
         octalString = maskModeToOctalString self;
       }
       // (builtins.mapAttrs (_: val: expandSingleMaskMode (if val != null then val else all)) singles);
     in
+    assert isInt octalLength;
+    assert octalLength == 3 || octalLength == 4;
     self;
   maskStr = args: "${mask args}";
 }

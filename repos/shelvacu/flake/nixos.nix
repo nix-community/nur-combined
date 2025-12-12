@@ -44,7 +44,10 @@ let
 
   topLevelOf =
     hostName:
-    config.flake.nixosConfigurations.${hostName}.config.system.build.toplevel;
+    let
+      thisHostConfig = config.flake.nixosConfigurations.${hostName}.config;
+    in
+    thisHostConfig.system.build.toplevel // { config = thisHostConfig; };
 in
 {
   config.flake.nixosConfigurations = builtins.mapAttrs (name:

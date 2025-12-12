@@ -2,13 +2,7 @@
 {
   imports = [
     vacuModules.sops
-    ./disko.nix
-    ./impermanence.nix
-    ./hardware.nix
-    # ./garage.nix
-    ./caddy.nix
-    ./torrent.nix
-  ];
+  ] ++ builtins.attrValues (vaculib.directoryGrabber { path = ./.; });
   options.vacu.this = vaculib.mkOutOptions {
     ip4 = "89.213.174.171";
     ip6 = "2a0f:9400:7e11:cd44::1";

@@ -260,7 +260,7 @@
           in
           {
             _module.args = {
-              inherit plainConfig;
+              inherit plainConfig common;
               inherit (common) pkgs vacupkglib;
             };
           };
