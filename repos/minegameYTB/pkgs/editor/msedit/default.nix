@@ -1,8 +1,8 @@
 ### Nix expression enhanced with @RossSmyth nix expr
 {
   pkgs,
-  lib, 
-makeRustPlatform,
+  lib,
+  makeRustPlatform,
   patchelf,
   icu,
   fetchFromGitHub,
@@ -27,13 +27,13 @@ rustPlatform.buildRustPackage rec {
     rev = "v${version}";
     hash = "sha256-Sb73awgdajBKKW0QIpmKF6g9mIIS/1f0a6D/jQulnUM=";
   };
-  
+
   ### Use rust nightly from this variable
   env.RUSTC_BOOTSTRAP = 1;
 
   ### hash from cargo.lock to the edit repository
   cargoHash = "sha256-U8U70nzTmpY6r8J661EJ4CGjx6vWrGovu5m25dvz5sY=";
-  
+
   ### Disable install check (found here: https://github.com/RossSmyth/nixpkgs/blob/4f09843cb4edf26fac02a021eecfd9e5af0e5206/pkgs/by-name/ms/ms-edit/package.nix)
   doInstallCheck = false;
 
@@ -58,13 +58,16 @@ rustPlatform.buildRustPackage rec {
     patchelf $out/bin/msedit \
       --add-rpath ${lib.makeLibraryPath [ icu ]}
   '';
-    
+
   meta = {
     description = "A simple editor for simple needs.";
     homepage = "https://github.com/microsoft/edit";
     license = lib.licenses.mit;
     mainProgram = "msedit";
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with lib.maintainers; [ minegameYTB ];
   };
 }

@@ -3,10 +3,9 @@ let
   fenix = pkgs.fetchFromGitHub {
     owner = "nix-community";
     repo = "fenix";
-    rev = "9be40ad995bac282160ff374a47eed67c74f9c2a"; # June 2025
-    hash = "sha256-MJNhEBsAbxRp/53qsXv6/eaWkGS8zMGX9LuCz1BLeck=";
+    rev = "6399553b7a300c77e7f07342904eb696a5b6bf9d"; # Dec 2025
+    hash = "sha256-C6tT7K1Lx6VsYw1BY5S3OavtapUvEnDQtmQB5DSgbCc=";
   };
   toolchain = (import fenix { inherit pkgs; }).minimal;
 in
-  toolchain
-
+toolchain
