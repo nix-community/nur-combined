@@ -207,27 +207,6 @@
     },
     "version": "67fbccecf8d048cf6ed7a73e93f640469b132b42"
   },
-  "ntfsprogs-plus": {
-    "cargoLocks": null,
-    "date": null,
-    "extract": null,
-    "name": "ntfsprogs-plus",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "ntfsprogs-plus",
-      "repo": "ntfsprogs-plus",
-      "rev": "1.0.0",
-      "sha256": "sha256-vbK/lnNMHTycw5H9ijLfX7uRB7mgsI6KGg8gfO3OCGk=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "1.0.0"
-  },
   "piliplus": {
     "cargoLocks": null,
     "date": null,

@@ -124,17 +124,6 @@
     };
     date = "2025-11-27";
   };
-  ntfsprogs-plus = {
-    pname = "ntfsprogs-plus";
-    version = "1.0.0";
-    src = fetchFromGitHub {
-      owner = "ntfsprogs-plus";
-      repo = "ntfsprogs-plus";
-      rev = "1.0.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-vbK/lnNMHTycw5H9ijLfX7uRB7mgsI6KGg8gfO3OCGk=";
-    };
-  };
   piliplus = {
     pname = "piliplus";
     version = "1.1.5.1";
