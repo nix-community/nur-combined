@@ -6,8 +6,6 @@
 
 , aacSupport ? false
 , faac
-, alacSupport ? false
-, libav
 , flacSupport ? false
 , flac
 , m4aSupport ? false
@@ -20,7 +18,6 @@
 }:
 
 assert aacSupport -> faac.meta.available;
-assert alacSupport -> libav.meta.available;
 assert flacSupport -> flac.meta.available;
 assert m4aSupport || mp4Support -> fdk-aac-encoder.meta.available;
 assert oggSupport -> vorbis-tools.meta.available;
@@ -48,7 +45,6 @@ python3Packages.buildPythonApplication rec {
   ]) ++ [
     lame
     (if flacSupport then flac else null)
-    (if alacSupport then libav else null)
     (if aacSupport then faac else null)
     (if (m4aSupport || mp4Support) then fdk-aac-encoder else null)
     (if oggSupport then vorbis-tools else null)
