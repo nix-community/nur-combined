@@ -12,7 +12,7 @@ let
     stable = {
       version = "6.18.1";
       suffix = "lowlatency-sunlight1";
-      hash = "";
+      hash = "sha256-9iZcxBonghYT38fCrYPh8wBJvw3WQ6Y+OMVF5F/TfB4=";
     };
     mainline = {
       version = "6.18.0-rc7";
