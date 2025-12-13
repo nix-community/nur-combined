@@ -32,7 +32,7 @@
   "legacyPackages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
     "pname": "asterisk-g72x",
-    "version": "0-unstable-2025-09-01"
+    "version": "0-unstable-2025-12-13"
   },
   "legacyPackages.x86_64-linux.asteriskDigiumCodecs.10.g729a": {
     "description": "Asterisk g729a Codec by Digium",
@@ -907,7 +907,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7383"
+    "version": "7384"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4287,7 +4287,7 @@
   "legacyPackages.x86_64-linux.uncategorized.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
     "pname": "asterisk-g72x",
-    "version": "0-unstable-2025-09-01"
+    "version": "0-unstable-2025-12-13"
   },
   "legacyPackages.x86_64-linux.uncategorized.axiom-syslog-proxy": {
     "description": "Syslog push interface to Axiom",
@@ -5142,7 +5142,7 @@
   "packages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
     "pname": "asterisk-g72x",
-    "version": "0-unstable-2025-09-01"
+    "version": "0-unstable-2025-12-13"
   },
   "packages.x86_64-linux.asteriskDigiumCodecs": {
     "description": "",

@@ -136,7 +136,7 @@
     },
     "asterisk-g72x": {
         "cargoLocks": null,
-        "date": "2025-09-01",
+        "date": "2025-12-13",
         "extract": null,
         "name": "asterisk-g72x",
         "passthru": null,
@@ -148,12 +148,12 @@
             "name": null,
             "owner": "arkadijs",
             "repo": "asterisk-g72x",
-            "rev": "5024cb422cf58dbf0ae6e00f18092680e33391de",
-            "sha256": "sha256-/0b9GEgBbUdkGIr6gbPuXDA06hw5bFv2eOembRzS2k8=",
+            "rev": "55a7b8246c8ad3f32e50a033529e5a52c11a5592",
+            "sha256": "sha256-P36O/BFkGDYvuvFKKA4t3a4hbLn+jy+s6/Bp134vDhE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5024cb422cf58dbf0ae6e00f18092680e33391de"
+        "version": "55a7b8246c8ad3f32e50a033529e5a52c11a5592"
     },
     "asterisk-gsm-efr": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7383",
-            "sha256": "sha256-NTmLykCZAE6tskDqHI7FQ1onav1Qw8+eINmJPhrbuAk=",
+            "rev": "b7384",
+            "sha256": "sha256-vuXZl3jUrzDLclTboWJt5+Yb+rLLVTtnT6mBQ7Jh47M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7383"
+        "version": "b7384"
     },
     "loralib": {
         "cargoLocks": null,

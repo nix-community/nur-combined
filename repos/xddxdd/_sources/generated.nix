@@ -73,14 +73,14 @@
   };
   asterisk-g72x = {
     pname = "asterisk-g72x";
-    version = "5024cb422cf58dbf0ae6e00f18092680e33391de";
+    version = "55a7b8246c8ad3f32e50a033529e5a52c11a5592";
     src = fetchFromGitHub {
       owner = "arkadijs";
       repo = "asterisk-g72x";
-      rev = "5024cb422cf58dbf0ae6e00f18092680e33391de";
-      hash = "sha256-/0b9GEgBbUdkGIr6gbPuXDA06hw5bFv2eOembRzS2k8=";
+      rev = "55a7b8246c8ad3f32e50a033529e5a52c11a5592";
+      hash = "sha256-P36O/BFkGDYvuvFKKA4t3a4hbLn+jy+s6/Bp134vDhE=";
     };
-    date = "2025-09-01";
+    date = "2025-12-13";
   };
   asterisk-gsm-efr = {
     pname = "asterisk-gsm-efr";
@@ -1081,12 +1081,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7383";
+    version = "b7384";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7383";
-      hash = "sha256-NTmLykCZAE6tskDqHI7FQ1onav1Qw8+eINmJPhrbuAk=";
+      tag = "b7384";
+      hash = "sha256-vuXZl3jUrzDLclTboWJt5+Yb+rLLVTtnT6mBQ7Jh47M=";
     };
   };
   loralib = {
