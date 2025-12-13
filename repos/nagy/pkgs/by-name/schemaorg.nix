@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "schemaorg";
-  version = "29.0";
+  version = "29.3";
 
   src = fetchFromGitHub {
     owner = "schemaorg";
     repo = "schemaorg";
     rev = "v${finalAttrs.version}-release";
-    hash = "sha256-dE8hsu8+DWC3R+jgaZsSUOW2h1I+QhPzzdjeu5By2ZI=";
+    hash = "sha256-3dPIp4wefz37ML+EB/iy+CDdVYpujQTlKFV+MvAY7YU=";
   };
 
   installPhase = ''
