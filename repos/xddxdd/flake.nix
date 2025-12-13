@@ -143,6 +143,8 @@
             wireguard-remove-lingering-links = import ./modules/wireguard-remove-lingering-links.nix;
             # keep-sorted end
           };
+
+          hydraJobs.packages = self.ciPackages;
         };
 
         perSystem =
