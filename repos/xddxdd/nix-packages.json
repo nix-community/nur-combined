@@ -457,7 +457,7 @@
   "legacyPackages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-08-31"
+    "version": "0-unstable-2025-12-11"
   },
   "legacyPackages.x86_64-linux.browser360": {
     "description": "Browser from 360",
@@ -527,12 +527,12 @@
   "legacyPackages.x86_64-linux.deprecated.kata-image": {
     "description": "(DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.23.0"
+    "version": "3.24.0"
   },
   "legacyPackages.x86_64-linux.deprecated.kata-runtime": {
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.23.0"
+    "version": "3.24.0"
   },
   "legacyPackages.x86_64-linux.deprecated.openvswitch-dpdk": {
     "description": "(DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch",
@@ -617,12 +617,12 @@
   "legacyPackages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
     "pname": "python3.13-edge-tts",
-    "version": "7.2.3"
+    "version": "7.2.7"
   },
   "legacyPackages.x86_64-linux.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-11-24"
+    "version": "0-unstable-2025-12-12"
   },
   "legacyPackages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -662,7 +662,7 @@
   "legacyPackages.x86_64-linux.flapalerted": {
     "description": "BGP Update based flap detection",
     "pname": "flapalerted",
-    "version": "4.1.5"
+    "version": "4.2.0"
   },
   "legacyPackages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
@@ -687,12 +687,12 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-12-09"
+    "version": "0-unstable-2025-12-11"
   },
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.12.10"
+    "version": "2025.12.13"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -762,7 +762,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-11-17"
+    "version": "0-unstable-2025-12-10"
   },
   "legacyPackages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -797,12 +797,12 @@
   "legacyPackages.x86_64-linux.kata-image": {
     "description": "(DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.23.0"
+    "version": "3.24.0"
   },
   "legacyPackages.x86_64-linux.kata-runtime": {
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.23.0"
+    "version": "3.24.0"
   },
   "legacyPackages.x86_64-linux.kernel-modules.acpi-ec": {
     "description": "Kernel module to access directly to the ACPI EC",
@@ -832,7 +832,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-11-17"
+    "version": "0-unstable-2025-12-10"
   },
   "legacyPackages.x86_64-linux.kernel-modules.nft-fullcone": {
     "description": "Nftables fullcone expression kernel module",
@@ -907,7 +907,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7342"
+    "version": "7383"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -947,12 +947,12 @@
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts": {
     "description": "Linux CachyOS Kernel",
     "pname": "linux-cachyos-lts",
-    "version": "6.12.61"
+    "version": "6.12.62"
   },
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.lts-lto": {
     "description": "Linux CachyOS Kernel with Clang+ThinLTO",
     "pname": "linux-cachyos-lts-lto",
-    "version": "6.12.61"
+    "version": "6.12.62"
   },
   "legacyPackages.x86_64-linux.ldap-auth-proxy": {
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
@@ -1027,7 +1027,7 @@
   "legacyPackages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.13-modelscope",
-    "version": "1.32.0"
+    "version": "1.33.0"
   },
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -1087,1002 +1087,1002 @@
   "legacyPackages.x86_64-linux.nvidia-grid.grid.11_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191.01-6.12.61"
+    "version": "450.191.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.12_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.106.00-6.12.61"
+    "version": "460.106.00-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63.01-6.12.61"
+    "version": "470.63.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_12": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.12.61"
+    "version": "470.256.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.06-6.12.61"
+    "version": "470.129.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.03-6.12.61"
+    "version": "470.141.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.12.61"
+    "version": "470.161.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.12.61"
+    "version": "470.161.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.03-6.12.61"
+    "version": "470.182.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_9": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.12.61"
+    "version": "470.223.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.12.61"
+    "version": "510.47.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.08-6.12.61"
+    "version": "510.73.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.02-6.12.61"
+    "version": "510.85.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.13-6.12.61"
+    "version": "525.60.13-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.05-6.12.61"
+    "version": "525.85.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.17-6.12.61"
+    "version": "525.105.17-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.06-6.12.61"
+    "version": "525.125.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.03-6.12.61"
+    "version": "535.54.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.05-6.12.61"
+    "version": "535.104.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_10": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.247.01-6.12.61"
+    "version": "535.247.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_11": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.261.03-6.12.61"
+    "version": "535.261.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_12": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.274.02-6.12.61"
+    "version": "535.274.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.12.61"
+    "version": "535.129.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.05-6.12.61"
+    "version": "535.154.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.07-6.12.61"
+    "version": "535.161.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.08-6.12.61"
+    "version": "535.161.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.01-6.12.61"
+    "version": "535.183.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.06-6.12.61"
+    "version": "535.183.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.216.01-6.12.61"
+    "version": "535.216.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_9": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.230.02-6.12.61"
+    "version": "535.230.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.14-6.12.61"
+    "version": "550.54.14-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.15-6.12.61"
+    "version": "550.54.15-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.12.61"
+    "version": "550.90.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.12.61"
+    "version": "550.90.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.127.05-6.12.61"
+    "version": "550.127.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.144.03-6.12.61"
+    "version": "550.144.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.163.01-6.12.61"
+    "version": "550.163.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.18_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.124.06-6.12.61"
+    "version": "570.124.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.18_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.133.20-6.12.61"
+    "version": "570.133.20-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.18_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.148.08-6.12.61"
+    "version": "570.148.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.18_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.158.01-6.12.61"
+    "version": "570.158.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.18_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.172.08-6.12.61"
+    "version": "570.172.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.18_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.195.03-6.12.61"
+    "version": "570.195.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.19_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.65.06-6.12.61"
+    "version": "580.65.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.19_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.82.07-6.12.61"
+    "version": "580.82.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.19_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.95.05-6.12.61"
+    "version": "580.95.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.19_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.105.08-6.12.61"
+    "version": "580.105.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.63-6.12.61"
+    "version": "430.63-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.11_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191.01-6.12.61"
+    "version": "450.191.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.12_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.106.00-6.12.61"
+    "version": "460.106.00-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63.01-6.12.61"
+    "version": "470.63.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_12": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.12.61"
+    "version": "470.256.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.06-6.12.61"
+    "version": "470.129.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.03-6.12.61"
+    "version": "470.141.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.12.61"
+    "version": "470.161.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.12.61"
+    "version": "470.161.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.03-6.12.61"
+    "version": "470.182.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_9": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.12.61"
+    "version": "470.223.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.12.61"
+    "version": "510.47.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.08-6.12.61"
+    "version": "510.73.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.02-6.12.61"
+    "version": "510.85.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.13-6.12.61"
+    "version": "525.60.13-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.05-6.12.61"
+    "version": "525.85.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.17-6.12.61"
+    "version": "525.105.17-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.06-6.12.61"
+    "version": "525.125.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.03-6.12.61"
+    "version": "535.54.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.05-6.12.61"
+    "version": "535.104.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_10": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.247.01-6.12.61"
+    "version": "535.247.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_11": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.261.03-6.12.61"
+    "version": "535.261.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_12": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.274.02-6.12.61"
+    "version": "535.274.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.12.61"
+    "version": "535.129.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.05-6.12.61"
+    "version": "535.154.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.07-6.12.61"
+    "version": "535.161.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.08-6.12.61"
+    "version": "535.161.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.01-6.12.61"
+    "version": "535.183.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.06-6.12.61"
+    "version": "535.183.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.216.01-6.12.61"
+    "version": "535.216.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_9": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.230.02-6.12.61"
+    "version": "535.230.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.14-6.12.61"
+    "version": "550.54.14-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.15-6.12.61"
+    "version": "550.54.15-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.12.61"
+    "version": "550.90.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.12.61"
+    "version": "550.90.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.127.05-6.12.61"
+    "version": "550.127.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.144.03-6.12.61"
+    "version": "550.144.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.163.01-6.12.61"
+    "version": "550.163.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.18_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.124.06-6.12.61"
+    "version": "570.124.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.18_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.133.20-6.12.61"
+    "version": "570.133.20-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.18_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.148.08-6.12.61"
+    "version": "570.148.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.18_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.158.01-6.12.61"
+    "version": "570.158.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.18_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.172.08-6.12.61"
+    "version": "570.172.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.18_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.195.03-6.12.61"
+    "version": "570.195.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.19_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.65.06-6.12.61"
+    "version": "580.65.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.19_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.82.07-6.12.61"
+    "version": "580.82.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.19_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.95.05-6.12.61"
+    "version": "580.95.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.19_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.105.08-6.12.61"
+    "version": "580.105.08-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.63-6.12.61"
+    "version": "430.63-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.11_8": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191-6.12.61"
+    "version": "450.191-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.12_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.107-6.12.61"
+    "version": "460.107-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63-6.12.61"
+    "version": "470.63-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_12": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.12.61"
+    "version": "470.256.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.04-6.12.61"
+    "version": "470.129.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.05-6.12.61"
+    "version": "470.141.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.12.61"
+    "version": "470.161.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.12.61"
+    "version": "470.161.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.02-6.12.61"
+    "version": "470.182.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_9": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.12.61"
+    "version": "470.223.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.12.61"
+    "version": "510.47.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.06-6.12.61"
+    "version": "510.73.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.03-6.12.61"
+    "version": "510.85.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.12-6.12.61"
+    "version": "525.60.12-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.07-6.12.61"
+    "version": "525.85.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.14-6.12.61"
+    "version": "525.105.14-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.03-6.12.61"
+    "version": "525.125.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.06-6.12.61"
+    "version": "535.54.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.06-6.12.61"
+    "version": "535.104.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_10": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.247.02-6.12.61"
+    "version": "535.247.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_11": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.261.04-6.12.61"
+    "version": "535.261.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_12": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.274.03-6.12.61"
+    "version": "535.274.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.12.61"
+    "version": "535.129.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.02-6.12.61"
+    "version": "535.154.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.12.61"
+    "version": "535.161.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.12.61"
+    "version": "535.161.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.12.61"
+    "version": "535.183.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.12.61"
+    "version": "535.183.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_8": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.216.01-6.12.61"
+    "version": "535.216.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_9": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.230.02-6.12.61"
+    "version": "535.230.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.10-6.12.61"
+    "version": "550.54.10-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.16-6.12.61"
+    "version": "550.54.16-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.12.61"
+    "version": "550.90.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.12.61"
+    "version": "550.90.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.127.06-6.12.61"
+    "version": "550.127.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.144.02-6.12.61"
+    "version": "550.144.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.163.02-6.12.61"
+    "version": "550.163.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.18_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.124.03-6.12.61"
+    "version": "570.124.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.18_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.133.10-6.12.61"
+    "version": "570.133.10-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.18_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.148.06-6.12.61"
+    "version": "570.148.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.18_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.158.02-6.12.61"
+    "version": "570.158.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.18_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.172.07-6.12.61"
+    "version": "570.172.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.18_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.195.02-6.12.61"
+    "version": "570.195.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.19_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.65.05-6.12.61"
+    "version": "580.65.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.19_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.82.02-6.12.61"
+    "version": "580.82.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.19_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.95.02-6.12.61"
+    "version": "580.95.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.19_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.105.06-6.12.61"
+    "version": "580.105.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.67-6.12.61"
+    "version": "430.67-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.11_8": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191-6.12.61"
+    "version": "450.191-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.12_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.107-6.12.61"
+    "version": "460.107-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63-6.12.61"
+    "version": "470.63-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_12": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.12.61"
+    "version": "470.256.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.04-6.12.61"
+    "version": "470.129.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.05-6.12.61"
+    "version": "470.141.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.12.61"
+    "version": "470.161.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.12.61"
+    "version": "470.161.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.02-6.12.61"
+    "version": "470.182.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_9": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.12.61"
+    "version": "470.223.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.12.61"
+    "version": "510.47.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.06-6.12.61"
+    "version": "510.73.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.03-6.12.61"
+    "version": "510.85.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.12.61"
+    "version": "510.108.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.12-6.12.61"
+    "version": "525.60.12-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.07-6.12.61"
+    "version": "525.85.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.14-6.12.61"
+    "version": "525.105.14-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.03-6.12.61"
+    "version": "525.125.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.06-6.12.61"
+    "version": "535.54.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.06-6.12.61"
+    "version": "535.104.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_10": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.247.02-6.12.61"
+    "version": "535.247.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_11": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.261.04-6.12.61"
+    "version": "535.261.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_12": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.274.03-6.12.61"
+    "version": "535.274.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.12.61"
+    "version": "535.129.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.02-6.12.61"
+    "version": "535.154.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.12.61"
+    "version": "535.161.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.12.61"
+    "version": "535.161.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.12.61"
+    "version": "535.183.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.12.61"
+    "version": "535.183.04-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_8": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.216.01-6.12.61"
+    "version": "535.216.01-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_9": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.230.02-6.12.61"
+    "version": "535.230.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.10-6.12.61"
+    "version": "550.54.10-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.16-6.12.61"
+    "version": "550.54.16-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.12.61"
+    "version": "550.90.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.12.61"
+    "version": "550.90.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.127.06-6.12.61"
+    "version": "550.127.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.144.02-6.12.61"
+    "version": "550.144.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.163.02-6.12.61"
+    "version": "550.163.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.124.03-6.12.61"
+    "version": "570.124.03-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.133.10-6.12.61"
+    "version": "570.133.10-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.148.06-6.12.61"
+    "version": "570.148.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.158.02-6.12.61"
+    "version": "570.158.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.172.07-6.12.61"
+    "version": "570.172.07-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.18_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "570.195.02-6.12.61"
+    "version": "570.195.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.19_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.65.05-6.12.61"
+    "version": "580.65.05-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.19_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.82.02-6.12.61"
+    "version": "580.82.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.19_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.95.02-6.12.61"
+    "version": "580.95.02-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.19_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "580.105.06-6.12.61"
+    "version": "580.105.06-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.67-6.12.61"
+    "version": "430.67-6.12.62"
   },
   "legacyPackages.x86_64-linux.nvlax": {
     "description": "Future-proof NvENC & NvFBC patcher",
@@ -3807,7 +3807,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.1.5"
+    "version": "9.2.2"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -3832,7 +3832,7 @@
   "legacyPackages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.7.1"
+    "version": "2.8.0"
   },
   "legacyPackages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -3907,7 +3907,7 @@
   "legacyPackages.x86_64-linux.python3Packages.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
     "pname": "python3.13-edge-tts",
-    "version": "7.2.3"
+    "version": "7.2.7"
   },
   "legacyPackages.x86_64-linux.python3Packages.fish-speech": {
     "description": "SOTA Open Source TTS",
@@ -3917,7 +3917,7 @@
   "legacyPackages.x86_64-linux.python3Packages.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-12-09"
+    "version": "0-unstable-2025-12-11"
   },
   "legacyPackages.x86_64-linux.python3Packages.kaldiio": {
     "description": "Pure python module for reading and writing kaldi ark files",
@@ -3937,7 +3937,7 @@
   "legacyPackages.x86_64-linux.python3Packages.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.13-modelscope",
-    "version": "1.32.0"
+    "version": "1.33.0"
   },
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -4012,7 +4012,7 @@
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.27.12"
+    "version": "1.27.14"
   },
   "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
     "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
@@ -4107,7 +4107,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-12-08"
+    "version": "0-unstable-2025-12-13"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4332,7 +4332,7 @@
   "legacyPackages.x86_64-linux.uncategorized.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-08-31"
+    "version": "0-unstable-2025-12-11"
   },
   "legacyPackages.x86_64-linux.uncategorized.browser360": {
     "description": "Browser from 360",
@@ -4397,7 +4397,7 @@
   "legacyPackages.x86_64-linux.uncategorized.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-11-24"
+    "version": "0-unstable-2025-12-12"
   },
   "legacyPackages.x86_64-linux.uncategorized.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -4432,7 +4432,7 @@
   "legacyPackages.x86_64-linux.uncategorized.flapalerted": {
     "description": "BGP Update based flap detection",
     "pname": "flapalerted",
-    "version": "4.1.5"
+    "version": "4.2.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
@@ -4457,7 +4457,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.12.10"
+    "version": "2025.12.13"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -4717,7 +4717,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.1.5"
+    "version": "9.2.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4742,7 +4742,7 @@
   "legacyPackages.x86_64-linux.uncategorized.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.7.1"
+    "version": "2.8.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -4822,7 +4822,7 @@
   "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-12-08"
+    "version": "0-unstable-2025-12-13"
   },
   "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4912,7 +4912,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-12-07"
+    "version": "0-unstable-2025-12-12"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4992,7 +4992,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-12-07"
+    "version": "0-unstable-2025-12-12"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5032,7 +5032,7 @@
   "legacyPackages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.27.12"
+    "version": "1.27.14"
   },
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
@@ -5197,7 +5197,7 @@
   "packages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-08-31"
+    "version": "0-unstable-2025-12-11"
   },
   "packages.x86_64-linux.browser360": {
     "description": "Browser from 360",
@@ -5312,12 +5312,12 @@
   "packages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
     "pname": "python3.13-edge-tts",
-    "version": "7.2.3"
+    "version": "7.2.7"
   },
   "packages.x86_64-linux.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-11-24"
+    "version": "0-unstable-2025-12-12"
   },
   "packages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -5357,7 +5357,7 @@
   "packages.x86_64-linux.flapalerted": {
     "description": "BGP Update based flap detection",
     "pname": "flapalerted",
-    "version": "4.1.5"
+    "version": "4.2.0"
   },
   "packages.x86_64-linux.flaresolverr-21hsmw": {
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
@@ -5382,12 +5382,12 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-12-09"
+    "version": "0-unstable-2025-12-11"
   },
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.12.10"
+    "version": "2025.12.13"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5457,7 +5457,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-11-17"
+    "version": "0-unstable-2025-12-10"
   },
   "packages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -5492,12 +5492,12 @@
   "packages.x86_64-linux.kata-image": {
     "description": "(DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.23.0"
+    "version": "3.24.0"
   },
   "packages.x86_64-linux.kata-runtime": {
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.23.0"
+    "version": "3.24.0"
   },
   "packages.x86_64-linux.kernel-modules": {
     "description": "",
@@ -5607,7 +5607,7 @@
   "packages.x86_64-linux.modelscope": {
     "description": "Bring the notion of Model-as-a-Service to life",
     "pname": "python3.13-modelscope",
-    "version": "1.32.0"
+    "version": "1.33.0"
   },
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -5757,7 +5757,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.1.5"
+    "version": "9.2.2"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5782,7 +5782,7 @@
   "packages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.7.1"
+    "version": "2.8.0"
   },
   "packages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -5902,7 +5902,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2025-12-08"
+    "version": "0-unstable-2025-12-13"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -6037,7 +6037,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2025-12-07"
+    "version": "0-unstable-2025-12-12"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -6077,7 +6077,7 @@
   "packages.x86_64-linux.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
     "pname": "python3.13-vector-quantize-pytorch",
-    "version": "1.27.12"
+    "version": "1.27.14"
   },
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
