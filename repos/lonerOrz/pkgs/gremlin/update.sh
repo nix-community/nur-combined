@@ -4,7 +4,7 @@ set -euo pipefail
 # https://github.com/iluvgirlswithglasses/linux-desktop-gremlin
 owner="iluvgirlswithglasses"
 repo="linux-desktop-gremlin"
-pname="linux-desktop-gremlin"
+pname="gremlin"
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 package_file="$script_dir/default.nix"

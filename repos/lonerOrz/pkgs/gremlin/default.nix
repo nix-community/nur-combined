@@ -98,6 +98,9 @@ python3Packages.buildPythonApplication {
       $out/share/linux-desktop-gremlin/scripts/gremlin-picker.sh
 
     install -Dm644 $src/icon.png $out/share/icons/hicolor/256x256/apps/linux-desktop-gremlin.png
+
+    mkdir -p $out/{bin,libexec}
+    ln -s $out/bin/linux-desktop-gremlin $out/bin/gremlin
   '';
 
   postFixup =
@@ -109,12 +112,13 @@ python3Packages.buildPythonApplication {
       ];
     in
     ''
-      wrapProgram $out/bin/gremlin \
+      wrapProgram $out/bin/linux-desktop-gremlin \
         "''${gappsWrapperArgs[@]}" \
         --prefix PYTHONPATH : $out/share/linux-desktop-gremlin \
         --set QT_QPA_PLATFORM xcb \
         --prefix LD_LIBRARY_PATH : ${pipewire}/lib \
         --prefix PATH : ${binPath}
+
       makeWrapper $out/share/linux-desktop-gremlin/scripts/gremlin-picker.sh $out/bin/gremlin-picker \
         --prefix PYTHONPATH : $out/share/linux-desktop-gremlin \
         --prefix PATH : ${binPath}
