@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , python3
 , beets
-, wrapGAppsHook
+, wrapGAppsHook3
 }:
 
 let
@@ -48,7 +48,7 @@ python3.pkgs.buildPythonApplication {
   '';
 
   # required for apprise
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [ wrapGAppsHook3 ];
 
   build-system = with python3.pkgs; [ setuptools ];
 
