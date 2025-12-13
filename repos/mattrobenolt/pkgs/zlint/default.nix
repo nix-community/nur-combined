@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchurl
+,
 }:
 
 let
@@ -14,7 +15,9 @@ let
     "aarch64-darwin" = "macos-aarch64";
   };
 
-  target = targets.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  target =
+    targets.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   # SHA256 hashes for each platform
   hashes = {
@@ -51,7 +54,12 @@ stdenv.mkDerivation {
     description = "A linter for the Zig programming language";
     homepage = "https://github.com/DonIsaac/zlint";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     maintainers = [ ];
     mainProgram = "zlint";
   };

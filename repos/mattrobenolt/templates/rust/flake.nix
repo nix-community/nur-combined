@@ -1,11 +1,11 @@
 {
-  description = "Go development environment";
+  description = "Rust development environment";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    matt = {
-      url = "github:mattrobenolt/nixpkgs";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -13,22 +13,26 @@
   outputs =
     { nixpkgs
     , flake-utils
-    , matt
+    , rust-overlay
     , ...
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
+        overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ matt.overlays.default ];
+          inherit system overlays;
         };
       in
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            go-bin
-            gopls
+            (rust-bin.stable.latest.default.override {
+              extensions = [
+                "rust-src"
+                "rust-analyzer"
+              ];
+            })
           ];
         };
       }

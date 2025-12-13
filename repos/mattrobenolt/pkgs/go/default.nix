@@ -3,6 +3,7 @@
 , fetchurl
 , version
 , hashes
+,
 }:
 
 let
@@ -14,7 +15,9 @@ let
     "aarch64-darwin" = "darwin-arm64";
   };
 
-  target = targets.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  target =
+    targets.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
 in
 stdenv.mkDerivation {
@@ -43,20 +46,31 @@ stdenv.mkDerivation {
     inherit version;
     CGO_ENABLED = 1;
     GOOS =
-      if stdenv.hostPlatform.isDarwin then "darwin"
-      else if stdenv.hostPlatform.isLinux then "linux"
-      else throw "Unsupported OS";
+      if stdenv.hostPlatform.isDarwin then
+        "darwin"
+      else if stdenv.hostPlatform.isLinux then
+        "linux"
+      else
+        throw "Unsupported OS";
     GOARCH =
-      if stdenv.hostPlatform.isx86_64 then "amd64"
-      else if stdenv.hostPlatform.isAarch64 then "arm64"
-      else throw "Unsupported architecture";
+      if stdenv.hostPlatform.isx86_64 then
+        "amd64"
+      else if stdenv.hostPlatform.isAarch64 then
+        "arm64"
+      else
+        throw "Unsupported architecture";
   };
 
   meta = with lib; {
     description = "The Go Programming Language (latest upstream release)";
     homepage = "https://go.dev/";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     maintainers = [ ];
     mainProgram = "go";
   };

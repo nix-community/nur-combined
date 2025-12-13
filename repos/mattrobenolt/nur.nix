@@ -8,7 +8,8 @@ let
   goHashes = builtins.fromJSON (builtins.readFile ./pkgs/go/hashes.json);
 
   # Helper to create a Go package for a specific version
-  makeGo = majorMinor:
+  makeGo =
+    majorMinor:
     let
       version = goVersions.${majorMinor};
       hashes = goHashes.${version};
@@ -39,4 +40,5 @@ in
   # NUR metadata
   modules = [ ];
   overlays = { };
-} // dynamicGoPackages
+}
+  // dynamicGoPackages
