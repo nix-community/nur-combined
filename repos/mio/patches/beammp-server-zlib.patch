@@ -1,0 +1,20 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 71fe053..760a2f1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -105,6 +105,7 @@ set(PRJ_LIBRARIES
+     libzip::zip
+     OpenSSL::SSL OpenSSL::Crypto
+     CURL::libcurl
++    ZLIB::ZLIB
+     ${LUA_LIBRARIES}
+ )
+ 
+@@ -117,6 +118,7 @@ find_package(httplib CONFIG REQUIRED)
+ find_package(libzip CONFIG REQUIRED)
+ find_package(RapidJSON CONFIG REQUIRED)
+ find_package(sol2 CONFIG REQUIRED)
++find_package(ZLIB REQUIRED)
+ find_package(CURL CONFIG REQUIRED)
+ add_subdirectory("deps/toml11")
+ 

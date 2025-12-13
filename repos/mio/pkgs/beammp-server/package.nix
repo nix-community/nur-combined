@@ -18,6 +18,7 @@
   rapidjson,
   sol2,
   toml11,
+  zlib,
 }:
 
 let
@@ -50,6 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
+  patches = [
+    ../../patches/beammp-server-zlib.patch
+  ];
+
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -68,6 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     rapidjson
     sol2_3_3_1
     toml11
+    zlib
   ];
 
   postPatch = ''
@@ -94,8 +100,16 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 "$cmakeBuildDir/BeamMP-Server" "$out/bin/BeamMP-Server"
-    install -Dm644 LICENSE -t "$out/share/doc/beammp-server"
+    : ''${cmakeBuildDir:=build}
+    if [ -d "$cmakeBuildDir" ]; then
+      cd "$cmakeBuildDir"
+      licensePath="../LICENSE"
+    else
+      licensePath="../LICENSE"
+    fi
+
+    install -Dm755 BeamMP-Server "$out/bin/BeamMP-Server"
+    install -Dm644 "$licensePath" -t "$out/share/doc/beammp-server"
 
     runHook postInstall
   '';
