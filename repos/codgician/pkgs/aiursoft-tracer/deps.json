@@ -139,9 +139,9 @@
   },
   {
     "pname": "JunitXml.TestLogger",
-    "version": "7.0.2",
-    "hash": "sha256-9l1jY/Qe7xdHwFKxE7UxhR06T2Ao8cnGR4NIYqxDYhc=",
-    "url": "https://nuget.aiursoft.com/v3/package/junitxml.testlogger/7.0.2/junitxml.testlogger.7.0.2.nupkg"
+    "version": "7.1.0",
+    "hash": "sha256-hEDPMfaHvxNzHaoEjNWcyx/8D6CH2WEyfJcyVuVQx+I=",
+    "url": "https://nuget.aiursoft.com/v3/package/junitxml.testlogger/7.1.0/junitxml.testlogger.7.1.0.nupkg"
   },
   {
     "pname": "Microsoft.ApplicationInsights",

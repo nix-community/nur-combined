@@ -40,6 +40,7 @@ jobs:
       - uses: thiagokokada/free-disk-space@main
         continue-on-error: true
         with:
+          python: false
           tool-cache: true
           usrlocal: true
           usrmisc: true
