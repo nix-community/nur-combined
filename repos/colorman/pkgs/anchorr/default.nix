@@ -22,8 +22,8 @@ in
       patches = [
         (fetchpatch {
           name = "dont-use-cwd";
-          url = "https://github.com/TheColorman/Anchorr/commit/99deb47c090569326e1e2a13bbcd254db9394672.patch";
-          hash = "sha256-Wx7BmuiJ47zAtRcPdgswOuR6FROvBcED/ABySw2uiAE=";
+          url = "https://github.com/TheColorman/Anchorr/commit/d74d53292c1cc99d61f1390af559f6dd5c0bd48c.patch";
+          hash = "sha256-U2mwjIr1adja/uqUbxv3LBvH01noUQBV3sR8312kubM=";
         })
       ];
     };
