@@ -1,5 +1,4 @@
 {
-  # Add your NixOS modules here
-
+  anchorr = ./anchorr;
   requestrr = ./requestrr;
 }

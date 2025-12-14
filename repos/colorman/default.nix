@@ -13,6 +13,7 @@ in {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  anchorr = callPackage ./pkgs/anchorr {};
   problemtools = callPackage ./pkgs/problemtools {};
   bapctools = callPackage ./pkgs/bapctools {};
   speed-cloudflare-cli = callPackage ./pkgs/speed-cloudflare-cli {};

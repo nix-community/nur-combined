@@ -21,7 +21,7 @@ stdenv.mkDerivation {
       with p; [
         colorama
         pyyaml
-        dateutil
+        python-dateutil
         argcomplete
         ruamel-yaml
         matplotlib

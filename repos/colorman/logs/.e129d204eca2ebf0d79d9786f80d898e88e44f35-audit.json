@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/color/projects/nurpkgs/logs/.e129d204eca2ebf0d79d9786f80d898e88e44f35-audit.json",
+    "files": [
+        {
+            "date": 1765662766069,
+            "name": "/home/color/projects/nurpkgs/logs/error-2025-12-13.log",
+            "hash": "dcedae4b84b356e642f2d2d26cd3263f31b21708bfa7d18eabbc01dbffa40a93"
+        }
+    ],
+    "hashType": "sha256"
+}
