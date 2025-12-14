@@ -315,6 +315,7 @@ in
       "alpaca"  # ollama/LLM client
       "blanket"  # ambient noise generator
       "calls"  # gnome calls (dialer/handler)
+      "catgirl-downloader"
       "confy"  # conference planning app
       "dbus"
       # "dconf"  # or use `gsettings`, with its keyfile backend

@@ -1,4 +1,20 @@
+# packaging status (2025-12-13):
+# - it builds
+# - the `pikeru` binary seems to work
+# - the `portal` binary crashes on launch:
+#   > thread 'main' (884208) panicked at src/portal.rs:171:83:
+#   > called `Result::unwrap()` on an `Err` value: SqliteFailure(Error { code: DiskFull, extended_code: 13 }, Some("database or disk is full"))
+#   > stack backtrace:
+#   >    0: __rustc::rust_begin_unwind
+#   >    1: core::panicking::panic_fmt
+#   >    2: core::result::unwrap_failed
+#   >    3: portal::IdxManager::new
+#   >    4: tokio::runtime::park::CachedParkThread::block_on
+#   >    5: tokio::runtime::context::runtime::enter_runtime
+#   >    6: tokio::runtime::runtime::Runtime::block_on
+#   >    7: portal::main
 {
+  bash,
   fetchFromGitHub,
   ffmpeg,
   gnused,
@@ -14,6 +30,7 @@
   openapv,
   pkg-config,
   poppler,
+  python3,
   rustPlatform,
   scdoc,
   soxr,
@@ -37,6 +54,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-mVbPwNMSs2oNgPkMyoQU1qT+t8yuLhzydqJKaUb47X4=";
 
+  # this is nasty; should work with upstream to find a better solution.
+  # pikeru as portal reads a ~/.config file, then execs a helper referenced from that file.
+  # if the ~/.config file doesn't exist, then it populates it with defaults.
+  # solution: populate the high-priority launcher to $out/share/...
+  # and the fallback to /run/current-system/sw/share/...
+  # but both of these may drift.
+  postPatch = ''
+    substituteInPlace src/portal.rs \
+      --replace-fail '/usr/local/share' '/run/current-system/sw/share' \
+      --replace-fail '/usr/share' "${placeholder "out"}/share"
+  '';
+
   nativeBuildInputs = [
     gnused
     pkg-config
@@ -47,6 +76,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [
     # TODO: does it really need all of these?
     # i guess most of them are thumbnail related.
+    bash  #< for runtime scripts
     ffmpeg
     gmp
     lame
@@ -55,6 +85,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libvdpau
     openapv
     poppler
+    (python3.withPackages (ps: with ps; [
+      # for $out/share/xdg-desktop-portal-pikeru/img_indexer.py,
+      # though unclear if img_indexer.py is actually used
+      requests
+    ]))
     soxr
     sqlite
     xvidcore

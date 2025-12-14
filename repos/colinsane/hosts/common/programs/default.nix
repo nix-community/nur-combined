@@ -30,6 +30,7 @@
     ./captree.nix
     ./cargo.nix
     ./cassini.nix
+    ./catgirl-downloader.nix
     ./catt.nix
     ./celeste64.nix
     ./chatty.nix
@@ -162,6 +163,7 @@
     ./page.nix
     ./papers.nix
     ./pidof.nix
+    ./pikeru.nix
     ./pine64-alsa-ucm.nix
     ./pipewire
     ./pkill.nix

@@ -263,7 +263,7 @@ in with final; {
   #   # stdenv = prev.stdenv;
   # };
   # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
-  # hyprland = null;
+  hyprland = null;
 
   # 2025/07/27: blocked on hyprutils, hyprlang, hyprland-qt.
   # used by hyprland (which is an indirect dep of waybar, nwg-panel, etc),

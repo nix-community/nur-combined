@@ -1,12 +1,15 @@
-# XXX(2025-11-24): xdg-desktop-portal-phosh crashes, fails to start:
-# > xdg-desktop-portal-phosh[2138670]: g_settings_schema_source_lookup: assertion 'source != NULL' failed
-# > xdg-desktop-portal-phosh-start: Segmentation fault
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   cfg = config.sane.programs.xdg-desktop-portal-phosh;
 in
 {
   sane.programs.xdg-desktop-portal-phosh = {
+    packageUnwrapped = pkgs.xdg-desktop-portal-phosh.overrideAttrs (upstream: {
+      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+        pkgs.wrapGAppsHook4 # pkgs.wrapGAppsNoGuiHook is not enough. it needs at least the `org.gnome.desktop.interface` schemas
+      ];
+    });
+
     sandbox.method = null;  #< TODO: sandbox
 
     services.xdg-desktop-portal-phosh = {

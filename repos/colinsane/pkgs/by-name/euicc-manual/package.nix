@@ -11,13 +11,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "euicc-manual";
-  version = "0-unstable-2025-12-05";
+  version = "0-unstable-2025-12-14";
 
   # XXX: their gitea downloads are broken, so use fetchgit
   src = fetchgit {
     url = "https://gitea.osmocom.org/sim-card/euicc-manual";
-    rev = "2c77dd197193440b376bbaf36eb07bec622c1901";
-    hash = "sha256-+5zDKIQfvi2Mbzv/+plS5KpxjC1qXPOn4pep79QI3l8=";
+    rev = "6bdce69ea38f3a4601fde684778c4f243c70f0b6";
+    hash = "sha256-iJZec4VmFPi7TrC6oLYlQ8bVXfn4JFs5gjTSoqYYi/8=";
   };
 
   nativeBuildInputs = [

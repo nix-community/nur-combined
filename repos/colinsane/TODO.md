@@ -140,6 +140,8 @@
   - Karambola (from Holy Pangolin, but freeware -- source not available?): <https://flathub.org/en/apps/com.agatanawrot.karambola>
   - Ultimate Tic Tac Toe: <https://flathub.org/en/apps/io.github.nokse22.ultimate-tic-tac-toe>. nix: not as of 2025-10-05
   - Flood It: <https://flathub.org/en/apps/io.github.tfuxu.floodit>. nix: not as of 2025-10-05
+- non mobile games:
+  - starship-sf64 (i.e. starfox 64), via <https://github.com/NixOS/nixpkgs/pull/395865> and <https://github.com/PIBSAS/Nintendo64/blob/master/Star%20Fox%2064%20(USA)%20(Rev%201).z64>
 - sane-sync-music: remove empty dirs
 - soulseek: install a CLI app usable over ssh
 - moby: replace `spot` with its replacement, `riff` (<https://github.com/Diegovsky/riff>)
