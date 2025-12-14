@@ -334,12 +334,12 @@
             "name": null,
             "owner": "HanabishiRecca",
             "repo": "bin-cpuflags-x86",
-            "rev": "1.0.6",
-            "sha256": "sha256-g76Nl5PzzEXyrTMZSQdbcUy0gP3PJvmxuBLfVpa6J6g=",
+            "rev": "1.0.7",
+            "sha256": "sha256-vqhSxqtyVNipI4AYkzQJ9gPh016BbsTon1RzJUcx0/0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.0.6"
+        "version": "1.0.7"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "v4.2.0",
-            "sha256": "sha256-bBhxmpZ7DFAXuQz1j81dHwiMEqltuKNhSjPyS/pYFjE=",
+            "rev": "v4.2.1",
+            "sha256": "sha256-OtP7yliMv8BqOSwaXmjSoGg7QeY5Ite1Vu8tRTeCYKQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.2.0"
+        "version": "v4.2.1"
     },
     "flaresolverr-21hsmw": {
         "cargoLocks": null,
@@ -1303,7 +1303,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-12-11",
+        "date": "2025-12-14",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1315,12 +1315,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "d744a71797eb7f2d1aa931ecbd8c62e3d509a275",
-            "sha256": "sha256-YCjOOPJk1iLAsYWHMoLIrhhwZZ70woY3lWt9ScxDGEU=",
+            "rev": "995c8b090c8c0d514a3ec2f955793b653bc44074",
+            "sha256": "sha256-FxrAghuYnrCXh0ez6g063cAezgQYQV7cNXC/njT4vxg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d744a71797eb7f2d1aa931ecbd8c62e3d509a275"
+        "version": "995c8b090c8c0d514a3ec2f955793b653bc44074"
     },
     "geolite2-asn": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7384",
-            "sha256": "sha256-vuXZl3jUrzDLclTboWJt5+Yb+rLLVTtnT6mBQ7Jh47M=",
+            "rev": "b7402",
+            "sha256": "sha256-yrDjITLH77KPbJnDB7cDxiWeuqXvAcilmo48AmL6+Zw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7384"
+        "version": "b7402"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2760,12 +2760,12 @@
             "name": null,
             "owner": "aviramha",
             "repo": "ormsgpack",
-            "rev": "1.12.0",
-            "sha256": "sha256-kCISXmj2dDDMb7iuY/eY4W/dmyNziQwtIQX6qNvEJa4=",
+            "rev": "1.12.1",
+            "sha256": "sha256-eZ0SRQt/HS1P7naEa9AXLF2GyDUGmiBlDnyxxCRIVPI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.12.0"
+        "version": "1.12.1"
     },
     "osdlyrics": {
         "cargoLocks": null,

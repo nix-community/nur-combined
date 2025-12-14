@@ -170,12 +170,12 @@
   };
   bin-cpuflags-x86 = {
     pname = "bin-cpuflags-x86";
-    version = "1.0.6";
+    version = "1.0.7";
     src = fetchFromGitHub {
       owner = "HanabishiRecca";
       repo = "bin-cpuflags-x86";
-      tag = "1.0.6";
-      hash = "sha256-g76Nl5PzzEXyrTMZSQdbcUy0gP3PJvmxuBLfVpa6J6g=";
+      tag = "1.0.7";
+      hash = "sha256-vqhSxqtyVNipI4AYkzQJ9gPh016BbsTon1RzJUcx0/0=";
     };
   };
   bird-lg-go = {
@@ -593,12 +593,12 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "v4.2.0";
+    version = "v4.2.1";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      tag = "v4.2.0";
-      hash = "sha256-bBhxmpZ7DFAXuQz1j81dHwiMEqltuKNhSjPyS/pYFjE=";
+      tag = "v4.2.1";
+      hash = "sha256-OtP7yliMv8BqOSwaXmjSoGg7QeY5Ite1Vu8tRTeCYKQ=";
     };
   };
   flaresolverr-21hsmw = {
@@ -675,14 +675,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "d744a71797eb7f2d1aa931ecbd8c62e3d509a275";
+    version = "995c8b090c8c0d514a3ec2f955793b653bc44074";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "d744a71797eb7f2d1aa931ecbd8c62e3d509a275";
-      hash = "sha256-YCjOOPJk1iLAsYWHMoLIrhhwZZ70woY3lWt9ScxDGEU=";
+      rev = "995c8b090c8c0d514a3ec2f955793b653bc44074";
+      hash = "sha256-FxrAghuYnrCXh0ez6g063cAezgQYQV7cNXC/njT4vxg=";
     };
-    date = "2025-12-11";
+    date = "2025-12-14";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1081,12 +1081,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7384";
+    version = "b7402";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7384";
-      hash = "sha256-vuXZl3jUrzDLclTboWJt5+Yb+rLLVTtnT6mBQ7Jh47M=";
+      tag = "b7402";
+      hash = "sha256-yrDjITLH77KPbJnDB7cDxiWeuqXvAcilmo48AmL6+Zw=";
     };
   };
   loralib = {
@@ -1414,12 +1414,12 @@
   };
   ormsgpack = {
     pname = "ormsgpack";
-    version = "1.12.0";
+    version = "1.12.1";
     src = fetchFromGitHub {
       owner = "aviramha";
       repo = "ormsgpack";
-      tag = "1.12.0";
-      hash = "sha256-kCISXmj2dDDMb7iuY/eY4W/dmyNziQwtIQX6qNvEJa4=";
+      tag = "1.12.1";
+      hash = "sha256-eZ0SRQt/HS1P7naEa9AXLF2GyDUGmiBlDnyxxCRIVPI=";
     };
   };
   osdlyrics = {
