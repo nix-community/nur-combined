@@ -11,7 +11,7 @@
   pkg-config,
   gst_all_1,
   cmake,
-  ffmpeg,
+  ffmpeg_6,
   # pkgsStatic,
   libgudev,
   libv4l,
@@ -31,6 +31,7 @@
 }@args:
 let
   qt = qt6;
+  ffmpeg = ffmpeg_6;
   # qt = libsForQt5.qt5;
   ffmpegPrefix = runCommand "openterface-ffmpeg-prefix" { } ''
     mkdir -p $out
