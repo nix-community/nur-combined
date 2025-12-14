@@ -1,16 +1,16 @@
 {
   fetchurl,
   beeper,
+  lib,
   ...
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
-
-  inherit (info) version;
-  src = fetchurl {inherit (info.src) url hash;};
+  ver = lib.helper.read ./version.json;
+  src = fetchurl (lib.helper.getApi ver);
 in
   beeper.overrideAttrs (old: rec {
     pname = "beeper-nightly";
     name = "${pname}-${version}";
 
-    inherit version src;
+    inherit (ver) version;
+    inherit src;
   })

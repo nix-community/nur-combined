@@ -25,14 +25,8 @@ jobs:
 
       - name: Update packages
         run: |
-          find ./pkgs -name "info.json" -type f | while read -r info_file; do
-            dir="$(dirname "$info_file")"
-
-            if [[ "$dir" == *proton* ]]; then
-              ./.github/update.sh --force "$info_file"
-            else
-              ./.github/update.sh "$info_file"
-            fi
+          find ./pkgs -name "version.json" -type f | while read -r version_file; do
+            ./.github/update.sh "$version_file"
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,7 +45,7 @@ jobs:
 
   tests:
     needs: update
-    if: always()
+    if: always() && github.ref == 'refs/heads/main'
 
     strategy:
       matrix:
@@ -101,7 +95,7 @@ jobs:
 
   nur:
     needs: tests
-    if: ${{ always() && needs.tests.result == 'success' }}
+    if: ${{ always() && needs.tests.result == 'success' && github.ref == 'refs/heads/main' }}
 
     runs-on: ubuntu-latest
     steps:

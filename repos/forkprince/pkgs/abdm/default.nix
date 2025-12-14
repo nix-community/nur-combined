@@ -1,33 +1,28 @@
 {
-  copyDesktopItems,
   autoPatchelfHook,
-  makeDesktopItem,
+  copyDesktopItems,
   libappindicator,
+  makeDesktopItem,
   makeWrapper,
   fontconfig,
-  alsa-lib,
   fetchurl,
+  alsa-lib,
   wayland,
-  libXext,
-  libXtst,
-  libX11,
   stdenv,
   libGL,
-  zlib,
-  gtk3,
   glib,
+  gtk3,
+  xorg,
+  zlib,
   lib,
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
+  ver = lib.helper.read ./version.json;
 in
   stdenv.mkDerivation rec {
     pname = "ab-download-manager";
-    inherit (info) version;
+    inherit (ver) version;
 
-    src = fetchurl {
-      url = "https://github.com/amir1376/ab-download-manager/releases/download/v${version}/ABDownloadManager_${version}_linux_x64.tar.gz";
-      inherit (info) hash;
-    };
+    src = fetchurl (lib.helper.getSingle ver);
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -36,16 +31,16 @@ in
     ];
     buildInputs = [
       libappindicator
+      xorg.libXtst
+      xorg.libXext
+      xorg.libX11
       fontconfig
       alsa-lib
       wayland
-      libXext
-      libXtst
-      libX11
       libGL
-      zlib
-      gtk3
       glib
+      gtk3
+      zlib
     ];
 
     sourceRoot = ".";

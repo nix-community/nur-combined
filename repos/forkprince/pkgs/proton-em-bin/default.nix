@@ -4,16 +4,13 @@
   fetchzip,
   lib,
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
+  ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation rec {
     pname = "proton-em-bin";
-    inherit (info) version;
+    inherit (ver) version;
 
-    src = fetchzip {
-      url = "https://github.com/${info.repo}/releases/download/${version}/proton-${version}.tar.xz";
-      inherit (info) hash;
-    };
+    src = fetchzip (lib.helper.getSingle ver);
 
     dontUnpack = true;
     dontConfigure = true;

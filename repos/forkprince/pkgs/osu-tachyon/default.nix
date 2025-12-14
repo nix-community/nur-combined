@@ -7,25 +7,25 @@
   fetchzip,
   lib,
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
+  ver = lib.helper.read ./version.json;
+
+  platform = stdenvNoCC.system;
+
+  source = lib.helper.getPlatform platform ver;
+  shouldUnpack = lib.helper.unpackPlatform platform ver;
 
   pname = "osu-tachyon";
-  inherit (info) version;
-
-  platform = lib.getAttr stdenvNoCC.system info.platforms;
+  inherit (ver) version;
 
   fetcher =
-    if platform.unpack
+    if shouldUnpack
     then fetchzip
     else fetchurl;
 
   arguments =
-    {
-      inherit (platform) hash;
-      url = "https://github.com/ppy/osu/releases/download/${info.version}/${platform.file}";
-    }
+    source
     // (
-      if platform.unpack
+      if shouldUnpack
       then {stripRoot = false;}
       else {}
     );

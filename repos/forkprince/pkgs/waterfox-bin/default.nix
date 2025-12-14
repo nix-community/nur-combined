@@ -1,50 +1,40 @@
 {
-  wrapGAppsHook3,
   makeDesktopItem,
   libappindicator,
+  wrapGAppsHook3,
+  libpulseaudio,
   at-spi2-core,
   libxkbcommon,
-  libpulseaudio,
-  gdk-pixbuf,
-  libXScrnSaver,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXrender,
-  makeWrapper,
   at-spi2-atk,
-  libnotify,
+  ffmpeg-full,
+  makeWrapper,
+  gdk-pixbuf,
   dbus-glib,
-  patchelf,
   writeText,
-  fetchurl,
+  libnotify,
   alsa-lib,
+  fetchurl,
+  patchelf,
   pciutils,
   systemd,
   libdrm,
-  libXfixes,
-  libXrandr,
   libxcb,
-  libXtst,
   stdenv,
-  libXext,
-  libX11,
-  libXi,
-  ffmpeg-full,
-  libGL,
   cairo,
-  cups,
-  mesa,
-  nspr,
+  libGL,
   pango,
   unzip,
-  atk,
-  gtk3,
+  cups,
   glib,
-  nss,
+  gtk3,
+  mesa,
+  nspr,
+  xorg,
+  atk,
   lib,
+  nss,
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
+  ver = lib.helper.read ./version.json;
 
   desktopItem = makeDesktopItem {
     name = "waterfox";
@@ -76,56 +66,53 @@
 in
   stdenv.mkDerivation rec {
     pname = "waterfox-bin";
-    inherit (info) version;
+    inherit (ver) version;
 
-    src = fetchurl {
-      url = "https://cdn1.waterfox.net/waterfox/releases/${version}/Linux_x86_64/waterfox-${version}.tar.bz2";
-      inherit (info) hash;
-    };
+    src = fetchurl (lib.helper.getSingle ver);
 
     nativeBuildInputs = [
       wrapGAppsHook3
-      patchelf
       makeWrapper
+      patchelf
       unzip
     ];
 
     buildInputs = [
+      xorg.libXcomposite
+      xorg.libXScrnSaver
       stdenv.cc.cc.lib
       libappindicator
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXrender
+      xorg.libXfixes
+      xorg.libXrandr
+      libpulseaudio
+      xorg.libXext
+      xorg.libXtst
       at-spi2-core
       libxkbcommon
-      libpulseaudio
-      gdk-pixbuf
-      libXScrnSaver
-      libXcomposite
-      libXcursor
-      libXdamage
-      libXrender
       at-spi2-atk
-      libnotify
+      ffmpeg-full
+      xorg.libX11
+      xorg.libXi
+      gdk-pixbuf
       dbus-glib
+      libnotify
       alsa-lib
       pciutils
       systemd
       libdrm
-      libXfixes
-      libXrandr
       libxcb
-      libXtst
-      libXext
-      libX11
-      libXi
-      ffmpeg-full
-      libGL
       cairo
+      libGL
+      pango
       cups
+      glib
+      gtk3
       mesa
       nspr
-      pango
       atk
-      gtk3
-      glib
       nss
     ];
 

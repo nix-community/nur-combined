@@ -1,0 +1,30 @@
+{
+  "name": "Helium Nightly",
+  "source": {
+    "type": "github-release",
+    "query": "first | .tag_name"
+  },
+  "version": "0.7.4.1",
+  "platforms": {
+    "x86_64-linux": {
+      "repo": "imputnet/helium-linux",
+      "file": "helium-{version}-x86_64.AppImage",
+      "hash": "sha256-JFaGuRbjNEzFOEpntbzARxCOxA/2Fxhd31nXaVPfpFg="
+    },
+    "aarch64-linux": {
+      "repo": "imputnet/helium-linux",
+      "file": "helium-{version}-arm64.AppImage",
+      "hash": "sha256-0ki3xRheyKfXAjTYk8y/DWd8+mGcZ4mCF8cA6OpHah4="
+    },
+    "x86_64-darwin": {
+      "repo": "imputnet/helium-macos",
+      "file": "helium_{version}_x86_64-macos.dmg",
+      "hash": "sha256-nYZbA7g5s+bzh9IALhZID9lQz5eZk5FgfAdsCvi2vvw="
+    },
+    "aarch64-darwin": {
+      "repo": "imputnet/helium-macos",
+      "file": "helium_{version}_arm64-macos.dmg",
+      "hash": "sha256-9EEECuaiALU/LzdkrjllgUN+cHcxkDvPgyc52nouFrw="
+    }
+  }
+}

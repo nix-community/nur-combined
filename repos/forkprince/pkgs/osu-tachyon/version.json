@@ -1,14 +1,15 @@
 {
   "name": "osu-tachyon",
-  "update_type": "github",
-  "repo": "ppy/osu",
-  "query": "first | .tag_name",
+  "source": {
+    "type": "github-release",
+    "repo": "ppy/osu",
+    "query": "first | .tag_name"
+  },
   "version": "2025.1209.0-lazer",
   "platforms": {
     "x86_64-linux": {
       "file": "osu.AppImage",
-      "hash": "sha256-42Fx3CxLcW97cxRXXCqPJ8NzRBnpi62IjxGLnSRkO4g=",
-      "unpack": false
+      "hash": "sha256-42Fx3CxLcW97cxRXXCqPJ8NzRBnpi62IjxGLnSRkO4g="
     },
     "aarch64-darwin": {
       "file": "osu.app.Apple.Silicon.zip",

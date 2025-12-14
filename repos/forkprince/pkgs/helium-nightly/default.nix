@@ -1,48 +1,60 @@
 {
   appimageTools,
+  stdenvNoCC,
   fetchurl,
+  undmg,
   pkgs,
   lib,
   ...
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
+  ver = lib.helper.read ./version.json;
+  platform = pkgs.stdenv.hostPlatform.system;
 
-  inherit (info) version;
+  pname = "helium";
+  src = fetchurl (lib.helper.getPlatform platform ver);
 
-  platform = lib.getAttr pkgs.stdenv.hostPlatform.system info.platforms;
+  inherit (ver) version;
 
-  filename = lib.replaceStrings ["{version}"] [version] platform.file;
+  meta = {
+    description = "Private, fast, and honest web browser (nightly builds)";
+    homepage = "https://github.com/imputnet/helium";
+    changelog = "https://github.com/imputnet/helium/releases/tag/${version}";
+    license = lib.licenses.gpl3;
+    maintainers = ["Ev357" "Prinky"];
+    platforms = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    mainProgram = "helium";
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+  };
 in
-  appimageTools.wrapType2 rec {
-    pname = "helium";
+  if stdenvNoCC.isDarwin
+  then
+    stdenvNoCC.mkDerivation {
+      inherit pname version src meta;
 
-    inherit version;
+      nativeBuildInputs = [undmg];
 
-    src = fetchurl {
-      inherit (platform) hash;
-      url = "https://github.com/${info.repo}/releases/download/${info.version}/${filename}";
-    };
+      sourceRoot = ".";
 
-    extraInstallCommands = let
-      contents = appimageTools.extract {inherit pname version src;};
-    in ''
-      install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications
-      substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/Applications
+        cp -r Helium.app $out/Applications/
+        runHook postInstall
+      '';
+    }
+  else
+    appimageTools.wrapType2 {
+      inherit pname version src meta;
 
-      cp -r ${contents}/usr/share/* $out/share/
+      extraInstallCommands = let
+        contents = appimageTools.extract {inherit pname version src;};
+      in ''
+        install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications
+        substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
 
-      install -d $out/share/lib/${pname}
-      cp -r ${contents}/opt/${pname}/locales $out/share/lib/${pname}/
-    '';
+        cp -r ${contents}/usr/share/* $out/share/
 
-    meta = {
-      description = "Private, fast, and honest web browser (nightly builds)";
-      homepage = "https://github.com/imputnet/${pname}";
-      changelog = "https://github.com/${info.repo}/releases/tag/${version}";
-      license = lib.licenses.gpl3;
-      maintainers = ["Ev357" "Prinky"];
-      platforms = ["x86_64-linux" "aarch64-linux"];
-      mainProgram = pname;
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
-    };
-  }
+        install -d $out/share/lib/${pname}
+        cp -r ${contents}/opt/${pname}/locales $out/share/lib/${pname}/
+      '';
+    }

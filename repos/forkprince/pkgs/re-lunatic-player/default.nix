@@ -20,17 +20,16 @@
   lib,
   ...
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
+  ver = lib.helper.read ./version.json;
 in
-  stdenvNoCC.mkDerivation rec {
+  stdenvNoCC.mkDerivation {
     pname = "re-lunatic-player";
-    inherit (info) version;
+    inherit (ver) version;
 
-    src = fetchzip {
-      url = "https://github.com/Prince527GitHub/Re-Lunatic-Player/releases/download/v${version}/re-lunatic-player-linux-x64-${version}.tar.gz";
-      inherit (info) hash;
-      stripRoot = false;
-    };
+    src = fetchzip (lib.helper.getSingle ver
+      // {
+        stripRoot = false;
+      });
 
     nativeBuildInputs = [
       autoPatchelfHook

@@ -1,0 +1,14 @@
+{
+  "name": "Waterfox",
+  "source": {
+    "type": "github-release",
+    "repo": "BrowserWorks/Waterfox",
+    "query": ".[0].tag_name"
+  },
+  "asset": {
+    "url": "https://cdn1.waterfox.net/waterfox/releases/{version}/Linux_x86_64/waterfox-{version}.tar.bz2",
+    "unpack": false
+  },
+  "version": "6.6.6",
+  "hash": "sha256-e8i29fR6m+8hSo2Oc9DYD++tnhSlbSKsFAeRacPVT7k="
+}

@@ -1,8 +1,9 @@
 #!/usr/bin/env -S nix shell nixpkgs#curl nixpkgs#jq nixpkgs#nix nixpkgs#coreutils -c bash
 set -euo pipefail
 
-# Universal update script for various package types
-# Usage: ./update.sh [--force] <info.json>
+# Universal package version updater
+# Supports GitHub releases and custom API endpoints
+# Usage: ./update.sh [--force] <version.json>
 
 force_hash=false
 if [[ "${1:-}" == "--force" ]]; then
@@ -11,24 +12,39 @@ if [[ "${1:-}" == "--force" ]]; then
 fi
 
 if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 [--force] <info.json>"
-  echo "Example: $0 modules/universal/system/pkgs/proton-em-bin/info.json"
-  echo "  --force: Re-fetch hash even if version is up-to-date"
+  cat <<EOF
+Usage: $0 [--force] <version.json>
+
+Options:
+  --force    Re-fetch hash even if version is up-to-date
+
+Example:
+  $0 pkgs/proton-em-bin/version.json
+  $0 --force pkgs/beeper-nightly/version.json
+EOF
   exit 1
 fi
 
-info="$1"
+version_file="$1"
 
-if [[ ! -f "$info" ]]; then
-  echo "⚠️ Error: $info does not exist"
+if [[ ! -f "$version_file" ]]; then
+  echo "⚠️ Error: File not found: $version_file" >&2
   exit 1
 fi
 
-config=$(cat "$info")
-update_type=$(jq -r '.update_type // "github"' <<< "$config")
+config=$(cat "$version_file")
+
+if [[ "$force_hash" == "false" ]]; then
+  json_force=$(jq -r '.force_hash // false' <<< "$config")
+  if [[ "$json_force" == "true" ]]; then
+    force_hash=true
+  fi
+fi
+
+source_type=$(jq -r '.source.type // "github-release"' <<< "$config")
 package_name=$(jq -r '.name // "package"' <<< "$config")
 
-echo "📦 Updating $package_name using $info (type: $update_type)"
+echo "📦 Updating $package_name (type: $source_type)"
 
 auth_header=()
 if [[ -n "${GITHUB_TOKEN:-}" ]]; then
@@ -36,213 +52,333 @@ if [[ -n "${GITHUB_TOKEN:-}" ]]; then
   echo "🔑 Using GITHUB_TOKEN for authentication"
 fi
 
-update_github() {
-  local repo query version oldVersion releases rawVersion
+update_github_release() {
+  local repo query oldVersion releases rawVersion version
 
-  repo=$(jq -r '.repo // empty' <<< "$config")
-  query=$(jq -r '.query // empty' <<< "$config")
+  repo=$(jq -r '.source.repo // empty' <<< "$config")
+  query=$(jq -r '.source.query // empty' <<< "$config")
   oldVersion=$(jq -r '.version // empty' <<< "$config")
 
-  if [[ -z "$repo" ]]; then
-    echo "⚠️ Error: 'repo' must be set for GitHub updates"
-    exit 1
-  fi
-
   if [[ -z "$query" || "$query" == "null" ]]; then
-    echo "⚠️ Error: 'query' must be set for GitHub updates"
+    echo "⚠️ Error: 'source.query' is required" >&2
     exit 1
   fi
 
-  releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${repo}/releases?per_page=100")
-  rawVersion=$(jq -r "sort_by(.created_at) | reverse | $query" <<< "$releases")
+  if jq -e '.platforms' <<< "$config" > /dev/null && [[ -z "$repo" ]]; then
+    local first_platform_repo
+    first_platform_repo=$(jq -r '.platforms[.platforms | keys[0]].repo' <<< "$config")
+
+    if [[ -z "$first_platform_repo" || "$first_platform_repo" == "null" ]]; then
+      echo "⚠️ Error: Either 'source.repo' or per-platform 'repo' is required" >&2
+      exit 1
+    fi
+
+    echo "🔍 Fetching version from $first_platform_repo..."
+    if ! releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${first_platform_repo}/releases?per_page=100"); then
+      echo "⚠️ Error: Failed to fetch releases from GitHub API" >&2
+      exit 1
+    fi
+
+    rawVersion=$(jq -r "sort_by(.created_at) | reverse | $query" <<< "$releases")
+    repo=""
+  else
+    if [[ -z "$repo" ]]; then
+      echo "⚠️ Error: 'source.repo' is required" >&2
+      exit 1
+    fi
+
+    echo "🔍 Fetching releases from $repo..."
+    if ! releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${repo}/releases?per_page=100"); then
+      echo "⚠️ Error: Failed to fetch releases from GitHub API" >&2
+      exit 1
+    fi
+
+    rawVersion=$(jq -r "sort_by(.created_at) | reverse | $query" <<< "$releases")
+  fi
 
   if [[ -z "$rawVersion" || "$rawVersion" == "null" ]]; then
-    echo "⚠️ No version found using query: $query"
+    echo "⚠️ Error: No version found using query: $query" >&2
     exit 1
   fi
 
   version="${rawVersion#v}"
+  echo "📌 Latest version: $version"
 
   if [[ "$oldVersion" == "$version" ]]; then
     if [[ "$force_hash" == "false" ]]; then
-      echo "✅ Version is up to date ($version)"
+      echo "✅ Version is up to date"
       exit 0
     else
-      echo "🔄 Version unchanged ($version), but forcing hash update"
+      echo "🔄 Forcing hash update"
     fi
   else
-    echo "⬇️ New version detected: $oldVersion → $version"
+    echo "⬆️ Update: $oldVersion → $version"
   fi
 
-  if jq -e '.platforms' <<< "$config" > /dev/null; then
-    update_github_multiplatform "$repo" "$rawVersion" "$version"
+  if jq -e '.variants' <<< "$config" > /dev/null; then
+    update_variants "$repo" "$rawVersion" "$version"
+  elif jq -e '.platforms' <<< "$config" > /dev/null; then
+    update_platforms "$repo" "$rawVersion" "$version"
   else
-    update_github_single "$repo" "$rawVersion" "$version"
+    update_single "$repo" "$rawVersion" "$version"
   fi
 }
 
-update_github_single() {
+update_single() {
   local repo="$1"
   local rawVersion="$2"
   local version="$3"
-  local url_template unpack url tmp
+  local url unpack tmp hash
 
-  url_template=$(jq -r '.url_template // empty' <<< "$config")
-  unpack=$(jq -r '.unpack // false' <<< "$config")
+  url=$(jq -r '.asset.url // empty' <<< "$config")
+  unpack=$(jq -r '.asset.unpack // false' <<< "$config")
 
-  if [[ -z "$url_template" ]]; then
-    echo "⚠️ Error: 'url_template' must be set for single-file GitHub updates"
+  if [[ -z "$url" ]]; then
+    echo "⚠️ Error: 'asset.url' is required" >&2
     exit 1
   fi
 
-  url="${url_template//\{repo\}/$repo}"
+  url="${url//\{repo\}/$repo}"
   url="${url//\{version\}/$rawVersion}"
-  url="${url//\{version_clean\}/$version}"
 
-  echo "⬇️ Fetching $url"
+  echo "⬇️  Downloading $url"
 
   tmp=$(mktemp)
-  prefetch_cmd=(nix store prefetch-file "$url" --json)
-  
+  local prefetch_cmd=(nix store prefetch-file "$url" --json)
+
   if [[ "$unpack" == "true" ]]; then
     prefetch_cmd+=(--unpack)
   fi
 
-  if "${prefetch_cmd[@]}" > "$tmp"; then
-    jq --slurpfile ph "$tmp" --arg v "$version" '
-      .hash = $ph[0].hash | .version = $v
-    ' "$info" > "${info}.tmp"
-    mv "${info}.tmp" "$info"
-  else
-    echo "⚠️ Failed to prefetch: $url"
+  if ! "${prefetch_cmd[@]}" > "$tmp"; then
+    echo "⚠️ Error: Failed to prefetch file" >&2
     rm -f "$tmp"
     exit 1
   fi
 
+  hash=$(jq -r '.hash' "$tmp")
   rm -f "$tmp"
-  echo "✅ Updated version and hash"
+
+  jq --arg v "$version" --arg h "$hash" '
+    .version = $v | .hash = $h
+  ' "$version_file" > "${version_file}.tmp"
+  mv "${version_file}.tmp" "$version_file"
+
+  echo "✅ Updated to version $version"
 }
 
-# TODO: Add support for multi-version multi-platform updates
-update_github_multiplatform() {
-  local repo="$1"
+update_platforms() {
+  local default_repo="$1"
   local rawVersion="$2"
   local version="$3"
-  local tmp newInfo
+  local tmp platform file unpack url hash platform_repo platform_raw_version
 
   tmp=$(mktemp)
-  newInfo=$(mktemp)
+  echo "🔄 Processing platforms..."
 
-  jq -c '.platforms | keys[]' <<< "$config" | while read -r platform; do
-    platform=$(echo "$platform" | tr -d '"')
+  local platforms=()
+  while IFS= read -r platform; do
+    platforms+=("$platform")
+  done < <(jq -r '.platforms | keys[]' <<< "$config")
+
+  for platform in "${platforms[@]}"; do
+    platform_repo=$(jq -r --arg p "$platform" '.platforms[$p].repo // empty' <<< "$config")
+
+    if [[ -z "$platform_repo" ]]; then
+      platform_repo="$default_repo"
+      platform_raw_version="$rawVersion"
+    else
+      echo "   [$platform] Using repo: $platform_repo"
+      local platform_releases
+      if ! platform_releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${platform_repo}/releases?per_page=100"); then
+        echo "⚠️ Error: Failed to fetch releases from $platform_repo" >&2
+        continue
+      fi
+
+      local query
+      query=$(jq -r '.source.query // ".[0].tag_name"' <<< "$config")
+      platform_raw_version=$(jq -r "sort_by(.created_at) | reverse | $query" <<< "$platform_releases")
+
+      if [[ -z "$platform_raw_version" || "$platform_raw_version" == "null" ]]; then
+        echo "⚠️ Error: No version found for $platform_repo" >&2
+        continue
+      fi
+    fi
+
     file=$(jq -r --arg p "$platform" '.platforms[$p].file' <<< "$config")
     unpack=$(jq -r --arg p "$platform" '.platforms[$p].unpack // false' <<< "$config")
 
     if [[ -z "$file" || "$file" == "null" ]]; then
-      echo "⚠️ Error: 'file' must be set for platform '$platform'"
+      echo "⚠️ Error: 'file' required for platform '$platform'" >&2
       exit 1
     fi
 
     file="${file//\{version\}/$version}"
+    url="https://github.com/${platform_repo}/releases/download/${platform_raw_version}/${file}"
 
-    url="https://github.com/${repo}/releases/download/${rawVersion}/${file}"
-    echo "⬇️ Fetching $platform: $url"
+    echo "   [$platform] $file"
 
-    prefetch_cmd=(nix store prefetch-file "$url" --json)
+    local prefetch_cmd=(nix store prefetch-file "$url" --json)
     if [[ "$unpack" == "true" ]]; then
       prefetch_cmd+=(--unpack)
     fi
 
-    if "${prefetch_cmd[@]}" > "$tmp"; then
-      jq --arg p "$platform" --slurpfile ph "$tmp" '
-        .platforms[$p].hash = $ph[0].hash
-      ' "$info" > "$newInfo"
-      mv "$newInfo" "$info"
-    else
-      echo "⚠️ Failed to prefetch: $url"
+    if ! "${prefetch_cmd[@]}" > "$tmp"; then
+      echo "⚠️ Error: Failed to prefetch $platform" >&2
+      continue
     fi
+
+    hash=$(jq -r '.hash' "$tmp")
+
+    jq --arg p "$platform" --arg h "$hash" '.platforms[$p].hash = $h' "$version_file" > "${version_file}.tmp"
+    mv "${version_file}.tmp" "$version_file"
   done
 
-  jq --arg v "$version" '.version = $v' "$info" > "$newInfo"
-  mv "$newInfo" "$info"
+  jq --arg v "$version" '.version = $v' "$version_file" > "${version_file}.tmp"
+  mv "${version_file}.tmp" "$version_file"
 
-  echo "✅ Updated version and hashes"
-  rm -f "$tmp" "$newInfo"
+  rm -f "$tmp"
+  echo "✅ Updated ${#platforms[@]} platforms to version $version"
+}
+
+update_variants() {
+  local repo="$1"
+  local rawVersion="$2"
+  local version="$3"
+  local tmp url_template variant url hash
+
+  tmp=$(mktemp)
+  url_template=$(jq -r '.asset.url_template // empty' <<< "$config")
+
+  if [[ -z "$url_template" ]]; then
+    echo "⚠️ Error: 'asset.url_template' required for variants" >&2
+    exit 1
+  fi
+
+  echo "🔄 Processing variants..."
+
+  local variants=()
+  while IFS= read -r variant; do
+    variants+=("$variant")
+  done < <(jq -r '.variants | keys[]' <<< "$config")
+
+  for variant in "${variants[@]}"; do
+    local substitutions
+    substitutions=$(jq -r --arg v "$variant" '.variants[$v].substitutions // []' <<< "$config")
+
+    url="${url_template//\{repo\}/$repo}"
+    url="${url//\{version\}/$rawVersion}"
+
+    local i=0
+    while IFS= read -r sub; do
+      url="${url//\{$i\}/$sub}"
+      i=$((i + 1))
+    done < <(jq -r --arg v "$variant" '.variants[$v].substitutions[]' <<< "$config")
+
+    echo "   [$variant] $(jq -r --arg v "$variant" '.variants[$v].substitutions | join(", ")' <<< "$config")"
+
+    unpack=$(jq -r '.asset.unpack // false' <<< "$config")
+    local prefetch_cmd=(nix store prefetch-file "$url" --json)
+    if [[ "$unpack" == "true" ]]; then
+      prefetch_cmd+=(--unpack)
+    fi
+
+    if ! "${prefetch_cmd[@]}" > "$tmp"; then
+      echo "⚠️ Error: Failed to prefetch $variant" >&2
+      continue
+    fi
+
+    hash=$(jq -r '.hash' "$tmp")
+
+    jq --arg v "$variant" --arg h "$hash" '
+      .variants[$v].hash = $h
+    ' "$version_file" > "${version_file}.tmp"
+    mv "${version_file}.tmp" "$version_file"
+  done
+
+  jq --arg v "$version" '.version = $v' "$version_file" > "${version_file}.tmp"
+  mv "${version_file}.tmp" "$version_file"
+
+  rm -f "$tmp"
+  echo "✅ Updated ${#variants[@]} variants to version $version"
 }
 
 update_api() {
-  local api_url response newVersion newUrl oldVersion tmp newInfo hash
+  local api_url response version_path url_path rawVersion newVersion newUrl oldVersion tmp hash
 
-  api_url=$(jq -r '.api_url // empty' <<< "$config")
+  api_url=$(jq -r '.source.url // empty' <<< "$config")
   
   if [[ -z "$api_url" ]]; then
-    echo "⚠️ Error: 'api_url' must be set for API updates"
+    echo "⚠️ Error: 'source.url' is required for API updates" >&2
     exit 1
   fi
 
-  response=$(curl -fsSL "$api_url")
+  echo "🔍 Fetching from API..."
+  if ! response=$(curl -fsSL "$api_url"); then
+    echo "⚠️ Error: Failed to fetch from API endpoint" >&2
+    exit 1
+  fi
 
-  version_path=$(jq -r '.version_path // ".version"' <<< "$config")
-  url_path=$(jq -r '.url_path // ".url"' <<< "$config")
+  version_path=$(jq -r '.source.version_path // ".version"' <<< "$config")
+  url_path=$(jq -r '.source.url_path // ".url"' <<< "$config")
 
-  rawNewVersion=$(jq -r "$version_path" <<< "$response")
+  rawVersion=$(jq -r "$version_path" <<< "$response")
   newUrl=$(jq -r "$url_path" <<< "$response")
 
-  if [[ -z "$rawNewVersion" || -z "$newUrl" || "$rawNewVersion" == "null" || "$newUrl" == "null" ]]; then
-    echo "⚠️ Failed to fetch new version or URL from API"
+  if [[ -z "$rawVersion" || -z "$newUrl" || "$rawVersion" == "null" || "$newUrl" == "null" ]]; then
+    echo "⚠️ Error: Failed to extract version or URL from API response" >&2
     exit 1
   fi
 
-  newVersion="${rawNewVersion#v}"
-
+  newVersion="${rawVersion#v}"
   oldVersion=$(jq -r '.version // empty' <<< "$config")
+
+  echo "📌 Latest version: $newVersion"
 
   if [[ "$newVersion" == "$oldVersion" ]]; then
     if [[ "$force_hash" == "false" ]]; then
-      echo "✅ Version is up to date ($newVersion)"
+      echo "✅ Version is up to date"
       exit 0
     else
-      echo "🔄 Version unchanged ($newVersion), but forcing hash update"
+      echo "🔄 Forcing hash update"
     fi
   else
-    echo "⬇️ New version detected: $oldVersion → $newVersion"
+    echo "⬆️ Update: $oldVersion → $newVersion"
   fi
-  echo "🔗 Prefetching: $newUrl"
+
+  echo "⬇️  Downloading $newUrl"
 
   tmp=$(mktemp)
-  newInfo=$(mktemp)
-
-  if nix store prefetch-file "$newUrl" --json > "$tmp"; then
-    hash=$(jq -r '.hash' "$tmp")
-  else
-    echo "⚠️ Failed to prefetch $newUrl"
+  if ! nix store prefetch-file "$newUrl" --json > "$tmp"; then
+    echo "⚠️ Error: Failed to prefetch file" >&2
     rm -f "$tmp"
     exit 1
   fi
+
+  hash=$(jq -r '.hash' "$tmp")
+  rm -f "$tmp"
 
   jq \
     --arg version "$newVersion" \
     --arg url "$newUrl" \
     --arg hash "$hash" \
-    '.version = $version | .src.url = $url | .src.hash = $hash' \
-    "$info" > "$newInfo"
+    '.version = $version | .asset.url = $url | .asset.hash = $hash' \
+    "$version_file" > "${version_file}.tmp"
 
-  mv "$newInfo" "$info"
-  rm -f "$tmp"
-
-  echo "✅ Updated to $package_name $newVersion"
+  mv "${version_file}.tmp" "$version_file"
+  echo "✅ Updated to version $newVersion"
 }
 
-case "$update_type" in
-  "github")
-    update_github
+case "$source_type" in
+  github-release)
+    update_github_release
     ;;
-  "api")
+  api)
     update_api
     ;;
   *)
-    echo "⚠️ Unknown update_type: $update_type"
-    echo "Supported types: github, api"
+    echo "⚠️ Error: Unknown source type: $source_type" >&2
+    echo "Supported types: github-release, api" >&2
     exit 1
     ;;
 esac

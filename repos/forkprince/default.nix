@@ -1,37 +1,29 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
-# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
-# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
-# commands such as:
-#     nix-build -A mypackage
-{pkgs ? import <nixpkgs> {}}: {
-  # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib {inherit pkgs;}; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+{pkgs ? import <nixpkgs> {}}: rec {
+  modules = import ./modules;
+  overlays = import ./overlays;
+  lib = import ./lib {inherit pkgs;};
 
-  hyprcursor-bibata = pkgs.callPackage ./pkgs/hyprcursor-bibata {};
-  hyprpanel = pkgs.callPackage ./pkgs/hyprpanel {};
-  syslock = pkgs.callPackage ./pkgs/syslock {};
-  nirius = pkgs.callPackage ./pkgs/nirius {};
+  hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
+  hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
+  syslock = lib.callPackage ./pkgs/syslock {};
+  nirius = lib.callPackage ./pkgs/nirius {};
 
-  re-lunatic-player = pkgs.callPackage ./pkgs/re-lunatic-player {};
-  beeper-nightly = pkgs.callPackage ./pkgs/beeper-nightly {};
-  ab-download-manager = pkgs.callPackage ./pkgs/abdm {};
-  osu-tachyon = pkgs.callPackage ./pkgs/osu-tachyon {};
-  moonplayer = pkgs.callPackage ./pkgs/moonplayer {};
+  re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
+  beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
+  ab-download-manager = lib.callPackage ./pkgs/abdm {};
+  osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
+  moonplayer = lib.callPackage ./pkgs/moonplayer {};
 
-  # waterfox-bin = pkgs.callPackage ./pkgs/waterfox-bin {};
-  helium-nightly = pkgs.callPackage ./pkgs/helium-nightly {};
+  waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
+  helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
 
-  boxtron-bin = pkgs.callPackage ./pkgs/boxtron-bin {};
-  proton-em-bin = pkgs.callPackage ./pkgs/proton-em-bin {};
-  proton-sarek-bin = pkgs.callPackage ./pkgs/proton-sarek-bin {};
-  proton-ge-rtsp-bin = pkgs.callPackage ./pkgs/proton-ge-rtsp-bin {};
+  boxtron-bin = lib.callPackage ./pkgs/boxtron-bin {};
+  proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
+  proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
+  proton-ge-rtsp-bin = lib.callPackage ./pkgs/proton-ge-rtsp-bin {};
 
-  proton-cachyos-v1-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v1"; };
-  proton-cachyos-v2-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v2"; };
-  proton-cachyos-v3-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v3"; };
-  proton-cachyos-v4-bin = pkgs.callPackage ./pkgs/proton-cachyos-bin { type = "v4"; };
+  proton-cachyos-v1-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v1";};
+  proton-cachyos-v2-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v2";};
+  proton-cachyos-v3-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v3";};
+  proton-cachyos-v4-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v4";};
 }

@@ -4,20 +4,14 @@
   fetchzip,
   lib,
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
-
-  platform = lib.getAttr type info.platforms;
-
+  ver = lib.helper.read ./version.json;
   display = "Proton-CachyOS-${type}";
 in
   stdenvNoCC.mkDerivation rec {
     pname = "proton-cachyos-${type}-bin";
-    inherit (info) version;
+    inherit (ver) version;
 
-    src = fetchzip {
-      url = "https://github.com/${info.repo}/releases/download/${version}/${builtins.replaceStrings ["{version}"] [version] platform.file}";
-      inherit (platform) hash;
-    };
+    src = fetchzip (lib.helper.getVariant type ver);
 
     dontUnpack = true;
     dontConfigure = true;

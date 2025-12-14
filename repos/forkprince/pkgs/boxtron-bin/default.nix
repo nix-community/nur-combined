@@ -8,11 +8,11 @@
   timidity,
   lib,
 }: let
-  info = builtins.fromJSON (builtins.readFile ./info.json);
+  ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation rec {
     pname = "boxtron-bin";
-    inherit (info) version;
+    inherit (ver) version;
 
     nativeBuildInputs = [
       soundfont-fluid
@@ -21,10 +21,7 @@ in
       timidity
     ];
 
-    src = fetchzip {
-      url = "https://github.com/${info.repo}/releases/download/v${version}/boxtron.tar.xz";
-      inherit (info) hash;
-    };
+    src = fetchzip (lib.helper.getSingle ver);
 
     dontUnpack = true;
     dontConfigure = true;
