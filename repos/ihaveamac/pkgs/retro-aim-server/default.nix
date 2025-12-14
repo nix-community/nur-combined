@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "retro-aim-server";
-  version = "0.20.0";
+  version = "0.21.0";
 
   src = fetchFromGitHub {
     owner = "mk6i";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-+QpNzbphSOzbqPjdpjghYqSiLV93FPjrLsK8GTAlZUQ=";
+    hash = "sha256-a50KuydtE8+FCsIdDMhOMRxM+oA7AhwQxyBsV/9bLw8=";
   };
 
-  vendorHash = "sha256-dGhoEppDZpzkgJQJnq4jhGDQNszqgnbb2P+JAccHLF8=";
+  vendorHash = "sha256-PWoohOrZC05urLWrbjnhDQiRCaWGlUHnAA2Kcgzn1z4=";
 
   meta = with lib; {
     description = "Self-hostable instant messaging server compatible with classic AIM and ICQ clients";

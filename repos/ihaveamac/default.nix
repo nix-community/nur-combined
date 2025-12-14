@@ -70,16 +70,20 @@ rec {
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 
   mediawiki_1_39 = callPackage ./pkgs/mediawiki {
-    version = "1.39.15";
-    hash = "sha256-iHcTQ2PnlCvTtC7os6uOloYQHk6pk/h5X7zrvSG++rM=";
+    version = "1.39.16";
+    hash = "sha256-1+IY8BlZYwqdbGxtB8QLtvHg85DCzNctQC0D6Ck6NL4=";
   };
   mediawiki_1_43 = callPackage ./pkgs/mediawiki {
-    version = "1.43.5";
-    hash = "sha256-T6USBd6Y8FTKJku9S2fewDxYQt4m+v3mAm/Ikb35UDQ=";
+    version = "1.43.6";
+    hash = "sha256-S6YDacFNxGyLIa4UbD6l+LtWhXskSKEkbkRny2XKPJU=";
   };
   mediawiki_1_44 = callPackage ./pkgs/mediawiki {
-    version = "1.44.2";
-    hash = "sha256-59cCZpeWcfr9A3BeF6IfGFvRsoP/hD7XL+KQ6G+sQzE=";
+    version = "1.44.3";
+    hash = "sha256-WBzB9+2fjjAuOOrOp0zGP/ny7V2EEvOSDn1xGDUYMv8=";
+  };
+  mediawiki_1_45 = callPackage ./pkgs/mediawiki {
+    version = "1.45.1";
+    hash = "sha256-4vEmsZrsQiBRoKUODGq36QTzOzmIpHudqK+/0MCiUsw=";
   };
 
   # EOL packages
