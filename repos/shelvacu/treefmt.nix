@@ -7,7 +7,6 @@ let
     "dliam"
     "dmmm"
     "dnod"
-    "dtrip"
     "sops"
     "tliam"
   ];
@@ -44,8 +43,5 @@ in
     "mmm/firmware/kernelcache.release.mac13g"
 
     "secrets/*"
-
-    "tests/triple-dezert/test_key"
-    "tests/triple-dezert/test_key.pub"
   ];
 }

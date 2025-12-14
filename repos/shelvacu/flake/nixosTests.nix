@@ -23,7 +23,6 @@
     };
     tests = {
       liam = { };
-      triple-dezert = { };
       caddy-kanidm.isExistingHost = false;
     };
   in

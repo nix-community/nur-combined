@@ -32,10 +32,6 @@ let
         key_groups = singleGroup (userKeysAge ++ agesOf "liam");
       }
       {
-        path_regex = "/secrets/hosts/triple-dezert\\.yaml$";
-        key_groups = singleGroup (userKeysAge ++ agesOf "triple-dezert");
-      }
-      {
         path_regex = "/secrets/hosts/prophecy\\.yaml$";
         key_groups = singleGroup (userKeysAge ++ agesOf "prophecy");
       }
@@ -54,16 +50,12 @@ let
       {
         path_regex = "/secrets/garage-rpc\\.key$";
         key_groups = singleGroup (
-          userKeysAge ++ agesOf "triple-dezert" ++ agesOf "prophecy" ++ agesOf "solis"
+          userKeysAge  ++ agesOf "prophecy" ++ agesOf "solis"
         );
       }
       {
         path_regex = "/secrets/dynamic-dns\\.yaml$";
-        key_groups = singleGroup (userKeysAge ++ agesOf "triple-dezert" ++ agesOf "prophecy");
-      }
-      {
-        path_regex = "/tests/triple-dezert/test_secrets/";
-        key_groups = singleGroup [ testAgePublic ];
+        key_groups = singleGroup (userKeysAge ++ agesOf "prophecy");
       }
     ];
   };

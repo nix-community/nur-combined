@@ -41,11 +41,11 @@ while [[ -n $1 ]]; do
     valid_cache_name "$cache_name"
     caches_to_use=("$cache_name")
     ;;
-  "--on-trip")
-    if [[ $HOSTNAME == "triple-dezert" ]]; then
-      echo "Warn: skipping --on-trip: already on trip" >&2
+  "--on-prop")
+    if [[ $HOSTNAME == "prophecy" ]]; then
+      echo "Warn: skipping --on-prop: already on prop" >&2
     else
-      passThruArgs+=("--builders" "ssh://trip x86_64-linux,aarch64-linux" "--max-jobs" "0" "--option" "builders-use-substitutes" "true")
+      passThruArgs+=("--builders" "ssh://prop x86_64-linux,aarch64-linux" "--max-jobs" "0" "--option" "builders-use-substitutes" "true")
     fi
     ;;
   "--")

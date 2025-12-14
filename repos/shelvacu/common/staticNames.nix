@@ -59,12 +59,6 @@ in
       "liam"
       "liam.shelvacu-static"
     ];
-    "172.83.159.53" = [
-      "trip"
-      "triple-dezert"
-      "triple-dezert.shelvacu-static"
-    ];
-    "10.78.79.237" = [ "triple-dezert.t2d.lan.shelvacu-static" ];
     "205.201.63.12" = [
       "servo"
       "uninsane-servo.shelvacu-static"

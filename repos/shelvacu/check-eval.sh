@@ -10,7 +10,6 @@ declare -a nix_eval=(
 )
 
 declare -a hosts=(
-  triple-dezert
   compute-deck
   liam
   lp0

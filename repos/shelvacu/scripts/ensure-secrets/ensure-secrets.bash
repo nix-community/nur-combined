@@ -8,7 +8,6 @@ configs=(
   prophecy
   fw
   liam
-  triple-dezert
 )
 
 declare -i exitCode=0

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-git add . && nixos-rebuild --flake .#triple-dezert --build-host prop --target-host trip --use-remote-sudo "$@"

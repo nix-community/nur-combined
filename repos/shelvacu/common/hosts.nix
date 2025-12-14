@@ -70,19 +70,6 @@
     };
 
     #personal hosts
-    triple-dezert = {
-      altNames = [
-        "trip"
-        "trip.shelvacu.com"
-        "triple-dezert.shelvacu.com"
-      ];
-      sshAliases = [ "trip" ];
-      primaryIp = "172.83.159.53";
-      altIps = [ "10.78.79.237" ];
-      isLan = true;
-      sshPort = 6922;
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUQux9V0mSF5IauoO1z311NXR7ymEbwRMzT+OaaNQr+";
-    };
     prophecy = {
       altNames = [
         "prop"
@@ -95,13 +82,6 @@
       isLan = true;
       sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPmy1+1CL6mLbp0IfRTLwsVdjKmw5u0kbQqHin8oXMq";
       wireguardKey = "shel/wMBU/Ut2rhAZymW/AYG3ycGfaEN6R2LsEpkqDU=";
-    };
-    servacu = {
-      altNames = [
-        "mail.dis8.net"
-        "servacu.shelvacu.com"
-      ];
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE+E6na7np0HnBV2X7owno+Fg+bNNRSHLxO6n1JzdUTV";
     };
     finaltask = {
       altNames = [

@@ -62,7 +62,7 @@ let
         };
       };
     };
-  kanidmPackage = pkgs.kanidmWithSecretProvisioning_1_7;
+  kanidmPackage = pkgs.kanidmWithSecretProvisioning_1_8;
 in
 {
   name = "caddy-kanidm";
