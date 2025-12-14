@@ -38,7 +38,7 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     users.users.shelvacu = lib.mkIf (!config.vacu.isContainer) {
       openssh.authorizedKeys.keys = lib.attrValues config.vacu.ssh.authorizedKeys;
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "dialout" ];
     };
     services.openssh = {
       # require public key authentication for better security
@@ -87,5 +87,19 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     programs.bash.promptInit = lib.mkForce "";
 
     systemd.services.nix-daemon.serviceConfig.Nice = "10";
+
+    # rules for openterface
+    services.udev.extraRules = lib.mkIf config.vacu.isGui ''
+      SUBSYSTEM=="usb",    ATTRS{idVendor}=="534d", ATTRS{idProduct}=="2109", TAG+="uaccess"
+      SUBSYSTEM=="usb",    ATTRS{idVendor}=="534f", ATTRS{idProduct}=="2109", TAG+="uaccess"
+      SUBSYSTEM=="usb",    ATTRS{idVendor}=="534f", ATTRS{idProduct}=="2132", TAG+="uaccess"
+      SUBSYSTEM=="usb",    ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", TAG+="uaccess"
+      SUBSYSTEM=="usb",    ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="fe0c", TAG+="uaccess"
+      SUBSYSTEM=="hidraw", ATTRS{idVendor}=="534d", ATTRS{idProduct}=="2109", TAG+="uaccess"
+      SUBSYSTEM=="hidraw", ATTRS{idVendor}=="534f", ATTRS{idProduct}=="2109", TAG+="uaccess"
+      SUBSYSTEM=="hidraw", ATTRS{idVendor}=="534f", ATTRS{idProduct}=="2132", TAG+="uaccess"
+      SUBSYSTEM=="ttyUSB", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", TAG+="uaccess"
+      SUBSYSTEM=="ttyACM", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="fe0c", TAG+="uaccess"
+    '';
   };
 }

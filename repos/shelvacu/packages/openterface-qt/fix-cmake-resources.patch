@@ -1,0 +1,13 @@
+diff --git i/cmake/Resources.cmake w/cmake/Resources.cmake
+index 6d17149..a8de890 100644
+--- i/cmake/Resources.cmake
++++ w/cmake/Resources.cmake
+@@ -336,7 +336,7 @@ install(FILES ${CMAKE_SOURCE_DIR}/com.openterface.openterfaceQT.metainfo.xml
+ if(COMMAND qt_generate_deploy_app_script)
+     qt_generate_deploy_app_script(
+         TARGET openterfaceQT
+-        FILENAME_VARIABLE deploy_script    
++        OUTPUT_SCRIPT deploy_script    
+         NO_UNSUPPORTED_PLATFORM_ERROR
+     )
+     install(SCRIPT ${deploy_script})

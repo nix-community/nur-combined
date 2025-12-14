@@ -1,0 +1,20 @@
+diff --git i/serial/SerialPortManager.cpp w/serial/SerialPortManager.cpp
+index d0b3439..d889d5e 100644
+--- i/serial/SerialPortManager.cpp
++++ w/serial/SerialPortManager.cpp
+@@ -1945,7 +1945,7 @@ void SerialPortManager::attemptRecovery()
+             } else {
+                 qCWarning(log_core_serial) << "Serial port recovery attempt failed";
+                 if (eventCallback) {
+-                    eventCallback->onStatusUpdate(QString("Recovery attempt %1 failed").arg(m_connectionRetryCount));
++                    eventCallback->onStatusUpdate(QString("Recovery attempt %1 failed").arg(static_cast<int>(m_connectionRetryCount)));
+                 }
+                 
+                 // Try again if we haven't exceeded max attempts
+@@ -2033,4 +2033,4 @@ void SerialPortManager::applyCommandBasedBaudrateChange(int baudRate, const QStr
+     } else {
+         qCWarning(log_core_serial) << logPrefix << "Failed to apply user selected baudrate:" << baudRate;
+     }
+-}
+\ No newline at end of file
++}

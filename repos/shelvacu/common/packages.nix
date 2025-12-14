@@ -103,6 +103,7 @@ in
         merkaartor
         monero-gui
         obsidian
+        openterface-qt
         openscad
         # openshot-qt # depends on marked-insecure qtwebengine
         orca-slicer

@@ -1,0 +1,19 @@
+diff --git i/ui/advance/envdialog.cpp w/ui/advance/envdialog.cpp
+index a0e9494..7c4148d 100644
+--- i/ui/advance/envdialog.cpp
++++ w/ui/advance/envdialog.cpp
+@@ -627,6 +627,7 @@ bool EnvironmentSetupDialog::detectDevice(uint16_t vendorID, uint16_t productID)
+ #endif
+ 
+ bool EnvironmentSetupDialog::checkEnvironmentSetup() {
++    return true;
+     latestFirmware = VideoHid::getInstance().isLatestFirmware();
+     std::string version = VideoHid::getInstance().getCurrentFirmwareVersion();
+     std::string latestVersion = VideoHid::getInstance().getLatestFirmwareVersion();
+@@ -761,4 +762,4 @@ bool EnvironmentSetupDialog::autoEnvironmentCheck() {
+     bool autoCheck = settings.value("autoCheck", true).toBool();
+     qDebug() << "Auto-check preference: " << (autoCheck ? "enabled" : "disabled");
+     return autoCheck;
+-}
+\ No newline at end of file
++}

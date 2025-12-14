@@ -1,0 +1,16 @@
+diff --git i/cmake/Resources.cmake w/cmake/Resources.cmake
+index 6d17149..d6d9fa3 100644
+--- i/cmake/Resources.cmake
++++ w/cmake/Resources.cmake
+@@ -327,11 +327,6 @@ install(FILES ${CMAKE_SOURCE_DIR}/packaging/com.openterface.openterfaceQT.deskto
+     DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+ )
+ 
+-# Install metainfo file (for AppStream)
+-install(FILES ${CMAKE_SOURCE_DIR}/com.openterface.openterfaceQT.metainfo.xml
+-    DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
+-)
+-
+ # Guard deploy script generation for Qt < 6.3 on Ubuntu 22.04
+ if(COMMAND qt_generate_deploy_app_script)
+     qt_generate_deploy_app_script(

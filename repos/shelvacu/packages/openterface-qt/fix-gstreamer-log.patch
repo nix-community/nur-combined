@@ -1,0 +1,56 @@
+diff --git c/host/backend/gstreamer/gstreamer_log.cpp w/host/backend/gstreamer/gstreamer_log.cpp
+new file mode 100644
+index 0000000..d44fae9
+--- /dev/null
++++ w/host/backend/gstreamer/gstreamer_log.cpp
+@@ -0,0 +1,2 @@
++#include "gstreamer_log.h"
++Q_LOGGING_CATEGORY(log_gstreamer_backend, "opf.backend.gstreamer")
+diff --git c/host/backend/gstreamer/gstreamer_log.h w/host/backend/gstreamer/gstreamer_log.h
+new file mode 100644
+index 0000000..3502e6a
+--- /dev/null
++++ w/host/backend/gstreamer/gstreamer_log.h
+@@ -0,0 +1,3 @@
++#pragma once
++#include <QLoggingCategory>
++Q_DECLARE_LOGGING_CATEGORY(log_gstreamer_backend)
+diff --git c/host/backend/gstreamer/gstreamerhelpers.cpp w/host/backend/gstreamer/gstreamerhelpers.cpp
+index 6fc1dd6..669ada8 100644
+--- c/host/backend/gstreamer/gstreamerhelpers.cpp
++++ w/host/backend/gstreamer/gstreamerhelpers.cpp
+@@ -4,7 +4,7 @@
+ #include <QDebug>
+ #include <QLoggingCategory>
+ 
+-Q_LOGGING_CATEGORY(log_gstreamer_backend, "opf.backend.gstreamer")
++#include "gstreamer_log.h"
+ 
+ using namespace Openterface::GStreamer::GstHelpers;
+ 
+diff --git c/host/backend/gstreamer/queueconfigurator.cpp w/host/backend/gstreamer/queueconfigurator.cpp
+index b7bea42..c6229e3 100644
+--- c/host/backend/gstreamer/queueconfigurator.cpp
++++ w/host/backend/gstreamer/queueconfigurator.cpp
+@@ -8,7 +8,7 @@
+ #include <gst/gst.h>
+ #endif
+ 
+-Q_LOGGING_CATEGORY(log_gstreamer_backend, "opf.backend.gstreamer")
++#include "gstreamer_log.h"
+ 
+ using namespace Openterface::GStreamer;
+ 
+diff --git c/host/backend/gstreamer/videooverlaymanager.cpp w/host/backend/gstreamer/videooverlaymanager.cpp
+index d8bf42f..b9c543d 100644
+--- c/host/backend/gstreamer/videooverlaymanager.cpp
++++ w/host/backend/gstreamer/videooverlaymanager.cpp
+@@ -22,7 +22,7 @@ static int x11_overlay_error_handler_local(Display* display, XErrorEvent* error)
+ }
+ #endif
+ 
+-Q_LOGGING_CATEGORY(log_gstreamer_backend, "opf.backend.gstreamer")
++#include "gstreamer_log.h"
+ 
+ using namespace Openterface::GStreamer;
+ 
