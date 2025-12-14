@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "nix hash fixer";
+    description = "Nix hash fixer";
     mainProgram = "nix-fix-hash";
     homepage = "https://github.com/spotdemo4/nix-fix-hash";
     changelog = "https://github.com/spotdemo4/nix-fix-hash/releases/tag/v${finalAttrs.version}";

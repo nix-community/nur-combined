@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontFixup = true;
 
   meta = {
-    description = "git semantic version bumper";
+    description = "Git semantic version bumper";
     mainProgram = "bumper";
     homepage = "https://github.com/spotdemo4/bumper";
     changelog = "https://github.com/spotdemo4/bumper/releases/tag/v${finalAttrs.version}";

@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontFixup = true;
 
   meta = {
-    description = "nix flake package releaser";
+    description = "Nix flake package releaser";
     mainProgram = "release";
     homepage = "https://github.com/spotdemo4/nix-flake-release";
     changelog = "https://github.com/spotdemo4/nix-flake-release/releases/tag/v${finalAttrs.version}";
