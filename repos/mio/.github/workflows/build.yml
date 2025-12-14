@@ -80,6 +80,7 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Check evaluation
+      if: ${{ matrix.os  == 'ubuntu-24.04' }}
       run: |
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
