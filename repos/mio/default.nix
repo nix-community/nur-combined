@@ -133,7 +133,8 @@ let
           cb
           beammp-launcher
           mdbook-generate-summary
-          #betterbird
+          betterbird
+          jellyfin-media-player
           ;
       };
     }
