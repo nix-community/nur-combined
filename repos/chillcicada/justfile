@@ -1,10 +1,10 @@
 # list all available recipes
 default:
-  @just --list
+  @just --list --unsorted
 
 # build a target package
 build TARGET:
-  nix-build -A {{TARGET}} |& nom
+  nix build .#{{TARGET}} --impure |& nom
 
 alias b := build
 
