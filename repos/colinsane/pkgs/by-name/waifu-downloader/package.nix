@@ -47,13 +47,18 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  # fix meson to use the host python when cross compiling.
-  # this is a "known issue": <https://github.com/mesonbuild/meson/issues/12540>.
-  # somehow `buildPythonApplication` gets around this, if one were to use that for the packaging.
   postPatch = ''
+    # fix meson to use the host python when cross compiling.
+    # this is a "known issue": <https://github.com/mesonbuild/meson/issues/12540>.
+    # somehow `buildPythonApplication` gets around this, if one were to use that for the packaging.
     substituteInPlace src/meson.build --replace-fail \
       "python.find_installation('python3').path()" \
       "'${pythonEnv.interpreter}'"
+
+    # place settings not at ~/.config/config.json, but subdirectory
+    substituteInPlace src/preferences.py --replace-fail \
+      'self.directory = GLib.get_user_config_dir()' \
+      'self.directory = os.path.join(GLib.get_user_config_dir(), "waifudownloader")'
   '';
 
   nativeBuildInputs = [

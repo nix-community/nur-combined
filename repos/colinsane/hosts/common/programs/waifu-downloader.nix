@@ -9,5 +9,9 @@
     sandbox.extraHomePaths = [
       "tmp"  # for saving photos
     ];
+
+    persist.byStore.ephemeral = [
+      ".config/waifudownloader"
+    ];
   };
 }
