@@ -235,6 +235,7 @@
     ./video-trimmer.nix
     ./visidata.nix
     ./vlc.nix
+    ./waifu-downloader.nix
     ./wally-cli.nix
     ./waybar
     ./waylock.nix

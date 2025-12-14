@@ -383,6 +383,7 @@ in
       # "v4l-utils"  # for `media-ctl`; to debug cameras: <https://wiki.postmarketos.org/wiki/PINE64_PinePhone_(pine64-pinephone)#Cameras>
       "video-trimmer"
       "vulkan-tools"  # vulkaninfo
+      "waifu-downloader"
       # "whalebird"  # pleroma client (Electron). input is broken on phosh.
       "wiremix"  # wireplumber TUI
       "xdg-terminal-exec"

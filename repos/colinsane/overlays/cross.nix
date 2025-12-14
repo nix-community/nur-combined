@@ -777,6 +777,25 @@ in with final; {
   #     upstream.postBuild;
   # });
 
+  # 2025/12/13: upstreaming is blocked xdg-desktop-portal -> flatpak -> ostree -> gjs (fix in staging)
+  xdg-desktop-portal-phosh = prev.xdg-desktop-portal-phosh.overrideAttrs (orig: {
+    postPatch = (orig.postPatch or "") + ''
+      substituteInPlace src/meson.build --replace-fail \
+        "'src' / cargo_target / pmp_exe_name" \
+        "'src' / '${stdenv.hostPlatform.rust.cargoShortTarget}' / cargo_target / pmp_exe_name"
+
+      substituteInPlace subprojects/pfs/src/meson.build --replace-fail \
+        "'src' / rust_target" \
+        "'src' / '${stdenv.hostPlatform.rust.cargoShortTarget}' / rust_target"
+    '';
+    nativeBuildInputs = orig.nativeBuildInputs ++ [
+      pkgs.glib
+    ];
+    env = (orig.env or {}) // {
+      CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
+    };
+  });
+
   yt-dlp = prev.yt-dlp.override {
     # TODO(2025-11-17): yt-dlp needs deno (JavaScript) for full capability:
     # <https://github.com/NixOS/nixpkgs/pull/460892>

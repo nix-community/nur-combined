@@ -13,7 +13,6 @@
         ${upstream.postInstall}
       '';
     });
-    sandbox.whitelistDri = true;  #< required, else it fails to launch the gui
     sandbox.whitelistWayland = true;
     sandbox.net = "vpn";
     sandbox.extraHomePaths = [

@@ -775,9 +775,46 @@ let
       sandbox.whitelistPortal = lib.mkIf config.sandbox.whitelistSendNotifications [ "Notification" ];
 
       sandbox.extraEnv = {
+        # XXX(2025-12-13): unset x11 `DISPLAY` if there's no X11 access, to avoid errors.
+        # particularly, gtk apps with restricted networking (e.g. vpn) and wayland-only access hang on launch if DISPLAY is non-empty:
+        # #0  0x00007ffff7524f2b in _libc_connect (fd=14, addr=..., len=16) at ../sysdeps/unix/sysv/linux/connect.c:26
+        # #1  0x00007ffff5b3b02c in xcb_open_tcp () from /nix/store/9babi8y8p9crps6l8sz5gr5xm5fljw1h-libxcb-1.17.0/lib/libxcb.so.1
+        # #2  0x00007ffff5b3b522 in xcb_connect_to_display_with_auth_info ()
+        #    from /nix/store/9babi8y8p9crps6l8sz5gr5xm5fljw1h-libxcb-1.17.0/lib/libxcb.so.1
+        # #3  0x00007fffe95dd9e8 in device_select_find_xcb_pci_default ()
+        #    from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libVkLayer_MESA_device_select.so
+        # #4  0x00007fffe95dc443 in device_select_get_first ()
+        #    from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libVkLayer_MESA_device_select.so
+        # #5  0x00007fffe95dd5af in device_select_EnumeratePhysicalDevices ()
+        #    from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libVkLayer_MESA_device_select.so
+        # #6  0x00007ffff37b78e7 in vkEnumeratePhysicalDevices ()
+        #    from /nix/store/b1bldnpjpys7np3361plhp2wxcaw9iwr-vulkan-loader-1.4.328.0/lib/libvulkan.so.1
+        # #7  0x00007ffee528744f in zink_internal_create_screen () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libgallium-25.3.1.so
+        # #8  0x00007ffee528a0ac in zink_create_screen () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libgallium-25.3.1.so
+        # #9  0x00007ffee4d9a399 in pipe_loader_sw_create_screen ()
+        #    from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libgallium-25.3.1.so
+        # #10 0x00007ffee4d9a2da in pipe_loader_create_screen_vk ()
+        #    from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libgallium-25.3.1.so
+        # #11 0x00007ffee45e8b8c in kopper_init_screen () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libgallium-25.3.1.so
+        # #12 0x00007ffee45df6ad in driCreateNewScreen3 () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libgallium-25.3.1.so
+        # #13 0x00007fffe95a6c99 in dri2_create_screen () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libEGL_mesa.so.0
+        # #14 0x00007fffe95b0ba3 in dri2_initialize_wayland () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libEGL_mesa.so.0
+        # #15 0x00007fffe95a75c8 in dri2_initialize () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libEGL_mesa.so.0
+        # #16 0x00007fffe9597432 in eglInitialize () from /nix/store/ar4bcmfhns6gilp0jhnkyna4figqj2jy-mesa-25.3.1/lib/libEGL_mesa.so.0
+        # #17 0x00007ffff4948097 in gdk_display_init_egl () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
+        # #18 0x00007ffff48e8355 in gdk_wayland_display_init_gl () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
+        # #19 0x00007ffff4947d14 in gdk_display_prepare_gl () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
+        # #20 0x00007ffff49a3bac in gl_supported_platform () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
+        # #21 0x00007ffff49a3ccb in get_renderer_for_gl () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
+        # #22 0x00007ffff49a48e2 in gsk_renderer_new_for_surface_full () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
+        # #23 0x00007ffff470e475 in gtk_window_realize () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
+        # #24 0x00007ffff451a7f1 in gtk_application_window_real_realize ()
+        DISPLAY = lib.mkIf (!config.sandbox.whitelistX) "";
         MESA_SHADER_CACHE_DIR = lib.mkIf (config.sandbox.mesaCacheDir != null) "$HOME/${config.sandbox.mesaCacheDir}";
         MPLCONFIGDIR = lib.mkIf (config.sandbox.matplotlibCacheDir != null) "$HOME/${config.sandbox.matplotlibCacheDir}";
         TMPDIR = lib.mkIf (config.sandbox.tmpDir != null) "$HOME/${config.sandbox.tmpDir}";
+        # as with clearing DISPLAY for apps w/o X access, clear WAYLAND_DISPLAY even though no bugs witnessed yet.
+        WAYLAND_DISPLAY = lib.mkIf (!config.sandbox.whitelistWayland) "";
       };
 
       sandbox.extraPaths =

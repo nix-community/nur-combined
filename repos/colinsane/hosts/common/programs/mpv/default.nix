@@ -183,6 +183,15 @@ in
       };
       scripts = with pkgs.mpv-unwrapped; [
         scripts.mpris
+        (scripts.mpv-gallery-view.override {
+          # mpv-gallery-view: press `g` for grid view of the playlist, with thumbnails.
+          # extraThumbgens = how many images to generate thumbnails for in parallel (+1 implied)
+          extraThumbgens = {
+            fast = 1;
+            mid-range = 7;
+            high-quality = 15;
+          }.${cfg.config.defaultProfile};
+        })
         scripts.mpv-image-viewer.image-positioning
         scripts.mpv-playlistmanager
         scripts.mpv-webm
@@ -225,6 +234,9 @@ in
     ];
     sandbox.mesaCacheDir = ".cache/mpv/mesa";
 
+    persist.byStore.ephemeral = [
+      ".cache/thumbnails/mpv-gallery"  # only if mpv-gallery-view is enabled
+    ];
     persist.byStore.plaintext = [
       # for `watch_later`
       ".local/state/mpv"
