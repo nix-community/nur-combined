@@ -29,16 +29,16 @@ let
 in
 buildNpmPackage rec {
   pname = "asciinema-player";
-  version = "3.13.0";
+  version = "3.13.3";
 
   src = fetchFromGitHub {
     owner = "asciinema";
     repo = "asciinema-player";
-    rev = "v3.13.0";
-    hash = "sha256-BA+E+zg3bGKAJ/eq4gUUKy55wWzJI3QjIDSh93xFRXI=";
+    rev = "v3.13.3";
+    hash = "sha256-b24E7Lcd8djnkS9h5S/S9tpb7P7QG9YbSFRDtQPe4i0=";
   };
 
-  npmDepsHash = "sha256-8SRkarTzdeQyDaWLbZB8jceY8YItlgYYDTjcPNF5CE0=";
+  npmDepsHash = "sha256-vVb9kufuAicxDVp2qvMxo7LvZsdbDo4N2WMA9w1fwFI=";
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
