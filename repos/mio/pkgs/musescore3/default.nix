@@ -28,13 +28,13 @@
 
 mkDerivation rec {
   pname = "musescore";
-  version = "3.6.2-unstable-2025-12-03"; # version = "3.6.2";
+  version = "3.6.2-unstable-2025-12-13"; # version = "3.6.2";
 
   src = fetchFromGitHub {
     owner = "Jojo-Schmitz"; # owner = "musescore";
     repo = "MuseScore";
-    rev = "48ee1ab8dc59cbb729bfe6a9eff476974be8bfb5"; # rev = "v${version}"; # 3.6.2
-    hash = "sha256-G2k3EQ3arIOzFa+N1DsVtfsOPMmHV6u9OLAIaGCJgSA="; # sha256 = "sha256-GBGAD/qdOhoNfDzI+O0EiKgeb86GFJxpci35T6tZ+2s=";
+    rev = "680593b584f2d43fa2d757e232ff043da5e5711b"; # rev = "v${version}"; # 3.6.2
+    hash = "sha256-eu/AHUjl7nu59DTvR3SZRBWE1+g85Z+wjCiuCdZJgn0="; # sha256 = "sha256-GBGAD/qdOhoNfDzI+O0EiKgeb86GFJxpci35T6tZ+2s=";
   };
 
   patches = [
