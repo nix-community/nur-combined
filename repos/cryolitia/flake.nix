@@ -111,7 +111,7 @@
             )
             // (
               if (builtins.elem system systems-linux) then
-                import ./nix/linux-specific.nix { inherit pkgs gpd-fan-driver; }
+                import ./pkgs/linux-specific.nix { inherit pkgs gpd-fan-driver; }
               else
                 { }
             )

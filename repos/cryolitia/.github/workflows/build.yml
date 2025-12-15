@@ -66,15 +66,15 @@ jobs:
 
     - name: Build x86_64 nix packages
       if: ${{ matrix.os == 'ubuntu-latest' }}
-      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L --keep-going' ./nix/ci.nix
+      run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --flake .#ciJobs.x86_64-linux
 
     - name: Build darwin nix packages
       if: ${{ matrix.os == 'macos-latest'}}
-      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L --keep-going' ./nix/ci_darwin.nix
+      run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --flake .#ciJobs.aarch64-darwin
 
     - name: Build aarch64-linux nix packages
       if: ${{ matrix.os == 'ubuntu-24.04-arm'}}
-      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L --keep-going' ./nix/ci_aarch64.nix
+      run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --flake .#ciJobs.aarch64-linux
   
   trigger:
     runs-on: ubuntu-latest
