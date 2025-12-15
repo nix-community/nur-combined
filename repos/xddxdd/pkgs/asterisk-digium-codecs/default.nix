@@ -4,7 +4,6 @@
   fetchurl,
   autoPatchelfHook,
   curl,
-  mergePkgs,
   ...
 }:
 let
@@ -44,7 +43,7 @@ let
   mkAsteriskVersion =
     asterisk_version: v:
     lib.nameValuePair (builtins.replaceStrings [ "." ] [ "_" ] asterisk_version) (
-      mergePkgs (
+      lib.recurseIntoAttrs (
         lib.filterAttrs (n: v: v != null) (
           lib.mapAttrs (
             name: value:
@@ -59,4 +58,4 @@ let
       )
     );
 in
-lib.mapAttrs' mkAsteriskVersion (lib.importJSON ./sources.json)
+lib.recurseIntoAttrs (lib.mapAttrs' mkAsteriskVersion (lib.importJSON ./sources.json))

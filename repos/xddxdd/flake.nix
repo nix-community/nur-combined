@@ -153,7 +153,7 @@
             pkgsWithCuda,
             ...
           }:
-          {
+          rec {
             nixpkgs-options = {
               pkgs = {
                 sourceInput = inputs.nixpkgs;
@@ -166,13 +166,6 @@
               };
             };
 
-            packages = import ./pkgs null {
-              inherit inputs pkgs;
-            };
-            packagesWithCuda = import ./pkgs null {
-              inherit inputs;
-              pkgs = pkgsWithCuda;
-            };
             legacyPackages = import ./pkgs "legacy" {
               inherit inputs pkgs;
             };
@@ -180,6 +173,9 @@
               inherit inputs;
               pkgs = pkgsWithCuda;
             };
+
+            packages = lib.filterAttrs (_: lib.isDerivation) legacyPackages;
+            packagesWithCuda = lib.filterAttrs (_: lib.isDerivation) legacyPackagesWithCuda;
 
             devshells.default = {
               packages = [ pkgs.python3 ];

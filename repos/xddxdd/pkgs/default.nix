@@ -21,7 +21,6 @@ let
   inherit (import ../helpers/group.nix { inherit pkgs lib mode inputs; })
     doFlatGroupPackages
     doGroupPackages
-    doMergePkgs
     ifNotCI
     ifNotNUR
     ;
@@ -52,4 +51,4 @@ let
     (doGroupPackages self groups) // (doGroupPackages self flatGroups)
   ) (builtins.attrValues (doFlatGroupPackages self flatGroups));
 in
-doMergePkgs self
+self

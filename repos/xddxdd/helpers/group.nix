@@ -5,15 +5,6 @@
   inputs,
 }:
 rec {
-  # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
-  mergePkgs = pkgs.callPackage ./merge-pkgs.nix {
-    enableWrapper =
-      !(builtins.elem mode [
-        "nur"
-        "legacy"
-      ]);
-  };
-
   ifNotCI = p: if mode == "ci" then null else p;
   ifNotNUR = p: if mode == "nur" then null else p;
 
@@ -56,7 +47,6 @@ rec {
         inputs
         lib
         loadPackages
-        mergePkgs
         mode
         pkgs
         sources
@@ -99,6 +89,4 @@ rec {
       callGroup = createCallGroup _packages callPackage;
     in
     _doGroupPackages callGroup groups;
-
-  doMergePkgs = lib.mapAttrs (n: v: if lib.isDerivation v then v else mergePkgs v);
 }
