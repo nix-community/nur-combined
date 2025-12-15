@@ -3,12 +3,11 @@
   stdenvNoCC,
   fetchurl,
   _7zz,
-  pkgs,
   lib,
   ...
 }: let
   ver = lib.helper.read ./version.json;
-  platform = pkgs.stdenv.hostPlatform.system;
+  platform = stdenvNoCC.hostPlatform.system;
 
   pname = "helium";
   src = fetchurl (lib.helper.getPlatform platform ver);

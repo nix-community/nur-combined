@@ -6,10 +6,10 @@
     "query": ".[0].tag_name"
   },
   "asset": {
-    "url_template": "https://github.com/{repo}/releases/download/{version}/proton-{version}-x86_64{0}.tar.xz",
+    "file": "proton-{version}-x86_64{0}.tar.xz",
     "unpack": true
   },
-  "force_hash": true,
+  "force": true,
   "version": "cachyos-10.0-20251126-slr",
   "variants": {
     "v1": {

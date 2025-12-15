@@ -3,12 +3,20 @@
   "source": {
     "type": "github-release",
     "repo": "Prince527GitHub/Re-Lunatic-Player",
-    "query": ".[0].tag_name"
-  },
-  "asset": {
-    "url": "https://github.com/{repo}/releases/download/v{version}/re-lunatic-player-linux-x64-{version}.tar.gz",
-    "unpack": true
+    "query": ".[0].tag_name",
+    "tag_prefix": "v"
   },
   "version": "1.1.0",
-  "hash": "sha256-2bHlFtjz3SIL68fxqrAFRWScVHzExW1tTh9c12BjsWo="
+  "platforms": {
+    "x86_64-linux": {
+      "file": "Re-Lunatic.Player-linux-x64-{version}.zip",
+      "hash": "sha256-IZ2SNsBa3/fyP8SWtiZPqNTJDUeGKYx85E04KFgtw/c=",
+      "unpack": false
+    },
+    "aarch64-darwin": {
+      "file": "Re-Lunatic.Player-darwin-arm64-{version}.zip",
+      "hash": "sha256-Tif+YPYjmrvgNkguxV7R2FJQyX5UtBKJ6IicnV6HOYg=",
+      "unpack": false
+    }
+  }
 }

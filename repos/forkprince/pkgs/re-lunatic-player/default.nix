@@ -8,9 +8,10 @@
   stdenvNoCC,
   electron,
   alsa-lib,
-  fetchzip,
-  mesa,
+  fetchurl,
   cairo,
+  unzip,
+  mesa,
   xorg,
   cups,
   dbus,
@@ -21,81 +22,102 @@
   ...
 }: let
   ver = lib.helper.read ./version.json;
+  platform = stdenvNoCC.hostPlatform.system;
+
+  pname = "re-lunatic-player";
+  src = fetchurl (lib.helper.getPlatform platform ver);
+
+  inherit (ver) version;
+
+  meta = {
+    description = "A Gensokyo Radio player with easy song info, continuing the Lunatic Player project. ";
+    homepage = "https://github.com/Prince527GitHub/Re-Lunatic-Player";
+    license = lib.licenses.agpl3Only;
+    maintainers = ["Wam25" "Prinky"];
+    platforms = ["x86_64-linux" "aarch64-darwin"];
+    mainProgram = "re-lunatic-player";
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+  };
 in
-  stdenvNoCC.mkDerivation {
-    pname = "re-lunatic-player";
-    inherit (ver) version;
+  if stdenvNoCC.isDarwin
+  then
+    stdenvNoCC.mkDerivation {
+      inherit pname version src meta;
 
-    src = fetchzip (lib.helper.getSingle ver
-      // {
-        stripRoot = false;
-      });
+      nativeBuildInputs = [unzip];
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      copyDesktopItems
-      makeWrapper
-    ];
+      sourceRoot = ".";
 
-    buildInputs =
-      [
-        libxkbcommon
-        at-spi2-atk
-        alsa-lib
-        electron
-        cairo
-        cups
-        dbus
-        glib
-        gtk3
-        mesa
-        nss
-      ]
-      ++ (with xorg; [
-        libXcomposite
-        libXdamage
-        libXrandr
-        libXfixes
-        libXext
-        libX11
-      ]);
+      dontBuild = true;
+      dontFixup = true;
 
-    desktopItems = makeDesktopItem {
-      name = "re-lunatic-player";
-      desktopName = "Re:Lunatic Player";
-      exec = "re-lunatic-player";
-      startupWMClass = "Re:Lunatic Player";
-      genericName = "Radio Player";
-      keywords = [
-        "radio"
-        "touhou"
-        "lunatic"
-        "player"
-        "music"
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/Applications
+        cp -r "Re-Lunatic Player.app" $out/Applications/
+        runHook postInstall
+      '';
+    }
+  else
+    stdenvNoCC.mkDerivation {
+      inherit pname version src meta;
+
+      nativeBuildInputs = [
+        autoPatchelfHook
+        copyDesktopItems
+        makeWrapper
+        unzip
       ];
-      categories = [
-        "Audio"
-        "AudioVideo"
-      ];
-    };
 
-    installPhase = ''
-      mkdir $out
-      cp -r . $out/opt
+      buildInputs =
+        [
+          libxkbcommon
+          at-spi2-atk
+          alsa-lib
+          electron
+          cairo
+          cups
+          dbus
+          glib
+          gtk3
+          mesa
+          nss
+        ]
+        ++ (with xorg; [
+          libXcomposite
+          libXdamage
+          libXrandr
+          libXfixes
+          libXext
+          libX11
+        ]);
 
-      makeWrapper ${electron}/bin/electron $out/bin/re-lunatic-player \
-        --add-flags $out/opt/resources/app.asar
+      desktopItems = makeDesktopItem {
+        name = "re-lunatic-player";
+        desktopName = "Re:Lunatic Player";
+        exec = "re-lunatic-player";
+        startupWMClass = "Re:Lunatic Player";
+        genericName = "Radio Player";
+        keywords = [
+          "radio"
+          "touhou"
+          "lunatic"
+          "player"
+          "music"
+        ];
+        categories = [
+          "Audio"
+          "AudioVideo"
+        ];
+      };
 
-      runHook postInstall
-    '';
+      installPhase = ''
+        mkdir $out
+        cp -r . $out/opt
 
-    meta = {
-      description = "A Gensokyo Radio player with easy song info, continuing the Lunatic Player project. ";
-      homepage = "https://github.com/Prince527GitHub/Re-Lunatic-Player";
-      license = lib.licenses.agpl3Only;
-      maintainers = ["Wam25" "Prinky"];
-      platforms = ["x86_64-linux"];
-      mainProgram = "re-lunatic-player";
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
-    };
-  }
+        makeWrapper ${electron}/bin/electron $out/bin/re-lunatic-player \
+          --add-flags $out/opt/resources/app.asar
+
+        runHook postInstall
+      '';
+    }

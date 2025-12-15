@@ -3,12 +3,25 @@
   "source": {
     "type": "github-release",
     "repo": "amir1376/ab-download-manager",
-    "query": ".[0].tag_name"
-  },
-  "asset": {
-    "url": "https://github.com/{repo}/releases/download/v{version}/ABDownloadManager_1.7.1_linux_x64.tar.gz",
-    "unpack": false
+    "query": ".[0].tag_name",
+    "tag_prefix": "v"
   },
   "version": "1.7.1",
-  "hash": "sha256-JTW5wTGzfSHAnpi3h21Q485I7noaKjwrY4M8HgDkhTQ="
+  "platforms": {
+    "x86_64-linux": {
+      "file": "ABDownloadManager_{version}_linux_x64.tar.gz",
+      "hash": "sha256-JTW5wTGzfSHAnpi3h21Q485I7noaKjwrY4M8HgDkhTQ=",
+      "unpack": false
+    },
+    "x86_64-darwin": {
+      "file": "ABDownloadManager_{version}_mac_x64.tar.gz",
+      "hash": "sha256-yOZ3ejIPtq88XgBd50gG73OSGYGaZyBSOONJPI1kHjU=",
+      "unpack": false
+    },
+    "aarch64-darwin": {
+      "file": "ABDownloadManager_{version}_mac_arm64.tar.gz",
+      "hash": "sha256-H4lVeQ5ut8/YujKbSeFwImbXtOi6SXBFxUIykMivwIM=",
+      "unpack": false
+    }
+  }
 }

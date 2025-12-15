@@ -6,7 +6,7 @@
     "query": ".[0].tag_name"
   },
   "asset": {
-    "url": "https://github.com/{repo}/releases/download/{version}/boxtron.tar.xz",
+    "file": "boxtron.tar.xz",
     "unpack": true
   },
   "version": "0.5.4",

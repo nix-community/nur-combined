@@ -49,17 +49,19 @@ jobs:
 
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         nixPath:
           # - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
       - name: Maximize Space
+        if: runner.os == 'Linux'
         uses: wimpysworld/nothing-but-nix@main
 
       - name: Install Nix

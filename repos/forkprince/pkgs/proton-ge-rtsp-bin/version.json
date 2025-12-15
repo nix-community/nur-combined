@@ -6,10 +6,10 @@
     "query": ".[0].tag_name"
   },
   "asset": {
-    "url": "https://github.com/{repo}/releases/download/{version}/{version}.tar.gz",
+    "file": "{version}.tar.gz",
     "unpack": true
   },
-  "force_hash": true,
+  "force": true,
   "version": "GE-Proton10-26-rtsp20",
   "hash": "sha256-eAJjw575cJlj7qLsPC1LgRsVMW4O754Q6SO7IV74EyE="
 }

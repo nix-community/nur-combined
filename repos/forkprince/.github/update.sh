@@ -35,10 +35,7 @@ fi
 config=$(cat "$version_file")
 
 if [[ "$force_hash" == "false" ]]; then
-  json_force=$(jq -r '.force_hash // false' <<< "$config")
-  if [[ "$json_force" == "true" ]]; then
-    force_hash=true
-  fi
+  force_hash=$(jq -r '.force // false' <<< "$config")
 fi
 
 source_type=$(jq -r '.source.type // "github-release"' <<< "$config")
@@ -128,18 +125,24 @@ update_single() {
   local repo="$1"
   local rawVersion="$2"
   local version="$3"
-  local url unpack tmp hash
+  local url unpack tmp hash file tag_prefix
 
-  url=$(jq -r '.asset.url // empty' <<< "$config")
+  file=$(jq -r '.asset.file // empty' <<< "$config")
+  tag_prefix=$(jq -r '.source.tag_prefix // empty' <<< "$config")
   unpack=$(jq -r '.asset.unpack // false' <<< "$config")
 
-  if [[ -z "$url" ]]; then
-    echo "⚠️ Error: 'asset.url' is required" >&2
-    exit 1
+  if [[ -n "$file" && "$file" != "null" ]]; then
+    file="${file//\{version\}/$version}"
+    url="https://github.com/${repo}/releases/download/${tag_prefix}${rawVersion}/${file}"
+  else
+    url=$(jq -r '.asset.url // empty' <<< "$config")
+    if [[ -z "$url" || "$url" == "null" ]]; then
+      echo "⚠️ Error: Either 'asset.file' or 'asset.url' is required" >&2
+      exit 1
+    fi
+    url="${url//\{repo\}/$repo}"
+    url="${url//\{version\}/$rawVersion}"
   fi
-
-  url="${url//\{repo\}/$repo}"
-  url="${url//\{version\}/$rawVersion}"
 
   echo "⬇️  Downloading $url"
 
@@ -184,18 +187,17 @@ update_platforms() {
   for platform in "${platforms[@]}"; do
     platform_repo=$(jq -r --arg p "$platform" '.platforms[$p].repo // empty' <<< "$config")
 
-    if [[ -z "$platform_repo" ]]; then
+    if [[ -z "$platform_repo" || "$platform_repo" == "null" ]]; then
       platform_repo="$default_repo"
       platform_raw_version="$rawVersion"
     else
       echo "   [$platform] Using repo: $platform_repo"
-      local platform_releases
+      local platform_releases query
       if ! platform_releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${platform_repo}/releases?per_page=100"); then
         echo "⚠️ Error: Failed to fetch releases from $platform_repo" >&2
         continue
       fi
 
-      local query
       query=$(jq -r '.source.query // ".[0].tag_name"' <<< "$config")
       platform_raw_version=$(jq -r "sort_by(.created_at) | reverse | $query" <<< "$platform_releases")
 
@@ -205,16 +207,18 @@ update_platforms() {
       fi
     fi
 
-    file=$(jq -r --arg p "$platform" '.platforms[$p].file' <<< "$config")
+    file=$(jq -r --arg p "$platform" '.platforms[$p].file // empty' <<< "$config")
     unpack=$(jq -r --arg p "$platform" '.platforms[$p].unpack // false' <<< "$config")
 
-    if [[ -z "$file" || "$file" == "null" ]]; then
-      echo "⚠️ Error: 'file' required for platform '$platform'" >&2
+    if [[ -n "$file" && "$file" != "null" ]]; then
+      file="${file//\{version\}/$version}"
+      local tag_prefix
+      tag_prefix=$(jq -r --arg p "$platform" '.platforms[$p].tag_prefix // .source.tag_prefix // empty' <<< "$config")
+      url="https://github.com/${platform_repo}/releases/download/${tag_prefix}${platform_raw_version}/${file}"
+    else
+      echo "⚠️ Error: 'file' is required for platform '$platform'" >&2
       exit 1
     fi
-
-    file="${file//\{version\}/$version}"
-    url="https://github.com/${platform_repo}/releases/download/${platform_raw_version}/${file}"
 
     echo "   [$platform] $file"
 
@@ -245,13 +249,15 @@ update_variants() {
   local repo="$1"
   local rawVersion="$2"
   local version="$3"
-  local tmp url_template variant url hash
+  local tmp file tag_prefix variant url hash
 
   tmp=$(mktemp)
-  url_template=$(jq -r '.asset.url_template // empty' <<< "$config")
 
-  if [[ -z "$url_template" ]]; then
-    echo "⚠️ Error: 'asset.url_template' required for variants" >&2
+  file=$(jq -r '.asset.file // empty' <<< "$config")
+  tag_prefix=$(jq -r '.source.tag_prefix // empty' <<< "$config")
+
+  if [[ -z "$file" || "$file" == "null" ]]; then
+    echo "⚠️ Error: 'asset.file' is required for variants" >&2
     exit 1
   fi
 
@@ -263,17 +269,16 @@ update_variants() {
   done < <(jq -r '.variants | keys[]' <<< "$config")
 
   for variant in "${variants[@]}"; do
-    local substitutions
-    substitutions=$(jq -r --arg v "$variant" '.variants[$v].substitutions // []' <<< "$config")
-
-    url="${url_template//\{repo\}/$repo}"
-    url="${url//\{version\}/$rawVersion}"
+    local file_with_subs="$file"
+    file_with_subs="${file_with_subs//\{version\}/$version}"
 
     local i=0
     while IFS= read -r sub; do
-      url="${url//\{$i\}/$sub}"
+      file_with_subs="${file_with_subs//\{$i\}/$sub}"
       i=$((i + 1))
     done < <(jq -r --arg v "$variant" '.variants[$v].substitutions[]' <<< "$config")
+
+    url="https://github.com/${repo}/releases/download/${tag_prefix}${rawVersion}/${file_with_subs}"
 
     echo "   [$variant] $(jq -r --arg v "$variant" '.variants[$v].substitutions | join(", ")' <<< "$config")"
 

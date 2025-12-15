@@ -1,3 +1,4 @@
+# TODO: Add darwin support and linux arm
 {
   fetchurl,
   beeper,

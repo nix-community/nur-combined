@@ -8,8 +8,12 @@ with builtins; let
       if builtins.isList licenseFromMeta
       then licenseFromMeta
       else [licenseFromMeta];
+    supportedPlatforms = p.meta.platforms or [];
+    currentSystem = pkgs.stdenv.hostPlatform.system;
   in
-    !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
+    !(p.meta.broken or false) 
+    && builtins.all (license: license.free or true) licenseList
+    && (supportedPlatforms == [] || builtins.any (platform: platform == currentSystem) supportedPlatforms);
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
