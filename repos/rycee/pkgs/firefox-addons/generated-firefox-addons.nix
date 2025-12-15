@@ -2340,10 +2340,10 @@
     };
     "copy-as-markdown" = buildFirefoxXpiAddon {
       pname = "copy-as-markdown";
-      version = "3.3.0";
+      version = "3.4.2";
       addonId = "jid1-tfBgelm3d4bLkQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4503663/copy_as_markdown-3.3.0.xpi";
-      sha256 = "e88e11fd25a947caf6dc35b854081c94f95fc10d1795bab4aed12e43ed8a96a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4642341/copy_as_markdown-3.4.2.xpi";
+      sha256 = "3b3fb9078c5eebdade8195c6b100629fec232c78106a50e41570c6c4d1a8615c";
       meta = with lib;
       {
         homepage = "https://github.com/yorkxin/copy-as-markdown";
