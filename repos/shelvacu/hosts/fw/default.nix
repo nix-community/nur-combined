@@ -47,6 +47,8 @@
     obs-studio
     # jellyfin-media-player # depends on marked-insecure qtwebengine :weary:
     kdePackages.ktorrent
+    exfat
+    gparted
   '';
 
   services.power-profiles-daemon.enable = true;
