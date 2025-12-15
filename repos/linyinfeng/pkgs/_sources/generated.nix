@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.10.0";
+    version = "v1.11.0";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.10.0";
+      rev = "v1.11.0";
       fetchSubmodules = false;
-      sha256 = "sha256-8QKYDk7Q4oiqyf3vwziu1+A5T2soKuKC5MxPlsOWTM4=";
+      sha256 = "sha256-KHuJRsI6XHpf8KcMoqh+HdekK91AiUDxZmwAmH5NXl0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-8QKYDk7Q4oiqyf3vwziu1+A5T2soKuKC5MxPlsOWTM4=/Cargo.lock";
+      lockFile = ./. + "/sha256-KHuJRsI6XHpf8KcMoqh+HdekK91AiUDxZmwAmH5NXl0=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
       };
@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.9.0";
+    version = "v2.9.1";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.9.0";
+      rev = "v2.9.1";
       fetchSubmodules = false;
-      sha256 = "sha256-WsxgkefqnN6DSbejxKTDAXigKIy3HuQ6vTIAtSGK/VI=";
+      sha256 = "sha256-kMV25qqlPjLfngfwMmpP7iML3oFIt6k3E4ERP7wAkO0=";
     };
   };
   dot-tar = {
