@@ -18,10 +18,9 @@
                         name = "update";
                         help = "Update flake lock and update all packages using nix-update";
                         category = "[chore]";
-                        package = pkgs.python3;
                         command = ''
                             nix flake update
-                            python update.py
+                            ${pkgs.lib.getExe pkgs.python3} update.py
                         '';
                     }
                 ];
