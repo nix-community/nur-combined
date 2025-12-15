@@ -2,7 +2,7 @@
   appimageTools,
   stdenvNoCC,
   fetchurl,
-  undmg,
+  _7zz,
   pkgs,
   lib,
   ...
@@ -31,15 +31,12 @@ in
     stdenvNoCC.mkDerivation {
       inherit pname version src meta;
 
-      nativeBuildInputs = [undmg];
-
-      unpackPhase = ''
-        runHook preUnpack
-        undmg "$src"
-        runHook postUnpack
-      '';
+      nativeBuildInputs = [_7zz];
 
       sourceRoot = ".";
+
+      dontBuild = true;
+      dontFixup = true;
 
       installPhase = ''
         runHook preInstall
