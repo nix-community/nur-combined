@@ -18,12 +18,12 @@
 }:
 stdenv.mkDerivation rec {
   pname = "mcreator";
-  version = "2025.2";
-  fullversion = "${version}.28610";
+  version = "2025.3";
+  fullversion = "${version}.45720";
 
   src = fetchurl {
     url = "https://github.com/MCreator/MCreator/releases/download/${fullversion}/MCreator.${version}.Linux.64bit.tar.gz";
-    hash = "sha256-Jt2IDSUqr9mro+6bpdp4kqG6jTQ6aT0q9RQNLmeGj+I=";
+    hash = "sha256-qtqT2lm2Md89xoSOX3Ugeo+0T73L2Tc0kWr1Y0mxyDQ=";
   };
 
   nativeBuildInputs = [
