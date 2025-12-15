@@ -48,7 +48,9 @@
     # jellyfin-media-player # depends on marked-insecure qtwebengine :weary:
     kdePackages.ktorrent
     exfat
+    exfatprogs
     gparted
+    freecad
   '';
 
   services.power-profiles-daemon.enable = true;
