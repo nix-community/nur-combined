@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   mcreator-2025_2 = pkgs.callPackage ./pkgs/mcreator-2025_2 { };
+  mcreator-2025_3 = pkgs.callPackage ./pkgs/mcreator-2025_3 { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
