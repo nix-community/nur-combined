@@ -39,25 +39,25 @@ in
 
     buildInputs =
       [
-        alsa-lib
+        libxkbcommon
         at-spi2-atk
+        alsa-lib
+        electron
         cairo
         cups
         dbus
-        electron
         glib
         gtk3
         mesa
-        libxkbcommon
         nss
       ]
       ++ (with xorg; [
-        libX11
         libXcomposite
         libXdamage
-        libXext
-        libXfixes
         libXrandr
+        libXfixes
+        libXext
+        libX11
       ]);
 
     desktopItems = makeDesktopItem {

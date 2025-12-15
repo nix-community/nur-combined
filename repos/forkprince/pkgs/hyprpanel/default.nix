@@ -1,6 +1,6 @@
 {
-  fetchFromGitHub,
   gtk4-layer-shell,
+  fetchFromGitHub,
   gtk-layer-shell,
   buildGoModule,
   symlinkJoin,
