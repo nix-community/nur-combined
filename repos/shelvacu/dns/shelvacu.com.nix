@@ -40,6 +40,7 @@ in
     "2e14".A = propA;
     f.A = propA;
     files.A = propA;
+    cffu.A = solisA;
     copy.A = propA;
     copyparty.A = propA;
     actual.A = propA;
