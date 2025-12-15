@@ -1,7 +1,6 @@
 { lib, system, ... }:
 rec {
   isDerivation = p: builtins.isAttrs p && p ? type && p.type == "derivation";
-  isIndependentDerivation = p: isDerivation p && p.name != "merged-packages";
   isHiddenName = n: lib.hasPrefix "_" n || n == "stdenv";
   isTargetPlatform = isTargetPlatform' system;
   isTargetPlatform' = system: p: lib.elem system (p.meta.platforms or [ system ]);
@@ -30,7 +29,7 @@ rec {
               [ ]
             else if shouldRecurseForDerivations p then
               _flattenPkgs path sep p
-            else if isIndependentDerivation p && isTargetPlatform p then
+            else if isDerivation p && isTargetPlatform p then
               [
                 {
                   name = path;

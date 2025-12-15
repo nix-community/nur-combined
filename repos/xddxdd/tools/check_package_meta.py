@@ -363,10 +363,6 @@ def check_package(args) -> bool:
     nvfetcher_config = get_package_nvfetcher_config(package_path)
     nvfetcher_generated = get_package_nvfetcher_generated(package_path)
 
-    # Do not check merged packages solely for CI purposes
-    if package_info["name"] == "merged-packages":
-        return True
-
     autocorrect_package_meta(
         package_path, package_meta, nvfetcher_config, nvfetcher_generated
     )
