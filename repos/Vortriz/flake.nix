@@ -16,7 +16,7 @@
     };
 
     outputs =
-        { flake-parts, ... }@inputs:
+        { nixpkgs, flake-parts, ... }@inputs:
         flake-parts.lib.mkFlake { inherit inputs; } {
             systems = import inputs.systems;
 
@@ -32,7 +32,7 @@
                     ...
                 }:
                 {
-                    _module.args.pkgs = import inputs.nixpkgs {
+                    _module.args.pkgs = import nixpkgs {
                         inherit system;
                         config.allowUnfree = true;
                     };
@@ -41,6 +41,7 @@
                 };
 
             flake = {
+                overlays.default = final: prev: import ./overlay.nix final prev;
                 homeModules = import ./modules/home-manager;
             };
         };
