@@ -127,5 +127,4 @@ rec {
     };
 
   icu = pkgs.callPackage ./pkgs/icu { };
-  cachyosPackages = callOverride ./pkgs/linux-cachyos { nyxUtils = nyxUtils; };
 }
