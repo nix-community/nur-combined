@@ -33,6 +33,12 @@ in
 
       nativeBuildInputs = [undmg];
 
+      unpackPhase = ''
+        runHook preUnpack
+        undmg "$src"
+        runHook postUnpack
+      '';
+
       sourceRoot = ".";
 
       installPhase = ''
