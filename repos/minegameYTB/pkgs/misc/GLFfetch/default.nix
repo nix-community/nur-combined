@@ -9,11 +9,15 @@
   coreutils,
   gawk,
   bash,
-  glfIcon ? "GLF" ### Use GLF icon or GLFos icon (to change icon) (How to create an overlay with this expression ?)
+  glfIcon ? "GLF", # Use GLF icon or GLFos icon (to change icon) (How to create an overlay with this expression ?)
 }:
 
 ### sets the option to two choices (otherwise, throw error)
-assert lib.elem glfIcon [ "GLF" "GLFos" ]
+assert
+  lib.elem glfIcon [
+    "GLF"
+    "GLFos"
+  ]
   || throw "glfIcon must be either \"GLF\" or \"GLFos\" (got: ${glfIcon})";
 
 stdenvNoCC.mkDerivation rec {
@@ -26,11 +30,19 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-AgUQ4tmH4Wta+HuIvFZc89UHEdZcDiQdZiHsASCgDlE=";
   };
 
-  outputs = [ "out" "assets" ];
+  outputs = [
+    "out"
+    "assets"
+  ];
   outputsToInstall = outputs;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ fastfetch bash.out coreutils gawk ];
+  buildInputs = [
+    fastfetch
+    bash.out
+    coreutils
+    gawk
+  ];
 
   postPatch = ''
     ### Patch path in upstream archive
@@ -90,7 +102,12 @@ stdenvNoCC.mkDerivation rec {
 
     makeWrapper ${fastfetch}/bin/fastfetch $out/bin/GLFfetch \
       --add-flags "--config $assets/share/${pname}/challenge.jsonc" \
-      --set PATH ${lib.makeBinPath [ coreutils gawk ]}
+      --set PATH ${
+        lib.makeBinPath [
+          coreutils
+          gawk
+        ]
+      }
   '';
 
   meta = {

@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, makeWrapper, glib, coreutils, diffutils, }:
+{
+  lib,
+  stdenvNoCC,
+  makeWrapper,
+  glib,
+  coreutils,
+  diffutils,
+}:
 
 ### found here (https://blog.lazy-evaluation.net/posts/linux/gsettings-diff.html (web archive: https://web.archive.org/web/20250323112054/https://blog.lazy-evaluation.net/posts/linux/gsettings-diff.html))
 
@@ -8,7 +15,12 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./gsettings-diff;
 
-  buildInputs = [ glib coreutils diffutils makeWrapper ];
+  buildInputs = [
+    glib
+    coreutils
+    diffutils
+    makeWrapper
+  ];
 
   dontUnpack = true;
 
@@ -24,7 +36,13 @@ stdenvNoCC.mkDerivation rec {
   postFixup = ''
     ### Add runtime path to gsettings-diff wrapper
     wrapProgram $out/bin/${pname} \
-      --set PATH ${lib.makeBinPath [ glib coreutils diffutils ]}
+      --set PATH ${
+        lib.makeBinPath [
+          glib
+          coreutils
+          diffutils
+        ]
+      }
   '';
 
   meta = {

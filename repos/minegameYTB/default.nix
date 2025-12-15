@@ -6,12 +6,14 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
-with pkgs; 
+with pkgs;
 let
   ### Define pkgs/default.nix as nurpkgs (to define packages on this flake)
-  nurPkgs = pkgs.callPackages ./pkgs {};
+  nurPkgs = pkgs.callPackages ./pkgs { };
 in
 
 {
@@ -19,4 +21,5 @@ in
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-} // nurPkgs
+}
+// nurPkgs

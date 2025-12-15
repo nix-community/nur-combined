@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, gnutar, zstd, autoPatchelfHook }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  gnutar,
+  zstd,
+  autoPatchelfHook,
+}:
 
 stdenvNoCC.mkDerivation rec {
   ### Name this program with this name bc edit already exist (not the same program)
@@ -9,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     url = "https://github.com/microsoft/edit/releases/download/v${version}/edit-${version}-x86_64-linux-gnu.tar.zst";
     sha256 = "sha256-runy8h68kMwdv7IO6T06oD0yUSeo4/f5HdAsWp4KeyU=";
   };
-  
+
   ### stdenv options
   dontUnpack = true;
   dontBuild = true;
@@ -28,10 +35,10 @@ stdenvNoCC.mkDerivation rec {
   installPhase = ''
     ### Create directory and move binary
     mkdir -p $out/bin
-    
+
     ### Move program to $out/bin/
     tar --use-compress-program=unzstd -xf $src -C $out/bin/
-    
+
     ### Rename edit to msedit (from the archive)
     mv $out/bin/edit $out/bin/${pname}
 
@@ -48,4 +55,3 @@ stdenvNoCC.mkDerivation rec {
     maintainers = with lib.maintainers; [ minegameYTB ];
   };
 }
-

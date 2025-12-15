@@ -1,8 +1,15 @@
-{ lib, stdenvNoCC, makeWrapper, fetchFromGitHub, callPackage, coreutils }:
+{
+  lib,
+  stdenvNoCC,
+  makeWrapper,
+  fetchFromGitHub,
+  callPackage,
+  coreutils,
+}:
 
 let
   ### Import sshUtilsOnly derivation
-  sshUtilsOnly = callPackage ./deps/sshUtilsOnly.nix {};
+  sshUtilsOnly = callPackage ./deps/sshUtilsOnly.nix { };
 in
 
 stdenvNoCC.mkDerivation rec {
@@ -16,7 +23,11 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-Sm9RAK6UdvL0yHfE12gIjoLfy3pZBqgRtfm20X1FWm0=";
   };
 
-  buildInputs = [ sshUtilsOnly coreutils makeWrapper ];
+  buildInputs = [
+    sshUtilsOnly
+    coreutils
+    makeWrapper
+  ];
 
   installPhase = ''
     ### Make sshrm available
@@ -31,7 +42,12 @@ stdenvNoCC.mkDerivation rec {
   postFixup = ''
     ### Add runtime path to sshrm tool
     wrapProgram $out/bin/${pname} \
-      --set PATH ${lib.makeBinPath [ sshUtilsOnly coreutils ]} \
+      --set PATH ${
+        lib.makeBinPath [
+          sshUtilsOnly
+          coreutils
+        ]
+      } \
       --set TERM xterm-256color
   '';
 
