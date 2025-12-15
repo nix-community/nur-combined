@@ -511,14 +511,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "1d93b86c1fab734ca238bb7dbdd3fb52e8bc35d8";
+    version = "7ecab03cb4fc4f72b2f63975f2eb5c1a5c8e17a2";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "1d93b86c1fab734ca238bb7dbdd3fb52e8bc35d8";
-      hash = "sha256-OO/Ww93ZkPjRdmoxFuMgFE+Vu0ey0lcn4l/KI+f8+e0=";
+      rev = "7ecab03cb4fc4f72b2f63975f2eb5c1a5c8e17a2";
+      hash = "sha256-iZ4v4ARr97P3npXafyreKDt3QUwo9sAq7NOMnOhbq88=";
     };
-    date = "2025-12-12";
+    date = "2025-12-15";
   };
   env-dedup = {
     pname = "env-dedup";
@@ -675,14 +675,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "995c8b090c8c0d514a3ec2f955793b653bc44074";
+    version = "74ada7222e1d61650f3b740a0bac01575591b23b";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "995c8b090c8c0d514a3ec2f955793b653bc44074";
-      hash = "sha256-FxrAghuYnrCXh0ez6g063cAezgQYQV7cNXC/njT4vxg=";
+      rev = "74ada7222e1d61650f3b740a0bac01575591b23b";
+      hash = "sha256-B0KKs5IuS8sBQUyfMSkwM1ZYiGCapl+Jy2glngbSE1U=";
     };
-    date = "2025-12-14";
+    date = "2025-12-16";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1081,12 +1081,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7402";
+    version = "b7411";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7402";
-      hash = "sha256-yrDjITLH77KPbJnDB7cDxiWeuqXvAcilmo48AmL6+Zw=";
+      tag = "b7411";
+      hash = "sha256-M+0cpgd5cTGPb2SAiVKMOJjcmRDJaRMaJ43qiYd5Ekg=";
     };
   };
   loralib = {
@@ -1633,38 +1633,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.1.2+ds-1";
+    version = "10.2.0~rc1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-QBz803XNqoMT0gUxW6gKSuvOFZN/g7QR5RutF+2csWU=";
+      hash = "sha256-mKzMAmK1Jhi28Eg7FfZSHQT/rA5ORCJrQk3mhjKm3mg=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.1.2+ds-1";
+    version = "10.2.0~rc1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-nLYclD21uh1WIX91qqMbJEFLtPUqkZFMfV/qfTHGIKg=";
+      hash = "sha256-bjyH9ildBh8rutxvRGYL9AJaCojfx3kzMDCDfxVhAJw=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.1.2+ds-1";
+    version = "10.2.0~rc1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-i6Yprd+lLgY6xUbZcHha922fCuRQzUF4b8oqer3ECqk=";
+      hash = "sha256-3aCb0I4dCLk9WY7+5q3FwZxd26Budkw5+oHkXpt1LLc=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.1.2+ds-1";
+    version = "10.2.0~rc1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.2+ds-1_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-++oLXeTSPXMBYTuDdCffb1r39OUyq78Y2NhoN5Fwx20=";
+      hash = "sha256-B2vnjFeBdLpRdRP0r2ZNZ9UC73NPZbLlhnFlHa8ecZo=";
     };
   };
   qq-amd64 = {
