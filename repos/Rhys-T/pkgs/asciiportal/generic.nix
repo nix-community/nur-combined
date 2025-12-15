@@ -88,5 +88,6 @@ in stdenv.mkDerivation rec {
         ];
         mainProgram = "asciiportal";
         maintainers = [maintainers.Rhys-T];
+        broken = lib.any (p: p.pname or null == "sdl2-compat") (SDL_compat.buildInputs or []);
     };
 }
