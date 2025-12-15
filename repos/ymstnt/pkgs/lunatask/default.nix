@@ -26,7 +26,7 @@ appimageTools.wrapType2 {
     install -m 444 -D -t $out/share/applications ${appimageContents}/lunatask.desktop
     install -m 444 -D -t $out/share/icons/hicolor/512x512/apps ${appimageContents}/lunatask.png
     substituteInPlace $out/share/applications/lunatask.desktop \
-      --replace-fail 'Exec=AppRun' 'Exec=lunatask'
+      --replace-fail 'Exec=AppRun --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto %U' 'Exec=lunatask'
   '';
 
   passthru.updateScript = nix-update-script { };
