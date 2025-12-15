@@ -4,15 +4,15 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   name = "aic8800-firmware";
-  version = "4.0+git20250410.b99ca8b6-3";
+  version = "0-unstable";
 
   src = fetchFromGitHub {
-    owner = "radxa-pkg";
+    owner = "deepin-community";
     repo = "aic8800";
-    tag = finalAttrs.version;
-    hash = "sha256-yrCeOejZf+Dy7ue0Y/sST/cT+YBlOLTOVMQzzPOy7SQ=";
+    rev = "0cf6ce9bdf3593e1a67e646973178464e0af8c20";
+    hash = "sha256-+11G7sKfsbIuh4w0fRuxHSjFigYEX5iSmtxAWG0cxXw=";
   };
 
   dontBuild = true;
@@ -20,13 +20,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/firmware/aic8800_fw/PCIE/
-    mkdir -p $out/lib/firmware/aic8800_fw/SDIO/
-    mkdir -p $out/lib/firmware/aic8800_fw/USB/
-
-    cp -rv src/PCIE/driver_fw/fw/* $out/lib/firmware/aic8800_fw/PCIE/
-    cp -rv src/SDIO/driver_fw/fw/* $out/lib/firmware/aic8800_fw/SDIO/
-    cp -rv src/USB/driver_fw/fw/* $out/lib/firmware/aic8800_fw/USB/
+    mkdir -p $out/lib/firmware/aic8800_fw/
+    cp -rv firmware/* $out/lib/firmware/aic8800_fw/
 
     runHook postInstall
   '';
@@ -41,4 +36,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ Cryolitia ];
     platforms = lib.platforms.linux;
   };
-})
+}
