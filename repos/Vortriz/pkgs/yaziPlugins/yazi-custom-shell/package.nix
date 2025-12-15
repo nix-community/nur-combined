@@ -4,7 +4,7 @@
     fetchFromGitHub,
 }:
 mkYaziPlugin {
-    pname = "custom-shell-yazi";
+    pname = "yazi-custom-shell";
     version = "0-unstable-2025-06-07";
 
     src = fetchFromGitHub {

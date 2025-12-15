@@ -4,7 +4,7 @@
     fetchFromGitHub,
 }:
 mkYaziPlugin {
-    pname = "hover-after-moved-yazi";
+    pname = "yazi-hover-after-moved";
     version = "0-unstable-2025-09-28";
 
     src = fetchFromGitHub {

@@ -4,7 +4,7 @@
     fetchFromGitHub,
 }:
 mkYaziPlugin {
-    pname = "office-yazi";
+    pname = "yazi-office";
     version = "0-unstable-2025-09-20";
 
     src = fetchFromGitHub {
