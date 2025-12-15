@@ -144,7 +144,7 @@
             # keep-sorted end
           };
 
-          hydraJobs.packages = self.ciPackages;
+          hydraJobs.packages.x86_64-linux = self.ciPackages.x86_64-linux;
         };
 
         perSystem =
