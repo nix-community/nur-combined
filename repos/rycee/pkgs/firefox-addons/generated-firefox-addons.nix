@@ -229,6 +229,29 @@
         platforms = platforms.all;
       };
     };
+    "ahrefs-seo-toolbar" = buildFirefoxXpiAddon {
+      pname = "ahrefs-seo-toolbar";
+      version = "3.2.6";
+      addonId = "ahrefs@AhrefsPteLtd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4626675/ahrefs_seo_toolbar-3.2.6.xpi";
+      sha256 = "586324f6ae4447d40124f3778eb9d264313c2c2c0c1ed2c0a093a9499954e090";
+      meta = with lib;
+      {
+        homepage = "https://ahrefs.com/seo-toolbar";
+        description = "Save hours with a complete toolkit in one SEO extension. Insights for on-page, keyword research, and link analysis on any webpage.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "*://*/*"
+          "identity"
+          "tabs"
+          "storage"
+          "webNavigation"
+          "webRequest"
+          "webRequestBlocking"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "alby" = buildFirefoxXpiAddon {
       pname = "alby";
       version = "3.14.0";
