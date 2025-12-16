@@ -135,6 +135,7 @@ let
           mdbook-generate-summary
           #betterbird
           jellyfin-media-player
+          eden
           ;
       };
     }

@@ -140,6 +140,8 @@ rec {
   */
   speed_dreams = nodarwin (pkgs.callPackage ./pkgs/speed-dreams { });
 
+  eden = nodarwin (v3overrideAttrs (pkgs.callPackage ./pkgs/eden/package.nix { }));
+
   howdy = nodarwin (pkgs.callPackage ./pkgs/howdy/package.nix { });
   linux-enable-ir-emitter = nodarwin (
     pkgs.callPackage ./pkgs/linux-enable-ir-emitter/package.nix { }
