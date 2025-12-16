@@ -60,7 +60,7 @@ jobs:
           NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
         run: ./ci.sh --flake .#checks."$(nix eval --raw --impure --expr builtins.currentSystem)"
       - name: Submit auto-update PR
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           title: "chore(pkgs): Bump packages to latest version"
           delete-branch: true
