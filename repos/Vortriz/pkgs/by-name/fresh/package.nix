@@ -12,13 +12,13 @@ in
 
 rustPlatform.buildRustPackage {
     pname = "fresh";
-    version = "0.1.44-unstable-2025-12-15";
+    version = "0.1.44-unstable-2025-12-16";
 
     src = fetchFromGitHub {
         owner = "sinelaw";
         repo = "fresh";
-        rev = "3e7e284358062cc4b94a9205e419d42795f4c7bb";
-        hash = "sha256-/f8mGGS8Hckfw9s9H/CobFDUa0VooQdHtDskUED9cEc=";
+        rev = "ee25c33e47028300d7c211c6657771ede6ab7ceb";
+        hash = "sha256-bTvX6syN8RkJ/5A4qCRZmCU2hfDmkGYbW/vl3wyvetg=";
     };
 
     cargoHash = "sha256-IglklvhsR0MgZY3sqKGSbDtXlS0S31yWnKXtjfrhw9o=";
