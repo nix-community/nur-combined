@@ -17,7 +17,7 @@ jobs:
       if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
     - run: echo "cache-key=${{ hashFiles('flake.lock') }}" >> $GITHUB_OUTPUT
       id: cache-key
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       with:
         path: flake.lock
         key: flake-lock-${{ steps.cache-key.outputs.cache-key }}
@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v6
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       with:
         path: flake.lock
         key: flake-lock-${{ needs.update-flake.outputs.cache-key }}
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       with:
         path: flake.lock
         key: flake-lock-${{ needs.update-flake.outputs.cache-key }}
