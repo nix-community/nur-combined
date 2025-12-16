@@ -123,6 +123,7 @@ in
         wine
         wine-fonts
         wl-clipboard
+        xev
       ''
     )
     # pkgs for development-ish

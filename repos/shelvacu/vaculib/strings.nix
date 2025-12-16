@@ -11,6 +11,7 @@ in
       sl = stringLength s;
     in
     (sl >= prefixl) && (substring 0 prefixl s) == prefix;
+
   isSuffixOf =
     suffix: s:
     let
@@ -20,4 +21,11 @@ in
       testSuffix = substring suffixStartIdx (-1) s;
     in
     (sl >= suffixl) && testSuffix == suffix;
+
+  isStringish =
+    x:
+    true
+    || builtins.isString x
+    || builtins.isPath x
+    || (builtins.isAttrs x && x ? __toString);
 }

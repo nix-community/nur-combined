@@ -1,9 +1,8 @@
-{ inputs, ... }:
+{ inputs, vaculib, ... }:
 {
   imports = [
     inputs.nixos-apple-silicon.nixosModules.default
-    ./hardware.nix
-  ];
+  ] ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "mmm";
   vacu.shell.color = "red";
@@ -14,7 +13,6 @@
   # asahi recommends systemd-boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
-  hardware.asahi.peripheralFirmwareDirectory = ./firmware;
 
   services.openssh.enable = true;
 

@@ -4,6 +4,7 @@
   pkgs,
   vaculib,
   vacupkglib,
+  vacuModuleType,
   ...
 }:
 let
@@ -35,32 +36,47 @@ let
   wrappedBash = lib.getExe wrappedBashPkg;
 in
 {
-  imports = [
-    ./not-aliases.nix
-    ./ps1.nix
-    ./container-aliases.nix
-    ./vacuhistory.nix
-    ./qcd.nix
-  ];
-  options = {
-    vacu.shell.functionsDir = mkOption {
+  imports = [ ]
+  ++ vaculib.directoryGrabberList ./.
+  ++ lib.optional (vacuModuleType == "nixos") {
+    environment.pathsToLink = [ "/share/vacufuncs" ];
+    programs.bash = {
+      interactiveShellInit = config.vacu.shell.interactiveLines;
+      promptInit = lib.mkForce "";
+    };
+    environment.shellAliases = {
+      # disable the defaults
+      ll = null;
+      l = null;
+      ls = null;
+    };
+  }
+  ++ lib.optional (vacuModuleType == "nix-on-droid") {
+    vacu.shell.functionsDir = "${config.user.home}/.nix-profile/share/vacufuncs";
+    environment.etc = {
+      bashrc.text = config.vacu.shell.interactiveLines;
+      profile.text = config.vacu.shell.interactiveLines;
+    };
+  };
+  options.vacu.shell = {
+    functionsDir = mkOption {
       type = types.path;
       default = "/run/current-system/sw/share/vacufuncs";
     };
-    vacu.shell.interactiveLines = mkOption {
+    interactiveLines = mkOption {
       type = types.lines;
       readOnly = true;
     };
-    vacu.shell.wrappedBash = mkOption { readOnly = true; };
-    vacu.shell.idempotentShellLines = mkOption {
+    wrappedBash = mkOption { readOnly = true; };
+    idempotentShellLines = mkOption {
       type = types.lines;
       default = "";
     };
-    vacu.shell.color = mkOption {
+    color = mkOption {
       type = types.enum (builtins.attrNames vaculib.shellColors);
       default = "white";
     };
-    vacu.shell.functions = mkOption { type = types.attrsOf types.str; };
+    functions = mkOption { type = types.attrsOf types.str; };
   };
   config.vacu = {
     shell.interactiveLines = ''
@@ -77,6 +93,7 @@ in
     shell.idempotentShellLines = lib.mkBefore ''
       PROMPT_COMMAND=()
       PS0=""
+      alias ls='ls --color=auto'
     '';
     shell.functions = {
       "vacureload" = ''

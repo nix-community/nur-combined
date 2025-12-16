@@ -11,7 +11,7 @@
     inputs.nixos-hardware.nixosModules.framework-16-7040-amd
     vacuModules.sops
     /${vacuRoot}/tf2
-  ] ++ builtins.attrValues (vaculib.directoryGrabber { path = ./.; });
+  ] ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "fw";
   vacu.shell.color = "magenta";

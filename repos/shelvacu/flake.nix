@@ -244,6 +244,7 @@
       inputs = allInputs;
       specialArgs = {
         inherit allInputs mkCommon lib vaculib vacuRoot;
+        # flake-parts-lib = allInputs.flake-parts.lib;
       };
     } {
       systems = [

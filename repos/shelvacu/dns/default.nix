@@ -197,5 +197,5 @@ in
       };
     });
   };
-  config.vacu.dns = vaculib.directoryGrabber { path = ./.; };
+  config.vacu.dns = vaculib.directoryGrabber ./.;
 }

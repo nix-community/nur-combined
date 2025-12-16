@@ -13,7 +13,6 @@ let
       readOnlyPkgs = false;
     };
     liam.inp = [ "sops-nix" ];
-    lp0 = { };
     shel-installer-iso = {
       module = /${vacuRoot}/hosts/installer/iso.nix;
       readOnlyPkgs = false;
@@ -27,12 +26,12 @@ let
       "sops-nix"
       "tf2-nix"
     ];
-    legtop.inp = [ "nixos-hardware" ];
-    # mmm = {
-    #   inp = [ "nixos-apple-silicon" ];
-    #   system = "aarch64-linux";
-    #   unstable = true;
-    # };
+    mmm = {
+      inp = [ "nixos-apple-silicon" ];
+      system = "aarch64-linux";
+      unstable = true;
+      readOnlyPkgs = false;
+    };
     prophecy.inp = [
       "impermanence"
       "sops-nix"

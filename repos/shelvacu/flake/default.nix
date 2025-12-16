@@ -1,4 +1,4 @@
 { vaculib, ... }:
 {
-  imports = builtins.attrValues (vaculib.directoryGrabber { path = ./.; });
+  imports = vaculib.directoryGrabberList ./.;
 }

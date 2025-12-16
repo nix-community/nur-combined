@@ -227,16 +227,27 @@ in
       "glc"
       "push"
     ])
-    (simple "ll" [ "ls" "-a" "-l" ])
+    (simple "vl" [
+      "ls"
+      "--all" # show everything...
+      "--ignore=.." # except for .. (parent directory)
+      "--color=auto"
+      "--si"
+      "--format=long" # aka -l
+      "--classify=always"
+      "--time-style=iso"
+      "--quoting-style=shell-escape"
+    ])
     (script "list-auto-roots" ''
-      declare auto_roots="/nix/var/nix/gcroots/auto"
       svl_exact_args $# 0
+      shopt -s nullglob
+      declare auto_roots="/nix/var/nix/gcroots/auto"
       echo "List of auto nix gcroots:"
       echo
       declare -i system_count=0 other_ignored_count=0
       for fn in "$auto_roots/"*; do
         if ! [[ -L "$fn" ]]; then
-          die "fn is not a symlink!?: $fn"
+          svl_die "fn is not a symlink!?: $fn"
         fi
         declare pointed
         pointed="$(readlink -v -- "$fn")"
@@ -251,7 +262,7 @@ in
             other_ignored_count=$((other_ignored_count + 1))
             ;;
           *)
-            printf '%s\n' "$pointed"
+            printf '%q\n' "$pointed"
             ;;
         esac
       done

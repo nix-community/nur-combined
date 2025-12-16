@@ -1,15 +1,10 @@
-{ pkgs, inputs, ... }:
+{ inputs, vaculib, ... }:
 {
   imports = [
     inputs.jovian.nixosModules.jovian
     # inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.default
-    ./hardware.nix
-    ./home.nix
-    ./bluetooth.nix
-    ./partitioning.nix
-    ./padtype.nix
-  ];
+  ] ++ vaculib.directoryGrabberList ./.;
 
   boot.loader = {
     systemd-boot.enable = false;

@@ -1,6 +1,6 @@
 { vaculib, ... }:
 {
-  imports = builtins.attrValues (vaculib.directoryGrabber { path = ./.; });
+  imports = vaculib.directoryGrabberList ./.;
   programs.firefox = {
     enable = true;
     policies = {
@@ -92,10 +92,29 @@
       };
     };
     preferences = {
+      "app.normandy.enabled" = false;
+      "app.normandy.api_url" = "";
+      "app.shield.optoutstudies.enabled" = false;
+      "browser.protections_panel.infoMessage.seen" = true;
+      "browser.rights.3.shown" = true;
+      "browser.urlbar.quickactions.timesShownOnboardingLabel" = 999;
+      "datareporting.healthreport.uploadEnabled" = false;
+      "datareporting.usage.uploadEnabled" = false;
+      "devtools.everOpened" = true;
+      "devtools.inspector.simple-highlighters.message-dismissed" = true;
+      #"dom.forms.autocomplete.formautofill" = decide
+      "extensions.formautofill.creditCards.enabled" = false;
+      "identity.fxaccounts.enabled" = false;
+      "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
+
+
       # dont offer to save passwords
       "signon.rememberSignons" = false;
       "browser.urlbar.suggest.quicksuggest.sponsored" = false;
       "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
+
+      # disable picture-in-picture controls
+      "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
 
       ### from colin's user.js
       "security.tls.enable_0rtt_data" = false;
