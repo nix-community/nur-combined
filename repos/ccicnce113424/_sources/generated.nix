@@ -86,15 +86,15 @@
   };
   loveiwara = {
     pname = "loveiwara";
-    version = "0.4.0";
+    version = "0.4.1";
     src = fetchFromGitHub {
       owner = "FoxSensei001";
       repo = "LoveIwara";
-      rev = "0.4.0";
+      rev = "0.4.1";
       fetchSubmodules = false;
-      sha256 = "sha256-SbJquO5fjrOlzCvSCzUVbV/Jpxz7WI1+xo+b47S1WE0=";
+      sha256 = "sha256-PVbNK8k+JL0r94uQBtIxYu6J3d+4+7FkvDEvS6koyzI=";
     };
-    "pubspec.lock" = builtins.readFile ./loveiwara-0.4.0/pubspec.lock;
+    "pubspec.lock" = builtins.readFile ./loveiwara-0.4.1/pubspec.lock;
   };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
@@ -164,15 +164,15 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "76f2555723ac7bab6df6d695269da922489c6e9d";
+    version = "b5bfe221b8817adc1f7d6569545e57476bc2dc1b";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "76f2555723ac7bab6df6d695269da922489c6e9d";
+      rev = "b5bfe221b8817adc1f7d6569545e57476bc2dc1b";
       fetchSubmodules = false;
-      sha256 = "sha256-W4XvYQ0O3Qnr9kRxTxt21UkU5dw66ww1qpIY3ph3elE=";
+      sha256 = "sha256-yWRBlxy3T3C7KDRg7Dp06ZrbONNmN8IAPjRSbNzUl+4=";
     };
-    date = "2025-12-14";
+    date = "2025-12-15";
   };
   uosc-danmaku = {
     pname = "uosc-danmaku";
