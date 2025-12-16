@@ -10,6 +10,8 @@ in
 rec {
   algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
+  daed = pkgs.callPackage ./daed { };
+
   danmakufactory = pkgs.callPackage ./danmakufactory rec {
     sources = fetchedSrc.danmakufactory;
     version = stableVersion sources;

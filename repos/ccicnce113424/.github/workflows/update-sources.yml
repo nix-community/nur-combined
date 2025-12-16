@@ -35,6 +35,7 @@ jobs:
           nix run .#nvfetcher
           nix fmt _sources
           git add .
+          pkgs/daed/update.sh
           pkgs/loveiwara/update.sh
           pkgs/piliplus/update.sh
           pkgs/pixes/update.sh
