@@ -318,10 +318,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.6.0";
+      version = "1.6.3";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618520/angular_devtools-1.6.0.xpi";
-      sha256 = "dec48adf07aab175f932e8ed18ef5c778e7447876ad1ffb1cab804d11ef11afd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4639857/angular_devtools-1.6.3.xpi";
+      sha256 = "b1b248b0b6acccc6c367a78c781891e6d100ea65833e3bef2e4f22de51f58c69";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -843,10 +843,10 @@
     };
     "aws-extend-switch-roles3" = buildFirefoxXpiAddon {
       pname = "aws-extend-switch-roles3";
-      version = "6.0.3";
+      version = "6.1.0";
       addonId = "aws-extend-switch-roles@toshi.tilfin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4621542/aws_extend_switch_roles3-6.0.3.xpi";
-      sha256 = "d2b4cdcc2b2d8cdb76d1204a97916f23c26e87b3293ec0404ff8e724dce4e842";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643405/aws_extend_switch_roles3-6.1.0.xpi";
+      sha256 = "88de362e8425d8874a324e9cddbbbcb2b2a149516c0e1fa9f04df9cf9829a124";
       meta = with lib;
       {
         homepage = "https://github.com/tilfinltd/aws-extend-switch-roles";
@@ -2669,10 +2669,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "147.0.20251212.92402";
+      version = "147.0.20251215.90548";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4641187/dansk_da_language_pack-147.0.20251212.92402.xpi";
-      sha256 = "c2929f2940b255599140ebbba8b387146649609cd4bc722ec45b923672f3b903";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643270/dansk_da_language_pack-147.0.20251215.90548.xpi";
+      sha256 = "6c6dc68d77ddda80e0a4bffc18219ce43fc4cef79f8af3a896145a81dfaa7507";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2786,10 +2786,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2549.1";
+      version = "6.2550.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635058/dashlane-6.2549.1.xpi";
-      sha256 = "d32c649a8a178b0920822158953a9eb933ee27629cb1aecf381b2bad6ed3321b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637791/dashlane-6.2550.1.xpi";
+      sha256 = "bd4aa6faf6ec52cb9f59246e879f86fd1b04c43587e18a657507f2959189cf3c";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2882,10 +2882,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "147.0.20251212.92402";
+      version = "147.0.20251215.90548";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4641182/deutsch_de_language_pack-147.0.20251212.92402.xpi";
-      sha256 = "41400dc096452dee9771c53dea2f5c5b3130dbdb6d870238cc08e4073bc970d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643272/deutsch_de_language_pack-147.0.20251215.90548.xpi";
+      sha256 = "23a987350cc2bc06af80696cdb1c2c3e9c591c981d4b4bad4a3f1b86bcfc4dd0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4329,10 +4329,10 @@
     };
     "french-dictionary" = buildFirefoxXpiAddon {
       pname = "french-dictionary";
-      version = "7.0b";
+      version = "7.7";
       addonId = "fr-dicollecte@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3581786/dictionnaire_francais1-7.0b.xpi";
-      sha256 = "e0e90b88b177dc1b268b019c8672eb1be943f12e174ad474dbdc46f0e6fbaa6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643589/dictionnaire_francais1-7.7.xpi";
+      sha256 = "c445edc19091c7d30cd4314f43dac5a0b0a26feb43e02462af0b0e9d0b63028d";
       meta = with lib;
       {
         homepage = "https://grammalecte.net";
@@ -4344,10 +4344,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "147.0.20251212.92402";
+      version = "147.0.20251215.90548";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4641126/francais_language_pack-147.0.20251212.92402.xpi";
-      sha256 = "4bf1d311332e96880162b4c3bc7b626435b548b963863f821520b0861c0c6cd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643202/francais_language_pack-147.0.20251215.90548.xpi";
+      sha256 = "0934b5f810b027bcf86c416b11163e2a22c7f5b5595acbd3314e9f562797439f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4381,10 +4381,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "147.0.20251212.92402";
+      version = "147.0.20251215.90548";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4641203/gaidhlig_language_pack-147.0.20251212.92402.xpi";
-      sha256 = "a03452a7201ecd0cd288d0294dc5678e5d6d378e0aa66af4a34536587c545ef8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643247/gaidhlig_language_pack-147.0.20251215.90548.xpi";
+      sha256 = "3482a2330a0d11383ba27668e297afa792b4d8a6f7deaae8e66043d857bc31bd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -11878,10 +11878,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "147.0.20251212.92402";
+      version = "147.0.20251215.90548";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4641148/scots_language_pack-147.0.20251212.92402.xpi";
-      sha256 = "6d8508273c13ed9a2ba3ec4b4bead11ed5cbc2f9ef48c22009001dc19715b0e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643286/scots_language_pack-147.0.20251215.90548.xpi";
+      sha256 = "52bdbedf1a7cedc5cea2509a48de9e2bc1db7c2eaad8ca1534bb5bdf4b3a6c77";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12700,10 +12700,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.29";
+      version = "4.30";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4629586/steam_database-4.29.xpi";
-      sha256 = "49411b5055bd61e298ff7d0cb7858a93ddd98fd1a3ab7283b493d137f5f1443f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4638558/steam_database-4.30.xpi";
+      sha256 = "895b3415268bdd7f2dff6fd65f20b89beb70ba68617961aa14c605653ebc7faa";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -13919,10 +13919,10 @@
     };
     "tweaks-for-youtube" = buildFirefoxXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.85.1";
+      version = "3.86.1";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4617034/tweaks_for_youtube-3.85.1.xpi";
-      sha256 = "d1799e67e625a0ed01d051b6e7f10be80192bbc4b2292c671c32756fc0a4f3d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643776/tweaks_for_youtube-3.86.1.xpi";
+      sha256 = "4282dce5dece1d5cf52aa1d41be8f74f4dea26f8d7899f9b70e2fafba0eb6b69";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
