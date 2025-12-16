@@ -23,6 +23,7 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update sources
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
