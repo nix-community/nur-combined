@@ -9,7 +9,7 @@
 }:
 let
   pname = "opengrep";
-  version = "1.12.1";
+  version = "1.13.1";
 
   binaries = {
     # aarch64-linux = fetchurl {
