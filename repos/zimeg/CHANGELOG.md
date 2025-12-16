@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- ci(deps): automerge updates to dependencies that power workflow job 2026-12-16
 - fix(pkgs/gon): remove additional build flags during go compilations 2026-12-09
 - deps(ci): revert to nix installation matching this package template 2026-12-09
 - build(ci): practice best recommendations of permission and versions 2025-08-10
