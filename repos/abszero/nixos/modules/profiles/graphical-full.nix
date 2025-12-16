@@ -23,10 +23,7 @@ in
       profiles.graphical.enable = true;
       hardware.keyboard.halo65.enable = true;
       boot.plymouth.enable = true;
-      virtualisation = {
-        act.enable = true;
-        libvirtd.enable = true;
-      };
+      virtualisation.act.enable = true;
       i18n.inputMethod.fcitx5.enable = true;
       services = {
         kanata.enable = true;

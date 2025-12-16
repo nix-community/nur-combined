@@ -34,17 +34,17 @@ in
           "root"
           "@wheel"
         ];
-        # substituters = [
-        #   # CN mirrors of https://cache.nixos.org
-        #   "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-        #   "https://mirrors.ustc.edu.cn/nix-channels/store"
-        # ];
-        extra-substituters = [
+        substituters = [
+          # CN mirrors of https://cache.nixos.org
+          # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+          # "https://mirrors.ustc.edu.cn/nix-channels/store"
           "https://abszero.cachix.org"
+          "https://ai.cachix.org"
           "https://nix-community.cachix.org"
         ];
         trusted-public-keys = [
           "abszero.cachix.org-1:HXOydaS51jSWrM07Ko8AVtGdoBRT9F+QhdYQBiNDaM0="
+          "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
         auto-optimise-store = true;
@@ -62,7 +62,7 @@ in
     nixpkgs.config.allowUnfree = true;
 
     system = {
-      stateVersion = "25.11";
+      stateVersion = "26.05";
       nixos-init.enable = true; # Initialise system with a Rust program
       etc.overlay.enable = true; # Mount /etc as overlay; required for nixos-init
     };

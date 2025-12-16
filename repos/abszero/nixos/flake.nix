@@ -15,6 +15,13 @@
         nixpkgs-stable.follows = "nixpkgs";
       };
     };
+    nixified-ai = {
+      url = "github:nixified-ai/flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";

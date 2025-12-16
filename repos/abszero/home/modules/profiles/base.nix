@@ -15,7 +15,7 @@ in
     nixpkgs.config.allowUnfree = true;
 
     home = {
-      stateVersion = "25.11";
+      stateVersion = "26.05";
       preferXdgDirectories = true;
       # NOTE: this doesn't enable pointerCursor by default.
       pointerCursor = {
@@ -37,6 +37,9 @@ in
       autostart.enable = true;
       mimeApps.enable = true;
     };
+
+    # gtk4 stopped being themed by default since 26.05
+    gtk.gtk4.theme = mkDefault config.gtk.theme;
 
     programs = {
       bash = {

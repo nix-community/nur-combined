@@ -18,7 +18,11 @@ in
   options.abszero.profiles.desktop.enable = mkExternalEnableOption config "desktop profile";
 
   config = mkIf cfg.enable {
-    abszero.profiles.graphical-full.enable = true;
+    abszero = {
+      profiles.graphical-full.enable = true;
+      virtualisation.libvirtd.enable = true;
+    };
+    
     environment.systemPackages = with pkgs; [
       osu-lazer-bin
     ];

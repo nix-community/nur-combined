@@ -61,6 +61,7 @@ in
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.chaotic.nixosModules.default
           inputs.niri.nixosModules.niri
+          inputs.nixified-ai.nixosModules.comfyui
           inputs.catppuccin.nixosModules.catppuccin
           (toModuleList ../../lib/modules)
           (toModuleList ../modules)
