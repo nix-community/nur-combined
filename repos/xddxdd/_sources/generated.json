@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-G7b/OzuSlAxvp8MUkhnoMlttI9gxyYuZ2EmDQolNYN4=",
+            "sha256": "sha256-+pSVuB9TkR498YfiP+kevHPPUshwSPzKv4Q+8F6sToU=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.13/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.12.13"
+        "version": "2025.12.16"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1348,9 +1348,9 @@
             "name": null,
             "sha256": "sha256-cO48JDSyKIbNm/8chVIpLine2E9GVhuSlwnhj8hH9ng=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.13/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-City.mmdb"
         },
-        "version": "2025.12.13"
+        "version": "2025.12.16"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1363,9 +1363,9 @@
             "name": null,
             "sha256": "sha256-cdR3zxjlZNUeJk4YRLf2V2oImWIH9WCres9zFrOYUb0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.13/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-Country.mmdb"
         },
-        "version": "2025.12.13"
+        "version": "2025.12.16"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7411",
-            "sha256": "sha256-M+0cpgd5cTGPb2SAiVKMOJjcmRDJaRMaJ43qiYd5Ekg=",
+            "rev": "b7434",
+            "sha256": "sha256-4Xat+htYAlKBdepcFGKcl1DT9zpB09jf1LjlQ4xhNrY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7411"
+        "version": "b7434"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3198,11 +3198,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-mKzMAmK1Jhi28Eg7FfZSHQT/rA5ORCJrQk3mhjKm3mg=",
+            "sha256": "sha256-QjQB7+nZzU1QGHwEEmltboTpi9X63meYoY8wcktL8hg=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_amd64.deb"
         },
-        "version": "10.2.0~rc1+ds-1"
+        "version": "10.1.3+ds-1"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -3213,11 +3213,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-bjyH9ildBh8rutxvRGYL9AJaCojfx3kzMDCDfxVhAJw=",
+            "sha256": "sha256-vVyR27Yr/VOJJomUnSDoJ2FTTj1SDr+Y7bl5fS6N4jc=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_arm64.deb"
         },
-        "version": "10.2.0~rc1+ds-1"
+        "version": "10.1.3+ds-1"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -3228,11 +3228,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-3aCb0I4dCLk9WY7+5q3FwZxd26Budkw5+oHkXpt1LLc=",
+            "sha256": "sha256-iWTG18t89j2uErPQzY+di+6EZ171NsRGrsBuGSDEkpU=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_armhf.deb"
         },
-        "version": "10.2.0~rc1+ds-1"
+        "version": "10.1.3+ds-1"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -3243,11 +3243,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-B2vnjFeBdLpRdRP0r2ZNZ9UC73NPZbLlhnFlHa8ecZo=",
+            "sha256": "sha256-dsHLowZ7WKHGmrx7SVN6oVrpYNJHFHl/uVqux0UHMI8=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_i386.deb"
         },
-        "version": "10.2.0~rc1+ds-1"
+        "version": "10.1.3+ds-1"
     },
     "qq-amd64": {
         "cargoLocks": null,
@@ -4373,12 +4373,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.27.14",
-            "sha256": "sha256-33JZ0XcP/1SIJkzySHDxQgO06S7TO+BrtbQjeo0YqSk=",
+            "rev": "1.27.15",
+            "sha256": "sha256-mlsw3dhl9Ny7jbwzJL22aaK/3Jh8MTThQJuoKVEpRJo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.27.14"
+        "version": "1.27.15"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,

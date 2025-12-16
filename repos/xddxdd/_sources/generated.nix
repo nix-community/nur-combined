@@ -686,25 +686,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.12.13";
+    version = "2025.12.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.13/GeoLite2-ASN.mmdb";
-      hash = "sha256-G7b/OzuSlAxvp8MUkhnoMlttI9gxyYuZ2EmDQolNYN4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-ASN.mmdb";
+      hash = "sha256-+pSVuB9TkR498YfiP+kevHPPUshwSPzKv4Q+8F6sToU=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.12.13";
+    version = "2025.12.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.13/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-City.mmdb";
       hash = "sha256-cO48JDSyKIbNm/8chVIpLine2E9GVhuSlwnhj8hH9ng=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.12.13";
+    version = "2025.12.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.13/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-Country.mmdb";
       hash = "sha256-cdR3zxjlZNUeJk4YRLf2V2oImWIH9WCres9zFrOYUb0=";
     };
   };
@@ -1081,12 +1081,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7411";
+    version = "b7434";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7411";
-      hash = "sha256-M+0cpgd5cTGPb2SAiVKMOJjcmRDJaRMaJ43qiYd5Ekg=";
+      tag = "b7434";
+      hash = "sha256-4Xat+htYAlKBdepcFGKcl1DT9zpB09jf1LjlQ4xhNrY=";
     };
   };
   loralib = {
@@ -1633,38 +1633,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.2.0~rc1+ds-1";
+    version = "10.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-mKzMAmK1Jhi28Eg7FfZSHQT/rA5ORCJrQk3mhjKm3mg=";
+      hash = "sha256-QjQB7+nZzU1QGHwEEmltboTpi9X63meYoY8wcktL8hg=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.2.0~rc1+ds-1";
+    version = "10.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-bjyH9ildBh8rutxvRGYL9AJaCojfx3kzMDCDfxVhAJw=";
+      hash = "sha256-vVyR27Yr/VOJJomUnSDoJ2FTTj1SDr+Y7bl5fS6N4jc=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.2.0~rc1+ds-1";
+    version = "10.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-3aCb0I4dCLk9WY7+5q3FwZxd26Budkw5+oHkXpt1LLc=";
+      hash = "sha256-iWTG18t89j2uErPQzY+di+6EZ171NsRGrsBuGSDEkpU=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.2.0~rc1+ds-1";
+    version = "10.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0~rc1+ds-1_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.1.3+ds-1_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-B2vnjFeBdLpRdRP0r2ZNZ9UC73NPZbLlhnFlHa8ecZo=";
+      hash = "sha256-dsHLowZ7WKHGmrx7SVN6oVrpYNJHFHl/uVqux0UHMI8=";
     };
   };
   qq-amd64 = {
@@ -2239,12 +2239,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.27.14";
+    version = "1.27.15";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.27.14";
-      hash = "sha256-33JZ0XcP/1SIJkzySHDxQgO06S7TO+BrtbQjeo0YqSk=";
+      tag = "1.27.15";
+      hash = "sha256-mlsw3dhl9Ny7jbwzJL22aaK/3Jh8MTThQJuoKVEpRJo=";
     };
   };
   vgpu-unlock-rs = {
