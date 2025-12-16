@@ -2225,10 +2225,10 @@
   "forth": {
     "nurl": {
       "args": {
-        "hash": "sha256-vySBDu9cMnubu4+7/sBttNxg1S4/MxWUKpjwEa14Rws=",
+        "hash": "sha256-d7X1Ubd9tKMQgNHlH+sQxmcsgLWB4mxR5CIdyKkLnM8=",
         "owner": "alexanderbrevig",
         "repo": "tree-sitter-forth",
-        "rev": "90189238385cf636b9ee99ce548b9e5b5e569d48"
+        "rev": "360ef13f8c609ec6d2e80782af69958b84e36cd0"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2813,10 +2813,10 @@
   "spade": {
     "nurl": {
       "args": {
-        "hash": "sha256-nn1jZduKVfFXnnQyT+rm/+7U/Ewe+K3+RlEBmTB4WfQ=",
+        "hash": "sha256-h7rlrtV1NHjFPITR1cvYCblkUmbUudem4Ll6Z7qBFqE=",
         "owner": "spade-lang",
         "repo": "tree-sitter-spade",
-        "rev": "78bf09a88fc1d396f66b69879f908fc6bd2e6934"
+        "rev": "6569cd11cc9362e277845ce24111735059b145ee"
       },
       "fetcher": "fetchFromGitLab"
     },
@@ -3338,5 +3338,17 @@
       "fetcher": "fetchFromGitHub"
     },
     "subpath": "packages/tree-sitter"
+  },
+  "chuck": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-XeB+jFh2TUhLKqFZt0Skc1Ndffb5abwmLDDaNJhKHFk=",
+        "owner": "tymbalodeon",
+        "repo": "tree-sitter-chuck",
+        "rev": "2fd18bcd48e7b23ee47f854e639020df90b1270b"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
   }
 }
