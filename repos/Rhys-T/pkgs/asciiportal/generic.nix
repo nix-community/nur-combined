@@ -15,8 +15,8 @@
 in stdenv.mkDerivation rec {
     pname = "asciiportal";
     inherit version;
-    PDCursesVersion = "3.9";
-    yamlCppVersion = yaml-cpp.version;
+    env.PDCursesVersion = "3.9";
+    env.yamlCppVersion = yaml-cpp.version;
     src = fetchFromGitHub {
         owner = "cymonsgames";
         repo = "ASCIIpOrtal";
@@ -25,7 +25,7 @@ in stdenv.mkDerivation rec {
     PDCursesSrc = fetchFromGitHub {
         owner = "wmcbrine";
         repo = "PDCurses";
-        tag = PDCursesVersion;
+        tag = env.PDCursesVersion;
         hash = "sha256-DNxIwNK6hsiZC+bjbmdUGEOkJM3/fEOEFJYZOUh/f0w=";
     };
     postUnpack = ''

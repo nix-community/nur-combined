@@ -33,7 +33,11 @@ in stdenvNoCC.mkDerivation {
         ''}
         ln -s "$audio"/* "$out"/share/drl/
         ln -s "$icon"/share/icons "$out"/share/icons
-        storePath="$NIX_STORE" substituteAll ${./drl.sh} "$out"/bin/drl
+        substitute ${./drl.sh} "$out"/bin/drl \
+            --subst-var bash \
+            --subst-var coreutils \
+            --subst-var out \
+            --subst-var-by storePath "$NIX_STORE"
         chmod +x "$out"/bin/drl
         shopt -u extglob
         runHook postInstall

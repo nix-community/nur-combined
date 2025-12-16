@@ -31,7 +31,9 @@
     };
     prePatch = ''
     tar -xaf "$debian"
-    patches="$(cat debian/patches/series | sed 's,^,debian/patches/,') $patches"
+    for p in $(cat debian/patches/series); do
+      appendToVar patches "debian/patches/$p"
+    done
     '';
     postPatch = ''
         patchShebangs doc/make_text_data.pl

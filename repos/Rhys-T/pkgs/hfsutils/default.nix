@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   # Apply patches from debian
   prePatch = ''
     for p in $(cat ../debian/patches/series); do
-      patches+=" ../debian/patches/$p"
+      appendToVar patches "../debian/patches/$p"
     done
   '';
 

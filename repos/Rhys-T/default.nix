@@ -454,6 +454,12 @@ in {
     #         ;
     #     });
     # });
+    
+    # wrapStdenv = stdenv: stdenv // {
+    #     mkDerivation = x: (stdenv.mkDerivation x).overrideAttrs { __structuredAttrs = true; };
+    # };
+    # stdenv = self.wrapStdenv pkgs.stdenv;
+    # stdenvNoCC = self.wrapStdenv pkgs.stdenvNoCC;
 }); in result // {
     lib = result.myLib;
     modules = result.myModules;
