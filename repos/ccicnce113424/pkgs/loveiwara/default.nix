@@ -4,7 +4,7 @@
   srcInfo,
   lib,
   stdenv,
-  flutter335,
+  flutter338,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
@@ -12,7 +12,7 @@
   mpv-unwrapped,
 }:
 let
-  flutter = flutter335;
+  flutter = flutter338;
 in
 flutter.buildFlutterApplication {
   inherit (sources) pname src;
@@ -52,11 +52,7 @@ flutter.buildFlutterApplication {
         inherit (src) passthru;
 
         postPatch = ''
-          sed -i '
-            /set(LIBMPV_ZIP_URL /,/if(MEDIA_KIT_LIBS_AVAILABLE)/{
-              /if(MEDIA_KIT_LIBS_AVAILABLE)/!d
-            }
-          ' media_kit_video/linux/CMakeLists.txt
+          sed -i '/if(ARCH_NAME STREQUAL "x86_64")/,/if(MEDIA_KIT_LIBS_AVAILABLE)/{ /if(MEDIA_KIT_LIBS_AVAILABLE)/!d; /set(LIBMPV_ZIP_URL/d }' media_kit_video/linux/CMakeLists.txt
           sed -i '/if(MEDIA_KIT_LIBS_AVAILABLE)/i \
             set(LIBMPV_UNZIP_DIR "${mpv-unwrapped}/lib")\n\
             set(LIBMPV_PATH "${mpv-unwrapped}/lib")\n\
@@ -77,7 +73,7 @@ flutter.buildFlutterApplication {
     (makeDesktopItem {
       name = "loveiwara";
       desktopName = "LoveIwara";
-      genericName = "LoveIwara";
+      genericName = "Love Iwara";
       exec = "i_iwara %u";
       comment = "Unofficial iwara application";
       terminal = false;
