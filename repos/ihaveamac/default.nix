@@ -66,6 +66,7 @@ rec {
   roadgeek-fonts = callPackage ./pkgs/roadgeek-fonts { };
   retro-aim-server = callPackage ./pkgs/retro-aim-server { };
   rofsc = callPackage ./pkgs/rofsc { };
+  _3gxtool = callPackage ./pkgs/3gxtool { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 

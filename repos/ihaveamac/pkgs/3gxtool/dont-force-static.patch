@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bb567c4..bd8a929 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,7 +36,7 @@ add_subdirectory(extern/yaml-cpp)
+ add_subdirectory(extern/dynalo)
+ 
+ set(CMAKE_CXX_STANDARD 14)
+-set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
++#set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
+ 
+ include_directories(includes)
+ include_directories(yaml-cpp/include)
