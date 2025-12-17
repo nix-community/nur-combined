@@ -1,14 +1,16 @@
 {
     lib,
     mkZoteroAddon,
-    fetchurl,
+    fetchFromGitHub,
 }:
-mkZoteroAddon rec {
-    pname = "zotero-better-bibtex";
+mkZoteroAddon {
+    pname = "Better BibTeX for Zotero";
     version = "7.0.68";
 
-    src = fetchurl {
-        url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v${version}/zotero-better-bibtex-${version}.xpi";
+    src = fetchFromGitHub {
+        owner = "retorquere";
+        repo = "zotero-better-bibtex";
+        tag = "v7.0.68";
         sha256 = "sha256-Nr6tSqeMqvmMl52crlPTegyquVbT1Y6nnve+muvEKT8=";
     };
 

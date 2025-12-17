@@ -1,6 +1,7 @@
 {
     stdenvNoCC,
     fetchFromGitHub,
+    nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
     pname = "HelveticaNeueCyr";
@@ -25,4 +26,6 @@ stdenvNoCC.mkDerivation {
     installPhase = ''
         install -Dm644 HelveticaNeueCyr/*.otf -t $out/share/fonts/opentype
     '';
+
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 }

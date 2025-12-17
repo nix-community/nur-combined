@@ -1,6 +1,7 @@
 {
     stdenvNoCC,
     fetchFromGitHub,
+    nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
     pname = "actually-all-emojis-spaces";
@@ -17,6 +18,8 @@ stdenvNoCC.mkDerivation {
     installPhase = ''
         cp -r espanso_package/actually-all-emojis-spaces/0.3.0 $out
     '';
+
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     meta = {
         homepage = "https://github.com/jobiewong/espanso-emojis";

@@ -2,6 +2,7 @@
     lib,
     stdenvNoCC,
     fetchFromGitHub,
+    nix-update-script,
 }:
 stdenvNoCC.mkDerivation rec {
     pname = "super-sub-scripts";
@@ -18,6 +19,8 @@ stdenvNoCC.mkDerivation rec {
     installPhase = ''
         cp -r ${pname} $out
     '';
+
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     meta = {
         description = "A collection of curated home built packages for the cross-platform text expander Espanso";

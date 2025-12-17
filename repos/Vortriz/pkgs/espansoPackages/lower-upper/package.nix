@@ -2,6 +2,7 @@
     lib,
     stdenvNoCC,
     fetchFromGitHub,
+    nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
     pname = "lower-upper";
@@ -18,6 +19,8 @@ stdenvNoCC.mkDerivation {
     installPhase = ''
         cp -r 0.1.0 $out
     '';
+
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     meta = {
         homepage = "https://github.com/anthonygraignic/espanso-package-lower-upper";

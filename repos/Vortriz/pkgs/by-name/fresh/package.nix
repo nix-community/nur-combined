@@ -7,21 +7,21 @@
     llvmPackages,
 }:
 let
-    librusty_v8 = callPackage ../librusty_v8/package.nix { };
+    librusty_v8 = callPackage ../../deps/librusty_v8/package.nix { };
 in
 
 rustPlatform.buildRustPackage {
     pname = "fresh";
-    version = "0.1.52-unstable-2025-12-16";
+    version = "0.1.44-unstable-2025-12-16";
 
     src = fetchFromGitHub {
         owner = "sinelaw";
         repo = "fresh";
-        rev = "58ce0d35b0cec10e0492a7796b451a111118ed61";
-        hash = "sha256-kUN8cUctgVkFZ1zfy4dojSRce5lpp0K38/Uvg9upc8Q=";
+        rev = "4d703d7229a91842908de388050134eb39bb436a";
+        hash = "sha256-s652WHQU6EDDGjmq/pbiu2LTEhj/ONJ0DSah3pjI9Is=";
     };
 
-    cargoHash = "sha256-DbE/dAxsvExvTijk2hAQ6LAb/XcdYahy8wFk36fe8Oc=";
+    cargoHash = "sha256-IglklvhsR0MgZY3sqKGSbDtXlS0S31yWnKXtjfrhw9o=";
     strictDeps = true;
 
     nativeBuildInputs = [

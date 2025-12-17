@@ -41,7 +41,7 @@
                 };
 
             flake = {
-                overlays.default = final: prev: import ./overlay.nix final prev;
+                overlays = import ./overlay.nix;
                 homeModules = import ./modules/home-manager;
             };
         };

@@ -1,14 +1,16 @@
 {
     lib,
     mkZoteroAddon,
-    fetchurl,
+    fetchFromGitHub,
 }:
-mkZoteroAddon rec {
-    pname = "zotero-scipdf";
+mkZoteroAddon {
+    pname = "SciPDF For Zotero";
     version = "1.3.0";
 
-    src = fetchurl {
-        url = "https://github.com/syt2/zotero-scipdf/releases/download/V${version}/sci-pdf.xpi";
+    src = fetchFromGitHub {
+        owner = "syt2";
+        repo = "zotero-scipdf";
+        tag = "1.3.0";
         sha256 = "sha256-Z0OVtN7JHmvfE0hZ6rQ6VUgLFJPF3hnewJn/iQ+Ma8c=";
     };
 

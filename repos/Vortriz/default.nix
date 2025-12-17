@@ -2,45 +2,43 @@
     pkgs ? import <nixpkgs> { },
 }:
 let
-    mkZoteroAddon =
-        {
-            stdenvNoCC ? pkgs.stdenvNoCC,
-            pname,
-            version,
-            src,
-            addonId,
-            meta ? { },
-            ...
-        }:
-        stdenvNoCC.mkDerivation {
-            inherit pname version src;
+    inherit (pkgs) lib;
+    inherit (lib) recurseIntoAttrs packagesFromDirectoryRecursive;
+    inherit (pkgs) callPackage;
 
-            preferLocalBuild = true;
-            allowSubstitutes = true;
-
-            buildCommand = ''
-                dst="$out/share/zotero/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                mkdir -p "$dst"
-                install -v -m644 "$src" "$dst/${addonId}.xpi"
-            '';
-
-            inherit meta;
-        };
+    lib' = import ./lib.nix pkgs;
+    inherit (lib') callYaziPlugin callZoteroAddon;
 
 in
-(pkgs.lib.packagesFromDirectoryRecursive {
-    inherit (pkgs) callPackage;
+(packagesFromDirectoryRecursive {
+    inherit callPackage;
     directory = ./pkgs/by-name;
 })
-// (pkgs.lib.packagesFromDirectoryRecursive {
-    inherit (pkgs) callPackage;
-    directory = ./pkgs/espansoPackages;
+// (packagesFromDirectoryRecursive {
+    inherit callPackage;
+    directory = ./pkgs/deps;
 })
-// (pkgs.lib.packagesFromDirectoryRecursive {
-    callPackage = pkgs.lib.callPackageWith (pkgs // { inherit (pkgs.yaziPlugins) mkYaziPlugin; });
-    directory = ./pkgs/yaziPlugins;
-})
-// (pkgs.lib.packagesFromDirectoryRecursive {
-    callPackage = pkgs.lib.callPackageWith (pkgs // { inherit mkZoteroAddon; });
-    directory = ./pkgs/zoteroAddons;
-})
+// {
+    espansoPackages = pkgs.lib.packagesFromDirectoryRecursive {
+        inherit callPackage;
+        directory = ./pkgs/espansoPackages;
+    };
+}
+// {
+    fonts = recurseIntoAttrs (packagesFromDirectoryRecursive {
+        inherit callPackage;
+        directory = ./pkgs/fonts;
+    });
+}
+// {
+    yaziPlugins = recurseIntoAttrs (packagesFromDirectoryRecursive {
+        callPackage = callYaziPlugin;
+        directory = ./pkgs/yaziPlugins;
+    });
+}
+// {
+    zoteroAddons = recurseIntoAttrs (packagesFromDirectoryRecursive {
+        callPackage = callZoteroAddon;
+        directory = ./pkgs/zoteroAddons;
+    });
+}

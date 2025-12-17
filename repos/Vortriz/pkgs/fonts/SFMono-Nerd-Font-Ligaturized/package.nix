@@ -1,6 +1,7 @@
 {
     stdenvNoCC,
     fetchFromGitHub,
+    nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
     pname = "SFMono-Nerd-Font-Ligaturized";
@@ -23,6 +24,8 @@ stdenvNoCC.mkDerivation {
     installPhase = ''
         install -Dm644 ./*.otf -t $out/share/fonts/opentype
     '';
+
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     meta = {
         description = "Apple's SFMono font nerd-font patched and ligaturized";
