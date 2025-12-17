@@ -49,6 +49,9 @@ rec {
 
   # Dodeca static site generator
   dodeca = pkgs.callPackage ./pkgs/dodeca { };
+
+  # Gungraun benchmark runner
+  gungraun-runner = pkgs.callPackage ./pkgs/gungraun-runner { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker
