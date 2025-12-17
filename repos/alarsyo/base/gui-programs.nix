@@ -47,7 +47,7 @@ in {
         };
       };
 
-      logind.lidSwitch = "suspend";
+      logind.settings.Login.HandleLidSwitch = "suspend";
 
       printing = {
         enable = true;
@@ -71,7 +71,7 @@ in {
         obs-studio
         pavucontrol
         spotify
-        tdesktop
+        telegram-desktop
         thunderbird
         virt-manager
         xcolor

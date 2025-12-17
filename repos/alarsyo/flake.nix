@@ -5,7 +5,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-25.05";
+      ref = "nixos-25.11";
     };
 
     nixpkgs-unstable-small = {
@@ -25,7 +25,7 @@
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "release-25.05";
+      ref = "release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -48,14 +48,6 @@
       owner = "nix-community";
       repo = "disko";
       ref = "master";
-    };
-
-    jujutsu = {
-      type = "github";
-      owner = "jj-vcs";
-      repo = "jj";
-      ref = "v0.35.0";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -99,7 +91,6 @@
             })
 
             agenix.overlays.default
-            inputs.jujutsu.overlays.default
           ]
           ++ builtins.attrValues self.overlays;
         sharedModules =

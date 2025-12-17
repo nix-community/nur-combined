@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit
@@ -47,6 +48,7 @@ in {
     services.transmission =
       {
         enable = true;
+        package = pkgs.transmission_4;
         group = "media";
 
         settings = {
