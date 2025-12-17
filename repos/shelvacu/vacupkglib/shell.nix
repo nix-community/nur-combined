@@ -15,7 +15,16 @@
       }
       "/bin/${name}"
       ''
-        source ${lib.escapeShellArg pkgs.shellvaculib.file}
+        source ${lib.escapeShellArg pkgs.shellvaculib.file} || exit 1
+        # This decrements SHLVL by one to offset the shell that launched this script, which I don't want counted
+        if [[ -n ''${SHLVL-} ]]; then
+          declare -i shell_level_int="$SHLVL"
+          if (( shell_level_int <= 1 )); then
+            unset SHLVL
+          else
+            SHLVL=$((shell_level_int - 1))
+          fi
+        fi
         ${content}
       '';
 }

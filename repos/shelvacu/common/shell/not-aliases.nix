@@ -55,6 +55,24 @@ let
   '';
   systemctl = "${pkgs.systemd}/bin/systemctl";
   journalctl = "${pkgs.systemd}/bin/journalctl";
+
+  alt_default_installables = ''
+    declare -a new_args
+    declare arg
+    while (( $# > 0 )); do
+      arg="$1"
+      shift
+      if [[ $arg == -- || $arg == --command ]]; then
+        new_args+=("$arg" "$@")
+        shift $#
+        break
+      fi
+      if [[ $arg != -* && $arg != *#* && $arg != *:* ]]; then
+        arg="nixpkgs#$arg"
+      fi
+      new_args+=("$arg")
+    done
+  '';
 in
 {
   imports = [
@@ -97,7 +115,7 @@ in
       svl_min_args $# 1
       installable="$1"
       shift
-      if [[ $installable != *'#'* ]] && [[ $installable != *':'* ]]; then
+      if [[ $installable != *#* && $installable != *:* ]]; then
         installable="nixpkgs#$installable"
       fi
       nix run "$installable" -- "$@"
@@ -105,23 +123,13 @@ in
     (script "nb" ''
       # nix build nixpkgs#<thing> <args>
       svl_min_args $# 1
-      installable="$1"
-      shift
-      if [[ "$installable" != *'#'* ]]; then
-        installable="nixpkgs#$installable"
-      fi
-      nix build "$installable" "$@"
+      ${alt_default_installables}
+      nix build "''${new_args[@]}"
     '')
     (script "ns" ''
       # nix shell nixpkgs#<thing>
       svl_min_args $# 1
-      new_args=( )
-      for arg in "$@"; do
-        if [[ "$arg" != *'#'* ]] && [[ "$arg" != -* ]]; then
-          arg="nixpkgs#$arg"
-        fi
-        new_args+=("$arg")
-      done
+      ${alt_default_installables}
       nix shell "''${new_args[@]}"
     '')
     (script "nixview" ''
