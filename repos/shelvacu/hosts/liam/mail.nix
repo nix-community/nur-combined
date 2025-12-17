@@ -24,7 +24,6 @@ let
     "shelvacu.com"
     "shelvacu.miras.pet"
     "sv.mt"
-    "vacu.store"
   ];
   dovecot_transport = "lmtp:unix:private/dovecot-lmtp";
   reject_spam_sources = [

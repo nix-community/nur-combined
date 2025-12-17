@@ -38,6 +38,10 @@
     };
   };
 
+  services.caddy.virtualHosts = lib.mkIf config.vacu.copyparties.solis.configureFileServer {
+    ${config.vacu.copyparties.solis.domain}.vacu.hsts = "preload";
+  };
+
   vacu.oauthProxy.instances.${config.vacu.copyparties.solis.oauthInstance} = {
     requireOauth = true;
     clientSecret.sops = {

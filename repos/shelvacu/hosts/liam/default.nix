@@ -25,6 +25,7 @@ in
         "shelvacu.miras.pet"
         "chat.for.miras.pet"
         "sv.mt"
+        "funcache.org"
       ];
       julie_domains = mkOutOption [
         "violingifts.com"
