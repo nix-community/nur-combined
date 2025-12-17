@@ -8,11 +8,11 @@
       ref = "nixos-25.11";
     };
 
-    nixpkgs-unstable-small = {
+    nixpkgs-unstable = {
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-unstable-small";
+      ref = "nixos-unstable";
     };
 
     agenix = {
@@ -70,7 +70,7 @@
         };
         nix-registry = {
           nix.registry.nixpkgs.flake = nixpkgs;
-          nix.registry.unstable.flake = inputs.nixpkgs-unstable-small;
+          nix.registry.unstable.flake = inputs.nixpkgs-unstable;
         };
       };
 
@@ -84,7 +84,7 @@
               packages = import ./pkgs {pkgs = super;};
 
               # packages accessible through pkgs.unstable.package
-              unstable = import inputs.nixpkgs-unstable-small {
+              unstable = import inputs.nixpkgs-unstable {
                 inherit system;
                 config.allowUnfree = true;
               };
