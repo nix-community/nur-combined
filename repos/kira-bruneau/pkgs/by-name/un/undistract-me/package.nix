@@ -75,11 +75,11 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Notifies you when long-running terminal commands complete";
     homepage = "https://github.com/jml/undistract-me";
-    license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ kira-bruneau ];
+    platforms = lib.platforms.linux;
   };
 }

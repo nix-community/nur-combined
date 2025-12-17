@@ -187,7 +187,7 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix LD_LIBRARY_PATH : ${mruby-zest}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "High quality software synthesizer (${guiName} GUI)";
     homepage =
       if guiModule == "zest" then
@@ -195,9 +195,9 @@ stdenv.mkDerivation (finalAttrs: {
       else
         "https://zynaddsubfx.sourceforge.io";
 
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.all;
+    license = lib.licenses.gpl2Plus;
+    maintainers = with lib.maintainers; [ kira-bruneau ];
+    platforms = lib.platforms.all;
     mainProgram = "zynaddsubfx";
 
     # On macOS:
