@@ -364,7 +364,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
-        "date": "2025-12-11",
+        "date": "2025-12-17",
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -376,12 +376,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "boringssl",
-            "rev": "a181123a1de358bd64322ba5e8748a7f0f970240",
-            "sha256": "sha256-GBwAesQJqCAJ1R+P0Kdfw75Je3dwaWItX936qv6+XRw=",
+            "rev": "0c663fb672d4e4018218ea7064e1fb35c480e408",
+            "sha256": "sha256-UqLBfdL492WKrZQ8GSS03q8DkwkwL3Vj5WpQZQ0S/Hg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a181123a1de358bd64322ba5e8748a7f0f970240"
+        "version": "0c663fb672d4e4018218ea7064e1fb35c480e408"
     },
     "browser360-amd64": {
         "cargoLocks": null,
@@ -1303,7 +1303,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-12-16",
+        "date": "2025-12-17",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1315,12 +1315,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "74ada7222e1d61650f3b740a0bac01575591b23b",
-            "sha256": "sha256-B0KKs5IuS8sBQUyfMSkwM1ZYiGCapl+Jy2glngbSE1U=",
+            "rev": "6ebf4f3f91287a83bf050447d1ce470e66b2c89b",
+            "sha256": "sha256-tv/HhHObqSiZqG0mwwJZ3VHIFLk+OSBI7XQKjrfb++E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "74ada7222e1d61650f3b740a0bac01575591b23b"
+        "version": "6ebf4f3f91287a83bf050447d1ce470e66b2c89b"
     },
     "geolite2-asn": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7434",
-            "sha256": "sha256-4Xat+htYAlKBdepcFGKcl1DT9zpB09jf1LjlQ4xhNrY=",
+            "rev": "b7446",
+            "sha256": "sha256-+zkABxcGzfuY4v16PMl3opoxOK/VbUnklFUslDMERfY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7434"
+        "version": "b7446"
     },
     "loralib": {
         "cargoLocks": null,

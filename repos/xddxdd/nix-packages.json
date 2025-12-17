@@ -447,7 +447,7 @@
   "legacyPackages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-12-11"
+    "version": "0-unstable-2025-12-17"
   },
   "legacyPackages.x86_64-linux.browser360": {
     "description": "Browser from 360",
@@ -627,7 +627,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-12-16"
+    "version": "0-unstable-2025-12-17"
   },
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
@@ -2427,7 +2427,7 @@
   "packages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-12-11"
+    "version": "0-unstable-2025-12-17"
   },
   "packages.x86_64-linux.browser360": {
     "description": "Browser from 360",
@@ -2607,7 +2607,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-12-16"
+    "version": "0-unstable-2025-12-17"
   },
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",

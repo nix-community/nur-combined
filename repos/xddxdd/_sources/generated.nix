@@ -190,14 +190,14 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "a181123a1de358bd64322ba5e8748a7f0f970240";
+    version = "0c663fb672d4e4018218ea7064e1fb35c480e408";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "a181123a1de358bd64322ba5e8748a7f0f970240";
-      hash = "sha256-GBwAesQJqCAJ1R+P0Kdfw75Je3dwaWItX936qv6+XRw=";
+      rev = "0c663fb672d4e4018218ea7064e1fb35c480e408";
+      hash = "sha256-UqLBfdL492WKrZQ8GSS03q8DkwkwL3Vj5WpQZQ0S/Hg=";
     };
-    date = "2025-12-11";
+    date = "2025-12-17";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -675,14 +675,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "74ada7222e1d61650f3b740a0bac01575591b23b";
+    version = "6ebf4f3f91287a83bf050447d1ce470e66b2c89b";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "74ada7222e1d61650f3b740a0bac01575591b23b";
-      hash = "sha256-B0KKs5IuS8sBQUyfMSkwM1ZYiGCapl+Jy2glngbSE1U=";
+      rev = "6ebf4f3f91287a83bf050447d1ce470e66b2c89b";
+      hash = "sha256-tv/HhHObqSiZqG0mwwJZ3VHIFLk+OSBI7XQKjrfb++E=";
     };
-    date = "2025-12-16";
+    date = "2025-12-17";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1081,12 +1081,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7434";
+    version = "b7446";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7434";
-      hash = "sha256-4Xat+htYAlKBdepcFGKcl1DT9zpB09jf1LjlQ4xhNrY=";
+      tag = "b7446";
+      hash = "sha256-+zkABxcGzfuY4v16PMl3opoxOK/VbUnklFUslDMERfY=";
     };
   };
   loralib = {
