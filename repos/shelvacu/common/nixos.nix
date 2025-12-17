@@ -45,6 +45,8 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     PermitRootLogin = "prohibit-password";
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   security.pki.certificates = config.vacu.rootCAs;
 
   systemd.services.nix-daemon.serviceConfig.Nice = "10";
