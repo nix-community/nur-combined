@@ -46,10 +46,14 @@ rec {
 
   # Clingo python API
   pyclingo = pkgs.python3Packages.callPackage ./pkgs/clingo { };
+
+  # Dodeca static site generator
+  dodeca = pkgs.callPackage ./pkgs/dodeca { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker
-  kani = pkgs.callPackage ./pkgs/kani {
-    inherit rust-overlay;
-  };
+  kani = pkgs.callPackage ./pkgs/kani { inherit rust-overlay; };
+
+  # Wrapper around stable and nightly cargo to support rustup-style `+nightly`
+  cargo-fake-rustup = pkgs.callPackage ./pkgs/cargo-fake-rustup { inherit rust-overlay; };
 }
