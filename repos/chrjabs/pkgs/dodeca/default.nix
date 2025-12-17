@@ -5,7 +5,7 @@
   rustc,
   fetchFromGitHub,
   wasm-pack,
-  wasm-bindgen-cli_0_2_105,
+  wasm-bindgen-cli_0_2_105 ? null,
   pkg-config,
   openssl,
   cmake,
@@ -114,6 +114,6 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
     mainProgram = "ddc";
     # MSRV is 1.91
-    broken = !lib.versionAtLeast rustc.version "1.91";
+    broken = !lib.versionAtLeast rustc.version "1.91" || (wasm-bindgen-cli_0_2_105 == null);
   };
 }
