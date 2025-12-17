@@ -33,7 +33,7 @@ let
       vacuInitFile
     ];
   };
-  wrappedBash = lib.getExe wrappedBashPkg;
+  wrappedBash = wrappedBashPkg;
 in
 {
   imports = [ ]

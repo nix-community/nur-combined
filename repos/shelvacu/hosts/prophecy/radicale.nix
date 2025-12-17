@@ -31,7 +31,7 @@ let
     # thunderbird @ fw
     "$2y$05$xAndl8cHx8azp8/gNnpKO.RyxC5WPva8/QEv1CxbzL/hhYwYM2nP6"
   ];
-  htpasswd = pkgs.writeText "radicle-users.htpasswd" (lib.concatMapStringsSep "\n" (hash: "shelvacu:${hash}") hashes);
+  htpasswd = pkgs.writeText "radicale-users.htpasswd" (lib.concatMapStringsSep "\n" (hash: "shelvacu:${hash}") hashes);
   radicale = rec {
     settings = {
       storage.filesystem_cache_folder = "/var/cache/radicale";
@@ -48,6 +48,9 @@ let
   };
 in
 {
+  imports = [ {
+    options.vacu.debug.radicale = vaculib.mkOutOption thePy;
+  } ];
   users.users.radicale = {
     isSystemUser = true;
     group = "radicale";

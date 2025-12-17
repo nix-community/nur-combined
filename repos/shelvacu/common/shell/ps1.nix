@@ -31,6 +31,8 @@ let
     + " "
     + ''$(vacu_shell_show_return_code)''
     + ''\n''
+    + reset_color
+    + ''$(vacu_shell_level_indicator)''
     + (set_color colornum)
     + (final root)
     + reset_color
@@ -39,14 +41,29 @@ in
 {
   vacu.shell.idempotentShellLines = ''
     function vacu_shell_show_return_code() {
-      local ret=$?
-      local color=${toString colors.green}
-      if [[ "$ret" != 0 ]]; then
+      declare -i ret=$?
+      declare color=${toString colors.green}
+      if [[ $ret != 0 ]]; then
         color=${toString colors.red}
       fi
-      printf '\e[1;%dm' $color
-      printf "%d" "$ret"
-      return "$ret"
+      printf '\e[1;%dm' "$color"
+      printf "%d" $ret
+      return $ret
+    }
+    function vacu_shell_level_indicator() {
+      if [[ -n ''${SHLVL-} ]]; then
+        declare -i shell_level="$SHLVL"
+        if (( shell_level <= 0 )); then
+          printf '? '
+        elif (( shell_level == 1 )); then
+          # dont print anything
+          :
+        else # shell_level > 1
+          printf '%d ' $shell_level
+        fi
+      else
+        printf '? '
+      fi
     }
     if [[ $EUID == 0 ]]; then
       PS1=${lib.escapeShellArg (default_ps1 true)}
