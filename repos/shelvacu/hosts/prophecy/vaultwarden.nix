@@ -27,7 +27,8 @@ in
     SocketBindAllow = [ "tcp:${toString port}" ];
     SocketBindDeny = "any";
 
-    IPAddressAllow = [ "127.0.0.1" ];
-    IPAddressDeny = "any";
+    # this stops dns and favicon lookups, so nevermind i guess
+    # IPAddressAllow = [ "127.0.0.1" ];
+    # IPAddressDeny = "any";
   };
 }
