@@ -8683,10 +8683,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.31";
+      version = "1.0.32";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4617990/mergify-1.0.31.xpi";
-      sha256 = "df0d09995a6ce1b7b4baad757cfb00e8c71eda56bbca66ccefe0a05a8e78afeb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643956/mergify-1.0.32.xpi";
+      sha256 = "69474292327944a8f2d348844ad8f343f388e2bd72f24186a0778f2fa6cb19e1";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -10144,10 +10144,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2025.9.2";
+      version = "2025.12.9";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4570378/privacy_badger17-2025.9.2.xpi";
-      sha256 = "a7bcc6a8138373cc3721089baee846df228ca7ca9ca87e10b946c20811bd2d0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4638816/privacy_badger17-2025.12.9.xpi";
+      sha256 = "f432abdcdced726c992bfefa9ad00deb6fa8b6a7e439996095d507627439cea1";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -14982,10 +14982,10 @@
     };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.21.0";
+      version = "1.22.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4636437/wallabagger-1.21.0.xpi";
-      sha256 = "2cc409aa3f10358540b89b0db8e37a25bc279478d7ff9528433a9db6e373e190";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4644061/wallabagger-1.22.0.xpi";
+      sha256 = "ef703b6ab732b418e8f2d7b13442e73e6f192b75e55eba8d6a130143e500db8b";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
