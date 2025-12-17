@@ -1,412 +1,422 @@
 {
   "acheron": {
-    "sha256": "1f6d61e3a880b4d56b0fb6a5c686d14570a0a4993df4e92b7d32c3369f288791",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Acheron.tar.gz"
+    "sha256": "c7492e44f67f8606838b4f5a433ff1f8050fd6c257478784aadb85cf84675e37",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Acheron.tar.gz"
   },
   "acheron_cn": {
-    "sha256": "30338af1d0fcbae6ac83c65d8a9ef9ae07fdf9a869bf4fc6fc758a6c58bbc900",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Acheron_cn.tar.gz"
+    "sha256": "68b5e634bb5a25a22d54e0f155e3b305c0715e94e066d7e85dab80debaf588c4",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Acheron_cn.tar.gz"
   },
   "aglaea": {
-    "sha256": "f6f8b1ee749769c27a02dff9dc8e25248541e640903ce4c227895f5aec22ce01",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Aglaea.tar.gz"
+    "sha256": "f852ddc6a7f1124420fd6042f97b2c88ab6a3ead055ecdd5158accabf52161b4",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Aglaea.tar.gz"
   },
   "aglaea_cn": {
-    "sha256": "94623b794afc35015c0222ff6b2a6720925e15e04e6d3358ed63ae7e0054f53d",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Aglaea_cn.tar.gz"
+    "sha256": "ac374948d458623f0684b935446309d56c67f26fd4df96ffa0321134405a53f3",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Aglaea_cn.tar.gz"
   },
   "anaxa": {
-    "sha256": "e58fa167e341086fe5acce1da3848b85345c89b0f2513a49b5e8fbf9061b5415",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Anaxa.tar.gz"
+    "sha256": "4efb7b9834272e3b19992aa56ac9c2eeb9aba339e9fbaef4485e48e9cd02b7e3",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Anaxa.tar.gz"
   },
   "anaxa_cn": {
-    "sha256": "fa5adbd51dfe45c6178bfe405e8c77667ffea3ec59ae804b7854aa6d7423e17e",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Anaxa_cn.tar.gz"
+    "sha256": "e318d0e07527e775220bf7b39b9bd006e97cd93f2b651f29b51c5888a4a527c8",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Anaxa_cn.tar.gz"
   },
   "archer": {
-    "sha256": "5c07cff0f7b60dc09d9c57cb02d560bbfc63a9e2778f34c78bb264df4b921f16",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Archer.tar.gz"
+    "sha256": "7c13c0318b99f81291622b92c8aa552205a1086235e9f350d86024ccddb2079d",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Archer.tar.gz"
   },
   "archer_cn": {
-    "sha256": "1fd937eb2ed6583ebcc91e6315c6766b98e2ecdef45dd795618d65210bac5993",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Archer_cn.tar.gz"
+    "sha256": "adc2f3e9a36cfa03ddbe30de2e92494760b6174cacca2811c6e57bd9d4c2f770",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Archer_cn.tar.gz"
   },
   "argenti": {
-    "sha256": "c20de4b6d700880f3126dc0db3a02a837dc85eda2908fdaad6fa990f452215a6",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Argenti.tar.gz"
+    "sha256": "45a91cebf73bac4a824f5eeb3b974f9f5753e96c02d30f6e1fc67f5a67d25768",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Argenti.tar.gz"
   },
   "argenti_cn": {
-    "sha256": "7c4a9e8baa6d860682277e39c1ba1a9185e5232ee226648810f5454722e4364a",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Argenti_cn.tar.gz"
+    "sha256": "0536db9d30e0766533479191239979810e83d8d838a408b85fe0b93abe94e529",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Argenti_cn.tar.gz"
   },
   "aventurine": {
-    "sha256": "1d2d3b3b014c0922e9de9470535b3b54009f170540eda9ea405c0ab06e5be3d0",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Aventurine.tar.gz"
+    "sha256": "528067c6dcd1114f90adb0acd3767f7701365d1f2e32b9472c21315f54453eee",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Aventurine.tar.gz"
   },
   "aventurine_cn": {
-    "sha256": "ed9a904a3993e376f52f58e8fce6664cbb6f452d46f3d3c60f1375be621e0b3d",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Aventurine_cn.tar.gz"
+    "sha256": "d1b0fe55c8157a9b2cc4f99d5b9ab8977086521158c96e30bc8be51e546da47d",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Aventurine_cn.tar.gz"
   },
   "blackswan": {
-    "sha256": "b8d8758f2c24c72783ba68111f0d31ea919b387ba6d3b27284afccaa1d0fc337",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/BlackSwan.tar.gz"
+    "sha256": "603f1a39a3e2df3a1fb9eb82acd8adf500e28a015060de4ca521b39afaf4d560",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/BlackSwan.tar.gz"
   },
   "blackswan_cn": {
-    "sha256": "61dbd302ad42d3469f90e403420bcc9d0d41513cf4dd1de795d8308f1bb87150",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/BlackSwan_cn.tar.gz"
+    "sha256": "8b1c058027400fcd99fe83a7fb222b4c66f606b355efbb02bf1400453025a51a",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/BlackSwan_cn.tar.gz"
   },
   "boothill": {
-    "sha256": "49042331805453d74b04a6150e1be23264f73880e0b34e40387c5ae68aea0f99",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Boothill.tar.gz"
+    "sha256": "3cd03791062fecc2635c01731b9d39a0d832494cbe9c6589905a6dd54203b8b0",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Boothill.tar.gz"
   },
   "boothill_cn": {
-    "sha256": "2311daca74ac92cdf1c8a8a5aa43ff4bbf870bfaf51564f80e3aebb226d236be",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Boothill_cn.tar.gz"
+    "sha256": "3e5c409254aa140879fb83775966c30bc4b619132e6d41e813b28749b63ef7ad",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Boothill_cn.tar.gz"
   },
   "castorice": {
-    "sha256": "36d1a25284c384aa5a375678351a19a270771fc1e1880f6f1f849345a1b19212",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Castorice.tar.gz"
+    "sha256": "ce280b8be05f9f92302c3d7d33c929f0ebfcf0060cef44b5620320fcdf9e28cf",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Castorice.tar.gz"
   },
   "castorice_cn": {
-    "sha256": "a8e5ce062da6b298a330b7f0308fbae69c9692725f792897bac5107671bd85cc",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Castorice_cn.tar.gz"
+    "sha256": "7c97cde47485602a51c30720a6334b8c167c0ceb3a12296a0d3b7a87793427d5",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Castorice_cn.tar.gz"
   },
   "cerydra": {
-    "sha256": "c383ff7665881374d8845893b5d5602558f0f264bac25ccf80b35cbb1e5dec00",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Cerydra.tar.gz"
+    "sha256": "83608db5a367d228d15e0f634390867628e17578c9e79bd7965067873de00bea",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Cerydra.tar.gz"
   },
   "cerydra_cn": {
-    "sha256": "4406c79197a7bae3514fb4acf987ab00c868e83861e806340cca0b88b81f0f0b",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Cerydra_cn.tar.gz"
+    "sha256": "7043203db1563e0053d8d350578e1b80b2da18c37c2ceadd4f03a5c81c23669c",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Cerydra_cn.tar.gz"
   },
   "cipher": {
-    "sha256": "859fff028d9ff0c04902f75e51914b803f32eaf623fefbeaec1ff04b685447c5",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Cipher.tar.gz"
+    "sha256": "60539eb1292152675edc6ed0cda40f90a564b93d5848219eecf2af1c35299e2c",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Cipher.tar.gz"
   },
   "cipher_cn": {
-    "sha256": "53765394cdfc37af694203e531a587a236d79b9eae32a4333205c7be65d4f36f",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Cipher_cn.tar.gz"
+    "sha256": "ad0925f0eb144c1ba451729b22b9b7a6179e86f4fa98d018b5acb4d314151b7a",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Cipher_cn.tar.gz"
   },
   "cyrene": {
-    "sha256": "4ea2ad37af386d523fd65e96a02a4ccba04c216866252208fbf11526b6a9ce36",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Cyrene.tar.gz"
+    "sha256": "70f8a3651e2ac80e1f14301395620ccc56bc522e25d958d987d2b802ad33495b",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Cyrene.tar.gz"
   },
   "cyrene_cn": {
-    "sha256": "ee24c22dd9c614a3ffc7f1172f9aca9e79cf295b904cdec0b8d36fab4b72bb17",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Cyrene_cn.tar.gz"
+    "sha256": "5df47b2f218fc989281a404be5f7198b5f905a0fbcd4f0945530a68676b4fa83",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Cyrene_cn.tar.gz"
   },
   "danheng-permansorterrae": {
-    "sha256": "caf6b20b51b71f13f940f162e3377ac09b70d9fecdf270b14336d5e6bb263f7f",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/DanHeng-PermansorTerrae.tar.gz"
+    "sha256": "4c08e7882a9b913d123d267fa971100214ce466767e8f7a54fc49a5644cf549e",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/DanHeng-PermansorTerrae.tar.gz"
   },
   "danheng-permansorterrae_cn": {
-    "sha256": "f353815c4c3e7ecb9354067913c9bf0f6d8f3f6a89edfd140da801e01e4ecda3",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/DanHeng-PermansorTerrae_cn.tar.gz"
+    "sha256": "b0a6a139731b23ca3c6e61661204605c798695baa9fc9af2e622f0adfc198bf3",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/DanHeng-PermansorTerrae_cn.tar.gz"
   },
   "dr_ratio": {
-    "sha256": "5d70447f00e6672a884dbe50ee4f321f6b62540cb3b99b974287d7ae9de7d4b3",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Dr.Ratio.tar.gz"
+    "sha256": "52a71df59955f9dca9a2303e419889252fd369b7bfe700547c015b31a9cc68c8",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Dr.Ratio.tar.gz"
   },
   "dr_ratio_cn": {
-    "sha256": "ed7cdb2bc7ebd2431af030a10dea7b28ea92986284ada8886be20fbe866bfc3f",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Dr.Ratio_cn.tar.gz"
+    "sha256": "54305d939c80442b3ba16d67b2e724840e1f6b2d305023180f558e4404c72798",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Dr.Ratio_cn.tar.gz"
   },
   "evernight": {
-    "sha256": "56e2ca3fafa8780b1cf3ef412dbe85b9852b64bd18b046e2bdd26237e4b5f2ea",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Evernight.tar.gz"
+    "sha256": "1ca326ce70e2c7415acd4ab3cdb8f9d6133d5fa58d843ba5c6200d107cca940f",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Evernight.tar.gz"
   },
   "evernight_cn": {
-    "sha256": "54f59bb8a57ffa491b4d3b8abfd413d40d21a5fceb7f387dc85389741f4ce8d5",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Evernight_cn.tar.gz"
+    "sha256": "2caa54789eca54383f8fb8fe8a4f01123672da2c199d1ea2ef7a171b9b911b3a",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Evernight_cn.tar.gz"
   },
   "feixiao": {
-    "sha256": "7d0bb82a2f1da96f519a1693edef7ccbdb5349be515f976cae220b844e56d714",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Feixiao.tar.gz"
+    "sha256": "cf9df5b75e6b45f6b1759319d4f36388bca2e75cc595bcbdea483fd8a24c5426",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Feixiao.tar.gz"
   },
   "feixiao_cn": {
-    "sha256": "8953f0476323c110158bb412efcf49a65fa62aa3832e677b81b136a44c74a9e6",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Feixiao_cn.tar.gz"
+    "sha256": "cff6d240fffaea94a58bf78aa6d3ebfa39d5ab2c2989ea801a4d74585a179fad",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Feixiao_cn.tar.gz"
   },
   "firefly": {
-    "sha256": "5fed6bd81c93d8b4e438e5455432b5a63e700fc6201b89472a11b2002159a7a2",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Firefly.tar.gz"
+    "sha256": "2d229760be967dceb69384a9448ddfff4b0fff56b74e8481ee5e97cffd059142",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Firefly.tar.gz"
   },
   "firefly_cn": {
-    "sha256": "8950d78085c66c76cdf270334c53f8069c0716ec85127abc1796eb1d8cbb3f23",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Firefly_cn.tar.gz"
+    "sha256": "9e8b134291d9177aaea0235c39167258b0c988566fadff4ba1d3f9a3e541a4dc",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Firefly_cn.tar.gz"
   },
   "fugue": {
-    "sha256": "8d9db57706c60019b2dee577e478291c9dbb2b3bc3a861f6e8fd34eb55f8ebf1",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Fugue.tar.gz"
+    "sha256": "184f14c264a7478175e573d97dac8dc7a10a2cb6e483298d3361743d0ae28e0d",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Fugue.tar.gz"
   },
   "fugue_cn": {
-    "sha256": "e7535293ff2a8b23189e39a614e4d9d20fb866e8f26a7d02a7b2f53546994850",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Fugue_cn.tar.gz"
+    "sha256": "3c37b92ae9c6b43b4043c6cb9638dc7811a2c9f634bf1c8640e0a6d1e241332c",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Fugue_cn.tar.gz"
   },
   "hanya": {
-    "sha256": "cb56ac93ea0dd8be9804b7f8d135e04bb66afa5b4441893b2347ad49869f7e81",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Hanya.tar.gz"
+    "sha256": "7e0c64b8c6f36e83a144a6240d7ee376893e061ecd9d4cb8aeb565846010f969",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Hanya.tar.gz"
   },
   "hanya_cn": {
-    "sha256": "5641e9c7fb094cdfb792bd468883c6ee639ac6d4eea5043e136ab2a3ca88f5ea",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Hanya_cn.tar.gz"
+    "sha256": "8027b9131e93f358fd09a4d3d3656c99ce6fba860fe5ef8a068bf51ee471b08a",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Hanya_cn.tar.gz"
   },
   "huohuo": {
-    "sha256": "609e589220302585f7a7d7eb1db815e87c2cf21defa9cc5c9a05a895e0997414",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Huohuo.tar.gz"
+    "sha256": "418f753c7d7df41396d1c6417de57ce881d63f3836fde24e9d7159b4b3794295",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Huohuo.tar.gz"
   },
   "huohuo_cn": {
-    "sha256": "b5c3c3a55058f87a405144fdbb08a8b8fca59126a5b21449f386b0cc219b8349",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Huohuo_cn.tar.gz"
+    "sha256": "7c3dec3633c355f58c2624b29b84cd5ab5a1735c8798652bc2321641f4d801d2",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Huohuo_cn.tar.gz"
   },
   "hyacine": {
-    "sha256": "2671539bea1d24dcd5d3a3c61e57ffa078b998a9093fddf6e94e972db0c5f618",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Hyacine.tar.gz"
+    "sha256": "6b27df63ac3e43a39ab89cb970c3e5a16484ae62f9755deb7df1fc8d5a34486a",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Hyacine.tar.gz"
   },
   "hyacine_cn": {
-    "sha256": "046bb32d9620ad5a4ed716a6c9459257c004db38b54f4b29d4010aa38925954b",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Hyacine_cn.tar.gz"
+    "sha256": "4aab7c392dc74078670179e8a0207717e136bb6f1d41cbbc1374ac0a83a30f86",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Hyacine_cn.tar.gz"
   },
   "hysilens": {
-    "sha256": "525755b258d2d8aa95c85e577fe9473f6ef75447980185f53abe9670ed5c240a",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Hysilens.tar.gz"
+    "sha256": "c53cb040434f85e2d5a5b207ed8417789021887136e217507f2cd92867c4bab8",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Hysilens.tar.gz"
   },
   "hysilens_cn": {
-    "sha256": "c826ac48c2bb3dafae869b8162e0517338888d43b8bc1a23e13be92830f24d14",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Hysilens_cn.tar.gz"
+    "sha256": "6c872641ae6a71fc60340699eaf1c64eabb13a334715a6b328979eb9a428cb0e",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Hysilens_cn.tar.gz"
   },
   "jade": {
-    "sha256": "30a123d8a4246e2029c6f836d9cef616b0e282f666e6e64587c2ec93baa34fb8",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Jade.tar.gz"
+    "sha256": "01bc17575f1f693281bc4c231cdb5f80f261f1992eefcfaeb1b632287c60f9a6",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Jade.tar.gz"
   },
   "jade_cn": {
-    "sha256": "5864774cc4c772377f9ab7f524a1013155b7fcfd3e94cfabc63bfa2ffaf2e354",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Jade_cn.tar.gz"
+    "sha256": "a99e6130b42f9b2f6ca7c9d373f90b7fb1d264a4367eb601e2cb1a4855d4b666",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Jade_cn.tar.gz"
   },
   "jiaoqiu": {
-    "sha256": "6f6a7d785826ddda989dcde264d5c51fbbb44ac0730f3f27f091bfa21a6a5451",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Jiaoqiu.tar.gz"
+    "sha256": "42eddfb000ed1708dd6c64fe2472dc97d51f077e6bf32c8cfcc4d5f81596c648",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Jiaoqiu.tar.gz"
   },
   "jiaoqiu_cn": {
-    "sha256": "b0f4cbe961457c5b9ca8f12bc0e8ba65fcc23c4b073f141161601f87502a85b7",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Jiaoqiu_cn.tar.gz"
+    "sha256": "dc7aec2f99a3ba14f4fa30f4fa369d3f579ff64c7afee0fb94b6f782d2d6110f",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Jiaoqiu_cn.tar.gz"
   },
   "jingliu": {
-    "sha256": "7e0a8537757091293a8b24bfac1f2f325f131d131622f920b10c3e721d547373",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Jingliu.tar.gz"
+    "sha256": "a9c4522c98e63f9a1904271bb169a5e65ce3aa371b23db782bee2a75aac19322",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Jingliu.tar.gz"
   },
   "jingliu_cn": {
-    "sha256": "ddd7ce2881a10df146b50f1b66fb8d6c2ec24e3f7a33c9e3b1f8a2bffa902bc5",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Jingliu_cn.tar.gz"
+    "sha256": "b893341674479626138786a18387ff985e003aa9dda89ef91ebbf8cfe4f236d3",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Jingliu_cn.tar.gz"
   },
   "kafka": {
-    "sha256": "333dbf864764ced8d770aa0c0fd98e26801cbc76bf25986ee7dc6baa09d9bd25",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Kafka.tar.gz"
+    "sha256": "f7824d6c4c4b1117e6aba1b32b05604dfee00db0646f6ea998c4ab64ab2b3d35",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Kafka.tar.gz"
   },
   "kafka_cn": {
-    "sha256": "dace151418f7824d6979afd1bfd2d367000764180afe2a9ee7d8e295518b8951",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Kafka_cn.tar.gz"
+    "sha256": "51b8c7dab1fca7af25a382bbb64ed9b662b14e8adbcc2369d2cfba039d74cba2",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Kafka_cn.tar.gz"
   },
   "lingsha": {
-    "sha256": "28d11f7c250164a6bf1b7a905f0f44f6d750e7460c22a621e3843e0ae0e4a285",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Lingsha.tar.gz"
+    "sha256": "87d3d15b90d8a620b825785925fff64de002c5cbd77e818637da406b65b89125",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Lingsha.tar.gz"
   },
   "lingsha_cn": {
-    "sha256": "0d4725a435245ee00b08f3296f4b42f8c6e50d60fdedc44ede214bd74de57b19",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Lingsha_cn.tar.gz"
+    "sha256": "51471a7c2b720ead6cf5708f6080bdf5009d618f951f51d3abdbc453f05edc4d",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Lingsha_cn.tar.gz"
   },
   "luocha": {
-    "sha256": "86921baa776649079781af4dabe89f2a9603a82f605b9c0201b175be4fbe021a",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Luocha.tar.gz"
+    "sha256": "314e48168cf470191a8a8bf7148646c999439a497452f9779b96f864e4f36e14",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Luocha.tar.gz"
   },
   "luocha_cn": {
-    "sha256": "075b1473b5c084f6011c507216aa519a4271186a5b49cffbef00eff1fcf03a2d",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Luocha_cn.tar.gz"
+    "sha256": "f4f5bb95694e0fd03d0f94d5daded09115fe4beee7f090bf0ac3e20cc1a38109",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Luocha_cn.tar.gz"
   },
   "march7th-thehunt": {
-    "sha256": "ffe438ff9d71b650523c2609cdaa2fa381e0ca9854d8d561ac9412317b2bfefa",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/March7th-TheHunt.tar.gz"
+    "sha256": "4df0346762f87079cd2790a452a41590d6246306d084e8372c18ed8239ad5fb1",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/March7th-TheHunt.tar.gz"
   },
   "march7th-thehunt_cn": {
-    "sha256": "caddba1c0b8b79365e80a6637637529309c41ad0af59eef6a58722112f73ec70",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/March7th-TheHunt_cn.tar.gz"
+    "sha256": "05a85dc28661f3b5fd35649b0ded4f7865e58bf0e808b1653f3a3f1b7a9e24e6",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/March7th-TheHunt_cn.tar.gz"
   },
   "mydei": {
-    "sha256": "7a924a733c568b30093c1f2bd44a29e0b09a0800c4a15b72b940e4afa553eb67",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Mydei.tar.gz"
+    "sha256": "978aadca2efbbd837e4dc9619b2c5db33a18543d48ea3051715f90f47c876054",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Mydei.tar.gz"
   },
   "mydei_cn": {
-    "sha256": "ddab90e3142229ffaf76f74330db325863f2dcc27012f97caeb2041f3cfb0272",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Mydei_cn.tar.gz"
+    "sha256": "7ce4220e44118468dc1cb7f78eee0cdf0df9083e52c42a21e1ba53031dba4f57",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Mydei_cn.tar.gz"
   },
   "phainon": {
-    "sha256": "5a6200c4d08871e080e38304cfd32374f59a711f7aa3153e82c8db375f8b90f2",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Phainon.tar.gz"
+    "sha256": "de44895f2b6b467344760563d640b7f1e4da136ba53e436c3a06ff1d96ffaf91",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Phainon.tar.gz"
   },
   "phainon_cn": {
-    "sha256": "89077df74ecfbcf85d0fc2f19fb6e9da9337e2ee5322c874420088dac46cfb4b",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Phainon_cn.tar.gz"
+    "sha256": "13496978775a0cc66d88be266116b2cb7724cfead3f092bdbd8b95b3fefbed90",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Phainon_cn.tar.gz"
   },
   "rappa": {
-    "sha256": "63bebd49124a654b059d6d7df1a1cb169dacbd3afaeae94c02ff98d903cc45f2",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Rappa.tar.gz"
+    "sha256": "39e196ea652c3915cfa86cc31239c48958741b0b3c7b1425a64a66d9511a1dd9",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Rappa.tar.gz"
   },
   "rappa_cn": {
-    "sha256": "29c572143dc900941df83e98853a73745c14fd5a9738b79b5196bd41d74ada90",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Rappa_cn.tar.gz"
+    "sha256": "17e0aed16b721d8afc16c1e22912fce161176b48a4b0e3ef8ff567b7fc3c55b1",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Rappa_cn.tar.gz"
   },
   "robin": {
-    "sha256": "d4654510ff1b50109b1b5fa6176aa5234825dbdb5be182dd742bd6dc0cfd7f72",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Robin.tar.gz"
+    "sha256": "868b3daa04c601f4a89daf51800647be2b8fa9cdf43915d0cbe4d40d56914688",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Robin.tar.gz"
   },
   "robin_cn": {
-    "sha256": "2eab33b56bea9fb6fa4b4bbf50fffa648287cae66f2e16ac68d5a65b35af8bbd",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Robin_cn.tar.gz"
+    "sha256": "bc78932ab3675176969bfda2fcab8b8482faa68ec55b88f0a91e89dd645f5cb5",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Robin_cn.tar.gz"
   },
   "ruanmei": {
-    "sha256": "2053e7f14c80734908ddd64fcfcfd553998f8744b9ce5b7d7203aa0928cfe098",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/RuanMei.tar.gz"
+    "sha256": "e42be73a4f7bd059cef49e2407731bf70850df1d7fcae8e4c8d24230ff67748f",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/RuanMei.tar.gz"
   },
   "ruanmei_cn": {
-    "sha256": "cec4ae150785057097c3a1de9575f6227e1e0fc032a8d1758c70d459288d33ff",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/RuanMei_cn.tar.gz"
+    "sha256": "b8fa8a2bb7aac38aa57aeec76b6c1308d3bf41607219cd629a4e171df78d3d35",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/RuanMei_cn.tar.gz"
   },
   "saber": {
-    "sha256": "055c14a175ce4655da905f9b2b777c498053bf4a56e65fb30da6dedabb1ac406",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Saber.tar.gz"
+    "sha256": "83a44e1249c3f06a489e61dace36e44066e27a91edc1cdb489ab87de2fe7507e",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Saber.tar.gz"
   },
   "saber_cn": {
-    "sha256": "954d0bfe7fa4177c1e2e8dbdb9a487e87280e633c6a36b8598fd3a5faf2c25b4",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Saber_cn.tar.gz"
+    "sha256": "95060d1e31528e195f1eaf1cd78a5dc3658e855fc170a1d265ff2015205ec9d2",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Saber_cn.tar.gz"
   },
   "sparkle": {
-    "sha256": "921989259cc1324d2b24d2641d36fccf77f406ce9b69cb62c9d7523086020f73",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Sparkle.tar.gz"
+    "sha256": "61f8d8c2af8f7b4a562b5094f85810daa90ced821de74195fd971e930b09538e",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Sparkle.tar.gz"
   },
   "sparkle_cn": {
-    "sha256": "d000bd460a92c4159fb152ac12f338d556e6711e7ca97be7d58b04f02db11344",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Sparkle_cn.tar.gz"
+    "sha256": "3f6af54e2b2a708797b50b06595bb4e0ac4e233cb70a4fb3d49a9fc10768fcf8",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Sparkle_cn.tar.gz"
   },
   "sunday": {
-    "sha256": "c1198661013a1d646373b84eb73a5b6cde43f9b52e7d3d231af5051f42b6bb62",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Sunday.tar.gz"
+    "sha256": "93f6fde8cf1fc33637b4ba3d70137ed3f98cb239e0652bc302ebea90b53b175c",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Sunday.tar.gz"
   },
   "sunday_cn": {
-    "sha256": "9685cf22c698f5e512761391da9aa234f5d8b44edf5f590ca50a6448bc03d4f3",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Sunday_cn.tar.gz"
+    "sha256": "303f86ea4d6b8a84a80d075e9cf82960e9455a1da1d7f7f6cfa23fcdba867e58",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Sunday_cn.tar.gz"
   },
   "sushang": {
-    "sha256": "be65f4b07b1adc25b9d1948ff65af8e09f595b1985437d886a5eab064dc980ed",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Sushang.tar.gz"
+    "sha256": "3ab0108e8fcebbad0ae4c09929b7d6acd0e2d35017cd7bd36c8595abcae56759",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Sushang.tar.gz"
   },
   "sushang_cn": {
-    "sha256": "4674803cd6d70c3f8cda3954814dbd3e118174bd8ee599069c34499eb58cc78b",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Sushang_cn.tar.gz"
+    "sha256": "af2ca261969b373d93a6a99f962347368d7ba0f46de789d2abb07dfaeab763bf",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Sushang_cn.tar.gz"
+  },
+  "thedahlia": {
+    "sha256": "0dae4983edbd6a5733ad751d390b8d2c4482628dd39ad2c14f2f16599d817d82",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/TheDahlia.tar.gz"
+  },
+  "thedahlia_cn": {
+    "sha256": "35efdfa1a2fbd6fd9e900df7667c3c8ab3d6a43a47cc3c9e6b7886232125fcd0",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/TheDahlia_cn.tar.gz"
   },
   "theherta": {
-    "sha256": "2d8b884b5caa5dc494e65c61225dcbf8c946521684da3dd8167c307ce1191a95",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/TheHerta.tar.gz"
+    "sha256": "f285ee66b6a2d2586895f7ae3c258893885691d1903a0d08f33d52305c1d7375",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/TheHerta.tar.gz"
   },
   "theherta_cn": {
-    "sha256": "6581afe9aa82ea1cc9c121823331cb2e3091b6466e4885f06689f4eaf1961560",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/TheHerta_cn.tar.gz"
+    "sha256": "67db045d753eeffb584d06ce8eb6701834ad7e22af52353e98a6555342e15ddd",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/TheHerta_cn.tar.gz"
   },
   "tribbie": {
-    "sha256": "0aa00e31f9ece587a85db1e23fddc5cc94c816db78f6c95722611f74c5ebfe64",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Tribbie.tar.gz"
+    "sha256": "3d218cea40cf43b5ad652c1d51da129dbbeba5f8fedf451c3d5b7d05cfcb9dd7",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Tribbie.tar.gz"
   },
   "tribbie_cn": {
-    "sha256": "b9769dd2d8a2a17d897f2cc737286994bda34e9e083a84072282ea16962466af",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Tribbie_cn.tar.gz"
+    "sha256": "39ff2c6f23c37062a2d2ebcceaa6924495bb1ed9304397e94e8233980ab7188d",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Tribbie_cn.tar.gz"
   },
   "yunli": {
-    "sha256": "79d4ed0072e200cbf7e56f372caed100c6fb5fe1dee4f2e17525b908ee2c1c1f",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Yunli.tar.gz"
+    "sha256": "038c0273952473431e94462102c3476eaa518f46d839cd89ddf8a24b2996e81c",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Yunli.tar.gz"
   },
   "yunli_cn": {
-    "sha256": "a3a2e03e664934a2f1b7eee98325b5237c18a3aa5654dd0dca57aa144ce2a95a",
-    "tag": "20251114-034357",
-    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251114-034357/Yunli_cn.tar.gz"
+    "sha256": "8e97f81891b5ebfe62ecb1d17c9d6f5277330f06fa255bd7f315175662514d39",
+    "tag": "20251217-115754",
+    "url": "https://github.com/voidlhf/StarRailGrubThemes/releases/download/20251217-115754/Yunli_cn.tar.gz"
   }
 }
