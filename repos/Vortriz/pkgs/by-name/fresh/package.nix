@@ -12,16 +12,16 @@ in
 
 rustPlatform.buildRustPackage {
     pname = "fresh";
-    version = "0.1.44-unstable-2025-12-16";
+    version = "0.1.52-unstable-2025-12-16";
 
     src = fetchFromGitHub {
         owner = "sinelaw";
         repo = "fresh";
-        rev = "ee25c33e47028300d7c211c6657771ede6ab7ceb";
-        hash = "sha256-bTvX6syN8RkJ/5A4qCRZmCU2hfDmkGYbW/vl3wyvetg=";
+        rev = "58ce0d35b0cec10e0492a7796b451a111118ed61";
+        hash = "sha256-kUN8cUctgVkFZ1zfy4dojSRce5lpp0K38/Uvg9upc8Q=";
     };
 
-    cargoHash = "sha256-IglklvhsR0MgZY3sqKGSbDtXlS0S31yWnKXtjfrhw9o=";
+    cargoHash = "sha256-DbE/dAxsvExvTijk2hAQ6LAb/XcdYahy8wFk36fe8Oc=";
     strictDeps = true;
 
     nativeBuildInputs = [
