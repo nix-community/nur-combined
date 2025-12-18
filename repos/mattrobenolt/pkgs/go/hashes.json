@@ -10,5 +10,11 @@
     "darwin-arm64": "sha256-vtjr6CTj07J+hHHRMH+AP8arjh0Ot6SuGWl5vZuAHdM=",
     "linux-amd64": "sha256-npt1XWOzas8wwSqaP8N5JDcUwcbT3XKGHaY38zbrs1s=",
     "linux-arm64": "sha256-sAtpSQPRJsWIw3jnLTVFVJk105gmNbo/epZMn6I/47k="
+  },
+  "1.26rc1": {
+    "darwin-amd64": "sha256-x2uA7yiGa2U/lFJceUJejdGbmvvKVP/6fgLsscSdRls=",
+    "darwin-arm64": "sha256-9bQGSOWhptGweGKNY/H+uSi3bY9Dt4FmUywD9TcV/00=",
+    "linux-amd64": "sha256-s5W11R1FzyoZ5hhV7de6+qLf6q+vjZZJyzJi/YuBqWo=",
+    "linux-arm64": "sha256-slSSXivFVGdZXp2bFaT2GpEC12OpKpcshT5HHw6DZak="
   }
 }

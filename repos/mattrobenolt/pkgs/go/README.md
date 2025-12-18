@@ -7,6 +7,7 @@ Automated Go releases that update faster than nixpkgs-unstable.
 This overlay is maintenance-free:
 
 - Detects all available Go minor versions (1.24, 1.25, 1.26, etc.)
+- Tracks the latest prerelease (RC/beta) as `go-bin_next`
 - Updates daily via GitHub Actions
 - Creates packages dynamically (`go-bin_1_24`, `go-bin_1_25`, etc.)
 - Commits when new versions are available
@@ -17,7 +18,8 @@ When Go 1.26 is released, `go-bin_1_26` will show up automatically.
 
 Packages are created dynamically from the latest available Go versions:
 
-- `go-bin` - Latest Go version (points to highest minor version)
+- `go-bin` - Latest stable Go version (points to highest minor version)
+- `go-bin_next` - Latest prerelease (RC/beta) for testing upcoming features
 - `go-bin_1_25` - Go 1.25.x (latest patch)
 - `go-bin_1_24` - Go 1.24.x (latest patch)
 - Future versions appear automatically
@@ -31,10 +33,11 @@ cat pkgs/go/versions.json
 
 GitHub Actions runs daily at 2 AM UTC:
 
-1. Scrapes go.dev for all available versions
-2. Finds the latest patch for each minor version (1.24.x, 1.25.x, etc.)
-3. Downloads and generates SRI hashes for all platforms
-4. Commits changes to `versions.json` and `hashes.json`
+1. Scrapes go.dev for all available stable versions
+2. Checks GitHub tags for the latest prerelease (RC/beta)
+3. Finds the latest patch for each minor version (1.24.x, 1.25.x, etc.)
+4. Downloads and generates SRI hashes for all platforms
+5. Commits changes to `versions.json` and `hashes.json`
 
 The flake reads these JSON files and creates packages for each version. No code changes needed when new versions are released.
 
@@ -57,9 +60,11 @@ The flake reads these JSON files and creates packages for each version. No code 
     in {
       devShells.${system}.default = pkgs.mkShell {
         packages = [
-          pkgs.go-bin      # Latest
+          pkgs.go-bin        # Latest stable
           # or
-          pkgs.go-bin_1_24 # Specific version
+          pkgs.go-bin_next   # Latest prerelease (RC/beta)
+          # or
+          pkgs.go-bin_1_24   # Specific version
         ];
       };
     };

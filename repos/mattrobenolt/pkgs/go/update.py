@@ -29,6 +29,53 @@ async def fetch_json(url):
     return await loop.run_in_executor(None, lambda: json.loads(urlopen(url).read()))
 
 
+async def fetch_latest_prerelease():
+    """Fetch the latest prerelease version from Go's GitHub repository tags."""
+    print(f"{GREEN}🔍 Checking for prereleases from GitHub tags...{NC}")
+
+    loop = asyncio.get_event_loop()
+
+    def get_tags():
+        result = subprocess.run(
+            ["git", "ls-remote", "--tags", "https://github.com/golang/go.git"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return result.stdout
+
+    try:
+        tags_output = await loop.run_in_executor(None, get_tags)
+
+        # Parse minimum version
+        min_minor = int(MIN_GO_VERSION.split(".")[1])
+
+        # Parse tags and find prereleases (rc or beta)
+        prerelease_pattern = re.compile(r"refs/tags/go(1\.(\d+)(?:rc|beta)\d+)$")
+        prereleases = []
+
+        for line in tags_output.strip().split("\n"):
+            match = prerelease_pattern.search(line)
+            if match:
+                version = match.group(1)
+                minor = int(match.group(2))
+                # Only track versions >= MIN_GO_VERSION
+                if minor >= min_minor:
+                    prereleases.append(version)
+
+        if not prereleases:
+            return None
+
+        # Sort to get the latest (assumes rc versions sort correctly)
+        latest = sorted(prereleases, reverse=True)[0]
+        print(f"{YELLOW}  Found prerelease: {latest}{NC}")
+        return latest
+
+    except subprocess.CalledProcessError as e:
+        print(f"{YELLOW}  Could not fetch git tags: {e}{NC}")
+        return None
+
+
 async def fetch_latest_versions():
     """Fetch the latest Go versions from official go.dev API."""
     print(f"{GREEN}🔍 Fetching latest Go versions from go.dev...{NC}")
@@ -70,11 +117,6 @@ async def fetch_latest_versions():
     for minor, version in sorted(versions_by_minor.items(), key=lambda x: int(x[0].split(".")[1]), reverse=True):
         print(f"  Go {minor}: {version}")
     print()
-
-    # Write versions.json
-    with open(VERSIONS_FILE, "w") as f:
-        json.dump(versions_by_minor, f, indent=2, sort_keys=True)
-        f.write("\n")
 
     return versions_by_minor
 
@@ -151,8 +193,22 @@ async def update_version_hashes(version):
 
 async def main():
     """Main execution."""
-    # Fetch latest versions
-    versions = await fetch_latest_versions()
+    # Fetch latest stable versions and prerelease concurrently
+    versions, prerelease = await asyncio.gather(
+        fetch_latest_versions(),
+        fetch_latest_prerelease()
+    )
+
+    # Add next (prerelease) to versions dict if found
+    if prerelease:
+        versions["next"] = prerelease
+        print(f"{YELLOW}📦 Will track next: {prerelease}{NC}")
+        print()
+
+    # Write versions.json with all versions including next
+    with open(VERSIONS_FILE, "w") as f:
+        json.dump(versions, f, indent=2, sort_keys=True)
+        f.write("\n")
 
     # Update hashes for each version concurrently
     await asyncio.gather(*[
