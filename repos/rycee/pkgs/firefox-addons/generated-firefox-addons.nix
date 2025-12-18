@@ -2419,6 +2419,21 @@
         platforms = platforms.all;
       };
     };
+    "copy-n-paste" = buildFirefoxXpiAddon {
+      pname = "copy-n-paste";
+      version = "1.6.3";
+      addonId = "kazcfz@copy-n-paste";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4633525/copy_n_paste-1.6.3.xpi";
+      sha256 = "5e56200a58dde4e59c91a890f0e9ae2a2fa18028a3c2217ea9ac875acdda530e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kazcfz/Copy-n-Paste";
+        description = "Simplify uploading copied screenshots, images, files from your clipboard to webpages.";
+        license = licenses.gpl3;
+        mozPermissions = [ "clipboardRead" "alarms" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "copy-selected-links" = buildFirefoxXpiAddon {
       pname = "copy-selected-links";
       version = "2.4.1";
