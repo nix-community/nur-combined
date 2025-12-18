@@ -1081,12 +1081,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7446";
+    version = "b7472";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7446";
-      hash = "sha256-+zkABxcGzfuY4v16PMl3opoxOK/VbUnklFUslDMERfY=";
+      tag = "b7472";
+      hash = "sha256-IV78tIn0x8bnYQtnpGIEWY65X86rMP422yGkrzfNtRE=";
     };
   };
   loralib = {
@@ -1818,14 +1818,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fa290a9c234377084b32ce148ba3056ac1bc1198";
+    version = "d93e60b190c4dee21979e040195e34e4bb6fc82b";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "fa290a9c234377084b32ce148ba3056ac1bc1198";
-      hash = "sha256-5QAE5FCi/hdzivm16usCG9FLyfEVQMz5QjmknZO8qiQ=";
+      rev = "d93e60b190c4dee21979e040195e34e4bb6fc82b";
+      hash = "sha256-PGH5cgARRtphY4H0OpudXRE6JdxxIguaPOSwXPWii1k=";
     };
-    date = "2025-12-13";
+    date = "2025-12-18";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

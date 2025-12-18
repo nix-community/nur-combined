@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7446",
-            "sha256": "sha256-+zkABxcGzfuY4v16PMl3opoxOK/VbUnklFUslDMERfY=",
+            "rev": "b7472",
+            "sha256": "sha256-IV78tIn0x8bnYQtnpGIEWY65X86rMP422yGkrzfNtRE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7446"
+        "version": "b7472"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3542,7 +3542,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-12-13",
+        "date": "2025-12-18",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3554,12 +3554,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "fa290a9c234377084b32ce148ba3056ac1bc1198",
-            "sha256": "sha256-5QAE5FCi/hdzivm16usCG9FLyfEVQMz5QjmknZO8qiQ=",
+            "rev": "d93e60b190c4dee21979e040195e34e4bb6fc82b",
+            "sha256": "sha256-PGH5cgARRtphY4H0OpudXRE6JdxxIguaPOSwXPWii1k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fa290a9c234377084b32ce148ba3056ac1bc1198"
+        "version": "d93e60b190c4dee21979e040195e34e4bb6fc82b"
     },
     "rime-moegirl": {
         "cargoLocks": null,
