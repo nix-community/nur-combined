@@ -10,18 +10,18 @@
 
 buildGoModule (finalAttrs: {
   pname = "anytype-heart";
-  version = "0.46.1";
+  version = "0.46.3";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PhiQ4jJ9FSccj5t/Er9hsLQ/kniQRZzmPxnhZdrW8mc=";
+    hash = "sha256-g3YAi7T6E0o2xjCpmnwmKUugEKyziJIYRaPU4dQH9xw=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-KoxNmETfMSjdJWzMi/68XMVraVxdnIdB9pLtAvPuq/Q=";
+  vendorHash = "sha256-s/otpfRwXFUOek8oVr5eUcKH4Vwd5BbtB0GH+hjzjwI=";
 
   subPackages = [ "cmd/grpcserver" ];
 
