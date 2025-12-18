@@ -44,9 +44,6 @@ rec {
   # Janus-SWI python prolog interface
   janus-swi = pkgs.python3Packages.callPackage ./pkgs/janus-swi { };
 
-  # Clingo python API
-  pyclingo = pkgs.python3Packages.callPackage ./pkgs/clingo { };
-
   # Dodeca static site generator
   dodeca = pkgs.callPackage ./pkgs/dodeca { };
 

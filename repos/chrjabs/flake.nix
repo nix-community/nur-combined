@@ -67,7 +67,6 @@
               coveralls
               cargo-afl
               janus-swi
-              pyclingo
               dodeca
               cargo-fake-rustup
               gungraun-runner
