@@ -18,10 +18,13 @@ in {
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
   lceda-pro = pkgs.callPackage ./pkgs/lceda-pro {
-      maintainers = maintainers;
+      inherit maintainers;
   };
   jlc-assistant = pkgs.callPackage ./pkgs/jlc-assistant {
-      maintainers = maintainers;
+      inherit maintainers;
+  };
+  vivado-2022_2 = pkgs.callPackage ./pkgs/vivado-2022_2 {
+      inherit maintainers;
   };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
