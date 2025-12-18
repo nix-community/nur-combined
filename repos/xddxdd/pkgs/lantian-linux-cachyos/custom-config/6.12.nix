@@ -117,26 +117,4 @@ with lib.kernel;
   Z3FOLD_DEPRECATED = no;
   ZSMALLOC = lib.mkForce yes;
 
-  ################################################################
-  # Below are tunes from nixpkgs (xanmod kernel)
-  ################################################################
-
-  # Paragon's NTFS3 driver
-  NTFS3_FS = module;
-  NTFS3_LZX_XPRESS = yes;
-  NTFS3_FS_POSIX_ACL = yes;
-
-  # Preemptive Full Tickless Kernel at 1000Hz
-  SCHED_CORE = lib.mkForce (lib.mkForce (option no));
-  PREEMPT_VOLUNTARY = lib.mkForce no;
-  PREEMPT = lib.mkForce yes;
-  NO_HZ_FULL = yes;
-  HZ_1000 = yes;
-
-  # Futex WAIT_MULTIPLE implementation for Wine / Proton Fsync.
-  FUTEX = yes;
-  FUTEX_PI = yes;
-
-  # NTSync driver for fast kernel-backed Wine
-  NTSYNC = module;
 }
