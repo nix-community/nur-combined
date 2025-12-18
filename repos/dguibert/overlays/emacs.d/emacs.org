@@ -1402,6 +1402,7 @@ Delete the original subtree."
 (use-package nix-mode :ensure t :mode "\\.nix\\'")
 (use-package rust-mode :ensure t)
 (use-package yaml-mode :ensure t)
+(use-package ssh-config-mode :ensure t)
 #+end_src
 
 * Bibtex
