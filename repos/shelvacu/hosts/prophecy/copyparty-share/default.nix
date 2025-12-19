@@ -91,7 +91,7 @@ in
       };
     };
   };
-  users.groups.media.members = [ "copyparty-share" ];
+  users.groups.media.members = [ "copyparty-two_e14" ];
   systemd.tmpfiles.settings."10-whatever" =
     let
       userOnly = vaculib.accessModeStr { user = "all"; };

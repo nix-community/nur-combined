@@ -195,7 +195,6 @@ in
       _7zip
       altcaps
       ddrescue
-      dig
       dnsutils
       ethtool
       file
