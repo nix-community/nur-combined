@@ -140,6 +140,8 @@ rec {
   */
   speed_dreams = nodarwin (pkgs.callPackage ./pkgs/speed-dreams { });
 
+  plezy = nodarwin (pkgs.callPackage ./pkgs/plezy { });
+
   eden = nodarwin (v3overrideAttrs (pkgs.callPackage ./pkgs/eden/package.nix { }));
 
   howdy = nodarwin (pkgs.callPackage ./pkgs/howdy/package.nix { });

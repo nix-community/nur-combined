@@ -139,6 +139,7 @@ let
           #betterbird
           jellyfin-media-player
           eden
+          plezy
           ;
       };
     }

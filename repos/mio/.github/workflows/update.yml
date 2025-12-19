@@ -72,6 +72,10 @@ jobs:
       continue-on-error: true
       run: nix run .#proton-ge-custom.passthru.updateScript
 
+    - name: Update plezy
+      continue-on-error: true
+      run: nix run .#plezy.passthru.updateScript
+
     - name: Push changes
       run: |
         git push
