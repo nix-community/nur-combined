@@ -11,13 +11,13 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v5.0.1
         with:
           fetch-depth: 0
 
       - uses: DeterminateSystems/nix-installer-action@v21
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN }}
 
       - uses: DeterminateSystems/magic-nix-cache-action@v13
 
@@ -25,5 +25,6 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@v27
         id: update_flakes
         with:
+          token: ${{ secrets.GH_TOKEN }}
           pr-title: "chore(deps): update flake.lock"
           pr-labels: dependencies
