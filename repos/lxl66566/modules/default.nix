@@ -3,6 +3,17 @@
 }:
 
 {
-  fungi = import ./fungi;
-  system76-scheduler-niri = import ./system76-scheduler-niri;
+  default =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      imports = [
+        ./fungi
+        ./system76-scheduler-niri
+      ];
+    };
 }

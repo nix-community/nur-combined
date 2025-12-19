@@ -41,13 +41,14 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
    ```
 4. use modules in your config:
    ```nix
+   # import the module in flake.nix
    {
-     imports = [
-       pkgs.nur.repos.lxl66566.modules.fungi
-     ];
-     services.fungi = {
-       enable = true;
-       configFile = ...
+     lib.nixosSystem {
+       ...
+       modules = [
+         pkgs.nur.repos.lxl66566.nixosModules
+       ];
+       ...
      };
    }
    ```

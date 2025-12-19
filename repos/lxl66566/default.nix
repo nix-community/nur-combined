@@ -15,7 +15,7 @@ in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = mylib; # functions
-  modules = import ./modules; # NixOS modules
+  nixosModules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   audio-loudness-batch-normalize = pkgs.callPackage ./pkgs/audio-loudness-batch-normalize {
