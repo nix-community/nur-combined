@@ -1,5 +1,7 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  pkgs ? import <nixpkgs> { },
+}:
+
+{
+  fungi = import ./fungi;
 }

@@ -2,4 +2,4 @@ result
 result-*
 
 __pycache__
-test*
+test.*

@@ -16,10 +16,6 @@ let
   sourceInfo = lib.importJSON ./source-info.json;
   commonArgs = {
     inherit
-      stdenv
-      fetchurl
-      lib
-      pkgs
       pname
       bname
       description

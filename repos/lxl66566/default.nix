@@ -18,13 +18,14 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  git-simple-encrypt = pkgs.callPackage ./pkgs/git-simple-encrypt { inherit mylib; };
   audio-loudness-batch-normalize = pkgs.callPackage ./pkgs/audio-loudness-batch-normalize {
     inherit mylib;
   };
-  git-sync-backup = pkgs.callPackage ./pkgs/git-sync-backup { inherit mylib; };
-  xp3-pack-unpack = pkgs.callPackage ./pkgs/xp3-pack-unpack { inherit mylib; };
-  openppp2 = pkgs.callPackage ./pkgs/openppp2 { inherit mylib; };
-  user-startup-rs = pkgs.callPackage ./pkgs/user-startup-rs { inherit mylib; };
   fungi = pkgs.callPackage ./pkgs/fungi { inherit mylib; };
+  git-simple-encrypt = pkgs.callPackage ./pkgs/git-simple-encrypt { inherit mylib; };
+  git-sync-backup = pkgs.callPackage ./pkgs/git-sync-backup { inherit mylib; };
+  openppp2 = pkgs.callPackage ./pkgs/openppp2 { inherit mylib; };
+  system76-scheduler-niri = pkgs.callPackage ./pkgs/system76-scheduler-niri { inherit mylib; };
+  user-startup-rs = pkgs.callPackage ./pkgs/user-startup-rs { inherit mylib; };
+  xp3-pack-unpack = pkgs.callPackage ./pkgs/xp3-pack-unpack { inherit mylib; };
 }

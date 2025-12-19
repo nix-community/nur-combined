@@ -4,6 +4,7 @@
   lib,
   pkgs,
   mylib,
+  ...
 }:
 
 let
@@ -14,12 +15,9 @@ let
   description = "Turn multiple devices into one unified system. A platform built for seamless multi-device integration.";
 
   sourceInfo = lib.importJSON ./source-info.json;
+
   commonArgs = {
     inherit
-      stdenv
-      fetchurl
-      lib
-      pkgs
       pname
       bname
       description
@@ -27,13 +25,13 @@ let
   }
   // sourceInfo;
 
-  linux = makeBinPackage (
+  gnu = makeBinPackage (
     commonArgs
     // {
       nixSystem = pkgs.stdenv.hostPlatform.system;
-      libc = "linux";
+      libc = "gnu";
     }
   );
 
 in
-linux
+gnu

@@ -8,18 +8,18 @@
 let
   makeBinPackage = mylib.makeBinPackage;
 
-  pname = "audio-loudness-batch-normalize";
-  bname = "loudness-normalize";
-  description = "Easy to use audio loudness batch normalization tool based on EBU R128, written in Rust";
+  pname = "system76-scheduler-niri";
+  bname = "system76-scheduler-niri";
+  description = "Niri integration for system76-scheduler";
 
   sourceInfo = lib.importJSON ./source-info.json;
-  commonArgs = ({
+  commonArgs = {
     inherit
       pname
       bname
       description
       ;
-  })
+  }
   // sourceInfo;
 
   gnu = makeBinPackage (
