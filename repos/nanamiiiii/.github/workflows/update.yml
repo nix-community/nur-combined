@@ -34,7 +34,7 @@ jobs:
     - name: Update md2puki
       run: nix-shell -p nix-update --run "nix-update md2puki"
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       with:
         commit-message: "Bump package version"
         title: "chore: bump package version"
