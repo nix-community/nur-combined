@@ -35,6 +35,7 @@ lib.makeScope newScope (
     fishPlugins = lib.recurseIntoAttrs (
       callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
     );
+    hexecute = callPackage ./hexecute { };
     libva-v4l2 = callPackage ./libva-v4l2 { };
     lpac = callPackage ./lpac { };
     ly2video = callPackage ./ly2video { };
