@@ -28,7 +28,8 @@ SRI_HASH=$(nix hash to-sri --type sha256 "$HASH")
 
 # 2. Update default.nix version and hash
 sed -i "s/version = \".*\";/version = \"$VERSION\";/" default.nix
-sed -i "s/hash = \"sha256-.*\";/hash = \"$SRI_HASH\";/" default.nix
+# Use perl to replace hash only inside src = fetchFromGitHub block
+perl -i -0777 -pe "s/(src = fetchFromGitHub \{[^}]*hash = \")sha256-[^\"]+(\";)/\$1$SRI_HASH\$2/s" default.nix
 
 # 3. Update pubspec.lock.json
 echo "Updating pubspec.lock.json..."
