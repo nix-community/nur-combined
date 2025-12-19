@@ -1303,7 +1303,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-12-17",
+        "date": "2025-12-19",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1315,12 +1315,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "6ebf4f3f91287a83bf050447d1ce470e66b2c89b",
-            "sha256": "sha256-tv/HhHObqSiZqG0mwwJZ3VHIFLk+OSBI7XQKjrfb++E=",
+            "rev": "252eef8b8b29b603d10bc640bc4f0c3fe12c3604",
+            "sha256": "sha256-H9mXcHXPWojaM4X1bzW1DVDAMrIV4m3uvwFUWWQq6Oc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6ebf4f3f91287a83bf050447d1ce470e66b2c89b"
+        "version": "252eef8b8b29b603d10bc640bc4f0c3fe12c3604"
     },
     "geolite2-asn": {
         "cargoLocks": null,
@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+pSVuB9TkR498YfiP+kevHPPUshwSPzKv4Q+8F6sToU=",
+            "sha256": "sha256-0fTxHIeVvOR6H5E5QJqbr8WX0p6Ys+840cd9k8ALKdo=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.12.16"
+        "version": "2025.12.19"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1346,11 +1346,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cO48JDSyKIbNm/8chVIpLine2E9GVhuSlwnhj8hH9ng=",
+            "sha256": "sha256-FPMjOe2zstF5wXkM2bIzb19Q0vv1WWiVZuv0ZkNZSfo=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-City.mmdb"
         },
-        "version": "2025.12.16"
+        "version": "2025.12.19"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1361,11 +1361,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cdR3zxjlZNUeJk4YRLf2V2oImWIH9WCres9zFrOYUb0=",
+            "sha256": "sha256-LGI40qxb0+YICPPgjiLxj5pPh0hUqo3l70Z6W6zrO8o=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-Country.mmdb"
         },
-        "version": "2025.12.16"
+        "version": "2025.12.19"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7472",
-            "sha256": "sha256-IV78tIn0x8bnYQtnpGIEWY65X86rMP422yGkrzfNtRE=",
+            "rev": "b7484",
+            "sha256": "sha256-1qmFmi2m15NA4j2NiYRccCEFriruOrn57GhLWQnQB8I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7472"
+        "version": "b7484"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3129,7 +3129,7 @@
     },
     "pyosmocom": {
         "cargoLocks": null,
-        "date": "2025-11-07",
+        "date": "2025-12-19",
         "extract": null,
         "name": "pyosmocom",
         "passthru": null,
@@ -3139,13 +3139,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "35c5fe29807a45d8cd75e85846d4caccdd96f6d6",
-            "sha256": "sha256-AUeUOck9NVi+xXn7boXdCtjKM6WAapWZMg8s8YGpGJM=",
+            "rev": "1c55c95b73fb2cdfe211c57fd3b5babd9a04e202",
+            "sha256": "sha256-9PRDUUjLSNloFLJBWNhH/yDZUNwFUGFb+Ayy6RDl/hI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitea.osmocom.org/osmocom/pyosmocom.git"
         },
-        "version": "35c5fe29807a45d8cd75e85846d4caccdd96f6d6"
+        "version": "1c55c95b73fb2cdfe211c57fd3b5babd9a04e202"
     },
     "pysctp": {
         "cargoLocks": null,

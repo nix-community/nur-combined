@@ -674,37 +674,37 @@
   };
   funasr = {
     pname = "funasr";
-    version = "6ebf4f3f91287a83bf050447d1ce470e66b2c89b";
+    version = "252eef8b8b29b603d10bc640bc4f0c3fe12c3604";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "6ebf4f3f91287a83bf050447d1ce470e66b2c89b";
-      hash = "sha256-tv/HhHObqSiZqG0mwwJZ3VHIFLk+OSBI7XQKjrfb++E=";
+      rev = "252eef8b8b29b603d10bc640bc4f0c3fe12c3604";
+      hash = "sha256-H9mXcHXPWojaM4X1bzW1DVDAMrIV4m3uvwFUWWQq6Oc=";
     };
-    date = "2025-12-17";
+    date = "2025-12-19";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.12.16";
+    version = "2025.12.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-ASN.mmdb";
-      hash = "sha256-+pSVuB9TkR498YfiP+kevHPPUshwSPzKv4Q+8F6sToU=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-ASN.mmdb";
+      hash = "sha256-0fTxHIeVvOR6H5E5QJqbr8WX0p6Ys+840cd9k8ALKdo=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.12.16";
+    version = "2025.12.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-City.mmdb";
-      hash = "sha256-cO48JDSyKIbNm/8chVIpLine2E9GVhuSlwnhj8hH9ng=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-City.mmdb";
+      hash = "sha256-FPMjOe2zstF5wXkM2bIzb19Q0vv1WWiVZuv0ZkNZSfo=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.12.16";
+    version = "2025.12.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.16/GeoLite2-Country.mmdb";
-      hash = "sha256-cdR3zxjlZNUeJk4YRLf2V2oImWIH9WCres9zFrOYUb0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-Country.mmdb";
+      hash = "sha256-LGI40qxb0+YICPPgjiLxj5pPh0hUqo3l70Z6W6zrO8o=";
     };
   };
   glauth = {
@@ -1080,12 +1080,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7472";
+    version = "b7484";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7472";
-      hash = "sha256-IV78tIn0x8bnYQtnpGIEWY65X86rMP422yGkrzfNtRE=";
+      tag = "b7484";
+      hash = "sha256-1qmFmi2m15NA4j2NiYRccCEFriruOrn57GhLWQnQB8I=";
     };
   };
   loralib = {
@@ -1601,14 +1601,14 @@
   };
   pyosmocom = {
     pname = "pyosmocom";
-    version = "35c5fe29807a45d8cd75e85846d4caccdd96f6d6";
+    version = "1c55c95b73fb2cdfe211c57fd3b5babd9a04e202";
     src = fetchgit {
       url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
-      rev = "35c5fe29807a45d8cd75e85846d4caccdd96f6d6";
+      rev = "1c55c95b73fb2cdfe211c57fd3b5babd9a04e202";
       fetchSubmodules = false;
-      hash = "sha256-AUeUOck9NVi+xXn7boXdCtjKM6WAapWZMg8s8YGpGJM=";
+      hash = "sha256-9PRDUUjLSNloFLJBWNhH/yDZUNwFUGFb+Ayy6RDl/hI=";
     };
-    date = "2025-11-07";
+    date = "2025-12-19";
   };
   pysctp = {
     pname = "pysctp";
