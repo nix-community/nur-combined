@@ -33,15 +33,15 @@
   };
   danmakufactory-git = {
     pname = "danmakufactory-git";
-    version = "847d3c377ab8521c71a4b92c50403865ec0994b9";
+    version = "916c43a946e28382eb8ef28bfaf1650c3739b72a";
     src = fetchFromGitHub {
       owner = "hihkm";
       repo = "DanmakuFactory";
-      rev = "847d3c377ab8521c71a4b92c50403865ec0994b9";
+      rev = "916c43a946e28382eb8ef28bfaf1650c3739b72a";
       fetchSubmodules = true;
-      sha256 = "sha256-SeAX1YgKNZou0+RYnSu8Cnxcv2G/gvwMCO6HkxT5pfc=";
+      sha256 = "sha256-M+MeqvjjTuR+uCRkCKgvyM/FXcLiQcptX2PRhUPk0Gw=";
     };
-    date = "2025-10-01";
+    date = "2025-12-18";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
