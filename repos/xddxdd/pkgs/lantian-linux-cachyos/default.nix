@@ -20,6 +20,7 @@ lib.mapAttrs' (
   in
   lib.nameValuePair (lib.removePrefix prefix n) (
     v.override {
+      autoModules = true;
       ignoreConfigErrors = true;
       modDirVersion = "${ver0}-lantian-cachy";
       patches = patches.getPatches major;
