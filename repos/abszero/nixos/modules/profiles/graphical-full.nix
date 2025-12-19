@@ -97,7 +97,6 @@ in
         wev
         wget
         xorg.xeyes
-        zen-browser
         zip
         zotero
       ];

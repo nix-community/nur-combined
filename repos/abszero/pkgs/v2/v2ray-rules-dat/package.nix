@@ -5,11 +5,11 @@
 }:
 
 let
-  version = "2025-01-26-01-11";
-  geoipHash = "1rs4c9ir8yp8yyzmidy7bmzxng2jp1mgvcqywij1wqib5d0cnn1g";
-  geositeHash = "0dcmgxnwi4i3w97bm0znfgr6iq8iy789sf9qlsj66w97i7w0rdmr";
+  version = "202512172214";
+  geoipHash = "0my831gn2wf5wnjm3f5scqmqaffqhbzjmigmixkjs68gnc0j0602";
+  geositeHash = "0asqn8rj9dp88j1fibzlrm2wp67jg386jsgmvbhsjlm331c02a7x";
 
-  repo = "https://github.com/techprober/v2ray-rules-dat";
+  repo = "https://github.com/Loyalsoldier/v2ray-rules-dat";
   geoip = fetchurl {
     url = "${repo}/releases/download/${version}/geoip.dat";
     sha256 = geoipHash;
@@ -59,8 +59,10 @@ stdenvNoCC.mkDerivation {
 
   dontFixup = true;
 
+  passthru.updateScript = ./update.sh;
+
   meta = with lib; {
-    description = "Enhanced edition of V2Ray rules dat files (techprober's fork)";
+    description = "Enhanced edition of V2Ray rules dat files";
     homepage = repo;
     downloadPage = "${repo}/releases";
     license = licenses.gpl3Only;

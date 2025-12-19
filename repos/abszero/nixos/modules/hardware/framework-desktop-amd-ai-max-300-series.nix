@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkDefault;
+  inherit (lib) mkIf;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.hardware.framework-desktop-amd-ai-max-300-series;
 in

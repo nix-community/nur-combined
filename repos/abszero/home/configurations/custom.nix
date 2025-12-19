@@ -24,7 +24,6 @@ in
         programs.firefox.profile = mkIf (firefoxProfile != null) firefoxProfile;
         themes.base = {
           fastfetch.enable = true;
-          firefox.verticalTabs = true;
           foot.enable = true;
           ghostty.enable = true;
           hyprland.dynamicCursors.enable = true;

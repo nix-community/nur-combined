@@ -9,12 +9,12 @@ if [ ! -f "$ROOT/package.nix" ]; then
   exit 1
 fi
 
-VER=$(curl -fs https://api.github.com/repos/techprober/v2ray-rules-dat/releases/latest \
+VER=$(curl -fs https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest \
       | jq -r .tag_name)
 GEOIP_HASH=$(nix-prefetch-url \
-  https://github.com/techprober/v2ray-rules-dat/releases/download/$VER/geoip.dat)
+  https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$VER/geoip.dat)
 GEOSITE_HASH=$(nix-prefetch-url \
-  https://github.com/techprober/v2ray-rules-dat/releases/download/$VER/geosite.dat)
+  https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$VER/geosite.dat)
 
 sed -i "$ROOT/package.nix" \
   -e "s|version = \".*\"|version = \"$VER\"|" \

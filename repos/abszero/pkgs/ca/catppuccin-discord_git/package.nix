@@ -21,9 +21,9 @@ let
       "{${concatStringsSep "," themes0}}";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (final: {
   pname = "catppuccin-discord";
-  version = src.rev;
+  version = "0-unstable-2025-12-06";
 
   src = fetchFromGitHub {
     owner = "catppuccin";
@@ -33,11 +33,11 @@ stdenv.mkDerivation rec {
   };
 
   nodeModules = mkYarnModules {
-    pname = "catppuccin-discord-node-modules";
-    version = src.rev;
+    pname = "${final.pname}-node-modules";
+    version = final.version;
 
-    packageJSON = src + "/package.json";
-    yarnLock = src + "/yarn.lock";
+    packageJSON = final.src + "/package.json";
+    yarnLock = final.src + "/yarn.lock";
   };
 
   nativeBuildInputs = [
@@ -61,8 +61,8 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/catppuccin-discord
-    cp dist/dist/catppuccin-${matchTheme}.theme.css $out/share/catppuccin-discord
+    mkdir -p "$out/share/catppuccin-discord"
+    cp dist/dist/catppuccin-${matchTheme}.theme.css "$out/share/catppuccin-discord"
 
     runHook postInstall
   '';
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     sourceProvenance = with sourceTypes; [ fromSource ];
   };
-}
+})

@@ -40,11 +40,13 @@ in
           # "https://mirrors.ustc.edu.cn/nix-channels/store"
           "https://abszero.cachix.org"
           "https://ai.cachix.org"
+          "https://attic.xuyh0120.win/lantian"
           "https://nix-community.cachix.org"
         ];
         trusted-public-keys = [
           "abszero.cachix.org-1:HXOydaS51jSWrM07Ko8AVtGdoBRT9F+QhdYQBiNDaM0="
           "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc="
+          "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
         auto-optimise-store = true;

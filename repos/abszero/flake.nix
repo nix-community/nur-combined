@@ -5,11 +5,11 @@
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:LunNova/nixpkgs/lunnova/rocm-7-inplace";
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
+        flake-parts.follows = "flake-parts";
       };
     };
     niri = {
@@ -139,6 +139,7 @@
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts
                 nix-prefetch-scripts
+                nix-update
                 taplo # TOML language server
                 yaml-language-server
                 vscode-langservers-extracted # For vscode-json-language-server

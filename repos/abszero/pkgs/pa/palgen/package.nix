@@ -3,15 +3,15 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-buildGoModule rec {
+buildGoModule (final: {
   pname = "palgen";
-  version = "1.5.1";
+  version = "1.6.1-unstable-2025-05-06";
 
   src = fetchFromGitHub {
     owner = "xyproto";
-    repo = "palgen";
-    rev = "v${version}";
-    hash = "sha256-jqc4qJKXNyCQDiZnykpMRTN6G6yYnsQdIBaiqStTPu0=";
+    repo = final.pname;
+    rev = "760ed3d06e46de5452da99297b7bd83c197288c5";
+    hash = "sha256-6khn66pUg52J9UDHvsM5+dNn49ZmOH/n2arccYsirX8=";
   };
 
   vendorHash = null;
@@ -28,4 +28,4 @@ buildGoModule rec {
     maintainers = with maintainers; [ weathercold ];
     platforms = platforms.all;
   };
-}
+})

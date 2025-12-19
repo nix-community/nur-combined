@@ -22,7 +22,7 @@ in
       profiles.graphical-full.enable = true;
       virtualisation.libvirtd.enable = true;
     };
-    
+
     environment.systemPackages = with pkgs; [
       osu-lazer-bin
     ];

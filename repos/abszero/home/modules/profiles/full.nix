@@ -65,6 +65,7 @@ in
       fzf.enable = true;
       nix-index-database.comma.enable = true;
       starship.enable = true;
+      zen-browser.enable = true;
       zsh = {
         syntaxHighlighting.enable = true;
         autosuggestion.enable = true;

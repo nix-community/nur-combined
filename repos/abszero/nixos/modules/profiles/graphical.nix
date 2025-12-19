@@ -24,7 +24,7 @@ in
       services.pipewire.enable = true;
     };
 
-    boot.kernelPackages = pkgs.linuxPackages_cachyos;
+    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
     console.useXkbConfig = true; # use xkbOptions in tty.
 

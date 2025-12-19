@@ -18,7 +18,7 @@ in
 
   config.gtk = mkIf cfg.enable {
     theme = {
-      package = pkgs.colloid-gtk-theme-git;
+      package = pkgs.colloid-gtk-theme_git;
       name = "Colloid-Light";
     };
     iconTheme = {

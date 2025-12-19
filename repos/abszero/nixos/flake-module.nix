@@ -13,6 +13,7 @@ in
     // toModuleAttr' ./modules/hardware
     // toModuleAttr ./modules/themes
     // {
+      framework_rgbafan = ./modules/services/hardware/framework_rgbafan.nix;
       xray = ./modules/services/networking/xray/default.nix;
     };
 }

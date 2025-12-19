@@ -1,0 +1,74 @@
+name: Update Packages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */4 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      update: nix-update --commit --print-commit-message --flake
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: experimental-features = nix-command flakes
+
+      - name: Setup
+        run: |-
+          nix profile add nixpkgs#nix-update
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - run: $update --version=branch=main catppuccin-discord_git
+        continue-on-error: true
+
+      - run: $update --version=branch=main catppuccin-wallpapers
+        continue-on-error: true
+
+      - run: $update --version=branch=main colloid-gtk-theme_git
+        continue-on-error: true
+
+      - run: $update --version=branch=main framework_rgbafan
+        continue-on-error: true
+
+      - run: $update --version=branch=main noita_save_manager
+        continue-on-error: true
+
+      - run: $update --version=branch=main nu_scripts_git
+        continue-on-error: true
+
+      - run: $update --version=branch=main palgen
+        continue-on-error: true
+
+      - run: $update --version=branch=master win2xcur
+        continue-on-error: true
+
+      # nix-update can't run the update scripts because of unique derivation structure
+      - name: Update v2ray-rules-dat
+        run: |-
+          pkgs/v2/v2ray-rules-dat/update.sh
+          git add . && git commit -m "v2ray-rules-dat: update"
+        continue-on-error: true
+
+      - name: Update vscode-insiders
+        run: |-
+          pkgs/vs/vscode-insiders/update.sh
+          git add . && git commit -m "vscode-insiders: update"
+        continue-on-error: true
+
+      - name: Update vscodium-insiders
+        run: |-
+          pkgs/vs/vscodium-insiders/update.sh
+          git add . && git commit -m "vscodium-insiders: update"
+        continue-on-error: true
+
+      - run: git push
+        continue-on-error: true

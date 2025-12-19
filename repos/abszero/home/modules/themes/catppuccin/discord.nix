@@ -13,7 +13,7 @@ let
   ctpCfg = config.catppuccin;
 
   cssDir =
-    pkgs.catppuccin-discord-git.override {
+    pkgs.catppuccin-discord_git.override {
       themes0 =
         if cfg.useSystemPolarity then
           [

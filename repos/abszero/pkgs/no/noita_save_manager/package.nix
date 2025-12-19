@@ -8,14 +8,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "noita-save-manager";
-  version = "0.1.4";
+  version = "0.1.4-unstable-2021-08-10";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mcgillij";
     repo = "noita_save_manager";
-    rev = version;
-    hash = "sha256-v6zABwYqTCqDRI6uCWyOv8rjBJS2P0BfrOclDkELO/A=";
+    rev = "6f7f27bfd2b21fa0c7bf7b3eddc8e459106c946c";
+    hash = "sha256-7PnumAL4tIDe6NaB0imepDmDXx8F3DXf8C7Xwvrlv84=";
   };
 
   desktopItem = makeDesktopItem {

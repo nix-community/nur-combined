@@ -2,7 +2,7 @@
   pkgs ? import <nixpkgs> { },
 }:
 builtins.removeAttrs (import ./pkgs { inherit pkgs; }) [
-  "catppuccin-discord-git"
+  "catppuccin-discord_git"
   "vscode-insiders"
   "vscode-insiders-with-extensions"
   "vscodium-insiders"
