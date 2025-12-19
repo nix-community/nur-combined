@@ -190,14 +190,13 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "0c663fb672d4e4018218ea7064e1fb35c480e408";
+    version = "OQS-BoringSSL-snapshot-2025-01";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "0c663fb672d4e4018218ea7064e1fb35c480e408";
-      hash = "sha256-UqLBfdL492WKrZQ8GSS03q8DkwkwL3Vj5WpQZQ0S/Hg=";
+      tag = "OQS-BoringSSL-snapshot-2025-01";
+      hash = "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=";
     };
-    date = "2025-12-17";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";

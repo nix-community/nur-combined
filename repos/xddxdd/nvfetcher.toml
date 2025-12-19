@@ -82,7 +82,7 @@ src.github = "xddxdd/bird-lg-go"
 
 [boringssl-oqs]
 fetch.github = "open-quantum-safe/boringssl"
-src.git = "https://github.com/open-quantum-safe/boringssl.git"
+src.github = "open-quantum-safe/boringssl"
 
 [browser360-amd64]
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_amd64.deb"

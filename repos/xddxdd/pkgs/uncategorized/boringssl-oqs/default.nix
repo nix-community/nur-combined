@@ -23,7 +23,7 @@ let
 in
 buildGoModule {
   inherit (sources.boringssl-oqs) pname version src;
-  vendorHash = "sha256-IXmnoCYLoiQ/XL2wjksRFv5Kwsje0VNkcupgGxG6rSY=";
+  vendorHash = "sha256-jcV7dZZITkvzqKq1EQ4qLiGar568WsDPLtxMvBoh7B8=";
   proxyVendor = true;
 
   enableParallelBuilding = true;

@@ -446,8 +446,8 @@
   },
   "legacyPackages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
-    "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-12-17"
+    "pname": "boringssl-oqs-OQS-BoringSSL-snapshot",
+    "version": "2025-01"
   },
   "legacyPackages.x86_64-linux.browser360": {
     "description": "Browser from 360",
@@ -2426,8 +2426,8 @@
   },
   "packages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
-    "pname": "boringssl-oqs",
-    "version": "0-unstable-2025-12-17"
+    "pname": "boringssl-oqs-OQS-BoringSSL-snapshot",
+    "version": "2025-01"
   },
   "packages.x86_64-linux.browser360": {
     "description": "Browser from 360",
