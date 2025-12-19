@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@6f5489ed073256c8d859d204c9ba30f5dd6bba26 # v1.13.0
+        uses: spotdemo4/nix-init@8ea47d849953af36820bf44487a3ce7baf08e25e # v1.14.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@6f5489ed073256c8d859d204c9ba30f5dd6bba26 # v1.13.0
+        uses: spotdemo4/nix-init@8ea47d849953af36820bf44487a3ce7baf08e25e # v1.14.0
         with:
           attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
