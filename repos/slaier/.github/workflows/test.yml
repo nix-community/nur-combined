@@ -26,7 +26,7 @@ jobs:
           echo "hash=$hash" | tee -a $GITHUB_OUTPUT
       - name: Restore flag
         id: cache-nix
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/nixbid-${{ steps.prepare.outputs.hash }}
           key: nix-${{ steps.prepare.outputs.hash }}
