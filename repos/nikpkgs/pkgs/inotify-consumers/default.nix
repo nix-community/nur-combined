@@ -1,4 +1,8 @@
-{ pkgs, lib, stdenv }:
+{
+  pkgs,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation {
   pname = "inotify-consumers";
@@ -6,9 +10,7 @@ stdenv.mkDerivation {
 
   #src = ./inotify-consumers;
 
-  nativeBuildInputs = [
-    pkgs.bash
-  ];
+  nativeBuildInputs = [ pkgs.bash ];
 
   dontUnpack = true;
 
@@ -20,9 +22,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Get the procs sorted by the number of inotify watches";
-    homepage    = "https://github.com/fatso83/dotfiles/blob/master/utils/scripts/inotify-consumers";
-    license     = licenses.publicDomain;
-    platforms   = lib.platforms.linux;
+    homepage = "https://github.com/fatso83/dotfiles/blob/master/utils/scripts/inotify-consumers";
+    license = licenses.publicDomain;
+    platforms = lib.platforms.linux;
   };
 }
-

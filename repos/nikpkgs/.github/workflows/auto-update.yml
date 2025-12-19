@@ -1,0 +1,82 @@
+name: 'Auto update packages'
+on:
+  workflow_dispatch:
+  schedule:
+    # Update every day at 2:30
+    - cron: '30 2 * * *'
+permissions:
+  actions: write
+  contents: write
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    env:
+      GIT_SSL_NO_VERIFY: 'true'
+    steps:
+      - name: Maximize build space
+        uses: AdityaGarg8/remove-unwanted-software@v5
+        with:
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: x86_64,386,aarch64,arm
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes ca-derivations
+            extra-experimental-features = nix-command flakes ca-derivations
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            extra-platforms = i686-linux aarch64-linux arm-linux
+            log-lines = 25
+
+      - name: Set nix daemon tmpdir path
+        run: |
+          sudo mkdir -p /nix/tmpdir
+          sudo chown "$(whoami)" /nix/tmpdir
+
+          cat > override.conf <<EOF
+          [Service]
+          Environment="TMPDIR=/nix/tmpdir"
+          EOF
+          sudo mkdir /etc/systemd/system/nix-daemon.service.d/
+          sudo mv override.conf /etc/systemd/system/nix-daemon.service.d/override.conf
+          sudo systemctl daemon-reload
+          sudo systemctl restart nix-daemon
+
+      - name: Cache Nvfetcher Database
+        id: cache-nvfetcher
+        uses: actions/cache@v5
+        with:
+          path: ~/.local/share/nvfetcher
+          key: nvfetcher
+
+      - name: Build nix packages
+        run: |
+          cat > secrets.toml <<EOF
+          [keys]
+          github = "${{ secrets.GITHUB_TOKEN }}"
+          EOF
+
+          env TMPDIR=/nix/tmpdir nix run .#update
+
+          rm -f secrets.toml
+
+      - name: Commit back to repository
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'ci: update packages'
+          commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'

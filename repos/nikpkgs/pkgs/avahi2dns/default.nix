@@ -3,11 +3,13 @@
   buildGoModule,
   fetchFromGitHub,
   ...
-}: let
+}:
+let
   pname = "avahi2dns";
   version = "0.0.2";
 
-in buildGoModule rec {
+in
+buildGoModule rec {
   inherit pname version;
 
   src = fetchFromGitHub {

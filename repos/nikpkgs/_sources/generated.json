@@ -1,0 +1,17 @@
+{
+    "cockpit-podman": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cockpit-podman",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1pZwNcTzKiVViuMQT1ud6QGuAyFfn3JHIM0XuiG4D20=",
+            "type": "url",
+            "url": "https://github.com/cockpit-project/cockpit-podman/releases/download/119.1/cockpit-podman-119.1.tar.xz"
+        },
+        "version": "119.1"
+    }
+}

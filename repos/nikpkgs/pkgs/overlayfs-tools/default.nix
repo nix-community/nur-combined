@@ -7,10 +7,12 @@
   stdenv,
   sudo,
   ...
-}: let
+}:
+let
   pname = "overlayfs-tools";
   version = "unstable";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit pname version;
 
   src = fetchFromGitHub {
