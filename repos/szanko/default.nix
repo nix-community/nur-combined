@@ -40,6 +40,12 @@ pkgs ? import <nixpkgs> { }
   salmagundi = pkgs.callPackage ./pkgs/salmagundi { };
   chadstr = pkgs.callPackage ./pkgs/chadstr { };
   radontea = pkgs.callPackage ./pkgs/radontea { };
+  # planetiler = pkgs.callPackage ./pkgs/planetiler { };
+  # libremdb = pkgs.callPackage ./pkgs/libremdb { }; Need to fix the pnpm2nix -> I don't want to do it
+  # numen = pkgs.callPackage ./pkgs/numen { };
+  clooj = pkgs.callPackage ./pkgs/clooj { };
+
+  flat-manager = pkgs.callPackage ./pkgs/flat-manager { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   stardrop = if stardropPkgs != null then stardropPkgs.default else null;

@@ -9,36 +9,41 @@
 
 ### BSA Browser Cli
 ```shell
-nix run github:szanko/nur#bsa-browser-cli
+nix run github:szanko/nur-packages#bsa-browser-cli
+```
+
+### Clooj 
+```shell
+nix run github:szanko/nur-packages#clooj
 ```
 
 ### glojure
 ```shell
-nix run github:szanko/nur#glojure
+nix run github:szanko/nur-packages#glojure
 ```
 
 ### samloader
 ```shell
-nix run github:szanko/nur#samloader
+nix run github:szanko/nur-packages#samloader
 ```
 
 ### jakym
 ```shell
-nix run github:szanko/nur#jakym
+nix run github:szanko/nur-packages#jakym
 ```
 
 ### gogextract
 ```shell
-nix run github:szanko/nur#gogextract
+nix run github:szanko/nur-packages#gogextract
 ```
 
 ### rgsstool
 ```shell
-nix run github:szanko/nur#rgsstool
+nix run github:szanko/nur-packages#rgsstool
 ```
 
 ### deflix-streamio
 ```shell
-nix run github:szanko/nur#deflix-streamio
+nix run github:szanko/nur-packages#deflix-streamio
 ```
 
