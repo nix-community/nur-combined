@@ -28,22 +28,8 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v6
-        with:
-          token: ${{ secrets.GH_PAT }}
-          repository: Moraxyc/nixos-config
-
-      - name: Checkout prepare-nix
-        uses: actions/checkout@v6
-        with:
-          repository: moraxyc/nur-packages
-          path: tools
-          sparse-checkout: |
-            .github/prepare-nix
-          sparse-checkout-cone-mode: false
-
       - name: Prepare Nix Environment
-        uses: ./tools/.github/prepare-nix
+        uses: moraxyc/nur-packages/.github/prepare-nix@main
         with:
           GH_PAT: ${{ secrets.GH_PAT }}
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
@@ -65,7 +51,7 @@ jobs:
           echo "${HOST}"
 
           for host in "${HOSTS[@]}"; do
-            sys=$(nix eval --raw ".#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system")
+            sys=$(nix eval --raw "github:Moraxyc/nixos-config#MXallFlake.hosts.$host.system")
             echo "Host: $host -> System: $sys"
 
             case "$sys" in
@@ -109,37 +95,21 @@ jobs:
 
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v6
-        with:
-          token: ${{ secrets.GH_PAT }}
-          repository: Moraxyc/nixos-config
-
-      - name: Checkout prepare-nix
-        uses: actions/checkout@v6
-        with:
-          repository: moraxyc/nur-packages
-          path: tools
-          sparse-checkout: |
-            .github/prepare-nix
-          sparse-checkout-cone-mode: false
-
       - name: Prepare Nix Environment
-        uses: ./tools/.github/prepare-nix
+        uses: moraxyc/nur-packages/.github/prepare-nix@main
         with:
           GH_PAT: ${{ secrets.GH_PAT }}
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
           ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
           ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
 
-      - name: Generate ci.nix
+      - name: Generate flake.nix
         shell: bash
         run: |
-          mkdir ci
-          pushd ci
           nix_hosts=$(echo '${{ matrix.hosts_json }}' | jq -r 'map("\"" + . + "\"") | join(" ")')
           cat > flake.nix << EOF
           {
-            inputs.main.url = "path:$(realpath ..)";
+            inputs.main.url = "github:Moraxyc/nixos-config";
 
             outputs = { self, main }: let
               selectedHosts = [ $nix_hosts ];
@@ -149,16 +119,12 @@ jobs:
                 value = main.nixosConfigurations.\${name}.config.system.build.toplevel;
               };
             in {
-              checks.x86_64-linux =
+              ciEval =
                 builtins.listToAttrs (map getBuild selectedHosts);
             };
           }
           EOF
-          rm -rf ../tools/.git
-          git add ..
           nix flake lock
-          git add ..
-          popd
 
       - name: Run nix-fast-build
         env:
@@ -166,7 +132,7 @@ jobs:
           EXTRA_ARGS: ${{ inputs.extra-args }}
         continue-on-error: true
         run: |
-          nix-fast-build --flake ./ci#checks.x86_64-linux --no-nom --skip-cached \
+          nix-fast-build --flake .#ciEval --no-nom --skip-cached \
             --attic-cache ${{ vars.ATTIC_CACHE }} $EXTRA_ARGS 2>&1 | \
             stdbuf -oL sed -u -E 's|([a-z0-9]{32})-[^ /]*|\1-<HIDDEN_PATH>|g'
 
