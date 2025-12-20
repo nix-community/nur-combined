@@ -7,13 +7,13 @@
 
 klipper.overrideAttrs (finalAttrs: {
   pname = "ender3-v3-se-klipper-with-display";
-  version = "1.0.0-unstable-2025-11-13";
+  version = "1.0.0-unstable-2025-12-17";
 
   src = fetchFromGitHub {
     owner = "jpcurti";
     repo = "ender3-v3-se-klipper-with-display";
-    rev = "09429a0f63ae7aa2c7c28c1a8be431f3de6c87d1";
-    hash = "sha256-irKkS80gfEBz9fS7S4HLf98ELbdhdt71fLDCSvOe5zo=";
+    rev = "88d81b5a602dad88cdb29734046232662d5fed72";
+    hash = "sha256-ewj4XZODr5FVj/KjQKj8FshUPNPsoTnPt7d4nGXxyTg=";
   };
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
