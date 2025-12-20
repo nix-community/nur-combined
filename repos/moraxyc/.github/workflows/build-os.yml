@@ -168,7 +168,7 @@ jobs:
         run: |
           nix-fast-build --flake ./ci#checks.x86_64-linux --no-nom --skip-cached \
             --attic-cache ${{ vars.ATTIC_CACHE }} $EXTRA_ARGS 2>&1 | \
-            stdbuf -oL sed -u -E 's|(/nix/store/[a-z0-9]{32})-[^ /]*|\1-<HIDDEN_PATH>|g'
+            stdbuf -oL sed -u -E 's|([a-z0-9]{32})-[^ /]*|\1-<HIDDEN_PATH>|g'
 
       - name: start upterm session
         if: ${{ inputs.upterm }}
