@@ -1,5 +1,7 @@
 {
   pnpm_10,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   nodejs,
   stdenv,
   clang,
@@ -21,20 +23,24 @@ let
     fetchSubmodules = true;
   };
 
-  pnpm = pnpm_10;
-
   web = stdenv.mkDerivation {
     inherit pname version src;
 
-    pnpmDeps = pnpm.fetchDeps {
-      inherit pname version src;
+    pnpmDeps = fetchPnpmDeps {
+      inherit
+        pname
+        version
+        src
+        ;
+      pnpm = pnpm_10;
       fetcherVersion = 2;
       hash = "sha256-7lPd0PWKZIl+VbUBg6djanMDQv5yHmrCxSMKvYx3RYU=";
     };
 
     nativeBuildInputs = [
       nodejs
-      pnpm.configHook
+      pnpmConfigHook
+      pnpm_10
     ];
 
     buildPhase = ''
