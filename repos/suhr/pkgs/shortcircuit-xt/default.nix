@@ -18,7 +18,7 @@
 }:
 
 let
-  revision = "075dae2336cda64dd0a645199e8a4bce68287203";
+  revision = "36e9d686a3aacddae3d12011bd707596a6f97a3a";
   revShort = builtins.substring 0 7 revision;
   vst3 = fetchFromGitHub {
     owner = "steinbergmedia";
@@ -42,14 +42,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "shortcircuit-xt";
-  version = "2025-11-30";
+  version = "2025-12-11";
 
   src = fetchFromGitHub {
     owner = "surge-synthesizer";
     repo = "shortcircuit-xt";
     rev = revision;
     fetchSubmodules = true;
-    hash = "sha256-J1UKyyRq9tCB1KAWvPD/BSNFWy1oQQBb/qoOPmlfgXk=";
+    hash = "sha256-L6r7xrmRhZ20lCgvKIZUndy7QOEp2w1GrBRbFZsuLeE=";
   };
 
   nativeBuildInputs = [
@@ -101,11 +101,6 @@ stdenv.mkDerivation (finalAttrs: {
       "-lXrandr"
     ]
   );
-
-  postInstall = ''
-    mkdir -p "$out/lib/vst3/Shortcircuit XT.vst3/Contents/x86_64-linux/"
-    mv "$out/lib/vst3/Shortcircuit XT.so" "$out/lib/vst3/Shortcircuit XT.vst3/Contents/x86_64-linux/"
-  '';
 
   meta = with lib; {
     description = "A successor to Shortcircuit 1 & 2";
