@@ -1,30 +1,30 @@
-_: {
+{ inputs, ... }:
+{
   perSystem =
     {
       pkgs,
       lib,
-      config,
-      inputs',
       ...
     }:
     let
-      nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
+      updater = pkgs.writeShellScriptBin "update-packages" ''
         set -euo pipefail
+
+        # Nvfetcher
         KEY_FLAG=""
         [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-        ${inputs'.nvfetcher.packages.default}/bin/nvfetcher $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
+        ${lib.getExe pkgs.nvfetcher} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
       '';
     in
     {
       devShells.default = pkgs.mkShell {
-        buildInputs =
-          [
-            nvfetcher
-          ]
-          ++ (with pkgs; [
-            just
-            nix-output-monitor
-          ]);
+        buildInputs = [
+          updater
+        ]
+        ++ (with pkgs; [
+          just
+          nix-output-monitor
+        ]);
       };
     };
 }

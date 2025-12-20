@@ -3,7 +3,7 @@
   perSystem =
     {
       system,
-      inputs',
+      config,
       lib,
       ...
     }:
@@ -15,8 +15,11 @@
           # permittedInsecurePackages = [
           # ];
         };
-        # overlays = [
-        # ] ++ (import ../overlays { inherit inputs inputs'; });
+        overlays = [
+          (final: prev: {
+            local = config.packages;
+          })
+        ];
       };
     in
     {

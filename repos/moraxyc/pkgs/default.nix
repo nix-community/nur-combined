@@ -1,25 +1,40 @@
+mode:
 {
   pkgs ? import <nixpkgs> { },
-  pkgs-stable ? pkgs,
-  pkgs-cuda ? pkgs,
-  sources ? pkgs.callPackage ../_sources/generated.nix { },
-  inputs' ? null,
-  system ? builtins.currentSystem,
   ...
 }:
-
 let
-  call = p: pkgs.lib.callPackageWith (pkgs // { inherit sources; }) p { };
-  call-cuda = p: pkgs.lib.callPackageWith (pkgs-cuda // { inherit sources; }) p { };
-  call-stable = p: pkgs.lib.callPackageWith (pkgs-stable // { inherit sources; }) p { };
-in
-{
-  exloli-next = call ./exloli-next;
-  v2ray-rules-dat = call ./v2ray-rules-dat;
-  adguard-cli = call ./adguard-cli;
-  english-words = call ./english-words;
-  fcitx5-themes-candlelight = call ./fcitx5-themes-candlelight;
+  lib = pkgs.lib;
+  baseDir = ./by-name;
 
-  howdy = call-cuda ./howdy;
-  linux-enable-ir-emitter = call-cuda ./linux-enable-ir-emitter;
-}
+  readDirs = path: lib.filterAttrs (n: v: v == "directory") (builtins.readDir path);
+
+  packages = lib.makeScope pkgs.newScope (
+    self:
+    let
+      shards = builtins.attrNames (readDirs baseDir);
+      processShard =
+        shard:
+        let
+          shardDir = baseDir + "/${shard}";
+          packageNames = builtins.attrNames (readDirs shardDir);
+        in
+        lib.genAttrs packageNames (name: self.callPackage (shardDir + "/${name}/package.nix") { });
+    in
+    if builtins.pathExists baseDir then
+      lib.foldl' (acc: shard: acc // (processShard shard)) { } shards
+    else
+      { }
+  );
+
+  filters = pkgs.callPackage ../helpers/filters.nix { };
+
+  ciPackages = lib.filterAttrs filters.isBuildable packages;
+  nurPackages = lib.filterAttrs filters.isExport packages;
+in
+if mode == "ci" then
+  ciPackages
+else if mode == "nur" then
+  nurPackages
+else
+  packages

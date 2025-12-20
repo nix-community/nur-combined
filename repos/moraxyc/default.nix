@@ -1,1 +1,1 @@
-import ./pkgs
+import ./pkgs "nur"

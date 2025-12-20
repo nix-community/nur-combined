@@ -7,6 +7,13 @@ on:
   schedule:
     - cron: "35 3 * * *"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Auto update packages"]
+    types:
+      - completed
+permissions:
+  contents: read
+  actions: write
 jobs:
   build:
     strategy:
@@ -16,7 +23,7 @@ jobs:
           - label: x86_64-linux
             image: ubuntu-latest
           - label: aarch64-linux
-            image: ubuntu-latest
+            image: ubuntu-24.04-arm
             system: aarch64-linux
           - label: aarch64-darwin
             image: macos-latest
@@ -26,39 +33,20 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Maximize build space
-        if: runner.os == 'Linux'
-        uses: easimon/maximize-build-space@master
-        with:
-          overprovision-lvm: true
-          remove-dotnet: "true"
-          remove-android: "true"
-          remove-haskell: "true"
-          remove-codeql: "true"
-          remove-docker-images: "true"
       - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
+        uses: actions/checkout@v6
+
+      - name: Prepare Nix Environment
+        uses: ./.github/prepare-nix
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
-            substituters = https://cache.nixos.org/ https://cache.garnix.io
-      # - name: Show nixpkgs version
-      #   run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Setup cachix
-        uses: cachix/cachix-action@v16
-        with:
-          name: moraxyc
-          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+          ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
+          ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
+
       - name: Check evaluation
         run: |
-          nix flake show
-      - name: Build nix packages
-        run: nix shell nixpkgs#nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs --show-trace
-      # - name: Trigger NUR update
-      #   # Don't replace <YOUR_REPO_NAME> here!
-      #   if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      #   run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+          nix flake show --legacy
+
+      - name: Build with nix-fast-build
+        run: nix-fast-build --flake .#ciPackages.${{ matrix.label }} --system ${{ matrix.label }} --no-nom --skip-cached --attic-cache ${{ vars.ATTIC_CACHE }}

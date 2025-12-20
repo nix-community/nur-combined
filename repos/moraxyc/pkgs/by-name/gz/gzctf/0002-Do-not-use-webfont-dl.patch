@@ -1,0 +1,230 @@
+From 1f8a9b58807076e2a3ceda7bbdb9bf135961abe1 Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Fri, 5 Dec 2025 20:11:40 +0800
+Subject: [PATCH 2/2] Do not use webfont-dl
+
+---
+ package.json    |  2 ++
+ pnpm-lock.yaml  | 33 +++++++++++++++++++++++++++++++++
+ src/main.tsx    |  2 ++
+ vite.config.mts | 10 ----------
+ 4 files changed, 37 insertions(+), 10 deletions(-)
+
+diff --git a/package.json b/package.json
+index 8f09f391..ff49d829 100644
+--- a/package.json
++++ b/package.json
+@@ -26,6 +26,8 @@
+     "@mantine/modals": "^8.3.10",
+     "@mantine/notifications": "^8.3.10",
+     "@marsidev/react-turnstile": "^1.4.0",
++    "@fontsource-variable/jetbrains-mono": "^5.2.8",
++    "@fontsource-variable/lexend": "^5.2.11",
+     "@mdi/js": "^7.4.47",
+     "@mdi/react": "^1.6.1",
+     "@microsoft/signalr": "^10.0.0",
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+index 998a893e..d9036a56 100644
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -18,6 +18,12 @@ importers:
+       '@emotion/react':
+         specifier: ^11.14.0
+         version: 11.14.0(@types/react@19.2.7)(react@19.2.1)
++      '@fontsource-variable/jetbrains-mono':
++        specifier: ^5.2.8
++        version: 5.2.8
++      '@fontsource-variable/lexend':
++        specifier: ^5.2.11
++        version: 5.2.11
+       '@mantine/carousel':
+         specifier: ^8.3.10
+         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@mantine/hooks@8.3.10(react@19.2.1))(embla-carousel-react@8.6.0(react@19.2.1))(embla-carousel@8.6.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+@@ -572,6 +578,12 @@ packages:
+   '@floating-ui/utils@0.2.10':
+     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
+ 
++  '@fontsource-variable/jetbrains-mono@5.2.8':
++    resolution: {integrity: sha512-WBA9elru6Jdp5df2mES55wuOO0WIrn3kpXnI4+W2ek5u3ZgLS9XS4gmIlcQhiZOWEKl95meYdvK7xI+ETLCq/Q==}
++
++  '@fontsource-variable/lexend@5.2.11':
++    resolution: {integrity: sha512-0hgEQ4O7Nh8fxL/WWmspJf0BErbocRkZwtLRGey/V4mUUqxfF7QUwqhcdzwpjom3NYCniY4uzQ5wYD7r9/92tQ==}
++
+   '@jridgewell/gen-mapping@0.3.13':
+     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
+ 
+@@ -723,30 +735,35 @@ packages:
+     engines: {node: '>= 10'}
+     cpu: [arm64]
+     os: [linux]
++    libc: [glibc]
+ 
+   '@napi-rs/canvas-linux-arm64-musl@0.1.84':
+     resolution: {integrity: sha512-VyZq0EEw+OILnWk7G3ZgLLPaz1ERaPP++jLjeyLMbFOF+Tr4zHzWKiKDsEV/cT7btLPZbVoR3VX+T9/QubnURQ==}
+     engines: {node: '>= 10'}
+     cpu: [arm64]
+     os: [linux]
++    libc: [musl]
+ 
+   '@napi-rs/canvas-linux-riscv64-gnu@0.1.84':
+     resolution: {integrity: sha512-PSMTh8DiThvLRsbtc/a065I/ceZk17EXAATv9uNvHgkgo7wdEfTh2C3aveNkBMGByVO3tvnvD5v/YFtZL07cIg==}
+     engines: {node: '>= 10'}
+     cpu: [riscv64]
+     os: [linux]
++    libc: [glibc]
+ 
+   '@napi-rs/canvas-linux-x64-gnu@0.1.84':
+     resolution: {integrity: sha512-N1GY3noO1oqgEo3rYQIwY44kfM11vA0lDbN0orTOHfCSUZTUyiYCY0nZ197QMahZBm1aR/vYgsWpV74MMMDuNA==}
+     engines: {node: '>= 10'}
+     cpu: [x64]
+     os: [linux]
++    libc: [glibc]
+ 
+   '@napi-rs/canvas-linux-x64-musl@0.1.84':
+     resolution: {integrity: sha512-vUZmua6ADqTWyHyei81aXIt9wp0yjeNwTH0KdhdeoBb6azHmFR8uKTukZMXfLCC3bnsW0t4lW7K78KNMknmtjg==}
+     engines: {node: '>= 10'}
+     cpu: [x64]
+     os: [linux]
++    libc: [musl]
+ 
+   '@napi-rs/canvas-win32-x64-msvc@0.1.84':
+     resolution: {integrity: sha512-YSs8ncurc1xzegUMNnQUTYrdrAuaXdPMOa+iYYyAxydOtg0ppV386hyYMsy00Yip1NlTgLCseRG4sHSnjQx6og==}
+@@ -782,21 +799,25 @@ packages:
+     resolution: {integrity: sha512-tyomSmU2DzwcTmbaWFmStHgVfRmJDDvqcIvcw4fRB1YlL2Qg/XaM4NJ0m2bdTap38gxD5FSxSgCo0DkQ8GTolg==}
+     cpu: [arm64]
+     os: [linux]
++    libc: [glibc]
+ 
+   '@oxlint/linux-arm64-musl@1.32.0':
+     resolution: {integrity: sha512-0W46dRMaf71OGE4+Rd+GHfS1uF/UODl5Mef6871pMhN7opPGfTI2fKJxh9VzRhXeSYXW/Z1EuCq9yCfmIJq+5Q==}
+     cpu: [arm64]
+     os: [linux]
++    libc: [musl]
+ 
+   '@oxlint/linux-x64-gnu@1.32.0':
+     resolution: {integrity: sha512-5+6myVCBOMvM62rDB9T3CARXUvIwhGqte6E+HoKRwYaqsxGUZ4bh3pItSgSFwHjLGPrvADS11qJUkk39eQQBzQ==}
+     cpu: [x64]
+     os: [linux]
++    libc: [glibc]
+ 
+   '@oxlint/linux-x64-musl@1.32.0':
+     resolution: {integrity: sha512-qwQlwYYgVIC6ScjpUwiKKNyVdUlJckrfwPVpIjC9mvglIQeIjKuuyaDxUZWIOc/rEzeCV/tW6tcbehLkfEzqsw==}
+     cpu: [x64]
+     os: [linux]
++    libc: [musl]
+ 
+   '@oxlint/win32-arm64@1.32.0':
+     resolution: {integrity: sha512-7qYZF9CiXGtdv8Z/fBkgB5idD2Zokht67I5DKWH0fZS/2R232sDqW2JpWVkXltk0+9yFvmvJ0ouJgQRl9M3S2g==}
+@@ -843,24 +864,28 @@ packages:
+     engines: {node: ^20.19.0 || >=22.12.0}
+     cpu: [arm64]
+     os: [linux]
++    libc: [glibc]
+ 
+   '@rolldown/binding-linux-arm64-musl@1.0.0-beta.53':
+     resolution: {integrity: sha512-bGe5EBB8FVjHBR1mOLOPEFg1Lp3//7geqWkU5NIhxe+yH0W8FVrQ6WRYOap4SUTKdklD/dC4qPLREkMMQ855FA==}
+     engines: {node: ^20.19.0 || >=22.12.0}
+     cpu: [arm64]
+     os: [linux]
++    libc: [musl]
+ 
+   '@rolldown/binding-linux-x64-gnu@1.0.0-beta.53':
+     resolution: {integrity: sha512-qL+63WKVQs1CMvFedlPt0U9PiEKJOAL/bsHMKUDS6Vp2Q+YAv/QLPu8rcvkfIMvQ0FPU2WL0aX4eWwF6e/GAnA==}
+     engines: {node: ^20.19.0 || >=22.12.0}
+     cpu: [x64]
+     os: [linux]
++    libc: [glibc]
+ 
+   '@rolldown/binding-linux-x64-musl@1.0.0-beta.53':
+     resolution: {integrity: sha512-VGl9JIGjoJh3H8Mb+7xnVqODajBmrdOOb9lxWXdcmxyI+zjB2sux69br0hZJDTyLJfvBoYm439zPACYbCjGRmw==}
+     engines: {node: ^20.19.0 || >=22.12.0}
+     cpu: [x64]
+     os: [linux]
++    libc: [musl]
+ 
+   '@rolldown/binding-openharmony-arm64@1.0.0-beta.53':
+     resolution: {integrity: sha512-B4iIserJXuSnNzA5xBLFUIjTfhNy7d9sq4FUMQY3GhQWGVhS2RWWzzDnkSU6MUt7/aHUrep0CdQfXUJI9D3W7A==}
+@@ -1597,24 +1622,28 @@ packages:
+     engines: {node: '>= 12.0.0'}
+     cpu: [arm64]
+     os: [linux]
++    libc: [glibc]
+ 
+   lightningcss-linux-arm64-musl@1.30.2:
+     resolution: {integrity: sha512-5Vh9dGeblpTxWHpOx8iauV02popZDsCYMPIgiuw97OJ5uaDsL86cnqSFs5LZkG3ghHoX5isLgWzMs+eD1YzrnA==}
+     engines: {node: '>= 12.0.0'}
+     cpu: [arm64]
+     os: [linux]
++    libc: [musl]
+ 
+   lightningcss-linux-x64-gnu@1.30.2:
+     resolution: {integrity: sha512-Cfd46gdmj1vQ+lR6VRTTadNHu6ALuw2pKR9lYq4FnhvgBc4zWY1EtZcAc6EffShbb1MFrIPfLDXD6Xprbnni4w==}
+     engines: {node: '>= 12.0.0'}
+     cpu: [x64]
+     os: [linux]
++    libc: [glibc]
+ 
+   lightningcss-linux-x64-musl@1.30.2:
+     resolution: {integrity: sha512-XJaLUUFXb6/QG2lGIW6aIk6jKdtjtcffUT0NKvIqhSBY3hh9Ch+1LCeH80dR9q9LBjG3ewbDjnumefsLsP6aiA==}
+     engines: {node: '>= 12.0.0'}
+     cpu: [x64]
+     os: [linux]
++    libc: [musl]
+ 
+   lightningcss-win32-arm64-msvc@1.30.2:
+     resolution: {integrity: sha512-FZn+vaj7zLv//D/192WFFVA0RgHawIcHqLX9xuWiQt7P0PtdFEVaxgF9rjM/IRYHQXNnk61/H/gb2Ei+kUQ4xQ==}
+@@ -2929,6 +2958,10 @@ snapshots:
+ 
+   '@floating-ui/utils@0.2.10': {}
+ 
++  '@fontsource-variable/jetbrains-mono@5.2.8': {}
++
++  '@fontsource-variable/lexend@5.2.11': {}
++
+   '@jridgewell/gen-mapping@0.3.13':
+     dependencies:
+       '@jridgewell/sourcemap-codec': 1.5.5
+diff --git a/src/main.tsx b/src/main.tsx
+index 97a0ecd0..442d606b 100644
+--- a/src/main.tsx
++++ b/src/main.tsx
+@@ -7,6 +7,8 @@ import { initReactI18next } from 'react-i18next'
+ import { BrowserRouter } from 'react-router'
+ import manifest from 'virtual:i18n-manifest'
+ import { convertLanguage, LanguageProvider } from '@Utils/I18n'
++import '@fontsource-variable/jetbrains-mono'
++import '@fontsource-variable/lexend'
+ 
+ i18n
+   .use(LanguageDetector)
+diff --git a/vite.config.mts b/vite.config.mts
+index 017ab410..2629b407 100644
+--- a/vite.config.mts
++++ b/vite.config.mts
+@@ -4,7 +4,6 @@ import { defineConfig, loadEnv } from 'vite'
+ import banner from 'vite-plugin-banner'
+ import { optimizeCssModules } from 'vite-plugin-optimize-css-modules'
+ import Pages from 'vite-plugin-pages'
+-import webfontDownload from 'vite-plugin-webfont-dl'
+ import tsconfigPaths from 'vite-tsconfig-paths'
+ import { fetchContributors } from './plugins/vite-fetch-contributors'
+ import { i18nVirtualManifest } from './plugins/vite-i18n-virtual-manifest'
+@@ -58,15 +57,6 @@ export default defineConfig(({ mode }) => {
+       react(),
+       banner(BANNER),
+       tsconfigPaths(),
+-      webfontDownload(
+-        [
+-          'https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lexend:wght@100..900&display=swap',
+-        ],
+-        {
+-          injectAsStyleTag: false,
+-          async: false,
+-        }
+-      ),
+       Pages({ dirs: [{ dir: './src/pages', baseRoute: '', filePattern: '**/*.tsx' }] }),
+       i18nVirtualManifest(),
+       fetchContributors(),
+-- 
+2.51.2
+

@@ -1,0 +1,42 @@
+From a6f3b1bf57850fd0d8e585392b4ba1f3aed2d658 Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Fri, 5 Dec 2025 19:44:37 +0800
+Subject: [PATCH 1/2] Use local file to provide contributors
+
+---
+ plugins/vite-fetch-contributors.ts | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/plugins/vite-fetch-contributors.ts b/plugins/vite-fetch-contributors.ts
+index bc7c7d9a..dd3d28af 100644
+--- a/plugins/vite-fetch-contributors.ts
++++ b/plugins/vite-fetch-contributors.ts
+@@ -1,4 +1,5 @@
+ import { Plugin } from 'vite'
++import { readFile } from 'fs/promises';
+ 
+ let contributorsData: any[] = []
+ 
+@@ -7,12 +8,13 @@ export function fetchContributors(): Plugin {
+     name: 'fetch-contributors',
+     async buildStart() {
+       try {
+-        const response = await fetch('https://api.github.com/repos/GZTimeWalker/GZCTF/contributors')
+-        if (!response.ok) {
+-          console.warn('Failed to fetch contributors from GitHub')
+-          return
+-        }
+-        const contributors = (await response.json()) as any[]
++        // const response = await fetch('https://api.github.com/repos/GZTimeWalker/GZCTF/contributors')
++        // if (!response.ok) {
++        //   console.warn('Failed to fetch contributors from GitHub')
++        //   return
++        // }
++        const fileContent = await readFile('@CONTRIBUTORS_JSON@', 'utf-8');
++        const contributors = JSON.parse(fileContent) as any[];
+         contributorsData = contributors
+           .filter((c) => !c.login.includes('bot') && c.contributions)
+           .map((c: any) => ({
+-- 
+2.51.2
+

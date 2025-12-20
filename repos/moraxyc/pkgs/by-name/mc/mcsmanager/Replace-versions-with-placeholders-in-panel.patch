@@ -1,0 +1,43 @@
+From 40ca8192fcccac5694283f1843645ebd634b86eb Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Sun, 2 Nov 2025 18:22:36 +0800
+Subject: [PATCH] Replace versions with placeholders in panel
+
+---
+ src/app/version.ts | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
+
+diff --git a/src/app/version.ts b/src/app/version.ts
+index 58460ca0..6e60b7bd 100755
+--- a/src/app/version.ts
++++ b/src/app/version.ts
+@@ -26,14 +26,8 @@ let currentVersion = "";
+ export function initVersionManager() {
+   try {
+     GlobalVariable.set("lastLaunchedVersion", 100);
+-    GlobalVariable.set("version", "Unknown");
+-    if (fs.existsSync(PACKAGE_JSON)) {
+-      const data: IPackageInfo = JSON.parse(fs.readFileSync(PACKAGE_JSON, { encoding: "utf-8" }));
+-      if (data.version) {
+-        GlobalVariable.set("version", data.version);
+-        currentVersion = String(data.version);
+-      }
+-    }
++    GlobalVariable.set("version", "@panelVersion@");
++    currentVersion = String("@panelVersion@");
+   } catch (error: any) {
+     logger.error("Version Check failure:", error);
+   }
+@@ -64,8 +58,7 @@ export function hasVersionChanged(): boolean {
+ 
+ export function specifiedDaemonVersion() {
+   try {
+-    const data: any = JSON.parse(fs.readFileSync(PACKAGE_JSON, { encoding: "utf-8" }));
+-    return data.daemonVersion ?? "1.0.0";
++    return "@daemonVersion@";
+   } catch (error: any) {
+     return "1.0.0";
+   }
+-- 
+2.51.0
+

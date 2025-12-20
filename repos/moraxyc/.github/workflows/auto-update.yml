@@ -1,32 +1,39 @@
 name: "Auto update packages"
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "10 3 * * *"
+  schedule:
+    - cron: "10 3 * * *"
 jobs:
   build:
     name: update
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     permissions:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
+      - name: Prepare Nix Environment
+        uses: ./.github/prepare-nix
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
-            substituters = https://cache.nixos.org/ https://cache.garnix.io
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+          ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
+          ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
+          ONLY_NIX: true
 
       - name: Cache Nvfetcher Database
         id: cache-nvfetcher
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.local/share/nvfetcher
           key: nvfetcher
+
+      - name: Flake update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          nix flake update --commit-lock-file
 
       - name: Fetch new versions
         run: |
@@ -35,17 +42,16 @@ jobs:
           github = "${{ secrets.GITHUB_TOKEN }}"
           EOF
 
-          nix develop -c nvfetcher
+          nix develop -c update-packages
 
           rm -f secrets.toml
 
       - name: Commit changes
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add _sources
-          git commit -m "chore: update sources" || echo "No changes to commit"
-
-      - name: Push changes
-        run: |
+          git commit -m "chore: update nvfetcher" || echo "No changes to commit"
           git push
+
+      - name: Trigger NUR update
+        run: |
+          curl -XPOST "https://nur-update.nix-community.org/update?repo=moraxyc"

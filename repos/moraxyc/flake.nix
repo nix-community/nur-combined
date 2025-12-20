@@ -2,13 +2,11 @@
   description = "Moraxyc's NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    systems.url = "github:Moraxyc/nix-systems";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
   outputs =
     {
@@ -19,21 +17,11 @@
       imports = [
         ./flake-modules/commands.nix
         ./flake-modules/nixpkgs-options.nix
-        ./flake-modules/packages.nix
+        ./flake-modules/by-name.nix
+        ./flake-modules/modules.nix
       ];
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+      systems = import inputs.systems;
       flake = {
-        nixosModules = {
-          alist = import ./modules/alist.nix;
-          gost = import ./modules/gost.nix;
-          exloli-next = import ./modules/exloli-next.nix;
-          bark-server = import ./modules/bark-server.nix;
-        };
         lib = import ./lib;
       };
       perSystem =

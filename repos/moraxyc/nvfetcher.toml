@@ -2,6 +2,26 @@
 src.git = "https://github.com/lolishinshi/exloli-next"
 fetch.github = "lolishinshi/exloli-next"
 
+[flapalerted]
+src.git = "https://github.com/Kioubit/FlapAlerted"
+fetch.github = "Kioubit/FlapAlerted"
+
+[pixy2]
+src.git = "https://github.com/charmedlabs/pixy2"
+fetch.github = "charmedlabs/pixy2"
+
+[geolite2-asn]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-ASN.mmdb"
+
+[geolite2-city]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-City.mmdb"
+
+[geolite2-country]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-Country.mmdb"
+
 [v2ray-rules-dat-geoip]
 src.github = "Loyalsoldier/v2ray-rules-dat"
 fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geoip.dat"

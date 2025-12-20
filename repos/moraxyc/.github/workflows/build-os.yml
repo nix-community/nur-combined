@@ -1,0 +1,177 @@
+name: build-nixos
+run-name: "build ${{ inputs.hosts }} ${{ inputs.extra-args && format('({0})', inputs.extra-args) || '' }}"
+
+permissions:
+  contents: read
+  actions: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      hosts:
+        description: "Nodes, space separated"
+        type: string
+        required: true
+      extra-args:
+        description: "Extra args for colmena"
+        required: false
+        type: string
+      upterm:
+        description: "Start upterm session on failure"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04-arm
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: Moraxyc/nixos-config
+
+      - name: Checkout prepare-nix
+        uses: actions/checkout@v6
+        with:
+          repository: moraxyc/nur-packages
+          path: tools
+          sparse-checkout: |
+            .github/prepare-nix
+          sparse-checkout-cone-mode: false
+
+      - name: Prepare Nix Environment
+        uses: ./tools/.github/prepare-nix
+        with:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+          ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
+          ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
+          ONLY_NIX: true
+
+      - id: set-matrix
+        shell: bash
+        run: |
+          input_hosts="${{ inputs.hosts }}"
+          read -ra HOSTS <<< "${input_hosts//,/ }"
+
+          declare -a x86_list=()
+          declare -a arm_list=()
+          declare -a darwin_list=()
+
+          echo "Analyzing hosts..."
+          echo "${HOST}"
+
+          for host in "${HOSTS[@]}"; do
+            sys=$(nix eval --raw ".#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system")
+            echo "Host: $host -> System: $sys"
+
+            case "$sys" in
+              "x86_64-linux")   x86_list+=("$host") ;;
+              "aarch64-linux")  arm_list+=("$host") ;;
+              "aarch64-darwin") darwin_list+=("$host") ;;
+              *) echo "::warning::Unsupported system $sys for host $host" ;;
+            esac
+          done
+
+          matrix_json="[]"
+
+          add_batch() {
+            local runner=$1
+            shift
+            local host_array=("$@")
+
+            if [ ${#host_array[@]} -gt 0 ]; then
+              json_list=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${host_array[@]}")
+
+              matrix_json=$(echo "$matrix_json" | jq --arg r "$runner" --arg h "$json_list" \
+                '. += [{runner: $r, hosts_json: $h}]')
+            fi
+          }
+
+          add_batch "ubuntu-latest"    "${x86_list[@]}"
+          add_batch "ubuntu-24.04-arm" "${arm_list[@]}"
+          add_batch "macos-latest"     "${darwin_list[@]}"
+
+          echo "Generated matrix: $matrix_json"
+          compressed_json=$(echo "$matrix_json" | jq -c .)
+          echo "matrix=$compressed_json" >> $GITHUB_OUTPUT
+
+  build:
+    needs: prepare
+    if: ${{ needs.prepare.outputs.matrix != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.prepare.outputs.matrix) }}
+
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: Moraxyc/nixos-config
+
+      - name: Checkout prepare-nix
+        uses: actions/checkout@v6
+        with:
+          repository: moraxyc/nur-packages
+          path: tools
+          sparse-checkout: |
+            .github/prepare-nix
+          sparse-checkout-cone-mode: false
+
+      - name: Prepare Nix Environment
+        uses: ./tools/.github/prepare-nix
+        with:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+          ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
+          ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
+
+      - name: Generate ci.nix
+        shell: bash
+        run: |
+          mkdir ci
+          pushd ci
+          nix_hosts=$(echo '${{ matrix.hosts_json }}' | jq -r 'map("\"" + . + "\"") | join(" ")')
+          cat > flake.nix << EOF
+          {
+            inputs.main.url = "path:$(realpath ..)";
+
+            outputs = { self, main }: let
+              selectedHosts = [ $nix_hosts ];
+
+              getBuild = name: {
+                inherit name;
+                value = main.nixosConfigurations.\${name}.config.system.build.toplevel;
+              };
+            in {
+              checks.x86_64-linux =
+                builtins.listToAttrs (map getBuild selectedHosts);
+            };
+          }
+          EOF
+          rm -rf ../tools/.git
+          git add ..
+          nix flake lock
+          git add ..
+          popd
+
+      - name: Run nix-fast-build
+        env:
+          CURRENT_SYSTEM: ${{ matrix.system }}
+          EXTRA_ARGS: ${{ inputs.extra-args }}
+        continue-on-error: true
+        run: |
+          nix-fast-build --flake ./ci#checks.x86_64-linux --no-nom --skip-cached \
+            --attic-cache ${{ vars.ATTIC_CACHE }} $EXTRA_ARGS 2>&1 | \
+            stdbuf -oL sed -u -E 's|(/nix/store/[a-z0-9]{32})-[^ /]*|\1-<HIDDEN_PATH>|g'
+
+      - name: start upterm session
+        if: ${{ inputs.upterm }}
+        uses: owenthereal/action-upterm@v1
+        with:
+          limit-access-to-actor: true
