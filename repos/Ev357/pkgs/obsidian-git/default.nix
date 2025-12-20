@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = with pkgs; [
     nodejs
-    pnpm.configHook
+    pnpmConfigHook
+    pnpm
   ];
 
   buildPhase =
@@ -37,7 +38,7 @@ stdenv.mkDerivation rec {
       cp main.js manifest.json styles.css $out/
     '';
 
-  pnpmDeps = pkgs.pnpm.fetchDeps {
+  pnpmDeps = pkgs.fetchPnpmDeps {
     fetcherVersion = 2;
     inherit pname version src;
     hash = "sha256-qoQ7/PHeJst23ovf4HX7DOvIN+NLXba991kVcqs4WV8=";

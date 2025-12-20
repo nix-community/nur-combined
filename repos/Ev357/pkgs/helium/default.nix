@@ -5,11 +5,11 @@
   nix-update-script,
   ...
 }: let
-  version = "0.7.4.1";
+  version = "0.7.6.1";
   sourceMap = {
     x86_64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-JFaGuRbjNEzFOEpntbzARxCOxA/2Fxhd31nXaVPfpFg=";
+      hash = "sha256-SUpXcyQXUjZR57pNabVR/cSrGOMKvgzW0PSCLdB8d+E=";
     };
     aarch64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64.AppImage";

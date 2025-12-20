@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = with pkgs; [
     nodejs
-    pnpm.configHook
+    pnpmConfigHook
+    pnpm
   ];
 
   buildPhase =
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
       cp dist/catppuccin.css $out/theme.css
     '';
 
-  pnpmDeps = pkgs.pnpm.fetchDeps {
+  pnpmDeps = pkgs.fetchPnpmDeps {
     fetcherVersion = 2;
     inherit pname version src;
     hash = "sha256-rPaN7FlYyo1lMTd+9hd6GYov68IHMAO/3YLnL4H2b/0=";
