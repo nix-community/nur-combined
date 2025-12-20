@@ -4,16 +4,23 @@
     nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-2411.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-2505.url = "github:nixos/nixpkgs/nixos-25.05"; 
+    nixpkgs-2511.url = "github:nixos/nixpkgs/nixos-25.11"; 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05"; # Currently not a maintainer in 25.05 but in 25.11
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    pnpm2nix-nzbr = {
+      url = "github:nzbr/pnpm2nix-nzbr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    clj-nix.url = "github:jlesquembre/clj-nix";
 
     stardrop = {
       url = "github:SZanko/Stardrop/nix-packaging";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2311, nixpkgs-2411, nixpkgs-2505, stardrop }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2311, nixpkgs-2411, nixpkgs-2505, nixpkgs-2511, pnpm2nix-nzbr, clj-nix, stardrop }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in
@@ -31,9 +38,10 @@
           pkgs2311 = import nixpkgs-2311 { inherit system; };
           pkgs2411 = import nixpkgs-2411 { inherit system; };
           pkgs2505 = import nixpkgs-2505 { inherit system; };
+          pkgs2511 = import nixpkgs-2511 { inherit system; };
         in
           import ./default.nix {
-            inherit pkgs pkgs2311 pkgs2411 pkgs2505 pkgsUnstable;
+            inherit pkgs pkgs2311 pkgs2411 pkgs2505 pkgs2511 pkgsUnstable;
             stardropPkgs = stardrop.packages.${system};
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});

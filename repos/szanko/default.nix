@@ -11,6 +11,7 @@ pkgs ? import <nixpkgs> { }
 , pkgs2311 ? pkgs
 , pkgs2411 ? pkgs
 , pkgs2505 ? pkgs
+, pkgs2511 ? pkgs
 , pkgsUnstable ? pkgs
 , stardropPkgs ? null
 }:
