@@ -140,6 +140,7 @@ let
           jellyfin-media-player
           eden
           plezy
+          downkyicore
           ;
       };
     }

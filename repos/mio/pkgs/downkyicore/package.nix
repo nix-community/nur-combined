@@ -34,8 +34,8 @@ buildDotnetModule (finalAttrs: {
   projectFile = "DownKyi/DownKyi.csproj";
   nugetDeps = ./deps.json;
 
-  dotnet-sdk = dotnetCorePackages.sdk_6_0;
-  dotnet-runtime = dotnetCorePackages.runtime_6_0;
+  dotnet-sdk = dotnetCorePackages.sdk_8_0;
+  dotnet-runtime = dotnetCorePackages.runtime_8_0;
   executables = [ "DownKyi" ];
 
   nativeBuildInputs = [
@@ -66,10 +66,17 @@ buildDotnetModule (finalAttrs: {
     libSM
   ];
 
+  postPatch = ''
+    substituteInPlace DownKyi/DownKyi.csproj DownKyi.Core/DownKyi.Core.csproj \
+      --replace net6.0 net8.0
+  '';
+
   makeWrapperArgs = [
     "--chdir"
     "$out/lib/downkyicore"
   ];
+
+  passthru.updateScript = ./update.sh;
 
   # Provide system ffmpeg/aria2 binaries and license texts where the app expects them.
   postInstall = ''
@@ -101,7 +108,10 @@ buildDotnetModule (finalAttrs: {
       comment = "Cross-platform Bilibili downloader";
       exec = "DownKyi";
       icon = "downkyicore";
-      categories = [ "Network" "AudioVideo" ];
+      categories = [
+        "Network"
+        "AudioVideo"
+      ];
     })
   ];
 

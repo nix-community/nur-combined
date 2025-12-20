@@ -1,8 +1,8 @@
 [
   {
     "pname": "Avalonia",
-    "version": "11.3.9",
-    "hash": "sha256-bjSH8REHeK19bh8IacmyllDPaWND+TJdkhKGc8LVvjE="
+    "version": "11.3.6",
+    "hash": "sha256-dSq6RshqnvbHBPkSvp4rTOgtWmVUPVvaGZadPI2TK9g="
   },
   {
     "pname": "Avalonia.Angle.Windows.Natives",
@@ -11,33 +11,33 @@
   },
   {
     "pname": "Avalonia.BuildServices",
-    "version": "11.3.2",
-    "hash": "sha256-6wx06tjSKWQOlX2czdp6Wh0nuwVapx5qf/s8Qj5we40="
+    "version": "0.0.31",
+    "hash": "sha256-wgtodGf644CsUZEBIpFKcUjYHTbnu7mZmlr8uHIxeKA="
   },
   {
     "pname": "Avalonia.Controls.ColorPicker",
-    "version": "11.3.9",
-    "hash": "sha256-Kk3AmO7foyO5JdnGKfE9KwtVyGwe6SgUZnXCX/OuZjo="
+    "version": "11.3.6",
+    "hash": "sha256-oiaEB3gLyafsRyY8YZ/f//Wne4vAhd73jCF5XOZDIkw="
   },
   {
     "pname": "Avalonia.Controls.DataGrid",
-    "version": "11.3.9",
-    "hash": "sha256-VpJNTCaug7rtEfO2z1fFkAPXW2Y/lQSUInt6cVZC6DA="
+    "version": "11.3.6",
+    "hash": "sha256-Hk1EOnd1E+ZrQTavmQtBZ4NvHiyFhzIMcT7UQPuU2Sw="
   },
   {
     "pname": "Avalonia.Desktop",
-    "version": "11.3.9",
-    "hash": "sha256-ib4psuecjBXKow0UC6oXvcVNhizFKokadCVqmwyQtCc="
+    "version": "11.3.6",
+    "hash": "sha256-n54YrP1SviFQH9VEXfw0O3o6K86rhGBbVw4vXhWUFOE="
   },
   {
     "pname": "Avalonia.Diagnostics",
-    "version": "11.3.9",
-    "hash": "sha256-psajJAfqzLpMVx3//nezH7TixDJepN3/y6GwNn8k+TM="
+    "version": "11.3.6",
+    "hash": "sha256-uFKSZLA5qvta/ZSVr+vvKT8l9asBT56iF6Lgxcawsgk="
   },
   {
     "pname": "Avalonia.FreeDesktop",
-    "version": "11.3.9",
-    "hash": "sha256-+adR3ErHqoqTBAJ5hMiyP6efX/hCAcWWCowCqA0Bxrw="
+    "version": "11.3.6",
+    "hash": "sha256-KnnXq7iFyS94PbHfbk3ks/DHEQVKxkHD+Nhe0pTPZnc="
   },
   {
     "pname": "Avalonia.Markup.Xaml.Loader",
@@ -46,33 +46,33 @@
   },
   {
     "pname": "Avalonia.Native",
-    "version": "11.3.9",
-    "hash": "sha256-cQ9/MKZ03jaLqAGRDLCzws5OfP/mSOoPRr1OxXNGa3o="
+    "version": "11.3.6",
+    "hash": "sha256-uVFziTCL3J2DvrjNl7O3aIKCChsm4tO7INDh+3hrlJw="
   },
   {
     "pname": "Avalonia.Remote.Protocol",
-    "version": "11.3.9",
-    "hash": "sha256-HxHN91T0BbQMkcZwozuVOQwmywm1oayTLYvUozwt1J0="
+    "version": "11.3.6",
+    "hash": "sha256-Nxg+jt3Eit9amUZPPicmXy+5/2nqEu6rTLRk7ccH+qE="
   },
   {
     "pname": "Avalonia.Skia",
-    "version": "11.3.9",
-    "hash": "sha256-KCL1LNUd2i+50vQpDgfI+aMkIBUWtxExyuc43QIK21o="
+    "version": "11.3.6",
+    "hash": "sha256-PqoGzraRMb4SAl0FAeROcTmPXUm5SHn6KCCdexIBgLM="
   },
   {
     "pname": "Avalonia.Themes.Simple",
-    "version": "11.3.9",
-    "hash": "sha256-0MyHPZbkp0DduFwoOMScAOKpqQ/Zs6DOUfexVLKzSco="
+    "version": "11.3.6",
+    "hash": "sha256-omvYccZgdrkD5KnPKQlafz7lMFL46KMQrTJVxF9AV0E="
   },
   {
     "pname": "Avalonia.Win32",
-    "version": "11.3.9",
-    "hash": "sha256-OwWQymPLmN362vMD6kZk8dBD/+lSpvGqIW0T/AquYig="
+    "version": "11.3.6",
+    "hash": "sha256-zlYoHQMyvirc73hEnpjZbhz5BUss/jAlq6Jwb+8Fucc="
   },
   {
     "pname": "Avalonia.X11",
-    "version": "11.3.9",
-    "hash": "sha256-B8P+m2VyPwXCyVWGAKewZCqO8fycgYWjWx830VbR79A="
+    "version": "11.3.6",
+    "hash": "sha256-nXHgvgp2cOjwchgkN1E0N47JWyYEkYTZ69FyEtCATf8="
   },
   {
     "pname": "Downloader",
@@ -145,29 +145,14 @@
     "hash": "sha256-VdwpP5fsclvNqJuppaOvwEwv2ofnAI5ZSz2V+UEdLF0="
   },
   {
-    "pname": "Microsoft.Bcl.HashCode",
-    "version": "1.1.1",
-    "hash": "sha256-gP6ZhEsjjbmw6a477sm7UuOvGFFTxZYfRE2kKxK8jnc="
-  },
-  {
-    "pname": "Microsoft.Data.Sqlite.Core",
-    "version": "6.0.4",
-    "hash": "sha256-coYwiuDwN/gSj6PVuGVtgCuh/7h/2YKQ07Lq4gR7hwc="
-  },
-  {
     "pname": "Microsoft.Data.Sqlite.Core",
     "version": "9.0.5",
     "hash": "sha256-LmIKIg6oTKjrLmbJgETn9vFmhVYFazUW2W7VfzPgQSM="
   },
   {
     "pname": "Microsoft.Extensions.DependencyInjection",
-    "version": "6.0.0",
-    "hash": "sha256-gZuMaunMJVyvvepuzNodGPRc6eqKH//bks3957dYkPI="
-  },
-  {
-    "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
-    "version": "6.0.0",
-    "hash": "sha256-SZke0jNKIqJvvukdta+MgIlGsrP2EdPkkS8lfLg7Ju4="
+    "version": "8.0.0",
+    "hash": "sha256-+qIDR8hRzreCHNEDtUcPfVHQdurzWPo/mqviCH78+EQ="
   },
   {
     "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
@@ -178,11 +163,6 @@
     "pname": "Microsoft.Extensions.Logging.Abstractions",
     "version": "8.0.1",
     "hash": "sha256-TYce3qvMr92JbAZ62ATBsocaH0joJzw0px0tYGZ9N0U="
-  },
-  {
-    "pname": "Microsoft.NETCore.Platforms",
-    "version": "1.1.0",
-    "hash": "sha256-FeM40ktcObQJk4nMYShB61H/E8B7tIKfl9ObJ0IOcCM="
   },
   {
     "pname": "Microsoft.NETCore.Platforms",
@@ -296,16 +276,6 @@
   },
   {
     "pname": "SQLitePCLRaw.core",
-    "version": "2.0.6",
-    "hash": "sha256-MXi9UEga37dJyFuMg0AVt8enKdr54KlOFT/ssMHzkfA="
-  },
-  {
-    "pname": "SQLitePCLRaw.core",
-    "version": "2.1.10",
-    "hash": "sha256-gpZcYwiJVCVwCyJu0R6hYxyMB39VhJDmYh9LxcIVAA8="
-  },
-  {
-    "pname": "SQLitePCLRaw.core",
     "version": "2.1.11",
     "hash": "sha256-s/fxEoYlNf9c2C4HZueMzPCBvpiViDVlSpg7epB0GXY="
   },
@@ -328,11 +298,6 @@
     "pname": "System.Configuration.ConfigurationManager",
     "version": "4.7.0",
     "hash": "sha256-rYjp/UmagI4ZULU1ocia/AiXxLNL8uhMV8LBF4QFW10="
-  },
-  {
-    "pname": "System.Diagnostics.DiagnosticSource",
-    "version": "8.0.1",
-    "hash": "sha256-zmwHjcJgKcbkkwepH038QhcnsWMJcHys+PEbFGC0Jgo="
   },
   {
     "pname": "System.Drawing.Common",
@@ -358,11 +323,6 @@
     "pname": "System.Memory",
     "version": "4.5.3",
     "hash": "sha256-Cvl7RbRbRu9qKzeRBWjavUkseT2jhZBUWV1SPipUWFk="
-  },
-  {
-    "pname": "System.Memory",
-    "version": "4.5.5",
-    "hash": "sha256-EPQ9o1Kin7KzGI5O3U3PUQAZTItSbk9h/i4rViN3WiI="
   },
   {
     "pname": "System.Private.Uri",
@@ -403,11 +363,6 @@
     "pname": "System.Runtime",
     "version": "4.3.0",
     "hash": "sha256-51813WXpBIsuA6fUtE5XaRQjcWdQ2/lmEokJt97u0Rg="
-  },
-  {
-    "pname": "System.Runtime.CompilerServices.Unsafe",
-    "version": "6.0.0",
-    "hash": "sha256-bEG1PnDp7uKYz/OgLOWs3RWwQSVYm+AnPwVmAmcgp2I="
   },
   {
     "pname": "System.Security.AccessControl",
@@ -461,7 +416,7 @@
   },
   {
     "pname": "Xaml.Behaviors",
-    "version": "11.3.9",
-    "hash": "sha256-NTHTizgbhkCdMEu0xPpX6MIRl2GP3QHWXSNeppY5Sr0="
+    "version": "11.3.0",
+    "hash": "sha256-n8s/zTSzovI9HYvTzBQHUi6e/zo//6thM2w73O9T+iY="
   }
 ]

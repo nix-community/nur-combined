@@ -76,6 +76,12 @@ jobs:
       continue-on-error: true
       run: nix run .#plezy.passthru.updateScript
 
+    - name: Update downkyicore
+      continue-on-error: true
+      run: |
+        cd pkgs/downkyicore
+        ./update.sh
+
     - name: Push changes
       run: |
         git push
