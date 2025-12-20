@@ -18,4 +18,5 @@ rec {
   surge-xt = pkgs.callPackage ./pkgs/surge-xt { };
   shortcircuit-xt = pkgs.callPackage ./pkgs/shortcircuit-xt { };
   gtoolkit = pkgs.callPackage ./pkgs/gtoolkit { };
+  soapysdrplay = pkgs.callPackage ./pkgs/soapysdrplay { };
 }
