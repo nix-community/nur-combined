@@ -44,7 +44,7 @@ pkgs ? import <nixpkgs> { }
   # planetiler = pkgs.callPackage ./pkgs/planetiler { };
   # libremdb = pkgs.callPackage ./pkgs/libremdb { }; Need to fix the pnpm2nix -> I don't want to do it
   # numen = pkgs.callPackage ./pkgs/numen { };
-  clooj = pkgs.callPackage ./pkgs/clooj { };
+  #clooj = pkgs.callPackage ./pkgs/clooj { };
 
   flat-manager = pkgs.callPackage ./pkgs/flat-manager { };
 

@@ -22,6 +22,7 @@ let
     hash = "sha256-mMn/Qpxbr6Vcv1WA/iespxp8YkEJILobmcJ165Xah3E=";
   };
 
+  # deps-only Maven repository (fixed-output)
   mavenRepo = stdenv.mkDerivation {
     name = "${pname}-maven-repo-${version}";
     inherit src;
@@ -30,43 +31,9 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-+2toThNfJIgDmUlwLzD8x3KGs4nFpqdTgXA7Q4y1GXw=";
+    outputHash = "sha256-4nrFBrtVYbkjWw5McUH5QXtaWuJkh4Xj7tugGQrkzl0=";
 
     dontFixup = true;
-
-    buildPhase = ''
-      export HOME=$TMPDIR
-      export LC_ALL=C
-      export TZ=UTC
-
-      # Generate pom.xml from project.clj
-      lein pom
-
-      # IMPORTANT: Do not use -o/--offline here.
-      # This step is what populates $out with all required artifacts.
-      mvn -f pom.xml \
-      -Dmaven.repo.local=$out \
-      -DskipTests \
-      dependency:go-offline
-      '';
-
-    installPhase = ''
-      # Remove non-deterministic / network state files
-      find $out -type f \
-      -name \*.lastUpdated -o \
-      -name resolver-status.properties -o \
-      -name _remote.repositories \
-      -delete
-      '';
-  };
-
-in
-
-  stdenv.mkDerivation {
-    inherit pname version src;
-
-    nativeBuildInputs = [ leiningen makeWrapper wrapGAppsHook3 ];
-    buildInputs = [ jre gtk3 glib gsettings-desktop-schemas ];
 
     buildPhase = ''
       export HOME=$TMPDIR
@@ -74,33 +41,74 @@ in
       export LC_ALL=C
       export TZ=UTC
 
-      # Provide the prefetched Maven repo to Lein/Maven
-      mkdir -p $HOME/.m2
-      ln -s ${mavenRepo} $HOME/.m2/repository
+      # generate pom.xml from Lein project
+      lein pom
 
-      # Build fully offline using only what's in the repo
-      lein -o uberjar
+      # fetch deps + plugins (NO mvn package here)
+      mvn -f pom.xml \
+        -Dmaven.repo.local=$out \
+        -DskipTests \
+        dependency:go-offline
     '';
 
     installPhase = ''
+      find $out -type f \
+        -name \*.lastUpdated -o \
+        -name resolver-status.properties -o \
+        -name _remote.repositories \
+        -delete
+    '';
+  };
+in
+
+stdenv.mkDerivation {
+  inherit pname version src;
+
+  nativeBuildInputs = [ leiningen makeWrapper wrapGAppsHook3 ];
+  buildInputs = [ jre gtk3 glib gsettings-desktop-schemas ];
+
+  buildPhase = ''
+    export HOME=$TMPDIR
+    export LEIN_HOME=$HOME/.lein
+    export LC_ALL=C
+    export TZ=UTC
+
+    mkdir -p $HOME/.m2
+    ln -s ${mavenRepo} $HOME/.m2/repository
+
+    lein -o uberjar
+
+    echo "target contents:"
+    ls -la target
+  '';
+
+  installPhase = ''
     mkdir -p $out/share/${pname} $out/bin
-    cp target/*standalone.jar $out/share/${pname}/${pname}.jar
+
+    jar="$(find target -maxdepth 1 -type f -name '*standalone.jar' | head -n1)"
+    if [ -z "$jar" ]; then
+      echo "ERROR: lein uberjar did not produce *standalone.jar"
+      ls -la target || true
+      exit 1
+    fi
+
+    cp -v "$jar" $out/share/${pname}/${pname}.jar
+
     makeWrapper ${jre}/bin/java $out/bin/${pname} \
       --add-flags "-jar $out/share/${pname}/${pname}.jar"
-      '';
+  '';
 
-    dontWrapGApps = false;
+  dontWrapGApps = false;
 
-    meta = {
-      description = "Clooj, a lightweight IDE for clojure";
-      homepage = "https://github.com/clj-commons/clooj";
-      license = lib.licenses.epl10;
-      maintainers =
-        let m = lib.maintainers or {};
-        in lib.optionals (m ? szanko) [ m.szanko ];
-      mainProgram = "clooj";
-      platforms = lib.platforms.all;
-    };
-  }
-
+  meta = {
+    description = "Clooj, a lightweight IDE for clojure";
+    homepage = "https://github.com/clj-commons/clooj";
+    license = lib.licenses.epl10;
+    maintainers =
+      let m = lib.maintainers or {};
+      in lib.optionals (m ? szanko) [ m.szanko ];
+    mainProgram = "clooj";
+    platforms = lib.platforms.all;
+  };
+}
 
