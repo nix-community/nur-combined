@@ -52,6 +52,7 @@ in
           "browser.newtabpage.activity-stream.feeds.sections" = false;
           "browser.newtabpage.activity-stream.feeds.system.topstories" = false; # Disable top stories
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false; # Disable pocket
+          "browser.urlbar.trimURLs" = false; # Always show the `http://` prefix
           "extensions.pocket.enabled" = false; # Disable pocket
           "media.eme.enabled" = true; # Enable DRM
           "media.gmp-widevinecdm.enabled" = true; # Enable DRM
