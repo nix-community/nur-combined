@@ -9,6 +9,6 @@
     "url": "https://cdn1.waterfox.net/waterfox/releases/{version}/Linux_x86_64/waterfox-{version}.tar.bz2",
     "unpack": false
   },
-  "version": "6.6.6",
-  "hash": "sha256-e8i29fR6m+8hSo2Oc9DYD++tnhSlbSKsFAeRacPVT7k="
+  "version": "6.6.7",
+  "hash": "sha256-/R2rQkYPJ8boC/hHK39UuIkKyAHjaW+t7s5aaWZYTTI="
 }

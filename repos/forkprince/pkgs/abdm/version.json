@@ -6,7 +6,7 @@
     "query": ".[0].tag_name",
     "tag_prefix": "v"
   },
-  "version": "1.7.1",
+  "version": "1.8.0",
   "platforms": {
     "x86_64-linux": {
       "file": "ABDownloadManager_{version}_linux_x64.tar.gz",

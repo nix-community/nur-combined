@@ -6,9 +6,9 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "4.2.378",
+  "version": "4.2.382",
   "asset": {
-    "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.2.378-x86_64.AppImage",
-    "hash": "sha256-Jx5GBTNklX6rmwr6Bqu5ihlzkpDQCgoncZ9Rsj04BEk="
+    "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.2.382-x86_64.AppImage",
+    "hash": "sha256-jPZfzU0BEeuXAE7WJcZt3xS8ci3yRMZaR/usck38d48="
   }
 }
