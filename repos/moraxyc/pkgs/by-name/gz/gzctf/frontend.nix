@@ -11,6 +11,8 @@
   nodejs,
   pnpm_10,
   pnpm ? pnpm_10,
+  pnpmConfigHook,
+  fetchPnpmDeps,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -29,10 +31,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     nodejs
-    pnpm.configHook
+    pnpm
+    pnpmConfigHook
   ];
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
       version
@@ -40,8 +43,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       sourceRoot
       patches
       ;
-    fetcherVersion = 2;
-    hash = "sha256-mg5BybafGgTIsJqRpXE1XpLxtMBuHAwY6ZGN9BqAxGk=";
+    fetcherVersion = 3;
+    hash = "sha256-NYigJd6FveH/S7v8/9C3sJoNVHMeTzL8pRvoSvC+rz8=";
   };
 
   buildPhase = ''

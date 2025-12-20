@@ -6,6 +6,8 @@
   pnpm_10,
   pnpm ? pnpm_10,
   nix-update-script,
+  pnpmConfigHook,
+  fetchPnpmDeps,
 
   nodejs,
 }:
@@ -23,14 +25,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     nodejs
-    pnpm.configHook
+    pnpmConfigHook
     pnpm
   ];
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 2;
-    hash = "sha256-HDiexse1QQ+6sJFnpcbnHd28yBDfCBJoQ9W1P4nEstE=";
+    fetcherVersion = 3;
+    hash = "sha256-HEeNYLKvzO/RQWYnm5gqRjTrXiiCxKUxf3bcRvz+O4k=";
   };
 
   buildPhase = ''
