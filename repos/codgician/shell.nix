@@ -1,5 +1,7 @@
 # Development shell for running update scripts
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
