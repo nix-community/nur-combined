@@ -2,16 +2,17 @@
   gcc15Stdenv,
   fetchFromGitHub,
   cmake,
+  glaze,
   pkg-config,
   kdePackages,
   protobuf,
   nodejs,
+  npmHooks,
   cmark-gfm,
   libqalculate,
   ninja,
   lib,
   fetchNpmDeps,
-  writeShellScriptBin,
   minizip,
   qt6,
   abseil-cpp,
@@ -21,9 +22,9 @@
 
 let
   pname = "vicinae";
-  version = "0.16.14";
+  version = "0.17.0";
 
-  srcHash = "sha256-G9zuw0IuzOxCeAcLE+IXcsdp0vAGMXBBdlfjBISnL90=";
+  srcHash = "sha256-r7igMwLdNgAkVDLporW4IKCjUWnIvYY2PWbwQPfaJ9o=";
   apiDepsHash = "sha256-UsTpMR23UQBRseRo33nbT6z/UCjZByryWfn2AQSgm6U=";
   extensionManagerDepsHash = "sha256-wl8FDFB6Vl1zD0/s2EbU6l1KX4rwUW6dOZof4ebMMO8=";
 
@@ -34,17 +35,11 @@ let
     sha256 = "${srcHash}";
   };
 
-  # Prepare node_modules for api folder
   apiDeps = fetchNpmDeps {
     src = src + /typescript/api;
     hash = "${apiDepsHash}";
   };
 
-  ts-protoc-gen-wrapper = writeShellScriptBin "protoc-gen-ts_proto" ''
-    exec node ${src}/typescript/api/node_modules/.bin/protoc-gen-ts_proto
-  '';
-
-  # Prepare node_modules for extension-manager folder
   extensionManagerDeps = fetchNpmDeps {
     src = src + /typescript/extension-manager;
     hash = "${extensionManagerDepsHash}";
@@ -53,18 +48,21 @@ in
 gcc15Stdenv.mkDerivation (finalAttrs: {
   inherit pname version src;
 
-  cmakeFlags = [
-    "-DVICINAE_GIT_TAG=${finalAttrs.version}"
-    "-DVICINAE_GIT_COMMIT_HASH=${builtins.substring 0 7 finalAttrs.src.rev}"
-    "-DINSTALL_NODE_MODULES=OFF"
-    "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
-    "-DCMAKE_INSTALL_DATAROOTDIR=share"
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON" # LTO
-  ];
+  cmakeFlags = lib.mapAttrsToList lib.cmakeFeature {
+    "VICINAE_GIT_TAG" = "v${finalAttrs.version}";
+    "VICINAE_PROVENANCE" = "nix";
+    "INSTALL_NODE_MODULES" = "OFF";
+    "USE_SYSTEM_GLAZE" = "ON";
+    "CMAKE_INSTALL_PREFIX" = placeholder "out";
+    "CMAKE_INSTALL_DATAROOTDIR" = "share";
+    "CMAKE_INSTALL_BINDIR" = "bin";
+    "CMAKE_INSTALL_LIBDIR" = "lib";
+    "DCMAKE_INTERPROCEDURAL_OPTIMIZATION" = "ON"; # LTO
+  };
 
   NIX_CFLAGS_COMPILE = "-O3 -march=native -mtune=native"; # native
+
+  strictDeps = true;
 
   nativeBuildInputs = [
     cmake
@@ -89,51 +87,24 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
     qt6.qtwayland
     wayland
     libxml2
+    glaze
   ];
 
-  configurePhase = ''
-    cmake -G Ninja -B build $cmakeFlags
+  postPatch = ''
+    local postPatchHooks=()
+    source ${npmHooks.npmConfigHook}/nix-support/setup-hook
+    npmRoot=typescript/api npmDeps=${apiDeps} npmConfigHook
+    npmRoot=typescript/extension-manager npmDeps=${extensionManagerDeps} npmConfigHook
   '';
 
-  buildPhase = ''
-    buildDir=$PWD
-    export npm_config_cache=${apiDeps}
-    cd $buildDir/typescript/api
-    npm i --ignore-scripts
-    patchShebangs $buildDir/typescript/api
-    npm rebuild --foreground-scripts
-
-    export npm_config_cache=${extensionManagerDeps}
-    cd $buildDir/typescript/extension-manager
-    npm i --ignore-scripts
-    patchShebangs $buildDir/typescript/extension-manager
-    npm rebuild --foreground-scripts
-
-    cd $buildDir
-    cmake --build build
-  '';
-
-  dontWrapQtApps = true;
-
-  preFixup = ''
-    wrapQtApp "$out/bin/vicinae" --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath finalAttrs.buildInputs}
-  '';
-
-  postFixup = ''
-    wrapProgram $out/bin/vicinae \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          nodejs
-          qt6.qtwayland
-          wayland
-          (placeholder "out")
-        ]
-      }
-  '';
-
-  installPhase = ''
-    cmake --install build
-  '';
+  qtWrapperArgs = [
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        nodejs
+        (placeholder "out")
+      ]
+    }"
+  ];
 
   passthru.updateScript = ./update.sh;
 
