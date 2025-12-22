@@ -29,8 +29,6 @@
     ntfs = true;
   };
 
-  services.xserver.windowManager.i3.enable = true;
-
   services.btrfs = {
     autoScrub = {
       enable = true;
@@ -96,7 +94,7 @@
   hardware = {
     bluetooth = {
       enable = true;
-      powerOnBoot = false;
+      powerOnBoot = true;
     };
     nvidia = {
       open = true;
@@ -104,12 +102,8 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [foot waybar wofi];
-
-  programs.hyprland.enable = true;
-  programs.hyprlock.enable = true;
-  programs.waybar.enable = true;
   programs.foot.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  my.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
   services.power-profiles-daemon.enable = true;
 }
