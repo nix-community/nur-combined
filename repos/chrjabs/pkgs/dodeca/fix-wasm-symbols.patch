@@ -1,0 +1,18 @@
+diff --git a/crates/livereload-client/src/lib.rs b/crates/livereload-client/src/lib.rs
+index 7740822270..abbe57d6f5 100644
+--- a/crates/livereload-client/src/lib.rs
++++ b/crates/livereload-client/src/lib.rs
+@@ -84,8 +84,8 @@
+         .map_err(|_| JsValue::from_str("node is not an element"))
+ }
+ 
+-/// Log a message to the browser console (for debugging)
+-#[wasm_bindgen]
+-pub fn log(msg: &str) {
+-    web_sys::console::log_1(&JsValue::from_str(msg));
+-}
++// /// Log a message to the browser console (for debugging)
++// #[wasm_bindgen]
++// pub fn log(msg: &str) {
++//     web_sys::console::log_1(&JsValue::from_str(msg));
++// }

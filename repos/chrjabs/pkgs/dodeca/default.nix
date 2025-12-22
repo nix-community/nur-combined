@@ -5,32 +5,52 @@
   rustc,
   fetchFromGitHub,
   wasm-pack,
-  wasm-bindgen-cli_0_2_105 ? null,
   pkg-config,
   openssl,
   cmake,
+  buildWasmBindgenCli,
+  fetchCrate,
 }:
+let
+  wasm-bindgen-cli = buildWasmBindgenCli rec {
+    src = fetchCrate {
+      pname = "wasm-bindgen-cli";
+      version = "0.2.106";
+      hash = "sha256-M6WuGl7EruNopHZbqBpucu4RWz44/MSdv6f0zkYw+44=";
+    };
+
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit src;
+      inherit (src) pname version;
+      hash = "sha256-ElDatyOwdKwHg3bNH/1pcxKI7LXkhsotlDPQjiLHBwA=";
+    };
+  };
+in
 rustPlatform.buildRustPackage rec {
   pname = "dodeca";
-  version = "0.5.0";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "bearcove";
     repo = "dodeca";
     rev = "v${version}";
-    hash = "sha256-r25YTH/nRWgIBlFiw8cTpcUEpV6QmOsxdPa2UOd/w0M=";
+    hash = "sha256-6GxatTa8/G8GSEN9lkRVWINcoft37g1zTcLX7Uv4udU=";
   };
 
-  cargoHash = "sha256-XSWCLgefQRqnhLuOn1qv5stmjQgoj2915e8gTORJQb0=";
+  patches = [
+    ./fix-wasm-symbols.patch
+  ];
+
+  cargoHash = "sha256-EKFlxZBKtNu+YHLMWdVQw58qM7S9Qb/MELTnmRyfiMc=";
 
   cargoPatches = [
-    ./make-build-work.patch
+    ./fix-picante.patch
   ];
 
   buildInputs = [ openssl ];
   nativeBuildInputs = [
     wasm-pack
-    wasm-bindgen-cli_0_2_105
+    wasm-bindgen-cli
     rustc.llvmPackages.lld
     pkg-config
     cmake
@@ -40,8 +60,7 @@ rustPlatform.buildRustPackage rec {
     runHook preBuild
 
     echo "Building WASM..."
-    cargo build -j "$NIX_BUILD_CORES" -p livereload-client -p dodeca-devtools --target wasm32-unknown-unknown --release
-    wasm-bindgen --target web --out-dir crates/livereload-client/pkg target/wasm32-unknown-unknown/release/livereload_client.wasm
+    cargo build -j "$NIX_BUILD_CORES" -p dodeca-devtools --target wasm32-unknown-unknown --release
     wasm-bindgen --target web --out-dir crates/dodeca-devtools/pkg target/wasm32-unknown-unknown/release/dodeca_devtools.wasm
 
     # Auto-discover plugins (crates with cdylib in Cargo.toml)
@@ -56,13 +75,8 @@ rustPlatform.buildRustPackage rec {
     echo "Building ddc..."
     cargo build -j "$NIX_BUILD_CORES" --release -p dodeca
 
-    # Build plugins
-    echo "Building plugins..."
-    PLUGIN_ARGS=""
-    for plugin in "''${PLUGINS[@]}"; do
-        PLUGIN_ARGS="$PLUGIN_ARGS -p $plugin"
-    done
-    cargo build -j "$NIX_BUILD_CORES" --release $PLUGIN_ARGS
+    echo "Building cells..."
+    cargo build -j "$NIX_BUILD_CORES" --release -p cell-arborium --bin ddc-cell-arborium -p cell-code-execution --bin ddc-cell-code-execution -p cell-css --bin ddc-cell-css -p cell-fonts --bin ddc-cell-fonts -p cell-html --bin ddc-cell-html -p cell-html-diff --bin ddc-cell-html-diff -p cell-http --bin ddc-cell-http -p cell-image --bin ddc-cell-image -p cell-js --bin ddc-cell-js -p cell-jxl --bin ddc-cell-jxl -p cell-linkcheck --bin ddc-cell-linkcheck -p cell-markdown --bin ddc-cell-markdown -p cell-minify --bin ddc-cell-minify -p cell-pagefind --bin ddc-cell-pagefind -p cell-sass --bin ddc-cell-sass -p cell-svgo --bin ddc-cell-svgo -p cell-tui --bin ddc-cell-tui -p cell-webp --bin ddc-cell-webp
 
     runHook postBuild
   '';
@@ -76,29 +90,29 @@ rustPlatform.buildRustPackage rec {
     ''
       runHook preInstall
 
-      # Auto-discover plugins (crates with cdylib in Cargo.toml)
-      PLUGINS=()
-      for dir in crates/dodeca-*/; do
-          if [[ -f "$dir/Cargo.toml" ]] && grep -q "cdylib" "$dir/Cargo.toml"; then
-              plugin=$(basename "$dir")
-              # Convert crate name to lib name (dodeca-foo -> dodeca_foo)
-              lib_name="''${plugin//-/_}"
-              PLUGINS+=("$lib_name")
-          fi
-      done
+      mkdir -p $out/bin
 
-      mkdir -p $out/bin/plugins
       cp "target/release/ddc" $out/bin/
-      # Copy plugins
-      for plugin in "''${PLUGINS[@]}"; do
-          PLUGIN_FILE="lib$plugin.${libExt}"
-          SRC="target/release/$PLUGIN_FILE"
-          if [[ -f "$SRC" ]]; then
-              cp "$SRC" $out/bin/plugins/
-          else
-              echo "Warning: Plugin not found: $SRC"
-          fi
-      done
+
+
+      cp "target/release/ddc-cell-arborium" $out/bin/
+      cp "target/release/ddc-cell-code-execution" $out/bin/
+      cp "target/release/ddc-cell-css" $out/bin/
+      cp "target/release/ddc-cell-fonts" $out/bin/
+      cp "target/release/ddc-cell-html" $out/bin/
+      cp "target/release/ddc-cell-html-diff" $out/bin/
+      cp "target/release/ddc-cell-http" $out/bin/
+      cp "target/release/ddc-cell-image" $out/bin/
+      cp "target/release/ddc-cell-js" $out/bin/
+      cp "target/release/ddc-cell-jxl" $out/bin/
+      cp "target/release/ddc-cell-linkcheck" $out/bin/
+      cp "target/release/ddc-cell-markdown" $out/bin/
+      cp "target/release/ddc-cell-minify" $out/bin/
+      cp "target/release/ddc-cell-pagefind" $out/bin/
+      cp "target/release/ddc-cell-sass" $out/bin/
+      cp "target/release/ddc-cell-svgo" $out/bin/
+      cp "target/release/ddc-cell-tui" $out/bin/
+      cp "target/release/ddc-cell-webp" $out/bin/
 
       runHook postInstall
     '';
@@ -114,6 +128,6 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
     mainProgram = "ddc";
     # MSRV is 1.91
-    broken = !lib.versionAtLeast rustc.version "1.91" || (wasm-bindgen-cli_0_2_105 == null);
+    broken = !lib.versionAtLeast rustc.version "1.91";
   };
 }

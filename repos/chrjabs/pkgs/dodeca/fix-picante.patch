@@ -1,0 +1,35 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 171258815e..652ef4d336 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -6614,7 +6614,7 @@
+ [[package]]
+ name = "picante"
+ version = "0.1.0"
+-source = "git+https://github.com/bearcove/picante#fc5eb5aceea1cdafdeafaa2226794d43de7ce2b0"
++source = "git+https://github.com/chrjabs/picante?branch=push-yzywrmvzmnww#837cf431137e4b99d3f7d434fe5cd136f9b49f91"
+ dependencies = [
+  "dashmap 5.5.3",
+  "facet",
+@@ -6631,7 +6631,7 @@
+ [[package]]
+ name = "picante-macros"
+ version = "0.1.0"
+-source = "git+https://github.com/bearcove/picante#fc5eb5aceea1cdafdeafaa2226794d43de7ce2b0"
++source = "git+https://github.com/chrjabs/picante?branch=push-yzywrmvzmnww#837cf431137e4b99d3f7d434fe5cd136f9b49f91"
+ dependencies = [
+  "heck 0.5.0",
+  "proc-macro2",
+diff --git a/crates/dodeca/Cargo.toml b/crates/dodeca/Cargo.toml
+index 872b0356cb..f0c2712c0f 100644
+--- a/crates/dodeca/Cargo.toml
++++ b/crates/dodeca/Cargo.toml
+@@ -114,7 +114,7 @@
+ owo-colors = "4"
+ 
+ # Incremental computation
+-picante = { git = "https://github.com/bearcove/picante" }
++picante = { git = "https://github.com/chrjabs/picante", branch = "push-yzywrmvzmnww" }
+ postcard = { version = "1", features = ["alloc"] }  # Fast, compact binary serialization with serde
+ 
+ # RPC framework for plugin communication
