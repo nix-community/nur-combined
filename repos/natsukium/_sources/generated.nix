@@ -23,15 +23,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "9391e8464cfe0ca0d0bcfcece0ac13e523a76c2f";
+    version = "dc8aa3a8fa36d50636cd31052a2799344854fa6b";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "9391e8464cfe0ca0d0bcfcece0ac13e523a76c2f";
+      rev = "dc8aa3a8fa36d50636cd31052a2799344854fa6b";
       fetchSubmodules = false;
-      sha256 = "sha256-CjzvVEHwwOux89iN+RM5Jo4jzHGCWKNVg8/cpxHeD9M=";
+      sha256 = "sha256-AdS1VAW2o+KsFlawjCIuZX3pA461kNUPSkD/qCEM8lg=";
     };
-    date = "2025-12-16";
+    date = "2025-12-21";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -55,15 +55,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "f1749909c099ea56e337a96ba35ffd3bff0d70f8";
+    version = "311c0756088b294a6f317576965c5d2f14111e00";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "f1749909c099ea56e337a96ba35ffd3bff0d70f8";
+      rev = "311c0756088b294a6f317576965c5d2f14111e00";
       fetchSubmodules = false;
-      sha256 = "sha256-nqDjaOsPlrU5v7baPWgvhUCZDHQGYieILVEXLyaN45E=";
+      sha256 = "sha256-Ts58sKDJvMXocrDaMm91X53toDbuU74j/iZhhHUNH2o=";
     };
-    date = "2025-11-27";
+    date = "2025-12-21";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -127,10 +127,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.17.14b";
+    version = "1.17.15b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.17.14b/zen.macos-universal.dmg";
-      sha256 = "sha256-JcFd9Tsu3WkTiMYVLQyLX+RCbeC/LPQZYRjgFgzqA2w=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.17.15b/zen.macos-universal.dmg";
+      sha256 = "sha256-Lv7K5782E2ci5rtRA3SQpkZ+kVdOgYhD2Lc+L+gyFtA=";
     };
   };
 }
