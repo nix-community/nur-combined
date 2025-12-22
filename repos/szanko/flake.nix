@@ -43,6 +43,8 @@
           import ./default.nix {
             inherit pkgs pkgs2311 pkgs2411 pkgs2505 pkgs2511 pkgsUnstable;
             stardropPkgs = stardrop.packages.${system};
+
+            cljNix = clj-nix;
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
       checks = forAllSystems (system: self.packages.${system});

@@ -1,7 +1,8 @@
 { lib
-, stdenv
+, pkgs
+, cljNix
 , fetchFromGitHub
-, maven
+, jdk21
 , leiningen
 , makeWrapper
 , jre
@@ -9,106 +10,97 @@
 , glib
 , gsettings-desktop-schemas
 , wrapGAppsHook3
+, symlinkJoin
 }:
+let 
+  cloojBase = cljNix.lib.mkCljApp {
+    pkgs = pkgs;
 
-let
-  pname = "clooj";
-  version = "0.5.0";
 
-  src = fetchFromGitHub {
-    owner = "SZanko";
-    repo = "clooj";
-    rev = "966ed9bd0efedd97735274f3eb95b9051a9497bf";
-    hash = "sha256-mMn/Qpxbr6Vcv1WA/iespxp8YkEJILobmcJ165Xah3E=";
-  };
+    modules = [
+      {
+        # Point to the *Clooj sources you want to build*
+        # If you keep deps.edn + deps-lock.json alongside sources, this is easy:
+        # name should be namespaced
+        name = "clj-commons/clooj";
+        version = "0.5.0";
 
-  # deps-only Maven repository (fixed-output)
-  mavenRepo = stdenv.mkDerivation {
-    name = "${pname}-maven-repo-${version}";
-    inherit src;
+        projectSrc = fetchFromGitHub {
+          owner = "SZanko";
+          repo = "clooj";
+          rev = "966ed9bd0efedd97735274f3eb95b9051a9497bf";
+          hash = "sha256-mMn/Qpxbr6Vcv1WA/iespxp8YkEJILobmcJ165Xah3E=";
+        };
 
-    nativeBuildInputs = [ leiningen maven ];
+        lockfile = ./deps-lock.json;
 
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = "sha256-4nrFBrtVYbkjWw5McUH5QXtaWuJkh4Xj7tugGQrkzl0=";
+        # Clooj's main namespace (must have -main and :gen-class for mkCljBin checks)
+        # You likely want: "clooj.core"
+        main-ns = "clooj.core";
 
-    dontFixup = true;
+        jdk = jdk21;
 
-    buildPhase = ''
-      export HOME=$TMPDIR
-      export LEIN_HOME=$HOME/.lein
-      export LC_ALL=C
-      export TZ=UTC
+        withLeiningen = true;
 
-      # generate pom.xml from Lein project
-      lein pom
+        # Override build command to use lein (optional, only if default tools.build doesn't work)
+        buildCommand = ''
+        export HOME=$TMPDIR
+        export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Djava.util.prefs.userRoot=$TMPDIR/.java-prefs"
 
-      # fetch deps + plugins (NO mvn package here)
-      mvn -f pom.xml \
-        -Dmaven.repo.local=$out \
-        -DskipTests \
-        dependency:go-offline
-    '';
 
-    installPhase = ''
-      find $out -type f \
-        -name \*.lastUpdated -o \
-        -name resolver-status.properties -o \
-        -name _remote.repositories \
-        -delete
-    '';
+        lein uberjar
+        export jarPath="$(find "$PWD/target" -maxdepth 1 -name '*-standalone.jar' -print -quit)"
+        test -n "$jarPath"
+        '';
+
+      }
+    ];
+
   };
 in
 
-stdenv.mkDerivation {
-  inherit pname version src;
+  symlinkJoin {
+    name = "clooj-0.5.0";
 
-  nativeBuildInputs = [ leiningen makeWrapper wrapGAppsHook3 ];
-  buildInputs = [ jre gtk3 glib gsettings-desktop-schemas ];
+    paths = [ cloojBase ];
 
-  buildPhase = ''
-    export HOME=$TMPDIR
-    export LEIN_HOME=$HOME/.lein
-    export LC_ALL=C
-    export TZ=UTC
+    nativeBuildInputs = [ leiningen makeWrapper wrapGAppsHook3 ];
+    buildInputs = [ jre gtk3 glib gsettings-desktop-schemas ];
 
-    mkdir -p $HOME/.m2
-    ln -s ${mavenRepo} $HOME/.m2/repository
+    # Use postFixup so it runs after paths are linked into $out
+    postFixup = ''
+      set -eu
 
-    lein -o uberjar
+      if [ ! -e "$out/bin/clooj" ]; then
+        echo "ERROR: $out/bin/clooj not found"
+        ls -la "$out/bin" || true
+        exit 1
+      fi
 
-    echo "target contents:"
-    ls -la target
-  '';
+      if [ -L "$out/bin/clooj" ]; then
+        target="$(readlink -f "$out/bin/clooj")"
+        rm -f "$out/bin/clooj"
+      else
+        target="$out/bin/.clooj-real"
+        mv "$out/bin/clooj" "$target"
+      fi
 
-  installPhase = ''
-    mkdir -p $out/share/${pname} $out/bin
+      makeWrapper "$target" "$out/bin/clooj" \
+        --prefix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share" \
+        --prefix XDG_DATA_DIRS : "${gtk3}/share" \
+        --prefix XDG_DATA_DIRS : "${glib}/share"
+    '';
 
-    jar="$(find target -maxdepth 1 -type f -name '*standalone.jar' | head -n1)"
-    if [ -z "$jar" ]; then
-      echo "ERROR: lein uberjar did not produce *standalone.jar"
-      ls -la target || true
-      exit 1
-    fi
+    dontWrapGApps = false;
 
-    cp -v "$jar" $out/share/${pname}/${pname}.jar
-
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
-      --add-flags "-jar $out/share/${pname}/${pname}.jar"
-  '';
-
-  dontWrapGApps = false;
-
-  meta = {
-    description = "Clooj, a lightweight IDE for clojure";
-    homepage = "https://github.com/clj-commons/clooj";
-    license = lib.licenses.epl10;
-    maintainers =
-      let m = lib.maintainers or {};
-      in lib.optionals (m ? szanko) [ m.szanko ];
-    mainProgram = "clooj";
-    platforms = lib.platforms.all;
-  };
-}
-
+    meta = {
+      description = "Clooj, a lightweight IDE for clojure";
+      homepage = "https://github.com/clj-commons/clooj";
+      license = lib.licenses.epl10;
+      maintainers =
+        let m = lib.maintainers or {};
+        in lib.optionals (m ? szanko) [ m.szanko ];
+      mainProgram = "clooj";
+      platforms = lib.platforms.all;
+    };
+  }

@@ -14,6 +14,7 @@ pkgs ? import <nixpkgs> { }
 , pkgs2511 ? pkgs
 , pkgsUnstable ? pkgs
 , stardropPkgs ? null
+, cljNix ? null
 }:
 
 {
@@ -44,7 +45,7 @@ pkgs ? import <nixpkgs> { }
   # planetiler = pkgs.callPackage ./pkgs/planetiler { };
   # libremdb = pkgs.callPackage ./pkgs/libremdb { }; Need to fix the pnpm2nix -> I don't want to do it
   # numen = pkgs.callPackage ./pkgs/numen { };
-  #clooj = pkgs.callPackage ./pkgs/clooj { };
+  # clooj = pkgs.callPackage ./pkgs/clooj { inherit cljNix; };
 
   flat-manager = pkgs.callPackage ./pkgs/flat-manager { };
 
