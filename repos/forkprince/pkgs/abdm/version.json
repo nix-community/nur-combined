@@ -6,21 +6,21 @@
     "query": ".[0].tag_name",
     "tag_prefix": "v"
   },
-  "version": "1.8.0",
+  "version": "1.8.1",
   "platforms": {
     "x86_64-linux": {
       "file": "ABDownloadManager_{version}_linux_x64.tar.gz",
-      "hash": "sha256-JTW5wTGzfSHAnpi3h21Q485I7noaKjwrY4M8HgDkhTQ=",
+      "hash": "sha256-RgoWb5LECYiYEqMM/7xoL+o34XD3wdY/S7giDAsPxGs=",
       "unpack": false
     },
     "x86_64-darwin": {
       "file": "ABDownloadManager_{version}_mac_x64.tar.gz",
-      "hash": "sha256-yOZ3ejIPtq88XgBd50gG73OSGYGaZyBSOONJPI1kHjU=",
+      "hash": "sha256-LcrxE+G48npFTN+qtgr66EP0+FVzgG4hMDfkM00jkyM=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "ABDownloadManager_{version}_mac_arm64.tar.gz",
-      "hash": "sha256-H4lVeQ5ut8/YujKbSeFwImbXtOi6SXBFxUIykMivwIM=",
+      "hash": "sha256-v/YbI3qibD8Oag3e4o1J/wq4oTRZ0P9uWTTzRWOdNcE=",
       "unpack": false
     }
   }

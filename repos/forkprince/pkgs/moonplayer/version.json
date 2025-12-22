@@ -1,0 +1,15 @@
+{
+  "name": "moonplayer",
+  "source": {
+    "type": "github-release",
+    "repo": "coslyk/moonplayer",
+    "query": ".[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "MoonPlayer__macOS.zip",
+    "unpack": false
+  },
+  "version": "4.3",
+  "hash": "sha256-hLV7wnwsDzK3bBtUYahSKiFv8GZC9YnTnbswegVlJ2s="
+}

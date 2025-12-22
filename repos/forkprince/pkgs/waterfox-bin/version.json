@@ -5,10 +5,19 @@
     "repo": "BrowserWorks/Waterfox",
     "query": ".[0].tag_name"
   },
-  "asset": {
-    "url": "https://cdn1.waterfox.net/waterfox/releases/{version}/Linux_x86_64/waterfox-{version}.tar.bz2",
-    "unpack": false
-  },
   "version": "6.6.7",
-  "hash": "sha256-/R2rQkYPJ8boC/hHK39UuIkKyAHjaW+t7s5aaWZYTTI="
+  "platforms": {
+    "x86_64-linux": {
+      "url": "https://cdn1.waterfox.net/waterfox/releases/{version}/Linux_x86_64/waterfox-{version}.tar.bz2",
+      "hash": "sha256-/R2rQkYPJ8boC/hHK39UuIkKyAHjaW+t7s5aaWZYTTI="
+    },
+    "x86_64-darwin": {
+      "url": "https://cdn.waterfox.com/waterfox/releases/{version}/Darwin_x86_64-aarch64/Waterfox {version}.dmg",
+      "hash": "sha256-CL30dsbHVae9z+eRXNVUozC5kClXooSX+MAVJ7XMKYk="
+    },
+    "aarch64-darwin": {
+      "url": "https://cdn.waterfox.com/waterfox/releases/{version}/Darwin_x86_64-aarch64/Waterfox {version}.dmg",
+      "hash": "sha256-CL30dsbHVae9z+eRXNVUozC5kClXooSX+MAVJ7XMKYk="
+    }
+  }
 }

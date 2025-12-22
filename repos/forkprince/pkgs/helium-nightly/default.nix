@@ -20,7 +20,7 @@
     changelog = "https://github.com/imputnet/helium/releases/tag/${version}";
     license = lib.licenses.gpl3;
     maintainers = ["Ev357" "Prinky"];
-    platforms = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    platforms = lib.platforms.unix;
     mainProgram = "helium";
     sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
