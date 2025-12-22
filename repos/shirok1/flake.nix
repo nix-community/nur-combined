@@ -3,14 +3,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     daeuniverse.url = "github:daeuniverse/flake.nix";
-    nix-ai-tools.url = "github:numtide/nix-ai-tools";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
   outputs =
     {
       self,
       nixpkgs,
       daeuniverse,
-      nix-ai-tools,
+      llm-agents,
     }@inputs:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
@@ -36,7 +36,7 @@
             nixpkgs.overlays = [
               (final: prev: {
                 shirok1 = import ./default.nix { pkgs = final; };
-                nix-ai-tools = inputs.nix-ai-tools.packages.${final.system};
+                llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system};
               })
             ];
           }
