@@ -2,7 +2,6 @@
   lib,
   config,
   vacuModuleType,
-  vaculib,
   ...
 }:
 let
@@ -46,6 +45,7 @@ in
     gg = "${home}/dev/gallerygrab";
     ns = "${home}/dev/nix-stuff";
     np = "${home}/dev/nixpkgs";
+    nod = "${home}/dev/nix-on-droid";
     dev = "${home}/dev";
     d = "${home}/dev";
   };

@@ -157,6 +157,7 @@ in
         bitwarden-cli
         dmidecode
         flac
+        gh
         hdparm
         home-manager
         imagemagickBig
@@ -182,6 +183,7 @@ in
         rclone
         ripgrep-all
         smartmontools
+        show-pd-power
         sqlite-interactive
         sshpass
         tcpdump
