@@ -2,13 +2,14 @@
   config,
   lib,
   pkgs,
-  mylib,
   ...
 }:
 
 let
   cfg = config.services.system76-scheduler-niri;
-  defaultPackage = pkgs.callPackage ../../pkgs/system76-scheduler-niri { inherit mylib; };
+  mylib = import ../../lib { inherit pkgs; };
+  myCallPackage = pkgs.newScope (pkgs // mylib);
+  defaultPackage = myCallPackage ../../pkgs/system76-scheduler-niri { };
 in
 {
   options.services.system76-scheduler-niri = {

@@ -11,21 +11,20 @@
 }:
 let
   mylib = import ./lib { inherit pkgs; };
+  callPackage = pkgs.newScope (pkgs // mylib);
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = mylib; # functions
-  nixosModules = import ./modules; # NixOS modules
+  nixosModules = import ./modules { }; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  audio-loudness-batch-normalize = pkgs.callPackage ./pkgs/audio-loudness-batch-normalize {
-    inherit mylib;
-  };
-  fungi = pkgs.callPackage ./pkgs/fungi { inherit mylib; };
-  git-simple-encrypt = pkgs.callPackage ./pkgs/git-simple-encrypt { inherit mylib; };
-  git-sync-backup = pkgs.callPackage ./pkgs/git-sync-backup { inherit mylib; };
-  openppp2 = pkgs.callPackage ./pkgs/openppp2 { inherit mylib; };
-  system76-scheduler-niri = pkgs.callPackage ./pkgs/system76-scheduler-niri { inherit mylib; };
-  user-startup-rs = pkgs.callPackage ./pkgs/user-startup-rs { inherit mylib; };
-  xp3-pack-unpack = pkgs.callPackage ./pkgs/xp3-pack-unpack { inherit mylib; };
+  audio-loudness-batch-normalize = callPackage ./pkgs/audio-loudness-batch-normalize { };
+  fungi = callPackage ./pkgs/fungi { };
+  git-simple-encrypt = callPackage ./pkgs/git-simple-encrypt { };
+  git-sync-backup = callPackage ./pkgs/git-sync-backup { };
+  openppp2 = callPackage ./pkgs/openppp2 { };
+  system76-scheduler-niri = callPackage ./pkgs/system76-scheduler-niri { };
+  user-startup-rs = callPackage ./pkgs/user-startup-rs { };
+  xp3-pack-unpack = callPackage ./pkgs/xp3-pack-unpack { };
 }

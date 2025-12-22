@@ -1,6 +1,6 @@
 let
   pkgs = import <nixpkgs> { };
-  mylib = import ../lib { inherit pkgs; };
+  modules = import ../modules { inherit pkgs; };
 in
 pkgs.testers.runNixOSTest {
   name = "system76-scheduler-niri-test";
@@ -12,8 +12,7 @@ pkgs.testers.runNixOSTest {
       ...
     }:
     {
-      imports = [ ../modules/system76-scheduler-niri ];
-      _module.args.mylib = mylib;
+      imports = [ modules.system76-scheduler-niri ];
 
       users.users.alice = {
         isNormalUser = true;

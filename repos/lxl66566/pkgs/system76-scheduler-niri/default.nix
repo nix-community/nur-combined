@@ -2,12 +2,10 @@
   stdenv,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "system76-scheduler-niri";
   bname = "system76-scheduler-niri";
   description = "Niri integration for system76-scheduler";

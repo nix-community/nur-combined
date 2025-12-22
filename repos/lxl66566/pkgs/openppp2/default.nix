@@ -3,12 +3,10 @@
   fetchurl,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "openppp2";
   bname = "ppp";
   description = "Next-generation security network access technology, providing high-performance Virtual Ethernet tunneling service.";

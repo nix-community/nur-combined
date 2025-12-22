@@ -3,13 +3,11 @@
   fetchurl,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
   ...
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "fungi";
   bname = "fungi";
   description = "Turn multiple devices into one unified system. A platform built for seamless multi-device integration.";
@@ -30,6 +28,7 @@ let
     // {
       nixSystem = pkgs.stdenv.hostPlatform.system;
       libc = "gnu";
+      otherNativeBuildInputs = [ pkgs.autoPatchelfHook ];
     }
   );
 

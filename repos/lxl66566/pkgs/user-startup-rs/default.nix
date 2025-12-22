@@ -2,12 +2,10 @@
   stdenv,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "user-startup-rs";
   bname = "user-startup";
   description = "Simple cross-platform tool to make your command auto run on startup";

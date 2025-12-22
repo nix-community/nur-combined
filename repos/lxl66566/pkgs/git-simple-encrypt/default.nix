@@ -2,12 +2,10 @@
   stdenv,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "git-simple-encrypt";
   bname = "git-se";
   description = "Encrypt/decrypt files in git repo using one password";

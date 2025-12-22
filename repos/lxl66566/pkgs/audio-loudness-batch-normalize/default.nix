@@ -2,12 +2,10 @@
   stdenv,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "audio-loudness-batch-normalize";
   bname = "loudness-normalize";
   description = "Easy to use audio loudness batch normalization tool based on EBU R128, written in Rust";

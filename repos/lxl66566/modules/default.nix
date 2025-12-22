@@ -1,19 +1,14 @@
-{
-  pkgs ? import <nixpkgs> { },
-}:
+{ ... }:
+rec {
+  fungi = ./fungi;
+  system76-scheduler-niri = ./system76-scheduler-niri;
 
-{
   default =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
+    { ... }:
     {
       imports = [
-        ./fungi
-        ./system76-scheduler-niri
+        fungi
+        system76-scheduler-niri
       ];
     };
 }

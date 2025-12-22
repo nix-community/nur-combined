@@ -1,6 +1,6 @@
 let
   pkgs = import <nixpkgs> { };
-  mylib = import ../lib { inherit pkgs; };
+  modules = import ../modules { };
 in
 pkgs.testers.runNixOSTest {
   name = "fungi-service-test";
@@ -12,9 +12,7 @@ pkgs.testers.runNixOSTest {
       ...
     }:
     {
-      # 导入你的模块
-      imports = [ ../modules/fungi ];
-      _module.args.mylib = mylib;
+      imports = [ modules.fungi ];
 
       services.fungi = {
         enable = true;

@@ -2,12 +2,10 @@
   stdenv,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "git-sync-backup";
   bname = "gsb";
   description = "Synchronize and backup files/folders using Git, cross-device & configurable.";

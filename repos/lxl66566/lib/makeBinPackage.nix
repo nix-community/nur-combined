@@ -13,6 +13,7 @@
   nixSystem,
   bname ? null,
   libc ? "gnu",
+  otherNativeBuildInputs ? [ ],
   description ? "",
   license ? lib.licenses.mit,
   overrideStdenv ? null,
@@ -47,7 +48,7 @@ currentStdenv.mkDerivation {
   dontBuild = true;
   dontCheck = true;
 
-  nativeBuildInputs = lib.optional (lib.hasSuffix ".zip" finalUrl) unzip; # ++ lib.optional (libc == "gnu") autoPatchelfHook;
+  nativeBuildInputs = otherNativeBuildInputs ++ lib.optional (lib.hasSuffix ".zip" finalUrl) unzip;
 
   buildInputs = lib.optional (libc == "gnu") stdenv.cc.cc.lib;
 

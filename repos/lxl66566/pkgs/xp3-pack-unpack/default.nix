@@ -3,12 +3,10 @@
   fetchurl,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "xp3-pack-unpack";
   bname = "xp3-pack-unpack";
   description = "kirikiri xp3 format cli packer & unpacker";

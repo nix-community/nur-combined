@@ -2,12 +2,10 @@
   stdenv,
   lib,
   pkgs,
-  mylib,
+  makeBinPackage,
 }:
 
 let
-  makeBinPackage = mylib.makeBinPackage;
-
   pname = "chnroutes-rs";
   bname = "chnroutes";
   description = "Rust version of chnroutes (with more features), to bypass the VPN accessing CN IPs.";

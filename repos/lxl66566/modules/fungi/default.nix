@@ -2,13 +2,14 @@
   config,
   lib,
   pkgs,
-  mylib,
   ...
 }:
 
 let
   cfg = config.services.fungi;
-  defaultPackage = pkgs.callPackage ../../pkgs/fungi { inherit mylib; };
+  mylib = import ../../lib { inherit pkgs; };
+  myCallPackage = pkgs.newScope (pkgs // mylib);
+  defaultPackage = myCallPackage ../../pkgs/fungi { };
 in
 {
   options.services.fungi = {
