@@ -118,7 +118,7 @@
             );
           in
           {
-            inherit (pkgs) zlint zlint-unstable go-bin uvVenvShellHook;
+            inherit (pkgs) zlint zlint-unstable go-bin uvShellHook;
             default = self.packages.${system}.zlint;
           }
           // goPackages;
