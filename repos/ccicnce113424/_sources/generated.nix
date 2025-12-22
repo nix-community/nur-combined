@@ -6,18 +6,18 @@
 {
   algermusicplayer-arm = {
     pname = "algermusicplayer-arm";
-    version = "4.9.0";
+    version = "5.0.0";
     src = fetchurl {
-      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.9.0/AlgerMusicPlayer-4.9.0-linux-arm64.AppImage";
-      sha256 = "sha256-Evuh6HQhubA4WrQlVot+BCD2avrqpJaxz/L3+AB7sRc=";
+      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.0.0/AlgerMusicPlayer-5.0.0-linux-arm64.AppImage";
+      sha256 = "sha256-nbDg74IdemTIJFyWXM16kuFl3TzMCOAuKy27X4iEmRc=";
     };
   };
   algermusicplayer-x86 = {
     pname = "algermusicplayer-x86";
-    version = "4.9.0";
+    version = "5.0.0";
     src = fetchurl {
-      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v4.9.0/AlgerMusicPlayer-4.9.0-linux-x86_64.AppImage";
-      sha256 = "sha256-fY8lobsRg2nDENYDY3R81zJ2x0Fr29vJccrelbdggmg=";
+      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.0.0/AlgerMusicPlayer-5.0.0-linux-x86_64.AppImage";
+      sha256 = "sha256-weIHNJN9CmeMIiAjwd3e6RG5dpb5lhJ9HwtETaLoNkk=";
     };
   };
   danmakufactory = {
@@ -33,15 +33,15 @@
   };
   danmakufactory-git = {
     pname = "danmakufactory-git";
-    version = "916c43a946e28382eb8ef28bfaf1650c3739b72a";
+    version = "aa04ca55c9d50ce3fb603099abee38bf565328b0";
     src = fetchFromGitHub {
       owner = "hihkm";
       repo = "DanmakuFactory";
-      rev = "916c43a946e28382eb8ef28bfaf1650c3739b72a";
+      rev = "aa04ca55c9d50ce3fb603099abee38bf565328b0";
       fetchSubmodules = true;
-      sha256 = "sha256-M+MeqvjjTuR+uCRkCKgvyM/FXcLiQcptX2PRhUPk0Gw=";
+      sha256 = "sha256-9bU3WAkRvgQ3YI1OV3r9WNsOzP+YuNg2mt87Eg2xEmk=";
     };
-    date = "2025-12-18";
+    date = "2025-12-19";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
@@ -164,15 +164,15 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "b5bfe221b8817adc1f7d6569545e57476bc2dc1b";
+    version = "708346328770febde923cde086d30398ed59630c";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "b5bfe221b8817adc1f7d6569545e57476bc2dc1b";
+      rev = "708346328770febde923cde086d30398ed59630c";
       fetchSubmodules = false;
-      sha256 = "sha256-yWRBlxy3T3C7KDRg7Dp06ZrbONNmN8IAPjRSbNzUl+4=";
+      sha256 = "sha256-OQbp3ycUICxtl7pop+3/b7WrrpY/IuvincwCAD+bm8E=";
     };
-    date = "2025-12-15";
+    date = "2025-12-21";
   };
   uosc-danmaku = {
     pname = "uosc-danmaku";
@@ -187,15 +187,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "9bdc5f7de7cd01d69831a964d1b9d77641e99f22";
+    version = "ffbd9698a23e948dfbc5282db0448426d3bb1c57";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "9bdc5f7de7cd01d69831a964d1b9d77641e99f22";
+      rev = "ffbd9698a23e948dfbc5282db0448426d3bb1c57";
       fetchSubmodules = false;
-      sha256 = "sha256-AjBKvV9M9tA1Am4fV+Y1o/n9LugtXXdWq0869CnJxbo=";
+      sha256 = "sha256-LhH0C2V5lsM+hkX+RB/6Qe4ESuB1ZK+tWrfeZ9augBk=";
     };
-    date = "2025-12-10";
+    date = "2025-12-20";
   };
   zhuque = {
     pname = "zhuque";

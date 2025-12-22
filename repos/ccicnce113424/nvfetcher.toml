@@ -19,7 +19,8 @@ src.git = "https://github.com/hihkm/DanmakuFactory"
 
 [dxvk-gplall]
 fetch.url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-$ver/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.$ver.zip"
-src.github = "Digger1955/dxvk-gplasync-lowlatency"
+src.github_tag = "Digger1955/dxvk-gplasync-lowlatency"
+src.include_regex = "^DXVK-GPLALL-.+"
 src.prefix = "DXVK-GPLALL-"
 
 [imfile-arm]
