@@ -1080,12 +1080,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7484";
+    version = "b7501";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7484";
-      hash = "sha256-1qmFmi2m15NA4j2NiYRccCEFriruOrn57GhLWQnQB8I=";
+      tag = "b7501";
+      hash = "sha256-s70fgaQCNvMhflSAbemnStylncN+3cllDzSvGaIyNVQ=";
     };
   };
   loralib = {
@@ -1549,14 +1549,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "ae6c62905bd1dcffd3d73c571efba2d53667317a";
+    version = "856097b0c71bb075845e76bc200eac94b74e27e5";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "ae6c62905bd1dcffd3d73c571efba2d53667317a";
-      hash = "sha256-6Wh9lCJ6Oz+GMUck5V1l0CGdj2N59oPDzQVFVKiySak=";
+      rev = "856097b0c71bb075845e76bc200eac94b74e27e5";
+      hash = "sha256-3D2WDoErRrpHFLUGXnqP/M+PHX3YFRn0EK6EoBZ0Wxc=";
     };
-    date = "2025-11-01";
+    date = "2025-12-20";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -2166,15 +2166,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "d0f1232c06b1ed37169d6868a4926fce2d7bc9aa";
+    version = "20a52957743edd409f969c93f9799e25d1780e2e";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "d0f1232c06b1ed37169d6868a4926fce2d7bc9aa";
+      rev = "20a52957743edd409f969c93f9799e25d1780e2e";
       fetchSubmodules = true;
-      hash = "sha256-F8IfsVV3QKMiZBjoA1929r5mI7j9LLryfJRwxSjSGgM=";
+      hash = "sha256-7Tgonnc1S67LS/wHrKB0sETWceqyCJ0zgkudV+owYy4=";
     };
-    date = "2025-12-12";
+    date = "2025-12-21";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
