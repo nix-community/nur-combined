@@ -68,12 +68,12 @@ buildDotnetModule (finalAttrs: {
 
   postPatch = ''
     substituteInPlace DownKyi/DownKyi.csproj DownKyi.Core/DownKyi.Core.csproj \
-      --replace net6.0 net8.0
+      --replace-fail net6.0 net8.0
   '';
 
   makeWrapperArgs = [
     "--chdir"
-    "$out/lib/downkyicore"
+    "${builtins.placeholder "out"}/lib/downkyicore"
   ];
 
   passthru.updateScript = ./update.sh;
@@ -120,7 +120,7 @@ buildDotnetModule (finalAttrs: {
     homepage = "https://github.com/yaobiao131/downkyicore";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ];
-    platforms = [ "x86_64-linux" ];
+    platforms = lib.platforms.linux;
     mainProgram = "DownKyi";
   };
 })

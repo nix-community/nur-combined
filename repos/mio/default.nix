@@ -141,6 +141,7 @@ let
           eden
           plezy
           downkyicore
+          ego
           ;
       };
     }
