@@ -12,6 +12,14 @@
             buildInputs = (old.buildInputs or []) ++ [xorg.libX11];
         });
     });
+    
+    # See:
+    # <https://github.com/libsdl-org/sdl2-compat/issues/546>
+    # <https://github.com/libsdl-org/SDL/pull/14414>
+    # <https://github.com/Rhys-T/nur-packages/issues/273>
+    sdl2-compat = lib.findFirst (p: p.pname or null == "sdl2-compat") null (SDL_compat.buildInputs or []);
+    sdl3 = lib.findFirst (p: p.pname or null == "sdl3") null (sdl2-compat.buildInputs or []);
+    sdl3PaletteBlitBug = sdl3 != null && lib.versionOlder sdl3.version "3.3.4";
 in stdenv.mkDerivation rec {
     pname = "asciiportal";
     inherit version;
@@ -37,7 +45,22 @@ in stdenv.mkDerivation rec {
         url = "https://patch-diff.githubusercontent.com/raw/cymonsgames/ASCIIpOrtal/pull/25.patch";
         hash = "sha256-gUe1n5TTE7Lm7Bj0hq8gYVt2x0Mioe1nMZtnRbQxvVg=";
     }) ];
-    postPatch = ''
+    postPatch = lib.optionalString sdl3PaletteBlitBug ''
+        sed -Ei '
+            /SP->mono = !pdc_font->format->palette;/r/dev/fd/10
+        ' PDCurses-$PDCursesVersion/sdl1/pdcscrn.c 10<<'EOF'
+        if (pdc_font->format->BitsPerPixel == 1) {
+            SDL_Surface *oldFont = pdc_font;
+            SDL_PixelFormat newFormat = *(oldFont->format);
+            newFormat.BitsPerPixel = 8;
+            pdc_font = SDL_ConvertSurface(oldFont, &newFormat, 0);
+            SDL_FreeSurface(oldFont);
+        }
+        EOF
+    '' + ''
+        sed -Ei '
+            /^      switch \(event\.type\) \{/,/^      \}/ s/default :/case SDL_KEYDOWN:/
+        ' src/ap_input.cpp
         sed -E -i '
             s/^CXX =/#&/
             s/libpdcurses\.a/pdcurses.a/g
@@ -88,6 +111,5 @@ in stdenv.mkDerivation rec {
         ];
         mainProgram = "asciiportal";
         maintainers = [maintainers.Rhys-T];
-        broken = lib.any (p: p.pname or null == "sdl2-compat") (SDL_compat.buildInputs or []);
     };
 }

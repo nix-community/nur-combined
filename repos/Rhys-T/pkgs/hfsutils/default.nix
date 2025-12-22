@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   pname = "hfsutils";
   baseversion = "3.2.6";
-  version = "${baseversion}-14";
+  version = "${baseversion}-16";
   
   buildInputs = lib.optionals enableTclTk [tcl tk];
   configureFlags = [(lib.withFeatureAs enableTclTk "tcl" "${tcl}") (lib.withFeatureAs enableTclTk "tk" "${tk}")];
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     (fetchurl {
       name = "patches-${baseversion}.tar.xz";
       url = "http://deb.debian.org/debian/pool/main/h/hfsutils/hfsutils_${version}.debian.tar.xz";
-      hash = "sha256-hVy9rU/q0OPjeplNSiuC+HLtpP5e13A9mj4d45jbx6w=";
+      hash = "sha256-+hKLRwGwLVaY/Eu7OTrRqKVP3Zoz/60/3B8Q/QrRGok=";
     })
   ];
 
