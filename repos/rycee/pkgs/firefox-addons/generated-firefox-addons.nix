@@ -1276,10 +1276,10 @@
     };
     "bookmark-search-plus-2" = buildFirefoxXpiAddon {
       pname = "bookmark-search-plus-2";
-      version = "2.0.136";
+      version = "2.0.137";
       addonId = "bookmarksearchplus2@aafn.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4620502/bookmark_search_plus_2-2.0.136.xpi";
-      sha256 = "391343b781e709985dc6d4323e81228cae33fd1e4975c8321eefe32747645619";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648504/bookmark_search_plus_2-2.0.137.xpi";
+      sha256 = "5a9d161ee6b9c2bf518eca0fe15cd6c7b90dc9eb2a060ccec6b6b4e99ed56c40";
       meta = with lib;
       {
         homepage = "https://github.com/aaFn/Bookmark-search-plus-2/wiki";
@@ -2824,10 +2824,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2550.1";
+      version = "6.2551.3";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4637791/dashlane-6.2550.1.xpi";
-      sha256 = "bd4aa6faf6ec52cb9f59246e879f86fd1b04c43587e18a657507f2959189cf3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4644414/dashlane-6.2551.3.xpi";
+      sha256 = "b480351b496fdbde6e98a5577f583a12ab9c8b446c73be70b88356d7a4ae2163";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -7131,10 +7131,10 @@
     };
     "keeper-password-manager" = buildFirefoxXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.4.0";
+      version = "17.4.1";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4623757/keeper_password_manager-17.4.0.xpi";
-      sha256 = "02833450a51da45b04b323972b218810a07e6b96594f1f0941c576de3c427d56";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643559/keeper_password_manager-17.4.1.xpi";
+      sha256 = "d571684ef7bd7050af6cfe3698c23d6e20b07de33b26545a2bbde83b51855ea1";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -11847,6 +11847,37 @@
         platforms = platforms.all;
       };
     };
+    "save-my-chatbot" = buildFirefoxXpiAddon {
+      pname = "save-my-chatbot";
+      version = "4.0.0";
+      addonId = "savemyphind@hugocollin.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4623758/save_my_phind-4.0.0.xpi";
+      sha256 = "5348cab305a4540577be025e1b225e127bc841d3823932029deba531c5c1b73b";
+      meta = with lib;
+      {
+        homepage = "https://save.hugocollin.com";
+        description = "🚀 Download Claude, Perplexity, Phind, ChatGPT and MaxAI-Google knowledge into markdown files!";
+        license = {
+          shortName = "all-rights-reserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/wiki/All_rights_reserved";
+          free = false;
+        };
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "scripting"
+          "contextMenus"
+          "*://*.phind.com/*"
+          "*://*.perplexity.ai/*"
+          "*://google.com/search*"
+          "*://chatgpt.com/*"
+          "*://*.claude.ai/*"
+          "*://*.google.com/search*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
       version = "28.11";
@@ -14475,10 +14506,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.0.271.2";
+      version = "10.1.3.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4627654/video_downloadhelper-10.0.271.2.xpi";
-      sha256 = "daa45a2fe3767f856cbc4a811f3e5146d17baa7934410d83feaea0762472fe8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648331/video_downloadhelper-10.1.3.2.xpi";
+      sha256 = "f3b9b90a5367f90ce32abf4eef03edbf43d65b9d14b876edc2b05333c31d5369";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -14504,6 +14535,7 @@
           "*://*.facebook.com/*"
           "*://*.instagram.com/*"
           "*://*.ok.ru/*"
+          "*://*.m.ok.ru/*"
           "*://vk.com/*"
           "*://vk.ru/*"
           "*://vkvideo.ru/*"

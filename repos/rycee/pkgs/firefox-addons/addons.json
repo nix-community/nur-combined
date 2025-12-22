@@ -1632,6 +1632,17 @@
     "slug": "save-all-images-webextension"
   },
   {
+    "slug": "save-my-phind",
+    "pname": "save-my-chatbot",
+    "license": {
+      "tag": "custom",
+      "shortName": "all-rights-reserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/wiki/All_rights_reserved",
+      "free": false
+    }
+  },
+  {
     "slug": "save-page-we"
   },
   {
