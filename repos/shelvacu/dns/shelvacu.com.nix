@@ -57,6 +57,7 @@ in
     jelly.A = propA;
     jellyfin.A = propA;
     jobs.A = propA;
+    local-nixcache.A = s "10.78.79.22";
     mail.A = doA;
     matrix.A = propA;
     mumble.A = propA;

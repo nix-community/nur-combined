@@ -105,7 +105,6 @@ in
     );
     mapFiles.extra_login_maps = pkgs.writeText "extra-login-maps" (
       ''
-        robot@vacu.store vacustore
         zulip-notify@chat.for.miras.pet miracult-zulip
         idrac-62pn9z1@shelvacu.com idrac-62pn9z1
       ''

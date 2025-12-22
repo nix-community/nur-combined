@@ -38,7 +38,6 @@ let
         map (name: "${name}:{plain}${name}::::::") [
           "shelvacu"
           "julie"
-          "vacustore"
         ]
       ))
       + ''

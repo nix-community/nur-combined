@@ -72,7 +72,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nix-on-droid = {
-      url = "github:shelvacu-forks/nix-on-droid/betterify-2025";
+      url = "github:nix-community/nix-on-droid";
+      # url = "github:shelvacu-forks/nix-on-droid/betterify-2025";
       # url = "git+file:///home/shelvacu/dev/nix-on-droid";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";

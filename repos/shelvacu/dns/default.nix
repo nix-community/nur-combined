@@ -172,19 +172,6 @@ let
   };
 in
 {
-  # imports = [
-  #   ./jean-luc.org.nix
-  #   ./pwrhs.win.nix
-  #   ./shelvacu.miras.pet.nix
-  #   ./for.miras.pet.nix
-  #   ./shelvacu.com.nix
-  #   ./dis8.net.nix
-  #   ./sv.mt.nix
-  #   ./vacu.store.nix
-  #   ./74358228.xyz.nix
-  #   ./theviolincase.com.nix
-  #   ./violingifts.com.nix
-  # ];
   options.vacu.dns = mkOption {
     type = types.attrsOf (types.submoduleWith {
       modules = [

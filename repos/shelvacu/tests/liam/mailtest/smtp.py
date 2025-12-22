@@ -23,7 +23,7 @@ def print_json(**kwargs):
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", type=str)
 parser.add_argument("--mailfrom", default="foo@example.com")
-parser.add_argument("--rcptto", default="awesome@vacu.store")
+parser.add_argument("--rcptto", default="awesome@shelvacu.org")
 parser.add_argument("--subject", default="Some test message")
 parser.add_argument("--header", action="append", default=[])
 parser.add_argument("--submission", default=False, action="store_true")

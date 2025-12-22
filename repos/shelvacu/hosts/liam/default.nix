@@ -17,11 +17,12 @@ in
     vacu.liam = {
       shel_domains = mkOutOption [
         "shelvacu.com"
+        "shelvacu.org"
+        "shelvacu.net"
         "dis8.net"
         "mail.dis8.net"
         "jean-luc.org"
         "in.jean-luc.org"
-        "vacu.store"
         "shelvacu.miras.pet"
         "chat.for.miras.pet"
         "sv.mt"

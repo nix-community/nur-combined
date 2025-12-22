@@ -238,6 +238,7 @@ in
       tree
       tzdata
       # units => vacu-units
+      unixtools.netstat
       unzip
       usbutils
       vacu-units

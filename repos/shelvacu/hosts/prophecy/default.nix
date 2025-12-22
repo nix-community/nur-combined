@@ -4,6 +4,7 @@
     vacuModules.sops
     vacuModules.dyndns-powerhouse
     vacuModules.auto-oauth-proxy
+    vacuModules.archived-user
   ]
   ++ vaculib.directoryGrabberList ./.;
   boot.loader.systemd-boot.enable = true;
@@ -32,15 +33,6 @@
   users.mutableUsers = false;
   users.users.root.initialHashedPassword = "$2b$15$D66qIGBJm27pTuX1Rc6aeuQGcrX71T2Gxg.PmTYPAdOnDI1trCtqC";
   users.users.shelvacu.initialHashedPassword = "$2b$15$D66qIGBJm27pTuX1Rc6aeuQGcrX71T2Gxg.PmTYPAdOnDI1trCtqC";
-
-  # a dummy user/group that I can set on folders to indicate that they shouldn't be touched
-  users.users.archived = {
-    # these are "sealed", "SEAL" = 5341
-    uid = 5341;
-    isSystemUser = true;
-    group = "archived";
-  };
-  users.groups.archived.gid = 5341;
 
   environment.etc."nixos/flake.nix".source = "/home/shelvacu/dev/nix-stuff/flake.nix";
 

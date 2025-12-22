@@ -494,16 +494,15 @@
         "nmd": "nmd"
       },
       "locked": {
-        "lastModified": 1766042277,
-        "narHash": "sha256-Prv+2vNaXtiz9HKxyKcZqDmhpycA0NCVKVM/u73XIHY=",
-        "owner": "shelvacu-forks",
+        "lastModified": 1765031149,
+        "narHash": "sha256-4ZtlnCp4blhsjGnQIxAXDAj7nCJKy7tozoBRtklmwcU=",
+        "owner": "nix-community",
         "repo": "nix-on-droid",
-        "rev": "34744aa351eb8e21553131e3f367401810d55179",
+        "rev": "55b6449b4582a4ba3ce712543c973360a026db7d",
         "type": "github"
       },
       "original": {
-        "owner": "shelvacu-forks",
-        "ref": "betterify-2025",
+        "owner": "nix-community",
         "repo": "nix-on-droid",
         "type": "github"
       }
@@ -577,17 +576,17 @@
     },
     "nixpkgs-for-bootstrap": {
       "locked": {
-        "lastModified": 1766017062,
-        "narHash": "sha256-6uWqHZ+vdXAeHQyNmEkRu8ZR9mLZ0V1mQKAGkPGHvJQ=",
+        "lastModified": 1720244366,
+        "narHash": "sha256-WrDV0FPMVd2Sq9hkR5LNHudS3OSMmUrs90JUTN+MXpA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "71dc2e7df310d90a3c738e423fdfc13b710a8d67",
+        "rev": "49ee0e94463abada1de470c9c07bfc12b36dcf40",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "71dc2e7df310d90a3c738e423fdfc13b710a8d67",
+        "rev": "49ee0e94463abada1de470c9c07bfc12b36dcf40",
         "type": "github"
       }
     },

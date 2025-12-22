@@ -7,19 +7,6 @@
 }:
 let
   inherit (lib) mkOption types;
-  # vacustoreCalUUID = "dd9a924e-57d9-4ea1-b7ec-22d1f0ff3d51";
-  # vacustoreCalConfig = {
-  #   "cache.enabled" = true;
-  #   calendar-main-in-composite = true;
-  #   color = "#33d17a";
-  #   disabled = false;
-  #   "imip.identity.key" = "id1"; # what is this
-  #   name = "Personal";
-  #   readOnly = false;
-  #   type = "caldav";
-  #   uri = "https://vacu.store/remote.php/dav/calendars/shelvacu/personal/";
-  #   username = "shelvacu";
-  # };
 in
 {
   options.vacu.programs.thunderbird = {
@@ -59,10 +46,6 @@ in
           "intl.date_time.pattern_override.date_short" = "yyyy-MM-dd";
           "intl.date_time.pattern_override.time_medium" = "HH:mm:ss z";
           "intl.date_time.pattern_override.time_short" = "HH:mm";
-          # "ldap_2.servers.Contacts.carddav.url" = "https://vacu.store/remote.php/dav/addressbooks/users/shelvacu/contacts/";
-          # "ldap_2.servers.Contacts.carddav.username" = "shelvacu";
-          # "ldap_2.servers.Contacts.description" = "vacu.store Contacts";
-          # "ldap_2.servers.Contacts.dirType" = 102; #no idea what this does
           "mail.account.account1.identities" = "id1,id2,id3";
           "mail.account.account1.server" = "server1";
           "mail.compose.other.header" = "X-Shelvacu-Custom-Header";
@@ -97,7 +80,6 @@ in
           # don't warn when sending with ctrl+enter
           "mail.warn_on_send_accel_key" = false;
         };
-        # // vaculib.mapAttrNames (n: "calendar.registry.${vacustoreCalUUID}.${n}") vacustoreCalConfig;
       };
     }
   );

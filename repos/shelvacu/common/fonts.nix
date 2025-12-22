@@ -54,7 +54,6 @@ lib.optionalAttrs (vacuModuleType == "nixos") (lib.mkIf config.vacu.isGui {
     tibetan-machine
     theano
     the-neue-black
-    tewi-font
     terminus_font_ttf
     terminus_font
     termsyn

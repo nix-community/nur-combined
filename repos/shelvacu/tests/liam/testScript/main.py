@@ -276,12 +276,6 @@ class Defaults:
 
 
 # The order of these shouldn't matter, other than what fails first. Whatever is at the top is probably whatever I was working on most recently.
-d = Defaults(
-    smtp={"submission": True, "rcptto": "someone@example.com"}, username="vacustore"
-)
-d.make_tester(smtp={"mailfrom": "robot@vacu.store"}).smtp_accepted().mailpit_received()
-d.make_tester(smtp={"mailfrom": "foobar@vacu.store"}).smtp_rejected()
-d.make_tester(smtp={"mailfrom": "abc@shelvacu.com"}).smtp_rejected()
 
 d = Defaults(
     smtp={"mailfrom": "whoeve2@example.com", "rcptto": "sieve2est@shelvacu.com"},
@@ -330,17 +324,17 @@ d.make_tester().smtp_accepted(rcptto="julie+stuff@shelvacu.com").imap_found_in("
 d = Defaults(username="shelvacu")
 d.make_tester().smtp_accepted(rcptto="shelvacu@shelvacu.com").imap_found()
 d.make_tester().smtp_accepted(rcptto="foobar@shelvacu.com").imap_found()
-d.make_tester().smtp_accepted(rcptto="roboman@vacu.store").imap_found()
+d.make_tester().smtp_accepted(rcptto="roboman@shelvacu.org").imap_found()
 d = Defaults(username="julie")
 d.make_tester().smtp_accepted(rcptto="julie@shelvacu.com").imap_found()
 d.make_tester().smtp_accepted(rcptto="sales@theviolincase.com").imap_found()
 d.make_tester().smtp_accepted(rcptto="superwow@theviolincase.com").imap_found()
 
 # incoming mail cant be from known domains
-TesterThing().smtp_rejected(mailfrom="bob@vacu.store")
+TesterThing().smtp_rejected(mailfrom="bob@shelvacu.org")
 TesterThing().smtp_rejected(mailfrom="shelvacu@shelvacu.com")
 TesterThing().smtp_rejected(mailfrom="julie@shelvacu.com")
-TesterThing().smtp_rejected(mailfrom="@vacu.store")
+TesterThing().smtp_rejected(mailfrom="@shelvacu.org")
 
 TesterThing().smtp_rejected(mailfrom="reject-spam-test@example.com")
 
@@ -348,7 +342,7 @@ TesterThing().smtp_rejected(mailfrom="reject-spam-test@example.com")
 d = Defaults(smtp={"submission": True})
 d.make_tester().smtp_rejected(mailfrom="julie@shelvacu.com", username="shelvacu")
 d.make_tester().smtp_rejected(mailfrom="fubar@theviolincase.com", username="shelvacu")
-d.make_tester().smtp_rejected(mailfrom="fubar@vacu.store", username="julie")
+d.make_tester().smtp_rejected(mailfrom="fubar@shelvacu.org", username="julie")
 
 d = Defaults(smtp={"submission": True, "rcptto": "foo@example.com"})
 d.make_tester().smtp_accepted(mailfrom="shelvacu@shelvacu.com", username="shelvacu")
@@ -357,9 +351,9 @@ d.make_tester().smtp_accepted(
     username="shelvacu@shelvacu.com",
     password="shelvacu",
 )
-d.make_tester().smtp_accepted(mailfrom="foo@vacu.store", username="shelvacu")
+d.make_tester().smtp_accepted(mailfrom="foo@shelvacu.org", username="shelvacu")
 d.make_tester().smtp_accepted(
-    mailfrom="foo@vacu.store", username="shelvacu@shelvacu.com", password="shelvacu"
+    mailfrom="foo@shelvacu.org", username="shelvacu@shelvacu.com", password="shelvacu"
 )
 d.make_tester().smtp_accepted(mailfrom="foo@violingifts.com", username="julie")
 d.make_tester().smtp_accepted(
