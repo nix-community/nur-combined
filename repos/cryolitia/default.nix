@@ -17,8 +17,6 @@ builtins.trace "「我书写，则为我命令。我陈述，则为我规定。�
 
   # maa-assistant-arknights-nightly = pkgs.callPackage ./pkgs/maa-assistant-arknights { };
 
-  # onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/maa-assistant-arknights/onnxruntime-cuda-bin.nix { };
-
   # maa-x = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-x.nix { };
 
   # maa-cli-nightly = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-cli.nix {

@@ -52,5 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = with lib.platforms; (linux ++ darwin);
     maintainers = with lib.maintainers; [ Cryolitia ];
     mainProgram = "gr_satellites";
+    # https://github.com/boostorg/boost/issues/1107
+    broken = stdenv.hostPlatform.isDarwin;
   };
 })

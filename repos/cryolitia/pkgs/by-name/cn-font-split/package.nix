@@ -11,13 +11,13 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "cn-font-split";
-  version = "7.6.7";
+  version = "7.6.8";
 
   src = fetchFromGitHub {
     owner = "KonghaYao";
     repo = "cn-font-split";
     rev = version;
-    hash = "sha256-HWY9pvjIjhO+FvEqzGgssWq6ZiBZOGKOX+PLI20ZlVI=";
+    hash = "sha256-GW/LGKTXMvgOEA9WvpdvPQna8k0peIbRx0Bf83ZMLAY=";
   };
 
   nativeBuildInputs = [
