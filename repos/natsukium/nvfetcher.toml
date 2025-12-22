@@ -41,6 +41,11 @@ src.git = "https://github.com/FelixKratz/SbarLua"
 src.branch = "main"
 fetch.github = "FelixKratz/SbarLua"
 
+[skills-ref]
+src.git = "https://github.com/agentskills/agentskills"
+src.branch = "main"
+fetch.github = "agentskills/agentskills"
+
 [skkeleton]
 src.git = "https://github.com/vim-skk/skkeleton"
 src.branch = "main"

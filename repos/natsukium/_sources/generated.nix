@@ -93,6 +93,18 @@
     };
     date = "2024-08-12";
   };
+  skills-ref = {
+    pname = "skills-ref";
+    version = "75287b28fb7a8106d7798de99e13189f7bea5ca0";
+    src = fetchFromGitHub {
+      owner = "agentskills";
+      repo = "agentskills";
+      rev = "75287b28fb7a8106d7798de99e13189f7bea5ca0";
+      fetchSubmodules = false;
+      sha256 = "sha256-QA+BWqUy49yd+1tMcefJj88VgV2j5ZMPG416Y0p5FOA=";
+    };
+    date = "2025-12-19";
+  };
   skkeleton = {
     pname = "skkeleton";
     version = "d2214e6d40fe4613f8e962e9086a4ae01fe8d088";

@@ -164,6 +164,27 @@
         },
         "version": "437bd2031da38ccda75827cb7548e7baa4aa9978"
     },
+    "skills-ref": {
+        "cargoLocks": null,
+        "date": "2025-12-19",
+        "extract": null,
+        "name": "skills-ref",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "agentskills",
+            "repo": "agentskills",
+            "rev": "75287b28fb7a8106d7798de99e13189f7bea5ca0",
+            "sha256": "sha256-QA+BWqUy49yd+1tMcefJj88VgV2j5ZMPG416Y0p5FOA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "75287b28fb7a8106d7798de99e13189f7bea5ca0"
+    },
     "skkeleton": {
         "cargoLocks": null,
         "date": "2025-12-15",
