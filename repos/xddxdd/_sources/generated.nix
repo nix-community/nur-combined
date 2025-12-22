@@ -510,14 +510,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "7ecab03cb4fc4f72b2f63975f2eb5c1a5c8e17a2";
+    version = "9cec88241a041b6aaa1203cb51513878c4f1a20a";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "7ecab03cb4fc4f72b2f63975f2eb5c1a5c8e17a2";
-      hash = "sha256-iZ4v4ARr97P3npXafyreKDt3QUwo9sAq7NOMnOhbq88=";
+      rev = "9cec88241a041b6aaa1203cb51513878c4f1a20a";
+      hash = "sha256-7os5qf/9Xu96fE5G87rWreNrEe47WBGBp2ZjT3O/RGg=";
     };
-    date = "2025-12-15";
+    date = "2025-12-22";
   };
   env-dedup = {
     pname = "env-dedup";
@@ -685,26 +685,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.12.19";
+    version = "2025.12.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-ASN.mmdb";
-      hash = "sha256-0fTxHIeVvOR6H5E5QJqbr8WX0p6Ys+840cd9k8ALKdo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-ASN.mmdb";
+      hash = "sha256-AMkMJzipRXZY4WDINErcimCd/xoQuV3wT5eCIMAyr2s=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.12.19";
+    version = "2025.12.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-City.mmdb";
-      hash = "sha256-FPMjOe2zstF5wXkM2bIzb19Q0vv1WWiVZuv0ZkNZSfo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-City.mmdb";
+      hash = "sha256-fRTDXiCaeyTYTbkO8JYR46Uj6NGCE4WYPIYoEHYpwbM=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.12.19";
+    version = "2025.12.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-Country.mmdb";
-      hash = "sha256-LGI40qxb0+YICPPgjiLxj5pPh0hUqo3l70Z6W6zrO8o=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-Country.mmdb";
+      hash = "sha256-toAGQNgrLcxwJ0ZKrDewKLMGvI+VMLHu5hPZt52tamM=";
     };
   };
   glauth = {
@@ -1080,12 +1080,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7501";
+    version = "b7509";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7501";
-      hash = "sha256-s70fgaQCNvMhflSAbemnStylncN+3cllDzSvGaIyNVQ=";
+      tag = "b7509";
+      hash = "sha256-5p1gYIWLCeO/TtasY+NbI8bs1fJNu93SBAAG4lBxUiI=";
     };
   };
   loralib = {
@@ -1463,10 +1463,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.2.2";
+    version = "9.2.3";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.2/PeerBanHelper_9.2.2.zip";
-      hash = "sha256-bs770tTJayoO3wnij0PWF25k6PZtvwMqQIZ2kouQIYg=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.3/PeerBanHelper_9.2.3.zip";
+      hash = "sha256-7Yp/S56XThWrvS81OkkYD8ezOorEg7fhl3eN0FB38sI=";
     };
   };
   phpmyadmin = {
@@ -1817,14 +1817,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "d93e60b190c4dee21979e040195e34e4bb6fc82b";
+    version = "ab59478ab2075c35c6f07fbeac84c93d77ac3055";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "d93e60b190c4dee21979e040195e34e4bb6fc82b";
-      hash = "sha256-PGH5cgARRtphY4H0OpudXRE6JdxxIguaPOSwXPWii1k=";
+      rev = "ab59478ab2075c35c6f07fbeac84c93d77ac3055";
+      hash = "sha256-aQvL0Spsg9C0rVUN07UB9DHCKXnEZ7SOyguAhSqqkpE=";
     };
-    date = "2025-12-18";
+    date = "2025-12-22";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2166,15 +2166,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "20a52957743edd409f969c93f9799e25d1780e2e";
+    version = "badff232be57124548cbac6220084880d679f2fd";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "20a52957743edd409f969c93f9799e25d1780e2e";
+      rev = "badff232be57124548cbac6220084880d679f2fd";
       fetchSubmodules = true;
-      hash = "sha256-7Tgonnc1S67LS/wHrKB0sETWceqyCJ0zgkudV+owYy4=";
+      hash = "sha256-4X5/kbgDLqy/5xvwCeW2M1tMNFj/UwzqyQ1ga+5MfWk=";
     };
-    date = "2025-12-21";
+    date = "2025-12-22";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
