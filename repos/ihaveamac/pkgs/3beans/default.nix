@@ -3,25 +3,36 @@
   stdenv,
   fetchFromGitHub,
   pkg-config,
-  wxGTK32,
+  wxwidgets_3_3,
   portaudio,
   libGL,
   libepoxy,
 }:
 
+let
+  wxwidgets-newer = wxwidgets_3_3.overrideAttrs (final: prev: {
+    src = fetchFromGitHub {
+      owner = "wxWidgets";
+      repo = "wxWidgets";
+      rev = "1fd12d7bd6987603b8d63000a593a4286f5cad46";
+      fetchSubmodules = true;
+      hash = "sha256-DzMW9i6TE+kGb3rXuxhb7lTFlT1A06O+iXzdmFq9Fa4=";
+    };
+  });
+in
 stdenv.mkDerivation rec {
   pname = "3beans";
-  version = "release-unstable-2025-12-14";
+  version = "release-unstable-2025-12-21";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "1088fc2981ffe3acec148bb892bff64e787f8a4b";
-    hash = "sha256-ByHQkQmFnY1HOuVRn4tzCqoTPS7nsDvjV0oWBR/XTYQ=";
+    rev = "1ef3a3e7237bf9bd37a3b0b55c2d1b4536c84254";
+    hash = "sha256-XRtGO1zVnMtxDVNer6v2eT1kYu6KqJVaP3J5NMkhwwM=";
   };
 
   buildInputs = [
-    wxGTK32
+    wxwidgets-newer
     portaudio
     libGL
     libepoxy
