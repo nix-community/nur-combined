@@ -2272,10 +2272,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.18.0";
+      version = "4.19.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4645411/control_panel_for_twitter-4.18.0.xpi";
-      sha256 = "25e0d812013c68e7b0bf6304f00d0e93f13d7b143a8d73e017c197659f7e707a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4647410/control_panel_for_twitter-4.19.0.xpi";
+      sha256 = "5e5e842a9ecc8a3aad65d72a1e5d233dbcb93baea6e8698a9b3c85ded16f37ce";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2956,10 +2956,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.4.3";
+      version = "6.4.4";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4637335/dictionaries-6.4.3.xpi";
-      sha256 = "6e97c063dae2dc26359064c282464dde64b7bf3611bd3a0be5482f51700515a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648154/dictionaries-6.4.4.xpi";
+      sha256 = "b18ddbccb39d4f5762b7808f29e770d2d82ec7ee6b64ed26dc852c836ea05f77";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3397,10 +3397,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.67.5";
+      version = "2.67.6";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4625887/dualsub-2.67.5.xpi";
-      sha256 = "ffd980c78cff29a820e34a5201c8adac888ffd4dd47ebdea3c5ede454305ae00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4647344/dualsub-2.67.6.xpi";
+      sha256 = "764c9572848e8689c23f0fae35b32f717694d7ac56298db333956525b4b0835e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4110,10 +4110,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.8.2";
+      version = "5.8.3";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4636799/floccus-5.8.2.xpi";
-      sha256 = "a66194da569d52d18a1264003998d2f1d166634381a54cddc544337bb9b43867";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4647430/floccus-5.8.3.xpi";
+      sha256 = "df30c8f936e6f844fe977aaeecf0bfe16536b7617ce890cc68a64e14b884cfed";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -9252,10 +9252,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.5.4";
+      version = "13.5.5";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4641827/noscript-13.5.4.xpi";
-      sha256 = "80cc131f6ac6caf5281b1d1b1b5b121a67dca7d0960f6c102477f8b24b0d038a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4647959/noscript-13.5.5.xpi";
+      sha256 = "0972d29c528554c3fa081c1cfdc6921b7daf86162c37247e110a3f250a684c95";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -12697,10 +12697,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.30";
+      version = "4.31";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4638558/steam_database-4.30.xpi";
-      sha256 = "895b3415268bdd7f2dff6fd65f20b89beb70ba68617961aa14c605653ebc7faa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648167/steam_database-4.31.xpi";
+      sha256 = "4c7ee23e77fef583d2adf7de883f7df2ecd719dfbe716d96226929087a80c156";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -15662,10 +15662,10 @@
     };
     "ycs-continued" = buildFirefoxXpiAddon {
       pname = "ycs-continued";
-      version = "1.7.0";
+      version = "1.8.2";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635422/ycs_continued-1.7.0.xpi";
-      sha256 = "d2b3c38eb21b77b66ae8317a58c207325a5ef5097ac14aed6614d672d8381138";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648075/ycs_continued-1.8.2.xpi";
+      sha256 = "52b3051e6d362022fad12f2886577237c0f124a825fe3d72409c52b6a9ceb927";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
@@ -15912,10 +15912,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.0.2";
+      version = "18.0.4";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4642709/youtube_subscription_groups-18.0.2.xpi";
-      sha256 = "02835916ab0dbf46ca090b1695f003b06d87f0348ecb35539787331f06f624db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4647683/youtube_subscription_groups-18.0.4.xpi";
+      sha256 = "9dbe338b03dfec71cd55ef7bd1375dbc1eb000725770a07195e559a456380cee";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
