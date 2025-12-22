@@ -48,6 +48,7 @@
         {
           zlint = prev.callPackage ./pkgs/zlint { };
           zlint-unstable = prev.callPackage ./pkgs/zlint/unstable.nix { };
+          uvShellHook = prev.callPackage ./pkgs/uv/venv-shell-hook.nix { };
 
           # Latest Go version as go-bin (automatically uses the highest version)
           go-bin = makeGo prev latestGoVersion;
@@ -78,6 +79,11 @@
         rust = {
           path = ./templates/rust;
           description = "Rust development environment";
+        };
+
+        python = {
+          path = ./templates/python;
+          description = "Python development environment";
         };
       };
 
@@ -112,7 +118,7 @@
             );
           in
           {
-            inherit (pkgs) zlint zlint-unstable go-bin;
+            inherit (pkgs) zlint zlint-unstable go-bin uvVenvShellHook;
             default = self.packages.${system}.zlint;
           }
           // goPackages;

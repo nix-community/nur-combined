@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "Python development environment";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -11,11 +11,7 @@
   };
 
   outputs =
-    { nixpkgs
-    , flake-utils
-    , mattware
-    , ...
-    }:
+    { nixpkgs, flake-utils, mattware, ... }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -26,11 +22,15 @@
       in
       {
         devShells.default = pkgs.mkShell {
+          venvDir = ".venv";
           packages = with pkgs; [
-            go-bin
-            gopls
+            uv
+            uvShellHook
           ];
+
+          UV_PYTHON_PREFERENCE = "only-managed";
         };
+
       }
     );
 }

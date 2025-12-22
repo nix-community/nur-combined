@@ -84,6 +84,9 @@ nix flake init -t github:mattrobenolt/nixpkgs#zig
 
 # Bun project
 nix flake init -t github:mattrobenolt/nixpkgs#bun
+
+# Python project
+nix flake init -t github:mattrobenolt/nixpkgs#python
 ```
 
 ## How updates work

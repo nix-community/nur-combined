@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    matt = {
+    mattware = {
       url = "github:mattrobenolt/nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -13,7 +13,7 @@
   outputs =
     { nixpkgs
     , flake-utils
-    , matt
+    , mattware
     , ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -21,7 +21,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ matt.overlays.default ];
+          overlays = [ mattware.overlays.default ];
         };
       in
       {
