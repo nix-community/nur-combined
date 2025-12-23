@@ -44,13 +44,23 @@ in
       sourceRoot = ".";
 
       dontBuild = true;
-      dontFixup = true;
 
       installPhase = ''
         runHook preInstall
         mkdir -p $out/Applications
         cp -r "Beeper Nightly.app" $out/Applications/
         runHook postInstall
+      '';
+
+      postFixup = ''
+        # disable auto update
+        sed -i 's/[^=]*\.auto_update_disabled/true/' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
+
+        # prevent updates
+        sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
+
+        # hide version status element on about page otherwise a error message is shown
+        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/renderer/PrefsPanes-"*.css
       '';
     }
   else
