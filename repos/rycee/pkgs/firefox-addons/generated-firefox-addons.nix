@@ -2707,10 +2707,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "147.0.20251219.90541";
+      version = "147.0.20251222.164020";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4646626/dansk_da_language_pack-147.0.20251219.90541.xpi";
-      sha256 = "09d545be4500c05c97ddf2a04a0cc3543dc46b1a706cf9915e85d88795b0d51e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648905/dansk_da_language_pack-147.0.20251222.164020.xpi";
+      sha256 = "e59386e2605671a9ddd6e5d38aee84e0a0999363d43100d6d13a5574cb6e93a5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2920,10 +2920,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "147.0.20251219.90541";
+      version = "147.0.20251222.164020";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4646628/deutsch_de_language_pack-147.0.20251219.90541.xpi";
-      sha256 = "c10dbbac2d4c26a9048f90405c6b2e865e0706f320c588445383da4bb619c7e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648903/deutsch_de_language_pack-147.0.20251222.164020.xpi";
+      sha256 = "ab0235d65fb1fc9045fe925a5f01f0db481618fa06ca6753005d615d4ebe46b2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2962,7 +2962,7 @@
       sha256 = "b18ddbccb39d4f5762b7808f29e770d2d82ec7ee6b64ed26dc852c836ea05f77";
       meta = with lib;
       {
-        homepage = "https://github.com/revir/dictionaries";
+        homepage = "https://dictionariez.pnl.dev";
         description = "A customizable dictionary extension that supports double-click lookups in 20+ languages, hundreds of dictionaries, select any text to speech and anki integration.";
         license = licenses.gpl2;
         mozPermissions = [
@@ -4382,10 +4382,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "147.0.20251219.90541";
+      version = "147.0.20251222.164020";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4646677/francais_language_pack-147.0.20251219.90541.xpi";
-      sha256 = "7494796b8800546f56971c09fa0012dd9a51f22cad2d90812a6b6e8fef018034";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648940/francais_language_pack-147.0.20251222.164020.xpi";
+      sha256 = "30f7ec528e05e1edb86e3138a49b2370d45f7e7b0bf9e62e1b35425ae45190c7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4419,10 +4419,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "147.0.20251219.90541";
+      version = "147.0.20251222.164020";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4646602/gaidhlig_language_pack-147.0.20251219.90541.xpi";
-      sha256 = "2aed722cef595a1aa3da3cd238e8f61e9f33f202d689919ed9b6fa3304dd4e5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648915/gaidhlig_language_pack-147.0.20251222.164020.xpi";
+      sha256 = "6c7757f416da2afb6db28161bcd9cb623ebb99ac58e75a37689d587def8b2600";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10642,10 +10642,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "1.2.0";
+      version = "1.3.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4640643/private_grammar_checker_harper-1.2.0.xpi";
-      sha256 = "8abe2973f56e1073ffd5707c668f7fd397771d486ca115684d42cc76eb5294e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649158/private_grammar_checker_harper-1.3.0.xpi";
+      sha256 = "53625166e326256d0d6ebbdebaf438a30f9fa43fd2a9225a9486aea25c4744e9";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -11906,10 +11906,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "147.0.20251219.90541";
+      version = "147.0.20251222.164020";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4646601/scots_language_pack-147.0.20251219.90541.xpi";
-      sha256 = "c9d3eb28da92fff6a54e370570632290d3d93eb3c39ed67eb4a49b19d9a0a8aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648909/scots_language_pack-147.0.20251222.164020.xpi";
+      sha256 = "8ea6c27ded089de625b97d8866b4ebfdc85e019df83f408af6daec4e2e6517a3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14506,10 +14506,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.1.3.2";
+      version = "10.1.6.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648331/video_downloadhelper-10.1.3.2.xpi";
-      sha256 = "f3b9b90a5367f90ce32abf4eef03edbf43d65b9d14b876edc2b05333c31d5369";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649244/video_downloadhelper-10.1.6.2.xpi";
+      sha256 = "bacdeb94698cc47c48592433f4e063c1f041bbc75ef862bfc05c3e20d4692246";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -15709,10 +15709,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.11.11.0";
+      version = "25.12.16.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4623736/yomitan-25.11.11.0.xpi";
-      sha256 = "c3c60b34172aa9a405de1c825aec56ff172a00e4e946f4d1666061cb62249344";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649198/yomitan-25.12.16.0.xpi";
+      sha256 = "734579ebefdb94c21dcea50307b0e98c7e6d0b3a44799e1767e0b66bad0b6c83";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
