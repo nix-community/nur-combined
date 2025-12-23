@@ -51,7 +51,7 @@ let
     host="$1"
     session_name="''${2:-main}"
     set -x
-    mosh -- "$host" ${lib.optionalString with_sudo "sudo"} screen -RdS "$session_name"
+    mosh -- "$host" ${lib.optionalString with_sudo "sudo"} tmux new-session -A -s "$session_name"
   '';
   systemctl = "${pkgs.systemd}/bin/systemctl";
   journalctl = "${pkgs.systemd}/bin/journalctl";
