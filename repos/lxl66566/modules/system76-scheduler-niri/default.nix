@@ -22,17 +22,23 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.system76-scheduler.enable = true;
+
     systemd.user.services.system76-scheduler-niri = {
       description = "Niri integration for system76-scheduler";
 
-      after = [ "niri.service" ];
-
-      wantedBy = [ "niri.service" ];
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      after = [
+        "graphical-session.target"
+        "niri.service"
+      ];
 
       serviceConfig = {
         Type = "simple";
         ExecStart = lib.getExe cfg.package;
         Restart = "on-failure";
+        RestartSec = "3s";
       };
     };
   };
