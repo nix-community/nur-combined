@@ -775,14 +775,14 @@
   };
   hack3ric-flow = {
     pname = "hack3ric-flow";
-    version = "fd5a3199f4849548106f288966a4a77b05b9cad0";
+    version = "e12a2fb91cdbc3b46c1e2bce21b6bc6657c7f5c4";
     src = fetchFromGitHub {
       owner = "hack3ric";
       repo = "flow";
-      rev = "fd5a3199f4849548106f288966a4a77b05b9cad0";
-      hash = "sha256-RnyUxDE36YMX/MHrvMv2lDMqKvjSvyvQBraYwyplOjw=";
+      rev = "e12a2fb91cdbc3b46c1e2bce21b6bc6657c7f5c4";
+      hash = "sha256-Z+kO+mQDqeGlCkEYWcL0R/YDOVZxvB3L8v2wyoNQR18=";
     };
-    date = "2025-09-28";
+    date = "2025-12-23";
   };
   hack3ric-flow-stable = {
     pname = "hack3ric-flow-stable";
@@ -845,12 +845,12 @@
   };
   igsc = {
     pname = "igsc";
-    version = "V1.0.0";
+    version = "V1.0.1";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "igsc";
-      tag = "V1.0.0";
-      hash = "sha256-OpEsJrObkjoDmVy9mxEf/+CzcNZXWIDhDRfQbPyiyPM=";
+      tag = "V1.0.1";
+      hash = "sha256-WYudVRUh0zmq2hO/JoX8khybmIYHP9Fz1wkKeb2oOW4=";
     };
   };
   imewlconverter = {
@@ -1012,14 +1012,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "39ea281fd0fd9e68bf24106c3a2b12aff9a0ba63";
+    version = "589731b0c947d73b3d6fc72bcd4e3b6e0ec0bf4e";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "39ea281fd0fd9e68bf24106c3a2b12aff9a0ba63";
-      hash = "sha256-gg+n59fWbtaUc54WfCwa9kcZ/Uf1P29G627xUassB10=";
+      rev = "589731b0c947d73b3d6fc72bcd4e3b6e0ec0bf4e";
+      hash = "sha256-fbOWCsdZGmJ7SkxwUq7/QNjUe6uwwoxa3e+V/1UBFwI=";
     };
-    date = "2025-11-25";
+    date = "2025-12-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -1080,12 +1080,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7509";
+    version = "b7522";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7509";
-      hash = "sha256-5p1gYIWLCeO/TtasY+NbI8bs1fJNu93SBAAG4lBxUiI=";
+      tag = "b7522";
+      hash = "sha256-yVnF4lq6hYtrboXeiMSKWLw5FvPXQ/01R1rlptBDvTI=";
     };
   };
   loralib = {
@@ -1817,14 +1817,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "ab59478ab2075c35c6f07fbeac84c93d77ac3055";
+    version = "04bb51f00c5703de9fea62553f95042b530dfdef";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "ab59478ab2075c35c6f07fbeac84c93d77ac3055";
-      hash = "sha256-aQvL0Spsg9C0rVUN07UB9DHCKXnEZ7SOyguAhSqqkpE=";
+      rev = "04bb51f00c5703de9fea62553f95042b530dfdef";
+      hash = "sha256-hw8OahPKLfCoCgSV+EaknaFWi6J8Pojxrk0RedwKcJU=";
     };
-    date = "2025-12-22";
+    date = "2025-12-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

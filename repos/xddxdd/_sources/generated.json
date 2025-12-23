@@ -1497,7 +1497,7 @@
     },
     "hack3ric-flow": {
         "cargoLocks": null,
-        "date": "2025-09-28",
+        "date": "2025-12-23",
         "extract": null,
         "name": "hack3ric-flow",
         "passthru": null,
@@ -1509,12 +1509,12 @@
             "name": null,
             "owner": "hack3ric",
             "repo": "flow",
-            "rev": "fd5a3199f4849548106f288966a4a77b05b9cad0",
-            "sha256": "sha256-RnyUxDE36YMX/MHrvMv2lDMqKvjSvyvQBraYwyplOjw=",
+            "rev": "e12a2fb91cdbc3b46c1e2bce21b6bc6657c7f5c4",
+            "sha256": "sha256-Z+kO+mQDqeGlCkEYWcL0R/YDOVZxvB3L8v2wyoNQR18=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fd5a3199f4849548106f288966a4a77b05b9cad0"
+        "version": "e12a2fb91cdbc3b46c1e2bce21b6bc6657c7f5c4"
     },
     "hack3ric-flow-stable": {
         "cargoLocks": null,
@@ -1644,12 +1644,12 @@
             "name": null,
             "owner": "intel",
             "repo": "igsc",
-            "rev": "V1.0.0",
-            "sha256": "sha256-OpEsJrObkjoDmVy9mxEf/+CzcNZXWIDhDRfQbPyiyPM=",
+            "rev": "V1.0.1",
+            "sha256": "sha256-WYudVRUh0zmq2hO/JoX8khybmIYHP9Fz1wkKeb2oOW4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V1.0.0"
+        "version": "V1.0.1"
     },
     "imewlconverter": {
         "cargoLocks": null,
@@ -1965,7 +1965,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2025-11-25",
+        "date": "2025-12-23",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1977,12 +1977,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "39ea281fd0fd9e68bf24106c3a2b12aff9a0ba63",
-            "sha256": "sha256-gg+n59fWbtaUc54WfCwa9kcZ/Uf1P29G627xUassB10=",
+            "rev": "589731b0c947d73b3d6fc72bcd4e3b6e0ec0bf4e",
+            "sha256": "sha256-fbOWCsdZGmJ7SkxwUq7/QNjUe6uwwoxa3e+V/1UBFwI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "39ea281fd0fd9e68bf24106c3a2b12aff9a0ba63"
+        "version": "589731b0c947d73b3d6fc72bcd4e3b6e0ec0bf4e"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7509",
-            "sha256": "sha256-5p1gYIWLCeO/TtasY+NbI8bs1fJNu93SBAAG4lBxUiI=",
+            "rev": "b7522",
+            "sha256": "sha256-yVnF4lq6hYtrboXeiMSKWLw5FvPXQ/01R1rlptBDvTI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7509"
+        "version": "b7522"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3542,7 +3542,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2025-12-22",
+        "date": "2025-12-23",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3554,12 +3554,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "ab59478ab2075c35c6f07fbeac84c93d77ac3055",
-            "sha256": "sha256-aQvL0Spsg9C0rVUN07UB9DHCKXnEZ7SOyguAhSqqkpE=",
+            "rev": "04bb51f00c5703de9fea62553f95042b530dfdef",
+            "sha256": "sha256-hw8OahPKLfCoCgSV+EaknaFWi6J8Pojxrk0RedwKcJU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ab59478ab2075c35c6f07fbeac84c93d77ac3055"
+        "version": "04bb51f00c5703de9fea62553f95042b530dfdef"
     },
     "rime-moegirl": {
         "cargoLocks": null,
