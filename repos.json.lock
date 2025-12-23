@@ -1513,8 +1513,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "008e657dbb1ad299a1c985727dc78ee03b822cb7",
-            "sha256": "1gzr5qks3d4apsvkq6rbn3qm78qnrm2swbw9iplrakfcqkx2kwrf",
+            "rev": "e36ed879c3d165ebc3b9397cb7bef3cdcc363df7",
+            "sha256": "1mvyl4bfzj25mhqv73jnvc294cs4rxnynmax0w2zh0fd9nkg2zwh",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2075,8 +2075,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "2d33671987f3c6b6e58c8c83ae311e9bdef1f2c6",
-            "sha256": "0dkz74l878cvfl9jal1zkjpf82hqcwc7w6w7icjwjwm2jl4g9ls2",
+            "rev": "6fe04c0eb45cea1a67a0ce8b3374a8098050f52f",
+            "sha256": "0vyd0wlzry4inm19dkgbhwwrkh3cgmblinsqf98arxxpn90wx0ax",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
