@@ -12,7 +12,7 @@
     self: super:
     with super.lib;
     let
-      pins = import ../nix/sources.nix super.path super.targetPlatform.system;
+      pins = import ../nix/sources.nix super.path super.stdenv.targetPlatform.system;
     in
     {
       # Fix for flashplayer-standalone being dropped from nixpkgs, -_-''

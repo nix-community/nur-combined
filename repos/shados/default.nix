@@ -3,7 +3,7 @@
 }:
 let
   nixpkgsPath = pkgs.path;
-  pins = import ./nix/sources.nix nixpkgsPath pkgs.targetPlatform.system;
+  pins = import ./nix/sources.nix nixpkgsPath pkgs.stdenv.targetPlatform.system;
   naersk = pkgs.callPackage pins.naersk { };
 in
 let

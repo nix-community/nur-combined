@@ -11,7 +11,7 @@ let
     let
       inherit (super) luaOlder luaAtLeast isLuaJIT;
       inherit (self) callPackage;
-      pins = import ../../nix/sources.nix pkgs.path pkgs.targetPlatform.system;
+      pins = import ../../nix/sources.nix pkgs.path pkgs.stdenv.targetPlatform.system;
     in
     with self;
     {

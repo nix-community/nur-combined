@@ -1,6 +1,6 @@
 final: prev:
 let
-  pins = import ../../nix/sources.nix prev.path prev.targetPlatform.system;
+  pins = import ../../nix/sources.nix prev.path prev.stdenv.targetPlatform.system;
 in
 {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
