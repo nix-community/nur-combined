@@ -39,13 +39,17 @@ buildDotnetModule (finalAttrs: {
   executables = [ "DownKyi" ];
 
   nativeBuildInputs = [
-    autoPatchelfHook
     copyDesktopItems
+  ]
+  ++ lib.optionals stdenv.isLinux [
+    autoPatchelfHook
   ];
 
   buildInputs = [
     aria2
     ffmpeg
+  ]
+  ++ lib.optionals stdenv.isLinux [
     fontconfig
     freetype
     icu
@@ -56,15 +60,18 @@ buildDotnetModule (finalAttrs: {
     (lib.getLib stdenv.cc.cc)
   ];
 
-  runtimeDeps = with xorg; [
-    libX11
-    libXcursor
-    libXext
-    libXi
-    libXrandr
-    libICE
-    libSM
-  ];
+  runtimeDeps = lib.optionals stdenv.isLinux (
+    with xorg;
+    [
+      libX11
+      libXcursor
+      libXext
+      libXi
+      libXrandr
+      libICE
+      libSM
+    ]
+  );
 
   postPatch = ''
     substituteInPlace DownKyi/DownKyi.csproj DownKyi.Core/DownKyi.Core.csproj \
@@ -98,10 +105,49 @@ buildDotnetModule (finalAttrs: {
       printf 'See https://ffmpeg.org/legal.html for FFmpeg licensing information.\n' > $out/lib/downkyicore/FFmpeg_LICENSE.txt
     fi
 
+  ''
+  + lib.optionalString stdenv.isLinux ''
     install -Dm644 DownKyi/Resources/favicon.ico $out/share/icons/hicolor/256x256/apps/downkyicore.ico
+  ''
+  + lib.optionalString stdenv.isDarwin ''
+    app="$out/Applications/DownKyi.app"
+    mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
+
+    cat > "$app/Contents/Info.plist" <<'EOF'
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>CFBundleExecutable</key>
+      <string>DownKyi</string>
+      <key>CFBundleIdentifier</key>
+      <string>org.nurpkgs.downkyicore</string>
+      <key>CFBundleName</key>
+      <string>DownKyi</string>
+      <key>CFBundlePackageType</key>
+      <string>APPL</string>
+      <key>CFBundleShortVersionString</key>
+      <string>${finalAttrs.version}</string>
+      <key>CFBundleVersion</key>
+      <string>${finalAttrs.version}</string>
+      <key>CFBundleIconFile</key>
+      <string>downkyicore.ico</string>
+    </dict>
+    </plist>
+    EOF
+
+    cat > "$app/Contents/MacOS/DownKyi" <<'EOF'
+    #!/bin/sh
+    exec "$out/bin/DownKyi" "$@"
+    EOF
+    chmod +x "$app/Contents/MacOS/DownKyi"
+
+    if [ -f DownKyi/Resources/favicon.ico ]; then
+      cp DownKyi/Resources/favicon.ico "$app/Contents/Resources/downkyicore.ico"
+    fi
   '';
 
-  desktopItems = [
+  desktopItems = lib.optionals stdenv.isLinux [
     (makeDesktopItem {
       name = "downkyicore";
       desktopName = "DownKyi";
@@ -120,7 +166,7 @@ buildDotnetModule (finalAttrs: {
     homepage = "https://github.com/yaobiao131/downkyicore";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ];
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "DownKyi";
   };
 })
