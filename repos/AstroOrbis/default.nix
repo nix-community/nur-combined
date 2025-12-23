@@ -18,4 +18,5 @@ rec {
   gdsdecomp = pkgs.callPackage ./pkgs/gdsdecomp { };
   tracy = pkgs.callPackage ./pkgs/tracy { };
   ryubing = pkgs.callPackage ./pkgs/ryubing { };
+  hexagon = pkgs.callPackage ./pkgs/hexagon { };
 }
