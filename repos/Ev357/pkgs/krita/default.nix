@@ -2,7 +2,7 @@
   lib,
   libsForQt5,
   symlinkJoin,
-  unwrapped ? libsForQt5.callPackage ./krita-unwrapped.nix {},
+  unwrapped ? libsForQt5.callPackage ../krita-unwrapped {},
   krita-plugin-gmic,
   binaryPlugins ? [
     krita-plugin-gmic
