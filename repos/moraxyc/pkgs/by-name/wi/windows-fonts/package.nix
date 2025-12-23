@@ -40,6 +40,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru._notCI = true;
+
   meta = {
     description = "Windows fonts distributed by Microsoft Microsoft Corporation Inc.";
     homepage = "https://learn.microsoft.com/en-us/typography/fonts/font-faq";

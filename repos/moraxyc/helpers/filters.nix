@@ -17,6 +17,7 @@ rec {
     (isDerivation p)
     && !(p.meta.broken or false)
     && !(p.meta.insecure or false)
+    && !(p.passthru._notCI or false)
     && (isTargetPlatform p);
   isExport =
     n: p:
