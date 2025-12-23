@@ -113,7 +113,7 @@ buildDotnetModule (finalAttrs: {
     app="$out/Applications/DownKyi.app"
     mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 
-    cat > "$app/Contents/Info.plist" <<'EOF'
+    cat > "$app/Contents/Info.plist" <<EOF
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
@@ -136,7 +136,7 @@ buildDotnetModule (finalAttrs: {
     </plist>
     EOF
 
-    cat > "$app/Contents/MacOS/DownKyi" <<'EOF'
+    cat > "$app/Contents/MacOS/DownKyi" <<EOF
     #!/bin/sh
     exec "$out/bin/DownKyi" "$@"
     EOF
