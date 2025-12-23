@@ -18,6 +18,7 @@
         overlays = [
           (final: prev: {
             local = config.packages;
+            upstream = prev;
           })
         ];
       };

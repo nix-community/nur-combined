@@ -1,15 +1,17 @@
-mode:
 {
   pkgs ? import <nixpkgs> { },
+  inputs' ? null,
   ...
 }:
 let
   lib = pkgs.lib;
   baseDir = ./by-name;
 
+  deprecatedAliases = import ./deprecated.nix pkgs;
+
   readDirs = path: lib.filterAttrs (n: v: v == "directory") (builtins.readDir path);
 
-  packages = lib.makeScope pkgs.newScope (
+  allPackages = lib.makeScope pkgs.newScope (
     self:
     let
       shards = builtins.attrNames (readDirs baseDir);
@@ -20,21 +22,28 @@ let
           packageNames = builtins.attrNames (readDirs shardDir);
         in
         lib.genAttrs packageNames (name: self.callPackage (shardDir + "/${name}/package.nix") { });
+
+      autoDiscovered =
+        if builtins.pathExists baseDir then
+          lib.foldl' (acc: shard: acc // (processShard shard)) { } shards
+        else
+          { };
     in
-    if builtins.pathExists baseDir then
-      lib.foldl' (acc: shard: acc // (processShard shard)) { } shards
-    else
-      { }
+    {
+      upstream = pkgs;
+      inherit inputs';
+    }
+    // autoDiscovered
+    // deprecatedAliases
   );
 
   filters = pkgs.callPackage ../helpers/filters.nix { };
 
-  ciPackages = lib.filterAttrs filters.isBuildable packages;
-  nurPackages = lib.filterAttrs filters.isExport packages;
+  activePackages = builtins.removeAttrs allPackages (builtins.attrNames deprecatedAliases);
 in
-if mode == "ci" then
-  ciPackages
-else if mode == "nur" then
-  nurPackages
-else
-  packages
+allPackages
+// {
+  __drvPackages = lib.filterAttrs filters.isDrv activePackages;
+  __ciPackages = lib.filterAttrs filters.isBuildable activePackages;
+  __nurPackages = lib.filterAttrs filters.isExport activePackages // deprecatedAliases;
+}

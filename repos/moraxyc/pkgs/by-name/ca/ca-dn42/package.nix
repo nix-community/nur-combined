@@ -12,10 +12,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ca-dn42";
   version = "0.3.9";
 
-  src = fetchurl {
-    url = "https://ca.dn42.us/ca.dn42";
-    hash = "sha256-k0rpw0Dcbwb2rAp71hpI0MC1OguLv3VZQ+/QHoEH+e0=";
-  };
+  # src = fetchurl {
+  #   url = "https://ca.dn42.us/ca.dn42";
+  #   hash = "sha256-k0rpw0Dcbwb2rAp71hpI0MC1OguLv3VZQ+/QHoEH+e0=";
+  # };
+  src = ./ca.dn42;
 
   unpackPhase = "true";
 

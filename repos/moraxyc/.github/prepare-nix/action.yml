@@ -37,10 +37,11 @@ runs:
           experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups pipe-operators dynamic-derivations recursive-nix
           system-features = nixos-test benchmark big-parallel kvm
           keep-going = false
+          accept-flake-config = true
           abort-on-warn = true
           log-lines = 25
           netrc-file = /nix/secrets/nix-netrc
-          substituters = https://nix-cache.qaq.li/moraxyc https://moraxyc.cachix.org https://cache.nixos.org/ https://cache.garnix.io https://cache.nixos-cuda.org
+          substituters = https://nix-cache.qaq.li/moraxyc https://moraxyc.cachix.org https://cache.nixos.org/ https://cache.garnix.io https://cache.nixos-cuda.org https://cache.nixos.org/
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= moraxyc.cachix.org-1:p00BlzhjSZq23aXYuzeUF2uXdE8ikh6tq9aV1seenhQ= moraxyc:fLUN1qkE59zF7jNqc2paA06LcxLzcoBMyGfWLOKU2NY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=
 
     - name: Prepare
@@ -59,7 +60,13 @@ runs:
       if: ${{ inputs.ONLY_NIX != 'true' }}
       run: |
         pkgs=(coreutils jq gnused attic-client nix-fast-build)
-        nix profile add "${pkgs[@]/#/nixpkgs#}"
+
+        extra_args=""
+        if [ -f "flake.nix" ]; then
+          extra_args="--inputs-from . --accept-flake-config"
+        fi
+
+        nix profile add "${pkgs[@]/#/nixpkgs#}" $extra_args
 
     - name: Setup Attic cache
       shell: bash

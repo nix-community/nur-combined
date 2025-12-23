@@ -17,13 +17,18 @@ in
       package = lib.mkPackageOption pkgs "bark-server" { };
 
       host = lib.mkOption {
-        type = lib.types.str;
+        type = with lib.types; nullOr str;
         default = "127.0.0.1";
       };
 
       port = lib.mkOption {
-        type = lib.types.port;
+        type = with lib.types; nullOr port;
         default = 8080;
+      };
+
+      unixSocket = lib.mkOption {
+        type = with lib.types; nullOr path;
+        default = null;
       };
 
       dataDir = lib.mkOption {
@@ -128,12 +133,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.bark-server = {
       serviceConfig = {
         Type = "simple";
-        Restart = "always";
+        Restart = "on-failure";
         StateDirectory = baseNameOf cfg.dataDir;
+        RuntimeDirectory = "bark-server";
         LoadCredential =
           lib.optional (!isNull cfg.auth.passwordFile) "auth-password:${cfg.auth.passwordFile}"
           ++ lib.optional (!isNull cfg.database.mysqlDsn) "mysql-dsn:${cfg.database.mysqlDsn}"
@@ -141,15 +146,50 @@ in
           ++ lib.optional (!isNull cfg.TLS.keyFile) "tls-keyfile:${cfg.TLS.keyFile}";
 
         DynamicUser = true;
-        PrivateTmp = true;
         UMask = "0077";
+        AmbientCapabilities = "";
+        CapabilityBoundingSet = "";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        ProcSubset = "pid";
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "invisible";
+        ProtectSystem = "strict";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallErrorNumber = "EPERM";
+        SystemCallFilter = [
+          "@system-service"
+          # Route-chain and OpenJ9 requires @resources calls
+          "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @swap"
+        ];
       };
       script = lib.concatStringsSep " " (
         [
+          "exec"
           "${lib.getExe cfg.package}"
           "--data ${cfg.dataDir}"
-          "--addr ${cfg.host}:${toString cfg.port}"
         ]
+        ++ lib.optional (cfg.unixSocket != null) "--unix-socket ${cfg.unixSocket}"
+        ++ lib.optional (cfg.host != null && cfg.port != null) "--addr ${cfg.host}:${toString cfg.port}"
         ++ lib.optional cfg.serverlessMode "--serverless"
         ++ lib.optional cfg.caseSensitive "--case-sensitive"
         ++ lib.optional cfg.strictRouting "--strict-routing"

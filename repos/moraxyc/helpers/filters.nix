@@ -11,6 +11,7 @@ rec {
   isTargetPlatform = isTargetPlatform' system;
   isTargetPlatform' = system: p: lib.elem system (p.meta.platforms or [ system ]);
 
+  isDrv = n: p: !(lib.hasPrefix "_" n) && isDerivation p;
   isBuildable =
     n: p:
     (isDerivation p)
@@ -18,5 +19,9 @@ rec {
     && !(p.meta.insecure or false)
     && (isTargetPlatform p);
   isExport =
-    n: p: !(lib.hasPrefix "self-" n) && (n != "sources") && !(lib.hasPrefix "_" n) && (isDerivation p);
+    n: p:
+    !(p.passthru._usesInputs or false)
+    && !(lib.hasPrefix "self-" n)
+    && !(lib.hasPrefix "_" n)
+    && (isDerivation p);
 }

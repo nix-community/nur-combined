@@ -25,11 +25,13 @@
   perSystem =
     {
       pkgs,
+      inputs',
       ...
     }@args:
-    {
-      ciPackages = import ../pkgs "ci" args;
-      nurPackages = import ../pkgs "nur" args;
-      legacyPackages = import ../pkgs "legacy" args;
+    rec {
+      packages = legacyPackages.__drvPackages;
+      ciPackages = legacyPackages.__ciPackages;
+      nurPackages = legacyPackages.__nurPackages;
+      legacyPackages = import ../pkgs args;
     };
 }

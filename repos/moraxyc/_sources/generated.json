@@ -1,4 +1,46 @@
 {
+    "bark-server": {
+        "cargoLocks": null,
+        "date": "2025-12-22",
+        "extract": null,
+        "name": "bark-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Finb",
+            "repo": "bark-server",
+            "rev": "e0297015409dfb2a9837fc5f99f6d8ff96f5b36a",
+            "sha256": "sha256-Ql1ZkFIsj8vuMWgk6xvaKjTJRoLHe9gjtShuRwnXZys=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e0297015409dfb2a9837fc5f99f6d8ff96f5b36a"
+    },
+    "bark-server-stable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "bark-server-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Finb",
+            "repo": "bark-server",
+            "rev": "v2.3.2",
+            "sha256": "sha256-Ql1ZkFIsj8vuMWgk6xvaKjTJRoLHe9gjtShuRwnXZys=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.3.2"
+    },
     "english_words": {
         "cargoLocks": null,
         "date": "2025-01-06",
@@ -64,7 +106,7 @@
     },
     "flapalerted": {
         "cargoLocks": null,
-        "date": "2025-12-18",
+        "date": "2025-12-22",
         "extract": null,
         "name": "flapalerted",
         "passthru": null,
@@ -76,12 +118,33 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "9c3cb4e9459b74a26dba88e5d9f847e53b8ceba1",
-            "sha256": "sha256-O7mFSoKukiDXLl22biov7Hn17WhanYiuU6fOrQrQDws=",
+            "rev": "1cc92e292d8975a4dc4b852602a8ecdf987a5416",
+            "sha256": "sha256-U1ClGnGsZimx2Xb1W+Ep6gkXHUGwAXGQZOKqxcjNqHE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9c3cb4e9459b74a26dba88e5d9f847e53b8ceba1"
+        "version": "1cc92e292d8975a4dc4b852602a8ecdf987a5416"
+    },
+    "flapalerted-stable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "flapalerted-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Kioubit",
+            "repo": "FlapAlerted",
+            "rev": "v4.2.1",
+            "sha256": "sha256-OtP7yliMv8BqOSwaXmjSoGg7QeY5Ite1Vu8tRTeCYKQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.2.1"
     },
     "geolite2-asn": {
         "cargoLocks": null,
@@ -92,11 +155,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0fTxHIeVvOR6H5E5QJqbr8WX0p6Ys+840cd9k8ALKdo=",
+            "sha256": "sha256-AMkMJzipRXZY4WDINErcimCd/xoQuV3wT5eCIMAyr2s=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.12.19"
+        "version": "2025.12.22"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -107,11 +170,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FPMjOe2zstF5wXkM2bIzb19Q0vv1WWiVZuv0ZkNZSfo=",
+            "sha256": "sha256-fRTDXiCaeyTYTbkO8JYR46Uj6NGCE4WYPIYoEHYpwbM=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-City.mmdb"
         },
-        "version": "2025.12.19"
+        "version": "2025.12.22"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -122,11 +185,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LGI40qxb0+YICPPgjiLxj5pPh0hUqo3l70Z6W6zrO8o=",
+            "sha256": "sha256-toAGQNgrLcxwJ0ZKrDewKLMGvI+VMLHu5hPZt52tamM=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.19/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-Country.mmdb"
         },
-        "version": "2025.12.19"
+        "version": "2025.12.22"
     },
     "libinput-three-finger-drag": {
         "cargoLocks": null,
@@ -148,6 +211,27 @@
             "type": "github"
         },
         "version": "6acd3f84b551b855b5f21b08db55e95dae3305c5"
+    },
+    "mm-geofeed-verifier": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "mm-geofeed-verifier",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "maxmind",
+            "repo": "mm-geofeed-verifier",
+            "rev": "v3.1.0",
+            "sha256": "sha256-14TztORKynlHS277k+W7FN1kgQD0FFu5W07wxgCDFS0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.1.0"
     },
     "pixy2": {
         "cargoLocks": null,
@@ -179,11 +263,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Y8IMFZruyKE9Yb6bidDRyC/s9GdfHBd9tn6XR3yJGZ0=",
+            "sha256": "sha256-y7H83opBnjZYxTp5VJI5F2595wdlzWReP3au0aR7WfM=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512192215/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512222314/geoip.dat"
         },
-        "version": "202512192215"
+        "version": "202512222314"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -194,10 +278,40 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8zV0YrIJ6v17k4jaZygBi5bGGg6wQs3DKriY/GFWlQE=",
+            "sha256": "sha256-MO4sknxXGbBQ9HFu+82gdCm2zBUuMAAnzBsk49IzQN0=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512192215/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512222314/geosite.dat"
         },
-        "version": "202512192215"
+        "version": "202512222314"
+    },
+    "watt-toolkit-aarch64-linux": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "watt-toolkit-aarch64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-xfzxxxMKsoMww9PzB/nvRcxqOqyn65escvxkzK9csCo=",
+            "type": "url",
+            "url": "https://github.com/BeyondDimension/SteamTools/releases/download/3.0.0-rc.16/Steam++_v3.0.0-rc.16_linux_arm64.tgz"
+        },
+        "version": "3.0.0-rc.16"
+    },
+    "watt-toolkit-x86_64-linux": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "watt-toolkit-x86_64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-mUk/gh8GPYwhs5OZzKorkNIMMKl+amFrwbTtH0AnHTI=",
+            "type": "url",
+            "url": "https://github.com/BeyondDimension/SteamTools/releases/download/3.0.0-rc.16/Steam++_v3.0.0-rc.16_linux_x64.tgz"
+        },
+        "version": "3.0.0-rc.16"
     }
 }

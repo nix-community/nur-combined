@@ -46,12 +46,19 @@ jobs:
 
           rm -f secrets.toml
 
+      - name: Update vendor hashes (nix-update)
+        run: |
+          grep -rl "# nix-update auto" pkgs/by-name | while read -r file; do
+              pkg_name=$(basename $(dirname "$file"))
+
+              echo "Detected auto-update marker for: $pkg_name"
+
+              nix shell nixpkgs#nix-update --inputs-from . \
+                -c nix-update "$pkg_name" --version=skip
+          done
+
       - name: Commit changes
         run: |
-          git add _sources
-          git commit -m "chore: update nvfetcher" || echo "No changes to commit"
+          git add _sources pkgs/by-name
+          git diff --staged --quiet || git commit -m "chore: update nvfetcher & vendor hashes"
           git push
-
-      - name: Trigger NUR update
-        run: |
-          curl -XPOST "https://nur-update.nix-community.org/update?repo=moraxyc"

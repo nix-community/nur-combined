@@ -1,0 +1,83 @@
+From b0067622252d58542df7178b13890c5b88dee102 Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Mon, 22 Dec 2025 18:36:27 +0800
+Subject: [PATCH 1/2] feat: add support for systemd socket activation
+
+---
+ go.mod  |  1 +
+ go.sum  |  2 ++
+ main.go | 19 +++++++++++++++++++
+ 3 files changed, 22 insertions(+)
+
+diff --git a/go.mod b/go.mod
+index 78bfe06..537c0db 100644
+--- a/go.mod
++++ b/go.mod
+@@ -7,6 +7,7 @@ go 1.23.0
+ toolchain go1.24.1
+ 
+ require (
++	github.com/coreos/go-systemd/v22 v22.6.0
+ 	github.com/go-sql-driver/mysql v1.8.1
+ 	github.com/gofiber/adaptor/v2 v2.2.1
+ 	github.com/gofiber/fiber/v2 v2.52.9
+diff --git a/go.sum b/go.sum
+index 5863aaf..ef4d4fe 100644
+--- a/go.sum
++++ b/go.sum
+@@ -10,6 +10,8 @@ github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLj
+ github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
+ github.com/buger/jsonparser v1.1.1 h1:2PnMjfWD7wBILjqQbt530v576A/cAbQvEW9gGIpYMUs=
+ github.com/buger/jsonparser v1.1.1/go.mod h1:6RYKKt7H4d4+iWqouImQ9R2FZql3VbhNgx27UK13J/0=
++github.com/coreos/go-systemd/v22 v22.6.0 h1:aGVa/v8B7hpb0TKl0MWoAavPDmHvobFe5R5zn0bCJWo=
++github.com/coreos/go-systemd/v22 v22.6.0/go.mod h1:iG+pp635Fo7ZmV/j14KUcmEyWF+0X7Lua8rrTWzYgWU=
+ github.com/cpuguy83/go-md2man/v2 v2.0.4 h1:wfIWP927BUkWJb2NmU/kNDYIBTh/ziUX91+lVfRxZq4=
+ github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
+ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+diff --git a/main.go b/main.go
+index db5c1d6..f5137c2 100644
+--- a/main.go
++++ b/main.go
+@@ -11,6 +11,8 @@ import (
+ 	"github.com/finb/bark-server/v2/apns"
+ 	"github.com/finb/bark-server/v2/database"
+ 
++	"github.com/coreos/go-systemd/v22/activation"
++
+ 	jsoniter "github.com/json-iterator/go"
+ 
+ 	"github.com/gofiber/fiber/v2"
+@@ -56,6 +58,9 @@ func runServer(c *cli.Context) error {
+ 
+ // determineNetwork checks if unix socket is configured
+ func determineNetwork(c *cli.Context) string {
++	if os.Getenv("LISTEN_FDS") != "" {
++		return "systemd"
++	}
+ 	if c.String("unix-socket") != "" {
+ 		return "unix"
+ 	}
+@@ -140,6 +145,20 @@ func setupGracefulShutdown(fiberApp *fiber.App) {
+ }
+ 
+ func startServer(c *cli.Context, fiberApp *fiber.App, network string) error {
++	if network == "systemd" {
++		listeners, err := activation.Listeners()
++		if err != nil {
++			return fmt.Errorf("failed to get systemd listeners: %v", err)
++		}
++		if len(listeners) == 0 {
++			return fmt.Errorf("no systemd listeners found")
++		}
++
++		l := listeners[0]
++		logger.Infof("Bark Server Listen at Systemd Socket (%s), Database: %s", l.Addr(), reflect.TypeOf(db))
++
++		return fiberApp.Listener(l)
++	}
+ 	if network == "tcp" {
+ 		addr := c.String("addr")
+ 		logger.Infof("Bark Server Listen at: %s , Database: %s", addr, reflect.TypeOf(db))
+-- 
+2.51.2
+
