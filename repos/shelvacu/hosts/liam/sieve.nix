@@ -787,9 +787,12 @@ let
           (subject_matches "Your Royal Mail parcel is on its way")
         ]
       }
-      ${pure_flags [ "aliexpress" "orders" ] (from_is [
-        "transaction@notice.aliexpress.com"
-        "aliexpress@notice.aliexpress.com"
+      ${pure_flags [ "aliexpress" "orders" ] (anyof [
+        (from_is [
+          "transaction@notice.aliexpress.com"
+          "aliexpress@notice.aliexpress.com"
+        ])
+        (envelope_is "ali@shelvacu.com")
       ])}
       ${pure_flags
         [ "aliexpress-delivered" "B" ]
