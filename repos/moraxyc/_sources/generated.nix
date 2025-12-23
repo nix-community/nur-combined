@@ -62,15 +62,15 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "1cc92e292d8975a4dc4b852602a8ecdf987a5416";
+    version = "5a47d6103c8ffdcd5d39d215fe0bbf8d8caf90df";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "1cc92e292d8975a4dc4b852602a8ecdf987a5416";
+      rev = "5a47d6103c8ffdcd5d39d215fe0bbf8d8caf90df";
       fetchSubmodules = false;
-      sha256 = "sha256-U1ClGnGsZimx2Xb1W+Ep6gkXHUGwAXGQZOKqxcjNqHE=";
+      sha256 = "sha256-egZZSTTSAHTTDi/GrVATr81i5LRGO7JaTTXZVTj/m84=";
     };
-    date = "2025-12-22";
+    date = "2025-12-23";
   };
   flapalerted-stable = {
     pname = "flapalerted-stable";
