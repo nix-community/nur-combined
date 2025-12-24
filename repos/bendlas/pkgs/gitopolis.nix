@@ -12,13 +12,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "gitopolis";
-  version = "1.12.4";
+  version = "1.13.0";
 
   src = fetchFromGitHub {
     owner = "timabell";
     repo = "gitopolis";
     rev = "v${version}";
-    sha256 = "sha256-mOcSgT8VquXBOFC+hShn0W6d4kS9sw3EJOS3136Ar74=";
+    sha256 = "sha256-R23YqenbiFRRB3nSGcFVLw2IQ++YJdvP3C85W8pq6xU=";
   };
 
   cargoHash = "sha256-e86RCp9ssLB4AvUwFzjtNMzY05dfSxpywZr3AfPPCc0=";
