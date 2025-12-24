@@ -35,10 +35,10 @@
   };
   hammerspoon = {
     pname = "hammerspoon";
-    version = "1.0.0";
+    version = "1.1.0";
     src = fetchurl {
-      url = "https://github.com/Hammerspoon/hammerspoon/releases/download/1.0.0/Hammerspoon-1.0.0.zip";
-      sha256 = "sha256-XbcCtV2kfcMG6PWUjZHvhb69MV3fopQoMioK9+1+an4=";
+      url = "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.0/Hammerspoon-1.1.0.zip";
+      sha256 = "sha256-Oe+Qe3mE9s04d41b7jdyq6yL5rSKpGof9detzNQec7U=";
     };
   };
   nixpkgs-review = {
