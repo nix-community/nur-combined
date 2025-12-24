@@ -1,0 +1,40 @@
+name: "Update overlay upstream source"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 2"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Print nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+      - name: Run update script
+        working-directory: ./overlays/mac-apps
+        run: nix-shell -p 'with import <nixpkgs> {}; callPackage ./update.nix {}' --run "update-mac-apps"
+
+      - name: Create commits
+        run: | 
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update sources"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          title: Update overlay sources
