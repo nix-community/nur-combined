@@ -27,7 +27,6 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     };
     tmux = {
       enable = true;
-      extraConfig = "setw mouse";
       clock24 = true;
     };
   };
