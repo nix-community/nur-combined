@@ -550,6 +550,9 @@
         "fortuneteller2k": {
             "url": "https://github.com/fortuneteller2k/nur"
         },
+        "fractuscontext": {
+            "url": "https://github.com/fractuscontext/nix-nur"
+        },
         "frankoslaw": {
             "url": "https://github.com/Frankoslaw/nur-packages"
         },
@@ -612,10 +615,6 @@
         },
         "guoard": {
             "url": "https://github.com/guoard/nur"
-        },
-        "harukafractus": {
-            "file": "nur-everything/default.nix",
-            "url": "https://github.com/harukafractus/nix"
         },
         "henriquekh": {
             "url": "https://github.com/henriquekirchheck/nur-repo"
