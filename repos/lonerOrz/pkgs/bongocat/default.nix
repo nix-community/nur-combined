@@ -28,13 +28,13 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bongocat";
-  version = "0.8.2";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "ayangweb";
     repo = "BongoCat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-h2MaM913DkT+BhsIlv22jNaxepDHL2UQG4Hr5PIrcYs=";
+    hash = "sha256-VP1vCEF5OBGU2/XJ0LiuaiPSaAzWyGUpne0J3ZEI7xM=";
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-klmImDr+/attLgspqsKeupCAbhiMlDNkJCJ6NwNYgfQ=";
   };
 
-  cargoHash = "sha256-8+9QnSEFKg9dzMvzKRcnkAykz1MXoMVArmxtH/NnA6U=";
+  cargoHash = "sha256-sELFENGhImyxo0Q0UEsrjGFjk0G8tBBNBVCwLX7dW7g=";
 
   buildAndTestSubdir = "src-tauri";
 
