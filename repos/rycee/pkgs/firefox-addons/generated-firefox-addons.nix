@@ -8627,10 +8627,10 @@
     };
     "material-icons-for-github" = buildFirefoxXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.11.0";
+      version = "1.12.0";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4624505/material_icons_for_github-1.11.0.xpi";
-      sha256 = "bcc8a0d73964ee43f91bccf7b8788b5fd64a552e2d943d22ca5da4e9ef033375";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649256/material_icons_for_github-1.12.0.xpi";
+      sha256 = "c4773235d93c8268b7defe8bf5d4c8fe48d65c47011da2a19463f4b2c6d3a8cc";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -8802,10 +8802,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.25.5";
+      version = "2.25.6";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618628/momentumdash-2.25.5.xpi";
-      sha256 = "bb0adfb92dc730c0762c0ec281381e43b7fb592a81c5d8e363de50b1b96c5630";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4643775/momentumdash-2.25.6.xpi";
+      sha256 = "65aaa63084af33694d5838b08d02b6198ccfabf6369fd1c7b535f100f6112eb3";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -11630,10 +11630,10 @@
     };
     "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.64";
+      version = "4.3.65";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4603192/remove_youtube_s_suggestions-4.3.64.xpi";
-      sha256 = "088e0fcb424bbcdecf2b0500e0566e1a85666e51a6b04c3f9fff1a27193406d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649747/remove_youtube_s_suggestions-4.3.65.xpi";
+      sha256 = "38f659e8c3d10397536002dd914fa604849e559aaad8e5d4b356ed0083cabc11";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -12487,10 +12487,10 @@
     };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.9.7";
+      version = "0.9.8";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4594619/torproject_snowflake-0.9.7.xpi";
-      sha256 = "021fe23d13d4295aefbfa9c851ae0738568eef5f12dc796d0c31e7885c2ca9af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4644338/torproject_snowflake-0.9.8.xpi";
+      sha256 = "f8a15413574c7653109b6bff24001bf803b785024409a4ee1bc8cffe875f173d";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -14268,10 +14268,10 @@
     };
     "ubo-scope" = buildFirefoxXpiAddon {
       pname = "ubo-scope";
-      version = "1.4.0";
+      version = "1.5.0";
       addonId = "uBO-Scope@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4645557/ubo_scope-1.4.0.xpi";
-      sha256 = "2139058c567dea26225ee1adf0df882c5afef531e68e70c40b8b4f9be6ce8ca5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649685/ubo_scope-1.5.0.xpi";
+      sha256 = "91ff00badbdd9c433307df1f997fadf7c636c8a336c4450b7324a2ca491e6fc1";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBO-Scope";
