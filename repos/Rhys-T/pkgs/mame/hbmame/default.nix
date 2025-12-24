@@ -1,5 +1,5 @@
 {
-    mame, lib, fetchFromGitHub, fetchpatch, icoutils, makeDesktopItem, stdenv,
+    mame, lib, fetchFromGitHub, fetchpatch, iconConvTools, makeDesktopItem, stdenv,
     writeShellScript,
     common-updater-scripts,
     coreutils,
@@ -23,7 +23,7 @@
             # https://github.com/NixOS/nixpkgs/issues/84312
             # https://github.com/NixOS/nixpkgs/issues/259488
         };
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [iconConvTools];
         desktopItems = [
             (makeDesktopItem {
                 name = "HBMAME";
@@ -58,8 +58,7 @@
             installPhaseParts = builtins.match "(.*)install -Dm644 [^ ]* [^ ]*/mame\\.svg(.*)" old.installPhase;
             installPhase' = ''
                 ${builtins.elemAt installPhaseParts 0}
-                icotool --extract src/osd/winui/res/hbmame.ico
-                install -Dm644 hbmame_1_32x32x32.png "$out"/share/icons/hicolor/32x32/apps/hbmame.png
+                icoFileToHiColorTheme src/osd/winui/res/hbmame.ico hbmame "$out"
                 ${builtins.elemAt installPhaseParts 1}
             '';
             installPhaseParts' = builtins.match "(.*)# mame-tools.*mv \\$tools/bin/[{],mame-[}]split(.*)" installPhase';
