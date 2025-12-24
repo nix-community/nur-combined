@@ -16,7 +16,7 @@
 
   commafeed = pkgs.callPackage ./pkgs/commafeed {};
   r2-sync = pkgs.callPackage ./pkgs/r2-sync {};
-  zot = pkgs.callPackage ./pkgs/zot {};
+  # zot = pkgs.callPackage ./pkgs/zot {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
