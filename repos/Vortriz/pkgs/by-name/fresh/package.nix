@@ -9,19 +9,18 @@
 let
     librusty_v8 = callPackage ../../deps/librusty_v8/package.nix { };
 in
-
 rustPlatform.buildRustPackage {
     pname = "fresh";
-    version = "0.1.44-unstable-2025-12-16";
+    version = "unstable-2025-12-24";
 
     src = fetchFromGitHub {
         owner = "sinelaw";
         repo = "fresh";
-        rev = "4d703d7229a91842908de388050134eb39bb436a";
-        hash = "sha256-s652WHQU6EDDGjmq/pbiu2LTEhj/ONJ0DSah3pjI9Is=";
+        rev = "f0490bea94ca0ffd248c0313f630ac63968f42cf";
+        hash = "sha256-qDAkYm4FdcKgIntfkw9Y//MTbyTdUGWDm/W8TTma7Nk=";
     };
 
-    cargoHash = "sha256-IglklvhsR0MgZY3sqKGSbDtXlS0S31yWnKXtjfrhw9o=";
+    cargoLock.lockFile = ./Cargo.lock;
     strictDeps = true;
 
     nativeBuildInputs = [

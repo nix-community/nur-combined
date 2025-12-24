@@ -14,6 +14,9 @@
                 statix.enable = true;
                 nixfmt.enable = true;
 
+                ruff-format.enable = true;
+                ruff-check.enable = true;
+
                 prettier.enable = true;
             };
 
@@ -27,6 +30,9 @@
                         ];
                         priority = 3;
                     };
+
+                    ruff-check.priority = 1;
+                    ruff-format.priority = 2;
 
                     prettier.options = [
                         "--tab-width"

@@ -5,14 +5,13 @@
 }:
 python3Packages.buildPythonApplication {
     pname = "dunefetch";
-    version = "0-unstable-2025-08-12";
+    version = "unstable-2025-08-12";
 
     src = fetchFromGitHub {
         owner = "datavorous";
         repo = "dunefetch";
         rev = "7adfd33406a556b7d096f11dc446570c81b17675";
-        fetchSubmodules = false;
-        sha256 = "sha256-x6VlBa6qgwKyg8JxTCl6Y9rSzFk/8gaj2lanTZvl6XM=";
+        hash = "sha256-x6VlBa6qgwKyg8JxTCl6Y9rSzFk/8gaj2lanTZvl6XM=";
     };
 
     pyproject = true;

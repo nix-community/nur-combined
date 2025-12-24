@@ -5,7 +5,7 @@
 }:
 mkYaziPlugin {
     pname = "custom-shell.yazi";
-    version = "0-unstable-2025-06-07";
+    version = "unstable-2025-06-07";
 
     src = fetchFromGitHub {
         owner = "AnirudhG07";

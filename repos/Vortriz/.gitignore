@@ -1,2 +1,7 @@
+# Nix
 result*
 .direnv/
+
+# Python
+.venv/
+.ruff_cache/

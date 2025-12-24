@@ -1,18 +1,17 @@
 {
     stdenvNoCC,
     fetchFromGitHub,
-    nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
     pname = "SFMono-Nerd-Font-Ligaturized";
-    version = "0-unstable-2023-07-02";
+    version = "unstable-2023-07-01";
 
     src = fetchFromGitHub {
         owner = "shaunsingh";
         repo = "SFMono-Nerd-Font-Ligaturized";
         rev = "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea";
         fetchSubmodules = false;
-        sha256 = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
+        hash = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
     };
 
     phases = [
@@ -24,8 +23,6 @@ stdenvNoCC.mkDerivation {
     installPhase = ''
         install -Dm644 ./*.otf -t $out/share/fonts/opentype
     '';
-
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     meta = {
         description = "Apple's SFMono font nerd-font patched and ligaturized";

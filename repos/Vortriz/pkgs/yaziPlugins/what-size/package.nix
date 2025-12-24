@@ -5,7 +5,7 @@
 }:
 mkYaziPlugin {
     pname = "what-size.yazi";
-    version = "0-unstable-2025-06-19";
+    version = "unstable-2025-06-19";
 
     src = fetchFromGitHub {
         owner = "pirafrank";

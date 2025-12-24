@@ -1,17 +1,15 @@
 {
     lib,
     mkZoteroAddon,
-    fetchFromGitHub,
+    fetchurl,
 }:
-mkZoteroAddon {
+mkZoteroAddon rec {
     pname = "ZotMoov";
     version = "1.2.25";
 
-    src = fetchFromGitHub {
-        owner = "wileyyugioh";
-        repo = "zotmoov";
-        tag = "1.2.25";
-        sha256 = "sha256-WnmKB5bR09KpR8KuLCK6rC8Ur2n6+Uw26CaeNzJUj1g=";
+    src = fetchurl {
+        url = "https://github.com/wileyyugioh/zotmoov/releases/download/${version}/zotmoov-${version}-fx.xpi";
+        hash = "sha256-WnmKB5bR09KpR8KuLCK6rC8Ur2n6+Uw26CaeNzJUj1g=";
     };
 
     addonId = "zotmoov@wileyy.com";

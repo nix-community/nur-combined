@@ -6,7 +6,7 @@
 
 rustPlatform.buildRustPackage {
     pname = "batteryd";
-    version = "0-unstable-2025-07-04";
+    version = "unstable-2025-07-04";
 
     src = fetchFromGitHub {
         owner = "Naxdy";
@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage {
         hash = "sha256-jgkcxbXC0lK1+H23asZlZwAAN1mAPc3wKKyTgvpP/XA=";
     };
 
-    cargoHash = "sha256-puaKo14ni6F8AI/c3D5ndDPPTFe6EFim3xV7Ao65HXc=";
+    cargoLock.lockFile = ./Cargo.lock;
 
     meta = {
         description = "Simple battery status notification daemon";

@@ -5,7 +5,7 @@
 }:
 mkYaziPlugin {
     pname = "bunny.yazi";
-    version = "1.3.2-unstable-2025-09-18";
+    version = "unstable-2025-09-18";
 
     src = fetchFromGitHub {
         owner = "stelcodes";

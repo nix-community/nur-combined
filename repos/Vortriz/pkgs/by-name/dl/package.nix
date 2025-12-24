@@ -4,20 +4,19 @@
     python3Packages,
     fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
     pname = "dl";
-    version = "0-unstable-2025-11-19";
-    pyproject = true;
-
-    pythonRelaxDeps = true;
+    version = "unstable-2025-12-19";
 
     src = fetchFromGitHub {
         owner = "Vortriz";
         repo = "dl";
-        rev = "4782a5047cce228487692b4363020f71fab0c527";
-        sha256 = "sha256-LJEiYh3wV501FoLtmo4s8+ER+BnCSEp1Q98xMVWSbLs=";
+        rev = "13c9002d5bb08a6935027fd45a4489ec2bccf952";
+        hash = "sha256-eNz0qhg5+QkBcIUeGEWfwrjA9u43PoDXgzj97AOSPTg=";
     };
+
+    pyproject = true;
+    pythonRelaxDeps = true;
 
     build-system = [ python3Packages.uv-build ];
 
@@ -26,10 +25,10 @@ python3.pkgs.buildPythonApplication {
         click
     ];
 
-    meta = with lib; {
+    meta = {
         description = "A simple command-line tool to download files using `aria2c` and automatically sort them into categorized directories.";
         homepage = "https://github.com/Vortriz/dl";
-        license = licenses.gpl3Only;
+        license = lib.licenses.gpl3Only;
         mainProgram = "dl";
     };
 }

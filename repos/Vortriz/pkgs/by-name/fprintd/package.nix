@@ -1,4 +1,3 @@
-# taken from https://github.com/NixOS/nixpkgs/blob/61df504f48c5884e6f3c94cd945f0110841f5ee4/pkgs/by-name/fp/fprintd/package.nix
 {
     lib,
     stdenv,
@@ -24,7 +23,7 @@
     python3,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
     pname = "fprintd";
     version = "1.94.4";
     outputs = [
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
         domain = "gitlab.freedesktop.org";
         owner = "libfprint";
         repo = "fprintd";
-        rev = "refs/tags/v${finalAttrs.version}}";
+        rev = "refs/tags/v${version}}";
         hash = "sha256-B2g2d29jSER30OUqCkdk3+Hv5T3DA4SUKoyiqHb8FeU=";
     };
 
@@ -119,4 +118,4 @@ stdenv.mkDerivation (finalAttrs: {
         license = lib.licenses.gpl2Plus;
         platforms = lib.platforms.linux;
     };
-})
+}

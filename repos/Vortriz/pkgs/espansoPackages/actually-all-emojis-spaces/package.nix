@@ -1,25 +1,22 @@
 {
     stdenvNoCC,
     fetchFromGitHub,
-    nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
     pname = "actually-all-emojis-spaces";
-    version = "1.3-unstable-2023-06-22";
+    version = "unstable-2023-06-22";
 
     src = fetchFromGitHub {
         owner = "jobiewong";
         repo = "espanso-emojis";
         rev = "88ba2b715edaef0ce26238684edc62221d9a7c67";
         sparseCheckout = [ "espanso_package/actually-all-emojis-spaces/0.3.0" ];
-        sha256 = "sha256-Wq7q1Si6qHww/boUZuiYtqtrDG3v6rxsfmoEJSLGH5Y=";
+        hash = "sha256-Wq7q1Si6qHww/boUZuiYtqtrDG3v6rxsfmoEJSLGH5Y=";
     };
 
     installPhase = ''
         cp -r espanso_package/actually-all-emojis-spaces/0.3.0 $out
     '';
-
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     meta = {
         homepage = "https://github.com/jobiewong/espanso-emojis";

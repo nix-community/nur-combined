@@ -1,18 +1,17 @@
 {
     stdenvNoCC,
     fetchFromGitHub,
-    nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
     pname = "HelveticaNeueCyr";
-    version = "0-unstable-2025-11-06";
+    version = "unstable-2025-11-06";
 
     src = fetchFromGitHub {
         owner = "Vortriz";
         repo = "fonts";
         rev = "54136ddb5b5d5ec19304c49cbd18dada96ab505b";
         sparseCheckout = [ "HelveticaNeueCyr.tar.gz" ];
-        sha256 = "sha256-o1hyAerKyUQsifVls22UkwyV8ZfXAATIUkXkLxsIEHc=";
+        hash = "sha256-o1hyAerKyUQsifVls22UkwyV8ZfXAATIUkXkLxsIEHc=";
     };
 
     phases = [
@@ -26,6 +25,4 @@ stdenvNoCC.mkDerivation {
     installPhase = ''
         install -Dm644 HelveticaNeueCyr/*.otf -t $out/share/fonts/opentype
     '';
-
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 }
