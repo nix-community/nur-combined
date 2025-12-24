@@ -1,7 +1,17 @@
 {
   lib,
+  writeShellApplication,
   flutter,
   fetchFromGitHub,
+  curl,
+  jq,
+  yq-go,
+  nix,
+  coreutils,
+  gnused,
+  gnugrep,
+  perl,
+  git,
   pkg-config,
   libsecret,
   jsoncpp,
@@ -30,19 +40,19 @@ let
 in
 flutter.buildFlutterApplication rec {
   pname = "plezy";
-  version = "1.11.0";
+  version = "1.12.0";
 
   src = fetchFromGitHub {
     owner = "edde746";
     repo = "plezy";
     tag = version;
-    hash = "sha256-eLOMO9FyBfD1PeQ65Ca4dt1IDtGEBLwZVO7SNw4xLAE=";
+    hash = "sha256-I9jyWD5VKL52Vq6gXhNqccAM8x+eNShuzd3baygvHdA=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 
   gitHashes = {
-    os_media_controls = "sha256-mEazaP0Ay0dJKTPxLR/kbt4Uc5xxSMSrSK/45J139KY=";
+    os_media_controls = "sha256-xfn4gzYTDe7sIsL4cqvX756+ZI9vR40Hr4FCyJXkGfs=";
   };
 
   nativeBuildInputs = [
@@ -121,5 +131,19 @@ flutter.buildFlutterApplication rec {
     platforms = lib.platforms.linux;
   };
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = writeShellApplication {
+    name = "update-plezy";
+    runtimeInputs = [
+      curl
+      jq
+      yq-go
+      nix
+      coreutils
+      gnused
+      gnugrep
+      perl
+      git
+    ];
+    text = builtins.readFile ./update.sh;
+  };
 }

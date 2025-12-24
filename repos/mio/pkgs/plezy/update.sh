@@ -3,7 +3,12 @@
 
 set -euo pipefail
 
-cd "$(dirname "$0")"
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null || true)
+if [ -n "$repo_root" ] && [ -d "$repo_root/pkgs/plezy" ]; then
+    cd "$repo_root/pkgs/plezy"
+else
+    cd "$(dirname "$0")"
+fi
 
 OWNER="edde746"
 REPO="plezy"
