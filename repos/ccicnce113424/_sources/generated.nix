@@ -69,16 +69,16 @@
   };
   jaq = {
     pname = "jaq";
-    version = "v3.0.0-alpha";
+    version = "v3.0.0-beta";
     src = fetchFromGitHub {
       owner = "01mf02";
       repo = "jaq";
-      rev = "v3.0.0-alpha";
+      rev = "v3.0.0-beta";
       fetchSubmodules = false;
-      sha256 = "sha256-1LtPFZUkGFOu5mZFB6gbL5/YnyJtaxmO0M//AInp5eM=";
+      sha256 = "sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./jaq-v3.0.0-alpha/Cargo.lock;
+      lockFile = ./jaq-v3.0.0-beta/Cargo.lock;
       outputHashes = {
 
       };
@@ -164,15 +164,15 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "708346328770febde923cde086d30398ed59630c";
+    version = "2554a38909f0e60da72ccc57eb2bb882facbeb65";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "708346328770febde923cde086d30398ed59630c";
+      rev = "2554a38909f0e60da72ccc57eb2bb882facbeb65";
       fetchSubmodules = false;
-      sha256 = "sha256-OQbp3ycUICxtl7pop+3/b7WrrpY/IuvincwCAD+bm8E=";
+      sha256 = "sha256-uoZ+xvaYmy/yAo2xPryWc/PCHEIozAtq2UomMQFsrjk=";
     };
-    date = "2025-12-21";
+    date = "2025-12-24";
   };
   uosc-danmaku = {
     pname = "uosc-danmaku";

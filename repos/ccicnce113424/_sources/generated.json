@@ -118,7 +118,7 @@
   },
   "jaq": {
     "cargoLocks": {
-      "Cargo.lock": ["./jaq-v3.0.0-alpha/Cargo.lock", {}]
+      "Cargo.lock": ["./jaq-v3.0.0-beta/Cargo.lock", {}]
     },
     "date": null,
     "extract": null,
@@ -132,12 +132,12 @@
       "name": null,
       "owner": "01mf02",
       "repo": "jaq",
-      "rev": "v3.0.0-alpha",
-      "sha256": "sha256-1LtPFZUkGFOu5mZFB6gbL5/YnyJtaxmO0M//AInp5eM=",
+      "rev": "v3.0.0-beta",
+      "sha256": "sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "v3.0.0-alpha"
+    "version": "v3.0.0-beta"
   },
   "loveiwara": {
     "cargoLocks": null,
@@ -278,7 +278,7 @@
   },
   "splayer-git": {
     "cargoLocks": null,
-    "date": "2025-12-21",
+    "date": "2025-12-24",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -290,12 +290,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "708346328770febde923cde086d30398ed59630c",
-      "sha256": "sha256-OQbp3ycUICxtl7pop+3/b7WrrpY/IuvincwCAD+bm8E=",
+      "rev": "2554a38909f0e60da72ccc57eb2bb882facbeb65",
+      "sha256": "sha256-uoZ+xvaYmy/yAo2xPryWc/PCHEIozAtq2UomMQFsrjk=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "708346328770febde923cde086d30398ed59630c"
+    "version": "2554a38909f0e60da72ccc57eb2bb882facbeb65"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
