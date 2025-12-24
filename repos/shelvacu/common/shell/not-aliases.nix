@@ -7,45 +7,8 @@
   ...
 }:
 let
-  inherit (vacupkglib) script;
-  simple =
-    name: args:
-    let
-      binContents = ''
-        #!${lib.getExe pkgs.bash}
-        exec ${lib.escapeShellArgs args} "$@"'';
-      funcContents = ''
-        declare aliasName=${lib.escapeShellArg name}
-        declare -a replacementWords=(${lib.escapeShellArgs args})
-        declare replacementStr
-        declare oldIFS="$IFS"
-        IFS=' '
-        replacementStr="''${replacementWords[*]}"
-        IFS="$oldIFS"
-        COMP_LINE="''${COMP_LINE/#$aliasName/$replacementStr}"
-        COMP_POINT=$(( COMP_POINT + ''${#replacementStr} - ''${#aliasName} ))
-        COMP_CWORD=$(( COMP_CWORD + ''${#replacementWords[@]} - 1 ))
-        COMP_WORDS=("''${replacementWords[@]}" "''${COMP_WORDS[@]:1}")
-        _comp_command_offset 0
-      '';
-    in
-    pkgs.runCommandLocal "vacu-notalias-simple-${name}"
-      {
-        pname = name;
-        meta.mainProgram = name;
-      }
-      ''
-        mkdir -p "$out"/bin
-        printf '%s' ${lib.escapeShellArg binContents} > "$out"/bin/${name}
-        chmod a+x "$out"/bin/${name}
-        out_base="$(basename -- "$out")"
-        LC_ALL=C
-        completion_function_name="_completion_''${out_base//[^a-zA-Z0-9_]/_}"
-        completion_file="$out"/share/bash-completion/completions/${name}
-        mkdir -p "$(dirname -- "$completion_file")"
-        printf '%s() {\n%s\n}\n' "$completion_function_name" ${lib.escapeShellArg funcContents} > "$completion_file"
-        printf 'complete -F %s %s\n' "$completion_function_name" ${lib.escapeShellArg name} >> "$completion_file"
-      '';
+  inherit (vacupkglib) script scriptWith;
+  simple = vacupkglib.aliasScript;
   ms_text = with_sudo: ''
     svl_minmax_args $# 1 2
     host="$1"
@@ -235,17 +198,58 @@ in
       "glc"
       "push"
     ])
-    (simple "vl" [
-      "ls"
-      "--all" # show everything...
-      "--ignore=.." # except for .. (parent directory)
-      "--color=auto"
-      "--si"
-      "--format=long" # aka -l
-      "--classify=always"
-      "--time-style=iso"
-      "--quoting-style=shell-escape"
-    ])
+    (
+      let
+        args = [
+          "ls"
+          "--all" # show everything...
+          "--ignore=.." # except for .. (parent directory)
+          "--color=auto"
+          "--si"
+          "--format=long" # aka -l
+          "--classify=always"
+          "--time-style=iso"
+          "--quoting-style=shell-escape"
+        ];
+      in
+      scriptWith {
+        name = "vl";
+        completeAsAlias = args;
+        content = ''
+          declare -a files=()
+          declare -a opts=()
+          while (( $# > 0 )); do
+            declare arg="$1"
+            shift
+            case "$arg" in
+              --)
+                files+=("$@")
+                shift $#
+                ;;
+              -*)
+                opts+=("$arg")
+                ;;
+              *)
+                files+=("$arg")
+                ;;
+            esac
+          done
+
+          declare only_file=""
+          if [[ ''${#files[@]} == 1 ]]; then
+            only_file="''${files[0]}"
+          fi
+
+          # if there's only one arg, and it's a symlink to a directory
+          if [[ -n $only_file && -L $only_file && -d $only_file && $only_file != */ ]]; then
+            ${lib.escapeShellArgs args} "''${opts[@]}" "$only_file"
+            echo
+            files=("$only_file/")
+          fi
+          exec ${lib.escapeShellArgs args} "''${opts[@]}" "''${files[@]}"
+        '';
+      }
+    )
     (script "list-auto-roots" ''
       svl_exact_args $# 0
       shopt -s nullglob
