@@ -86,4 +86,7 @@ in rec {
       obs-vkcapture
     ];
   });
+
+  # Reaper themes
+  reapertips-dark = p ./pkgs/reapertips/dark.nix { };
 }

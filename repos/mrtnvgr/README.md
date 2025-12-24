@@ -40,6 +40,10 @@
 - [artworks](https://github.com/mrtnvgr/artworks)
 - [nam-trainer](https://github.com/sdatkinson/neural-amp-modeler)
 
+#### Reaper themes (customizable)
+
+- **reapertips-dark**
+
 ### Media
 
 - **obs-studio-plus** - obs with plugins for wayland, pipewire support and more
