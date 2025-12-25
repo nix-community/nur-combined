@@ -219,4 +219,10 @@ rec {
   ego = v3overrideAttrs (pkgs.callPackage ./pkgs/ego/package.nix { });
 
   systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
+
+  davinci-resolve200 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix { };
+  davinci-resolve-studio200 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix {
+    studioVariant = true;
+  };
+
 }
