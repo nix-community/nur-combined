@@ -220,8 +220,8 @@ rec {
 
   systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
 
-  davinci-resolve200 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix { };
-  davinci-resolve-studio200 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix {
+  davinci-resolve2021 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix { };
+  davinci-resolve-studio2021 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix {
     studioVariant = true;
   };
 
