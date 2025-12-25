@@ -185,10 +185,11 @@ let
         comfyui = {
           enable = true;
           acceleration = "rocm";
-          extraFlags = [
-            "--base-directory=/var/lib/comfyui" # Imperative config
-            # "--highvram"
-            "--cpu" # FIXME: wait for ROCm 7
+          extraFlags = [ "--highvram" ];
+          customNodes = [
+            pkgs.comfyuiPackages.comfyui-res4lyf
+            pkgs.comfyuiPackages.comfyui-rgthree
+            pkgs.comfyui-teacache
           ];
         };
         ollama = {

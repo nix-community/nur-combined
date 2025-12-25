@@ -3,8 +3,8 @@
 [![NUR Badge](https://img.shields.io/badge/NUR-abszero-lightblue?style=flat-square&logo=hack-the-box&logoColor=lightblue)](https://nur.nix-community.org/repos/abszero)
 [![Cachix Badge](https://img.shields.io/badge/Cachix-abszero-lightblue?style=flat-square&logo=googlepubsub&logoColor=lightblue)](https://app.cachix.org/cache/abszero)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/y/Weathercold/nixfiles?authorFilter=Weathercold&style=flat-square&label=My%20commits)](https://github.com/Weathercold/nixfiles/commits?author=Weathercold)
-[![Update Hash status](https://img.shields.io/github/actions/workflow/status/Weathercold/nixfiles/update-hash.yml?style=flat-square&label=Update%20Hash)](https://github.com/Weathercold/nixfiles/actions/workflows/update-hash.yml)
-[![Build Packages status](https://img.shields.io/github/actions/workflow/status/Weathercold/nixfiles/build-packages.yml?style=flat-square&label=Build%20Packages)](https://github.com/Weathercold/nixfiles/actions/workflows/build-packages.yml)
+[![Update Packages status](https://img.shields.io/github/actions/workflow/status/Weathercold/nixfiles/update-packages.yaml?style=flat-square&label=Update%20Packages)](https://github.com/Weathercold/nixfiles/actions/workflows/update-packages.yaml)
+[![Build Packages status](https://img.shields.io/github/actions/workflow/status/Weathercold/nixfiles/build-packages.yaml?style=flat-square&label=Build%20Packages)](https://github.com/Weathercold/nixfiles/actions/workflows/build-packages.yaml)
 
 Dotfiles powered by Nix™, plus a package overlay and a library of utility
 functions.
