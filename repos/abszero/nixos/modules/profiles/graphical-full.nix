@@ -65,7 +65,7 @@ in
       systemPackages = with pkgs; [
         anki-wayland
         aseprite
-        # ayugram-desktop
+        ayugram-desktop
         collector
         ffmpeg-full
         gh
@@ -76,11 +76,12 @@ in
         hyperfine
         inkscape
         inotify-tools
-        jetbrains.idea-community
+        jetbrains.idea-oss
         jq
         kooha
         libreoffice-qt
         lutris
+        minefair
         nautilus
         nudoku
         obsidian

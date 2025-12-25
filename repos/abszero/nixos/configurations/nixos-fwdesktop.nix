@@ -185,8 +185,12 @@ let
         comfyui = {
           enable = true;
           acceleration = "rocm";
-          extraFlags = [ "--highvram" ];
+          extraFlags = [
+            "--highvram"
+            "--preview-method=auto"
+          ];
           customNodes = [
+            pkgs.comfyui-autocomplete-plus
             pkgs.comfyuiPackages.comfyui-res4lyf
             pkgs.comfyuiPackages.comfyui-rgthree
             pkgs.comfyui-teacache

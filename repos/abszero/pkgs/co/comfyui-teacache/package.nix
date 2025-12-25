@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation (final: {
 
     runHook postInstall
   '';
-  
+
   meta = {
     description = "TeaCache integration for ComfyUI (fork with qwen-image support)";
     homepage = "https://github.com/chenpipi0807/ComfyUI-TeaCache";
