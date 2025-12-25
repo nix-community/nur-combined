@@ -142,7 +142,7 @@ let
           plezy
           downkyicore
           ego
-          davinci-resolve-studio2021
+          davinci-resolve-studio2001
           ;
       };
     }
