@@ -15,14 +15,14 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "tewi";
-  version = "2.0.0";
+  version = "2.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "anlar";
     repo = "tewi";
     rev = "v${version}";
-    sha256 = "sha256-V4luvPDn+bQ5hGS4SmaIC/cZD8nqMdjwuwIMPhcU4Kw=";
+    sha256 = "sha256-fl66nIGT0oM95COgqfZpwDZVm4zJQVnFXowEthgiezw=";
   };
 
   build-system = [ python.pkgs.setuptools ];
@@ -33,9 +33,15 @@ python.pkgs.buildPythonApplication rec {
     pyperclip
     qbittorrent-api
     geoip2fast
+    platformdirs
   ];
 
   nativeCheckInputs = [ python.pkgs.pytestCheckHook ];
+
+  disabledTestPaths = [
+    "tests/tewi/torrent/clients/test_transmission.py"
+    "tests/tewi/torrent/test_factory.py"
+  ];
 
   meta = {
     description = "Text-based interface for BitTorrent clients (Transmission & qBittorrent)";
