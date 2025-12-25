@@ -3935,10 +3935,10 @@
     };
     "ficlab" = buildFirefoxXpiAddon {
       pname = "ficlab";
-      version = "1.0.112";
+      version = "1.0.113";
       addonId = "ficlab-helper@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4615111/ficlab-1.0.112.xpi";
-      sha256 = "c38e1f8a64e8047e0ca4ffe84a18455c3a19d263de2c7dfee1b41b5cb5252fbb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649968/ficlab-1.0.113.xpi";
+      sha256 = "aa1610d455b5b05802ca9f21961ff8b910fe42becf60e9adaca58e4c5bd81dc7";
       meta = with lib;
       {
         homepage = "https://www.ficlab.com/";
@@ -7200,10 +7200,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.15";
+      version = "2.0.17";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4639448/kiss_translator-2.0.15.xpi";
-      sha256 = "a1b4058824c9f7fedbe05f51acc8f2b3f101776b48d1930f1b977ccebc34935b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4650480/kiss_translator-2.0.17.xpi";
+      sha256 = "b4298f03b6138ccb69faf4866f54ca030bf5ce6b9fec9325619d1b2cc091b0c7";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -9526,10 +9526,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.11.16.35";
+      version = "8.11.23.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4607619/1password_x_password_manager-8.11.16.35.xpi";
-      sha256 = "9b2853a5719d8c9e5f1b36b98b1ffd907e6caae87ba45712aa5ca7830da820fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4644396/1password_x_password_manager-8.11.23.2.xpi";
+      sha256 = "3b4a782ef43013bd5cf9d065494aab2d3986fccd68dca833fb42fa86d11186cd";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -9557,6 +9557,7 @@
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
+          "declarativeNetRequestWithHostAccess"
           "https://*/*"
           "http://localhost/*"
           "https://*.1password.ca/*"
