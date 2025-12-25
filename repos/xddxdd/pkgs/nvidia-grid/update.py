@@ -39,7 +39,7 @@ def get_download_link_for_version(
         match = None
         for f in data.json()["data"]["content"]:
             _match = re.match(
-                r"^(NVIDIA-GRID-Linux-KVM-([^-]+)(-([^-]+))?-([^-]+)\.([a-zA-Z]+))$",
+                r"^(NVIDIA-GRID-Linux-KVM-([0-9\.]+)(-([0-9\.]+))?-([0-9\.]+)\.([a-zA-Z]+))$",
                 f["name"],
             )
             if _match:
@@ -222,6 +222,6 @@ try:
 
             # Write as json on every update to retain data on interruption
             with open(get_script_path() + "/sources.json", "w") as f:
-                f.write(json.dumps(result, indent=4))
+                f.write(json.dumps(result, indent=4, sort_keys=True))
 except Exception as e:
     print(f"Exception occurred: {e}")

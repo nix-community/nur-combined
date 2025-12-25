@@ -1,1006 +1,1009 @@
 {
     "11.8": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/11.8/NVIDIA-GRID-Linux-KVM-450.191-450.191.01-453.51.zip": "05rnw2bx77m18q79ijnmv29d6yljw0x8cb6pj0k6ypyxp62hjz5y"
+        "guest": {
+            "persistenced_hash": "sha256-44he5nC4h/aO9dAWFCJRwcekuYSCPCRNd1Q/xvpRQLE=",
+            "persistenced_version": "450.119.03",
+            "settings_hash": "sha256-NIJd8rv7h5cq9NnNXkxAbSxvd9RF3AcVFtXHtuGp1M0=",
+            "settings_version": "450.119.03",
+            "version": "450.191.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-44he5nC4h/aO9dAWFCJRwcekuYSCPCRNd1Q/xvpRQLE=",
+            "persistenced_version": "450.119.03",
+            "settings_hash": "sha256-NIJd8rv7h5cq9NnNXkxAbSxvd9RF3AcVFtXHtuGp1M0=",
+            "settings_version": "450.119.03",
+            "version": "450.191"
         },
         "patches": {},
-        "host": {
-            "version": "450.191",
-            "persistenced_version": "450.119.03",
-            "persistenced_hash": "sha256-44he5nC4h/aO9dAWFCJRwcekuYSCPCRNd1Q/xvpRQLE=",
-            "settings_version": "450.119.03",
-            "settings_hash": "sha256-NIJd8rv7h5cq9NnNXkxAbSxvd9RF3AcVFtXHtuGp1M0="
-        },
-        "guest": {
-            "version": "450.191.01",
-            "persistenced_version": "450.119.03",
-            "persistenced_hash": "sha256-44he5nC4h/aO9dAWFCJRwcekuYSCPCRNd1Q/xvpRQLE=",
-            "settings_version": "450.119.03",
-            "settings_hash": "sha256-NIJd8rv7h5cq9NnNXkxAbSxvd9RF3AcVFtXHtuGp1M0="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/11.8/NVIDIA-GRID-Linux-KVM-450.191-450.191.01-453.51.zip": "05rnw2bx77m18q79ijnmv29d6yljw0x8cb6pj0k6ypyxp62hjz5y"
         }
     },
     "12.4": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/12.4/NVIDIA-GRID-Linux-KVM-460.107-460.106.00-463.15.zip": "1sr8x7xdxrb1ffikaacd6m0x1byp1ird494i0g3jl3k47j7jawan"
+        "guest": {
+            "persistenced_hash": "sha256-6CDYsQegUydZ+GQwWDCYNg5aOFlYg1FSe3NzCiPriv4=",
+            "persistenced_version": "460.91.03",
+            "settings_hash": "sha256-sZn6l2R7mSIx1XpcPhxPO/Ae2M+36uzFuMy92w+QQ/U=",
+            "settings_version": "460.91.03",
+            "version": "460.106.00"
+        },
+        "host": {
+            "persistenced_hash": "sha256-6CDYsQegUydZ+GQwWDCYNg5aOFlYg1FSe3NzCiPriv4=",
+            "persistenced_version": "460.91.03",
+            "settings_hash": "sha256-sZn6l2R7mSIx1XpcPhxPO/Ae2M+36uzFuMy92w+QQ/U=",
+            "settings_version": "460.91.03",
+            "version": "460.107"
         },
         "patches": {},
-        "host": {
-            "version": "460.107",
-            "persistenced_version": "460.91.03",
-            "persistenced_hash": "sha256-6CDYsQegUydZ+GQwWDCYNg5aOFlYg1FSe3NzCiPriv4=",
-            "settings_version": "460.91.03",
-            "settings_hash": "sha256-sZn6l2R7mSIx1XpcPhxPO/Ae2M+36uzFuMy92w+QQ/U="
-        },
-        "guest": {
-            "version": "460.106.00",
-            "persistenced_version": "460.91.03",
-            "persistenced_hash": "sha256-6CDYsQegUydZ+GQwWDCYNg5aOFlYg1FSe3NzCiPriv4=",
-            "settings_version": "460.91.03",
-            "settings_hash": "sha256-sZn6l2R7mSIx1XpcPhxPO/Ae2M+36uzFuMy92w+QQ/U="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/12.4/NVIDIA-GRID-Linux-KVM-460.107-460.106.00-463.15.zip": "1sr8x7xdxrb1ffikaacd6m0x1byp1ird494i0g3jl3k47j7jawan"
         }
     },
     "13.0": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.0/NVIDIA-GRID-Linux-KVM-470.63-470.63.01-471.68.zip": "0rpi598d9lq5nnlh95ssangifrcc3a274hyfr6amz4fajm6glg4w"
+        "guest": {
+            "persistenced_hash": "sha256-el1iHXHy2dnJ+KzmIjyGvSN+eO0WH8e78PLGIdRtb7g=",
+            "persistenced_version": "470.63.01",
+            "settings_hash": "sha256-++VV1i6jUXbpMUCVodS8KDXK1YDenOaFYtsnYiG5P1I=",
+            "settings_version": "470.63.01",
+            "version": "470.63.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-Cqv6oUFnsSi3S1sjplJKeq9bI2pqgBXPPb11HOJSlDo=",
+            "persistenced_version": "470.57.02",
+            "settings_hash": "sha256-DJg5QbyuKJmPpLQVYgTLvucI1e9YgQOO16690VXIWvk=",
+            "settings_version": "470.57.02",
+            "version": "470.63"
         },
         "patches": {},
-        "host": {
-            "version": "470.63",
-            "persistenced_version": "470.57.02",
-            "persistenced_hash": "sha256-Cqv6oUFnsSi3S1sjplJKeq9bI2pqgBXPPb11HOJSlDo=",
-            "settings_version": "470.57.02",
-            "settings_hash": "sha256-DJg5QbyuKJmPpLQVYgTLvucI1e9YgQOO16690VXIWvk="
-        },
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.0/NVIDIA-GRID-Linux-KVM-470.63-470.63.01-471.68.zip": "0rpi598d9lq5nnlh95ssangifrcc3a274hyfr6amz4fajm6glg4w"
+        }
+    },
+    "13.12": {
         "guest": {
-            "version": "470.63.01",
-            "persistenced_version": "470.63.01",
-            "persistenced_hash": "sha256-el1iHXHy2dnJ+KzmIjyGvSN+eO0WH8e78PLGIdRtb7g=",
-            "settings_version": "470.63.01",
-            "settings_hash": "sha256-++VV1i6jUXbpMUCVodS8KDXK1YDenOaFYtsnYiG5P1I="
+            "persistenced_hash": "sha256-iYoSib9VEdwjOPBP1+Hx5wCIMhW8q8cCHu9PULWfnyQ=",
+            "persistenced_version": "470.256.02",
+            "settings_hash": "sha256-kftQ4JB0iSlE8r/Ze/+UMnwLzn0nfQtqYXBj+t6Aguk=",
+            "settings_version": "470.256.02",
+            "version": "470.256.02"
+        },
+        "host": {
+            "persistenced_hash": "sha256-iYoSib9VEdwjOPBP1+Hx5wCIMhW8q8cCHu9PULWfnyQ=",
+            "persistenced_version": "470.256.02",
+            "settings_hash": "sha256-kftQ4JB0iSlE8r/Ze/+UMnwLzn0nfQtqYXBj+t6Aguk=",
+            "settings_version": "470.256.02",
+            "version": "470.256.02"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.12/NVIDIA-GRID-Linux-KVM-470.256.02-475.14.zip": "1z23k5w0qm2npys32bxcd8jr0zykhb89pq9cb1jfbziilrj80hak"
         }
     },
     "13.3": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.3/NVIDIA-GRID-Linux-KVM-470.129.04-470.129.06-473.47.zip": "0axmi69cy65swi1336cp50a0md9z4rm38xncwzx4yf55x9h10890"
+        "guest": {
+            "persistenced_hash": "sha256-jCcYUsbhQ77IOQquXqbTZfh1N0IvKQOWrIMU9rEwSW0=",
+            "persistenced_version": "470.129.06",
+            "settings_hash": "sha256-vUS4O/c4IrbC8offzUFGLlMdP/Tlz1GwQIV2geRfj/o=",
+            "settings_version": "470.129.06",
+            "version": "470.129.06"
+        },
+        "host": {
+            "persistenced_hash": "sha256-AVI0j2bpfMCMBTKuQp+BoCewaXIW3Xt4NnV1fjAHOr0=",
+            "persistenced_version": "470.103.01",
+            "settings_hash": "sha256-Roc2OFSNEnIGLVwP0D9f8vFTf5v3KkL99S0mZBWN7s0=",
+            "settings_version": "470.103.01",
+            "version": "470.129.04"
         },
         "patches": {},
-        "host": {
-            "version": "470.129.04",
-            "persistenced_version": "470.103.01",
-            "persistenced_hash": "sha256-AVI0j2bpfMCMBTKuQp+BoCewaXIW3Xt4NnV1fjAHOr0=",
-            "settings_version": "470.103.01",
-            "settings_hash": "sha256-Roc2OFSNEnIGLVwP0D9f8vFTf5v3KkL99S0mZBWN7s0="
-        },
-        "guest": {
-            "version": "470.129.06",
-            "persistenced_version": "470.129.06",
-            "persistenced_hash": "sha256-jCcYUsbhQ77IOQquXqbTZfh1N0IvKQOWrIMU9rEwSW0=",
-            "settings_version": "470.129.06",
-            "settings_hash": "sha256-vUS4O/c4IrbC8offzUFGLlMdP/Tlz1GwQIV2geRfj/o="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.3/NVIDIA-GRID-Linux-KVM-470.129.04-470.129.06-473.47.zip": "0axmi69cy65swi1336cp50a0md9z4rm38xncwzx4yf55x9h10890"
         }
     },
     "13.4": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.4/NVIDIA-GRID-Linux-KVM-470.141.05-470.141.03-473.81.zip": "1l07gw975r4gcws803dsm9k8z6m66w5z77l8plbiv1wvlxsjx4jg"
+        "guest": {
+            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
+            "persistenced_version": "470.141.03",
+            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE=",
+            "settings_version": "470.141.03",
+            "version": "470.141.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
+            "persistenced_version": "470.141.03",
+            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE=",
+            "settings_version": "470.141.03",
+            "version": "470.141.05"
         },
         "patches": {},
-        "host": {
-            "version": "470.141.05",
-            "persistenced_version": "470.141.03",
-            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
-            "settings_version": "470.141.03",
-            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE="
-        },
-        "guest": {
-            "version": "470.141.03",
-            "persistenced_version": "470.141.03",
-            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
-            "settings_version": "470.141.03",
-            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.4/NVIDIA-GRID-Linux-KVM-470.141.05-470.141.03-473.81.zip": "1l07gw975r4gcws803dsm9k8z6m66w5z77l8plbiv1wvlxsjx4jg"
         }
     },
     "13.5": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.5/NVIDIA-GRID-Linux-KVM-470.161.02-470.161.03-474.04.zip": "16srx8bzqcxayzxvzmby0f5a2ky6z7alrjx9xiigfz3jkpwr8w3n"
+        "guest": {
+            "persistenced_hash": "sha256-/2h90Gq9NQd9Q+9eLVE6vrxXmINXxlLcSNOHxKToOEE=",
+            "persistenced_version": "470.161.03",
+            "settings_hash": "sha256-ryUSiI8PsY3knkJLg0k1EmyYW5OWkhuZma/hmXNuojw=",
+            "settings_version": "470.161.03",
+            "version": "470.161.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
+            "persistenced_version": "470.141.03",
+            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE=",
+            "settings_version": "470.141.03",
+            "version": "470.161.02"
         },
         "patches": {},
-        "host": {
-            "version": "470.161.02",
-            "persistenced_version": "470.141.03",
-            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
-            "settings_version": "470.141.03",
-            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE="
-        },
-        "guest": {
-            "version": "470.161.03",
-            "persistenced_version": "470.161.03",
-            "persistenced_hash": "sha256-/2h90Gq9NQd9Q+9eLVE6vrxXmINXxlLcSNOHxKToOEE=",
-            "settings_version": "470.161.03",
-            "settings_hash": "sha256-ryUSiI8PsY3knkJLg0k1EmyYW5OWkhuZma/hmXNuojw="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.5/NVIDIA-GRID-Linux-KVM-470.161.02-470.161.03-474.04.zip": "16srx8bzqcxayzxvzmby0f5a2ky6z7alrjx9xiigfz3jkpwr8w3n"
         }
     },
     "13.6": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.6/NVIDIA-GRID-Linux-KVM-470.161.02-470.161.03-474.14.zip": "0mx6210j8b5kzs52xpz97x1zvq371nd9cm5icicw0n6myszsl9gz"
+        "guest": {
+            "persistenced_hash": "sha256-/2h90Gq9NQd9Q+9eLVE6vrxXmINXxlLcSNOHxKToOEE=",
+            "persistenced_version": "470.161.03",
+            "settings_hash": "sha256-ryUSiI8PsY3knkJLg0k1EmyYW5OWkhuZma/hmXNuojw=",
+            "settings_version": "470.161.03",
+            "version": "470.161.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
+            "persistenced_version": "470.141.03",
+            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE=",
+            "settings_version": "470.141.03",
+            "version": "470.161.02"
         },
         "patches": {},
-        "host": {
-            "version": "470.161.02",
-            "persistenced_version": "470.141.03",
-            "persistenced_hash": "sha256-XsGYGgucDhvPpqtM9IBLfo3tbn7sIobpo5JW/XqOkTo=",
-            "settings_version": "470.141.03",
-            "settings_hash": "sha256-OWSUmUBqAxsR3e6EPzcIotpd6nm4Le8hIj4pzJ5WnhE="
-        },
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.6/NVIDIA-GRID-Linux-KVM-470.161.02-470.161.03-474.14.zip": "0mx6210j8b5kzs52xpz97x1zvq371nd9cm5icicw0n6myszsl9gz"
+        }
+    },
+    "13.7": {
         "guest": {
-            "version": "470.161.03",
-            "persistenced_version": "470.161.03",
+            "persistenced_hash": "sha256-fSJMx49z9trdNxx0iPI45oG57smvvhaqVNxsRnfXKCI=",
+            "persistenced_version": "470.182.03",
+            "settings_hash": "sha256-TRKQ4brLnCbBZt1smGSIHTfwW+wEFPWWPEwDxjVXN7s=",
+            "settings_version": "470.182.03",
+            "version": "470.182.03"
+        },
+        "host": {
             "persistenced_hash": "sha256-/2h90Gq9NQd9Q+9eLVE6vrxXmINXxlLcSNOHxKToOEE=",
+            "persistenced_version": "470.161.03",
+            "settings_hash": "sha256-ryUSiI8PsY3knkJLg0k1EmyYW5OWkhuZma/hmXNuojw=",
             "settings_version": "470.161.03",
-            "settings_hash": "sha256-ryUSiI8PsY3knkJLg0k1EmyYW5OWkhuZma/hmXNuojw="
+            "version": "470.182.02"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.7/NVIDIA-GRID-Linux-KVM-470.182.02-470.182.03-474.30.zip": "082zdj0s6sfa4gncn215nnigb0c52wr4v74xf5cdslla46qqksiz"
+        }
+    },
+    "13.9": {
+        "guest": {
+            "persistenced_hash": "sha256-e71fpPBBv8S/aoeXxBXkzKy5bsMMbv8y024cSLc8DYc=",
+            "persistenced_version": "470.223.02",
+            "settings_hash": "sha256-r6DuIH/rnsCm/y51iRgPNi5/kz+EFMVABREdTjBneZ0=",
+            "settings_version": "470.223.02",
+            "version": "470.223.02"
+        },
+        "host": {
+            "persistenced_hash": "sha256-e71fpPBBv8S/aoeXxBXkzKy5bsMMbv8y024cSLc8DYc=",
+            "persistenced_version": "470.223.02",
+            "settings_hash": "sha256-r6DuIH/rnsCm/y51iRgPNi5/kz+EFMVABREdTjBneZ0=",
+            "settings_version": "470.223.02",
+            "version": "470.223.02"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/13.9/NVIDIA-GRID-Linux-KVM-470.223.02-474.64.zip": "1v0gzldyx7y5xsyjxbbvaxhj48mrq659qx2bggsdxwhsm1mmw8mk"
         }
     },
     "14.0": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/14.0/NVIDIA-GRID-Linux-KVM-510.47.03-511.65.zip": "1cfyrvsrsba8ymmmq5by6jqkvi5sy3y0r85qz3s0n08rl161wx5s"
+        "guest": {
+            "persistenced_hash": "sha256-I8pIdBhbX9rfyhjQHGD5zjCwLF2zl2jc1Id+CTbSHKc=",
+            "persistenced_version": "510.47.03",
+            "settings_hash": "sha256-lQRh8dG4NW2vLe4R6xx42BzAu3R6iLyrk3GOGKLfufQ=",
+            "settings_version": "510.47.03",
+            "version": "510.47.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-I8pIdBhbX9rfyhjQHGD5zjCwLF2zl2jc1Id+CTbSHKc=",
+            "persistenced_version": "510.47.03",
+            "settings_hash": "sha256-lQRh8dG4NW2vLe4R6xx42BzAu3R6iLyrk3GOGKLfufQ=",
+            "settings_version": "510.47.03",
+            "version": "510.47.03"
         },
         "patches": {},
-        "host": {
-            "version": "510.47.03",
-            "persistenced_version": "510.47.03",
-            "persistenced_hash": "sha256-I8pIdBhbX9rfyhjQHGD5zjCwLF2zl2jc1Id+CTbSHKc=",
-            "settings_version": "510.47.03",
-            "settings_hash": "sha256-lQRh8dG4NW2vLe4R6xx42BzAu3R6iLyrk3GOGKLfufQ="
-        },
-        "guest": {
-            "version": "510.47.03",
-            "persistenced_version": "510.47.03",
-            "persistenced_hash": "sha256-I8pIdBhbX9rfyhjQHGD5zjCwLF2zl2jc1Id+CTbSHKc=",
-            "settings_version": "510.47.03",
-            "settings_hash": "sha256-lQRh8dG4NW2vLe4R6xx42BzAu3R6iLyrk3GOGKLfufQ="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/14.0/NVIDIA-GRID-Linux-KVM-510.47.03-511.65.zip": "1cfyrvsrsba8ymmmq5by6jqkvi5sy3y0r85qz3s0n08rl161wx5s"
         }
     },
     "14.1": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/14.1/NVIDIA-GRID-Linux-KVM-510.73.06-510.73.08-512.78.zip": "07pm1wa5dqngfic6gw7iihzcdmwpqh4l43br9yw72vm71pphvqav"
+        "guest": {
+            "persistenced_hash": "sha256-f0MpAT841v5jMg4jsoV/xoHAlC3eZMojViexe45RQ8k=",
+            "persistenced_version": "510.73.05",
+            "settings_hash": "sha256-k/6B7QphrZpjIAo9AdzSfiKFhAoJXmANxxcioCZMd1E=",
+            "settings_version": "510.73.05",
+            "version": "510.73.08"
+        },
+        "host": {
+            "persistenced_hash": "sha256-f0MpAT841v5jMg4jsoV/xoHAlC3eZMojViexe45RQ8k=",
+            "persistenced_version": "510.73.05",
+            "settings_hash": "sha256-k/6B7QphrZpjIAo9AdzSfiKFhAoJXmANxxcioCZMd1E=",
+            "settings_version": "510.73.05",
+            "version": "510.73.06"
         },
         "patches": {},
-        "host": {
-            "version": "510.73.06",
-            "persistenced_version": "510.73.05",
-            "persistenced_hash": "sha256-f0MpAT841v5jMg4jsoV/xoHAlC3eZMojViexe45RQ8k=",
-            "settings_version": "510.73.05",
-            "settings_hash": "sha256-k/6B7QphrZpjIAo9AdzSfiKFhAoJXmANxxcioCZMd1E="
-        },
-        "guest": {
-            "version": "510.73.08",
-            "persistenced_version": "510.73.05",
-            "persistenced_hash": "sha256-f0MpAT841v5jMg4jsoV/xoHAlC3eZMojViexe45RQ8k=",
-            "settings_version": "510.73.05",
-            "settings_hash": "sha256-k/6B7QphrZpjIAo9AdzSfiKFhAoJXmANxxcioCZMd1E="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/14.1/NVIDIA-GRID-Linux-KVM-510.73.06-510.73.08-512.78.zip": "07pm1wa5dqngfic6gw7iihzcdmwpqh4l43br9yw72vm71pphvqav"
         }
     },
     "14.2": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/14.2/NVIDIA-GRID-Linux-KVM-510.85.03-510.85.02-513.46.zip": "0b72qf9nxq0jhqq60adq2lnbd0mx84g5n9dfrzd0sw0dnjs177ff"
+        "guest": {
+            "persistenced_hash": "sha256-bfUbzRA0m3gvdevKR79XywE58MPubOkHk0HZbmMGSNo=",
+            "persistenced_version": "510.85.02",
+            "settings_hash": "sha256-Lscppb2bNSlwu+3yw5HInbX6HylENFcAy/a1qB8v5rA=",
+            "settings_version": "510.85.02",
+            "version": "510.85.02"
+        },
+        "host": {
+            "persistenced_hash": "sha256-bfUbzRA0m3gvdevKR79XywE58MPubOkHk0HZbmMGSNo=",
+            "persistenced_version": "510.85.02",
+            "settings_hash": "sha256-Lscppb2bNSlwu+3yw5HInbX6HylENFcAy/a1qB8v5rA=",
+            "settings_version": "510.85.02",
+            "version": "510.85.03"
         },
         "patches": {},
-        "host": {
-            "version": "510.85.03",
-            "persistenced_version": "510.85.02",
-            "persistenced_hash": "sha256-bfUbzRA0m3gvdevKR79XywE58MPubOkHk0HZbmMGSNo=",
-            "settings_version": "510.85.02",
-            "settings_hash": "sha256-Lscppb2bNSlwu+3yw5HInbX6HylENFcAy/a1qB8v5rA="
-        },
-        "guest": {
-            "version": "510.85.02",
-            "persistenced_version": "510.85.02",
-            "persistenced_hash": "sha256-bfUbzRA0m3gvdevKR79XywE58MPubOkHk0HZbmMGSNo=",
-            "settings_version": "510.85.02",
-            "settings_hash": "sha256-Lscppb2bNSlwu+3yw5HInbX6HylENFcAy/a1qB8v5rA="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/14.2/NVIDIA-GRID-Linux-KVM-510.85.03-510.85.02-513.46.zip": "0b72qf9nxq0jhqq60adq2lnbd0mx84g5n9dfrzd0sw0dnjs177ff"
         }
     },
     "14.3": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/14.3/NVIDIA-GRID-Linux-KVM-510.108.03-513.91.zip": "0nyngr7saf06g5hfr21wzddyfjbir9w367cflm6ccg42gga3lbdq"
+        "guest": {
+            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
+            "persistenced_version": "510.108.03",
+            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So=",
+            "settings_version": "510.108.03",
+            "version": "510.108.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
+            "persistenced_version": "510.108.03",
+            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So=",
+            "settings_version": "510.108.03",
+            "version": "510.108.03"
         },
         "patches": {},
-        "host": {
-            "version": "510.108.03",
-            "persistenced_version": "510.108.03",
-            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
-            "settings_version": "510.108.03",
-            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So="
-        },
-        "guest": {
-            "version": "510.108.03",
-            "persistenced_version": "510.108.03",
-            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
-            "settings_version": "510.108.03",
-            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/14.3/NVIDIA-GRID-Linux-KVM-510.108.03-513.91.zip": "0nyngr7saf06g5hfr21wzddyfjbir9w367cflm6ccg42gga3lbdq"
         }
     },
     "14.4": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/14.4/NVIDIA-GRID-Linux-KVM-510.108.03-514.08.zip": "1dh2q5bpnjnrb9m3hfnkd04v0y8bbspicfgf8lswy18c3h89p9yy"
+        "guest": {
+            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
+            "persistenced_version": "510.108.03",
+            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So=",
+            "settings_version": "510.108.03",
+            "version": "510.108.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
+            "persistenced_version": "510.108.03",
+            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So=",
+            "settings_version": "510.108.03",
+            "version": "510.108.03"
         },
         "patches": {},
-        "host": {
-            "version": "510.108.03",
-            "persistenced_version": "510.108.03",
-            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
-            "settings_version": "510.108.03",
-            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So="
-        },
-        "guest": {
-            "version": "510.108.03",
-            "persistenced_version": "510.108.03",
-            "persistenced_hash": "sha256-P4DrUYLuQ8chQhoijp2Hd+FOVDejymk9gGA/vNi+VRM=",
-            "settings_version": "510.108.03",
-            "settings_hash": "sha256-7Zb7HLZQySs6+T2E5HT19vI4m74gjb9Q8YkW0c0c1So="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/14.4/NVIDIA-GRID-Linux-KVM-510.108.03-514.08.zip": "1dh2q5bpnjnrb9m3hfnkd04v0y8bbspicfgf8lswy18c3h89p9yy"
         }
     },
     "15.0": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/15.0/NVIDIA-GRID-Linux-KVM-525.60.12-525.60.13-527.41.zip": "0g73kkxzgb44l3q7gx6wvb323drigg3pg2dqvj2wrnw0y4knc9ws"
+        "guest": {
+            "persistenced_hash": "sha256-AFMy3agoJ6yVsGgUvTfOzHlz30iApBpAReckq9iS7AA=",
+            "persistenced_version": "525.60.11",
+            "settings_hash": "sha256-gA1x6oEpnkr/OPP4eR1L5gC5srvEKtDrSpnv2QEaEpE=",
+            "settings_version": "525.60.11",
+            "version": "525.60.13"
+        },
+        "host": {
+            "persistenced_hash": "sha256-AFMy3agoJ6yVsGgUvTfOzHlz30iApBpAReckq9iS7AA=",
+            "persistenced_version": "525.60.11",
+            "settings_hash": "sha256-gA1x6oEpnkr/OPP4eR1L5gC5srvEKtDrSpnv2QEaEpE=",
+            "settings_version": "525.60.11",
+            "version": "525.60.12"
         },
         "patches": {},
-        "host": {
-            "version": "525.60.12",
-            "persistenced_version": "525.60.11",
-            "persistenced_hash": "sha256-AFMy3agoJ6yVsGgUvTfOzHlz30iApBpAReckq9iS7AA=",
-            "settings_version": "525.60.11",
-            "settings_hash": "sha256-gA1x6oEpnkr/OPP4eR1L5gC5srvEKtDrSpnv2QEaEpE="
-        },
-        "guest": {
-            "version": "525.60.13",
-            "persistenced_version": "525.60.11",
-            "persistenced_hash": "sha256-AFMy3agoJ6yVsGgUvTfOzHlz30iApBpAReckq9iS7AA=",
-            "settings_version": "525.60.11",
-            "settings_hash": "sha256-gA1x6oEpnkr/OPP4eR1L5gC5srvEKtDrSpnv2QEaEpE="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/15.0/NVIDIA-GRID-Linux-KVM-525.60.12-525.60.13-527.41.zip": "0g73kkxzgb44l3q7gx6wvb323drigg3pg2dqvj2wrnw0y4knc9ws"
         }
     },
     "15.1": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/15.1/NVIDIA-GRID-Linux-KVM-525.85.07-525.85.05-528.24.zip": "1m1b1818z5fk29861lbrn7zafihfp92d12gv2l2ch1yz2crqncby"
+        "guest": {
+            "persistenced_hash": "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=",
+            "persistenced_version": "525.85.05",
+            "settings_hash": "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8=",
+            "settings_version": "525.85.05",
+            "version": "525.85.05"
+        },
+        "host": {
+            "persistenced_hash": "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=",
+            "persistenced_version": "525.85.05",
+            "settings_hash": "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8=",
+            "settings_version": "525.85.05",
+            "version": "525.85.07"
         },
         "patches": {},
-        "host": {
-            "version": "525.85.07",
-            "persistenced_version": "525.85.05",
-            "persistenced_hash": "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=",
-            "settings_version": "525.85.05",
-            "settings_hash": "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8="
-        },
-        "guest": {
-            "version": "525.85.05",
-            "persistenced_version": "525.85.05",
-            "persistenced_hash": "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=",
-            "settings_version": "525.85.05",
-            "settings_hash": "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/15.1/NVIDIA-GRID-Linux-KVM-525.85.07-525.85.05-528.24.zip": "1m1b1818z5fk29861lbrn7zafihfp92d12gv2l2ch1yz2crqncby"
         }
     },
     "15.2": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/15.2/NVIDIA-GRID-Linux-KVM-525.105.14-525.105.17-528.89.zip": "1q310zi4hnx9xaf17w2q4c8pxk5z3ha1zvmx33k3bpw1p0ajrqf8"
+        "guest": {
+            "persistenced_hash": "sha256-jhBtsf9MXrkU/SsBndR1ESGUHhgUWiSH7R75swk3m40=",
+            "persistenced_version": "525.105.17",
+            "settings_hash": "sha256-KUw31Am9Zfwk5QTs6th8+J3C4oUBacNgb7ZUNeV68W4=",
+            "settings_version": "525.105.17",
+            "version": "525.105.17"
+        },
+        "host": {
+            "persistenced_hash": "sha256-4AmOL6b3GKCjGs6bRDpQAkEG4n41X395znyQF1x9VEs=",
+            "persistenced_version": "525.89.02",
+            "settings_hash": "sha256-7rHaJWm0XHJXsKL8VnU9XT15t/DU8jdsCXQwQT+KaV0=",
+            "settings_version": "525.89.02",
+            "version": "525.105.14"
         },
         "patches": {},
-        "host": {
-            "version": "525.105.14",
-            "persistenced_version": "525.89.02",
-            "persistenced_hash": "sha256-4AmOL6b3GKCjGs6bRDpQAkEG4n41X395znyQF1x9VEs=",
-            "settings_version": "525.89.02",
-            "settings_hash": "sha256-7rHaJWm0XHJXsKL8VnU9XT15t/DU8jdsCXQwQT+KaV0="
-        },
-        "guest": {
-            "version": "525.105.17",
-            "persistenced_version": "525.105.17",
-            "persistenced_hash": "sha256-jhBtsf9MXrkU/SsBndR1ESGUHhgUWiSH7R75swk3m40=",
-            "settings_version": "525.105.17",
-            "settings_hash": "sha256-KUw31Am9Zfwk5QTs6th8+J3C4oUBacNgb7ZUNeV68W4="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/15.2/NVIDIA-GRID-Linux-KVM-525.105.14-525.105.17-528.89.zip": "1q310zi4hnx9xaf17w2q4c8pxk5z3ha1zvmx33k3bpw1p0ajrqf8"
         }
     },
     "15.3": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/15.3/NVIDIA-GRID-Linux-KVM-525.125.03-525.125.06-529.11.zip": "1i85wrqahxy8kwhx3a8fhvjm9fc649wa1gi7hwynass4f1ca140y"
+        "guest": {
+            "persistenced_hash": "sha256-EhGs0gqeO2orR1nwL0yPYIlS21wTSBT5MdZQOPV9s5Q=",
+            "persistenced_version": "525.125.06",
+            "settings_hash": "sha256-WcqedS0eahmgAPMOsfRwEa9RxWBV68pQUUV19c718d4=",
+            "settings_version": "525.125.06",
+            "version": "525.125.06"
+        },
+        "host": {
+            "persistenced_hash": "sha256-ci86XGlno6DbHw6rkVSzBpopaapfJvk0+lHcR4LDq50=",
+            "persistenced_version": "525.116.04",
+            "settings_hash": "sha256-qNjfsT9NGV151EHnG4fgBonVFSKc4yFEVomtXg9uYD4=",
+            "settings_version": "525.116.04",
+            "version": "525.125.03"
         },
         "patches": {},
-        "host": {
-            "version": "525.125.03",
-            "persistenced_version": "525.116.04",
-            "persistenced_hash": "sha256-ci86XGlno6DbHw6rkVSzBpopaapfJvk0+lHcR4LDq50=",
-            "settings_version": "525.116.04",
-            "settings_hash": "sha256-qNjfsT9NGV151EHnG4fgBonVFSKc4yFEVomtXg9uYD4="
-        },
-        "guest": {
-            "version": "525.125.06",
-            "persistenced_version": "525.125.06",
-            "persistenced_hash": "sha256-EhGs0gqeO2orR1nwL0yPYIlS21wTSBT5MdZQOPV9s5Q=",
-            "settings_version": "525.125.06",
-            "settings_hash": "sha256-WcqedS0eahmgAPMOsfRwEa9RxWBV68pQUUV19c718d4="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/15.3/NVIDIA-GRID-Linux-KVM-525.125.03-525.125.06-529.11.zip": "1i85wrqahxy8kwhx3a8fhvjm9fc649wa1gi7hwynass4f1ca140y"
         }
     },
     "16.0": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.0/NVIDIA-GRID-Linux-KVM-535.54.06-535.54.03-536.25.zip": "1hmdmf7d48cjw1v7rxjkmj2ixbpz7f8xg01z85grcds0c6lg5wbq"
+        "guest": {
+            "persistenced_hash": "sha256-R5WCh09BSPjfifui0ODkCsdIXTowceNjLDq5XHwda08=",
+            "persistenced_version": "535.54.03",
+            "settings_hash": "sha256-5yIdOAaYQCQ2CmCayD/a5opoQppjK56s9cDqLmm17ww=",
+            "settings_version": "535.54.03",
+            "version": "535.54.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-R5WCh09BSPjfifui0ODkCsdIXTowceNjLDq5XHwda08=",
+            "persistenced_version": "535.54.03",
+            "settings_hash": "sha256-5yIdOAaYQCQ2CmCayD/a5opoQppjK56s9cDqLmm17ww=",
+            "settings_version": "535.54.03",
+            "version": "535.54.06"
         },
         "patches": {},
-        "host": {
-            "version": "535.54.06",
-            "persistenced_version": "535.54.03",
-            "persistenced_hash": "sha256-R5WCh09BSPjfifui0ODkCsdIXTowceNjLDq5XHwda08=",
-            "settings_version": "535.54.03",
-            "settings_hash": "sha256-5yIdOAaYQCQ2CmCayD/a5opoQppjK56s9cDqLmm17ww="
-        },
-        "guest": {
-            "version": "535.54.03",
-            "persistenced_version": "535.54.03",
-            "persistenced_hash": "sha256-R5WCh09BSPjfifui0ODkCsdIXTowceNjLDq5XHwda08=",
-            "settings_version": "535.54.03",
-            "settings_hash": "sha256-5yIdOAaYQCQ2CmCayD/a5opoQppjK56s9cDqLmm17ww="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.0/NVIDIA-GRID-Linux-KVM-535.54.06-535.54.03-536.25.zip": "1hmdmf7d48cjw1v7rxjkmj2ixbpz7f8xg01z85grcds0c6lg5wbq"
         }
     },
     "16.1": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.1/NVIDIA-GRID-Linux-KVM-535.104.06-535.104.05-537.13.zip": "13mfga884b61g5hzzjr0y9g9wc2qcn2q4kr8rzn9ipivq9819dgs"
+        "guest": {
+            "persistenced_hash": "sha256-uqT++w0gZRNbzyqbvP3GBqgb4g18r6VM3O8AMEfM7GU=",
+            "persistenced_version": "535.104.05",
+            "settings_hash": "sha256-pS9W5LMenX0Rrwmpg1cszmpAYPt0Mx+apVQmOmLWTog=",
+            "settings_version": "535.104.05",
+            "version": "535.104.05"
+        },
+        "host": {
+            "persistenced_hash": "sha256-uqT++w0gZRNbzyqbvP3GBqgb4g18r6VM3O8AMEfM7GU=",
+            "persistenced_version": "535.104.05",
+            "settings_hash": "sha256-pS9W5LMenX0Rrwmpg1cszmpAYPt0Mx+apVQmOmLWTog=",
+            "settings_version": "535.104.05",
+            "version": "535.104.06"
         },
         "patches": {},
-        "host": {
-            "version": "535.104.06",
-            "persistenced_version": "535.104.05",
-            "persistenced_hash": "sha256-uqT++w0gZRNbzyqbvP3GBqgb4g18r6VM3O8AMEfM7GU=",
-            "settings_version": "535.104.05",
-            "settings_hash": "sha256-pS9W5LMenX0Rrwmpg1cszmpAYPt0Mx+apVQmOmLWTog="
-        },
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.1/NVIDIA-GRID-Linux-KVM-535.104.06-535.104.05-537.13.zip": "13mfga884b61g5hzzjr0y9g9wc2qcn2q4kr8rzn9ipivq9819dgs"
+        }
+    },
+    "16.10": {
         "guest": {
-            "version": "535.104.05",
-            "persistenced_version": "535.104.05",
-            "persistenced_hash": "sha256-uqT++w0gZRNbzyqbvP3GBqgb4g18r6VM3O8AMEfM7GU=",
-            "settings_version": "535.104.05",
-            "settings_hash": "sha256-pS9W5LMenX0Rrwmpg1cszmpAYPt0Mx+apVQmOmLWTog="
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.247.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.247.02"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.10/NVIDIA-GRID-Linux-KVM-535.247.02-535.247.01-539.28.zip": "0r28zr1dnfcvmrz7y91n84d74x8mw5243j1bi0q7f6whc5xyr3qc"
+        }
+    },
+    "16.11": {
+        "guest": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.261.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.261.04"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.11/NVIDIA-GRID-Linux-KVM-535.261.04-535.261.03-539.41.zip": "0j7ml5f0jdwhrazkhgs5kyvzadka473divb68rjrbs17b1bjr7bc"
+        }
+    },
+    "16.12": {
+        "guest": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.274.02"
+        },
+        "host": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.274.03"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.12/NVIDIA-GRID-Linux-KVM-535.274.03-535.274.02-539.56.zip": "0zl9yvwirdhyzncg3nk46r7qqynfjh3816zh3x74p9l5kpv4mfrx"
         }
     },
     "16.2": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.2/NVIDIA-GRID-Linux-KVM-535.129.03-537.70.zip": "0fkw2cym28wqvgrzfrsccacf5cln43bgp3l9pij988ajnrzh6n5l"
+        "guest": {
+            "persistenced_hash": "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=",
+            "persistenced_version": "535.129.03",
+            "settings_hash": "sha256-QKN/gLGlT+/hAdYKlkIjZTgvubzQTt4/ki5Y+2Zj3pk=",
+            "settings_version": "535.129.03",
+            "version": "535.129.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=",
+            "persistenced_version": "535.129.03",
+            "settings_hash": "sha256-QKN/gLGlT+/hAdYKlkIjZTgvubzQTt4/ki5Y+2Zj3pk=",
+            "settings_version": "535.129.03",
+            "version": "535.129.03"
         },
         "patches": {},
-        "host": {
-            "version": "535.129.03",
-            "persistenced_version": "535.129.03",
-            "persistenced_hash": "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=",
-            "settings_version": "535.129.03",
-            "settings_hash": "sha256-QKN/gLGlT+/hAdYKlkIjZTgvubzQTt4/ki5Y+2Zj3pk="
-        },
-        "guest": {
-            "version": "535.129.03",
-            "persistenced_version": "535.129.03",
-            "persistenced_hash": "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=",
-            "settings_version": "535.129.03",
-            "settings_hash": "sha256-QKN/gLGlT+/hAdYKlkIjZTgvubzQTt4/ki5Y+2Zj3pk="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.2/NVIDIA-GRID-Linux-KVM-535.129.03-537.70.zip": "0fkw2cym28wqvgrzfrsccacf5cln43bgp3l9pij988ajnrzh6n5l"
         }
     },
     "16.3": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.3/NVIDIA-GRID-Linux-KVM-535.154.02-535.154.05-538.15.zip": "06jd60rsm1zpdd3jrslk0mljc3awqprl9mh2177if9mj2b82xm2z"
+        "guest": {
+            "persistenced_hash": "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=",
+            "persistenced_version": "535.154.05",
+            "settings_hash": "sha256-9wqoDEWY4I7weWW05F4igj1Gj9wjHsREFMztfEmqm10=",
+            "settings_version": "535.154.05",
+            "version": "535.154.05"
+        },
+        "host": {
+            "persistenced_hash": "sha256-trIddaTgKXszEJunK+t6D+e3HbLDTfAsitdEYRgwRNQ=",
+            "persistenced_version": "535.146.02",
+            "settings_hash": "sha256-IrN2NaPrZSN0sCZqYNJ43iCicX3ziwUgyLLSRzp9sHQ=",
+            "settings_version": "535.146.02",
+            "version": "535.154.02"
         },
         "patches": {},
-        "host": {
-            "version": "535.154.02",
-            "persistenced_version": "535.146.02",
-            "persistenced_hash": "sha256-trIddaTgKXszEJunK+t6D+e3HbLDTfAsitdEYRgwRNQ=",
-            "settings_version": "535.146.02",
-            "settings_hash": "sha256-IrN2NaPrZSN0sCZqYNJ43iCicX3ziwUgyLLSRzp9sHQ="
-        },
-        "guest": {
-            "version": "535.154.05",
-            "persistenced_version": "535.154.05",
-            "persistenced_hash": "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=",
-            "settings_version": "535.154.05",
-            "settings_hash": "sha256-9wqoDEWY4I7weWW05F4igj1Gj9wjHsREFMztfEmqm10="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.3/NVIDIA-GRID-Linux-KVM-535.154.02-535.154.05-538.15.zip": "06jd60rsm1zpdd3jrslk0mljc3awqprl9mh2177if9mj2b82xm2z"
         }
     },
     "16.4": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.4/NVIDIA-GRID-Linux-KVM-535.161.05-535.161.07-538.33.zip": "12ll6pfnj9hrk20kq6mjznwh9gizknqzs2yb1jc6gl0pgxawwddf"
+        "guest": {
+            "persistenced_hash": "sha256-1kblNpRPlZ446HpKF1yMSK36z0QDQpMtu6HCdRdqwo8=",
+            "persistenced_version": "535.161.07",
+            "settings_hash": "sha256-qKiKSNMUM8UftedmXtidVbu9fOkxzIXzBRIZNb497OU=",
+            "settings_version": "535.161.07",
+            "version": "535.161.07"
+        },
+        "host": {
+            "persistenced_hash": "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=",
+            "persistenced_version": "535.154.05",
+            "settings_hash": "sha256-9wqoDEWY4I7weWW05F4igj1Gj9wjHsREFMztfEmqm10=",
+            "settings_version": "535.154.05",
+            "version": "535.161.05"
         },
         "patches": {},
-        "host": {
-            "version": "535.161.05",
-            "persistenced_version": "535.154.05",
-            "persistenced_hash": "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=",
-            "settings_version": "535.154.05",
-            "settings_hash": "sha256-9wqoDEWY4I7weWW05F4igj1Gj9wjHsREFMztfEmqm10="
-        },
-        "guest": {
-            "version": "535.161.07",
-            "persistenced_version": "535.161.07",
-            "persistenced_hash": "sha256-1kblNpRPlZ446HpKF1yMSK36z0QDQpMtu6HCdRdqwo8=",
-            "settings_version": "535.161.07",
-            "settings_hash": "sha256-qKiKSNMUM8UftedmXtidVbu9fOkxzIXzBRIZNb497OU="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.4/NVIDIA-GRID-Linux-KVM-535.161.05-535.161.07-538.33.zip": "12ll6pfnj9hrk20kq6mjznwh9gizknqzs2yb1jc6gl0pgxawwddf"
         }
     },
     "16.5": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.5/NVIDIA-GRID-Linux-KVM-535.161.05-535.161.08-538.46.zip": "02xsgav0v5xrzbjxwx249448cj6g46gav3nlrysjjzh3az676w5r"
+        "guest": {
+            "persistenced_hash": "sha256-1kblNpRPlZ446HpKF1yMSK36z0QDQpMtu6HCdRdqwo8=",
+            "persistenced_version": "535.161.07",
+            "settings_hash": "sha256-qKiKSNMUM8UftedmXtidVbu9fOkxzIXzBRIZNb497OU=",
+            "settings_version": "535.161.07",
+            "version": "535.161.08"
+        },
+        "host": {
+            "persistenced_hash": "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=",
+            "persistenced_version": "535.154.05",
+            "settings_hash": "sha256-9wqoDEWY4I7weWW05F4igj1Gj9wjHsREFMztfEmqm10=",
+            "settings_version": "535.154.05",
+            "version": "535.161.05"
         },
         "patches": {
             "https://file.homelabproject.cc/p/foxipan/vGPU/16.5/vGPU-Grid-16.5-535.161.05-Linux-6.8.patch": "sha256-IWG9srcjffMm7rIqApTD/E31P7L56JKvGTWygopcQbw="
         },
-        "host": {
-            "version": "535.161.05",
-            "persistenced_version": "535.154.05",
-            "persistenced_hash": "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=",
-            "settings_version": "535.154.05",
-            "settings_hash": "sha256-9wqoDEWY4I7weWW05F4igj1Gj9wjHsREFMztfEmqm10="
-        },
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.5/NVIDIA-GRID-Linux-KVM-535.161.05-535.161.08-538.46.zip": "02xsgav0v5xrzbjxwx249448cj6g46gav3nlrysjjzh3az676w5r"
+        }
+    },
+    "16.6": {
         "guest": {
-            "version": "535.161.08",
-            "persistenced_version": "535.161.07",
-            "persistenced_hash": "sha256-1kblNpRPlZ446HpKF1yMSK36z0QDQpMtu6HCdRdqwo8=",
-            "settings_version": "535.161.07",
-            "settings_hash": "sha256-qKiKSNMUM8UftedmXtidVbu9fOkxzIXzBRIZNb497OU="
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "persistenced_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA=",
+            "settings_version": "535.183.01",
+            "version": "535.183.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "persistenced_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA=",
+            "settings_version": "535.183.01",
+            "version": "535.183.04"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.6/NVIDIA-GRID-Linux-KVM-535.183.04-535.183.01-538.67.zip": "14zjcbylh9hywdpc11n7mads9ycjj6avzn36b3j7ld199zvh0f54"
+        }
+    },
+    "16.7": {
+        "guest": {
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "persistenced_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA=",
+            "settings_version": "535.183.01",
+            "version": "535.183.06"
+        },
+        "host": {
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "persistenced_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA=",
+            "settings_version": "535.183.01",
+            "version": "535.183.04"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.7/NVIDIA-GRID-Linux-KVM-535.183.04-535.183.06-538.78.zip": "07ia2djhlr8jfv3rrgblpf1wmqjc0sk3z8j7fa2l4cipr84amjsg"
+        }
+    },
+    "16.8": {
+        "guest": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.216.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.216.01"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.8/NVIDIA-GRID-Linux-KVM-535.216.01-538.95.zip": "1zlb1s31xvgsbq5nwfc6mm8d2pnzys5glq2sy4pskn8vnw85qbpc"
+        }
+    },
+    "16.9": {
+        "guest": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.230.02"
+        },
+        "host": {
+            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
+            "persistenced_version": "535.216.01",
+            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME=",
+            "settings_version": "535.216.01",
+            "version": "535.230.02"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.9/NVIDIA-GRID-Linux-KVM-535.230.02-539.19.zip": "0svrbrzalzvn8rx1yihd8hb49q6xrdx62740avbsd8vpjkgxzk0l"
         }
     },
     "17.0": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/17.0/NVIDIA-GRID-Linux-KVM-550.54.10-550.54.14-551.61.zip": "16lva6n6m0xkphvwzkbys6kpzbjayis58kgwi8svfnrdfb305fzy"
+        "guest": {
+            "persistenced_hash": "sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=",
+            "persistenced_version": "550.54.14",
+            "settings_hash": "sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4=",
+            "settings_version": "550.54.14",
+            "version": "550.54.14"
+        },
+        "host": {
+            "persistenced_hash": "sha256-11tLSY8uUIl4X/roNnxf5yS2PQvHvoNjnd2CB67e870=",
+            "persistenced_version": "550.40.07",
+            "settings_hash": "sha256-c30AQa4g4a1EHmaEu1yc05oqY01y+IusbBuq+P6rMCs=",
+            "settings_version": "550.40.07",
+            "version": "550.54.10"
         },
         "patches": {},
-        "host": {
-            "version": "550.54.10",
-            "persistenced_version": "550.40.07",
-            "persistenced_hash": "sha256-11tLSY8uUIl4X/roNnxf5yS2PQvHvoNjnd2CB67e870=",
-            "settings_version": "550.40.07",
-            "settings_hash": "sha256-c30AQa4g4a1EHmaEu1yc05oqY01y+IusbBuq+P6rMCs="
-        },
-        "guest": {
-            "version": "550.54.14",
-            "persistenced_version": "550.54.14",
-            "persistenced_hash": "sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=",
-            "settings_version": "550.54.14",
-            "settings_hash": "sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/17.0/NVIDIA-GRID-Linux-KVM-550.54.10-550.54.14-551.61.zip": "16lva6n6m0xkphvwzkbys6kpzbjayis58kgwi8svfnrdfb305fzy"
         }
     },
     "17.1": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/17.1/NVIDIA-GRID-Linux-KVM-550.54.16-550.54.15-551.78.zip": "06z000pm88k27csqhmy4zr5bcnx7irrnc54pv4h1r52b22xslhdw"
+        "guest": {
+            "persistenced_hash": "sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=",
+            "persistenced_version": "550.54.14",
+            "settings_hash": "sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4=",
+            "settings_version": "550.54.14",
+            "version": "550.54.15"
+        },
+        "host": {
+            "persistenced_hash": "sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=",
+            "persistenced_version": "550.54.14",
+            "settings_hash": "sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4=",
+            "settings_version": "550.54.14",
+            "version": "550.54.16"
         },
         "patches": {
             "https://file.homelabproject.cc/p/foxipan/vGPU/17.1/vGPU-Grid-17.1-550.54.16-linux-6.8.patch": "sha256-NnZO2dDfvIiVRv/xlpDyY27laoYgHE6Vex1+Z0xAaJ4="
         },
-        "host": {
-            "version": "550.54.16",
-            "persistenced_version": "550.54.14",
-            "persistenced_hash": "sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=",
-            "settings_version": "550.54.14",
-            "settings_hash": "sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4="
-        },
-        "guest": {
-            "version": "550.54.15",
-            "persistenced_version": "550.54.14",
-            "persistenced_hash": "sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=",
-            "settings_version": "550.54.14",
-            "settings_hash": "sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4="
-        }
-    },
-    "9.2": {
         "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/9.2/NVIDIA-GRID-Linux-KVM-430.67-430.63-432.08.zip": "1xq2hvzvx5x0s9wisk88dm0ry0sdd7sg3rbj5fk9bl0qnnbz8vz2"
-        },
-        "patches": {},
-        "host": {
-            "version": "430.67",
-            "persistenced_version": "430.50",
-            "persistenced_hash": "sha256-UhmB9YsAGd203Y2L0QqOI8j7FWL4DgPRuqCT1bH+Ew4=",
-            "settings_version": "430.50",
-            "settings_hash": "sha256-Ek5qZlxleRPz06faLvYMCuPp8z+PmXMeRFYLyx/Jue0="
-        },
-        "guest": {
-            "version": "430.63",
-            "persistenced_version": "430.50",
-            "persistenced_hash": "sha256-UhmB9YsAGd203Y2L0QqOI8j7FWL4DgPRuqCT1bH+Ew4=",
-            "settings_version": "430.50",
-            "settings_hash": "sha256-Ek5qZlxleRPz06faLvYMCuPp8z+PmXMeRFYLyx/Jue0="
-        }
-    },
-    "16.6": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.6/NVIDIA-GRID-Linux-KVM-535.183.04-535.183.01-538.67.zip": "14zjcbylh9hywdpc11n7mads9ycjj6avzn36b3j7ld199zvh0f54"
-        },
-        "patches": {},
-        "host": {
-            "version": "535.183.04",
-            "persistenced_version": "535.183.01",
-            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
-            "settings_version": "535.183.01",
-            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
-        },
-        "guest": {
-            "version": "535.183.01",
-            "persistenced_version": "535.183.01",
-            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
-            "settings_version": "535.183.01",
-            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
+            "https://file.homelabproject.cc/p/foxipan/vGPU/17.1/NVIDIA-GRID-Linux-KVM-550.54.16-550.54.15-551.78.zip": "06z000pm88k27csqhmy4zr5bcnx7irrnc54pv4h1r52b22xslhdw"
         }
     },
     "17.2": {
+        "guest": {
+            "persistenced_hash": "sha256-qe8e1Nxla7F0U88AbnOZm6cHxo57pnLCqtjdvOvq9jk=",
+            "persistenced_version": "550.90.07",
+            "settings_hash": "sha256-sX9dHEp9zH9t3RWp727lLCeJLo8QRAGhVb8iN6eX49g=",
+            "settings_version": "550.90.07",
+            "version": "550.90.07"
+        },
+        "host": {
+            "persistenced_hash": "sha256-qDGBAcZEN/ueHqWO2Y6UhhXJiW5625Kzo1m/oJhvbj4=",
+            "persistenced_version": "550.78",
+            "settings_hash": "sha256-lZiNZw4dJw4DI/6CI0h0AHbreLm825jlufuK9EB08iw=",
+            "settings_version": "550.78",
+            "version": "550.90.05"
+        },
+        "patches": {},
         "urls": {
             "https://file.homelabproject.cc/p/foxipan/vGPU/17.2/NVIDIA-GRID-Linux-KVM-550.90.05-550.90.07-552.55.zip": "006jvh08bdqvrlwyzvccxjp96qfcz65cz73r2rcrjxla88lyqd5b"
-        },
-        "patches": {},
-        "host": {
-            "version": "550.90.05",
-            "persistenced_version": "550.78",
-            "persistenced_hash": "sha256-qDGBAcZEN/ueHqWO2Y6UhhXJiW5625Kzo1m/oJhvbj4=",
-            "settings_version": "550.78",
-            "settings_hash": "sha256-lZiNZw4dJw4DI/6CI0h0AHbreLm825jlufuK9EB08iw="
-        },
-        "guest": {
-            "version": "550.90.07",
-            "persistenced_version": "550.90.07",
-            "persistenced_hash": "sha256-qe8e1Nxla7F0U88AbnOZm6cHxo57pnLCqtjdvOvq9jk=",
-            "settings_version": "550.90.07",
-            "settings_hash": "sha256-sX9dHEp9zH9t3RWp727lLCeJLo8QRAGhVb8iN6eX49g="
-        }
-    },
-    "13.9": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.9/NVIDIA-GRID-Linux-KVM-470.223.02-474.64.zip": "1v0gzldyx7y5xsyjxbbvaxhj48mrq659qx2bggsdxwhsm1mmw8mk"
-        },
-        "patches": {},
-        "host": {
-            "version": "470.223.02",
-            "persistenced_version": "470.223.02",
-            "persistenced_hash": "sha256-e71fpPBBv8S/aoeXxBXkzKy5bsMMbv8y024cSLc8DYc=",
-            "settings_version": "470.223.02",
-            "settings_hash": "sha256-r6DuIH/rnsCm/y51iRgPNi5/kz+EFMVABREdTjBneZ0="
-        },
-        "guest": {
-            "version": "470.223.02",
-            "persistenced_version": "470.223.02",
-            "persistenced_hash": "sha256-e71fpPBBv8S/aoeXxBXkzKy5bsMMbv8y024cSLc8DYc=",
-            "settings_version": "470.223.02",
-            "settings_hash": "sha256-r6DuIH/rnsCm/y51iRgPNi5/kz+EFMVABREdTjBneZ0="
-        }
-    },
-    "16.7": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.7/NVIDIA-GRID-Linux-KVM-535.183.04-535.183.06-538.78.zip": "07ia2djhlr8jfv3rrgblpf1wmqjc0sk3z8j7fa2l4cipr84amjsg"
-        },
-        "patches": {},
-        "host": {
-            "version": "535.183.04",
-            "persistenced_version": "535.183.01",
-            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
-            "settings_version": "535.183.01",
-            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
-        },
-        "guest": {
-            "version": "535.183.06",
-            "persistenced_version": "535.183.01",
-            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
-            "settings_version": "535.183.01",
-            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
         }
     },
     "17.3": {
+        "guest": {
+            "persistenced_hash": "sha256-qe8e1Nxla7F0U88AbnOZm6cHxo57pnLCqtjdvOvq9jk=",
+            "persistenced_version": "550.90.07",
+            "settings_hash": "sha256-sX9dHEp9zH9t3RWp727lLCeJLo8QRAGhVb8iN6eX49g=",
+            "settings_version": "550.90.07",
+            "version": "550.90.07"
+        },
+        "host": {
+            "persistenced_hash": "sha256-qDGBAcZEN/ueHqWO2Y6UhhXJiW5625Kzo1m/oJhvbj4=",
+            "persistenced_version": "550.78",
+            "settings_hash": "sha256-lZiNZw4dJw4DI/6CI0h0AHbreLm825jlufuK9EB08iw=",
+            "settings_version": "550.78",
+            "version": "550.90.05"
+        },
+        "patches": {},
         "urls": {
             "https://file.homelabproject.cc/p/foxipan/vGPU/17.3/NVIDIA-GRID-Linux-KVM-550.90.05-550.90.07-552.74.zip": "0z9r6lyx35fqjwcc2d1l7ip6q9jq11xl352nh6v47ajvp2flxly9"
-        },
-        "patches": {},
-        "host": {
-            "version": "550.90.05",
-            "persistenced_version": "550.78",
-            "persistenced_hash": "sha256-qDGBAcZEN/ueHqWO2Y6UhhXJiW5625Kzo1m/oJhvbj4=",
-            "settings_version": "550.78",
-            "settings_hash": "sha256-lZiNZw4dJw4DI/6CI0h0AHbreLm825jlufuK9EB08iw="
-        },
-        "guest": {
-            "version": "550.90.07",
-            "persistenced_version": "550.90.07",
-            "persistenced_hash": "sha256-qe8e1Nxla7F0U88AbnOZm6cHxo57pnLCqtjdvOvq9jk=",
-            "settings_version": "550.90.07",
-            "settings_hash": "sha256-sX9dHEp9zH9t3RWp727lLCeJLo8QRAGhVb8iN6eX49g="
-        }
-    },
-    "13.7": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.7/NVIDIA-GRID-Linux-KVM-470.182.02-470.182.03-474.30.zip": "082zdj0s6sfa4gncn215nnigb0c52wr4v74xf5cdslla46qqksiz"
-        },
-        "patches": {},
-        "host": {
-            "version": "470.182.02",
-            "persistenced_version": "470.161.03",
-            "persistenced_hash": "sha256-/2h90Gq9NQd9Q+9eLVE6vrxXmINXxlLcSNOHxKToOEE=",
-            "settings_version": "470.161.03",
-            "settings_hash": "sha256-ryUSiI8PsY3knkJLg0k1EmyYW5OWkhuZma/hmXNuojw="
-        },
-        "guest": {
-            "version": "470.182.03",
-            "persistenced_version": "470.182.03",
-            "persistenced_hash": "sha256-fSJMx49z9trdNxx0iPI45oG57smvvhaqVNxsRnfXKCI=",
-            "settings_version": "470.182.03",
-            "settings_hash": "sha256-TRKQ4brLnCbBZt1smGSIHTfwW+wEFPWWPEwDxjVXN7s="
-        }
-    },
-    "13.12": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/13.12/NVIDIA-GRID-Linux-KVM-470.256.02-475.14.zip": "1z23k5w0qm2npys32bxcd8jr0zykhb89pq9cb1jfbziilrj80hak"
-        },
-        "patches": {},
-        "host": {
-            "version": "470.256.02",
-            "persistenced_version": "470.256.02",
-            "persistenced_hash": "sha256-iYoSib9VEdwjOPBP1+Hx5wCIMhW8q8cCHu9PULWfnyQ=",
-            "settings_version": "470.256.02",
-            "settings_hash": "sha256-kftQ4JB0iSlE8r/Ze/+UMnwLzn0nfQtqYXBj+t6Aguk="
-        },
-        "guest": {
-            "version": "470.256.02",
-            "persistenced_version": "470.256.02",
-            "persistenced_hash": "sha256-iYoSib9VEdwjOPBP1+Hx5wCIMhW8q8cCHu9PULWfnyQ=",
-            "settings_version": "470.256.02",
-            "settings_hash": "sha256-kftQ4JB0iSlE8r/Ze/+UMnwLzn0nfQtqYXBj+t6Aguk="
-        }
-    },
-    "16.8": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.8/NVIDIA-GRID-Linux-KVM-535.216.01-538.95.zip": "1zlb1s31xvgsbq5nwfc6mm8d2pnzys5glq2sy4pskn8vnw85qbpc"
-        },
-        "patches": {},
-        "host": {
-            "version": "535.216.01",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
-        },
-        "guest": {
-            "version": "535.216.01",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
         }
     },
     "17.4": {
+        "guest": {
+            "persistenced_hash": "sha256-8nowXrL6CRB3/YcoG1iWeD4OCYbsYKOOPE374qaa4sY=",
+            "persistenced_version": "550.127.05",
+            "settings_hash": "sha256-cUSOTsueqkqYq3Z4/KEnLpTJAryML4Tk7jco/ONsvyg=",
+            "settings_version": "550.127.05",
+            "version": "550.127.05"
+        },
+        "host": {
+            "persistenced_hash": "sha256-8nowXrL6CRB3/YcoG1iWeD4OCYbsYKOOPE374qaa4sY=",
+            "persistenced_version": "550.127.05",
+            "settings_hash": "sha256-cUSOTsueqkqYq3Z4/KEnLpTJAryML4Tk7jco/ONsvyg=",
+            "settings_version": "550.127.05",
+            "version": "550.127.06"
+        },
+        "patches": {},
         "urls": {
             "https://file.homelabproject.cc/p/foxipan/vGPU/17.4/NVIDIA-GRID-Linux-KVM-550.127.06-550.127.05-553.24.zip": "1y0k4621qgfps85wikk4qbvjd93rkzngjw23f81r8ixw871si4y3"
-        },
-        "patches": {},
-        "host": {
-            "version": "550.127.06",
-            "persistenced_version": "550.127.05",
-            "persistenced_hash": "sha256-8nowXrL6CRB3/YcoG1iWeD4OCYbsYKOOPE374qaa4sY=",
-            "settings_version": "550.127.05",
-            "settings_hash": "sha256-cUSOTsueqkqYq3Z4/KEnLpTJAryML4Tk7jco/ONsvyg="
-        },
-        "guest": {
-            "version": "550.127.05",
-            "persistenced_version": "550.127.05",
-            "persistenced_hash": "sha256-8nowXrL6CRB3/YcoG1iWeD4OCYbsYKOOPE374qaa4sY=",
-            "settings_version": "550.127.05",
-            "settings_hash": "sha256-cUSOTsueqkqYq3Z4/KEnLpTJAryML4Tk7jco/ONsvyg="
-        }
-    },
-    "16.9": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.9/NVIDIA-GRID-Linux-KVM-535.230.02-539.19.zip": "0svrbrzalzvn8rx1yihd8hb49q6xrdx62740avbsd8vpjkgxzk0l"
-        },
-        "patches": {},
-        "host": {
-            "version": "535.230.02",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
-        },
-        "guest": {
-            "version": "535.230.02",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
         }
     },
     "17.5": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/17.5/NVIDIA-GRID-Linux-KVM-550.144.02-550.144.03-553.62": "0yj0b8z9jv8fvsp6bjri8ac08s5hyn5cqy1kmjvlwr1cfna8gq4r"
-        },
-        "patches": {},
-        "host": {
-            "version": "550.144.02",
-            "persistenced_version": "550.142",
-            "persistenced_hash": "sha256-yQFrVk4i2dwReN0XoplkJ++iA1WFhnIkP7ns4ORmkFA=",
-            "settings_version": "550.142",
-            "settings_hash": "sha256-Wk6IlVvs23cB4s0aMeZzSvbOQqB1RnxGMv3HkKBoIgY="
-        },
         "guest": {
-            "version": "550.144.03",
-            "persistenced_version": "550.144.03",
             "persistenced_hash": "sha256-pwbVQ0De8Q4L4XqV11uQIsLUUPFjL9+sABRgGGyr+wc=",
+            "persistenced_version": "550.144.03",
+            "settings_hash": "sha256-ZopBInC4qaPvTFJFUdlUw4nmn5eRJ1Ti3kgblprEGy4=",
             "settings_version": "550.144.03",
-            "settings_hash": "sha256-ZopBInC4qaPvTFJFUdlUw4nmn5eRJ1Ti3kgblprEGy4="
-        }
-    },
-    "18.0": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/18.0/NVIDIA-GRID-Linux-KVM-570.124.03-570.124.06-572.60": "0yj0b8z9jv8fvsp6bjri8ac08s5hyn5cqy1kmjvlwr1cfna8gq4r"
+            "version": "550.144.03"
         },
-        "patches": {},
         "host": {
-            "version": "570.124.03",
-            "persistenced_version": "570.86.16",
-            "persistenced_hash": "sha256-3mp9X/oV8o2TH9720NnoXROxQ4g98nNee+DucXpQy3w=",
-            "settings_version": "570.86.16",
-            "settings_hash": "sha256-9rtqh64TyhDF5fFAYiWl3oDHzKJqyOW3abpcf2iNRT8="
+            "persistenced_hash": "sha256-yQFrVk4i2dwReN0XoplkJ++iA1WFhnIkP7ns4ORmkFA=",
+            "persistenced_version": "550.142",
+            "settings_hash": "sha256-Wk6IlVvs23cB4s0aMeZzSvbOQqB1RnxGMv3HkKBoIgY=",
+            "settings_version": "550.142",
+            "version": "550.144.02"
         },
-        "guest": {
-            "version": "570.124.06",
-            "persistenced_version": "570.124.04",
-            "persistenced_hash": "sha256-SHSdnGyAiRH6e0gYMYKvlpRSH5KYlJSA1AJXPm7MDRk=",
-            "settings_version": "570.124.04",
-            "settings_hash": "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8="
-        }
-    },
-    "16.10": {
+        "patches": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/17.5/NVIDIA_550.144.02_vGPU.patch": "11m771wy40wqp895irgippaywls0n93sbda24rllym0gypnssswl",
+            "https://file.homelabproject.cc/p/foxipan/vGPU/17.5/NVIDIA_550.144.02_vGPU_kernel_6.12_also_6.14.patch": "0cpg8dgp6b5c0b8sdgrnklzwdip93ksclsz0dr815ck6wncb1d8k"
+        },
         "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.10/NVIDIA-GRID-Linux-KVM-535.247.02-535.247.01-539.28.zip": "0r28zr1dnfcvmrz7y91n84d74x8mw5243j1bi0q7f6whc5xyr3qc"
-        },
-        "patches": {},
-        "host": {
-            "version": "535.247.02",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
-        },
-        "guest": {
-            "version": "535.247.01",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
+            "https://file.homelabproject.cc/p/foxipan/vGPU/17.5/NVIDIA-GRID-Linux-KVM-550.144.02-550.144.03-553.62.zip": "1j2bbihf1pwajaq0k0dlsx5i792lz6hhk9j2q1vkmnkwl59ckram"
         }
     },
     "17.6": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/17.6/NVIDIA-GRID-Linux-KVM-550.163.02-550.163.01-553.74.zip": "05084gq8ydczdawk5r6rhszd5gz35vxd404pdf20rf1xz0hbalh8"
+        "guest": {
+            "persistenced_hash": "sha256-pwbVQ0De8Q4L4XqV11uQIsLUUPFjL9+sABRgGGyr+wc=",
+            "persistenced_version": "550.144.03",
+            "settings_hash": "sha256-ZopBInC4qaPvTFJFUdlUw4nmn5eRJ1Ti3kgblprEGy4=",
+            "settings_version": "550.144.03",
+            "version": "550.163.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-pwbVQ0De8Q4L4XqV11uQIsLUUPFjL9+sABRgGGyr+wc=",
+            "persistenced_version": "550.144.03",
+            "settings_hash": "sha256-ZopBInC4qaPvTFJFUdlUw4nmn5eRJ1Ti3kgblprEGy4=",
+            "settings_version": "550.144.03",
+            "version": "550.163.02"
         },
         "patches": {},
-        "host": {
-            "version": "550.163.02",
-            "persistenced_version": "550.144.03",
-            "persistenced_hash": "sha256-pwbVQ0De8Q4L4XqV11uQIsLUUPFjL9+sABRgGGyr+wc=",
-            "settings_version": "550.144.03",
-            "settings_hash": "sha256-ZopBInC4qaPvTFJFUdlUw4nmn5eRJ1Ti3kgblprEGy4="
-        },
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/17.6/NVIDIA-GRID-Linux-KVM-550.163.02-550.163.01-553.74.zip": "05084gq8ydczdawk5r6rhszd5gz35vxd404pdf20rf1xz0hbalh8"
+        }
+    },
+    "18.0": {
         "guest": {
-            "version": "550.163.01",
-            "persistenced_version": "550.144.03",
-            "persistenced_hash": "sha256-pwbVQ0De8Q4L4XqV11uQIsLUUPFjL9+sABRgGGyr+wc=",
-            "settings_version": "550.144.03",
-            "settings_hash": "sha256-ZopBInC4qaPvTFJFUdlUw4nmn5eRJ1Ti3kgblprEGy4="
+            "persistenced_hash": "sha256-SHSdnGyAiRH6e0gYMYKvlpRSH5KYlJSA1AJXPm7MDRk=",
+            "persistenced_version": "570.124.04",
+            "settings_hash": "sha256-LNL0J/sYHD8vagkV1w8tb52gMtzj/F0QmJTV1cMaso8=",
+            "settings_version": "570.124.04",
+            "version": "570.124.06"
+        },
+        "host": {
+            "persistenced_hash": "sha256-3mp9X/oV8o2TH9720NnoXROxQ4g98nNee+DucXpQy3w=",
+            "persistenced_version": "570.86.16",
+            "settings_hash": "sha256-9rtqh64TyhDF5fFAYiWl3oDHzKJqyOW3abpcf2iNRT8=",
+            "settings_version": "570.86.16",
+            "version": "570.124.03"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/18.0/NVIDIA-GRID-Linux-KVM-570.124.03-570.124.06-572.60.zip": "0060q93ksjpnj07j91ld39wdjsnnysdzpl16y8fncfj5r4md9jc3"
         }
     },
     "18.1": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/18.1/NVIDIA-GRID-Linux-KVM-570.133.10-570.133.20-572.83.zip": "1rsdfizffn8nv776zna1r6nz7vcwb2wqpaj554ny7bjmr0x29d69"
+        "guest": {
+            "persistenced_hash": "sha256-G1V7JtHQbfnSRfVjz/LE2fYTlh9okpCbE4dfX9oYSg8=",
+            "persistenced_version": "570.133.07",
+            "settings_hash": "sha256-XMk+FvTlGpMquM8aE8kgYK2PIEszUZD2+Zmj2OpYrzU=",
+            "settings_version": "570.133.07",
+            "version": "570.133.20"
+        },
+        "host": {
+            "persistenced_hash": "sha256-G1V7JtHQbfnSRfVjz/LE2fYTlh9okpCbE4dfX9oYSg8=",
+            "persistenced_version": "570.133.07",
+            "settings_hash": "sha256-XMk+FvTlGpMquM8aE8kgYK2PIEszUZD2+Zmj2OpYrzU=",
+            "settings_version": "570.133.07",
+            "version": "570.133.10"
         },
         "patches": {},
-        "host": {
-            "version": "570.133.10",
-            "persistenced_version": "570.133.07",
-            "persistenced_hash": "sha256-G1V7JtHQbfnSRfVjz/LE2fYTlh9okpCbE4dfX9oYSg8=",
-            "settings_version": "570.133.07",
-            "settings_hash": "sha256-XMk+FvTlGpMquM8aE8kgYK2PIEszUZD2+Zmj2OpYrzU="
-        },
-        "guest": {
-            "version": "570.133.20",
-            "persistenced_version": "570.133.07",
-            "persistenced_hash": "sha256-G1V7JtHQbfnSRfVjz/LE2fYTlh9okpCbE4dfX9oYSg8=",
-            "settings_version": "570.133.07",
-            "settings_hash": "sha256-XMk+FvTlGpMquM8aE8kgYK2PIEszUZD2+Zmj2OpYrzU="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/18.1/NVIDIA-GRID-Linux-KVM-570.133.10-570.133.20-572.83.zip": "1rsdfizffn8nv776zna1r6nz7vcwb2wqpaj554ny7bjmr0x29d69"
         }
     },
     "18.2": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/18.2/NVIDIA-GRID-Linux-KVM-570.148.06-570.148.08-573.07": "0yj0b8z9jv8fvsp6bjri8ac08s5hyn5cqy1kmjvlwr1cfna8gq4r"
+        "guest": {
+            "persistenced_hash": "sha256-hx4w4NkJ0kN7dkKDiSOsdJxj9+NZwRsZEuhqJ5Rq3nM=",
+            "persistenced_version": "570.144",
+            "settings_hash": "sha256-VcCa3P/v3tDRzDgaY+hLrQSwswvNhsm93anmOhUymvM=",
+            "settings_version": "570.144",
+            "version": "570.148.08"
+        },
+        "host": {
+            "persistenced_hash": "sha256-hx4w4NkJ0kN7dkKDiSOsdJxj9+NZwRsZEuhqJ5Rq3nM=",
+            "persistenced_version": "570.144",
+            "settings_hash": "sha256-VcCa3P/v3tDRzDgaY+hLrQSwswvNhsm93anmOhUymvM=",
+            "settings_version": "570.144",
+            "version": "570.148.06"
         },
         "patches": {},
-        "host": {
-            "version": "570.148.06",
-            "persistenced_version": "570.144",
-            "persistenced_hash": "sha256-hx4w4NkJ0kN7dkKDiSOsdJxj9+NZwRsZEuhqJ5Rq3nM=",
-            "settings_version": "570.144",
-            "settings_hash": "sha256-VcCa3P/v3tDRzDgaY+hLrQSwswvNhsm93anmOhUymvM="
-        },
-        "guest": {
-            "version": "570.148.08",
-            "persistenced_version": "570.144",
-            "persistenced_hash": "sha256-hx4w4NkJ0kN7dkKDiSOsdJxj9+NZwRsZEuhqJ5Rq3nM=",
-            "settings_version": "570.144",
-            "settings_hash": "sha256-VcCa3P/v3tDRzDgaY+hLrQSwswvNhsm93anmOhUymvM="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/18.2/NVIDIA-GRID-Linux-KVM-570.148.06-570.148.08-573.07.zip": "1aiw5mggvclrvnvx9chxx5k40a7maxc7nyxph24nirqip66n157m"
         }
     },
     "18.3": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/18.3/NVIDIA-GRID-Linux-KVM-570.158.02-570.158.01-573.39": "0yj0b8z9jv8fvsp6bjri8ac08s5hyn5cqy1kmjvlwr1cfna8gq4r"
+        "guest": {
+            "persistenced_hash": "sha256-OSo4Od7NmezRdGm7BLLzYseWABwNGdsomBCkOsNvOxA=",
+            "persistenced_version": "570.153.02",
+            "settings_hash": "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M=",
+            "settings_version": "570.153.02",
+            "version": "570.158.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-OSo4Od7NmezRdGm7BLLzYseWABwNGdsomBCkOsNvOxA=",
+            "persistenced_version": "570.153.02",
+            "settings_hash": "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M=",
+            "settings_version": "570.153.02",
+            "version": "570.158.02"
         },
         "patches": {},
-        "host": {
-            "version": "570.158.02",
-            "persistenced_version": "570.153.02",
-            "persistenced_hash": "sha256-OSo4Od7NmezRdGm7BLLzYseWABwNGdsomBCkOsNvOxA=",
-            "settings_version": "570.153.02",
-            "settings_hash": "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M="
-        },
-        "guest": {
-            "version": "570.158.01",
-            "persistenced_version": "570.153.02",
-            "persistenced_hash": "sha256-OSo4Od7NmezRdGm7BLLzYseWABwNGdsomBCkOsNvOxA=",
-            "settings_version": "570.153.02",
-            "settings_hash": "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M="
-        }
-    },
-    "16.11": {
         "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.11/NVIDIA-GRID-Linux-KVM-535.261.04-535.261.03-539.41.zip": "0j7ml5f0jdwhrazkhgs5kyvzadka473divb68rjrbs17b1bjr7bc"
-        },
-        "patches": {},
-        "host": {
-            "version": "535.261.04",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
-        },
-        "guest": {
-            "version": "535.261.03",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
+            "https://file.homelabproject.cc/p/foxipan/vGPU/18.3/NVIDIA-GRID-Linux-KVM-570.158.02-570.158.01-573.39.zip": "0zx9q4b2046cb9393wxsl8cymz3509b4mpxz4sl8rqm4w6qc84q5"
         }
     },
     "18.4": {
+        "guest": {
+            "persistenced_hash": "sha256-dttFu+TmbFI+mt1MbbmJcUnc1KIJ20eHZDR7YzfWmgE=",
+            "persistenced_version": "570.169",
+            "settings_hash": "sha256-0E3UnpMukGMWcX8td6dqmpakaVbj4OhhKXgmqz77XZc=",
+            "settings_version": "570.169",
+            "version": "570.172.08"
+        },
+        "host": {
+            "persistenced_hash": "sha256-dttFu+TmbFI+mt1MbbmJcUnc1KIJ20eHZDR7YzfWmgE=",
+            "persistenced_version": "570.169",
+            "settings_hash": "sha256-0E3UnpMukGMWcX8td6dqmpakaVbj4OhhKXgmqz77XZc=",
+            "settings_version": "570.169",
+            "version": "570.172.07"
+        },
+        "patches": {},
         "urls": {
             "https://file.homelabproject.cc/p/foxipan/vGPU/18.4/NVIDIA-GRID-Linux-KVM-570.172.07-570.172.08-573.48.zip": "130ljwx06sclr4s04bfzk44w30jbxklvxv4sv74ad087w73xnxw2"
-        },
-        "patches": {},
-        "host": {
-            "version": "570.172.07",
-            "persistenced_version": "570.169",
-            "persistenced_hash": "sha256-dttFu+TmbFI+mt1MbbmJcUnc1KIJ20eHZDR7YzfWmgE=",
-            "settings_version": "570.169",
-            "settings_hash": "sha256-0E3UnpMukGMWcX8td6dqmpakaVbj4OhhKXgmqz77XZc="
-        },
-        "guest": {
-            "version": "570.172.08",
-            "persistenced_version": "570.169",
-            "persistenced_hash": "sha256-dttFu+TmbFI+mt1MbbmJcUnc1KIJ20eHZDR7YzfWmgE=",
-            "settings_version": "570.169",
-            "settings_hash": "sha256-0E3UnpMukGMWcX8td6dqmpakaVbj4OhhKXgmqz77XZc="
-        }
-    },
-    "19.0": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/19.0/NVIDIA-GRID-Linux-KVM-580.65.05-580.65.06-580.88": "0yj0b8z9jv8fvsp6bjri8ac08s5hyn5cqy1kmjvlwr1cfna8gq4r"
-        },
-        "patches": {},
-        "host": {
-            "version": "580.65.05",
-            "persistenced_version": "575.64.05",
-            "persistenced_hash": "sha256-2g5z7Pu8u2EiAh5givP5Q1Y4zk4Cbb06W37rf768NFU=",
-            "settings_version": "575.64.05",
-            "settings_hash": "sha256-o2zUnYFUQjHOcCrB0w/4L6xI1hVUXLAWgG2Y26BowBE="
-        },
-        "guest": {
-            "version": "580.65.06",
-            "persistenced_version": "580.65.06",
-            "persistenced_hash": "sha256-ETRfj2/kPbKYX1NzE0dGr/ulMuzbICIpceXdCRDkAxA=",
-            "settings_version": "580.65.06",
-            "settings_hash": "sha256-9PWmj9qG/Ms8Ol5vLQD3Dlhuw4iaFtVHNC0hSyMCU24="
-        }
-    },
-    "19.1": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/19.1/NVIDIA-GRID-Linux-KVM-580.82.02-580.82.07-581.15": "0yj0b8z9jv8fvsp6bjri8ac08s5hyn5cqy1kmjvlwr1cfna8gq4r"
-        },
-        "patches": {},
-        "host": {
-            "version": "580.82.02",
-            "persistenced_version": "580.76.05",
-            "persistenced_hash": "sha256-bs3bUi8LgBu05uTzpn2ugcNYgR5rzWEPaTlgm0TIpHY=",
-            "settings_version": "580.76.05",
-            "settings_hash": "sha256-ll7HD7dVPHKUyp5+zvLeNqAb6hCpxfwuSyi+SAXapoQ="
-        },
-        "guest": {
-            "version": "580.82.07",
-            "persistenced_version": "580.82.07",
-            "persistenced_hash": "sha256-1JCk2T3H5NNFQum0gA9cnio31jc0pGvfGIn2KkAz9kA=",
-            "settings_version": "580.82.07",
-            "settings_hash": "sha256-lx1WZHsW7eKFXvi03dAML6BoC5glEn63Tuiz3T867nY="
-        }
-    },
-    "16.12": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/16.12/NVIDIA-GRID-Linux-KVM-535.274.03-535.274.02-539.56.zip": "0zl9yvwirdhyzncg3nk46r7qqynfjh3816zh3x74p9l5kpv4mfrx"
-        },
-        "patches": {},
-        "host": {
-            "version": "535.274.03",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
-        },
-        "guest": {
-            "version": "535.274.02",
-            "persistenced_version": "535.216.01",
-            "persistenced_hash": "sha256-ckF/BgDA6xSFqFk07rn3HqXuR0iGfwA4PRxpP38QZgw=",
-            "settings_version": "535.216.01",
-            "settings_hash": "sha256-9PgaYJbP1s7hmKCYmkuLQ58nkTruhFdHAs4W84KQVME="
         }
     },
     "18.5": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/18.5/NVIDIA-GRID-Linux-KVM-570.195.02-570.195.03-573.76.zip": "02a0v6flf7kh7yra7mxv7wysk5rkbg6kyp84xm7q78abf8mw2l42"
+        "guest": {
+            "persistenced_hash": "sha256-RoAcutBf5dTKdAfkxDPtMsktFVQt5uPIPtkAkboQwcQ=",
+            "persistenced_version": "570.181",
+            "settings_hash": "sha256-iBx/X3c+1NSNmG+11xvGyvxYSMbVprijpzySFeQVBzs=",
+            "settings_version": "570.181",
+            "version": "570.195.03"
+        },
+        "host": {
+            "persistenced_hash": "sha256-RoAcutBf5dTKdAfkxDPtMsktFVQt5uPIPtkAkboQwcQ=",
+            "persistenced_version": "570.181",
+            "settings_hash": "sha256-iBx/X3c+1NSNmG+11xvGyvxYSMbVprijpzySFeQVBzs=",
+            "settings_version": "570.181",
+            "version": "570.195.02"
         },
         "patches": {},
-        "host": {
-            "version": "570.195.02",
-            "persistenced_version": "570.181",
-            "persistenced_hash": "sha256-RoAcutBf5dTKdAfkxDPtMsktFVQt5uPIPtkAkboQwcQ=",
-            "settings_version": "570.181",
-            "settings_hash": "sha256-iBx/X3c+1NSNmG+11xvGyvxYSMbVprijpzySFeQVBzs="
-        },
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/18.5/NVIDIA-GRID-Linux-KVM-570.195.02-570.195.03-573.76.zip": "02a0v6flf7kh7yra7mxv7wysk5rkbg6kyp84xm7q78abf8mw2l42"
+        }
+    },
+    "19.0": {
         "guest": {
-            "version": "570.195.03",
-            "persistenced_version": "570.181",
-            "persistenced_hash": "sha256-RoAcutBf5dTKdAfkxDPtMsktFVQt5uPIPtkAkboQwcQ=",
-            "settings_version": "570.181",
-            "settings_hash": "sha256-iBx/X3c+1NSNmG+11xvGyvxYSMbVprijpzySFeQVBzs="
+            "persistenced_hash": "sha256-ETRfj2/kPbKYX1NzE0dGr/ulMuzbICIpceXdCRDkAxA=",
+            "persistenced_version": "580.65.06",
+            "settings_hash": "sha256-9PWmj9qG/Ms8Ol5vLQD3Dlhuw4iaFtVHNC0hSyMCU24=",
+            "settings_version": "580.65.06",
+            "version": "580.65.06"
+        },
+        "host": {
+            "persistenced_hash": "sha256-2g5z7Pu8u2EiAh5givP5Q1Y4zk4Cbb06W37rf768NFU=",
+            "persistenced_version": "575.64.05",
+            "settings_hash": "sha256-o2zUnYFUQjHOcCrB0w/4L6xI1hVUXLAWgG2Y26BowBE=",
+            "settings_version": "575.64.05",
+            "version": "580.65.05"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/19.0/NVIDIA-GRID-Linux-KVM-580.65.05-580.65.06-580.88.zip": "03rfc04bac14gf7bgz7wl6zppvxkz35c5qjkmaclddi4xqk53la5"
+        }
+    },
+    "19.1": {
+        "guest": {
+            "persistenced_hash": "sha256-1JCk2T3H5NNFQum0gA9cnio31jc0pGvfGIn2KkAz9kA=",
+            "persistenced_version": "580.82.07",
+            "settings_hash": "sha256-lx1WZHsW7eKFXvi03dAML6BoC5glEn63Tuiz3T867nY=",
+            "settings_version": "580.82.07",
+            "version": "580.82.07"
+        },
+        "host": {
+            "persistenced_hash": "sha256-bs3bUi8LgBu05uTzpn2ugcNYgR5rzWEPaTlgm0TIpHY=",
+            "persistenced_version": "580.76.05",
+            "settings_hash": "sha256-ll7HD7dVPHKUyp5+zvLeNqAb6hCpxfwuSyi+SAXapoQ=",
+            "settings_version": "580.76.05",
+            "version": "580.82.02"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/19.1/NVIDIA-GRID-Linux-KVM-580.82.02-580.82.07-581.15.zip": "0qnvx4n2dldgsl9s1bg02i280zqlzk5idg1n9w5m61yi287hvicb"
         }
     },
     "19.2": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/19.2/NVIDIA-GRID-Linux-KVM-580.95.02-580.95.05-581.42.zip": "13rp64s5iv727fga9p8sm1dih10a09czyq9lxn9wjk63g7dmcr25"
+        "guest": {
+            "persistenced_hash": "sha256-QCwxXQfG/Pa7jSTBB0xD3lsIofcerAWWAHKvWjWGQtg=",
+            "persistenced_version": "580.95.05",
+            "settings_hash": "sha256-F2wmUEaRrpR1Vz0TQSwVK4Fv13f3J9NJLtBe4UP2f14=",
+            "settings_version": "580.95.05",
+            "version": "580.95.05"
+        },
+        "host": {
+            "persistenced_hash": "sha256-lbYSa97aZ+k0CISoSxOMLyyMX//Zg2Raym6BC4COipU=",
+            "persistenced_version": "580.82.09",
+            "settings_hash": "sha256-um53cr2Xo90VhZM1bM2CH4q9b/1W2YOqUcvXPV6uw2s=",
+            "settings_version": "580.82.09",
+            "version": "580.95.02"
         },
         "patches": {},
-        "host": {
-            "version": "580.95.02",
-            "persistenced_version": "580.82.09",
-            "persistenced_hash": "sha256-lbYSa97aZ+k0CISoSxOMLyyMX//Zg2Raym6BC4COipU=",
-            "settings_version": "580.82.09",
-            "settings_hash": "sha256-um53cr2Xo90VhZM1bM2CH4q9b/1W2YOqUcvXPV6uw2s="
-        },
-        "guest": {
-            "version": "580.95.05",
-            "persistenced_version": "580.95.05",
-            "persistenced_hash": "sha256-QCwxXQfG/Pa7jSTBB0xD3lsIofcerAWWAHKvWjWGQtg=",
-            "settings_version": "580.95.05",
-            "settings_hash": "sha256-F2wmUEaRrpR1Vz0TQSwVK4Fv13f3J9NJLtBe4UP2f14="
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/19.2/NVIDIA-GRID-Linux-KVM-580.95.02-580.95.05-581.42.zip": "13rp64s5iv727fga9p8sm1dih10a09czyq9lxn9wjk63g7dmcr25"
         }
     },
     "19.3": {
-        "urls": {
-            "https://file.homelabproject.cc/p/foxipan/vGPU/19.3/NVIDIA-GRID-Linux-KVM-580.105.06-580.105.08-581.80.zip": "1yqc9ip86h3fd7k1y0l9k69q3g8iy9slf603x97g7868m729a357"
+        "guest": {
+            "persistenced_hash": "sha256-qh8pKGxUjEimCgwH7q91IV7wdPyV5v5dc5/K/IcbruI=",
+            "persistenced_version": "580.105.08",
+            "settings_hash": "sha256-YvzWO1U3am4Nt5cQ+b5IJ23yeWx5ud1HCu1U0KoojLY=",
+            "settings_version": "580.105.08",
+            "version": "580.105.08"
+        },
+        "host": {
+            "persistenced_hash": "sha256-QCwxXQfG/Pa7jSTBB0xD3lsIofcerAWWAHKvWjWGQtg=",
+            "persistenced_version": "580.95.05",
+            "settings_hash": "sha256-F2wmUEaRrpR1Vz0TQSwVK4Fv13f3J9NJLtBe4UP2f14=",
+            "settings_version": "580.95.05",
+            "version": "580.105.06"
         },
         "patches": {},
-        "host": {
-            "version": "580.105.06",
-            "persistenced_version": "580.95.05",
-            "persistenced_hash": "sha256-QCwxXQfG/Pa7jSTBB0xD3lsIofcerAWWAHKvWjWGQtg=",
-            "settings_version": "580.95.05",
-            "settings_hash": "sha256-F2wmUEaRrpR1Vz0TQSwVK4Fv13f3J9NJLtBe4UP2f14="
-        },
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/19.3/NVIDIA-GRID-Linux-KVM-580.105.06-580.105.08-581.80.zip": "1yqc9ip86h3fd7k1y0l9k69q3g8iy9slf603x97g7868m729a357"
+        }
+    },
+    "9.2": {
         "guest": {
-            "version": "580.105.08",
-            "persistenced_version": "580.105.08",
-            "persistenced_hash": "sha256-qh8pKGxUjEimCgwH7q91IV7wdPyV5v5dc5/K/IcbruI=",
-            "settings_version": "580.105.08",
-            "settings_hash": "sha256-YvzWO1U3am4Nt5cQ+b5IJ23yeWx5ud1HCu1U0KoojLY="
+            "persistenced_hash": "sha256-UhmB9YsAGd203Y2L0QqOI8j7FWL4DgPRuqCT1bH+Ew4=",
+            "persistenced_version": "430.50",
+            "settings_hash": "sha256-Ek5qZlxleRPz06faLvYMCuPp8z+PmXMeRFYLyx/Jue0=",
+            "settings_version": "430.50",
+            "version": "430.63"
+        },
+        "host": {
+            "persistenced_hash": "sha256-UhmB9YsAGd203Y2L0QqOI8j7FWL4DgPRuqCT1bH+Ew4=",
+            "persistenced_version": "430.50",
+            "settings_hash": "sha256-Ek5qZlxleRPz06faLvYMCuPp8z+PmXMeRFYLyx/Jue0=",
+            "settings_version": "430.50",
+            "version": "430.67"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/9.2/NVIDIA-GRID-Linux-KVM-430.67-430.63-432.08.zip": "1xq2hvzvx5x0s9wisk88dm0ry0sdd7sg3rbj5fk9bl0qnnbz8vz2"
         }
     }
 }
