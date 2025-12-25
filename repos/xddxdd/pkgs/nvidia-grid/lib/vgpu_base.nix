@@ -61,6 +61,7 @@ let
     outputs = [
       "out"
       "bin"
+      "vgpuConfig"
     ]
     ++ lib.optional i686bundled "lib32";
     outputDev = "bin";

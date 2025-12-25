@@ -9,6 +9,8 @@ unpackFile() {
 }
 
 buildPhase() {
+  runHook preBuild
+
   if [ -n "$bin" ]; then
     # Create the module.
     echo "Building linux driver against kernel: $kernel"
@@ -29,9 +31,13 @@ buildPhase() {
 
     cd ..
   fi
+
+  runHook postBuild
 }
 
 installPhase() {
+  runHook preInstall
+
   # Install libGL and friends.
 
   # since version 391, 32bit libraries are bundled in the 32/ sub-directory
@@ -118,14 +124,24 @@ installPhase() {
     # Install vGPU config
     install -Dm644 vgpuConfig.xml $bin/share/nvidia/vgpu/vgpuConfig.xml
   fi
+
+  if [ -n "$vgpuConfig" ]; then
+    install -Dm644 vgpuConfig.xml $vgpuConfig/vgpuConfig.xml
+  fi
+
+  runHook postInstall
 }
 
 fixupPhase() {
+  runHook preFixup
+
   # Apply fixup to each output.
   local output
   for output in $(getAllOutputNames); do
     prefix="${!output}" runHook fixupOutput
   done
+
+  runHook postFixup
 }
 
 genericBuild
