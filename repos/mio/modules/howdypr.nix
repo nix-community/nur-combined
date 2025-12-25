@@ -9,5 +9,7 @@
 
   imports = [
     ./security/pam.nix
+    ./linux-enable-ir-emitter.nix
+    ./howdy
   ];
 }
