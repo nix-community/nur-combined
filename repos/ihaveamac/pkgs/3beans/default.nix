@@ -10,25 +10,27 @@
 }:
 
 let
-  wxwidgets-newer = wxwidgets_3_3.overrideAttrs (final: prev: {
-    src = fetchFromGitHub {
-      owner = "wxWidgets";
-      repo = "wxWidgets";
-      rev = "1fd12d7bd6987603b8d63000a593a4286f5cad46";
-      fetchSubmodules = true;
-      hash = "sha256-DzMW9i6TE+kGb3rXuxhb7lTFlT1A06O+iXzdmFq9Fa4=";
-    };
-  });
+  wxwidgets-newer = wxwidgets_3_3.overrideAttrs (
+    final: prev: {
+      src = fetchFromGitHub {
+        owner = "wxWidgets";
+        repo = "wxWidgets";
+        rev = "1fd12d7bd6987603b8d63000a593a4286f5cad46";
+        fetchSubmodules = true;
+        hash = "sha256-DzMW9i6TE+kGb3rXuxhb7lTFlT1A06O+iXzdmFq9Fa4=";
+      };
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "3beans";
-  version = "release-unstable-2025-12-22";
+  version = "release-unstable-2025-12-24";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "a3c3702a5ad1e606793b5e05f32da900e7950d85";
-    hash = "sha256-NVxgm41NnKHdOdt8VY2Am4tHfj0pXjWDY79xxFvhUiE=";
+    rev = "705dead3c85e316e1da8dee708d7a65605659b8e";
+    hash = "sha256-c0K1G24VU0RiYoz/AERLFSOkSj/YKos+dUdsAWBeqZ4=";
   };
 
   buildInputs = [
