@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-autocomplete-plus";
-  version = "1.9.0";
+  version = "1.10.0";
 
   src = fetchFromGitHub {
     owner = "newtextdoc1111";
     repo = "ComfyUI-Autocomplete-Plus";
     rev = "v${final.version}";
-    hash = "sha256-oKkHcCi7ttPEcTtehteN5yRQ+HQY+s/iZnlu9n47VfY=";
+    hash = "sha256-vgfbnZmWJ2e2xwGbMWBQyjMuMOViF097sy2VIAWfeaY=";
   };
 
   installPhase = ''
