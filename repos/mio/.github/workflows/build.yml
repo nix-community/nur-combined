@@ -60,6 +60,10 @@ jobs:
         build-mount-path: /nix
     - name: Checkout repository
       uses: actions/checkout@v6
+    - run: sudo sysctl kernel.apparmor_restrict_unprivileged_userns=0
+      if: runner.os == 'Linux'
+    - run: sudo sysctl kernel.apparmor_restrict_unprivileged_unconfined=0
+      if: runner.os == 'Linux'
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
