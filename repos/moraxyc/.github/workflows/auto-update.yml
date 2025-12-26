@@ -48,13 +48,15 @@ jobs:
 
       - name: Update vendor hashes (nix-update)
         run: |
+          export NIXPKGS_ALLOW_UNFREE=1
           grep -rl "# nix-update auto" pkgs/by-name | while read -r file; do
               pkg_name=$(basename $(dirname "$file"))
+              extra_args=$(sed -n 's/.*# nix-update auto//p' "$file" | xargs)
 
               echo "Detected auto-update marker for: $pkg_name"
 
               nix shell nixpkgs#nix-update --inputs-from . \
-                -c nix-update "$pkg_name" --version=skip
+                -c nix-update "$pkg_name" --version=skip $extra_args
           done
 
       - name: Commit changes

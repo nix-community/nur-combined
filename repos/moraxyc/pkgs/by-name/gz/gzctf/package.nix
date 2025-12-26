@@ -2,6 +2,8 @@
   lib,
   buildDotnetModule,
   fetchFromGitHub,
+  sources,
+  source ? sources.gzctf,
   dotnetCorePackages,
   callPackage,
   icu,
@@ -14,20 +16,18 @@
   krb5,
   openssl,
 
-  nix-update-script,
-
   serverPort ? 28080,
   metricPort ? 23000,
 }:
 
 buildDotnetModule (finalAttrs: {
   pname = "gzctf";
-  version = "1.8.0";
+  inherit (source) version;
 
   src = fetchFromGitHub {
     owner = "GZTimeWalker";
     repo = "GZCTF";
-    tag = "v${finalAttrs.version}";
+    inherit (source.src) rev;
     hash = "sha256-XYWqHOsK4LfEt8JQxzsXRhC5abRBz/Pwmpew7j+txv4=";
     leaveDotGit = true;
     postFetch = ''
@@ -86,7 +86,7 @@ buildDotnetModule (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    # nix-update auto -sfrontend
     frontend = callPackage ./frontend.nix {
       inherit (finalAttrs)
         pname
@@ -98,7 +98,6 @@ buildDotnetModule (finalAttrs: {
   };
 
   meta = {
-    changelog = "https://github.com/GZTimeWalker/GZCTF/releases/tag/${finalAttrs.src.tag}";
     description = "Open source CTF platform";
     homepage = "https://github.com/GZTimeWalker/GZCTF";
     license = [

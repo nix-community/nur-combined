@@ -107,6 +107,25 @@
       sha256 = "sha256-39h8qNxAitcDrO/UmgYfCyYb5wRO0/J6suHhMw4nbC8=";
     };
   };
+  gzctf = {
+    pname = "gzctf";
+    version = "v1.8.0";
+    src = fetchFromGitHub {
+      owner = "GZTimeWalker";
+      repo = "GZCTF";
+      rev = "v1.8.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-Z9F8QS+HMaUD9n0YOp2w8KR43iUtzHAV8sMcZO3VPkw=";
+    };
+  };
+  gzctf-contributors = {
+    pname = "gzctf-contributors";
+    version = "0.0.0";
+    src = fetchurl {
+      url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors";
+      sha256 = "sha256-Y8stZF+F5UW50oY0QrhuDSnCKKl7m7omvaFHgFAAqjg=";
+    };
+  };
   libinput-three-finger-drag = {
     pname = "libinput-three-finger-drag";
     version = "6acd3f84b551b855b5f21b08db55e95dae3305c5";

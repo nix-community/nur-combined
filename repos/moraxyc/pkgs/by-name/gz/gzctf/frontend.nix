@@ -1,6 +1,6 @@
 {
   stdenvNoCC,
-  fetchurl,
+  sources,
   replaceVars,
 
   pname,
@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   patches = [
     (replaceVars ./0001-Use-local-file-to-provide-contributors.patch {
-      CONTRIBUTORS_JSON = finalAttrs.passthru.contributors;
+      CONTRIBUTORS_JSON = sources.gzctf-contributors.src;
     })
     ./0002-Do-not-use-webfont-dl.patch
   ];
@@ -62,10 +62,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
-  passthru = {
-    contributors = fetchurl {
-      url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors";
-      hash = "sha256-Y8stZF+F5UW50oY0QrhuDSnCKKl7m7omvaFHgFAAqjg=";
-    };
-  };
 })
