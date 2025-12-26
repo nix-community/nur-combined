@@ -1,0 +1,55 @@
+diff --git a/KikoPlay.pro b/KikoPlay.pro
+index e3f57f5..314cd6e 100644
+--- a/KikoPlay.pro
++++ b/KikoPlay.pro
+@@ -726,42 +726,36 @@ win32 {
+ 
+ # UNIX related settings
+ macx {
+-    LIBS += -L/usr/lib -L/usr/local/lib -L/opt/local/lib -L$$PWD/lib/mac
+     LIBS += -llua5.3
+ }
+ 
+ linux-g++* {
+     QMAKE_LFLAGS += -fuse-ld=bfd -Wl,--exclude-libs,liblua53.a
+ 
+-    # Link library settings by ARCH
+-    contains(QT_ARCH, i386) {
+-        LIBS += -L/usr/lib -L$$PWD/lib/linux
+-    } else {
+-        LIBS += -L/usr/lib64 -L/usr/lib/x86_64-linux-gnu -L$$PWD/lib/x64/linux
+-    }
+     LIBS += -LExtension/Lua -l:liblua53.a
+     LIBS += -lm -ldl
+-    LIBS += -L/usr/local/lib -lonnxruntime
++    LIBS += -lonnxruntime
+     contains(DEFINES, KSERVICE) {
+-        LIBS += -L/usr/local/protobuf/lib -l:libprotobuf-lite.a
++        LIBS += -l:libprotobuf-lite.a
+     }
+ }
+ 
+ unix {
+     # Install settings
+-    target.path += /usr/bin
+-    unix:desktop.path = /usr/share/applications
++    target.path += @OUT@/bin
++    unix:desktop.path = @OUT@/share/applications
+     unix:desktop.files = io.github.KikoPlayProject.KikoPlay.desktop
+-    unix:icons.path = /usr/share/icons/hicolor/128x128/apps
++    unix:icons.path = @OUT@/share/icons/hicolor/128x128/apps
+     unix:icons.files = io.github.KikoPlayProject.KikoPlay.png
+-    unix:metainfo.path = /usr/share/metainfo
++    unix:metainfo.path = @OUT@/share/metainfo
+     unix:metainfo.files = io.github.KikoPlayProject.KikoPlay.metainfo.xml
+-    unix:web.path = /usr/share/kikoplay/web
++    unix:web.path = @OUT@/share/kikoplay/web
+     unix:web.files = web/*
+ 
+     INSTALLS += target desktop icons metainfo web
+     DEFINES += CONFIG_UNIX_DATA
+ 
++    LIBS += $$QT_LDFLAGS
+     LIBS += -lmpv
+     LIBS += -lz
+ }

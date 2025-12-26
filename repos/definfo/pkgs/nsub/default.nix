@@ -3,6 +3,7 @@
   lib,
   fetchFromGitHub,
   check,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
@@ -26,6 +27,8 @@ stdenv.mkDerivation {
   preInstall = ''
     mkdir -p $out/include/cutils
   '';
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=master" ]; };
 
   meta = {
     description = "Subtitle/Lyrics conversion program (webvtt/srt/lrc) ";

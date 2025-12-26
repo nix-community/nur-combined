@@ -2,6 +2,7 @@
   fetchFromGitHub,
   lib,
   rustPlatform,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -18,6 +19,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-sZA/t5MLxXxfG+3c6IdJTfBSNZx7iRViUgTQbKeSCwM=";
 
   RUSTC_BOOTSTRAP = 1; # waylrc requires nightly feature
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "An addon for waybar to display lyrics";

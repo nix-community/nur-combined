@@ -1,0 +1,40 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2c857cf..6ba4fec 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -17,7 +17,7 @@ set(CMAKE_AUTOMOC ON)
+ set(CMAKE_AUTORCC ON)
+ set(CMAKE_AUTOUIC ON)
+ 
+-find_package(Qt5 COMPONENTS Widgets Core Gui Network Concurrent Sql Svg WebSockets Xml REQUIRED)
++find_package(Qt6 COMPONENTS Widgets Core Gui Network Concurrent Sql Svg WebSockets Xml REQUIRED)
+ find_package(ZLIB REQUIRED)
+ add_subdirectory(Extension/Lua)
+ 
+@@ -86,7 +86,7 @@ PRIVATE
+ 
+ if (WIN32)
+     target_compile_definitions(${PROJECT_NAME} PRIVATE UNICODE)
+-    find_package(Qt5WinExtras CONFIG REQUIRED)
++    find_package(Qt6WinExtras CONFIG REQUIRED)
+ 
+     target_include_directories(${PROJECT_NAME}
+     PRIVATE
+@@ -100,7 +100,7 @@ if (WIN32)
+ endif()
+ 
+ if (UNIX)
+-	find_package(Qt5 COMPONENTS DBus REQUIRED)
++	find_package(Qt6 COMPONENTS DBus REQUIRED)
+     # Set default overridable parameters for "/usr/share"
+     set(CMAKE_INSTALL_SHAREDIR "/usr/share" CACHE STRING "The default share path")
+     # Set default unix data option
+@@ -116,7 +116,7 @@ if (UNIX)
+     target_link_libraries(${PROJECT_NAME} 
+     PRIVATE
+         ${mpv_LIBRARIES}
+-		Qt5::DBus
++		Qt6::DBus
+     )
+ 
+     if (CONFIG_UNIX_DATA)

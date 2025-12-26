@@ -1,0 +1,33 @@
+name: "Update package metadata"
+on:
+  workflow_dispatch:
+  schedule:
+    # update every Monday at 2:00
+    - cron: "0 2 * * 1"
+
+permissions: {}
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Install nix
+        uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
+        with:
+          nix_conf: |
+            extra-substituters = https://definfo.cachix.org https://cache.garnix.io
+            extra-trusted-public-keys = definfo.cachix.org-1:3xEHcK5UZeKih42Oiuo7ypfw4i0ghc9pO9DZf3M8iaY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+      - name: Update package version
+        uses: definfo/nix-update-action@94f7c65342dd5fe1bfea392d46f3e51b01beb34a # v1.1.1
+        with:
+          blacklist: "aya,aya-minimal,nsub" # aya/aya-minimal: dedup; nsub: archived
+          pr-labels: |
+            auto merge
+            package-update

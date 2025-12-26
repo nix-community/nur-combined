@@ -52,8 +52,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/laishulu/Sarasa-Term-SC-Nerd";
     description = "Nerd font based on Sarasa Term SC";
+    homepage = "https://github.com/laishulu/Sarasa-Term-SC-Nerd";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ definfo ];

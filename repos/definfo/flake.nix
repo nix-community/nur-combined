@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-24_05.url = "github:NixOS/nixpkgs/release-24.05";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -19,6 +20,7 @@
 
   outputs =
     inputs@{
+      nixpkgs,
       flake-parts,
       ...
     }:
@@ -42,9 +44,18 @@
           self',
           pkgs,
           lib,
+          system,
           ...
         }:
         {
+          _module.args.pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              (_final: _prev: {
+                inherit (inputs.nixpkgs-24_05.legacyPackages.${system}) jdk22;
+              })
+            ];
+          };
           treefmt = {
             projectRootFile = "flake.nix";
             settings.global.excludes = [
@@ -57,14 +68,20 @@
               actionlint.enable = true;
               deadnix.enable = true;
               nixfmt.enable = true;
+              shellcheck = {
+                enable = true;
+                package = pkgs.shellcheck-minimal;
+              };
+              shfmt.enable = true;
               statix.enable = true;
-              zizmor.enable = true;
+              # zizmor.enable = true;
             };
           };
 
           # https://flake.parts/options/git-hooks-nix.html
           # Example: https://github.com/cachix/git-hooks.nix/blob/master/template/flake.nix
           pre-commit.settings.package = pkgs.prek;
+          pre-commit.settings.configPath = ".pre-commit-config.flake.yaml";
           pre-commit.settings.hooks = {
             commitizen.enable = true;
             eclint.enable = true;
@@ -81,12 +98,6 @@
               config.treefmt.build.devShell
               config.pre-commit.devShell
             ];
-
-            shellHook = ''
-              echo 1>&2 "Welcome to the development shell!"
-            '';
-
-            packages = [ pkgs.nushell ];
           };
         };
     };

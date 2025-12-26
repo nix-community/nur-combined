@@ -1,0 +1,17 @@
+diff --git a/Play/Video/mpvplayer.cpp b/Play/Video/mpvplayer.cpp
+index bf767ad..4674ef5 100644
+--- a/Play/Video/mpvplayer.cpp
++++ b/Play/Video/mpvplayer.cpp
+@@ -703,6 +703,12 @@ void MPVPlayer::setEmbeddedWindow(bool on)
+ 
+ void MPVPlayer::initializeGL()
+ {
++    static bool inited = false;
++    if (!inited)
++    {
++        inited = true;
++        return;
++    }
+     QOpenGLFunctions *glFuns=context()->functions();
+     glFuns->initializeOpenGLFunctions();
+     mpv_opengl_init_params gl_init_params{get_proc_address, nullptr};

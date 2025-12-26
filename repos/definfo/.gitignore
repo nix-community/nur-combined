@@ -3,5 +3,5 @@ result-*
 
 .direnv
 
-.pre-commit-config.yaml
+.pre-commit-config.flake.yaml
 

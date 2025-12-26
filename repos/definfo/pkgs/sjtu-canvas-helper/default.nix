@@ -16,21 +16,21 @@
   desktop-file-utils,
   jq,
   moreutils,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sjtu-canvas-helper";
-  version = "2.0.0-alpha";
+  version = "2.0.4";
 
   src = fetchFromGitHub {
     owner = "Okabe-Rintarou-0";
     repo = "SJTU-Canvas-Helper";
-    # tag = "app-v${finalAttrs.version}";
-    rev = "9e26d077e350d9c25d06a8381b048bd92fc9e6f5";
-    hash = "sha256-TTOTHyzLumf/cDqIZT9H66IM+kJV9IAiWiCqx0RsUZw=";
+    tag = "app-v${finalAttrs.version}";
+    hash = "sha256-O50nVE0AzXDmNUiilwOswivuGJKUrDJVquIumcPP6d4=";
   };
 
-  cargoHash = "sha256-/nHpbmnLfkY4AhsKkJ7ALPyDroawa9degMCbDw10wW8=";
+  cargoHash = "sha256-RPWhGLs36ODfphC6nO+72m+dV71kQ7MWvgDqIPCIKBY=";
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = finalAttrs.src + "/yarn.lock";
@@ -86,6 +86,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoRoot = "src-tauri";
   # And make sure we build there too
   buildAndTestSubdir = finalAttrs.cargoRoot;
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=app-v(.*)" ]; };
 
   meta = {
     description = "An assistant tool for SJTU Canvas online course platform";

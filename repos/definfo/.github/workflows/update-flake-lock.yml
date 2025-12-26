@@ -2,8 +2,8 @@ name: "Update flake.lock"
 on:
   workflow_dispatch:
   schedule:
-    # update every Monday at 2:00
-    - cron: "0 2 * * 1"
+    # update every Monday at 1:00
+    - cron: "0 1 * * 1"
 
 permissions: {}
 
@@ -21,23 +21,8 @@ jobs:
       - name: Install nix
         uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
       - name: Update flake lock
-        run: nix flake update
-      - name: Check for changes
-        id: git-check
-        run: git diff --quiet || echo "changes=true" >> "$GITHUB_OUTPUT"
-      - name: Create Pull Request
-        if: steps.git-check.outputs.changes == 'true'
-        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7
+        uses: DeterminateSystems/update-flake-lock@c5930b397a673a70ca70be06020e943aeac310a1 # v27
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Automated changes
-          title: "Automated PR: Update flake.lock"
-          body: |
-            Automated PR created due to repository changes.
-            Please review the changes and merge if appropriate.
-          branch: auto-update-pr
-          delete-branch: true
-          base: master
-          labels: |
+          pr-labels: |
             auto merge
-            flake-lock-update
+            update-flake-lock
