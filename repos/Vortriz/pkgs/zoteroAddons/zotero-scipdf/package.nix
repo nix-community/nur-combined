@@ -5,7 +5,7 @@
 }:
 mkZoteroAddon rec {
     pname = "SciPDF For Zotero";
-    version = "1.3.0";
+    version = "8.0.1";
 
     src = fetchurl {
         url = "https://github.com/syt2/zotero-scipdf/releases/download/V${version}/sci-pdf.xpi";
