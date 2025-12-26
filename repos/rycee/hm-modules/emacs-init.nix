@@ -53,7 +53,7 @@ let
         };
 
         defer = mkOption {
-          type = types.either types.bool types.ints.positive;
+          type = types.either types.bool types.numbers.positive;
           default = false;
           description = ''
             The <option>:defer</option> setting.
