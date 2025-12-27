@@ -1,4 +1,4 @@
-{ lib, newScope, stdenv, allegro5 }: let
+{ lib, newScope, stdenv, allegro5, buildDubPackage }: let
     inherit (stdenv.hostPlatform) isDarwin;
     # PNG32 workaround for SimonN/LixD#431 is no longer needed after liballeg/allegro5#1653.
     allegro5HasNativeMacOSImageLoader = isDarwin && lib.versionOlder (lib.getVersion allegro5) "5.2.10.1-unstable-2025-07-19";
@@ -6,10 +6,10 @@ in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     lix-game-packages = self;
     
     game = callPackage ./. {};
-    game-unwrapped = callPackage ./unwrapped.nix {};
+    game-unwrapped = callPackage ./unwrapped.nix { inherit allegro5 buildDubPackage; };
     assets = callPackage ./assets.nix {};
     music = callPackage ./music.nix {};
-    server = callPackage ./server.nix {};
+    server = callPackage ./server.nix { inherit buildDubPackage; };
     
     common = callPackage ./common.nix {};
     highResTitleScreen = callPackage ./highResTitleScreen.nix {};

@@ -24,7 +24,7 @@
                   done
             '';
             meta = (old.meta or {}) // {
-                description = "${old.meta.description or "MAME"} (fixed for macOS/Darwin)" + lib.optionalString myLib.deprecateMAMEBuilds " [DEPRECATED]";
+                description = "${old.meta.description or "MAME"} (fixed for macOS/Darwin)";
                 broken = false;
             };
         } // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion darwinMinVersion) {

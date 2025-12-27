@@ -89,7 +89,7 @@ in {
             pkgs.lib.versionAtLeast pkgs.allegro5.version "5.2.10.0" &&
             pkgs.lib.versionOlder pkgs.allegro5.version "5.2.10.1"
         ;
-    in dontUpdate (pkgs.allegro5.overrideAttrs (old: {
+    in myLib.warnDeprecated.allegro5 "allegro5" pkgs.allegro5 (dontUpdate (pkgs.allegro5.overrideAttrs (old: {
         patches = (old.patches or []) ++ pkgs.lib.optionals needsMacPatch [
             (pkgs.fetchpatch {
                 url = "https://github.com/Rhys-T/allegro5/commit/7c928e34042fd7b83d55649f240a38e937ed169b.patch";
@@ -105,9 +105,11 @@ in {
         !(old?outputs)
     ) {
         outputs = ["out" "dev"];
-    }));
+    })));
     
-    lix-game-packages = callPackage ./pkgs/lix-game/packages.nix {};
+    lix-game-packages = callPackage ./pkgs/lix-game/packages.nix (pkgs.lib.optionalAttrs myLib.isDeprecated.ldc {
+        inherit (pkgs) buildDubPackage;
+    });
     lix-game = self.lix-game-packages.game;
     lix-game-server = self.lix-game-packages.server;
     lix-game-libpng = if pkgs.stdenv.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
@@ -155,7 +157,7 @@ in {
                 hash = oldBootstrapHashes."${OS}-${ARCH}" or (throw "missing bootstrap hash for ${OS}-${ARCH}");
             };
         });
-    in dontUpdate ((pkgs.ldc.override (pkgs.lib.optionalAttrs needsMacPatch {
+    in myLib.warnDeprecated.ldc "ldc" pkgs.ldc (dontUpdate ((pkgs.ldc.override (pkgs.lib.optionalAttrs needsMacPatch {
         ldcBootstrap = oldBootstrap;
     })).overrideAttrs (old: pkgs.lib.optionalAttrs needsMacPatch {
         patches = (old.patches or []) ++ [(pkgs.fetchpatch {
@@ -167,18 +169,18 @@ in {
             description = (old.meta.description or "ldc") + " (fixed for macOS 15.4)";
             pos = myPos "ldc";
         };
-    }));
-    dub = dontUpdate ((pkgs.dub.override {
-        inherit (self) ldc;
+    })));
+    dub = myLib.warnDeprecated.ldc "dub" pkgs.dub (dontUpdate ((pkgs.dub.override {
+        inherit (if myLib.isDeprecated.ldc then pkgs else self) ldc;
     }).overrideAttrs (old: {
         meta = old.meta // {
             description = (old.meta.description or "dub") + " (fixed for macOS 15.4)";
             pos = myPos "dub";
         };
-    }));
-    buildDubPackage = pkgs.buildDubPackage.override {
-        inherit (self) ldc dub;
-    };
+    })));
+    buildDubPackage = myLib.warnDeprecated.ldc "buildDubPackage" pkgs.buildDubPackage (pkgs.buildDubPackage.override {
+        inherit (if myLib.isDeprecated.ldc then pkgs else self) ldc dub;
+    });
     
     xscorch = callPackage ./pkgs/xscorch {};
     
@@ -208,13 +210,15 @@ in {
     
     dc2dsk = callPackage ./pkgs/dc2dsk {};
     
-    mame = myLib.warnMAME "mame" pkgs.mame (dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {}));
-    mame-metal = myLib.warnMAME "mame-metal" pkgs.mame (dontUpdate (self.mame.override { darwinMinVersion = "11.0"; }));
-    hbmame = callPackage ./pkgs/mame/hbmame (pkgs.lib.optionalAttrs myLib.deprecateMAMEBuilds { inherit (pkgs) mame; });
-    hbmame-metal = myLib.warnMAME "hbmame-metal" self.hbmame (self.hbmame.override { mame = self.mame-metal; });
+    mame = myLib.warnDeprecated.mame "mame" pkgs.mame (dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {}));
+    mame-metal = let
+        mame-metal = if myLib.isDeprecated.mame then self.mame else (dontUpdate self.mame.override { darwinMinVersion = "11.0"; });
+    in myLib.warnDeprecated.mame "mame-metal" pkgs.mame mame-metal;
+    hbmame = callPackage ./pkgs/mame/hbmame (pkgs.lib.optionalAttrs myLib.isDeprecated.mame { inherit (pkgs) mame; });
+    hbmame-metal = myLib.warnDeprecated.mame "hbmame-metal" self.hbmame (if myLib.isDeprecated.mame then self.hbmame else self.hbmame.override { mame = self.mame-metal; });
     
     pacifi3d = callPackage ./pkgs/pacifi3d {};
-    pacifi3d-mame = self.pacifi3d.override { romsFromMAME = if myLib.deprecateMAMEBuilds then pkgs.mame else self.mame; };
+    pacifi3d-mame = self.pacifi3d.override { romsFromMAME = if myLib.isDeprecated.mame then pkgs.mame else self.mame; };
     pacifi3d-hbmame = self.pacifi3d.override { romsFromMAME = self.hbmame; };
     _ciOnly.pacifi3d-rom-xmls = pkgs.lib.recurseIntoAttrs {
         mame = self.pacifi3d-mame.romsFromXML;
@@ -240,14 +244,14 @@ in {
         } // lib.optionalAttrs needsLibutil {
             buildInputs = (old.buildInputs or []) ++ [darwin.libutil];
         });
-    in dontUpdate (myLib.addMetaAttrsDeep ({
+    in myLib.warnDeprecated.picolisp "picolisp" picolisp (dontUpdate (myLib.addMetaAttrsDeep ({
         description = (picolisp.meta.description or "PicoLisp") + " (fixed for macOS/Darwin)";
         position = myPos "picolisp";
-    }) picolisp');
+    }) picolisp'));
     
     picolisp-rolling = let
         inherit (pkgs) lib fetchFromGitHub;
-        inherit (self) picolisp;
+        inherit (if myLib.isDeprecated.picolisp then pkgs else self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
             version = "25.12.21";
             src = fetchFromGitHub {
@@ -340,7 +344,7 @@ in {
     icbm3d = let
         inherit (pkgs) stdenv lib icbm3d;
         needsFix = !(lib.any (lib.hasSuffix "-darwin") (icbm3d.meta.platforms or ["-darwin"]));
-    in dontUpdate (myLib.addMetaAttrsDeep {
+    in myLib.warnDeprecated.pr419640 "icbm3d" icbm3d (dontUpdate (myLib.addMetaAttrsDeep {
         description = "${icbm3d.meta.description or "icbm3d"} (fixed for macOS/Darwin)";
         platforms = icbm3d.meta.platforms ++ lib.platforms.darwin;
         position = myPos "icbm3d";
@@ -356,12 +360,12 @@ in {
             # and moves on, but it's probably better to not try it in the first place.
             sed -i '/INSTALLROOT/d' makefile
         '';
-    }) else icbm3d));
+    }) else icbm3d)));
     
     xgalagapp = let
         inherit (pkgs) stdenv lib xgalagapp;
         needsFix = !(lib.any (lib.hasSuffix "-darwin") (xgalagapp.meta.platforms or ["-darwin"]));
-    in dontUpdate (myLib.addMetaAttrsDeep {
+    in myLib.warnDeprecated.pr419640 "xgalagapp" xgalagapp (dontUpdate (myLib.addMetaAttrsDeep {
         description = "${xgalagapp.meta.description or "xgalagapp"} (fixed for macOS/Darwin)";
         platforms = xgalagapp.meta.platforms ++ lib.platforms.darwin;
         position = myPos "xgalagapp";
@@ -379,7 +383,7 @@ in {
             
             runHook postInstall
         '';
-    }) else xgalagapp));
+    }) else xgalagapp)));
     
     # fpc = let
     #     inherit (pkgs) lib;
