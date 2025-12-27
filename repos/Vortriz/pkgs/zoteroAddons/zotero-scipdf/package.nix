@@ -9,7 +9,7 @@ mkZoteroAddon rec {
 
     src = fetchurl {
         url = "https://github.com/syt2/zotero-scipdf/releases/download/V${version}/sci-pdf.xpi";
-        hash = "sha256-Z0OVtN7JHmvfE0hZ6rQ6VUgLFJPF3hnewJn/iQ+Ma8c=";
+        hash = "sha256-TvFjScju0yJ6sxXSS2jR3+Nquki5FTTHIAqldl4sYs4=";
     };
 
     addonId = "scipdf@ytshen.com";
