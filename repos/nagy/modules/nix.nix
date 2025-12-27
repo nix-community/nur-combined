@@ -85,6 +85,7 @@
             nativeBuildInputs = [
               # config.nix.package
               pkgs.nixVersions.latest
+              pkgs.writableTmpDirAsHomeHook
               # optional
               pkgs.jq
             ];

@@ -4,7 +4,6 @@
   fetchurl,
   fetchFromGitHub,
   qemu,
-  recurseIntoAttrs,
 }:
 
 # more info here
@@ -83,7 +82,7 @@ let
       );
 in
 {
-  raspberryPi = recurseIntoAttrs rec {
+  raspberryPi = lib.recurseIntoAttrs rec {
 
     buster-lite = fetchurl {
       pname = "raspios-buster-armhf-lite";

@@ -124,7 +124,7 @@ in
       diff = {
         pdf = {
           textconv = pkgs.writeShellScript "pdftostdout" ''
-            exec ${pkgs.poppler_utils}/bin/pdftotext -layout "$@" -
+            exec ${pkgs.poppler-utils}/bin/pdftotext -layout "$@" -
           '';
           binary = true;
         };

@@ -29,8 +29,6 @@ in
           # mkGitBranch
           (lib.replaceStrings [ "[git_branch]\n" ] [ "[git_branch]\nignore_branches = ['master', 'main']\n" ])
         ]}
-        [netns]
-        symbol = "netns "
       '')).outPath;
     programs.bash.interactiveShellInit = ''
       if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS =~ ,eat) ]]; then
