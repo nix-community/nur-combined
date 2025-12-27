@@ -3,7 +3,6 @@
   stdenvNoCC,
   writeShellApplication,
   fetchurl,
-  bash,
   nodejs_22,
   mihomo,
 }:

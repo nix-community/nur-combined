@@ -1,11 +1,9 @@
 {
   lib,
-  stdenvNoCC,
   fetchurl,
   fetchzip,
   nodejs_22,
   writeShellApplication,
-  symlinkJoin,
 }:
 
 let

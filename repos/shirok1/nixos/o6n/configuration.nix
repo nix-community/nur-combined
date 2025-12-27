@@ -135,6 +135,9 @@
       atuin
       eza
       just
+      nix-index
+      ethtool
+      gitui
 
       llm-agents.codex
     ];
@@ -374,9 +377,11 @@
       "ping"
       "qbittorrent"
       "sonos"
+      "switchbot"
       "tasmota"
       "thread"
       "upnp"
+      "waqi"
       "xiaomi_ble"
 
       "ffmpeg"
