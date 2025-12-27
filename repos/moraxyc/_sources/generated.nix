@@ -62,25 +62,25 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "5a47d6103c8ffdcd5d39d215fe0bbf8d8caf90df";
+    version = "d54fffd1e582f90d9cdd7ad52608817762ac9397";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "5a47d6103c8ffdcd5d39d215fe0bbf8d8caf90df";
+      rev = "d54fffd1e582f90d9cdd7ad52608817762ac9397";
       fetchSubmodules = false;
-      sha256 = "sha256-egZZSTTSAHTTDi/GrVATr81i5LRGO7JaTTXZVTj/m84=";
+      sha256 = "sha256-xoskkM5xdU3+T5AtgGv0uPZEUOLtMGl7RPv8gKBJBho=";
     };
-    date = "2025-12-23";
+    date = "2025-12-26";
   };
   flapalerted-stable = {
     pname = "flapalerted-stable";
-    version = "v4.2.1";
+    version = "v4.3.0";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "v4.2.1";
+      rev = "v4.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-OtP7yliMv8BqOSwaXmjSoGg7QeY5Ite1Vu8tRTeCYKQ=";
+      sha256 = "sha256-xoskkM5xdU3+T5AtgGv0uPZEUOLtMGl7RPv8gKBJBho=";
     };
   };
   geolite2-asn = {
@@ -163,18 +163,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202512252214";
+    version = "202512262215";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512252214/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512262215/geoip.dat";
       sha256 = "sha256-+clDiSHGhzYtrZQwlEEMkeunav0B++IknnNuyMNRTww=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202512252214";
+    version = "202512262215";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512252214/geosite.dat";
-      sha256 = "sha256-CtffNL+zBlXVC1kmE7ksp+L56406H0ovq9HFgDyYtcc=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512262215/geosite.dat";
+      sha256 = "sha256-zYxm7qTbOTTcBO4ma9xZOOqVuC9fWi5EtHFmq8JJJas=";
     };
   };
   watt-toolkit-aarch64-linux = {
