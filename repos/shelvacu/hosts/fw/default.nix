@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   vaculib,
   vacuModules,
   vacuRoot,

@@ -133,6 +133,7 @@ in
       gdb
       gnumake
       man-pages
+      nixpkgs-review
       patchelf
       python3
       ruby
