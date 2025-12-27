@@ -25,12 +25,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "antigravity";
-  version = "1.11.17-6639170008514560";
+  version = "1.13.3-4533425205018624";
 
-  # https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.11.17-6639170008514560/linux-x64/Antigravity.tar.gz
+  # https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.13.3-4533425205018624/linux-x64/Antigravity.tar.gz
   src = fetchurl {
     url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${finalAttrs.version}/linux-x64/Antigravity.tar.gz";
-    hash = "sha256-RUh4n14wrRPvNB7xEvOjmbLWsODMlee/WgYlsIpacSA=";
+    hash = "sha256-CE377fEEmzY6o617pnnuyLgP6vKVhazLkLWRDrsnAEg=";
   };
 
   nativeBuildInputs = [
@@ -86,6 +86,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = ./update.sh;
 
   meta = {
     description = "Google Antigravity — an internal Chrome/Electron-based development and onboarding tool";
