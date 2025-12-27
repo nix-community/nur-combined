@@ -119,6 +119,7 @@ let
       );
       bees = nodarwin (v3overridegcc pkgs.bees);
       netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
+      lix = v3override pkgs.lixPackageSets.latest.lix;
 
       cached = {
         inherit (self)
@@ -143,6 +144,7 @@ let
           downkyicore
           ego
           davinci-resolve-studio2001
+          lix
           ;
       };
     }
