@@ -15,6 +15,13 @@ stdenvNoCC.mkDerivation (final: {
     hash = "sha256-vgfbnZmWJ2e2xwGbMWBQyjMuMOViF097sy2VIAWfeaY=";
   };
 
+  # Fix readonly config dir
+  patchPhase = ''
+    sed -iE 's|DATA_DIR = .*|DATA_DIR = os.path.expanduser("~/.config/comfyui-autocomplete-plus")|' \
+            modules/api.py \
+            modules/downloader.py
+  '';
+
   installPhase = ''
     runHook preInstall
 
