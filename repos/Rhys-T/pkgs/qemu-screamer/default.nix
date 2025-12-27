@@ -431,6 +431,11 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ Rhys-T ];
     platforms = platforms.unix;
+    # SCREAMER: Can't seem to get this working. Oh well, 25.05 is going away soon-ish anyway.
+    broken = (
+      stdenv.hostPlatform.isDarwin &&
+      lib.versionOlder stdenv.hostPlatform.darwinMinVersion "12"
+    );
   }
   # toolsOnly: Does not have qemu-kvm and there's no main support tool
   # userOnly: There's one qemu-<arch> for every architecture
