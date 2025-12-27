@@ -68,6 +68,7 @@ rec {
   rofsc = callPackage ./pkgs/rofsc { };
   _3gxtool = callPackage ./pkgs/3gxtool { };
   twltool = callPackage ./pkgs/twltool { };
+  tex3ds = callPackage ./pkgs/tex3ds { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window { };
 

@@ -18,7 +18,7 @@ let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isForCurrentSystem =
-    p: if (p.meta.platforms or [ ]) == [ ] then true else (elem pkgs.system p.meta.platforms);
+    p: if (p.meta.platforms or [ ]) == [ ] then true else (elem pkgs.stdenv.hostPlatform.system p.meta.platforms);
   isBuildable =
     p:
     !(p.meta.broken or false)
