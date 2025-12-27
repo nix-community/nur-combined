@@ -306,7 +306,6 @@ buildFHSEnv {
     maintainers = with maintainers; [
       amarshall
       jshcmpbll
-      orivej
       XBagon
     ];
     platforms = [ "x86_64-linux" ];
