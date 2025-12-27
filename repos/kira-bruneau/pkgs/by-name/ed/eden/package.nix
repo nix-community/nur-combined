@@ -39,14 +39,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "eden";
-  version = "0.0.4-rc3";
+  version = "0.0.4";
 
   src = fetchFromGitea {
     domain = "git.eden-emu.dev";
     owner = "eden-emu";
     repo = "eden";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-w5H6r9R3HuMTRw49GpMiIS9ELPmBQnZkQZ8buXkZkCA=";
+    hash = "sha256-z+YEb3VjRyzrOXfL25jGPzn7s24p0oJKcHBrU6yIOfE=";
   };
 
   deps = stdenv.mkDerivation {
@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
         -czf $out .cache/cpm
     '';
 
-    outputHash = "sha256-Dl0dWEVWxBXjY4Mgwyso6MYeCZMrBJBNJB/Ur/+iEDk=";
+    outputHash = "sha256-zzpRNERPGdknfhZtkPTX8ndyOGJ4sqkU3Aru2XaDRBE=";
     outputHashAlgo = "sha256";
   };
 
