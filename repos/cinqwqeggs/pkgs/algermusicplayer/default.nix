@@ -62,22 +62,27 @@ stdenv.mkDerivation {
     
     [ -n "$vips_cpp" ] && cp "$vips_cpp" $out/lib/libvips-cpp.so.8.17.3
     [ -n "$vips_so" ] && cp "$vips_so" $out/lib/libvips.so.8
-    makeWrapper $out/share/${pname}/AppRun $out/bin/${pname} \
+    
+    makeWrapper $out/share/${pname}/algermusicplayer $out/bin/${pname} \
       --prefix LD_LIBRARY_PATH : "$out/lib:${lib.makeLibraryPath runtimeLibs}" \
-      --set-default APPIMAGE_EXTRACT_AND_RUN 1 \
+      --add-flags "--no-sandbox" \
       --unset GIO_EXTRA_MODULES
-    install -D algermusicplayer.desktop $out/share/applications/algermusicplayer.desktop
+    
+    install -D ./algermusicplayer.desktop $out/share/applications/algermusicplayer.desktop
     substituteInPlace $out/share/applications/algermusicplayer.desktop \
-      --replace-fail 'Exec=AppRun' "Exec=$out/bin/${pname}" \
-      --replace-fail 'Icon=algermusicplayer' "Icon=$out/share/icons/hicolor/512x512/apps/algermusicplayer.png"
-    install -D algermusicplayer.png $out/share/icons/hicolor/512x512/apps/algermusicplayer.png
+      --replace-fail 'Exec=AppRun' 'Exec=${pname}' \
+      --replace-fail 'Icon=algermusicplayer' 'Icon=algermusicplayer'
+    
+    mkdir -p $out/share/pixmaps
+    cp -L ./algermusicplayer.png $out/share/pixmaps/algermusicplayer.png
+    
     runHook postInstall
   '';
   meta = {
     description = "Third-party music player for Netease Cloud Music";
     homepage = "https://github.com/algerkong/AlgerMusicPlayer";
     license = lib.licenses.asl20;
-    sourceProvices = with lib.sourceTypes; [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [ lib.sourceTypes.binaryNativeCode ];
     mainProgram = "algermusicplayer";
     platforms = builtins.attrNames algerSrc;
   };
