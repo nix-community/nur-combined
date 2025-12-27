@@ -1,49 +1,62 @@
 {
   pkgs ? import <nixpkgs> { },
-  inputs' ? null,
+  lib ? pkgs.lib,
+  inputs ? { },
+  config ? { },
   ...
 }:
 let
-  lib = pkgs.lib;
-  baseDir = ./by-name;
-
   deprecatedAliases = import ./deprecated.nix pkgs;
-
-  readDirs = path: lib.filterAttrs (n: v: v == "directory") (builtins.readDir path);
-
-  allPackages = lib.makeScope pkgs.newScope (
-    self:
-    let
-      shards = builtins.attrNames (readDirs baseDir);
-      processShard =
-        shard:
-        let
-          shardDir = baseDir + "/${shard}";
-          packageNames = builtins.attrNames (readDirs shardDir);
-        in
-        lib.genAttrs packageNames (name: self.callPackage (shardDir + "/${name}/package.nix") { });
-
-      autoDiscovered =
-        if builtins.pathExists baseDir then
-          lib.foldl' (acc: shard: acc // (processShard shard)) { } shards
-        else
-          { };
-    in
-    {
-      upstream = pkgs;
-      inherit inputs';
-    }
-    // autoDiscovered
-    // deprecatedAliases
-  );
 
   filters = pkgs.callPackage ../helpers/filters.nix { };
 
-  activePackages = builtins.removeAttrs allPackages (builtins.attrNames deprecatedAliases);
+  fixedPkgs =
+    (lib.fix (self: {
+      callPackageWrapper =
+        pkgsArg:
+        lib.callPackageWith (
+          lib.optionalAttrs (config ? allModuleArgs) {
+            inherit (config.allModuleArgs) self' inputs' system;
+          }
+          // {
+            inherit inputs;
+          }
+          // pkgsArg
+          // self.packages
+        );
+
+      pkgsFun =
+        pkgsArg:
+        let
+          callPackage = self.callPackageWrapper pkgsArg;
+          sources = lib.fileset.fileFilter (args: args.name == "package.nix") ./by-name;
+          sourceFiles = lib.fileset.toList sources;
+        in
+        lib.listToAttrs (
+          map (pathName: {
+            name = baseNameOf (dirOf pathName);
+            value = callPackage pathName { };
+          }) sourceFiles
+        );
+
+      pkgsCross = lib.mergeAttrs (pkgs.writers.writeText "pkgsCross" "") (
+        lib.mapAttrs (n: _: self.pkgsFun (pkgs.pkgsCross."${n}")) lib.systems.examples
+      );
+
+      pkgsStatic = lib.mergeAttrs (pkgs.writers.writeText "pkgsStatic" "") (self.pkgsFun pkgs.pkgsStatic);
+
+      packages = lib.mergeAttrs (self.pkgsFun pkgs) {
+        upstream = pkgs;
+        inherit (self)
+          pkgsCross
+          pkgsStatic
+          ;
+      };
+    })).packages;
 in
-allPackages
+fixedPkgs
 // {
-  __drvPackages = lib.filterAttrs filters.isDrv activePackages;
-  __ciPackages = lib.filterAttrs filters.isBuildable activePackages;
-  __nurPackages = lib.filterAttrs filters.isExport activePackages // deprecatedAliases;
+  __drvPackages = lib.filterAttrs filters.isDrv fixedPkgs;
+  __ciPackages = lib.filterAttrs filters.isBuildable fixedPkgs;
+  __nurPackages = lib.filterAttrs filters.isExport fixedPkgs // deprecatedAliases;
 }

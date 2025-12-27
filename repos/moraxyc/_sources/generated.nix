@@ -138,6 +138,18 @@
     };
     date = "2024-06-17";
   };
+  mautrix-telegramgo = {
+    pname = "mautrix-telegramgo";
+    version = "3696c9cff494e8714b1af6c7c6884c30fe8439c2";
+    src = fetchFromGitHub {
+      owner = "mautrix";
+      repo = "telegramgo";
+      rev = "3696c9cff494e8714b1af6c7c6884c30fe8439c2";
+      fetchSubmodules = false;
+      sha256 = "sha256-KdtilYzvTVbrozgERMJXToOfbxXR9afuaSJEJHISG+M=";
+    };
+    date = "2025-12-24";
+  };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
     version = "v3.1.0";

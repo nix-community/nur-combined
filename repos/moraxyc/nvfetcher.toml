@@ -73,3 +73,7 @@ fetch.url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors"
 [gzctf]
 src.github = "GZTimeWalker/GZCTF"
 fetch.github = "GZTimeWalker/GZCTF"
+
+[mautrix-telegramgo]
+src.git = "https://github.com/mautrix/telegramgo.git"
+fetch.github = "mautrix/telegramgo"

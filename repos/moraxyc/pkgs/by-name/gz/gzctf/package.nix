@@ -94,6 +94,7 @@ buildDotnetModule (finalAttrs: {
         src
         preBuild
         ;
+      inherit sources;
     };
   };
 

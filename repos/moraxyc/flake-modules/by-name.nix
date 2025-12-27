@@ -25,7 +25,9 @@
   perSystem =
     {
       pkgs,
-      inputs',
+      inputs,
+      config,
+      lib,
       ...
     }@args:
     rec {
