@@ -54,6 +54,7 @@
 # , gitUpdater
 # SCREAMER:
 , nixpkgs-qemu9_1
+, apple-sdk_12 ? null, darwinMinVersionHook
 , fetchFromGitHub, fetchFromGitLab, fetchgit
 , maintainers
 , qemu
@@ -181,7 +182,14 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals hexagonSupport [ glib ]
     # SCREAMER:
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ sigtool ] # rez setfile ]
-    ++ lib.optionals (!userOnly) [ dtc ];
+    ++ lib.optionals (!userOnly) [ dtc ]
+    ++ lib.optionals (
+      stdenv.hostPlatform.isDarwin &&
+      lib.versionOlder stdenv.hostPlatform.darwinMinVersion "12"
+    ) [
+      apple-sdk_12
+      (darwinMinVersionHook "12.0")
+    ];
 
   buildInputs = [ glib zlib ]
     ++ lib.optionals (!minimal) [ dtc pixman vde2 lzo snappy libtasn1 gnutls nettle libslirp ]
