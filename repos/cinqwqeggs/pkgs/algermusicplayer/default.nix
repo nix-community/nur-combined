@@ -33,6 +33,7 @@ let
     libxkbcommon
     alsa-lib
     mesa
+    mesa.drivers
     libdrm
     libGL
     libglvnd
