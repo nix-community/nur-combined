@@ -40,13 +40,13 @@ let
 in
 flutter.buildFlutterApplication rec {
   pname = "plezy";
-  version = "1.12.0";
+  version = "1.13.0";
 
   src = fetchFromGitHub {
     owner = "edde746";
     repo = "plezy";
     tag = version;
-    hash = "sha256-I9jyWD5VKL52Vq6gXhNqccAM8x+eNShuzd3baygvHdA=";
+    hash = "sha256-Df3KqeUpI4YO5DJ8GUMlJ1dO0id+DrzG3exBMzLBCJo=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
