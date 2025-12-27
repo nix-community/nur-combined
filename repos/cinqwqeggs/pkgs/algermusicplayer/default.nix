@@ -1,17 +1,17 @@
 { lib, pkgs, stdenv, appimageTools, fetchurl, ... }:
 
 let
-  version = "4.9.0";
+  version = "5.0.0";
   pname = "algermusicplayer";
 
   algerSrc = {
     "x86_64-linux" = fetchurl {
       url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v${version}/AlgerMusicPlayer-${version}-linux-x86_64.AppImage";
-      sha256 = "7d8f25a1bb118369c310d60363747cd73276c7416bdbdbc971cade95b7608268";
+      sha256 = "c1e20734937d0a678c222023c1dddee911b97696f996127d1f0b444da2e83649";
     };
     "aarch64-linux" = fetchurl {
       url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v${version}/AlgerMusicPlayer-${version}-linux-arm64.AppImage";
-      sha256 = "12fba1e87421b9b0385ab425568b7e0420f66afaeaa496b1cff2f7f8007bb117";
+      sha256 = "9db0e0ef821d7a64c8245c965ccd7a92e165dd3ccc08e02e2b2dbb5f88849917";
     };
   };
 

@@ -14,9 +14,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  algermusicplayer = pkgs.callPackage ./pkgs/algermusicplayer { };
+  algermusicplayer = pkgs.callPackage ./pkgs/algermusicplayer/default.nix { };
   go-cqhttp = pkgs.callPackage ./pkgs/go-cqhttp/default.nix {};
-  dingtalk = pkgs.callPackage ./pkgs/dingtalk/default.nix {};
+  
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
