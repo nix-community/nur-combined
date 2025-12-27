@@ -171,6 +171,7 @@
             # presumably needed by nheko
             "olm-3.2.16"
             "fluffychat-linux-1.27.0"
+            "qtwebengine-5.15.19"
           ];
         }
         // (argAttr.config or { });

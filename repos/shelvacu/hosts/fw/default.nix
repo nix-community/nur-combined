@@ -45,7 +45,7 @@
     mumble
     mullvad-vpn
     obs-studio
-    # jellyfin-media-player # depends on marked-insecure qtwebengine :weary:
+    jellyfin-media-player # depends on marked-insecure qtwebengine :weary:
     kdePackages.ktorrent
     exfat
     exfatprogs
