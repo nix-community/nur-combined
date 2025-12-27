@@ -12,8 +12,9 @@
         inherit system;
         config = {
           allowUnfree = true;
-          # permittedInsecurePackages = [
-          # ];
+          permittedInsecurePackages = [
+            "olm-3.2.16" # mautrix-telegramgo
+          ];
         };
         overlays = [
           (final: prev: {
