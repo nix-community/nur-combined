@@ -256,7 +256,86 @@
 
   services.nginx = {
     enable = true;
+
+    prependConfig = ''
+      worker_processes auto;
+    '';
+
+    eventsConfig = ''
+      use epoll;
+    '';
+
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedGzipSettings = true;
+    experimentalZstdSettings = true;
+
+    virtualHosts = {
+      "ha.berry.shiroki.tech" = {
+        # # Redirect HTTP -> HTTPS
+        # forceSSL = true;
+        # # Enable ACME (Let's Encrypt). Set to false if you manage certs yourself.
+        # enableACME = true;
+        # If you enable ACME, also set services.acme.email below (or set
+        # services.nginx.extraConfig as needed).
+        locations = {
+          "/" = {
+            proxyPass = "http://[::1]:8123";
+            proxyWebsockets = true;
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
+        };
+      };
+      "qbt.berry.shiroki.tech" = {
+        # # Redirect HTTP -> HTTPS
+        # forceSSL = true;
+        # # Enable ACME (Let's Encrypt). Set to false if you manage certs yourself.
+        # enableACME = true;
+        # If you enable ACME, also set services.acme.email below (or set
+        # services.nginx.extraConfig as needed).
+        locations = {
+          "/" = {
+            proxyPass = "http://[::1]:8080";
+            proxyWebsockets = true;
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
+        };
+      };
+      "jellyfin.berry.shiroki.tech" = {
+        # # Redirect HTTP -> HTTPS
+        # forceSSL = true;
+        # # Enable ACME (Let's Encrypt). Set to false if you manage certs yourself.
+        # enableACME = true;
+        # If you enable ACME, also set services.acme.email below (or set
+        # services.nginx.extraConfig as needed).
+        locations = {
+          "/" = {
+            proxyPass = "http://[::1]:8096";
+            proxyWebsockets = true;
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
+        };
+      };
+    };
   };
+
+  # If you enabled ACME above, configure the email address for registration.
+  # Uncomment and set your email if you want automatic Let's Encrypt certs.
+  # services.acme = {
+  #   acceptTerms = true;
+  #   email = "you@example.com";
+  #   certs = {
+  #     "your.hass.domain" = {
+  #       webroot = "/var/www/letsencrypt";
+  #     };
+  #   };
+  # };
 
   systemd = {
     packages = [ pkgs.qbittorrent-nox ];
@@ -310,6 +389,14 @@
       "automation ui" = "!include automations.yaml";
       "scene ui" = "!include scenes.yaml";
       "script ui" = "!include scripts.yaml";
+
+      http = {
+        use_x_forwarded_for = true;
+        trusted_proxies = [
+          "127.0.0.1"
+          "::1"
+        ];
+      };
     };
     customComponents = with pkgs.home-assistant-custom-components; [
       xiaomi_home
@@ -320,6 +407,15 @@
     enable = true;
     openFirewall = true;
     user = "shiroki";
+  };
+
+  services.clickhouse = {
+    enable = true;
+    serverConfig = {
+      listen_host = "::";
+      http_port = 8234;
+      tcp_port = 9000;
+    };
   };
 
   services.qbittorrent-clientblocker = {
@@ -347,7 +443,11 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
+    80
+    443
     8080
+    8234
+    9000
     13831
     21064 # Home Assistant HomeKit Bridge
     1400 # Home Assistant Sonos
