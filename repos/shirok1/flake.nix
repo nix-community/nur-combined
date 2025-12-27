@@ -14,6 +14,14 @@
     }@inputs:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+      pkgsOverlays = {
+        nixpkgs.overlays = [
+          (final: prev: {
+            shirok1 = import ./default.nix { pkgs = final; };
+            llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system};
+          })
+        ];
+      };
     in
     {
       legacyPackages = forAllSystems (
@@ -32,16 +40,24 @@
       nixosConfigurations.nixo6n = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                shirok1 = import ./default.nix { pkgs = final; };
-                llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system};
-              })
-            ];
-          }
+          pkgsOverlays
 
           ./nixos/o6n/configuration.nix
+
+          inputs.daeuniverse.nixosModules.dae
+          inputs.daeuniverse.nixosModules.daed
+
+          self.nixosModules.qbittorrent-clientblocker
+          self.nixosModules.snell-server
+        ];
+      };
+
+      nixosConfigurations.nixopi5 = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          pkgsOverlays
+
+          ./nixos/opi5/configuration.nix
 
           inputs.daeuniverse.nixosModules.dae
           inputs.daeuniverse.nixosModules.daed
