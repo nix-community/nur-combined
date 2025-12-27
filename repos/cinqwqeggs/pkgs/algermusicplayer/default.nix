@@ -22,12 +22,6 @@ in
 appimageTools.wrapType2 rec {
   inherit pname version src;
 
-  extraPkgs = pkgs: with pkgs; [
-    libglvnd
-    ffmpeg
-    qt5.qtbase
-  ];
-
   extraInstallCommands =
     let
       appimageContents = appimageTools.extract { inherit pname version src; };
