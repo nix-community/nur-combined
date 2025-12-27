@@ -64,8 +64,8 @@ mkDerivation {
     domain = "invent.kde.org";
     owner = "graphics";
     repo = "krita";
-    rev = "5e5417bd4d3e8fa404e1fc31dd8fbec4d9b06a02";
-    hash = "sha256-pcGKiinOQ11sfv3DSxWrf34picnWxYHCeapQULTCuNM=";
+    rev = "4b930dfe3126d3cc4a072751507c88ec6c9414b2";
+    hash = "sha256-1hPWNoDP2sXHNIOX4YfTgkLiSVPEQvAGOXXJV9VVZts=";
   };
 
   nativeBuildInputs = [
