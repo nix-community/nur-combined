@@ -415,9 +415,16 @@ in {
     man2html = callPackage ./pkgs/man2html {};
     
     # qemu-screamer-nixpkgs = callPackage ./pkgs/qemu-screamer/nixpkgs.nix {};
-    qemu-screamer = callPackage ./pkgs/qemu-screamer {
-        inherit (pkgs.darwin) sigtool;
-    };
+    qemu-screamer = let
+        nixpkgs-qemu9_1 = callPackage ./pkgs/qemu-screamer/nixpkgs.nix {};
+        canokey-qemu = callPackage ./pkgs/qemu-screamer/canokey-qemu.nix {
+            inherit nixpkgs-qemu9_1;
+        };
+        qemu-screamer = callPackage ./pkgs/qemu-screamer {
+            inherit nixpkgs-qemu9_1 canokey-qemu;
+            inherit (pkgs.darwin) sigtool;
+        };
+    in qemu-screamer;
     
     # _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
     #     wine64Full = pkgs.wine64Packages.full;
