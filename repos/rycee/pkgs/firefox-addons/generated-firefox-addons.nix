@@ -10901,10 +10901,10 @@
     };
     "pywalfox" = buildFirefoxXpiAddon {
       pname = "pywalfox";
-      version = "2.0.11";
+      version = "2.1.0";
       addonId = "pywalfox@frewacom.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4061156/pywalfox-2.0.11.xpi";
-      sha256 = "df6eab2d2224b23f442d5d6044f4718ec153c197c96191e2bfe0addb2b088137";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4651382/pywalfox-2.1.0.xpi";
+      sha256 = "1a4a8c863e3a9853764670712b4e1faca687d30d056655f15669c7ab103cc1e5";
       meta = with lib;
       {
         homepage = "https://github.com/frewacom/Pywalfox";
@@ -15945,10 +15945,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.0.4";
+      version = "18.0.6";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4647683/youtube_subscription_groups-18.0.4.xpi";
-      sha256 = "9dbe338b03dfec71cd55ef7bd1375dbc1eb000725770a07195e559a456380cee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4651360/youtube_subscription_groups-18.0.6.xpi";
+      sha256 = "ff3819d2ee5e75c286dd42e37514aafeb4d1ff8ba6229b1e31875f7cc0003742";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
