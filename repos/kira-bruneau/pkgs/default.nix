@@ -54,8 +54,7 @@ let
     // {
       updateScript =
         if builtins.isList drv.updateScript then
-          [ (builtins.head drv.updateScript) ]
-          ++ (builtins.map removeFlakeRoot (builtins.tail drv.updateScript))
+          [ (builtins.head drv.updateScript) ] ++ (map removeFlakeRoot (builtins.tail drv.updateScript))
         else
           drv.updateScript;
     };

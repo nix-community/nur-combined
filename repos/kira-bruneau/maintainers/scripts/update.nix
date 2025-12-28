@@ -25,7 +25,7 @@ let
     packages:
     builtins.attrValues (
       builtins.listToAttrs (
-        builtins.map (data: {
+        map (data: {
           name = data.package.meta.position;
           value = data;
         }) packages
@@ -38,9 +38,7 @@ let
       name = package.name;
       pname = lib.getName package;
       oldVersion = lib.getVersion package;
-      updateScript = map builtins.toString (
-        lib.toList (package.updateScript.command or package.updateScript)
-      );
+      updateScript = map toString (lib.toList (package.updateScript.command or package.updateScript));
       supportedFeatures = package.updateScript.supportedFeatures or [ ];
       attrPath = package.updateScript.attrPath or attrPath;
     };

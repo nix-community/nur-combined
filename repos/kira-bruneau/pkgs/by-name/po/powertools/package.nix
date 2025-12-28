@@ -2,12 +2,14 @@
   lib,
   stdenv,
   fetchFromGitea,
+  rustPlatform,
+  fetchPnpmDeps,
   cargo,
   cmake,
   nodejs,
   pnpm,
+  pnpmConfigHook,
   rustc,
-  rustPlatform,
   pciutils,
   nix-update-script,
 }:
@@ -40,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-YTppt5/kKgkheG0TtlX3Y3is+49vY+97lkEqQy6fEtE=";
   };
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     patches = [ ./update-lock.patch ];
     fetcherVersion = 2;
@@ -55,7 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
     cargo
     cmake
     nodejs
-    pnpm.configHook
+    pnpm
+    pnpmConfigHook
     rustc
     rustPlatform.bindgenHook
     rustPlatform.cargoBuildHook
