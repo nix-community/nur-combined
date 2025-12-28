@@ -60,8 +60,6 @@ jobs:
           key: nvfetcher
 
       - name: Build nix packages
-        env:
-          NIX_REMOTE: daemon
         run: |
           cat > secrets.toml <<EOF
           [keys]

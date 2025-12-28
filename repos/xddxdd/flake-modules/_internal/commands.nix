@@ -1,5 +1,4 @@
-_:
-{
+_: {
   perSystem =
     {
       pkgs,
@@ -86,12 +85,10 @@ _:
             pkgs/uncategorized/**/*.nix \
             | xargs dirname | sort | uniq | xargs -n1 basename)
 
-          TMP_LIST=$(mktemp)
           for ATTR in $ATTRS; do
-            echo "${pkgs.nix-update}/bin/nix-update --flake \"$ATTR\" --version skip" >> "$TMP_LIST"
+            echo "Updating $ATTR"
+            ${pkgs.nix-update}/bin/nix-update --flake "$ATTR" --version skip
           done
-          cat "$TMP_LIST"
-          ${pkgs.parallel}/bin/parallel -j$(nproc) < "$TMP_LIST"
         '';
       };
     };
