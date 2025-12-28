@@ -14,13 +14,19 @@
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
 
-  waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
-  helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
+  github-desktop = lib.callPackage ./pkgs/github-desktop {};
+  obs-studio = lib.callPackage ./pkgs/obs-studio {};
+  tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
+  ghostty = lib.callPackage ./pkgs/ghostty {};
+  gimp = lib.callPackage ./pkgs/gimp {};
 
-  boxtron-bin = lib.callPackage ./pkgs/boxtron-bin {};
-  proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
-  proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
+  helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
+  waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
+
   proton-ge-rtsp-bin = lib.callPackage ./pkgs/proton-ge-rtsp-bin {};
+  proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
+  proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
+  boxtron-bin = lib.callPackage ./pkgs/boxtron-bin {};
 
   proton-cachyos-v1-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v1";};
   proton-cachyos-v2-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v2";};

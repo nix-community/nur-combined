@@ -52,7 +52,7 @@
     platforms = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin"];
     maintainers = ["JoyfulCat" "Prinky"];
     mainProgram = "waterfox";
-    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
   if stdenv.isDarwin

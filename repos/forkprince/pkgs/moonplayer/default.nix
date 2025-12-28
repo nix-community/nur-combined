@@ -34,7 +34,7 @@ in
       meta =
         base
         // {
-          sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+          sourceProvenance = [lib.sourceTypes.binaryNativeCode];
         };
 
       src = fetchurl (lib.helper.getSingle ver);
@@ -60,7 +60,7 @@ in
       meta =
         base
         // {
-          sourceProvenance = with lib.sourceTypes; [fromSource];
+          sourceProvenance = [lib.sourceTypes.fromSource];
         };
 
       version = "4.3";

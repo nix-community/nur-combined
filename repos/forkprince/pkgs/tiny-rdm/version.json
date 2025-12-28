@@ -1,0 +1,20 @@
+{
+  "name": "Tiny RDM",
+  "source": {
+    "type": "github-release",
+    "repo": "tiny-craft/tiny-rdm",
+    "query": ".[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "version": "1.2.5",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "TinyRDM_{version}_mac_arm64.dmg",
+      "hash": "sha256-CRhhHIqW272lqOWcTIEGWbylAz2C94Dfhl1NHf7SW4o="
+    },
+    "x86_64-darwin": {
+      "file": "TinyRDM_{version}_mac_intel.dmg",
+      "hash": "sha256-RBX/G7KGA8K9GLV3AO9vUVCYv9DWubYfWqzK3DeKPDM="
+    }
+  }
+}

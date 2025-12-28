@@ -36,7 +36,7 @@
     maintainers = ["Wam25" "Prinky"];
     platforms = ["x86_64-linux" "aarch64-darwin"];
     mainProgram = "re-lunatic-player";
-    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
   if stdenvNoCC.isDarwin

@@ -69,6 +69,6 @@ buildGoModule rec {
     maintainers = ["Prinky"];
     platforms = ["x86_64-linux"];
     mainProgram = "hyprpanel";
-    sourceProvenance = with lib.sourceTypes; [fromSource];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 }

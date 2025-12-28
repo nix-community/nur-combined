@@ -66,6 +66,6 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = ["Prinky"];
-    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

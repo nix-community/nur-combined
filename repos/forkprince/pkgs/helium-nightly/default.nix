@@ -22,7 +22,7 @@
     maintainers = ["Ev357" "Prinky"];
     platforms = lib.platforms.unix;
     mainProgram = "helium";
-    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
   if stdenvNoCC.isDarwin

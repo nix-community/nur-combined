@@ -31,7 +31,7 @@
     platforms = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin"];
     maintainers = ["Prinky"];
     mainProgram = "ab-download-manager";
-    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
   if stdenvNoCC.isDarwin

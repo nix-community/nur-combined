@@ -52,6 +52,6 @@ in
       license = lib.licenses.bsd3;
       maintainers = ["Prinky"];
       platforms = ["x86_64-linux"];
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
   }

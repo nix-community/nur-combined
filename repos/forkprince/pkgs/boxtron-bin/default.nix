@@ -63,6 +63,6 @@ in
       maintainers = ["Prinky"];
       platforms = ["x86_64-linux"];
       broken = true;
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
   }

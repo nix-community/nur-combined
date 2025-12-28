@@ -42,6 +42,6 @@ rustPlatform.buildRustPackage rec {
     maintainers = ["Prinky"];
     platforms = lib.platforms.linux;
     mainProgram = "nirius";
-    sourceProvenance = with lib.sourceTypes; [fromSource];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 }

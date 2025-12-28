@@ -1,0 +1,19 @@
+{
+  "name": "GIMP",
+  "source": {
+    "type": "api",
+    "url": "https://www.gimp.org/gimp_versions.json",
+    "version_path": ".STABLE[0].version"
+  },
+  "version": "3.0.6",
+  "platforms": {
+    "x86_64-darwin": {
+      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-3.0.6-x86_64.dmg",
+      "hash": "sha256-AmeuCdiOHUsSGBD73LkfMzlEIBsLAuKv27+r0aBGpVE="
+    },
+    "aarch64-darwin": {
+      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-3.0.6-arm64.dmg",
+      "hash": "sha256-b05/jtfr+oDctuDAX5sda9PVqZHpmrwvM5HPN7/ZfXA="
+    }
+  }
+}

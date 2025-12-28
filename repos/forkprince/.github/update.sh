@@ -9,7 +9,7 @@ url_encode() {
   local string="$1"
   local encoded=""
   local pos c o
-  
+
   for ((pos=0; pos<${#string}; pos++)); do
     c=${string:$pos:1}
     case "$c" in
@@ -87,7 +87,7 @@ update_github_release() {
     fi
 
     echo "🔍 Fetching version from $first_platform_repo..."
-    if ! releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${first_platform_repo}/releases?per_page=100"); then
+    if ! releases=$(curl -fsSL ${auth_header[@]+"${auth_header[@]}"} "https://api.github.com/repos/${first_platform_repo}/releases?per_page=100"); then
       echo "⚠️ Error: Failed to fetch releases from GitHub API" >&2
       exit 1
     fi
@@ -101,7 +101,7 @@ update_github_release() {
     fi
 
     echo "🔍 Fetching releases from $repo..."
-    if ! releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${repo}/releases?per_page=100"); then
+    if ! releases=$(curl -fsSL ${auth_header[@]+"${auth_header[@]}"} "https://api.github.com/repos/${repo}/releases?per_page=100"); then
       echo "⚠️ Error: Failed to fetch releases from GitHub API" >&2
       exit 1
     fi
@@ -214,7 +214,7 @@ update_platforms() {
     else
       echo "   [$platform] Using repo: $platform_repo"
       local platform_releases query
-      if ! platform_releases=$(curl -fsSL "${auth_header[@]}" "https://api.github.com/repos/${platform_repo}/releases?per_page=100"); then
+      if ! platform_releases=$(curl -fsSL ${auth_header[@]+"${auth_header[@]}"} "https://api.github.com/repos/${platform_repo}/releases?per_page=100"); then
         echo "⚠️ Error: Failed to fetch releases from $platform_repo" >&2
         continue
       fi
@@ -355,7 +355,7 @@ update_api_single() {
   local api_url response version_path url_path rawVersion newVersion newUrl tmp hash
 
   api_url=$(jq -r '.source.url // empty' <<< "$config")
-  
+
   if [[ -z "$api_url" ]]; then
     echo "⚠️ Error: 'source.url' is required for API updates" >&2
     exit 1
@@ -425,7 +425,7 @@ update_api_platforms() {
 
   base_api_url=$(jq -r '.source.url // empty' <<< "$config")
   version_path=$(jq -r '.source.version_path // ".version"' <<< "$config")
-  url_path=$(jq -r '.source.url_path // ".url"' <<< "$config")
+  url_path=$(jq -r '.source.url_path // empty' <<< "$config")
 
   if [[ -z "$base_api_url" ]]; then
     echo "⚠️ Error: 'source.url' is required for API updates" >&2
@@ -435,54 +435,84 @@ update_api_platforms() {
   tmp=$(mktemp)
   echo "🔄 Processing API platforms..."
 
+  echo "🔍 Fetching version from API..."
+  local response
+  if ! response=$(curl -fsSL "$base_api_url"); then
+    echo "⚠️ Error: Failed to fetch from API endpoint" >&2
+    rm -f "$tmp"
+    exit 1
+  fi
+
+  local rawVersion
+  rawVersion=$(jq -r "$version_path" <<< "$response")
+
+  if [[ -z "$rawVersion" || "$rawVersion" == "null" ]]; then
+    echo "⚠️ Error: Failed to extract version from API response" >&2
+    rm -f "$tmp"
+    exit 1
+  fi
+
+  newVersion="${rawVersion#v}"
+  echo "📌 Latest version: $newVersion"
+
+  if [[ "$newVersion" == "$oldVersion" ]]; then
+    if [[ "$force_hash" == "false" ]]; then
+      echo "✅ Version is up to date"
+      rm -f "$tmp"
+      exit 0
+    else
+      echo "🔄 Forcing hash update"
+    fi
+  else
+    echo "⬆️ Update: $oldVersion → $newVersion"
+  fi
+
+  local use_api_urls=false
+  if [[ -n "$url_path" ]]; then
+    use_api_urls=true
+  fi
+
   local platforms=()
   while IFS= read -r platform; do
     platforms+=("$platform")
   done < <(jq -r '.platforms | keys[]' <<< "$config")
 
-  local first_platform=true
   for platform in "${platforms[@]}"; do
-    local api_url="$base_api_url"
-    local response rawVersion newUrl
+    local newUrl
 
-    if jq -e --arg p "$platform" '.platforms[$p].substitutions' <<< "$config" > /dev/null; then
-      local i=0
-      while IFS= read -r sub; do
-        api_url="${api_url//\{$i\}/$sub}"
-        i=$((i + 1))
-      done < <(jq -r --arg p "$platform" '.platforms[$p].substitutions[]' <<< "$config")
-    fi
+    if [[ "$use_api_urls" == "true" ]]; then
+      local api_url="$base_api_url"
 
-    echo "   [$platform] Fetching from API..."
-    if ! response=$(curl -fsSL "$api_url"); then
-      echo "⚠️ Error: Failed to fetch from API endpoint for $platform" >&2
-      continue
-    fi
-
-    rawVersion=$(jq -r "$version_path" <<< "$response")
-    newUrl=$(jq -r "$url_path" <<< "$response")
-
-    if [[ -z "$rawVersion" || -z "$newUrl" || "$rawVersion" == "null" || "$newUrl" == "null" ]]; then
-      echo "⚠️ Error: Failed to extract version or URL from API response for $platform" >&2
-      continue
-    fi
-
-    if [[ "$first_platform" == "true" ]]; then
-      newVersion="${rawVersion#v}"
-      echo "📌 Latest version: $newVersion"
-
-      if [[ "$newVersion" == "$oldVersion" ]]; then
-        if [[ "$force_hash" == "false" ]]; then
-          echo "✅ Version is up to date"
-          rm -f "$tmp"
-          exit 0
-        else
-          echo "🔄 Forcing hash update"
-        fi
-      else
-        echo "⬆️ Update: $oldVersion → $newVersion"
+      if jq -e --arg p "$platform" '.platforms[$p].substitutions' <<< "$config" > /dev/null; then
+        local i=0
+        while IFS= read -r sub; do
+          api_url="${api_url//\{$i\}/$sub}"
+          i=$((i + 1))
+        done < <(jq -r --arg p "$platform" '.platforms[$p].substitutions[]' <<< "$config")
       fi
-      first_platform=false
+
+      echo "   [$platform] Fetching from API..."
+      if ! response=$(curl -fsSL "$api_url"); then
+        echo "⚠️ Error: Failed to fetch from API endpoint for $platform" >&2
+        continue
+      fi
+
+      newUrl=$(jq -r "$url_path" <<< "$response")
+
+      if [[ -z "$newUrl" || "$newUrl" == "null" ]]; then
+        echo "⚠️ Error: Failed to extract URL from API response for $platform" >&2
+        continue
+      fi
+    else
+      local url_template
+      url_template=$(jq -r --arg p "$platform" '.platforms[$p].url' <<< "$config")
+
+      if [[ -z "$url_template" || "$url_template" == "null" ]]; then
+        echo "⚠️ Error: No URL template found for $platform" >&2
+        continue
+      fi
+
+      newUrl="${url_template//\{version\}/$newVersion}"
     fi
 
     echo "   [$platform] Downloading $newUrl"

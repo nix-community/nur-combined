@@ -40,7 +40,7 @@
       cc-by-nc-40
       mit
     ];
-    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     maintainers = with lib.maintainers; [
       gepbird
       stepbrobd
