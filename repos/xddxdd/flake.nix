@@ -178,7 +178,10 @@
             packagesWithCuda = lib.filterAttrs (_: lib.isDerivation) legacyPackagesWithCuda;
 
             devshells.default = {
-              packages = [ pkgs.python3 ];
+              packages = [
+                pkgs.python3
+                pkgs.nix-update
+              ];
               env = [
                 {
                   name = "PYTHONPATH";

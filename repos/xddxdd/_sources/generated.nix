@@ -685,26 +685,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.12.22";
+    version = "2025.12.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-ASN.mmdb";
-      hash = "sha256-AMkMJzipRXZY4WDINErcimCd/xoQuV3wT5eCIMAyr2s=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.28/GeoLite2-ASN.mmdb";
+      hash = "sha256-vYyPNt5TNKT/wWschhzdND7Vv3mveENSoHHFhakYkgY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.12.22";
+    version = "2025.12.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-City.mmdb";
-      hash = "sha256-fRTDXiCaeyTYTbkO8JYR46Uj6NGCE4WYPIYoEHYpwbM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.28/GeoLite2-City.mmdb";
+      hash = "sha256-N7zjx8bZzatSKgGkQV3YsrZ6BWn+sM5Z75q1b6W/Ggw=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.12.22";
+    version = "2025.12.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-Country.mmdb";
-      hash = "sha256-toAGQNgrLcxwJ0ZKrDewKLMGvI+VMLHu5hPZt52tamM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.28/GeoLite2-Country.mmdb";
+      hash = "sha256-RLn5BT2xhXkIZmngtyxFjQAyToRdVe0QruPltKoQzlc=";
     };
   };
   glauth = {
@@ -1403,12 +1403,10 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "0.10.0";
-    src = fetchFromGitHub {
-      owner = "open-quantum-safe";
-      repo = "oqs-provider";
-      tag = "0.10.0";
-      hash = "sha256-/FdVcFNrRWJmEmO1B+LybL+MH4N7LdwvHaOpQi6vCTU=";
+    version = "0.11.0";
+    src = fetchurl {
+      url = "https://github.com/open-quantum-safe/oqs-provider/archive/refs/tags/0.11.0.tar.gz";
+      hash = "sha256-CLZ1wYQEL8nBPU/O40dvB8hrUGKm1y1OD8jIrygBIyw=";
     };
   };
   ormsgpack = {

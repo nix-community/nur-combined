@@ -632,7 +632,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.12.22"
+    "version": "2025.12.28"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -1937,7 +1937,7 @@
   "legacyPackages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider",
-    "version": "0.10.0"
+    "version": "0.11.0"
   },
   "legacyPackages.x86_64-linux.openvswitch-dpdk": {
     "description": "(DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch",
@@ -2612,7 +2612,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2025.12.22"
+    "version": "2025.12.28"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -2917,7 +2917,7 @@
   "packages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider",
-    "version": "0.10.0"
+    "version": "0.11.0"
   },
   "packages.x86_64-linux.openvswitch-dpdk": {
     "description": "(DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch",

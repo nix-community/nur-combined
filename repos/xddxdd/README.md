@@ -136,7 +136,7 @@ Or, use variables from this repository in case I change them:
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
 |  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2025-12-19 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.12.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.12.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10441 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -193,7 +193,7 @@ Or, use variables from this repository in case I change them:
 |  | `opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
 |  | `openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
 |  | `openssl-ech` | [openssl-ech](https://github.com/sftcd/openssl/tree/ECH-draft-13c) | 0-unstable-2025-11-18 | OpenSSL with Encrypted Client Hello support |
-|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.10.0 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.11.0 | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
@@ -1088,7 +1088,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.12.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2025.12.28 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `uncategorized.glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.10441 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -1136,7 +1136,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 0-unstable-2025-07-01 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
 |  | `uncategorized.openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
 |  | `uncategorized.openssl-ech` | [openssl-ech](https://github.com/sftcd/openssl/tree/ECH-draft-13c) | 0-unstable-2025-11-18 | OpenSSL with Encrypted Client Hello support |
-|  | `uncategorized.openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.10.0 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `uncategorized.openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.11.0 | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `uncategorized.osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `uncategorized.palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
 |  | `uncategorized.palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |

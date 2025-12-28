@@ -75,6 +75,7 @@ jobs:
           EOF
 
           env TMPDIR=/nix/tmpdir nix run .#update
+          env TMPDIR=/nix/tmpdir nix run .#update-hashes
 
           rm -f secrets.toml
 

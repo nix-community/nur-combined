@@ -1331,11 +1331,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-AMkMJzipRXZY4WDINErcimCd/xoQuV3wT5eCIMAyr2s=",
+            "sha256": "sha256-vYyPNt5TNKT/wWschhzdND7Vv3mveENSoHHFhakYkgY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.28/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.12.22"
+        "version": "2025.12.28"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1346,11 +1346,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fRTDXiCaeyTYTbkO8JYR46Uj6NGCE4WYPIYoEHYpwbM=",
+            "sha256": "sha256-N7zjx8bZzatSKgGkQV3YsrZ6BWn+sM5Z75q1b6W/Ggw=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.28/GeoLite2-City.mmdb"
         },
-        "version": "2025.12.22"
+        "version": "2025.12.28"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1361,11 +1361,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-toAGQNgrLcxwJ0ZKrDewKLMGvI+VMLHu5hPZt52tamM=",
+            "sha256": "sha256-RLn5BT2xhXkIZmngtyxFjQAyToRdVe0QruPltKoQzlc=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.22/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.28/GeoLite2-Country.mmdb"
         },
-        "version": "2025.12.22"
+        "version": "2025.12.28"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2733,18 +2733,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
             "name": null,
-            "owner": "open-quantum-safe",
-            "repo": "oqs-provider",
-            "rev": "0.10.0",
-            "sha256": "sha256-/FdVcFNrRWJmEmO1B+LybL+MH4N7LdwvHaOpQi6vCTU=",
-            "sparseCheckout": [],
-            "type": "github"
+            "sha256": "sha256-CLZ1wYQEL8nBPU/O40dvB8hrUGKm1y1OD8jIrygBIyw=",
+            "type": "url",
+            "url": "https://github.com/open-quantum-safe/oqs-provider/archive/refs/tags/0.11.0.tar.gz"
         },
-        "version": "0.10.0"
+        "version": "0.11.0"
     },
     "ormsgpack": {
         "cargoLocks": null,

@@ -605,7 +605,8 @@ src.git = "https://github.com/sftcd/openssl.git"
 src.branch = "ECH-draft-13c"
 
 [openssl-oqs-provider]
-fetch.github = "open-quantum-safe/oqs-provider"
+# fetch.github = "open-quantum-safe/oqs-provider"
+fetch.url = "https://github.com/open-quantum-safe/oqs-provider/archive/refs/tags/$ver.tar.gz"
 src.github = "open-quantum-safe/oqs-provider"
 
 [ormsgpack]
