@@ -35,6 +35,11 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
 
+      - name: Create nix daemon tmpdir path
+        run: |
+          sudo mkdir -p /nix/tmpdir
+          sudo chown "$(whoami)" /nix/tmpdir
+
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -44,21 +49,8 @@ jobs:
             extra-experimental-features = nix-command flakes ca-derivations
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
+            build-dir = /nix/tmpdir
             log-lines = 25
-
-      - name: Set nix daemon tmpdir path
-        run: |
-          sudo mkdir -p /nix/tmpdir
-          sudo chown "$(whoami)" /nix/tmpdir
-
-          cat > override.conf <<EOF
-          [Service]
-          Environment="TMPDIR=/nix/tmpdir"
-          EOF
-          sudo mkdir /etc/systemd/system/nix-daemon.service.d/
-          sudo mv override.conf /etc/systemd/system/nix-daemon.service.d/override.conf
-          sudo systemctl daemon-reload
-          sudo systemctl restart nix-daemon
 
       - name: Cache Nvfetcher Database
         id: cache-nvfetcher
@@ -74,8 +66,8 @@ jobs:
           github = "${{ secrets.GITHUB_TOKEN }}"
           EOF
 
-          env TMPDIR=/nix/tmpdir nix run .#update
-          env TMPDIR=/nix/tmpdir nix run .#update-hashes
+          nix run .#update
+          nix run .#update-hashes
 
           rm -f secrets.toml
 
