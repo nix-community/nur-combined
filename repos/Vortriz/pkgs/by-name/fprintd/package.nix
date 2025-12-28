@@ -22,7 +22,6 @@
     libfprint,
     python3,
 }:
-
 stdenv.mkDerivation rec {
     pname = "fprintd";
     version = "1.94.4";

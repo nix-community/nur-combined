@@ -3,7 +3,6 @@
     rustPlatform,
     fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
     pname = "batteryd";
     version = "unstable-2025-07-04";

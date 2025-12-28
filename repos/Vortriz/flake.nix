@@ -42,7 +42,7 @@
                         config.allowUnfree = true;
                     };
 
-                    packages = import ./default.nix { inherit pkgs; };
+                    legacyPackages = import ./default.nix { inherit pkgs; };
                 };
 
             flake = {
