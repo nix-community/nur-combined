@@ -58,14 +58,15 @@ rec {
   */
   # https://github.com/musescore/MuseScore/pull/28073
   # https://github.com/githubwbp1988/MuseScore/tree/alex
+  # audit: https://github.com/musescore/MuseScore/compare/master...githubwbp1988:MuseScore:alex
   musescore-alex = v3override (
     pkgs.musescore.overrideAttrs (old: {
-      version = "4.6.3-alex-unstable-20251121";
+      version = "4.6.3-alex-unstable-20251228";
       src = pkgs.fetchFromGitHub {
         owner = "githubwbp1988";
         repo = "MuseScore";
-        rev = "725f94a55db85a9bf71602fd2e452c1475351782";
-        hash = "sha256-0PWMRq4MZEkq1kwWEQ+DBPIWByaXU/DcZ7wE12mQTEM=";
+        rev = "399388be12cf369619befae3de3ec852c4d2b07c";
+        hash = "sha256-1NFhA2xgBuml9wzTpTz2Xrn0uPEVXX4zn3mJBh37hMI=";
       };
       patches = [ ];
     })
