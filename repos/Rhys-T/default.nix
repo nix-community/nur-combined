@@ -89,7 +89,7 @@ in {
             pkgs.lib.versionAtLeast pkgs.allegro5.version "5.2.10.0" &&
             pkgs.lib.versionOlder pkgs.allegro5.version "5.2.10.1"
         ;
-    in myLib.warnDeprecated.allegro5 "allegro5" pkgs.allegro5 (dontUpdate (pkgs.allegro5.overrideAttrs (old: {
+    in dontUpdate (myLib.warnDeprecated.allegro5 "allegro5" pkgs.allegro5 (pkgs.allegro5.overrideAttrs (old: {
         patches = (old.patches or []) ++ pkgs.lib.optionals needsMacPatch [
             (pkgs.fetchpatch {
                 url = "https://github.com/Rhys-T/allegro5/commit/7c928e34042fd7b83d55649f240a38e937ed169b.patch";
@@ -157,7 +157,7 @@ in {
                 hash = oldBootstrapHashes."${OS}-${ARCH}" or (throw "missing bootstrap hash for ${OS}-${ARCH}");
             };
         });
-    in myLib.warnDeprecated.ldc "ldc" pkgs.ldc (dontUpdate ((pkgs.ldc.override (pkgs.lib.optionalAttrs needsMacPatch {
+    in dontUpdate (myLib.warnDeprecated.ldc "ldc" pkgs.ldc ((pkgs.ldc.override (pkgs.lib.optionalAttrs needsMacPatch {
         ldcBootstrap = oldBootstrap;
     })).overrideAttrs (old: pkgs.lib.optionalAttrs needsMacPatch {
         patches = (old.patches or []) ++ [(pkgs.fetchpatch {
@@ -170,7 +170,7 @@ in {
             pos = myPos "ldc";
         };
     })));
-    dub = myLib.warnDeprecated.ldc "dub" pkgs.dub (dontUpdate ((pkgs.dub.override {
+    dub = dontUpdate (myLib.warnDeprecated.ldc "dub" pkgs.dub ((pkgs.dub.override {
         inherit (if myLib.isDeprecated.ldc then pkgs else self) ldc;
     }).overrideAttrs (old: {
         meta = old.meta // {
@@ -210,7 +210,7 @@ in {
     
     dc2dsk = callPackage ./pkgs/dc2dsk {};
     
-    mame = myLib.warnDeprecated.mame "mame" pkgs.mame (dontUpdate (callPackage (pkgs.callPackage ./pkgs/mame {}) {}));
+    mame = dontUpdate (myLib.warnDeprecated.mame "mame" pkgs.mame (callPackage (pkgs.callPackage ./pkgs/mame {}) {}));
     mame-metal = let
         mame-metal = if myLib.isDeprecated.mame then self.mame else (dontUpdate self.mame.override { darwinMinVersion = "11.0"; });
     in myLib.warnDeprecated.mame "mame-metal" pkgs.mame mame-metal;
@@ -244,7 +244,7 @@ in {
         } // lib.optionalAttrs needsLibutil {
             buildInputs = (old.buildInputs or []) ++ [darwin.libutil];
         });
-    in myLib.warnDeprecated.picolisp "picolisp" picolisp (dontUpdate (myLib.addMetaAttrsDeep ({
+    in dontUpdate (myLib.warnDeprecated.picolisp "picolisp" picolisp (myLib.addMetaAttrsDeep ({
         description = (picolisp.meta.description or "PicoLisp") + " (fixed for macOS/Darwin)";
         position = myPos "picolisp";
     }) picolisp'));
@@ -341,7 +341,7 @@ in {
     icbm3d = let
         inherit (pkgs) stdenv lib icbm3d;
         needsFix = !(lib.any (lib.hasSuffix "-darwin") (icbm3d.meta.platforms or ["-darwin"]));
-    in myLib.warnDeprecated.pr419640 "icbm3d" icbm3d (dontUpdate (myLib.addMetaAttrsDeep {
+    in dontUpdate (myLib.warnDeprecated.pr419640 "icbm3d" icbm3d (myLib.addMetaAttrsDeep {
         description = "${icbm3d.meta.description or "icbm3d"} (fixed for macOS/Darwin)";
         platforms = icbm3d.meta.platforms ++ lib.platforms.darwin;
         position = myPos "icbm3d";
@@ -362,7 +362,7 @@ in {
     xgalagapp = let
         inherit (pkgs) stdenv lib xgalagapp;
         needsFix = !(lib.any (lib.hasSuffix "-darwin") (xgalagapp.meta.platforms or ["-darwin"]));
-    in myLib.warnDeprecated.pr419640 "xgalagapp" xgalagapp (dontUpdate (myLib.addMetaAttrsDeep {
+    in dontUpdate (myLib.warnDeprecated.pr419640 "xgalagapp" xgalagapp (myLib.addMetaAttrsDeep {
         description = "${xgalagapp.meta.description or "xgalagapp"} (fixed for macOS/Darwin)";
         platforms = xgalagapp.meta.platforms ++ lib.platforms.darwin;
         position = myPos "xgalagapp";
