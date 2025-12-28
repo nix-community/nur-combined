@@ -19,9 +19,10 @@ let
     "-DBUILD_SHARED_LIBS=ON"
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
     "-DCMAKE_SKIP_INSTALL_RPATH=ON"
-  ] ++ lib.optionals stdenv.isLinux [ "-DCMAKE_OSX_ARCHITECTURES=" ];
+  ]
+  ++ lib.optionals stdenv.isLinux [ "-DCMAKE_OSX_ARCHITECTURES=" ];
 in
-buildGoModule {
+buildGoModule rec {
   inherit (sources.boringssl-oqs) pname version src;
   vendorHash = "sha256-jcV7dZZITkvzqKq1EQ4qLiGar568WsDPLtxMvBoh7B8=";
   proxyVendor = true;
@@ -35,14 +36,13 @@ buildGoModule {
     pkg-config
   ];
 
-  preBuild =
-    ''
-      export cmakeFlags="${builtins.concatStringsSep " " cmakeFlags}"
-      cmakeConfigurePhase
-    ''
-    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      export GOARCH=$(go env GOHOSTARCH)
-    '';
+  preBuild = ''
+    export cmakeFlags="${builtins.concatStringsSep " " cmakeFlags}"
+    cmakeConfigurePhase
+  ''
+  + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    export GOARCH=$(go env GOHOSTARCH)
+  '';
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU [
@@ -82,6 +82,7 @@ buildGoModule {
   ];
 
   meta = {
+    changelog = "https://github.com/open-quantum-safe/boringssl/releases/tag/${version}";
     mainProgram = "bssl";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs";
