@@ -42,6 +42,12 @@
     "url": "https://nuget.aiursoft.com/v3/package/aiursoft.cstools/10.0.1/aiursoft.cstools.10.0.1.nupkg"
   },
   {
+    "pname": "Aiursoft.CSTools",
+    "version": "10.0.2",
+    "hash": "sha256-9v/TqKpYLBHaZUL6vTgAoAQxa8FLG0nVnRDLsVnVGKo=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.cstools/10.0.2/aiursoft.cstools.10.0.2.nupkg"
+  },
+  {
     "pname": "Aiursoft.DbTools",
     "version": "10.0.3",
     "hash": "sha256-O0+pG5BLMDL1YNvKhQTgZ/q4KYD4q9bDMTrlNlJtpKc=",
@@ -91,15 +97,15 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.1",
-    "hash": "sha256-2t+N45ykmD6kF/WoExNjUjNQKj+QLdZgTsS7gy0QyxI=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.uistack/10.0.1/aiursoft.uistack.10.0.1.nupkg"
+    "version": "10.0.2",
+    "hash": "sha256-aYZ9hFqZGBSoJqaew7+U6ELU/Dv3sFqYDWLOwVR5BQM=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.uistack/10.0.2/aiursoft.uistack.10.0.2.nupkg"
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.2",
-    "hash": "sha256-G67QJC+AjvkxyPotKFP/EuloT+GxQgwQnBPUYA3vnbc=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/10.0.2/aiursoft.webtools.10.0.2.nupkg"
+    "version": "10.0.3",
+    "hash": "sha256-eXPk5nWexl2MA7Gq6TAEiRiRuJKmToHTkCcipzm4rEw=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/10.0.3/aiursoft.webtools.10.0.3.nupkg"
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
