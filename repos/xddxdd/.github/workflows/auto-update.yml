@@ -60,6 +60,8 @@ jobs:
           key: nvfetcher
 
       - name: Build nix packages
+        env:
+          NIX_REMOTE: daemon
         run: |
           cat > secrets.toml <<EOF
           [keys]
@@ -67,7 +69,7 @@ jobs:
           EOF
 
           nix run .#update
-          sudo nix run .#update-hashes
+          nix run .#update-hashes
 
           rm -f secrets.toml
 
