@@ -264,7 +264,7 @@ stdenv.mkDerivation (finalAttrs: {
     mavenDepsHashes = {
       x86_64-linux = "sha256-OboZh9m7FTVFM/aEiTrG0D96+IxMmnR2w3ilzwh0K9E=";
       aarch64-linux = "sha256-Ct+fH5vOBgAepxyHEEfnTXRaFrjXSqffB41T4RAQ+Xo=";
-      aarch64-darwin = "sha256-8Oj6DP9bQ8M/U4JeeX3Q4s0cJqMdEAJfwyOwJLjjvio=";
+      aarch64-darwin = "sha256-uKUUso7V0o57IrjFv8dC/NSTh0d4hS4P/lLijDPR+O8=";
     };
   };
 
