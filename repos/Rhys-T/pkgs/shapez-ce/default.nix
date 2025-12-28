@@ -13,12 +13,12 @@
     electron = electron_37;
 in {
     pname = "shapez-ce";
-    version = "0-unstable-2025-11-24";
+    version = "0-unstable-2025-12-09";
     src = fetchFromGitHub {
         owner = "tobspr-games";
         repo = "shapez-community-edition";
-        rev = "0cb5267229e3d321fb118ff638d4a042f24c721c";
-        hash = "sha256-ElTo00KkkBzDUpRdY5nWfde1P+NZ4kwnnZskLakkJQU=";
+        rev = "bfc72cbbe58a2c3566ff40660f60449471acd559";
+        hash = "sha256-tcW1fE8PiU2mKY7cjky+RnncDx5Nrm6ZirqbIiv6+eM=";
     };
     texturePacker = fetchurl {
         url = "https://web.archive.org/web/20241202185338id_/https://libgdx-nightlies.s3.amazonaws.com/libgdx-runnables/runnable-texturepacker.jar";
