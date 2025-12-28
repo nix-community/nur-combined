@@ -27,12 +27,12 @@ let
         --replace-fail "paste_yours_here" "\"\$1\""
     '';
   };
-  path = lib.makeBinPath [
+  binPath = lib.makeBinPath [
     android-tools
     jq
   ];
   reinstall-magisk-on-lineageos = writeShellScriptBin "reinstall-magisk-on-lineageos" ''
-    export PATH=$PATH:${path}
+    export PATH=$PATH:${binPath}
     exec ${patchedSrc}/bin/reinstall-magisk-on-lineageos $1
   '';
 in
