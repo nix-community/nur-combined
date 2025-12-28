@@ -67,7 +67,7 @@ jobs:
           EOF
 
           nix run .#update
-          nix run .#update-hashes
+          sudo nix run .#update-hashes
 
           rm -f secrets.toml
 
