@@ -1,10 +1,10 @@
 {
-  pkgs,
+  writers,
   config,
   lib,
   vacuRoot,
   wrappedSops,
-  ...
+  dnsCheck,
 }:
 let
   pythEscape = x: builtins.replaceStrings [ ''"'' "\n" "\\" ] [ ''\"'' "\\n" "\\\\" ] (toString x);
@@ -13,15 +13,12 @@ let
     /${vacuRoot}/secrets/misc/cloudns.json
     (builtins.toJSON config.vacu.dns)
   ]) (builtins.readFile ./script.py);
-  libraries = with pkgs.python3Packages; [
+  libraries = pyPkgs: with pyPkgs; [
     httpx
     dnspython
   ];
-  python = pkgs.python312.withPackages (_: libraries);
 in
-(pkgs.writers.writePython3Bin "dns-update" { inherit libraries; } pythonScript).overrideAttrs
-  (old: {
-    passthru = (old.passthru or { }) // {
-      inherit libraries python;
-    };
-  })
+writers.writePython3Bin "dns-update" {
+  inherit libraries;
+  check = "# this comment serves to create an artificial build dependency on ${dnsCheck}";
+} pythonScript

@@ -2,6 +2,8 @@
   config,
   lib,
   pkgs,
+  vacuRoot,
+  vaculib,
   vacupkglib,
   ...
 }:
@@ -28,23 +30,30 @@ let
   unitsDir = pkgs.stdenvNoCC.mkDerivation {
     name = "vacu-units-files";
 
-    src = pkgs.units.src;
-
-    patches = pkgs.units.patches or [ ];
+    preferLocalBuild = true;
 
     phases = [
       "unpackPhase"
-      "patchPhase"
       "installPhase"
     ];
 
+    srcs = [
+      (pkgs.srcOnly pkgs.units)
+      (builtins.path { name = "changing-units"; path = /${vacuRoot}/units; })
+    ];
+    sourceRoot = ".";
+    dontMakeSourcesWritable = true;
+
+    vacuUnits = config.vacu.units.lines;
+    passAsFile = [ "vacuUnits" ];
     installPhase = ''
       mkdir -p "$out"
-      cp {definitions,elements}.units "$out"
-      ln -s ${../units/currency.units} "$out"/currency.units
-      ln -s ${../units/cpi.units} "$out"/cpi.units
-      ln -s ${../units/cryptocurrencies.units} "$out"/cryptocurrencies.units
-      printf '%s' ${lib.escapeShellArg config.vacu.units.lines} > "$out"/vacu.units
+      unitsSrc="$(echo units-*-source)"
+      cp "$unitsSrc/"{definitions,elements}.units "$out"
+      for f in {currency,cpi,cryptocurrencies}.units; do
+        cp "changing-units/$f" "$out/$f"
+      done
+      cp "$vacuUnitsPath" "$out/vacu.units"
     '';
   };
 in

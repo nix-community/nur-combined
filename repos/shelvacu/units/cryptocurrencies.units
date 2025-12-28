@@ -1,11 +1,11 @@
-!message Cryptocurrency exchange rates from coinmarketcap.com (USD base) on 2025-11-01
+!message Cryptocurrency exchange rates from coinmarketcap.com (USD base) on 2025-12-28
 
 # exchange rates
 
-BTC	110254.06526561908 USD
-ETH	3863.6808352411276 USD
-SOL	186.64596109537663 USD
-XMR	341.0404336068486  USD
+BTC	87579.2494383285   USD
+ETH	2934.7049680074665 USD
+SOL	123.53693438664055 USD
+XMR	450.42128216706396 USD
 
 
 # add names as aliases of the symbols

@@ -3,14 +3,21 @@
   python3Packages,
   runCommand,
   lib,
+  vaculib,
   writers,
   writeText,
 }:
+# accepts all args that <nixpkgs>/pkgs/development/interpreters/python/mk-python-derivation.nix accepts
+# notably including makeWrapperArgs
+{
+  name,
+  src,
+  libraries ? [ ],
+  doCheck ? true,
+}@args:
 let
+  extraArgs = lib.removeAttrs args [ "libraries" "name" "src" "doCheck" ];
   inherit (python3Packages) hatchling scriptipy buildPythonApplication;
-in
-name: args: source:
-let
   pyproj = {
     project = {
       inherit name;
@@ -27,7 +34,15 @@ let
     ];
   };
   pyproj_toml = writers.writeTOML "${name}-pyproject.toml" pyproj;
-  sourceFile = if lib.isPath source then source else writeText "${name}-source-file.py" source;
+  sourceFile = 
+    if lib.isDerivation src then
+      src
+    else if lib.isPath src then
+      (vaculib.path src)
+    else if lib.isString src then
+      writeText "${name}-source-file.py" src
+    else
+      throw "invalid type for src";
 in
 buildPythonApplication (
   {
@@ -48,18 +63,19 @@ buildPythonApplication (
       if lib.isFunction (args.libraries or [ ]) then
         args.libraries python3Packages
       else
-        map (p: if lib.isString p then python3Packages.${p} else p) (args.libraries or [ ])
+        map (p: if lib.isString p then python3Packages.${p} else p) libraries
         ++ [ scriptipy ];
 
     nativeCheckInputs = [ pyright ];
 
-    doCheck = true;
+    inherit doCheck;
 
+    # XXX: This doesn't work(?), python deps don't have a checkPhase (only installCheckPhase)
     checkPhase = ''
       pyright .
     '';
 
     meta.mainProgram = name;
   }
-  // (lib.removeAttrs args [ "libraries" ])
+  // extraArgs
 )

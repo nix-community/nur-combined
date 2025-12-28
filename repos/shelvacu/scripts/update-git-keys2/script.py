@@ -12,7 +12,7 @@ class NixData(BaseModel):
     nix_stuff: Path
 
 
-data = NixData(**json.loads(os.environ["NIX_DATA"]))
+data = NixData(**json.loads(Path(os.environ["NIX_DATA"]).read_text()))
 
 parser = argparse.ArgumentParser()
 parser.add_argument("domain")

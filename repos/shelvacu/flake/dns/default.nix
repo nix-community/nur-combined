@@ -1,4 +1,4 @@
-{ allInputs, lib, vacuRoot, ... }:
+{ lib, vacuRoot, ... }:
 {
   perSystem = { config, plainConfig, pkgs, ... }:
   let
@@ -6,13 +6,10 @@
   in
   rec {
     packages = {
-      dns = (import /${vacuRoot}/scripts/dns {
-        inherit pkgs lib vacuRoot;
-        inputs = allInputs;
+      dns = (pkgs.callPackage ./package.nix {
         inherit (dnsEval) config;
         inherit (config.packages) wrappedSops;
-      }).overrideAttrs (old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ checks.dns ];
+        dnsCheck = checks.dns;
       });
       dnsZones = lib.pipe dnsEval.config.vacu.dns [
         (lib.mapAttrsToList (name: config: pkgs.writeText "${name}.zone" (toString config)))
