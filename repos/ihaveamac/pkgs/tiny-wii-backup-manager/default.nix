@@ -20,17 +20,17 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "TinyWiiBackupManager";
-  version = "2.5.2";
+  version = "4.9.19";
 
   src = fetchFromGitHub {
     owner = "mq1";
     repo = pname;
-    rev = version;
-    sha256 = "sha256-Y+roYFiT/xIb2nf6GgkpsHclxzv8NCUpuITL3UVLsuQ=";
+    rev = "v${version}";
+    sha256 = "sha256-g6W7fCh/LxoHMs4DVa9BD163k3XgI4G31CsGSP3Eknc=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-E0PPg9/8XT+D/OF18EzUKUekVyakdPeKfDfrIewYDLk=";
+  cargoHash = "sha256-TJsim+VcGtkt0LWHFvzTmH9a5z2l8o6funs8bUvwrRU=";
 
   postInstall =
     if stdenv.isDarwin then
@@ -39,18 +39,18 @@ rustPlatform.buildRustPackage rec {
       ''
     else
       ''
-        mkdir -p $out/share/applications
-        cp ${desktopItem}/share/applications/*.desktop $out/share/applications
-        mkdir -p $out/share/icons/hicolor
-        cp -r ${src}/assets/linux/* $out/share/icons/hicolor
+        ???
+        #mkdir -p $out/share/applications
+        #cp ${desktopItem}/share/applications/*.desktop $out/share/applications
+        #mkdir -p $out/share/icons/hicolor
+        #cp -r ${src}/assets/linux/* $out/share/icons/hicolor
       '';
 
   meta = with lib; {
-    description = "Tool for decrypting all mogg files used by the Rock Band series";
+    description = "A tiny game backup and homebrew app manager for the Wii ";
     homepage = "https://github.com/mq1/TinyWiiBackupManager";
-    license = licenses.gpl2Only;
+    license = licenses.gpl3;
     platforms = platforms.all;
-    mainProgram = name;
-    broken = stdenv.isDarwin;
+    #mainProgram = name;
   };
 }
