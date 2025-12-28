@@ -49,7 +49,6 @@ in
 
           # Navigation
           "Mod+Space".action = switch-focus-between-floating-and-tiling;
-          "Mod+Tab".action = focus-window-previous;
           "Mod+m".action = focus-monitor-previous;
 
           "Mod+Left".action = focus-column-left;
@@ -59,31 +58,34 @@ in
           "Mod+Home".action = focus-column-first;
           "Mod+End".action = focus-column-last;
 
-          # Window movement
-          "Mod+w".action = close-window;
-          "Mod+f".action = fullscreen-window;
-          "Mod+l".action = switch-layout "next";
-          "Mod+Shift+Space".action = toggle-window-floating;
-          "Mod+Shift+m".action = move-window-to-monitor-previous;
-
-          "Mod+Shift+Left".action = consume-or-expel-window-left;
-          "Mod+Shift+Down".action = move-window-down-or-to-workspace-down;
-          "Mod+Shift+Up".action = move-window-up-or-to-workspace-up;
-          "Mod+Shift+Right".action = consume-or-expel-window-right;
-
-          # Column movement
+          # Column manipulation
           "Mod+t".action = toggle-column-tabbed-display;
-          "Mod+Ctrl+f".action = maximize-column;
-          "Mod+u".action = consume-window-into-column;
-          "Mod+x".action = expel-window-from-column;
-          "Mod+Ctrl+Shift+m".action = move-column-to-monitor-previous;
+          "Mod+f".action = maximize-column;
+          "Mod+h".action = switch-preset-column-width;
+          "Mod+Shift+h".action = expand-column-to-available-width;
+          "Mod+c".action = consume-window-into-column;
+          "Mod+Shift+c".action = expel-window-from-column;
+          "Mod+Shift+m".action = move-column-to-monitor-previous;
 
-          "Mod+Ctrl+Shift+Left".action = move-column-left;
-          "Mod+Ctrl+Shift+Down".action = move-column-to-workspace-down { focus = true; };
-          "Mod+Ctrl+Shift+Up".action = move-column-to-workspace-up { focus = true; };
-          "Mod+Ctrl+Shift+Right".action = move-column-right;
-          "Mod+Ctrl+Shift+Home".action = move-column-to-first;
-          "Mod+Ctrl+Shift+End".action = move-column-to-last;
+          "Mod+Shift+Left".action = move-column-left;
+          "Mod+Shift+Down".action = move-column-to-workspace-down { focus = true; };
+          "Mod+Shift+Up".action = move-column-to-workspace-up { focus = true; };
+          "Mod+Shift+Right".action = move-column-right;
+          "Mod+Shift+Home".action = move-column-to-first;
+          "Mod+Shift+End".action = move-column-to-last;
+
+          # Window manipulation
+          "Mod+w".action = close-window;
+          "Mod+Shift+Space".action = toggle-window-floating;
+          "Mod+Ctrl+f".action = fullscreen-window;
+          "Mod+v".action = switch-preset-window-height;
+          "Mod+Shift+v".action = reset-window-height;
+          "Mod+Ctrl+Shift+m".action = move-window-to-monitor-previous;
+
+          "Mod+Ctrl+Shift+Left".action = consume-or-expel-window-left;
+          "Mod+Ctrl+Shift+Down".action = move-window-down-or-to-workspace-down;
+          "Mod+Ctrl+Shift+Up".action = move-window-up-or-to-workspace-up;
+          "Mod+Ctrl+Shift+Right".action = consume-or-expel-window-right;
 
           # Media
           XF86AudioMute = {
@@ -103,7 +105,8 @@ in
             allow-when-locked = true;
           };
           Print.action = screenshot;
-          "Shift+Print".action = screenshot-window;
+          "Shift+Print".action.screenshot-screen = [ ];
+          "Ctrl+Print".action = screenshot-window;
         };
 
         layer-rules = [
@@ -158,8 +161,8 @@ in
           # Fix to bottom right
           {
             default-floating-position = {
-              x = 10;
-              y = 10;
+              x = 20;
+              y = 0;
               relative-to = "bottom-right";
             };
             matches = [

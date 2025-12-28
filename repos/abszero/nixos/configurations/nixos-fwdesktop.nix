@@ -85,6 +85,7 @@ let
 
         themes.catppuccin = {
           enable = true;
+          fonts.enable = true;
           plymouth.enable = true;
         };
       };

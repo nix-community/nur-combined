@@ -40,19 +40,14 @@ in
       };
     };
 
-    nixpkgs.config.permittedInsecurePackages = [
-      "ventoy-qt5-1.1.07"
-    ];
+    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.07" ];
 
     virtualisation.waydroid.enable = true;
 
     services = {
       flatpak.enable = true;
-      gnome.gnome-keyring.enable = true; # For storing vscode auth token
       protonmail-bridge.enable = true;
     };
-
-    xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
 
     programs = {
       dconf.enable = true;
@@ -90,7 +85,7 @@ in
         # taisei
         tenacity
         unzip
-        ventoy-full-qt
+        ventoy-full
         vesktop
         vscode
         waydroid-helper

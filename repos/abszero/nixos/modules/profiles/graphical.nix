@@ -26,8 +26,6 @@ in
 
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
-    console.useXkbConfig = true; # use xkbOptions in tty.
-
     fonts.fontconfig = {
       hinting.style = "medium";
       subpixel.rgba = "rgb";
@@ -67,6 +65,20 @@ in
 
     services = {
       automatic-timezoned.enable = true;
+      kmscon = {
+        enable = true;
+        hwRender = true;
+        extraConfig = ''
+          # Input
+          xkb-repeat-rate=40
+          xkb-repeat-delay=160
+          # mouse TODO: enable mouse support when it lands
+
+          # Appearance
+          font-size=18
+          palette=base16-light
+        '';
+      };
       libinput = {
         enable = true;
         touchpad = {
@@ -89,15 +101,9 @@ in
       };
     };
 
-    xdg = {
-      portal = {
-        enable = true;
-        extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-      };
-      terminal-exec = {
-        enable = true;
-        settings.default = [ "foot.desktop" ];
-      };
+    xdg.terminal-exec = {
+      enable = true;
+      settings.default = [ "foot.desktop" ];
     };
 
     programs = {
@@ -105,9 +111,7 @@ in
       xwayland.enable = true;
     };
 
-    environment.sessionVariables = {
-      # Make Electron apps run in Wayland native mode
-      NIXOS_OZONE_WL = "1";
-    };
+    # Make Electron apps run in Wayland native mode
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
   };
 }

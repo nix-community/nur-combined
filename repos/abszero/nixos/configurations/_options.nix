@@ -59,7 +59,6 @@ in
         modules = flatten [
           inputs.disko.nixosModules.disko
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.niri.nixosModules.niri
           inputs.nixified-ai.nixosModules.comfyui
           inputs.catppuccin.nixosModules.catppuccin
           (toModuleList ../../lib/modules)
