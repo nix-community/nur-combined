@@ -278,7 +278,7 @@
   },
   "splayer-git": {
     "cargoLocks": null,
-    "date": "2025-12-27",
+    "date": "2025-12-28",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -290,12 +290,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "a86c7757de3d3bb7e54bc71810b318ddb56edf79",
-      "sha256": "sha256-XXJ2W37FssmGOKxhDdAUyEa7b2Up0wyU4T6Jfe9jDWM=",
+      "rev": "2539e72a33d6ebc4b823d24d0e2c90e2538a02b0",
+      "sha256": "sha256-a0b4BWIgwuN62OC6T5f/tRBJVYyL8qnF8nm4jP75LrM=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "a86c7757de3d3bb7e54bc71810b318ddb56edf79"
+    "version": "2539e72a33d6ebc4b823d24d0e2c90e2538a02b0"
   },
   "uosc-danmaku": {
     "cargoLocks": null,
@@ -320,7 +320,7 @@
   },
   "uosc-danmaku-git": {
     "cargoLocks": null,
-    "date": "2025-12-20",
+    "date": "2025-12-28",
     "extract": null,
     "name": "uosc-danmaku-git",
     "passthru": null,
@@ -332,12 +332,12 @@
       "name": null,
       "owner": "Tony15246",
       "repo": "uosc_danmaku",
-      "rev": "ffbd9698a23e948dfbc5282db0448426d3bb1c57",
-      "sha256": "sha256-LhH0C2V5lsM+hkX+RB/6Qe4ESuB1ZK+tWrfeZ9augBk=",
+      "rev": "8446ee7738c1c438a6971d9e810c6b9443e40c4b",
+      "sha256": "sha256-TUU006LPkFadhca4gWoUq22SoyvwUUc6SfxYNujMMJ8=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "ffbd9698a23e948dfbc5282db0448426d3bb1c57"
+    "version": "8446ee7738c1c438a6971d9e810c6b9443e40c4b"
   },
   "zhuque": {
     "cargoLocks": null,
