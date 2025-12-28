@@ -22,7 +22,7 @@ in stdenv.mkDerivation rec {
     # All-caps VERSION is what gets #define'd into the code.
     # Normally the top-level Makefile sets this, but we're bypassing it.
     # Also I want to be able to modify it to indicate my patches.
-    VERSION = baseVersion + lib.optionalString (romsFromXML != null) " (${romSourceName} ROMs)";
+    env.VERSION = baseVersion + lib.optionalString (romsFromXML != null) " (${romSourceName} ROMs)";
     src = fetchurl {
         url = "http://pacifi3d.retrogames.com/pacifi3d/pacifi3d${baseVersion}-src.tgz";
         hash = "sha256-M9/XIHVXLFEV+SZAuwkSPKH+YZwdgQ1qFGBzWKjV0F8=";
