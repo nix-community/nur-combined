@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  version = "3.7.5-unstable-${source.date}";
   installPhase = ''
     mkdir -p $out/share
     cp -r . $out/share/noctalia-shell
