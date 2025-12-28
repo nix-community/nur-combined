@@ -109,6 +109,8 @@ in {
     
     lix-game-packages = callPackage ./pkgs/lix-game/packages.nix (pkgs.lib.optionalAttrs myLib.isDeprecated.ldc {
         inherit (pkgs) buildDubPackage;
+    } // pkgs.lib.optionalAttrs myLib.isDeprecated.allegro5 {
+        inherit (pkgs) allegro5;
     });
     lix-game = self.lix-game-packages.game;
     lix-game-server = self.lix-game-packages.server;

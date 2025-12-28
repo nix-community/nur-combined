@@ -39,14 +39,14 @@ with pkgs.lib; rec {
       isDrv = pkgs.lib.isDerivation pkg;
       noun = if isDrv then "package" else "attribute";
       nameOverrides = {
-        picolisp = "picolisp"; # otherwise it says "PicoLisp"
+        mame-metal = "mame";
       };
     in if isDepd then
       warnOnInstantiate "Rhys-T's `${attr}` ${noun} is deprecated. Please use ${
         if attr == "hbmame-metal" then
           "Rhys-T's main `hbmame` package"
         else
-          "the `${nameOverrides.${attr} or (if isDrv then pkgs.lib.getName pkg else attr)}` ${noun} from Nixpkgs"
+          "the `${nameOverrides.${attr} or attr}` ${noun} from Nixpkgs"
       } instead." (pkg // pkgs.lib.optionalAttrs (myPkg?meta.description) {
         meta = pkg.meta // { description = myPkg.meta.description + pkgs.lib.optionalString (!(pkgs.lib.hasInfix "[DEPRECATED]" myPkg.meta.description)) " [DEPRECATED]"; };
       })
