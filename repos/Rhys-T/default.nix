@@ -119,10 +119,6 @@ in {
         convertImagesToTrueColor = false;
         disableNativeImageLoader = false;
     })).game else self.lix-game;
-    lix-game-CIImage = if pkgs.stdenv.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
-        convertImagesToTrueColor = false;
-        disableNativeImageLoader = "CIImage";
-    })).game else self.lix-game;
     _ciOnly.lix-game = pkgs.lib.recurseIntoAttrs {
         assets = (self.lix-game-packages.overrideScope (self: super: {
             convertImagesToTrueColor = false;

@@ -5,25 +5,10 @@
     makeBinaryWrapper, desktopToDarwinBundle, writeDarwinBundle,
     disableNativeImageLoader,
     pkg-config,
-    apple-sdk_11 ? null, fetchpatch,
     common, lix-game-packages
 }: let
     inherit (stdenv.hostPlatform) isDarwin;
-    allegro5' = if disableNativeImageLoader == "CIImage" then allegro5.overrideAttrs (old: {
-        # src = fetchFromGitHub {
-        #     owner = "pedro-w";
-        #     repo = "allegro5";
-        #     rev = "c196fe292eb28d20e2d21d639651bbafc78373f2";
-        #     hash = "sha256-PyAQN1CfR3PfG2lUZIYc+eCcULHSbWvMWKQgonS7xHo=";
-        # };
-        buildInputs = (old.buildInputs or []) ++ lib.optionals (apple-sdk_11 != null) [apple-sdk_11];
-        patches = (old.patches or []) ++ [
-            (fetchpatch {
-                url = "https://github.com/pedro-w/allegro5/commit/c196fe292eb28d20e2d21d639651bbafc78373f2.patch";
-                hash = "sha256-lwAfRu10EPxUwsqpyd7j4Ic01A0UvFMhzML8qpWrFIE=";
-            })
-        ];
-    }) else if disableNativeImageLoader then allegro5.overrideAttrs (old: {
+    allegro5' = if disableNativeImageLoader then allegro5.overrideAttrs (old: {
         cmakeFlags = (old.cmakeFlags or []) ++ ["-DWANT_NATIVE_IMAGE_LOADER=off"];
     }) else allegro5;
     desktopToDarwinBundleWithCustomPlistEntries = plistExtra: desktopToDarwinBundle.overrideAttrs (old: {
@@ -46,10 +31,6 @@
             NSHighResolutionCapable = true;
         })];
         buildInputs = [allegro5' enet];
-        
-        ${if disableNativeImageLoader == "CIImage" then "postPatch" else null} = ''
-            substituteInPlace src/basics/alleg5.d --replace-fail '"Allegro %d.%d.%d"' '"Allegro %d.%d.%d (with pedro-w CIImage loader)"'
-        '';
         
         # Ugly hack: I need to patch a dub dependency, and those are copied in by configurePhase, so I have to do it here.
         # Make derelict-enet use the full path to enet, so we don't have to handle it in a wrapper.

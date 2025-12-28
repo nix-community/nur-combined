@@ -65,8 +65,6 @@ However, as far as I know there's no guarantee that NSImage will keep treating t
 
 Therefore, I also have an alternative workaround implemented. If you set `convertImagesToTrueColor` to `false` (or just use `lix-game-libpng`), Lix will instead be linked against a custom build of Allegro 5 which has the macOS native image loader disabled, and instead uses the same `libpng`-based method as on Linux and Windows, avoiding the bug. To prevent this as well (for instance, to test out the bug's behavior on a given version of macOS), additionally set `disableNativeImageLoader` to `false` (or use `lix-game-issue-431`).
 
-You can also set `disableNativeImageLoader` to `"CIImage"` (or use `lix-game-CIImage`) to test out @pedro-w's [CIImage-based loader](https://github.com/liballeg/allegro5/issues/1531#issuecomment-1950198051).
-
 **Update**: Allegro has dropped the macOS native image loader in [liballeg/allegro5#1653](https://github.com/liballeg/allegro5/pull/1653). The workaround will not be applied by default if building with an Allegro release containing that change.
 
 #### SimonN/LixD#128 - NaOH's title screen, include hi-res instead of 640x480
