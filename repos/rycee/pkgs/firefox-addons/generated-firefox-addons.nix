@@ -6813,10 +6813,10 @@
     };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.31";
+      version = "2.32";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4622708/ipvfoo-2.31.xpi";
-      sha256 = "b0169857edbca6ea2c65551e80989e1688abb6d378968470172209706589a752";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652413/ipvfoo-2.32.xpi";
+      sha256 = "e18927dcc10b774f499b4b199288bb20240f3f7eb53fbd3c7b5b4c06f6c5821b";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -7786,10 +7786,10 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.3.3";
+      version = "1.4.0";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4485947/linkwarden-1.3.3.xpi";
-      sha256 = "4f1f38cf8a86e2b709d4f25c3f3040e4abaa9e2e62f0f5d5a4995eb42d8e0cfd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652260/linkwarden-1.4.0.xpi";
+      sha256 = "3c52ed6ee620e8f426feb4595c85d6a98df05bb61a9d9bfebf20b03dcb259682";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
