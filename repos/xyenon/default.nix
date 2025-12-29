@@ -81,4 +81,5 @@ rec {
     source = sources.nix-package-versions;
   };
   lsp-ai = callPackage ./pkgs/lsp-ai { };
+  zsh-smart-suggestion = callPackage ./pkgs/zsh-smart-suggestion { };
 }
