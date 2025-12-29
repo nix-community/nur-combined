@@ -6,6 +6,7 @@
   pkg-config,
   file,
   vips,
+  fetchFromGitHub,
   glib,
   exiftool,
   imagemagick,
@@ -14,6 +15,25 @@
   nix-update-script,
 }:
 
+let
+  # https://github.com/NixOS/nixpkgs/issues/474843
+  vips_8_17 = vips.overrideAttrs (
+    finalAttrs: _previousAttrs: {
+      version = "8.17.3";
+      src = fetchFromGitHub {
+        owner = "libvips";
+        repo = "libvips";
+        tag = "v${finalAttrs.version}";
+        hash = "sha256-yxjfkb2R3JPHbz0vCG4hkW9Davoc9MUPHL9Cqc+Ik0Y=";
+        # Remove unicode file names which leads to different checksums on HFS+
+        # vs. other filesystems because of unicode normalisation.
+        postFetch = ''
+          rm -r $out/test/test-suite/images/
+        '';
+      };
+    }
+  );
+in
 beamPackages.mixRelease rec {
   pname = "pleroma";
   version = "2.9.1";
@@ -38,7 +58,7 @@ beamPackages.mixRelease rec {
   ];
   buildInputs = [
     file
-    vips
+    vips_8_17
     glib.dev
   ];
 
