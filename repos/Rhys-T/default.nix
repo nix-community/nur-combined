@@ -210,8 +210,8 @@ in {
     
     mame = dontUpdate (myLib.warnDeprecated.mame "mame" pkgs.mame (callPackage (pkgs.callPackage ./pkgs/mame {}) {}));
     mame-metal = let
-        mame-metal = if myLib.isDeprecated.mame then self.mame else (dontUpdate self.mame.override { darwinMinVersion = "11.0"; });
-    in myLib.warnDeprecated.mame "mame-metal" pkgs.mame mame-metal;
+        mame-metal = if myLib.isDeprecated.mame then self.mame else self.mame.override { darwinMinVersion = "11.0"; };
+    in dontUpdate (myLib.warnDeprecated.mame "mame-metal" pkgs.mame mame-metal);
     hbmame = callPackage ./pkgs/mame/hbmame (pkgs.lib.optionalAttrs myLib.isDeprecated.mame { inherit (pkgs) mame; });
     hbmame-metal = myLib.warnDeprecated.mame "hbmame-metal" self.hbmame (if myLib.isDeprecated.mame then self.hbmame else self.hbmame.override { mame = self.mame-metal; });
     
