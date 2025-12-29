@@ -43,8 +43,9 @@ async function single(file, { config, force }) {
     if (!version) return;
 
     const prefix = config.source.tag_prefix || "";
+    const repo = config.source.repo;
 
-    let url = config.asset.file ? `https://github.com/${config.source.repo}/releases/download/${prefix}${version}/${config.asset.file}` : config.asset.url
+    let url = config.asset.file ? `https://github.com/${repo}/releases/download/${prefix}${version}/${config.asset.file}` : config.asset.url
 
     url = url
         .replace(/\{repo\}/g, repo)
