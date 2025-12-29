@@ -14,8 +14,8 @@ melpaBuild (finalAttrs: {
   src = fetchFromGitHub {
     owner = "0WD0";
     repo = "majutsu";
-    rev = "6208b260703f652883ca6376f2afeb7841994a86";
-    hash = "sha256-ucwi2vXC3XpqILygjg5U00QTbPxedqpOYyPFLWOUQ+8=";
+    rev = "7d32ecac0db07afd1abe242ca92b77a66d466876";
+    hash = "sha256-Ph2GtMZIxUAzSK8Tvlkp8th4Y5MzEPgI5lisDWlvqew=";
   };
 
   packageRequires = [
