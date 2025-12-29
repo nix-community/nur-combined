@@ -25,7 +25,7 @@ async function single(file, { config, force }) {
 
     const hash = await getHash(url);
 
-    await update.single(file, { version: parsed, assets: { ...config.assets, url, hash } });
+    await update.single(file, { version: parsed, asset: { ...config.asset, url, hash } });
 
     console.log(`Updated to version ${parsed}`);
 }

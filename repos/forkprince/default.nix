@@ -13,8 +13,10 @@
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
+  playcover = lib.callPackage ./pkgs/playcover {};
 
   github-desktop = lib.callPackage ./pkgs/github-desktop {};
+  dolphin-emu = lib.callPackage ./pkgs/dolphin-emu {};
   obs-studio = lib.callPackage ./pkgs/obs-studio {};
   tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
   ghostty = lib.callPackage ./pkgs/ghostty {};

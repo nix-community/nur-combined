@@ -1,0 +1,14 @@
+{
+  "name": "Dolphin Emulator",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/dolphin.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "2512",
+  "asset": {
+    "url": "https://dl.dolphin-emu.org/releases/2512/dolphin-2512-universal.dmg",
+    "hash": "sha256-oeCDQzacEqhJe3sMNxcIPXGTEmg0aXEfJRaGzkG1914="
+  }
+}

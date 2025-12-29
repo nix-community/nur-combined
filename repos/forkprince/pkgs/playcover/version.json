@@ -1,0 +1,14 @@
+{
+  "name": "proton-em",
+  "source": {
+    "type": "github-release",
+    "repo": "PlayCover/PlayCover",
+    "query": "[0].tag_name"
+  },
+  "asset": {
+    "file": "PlayCover_{version}.dmg",
+    "unpack": false
+  },
+  "version": "3.1.0",
+  "hash": "sha256-XDopGCf0gC9mXa9cM6a/5u8N8sbf8/nlVNtlFBdhluc="
+}
