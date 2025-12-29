@@ -1,5 +1,5 @@
 {
-  region ? "ns",
+  region ? "cn",
   game ? "gi",
   stdenvNoCC,
   fetchurl,
