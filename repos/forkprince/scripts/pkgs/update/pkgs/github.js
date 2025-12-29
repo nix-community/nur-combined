@@ -104,9 +104,9 @@ async function variants(file, { config, force }) {
 
         const prefix = settings.tag_prefix || config.source.tag_prefix || "";
         const unpack = settings.unpack || config.asset.unpack || false;
-        const file = settings.file || config.asset.file;
+        const file_name = settings.file || config.asset.file;
 
-        const name = apply(file.replace(/\{version\}/g, version), settings.substitutions);
+        const name = apply(file_name.replace(/\{version\}/g, version), settings.substitutions);
 
         const url = `https://github.com/${repo}/releases/download/${prefix}${version}/${name}`;
 

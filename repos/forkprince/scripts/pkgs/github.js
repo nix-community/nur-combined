@@ -1,6 +1,9 @@
 async function getURL(url) {
-    if (process.env.GITHUB_TOKEN) return fetch(url, { headers: { "Authorization": `token ${process.env.GITHUB_TOKEN}` } });
-    else return fetch(url);
+    return fetch(url, {
+        headers: process.env.GITHUB_TOKEN && {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        }
+    });
 }
 
 async function getReleases(repo) {
