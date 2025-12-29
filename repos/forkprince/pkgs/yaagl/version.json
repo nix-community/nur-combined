@@ -1,0 +1,57 @@
+{
+  "name": "Yet Another Anime Game Launcher",
+  "source": {
+    "type": "github-release",
+    "repo": "yaagl/yet-another-anime-game-launcher",
+    "query": "[0].tag_name"
+  },
+  "asset": {
+    "file": "Yaagl{0}{1}.app.tar.gz",
+    "unpack": false
+  },
+  "version": "0.3.5",
+  "variants": {
+    "gi-ns": {
+      "substitutions": [
+        "",
+        ""
+      ],
+      "hash": "sha256-mvg6azq9mohSqeQQHuT14j0BE5v7b7ka/5eCTUSUiYg="
+    },
+    "gi-os": {
+      "substitutions": [
+        "",
+        ".OS"
+      ],
+      "hash": "sha256-E6YlX1exY5dF9ifjgq5K/vcayxDnrmKDIYn4eWvr4qw="
+    },
+    "zzz-ns": {
+      "substitutions": [
+        ".ZZZ",
+        ""
+      ],
+      "hash": "sha256-smFN7rdWjm2e2QIKtlNPn4J2tNbKbjD2+5t2WNqOicU="
+    },
+    "zzz-os": {
+      "substitutions": [
+        ".ZZZ",
+        ".OS"
+      ],
+      "hash": "sha256-mH3dVciPqj5cnCERd+QkSRnKmeYV6EpgDEmrjV3w9O8="
+    },
+    "hsr-ns": {
+      "substitutions": [
+        ".HSR",
+        ""
+      ],
+      "hash": "sha256-XEnxvHADFsPCUuVedw2YPrGcDqhHaPJPYZI3E6Eu9lA="
+    },
+    "hsr-os": {
+      "substitutions": [
+        ".HSR",
+        ".OS"
+      ],
+      "hash": "sha256-MWP1GhDYA2jdcoM9Hzr1gBzzPSaRye4una0vymnnAb4="
+    }
+  }
+}

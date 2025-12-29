@@ -23,6 +23,19 @@
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
   waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
 
+  yaagl = lib.callPackage ./pkgs/yaagl {};
+  yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};
+  yaagl-zzz = lib.callPackage ./pkgs/yaagl {game = "zzz";};
+  yaagl-zzz-os = lib.callPackage ./pkgs/yaagl {
+    game = "zzz";
+    region = "os";
+  };
+  yaagl-hsr = lib.callPackage ./pkgs/yaagl {game = "hsr";};
+  yaagl-hsr-os = lib.callPackage ./pkgs/yaagl {
+    game = "hsr";
+    region = "os";
+  };
+
   proton-ge-rtsp-bin = lib.callPackage ./pkgs/proton-ge-rtsp-bin {};
   proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
   proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
