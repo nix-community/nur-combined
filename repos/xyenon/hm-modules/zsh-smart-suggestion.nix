@@ -132,13 +132,10 @@ in
     };
 
     configFile = lib.mkOption {
-      type = with lib.types; nullOr path;
+      type = with lib.types; nullOr (either path str);
       default = null;
-      example = lib.literalExpression "./smart-suggestion-config.zsh";
+      example = lib.literalExpression "config.age.secrets.zsh-smart-suggestion-config.path";
       description = ''
-        Path to a configuration file that will be linked to
-        {file}`~/.config/smart-suggestion/config.zsh`.
-
         Use this to store sensitive information like API keys that should not
         be written to the Nix store.
       '';
@@ -190,12 +187,9 @@ in
           ${lib.optionalString (cfg.anthropic.model != null) (define "ANTHROPIC_MODEL" cfg.anthropic.model)}
           ${lib.optionalString (cfg.gemini.baseUrl != null) (define "GEMINI_BASE_URL" cfg.gemini.baseUrl)}
           ${lib.optionalString (cfg.gemini.model != null) (define "GEMINI_MODEL" cfg.gemini.model)}
+          ${lib.optionalString (cfg.configFile != null) (define "SMART_SUGGESTION_CONFIG" cfg.configFile)}
           source "${cfg.package}/share/zsh/plugins/zsh-smart-suggestion/smart-suggestion.plugin.zsh"
         '';
-    };
-
-    xdg.configFile."smart-suggestion/config.zsh" = lib.mkIf (cfg.configFile != null) {
-      source = cfg.configFile;
     };
   };
 }
