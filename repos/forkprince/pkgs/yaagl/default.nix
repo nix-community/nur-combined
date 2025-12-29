@@ -9,7 +9,7 @@
   ver = lib.helper.read ./version.json;
   type = "${game}-${region}";
 
-  title = lib.strings.toUpper game;
+  title = lib.strings.toUpper "${game} (${region})";
 in
   stdenvNoCC.mkDerivation {
     pname = "yaagl-${type}";
