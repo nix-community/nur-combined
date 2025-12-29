@@ -982,7 +982,7 @@
     },
     "ela-widget-tools": {
         "cargoLocks": null,
-        "date": "2025-12-28",
+        "date": "2025-12-29",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -994,12 +994,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "583d3ac21d83273bebf73f1086d6d65fda2e9c89",
-            "sha256": "sha256-tutOc+hvZV8zHEhDzks4jN5dZVJugaKarpKtoLmzWJU=",
+            "rev": "056ece88119267d3c1623a819e619fe929d019eb",
+            "sha256": "sha256-B9JoelqggnQbJOiD5iOljiv0p4ZwK66fPOq0bYU37rA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "583d3ac21d83273bebf73f1086d6d65fda2e9c89"
+        "version": "056ece88119267d3c1623a819e619fe929d019eb"
     },
     "env-dedup": {
         "cargoLocks": null,
@@ -1303,7 +1303,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-12-26",
+        "date": "2025-12-29",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1315,12 +1315,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "7bfce74f291dcae68fc0c61288f8a71b2d6ac925",
-            "sha256": "sha256-CgRuNe/Pd4pzy3XVuo8QOTv07SHu2iNIAGcVk2jg+NE=",
+            "rev": "7b58bdccfee110265da445ea1cdf34385c41fe87",
+            "sha256": "sha256-fNLwCWq+iL1+t+0H+eXMFiWRrYYlwmZOp4gf2b6+JEc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7bfce74f291dcae68fc0c61288f8a71b2d6ac925"
+        "version": "7b58bdccfee110265da445ea1cdf34385c41fe87"
     },
     "geolite2-asn": {
         "cargoLocks": null,
@@ -1611,7 +1611,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2025-12-10",
+        "date": "2025-12-28",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -1623,12 +1623,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57",
-            "sha256": "sha256-0ScqO5ADh2f9qsvlNixiOk0rflDehNW1LVzcN96SGBo=",
+            "rev": "8691bc86bbf6cbb53127676dece772cdeb55e7ec",
+            "sha256": "sha256-EEDGDAr/XndyGibUIoa+TClTQQwoH7/4hCbCd53aEVM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57"
+        "version": "8691bc86bbf6cbb53127676dece772cdeb55e7ec"
     },
     "igsc": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7564",
-            "sha256": "sha256-V5wD0z3O9YbiWDADK/P7JreX+W3Xz756IrkEl8kpJZU=",
+            "rev": "b7574",
+            "sha256": "sha256-YsbmgvAHvEyYf6TNm3ksjGuHrI/EJaQ5vYv+nFP+kuY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7564"
+        "version": "b7574"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2952,12 +2952,12 @@
             "name": null,
             "owner": "luisbocanegra",
             "repo": "plasma-smart-video-wallpaper-reborn",
-            "rev": "v2.8.0",
-            "sha256": "sha256-NnmcanyjPDhR1QvVZiwFkNOarUeGaGTqaEkQZb8G7pQ=",
+            "rev": "v2.8.1",
+            "sha256": "sha256-SpSKERzm4tKo5WvqNYiq/TfwSJY+oQWNQ93ENAA06Yc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.8.0"
+        "version": "v2.8.1"
     },
     "plasma-yesplaymusic-lyric": {
         "cargoLocks": null,

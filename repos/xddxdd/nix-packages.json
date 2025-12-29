@@ -557,7 +557,7 @@
   "legacyPackages.x86_64-linux.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-12-28"
+    "version": "0-unstable-2025-12-29"
   },
   "legacyPackages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -622,7 +622,7 @@
   "legacyPackages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-12-26"
+    "version": "0-unstable-2025-12-29"
   },
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
@@ -697,7 +697,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-12-10"
+    "version": "0-unstable-2025-12-28"
   },
   "legacyPackages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -1987,7 +1987,7 @@
   "legacyPackages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.8.0"
+    "version": "2.8.1"
   },
   "legacyPackages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
@@ -2532,7 +2532,7 @@
   "packages.x86_64-linux.ela-widget-tools": {
     "description": "Fluent-UI For QT-Widget",
     "pname": "ela-widget-tools",
-    "version": "0-unstable-2025-12-28"
+    "version": "0-unstable-2025-12-29"
   },
   "packages.x86_64-linux.electron_11": {
     "description": "Cross platform desktop application shell",
@@ -2597,7 +2597,7 @@
   "packages.x86_64-linux.funasr": {
     "description": "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models",
     "pname": "python3.13-funasr",
-    "version": "0-unstable-2025-12-26"
+    "version": "0-unstable-2025-12-29"
   },
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
@@ -2672,7 +2672,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov",
-    "version": "0-unstable-2025-12-10"
+    "version": "0-unstable-2025-12-28"
   },
   "packages.x86_64-linux.igsc": {
     "description": "Intel graphics system controller firmware update library",
@@ -2962,7 +2962,7 @@
   "packages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
-    "version": "2.8.0"
+    "version": "2.8.1"
   },
   "packages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",

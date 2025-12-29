@@ -510,14 +510,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "583d3ac21d83273bebf73f1086d6d65fda2e9c89";
+    version = "056ece88119267d3c1623a819e619fe929d019eb";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "583d3ac21d83273bebf73f1086d6d65fda2e9c89";
-      hash = "sha256-tutOc+hvZV8zHEhDzks4jN5dZVJugaKarpKtoLmzWJU=";
+      rev = "056ece88119267d3c1623a819e619fe929d019eb";
+      hash = "sha256-B9JoelqggnQbJOiD5iOljiv0p4ZwK66fPOq0bYU37rA=";
     };
-    date = "2025-12-28";
+    date = "2025-12-29";
   };
   env-dedup = {
     pname = "env-dedup";
@@ -674,14 +674,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "7bfce74f291dcae68fc0c61288f8a71b2d6ac925";
+    version = "7b58bdccfee110265da445ea1cdf34385c41fe87";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "7bfce74f291dcae68fc0c61288f8a71b2d6ac925";
-      hash = "sha256-CgRuNe/Pd4pzy3XVuo8QOTv07SHu2iNIAGcVk2jg+NE=";
+      rev = "7b58bdccfee110265da445ea1cdf34385c41fe87";
+      hash = "sha256-fNLwCWq+iL1+t+0H+eXMFiWRrYYlwmZOp4gf2b6+JEc=";
     };
-    date = "2025-12-26";
+    date = "2025-12-29";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -834,14 +834,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57";
+    version = "8691bc86bbf6cbb53127676dece772cdeb55e7ec";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "2482f8fa4b1aabf10c5c9e5c1d4e37a84f2cdf57";
-      hash = "sha256-0ScqO5ADh2f9qsvlNixiOk0rflDehNW1LVzcN96SGBo=";
+      rev = "8691bc86bbf6cbb53127676dece772cdeb55e7ec";
+      hash = "sha256-EEDGDAr/XndyGibUIoa+TClTQQwoH7/4hCbCd53aEVM=";
     };
-    date = "2025-12-10";
+    date = "2025-12-28";
   };
   igsc = {
     pname = "igsc";
@@ -1080,12 +1080,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7564";
+    version = "b7574";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7564";
-      hash = "sha256-V5wD0z3O9YbiWDADK/P7JreX+W3Xz756IrkEl8kpJZU=";
+      tag = "b7574";
+      hash = "sha256-YsbmgvAHvEyYf6TNm3ksjGuHrI/EJaQ5vYv+nFP+kuY=";
     };
   };
   loralib = {
@@ -1508,12 +1508,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.8.0";
+    version = "v2.8.1";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.8.0";
-      hash = "sha256-NnmcanyjPDhR1QvVZiwFkNOarUeGaGTqaEkQZb8G7pQ=";
+      tag = "v2.8.1";
+      hash = "sha256-SpSKERzm4tKo5WvqNYiq/TfwSJY+oQWNQ93ENAA06Yc=";
     };
   };
   plasma-yesplaymusic-lyric = {
