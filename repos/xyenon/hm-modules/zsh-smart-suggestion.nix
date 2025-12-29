@@ -167,26 +167,26 @@ in
           ${lib.optionalString (cfg.aiProvider != null) (
             define "SMART_SUGGESTION_AI_PROVIDER" cfg.aiProvider
           )}
-          ${lib.optionalString (cfg.openai.baseUrl != null) (define "OPENAI_BASE_URL" cfg.openai.baseUrl)}
-          ${lib.optionalString (cfg.openai.model != null) (define "OPENAI_MODEL" cfg.openai.model)}
+          ${lib.optionalString (cfg.openai.baseUrl != null) (export "OPENAI_BASE_URL" cfg.openai.baseUrl)}
+          ${lib.optionalString (cfg.openai.model != null) (export "OPENAI_MODEL" cfg.openai.model)}
           ${lib.optionalString (cfg.azureOpenai.resourceName != null) (
-            define "AZURE_OPENAI_RESOURCE_NAME" cfg.azureOpenai.resourceName
+            export "AZURE_OPENAI_RESOURCE_NAME" cfg.azureOpenai.resourceName
           )}
           ${lib.optionalString (cfg.azureOpenai.deploymentName != null) (
-            define "AZURE_OPENAI_DEPLOYMENT_NAME" cfg.azureOpenai.deploymentName
+            export "AZURE_OPENAI_DEPLOYMENT_NAME" cfg.azureOpenai.deploymentName
           )}
           ${lib.optionalString (cfg.azureOpenai.apiVersion != null) (
-            define "AZURE_OPENAI_API_VERSION" cfg.azureOpenai.apiVersion
+            export "AZURE_OPENAI_API_VERSION" cfg.azureOpenai.apiVersion
           )}
           ${lib.optionalString (cfg.azureOpenai.baseUrl != null) (
-            define "AZURE_OPENAI_BASE_URL" cfg.azureOpenai.baseUrl
+            export "AZURE_OPENAI_BASE_URL" cfg.azureOpenai.baseUrl
           )}
           ${lib.optionalString (cfg.anthropic.baseUrl != null) (
-            define "ANTHROPIC_BASE_URL" cfg.anthropic.baseUrl
+            export "ANTHROPIC_BASE_URL" cfg.anthropic.baseUrl
           )}
-          ${lib.optionalString (cfg.anthropic.model != null) (define "ANTHROPIC_MODEL" cfg.anthropic.model)}
-          ${lib.optionalString (cfg.gemini.baseUrl != null) (define "GEMINI_BASE_URL" cfg.gemini.baseUrl)}
-          ${lib.optionalString (cfg.gemini.model != null) (define "GEMINI_MODEL" cfg.gemini.model)}
+          ${lib.optionalString (cfg.anthropic.model != null) (export "ANTHROPIC_MODEL" cfg.anthropic.model)}
+          ${lib.optionalString (cfg.gemini.baseUrl != null) (export "GEMINI_BASE_URL" cfg.gemini.baseUrl)}
+          ${lib.optionalString (cfg.gemini.model != null) (export "GEMINI_MODEL" cfg.gemini.model)}
           ${lib.optionalString (cfg.configFile != null) (define "SMART_SUGGESTION_CONFIG" cfg.configFile)}
           source "${cfg.package}/share/zsh/plugins/zsh-smart-suggestion/smart-suggestion.plugin.zsh"
         '';
