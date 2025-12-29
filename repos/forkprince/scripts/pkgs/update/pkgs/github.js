@@ -10,8 +10,9 @@ async function check(file, { config, force }) {
         const platforms = config.platforms || {};
 
         const first = Object.values(platforms)[0];
+        const repo = first?.repo || config.source.repo;
 
-        api_repo = first?.substitutions ? apply(config.source.repo, first.substitutions) : api_repo;
+        api_repo = first?.substitutions ? apply(repo, first.substitutions) : repo;
     }
 
     if (config.variants) {
@@ -45,6 +46,8 @@ async function single(file, { config, force }) {
     const prefix = config.source.tag_prefix || "";
     const repo = config.source.repo;
 
+    const unpack = config.asset.unpack || false;
+
     let url = config.asset.file ? `https://github.com/${repo}/releases/download/${prefix}${version}/${config.asset.file}` : config.asset.url
 
     url = url
@@ -54,7 +57,7 @@ async function single(file, { config, force }) {
 
     console.log(`Downloading ${url}`);
 
-    const hash = await getHash(url);
+    const hash = await getHash(url, unpack);
 
     await update.single(file, { version, hash });
 
