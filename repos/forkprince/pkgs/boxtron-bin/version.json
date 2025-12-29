@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "dreamer/boxtron",
-    "query": ".[0].tag_name"
+    "query": "[0].tag_name"
   },
   "asset": {
     "file": "boxtron.tar.xz",

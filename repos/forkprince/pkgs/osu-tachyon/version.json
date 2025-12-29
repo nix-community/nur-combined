@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "ppy/osu",
-    "query": "first | .tag_name"
+    "query": "[0].tag_name"
   },
   "version": "2025.1218.0-lazer",
   "platforms": {

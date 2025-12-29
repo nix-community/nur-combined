@@ -18,7 +18,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Install nix
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install Nix
         uses: nixbuild/nix-quick-install-action@v34
         with:
           nix_conf: experimental-features = nix-command flakes
@@ -26,7 +29,7 @@ jobs:
       - name: Update packages
         run: |
           find ./pkgs -name "version.json" -type f | while read -r version_file; do
-            ./.github/update.sh "$version_file"
+            bun ./scripts/index.js "$version_file"
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

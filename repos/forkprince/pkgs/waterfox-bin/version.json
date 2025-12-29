@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "BrowserWorks/Waterfox",
-    "query": ".[0].tag_name"
+    "query": "[0].tag_name"
   },
   "version": "6.6.7",
   "platforms": {

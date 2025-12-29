@@ -2,7 +2,7 @@
   "name": "Helium Nightly",
   "source": {
     "type": "github-release",
-    "query": "first | .tag_name"
+    "query": "[0].tag_name"
   },
   "version": "0.7.7.1",
   "platforms": {

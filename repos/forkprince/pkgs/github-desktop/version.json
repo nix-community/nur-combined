@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "desktop/desktop",
-    "query": ".[0].tag_name"
+    "query": "[0].tag_name"
   },
   "version": "release-3.5.4-beta3",
   "platforms": {

@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "tiny-craft/tiny-rdm",
-    "query": ".[0].tag_name",
+    "query": "[0].tag_name",
     "tag_prefix": "v"
   },
   "version": "1.2.5",

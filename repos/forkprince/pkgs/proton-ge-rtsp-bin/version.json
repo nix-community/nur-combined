@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "SpookySkeletons/proton-ge-rtsp",
-    "query": ".[0].tag_name"
+    "query": "[0].tag_name"
   },
   "asset": {
     "file": "{version}.tar.gz",
