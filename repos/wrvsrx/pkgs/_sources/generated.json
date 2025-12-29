@@ -311,27 +311,6 @@
         },
         "version": "0.22.1"
     },
-    "noctalia-shell": {
-        "cargoLocks": null,
-        "date": "2025-12-28",
-        "extract": null,
-        "name": "noctalia-shell",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "noctalia-dev",
-            "repo": "noctalia-shell",
-            "rev": "28694379e80ebcf636df02817b3878749520d6ca",
-            "sha256": "sha256-jPwsAYFSw1Bi8hpnoqM2tFcJQYDF7pwyuR/4CqI6iSg=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "28694379e80ebcf636df02817b3878749520d6ca"
-    },
     "osc52": {
         "cargoLocks": null,
         "date": "2025-05-16",
