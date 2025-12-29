@@ -145,51 +145,54 @@ in
   config = lib.mkIf (config.programs.zsh.enable && cfg.enable) {
     programs.zsh = {
       autosuggestion.enable = true;
-      initContent =
-        with config.lib.zsh;
-        lib.mkOrder 750 ''
-          SMART_SUGGESTION_BINARY="${cfg.package}/bin/smart-suggestion"
-          SMART_SUGGESTION_AUTO_UPDATE=false
-          ${lib.optionalString (cfg.keybinding != null) (define "SMART_SUGGESTION_KEY" cfg.keybinding)}
-          ${lib.optionalString (cfg.proxyMode != null) (define "SMART_SUGGESTION_PROXY_MODE" cfg.proxyMode)}
-          ${lib.optionalString (cfg.historyLines != null) (
-            define "SMART_SUGGESTION_HISTORY_LINES" cfg.historyLines
-          )}
-          ${lib.optionalString (cfg.sendContext != null) (
-            define "SMART_SUGGESTION_SEND_CONTEXT" cfg.sendContext
-          )}
-          ${lib.optionalString (cfg.bufferLines != null) (
-            define "SMART_SUGGESTION_BUFFER_LINES" cfg.bufferLines
-          )}
-          ${lib.optionalString (cfg.systemPrompt != null) (
-            define "SMART_SUGGESTION_SYSTEM_PROMPT" cfg.systemPrompt
-          )}
-          ${lib.optionalString (cfg.aiProvider != null) (
-            define "SMART_SUGGESTION_AI_PROVIDER" cfg.aiProvider
-          )}
-          ${lib.optionalString (cfg.openai.baseUrl != null) (export "OPENAI_BASE_URL" cfg.openai.baseUrl)}
-          ${lib.optionalString (cfg.openai.model != null) (export "OPENAI_MODEL" cfg.openai.model)}
-          ${lib.optionalString (cfg.azureOpenai.resourceName != null) (
-            export "AZURE_OPENAI_RESOURCE_NAME" cfg.azureOpenai.resourceName
-          )}
-          ${lib.optionalString (cfg.azureOpenai.deploymentName != null) (
-            export "AZURE_OPENAI_DEPLOYMENT_NAME" cfg.azureOpenai.deploymentName
-          )}
-          ${lib.optionalString (cfg.azureOpenai.apiVersion != null) (
-            export "AZURE_OPENAI_API_VERSION" cfg.azureOpenai.apiVersion
-          )}
-          ${lib.optionalString (cfg.azureOpenai.baseUrl != null) (
-            export "AZURE_OPENAI_BASE_URL" cfg.azureOpenai.baseUrl
-          )}
-          ${lib.optionalString (cfg.anthropic.baseUrl != null) (
-            export "ANTHROPIC_BASE_URL" cfg.anthropic.baseUrl
-          )}
-          ${lib.optionalString (cfg.anthropic.model != null) (export "ANTHROPIC_MODEL" cfg.anthropic.model)}
-          ${lib.optionalString (cfg.gemini.baseUrl != null) (export "GEMINI_BASE_URL" cfg.gemini.baseUrl)}
-          ${lib.optionalString (cfg.gemini.model != null) (export "GEMINI_MODEL" cfg.gemini.model)}
-          ${lib.optionalString (cfg.configFile != null) (define "SMART_SUGGESTION_CONFIG" cfg.configFile)}
-          source "${cfg.package}/share/zsh/plugins/zsh-smart-suggestion/smart-suggestion.plugin.zsh"
-        '';
+      initContent = lib.mkOrder 750 ''
+        source "${cfg.package}/share/zsh/plugins/zsh-smart-suggestion/smart-suggestion.plugin.zsh"
+      '';
     };
+
+    xdg.configFile."smart-suggestion/config.zsh".text = with config.lib.zsh; ''
+      SMART_SUGGESTION_BINARY="${cfg.package}/bin/smart-suggestion"
+      SMART_SUGGESTION_AUTO_UPDATE=false
+
+      ${lib.optionalString (cfg.keybinding != null) (define "SMART_SUGGESTION_KEY" cfg.keybinding)}
+      ${lib.optionalString (cfg.proxyMode != null) (define "SMART_SUGGESTION_PROXY_MODE" cfg.proxyMode)}
+      ${lib.optionalString (cfg.historyLines != null) (
+        define "SMART_SUGGESTION_HISTORY_LINES" cfg.historyLines
+      )}
+      ${lib.optionalString (cfg.sendContext != null) (
+        define "SMART_SUGGESTION_SEND_CONTEXT" cfg.sendContext
+      )}
+      ${lib.optionalString (cfg.bufferLines != null) (
+        define "SMART_SUGGESTION_BUFFER_LINES" cfg.bufferLines
+      )}
+      ${lib.optionalString (cfg.systemPrompt != null) (
+        define "SMART_SUGGESTION_SYSTEM_PROMPT" cfg.systemPrompt
+      )}
+      ${lib.optionalString (cfg.aiProvider != null) (
+        define "SMART_SUGGESTION_AI_PROVIDER" cfg.aiProvider
+      )}
+      ${lib.optionalString (cfg.openai.baseUrl != null) (define "OPENAI_BASE_URL" cfg.openai.baseUrl)}
+      ${lib.optionalString (cfg.openai.model != null) (define "OPENAI_MODEL" cfg.openai.model)}
+      ${lib.optionalString (cfg.azureOpenai.resourceName != null) (
+        define "AZURE_OPENAI_RESOURCE_NAME" cfg.azureOpenai.resourceName
+      )}
+      ${lib.optionalString (cfg.azureOpenai.deploymentName != null) (
+        define "AZURE_OPENAI_DEPLOYMENT_NAME" cfg.azureOpenai.deploymentName
+      )}
+      ${lib.optionalString (cfg.azureOpenai.apiVersion != null) (
+        define "AZURE_OPENAI_API_VERSION" cfg.azureOpenai.apiVersion
+      )}
+      ${lib.optionalString (cfg.azureOpenai.baseUrl != null) (
+        define "AZURE_OPENAI_BASE_URL" cfg.azureOpenai.baseUrl
+      )}
+      ${lib.optionalString (cfg.anthropic.baseUrl != null) (
+        define "ANTHROPIC_BASE_URL" cfg.anthropic.baseUrl
+      )}
+      ${lib.optionalString (cfg.anthropic.model != null) (define "ANTHROPIC_MODEL" cfg.anthropic.model)}
+      ${lib.optionalString (cfg.gemini.baseUrl != null) (define "GEMINI_BASE_URL" cfg.gemini.baseUrl)}
+      ${lib.optionalString (cfg.gemini.model != null) (define "GEMINI_MODEL" cfg.gemini.model)}
+
+      source "${cfg.configFile}"
+    '';
   };
 }
