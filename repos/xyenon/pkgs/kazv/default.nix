@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitLab,
+  fetchFromGitea,
   wrapQtAppsHook,
   cmake,
   pkg-config,
@@ -33,15 +33,15 @@
 
 stdenv.mkDerivation {
   pname = "kazv";
-  version = "0.6.0-unstable-2025-10-15";
+  version = "0.6.0-unstable-2025-12-28";
 
-  src = fetchFromGitLab {
-    domain = "lily-is.land";
-    owner = "kazv";
+  src = fetchFromGitea {
+    domain = "codeberg.org";
+    owner = "the-kazv-project";
     repo = "kazv";
     fetchSubmodules = true;
-    rev = "df06f29d6d857e11a542e2bfc5f33ec5d4f130cb";
-    hash = "sha256-5HhC3GSTvubmu+bZ7yFpClJSPXqpDQojdafE4eOTsBY=";
+    rev = "1ec872911b0e1964b322a6c2947beb86f64821ba";
+    hash = "sha256-DGrKKDHco45A5MrvgpGxBMvl+gfIsJhS4xKwM8CR+Aw=";
   };
 
   nativeBuildInputs = [
