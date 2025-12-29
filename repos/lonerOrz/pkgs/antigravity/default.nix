@@ -78,8 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
     makeWrapper $out/share/antigravity/antigravity $out/bin/antigravity \
       --set ELECTRON_OZONE_PLATFORM_HINT auto \
-      --set LIBGL_ALWAYS_INDIRECT 1 \
-      --add-flags "--enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime --disable-gpu" \
+      --add-flags "--enable-features=UseOzonePlatform --ozone-platform-hint=auto --enable-wayland-ime" \
       --unset NODE_OPTIONS \
       --set TMPDIR /tmp \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
