@@ -30,7 +30,7 @@
   inherit (ver) version;
 
   meta = {
-    description = "A Gensokyo Radio player with easy song info, continuing the Lunatic Player project. ";
+    description = "A Gensokyo Radio player with easy song info, continuing the Lunatic Player project.";
     homepage = "https://github.com/Prince527GitHub/Re-Lunatic-Player";
     license = lib.licenses.agpl3Only;
     maintainers = ["Wam25" "Prinky"];

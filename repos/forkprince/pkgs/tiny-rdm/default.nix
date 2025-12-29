@@ -1,6 +1,6 @@
 {
-  github-desktop,
   stdenvNoCC,
+  tiny-rdm,
   fetchurl,
   _7zz,
   lib,
@@ -43,4 +43,4 @@ in
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
   }
-else github-desktop
+else tiny-rdm
