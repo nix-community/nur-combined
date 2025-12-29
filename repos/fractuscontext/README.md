@@ -21,6 +21,7 @@ A custom overlay that provides auto-updated DMGs for macOS apps. These are fetch
 | **Telegram Desktop** | [telegramdesktop](https://github.com/telegramdesktop/tdesktop) | Universal |
 | **Ungoogled Chromium** | [ungoogled-software](https://github.com/ungoogled-software/ungoogled-chromium-macos) | Universal |
 | **Bambu Studio** | [bambulab](https://github.com/bambulab/BambuStudio) | Universal |
+| **Kap** | [getkap](https://getkap.co/) | Universal (x64/arm64) |
 
 ## 🛠 Usage
 

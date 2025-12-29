@@ -25,9 +25,9 @@
     		"sha256": "7f55e1c41634e02190d79653b9b07345645ca651d64855f96c7420668be3a23b"
     	},
     	"floorp": {
-    		"version": "v12.9.1",
-    		"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v12.9.1/floorp-macOS-universal.dmg",
-    		"sha256": "169932c550053c1d40d138e4f19d1706d8d534dccc3590f3f5ebf0657af61b67"
+    		"version": "v12.9.2",
+    		"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v12.9.2/floorp-macOS-universal.dmg",
+    		"sha256": "cc27a9cd3eff0679ab916666583e2aed1fb882f0f4ea66676a133532cc8d5611"
     	},
     	"lunarfyi": {
     		"version": "v6.9.5",
@@ -40,24 +40,34 @@
     		"sha256": "4e2a4b1e34f87ab12a56540fb81a52cdbe635ee114f5fe63abcc9f83b98eda79"
     	},
     	"telegram-desktop": {
-    		"version": "v6.3.9",
-    		"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v6.3.9/tsetup.6.3.9.dmg",
-    		"sha256": "b8fdc4459a4e941aa641ed009096f60cc188bf8ff9107a643d61199b0e9c6a7e"
+    		"version": "v6.3.10",
+    		"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v6.3.10/tsetup.6.3.10.beta.dmg",
+    		"sha256": "34354dc3cafb7e86fff92e6c1c769d83eedeca244903a64c1b69f21a638ffc38"
     	},
 			"ungoogled-chromium-x64": {
-    		"version": "143.0.7499.40-1.1",
-    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/143.0.7499.40-1.1/ungoogled-chromium_143.0.7499.40-1.1_x86_64-macos.dmg",
-    		"sha256": "3578e837e3e764f22f354203151d17d685d18819ae806bf4753beddb984735a5"
+    		"version": "143.0.7499.169-1.1",
+    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/143.0.7499.169-1.1/ungoogled-chromium_143.0.7499.169-1.1_x86_64-macos.dmg",
+    		"sha256": "9233ed5042bca37a235701a9fdd6d62b79c0f230704aa7118df6c6512de17b2b"
     	},
 			"ungoogled-chromium-arm64": {
-    		"version": "143.0.7499.40-1.1",
-    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/143.0.7499.40-1.1/ungoogled-chromium_143.0.7499.40-1.1_arm64-macos.dmg",
-    		"sha256": "68236e63f62a2c6aace6077912748cfe9292c85b8eeee18177da878f3f1bcb23"
+    		"version": "143.0.7499.169-1.1",
+    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/143.0.7499.169-1.1/ungoogled-chromium_143.0.7499.169-1.1_arm64-macos.dmg",
+    		"sha256": "603eaa5b8677a35cd118ec26f3c92ccc5fdc2a86c2318e2b50e28cdbcb888bf1"
     	},
 			"bambu-studio": {
     		"version": "v02.04.00.70",
     		"url": "https://github.com/bambulab/BambuStudio/releases/download/v02.04.00.70/Bambu_Studio_mac-v02.04.00.70-20251118194119.dmg",
     		"sha256": "00514330982d1fd96d143e4f8c6ecadb6bf80b39960e61369e1a2cd818159b6f"
+    	},
+			"kap-x64": {
+    		"version": "v3.6.0",
+    		"url": "https://github.com/wulkano/Kap/releases/download/v3.6.0/Kap-3.6.0-x64.dmg",
+    		"sha256": "8086dd10963177b878bdc709081e4efbbc713baeacb64d962bcd081bd0bf780f"
+    	},
+			"kap-arm64": {
+    		"version": "v3.6.0",
+    		"url": "https://github.com/wulkano/Kap/releases/download/v3.6.0/Kap-3.6.0-arm64.dmg",
+    		"sha256": "0f4b69d5fd4ec59da7b6e153722314c93dc263db2b81c0d0191e256360473ce3"
     	}
 
     }

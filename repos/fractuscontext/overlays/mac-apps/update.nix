@@ -51,7 +51,9 @@ pkgs.writeShellApplication {
     	\"telegram-desktop\": $(get_github "telegramdesktop" "tdesktop" ".dmg"),
 			\"ungoogled-chromium-x64\": $(get_github "ungoogled-software" "ungoogled-chromium-macos" "x86_64-macos.dmg"),
 			\"ungoogled-chromium-arm64\": $(get_github "ungoogled-software" "ungoogled-chromium-macos" "arm64-macos.dmg"),
-			\"bambu-studio\": $(get_github "bambulab" "BambuStudio" ".dmg")
+			\"bambu-studio\": $(get_github "bambulab" "BambuStudio" ".dmg"),
+			\"kap-x64\": $(get_github "wulkano" "Kap" "x64.dmg"),
+			\"kap-arm64\": $(get_github "wulkano" "Kap" "arm64.dmg")
 
     }" > src.json
   '';
