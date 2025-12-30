@@ -1,0 +1,15 @@
+{
+  "name": "Overlayed",
+  "source": {
+    "type": "github-release",
+    "repo": "overlayeddev/overlayed",
+    "query": "[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Overlayed_universal.app.tar.gz",
+    "unpack": false
+  },
+  "version": "0.6.2",
+  "hash": "sha256-B++i+kiw36zvmywh5pX47SIvaq1jsI3OUnclPYqbwSs="
+}

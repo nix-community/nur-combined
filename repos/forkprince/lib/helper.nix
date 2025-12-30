@@ -1,3 +1,4 @@
+# TODO: Merge getSingle & getApi and getPlatform & getApiPlatform
 {lib}: let
   githubUrl = repo: tagPrefix: version: file: "https://github.com/${repo}/releases/download/${tagPrefix}${version}/${file}";
 
