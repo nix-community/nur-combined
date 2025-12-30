@@ -19,7 +19,9 @@
   _1c-enterprise-server = pkgs.callPackage ./pkgs/by-name/_1/_1c-enterprise-server/default.nix { };
   _1c-enterprise = pkgs.callPackage ./pkgs/by-name/_1/_1c-enterprise/default.nix { };
   _7zlib = pkgs.callPackage ./pkgs/by-name/_7/_7zlib/default.nix { };
+  domination = pkgs.callPackage ./pkgs/by-name/do/domination/default.nix { };
   far2l = pkgs.callPackage ./pkgs/by-name/fa/far2l/default.nix { };
+  mts-link = pkgs.callPackage ./pkgs/by-name/mt/mts-link/default.nix { };
   waterfox = pkgs.callPackage ./pkgs/by-name/wa/waterfox/default.nix { };
   winbox4 = pkgs.callPackage ./pkgs/by-name/wi/winbox4/package.nix { };
 
