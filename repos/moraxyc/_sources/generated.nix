@@ -123,7 +123,7 @@
     version = "0.0.0";
     src = fetchurl {
       url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors";
-      sha256 = "sha256-t90DgDDp0Eub8OZaDutZ0PknxSdu5SQPo2fSTUo0rBA=";
+      sha256 = "sha256-Y8stZF+F5UW50oY0QrhuDSnCKKl7m7omvaFHgFAAqjg=";
     };
   };
   libinput-three-finger-drag = {
@@ -159,6 +159,17 @@
       rev = "v3.1.0";
       fetchSubmodules = false;
       sha256 = "sha256-14TztORKynlHS277k+W7FN1kgQD0FFu5W07wxgCDFS0=";
+    };
+  };
+  new-api = {
+    pname = "new-api";
+    version = "v0.10.5-bailian.1";
+    src = fetchFromGitHub {
+      owner = "QuantumNous";
+      repo = "new-api";
+      rev = "v0.10.5-bailian.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-dxerEBhhIazQOpXGpfmgNoiK/L108o2qYE/r7WNFoMw=";
     };
   };
   pixy2 = {

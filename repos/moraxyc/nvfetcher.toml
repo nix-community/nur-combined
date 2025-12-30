@@ -77,3 +77,7 @@ fetch.github = "GZTimeWalker/GZCTF"
 [mautrix-telegramgo]
 src.git = "https://github.com/mautrix/telegramgo.git"
 fetch.github = "mautrix/telegramgo"
+
+[new-api]
+src.github = "QuantumNous/new-api"
+fetch.github = "QuantumNous/new-api"

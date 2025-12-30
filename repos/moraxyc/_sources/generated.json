@@ -221,7 +221,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-t90DgDDp0Eub8OZaDutZ0PknxSdu5SQPo2fSTUo0rBA=",
+            "sha256": "sha256-Y8stZF+F5UW50oY0QrhuDSnCKKl7m7omvaFHgFAAqjg=",
             "type": "url",
             "url": "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors"
         },
@@ -289,6 +289,27 @@
             "type": "github"
         },
         "version": "v3.1.0"
+    },
+    "new-api": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "new-api",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "QuantumNous",
+            "repo": "new-api",
+            "rev": "v0.10.5-bailian.1",
+            "sha256": "sha256-dxerEBhhIazQOpXGpfmgNoiK/L108o2qYE/r7WNFoMw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.10.5-bailian.1"
     },
     "pixy2": {
         "cargoLocks": null,

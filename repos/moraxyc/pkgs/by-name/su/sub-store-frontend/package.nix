@@ -1,18 +1,17 @@
 {
   lib,
-  stdenv,
+  buildNpmPackage,
   fetchFromGitHub,
 
   pnpm_10,
   pnpm ? pnpm_10,
-  nix-update-script,
-  pnpmConfigHook,
   fetchPnpmDeps,
-
+  pnpmConfigHook,
+  nix-update-script,
   nodejs,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+buildNpmPackage (finalAttrs: {
   pname = "sub-store-frontend";
   version = "2.15.85";
 
@@ -25,23 +24,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     nodejs
-    pnpmConfigHook
     pnpm
   ];
 
+  npmDeps = null;
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
+    inherit pnpm;
     fetcherVersion = 3;
     hash = "sha256-HEeNYLKvzO/RQWYnm5gqRjTrXiiCxKUxf3bcRvz+O4k=";
   };
 
-  buildPhase = ''
-    runHook preBuild
-
-    pnpm build
-
-    runHook postBuild
-  '';
+  npmConfigHook = pnpmConfigHook;
 
   installPhase = ''
     runHook preInstall
@@ -59,7 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/sub-store-org/Sub-Store-Front-End/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ moraxyc ];
-    mainProgram = "sub-store-frontend";
     platforms = nodejs.meta.platforms;
   };
 })

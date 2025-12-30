@@ -1,38 +1,37 @@
 {
   lib,
-  stdenv,
+  buildNpmPackage,
   fetchFromGitHub,
 
   pnpm_10,
   pnpm ? pnpm_10,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   makeBinaryWrapper,
   nix-update-script,
-  pnpmConfigHook,
-  fetchPnpmDeps,
 
   nodejs,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+buildNpmPackage (finalAttrs: {
   pname = "sub-store";
-  version = "2.20.55";
+  version = "2.20.61";
 
   src = fetchFromGitHub {
     owner = "sub-store-org";
     repo = "Sub-Store";
     tag = finalAttrs.version;
-    hash = "sha256-//CMHZ/ngASpSn502mrCVEIBmviGWAZSGDQ+pDD6nEw=";
+    hash = "sha256-6NHPVCIlModWXzKOJnPwA41cHrNWy6yXUEwoKpbwpmw=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/backend";
 
   nativeBuildInputs = [
-    nodejs
-    pnpmConfigHook
-    pnpm
     makeBinaryWrapper
+    pnpm
   ];
 
+  npmDeps = null;
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
@@ -40,17 +39,13 @@ stdenv.mkDerivation (finalAttrs: {
       src
       sourceRoot
       ;
+    inherit pnpm;
     fetcherVersion = 3;
     hash = "sha256-VsK6qvBeOF2smXRFmMk4gWxQgAD1GG/ExvZdIERdz9g=";
   };
 
-  buildPhase = ''
-    runHook preBuild
-
-    pnpm bundle:esbuild
-
-    runHook postBuild
-  '';
+  npmConfigHook = pnpmConfigHook;
+  npmBuildScript = "bundle:esbuild";
 
   installPhase = ''
     runHook preInstall

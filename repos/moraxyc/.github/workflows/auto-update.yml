@@ -46,6 +46,13 @@ jobs:
 
           rm -f secrets.toml
 
+      - name: copy nixpkgs scripts
+        run: |
+          NIXPKGS=$(nix-instantiate --eval -E '<nixpkgs>')
+          cp -r $NIXPKGS/{ci,shell.nix,maintainers} .
+          chmod -R +w .
+          sed -i "s|./../../default.nix|$NIXPKGS|g" maintainers/scripts/update.nix
+
       - name: Update vendor hashes (nix-update)
         run: |
           export NIXPKGS_ALLOW_UNFREE=1
@@ -56,7 +63,8 @@ jobs:
               echo "Detected auto-update marker for: $pkg_name"
 
               nix shell nixpkgs#nix-update --inputs-from . \
-                -c nix-update "$pkg_name" --version=skip $extra_args
+                -c nix-update "$pkg_name" --version=skip $extra_args \
+                --update-script-args "--arg include-overlays '[(self: super: (import ./default.nix {}))]'"
           done
 
       - name: Commit changes

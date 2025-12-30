@@ -4,3 +4,7 @@ result-*
 
 # Nvfetcher keyfile
 secrets.toml
+
+/shell.nix
+/maintainers
+/ci
