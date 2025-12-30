@@ -49,6 +49,7 @@
           zlint = prev.callPackage ./pkgs/zlint { };
           zlint-unstable = prev.callPackage ./pkgs/zlint/unstable.nix { };
           uvShellHook = prev.callPackage ./pkgs/uv/venv-shell-hook.nix { };
+          inbox = prev.callPackage ./pkgs/inbox { };
 
           # Latest Go version as go-bin (automatically uses the highest version)
           go-bin = makeGo prev latestGoVersion;
@@ -118,7 +119,7 @@
             );
           in
           {
-            inherit (pkgs) zlint zlint-unstable go-bin uvShellHook;
+            inherit (pkgs) zlint zlint-unstable go-bin uvShellHook inbox;
             default = self.packages.${system}.zlint;
           }
           // goPackages;

@@ -1,9 +1,9 @@
-name: Update All Packages
+name: Update inbox
 
 on:
   schedule:
-    # Run daily at 4 AM UTC (after individual updaters)
-    - cron: '0 4 * * *'
+    # Run daily at 3:30 AM UTC
+    - cron: '30 3 * * *'
   workflow_dispatch: # Allow manual trigger
 
 permissions:
@@ -22,23 +22,14 @@ jobs:
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
 
-      - name: Update all packages
+      - name: Run inbox update script
         run: |
-          echo "📦 Updating all packages..."
-          nix develop -c just update-all
+          nix develop -c just update-inbox
 
       - name: Check for changes
         id: verify-diff
         run: |
-          if git diff --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "### 📝 Changes detected:" >> $GITHUB_STEP_SUMMARY
-            echo '```diff' >> $GITHUB_STEP_SUMMARY
-            git diff >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          fi
+          git diff --quiet pkgs/inbox/ || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Validate flake
         if: steps.verify-diff.outputs.changed == 'true'
@@ -47,38 +38,24 @@ jobs:
           nix flake check --no-build
           echo "✓ Flake checks passed"
 
-      - name: Build all packages
+      - name: Build and test inbox package
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
-          echo "🏗️ Building all packages to verify updates..."
-
-          # Build Go packages
-          nix build .#go-bin --no-link
-          echo "✓ go-bin builds"
-
-          # Build zlint packages
-          nix build .#zlint --no-link
-          nix build .#zlint-unstable --no-link
-          echo "✓ zlint packages build"
-
-          # Build inbox package
+          echo "🏗️ Building inbox..."
           nix build .#inbox --no-link
-          echo "✓ inbox builds"
+          echo "✓ inbox builds successfully"
 
-      - name: Test binaries
-        if: steps.verify-diff.outputs.changed == 'true'
-        run: |
-          echo "🧪 Testing binaries..."
-          nix run .#go-bin -- version
-          nix run .#zlint -- --version
+          # Test that inbox works
+          echo "🧪 Testing inbox binary..."
           nix run .#inbox -- --help
-          echo "✓ All binaries work"
+          echo "✓ inbox binary works"
 
       - name: Commit and push changes
         if: steps.verify-diff.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'chore: update all packages'
+          commit_message: 'chore: update inbox version'
+          file_pattern: 'pkgs/inbox/*.nix pkgs/inbox/*.py'
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
@@ -86,16 +63,16 @@ jobs:
       - name: Summary
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
-          echo "### 🎉 All packages updated and validated!" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎉 inbox version updated and validated!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Validation:**" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ All packages build successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ All binaries tested and working" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Package builds successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ inbox binary tested and working" >> $GITHUB_STEP_SUMMARY
 
       - name: No changes
         if: steps.verify-diff.outputs.changed != 'true'
         run: |
           echo "### ℹ️ No updates available" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "All packages are already up to date." >> $GITHUB_STEP_SUMMARY
+          echo "inbox version is already up to date." >> $GITHUB_STEP_SUMMARY

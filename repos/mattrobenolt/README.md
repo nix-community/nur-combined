@@ -24,6 +24,10 @@ See [`pkgs/go/README.md`](./pkgs/go/README.md) for implementation details.
 - `zlint` - Latest stable release (pre-built binary)
 - `zlint-unstable` - Built from HEAD
 
+### inbox
+
+- `inbox` - A fast, beautiful, and distraction-free Gmail client for your terminal (pre-built binary)
+
 ## Usage
 
 Add this repo as a flake input and apply the overlay:
@@ -50,6 +54,7 @@ Add this repo as a flake input and apply the overlay:
         packages = [
           pkgs.go-bin  # Latest Go
           pkgs.zlint
+          pkgs.inbox
         ];
       };
     };
@@ -68,9 +73,11 @@ just update-go
 nix build .#go-bin
 nix build .#go-bin_1_24
 nix build .#zlint
+nix build .#inbox
 
 # Run packages
 nix run .#go-bin -- version
+nix run .#inbox -- --help
 ```
 
 ## Project Templates

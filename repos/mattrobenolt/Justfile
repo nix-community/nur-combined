@@ -37,8 +37,13 @@ update-go:
 update-zlint:
     @./pkgs/zlint/update.py
 
+# Update inbox package
+update-inbox:
+    @./pkgs/inbox/update.py
+
 # Update all packages
 update-all:
     @just update-go
     @just update-zlint
+    @just update-inbox
 
