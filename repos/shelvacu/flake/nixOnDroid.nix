@@ -22,15 +22,17 @@ in
     default = { };
   };
   config.flake.nixOnDroidConfigurations = rec {
-    arm = mkNixOnDroid "aarch64-linux";
-    x86 = mkNixOnDroid "x86_64-linux";
-    default = arm;
+    aarch64 = mkNixOnDroid "aarch64-linux";
+    x86_64 = mkNixOnDroid "x86_64-linux";
+    default = aarch64;
   };
 
   config.flake.qb = rec {
     nix-on-droid = config.flake.nixOnDroidConfigurations.default.activationPackage;
-    nix-on-droid-x86 = config.flake.nixOnDroidConfigurations.x86.activationPackage;
-    nix-on-droid-arm = config.flake.nixOnDroidConfigurations.arm.activationPackage;
+    nix-on-droid-x86_64 = config.flake.nixOnDroidConfigurations.x86_64.activationPackage;
+    nix-on-droid-x86 = nix-on-droid-x86_64;
+    nix-on-droid-aarch64 = config.flake.nixOnDroidConfigurations.aarch64.activationPackage;
+    nix-on-droid-arm = nix-on-droid-aarch64;
     nod = nix-on-droid;
     nod-x86 = nix-on-droid-x86;
     nod-arm = nix-on-droid-arm;

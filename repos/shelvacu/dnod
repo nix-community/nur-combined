@@ -1,2 +1,2 @@
 #!/bin/sh
-git add . && nix-on-droid --flake . "$@"
+git add . && nix-on-droid --flake .#"$(uname -m)" "$@"

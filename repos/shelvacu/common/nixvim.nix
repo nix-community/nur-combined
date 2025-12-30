@@ -3,6 +3,7 @@
   config,
   inputs,
   lib,
+  vacupkglib,
   ...
 }:
 let
@@ -22,10 +23,10 @@ in
   };
   config = {
     vacu.nixvimPkg = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.${nixvim-name};
-    vacu.shell.functions = lib.mkIf (!config.vacu.isMinimal) {
-      nvim-plain = ''${pkgs.neovim}/bin/nvim "$@"'';
-      nvim-nixvim = ''${config.vacu.nixvimPkg}/bin/nvim "$@"'';
-      nvim = ''nvim-nixvim "$@"'';
-    };
+    vacu.packages = [
+      (vacupkglib.aliasScript "nvim" [ "nvim-nixvim" ])
+      (vacupkglib.aliasScript "nvim-plain" [ (lib.getExe pkgs.neovim) ])
+      (vacupkglib.aliasScript "nvim-nixvim" [ (lib.getExe config.vacu.nixvimPkg) ])
+    ];
   };
 }
