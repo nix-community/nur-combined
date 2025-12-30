@@ -1142,6 +1142,9 @@
     "slug": "maya-light"
   },
   {
+    "slug": "media-url-timestamper"
+  },
+  {
     "slug": "mergify",
     "license": {
       "tag": "predefined",

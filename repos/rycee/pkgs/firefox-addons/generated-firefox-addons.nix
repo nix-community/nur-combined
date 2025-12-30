@@ -2707,10 +2707,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "147.0.20251222.164020";
+      version = "147.0.20251229.90910";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648905/dansk_da_language_pack-147.0.20251222.164020.xpi";
-      sha256 = "e59386e2605671a9ddd6e5d38aee84e0a0999363d43100d6d13a5574cb6e93a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652796/dansk_da_language_pack-147.0.20251229.90910.xpi";
+      sha256 = "79e54edbe24b5fefc740765e2b958bdf7b6f53d216aa6f6c98cdd1e9e07d454b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2920,10 +2920,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "147.0.20251222.164020";
+      version = "147.0.20251229.90910";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648903/deutsch_de_language_pack-147.0.20251222.164020.xpi";
-      sha256 = "ab0235d65fb1fc9045fe925a5f01f0db481618fa06ca6753005d615d4ebe46b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652787/deutsch_de_language_pack-147.0.20251229.90910.xpi";
+      sha256 = "12d09d6b1b13bdf4977c1082ffa0f1c0b3e0d017fcda57689c32fc4c25774cea";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4396,10 +4396,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "147.0.20251222.164020";
+      version = "147.0.20251229.90910";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648940/francais_language_pack-147.0.20251222.164020.xpi";
-      sha256 = "30f7ec528e05e1edb86e3138a49b2370d45f7e7b0bf9e62e1b35425ae45190c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652869/francais_language_pack-147.0.20251229.90910.xpi";
+      sha256 = "6df6314acdfb3b831b55f9d2d9dc57e256f3a9fa3f447ccd11f17a8bc45fc518";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4433,10 +4433,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "147.0.20251222.164020";
+      version = "147.0.20251229.90910";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648915/gaidhlig_language_pack-147.0.20251222.164020.xpi";
-      sha256 = "6c7757f416da2afb6db28161bcd9cb623ebb99ac58e75a37689d587def8b2600";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652812/gaidhlig_language_pack-147.0.20251229.90910.xpi";
+      sha256 = "1d49a53ce794e88089e85e6592ace06ef7e9ced11624f96bebc2eab06d27c806";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7786,10 +7786,10 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.4.0";
+      version = "1.4.1";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4652260/linkwarden-1.4.0.xpi";
-      sha256 = "3c52ed6ee620e8f426feb4595c85d6a98df05bb61a9d9bfebf20b03dcb259682";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4653237/linkwarden-1.4.1.xpi";
+      sha256 = "9052acc7584e5b9d1a024df3ec1aebce79f7ea7e8885f72dff21fbe19c0fe989";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -8707,6 +8707,101 @@
         description = "Soft pastel pink light theme with a few darker Evil maya accents. Fairly bright but should be comfortable for most users.";
         license = licenses.cc-by-30;
         mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "media-url-timestamper" = buildFirefoxXpiAddon {
+      pname = "media-url-timestamper";
+      version = "1.1.6";
+      addonId = "mediaurltimestamper@kestrel";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4047192/media_url_timestamper-1.1.6.xpi";
+      sha256 = "210100db6ab444639dbe1404e18cd08e66c3bd769312a62b8a0bec4b7a19515f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/nkestrel/mediaurltimestamper";
+        description = "Remember audio/video playback position for later resuming without cookies, storage or logging in by automatically timestamping the address. Compatible with Youtube, SoundCloud, Invidious and others.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "history"
+          "storage"
+          "contextMenus"
+          "*://*.youtube.com/*"
+          "*://*.twitch.tv/*"
+          "*://*.facebook.com/*"
+          "*://*.soundcloud.com/*"
+          "*://*.vimeo.com/*"
+          "*://*.vk.com/*"
+          "*://*.nicovideo.jp/*"
+          "*://*.aparat.com/*"
+          "*://*.hearthis.at/*"
+          "*://*.vidlii.com/*"
+          "*://tube.cadence.moe/*"
+          "*://*.utreon.com/*"
+          "*://*.youtube-nocookie.com/*"
+          "*://*.piped.video/*"
+          "*://piped.tokhmi.xyz/*"
+          "*://piped.moomoo.me/*"
+          "*://piped.syncpundit.io/*"
+          "*://piped.mha.fi/*"
+          "*://watch.whatever.social/*"
+          "*://piped.garudalinux.org/*"
+          "*://y.rivo.lol/*"
+          "*://efy.piped.pages.dev/*"
+          "*://piped.daviteusz.eu/*"
+          "*://yt.jae.fi/*"
+          "*://il.ax/*"
+          "*://piped.esmailelbob.xyz/*"
+          "*://piped.projectsegfau.lt/*"
+          "*://piped.privacydev.net/*"
+          "*://piped.palveluntarjoaja.eu/*"
+          "*://piped.smnz.de/*"
+          "*://piped.adminforge.de/*"
+          "*://piped.qdi.fi/*"
+          "*://*.yewtu.be/*"
+          "*://invidious.snopyta.org/*"
+          "*://inv.riverside.rocks/*"
+          "*://vid.puffyan.us/*"
+          "*://invidious.flokinet.to/*"
+          "*://inv.bp.projectsegfau.lt/*"
+          "*://invidious.esmailelbob.xyz/*"
+          "*://yt.artemislena.eu/*"
+          "*://invidious.namazso.eu/*"
+          "*://invidious.sethforprivacy.com/*"
+          "*://invidious.baczek.me/*"
+          "*://invidious.projectsegfau.lt/*"
+          "*://invidious.weblibre.org/*"
+          "*://invidious.nerdvpn.de/*"
+          "*://invidio.xamh.de/*"
+          "*://inv.vern.cc/*"
+          "*://y.com.sb/*"
+          "*://invidious.dhusch.de/*"
+          "*://inv.odyssey346.dev/*"
+          "*://youtube.076.ne.jp/*"
+          "*://invidious.tiekoetter.com/*"
+          "*://invidious.slipfox.xyz/*"
+          "*://*.framatube.org/*"
+          "*://*.bittube.video/*"
+          "*://*.tilvids.com/*"
+          "*://peertube.linuxrocks.online/*"
+          "*://video.antopie.org/*"
+          "*://*.odysee.com/*"
+          "*://lbry.bcow.xyz/*"
+          "*://odysee.076.ne.jp/*"
+          "*://librarian.pussthecat.org/*"
+          "*://lbry.projectsegfau.lt/*"
+          "*://librarian.esmailelbob.xyz/*"
+          "*://lbry.vern.cc/*"
+          "*://lbry.slipfox.xyz/*"
+          "*://lbry.sytes.net/*"
+          "*://lbry.webhop.me/*"
+          "*://lbry.mywire.org/*"
+          "*://*.pbs.org/*"
+          "*://*.dailymotion.com/*"
+          "*://*.crunchyroll.com/*"
+          "*://*.pbs.org/portalplayer/*"
+          "*://*.dailymotion.com/embed*"
+          "*://static.crunchyroll.com/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -10762,10 +10857,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.33.0";
+      version = "1.33.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4625020/proton_pass-1.33.0.xpi";
-      sha256 = "56e4119c08bbe665fb371a71baf808c0eba78f9fc78a723540140277f8e662b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4644816/proton_pass-1.33.2.xpi";
+      sha256 = "98c8471383c187da7e157db4cf1f47033c058e65c9ed00d6ff3f876121ad5349";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -11921,10 +12016,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "147.0.20251222.164020";
+      version = "147.0.20251229.90910";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648909/scots_language_pack-147.0.20251222.164020.xpi";
-      sha256 = "8ea6c27ded089de625b97d8866b4ebfdc85e019df83f408af6daec4e2e6517a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652788/scots_language_pack-147.0.20251229.90910.xpi";
+      sha256 = "953cfce8bde053403c4d22f9aa4e9701fddf6cfc21ce26c5ec7d21f9aa01d670";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13490,10 +13585,10 @@
     };
     "toggl-button-time-tracker" = buildFirefoxXpiAddon {
       pname = "toggl-button-time-tracker";
-      version = "4.11.6";
+      version = "4.11.7";
       addonId = "toggl-button@toggl.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4634190/toggl_button_time_tracker-4.11.6.xpi";
-      sha256 = "6353bde70b855e7efd28c51de712ef2ea63f2b270d502a6b3ab2cc9e0417a4d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4644878/toggl_button_time_tracker-4.11.7.xpi";
+      sha256 = "58da738b4eceee39e27e0085452b84422c0857daf8a911e2411a41419cfa7336";
       meta = with lib;
       {
         homepage = "https://toggl.com/track/";
@@ -15709,10 +15804,10 @@
     };
     "ycs-continued" = buildFirefoxXpiAddon {
       pname = "ycs-continued";
-      version = "1.8.2";
+      version = "1.8.3";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648075/ycs_continued-1.8.2.xpi";
-      sha256 = "52b3051e6d362022fad12f2886577237c0f124a825fe3d72409c52b6a9ceb927";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652634/ycs_continued-1.8.3.xpi";
+      sha256 = "739768ce0ec296ae542c45b015f35f486f9a8faa204a1c9d9b27d5ccdd425006";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
