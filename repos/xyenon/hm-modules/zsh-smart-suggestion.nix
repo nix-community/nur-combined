@@ -27,6 +27,12 @@ in
       description = "Enable proxy mode for better context.";
     };
 
+    sendContext = lib.mkOption {
+      type = with lib.types; nullOr bool;
+      default = null;
+      description = "Send shell context to AI.";
+    };
+
     historyLines = lib.mkOption {
       type = with lib.types; nullOr ints.positive;
       default = null;
@@ -34,17 +40,11 @@ in
       description = "Number of history lines to send.";
     };
 
-    sendContext = lib.mkOption {
-      type = with lib.types; nullOr bool;
-      default = null;
-      description = "Send shell context to AI.";
-    };
-
-    bufferLines = lib.mkOption {
+    scrollbackLines = lib.mkOption {
       type = with lib.types; nullOr ints.positive;
       default = null;
       example = 100;
-      description = "Number of shell buffer lines to send.";
+      description = "Number of scrollback lines to send.";
     };
 
     systemPrompt = lib.mkOption {
@@ -156,14 +156,14 @@ in
 
       ${lib.optionalString (cfg.keybinding != null) (define "SMART_SUGGESTION_KEY" cfg.keybinding)}
       ${lib.optionalString (cfg.proxyMode != null) (define "SMART_SUGGESTION_PROXY_MODE" cfg.proxyMode)}
-      ${lib.optionalString (cfg.historyLines != null) (
-        define "SMART_SUGGESTION_HISTORY_LINES" cfg.historyLines
-      )}
       ${lib.optionalString (cfg.sendContext != null) (
         define "SMART_SUGGESTION_SEND_CONTEXT" cfg.sendContext
       )}
-      ${lib.optionalString (cfg.bufferLines != null) (
-        define "SMART_SUGGESTION_BUFFER_LINES" cfg.bufferLines
+      ${lib.optionalString (cfg.historyLines != null) (
+        define "SMART_SUGGESTION_HISTORY_LINES" cfg.historyLines
+      )}
+      ${lib.optionalString (cfg.scrollbackLines != null) (
+        define "SMART_SUGGESTION_SCROLLBACK_LINES" cfg.scrollbackLines
       )}
       ${lib.optionalString (cfg.systemPrompt != null) (
         define "SMART_SUGGESTION_SYSTEM_PROMPT" cfg.systemPrompt
