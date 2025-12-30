@@ -8,8 +8,10 @@
   syslock = lib.callPackage ./pkgs/syslock {};
   nirius = lib.callPackage ./pkgs/nirius {};
 
+  keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
   beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
+  app-librescore = lib.callPackage ./pkgs/app-librescore {};
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};

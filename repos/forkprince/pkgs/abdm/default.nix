@@ -28,7 +28,7 @@
     description = "A Download Manager that speeds up your downloads";
     homepage = "https://abdownloadmanager.com/";
     license = lib.licenses.asl20;
-    platforms = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin"];
+    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
     maintainers = ["Prinky"];
     mainProgram = "ab-download-manager";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];

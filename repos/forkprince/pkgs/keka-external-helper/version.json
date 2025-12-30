@@ -1,0 +1,14 @@
+{
+  "name": "Keka External Helper",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/kekaexternalhelper.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "1.2.0,1.4.4",
+  "asset": {
+    "url": "https://github.com/aonez/Keka/releases/download/v1.4.4/KekaExternalHelper-v1.2.0.zip",
+    "hash": "sha256-aFe7ImlLb2wBoTxAlTsKBLFwSs+Q2kFKdHa+Y5YdmCc="
+  }
+}

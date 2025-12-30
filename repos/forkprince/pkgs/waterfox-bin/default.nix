@@ -49,7 +49,7 @@
     homepage = "https://www.waterfox.net/";
     changelog = "https://www.waterfox.net/docs/releases/${version}/";
     license = lib.licenses.mpl20;
-    platforms = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin"];
+    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
     maintainers = ["JoyfulCat" "Prinky"];
     mainProgram = "waterfox";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
