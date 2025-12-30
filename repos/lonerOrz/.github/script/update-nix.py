@@ -49,8 +49,7 @@ def check_auto_update(pkg_name):
         value = json.loads(result.stdout)
         return value != False
     except subprocess.CalledProcessError:
-        # 如果不存在 autoUpdate 字段，默认允许更新
-        return True
+        return True  # 默认允许更新
 
 
 def get_update_script(pkg_name):
@@ -72,40 +71,62 @@ def get_update_script(pkg_name):
         )
         return json.loads(result.stdout)
     except subprocess.CalledProcessError:
-        # 没有 updateScript 时返回 None
         return None
 
 
-def run_update_script(script, pkg_dir: Path, pkg_name: str):
+def get_update_args(pkg_name):
+    """获取包的 passthru.updateArgs，如果有"""
+    try:
+        result = subprocess.run(
+            [
+                "nix",
+                "eval",
+                "--impure",
+                "--json",
+                "-f",
+                ROOT_NIX_FILE,
+                f"{pkg_name}.passthru.updateArgs",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return json.loads(result.stdout) or []
+    except subprocess.CalledProcessError:
+        return []
+
+
+def run_update_script(script, pkg_dir: Path, pkg_name: str, extra_args=None):
     """
     执行 updateScript。
-    如果是 nix-update 可执行文件，自动加上软件名作为参数
+    extra_args 来自 passthru.updateArgs 或用户额外参数
     """
+    extra_args = extra_args or []
+
     if isinstance(script, str):
-        # 如果是 nix-update 直接加上软件名
         if "nix-update" in script:
-            cmd = [script, pkg_name]
+            cmd = [script, pkg_name] + extra_args
             print(f"[RUN CMD] {' '.join(cmd)}")
             subprocess.run(cmd, check=True, cwd=pkg_dir)
             return
 
-        # 其他脚本路径
         update_file = Path(script)
         if not update_file.is_absolute():
             update_file = pkg_dir / update_file
         if not update_file.exists():
             print(f"[ERROR] updateScript {update_file} not found, skipping")
             return
-        print(f"[RUN UPDATE SCRIPT] {update_file}")
-        subprocess.run([str(update_file)], check=True, cwd=pkg_dir)
+        print(f"[RUN UPDATE SCRIPT] {update_file} {' '.join(extra_args)}")
+        subprocess.run([str(update_file)] + extra_args, check=True, cwd=pkg_dir)
 
     elif isinstance(script, list):
         for step in script:
-            run_update_script(step, pkg_dir, pkg_name)
+            run_update_script(step, pkg_dir, pkg_name, extra_args)
     elif isinstance(script, dict):
         if "command" in script:
-            print(f"[RUN CMD] {script['command']} (dictionary command format)")
-            subprocess.run(script["command"], check=True, cwd=pkg_dir)
+            cmd = script["command"] + extra_args
+            print(f"[RUN CMD] {' '.join(cmd)} (dictionary command format)")
+            subprocess.run(cmd, check=True, cwd=pkg_dir)
         else:
             print(f"[SKIP] Unknown dictionary format in updateScript: {script}")
     else:
@@ -121,12 +142,14 @@ def update_package(pkg_name, extra_args=None):
         return
 
     update_script = get_update_script(pkg_name)
+    update_args = get_update_args(pkg_name)  # 获取 passthru.updateArgs
     pkg_dir = Path(f"./pkgs/{pkg_name}").resolve()
 
+    # 优先用 updateScript 更新
     if update_script:
         print(f"[UPDATE SCRIPT] Running {pkg_name}'s updateScript...")
         try:
-            run_update_script(update_script, pkg_dir, pkg_name)
+            run_update_script(update_script, pkg_dir, pkg_name, update_args + extra_args)
             print(f"[OK] {pkg_name} updated via updateScript")
         except subprocess.CalledProcessError as e:
             print(f"[FAIL] {pkg_name} updateScript failed: {e}")
@@ -137,7 +160,7 @@ def update_package(pkg_name, extra_args=None):
         print("[ERROR] nix-update not found. Install it or run in nix-shell -p nix-update")
         return
 
-    cmd = ["nix-update", pkg_name, "-f", ROOT_NIX_FILE] + extra_args
+    cmd = ["nix-update", pkg_name, "-f", ROOT_NIX_FILE] + update_args + extra_args
     print(f"[NIX-UPDATE] Running: {' '.join(cmd)}")
     try:
         subprocess.run(cmd, check=True)
