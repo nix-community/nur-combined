@@ -38,13 +38,13 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "mint-mod-manager";
-  version = "0.2.10-unstable-2025-05-04";
+  version = "0.2.10-unstable-2025-12-16";
 
   src = fetchFromGitHub {
     owner = "trumank";
     repo = "mint";
-    rev = "6335041f21b95976d29fe2cfbf282feb0c9f38ac";
-    hash = "sha256-OyfLyAOMSrvXkyGL+PkyrZ7PLBgQ040SCv9Q85AkX+o=";
+    rev = "57aa964e7789f132481813a8f4b5781f924eccd1";
+    hash = "sha256-gpOakUrcR2ByFFiiiYklO1rXKghaIIerxUR8rc4T5BQ=";
     deepClone = true;
     postFetch = ''
       echo -n $(git -C $out describe) > $out/GIT_VERSION
@@ -52,14 +52,7 @@ rustPlatform.buildRustPackage rec {
     '';
   };
 
-  cargoHash = "sha256-E6pdDUrmmq8EhMFbfP7UTZ1+yysCCn7yc1/MO5jEVEw=";
-
-  patches = [
-    # https://github.com/rust-lang/rust/issues/51114
-    ./0001-Drop-usage-of-unstable-if_let_guard-feature.patch
-    # TODO: remove after migrating to 2024 edition
-    ./0002-Drop-usage-of-unstable-let_chains-feature.patch
-  ];
+  cargoHash = "sha256-5EYSiUTa50gMu2YHx6COVJU+8IFuvc5td/9TzygpeaY=";
 
   env = {
     # Necessary for cross compiled build scripts, otherwise it will build as ELF format
