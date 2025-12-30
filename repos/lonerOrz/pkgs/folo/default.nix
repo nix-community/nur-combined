@@ -14,13 +14,13 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "folo";
 
-  version = "1.2.5";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "RSSNext";
     repo = "Folo";
     tag = "desktop/v${finalAttrs.version}";
-    hash = "sha256-bS8+4DFrzIFsPGTJXKCvFwvi5PHhNvofLsPng5K7AFo=";
+    hash = "sha256-fi8y0217LHPw/FOszP0C3nhjs8xhGkid+mX8moseLJw=";
   };
 
   nativeBuildInputs = [
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-/N7L9HxMHiVXb6FCY5mVz7JaST9xayjsDtXY1/dlMVs=";
+    hash = "sha256-ocgYmmAUC1pNw/8jhHxnkXm0Vuenp2IjFx0Pi+MqJcY=";
     extraPrefetchArgs = [
       "--frozen-lockfile"
       "--ignore-scripts"
@@ -128,6 +128,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-vr"
     ".*/v?(\\d+\\.\\d+\\.\\d+)"
   ];
+
+  passthru.autoUpdate = false;
 
   meta = {
     description = "Next generation information browser";

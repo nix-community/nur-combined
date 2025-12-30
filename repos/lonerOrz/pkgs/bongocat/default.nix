@@ -2,10 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchPnpmDeps,
   rustPlatform,
   cargo-tauri,
   nodejs,
   pnpm_9,
+  pnpmConfigHook,
   pkg-config,
   systemd,
   libayatana-appindicator,
@@ -37,12 +39,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-VP1vCEF5OBGU2/XJ0LiuaiPSaAzWyGUpne0J3ZEI7xM=";
   };
 
-  pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    # error: pnpm.fetchDeps: `fetcherVersion` is not set
-    # see https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion.
-    fetcherVersion = 1;
-    hash = "sha256-klmImDr+/attLgspqsKeupCAbhiMlDNkJCJ6NwNYgfQ=";
+  pnpmDeps = fetchPnpmDeps {
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      ;
+    pnpm = pnpm_9;
+    fetcherVersion = 3;
+    hash = "sha256-O8vhpMapWJSLj/7W/jdstOnsXJWTdUTpG/4RXcUb+og=";
+    extraPrefetchArgs = [
+      "--no-frozen-lockfile"
+    ];
   };
 
   cargoHash = "sha256-sELFENGhImyxo0Q0UEsrjGFjk0G8tBBNBVCwLX7dW7g=";
@@ -52,7 +60,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     cargo-tauri.hook
     nodejs
-    pnpm_9.configHook
+    pnpm_9
+    pnpmConfigHook
     pkg-config
     xdg-utils
     jq
@@ -81,7 +90,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   preBuild = ''
-    pnpm install --frozen-lockfile
+    pnpm install --no-frozen-lockfile
     pnpm run build:icon
     pnpm run build:vite
   '';
@@ -123,5 +132,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     binaryNativeCode = true;
+    broken = true; # 上游 rust 和 pnpm 的依赖版本不一致,我真的很讨厌修改lock文件的版本
   };
 })
