@@ -200,18 +200,18 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.4.1100.108";
+    version = "13.4.1120.32";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1100.108-1_amd64.deb";
-      hash = "sha256-Vo1cFGdO2aU7Sgf9zZ54FpsPEvLnfaIcM4CLNBHXpGg=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.32-1_amd64.deb";
+      hash = "sha256-ri4HhJ+g4jzJ/kCUaNUmWFmyuxK+UWCX9VqUl7au5WM=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.4.1100.108";
+    version = "13.4.1120.32";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1100.108-1_arm64.deb";
-      hash = "sha256-UTxLfT2qJc9LFkeQHPhZkhqU+rQFwwmq1RBeY6NTYHw=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.32-1_arm64.deb";
+      hash = "sha256-e27X7K9HeKrV8gKl+g8ldgBsHv2O0TZ9JTk2euVfdRI=";
     };
   };
   calibre-cops = {
@@ -1080,12 +1080,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7574";
+    version = "b7585";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7574";
-      hash = "sha256-YsbmgvAHvEyYf6TNm3ksjGuHrI/EJaQ5vYv+nFP+kuY=";
+      tag = "b7585";
+      hash = "sha256-cP2HJ4tXdgVGiS2YsIodegeaJH9hpnko/eEtBpY9vKg=";
     };
   };
   loralib = {
@@ -1547,14 +1547,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "a97e8ae09fd682057ef229d4940d6dcb0cdaf3af";
+    version = "e1e88d5a8450ca21345b48934c84a417adb1e899";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "a97e8ae09fd682057ef229d4940d6dcb0cdaf3af";
-      hash = "sha256-tLGuzaALItuxJ1tt3H5iM/NUTShRkPyINzzJE24U3po=";
+      rev = "e1e88d5a8450ca21345b48934c84a417adb1e899";
+      hash = "sha256-B9JBp8nCCFgRE0cE5fMY2D5Y+VuDxzXb+U+5BL3EHm0=";
     };
-    date = "2025-12-26";
+    date = "2025-12-30";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";

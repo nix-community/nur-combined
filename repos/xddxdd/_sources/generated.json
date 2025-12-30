@@ -392,11 +392,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Vo1cFGdO2aU7Sgf9zZ54FpsPEvLnfaIcM4CLNBHXpGg=",
+            "sha256": "sha256-ri4HhJ+g4jzJ/kCUaNUmWFmyuxK+UWCX9VqUl7au5WM=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1100.108-1_amd64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.32-1_amd64.deb"
         },
-        "version": "13.4.1100.108"
+        "version": "13.4.1120.32"
     },
     "browser360-arm64": {
         "cargoLocks": null,
@@ -407,11 +407,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-UTxLfT2qJc9LFkeQHPhZkhqU+rQFwwmq1RBeY6NTYHw=",
+            "sha256": "sha256-e27X7K9HeKrV8gKl+g8ldgBsHv2O0TZ9JTk2euVfdRI=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1100.108-1_arm64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.32-1_arm64.deb"
         },
-        "version": "13.4.1100.108"
+        "version": "13.4.1120.32"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2103,12 +2103,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7574",
-            "sha256": "sha256-YsbmgvAHvEyYf6TNm3ksjGuHrI/EJaQ5vYv+nFP+kuY=",
+            "rev": "b7585",
+            "sha256": "sha256-cP2HJ4tXdgVGiS2YsIodegeaJH9hpnko/eEtBpY9vKg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7574"
+        "version": "b7585"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3018,7 +3018,7 @@
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
-        "date": "2025-12-26",
+        "date": "2025-12-30",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3030,12 +3030,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "a97e8ae09fd682057ef229d4940d6dcb0cdaf3af",
-            "sha256": "sha256-tLGuzaALItuxJ1tt3H5iM/NUTShRkPyINzzJE24U3po=",
+            "rev": "e1e88d5a8450ca21345b48934c84a417adb1e899",
+            "sha256": "sha256-B9JBp8nCCFgRE0cE5fMY2D5Y+VuDxzXb+U+5BL3EHm0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a97e8ae09fd682057ef229d4940d6dcb0cdaf3af"
+        "version": "e1e88d5a8450ca21345b48934c84a417adb1e899"
     },
     "pterodactyl-wings-stable": {
         "cargoLocks": null,

@@ -103,7 +103,7 @@ Or, use variables from this repository in case I change them:
 |  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.0 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
 |  | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
-|  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1100.108 | Browser from 360 |
+|  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1120.32 | Browser from 360 |
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 3.8.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
@@ -160,7 +160,7 @@ Or, use variables from this repository in case I change them:
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | 0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 0.2.0-unstable-2020-07-29 | Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend |
 | `x86_64-linux` | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
-|  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.0 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
+|  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.15.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-12-23 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | 0-unstable-2019-11-23 | Qt5 binding of CEF |
@@ -180,7 +180,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
 |  | `netns-exec` | [netns-exec](https://github.com/pekman/netns-exec) | 0-unstable-2016-07-30 | Run command in Linux network namespace as normal user |
 |  | `nft-fullcone` | [nft-fullcone](https://github.com/fullcone-nat-nftables/nft-fullcone) | 0-unstable-2023-05-17 | Nftables fullcone expression kernel module |
-|  | `nftables-fullcone` | [nftables](https://netfilter.org/projects/nftables/) | 1.1.5 | Project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
+|  | `nftables-fullcone` | [nftables](https://netfilter.org/projects/nftables/) | 1.1.6 | Project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
 |  | `noise-suppression-for-voice` | [noise-suppression-for-voice](https://github.com/werman/noise-suppression-for-voice) | 1.10 | Noise suppression plugin based on Xiph's RNNoise |
 |  | `nullfs` | [nullfs](https://github.com/xrgtn/nullfs) | 0-unstable-2016-01-28 | FUSE nullfs drivers |
 |  | `nullfsvfs` | [nullfsvfs](https://github.com/abbbi/nullfsvfs) | 0.21 | Virtual black hole file system that behaves like /dev/null |
@@ -204,7 +204,7 @@ Or, use variables from this repository in case I change them:
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of Panel Transparency Button for Plasma 6 |
 |  | `plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 2.8.1 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
 |  | `plasma-yesplaymusic-lyric` | [plasma-yesplaymusic-lyric](https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics) | 0.2.3-unstable-2025-01-07 | Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词 |
-|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-12-26 | Server control plane for Pterodactyl Panel |
+|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-12-30 | Server control plane for Pterodactyl Panel |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
 |  | `pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
 |  | `pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2025-12-19 | Python implementation of key Osmocom protocols/interfaces |
@@ -414,7 +414,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 8.0 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.15.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 7574 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 7585 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.2.3.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -1063,7 +1063,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.0 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
 |  | `uncategorized.boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
-|  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1100.108 | Browser from 360 |
+|  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1120.32 | Browser from 360 |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 3.8.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2025-12 | DBIP's Lite GeoIP Country, City, and ASN databases |
@@ -1108,7 +1108,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.konnect` | [konnect](https://github.com/Kopano-dev/konnect) | 0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms |
 |  | `uncategorized.ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 0.2.0-unstable-2020-07-29 | Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend |
 | `x86_64-linux` | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
-|  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.0 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
+|  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.15.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2025-12-23 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `uncategorized.libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | 0-unstable-2019-11-23 | Qt5 binding of CEF |
@@ -1124,7 +1124,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.89 | Network-based bootable operating system installer based on iPXE |
 | `x86_64-linux` | `uncategorized.netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
 |  | `uncategorized.netns-exec` | [netns-exec](https://github.com/pekman/netns-exec) | 0-unstable-2016-07-30 | Run command in Linux network namespace as normal user |
-|  | `uncategorized.nftables-fullcone` | [nftables](https://netfilter.org/projects/nftables/) | 1.1.5 | Project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
+|  | `uncategorized.nftables-fullcone` | [nftables](https://netfilter.org/projects/nftables/) | 1.1.6 | Project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
 |  | `uncategorized.noise-suppression-for-voice` | [noise-suppression-for-voice](https://github.com/werman/noise-suppression-for-voice) | 1.10 | Noise suppression plugin based on Xiph's RNNoise |
 |  | `uncategorized.nullfs` | [nullfs](https://github.com/xrgtn/nullfs) | 0-unstable-2016-01-28 | FUSE nullfs drivers |
 |  | `uncategorized.nvlax` | [nvlax](https://github.com/illnyang/nvlax) | unstable-2021-10-29 | Future-proof NvENC & NvFBC patcher |
@@ -1145,7 +1145,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of Panel Transparency Button for Plasma 6 |
 |  | `uncategorized.plasma-smart-video-wallpaper-reborn` | [plasma-smart-video-wallpaper-reborn](https://store.kde.org/p/2139746) | 2.8.1 | Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen |
 |  | `uncategorized.plasma-yesplaymusic-lyric` | [plasma-yesplaymusic-lyric](https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics) | 0.2.3-unstable-2025-01-07 | Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词 |
-|  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-12-26 | Server control plane for Pterodactyl Panel |
+|  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13-unstable-2025-12-30 | Server control plane for Pterodactyl Panel |
 |  | `uncategorized.pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
 |  | `uncategorized.qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.2.0+ds-1 | Generic and open source machine emulator and virtualizer |
 |  | `uncategorized.qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.18 | Desktop client for QQ on Linux |
