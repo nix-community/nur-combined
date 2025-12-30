@@ -1,14 +1,17 @@
 {
   sources,
   version,
-  hash,
+  hash ? "",
+  cargoHash ? "",
   pnpm_10,
   fetchPnpmDeps,
-  makeDesktopItem,
+  rustPlatform,
+  cargo,
+  rustc,
   splayer,
 }:
 splayer.overrideAttrs (
-  final: _prev: {
+  final: prev: {
     inherit (sources) pname src;
     inherit version;
     pnpmDeps = fetchPnpmDeps {
@@ -17,24 +20,18 @@ splayer.overrideAttrs (
       pnpm = pnpm_10;
       fetcherVersion = 2;
     };
-    desktopItems = [
-      (makeDesktopItem {
-        name = "splayer";
-        desktopName = "SPlayer";
-        exec = "splayer %U";
-        terminal = false;
-        type = "Application";
-        icon = "splayer";
-        startupWMClass = "SPlayer";
-        comment = "A minimalist music player";
-        categories = [
-          "AudioVideo"
-          "Audio"
-          "Music"
-        ];
-        mimeTypes = [ "x-scheme-handler/orpheus" ];
-        extraConfig.X-KDE-Protocols = "orpheus";
-      })
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit (final)
+        pname
+        src
+        version
+        ;
+      hash = cargoHash;
+    };
+    nativeBuildInputs = prev.nativeBuildInputs ++ [
+      rustPlatform.cargoSetupHook
+      cargo
+      rustc
     ];
   }
 )

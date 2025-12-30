@@ -37,7 +37,18 @@ if [ -z "$hash_splayer_git" ]; then
 fi
 echo "SPlayer git deps hash is: $hash_splayer_git"
 
+build_output_cargo=$(nix build --impure --expr "(import ./pkgs {}).${package_name}.cargoDeps.overrideAttrs (_: { hash = \"\"; outputHash = \"\"; outputHashAlgo = \"sha256\"; })" 2>&1) || true
+echo "SPlayer git cargo deps build output is:"
+echo "$build_output_cargo"
+hash_splayer_git_cargo=$(tr -s ' ' <<<$build_output_cargo | grep -Po "got: \K.+$")
+if [ -z "$hash_splayer_git_cargo" ]; then
+  echo "Failed to extract hash from cargo build output."
+  exit 1
+fi
+echo "SPlayer git cargo deps hash is: $hash_splayer_git_cargo"
+
 jq -n \
   --arg version "$version" \
   --arg hash "$hash_splayer_git" \
-  '{ version: $version, hash: $hash }' >"$src_info"
+  --arg hash_cargo "$hash_splayer_git_cargo" \
+  '{ version: $version, hash: $hash, cargoHash: $hash_cargo }' >"$src_info"
