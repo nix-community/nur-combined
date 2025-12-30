@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Mag1cByt3s";
     repo = "outline-electron";
-    rev = "v${version}"; # Use a tag or commit hash for reproducibility
+    rev = version; # Use a tag or commit hash for reproducibility
     sha256 = "125m2m08pw7qimzx28hfn01maai2d17ngnpk8afysv8f7nlwjd8n"; # nix-prefetch-url --unpack https://github.com/Mag1cByt3s/outline-electron/archive/refs/tags/1.0.0.tar.gz
   };
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/lib/outline-electron
-    cp -r src/* $out/lib/outline-electron/
+    cp -r src/. $out/lib/outline-electron/
 
     mkdir -p $out/bin
     makeWrapper ${electron_39-bin}/bin/electron $out/bin/outline-electron \
