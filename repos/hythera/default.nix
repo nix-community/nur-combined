@@ -17,6 +17,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   rootapp = pkgs.callPackage ./pkgs/rootapp { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  waterfox-unwrapped = pkgs.callPackage ./pkgs/waterfox-unwrapped { };
+  waterfox = pkgs.callPackage ./pkgs/waterfox {
+    waterfox-unwrapped = pkgs.callPackage ./pkgs/waterfox-unwrapped { };
+  };
 }
