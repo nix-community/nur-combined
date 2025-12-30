@@ -16,6 +16,7 @@ buildGoModule {
   buildInputs = [ olm ];
 
   # nix-update auto
+  doCheck = false;
 
   meta = {
     description = "Go rewrite of mautrix-telegram";

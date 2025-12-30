@@ -3,25 +3,25 @@
 {
   bark-server = {
     pname = "bark-server";
-    version = "e0297015409dfb2a9837fc5f99f6d8ff96f5b36a";
+    version = "1e2ecf2137e1e31edcc75b1c8438e816473c41f6";
     src = fetchFromGitHub {
       owner = "Finb";
       repo = "bark-server";
-      rev = "e0297015409dfb2a9837fc5f99f6d8ff96f5b36a";
+      rev = "1e2ecf2137e1e31edcc75b1c8438e816473c41f6";
       fetchSubmodules = false;
-      sha256 = "sha256-Ql1ZkFIsj8vuMWgk6xvaKjTJRoLHe9gjtShuRwnXZys=";
+      sha256 = "sha256-6B+maZVHlh95+b2yR98cdc9CL4UnOQ0bKSgnPccqP9w=";
     };
-    date = "2025-12-22";
+    date = "2025-12-30";
   };
   bark-server-stable = {
     pname = "bark-server-stable";
-    version = "v2.3.2";
+    version = "v2.3.3";
     src = fetchFromGitHub {
       owner = "Finb";
       repo = "bark-server";
-      rev = "v2.3.2";
+      rev = "v2.3.3";
       fetchSubmodules = false;
-      sha256 = "sha256-Ql1ZkFIsj8vuMWgk6xvaKjTJRoLHe9gjtShuRwnXZys=";
+      sha256 = "sha256-Pnj4ZRzW0ZW1mgtl+wT7JE/ccJ9kivGBe6tgbBiBMLs=";
     };
   };
   english_words = {
@@ -140,15 +140,15 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "3696c9cff494e8714b1af6c7c6884c30fe8439c2";
+    version = "2b1cfae52fda5771cd357a32ebb11ebeba5ed1ba";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "3696c9cff494e8714b1af6c7c6884c30fe8439c2";
+      rev = "2b1cfae52fda5771cd357a32ebb11ebeba5ed1ba";
       fetchSubmodules = false;
-      sha256 = "sha256-KdtilYzvTVbrozgERMJXToOfbxXR9afuaSJEJHISG+M=";
+      sha256 = "sha256-qDtnsHzSLI4TPBH7FhYjxypGBvt1jyrduyTCYM0Urko=";
     };
-    date = "2025-12-24";
+    date = "2025-12-29";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -175,18 +175,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202512282214";
+    version = "202512292214";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512282214/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512292214/geoip.dat";
       sha256 = "sha256-+clDiSHGhzYtrZQwlEEMkeunav0B++IknnNuyMNRTww=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202512282214";
+    version = "202512292214";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512282214/geosite.dat";
-      sha256 = "sha256-zV5J9aw0bw1oG/cs34w1IpP6QTO8CwjkkuTOwHPEyFc=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202512292214/geosite.dat";
+      sha256 = "sha256-+RyHDRW+deDVfu8+rXWuj7w5MWyOpHNRA7/mCyFQd+g=";
     };
   };
   watt-toolkit-aarch64-linux = {
