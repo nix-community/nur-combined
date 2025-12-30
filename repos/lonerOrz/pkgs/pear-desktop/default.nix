@@ -1,8 +1,10 @@
 {
   lib,
-  pnpm,
+  pnpm_10,
   stdenv,
   fetchFromGitHub,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   electron,
   libxkbcommon,
   libdrm,
@@ -46,8 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-M8YFpeauM55fpNyHSGQm8iZieV0oWqOieVThhglKKPE=";
   };
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
+    pnpm = pnpm_10;
     fetcherVersion = 2;
     hash = "sha256-xZQ8rnLGD0ZxxUUPLHmNJ6mA+lnUHCTBvtJTiIPxaZU=";
   };
@@ -74,7 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     electron
     makeWrapper
-    pnpm.configHook
+    pnpm_10
+    pnpmConfigHook
     copyDesktopItems
   ];
 

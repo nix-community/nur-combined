@@ -137,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/RSSNext/Folo/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ lonerOrz ];
-    platforms = [ "x86_64-linux" ];
+    platforms = lib.platforms.linux;
     mainProgram = "follow";
   };
 })
