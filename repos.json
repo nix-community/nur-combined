@@ -292,6 +292,9 @@
         "brpaz": {
             "url": "https://github.com/brpaz/nur-packages"
         },
+        "bryanhonof": {
+            "url": "https://github.com/bryanhonof/nur-packages"
+        },
         "c0deaddict": {
             "url": "https://github.com/c0deaddict/nur-packages"
         },
@@ -643,6 +646,9 @@
         "hutzdog": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~hutzdog/NUR"
+        },
+        "hythera": {
+            "url": "https://github.com/Hythera/nur-packages"
         },
         "iagocq": {
             "file": "nur.nix",
@@ -1002,6 +1008,9 @@
         "nagy": {
             "url": "https://github.com/nagy/nur-packages"
         },
+        "nakido": {
+            "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
+        },
         "nanamiiiii": {
             "url": "https://github.com/Nanamiiiii/nur"
         },
@@ -1277,7 +1286,7 @@
             "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
-            "url": "https://github.com/shirok1/nur-packages"
+            "url": "https://github.com/shirok1/flakes"
         },
         "shymega": {
             "url": "https://github.com/shymega/nixfigs-nur"
@@ -1500,6 +1509,9 @@
         },
         "xyenon": {
             "url": "https://github.com/XYenon/nur-packages"
+        },
+        "yakkhini": {
+            "url": "https://github.com/Yakkhini/nur-packages"
         },
         "yellowonion": {
             "url": "https://github.com/yellowonion/nur-bcachefs"
