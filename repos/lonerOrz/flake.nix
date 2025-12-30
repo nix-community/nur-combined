@@ -30,10 +30,7 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            config = {
-              allowUnfree = true;
-              allowBroken = true;
-            };
+            config.allowUnfree = true;
             overlays = [
               rust-overlay.overlays.default
             ];
