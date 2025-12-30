@@ -1,0 +1,1 @@
+lib: path: lib.last (lib.splitString "/" (lib.removeSuffix ".nix" (toString path)))
