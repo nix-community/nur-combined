@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitLab,
-  python312Packages,
+  python3Packages,
 }:
 
-python312Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "agunua";
   version = "1.7.2";
   pyproject = true;
@@ -17,16 +17,16 @@ python312Packages.buildPythonApplication rec {
     hash = "sha256-a/2906Hyr5rropuwxZQk1vXU0Ilaw1cPZjJlOdoJhsk=";
   };
 
-  build-system = with python312Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
-  dependencies = with python312Packages; [
+  dependencies = with python3Packages; [
     pyopenssl
     pysocks
     netaddr
     legacy-cgi
   ];
 
-  nativeCheckInputs = with python312Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTestPaths = [
     "tests/test_egsam.py"

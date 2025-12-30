@@ -6,17 +6,19 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyrtcm";
-  version = "1.1.9";
+  version = "1.1.10";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyrtcm";
     tag = "v${version}";
-    hash = "sha256-Qki6J55AlaGKuPyWvKnsuTDsPeTuMkLcjca/iSm6YEg=";
+    hash = "sha256-NZmzIMOS3BLkSC1hf2tV770qPpgBQ8uS/VvVh+e5AAs=";
   };
 
   build-system = with python3Packages; [ setuptools ];
+
+  dependencies = with python3Packages; [ pynmeagps ];
 
   pythonImportsCheck = [ "pyrtcm" ];
 

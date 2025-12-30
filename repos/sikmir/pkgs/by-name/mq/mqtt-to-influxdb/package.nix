@@ -5,7 +5,7 @@
   cmake,
   spdlog,
   yaml-cpp,
-  libcpr_1_10_5,
+  libcpr,
   cxxopts,
   nlohmann_json,
   influxdb-cxx,
@@ -38,6 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "OptionParseException" "exceptions::parsing"
     substituteInPlace src/app/main.cpp \
       --replace-fail "OptionParseException" "exceptions::parsing"
+    substituteInPlace src/libmqtt-to-influxdb/database/iotrepository.cpp \
+      --replace-fail "InfluxDB.h" "InfluxDB/InfluxDB.h" \
+      --replace-fail "InfluxDBFactory.h" "InfluxDB/InfluxDBFactory.h"
   ''
   + lib.optionalString stdenv.cc.isClang ''
     substituteInPlace src/libmqtt-to-influxdb/CMakeLists.txt \
@@ -49,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     spdlog
     yaml-cpp
-    libcpr_1_10_5
+    libcpr
     cxxopts
     nlohmann_json
     influxdb-cxx

@@ -114,7 +114,6 @@ lib.makeScope newScope (
 
     ### NAKARTE
 
-    #nakarte = callPackage ./nakarte/nakarte { };
     tracks-storage-server = pkgs.python3Packages.callPackage ./nakarte/tracks-storage-server { };
   }
 )

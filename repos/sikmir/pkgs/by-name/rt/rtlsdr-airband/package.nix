@@ -15,14 +15,16 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtlsdr-airband";
-  version = "5.0.9";
+  version = "5.1.1";
 
   src = fetchFromGitHub {
-    owner = "charlie-foxtrot";
+    owner = "rtl-airband";
     repo = "RTLSDR-Airband";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Rgsxim7FESVt1ZnVJFvVfMqJMgzVCfP1yBDBBO4zEsE=";
+    hash = "sha256-NHxRMaOqYrjy+dQvVsRwM/+v6BC7ufPC4O93BRQ6Nuc=";
   };
+
+  patches = [ ./find-version.patch ];
 
   nativeBuildInputs = [
     cmake
@@ -39,15 +41,18 @@ stdenv.mkDerivation (finalAttrs: {
     soapysdr
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "NFM" true) ];
+  cmakeFlags = [
+    (lib.cmakeBool "NFM" true)
+    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
+    (lib.cmakeFeature "RTL_AIRBAND_VERSION" finalAttrs.version)
+  ];
 
   meta = {
     description = "Multichannel AM/NFM demodulator";
-    homepage = "https://github.com/charlie-foxtrot/RTLSDR-Airband";
+    homepage = "https://github.com/rtl-airband/RTLSDR-Airband";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
-    broken = true;
   };
 })

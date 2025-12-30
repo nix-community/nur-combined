@@ -30,5 +30,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/locka99/opcua";
     license = lib.licenses.mpl20;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
   };
 }

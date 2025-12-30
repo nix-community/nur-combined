@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tewi";
-  version = "0.8.1";
+  version = "2.2.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "anlar";
     repo = "tewi";
     tag = "v${version}";
-    hash = "sha256-64BuxGL/P9iwz0qSYhwzRJ54BYRB0HvqNU0Qb76Idcc=";
+    hash = "sha256-XLriHazE+YyLTEWcjDuW+3WX3NKYdsvzRmIc/Oc81oM=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -24,6 +24,7 @@ python3Packages.buildPythonApplication rec {
     transmission-rpc
     geoip2fast
     pyperclip
+    qbittorrent-api
   ];
 
   meta = {
@@ -32,6 +33,5 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tewi";
-    broken = true; # textual is broken
   };
 }

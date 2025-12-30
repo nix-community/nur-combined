@@ -11,14 +11,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pygnssutils";
-  version = "1.1.20";
+  version = "1.1.21";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pygnssutils";
     tag = "v${version}";
-    hash = "sha256-Slg9vo4EJkRupAK1uD78/oQTT1cI6slFwT3TqHLeI3U=";
+    hash = "sha256-6bbmVYOc+yul8KBzkj3+nR1Tcd5EPMFDF3Ysm6GfIIk=";
   };
 
   build-system = with python3Packages; [ setuptools ];

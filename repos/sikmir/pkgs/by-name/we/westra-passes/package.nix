@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage {
   pname = "westra-passes";
-  version = "0-unstable-2025-01-28";
+  version = "0-unstable-2025-10-09";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "westra_passes_for_nakarte";
-    rev = "98912314a192f58679c812b61c3a710891fbea7c";
-    hash = "sha256-Mtwmpvq0EK1H+Xz6HWmauKpo+ApSqfsgKOEGR3JwIXs=";
+    rev = "fd1cadb5a897a8e914aec2d66eb65ffc038a622c";
+    hash = "sha256-59bxRZnuaOOOtolvZSTsOftZFw2X1Jk/u85Tq2uZG3M=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -26,6 +26,11 @@ python3Packages.buildPythonPackage {
   ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+
+  postInstall = ''
+    mkdir -p $out/share
+    cp -r data $out/share/westra-passes
+  '';
 
   meta = {
     description = "Mountain passes for nakarte";
