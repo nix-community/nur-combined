@@ -1,51 +1,28 @@
 {
   lib,
   sources,
-  stdenv,
-  autoPatchelfHook,
-  versionCheckHook,
+  buildGoModule,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "cliproxyapi";
-  inherit
-    (
-      if stdenv.isx86_64 then
-        sources.cliproxyapi-amd64
-      else if stdenv.isAarch64 then
-        sources.cliproxyapi-arm64
-      else
-        throw "Unsupported architecture"
-    )
-    version
-    src
-    ;
+buildGoModule (finalAttrs: {
+  inherit (sources.cliproxyapi) pname version src;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    versionCheckHook
+  vendorHash = "sha256-eKq9OmTC+ce0r2flStz4ePMTQYTu5cdSuqBiMuDYg68=";
+
+  proxyVendor = true;
+
+  ldflags = [
+    "-s"
+    "-w"
   ];
 
-  versionCheckProgramArg = [ "--version" ];
-
-  sourceRoot = ".";
-
-  installPhase = ''
-    runHook preInstall
-
-    install -Dm755 cli-proxy-api $out/bin/cli-proxy-api
-
-    runHook postInstall
-  '';
+  doCheck = false;
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service";
     homepage = "https://github.com/router-for-me/CLIProxyAPI";
     license = lib.licenses.mit;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    mainProgram = "cli-proxy-api";
+    platforms = lib.platforms.linux;
+    mainProgram = "server";
   };
 })

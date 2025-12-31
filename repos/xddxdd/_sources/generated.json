@@ -470,35 +470,26 @@
         },
         "version": "v0.7.0"
     },
-    "cliproxyapi-amd64": {
+    "cliproxyapi": {
         "cargoLocks": null,
         "date": null,
         "extract": null,
-        "name": "cliproxyapi-amd64",
+        "name": "cliproxyapi",
         "passthru": null,
         "pinned": false,
         "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
             "name": null,
-            "sha256": "sha256-b64sSZs+uDV4G0UCneQiSZ2+iTW4mALcHAdHK3JptFI=",
-            "type": "url",
-            "url": "https://github.com/router-for-me/CLIProxyAPI/releases/download/v6.6.73/CLIProxyAPI_6.6.73_linux_amd64.tar.gz"
+            "owner": "router-for-me",
+            "repo": "CLIProxyAPI",
+            "rev": "v6.6.73",
+            "sha256": "sha256-hRoK284zlTYtGRpe+DKKjyI2+QJ7adgLMglSZEBhFVw=",
+            "sparseCheckout": [],
+            "type": "github"
         },
-        "version": "6.6.73"
-    },
-    "cliproxyapi-arm64": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "cliproxyapi-arm64",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-fvI6pdQEg2hrEEavJC7TTsC/gV18AMnyvDa5sm05QHw=",
-            "type": "url",
-            "url": "https://github.com/router-for-me/CLIProxyAPI/releases/download/v6.6.73/CLIProxyAPI_6.6.73_linux_arm64.tar.gz"
-        },
-        "version": "6.6.73"
+        "version": "v6.6.73"
     },
     "cockpy": {
         "cargoLocks": null,
@@ -989,18 +980,24 @@
         },
         "version": "v10.2"
     },
-    "easycli-amd64": {
+    "easycli": {
         "cargoLocks": null,
         "date": null,
         "extract": null,
-        "name": "easycli-amd64",
+        "name": "easycli",
         "passthru": null,
         "pinned": false,
         "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
             "name": null,
-            "sha256": "sha256-XY8bVBTft47BgfTWVjOOL5IAu0orA2kV+WJiZUCA5GI=",
-            "type": "url",
-            "url": "https://github.com/router-for-me/EasyCLI/releases/download/v0.1.32/EasyCLI-v0.1.32-linux-amd64.deb"
+            "owner": "router-for-me",
+            "repo": "EasyCLI",
+            "rev": "v0.1.32",
+            "sha256": "sha256-ASZCtDh4D2yc5NlbY8YmMOJarQCbzPz9iA3CB09jGRo=",
+            "sparseCheckout": [],
+            "type": "github"
         },
         "version": "v0.1.32"
     },

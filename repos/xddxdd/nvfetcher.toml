@@ -104,15 +104,9 @@ src.git = "https://github.com/martyr-deepin/cef-binary.git"
 fetch.github = "jwodder/click-loglevel"
 src.github = "jwodder/click-loglevel"
 
-[cliproxyapi-amd64]
-fetch.url = "https://github.com/router-for-me/CLIProxyAPI/releases/download/v$ver/CLIProxyAPI_$ver_linux_amd64.tar.gz"
+[cliproxyapi]
+fetch.github = "router-for-me/CLIProxyAPI"
 src.github = "router-for-me/CLIProxyAPI"
-src.prefix = "v"
-
-[cliproxyapi-arm64]
-fetch.url = "https://github.com/router-for-me/CLIProxyAPI/releases/download/v$ver/CLIProxyAPI_$ver_linux_arm64.tar.gz"
-src.github = "router-for-me/CLIProxyAPI"
-src.prefix = "v"
 
 [cockpy]
 fetch.github = "Hiro420/CockPY"
@@ -229,8 +223,8 @@ src.github_tag = "drone/drone-vault"
 fetch.github = "flightaware/dump978"
 src.github_tag = "flightaware/dump978"
 
-[easycli-amd64]
-fetch.url = "https://github.com/router-for-me/EasyCLI/releases/download/$ver/EasyCLI-$ver-linux-amd64.deb"
+[easycli]
+fetch.github = "router-for-me/EasyCLI"
 src.github = "router-for-me/EasyCLI"
 
 [edge-tts]

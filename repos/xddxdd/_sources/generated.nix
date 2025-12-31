@@ -243,20 +243,14 @@
       hash = "sha256-Z66xy8d9KAjni4AmwZwGdHTzJHkjgO/2D+vkOhh/te8=";
     };
   };
-  cliproxyapi-amd64 = {
-    pname = "cliproxyapi-amd64";
-    version = "6.6.73";
-    src = fetchurl {
-      url = "https://github.com/router-for-me/CLIProxyAPI/releases/download/v6.6.73/CLIProxyAPI_6.6.73_linux_amd64.tar.gz";
-      hash = "sha256-b64sSZs+uDV4G0UCneQiSZ2+iTW4mALcHAdHK3JptFI=";
-    };
-  };
-  cliproxyapi-arm64 = {
-    pname = "cliproxyapi-arm64";
-    version = "6.6.73";
-    src = fetchurl {
-      url = "https://github.com/router-for-me/CLIProxyAPI/releases/download/v6.6.73/CLIProxyAPI_6.6.73_linux_arm64.tar.gz";
-      hash = "sha256-fvI6pdQEg2hrEEavJC7TTsC/gV18AMnyvDa5sm05QHw=";
+  cliproxyapi = {
+    pname = "cliproxyapi";
+    version = "v6.6.73";
+    src = fetchFromGitHub {
+      owner = "router-for-me";
+      repo = "CLIProxyAPI";
+      tag = "v6.6.73";
+      hash = "sha256-hRoK284zlTYtGRpe+DKKjyI2+QJ7adgLMglSZEBhFVw=";
     };
   };
   cockpy = {
@@ -514,12 +508,14 @@
       hash = "sha256-HXNn8Hmgfv7TzSGVntxnwguCf2P9bc5pi/zbOAaYEkY=";
     };
   };
-  easycli-amd64 = {
-    pname = "easycli-amd64";
+  easycli = {
+    pname = "easycli";
     version = "v0.1.32";
-    src = fetchurl {
-      url = "https://github.com/router-for-me/EasyCLI/releases/download/v0.1.32/EasyCLI-v0.1.32-linux-amd64.deb";
-      hash = "sha256-XY8bVBTft47BgfTWVjOOL5IAu0orA2kV+WJiZUCA5GI=";
+    src = fetchFromGitHub {
+      owner = "router-for-me";
+      repo = "EasyCLI";
+      tag = "v0.1.32";
+      hash = "sha256-ASZCtDh4D2yc5NlbY8YmMOJarQCbzPz9iA3CB09jGRo=";
     };
   };
   edge-tts = {
