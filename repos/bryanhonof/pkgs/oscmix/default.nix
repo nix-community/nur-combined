@@ -51,7 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/michaelforney/oscmix";
     license = licenses.free;
     maintainers = with maintainers; [ bryanhonof ];
-    sourceProvenance = with sourceTypes; [ fromSource ];
     platforms = platforms.linux;
     mainProgram = "oscmix";
   };

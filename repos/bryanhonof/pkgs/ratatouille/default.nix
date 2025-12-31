@@ -66,7 +66,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/brummer10/Ratatouille.lv2";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bryanhonof ];
-    sourceProvenance = with sourceTypes; [ fromSource ];
     platforms = platforms.linux;
     mainProgram = "Ratatouille";
   };

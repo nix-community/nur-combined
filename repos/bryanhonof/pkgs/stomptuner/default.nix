@@ -59,7 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/brummer10/StompTuner";
     license = licenses.gpl3;
     maintainers = with maintainers; [ bryanhonof ];
-    sourceProvenance = with sourceTypes; [ fromSource ];
     platforms = platforms.linux;
     mainProgram = "stomptuner";
   };
