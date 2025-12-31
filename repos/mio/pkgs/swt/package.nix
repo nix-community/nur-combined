@@ -83,8 +83,8 @@ stdenv.mkDerivation (finalAttrs: {
   # https://github.com/eclipse-platform/eclipse.platform.swt/issues/652
   makeFlags = lib.optionals stdenv.hostPlatform.isLinux [ "gtk3" ];
 
-  # Disable -Werror to avoid build failures from deprecation warnings
-  #NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-Wno-error";
+  # https://github.com/NixOS/nixpkgs/issues/459322#issuecomment-3702266566
+  NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-std=gnu17";
   # https://github.com/NixOS/nixpkgs/pull/461645/files
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux "sed -i '/^CFLAGS += -Werror$/d' library/make_linux.mak";
   preBuild = lib.optionalString stdenv.hostPlatform.isLinux ''
