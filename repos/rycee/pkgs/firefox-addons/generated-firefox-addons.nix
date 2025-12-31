@@ -2956,10 +2956,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "6.4.4";
+      version = "7.0.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648154/dictionaries-6.4.4.xpi";
-      sha256 = "b18ddbccb39d4f5762b7808f29e770d2d82ec7ee6b64ed26dc852c836ea05f77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4653928/dictionaries-7.0.0.xpi";
+      sha256 = "777d073c63dc6f34d5979bb33fd60e13c56caa2dd35565c5db2d03c0e4c08b39";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4078,10 +4078,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.93";
+      version = "6.1.94";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4631377/flagfox-6.1.93.xpi";
-      sha256 = "622a932f56bf3e71b6d64d41d625e1056c84efa0e89803b1c0be5d28a3389a52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4653992/flagfox-6.1.94.xpi";
+      sha256 = "42a97e30b519af9af7297304c779aa5e2d1062bf8f77c657eac01c7fbed575d4";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4497,10 +4497,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.5.23";
+      version = "10.5.24";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4643108/ghostery-10.5.23.xpi";
-      sha256 = "263b5cfb2afaa04a7e363490cc25ddc9a5b4b98d589fa1fc1ee856877463d688";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4653652/ghostery-10.5.24.xpi";
+      sha256 = "e1410f10b5f699c75beb5a965b6e728bb77827ccaea8bbf0e8dca4c0b0321cef";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -7483,10 +7483,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.35";
+      version = "2.3.36";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4638986/lingq_importer2-2.3.35.xpi";
-      sha256 = "b6fa3112d04d1da6659eb460b20885373bf9a77e80354c085b05384f46bdf9d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4653910/lingq_importer2-2.3.36.xpi";
+      sha256 = "b2b16371aeffcb3d4249c29b07fea67db6fe603a56b8fbc07a0dba142b73f5af";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
