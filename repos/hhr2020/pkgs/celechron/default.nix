@@ -48,10 +48,10 @@ flutter338.buildFlutterApplication {
 
   postInstall = ''
     # Generate and install icon files
-    for size in 16 32 48 64 72 96 128 192 512 1024; do
+    for size in 16 32 48 64 72 96 128 192 256 512 1024; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
       magick assets/logo.png \
-        -sample "$size"x"$size" \
+        -resize "$size"x"$size" \
         $out/share/icons/hicolor/"$size"x"$size"/apps/celechron.png
     done
   '';
