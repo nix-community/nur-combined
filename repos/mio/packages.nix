@@ -14,6 +14,7 @@ rec {
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
     withOptionals = true;
     stdenv = v3Optimizations pkgs.clangStdenv;
+    perl540 = pkgs.perl540 or pkgs.perl5;
   };
   minetest591 = pkgs.callPackage ./pkgs/minetest591 {
     stdenv = v3Optimizations pkgs.clangStdenv;
