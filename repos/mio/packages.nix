@@ -15,6 +15,7 @@ rec {
     withOptionals = true;
     stdenv = v3Optimizations pkgs.clangStdenv;
     perl540 = pkgs.perl540 or pkgs.perl5;
+    perl540Packages = pkgs.perl540Packages or pkgs.perl5Packages;
   };
   minetest591 = pkgs.callPackage ./pkgs/minetest591 {
     stdenv = v3Optimizations pkgs.clangStdenv;
@@ -116,7 +117,7 @@ rec {
       pkgs.callPackage ./pkgs/firefox-nightly {
         nss_git = nss_git;
         nyxUtils = nyxUtils;
-        icu78 = icu.icu78;
+        icu78 = pkgs.icu78 or icu.icu78;
       }
     )
   );
