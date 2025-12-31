@@ -37,45 +37,39 @@
   },
   {
     "pname": "Aiursoft.CSTools",
-    "version": "10.0.1",
-    "hash": "sha256-W2uKk9QoZ9kaDS4hjnJfYh2hEf6VFE1ANrXpVN+Gj6M=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.cstools/10.0.1/aiursoft.cstools.10.0.1.nupkg"
-  },
-  {
-    "pname": "Aiursoft.CSTools",
     "version": "10.0.2",
     "hash": "sha256-9v/TqKpYLBHaZUL6vTgAoAQxa8FLG0nVnRDLsVnVGKo=",
     "url": "https://nuget.aiursoft.com/v3/package/aiursoft.cstools/10.0.2/aiursoft.cstools.10.0.2.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools",
-    "version": "10.0.3",
-    "hash": "sha256-O0+pG5BLMDL1YNvKhQTgZ/q4KYD4q9bDMTrlNlJtpKc=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools/10.0.3/aiursoft.dbtools.10.0.3.nupkg"
+    "version": "10.0.4",
+    "hash": "sha256-Ub2xQrpqb4JvxvOODeG/IrWTafuyO68u11JWrx6s2B0=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools/10.0.4/aiursoft.dbtools.10.0.4.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.3",
-    "hash": "sha256-vt5zwGV8Vhxg/hGZx/hwlbciuNd8Biiw4JucOunib38=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.inmemory/10.0.3/aiursoft.dbtools.inmemory.10.0.3.nupkg"
+    "version": "10.0.4",
+    "hash": "sha256-cj8uc+uQFfC4+0h3QnyWiejLxgF1LjSH1fIgG8/ZbSI=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.inmemory/10.0.4/aiursoft.dbtools.inmemory.10.0.4.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.5",
-    "hash": "sha256-vM72ebQdYCQVy+uKrEPQZG0lQLbvG0QvksomDs8vstU=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.5/aiursoft.dbtools.mysql.10.0.5.nupkg"
+    "version": "10.0.7",
+    "hash": "sha256-0atxp6osUgsxdzkSQtc5ShPge3JI7JD/GDdD+HWMih4=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.7/aiursoft.dbtools.mysql.10.0.7.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.5",
-    "hash": "sha256-bA+3rYM00STiUbdzQFtTwmWco9LA5RZ/3CuzYeIfMTw=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.5/aiursoft.dbtools.sqlite.10.0.5.nupkg"
+    "version": "10.0.7",
+    "hash": "sha256-TXPSmNNYeC5gUf6MQe9BygchCBr4w06NghHJAY6Lc+Q=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.7/aiursoft.dbtools.sqlite.10.0.7.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.3",
-    "hash": "sha256-xHzs+MJWaDS+WHdcbDGsg1z5jYM5djMtK8KXpjVYWC4=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.switchable/10.0.3/aiursoft.dbtools.switchable.10.0.3.nupkg"
+    "version": "10.0.4",
+    "hash": "sha256-jPiMXJBXX4SGZed/Wc3P6eLm4znZ/sO6yWnM+/UOsDw=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.switchable/10.0.4/aiursoft.dbtools.switchable.10.0.4.nupkg"
   },
   {
     "pname": "Aiursoft.EntityFrameworkCore.MySql",
@@ -127,15 +121,15 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.3.5",
-    "hash": "sha256-lOWm2Sp/nWhyqCLCLSb/pNpVNOhrLasYfsFpOXBCLUU=",
-    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor/5.3.5/efcoresecondlevelcacheinterceptor.5.3.5.nupkg"
+    "version": "5.3.7",
+    "hash": "sha256-vxoLcBs9PvZhv1alufPmcZg4GxWPnHr38clIf8rYwIE=",
+    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor/5.3.7/efcoresecondlevelcacheinterceptor.5.3.7.nupkg"
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.3.5",
-    "hash": "sha256-gaxrLeP6C5bINZTXQvODxtuaPsAHXTo6RnR3L0t957M=",
-    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor.memorycache/5.3.5/efcoresecondlevelcacheinterceptor.memorycache.5.3.5.nupkg"
+    "version": "5.3.7",
+    "hash": "sha256-i4yEMOK8BwLwzJREG7Vc/UXhmpZPw9CBzxIY2rgd34Y=",
+    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor.memorycache/5.3.7/efcoresecondlevelcacheinterceptor.memorycache.5.3.7.nupkg"
   },
   {
     "pname": "Humanizer.Core",
