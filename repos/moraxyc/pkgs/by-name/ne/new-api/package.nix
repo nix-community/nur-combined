@@ -43,5 +43,6 @@ buildGoModule (finalAttrs: {
     };
     maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "new-api";
+    platforms = lib.platforms.linux;
   };
 })
