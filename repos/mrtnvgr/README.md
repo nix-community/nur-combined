@@ -27,7 +27,6 @@
 #### Plugins
 
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
-- [Tyrell N6](https://u-he.com/products/tyrelln6/)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
 - [vitalium-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
 - [TAL-plugins-vst2](https://github.com/DISTRHO/DISTRHO-Ports)

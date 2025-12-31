@@ -33,7 +33,6 @@ in rec {
 
   # OneTrick-KEYS = p ./pkgs/audio/OneTrick-KEYS { };
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
-  TyrellN6 = p ./pkgs/audio/tyrelln6 { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
 
   vitalium-vst3 = (pkgs.distrho-ports.override {
