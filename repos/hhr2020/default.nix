@@ -17,6 +17,7 @@
   overlays = import ./overlays; # nixpkgs overlays
   hmModules = import ./homeModules; # Home Manager modules
 
+  celechron = pkgs.callPackage ./pkgs/celechron { };
   fiz = pkgs.callPackage ./pkgs/fiz { };
   loko = pkgs.callPackage ./pkgs/loko { };
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
