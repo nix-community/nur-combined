@@ -15,12 +15,14 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-1xdvh1QvXbNoUXyfCe7gTmOV+sZzkGeqFrKTaS9wiGw=";
   };
-  env.NIX_LAKE_MANIFEST_OVERRIDE = writeText "lake-manifest-override.json" (builtins.toJSON [
-    {
-      name = "Cli";
-      dir = "${Cli}/lib/lean-packages/Cli";
-    }
-  ]);
+  env.NIX_LAKE_MANIFEST_OVERRIDE = writeText "lake-manifest-override.json" (
+    builtins.toJSON [
+      {
+        name = "Cli";
+        dir = "${Cli}/lib/lean-packages/Cli";
+      }
+    ]
+  );
   nativeBuildInputs = [
     lean4
     lakeSetupHook
