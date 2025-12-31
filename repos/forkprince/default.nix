@@ -25,6 +25,7 @@
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
   ghostty = lib.callPackage ./pkgs/ghostty {};
   vscode = lib.callPackage ./pkgs/vscode {};
+  heroic = lib.callPackage ./pkgs/heroic {};
   gimp = lib.callPackage ./pkgs/gimp {};
 
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
