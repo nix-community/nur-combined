@@ -52,7 +52,6 @@ flutter338.buildFlutterApplication {
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
       magick assets/logo.png \
         -sample "$size"x"$size" \
-        -extent "$size"x"$size" \
         $out/share/icons/hicolor/"$size"x"$size"/apps/celechron.png
     done
   '';
