@@ -5,7 +5,7 @@
 }:
 
 let
-  version = "0.0.1";
+  version = "0.0.3";
 
   # Map Nix system to goreleaser's target naming
   targets = {
@@ -21,10 +21,10 @@ let
 
   # SHA256 hashes for each platform
   hashes = {
-    "linux_amd64" = "sha256-7fSS7BCHEVQwbe+GBdWCQ8U+HgiCgt3OFUBBx6BQV8Q=";
-    "linux_arm64" = "sha256-6vX8Ytdmfhl+1rYqOVk85ljEmLK51jkx5ZBHC1h4rJg=";
-    "darwin_amd64" = "sha256-mZ29CYwmPlbK9g0wjvzpVSP78yKJIRApDZuAA8k8IkE=";
-    "darwin_arm64" = "sha256-v3v9DG7H5G1auPp2Ylj+KqZoY0olZsJyXqKLJFxw/tc=";
+    "linux_amd64" = "sha256-mGQdFlZJbeV0TMKca9zi9d1dE4LxYVCjHhfbVzMtXXc=";
+    "linux_arm64" = "sha256-wUHX6w3T9xTWzmZchwJyFrXOKysoRFzguLNJuSwuTo0=";
+    "darwin_amd64" = "sha256-Zl02kXcrygIlLOkKEIq7S5iOyOl662EpgDAx4ImkNoo=";
+    "darwin_arm64" = "sha256-y4ZwvJmnSF2I5TF729EChvljOoyHwfLZ0bhoFJ1KNEs=";
   };
 
 in
