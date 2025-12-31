@@ -470,6 +470,36 @@
         },
         "version": "v0.7.0"
     },
+    "cliproxyapi-amd64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cliproxyapi-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-b64sSZs+uDV4G0UCneQiSZ2+iTW4mALcHAdHK3JptFI=",
+            "type": "url",
+            "url": "https://github.com/router-for-me/CLIProxyAPI/releases/download/v6.6.73/CLIProxyAPI_6.6.73_linux_amd64.tar.gz"
+        },
+        "version": "6.6.73"
+    },
+    "cliproxyapi-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cliproxyapi-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-fvI6pdQEg2hrEEavJC7TTsC/gV18AMnyvDa5sm05QHw=",
+            "type": "url",
+            "url": "https://github.com/router-for-me/CLIProxyAPI/releases/download/v6.6.73/CLIProxyAPI_6.6.73_linux_arm64.tar.gz"
+        },
+        "version": "6.6.73"
+    },
     "cockpy": {
         "cargoLocks": null,
         "date": "2024-09-07",
@@ -958,6 +988,21 @@
             "type": "github"
         },
         "version": "v10.2"
+    },
+    "easycli-amd64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "easycli-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-XY8bVBTft47BgfTWVjOOL5IAu0orA2kV+WJiZUCA5GI=",
+            "type": "url",
+            "url": "https://github.com/router-for-me/EasyCLI/releases/download/v0.1.32/EasyCLI-v0.1.32-linux-amd64.deb"
+        },
+        "version": "v0.1.32"
     },
     "edge-tts": {
         "cargoLocks": null,

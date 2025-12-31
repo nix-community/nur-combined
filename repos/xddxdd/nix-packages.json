@@ -459,6 +459,11 @@
     "pname": "python3.13-click-loglevel",
     "version": "0.7.0"
   },
+  "legacyPackages.x86_64-linux.cliproxyapi": {
+    "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
+    "pname": "cliproxyapi",
+    "version": "6.6.73"
+  },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
     "pname": "cockpy",
@@ -548,6 +553,11 @@
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
     "version": "10.2"
+  },
+  "legacyPackages.x86_64-linux.easycli": {
+    "description": "Desktop GUI from CLIProxyAPI",
+    "pname": "easycli",
+    "version": "0.1.32"
   },
   "legacyPackages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
@@ -2434,6 +2444,11 @@
     "pname": "python3.13-click-loglevel",
     "version": "0.7.0"
   },
+  "packages.x86_64-linux.cliproxyapi": {
+    "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
+    "pname": "cliproxyapi",
+    "version": "6.6.73"
+  },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
     "pname": "cockpy",
@@ -2523,6 +2538,11 @@
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
     "version": "10.2"
+  },
+  "packages.x86_64-linux.easycli": {
+    "description": "Desktop GUI from CLIProxyAPI",
+    "pname": "easycli",
+    "version": "0.1.32"
   },
   "packages.x86_64-linux.edge-tts": {
     "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
