@@ -1,43 +1,44 @@
 [
   {
+    "eum": "35060000",
+    "country": "CN",
+    "manufacturer": "HED"
+  },
+  {
+    "eum": "35840574",
+    "country": "CN",
+    "manufacturer": "Beijing Watchdata",
+    "accreditations": ["WD-BG"]
+  },
+  {
     "eum": "89033023",
     "country": "FR",
     "manufacturer": "Thales",
-    "accreditations": ["TS-CA", "TS-ME", "TS-NA", "TS-PA", "TS-SI", "GO-CA", "GO-PA", "GO-SI"],
-    "products": [
-      { "prefix": "89033023424110", "name": "Amazfit" },
-      { "prefix": "89033023424210", "name": "TicWatch" },
-      { "prefix": "89033023425110", "name": "Lenovo" },
-      { "prefix": "890330234261000000000121", "name": "OPPO" },
-      { "prefix": "890330234261000000000173", "name": "HONOR" },
-      { "prefix": "890330234261000000000126", "name": "Rakuten BIG" },
-      { "prefix": "890330234261200000000150", "name": "Rakuten Hand 5G" },
-      { "prefix": "890330234262", "name": "Pixel 6 Series" },
-      { "prefix": "890330234271", "name": "Pixel 7 Series" },
-      { "prefix": "89033023553419", "name": "Pixel 8 Series" }
-    ]
+    "accreditations": ["GO-CA", "GO-PA", "GO-SI", "TS-CA", "TS-ME", "TS-NA", "TS-PA", "TS-SI"]
   },
   {
     "eum": "89033024",
     "country": "FR",
     "manufacturer": "IDEMIA",
-    "accreditations": ["IA-FK", "IA-VE", "ID-NA", "ID-SN", "OR-SN"],
-    "products": [
-      { "prefix": "890330240681027499102", "chip": "ST33G1M2STL8EMQ4", "name": "AVNET eUICC" },
-      { "prefix": "890330240681", "name": "AVNET eUICC" }
-    ]
+    "accreditations": ["IA-FK", "IA-VE", "ID-NA", "ID-SN", "OR-SN"]
   },
   {
     "eum": "89034011",
     "country": "ES",
-    "accreditations": ["VD-MD", "VD-SU"],
-    "manufacturer": "Valid"
+    "manufacturer": "Valid",
+    "accreditations": ["VD-MD", "VD-SU"]
+  },
+  {
+    "eum": "89041030",
+    "country": "CH",
+    "manufacturer": "STM",
+    "accreditations": ["SM-CA", "SM-CT"]
   },
   {
     "eum": "89043051",
     "country": "AT",
-    "accreditations": ["NP-HG", "NP-KG", "NP-TN"],
-    "manufacturer": "NXP"
+    "manufacturer": "NXP",
+    "accreditations": ["NP-HG", "NP-KG", "NP-TN"]
   },
   {
     "eum": "89043052",
@@ -48,11 +49,7 @@
     "eum": "89044045",
     "country": "GB",
     "manufacturer": "Kigen",
-    "accreditations": ["KN-DN", "KN-NA"],
-    "products": [
-      { "prefix": "890440451167274948", "name": "sysmoEUICC1-C2G" },
-      { "prefix": "890440452167274948", "name": "9eSIM" }
-    ]
+    "accreditations": ["KN-DN", "KN-NA"]
   },
   {
     "eum": "89044047",
@@ -63,19 +60,7 @@
     "eum": "89049032",
     "country": "DE",
     "manufacturer": "G+D",
-    "accreditations": ["GD-BA", "GD-CI", "GD-MM", "GD-NG"],
-    "products": [
-      { "prefix": "890490321030288823", "chip": "ST33G1M2LCL9EMM4", "name": "Entrust?" },
-      { "prefix": "890490320030088823", "chip": "ST33G1M2STL8ENH0", "name": "Apple, 2017" },
-      { "prefix": "890490320040088826", "chip": "ST33G1M2STL8ENL0", "name": "Apple, 2018" },
-      { "prefix": "890490320050088826", "chip": "ST33G1M2STL8ENP0", "name": "Apple, 2019" },
-      { "prefix": "890490320060088826", "chip": "ST33J2M0STL9DZB0", "name": "Apple, 2020" },
-      { "prefix": "890490320070088826", "chip": "ST33J2M0STL9DZD0", "name": "Apple, 2021" },
-      { "prefix": "890490320071088800", "chip": "ST33J2M0STL9DZF2", "name": "Apple, 2022" },
-      { "prefix": "890490320072088889", "chip": "ST33J2M0STL9DZH2", "name": "Apple, 2023" },
-      { "prefix": "890490320073088836", "name": "Apple, 2024" },
-      { "prefix": "890490320000010000", "name": "<non-specific>" }
-    ]
+    "accreditations": ["GD-BA", "GD-CI", "GD-MM", "GD-NG"]
   },
   {
     "eum": "89049038",
@@ -86,58 +71,18 @@
     "eum": "89086001",
     "country": "CN",
     "manufacturer": "Hengbao",
-    "accreditations": ["HO-DG"],
-    "products": [{ "prefix": "89086001202200101019000001", "name": "Abardeen" }]
+    "accreditations": ["HO-DG"]
   },
   {
     "eum": "89086029",
     "country": "CN",
-    "accreditations": ["WN-HI"],
     "manufacturer": "Wuhan Tianyu",
-    "products": [
-      { "prefix": "890860292022000001210107", "name": "TicWatch GTW" },
-      { "prefix": "8908602920220000212100006", "name": "CUCC VN007+" }
-    ]
+    "accreditations": ["WN-HI"]
   },
   {
     "eum": "89086030",
     "country": "CN",
     "manufacturer": "Eastcompeace",
-    "accreditations": ["ED-ZI"],
-    "products": [
-      {
-        "prefix": "89086030202200000024",
-        "in-range": [[590683, 591182]],
-        "name": "WenZiWanKa S2"
-      },
-      {
-        "prefix": "89086030202200000024",
-        "in-range": [
-          [621478, 622477],
-          [703678, 705677],
-          [715623, 717622]
-        ],
-        "name": "WenZiWanKa S1"
-      },
-      { "prefix": "89086030202200000022217630", "name": "eSIM.me" },
-      { "prefix": "89086030202200000022281675", "name": "eSIM.me" },
-      { "prefix": "89086030202200000023000178", "name": "CCSMEC" },
-      { "prefix": "89086030202200000023100930", "name": "5ber.eSIM" },
-      { "prefix": "89086030202200000024000034", "name": "5ber.eSIM" },
-      { "prefix": "89086030202200000024000055", "name": "Jianwei Tek" },
-      { "prefix": "89086030202200000024000059", "name": "Sakura eSIM (Phase II)" },
-      { "prefix": "89086030202200000024000083", "name": "Plan B" }
-    ]
-  },
-  {
-    "eum": "35060000",
-    "country": "CN",
-    "manufacturer": "HED"
-  },
-  {
-    "eum": "35840574",
-    "country": "CN",
-    "accreditations": ["WD-BG"],
-    "manufacturer": "Beijing Watchdata"
+    "accreditations": ["ED-ZI"]
   }
 ]

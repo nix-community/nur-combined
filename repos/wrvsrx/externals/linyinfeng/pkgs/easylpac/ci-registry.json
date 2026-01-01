@@ -77,7 +77,17 @@
     "name": "Truphone SAS-UP CA"
   },
   {
+    "key-id": "73fca0",
+    "country": "CN",
+    "name": "Redtea Mobile CI"
+  },
+  {
     "key-id": "ea53ad",
+    "country": "DE",
+    "name": "SubMan V4.2 CI"
+  },
+  {
+    "key-id": "96524c",
     "country": "DE",
     "name": "SubMan V4.2 CI"
   },

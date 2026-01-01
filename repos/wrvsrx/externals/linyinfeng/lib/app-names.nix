@@ -13,7 +13,7 @@ let
       };
     };
   empty = p: { "${p}" = { }; };
-  merge = lib.fold lib.recursiveUpdate { };
+  merge = lib.foldr lib.recursiveUpdate { };
   appNamesDict = merge [
     # keep-sorted start block=yes
     (empty "canokey-udev-rules")
@@ -22,6 +22,7 @@ let
     (empty "fishPlugins/replay")
     (empty "libva-v4l2")
     (empty "niri-taskbar")
+    (empty "plangothic")
     (empty "rimePackages/librime")
     (empty "rimePackages/rime-bopomofo")
     (empty "rimePackages/rime-cangjie")
@@ -40,7 +41,6 @@ let
     (empty "rimePackages/rime-wubi")
     (empty "rimePackages/rime-wugniu")
     (empty "rimePackages/rimeDataBuildHook")
-    (empty "synapse-s3-storage-provider")
     (empty "yacd")
     (trivial "activate-dpt")
     (trivial "aws-s3-reverse-proxy")
@@ -52,7 +52,7 @@ let
     (trivial "devPackages/update")
     (trivial "dot-tar")
     (trivial "emacsPackages/pyim-greatdict")
-    (trivial "icalingua-plus-plus")
+    (trivial "hexecute")
     (trivial "lpac")
     (trivial "matrix-qq")
     (trivial "matrix-wechat")

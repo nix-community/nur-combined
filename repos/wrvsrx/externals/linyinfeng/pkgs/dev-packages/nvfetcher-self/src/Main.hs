@@ -18,7 +18,6 @@ packageSet = do
   ghPkg "cowrie" "cowrie"
   ghPkg "estkme-group" "lpac"
   ghPkg "janten" "dpt-rp1-py"
-  ghPkg "matrix-org" "synapse-s3-storage-provider"
   ghPkg "microsoft" "secureboot_objects"
   ghPkg "trojan-gfw" "trojan"
   gitPkg "libva-v4l2" "https://github.com/mxsrc/libva-v4l2.git"
@@ -48,9 +47,9 @@ packageSet = do
   baibot
   dotTar
   fishPlugins
-  icalinguaPlusPlus
   linuxIntelMainlineTracking
   linuxIntelTts
+  mediawikiAuthManagerOAuth
   moeKoeMusic
   mstickereditor
   niriTaskbar
@@ -85,18 +84,9 @@ dotTar =
     package "dot-tar"
       `sourceGit` url
       `fetchGit` url
-      `hasCargoLocks` ["Cargo.lock"]
+      `hasCargoLock` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/dot-tar.git"
-
-icalinguaPlusPlus :: PackageSet ()
-icalinguaPlusPlus =
-  define $
-    package "icalingua-plus-plus"
-      `sourceGitHub` ("icalingua-plus-plus", "icalingua-plus-plus")
-      `fetchUrl` url
-  where
-    url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
 
 linuxIntelTts :: PackageSet ()
 linuxIntelTts =
@@ -115,7 +105,7 @@ mstickereditor =
   define $
     package "mstickereditor"
       `fromGitHub` ("LuckyTurtleDev", "mstickereditor")
-      `hasCargoLocks` ["Cargo.lock"]
+      `hasCargoLock` ["Cargo.lock"]
 
 tgSend :: PackageSet ()
 tgSend =
@@ -123,7 +113,7 @@ tgSend =
     package "tg-send"
       `sourceGit` url
       `fetchGit` url
-      `hasCargoLocks` ["Cargo.lock"]
+      `hasCargoLock` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/tg-send.git"
 
@@ -150,25 +140,34 @@ zeronsd =
   define $
     package "zeronsd"
       `fromGitHub` ("zerotier", "zeronsd")
-      `hasCargoLocks` ["Cargo.lock"]
+      `hasCargoLock` ["Cargo.lock"]
 
 baibot :: PackageSet ()
 baibot =
   define $
     package "baibot"
       `fromGitHubTag` ("etkecc", "baibot", id)
-      `hasCargoLocks` ["Cargo.lock"]
+      `hasCargoLock` ["Cargo.lock"]
 
 niriTaskbar :: PackageSet ()
 niriTaskbar =
   define $
     package "niri-taskbar"
       `fromGitHubTag` ("LawnGnome", "niri-taskbar", id)
-      `hasCargoLocks` ["Cargo.lock"]
+      `hasCargoLock` ["Cargo.lock"]
 
 rlt :: PackageSet ()
 rlt =
   define $
     package "rlt"
       `fromGitHubTag` ("kaichaosun", "rlt", id)
-      `hasCargoLocks` ["Cargo.lock"]
+      `hasCargoLock` ["Cargo.lock"]
+
+mediawikiAuthManagerOAuth :: PackageSet ()
+mediawikiAuthManagerOAuth =
+  define $
+    package "mediawiki-auth-manager-oauth"
+      `sourceGitHub` ("mohe2015", "AuthManagerOAuth")
+      `fetchUrl` url
+  where
+    url (Version v) = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/" <> v <> "/AuthManagerOAuth.zip"

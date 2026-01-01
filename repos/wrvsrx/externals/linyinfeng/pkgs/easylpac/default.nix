@@ -8,7 +8,8 @@
   xorg,
   libglvnd,
   glfw,
-  wrapGAppsHook,
+  wrapGAppsHook3,
+  fontconfig,
   lpac,
   lib,
 }:
@@ -30,9 +31,11 @@ buildGoModule rec {
     cp --verbose "${./ci-registry.json}"  ci-registry.json
   '';
 
+  env.FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
+
   nativeBuildInputs = [
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
   buildInputs = [
     gtk3

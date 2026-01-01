@@ -30,12 +30,12 @@ lib.makeScope newScope (
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
     easylpac = callPackage ./easylpac { };
     emacsPackages = lib.recurseIntoAttrs (
-      callPackage ./emacs-packages { emacsPackagesToplevel = pkgs.emacsPackages; }
+      callPackage ./emacs-packages { emacsPackagesToplevel = pkgs.emacs.pkgs; }
     );
     fishPlugins = lib.recurseIntoAttrs (
       callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
     );
-    icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
+    hexecute = callPackage ./hexecute { };
     libva-v4l2 = callPackage ./libva-v4l2 { };
     lpac = callPackage ./lpac { };
     ly2video = callPackage ./ly2video { };
@@ -48,12 +48,12 @@ lib.makeScope newScope (
     niri-taskbar = callPackage ./niri-taskbar { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
+    plangothic = callPackage ./plangothic { };
     rcon-cli = callPackage ./rcon-cli { };
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
     rlt = callPackage ./rlt { };
     ssl-handshake = callPackage ./ssl-handshake { };
-    synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };
     trojan = callPackage ./trojan { };
