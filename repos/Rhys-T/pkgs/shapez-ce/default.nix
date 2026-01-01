@@ -2,6 +2,7 @@
     stdenv, lib,
     buildNpmPackage, fetchNpmDeps,
     fetchFromGitHub, fetchurl,
+    nodejs_22,
     electron_37,
     ffmpeg, jre, zip,
     rsync,
@@ -24,6 +25,8 @@ in {
         url = "https://web.archive.org/web/20241202185338id_/https://libgdx-nightlies.s3.amazonaws.com/libgdx-runnables/runnable-texturepacker.jar";
         hash = "sha256-M0fvcxIzdMrHq87+dd3N99fvGJARYD7EUth/Gli2q80=";
     };
+    # With nodejs_24, gets an error: `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync.
+    nodejs = nodejs_22;
     npmRebuildFlags = [ "--ignore-scripts" ];
     env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
     npmDepsHash = "sha256-GVeOatGtyKkeRunKrse4c+00UGJlRJWxvVlplpZ47H0=";

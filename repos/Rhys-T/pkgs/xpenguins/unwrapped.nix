@@ -13,6 +13,9 @@
         sed -i '1i\
         #include <stdlib.h>\
         #line 1' src/toon_signal.c
+        substituteInPlace src/toon.h --replace-fail \
+            'typedef int __ToonErrorHandler();' \
+            'typedef int __ToonErrorHandler(Display *, XErrorEvent *);'
     '';
     buildInputs = with xorg; [libX11 libXext libXpm libXt];
     meta = {

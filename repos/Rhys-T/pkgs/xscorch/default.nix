@@ -38,6 +38,12 @@
     postPatch = ''
         patchShebangs doc/make_text_data.pl
         substituteInPlace Makefile.in --replace-fail '@NETWORK_TRUE@am__EXEEXT_' '#am__EXEEXT_'
+        sed -Ei '
+        1i\
+        #include <stdbool.h>\
+        #define LIBJ_BOOL 1\
+        #line 1
+        ' libj/libj.h.in
     '';
     postInstall = ''
     rmdir "$out"/include

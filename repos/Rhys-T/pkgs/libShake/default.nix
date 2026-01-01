@@ -7,6 +7,9 @@
         rev = "7183e30cbc2d613333c85eaf50e01e82138e529a";
         hash = "sha256-YG+qP2l2GE5czg+CkMUiR108c2UYAIhTpEht93W/O0o=";
     };
+    postPatch = ''
+        substituteInPlace src/common/helpers.h --replace-fail 'void(*itemDel)()' 'void(*itemDel)(void *item)'
+    '';
     makeFlags = ["BACKEND=${if stdenv.hostPlatform.isDarwin then "OSX" else "LINUX"}" "PREFIX=$(out)"];
     meta = {
         description = "Simple, cross-platform haptic library";
