@@ -1,5 +1,5 @@
 self: prev: {
-  tranmission_4 = prev.transmission_4.overrideAttrs (_: {
+  transmission_4 = prev.transmission_4.overrideAttrs (_: {
     version = "4.0.5";
 
     src = self.fetchFromGitHub {
