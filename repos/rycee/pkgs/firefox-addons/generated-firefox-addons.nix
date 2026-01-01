@@ -341,10 +341,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.6.3";
+      version = "1.6.4";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4639857/angular_devtools-1.6.3.xpi";
-      sha256 = "b1b248b0b6acccc6c367a78c781891e6d100ea65833e3bef2e4f22de51f58c69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4646171/angular_devtools-1.6.4.xpi";
+      sha256 = "33d667276c96a6a5324375a9dc2f5e50728a24bccea84ab6199cd005cf951a46";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -1261,10 +1261,10 @@
     };
     "bonjourr-startpage" = buildFirefoxXpiAddon {
       pname = "bonjourr-startpage";
-      version = "21.2.1";
+      version = "22.0.0";
       addonId = "{4f391a9e-8717-4ba6-a5b1-488a34931fcb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4575253/bonjourr_startpage-21.2.1.xpi";
-      sha256 = "f694c2fa42d60c806af9aa1560dc8dd1debd5b3cf1ee52651ab777d2e51ba772";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649474/bonjourr_startpage-22.0.0.xpi";
+      sha256 = "59d41cf35dce5f873b6682c5a73117a7b4c73395d764f8ab0243d9136f58e999";
       meta = with lib;
       {
         homepage = "https://bonjourr.fr";
@@ -1360,10 +1360,10 @@
     };
     "british-english-dictionary-2" = buildFirefoxXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "4.0.3";
+      version = "4.0.4";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4568898/british_english_dictionary_2-4.0.3.xpi";
-      sha256 = "362d45508eaa92f1addf1e91624106f16383bd9791d8864433dd2d13d25141c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654881/british_english_dictionary_2-4.0.4.xpi";
+      sha256 = "e3a0c09a346ab4fca38a87591dff221aa231ebcf7329c6126ee9a90939eda04d";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
@@ -2707,10 +2707,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "147.0.20251229.90910";
+      version = "147.0.20251231.90510";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4652796/dansk_da_language_pack-147.0.20251229.90910.xpi";
-      sha256 = "79e54edbe24b5fefc740765e2b958bdf7b6f53d216aa6f6c98cdd1e9e07d454b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654445/dansk_da_language_pack-147.0.20251231.90510.xpi";
+      sha256 = "c612874ca96dc903134b8f3152ad3f2f37bd8b8d423a04c82fa792c861d1f8ac";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2920,10 +2920,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "147.0.20251229.90910";
+      version = "147.0.20251231.90510";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4652787/deutsch_de_language_pack-147.0.20251229.90910.xpi";
-      sha256 = "12d09d6b1b13bdf4977c1082ffa0f1c0b3e0d017fcda57689c32fc4c25774cea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654428/deutsch_de_language_pack-147.0.20251231.90510.xpi";
+      sha256 = "8701e991c5b40470ac4e3b0a85145cf7596ec08890c6b04dfc08685a20330aaa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4396,10 +4396,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "147.0.20251229.90910";
+      version = "147.0.20251231.90510";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4652869/francais_language_pack-147.0.20251229.90910.xpi";
-      sha256 = "6df6314acdfb3b831b55f9d2d9dc57e256f3a9fa3f447ccd11f17a8bc45fc518";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654454/francais_language_pack-147.0.20251231.90510.xpi";
+      sha256 = "d813e358590a9e0f32ca0e4d14e16c5d10188531c544a468f9b6b1e32397923f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4433,10 +4433,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "147.0.20251229.90910";
+      version = "147.0.20251231.90510";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4652812/gaidhlig_language_pack-147.0.20251229.90910.xpi";
-      sha256 = "1d49a53ce794e88089e85e6592ace06ef7e9ced11624f96bebc2eab06d27c806";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654363/gaidhlig_language_pack-147.0.20251231.90510.xpi";
+      sha256 = "c3c7e00604b1fe0fafb01eb950dba8362e9437be6d3aa3fca70df35b7e955cb8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7309,10 +7309,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.149.3";
+      version = "4.150.0";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4625120/lastpass_password_manager-4.149.3.xpi";
-      sha256 = "510556bb1dbe8202d658cf299e1222f19a2477b19d8337b651f6c2e7c2c6879b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4645550/lastpass_password_manager-4.150.0.xpi";
+      sha256 = "33e1b4e8b36ec9f692d230376ef9750af6b9e71177e319456d36ae7752fcd424";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -12016,10 +12016,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "147.0.20251229.90910";
+      version = "147.0.20251231.90510";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4652788/scots_language_pack-147.0.20251229.90910.xpi";
-      sha256 = "953cfce8bde053403c4d22f9aa4e9701fddf6cfc21ce26c5ec7d21f9aa01d670";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654460/scots_language_pack-147.0.20251231.90510.xpi";
+      sha256 = "5f0f62d3aa486bce2af811a0b02c569659ba620959b81044f76e60894cae47d9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13623,16 +13623,16 @@
     };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "6.0.2";
+      version = "7.0.0";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3835234/tomato_clock-6.0.2.xpi";
-      sha256 = "a13ab0834740ad44ae569aa961b22ca86ce21989fffca50d5cb42061db4c78a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654771/tomato_clock-7.0.0.xpi";
+      sha256 = "6627917defa035e62cfb91b0df9916a41b60617d5287610b9a99104ccaa278d6";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
         description = "Tomato Clock is a simple browser extension that helps with online time management.";
         license = licenses.gpl3;
-        mozPermissions = [ "notifications" "storage" ];
+        mozPermissions = [ "notifications" "storage" "alarms" ];
         platforms = platforms.all;
       };
     };
@@ -15819,10 +15819,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.12.16.0";
+      version = "25.12.22.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649198/yomitan-25.12.16.0.xpi";
-      sha256 = "734579ebefdb94c21dcea50307b0e98c7e6d0b3a44799e1767e0b66bad0b6c83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654712/yomitan-25.12.22.0.xpi";
+      sha256 = "ae7d901daa0a0e8562dc2b47d2e36d2d07a5459008b68b4242e1f247b513fcf6";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
