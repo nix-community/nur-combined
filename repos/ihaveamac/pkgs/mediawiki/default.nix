@@ -7,16 +7,17 @@
   nixosTests,
   version,
   hash,
+  core ? false,
   knownVulnerabilities ? [ ],
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "mediawiki";
+  pname = "mediawiki${lib.optionalString core "-core"}";
   inherit version;
   preferLocalBuild = true;
 
   src = fetchurl {
-    url = "https://releases.wikimedia.org/mediawiki/${lib.versions.majorMinor version}/mediawiki-${version}.tar.gz";
+    url = "https://releases.wikimedia.org/mediawiki/${lib.versions.majorMinor version}/mediawiki${lib.optionalString core "-core"}-${version}.tar.gz";
     inherit hash;
   };
 
@@ -42,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     inherit knownVulnerabilities;
-    description = "The collaborative editing software that runs Wikipedia";
+    description = "The collaborative editing software that runs Wikipedia${lib.optionalString core " (without bundled extensions)"}";
     license = licenses.gpl2Plus;
     homepage = "https://www.mediawiki.org/";
     platforms = platforms.all;
