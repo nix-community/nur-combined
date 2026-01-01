@@ -71,11 +71,12 @@ in {
   getPlatform = platform: ver: let
     plat = lib.getAttr platform ver.platforms;
     hasCustomUrl = plat ? url;
+    platformVersion = plat.version or ver.version;
   in
     if hasCustomUrl
     then let
       rawUrl = substitute {
-        version = ver.version;
+        version = platformVersion;
         repo = plat.repo or ver.source.repo or "";
         template = plat.url;
       };
@@ -87,7 +88,7 @@ in {
     }
     else let
       file = substitute {
-        version = ver.version;
+        version = platformVersion;
         template = plat.file;
       };
     in {
@@ -95,7 +96,7 @@ in {
         githubUrl
         (plat.repo or ver.source.repo)
         (plat.tag_prefix or ver.source.tag_prefix or "")
-        ver.version
+        platformVersion
         file;
       name = sanitizeName file;
       inherit (plat) hash;
@@ -152,4 +153,12 @@ in {
 
   unpackPlatform = platform: ver:
     (lib.getAttr platform ver.platforms).unpack or ver.asset.unpack or false;
+
+  getVersion = platform: ver:
+    if ver ? platforms
+    then let
+      plat = lib.getAttr platform ver.platforms;
+    in
+      plat.version or ver.version
+    else ver.version;
 }

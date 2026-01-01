@@ -12,7 +12,7 @@
   pname = "helium";
   src = fetchurl (lib.helper.getPlatform platform ver);
 
-  inherit (ver) version;
+  version = lib.helper.getVersion platform ver;
 
   meta = {
     description = "Private, fast, and honest web browser (nightly builds)";

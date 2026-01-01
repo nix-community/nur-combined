@@ -12,11 +12,12 @@ async function single(file, data) {
     await save(file, { ...content, ...data });
 }
 
-async function platforms(file, { platform, url, hash }) {
+async function platforms(file, { platform, url, hash, version }) {
     const content = await read(file);
 
     const platforms = content.platforms || {};
 
+    if (version) platforms[platform].version = version;
     if (url) platforms[platform].url = url;
 
     platforms[platform].hash = hash;
