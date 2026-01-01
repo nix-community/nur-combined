@@ -7,11 +7,14 @@
   jq,
 
   new-api,
+  nodejs_22,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "${new-api.pname}-frontnd";
   inherit (new-api) version;
+
+  nodejs = nodejs_22;
 
   src = runCommand "${finalAttrs.pname}-patched-src" { nativeBuildInputs = [ jq ]; } ''
     cp -r ${new-api.src} $out

@@ -221,7 +221,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-t90DgDDp0Eub8OZaDutZ0PknxSdu5SQPo2fSTUo0rBA=",
+            "sha256": "sha256-Y8stZF+F5UW50oY0QrhuDSnCKKl7m7omvaFHgFAAqjg=",
             "type": "url",
             "url": "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors"
         },
