@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 
-# 取消所有暂存区改动
 git reset
 
-# 获取 pkgs 下有改动的包
-changed_pkgs=$(git diff --name-only | grep '^pkgs/' | cut -d/ -f2 | sort -u || true)
+# 获取 pkgs 下改动的包
+changed_pkgs=$(git diff --name-only --relative pkgs/ | awk -F/ '{print $2}' | sort -u || true)
 
 if [ -z "$changed_pkgs" ]; then
     echo "没有检测到 pkgs 下的改动"
@@ -15,37 +14,32 @@ fi
 for pkg in $changed_pkgs; do
     dir="pkgs/$pkg"
     file=""
-    type=""
 
-    if [ -f "$dir/sources.nix" ]; then
-        file="$dir/sources.nix"
-        type="sources"
-    elif [ -f "$dir/default.nix" ]; then
-        file="$dir/default.nix"
-        type="default"
-    else
-        continue
-    fi
+    for f in sources.nix default.nix; do
+        if [ -f "$dir/$f" ]; then
+            file="$dir/$f"
+            break
+        fi
+    done
 
-    # 检查文件中是否有 version 改动
+    [ -z "$file" ] && continue
+
+    # 检查 version 是否改动
     if git diff HEAD -- "$file" | grep -qE '^[+-].*version\s*='; then
-        if [ "$type" = "sources" ]; then
-            msg="$pkg: version changed"
-        else
-            old_version=$(git show HEAD:"$file" 2>/dev/null \
-                | grep -E 'version\s*=' \
-                | tail -n1 \
-                | sed -E 's/.*"([^"]+)".*/\1/' || true)
-            new_version=$(grep -E 'version\s*=' "$file" \
-                | tail -n1 \
-                | sed -E 's/.*"([^"]+)".*/\1/' || true)
+        old_version=$(git show HEAD:"$file" 2>/dev/null | awk -F'"' '/version\s*=/ {v=$2} END{print v}')
+        new_version=$(awk -F'"' '/version\s*=/ {v=$2} END{print v}' "$file")
+
+        if [ "$old_version" != "$new_version" ]; then
             msg="$pkg: $old_version -> $new_version"
+        else
+            msg="$pkg: version changed"
         fi
 
         echo "$msg"
 
-        # 添加整个包文件夹并提交
         git add "$dir"
-        git commit -m "$msg"
+        if ! git diff --cached --quiet; then
+            git commit -m "$msg"
+        fi
     fi
 done

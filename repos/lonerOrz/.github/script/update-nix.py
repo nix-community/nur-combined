@@ -5,7 +5,8 @@ import shutil
 import json
 from pathlib import Path
 
-ROOT_NIX_FILE = "./default.nix"  # Root nix file for callPackage
+REPO_ROOT = Path(__file__).resolve().parents[2]
+ROOT_NIX_FILE = str(REPO_ROOT / "default.nix")
 
 
 def list_packages():
@@ -105,7 +106,12 @@ def run_update_script(script, pkg_dir: Path, pkg_name: str, extra_args=None):
 
     if isinstance(script, str):
         if "nix-update" in script:
-            cmd = [script, pkg_name] + extra_args
+            cmd = [
+                script,
+                pkg_name,
+                "-f",
+                ROOT_NIX_FILE,
+            ] + extra_args
             print(f"[RUN CMD] {' '.join(cmd)}")
             subprocess.run(cmd, check=True, cwd=pkg_dir)
             return
@@ -143,7 +149,8 @@ def update_package(pkg_name, extra_args=None):
 
     update_script = get_update_script(pkg_name)
     update_args = get_update_args(pkg_name)  # 获取 passthru.updateArgs
-    pkg_dir = Path(f"./pkgs/{pkg_name}").resolve()
+    # pkg_dir = Path(f"./pkgs/{pkg_name}").resolve()
+    pkg_dir = (REPO_ROOT / "pkgs" / pkg_name).resolve()
 
     # 优先用 updateScript 更新
     if update_script:
