@@ -8,10 +8,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "plangothic";
-  version = "2.9.5787";
+  version = "2.9.5792";
   src = fetchurl {
     url = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/releases/download/V${finalAttrs.version}/Plangothic-Super-V${finalAttrs.version}.7z";
-    sha256 = "sha256-kab4d8ChPFzlsJlhwkpA4FmvRiGNPH0Cq6+Onsc/oy4=";
+    sha256 = "sha256-zgNgXA/omkPj1k8N8atlGIYU26uyRWtMO67sHJW8UB4=";
   };
   nativeBuildInputs = [
     p7zip
