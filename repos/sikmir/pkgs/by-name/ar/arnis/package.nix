@@ -24,12 +24,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-aRrWdTNZV9/ev//pGkOOR8dKUWZG/fk1tLyZzMTbm6Y=";
 
-  nativeBuildInputs = [
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     copyDesktopItems
     pkg-config
   ];
 
-  buildInputs = [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     gtk3
     openssl
     webkitgtk_4_1
@@ -58,7 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=map_transformation::translate::translator::tests::test_translate_by_vector"
   ];
 
-  postInstall = ''
+  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     install -Dm644 assets/icons/icon.png $out/share/icons/hicolor/512x512/apps/arnis.png
     install -Dm644 assets/icons/128x128.png $out/share/icons/hicolor/128x128/apps/arnis.png
   '';
@@ -68,5 +68,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/louis-e/arnis";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "arnis";
   };
 })
