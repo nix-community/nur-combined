@@ -1,0 +1,10 @@
+--- a/Ghidra/RuntimeScripts/Common/support/launch.properties
++++ b/Ghidra/RuntimeScripts/Common/support/launch.properties
+@@ -20,6 +20,6 @@
+ VMARGS=-Dsun.java2d.opengl=false
+ VMARGS_LINUX=-Dsun.java2d.pmoffscreen=false
+ VMARGS_LINUX=-Dsun.java2d.xrender=true
+-VMARGS_LINUX=-Dsun.java2d.uiScale=1
++VMARGS_LINUX=-Dsun.java2d.uiScale=2
+ VMARGS_LINUX=-Dawt.useSystemAAFontSettings=on
+ VMARGS_WINDOWS=-Dsun.java2d.d3d=false

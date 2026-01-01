@@ -120,6 +120,12 @@ let
       bees = nodarwin (v3overridegcc pkgs.bees);
       netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
       lix = v3override pkgs.lixPackageSets.latest.lix;
+      # https://gist.github.com/nstarke/baa031e0cab64a608c9bd77d73c50fc6
+      ghidra = v3override (
+        pkgs.ghidra.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ./patches/ghidra-ui-scale.patch ];
+        })
+      );
 
       cached = {
         inherit (self)
@@ -145,6 +151,7 @@ let
           ego
           davinci-resolve-studio2001
           lix
+          ghidra
           ;
       };
     }
