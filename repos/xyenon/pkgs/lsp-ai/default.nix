@@ -10,15 +10,15 @@
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "lsp-ai";
-  version = "0-unstable-2025-10-21";
+  version = "0-unstable-2026-01-01";
 
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "lsp-ai";
-    rev = "b3605460ecb82d9066b72d0cf916a739b6a7ce75";
-    hash = "sha256-i1UC8xF58stQun85glZKW9sYCV8o4xpQbGYgxLmDetI=";
+    rev = "6f490d2feb616597a28c5a3682e97dfed47d4f67";
+    hash = "sha256-ITqsF7I7T8zzybSkaXiXW2sFLHtB8IVEDiTuI481F1g=";
   };
 
   checkFlags = [
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=test_refactor_action_sequence"
   ];
 
-  cargoHash = "sha256-1xGzkHgs/4wzTVnlAl/uw1Z1nQ5nuz7TE87I3Qsh4kQ=";
+  cargoHash = "sha256-5yI3S/o/VrsYWFrdWCcJlNUWOtPLPTESRv8T8nS6PeI=";
 
   nativeBuildInputs = [
     pkg-config

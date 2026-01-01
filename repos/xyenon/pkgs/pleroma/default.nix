@@ -36,14 +36,14 @@ let
 in
 beamPackages.mixRelease rec {
   pname = "pleroma";
-  version = "2.9.1";
+  version = "2.10.0";
 
   src = fetchFromGitLab {
     domain = "git.pleroma.social";
     owner = "pleroma";
     repo = "pleroma";
     rev = "v${version}";
-    hash = "sha256-mZcr+LlRQFDZVU5yAm0XkFdFHCDp4DZNLoVUlWxknMI=";
+    hash = "sha256-kW4AcOYHtm8lVXRroDCUM7jY7o39JHx/J/mfy2XfBgs=";
   };
 
   patches = [
@@ -65,7 +65,7 @@ beamPackages.mixRelease rec {
   mixFodDeps = beamPackages.fetchMixDeps {
     pname = "mix-deps-${pname}";
     inherit src version;
-    hash = "sha256-ZmOWyScyeSponfBg0huIFtK6WJE9ngROoL9OCEhJSy8=";
+    hash = "sha256-fBtjC2nLRyvUmdXaiGEwddDCbFQq1uxp9Dd5PHuTyoo=";
 
     postInstall = ''
       substituteInPlace "$out/http_signatures/mix.exs" \
