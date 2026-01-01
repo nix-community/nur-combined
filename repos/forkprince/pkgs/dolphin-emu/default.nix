@@ -13,7 +13,7 @@ in
   stdenvNoCC.mkDerivation {
     pname = "dolphin-emu";
 
-    src = fetchurl (lib.helper.getApi ver);
+    src = fetchurl (lib.helper.getSingle ver);
     inherit (ver) version;
 
     nativeBuildInputs = [_7zz];

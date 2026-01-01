@@ -12,7 +12,7 @@
   pname = "beeper-nightly";
   name = "${pname}-${version}";
 
-  src = fetchurl (lib.helper.getApiPlatform platform ver);
+  src = fetchurl (lib.helper.getPlatform platform ver);
 
   inherit (ver) version;
 

@@ -10,7 +10,7 @@ in
   stdenvNoCC.mkDerivation {
     pname = "keka-external-helper";
 
-    src = fetchurl (lib.helper.getApi ver);
+    src = fetchurl (lib.helper.getSingle ver);
     inherit (ver) version;
 
     nativeBuildInputs = [unzip];
