@@ -15,7 +15,13 @@ pkgs.buildNpmPackage rec {
     fetchSubmodules = true;
   };
 
-  npmDepsHash = "sha256-XH2oElA4DyPqyr8zyVpomTGHmSs9Hz0e5EhyvZc552o=";
+  npmDepsHash = "sha256-YASHi1cwZnqg40t6VLoWxHARtmSa5qwS8kCBVueHhv0=";
+
+  postPatch =
+    # bash
+    ''
+      cp ${./package-lock.json} package-lock.json
+    '';
 
   npmBuildScript = "fn-build";
 
