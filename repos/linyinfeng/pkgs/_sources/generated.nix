@@ -267,17 +267,17 @@
   };
   rime-bopomofo = {
     pname = "rime-bopomofo";
-    version = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
+    version = "ee710f426e17f8cf4222f2cd2343827bd045b6a9";
     src = fetchgit {
       url = "https://github.com/rime/rime-bopomofo.git";
-      rev = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
+      rev = "ee710f426e17f8cf4222f2cd2343827bd045b6a9";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-gHir+jt36CgHkAweaWBOiAsk4ixyDbdu8rEGftU/3vQ=";
+      sha256 = "sha256-910tJ9hHUP4uRfilYwzDMlvTE59mHvth3KIbrWOHVj4=";
     };
-    date = "2025-07-29";
+    date = "2025-12-23";
   };
   rime-cangjie = {
     pname = "rime-cangjie";
@@ -337,17 +337,17 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "e0160b8ef723a423e84ee52b53614ac3382f6d16";
+    version = "ebdca87264596f8ccdcef1236e64876533bfc3a7";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "e0160b8ef723a423e84ee52b53614ac3382f6d16";
+      rev = "ebdca87264596f8ccdcef1236e64876533bfc3a7";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-3MQx1ctwMVN5fMnAK9XLrRh4wUqD/g+TflE5YOVGQKQ=";
+      sha256 = "sha256-XBOKCt6Kk/bq0GKa03mDkGiqnvdY/2OYn7E4igevxhk=";
     };
-    date = "2025-11-03";
+    date = "2026-01-02";
   };
   rime-ice = {
     pname = "rime-ice";

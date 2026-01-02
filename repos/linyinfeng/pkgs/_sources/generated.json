@@ -424,7 +424,7 @@
     },
     "rime-bopomofo": {
         "cargoLock": null,
-        "date": "2025-07-29",
+        "date": "2025-12-23",
         "extract": null,
         "name": "rime-bopomofo",
         "passthru": null,
@@ -434,13 +434,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1859af68a927ba3cd5afb8c47feedcecf874dab2",
-            "sha256": "sha256-gHir+jt36CgHkAweaWBOiAsk4ixyDbdu8rEGftU/3vQ=",
+            "rev": "ee710f426e17f8cf4222f2cd2343827bd045b6a9",
+            "sha256": "sha256-910tJ9hHUP4uRfilYwzDMlvTE59mHvth3KIbrWOHVj4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-bopomofo.git"
         },
-        "version": "1859af68a927ba3cd5afb8c47feedcecf874dab2"
+        "version": "ee710f426e17f8cf4222f2cd2343827bd045b6a9"
     },
     "rime-cangjie": {
         "cargoLock": null,
@@ -524,7 +524,7 @@
     },
     "rime-essay": {
         "cargoLock": null,
-        "date": "2025-11-03",
+        "date": "2026-01-02",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -534,13 +534,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e0160b8ef723a423e84ee52b53614ac3382f6d16",
-            "sha256": "sha256-3MQx1ctwMVN5fMnAK9XLrRh4wUqD/g+TflE5YOVGQKQ=",
+            "rev": "ebdca87264596f8ccdcef1236e64876533bfc3a7",
+            "sha256": "sha256-XBOKCt6Kk/bq0GKa03mDkGiqnvdY/2OYn7E4igevxhk=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "e0160b8ef723a423e84ee52b53614ac3382f6d16"
+        "version": "ebdca87264596f8ccdcef1236e64876533bfc3a7"
     },
     "rime-ice": {
         "cargoLock": null,
