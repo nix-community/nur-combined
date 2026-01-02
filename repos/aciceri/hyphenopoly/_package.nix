@@ -8,16 +8,16 @@
 
 buildNpmPackage rec {
   pname = "hyphenopoly";
-  version = "6.0.0";
+  version = "6.1.0";
 
   src = fetchFromGitHub {
     owner = "mnater";
     repo = "Hyphenopoly";
     rev = "v${version}";
-    hash = "sha256-d9q+JcGYtzgqZpMJSmieFKxtWhjRjLjMbsq8cODLBiA=";
+    hash = "sha256-ycKFOudEfB/H5SKZ2IYEdZgt4JSm0epahELkvxKwl+4=";
   };
 
-  npmDepsHash = "sha256-XzNMjHdbIhpBfLdFLGz9D64WCgPTQVNyufGYc1V4wU0=";
+  npmDepsHash = "sha256-HVmr/sTwpwaRebJuZ+Dmc0Lt/rrawvwWPGCyGVqJEjU=";
 
   buildPhase = ''
     runHook preBuild
