@@ -69,6 +69,7 @@ fetch.github = "wgh136/pixes"
 src.git = "https://github.com/wgh136/pixes"
 
 [splayer-git]
+cargo_locks = ["Cargo.lock"]
 fetch.github = "imsyy/SPlayer"
 src.git = "https://github.com/imsyy/SPlayer"
 

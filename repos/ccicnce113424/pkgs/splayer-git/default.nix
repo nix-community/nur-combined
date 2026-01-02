@@ -1,8 +1,7 @@
 {
   sources,
   version,
-  hash ? "",
-  cargoHash ? "",
+  hash,
   pnpm_10,
   fetchPnpmDeps,
   rustPlatform,
@@ -20,18 +19,19 @@ splayer.overrideAttrs (
       pnpm = pnpm_10;
       fetcherVersion = 2;
     };
-    cargoDeps = rustPlatform.fetchCargoVendor {
-      inherit (final)
-        pname
-        src
-        version
-        ;
-      hash = cargoHash;
-    };
+    cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
+
+    # remove when splayer in nixpkgs has been updated
     nativeBuildInputs = prev.nativeBuildInputs ++ [
       rustPlatform.cargoSetupHook
       cargo
       rustc
     ];
+
+    postPatch = ''
+      # Workaround for https://github.com/electron/electron/issues/31121
+      substituteInPlace electron/main/utils/native-loader.ts \
+        --replace-fail 'process.resourcesPath' "'$out/share/splayer/resources'"
+    '';
   }
 )
