@@ -102,9 +102,13 @@
 
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableAllFirmware = true;
-  hardware.graphics.extraPackages = [
-    pkgs.rocmPackages.clr.icd
-  ];
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = [
+      pkgs.rocmPackages.clr.icd
+    ];
+  };
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
