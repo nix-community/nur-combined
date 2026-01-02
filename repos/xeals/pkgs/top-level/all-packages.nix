@@ -1,8 +1,8 @@
-{ pkgs }:
+{ pkgs, lib }:
 
 rec {
   # A functional Jetbrains IDE-with-plugins package set.
-  jetbrains = pkgs.dontRecurseIntoAttrs rec {
+  jetbrains = lib.dontRecurseIntoAttrs rec {
     jetbrainsPluginsFor = variant: import ../top-level/jetbrains-plugins.nix {
       inherit (pkgs) lib newScope stdenv fetchzip;
       inherit variant;
@@ -12,9 +12,9 @@ rec {
       inherit jetbrains jetbrainsPlatforms;
     };
 
-    clionPlugins = pkgs.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.clion);
-    ideaCommunityPlugins = pkgs.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.idea-community);
-    ideaUltimatePlugins = pkgs.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.idea-ultimate);
+    clionPlugins = lib.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.clion);
+    ideaCommunityPlugins = lib.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.idea-community);
+    ideaUltimatePlugins = lib.dontRecurseIntoAttrs (jetbrainsPluginsFor pkgs.jetbrains.idea-ultimate);
 
     clionWithPlugins = clionPlugins.jetbrainsWithPlugins;
     ideaCommunityWithPlugins = ideaCommunityPlugins.jetbrainsWithPlugins;
@@ -25,7 +25,7 @@ rec {
     python3Packages = pkgs.python3Packages // python3Packages;
   };
 
-  python3Packages = pkgs.recurseIntoAttrs {
+  python3Packages = lib.recurseIntoAttrs {
     py-sonic = pkgs.python3.pkgs.callPackage ../development/python-modules/py-sonic { };
   };
 

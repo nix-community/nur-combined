@@ -11,7 +11,7 @@ let
     import ./by-name-overlay.nix { inherit pkgs lib; } ../by-name;
 
   allPackages = _self: _super:
-    import ./all-packages.nix { inherit pkgs; };
+    import ./all-packages.nix { inherit pkgs lib; };
 
   toFix = (lib.flip lib.composeManyExtensions) (_self: { }) [
     autoCalledPackages

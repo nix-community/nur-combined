@@ -59,7 +59,7 @@ python3.pkgs.buildPythonApplication {
     flask
     flask-cors
     flask-jwt-extended
-    flask_migrate
+    flask-migrate
     flask-restx
     flask-socketio
     flask-sqlalchemy
