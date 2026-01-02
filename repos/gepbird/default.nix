@@ -20,10 +20,4 @@
   xfce4-terminal-sixel = pkgs.callPackage ./pkgs/xfce4-terminal-sixel { };
 
   orb-forge-gui= pkgs.callPackage ./pkgs/orb-forge-gui { };
-
-  # TODO: package properly
-  papra = import ./pkgs/papra pkgs;
-
-  # TODO: package properly
-  go-foks = import ./pkgs/go-foks pkgs;
 }
