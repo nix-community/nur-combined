@@ -33,7 +33,12 @@
 
   users.users.shelvacu.extraGroups = [ "dialout" ];
 
-  programs.steam.extraCompatPackages = [ pkgs.proton-ge-bin ];
+  programs.steam = {
+    enable = true;
+    extraCompatPackages = [ pkgs.proton-ge-bin ];
+    protontricks.enable = true;
+    remotePlay.openFirewall = true;
+  };
 
   vacu.packages = ''
     android-studio
@@ -110,10 +115,6 @@
   };
   services.blueman.enable = true;
   programs.nix-ld.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
