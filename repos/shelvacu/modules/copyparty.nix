@@ -449,5 +449,9 @@ in
         echo "pass: $new_password"
       ''
     ));
+
+    vacu.expose.copyparty = mergeWhereEach (cfg: cfg.configureFileServer) (cfg: {
+      ${cfg.instanceName} = { inherit (cfg) configFile; };
+    });
   };
 }

@@ -10,7 +10,6 @@
       url = "git+https://git.uninsane.org/colin/nix-files";
       flake = false;
     };
-
     declarative-jellyfin = {
       url = "github:shelvacu-forks/declarative-jellyfin/y-u-root";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,9 +71,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nix-on-droid = {
-      url = "github:nix-community/nix-on-droid";
-      # url = "github:shelvacu-forks/nix-on-droid/betterify-2025";
-      # url = "git+file:///home/shelvacu/dev/nix-on-droid";
+      # url = "github:nix-community/nix-on-droid";
+      url = "github:shelvacu-forks/nix-on-droid/stable-ish";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

@@ -22,6 +22,7 @@ else
     imports = [
       vacuModules.packageSet
       vacuModules.systemKind
+      vacuModules.expose
     ]
     ++ vaculib.directoryGrabberList ./.;
     options.vacu = {

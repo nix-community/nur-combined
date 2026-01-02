@@ -7,6 +7,6 @@ in
 new: old: {
   orca = makeBetterThan old.orca new.kanidm;
   xorg = old.xorg // {
-    xorg-server = makeBetterThan old.xorg.xorg-server new.xwayland;
+    xorgserver = makeBetterThan old.xorg.xorgserver new.xwayland;
   };
 }

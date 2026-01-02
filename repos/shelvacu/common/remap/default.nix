@@ -6,22 +6,30 @@
   ...
 }:
 let
-  menu2meta = pkgs.runCommandCC "menu2meta" {
-    meta.mainProgram = "menu2meta";
-  } ''
-    mkdir -p $out/bin
-    cc -Wall -O2 ${vaculib.path ./menu2meta.c} -o $out/bin/menu2meta
-  '';
-  museDashNumpad = left:
-    let
-      name = "museDashNumpad-${if left then "left" else "right"}";
-    in
+  compileName =
+    {
+      name,
+      path ? ./${name}.c,
+      opts ? [ ],
+    }:
     pkgs.runCommandCC name {
       meta.mainProgram = name;
     } ''
       mkdir -p $out/bin
-      cc -Wall -O2 ${lib.optionalString left "-DSIDE_LEFT=1"} ${vaculib.path ./museDashNumpad.c} -o $out/bin/${name}
+      (
+        set -x
+        "$CC" -Wall -Wextra -O2 ${lib.escapeShellArgs opts} ${vaculib.path path} -o $out/bin/${name}
+      )
     '';
+  menu2meta = compileName { name = "menu2meta"; };
+  museDashNumpad =
+    left:
+    compileName {
+      name = "museDashNumpad-${if left then "left" else "right"}";
+      path = ./museDashNumpad.c;
+      opts = lib.optional left "-DSIDE_LEFT"; 
+    };
+  footpad = compileName { name = "footpad"; };
   combinedOutputConfigObject = {
     NAME = "Interception Tools - combined output";
     BUSTYPE = "BUS_VIRTUAL";
@@ -231,6 +239,17 @@ let
       };
     }
     {
+      JOB = [
+        ''echo "$DEVNODE: running job for footpad"''
+        ''intercept -g "$DEVNODE" | ${footpad} | mux -o main''
+      ];
+      DEVICE = {
+        # 1a86:e026
+        PRODUCT = 6790;
+        VENDOR = 57382;
+      };
+    }
+    {
       JOB = ''echo "$DEVNODE: ignoring because it has EV_ABS"'';
       DEVICE.EVENTS.EV_ABS = [ ];
     }
@@ -249,19 +268,24 @@ let
   udevmonConfigFile = pkgs.writers.writeYAML "udevmonConfig.yaml" udevmonConfigObject;
 in
 lib.optionalAttrs (vacuModuleType == "nixos") {
-  config = {
-    systemd.services."interception-tools" = {
-      description = "Interception tools for remapping inputs, from <vacu>/common/remap";
-      path = [
-        pkgs.bash
-        pkgs.interception-tools
-        pkgs.interception-tools-plugins.caps2esc
-      ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.interception-tools}/bin/udevmon -c ${udevmonConfigFile}";
-        Nice = -10;
-      };
+  systemd.services."interception-tools" = {
+    description = "Interception tools for remapping inputs, from <vacu>/common/remap";
+    path = [
+      pkgs.bash
+      pkgs.interception-tools
+      pkgs.interception-tools-plugins.caps2esc
+    ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.interception-tools}/bin/udevmon -c ${udevmonConfigFile}";
+      Nice = -10;
     };
+  };
+
+  vacu.expose.remap = {
+    inherit menu2meta footpad museDashDeviceScript;
+    "udevmonConfig.yaml" = udevmonConfigFile;
+    museDashNumpad-left = museDashNumpad true;
+    museDashNumpad-right = museDashNumpad false;
   };
 }

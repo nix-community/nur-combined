@@ -494,15 +494,16 @@
         "nmd": "nmd"
       },
       "locked": {
-        "lastModified": 1765031149,
-        "narHash": "sha256-4ZtlnCp4blhsjGnQIxAXDAj7nCJKy7tozoBRtklmwcU=",
-        "owner": "nix-community",
+        "lastModified": 1767387000,
+        "narHash": "sha256-1k0oJ7V6Uc1DEvaIX/ClEmQd4KFfqfVV9QzzLUBA5TE=",
+        "owner": "shelvacu-forks",
         "repo": "nix-on-droid",
-        "rev": "55b6449b4582a4ba3ce712543c973360a026db7d",
+        "rev": "d1697891c793f228c814e9e24b649167ba5cd7c0",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "shelvacu-forks",
+        "ref": "stable-ish",
         "repo": "nix-on-droid",
         "type": "github"
       }

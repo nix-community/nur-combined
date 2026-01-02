@@ -79,6 +79,14 @@ let
   listTy = types.listOf (types.either types.str types.package);
 in
 {
+  imports = []
+    ++ lib.optional (vacuModuleType == "nixos") {
+      environment.systemPackages = config.vacu.finalPackageList;
+    }
+    ++ lib.optional (vacuModuleType == "nix-on-droid") {
+      environment.packages = config.vacu.finalPackageList;
+    }
+  ;
   options = {
     vacu.packages = mkOption {
       default = { };
@@ -90,14 +98,5 @@ in
     };
   };
 
-  config = {
-    vacu.finalPackageList = enabledPkgs;
-  }
-  // lib.optionalAttrs (vacuModuleType == "nixos") {
-    environment.systemPackages = config.vacu.finalPackageList;
-  }
-  // lib.optionalAttrs (vacuModuleType == "nix-on-droid") {
-    environment.packages = config.vacu.finalPackageList;
-  };
+  config.vacu.finalPackageList = enabledPkgs;
 }
-// lib.optionalAttrs (vacuModuleType == "nixos") { _class = "nixos"; }
