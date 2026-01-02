@@ -1,7 +1,4 @@
-{
-  lib,
-  runCommandLocal,
-}:
+{ lib, runCommandLocal }:
 let
   fileDrv = builtins.path {
     name = "shellvaculib.bash";

@@ -22,19 +22,10 @@ let
       k: v:
       assert v == "directory" || v == "regular";
       {
-        name =
-          if v == "directory" then
-            k
-          else
-            removeDotNix k;
+        name = if v == "directory" then k else removeDotNix k;
         value =
           if v == "directory" then
-            (
-              if mainName == null then
-                /${path}/${k}
-              else
-                /${path}/${k}/${mainName}
-            )
+            (if mainName == null then /${path}/${k} else /${path}/${k}/${mainName})
           else
             /${path}/${k};
       }
@@ -42,13 +33,7 @@ let
 in
 rec {
   directoryGrabber =
-    arg:
-      if builtins.isPath arg then
-        directoryGrabberImpl { path = arg; }
-      else
-        directoryGrabberImpl arg;
+    arg: if builtins.isPath arg then directoryGrabberImpl { path = arg; } else directoryGrabberImpl arg;
 
-  directoryGrabberList =
-    arg:
-    builtins.attrValues (directoryGrabber arg);
+  directoryGrabberList = arg: builtins.attrValues (directoryGrabber arg);
 }

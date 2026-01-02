@@ -18,11 +18,8 @@ let
       lib.throw "duplicate attr ${name}";
   mergeAttrs =
     a: b:
-    builtins.mapAttrs (name: val:
-      if (a ? name) && (b ? name) then
-        mergeVals name a.${name} b.${name}
-      else
-        val
+    builtins.mapAttrs (
+      name: val: if (a ? name) && (b ? name) then mergeVals name a.${name} b.${name} else val
     ) (a // b);
   vaculib = lib.foldr mergeAttrs { } functionSets;
 in

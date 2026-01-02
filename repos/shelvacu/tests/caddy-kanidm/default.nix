@@ -67,14 +67,13 @@ in
 {
   name = "caddy-kanidm";
 
-  defaults =
-    {
-      security.pki.certificateFiles = [ rootCA.certificatePath ];
-      networking.hosts = {
-        ${nodes.kanidm.networking.primaryIPAddress} = [ kanidmDomain ];
-        ${nodes.fileServer.networking.primaryIPAddress} = [ fileServerDomain ];
-      };
+  defaults = {
+    security.pki.certificateFiles = [ rootCA.certificatePath ];
+    networking.hosts = {
+      ${nodes.kanidm.networking.primaryIPAddress} = [ kanidmDomain ];
+      ${nodes.fileServer.networking.primaryIPAddress} = [ fileServerDomain ];
     };
+  };
 
   nodes.kanidm =
     { ... }:
@@ -86,7 +85,7 @@ in
       };
 
       networking.firewall.allowedTCPPorts = [ 443 ];
-      
+
       services.kanidm = {
         package = kanidmPackage;
         enableServer = true;
@@ -129,7 +128,10 @@ in
         '';
       };
 
-      networking.firewall.allowedTCPPorts = [ 80 443 ];
+      networking.firewall.allowedTCPPorts = [
+        80
+        443
+      ];
     };
 
   nodes.client =
@@ -140,12 +142,10 @@ in
         pkgs.xvfb-run
         (pkgs.writers.writePython3Bin "kanidmGetResetToken" {
           libraries = [
-            (
-              pkgs.python3Packages.kanidm.overridePythonAttrs {
-                src = kanidmPackage.src;
-                build-system = [ pkgs.python3Packages.pdm-backend ];
-              }
-            )
+            (pkgs.python3Packages.kanidm.overridePythonAttrs {
+              src = kanidmPackage.src;
+              build-system = [ pkgs.python3Packages.pdm-backend ];
+            })
           ];
           doCheck = false;
         } ./kanidmGetResetToken.py)

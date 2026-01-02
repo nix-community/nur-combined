@@ -113,9 +113,7 @@ in
 
     settings.main = {
       myhostname = fqdn;
-      smtpd_tls_chain_files = [
-        (config.security.acme.certs."liam.dis8.net".directory + "/full.pem")
-      ];
+      smtpd_tls_chain_files = [ (config.security.acme.certs."liam.dis8.net".directory + "/full.pem") ];
       inet_protocols = "ipv4";
       virtual_alias_domains = domains;
 
@@ -136,7 +134,7 @@ in
       # X.3.X = mail system failure
       # X.3.5 = System incorrectly configured
       # I would've never thought there'd be a standard way to specifically say "you found an error in my config"
-      local_transport   = "error:5.3.5 how did this even happen?? (e-local)";
+      local_transport = "error:5.3.5 how did this even happen?? (e-local)";
       virtual_transport = "error:5.3.5 how did this even happen?? (e-virtual)";
       # X.7.1 = Delivery not authorized, message refused
       relay_transport = "error:5.7.1 relay is so very disabled";

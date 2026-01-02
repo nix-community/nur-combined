@@ -22,44 +22,47 @@ let
 
   decToHexList = builtins.attrNames hexToDecMap;
 
-  /* Conversion from base 16 to base 10 with a exponent. Is of the form
-     scalar * 16 ** exponent.
+  /*
+    Conversion from base 16 to base 10 with a exponent. Is of the form
+    scalar * 16 ** exponent.
 
-     Type: base16To10 :: int -> int -> int
+    Type: base16To10 :: int -> int -> int
 
-     Args:
-       exponent: The exponent for the base, 16.
-       scalar: The value to multiple to the exponentiated base.
+    Args:
+      exponent: The exponent for the base, 16.
+      scalar: The value to multiple to the exponentiated base.
 
-     Example:
-       base16To10 0 11
-       => 11
-       base16To10 1 3
-       => 48
-       base16To10 2 7
-       1792
-       base16To10 3 14
-       57344
+    Example:
+      base16To10 0 11
+      => 11
+      base16To10 1 3
+      => 48
+      base16To10 2 7
+      1792
+      base16To10 3 14
+      57344
   */
   base16To10 = exponent: scalar: scalar * vaculib.pow 16 exponent;
 
-  /* Converts a hexadecimal character to decimal.
-     Only takes a string of length 1.
+  /*
+    Converts a hexadecimal character to decimal.
+    Only takes a string of length 1.
 
-     Type: hexCharToDec :: string -> int
+    Type: hexCharToDec :: string -> int
 
-     Args:
-       hex: A hexadecimal character.
+    Args:
+      hex: A hexadecimal character.
 
-     Example:
-       hexCharToDec "5"
-       => 5
-       hexCharToDec "e"
-       => 14
-       hexCharToDec "A"
-       => 10
+    Example:
+      hexCharToDec "5"
+      => 5
+      hexCharToDec "e"
+      => 14
+      hexCharToDec "A"
+      => 10
   */
-  hexCharToDec = hex:
+  hexCharToDec =
+    hex:
     let
       lowerHex = lib.toLower hex;
     in
@@ -71,20 +74,21 @@ let
       throw "Character ${hex} is not a hexadecimal value.";
 in
 {
-  /* Converts from hexadecimal to decimal.
+  /*
+    Converts from hexadecimal to decimal.
 
-     Type: hexToDec :: string -> int
+    Type: hexToDec :: string -> int
 
-     Args:
-       hex: A hexadecimal string.
+    Args:
+      hex: A hexadecimal string.
 
-     Example:
-       hexadecimal "12"
-       => 18
-       hexadecimal "FF"
-       => 255
-       hexadecimal "abcdef"
-       => 11259375
+    Example:
+      hexadecimal "12"
+      => 18
+      hexadecimal "FF"
+      => 255
+      hexadecimal "abcdef"
+      => 11259375
   */
   hexToDec =
     hex:
@@ -100,11 +104,7 @@ in
     assert builtins.isInt dec;
     let
       a = vaculib.divrem dec 16;
-      prefix =
-        if a.quotient == 0 then
-          ""
-        else
-          vaculib.decToHex a.quotient;
+      prefix = if a.quotient == 0 then "" else vaculib.decToHex a.quotient;
       digit = builtins.elemAt decToHexList a.remainder;
     in
     prefix + digit;

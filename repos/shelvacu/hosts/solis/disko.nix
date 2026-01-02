@@ -157,7 +157,11 @@ in
   fileSystems."/btr-root-in-here/ro" = {
     device = btrfsDevice + "-part1";
     fsType = "btrfs";
-    options = [ "ro" "nofail" ] ++ commonBtrfsOpts;
+    options = [
+      "ro"
+      "nofail"
+    ]
+    ++ commonBtrfsOpts;
   };
 
   fileSystems."/btr-root-in-here/rw" = {

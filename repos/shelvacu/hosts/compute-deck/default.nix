@@ -4,7 +4,8 @@
     inputs.jovian.nixosModules.jovian
     # inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.default
-  ] ++ vaculib.directoryGrabberList ./.;
+  ]
+  ++ vaculib.directoryGrabberList ./.;
 
   boot.loader = {
     systemd-boot.enable = false;

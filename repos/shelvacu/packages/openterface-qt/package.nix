@@ -135,7 +135,7 @@ stdenv.mkDerivation (
     ];
 
     # makeFlags = [ "-d" ];
-    
+
     # buildPhase = ''
     #   mkdir build
     #   cd build
@@ -149,7 +149,10 @@ stdenv.mkDerivation (
     '';
 
     qtWrapperArgs = lib.escapeShellArgs [
-      "--prefix" "PATH" ":" "${v4l-utils}/bin"
+      "--prefix"
+      "PATH"
+      ":"
+      "${v4l-utils}/bin"
     ];
 
     passthru = {

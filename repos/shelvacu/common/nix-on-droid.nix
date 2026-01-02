@@ -1,8 +1,4 @@
-{
-  lib,
-  vacuModuleType,
-  ...
-}:
+{ lib, vacuModuleType, ... }:
 let
   inherit (lib) mkDefault;
 in

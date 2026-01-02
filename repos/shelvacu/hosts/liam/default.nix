@@ -11,7 +11,8 @@ in
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/virtualisation/digital-ocean-config.nix")
-  ] ++ vaculib.directoryGrabberList ./.;
+  ]
+  ++ vaculib.directoryGrabberList ./.;
 
   options = {
     vacu.liam = {

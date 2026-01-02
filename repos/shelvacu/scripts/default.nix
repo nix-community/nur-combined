@@ -1,5 +1,4 @@
-_:
-{
+_: {
   archive = ./archive/package.nix;
   get-crypto-rates = ./get-crypto-rates/package.nix;
 }

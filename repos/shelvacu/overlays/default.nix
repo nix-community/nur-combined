@@ -1,2 +1,1 @@
-{ vaculib, ... }:
-map import (vaculib.directoryGrabberList ./.)
+{ vaculib, ... }: map import (vaculib.directoryGrabberList ./.)

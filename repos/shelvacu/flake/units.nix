@@ -1,6 +1,8 @@
 { ... }:
 {
-  perSystem = { plainConfig, ... }: {
-    packages.units = plainConfig.config.vacu.units.finalPackage;
-  };
+  perSystem =
+    { plainConfig, ... }:
+    {
+      packages.units = plainConfig.config.vacu.units.finalPackage;
+    };
 }

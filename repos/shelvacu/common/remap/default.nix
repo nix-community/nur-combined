@@ -12,9 +12,7 @@ let
       path ? ./${name}.c,
       opts ? [ ],
     }:
-    pkgs.runCommandCC name {
-      meta.mainProgram = name;
-    } ''
+    pkgs.runCommandCC name { meta.mainProgram = name; } ''
       mkdir -p $out/bin
       (
         set -x
@@ -27,7 +25,7 @@ let
     compileName {
       name = "museDashNumpad-${if left then "left" else "right"}";
       path = ./museDashNumpad.c;
-      opts = lib.optional left "-DSIDE_LEFT"; 
+      opts = lib.optional left "-DSIDE_LEFT";
     };
   footpad = compileName { name = "footpad"; };
   combinedOutputConfigObject = {
@@ -41,7 +39,11 @@ let
         "SYN_DROPPED"
       ];
       EV_MSC = [ "MSC_SCAN" ];
-      EV_LED = [ "LED_NUML" "LED_CAPSL" "LED_SCROLLL" ];
+      EV_LED = [
+        "LED_NUML"
+        "LED_CAPSL"
+        "LED_SCROLLL"
+      ];
       EV_REP = {
         REP_DELAY = 250;
         REP_PERIOD = 33;
@@ -224,10 +226,12 @@ let
   '';
   udevmonConfigObject = [
     { CMD = "mux -c main"; }
-    { JOB = [
-      ''echo "running job for mux main"''
-      ''mux -i main | uinput -c ${combinedOutputConfigFile}''
-    ]; }
+    {
+      JOB = [
+        ''echo "running job for mux main"''
+        ''mux -i main | uinput -c ${combinedOutputConfigFile}''
+      ];
+    }
     {
       JOB = [
         ''echo "$DEVNODE: running job for muse dash numpad"''
@@ -262,7 +266,10 @@ let
         ''echo "$DEVNODE: running job for keyboard with CAPSLOCK and/or COMPOSE (menu)"''
         ''intercept -g "$DEVNODE" | caps2esc -m 1 | ${lib.getExe menu2meta} | mux -o main''
       ];
-      DEVICE.EVENTS.EV_KEY = [ "KEY_CAPSLOCK" "KEY_COMPOSE" ];
+      DEVICE.EVENTS.EV_KEY = [
+        "KEY_CAPSLOCK"
+        "KEY_COMPOSE"
+      ];
     }
   ];
   udevmonConfigFile = pkgs.writers.writeYAML "udevmonConfig.yaml" udevmonConfigObject;

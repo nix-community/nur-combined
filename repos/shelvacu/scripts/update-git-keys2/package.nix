@@ -15,10 +15,10 @@ in
 makeVacuPythonScript {
   name = "update-git-keys2";
   src = ./script.py;
-  libraries = [
-    "requests"
-  ];
+  libraries = [ "requests" ];
   makeWrapperArgs = [
-    "--set" "NIX_DATA" nixDataFile
+    "--set"
+    "NIX_DATA"
+    nixDataFile
   ];
 }

@@ -13,10 +13,11 @@ let
     /${vacuRoot}/secrets/misc/cloudns.json
     (builtins.toJSON config.vacu.dns)
   ]) (builtins.readFile ./script.py);
-  libraries = pyPkgs: with pyPkgs; [
-    httpx
-    dnspython
-  ];
+  libraries =
+    pyPkgs: with pyPkgs; [
+      httpx
+      dnspython
+    ];
 in
 writers.writePython3Bin "dns-update" {
   inherit libraries;

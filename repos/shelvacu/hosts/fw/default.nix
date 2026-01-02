@@ -12,7 +12,8 @@
     inputs.nixos-hardware.nixosModules.framework-16-7040-amd
     vacuModules.sops
     /${vacuRoot}/tf2
-  ] ++ vaculib.directoryGrabberList ./.;
+  ]
+  ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "fw";
   vacu.shell.color = "magenta";
@@ -105,9 +106,7 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = [
-      pkgs.rocmPackages.clr.icd
-    ];
+    extraPackages = [ pkgs.rocmPackages.clr.icd ];
   };
   hardware.bluetooth = {
     enable = true;

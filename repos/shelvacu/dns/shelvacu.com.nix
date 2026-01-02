@@ -9,7 +9,12 @@
 let
   s = v: [ v ];
   inherit (dns.lib.combinators) host;
-  inherit (dnsData) propA solisA doA cloudns;
+  inherit (dnsData)
+    propA
+    solisA
+    doA
+    cloudns
+    ;
   # which domains to allow dmarc reports.
   # ex: _dmarc.dis8.net TXT has "rua=rua-reports@shelvacu.com", reports will only be sent if shelvacu.com allows them
   # allow all domains configured in this repo, and one level of subdomain (ideally all but thats hard, this should be good enough)

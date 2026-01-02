@@ -3,7 +3,8 @@
   imports = [
     vacuModules.sops
     vacuModules.archived-user
-  ] ++ vaculib.directoryGrabberList ./.;
+  ]
+  ++ vaculib.directoryGrabberList ./.;
   options.vacu.this = vaculib.mkOutOptions {
     ip4 = "89.213.174.171";
     ip6 = "2a0f:9400:7e11:cd44::1";

@@ -1,4 +1,10 @@
-{ config, pkgs, vacuModules, vaculib, ... }:
+{
+  config,
+  pkgs,
+  vacuModules,
+  vaculib,
+  ...
+}:
 {
   imports = [ vacuModules.solis-oauth-transmission ];
   vacu.oauthProxy.instances.solis-transmission = {
@@ -12,8 +18,14 @@
   #   owner = config.services.transmission.user;
   #   restartUnits = [ "transmission.service" ];
   # };
-  users.groups.torrents.members = [ "transmission" "shelvacu" ];
-  users.groups.${config.services.transmission.group}.members = [ "caddy" "shelvacu" ];
+  users.groups.torrents.members = [
+    "transmission"
+    "shelvacu"
+  ];
+  users.groups.${config.services.transmission.group}.members = [
+    "caddy"
+    "shelvacu"
+  ];
   systemd.tmpfiles.settings.whatever = {
     "/xstore/torrents".d = {
       user = "transmission";
@@ -30,7 +42,10 @@
     "/var/run/transmission-socket-dir".d = {
       user = "transmission";
       group = "transmission";
-      mode = vaculib.accessModeStr { user = "all"; group = "all"; };
+      mode = vaculib.accessModeStr {
+        user = "all";
+        group = "all";
+      };
     };
   };
   services.transmission = {
@@ -61,7 +76,10 @@
       incomplete-dir = "/xstore/torrents/unfinished";
       incomplete-dir-enabled = true;
       preallocation = 2; # "full"
-      rpc-socket-mode = vaculib.accessModeStr { user = "all"; group = "all"; };
+      rpc-socket-mode = vaculib.accessModeStr {
+        user = "all";
+        group = "all";
+      };
       rpc-bind-address = "unix:/var/run/transmission-socket-dir/socket.unix";
       rpc-authentication-required = false;
       # rpc-username = "user";

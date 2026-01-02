@@ -8,7 +8,7 @@
 }:
 {
   imports = [ vacuModules.copyparty ];
-  
+
   vacu.copyparties.solis = {
     domain = "files.solis.shelvacu.com";
     package = pkgs.copyparty.override {

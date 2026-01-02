@@ -99,174 +99,187 @@
     };
   };
 
-  outputs = allInputs:
-  let
-    inherit (allInputs.nixpkgs-lib) lib;
-    vacuRoot = ./.;
-    vaculib = import ./vaculib {
-      inherit lib;
-    };
-    vacuCommonArgs = {
-      inherit vaculib vacuRoot;
-    };
-    commonArgs = vacuCommonArgs // { inherit lib; };
-    plainOverlays = import ./overlays commonArgs;
-    flakeOverlays = map (name: allInputs.${name}.overlays.default) [
-      "sm64baserom"
-      "most-winningest"
-    ];
-    mkVacuCommonPkgArgs =
-      { pkgs }:
-      let
-        vacupkglib = import ./vacupkglib ({ inherit pkgs lib; } // vacuCommonPkgArgs);
-        vacuCommonPkgArgs = vacuCommonArgs // {
-          inherit vacupkglib;
-        };
-      in
-      vacuCommonPkgArgs;
-    overlays =
-      [ ]
-      ++ lib.singleton (
-        new: _old: lib.attrsets.unionOfDisjoint (mkVacuCommonPkgArgs { pkgs = new; }) {
-          betterbird-unwrapped = new.callPackage "${allInputs.mio-nurpkgs}/pkgs/betterbird" { };
-          betterbird = new.wrapThunderbird new.betterbird-unwrapped {
-            applicationName = "betterbird";
-            libName = "betterbird";
+  outputs =
+    allInputs:
+    let
+      inherit (allInputs.nixpkgs-lib) lib;
+      vacuRoot = ./.;
+      vaculib = import ./vaculib { inherit lib; };
+      vacuCommonArgs = { inherit vaculib vacuRoot; };
+      commonArgs = vacuCommonArgs // {
+        inherit lib;
+      };
+      plainOverlays = import ./overlays commonArgs;
+      flakeOverlays = map (name: allInputs.${name}.overlays.default) [
+        "sm64baserom"
+        "most-winningest"
+      ];
+      mkVacuCommonPkgArgs =
+        { pkgs }:
+        let
+          vacupkglib = import ./vacupkglib ({ inherit pkgs lib; } // vacuCommonPkgArgs);
+          vacuCommonPkgArgs = vacuCommonArgs // {
+            inherit vacupkglib;
           };
-        }
-      )
-      ++ plainOverlays
-      ++ flakeOverlays
-      ;
-    vacuModules = import ./modules commonArgs;
-    defaultSuffixedInputNames = [
-      "nixvim"
-      "nixpkgs"
-    ];
-    defaultInputs = { inherit (allInputs) self vacu-keys; };
-    mkInputs =
-      {
-        unstable ? false,
-        inp ? [ ],
-      }:
-      let
-        suffix = if unstable then "-unstable" else "";
-        inputNames = inp ++ defaultSuffixedInputNames;
-        thisInputsA = vaculib.mapNamesToAttrs (name: allInputs.${name + suffix}) inputNames;
-      in
-      if inp == "all" then allInputs else thisInputsA // defaultInputs;
-    mkPkgs =
-      arg:
-      let
-        argAttrAll = if builtins.isString arg then { system = arg; } else arg;
-        unstable = argAttrAll.unstable or false;
-        whichpkgs = if unstable then allInputs.nixpkgs-unstable else allInputs.nixpkgs;
-        argAttr = lib.removeAttrs argAttrAll [ "unstable" ];
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [
-            # the security warning might as well have said "its insecure maybe but there's nothing you can do about it"
-            # presumably needed by nheko
-            "olm-3.2.16"
-            "fluffychat-linux-1.27.0"
-            "qtwebengine-5.15.19"
-          ];
-        }
-        // (argAttr.config or { });
-      in
-      import whichpkgs (
-        argAttr // { inherit config; } // { overlays = (argAttr.overlays or [ ]) ++ overlays; }
-      );
-    mkCommon =
-      {
-        unstable ? false,
-        inp ? [ ],
-        system ? "x86_64-linux",
-        vacuModuleType,
-      }:
-      let
-        pkgsStable = mkPkgs {
-          unstable = false;
-          inherit system;
-        };
-        pkgsUnstable = mkPkgs {
-          unstable = true;
-          inherit system;
-        };
-        pkgs = if unstable then pkgsUnstable else pkgsStable;
-        inputs = mkInputs { inherit unstable inp; };
-        vacuCommonPkgArgs = mkVacuCommonPkgArgs { inherit pkgs; };
-      in
-      {
-        inherit
-          pkgs
-          pkgsStable
-          pkgsUnstable
-          inputs
-          ;
-        specialArgs = {
+        in
+        vacuCommonPkgArgs;
+      overlays =
+        [ ]
+        ++ lib.singleton (
+          new: _old:
+          lib.attrsets.unionOfDisjoint (mkVacuCommonPkgArgs { pkgs = new; }) {
+            betterbird-unwrapped = new.callPackage "${allInputs.mio-nurpkgs}/pkgs/betterbird" { };
+            betterbird = new.wrapThunderbird new.betterbird-unwrapped {
+              applicationName = "betterbird";
+              libName = "betterbird";
+            };
+          }
+        )
+        ++ plainOverlays
+        ++ flakeOverlays;
+      vacuModules = import ./modules commonArgs;
+      defaultSuffixedInputNames = [
+        "nixvim"
+        "nixpkgs"
+      ];
+      defaultInputs = { inherit (allInputs) self vacu-keys; };
+      mkInputs =
+        {
+          unstable ? false,
+          inp ? [ ],
+        }:
+        let
+          suffix = if unstable then "-unstable" else "";
+          inputNames = inp ++ defaultSuffixedInputNames;
+          thisInputsA = vaculib.mapNamesToAttrs (name: allInputs.${name + suffix}) inputNames;
+        in
+        if inp == "all" then allInputs else thisInputsA // defaultInputs;
+      mkPkgs =
+        arg:
+        let
+          argAttrAll = if builtins.isString arg then { system = arg; } else arg;
+          unstable = argAttrAll.unstable or false;
+          whichpkgs = if unstable then allInputs.nixpkgs-unstable else allInputs.nixpkgs;
+          argAttr = lib.removeAttrs argAttrAll [ "unstable" ];
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              # the security warning might as well have said "its insecure maybe but there's nothing you can do about it"
+              # presumably needed by nheko
+              "olm-3.2.16"
+              "fluffychat-linux-1.27.0"
+              "qtwebengine-5.15.19"
+            ];
+          }
+          // (argAttr.config or { });
+        in
+        import whichpkgs (
+          argAttr // { inherit config; } // { overlays = (argAttr.overlays or [ ]) ++ overlays; }
+        );
+      mkCommon =
+        {
+          unstable ? false,
+          inp ? [ ],
+          system ? "x86_64-linux",
+          vacuModuleType,
+        }:
+        let
+          pkgsStable = mkPkgs {
+            unstable = false;
+            inherit system;
+          };
+          pkgsUnstable = mkPkgs {
+            unstable = true;
+            inherit system;
+          };
+          pkgs = if unstable then pkgsUnstable else pkgsStable;
+          inputs = mkInputs { inherit unstable inp; };
+          vacuCommonPkgArgs = mkVacuCommonPkgArgs { inherit pkgs; };
+        in
+        {
           inherit
-            inputs
-            vacuModules
-            vacuModuleType
+            pkgs
             pkgsStable
             pkgsUnstable
+            inputs
             ;
-          inherit (allInputs) dns;
-        } // vacuCommonPkgArgs;
-      } // vacuCommonPkgArgs;
-    mkPlain =
-      {
-        unstable ? false,
-        system,
-      }@args:
-      let
-        common = mkCommon (
-          args
-          // {
-            vacuModuleType = "plain";
-            inp = "all";
+          specialArgs = {
+            inherit
+              inputs
+              vacuModules
+              vacuModuleType
+              pkgsStable
+              pkgsUnstable
+              ;
+            inherit (allInputs) dns;
           }
-        );
-        inner = lib.evalModules {
-          modules = [
-            /${vacuRoot}/common
-            { vacu.systemKind = "server"; }
-          ];
-          specialArgs = common.specialArgs // {
-            inherit (common) pkgs;
-            inherit (common.pkgs) lib;
-          };
-        };
-      in
-      inner.config.vacu.withAsserts inner;
-  in
-    allInputs.flake-parts.lib.mkFlake {
-      inputs = allInputs;
-      specialArgs = {
-        inherit allInputs mkCommon lib vaculib vacuRoot;
-        # flake-parts-lib = allInputs.flake-parts.lib;
-      };
-    } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      imports = [
-        ./flake
+          // vacuCommonPkgArgs;
+        }
+        // vacuCommonPkgArgs;
+      mkPlain =
         {
-          perSystem = { system, ... }:
-          let
-            common = mkCommon { inherit system; vacuModuleType = "plain"; };
-            plainConfig = mkPlain { inherit system; };
-          in
-          {
-            _module.args = {
-              inherit plainConfig common;
-              inherit (common) pkgs vacupkglib;
+          unstable ? false,
+          system,
+        }@args:
+        let
+          common = mkCommon (
+            args
+            // {
+              vacuModuleType = "plain";
+              inp = "all";
+            }
+          );
+          inner = lib.evalModules {
+            modules = [
+              /${vacuRoot}/common
+              { vacu.systemKind = "server"; }
+            ];
+            specialArgs = common.specialArgs // {
+              inherit (common) pkgs;
+              inherit (common.pkgs) lib;
             };
           };
-        }
-      ];
-    };
+        in
+        inner.config.vacu.withAsserts inner;
+    in
+    allInputs.flake-parts.lib.mkFlake
+      {
+        inputs = allInputs;
+        specialArgs = {
+          inherit
+            allInputs
+            mkCommon
+            lib
+            vaculib
+            vacuRoot
+            ;
+          # flake-parts-lib = allInputs.flake-parts.lib;
+        };
+      }
+      {
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+        imports = [
+          ./flake
+          {
+            perSystem =
+              { system, ... }:
+              let
+                common = mkCommon {
+                  inherit system;
+                  vacuModuleType = "plain";
+                };
+                plainConfig = mkPlain { inherit system; };
+              in
+              {
+                _module.args = {
+                  inherit plainConfig common;
+                  inherit (common) pkgs vacupkglib;
+                };
+              };
+          }
+        ];
+      };
 }

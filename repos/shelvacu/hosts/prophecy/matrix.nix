@@ -1,14 +1,15 @@
-{ config, lib, vaculib, ... }:
+{
+  config,
+  lib,
+  vaculib,
+  ...
+}:
 let
   socketDir = "/run/matrix-unix-socket";
   socketPath = "${socketDir}/socket.unix";
   delegatedName = "matrix.shelvacu.com";
-  wellKnownServer = builtins.toJSON {
-    "m.server" = delegatedName;
-  };
-  wellKnownClient = builtins.toJSON {
-    "m.homeserver".base_url = "https://${delegatedName}";
-  };
+  wellKnownServer = builtins.toJSON { "m.server" = delegatedName; };
+  wellKnownClient = builtins.toJSON { "m.homeserver".base_url = "https://${delegatedName}"; };
 in
 {
   systemd.tmpfiles.settings.whatever.${socketDir}.d = {

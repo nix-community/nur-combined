@@ -107,7 +107,6 @@
       "identity.fxaccounts.enabled" = false;
       "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
 
-
       # dont offer to save passwords
       "signon.rememberSignons" = false;
       "browser.urlbar.suggest.quicksuggest.sponsored" = false;

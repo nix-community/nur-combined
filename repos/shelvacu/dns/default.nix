@@ -173,16 +173,20 @@ let
 in
 {
   options.vacu.dns = mkOption {
-    type = types.attrsOf (types.submoduleWith {
-      modules = [
-        vacuZoneExtModule
-      ]
-      ++ dns.lib.types.zone.getSubModules;
-      specialArgs = {
-        inherit lib vaculib dns dnsData;
-        outerConfig = config;
-      };
-    });
+    type = types.attrsOf (
+      types.submoduleWith {
+        modules = [ vacuZoneExtModule ] ++ dns.lib.types.zone.getSubModules;
+        specialArgs = {
+          inherit
+            lib
+            vaculib
+            dns
+            dnsData
+            ;
+          outerConfig = config;
+        };
+      }
+    );
   };
   config.vacu.dns = vaculib.directoryGrabber ./.;
 }

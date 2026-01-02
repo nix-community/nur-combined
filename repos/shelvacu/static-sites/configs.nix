@@ -3,7 +3,7 @@ let
   fs = lib.fileset;
   templateRoot = fs.toSource {
     root = ./.;
-    fileset = fs.fileFilter ({hasExt, ...}: !(hasExt "nix")) ./.;
+    fileset = fs.fileFilter ({ hasExt, ... }: !(hasExt "nix")) ./.;
   };
   resumeFolder = fs.toSource {
     root = ./jobs.shelvacu.com;

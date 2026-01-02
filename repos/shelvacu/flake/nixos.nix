@@ -1,4 +1,11 @@
-{ allInputs, config, lib, mkCommon, vacuRoot, ... }:
+{
+  allInputs,
+  config,
+  lib,
+  mkCommon,
+  vacuRoot,
+  ...
+}:
 let
   hosts = {
     compute-deck = {
@@ -53,7 +60,8 @@ let
     thisHostConfig.system.build.toplevel // { config = thisHostConfig; };
 in
 {
-  config.flake.nixosConfigurations = builtins.mapAttrs (name:
+  config.flake.nixosConfigurations = builtins.mapAttrs (
+    name:
     {
       unstable ? false,
       module ? /${vacuRoot}/hosts/${name},
@@ -74,16 +82,13 @@ in
         { nixpkgs.pkgs = common.pkgs; }
         /${vacuRoot}/common
         module
-      ] ++ lib.optional readOnlyPkgs allInputs.nixpkgs.nixosModules.readOnlyPkgs;
+      ]
+      ++ lib.optional readOnlyPkgs allInputs.nixpkgs.nixosModules.readOnlyPkgs;
     }
   ) hosts;
 
   config.flake.qb = lib.mkMerge [
-    (builtins.mapAttrs (
-      name:
-      _:
-      topLevelOf name
-    ) hosts)
+    (builtins.mapAttrs (name: _: topLevelOf name) hosts)
     rec {
       cd = topLevelOf "compute-deck";
       prop = topLevelOf "prophecy";

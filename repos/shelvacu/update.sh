@@ -83,29 +83,29 @@ function standard_package() {
   declare update_by_default=true
   declare -a extra_update_args=()
   declare -a names=()
-  while (( $# > 0 )); do
+  while (($# > 0)); do
     declare arg="$1"
     shift 1
     case "$arg" in
-      --no-default)
-        update_by_default=false
-        ;;
-      --branch)
-        extra_update_args+=(--version=branch)
-        ;;
-      --version-regex=*)
-        extra_update_args+=("$arg")
-        ;;
-      --)
-        names+=("$@")
-        shift $#
-        ;;
-      -*)
-        svl_die "Unrecognized arg $arg"
-        ;;
-      *)
-        names+=("$arg")
-        ;;
+    --no-default)
+      update_by_default=false
+      ;;
+    --branch)
+      extra_update_args+=(--version=branch)
+      ;;
+    --version-regex=*)
+      extra_update_args+=("$arg")
+      ;;
+    --)
+      names+=("$@")
+      shift $#
+      ;;
+    -*)
+      svl_die "Unrecognized arg $arg"
+      ;;
+    *)
+      names+=("$arg")
+      ;;
     esac
   done
   if [[ $# != 0 ]]; then

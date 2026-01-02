@@ -21,7 +21,7 @@ let
     # "--uds-permissions" (vaculib.accessModeStr { all = "all"; })
     "radicale:application"
   ];
-  # make new entries with 
+  # make new entries with
   # uuid | tee /dev/fd/2 | nix shell nixpkgs#apacheHttpd --command htpasswd -nBi newusername
   hashes = [
     # in bitwarden
@@ -31,7 +31,9 @@ let
     # thunderbird @ fw
     "$2y$05$xAndl8cHx8azp8/gNnpKO.RyxC5WPva8/QEv1CxbzL/hhYwYM2nP6"
   ];
-  htpasswd = pkgs.writeText "radicale-users.htpasswd" (lib.concatMapStringsSep "\n" (hash: "shelvacu:${hash}") hashes);
+  htpasswd = pkgs.writeText "radicale-users.htpasswd" (
+    lib.concatMapStringsSep "\n" (hash: "shelvacu:${hash}") hashes
+  );
   radicale = rec {
     settings = {
       storage.filesystem_cache_folder = "/var/cache/radicale";
@@ -48,9 +50,7 @@ let
   };
 in
 {
-  imports = [ {
-    options.vacu.debug.radicale = vaculib.mkOutOption thePy;
-  } ];
+  imports = [ { options.vacu.debug.radicale = vaculib.mkOutOption thePy; } ];
   users.users.radicale = {
     isSystemUser = true;
     group = "radicale";

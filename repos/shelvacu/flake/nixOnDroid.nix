@@ -1,6 +1,14 @@
-{ allInputs, config, lib, mkCommon, vacuRoot, ... }:
+{
+  allInputs,
+  config,
+  lib,
+  mkCommon,
+  vacuRoot,
+  ...
+}:
 let
-  mkNixOnDroid = system:
+  mkNixOnDroid =
+    system:
     let
       common = mkCommon {
         inherit system;

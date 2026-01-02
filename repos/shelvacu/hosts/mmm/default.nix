@@ -1,8 +1,6 @@
 { inputs, vaculib, ... }:
 {
-  imports = [
-    inputs.nixos-apple-silicon.nixosModules.default
-  ] ++ vaculib.directoryGrabberList ./.;
+  imports = [ inputs.nixos-apple-silicon.nixosModules.default ] ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "mmm";
   vacu.shell.color = "red";

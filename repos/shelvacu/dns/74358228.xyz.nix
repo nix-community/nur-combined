@@ -1,4 +1,9 @@
-{ dns, dnsData, lib, ... }:
+{
+  dns,
+  dnsData,
+  lib,
+  ...
+}:
 let
   inherit (dnsData) propA cloudns;
   letterToInfo = {
@@ -22,8 +27,8 @@ in
     # shelvacumiraspet.a.ns.74358228.xyz.
     # shelvacumiraspet.b.ns.74358228.xyz.
     # ...
-    ns.subdomains = lib.mapAttrs' (letter: info: 
-      lib.nameValuePair "*.${letter}" (dns.lib.combinators.host info.ipv4 info.ipv6)
+    ns.subdomains = lib.mapAttrs' (
+      letter: info: lib.nameValuePair "*.${letter}" (dns.lib.combinators.host info.ipv4 info.ipv6)
     ) letterToInfo;
     "jean-lucorg.e.ns" = {
       A = [ "69.65.50.194" ];

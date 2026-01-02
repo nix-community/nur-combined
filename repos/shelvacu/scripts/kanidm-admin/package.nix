@@ -11,10 +11,15 @@ let
   kanidm = if whichKanidm != null then whichKanidm else kanidm_1_8;
 in
 assert kanidm != null;
-runCommand "kanidm-admin" {
-  meta.mainProgram = "kanidm-admin";
-} ''
-  declare pathForScript=${lib.escapeShellArg (lib.makeBinPath [ kanidm coreutils ])}
+runCommand "kanidm-admin" { meta.mainProgram = "kanidm-admin"; } ''
+  declare pathForScript=${
+    lib.escapeShellArg (
+      lib.makeBinPath [
+        kanidm
+        coreutils
+      ]
+    )
+  }
   mkdir -p $out/bin
   declare outFn="$out/bin/kanidm-admin"
 

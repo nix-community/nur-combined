@@ -1,8 +1,4 @@
-{
-  lib,
-  vaculib,
-  ...
-}:
+{ lib, vaculib, ... }:
 let
   toInt = lib.toIntBase10;
   elemAt =

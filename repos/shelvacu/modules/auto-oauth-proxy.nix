@@ -40,7 +40,7 @@ let
         };
         kanidmMembers = mkOption {
           type = types.listOf types.str;
-          default = [];
+          default = [ ];
         };
         configureCaddy = mkOption {
           type = types.bool;
@@ -51,28 +51,27 @@ let
           default = true;
         };
         clientSecret = mkOption {
-          default = { generate = true; };
+          default = {
+            generate = true;
+          };
           type = types.attrTag {
-            generate = mkOption {
-              type = types.bool;
-            };
-            path = mkOption {
-              type = types.path;
-            };
+            generate = mkOption { type = types.bool; };
+            path = mkOption { type = types.path; };
             sops = mkOption {
-              type = types.submodule ({ ... }: {
-                options.sopsFile = mkOption {
-                  type = types.path;
-                };
-                options.key = mkOption {
-                  type = types.str;
-                };
-              });
+              type = types.submodule (
+                { ... }:
+                {
+                  options.sopsFile = mkOption { type = types.path; };
+                  options.key = mkOption { type = types.str; };
+                }
+              );
             };
           };
         };
         basicAuthAccounts = mkOption {
-          type = types.attrsOf (types.coercedTo vaculib.types.caddyStr lib.singleton (types.listOf vaculib.types.caddyStr));
+          type = types.attrsOf (
+            types.coercedTo vaculib.types.caddyStr lib.singleton (types.listOf vaculib.types.caddyStr)
+          );
           default = { };
         };
         settings = mkOption {
@@ -124,15 +123,16 @@ let
 
         assertions = mkOption {
           internal = true;
-          type = types.listOf (types.submodule ({ ... }: {
-            options.assertion = mkOption {
-              type = types.bool;
-            };
-            options.message = mkOption {
-              type = types.str;
-            };
-          }));
-          default = [];
+          type = types.listOf (
+            types.submodule (
+              { ... }:
+              {
+                options.assertion = mkOption { type = types.bool; };
+                options.message = mkOption { type = types.str; };
+              }
+            )
+          );
+          default = [ ];
         };
       };
       config.assertions = [
@@ -169,12 +169,13 @@ let
         socketDir = "/run/${config.out.fullName}-socket";
         socketPath = "${config.out.socketDir}/socket.unix";
         generateClientSecret = config.clientSecret ? generate;
-        clientSecretFile = 
+        clientSecretFile =
           if config.out.generateClientSecret then
             "/var/cache/${config.out.fullName}-client-secret/secret"
           else if config.clientSecret ? sops then
             outerConfig.sops.secrets.${config.out.fullName}.path
-          else config.clientSecret.path;
+          else
+            config.clientSecret.path;
         clientSecretDir = builtins.dirOf config.out.clientSecretFile;
         tomlFile = pkgs.writers.writeTOML "${config.name}-config.toml" config.settings;
         kanidmGroup = "${config.name}_access";
@@ -183,8 +184,7 @@ let
     };
 
   mergeWhereEach =
-    cond:
-    f:
+    cond: f:
     lib.pipe config.vacu.oauthProxy.instances [
       (builtins.attrValues)
       (builtins.filter (cfg: cfg.enable && cond cfg))
@@ -192,14 +192,11 @@ let
       lib.mkMerge
     ];
 
-  mergeEach =
-    mergeWhereEach (_: true);
+  mergeEach = mergeWhereEach (_: true);
 in
 {
   options.vacu.oauthProxy = {
-    instances = mkOption {
-      type = types.attrsOf (types.submodule instanceModule);
-    };
+    instances = mkOption { type = types.attrsOf (types.submodule instanceModule); };
     kanidmDomain = mkOption {
       type = types.str;
       default = "id.shelvacu.com";
@@ -207,10 +204,13 @@ in
   };
 
   config = {
-    assertions = mergeEach (cfg: map (ass: {
-      inherit (ass) assertion;
-      message = "In vacu.oauthProxy.instances.${cfg.name}: ${ass.message}";
-    }) cfg.assertions);
+    assertions = mergeEach (
+      cfg:
+      map (ass: {
+        inherit (ass) assertion;
+        message = "In vacu.oauthProxy.instances.${cfg.name}: ${ass.message}";
+      }) cfg.assertions
+    );
 
     sops.secrets = mergeWhereEach (cfg: cfg.clientSecret ? sops) (cfg: {
       ${cfg.out.fullName} = {
@@ -224,7 +224,8 @@ in
             execute = true;
           };
         };
-        restartUnits = []
+        restartUnits =
+          [ ]
           ++ lib.optional (cfg.configureKanidm) "kanidm.service"
           ++ lib.optional (cfg.configureCaddy) "${cfg.out.fullName}.service";
       };
@@ -240,7 +241,7 @@ in
     users.groups = lib.mkMerge [
       (mergeEach (cfg: {
         "${cfg.out.fullName}-client-secret".members =
-          []
+          [ ]
           ++ lib.optional cfg.configureKanidm "kanidm"
           ++ lib.optional cfg.configureCaddy cfg.out.fullName;
       }))
@@ -264,20 +265,22 @@ in
       };
     });
 
-    systemd.tmpfiles.settings.oauth-proxy-secrets = mergeWhereEach (cfg: cfg.out.generateClientSecret) (cfg: {
-      ${cfg.out.clientSecretDir}.d = {
-        user = "root";
-        group = "${cfg.out.fullName}-client-secret";
-        mode = vaculib.accessModeStr {
-          user = "all";
-          group = {
-            read = true;
-            write = false;
-            execute = true;
+    systemd.tmpfiles.settings.oauth-proxy-secrets =
+      mergeWhereEach (cfg: cfg.out.generateClientSecret)
+        (cfg: {
+          ${cfg.out.clientSecretDir}.d = {
+            user = "root";
+            group = "${cfg.out.fullName}-client-secret";
+            mode = vaculib.accessModeStr {
+              user = "all";
+              group = {
+                read = true;
+                write = false;
+                execute = true;
+              };
+            };
           };
-        };
-      };
-    });
+        });
 
     systemd.services = mergeEach (cfg: {
       ${if cfg.configureCaddy then cfg.out.fullName else null} = {
@@ -376,15 +379,12 @@ in
           @has_basic_auth header Authorization "Basic *"
           handle @has_basic_auth {
             basic_auth {
-              ${
-                lib.concatMapAttrsStringSep "\n" (
-                  username: passwordHashes:
-                  lib.concatMapStringsSep "\n" (
-                    passwordHash:
-                    ''${vaculib.caddyQuote username} ${vaculib.caddyQuote passwordHash}''
-                  ) passwordHashes
-                ) cfg.basicAuthAccounts
-              }
+              ${lib.concatMapAttrsStringSep "\n" (
+                username: passwordHashes:
+                lib.concatMapStringsSep "\n" (
+                  passwordHash: ''${vaculib.caddyQuote username} ${vaculib.caddyQuote passwordHash}''
+                ) passwordHashes
+              ) cfg.basicAuthAccounts}
             }
             request_header -X-Auth-Request-Email
             request_header X-Auth-Request-Preferred-Username {http.auth.user.id}
@@ -416,7 +416,9 @@ in
     });
 
     services.kanidm.provision = {
-      enable = lib.mkIf (builtins.any (cfg: cfg.enable && cfg.configureKanidm) (builtins.attrValues config.vacu.oauthProxy.instances)) true;
+      enable = lib.mkIf (builtins.any (cfg: cfg.enable && cfg.configureKanidm) (
+        builtins.attrValues config.vacu.oauthProxy.instances
+      )) true;
       systems.oauth2 = mergeWhereEach (cfg: cfg.configureKanidm) (cfg: {
         ${cfg.name} = {
           basicSecretFile = cfg.out.clientSecretFile;
@@ -433,9 +435,7 @@ in
       });
       groups = mergeWhereEach (cfg: cfg.configureKanidm) (cfg: {
         ${cfg.out.kanidmGroup} = {
-          members = [
-            "${cfg.out.kanidmGroup}_dynamic"
-          ] ++ cfg.kanidmMembers;
+          members = [ "${cfg.out.kanidmGroup}_dynamic" ] ++ cfg.kanidmMembers;
           overwriteMembers = true;
         };
         "${cfg.out.kanidmGroup}_dynamic" = {

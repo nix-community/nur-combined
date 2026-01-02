@@ -1,4 +1,10 @@
-{ config, lib, pkgs, vacuModuleType, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  vacuModuleType,
+  ...
+}:
 let
   inherit (lib) mkOption types;
   cfg = config.vacu.nix;
@@ -14,52 +20,50 @@ let
 
   fmt = pkgs.formats.nixConf {
     package = nixPackage;
-    inherit (cfg)
-      checkAllErrors
-      checkConfig
-      extraOptions
-      ;
+    inherit (cfg) checkAllErrors checkConfig extraOptions;
     inherit (nixPackage) version;
   };
 
   confFile = fmt.generate "vacu-nix.conf" cfg.settings;
 
-  cacheModule = { ... }: {
-    options = {
-      url = mkOption { type = types.str; };
-      keys = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-      };
-      enable = mkOption {
-        default = true;
-        type = types.bool;
+  cacheModule =
+    { ... }:
+    {
+      options = {
+        url = mkOption { type = types.str; };
+        keys = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+        };
+        enable = mkOption {
+          default = true;
+          type = types.bool;
+        };
       };
     };
-  };
 in
 {
-  imports = []
-  ++ lib.optional (vacuModuleType == "nixos" || vacuModuleType == "nix-on-droid") {
-    nix.extraOptions = ''
-      include ${confFile}
-    '';
-  }
-  ++ lib.optional (vacuModuleType == "nixos") {
-    nix.settings = {
-      substituters = lib.mkForce [ ];
-      extra-substituters = lib.mkForce [ ];
-      trusted-public-keys = lib.mkForce [ ];
-      extra-trusted-public-keys = lib.mkForce [ ];
+  imports =
+    [ ]
+    ++ lib.optional (vacuModuleType == "nixos" || vacuModuleType == "nix-on-droid") {
+      nix.extraOptions = ''
+        include ${confFile}
+      '';
+    }
+    ++ lib.optional (vacuModuleType == "nixos") {
+      nix.settings = {
+        substituters = lib.mkForce [ ];
+        extra-substituters = lib.mkForce [ ];
+        trusted-public-keys = lib.mkForce [ ];
+        extra-trusted-public-keys = lib.mkForce [ ];
+      };
+    }
+    ++ lib.optional (vacuModuleType == "nix-on-droid") {
+      nix = {
+        substituters = lib.mkForce [ ];
+        trustedPublicKeys = lib.mkForce [ ];
+      };
     };
-  }
-  ++ lib.optional (vacuModuleType == "nix-on-droid") {
-    nix = {
-      substituters = lib.mkForce [ ];
-      trustedPublicKeys = lib.mkForce [ ];
-    };
-  }
-  ;
   options.vacu.nix = {
     caches = mkOption {
       type = types.attrsOf (types.submodule cacheModule);
@@ -68,17 +72,21 @@ in
 
     settings = mkOption {
       # inherit (fmt) type;
-      type = let
-        atom = types.nullOr (types.oneOf [
-          types.bool
-          types.int
-          types.float
-          types.str
-          types.path
-          types.package
-          (types.listOf atom)
-        ]);
-      in types.attrsOf atom;
+      type =
+        let
+          atom = types.nullOr (
+            types.oneOf [
+              types.bool
+              types.int
+              types.float
+              types.str
+              types.path
+              types.package
+              (types.listOf atom)
+            ]
+          );
+        in
+        types.attrsOf atom;
       default = { };
     };
 
@@ -109,7 +117,10 @@ in
     trusted-public-keys = lib.mkForce trustedKeys;
     extra-trusted-public-keys = lib.mkForce [ ];
 
-    extra-experimental-features = [ "nix-command" "flakes" ];
+    extra-experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     extra-trusted-users = [ "@wheel" ];
   };
 }

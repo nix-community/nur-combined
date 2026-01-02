@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
   completionStuff =
-    { name, args, }:
+    { name, args }:
     assert builtins.isString name;
     assert builtins.isList args;
     rec {
@@ -39,7 +39,14 @@ rec {
       prelude ? true,
     }:
     let
-      completion = if completeAsAlias != null then (completionStuff { inherit name; args = completeAsAlias; }) else { installLines = ""; };
+      completion =
+        if completeAsAlias != null then
+          (completionStuff {
+            inherit name;
+            args = completeAsAlias;
+          })
+        else
+          { installLines = ""; };
     in
     (pkgs.writers.makeScriptWriter
       {
@@ -68,13 +75,14 @@ rec {
           fi
         ''}
         ${content}
-      '').overrideAttrs {
+      ''
+    ).overrideAttrs
+      {
         passthru = { inherit completion; };
         postInstall = completion.installLines;
       };
 
-  script =
-    name: content: scriptWith { inherit name content; };
+  script = name: content: scriptWith { inherit name content; };
 
   aliasScript =
     name: args:

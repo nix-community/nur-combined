@@ -39,8 +39,7 @@
     :::
   */
   mapMergeAttrs =
-    mergeValues:
-    list:
+    mergeValues: list:
     let
       merge =
         a: b:
@@ -48,11 +47,7 @@
           naiveMerge = a // b;
         in
         builtins.mapAttrs (
-          name: val: 
-          if a ? name && b ? name then
-            mergeValues a.${name} b.${name}
-          else
-            val
+          name: val: if a ? name && b ? name then mergeValues a.${name} b.${name} else val
         ) naiveMerge;
       # `binaryMerge start end` merges the elements at indices `index` of `list` such that `start <= index < end`
       # Type: Int -> Int -> Attrs
@@ -79,11 +74,12 @@
 
   # like the nixpkgs-lib unionOfDisjoint, but errors immediately if there are any conflicts
   unionOfDisjoint =
-    e1:
-    e2:
+    e1: e2:
     let
       i = builtins.intersectAttrs e1 e2;
     in
-    lib.throwIf (i != { }) "vaculib.unionOfDisjoint: conflicting attrs: ${builtins.concatStringsSep " " (builtins.attrNames i)}"
-    e1 // e2;
+    lib.throwIf (i != { })
+      "vaculib.unionOfDisjoint: conflicting attrs: ${builtins.concatStringsSep " " (builtins.attrNames i)}"
+      e1
+    // e2;
 }

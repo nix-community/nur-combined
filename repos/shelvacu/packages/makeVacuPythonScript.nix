@@ -16,7 +16,12 @@
   doCheck ? true,
 }@args:
 let
-  extraArgs = lib.removeAttrs args [ "libraries" "name" "src" "doCheck" ];
+  extraArgs = lib.removeAttrs args [
+    "libraries"
+    "name"
+    "src"
+    "doCheck"
+  ];
   inherit (python3Packages) hatchling scriptipy buildPythonApplication;
   pyproj = {
     project = {
@@ -34,7 +39,7 @@ let
     ];
   };
   pyproj_toml = writers.writeTOML "${name}-pyproject.toml" pyproj;
-  sourceFile = 
+  sourceFile =
     if lib.isDerivation src then
       src
     else if lib.isPath src then
@@ -63,8 +68,7 @@ buildPythonApplication (
       if lib.isFunction (args.libraries or [ ]) then
         args.libraries python3Packages
       else
-        map (p: if lib.isString p then python3Packages.${p} else p) libraries
-        ++ [ scriptipy ];
+        map (p: if lib.isString p then python3Packages.${p} else p) libraries ++ [ scriptipy ];
 
     nativeCheckInputs = [ pyright ];
 

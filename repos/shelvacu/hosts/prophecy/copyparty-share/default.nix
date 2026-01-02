@@ -13,7 +13,11 @@ in
 {
   imports = [ vacuModules.copyparty ];
   system.activationScripts.migrate-copyparty = {
-    deps = [ "users" "groups" "createPersistentStorageDirs" ];
+    deps = [
+      "users"
+      "groups"
+      "createPersistentStorageDirs"
+    ];
     text = ''
       if [[ -d /var/lib/copyparty-share && ! -e ${cfg.stateDir} ]]; then
         chown -R ${cfg.mainUser}:${cfg.mainGroup} /var/lib/copyparty-share

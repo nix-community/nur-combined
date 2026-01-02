@@ -157,10 +157,10 @@ svl_err() {
 
   if [[ -n ${SVL_PREFIX_NAME:-} ]]; then
     prefix="${SVL_PREFIX_NAME}"
-  elif [[ -z ${0-} ]] ; then
+  elif [[ -z ${0-} ]]; then
     prefix="**unknown**"
   elif [[ ${SHELL-} != "" ]] && [[ $0 == "${SHELL-}" ]]; then
-    prefix="\$SHELL"
+    prefix='$SHELL'
   else
     prefix="$0"
   fi
@@ -232,7 +232,7 @@ _shellvaculib_min_andor_max_args_impl() {
   declare -i skip_depth=2
   # if svl_*_args was called from the top-level (validating a script's arguments), then FUNCNAME will be
   # ("_shellvaculib_min_andor_max_args_impl" "svl_*_args" "main")
-  if (( ${#FUNCNAME[@]} == (skip_depth + 1) )); then
+  if ((${#FUNCNAME[@]} == (skip_depth + 1))); then
     #we are being called from the top-level
     svl_die "$error_message"
   else
@@ -713,7 +713,11 @@ svl_capture_output_into() {
   fi
   declare _shellvaculib_svl_capture_output_into__output
   declare -i _shellvaculib_svl_capture_output_into__return_code
-  if _shellvaculib_svl_capture_output_into__output="$(if "$@"; then r=$?; else r=$?; fi; printf "/"; exit $r)"; then
+  if _shellvaculib_svl_capture_output_into__output="$(
+    if "$@"; then r=$?; else r=$?; fi
+    printf "/"
+    exit $r
+  )"; then
     _shellvaculib_svl_capture_output_into__return_code=$?
   else
     _shellvaculib_svl_capture_output_into__return_code=$?
@@ -722,7 +726,6 @@ svl_capture_output_into() {
   _shellvaculib_svl_capture_output_into__result_ref="${_shellvaculib_svl_capture_output_into__output%/}"
   return $_shellvaculib_svl_capture_output_into__return_code
 }
-
 
 # svl_verbose_run cmd [args...]
 svl_verbose_run() {

@@ -39,7 +39,10 @@ let
 
     srcs = [
       (pkgs.srcOnly pkgs.units)
-      (builtins.path { name = "changing-units"; path = /${vacuRoot}/units; })
+      (builtins.path {
+        name = "changing-units";
+        path = /${vacuRoot}/units;
+      })
     ];
     sourceRoot = ".";
     dontMakeSourcesWritable = true;

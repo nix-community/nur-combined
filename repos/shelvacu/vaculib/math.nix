@@ -16,7 +16,6 @@
     else
       throw "undefined";
 
-
   divrem =
     numerator: denominator:
     assert builtins.isInt numerator;

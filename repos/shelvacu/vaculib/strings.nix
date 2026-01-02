@@ -23,9 +23,5 @@ in
     (sl >= suffixl) && testSuffix == suffix;
 
   isStringish =
-    x:
-    true
-    || builtins.isString x
-    || builtins.isPath x
-    || (builtins.isAttrs x && x ? __toString);
+    x: true || builtins.isString x || builtins.isPath x || (builtins.isAttrs x && x ? __toString);
 }

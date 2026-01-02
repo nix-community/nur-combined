@@ -21,14 +21,16 @@ for child in sorted(Path("/sys/class/power_supply").iterdir()):
         continue
     attrs = {}
     for line in uevent_path.read_text().split("\n"):
-        if line == '':
+        if line == "":
             continue
         k, v = line.split("=", 1)
         assert k not in attrs
         attrs[k] = v
 
     if "POWER_SUPPLY_TYPE" not in attrs:
-        print(f"warn: {uevent_path} has no POWER_SUPPLY_TYPE, skipping", file=sys.stderr)
+        print(
+            f"warn: {uevent_path} has no POWER_SUPPLY_TYPE, skipping", file=sys.stderr
+        )
         continue
 
     if attrs["POWER_SUPPLY_TYPE"] != "USB":
@@ -55,6 +57,6 @@ print("not online")
 for path in offline_supplies:
     print(f"  {path}")
 print()
-for (path, watts) in online_supplies:
+for path, watts in online_supplies:
     print(f"{path}")
     print(f"  charging at {watts} watts")

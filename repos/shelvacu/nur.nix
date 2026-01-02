@@ -21,8 +21,6 @@ let
   ];
   betterPkgs = pkgs.appendOverlays overlays;
 in
-lib.attrsets.unionOfDisjoint
-  (lib.getAttrs (builtins.attrNames packagePaths) betterPkgs)
-  {
-    python3Packages = lib.getAttrs (builtins.attrNames pythonPackagePaths) betterPkgs.python3Packages;
-  }
+lib.attrsets.unionOfDisjoint (lib.getAttrs (builtins.attrNames packagePaths) betterPkgs) {
+  python3Packages = lib.getAttrs (builtins.attrNames pythonPackagePaths) betterPkgs.python3Packages;
+}

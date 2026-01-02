@@ -29,7 +29,11 @@ in
   fileSystems."/btr-root-in-here/ro" = {
     device = btrfsDevice;
     fsType = "btrfs";
-    options = [ "ro" "X-mount.mkdir=${vaculib.accessModeStr { user = "all"; }}" ] ++ btrfsOpts;
+    options = [
+      "ro"
+      "X-mount.mkdir=${vaculib.accessModeStr { user = "all"; }}"
+    ]
+    ++ btrfsOpts;
   };
 
   fileSystems."/btr-root-in-here/rw" = {

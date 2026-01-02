@@ -8,11 +8,10 @@ in
     "git".A = propA;
     "auth".A = propA;
     "wisdom".A = propA;
-    "chat" =
-      {
-        vacu.liamMail = true;
-        A = propA;
-      };
+    "chat" = {
+      vacu.liamMail = true;
+      A = propA;
+    };
     "gabriel-dropout".A = propA;
   };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   shellFiles = [
     "*.sh"
@@ -13,24 +13,18 @@ let
 in
 {
   projectRootFile = "flake.nix";
-  programs.nixfmt.enable = true;
-  programs.nixfmt.strict = true;
-  # programs.shellcheck = {
-  #   enable = true;
-  #   includes = shellFiles;
-  # };
-  # settings.formatter.shellcheck.options = [
-  #   "--external-sources"
-  #   "--norc"
-  #   "--source-path=${pkgs.shellvaculib}/bin"
-  #   "--enable=all"
-  #   "--exclude=SC2250,SC2016"
-  # ];
-  programs.shfmt.enable = true;
-  programs.shfmt.includes = shellFiles;
-  programs.deno.enable = true;
-  programs.stylua.enable = true;
-  programs.black.enable = true;
+  programs = {
+    # keep-sorted start
+    black.enable = true;
+    deno.enable = true;
+    keep-sorted.enable = true;
+    nixfmt.enable = true;
+    nixfmt.strict = true;
+    shfmt.enable = true;
+    shfmt.includes = shellFiles;
+    stylua.enable = true;
+    # keep-sorted end
+  };
   settings.excludes = [
     "*.pdf"
     "*.patch"

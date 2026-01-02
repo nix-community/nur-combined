@@ -169,11 +169,7 @@ in
     };
 
   nodes.liam =
-    {
-      lib,
-      config,
-      ...
-    }:
+    { lib, config, ... }:
     {
       imports = [
         /${vacuRoot}/common

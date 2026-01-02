@@ -36,28 +36,29 @@ let
   wrappedBash = wrappedBashPkg;
 in
 {
-  imports = [ ]
-  ++ vaculib.directoryGrabberList ./.
-  ++ lib.optional (vacuModuleType == "nixos") {
-    environment.pathsToLink = [ "/share/vacufuncs" ];
-    programs.bash = {
-      interactiveShellInit = config.vacu.shell.interactiveLines;
-      promptInit = lib.mkForce "";
+  imports =
+    [ ]
+    ++ vaculib.directoryGrabberList ./.
+    ++ lib.optional (vacuModuleType == "nixos") {
+      environment.pathsToLink = [ "/share/vacufuncs" ];
+      programs.bash = {
+        interactiveShellInit = config.vacu.shell.interactiveLines;
+        promptInit = lib.mkForce "";
+      };
+      environment.shellAliases = {
+        # disable the defaults
+        ll = null;
+        l = null;
+        ls = null;
+      };
+    }
+    ++ lib.optional (vacuModuleType == "nix-on-droid") {
+      vacu.shell.functionsDir = "${config.user.home}/.nix-profile/share/vacufuncs";
+      environment.etc = {
+        bashrc.text = config.vacu.shell.interactiveLines;
+        profile.text = config.vacu.shell.interactiveLines;
+      };
     };
-    environment.shellAliases = {
-      # disable the defaults
-      ll = null;
-      l = null;
-      ls = null;
-    };
-  }
-  ++ lib.optional (vacuModuleType == "nix-on-droid") {
-    vacu.shell.functionsDir = "${config.user.home}/.nix-profile/share/vacufuncs";
-    environment.etc = {
-      bashrc.text = config.vacu.shell.interactiveLines;
-      profile.text = config.vacu.shell.interactiveLines;
-    };
-  };
   options.vacu.shell = {
     functionsDir = mkOption {
       type = types.path;

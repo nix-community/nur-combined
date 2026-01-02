@@ -8,7 +8,9 @@ let
     attrValues
     ;
   prepend = element: list: [ element ] ++ list;
-  prependIf = cond: element: list: if cond then [ element ] ++ list else list;
+  prependIf =
+    cond: element: list:
+    if cond then [ element ] ++ list else list;
   optionalString = condition: s: if condition then s else "";
   optionalInt = condition: i: if condition then i else 0;
   pipe = builtins.foldl' (x: f: f x);
@@ -81,7 +83,12 @@ let
     in
     pipe
       [ user group other ]
-      [ (map singleModeToInt) (prependIf (octalLength == 4) firstDigit) (map toString) (builtins.concatStringsSep "") ];
+      [
+        (map singleModeToInt)
+        (prependIf (octalLength == 4) firstDigit)
+        (map toString)
+        (builtins.concatStringsSep "")
+      ];
   accessModeToSymbolicString =
     {
       user,
@@ -150,7 +157,12 @@ let
     assert _type == "com.shelvacu.nix.fileMaskMode";
     pipe
       [ user group other ]
-      [ (map singleMaskModeToInt) (prependIf (octalLength == 4) 0) (map toString) (builtins.concatStringsSep "") ];
+      [
+        (map singleMaskModeToInt)
+        (prependIf (octalLength == 4) 0)
+        (map toString)
+        (builtins.concatStringsSep "")
+      ];
 in
 rec {
   accessMode =
@@ -168,7 +180,12 @@ rec {
       singles = { inherit user group other; };
       self = {
         _type = "com.shelvacu.nix.fileAccessMode";
-        inherit suid sgid sticky octalLength;
+        inherit
+          suid
+          sgid
+          sticky
+          octalLength
+          ;
         __toString = accessModeToOctalString;
         octalString = accessModeToOctalString self;
         symbolicString = accessModeToSymbolicString self;

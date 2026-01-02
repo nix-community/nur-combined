@@ -1,4 +1,10 @@
-{ config, lib, vacuModules, vacuRoot, ... }:
+{
+  config,
+  lib,
+  vacuModules,
+  vacuRoot,
+  ...
+}:
 {
   imports = [ vacuModules.auto-oauth-proxy ];
   vacu.oauthProxy.instances.solis-transmission = {
@@ -21,7 +27,7 @@
     configureKanidm = lib.mkDefault false;
   };
 
-  services.caddy.virtualHosts = lib.mkIf config.vacu.oauthProxy.instances.solis-transmission.configureCaddy {
-    ${config.vacu.oauthProxy.instances.solis-transmission.appDomain}.vacu.hsts = "preload";
-  };
+  services.caddy.virtualHosts =
+    lib.mkIf config.vacu.oauthProxy.instances.solis-transmission.configureCaddy
+      { ${config.vacu.oauthProxy.instances.solis-transmission.appDomain}.vacu.hsts = "preload"; };
 }

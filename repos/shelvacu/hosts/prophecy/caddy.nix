@@ -103,13 +103,9 @@ in
         ))
         builtins.listToAttrs
       ]
-    ) // (lib.pipe
-      [
-        "shelvacu.org"
-        "www.shelvacu.org"
-        "shelvacu.net"
-        "www.shelvacu.net"
-      ]
+    )
+    // (lib.pipe
+      [ "shelvacu.org" "www.shelvacu.org" "shelvacu.net" "www.shelvacu.net" ]
       [
         (map (
           domain:
