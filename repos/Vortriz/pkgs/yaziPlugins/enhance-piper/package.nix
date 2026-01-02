@@ -5,13 +5,13 @@
 }:
 mkYaziPlugin {
     pname = "enhance-piper.yazi";
-    version = "unstable-2025-12-30";
+    version = "unstable-2026-01-01";
 
     src = fetchFromGitHub {
         owner = "boydaihungst";
         repo = "enhance-piper.yazi";
-        rev = "07984095f1911d592827b39473a56642dfa0657d";
-        hash = "sha256-MK2QDtCxLy3IjVLEjS7fnuOgdYPSdugomuZ+q37ctSg=";
+        rev = "f127b5fec343903047b2cf1ad166d2fad2d6bd87";
+        hash = "sha256-GEB7oZOaDQYfKwCzot1xv44h7BJV/5tmZEXrvxyDuSM=";
     };
 
     meta = {
