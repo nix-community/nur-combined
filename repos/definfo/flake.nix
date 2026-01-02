@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-24_05.url = "github:NixOS/nixpkgs/release-24.05";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -50,11 +49,7 @@
         {
           _module.args.pkgs = import nixpkgs {
             inherit system;
-            overlays = [
-              (_final: _prev: {
-                inherit (inputs.nixpkgs-24_05.legacyPackages.${system}) jdk22;
-              })
-            ];
+            overlays = [ ];
           };
           treefmt = {
             projectRootFile = "flake.nix";
