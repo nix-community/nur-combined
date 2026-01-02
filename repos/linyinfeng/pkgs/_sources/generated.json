@@ -624,7 +624,7 @@
     },
     "rime-prelude": {
         "cargoLock": null,
-        "date": "2025-04-20",
+        "date": "2025-12-30",
         "extract": null,
         "name": "rime-prelude",
         "passthru": null,
@@ -634,13 +634,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3c602fdb0dcca7825103e281efc50ef7580f99ec",
-            "sha256": "sha256-R9sxeCe1e2A3pn//iGwRr3eTTpgxprjEEjlo15/O19c=",
+            "rev": "db691d2420b8e656a79692a94f9db0fb3e7aa12b",
+            "sha256": "sha256-sllcT3Kq572xJvlh+j4zN0AUblFzXlhZtL9RGT/GY7g=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-prelude.git"
         },
-        "version": "3c602fdb0dcca7825103e281efc50ef7580f99ec"
+        "version": "db691d2420b8e656a79692a94f9db0fb3e7aa12b"
     },
     "rime-quick": {
         "cargoLock": null,
