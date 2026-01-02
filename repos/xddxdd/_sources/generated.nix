@@ -1816,10 +1816,10 @@
   };
   rime-custom-pinyin-dictionary = {
     pname = "rime-custom-pinyin-dictionary";
-    version = "20250101";
+    version = "20260101";
     src = fetchurl {
-      url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20250101.tar.gz";
-      hash = "sha256-3LQmbfRfmS5sfmhKBovtis9aXJGf4L9ahHKhepqRreU=";
+      url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_Magisk_20260101.zip";
+      hash = "sha256-0+da8NepstQWR3YIJRgoF5bGokqFRxqLfPKS9EPya6k=";
     };
   };
   rime-dict = {

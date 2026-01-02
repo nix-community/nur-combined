@@ -2102,7 +2102,7 @@
   "legacyPackages.x86_64-linux.rime-custom-pinyin-dictionary": {
     "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
     "pname": "rime-custom-pinyin-dictionary",
-    "version": "20250101"
+    "version": "20260101"
   },
   "legacyPackages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",
@@ -3087,7 +3087,7 @@
   "packages.x86_64-linux.rime-custom-pinyin-dictionary": {
     "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
     "pname": "rime-custom-pinyin-dictionary",
-    "version": "20250101"
+    "version": "20260101"
   },
   "packages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",

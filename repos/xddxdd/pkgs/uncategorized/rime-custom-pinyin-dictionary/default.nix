@@ -4,6 +4,7 @@
   stdenvNoCC,
   libime,
   imewlconverter,
+  unzip,
 }:
 # Based on https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=rime-custom-pinyin-dictionary
 stdenvNoCC.mkDerivation {
@@ -14,11 +15,13 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [
     libime
     imewlconverter
+    unzip
   ];
 
   buildPhase = ''
     runHook preBuild
 
+    cp dict/data CustomPinyinDictionary_Fcitx.dict
     libime_pinyindict -d CustomPinyinDictionary_Fcitx.dict temp.txt
     ImeWlConverterCmd -i:libpy temp.txt -o:rime CustomPinyinDictionary.dict.yaml
 

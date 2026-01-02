@@ -32,12 +32,21 @@
       version = "latest";
     }
   ];
-  vendorHash = "sha256-bV8Gn2XoRGpFFxaXmUm4PvWmznslmpl66ucyJLib8Zg=";
+  vendorHash = "sha256-lDFWb1M4DDBT35h0IzSJfEUV+YOkicPk0bXysOvvfWY=";
 }).overrideAttrs
   (old: {
     patches = (old.patches or [ ]) ++ [ ./fix-large-axfr.patch ];
 
     buildInputs = (old.buildInputs or [ ]) ++ [ unbound ];
+
+    deleteVendor = true;
+    proxyVendor = true;
+
+    preBuild = ''
+      rm -rf vendor
+      cp -r --reflink=auto "$goModules" vendor
+    ''
+    + (old.preBuild or "");
 
     doCheck = false;
 
