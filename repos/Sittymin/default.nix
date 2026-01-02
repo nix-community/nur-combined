@@ -16,8 +16,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  olympus = pkgs.callPackage ./pkgs/olympus { };
-  reqable = pkgs.callPackage ./pkgs/reqable { };
   sysmon = pkgs.callPackage ./pkgs/sysmon { };
   guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
   libmks = pkgs.callPackage ./pkgs/libmks { };
