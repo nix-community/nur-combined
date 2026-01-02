@@ -6,13 +6,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "lrcsnc";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "Endg4meZer0";
     repo = "lrcsnc";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-fXsXRv6h7HfEUhszxSIxv2mnkrm7DLm4Zpw7/beNn2I=";
+    sha256 = "sha256-5NiZdKCQM17ci3WReLPWRCryVcUEi8xVSXl8D2tnQsg=";
   };
 
   vendorHash = "sha256-ww+SXy29woGlb120sj1oGb4MIQJzpBCKGpUKYsYxTMk=";
