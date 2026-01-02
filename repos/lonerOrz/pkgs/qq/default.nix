@@ -36,7 +36,12 @@ let
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   pname = "qq";
   inherit (source) version src;
-  passthru.updateScript = ./update.sh;
+  passthru = {
+    updateScript = ./update.sh;
+    versionPolicy = {
+      file = "source.nix";
+    };
+  };
   meta = {
     homepage = "https://im.qq.com/index/";
     description = "Messaging app";
