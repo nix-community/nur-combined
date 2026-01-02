@@ -3611,10 +3611,10 @@
     };
     "enhancer-for-nebula" = buildFirefoxXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.3";
+      version = "1.7.4";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4588872/enhancer_for_nebula-1.7.3.xpi";
-      sha256 = "1a5e711868fb7d16fd151218cd800a459248ca22b0816dc21ea78c6106100cca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4655215/enhancer_for_nebula-1.7.4.xpi";
+      sha256 = "8bb272c64957bbf6ea75faa378f6972fee5b60e9ecc4482c7cb39d61c5f49978";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -12549,10 +12549,10 @@
     };
     "smartproxy" = buildFirefoxXpiAddon {
       pname = "smartproxy";
-      version = "1.8";
+      version = "1.9";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4582982/smartproxy-1.8.xpi";
-      sha256 = "cc8f2e6f3f6af1ecc67af8f6c2ae5f966862db118be962b823858a43e7a940d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654984/smartproxy-1.9.xpi";
+      sha256 = "89e407c5b33adfbd756f7258d27470bae1b71ad91285167139a46770925ea47f";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
@@ -15878,10 +15878,10 @@
     };
     "youtube-auto-hd-fps" = buildFirefoxXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.13.2";
+      version = "1.13.3";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4630779/youtube_auto_hd_fps-1.13.2.xpi";
-      sha256 = "199c40aa3ec1e0cd23f909b4e1d87d2c3893f394f43d75d3ed71bc8a90459b61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4655316/youtube_auto_hd_fps-1.13.3.xpi";
+      sha256 = "bd9689cf02c063661693d1e244c7d1e344e1948d4a97db7ceaa08d4191ed9b2e";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
