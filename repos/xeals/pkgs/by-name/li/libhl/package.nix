@@ -31,5 +31,6 @@ stdenv.mkDerivation rec {
     description = "Simple and fast C library implementing a thread-safe API to manage hash-tables, linked lists, lock-free ring buffers and queues ";
     license = licenses.lgpl3;
     platforms = platforms.all;
+    broken = true;
   };
 }
