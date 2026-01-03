@@ -304,12 +304,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v0.10.5-bailian.2",
-            "sha256": "sha256-ZM2mUFf0+FE7qGMc1/Ml0E0/8SojBBwYLIss5daXZ+Y=",
+            "rev": "v0.10.5-checkin.1",
+            "sha256": "sha256-JMrCEkTWvs0/NkqDIfyxN4q9nYOvBVjnk2/BhkXWMr0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.5-bailian.2"
+        "version": "v0.10.5-checkin.1"
     },
     "pixy2": {
         "cargoLocks": null,
@@ -343,9 +343,9 @@
             "name": null,
             "sha256": "sha256-4ukoHKUgCNoa9hHTGYocXzugqKKZkSRFFk5zrDW/baU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601012215/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601022215/geoip.dat"
         },
-        "version": "202601012215"
+        "version": "202601022215"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -356,11 +356,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-murU7YlOJNgVYlIY6pzTxEUyniyh82CF0RVpUZ66H2Q=",
+            "sha256": "sha256-cof2IOjKhlUDcaGFizvjDJLa2BRzUFx4CC0qPu4gJKs=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601012215/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601022215/geosite.dat"
         },
-        "version": "202601012215"
+        "version": "202601022215"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLocks": null,
