@@ -1,11 +1,5 @@
 { lib, config, ... }:
 let
-  # from `curl -fsSL http://169.254.169.254/metadata/v1.json | jq '.interfaces.public[0].anchor_ipv4'`
-  # {
-  #   "ip_address": "10.46.0.7",
-  #   "netmask": "255.255.0.0",
-  #   "gateway": "10.46.0.1"
-  # }
   interface_conf = {
     useDHCP = true;
     ipv4.addresses = [

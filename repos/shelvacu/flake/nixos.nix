@@ -8,6 +8,7 @@
 }:
 let
   hosts = {
+    # keep-sorted start block=yes
     compute-deck = {
       inp = [
         "jovian"
@@ -19,20 +20,12 @@ let
       # jovian puts in overlays via module
       readOnlyPkgs = false;
     };
-    liam.inp = [ "sops-nix" ];
-    shel-installer-iso = {
-      module = /${vacuRoot}/hosts/installer/iso.nix;
-      readOnlyPkgs = false;
-    };
-    shel-installer-pxe = {
-      module = /${vacuRoot}/hosts/installer/pxe.nix;
-      readOnlyPkgs = false;
-    };
     fw.inp = [
       "nixos-hardware"
       "sops-nix"
       "tf2-nix"
     ];
+    liam.inp = [ "sops-nix" ];
     mmm = {
       inp = [ "nixos-apple-silicon" ];
       system = "aarch64-linux";
@@ -45,11 +38,20 @@ let
       "disko"
       "declarative-jellyfin"
     ];
+    shel-installer-iso = {
+      module = /${vacuRoot}/hosts/installer/iso.nix;
+      readOnlyPkgs = false;
+    };
+    shel-installer-pxe = {
+      module = /${vacuRoot}/hosts/installer/pxe.nix;
+      readOnlyPkgs = false;
+    };
     solis.inp = [
       "disko"
       "impermanence"
       "sops-nix"
     ];
+    # keep-sorted end
   };
 
   topLevelOf =

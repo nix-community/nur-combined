@@ -17,22 +17,26 @@ in
   options = {
     vacu.liam = {
       shel_domains = mkOutOption [
-        "shelvacu.com"
-        "shelvacu.org"
-        "shelvacu.net"
-        "dis8.net"
-        "mail.dis8.net"
-        "jean-luc.org"
-        "in.jean-luc.org"
-        "shelvacu.miras.pet"
+        # keep-sorted start
         "chat.for.miras.pet"
-        "sv.mt"
+        "dis8.net"
         "funcache.org"
+        "in.jean-luc.org"
+        "jean-luc.org"
+        "mail.dis8.net"
+        "shelvacu.com"
+        "shelvacu.miras.pet"
+        "shelvacu.net"
+        "shelvacu.org"
+        "sv.mt"
+        # keep-sorted end
       ];
       julie_domains = mkOutOption [
-        "violingifts.com"
-        "theviolincase.com"
+        # keep-sorted start
         "shop.theviolincase.com"
+        "theviolincase.com"
+        "violingifts.com"
+        # keep-sorted end
       ];
       domains = mkOutOption (config.vacu.liam.shel_domains ++ config.vacu.liam.julie_domains);
       relayhosts = {

@@ -17,21 +17,22 @@ let
   };
 in
 {
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.grub.memtest86.enable = true;
-
-  boot.loader.grub.mirroredBoots = [
-    {
-      devices = [ "nodev" ];
-      path = "/boot0";
-    }
-    {
-      devices = [ "nodev" ];
-      path = "/boot1";
-    }
-  ];
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    memtest86.enable = true;
+    mirroredBoots = [
+      {
+        devices = [ "nodev" ];
+        path = "/boot0";
+      }
+      {
+        devices = [ "nodev" ];
+        path = "/boot1";
+      }
+    ];
+  };
 
   fileSystems."/boot0" = {
     device = "/dev/disk/by-label/BOOT0";

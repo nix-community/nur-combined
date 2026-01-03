@@ -9,18 +9,18 @@ let
   };
 in
 {
-  options = {
-    vacu.network.lan_bridge = lib.mkOption {
+  options.vacu.network = {
+    lan_bridge = lib.mkOption {
       type = lib.types.str;
       default = "br-main";
       readOnly = true;
     };
-    vacu.network.lan_bridge_network = lib.mkOption {
+    lan_bridge_network = lib.mkOption {
       type = lib.types.str;
       default = "01-lan-bridge";
       readOnly = true;
     };
-    vacu.network.ips = lib.mkOption {
+    ips = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       default = { };
     };

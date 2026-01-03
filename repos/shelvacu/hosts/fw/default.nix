@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  lib,
   vaculib,
   vacuModules,
   vacuRoot,
@@ -82,9 +81,7 @@
     "usbhid"
     "sd_mod"
   ];
-  #boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
-  #boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
     device = "fw/root";
@@ -129,6 +126,4 @@
   services.postgresql.enable = true; # for development
 
   vacu.programs.thunderbird.enable = true;
-
-  services.mullvad-vpn.enable = true;
 }

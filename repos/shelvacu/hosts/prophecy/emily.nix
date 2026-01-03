@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ config, ... }:
 let
   emId = 13924;
   sshPort = 32767;

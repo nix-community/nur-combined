@@ -47,36 +47,10 @@ in
       skip_install_trust
     '';
     virtualHosts = {
-      "sv.mt" = {
-        vacu.hsts = "preload";
-        extraConfig = ''redir / "https://www.youtube.com/watch?v=dQw4w9WgXcQ" temporary'';
-      };
+      # keep-sorted start block=yes
       "74358228.xyz" = {
         vacu.hsts = false;
         extraConfig = ''respond / "74358228 is awesome"'';
-      };
-      "shelvacu.com".vacu.hsts = "preload";
-      "jobs.shelvacu.com".vacu.hsts = "preload";
-      "jean-luc.org" = {
-        vacu.hsts = "preload";
-        extraConfig = ''respond / "Jean-luc is awesome"'';
-      };
-      "gabriel-dropout.for.miras.pet" = {
-        vacu.hsts = false;
-        extraConfig = ''
-          root /propdata/trip/static-stuff/gabriel-dropout.for.miras.pet
-          file_server browse
-        '';
-      };
-      "shelvacu.miras.pet" = {
-        vacu.hsts = false;
-        extraConfig = ''respond / "I still don't know what to put here"'';
-      };
-      "habitat.pwrhs.win" = {
-        vacu.hsts = false;
-        extraConfig = ''
-          reverse_proxy http://10.78.79.114:8123
-        '';
       };
       "for.miras.pet" = {
         vacu.hsts = false;
@@ -90,6 +64,34 @@ in
           respond * "The *.for.miras.pet services have been taken down" 410
         '';
       };
+      "gabriel-dropout.for.miras.pet" = {
+        vacu.hsts = false;
+        extraConfig = ''
+          root /propdata/trip/static-stuff/gabriel-dropout.for.miras.pet
+          file_server browse
+        '';
+      };
+      "habitat.pwrhs.win" = {
+        vacu.hsts = false;
+        extraConfig = ''
+          reverse_proxy http://10.78.79.114:8123
+        '';
+      };
+      "jean-luc.org" = {
+        vacu.hsts = "preload";
+        extraConfig = ''respond / "Jean-luc is awesome"'';
+      };
+      "jobs.shelvacu.com".vacu.hsts = "preload";
+      "shelvacu.com".vacu.hsts = "preload";
+      "shelvacu.miras.pet" = {
+        vacu.hsts = false;
+        extraConfig = ''respond / "I still don't know what to put here"'';
+      };
+      "sv.mt" = {
+        vacu.hsts = "preload";
+        extraConfig = ''redir / "https://www.youtube.com/watch?v=dQw4w9WgXcQ" temporary'';
+      };
+      # keep-sorted end
     }
     // (lib.pipe
       [ "74358228.xyz" "jean-luc.org" "shelvacu.com" "sv.mt" ]

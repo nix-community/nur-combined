@@ -10,10 +10,6 @@ let
   pcsclite-pkg = if config.security.polkit.enable then pkgs.pcscliteWithPolkit else pkgs.pcsclite;
 in
 {
-  # apparently this is already enabled??
-  # nixpkgs.overlays = [ ( final: prev: {
-  #   libfido2 = prev.libfido2.override { withPcsclite = true; };
-  # } ) ];
   vacu.packages = lib.mkMerge [
     ''
       libfido2
@@ -41,14 +37,6 @@ in
   #   module: ${pkgs.opensc}/lib/opensc-pkcs11.so
   # '';
 
-  # environment.etc."opensc.conf".text = ''
-  #   app default {
-  #     reader_driver pcsc {
-  #       enable_pinpad = false;
-  #     }
-  #   }
-  # '';
-
   environment.systemPackages = [
     # Wrapper script to tell to Chrome/Chromium to use p11-kit-proxy to load
     # security devices, so they can be used for TLS client auth.
@@ -64,9 +52,6 @@ in
         -libfile ${pkgs.p11-kit}/lib/p11-kit-proxy.so
     '')
   ];
-
-  # programs.firefox.enable = true;
-  # programs.firefox.policies.SecurityDevices.p11-kit-proxy = "${pkgs.p11-kit}/lib/p11-kit-proxy.so";
 
   # trying CTAP-bridge
   services.udev.extraRules = ''

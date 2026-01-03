@@ -15,6 +15,7 @@ let
   debug = false;
   fqdn = config.networking.fqdn;
   relayable_domains = [
+    # keep-sorted start
     "chat.for.miras.pet"
     "dis8.net"
     "in.jean-luc.org"
@@ -24,17 +25,20 @@ let
     "shelvacu.com"
     "shelvacu.miras.pet"
     "sv.mt"
+    # keep-sorted end
   ];
   dovecot_transport = "lmtp:unix:private/dovecot-lmtp";
   reject_spam_sources = [
-    "reject-spam-test@example.com"
+    # keep-sorted start ignore_prefixes=['"*.']
     "buyerservice@made-in-china.com"
-    "upgrade-plans@asuswebstorage.com"
+    "hotels.com"
     "info@rfidlabel.com"
     "made-in-china.com"
-    "*.made-in-china.com"
-    "hotels.com"
+    "reject-spam-test@example.com"
+    "upgrade-plans@asuswebstorage.com"
     "*.hotels.com"
+    "*.made-in-china.com"
+    # keep-sorted end
   ];
   banned_ips = [
     "45.192.103.243/32"

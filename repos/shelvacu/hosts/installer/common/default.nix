@@ -8,13 +8,13 @@
   vacu.systemKind = "minimal";
 
   vacu.packages = ''
+    # keep-sorted start
     acpi
-    iio-sensor-proxy
     aircrack-ng
-    # bitwarden-cli # 800MB closure size!
     borgbackup
     dmidecode
     home-manager
+    iio-sensor-proxy
     man
     mercurial
     nix-index
@@ -26,5 +26,6 @@
     smartmontools
     tcpdump
     termscp
+    # keep-sorted end
   '';
 }

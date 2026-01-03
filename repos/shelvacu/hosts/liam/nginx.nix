@@ -1,12 +1,14 @@
 { ... }:
 let
   domains = [
-    "smtp.shelvacu.com"
-    "imap.shelvacu.com"
-    "mail.shelvacu.com"
+    # keep-sorted start
     "autoconfig.shelvacu.com"
-    "mail.dis8.net"
+    "imap.shelvacu.com"
     "liam.dis8.net"
+    "mail.dis8.net"
+    "mail.shelvacu.com"
+    "smtp.shelvacu.com"
+    # keep-sorted end
   ];
 in
 {

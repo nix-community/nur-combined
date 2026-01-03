@@ -65,10 +65,7 @@ in
       ];
     };
     systemd.network.networks.${cfg.lan_bridge_network} = {
-      address = lib.mkAfter [
-        "${cfg.ips.doofStatic4}/32"
-        # "${cfg.ips.doofStatic6}/128"
-      ];
+      address = lib.mkAfter [ "${cfg.ips.doofStatic4}/32" ];
     };
   };
 }

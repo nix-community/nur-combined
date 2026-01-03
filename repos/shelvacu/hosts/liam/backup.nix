@@ -94,14 +94,6 @@ in
       owner = cfg.user;
     };
 
-    # systemd.tmpfiles.settings."10-auto-borg" = lib.genAttrs cfg.paths (_:
-    #   {
-    #     # A+ = append to ACLs recursively
-    #     "A+" = {
-    #       argument = "u:${cfg.user}:r-x";
-    #     };
-    #   }
-    # );
     users.users.${cfg.user} = {
       isSystemUser = true;
       group = cfg.user;

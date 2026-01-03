@@ -95,9 +95,6 @@ in
       ProtectSystem = "strict";
       ProtectHome = true;
 
-      # InaccessiblePaths = [ "/" ];
-      # ReadOnlyPaths = [ "/nix/store" ];
-      # ReadWritePaths = [ path "/var/lib/dav-experiment" ];
       PrivateTmp = true;
       PrivateDevices = true;
       PrivateNetwork = true;

@@ -14,10 +14,6 @@
     '';
   };
 
-  # sops.secrets.transmissionCredentialsFile = {
-  #   owner = config.services.transmission.user;
-  #   restartUnits = [ "transmission.service" ];
-  # };
   users.groups.torrents.members = [
     "transmission"
     "shelvacu"
@@ -88,8 +84,4 @@
     };
   };
   systemd.services.transmission.serviceConfig.BindPaths = [ "/var/run/transmission-socket-dir" ];
-
-  # services.caddy.virtualHosts."xs.shelvacu.com".extraConfig = ''
-  #   reverse_proxy unix//var/run/transmission-socket-dir/socket.unix
-  # '';
 }

@@ -2,7 +2,6 @@
 {
   imports = [
     inputs.jovian.nixosModules.jovian
-    # inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.default
   ]
   ++ vaculib.directoryGrabberList ./.;
@@ -48,23 +47,4 @@
     steamdeck-firmware
     steamdeck-bios-fwupd
   '';
-
-  # boot.kernelPatches = [
-  #   {
-  #     name = "gadget";
-  #     patch = null;
-  #     extraStructuredConfig = with lib.kernel; {
-  #       USB_ETH=module;
-  #       USB_GADGET=yes;
-  #       USB_LIBCOMPOSITE=yes;
-  #       USB_CONFIGFS=yes;
-  #       USB_DWC3=module;
-  #       USB_DWC3_PCI=module;
-  #       USB_DWC3_DUAL_ROLE=yes;
-  #       USB_DWC3_HOST=no;
-  #       USB_DWC3_GADGET=no;
-  #       USB_ROLE_SWITCH=yes;
-  #     };
-  #   }
-  # ];
 }
