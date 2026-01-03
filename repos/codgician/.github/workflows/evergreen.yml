@@ -92,7 +92,7 @@ jobs:
             exit 1
           fi
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         if: steps.run_update_script.outputs.pr_title != ''
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

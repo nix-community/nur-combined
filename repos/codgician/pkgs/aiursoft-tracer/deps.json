@@ -91,15 +91,15 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.2",
-    "hash": "sha256-aYZ9hFqZGBSoJqaew7+U6ELU/Dv3sFqYDWLOwVR5BQM=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.uistack/10.0.2/aiursoft.uistack.10.0.2.nupkg"
+    "version": "10.0.3",
+    "hash": "sha256-Dl+8aLE5i8hTk8KKbQsfyhGeney2KC/L5y6OFE4T4ek=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.uistack/10.0.3/aiursoft.uistack.10.0.3.nupkg"
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.3",
-    "hash": "sha256-eXPk5nWexl2MA7Gq6TAEiRiRuJKmToHTkCcipzm4rEw=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/10.0.3/aiursoft.webtools.10.0.3.nupkg"
+    "version": "10.0.4",
+    "hash": "sha256-76bSnQomj0SI+gNrBEUBXefDORPwoOjdq7196UiwA6g=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/10.0.4/aiursoft.webtools.10.0.4.nupkg"
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
@@ -685,9 +685,9 @@
   },
   {
     "pname": "Net.Codecrete.QrCodeGenerator",
-    "version": "2.0.7",
-    "hash": "sha256-dJU2yY9rJcniurEO0yrxQN6MY/ur855Ip7tALbLTQ18=",
-    "url": "https://nuget.aiursoft.com/v3/package/net.codecrete.qrcodegenerator/2.0.7/net.codecrete.qrcodegenerator.2.0.7.nupkg"
+    "version": "2.1.0",
+    "hash": "sha256-F9yJ8sn59CY76dUaFoHw5F1Aoi1Figqn+4zU5lVELXI=",
+    "url": "https://nuget.aiursoft.com/v3/package/net.codecrete.qrcodegenerator/2.1.0/net.codecrete.qrcodegenerator.2.1.0.nupkg"
   },
   {
     "pname": "Newtonsoft.Json",
