@@ -80,9 +80,6 @@ in
 	environment.systemPackages = [ pkgs.mangohud ];
 	programs.steam.extraPackages = [ pkgs.mangohud ];
 
-	programs.steam.gamescopeSession.env.MANGOHUD = "1";
-	programs.gamescope.env.MANGOHUD = "1";
-
 	systemd.tmpfiles.rules = [
 	    "d ${cfg.home}/.config/MangoHud 0755 ${cfg.user} - - -"
 	    "f ${cfg.home}/.config/MangoHud/MangoHud.conf 0755 ${cfg.user} - - -"
