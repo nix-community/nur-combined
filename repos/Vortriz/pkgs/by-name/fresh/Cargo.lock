@@ -1181,7 +1181,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-editor"
-version = "0.1.67"
+version = "0.1.69"
 dependencies = [
  "alacritty_terminal",
  "anyhow",
@@ -1203,6 +1203,7 @@ dependencies = [
  "lru 0.16.2",
  "lsp-types",
  "nix 0.30.1",
+ "once_cell",
  "portable-pty",
  "proptest",
  "pulldown-cmark",

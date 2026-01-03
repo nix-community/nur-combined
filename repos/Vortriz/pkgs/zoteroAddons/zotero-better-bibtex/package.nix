@@ -5,7 +5,7 @@
 }:
 mkZoteroAddon rec {
     pname = "Better BibTeX for Zotero";
-    version = "7.0.70";
+    version = "7.0.71";
 
     src = fetchurl {
         url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v${version}/zotero-better-bibtex-${version}.xpi";
