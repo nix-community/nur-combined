@@ -55,14 +55,16 @@ let
         makeStaticHostsEntry = lib.mkDefault (config.primaryIp != null);
       };
     };
-  etcHostsParts = lib.concatMap (
-    hostMod:
-    lib.optional hostMod.makeStaticHostsEntry (
-      assert hostMod.primaryIp != null;
-      "${hostMod.primaryIp} ${lib.concatStringsSep " " hostMod.finalNames}"
-    )
-  ) (builtins.attrValues config.vacu.hosts);
-  etcHostsText = lib.concatStringsSep "\n" etcHostsParts;
+  etcHostsText = lib.pipe config.vacu.hosts [
+    builtins.attrValues
+    (builtins.filter (cfg: cfg.makeStaticHostsEntry))
+    (map (
+      cfg:
+      assert cfg.primaryIp != null;
+      "${cfg.primaryIp} ${lib.concatStringsSep " " cfg.finalNames}"
+    ))
+    (lib.concatStringsSep "\n")
+  ];
 in
 {
   options.vacu = {

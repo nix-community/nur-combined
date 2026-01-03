@@ -37,6 +37,7 @@ in
           ];
         };
         preferences = {
+          # keep-sorted start
           "accessibility.typeaheadfind.flashBar" = 0; # what is this
           "browser.search.region" = "US";
           "calendar.alarms.playsound" = false;
@@ -50,15 +51,15 @@ in
           "mail.account.account1.server" = "server1";
           "mail.compose.other.header" = "X-Shelvacu-Custom-Header";
           "mail.compose.warned_about_customize_from" = true;
+          "mail.identity.id1.catchAll" = true;
           "mail.identity.id1.fullName" = "Shelvacu";
           "mail.identity.id1.useremail" = "shelvacu@shelvacu.com";
-          "mail.identity.id1.catchAll" = true;
           "mail.server.server1.hostname" = "imap.shelvacu.com";
           "mail.server.server1.login_at_startup" = true;
           "mail.server.server1.name" = "shelvacu@shelvacu.com";
           "mail.server.server1.port" = 993;
-          "mail.server.server1.type" = "imap";
           "mail.server.server1.socketType" = 3; # TLS (as opposed to plaintext or STARTTLS)
+          "mail.server.server1.type" = "imap";
           "mail.server.server1.userName" = "shelvacu";
           "mail.shell.checkDefaultClient" = false;
           "mail.showCondensedAddresses" = false;
@@ -71,14 +72,13 @@ in
           "mail.smtpserver.smtp1.username" = "shelvacu";
           "mail.startup.enabledMailCheckOnce" = true;
           "mail.threadpane.listview" = 1;
+          # don't warn when sending with ctrl+enter
+          "mail.warn_on_send_accel_key" = false;
           "mailnews.customHeaders" = "X-Vacu-Action";
           "mailnews.default_sort_type" = 27;
           "mailnews.mark_message_read.auto" = false;
           "mailnews.start_page.enabled" = false;
-          # "searchintegration.enable" = false;
-
-          # don't warn when sending with ctrl+enter
-          "mail.warn_on_send_accel_key" = false;
+          # keep-sorted end
         };
       };
     }

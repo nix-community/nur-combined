@@ -34,7 +34,7 @@ let
         sshHostname = lib.mkDefault (
           if (config.primaryIp != null) then config.primaryIp else config.primaryName
         );
-        altNames = [ config.sshHostname ];
+        # altNames = [ config.sshHostname ];
         sshAliases = [ config.primaryName ];
       };
     };

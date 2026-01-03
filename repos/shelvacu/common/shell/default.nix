@@ -40,6 +40,7 @@ in
     [ ]
     ++ vaculib.directoryGrabberList ./.
     ++ lib.optional (vacuModuleType == "nixos") {
+      vacu.shell.functionsDir = "/run/current-system/sw/share/vacufuncs";
       environment.pathsToLink = [ "/share/vacufuncs" ];
       programs.bash = {
         interactiveShellInit = config.vacu.shell.interactiveLines;
@@ -60,10 +61,7 @@ in
       };
     };
   options.vacu.shell = {
-    functionsDir = mkOption {
-      type = types.path;
-      default = "/run/current-system/sw/share/vacufuncs";
-    };
+    functionsDir = mkOption { type = types.path; };
     interactiveLines = mkOption {
       type = types.lines;
       readOnly = true;

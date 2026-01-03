@@ -1,4 +1,4 @@
-{ lib, vacuModules, ... }:
+{ vacuModules, ... }:
 {
   imports = [
     vacuModules.knownHosts
@@ -70,6 +70,49 @@
     };
 
     #personal hosts
+    # keep-sorted start block=yes
+    awoo = {
+      primaryIp = "45.142.157.71";
+      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOQaDjjfSK8jnk9aFIiYH9LZO4nLY/oeAc7BKIPUXMh1";
+    };
+    compute-deck = {
+      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGt43GmXCxkl5QjgPQ/QimW11lKfXmV4GFWvlxQSf4TQ";
+    };
+    deckvacu = {
+      sshUsername = "deck";
+      sshKeys = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEa8qpFkIlLLJkH8rmEAn6/MZ9ilCGmEQWC3CeFae7r1kOqfwRk0nq0oyOGJ50uIh+PpwEh3rbgq6mLfpRfsFmM=";
+    };
+    finaltask = {
+      altNames = [
+        "rsb"
+        "finaltask.xyz"
+      ];
+      sshAliases = [ "rsb" ];
+      primaryIp = "45.87.250.193";
+      sshPort = 2222;
+      sshUsername = "user";
+      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPTx8WBNNKBVRV98HgDChpd59SHbreJ87SXU+zOKan6y";
+    };
+    fw = {
+      isLan = true;
+      primaryIp = "10.78.79.248";
+      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA6lX25mCy35tf1NpcHMAdeRgvT7l0Dw0FWBH3eX4TE2";
+    };
+    legtop = {
+      altNames = [ "lt" ];
+      isLan = true;
+      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKvunOGsmHg8igMGo0FpoXaegYI20wZylG8nsMFY4+JL";
+    };
+    liam = {
+      altNames = [ "liam.dis8.net" ];
+      primaryIp = "178.128.79.152";
+      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOqJYVHOIFmEA5uRbbirIupWvyBLAFwic/8EZQRdN/c";
+    };
+    mmm = {
+      primaryIp = "10.78.79.11";
+      isLan = true;
+      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsorkZ3rIZ2lLigwQWfA64xZRlt5lk6QPzypg55eLlD";
+    };
     prophecy = {
       altNames = [
         "prop"
@@ -83,55 +126,6 @@
       sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPmy1+1CL6mLbp0IfRTLwsVdjKmw5u0kbQqHin8oXMq";
       wireguardKey = "shel/wMBU/Ut2rhAZymW/AYG3ycGfaEN6R2LsEpkqDU=";
     };
-    finaltask = {
-      altNames = [
-        "rsb"
-        "finaltask.xyz"
-      ];
-      sshAliases = [ "rsb" ];
-      primaryIp = "45.87.250.193";
-      sshPort = 2222;
-      sshUsername = "user";
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPTx8WBNNKBVRV98HgDChpd59SHbreJ87SXU+zOKan6y";
-    };
-    compute-deck = {
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGt43GmXCxkl5QjgPQ/QimW11lKfXmV4GFWvlxQSf4TQ";
-    };
-    "2esrever" = {
-      altIps = [
-        "10.4.5.218"
-        "10.244.46.71"
-      ];
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH0LnPrJxAdffZ//uRe3NBiIfFCBNMLqKVylkyU0llvT";
-    };
-    awoo = {
-      primaryIp = "45.142.157.71";
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOQaDjjfSK8jnk9aFIiYH9LZO4nLY/oeAc7BKIPUXMh1";
-    };
-    deckvacu = {
-      sshUsername = "deck";
-      sshKeys = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEa8qpFkIlLLJkH8rmEAn6/MZ9ilCGmEQWC3CeFae7r1kOqfwRk0nq0oyOGJ50uIh+PpwEh3rbgq6mLfpRfsFmM=";
-    };
-    liam = {
-      altNames = [ "liam.dis8.net" ];
-      primaryIp = "178.128.79.152";
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOqJYVHOIFmEA5uRbbirIupWvyBLAFwic/8EZQRdN/c";
-    };
-    fw = {
-      isLan = true;
-      primaryIp = "10.78.79.248";
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA6lX25mCy35tf1NpcHMAdeRgvT7l0Dw0FWBH3eX4TE2";
-    };
-    legtop = {
-      altNames = [ "lt" ];
-      isLan = true;
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKvunOGsmHg8igMGo0FpoXaegYI20wZylG8nsMFY4+JL";
-    };
-    mmm = {
-      primaryIp = "10.78.79.11";
-      isLan = true;
-      sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsorkZ3rIZ2lLigwQWfA64xZRlt5lk6QPzypg55eLlD";
-    };
     solis = {
       altNames = [ "solis.dis8.net" ];
       primaryIp = "143.20.185.171";
@@ -139,5 +133,6 @@
       sshKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPhFKmRMfk+4Xx96Jwt6S9/ikC0cm4ukeO8hjpZDj+9n";
       wireguardKey = "S3rZ0vzDm4J5uTkdkL4/RvWbOWKsLkIfTeTBa+TDjzk=";
     };
+    # keep-sorted end
   };
 }

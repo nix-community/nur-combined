@@ -32,7 +32,7 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
       ' > "$out"/bin/switch-to-configuration
       echo "exec $out/bin/.switch-to-configuration-unverified" '"$@"' >> "$out"/bin/switch-to-configuration
 
-      ${pkgs.coreutils}/bin/chmod a+x "$out"/bin/switch-to-configuration
+      chmod a+x "$out"/bin/switch-to-configuration
     '';
 
     vacu.verifySystem.verifiers = {

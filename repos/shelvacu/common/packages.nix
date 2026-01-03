@@ -58,6 +58,7 @@ in
     (lib.mkIf config.vacu.isGui
       # just do all the matrix clients, surely one of them will work enough
       ''
+        # keep-sorted start
         # cinny-desktop # marked broken
         element-call
         element-desktop
@@ -76,24 +77,26 @@ in
         nheko
         pinecone
         # quaternion # build is borked
+        # keep-sorted end
       ''
     )
     (lib.mkIf config.vacu.isGui
       # pkgs for systems with a desktop GUI
       ''
+        # keep-sorted start
         acpi
         anki
-        audacity
         arduino-ide
+        audacity
         bitwarden-desktop
         brave
         dino
         filezilla
         gamemode
-        gnome-maps
-        gparted
         ghidra
         gimp
+        gnome-maps
+        gparted
         haruna
         iio-sensor-proxy
         inkscape
@@ -101,13 +104,11 @@ in
         kdePackages.elisa
         kdePackages.kdenlive
         libreoffice-qt6-fresh
-        # librewolf
         merkaartor
         monero-gui
         obsidian
-        openterface-qt
         openscad
-        # openshot-qt # depends on marked-insecure qtwebengine
+        openterface-qt
         orca-slicer
         oscar
         prismlauncher
@@ -115,7 +116,6 @@ in
         signal-desktop
         simplex-chat-desktop
         svp
-        # thunderbird #managed thru vacu.programs.thunderbird
         tor-browser
         tremotesf
         ungoogled-chromium
@@ -126,10 +126,12 @@ in
         wine-fonts
         wl-clipboard
         xev
+        # keep-sorted end
       ''
     )
     # pkgs for development-ish
     (lib.mkIf config.vacu.isDev ''
+      # keep-sorted start
       cargo
       clippy
       gdb
@@ -139,10 +141,11 @@ in
       patchelf
       python3
       ruby
-      rustc
       rust-script
+      rustc
       shellcheck
       stdenv.cc
+      # keep-sorted end
     '')
     (lib.mkIf (config.vacu.isGui)
       # pkgs useful for debugging input/events/evdev
@@ -155,6 +158,7 @@ in
     (lib.mkIf (!config.vacu.isMinimal)
       # big pkgs for non-minimal systems
       ''
+        # keep-sorted start
         aircrack-ng
         android-tools
         bitwarden-cli
@@ -174,7 +178,6 @@ in
         mercurial #aka hg
         minicom
         mkvtoolnix-cli
-        # neovim => see common/nixvim.nix
         net-snmp
         nix-index
         nix-inspect
@@ -185,25 +188,26 @@ in
         proxmark3
         rclone
         ripgrep-all
-        smartmontools
         show-pd-power
+        smartmontools
         sqlite-interactive
         sshpass
         tcpdump
         termscp
         vrb
         yt-dlp
+        # keep-sorted end
       ''
     )
     # pkgs included everywhere
     ''
+      # keep-sorted start
       _7zip
       altcaps
       ddrescue
       dnsutils
       ethtool
       file
-      # git is handled by common/git.nix
       gnutls
       gptfdisk
       hostname
@@ -235,14 +239,11 @@ in
       screen
       # sed => gnused
       shellvaculib
-      # sops => should use `nr vacu#sops` instead
-      sshfs
       ssh-to-age
-      # tar => gnutar
+      sshfs
       tmux
       tree
       tzdata
-      # units => vacu-units
       unixtools.netstat
       unzip
       usbutils
@@ -251,11 +252,13 @@ in
       wget
       xq-xml # like `jq` but for xml
       zip
+      # keep-sorted end
     ''
     # packages that are in [`requiredPackages`][1]  in nixos, but maybe not included in nix-on-droid
     # [1]: https://github.com/NixOS/nixpkgs/blob/26d499fc9f1d567283d5d56fcf367edd815dba1d/nixos/modules/config/system-path.nix#L11
     (lib.optionalAttrs (vacuModuleType == "nix-on-droid") ''
       #stdenv.cc.libc shouldn't be needed right?
+      # keep-sorted start
       acl
       attr
       bashInteractive
@@ -265,8 +268,8 @@ in
       diffutils
       findutils
       gawk
-      getent
       getconf
+      getent
       gnugrep
       gnupatch
       gnused
@@ -276,7 +279,6 @@ in
       libcap
       mkpasswd
       ncurses
-      #netcat is replaced by netcat-openbsd
       openssh
       procps
       su
@@ -285,6 +287,7 @@ in
       which
       xz
       zstd
+      # keep-sorted end
     '')
   ];
 }

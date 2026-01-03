@@ -24,7 +24,7 @@ in
   config = {
     vacu.nixvimPkg = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.${nixvim-name};
     vacu.packages = [
-      (vacupkglib.aliasScript "nvim" [ "nvim-nixvim" ])
+      config.vacu.nixvimPkg
       (vacupkglib.aliasScript "nvim-plain" [ (lib.getExe pkgs.neovim) ])
       (vacupkglib.aliasScript "nvim-nixvim" [ (lib.getExe config.vacu.nixvimPkg) ])
     ];

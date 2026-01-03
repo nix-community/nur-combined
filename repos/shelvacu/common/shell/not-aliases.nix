@@ -64,11 +64,13 @@ in
       rm "$@"
     '')
     (script "altcaps-copy" ''
+      declare result
       result="$(altcaps "$@")"
       printf '%s' "$result" | wl-copy
       echo "Copied to clipboard: $result"
     '')
     (script "altcaps-clip" ''
+      declare current_clipboard
       # removes a final newline but whatever
       current_clipboard="$(wl-paste)"
       printf '%s' "$current_clipboard" | altcaps | wl-copy

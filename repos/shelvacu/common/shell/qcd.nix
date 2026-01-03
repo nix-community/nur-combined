@@ -42,11 +42,13 @@ in
     cd -- "$path$rest"
   '';
   config.vacu.qcd = {
-    gg = "${home}/dev/gallerygrab";
-    ns = "${home}/dev/nix-stuff";
-    np = "${home}/dev/nixpkgs";
-    nod = "${home}/dev/nix-on-droid";
-    dev = "${home}/dev";
+    # keep-sorted start
     d = "${home}/dev";
+    dev = "${home}/dev";
+    gg = "${home}/dev/gallerygrab";
+    nod = "${home}/dev/nix-on-droid";
+    np = "${home}/dev/nixpkgs";
+    ns = "${home}/dev/nix-stuff";
+    # keep-sorted end
   };
 }

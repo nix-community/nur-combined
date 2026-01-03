@@ -44,9 +44,9 @@ in
         files = map (s: pkgs.writeText "vacu-verify-system-${s.name}.sh" s.script) enabled;
         script = ''
           ## vacu verify-system
-          for f in ${lib.concatStringsSep " " files}; do
+          for f in ${lib.escapeShellArgs files}; do
             echo "verifying system with $f"
-            if ! source $f; then
+            if ! source "$f"; then
               echo "ERR: $f failed" >&2
               return 1
             fi

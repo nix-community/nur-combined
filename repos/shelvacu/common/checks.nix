@@ -20,7 +20,7 @@ in
     name: lines:
     pkgs.runCommand "vacu-textChecks-${name}" { } ''
       (
-        set -xev
+        set -xeuo pipefail
         ${lines}
         touch "$out"
       )
