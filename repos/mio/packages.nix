@@ -9,6 +9,10 @@
   },
 }:
 with (import ./private.nix { inherit pkgs; });
+let
+  callPackage = pkgs.callPackage;
+  lib = pkgs.lib // import ./lib { inherit pkgs; };
+in
 rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
@@ -238,6 +242,13 @@ rec {
   davinci-resolve2001 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix { };
   davinci-resolve-studio2001 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix {
     studioVariant = true;
+  };
+
+  mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
+
+  line = callPackage ./pkgs/line.nix {
+    inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+    wine = pkgs.wineWowPackages.base;
   };
 
 }
