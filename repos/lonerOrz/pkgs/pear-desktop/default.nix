@@ -25,7 +25,7 @@
 }:
 let
   pname = "pear-desktop";
-  version = "3.11.0";
+  version = "3.10.0";
   icons = [
     "16"
     "24"
@@ -45,15 +45,17 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "pear-devs";
     repo = "pear-desktop";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-M8YFpeauM55fpNyHSGQm8iZieV0oWqOieVThhglKKPE=";
+    hash = "sha256-+PCDA7lHaUQw9DhODRsEScyJC+9v8UPiZ1W8w2h/Ljg=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 2;
-    hash = "sha256-xZQ8rnLGD0ZxxUUPLHmNJ6mA+lnUHCTBvtJTiIPxaZU=";
+    hash = "sha256-b5I0n3CedA6qCL68lePU3pwyGp1JlQHzUpfCvhqw2qI=";
   };
+
+  passthru.autoUpdate = false;
 
   buildInputs = [
     gtk3
@@ -116,9 +118,9 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $out/lib/${finalAttrs.pname}/assets
       cp assets/youtube-music-tray.png $out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png
 
-      # mkdir -p $out/lib/${finalAttrs.pname}/app.asar.unpacked/assets
-      # cp $out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png \
-      #    $out/lib/${finalAttrs.pname}/app.asar.unpacked/assets/youtube-music-tray.png
+      mkdir -p $out/lib/${finalAttrs.pname}/app.asar.unpacked/assets
+      cp $out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png \
+         $out/lib/${finalAttrs.pname}/app.asar.unpacked/assets/youtube-music-tray.png
 
       tray_js="$out/lib/${finalAttrs.pname}/main/youtube-music-tray--ObgfMm0.js"
       sed -i "s|join(import.meta.dirname, \"../../assets/youtube-music-tray.png\").replace(\"app.asar\", \"app.asar.unpacked\")|\"$out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png\"|g" "$tray_js"
