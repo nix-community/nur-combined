@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "nautilus-taildrop";
-  version = "0-unstable-2024-01-12";
+  version = "0-unstable-2025-12-31";
 
   src = fetchFromGitHub {
     owner = "bahorn";
     repo = "nautilus-taildrop";
-    rev = "ed51d742b760447506030f564db6b59165e26518";
-    hash = "sha256-353Ef2wfs6bVY+ZYl68vZynFdgXulfES8VdKVwXaUsY=";
+    rev = "8d50273a2fae863267321eba67932ae947ed467e";
+    hash = "sha256-dOT4wjhXpD6kUxaJ0hjJz4czaWl2KDgUELE3svREAag=";
   };
 
   dontBuild = true;
