@@ -484,12 +484,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.6.75",
-            "sha256": "sha256-nLmbqoI/vb3zFviCFc8qOZs8gBT7ZUZCmxnJ3Gp9sB0=",
+            "rev": "v6.6.79",
+            "sha256": "sha256-HC1B1OEr3fbAeaG6FLh5EfuLF5Y4ihOPVpq3O26wLAk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.6.75"
+        "version": "v6.6.79"
     },
     "cockpy": {
         "cargoLocks": null,
@@ -697,11 +697,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Xqo0j9nzQAel1NoTSxOGb8wqSnhATyCKGD6CPGomG5Q=",
+            "sha256": "sha256-wMjtsicRq4KSGHe5mJwsNXZwRXxROw5jWiD4Y6uW6X0=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-asn-lite-2025-12.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-asn-lite-2026-01.mmdb.gz"
         },
-        "version": "2025-12"
+        "version": "2026-01"
     },
     "dbip-city-lite": {
         "cargoLocks": null,
@@ -712,11 +712,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-95f843vCjZgfuQEv6LDOmrUej/qV5Yr+qGHXddBPhHU=",
+            "sha256": "sha256-2KgQbVSuZVyl1FCR8bGWIbglL/Gp4654z1dfNLP/VCU=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-city-lite-2025-12.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-city-lite-2026-01.mmdb.gz"
         },
-        "version": "2025-12"
+        "version": "2026-01"
     },
     "dbip-country-lite": {
         "cargoLocks": null,
@@ -727,11 +727,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MQ9kJubtM2Iq+gywSz6r7kkdv++BT9qEVPukFV8BQ5Q=",
+            "sha256": "sha256-S6Ae3c4Ft2U58yfc/blaJCM/H5uSi73sOEyudxyOdbE=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-country-lite-2025-12.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-country-lite-2026-01.mmdb.gz"
         },
-        "version": "2025-12"
+        "version": "2026-01"
     },
     "decluttarr": {
         "cargoLocks": null,
@@ -1345,7 +1345,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2025-12-29",
+        "date": "2026-01-01",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1357,12 +1357,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "7b58bdccfee110265da445ea1cdf34385c41fe87",
-            "sha256": "sha256-fNLwCWq+iL1+t+0H+eXMFiWRrYYlwmZOp4gf2b6+JEc=",
+            "rev": "c253fe7d7a27270e882ecb213fa94105f5c3991d",
+            "sha256": "sha256-kcNUf+MMhEPVUc/XJJ7Tjs4fYYmddHX6XDAi8Xpx+s4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7b58bdccfee110265da445ea1cdf34385c41fe87"
+        "version": "c253fe7d7a27270e882ecb213fa94105f5c3991d"
     },
     "geolite2-asn": {
         "cargoLocks": null,
@@ -1373,11 +1373,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Az2y2pEVRTKS9wtoNKlOk472+lOoipn3AoKiKAo1qb4=",
+            "sha256": "sha256-saQ20mJaH4p5AWWDKpxcuVsrYUSdnQ0xuCipAX6SR/U=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.31/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.01/GeoLite2-ASN.mmdb"
         },
-        "version": "2025.12.31"
+        "version": "2026.01.01"
     },
     "geolite2-city": {
         "cargoLocks": null,
@@ -1390,9 +1390,9 @@
             "name": null,
             "sha256": "sha256-neGATsZsftJRiv18KsRP9RaFzsNkSRmu2M3JnC7tSsM=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.31/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.01/GeoLite2-City.mmdb"
         },
-        "version": "2025.12.31"
+        "version": "2026.01.01"
     },
     "geolite2-country": {
         "cargoLocks": null,
@@ -1405,9 +1405,9 @@
             "name": null,
             "sha256": "sha256-OLb5/simM1SHjQD8cDwO7WIC5G1oo6r0d+NWf9ilSt0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.31/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.01/GeoLite2-Country.mmdb"
         },
-        "version": "2025.12.31"
+        "version": "2026.01.01"
     },
     "glauth": {
         "cargoLocks": null,
@@ -2145,12 +2145,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7595",
-            "sha256": "sha256-0tBCRmBJR6rtBXis+d10MaoNKd4yQ7ivDijilkAUkuU=",
+            "rev": "b7615",
+            "sha256": "sha256-MZNp1cnCiw+bUrR87SSTddASH3pTexHqyhj3uNQ6AO8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7595"
+        "version": "b7615"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2952,12 +2952,12 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic_Project",
-            "rev": "V2.9.5787",
-            "sha256": "sha256-uVUg0ELH7qltv9COP6ePSKuVOMSjuSrteZA0ZwI30fc=",
+            "rev": "V2.9.5792",
+            "sha256": "sha256-Ftm5ut34Tinqs3NKiGTNvZdm/wjjnPf+AHVinT/qb/o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V2.9.5787"
+        "version": "V2.9.5792"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,

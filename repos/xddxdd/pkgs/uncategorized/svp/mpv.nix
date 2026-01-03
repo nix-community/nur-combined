@@ -1,5 +1,6 @@
 {
   lib,
+  mpv,
   mpv-unwrapped,
   ocl-icd,
   vapoursynth,
@@ -7,8 +8,8 @@
 let
   libraries = [ ocl-icd ];
 in
-(mpv-unwrapped.wrapper {
-  mpv = mpv-unwrapped.override { vapoursynthSupport = true; };
+(mpv.override {
+  mpv-unwrapped = mpv-unwrapped.override { vapoursynthSupport = true; };
   extraMakeWrapperArgs = [
     # Add paths to required libraries
     "--prefix"

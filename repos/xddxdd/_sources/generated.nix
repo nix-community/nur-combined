@@ -245,12 +245,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.6.75";
+    version = "v6.6.79";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.6.75";
-      hash = "sha256-nLmbqoI/vb3zFviCFc8qOZs8gBT7ZUZCmxnJ3Gp9sB0=";
+      tag = "v6.6.79";
+      hash = "sha256-HC1B1OEr3fbAeaG6FLh5EfuLF5Y4ihOPVpq3O26wLAk=";
     };
   };
   cockpy = {
@@ -358,26 +358,26 @@
   };
   dbip-asn-lite = {
     pname = "dbip-asn-lite";
-    version = "2025-12";
+    version = "2026-01";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-asn-lite-2025-12.mmdb.gz";
-      hash = "sha256-Xqo0j9nzQAel1NoTSxOGb8wqSnhATyCKGD6CPGomG5Q=";
+      url = "https://download.db-ip.com/free/dbip-asn-lite-2026-01.mmdb.gz";
+      hash = "sha256-wMjtsicRq4KSGHe5mJwsNXZwRXxROw5jWiD4Y6uW6X0=";
     };
   };
   dbip-city-lite = {
     pname = "dbip-city-lite";
-    version = "2025-12";
+    version = "2026-01";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-city-lite-2025-12.mmdb.gz";
-      hash = "sha256-95f843vCjZgfuQEv6LDOmrUej/qV5Yr+qGHXddBPhHU=";
+      url = "https://download.db-ip.com/free/dbip-city-lite-2026-01.mmdb.gz";
+      hash = "sha256-2KgQbVSuZVyl1FCR8bGWIbglL/Gp4654z1dfNLP/VCU=";
     };
   };
   dbip-country-lite = {
     pname = "dbip-country-lite";
-    version = "2025-12";
+    version = "2026-01";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-country-lite-2025-12.mmdb.gz";
-      hash = "sha256-MQ9kJubtM2Iq+gywSz6r7kkdv++BT9qEVPukFV8BQ5Q=";
+      url = "https://download.db-ip.com/free/dbip-country-lite-2026-01.mmdb.gz";
+      hash = "sha256-S6Ae3c4Ft2U58yfc/blaJCM/H5uSi73sOEyudxyOdbE=";
     };
   };
   decluttarr = {
@@ -694,36 +694,36 @@
   };
   funasr = {
     pname = "funasr";
-    version = "7b58bdccfee110265da445ea1cdf34385c41fe87";
+    version = "c253fe7d7a27270e882ecb213fa94105f5c3991d";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "7b58bdccfee110265da445ea1cdf34385c41fe87";
-      hash = "sha256-fNLwCWq+iL1+t+0H+eXMFiWRrYYlwmZOp4gf2b6+JEc=";
+      rev = "c253fe7d7a27270e882ecb213fa94105f5c3991d";
+      hash = "sha256-kcNUf+MMhEPVUc/XJJ7Tjs4fYYmddHX6XDAi8Xpx+s4=";
     };
-    date = "2025-12-29";
+    date = "2026-01-01";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2025.12.31";
+    version = "2026.01.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.31/GeoLite2-ASN.mmdb";
-      hash = "sha256-Az2y2pEVRTKS9wtoNKlOk472+lOoipn3AoKiKAo1qb4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.01/GeoLite2-ASN.mmdb";
+      hash = "sha256-saQ20mJaH4p5AWWDKpxcuVsrYUSdnQ0xuCipAX6SR/U=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2025.12.31";
+    version = "2026.01.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.31/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.01/GeoLite2-City.mmdb";
       hash = "sha256-neGATsZsftJRiv18KsRP9RaFzsNkSRmu2M3JnC7tSsM=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2025.12.31";
+    version = "2026.01.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2025.12.31/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.01/GeoLite2-Country.mmdb";
       hash = "sha256-OLb5/simM1SHjQD8cDwO7WIC5G1oo6r0d+NWf9ilSt0=";
     };
   };
@@ -1100,12 +1100,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7595";
+    version = "b7615";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7595";
-      hash = "sha256-0tBCRmBJR6rtBXis+d10MaoNKd4yQ7ivDijilkAUkuU=";
+      tag = "b7615";
+      hash = "sha256-MZNp1cnCiw+bUrR87SSTddASH3pTexHqyhj3uNQ6AO8=";
     };
   };
   loralib = {
@@ -1507,12 +1507,12 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V2.9.5787";
+    version = "V2.9.5792";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic_Project";
-      tag = "V2.9.5787";
-      hash = "sha256-uVUg0ELH7qltv9COP6ePSKuVOMSjuSrteZA0ZwI30fc=";
+      tag = "V2.9.5792";
+      hash = "sha256-Ftm5ut34Tinqs3NKiGTNvZdm/wjjnPf+AHVinT/qb/o=";
     };
   };
   plasma-panel-transparency-toggle = {
