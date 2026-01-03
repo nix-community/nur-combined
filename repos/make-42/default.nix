@@ -28,6 +28,8 @@
   denise = pkgs.callPackage ./pkgs/denise {};
 
   ladybird = pkgs.callPackage ./pkgs/ladybird {};
+
+  sdrtrunk = pkgs.callPackage ./pkgs/sdrtrunk {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
