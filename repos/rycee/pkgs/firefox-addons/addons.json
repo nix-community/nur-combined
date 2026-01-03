@@ -1155,6 +1155,13 @@
     "slug": "metager-suche"
   },
   {
+    "slug": "middle-mouse-button-scroll",
+    "license": {
+      "tag": "predefined",
+      "shortName": "wtfpl"
+    }
+  },
+  {
     "slug": "modheader-firefox",
     "pname": "modheader",
     "license": {
@@ -2331,6 +2338,9 @@
   },
   {
     "slug": "ytcfilter"
+  },
+  {
+    "slug": "zen-internet"
   },
   {
     "slug": "zeroomega"
