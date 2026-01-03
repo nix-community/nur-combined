@@ -9,10 +9,7 @@
     meta ? {},
     installPhase ? null,
     ...
-  }: let
-    # Extract the plugin name from pname (removing .yazi suffix if present)
-    pluginName = lib.removeSuffix ".yazi" pname;
-  in
+  }:
     stdenvNoCC.mkDerivation (
       args
       // {
