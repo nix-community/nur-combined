@@ -29,6 +29,5 @@ in
     gateway-st = callPackage ./pkgs/gateway-st {};
     rclone_zus = callPackage ./pkgs/rclone_zus {};
     xdg-terminal-exec = callPackage ./pkgs/xdg-terminal-exec {};
-    ttf-ms-fonts = callPackage ./pkgs/ttf-ms-fonts {};
     xmclib = callPackage ./pkgs/xmclib {};
   })

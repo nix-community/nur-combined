@@ -62,7 +62,7 @@ in
       owner = "Mikilio";
       repo = "snapshots.yazi";
       rev = "408dc3da3e0d90fcf55aa042292fdc8c80b924a9";
-      hash = "";
+      hash = "sha256-Fu+2BTp5yan27x6VPLVk7pbBenQ4tI+UVkqrbvNSjmw=";
     };
 
     meta = {
