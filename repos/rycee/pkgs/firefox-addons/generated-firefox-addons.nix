@@ -13623,14 +13623,14 @@
     };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "7.0.0";
+      version = "7.0.1";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4654771/tomato_clock-7.0.0.xpi";
-      sha256 = "6627917defa035e62cfb91b0df9916a41b60617d5287610b9a99104ccaa278d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4655965/tomato_clock-7.0.1.xpi";
+      sha256 = "8d3fe64907be0e4185844db10a5480778af22931bb62092e7c73693198dc7c3a";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
-        description = "Tomato Clock is a simple browser extension that helps with online time management.";
+        description = "A simple browser extension for managing your productivity";
         license = licenses.gpl3;
         mozPermissions = [ "notifications" "storage" "alarms" ];
         platforms = platforms.all;
