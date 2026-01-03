@@ -152,6 +152,7 @@ let
           davinci-resolve-studio2001
           lix
           ghidra
+          prismlauncher-diegiwg
           ;
       };
     }

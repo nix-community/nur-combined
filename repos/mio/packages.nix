@@ -12,6 +12,8 @@ with (import ./private.nix { inherit pkgs; });
 let
   callPackage = pkgs.callPackage;
   lib = pkgs.lib // import ./lib { inherit pkgs; };
+  stdenv = pkgs.stdenv;
+  fetchFromGitHub = pkgs.fetchFromGitHub;
 in
 rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
@@ -251,4 +253,28 @@ rec {
     wine = pkgs.wineWowPackages.base;
   };
 
+  prismlauncher-diegiwg =
+    let
+      # https://github.com/NixOS/nixpkgs/blob/fb6a5b23f9416753d343d914fe7c14044e59aaed/pkgs/by-name/pr/prismlauncher/package.nix#L41
+      msaClientID = null;
+      gamemodeSupport = stdenv.hostPlatform.isLinux;
+    in
+    pkgs.prismlauncher.overrideAttrs (old: {
+      version = "9.4-0612187";
+      paths = [
+        # https://github.com/NixOS/nixpkgs/blob/fb6a5b23f9416753d343d914fe7c14044e59aaed/pkgs/by-name/pr/prismlauncher/package.nix#L61
+        (v3overrideAttrs (
+          (pkgs.prismlauncher-unwrapped.override { inherit msaClientID gamemodeSupport; }).overrideAttrs
+            (old': {
+              version = "9.4-0612187";
+              src = fetchFromGitHub {
+                owner = "Diegiwg";
+                repo = "PrismLauncher-Cracked";
+                rev = "0612187254ef41a1087f3107e927e0dd59c9b29d";
+                hash = "sha256-zZS//xyNYQHvD4fUMoWx86uVUwPk+p5FjZLTTu0pelQ=";
+              };
+            })
+        ))
+      ];
+    });
 }
