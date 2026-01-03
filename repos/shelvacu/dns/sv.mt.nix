@@ -6,14 +6,14 @@ in
   vacu.liamMail = true;
   A = propA;
   subdomains = {
+    # keep-sorted start block=yes
     "2e14".A = propA;
     "clientauth.2e14".A = propA;
-
-    "jf".A = propA;
-    "f".A = propA;
-    "files".A = propA;
     "copy".A = propA;
     "copyparty".A = propA;
+    "f".A = propA;
+    "files".A = propA;
+    "jf".A = propA;
     thisthirdlevelisownedbyshelandwasnotmadeavailabletoemily.NS = [
       "thisns1isonlyusedbyshelandisnotusedforthirdlevelregistrationfor.emilygeil.com."
       "thisns2isonlyusedbyshelandisnotusedforthirdlevelregistrationfor.emilygeil.com."
@@ -22,5 +22,6 @@ in
       "thisns5isonlyusedbyshelandisnotusedforthirdlevelregistrationfor.emilygeil.com."
     ];
     www.A = propA;
+    # keep-sorted end
   };
 }

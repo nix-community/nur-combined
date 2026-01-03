@@ -38,29 +38,33 @@ in
   vacu.liamMail = true;
   A = propA;
   subdomains = {
+    # keep-sorted start ignore_prefixes=" block=yes
+    "*.prophecy".A = propA;
+    "*.solis".A = solisA;
+    "2e14".A = propA;
     _atproto.TXT = s "did=did:plc:oqenurzqeji6ulii3myxls64";
     "_report._dmarc".subdomains = vaculib.mapNamesToAttrsConst {
       TXT = s "v=DMARC1";
     } allow_report_domains;
-    "2e14".A = propA;
-    f.A = propA;
-    files.A = propA;
-    copy.A = propA;
-    copyparty.A = propA;
     actual.A = propA;
+    "admin.garage.prophecy".A = propA;
     autoconfig.A = doA;
     awoo.A = s "45.142.157.71";
+    copy.A = propA;
+    copyparty.A = propA;
     dav-experiment.A = propA;
     dynrecords.NS = dnsData.cloudnsNS;
+    f.A = propA;
+    files.A = propA;
     ft.subdomains = {
       "*".A = s "45.87.250.193";
       _acme-challenge.CNAME = s "17aa43aa-9295-4522-8cf2-b94ba537753d.auth.acme-dns.io.";
     };
     id.A = propA;
     imap.A = doA;
-    jf.A = propA;
     jelly.A = propA;
     jellyfin.A = propA;
+    jf.A = propA;
     jobs.A = propA;
     local-nixcache.A = s "10.78.79.22";
     mail.A = doA;
@@ -76,17 +80,15 @@ in
     prop.CNAME = s "prophecy";
     prophecy.A = propA;
     prophecy.subdomains."*".A = propA;
-    "*.prophecy".A = propA;
-    "s3.garage.prophecy".A = propA;
-    "admin.garage.prophecy".A = propA;
     radicale.A = propA;
+    "s3.garage.prophecy".A = propA;
     servacu.A = s "167.99.161.174";
     smtp.A = doA;
     sol.CNAME = s "solis";
     solis.A = solisA;
-    "*.solis".A = solisA;
     vaultwarden.A = propA;
     www.A = propA;
     xs.A = solisA;
+    # keep-sorted end
   };
 }

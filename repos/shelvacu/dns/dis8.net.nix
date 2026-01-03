@@ -6,6 +6,7 @@ in
   vacu.liamMail = true;
 
   subdomains = {
+    # keep-sorted start block=yes
     do-a.A = doA;
     liam = {
       A = doA;
@@ -16,5 +17,6 @@ in
       vacu.liamMail = true;
     };
     solis.A = dnsData.solisA;
+    # keep-sorted end
   };
 }

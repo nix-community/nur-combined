@@ -5,13 +5,15 @@ in
 {
   A = propA;
   subdomains = {
-    "git".A = propA;
+    # keep-sorted start block=yes
     "auth".A = propA;
-    "wisdom".A = propA;
     "chat" = {
       vacu.liamMail = true;
       A = propA;
     };
     "gabriel-dropout".A = propA;
+    "git".A = propA;
+    "wisdom".A = propA;
+    # keep-sorted end
   };
 }
