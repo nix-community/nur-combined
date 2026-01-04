@@ -50,19 +50,24 @@ in
     { pkgs, pkgsWithCuda, ... }:
     let
       inherit (pkgs.callPackage ../../helpers/is-buildable.nix { }) isBuildable;
+      inherit (pkgs.callPackage ../../helpers/flatten-pkgs.nix { })
+        flattenPkgs
+        ;
       nvfetcherLoader = pkgs.callPackage ../../helpers/nvfetcher-loader.nix { };
       sources = nvfetcherLoader ../../_sources/generated.nix;
     in
     rec {
       ciPackages = lib.filterAttrs (n: isBuildable) (
-        (import ../../pkgs "ci" { inherit inputs pkgs; })
+        (flattenPkgs (import ../../pkgs "ci" { inherit inputs pkgs; }))
         // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
       );
       ciPackagesWithCuda = lib.filterAttrs (n: isBuildable) (
-        (import ../../pkgs "ci" {
-          inherit inputs;
-          pkgs = pkgsWithCuda;
-        })
+        (flattenPkgs (
+          import ../../pkgs "ci" {
+            inherit inputs;
+            pkgs = pkgsWithCuda;
+          }
+        ))
         // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
       );
     };

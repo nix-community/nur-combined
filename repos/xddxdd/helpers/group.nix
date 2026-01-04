@@ -56,7 +56,7 @@ rec {
 
   createCallGroup =
     _packages: callPackage: path:
-    pkgs.callPackage path (createCallGroupDeps _packages callPackage);
+    lib.recurseIntoAttrs (pkgs.callPackage path (createCallGroupDeps _packages callPackage));
 
   createLoadPackages =
     callPackage: path: mapping:
