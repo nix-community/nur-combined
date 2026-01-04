@@ -11,7 +11,7 @@
 {pkgs ? import <nixpkgs> {}}: let
   self = import ./nur.nix {inherit pkgs;};
 in
-  self.nurPackages.${pkgs.system}
+  self.nurPackages.${pkgs.stdenv.hostPlatform.system}
   // {
     inherit (self) lib modules;
   }

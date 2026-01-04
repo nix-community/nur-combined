@@ -15,7 +15,7 @@
   # the GRUB 2 bootloader.  Currently this is not changeable as an option,
   # because the code expect specific file names in the package, so it's not
   # really possible to replace Terminus with something else.
-  terminus_font = flake.self.packages.${pkgs.system}.terminus-font-custom;
+  terminus_font = flake.self.packages.${pkgs.stdenv.hostPlatform.system}.terminus-font-custom;
 in {
   options.sigprof.i18n.ru_RU = {
     enable = mkEnableOption "custom configuration for the ru_RU locale";

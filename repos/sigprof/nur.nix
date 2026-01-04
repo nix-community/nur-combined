@@ -2,7 +2,7 @@
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> {inherit system;},
 }: let
-  inherit (pkgs) system;
+  inherit (pkgs.stdenv.hostPlatform) system;
 
   # Make a flake-like structure for the current flake (only the parts that are
   # actually used by the code are filled in).
