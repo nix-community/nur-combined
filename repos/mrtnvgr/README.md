@@ -26,7 +26,6 @@
 
 #### Plugins
 
-- [OneTrick-KEYS](https://punklabs.com/ot-keys)
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
 - [vitalium-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
@@ -34,7 +33,6 @@
 - [luftikus-vst2](https://github.com/DISTRHO/DISTRHO-Ports)
 - [LUFSMeter-vst2](https://github.com/DISTRHO/DISTRHO-Ports)
 - [surge-XT-vst3](https://github.com/surge-synthesizer/surge)
-- [dragonfly-reverb-vst3](https://github.com/michaelwillis/dragonfly-reverb)
 
 #### Utilities
 
