@@ -88,4 +88,14 @@ in rec {
 
   # Reaper themes
   reapertips-dark = p ./pkgs/reapertips/dark.nix { };
+
+  cardinal-unstable-test = pkgs.cardinal.overrideAttrs {
+    src = pkgs.fetchFromGitHub {
+      owner = "DISTRHO";
+      repo = "Cardinal";
+      rev = "7c589fe6114bf3103a3a6ac6da39a842fd374e97";
+      fetchSubmodules = true;
+      hash = "";
+    };
+  };
 }
