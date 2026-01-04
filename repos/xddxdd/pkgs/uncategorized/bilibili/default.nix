@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
 
     mkdir -p $out/bin
-    makeWrapper ${electron}/bin/electron $out/bin/bilibili \
+    makeWrapper ${lib.getExe electron} $out/bin/bilibili \
       --argv0 "bilibili" \
       --add-flags "$out/opt/app.asar" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"

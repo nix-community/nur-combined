@@ -49,7 +49,7 @@ stdenv.mkDerivation {
 
     cp -r * $out/opt/
 
-    makeWrapper ${pythonEnv}/bin/python $out/bin/cockpy \
+    makeWrapper ${lib.getExe pythonEnv} $out/bin/cockpy \
       --prefix PYTHONPATH : "$out/opt" \
       --add-flags "-m" \
       --add-flags "cockpy"

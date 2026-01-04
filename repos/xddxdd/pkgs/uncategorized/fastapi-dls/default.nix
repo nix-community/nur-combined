@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     openssl rsa -in app/cert/instance.private.pem -outform PEM -pubout -out app/cert/instance.public.pem
 
     pushd test
-    PYTHONPATH=$(pwd):$(pwd)/app ${python}/bin/python -m pytest main.py
+    PYTHONPATH=$(pwd):$(pwd)/app ${lib.getExe python} -m pytest main.py
     popd
 
     runHook postCheck
@@ -54,7 +54,7 @@ stdenv.mkDerivation {
 
     sed -i "s#\\.\\./#$out/opt/#g" $out/opt/app/main.py
 
-    makeWrapper ${python}/bin/python $out/bin/fastapi-dls \
+    makeWrapper ${lib.getExe python} $out/bin/fastapi-dls \
       --add-flags "-m" \
       --add-flags "uvicorn" \
       --add-flags "--app-dir" \

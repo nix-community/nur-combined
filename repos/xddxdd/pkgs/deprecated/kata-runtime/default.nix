@@ -33,13 +33,13 @@ stdenv.mkDerivation rec {
     "PREFIX=${placeholder "out"}"
     "DEFAULT_HYPERVISOR=qemu"
     "HYPERVISORS=qemu"
-    "QEMUPATH=${qemu_kvm}/bin/qemu-system-x86_64"
+    "QEMUPATH=${lib.getExe' qemu_kvm "qemu-system-x86_64"}"
   ];
 
   preBuild = ''
     cd src/runtime
     mkdir -p $TMPDIR/bin
-    ln -s ${yq-3_4_1}/bin/yq $TMPDIR/bin/yq
+    ln -s ${lib.getExe yq-3_4_1} $TMPDIR/bin/yq
     export HOME=$TMPDIR
     export GOPATH=$TMPDIR
   '';

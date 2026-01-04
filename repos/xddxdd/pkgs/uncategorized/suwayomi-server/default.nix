@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     install -Dm644 $src $out/opt/suwayomi-server.jar
 
     mkdir -p $out/bin
-    makeWrapper ${jre_headless}/bin/java $out/bin/suwayomi-server \
+    makeWrapper ${lib.getExe jre_headless} $out/bin/suwayomi-server \
       --add-flags "-jar" \
       --add-flags "$out/opt/suwayomi-server.jar"
 

@@ -20,10 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin $out/opt
     cp -r src/* $out/opt/
 
-    makeWrapper ${python3}/bin/python3 $out/bin/palworld-worldoptions \
+    makeWrapper ${lib.getExe python3} $out/bin/palworld-worldoptions \
       --add-flags "$out/opt/main.py" \
       --add-flags "--uesave" \
-      --add-flags "${uesave-0_3_0}/bin/uesave"
+      --add-flags "${lib.getExe uesave-0_3_0}"
   '';
 
   meta = {

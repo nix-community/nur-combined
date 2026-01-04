@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     install -Dm644 HentaiAtHome.jar $out/opt/HentaiAtHome.jar
 
     mkdir -p $out/bin
-    makeWrapper ${jre_headless}/bin/java $out/bin/hath \
+    makeWrapper ${lib.getExe jre_headless} $out/bin/hath \
       --add-flags "-Xms16m" \
       --add-flags "-Xmx512m" \
       --add-flags "-jar" \

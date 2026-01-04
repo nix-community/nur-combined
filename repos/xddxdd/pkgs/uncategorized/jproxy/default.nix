@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/bin $out/opt
     cp -r * $out/opt/
 
-    makeWrapper ${jre_headless}/bin/java $out/bin/jproxy \
+    makeWrapper ${lib.getExe jre_headless} $out/bin/jproxy \
       --add-flags "-Xms512m" \
       --add-flags "-Xmx512m" \
       --add-flags "-Dfile.encoding=utf-8" \

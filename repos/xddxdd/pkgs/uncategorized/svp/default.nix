@@ -39,8 +39,8 @@ let
       if [ -S "$arg" ]; then
         printf %s p
         echo '{"command": ["get_property", "pid"]}' |
-          ${socat}/bin/socat - "UNIX-CONNECT:$arg" |
-          ${jq}/bin/jq -Mr .data
+          ${lib.getExe socat} - "UNIX-CONNECT:$arg" |
+          ${lib.getExe jq} -Mr .data
         printf '\n'
       fi
     done

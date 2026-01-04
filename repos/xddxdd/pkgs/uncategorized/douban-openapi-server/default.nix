@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     cp -r * $out/opt/
 
-    makeWrapper ${pythonEnv}/bin/gunicorn $out/bin/douban-openapi-server \
+    makeWrapper ${lib.getExe' pythonEnv "gunicorn"} $out/bin/douban-openapi-server \
       --add-flags "--chdir" \
       --add-flags "$out/opt/" \
       --append-flags "app:app"

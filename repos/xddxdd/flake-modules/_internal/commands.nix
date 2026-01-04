@@ -1,6 +1,7 @@
 _: {
   perSystem =
     {
+      lib,
       pkgs,
       ...
     }:
@@ -20,7 +21,7 @@ _: {
           [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
           [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
           export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
-          ${pkgs.nvfetcher}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+          ${lib.getExe pkgs.nvfetcher} $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
 
           python3 tools/postprocess_nvfetcher.py
 
@@ -56,7 +57,7 @@ _: {
           set -euo pipefail
           nix build .#_meta.readme
           cat result > README.md
-          nix search . ^ --json | ${pkgs.jq}/bin/jq > nix-packages.json
+          nix search . ^ --json | ${lib.getExe pkgs.jq} > nix-packages.json
         '';
 
         trace = ''
@@ -87,7 +88,7 @@ _: {
 
           for ATTR in $ATTRS; do
             echo "Updating $ATTR"
-            ${pkgs.nix-update}/bin/nix-update --flake "$ATTR" --version skip
+            ${lib.getExe pkgs.nix-update} --flake "$ATTR" --version skip
           done
         '';
       };

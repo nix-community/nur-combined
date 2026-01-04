@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     pushd $out/opt/
     # Without MongoDB, Grasscutter is expected to fail
-    (${jre_headless}/bin/java -jar $out/grasscutter.jar || true) | while read line; do
+    (${lib.getExe jre_headless} -jar $out/grasscutter.jar || true) | while read line; do
       [[ "''${line}" == *"Loading Grasscutter"* ]] && echo "Aborting loading" && pkill -9 java
       echo ''${line}
     done
@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     rm -rf logs
     popd
 
-    makeWrapper ${jre_headless}/bin/java $out/bin/grasscutter \
+    makeWrapper ${lib.getExe jre_headless} $out/bin/grasscutter \
       --run "cp -r $out/opt/* ." \
       --run "chmod -R +rw ." \
       --add-flags "-jar" \

@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   checkPhase = ''
     runHook preCheck
 
-    ${pythonEnv}/bin/python -c "import speech"
+    ${lib.getExe pythonEnv} -c "import speech"
 
     runHook postCheck
   '';
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     cp -r *.py *.sh *.yaml $out/opt/
 
-    makeWrapper ${pythonEnv}/bin/python $out/bin/${finalAttrs.pname} \
+    makeWrapper ${lib.getExe pythonEnv} $out/bin/${finalAttrs.pname} \
       --run "mkdir -p config" \
       --prefix PYTHONPATH : "$out/opt" \
       --suffix PATH : "${additionalPath}" \

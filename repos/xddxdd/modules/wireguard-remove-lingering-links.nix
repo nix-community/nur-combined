@@ -15,10 +15,10 @@
         lib.nameValuePair "wireguard-${n}" {
           serviceConfig.ExecStartPre =
             if v.interfaceNamespace == null then
-              [ "-${pkgs.iproute2}/bin/ip link del \"${n}\"" ]
+              [ "-${lib.getExe' pkgs.iproute2 "ip"} link del \"${n}\"" ]
             else
               [
-                "-${pkgs.iproute2}/bin/ip netns exec \"${v.interfaceNamespace}\" ${pkgs.iproute2}/bin/ip link del \"${n}\""
+                "-${lib.getExe' pkgs.iproute2 "ip"} netns exec \"${v.interfaceNamespace}\" ${lib.getExe' pkgs.iproute2 "ip"} link del \"${n}\""
               ];
         };
     in

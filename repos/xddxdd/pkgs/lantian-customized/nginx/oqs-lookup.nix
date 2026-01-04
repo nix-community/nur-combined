@@ -1,4 +1,5 @@
 {
+  lib,
   openssl-oqs-provider,
   python3,
 }:
@@ -9,7 +10,7 @@ openssl-oqs-provider.overrideAttrs (old: {
     runHook preInstall
 
     mkdir -p $out
-    ${python3}/bin/python ${./oqs-lookup.py} > $out/oqs_lookup.c
+    ${lib.getExe python3} ${./oqs-lookup.py} > $out/oqs_lookup.c
 
     runHook postInstall
   '';

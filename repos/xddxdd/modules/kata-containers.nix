@@ -43,7 +43,7 @@ in
     ];
 
     virtualisation.docker.daemon.settings.runtimes.kata-runtime.path =
-      "${config.virtualisation.kata-containers.runtimePackage}/bin/kata-runtime";
+      lib.getExe config.virtualisation.kata-containers.runtimePackage;
     virtualisation.podman.extraPackages = [ config.virtualisation.kata-containers.runtimePackage ];
   };
 }

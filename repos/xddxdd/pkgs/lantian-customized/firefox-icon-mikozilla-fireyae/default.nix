@@ -8,7 +8,7 @@ let
   resizeIcon =
     size: src:
     runCommand "icon-${builtins.toString size}.png" { } ''
-      ${imagemagick}/bin/convert ${src} \
+      ${lib.getExe imagemagick} ${src} \
         -resize ${builtins.toString size}x${builtins.toString size}! \
         $out
     '';

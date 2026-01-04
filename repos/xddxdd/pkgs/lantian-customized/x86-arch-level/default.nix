@@ -9,7 +9,7 @@ writeTextFile rec {
   executable = true;
   destination = "/bin/${name}";
   text = ''
-    #!${gawk}/bin/awk -f
+    #!${lib.getExe gawk} -f
 
     BEGIN {
       while (!/flags/) if (getline < "/proc/cpuinfo" != 1) exit 1

@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/bin
-    makeWrapper ${py}/bin/python3 $out/bin/decluttarr \
+    makeWrapper ${lib.getExe py} $out/bin/decluttarr \
       --add-flags $src/main.py
 
     runHook postInstall

@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/bin
-    makeWrapper ${distPackage}/bin/Sanctuary $out/bin/unigine-sanctuary \
+    makeWrapper ${lib.getExe' distPackage "Sanctuary"} $out/bin/unigine-sanctuary \
       --chdir ${distPackage} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}" \
       --add-flags "-system_script" \

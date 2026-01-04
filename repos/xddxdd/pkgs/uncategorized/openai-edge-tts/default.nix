@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preCheck
 
     pushd app
-    ${pythonEnv}/bin/python -c "import server"
+    ${lib.getExe pythonEnv} -c "import server"
     popd
 
     runHook postCheck
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     cp -r app $out/opt
 
-    makeWrapper ${pythonEnv}/bin/python $out/bin/${finalAttrs.pname} \
+    makeWrapper ${lib.getExe pythonEnv} $out/bin/${finalAttrs.pname} \
       --prefix PYTHONPATH : "$out/opt" \
       --add-flags "$out/opt/server.py"
 

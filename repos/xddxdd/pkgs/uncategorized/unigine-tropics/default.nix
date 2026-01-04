@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/bin
-    makeWrapper ${distPackage}/bin/Tropics $out/bin/unigine-tropics \
+    makeWrapper ${lib.getExe' distPackage "Tropics"} $out/bin/unigine-tropics \
       --chdir ${distPackage} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}" \
       --add-flags "-system_script" \

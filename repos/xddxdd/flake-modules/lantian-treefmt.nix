@@ -45,7 +45,7 @@
       formatter = pkgs.writeShellScriptBin "treefmt-auto" ''
         for i in {1..5}; do
           echo "Running treefmt for the ''${i}th time"
-          ${config.treefmt.build.wrapper}/bin/treefmt --clear-cache --fail-on-change "$@" && exit 0
+          ${pkgs.lib.getExe config.treefmt.build.wrapper} --clear-cache --fail-on-change "$@" && exit 0
         done
         exit $?
       '';
