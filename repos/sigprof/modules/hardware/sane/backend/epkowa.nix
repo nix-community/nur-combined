@@ -17,6 +17,7 @@ in {
     sigprof.nixpkgs.permittedUnfreePackages = [
       "iscan"
       "iscan-data"
+      "iscan-ds"
       "iscan-gt"
       "iscan-gt-f720-bundle"
       "iscan-gt-s600-bundle"

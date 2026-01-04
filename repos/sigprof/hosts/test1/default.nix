@@ -28,7 +28,7 @@ in
 
         environment.systemPackages = [
           pkgs.kicad-small
-          pkgs.tor-browser-bundle-bin
+          pkgs.tor-browser
           self.packages.${system}.virt-manager
 
           # Temporary until the Home Manager config is ported
