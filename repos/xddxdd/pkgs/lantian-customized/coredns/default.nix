@@ -2,37 +2,38 @@
   lib,
   coredns,
   unbound,
+  sources,
   ...
 }:
 (coredns.override {
   externalPlugins = [
     {
       name = "mdns";
-      repo = "github.com/openshift/coredns-mdns";
-      version = "latest";
+      repo = "github.com/openshift/coredns-mdns/v4";
+      version = sources.coredns-mdns.rawVersion;
     }
     {
       name = "alias";
       repo = "github.com/serverwentdown/alias";
-      version = "latest";
+      version = sources.coredns-alias.rawVersion;
     }
     {
       name = "meshname";
       repo = "github.com/zhoreeq/coredns-meshname";
-      version = "latest";
+      version = sources.coredns-meshname.rawVersion;
     }
     {
       name = "meship";
       repo = "github.com/zhoreeq/coredns-meship";
-      version = "latest";
+      version = sources.coredns-meship.rawVersion;
     }
     {
       name = "unbound";
       repo = "github.com/coredns/unbound";
-      version = "latest";
+      version = sources.coredns-unbound.rawVersion;
     }
   ];
-  vendorHash = "sha256-lnOQfy0l8etCi5G1oMlhUGGyATHAeoY4ctk0EJdLJug=";
+  vendorHash = "sha256-kGPET0FxrtCsXCPbT0zy3Mbojb4AC7QaF/bvMzBqy30=";
 }).overrideAttrs
   (old: {
     patches = (old.patches or [ ]) ++ [ ./fix-large-axfr.patch ];

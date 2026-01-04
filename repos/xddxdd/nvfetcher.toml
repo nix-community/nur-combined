@@ -125,9 +125,25 @@ src.github = "Takuto88/comp128-python"
 fetch.github = "coqui-ai/TTS"
 src.github = "coqui-ai/TTS"
 
-[coredns-lantian]
-fetch.github = "xddxdd/coredns"
-src.git = "https://github.com/xddxdd/coredns.git"
+[coredns-alias]
+fetch.github = "serverwentdown/alias"
+src.github_tag = "serverwentdown/alias"
+
+[coredns-mdns]
+fetch.github = "openshift/coredns-mdns"
+src.git = "https://github.com/openshift/coredns-mdns.git"
+
+[coredns-meship]
+fetch.github = "zhoreeq/coredns-meship"
+src.git = "https://github.com/zhoreeq/coredns-meship.git"
+
+[coredns-meshname]
+fetch.github = "zhoreeq/coredns-meshname"
+src.git = "https://github.com/zhoreeq/coredns-meshname.git"
+
+[coredns-unbound]
+fetch.github = "coredns/unbound"
+src.github_tag = "coredns/unbound"
 
 [cryptodev-linux]
 fetch.github = "cryptodev-linux/cryptodev-linux"

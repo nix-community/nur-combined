@@ -296,16 +296,58 @@
       hash = "sha256-RQVlPHYZ5X/6xbxwGNcgntcyAsBS8T2ketdk+OCIS3Q=";
     };
   };
-  coredns-lantian = {
-    pname = "coredns-lantian";
-    version = "a411a29f831648afa98aa79b164e790add2d6f14";
+  coredns-alias = {
+    pname = "coredns-alias";
+    version = "1.0.6";
     src = fetchFromGitHub {
-      owner = "xddxdd";
-      repo = "coredns";
-      rev = "a411a29f831648afa98aa79b164e790add2d6f14";
-      hash = "sha256-LPQWyDzpN1K9tJosDE70QxqP9BDuSVqlTVRYappYUUc=";
+      owner = "serverwentdown";
+      repo = "alias";
+      tag = "1.0.6";
+      hash = "sha256-E1iixH8nWop3+c4sdC95a2+XChZUc/WVLijZj70wr0c=";
     };
-    date = "2023-09-02";
+  };
+  coredns-mdns = {
+    pname = "coredns-mdns";
+    version = "1b73907c925f6f57b99d6b88ceee4b7e8ca90026";
+    src = fetchFromGitHub {
+      owner = "openshift";
+      repo = "coredns-mdns";
+      rev = "1b73907c925f6f57b99d6b88ceee4b7e8ca90026";
+      hash = "sha256-0ivQY8Ad+nqiHLkm+VOz2fiUg8MBR9vWKFdUVTAVpYo=";
+    };
+    date = "2023-02-13";
+  };
+  coredns-meship = {
+    pname = "coredns-meship";
+    version = "ba2685d1803672262638f752edb0ae97932b58fa";
+    src = fetchFromGitHub {
+      owner = "zhoreeq";
+      repo = "coredns-meship";
+      rev = "ba2685d1803672262638f752edb0ae97932b58fa";
+      hash = "sha256-LVzsLZ+BeZ1Scva2y2wenspmm6RUgQd9EZwSKldDWGE=";
+    };
+    date = "2021-10-25";
+  };
+  coredns-meshname = {
+    pname = "coredns-meshname";
+    version = "a3eb6c946497242b3d5aa73e979a62444299dde2";
+    src = fetchFromGitHub {
+      owner = "zhoreeq";
+      repo = "coredns-meshname";
+      rev = "a3eb6c946497242b3d5aa73e979a62444299dde2";
+      hash = "sha256-geSwVWytBSsxcncXNtkOAe4tWcSQ/CfVHhZKjdwMOOE=";
+    };
+    date = "2021-05-27";
+  };
+  coredns-unbound = {
+    pname = "coredns-unbound";
+    version = "v0.0.7";
+    src = fetchFromGitHub {
+      owner = "coredns";
+      repo = "unbound";
+      tag = "v0.0.7";
+      hash = "sha256-RNdTMJqxbpdcJw6RTe+LJNppyFzT23yqeJ65oswRuus=";
+    };
   };
   cryptodev-linux = {
     pname = "cryptodev-linux";
