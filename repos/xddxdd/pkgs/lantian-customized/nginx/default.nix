@@ -25,7 +25,7 @@
   modules ? [ ],
 }:
 let
-  oqs-lookup = import ./oqs-lookup.nix { inherit openssl-oqs-provider python3; };
+  oqs-lookup = import ./oqs-lookup.nix { inherit lib openssl-oqs-provider python3; };
 
   patchUseOpensslMd5Sha1 = fetchurl {
     url = "https://github.com/kn007/patch/raw/master/use_openssl_md5_sha1.patch";
