@@ -35,7 +35,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31.8.4
+        uses: cachix/install-nix-action@v31.9.0
         with:
           install_url: ${{ env.CI_NIX_INSTALL_URL }}
           nix_path: nixpkgs=channel:nixos-unstable
