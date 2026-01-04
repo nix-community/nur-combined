@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "outline-electron";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "Mag1cByt3s";
     repo = "outline-electron";
     rev = version; # Use a tag or commit hash for reproducibility
-    sha256 = "125m2m08pw7qimzx28hfn01maai2d17ngnpk8afysv8f7nlwjd8n"; # nix-prefetch-url --unpack https://github.com/Mag1cByt3s/outline-electron/archive/refs/tags/1.0.0.tar.gz
+    sha256 = "14b9mz0yrvs38p5wl4307sklzira0ws0nsjx4r275dkcn9b2p958"; # nix-prefetch-url --unpack https://github.com/Mag1cByt3s/outline-electron/archive/refs/tags/1.0.1.tar.gz
   };
 
   nativeBuildInputs = [
