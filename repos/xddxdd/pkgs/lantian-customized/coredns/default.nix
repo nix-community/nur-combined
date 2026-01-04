@@ -32,7 +32,7 @@
       version = "latest";
     }
   ];
-  vendorHash = "sha256-lDFWb1M4DDBT35h0IzSJfEUV+YOkicPk0bXysOvvfWY=";
+  vendorHash = "sha256-lnOQfy0l8etCi5G1oMlhUGGyATHAeoY4ctk0EJdLJug=";
 }).overrideAttrs
   (old: {
     patches = (old.patches or [ ]) ++ [ ./fix-large-axfr.patch ];
