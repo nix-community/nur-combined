@@ -69,9 +69,9 @@ stdenv.mkDerivation (finalAttrs: {
     libnotify
     python
   ];
-  postPatch = ''
-    sed -i 's/-Werror//g' configure.ac
-  '';
+
+  patches = [ ./fix-build.patch ];
+
   preAutoreconf = ''
     export AUTOPOINT=intltoolize
   '';

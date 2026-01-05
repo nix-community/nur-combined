@@ -1,0 +1,67 @@
+diff --git a/configure.ac b/configure.ac
+index ad3b030..c14c112 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -78,7 +78,7 @@ AC_ARG_WITH(werror,
+ [ case "$withval" in
+   yes)
+     AC_MSG_RESULT(yes)
+-    CFLAGS="-Wall -Werror $CFLAGS"
++    CFLAGS="-Wall $CFLAGS"
+     ;;
+   *)
+     AC_MSG_RESULT(no)
+diff --git a/src/ol_commands.c b/src/ol_commands.c
+index 1853c13..138847f 100644
+--- a/src/ol_commands.c
++++ b/src/ol_commands.c
+@@ -21,7 +21,7 @@
+ #include "ol_debug.h"
+ 
+ void
+-ol_osd_lock_unlock ()
++ol_osd_lock_unlock (char* unused1, void* unused2)
+ {
+   OlConfigProxy *config = ol_config_proxy_get_instance ();
+   ol_assert (config != NULL);
+@@ -30,7 +30,7 @@ ol_osd_lock_unlock ()
+ }
+ 
+ void
+-ol_osd_switch_display ()
++ol_osd_switch_display (char* unused1, void* unused2)
+ {
+   OlConfigProxy *config = ol_config_proxy_get_instance ();
+   ol_assert (config != NULL);
+diff --git a/src/ol_commands.h b/src/ol_commands.h
+index 19991fa..ecc5f97 100644
+--- a/src/ol_commands.h
++++ b/src/ol_commands.h
+@@ -33,12 +33,12 @@
+  * @brief switch lock/unlock status on OSD windows
+  * 
+  */
+-void ol_osd_lock_unlock ();
++void ol_osd_lock_unlock (char* unused1, void* unused2);
+ 
+ /** 
+  * @brief switch show/hide OSD
+  * 
+  */
+-void ol_osd_switch_display ();
++void ol_osd_switch_display (char* unused1, void* unused2);
+ 
+ #endif /* _OL_COMMANDS_H_ */
+diff --git a/src/ol_trayicon.c b/src/ol_trayicon.c
+index c4fc623..9bd19bf 100644
+--- a/src/ol_trayicon.c
++++ b/src/ol_trayicon.c
+@@ -55,7 +55,7 @@ static void
+ activate (GtkStatusIcon* status_icon,
+           gpointer user_data)
+ {
+-  ol_osd_switch_display ();
++  ol_osd_switch_display (NULL, NULL);
+ }
+ 
+ static gboolean
