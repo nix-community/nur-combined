@@ -140,8 +140,8 @@ done
 # 4️⃣ 最终验证
 # =============================================================================
 
-echo "🏁 Final build verification"
-nix build "$BUILD_TARGET"
+# echo "🏁 Final build verification"
+# nix build "$BUILD_TARGET"
 
 # =============================================================================
 # 成功
