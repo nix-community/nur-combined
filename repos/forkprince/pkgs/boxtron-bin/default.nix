@@ -46,6 +46,10 @@ in
       runHook postInstall
     '';
 
+    preFixup = ''
+      sed -i 's|# cmd = ~/projects/dosbox/src/dosbox|cmd = ${dosbox-staging}/bin/dosbox|g' $steamcompattool/settings.py
+    '';
+
     meta = {
       description = ''
         Steam Play compatibility tool to run DOS games using native Linux DOSBox
