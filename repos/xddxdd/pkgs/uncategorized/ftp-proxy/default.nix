@@ -6,6 +6,12 @@
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.ftp-proxy) pname version src;
 
+  postPatch = ''
+    substituteInPlace src/ip-lib.c \
+      --replace-fail ", *gethostbyname();" ";" \
+      --replace-fail "static void alarm_handler()" "static void alarm_handler(int unused)"
+  '';
+
   buildPhase = ''
     runHook preBuild
 
