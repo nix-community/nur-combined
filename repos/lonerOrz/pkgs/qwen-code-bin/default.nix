@@ -1,51 +1,51 @@
 {
   lib,
-  nodejs,
+  nodejs_20,
+  buildNpmPackage,
   fetchurl,
-  stdenvNoCC,
-  makeWrapper,
+  fetchNpmDeps,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "qwen-code-bin";
-  version = "0.0.15-nightly.11";
+let
+  pname = "qwen-code";
+  version = "0.6.0";
+  srcHash = "sha256-ahTRYZOQoaZYcHN4CRCoyYGbq//doWmf2MpKxtY+KwI=";
+  npmDepsHash = "sha256-QuYbbGoZk6ciIJ4EbhgPd1iS4cjUqS5zNdtF9VN/RlY=";
 
-  src = fetchurl {
-    url = "https://github.com/QwenLM/qwen-code/releases/download/v${finalAttrs.version}/gemini.js";
-    hash = "sha256-RDjpjoJj8Xvbm7HJTca+b6xwHWI902zeEERGOA0zdp0=";
+  src = runCommand "gemini-cli-src-with-lock" { } ''
+    mkdir -p $out
+    tar -xzf ${
+      fetchurl {
+        url = "https://registry.npmjs.org/@qwen-code/qwen-code/-/qwen-code-${version}.tgz";
+        hash = "${srcHash}";
+      }
+    } -C $out --strip-components=1
+    cp ${./package-lock.json} $out/package-lock.json
+  '';
+in
+buildNpmPackage (finalAttrs: {
+  inherit pname version src;
+
+  npmDeps = fetchNpmDeps {
+    inherit (finalAttrs) src;
+    hash = "${npmDepsHash}";
   };
 
-  dontUnpack = true;
-  strictDeps = true;
+  # The package from npm is already built
+  dontNpmBuild = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nodejs = nodejs_20;
 
-  buildInputs = [
-    nodejs
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    cp "$src" ./qwen
-    install -D "qwen" "$out/bin/qwen"
-    # Suppress deprecation warnings
-    wrapProgram "$out/bin/qwen" \
-      --set NODE_OPTIONS "--no-deprecation"
-
-    runHook postInstall
-  '';
+  npmFlags = [ "--ignore-scripts" ];
 
   passthru.updateScript = ./update.sh;
 
   meta = {
-    description = "Coding agent that lives in the digital world";
+    description = "Qwen-code is a coding agent that lives in digital world";
     homepage = "https://github.com/QwenLM/qwen-code";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "qwen";
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    license = lib.licenses.asl20;
+    platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ lonerOrz ];
   };
 })

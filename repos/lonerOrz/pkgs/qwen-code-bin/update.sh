@@ -1,32 +1,77 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash --pure --keep GITHUB_TOKEN -p curl jq cacert nix
-
+#!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "${BASH_SOURCE[0]}")"
+# 工具检测
+command -v nix-prefetch-url >/dev/null || { echo >&2 "请先安装 nix-prefetch-url"; exit 1; }
+command -v prefetch-npm-deps >/dev/null || { echo >&2 "请先安装 prefetch-npm-deps"; exit 1; }
+command -v jq >/dev/null || { echo >&2 "请先安装 jq"; exit 1; }
 
-NIX_FILE="default.nix"
-GITHUB_REPO="QwenLM/qwen-code"
-ASSET_NAME="gemini.js"
-REV_PREFIX="v"
+# 获取脚本所在目录
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+package_file="$script_dir/default.nix"
+lock_file="$script_dir/package-lock.json"
 
-CURRENT_VER=$(grep -oP 'version = "\K[^"]+' "${NIX_FILE}" || { echo "错误：无法提取版本号" >&2; exit 1; })
+cleanup() {
+  if [ -n "${tmp_dir:-}" ] && [ -d "$tmp_dir" ]; then
+    rm -rf "$tmp_dir"
+  fi
+}
+trap cleanup EXIT
 
-API_URL="https://api.github.com/repos/${GITHUB_REPO}/releases/latest"
-RELEASE_JSON=$(curl --fail -s "${API_URL}" || { echo "错误：无法获取 GitHub 发布信息" >&2; exit 1; })
-LATEST_VER=$(echo "${RELEASE_JSON}" | jq -r '.tag_name // empty' || { echo "错误：无法获取最新版本" >&2; exit 1; })
-LATEST_VER="${LATEST_VER#"${REV_PREFIX}"}"
+echo "Fetching latest version..."
+latest_version=$(npm view @qwen-code/qwen-code version)
+echo "Latest version: $latest_version"
 
-[[ "${LATEST_VER}" == "${CURRENT_VER}" ]] && { echo "已是最新版本：${CURRENT_VER}"; exit 0; }
+current_version=$(nix eval .#qwen-code.version --raw)
+echo "Current version: $current_version"
 
-ASSET_URL=$(echo "${RELEASE_JSON}" | jq -r ".assets[] | select(.name == \"${ASSET_NAME}\") | .browser_download_url")
-[[ -z "${ASSET_URL}" ]] && { echo "错误：未找到资产 ${ASSET_NAME}" >&2; exit 1; }
+if [ "$latest_version" = "$current_version" ] && [ "${FORCE_UPDATE:-}" != "true" ]; then
+  echo "Package is already up to date!"
+  echo "Use FORCE_UPDATE=true to force hash updates"
+  exit 0
+fi
 
-# LATEST_HASH=$(nix-prefetch-url "${ASSET_URL}" || { echo "错误：无法计算哈希值" >&2; exit 1; })
-raw_hash=$(nix-prefetch-url "${ASSET_URL}")
-LATEST_HASH=$(nix hash to-base64 "sha256:$raw_hash")
+if [ "$latest_version" = "$current_version" ]; then
+  echo "Forcing hash update for version $current_version"
+else
+  echo "Update available: $current_version -> $latest_version"
+fi
 
-sed -i "s|hash = \"[^\"]*\"|hash = \"sha256-${LATEST_HASH}\"|g" "${NIX_FILE}"
-sed -i "s|version = \"${CURRENT_VER}\"|version = \"${LATEST_VER}\"|g" "${NIX_FILE}"
+# 下载 npm 包并生成 package-lock.json
+echo "Downloading npm package and generating package-lock.json..."
+tmp_dir=$(mktemp -d)
+cd "$tmp_dir"
+npm pack "@qwen-code/qwen-code@$latest_version" >/dev/null 2>&1
+tarball_name=$(ls *.tgz)   # 自动获取生成的 tarball 名称
+tar -xzf "$tarball_name"
 
-echo "成功更新到版本 ${LATEST_VER}"
+cd package
+npm install --package-lock-only --ignore-scripts >/dev/null 2>&1
+cp package-lock.json "$lock_file"
+
+cd "$script_dir"
+
+# 计算 tarball URL 和 hash
+tarball_url="https://registry.npmjs.org/@qwen-code/qwen-code/-/qwen-code-${latest_version}.tgz"
+echo "Fetching tarball hash from nix-prefetch-url..."
+raw_hash=$(nix-prefetch-url "$tarball_url")
+tarball_hash=$(nix hash to-base64 "sha256:$raw_hash")
+echo "Tarball hash: sha256-$tarball_hash"
+
+# 获取 npmDeps hash
+echo "Fetching npmDeps hash via prefetch-npm-deps..."
+npmdeps_hash=$(prefetch-npm-deps "$lock_file")
+echo "npmDeps hash: $npmdeps_hash"
+
+# Updating default.nix
+echo "Updating default.nix..."
+sed -i "s|version = \".*\";|version = \"$latest_version\";|" "$package_file"
+sed -i -E "s|srcHash = \"sha256-[^\"]+\";|srcHash = \"sha256-$tarball_hash\";|" "$package_file"
+sed -i -E "s|npmDepsHash = \"sha256-[^\"]+\";|npmDepsHash = \"$npmdeps_hash\";|" "$package_file"
+
+echo "✅ Update completed successfully!"
+if [ "$latest_version" = "$current_version" ]; then
+  echo "✅ Hashes have been updated for qwen-code $current_version"
+else
+  echo "✅ qwen-code has been updated from $current_version to $latest_version"
+fi
