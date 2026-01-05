@@ -55,15 +55,15 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.7",
-    "hash": "sha256-0atxp6osUgsxdzkSQtc5ShPge3JI7JD/GDdD+HWMih4=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.7/aiursoft.dbtools.mysql.10.0.7.nupkg"
+    "version": "10.0.8",
+    "hash": "sha256-uiI1bLy4Wf0ckBj+aKOv4wargQi8CVBT3epw97rUKbo=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.mysql/10.0.8/aiursoft.dbtools.mysql.10.0.8.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.7",
-    "hash": "sha256-TXPSmNNYeC5gUf6MQe9BygchCBr4w06NghHJAY6Lc+Q=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.7/aiursoft.dbtools.sqlite.10.0.7.nupkg"
+    "version": "10.0.8",
+    "hash": "sha256-w14mHEDQe3/51G9F6ohie+cKuwFTd7Mohsp/uJ+yu3k=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.dbtools.sqlite/10.0.8/aiursoft.dbtools.sqlite.10.0.8.nupkg"
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
@@ -109,9 +109,9 @@
   },
   {
     "pname": "AsyncKeyedLock",
-    "version": "7.1.8",
-    "hash": "sha256-PkV8x9HvIAxppdJrYBg0zY6odbVs9S6fhqgW+ZthWA4=",
-    "url": "https://nuget.aiursoft.com/v3/package/asynckeyedlock/7.1.8/asynckeyedlock.7.1.8.nupkg"
+    "version": "8.0.0",
+    "hash": "sha256-TIPoKOVJgmVVaOMgozfGAjFjCmknWEuhQkk6B50FXg4=",
+    "url": "https://nuget.aiursoft.com/v3/package/asynckeyedlock/8.0.0/asynckeyedlock.8.0.0.nupkg"
   },
   {
     "pname": "coverlet.collector",
@@ -121,15 +121,15 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.3.7",
-    "hash": "sha256-vxoLcBs9PvZhv1alufPmcZg4GxWPnHr38clIf8rYwIE=",
-    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor/5.3.7/efcoresecondlevelcacheinterceptor.5.3.7.nupkg"
+    "version": "5.3.8",
+    "hash": "sha256-UPk6H8H1ROW2iPeMWiCMY6BYkoDV7BF8e2Kx3SovGpw=",
+    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor/5.3.8/efcoresecondlevelcacheinterceptor.5.3.8.nupkg"
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.3.7",
-    "hash": "sha256-i4yEMOK8BwLwzJREG7Vc/UXhmpZPw9CBzxIY2rgd34Y=",
-    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor.memorycache/5.3.7/efcoresecondlevelcacheinterceptor.memorycache.5.3.7.nupkg"
+    "version": "5.3.8",
+    "hash": "sha256-SxsRKg6J2HW3GMGMq2TQNqdLJdW+mlF/KR86z9K5ZuA=",
+    "url": "https://nuget.aiursoft.com/v3/package/efcoresecondlevelcacheinterceptor.memorycache/5.3.8/efcoresecondlevelcacheinterceptor.memorycache.5.3.8.nupkg"
   },
   {
     "pname": "Humanizer.Core",
