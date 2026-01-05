@@ -38,8 +38,9 @@ in
     '';
 
     preFixup = ''
-      substituteInPlace "$steamcompattool/compatibilitytool.vdf" \
-        --replace-fail "${version}" "${display}"
+      sed -i \
+        "s|proton-cachyos-[^\"]*|${display}|g" \
+        "$steamcompattool/compatibilitytool.vdf"
     '';
 
     meta = {

@@ -1,5 +1,4 @@
 {
-  steamDisplayName ? "Boxtron",
   soundfont-fluid,
   dosbox-staging,
   inotify-tools,
@@ -45,11 +44,6 @@ in
       cp $src/compatibilitytool.vdf $steamcompattool
 
       runHook postInstall
-    '';
-
-    preFixup = ''
-      substituteInPlace "$steamcompattool/compatibilitytool.vdf" \
-        --replace-fail "${version}" "${steamDisplayName}"
     '';
 
     meta = {

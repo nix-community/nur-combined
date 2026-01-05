@@ -37,8 +37,13 @@ in
     '';
 
     preFixup = ''
-      substituteInPlace "$steamcompattool/compatibilitytool.vdf" \
-        --replace-fail "${version}" "${steamDisplayName}"
+      file="$steamcompattool/compatibilitytool.vdf"
+
+      substituteInPlace "$file" \
+        --replace-fail "proton-${version}-proton" "${steamDisplayName}"
+
+      substituteInPlace "$file" \
+        --replace-fail "proton-${version}" "${steamDisplayName}"
     '';
 
     meta = {
