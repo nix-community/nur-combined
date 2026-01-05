@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ ];
 
   meta = with lib; {
+    broken = true;
     description = "Empirical Statistical Testing of Uniform Random Number Generators";
     license = licenses.gpl3;
     homepage = http://simul.iro.umontreal.ca/testu01/tu01.html;
