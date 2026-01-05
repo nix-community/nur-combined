@@ -63,6 +63,7 @@ in {
         discord
         feh
         ffmpeg
+        firefox
         gimp-with-plugins
         imagemagick
         mpv
