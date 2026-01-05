@@ -55,9 +55,9 @@ let
 
   servers = importSub ./servers {
     edgee = { };
-    freenginx = {
-      modules = with pkgs.nginxModules; [ moreheaders ];
-    };
+    # freenginx = {
+    #   modules = with pkgs.nginxModules; [ moreheaders ];
+    # };
     iocaine = { };
     ots = {
       _common = "ots";
