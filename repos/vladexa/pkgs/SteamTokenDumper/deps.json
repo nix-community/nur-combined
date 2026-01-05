@@ -1,92 +1,82 @@
 [
   {
     "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
-    "version": "8.0.2",
-    "hash": "sha256-UfLfEQAkXxDaVPC7foE/J3FVEXd31Pu6uQIhTic3JgY="
+    "version": "10.0.0",
+    "hash": "sha256-9iodXP39YqgxomnOPOxd/mzbG0JfOSXzFoNU3omT2Ps="
   },
   {
     "pname": "Microsoft.Extensions.Logging.Abstractions",
-    "version": "8.0.2",
-    "hash": "sha256-cHpe8X2BgYa5DzulZfq24rg8O2K5Lmq2OiLhoyAVgJc="
+    "version": "10.0.0",
+    "hash": "sha256-BnhgGZc01HwTSxogavq7Ueq4V7iMA3wPnbfRwQ4RhGk="
   },
   {
     "pname": "Microsoft.IdentityModel.Abstractions",
-    "version": "8.9.0",
-    "hash": "sha256-rkSppPEf1a08m0XCH2qBUaNuh+orRu9RZDoRlh9hDBw="
+    "version": "8.15.0",
+    "hash": "sha256-LKTvERNUTMCEF7xs377tCMwOMRki93OS4kh6Yv0uXJ4="
   },
   {
     "pname": "Microsoft.IdentityModel.JsonWebTokens",
-    "version": "8.9.0",
-    "hash": "sha256-WiDGijDMdN3OZUjmll2mzcOvTJex8fK/+QfcG5ngFgU="
+    "version": "8.15.0",
+    "hash": "sha256-LwzKiGjcnORvmQ9tim6lomXpfVlPpd/fE8FKTFWKlpM="
   },
   {
     "pname": "Microsoft.IdentityModel.Logging",
-    "version": "8.9.0",
-    "hash": "sha256-PkLF4IhNM4R7uwvs+040+WwJC60gLH2bouHuWJaj6aA="
+    "version": "8.15.0",
+    "hash": "sha256-mMXwsjGcrrmHR1mG7BLTKg/30mX+m93QVX17/ynOOd4="
   },
   {
     "pname": "Microsoft.IdentityModel.Tokens",
-    "version": "8.9.0",
-    "hash": "sha256-WxlYv2RH/ui0rfo+fDujJZmdkbvInWzHLMbiOF9jgIE="
+    "version": "8.15.0",
+    "hash": "sha256-7Lo/TsvqgNCEMyFssO3Om233521Pqgb9K9lUeHc5HMk="
   },
   {
-    "pname": "Microsoft.NETCore.Platforms",
-    "version": "5.0.0",
-    "hash": "sha256-LIcg1StDcQLPOABp4JRXIs837d7z0ia6+++3SF3jl1c="
-  },
-  {
-    "pname": "Microsoft.Win32.Registry",
-    "version": "5.0.0",
-    "hash": "sha256-9kylPGfKZc58yFqNKa77stomcoNnMeERXozWJzDcUIA="
+    "pname": "Microsoft.Win32.SystemEvents",
+    "version": "6.0.0",
+    "hash": "sha256-N9EVZbl5w1VnMywGXyaVWzT9lh84iaJ3aD48hIBk1zA="
   },
   {
     "pname": "protobuf-net",
-    "version": "3.2.52",
-    "hash": "sha256-phXeroBt5KbHYkApkkMa0mRCVkDY+dtOOXXNY+i50Ek="
+    "version": "3.2.56",
+    "hash": "sha256-KjwRHyGwflQDjVaudT+NjRnfGhHb4CpCfn9hHVixI+E="
   },
   {
     "pname": "protobuf-net.Core",
-    "version": "3.2.52",
-    "hash": "sha256-/9Jj26tuSKeYJb9udwew5i5EVvaoeNu/vBCKS0VhSQQ="
+    "version": "3.2.56",
+    "hash": "sha256-NVvLreCvvvnS/s0syL5/L3mRpXeswP7E71C6WP9f2Dc="
   },
   {
     "pname": "QRCoder",
-    "version": "1.6.0",
-    "hash": "sha256-2Ev/6d7PH6K4dVYQQHlZ+ZggkCnDtrlaGygs65mDo28="
+    "version": "1.7.0",
+    "hash": "sha256-sssSQBTHf1cUWNQYFEEJ8PRLs486ciDsXtrwL+ozZIU="
   },
   {
     "pname": "Spectre.Console",
-    "version": "0.50.0",
-    "hash": "sha256-3MNgumQSXzuXVGj7kLb5FMkTH/LoFohMvUjAZ7nyHfo="
+    "version": "0.54.0",
+    "hash": "sha256-qlZQkT5KzACqJ1bLgBOylq9qO0L7XCh/RY8L8PnkpcU="
   },
   {
     "pname": "SteamKit2",
-    "version": "3.1.0",
-    "hash": "sha256-Lpz0OQrKQW0AMrt9wvK4tO/NjJdHvXvlt+jitKrphVA="
+    "version": "3.3.1",
+    "hash": "sha256-f6kc15RKNxCSIlynlVHU8fBqQ7N8nG1xV3DNbBlRmvo="
+  },
+  {
+    "pname": "System.Drawing.Common",
+    "version": "6.0.0",
+    "hash": "sha256-/9EaAbEeOjELRSMZaImS1O8FmUe8j4WuFUw1VOrPyAo="
   },
   {
     "pname": "System.IO.Hashing",
-    "version": "9.0.4",
-    "hash": "sha256-rbcQzEncB3VuUZIcsE1tq30suf5rvRE4HkE+0lR/skU="
-  },
-  {
-    "pname": "System.Memory",
-    "version": "4.6.3",
-    "hash": "sha256-JgeK63WMmumF6L+FH5cwJgYdpqXrSDcgTQwtIgTHKVU="
-  },
-  {
-    "pname": "System.Security.AccessControl",
-    "version": "5.0.0",
-    "hash": "sha256-ueSG+Yn82evxyGBnE49N4D+ngODDXgornlBtQ3Omw54="
-  },
-  {
-    "pname": "System.Security.Principal.Windows",
-    "version": "5.0.0",
-    "hash": "sha256-CBOQwl9veFkrKK2oU8JFFEiKIh/p+aJO+q9Tc2Q/89Y="
+    "version": "9.0.8",
+    "hash": "sha256-Jj1XwumBjBa5LJqSVTN2naQJ0FM4wwPvZS8NxGd5Hnw="
   },
   {
     "pname": "ValveKeyValue",
-    "version": "0.13.1.398",
-    "hash": "sha256-dBoEU9Eb0VhzDWHLJY74xamz2Yt283tve+81I8mIxJc="
+    "version": "0.20.0.417",
+    "hash": "sha256-CmnexfgjFT4aLeSXargNyIJlRDFh6lyPW4Kx+m68nzk="
+  },
+  {
+    "pname": "ZstdSharp.Port",
+    "version": "0.8.6",
+    "hash": "sha256-rc3YWP80fykqujDsD72SXOA1tBDoy2KrvVETOC8eTx8="
   }
 ]

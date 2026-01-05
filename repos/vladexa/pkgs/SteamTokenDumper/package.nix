@@ -7,21 +7,21 @@
 }:
 buildDotnetModule (finalAttrs: {
   pname = "SteamTokenDumper";
-  version = "2025.04.28";
+  version = "2025.12.17";
 
   src = fetchFromGitHub {
     owner = "SteamDatabase";
     repo = "SteamTokenDumper";
     rev = finalAttrs.version;
-    hash = "sha256-8kLOozF60f6tg+a5VlmWYlWN4Nfh+pyx4m4Gxo5h4QQ=";
+    hash = "sha256-LKUrATMbmJYwukJYO4Y1DkD2gPj06B8R7pLRiy+4Gr8=";
   };
 
   projectFile = "SteamTokenDumper.csproj";
 
   nugetDeps = ./deps.json;
 
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.runtime_9_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
   meta = {
     description = "🔢 Submit users' PICS access tokens to SteamDB";
