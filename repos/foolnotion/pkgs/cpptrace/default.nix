@@ -1,7 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zstd, libdwarf }:
+{ lib, stdenv, fetchFromGitHub, cmake, zstd, libdwarf, nix-update-script }:
 stdenv.mkDerivation rec {
   pname = "cpptrace";
-  version = "1.0.2";
+  version = "1.0.4";
 
   src = fetchFromGitHub {
     owner = "jeremy-rifkin";

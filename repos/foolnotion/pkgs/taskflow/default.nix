@@ -1,14 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "taskflow";
-  version = "3.8.0";
+  version = "4.0.0";
 
   src = fetchFromGitHub {
     repo = "taskflow";
     owner = "taskflow";
     rev = "v${version}";
-    sha256 = "sha256-gim1QQKtzMXz8BmNg5YeN4mcveiid5MrS8IrTaTtZ1Y=";
+    sha256 = "sha256-Ga3VKFLBQ/FunPY7Ea69/+WEuxqn7ogPxJ9wdndDKI0=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -19,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = ''
-      cmakeFlags="$cmakeFlags -DCMAKE_INSTALL_PREFIX=$out" 
+    cmakeFlags="$cmakeFlags -DCMAKE_INSTALL_PREFIX=$out" 
   '';
 
   doCheck = false;
