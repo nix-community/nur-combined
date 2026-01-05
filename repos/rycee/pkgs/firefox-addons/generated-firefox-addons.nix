@@ -7347,10 +7347,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.7.1";
+      version = "1.7.2";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4601510/leechblock_ng-1.7.1.xpi";
-      sha256 = "e24b5d92d1b23ed23223a2283e29de125905313004ebf598012c37ea92a4e81c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657335/leechblock_ng-1.7.2.xpi";
+      sha256 = "133566ccfd9a52fe284766957f002b533237c61b125dcffaa73c91dc8fb8c1e5";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -7786,23 +7786,21 @@
     };
     "linkwarden" = buildFirefoxXpiAddon {
       pname = "linkwarden";
-      version = "1.4.1";
+      version = "1.5.0";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4653237/linkwarden-1.4.1.xpi";
-      sha256 = "9052acc7584e5b9d1a024df3ec1aebce79f7ea7e8885f72dff21fbe19c0fe989";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657329/linkwarden-1.5.0.xpi";
+      sha256 = "c3c591e45b28ba359e6d28e97f68c97ff9af176a0b366c55d821711e1222599e";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
         license = licenses.agpl3Only;
         mozPermissions = [
           "storage"
+          "scripting"
           "activeTab"
           "tabs"
           "bookmarks"
           "contextMenus"
-          "<all_urls>"
-          "http://*/*"
-          "https://*/*"
         ];
         platforms = platforms.all;
       };
@@ -9445,10 +9443,10 @@
     };
     "nyaa-linker" = buildFirefoxXpiAddon {
       pname = "nyaa-linker";
-      version = "2.4.1";
+      version = "2.4.2";
       addonId = "Metacor.Code@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4638130/nyaa_linker-2.4.1.xpi";
-      sha256 = "0d152eb253584789d1f3de0618f9d6f682f95700234d8223cd0e4760c0e714be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657278/nyaa_linker-2.4.2.xpi";
+      sha256 = "d918ed0f56fbb7b3cb633b9a501cc6d214d0c2f6ac0d32deebacf6dd48a906c0";
       meta = with lib;
       {
         description = "Adds a button to Anime and Manga database websites that opens a relevant Nyaa search";
@@ -10806,10 +10804,10 @@
     };
     "prometheus-formatter" = buildFirefoxXpiAddon {
       pname = "prometheus-formatter";
-      version = "3.2.0";
+      version = "3.2.1";
       addonId = "prometheus-formatter@frederic-hemberger.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4409277/prometheus_formatter-3.2.0.xpi";
-      sha256 = "f7a10896f573439f026b44f6911d1839fc4ea0583981eb0162bc13aa077d12e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657124/prometheus_formatter-3.2.1.xpi";
+      sha256 = "6b4f66f62a985dc16160ef311cdc7c13b7b23b1fc025350e48c281946234dc04";
       meta = with lib;
       {
         homepage = "https://github.com/fhemberger/prometheus-formatter";
