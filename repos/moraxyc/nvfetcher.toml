@@ -81,3 +81,11 @@ fetch.github = "mautrix/telegramgo"
 [new-api]
 src.github = "QuantumNous/new-api"
 fetch.github = "QuantumNous/new-api"
+
+[aliyundrive-webdav-stable]
+src.github = "messense/aliyundrive-webdav"
+fetch.github = "messense/aliyundrive-webdav"
+
+[aliyundrive-webdav]
+src.git = "https://github.com/messense/aliyundrive-webdav.git"
+fetch.github = "messense/aliyundrive-webdav"

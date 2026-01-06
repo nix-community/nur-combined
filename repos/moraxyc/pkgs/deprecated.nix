@@ -1,7 +1,13 @@
 pkgs:
 let
-  upstreamed = [ "hmcl" ];
-  discontinued = [ "gzctf" ];
+  upstreamed = [
+    "hmcl"
+    "sub-store"
+    "sub-store-frontend"
+  ];
+  discontinued = [
+    "gzctf"
+  ];
 
   inherit (pkgs) lib;
 in

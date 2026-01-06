@@ -1,4 +1,46 @@
 {
+    "aliyundrive-webdav": {
+        "cargoLocks": null,
+        "date": "2025-06-10",
+        "extract": null,
+        "name": "aliyundrive-webdav",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "messense",
+            "repo": "aliyundrive-webdav",
+            "rev": "6e8eba62b4e50acf89681e3a67a3a693186dcd05",
+            "sha256": "sha256-jyAq4B7SNbw++eoUFoI/Rc9GucU/1NMrC1/Rjysr5wg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6e8eba62b4e50acf89681e3a67a3a693186dcd05"
+    },
+    "aliyundrive-webdav-stable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "aliyundrive-webdav-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "messense",
+            "repo": "aliyundrive-webdav",
+            "rev": "v2.3.3",
+            "sha256": "sha256-LN2HdmhcPk6RCrRZdV3A8InoYgqJSHC2XjjuKZLfVaI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.3.3"
+    },
     "bark-server": {
         "cargoLocks": null,
         "date": "2025-12-30",

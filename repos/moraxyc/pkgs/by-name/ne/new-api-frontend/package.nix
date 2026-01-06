@@ -3,38 +3,80 @@
   buildNpmPackage,
   callPackage,
 
-  runCommand,
-  jq,
+  stdenvNoCC,
+  writableTmpDirAsHomeHook,
+  bun,
 
   new-api,
-  nodejs_22,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "${new-api.pname}-frontnd";
-  inherit (new-api) version;
+  inherit (new-api) version src;
 
-  nodejs = nodejs_22;
+  node_modules = stdenvNoCC.mkDerivation {
+    inherit (finalAttrs) src version sourceRoot;
+    pname = "${finalAttrs.pname}-node_modules";
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+      "GIT_PROXY_COMMAND"
+      "SOCKS_SERVER"
+      "NIX_NPM_REGISTRY"
+    ];
+    nativeBuildInputs = [
+      bun
+      writableTmpDirAsHomeHook
+    ];
+    dontConfigure = true;
+    buildPhase = ''
+      runHook preBuild
 
-  src = runCommand "${finalAttrs.pname}-patched-src" { nativeBuildInputs = [ jq ]; } ''
-    cp -r ${new-api.src} $out
-    chmod -R +w $out
-    jq '.overrides = {
-      "vite": "^5.2.0",
-      "react": "^18.2.0",
-      "react-dom": "^18.2.0",
-      "@lobehub/icons": { "react": "$react", "react-dom": "$react-dom" }
-    }' $out/web/package.json > package.json && \
-      mv package.json $out/web/package.json
-  '';
+      export BUN_INSTALL_CACHE_DIR=$(mktemp -d)
+      bunArgs=(
+        install
+        --no-progress
+        --frozen-lockfile
+        --no-cache
+      )
+
+      if [[ -n "$NIX_NPM_REGISTRY" ]]; then
+        bunArgs+=(--registry="$NIX_NPM_REGISTRY")
+      fi
+
+      bun "''${bunArgs[@]}"
+
+      runHook postBuild
+    '';
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/node_modules
+      cp -R ./node_modules $out
+
+      runHook postInstall
+    '';
+    dontFixup = true;
+    outputHash =
+      finalAttrs.passthru.nodeModulesHashes.${stdenvNoCC.hostPlatform.system}
+        or (throw "${finalAttrs.pname}: Platform ${stdenvNoCC.hostPlatform.system} is not packaged yet. Supported platforms: x86_64-linux, aarch64-linux.");
+    outputHashMode = "recursive";
+  };
 
   sourceRoot = "${finalAttrs.src.name}/web";
 
-  postPatch = ''
-    ln -s ${./package-lock.json} package-lock.json
+  preConfigure = ''
+    cp -R ${finalAttrs.node_modules}/node_modules .
+
+    # Bun takes executables from this folder
+    chmod -R u+rw node_modules
+    chmod -R u+x node_modules/.bin
+    patchShebangs node_modules
+
+    export HOME=$TMPDIR
+    export PATH="$PWD/node_modules/.bin:$PATH"
   '';
 
-  npmDepsHash = "sha256-FQ1ReZiaV1tHFW1ImjBru8OwNZt2+KFjCDn2SxgE8BI=";
+  npmDeps = null;
+  npmConfigHook = "";
 
   installPhase = ''
     runHook preInstall
@@ -44,8 +86,12 @@ buildNpmPackage (finalAttrs: {
     runHook postInstall
   '';
 
-  # nix-update auto -u
-  passthru.updateScript = lib.getExe (callPackage ./update.nix { });
+  passthru = {
+    # nix-update auto -s node_modules
+    nodeModulesHashes = {
+      x86_64-linux = "sha256-Cp8pg+FegNz6INJuEvHzUJ96d0qin3njbMuZUl6Ev3w=";
+    };
+  };
 
   inherit (new-api) meta;
 })
