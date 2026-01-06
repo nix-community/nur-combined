@@ -21,7 +21,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "sparkle";
-  version = "1.6.16";
+  version = "1.6.17";
 
   src = fetchurl {
     url = systemSrc.url;
@@ -66,7 +66,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Another Mihomo GUI";
-    homepage = "https://github.com/xishang0128/sparkle.git";
+    homepage = "https://github.com/INKCR0W/sparkle";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

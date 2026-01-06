@@ -7,7 +7,7 @@ sources_file="./sources.nix"
 package_file="./default.nix"
 
 # 获取最新 release tag
-latestTag=$(curl -sL https://api.github.com/repos/xishang0128/sparkle/releases/latest | jq -r ".tag_name")
+latestTag=$(curl -sL https://api.github.com/repos/INKCR0W/sparkle/releases/latest | jq -r ".tag_name")
 latestVersion="${latestTag#v}"
 
 declare -A archMap=(
@@ -16,7 +16,7 @@ declare -A archMap=(
 )
 
 # 获取该 tag 的完整 release JSON
-release_json=$(curl -sL "https://api.github.com/repos/xishang0128/sparkle/releases/tags/$latestTag")
+release_json=$(curl -sL "https://api.github.com/repos/INKCR0W/sparkle/releases/tags/$latestTag")
 
 # 生成合法的 sources.nix
 {
