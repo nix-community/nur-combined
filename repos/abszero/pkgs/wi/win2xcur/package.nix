@@ -10,13 +10,13 @@ in
 
 buildPythonPackage rec {
   pname = "win2xcur";
-  version = "0.1.2-unstable-2024-01-13";
+  version = "0.1.2-unstable-2026-01-06";
 
   src = fetchFromGitHub {
     owner = "quantum5";
     repo = pname;
-    rev = "8e71037f5f90f3cea82a74fe516ee637dea113fa";
-    hash = "sha256-4Evd3Aa2gpS2J+vkflV/aQypX419l8gI3Pa39wF9D0U=";
+    rev = "fab83c2c39bc5dcf04ce0669cabcabd099a067eb";
+    hash = "sha256-gaR+Uzmn7sH/9+VX/CRVEVXhlzAtsE6izfmMzQ1MLME=";
   };
 
   pyproject = true;
