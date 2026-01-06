@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLocks": null,
-        "date": "2026-01-05",
+        "date": "2026-01-06",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "22ddf4118ed76d82b99a241fd8b5da25b465b728",
-            "sha256": "sha256-NvvVX1s/o0F+/Yk3qAkccBOFn1ATOMUI2/fDWyuz0Tk=",
+            "rev": "a9c417fa1fb710057ebb4e3d580a8e3a7692e2e4",
+            "sha256": "sha256-2fUe9uQcqkpPSBKM3jiSM3QRous7gCdnvqfYf2mjaCA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "22ddf4118ed76d82b99a241fd8b5da25b465b728"
+        "version": "a9c417fa1fb710057ebb4e3d580a8e3a7692e2e4"
     },
     "hammerspoon": {
         "cargoLocks": null,
@@ -94,7 +94,7 @@
     },
     "paperwm-spoon": {
         "cargoLocks": null,
-        "date": "2025-12-21",
+        "date": "2026-01-05",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "311c0756088b294a6f317576965c5d2f14111e00",
-            "sha256": "sha256-Ts58sKDJvMXocrDaMm91X53toDbuU74j/iZhhHUNH2o=",
+            "rev": "03f4f1d805e1f42b5df3421dc81a8feb30cdb666",
+            "sha256": "sha256-UJi+995ac5aLsByO2jXmi5z0QTnbPx7OQFgMp6D+G3c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "311c0756088b294a6f317576965c5d2f14111e00"
+        "version": "03f4f1d805e1f42b5df3421dc81a8feb30cdb666"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
@@ -166,7 +166,7 @@
     },
     "skills-ref": {
         "cargoLocks": null,
-        "date": "2026-01-04",
+        "date": "2026-01-06",
         "extract": null,
         "name": "skills-ref",
         "passthru": null,
@@ -178,12 +178,12 @@
             "name": null,
             "owner": "agentskills",
             "repo": "agentskills",
-            "rev": "3c2deca38321cf056a6a57ed39a3c6b1bad94d1f",
-            "sha256": "sha256-YD9xaS9lipjVX8I4R6CAQq7UyBAQz6Zy57FLlEfWj08=",
+            "rev": "da24a2bd1793356b33f7ac14d41600062fcf27fa",
+            "sha256": "sha256-37pFWtMFbcwXJHOQSQPQM1Eey0Dn8AhAnsGDeeZzguI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3c2deca38321cf056a6a57ed39a3c6b1bad94d1f"
+        "version": "da24a2bd1793356b33f7ac14d41600062fcf27fa"
     },
     "skkeleton": {
         "cargoLocks": null,
