@@ -424,7 +424,7 @@
     },
     "rime-bopomofo": {
         "cargoLock": null,
-        "date": "2025-12-23",
+        "date": "2026-01-06",
         "extract": null,
         "name": "rime-bopomofo",
         "passthru": null,
@@ -434,13 +434,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ee710f426e17f8cf4222f2cd2343827bd045b6a9",
-            "sha256": "sha256-910tJ9hHUP4uRfilYwzDMlvTE59mHvth3KIbrWOHVj4=",
+            "rev": "a8c35a4ae3998ac0cdbd02fbb42c883ecada4279",
+            "sha256": "sha256-XKe5y3sKcsc1hZGphGji3rfZKf2kvsPm4HuztI8rvko=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-bopomofo.git"
         },
-        "version": "ee710f426e17f8cf4222f2cd2343827bd045b6a9"
+        "version": "a8c35a4ae3998ac0cdbd02fbb42c883ecada4279"
     },
     "rime-cangjie": {
         "cargoLock": null,
@@ -584,7 +584,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLock": null,
-        "date": "2025-11-13",
+        "date": "2026-01-06",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -594,13 +594,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a53cdf4fd6141cd3a5c2006ae882311e5132fca0",
-            "sha256": "sha256-rUcpxqmk30v19/woj3eKkiYHjnObfdnS6uqlknfRK8c=",
+            "rev": "d7b4e52f8021bbad5c5a99b2314ca1771cd6f222",
+            "sha256": "sha256-KSBwvr0xaC+3/TtIRwWY8j0Oan1sZYeJIek9xr24458=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "a53cdf4fd6141cd3a5c2006ae882311e5132fca0"
+        "version": "d7b4e52f8021bbad5c5a99b2314ca1771cd6f222"
     },
     "rime-pinyin-simp": {
         "cargoLock": null,
