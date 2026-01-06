@@ -66,13 +66,13 @@ fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ve
 src.github = "BeyondDimension/SteamTools"
 fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ver/Steam++_v$ver_linux_arm64.tgz"
 
-[gzctf-contributors]
-src.manual = "0.0.0"
-fetch.url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors"
-
-[gzctf]
-src.github = "GZTimeWalker/GZCTF"
-fetch.github = "GZTimeWalker/GZCTF"
+# [gzctf-contributors]
+# src.manual = "0.0.0"
+# fetch.url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors"
+#
+# [gzctf]
+# src.github = "GZTimeWalker/GZCTF"
+# fetch.github = "GZTimeWalker/GZCTF"
 
 [mautrix-telegramgo]
 src.git = "https://github.com/mautrix/telegramgo.git"

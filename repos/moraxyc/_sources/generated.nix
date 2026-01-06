@@ -107,25 +107,6 @@
       sha256 = "sha256-nWzTcw36NHbTsQg2FIStZ2oRPh6s2I0KC3JpPr69IpI=";
     };
   };
-  gzctf = {
-    pname = "gzctf";
-    version = "v1.8.0";
-    src = fetchFromGitHub {
-      owner = "GZTimeWalker";
-      repo = "GZCTF";
-      rev = "v1.8.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-Z9F8QS+HMaUD9n0YOp2w8KR43iUtzHAV8sMcZO3VPkw=";
-    };
-  };
-  gzctf-contributors = {
-    pname = "gzctf-contributors";
-    version = "0.0.0";
-    src = fetchurl {
-      url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors";
-      sha256 = "sha256-t90DgDDp0Eub8OZaDutZ0PknxSdu5SQPo2fSTUo0rBA=";
-    };
-  };
   libinput-three-finger-drag = {
     pname = "libinput-three-finger-drag";
     version = "6acd3f84b551b855b5f21b08db55e95dae3305c5";
@@ -163,13 +144,13 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v0.10.5-ionet.2";
+    version = "v0.10.5";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      rev = "v0.10.5-ionet.2";
+      rev = "v0.10.5";
       fetchSubmodules = false;
-      sha256 = "sha256-osTl/jLjUVzIoHUZO4jnEcpLFHBV4Tk5xSeScQJ5fqQ=";
+      sha256 = "sha256-rhIPQng3+Ki7QTrREwtTpzMghqFBIRH7S3zbTCXiQDc=";
     };
   };
   pixy2 = {
@@ -186,18 +167,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601042214";
+    version = "202601052215";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601042214/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601052215/geoip.dat";
       sha256 = "sha256-4ukoHKUgCNoa9hHTGYocXzugqKKZkSRFFk5zrDW/baU=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601042214";
+    version = "202601052215";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601042214/geosite.dat";
-      sha256 = "sha256-drrfnIW9CdOZfd7PQCZx/YMQaxzgtle2cjSxrGJowSo=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601052215/geosite.dat";
+      sha256 = "sha256-yX1bfmjPN3FObTkJ+awOFbu/lL7BhevjjJAW6kTI7tc=";
     };
   };
   watt-toolkit-aarch64-linux = {

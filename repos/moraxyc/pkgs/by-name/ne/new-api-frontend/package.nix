@@ -34,7 +34,7 @@ buildNpmPackage (finalAttrs: {
     ln -s ${./package-lock.json} package-lock.json
   '';
 
-  npmDepsHash = "sha256-SpPa478amZLQ7JoPstEKG68jo3SsI2QFqXVabn3GXfc=";
+  npmDepsHash = "sha256-FQ1ReZiaV1tHFW1ImjBru8OwNZt2+KFjCDn2SxgE8BI=";
 
   installPhase = ''
     runHook preInstall

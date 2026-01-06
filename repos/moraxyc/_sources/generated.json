@@ -191,42 +191,6 @@
         },
         "version": "2026.01.04"
     },
-    "gzctf": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "gzctf",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "GZTimeWalker",
-            "repo": "GZCTF",
-            "rev": "v1.8.0",
-            "sha256": "sha256-Z9F8QS+HMaUD9n0YOp2w8KR43iUtzHAV8sMcZO3VPkw=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v1.8.0"
-    },
-    "gzctf-contributors": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "gzctf-contributors",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-t90DgDDp0Eub8OZaDutZ0PknxSdu5SQPo2fSTUo0rBA=",
-            "type": "url",
-            "url": "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors"
-        },
-        "version": "0.0.0"
-    },
     "libinput-three-finger-drag": {
         "cargoLocks": null,
         "date": "2024-06-17",
@@ -304,12 +268,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v0.10.5-ionet.2",
-            "sha256": "sha256-osTl/jLjUVzIoHUZO4jnEcpLFHBV4Tk5xSeScQJ5fqQ=",
+            "rev": "v0.10.5",
+            "sha256": "sha256-rhIPQng3+Ki7QTrREwtTpzMghqFBIRH7S3zbTCXiQDc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.5-ionet.2"
+        "version": "v0.10.5"
     },
     "pixy2": {
         "cargoLocks": null,
@@ -343,9 +307,9 @@
             "name": null,
             "sha256": "sha256-4ukoHKUgCNoa9hHTGYocXzugqKKZkSRFFk5zrDW/baU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601042214/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601052215/geoip.dat"
         },
-        "version": "202601042214"
+        "version": "202601052215"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -356,11 +320,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-drrfnIW9CdOZfd7PQCZx/YMQaxzgtle2cjSxrGJowSo=",
+            "sha256": "sha256-yX1bfmjPN3FObTkJ+awOFbu/lL7BhevjjJAW6kTI7tc=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601042214/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601052215/geosite.dat"
         },
-        "version": "202601042214"
+        "version": "202601052215"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLocks": null,
