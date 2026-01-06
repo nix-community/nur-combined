@@ -8,6 +8,7 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  ...
 }:
 
 {
@@ -21,6 +22,7 @@
   fiz = pkgs.callPackage ./pkgs/fiz { };
   loko = pkgs.callPackage ./pkgs/loko { };
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
+  soar = pkgs.callPackage ./pkgs/soar { };
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
   zju-learning-assistant = pkgs.callPackage ./pkgs/zju-learning-assistant { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

@@ -18,22 +18,22 @@
   moreutils,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zju-learning-assistant";
-  version = "0.3.11";
+  version = "0.3.12";
   src = fetchFromGitHub {
     owner = "PeiPei233";
     repo = "zju-learning-assistant";
-    rev = "v${version}";
-    hash = "sha256-3LLIYT0JRosxy1clN4aLY0ECmnGFsVu2wfeGR3h3r4c=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Z3W1IMZFEvl0aiQP5+f0Zwslkkpq+B5XuteIXGGaKfY=";
   };
 
-  cargoHash = "sha256-GRV7Ji+ox0YJvfPX4PcbJGz0VwxxE9L2iK/VaHU/SAo=";
+  cargoHash = "sha256-qyLPQoPFCVdBM9reA6aJnAXh2bgXA/jVDuRkvRF8hPU=";
 
   npmDeps = fetchNpmDeps {
-    name = "${pname}-npm-deps-${version}";
-    inherit src;
-    hash = "sha256-NHrc1Ci9BSemHsY3Fa6Fu5v4SbRK4Zd/GQTrPmKEFs0=";
+    name = "${finalAttrs.pname}-npm-deps-${finalAttrs.version}";
+    inherit (finalAttrs) src;
+    hash = "sha256-BP+gYwbMZrSi5WZxf2ToTDuJRiy3ZXS6m5BxUd14Dng=";
   };
 
   nativeBuildInputs = [
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   cargoRoot = "src-tauri";
-  buildAndTestSubdir = cargoRoot;
+  buildAndTestSubdir = finalAttrs.cargoRoot;
 
   # from https://github.com/NixOS/nixpkgs/blob/04e40bca2a68d7ca85f1c47f00598abb062a8b12/pkgs/by-name/ca/cargo-tauri/test-app.nix#L23-L26
   postPatch = ''
@@ -73,9 +73,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     homepage = "https://github.com/PeiPei233/zju-learning-assistant";
-    changelog = "https://github.com/PeiPei233/zju-learning-assistant/releases/tag/v${version}";
+    changelog = "https://github.com/PeiPei233/zju-learning-assistant/releases/tag/${finalAttrs.src.tag}";
     description = "帮你快速下载所有课件😋";
     mainProgram = "zju-learning-assistant";
+    maintainers = with lib.maintainers; [ hhr2020 ];
     license = lib.licenses.mit;
   };
-}
+})

@@ -6,6 +6,7 @@
   cargo-tauri,
   copyDesktopItems,
   glib-networking,
+
   nodejs,
   npmHooks,
   openssl,
@@ -17,21 +18,21 @@
   moreutils,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fiz";
-  version = "0.3.6";
+  version = "0.3.9";
   src = fetchFromGitHub {
     owner = "CrazySpottedDove";
     repo = "fiz";
-    rev = "app-v${version}";
-    hash = "sha256-08GpdpRCSSCwKsIe0rKwogxvF6mUuSG18yHR1w9cHi4=";
+    tag = "app-v${finalAttrs.version}";
+    hash = "sha256-fz2mx8EB45OZAT3KI0LjpXNFWWNsPOnOdbYHnNXjA74=";
   };
 
   cargoHash = "sha256-1ERKMENPMTn5CPK4d5uTZ18ONMrCEY2PIK1GqSGHnSg=";
 
   npmDeps = fetchNpmDeps {
-    name = "${pname}-npm-deps-${version}";
-    inherit src;
+    name = "${finalAttrs.pname}-npm-deps-${finalAttrs.version}";
+    inherit (finalAttrs) src;
     hash = "sha256-jSgBrMPDmC98bcG44s0npA0Gu0mG8/qbJ3X3wNIHSY8=";
   };
 
@@ -57,7 +58,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   cargoRoot = "src-tauri";
-  buildAndTestSubdir = cargoRoot;
+  buildAndTestSubdir = finalAttrs.cargoRoot;
 
   postPatch = ''
     jq \
@@ -68,9 +69,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     homepage = "https://github.com/CrazySpottedDove/fiz";
-    changelog = "https://github.com/CrazySpottedDove/fiz/releases/tag/app-v${version}";
+    changelog = "https://github.com/CrazySpottedDove/fiz/releases/tag/${finalAttrs.src.tag}";
     description = "高速简洁的学在浙大第三方";
     mainProgram = "fiz";
+    maintainers = with lib.maintainers; [ hhr2020 ];
     license = lib.licenses.mit;
   };
-}
+})
