@@ -2272,10 +2272,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.19.1";
+      version = "4.19.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4651581/control_panel_for_twitter-4.19.1.xpi";
-      sha256 = "9b643f1f7848341015d02da17bc2f1ff2074f82c6b2a5af7ae24a2a4626c3526";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658365/control_panel_for_twitter-4.19.2.xpi";
+      sha256 = "0cfdc6138c36d6c9337c665a985ae0b9b12eb0952457ebce94706a00ce335233";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2707,10 +2707,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "147.0.20251231.90510";
+      version = "147.0.20260105.210555";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4654445/dansk_da_language_pack-147.0.20251231.90510.xpi";
-      sha256 = "c612874ca96dc903134b8f3152ad3f2f37bd8b8d423a04c82fa792c861d1f8ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658444/dansk_da_language_pack-147.0.20260105.210555.xpi";
+      sha256 = "fbc14e96dc6c6b2e750234c0b342a9bba2aa9b0163e755ea093109aac5dbf72e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2920,10 +2920,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "147.0.20251231.90510";
+      version = "147.0.20260105.210555";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4654428/deutsch_de_language_pack-147.0.20251231.90510.xpi";
-      sha256 = "8701e991c5b40470ac4e3b0a85145cf7596ec08890c6b04dfc08685a20330aaa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658449/deutsch_de_language_pack-147.0.20260105.210555.xpi";
+      sha256 = "ee56b0850a58b39051ae3cc599e0a297dbf0e590e6196691c08dd6c44777d1f4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4396,10 +4396,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "147.0.20251231.90510";
+      version = "147.0.20260105.210555";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4654454/francais_language_pack-147.0.20251231.90510.xpi";
-      sha256 = "d813e358590a9e0f32ca0e4d14e16c5d10188531c544a468f9b6b1e32397923f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658393/francais_language_pack-147.0.20260105.210555.xpi";
+      sha256 = "60d10dc9d9b8849ae9d0ad453d840149ecf277521abd5800f28d65a9af8743da";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4433,10 +4433,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "147.0.20251231.90510";
+      version = "147.0.20260105.210555";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4654363/gaidhlig_language_pack-147.0.20251231.90510.xpi";
-      sha256 = "c3c7e00604b1fe0fafb01eb950dba8362e9437be6d3aa3fca70df35b7e955cb8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658450/gaidhlig_language_pack-147.0.20260105.210555.xpi";
+      sha256 = "e945ec3790308bbfaf8f0437658703870fa5180cd5a4a73513095e3fbe11a495";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9443,10 +9443,10 @@
     };
     "nyaa-linker" = buildFirefoxXpiAddon {
       pname = "nyaa-linker";
-      version = "2.4.2";
+      version = "2.4.3";
       addonId = "Metacor.Code@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4657278/nyaa_linker-2.4.2.xpi";
-      sha256 = "d918ed0f56fbb7b3cb633b9a501cc6d214d0c2f6ac0d32deebacf6dd48a906c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657841/nyaa_linker-2.4.3.xpi";
+      sha256 = "be0abe2d4a0f8ce723adafd9e7a48bd4291bcf62d4ed47c589c8736dab43c010";
       meta = with lib;
       {
         description = "Adds a button to Anime and Manga database websites that opens a relevant Nyaa search";
@@ -12029,10 +12029,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "147.0.20251231.90510";
+      version = "147.0.20260105.210555";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4654460/scots_language_pack-147.0.20251231.90510.xpi";
-      sha256 = "5f0f62d3aa486bce2af811a0b02c569659ba620959b81044f76e60894cae47d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658440/scots_language_pack-147.0.20260105.210555.xpi";
+      sha256 = "7385a4f4ce79f215951a6265bddecde8f2e74479ac34649c92481c1962ad4679";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12851,10 +12851,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.31";
+      version = "4.32";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648167/steam_database-4.31.xpi";
-      sha256 = "4c7ee23e77fef583d2adf7de883f7df2ecd719dfbe716d96226929087a80c156";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657779/steam_database-4.32.xpi";
+      sha256 = "89b2b812e0f4b58d34aaf2ed8fa9a186842d6c9df0636437f94aff4d2e09804c";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -13651,10 +13651,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.19.0";
+      version = "3.20.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567104/toolkit_for_ynab-3.19.0.xpi";
-      sha256 = "57115834bd79650cace95dfffc26ee9540dcccb1e81189b42f95a2655bfe4efd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657976/toolkit_for_ynab-3.20.0.xpi";
+      sha256 = "baf230403207e1981780e48458ce525b0bbc0c7588b9f350f01dcf419d26cae7";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -15817,10 +15817,10 @@
     };
     "ycs-continued" = buildFirefoxXpiAddon {
       pname = "ycs-continued";
-      version = "1.8.3";
+      version = "1.8.4";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4652634/ycs_continued-1.8.3.xpi";
-      sha256 = "739768ce0ec296ae542c45b015f35f486f9a8faa204a1c9d9b27d5ccdd425006";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4657891/ycs_continued-1.8.4.xpi";
+      sha256 = "506f67188665fa03afd7385e63986f9c148973e0506f38e1903b69a3a6b1f230";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
