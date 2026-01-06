@@ -26,6 +26,9 @@ in {
   vivado-2022_2 = pkgs.callPackage ./pkgs/vivado-2022_2 {
       inherit maintainers;
   };
+#   peerbanhelper = pkgs.callPackage ./pkgs/peerbanhelper {
+#       inherit maintainers;
+#   };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
