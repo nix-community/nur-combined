@@ -1,4 +1,3 @@
-# NOTE: Linux version is not tested
 {
   appimageTools,
   stdenvNoCC,
@@ -20,7 +19,9 @@
     homepage = "https://github.com/LibreScore/app-librescore";
     maintainers = ["Prinky"];
     license = lib.licenses.mit;
-    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
+    # platforms = lib.platforms.darwin ++ ["x86_64-linux"];
+    # FIXME: Linux version does not work
+    platforms = lib.platforms.darwin;
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
