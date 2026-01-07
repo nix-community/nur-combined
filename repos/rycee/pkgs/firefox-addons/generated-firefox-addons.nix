@@ -3556,10 +3556,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.11.1";
+      version = "1.12.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4637509/elasticvue-1.11.1.xpi";
-      sha256 = "51a3263943cddbd8a527fc9b8fc3cd25a78909b3c3648dc87edf0c93b54e38e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4659013/elasticvue-1.12.0.xpi";
+      sha256 = "8c0f5c1a7eb5823a27f167fe0774d5d26356c3645b3176942331e5a88c1013d8";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -8985,10 +8985,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.9.1";
+      version = "1.9.2";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4608985/mtab-1.9.1.xpi";
-      sha256 = "6e1503d467b95006d8284641c7b8bbe8b2e112329aed253690abd899bca920c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4659332/mtab-1.9.2.xpi";
+      sha256 = "45995d7cb639fe8f251c66099abe1f046da842e415e74cf3ba03579c2712a224";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9374,10 +9374,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.5.5";
+      version = "13.5.6";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4647959/noscript-13.5.5.xpi";
-      sha256 = "0972d29c528554c3fa081c1cfdc6921b7daf86162c37247e110a3f250a684c95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658660/noscript-13.5.6.xpi";
+      sha256 = "e8606ce0fd2091426c7877f77e6d71cb6f4cb94ac11ca1bef652f61a6435ed6c";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -9492,10 +9492,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "8.2.2";
+      version = "8.2.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4589089/octotree-8.2.2.xpi";
-      sha256 = "a16688d42842c09a2e388f0ec99ae8b3d35598ebf3704ac19b63dd81e094efbd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4659235/octotree-8.2.4.xpi";
+      sha256 = "e8ec11eca60a80d0d7642ada018898419039af6db0a35baa2e1a09214d3dcbcd";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -9648,10 +9648,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.11.23.2";
+      version = "8.11.27.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4644396/1password_x_password_manager-8.11.23.2.xpi";
-      sha256 = "3b4a782ef43013bd5cf9d065494aab2d3986fccd68dca833fb42fa86d11186cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4654028/1password_x_password_manager-8.11.27.2.xpi";
+      sha256 = "a7db6988e4d02dfe9c1513df521a88f08251e5a8a683155bd9a5619f50f21fbe";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -11713,10 +11713,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "25.12.12";
+      version = "26.1.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4640952/refined_github-25.12.12.xpi";
-      sha256 = "b22d87cab1bc9e9415183c1d4e6a926e37d758662643092e7ab73ce6717abd2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4658607/refined_github-26.1.6.xpi";
+      sha256 = "4cf37aa6880af46a312a87f976f6f73c4d1a485dbb9322680ea069e300eadc74";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -14136,10 +14136,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "9.3.0";
+      version = "9.4.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4602896/ublacklist-9.3.0.xpi";
-      sha256 = "518047625c826aba2ababb480deb9e147c9f242c49a63415e050aeccb145f5c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4648042/ublacklist-9.4.0.xpi";
+      sha256 = "f6e2e7f879042e531d470b025cccef9a3fbddc8d3b579fd544069027b27611be";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
