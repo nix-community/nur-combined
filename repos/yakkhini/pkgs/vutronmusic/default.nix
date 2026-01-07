@@ -20,7 +20,6 @@
   mesa,
   udev,
   gtk3,
-  x11basic,
 }: let
   pname = "vutronmusic";
   version = "2.9.0";
@@ -61,7 +60,6 @@
     mesa
     udev
     gtk3
-    x11basic
   ];
 
   meta = with lib; {
