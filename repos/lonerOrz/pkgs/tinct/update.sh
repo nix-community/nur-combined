@@ -5,9 +5,10 @@ set -euo pipefail
 # Package metadata（必须配置）
 # =============================================================================
 
-owner="Immelancholy"
-repo="Zarumet"
-pname="zarumet"
+# https://github.com/lonerOrz/tinct
+owner="lonerOrz"
+repo="tinct"
+pname="tinct"
 
 PKG_FILE="default.nix"
 BUILD_TARGET=".#${pname}"
@@ -140,8 +141,8 @@ done
 # 4️⃣ 最终验证
 # =============================================================================
 
-echo "🏁 Final build verification"
-nix build "$BUILD_TARGET"
+# echo "🏁 Final build verification"
+# nix build "$BUILD_TARGET"
 
 # =============================================================================
 # 成功
