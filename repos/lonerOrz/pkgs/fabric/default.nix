@@ -14,7 +14,7 @@
 }:
 let
   pygobject_hash = "sha256-jYNudbWogdRX7hYiyuSjK826KKC6ViGTrbO7tHJHIhI=";
-  src_hash = "sha256-c56/WC4B4UDiKJ1R6Rz+io9Jt1Mq/WmIqjP1KYJvDf0=";
+  src_hash = "sha256-w80XDsk1ztb035wuyf4N6m3zggNMsylZfhqBrT5wwjI=";
 
   pygobject_3_50 = python312Packages.pygobject3.overrideAttrs (old: {
     version = "3.50.0";
@@ -32,7 +32,7 @@ python312Packages.buildPythonPackage {
   src = fetchFromGitHub {
     owner = "Fabric-Development";
     repo = "fabric";
-    rev = "8633df172a3ceee9222e7e583e93717f733d5618";
+    rev = "5094919a7bf2198aa880b7c8494af948801a8b80";
     hash = "${src_hash}";
   };
 
