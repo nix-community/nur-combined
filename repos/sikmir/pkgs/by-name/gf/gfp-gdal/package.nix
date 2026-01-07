@@ -30,6 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     nlohmann_json
   ];
 
+  env.NIX_CFLAGS_COMPILE = "-fpermissive";
+
   installPhase = ''
     install -Dm644 gfp_gdal.so -t $out/lib/geoflow-plugins
   '';

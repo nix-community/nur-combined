@@ -2,34 +2,28 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   cmake,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnsstk";
-  version = "14.6.1";
+  version = "15.0.0";
 
   src = fetchFromGitHub {
     owner = "SGL-UT";
     repo = "gnsstk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JdRCfrlF1WkuacDrly2zJ9pihKOAZws6wVf8tzdW/HM=";
+    hash = "sha256-bVVLFnV3FZl8cAkvaAp453UEDT9gJc8gN9fz7rMnw1k=";
   };
 
-  patches = [
-    # Fix compilation with GCC13
-    (fetchpatch {
-      url = "https://github.com/SGL-UT/gnsstk/pull/21/commits/16c2c7e5b8dc80bb0eb46792fcb1f6e3dcbffbf4.patch";
-      hash = "sha256-mIczf1OiHWl+poOulFPLSbNBu4ES8HNjhjOatACaAgI=";
-    })
-  ];
+  postPatch = ''
+    sed -i '43i #include <cstdint>' core/lib/NewNav/GLOCNavHeader.hpp
+  '';
 
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_EXT" true)
-    (lib.cmakeFeature "CMAKE_CXX_STANDARD" "14")
   ];
 
   meta = {

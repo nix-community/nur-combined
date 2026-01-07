@@ -2,34 +2,33 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  autoreconfHook,
   installShellFiles,
   libconfig,
+  meson,
+  ninja,
 }:
 
 stdenv.mkDerivation {
   pname = "socketcand";
-  version = "0.6.1-unstable-2023-12-06";
+  version = "0.6.1-unstable-2025-05-21";
 
   src = fetchFromGitHub {
     owner = "linux-can";
     repo = "socketcand";
-    rev = "02ad0f5a9c9387b8ccfdef837068584b721eff05";
-    hash = "sha256-Fsx5eIbiIYctfRcEU5iyG2hKcSV/7R7EyR6WlVFDTCk=";
+    rev = "6dd5d33d4645ab221e8cd265c08607366e21ddf1";
+    hash = "sha256-Pvh0lowK3mQLRu+TotjZS75bwztNvbY7rC3gZUSdjVA=";
   };
 
   nativeBuildInputs = [
-    autoreconfHook
     installShellFiles
+    meson
+    ninja
   ];
 
   buildInputs = [ libconfig ];
 
-  installPhase = ''
-    runHook preInstall
-    install -Dm755 socketcand socketcandcl -t $out/bin
-    installManPage socketcand.1
-    runHook postInstall
+  postInstall = ''
+    installManPage $src/socketcand.1
   '';
 
   meta = {

@@ -6,15 +6,15 @@
   ncurses,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "se";
-  version = "3.0.1";
+  version = "3.0.1-unstable-2023-08-06";
 
   src = fetchFromGitHub {
     owner = "screen-editor";
     repo = "se";
-    tag = "se-${finalAttrs.version}";
-    hash = "sha256-2LyYZXaL/Q3G/StCUiY6MUXG55g2YQvkpoF/lcsifD8=";
+    rev = "e82c110205bb1da3871e0af970533011d4573b78";
+    hash = "sha256-abK8MogXh9SMSuLmj2oeBrh8tLPFqh+rKYt2CUvnw6w=";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
@@ -28,4 +28,4 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.sikmir ];
   };
-})
+}

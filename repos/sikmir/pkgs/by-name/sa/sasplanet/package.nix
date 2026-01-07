@@ -31,13 +31,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sasplanet";
-  version = "251212";
+  version = "260101";
 
   src = fetchfromgh {
     owner = "sasgis";
     repo = "sas.planet.src";
     tag = "v.${finalAttrs.version}";
-    hash = "sha256-HgdStoB8+nC42m63Y70EL9pJM7X7TG7pLgets4gAlxU=";
+    hash = "sha256-RGoVyb8agoIwoHFvswBTmqt2nDXMugjAqPaL9jbF4GY=";
     name = "SAS.Planet.Release.${finalAttrs.version}.x64.zip";
   };
 

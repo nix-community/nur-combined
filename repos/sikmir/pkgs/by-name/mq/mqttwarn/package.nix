@@ -6,7 +6,10 @@
   replaceVars,
 }:
 
-python312Packages.buildPythonApplication rec {
+let
+  python3Packages = python312Packages;
+in
+python3Packages.buildPythonApplication rec {
   pname = "mqttwarn";
   version = "0.35.0";
   pyproject = true;
@@ -28,12 +31,12 @@ python312Packages.buildPythonApplication rec {
     })
   ];
 
-  build-system = with python312Packages; [
+  build-system = with python3Packages; [
     setuptools
     versioningit
   ];
 
-  dependencies = with python312Packages; [
+  dependencies = with python3Packages; [
     attrs
     docopt
     funcy
@@ -46,7 +49,7 @@ python312Packages.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  optional-dependencies = with python312Packages; {
+  optional-dependencies = with python3Packages; {
     apprise = [ apprise ];
     celery = [ celery ];
     chromecast = [ pychromecast ];
@@ -60,7 +63,7 @@ python312Packages.buildPythonApplication rec {
   doCheck = false;
 
   nativeCheckInputs = [
-    python312Packages.pytestCheckHook
+    python3Packages.pytestCheckHook
   ]
   ++ lib.flatten (lib.attrValues optional-dependencies);
 
