@@ -2055,11 +2055,10 @@
   };
   svp = {
     pname = "svp";
-    version = "4.6.263";
+    version = "4.7.305-1";
     src = fetchurl {
-      url = "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
-      name = "svp4-linux.tar.bz2";
-      hash = "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=";
+      url = "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.4.7.305-1.tar.bz2";
+      hash = "sha256-a9g6A6xDyx77DiUtErw3nLbotgN7S0lzAXzpd7Gykl4=";
     };
   };
   sx1302-hal = {

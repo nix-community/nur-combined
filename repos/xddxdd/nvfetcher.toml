@@ -892,9 +892,8 @@ src.github = "Suwayomi/Suwayomi-Server"
 
 [svp]
 fetch.url = "https://web.archive.org/web/20250904130553if_/https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
-# Pin at last free version
-src.manual = "4.6.263"
-url.name = "svp4-linux.tar.bz2"
+src.httpheader = "https://www.svp-team.com/files/svp4-latest.php?linux"
+src.regex = "svp4-linux.([0-9\\.-]+).tar.bz2"
 
 [sx1302-hal]
 fetch.github = "NebraLtd/sx1302_hal"
