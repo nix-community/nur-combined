@@ -110,13 +110,13 @@ jobs:
         fi
         echo "SYSTEM=$SYSTEM" >> $GITHUB_ENV
         echo "Building for system: $SYSTEM"
+    - name: Trigger NUR update
+      # Don't replace <YOUR_REPO_NAME> here!
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
     # https://github.com/nix-community/nixos-apple-silicon/blob/7aad69158fc1b5bbbddac19040b6aae14daaa35c/.github/workflows/cache.yml#L45C56-L50C24
     - name: Build nix packages
       run: |
         nice -n 20 nix run nixpkgs#nix-fast-build -- --max-jobs 1 --option cores 1 --option max-jobs 1 \
           --no-nom --skip-cached \
           -f .#cached.${{ env.SYSTEM }} ${{ matrix.nixpkgs-override }}
-    - name: Trigger NUR update
-      # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
