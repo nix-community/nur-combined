@@ -18,7 +18,7 @@
 
 buildPythonApplication rec {
   pname = "supernote-tool";
-  version = "0.6.2";
+  version = "0.6.3";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -27,7 +27,7 @@ buildPythonApplication rec {
     owner = "jya-dev";
     repo = "supernote-tool";
     rev = "v${version}";
-    hash = "sha256-xdfVrRbShBXdf6KCmNJfVmrTj6B520X3s9dYWURGyb8=";
+    hash = "sha256-fU5yuMi8x5C1Ku7XICpl9VtJ3SGNRHpx9Ql32k6VQ0Y=";
   };
 
   nativeBuildInputs = [
