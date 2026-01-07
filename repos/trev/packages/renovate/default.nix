@@ -14,13 +14,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
-  version = "42.71.2";
+  version = "42.72.0";
 
   src = fetchFromGitHub {
     owner = "renovatebot";
     repo = "renovate";
     tag = finalAttrs.version;
-    hash = "sha256-d5wXUfDMNhX9/v4vyPQ/vM27xUYMFv73YIBGwdFpDk4=";
+    hash = "sha256-r8lHP7GLhEOyq4W26CGPv4pjZ8VKJFPIB4IXCMEqdKw=";
   };
 
   patches = [
