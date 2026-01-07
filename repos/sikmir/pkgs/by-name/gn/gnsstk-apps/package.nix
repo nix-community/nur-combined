@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_EXT" true)
-    (lib.cmakeFeature "CMAKE_CXX_STANDARD" "14")
+    (lib.cmakeFeature "CMAKE_CXX_STANDARD" "17")
   ];
 
   meta = {

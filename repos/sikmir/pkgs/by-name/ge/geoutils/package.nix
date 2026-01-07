@@ -43,5 +43,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/GlacioHack/geoutils";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
   };
 }
