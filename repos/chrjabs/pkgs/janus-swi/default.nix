@@ -23,6 +23,8 @@ python.pkgs.buildPythonPackage rec {
     setuptools-scm
   ];
 
+  env.NIX_CFLAGS_COMPILE = "-std=gnu17";
+
   nativeBuildInputs = [
     swi-prolog
   ];

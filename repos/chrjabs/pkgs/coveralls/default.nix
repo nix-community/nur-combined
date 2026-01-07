@@ -5,13 +5,13 @@
   openssl,
 }:
 crystal.buildCrystalPackage rec {
-  version = "0.6.15";
+  version = "0.6.17";
   pname = "coveralls";
   src = fetchFromGitHub {
     owner = "coverallsapp";
     repo = "coverage-reporter";
     rev = "v${version}";
-    hash = "sha256-zNpHQJed3LRjTN/+UJEIj9N2ldLJsirO/NWvzp25SFo=";
+    hash = "sha256-wbxPjNAUubbL9TJnyqR7aYkMmADkIuD2PF00xI2wa84=";
   };
 
   shardsFile = ./shards.nix;
