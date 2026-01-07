@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLocks": null,
-        "date": "2026-01-06",
+        "date": "2026-01-07",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "a9c417fa1fb710057ebb4e3d580a8e3a7692e2e4",
-            "sha256": "sha256-2fUe9uQcqkpPSBKM3jiSM3QRous7gCdnvqfYf2mjaCA=",
+            "rev": "3b6f3f333e9cfa233153ecdb91e1fe32e8a38cff",
+            "sha256": "sha256-uOpvKkntLdnFiy2prYuHsJlSqxaKtJGi6P2Jx+OVSko=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a9c417fa1fb710057ebb4e3d580a8e3a7692e2e4"
+        "version": "3b6f3f333e9cfa233153ecdb91e1fe32e8a38cff"
     },
     "hammerspoon": {
         "cargoLocks": null,
@@ -94,7 +94,7 @@
     },
     "paperwm-spoon": {
         "cargoLocks": null,
-        "date": "2026-01-05",
+        "date": "2026-01-06",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -106,12 +106,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "03f4f1d805e1f42b5df3421dc81a8feb30cdb666",
-            "sha256": "sha256-UJi+995ac5aLsByO2jXmi5z0QTnbPx7OQFgMp6D+G3c=",
+            "rev": "0f16e01ddfa0c6fec92b051166a4f10af879ee41",
+            "sha256": "sha256-8lkdm8/xvc7h4+BBlf0jrd8VNJHYYjsSnp5bDX/cY78=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "03f4f1d805e1f42b5df3421dc81a8feb30cdb666"
+        "version": "0f16e01ddfa0c6fec92b051166a4f10af879ee41"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
@@ -215,11 +215,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Zvgl8LkWAQlmPe2f5bJFfePsD79NOCibqhuCWpfwzw8=",
+            "sha256": "sha256-4c1DFIS2NgtX1jOx5dxkLXVgZMxuSrwAzLDhoIDdEj0=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.7.3851.66.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.7.3851.67.universal.dmg"
         },
-        "version": "7.7.3851.66"
+        "version": "7.7.3851.67"
     },
     "zen-browser": {
         "cargoLocks": null,
