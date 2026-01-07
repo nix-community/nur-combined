@@ -260,19 +260,23 @@ rec {
       gamemodeSupport = stdenv.hostPlatform.isLinux;
     in
     pkgs.prismlauncher.overrideAttrs (old: {
-      version = "9.4-0612187";
       paths = [
         # https://github.com/NixOS/nixpkgs/blob/fb6a5b23f9416753d343d914fe7c14044e59aaed/pkgs/by-name/pr/prismlauncher/package.nix#L61
         (v3overrideAttrs (
           (pkgs.prismlauncher-unwrapped.override { inherit msaClientID gamemodeSupport; }).overrideAttrs
             (old': {
-              version = "9.4-0612187";
-              src = fetchFromGitHub {
-                owner = "Diegiwg";
-                repo = "PrismLauncher-Cracked";
-                rev = "0612187254ef41a1087f3107e927e0dd59c9b29d";
-                hash = "sha256-zZS//xyNYQHvD4fUMoWx86uVUwPk+p5FjZLTTu0pelQ=";
-              };
+              patches = (old.patches or [ ]) ++ [
+                (pkgs.fetchpatch {
+                  name = "12a.patch";
+                  url = "https://github.com/PrismLauncher/PrismLauncher/commit/12acabdb57ba6f12fcf9047c28ec8afa7a4fb970.patch";
+                  sha256 = "sha256-t+sanKiSEuqmshy6Y+Y9tfpDf+7L3A8d0CBcA+oqLUs=";
+                })
+                (pkgs.fetchpatch {
+                  name = "911.patch";
+                  url = "https://github.com/PrismLauncher/PrismLauncher/commit/911c0f3593dd6b825f6d91900e48bdf3b59ad3a9.patch";
+                  sha256 = "sha256-mCkZ613f7kvMQTW+UOi2dcnvzHg/c2vhPcPGCvdz+0k=";
+                })
+              ];
             })
         ))
       ];
