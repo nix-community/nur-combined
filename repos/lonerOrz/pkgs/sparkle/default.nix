@@ -21,7 +21,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "sparkle";
-  version = "1.6.17";
+  version = "1.6.18";
 
   src = fetchurl {
     url = systemSrc.url;
