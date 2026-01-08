@@ -246,38 +246,43 @@ rec {
     studioVariant = true;
   };
 
-  mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
+  /*
+    mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
 
-  line = callPackage ./pkgs/line.nix {
-    inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-    wine = pkgs.wineWowPackages.base;
-  };
-
+    line = callPackage ./pkgs/line.nix {
+      inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+      wine = pkgs.wineWowPackages.base;
+    };
+  */
   prismlauncher-diegiwg =
     let
       # https://github.com/NixOS/nixpkgs/blob/fb6a5b23f9416753d343d914fe7c14044e59aaed/pkgs/by-name/pr/prismlauncher/package.nix#L41
       msaClientID = null;
       gamemodeSupport = stdenv.hostPlatform.isLinux;
+      prismlauncher = pkgs.callPackage ./pkgs/prismlauncher/package.nix {
+        prismlauncher-unwrapped = prismlauncher-unwrapped;
+      };
+      prismlauncher-unwrapped = pkgs.callPackage ./pkgs/prismlauncher-unwrapped/package.nix {
+      };
     in
-    pkgs.prismlauncher.overrideAttrs (old: {
+    prismlauncher.overrideAttrs (old: {
       paths = [
         # https://github.com/NixOS/nixpkgs/blob/fb6a5b23f9416753d343d914fe7c14044e59aaed/pkgs/by-name/pr/prismlauncher/package.nix#L61
         (v3overrideAttrs (
-          (pkgs.prismlauncher-unwrapped.override { inherit msaClientID gamemodeSupport; }).overrideAttrs
-            (old': {
-              patches = (old.patches or [ ]) ++ [
-                (pkgs.fetchpatch {
-                  name = "12a.patch";
-                  url = "https://github.com/PrismLauncher/PrismLauncher/commit/12acabdb57ba6f12fcf9047c28ec8afa7a4fb970.patch";
-                  sha256 = "sha256-t+sanKiSEuqmshy6Y+Y9tfpDf+7L3A8d0CBcA+oqLUs=";
-                })
-                (pkgs.fetchpatch {
-                  name = "911.patch";
-                  url = "https://github.com/PrismLauncher/PrismLauncher/commit/911c0f3593dd6b825f6d91900e48bdf3b59ad3a9.patch";
-                  sha256 = "sha256-mCkZ613f7kvMQTW+UOi2dcnvzHg/c2vhPcPGCvdz+0k=";
-                })
-              ];
-            })
+          (prismlauncher-unwrapped.override { inherit msaClientID gamemodeSupport; }).overrideAttrs (old': {
+            patches = (old.patches or [ ]) ++ [
+              (pkgs.fetchpatch {
+                name = "12a.patch";
+                url = "https://github.com/PrismLauncher/PrismLauncher/commit/12acabdb57ba6f12fcf9047c28ec8afa7a4fb970.patch";
+                sha256 = "sha256-t+sanKiSEuqmshy6Y+Y9tfpDf+7L3A8d0CBcA+oqLUs=";
+              })
+              (pkgs.fetchpatch {
+                name = "911.patch";
+                url = "https://github.com/PrismLauncher/PrismLauncher/commit/911c0f3593dd6b825f6d91900e48bdf3b59ad3a9.patch";
+                sha256 = "sha256-mCkZ613f7kvMQTW+UOi2dcnvzHg/c2vhPcPGCvdz+0k=";
+              })
+            ];
+          })
         ))
       ];
     });

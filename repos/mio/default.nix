@@ -128,6 +128,15 @@ let
       );
 
       cached = {
+        pkgscache = (
+          pkgs.symlinkJoin {
+            name = "pkgscache";
+            paths = [
+              self.materialgram
+              self.telegram-desktop
+            ];
+          }
+        );
         inherit (self)
           aria2-wrapped
           openssh_hpn
@@ -149,7 +158,7 @@ let
           plezy
           downkyicore
           ego
-          davinci-resolve-studio2001
+          #davinci-resolve-studio2001
           lix
           ghidra
           prismlauncher-diegiwg

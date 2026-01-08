@@ -35,14 +35,17 @@ in
     (builtins.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)))
     lib.last
   ];
-  mkWindowsApp = callPackage ../pkgs/mkwindowsapp {
-    makeBinPath = pkgs.lib.makeBinPath;
-  };
 
-  mkWindowsAppNoCC = callPackage ../pkgs/mkwindowsapp {
-    stdenv = pkgs.stdenvNoCC;
-    makeBinPath = pkgs.lib.makeBinPath;
-  };
-  copyDesktopIcons = pkgs.makeSetupHook { name = "copyDesktopIcons"; } ./hooks/copy-desktop-icons.sh;
-  makeDesktopIcon = callPackage ./lib/makeDesktopIcon.nix { };
+  /*
+    mkWindowsApp = callPackage ../pkgs/mkwindowsapp {
+      makeBinPath = pkgs.lib.makeBinPath;
+    };
+
+    mkWindowsAppNoCC = callPackage ../pkgs/mkwindowsapp {
+      stdenv = pkgs.stdenvNoCC;
+      makeBinPath = pkgs.lib.makeBinPath;
+    };
+    copyDesktopIcons = pkgs.makeSetupHook { name = "copyDesktopIcons"; } ./hooks/copy-desktop-icons.sh;
+    makeDesktopIcon = callPackage ./lib/makeDesktopIcon.nix { };
+  */
 }
