@@ -15,8 +15,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "quantum5";
     repo = pname;
-    rev = "25f96bc5f1925d3d7ecb7c62a048223763344a43";
-    hash = "sha256-m/1kGb1DzsTVNhbzrxJj3Bpi61dS4B66dH7nRWNIUhE=";
+    rev = "ea8366bc9d217e2f6112dac4dc50eac6d4386e90";
+    hash = "sha256-ctT3zxvxrNbAwNvPvhLjV5RkhSG15LAYXm3+zZiEYUE=";
   };
 
   pyproject = true;
