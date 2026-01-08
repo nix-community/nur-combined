@@ -58,16 +58,16 @@
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
-    version = "1a3490ef786a8fd93128d55aed1999930b7c0586";
+    version = "97fa8c1b6618de1d33dd3021bfa62459e74b016e";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-l4";
-      rev = "1a3490ef786a8fd93128d55aed1999930b7c0586";
+      rev = "97fa8c1b6618de1d33dd3021bfa62459e74b016e";
       fetchSubmodules = false;
-      sha256 = "sha256-/8qa7ya8LAeWdSPni4JiuDruIc5R6HKbVI0NxbCvuxg=";
+      sha256 = "sha256-//O2JLhBnLjOdOHQIUj/86WGKNRRu+dZtkUv8UU9zkc=";
     };
     moduleName = "github.com/mholt/caddy-l4";
-    date = "20251209130418";
+    date = "20260104223739";
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
@@ -107,15 +107,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "cc51682a850e9b89db8856c589b8c13f8b534a7c";
+    version = "51003473600d90ff4b46004a5122ee1b98210606";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "cc51682a850e9b89db8856c589b8c13f8b534a7c";
+      rev = "51003473600d90ff4b46004a5122ee1b98210606";
       fetchSubmodules = false;
-      sha256 = "sha256-rEWf96uoYZm/n8IBSSG5qnXBgiWvrzhD1+GutLqMlg8=";
+      sha256 = "sha256-4BJrs+PkC4flA7a6ZrATNT+CtUdUuoWKb62Mw5t91q4=";
     };
-    date = "2025-12-24";
+    date = "2026-01-05";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -127,14 +127,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "da5b69563c67717c4bb422c9c72cc0cb9baa0632";
+    version = "68f7d4898c19dcf50beda251f8143992c3e8371f";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "da5b69563c67717c4bb422c9c72cc0cb9baa0632";
+      rev = "68f7d4898c19dcf50beda251f8143992c3e8371f";
       fetchSubmodules = false;
-      sha256 = "sha256-LjlcAKlAZ/r4BDdcUGFX+e4LLZRHEH/jCsciKMs4QWg=";
+      sha256 = "sha256-6iA/C0dzbLPkEDbdEs8oAnVfG6W+L8/dYyjTuO5euOw=";
     };
-    date = "2025-12-30";
+    date = "2026-01-08";
   };
 }
