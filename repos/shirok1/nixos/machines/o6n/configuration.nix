@@ -13,6 +13,10 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    ../../fragments/lix.nix
+    ../../fragments/nh.nix
+    ../../fragments/nix-settings.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -51,39 +55,9 @@
 
   zramSwap.enable = true;
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      inherit (final.lixPackageSets.stable)
-        nixpkgs-review
-        nix-direnv
-        nix-eval-jobs
-        nix-fast-build
-        colmena
-        ;
-    })
-  ];
-
-  nix.package = pkgs.lixPackageSets.stable.lix;
-
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    substituters = [
-      "https://cache.garnix.io"
-      "https://nix-community.cachix.org"
-      "https://shirok1.cachix.org"
-      "https://cache.numtide.com"
-    ];
-    trusted-public-keys = [
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "shirok1.cachix.org-1:eKKgSVMjd/6ojQ4QPjEKUHDnMWWempboJ/mIkCFUBc0="
-      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-    ];
-  };
   nixpkgs.config.allowUnfree = true;
+
+  hardware.bluetooth.enable = true;
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -138,6 +112,7 @@
       nix-index
       ethtool
       gitui
+      dive
 
       llm-agents.codex
     ];
@@ -157,6 +132,7 @@
     nil
     htop
     jq
+    pciutils
     nvme-cli
     usbutils
     tmux
@@ -182,13 +158,6 @@
   # };
   programs.zsh.enable = true;
   programs.fish.enable = true;
-
-  programs.nh = {
-    enable = true;
-    #clean.enable = true;
-    #clean.extraArgs = "--keep-since 4d --keep 3";
-    #flake = "/home/user/my-nixos-config"; # sets NH_OS_FLAKE variable for you
-  };
 
   virtualisation.docker = {
     enable = true;

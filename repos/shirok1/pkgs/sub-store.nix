@@ -41,6 +41,6 @@ writeShellApplication {
     description = "Sub-Store bundle (node) + front-end dist, with clean wrapper";
     platforms = platforms.linux;
     mainProgram = "sub-store";
-    license = licenses.agpl3Plus;
+    license = licenses.agpl3Only;
   };
 }

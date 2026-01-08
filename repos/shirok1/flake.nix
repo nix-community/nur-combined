@@ -4,6 +4,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     daeuniverse.url = "github:daeuniverse/flake.nix";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    catppuccin.url = "github:catppuccin/nix";
   };
   outputs =
     {
@@ -11,6 +14,8 @@
       nixpkgs,
       daeuniverse,
       llm-agents,
+      home-manager,
+      catppuccin,
     }@inputs:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
@@ -42,10 +47,33 @@
         modules = [
           pkgsOverlays
 
-          ./nixos/o6n/configuration.nix
+          ./nixos/machines/o6n/configuration.nix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.shiroki = {
+              imports = [
+                ./home.nix
+                catppuccin.homeModules.catppuccin
+              ];
+            };
+
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+            home-manager.extraSpecialArgs = {
+              machine = "o6n";
+            };
+          }
 
           inputs.daeuniverse.nixosModules.dae
           inputs.daeuniverse.nixosModules.daed
+
+          catppuccin.nixosModules.catppuccin
+          {
+            catppuccin.cache.enable = true;
+          }
 
           self.nixosModules.qbittorrent-clientblocker
           self.nixosModules.snell-server
@@ -57,7 +85,7 @@
         modules = [
           pkgsOverlays
 
-          ./nixos/opi5/configuration.nix
+          ./nixos/machines/opi5/configuration.nix
 
           inputs.daeuniverse.nixosModules.dae
           inputs.daeuniverse.nixosModules.daed

@@ -49,7 +49,7 @@ writeShellApplication {
   meta = with lib; {
     description = "http-meta bundle (node) + tpl.yaml + mihomo from nixpkgs in META_FOLDER";
     platforms = platforms.linux;
-    license = licenses.gpl3Plus;
+    license = licenses.gpl3Only;
     mainProgram = "http-meta";
   };
 }
