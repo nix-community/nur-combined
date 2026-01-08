@@ -165,6 +165,17 @@
       sha256 = "sha256-14TztORKynlHS277k+W7FN1kgQD0FFu5W07wxgCDFS0=";
     };
   };
+  mpv-danmaku = {
+    pname = "mpv-danmaku";
+    version = "v1.9.0";
+    src = fetchFromGitHub {
+      owner = "moraxyc";
+      repo = "mpv-danmaku";
+      rev = "v1.9.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-N+Vi+mbKGogO6PgONqiegbrHGh+5BePePkU9+Irate0=";
+    };
+  };
   new-api = {
     pname = "new-api";
     version = "v0.10.5";

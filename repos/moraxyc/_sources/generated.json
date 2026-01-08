@@ -296,6 +296,27 @@
         },
         "version": "v3.1.0"
     },
+    "mpv-danmaku": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "mpv-danmaku",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "moraxyc",
+            "repo": "mpv-danmaku",
+            "rev": "v1.9.0",
+            "sha256": "sha256-N+Vi+mbKGogO6PgONqiegbrHGh+5BePePkU9+Irate0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.9.0"
+    },
     "new-api": {
         "cargoLocks": null,
         "date": null,
