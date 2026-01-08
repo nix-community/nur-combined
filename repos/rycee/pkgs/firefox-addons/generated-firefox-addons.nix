@@ -1020,10 +1020,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.17";
+      version = "7.6.18";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4600550/betterttv-7.6.17.xpi";
-      sha256 = "2943e58714c7521b3ae466ce68f3cd73a82bd0c1c98aae0088e463c774b7fa1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4660244/betterttv-7.6.18.xpi";
+      sha256 = "800a0901952398dd486c9b09b8bce1d384e2d18ca8c445b90e0b1b7e21784dda";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -2956,10 +2956,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "7.1.0";
+      version = "7.1.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4656398/dictionaries-7.1.0.xpi";
-      sha256 = "3bb643e33cb3ac87ab9cc57a2825f46499e0b4e2c3e710dd13d8890432105849";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4660787/dictionaries-7.1.1.xpi";
+      sha256 = "bf3d4763271b8178149fa84037a4e0cbc2bbf68a2d87f4e9a5ef75a8e1c0cb41";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4883,6 +4883,28 @@
         description = "View multiple cloud accounts and regions in a single browser.";
         license = licenses.mit;
         mozPermissions = [ "contextualIdentities" "cookies" "tabs" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "grasp" = buildFirefoxXpiAddon {
+      pname = "grasp";
+      version = "0.7.1";
+      addonId = "{37e42980-a7c9-473c-96d5-13f18e0efc74}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4049682/grasp-0.7.1.xpi";
+      sha256 = "a1cbebda55072e2c98242387d86fc51e9c9a9e9b7e72cac23be4757556acc370";
+      meta = with lib;
+      {
+        homepage = "https://github.com/karlicoss/grasp";
+        description = "A reliable way of capturing and tagging web pages and content";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "notifications"
+          "activeTab"
+          "scripting"
+          "http://localhost/capture"
+          "https://localhost/capture"
+        ];
         platforms = platforms.all;
       };
     };
