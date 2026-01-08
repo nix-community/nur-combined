@@ -60,4 +60,4 @@ files are copied from following locations. some are modified in this repo and so
 + systemd257 <https://github.com/NixOS/nixpkgs/commit/70ca21d3c4982d7f95e48688d02cd9ef6b1347f5>  70ca21d3c4982d7f95e48688d02cd9ef6b1347f5^ <https://github.com/NixOS/nixpkgs/commit/38b523e9e8e607bcd8f638d8a53608bb1658a0e4>
 + davinci-resolve nixpkgs commit 49a636772fd8ea6f25b9c9ff9c5a04434e90b96f^
 + <https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp> commit 464f070d952afff764d82041d371cfee3e689d2a mkwindowsapp mkwindowsapp-tools line.nix hooks lib
-+ prismlauncher-unwrapped prismlauncher nixpkgs commit e5496329a87ba2480c25eac653ffcf26e5656864
++ unmodified - prismlauncher-unwrapped prismlauncher materialgram telegram-desktop nixpkgs commit e5496329a87ba2480c25eac653ffcf26e5656864

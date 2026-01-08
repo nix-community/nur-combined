@@ -16,6 +16,16 @@
 }:
 with (import ./private.nix { inherit pkgs; });
 let
+  stdenv = pkgs.stdenv;
+  llvmPackages_19 = pkgs.llvmPackages_19;
+  minipkgs = rec {
+    materialgram = (pkgs.callPackage ./pkgs/materialgram/package.nix { inherit telegram-desktop; });
+    telegram-desktop = (
+      pkgs.kdePackages.callPackage ./pkgs/telegram-desktop {
+        stdenv = if stdenv.hostPlatform.isDarwin then llvmPackages_19.stdenv else stdenv;
+      }
+    );
+  };
   self = (
     {
       # note: some packages might be commented out to reduce package numbers. garnix has hardcoded limit of 100.
@@ -79,7 +89,7 @@ let
           ];
           hash = pluginsHash;
         };
-      telegram-desktop = pkgs.telegram-desktop.overrideAttrs (old: {
+      telegram-desktop = minipkgs.telegram-desktop.overrideAttrs (old: {
         unwrapped = v3overridegcc (
           old.unwrapped.overrideAttrs (old2: {
             # see https://github.com/Layerex/telegram-desktop-patches
@@ -89,7 +99,7 @@ let
           })
         );
       });
-      materialgram = pkgs.materialgram.overrideAttrs (old: {
+      materialgram = minipkgs.materialgram.overrideAttrs (old: {
         unwrapped = v3overridegcc (
           old.unwrapped.overrideAttrs (old2: {
             # see https://github.com/Layerex/telegram-desktop-patches
