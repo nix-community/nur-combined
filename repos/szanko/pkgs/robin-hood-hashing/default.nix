@@ -16,12 +16,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-J4u9Q6cXF0SLHbomP42AAn5LSKBYeVgTooOhqxOIpuM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  dontConfigure = true;
+  dontBuild = true;
 
   installPhase = ''
+    runHook preInstall
     install -Dm644 "$src/src/include/robin_hood.h" "$out/include/robin_hood.h"
+    runHook postInstall
   '';
 
   meta = {
