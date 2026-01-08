@@ -15,14 +15,14 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "tewi";
-  version = "2.2.0";
+  version = "2.3.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "anlar";
     repo = "tewi";
     rev = "v${version}";
-    sha256 = "sha256-XLriHazE+YyLTEWcjDuW+3WX3NKYdsvzRmIc/Oc81oM=";
+    sha256 = "sha256-p3uxTCLegzhO5zPs1ZqZf0RDgpYxHjzcO1bqy1ZSUfc=";
   };
 
   build-system = [ python.pkgs.setuptools ];
