@@ -25,4 +25,5 @@ in
   powershell-beautifier = pkgs.callPackage ./pkgs/powershell-beautifier {
     source = sources.powershell-beautifier;
   };
+  sketchyhelper = pkgs.callPackage ./pkgs/sketchyhelper { };
 }
