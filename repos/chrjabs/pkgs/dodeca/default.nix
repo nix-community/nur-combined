@@ -41,10 +41,10 @@ rustPlatform.buildRustPackage rec {
     ./fix-wasm-symbols.patch
   ];
 
-  cargoHash = "sha256-EKFlxZBKtNu+YHLMWdVQw58qM7S9Qb/MELTnmRyfiMc=";
+  cargoHash = "sha256-wtjGc7jyi81dHMNK4Qfk+fBmZeBtVrvh5THv6YSoN6s=";
 
   cargoPatches = [
-    ./fix-picante.patch
+    ./patch-dependencies.patch
   ];
 
   buildInputs = [ openssl ];

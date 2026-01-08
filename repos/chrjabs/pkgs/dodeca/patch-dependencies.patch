@@ -1,5 +1,5 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 171258815e..652ef4d336 100644
+index 171258815e..84491189f5 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
 @@ -6614,7 +6614,7 @@
@@ -20,6 +20,30 @@ index 171258815e..652ef4d336 100644
  dependencies = [
   "heck 0.5.0",
   "proc-macro2",
+@@ -9927,9 +9927,8 @@
+ 
+ [[package]]
+ name = "woofwoof"
+-version = "1.0.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "e2d1f98d082af287cb121f931ccd30248fb665485bbb11a03bc686d2454a2bb4"
++version = "1.0.2"
++source = "git+https://github.com/chrjabs/woofwoof?branch=push-wmwmyxpzsqox#f447d26b6e33ce5b073e2e578aabf3c0bfce20c8"
+ dependencies = [
+  "brotli 7.0.0",
+  "cc",
+diff --git a/Cargo.toml b/Cargo.toml
+index ae8d9f47d6..d9fc3e0836 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -53,6 +53,7 @@
+ facet-toml = { git = "https://github.com/facet-rs/facet", branch = "main" }
+ facet-value = { git = "https://github.com/facet-rs/facet", branch = "main" }
+ facet-yaml = { git = "https://github.com/facet-rs/facet", branch = "main" }
++woofwoof = { git = "https://github.com/chrjabs/woofwoof", branch = "push-wmwmyxpzsqox" }
+ 
+ # Optimize dependencies in dev mode for faster tests
+ # (keeps main crate unoptimized for fast incremental builds)
 diff --git a/crates/dodeca/Cargo.toml b/crates/dodeca/Cargo.toml
 index 872b0356cb..f0c2712c0f 100644
 --- a/crates/dodeca/Cargo.toml
