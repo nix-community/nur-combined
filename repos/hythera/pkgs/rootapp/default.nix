@@ -7,11 +7,11 @@
 
 let
   pname = "rootapp";
-  version = "0.9.78";
+  version = "0.9.79";
 
   src = fetchurl {
     url = "https://installer.rootapp.com/installer/Linux/X64/Root.AppImage";
-    hash = "sha256-F4DyFbeSFNAqchMldbPllGWt0kCsg+xBnGrMKA8N8MM=";
+    hash = "sha256-EAVd8u9diCIpmXfzfvC9tMKJeH+xIS0fkgkQ06uj8C4=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
@@ -26,9 +26,7 @@ appimageTools.wrapType2 {
     install -m 444 -D ${appimageContents}/Root.png $out/share/icons/hicolor/512x512/apps/${pname}.png
 
     substituteInPlace $out/share/applications/${pname}.desktop \
-    	--replace 'Exec=Root' 'Exec=${pname} %U'
-
-    mv $out/bin/rootapp-${version} $out/bin/rootapp
+    	--replace-fail 'Exec=Root' 'Exec=${pname} %U'
   '';
 
   meta = {
