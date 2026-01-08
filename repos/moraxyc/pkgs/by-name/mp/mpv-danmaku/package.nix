@@ -41,5 +41,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Kosette/danmaku";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ moraxyc ];
+    platforms = lib.platforms.linux;
   };
 })
