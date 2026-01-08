@@ -42,7 +42,7 @@ jobs:
             
             null    as $beta |
             "25.11" as $stable |
-            "25.05" as $oldStable |
+            null    as $oldStable |
             
             [
               "Lnx x64/ubuntu-latest",
