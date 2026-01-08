@@ -193,18 +193,47 @@ def update_github_src(attrs, scoped_vars):
 
     owner = src.argument["owner"].value
     repo = src.argument["repo"].value
+    url = f"https://github.com/{owner}/{repo}"
+
+    cmd = [
+        "nix-prefetch-git",
+        "--url",
+        url,
+        "--quiet",
+    ]
 
     try:
         rev = src.argument["rev"].value
     except KeyError:
         rev = None
 
-    cmd = [
-        "nix-prefetch-git",
-        "--url",
-        f"https://github.com/{owner}/{repo}",
-        "--quiet",
-    ]
+    try:
+        tag = src.argument["tag"].value
+    except KeyError:
+        pass
+    else:
+        latest_tag = (
+            subprocess.run(
+                [
+                    "git",
+                    "ls-remote",
+                    "--tags",
+                    "--sort=-v:refname",
+                    url,
+                ],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            .stdout.strip()
+            .split("\n")[0]
+            .split("refs/tags/")[-1]
+        )
+
+        # bentopdf fix
+        if latest_tag.endswith("^{}"):
+            latest_tag = latest_tag[:-3]
+        cmd.extend(["--rev", f"refs/tags/{latest_tag}"])
 
     try:
         dir_identifier = src.argument["sparseCheckout"].value[0]
@@ -228,11 +257,18 @@ def update_github_src(attrs, scoped_vars):
         ).stdout
     )
 
-    date = str(datetime.datetime.fromisoformat(result["date"]).date())
-    attrs.argument["version"].value = f"unstable-{date}"
-
     if rev:
         src.argument["rev"].value = result["rev"]
+
+        date = str(datetime.datetime.fromisoformat(result["date"]).date())
+        attrs.argument["version"].value = f"unstable-{date}"
+    if tag:
+        src.argument["tag"].value = f"refs/tags/{latest_tag}"
+
+        version = latest_tag
+        if version.startswith(("v", "V")):
+            version = version[1:]
+        attrs.argument["version"].value = version
     src.argument["hash"].value = result["hash"]
 
     return result
