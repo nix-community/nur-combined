@@ -26,4 +26,5 @@ in
     source = sources.powershell-beautifier;
   };
   sketchyhelper = pkgs.callPackage ./pkgs/sketchyhelper { };
+  sbar_menus = pkgs.callPackage ./pkgs/sbar_menus { };
 }
