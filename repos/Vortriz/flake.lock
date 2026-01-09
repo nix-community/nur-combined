@@ -20,27 +20,6 @@
         "type": "github"
       }
     },
-    "devshell_2": {
-      "inputs": {
-        "nixpkgs": [
-          "nima",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1764011051,
-        "narHash": "sha256-M7SZyPZiqZUR/EiiBJnmyUbOi5oE/03tCeFrTiUZchI=",
-        "owner": "numtide",
-        "repo": "devshell",
-        "rev": "17ed8d9744ebe70424659b0ef74ad6d41fc87071",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "devshell",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -56,52 +35,6 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-utils": {
-      "inputs": {
-        "systems": [
-          "nima",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "nima": {
-      "inputs": {
-        "devshell": "devshell_2",
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1766603716,
-        "narHash": "sha256-qJTtXux7bzJaJgnQpvSBMaJnNAyzqzVcLGvtOC8iv3I=",
-        "owner": "Vortriz",
-        "repo": "nix-manipulator",
-        "rev": "98a3fc6811e906ea7ac6ad9c2744fcaee4596a18",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Vortriz",
-        "repo": "nix-manipulator",
         "type": "github"
       }
     },
@@ -140,7 +73,6 @@
       "inputs": {
         "devshell": "devshell",
         "flake-parts": "flake-parts",
-        "nima": "nima",
         "nixpkgs": "nixpkgs",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"

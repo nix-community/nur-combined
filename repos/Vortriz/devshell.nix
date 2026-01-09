@@ -4,16 +4,16 @@
 
     perSystem =
         {
+            config,
             lib,
             pkgs,
-            system,
             ...
         }:
         {
             devshells.default =
                 let
                     python = pkgs.python3.withPackages (_p: [
-                        inputs.nima.packages.${system}.nima
+                        config.legacyPackages.nima
                     ]);
                 in
                 {
