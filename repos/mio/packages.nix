@@ -171,6 +171,7 @@ rec {
   linux-enable-ir-emitter = nodarwin (
     pkgs.callPackage ./pkgs/linux-enable-ir-emitter/package.nix { }
   );
+  layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
 
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
