@@ -125,7 +125,10 @@ stdenv.mkDerivation (finalAttrs: {
       tray_js="$out/lib/${finalAttrs.pname}/main/youtube-music-tray--ObgfMm0.js"
       sed -i "s|join(import.meta.dirname, \"../../assets/youtube-music-tray.png\").replace(\"app.asar\", \"app.asar.unpacked\")|\"$out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png\"|g" "$tray_js"
 
-       makeWrapper ${lib.getExe electron} $out/bin/$pname \
+      # Do not open DevTools on app launch by setting ELECTRON_IS_DEV to 0.
+      # see: https://github.com/sindresorhus/electron-is-dev/blob/main/index.js
+      makeWrapper ${lib.getExe electron} $out/bin/$pname \
+          --set ELECTRON_IS_DEV 0 \
           --set ELECTRON_RESOURCES_PATH $out/lib/${finalAttrs.pname} \
           --add-flags $out/lib/$pname/main/index.js \
           --add-flags "--disable-gpu --use-gl=swiftshader --enable-unsafe-swiftshader" \
