@@ -12,38 +12,38 @@
   nix-update,
 }:
 let
-  wasm-bindgen-cli_0_2_92 = buildWasmBindgenCli rec {
+  wasm-bindgen-cli_0_2_106 = buildWasmBindgenCli rec {
     src = fetchCrate {
       pname = "wasm-bindgen-cli";
-      version = "0.2.92";
-      hash = "sha256-1VwY8vQy7soKEgbki4LD+v259751kKxSxmo/gqE6yV0=";
+      version = "0.2.106";
+      hash = "sha256-M6WuGl7EruNopHZbqBpucu4RWz44/MSdv6f0zkYw+44=";
     };
 
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit src;
       inherit (src) pname version;
-      hash = "sha256-81vQkKubMWaX0M3KAwpYgMA1zUQuImFGvh5yTW+rIAs=";
+      hash = "sha256-ElDatyOwdKwHg3bNH/1pcxKI7LXkhsotlDPQjiLHBwA=";
     };
   };
 
 in
 buildNpmPackage rec {
   pname = "asciinema-player";
-  version = "3.13.5";
+  version = "3.14.0";
 
   src = fetchFromGitHub {
     owner = "asciinema";
     repo = "asciinema-player";
-    rev = "v3.13.5";
-    hash = "sha256-DEtaun/C73MaJfDNtjEp9sYcyJf0ewy2l8m06DTZzsE=";
+    rev = "v3.14.0";
+    hash = "sha256-ZrF9Y4aXfIeIU4y145bYBJZ36LqI+jXimpXlL6cT+F8=";
   };
 
-  npmDepsHash = "sha256-H/9CgP3YmNnPesBCO2CnP7+lvZbVptvxJVhrl2gKWXw=";
+  npmDepsHash = "sha256-V0KmvY4MBgtXggJxRWuYglQyG2zd/kRH46H+boBYD5w=";
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     cargoRoot = "src/vt";
-    hash = "sha256-RHBFYhonGsYwJp7+pJJ2Gnz7QM2JFECP2A+YxFVVyIE=";
+    hash = "sha256-anyrCXM84CfbTxNzaQSWbLY42rKM0KESwibvN1csfao=";
   };
 
   cargoRoot = "src/vt";
@@ -51,13 +51,13 @@ buildNpmPackage rec {
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
     lld
-    wasm-bindgen-cli_0_2_92
+    wasm-bindgen-cli_0_2_106
     makeWrapper
   ];
 
   env = {
     CARGO_BIN = lib.getExe cargo;
-    WASM_BINDGEN_BIN = lib.getExe wasm-bindgen-cli_0_2_92;
+    WASM_BINDGEN_BIN = lib.getExe wasm-bindgen-cli_0_2_106;
   };
 
   installPhase = ''
