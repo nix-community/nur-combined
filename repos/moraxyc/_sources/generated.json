@@ -368,11 +368,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4ukoHKUgCNoa9hHTGYocXzugqKKZkSRFFk5zrDW/baU=",
+            "sha256": "sha256-GtsOvTkmoMt8pjWP8BGUwJl1vtSMgWbiRLTvKK6acB4=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601072215/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601082216/geoip.dat"
         },
-        "version": "202601072215"
+        "version": "202601082216"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLocks": null,
@@ -383,11 +383,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ttq3jjOim7PfaaxZlCSDYIR5RxiAkgws9M5h3xO2ycM=",
+            "sha256": "sha256-Jl/9Kd0ANi92w7dwyx8sRUu2BttMOIetPqX6xcrIh10=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601072215/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601082216/geosite.dat"
         },
-        "version": "202601072215"
+        "version": "202601082216"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLocks": null,
