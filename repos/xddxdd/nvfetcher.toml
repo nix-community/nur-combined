@@ -838,6 +838,10 @@ src.github = "ashleve/rootutils"
 fetch.github = "xddxdd/route-chain"
 src.git = "https://github.com/xddxdd/route-chain.git"
 
+[route-chain-stable]
+fetch.github = "xddxdd/route-chain"
+src.github = "xddxdd/route-chain"
+
 [rtpengine]
 fetch.github = "sipwise/rtpengine"
 src.github = "sipwise/rtpengine"

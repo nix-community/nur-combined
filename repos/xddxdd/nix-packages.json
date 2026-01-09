@@ -4127,7 +4127,7 @@
   "legacyPackages.x86_64-linux.route-chain": {
     "description": "Small app to generate a long path in traceroute",
     "pname": "route-chain",
-    "version": "0-unstable-2025-11-30"
+    "version": "1.1.0-unstable-2026-01-08"
   },
   "legacyPackages.x86_64-linux.rtpengine": {
     "description": "Sipwise media proxy for Kamailio",
@@ -4852,7 +4852,7 @@
   "legacyPackages.x86_64-linux.uncategorized.route-chain": {
     "description": "Small app to generate a long path in traceroute",
     "pname": "route-chain",
-    "version": "0-unstable-2025-11-30"
+    "version": "1.1.0-unstable-2026-01-08"
   },
   "legacyPackages.x86_64-linux.uncategorized.rtpengine": {
     "description": "Sipwise media proxy for Kamailio",
@@ -5892,7 +5892,7 @@
   "packages.x86_64-linux.route-chain": {
     "description": "Small app to generate a long path in traceroute",
     "pname": "route-chain",
-    "version": "0-unstable-2025-11-30"
+    "version": "1.1.0-unstable-2026-01-08"
   },
   "packages.x86_64-linux.rtpengine": {
     "description": "Sipwise media proxy for Kamailio",

@@ -3734,7 +3734,7 @@
     },
     "route-chain": {
         "cargoLocks": null,
-        "date": "2025-11-30",
+        "date": "2026-01-08",
         "extract": null,
         "name": "route-chain",
         "passthru": null,
@@ -3746,12 +3746,33 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "route-chain",
-            "rev": "2245d155c2089067cb2fcd9adf3f4d576fd09084",
+            "rev": "19cb38b50ab74074c7159c72f77ca7401a0a04e6",
+            "sha256": "sha256-lYYdu2sQhf/AYR9j88IGXIg8S5ApMyAYJH4RTGu3h78=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "19cb38b50ab74074c7159c72f77ca7401a0a04e6"
+    },
+    "route-chain-stable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "route-chain-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xddxdd",
+            "repo": "route-chain",
+            "rev": "v1.1.0",
             "sha256": "sha256-+zaOtGCrHTcHF32vPmY3IGeVl/FAQ09OWdPYJ54DFyI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2245d155c2089067cb2fcd9adf3f4d576fd09084"
+        "version": "v1.1.0"
     },
     "rtpengine": {
         "cargoLocks": null,

@@ -1914,14 +1914,24 @@
   };
   route-chain = {
     pname = "route-chain";
-    version = "2245d155c2089067cb2fcd9adf3f4d576fd09084";
+    version = "19cb38b50ab74074c7159c72f77ca7401a0a04e6";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "route-chain";
-      rev = "2245d155c2089067cb2fcd9adf3f4d576fd09084";
+      rev = "19cb38b50ab74074c7159c72f77ca7401a0a04e6";
+      hash = "sha256-lYYdu2sQhf/AYR9j88IGXIg8S5ApMyAYJH4RTGu3h78=";
+    };
+    date = "2026-01-08";
+  };
+  route-chain-stable = {
+    pname = "route-chain-stable";
+    version = "v1.1.0";
+    src = fetchFromGitHub {
+      owner = "xddxdd";
+      repo = "route-chain";
+      tag = "v1.1.0";
       hash = "sha256-+zaOtGCrHTcHF32vPmY3IGeVl/FAQ09OWdPYJ54DFyI=";
     };
-    date = "2025-11-30";
   };
   rtpengine = {
     pname = "rtpengine";
