@@ -121,6 +121,14 @@ rec {
     }
   );
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
+  bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
+  art-standalone = pkgs.callPackage ./pkgs/art-standalone/package.nix {
+    bionic-translation = bionic-translation;
+  };
+  android-translation-layer = pkgs.callPackage ./pkgs/android-translation-layer/package.nix {
+    art-standalone = art-standalone;
+    bionic-translation = bionic-translation;
+  };
   beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
     cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   };

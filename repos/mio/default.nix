@@ -172,6 +172,7 @@ let
           lix
           ghidra
           prismlauncher-diegiwg
+          android-translation-layer
           ;
       };
     }

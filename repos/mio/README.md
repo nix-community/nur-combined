@@ -61,3 +61,6 @@ files are copied from following locations. some are modified in this repo and so
 + davinci-resolve nixpkgs commit 49a636772fd8ea6f25b9c9ff9c5a04434e90b96f^
 + <https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp> commit 464f070d952afff764d82041d371cfee3e689d2a mkwindowsapp mkwindowsapp-tools line.nix hooks lib
 + unmodified - prismlauncher-unwrapped prismlauncher materialgram telegram-desktop nixpkgs commit e5496329a87ba2480c25eac653ffcf26e5656864
++ android-translation-layer nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
++ bionic-translation nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
++ art-standalone nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
