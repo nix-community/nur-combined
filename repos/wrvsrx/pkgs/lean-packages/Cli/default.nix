@@ -1,18 +1,13 @@
 {
   stdenv,
-  fetchFromGitHub,
   lean4,
   lakeSetupHook,
+  lib,
+  source,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "Cli";
-  version = "4.25.0";
-  src = fetchFromGitHub {
-    owner = "leanprover";
-    repo = "lean4-cli";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-pYDj12ZapvYvfRXGudwEwC6RstDNGgr3lSs3aWAGkW4=";
-  };
+  inherit (source) pname src;
+  version = lib.removePrefix "v" source.version;
   env.NIX_LAKE_TARGETS = "Cli:shared";
   nativeBuildInputs = [
     lean4

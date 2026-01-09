@@ -1,21 +1,16 @@
 {
   stdenv,
-  fetchFromGitHub,
   lean4,
   lakeSetupHook,
   nodejs,
   fetchNpmDeps,
   replaceVars,
+  lib,
+  source,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "proofwidgets";
-  version = "0.0.79";
-  src = fetchFromGitHub {
-    owner = "leanprover-community";
-    repo = "ProofWidgets4";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-4Ka7d98xdbDoX/tyFyygtks0Qpx5ZlXNraGj2Lh5siE=";
-  };
+  inherit (source) pname src;
+  version = lib.removePrefix "v" source.version;
   patches = [
     (replaceVars ./npm.patch { inherit nodejs; })
   ];

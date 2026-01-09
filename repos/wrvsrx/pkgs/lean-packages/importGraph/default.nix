@@ -1,20 +1,15 @@
 {
   stdenv,
-  fetchFromGitHub,
   lean4,
   lakeSetupHook,
   writeText,
   Cli,
+  lib,
+  source,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "importGraph";
-  version = "4.25.0";
-  src = fetchFromGitHub {
-    owner = "leanprover-community";
-    repo = "import-graph";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-1xdvh1QvXbNoUXyfCe7gTmOV+sZzkGeqFrKTaS9wiGw=";
-  };
+  inherit (source) pname src;
+  version = lib.removePrefix "v" source.version;
   env.NIX_LAKE_MANIFEST_OVERRIDE = writeText "lake-manifest-override.json" (
     builtins.toJSON [
       {

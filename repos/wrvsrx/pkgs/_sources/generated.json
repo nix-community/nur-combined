@@ -1,4 +1,88 @@
 {
+    "Cli": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "Cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover",
+            "repo": "lean4-cli",
+            "rev": "v4.26.0",
+            "sha256": "sha256-paEOFOWnatP4uQJWVXNDd+s8z7bXOfIGMi0iVQPVZqg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.26.0"
+    },
+    "LeanSearchClient": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "LeanSearchClient",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "LeanSearchClient",
+            "rev": "3591c3f664ac3719c4c86e4483e21e228707bfa2",
+            "sha256": "sha256-aDYHfikl60O+y3zLvFId8Sr/PypPmCrwxwmzwYnrJTw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3591c3f664ac3719c4c86e4483e21e228707bfa2"
+    },
+    "Qq": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "Qq",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "quote4",
+            "rev": "v4.26.0",
+            "sha256": "sha256-g6BrhUs3Rx2PugvCYsTjz0CMklES5oRhK+rVERf3NmQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.26.0"
+    },
+    "aesop": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "aesop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "aesop",
+            "rev": "v4.26.0",
+            "sha256": "sha256-cGkaUz1eHeIrOL6hGzvTZQ9zxhdQlrnaQqdaadyk5X8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.26.0"
+    },
     "amgcl": {
         "cargoLocks": null,
         "date": "2025-08-27",
@@ -82,6 +166,27 @@
             "type": "github"
         },
         "version": "v1.0.3"
+    },
+    "batteries": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "batteries",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "batteries",
+            "rev": "v4.26.0",
+            "sha256": "sha256-uqKmyyv1QlhwnhMRNlMi+BXWHUvHbUrHFZJ4VRgSlCg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.26.0"
     },
     "cmdlime": {
         "cargoLocks": null,
@@ -266,6 +371,27 @@
         },
         "version": "7e48d2bda0f94fc96b2d8b2917d5ef306ba83c97"
     },
+    "importGraph": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "importGraph",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "import-graph",
+            "rev": "v4.26.0",
+            "sha256": "sha256-82XY60WB3t/gcm/nbUtQwK1Ys7giOcaM28oFTrBsrZo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.26.0"
+    },
     "jax-md": {
         "cargoLocks": null,
         "date": null,
@@ -311,6 +437,27 @@
         },
         "version": "0.22.1"
     },
+    "mathlib": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "mathlib",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "mathlib4",
+            "rev": "v4.26.0",
+            "sha256": "sha256-eYl3wXgTZEvkTwhyu3W5bYeQxQvwYsnfYpP+2DoojKQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.26.0"
+    },
     "osc52": {
         "cargoLocks": null,
         "date": "2025-05-16",
@@ -331,6 +478,48 @@
             "type": "github"
         },
         "version": "49fbbb3d297dc8c50f8c35cb4402502713494573"
+    },
+    "plausible": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "plausible",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "plausible",
+            "rev": "v4.26.0",
+            "sha256": "sha256-THm3uQgzYJSitPEW/mz3Jb5HFpx842RcYlRK/LlKlkw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.26.0"
+    },
+    "proofwidgets": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "proofwidgets",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leanprover-community",
+            "repo": "ProofWidgets4",
+            "rev": "v0.0.83",
+            "sha256": "sha256-+53ZX0jvkBU4TR67YPyULtJWVxSsJJDV8G2N7GFwUD0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.83"
     },
     "ptrace-time-hook": {
         "cargoLocks": null,
@@ -571,5 +760,26 @@
             "type": "github"
         },
         "version": "b372f73579d30f9ba998ffd0a73694e7abe2c313"
+    },
+    "xdg": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "xdg",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wrvsrx",
+            "repo": "xdg",
+            "rev": "0.2.0",
+            "sha256": "sha256-HKD3zchrhuqHM6fjmFQMardb9ov3GG7rki2kjW8oLas=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.2.0"
     }
 }

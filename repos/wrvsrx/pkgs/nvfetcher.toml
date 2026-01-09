@@ -115,3 +115,43 @@ git.fetchSubmodules = true
 [ptrace-time-hook]
 src.github_tag = "wrvsrx/ptrace-time-hook"
 fetch.github = "wrvsrx/ptrace-time-hook"
+
+[aesop]
+src.manual = "v4.26.0"
+fetch.github = "leanprover-community/aesop"
+
+[batteries]
+src.manual = "v4.26.0"
+fetch.github = "leanprover-community/batteries"
+
+[importGraph]
+src.manual = "v4.26.0"
+fetch.github = "leanprover-community/import-graph"
+
+[Cli]
+src.manual = "v4.26.0"
+fetch.github = "leanprover/lean4-cli"
+
+[xdg]
+src.github_tag = "wrvsrx/xdg"
+fetch.github = "wrvsrx/xdg"
+
+[Qq]
+src.manual = "v4.26.0"
+fetch.github = "leanprover-community/quote4"
+
+[mathlib]
+src.manual = "v4.26.0"
+fetch.github = "leanprover-community/mathlib4"
+
+[plausible]
+src.manual = "v4.26.0"
+fetch.github = "leanprover-community/plausible"
+
+[LeanSearchClient]
+src.manual = "3591c3f664ac3719c4c86e4483e21e228707bfa2"
+fetch.github = "leanprover-community/LeanSearchClient"
+
+[proofwidgets]
+src.manual = "v0.0.83"
+fetch.github = "leanorover-community/ProofWidgets4"

@@ -1,18 +1,13 @@
 {
   stdenv,
-  fetchFromGitHub,
   lean4,
   lakeSetupHook,
+  lib,
+  source,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "plausible";
-  version = "4.25.0";
-  src = fetchFromGitHub {
-    owner = "leanprover-community";
-    repo = "plausible";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-SLcDytxk2qCHznP/OS1gZQ31B1V4DdwzrDsQYVUFE1E=";
-  };
+  inherit (source) pname src;
+  version = lib.removePrefix "v" source.version;
   nativeBuildInputs = [
     lean4
     lakeSetupHook
