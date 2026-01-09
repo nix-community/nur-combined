@@ -172,6 +172,7 @@ rec {
   plezy = nodarwin (pkgs.callPackage ./pkgs/plezy { });
 
   downkyicore = pkgs.callPackage ./pkgs/downkyicore/package.nix { };
+  bifrost = pkgs.callPackage ./pkgs/bifrost/package.nix { };
 
   eden = nodarwin (v3overrideAttrs (pkgs.callPackage ./pkgs/eden/package.nix { }));
 
