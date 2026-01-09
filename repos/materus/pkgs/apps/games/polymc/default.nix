@@ -19,7 +19,7 @@
   glfw3-minecraft,
   pciutils,
   udev,
-  glxinfo,
+  mesa-demos,
   quazip,
   libGL,
   flite,
@@ -40,7 +40,7 @@ let
     let
       binpath = lib.makeBinPath [
         xorg.xrandr
-        glxinfo
+        mesa-demos
         pciutils
       ];
       libpath =
