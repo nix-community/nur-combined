@@ -9007,10 +9007,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.9.3";
+      version = "1.9.4";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4660146/mtab-1.9.3.xpi";
-      sha256 = "be32a22d3e1d767d0a8397cd315b44f26f1b8478a6fd8a76bf296ec6861a9e45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4660922/mtab-1.9.4.xpi";
+      sha256 = "a565e3b6511dd36e16f31ad6f5726fe23be2ee33b28759dcd13967d3d9957451";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -10787,10 +10787,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "1.3.0";
+      version = "1.4.1";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649158/private_grammar_checker_harper-1.3.0.xpi";
-      sha256 = "53625166e326256d0d6ebbdebaf438a30f9fa43fd2a9225a9486aea25c4744e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4660884/private_grammar_checker_harper-1.4.1.xpi";
+      sha256 = "86a009462865ab2e0fc60d604cf6780789f9137d312f8afdbbece78a7471ef69";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
