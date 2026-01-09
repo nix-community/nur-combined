@@ -263,11 +263,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-d6KsIZCkqb4RzlByy1+5Bi9OZImU3/YbXyVX99d2o00=",
+            "sha256": "sha256-9ZRxjTTuAwo1f8jAM4f9OT3Q/Eu+AxSoRVvYZ9ShhVk=",
             "type": "url",
-            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.4/MoeKoe_Music_v1.5.4.AppImage"
+            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.5/MoeKoe_Music_v1.5.5.AppImage"
         },
-        "version": "v1.5.4"
+        "version": "v1.5.5"
     },
     "mstickereditor": {
         "cargoLock": {
