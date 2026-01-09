@@ -21,14 +21,14 @@
 in
   if stdenv.isDarwin
   then let
-    src = "https://github.com/ForkPrince/tap/raw/c60a096fb2552904ec5eada157bcc8427eba13d9/Apps/Note%20Block%20Studio.dmg";
-    name = lib.extractName src;
+    url = "https://github.com/ForkPrince/tap/raw/c60a096fb2552904ec5eada157bcc8427eba13d9/Apps/Note%20Block%20Studio.dmg";
+    name = lib.helper.extractName url;
   in
     stdenv.mkDerivation {
       inherit pname version meta;
 
       src = fetchurl {
-        inherit src name;
+        inherit url name;
         hash = "sha256-afEggp95TCan/AkqKYf+6RGeei0iw4oRWJJpJLvHngE=";
       };
 
@@ -47,12 +47,15 @@ in
         runHook postInstall
       '';
     }
-  else
+  else let
+    url = "https://github.com/ForkPrince/homebrew-tap/raw/refs/heads/main/Apps/Minecraft%20Note%20Block%20Studio%20(Snapshot%202025.08.02).appimage";
+    name = lib.helper.extractName url;
+  in
     appimageTools.extractType2 {
       inherit pname version meta;
 
       src = fetchurl {
-        url = "https://api.serversmp.xyz/upload/6960ee6564b732e3fdd03f8c.appimage";
+        inherit url name;
         hash = "sha256-7cIv7CD0u95I3AvVV1N0OaTg18AzWRJm5sXm8n3cLrU=";
       };
     }
