@@ -245,6 +245,31 @@
     "hash": "sha256-/Nj+kTzsxDWww9w3oaXqZo48I1yYuN+PB2K7I1aH0Ww="
   },
   {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/6d976af71db8",
+    "name": "1877646-saved-searches-unified-folders.patch",
+    "hash": "sha256-dgbl+HQOUMqqZj3J92mOQtgK0aCC0G6hM3bMJsR97SQ="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/107dcb12b088",
+    "name": "2004103-calendar-displayed-input-title.patch",
+    "hash": "sha256-XsYVBAVfJHrh5HPNArDVv1Qw5K7NjGiB3jeXfINMOl4="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/5a81c1541639",
+    "name": "1901089-date-picker-disable.patch",
+    "hash": "sha256-t0/eTDjzMCY6pAIz1H2FGCiQJH5asDURe67qW7mGHOs="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/1c503c5aa0f6",
+    "name": "2005957-fix-regression-from-1901089.patch",
+    "hash": "sha256-27eVD1saVRVTaRk0TXqjpUk1X7XgcBQxARI+u0HEgfA="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/b418552d0dab",
+    "name": "341266-remove-read-folders-from-unread.patch",
+    "hash": "sha256-b0P0ZHOMDkbFfP2jcmhLkt5x9kbyglvTP2l69tdzxIk="
+  },
+  {
     "url": "https://hg.mozilla.org/mozilla-central/raw-rev/f0dedf9da0fb",
     "name": "1976637-fix-scroll-moz.patch",
     "hash": "sha256-GSoJqsG/IBqi/Uqv5TQxVLh6dsm21/exAsvY+qawg54="
