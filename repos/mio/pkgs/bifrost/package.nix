@@ -16,13 +16,14 @@
   libglvnd,
   udev,
   dconf,
+  dpkg,
+  rpm,
   gsettings-desktop-schemas,
   hicolor-icon-theme,
   adwaita-icon-theme,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
-  makeWrapper,
 }:
 
 let
@@ -122,22 +123,80 @@ stdenv.mkDerivation {
   pname = "bifrost";
   inherit (bifrost-unwrapped) version;
 
-  nativeBuildInputs = [ makeWrapper ];
-
   dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    makeWrapper ${bifrost-unwrapped}/bin/Bifrost $out/bin/Bifrost \
-      --prefix PATH : ${lib.makeBinPath [ glib dconf ]} \
-      --prefix XDG_DATA_DIRS : ${lib.makeSearchPath "share" [
+    cat > $out/bin/Bifrost <<'EOF'
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    appdir="${bifrost-unwrapped}/lib/app"
+    cfg="$appdir/Bifrost.cfg"
+    classpath=""
+    main_class=""
+    java_opts=()
+
+    while IFS= read -r line; do
+      case "$line" in
+        app.classpath=*)
+          entry="''${line#app.classpath=}"
+          entry="''${entry//\$APPDIR/$appdir}"
+          if [ -z "$classpath" ]; then
+            classpath="$entry"
+          else
+            classpath="$classpath:$entry"
+          fi
+          ;;
+        app.mainclass=*)
+          main_class="''${line#app.mainclass=}"
+          ;;
+        java-options=*)
+          opt="''${line#java-options=}"
+          opt="''${opt//\$APPDIR/$appdir}"
+          java_opts+=("$opt")
+          ;;
+      esac
+    done < "$cfg"
+
+    if [ -z "$main_class" ]; then
+      echo "Missing main class in $cfg" >&2
+      exit 1
+    fi
+
+    export PATH="${
+      lib.makeBinPath [
+        glib
+        dconf
+        dpkg
+        rpm
+      ]
+    }:$PATH"
+    export GSETTINGS_SCHEMA_DIR="${glib.getSchemaPath gsettings-desktop-schemas}"
+    export XDG_DATA_DIRS="${
+      lib.makeSearchPath "share" [
         gsettings-desktop-schemas
         hicolor-icon-theme
         adwaita-icon-theme
-      ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ udev ]}
+      ]
+    }:''${XDG_DATA_DIRS:-}"
+    export LD_LIBRARY_PATH="${
+      lib.makeLibraryPath [
+        stdenv.cc.cc.lib
+        udev
+        libglvnd
+      ]
+    }:''${LD_LIBRARY_PATH:-}"
+    export JAVA_HOME="${jdk21}"
+
+    exec "${jdk21}/bin/java" \
+      "''${java_opts[@]}" \
+      -cp "$classpath" \
+      "$main_class"
+    EOF
+    chmod +x $out/bin/Bifrost
 
     ln -s ${bifrost-unwrapped}/share $out/share
     ln -s ${bifrost-unwrapped}/lib $out/lib
