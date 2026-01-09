@@ -30,9 +30,7 @@ stdenv.mkDerivation {
     # create a wrapper that will automatically set the classpath
     # this should be the paths from the dependency derivation
     makeWrapper ${jdk25_headless}/bin/java $out/bin/${pname} \
-          # --add-flags "--enable-native-access=ALL-UNNAMED -Djdk.attach.allowAttachSelf=true" \
-          # --add-flags "-XX:+UseCompactObjectHeaders -Dsun.net.useExclusiveBind=false -Dpbh.release=docker -Djava.awt.headless=true" \
-          --add-flags "-cp $src/libraries -jar $src/PeerBanHelper.jar"
+        --add-flags "-cp $src/libraries -jar $src/PeerBanHelper.jar"
   '';
 
   meta = with lib; {

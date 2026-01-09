@@ -128,7 +128,7 @@
     tmux
     zellij
     compose2nix
-    nixfmt-rfc-style
+    nixfmt
     nixfmt-tree
     binutils
     patchelf
