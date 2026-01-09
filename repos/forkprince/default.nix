@@ -8,16 +8,24 @@
   syslock = lib.callPackage ./pkgs/syslock {};
   nirius = lib.callPackage ./pkgs/nirius {};
 
-  keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
+  note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
   re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
   beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
   app-librescore = lib.callPackage ./pkgs/app-librescore {};
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
+
+  keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
+  passepartout = lib.callPackage ./pkgs/passepartout {};
+  cot-editor = lib.callPackage ./pkgs/cot-editor {};
   playcover = lib.callPackage ./pkgs/playcover {};
+  dropshare = lib.callPackage ./pkgs/dropshare {};
+  wg-nord = lib.callPackage ./pkgs/wg-nord {};
+  clop = lib.callPackage ./pkgs/clop {};
 
   github-desktop = lib.callPackage ./pkgs/github-desktop {};
+  sublime-text = lib.callPackage ./pkgs/sublime-text {};
   dolphin-emu = lib.callPackage ./pkgs/dolphin-emu {};
   obs-studio = lib.callPackage ./pkgs/obs-studio {};
   overlayed = lib.callPackage ./pkgs/overlayed {};
@@ -26,6 +34,7 @@
   ghostty = lib.callPackage ./pkgs/ghostty {};
   vscode = lib.callPackage ./pkgs/vscode {};
   heroic = lib.callPackage ./pkgs/heroic {};
+  micro = lib.callPackage ./pkgs/micro {};
   gimp = lib.callPackage ./pkgs/gimp {};
 
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};

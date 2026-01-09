@@ -1,4 +1,4 @@
-{lib}: let
+{lib}: rec {
   githubUrl = repo: tagPrefix: version: file: "https://github.com/${repo}/releases/download/${tagPrefix}${version}/${file}";
 
   sanitizeName = name:
@@ -36,7 +36,7 @@
         (idx + 1);
   in
     applySubs;
-in {
+
   read = path: builtins.fromJSON (builtins.readFile path);
 
   getSingle = ver: let

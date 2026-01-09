@@ -1,0 +1,28 @@
+{
+  "name": "wg-nord",
+  "source": {
+    "type": "github-release",
+    "repo": "n-thumann/wg-nord",
+    "query": "[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "version": "1.0.1",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "wg-nord-1.0.1-x86_64-unknown-linux-gnu.tar.gz",
+      "hash": "sha256-D/rfHNJGZiO+AShtaLXZVXXqp/M644+ryybXou9aK9M="
+    },
+    "aarch64-linux": {
+      "file": "wg-nord-1.0.1-aarch64-unknown-linux-gnu.tar.gz",
+      "hash": "sha256-YOVyv0NgjNHFwJiMlfufV91FTnmYpO2022hV3jaZck0="
+    },
+    "aarch64-darwin": {
+      "file": "wg-nord-1.0.1-aarch64-apple-darwin.tar.gz",
+      "hash": "sha256-FWkq7SJoHK++s9ikFL4mXlMIJEWM/B08h3ozQihYpo0="
+    },
+    "x86_64-darwin": {
+      "file": "wg-nord-1.0.1-x86_64-apple-darwin.tar.gz",
+      "hash": "sha256-8RgL0VLDa08/LBzu3IuRWRf8ze289lk8WMJLb53e2hc="
+    }
+  }
+}

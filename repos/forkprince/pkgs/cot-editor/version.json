@@ -1,0 +1,14 @@
+{
+  "name": "CotEditor",
+  "source": {
+    "type": "github-release",
+    "repo": "coteditor/CotEditor",
+    "query": "[0].tag_name"
+  },
+  "asset": {
+    "file": "CotEditor_{version}.dmg",
+    "unpack": false
+  },
+  "version": "6.2.1",
+  "hash": "sha256-pWSHN8CMXYDNiYpQWyzBw1eYDyS4U8NhwOTZ0O6YYG0="
+}
