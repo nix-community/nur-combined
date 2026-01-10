@@ -1,25 +1,26 @@
 {
   lib,
   pkgsCross,
-  stdenv,
+  gcc14Stdenv,
   fetchFromGitHub,
   acpica-tools,
-  autoPatchelfHook,
+  glibc,
   libuuid,
+  patchelf,
   python3,
   nix-update-script,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "edk2-cix";
-  version = "1.1.0-1";
+  version = "1.1.0-2";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "radxa-pkg";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    hash = "sha256-fa9/ohsGmqYNJWwHE+At9D/TXdHvOiWJjlfWUW+vgvo=";
+    hash = "sha256-EAB3cA5bD1cWx66uUL6auwn9Ihe2dXXRq/wxULT4ahk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -30,35 +31,48 @@ stdenv.mkDerivation (finalAttrs: {
     "trivialautovarinit"
   ];
 
-  depsBuildBuild = [ stdenv.cc ];
+  depsBuildBuild = [ gcc14Stdenv.cc ];
 
   nativeBuildInputs = [
     acpica-tools
-    autoPatchelfHook
     libuuid
+    patchelf
     python3
   ]
   ++ (lib.optional (
-    stdenv.hostPlatform.system != "aarch64-linux"
-  ) pkgsCross.aarch64-multiplatform.stdenv.cc);
+    gcc14Stdenv.hostPlatform.system != "aarch64-linux"
+  ) pkgsCross.aarch64-multiplatform.gcc14Stdenv.cc);
 
   buildInputs = [
-    stdenv.cc.cc.lib
+    gcc14Stdenv.cc.cc.lib
   ];
 
-  GCC5_AARCH64_PREFIX = pkgsCross.aarch64-multiplatform.stdenv.cc.targetPrefix;
+  GCC5_AARCH64_PREFIX = pkgsCross.aarch64-multiplatform.gcc14Stdenv.cc.targetPrefix;
 
-  postPatch = ''
-    # Patch the pre-built binaries in edk2-non-osi before they're used
-    # These are the tools used during the build process
-    autoPatchelf edk2-non-osi/Platform/CIX/Sky1/PackageTool/*/
+  postPatch =
+    let
+      inherit (gcc14Stdenv.hostPlatform) system;
+      archPath = if system == "x86_64-linux" then "X86_64"
+                 else if system == "aarch64-linux" then "AARCH64"
+                 else throw "Unsupported build platform: ${system}";
+    in
+    ''
+      # Patch the pre-built binaries in edk2-non-osi before they're used
+      # These are build tools that run on the build host, which may be skipped 
+      # by autoPatchelf due to architecture mismatch, so we patch manually
+      for bin in edk2-non-osi/Platform/CIX/Sky1/PackageTool/${archPath}/*; do
+        if [ -f "$bin" ] && [ -x "$bin" ]; then
+          echo "Patching package tool: $bin"
+          patchelf --set-interpreter ${glibc}/lib/ld-linux* --set-rpath ${glibc}/lib "$bin" || true
+        fi
+      done
 
-    substituteInPlace ./Makefile \
-      --replace-fail 'GCC5_AARCH64_PREFIX := aarch64-linux-gnu-' \
-                     'GCC5_AARCH64_PREFIX := ${pkgsCross.aarch64-multiplatform.stdenv.cc.targetPrefix}' 
-                    
-    patchShebangs .    
-  '';
+      substituteInPlace ./Makefile \
+        --replace-fail 'GCC5_AARCH64_PREFIX := aarch64-linux-gnu-' \
+                       'GCC5_AARCH64_PREFIX := ${pkgsCross.aarch64-multiplatform.gcc14Stdenv.cc.targetPrefix}'
+                      
+      patchShebangs .    
+    '';
 
   preBuild = ''
     # Create directories that the Makefile expects to exist
@@ -66,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p Build/O6N/RELEASE_GCC5/Firmwares
   '';
 
-  enableParallelBuilding = true;
+  enableParallelBuilding = false;
 
   installPhase = ''
     runHook preInstall
