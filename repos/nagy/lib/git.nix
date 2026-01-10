@@ -83,10 +83,18 @@
     {
       bundlefile,
       git ? pkgs.git,
+      cacert ? pkgs.cacert,
     }:
-    pkgs.runCommandLocal "source" { nativeBuildInputs = [ git ]; } ''
-      git clone ${bundlefile} $out
-      cd $out
-      mkdir -p .git/info && echo '*.json -filter' > .git/info/attributes
-    '';
+    pkgs.runCommandLocal "source"
+      {
+        nativeBuildInputs = [
+          git
+          cacert
+        ];
+        # to prevent junk
+        env.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+      }
+      ''
+        git clone ${bundlefile} $out
+      '';
 }

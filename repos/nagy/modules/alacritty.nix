@@ -21,6 +21,7 @@ let
         # 100k is the max
         scrolling = {
           history = 100 * 1000;
+          multiplier = 30;
         };
         # xterm colors
         # https://github.com/eendroroy/alacritty-theme/blob/master/themes/xterm.yaml
@@ -118,16 +119,15 @@ let
     '');
   alacrittyCombined = pkgs.symlinkJoin {
     name = "ala-switchers";
-    paths =
-      [
-        (pkgs.writeShellScriptBin "alacritty" ''
-          exec ${pkgs.alacritty}/bin/alacritty \
-            --option live_config_reload=true \
-            --config-file ${alacrittyLiveConfigPath} "$@"
-        '')
-      ]
-      ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules)
-      ++ [ pkgs.alacritty ];
+    paths = [
+      (pkgs.writeShellScriptBin "alacritty" ''
+        exec ${pkgs.alacritty}/bin/alacritty \
+          --option live_config_reload=true \
+          --config-file ${alacrittyLiveConfigPath} "$@"
+      '')
+    ]
+    ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules)
+    ++ [ pkgs.alacritty ];
   };
 
   cfg = config.nagy.alacritty;

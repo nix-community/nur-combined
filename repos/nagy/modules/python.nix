@@ -1,29 +1,47 @@
-{ pkgs, nur, ... }:
-
 {
-  environment.systemPackages = [
-    (pkgs.python3.withPackages (ps: [
-      # Ergonomic
-      ps.hy
-      ps.hyrule
-      ps.addict
+  config,
+  pkgs,
+  lib,
+  # nur,
+  ...
+}:
 
-      # Numbers
-      ps.numpy
-      ps.pandas
-      ps.pyyaml
-      ps.base58
-      ps.pyarrow
+let
+  cfg = config.nagy.python;
+in
+{
 
-      # Banking
-      ps.schwifty
-    ]))
-    pkgs.black
-    pkgs.isort
-    pkgs.pyright
+  options.nagy.python = {
+    enable = lib.mkEnableOption "python config";
+  };
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [
+      (pkgs.python3.withPackages (ps: [
+        # Ergonomic
+        ps.hy
+        ps.hyrule
+        ps.addict
 
-    pkgs.uv
-    pkgs.ruff
-    pkgs.ty
-  ];
+        # Numbers
+        ps.numpy
+        ps.pandas
+        ps.pyyaml
+        ps.base58
+        ps.pyarrow
+
+        # Banking
+        ps.schwifty
+
+        # Typst
+        ps.typst
+      ]))
+      pkgs.black
+      pkgs.isort
+      pkgs.pyright
+
+      pkgs.uv
+      pkgs.ruff
+      pkgs.ty
+    ];
+  };
 }

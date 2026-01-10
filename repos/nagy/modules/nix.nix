@@ -10,7 +10,7 @@
 
   config = {
     environment.systemPackages = with pkgs; [
-      nixfmt-rfc-style
+      nixfmt
       nil
 
       nix-prefetch

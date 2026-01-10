@@ -24,17 +24,6 @@
     "194.242.2.6" = [ "family.dns.mullvad.net" ];
     "194.242.2.9" = [ "all.dns.mullvad.net" ];
 
-    # https://en.wikipedia.org/wiki/Archive.today#Cloudflare_DNS_availability
-    "23.137.248.133" = [
-      "archive.fo"
-      "archive.is"
-      "archive.li"
-      "archive.md"
-      "archive.ph"
-      "archive.today"
-      "archive.vn"
-    ];
-
     # openNIC project
     # https://servers.opennic.org/
     # tier 2

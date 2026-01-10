@@ -17,15 +17,14 @@ let
     directory.evaldir =
       { src, ... }:
       {
-        __cmd =
-          ''
-            mkdir $out; cd $out;
-          ''
-          + (concatStringsSep "\n" (
-            map (x: "ln -s ${callPackage "${src}/${x}" { }} ${removeSuffix ".nix" x}") (
-              attrNames (builtins.readDir src)
-            )
-          ));
+        __cmd = ''
+          mkdir $out; cd $out;
+        ''
+        + (concatStringsSep "\n" (
+          map (x: "ln -s ${callPackage "${src}/${x}" { }} ${removeSuffix ".nix" x}") (
+            attrNames (builtins.readDir src)
+          )
+        ));
       };
     org.directory =
       { src, ... }:
