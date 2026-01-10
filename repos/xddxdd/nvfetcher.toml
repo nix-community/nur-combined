@@ -235,6 +235,11 @@ src.git = "https://github.com/xddxdd/drone-file-secret.git"
 fetch.github = "drone/drone-vault"
 src.github_tag = "drone/drone-vault"
 
+[dtbloader]
+fetch.github = "TravMurav/dtbloader"
+git.fetchSubmodules = true
+src.github = "TravMurav/dtbloader"
+
 [dump978]
 fetch.github = "flightaware/dump978"
 src.github_tag = "flightaware/dump978"

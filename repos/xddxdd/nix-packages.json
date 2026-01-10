@@ -609,6 +609,11 @@
     "pname": "drone-vault",
     "version": "1.3.0"
   },
+  "legacyPackages.x86_64-linux.dtbloader": {
+    "description": "EFI driver that finds and installs DeviceTree into the UEFI configuration table",
+    "pname": "dtbloader",
+    "version": "1.5.2"
+  },
   "legacyPackages.x86_64-linux.dump978": {
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
@@ -4399,6 +4404,11 @@
     "pname": "drone-vault",
     "version": "1.3.0"
   },
+  "legacyPackages.x86_64-linux.uncategorized.dtbloader": {
+    "description": "EFI driver that finds and installs DeviceTree into the UEFI configuration table",
+    "pname": "dtbloader",
+    "version": "1.5.2"
+  },
   "legacyPackages.x86_64-linux.uncategorized.dump978": {
     "description": "FlightAware's 978MHz UAT demodulator",
     "pname": "dump978",
@@ -5308,6 +5318,11 @@
     "description": "Drone plugin for integrating with the Vault secrets manager",
     "pname": "drone-vault",
     "version": "1.3.0"
+  },
+  "packages.x86_64-linux.dtbloader": {
+    "description": "EFI driver that finds and installs DeviceTree into the UEFI configuration table",
+    "pname": "dtbloader",
+    "version": "1.5.2"
   },
   "packages.x86_64-linux.dump978": {
     "description": "FlightAware's 978MHz UAT demodulator",

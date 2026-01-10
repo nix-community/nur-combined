@@ -540,6 +540,17 @@
       hash = "sha256-g4D+pnOo41UqPDFF3lvh/yNFVzP8rqglG+4xPx+aEzM=";
     };
   };
+  dtbloader = {
+    pname = "dtbloader";
+    version = "1.5.2";
+    src = fetchFromGitHub {
+      owner = "TravMurav";
+      repo = "dtbloader";
+      tag = "1.5.2";
+      fetchSubmodules = true;
+      hash = "sha256-aQhy7fthlpgkjWyjqJmV2vq6/lKfOOjhW4dhZPqVmOo=";
+    };
+  };
   dump978 = {
     pname = "dump978";
     version = "v10.2";
