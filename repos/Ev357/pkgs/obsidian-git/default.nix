@@ -8,13 +8,13 @@
 in
   stdenv.mkDerivation rec {
     pname = "obsidian-git";
-    version = "2.35.2";
+    version = "2.36.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "Vinzent03";
       repo = "obsidian-git";
       rev = version;
-      sha256 = "sha256-A3s9+fhHRc6YC/YObJWqIG8NfA638gMkmjQtoOifO8s=";
+      sha256 = "sha256-3r4nxIWx7j6j7V3kbHt1nJG7hBJazxzdDD4m8DbQoWw=";
     };
 
     nativeBuildInputs = with pkgs;
@@ -52,7 +52,7 @@ in
       ) {
         fetcherVersion = 2;
         inherit pname version src;
-        hash = "sha256-qoQ7/PHeJst23ovf4HX7DOvIN+NLXba991kVcqs4WV8=";
+        hash = "sha256-pEWuqWLfqCYOfVNgiqayGUNAKC2VkfOfu7yXfqqhnl4=";
       };
 
     meta = {
