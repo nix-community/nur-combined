@@ -91,6 +91,11 @@ rec {
     inherit splayer;
   };
 
+  svt-av1-hdr = pkgs.callPackage ./svt-av1-hdr rec {
+    sources = fetchedSrc.svt-av1-hdr;
+    version = stableVersion sources;
+  };
+
   uosc-danmaku = pkgs.mpvScripts.callPackage ./uosc-danmaku rec {
     sources = fetchedSrc.uosc-danmaku;
     version = stableVersion sources;

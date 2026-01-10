@@ -302,6 +302,27 @@
     },
     "version": "5854f444646b740de99518f78d6080ae0866916c"
   },
+  "svt-av1-hdr": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "svt-av1-hdr",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "juliobbv-p",
+      "repo": "svt-av1-hdr",
+      "rev": "v3.1.3",
+      "sha256": "sha256-FekKVNMycfvFWTQ2LbYl5t2yCBYh7fdSDPdeYViGNbY=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v3.1.3"
+  },
   "uosc-danmaku": {
     "cargoLocks": null,
     "date": null,

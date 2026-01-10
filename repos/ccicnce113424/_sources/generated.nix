@@ -180,6 +180,17 @@
     };
     date = "2026-01-09";
   };
+  svt-av1-hdr = {
+    pname = "svt-av1-hdr";
+    version = "v3.1.3";
+    src = fetchFromGitHub {
+      owner = "juliobbv-p";
+      repo = "svt-av1-hdr";
+      rev = "v3.1.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-FekKVNMycfvFWTQ2LbYl5t2yCBYh7fdSDPdeYViGNbY=";
+    };
+  };
   uosc-danmaku = {
     pname = "uosc-danmaku";
     version = "v2.0.0";

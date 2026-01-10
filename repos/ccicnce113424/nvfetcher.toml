@@ -73,6 +73,10 @@ cargo_locks = ["Cargo.lock"]
 fetch.github = "imsyy/SPlayer"
 src.git = "https://github.com/imsyy/SPlayer"
 
+[svt-av1-hdr]
+fetch.github = "juliobbv-p/svt-av1-hdr"
+src.github_tag = "juliobbv-p/svt-av1-hdr"
+
 [uosc-danmaku]
 fetch.github = "Tony15246/uosc_danmaku"
 src.github = "Tony15246/uosc_danmaku"
