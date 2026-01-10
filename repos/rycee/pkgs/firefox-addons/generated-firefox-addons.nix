@@ -9007,10 +9007,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.9.4";
+      version = "1.9.5";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4660922/mtab-1.9.4.xpi";
-      sha256 = "a565e3b6511dd36e16f31ad6f5726fe23be2ee33b28759dcd13967d3d9957451";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661654/mtab-1.9.5.xpi";
+      sha256 = "d6343c8cc50095404890c98f0746a654573f69c440fa307d1d67ac3800eee418";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -12816,10 +12816,10 @@
     };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "3.2.2";
+      version = "3.2.3";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4659521/statshunters-3.2.2.xpi";
-      sha256 = "3ef8fe117bec35c0ad3324dd4e1ce065aae39377206f80d995ba8a1ce0846c5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661302/statshunters-3.2.3.xpi";
+      sha256 = "8b17259edfa38c947cfb384033be4f85a8d0ffaae10df14d611a27939f4c0eb3";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -12870,6 +12870,7 @@
           "https://veloplanner.com/*"
           "https://gaiagps.com/map/*"
           "https://www.gaiagps.com/map/*"
+          "https://www.plotaroute.com/routeplanner"
         ];
         platforms = platforms.all;
       };
@@ -12974,10 +12975,10 @@
     };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "2.3.18";
+      version = "2.3.19";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4659939/styl_us-2.3.18.xpi";
-      sha256 = "dcf1d6504652ee34e40991df030817825ea980d96d5859676103317b5695fdbb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661054/styl_us-2.3.19.xpi";
+      sha256 = "f479caf673b2f1b1f821d16f5c341a52433542930a9a2597c81f0798b4ecaa32";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -13661,10 +13662,10 @@
     };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "7.0.1";
+      version = "7.1.1";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4655965/tomato_clock-7.0.1.xpi";
-      sha256 = "8d3fe64907be0e4185844db10a5480778af22931bb62092e7c73693198dc7c3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661538/tomato_clock-7.1.1.xpi";
+      sha256 = "97fd0fb72a5644e6284e0ba18ac1936ad330658c642cbe366cf19df3d2c8c4ff";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
@@ -13859,10 +13860,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.2.7";
+      version = "4.2.8";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4602712/tree_style_tab-4.2.7.xpi";
-      sha256 = "098fa380635788ab25968ce25bd2911b3d03c41f99bcd3d3ca65572d9a37021b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661098/tree_style_tab-4.2.8.xpi";
+      sha256 = "ab3d7e4d398f97ab105cea1dc6cfb76c292ade70f0d93445129b40e9d640c920";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -15896,10 +15897,10 @@
     };
     "youtube-auto-hd-fps" = buildFirefoxXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.13.3";
+      version = "1.13.4";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4655316/youtube_auto_hd_fps-1.13.3.xpi";
-      sha256 = "bd9689cf02c063661693d1e244c7d1e344e1948d4a97db7ceaa08d4191ed9b2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661559/youtube_auto_hd_fps-1.13.4.xpi";
+      sha256 = "535af41b7b7b8a5a074a3a6e393075aa847dfc8682d0ae1a364fce58ca644e92";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
