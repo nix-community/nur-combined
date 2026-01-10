@@ -23,13 +23,13 @@ in
 
 stdenv.mkDerivation (final: {
   pname = "catppuccin-discord";
-  version = "0-unstable-2025-12-06";
+  version = "0-unstable-2026-01-10";
 
   src = fetchFromGitHub {
     owner = "catppuccin";
     repo = "discord";
-    rev = "1b2dffbabf75a294a0fb9245f9f7244a853e7ada";
-    hash = "sha256-LdUPnnbbSwgaw37FJD2s1vPiTaISaYbtOWRxQIekQkQ=";
+    rev = "0fcfe2e15ed91f8c5f1f3c6855f3b2024f78d86c";
+    hash = "sha256-ExRNnxvG2PSGmpuaPxzCKL6GK6ETs7Gq4Roa74HXp+s=";
   };
 
   nodeModules = mkYarnModules {
