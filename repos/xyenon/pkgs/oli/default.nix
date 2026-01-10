@@ -8,13 +8,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "oli";
-  version = "0-unstable-2026-01-07";
+  version = "0-unstable-2026-01-09";
 
   src = fetchFromGitHub {
     owner = "apache";
     repo = "opendal-oli";
-    rev = "d20c30a24cc26d357f2f58c2f05bde0728c1e6cb";
-    hash = "sha256-Ss6Yy3RqWZcNOc3tKRb2fcN8z9sk3vOHHo4uUHkRwnk=";
+    rev = "80dac5048a27fa64b1c74f48c0cfd56b12dccbe4";
+    hash = "sha256-qFlgd3VN6uQAfyeQPvgnzCGdhCUDXptEIOLPYvMB35g=";
   };
 
   postPatch = ''
