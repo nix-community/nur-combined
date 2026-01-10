@@ -18,7 +18,7 @@
 }:
 
 let
-  revision = "36e9d686a3aacddae3d12011bd707596a6f97a3a";
+  revision = "10a87df5058e53ec49704e94179f4f865e5fc0ee";
   revShort = builtins.substring 0 7 revision;
   vst3 = fetchFromGitHub {
     owner = "steinbergmedia";
@@ -42,14 +42,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "shortcircuit-xt";
-  version = "2025-12-11";
+  version = "2026-01-01";
 
   src = fetchFromGitHub {
     owner = "surge-synthesizer";
     repo = "shortcircuit-xt";
     rev = revision;
     fetchSubmodules = true;
-    hash = "sha256-L6r7xrmRhZ20lCgvKIZUndy7QOEp2w1GrBRbFZsuLeE=";
+    hash = "sha256-Nu5oXCXMm9u7ZJ3gesYrksULr9yYAYXeVObtDl5mM8w=";
   };
 
   nativeBuildInputs = [
