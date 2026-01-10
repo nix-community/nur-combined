@@ -9,7 +9,10 @@
 
   etime = pkgs.callPackage ./pkgs/etime { };
   gon =
-    if pkgs.system == "x86_64-darwin" || pkgs.system == "aarch64-darwin" then
+    if
+      pkgs.stdenv.hostPlatform.system == "x86_64-darwin"
+      || pkgs.stdenv.hostPlatform.system == "aarch64-darwin"
+    then
       pkgs.callPackage ./pkgs/gon { }
     else
       null;
