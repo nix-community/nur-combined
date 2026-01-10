@@ -1,0 +1,108 @@
+--- a/UVR.py
++++ b/UVR.py
+@@ -64,9 +64,21 @@
+ else:
+     BASE_PATH = os.path.dirname(os.path.abspath(__file__))
+ 
++APP_DIR = BASE_PATH
++XDG_DATA_HOME = os.getenv("XDG_DATA_HOME", os.path.join(os.path.expanduser("~"), ".local", "share"))
++XDG_CACHE_HOME = os.getenv("XDG_CACHE_HOME", os.path.join(os.path.expanduser("~"), ".cache"))
++UVR_DATA_DIR = os.getenv("UVR_DATA_DIR", os.path.join(XDG_DATA_HOME, "ultimate-vocal-remover"))
++UVR_CACHE_DIR = os.getenv("UVR_CACHE_DIR", os.path.join(XDG_CACHE_HOME, "ultimate-vocal-remover"))
++UVR_TMP_DIR = os.path.join(UVR_CACHE_DIR, "tmp")
++DATA_PKL_PATH = os.path.join(UVR_DATA_DIR, "data.pkl")
++
++os.makedirs(UVR_DATA_DIR, exist_ok=True)
++os.makedirs(UVR_CACHE_DIR, exist_ok=True)
++os.makedirs(UVR_TMP_DIR, exist_ok=True)
++
+ os.chdir(BASE_PATH)  # Change the current working directory to the base path
+ 
+-SPLASH_DOC = os.path.join(BASE_PATH, 'tmp', 'splash.txt')
++SPLASH_DOC = os.path.join(UVR_TMP_DIR, 'splash.txt')
+ 
+ if os.path.isfile(SPLASH_DOC):
+     os.remove(SPLASH_DOC)
+@@ -153,7 +165,7 @@
+             Dictionary containing all the necessary data to save
+     """
+     # Open data file, create it if it does not exist
+-    with open('data.pkl', 'wb') as data_file:
++    with open(DATA_PKL_PATH, 'wb') as data_file:
+         pickle.dump(data, data_file)
+ 
+ def load_data() -> dict:
+@@ -164,7 +176,7 @@
+         Dictionary containing all the saved data
+     """
+     try:
+-        with open('data.pkl', 'rb') as data_file:  # Open data file
++        with open(DATA_PKL_PATH, 'rb') as data_file:  # Open data file
+             data = pickle.load(data_file)
+ 
+         return data
+@@ -204,7 +216,12 @@
+ 
+ #--Constants--
+ #Models
+-MODELS_DIR = os.path.join(BASE_PATH, 'models')
++MODELS_DIR = os.path.join(UVR_DATA_DIR, 'models')
++APP_MODELS_DIR = os.path.join(APP_DIR, 'models')
++if os.path.isdir(APP_MODELS_DIR) and not os.path.exists(MODELS_DIR):
++    shutil.copytree(APP_MODELS_DIR, MODELS_DIR)
++else:
++    os.makedirs(MODELS_DIR, exist_ok=True)
+ VR_MODELS_DIR = os.path.join(MODELS_DIR, 'VR_Models')
+ MDX_MODELS_DIR = os.path.join(MODELS_DIR, 'MDX_Net_Models')
+ DEMUCS_MODELS_DIR = os.path.join(MODELS_DIR, 'Demucs_Models')
+@@ -220,12 +237,14 @@
+ 
+ DEMUCS_MODEL_NAME_SELECT = os.path.join(DEMUCS_MODELS_DIR, 'model_data', 'model_name_mapper.json')
+ MDX_MODEL_NAME_SELECT = os.path.join(MDX_MODELS_DIR, 'model_data', 'model_name_mapper.json')
+-ENSEMBLE_CACHE_DIR = os.path.join(BASE_PATH, 'gui_data', 'saved_ensembles')
+-SETTINGS_CACHE_DIR = os.path.join(BASE_PATH, 'gui_data', 'saved_settings')
++ENSEMBLE_CACHE_DIR = os.path.join(UVR_DATA_DIR, 'saved_ensembles')
++SETTINGS_CACHE_DIR = os.path.join(UVR_DATA_DIR, 'saved_settings')
+ VR_PARAM_DIR = os.path.join(BASE_PATH, 'lib_v5', 'vr_network', 'modelparams')
+-SAMPLE_CLIP_PATH = os.path.join(BASE_PATH, 'temp_sample_clips')
+-ENSEMBLE_TEMP_PATH = os.path.join(BASE_PATH, 'ensemble_temps')
+-DOWNLOAD_MODEL_CACHE = os.path.join(BASE_PATH, 'gui_data', 'model_manual_download.json')
++SAMPLE_CLIP_PATH = os.path.join(UVR_CACHE_DIR, 'temp_sample_clips')
++ENSEMBLE_TEMP_PATH = os.path.join(UVR_CACHE_DIR, 'ensemble_temps')
++DOWNLOAD_MODEL_CACHE = os.path.join(UVR_DATA_DIR, 'model_manual_download.json')
++for _path in (ENSEMBLE_CACHE_DIR, SETTINGS_CACHE_DIR, SAMPLE_CLIP_PATH, ENSEMBLE_TEMP_PATH):
++    os.makedirs(_path, exist_ok=True)
+ 
+ #CR Text
+ CR_TEXT = os.path.join(BASE_PATH, 'gui_data', 'cr_text.txt')
+--- a/lib_v5/pyrb.py
++++ b/lib_v5/pyrb.py
+@@ -1,4 +1,5 @@
+ import os
++import shutil
+ import subprocess
+ import tempfile
+ import six
+@@ -14,6 +15,8 @@
+ __all__ = ['time_stretch', 'pitch_shift']
+ 
+ __RUBBERBAND_UTIL = os.path.join(BASE_PATH_RUB, 'rubberband')
++if not os.path.isfile(__RUBBERBAND_UTIL):
++    __RUBBERBAND_UTIL = shutil.which('rubberband') or 'rubberband'
+ 
+ if six.PY2:
+     DEVNULL = open(os.devnull, 'w')
+--- a/gui_data/app_size_values.py
++++ b/gui_data/app_size_values.py
+@@ -132,9 +132,9 @@
+         if size is not None:
+             size = (int(size[0]), int(size[1]))
+             if keep_aspect:
+-                img = img.resize((size[0], int(size[0] * ratio)), Image.ANTIALIAS)
++                img = img.resize((size[0], int(size[0] * ratio)), Image.LANCZOS)
+             else:
+-                img = img.resize(size, Image.ANTIALIAS)
++                img = img.resize(size, Image.LANCZOS)
+                 
+         return ImageTk.PhotoImage(img)
+ 

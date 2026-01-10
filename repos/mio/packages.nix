@@ -182,6 +182,7 @@ rec {
     pkgs.callPackage ./pkgs/linux-enable-ir-emitter/package.nix { }
   );
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
+  ultimate-vocal-remover = pkgs.callPackage ./pkgs/ultimate-vocal-remover { };
 
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
