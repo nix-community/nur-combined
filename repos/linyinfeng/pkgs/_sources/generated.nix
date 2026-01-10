@@ -158,10 +158,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.5.5";
+    version = "v1.5.6";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.5/MoeKoe_Music_v1.5.5.AppImage";
-      sha256 = "sha256-9ZRxjTTuAwo1f8jAM4f9OT3Q/Eu+AxSoRVvYZ9ShhVk=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.6/MoeKoe_Music_v1.5.6.AppImage";
+      sha256 = "sha256-HtlRGsy3TmqqBba7pux1xOkjKE3TmdgR6SZo4eMhE08=";
     };
   };
   mstickereditor = {
