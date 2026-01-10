@@ -16,7 +16,6 @@
   applet-kara = pkgs.callPackage ./pkgs/applet-kara {};
   gabarito = pkgs.callPackage ./pkgs/gabarito {};
   mplus = pkgs.callPackage ./pkgs/mplus {};
-  sgdboop = pkgs.callPackage ./pkgs/sgdboop {};
   urbanist = pkgs.callPackage ./pkgs/urbanist {};
   vacuumtube = pkgs.callPackage ./pkgs/vacuumtube {};
   wheelwizard = pkgs.callPackage ./pkgs/wheelwizard {};
