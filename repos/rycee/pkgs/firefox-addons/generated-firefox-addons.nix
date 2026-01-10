@@ -1018,6 +1018,24 @@
         platforms = platforms.all;
       };
     };
+    "better-saml-account-chooser" = buildFirefoxXpiAddon {
+      pname = "better-saml-account-chooser";
+      version = "1.2";
+      addonId = "@zenker-ben-better-saml-account-chooser";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4635115/better_saml_account_chooser-1.2.xpi";
+      sha256 = "73b5753508a32a776c9ea7cf92a891e15ed4e51849fa329d9fd9340975724f75";
+      meta = with lib;
+      {
+        description = "An improved cloud SAML account chooser experience.";
+        license = licenses.mit;
+        mozPermissions = [
+          "scripting"
+          "storage"
+          "https://signin.aws.amazon.com/saml"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
       version = "7.6.18";
