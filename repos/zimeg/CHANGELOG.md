@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- ci(deps): include permissions to write changes to actions on merges 2026-01-10
 - build: replace top level system detection with standard environment 2026-01-10
 - ci(deps): automerge updates to dependencies that power workflow job 2025-12-16
 - fix(pkgs/gon): remove additional build flags during go compilations 2025-12-09
