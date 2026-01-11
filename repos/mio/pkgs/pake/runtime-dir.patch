@@ -1,0 +1,282 @@
+diff --git a/bin/builders/BaseBuilder.ts b/bin/builders/BaseBuilder.ts
+index 60176a2..70b785c 100644
+--- a/bin/builders/BaseBuilder.ts
++++ b/bin/builders/BaseBuilder.ts
+@@ -112,6 +112,7 @@ export default abstract class BaseBuilder {
+ 
+     const timeout = this.getInstallTimeout();
+     const buildEnv = this.getBuildEnvironment();
++    const skipInstall = process.env.PAKE_SKIP_INSTALL === '1';
+ 
+     // Show helpful message for first-time users
+     if (!tauriTargetPathExists) {
+@@ -124,44 +125,16 @@ export default abstract class BaseBuilder {
+ 
+     let usedMirror = isChina;
+ 
+-    try {
+-      if (isChina) {
+-        logger.info(
+-          `✺ Located in China, using ${packageManager}/rsProxy CN mirror.`,
+-        );
+-        const projectCnConf = path.join(tauriSrcPath, 'rust_proxy.toml');
+-        await fsExtra.copy(projectCnConf, projectConf);
+-        await shellExec(
+-          `cd "${npmDirectory}" && ${packageManager} install${registryOption}${peerDepsOption}`,
+-          timeout,
+-          { ...buildEnv, CI: 'true' },
+-        );
+-      } else {
+-        await shellExec(
+-          `cd "${npmDirectory}" && ${packageManager} install${peerDepsOption}`,
+-          timeout,
+-          { ...buildEnv, CI: 'true' },
+-        );
+-      }
+-      spinner.succeed(chalk.green('Package installed!'));
+-    } catch (error: unknown) {
+-      // If installation times out and we haven't tried the mirror yet, retry with mirror
+-      if (
+-        error instanceof Error &&
+-        error.message.includes('timed out') &&
+-        !usedMirror
+-      ) {
+-        spinner.fail(
+-          chalk.yellow('Installation timed out, retrying with CN mirror...'),
+-        );
+-        logger.info(
+-          '✺ Retrying installation with CN mirror for better speed...',
+-        );
+-
+-        const retrySpinner = getSpinner('Retrying installation...');
+-        usedMirror = true;
+-
+-        try {
++    if (skipInstall) {
++      spinner.succeed(
++        chalk.green('Skipping dependency install (PAKE_SKIP_INSTALL=1)'),
++      );
++    } else {
++      try {
++        if (isChina) {
++          logger.info(
++            `✺ Located in China, using ${packageManager}/rsProxy CN mirror.`,
++          );
+           const projectCnConf = path.join(tauriSrcPath, 'rust_proxy.toml');
+           await fsExtra.copy(projectCnConf, projectConf);
+           await shellExec(
+@@ -169,16 +142,50 @@ export default abstract class BaseBuilder {
+             timeout,
+             { ...buildEnv, CI: 'true' },
+           );
+-          retrySpinner.succeed(
+-            chalk.green('Package installed with CN mirror!'),
++        } else {
++          await shellExec(
++            `cd "${npmDirectory}" && ${packageManager} install${peerDepsOption}`,
++            timeout,
++            { ...buildEnv, CI: 'true' },
+           );
+-        } catch (retryError) {
+-          retrySpinner.fail(chalk.red('Installation failed'));
+-          throw retryError;
+         }
+-      } else {
+-        spinner.fail(chalk.red('Installation failed'));
+-        throw error;
++        spinner.succeed(chalk.green('Package installed!'));
++      } catch (error: unknown) {
++        // If installation times out and we haven't tried the mirror yet, retry with mirror
++        if (
++          error instanceof Error &&
++          error.message.includes('timed out') &&
++          !usedMirror
++        ) {
++          spinner.fail(
++            chalk.yellow('Installation timed out, retrying with CN mirror...'),
++          );
++          logger.info(
++            '✺ Retrying installation with CN mirror for better speed...',
++          );
++
++          const retrySpinner = getSpinner('Retrying installation...');
++          usedMirror = true;
++
++          try {
++            const projectCnConf = path.join(tauriSrcPath, 'rust_proxy.toml');
++            await fsExtra.copy(projectCnConf, projectConf);
++            await shellExec(
++              `cd "${npmDirectory}" && ${packageManager} install${registryOption}${peerDepsOption}`,
++              timeout,
++              { ...buildEnv, CI: 'true' },
++            );
++            retrySpinner.succeed(
++              chalk.green('Package installed with CN mirror!'),
++            );
++          } catch (retryError) {
++            retrySpinner.fail(chalk.red('Installation failed'));
++            throw retryError;
++          }
++        } else {
++          spinner.fail(chalk.red('Installation failed'));
++          throw error;
++        }
+       }
+     }
+ 
+diff --git a/bin/builders/LinuxBuilder.ts b/bin/builders/LinuxBuilder.ts
+index e8450da..d1c91a5 100644
+--- a/bin/builders/LinuxBuilder.ts
++++ b/bin/builders/LinuxBuilder.ts
+@@ -1,7 +1,9 @@
+ import path from 'path';
++import fsExtra from 'fs-extra';
+ import BaseBuilder from './BaseBuilder';
+ import { PakeAppOptions } from '@/types';
+ import tauriConfig from '@/helpers/tauriConfig';
++import { npmDirectory } from '@/utils/dir';
+ 
+ export default class LinuxBuilder extends BaseBuilder {
+   private buildFormat: string;
+@@ -68,6 +70,9 @@ export default class LinuxBuilder extends BaseBuilder {
+   // Override buildAndCopy to ensure currentBuildType is synced if called directly, though the loop above handles it most of the time.
+   async buildAndCopy(url: string, target: string) {
+     this.currentBuildType = target;
++    if (target === 'appimage') {
++      await this.ensureAppImageTools();
++    }
+     await super.buildAndCopy(url, target);
+   }
+ 
+@@ -138,4 +143,18 @@ export default class LinuxBuilder extends BaseBuilder {
+     }
+     return super.getArchSpecificPath();
+   }
++
++  private async ensureAppImageTools(): Promise<void> {
++    const toolsDir = process.env.PAKE_APPIMAGE_TOOLS_DIR;
++    if (!toolsDir) {
++      return;
++    }
++
++    const targetDir = path.join(npmDirectory, 'src-tauri', 'target', '.tauri');
++    await fsExtra.ensureDir(targetDir);
++    await fsExtra.copy(toolsDir, targetDir, {
++      overwrite: false,
++      errorOnExist: false,
++    });
++  }
+ }
+diff --git a/bin/helpers/tauriConfig.ts b/bin/helpers/tauriConfig.ts
+index c083f51..8025848 100644
+--- a/bin/helpers/tauriConfig.ts
++++ b/bin/helpers/tauriConfig.ts
+@@ -30,7 +30,10 @@ const platformConfig = platformConfigs[platform];
+ 
+ let tauriConfig = {
+   ...CommonConf,
+-  bundle: platformConfig.bundle,
++  bundle: {
++    ...platformConfig.bundle,
++    useLocalToolsDir: process.platform === 'linux',
++  },
+   app: {
+     ...CommonConf.app,
+     trayIcon: {
+diff --git a/bin/utils/dir.ts b/bin/utils/dir.ts
+index c261667..79a9cda 100644
+--- a/bin/utils/dir.ts
++++ b/bin/utils/dir.ts
+@@ -1,11 +1,90 @@
++import fsExtra from 'fs-extra';
++import os from 'os';
+ import path from 'path';
+ import { fileURLToPath } from 'url';
+ 
+ // Convert the current module URL to a file path
+ const currentModulePath = fileURLToPath(import.meta.url);
+ 
+-// Resolve the parent directory of the current module
+-export const npmDirectory = path.join(path.dirname(currentModulePath), '..');
++const packageDirectory = path.join(path.dirname(currentModulePath), '..');
++
++const runtimeDirectory = (() => {
++  const envDir = process.env.PAKE_RUNTIME_DIR;
++  const cacheHome = process.env.XDG_CACHE_HOME || path.join(os.homedir(), '.cache');
++  const baseDir = envDir || path.join(cacheHome, 'pake');
++  let version = 'unknown';
++
++  try {
++    const pkg = fsExtra.readJSONSync(path.join(packageDirectory, 'package.json'));
++    version = pkg.version || version;
++  } catch {
++    // Keep fallback version for non-standard layouts.
++  }
++
++  const targetDir = envDir ? envDir : path.join(baseDir, `pake-${version}`);
++  const srcTauri = path.join(targetDir, 'src-tauri');
++
++  const makeWritable = (dirPath: string) => {
++    fsExtra.chmodSync(dirPath, 0o755);
++    for (const entry of fsExtra.readdirSync(dirPath, { withFileTypes: true })) {
++      const entryPath = path.join(dirPath, entry.name);
++      if (entry.isDirectory()) {
++        fsExtra.chmodSync(entryPath, 0o755);
++        makeWritable(entryPath);
++      } else {
++        const mode = fsExtra.statSync(entryPath).mode;
++        const isExecutable = (mode & 0o111) !== 0;
++        fsExtra.chmodSync(entryPath, isExecutable ? 0o755 : 0o644);
++      }
++    }
++  };
++
++  fsExtra.ensureDirSync(targetDir);
++
++  if (!fsExtra.existsSync(srcTauri)) {
++    fsExtra.copySync(path.join(packageDirectory, 'src-tauri'), srcTauri);
++  }
++
++  if (fsExtra.existsSync(srcTauri)) {
++    makeWritable(srcTauri);
++  }
++
++  const packageJsonSrc = path.join(packageDirectory, 'package.json');
++  const packageJsonTarget = path.join(targetDir, 'package.json');
++  if (!fsExtra.existsSync(packageJsonTarget) && fsExtra.existsSync(packageJsonSrc)) {
++    fsExtra.copySync(packageJsonSrc, packageJsonTarget);
++    fsExtra.chmodSync(packageJsonTarget, 0o644);
++  }
++
++  const lockfileSrc = path.join(packageDirectory, 'pnpm-lock.yaml');
++  const lockfileTarget = path.join(targetDir, 'pnpm-lock.yaml');
++  if (!fsExtra.existsSync(lockfileTarget) && fsExtra.existsSync(lockfileSrc)) {
++    fsExtra.copySync(lockfileSrc, lockfileTarget);
++    fsExtra.chmodSync(lockfileTarget, 0o644);
++  }
++
++  const nodeModulesSrc = path.join(packageDirectory, 'node_modules');
++  const nodeModulesTarget = path.join(targetDir, 'node_modules');
++  if (!fsExtra.existsSync(nodeModulesTarget) && fsExtra.existsSync(nodeModulesSrc)) {
++    fsExtra.copySync(nodeModulesSrc, nodeModulesTarget);
++    makeWritable(nodeModulesTarget);
++  }
++
++  const distDir = path.join(packageDirectory, 'dist');
++  const distTarget = path.join(targetDir, 'dist');
++  if (!fsExtra.existsSync(distTarget) && fsExtra.existsSync(distDir)) {
++    fsExtra.copySync(distDir, distTarget);
++  }
++
++  if (fsExtra.existsSync(distTarget)) {
++    makeWritable(distTarget);
++  }
++
++  return targetDir;
++})();
++
++// Resolve the writable package directory
++export const npmDirectory = runtimeDirectory;
+ 
+ export const tauriConfigDirectory = path.join(
+   npmDirectory,

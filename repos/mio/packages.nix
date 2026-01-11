@@ -121,6 +121,7 @@ rec {
     }
   );
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
+  #gifcurry = pkgs.callPackage ./pkgs/gifcurry { };
   bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
   art-standalone = pkgs.callPackage ./pkgs/art-standalone/package.nix {
     bionic-translation = bionic-translation;
