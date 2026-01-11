@@ -12,7 +12,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 
 | Name | Attr | Description |
 | --- | --- | --- |
-| [3beans-release-unstable-2025-12-29](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
+| [3beans-release-unstable-2026-01-08](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
 | [3dslink-0.6.3](https://github.com/devkitPro/3dslink) | \_3dslink | Send 3DSX files to the Homebrew Launcher on 3DS |
 | [3dstool-1.2.6](https://github.com/dnasdw/3dstool) | \_3dstool | An all-in-one tool for extracting/creating 3ds roms. |
 | [3dstools-1.3.1](https://github.com/devkitpro/3dstools) | \_3dstools | Tools for 3DS homebrew |
@@ -31,18 +31,18 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [kame-editor-1.4.1-unstable-2025-06-04](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
 | [kame-tools-1.3.8-unstable-2024-11-01](https://gitlab.com/beelzy/kame-tools) | kame-tools | Fork of bannertools that includes tools for making 3DS themes. |
 | [kwin-move-window-1.1.1](https://github.com/Merrit/kwin-move-window) | kwin-move-window | KWin script that adds shortcuts to move the active window with the keyboard |
-| [lnshot-0.1.3](https://github.com/ticky/lnshot) | lnshot | Symlink your Steam screenshots to a sensible place |
+| [lnshot-0.1.3-unstable-2026-01-01](https://github.com/ticky/lnshot) | lnshot | Symlink your Steam screenshots to a sensible place |
 | [local-gpss-1.0.3](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
 | [makerom-0.18.4](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
 | ~~[mediawiki-1.39.17](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_39~~ | ~~The collaborative editing software that runs Wikipedia~~ |
-| ~~[mediawiki-core-1.39.17](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_39\_core~~ | ~~The collaborative editing software that runs Wikipedia~~ |
+| ~~[mediawiki-core-1.39.17](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_39\_core~~ | ~~The collaborative editing software that runs Wikipedia (without bundled extensions)~~ |
 | [mediawiki-1.43.6](https://www.mediawiki.org/) | mediawiki\_1\_43 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-core-1.43.6](https://www.mediawiki.org/) | mediawiki\_1\_43\_core | The collaborative editing software that runs Wikipedia |
+| [mediawiki-core-1.43.6](https://www.mediawiki.org/) | mediawiki\_1\_43\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
 | [mediawiki-1.44.3](https://www.mediawiki.org/) | mediawiki\_1\_44 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-core-1.44.3](https://www.mediawiki.org/) | mediawiki\_1\_44\_core | The collaborative editing software that runs Wikipedia |
+| [mediawiki-core-1.44.3](https://www.mediawiki.org/) | mediawiki\_1\_44\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
 | [mediawiki-1.45.1](https://www.mediawiki.org/) | mediawiki\_1\_45 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-core-1.45.1](https://www.mediawiki.org/) | mediawiki\_1\_45\_core | The collaborative editing software that runs Wikipedia |
+| [mediawiki-core-1.45.1](https://www.mediawiki.org/) | mediawiki\_1\_45\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
 | [mrpack-install-0.16.10-unstable-2024-11-24](https://github.com/nothub/mrpack-install) | mrpack-install | Modrinth Modpack server deployment |
 | [otptool-1.0](https://github.com/SciresM/otptool) | otptool | view and extract data from a 3DS OTP |
 | [qcma-0.4.2](https://codestation.github.io/qcma/) | qcma | Cross-platform content manager assistant for the PS Vita |
@@ -78,3 +78,7 @@ Enables the lnshot daemon to automatically link Steam screenshots.
 ### services.lnshot.picturesName
 
 Name of the directory to manage inside the Pictures folder. Defaults to "Steam Screenshots".
+
+### services.lnshot.singleUserID64
+
+User to read screenshots from. Setting this will skip creating user-specific folders in the pictures folder.

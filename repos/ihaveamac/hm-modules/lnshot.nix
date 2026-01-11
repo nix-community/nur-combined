@@ -12,6 +12,7 @@ let
     mkIf
     types
     escapeShellArg
+    optionalString
     ;
   cfg = config.services.lnshot;
   lnshot = pkgs.callPackage ../pkgs/lnshot { };
@@ -25,6 +26,12 @@ in
       type = types.str;
       default = "Steam Screenshots";
     };
+
+    singleUserID64 = mkOption {
+      description = "User to read screenshots from. Setting this will skip creating user-specific folders in the pictures folder.";
+      type = types.nullOr types.int;
+      default = null;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -35,7 +42,7 @@ in
         Description = "Steam Screenshot Symlinking Service";
       };
       Service = {
-        ExecStart = "${lnshot}/bin/lnshot -p ${escapeShellArg cfg.picturesName} daemon";
+        ExecStart = "${lnshot}/bin/lnshot ${optionalString (cfg.singleUserID64 != null) "--single-user-id64 ${toString cfg.singleUserID64}"} -p ${escapeShellArg cfg.picturesName} daemon";
         Restart = "always";
       };
       Install = {
