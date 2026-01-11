@@ -442,12 +442,12 @@
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lg-go",
-    "version": "1.4.0"
+    "version": "1.4.2"
   },
   "legacyPackages.x86_64-linux.bird-lgproxy-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lgproxy-go",
-    "version": "1.4.0"
+    "version": "1.4.2"
   },
   "legacyPackages.x86_64-linux.bnxtnvm": {
     "description": "Broadcom BNXTNVM utility",
@@ -4337,12 +4337,12 @@
   "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lg-go",
-    "version": "1.4.0"
+    "version": "1.4.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.bird-lgproxy-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lgproxy-go",
-    "version": "1.4.0"
+    "version": "1.4.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.bnxtnvm": {
     "description": "Broadcom BNXTNVM utility",
@@ -5212,12 +5212,12 @@
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lg-go",
-    "version": "1.4.0"
+    "version": "1.4.2"
   },
   "packages.x86_64-linux.bird-lgproxy-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
     "pname": "bird-lgproxy-go",
-    "version": "1.4.0"
+    "version": "1.4.2"
   },
   "packages.x86_64-linux.bnxtnvm": {
     "description": "Broadcom BNXTNVM utility",

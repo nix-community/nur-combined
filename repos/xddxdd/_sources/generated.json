@@ -370,12 +370,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "v1.4.0",
-            "sha256": "sha256-7VF0MFNa3edKOWmMBib0DxlB1c1h3qBieA4YeUAuBzM=",
+            "rev": "v1.4.2",
+            "sha256": "sha256-jxV3qV0rJSTckYyTPJhV7nqE+YZ/K//kjjUe6O9rZfg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.4.0"
+        "version": "v1.4.2"
     },
     "boringssl-oqs": {
         "cargoLocks": null,

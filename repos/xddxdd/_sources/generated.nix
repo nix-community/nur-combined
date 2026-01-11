@@ -188,12 +188,12 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "v1.4.0";
+    version = "v1.4.2";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      tag = "v1.4.0";
-      hash = "sha256-7VF0MFNa3edKOWmMBib0DxlB1c1h3qBieA4YeUAuBzM=";
+      tag = "v1.4.2";
+      hash = "sha256-jxV3qV0rJSTckYyTPJhV7nqE+YZ/K//kjjUe6O9rZfg=";
     };
   };
   boringssl-oqs = {

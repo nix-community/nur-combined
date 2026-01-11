@@ -100,8 +100,8 @@ Or, use variables from this repository in case I change them:
 |  | `bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.2 | Universal pastebin server |
 |  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.4-1 | Desktop client for Bilibili |
 |  | `bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.7 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
-|  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.0 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
-|  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.0 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.2 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.2 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
 |  | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1120.32 | Browser from 360 |
@@ -1064,8 +1064,8 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 8834 | PC Software for BambuLab and other 3D printers |
 |  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.4-1 | Desktop client for Bilibili |
 |  | `uncategorized.bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.7 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
-|  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.0 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
-|  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.0 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.2 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.2 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
 |  | `uncategorized.boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1120.32 | Browser from 360 |
