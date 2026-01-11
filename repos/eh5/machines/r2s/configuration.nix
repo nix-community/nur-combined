@@ -9,9 +9,9 @@
     defaultSopsFormat = "yaml";
     defaultSopsFile = ./secrets/secrets.sops.yaml;
     secrets = {
-      "sb-config.json" = {
-        owner = "sing-box";
-      };
+      # "sb-config.json" = {
+      #   owner = "sing-box";
+      # };
       "mosdns.yaml" = { };
       "tproxy.nft" = { };
       "v2ray.v5.json" = { };

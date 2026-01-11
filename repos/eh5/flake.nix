@@ -15,7 +15,7 @@
       flake = false;
     };
     deploy-rs = {
-      url = "github:serokell/deploy-rs";
+      url = "github:szlend/deploy-rs/fix-show-derivation-parsing";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";

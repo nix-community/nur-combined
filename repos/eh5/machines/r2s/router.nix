@@ -46,7 +46,8 @@
     enable = true;
     settings = {
       no-resolv = true;
-      server = [ "127.0.0.1#5333" ];
+      strict-order = true;
+      server = [ "127.0.0.1#5353" "223.5.5.5#53" ];
       local = "/lan/";
       interface = "intern0";
       bind-interfaces = true;
@@ -59,6 +60,10 @@
       no-negcache = true;
     };
   };
+  systemd.services.dnsmasq = {
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+  };
 
   services.v2ray-rules-dat = {
     enable = true;
@@ -67,7 +72,7 @@
   };
 
   services.mosdns = {
-    enable = true;
+    enable = false;
     configFile = config.sops.secrets."mosdns.yaml".path;
   };
   systemd.services.mosdns = {

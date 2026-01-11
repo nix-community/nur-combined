@@ -15,6 +15,7 @@ let
   self = self_base // (lib.optionalAttrs (inputs != null) self_extra);
 
   self_base = {
+    dae-unstable = callPackage ./dae-unstable { };
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
     kcptun = callPackage ./kcptun { };
@@ -22,7 +23,6 @@ let
     mosdns = callPackage ./mosdns { };
     # end of service
     #netease-cloud-music = callPackage ./netease-cloud-music { };
-
     # out-of-tree module outdated, and failed to compile against kernel 6.12 structs
     #nft-fullcone = callPackage ./nft-fullcone { };
     #nftables-fullcone = callPackage ./nftables-fullcone { };
