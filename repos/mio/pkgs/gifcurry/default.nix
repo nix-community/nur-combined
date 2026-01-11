@@ -67,7 +67,7 @@ haskell.lib.doJailbreak (
       "--prefix"
       "PATH"
       ":"
-    "${lib.makeBinPath [
+      "${lib.makeBinPath [
         ffmpeg
         imagemagick
         gst_all_1.gstreamer

@@ -13,6 +13,7 @@
     #];
     config.allowUnfree = true;
   },
+  nurbot ? true,
 }:
 with (import ./private.nix { inherit pkgs; });
 let
@@ -176,7 +177,7 @@ let
           ;
       };
     }
-    // import ./packages.nix { inherit pkgs; }
+    // import ./packages.nix { inherit pkgs nurbot; }
   );
 in
 self

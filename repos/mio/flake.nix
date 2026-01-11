@@ -20,6 +20,7 @@
             #];
             config.allowUnfree = true;
           };
+          nurbot = false;
         }
       );
       packages = forAllSystems (

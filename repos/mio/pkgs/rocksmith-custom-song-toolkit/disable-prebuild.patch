@@ -1,0 +1,69 @@
+--- a/RocksmithToolkitLib/RocksmithToolkitLib.csproj
++++ b/RocksmithToolkitLib/RocksmithToolkitLib.csproj
+@@ -293,58 +293,10 @@
+   <ItemGroup />
+   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+   <PropertyGroup>
+-    <PreBuildEvent>rem RocksmithPreBuild.exe automatically updates Assembly.cs files and 
+-rem AppVeyor versioning information in PatchAssemblyVersion.ps1 file
+-rem Make sure all Assembly.cs files are closed before running in IDE Debug Mode
+-
+-if $(DefineConstants.Contains('PREBUILD')) == false goto :End
+-
+-if $(ConfigurationName) == Debug (
+-CD "$(SolutionDir)"
+-
+-rem if a 'Type 1 Error' occures check the .git folder for missing critical contents
+-rem usual this error occures after a .git Garbage Cleanup - so don't use it!  DOH
+-rem resyncing the commit usual fixes the error
+-
+-rem there are several alternate usages for RocksmithPreBuild.exe
+-
+-rem the next cmd is used for normal development mode (default - reuse version information, sortable ISO8601 DateTime written to Assembly.Configuration)
+-cmd /c "RocksmithPreBuild.exe PREBUILD READ READ" &gt; prebuild.log
+-
+-rem  reset the PatchAssemblyVersion.ps1 $Assembly_Configuration = $env:APPVEYOR_REPO_COMMIT_TIMESTAMP
+-rem cmd /c "RocksmithPreBuild.exe PREBUILD 2.9.2.1 DATE"
+-
+-rem the next cmd is used for test Auto Update feature by setting git subversion to 00000000
+-rem cmd /c "RocksmithPreBuild.exe PREBUILD READ READ 00000000"
+-
+-rem before issuing new (blank, i.e. no version type) make next cmd active and comment out the others
+-rem cmd /c "RocksmithPreBuild.exe PREBUILD 1.2.3.4 NONE"
+-
+-rem before issuing new build make next cmd active and comment out the others
+-rem cmd /c "RocksmithPreBuild.exe PREBUILD 2.9.2.0 BUILD"
+-
+-rem before issuing new beta make next cmd active and comment out the others
+-rem cmd /c "RocksmithPreBuild.exe PREBUILD 2.9.1.0 BETA"
+-
+-rem before issuing new release make next cmd active and comment out the others
+-rem cmd /c "RocksmithPreBuild.exe PREBUILD 2.9.0.0 RELEASE"
+-rem )
+-)
+-
+-rem there are some hidden prebuild commands for OSX and Linux in the RocksmithToolkitLib.csproj these call the 'prebuild.sh' file
+-
+-:End
+-echo ------------------
+-echo That's All Folks!
+-echo ------------------</PreBuildEvent>
++    <PreBuildEvent></PreBuildEvent>
+   </PropertyGroup>
+   <!-- BEGIN CUSTOM PREBUILD EVENT - DO NOT MODIFY -->
+   <PropertyGroup>
+-    <PreBuildEvent Condition=" '$(OS)' == 'Unix' ">
+-      "$(SolutionDir)prebuild.sh" "$(ProjectDir)" "$(ProjectDir)ToolkitVersion.cs"
+-    </PreBuildEvent>
+-  </PropertyGroup>
+-  <PropertyGroup>
+     <PostBuildEvent>
+     </PostBuildEvent>
+   </PropertyGroup>
+@@ -355,4 +307,4 @@
+   <Target Name="AfterBuild">
+   </Target>
+   -->
+-</Project>
+\ No newline at end of file
++</Project>
