@@ -2290,10 +2290,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.19.2";
+      version = "4.19.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658365/control_panel_for_twitter-4.19.2.xpi";
-      sha256 = "0cfdc6138c36d6c9337c665a985ae0b9b12eb0952457ebce94706a00ce335233";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662429/control_panel_for_twitter-4.19.3.xpi";
+      sha256 = "0d1dc6f6623595c851dc718c6c8e4a95ea559b10a9a33ff4169b648373921a79";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -6789,6 +6789,20 @@
           free = false;
         };
         mozPermissions = [ "storage" "tabs" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
+    "inlinedisposition-reloaded" = buildFirefoxXpiAddon {
+      pname = "inlinedisposition-reloaded";
+      version = "2.0.2resigned1";
+      addonId = "{914d3a0b-6982-4e58-9a60-2e5d6cf6b09b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270510/inlinedisposition_reloaded-2.0.2resigned1.xpi";
+      sha256 = "e24ee1a7e143925df0f9d58cd74f72bd6bb6a36fea15406158d5cb909d3b3a98";
+      meta = with lib;
+      {
+        description = "InlineDisposition Reloaded changes the disposition type of \"Content-Disposition\" response headers from \"attachment\" and \"file\" to \"inline\"";
+        license = licenses.mpl20;
+        mozPermissions = [ "webRequest" "webRequestBlocking" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -13190,10 +13204,10 @@
     };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "7.1.1";
+      version = "7.2.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4464091/tab_session_manager-7.1.1.xpi";
-      sha256 = "1cc20bfe2b38aa6c70101d296e6d57419713489cf0b4cde3480de40b2a7337e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662467/tab_session_manager-7.2.0.xpi";
+      sha256 = "38788346ebe21a352252ded38ed20c4788397be4e291f6d718ec48e2fefc26b2";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -13203,6 +13217,7 @@
           "storage"
           "unlimitedStorage"
           "tabs"
+          "tabGroups"
           "cookies"
           "downloads"
           "identity"
