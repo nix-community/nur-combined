@@ -248,6 +248,21 @@
         },
         "version": "v4.0.0"
     },
+    "bambu-studio-bin": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "bambu-studio-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-JrwH3MsE3y5GKx4Do3ZlCSAcRuJzEqFYRPb11/3x3r0=",
+            "type": "url",
+            "url": "https://github.com/bambulab/BambuStudio/releases/latest/download/Bambu_Studio_ubuntu-24.04_PR-8834.AppImage"
+        },
+        "version": "Bambu_Studio_ubuntu-24.04_PR-8834.AppImage"
+    },
     "bepasty": {
         "cargoLocks": null,
         "date": null,

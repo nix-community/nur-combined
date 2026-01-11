@@ -55,6 +55,11 @@ src.git = "https://github.com/qjfoidnh/BaiduPCS-Go.git"
 fetch.url = "https://google.com/generate_204"
 src.github_tag = "qjfoidnh/BaiduPCS-Go"
 
+[bambu-studio-bin]
+fetch.url = "https://github.com/bambulab/BambuStudio/releases/latest/download/$ver"
+src.webpage = "https://api.github.com/repos/bambulab/BambuStudio/releases/latest"
+src.regex = "Bambu_Studio_ubuntu-24\\.04_PR-[0-9]+\\.AppImage"
+
 [bepasty]
 fetch.pypi = "bepasty"
 src.pypi = "bepasty"

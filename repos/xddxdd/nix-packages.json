@@ -419,6 +419,11 @@
     "pname": "baidupcs-go",
     "version": "4.0.0-unstable-2025-11-08"
   },
+  "legacyPackages.x86_64-linux.bambu-studio-bin": {
+    "description": "PC Software for BambuLab and other 3D printers",
+    "pname": "bambu-studio-bin",
+    "version": "8834"
+  },
   "legacyPackages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
     "pname": "python3.13-bepasty",
@@ -4314,6 +4319,11 @@
     "pname": "baidupcs-go",
     "version": "4.0.0-unstable-2025-11-08"
   },
+  "legacyPackages.x86_64-linux.uncategorized.bambu-studio-bin": {
+    "description": "PC Software for BambuLab and other 3D printers",
+    "pname": "bambu-studio-bin",
+    "version": "8834"
+  },
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
@@ -5178,6 +5188,11 @@
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
     "version": "4.0.0-unstable-2025-11-08"
+  },
+  "packages.x86_64-linux.bambu-studio-bin": {
+    "description": "PC Software for BambuLab and other 3D printers",
+    "pname": "bambu-studio-bin",
+    "version": "8834"
   },
   "packages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",

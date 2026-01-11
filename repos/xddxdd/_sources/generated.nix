@@ -130,6 +130,14 @@
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  bambu-studio-bin = {
+    pname = "bambu-studio-bin";
+    version = "Bambu_Studio_ubuntu-24.04_PR-8834.AppImage";
+    src = fetchurl {
+      url = "https://github.com/bambulab/BambuStudio/releases/latest/download/Bambu_Studio_ubuntu-24.04_PR-8834.AppImage";
+      hash = "sha256-JrwH3MsE3y5GKx4Do3ZlCSAcRuJzEqFYRPb11/3x3r0=";
+    };
+  };
   bepasty = {
     pname = "bepasty";
     version = "1.2.2";
