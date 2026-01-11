@@ -1,5 +1,10 @@
 # NUR 包创建规则
 
+## 工作流程
+
+- **持续更新文档**：每次根据用户建议修改包后，应将可推广的经验教训更新到本文档（AGENTS.md）中
+- **提炼通用规则**：关注用户指出的模式、最佳实践和常见错误，将其转化为可应用于其他包的通用规则
+
 ## Nix 包定义规范
 
 ### 代码风格
@@ -60,6 +65,36 @@
 
 - **有 bin 目录时必须设置**：如果包安装了 `bin` 目录，必须设置 `meta.mainProgram`
 - **主程序必须存在**：设置的主程序名必须在 `bin` 目录中实际存在
+
+## AppImage 包
+
+### 最佳实践
+
+- **只提取一次 AppImage**：在 `let` 绑定中定义 `contents` 变量，在整个包定义中重复使用
+- **重用现有桌面文件**：AppImage 通常包含桌面文件和图标，应该重用而不是手动创建
+- **使用 extraInstallCommands**：通过 `extraInstallCommands` 安装桌面文件和图标
+- **更新桌面文件路径**：使用 `substituteInPlace` 更新 `Exec` 和 `Icon` 字段以匹配 Nix 包装器名称
+
+### 示例结构
+
+```nix
+let
+  contents = appimageTools.extract {
+    inherit (sources.package-name) pname version src;
+  };
+in
+appimageTools.wrapType2 {
+  inherit (sources.package-name) pname version src;
+
+  extraInstallCommands = ''
+    install -Dm644 ${contents}/app.desktop $out/share/applications/app.desktop
+    substituteInPlace $out/share/applications/app.desktop \
+      --replace-fail 'Exec=AppRun' 'Exec=package-name' \
+      --replace-fail 'Icon=AppIcon' 'Icon=app-icon'
+    install -Dm644 ${contents}/app.png $out/share/pixmaps/app-icon.png
+  '';
+}
+```
 
 ## 包文件管理
 
