@@ -201,18 +201,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601092215";
+    version = "202601102214";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601092215/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601102214/geoip.dat";
       sha256 = "sha256-GtsOvTkmoMt8pjWP8BGUwJl1vtSMgWbiRLTvKK6acB4=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601092215";
+    version = "202601102214";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601092215/geosite.dat";
-      sha256 = "sha256-KqKK9gKwTZnvAikmBLEcV8t0D4zX7T4sbpmFlC25KRE=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601102214/geosite.dat";
+      sha256 = "sha256-VcPvLv6DH3322+PT72Y2mu0spu98e7G7Gy8owLb94xc=";
     };
   };
   watt-toolkit-aarch64-linux = {
