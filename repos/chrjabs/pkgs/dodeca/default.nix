@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     ./fix-wasm-symbols.patch
   ];
 
-  cargoHash = "sha256-wtjGc7jyi81dHMNK4Qfk+fBmZeBtVrvh5THv6YSoN6s=";
+  cargoHash = "sha256-aVNM0ezmg50tKqH1hrhqEn1OSdnJHUF/XuAf3eWODDI=";
 
   cargoPatches = [
     ./patch-dependencies.patch
