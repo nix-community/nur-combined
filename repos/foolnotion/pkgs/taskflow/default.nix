@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     repo = "taskflow";
     owner = "taskflow";
     rev = "v${version}";
-    sha256 = "sha256-2WCerXCB9AxppNeT79aQPZf+7KGxfP8K0KYCqL3XDwU=";
+    sha256 = "sha256-cWnKA6tCsKRfkleBJ38NRP2ciJu4sHtyTS8y5bBTfcA=";
   };
 
   nativeBuildInputs = [ cmake ];
