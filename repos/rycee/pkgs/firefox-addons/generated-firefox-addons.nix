@@ -3415,10 +3415,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.67.6";
+      version = "2.68.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4647344/dualsub-2.67.6.xpi";
-      sha256 = "764c9572848e8689c23f0fae35b32f717694d7ac56298db333956525b4b0835e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661774/dualsub-2.68.0.xpi";
+      sha256 = "2a024868df36d8329030b63eb0b45bf9c1e334d9c70a10f204ace8ac11ea67dd";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -15856,10 +15856,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.12.22.0";
+      version = "25.12.31.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4654712/yomitan-25.12.22.0.xpi";
-      sha256 = "ae7d901daa0a0e8562dc2b47d2e36d2d07a5459008b68b4242e1f247b513fcf6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662129/yomitan-25.12.31.0.xpi";
+      sha256 = "846b597ed75c167cebbbbc837933c785e2af18bb6072844e01df75df7f3dab79";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -16091,10 +16091,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.0.7";
+      version = "18.1.0";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4659564/youtube_subscription_groups-18.0.7.xpi";
-      sha256 = "8caeee2eb6bab640fdf18dddeb84124f136df6bdc7ddbd813ea0f6a3d1214d66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662141/youtube_subscription_groups-18.1.0.xpi";
+      sha256 = "fb5e3d8d2ff9a597caade3e0147c774b5ce2b82d661cc7028272fb32c679405a";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
