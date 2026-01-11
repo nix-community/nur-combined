@@ -29,7 +29,8 @@
         };
 
       # Get the latest Go version (highest minor version)
-      latestGoVersion = builtins.head (builtins.sort (a: b: a > b) (builtins.attrNames goVersions));
+      # Filter out "next" to only consider stable versions
+      latestGoVersion = builtins.head (builtins.sort (a: b: a > b) (builtins.filter (v: v != "next") (builtins.attrNames goVersions)));
 
       # Overlay that adds our custom packages
       overlay =
@@ -50,6 +51,7 @@
           zlint-unstable = prev.callPackage ./pkgs/zlint/unstable.nix { };
           uvShellHook = prev.callPackage ./pkgs/uv/venv-shell-hook.nix { };
           inbox = prev.callPackage ./pkgs/inbox { };
+          zigdoc = prev.callPackage ./pkgs/zigdoc { };
 
           # Latest Go version as go-bin (automatically uses the highest version)
           go-bin = makeGo prev latestGoVersion;
@@ -119,7 +121,7 @@
             );
           in
           {
-            inherit (pkgs) zlint zlint-unstable go-bin uvShellHook inbox;
+            inherit (pkgs) zlint zlint-unstable go-bin uvShellHook inbox zigdoc;
             default = self.packages.${system}.zlint;
           }
           // goPackages;
