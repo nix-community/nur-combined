@@ -41,9 +41,14 @@ update-zlint:
 update-inbox:
     @./pkgs/inbox/update.py
 
+# Update zigdoc package
+update-zigdoc:
+    @./pkgs/zigdoc/update.py
+
 # Update all packages
 update-all:
     @just update-go
     @just update-zlint
     @just update-inbox
+    @just update-zigdoc
 

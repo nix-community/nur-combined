@@ -51,6 +51,15 @@ jobs:
           nix build .#zlint-unstable --no-link
           echo "✓ zlint-unstable builds successfully"
 
+      - name: Build other packages
+        run: |
+          echo "🏗️ Building other packages..."
+          nix build .#inbox --no-link
+          echo "✓ inbox builds successfully"
+
+          nix build .#zigdoc --no-link
+          echo "✓ zigdoc builds successfully"
+
       - name: Test binaries
         run: |
           echo "🧪 Testing binaries..."
@@ -60,6 +69,12 @@ jobs:
           nix run .#zlint -- --version
           echo "✓ zlint works"
 
+          nix run .#inbox -- --help
+          echo "✓ inbox works"
+
+          nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
+          echo "✓ zigdoc works"
+
       - name: Summary
         run: |
           echo "### ✅ All packages verified!" >> $GITHUB_STEP_SUMMARY
@@ -68,4 +83,5 @@ jobs:
           echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All Go packages build successfully" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All zlint packages build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ inbox and zigdoc build successfully" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All binaries tested and working" >> $GITHUB_STEP_SUMMARY

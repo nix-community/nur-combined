@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "zigdoc";
-  version = "0.1.0";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "rockorager";
     repo = "zigdoc";
-    rev = "v0.1.0";
-    hash = "sha256-nClG2L4ac0Bu+dGkanSFjoLHszeMoUFV9BdBEEKkdhA=";
+    rev = "v0.2.2";
+    hash = "sha256-bvZnNiJ6YbsoQb41oAWzZNErCcAtKKudQMwvAfa4UEA=";
   };
 
   nativeBuildInputs = [ zig_0_15 ];

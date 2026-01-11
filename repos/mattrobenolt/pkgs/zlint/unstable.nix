@@ -1,12 +1,12 @@
 { lib
-, stdenv
+, stdenvNoCC
 , fetchFromGitHub
 , callPackage
 , zig_0_14
 ,
 }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "zlint-unstable";
   version = "unstable-2025-11-29";
 
@@ -17,15 +17,23 @@ stdenv.mkDerivation {
     hash = "sha256-N5ztky9fLMdoDR7wHXKOLJY3sgd2DUmWBJ9NHCrf8PY=";
   };
 
-  nativeBuildInputs = [
-    zig_0_14.hook
-  ];
+  nativeBuildInputs = [ zig_0_14 ];
 
-  postPatch = ''
-    ln -s ${callPackage ./deps.nix { }} $ZIG_GLOBAL_CACHE_DIR/p
+  dontConfigure = true;
+  dontInstall = true;
+
+  preBuild = ''
+    export HOME=$TMPDIR
+    export XDG_CACHE_HOME=$TMPDIR/cache
+    mkdir -p $XDG_CACHE_HOME/zig
+    ln -s ${callPackage ./deps.nix { }} $XDG_CACHE_HOME/zig/p
   '';
 
-  zigBuildFlags = [ "-Doptimize=ReleaseSafe" ];
+  buildPhase = ''
+    runHook preBuild
+    zig build --prefix $out -Doptimize=ReleaseSafe
+    runHook postBuild
+  '';
 
   meta = with lib; {
     description = "A linter for the Zig programming language (unstable/HEAD)";
