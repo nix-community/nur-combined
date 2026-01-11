@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "";
+    description = "Tool for unlocking various batteries and diagnosing them";
     homepage = "https://github.com/mnh-jansson/open-battery-information";
     license = lib.licenses.mit;
     maintainers =
