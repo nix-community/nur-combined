@@ -1,6 +1,8 @@
 {
   lib,
   fetchFromGitHub,
+  fetchPypi,
+  git,
   makeWrapper,
   python311Packages,
   ffmpeg,
@@ -100,6 +102,53 @@ let
     };
   };
 
+  onnx_ir = py.buildPythonPackage rec {
+    pname = "onnx_ir";
+    version = "0.1.14";
+    pyproject = true;
+
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-vWnjtYIQRtXXydD90CP44dDMmmLL7phvoOWrKxYC164=";
+    };
+
+    build-system = [ py.setuptools ];
+
+    dependencies = with py; [
+      numpy
+      onnx
+      py."typing-extensions"
+      py."ml-dtypes"
+    ];
+
+    pythonImportsCheck = [ "onnx_ir" ];
+  };
+
+  onnxscript = py.buildPythonPackage rec {
+    pname = "onnxscript";
+    version = "0.5.7";
+    pyproject = true;
+
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-SA1XJFG8Iz7X90K1AFywyJlZSy/cKOFRZ9qyb3/Xd60=";
+    };
+
+    build-system = [ py.setuptools ];
+    nativeBuildInputs = [ git ];
+
+    dependencies = with py; [
+      py."ml-dtypes"
+      numpy
+      onnx
+      onnx_ir
+      packaging
+      py."typing-extensions"
+    ];
+
+    pythonImportsCheck = [ "onnxscript" ];
+  };
+
   onnx2pytorch = py.buildPythonPackage rec {
     pname = "onnx2pytorch";
     version = "0.4.1";
@@ -114,16 +163,26 @@ let
 
     build-system = [ py.setuptools ];
 
+    patches = [
+      ./onnx2pytorch-onnx-mapping.patch
+      ./onnx2pytorch-ninf.patch
+      ./onnx2pytorch-storage-order.patch
+    ];
+
     dependencies = with py; [
       torch
       onnx
       onnxruntime
+      onnxscript
       torchvision
     ];
 
     pythonImportsCheck = [ "onnx2pytorch" ];
 
-    nativeCheckInputs = [ py.pytestCheckHook ];
+    nativeCheckInputs = [
+      py.pytestCheckHook
+      onnxscript
+    ];
     disabledTests = [
       "test_loop_sum" # module 'numpy' has no attribute 'bool'
       "test_single_layer_lstm"
@@ -172,6 +231,8 @@ let
     onnx
     onnxruntime
     onnx2pytorch
+    onnxscript
+    onnx_ir
     soundfile
     numpy
     six

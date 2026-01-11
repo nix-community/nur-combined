@@ -1,0 +1,11 @@
+--- a/onnx2pytorch/convert/attribute.py
++++ b/onnx2pytorch/convert/attribute.py
+@@ -181,6 +181,8 @@
+             kwargs["constant"] = extract_attr_values(attr)
+         elif attr.name == "value_strings":
+             kwargs["constant"] = extract_attr_values(attr)
++        elif attr.name == "storage_order":
++            pass
+         elif node.op_type == "Resize":
+             # These parameters are not used, warn in Resize operator
+             kwargs[attr.name] = extract_attr_values(attr)

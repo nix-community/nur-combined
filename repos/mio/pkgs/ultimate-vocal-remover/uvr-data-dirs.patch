@@ -1,6 +1,8 @@
+diff --git a/UVR.py b/UVR.py
+index dcb4f10..4eda190 100644
 --- a/UVR.py
 +++ b/UVR.py
-@@ -64,9 +64,21 @@
+@@ -64,9 +64,21 @@ if getattr(sys, 'frozen', False):
  else:
      BASE_PATH = os.path.dirname(os.path.abspath(__file__))
  
@@ -23,7 +25,7 @@
  
  if os.path.isfile(SPLASH_DOC):
      os.remove(SPLASH_DOC)
-@@ -153,7 +165,7 @@
+@@ -153,7 +165,7 @@ def save_data(data):
              Dictionary containing all the necessary data to save
      """
      # Open data file, create it if it does not exist
@@ -32,7 +34,7 @@
          pickle.dump(data, data_file)
  
  def load_data() -> dict:
-@@ -164,7 +176,7 @@
+@@ -164,7 +176,7 @@ def load_data() -> dict:
          Dictionary containing all the saved data
      """
      try:
@@ -41,21 +43,37 @@
              data = pickle.load(data_file)
  
          return data
-@@ -204,7 +216,12 @@
+@@ -204,7 +216,28 @@ debugger = []
  
  #--Constants--
  #Models
 -MODELS_DIR = os.path.join(BASE_PATH, 'models')
 +MODELS_DIR = os.path.join(UVR_DATA_DIR, 'models')
++def ensure_writable(path):
++    for _root, _dirs, _files in os.walk(path):
++        for _name in _dirs:
++            _path = os.path.join(_root, _name)
++            try:
++                os.chmod(_path, os.stat(_path).st_mode | 0o200)
++            except OSError:
++                pass
++        for _name in _files:
++            _path = os.path.join(_root, _name)
++            try:
++                os.chmod(_path, os.stat(_path).st_mode | 0o200)
++            except OSError:
++                pass
++
 +APP_MODELS_DIR = os.path.join(APP_DIR, 'models')
 +if os.path.isdir(APP_MODELS_DIR) and not os.path.exists(MODELS_DIR):
 +    shutil.copytree(APP_MODELS_DIR, MODELS_DIR)
 +else:
 +    os.makedirs(MODELS_DIR, exist_ok=True)
++ensure_writable(MODELS_DIR)
  VR_MODELS_DIR = os.path.join(MODELS_DIR, 'VR_Models')
  MDX_MODELS_DIR = os.path.join(MODELS_DIR, 'MDX_Net_Models')
  DEMUCS_MODELS_DIR = os.path.join(MODELS_DIR, 'Demucs_Models')
-@@ -220,12 +237,14 @@
+@@ -220,12 +253,14 @@ MDX_C_CONFIG_PATH = os.path.join(MDX_HASH_DIR, 'mdx_c_configs')
  
  DEMUCS_MODEL_NAME_SELECT = os.path.join(DEMUCS_MODELS_DIR, 'model_data', 'model_name_mapper.json')
  MDX_MODEL_NAME_SELECT = os.path.join(MDX_MODELS_DIR, 'model_data', 'model_name_mapper.json')
@@ -75,6 +93,73 @@
  
  #CR Text
  CR_TEXT = os.path.join(BASE_PATH, 'gui_data', 'cr_text.txt')
+@@ -240,7 +275,7 @@ OWN_FONT_PATH = os.path.join(BASE_PATH, 'gui_data', 'own_font.json')
+ MAIN_FONT_NAME = 'Montserrat'
+ SEC_FONT_NAME = 'Century Gothic'
+ FONT_PATH = os.path.join(BASE_PATH, 'gui_data', 'fonts', 'Montserrat', 'Montserrat.ttf')#
+-SEC_FONT_PATH = os.path.join(BASE_PATH, 'gui_data', 'fonts', 'centurygothic', 'GOTHIC.ttf')#
++SEC_FONT_PATH = os.path.join(BASE_PATH, 'gui_data', 'fonts', 'centurygothic', 'GOTHIC.TTF')#
+ OTHER_FONT_PATH = os.path.join(BASE_PATH, 'gui_data', 'fonts', 'other')#
+ 
+ FONT_MAPPER = {MAIN_FONT_NAME:FONT_PATH,
+@@ -7158,4 +7193,4 @@ if __name__ == "__main__":
+     root.update() if is_windows else root.update_idletasks()
+     root.deiconify()
+     root.configure(bg=BG_COLOR)
+-    root.mainloop()
+\ No newline at end of file
++    root.mainloop()
+diff --git a/gui_data/app_size_values.py b/gui_data/app_size_values.py
+index 676186d..11dbf15 100644
+--- a/gui_data/app_size_values.py
++++ b/gui_data/app_size_values.py
+@@ -6,11 +6,11 @@ from PIL import ImageTk
+ 
+ OPERATING_SYSTEM = platform.system()
+ 
+-def get_screen_height():
+-    monitors = get_monitors()
+-    if len(monitors) == 0:
+-        raise Exception("Failed to get screen height")
+-    return monitors[0].height, monitors[0].width
++def get_screen_height():
++    monitors = get_monitors()
++    if len(monitors) == 0:
++        raise Exception("Failed to get screen height")
++    return monitors[0].height, monitors[0].width
+ 
+ def scale_values(value):
+     if not SCALE_WIN_SIZE == 1920:
+@@ -129,12 +129,14 @@ class ImagePath():
+         img = Image.open(path).convert(mode='RGBA')
+         ratio = img.height/img.width
+         img = img.rotate(angle=-rotate)
+-        if size is not None:
+-            size = (int(size[0]), int(size[1]))
+-            if keep_aspect:
+-                img = img.resize((size[0], int(size[0] * ratio)), Image.ANTIALIAS)
+-            else:
+-                img = img.resize(size, Image.ANTIALIAS)
++        if size is not None:
++            size = (int(size[0]), int(size[1]))
++            size_w = max(1, size[0])
++            size_h = max(1, size[1])
++            if keep_aspect:
++                img = img.resize((size_w, max(1, int(size_w * ratio))), Image.LANCZOS)
++            else:
++                img = img.resize((size_w, size_h), Image.LANCZOS)
+                 
+         return ImageTk.PhotoImage(img)
+ 
+@@ -367,4 +369,4 @@ Y_OFFSET_CONSOLE_FRAME_1080P = IMAGE_HEIGHT + FILEPATHS_HEIGHT + OPTIONS_HEIGHT
+ LABEL_Y_OFFSET = MAIN_ROW_Y[0]
+ ENTRY_X_OFFSET = SUB_ENT_ROW_X
+ ENTRY_Y_OFFSET = MAIN_ROW_Y[1]
+-OPTION_WIDTH = MAIN_ROW_ALIGN_WIDTH
+\ No newline at end of file
++OPTION_WIDTH = MAIN_ROW_ALIGN_WIDTH
+diff --git a/lib_v5/pyrb.py b/lib_v5/pyrb.py
+index 883a525..f0965f1 100644
 --- a/lib_v5/pyrb.py
 +++ b/lib_v5/pyrb.py
 @@ -1,4 +1,5 @@
@@ -83,7 +168,7 @@
  import subprocess
  import tempfile
  import six
-@@ -14,6 +15,8 @@
+@@ -14,6 +15,8 @@ else:
  __all__ = ['time_stretch', 'pitch_shift']
  
  __RUBBERBAND_UTIL = os.path.join(BASE_PATH_RUB, 'rubberband')
@@ -92,17 +177,3 @@
  
  if six.PY2:
      DEVNULL = open(os.devnull, 'w')
---- a/gui_data/app_size_values.py
-+++ b/gui_data/app_size_values.py
-@@ -132,9 +132,9 @@
-         if size is not None:
-             size = (int(size[0]), int(size[1]))
-             if keep_aspect:
--                img = img.resize((size[0], int(size[0] * ratio)), Image.ANTIALIAS)
-+                img = img.resize((size[0], int(size[0] * ratio)), Image.LANCZOS)
-             else:
--                img = img.resize(size, Image.ANTIALIAS)
-+                img = img.resize(size, Image.LANCZOS)
-                 
-         return ImageTk.PhotoImage(img)
- 

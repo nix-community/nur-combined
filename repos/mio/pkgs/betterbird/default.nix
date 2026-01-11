@@ -195,7 +195,9 @@ in
 
     pgoSupport = false; # console.warn: feeds: "downloadFee d: network connection unavailable"
 
-    inherit (thunderbird-unwrapped.passthru) icu73 icu77;
+    inherit (thunderbird-unwrapped.passthru) # icu73
+      icu77
+      ;
   }
 ).overrideAttrs
   (oldAttrs: {
