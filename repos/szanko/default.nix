@@ -48,6 +48,7 @@ pkgs ? import <nixpkgs> { }
   # clooj = pkgs.callPackage ./pkgs/clooj { inherit cljNix; };
 
   flat-manager = pkgs.callPackage ./pkgs/flat-manager { };
+  open-battery-information = pkgs.callPackage ./pkgs/open-battery-information { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   stardrop = if stardropPkgs != null then stardropPkgs.default else null;
