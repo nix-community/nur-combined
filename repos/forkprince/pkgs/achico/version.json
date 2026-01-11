@@ -1,0 +1,15 @@
+{
+  "name": "Achico",
+  "source": {
+    "type": "github-release",
+    "repo": "nuance-dev/achico",
+    "query": "[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Achico.app.zip",
+    "unpack": false
+  },
+  "version": "3.2.1",
+  "hash": "sha256-+NKY+BmmeqGwIhbVSHuo/KjK0sNfNxNbsHnrYclaxl8="
+}

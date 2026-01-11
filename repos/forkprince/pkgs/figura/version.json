@@ -1,0 +1,15 @@
+{
+  "name": "Figura",
+  "source": {
+    "type": "github-release",
+    "repo": "nuance-dev/figura",
+    "query": "[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Figura.app.zip",
+    "unpack": false
+  },
+  "version": "1.4.2",
+  "hash": "sha256-LSK9Ba2vYnFMBa5rtLgvdhCUEXfdMCTd58JSrkVNomY="
+}

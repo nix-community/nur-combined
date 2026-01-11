@@ -21,7 +21,11 @@
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
+  convierto = lib.callPackage ./pkgs/convierto {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};
+  figura = lib.callPackage ./pkgs/figura {};
+  achico = lib.callPackage ./pkgs/achico {};
+  blip = lib.callPackage ./pkgs/blip {};
   clop = lib.callPackage ./pkgs/clop {};
 
   github-desktop = lib.callPackage ./pkgs/github-desktop {};

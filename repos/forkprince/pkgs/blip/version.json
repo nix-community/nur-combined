@@ -1,0 +1,14 @@
+{
+  "name": "Blip",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/blip.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "1.1.14,20251129112957",
+  "asset": {
+    "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20251129112957.zip",
+    "hash": "sha256-ncHRDxZBU/inQKtD1YiLwqEWk19Zr/HmsTTIdGTW6K0="
+  }
+}

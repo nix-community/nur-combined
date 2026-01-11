@@ -1,0 +1,15 @@
+{
+  "name": "Convierto",
+  "source": {
+    "type": "github-release",
+    "repo": "nuance-dev/convierto",
+    "query": "[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Convierto.app.zip",
+    "unpack": false
+  },
+  "version": "1.0.1",
+  "hash": "sha256-tvGGDgRkjsM1cjPdTIDBN9yJJfUa+9M8QCeOFQjmCBc="
+}
