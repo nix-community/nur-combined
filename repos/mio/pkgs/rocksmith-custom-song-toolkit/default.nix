@@ -80,6 +80,13 @@ stdenv.mkDerivation (finalAttrs: {
     buildOut="$PWD/build-out"
     mkdir -p "$buildOut"
 
+    msbuild RocksmithToolkitLib/RocksmithToolkitLib.csproj \
+      /p:Configuration=Release \
+      /p:Platform=x86 \
+      /p:RunPostBuildEvent=Never \
+      /p:OutputPath="$buildOut/RocksmithToolkitLib/" \
+      /p:BaseIntermediateOutputPath="$buildOut/RocksmithToolkitLib/obj/"
+
     for name in "''${toolProjects[@]}"; do
       msbuild "RocksmithToolkitCLI/$name/$name.csproj" \
         /p:Configuration=Release \
@@ -99,6 +106,14 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p "$root" "$out/bin"
 
     cp -R lib "$root/lib"
+    if [ -f build-out/RocksmithToolkitLib/RocksmithToolkitLib.dll ]; then
+      install -Dm644 build-out/RocksmithToolkitLib/RocksmithToolkitLib.dll \
+        "$root/lib/RocksmithToolkitLib.dll"
+    fi
+    if [ -f build-out/RocksmithToolkitLib/RocksmithToolkitLib.pdb ]; then
+      install -Dm644 build-out/RocksmithToolkitLib/RocksmithToolkitLib.pdb \
+        "$root/lib/RocksmithToolkitLib.pdb"
+    fi
     if [ -d ThirdPartyApps ]; then
       cp -R ThirdPartyApps "$root/ThirdPartyApps"
     fi

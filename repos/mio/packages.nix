@@ -124,6 +124,9 @@ rec {
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   miscutil = pkgs.callPackage ./pkgs/miscutil { };
   gifcurry = lib.mkIf (!nurbot) (pkgs.callPackage ./pkgs/gifcurry { });
+  rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
+    rocksmithCustomSongToolkit = rocksmith-custom-song-toolkit;
+  };
   bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
   art-standalone = pkgs.callPackage ./pkgs/art-standalone/package.nix {
     bionic-translation = bionic-translation;
