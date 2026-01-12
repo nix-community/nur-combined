@@ -15,6 +15,28 @@ let
   lib = pkgs.lib // import ./lib { inherit pkgs; };
   stdenv = pkgs.stdenv;
   fetchFromGitHub = pkgs.fetchFromGitHub;
+  minipkgs0 = rec {
+    prismlauncher = pkgs.callPackage ./pkgs/prismlauncher/package.nix {
+      prismlauncher-unwrapped = prismlauncher-unwrapped;
+    };
+    prismlauncher-unwrapped = pkgs.callPackage ./pkgs/prismlauncher-unwrapped/package.nix {
+    };
+  };
+  minipkgs = {
+    prismlauncher =
+      if (builtins.compareVersions pkgs.prismlauncher.version minipkgs0.prismlauncher.version) >= 0 then
+        pkgs.prismlauncher
+      else
+        minipkgs0.prismlauncher;
+    prismlauncher-unwrapped =
+      if
+        (builtins.compareVersions pkgs.prismlauncher-unwrapped.version minipkgs0.prismlauncher-unwrapped.version)
+        >= 0
+      then
+        pkgs.prismlauncher-unwrapped
+      else
+        minipkgs0.prismlauncher-unwrapped;
+  };
 in
 rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
@@ -276,20 +298,16 @@ rec {
   */
   prismlauncher-diegiwg =
     let
-      # https://github.com/NixOS/nixpkgs/blob/fb6a5b23f9416753d343d914fe7c14044e59aaed/pkgs/by-name/pr/prismlauncher/package.nix#L41
+      # https://github.com/NixOS/nixpkgs/blob/ab0821a8289da5bd2cde49ae89cbf6db1e5931ae/pkgs/by-name/pr/prismlauncher/package.nix#L41
       msaClientID = null;
-      gamemodeSupport = stdenv.hostPlatform.isLinux;
-      prismlauncher = pkgs.callPackage ./pkgs/prismlauncher/package.nix {
-        prismlauncher-unwrapped = prismlauncher-unwrapped;
-      };
-      prismlauncher-unwrapped = pkgs.callPackage ./pkgs/prismlauncher-unwrapped/package.nix {
-      };
+      prismlauncher = minipkgs.prismlauncher;
+      prismlauncher-unwrapped = minipkgs.prismlauncher-unwrapped;
     in
     prismlauncher.overrideAttrs (old: {
       paths = [
-        # https://github.com/NixOS/nixpkgs/blob/fb6a5b23f9416753d343d914fe7c14044e59aaed/pkgs/by-name/pr/prismlauncher/package.nix#L61
+        # https://github.com/NixOS/nixpkgs/blob/ab0821a8289da5bd2cde49ae89cbf6db1e5931ae/pkgs/by-name/pr/prismlauncher/package.nix#L61
         (v3overrideAttrs (
-          (prismlauncher-unwrapped.override { inherit msaClientID gamemodeSupport; }).overrideAttrs (old': {
+          (prismlauncher-unwrapped.override { inherit msaClientID; }).overrideAttrs (old': {
             patches = (old.patches or [ ]) ++ [
               (pkgs.fetchpatch {
                 name = "12a.patch";

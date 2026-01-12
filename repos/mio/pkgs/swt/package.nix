@@ -83,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = lib.optionals stdenv.hostPlatform.isLinux [ "gtk3" ];
 
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-std=gnu17";
-  postPatch = lib.optionalString stdenv.hostPlatform.isLinux "sed -i '/^CFLAGS += -Werror$/d' library/make_linux.mak";
+  postPatch = lib.optionalString stdenv.hostPlatform.isLinux "substituteInPlace library/make_linux.mak --replace-fail 'CFLAGS += -Werror' ''";
   preBuild = lib.optionalString stdenv.hostPlatform.isLinux ''
     cd library
     mkdir -p ${finalAttrs.OUTPUT_DIR}

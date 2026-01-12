@@ -29,13 +29,13 @@ let
   };
   minipkgs = {
     materialgram =
-      if (builtins.compareVersions pkgs.materialgram.version minipkgs0.materialgram.version) > 0 then
+      if (builtins.compareVersions pkgs.materialgram.version minipkgs0.materialgram.version) >= 0 then
         pkgs.materialgram
       else
         minipkgs0.materialgram;
     telegram-desktop =
       if
-        (builtins.compareVersions pkgs.telegram-desktop.version minipkgs0.telegram-desktop.version) > 0
+        (builtins.compareVersions pkgs.telegram-desktop.version minipkgs0.telegram-desktop.version) >= 0
       then
         pkgs.telegram-desktop
       else
