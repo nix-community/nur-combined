@@ -7,15 +7,15 @@
   pythonEnv = pkgs.python312Packages;
 
   pname = "ag";
-  version = "0.1.0";
+  version = "0.1.2";
 in pythonEnv.buildPythonApplication {
   inherit pname version;
 
   src = pkgs.fetchFromGitHub {
     owner = "srcres258";
     repo = "ag";
-    rev = "cf6c2b8777b5e9436ce13f2a676d59f52e0e1c66";
-    sha256 = "sha256-+t8Ei7hnAnzxACY25yHNGRA40/IjB8bgABXws4/5jtY=";
+    rev = "v0.1.2";
+    sha256 = "sha256-rKsddgwhzZEQeXgWfJ2oOvSMYdlol+Vm4UKMG+Ieb+s=";
   };
 
   propagatedBuildInputs = with pythonEnv; [
