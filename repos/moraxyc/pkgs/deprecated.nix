@@ -1,15 +1,26 @@
 pkgs:
 let
-  upstreamed = [
-    "hmcl"
-    "sub-store"
-    "sub-store-frontend"
-  ];
-  discontinued = [
-    "gzctf"
-  ];
-
   inherit (pkgs) lib;
+
+  deprecatedPkgs = {
+    # Upstreamed
+    hmcl = "upstreamed";
+    sub-store = "upstreamed";
+    sub-store-frontend = "upstreamed";
+
+    # Discontinued
+    gzctf = "discontinued";
+
+    # Unmaintained
+    exloli-next = "unmaintained";
+  };
+
+  reasonMap = {
+    upstreamed = "has been upstreamed to nixpkgs";
+    discontinued = "is no longer maintained in this NUR";
+    unmaintained = "is no longer maintained by upstream";
+  };
 in
-lib.genAttrs upstreamed (n: throw "nur-moraxyc: ${n} has been upstreamed to nixpkgs.")
-// lib.genAttrs discontinued (n: throw "nur-moraxyc: ${n} is no longer maintained in this NUR.")
+lib.mapAttrs (
+  name: reasonKey: throw "nur-moraxyc: ${name} ${reasonMap.${reasonKey}}."
+) deprecatedPkgs
