@@ -91,21 +91,21 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.4",
-    "hash": "sha256-OdrBVAmacB1NVPvKQwdsV4pDvw7a2qHDyK/qzxbsrBk=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.uistack/10.0.4/aiursoft.uistack.10.0.4.nupkg"
+    "version": "10.0.5",
+    "hash": "sha256-kDmdKl9iOxdWaOCCdkkmCm93+qKIiiBc53kUX7D4cwk=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.uistack/10.0.5/aiursoft.uistack.10.0.5.nupkg"
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.4",
-    "hash": "sha256-76bSnQomj0SI+gNrBEUBXefDORPwoOjdq7196UiwA6g=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/10.0.4/aiursoft.webtools.10.0.4.nupkg"
+    "version": "10.0.6",
+    "hash": "sha256-LxjXI2DRseleVEPtmgqSWTO9HRKBDK/Xuh+Ad/CnMw8=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools/10.0.6/aiursoft.webtools.10.0.6.nupkg"
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-lZEprMx0qlrS0M8Wur65Z2AfFBV+ItGI8WcwTdR+VDQ=",
-    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools.abstractions/10.0.0/aiursoft.webtools.abstractions.10.0.0.nupkg"
+    "version": "10.0.1",
+    "hash": "sha256-7tW4M9Qzkc4Y8ox84xDzS2wvCvqFfn3VmSWY24GNy2w=",
+    "url": "https://nuget.aiursoft.com/v3/package/aiursoft.webtools.abstractions/10.0.1/aiursoft.webtools.abstractions.10.0.1.nupkg"
   },
   {
     "pname": "AsyncKeyedLock",
