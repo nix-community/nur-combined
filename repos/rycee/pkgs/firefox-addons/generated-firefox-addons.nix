@@ -2290,10 +2290,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.19.3";
+      version = "4.19.4";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4662429/control_panel_for_twitter-4.19.3.xpi";
-      sha256 = "0d1dc6f6623595c851dc718c6c8e4a95ea559b10a9a33ff4169b648373921a79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662667/control_panel_for_twitter-4.19.4.xpi";
+      sha256 = "a0444a87c4ea3ac7ed7b1675c4cb6b4ad983544792fdb967ccf72fafe6c35972";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -7612,10 +7612,10 @@
     };
     "linkding-injector" = buildFirefoxXpiAddon {
       pname = "linkding-injector";
-      version = "1.3.6";
+      version = "1.3.7";
       addonId = "{19561335-5a63-4b4e-8182-1eced17f9b47}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4606187/linkding_injector-1.3.6.xpi";
-      sha256 = "32bb0e9560fa07a6dccdd8dcbfec687bdd3545e1a4ee5e078d41e785575545dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662632/linkding_injector-1.3.7.xpi";
+      sha256 = "4796d1e1bd5a7bebe546ee4f33751e74572a90d56e53cfb7bb694e338c6ed9bd";
       meta = with lib;
       {
         homepage = "https://github.com/Fivefold/linkding-injector";
@@ -9413,10 +9413,10 @@
     };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
-      version = "1.17.0";
+      version = "1.18.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4425924/nos2x_fox-1.17.0.xpi";
-      sha256 = "d707acbbb8ee9c218eb56db2bade324b939da10eed61928a253db9c771f8ff94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662673/nos2x_fox-1.18.0.xpi";
+      sha256 = "c64befbfd7ffc3f6aef54311dba41261ad9ec82a65ced73983e92609c9c949a8";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
@@ -12829,20 +12829,6 @@
           "webRequestBlocking"
           "https://*.startpage.com/*"
         ];
-        platforms = platforms.all;
-      };
-    };
-    "startup-bookmarks" = buildFirefoxXpiAddon {
-      pname = "startup-bookmarks";
-      version = "1.7.18";
-      addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4589645/startup_bookmarks-1.7.18.xpi";
-      sha256 = "e2cb9941cc63b2c33ec06df519e1f6b5bbe97ebc5d77237748af21763fc9e4b2";
-      meta = with lib;
-      {
-        homepage = "https://github.com/igorlogius/webextensions/tree/main/sources/startup-bookmarks";
-        description = "Open a set of bookmarks on browser startup";
-        mozPermissions = [ "bookmarks" "storage" ];
         platforms = platforms.all;
       };
     };
