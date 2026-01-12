@@ -178,12 +178,12 @@
   };
   bin-cpuflags-x86 = {
     pname = "bin-cpuflags-x86";
-    version = "1.0.7";
+    version = "1.0.8";
     src = fetchFromGitHub {
       owner = "HanabishiRecca";
       repo = "bin-cpuflags-x86";
-      tag = "1.0.7";
-      hash = "sha256-vqhSxqtyVNipI4AYkzQJ9gPh016BbsTon1RzJUcx0/0=";
+      tag = "1.0.8";
+      hash = "sha256-Kx3ItffZntoF8tgplt26myedTd50TFUFSBYkIYS3on8=";
     };
   };
   bird-lg-go = {
@@ -253,12 +253,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.6.100";
+    version = "v6.6.103";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.6.100";
-      hash = "sha256-IA//0Rb+hMII+Oo80hNFxIaJOW75A39iq3IHTiv6nqo=";
+      tag = "v6.6.103";
+      hash = "sha256-vcvvHgfwfzj4GpL5mpckQ9mG5z+/Kd0QTbZ0e1DVtuQ=";
     };
   };
   cockpy = {
@@ -1161,12 +1161,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7707";
+    version = "b7712";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7707";
-      hash = "sha256-QH14lHraldjiRDsI+5AxasyhvmlZ4Teh+ZChbkE4Bzw=";
+      tag = "b7712";
+      hash = "sha256-lWBPdJJUBmbXIBQ38fh9xl84jS3tXyWSBAoE/GWGC/0=";
     };
   };
   loralib = {
@@ -1542,10 +1542,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.2.3";
+    version = "9.2.4";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.3/PeerBanHelper_9.2.3.zip";
-      hash = "sha256-7Yp/S56XThWrvS81OkkYD8ezOorEg7fhl3eN0FB38sI=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.4/PeerBanHelper_9.2.4.zip";
+      hash = "sha256-0YPGQ/RpzjfdyzAcsdIA963MO70QuwnVHP18RHlVn5I=";
     };
   };
   phpmyadmin = {
@@ -2254,15 +2254,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "f1d46654c8380cd9a563d33e3d6bf43d30617d4f";
+    version = "02a57c4ccdc4b4adede18e57eb51be44ef035c85";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "f1d46654c8380cd9a563d33e3d6bf43d30617d4f";
+      rev = "02a57c4ccdc4b4adede18e57eb51be44ef035c85";
       fetchSubmodules = true;
-      hash = "sha256-7cbK7UE/2EgVn4tK9m4+RO+qyNZSAvJq9leAn/vpRU8=";
+      hash = "sha256-MpkITmfRgQK5TQA+mMU/i8FPxS/NrkkxJKxyFE+zHFA=";
     };
-    date = "2026-01-10";
+    date = "2026-01-12";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2326,12 +2326,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.27.15";
+    version = "1.27.16";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.27.15";
-      hash = "sha256-mlsw3dhl9Ny7jbwzJL22aaK/3Jh8MTThQJuoKVEpRJo=";
+      tag = "1.27.16";
+      hash = "sha256-bJTyQPghVJ74Tl2P4qrfDxWWLPm5rZvaSUkRfSIFN7Y=";
     };
   };
   vgpu-unlock-rs = {

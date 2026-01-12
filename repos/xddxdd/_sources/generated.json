@@ -349,12 +349,12 @@
             "name": null,
             "owner": "HanabishiRecca",
             "repo": "bin-cpuflags-x86",
-            "rev": "1.0.7",
-            "sha256": "sha256-vqhSxqtyVNipI4AYkzQJ9gPh016BbsTon1RzJUcx0/0=",
+            "rev": "1.0.8",
+            "sha256": "sha256-Kx3ItffZntoF8tgplt26myedTd50TFUFSBYkIYS3on8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.0.7"
+        "version": "1.0.8"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.6.100",
-            "sha256": "sha256-IA//0Rb+hMII+Oo80hNFxIaJOW75A39iq3IHTiv6nqo=",
+            "rev": "v6.6.103",
+            "sha256": "sha256-vcvvHgfwfzj4GpL5mpckQ9mG5z+/Kd0QTbZ0e1DVtuQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.6.100"
+        "version": "v6.6.103"
     },
     "cockpy": {
         "cargoLocks": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7707",
-            "sha256": "sha256-QH14lHraldjiRDsI+5AxasyhvmlZ4Teh+ZChbkE4Bzw=",
+            "rev": "b7712",
+            "sha256": "sha256-lWBPdJJUBmbXIBQ38fh9xl84jS3tXyWSBAoE/GWGC/0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7707"
+        "version": "b7712"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3016,11 +3016,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7Yp/S56XThWrvS81OkkYD8ezOorEg7fhl3eN0FB38sI=",
+            "sha256": "sha256-0YPGQ/RpzjfdyzAcsdIA963MO70QuwnVHP18RHlVn5I=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.3/PeerBanHelper_9.2.3.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.4/PeerBanHelper_9.2.4.zip"
         },
-        "version": "9.2.3"
+        "version": "9.2.4"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -4400,7 +4400,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2026-01-10",
+        "date": "2026-01-12",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4412,12 +4412,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "f1d46654c8380cd9a563d33e3d6bf43d30617d4f",
-            "sha256": "sha256-7cbK7UE/2EgVn4tK9m4+RO+qyNZSAvJq9leAn/vpRU8=",
+            "rev": "02a57c4ccdc4b4adede18e57eb51be44ef035c85",
+            "sha256": "sha256-MpkITmfRgQK5TQA+mMU/i8FPxS/NrkkxJKxyFE+zHFA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f1d46654c8380cd9a563d33e3d6bf43d30617d4f"
+        "version": "02a57c4ccdc4b4adede18e57eb51be44ef035c85"
     },
     "unigine-heaven": {
         "cargoLocks": null,
@@ -4550,12 +4550,12 @@
             "name": null,
             "owner": "lucidrains",
             "repo": "vector-quantize-pytorch",
-            "rev": "1.27.15",
-            "sha256": "sha256-mlsw3dhl9Ny7jbwzJL22aaK/3Jh8MTThQJuoKVEpRJo=",
+            "rev": "1.27.16",
+            "sha256": "sha256-bJTyQPghVJ74Tl2P4qrfDxWWLPm5rZvaSUkRfSIFN7Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.27.15"
+        "version": "1.27.16"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,
