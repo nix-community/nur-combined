@@ -8,7 +8,7 @@
 }:
 buildMozillaMach rec {
   pname = "waterfox";
-  version = "6.6.7";
+  version = "6.6.8";
   applicationName = "Waterfox";
   binaryName = pname;
   branding = "waterfox/browser/branding";
@@ -16,7 +16,7 @@ buildMozillaMach rec {
     owner = "BrowserWorks";
     repo = "Waterfox";
     tag = version;
-    hash = "sha256-XDLoRrFom+Rm+U/d/9Dw75cBJbZ6VbXdPvihcd9PLwM=";
+    hash = "sha256-w3bRG6/Lhmco71CTapXPjl2ZIk0KkPGCg90qyL+YCFk=";
     fetchSubmodules = true;
     preFetch = ''
       export GIT_CONFIG_COUNT=1
