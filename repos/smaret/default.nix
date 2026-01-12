@@ -14,7 +14,7 @@
   lmfit = pkgs.python3Packages.callPackage ./pkgs/python-modules/lmfit { };
   photutils =  pkgs.python3Packages.callPackage ./pkgs/python-modules/photutils { };
   pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
-  pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { };
+  #pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { }; # broken
   radmc3d = pkgs.callPackage ./pkgs/radmc3d { };
   gildas = pkgs.callPackage ./pkgs/gildas { };
   imager = pkgs.callPackage ./pkgs/imager { };
