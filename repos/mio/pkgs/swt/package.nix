@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     x86_64-darwin.platform = "cocoa-macosx-x86_64";
     x86_64-darwin.hash = "sha256-Uns3fMoetbZAIrL/N0eVd42/3uygXakDdxpaxf5SWDI=";
     aarch64-darwin.platform = "cocoa-macosx-aarch64";
-    aarch64-darwin.hash = "sha256-G8DOuRuTdFneJSe8ZYdy6WUnFmuUiAyQexxdAOZkYRU=";
+    aarch64-darwin.hash = "sha256-jvxmoRFGquYClPgMqWi2ylw26YiGSG5bONnM1PcjlTM=";
   };
   passthru.srcMetadata =
     finalAttrs.passthru.srcMetadataByPlatform.${stdenv.hostPlatform.system} or null;
