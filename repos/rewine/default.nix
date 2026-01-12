@@ -26,7 +26,6 @@ with pkgs; rec {
   kylin-wayland-compositor = pkgs.callPackage ./pkgs/kylin-wayland-compositor {
     inherit kylin-wlroots;
   };*/
-  xcursor-viewer = pkgs.callPackage ./pkgs/xcursor-viewer { };
   git-commit-helper = pkgs.callPackage ./pkgs/git-commit-helper { };
   deepin-translation-utils = pkgs.callPackage ./pkgs/deepin-translation-utils { };
   wlanalyze = pkgs.callPackage ./pkgs/wlanalyze { };
