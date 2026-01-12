@@ -40,6 +40,7 @@
       vim
       # terminal utilities
       htop
+      jq
       unzip
       zip
       ;
