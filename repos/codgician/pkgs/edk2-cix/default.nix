@@ -52,9 +52,13 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   postPatch =
     let
       inherit (gcc14Stdenv.hostPlatform) system;
-      archPath = if system == "x86_64-linux" then "X86_64"
-                 else if system == "aarch64-linux" then "AARCH64"
-                 else throw "Unsupported build platform: ${system}";
+      archPath =
+        if system == "x86_64-linux" then
+          "X86_64"
+        else if system == "aarch64-linux" then
+          "AARCH64"
+        else
+          throw "Unsupported build platform: ${system}";
     in
     ''
       # Patch the pre-built binaries in edk2-non-osi before they're used
