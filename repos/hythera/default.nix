@@ -17,8 +17,12 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   rootapp = pkgs.callPackage ./pkgs/rootapp { };
-  waterfox-unwrapped = pkgs.callPackage ./pkgs/waterfox-unwrapped { };
   waterfox = pkgs.callPackage ./pkgs/waterfox {
     waterfox-unwrapped = pkgs.callPackage ./pkgs/waterfox-unwrapped { };
   };
+  waterfox-bin = pkgs.callPackage ./pkgs/waterfox-bin {
+    waterfox-bin-unwrapped = pkgs.callPackage ./pkgs/waterfox-bin-unwrapped { };
+  };
+  waterfox-bin-unwrapped = pkgs.callPackage ./pkgs/waterfox-bin-unwrapped { };
+  waterfox-unwrapped = pkgs.callPackage ./pkgs/waterfox-unwrapped { };
 }
