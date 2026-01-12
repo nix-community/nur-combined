@@ -17,12 +17,19 @@ stdenv.mkDerivation (finalAttrs: {
   hardeningDisable = [ "format" ];
 
   passthru.srcMetadataByPlatform = {
+    # Note: This may look like an error but the content of the src.zip is in fact
+    # equal on all linux systems as well as all darwin systems. Even though each
+    # of these zip archives themselves contains a different hash.
     x86_64-linux.platform = "gtk-linux-x86_64";
     x86_64-linux.hash = "sha256-lKAB2aCI3dZdt3pE7uSvSfxc8vc3oMSTCx5R+71Aqdk=";
-    x86_64-darwin.platform = "cocoa-macosx-x86_64";
-    x86_64-darwin.hash = "sha256-Uns3fMoetbZAIrL/N0eVd42/3uygXakDdxpaxf5SWDI=";
     aarch64-linux.platform = "gtk-linux-aarch64";
     aarch64-linux.hash = "sha256-lKAB2aCI3dZdt3pE7uSvSfxc8vc3oMSTCx5R+71Aqdk=";
+    ppc64le-linux.platform = "gtk-linux-ppc64le";
+    ppc64le-linux.hash = "sha256-lKAB2aCI3dZdt3pE7uSvSfxc8vc3oMSTCx5R+71Aqdk=";
+    riscv64-linux.platform = "gtk-linux-riscv64";
+    riscv64-linux.hash = "sha256-lKAB2aCI3dZdt3pE7uSvSfxc8vc3oMSTCx5R+71Aqdk=";
+    x86_64-darwin.platform = "cocoa-macosx-x86_64";
+    x86_64-darwin.hash = "sha256-Uns3fMoetbZAIrL/N0eVd42/3uygXakDdxpaxf5SWDI=";
     aarch64-darwin.platform = "cocoa-macosx-aarch64";
     aarch64-darwin.hash = "sha256-G8DOuRuTdFneJSe8ZYdy6WUnFmuUiAyQexxdAOZkYRU=";
   };
@@ -41,26 +48,18 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (srcMetadata) hash;
       stripRoot = false;
       postFetch =
-        # On Darwin, copy the prebuilt swt.jar before processing sources and
-        # save it with a different name so it doesn't get removed.
-        if stdenv.hostPlatform.isDarwin then
-          ''
-            cp "$out/swt.jar" "$out/swt-prebuilt.jar" || echo "Warning: swt.jar not found"
-            ls -la "$out/"
-          ''
-        else
-          # On Linux, extract and use only the sources from src.zip
-          ''
-            mkdir "$unpackDir"
-            cd "$unpackDir"
+        # On Linux, extract and use only the sources from src.zip
+        lib.optionalString stdenv.hostPlatform.isLinux ''
+          mkdir "$unpackDir"
+          cd "$unpackDir"
 
-            renamed="$TMPDIR/src.zip"
-            mv -- "$out/src.zip" "$renamed"
-            unpackFile "$renamed"
-            rm -r -- "$out"
+          renamed="$TMPDIR/src.zip"
+          mv -- "$out/src.zip" "$renamed"
+          unpackFile "$renamed"
+          rm -r -- "$out"
 
-            mv -- "$unpackDir" "$out"
-          '';
+          mv -- "$unpackDir" "$out"
+        '';
     };
 
   nativeBuildInputs = [
@@ -83,9 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
   # https://github.com/eclipse-platform/eclipse.platform.swt/issues/652
   makeFlags = lib.optionals stdenv.hostPlatform.isLinux [ "gtk3" ];
 
-  # https://github.com/NixOS/nixpkgs/issues/459322#issuecomment-3702266566
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-std=gnu17";
-  # https://github.com/NixOS/nixpkgs/pull/461645/files
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux "sed -i '/^CFLAGS += -Werror$/d' library/make_linux.mak";
   preBuild = lib.optionalString stdenv.hostPlatform.isLinux ''
     cd library
@@ -109,8 +106,8 @@ stdenv.mkDerivation (finalAttrs: {
     install -d -- "$out/jars"
 
   ''
+  # On Darwin, use the prebuilt swt.jar which includes native libraries
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # On Darwin, use the prebuilt swt.jar which includes native libraries
     # Remove signature files to avoid validation errors after stripJavaArchivesHook modifies the jar
     mkdir -p jar-temp
     cd jar-temp
@@ -121,13 +118,9 @@ stdenv.mkDerivation (finalAttrs: {
     rm -rf jar-temp
 
   ''
+  # On Linux, build from source
   + lib.optionalString stdenv.hostPlatform.isLinux ''
-    # On Linux, build from source
     install -m 644 -t out -- version.txt
-
-    # Copy native libraries into the jar
-    cp -v ${finalAttrs.OUTPUT_DIR}/*.so out/ || true
-
     (cd out && jar -c *) > "$out/jars/swt.jar"
 
   ''
