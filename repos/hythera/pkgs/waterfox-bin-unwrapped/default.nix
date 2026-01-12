@@ -82,7 +82,6 @@ stdenv.mkDerivation {
     ffmpegSupport = true;
     gssSupport = true;
     gtk3 = gtk3;
-    updateScript = ./update.sh;
   };
 
   meta = {
