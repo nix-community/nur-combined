@@ -188,6 +188,7 @@ rec {
     pkgs.callPackage ./pkgs/linux-enable-ir-emitter/package.nix { }
   );
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
+  needy-girl-overdose-theme = pkgs.callPackage ./pkgs/needy-girl-overdose-theme { };
   ultimate-vocal-remover = pkgs.callPackage ./pkgs/ultimate-vocal-remover { };
   pake = pkgs.callPackage ./pkgs/pake { };
 
