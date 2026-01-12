@@ -6,15 +6,15 @@
     "query": "[0].tag_name",
     "tag_prefix": "v"
   },
-  "version": "3.6.4",
+  "version": "3.6.5",
   "platforms": {
     "aarch64-darwin": {
       "file": "Passepartout.arm64.dmg",
-      "hash": "sha256-7ikAOo213tayT8CLxT9FLvux4GyNM7Ys3Uu3jcCw5qE="
+      "hash": "sha256-1wEOES60XmFhNpdJpsMQ8mOFz/rkSNC+bKwtgL4aLZg="
     },
     "x86_64-darwin": {
       "file": "Passepartout.x86_64.dmg",
-      "hash": "sha256-+mybrMy5EElyqaeeVpJdfN8evFjTorcx6MmxqX7pO4U="
+      "hash": "sha256-uVlIs9PBcmyEkQ+mm0m1L0MIEg8flihvBCr3GDAy+Ok="
     }
   }
 }
