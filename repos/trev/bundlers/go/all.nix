@@ -52,7 +52,7 @@ builtins.listToAttrs (
     pkgs.lib.attrsets.nameValuePair "go-compress-${target.normalized}" (
       drv:
       import ./compress.nix {
-        inherit drv;
+        inherit pkgs drv;
         goos = target.goos;
         goarch = target.goarch;
         normalized = target.normalized;
