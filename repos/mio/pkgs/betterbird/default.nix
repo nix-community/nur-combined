@@ -18,21 +18,21 @@ let
       crashreporterSupport = false;
     }).overrideAttrs
       rec {
-        version = "140.6.0esr";
+        version = "140.7.0esr";
         src = fetchurl {
           url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
           hash = "";
         };
       };
 
-  version = "140.6.0esr-bb16-build2";
+  version = "140.7.0esr-bb17";
   majVer = lib.versions.major version;
 
   betterbird-patches = fetchFromGitHub {
     owner = "Betterbird";
     repo = "thunderbird-patches";
     rev = "${version}";
-    hash = "sha256-2tjjeocCj1dDIPFPBiIlAQ84W0/B4oi487c/m8IXQvo=";
+    hash = "sha256-4eEKiBsuWe0dmetNdJfd5QcBp0yi8dTm2pgGBhIYl1E=";
   };
 
   remote-patch-data = lib.importJSON ./patchdata.json;
@@ -51,12 +51,12 @@ let
   remote-patches-folder = linkFarmFromDrvs "betterbird-remote-patches" remote-patches;
 
   # Fetch and extract comm subdirectory
-  # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb16-build2/140/140.sh
+  # see https://github.com/Betterbird/thunderbird-patches/blob/140.7.0esr-bb17/140/140.sh
   comm-source = fetchhg {
     name = "comm-source";
     url = "https://hg.mozilla.org/releases/comm-esr140";
-    rev = "bdcc941c35b0b6de74ee4b44c694aebf5507c5cd";
-    hash = "sha256-aBAIUTev8oG1o+niuxJwsK+5YI2ES1WzTjHg0RC4hCU=";
+    rev = "baaa8c417478171703450031e7e0529efded6e6d";
+    hash = "sha256-oHkDZLbY/yzbPbhjU0fvTAvSaA0EqHFkzjuCTt6SIbE=";
   };
 in
 (
@@ -72,12 +72,12 @@ in
     branding = "comm/mail/branding/betterbird";
     inherit (thunderbird-unwrapped) extraPatches;
 
-    # see https://github.com/Betterbird/thunderbird-patches/blob/140.6.0esr-bb16-build2/140/140.sh
+    # see https://github.com/Betterbird/thunderbird-patches/blob/140.7.0esr-bb17/140/140.sh
     src = fetchhg {
       name = "mozilla-source";
       url = "https://hg.mozilla.org/releases/mozilla-esr140";
-      rev = "18556c0b079c839f4d15597a57b0f048fdadcedd";
-      hash = "sha256-qU0lc3pDcyPf34c/Kr7rtG+3MKJVNm33sSqATiJdIxM=";
+      rev = "82e96a128bf5e3e7dd6e5180c9528f623ba5e0f7";
+      hash = "sha256-4eEKiBsuWe0dmetNdJfd5QcBp0yi8dTm2pgGBhIYl1E=";
     };
 
     unpackPhase = ''

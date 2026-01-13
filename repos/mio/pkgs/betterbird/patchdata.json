@@ -115,11 +115,6 @@
     "hash": "sha256-bxS5d/NUR+hP3fL42Naow7rCECVMeWH2WPiUywsvPrM="
   },
   {
-    "url": "https://hg.mozilla.org/comm-central/raw-rev/ffa7c4e79a0a",
-    "name": "1986642-crash-onstoprunningurl.patch",
-    "hash": "sha256-w+E6zEOk80aJ+K7wdEfaQjYIM1rCww+F0sCO7WK/E7U="
-  },
-  {
     "url": "https://hg.mozilla.org/comm-central/raw-rev/feb815f624ac",
     "name": "694780-disable-copy-news-filter.patch",
     "hash": "sha256-tUE3RpL91NuhRUCdooA8EOwSAZzlioVytM33HsJ/zjI="
@@ -268,6 +263,26 @@
     "url": "https://hg.mozilla.org/comm-central/raw-rev/b418552d0dab",
     "name": "341266-remove-read-folders-from-unread.patch",
     "hash": "sha256-b0P0ZHOMDkbFfP2jcmhLkt5x9kbyglvTP2l69tdzxIk="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/df1e574ed722",
+    "name": "729685-Windows-time-zone-name.patch",
+    "hash": "sha256-O7jYV//DKkM8KfRUuOzWee1P6FbnDV0SVIoJhcYp5FM="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/0345b619be9b",
+    "name": "2008485-avoid-CalDAV-sync-jank.patch",
+    "hash": "sha256-xEyXChspLSOPTWPC9/PmRLitvwEIhPE8SOoG5VxHmq0="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/b90bb9f675c5",
+    "name": "1996650-fix-crash-in-LocalRenameOrReparentFolder.patch",
+    "hash": "sha256-CNTQZxSJ2Hk/EV0o06xilFj1W9KUsjL0/lZqQIQ9vyg="
+  },
+  {
+    "url": "https://hg.mozilla.org/comm-central/raw-rev/375f48c3f909",
+    "name": "1742234-find-in-settings.patch",
+    "hash": "sha256-vZWUwAdBKWKoWp75AaoET40/kEBlXrCDnwDXbgE1goo="
   },
   {
     "url": "https://hg.mozilla.org/mozilla-central/raw-rev/f0dedf9da0fb",
