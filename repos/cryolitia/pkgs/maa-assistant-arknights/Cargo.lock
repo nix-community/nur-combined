@@ -1041,6 +1041,7 @@ dependencies = [
 name = "maa-ffi-string"
 version = "0.1.0"
 dependencies = [
+ "maa-str-ext",
  "thiserror 2.0.17",
 ]
 
@@ -1060,6 +1061,10 @@ dependencies = [
  "ureq",
  "zip",
 ]
+
+[[package]]
+name = "maa-str-ext"
+version = "0.1.0"
 
 [[package]]
 name = "maa-sys"
