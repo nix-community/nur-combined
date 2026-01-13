@@ -77,7 +77,7 @@ in
       name = "mozilla-source";
       url = "https://hg.mozilla.org/releases/mozilla-esr140";
       rev = "82e96a128bf5e3e7dd6e5180c9528f623ba5e0f7";
-      hash = "sha256-4eEKiBsuWe0dmetNdJfd5QcBp0yi8dTm2pgGBhIYl1E=";
+      hash = "sha256-kg0vs70rMYUk4zSI3Xs7RU/9kyU6BXzS9LdZMMNksyQ=";
     };
 
     unpackPhase = ''
