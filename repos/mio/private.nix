@@ -9,6 +9,7 @@
 rec {
   lib = pkgs.lib;
   stdenv = pkgs.stdenv;
+  # TODO: -Wl,--threads -Wl,--thread-count,xxx
   fixcmake =
     x:
     x.overrideAttrs (old: {
