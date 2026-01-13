@@ -74,6 +74,7 @@
                 nix-fix-hash
                 nixfmt
                 prettier
+                nix-update
                 update
               ];
             shellHook =

@@ -1,15 +1,17 @@
 {
-  lib,
-  stdenv,
   fetchFromGitHub,
+  fetchPnpmDeps,
+  lib,
   makeWrapper,
+  nix-update-script,
+  nixosTests,
   nodejs,
-  pnpm_10,
+  pnpm,
+  pnpmConfigHook,
   python3,
+  stdenv,
   testers,
   xcbuild,
-  nixosTests,
-  nix-update-script,
   yq-go,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -35,13 +37,14 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     makeWrapper
     nodejs
-    pnpm_10.configHook
+    pnpm
+    pnpmConfigHook
     python3
     yq-go
   ]
   ++ lib.optional stdenv.hostPlatform.isDarwin xcbuild;
 
-  pnpmDeps = pnpm_10.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 2;
     hash = "sha256-qE6c2lodopm1XHabijwcgehDgghEHRb9QGFcY8hvrFg=";

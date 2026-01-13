@@ -14,7 +14,8 @@
   "dependencyDashboardTitle": "Dependency Dashboard",
   "lockFileMaintenance": {
     "enabled": true,
-    "automerge": true
+    "automerge": true,
+    "schedule": ["* * * * 0"] // sunday
   },
   "nix": {
     "enabled": true

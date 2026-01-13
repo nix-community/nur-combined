@@ -29,16 +29,16 @@ let
   subDerivations = lib.attrsets.mapAttrs (
     _: top:
     lib.filterAttrs (
-      name: sub:
-      lib.isDerivation sub
+      name: subdrv:
+      lib.isDerivation subdrv
       # is not created by mkDerivation
       && (builtins.elem name (builtins.attrNames emptyDerivation) == false)
       # contains a valid updateScript
       && (
-        sub ? "updateScript"
-        && builtins.isString sub.updateScript
+        subdrv ? "updateScript"
+        && builtins.isString subdrv.updateScript
         && lib.lists.any (cmd: lib.strings.hasSuffix "nix-update" cmd) (
-          lib.strings.splitString " " sub.updateScript
+          lib.strings.splitString " " subdrv.updateScript
         )
       )
     ) top

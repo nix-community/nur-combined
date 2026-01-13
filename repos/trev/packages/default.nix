@@ -5,6 +5,7 @@
 {
   bobgen = pkgs.callPackage ./bobgen { };
   bumper = pkgs.callPackage ./bumper { };
+  fetch-hash = pkgs.callPackage ./fetch-hash { };
   ffmpeg-quality-metrics = pkgs.callPackage ./ffmpeg-quality-metrics { };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-flake-release = pkgs.callPackage ./nix-flake-release { };
