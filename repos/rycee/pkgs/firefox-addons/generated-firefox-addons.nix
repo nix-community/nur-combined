@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.26.0";
+      version = "1.26.1";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4638259/10ten_ja_reader-1.26.0.xpi";
-      sha256 = "f71ded8168b60439f78ca6c720c7a00c2407faf1cd0be71ea42edd08ef2e1ef0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4649272/10ten_ja_reader-1.26.1.xpi";
+      sha256 = "dded5e22efda4314ae7764ac95145acead6992f1500ddb56376d686d0ab23702";
       meta = with lib;
       {
         homepage = "https://10ten.life";
@@ -2725,10 +2725,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "147.0.20260105.210555";
+      version = "148.0.20260112.172829";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658444/dansk_da_language_pack-147.0.20260105.210555.xpi";
-      sha256 = "fbc14e96dc6c6b2e750234c0b342a9bba2aa9b0163e755ea093109aac5dbf72e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4663610/dansk_da_language_pack-148.0.20260112.172829.xpi";
+      sha256 = "78c7f202ed022772f70ede0e2df6de35c4f30c2aa477b920d9ec8b8fa98a1bcf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2938,10 +2938,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "147.0.20260105.210555";
+      version = "148.0.20260112.172829";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658449/deutsch_de_language_pack-147.0.20260105.210555.xpi";
-      sha256 = "ee56b0850a58b39051ae3cc599e0a297dbf0e590e6196691c08dd6c44777d1f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4663632/deutsch_de_language_pack-148.0.20260112.172829.xpi";
+      sha256 = "82f535c013aa678f565a0fd2fea55b5e7bf41094b414f7d03c29ac99680128b7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4414,10 +4414,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "147.0.20260105.210555";
+      version = "148.0.20260112.172829";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658393/francais_language_pack-147.0.20260105.210555.xpi";
-      sha256 = "60d10dc9d9b8849ae9d0ad453d840149ecf277521abd5800f28d65a9af8743da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4663623/francais_language_pack-148.0.20260112.172829.xpi";
+      sha256 = "16fe0985b17d14e087952848daa1d153318cd0d91e15fedd09b4cf1bac3b3145";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4451,10 +4451,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "147.0.20260105.210555";
+      version = "148.0.20260112.172829";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658450/gaidhlig_language_pack-147.0.20260105.210555.xpi";
-      sha256 = "e945ec3790308bbfaf8f0437658703870fa5180cd5a4a73513095e3fbe11a495";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4663601/gaidhlig_language_pack-148.0.20260112.172829.xpi";
+      sha256 = "70490665e68733e17df6fb67d449cfe156ddaa9fbdef83cfb0e0ac298a2ae15f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -12083,10 +12083,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "147.0.20260105.210555";
+      version = "148.0.20260112.172829";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658440/scots_language_pack-147.0.20260105.210555.xpi";
-      sha256 = "7385a4f4ce79f215951a6265bddecde8f2e74479ac34649c92481c1962ad4679";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4663685/scots_language_pack-148.0.20260112.172829.xpi";
+      sha256 = "1efda720cda43a98ecf55c75face58c7621a2c90fb7d29aa116c63492f19bad7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14115,10 +14115,10 @@
     };
     "tweaks-for-youtube" = buildFirefoxXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.86.1";
+      version = "3.86.2";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4643776/tweaks_for_youtube-3.86.1.xpi";
-      sha256 = "4282dce5dece1d5cf52aa1d41be8f74f4dea26f8d7899f9b70e2fafba0eb6b69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4663339/tweaks_for_youtube-3.86.2.xpi";
+      sha256 = "b476eb7a35354df7a5bf5c3f518520773fcefe16dd6fd77d9e2eb612b50ebcbe";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
@@ -16115,10 +16115,10 @@
     };
     "youtube-suite-search-fixer" = buildFirefoxXpiAddon {
       pname = "youtube-suite-search-fixer";
-      version = "8.3";
+      version = "9.0.3";
       addonId = "MinYT@example.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4563931/youtube_suite_search_fixer-8.3.xpi";
-      sha256 = "93d1954c1c0321b59bd8075eaaa21504c164889372aef0a1d3fdd04e40912751";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4663298/youtube_suite_search_fixer-9.0.3.xpi";
+      sha256 = "6c2f784d1fcfc91bbe7af566f4d532c05f9d25ca80d8284501105814e3e2228e";
       meta = with lib;
       {
         homepage = "https://phoennix.gitlab.io/youtubesearchfix/";
