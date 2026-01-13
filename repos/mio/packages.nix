@@ -147,7 +147,7 @@ rec {
   miscutil = pkgs.callPackage ./pkgs/miscutil { };
   gifcurry = lib.mkIf (!nurbot) (pkgs.callPackage ./pkgs/gifcurry { });
   rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
-    rocksmithCustomSongToolkit = rocksmith-custom-song-toolkit;
+    rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
   bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
   art-standalone = pkgs.callPackage ./pkgs/art-standalone/package.nix {
@@ -291,14 +291,25 @@ rec {
     studioVariant = true;
   };
 
-  /*
-    mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
+  mkwindowsapp-tools = lib.mkIf (!nurbot) (
+    callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; }
+  );
 
+  /*
     line = callPackage ./pkgs/line.nix {
       inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
       wine = pkgs.wineWowPackages.base;
     };
   */
+
+  notepadpp = lib.mkIf (!nurbot) (
+    callPackage ./pkgs/notepad++.nix {
+      inherit pkgs;
+      build = lib;
+      #wine = pkgs.wineWowPackages.base;
+    }
+  );
+
   prismlauncher-diegiwg =
     let
       # https://github.com/NixOS/nixpkgs/blob/ab0821a8289da5bd2cde49ae89cbf6db1e5931ae/pkgs/by-name/pr/prismlauncher/package.nix#L41

@@ -36,16 +36,14 @@ in
     lib.last
   ];
 
-  /*
-    mkWindowsApp = callPackage ../pkgs/mkwindowsapp {
-      makeBinPath = pkgs.lib.makeBinPath;
-    };
+  mkWindowsApp = callPackage ../pkgs/mkwindowsapp {
+    makeBinPath = pkgs.lib.makeBinPath;
+  };
 
-    mkWindowsAppNoCC = callPackage ../pkgs/mkwindowsapp {
-      stdenv = pkgs.stdenvNoCC;
-      makeBinPath = pkgs.lib.makeBinPath;
-    };
-    copyDesktopIcons = pkgs.makeSetupHook { name = "copyDesktopIcons"; } ./hooks/copy-desktop-icons.sh;
-    makeDesktopIcon = callPackage ./lib/makeDesktopIcon.nix { };
-  */
+  mkWindowsAppNoCC = callPackage ../pkgs/mkwindowsapp {
+    stdenv = pkgs.stdenvNoCC;
+    makeBinPath = pkgs.lib.makeBinPath;
+  };
+  copyDesktopIcons = pkgs.makeSetupHook { name = "copyDesktopIcons"; } ./hooks/copy-desktop-icons.sh;
+  makeDesktopIcon = callPackage ./lib/makeDesktopIcon.nix { };
 }
