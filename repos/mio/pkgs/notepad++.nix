@@ -39,6 +39,8 @@ mkWindowsAppNoCC rec {
   '';
 
   winAppRun = ''
+    $WINE reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d 216 /f
+    $WINE reg add "HKCU\Control Panel\Desktop" /v Win8DpiScaling /t REG_DWORD /d 1 /f
     $WINE start /unix "$WINEPREFIX/drive_c/Program Files/Notepad++/notepad++.exe" "$ARGS"
   '';
 

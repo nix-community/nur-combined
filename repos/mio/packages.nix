@@ -11,6 +11,7 @@
 }:
 with (import ./private.nix { inherit pkgs; });
 let
+  nonurbot = x: if nurbot then null else x;
   callPackage = pkgs.callPackage;
   lib = pkgs.lib // import ./lib { inherit pkgs; };
   stdenv = pkgs.stdenv;
@@ -145,7 +146,7 @@ rec {
   );
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   miscutil = pkgs.callPackage ./pkgs/miscutil { };
-  gifcurry = lib.mkIf (!nurbot) (pkgs.callPackage ./pkgs/gifcurry { });
+  gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
   rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
@@ -291,7 +292,7 @@ rec {
     studioVariant = true;
   };
 
-  mkwindowsapp-tools = lib.mkIf (!nurbot) (
+  mkwindowsapp-tools = nonurbot (
     callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; }
   );
 
@@ -302,7 +303,7 @@ rec {
     };
   */
 
-  notepadpp = lib.mkIf (!nurbot) (
+  notepadpp = nonurbot (
     callPackage ./pkgs/notepad++.nix {
       inherit pkgs;
       build = lib;
