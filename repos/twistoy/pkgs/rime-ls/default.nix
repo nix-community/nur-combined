@@ -27,8 +27,6 @@ rustPlatform.buildRustPackage {
 
   doCheck = false;
 
-  useFetchCargoVendor = true;
-
   meta = with lib; {
     description = "A language server for Rime input method engine";
     homepage = "https://github.com/wlh320/rime-ls";

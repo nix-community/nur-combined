@@ -1,35 +1,35 @@
 {
   lib,
-  python3,
+  python3Packages,
   fetchPypi,
+  nur-pkgs,
 }:
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "gersemi";
-  version = "0.11.0";
-  format = "setuptools";
+  version = "0.25.1";
+  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-K8ZbVVYiEazdjbuAUa8r9lJyjOPt2jsKbUAovTx9XeY=";
+    hash = "sha256-oRn1/wxRM7JecqXDn3ciU1dByzEfZq4XvxqvHRGQdRo=";
   };
 
-  # Remove dataclasses backport requirement since it doesn't work on newer
-  # Python.
-  patchPhase = ''
-    sed -i '/dataclasses/d' setup.py
-  '';
-
-  propagatedBuildInputs = with python3.pkgs; [
-    appdirs
-    colorama
-    lark
-    pyyaml
+  build-system = with python3Packages; [
+    setuptools
   ];
+
+  dependencies =
+    (with python3Packages; [
+      lark
+      pyyaml
+      platformdirs
+    ])
+    ++ [nur-pkgs.ignore-python];
 
   meta = {
     description = "A formatter to make your CMake code the real treasure";
     homepage = "https://github.com/BlankSpruce/gersemi";
     license = lib.licenses.mpl20;
-    platforms = python3.meta.platforms;
+    mainProgram = "gersemi";
   };
 }
