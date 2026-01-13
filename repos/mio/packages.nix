@@ -298,7 +298,7 @@ rec {
 
   line = callPackage ./pkgs/line.nix {
     inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-    wine = pkgs.wineWowPackages.base;
+    wine = pkgs.wineWowPackages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
   };
 
   # https://github.com/NixOS/nixpkgs/issues/10165
@@ -307,7 +307,7 @@ rec {
     callPackage ./pkgs/notepad++.nix {
       inherit pkgs;
       build = lib;
-      wine = pkgs.wineWowPackages.base;
+      wine = pkgs.wineWowPackages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
     }
   );
 
