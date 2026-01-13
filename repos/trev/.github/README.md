@@ -98,7 +98,7 @@ nix run github:spotdemo4/nur#shellhook
 
 ## Bundlers
 
-A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle) mainly used for cross-compilation. The `system` is in the format given by `builtins.currentSystem`.
+A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle) mainly used for cross-compilation. The `system` is in the format given by `builtins.currentSystem` ([examples](https://github.com/NixOS/nixpkgs/blob/master/lib/systems/flake-systems.nix)).
 
 ### deno-`system`
 
@@ -123,6 +123,14 @@ Overrides `pkgs.buildGoModule` to build a go module for the given system
 
 ```elm
 nix bundle --bundler github:spotdemo4/nur#go-x86_64-linux
+```
+
+### go-compress-`system`
+
+Overrides `pkgs.buildGoModule` to build a go module for the given system and compresses the output with [upx](https://upx.github.io/)
+
+```elm
+nix bundle --bundler github:spotdemo4/nur#go-compress-x86_64-linux -o binary
 ```
 
 ## Libs
