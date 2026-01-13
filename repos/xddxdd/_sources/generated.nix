@@ -253,12 +253,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.6.103";
+    version = "v6.6.104";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.6.103";
-      hash = "sha256-vcvvHgfwfzj4GpL5mpckQ9mG5z+/Kd0QTbZ0e1DVtuQ=";
+      tag = "v6.6.104";
+      hash = "sha256-xAzs0L3Vl34rh9UD5mcH1XRT7IQzng2nf6ujPirGLwI=";
     };
   };
   cockpy = {
@@ -766,25 +766,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.01.10";
+    version = "2026.01.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.10/GeoLite2-ASN.mmdb";
-      hash = "sha256-PMeAWO0fkdSCU8nugwoySrfpf9yWu9OD4u1hB1Y6uCc=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.13/GeoLite2-ASN.mmdb";
+      hash = "sha256-7Y0T5O0XxGldQHiiixJu9Kbg8BeGf0eSOZvImAHPAmY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.01.10";
+    version = "2026.01.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.10/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.13/GeoLite2-City.mmdb";
       hash = "sha256-Mb626u00r1drB7ALcbSydqV4ndAZSHDVvrpvaOYcJiE=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.01.10";
+    version = "2026.01.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.10/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.13/GeoLite2-Country.mmdb";
       hash = "sha256-wKz+GaOAmfezM5rDhWNVpV4t2NjmSfIjGxAxL6548+E=";
     };
   };
@@ -954,14 +954,14 @@
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";
-    version = "64899a286e6ee3a5e4ef5382b8bd539201a1909a";
+    version = "e0c1eabb6000bd90270543a820f2f9453679a12b";
     src = fetchFromGitHub {
       owner = "FoxIO-LLC";
       repo = "ja4-nginx-module";
-      rev = "64899a286e6ee3a5e4ef5382b8bd539201a1909a";
-      hash = "sha256-Tvro90DXL7QfGRdT+N09R/HV63DiTLh01SO+FIlw58Y=";
+      rev = "e0c1eabb6000bd90270543a820f2f9453679a12b";
+      hash = "sha256-UwBFxzZ6dJPAVu/EDc3zLmUcluYomO3RtcNhetct4c4=";
     };
-    date = "2025-11-23";
+    date = "2026-01-13";
   };
   jproxy = {
     pname = "jproxy";
@@ -1149,24 +1149,24 @@
   };
   linguaspark-server = {
     pname = "linguaspark-server";
-    version = "c41c1c6cfd4672522e2665e8c789b56839a82154";
+    version = "f0fdbea22d52fcf9c215825207f285bf5bad3b06";
     src = fetchFromGitHub {
       owner = "LinguaSpark";
       repo = "server";
-      rev = "c41c1c6cfd4672522e2665e8c789b56839a82154";
+      rev = "f0fdbea22d52fcf9c215825207f285bf5bad3b06";
       fetchSubmodules = true;
-      hash = "sha256-sDM0pLmUl+UgJRqQ5SZB7tH8CTJWkf/i94fwYiw1Bkk=";
+      hash = "sha256-Puc+jsRbzGv5AdWuZT9ZH1DjjJHwTDmE6DujBqOXGGM=";
     };
-    date = "2025-10-12";
+    date = "2026-01-13";
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7712";
+    version = "b7723";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7712";
-      hash = "sha256-lWBPdJJUBmbXIBQ38fh9xl84jS3tXyWSBAoE/GWGC/0=";
+      tag = "b7723";
+      hash = "sha256-Ldz1QNNGgefadrDScPARURV2WEHstbvlRO47y37HbFs=";
     };
   };
   loralib = {
@@ -1344,12 +1344,12 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.9.4";
+    version = "0.9.5";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      tag = "0.9.4";
-      hash = "sha256-Ee55QKaeZ0mYGKUroKr/AYGoOCakEonU483qkhmZdzU=";
+      tag = "0.9.5";
+      hash = "sha256-mmMXtVtAwOrblfg6VkWK2nTyQGjhmEc8ZdHvytP2+CE=";
     };
   };
   ngx_brotli = {
@@ -1589,12 +1589,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.8.1";
+    version = "v2.9.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.8.1";
-      hash = "sha256-SpSKERzm4tKo5WvqNYiq/TfwSJY+oQWNQ93ENAA06Yc=";
+      tag = "v2.9.0";
+      hash = "sha256-amPVa9OUi8Y4zdLNfWVFY6PeBOGnAoEYN5HxjT7U9co=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -1628,14 +1628,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "00605c9dfb015d703ac779b2b9978a4e90023626";
+    version = "c1cc803d46de468868dd6d74eb6e2987d577edee";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "00605c9dfb015d703ac779b2b9978a4e90023626";
-      hash = "sha256-YzBheU+tociz8bYTJI7bh2xBC+2dPy0ZH8c9m7PPSPA=";
+      rev = "c1cc803d46de468868dd6d74eb6e2987d577edee";
+      hash = "sha256-VfUGm7uJwEo6Xl274KL3SsSOct4kix230gIF2QNdviE=";
     };
-    date = "2026-01-05";
+    date = "2026-01-13";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -2254,15 +2254,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "02a57c4ccdc4b4adede18e57eb51be44ef035c85";
+    version = "ec069a781092b29b83f1c76e3e7936300d7fe9e5";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "02a57c4ccdc4b4adede18e57eb51be44ef035c85";
+      rev = "ec069a781092b29b83f1c76e3e7936300d7fe9e5";
       fetchSubmodules = true;
-      hash = "sha256-MpkITmfRgQK5TQA+mMU/i8FPxS/NrkkxJKxyFE+zHFA=";
+      hash = "sha256-L6KY/Yb3QsHgYYVPXoX2Io3anlfTTEEBzZD93B6622U=";
     };
-    date = "2026-01-12";
+    date = "2026-01-13";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2326,12 +2326,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.27.16";
+    version = "1.27.19";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.27.16";
-      hash = "sha256-bJTyQPghVJ74Tl2P4qrfDxWWLPm5rZvaSUkRfSIFN7Y=";
+      tag = "1.27.19";
+      hash = "sha256-vUfZFnd8napr1aYQxoqLHPidwBN45vnxiVY2DgeIwXs=";
     };
   };
   vgpu-unlock-rs = {
