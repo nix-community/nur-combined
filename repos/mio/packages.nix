@@ -296,12 +296,10 @@ rec {
     callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; }
   );
 
-  /*
-    line = callPackage ./pkgs/line.nix {
-      inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-      wine = pkgs.wineWowPackages.base;
-    };
-  */
+  line = callPackage ./pkgs/line.nix {
+    inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+    wine = pkgs.wineWowPackages.base;
+  };
 
   # https://github.com/NixOS/nixpkgs/issues/10165
   # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1
