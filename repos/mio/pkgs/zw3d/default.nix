@@ -8,6 +8,8 @@
   qt5,
   wayland,
   libglvnd,
+  xkeyboard_config,
+  xorg,
   libjpeg_turbo,
   libwebp,
   freetype,
@@ -50,6 +52,9 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
     libglvnd
     stdenv.cc.cc.lib
+    xorg.libX11
+    xorg.libXmu
+    xorg.libXt
     libjpeg_turbo
     libwebp
     freetype
@@ -95,6 +100,11 @@ stdenv.mkDerivation (finalAttrs: {
     wrapperArgs=()
     test -n "$lib3rd" && wrapperArgs+=(--prefix LD_LIBRARY_PATH : "$lib3rd")
     mkdir -p "$out/bin"
+    wrapperArgs+=(
+      --set QTCOMPOSE ${xorg.libX11.out}/share/X11/locale
+      --set QT_XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb
+      --set XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb
+    )
     makeWrapper "$bin" "$out/bin/zw3d" "''${wrapperArgs[@]}"
 
     runHook postInstall
@@ -108,6 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "ZW3D proprietary CAD software";
     homepage = "https://www.zwsoft.cn/product/zw3d/linux";
     license = lib.licenses.unfree;
+    mainProgram = "zw3d";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
