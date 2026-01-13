@@ -211,6 +211,9 @@ rec {
   );
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
   needy-girl-overdose-theme = pkgs.callPackage ./pkgs/needy-girl-overdose-theme { };
+  zw3d = pkgs.callPackage ./pkgs/zw3d {
+    notoFontsCjk = pkgs.noto-fonts-cjk-sans;
+  };
   ultimate-vocal-remover = pkgs.callPackage ./pkgs/ultimate-vocal-remover { };
   pake = pkgs.callPackage ./pkgs/pake { };
 
