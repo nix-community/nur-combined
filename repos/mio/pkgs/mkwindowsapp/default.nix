@@ -1,3 +1,4 @@
+# mio patch: DPI
 # Based on code from: https://raw.githubusercontent.com/lucasew/nixcfg/fd523e15ccd7ec2fd86a3c9bc4611b78f4e51608/packages/wrapWine.nix
 {
   stdenv,
@@ -16,6 +17,7 @@
   writeScript,
   rsync,
   systemd,
+  pkgs,
 }:
 {
   wine,
@@ -316,6 +318,9 @@ let
       if [ $WA_RUN_APP -eq 1 ]
       then
         ${lib.optionalString enableHUD "export MANGOHUD=\"${hudCommand}\""}
+        DPI=$(${lib.getExe pkgs.xorg.xrdb} -query | ${lib.getExe pkgs.gawk} '/Xft.dpi/ {print int($2)}')
+        $WINE reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d $DPI /f
+        $WINE reg add "HKCU\Control Panel\Desktop" /v Win8DpiScaling /t REG_DWORD /d 1 /f
         ${winAppRun}
         ${lib.optionalString inhibitIdle "${systemd}/bin/systemd-inhibit --no-ask-password --what=idle --who=\"${attrs.pname}\" --why=\"To prevent the screen from turning off.\" --mode=block"} wineserver -w
       else

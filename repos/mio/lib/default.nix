@@ -38,11 +38,13 @@ in
 
   mkWindowsApp = callPackage ../pkgs/mkwindowsapp {
     makeBinPath = pkgs.lib.makeBinPath;
+    pkgs = pkgs;
   };
 
   mkWindowsAppNoCC = callPackage ../pkgs/mkwindowsapp {
     stdenv = pkgs.stdenvNoCC;
     makeBinPath = pkgs.lib.makeBinPath;
+    pkgs = pkgs;
   };
   copyDesktopIcons = pkgs.makeSetupHook { name = "copyDesktopIcons"; } ./hooks/copy-desktop-icons.sh;
   makeDesktopIcon = callPackage ./lib/makeDesktopIcon.nix { };
