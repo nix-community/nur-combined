@@ -34,9 +34,11 @@ rec {
         in
         {
           devShells.default = pkgs.callPackage ./devshell.nix { inherit nvfetcher-bin; };
+          packages = {
+            inherit nvfetcher-bin;
+          };
           legacyPackages = {
             inherit (inputs) nixpkgs;
-            inherit nvfetcher-bin;
           };
         };
     };
