@@ -126,6 +126,10 @@ rec {
   #'';
   # audacity4 = nodarwin (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { });
   cb = pkgs.callPackage ./pkgs/cb { };
+  electron_castlabs_38 = pkgs.callPackage ./pkgs/electron-castlabs-38 { };
+  cider = pkgs.callPackage ./pkgs/cider {
+    electron = electron_castlabs_38;
+  };
   jellyfin-media-player = v3override (
     pkgs.kdePackages.callPackage ./pkgs/jellyfin-media-player {
       mpvqt = pkgs.kdePackages.mpvqt.overrideAttrs (old: {
