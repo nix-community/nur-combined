@@ -222,6 +222,9 @@ rec {
   };
   ultimate-vocal-remover = pkgs.callPackage ./pkgs/ultimate-vocal-remover { };
   pake = pkgs.callPackage ./pkgs/pake { };
+  chatgpt = pkgs.callPackage ./pkgs/chatgpt/package.nix {
+    inherit pake;
+  };
 
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
