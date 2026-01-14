@@ -28,6 +28,10 @@ Version bumper for projects using git and semantic versioning
 nix run github:spotdemo4/nur#bumper
 ```
 
+### [catppuccin/zen-browser](https://github.com/catppuccin/zen-browser)
+
+Catppuccin theme for Zen Browser
+
 ### [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
 
 Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)

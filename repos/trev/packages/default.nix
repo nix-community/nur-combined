@@ -5,6 +5,7 @@
 {
   bobgen = pkgs.callPackage ./bobgen { };
   bumper = pkgs.callPackage ./bumper { };
+  catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   ffmpeg-quality-metrics = pkgs.callPackage ./ffmpeg-quality-metrics { };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
