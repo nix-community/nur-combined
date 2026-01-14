@@ -1,0 +1,28 @@
+--- a/src/preload/cider-preload.js
++++ b/src/preload/cider-preload.js
+@@ -364,7 +364,10 @@
+ const tokenapi = {
+   get: () => {
+     return process.env.TOKEN_API || "https://api.cider.sh/v1/";
+-  }
++  },
++  token: () => {
++    return process.env.CIDER_TOKEN || "";
++  },
+ };
+ 
+ if (process.contextIsolated) {
+--- a/src/renderer/index.js
++++ b/src/renderer/index.js
+@@ -90,6 +90,11 @@
+ }
+ 
+ function capiInit() {
++  const envToken = window.tokenapi?.token?.();
++  if (envToken) {
++    initMusicKit.call({ responseText: JSON.stringify({ token: envToken }) });
++    return;
++  }
+   const request = new XMLHttpRequest();
+   request.timeout = 5000;
+   request.addEventListener("load", initMusicKit);
