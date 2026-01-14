@@ -1,9 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, callPackage
-, zig_0_14
-,
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  callPackage,
+  zig_0_14,
 }:
 
 stdenvNoCC.mkDerivation {

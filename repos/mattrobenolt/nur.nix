@@ -23,12 +23,10 @@ let
 
   # Create all go-bin_1_XX packages dynamically
   dynamicGoPackages = builtins.listToAttrs (
-    map
-      (majorMinor: {
-        name = "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor);
-        value = makeGo majorMinor;
-      })
-      (builtins.attrNames goVersions)
+    map (majorMinor: {
+      name = "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor);
+      value = makeGo majorMinor;
+    }) (builtins.attrNames goVersions)
   );
 in
 {
@@ -41,4 +39,4 @@ in
   modules = [ ];
   overlays = { };
 }
-  // dynamicGoPackages
+// dynamicGoPackages

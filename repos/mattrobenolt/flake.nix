@@ -7,10 +7,10 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    ,
+    {
+      self,
+      nixpkgs,
+      flake-utils,
     }:
     let
       # Load Go versions and hashes
@@ -30,7 +30,9 @@
 
       # Get the latest Go version (highest minor version)
       # Filter out "next" to only consider stable versions
-      latestGoVersion = builtins.head (builtins.sort (a: b: a > b) (builtins.filter (v: v != "next") (builtins.attrNames goVersions)));
+      latestGoVersion = builtins.head (
+        builtins.sort (a: b: a > b) (builtins.filter (v: v != "next") (builtins.attrNames goVersions))
+      );
 
       # Overlay that adds our custom packages
       overlay =
@@ -38,12 +40,10 @@
         let
           # Create all go-bin_1_XX packages dynamically
           dynamicGoPackages = builtins.listToAttrs (
-            map
-              (majorMinor: {
-                name = "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor);
-                value = makeGo prev majorMinor;
-              })
-              (builtins.attrNames goVersions)
+            map (majorMinor: {
+              name = "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor);
+              value = makeGo prev majorMinor;
+            }) (builtins.attrNames goVersions)
           );
         in
         {
@@ -105,23 +105,26 @@
         packages =
           let
             # Get all go-bin_1_XX package names dynamically
-            goPackageNames = map
-              (
-                majorMinor: "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor)
-              )
-              (builtins.attrNames goVersions);
+            goPackageNames = map (
+              majorMinor: "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor)
+            ) (builtins.attrNames goVersions);
             # Create attrset with all go packages
             goPackages = builtins.listToAttrs (
-              map
-                (name: {
-                  inherit name;
-                  value = pkgs.${name};
-                })
-                goPackageNames
+              map (name: {
+                inherit name;
+                value = pkgs.${name};
+              }) goPackageNames
             );
           in
           {
-            inherit (pkgs) zlint zlint-unstable go-bin uvShellHook inbox zigdoc;
+            inherit (pkgs)
+              zlint
+              zlint-unstable
+              go-bin
+              uvShellHook
+              inbox
+              zigdoc
+              ;
             default = self.packages.${system}.zlint;
           }
           // goPackages;
@@ -137,7 +140,7 @@
             zon2nix # Zig dependency generator
 
             # Nix formatter
-            nixpkgs-fmt # Official nixpkgs formatter
+            nixfmt-tree
 
             # Nix linters
             statix # Lints and suggests anti-patterns

@@ -4,8 +4,8 @@ default:
 
 # Format all Nix files
 fmt:
-    @echo "Formatting Nix files with nixpkgs-fmt..."
-    nixpkgs-fmt .
+    @echo "Formatting Nix files with treefmt..."
+    treefmt --excludes .direnv
     @echo "✓ Done"
 
 # Run linters
@@ -25,7 +25,7 @@ check:
     @echo "Running all checks..."
     @echo ""
     @echo "==> Checking formatting..."
-    @nixpkgs-fmt --check . && echo "✓ All files are formatted correctly" || echo "✗ Some files need formatting (run 'just fmt' to fix)"
+    @treefmt --excludes .direnv --fail-on-change . && echo "✓ All files are formatted correctly" || echo "✗ Some files need formatting (run 'just fmt' to fix)"
     @echo ""
     @just lint
 

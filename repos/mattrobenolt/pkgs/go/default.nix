@@ -1,9 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, version
-, hashes
-,
+{
+  lib,
+  stdenv,
+  fetchurl,
+  version,
+  hashes,
 }:
 
 let

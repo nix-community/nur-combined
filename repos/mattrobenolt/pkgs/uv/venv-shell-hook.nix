@@ -1,7 +1,10 @@
-{ lib, makeSetupHook, uv }:
-
-makeSetupHook
 {
+  lib,
+  makeSetupHook,
+  uv,
+}:
+
+makeSetupHook {
   name = "uv-venv-shell-hook";
   substitutions = {
     uv = lib.getExe uv;
