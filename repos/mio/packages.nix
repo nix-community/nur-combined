@@ -231,6 +231,9 @@ rec {
   apple-music = pkgs.callPackage ./pkgs/apple-music/package.nix {
     inherit makePakeApp;
   };
+  apple-music-desktop = pkgs.callPackage ./pkgs/apple-music-desktop/package.nix {
+    electron = electron_castlabs_38;
+  };
 
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
