@@ -1,2 +1,3 @@
 {
+  overlay = import ./overlay.nix;
 }

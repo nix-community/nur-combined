@@ -62,6 +62,8 @@
 
         overlays = import ./overlays;
 
+        nixosModules = import ./modules;
+
         devShells = {
           default = pkgs.mkShell {
             packages =
