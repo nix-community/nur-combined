@@ -117,13 +117,13 @@
   };
   linux-intel-mainline-tracking = {
     pname = "linux-intel-mainline-tracking";
-    version = "mainline-tracking-v6.11.10-linux-241202T040109Z";
+    version = "mainline-tracking-v6.17.11-linux-260107T074430Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "mainline-tracking";
-      rev = "mainline-tracking-v6.11.10-linux-241202T040109Z";
+      rev = "mainline-tracking-v6.17.11-linux-260107T074430Z";
       fetchSubmodules = false;
-      sha256 = "sha256-TlqDEFCu4IPmAm0NYHD5fyQy38Ce6BZbGEDu1FpJXd8=";
+      sha256 = "sha256-/1qSHHr74+sGQ1r55wNt15+fKXOGZPymuQ0ZI3XNXdc=";
     };
   };
   lpac = {
