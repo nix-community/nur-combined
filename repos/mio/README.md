@@ -13,6 +13,23 @@ To use modules: (Note that system isn't defined by default in some contexts. You
   ];
 ```
 
+Use without nur: add to flake.nix inputs
+
+```
+
+    mio = {
+      url = "git+https://github.com/mio-19/nurpkgs.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+```
+
+Some packages are only available without nur as they failed to evaluate under nur constraints:
+
++ gifcurry
++ line
++ notepad-plus-plus
++ adobe-acrobat-reader
+
 ## cache
 
 binary cache is provided as best effort. binary cache is frequently *NOT* up to date and you will frequently have to build packages from source code because github actions is often not sufficient to compile packages. Solutions to provide up to date binary cache do require money every month
