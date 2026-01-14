@@ -9,7 +9,7 @@
 }:
 let
   pname = "opengrep";
-  version = "1.14.0";
+  version = "1.14.1";
 
   binaries = {
     # aarch64-linux = fetchurl {
@@ -18,7 +18,7 @@ let
     # };
     x86_64-linux = fetchurl {
       url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_x86.tar.gz";
-      hash = "sha256-qtOg4dCHSS/jD+yW956f9TRDBbUn9BM24z2HQTn5KTA=";
+      hash = "sha256-Z/Rk0zc0wESt0i5ZfGKx9U3qzNglYiDDvDQpc9IN75E=";
     };
     # aarch64-darwin = fetchurl {
     #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";

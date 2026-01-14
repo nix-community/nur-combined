@@ -6,7 +6,7 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "ffmpeg-quality-metrics";
-  version = "3.10.0";
+  version = "3.11.0";
   pyproject = true;
 
   pythonRelaxDeps = true;
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     owner = "slhck";
     repo = "ffmpeg-quality-metrics";
     tag = "v${version}";
-    hash = "sha256-immWhYUsX9zEHLqJeBh3AjzEJn43HArFU9f4yIujNX0=";
+    hash = "sha256-nxqsgklLbqvtP/FzmJ7+TeHNUPcJAVX4ZGXphkW2uYA=";
   };
 
   build-system = with python3Packages; [
