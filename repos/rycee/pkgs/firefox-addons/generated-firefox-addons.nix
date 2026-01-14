@@ -1228,10 +1228,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2025.12.0";
+      version = "2025.12.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4640726/bitwarden_password_manager-2025.12.0.xpi";
-      sha256 = "0256a61e84e23903fd379f5971150a8b23a53a126da62d276d57e514408839cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664623/bitwarden_password_manager-2025.12.1.xpi";
+      sha256 = "a7a123eee4e40fdd8af7c0c67243731ddcc37ae1498cf2828995f4905600c51f";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1771,10 +1771,10 @@
     };
     "clearcache" = buildFirefoxXpiAddon {
       pname = "clearcache";
-      version = "4.4";
+      version = "4.5";
       addonId = "clearcache@michel.de.almeida";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4573847/clearcache-4.4.xpi";
-      sha256 = "0fd80a9e8efbb66df4cfb59e556ed03da10eb1b1b638ea653cbdee793aa19f36";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4646719/clearcache-4.5.xpi";
+      sha256 = "313b630b2f26600d2af4093a5bfd88ba5f98bc28ccee8c52c56ee6ce67e31ee5";
       meta = with lib;
       {
         homepage = "https://github.com/TenSoja/clear-cache";
@@ -3843,10 +3843,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.71";
+      version = "1.3.72.2";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4639818/faststream-1.3.71.xpi";
-      sha256 = "6ab8b161c5464d0126bcc9ddac7c28c9da26387b2154136a73a43f9f6ac443e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664185/faststream-1.3.72.2.xpi";
+      sha256 = "ab0a9ca496b37ddc0ca24b44ae095b51093d4c26e6cd48c08d054ca5427ecefb";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -4515,10 +4515,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.5.24";
+      version = "10.5.25";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4653652/ghostery-10.5.24.xpi";
-      sha256 = "e1410f10b5f699c75beb5a965b6e728bb77827ccaea8bbf0e8dca4c0b0321cef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664309/ghostery-10.5.25.xpi";
+      sha256 = "134044aa1ed52421669bc3a401aee1f4ff7a0e646cb41d00e2a64259671f5cc7";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -9039,10 +9039,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.9.5";
+      version = "1.9.7";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4661654/mtab-1.9.5.xpi";
-      sha256 = "d6343c8cc50095404890c98f0746a654573f69c440fa307d1d67ac3800eee418";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664822/mtab-1.9.7.xpi";
+      sha256 = "d3998eacad63a48f2d49da1e56b4c3b7884c550655ef134dabaa828d64432632";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9428,10 +9428,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.5.6";
+      version = "13.5.8";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658660/noscript-13.5.6.xpi";
-      sha256 = "e8606ce0fd2091426c7877f77e6d71cb6f4cb94ac11ca1bef652f61a6435ed6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664741/noscript-13.5.8.xpi";
+      sha256 = "b31064077be6bf73eab244e79ecaba0e2409866e6d65d18c1db47acc721dbb19";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -13681,10 +13681,10 @@
     };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "7.1.1";
+      version = "7.1.2";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4661538/tomato_clock-7.1.1.xpi";
-      sha256 = "97fd0fb72a5644e6284e0ba18ac1936ad330658c642cbe366cf19df3d2c8c4ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664807/tomato_clock-7.1.2.xpi";
+      sha256 = "868d841fda8718e534b6b687c5779112aa253318c95c707eac3cac38805252be";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
@@ -16054,10 +16054,10 @@
     };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
-      version = "4.4.1";
+      version = "4.4.2";
       addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4614226/youtube_screenshot_button-4.4.1.xpi";
-      sha256 = "62b73e12e8f8487a008d24eace084a3565bd99c3b357636806630210db32c184";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664688/youtube_screenshot_button-4.4.2.xpi";
+      sha256 = "b09eaedad09af35403e9f708aeac7f7056785caf5d176ceefb9de30613783e2c";
       meta = with lib;
       {
         homepage = "https://github.com/gurumukhi/youtube-screenshot";
