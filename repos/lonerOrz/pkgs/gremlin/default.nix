@@ -26,8 +26,8 @@ python3Packages.buildPythonApplication {
   src = fetchFromGitHub {
     owner = "iluvgirlswithglasses";
     repo = "linux-desktop-gremlin";
-    rev = "6e60cb607e0ee7d5f9c1ae95d9e97e41c17189e1";
-    hash = "sha256-mriMFBzmXnmPx4UiInZ3cT0bbvTnb/Sk/JiacqINsJI=";
+    rev = "3e488934e64d54d6908938a1a6349e84a2134020";
+    hash = "sha256-Aj2CLVdPkBW/dSChM2qPV5cWjB8fIJaxLImmkBT7ZaM=";
   };
 
   pyproject = true;
