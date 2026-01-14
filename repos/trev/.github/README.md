@@ -82,7 +82,7 @@ nix run github:spotdemo4/nur#qsvenc
 
 Cross-platform dependency automation, with patches for nix
 
-- patched with [renovate#37899](https://github.com/renovatebot/renovate/pull/37899) to fix flake updates
+- patched with [renovate#40282](https://github.com/renovatebot/renovate/pull/40282) to fix flake updates
 
 ```elm
 nix run github:spotdemo4/nur#renovate
@@ -98,7 +98,7 @@ nix run github:spotdemo4/nur#shellhook
 
 ## Bundlers
 
-A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle) mainly used for cross-compilation. The `system` is in the format given by `builtins.currentSystem` ([examples](https://github.com/NixOS/nixpkgs/blob/master/lib/systems/flake-systems.nix)).
+A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle) mainly used for cross-compilation. The `system` is in the format given by `builtins.currentSystem` ([systems](https://github.com/NixOS/nixpkgs/blob/master/lib/systems/flake-systems.nix)).
 
 ### deno-`system`
 

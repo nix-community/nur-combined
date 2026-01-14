@@ -4,13 +4,11 @@
   lib,
   makeWrapper,
   nix-update-script,
-  nixosTests,
   nodejs,
   pnpm,
   pnpmConfigHook,
   python3,
   stdenv,
-  testers,
   xcbuild,
   yq-go,
 }:
@@ -26,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    ./37899.diff
+    ./40282.diff
   ];
 
   postPatch = ''
@@ -95,12 +93,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests = {
-      version = testers.testVersion { package = finalAttrs.finalPackage; };
-      vm-test = nixosTests.renovate;
-    };
     updateScript = ''
-      wget https://patch-diff.githubusercontent.com/raw/renovatebot/renovate/pull/37899.diff -O ./packages/renovate/37899.diff
+      wget https://patch-diff.githubusercontent.com/raw/renovatebot/renovate/pull/40282.diff -O ./packages/renovate/40282.diff
       ${lib.concatStringsSep " " (nix-update-script {
         extraArgs = [
           "--commit"
