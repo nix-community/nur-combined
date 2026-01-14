@@ -1,0 +1,15 @@
+{
+  "name": "OpenEMU",
+  "source": {
+    "type": "github-release",
+    "repo": "OpenEmu/OpenEmu",
+    "query": "[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "OpenEmu_{version}.zip",
+    "unpack": false
+  },
+  "version": "2.4.1",
+  "hash": "sha256-UhyhMFwBLTj2+Qf1A5n++/TkWpu42dQGMVf/yniyF9Q="
+}

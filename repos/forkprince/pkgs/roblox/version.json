@@ -1,0 +1,14 @@
+{
+  "name": "Roblox",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/roblox.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "0.703.0.7031352,d0722e371e604117",
+  "asset": {
+    "url": "https://setup.rbxcdn.com/mac/arm64/version-d0722e371e604117-RobloxPlayer.zip",
+    "hash": "sha256-vhxwfqifYymk/4Sgq5nezjeaM8lkEYMJqLnsC8Zr88U="
+  }
+}

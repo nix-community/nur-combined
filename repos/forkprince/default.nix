@@ -18,11 +18,15 @@
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   passepartout = lib.callPackage ./pkgs/passepartout {};
+  redream-dev = lib.callPackage ./pkgs/redream-dev {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
   convierto = lib.callPackage ./pkgs/convierto {};
+  crossover = lib.callPackage ./pkgs/crossover {};
+  open-emu = lib.callPackage ./pkgs/open-emu {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};
+  roblox = lib.callPackage ./pkgs/roblox {};
   figura = lib.callPackage ./pkgs/figura {};
   achico = lib.callPackage ./pkgs/achico {};
   blip = lib.callPackage ./pkgs/blip {};
@@ -32,12 +36,14 @@
   sublime-text = lib.callPackage ./pkgs/sublime-text {};
   dolphin-emu = lib.callPackage ./pkgs/dolphin-emu {};
   obs-studio = lib.callPackage ./pkgs/obs-studio {};
+  retroarch = lib.callPackage ./pkgs/retroarch {};
   overlayed = lib.callPackage ./pkgs/overlayed {};
   tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
   ghostty = lib.callPackage ./pkgs/ghostty {};
   vscode = lib.callPackage ./pkgs/vscode {};
   heroic = lib.callPackage ./pkgs/heroic {};
+  pcsx2 = lib.callPackage ./pkgs/pcsx2 {};
   micro = lib.callPackage ./pkgs/micro {};
   gimp = lib.callPackage ./pkgs/gimp {};
 

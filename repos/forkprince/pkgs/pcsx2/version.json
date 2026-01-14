@@ -1,0 +1,15 @@
+{
+  "name": "PCSX2",
+  "source": {
+    "type": "github-release",
+    "repo": "PCSX2/pcsx2",
+    "query": ".filter(data => !data.prerelease)[0].tag_name",
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "pcsx2-v{version}-macos-Qt.tar.xz",
+    "unpack": false
+  },
+  "version": "2.6.2",
+  "hash": "sha256-fJM9Y0vqQjqtYJb31IGYZhnb9F5xwIOpo0NACF7FVvM="
+}

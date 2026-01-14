@@ -5,8 +5,7 @@
   unzip,
   lib,
   ...
-}:
-let
+}: let
   ver = lib.helper.read ./version.json;
   platform = stdenvNoCC.hostPlatform.system;
 

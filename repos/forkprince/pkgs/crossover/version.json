@@ -1,0 +1,14 @@
+{
+  "name": "Crossover",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/crossover.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "25.1.1",
+  "asset": {
+    "url": "https://media.codeweavers.com/pub/crossover/cxmac/demo/crossover-25.1.1.zip",
+    "hash": "sha256-VczgL8XDlMO1Iz5PxL81v7kh2/WOhfdEgWHH75pKBTM="
+  }
+}

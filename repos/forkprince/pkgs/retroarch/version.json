@@ -1,0 +1,14 @@
+{
+  "name": "RetroArch",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/retroarch-metal.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "1.22.2",
+  "asset": {
+    "url": "https://buildbot.libretro.com/stable/1.22.2/apple/osx/universal/RetroArch_Metal.dmg",
+    "hash": "sha256-gbeRIbom1TkGSuE7TQQZoSDD0WWvvmVs9fVBKxX9tDQ="
+  }
+}
