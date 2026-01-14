@@ -253,12 +253,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.6.104";
+    version = "v6.6.105";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.6.104";
-      hash = "sha256-xAzs0L3Vl34rh9UD5mcH1XRT7IQzng2nf6ujPirGLwI=";
+      tag = "v6.6.105";
+      hash = "sha256-kX54u3g4ihxAxLMgxDcyJ26dLLbXhZir6FfFk2eFGwI=";
     };
   };
   cockpy = {
@@ -1161,12 +1161,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7723";
+    version = "b7735";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7723";
-      hash = "sha256-Ldz1QNNGgefadrDScPARURV2WEHstbvlRO47y37HbFs=";
+      tag = "b7735";
+      hash = "sha256-8t5UT/rx4guZe0qHtNb8DCZk6+qKwyeLu+anidw7T8M=";
     };
   };
   loralib = {
@@ -1628,23 +1628,23 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "c1cc803d46de468868dd6d74eb6e2987d577edee";
+    version = "3b968bbae1491e3922bb8b67912b30e462111cee";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "c1cc803d46de468868dd6d74eb6e2987d577edee";
-      hash = "sha256-VfUGm7uJwEo6Xl274KL3SsSOct4kix230gIF2QNdviE=";
+      rev = "3b968bbae1491e3922bb8b67912b30e462111cee";
+      hash = "sha256-E5jD/IYkFXhhJyRRftCFjn8cq0QAX60s5Nbdw6zLYow=";
     };
-    date = "2026-01-13";
+    date = "2026-01-14";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
-    version = "v1.12.0";
+    version = "v1.12.1";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      tag = "v1.12.0";
-      hash = "sha256-q/gf2HRFXWWhYSMbG5QZI5/1WJjamoJV1z3KG4NuuDQ=";
+      tag = "v1.12.1";
+      hash = "sha256-VfUGm7uJwEo6Xl274KL3SsSOct4kix230gIF2QNdviE=";
     };
   };
   py-rcon = {
@@ -1711,38 +1711,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.2.0+ds-1";
+    version = "10.2.0+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-2_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-6JD+NEGdCtrm3c1H8JE0db2D268uYbZW5eZdDPnCmSE=";
+      hash = "sha256-Xm73Fym/RDpuUGFy1tKyxmkAGbU72kxF/KHnLnvN0Ys=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.2.0+ds-1";
+    version = "10.2.0+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-2_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-+GwOrqauCwQBDkeZ+SUAMWx2ypQlcMt1PVakApEQQvA=";
+      hash = "sha256-4xdu7ebrtlg529hX/rIwIRPOkpRCgMzfofwF4IAjnnc=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.2.0+ds-1";
+    version = "10.2.0+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-1_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-2_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-wnSO2NB+hdiw3CkXiGwIX02hUg+qLQB+O7CA8VpI4Sk=";
+      hash = "sha256-wTP4vCdN9W1ZfRfBVuU4lJ98CnnrFcGAilWky9T9xQg=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.2.0+ds-1";
+    version = "10.2.0+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-1_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.0+ds-2_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-WD2+CgFvWoAxd9z5dxc5iHYT6DYifPgx+mRmUrlY/Fw=";
+      hash = "sha256-WfG1r7ZE0wuBzHHRJwhU5aHPf2NJ20AozM9GlDAEYBU=";
     };
   };
   qq-amd64 = {
@@ -2254,15 +2254,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "ec069a781092b29b83f1c76e3e7936300d7fe9e5";
+    version = "bb560cf255c6f60d0163248a9d0629351bb60c1c";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "ec069a781092b29b83f1c76e3e7936300d7fe9e5";
+      rev = "bb560cf255c6f60d0163248a9d0629351bb60c1c";
       fetchSubmodules = true;
-      hash = "sha256-L6KY/Yb3QsHgYYVPXoX2Io3anlfTTEEBzZD93B6622U=";
+      hash = "sha256-9NtqPYNKMcS495OqMM3SyIPprCIWlcIeM4MHij5IxKQ=";
     };
-    date = "2026-01-13";
+    date = "2026-01-14";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

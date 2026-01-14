@@ -477,7 +477,7 @@
   "legacyPackages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.6.104"
+    "version": "6.6.105"
   },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -917,7 +917,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7723"
+    "version": "7735"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -3857,7 +3857,7 @@
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.12.0-unstable-2026-01-13"
+    "version": "1.12.1-unstable-2026-01-14"
   },
   "legacyPackages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -4047,7 +4047,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.2.0+ds-1"
+    "version": "10.2.0+ds-2"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -4367,7 +4367,7 @@
   "legacyPackages.x86_64-linux.uncategorized.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.6.104"
+    "version": "6.6.105"
   },
   "legacyPackages.x86_64-linux.uncategorized.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -4787,7 +4787,7 @@
   "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.12.0-unstable-2026-01-13"
+    "version": "1.12.1-unstable-2026-01-14"
   },
   "legacyPackages.x86_64-linux.uncategorized.pyhss": {
     "description": "Python HSS / Diameter Server",
@@ -4797,7 +4797,7 @@
   "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.2.0+ds-1"
+    "version": "10.2.0+ds-2"
   },
   "legacyPackages.x86_64-linux.uncategorized.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -4952,7 +4952,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2026-01-13"
+    "version": "0-unstable-2026-01-14"
   },
   "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5032,7 +5032,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2026-01-13"
+    "version": "0-unstable-2026-01-14"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -5247,7 +5247,7 @@
   "packages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.6.104"
+    "version": "6.6.105"
   },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -5802,7 +5802,7 @@
   "packages.x86_64-linux.pterodactyl-wings": {
     "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
-    "version": "1.12.0-unstable-2026-01-13"
+    "version": "1.12.1-unstable-2026-01-14"
   },
   "packages.x86_64-linux.py-rcon": {
     "description": "Python implementation of RCON",
@@ -5832,7 +5832,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "10.2.0+ds-1"
+    "version": "10.2.0+ds-2"
   },
   "packages.x86_64-linux.qq": {
     "description": "Desktop client for QQ on Linux",
@@ -6032,7 +6032,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs across multiple backend services",
     "pname": "uni-api",
-    "version": "0-unstable-2026-01-13"
+    "version": "0-unstable-2026-01-14"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
