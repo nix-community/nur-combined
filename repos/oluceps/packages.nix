@@ -51,7 +51,7 @@ let
           echSupport = true;
         })
         xh
-        ngrep
+        # ngrep
         gping
         tcping-go
         # httping
@@ -120,7 +120,7 @@ let
 in
 {
   environment.systemPackages = lib.flatten (lib.attrValues p) ++ [
-    ((pkgs.vim_configurable.override { }).customize {
+    ((pkgs.vim-full.override { }).customize {
       name = "vim";
       # Install plugins for example for syntax highlighting of nix files
       vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {

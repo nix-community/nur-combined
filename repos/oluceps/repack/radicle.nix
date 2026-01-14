@@ -22,7 +22,7 @@ reIf {
         hints = true;
       };
       node = {
-        alias = "nyawyz";
+        alias = "nyawxyz";
         connect = [ ];
         externalAddresses = [ "seed.nyaw.xyz:8776" ];
         limits = {

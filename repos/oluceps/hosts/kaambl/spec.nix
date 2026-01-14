@@ -145,7 +145,7 @@
 
     hysteria.instances = {
       nodens = {
-        configFile = config.templates.secrets.hyst-no.path;
+        configFile = config.vaultix.templates.hyst-no.path;
         enable = true;
       };
       abhoth = {

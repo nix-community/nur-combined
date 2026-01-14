@@ -42,6 +42,7 @@ withSystem "x86_64-linux" (
       ./disk.nix
       ./boot.nix
       ./caddy.nix
+      ./cluster.nix
       ../persist-base.nix
       ./network.nix
       ../sysctl.nix

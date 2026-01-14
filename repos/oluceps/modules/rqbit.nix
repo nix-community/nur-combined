@@ -58,7 +58,7 @@ in
         Type = "simple";
         User = "rqbit";
         Group = "rqbit";
-        ExecStart = "${lib.getExe' cfg.package "rqbit"} --http-api-listen-addr [::]:3030 server start ${cfg.location}";
+        ExecStart = "${lib.getExe' cfg.package "rqbit"} --socks-url socks5://127.0.0.1:1091 --http-api-listen-addr [::]:3030 server start ${cfg.location}";
         Restart = "on-failure";
       };
     };

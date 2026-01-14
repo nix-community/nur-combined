@@ -6,7 +6,8 @@
   "nuenv"
   "dae"
   "niri"
-  "devenv"
+  # "devenv"
+  "nix-cachyos-kernel"
 ])
 ++ [
   (
@@ -34,7 +35,7 @@
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
       inherit (inputs'.nixpkgs-stable.legacyPackages) meilisearch;
-      # inherit (inputs'.nixpkgs-master.legacyPackages) linuxPackages_latest;
+      # inherit (inputs'.nixpkgs-master.legacyPackages) cinny-unwrapped;
 
       # sing-box = prev.sing-box.overrideAttrs (old: rec {
       #   version = "v1.12.0-beta.24-patch";
@@ -99,7 +100,7 @@
       #   )
       # );
 
-      scx = inputs'.nyx.packages.scx-full_git;
+      # scx = inputs'.nyx.packages.scx-full_git;
 
       switch-mute = final.nuenv.writeScriptBin {
         name = "switch-mute";

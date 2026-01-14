@@ -40,6 +40,7 @@ withSystem "x86_64-linux" (
       ./network.nix
       ./rekey.nix
       ./spec.nix
+      ./cluster.nix
       ../perlless.nix
       (lib.iage "cloud")
       ./caddy.nix

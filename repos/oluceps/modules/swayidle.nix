@@ -92,7 +92,7 @@ in
         default = [ ];
         example = literalExpression ''
           [
-            { timeout = 60; command = "noctalia-shell ipc call lockScreen toggle"; }
+            { timeout = 60; command = "noctalia-shell ipc call lockScreen lock"; }
             { timeout = 90; command = "${pkgs.systemd}/bin/systemctl suspend"; }
           ]
         '';

@@ -25,6 +25,7 @@
             (import ./topo.nix extraLibs)
             vaultix.flakeModules.default
             inputs.nix-topology.flakeModule
+            # inputs.nix-kernelsu-builder.flakeModules.default
             flake-parts.flakeModules.easyOverlay
           ];
         debug = true;
@@ -93,6 +94,108 @@
                 };
               };
             formatter = pkgs.nixfmt-tree;
+            # kernelsu = {
+            #   gki-kernelsu-next = {
+            #     anyKernelVariant = "kernelsu";
+            #     clangVersion = "latest";
+
+            #     kernelSU = {
+            #       src = pkgs.fetchFromGitHub {
+            #         owner = "tiann";
+            #         repo = "KernelSU";
+            #         rev = "5f751149bda1729c34379df8b01421ca57a1529b";
+            #         hash = "sha256-uuvypweCkERPPW4bLGKfJrZl3zOn7ZiSnmybr/CZdQ8=";
+            #       };
+            #       variant = "custom";
+            #       revision = "32179";
+            #       subdirectory = "KernelSU";
+            #     };
+            #     kernelConfig = ''
+            #       CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,integrity,selinux,smack,tomoyo,apparmor,bpf,baseband_guard"
+
+            #       CONFIG_BPF_STREAM_PARSER=y
+            #       CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=y
+            #       CONFIG_NETFILTER_XT_SET=y
+            #       CONFIG_IP_SET=y
+            #       CONFIG_IP_SET_MAX=65534
+            #       CONFIG_IP_SET_BITMAP_IP=y
+            #       CONFIG_IP_SET_BITMAP_IPMAC=y
+            #       CONFIG_IP_SET_BITMAP_PORT=y
+            #       CONFIG_IP_SET_HASH_IP=y
+            #       CONFIG_IP_SET_HASH_IPMARK=y
+            #       CONFIG_IP_SET_HASH_IPPORT=y
+            #       CONFIG_IP_SET_HASH_IPPORTIP=y
+            #       CONFIG_IP_SET_HASH_IPPORTNET=y
+            #       CONFIG_IP_SET_HASH_IPMAC=y
+            #       CONFIG_IP_SET_HASH_MAC=y
+            #       CONFIG_IP_SET_HASH_NETPORTNET=y
+            #       CONFIG_IP_SET_HASH_NET=y
+            #       CONFIG_IP_SET_HASH_NETNET=y
+            #       CONFIG_IP_SET_HASH_NETPORT=y
+            #       CONFIG_IP_SET_HASH_NETIFACE=y
+            #       CONFIG_IP_SET_LIST_SET=y
+            #       CONFIG_IP6_NF_NAT=y
+            #       CONFIG_IP6_NF_TARGET_MASQUERADE=y
+
+            #       CONFIG_TCP_CONG_ADVANCED=y
+            #       CONFIG_TCP_CONG_BBR=y
+            #       CONFIG_NET_SCH_FQ=y
+            #       CONFIG_TCP_CONG_BIC=n
+            #       CONFIG_TCP_CONG_WESTWOOD=n
+            #       CONFIG_TCP_CONG_HTCP=n
+            #       CONFIG_DEFAULT_BBR=y
+            #       CONFIG_TCP_WINDOW_SCALING=y
+
+            #       # Add additional tmpfs config setting
+            #       CONFIG_TMPFS_XATTR=y
+            #       CONFIG_TMPFS_POSIX_ACL=y
+
+            #       # Add additional config setting
+            #       CONFIG_IP_NF_TARGET_TTL=y
+            #       CONFIG_IP6_NF_TARGET_HL=y
+            #       CONFIG_IP6_NF_MATCH_HL=y
+            #     '';
+            #     bbg.enable = true;
+            #     susfs =
+            #       let
+            #         src = pkgs.fetchFromGitHub {
+            #           owner = "ShirkNeko";
+            #           repo = "susfs4ksu";
+            #           rev = "a442dda6e77c56d74d86b9009951d813642c0673";
+            #           hash = "sha256-zuzyjprh1OGsXQF9FI31BEEoParUoE9GFB6dcwxbad0=";
+            #         };
+            #       in
+            #       {
+            #         enable = false;
+            #         kernelPatch = null;
+            #         inherit src;
+            #       };
+
+            #     kernelDefconfigs = [
+            #       "gki_defconfig"
+            #     ];
+            #     kernelImageName = "Image";
+            #     kernelMakeFlags = [
+            #       "KCFLAGS=\"-w\""
+            #       "KCPPFLAGS=\"-w\""
+            #       "EXTRAVERSION=-android14-11-sukisu+susfs+bbg"
+            #       # "V=1"
+            #     ];
+            #     # kernelPatches = [
+            #     #   "${
+            #     #     pkgs.fetchFromGitHub {
+            #     #       owner = "WildPlusKernel";
+            #     #       repo = "kernel_patches";
+            #     #       rev = "2cbe9ad4797a468415f94d3e5fa8648333030971";
+            #     #       fetchSubmodules = false;
+            #     #       sha256 = "sha256-a+at4quoNttsxx8VtK7qOS4vVJZHSbdMK6hHUearDj8=";
+            #     #     }
+            #     #   }/69_hide_stuff.patch"
+            #     # ];
+            #     kernelSrc = lib.cleanSource /home/riro/Src/android-kernel/common;
+            #     oemBootImg = ./boot.img;
+            #   };
+            # };
           };
 
         flake = {
@@ -204,11 +307,6 @@
     conduit = {
       url = "github:matrix-construct/tuwunel?rev=f2c531429622dcc2f6bf96937e8e1def963cab79";
     };
-    nyx = {
-      # url = "/home/elen/Src/nyx";
-      url = "github:chaotic-cx/nyx";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     factorio-manager = {
       url = "github:asoul-rec/factorio-manager";
       # url = "/home/elen/Src/factorio-manager";
@@ -274,6 +372,10 @@
       url = "github:vicinaehq/vicinae";
     };
     online-exporter.url = "/home/riro/Src/monitou";
+    nix-cachyos-kernel.url = "github:oluceps/nix-cachyos-kernel";
+    # nix-kernelsu-builder.url = "/home/riro/Src/nix-kernelsu-builder";
+    # "github:xddxdd/nix-kernelsu-builder";
     self.submodules = true;
+
   };
 }

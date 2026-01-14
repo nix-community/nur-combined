@@ -25,7 +25,7 @@ with pkgs;
   # factorio
   loupe
   geo
-  fractal-next
+  fractal
   gedit
   # logseq
   # jetbrains.pycharm-professional
@@ -74,7 +74,7 @@ with pkgs;
 
   koreader
   cliphist
-  pcsctools
+  pcsc-tools
   ccid
 
   yubikey-manager
@@ -116,7 +116,7 @@ with pkgs;
   # social
   discord
   # materialgram
-  tdesktop
+  telegram-desktop
   # thunderbird
   # fluffychat
   scrcpy
@@ -142,7 +142,7 @@ with pkgs;
   grim
   slurp
 
-  tor-browser-bundle-bin
+  tor-browser
 
   vial
 
@@ -151,6 +151,7 @@ with pkgs;
   # netease-cloud-music-gtk
   cmatrix
   # kotatogram-desktop
+  krita
   nmap
   lm_sensors
 
@@ -160,6 +161,7 @@ with pkgs;
   vlc
   # bluedevil
   prismlauncher
+  rnote
 ]
 ++ (with pkgs; [ fluent-icon-theme ])
 ++ [

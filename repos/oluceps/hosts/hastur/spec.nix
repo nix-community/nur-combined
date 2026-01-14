@@ -8,7 +8,10 @@
 {
   environment.systemPackages = [
     pkgs.nvtopPackages.intel
+    pkgs.texlive.combined.scheme-full
   ];
+  nix.settings.trusted-users = [ "riro" ];
+
   # systemd.services.systemd-networkd.serviceConfig.Environment = [ "SYSTEMD_LOG_LEVEL=debug" ];
   vaultix.templates = {
     hyst-ab = {
@@ -82,7 +85,7 @@
     stateVersion = "24.11";
     etc.overlay = {
       enable = true;
-      mutable = false;
+      mutable = true;
     };
   }; # Did you read the comment?
   users.mutableUsers = false;

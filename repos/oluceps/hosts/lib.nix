@@ -32,7 +32,14 @@ rec {
         inherit (registry) prefix node;
         mask = "/128";
       in
-      pkgs.lib.mapAttrs (_: v: v // { unique_addr = prefix + toString (v.id + 1) + mask; }) node;
+      pkgs.lib.mapAttrs (
+        _: v:
+        v
+        // rec {
+          unique_addr_nomask = prefix + toString (v.id + 1);
+          unique_addr = unique_addr_nomask + mask;
+        }
+      ) node;
 
     hosts = import ./hosts.nix {
       lib = (inputs.nixpkgs).lib // {
@@ -112,7 +119,6 @@ rec {
     "catppuccin"
     # "lix-module"
     "nix-topology"
-    "nyx"
     "self"
   ])
   ++ (with inputs.dae.nixosModules; [

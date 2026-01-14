@@ -5,7 +5,7 @@
   config,
   lib,
   modulesPath,
-  inputs',
+  inputs,
   pkgs,
   ...
 }:
@@ -18,8 +18,8 @@
   # };
 
   services.scx = {
-    enable = false;
-    scheduler = "scx_bpfland";
+    enable = true;
+    scheduler = "scx_lavd";
   };
   boot = {
     tmp.useTmpfs = true;
@@ -40,12 +40,15 @@
     };
     kernelModules = [
       "kvm-amd"
+      "wacom"
     ];
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     extraModprobeConfig = ''
       options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
     '';
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages =
+      # (inputs.nix-cachyos-kernel.mkFixedVersionKernelWith pkgs).linuxPackages-cachyos-latest-lto;
+      pkgs.linuxPackages_latest;
     blacklistedKernelModules = [ "hid_nintendo" ];
     # pkgs.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [

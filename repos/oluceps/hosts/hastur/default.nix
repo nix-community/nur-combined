@@ -62,6 +62,7 @@ withSystem "x86_64-linux" (
         ./spec.nix
         ./caddy.nix
         ./backup.nix
+        ./cluster.nix
 
         ../persist.nix
         ../secureboot.nix

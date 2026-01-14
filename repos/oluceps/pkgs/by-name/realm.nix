@@ -19,12 +19,12 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "realm";
-  version = "2.9.1";
+  version = "2.9.2-2";
   src = fetchFromGitHub {
     owner = "zhboner";
     repo = "realm";
     rev = "v${version}";
-    hash = "sha256-6nN+P1nyuWxk6UtIv40/r58vpXHckfHJ3hOqiiLrp/I=";
+    hash = "sha256-TWtLwGjL0nOK6NYxG+Q22hS9PGq9igokNPjUxRLiPl8=";
   };
 
   CFLAGS = "-Wno-error=stringop-overflow";
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
     cmake
   ];
-  cargoHash = "sha256-u3CCur5QRgZXU2YQw0gc8JkycVyfIttu8ett5c1RJqg=";
+  cargoHash = "sha256-RRqOfKbZ6tATYW55EJd1r2zQA0Vt463eGn1fuNO8k5M=";
 
   meta.mainProgram = "realm";
 }

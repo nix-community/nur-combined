@@ -93,18 +93,24 @@
         with pkgs;
         {
           python = [
-            (python313.withPackages (
-              ps: with ps; [
-                pandas
-                requests
-                # absl-py
-                tldextract
-                bleak
-                matplotlib
-                clang
-                pyyaml
-              ]
-            ))
+            (
+              (python313.override {
+                enableOptimizations = true;
+                reproducibleBuild = false;
+              }).withPackages
+              (
+                ps: with ps; [
+                  pandas
+                  requests
+                  # absl-py
+                  tldextract
+                  bleak
+                  matplotlib
+                  clang
+                  pyyaml
+                ]
+              )
+            )
           ];
           crypt = [
             (openssl.override {
@@ -138,7 +144,7 @@
 
           dev = [
             (nixos-rebuild-ng.override {
-              withNgSuffix = false;
+              # withNgSuffix = false;
               # nix = inputs'.lix-module.packages.default;
             })
             devenv
@@ -188,7 +194,7 @@
             [
               editorconfig-checker
               kotlin-language-server
-              sumneko-lua-language-server
+              lua-language-server
               yaml-language-server
               tree-sitter
               stylua
@@ -256,14 +262,14 @@
           #   wineWowPackages.waylandFull
           # ];
 
-          db = [ mongosh ];
+          # db = [ mongosh ];
 
           web = [ hugo ];
 
-          de = with gnomeExtensions; [
-            simple-net-speed
-            paperwm
-          ];
+          # de = with gnomeExtensions; [
+          #   # simple-net-speed
+          #   paperwm
+          # ];
           term = [ foot ]; # for spawn new
 
           virt = [

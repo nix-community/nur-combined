@@ -37,7 +37,7 @@ build-all-host:
     | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel' -L; }
 renc:
     just sec-submodule-add
-    RUST_LOG=trace nix run $'.?submodules=1#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
+    nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
     just sync-subsec
 
 [working-directory: 'sec']

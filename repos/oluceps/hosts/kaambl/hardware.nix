@@ -175,10 +175,13 @@
         "usb_storage"
         "sd_mod"
       ];
-      kernelModules = [ "amdgpu" ];
+      kernelModules = [
+        "amdgpu"
+      ];
     };
     kernelModules = [
       "kvm-amd"
+      "wacom"
       # "pico_rng"
       # "brutal"
     ];
@@ -192,15 +195,12 @@
       #"bdev_allow_write_mounted=0"
       # "ia32_emulation=0"
     ];
-    # extraModulePackages =
-    #   let
-    #     inherit (config.boot.kernelPackages) v4l2loopback callPackage;
-    #   in
-    #   [
-    #     v4l2loopback
-    #     (callPackage "${self}/pkgs/tcp-brutal.nix" { })
-    #     # (callPackage "${self}/pkgs/pico-rng.nix" { })
-    #   ];
+
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+
+    extraModprobeConfig = ''
+      options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
+    '';
     kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = [ "hid_nintendo" ];
     # pkgs.linuxPackages_latest;
