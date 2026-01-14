@@ -2013,10 +2013,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "4.2.4";
+      version = "4.2.5";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4645812/click_and_read-4.2.4.xpi";
-      sha256 = "65433700c334d690bea231b2ed556e713f5f5f4c8f82f2e887a6b3f4dd25c0c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664974/click_and_read-4.2.5.xpi";
+      sha256 = "eb77df7a891615403c637b0e97588b7b7dabb486c143633858dab2d691b575e7";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2725,10 +2725,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "148.0.20260112.172829";
+      version = "148.0.20260114.90336";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4663610/dansk_da_language_pack-148.0.20260112.172829.xpi";
-      sha256 = "78c7f202ed022772f70ede0e2df6de35c4f30c2aa477b920d9ec8b8fa98a1bcf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665218/dansk_da_language_pack-148.0.20260114.90336.xpi";
+      sha256 = "23054f3e3008cf7eefe24dcc6198fa3131faf8ff717360e6bcbae2fa2c9f2b4d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2820,10 +2820,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.118";
+      version = "4.9.119";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4638146/darkreader-4.9.118.xpi";
-      sha256 = "69d2da0e84545ee19ded9a5872f300765280cf25b2edbef7041d4d752c4c9394";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665768/darkreader-4.9.119.xpi";
+      sha256 = "261a422f2fcf83ee320ac7a2809d926b8637fbadece8a5758b825bd0602944be";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2938,10 +2938,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "148.0.20260112.172829";
+      version = "148.0.20260114.90336";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4663632/deutsch_de_language_pack-148.0.20260112.172829.xpi";
-      sha256 = "82f535c013aa678f565a0fd2fea55b5e7bf41094b414f7d03c29ac99680128b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665222/deutsch_de_language_pack-148.0.20260114.90336.xpi";
+      sha256 = "d157cd01a2bac27c30e4fac7452de87ab139d30fdb81ccce69a7763d8578bbd4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4414,10 +4414,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "148.0.20260112.172829";
+      version = "148.0.20260114.90336";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4663623/francais_language_pack-148.0.20260112.172829.xpi";
-      sha256 = "16fe0985b17d14e087952848daa1d153318cd0d91e15fedd09b4cf1bac3b3145";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665151/francais_language_pack-148.0.20260114.90336.xpi";
+      sha256 = "26c4fc7fadae193b306dbfe1a711f4bb84db0befc237f2a808e15c9794330df7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4451,10 +4451,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "148.0.20260112.172829";
+      version = "148.0.20260114.90336";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4663601/gaidhlig_language_pack-148.0.20260112.172829.xpi";
-      sha256 = "70490665e68733e17df6fb67d449cfe156ddaa9fbdef83cfb0e0ac298a2ae15f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665225/gaidhlig_language_pack-148.0.20260114.90336.xpi";
+      sha256 = "b359bccd973258dde3e5c991676604598cc9e29ff5564980eb5810765374848b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7889,10 +7889,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.82";
+      version = "2.6.83";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4582489/localcdn_fork_of_decentraleyes-2.6.82.xpi";
-      sha256 = "2106e0826419eb1877d99c689b9c198bd483bfffab6ab9c3242b3fad674f325c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4650561/localcdn_fork_of_decentraleyes-2.6.83.xpi";
+      sha256 = "b7806c9e517f910190e7baeb094235185451e2c267842bf34b15b3aea7653b08";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -12083,10 +12083,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "148.0.20260112.172829";
+      version = "148.0.20260114.90336";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4663685/scots_language_pack-148.0.20260112.172829.xpi";
-      sha256 = "1efda720cda43a98ecf55c75face58c7621a2c90fb7d29aa116c63492f19bad7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665252/scots_language_pack-148.0.20260114.90336.xpi";
+      sha256 = "52b182c6777da8b91d2eed789ce3e72ab371523ef67e76afcdaf91b8eb7fb12d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -16092,10 +16092,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.1.0";
+      version = "18.1.1";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4662141/youtube_subscription_groups-18.1.0.xpi";
-      sha256 = "fb5e3d8d2ff9a597caade3e0147c774b5ce2b82d661cc7028272fb32c679405a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665739/youtube_subscription_groups-18.1.1.xpi";
+      sha256 = "0350fbf590985cfe77d41ed79cbc600d7704f28d4b5e86c67e86673058da5f42";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
@@ -16115,10 +16115,10 @@
     };
     "youtube-suite-search-fixer" = buildFirefoxXpiAddon {
       pname = "youtube-suite-search-fixer";
-      version = "9.0.3";
+      version = "9.0.5";
       addonId = "MinYT@example.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4663298/youtube_suite_search_fixer-9.0.3.xpi";
-      sha256 = "6c2f784d1fcfc91bbe7af566f4d532c05f9d25ca80d8284501105814e3e2228e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664929/youtube_suite_search_fixer-9.0.5.xpi";
+      sha256 = "05f19314accb702c5f48a239162c3e6898e04e800125abd23b1129e19403ed84";
       meta = with lib;
       {
         homepage = "https://phoennix.gitlab.io/youtubesearchfix/";
@@ -16293,6 +16293,20 @@
           "*://*.zoom.us/*"
           "*://*.zoomgov.com/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "zybooks-auto" = buildFirefoxXpiAddon {
+      pname = "zybooks-auto";
+      version = "1.0";
+      addonId = "zybooksautofirefox@dalmiz";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4439822/zybooks_auto-1.0.xpi";
+      sha256 = "bb39a650cd3e14e7f9736d80fbc160093514452296e0f182a2499c42f81502b5";
+      meta = with lib;
+      {
+        description = "A firefox port of Zybooks Auto from the chrome web store.\nAutomatically speeds through ZyBooks participation assignments, so you don't have to click through each module individually.";
+        license = licenses.mit;
+        mozPermissions = [ "https://learn.zybooks.com/*" ];
         platforms = platforms.all;
       };
     };
