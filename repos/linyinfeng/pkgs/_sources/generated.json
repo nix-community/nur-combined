@@ -791,7 +791,7 @@
     },
     "telegram-send": {
         "cargoLock": null,
-        "date": "2026-01-13",
+        "date": "2026-01-14",
         "extract": null,
         "name": "telegram-send",
         "passthru": null,
@@ -801,13 +801,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3a26f5325a56764d5c33935c20c72117aba701d6",
-            "sha256": "sha256-Y5x77d9rXVy5F1RpyvCkpZAhH/QZ5Y3bE1DRkGUP2hk=",
+            "rev": "c930dbed822487b1e422b7b3643d3826c54cead8",
+            "sha256": "sha256-/Fiw1A9sUx68yCzCzux2HEKRoJXmmPtlI99fAC7+wMY=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rahiel/telegram-send.git"
         },
-        "version": "3a26f5325a56764d5c33935c20c72117aba701d6"
+        "version": "c930dbed822487b1e422b7b3643d3826c54cead8"
     },
     "tg-send": {
         "cargoLock": {
