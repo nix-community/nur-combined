@@ -60,12 +60,7 @@
 }:
 
 let
-  pakeSrc = fetchFromGitHub {
-    owner = "tw93";
-    repo = "Pake";
-    rev = "838cc932ffd1db6bc5ca81ced64f73bcd8568175";
-    hash = "sha256-sEjj0a9aGCwv5EFn7PWkYU1j3U5MLO7lj0qL2CkfKOM=";
-  };
+  pakeSrc = pake.src;
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     pname = "pake";
@@ -80,11 +75,9 @@ let
     hash = iconHash;
   };
 
-  _assertPnameLowercase =
-    assert lib.assertMsg (pname == lib.toLower pname) "makePakeApp: pname must be lowercase";
-    true;
   executableName = "pake-${pname}";
 in
+assert lib.assertMsg (pname == lib.toLower pname) "makePakeApp: pname must be lowercase";
 stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
 
@@ -178,7 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p build
     cd build
-    pake "${url}" --name "${appName}" --icon "$icon_rgba"
+    pake "${url}" --name "${appName}" --icon "$icon_rgba" --targets deb
 
     runHook postBuild
   '';
@@ -203,8 +196,10 @@ stdenv.mkDerivation (finalAttrs: {
     done
 
     mkdir -p "$out/bin"
+    # __NV_DISABLE_EXPLICIT_SYNC -> https://github.com/tauri-apps/tauri/issues/10702
     wrapProgram "$out/usr/bin/${executableName}" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libayatana-appindicator ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libayatana-appindicator ]}" \
+      --set __NV_DISABLE_EXPLICIT_SYNC 1
     ln -s "$out/usr/bin/${executableName}" "$out/bin/${pname}"
 
     runHook postInstall

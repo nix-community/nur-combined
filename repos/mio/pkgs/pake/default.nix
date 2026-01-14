@@ -156,7 +156,6 @@ stdenv.mkDerivation (finalAttrs: {
     mv * $out/lib/node_modules/pake/
     makeWrapper ${lib.getExe nodejs_22} $out/bin/pake \
       --add-flags "$out/lib/node_modules/pake/dist/cli.js" \
-      --add-flags "--targets deb" \
       ${lib.optionalString (appimageTools != null) "--set PAKE_APPIMAGE_TOOLS_DIR ${appimageTools} \\"}
       --set NODE_PATH "$out/lib/node_modules/pake/node_modules" \
       --set PKG_CONFIG ${pakePkgConfig}/bin/pkg-config \

@@ -188,6 +188,8 @@ let
           ghidra
           prismlauncher-diegiwg
           android-translation-layer
+          pake
+          cider
           ;
       };
     }
