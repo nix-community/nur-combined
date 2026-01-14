@@ -415,13 +415,13 @@
   };
   xdg = {
     pname = "xdg";
-    version = "0.2.0";
+    version = "0.3.0";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "xdg";
-      rev = "0.2.0";
+      rev = "0.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-HKD3zchrhuqHM6fjmFQMardb9ov3GG7rki2kjW8oLas=";
+      sha256 = "sha256-9A/tUdCifLYmWa/6wOCQTT01ZJc24db3VnO6WU+KYcM=";
     };
   };
 }

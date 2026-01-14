@@ -154,4 +154,4 @@ fetch.github = "leanprover-community/LeanSearchClient"
 
 [proofwidgets]
 src.manual = "v0.0.83"
-fetch.github = "leanorover-community/ProofWidgets4"
+fetch.github = "leanprover-community/ProofWidgets4"
