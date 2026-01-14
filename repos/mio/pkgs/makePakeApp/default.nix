@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchurl,
   pake,
   dpkg,
   autoPatchelfHook,
@@ -53,8 +52,7 @@
   pname,
   appName ? pname,
   url,
-  iconUrl,
-  iconHash,
+  icon,
   version ? pake.version,
   meta ? { },
 }:
@@ -68,11 +66,6 @@ let
     src = pakeSrc;
     cargoRoot = "src-tauri";
     hash = "sha256-OJi0iiXTWZoPzS3HWVXJ2NTlA+xT3je4AC1APEoczbo=";
-  };
-
-  icon = fetchurl {
-    url = iconUrl;
-    hash = iconHash;
   };
 
   executableName = "pake-${pname}";
