@@ -8,7 +8,6 @@
   xcur2png,
   bash,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors-gruvbox-dark-hyprcursor";
   version = "1.1.0";

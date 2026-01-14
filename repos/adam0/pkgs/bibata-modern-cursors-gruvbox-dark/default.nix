@@ -5,7 +5,6 @@
   fetchzip,
   clickgen,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors-gruvbox-dark";
   version = "1.1.0";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-MHR5mhZJOXJsUvcJU41ZRe1dFFEcay93NbYllD4i4GM=";
   };
 
-  nativeBuildInputs = [ clickgen ];
+  nativeBuildInputs = [clickgen];
 
   buildPhase = ''
     runHook preBuild

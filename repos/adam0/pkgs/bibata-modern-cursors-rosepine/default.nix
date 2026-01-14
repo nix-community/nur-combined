@@ -5,7 +5,6 @@
   fetchzip,
   clickgen,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors-rosepine";
   version = "1.1.0";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-vUpZwfm/TqdZVeq6yg9ETYdLqsBzkzC/YkJH4CJbVdc=";
   };
 
-  nativeBuildInputs = [ clickgen ];
+  nativeBuildInputs = [clickgen];
 
   buildPhase = ''
     runHook preBuild

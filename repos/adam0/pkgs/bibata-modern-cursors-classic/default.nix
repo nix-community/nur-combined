@@ -5,7 +5,6 @@
   fetchzip,
   clickgen,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors-classic";
   version = "1.1.0";
@@ -24,7 +23,6 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [
     clickgen
-
   ];
 
   buildPhase = ''
