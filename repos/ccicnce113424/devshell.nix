@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, nvfetcher-bin }:
 pkgs.mkShell.override { stdenv = pkgs.stdenvNoCC; } {
   packages = with pkgs; [
     just
@@ -7,6 +7,6 @@ pkgs.mkShell.override { stdenv = pkgs.stdenvNoCC; } {
     nixfmt
     nix-tree
     nix-output-monitor
-    nvfetcher
+    nvfetcher-bin
   ];
 }

@@ -9,6 +9,11 @@ rec {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-compat.url = "github:edolstra/flake-compat";
+    nvfetcher = {
+      url = "github:berberman/nvfetcher/0.8.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+    };
   };
 
   outputs =
@@ -23,12 +28,15 @@ rec {
         ./pkgs/flake-module.nix
       ];
       perSystem =
-        { pkgs, ... }:
+        { pkgs, inputs', ... }:
+        let
+          nvfetcher-bin = inputs'.nvfetcher.packages.default;
+        in
         {
-          devShells.default = pkgs.callPackage ./devshell.nix { };
+          devShells.default = pkgs.callPackage ./devshell.nix { inherit nvfetcher-bin; };
           legacyPackages = {
-            inherit (pkgs) nvfetcher;
             inherit (inputs) nixpkgs;
+            inherit nvfetcher-bin;
           };
         };
     };

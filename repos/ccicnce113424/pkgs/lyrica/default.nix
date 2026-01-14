@@ -7,7 +7,7 @@
   dbus,
 }:
 let
-  metadata = builtins.fromJSON sources."plasmoid/metadata.json";
+  metadata = lib.importJSON sources.extract."plasmoid/metadata.json";
 in
 rustPlatform.buildRustPackage {
   inherit (sources) pname src;
@@ -22,6 +22,8 @@ rustPlatform.buildRustPackage {
     openssl
     dbus
   ];
+
+  metadata = sources.extract."plasmoid/metadata.json";
 
   meta = {
     mainProgram = "lyrica";

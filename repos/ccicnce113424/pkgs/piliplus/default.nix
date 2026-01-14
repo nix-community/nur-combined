@@ -10,33 +10,6 @@
   mpv-unwrapped,
   libplacebo,
   libappindicator,
-# libass,
-# ffmpeg,
-# libunwind,
-# shaderc,
-# vulkan-loader,
-# lcms2,
-# libdovi,
-# libdvdnav,
-# libdvdread,
-# mujs,
-# libbluray,
-# lua,
-# rubberband,
-# libuchardet,
-# zimg,
-# openal,
-# pipewire,
-# libpulseaudio,
-# libcaca,
-# libdrm,
-# libdisplay-info,
-# libgbm,
-# libxscrnsaver,
-# libxpresent,
-# nv-codec-headers-12,
-# libva,
-# libvdpau,
 }:
 
 let
@@ -58,33 +31,6 @@ flutter338.buildFlutterApplication {
     mpv-unwrapped
     libplacebo
     libappindicator
-    # libass
-    # ffmpeg
-    # libunwind
-    # shaderc
-    # vulkan-loader
-    # lcms2
-    # libdovi
-    # libdvdnav
-    # libdvdread
-    # mujs
-    # libbluray
-    # lua
-    # rubberband
-    # libuchardet
-    # zimg
-    # openal
-    # pipewire
-    # libpulseaudio
-    # libcaca
-    # libdrm
-    # libdisplay-info
-    # libgbm
-    # libxscrnsaver
-    # libxpresent
-    # nv-codec-headers-12
-    # libva
-    # libvdpau
   ];
 
   preBuild = ''

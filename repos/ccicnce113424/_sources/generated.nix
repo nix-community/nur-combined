@@ -33,15 +33,15 @@
   };
   danmakufactory-git = {
     pname = "danmakufactory-git";
-    version = "aa04ca55c9d50ce3fb603099abee38bf565328b0";
+    version = "cfb63683dfe796fb604e652ed405366f41f8d25e";
     src = fetchFromGitHub {
       owner = "hihkm";
       repo = "DanmakuFactory";
-      rev = "aa04ca55c9d50ce3fb603099abee38bf565328b0";
+      rev = "cfb63683dfe796fb604e652ed405366f41f8d25e";
       fetchSubmodules = true;
-      sha256 = "sha256-9bU3WAkRvgQ3YI1OV3r9WNsOzP+YuNg2mt87Eg2xEmk=";
+      sha256 = "sha256-MbWyu/dmFHONawDAHN7MwJgtUBSks82pv2zm15nj+x8=";
     };
-    date = "2025-12-19";
+    date = "2026-01-12";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
@@ -78,7 +78,7 @@
       sha256 = "sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./jaq-v3.0.0-beta/Cargo.lock;
+      lockFile = ./. + "/sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=/Cargo.lock";
       outputHashes = {
 
       };
@@ -94,7 +94,9 @@
       fetchSubmodules = false;
       sha256 = "sha256-PVbNK8k+JL0r94uQBtIxYu6J3d+4+7FkvDEvS6koyzI=";
     };
-    "pubspec.lock" = builtins.readFile ./loveiwara-0.4.1/pubspec.lock;
+    extract = {
+      "pubspec.lock" = ./. + "/sha256-PVbNK8k+JL0r94uQBtIxYu6J3d+4+7FkvDEvS6koyzI=/pubspec.lock";
+    };
   };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
@@ -114,10 +116,12 @@
       fetchSubmodules = false;
       sha256 = "sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=";
     };
-    "plasmoid/metadata.json" =
-      builtins.readFile ./lyrica-67fbccecf8d048cf6ed7a73e93f640469b132b42/plasmoid/metadata.json;
+    extract = {
+      "plasmoid/metadata.json" =
+        ./. + "/sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=/plasmoid/metadata.json";
+    };
     cargoLock."Cargo.lock" = {
-      lockFile = ./lyrica-67fbccecf8d048cf6ed7a73e93f640469b132b42/Cargo.lock;
+      lockFile = ./. + "/sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.1" = "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4=";
       };
@@ -134,7 +138,9 @@
       fetchSubmodules = false;
       sha256 = "sha256-SSGLkBB0PH42GvXeVKdbURmo94TsGcR4ZtMFSD3OmEc=";
     };
-    "pubspec.lock" = builtins.readFile ./piliplus-1.1.5.3/pubspec.lock;
+    extract = {
+      "pubspec.lock" = ./. + "/sha256-SSGLkBB0PH42GvXeVKdbURmo94TsGcR4ZtMFSD3OmEc=/pubspec.lock";
+    };
   };
   pixes = {
     pname = "pixes";
@@ -146,7 +152,9 @@
       fetchSubmodules = false;
       sha256 = "sha256-J6ap9kuiRyjZQHW5z4LyM9ww2FCDmgv5+qML5/YldNA=";
     };
-    "pubspec.lock" = builtins.readFile ./pixes-v1.2.0/pubspec.lock;
+    extract = {
+      "pubspec.lock" = ./. + "/sha256-J6ap9kuiRyjZQHW5z4LyM9ww2FCDmgv5+qML5_YldNA=/pubspec.lock";
+    };
   };
   pixes-git = {
     pname = "pixes-git";
@@ -158,27 +166,28 @@
       fetchSubmodules = false;
       sha256 = "sha256-FG1dGLGDS4UovGrbZALQ8VSYi2KlNYPwWJ37ozDf8WM=";
     };
-    "pubspec.lock" =
-      builtins.readFile ./pixes-git-583ccdea5202c7f35f852dd913f07b7e497827b0/pubspec.lock;
+    extract = {
+      "pubspec.lock" = ./. + "/sha256-FG1dGLGDS4UovGrbZALQ8VSYi2KlNYPwWJ37ozDf8WM=/pubspec.lock";
+    };
     date = "2025-10-19";
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "5854f444646b740de99518f78d6080ae0866916c";
+    version = "d03b4e72ebd98aadbb54c91ccc18c3f2fab74a99";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "5854f444646b740de99518f78d6080ae0866916c";
+      rev = "d03b4e72ebd98aadbb54c91ccc18c3f2fab74a99";
       fetchSubmodules = false;
-      sha256 = "sha256-+/7CgRcosAmOrMQdAZlivhDUPL9sTJWwONZamn0J6cs=";
+      sha256 = "sha256-P3cR4pA/oveGu0go8IT8w6C7Aq4MyQTf1fe+sgrnym4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./splayer-git-5854f444646b740de99518f78d6080ae0866916c/Cargo.lock;
+      lockFile = ./. + "/sha256-P3cR4pA_oveGu0go8IT8w6C7Aq4MyQTf1fe+sgrnym4=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-01-09";
+    date = "2026-01-14";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
@@ -189,6 +198,17 @@
       rev = "v3.1.3";
       fetchSubmodules = false;
       sha256 = "sha256-FekKVNMycfvFWTQ2LbYl5t2yCBYh7fdSDPdeYViGNbY=";
+    };
+  };
+  svt-av1-psyex = {
+    pname = "svt-av1-psyex";
+    version = "v3.0.2-B";
+    src = fetchFromGitHub {
+      owner = "BlueSwordM";
+      repo = "svt-av1-psyex";
+      rev = "v3.0.2-B";
+      fetchSubmodules = false;
+      sha256 = "sha256-klfrbow8UtpIPwIgt8tK7FP7Jp6In9nxfOZrdi1PsHo=";
     };
   };
   uosc-danmaku = {
@@ -204,15 +224,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "3bbad2da58d7a7e11ff80fe3d644583a626dbd49";
+    version = "80bb22655bd76f837c92cc428dfc2d5e3918af8f";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "3bbad2da58d7a7e11ff80fe3d644583a626dbd49";
+      rev = "80bb22655bd76f837c92cc428dfc2d5e3918af8f";
       fetchSubmodules = false;
-      sha256 = "sha256-cuBKZbalzYnOP4OKUlLSEU7G+ii0FllV1zA476RAI/I=";
+      sha256 = "sha256-pznCeYnKK5+qTEFCDVUewH1zXWxc7PsJSkpA/edlkoE=";
     };
-    date = "2026-01-02";
+    date = "2026-01-11";
   };
   zhuque = {
     pname = "zhuque";

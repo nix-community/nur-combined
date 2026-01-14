@@ -6,7 +6,7 @@
   qt6,
 }:
 let
-  metadata = builtins.fromJSON sources."plasmoid/metadata.json";
+  metadata = lib.importJSON lyrica.metadata;
 in
 stdenvNoCC.mkDerivation {
   inherit (sources) pname src;

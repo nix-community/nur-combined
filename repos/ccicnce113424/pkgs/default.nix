@@ -91,8 +91,13 @@ rec {
     inherit splayer;
   };
 
-  svt-av1-hdr = pkgs.callPackage ./svt-av1-hdr rec {
+  svt-av1-hdr = pkgs.callPackage ./svt-av1-psy rec {
     sources = fetchedSrc.svt-av1-hdr;
+    version = stableVersion sources;
+  };
+
+  svt-av1-psyex = pkgs.callPackage ./svt-av1-psy rec {
+    sources = fetchedSrc.svt-av1-psyex;
     version = stableVersion sources;
   };
 

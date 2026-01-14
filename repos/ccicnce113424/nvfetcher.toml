@@ -34,7 +34,7 @@ src.github = "imfile-io/imfile-desktop"
 src.prefix = "v"
 
 [jaq]
-cargo_locks = ["Cargo.lock"]
+cargo_lock = ["Cargo.lock"]
 fetch.github = "01mf02/jaq"
 src.github_tag = "01mf02/jaq"
 
@@ -48,7 +48,7 @@ fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-we
 src.github = "lxgw/LxgwWenkaiGB"
 
 [lyrica]
-cargo_locks = ["Cargo.lock"]
+cargo_lock = ["Cargo.lock"]
 extract = ["plasmoid/metadata.json"]
 fetch.github = "ccicnce113424/lyrica"
 src.git = "https://github.com/ccicnce113424/lyrica"
@@ -69,13 +69,17 @@ fetch.github = "wgh136/pixes"
 src.git = "https://github.com/wgh136/pixes"
 
 [splayer-git]
-cargo_locks = ["Cargo.lock"]
+cargo_lock = ["Cargo.lock"]
 fetch.github = "imsyy/SPlayer"
 src.git = "https://github.com/imsyy/SPlayer"
 
 [svt-av1-hdr]
 fetch.github = "juliobbv-p/svt-av1-hdr"
 src.github_tag = "juliobbv-p/svt-av1-hdr"
+
+[svt-av1-psyex]
+fetch.github = "BlueSwordM/svt-av1-psyex"
+src.github = "BlueSwordM/svt-av1-psyex"
 
 [uosc-danmaku]
 fetch.github = "Tony15246/uosc_danmaku"

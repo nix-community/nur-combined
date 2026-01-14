@@ -32,7 +32,7 @@ jobs:
         run: |
           nix flake update
           export NIX_PATH="nixpkgs=$(nix eval --raw .#nixpkgs)"
-          nix run .#nvfetcher
+          nix run .#nvfetcher-bin
           nix fmt _sources
           git add .
           pkgs/daed/update.sh
@@ -43,6 +43,7 @@ jobs:
           pkgs/splayer-git/update.sh
 
       - name: Create Pull Request
+        if: ${{ github.ref == 'refs/heads/main' }}
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}

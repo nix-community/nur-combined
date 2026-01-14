@@ -17,12 +17,8 @@
         programs.nixf-diagnose = {
           enable = true;
           priority = 2;
+          ignore = [ "sema-primop-overridden" ];
         };
-        settings.formatter.nixf-diagnose.options = [
-          "--auto-fix"
-          "--ignore"
-          "sema-primop-overridden"
-        ];
         programs.prettier.enable = true;
         programs.just.enable = true;
         programs.toml-sort.enable = true;
