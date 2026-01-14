@@ -9,7 +9,8 @@
     buildExtensionROMs ? false, nasm ? null, pkgs ? null,
     appNames ? [],
     callPackage,
-    maintainers
+    fetchpatch,
+    maintainers,
 }@args:
 assert builtins.elem withSDL [false 1 2];
 let
@@ -58,8 +59,19 @@ let
         outputHash = src.hashWithoutROMs;
     });
     pkgsm68kElf = import (pkgs.path+"/pkgs/top-level") {
-        localSystem.system = pkgs.system;
+        localSystem.system = stdenv.buildPlatform.system;
         crossSystem.config = "m68k-none-elf";
+        overlays = [(self: super: {
+            newlib = super.newlib.overrideAttrs (old: {
+                patches = (old.patches or []) ++ [
+                    (fetchpatch {
+                        name = "0001-newlib-Fix-missing-declarations-in-libgloss-m68k.patch";
+                        url = "https://www.sourceware.org/git/?p=newlib-cygwin.git;a=patch;h=22580ced9ac9af2a1e3068863bebecf738e33458;hp=d61692cbd03baf863b91d23bb3816ce2e891dcc2";
+                        hash = "sha256-SnuiTaUJEy5xZ9xGOOGRPvtAtvtR4IvCjnxJcmg+N3U=";
+                    })
+                ];
+            });
+        })];
     };
     macplus-cc = pkgsm68kElf.stdenv.cc;
 in
