@@ -32,6 +32,19 @@ nix run github:spotdemo4/nur#bumper
 
 Catppuccin theme for Zen Browser
 
+Using with [`0xc000022070/zen-browser-flake`](https://github.com/0xc000022070/zen-browser-flake):
+
+```nix
+programs.zen-browser = {
+    # ...
+    profiles.default = {
+      # ...
+      userChrome = builtins.readFile "${pkgs.trev.catppuccin-zen-browser}/Mocha/Sky/userChrome.css";
+      userContent = builtins.readFile "${pkgs.trev.catppuccin-zen-browser}/Mocha/Sky/userContent.css";
+    };
+  };
+```
+
 ### [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
 
 Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)
@@ -349,6 +362,18 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
             '';
           };
         };
+
+        nixosConfigurations = {
+          laptop = nixpkgs.lib.nixosSystem {
+            modules = [
+              trev.nixosModules.overlay # Add the overlay
+
+              ({ pkgs, ... }: {
+                environment.systemPackages = [pkgs.trev.bobgen]; # Use the overlay
+              })
+            ];
+          };
+        };
       }
     );
 }
@@ -378,14 +403,16 @@ Using the [Nix User Repository](https://github.com/nix-community/NUR)
   };
 
   outputs = { self, nixpkgs, nur }: {
-    nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
-      modules = [
-        nur.modules.nixos.default # Add the NUR overlay
+    nixosConfigurations = {
+      laptop = nixpkgs.lib.nixosSystem {
+        modules = [
+          nur.modules.nixos.default # Add the NUR overlay
 
-        ({ pkgs, ... }: {
-          environment.systemPackages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
-        })
-      ];
+          ({ pkgs, ... }: {
+            environment.systemPackages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
+          })
+        ];
+      };
     };
   };
 }
