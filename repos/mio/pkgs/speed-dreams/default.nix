@@ -121,5 +121,6 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.linux;
     hydraPlatforms = [ ];
+    mainProgram = "speed-dreams";
   };
 }

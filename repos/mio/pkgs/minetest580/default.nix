@@ -145,5 +145,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.lgpl21Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ ];
+    mainProgram = if buildClient then "minetest" else "minetestserver";
   };
 })

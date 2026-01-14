@@ -134,5 +134,6 @@ mkDerivation rec {
       doronbehar
     ];
     platforms = platforms.linux;
+    mainProgram = "musescore3";
   };
 }
