@@ -1,0 +1,50 @@
+From f830d6531ce4fd9b6ad8178594e60e3e42a3df3d Mon Sep 17 00:00:00 2001
+From: rewine <luhongxu@deepin.org>
+Date: Wed, 14 Jan 2026 14:58:37 +0800
+Subject: [PATCH] Use meson install lazycat-terminal.desktop file
+
+---
+ ...t-terminal.desktop => lazycat-terminal.desktop.in |  2 +-
+ meson.build                                          | 12 ++++++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+ rename lazycat-terminal.desktop => lazycat-terminal.desktop.in (79%)
+
+diff --git a/lazycat-terminal.desktop b/lazycat-terminal.desktop.in
+similarity index 79%
+rename from lazycat-terminal.desktop
+rename to lazycat-terminal.desktop.in
+index 10e1ee9..fd8f50f 100644
+--- a/lazycat-terminal.desktop
++++ b/lazycat-terminal.desktop.in
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ Name=LazyCat Terminal
+ Comment=A modern tabbed terminal emulator
+-Exec=/home/andy/lazycat-terminal/build/lazycat-terminal
++Exec=@bindir@/lazycat-terminal
+ Icon=lazycat-terminal
+ Terminal=false
+ Type=Application
+diff --git a/meson.build b/meson.build
+index 3850ca9..8d9189d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -51,3 +51,15 @@ executable('lazycat-terminal',
+   dependencies: vala_deps,
+   install: true,
+ )
++
++# Install .desktop file
++conf_data = configuration_data()
++conf_data.set('bindir', get_option('prefix') / get_option('bindir'))
++
++configure_file(
++  input: 'lazycat-terminal.desktop.in',
++  output: 'lazycat-terminal.desktop',
++  configuration: conf_data,
++  install: true,
++  install_dir: get_option('datadir') / 'applications'
++)
+-- 
+2.52.0
+

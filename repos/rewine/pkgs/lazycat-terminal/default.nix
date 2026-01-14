@@ -21,6 +21,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-XKXjnsQYqUV+aHruXWepBHVePFBYEJytZrkN8SgMVPQ=";
   };
 
+  patches = [
+    ./0001-Use-meson-install-lazycat-terminal.desktop-file.patch
+  ];
+
   nativeBuildInputs = [
     meson
     ninja
