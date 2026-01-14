@@ -77,9 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/cider $out/bin $out/lib/cider/src/renderer
-    cp -R build resources node_modules package.json $out/lib/cider/
-    cp -R src/renderer/views src/renderer/assets $out/lib/cider/src/renderer/
+    mkdir -p $out/lib/cider $out/bin
+    cp -R build resources node_modules package.json src $out/lib/cider/
 
     install -Dm644 resources/icons/icon.png \
       $out/share/icons/hicolor/256x256/apps/sh.cider.Cider.png
