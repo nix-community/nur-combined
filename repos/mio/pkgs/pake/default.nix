@@ -89,7 +89,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.7.7";
+  version = "3.7.2-unstable-20260114";
 
   src = fetchFromGitHub {
     owner = "tw93";
