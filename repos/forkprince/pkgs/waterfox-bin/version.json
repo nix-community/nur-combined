@@ -9,7 +9,7 @@
   "platforms": {
     "x86_64-linux": {
       "url": "https://cdn1.waterfox.net/waterfox/releases/6.6.8/Linux_x86_64/waterfox-6.6.8.tar.bz2",
-      "hash": "sha256-Pvf7J3vhhe+7ooKgbuO0ALv9PN4vQ0U4GcKgobiIzYk="
+      "hash": "sha256-Vj94tSPxGxMyl6D2jgz9KBZHjjpmWAfIQeklIYztcYg="
     },
     "x86_64-darwin": {
       "url": "https://cdn.waterfox.com/waterfox/releases/6.6.8/Darwin_x86_64-aarch64/Waterfox 6.6.8.dmg",
