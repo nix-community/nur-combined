@@ -1,8 +1,8 @@
 # trev's nix repository
 
-![check](https://github.com/spotdemo4/nur/actions/workflows/check.yaml/badge.svg)
-![vulnerable](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml/badge.svg)
-![nix user repository](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml/badge.svg)
+[![check](https://github.com/spotdemo4/nur/actions/workflows/check.yaml/badge.svg)](https://github.com/spotdemo4/nur/actions/workflows/check.yaml)
+[![vulnerable](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml/badge.svg)](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml)
+[![nix user repository](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml/badge.svg)](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml)
 
 Extra [packages](#packages), [bundlers](#bundlers) and [libs](#libs) for [nix](https://nixos.org/)
 

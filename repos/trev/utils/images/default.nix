@@ -7,7 +7,7 @@ let
     inherit system pkgs;
   };
 
-  containers = builtins.map (i: {
+  containers = map (i: {
     name = i.name;
     path = pkgs.dockerTools.buildImage {
       name = i.name;
