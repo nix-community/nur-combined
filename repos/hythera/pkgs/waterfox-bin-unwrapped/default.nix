@@ -1,6 +1,8 @@
 {
+  _7zz,
   adwaita-icon-theme,
   alsa-lib,
+  applicationName ? "Waterfox",
   autoPatchelfHook,
   curl,
   dbus-glib,
@@ -16,35 +18,49 @@
   wrapGAppsHook3,
 }:
 let
+  pname = "waterfox-bin-unwrapped";
+  version = "6.6.8";
+
   binaryName = "waterfox";
   mozillaPlatforms = {
+    aarch64-darwin = "Darwin_x86_64-aarch64";
+    x86_64-darwin = "Darwin_x86_64-aarch64";
     x86_64-linux = "Linux_x86_64";
   };
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
   arch = mozillaPlatforms.${stdenv.hostPlatform.system} or throwSystem;
-  pname = "waterfox-bin-unwrapped";
-  version = "6.6.8";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
-  src = fetchurl {
-    url = "https://cdn.waterfox.com/waterfox/releases/${version}/${arch}/waterfox-${version}.tar.bz2";
-    hash =
-      {
-        x86_64-linux = "sha256-Pvf7J3vhhe+7ooKgbuO0ALv9PN4vQ0U4GcKgobiIzYk=";
+  src =
+    if stdenv.hostPlatform.isLinux then
+      fetchurl {
+        url = "https://cdn.waterfox.com/waterfox/releases/${version}/${arch}/waterfox-${version}.tar.bz2";
+        hash = "sha256-Vj94tSPxGxMyl6D2jgz9KBZHjjpmWAfIQeklIYztcYg=";
       }
-      .${stdenv.hostPlatform.system} or throwSystem;
-  };
+    else
+      fetchurl {
+        url = "https://cdn.waterfox.com/waterfox/releases/${version}/${arch}/Waterfox%20${version}.dmg";
+        name = "waterfox-${version}.dmg";
+        hash = "sha256-Nyd7AXgowlvdsefQGejOH//d1TPxHX71j61/K+rLJNA=";
+      };
+
+  sourceRoot = lib.optional stdenv.hostPlatform.isDarwin ".";
 
   nativeBuildInputs = [
     wrapGAppsHook3
+  ]
+  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
     autoPatchelfHook
     patchelfUnstable
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    _7zz
   ];
 
-  buildInputs = [
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
     gtk3
     adwaita-icon-theme
     alsa-lib
@@ -54,30 +70,43 @@ stdenv.mkDerivation {
 
   runtimeDependencies = [
     curl
-    libva.out
     pciutils
+  ]
+  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
+    libva.out
   ];
 
-  appendRunpaths = [ "${pipewire}/lib" ];
+  appendRunpaths = lib.optionals (!stdenv.hostPlatform.isDarwin) [
+    "${pipewire}/lib"
+  ];
 
   # Firefox uses "relrhack" to manually process relocations from a fixed offset
   patchelfFlags = [ "--no-clobber-old-sections" ];
 
-  installPhase = ''
-    runHook preInstall
+  # don't break code signing
+  dontFixup = stdenv.hostPlatform.isDarwin;
 
-    mkdir -p $prefix/lib $out/bin
-    cp -r . $prefix/lib/waterfox-bin-${version}
-    ln -s $prefix/lib/waterfox-bin-${version}/waterfox $out/bin/${binaryName}
+  installPhase =
+    if stdenv.hostPlatform.isDarwin then
+      ''
+        mkdir -p $out/Applications
+        mv Waterfox*.app "$out/Applications/${applicationName}.app"
+      ''
+    else
+      ''
+        runHook preInstall
 
-    chmod +x $out/bin/waterfox
+        mkdir -p $prefix/lib $out/bin
+        cp -r . $prefix/lib/waterfox-bin-${version}
+        ln -s $prefix/lib/waterfox-bin-${version}/waterfox $out/bin/${binaryName}
 
-    runHook postInstall
-  '';
+        chmod +x $out/bin/waterfox
+
+        runHook postInstall
+      '';
 
   passthru = {
-    inherit binaryName;
-    applicationName = "Waterfox";
+    inherit applicationName binaryName;
     libName = "waterfox-bin-${version}";
     ffmpegSupport = true;
     gssSupport = true;
