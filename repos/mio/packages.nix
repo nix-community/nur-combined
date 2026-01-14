@@ -326,7 +326,7 @@ rec {
 
   rocksmith-custom-song-toolkit = pkgs.callPackage ./pkgs/rocksmith-custom-song-toolkit { };
 }
-// (lib.optionalAttrs (!nurbot) {
+// (lib.optionalAttrs (!nurbot) rec {
 
   mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
 

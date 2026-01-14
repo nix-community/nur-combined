@@ -30,6 +30,14 @@ Some packages are only available without nur as they failed to evaluate under nu
 + notepad-plus-plus
 + adobe-acrobat-reader
 
+```
+inputs.mio.packages.${pkgs.stdenv.hostPlatform.system}.downkyicore
+pkgs.nur.repos.mio.downkyicore
+
+inputs.mio.legacyPackages."${system}".modules.howdy
+inputs.nur.legacyPackages."${system}".repos.mio.modules.howdy
+```
+
 ## cache
 
 binary cache is provided as best effort. binary cache is frequently *NOT* up to date and you will frequently have to build packages from source code because github actions is often not sufficient to compile packages. Solutions to provide up to date binary cache do require money every month
