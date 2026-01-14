@@ -222,8 +222,14 @@ rec {
   };
   ultimate-vocal-remover = pkgs.callPackage ./pkgs/ultimate-vocal-remover { };
   pake = pkgs.callPackage ./pkgs/pake { };
-  chatgpt = pkgs.callPackage ./pkgs/chatgpt/package.nix {
+  makePakeApp = pkgs.callPackage ./pkgs/makePakeApp {
     inherit pake;
+  };
+  chatgpt = pkgs.callPackage ./pkgs/chatgpt/package.nix {
+    inherit makePakeApp;
+  };
+  apple-music = pkgs.callPackage ./pkgs/apple-music/package.nix {
+    inherit makePakeApp;
   };
 
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
