@@ -37,14 +37,10 @@
   minizip,
   rhash,
   copyDesktopItems,
-  makeDesktopItem,
 }:
 
-let
-  version = "2.4.2";
-in
 stdenv.mkDerivation rec {
-  inherit version;
+  version = "2.4.2";
   pname = "speed-dreams";
 
   src = fetchgit {
@@ -60,7 +56,43 @@ stdenv.mkDerivation rec {
     # Wrapper for main executable
     cat > "$out/bin/speed-dreams" <<EOF
     #!${runtimeShell}
-    export LD_LIBRARY_PATH="$out/lib/games/speed-dreams-2/lib:$out/lib"
+    export LD_LIBRARY_PATH="$out/lib/games/speed-dreams-2/lib:$out/lib:${
+      lib.makeLibraryPath [
+        libGL
+        libGLU
+        libglut
+        libX11
+        plib
+        openal
+        freealut
+        libXrandr
+        libXext
+        libSM
+        libICE
+        libXi
+        libXt
+        libXrender
+        libXxf86vm
+        openscenegraph
+        expat
+        libpng
+        zlib
+        SDL2
+        SDL2_mixer
+        enet
+        libjpeg
+        libvorbis
+        curl
+        cjson
+        minizip
+        rhash
+        stdenv.cc.cc.lib
+      ]
+    }"
+    if [ -e "${libGL}/lib/libGL.so.1" ]; then
+      export LD_PRELOAD="${libGL}/lib/libGL.so.1''${LD_PRELOAD:+:$LD_PRELOAD}"
+    fi
+    export SDL_VIDEODRIVER="x11"
     exec "$out/games/speed-dreams-2" "$@"
     EOF
     chmod a+x "$out/bin/speed-dreams"
@@ -68,6 +100,9 @@ stdenv.mkDerivation rec {
     # Symlink for desktop icon
     mkdir -p $out/share/pixmaps/
     ln -s "$out/share/games/speed-dreams-2/data/icons/icon.png" "$out/share/pixmaps/speed-dreams-2.png"
+    substituteInPlace "$out/share/applications/speed-dreams.desktop" \
+      --replace-fail "Exec=$out/games/speed-dreams-2" "Exec=$out/bin/speed-dreams" \
+      --replace-fail "Icon=/build/speed-dreams-code/speed-dreams-data/data/data/icons/icon.png" "Icon=$out/share/pixmaps/speed-dreams-2.png"
   '';
 
   # RPATH of binary /nix/store/.../lib64/games/speed-dreams-2/drivers/shadow_sc/shadow_sc.so contains a forbidden reference to /build/
