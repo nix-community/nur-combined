@@ -1,6 +1,7 @@
 {
   lib,
   buildNpmPackage,
+  nodejs_22,
   habitica,
   jq,
   settings ? { },
@@ -50,6 +51,7 @@ buildNpmPackage {
 
   npmDepsHash = "sha256-dWEMftgTVdEClzCJhXDzOcH6ISV8UXSrBMoxv8YzEA8=";
 
+  nodejs = nodejs_22;
   makeCacheWritable = true;
   npmFlags = [ "--legacy-peer-deps" ];
 

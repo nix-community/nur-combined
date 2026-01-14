@@ -2,6 +2,7 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
+  nodejs_22,
   anytype-heart,
   anytype-nmh,
   copyDesktopItems,
@@ -38,6 +39,9 @@ buildNpmPackage (finalAttrs: {
   ];
 
   npmDepsHash = "sha256-hJJK/RJnSm8QpjGcnxUsemrAsRNYCHSGSH8iUZZYXJI=";
+
+  # npm dependency install fails with nodejs_24: https://github.com/NixOS/nixpkgs/issues/474535
+  nodejs = nodejs_22;
 
   # middleware: https://github.com/anyproto/anytype-ts/blob/v0.49.2/update-ci.sh
   # langs: https://github.com/anyproto/anytype-ts/blob/v0.49.2/electron/hook/locale.js
