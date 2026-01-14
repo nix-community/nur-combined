@@ -1005,6 +1005,7 @@ dependencies = [
  "log",
  "maa-dirs",
  "maa-installer",
+ "maa-str-ext",
  "maa-sys",
  "maa-types",
  "maa-value",
@@ -1095,9 +1096,21 @@ name = "maa-value"
 version = "0.1.0"
 dependencies = [
  "log",
+ "maa-str-ext",
+ "maa-value-macro",
  "schemars",
  "serde",
  "serde_test",
+]
+
+[[package]]
+name = "maa-value-macro"
+version = "0.1.0"
+dependencies = [
+ "maa-value",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
