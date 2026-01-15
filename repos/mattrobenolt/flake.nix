@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -11,6 +15,7 @@
       self,
       nixpkgs,
       flake-utils,
+      treefmt-nix,
     }:
     let
       # Load Go versions and hashes
@@ -100,6 +105,30 @@
           inherit system;
           overlays = [ overlay ];
         };
+
+        # Configure treefmt-nix
+        treefmtEval = treefmt-nix.lib.evalModule pkgs {
+          projectRootFile = "flake.nix";
+
+          programs = {
+            nixfmt.enable = true; # Uses nixfmt-rfc-style by default
+            deadnix.enable = true;
+            statix.enable = true;
+          };
+
+          settings = {
+            global.excludes = [
+              ".direnv/**"
+              "pkgs/zlint/deps.nix" # Auto-generated file
+            ];
+
+            formatter = {
+              deadnix.priority = 1; # Remove unused code first
+              statix.priority = 2; # Fix anti-patterns second
+              nixfmt.priority = 3; # Format last
+            };
+          };
+        };
       in
       {
         packages =
@@ -129,31 +158,34 @@
           }
           // goPackages;
 
+        # Formatter for `nix fmt`
+        formatter = treefmtEval.config.build.wrapper;
+
+        # Formatting check for CI
+        checks = {
+          formatting = treefmtEval.config.build.check self;
+        };
+
         # Development shell with Nix tooling
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
+          packages = [
             # Task runner
-            just
+            pkgs.just
 
             # For update scripts
-            python3
-            zon2nix # Zig dependency generator
+            pkgs.python3
+            pkgs.zon2nix # Zig dependency generator
 
-            # Nix formatter
-            nixfmt-tree
-
-            # Nix linters
-            statix # Lints and suggests anti-patterns
-            deadnix # Find and remove unused code
+            # Unified formatting via treefmt-nix (includes nixfmt, deadnix, statix)
+            treefmtEval.config.build.wrapper
 
             # Nix utilities
-            nix-tree # Visualize dependency trees
-            nix-diff # Diff derivations
+            pkgs.nix-tree # Visualize dependency trees
+            pkgs.nix-diff # Diff derivations
           ];
 
           shellHook = ''
             just --list --unsorted
-            echo ""
           '';
         };
       }

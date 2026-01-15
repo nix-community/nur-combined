@@ -2,32 +2,14 @@
 default:
     @just --list
 
-# Format all Nix files
+# Format all Nix files (runs deadnix, statix, and nixfmt)
 fmt:
-    @echo "Formatting Nix files with treefmt..."
-    treefmt --excludes .direnv
-    @echo "✓ Done"
+    treefmt
 
-# Run linters
-lint:
-    @echo "Running Nix linters..."
-    @echo ""
-    @echo "==> Running statix (checking for anti-patterns)..."
-    @statix check . --ignore .direnv pkgs/zlint/deps.nix && echo "✓ statix: no issues found" || echo "✗ statix found issues (run 'statix fix' to auto-fix)"
-    @echo ""
-    @echo "==> Running deadnix (finding unused code)..."
-    @deadnix --fail . --exclude .direnv pkgs/zlint/deps.nix && echo "✓ deadnix: no unused code found" || echo "✗ deadnix found unused code"
-    @echo ""
-    @echo "Done!"
-
-# Check formatting and run linters
+# Check formatting (verifies deadnix, statix, and nixfmt)
 check:
-    @echo "Running all checks..."
-    @echo ""
-    @echo "==> Checking formatting..."
-    @treefmt --excludes .direnv --fail-on-change . && echo "✓ All files are formatted correctly" || echo "✗ Some files need formatting (run 'just fmt' to fix)"
-    @echo ""
-    @just lint
+    @echo "Checking formatting..."
+    @treefmt --fail-on-change && echo "✓ All files are properly formatted" || echo "✗ Some files need formatting (run 'just fmt' to fix)"
 
 # Update Go versions and hashes
 update-go:

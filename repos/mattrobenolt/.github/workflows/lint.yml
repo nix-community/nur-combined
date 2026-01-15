@@ -25,14 +25,7 @@ jobs:
 
       - name: Check formatting
         run: |
-          echo "🔍 Checking Nix formatting..."
-          nix develop -c nixpkgs-fmt --check .
-          echo "✓ All files are formatted correctly"
-
-      - name: Run statix
-        run: |
-          echo "🔍 Running statix (checking for anti-patterns)..."
-          nix develop -c just lint
+          nix develop -c just check
 
       - name: Summary
         run: |
