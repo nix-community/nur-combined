@@ -18,6 +18,7 @@ in {
   fzfmenu = callPackage ./pkgs/fzfmenu {};
   moegi-nvim = callPackage ./pkgs/moegi-nvim {};
   prettier-inogai = callPackage ./pkgs/prettier-inogai {};
+  ray-raycast = callPackage ./pkgs/ray-raycast {};
   winterm-rs = callPackage ./pkgs/winterm-rs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
