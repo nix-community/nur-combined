@@ -180,7 +180,7 @@ in {
         inherit (if myLib.isDeprecated.ldc then pkgs else self) ldc dub;
     });
     
-    xscorch = callPackage ./pkgs/xscorch {};
+    ${if (builtins.tryEval (pkgs.gtk2 or (throw ""))).success then "xscorch" else null} = callPackage ./pkgs/xscorch {};
     
     impluse = callPackage ./pkgs/impluse {};
     
@@ -188,7 +188,7 @@ in {
     pce-with-unfree-roms = self.pce.override { enableUnfreeROMs = true; };
     pce-snapshot = callPackage ./pkgs/pce/snapshot.nix {};
     
-    bubbros = callPackage ./pkgs/bubbros {};
+    ${if (builtins.tryEval (pkgs.python27 or (throw ""))).success then "bubbros" else null} = callPackage ./pkgs/bubbros {};
     
     flatzebra = callPackage ./pkgs/flatzebra {};
     burgerspace = callPackage ./pkgs/flatzebra/burgerspace.nix {};
