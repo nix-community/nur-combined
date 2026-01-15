@@ -28,6 +28,6 @@ buildGoModule rec {
     license = lib.licenses.mit;
     maintainers = [lib.maintainers.inogai];
     mainProgram = "ray";
-    platforms = lib.platforms.darwin;
+    platforms = lib.platforms.all;
   };
 }
