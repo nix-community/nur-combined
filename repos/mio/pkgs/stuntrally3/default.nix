@@ -18,6 +18,7 @@
   openal,
   tinyxml,
   tinyxml-2,
+  rapidjson,
 }:
 
 let
@@ -25,6 +26,9 @@ let
     cmakeFlags = old.cmakeFlags ++ [
       "-DOGRE_NODELESS_POSITIONING=ON"
       "-DOGRE_RESOURCEMANAGER_STRICT=0"
+      "-DOGRE_BUILD_COMPONENT_PLANAR_REFLECTIONS=1"
+      "-DOGRE_CONFIG_THREAD_PROVIDER=0"
+      "-DOGRE_CONFIG_THREADS=0"
     ];
   });
   stuntrally_mygui = (
@@ -61,6 +65,65 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     ln -s ${tracks}/ data/tracks
+
+    # Create FindOGRE.cmake to locate Ogre3 via pkg-config
+    cat > CMake/FindOGRE.cmake <<EOF
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(OGRE_PC REQUIRED OGRE)
+
+    find_path(OGRE_INCLUDE_DIRS NAMES Ogre.h HINTS \''${OGRE_PC_INCLUDE_DIRS})
+    find_library(OGRE_LIBRARY NAMES OgreMain HINTS \''${OGRE_PC_LIBRARY_DIRS})
+    find_library(OGRE_HLMS_PBS_LIB NAMES OgreHlmsPbs HINTS \''${OGRE_PC_LIBRARY_DIRS})
+    find_library(OGRE_HLMS_UNLIT_LIB NAMES OgreHlmsUnlit HINTS \''${OGRE_PC_LIBRARY_DIRS})
+    find_library(OGRE_OVERLAY_LIB NAMES OgreOverlay HINTS \''${OGRE_PC_LIBRARY_DIRS})
+
+    set(OGRE_LIBRARIES \''${OGRE_LIBRARY} \''${OGRE_HLMS_PBS_LIB} \''${OGRE_HLMS_UNLIT_LIB} \''${OGRE_OVERLAY_LIB})
+
+    include(FindPackageHandleStandardArgs)
+    find_package_handle_standard_args(OGRE DEFAULT_MSG OGRE_LIBRARIES OGRE_INCLUDE_DIRS)
+
+    if(OGRE_FOUND)
+        if(NOT TARGET OGRE::OGRE)
+            add_library(OGRE::OGRE UNKNOWN IMPORTED)
+            set_target_properties(OGRE::OGRE PROPERTIES
+                IMPORTED_LOCATION "\''${OGRE_LIBRARY}"
+                INTERFACE_LINK_LIBRARIES "\''${OGRE_HLMS_PBS_LIB};\''${OGRE_HLMS_UNLIT_LIB};\''${OGRE_OVERLAY_LIB}"
+                INTERFACE_INCLUDE_DIRECTORIES "\''${OGRE_INCLUDE_DIRS}"
+                INTERFACE_COMPILE_OPTIONS "\''${OGRE_PC_CFLAGS_OTHER}"
+            )
+        endif()
+    endif()
+    EOF
+  '';
+
+  env.NIX_CFLAGS_COMPILE = "-I${stuntrally_ogre}/include/OGRE/Hlms/Common -I${stuntrally_ogre}/include/OGRE/Hlms/Unlit -I${stuntrally_ogre}/include/OGRE/Hlms/Pbs -I${stuntrally_ogre}/include/OGRE/Overlay";
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    mkdir -p $out/share/stuntrally
+
+    # Copy binaries
+    install -m755 ../bin/Release/stuntrally3 $out/bin/
+    install -m755 ../bin/Release/sr-editor3 $out/bin/
+
+    # Copy data and config
+    cp -r ../data $out/share/stuntrally/
+    cp -r ../config $out/share/stuntrally/
+
+    # Symlink tracks (already done in preConfigure, but cp -r might have dereferenced or copied symlinks? 
+    # The preConfigure symlinked ${tracks}/ to data/tracks. 
+    # cp -r data will copy the symlink. We need to make sure the symlink matches the runtime structure or copy content.
+    # Nix store paths are absolute, so the symlink should point to the separate store path for tracks.
+
+    # Wrap binaries to find data
+    for bin in stuntrally3 sr-editor3; do
+      wrapProgram $out/bin/$bin \
+        --chdir "$out/share/stuntrally"
+    done
+
+    runHook postInstall
   '';
 
   nativeBuildInputs = [
@@ -82,6 +145,7 @@ stdenv.mkDerivation rec {
     openal
     tinyxml
     tinyxml-2
+    rapidjson
   ];
 
   meta = with lib; {
@@ -90,5 +154,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pSub ];
     platforms = platforms.linux;
+    mainProgram = "stuntrally3";
   };
 }

@@ -151,7 +151,8 @@ rec {
     cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   };
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
-  chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
+  superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
+
   firefox_nightly-unwrapped = v3override (
     v3overrideAttrs (
       pkgs.callPackage ./pkgs/firefox-nightly {
@@ -169,23 +170,21 @@ rec {
     libName = "betterbird";
   };
 
-  /*
-    mygui-next = x8664linux (
-      fixcmake (
-        pkgs.callPackage ./pkgs/mygui-next/package.nix {
-        }
-      )
-    );
-    ogre-next_3 = x8664linux (
-      v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3
-    );
-    stuntrally3 = wip (
-      pkgs.callPackage ./pkgs/stuntrally3 {
-        ogre-next_3 = ogre-next_3;
-        mygui = mygui-next;
+  mygui-next = x8664linux (
+    fixcmake (
+      pkgs.callPackage ./pkgs/mygui-next/package.nix {
       }
-    );
-  */
+    )
+  );
+  ogre-next_3 = x8664linux (
+    v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3
+  );
+  stuntrally3 = (
+    pkgs.callPackage ./pkgs/stuntrally3 {
+      ogre-next_3 = ogre-next_3;
+      mygui = mygui-next;
+    }
+  );
   speed_dreams = nodarwin (pkgs.callPackage ./pkgs/speed-dreams { });
 
   plezy = nodarwin (pkgs.callPackage ./pkgs/plezy { });
@@ -327,6 +326,7 @@ rec {
     });
 
   rocksmith-custom-song-toolkit = pkgs.callPackage ./pkgs/rocksmith-custom-song-toolkit { };
+
 }
 // (lib.optionalAttrs (!nurbot) rec {
 
@@ -433,5 +433,9 @@ rec {
     wine = pkgs.wineWowPackages.full;
   };
 
+  supertuxkart-evolution = pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { };
+
   prospect-mail = pkgs.callPackage ./pkgs/prospect-mail/package.nix { };
+
+  rclone-browser = pkgs.callPackage ./pkgs/rclone-browser/package.nix { };
 })

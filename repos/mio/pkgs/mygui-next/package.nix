@@ -17,7 +17,7 @@
 }:
 
 let
-  renderSystem = if withOgre then "3" else "4";
+  renderSystem = if withOgre then "8" else "4";
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "mygui";
@@ -30,8 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "cryham";
     repo = "mygui-next";
     # https://github.com/cryham/mygui-next/tree/ogre3
-    rev = "a1490ffe01d503c31a00d8277007ffcb27a4258e";
-    hash = "sha256-R80rTsbmkYtrjIYqdYmbfciEM4rtEzLtsM4XfShJwns=";
+    rev = "ogre3";
+    sha256 = "0yy294l7s5yfn3nk44zdi8rq9j3xkf4paal6iimqp4g6qr72pka7";
   };
 
   patches = [
@@ -62,6 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     libX11
+    libX11
   ];
 
   # Tools are disabled due to compilation failures.
@@ -71,6 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "MYGUI_DONT_USE_OBSOLETE" true)
     (lib.cmakeFeature "MYGUI_RENDERSYSTEM" renderSystem)
   ];
+
+  env.NIX_CFLAGS_COMPILE = lib.optionalString withOgre "-I${ogre}/include/OGRE -I${ogre}/include/OGRE/Hlms/Common -I${ogre}/include/OGRE/Hlms/Unlit -I${ogre}/include/OGRE/Hlms/Pbs";
 
   meta = {
     homepage = "http://mygui.info/";

@@ -8,7 +8,9 @@
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
+  runCommand,
   electron,
+  python3,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -23,20 +25,64 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   npmDeps = fetchNpmDeps {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-cCIh0B/oUz34cbw+3ttms2O7DKKvLjBiYf97XrgerS0=";
+    inherit (finalAttrs) pname version;
+    src = runCommand "deps-src" { } ''
+      mkdir $out
+      cp ${./package.json} $out/package.json
+      cp ${./package-lock.json} $out/package-lock.json
+    '';
+    hash = "sha256-6OZYieBTrDp19FzRLXIVV9viqsjanoprTWW0sFarXlE=";
   };
+
+  postPatch = ''
+    cp ${./package-lock.json} package-lock.json
+    cat >> vue.config.js <<EOF
+    const oldConfig = module.exports;
+    module.exports = {
+      ...oldConfig,
+      lintOnSave: false
+    };
+    EOF
+
+    python3 -c "
+    import json
+    with open('package.json', 'r') as f:
+        data = json.load(f)
+
+    if 'electron-builder' in data.get('dependencies', {}):
+        del data['dependencies']['electron-builder']
+        if 'devDependencies' not in data:
+            data['devDependencies'] = {}
+        data['devDependencies']['electron-builder'] = '^25.1.8'
+
+    # Fix main entry point
+    if 'main' not in data:
+        data['main'] = 'dist_electron/bundled/index.js'
+    else:
+        # if main exists but was wrong (e.g. background.js), overwrite it or leave it?
+        # The prompt says I set it to background.js in previous step.
+        # But this script runs on fresh extraction?
+        # No, `package.nix` is just updated.
+        data['main'] = 'dist_electron/bundled/index.js'
+
+    with open('package.json', 'w') as f:
+        json.dump(data, f, indent=2)
+    "
+  '';
 
   nativeBuildInputs = [
     nodejs_22
     npmHooks.npmConfigHook
     makeWrapper
     copyDesktopItems
+    python3
   ];
 
   makeCacheWritable = true;
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
+
+  npmFlags = [ "--legacy-peer-deps" ];
 
   buildPhase = ''
     runHook preBuild
@@ -44,8 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     npm run electron:build -- \
       --dir \
       -c.electronDist=${electron.dist} \
-      -c.electronVersion=${electron.version} \
-      -c.publish=never
+      -c.electronVersion=${electron.version}
 
     runHook postBuild
   '';

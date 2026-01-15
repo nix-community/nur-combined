@@ -1,0 +1,1 @@
+Copied from nixpkgs commit 567e8dfd8eddc5468e6380fc563ab8a27422ab1d

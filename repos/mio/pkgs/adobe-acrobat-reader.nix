@@ -75,6 +75,8 @@ mkWindowsAppNoCC rec {
     wineserver -w
 
     winetricks --unattended win7 >/dev/null 2>&1 || true
+
+    winetricks --unattended cjkfonts >/dev/null 2>&1
   '';
 
   winAppRun = ''

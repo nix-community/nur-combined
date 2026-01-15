@@ -37,6 +37,7 @@ mkWindowsAppNoCC rec {
     wineserver -w
     rm -f "$WINEPREFIX/drive_c/Program Files/Insta360 Studio/uninstall.exe"
     rm -fR "$WINEPREFIX/drive_c/Program Files/Insta360 Studio/updater"
+    winetricks --unattended cjkfonts >/dev/null 2>&1
   '';
 
   winAppRun = ''
