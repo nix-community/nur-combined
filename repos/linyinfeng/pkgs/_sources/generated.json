@@ -801,13 +801,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c930dbed822487b1e422b7b3643d3826c54cead8",
-            "sha256": "sha256-/Fiw1A9sUx68yCzCzux2HEKRoJXmmPtlI99fAC7+wMY=",
+            "rev": "fac4350210f5ed5592c372683fc99a41ea009f62",
+            "sha256": "sha256-fTmYYoXevuNdrtcZBFYNpzE58sPmyXGhbaVYbaUBD6U=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rahiel/telegram-send.git"
         },
-        "version": "c930dbed822487b1e422b7b3643d3826c54cead8"
+        "version": "fac4350210f5ed5592c372683fc99a41ea009f62"
     },
     "tg-send": {
         "cargoLock": {
