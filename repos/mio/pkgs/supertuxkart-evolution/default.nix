@@ -134,7 +134,8 @@ stdenv.mkDerivation rec {
     if [ -d $out/supertuxkart.app ]; then
       mv $out/supertuxkart.app $out/SuperTuxKart-Evolution.app
     fi
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/bin
     if [ -d $out/SuperTuxKart-Evolution.app ]; then
       mv $out/SuperTuxKart-Evolution.app/Contents/MacOS/supertuxkart $out/bin/supertuxkart-evolution
