@@ -9428,10 +9428,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.5.8";
+      version = "13.5.9";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4664741/noscript-13.5.8.xpi";
-      sha256 = "b31064077be6bf73eab244e79ecaba0e2409866e6d65d18c1db47acc721dbb19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665893/noscript-13.5.9.xpi";
+      sha256 = "16ebe55490dc6de93d065c5b8e92281bf53517f46f46fe67b8cb4bb2ae7e55de";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -13681,10 +13681,10 @@
     };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
-      version = "7.1.2";
+      version = "7.2.0";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4664807/tomato_clock-7.1.2.xpi";
-      sha256 = "868d841fda8718e534b6b687c5779112aa253318c95c707eac3cac38805252be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665932/tomato_clock-7.2.0.xpi";
+      sha256 = "fb9ff5a35038df2bd589c73514a608ea9adb342711076ab7a2cf99ddc3f4429f";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
@@ -16092,10 +16092,10 @@
     };
     "youtube-subscription-groups" = buildFirefoxXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.1.1";
+      version = "18.1.2";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4665739/youtube_subscription_groups-18.1.1.xpi";
-      sha256 = "0350fbf590985cfe77d41ed79cbc600d7704f28d4b5e86c67e86673058da5f42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4665888/youtube_subscription_groups-18.1.2.xpi";
+      sha256 = "aed83066e348bb6733b919172ce1ffac4016102d5f644fea1b575e0d5c58567c";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
