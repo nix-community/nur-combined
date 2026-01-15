@@ -50,6 +50,11 @@ pkgs ? import <nixpkgs> { }
   flat-manager = pkgs.callPackage ./pkgs/flat-manager { };
   open-battery-information = pkgs.callPackage ./pkgs/open-battery-information { };
 
+  pypush = pkgs.callPackage ./pkgs/pypush { };
+
+  anisette-v3-server = pkgs.callPackage ./pkgs/anisette-v3-server { };
+  #go-haystack = pkgs.callPackage ./pkgs/go-haystack { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   stardrop = if stardropPkgs != null then stardropPkgs.default else null;
 }

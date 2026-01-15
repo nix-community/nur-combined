@@ -1,0 +1,108 @@
+{
+  "dependencies": {
+    "automem": {
+      "version": "0.6.11",
+      "sha256": "0l3cbkji47p9myhdpmm83s4j8rjvdwkyln1hinlw1kzph4dgb5wn"
+    },
+    "cachetools": {
+      "version": "0.4.2",
+      "sha256": "0l24y3pwnwxdf1zkx7nxgiscf2ycyj4a4cqhy2qn9syvmdgy6rd4"
+    },
+    "diet-ng": {
+      "version": "1.8.4",
+      "sha256": "03c3pmc9w0s3yf1xipmiw5jiy3aifk6bby3z015vvn80s59mk18c"
+    },
+    "during": {
+      "version": "0.3.0",
+      "sha256": "1xkfwhvnr67k0vy664sadj0hjifbs0257cbfjw86jp7rvjkn0myi"
+    },
+    "dxml": {
+      "version": "0.4.4",
+      "sha256": "0p5vmkw29ksh5wdxz1ijms1wblq288pv15vnbl93z7q2vgnq995w"
+    },
+    "dynamic-loader": {
+      "version": "9202b389affa6be0740e7295dea8f0146537a784",
+      "repository": "https://github.com/Dadoum/dynamicloader.git",
+      "sha256": "0l2d7pd5r3crkvgi9i8fbcmcbzkw12syf1i7pnics75w1gk5f717"
+    },
+    "eventcore": {
+      "version": "0.9.38",
+      "sha256": "00hk3n75c7vvzggxlr9zclhy6n4fdjkm0f1jj5riymhznm3prmqi"
+    },
+    "libasync": {
+      "version": "0.8.6",
+      "sha256": "0hhk5asfdccby8ky77a25qn7dfmfdmwyzkrg3zk064bicmgdwlnj"
+    },
+    "memutils": {
+      "version": "1.0.10",
+      "sha256": "0hm31birbw59sw1bi9syjhbcdgwwwyyx6r9jg7ar9i6a74cjr52c"
+    },
+    "mir-linux-kernel": {
+      "version": "1.0.1",
+      "sha256": "0adyjpcgd65z44iydnrrrpjwbvmrm08a3pkcriqi7npqylfysqn6"
+    },
+    "openssl": {
+      "version": "3.4.0",
+      "sha256": "0y71p03v05v797bkk0b3sbdkncqb5ch3a48nxaly6dxfdz4w247m"
+    },
+    "openssl-static": {
+      "version": "1.0.5+3.0.8",
+      "sha256": "0wpqz29yrbbh39g3cwlgd6h6hh1msws7w5baw1kywdkgj761gx2k"
+    },
+    "plist": {
+      "version": "a425458e2c3d8195c6a9ad68e643f2d823850693",
+      "repository": "https://github.com/Dadoum/plist.git",
+      "sha256": "0174dpkkf8l235f8p0d1ql26646xd8y869ckz1xmg6rjc71vlvnc"
+    },
+    "plist-d": {
+      "version": "6fdaa60d62bbf7c55044069e8f03cbe74401c444",
+      "repository": "https://github.com/Dadoum/libplist-d.git",
+      "sha256": "00v556i9ky3r8dixa53dmy3dfbq19mih6fd7a38cjwpk6pvc1is2"
+    },
+    "provision": {
+      "version": "7717ce1f7b3c9779fe9982005d07b6665071a239",
+      "repository": "https://github.com/Dadoum/Provision.git",
+      "sha256": "0298v7m434vqdqjyfbz06yq5ksn1vylkrizdv39smk59xjdpqdk0"
+    },
+    "requests": {
+      "version": "2.2.0",
+      "sha256": "08bffhn9jbba1kvyi3fp1sg28cbdj49vvd3dga1s8q6zd679lnic"
+    },
+    "silly": {
+      "version": "1.1.1",
+      "sha256": "0fz7ib715sfk3w69i6xns5pwd4caahvfqjf32v13daxm1ms8xdzz"
+    },
+    "slf4d": {
+      "version": "2.1.1",
+      "sha256": "1ds9p4mrsfc7a94x5asgyp8hm53qix7yi92233yk1xd5qz5slp0a"
+    },
+    "stdx-allocator": {
+      "version": "2.77.5",
+      "sha256": "1g8382wr49sjyar0jay8j7y2if7h1i87dhapkgxphnizp24d7kaj"
+    },
+    "taggedalgebraic": {
+      "version": "1.0.1",
+      "sha256": "1xwczhidhb4d6lw342fwx8da4vdwryv9gq8p41bh7184300aafl9"
+    },
+    "test_allocator": {
+      "version": "0.3.4",
+      "sha256": "1xpjz6smxwgm4walrv3xbzi46cddc80q5n4gs7j9gm2yx11sf7gj"
+    },
+    "unit-threaded": {
+      "version": "2.2.3",
+      "sha256": "070qlnr33miyg6w6q8yvry8nnxng23vdklvbr94dmjrbplxb9fy8"
+    },
+    "vibe-container": {
+      "version": "1.7.1",
+      "sha256": "1fll4lwf2lrjwqlhgdfzwbnw1x3fk8r49329jj1clch6acspzf3m"
+    },
+    "vibe-core": {
+      "version": "2.13.3",
+      "sha256": "0iq65j0wan812lpq4d1zsqd2fjwbz8fnl3cagghqq4iq0wl3xlrv"
+    },
+    "vibe-d": {
+      "version": "0.9.8",
+      "sha256": "1gficgfzwswaxj9qlnca28c65gl7xq6q8y47qlf4m1gvkxj4ij2k"
+    }
+  }
+}
