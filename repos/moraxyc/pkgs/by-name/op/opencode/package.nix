@@ -14,6 +14,8 @@ upstream.opencode.overrideAttrs (
         outputHash = "sha256-omSbcp/yKClsGbLiNJjeSL29CGKPbcem6f+nV13RjG4=";
       }
     );
-
+    passthru = (prevAttrs.passthru or { }) // {
+      _ignoreOverride = true;
+    };
   }
 )
