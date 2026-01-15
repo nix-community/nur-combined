@@ -13,6 +13,7 @@
   hmModules = import ./hm-modules; # Home Manager modules.
 
   rust-mcp-server = pkgs.callPackage ./pkgs/rust-mcp-server {};
+  modular-mcp = pkgs.callPackage ./pkgs/modular-mcp {};
 
   bibata-modern-cursors-classic = pkgs.callPackage ./pkgs/bibata-modern-cursors-classic {};
   bibata-modern-cursors-classic-hyprcursor =
