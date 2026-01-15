@@ -557,7 +557,7 @@ in
 
         # Collect the early initialization strings for each package.
         packageEarlyInits = map (p: p.earlyInit) (
-          filter (p: p.earlyInit != "") (builtins.attrValues cfg.usePackage)
+          filter (p: p.enable && p.earlyInit != "") (builtins.attrValues cfg.usePackage)
         );
 
       in
