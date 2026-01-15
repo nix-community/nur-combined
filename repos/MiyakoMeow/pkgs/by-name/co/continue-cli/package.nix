@@ -7,11 +7,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "continue-cli";
-  version = "1.5.30";
+  version = "1.5.32";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@continuedev/cli/-/cli-${finalAttrs.version}.tgz";
-    hash = "sha256-t5e8919E2GoGgHErIbIsjBl5gnZBSoEXlyY3Blg/5EY=";
+    hash = "sha256-BVIAQQPY/EbLyN5bpnSoHFwGG5Jo5QzKgZwBVZNcx+M=";
   };
 
   nativeBuildInputs = [ nodejs ];
