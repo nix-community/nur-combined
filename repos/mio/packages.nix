@@ -438,6 +438,8 @@ rec {
     pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }
   );
 
+  chatgpt-desktop-client = pkgs.callPackage ./pkgs/chatgpt-desktop-client/default.nix { };
+
   prospect-mail = pkgs.callPackage ./pkgs/prospect-mail/package.nix { };
 
   rclone-browser = pkgs.callPackage ./pkgs/rclone-browser/package.nix { };

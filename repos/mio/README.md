@@ -32,6 +32,7 @@ Some packages are only available without nur as they failed to evaluate under nu
 + adobe-acrobat-reader
 + insta360-studio
 + rclone-browser (qt6)
++ supertuxkart-evolution
 
 ```
 inputs.mio.packages.${pkgs.stdenv.hostPlatform.system}.downkyicore
