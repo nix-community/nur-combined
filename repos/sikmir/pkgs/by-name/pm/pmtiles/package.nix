@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "pmtiles";
   version = "3.3";
   pyproject = true;
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-VKI09aEdZdGJosDBe9PGQEDdIaDk8xq6EToiUc1XmOQ=";
   };
 
-  sourceRoot = "${src.name}/python";
+  sourceRoot = "${finalAttrs.src.name}/python";
 
   build-system = with python3Packages; [ setuptools ];
 
@@ -26,4 +26,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

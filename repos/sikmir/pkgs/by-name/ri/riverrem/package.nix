@@ -5,7 +5,7 @@
   cmocean,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "riverrem";
   version = "1.1.2";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "OpenTopography";
     repo = "RiverREM";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-/HutRO6GBrTAE4KNGU+JrFQpfP+Bf+FjdHVaucEkKe0=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

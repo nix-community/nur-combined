@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "prettymapp";
   version = "0.6.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "chrieke";
     repo = "prettymapp";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-i7pklXV8mL1wEYBiCGpHbP6X779KXvwNzZ4/GY1/aMA=";
   };
 
@@ -41,4 +41,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

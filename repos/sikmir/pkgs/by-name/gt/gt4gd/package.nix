@@ -5,7 +5,7 @@
   withUI ? true,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gt4gd";
   version = "1.3.9";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "xinebf";
     repo = "google-translate-for-goldendict";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-zJq5dhmrd0k7bsw75xFECKmwZU4qjw+wwSzsYjg8zao=";
   };
 
@@ -34,4 +34,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

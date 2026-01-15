@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "curses-menu";
   version = "0.7.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pmbarrett314";
     repo = "curses-menu";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-l5KPBPODfeQdZIW3kjoj4ImhokFKjxyiB7r57Ryqj0g=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

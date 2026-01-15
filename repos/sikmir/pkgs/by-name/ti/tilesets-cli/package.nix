@@ -5,10 +5,9 @@
   jsonseq,
   supermercado,
   testers,
-  tilesets-cli,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tilesets-cli";
   version = "1.13.0";
   pyproject = true;
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "tilesets-cli";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-9IGJ3jhw2U5vZl9dG0ourxFgKV+QRf6JXT6nmvuTx7A=";
   };
 
@@ -43,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     supermercado
   ];
 
-  passthru.tests.version = testers.testVersion { package = tilesets-cli; };
+  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = {
     description = "CLI for interacting with the Mapbox Tilesets API";
@@ -52,4 +51,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tilesets";
   };
-}
+})

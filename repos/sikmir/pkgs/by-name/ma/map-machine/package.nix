@@ -5,16 +5,15 @@
   portolan,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "map-machine";
   version = "0.2.0";
   pyproject = true;
-  disabled = python3Packages.pythonOlder "3.9";
 
   src = fetchFromGitHub {
     owner = "enzet";
     repo = "map-machine";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-QDCbT4n8M2eJkv2uFyr9aDs16UzFG+oH/qMwpf08bfI=";
   };
 
@@ -46,4 +45,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "map-machine";
   };
-}
+})

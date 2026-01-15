@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pysheds";
   version = "0.5";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mdbartos";
     repo = "pysheds";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-tWAPJ+uQdmiBl+dfV4FoVFCcozWk3xnoV+CD9Z4pMgI=";
   };
 
@@ -41,4 +41,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

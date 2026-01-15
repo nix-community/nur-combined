@@ -5,7 +5,7 @@
   pyubx2,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyubxutils";
   version = "1.0.5";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyubxutils";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-k6/7BKzDVQNvjS0JNVJnj7ALHPcq6VwklxpxLhJ/e3M=";
   };
 
@@ -32,4 +32,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

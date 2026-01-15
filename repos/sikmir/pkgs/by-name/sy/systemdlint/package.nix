@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "systemdlint";
   version = "1.4.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "priv-kweihmann";
     repo = "systemdlint";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-cJpZkqj4IWxofFWju/s8K3JoCVigSQHpN3o1+rG1/iM=";
   };
 
@@ -30,4 +30,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "systemdlint";
   };
-}
+})

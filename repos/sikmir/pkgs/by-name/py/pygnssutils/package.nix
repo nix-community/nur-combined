@@ -9,7 +9,7 @@
   pyubxutils,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pygnssutils";
   version = "1.1.21";
   pyproject = true;
@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pygnssutils";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-6bbmVYOc+yul8KBzkj3+nR1Tcd5EPMFDF3Ysm6GfIIk=";
   };
 
@@ -42,4 +42,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

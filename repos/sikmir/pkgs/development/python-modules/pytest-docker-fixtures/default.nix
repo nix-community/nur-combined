@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pytest-docker-fixtures";
   version = "1.3.19";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "guillotinaweb";
     repo = "pytest-docker-fixtures";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-9MR2gz69/oGNjuZNGTSe58j8ykOl6AWWII+XzLkri60=";
   };
 
@@ -32,4 +32,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

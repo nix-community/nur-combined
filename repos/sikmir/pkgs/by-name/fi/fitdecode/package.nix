@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "fitdecode";
   version = "0.10.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "polyvertex";
     repo = "fitdecode";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-pW1PgJGqFL2reOYYfpGnQ4WoYFKGMNY8iQJzyHYOly8=";
   };
 
@@ -28,4 +28,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -5,17 +5,17 @@
   locale,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "click";
   version = "6.7";
   pyproject = true;
 
   src = python3Packages.fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-8VUW30eNWlYYD7+A5o8gYBDm0WD8OfpQi2XgNf11Ews=";
   };
 
-  patches = lib.optionals (lib.versionAtLeast version "6.7") [
+  patches = lib.optionals (lib.versionAtLeast finalAttrs.version "6.7") [
     (replaceVars ./fix-paths.patch {
       locale = "${locale}/bin/locale";
     })
@@ -35,4 +35,4 @@ python3Packages.buildPythonPackage rec {
     description = "Create beautiful command line interfaces in Python";
     license = lib.licenses.bsd3;
   };
-}
+})

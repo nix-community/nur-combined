@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "zdict";
   version = "5.0.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "zdict";
     repo = "zdict";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-vZpxJkKBHo9fO7xNN9Is7BumZhAkepVK0dpk+Y/1YBM=";
   };
 
@@ -34,4 +34,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "portolan";
   version = "1.0.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "fitnr";
     repo = "portolan";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-zKloFO7uCLkqgayxC11JRfMpNxIR+UkT/Xabb9AH8To=";
   };
 
@@ -26,4 +26,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

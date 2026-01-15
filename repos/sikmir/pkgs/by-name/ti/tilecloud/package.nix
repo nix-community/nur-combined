@@ -5,7 +5,7 @@
   c2cwsgiutils,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tilecloud";
   version = "1.13.2";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "tilecloud";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-nxTfMTKj0pXAzQPYRdh08Qi0u+WY865s3JtvdNy2eIQ=";
   };
 
@@ -61,4 +61,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

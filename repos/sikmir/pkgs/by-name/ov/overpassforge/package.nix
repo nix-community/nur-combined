@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "overpassforge";
   version = "0.4.3";
   pyproject = true;
@@ -12,13 +12,13 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Krafpy";
     repo = "Overpass-Forge";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-HtP1aSIf6iOyZDhDF/kDps1hMgKHKOAlPjYwOQSeXjE=";
   };
 
   build-system = with python3Packages; [ setuptools-scm ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
@@ -30,4 +30,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -5,7 +5,7 @@
   bounded-pool-executor,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pqdm";
   version = "0.2.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "niedakh";
     repo = "pqdm";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-qB/0TOxD7XCLsr3bKDIKZvYa8g2N95SzTeDiRgJp3Jk=";
   };
 
@@ -35,4 +35,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mysql-to-sqlite3";
   version = "2.1.9";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "techouse";
     repo = "mysql-to-sqlite3";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-nS+BWVemB1XYe37+Cl8q8ZhXBcZDBw5ApOapns7hXKg=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "mysql2sqlite";
     broken = true; # required mysql-connector-python>=8.2.0
   };
-}
+})

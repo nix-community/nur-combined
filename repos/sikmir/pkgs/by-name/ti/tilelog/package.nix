@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tilelog";
   version = "1.7.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "tilelog";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-tSBawN8u3mw6sSVFUMT+qfjbhwPF+x3sYXpO18YUjpw=";
   };
 
@@ -35,4 +35,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

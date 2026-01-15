@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "cmocean";
   version = "4.0.3";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "matplotlib";
     repo = "cmocean";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Vi+tK2cAwqkoe2CEFCYEqMp28IgeH1MSJ+u3t6D8Zu8=";
   };
 
@@ -34,4 +34,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

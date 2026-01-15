@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "geojson-pydantic";
   version = "2.0.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "geojson-pydantic";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-SOo4Hs1WMUerMLMgjzUVuDkUXCuiStJ4P9iMSpUF8Uw=";
   };
 
@@ -33,4 +33,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

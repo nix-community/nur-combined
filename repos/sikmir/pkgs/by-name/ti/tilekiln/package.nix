@@ -6,7 +6,7 @@
   pmtiles,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tilekiln";
   version = "0.8.1";
   pyproject = true;
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "pnorman";
     repo = "tilekiln";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-TLROZGSY2yqbbSHoUOfqaUz+g9K9gltfH7BmZPUx73k=";
   };
 
@@ -49,4 +49,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

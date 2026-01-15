@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "supermercado";
   version = "0.3.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "supermercado";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-5wE4XGRmMMFOCT4YCn4lwu9O6nn2wqYeQoU/cEjkv0g=";
   };
 
@@ -39,4 +39,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gpx-player";
   version = "0.1.2";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "kirienko";
     repo = "gpx-player";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-vLY+uQvIT9WpbtU1lxRzEx/taxi3q6y7AITr+NJ1nW0=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gpx-player";
   };
-}
+})

@@ -9,7 +9,7 @@
 let
   python3Packages = python312Packages;
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mqttwarn";
   version = "0.35.0";
   pyproject = true;
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "mqtt-tools";
     repo = "mqttwarn";
-    tag = version;
+    tag = finalAttrs.version;
     hash =
       if stdenv.hostPlatform.isDarwin then
         "sha256-jdQNCmfGs1k52VKzcF132mmUSWkcdcsjx+AHxM+MRdw="
@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   patches = [
     (replaceVars ./version.patch {
-      inherit version;
+      inherit (finalAttrs) version;
     })
   ];
 
@@ -65,7 +65,7 @@ python3Packages.buildPythonApplication rec {
   nativeCheckInputs = [
     python3Packages.pytestCheckHook
   ]
-  ++ lib.flatten (lib.attrValues optional-dependencies);
+  ++ lib.flatten (lib.attrValues finalAttrs.passthru.optional-dependencies);
 
   meta = {
     description = "A highly configurable MQTT message router, where the routing targets are notification plugins";
@@ -74,4 +74,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mqttwarn";
   };
-}
+})

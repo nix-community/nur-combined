@@ -5,7 +5,7 @@
   cogdumper,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "rio-cogeo";
   version = "5.4.1";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-cogeo";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-BMIUC5h2E9hTeLXGYvkkFuh6DsYVwQHSWAtJZvqVhV8=";
   };
 
@@ -42,4 +42,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

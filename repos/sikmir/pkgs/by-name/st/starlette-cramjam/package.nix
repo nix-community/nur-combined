@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "starlette-cramjam";
   version = "0.5.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "starlette-cramjam";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-D4kYEXL4WTle3HnWwzub/AWwMm9xDIYdAVgpPmkJmns=";
   };
 
@@ -36,4 +36,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

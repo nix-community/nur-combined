@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyrtcm";
   version = "1.1.10";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyrtcm";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-NZmzIMOS3BLkSC1hf2tV770qPpgBQ8uS/VvVh+e5AAs=";
   };
 
@@ -28,4 +28,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

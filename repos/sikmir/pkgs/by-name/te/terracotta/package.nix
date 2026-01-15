@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "terracotta";
   version = "0.9.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "DHI-GRAS";
     repo = "terracotta";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-PWXm3TDtHyHfpsX1revK6G0yUP0fBr2QqJC1vCr51gI=";
   };
 
@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     #setuptools-scm-git-archive
   ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   dependencies = with python3Packages; [
     apispec
@@ -58,4 +58,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

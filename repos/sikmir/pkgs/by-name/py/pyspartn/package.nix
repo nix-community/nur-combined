@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyspartn";
   version = "1.0.8";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyspartn";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-CCj7hoY3zNVdKUeMryXoqe1SbNd1BMQQCHc3Rvn7zPg=";
   };
 
@@ -28,4 +28,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

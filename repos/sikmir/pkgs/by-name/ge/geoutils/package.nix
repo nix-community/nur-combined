@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "geoutils";
   version = "0.1.17";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "GlacioHack";
     repo = "geoutils";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-EfDqr0nKRCoypi7cX3B1Smiw4IaWqQf0v/CpTAFQpzw=";
   };
 
@@ -45,4 +45,4 @@ python3Packages.buildPythonPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = true;
   };
-}
+})

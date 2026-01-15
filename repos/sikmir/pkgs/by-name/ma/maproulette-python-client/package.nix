@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "maproulette-python-client";
   version = "1.8.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "osmlab";
     repo = "maproulette-python-client";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-EmYa2B1FO4PNE1pdoPXeKo8uoY7Tc1cRwkqxiD41WrQ=";
   };
 
@@ -35,4 +35,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

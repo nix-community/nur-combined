@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "rst2txt";
   version = "1.1.0";
   pyproject = true;
@@ -12,13 +12,13 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "stephenfin";
     repo = "rst2txt";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-UqY+qD1S8tyRxvQ0GIzfBlHzsdVSaEJkmgw1WC0H/KA=";
   };
 
   build-system = with python3Packages; [ setuptools-scm ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   dependencies = with python3Packages; [
     docutils
@@ -34,4 +34,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

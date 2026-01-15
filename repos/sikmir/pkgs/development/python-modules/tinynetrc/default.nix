@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "tinynetrc";
   version = "1.3.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sloria";
     repo = "tinynetrc";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-iy0sa1oqJeZxSfXISI7Ypbml8+SGHhRZkznTdbI5yAo=";
   };
 
@@ -30,4 +30,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

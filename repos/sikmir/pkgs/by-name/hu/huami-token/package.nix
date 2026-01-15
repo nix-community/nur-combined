@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "huami-token";
   version = "0.7.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     domain = "codeberg.org";
     owner = "argrento";
     repo = "huami-token";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-nQiz1vrZz0sOoZFQaN9ZtzfDY3zn3Gk0jMdqORDDW3w=";
   };
 
@@ -33,4 +33,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "huami_token";
   };
-}
+})

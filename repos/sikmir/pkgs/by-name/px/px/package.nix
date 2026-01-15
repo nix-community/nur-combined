@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "px";
   version = "3.8.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "walles";
     repo = "px";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-cCTaDs/BYmL6Ql3kAzCk169M7JqenXeLhwsG1ErE2DI=";
   };
 
@@ -24,4 +24,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

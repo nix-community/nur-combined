@@ -7,7 +7,7 @@
   pyrobuf,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyrosm";
   version = "0.6.2";
   pyproject = true;
@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "HTenkanen";
     repo = "pyrosm";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-eX6lOkprU/RkSz2+dGlRtdQQsI+m9GZyN/VfcIix79k=";
   };
 
@@ -48,4 +48,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

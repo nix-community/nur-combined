@@ -6,13 +6,13 @@
   installShellFiles,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "phyghtmap";
   version = "2.23";
   pyproject = true;
 
   src = fetchurl {
-    url = "http://katze.tfiu.de/projects/phyghtmap/phyghtmap_${version}.orig.tar.gz";
+    url = "http://katze.tfiu.de/projects/phyghtmap/phyghtmap_${finalAttrs.version}.orig.tar.gz";
     hash = "sha256-jA6uc/HVdrDQF3NX0Cbu4wMl4SSd7cA/VOvtRRzDsBM=";
   };
 
@@ -39,4 +39,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -4,16 +4,15 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pycouchdb";
   version = "1.16.0";
   pyproject = true;
-  disabled = python3Packages.pythonOlder "3.8";
 
   src = fetchFromGitHub {
     owner = "histrio";
     repo = "py-couchdb";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jcDES8PC02F5eel2KThYZFXKzUm70UqktG521lt+Dj0=";
   };
 
@@ -43,4 +42,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

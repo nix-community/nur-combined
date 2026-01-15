@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "osmviz";
   version = "4.4.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "hugovk";
     repo = "osmviz";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-rEbCMF5G4C/xJTEqO0XwV+VfoL63alh5IzjOdQ34NzU=";
   };
 
@@ -50,4 +50,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

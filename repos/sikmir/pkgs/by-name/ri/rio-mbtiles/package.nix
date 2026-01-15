@@ -5,7 +5,7 @@
   supermercado,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "rio-mbtiles";
   version = "1.6.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "rio-mbtiles";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Kje443Qqs8+Jcv3PnTrMncaoaGDdjrzTcd42NYIenuU=";
   };
 
@@ -44,4 +44,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

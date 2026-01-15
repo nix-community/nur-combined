@@ -7,7 +7,7 @@
   tinynetrc,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "earthaccess";
   version = "0.11.0";
   pyproject = true;
@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "nsidc";
     repo = "earthaccess";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-N4pRODkCPUNW3EPTLgtSscHJv4B/YN37VNOhzCC33+M=";
   };
 
@@ -45,4 +45,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

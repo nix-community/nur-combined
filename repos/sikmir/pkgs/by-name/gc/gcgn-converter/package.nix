@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gcgn-converter";
   version = "08.07.2023";
   format = "other";
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Miroff";
     repo = "gcgn-converter";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-1ipBRQNMGb0wBAHxlJWoQEcaegR3wrlAw9YXUF4fkH8=";
   };
 
@@ -47,4 +47,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

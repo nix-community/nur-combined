@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "geotiler";
   version = "0.15.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "wrobell";
     repo = "geotiler";
-    tag = "geotiler-${version}";
+    tag = "geotiler-${finalAttrs.version}";
     hash = "sha256-fiY5cJIus4eLzSfqVjZfmco4pFABYWNPVUOXGGYPEso=";
   };
 
@@ -40,4 +40,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -5,7 +5,7 @@
   s2sphere,
 }:
 
-python312Packages.buildPythonApplication rec {
+python312Packages.buildPythonApplication (finalAttrs: {
   pname = "py-staticmaps";
   version = "0.5.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python312Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "py-staticmaps";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-TWLPCM1tsWiRCLDhowC/uQrDUujNO3FuDgnUQXMcTm0=";
   };
 
@@ -43,4 +43,4 @@ python312Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

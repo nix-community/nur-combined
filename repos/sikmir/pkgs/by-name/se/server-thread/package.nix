@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "server-thread";
   version = "0.3.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "banesullivan";
     repo = "server-thread";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-1a2XFPyf3FacMx3WU1hPeiqGP4dAUGlQxsXAUz81muo=";
   };
 
@@ -41,4 +41,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

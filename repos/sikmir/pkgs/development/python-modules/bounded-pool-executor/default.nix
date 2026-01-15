@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "bounded-pool-executor";
   version = "0.0.3";
   pyproject = true;

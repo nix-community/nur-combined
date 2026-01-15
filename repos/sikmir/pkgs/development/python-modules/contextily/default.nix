@@ -5,22 +5,21 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "contextily";
   version = "1.6.0";
   pyproject = true;
-  disabled = python3Packages.pythonOlder "3.8";
 
   src = fetchFromGitHub {
     owner = "geopandas";
     repo = "contextily";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Pkw21EOjRiIhdZvCY6JJ2T2yjShF9Io4NAQZIIjeKpU=";
   };
 
   build-system = with python3Packages; [ setuptools-scm ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   dependencies = with python3Packages; [
     geopy
@@ -43,4 +42,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -6,7 +6,7 @@
   checkLang ? false,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tatoebatools";
   version = "0.2.3";
   pyproject = true;
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "LBeaudoux";
     repo = "tatoebatools";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-45CDAH80z6zApgR4gK7ZLPSXtCyPx+6YaA61Iskued4=";
   };
 
@@ -51,4 +51,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -6,7 +6,7 @@
   server-thread,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "localtileserver";
   version = "0.10.6";
   pyproject = true;
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "banesullivan";
     repo = "localtileserver";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-09POlT+3gWGoP/tKRur9OaFsfQvC4OwSHE+ssqSQi1Q=";
   };
 
@@ -61,4 +61,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     inherit (python3Packages.rio-tiler.meta) broken;
   };
-}
+})

@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "rio-stac";
   version = "0.11.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "rio-stac";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-3MAqBhekkjJOQnE1B7GxZiFcjkbhhsON01ciKPvGa4g=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

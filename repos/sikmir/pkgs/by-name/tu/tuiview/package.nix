@@ -6,7 +6,7 @@
   gdal,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tuiview";
   version = "1.3.3";
   pyproject = true;
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "ubarsc";
     repo = "tuiview";
-    tag = "tuiview-${version}";
+    tag = "tuiview-${finalAttrs.version}";
     hash = "sha256-e3tpkQlfdmbzwZVp9Hl1p505uaFa0umNyzlOwfHOMCo=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tuiview";
   };
-}
+})

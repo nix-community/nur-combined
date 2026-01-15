@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mqtt-to-influxdb-forwarder";
   version = "2.1.0";
   format = "other";
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "mhaas";
     repo = "mqtt-to-influxdb-forwarder";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-2n5YF5aLaUzHmxgPhnRXXyhoXV0nJ21aa7g+NBTYvBk=";
   };
 
@@ -38,4 +38,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

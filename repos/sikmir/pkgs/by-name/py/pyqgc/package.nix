@@ -5,7 +5,7 @@
   pyrtcm,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyqgc";
   version = "0.1.2";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyqgc";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-n8D5dYbpygaVr397MdT6qeAl2bL61rvw0kpZ/Z5PohU=";
   };
 
@@ -32,4 +32,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

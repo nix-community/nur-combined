@@ -9,7 +9,7 @@
   revtok,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pytorchtext";
   version = "0.18.0";
   pyproject = true;
@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pytorch";
     repo = "text";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ok91rw/76ivtTTd3DkdDG7N2aZE5WqPuZE4YbbQ0pYU=";
     fetchSubmodules = true;
   };
@@ -64,4 +64,4 @@ python3Packages.buildPythonPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = true; # error: implicit instantiation of undefined template 'std::char_traits'
   };
-}
+})

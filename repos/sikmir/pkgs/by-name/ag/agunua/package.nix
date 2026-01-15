@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "agunua";
   version = "1.7.2";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     domain = "framagit.org";
     owner = "bortzmeyer";
     repo = "agunua";
-    tag = "release-${version}";
+    tag = "release-${finalAttrs.version}";
     hash = "sha256-a/2906Hyr5rropuwxZQk1vXU0Ilaw1cPZjJlOdoJhsk=";
   };
 
@@ -39,4 +39,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

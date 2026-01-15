@@ -5,7 +5,7 @@
   pymbtiles,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tpkutils";
   version = "0.8.2";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "consbio";
     repo = "tpkutils";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-iKM+tEEOtSkwDdkBN+n35q3D2IBi7a/bnY/fSlGDowU=";
   };
 
@@ -35,4 +35,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tpk";
   };
-}
+})

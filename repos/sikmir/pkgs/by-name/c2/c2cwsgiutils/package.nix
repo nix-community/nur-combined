@@ -5,7 +5,7 @@
   pipfile,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "c2cwsgiutils";
   version = "5.1.5";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "c2cwsgiutils";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-lPE21SLMgfnNu0qiM3e2qz6zJJ7u5YaNkqOSNTF1FVg=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

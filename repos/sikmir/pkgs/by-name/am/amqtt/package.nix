@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amqtt";
   version = "0.11.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Yakifo";
     repo = "amqtt";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-l/YbfrjJsBA5a/IHH2p/B3irZF/z2xzNYxXOMOieV04=";
   };
 
@@ -57,4 +57,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

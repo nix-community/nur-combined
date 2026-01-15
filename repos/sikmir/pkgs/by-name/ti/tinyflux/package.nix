@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tinyflux";
   version = "1.0.0";
   pyproject = true;
@@ -12,12 +12,12 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "citrusvanilla";
     repo = "tinyflux";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-WgNkYFWZvZJ8MYMqfnqXH8YgjzRemMxAkyN9On+5PQI=";
   };
 
   postPatch = ''
-    echo ${version} > version.txt
+    echo ${finalAttrs.version} > version.txt
   '';
 
   build-system = with python3Packages; [ setuptools ];
@@ -30,4 +30,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

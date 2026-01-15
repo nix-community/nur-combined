@@ -6,7 +6,7 @@
   overturemaps,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "city2graph";
   version = "0.1.6";
   pyproject = true;
@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "c2g-dev";
     repo = "city2graph";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wjce9I1HBQklQUwVObhlPmXGOZeX1Jm+kGKC9dm4oEw=";
   };
 
@@ -45,4 +45,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

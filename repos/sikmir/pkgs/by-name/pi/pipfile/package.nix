@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pipfile";
   version = "0.0.2";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pypa";
     repo = "pipfile";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-GsDhxnvBvjJGQWk25cS9+HqLQ9YVSxujeX2iGivYl6Q=";
   };
 
@@ -32,4 +32,4 @@ python3Packages.buildPythonPackage rec {
     ];
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

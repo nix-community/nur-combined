@@ -6,7 +6,7 @@
   smopy,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trackanimation";
   version = "1.0.5";
   pyproject = true;
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "JoanMartin";
     repo = "trackanimation";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-fLubRKq+3wQh16xSdqJmNMy4zw83RiSQj8C6jNV4fV8=";
   };
 
@@ -39,4 +39,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

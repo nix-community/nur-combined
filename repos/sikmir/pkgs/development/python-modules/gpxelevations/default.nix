@@ -8,7 +8,7 @@
 let
   testdata = import ./testdata.nix { inherit fetchurl; };
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gpxelevations";
   version = "0.3.7";
   pyproject = true;
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "tkrajina";
     repo = "srtm.py";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-/AGvFE74sJTnn70VklQp0MG+7dsooavAdSTyV2oJM+I=";
   };
 
@@ -52,4 +52,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

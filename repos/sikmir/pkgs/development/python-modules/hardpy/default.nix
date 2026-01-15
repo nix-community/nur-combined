@@ -5,16 +5,15 @@
   pycouchdb,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "hardpy";
   version = "0.4.0";
   pyproject = true;
-  disabled = python3Packages.pythonOlder "3.10";
 
   src = fetchFromGitHub {
     owner = "everypinio";
     repo = "hardpy";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-CVn5Edon1auXNFFNRGnt2i1j9TJo+uX194a22tIQpVE=";
   };
 
@@ -45,4 +44,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

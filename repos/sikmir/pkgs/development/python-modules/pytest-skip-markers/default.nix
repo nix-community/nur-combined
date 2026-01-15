@@ -4,20 +4,19 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pytest-skip-markers";
   version = "1.5.1";
   pyproject = true;
-  disabled = python3Packages.pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "saltstack";
     repo = "pytest-skip-markers";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-jrNPF68sKpEmwU12ZbKK/24DqA1RrjIXYPyoKE/3FLM=";
   };
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   build-system = with python3Packages; [
     setuptools-scm
@@ -38,4 +37,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

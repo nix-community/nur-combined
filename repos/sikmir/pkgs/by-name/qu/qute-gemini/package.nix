@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "qute-gemini";
   version = "1.0.0";
   format = "other";
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromSourcehut {
     owner = "~sotirisp";
     repo = "qute-gemini";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-0e0DvnhPtdtA2ZSGTaWuMNgVlP6fA1P0cuze7AFG3bM=";
   };
 
@@ -29,4 +29,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

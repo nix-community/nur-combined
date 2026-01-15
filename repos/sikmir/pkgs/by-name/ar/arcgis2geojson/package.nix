@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "arcgis2geojson";
   version = "3.0.2";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "chris48s";
     repo = "arcgis2geojson";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-w3teY/CLNGF3h+8R6KoYCvjat8q6ellet1awEPOXpac=";
   };
 
@@ -30,4 +30,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     broken = true;
   };
-}
+})

@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "mqtt-logger";
   version = "0.3.6";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Blake-Haydon";
     repo = "mqtt-logger";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-AG8L2CD+YN6gWswDtsUtUMOA3xC2ro1f1YKYgc4jwXE=";
   };
 
@@ -37,4 +37,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

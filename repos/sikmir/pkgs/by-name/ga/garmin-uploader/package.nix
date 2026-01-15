@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "garmin-uploader";
   version = "1.0.9";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "La0";
     repo = "garmin-uploader";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-OHY4f+0jfxKXiwRJRdSarlb2H+lEt2EVoAAsD4aEc9o=";
   };
 
@@ -33,4 +33,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

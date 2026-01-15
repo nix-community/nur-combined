@@ -5,7 +5,7 @@
   pygnssutils,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "pygpsclient";
   version = "1.5.23";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "PyGPSClient";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wIZoxcQ+DKiVYHBL3/JeIPNLpDrKw7ZjH6OqVqeWyA4=";
   };
 
@@ -33,4 +33,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

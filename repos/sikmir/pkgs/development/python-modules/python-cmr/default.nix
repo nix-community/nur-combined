@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "python-cmr";
   version = "0.13.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "nasa";
     repo = "python_cmr";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-yQAWmX4PsaDx/x3AdQkVIOXAH72VvJ4Ow4QaoZq4/gc=";
   };
 
@@ -39,4 +39,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

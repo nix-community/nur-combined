@@ -5,7 +5,7 @@
   geoip2fast,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tewi";
   version = "2.2.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "anlar";
     repo = "tewi";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-XLriHazE+YyLTEWcjDuW+3WX3NKYdsvzRmIc/Oc81oM=";
   };
 
@@ -34,4 +34,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tewi";
   };
-}
+})

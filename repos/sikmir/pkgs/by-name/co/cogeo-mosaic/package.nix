@@ -5,7 +5,7 @@
   supermorecado,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "cogeo-mosaic";
   version = "8.2.0";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "cogeo-mosaic";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-g5ZRdqs/nY1i2xB8UsJjKwdb0BhlR1Bfj4FSPBRJrss=";
   };
 
@@ -50,4 +50,4 @@ python3Packages.buildPythonPackage rec {
     maintainers = [ lib.maintainers.sikmir ];
     inherit (python3Packages.rio-tiler.meta) broken;
   };
-}
+})
