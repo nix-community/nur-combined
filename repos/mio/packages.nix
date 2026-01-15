@@ -151,6 +151,7 @@ rec {
     cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   };
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
+  chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
   superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
 
   firefox_nightly-unwrapped = v3override (
