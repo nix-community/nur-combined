@@ -178,7 +178,6 @@ let
           beammp-launcher
           mdbook-generate-summary
           #betterbird
-          jellyfin-media-player
           eden
           plezy
           downkyicore

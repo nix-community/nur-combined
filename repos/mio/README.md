@@ -26,9 +26,11 @@ Use without nur: add to flake.nix inputs
 Some packages are only available without nur as they failed to evaluate under nur constraints:
 
 + gifcurry
++ prospect-mail
 + line
 + notepad-plus-plus
 + adobe-acrobat-reader
++ insta360-studio
 
 ```
 inputs.mio.packages.${pkgs.stdenv.hostPlatform.system}.downkyicore
@@ -70,7 +72,6 @@ files are copied from following locations. some are modified in this repo and so
 + minetest591 - from nixos-24.11 commit 50ab793786d9de88ee30ec4e4c24fb4236fc2674 <https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/games/minetest/default.nix>
 + minetest580 & irrlichtmt - parent of <https://github.com/NixOS/nixpkgs/commit/d61c03fe460f6349e5173e007fb2b678c33bed36> commit 33c8b1a7202d4c22d74f4db73666e9a868069d2c
 + wireguird <https://discourse.nixos.org/t/go-version-error-requires-go1-17-or-later/69176/4>
-+ jellyfin-media-player copy from nixpkgs commit 785bbdc5607f801196c734a1e560907d999d7cd3
 + firefox_nightly, nss_git, shared folder, proton-bin, zfs-impermanence-on-shutdown.nix <https://github.com/chaotic-cx/nyx/commit/aacb796ccd42be1555196c20013b9b674b71df75>
 + betterbird parent of <https://github.com/NixOS/nixpkgs/commit/544076a4a1e72d9267b1ff7601ada5e714cdf101> <https://github.com/NixOS/nixpkgs/raw/7eabf557d4fd5e7195cb3e372304ffdeb04170a9/pkgs/applications/networking/mailreaders/betterbird/default.nix>
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
@@ -88,4 +89,5 @@ files are copied from following locations. some are modified in this repo and so
 + android-translation-layer nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
 + bionic-translation nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
 + art-standalone nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
++ local-ai nixpkgs commit 7377f649a8671844d42dde9ea739961f06ce7edf
 + <https://github.com/maydayv7/dotfiles/raw/refs/heads/stable/packages/wine/notepad++.nix>

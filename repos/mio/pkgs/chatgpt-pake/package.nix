@@ -16,6 +16,5 @@ makePakeApp {
     description = "Desktop application for ChatGPT (packaged via Pake)";
     homepage = "https://chatgpt.com/";
     license = lib.licenses.unfree;
-    mainProgram = "chatgpt";
   };
 }

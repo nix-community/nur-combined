@@ -130,24 +130,8 @@ rec {
   cider = pkgs.callPackage ./pkgs/cider {
     electron = electron_castlabs_38;
   };
-  jellyfin-media-player = v3override (
-    pkgs.kdePackages.callPackage ./pkgs/jellyfin-media-player {
-      mpvqt = pkgs.kdePackages.mpvqt.overrideAttrs (old: {
-        meta = old.meta // {
-          platforms = pkgs.lib.platforms.unix;
-        };
-
-        propagatedBuildInputs = map (
-          pkg:
-          pkg.overrideAttrs (oldPkg: {
-            meta = (oldPkg.meta or { }) // {
-              platforms = pkgs.lib.platforms.unix;
-            };
-          })
-        ) old.propagatedBuildInputs;
-      });
-    }
-  );
+  local-ai = pkgs.callPackage ./pkgs/local-ai/package.nix { };
+  local-ai-cuda = local-ai.override { with_cublas = true; };
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   miscutil = pkgs.callPackage ./pkgs/miscutil { };
   gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
@@ -167,6 +151,7 @@ rec {
     cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
   };
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
+  chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
   firefox_nightly-unwrapped = v3override (
     v3overrideAttrs (
       pkgs.callPackage ./pkgs/firefox-nightly {
@@ -225,12 +210,13 @@ rec {
   makePakeApp = pkgs.callPackage ./pkgs/makePakeApp {
     inherit pake;
   };
-  chatgpt = pkgs.callPackage ./pkgs/chatgpt/package.nix {
+  chatgpt-pake = pkgs.callPackage ./pkgs/chatgpt-pake/package.nix {
     inherit makePakeApp;
   };
-  apple-music = pkgs.callPackage ./pkgs/apple-music/package.nix {
+  apple-music-pake = pkgs.callPackage ./pkgs/apple-music-pake/package.nix {
     inherit makePakeApp;
   };
+  altus = pkgs.callPackage ./pkgs/altus/package.nix { };
   apple-music-desktop = pkgs.callPackage ./pkgs/apple-music-desktop/package.nix {
     electron = electron_castlabs_38;
   };
@@ -441,4 +427,11 @@ rec {
     wine = pkgs.wineWowPackages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
   };
 
+  insta360-studio = callPackage ./pkgs/insta360-studio.nix {
+    inherit pkgs;
+    build = lib;
+    wine = pkgs.wineWowPackages.full;
+  };
+
+  prospect-mail = pkgs.callPackage ./pkgs/prospect-mail/package.nix { };
 })

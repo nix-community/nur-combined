@@ -16,6 +16,5 @@ makePakeApp {
     description = "Desktop application for Apple Music (packaged via Pake)";
     homepage = "https://music.apple.com/";
     license = lib.licenses.unfree;
-    mainProgram = "apple-music";
   };
 }
