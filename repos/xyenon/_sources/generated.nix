@@ -58,16 +58,16 @@
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
-    version = "97fa8c1b6618de1d33dd3021bfa62459e74b016e";
+    version = "e24201789f06109ad07bf9db633b5513210d2430";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-l4";
-      rev = "97fa8c1b6618de1d33dd3021bfa62459e74b016e";
+      rev = "e24201789f06109ad07bf9db633b5513210d2430";
       fetchSubmodules = false;
-      sha256 = "sha256-//O2JLhBnLjOdOHQIUj/86WGKNRRu+dZtkUv8UU9zkc=";
+      sha256 = "sha256-/NxEhL+2w4hQrMBes3EON2BXxVKGYeynse3uOEQ+C3E=";
     };
     moduleName = "github.com/mholt/caddy-l4";
-    date = "20260104223739";
+    date = "20260112235400";
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
@@ -119,22 +119,22 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20251210";
+    version = "20260109";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20251210/moegirl.dict.yaml";
-      sha256 = "sha256-P4AAwApknEaV4PFn6/5rpawp0iOGdDH+muYi+R/iErk=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260109/moegirl.dict.yaml";
+      sha256 = "sha256-S8zQTHMMFF0D7uW7OGAOpHXWK1KggnZZ6blvqdcGKM4=";
     };
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "68f7d4898c19dcf50beda251f8143992c3e8371f";
+    version = "57f18631fde7ce9b5eb01f9c3996be296dec9a39";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "68f7d4898c19dcf50beda251f8143992c3e8371f";
+      rev = "57f18631fde7ce9b5eb01f9c3996be296dec9a39";
       fetchSubmodules = false;
-      sha256 = "sha256-6iA/C0dzbLPkEDbdEs8oAnVfG6W+L8/dYyjTuO5euOw=";
+      sha256 = "sha256-z4BO80p61JTEJBTd1VXJ2Oo3bNIk4TdSlUrSOvHpjC4=";
     };
-    date = "2026-01-08";
+    date = "2026-01-13";
   };
 }
