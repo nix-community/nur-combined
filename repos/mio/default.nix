@@ -183,7 +183,7 @@ let
           downkyicore
           ego
           #davinci-resolve-studio2001
-          #lix
+          lix
           ghidra
           prismlauncher-diegiwg
           android-translation-layer
