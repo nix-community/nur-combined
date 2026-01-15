@@ -25,11 +25,15 @@
 let
   version = "1.1.0-unstable-20250430";
 
-  pnpmWrapper = (writeShellScriptBin "pnpm" ''
-    export NPM_CONFIG_ENGINE_STRICT=false
-    export NPM_CONFIG_FROZEN_LOCKFILE=false
-    exec ${pnpm_9}/bin/pnpm "$@"
-  '').overrideAttrs (old: { version = pnpm_9.version; });
+  pnpmWrapper =
+    (writeShellScriptBin "pnpm" ''
+      export NPM_CONFIG_ENGINE_STRICT=false
+      export NPM_CONFIG_FROZEN_LOCKFILE=false
+      exec ${pnpm_9}/bin/pnpm "$@"
+    '').overrideAttrs
+      (old: {
+        version = pnpm_9.version;
+      });
 
   pnpmLock = stdenv.mkDerivation {
     name = "pnpm-lock.yaml";
@@ -39,10 +43,14 @@ let
       rev = "c828fa01c04c885f75780e89a0a10082979b10b5";
       hash = "sha256-drJnKup0oWEdFeC3W8iYjZbzEIEI+G4si0/StVwFfGU=";
     };
-    buildInputs = [ pnpmWrapper yq-go cacert ];
+    buildInputs = [
+      pnpmWrapper
+      yq-go
+      cacert
+    ];
     buildPhase = ''
       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
-      
+
       # Patch package.json
       substituteInPlace package.json \
         --replace-fail '"version": "0.0.0"' '"version": "${version}"' \
@@ -89,10 +97,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
     wrapGAppsHook4
     yq-go
-    libayatana-appindicator
   ];
 
-    buildInputs = [
+  buildInputs = [
+    libayatana-appindicator
     glib-networking
     openssl
     webkitgtk_4_1
@@ -103,19 +111,29 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # Alias pkg-config files to satisfy legacy requirements
     mkdir -p pkgconfig-hack
     export PKG_CONFIG_PATH=$PWD/pkgconfig-hack:$PKG_CONFIG_PATH
-    
-    ln -s ${webkitgtk_4_1.dev}/lib/pkgconfig/javascriptcoregtk-4.1.pc pkgconfig-hack/javascriptcoregtk-4.0.pc
-    ln -s ${webkitgtk_4_1.dev}/lib/pkgconfig/webkit2gtk-4.1.pc pkgconfig-hack/webkit2gtk-4.0.pc
-    # Also alias libsoup if needed (webkitgtk-4.1 provides libsoup-3.0)
-    # Check if we can find libsoup-3.0 and alias to 2.4
-    ln -s ${libsoup_3.dev}/lib/pkgconfig/libsoup-3.0.pc pkgconfig-hack/libsoup-2.4.pc
-    
+
+    # Helper to alias pc files using pkg-config lookup
+    alias_pc() {
+      src=$1
+      dst=$2
+      # We need to find the directory containing the src pc file
+      # pkg-config --variable=pcfiledir might not work if it hasn't loaded it yet?
+      # Actually it works if it's in the path.
+      pcdir=$(pkg-config --variable=pcfiledir "$src")
+      ln -s "$pcdir/$src.pc" "pkgconfig-hack/$dst.pc"
+    }
+
+    alias_pc javascriptcoregtk-4.1 javascriptcoregtk-4.0
+    alias_pc webkit2gtk-4.1 webkit2gtk-4.0
+    alias_pc libsoup-3.0 libsoup-2.4
+    alias_pc ayatana-appindicator3-0.1 appindicator3-0.1
+
     # Alias libraries for linker
     mkdir -p lib-hack
     ln -s ${webkitgtk_4_1}/lib/libwebkit2gtk-4.1.so lib-hack/libwebkit2gtk-4.0.so
     ln -s ${webkitgtk_4_1}/lib/libjavascriptcoregtk-4.1.so lib-hack/libjavascriptcoregtk-4.0.so
     ln -s ${libsoup_3}/lib/libsoup-3.0.so lib-hack/libsoup-2.4.so
-    
+
     export NIX_LDFLAGS="-L$PWD/lib-hack $NIX_LDFLAGS"
   '';
 
