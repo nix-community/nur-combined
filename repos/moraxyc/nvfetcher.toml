@@ -93,3 +93,7 @@ fetch.github = "messense/aliyundrive-webdav"
 [mpv-danmaku]
 src.github = "moraxyc/mpv-danmaku"
 fetch.github = "moraxyc/mpv-danmaku"
+
+[opencode]
+src.github = "anomalyco/opencode"
+fetch.github = "anomalyco/opencode"
