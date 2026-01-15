@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.6.105",
-            "sha256": "sha256-kX54u3g4ihxAxLMgxDcyJ26dLLbXhZir6FfFk2eFGwI=",
+            "rev": "v6.6.109",
+            "sha256": "sha256-1pZREaa+cNULP9WF0j6mZPyqKmiOPJJy783FqmUuxRo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.6.105"
+        "version": "v6.6.109"
     },
     "cockpy": {
         "cargoLocks": null,
@@ -1806,12 +1806,12 @@
             "name": null,
             "owner": "intel",
             "repo": "igsc",
-            "rev": "V1.0.1",
-            "sha256": "sha256-WYudVRUh0zmq2hO/JoX8khybmIYHP9Fz1wkKeb2oOW4=",
+            "rev": "V1.0.2",
+            "sha256": "sha256-eBN05r2o6MUTJvIrkwY2uic7afj6YMHvt/apHyyGgug=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V1.0.1"
+        "version": "V1.0.2"
     },
     "imewlconverter": {
         "cargoLocks": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7735",
-            "sha256": "sha256-8t5UT/rx4guZe0qHtNb8DCZk6+qKwyeLu+anidw7T8M=",
+            "rev": "b7744",
+            "sha256": "sha256-qKI2rmvVqQQumPHoezCVhXdDqAdZc29bZaZnRo0eQxA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7735"
+        "version": "b7744"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2364,12 +2364,12 @@
             "name": null,
             "owner": "intel",
             "repo": "metee",
-            "rev": "6.1.0",
-            "sha256": "sha256-ybTi4pFZAkoO6FAyUOLK+ZbTQb7uwu/sqhYxo06SE9A=",
+            "rev": "6.2.1",
+            "sha256": "sha256-TMHc/0N1DUx+aKOCrfBRoQgKj968FIq+FcusyLG0oPI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.1.0"
+        "version": "6.2.1"
     },
     "modelscope": {
         "cargoLocks": null,
@@ -3016,11 +3016,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0YPGQ/RpzjfdyzAcsdIA963MO70QuwnVHP18RHlVn5I=",
+            "sha256": "sha256-lIT91twoaqv9+YNTWYN6CNY/nLafCG8PG+Aj9zPV+Kw=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.4/PeerBanHelper_9.2.4.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.5/PeerBanHelper_9.2.5.zip"
         },
-        "version": "9.2.4"
+        "version": "9.2.5"
     },
     "phpmyadmin": {
         "cargoLocks": null,
