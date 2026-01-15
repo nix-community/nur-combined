@@ -442,5 +442,5 @@ rec {
 
   rclone-browser = pkgs.callPackage ./pkgs/rclone-browser/package.nix { };
 
-  forku-chatgpt = pkgs.callPackage ./pkgs/forku-chatgpt/package.nix { };
+  forku-chatgpt = v3overrideAttrs (pkgs.callPackage ./pkgs/forku-chatgpt/package.nix { });
 })

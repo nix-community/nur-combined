@@ -153,12 +153,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     substituteInPlace src-tauri/tauri.conf.json \
       --replace-fail '"beforeDevCommand": "npm run dev:fe"' '"beforeDevCommand": "pnpm run dev:fe"' \
-      --replace-fail '"beforeBuildCommand": "npm run build:fe"' '"beforeBuildCommand": "pnpm run build:fe"' \
-      --replace-fail '"version": "1.1.0"' '"version": "${finalAttrs.version}"'
+      --replace-fail '"beforeBuildCommand": "npm run build:fe"' '"beforeBuildCommand": "pnpm run build:fe"'
+    #  --replace-fail '"version": "1.1.0"' '"version": "${finalAttrs.version}"'
 
   '';
 
   doCheck = false;
+
+  postInstall = ''
+    # __NV_DISABLE_EXPLICIT_SYNC -> https://github.com/tauri-apps/tauri/issues/10702
+    wrapProgram $out/bin/chat-gpt \
+      --set __NV_DISABLE_EXPLICIT_SYNC 1
+  '';
 
   meta = {
     description = "ChatGPT desktop application (ForkU fork)";
