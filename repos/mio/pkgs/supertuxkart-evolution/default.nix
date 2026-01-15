@@ -27,9 +27,9 @@
 }:
 let
   assets = fetchsvn {
-    url = "https://svn.code.sf.net/p/supertuxkart/code/stk-assets";
+    url = "https://svn.code.sf.net/p/supertuxkart/code/media/trunk";
     rev = "18626";
-    sha256 = "0g6xgs6ih4lym52q1h7iml0a0fzzyb3xmxgnk7rz2jgcba7ymhvd";
+    sha256 = "sha256-Ka3Ft9apQIGk0I/2DTuZ278W0xOkfumCeqthGpCJYds=";
     name = "stk-assets";
   };
 

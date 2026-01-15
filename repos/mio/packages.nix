@@ -439,4 +439,6 @@ rec {
   prospect-mail = pkgs.callPackage ./pkgs/prospect-mail/package.nix { };
 
   rclone-browser = pkgs.callPackage ./pkgs/rclone-browser/package.nix { };
+
+  forku-chatgpt = pkgs.callPackage ./pkgs/forku-chatgpt/package.nix { };
 })
