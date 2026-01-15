@@ -458,27 +458,6 @@
         },
         "version": "v4.26.0"
     },
-    "osc52": {
-        "cargoLocks": null,
-        "date": "2025-05-16",
-        "extract": null,
-        "name": "osc52",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wrvsrx",
-            "repo": "osc52",
-            "rev": "49fbbb3d297dc8c50f8c35cb4402502713494573",
-            "sha256": "sha256-XCCEAcBn/48uJrBopwCnh/rwSg8Wt2ZAt76A0u6kG6w=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "49fbbb3d297dc8c50f8c35cb4402502713494573"
-    },
     "plausible": {
         "cargoLocks": null,
         "date": null,

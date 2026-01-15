@@ -1,8 +1,4 @@
 # nvfetcher.toml
-[osc52]
-src.git = "https://github.com/wrvsrx/osc52"
-fetch.github = "wrvsrx/osc52"
-
 [giraffe-wallpaper]
 src.git = "https://github.com/wrvsrx/giraffe-wallpaper"
 fetch.github = "wrvsrx/giraffe-wallpaper"

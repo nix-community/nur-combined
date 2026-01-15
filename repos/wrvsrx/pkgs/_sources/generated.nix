@@ -250,18 +250,6 @@
       sha256 = "sha256-eYl3wXgTZEvkTwhyu3W5bYeQxQvwYsnfYpP+2DoojKQ=";
     };
   };
-  osc52 = {
-    pname = "osc52";
-    version = "49fbbb3d297dc8c50f8c35cb4402502713494573";
-    src = fetchFromGitHub {
-      owner = "wrvsrx";
-      repo = "osc52";
-      rev = "49fbbb3d297dc8c50f8c35cb4402502713494573";
-      fetchSubmodules = false;
-      sha256 = "sha256-XCCEAcBn/48uJrBopwCnh/rwSg8Wt2ZAt76A0u6kG6w=";
-    };
-    date = "2025-05-16";
-  };
   plausible = {
     pname = "plausible";
     version = "v4.26.0";
