@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "yaagl/yet-another-anime-game-launcher",
-    "query": "[0].tag_name"
+    "query": ".filter(data => !data.prerelease)[0].tag_name"
   },
   "asset": {
     "file": "Yaagl{0}{1}.app.tar.gz",

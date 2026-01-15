@@ -3,17 +3,17 @@
   "source": {
     "type": "github-release",
     "repo": "desktop/desktop",
-    "query": "[0].tag_name"
+    "query": ".filter(data => !data.prerelease)[0].tag_name"
   },
-  "version": "release-3.5.5-beta1",
+  "version": "release-3.5.4",
   "platforms": {
     "aarch64-darwin": {
       "file": "GitHub.Desktop-arm64.zip",
-      "hash": "sha256-gdLAjl2a/MWDyAyw0C4Big/3EmWBufNQAswlOcyh9lU="
+      "hash": "sha256-NMdvjL1YdxznyeS3RAcIUCz5xpIf4JkmHsCKQT1y3os="
     },
     "x86_64-darwin": {
       "file": "GitHub.Desktop-x64.zip",
-      "hash": "sha256-SUYhSHfyE29aUXPinUkQ8CuRx6cO4Nsr1/SNIOfk6jQ="
+      "hash": "sha256-RBCtBzBAdSBV0Sk7VGSoqu3I1XSoXzodWFxyEUZU3Qs="
     }
   }
 }

@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "coteditor/CotEditor",
-    "query": "[0].tag_name"
+    "query": ".filter(data => !data.prerelease)[0].tag_name"
   },
   "asset": {
     "file": "CotEditor_{version}.dmg",
