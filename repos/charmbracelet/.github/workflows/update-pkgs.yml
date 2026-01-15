@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install nix
         uses: cachix/install-nix-action@v31
@@ -59,7 +59,7 @@ jobs:
           echo "default.nix generated successfully"
 
       - name: Open pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "Update NUR packages"
           title: "Update NUR packages"
