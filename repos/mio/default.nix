@@ -190,6 +190,7 @@ let
           pake
           cider
           rocksmith2tab
+          superTux
           ;
       };
     }
