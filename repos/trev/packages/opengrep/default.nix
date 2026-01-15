@@ -9,7 +9,7 @@
 }:
 let
   pname = "opengrep";
-  version = "1.14.1";
+  version = "1.15.0";
 
   binaries = {
     # aarch64-linux = fetchurl {
@@ -18,7 +18,7 @@ let
     # };
     x86_64-linux = fetchurl {
       url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_x86.tar.gz";
-      hash = "sha256-Z/Rk0zc0wESt0i5ZfGKx9U3qzNglYiDDvDQpc9IN75E=";
+      hash = "sha256-HnbsvWyS1nT7P+eNoYMw71/VIjXea6/BAo7lB5ujzAg=";
     };
     # aarch64-darwin = fetchurl {
     #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";
@@ -59,7 +59,7 @@ python3Packages.buildPythonApplication {
     owner = "opengrep";
     repo = "opengrep";
     tag = "v${version}";
-    hash = "sha256-5310tYjOnOrci2WKlgdr6jL6JUA/PWPQpAdG7O031YU=";
+    hash = "sha256-Dta2vci37Ep+j1OgxTXBJsYQUXllcFw5hTKCHOA/rBU=";
     fetchSubmodules = true;
   };
 
