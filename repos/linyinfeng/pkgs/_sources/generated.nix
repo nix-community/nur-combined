@@ -519,17 +519,17 @@
   };
   telegram-send = {
     pname = "telegram-send";
-    version = "fac4350210f5ed5592c372683fc99a41ea009f62";
+    version = "7f12c2a691aeb8f8068e74d9d4f74390258599f0";
     src = fetchgit {
       url = "https://github.com/rahiel/telegram-send.git";
-      rev = "fac4350210f5ed5592c372683fc99a41ea009f62";
+      rev = "7f12c2a691aeb8f8068e74d9d4f74390258599f0";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-fTmYYoXevuNdrtcZBFYNpzE58sPmyXGhbaVYbaUBD6U=";
+      sha256 = "sha256-mDGbk3ayfBXJ3/2GivceI0n9a0UmI9ve4dcWGoaLJBY=";
     };
-    date = "2026-01-14";
+    date = "2026-01-15";
   };
   tg-send = {
     pname = "tg-send";
