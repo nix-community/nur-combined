@@ -164,7 +164,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "ChatGPT desktop application (ForkU fork)";
     homepage = "https://github.com/canstralian/ForkU-ChatGPT";
     license = lib.licenses.agpl3Only;
-    mainProgram = "ChatGPT";
+    mainProgram = "chat-gpt";
     platforms = lib.platforms.linux;
   };
 })
