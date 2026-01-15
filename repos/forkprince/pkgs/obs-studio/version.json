@@ -5,15 +5,15 @@
     "repo": "obsproject/obs-studio",
     "query": "[0].tag_name"
   },
-  "version": "32.0.4",
+  "version": "32.1.0-beta1",
   "platforms": {
     "aarch64-darwin": {
       "file": "OBS-Studio-{version}-macOS-Apple.dmg",
-      "hash": "sha256-fAVmRGNqeUyxgoGvmNVLV5WtiwmF6VDZO4xRC2RbYpg="
+      "hash": "sha256-hYo/yI9iOQPQLyaDiYvp/1KnBco3rlQ/fcZobZAaKGQ="
     },
     "x86_64-darwin": {
       "file": "OBS-Studio-{version}-macOS-Intel.dmg",
-      "hash": "sha256-fWEPWrHJ0UKQ2CfkSbLMntmbuLSaiQ0crPBhGs6+RPo="
+      "hash": "sha256-+wkEXNLup7BjtW/6Gxca0ifCAu3MR75zq0BDuPS1N9w="
     }
   }
 }
