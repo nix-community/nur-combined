@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   makeBinaryWrapper,
+  patchelf,
   acl,
   xorg,
   libxcb,
@@ -24,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     libxcb
   ];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [ makeBinaryWrapper patchelf ];
 
   cargoHash = "sha256-+RwS0eNYPRkab0UYLGluCRdlf2j+T7tgJGVNKOmIyVk=";
 
@@ -39,8 +40,11 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/ego \
-      --prefix PATH : ${lib.makeBinPath [ xorg.xhost ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libxcb ]}
+      --prefix PATH : ${lib.makeBinPath [ xorg.xhost ]}
+  '';
+
+  postFixup = ''
+    patchelf --set-rpath ${lib.makeLibraryPath [ libxcb ]} $out/bin/ego
   '';
 
   meta = {
