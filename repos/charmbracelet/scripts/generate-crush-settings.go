@@ -43,7 +43,8 @@ type OptionData struct {
 
 const templates = `
 {{- define "root" -}}
-{lib}:
+{ lib }:
+
 lib.mkOption {
   type = lib.types.submodule {
     options = {
@@ -52,7 +53,7 @@ lib.mkOption {
 {{- end}}
     };
   };
-  default = {};
+  default = { };
 }
 {{end}}
 
@@ -65,29 +66,21 @@ lib.mkOption {
 
 {{- define "simple" -}}
 {{.Indent}}{{.Name}} = lib.mkOption {
-{{.Indent}}  type = {{.Type}};
-{{- if .Default}}
-{{.Indent}}  default = {{.Default}};
-{{- end}}
-{{- if .Description}}
+{{.Indent}}  type = lib.types.nullOr {{.Type}};
+{{.Indent}}  default = {{if .Default}}{{.Default}}{{else}}null{{end}};
 {{.Indent}}  description = "{{.Description}}";
-{{- end}}
 {{.Indent}}};
 {{end}}
 
 {{- define "enum" -}}
 {{.Indent}}{{.Name}} = lib.mkOption {
-{{.Indent}}  type = lib.types.enum [
+{{.Indent}}  type = lib.types.nullOr (lib.types.enum [
 {{- range .EnumValues}}
 {{$.Indent}}    "{{.}}"
 {{- end}}
-{{.Indent}}  ];
-{{- if .Default}}
-{{.Indent}}  default = {{.Default}};
-{{- end}}
-{{- if .Description}}
+{{.Indent}}  ]);
+{{.Indent}}  default = {{if .Default}}{{.Default}}{{else}}null{{end}};
 {{.Indent}}  description = "{{.Description}}";
-{{- end}}
 {{.Indent}}};
 {{end}}
 
@@ -110,12 +103,8 @@ lib.mkOption {
 {{.Indent}}    };
 {{.Indent}}  });
 {{- end}}
-{{- if .Default}}
-{{.Indent}}  default = {{.Default}};
-{{- end}}
-{{- if .Description}}
+{{.Indent}}  default = {{if .Default}}{{.Default}}{{else}}{ }{{end}};
 {{.Indent}}  description = "{{.Description}}";
-{{- end}}
 {{.Indent}}};
 {{end}}
 `
@@ -264,6 +253,15 @@ func escapeNixString(s string) string {
 	return s
 }
 
+func humanizeName(name string) string {
+	name = strings.ReplaceAll(name, "_", " ")
+	name = strings.ReplaceAll(name, "-", " ")
+	if len(name) > 0 {
+		name = strings.ToUpper(string(name[0])) + name[1:]
+	}
+	return name
+}
+
 func nixDefault(val any) string {
 	if val == nil {
 		return "null"
@@ -279,9 +277,9 @@ func nixDefault(val any) string {
 	case string:
 		return fmt.Sprintf(`"%s"`, escapeNixString(v))
 	case []any:
-		return "[]"
+		return "[ ]"
 	case map[string]any:
-		return "{}"
+		return "{ }"
 	default:
 		return fmt.Sprintf("%v", v)
 	}
@@ -317,21 +315,38 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 			continue
 		}
 
+		// Preserve description before resolving ref (description is on the property, not the ref target)
+		originalDescription := prop.Description
+		originalDefault := prop.Default
+
 		if prop.Ref != "" {
 			prop = resolveRef(prop.Ref, schema)
 		}
 
+		// Use original description/default if the ref target doesn't have one
+		description := prop.Description
+		if originalDescription != "" {
+			description = originalDescription
+		}
+		if description == "" {
+			description = humanizeName(name)
+		}
+		defaultVal := prop.Default
+		if originalDefault != nil {
+			defaultVal = originalDefault
+		}
+
 		opt := OptionData{
 			Name:        name,
-			Description: escapeNixString(prop.Description),
+			Description: escapeNixString(description),
 			Indent:      indent,
 		}
 
 		// Enums
 		if len(prop.Enum) > 0 {
 			opt.EnumValues = prop.Enum
-			if prop.Default != nil {
-				opt.Default = fmt.Sprintf(`"%v"`, prop.Default)
+			if defaultVal != nil {
+				opt.Default = fmt.Sprintf(`"%v"`, defaultVal)
 			}
 			options = append(options, opt)
 			continue
@@ -341,8 +356,8 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 		if prop.Type == "object" && len(prop.Properties) > 0 {
 			opt.Type = "lib.types.submodule"
 			opt.Children = generateOptions(prop.Properties, schema, indent+"      ")
-			if prop.Default != nil {
-				opt.Default = "{}"
+			if defaultVal != nil {
+				opt.Default = "{ }"
 			}
 			options = append(options, opt)
 			continue
@@ -358,16 +373,16 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 			if items.Type == "object" && len(items.Properties) > 0 {
 				opt.Type = "lib.types.listOf (lib.types.submodule"
 				opt.Children = generateOptions(items.Properties, schema, indent+"      ")
-				if prop.Default != nil {
-					opt.Default = "[]"
+				if defaultVal != nil {
+					opt.Default = "[ ]"
 				}
 				options = append(options, opt)
 				continue
 			}
 
 			opt.Type = "lib.types.listOf lib.types.str"
-			if prop.Default != nil {
-				opt.Default = "[]"
+			if defaultVal != nil {
+				opt.Default = "[ ]"
 			}
 			options = append(options, opt)
 			continue
@@ -383,16 +398,16 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 			if additionalProps.Type == "object" && len(additionalProps.Properties) > 0 {
 				opt.Type = "lib.types.attrsOf (lib.types.submodule"
 				opt.Children = generateOptions(additionalProps.Properties, schema, indent+"      ")
-				if prop.Default != nil {
-					opt.Default = "{}"
+				if defaultVal != nil {
+					opt.Default = "{ }"
 				}
 				options = append(options, opt)
 				continue
 			}
 
 			opt.Type = "lib.types.attrsOf lib.types.anything"
-			if prop.Default != nil {
-				opt.Default = "{}"
+			if defaultVal != nil {
+				opt.Default = "{ }"
 			}
 			options = append(options, opt)
 			continue
@@ -400,8 +415,8 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 
 		// Simple types
 		opt.Type = nixType(prop.Type)
-		if prop.Default != nil {
-			opt.Default = nixDefault(prop.Default)
+		if defaultVal != nil {
+			opt.Default = nixDefault(defaultVal)
 		}
 		options = append(options, opt)
 	}
