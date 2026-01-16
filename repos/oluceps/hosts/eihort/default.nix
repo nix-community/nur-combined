@@ -43,7 +43,7 @@ withSystem "x86_64-linux" (
       ./rekey.nix
       ./spec.nix
       ./caddy.nix
-      ./cluster.nix
+      # ./cluster.nix
       ../sysctl-boost.nix
       ./bees.nix
       ../persist.nix

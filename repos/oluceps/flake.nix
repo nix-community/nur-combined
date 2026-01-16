@@ -64,7 +64,7 @@
             pre-commit = {
               check.enable = true;
               settings.hooks = {
-                nixfmt-rfc-style.enable = true;
+                nixfmt = true;
                 detect-private-keys.enable = true;
               };
             };
@@ -366,7 +366,7 @@
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell"; # Use same quickshell version
+      # inputs.quickshell.follows = "quickshell"; # Use same quickshell version
     };
     vicinae = {
       url = "github:vicinaehq/vicinae";

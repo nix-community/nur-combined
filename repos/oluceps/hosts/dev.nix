@@ -225,7 +225,7 @@
               nixd
               nil
               shfmt
-              nixfmt-rfc-style
+              nixfmt
               ruff
               ty
               # taplo

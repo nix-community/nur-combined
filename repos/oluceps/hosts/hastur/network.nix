@@ -52,7 +52,7 @@
         table inet filter {
         	chain forward {
             type filter hook forward priority filter; policy drop;
-            iifname "eno1" oifname "vm1" ip6 saddr fdcc::3 accept
+            iifname "br0" oifname "vm1" ip6 saddr fdcc::3 accept
         	}
         }
       '';
@@ -140,10 +140,10 @@
         };
 
         linkConfig.RequiredForOnline = "routable";
-        address = [ "192.168.1.2/24" ];
-        dns = [ "192.168.1.1" ];
+        address = [ "192.168.0.2/24" ];
+        dns = [ "192.168.0.1" ];
         routes = [
-          { Gateway = "192.168.1.1"; }
+          { Gateway = "192.168.0.1"; }
         ];
       };
 

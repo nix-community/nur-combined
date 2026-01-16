@@ -11,7 +11,7 @@ ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4XC7dGxwY7VUPr4t+NtWL+c7pTl8g56
 link_local_addr = "fe80::216:3eff:fe0f:37d8/64"
 wg_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 # identifiers = [{ name = "hastur.local", type = "mdns" }]
-addrs = ["192.168.1.2"]
+addrs = ["192.168.0.2"]
 
 [node.kaambl]
 # laptop
@@ -37,7 +37,7 @@ ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImlt3ABsoFfuPwiPR2vyO8sDAFEQtu3B
 link_local_addr = "fe80::216:3eff:fe4f:e85f/64"
 wg_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
 
-addrs = ["192.168.1.110"]
+addrs = ["192.168.0.3"]
 # identifiers = [{ name = "eihort.local", type = "mdns" }]
 
 

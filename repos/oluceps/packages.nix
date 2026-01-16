@@ -56,6 +56,7 @@ let
         tcping-go
         # httping
         iftop
+        cilium-cli
       ]
     ];
     cmd = [

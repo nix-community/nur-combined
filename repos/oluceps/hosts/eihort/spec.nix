@@ -125,7 +125,10 @@
 
     prometheus.enable = true;
     grafana.enable = true;
-
+    incus = {
+      enable = true;
+      bridgeAddr = "192.168.0.3/24";
+    };
   };
 
   # systemd.services.minio.serviceConfig.Environment = [
@@ -174,7 +177,6 @@
       settings = {
         APP_URL = "https://oidc.nyaw.xyz";
         TRUST_PROXY = true;
-        DB_PROVIDER = "postgres";
         OTEL_METRICS_EXPORTER = "prometheus";
       };
       environmentFile = config.vaultix.secrets.pocketid.path;

@@ -27,8 +27,9 @@ in
             "github.com/mholt/caddy-ratelimit@v0.1.0"
             "github.com/ss098/certmagic-s3@v0.0.0-20250607141218-0c4ff782fbd0"
             "github.com/greenpau/caddy-security@v1.1.31"
+            "github.com/mholt/caddy-l4@v0.0.0-20260112235400-e24201789f06"
           ];
-          hash = "sha256-Ije0XHoJBIpZd7YODFYIlwLHphfw88buNKkInafNAs0=";
+          hash = "sha256-z31sZbACYkScY2/Op00pwebvlBSeZkX3qiJj6tu+Kkg=";
         };
       };
       settings = lib.mkOption {

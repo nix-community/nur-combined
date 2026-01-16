@@ -65,7 +65,7 @@
       ];
     };
 
-    links."eno1" = {
+    links."10-eno1" = {
       matchConfig.MACAddress = "ac:1f:6b:e5:fe:3a";
       linkConfig = {
         Name = "eno1";
@@ -73,7 +73,7 @@
       };
     };
 
-    links."eno2" = {
+    links."20-eno2" = {
       matchConfig.MACAddress = "ac:1f:6b:e5:fe:3b";
       linkConfig = {
         Name = "eno2";
@@ -95,10 +95,10 @@
           DHCPv6Client = false;
         };
         linkConfig.RequiredForOnline = "routable";
-        address = [ "192.168.1.110/24" ];
-        dns = [ "192.168.1.1" ];
+        address = [ "192.168.0.3/24" ];
+        dns = [ "192.168.0.1" ];
         routes = [
-          { Gateway = "192.168.1.1"; }
+          { Gateway = "192.168.0.1"; }
         ];
       };
     };
