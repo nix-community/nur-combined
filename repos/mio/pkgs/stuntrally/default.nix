@@ -93,6 +93,11 @@ stdenv.mkDerivation rec {
     ln -s ${tracks}/ data/tracks
   '';
 
+  postInstall = ''
+    wrapProgram $out/bin/stuntrally \
+      --set SDL_VIDEODRIVER x11
+  '';
+
   nativeBuildInputs = [
     cmake
     pkg-config
