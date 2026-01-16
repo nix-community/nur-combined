@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       virtual MyGUI::ILayerItem* getLayerItemByPoint(int _left, int _top) const override { return MyGUI::Widget::getLayerItemByPoint(_left, _top); } 
       virtual const MyGUI::IntCoord& getLayerItemCoord() const override { return MyGUI::Widget::getLayerItemCoord(); } 
       virtual void resizeLayerItemView(const MyGUI::IntSize& _oldView, const MyGUI::IntSize& _newView) override { }"
-    
+
     substituteInPlace source/ogre/common/Slider.h \
       --replace-fail "Slider();" "Slider(); 
       virtual MyGUI::ILayerItem* getLayerItemByPoint(int _left, int _top) const override { return MyGUI::Widget::getLayerItemByPoint(_left, _top); } 

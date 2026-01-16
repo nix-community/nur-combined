@@ -103,6 +103,8 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/bin
     mkdir -p $out/share/stuntrally3
+    mkdir -p $out/share/applications
+    mkdir -p $out/share/icons/hicolor/256x256/apps
 
     # Copy binaries
     install -m755 ../bin/Release/stuntrally3 $out/bin/
@@ -111,6 +113,20 @@ stdenv.mkDerivation rec {
     # Copy data and config
     cp -r ../data $out/share/stuntrally3/
     cp -r ../config $out/share/stuntrally3/
+
+    # Desktop file + icon
+    install -m644 ../data/gui/stuntrally.png \
+      $out/share/icons/hicolor/256x256/apps/stuntrally3.png
+    cat > $out/share/applications/stuntrally3.desktop <<'EOF'
+    [Desktop Entry]
+    Type=Application
+    Name=Stunt Rally 3
+    Comment=Stunt Rally game with Track Editor, based on VDrift and OGRE
+    Exec=stuntrally3
+    Icon=stuntrally3
+    Terminal=false
+    Categories=Game;Racing;
+    EOF
 
     # Symlink to root for relative path lookup
     ln -s $out/share/stuntrally3/data $out/data
