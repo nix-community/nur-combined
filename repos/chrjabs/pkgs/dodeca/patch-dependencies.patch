@@ -1,100 +1,35 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 171258815e..f2dc262507 100644
+index 2af7feb3a8..71bc93dd69 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -6614,7 +6614,7 @@
+@@ -5706,7 +5706,7 @@
  [[package]]
  name = "picante"
  version = "0.1.0"
--source = "git+https://github.com/bearcove/picante#fc5eb5aceea1cdafdeafaa2226794d43de7ce2b0"
-+source = "git+https://github.com/chrjabs/picante?branch=push-yzywrmvzmnww#837cf431137e4b99d3f7d434fe5cd136f9b49f91"
+-source = "git+https://github.com/bearcove/picante?branch=main#01f4e385610abae31f09eb4e8c3715eafa293b12"
++source = "git+https://github.com/chrjabs/picante?branch=push-lyszvrwnuvpr#84abe1890813a42c5cfc37227445b2cffded1f6a"
  dependencies = [
   "dashmap 5.5.3",
   "facet",
-@@ -6631,7 +6631,7 @@
+@@ -5724,7 +5724,7 @@
  [[package]]
  name = "picante-macros"
  version = "0.1.0"
--source = "git+https://github.com/bearcove/picante#fc5eb5aceea1cdafdeafaa2226794d43de7ce2b0"
-+source = "git+https://github.com/chrjabs/picante?branch=push-yzywrmvzmnww#837cf431137e4b99d3f7d434fe5cd136f9b49f91"
+-source = "git+https://github.com/bearcove/picante?branch=main#01f4e385610abae31f09eb4e8c3715eafa293b12"
++source = "git+https://github.com/chrjabs/picante?branch=push-lyszvrwnuvpr#84abe1890813a42c5cfc37227445b2cffded1f6a"
  dependencies = [
-  "heck 0.5.0",
+  "heck",
   "proc-macro2",
-@@ -9927,9 +9927,9 @@
- 
- [[package]]
- name = "woofwoof"
--version = "1.0.1"
-+version = "1.0.2"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "e2d1f98d082af287cb121f931ccd30248fb665485bbb11a03bc686d2454a2bb4"
-+checksum = "6b724d1c19ed8a369027b646cedc4542cb9f6237190d400f75106c06627507a0"
- dependencies = [
-  "brotli 7.0.0",
-  "cc",
 diff --git a/Cargo.toml b/Cargo.toml
-index ae8d9f47d6..6068941982 100644
+index 3c9ffdf704..39876eb09a 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -1,9 +1,5 @@
- [workspace]
--members = [
--    "crates/*",
--    "cells/*",
--    "xtask",
--]
-+members = ["crates/*", "cells/*", "xtask"]
- resolver = "3"
- 
- [workspace.dependencies]
-@@ -18,17 +14,33 @@
- facet-value = { git = "https://github.com/facet-rs/facet", branch = "main" }
- facet-yaml = { git = "https://github.com/facet-rs/facet", branch = "main" }
- futures = "^0.3.31" #unified
--miette = { version = "^7.6.0", features = ["fancy", "fancy-no-backtrace"] } #unified
-+miette = { version = "^7.6.0", features = [
-+  "fancy",
-+  "fancy-no-backtrace",
-+] } #unified
- rapace = { git = "https://github.com/bearcove/rapace", branch = "main", default-features = false }
- rapace-cell = { git = "https://github.com/bearcove/rapace", branch = "main" }
- rapace-tracing = { git = "https://github.com/bearcove/rapace", branch = "main" }
- regex = "^1.12.2" #unified
--reqwest = { version = "^0.12.26", features = ["blocking", "rustls-tls"] } #unified
-+reqwest = { version = "^0.12.26", features = [
-+  "blocking",
-+  "rustls-tls",
-+] } #unified
- tempfile = "^3.23.0" #unified
- thiserror = "^2.0.17" #unified
--tokio = { version = "^1.48.0", features = ["full", "macros", "process", "rt", "rt-multi-thread", "sync", "time"] } #unified
-+tokio = { version = "^1.48.0", features = [
-+  "full",
-+  "macros",
-+  "process",
-+  "rt",
-+  "rt-multi-thread",
-+  "sync",
-+  "time",
-+] } #unified
- tracing = "^0.1.44" #unified
--ur-taking-me-with-you = { git = "https://github.com/bearcove/rapace", branch = "main", features = ["tokio"] }
-+ur-taking-me-with-you = { git = "https://github.com/bearcove/rapace", branch = "main", features = [
-+  "tokio",
-+] }
- 
- [workspace.package]
- rust-version = "1.91"
-diff --git a/crates/dodeca/Cargo.toml b/crates/dodeca/Cargo.toml
-index 872b0356cb..f0c2712c0f 100644
---- a/crates/dodeca/Cargo.toml
-+++ b/crates/dodeca/Cargo.toml
-@@ -114,7 +114,7 @@
- owo-colors = "4"
+@@ -66,7 +66,7 @@
+ ur-taking-me-with-you = { git = "https://github.com/bearcove/roam", branch = "main", features = ["tokio"] }
  
  # Incremental computation
--picante = { git = "https://github.com/bearcove/picante" }
-+picante = { git = "https://github.com/chrjabs/picante", branch = "push-yzywrmvzmnww" }
- postcard = { version = "1", features = ["alloc"] }  # Fast, compact binary serialization with serde
+-picante = { git = "https://github.com/bearcove/picante", branch = "main" }
++picante = { git = "https://github.com/chrjabs/picante", branch = "push-lyszvrwnuvpr" }
  
- # RPC framework for plugin communication
+ # File system
+ fs-err = "3"

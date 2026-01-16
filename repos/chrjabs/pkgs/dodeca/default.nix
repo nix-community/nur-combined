@@ -15,33 +15,33 @@ let
   wasm-bindgen-cli = buildWasmBindgenCli rec {
     src = fetchCrate {
       pname = "wasm-bindgen-cli";
-      version = "0.2.106";
-      hash = "sha256-M6WuGl7EruNopHZbqBpucu4RWz44/MSdv6f0zkYw+44=";
+      version = "0.2.108";
+      hash = "sha256-UsuxILm1G6PkmVw0I/JF12CRltAfCJQFOaT4hFwvR8E=";
     };
 
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit src;
       inherit (src) pname version;
-      hash = "sha256-ElDatyOwdKwHg3bNH/1pcxKI7LXkhsotlDPQjiLHBwA=";
+      hash = "sha256-iqQiWbsKlLBiJFeqIYiXo3cqxGLSjNM8SOWXGM9u43E=";
     };
   };
 in
 rustPlatform.buildRustPackage rec {
   pname = "dodeca";
-  version = "0.6.2";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "bearcove";
     repo = "dodeca";
     rev = "v${version}";
-    hash = "sha256-6GxatTa8/G8GSEN9lkRVWINcoft37g1zTcLX7Uv4udU=";
+    hash = "sha256-sd1Pyq1FFVJfP6gUXstOGBQ/0Wl/leEnenJZjMkejw0=";
   };
 
   patches = [
     ./fix-wasm-symbols.patch
   ];
 
-  cargoHash = "sha256-aVNM0ezmg50tKqH1hrhqEn1OSdnJHUF/XuAf3eWODDI=";
+  cargoHash = "sha256-4r2341EeSZGUJ5fbaixPdVzUQGrtvSnQfojC2GWKvT0=";
 
   cargoPatches = [
     ./patch-dependencies.patch
@@ -76,7 +76,25 @@ rustPlatform.buildRustPackage rec {
     cargo build -j "$NIX_BUILD_CORES" --release -p dodeca
 
     echo "Building cells..."
-    cargo build -j "$NIX_BUILD_CORES" --release -p cell-arborium --bin ddc-cell-arborium -p cell-code-execution --bin ddc-cell-code-execution -p cell-css --bin ddc-cell-css -p cell-fonts --bin ddc-cell-fonts -p cell-html --bin ddc-cell-html -p cell-html-diff --bin ddc-cell-html-diff -p cell-http --bin ddc-cell-http -p cell-image --bin ddc-cell-image -p cell-js --bin ddc-cell-js -p cell-jxl --bin ddc-cell-jxl -p cell-linkcheck --bin ddc-cell-linkcheck -p cell-markdown --bin ddc-cell-markdown -p cell-minify --bin ddc-cell-minify -p cell-pagefind --bin ddc-cell-pagefind -p cell-sass --bin ddc-cell-sass -p cell-svgo --bin ddc-cell-svgo -p cell-tui --bin ddc-cell-tui -p cell-webp --bin ddc-cell-webp
+    cargo build -j "$NIX_BUILD_CORES" --release \
+        -p cell-code-execution --bin ddc-cell-code-execution \
+        -p cell-css --bin ddc-cell-css \
+        -p cell-dialoguer --bin ddc-cell-dialoguer \
+        -p cell-fonts --bin ddc-cell-fonts \
+        -p cell-gingembre --bin ddc-cell-gingembre \
+        -p cell-html --bin ddc-cell-html \
+        -p cell-html-diff --bin ddc-cell-html-diff \
+        -p cell-http --bin ddc-cell-http \
+        -p cell-image --bin ddc-cell-image \
+        -p cell-js --bin ddc-cell-js \
+        -p cell-jxl --bin ddc-cell-jxl \
+        -p cell-linkcheck --bin ddc-cell-linkcheck \
+        -p cell-markdown --bin ddc-cell-markdown \
+        -p cell-minify --bin ddc-cell-minify \
+        -p cell-sass --bin ddc-cell-sass \
+        -p cell-svgo --bin ddc-cell-svgo \
+        -p cell-tui --bin ddc-cell-tui \
+        -p cell-webp --bin ddc-cell-webp
 
     runHook postBuild
   '';
@@ -95,10 +113,11 @@ rustPlatform.buildRustPackage rec {
       cp "target/release/ddc" $out/bin/
 
 
-      cp "target/release/ddc-cell-arborium" $out/bin/
       cp "target/release/ddc-cell-code-execution" $out/bin/
       cp "target/release/ddc-cell-css" $out/bin/
+      cp "target/release/ddc-cell-dialoguer" $out/bin/
       cp "target/release/ddc-cell-fonts" $out/bin/
+      cp "target/release/ddc-cell-gingembre" $out/bin/
       cp "target/release/ddc-cell-html" $out/bin/
       cp "target/release/ddc-cell-html-diff" $out/bin/
       cp "target/release/ddc-cell-http" $out/bin/
@@ -108,7 +127,6 @@ rustPlatform.buildRustPackage rec {
       cp "target/release/ddc-cell-linkcheck" $out/bin/
       cp "target/release/ddc-cell-markdown" $out/bin/
       cp "target/release/ddc-cell-minify" $out/bin/
-      cp "target/release/ddc-cell-pagefind" $out/bin/
       cp "target/release/ddc-cell-sass" $out/bin/
       cp "target/release/ddc-cell-svgo" $out/bin/
       cp "target/release/ddc-cell-tui" $out/bin/
