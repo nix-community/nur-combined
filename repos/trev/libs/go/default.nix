@@ -4,7 +4,6 @@
     goModule: goos: goarch:
     goModule.overrideAttrs (
       finalAttrs: previousAttrs: {
-        pname = "${previousAttrs.pname}-${goos}-${goarch}";
         env = previousAttrs.env // {
           GOOS = goos;
           GOARCH = goarch;
