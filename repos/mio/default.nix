@@ -191,6 +191,7 @@ let
           cider
           rocksmith2tab
           superTux
+          stuntrally3
           ;
       };
     }
