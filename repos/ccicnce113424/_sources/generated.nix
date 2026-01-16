@@ -234,6 +234,26 @@
     };
     date = "2026-01-11";
   };
+  wild = {
+    pname = "wild";
+    version = "v0.0.13";
+    src = fetchFromGitHub {
+      owner = "niuhuan";
+      repo = "wild";
+      rev = "v0.0.13";
+      fetchSubmodules = false;
+      sha256 = "sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06/tqk0SQMAZOk=";
+    };
+    extract = {
+      "pubspec.lock" = ./. + "/sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06_tqk0SQMAZOk=/pubspec.lock";
+    };
+    cargoLock."rust/Cargo.lock" = {
+      lockFile = ./. + "/sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06_tqk0SQMAZOk=/rust/Cargo.lock";
+      outputHashes = {
+
+      };
+    };
+  };
   zhuque = {
     pname = "zhuque";
     version = "v0.212";

@@ -110,6 +110,12 @@ rec {
     version = unstableVersion sources;
   };
 
+  wild-reader = pkgs.callPackage ./wild-reader rec {
+    sources = fetchedSrc.wild;
+    version = stableVersion sources;
+    srcInfo = lib.importJSON ./wild-reader/src-info.json;
+  };
+
   # wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
 
   zhuque = pkgs.callPackage ./zhuque rec {

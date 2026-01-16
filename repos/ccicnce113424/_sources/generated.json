@@ -389,6 +389,34 @@
     },
     "version": "80bb22655bd76f837c92cc428dfc2d5e3918af8f"
   },
+  "wild": {
+    "cargoLock": {
+      "rust/Cargo.lock": [
+        "sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06_tqk0SQMAZOk=/rust/Cargo.lock",
+        {}
+      ]
+    },
+    "date": null,
+    "extract": {
+      "pubspec.lock": "sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06_tqk0SQMAZOk=/pubspec.lock"
+    },
+    "name": "wild",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "niuhuan",
+      "repo": "wild",
+      "rev": "v0.0.13",
+      "sha256": "sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06/tqk0SQMAZOk=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v0.0.13"
+  },
   "zhuque": {
     "cargoLock": null,
     "date": null,

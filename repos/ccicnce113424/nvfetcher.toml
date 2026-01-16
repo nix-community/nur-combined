@@ -89,6 +89,12 @@ src.github = "Tony15246/uosc_danmaku"
 fetch.github = "Tony15246/uosc_danmaku"
 src.git = "https://github.com/Tony15246/uosc_danmaku"
 
+[wild]
+cargo_lock = ["rust/Cargo.lock"]
+extract = ["pubspec.lock"]
+fetch.github = "niuhuan/wild"
+src.github = "niuhuan/wild"
+
 [zhuque]
 fetch.url = "https://github.com/TrionesType/zhuque/releases/download/$ver/ZhuqueFangsong-$ver.zip"
 src.github_tag = "TrionesType/zhuque"
