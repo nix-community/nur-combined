@@ -1259,10 +1259,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.4.6";
+      version = "0.4.7";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4578806/blocktube-0.4.6.xpi";
-      sha256 = "67ea8463b6ff9ed9737cf17ab0a89339f66b54a721741f3073d2c34591ae51d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4655706/blocktube-0.4.7.xpi";
+      sha256 = "d01111a7bac124f7a7460f85baa5e3da9615167497fa11be308656c679e0be3a";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -4567,10 +4567,10 @@
     };
     "gitako-github-file-tree" = buildFirefoxXpiAddon {
       pname = "gitako-github-file-tree";
-      version = "3.15.0";
+      version = "3.15.2";
       addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4639596/gitako_github_file_tree-3.15.0.xpi";
-      sha256 = "ae713c799d46a0b4b78f3517af0f25c571087370d9441429c6ee2feb5ab3cb7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4666426/gitako_github_file_tree-3.15.2.xpi";
+      sha256 = "4512d6dd4775cf473fd43bc749e39e27eaad6a01ef9c905a3615cd05142839fb";
       meta = with lib;
       {
         homepage = "https://github.com/EnixCoda/Gitako";
@@ -6330,10 +6330,10 @@
     };
     "image-max-url" = buildFirefoxXpiAddon {
       pname = "image-max-url";
-      version = "2025.12.0";
+      version = "2025.12.1";
       addonId = "maxurl@qsniyg";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4637322/image_max_url-2025.12.0.xpi";
-      sha256 = "9c982f9daa6e2d112f29500154c35f7e7e66099ed20f34c5650f861a05207917";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4650094/image_max_url-2025.12.1.xpi";
+      sha256 = "461d921450e5f77a4993923c8068b123e8e082cf4925e12ba8fb7b76bbfa1027";
       meta = with lib;
       {
         homepage = "https://qsniyg.github.io/maxurl/";
@@ -9039,10 +9039,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.9.7";
+      version = "1.9.8";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4664822/mtab-1.9.7.xpi";
-      sha256 = "d3998eacad63a48f2d49da1e56b4c3b7884c550655ef134dabaa828d64432632";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4666777/mtab-1.9.8.xpi";
+      sha256 = "2f8392af3bffd21b67c731fb71a213e4d51f475399ae40ead51e5661113466ed";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9952,10 +9952,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "5.7.0";
+      version = "5.8.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618800/passbolt-5.7.0.xpi";
-      sha256 = "72ca02cffb92b53295ed5c1d4b64b14da878fc4d0855e20493c825fed6d386d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4646897/passbolt-5.8.0.xpi";
+      sha256 = "1f6d58d67c3a2b09c97282da457ff11cb87e452edd6a91fb7f2d49f520600962";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -11208,10 +11208,10 @@
     };
     "re-enable-right-click" = buildFirefoxXpiAddon {
       pname = "re-enable-right-click";
-      version = "0.6.7";
+      version = "0.6.8";
       addonId = "{278b0ae0-da9d-4cc6-be81-5aa7f3202672}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4638479/re_enable_right_click-0.6.7.xpi";
-      sha256 = "092613e14b4b312cf07d791804b1fabce138ac30b7976f6b810b3200fd4627ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4656718/re_enable_right_click-0.6.8.xpi";
+      sha256 = "7787d3d0ea2fd120568e500e67e932c65ab0f8e33a5f68a74eb408524f82d286";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/allow-right-click.html";
@@ -12829,6 +12829,20 @@
           "webRequestBlocking"
           "https://*.startpage.com/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "startup-bookmarks" = buildFirefoxXpiAddon {
+      pname = "startup-bookmarks";
+      version = "1.7.18";
+      addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4589645/startup_bookmarks-1.7.18.xpi";
+      sha256 = "e2cb9941cc63b2c33ec06df519e1f6b5bbe97ebc5d77237748af21763fc9e4b2";
+      meta = with lib;
+      {
+        homepage = "https://github.com/igorlogius/webextensions/tree/main/sources/startup-bookmarks";
+        description = "Open a set of bookmarks on browser startup";
+        mozPermissions = [ "bookmarks" "storage" ];
         platforms = platforms.all;
       };
     };
@@ -14654,10 +14668,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.1.6.2";
+      version = "10.1.36.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649244/video_downloadhelper-10.1.6.2.xpi";
-      sha256 = "bacdeb94698cc47c48592433f4e063c1f041bbc75ef862bfc05c3e20d4692246";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4666817/video_downloadhelper-10.1.36.2.xpi";
+      sha256 = "1ee7234e01de0411a9155f531f177b6ae4359708af52378b9c56d0227468a9c8";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
