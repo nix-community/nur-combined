@@ -106,6 +106,8 @@ let
       cmakeFlags = [
         (lib.cmakeBool "OGRE_BUILD_DEPENDENCIES" false)
         (lib.cmakeBool "OGRE_BUILD_SAMPLES" withSamples)
+        "-DOGRE_CONFIG_ENABLE_STBI=ON"
+        "-DOGRE_CONFIG_ENABLE_FREEIMAGE=OFF"
       ]
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
         (lib.cmakeBool "OGRE_BUILD_LIBS_AS_FRAMEWORKS" false)

@@ -102,30 +102,29 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/bin
-    mkdir -p $out/share/stuntrally
+    mkdir -p $out/share/stuntrally3
 
     # Copy binaries
     install -m755 ../bin/Release/stuntrally3 $out/bin/
     install -m755 ../bin/Release/sr-editor3 $out/bin/
 
     # Copy data and config
-    cp -r ../data $out/share/stuntrally/
-    cp -r ../config/* $out/share/stuntrally/
+    cp -r ../data $out/share/stuntrally3/
+    cp -r ../config $out/share/stuntrally3/
 
-    # Symlink tracks (already done in preConfigure, but cp -r might have dereferenced or copied symlinks? 
-    # The preConfigure symlinked ${tracks}/ to data/tracks. 
-    # cp -r data will copy the symlink. We need to make sure the symlink matches the runtime structure or copy content.
-    # Nix store paths are absolute, so the symlink should point to the separate store path for tracks.
-    
+    # Symlink to root for relative path lookup
+    ln -s $out/share/stuntrally3/data $out/data
+    ln -s $out/share/stuntrally3/config $out/config
+
     # Generate plugins.cfg
-    echo "PluginFolder=${stuntrally_ogre}/lib/OGRE" > $out/share/stuntrally/plugins.cfg
-    echo "Plugin=RenderSystem_GL3Plus" >> $out/share/stuntrally/plugins.cfg
-    echo "Plugin=Plugin_ParticleFX" >> $out/share/stuntrally/plugins.cfg
+    echo "PluginFolder=${stuntrally_ogre}/lib/OGRE" > $out/share/stuntrally3/plugins.cfg
+    echo "Plugin=RenderSystem_GL3Plus" >> $out/share/stuntrally3/plugins.cfg
+    echo "Plugin=Plugin_ParticleFX" >> $out/share/stuntrally3/plugins.cfg
 
     # Wrap binaries to find data and force X11
     for bin in stuntrally3 sr-editor3; do
       wrapProgram $out/bin/$bin \
-        --chdir "$out/share/stuntrally" \
+        --chdir "$out/share/stuntrally3" \
         --set SDL_VIDEODRIVER x11
     done
 
