@@ -110,17 +110,23 @@ stdenv.mkDerivation rec {
 
     # Copy data and config
     cp -r ../data $out/share/stuntrally/
-    cp -r ../config $out/share/stuntrally/
+    cp -r ../config/* $out/share/stuntrally/
 
     # Symlink tracks (already done in preConfigure, but cp -r might have dereferenced or copied symlinks? 
     # The preConfigure symlinked ${tracks}/ to data/tracks. 
     # cp -r data will copy the symlink. We need to make sure the symlink matches the runtime structure or copy content.
     # Nix store paths are absolute, so the symlink should point to the separate store path for tracks.
+    
+    # Generate plugins.cfg
+    echo "PluginFolder=${stuntrally_ogre}/lib/OGRE" > $out/share/stuntrally/plugins.cfg
+    echo "Plugin=RenderSystem_GL3Plus" >> $out/share/stuntrally/plugins.cfg
+    echo "Plugin=Plugin_ParticleFX" >> $out/share/stuntrally/plugins.cfg
 
-    # Wrap binaries to find data
+    # Wrap binaries to find data and force X11
     for bin in stuntrally3 sr-editor3; do
       wrapProgram $out/bin/$bin \
-        --chdir "$out/share/stuntrally"
+        --chdir "$out/share/stuntrally" \
+        --set SDL_VIDEODRIVER x11
     done
 
     runHook postInstall
