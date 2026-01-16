@@ -1,6 +1,6 @@
 { pkgs }:
 {
-  moduleToPlatform =
+  toPlatform =
     goModule: goos: goarch:
     goModule.overrideAttrs (
       finalAttrs: previousAttrs: {
@@ -33,18 +33,17 @@
       }
     );
 
-  moduleToImage =
+  toImage =
     goModule:
     pkgs.dockerTools.buildImage {
       name = "${goModule.pname}";
-      tag = "${goModule.version}-${goModule.GOARCH}";
+      tag = "${goModule.version}";
       created = "now";
+      meta = goModule.meta;
       architecture = "${goModule.GOARCH}";
       copyToRoot = [ goModule ];
-      config = {
-        Cmd = [
-          "${pkgs.lib.meta.getExe goModule}"
-        ];
-      };
+      config.Cmd = [
+        "${pkgs.lib.meta.getExe goModule}"
+      ];
     };
 }
