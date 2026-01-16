@@ -54,7 +54,7 @@ mkWindowsAppNoCC rec {
   installPhase = ''
     runHook preInstall
 
-    ln -s $out/bin/.launcher $out/bin/line
+    mv $out/bin/.launcher $out/bin/line
 
     runHook postInstall
   '';
