@@ -1,7 +1,6 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
-  inputs ? { },
   config ? { },
   ...
 }:
@@ -18,9 +17,6 @@ let
           lib.optionalAttrs (config ? allModuleArgs) {
             inherit (config.allModuleArgs) self' inputs' system;
           }
-          // {
-            inherit inputs;
-          }
           // pkgsArg
           // self.packages
         );
@@ -33,10 +29,21 @@ let
           sourceFiles = lib.fileset.toList sources;
         in
         lib.listToAttrs (
-          map (pathName: {
-            name = baseNameOf (dirOf pathName);
-            value = callPackage pathName { };
-          }) sourceFiles
+          map (
+            pathName:
+            let
+              imported = import pathName;
+
+              fArgs = if builtins.isFunction imported then builtins.functionArgs imported else { };
+
+              requiresInputs = fArgs ? inputs';
+              shouldSkip = requiresInputs && !(config ? allModuleArgs);
+            in
+            {
+              name = baseNameOf (dirOf pathName);
+              value = if shouldSkip then null else callPackage imported { };
+            }
+          ) sourceFiles
         );
 
       pkgsCross = lib.mergeAttrs (pkgs.writers.writeText "pkgsCross" "") (

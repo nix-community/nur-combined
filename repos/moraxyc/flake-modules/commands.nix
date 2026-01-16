@@ -2,6 +2,7 @@
 {
   perSystem =
     {
+      self',
       pkgs,
       lib,
       ...
@@ -13,7 +14,7 @@
         # Nvfetcher
         KEY_FLAG=""
         [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-        ${lib.getExe pkgs.nvfetcher} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
+        ${lib.getExe self'.packages.nvfetcher} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
       '';
     in
     {

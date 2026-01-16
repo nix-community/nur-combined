@@ -1,6 +1,6 @@
 {
     "aliyundrive-webdav": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-06-10",
         "extract": null,
         "name": "aliyundrive-webdav",
@@ -21,7 +21,7 @@
         "version": "6e8eba62b4e50acf89681e3a67a3a693186dcd05"
     },
     "aliyundrive-webdav-stable": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "aliyundrive-webdav-stable",
@@ -42,7 +42,7 @@
         "version": "v2.3.3"
     },
     "bark-server": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-12-30",
         "extract": null,
         "name": "bark-server",
@@ -63,7 +63,7 @@
         "version": "1e2ecf2137e1e31edcc75b1c8438e816473c41f6"
     },
     "bark-server-stable": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "bark-server-stable",
@@ -84,7 +84,7 @@
         "version": "v2.3.3"
     },
     "english_words": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-01-06",
         "extract": null,
         "name": "english_words",
@@ -105,7 +105,7 @@
         "version": "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c"
     },
     "exloli-next": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-11-23",
         "extract": null,
         "name": "exloli-next",
@@ -126,7 +126,7 @@
         "version": "41d7a6e52a1625d6febb47160a4b143ca47c16d5"
     },
     "fcitx5-themes-candlelight": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-11-07",
         "extract": null,
         "name": "fcitx5-themes-candlelight",
@@ -147,7 +147,7 @@
         "version": "653677b0454569f41c815b3d262a57e42c90ee05"
     },
     "flapalerted": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-12-27",
         "extract": null,
         "name": "flapalerted",
@@ -168,7 +168,7 @@
         "version": "36647a2116f8eb6523439ca497f92b7c983d216a"
     },
     "flapalerted-stable": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "flapalerted-stable",
@@ -189,7 +189,7 @@
         "version": "v4.3.0"
     },
     "geolite2-asn": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "geolite2-asn",
@@ -204,7 +204,7 @@
         "version": "2026.01.13"
     },
     "geolite2-city": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "geolite2-city",
@@ -219,7 +219,7 @@
         "version": "2026.01.13"
     },
     "geolite2-country": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "geolite2-country",
@@ -233,8 +233,29 @@
         },
         "version": "2026.01.13"
     },
+    "git-mcp-server": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "git-mcp-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "cyanheads",
+            "repo": "git-mcp-server",
+            "rev": "v2.4.9",
+            "sha256": "sha256-oS1zQWbD3pGHytrAKaufyeCeVg0nnktuzLDJQVXoa4E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.4.9"
+    },
     "libinput-three-finger-drag": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-06-17",
         "extract": null,
         "name": "libinput-three-finger-drag",
@@ -255,7 +276,7 @@
         "version": "6acd3f84b551b855b5f21b08db55e95dae3305c5"
     },
     "mautrix-telegramgo": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-01-12",
         "extract": null,
         "name": "mautrix-telegramgo",
@@ -276,7 +297,7 @@
         "version": "f4830c71d834b2ea52778aef94c30269e75a3549"
     },
     "mm-geofeed-verifier": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "mm-geofeed-verifier",
@@ -297,10 +318,36 @@
         "version": "v3.1.0"
     },
     "mpv-danmaku": {
-        "cargoLocks": null,
-        "date": null,
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-_8WWaqcQ9ynZ7qIg2IAHyE_4Au8HYfuSkOCgkEu0G98=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-01-13",
         "extract": null,
         "name": "mpv-danmaku",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "moraxyc",
+            "repo": "mpv-danmaku",
+            "rev": "96b4e6126bd69bd0497a961ae340258bb0b507a8",
+            "sha256": "sha256-/8WWaqcQ9ynZ7qIg2IAHyE/4Au8HYfuSkOCgkEu0G98=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "96b4e6126bd69bd0497a961ae340258bb0b507a8"
+    },
+    "mpv-danmaku-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "mpv-danmaku-stable",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -318,7 +365,7 @@
         "version": "v1.9.0"
     },
     "new-api": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "new-api",
@@ -338,8 +385,50 @@
         },
         "version": "v0.10.6-alpha.3"
     },
+    "nvfetcher": {
+        "cargoLock": null,
+        "date": "2025-12-14",
+        "extract": null,
+        "name": "nvfetcher",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "berberman",
+            "repo": "nvfetcher",
+            "rev": "dbae9626c46b93d9fd6b85c8b292939ae569c4fc",
+            "sha256": "sha256-78sPqekEDJiol2YD3Hx2zHu5E4AtrbNrUKi0032HMHo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "dbae9626c46b93d9fd6b85c8b292939ae569c4fc"
+    },
+    "nvfetcher-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nvfetcher-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "berberman",
+            "repo": "nvfetcher",
+            "rev": "0.8.0",
+            "sha256": "sha256-78sPqekEDJiol2YD3Hx2zHu5E4AtrbNrUKi0032HMHo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.8.0"
+    },
     "opencode": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "opencode",
@@ -360,7 +449,7 @@
         "version": "v1.1.21"
     },
     "pixy2": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-07-17",
         "extract": null,
         "name": "pixy2",
@@ -381,7 +470,7 @@
         "version": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621"
     },
     "v2ray-rules-dat-geoip": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "v2ray-rules-dat-geoip",
@@ -396,7 +485,7 @@
         "version": "202601142217"
     },
     "v2ray-rules-dat-geosite": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "v2ray-rules-dat-geosite",
@@ -411,7 +500,7 @@
         "version": "202601142217"
     },
     "watt-toolkit-aarch64-linux": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "watt-toolkit-aarch64-linux",
@@ -426,7 +515,7 @@
         "version": "3.0.0-rc.16"
     },
     "watt-toolkit-x86_64-linux": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "watt-toolkit-x86_64-linux",

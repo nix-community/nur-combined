@@ -7,6 +7,14 @@
     systems.url = "github:Moraxyc/nix-systems";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # extraPackages
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
   outputs =
     {

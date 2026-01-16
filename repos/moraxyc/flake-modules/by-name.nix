@@ -25,15 +25,20 @@
   perSystem =
     {
       pkgs,
-      inputs,
       config,
       lib,
       ...
-    }@args:
+    }:
     rec {
       packages = legacyPackages.__drvPackages;
       ciPackages = legacyPackages.__ciPackages;
       nurPackages = legacyPackages.__nurPackages;
-      legacyPackages = import ../pkgs args;
+      legacyPackages = import ../pkgs {
+        inherit
+          pkgs
+          config
+          lib
+          ;
+      };
     };
 }

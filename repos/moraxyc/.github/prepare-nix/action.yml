@@ -1,83 +1,84 @@
 name: "Prepare Nix"
 description: "Setup Nix and Attic cache"
 inputs:
-  GH_PAT:
-    description: "GitHub Personal Access Token"
-    required: true
-  ATTIC_TOKEN:
-    description: "Token for Attic Cache"
-    required: true
-  ATTIC_SERVER:
-    description: "Attic Server URL"
-    required: true
-  ATTIC_CACHE:
-    description: "Attic Cache Name"
-    required: true
-  ONLY_NIX:
-    type: boolean
-    default: false
+    GH_PAT:
+        description: "GitHub Personal Access Token"
+        required: true
+    ATTIC_TOKEN:
+        description: "Token for Attic Cache"
+        required: true
+    ATTIC_SERVER:
+        description: "Attic Server URL"
+        required: true
+    ATTIC_CACHE:
+        description: "Attic Cache Name"
+        required: true
+    ONLY_NIX:
+        type: boolean
+        default: false
 
 runs:
-  using: "composite"
-  steps:
-    - name: Nothing but nix
-      if: ${{ runner.os == 'Linux' && inputs.ONLY_NIX != 'true' }}
-      uses: wimpysworld/nothing-but-nix@main
-      with:
-        hatchet-protocol: rampage
-        root-safe-haven: 2048
+    using: "composite"
+    steps:
+        - name: Nothing but nix
+          if: ${{ runner.os == 'Linux' && inputs.ONLY_NIX != 'true' }}
+          uses: wimpysworld/nothing-but-nix@main
+          with:
+              hatchet-protocol: rampage
+              root-safe-haven: 2048
 
-    - name: Install nix
-      uses: cachix/install-nix-action@v31
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
-        github_access_token: ${{ inputs.GH_PAT }}
-        extra_nix_config: |
-          build-dir = /nix/build
-          experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups pipe-operators dynamic-derivations recursive-nix
-          system-features = nixos-test benchmark big-parallel kvm
-          keep-going = false
-          accept-flake-config = true
-          abort-on-warn = true
-          log-lines = 25
-          netrc-file = /nix/secrets/nix-netrc
-          substituters = https://nix-cache.qaq.li/moraxyc https://moraxyc.cachix.org https://cache.nixos.org/ https://cache.garnix.io https://cache.nixos-cuda.org https://cache.nixos.org/
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= moraxyc.cachix.org-1:p00BlzhjSZq23aXYuzeUF2uXdE8ikh6tq9aV1seenhQ= moraxyc:fLUN1qkE59zF7jNqc2paA06LcxLzcoBMyGfWLOKU2NY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=
+        - name: Install nix
+          uses: cachix/install-nix-action@v31
+          with:
+              nix_path: nixpkgs=channel:nixos-unstable
+              github_access_token: ${{ inputs.GH_PAT }}
+              extra_nix_config: |
+                  build-dir = /nix/build
+                  experimental-features = nix-command flakes ca-derivations auto-allocate-uids cgroups pipe-operators dynamic-derivations recursive-nix
+                  system-features = nixos-test benchmark big-parallel kvm
+                  keep-going = false
+                  accept-flake-config = true
+                  abort-on-warn = true
+                  log-lines = 25
+                  netrc-file = /nix/secrets/nix-netrc
+                  substituters = https://nix-cache.qaq.li/moraxyc https://moraxyc.cachix.org https://cache.nixos.org/ https://cache.garnix.io https://cache.nixos-cuda.org https://cache.nixos.org/
+                  trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= moraxyc.cachix.org-1:p00BlzhjSZq23aXYuzeUF2uXdE8ikh6tq9aV1seenhQ= moraxyc:fLUN1qkE59zF7jNqc2paA06LcxLzcoBMyGfWLOKU2NY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=
+                  allow-import-from-derivation = true
 
-    - name: Prepare
-      shell: bash
-      env:
-        ATTIC_TOKEN: ${{ inputs.ATTIC_TOKEN }}
-        ATTIC_SERVER: ${{ inputs.ATTIC_SERVER }}
-      run: |
-        sudo mkdir -p /nix/secrets
-        printf "machine nix-cache.qaq.li\npassword %s\n" "$ATTIC_TOKEN" | sudo tee /nix/secrets/nix-netrc > /dev/null
-        df -h
-        sudo mkdir -p /nix/build
+        - name: Prepare
+          shell: bash
+          env:
+              ATTIC_TOKEN: ${{ inputs.ATTIC_TOKEN }}
+              ATTIC_SERVER: ${{ inputs.ATTIC_SERVER }}
+          run: |
+              sudo mkdir -p /nix/secrets
+              printf "machine nix-cache.qaq.li\npassword %s\n" "$ATTIC_TOKEN" | sudo tee /nix/secrets/nix-netrc > /dev/null
+              df -h
+              sudo mkdir -p /nix/build
 
-    - name: Install packages
-      shell: bash
-      if: ${{ inputs.ONLY_NIX != 'true' }}
-      run: |
-        pkgs=(coreutils jq gnused attic-client nix-fast-build)
+        - name: Install packages
+          shell: bash
+          if: ${{ inputs.ONLY_NIX != 'true' }}
+          run: |
+              pkgs=(coreutils jq gnused attic-client nix-fast-build)
 
-        extra_args=""
-        if [ -f "flake.nix" ]; then
-          extra_args="--inputs-from . --accept-flake-config"
-        fi
+              extra_args=""
+              if [ -f "flake.nix" ]; then
+                extra_args="--inputs-from . --accept-flake-config"
+              fi
 
-        nix profile add "${pkgs[@]/#/nixpkgs#}" $extra_args
+              nix profile add "${pkgs[@]/#/nixpkgs#}" $extra_args
 
-    - name: Setup Attic cache
-      shell: bash
-      if: ${{ inputs.ONLY_NIX != 'true' }}
-      run: |
-        attic login default "$ATTIC_SERVER" "$ATTIC_TOKEN"
-        if ! attic cache info "$ATTIC_CACHE"; then
-          echo "::error::attic returned an error"
-          exit 0
-        fi
-      env:
-        ATTIC_SERVER: ${{ inputs.ATTIC_SERVER }}
-        ATTIC_CACHE: ${{ inputs.ATTIC_CACHE }}
-        ATTIC_TOKEN: ${{ inputs.ATTIC_TOKEN }}
+        - name: Setup Attic cache
+          shell: bash
+          if: ${{ inputs.ONLY_NIX != 'true' }}
+          run: |
+              attic login default "$ATTIC_SERVER" "$ATTIC_TOKEN"
+              if ! attic cache info "$ATTIC_CACHE"; then
+                echo "::error::attic returned an error"
+                exit 0
+              fi
+          env:
+              ATTIC_SERVER: ${{ inputs.ATTIC_SERVER }}
+              ATTIC_CACHE: ${{ inputs.ATTIC_CACHE }}
+              ATTIC_TOKEN: ${{ inputs.ATTIC_TOKEN }}
