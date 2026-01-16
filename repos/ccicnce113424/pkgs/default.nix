@@ -80,6 +80,11 @@ rec {
     srcInfo = lib.importJSON ./pixes/git/src-info.json;
   };
 
+  rpc-bridge = pkgs.callPackage ./rpc-bridge rec {
+    sources = fetchedSrc.rpc-bridge;
+    version = stableVersion sources;
+  };
+
   shijima-qt = pkgs.callPackage ./shijima-qt { };
 
   inherit (pkgs) splayer;

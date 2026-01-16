@@ -68,6 +68,10 @@ extract = ["pubspec.lock"]
 fetch.github = "wgh136/pixes"
 src.git = "https://github.com/wgh136/pixes"
 
+[rpc-bridge]
+fetch.github = "EnderIce2/rpc-bridge"
+src.github = "EnderIce2/rpc-bridge"
+
 [splayer-git]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "imsyy/SPlayer"

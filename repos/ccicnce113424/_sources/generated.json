@@ -279,6 +279,27 @@
     },
     "version": "583ccdea5202c7f35f852dd913f07b7e497827b0"
   },
+  "rpc-bridge": {
+    "cargoLock": null,
+    "date": null,
+    "extract": null,
+    "name": "rpc-bridge",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "EnderIce2",
+      "repo": "rpc-bridge",
+      "rev": "v1.4.0.1",
+      "sha256": "sha256-NB3GqwlJ1dkI+MmbjDEDhiAvvAtRHOdC/PEEyIP2i28=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "v1.4.0.1"
+  },
   "splayer-git": {
     "cargoLock": {
       "Cargo.lock": [
