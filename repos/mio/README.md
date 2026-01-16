@@ -94,3 +94,4 @@ files are copied from following locations. some are modified in this repo and so
 + local-ai nixpkgs commit 7377f649a8671844d42dde9ea739961f06ce7edf
 + <https://github.com/maydayv7/dotfiles/raw/refs/heads/stable/packages/wine/notepad++.nix>
 + rclone-ui nixpkgs commit df70bd515ec9175798339adf2ae6a22052d86577
++ pkgs/games/stuntrally/ nixpkgs commit 249e5cbb33fb2ba40ba49cf4ef4bd4c240503516
