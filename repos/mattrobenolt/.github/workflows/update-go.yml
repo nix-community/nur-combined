@@ -42,12 +42,12 @@ jobs:
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
           echo "🏗️ Building Go packages to verify hashes..."
-          nix build .#go --no-link
+          nix build .#go-bin --no-link
           echo "✓ Latest Go builds successfully"
 
           # Test that Go actually works
           echo "🧪 Testing Go binary..."
-          nix run .#go -- version
+          nix run .#go-bin -- version
           echo "✓ Go binary works"
 
       - name: Commit and push changes

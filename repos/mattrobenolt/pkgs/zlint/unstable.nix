@@ -24,9 +24,9 @@ stdenvNoCC.mkDerivation {
 
   preBuild = ''
     export HOME=$TMPDIR
-    export XDG_CACHE_HOME=$TMPDIR/cache
-    mkdir -p $XDG_CACHE_HOME/zig
-    ln -s ${callPackage ./deps.nix { }} $XDG_CACHE_HOME/zig/p
+    export ZIG_GLOBAL_CACHE_DIR=$TMPDIR/zig-cache
+    mkdir -p $ZIG_GLOBAL_CACHE_DIR
+    ln -s ${callPackage ./deps.nix { }} $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
   buildPhase = ''
