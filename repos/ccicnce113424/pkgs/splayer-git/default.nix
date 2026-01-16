@@ -5,12 +5,14 @@
   pnpm_10,
   fetchPnpmDeps,
   rustPlatform,
-  # cargo,
-  # rustc,
+  lib,
+  electron,
+  removeReferencesTo,
+  python3,
   splayer,
 }:
 splayer.overrideAttrs (
-  final: _prev: {
+  final: prev: {
     inherit (sources) pname src;
     inherit version;
     pnpmDeps = fetchPnpmDeps {
@@ -22,16 +24,21 @@ splayer.overrideAttrs (
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
 
     # remove when splayer in nixpkgs has been updated
-    # nativeBuildInputs = prev.nativeBuildInputs ++ [
-    #   rustPlatform.cargoSetupHook
-    #   cargo
-    #   rustc
-    # ];
-
-    # postPatch = ''
-    #   # Workaround for https://github.com/electron/electron/issues/31121
-    #   substituteInPlace electron/main/utils/native-loader.ts \
-    #     --replace-fail 'process.resourcesPath' "'$out/share/splayer/resources'"
-    # '';
+    nativeBuildInputs = prev.nativeBuildInputs ++ [ python3 ];
+    # After the pnpm configure, we need to build the binaries of all instances
+    # of better-sqlite3. It has a native part that it wants to build using a
+    # script which is disallowed.
+    # What's more, we need to use headers from electron to avoid ABI mismatches.
+    # Adapted from mkYarnModules.
+    preBuild = ''
+      for f in $(find . -path '*/node_modules/better-sqlite3' -type d); do
+        (cd "$f" && (
+        pnpm run build-release --offline --nodedir="${electron.headers}"
+        find build -type f -exec \
+          ${lib.getExe removeReferencesTo} \
+          -t "${electron.headers}" {} \;
+        ))
+      done
+    '';
   }
 )
