@@ -10,10 +10,12 @@
   gsettings-desktop-schemas,
   wrapGAppsHook3,
   xorg,
+  systemd,
+  polkit,
+  sudo,
   pkg-config,
   makeWrapper,
   wireguard-tools,
-  openresolv,
 }:
 let
   # Build fileb0x separately so we can use it to regenerate static/ab0x.go
@@ -124,6 +126,7 @@ stdenv.mkDerivation {
   buildInputs = [
     gtk3
     gsettings-desktop-schemas
+    systemd
   ];
 
   dontUnpack = true;
@@ -137,6 +140,12 @@ stdenv.mkDerivation {
     cat > "$out/bin/wireguird" <<EOF
     #!/bin/sh
     mkdir -p /etc/wireguard 2>/dev/null || true
+    if [ "\$(id -u)" -ne 0 ]; then
+      if [ -n "''${DISPLAY:-}" ] || [ -n "''${WAYLAND_DISPLAY:-}" ]; then
+        exec ${polkit}/bin/pkexec --disable-internal-agent "$out/bin/wireguird" "\$@"
+      fi
+      exec ${sudo}/bin/sudo -p "wireguird must be run as root. Password for %u: " -- "$out/bin/wireguird" "\$@"
+    fi
     exec ${wireguird-unwrapped}/bin/wireguird "\$@"
     EOF
     chmod +x "$out/bin/wireguird"
@@ -147,8 +156,7 @@ stdenv.mkDerivation {
       Type=Application
       Name=Wireguird
       Comment=WireGuard GUI
-      #Exec=pkexec $out/bin/wireguird
-      Exec=$out/bin/wireguird
+      Exec=${polkit}/bin/pkexec $out/bin/wireguird
       Terminal=false
       Icon=wireguird
       Categories=Network;Security;
@@ -182,7 +190,9 @@ stdenv.mkDerivation {
       --prefix PATH : ${
         lib.makeBinPath [
           wireguard-tools
-          openresolv
+          systemd
+          polkit
+          sudo
         ]
       }
   '';
