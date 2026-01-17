@@ -12,21 +12,17 @@
   overlays = import ./overlays; # nixpkgs overlays
   hmModules = import ./hm-modules; # Home Manager modules.
 
+  yaziPlugins = pkgs.callPackage ./pkgs/yazi/plugins {};
+
   rust-mcp-server = pkgs.callPackage ./pkgs/rust-mcp-server {};
   modular-mcp = pkgs.callPackage ./pkgs/modular-mcp {};
 
   bibata-modern-cursors-classic = pkgs.callPackage ./pkgs/bibata-modern-cursors-classic {};
-  bibata-modern-cursors-classic-hyprcursor =
-    pkgs.callPackage ./pkgs/bibata-modern-cursors-classic-hyprcursor
-    {};
+  bibata-modern-cursors-classic-hyprcursor = pkgs.callPackage ./pkgs/bibata-modern-cursors-classic-hyprcursor {};
 
   bibata-modern-cursors-rosepine = pkgs.callPackage ./pkgs/bibata-modern-cursors-rosepine {};
-  bibata-modern-cursors-rosepine-hyprcursor =
-    pkgs.callPackage ./pkgs/bibata-modern-cursors-rosepine-hyprcursor
-    {};
+  bibata-modern-cursors-rosepine-hyprcursor = pkgs.callPackage ./pkgs/bibata-modern-cursors-rosepine-hyprcursor {};
 
   bibata-modern-cursors-gruvbox-dark = pkgs.callPackage ./pkgs/bibata-modern-cursors-gruvbox-dark {};
-  bibata-modern-cursors-gruvbox-dark-hyprcursor =
-    pkgs.callPackage ./pkgs/bibata-modern-cursors-gruvbox-dark-hyprcursor
-    {};
+  bibata-modern-cursors-gruvbox-dark-hyprcursor = pkgs.callPackage ./pkgs/bibata-modern-cursors-gruvbox-dark-hyprcursor {};
 }
