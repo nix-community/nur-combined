@@ -4,6 +4,8 @@
   fetchFromGitHub,
   nodejs,
   pnpm,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   electron,
   pkg-config,
   libusb1,
@@ -30,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     pnpm
-    pnpm.configHook
+    pnpmConfigHook
     nodejs
     pkg-config
     makeWrapper
@@ -43,13 +45,14 @@ stdenv.mkDerivation (finalAttrs: {
     (writeShellScriptBin "codesign" "true")
   ];
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
       version
       src
       sourceRoot
       ;
+    inherit pnpm;
     fetcherVersion = 2;
     hash = "sha256-KwLodj8MQZHQIi4I1wHZ8U0WlGYbB9yQPUimMWOmxqU=";
   };
@@ -73,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     ${lib.optionalString stdenv.isDarwin ''
       # Remove problematic macOS-specific build configs
       substituteInPlace electron-builder.yml \
-        --replace-fail 'afterSign: "./notarize.js"' ""
+        --replace-fail "afterSign: './notarize.js'" ""
     ''}
 
     pnpm run build
