@@ -10,7 +10,7 @@
 , bzip2, lz4, lzo, snappy, xz, zlib, zstd
 , cracklib, judy, libevent, libxml2
 , linux-pam, numactl
-, withStorageMroonga ? true, kytea, libsodium, msgpack, zeromq
+, withStorageMroonga ? true, kytea, libsodium, msgpack-cxx, zeromq
 , withStorageRocks ? true
 }:
 
@@ -164,7 +164,7 @@ server = stdenv.mkDerivation (common // {
   ] ++ lib.optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) numactl
     ++ lib.optional stdenv.hostPlatform.isLinux linux-pam
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) mytopEnv
-    ++ lib.optionals withStorageMroonga [ kytea libsodium msgpack zeromq ];
+    ++ lib.optionals withStorageMroonga [ kytea libsodium msgpack-cxx zeromq ];
 
   patches = common.patches;
 

@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonPath = with python3.pkgs;
     lib.optionals stdenv.hostPlatform.isLinux [
-      systemd
+      systemd-python
       pyinotify
 
       # https://github.com/fail2ban/fail2ban/issues/3787, remove it in the next release
@@ -92,6 +92,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://www.fail2ban.org/";
     description = "A program that scans log files for repeated failing login attempts and bans IP addresses";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ eelco lovek323 ];
+    maintainers = with lib.maintainers; [ lovek323 ];
   };
 }

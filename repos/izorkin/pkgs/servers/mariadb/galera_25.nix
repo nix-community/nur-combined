@@ -18,6 +18,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ asio boost.dev check openssl ];
 
+  cmakeFlags = [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
+
   preConfigure = ''
     # make sure bundled asio cannot be used, but leave behind license, because it gets installed
     rm -r asio/{asio,asio.hpp}

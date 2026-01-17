@@ -32,6 +32,10 @@ let
 
     buildInputs = with pkgs; [ pcre.dev ];
 
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-std=gnu17"
+    ];
+
     meta.broken = !isPhp56;
   };
 
@@ -1130,6 +1134,10 @@ let
     doCheck = true;
     checkTarget = "test";
 
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-std=gnu17"
+    ];
+
     meta.broken = !isPhp56;
   };
 
@@ -1153,6 +1161,10 @@ let
 
     doCheck = true;
     checkTarget = "test";
+
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-std=gnu17"
+    ];
 
     meta.broken = (!isPhp72 || isPhp80);
   };
@@ -1218,6 +1230,10 @@ let
     nativeBuildInputs = with pkgs; [ pkg-config ];
 
     buildInputs = with pkgs; [ zeromq ];
+
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-std=gnu17"
+    ];
 
     meta.broken = isPhp73;
   };
