@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   fetchFromGitHub,
   nix-update-script,
@@ -40,6 +41,10 @@ stdenv.mkDerivation {
     description = "Shell in D";
     license = "free"; # unspecified, but as Tsoding always uses MIT and this package doesn't really matter a whole lot I'd just mark it as free
     homepage = "https://github.com/tsoding/shed";
+    broken =
+      lib.versionOlder dmd.version "2.112.0"
+      && stdenv.cc.isGNU
+      && lib.versionAtLeast stdenv.cc.cc.version "15";
     mainProgram = "shed";
   };
 }

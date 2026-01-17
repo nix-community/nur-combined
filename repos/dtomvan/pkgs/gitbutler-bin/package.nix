@@ -5,11 +5,11 @@
 }:
 let
   pname = "gitbutler";
-  version = "0.15.1";
+  version = "0.18.3";
 
   src = fetchzip {
-    url = "https://releases.gitbutler.com/releases/release/0.15.1-2163/linux/x86_64/GitButler_0.15.1_amd64.AppImage.tar.gz";
-    hash = "sha256-PB6Fnzy+dsJWS6sXkiuDcF9PXLHolB4VUbhoFTbAwac=";
+    url = "https://releases.gitbutler.com/releases/release/0.18.3-2698/linux/x86_64/GitButler_0.18.3_amd64.AppImage.tar.gz";
+    hash = "sha256-zoUzb+0EnEeCp28pxK/J76IklJ1JUqo/61XTyhMKPM0=";
   };
 in
 appimageTools.wrapType2 {

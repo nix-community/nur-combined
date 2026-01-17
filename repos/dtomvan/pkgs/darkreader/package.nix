@@ -9,16 +9,20 @@
 let
   xpifile = buildNpmPackage (finalAttrs: {
     pname = "darkreader";
-    version = "4.9.108";
+    version = "4.9.119";
 
     src = fetchFromGitHub {
       owner = "darkreader";
       repo = "darkreader";
       rev = "v${finalAttrs.version}";
-      hash = "sha256-IUoxSsFgq3OX6JyHH7g4voliMYkD7yPo7Ku0wrk/2HU=";
+      hash = "sha256-lrCrR30BeZuUcvmSfLagaWftMkd96YrS41KbX48xdeo=";
     };
 
-    npmDepsHash = "sha256-/S8vk5SYjKJM5RlIfYqcNbTh3QUNpBB6lbnuIgGz9go=";
+    postPatch = ''
+      ln -sf ${./package-lock.json} package-lock.json
+    '';
+
+    npmDepsHash = "sha256-t3q6gcEphRkEjBggtAjsyDvQnsKAfOSjO9xDdFTSiCE=";
     npmBuildScript = "build:firefox";
 
     installPhase = ''

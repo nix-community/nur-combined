@@ -8,16 +8,16 @@
 let
   xpifile = buildNpmPackage (finalAttrs: {
     pname = "keepassxc-browser";
-    version = "1.9.10";
+    version = "1.9.11";
 
     src = fetchFromGitHub {
       owner = "keepassxreboot";
       repo = "keepassxc-browser";
       tag = "${finalAttrs.version}";
-      hash = "sha256-y3k3Yw+2dhnFTNxSLM6MEVSSQYinBoX6TXsGrHerb6I=";
+      hash = "sha256-vtBXGxPy9QSqMXnqtUq1cu6W/T5fYfNIg/BrtI33rYQ=";
     };
 
-    npmDepsHash = "sha256-flWQzqqk+DWT6Ban5OhfYDZSqaibUvXk+hsO3T8kBAU=";
+    npmDepsHash = "sha256-0taJsPkK7Np4y+uvK2iA1+GAeruKLRJW5VMz7DvuRaw=";
 
     npmBuildFlags = [
       "--"

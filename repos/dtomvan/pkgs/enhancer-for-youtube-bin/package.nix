@@ -1,25 +1,24 @@
 {
   lib,
+  fetchurl,
   callPackage,
   buildFirefoxXpiAddon ? callPackage ../../lib/buildFirefoxXpiAddon.nix { },
 }:
-buildFirefoxXpiAddon rec {
+buildFirefoxXpiAddon {
   pname = "enhancer-for-youtube";
   version = "0-rip";
 
-  src = ./addon.xpi;
+  src = fetchurl {
+    url = "https://www.mrfdev.com/downloads/enhancer_for_youtube-2.0.130.1.xpi";
+    hash = "sha256-bYTcupsZeED0hdZtP9Q1J51uG80hVdKDiZmeh+oBMSw=";
+  };
 
   addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
 
   meta = with lib; {
     homepage = "https://www.mrfdev.com/enhancer-for-youtube";
     description = "Take control of YouTube and boost your user experience!";
-    license = {
-      shortName = "enhancer-for-youtube";
-      fullName = "Custom License for Enhancer for YouTube™";
-      url = "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/";
-      free = false;
-    };
+    license = lib.licenses.unfreeRedistributable;
     mozPermissions = [
       "cookies"
       "storage"

@@ -17,18 +17,18 @@
 let
   xpifile = stdenv.mkDerivation rec {
     pname = "violentmonkey";
-    version = "2.31.0";
+    version = "2.31.6";
 
     src = fetchFromGitHub {
       owner = "violentmonkey";
       repo = "violentmonkey";
       rev = "v${version}";
-      hash = "sha256-e3266zVqVmsafq0ToL+ZMVMripOoz5AUVSDjmWSdeYM=";
+      hash = "sha256-NMvIkgc0p6pQaCpGPdkZALYD7so83LVmxNeyNYzTcYM=";
     };
 
     yarnOfflineCache = fetchYarnDeps {
       yarnLock = src + "/yarn.lock";
-      hash = "sha256-O3373btwBNl7ASzhAf7pxSBSv8LwTuWe6HIkInBhLY4=";
+      hash = "sha256-k8kQgo1bDasECRdxs2/Asgc7itV/sB0hbFdpjTXmqvk=";
     };
 
     buildInputs = [ vips ];
