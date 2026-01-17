@@ -52,6 +52,10 @@ in
       in
       {
         description = "Enable the infrared emitter";
+        # Added to match
+        # https://github.com/EmixamPP/linux-enable-ir-emitter/blob/6.1.2/boot_service/systemd/linux-enable-ir-emitter.service
+        # Prevents the program fail to detect the IR camera until a service
+        # restart.
         preStart = ''
           ${pkgs.kmod}/bin/modprobe uvcvideo
           sleep 1

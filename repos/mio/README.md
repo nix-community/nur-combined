@@ -79,7 +79,7 @@ files are copied from following locations. some are modified in this repo and so
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
 + cacert_3108 <https://github.com/NixOS/nixpkgs/blob/9a9ab6b9242c4526f04abeeef99b8de1d7af1fea/pkgs/data/misc/cacert/default.nix>
 + stuntrally ogre mygui nixpkgs commit 56d904a94724499dd1cae942468f8740cdbb112a
-+ howdy linux-enable-ir-emitter nixpkgs 476d41891299 merged with <https://github.com/NixOS/nixpkgs/pull/216245/files> c003e5440406440bfcf76ce59b890fc2479ae388
++ howdy linux-enable-ir-emitter nixpkgs merged with <https://github.com/NixOS/nixpkgs/pull/216245/files>
 + icu nixpkgs commit 588c72d6229385ef2bab17ec4fc21db014790e4e
 + pkgs/os-specific/linux/kernel/common-flags.nix pkgs/os-specific/linux/zfs/generic.nix nixpkgs commit 154743920299
 + eden <https://github.com/kira-bruneau/nur-packages.git> <https://github.com/kira-bruneau/nur-packages/commit/83867279d2499dd38b944964a829e5c5df93bddc>

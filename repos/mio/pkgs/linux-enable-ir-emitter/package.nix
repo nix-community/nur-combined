@@ -8,7 +8,7 @@
   pkg-config,
   argparse,
   gtk3,
-  opencv,
+  python3,
   spdlog,
   usbutils,
   yaml-cpp,
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "EmixamPP";
     repo = "linux-enable-ir-emitter";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-wSmWebX4H3Hj8bbFoVMq3DY3i/nKkQaeu3mXX0o6IaY=";
   };
 
@@ -37,17 +37,17 @@ stdenv.mkDerivation (finalAttrs: {
     spdlog
     usbutils
     yaml-cpp
-    (opencv.override { enableGtk3 = true; })
+    python3.pkgs.opencv4Full
   ];
 
   mesonFlags = lib.lists.flatten [
     (lib.attrsets.mapAttrsToList lib.strings.mesonOption {
-      "config_dir" = "/var/lib";
-      "localstatedir" = "/var";
+      config_dir = "/var/lib";
+      localstatedir = "/var";
     })
     (lib.attrsets.mapAttrsToList lib.strings.mesonBool {
-      "create_config_dir" = false;
-      "create_log_dir" = false;
+      create_config_dir = false;
+      create_log_dir = false;
     })
   ];
 
