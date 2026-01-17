@@ -16,6 +16,9 @@
 
   algermusicplayer = pkgs.callPackage ./pkgs/algermusicplayer/default.nix { };
   go-cqhttp = pkgs.callPackage ./pkgs/go-cqhttp/default.nix {};
+  throne = pkgs.callPackage ./pkgs/throne/default.nix {
+    inherit (pkgs) protorpc;
+  };
   
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
