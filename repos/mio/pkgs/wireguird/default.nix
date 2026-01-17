@@ -120,7 +120,8 @@ buildGoModule {
       Type=Application
       Name=Wireguird
       Comment=WireGuard GUI
-      Exec=pkexec $out/bin/wireguird
+      #Exec=pkexec $out/bin/wireguird
+      Exec=$out/bin/wireguird
       Terminal=false
       Icon=wireguird
       Categories=Network;Security;
