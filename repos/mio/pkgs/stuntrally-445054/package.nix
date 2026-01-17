@@ -16,6 +16,7 @@
   ogre-next,
   ninja,
   libX11,
+  makeWrapper,
 }:
 
 let
@@ -56,6 +57,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     ninja
+    makeWrapper
   ];
 
   buildInputs = [
