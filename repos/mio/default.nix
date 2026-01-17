@@ -195,6 +195,7 @@ let
         superTux
         stuntrally3
         nix-output-monitor
+        stuntrally
         ;
     };
   };
