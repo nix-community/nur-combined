@@ -87,6 +87,27 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp bin/Release/{sr-editor3,sr-translator,stuntrally3} $out/bin
 
+    # Desktop file + icon
+    mkdir -p $out/share/applications
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    install -m644 ./data/gui/stuntrally.png \
+      $out/share/icons/hicolor/256x256/apps/stuntrally3.png
+    cat > $out/share/applications/stuntrally3.desktop <<'EOF'
+    [Desktop Entry]
+    Type=Application
+    Name=Stunt Rally 3
+    Comment=Stunt Rally game with Track Editor, based on VDrift and OGRE
+    Exec=stuntrally3
+    Icon=stuntrally3
+    Terminal=false
+    Categories=Game;Racing;
+    EOF
+    # Wrap binaries to find data and force X11
+    for bin in stuntrally3 sr-editor3; do
+      wrapProgram $out/bin/$bin \
+        --set SDL_VIDEODRIVER x11
+    done
+
     popd
 
     runHook postInstall
@@ -102,5 +123,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ pSub ];
     platforms = lib.platforms.linux;
+    mainProgram = "stuntrally3";
   };
 }
