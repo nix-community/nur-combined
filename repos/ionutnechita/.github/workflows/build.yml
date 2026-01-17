@@ -30,11 +30,11 @@ jobs:
     - name: Free disk space
       run: |
         df -h
-        sudo swapoff -a
+        sudo swapoff -a || true
         sudo rm -f /swapfile
-        sudo apt-get autoremove -y >/dev/null 2>&1
-        sudo apt-get autoclean -y >/dev/null 2>&1
-        sudo apt-get clean -y >/dev/null 2>&1
+        sudo apt-get autoremove -y >/dev/null 2>&1 || true
+        sudo apt-get autoclean -y >/dev/null 2>&1 || true
+        sudo apt-get clean -y >/dev/null 2>&1 || true
         sudo apt-get purge default-jre \
                            default-jdk \
                            *jre* \
@@ -46,14 +46,14 @@ jobs:
                            *cargo* \
                            *php* \
                            *android* \
-                           -y >/dev/null 2>&1
-        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1
-        sudo rm -rf /usr/share/dotnet >/dev/null 2>&1
-        sudo rm -rf /usr/local/graalvm >/dev/null 2>&1
-        sudo rm -rf /usr/local/.ghcup >/dev/null 2>&1
-        sudo rm -rf /usr/local/share/boost >/dev/null 2>&1
-        sudo rm -rf /mnt/nix/* >/dev/null 2>&1
-        docker rmi $(docker image ls -aq) >/dev/null 2>&1
+                           -y >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1 || true
+        sudo rm -rf /usr/share/dotnet >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/graalvm >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/.ghcup >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/share/boost >/dev/null 2>&1 || true
+        sudo rm -rf /mnt/nix/* >/dev/null 2>&1 || true
+        docker rmi $(docker image ls -aq) >/dev/null 2>&1 || true
         df -h
     - name: Setup Nix on /mnt with bind mount
       run: |
@@ -110,11 +110,11 @@ jobs:
     - name: Free disk space
       run: |
         df -h
-        sudo swapoff -a
+        sudo swapoff -a || true
         sudo rm -f /swapfile
-        sudo apt-get autoremove -y >/dev/null 2>&1
-        sudo apt-get autoclean -y >/dev/null 2>&1
-        sudo apt-get clean -y >/dev/null 2>&1
+        sudo apt-get autoremove -y >/dev/null 2>&1 || true
+        sudo apt-get autoclean -y >/dev/null 2>&1 || true
+        sudo apt-get clean -y >/dev/null 2>&1 || true
         sudo apt-get purge default-jre \
                            default-jdk \
                            *jre* \
@@ -126,13 +126,14 @@ jobs:
                            *cargo* \
                            *php* \
                            *android* \
-                           -y >/dev/null 2>&1
-        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1
-        sudo rm -rf /usr/share/dotnet >/dev/null 2>&1
-        sudo rm -rf /usr/local/graalvm >/dev/null 2>&1
-        sudo rm -rf /usr/local/.ghcup >/dev/null 2>&1
-        sudo rm -rf /usr/local/share/boost >/dev/null 2>&1
-        docker rmi $(docker image ls -aq) >/dev/null 2>&1
+                           -y >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1 || true
+        sudo rm -rf /usr/share/dotnet >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/graalvm >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/.ghcup >/dev/null 2>&1 || true
+        sudo rm -rf /usr/local/share/boost >/dev/null 2>&1 || true
+        sudo rm -rf /mnt/nix/* >/dev/null 2>&1 || true
+        docker rmi $(docker image ls -aq) >/dev/null 2>&1 || true
         df -h
     - name: Setup Nix on /mnt with bind mount
       run: |
