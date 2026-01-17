@@ -46,6 +46,11 @@ buildDotnetModule {
   projectFile = "Aiursoft.Tracer.sln";
   enableParallelBuilding = false;
 
+  postPatch = ''
+    substituteInPlace nuget.config \
+      --replace-fail "https://nuget.aiursoft.com/v3/index.json" "https://api.nuget.org/v3/index.json"
+  '';
+
   postFixup = ''
     # Symlink wwwroot
     rm -rf $out/lib/${pname}/wwwroot
