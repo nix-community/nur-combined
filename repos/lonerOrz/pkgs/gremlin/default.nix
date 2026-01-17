@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   jq,
   python3,
-  bash,
   rofi,
   libxcb,
   libxcb-cursor,
@@ -85,43 +84,57 @@ python3Packages.buildPythonApplication {
     ];
 
   postInstall = ''
-    mkdir -p $out/share/linux-desktop-gremlin/{src,scripts}
+    mkdir -p $out/share/linux-desktop-gremlin/src
+
     cp -r $src/src/* $out/share/linux-desktop-gremlin/src/
     cp -r $src/spritesheet $out/share/linux-desktop-gremlin/spritesheet
     cp -r $src/sounds $out/share/linux-desktop-gremlin/sounds
 
-    install -Dm644 $src/config.json $out/share/linux-desktop-gremlin/config.json
-    jq '.Systray = true' $src/config.json > $out/share/linux-desktop-gremlin/config.json # enable tray
+    install -Dm644 $src/config.json \
+      $out/share/linux-desktop-gremlin/config.json
+    jq '.Systray = true' \
+      $src/config.json > \
+      $out/share/linux-desktop-gremlin/config.json
 
-    install -Dm755 $src/scripts/gremlin-picker.sh $out/share/linux-desktop-gremlin/scripts/gremlin-picker.sh
-    sed -i "s|./run.sh \"\$pick\"|$out/bin/linux-desktop-gremlin \"\$pick\"|" \
-      $out/share/linux-desktop-gremlin/scripts/gremlin-picker.sh
+    install -Dm644 \
+      $src/icon.png \
+      $out/share/icons/hicolor/256x256/apps/linux-desktop-gremlin.png
 
-    install -Dm644 $src/icon.png $out/share/icons/hicolor/256x256/apps/linux-desktop-gremlin.png
-
-    mkdir -p $out/{bin,libexec}
     ln -s $out/bin/linux-desktop-gremlin $out/bin/gremlin
   '';
 
   postFixup =
     let
-      binPath = lib.makeBinPath [
-        python3
-        bash
-        rofi
-      ];
+      binPath = lib.makeBinPath [ rofi ];
+      runtimePython = python3.withPackages (ps: [ ps.pyside6 ]);
     in
     ''
       wrapProgram $out/bin/linux-desktop-gremlin \
         "''${gappsWrapperArgs[@]}" \
-        --prefix PYTHONPATH : $out/share/linux-desktop-gremlin \
         --set QT_QPA_PLATFORM xcb \
+        --prefix PYTHONPATH : $out/share/linux-desktop-gremlin \
         --prefix LD_LIBRARY_PATH : ${pipewire}/lib \
         --prefix PATH : ${binPath}
 
-      makeWrapper $out/share/linux-desktop-gremlin/scripts/gremlin-picker.sh $out/bin/gremlin-picker \
+      makeWrapper ${runtimePython}/bin/python $out/bin/gremlin-select \
+        "''${gappsWrapperArgs[@]}" \
+        --set QT_QPA_PLATFORM xcb \
         --prefix PYTHONPATH : $out/share/linux-desktop-gremlin \
-        --prefix PATH : ${binPath}
+        --chdir $out/share/linux-desktop-gremlin \
+        --add-flags "-m src.picker"
+
+      cat > $out/bin/gremlin-picker <<EOF
+      #!/usr/bin/env bash
+      set -e
+
+      pick="\$($out/bin/gremlin-select)"
+
+      if [ -n "\$pick" ]; then
+        exec $out/bin/linux-desktop-gremlin "\$pick"
+      fi
+      EOF
+
+      chmod +x $out/bin/gremlin-picker
     '';
 
   passthru.updateScript = ./update.sh;
