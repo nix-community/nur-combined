@@ -3,9 +3,8 @@
   fetchFromGitHub,
   nodejs,
   applyPatches,
-  fetchpatch,
 }: let
-  version = "v1.3.4";
+  version = "v1.3.5";
 in
   buildNpmPackage {
     inherit version;
@@ -17,15 +16,8 @@ in
         owner = "nairdahh";
         repo = "Anchorr";
         tag = version;
-        hash = "sha256-+gGh/ID9UWYwRXHOJ8S1gafpsddipFIT5fqYql4aPEQ=";
+        hash = "sha256-M95ZBxdlUSeHJb/jwfwKKxBz9FZ11i8j0SpQ9gY9m2U=";
       };
-      patches = [
-        (fetchpatch {
-          name = "dont-use-cwd";
-          url = "https://github.com/TheColorman/Anchorr/commit/d74d53292c1cc99d61f1390af559f6dd5c0bd48c.patch";
-          hash = "sha256-U2mwjIr1adja/uqUbxv3LBvH01noUQBV3sR8312kubM=";
-        })
-      ];
     };
 
     postInstall = ''
