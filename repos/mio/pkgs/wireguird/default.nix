@@ -7,6 +7,7 @@
   libayatana-appindicator,
   gdk-pixbuf,
   glib,
+  gsettings-desktop-schemas,
   xorg,
   pkg-config,
   makeWrapper,
@@ -55,6 +56,7 @@ buildGoModule {
     libayatana-appindicator
     gdk-pixbuf
     glib
+    gsettings-desktop-schemas
     xorg.libX11
     xorg.libXcursor
     xorg.libXrandr
@@ -149,7 +151,10 @@ buildGoModule {
     EOF
 
     # Ensure wg/wg-quick & resolvconf are available at runtime.
-    wrapProgram "$out/bin/.wireguird-wrapped" \
+    wrapProgram "$out/bin/wireguird" \
+      --set GSETTINGS_SCHEMA_DIR \
+        "${glib.getSchemaPath gsettings-desktop-schemas}" \
+      --prefix XDG_DATA_DIRS : "${lib.makeSearchPath "share" [ gsettings-desktop-schemas ]}" \
       --prefix PATH : ${
         lib.makeBinPath [
           wireguard-tools
