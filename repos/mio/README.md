@@ -78,7 +78,7 @@ files are copied from following locations. some are modified in this repo and so
 + betterbird parent of <https://github.com/NixOS/nixpkgs/commit/544076a4a1e72d9267b1ff7601ada5e714cdf101> <https://github.com/NixOS/nixpkgs/raw/7eabf557d4fd5e7195cb3e372304ffdeb04170a9/pkgs/applications/networking/mailreaders/betterbird/default.nix>
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
 + cacert_3108 <https://github.com/NixOS/nixpkgs/blob/9a9ab6b9242c4526f04abeeef99b8de1d7af1fea/pkgs/data/misc/cacert/default.nix>
-+ speed-dreams stuntrally ogre mygui nixpkgs commit 56d904a94724499dd1cae942468f8740cdbb112a
++ stuntrally ogre mygui nixpkgs commit 56d904a94724499dd1cae942468f8740cdbb112a
 + howdy linux-enable-ir-emitter nixpkgs 476d41891299 merged with <https://github.com/NixOS/nixpkgs/pull/216245/files> c003e5440406440bfcf76ce59b890fc2479ae388
 + icu nixpkgs commit 588c72d6229385ef2bab17ec4fc21db014790e4e
 + pkgs/os-specific/linux/kernel/common-flags.nix pkgs/os-specific/linux/zfs/generic.nix nixpkgs commit 154743920299
