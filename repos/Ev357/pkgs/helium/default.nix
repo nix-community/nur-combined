@@ -5,15 +5,15 @@
   nix-update-script,
   ...
 }: let
-  version = "0.7.10.1";
+  version = "0.8.1.1";
   sourceMap = {
     x86_64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-11xSlHIqmyyVwjjwt5FmLhp72P3m07PppOo7a9DbTcE=";
+      hash = "sha256-n1wn80h9O7GpZz4AygNSKMcilX8lr6fJkiQBBPPQXok=";
     };
     aarch64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64.AppImage";
-      hash = "sha256-fmpyh4ZmsWZy65T04fwQ4m5dU0V9RuNzG3jiQaAEJgU=";
+      hash = "sha256-jdqM0nTt9ZuBaN677lYcbZ2UkfKyINi/B9JjfTzrP00=";
     };
   };
 in
