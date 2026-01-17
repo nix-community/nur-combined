@@ -180,7 +180,7 @@ rec {
   ogre-next_3 = x8664linux (
     v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3
   );
-  stuntrally3 = (
+  stuntrally3_deprecated = (
     pkgs.callPackage ./pkgs/stuntrally3 {
       ogre-next_3 = ogre-next_3;
       mygui = mygui-next;
@@ -327,7 +327,13 @@ rec {
 
   rocksmith-custom-song-toolkit = pkgs.callPackage ./pkgs/rocksmith-custom-song-toolkit { };
 
-  stuntrally = pkgs.callPackage ./pkgs/stuntrally { };
+  stuntrally2 = pkgs.callPackage ./pkgs/stuntrally { };
+
+  ogre-next-445054 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next-445054/package.nix { });
+
+  stuntrally = v3overrideAttrs (
+    pkgs.callPackage ./pkgs/stuntrally-445054/package.nix { ogre-next = ogre-next-445054; }
+  );
 
 }
 // (lib.optionalAttrs (!nurbot) rec {
