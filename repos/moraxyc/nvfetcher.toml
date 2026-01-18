@@ -107,10 +107,6 @@ fetch.github = "anomalyco/opencode"
 src.github_tag = "cyanheads/git-mcp-server"
 fetch.github = "cyanheads/git-mcp-server"
 
-[nvfetcher-stable]
-src.github = "berberman/nvfetcher"
-fetch.github = "berberman/nvfetcher"
-
-[nvfetcher]
-src.git = "https://github.com/berberman/nvfetcher.git"
-fetch.github = "berberman/nvfetcher"
+[boringssl-oqs]
+fetch.github = "open-quantum-safe/boringssl"
+src.github = "open-quantum-safe/boringssl"

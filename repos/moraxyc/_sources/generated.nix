@@ -52,6 +52,17 @@
       sha256 = "sha256-Pnj4ZRzW0ZW1mgtl+wT7JE/ccJ9kivGBe6tgbBiBMLs=";
     };
   };
+  boringssl-oqs = {
+    pname = "boringssl-oqs";
+    version = "OQS-BoringSSL-snapshot-2025-01";
+    src = fetchFromGitHub {
+      owner = "open-quantum-safe";
+      repo = "boringssl";
+      rev = "OQS-BoringSSL-snapshot-2025-01";
+      fetchSubmodules = false;
+      sha256 = "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=";
+    };
+  };
   english_words = {
     pname = "english_words";
     version = "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c";
@@ -221,29 +232,6 @@
       sha256 = "sha256-Gr5CkZmU6wgPmoNe17sZodeP/fuVbaDzzpkYcBamXlo=";
     };
   };
-  nvfetcher = {
-    pname = "nvfetcher";
-    version = "dbae9626c46b93d9fd6b85c8b292939ae569c4fc";
-    src = fetchFromGitHub {
-      owner = "berberman";
-      repo = "nvfetcher";
-      rev = "dbae9626c46b93d9fd6b85c8b292939ae569c4fc";
-      fetchSubmodules = false;
-      sha256 = "sha256-78sPqekEDJiol2YD3Hx2zHu5E4AtrbNrUKi0032HMHo=";
-    };
-    date = "2025-12-14";
-  };
-  nvfetcher-stable = {
-    pname = "nvfetcher-stable";
-    version = "0.8.0";
-    src = fetchFromGitHub {
-      owner = "berberman";
-      repo = "nvfetcher";
-      rev = "0.8.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-78sPqekEDJiol2YD3Hx2zHu5E4AtrbNrUKi0032HMHo=";
-    };
-  };
   opencode = {
     pname = "opencode";
     version = "v1.1.25";
@@ -269,18 +257,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601162216";
+    version = "202601172214";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601162216/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601172214/geoip.dat";
       sha256 = "sha256-2CtHnGamXvJxdIn09B7wkBCVRptbGCUgDw/crCPgh50=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601162216";
+    version = "202601172214";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601162216/geosite.dat";
-      sha256 = "sha256-F4BjyHuaBZxAC0Z2ZiCJnTGYgr1+gFyGJ20QODNGrjc=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601172214/geosite.dat";
+      sha256 = "sha256-7vHTu0bToJDHuh/4s22UUZosaqUsANHHH3YRzokAcu4=";
     };
   };
   watt-toolkit-aarch64-linux = {

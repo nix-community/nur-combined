@@ -83,6 +83,27 @@
         },
         "version": "v2.3.3"
     },
+    "boringssl-oqs": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "boringssl-oqs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open-quantum-safe",
+            "repo": "boringssl",
+            "rev": "OQS-BoringSSL-snapshot-2025-01",
+            "sha256": "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "OQS-BoringSSL-snapshot-2025-01"
+    },
     "english_words": {
         "cargoLock": null,
         "date": "2025-01-06",
@@ -385,48 +406,6 @@
         },
         "version": "v0.10.6-alpha.3"
     },
-    "nvfetcher": {
-        "cargoLock": null,
-        "date": "2025-12-14",
-        "extract": null,
-        "name": "nvfetcher",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "berberman",
-            "repo": "nvfetcher",
-            "rev": "dbae9626c46b93d9fd6b85c8b292939ae569c4fc",
-            "sha256": "sha256-78sPqekEDJiol2YD3Hx2zHu5E4AtrbNrUKi0032HMHo=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "dbae9626c46b93d9fd6b85c8b292939ae569c4fc"
-    },
-    "nvfetcher-stable": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "nvfetcher-stable",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "berberman",
-            "repo": "nvfetcher",
-            "rev": "0.8.0",
-            "sha256": "sha256-78sPqekEDJiol2YD3Hx2zHu5E4AtrbNrUKi0032HMHo=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0.8.0"
-    },
     "opencode": {
         "cargoLock": null,
         "date": null,
@@ -480,9 +459,9 @@
             "name": null,
             "sha256": "sha256-2CtHnGamXvJxdIn09B7wkBCVRptbGCUgDw/crCPgh50=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601162216/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601172214/geoip.dat"
         },
-        "version": "202601162216"
+        "version": "202601172214"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -493,11 +472,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-F4BjyHuaBZxAC0Z2ZiCJnTGYgr1+gFyGJ20QODNGrjc=",
+            "sha256": "sha256-7vHTu0bToJDHuh/4s22UUZosaqUsANHHH3YRzokAcu4=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601162216/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601172214/geosite.dat"
         },
-        "version": "202601162216"
+        "version": "202601172214"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLock": null,
