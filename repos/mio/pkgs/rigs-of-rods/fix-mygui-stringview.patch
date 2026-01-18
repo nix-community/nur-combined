@@ -1,0 +1,65 @@
+--- a/source/main/gui/RTTLayer.cpp
++++ b/source/main/gui/RTTLayer.cpp
+@@ -32,8 +32,8 @@
+     MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
+     while (propert.next("Property"))
+     {
+-        const std::string& key = propert->findAttribute("key");
+-        const std::string& value = propert->findAttribute("value");
++        const std::string key(propert->findAttribute("key"));
++        const std::string value(propert->findAttribute("value"));
+         if (key == "TextureSize")
+             setTextureSize(utility::parseValue<IntSize>(value));
+         if (key == "TextureName")
+--- a/source/main/gui/DashBoardManager.cpp
++++ b/source/main/gui/DashBoardManager.cpp
+@@ -866,7 +866,7 @@
+ void DashBoard::loadLayoutRecursive(MyGUI::WidgetPtr w)
+ {
+     std::string name = w->getName();
+-    std::string debug = w->getUserString("debug");
++    std::string debug(w->getUserString("debug"));
+ 
+     // make it unclickable
+     w->setUserString("interactive", "0");
+@@ -926,7 +926,7 @@
+     std::string formatNumStr = "format";
+     std::string directionNumStr = "direction";
+ 
+-    std::string anim = w->getUserString(animNumStr);
++    std::string anim(w->getUserString(animNumStr));
+     std::string linkArgs;
+     if (anim != "")
+     {
+@@ -1039,11 +1039,11 @@
+                     ctrl.graphicalAnimation.condition = condition;
+                     ctrl.graphicalAnimation.conditionArgument = conditionArgument;
+ 
+-                    String texture = w->getUserString(textureNumStr);
++                    String texture(w->getUserString(textureNumStr));
+                     if (!texture.empty())
+                         strncpy(ctrl.graphicalAnimation.texture, texture.c_str(), sizeof ctrl.graphicalAnimation.texture);
+ 
+-                    String format = w->getUserString(formatNumStr);
++                    String format(w->getUserString(formatNumStr));
+                     if (!format.empty())
+                         strncpy(ctrl.graphicalAnimation.format, format.c_str(), sizeof ctrl.graphicalAnimation.format);
+ 
+@@ -1142,12 +1142,12 @@
+                         ctrl.geometricAnimationCount++;
+ 
+                         // parse more attributes
+-                        geometricAnim.wmin = StringConverter::parseReal(w->getUserString(minNumStr));
+-                        geometricAnim.wmax = StringConverter::parseReal(w->getUserString(maxNumStr));
+-                        geometricAnim.vmin = StringConverter::parseReal(w->getUserString(vminNumStr));
+-                        geometricAnim.vmax = StringConverter::parseReal(w->getUserString(vmaxNumStr));
++                        geometricAnim.wmin = StringConverter::parseReal(String(w->getUserString(minNumStr)));
++                        geometricAnim.wmax = StringConverter::parseReal(String(w->getUserString(maxNumStr)));
++                        geometricAnim.vmin = StringConverter::parseReal(String(w->getUserString(vminNumStr)));
++                        geometricAnim.vmax = StringConverter::parseReal(String(w->getUserString(vmaxNumStr)));
+ 
+-                        String direction = w->getUserString(directionNumStr);
++                        String direction(w->getUserString(directionNumStr));
+                         if (direction == "right")
+                             geometricAnim.direction = DIRECTION_RIGHT;
+                         else if (direction == "left")

@@ -153,17 +153,14 @@ rec {
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
   chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
   superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
-  ogre-1_11 = pkgs.callPackage ./pkgs/ogre-1_11/package.nix { };
-  socketw = pkgs.callPackage ./pkgs/socketw/package.nix { };
-  mygui-ogre = pkgs.callPackage ./pkgs/mygui-ogre/package.nix {
-    src = pkgs.fetchFromGitHub {
-      owner = "MyGUI";
-      repo = "mygui";
-      rev = "MyGUI3.4.0";
-      hash = "sha256-nKSEFT4O0YfXPXxCH8GVIacWaKO9zmNHQFJeFDiKnyg=";
-    };
-    ogre = ogre-1_11;
-  };
+  ogre-1_11 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-1_11/package.nix { });
+  socketw = v3overrideAttrs (pkgs.callPackage ./pkgs/socketw/package.nix { });
+  mygui-ogre = v3overrideAttrs (
+    pkgs.mygui.override {
+      withOgre = true;
+      ogre = ogre-1_11;
+    }
+  );
   rigs-of-rods = pkgs.callPackage ./pkgs/rigs-of-rods/package.nix {
     ogre = ogre-1_11;
     mygui = mygui-ogre;

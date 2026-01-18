@@ -64,6 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./fix-rornet-include.patch
     ./fix-dashboard-regex-include.patch
     ./fix-curlfailinfo.patch
+    ./fix-mygui-stringview.patch
   ];
 
   cmakeFlags = [
@@ -78,8 +79,6 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   NIX_CFLAGS_COMPILE = "-Wno-error=delete-incomplete -Wno-delete-incomplete -DAS_DEPRECATED -Wno-error -Wno-error=format-security -Wno-error=format -Wno-error=format-extra-args";
-
-
 
   postInstall = ''
     mkdir -p "$out/bin"

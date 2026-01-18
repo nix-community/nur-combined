@@ -34,29 +34,29 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    mkdir -p cmake/modules
-    cat > cmake/modules/JoinPaths.cmake <<'EOF'
-function(join_paths out_var)
-  set(result "")
-  foreach(part IN LISTS ARGN)
-    if(part STREQUAL "")
-      continue()
-    endif()
-    if(part MATCHES "^/")
-      set(result "''${part}")
-      continue()
-    endif()
-    if(result STREQUAL "")
-      set(result "''${part}")
-    elseif(result MATCHES "/$")
-      set(result "''${result}''${part}")
-    else()
-      set(result "''${result}/''${part}")
-    endif()
-  endforeach()
-  set(''${out_var} "''${result}" PARENT_SCOPE)
-endfunction()
-EOF
+        mkdir -p cmake/modules
+        cat > cmake/modules/JoinPaths.cmake <<'EOF'
+    function(join_paths out_var)
+      set(result "")
+      foreach(part IN LISTS ARGN)
+        if(part STREQUAL "")
+          continue()
+        endif()
+        if(part MATCHES "^/")
+          set(result "''${part}")
+          continue()
+        endif()
+        if(result STREQUAL "")
+          set(result "''${part}")
+        elseif(result MATCHES "/$")
+          set(result "''${result}''${part}")
+        else()
+          set(result "''${result}/''${part}")
+        endif()
+      endforeach()
+      set(''${out_var} "''${result}" PARENT_SCOPE)
+    endfunction()
+    EOF
   '';
 
   meta = with lib; {
