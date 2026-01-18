@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    ./musescore-evolution-fixes.patch
+    ./musescore-evolution-pch-fix.patch
   ];
 
   # From top-level CMakeLists.txt:
@@ -45,10 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
   # Download manually at Help > Manage Resources
   cmakeFlags = [
     "-DDOWNLOAD_SOUNDFONT=OFF"
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    # Disable precompiled headers on macOS to avoid some build errors
-    "-DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON"
   ];
 
   qtWrapperArgs = [
