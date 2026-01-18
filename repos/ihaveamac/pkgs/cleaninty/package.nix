@@ -10,7 +10,7 @@
 }:
 
 let
-  cryptography = callPackage ./python-cryptography-43.0.3 { };
+  cryptography = callPackage ./python-cryptography-43.0.3/package.nix { };
 in
 buildPythonApplication rec {
   pname = "cleaninty";

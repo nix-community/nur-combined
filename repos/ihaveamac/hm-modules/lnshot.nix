@@ -15,7 +15,7 @@ let
     optionalString
     ;
   cfg = config.services.lnshot;
-  lnshot = pkgs.callPackage ../pkgs/lnshot { };
+  lnshot = pkgs.callPackage ../pkgs/lnshot/package.nix { };
 in
 {
   options.services.lnshot = {
