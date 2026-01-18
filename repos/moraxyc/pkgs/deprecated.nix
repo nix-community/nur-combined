@@ -11,6 +11,7 @@ let
     # Discontinued
     gzctf = "discontinued";
     opencode = "discontinued";
+    boringssl-oqs = "discontinued";
 
     # Unmaintained
     exloli-next = "unmaintained";

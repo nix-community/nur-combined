@@ -83,11 +83,11 @@
         },
         "version": "v2.3.3"
     },
-    "boringssl-oqs": {
+    "boringssl": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "boringssl-oqs",
+        "name": "boringssl",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -95,14 +95,14 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "open-quantum-safe",
+            "owner": "google",
             "repo": "boringssl",
-            "rev": "OQS-BoringSSL-snapshot-2025-01",
-            "sha256": "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=",
+            "rev": "0.20251124.0",
+            "sha256": "sha256-xRuerQhS2uk9eFNaSkl8krcepVwUDmAxc9nhLCI1w98=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "OQS-BoringSSL-snapshot-2025-01"
+        "version": "0.20251124.0"
     },
     "english_words": {
         "cargoLock": null,

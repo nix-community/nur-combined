@@ -106,7 +106,3 @@ fetch.github = "anomalyco/opencode"
 [git-mcp-server]
 src.github_tag = "cyanheads/git-mcp-server"
 fetch.github = "cyanheads/git-mcp-server"
-
-[boringssl-oqs]
-fetch.github = "open-quantum-safe/boringssl"
-src.github = "open-quantum-safe/boringssl"
