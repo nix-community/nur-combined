@@ -3,7 +3,7 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       nerd-fonts.fantasque-sans-mono
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       vista-fonts-chs
     ];
 

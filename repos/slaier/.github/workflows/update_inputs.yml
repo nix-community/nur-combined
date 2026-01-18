@@ -32,7 +32,7 @@ jobs:
         if: steps.first_week.outputs.is_first_week == 'true'
         uses: ./.github/actions/setup_nix
         with:
-          channel: nixos-25.05
+          channel: nixos-25.11
           cachix_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Check system
         if: steps.first_week.outputs.is_first_week == 'true'

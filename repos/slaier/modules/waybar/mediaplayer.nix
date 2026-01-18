@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, wrapGAppsHook
+, wrapGAppsHook3
 , gobject-introspection
 , glib
 , playerctl
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
   src = lib.sourceFilesBySuffices ./. [ ".py" ];
 
   nativeBuildInputs = [
-    wrapGAppsHook
+    wrapGAppsHook3
     gobject-introspection
   ];
 

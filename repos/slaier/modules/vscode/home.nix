@@ -137,21 +137,8 @@ in
           wokwi.wokwi-vscode
         ]);
         userSettings = {
+          "geminicodeassist.agentYoloMode" = true;
           "geminicodeassist.enableTelemetry" = false;
-          "geminicodeassist.customCommands" = {
-            "git-commit" = builtins.concatStringsSep " " [
-              "You will act as a git commit message generator."
-              "Commits should follow the Conventional Commits specification."
-              "Changes have been staged."
-              "You can run `git diff --cached` to get the changes."
-              "Write your output to file `.git/COMMIT_EDITMSG`."
-              "50 is the maximum number of characters of the commit title."
-              "72 is the maximum character length of the commit body."
-            ];
-          };
-          "geminicodeassist.rules" = ''
-            Never ask "Would you like me to make this change for you?" Just do it.
-          '';
           "geminicodeassist.inlineSuggestions.enableAuto" = false;
           "geminicodeassist.inlineSuggestions.nextEditPredictions" = false;
           "nix.enableLanguageServer" = true;

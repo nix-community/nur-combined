@@ -14,12 +14,11 @@ in
 
   programs.git = {
     enable = true;
-    userName = "slaier";
-    userEmail = "slaier@users.noreply.github.com";
-    diff-so-fancy = {
-      enable = true;
-    };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "slaier";
+        email = "slaier@users.noreply.github.com";
+      };
       credential.helper = "store";
       init.defaultBranch = "main";
       merge.conflictstyle = "diff3";
@@ -29,9 +28,12 @@ in
       rebase.autoStash = true;
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = ''${pkgs.writeText "allowedSigners.txt"
-          ''${config.programs.git.userEmail} ${nixosConfig.programs.ssh.knownHosts."local.lan".publicKey}''}'';
+          ''${config.programs.git.settings.user.email} ${nixosConfig.programs.ssh.knownHosts."local.lan".publicKey}''}'';
       user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519";
       commit.gpgsign = true;
+      aliases = {
+        lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      };
     };
 
     includes = [
@@ -45,15 +47,7 @@ in
       ".cache"
       ".direnv"
     ];
-
-    aliases = {
-      d = "diff";
-      dc = "diff --cached";
-      ds = "diff --staged";
-      r = "restore";
-      rs = "restore --staged";
-      st = "status -sb";
-      lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-    };
   };
+
+  programs.diff-so-fancy.enable = true;
 }

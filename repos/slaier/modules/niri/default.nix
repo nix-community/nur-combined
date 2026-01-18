@@ -9,7 +9,7 @@
   services.greetd = {
     enable = true;
     settings = {
-      default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --cmd niri-session";
+      default_session.command = "${lib.getExe pkgs.tuigreet} --cmd niri-session";
     };
   };
 }

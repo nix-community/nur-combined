@@ -15,14 +15,8 @@
   "dns": {
     "servers": [
       {
-        "tag": "dns-remote",
-        "address": "udp://1.1.1.1",
-        "address_resolver": "dns-direct"
-      },
-      {
-        "tag": "dns-trick-direct",
-        "address": "https://sky.rethinkdns.com/",
-        "address_resolver": "dns-local",
+        "tag": "dns-local",
+        "address": "local",
         "detour": "DIRECT"
       },
       {
@@ -32,8 +26,14 @@
         "detour": "DIRECT"
       },
       {
-        "tag": "dns-local",
-        "address": "local",
+        "tag": "dns-remote",
+        "address": "udp://1.1.1.1",
+        "address_resolver": "dns-direct"
+      },
+      {
+        "tag": "dns-trick-direct",
+        "address": "https://sky.rethinkdns.com/",
+        "address_resolver": "dns-local",
         "detour": "DIRECT"
       },
       {
@@ -92,21 +92,17 @@
     {
       "type": "direct",
       "tag": "DIRECT"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
     }
   ],
   "route": {
     "rules": [
       {
         "inbound": "dns-in",
-        "outbound": "dns-out"
+        "action": "hijack-dns"
       },
       {
         "port": 53,
-        "outbound": "dns-out"
+        "action": "hijack-dns"
       },
       {
         "ip_is_private": true,
@@ -117,9 +113,9 @@
         "outbound": "DIRECT"
       },
       {
-        "geosite": [
-          "github",
-          "google"
+        "rule_set": [
+          "geosite-github",
+          "geosite-google"
         ],
         "outbound": "proxy"
       },
@@ -141,8 +137,8 @@
         "outbound": "DIRECT"
       },
       {
-        "geosite": [
-          "reddit"
+        "rule_set": [
+          "geosite-reddit"
         ],
         "domain": [
           "nixos.wiki"
@@ -150,8 +146,8 @@
         "outbound": "clean"
       },
       {
-        "geosite": [
-          "microsoft"
+        "rule_set": [
+          "geosite-microsoft"
         ],
         "domain": [
           "cache.nixos.org"
@@ -161,18 +157,40 @@
     ],
     "rule_set": [
       {
-        "type": "remote",
-        "tag": "geoip-cn",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geoip-cn.srs",
-        "update_interval": "120h0m0s"
+        "type": "local",
+        "tag": "geosite-github",
+        "format": "source",
+        "path": "@geosite-github@"
       },
       {
-        "type": "remote",
+        "type": "local",
+        "tag": "geosite-google",
+        "format": "source",
+        "path": "@geosite-google@"
+      },
+      {
+        "type": "local",
+        "tag": "geoip-cn",
+        "format": "source",
+        "path": "@geoip-cn@"
+      },
+      {
+        "type": "local",
         "tag": "geosite-cn",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-cn.srs",
-        "update_interval": "120h0m0s"
+        "format": "source",
+        "path": "@geosite-cn@"
+      },
+      {
+        "type": "local",
+        "tag": "geosite-reddit",
+        "format": "source",
+        "path": "@geosite-reddit@"
+      },
+      {
+        "type": "local",
+        "tag": "geosite-microsoft",
+        "format": "source",
+        "path": "@geosite-microsoft@"
       }
     ],
     "final": "proxy"
