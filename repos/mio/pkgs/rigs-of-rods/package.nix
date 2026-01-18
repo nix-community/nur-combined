@@ -81,9 +81,23 @@ stdenv.mkDerivation (finalAttrs: {
   NIX_CFLAGS_COMPILE = "-Wno-error=delete-incomplete -Wno-delete-incomplete -DAS_DEPRECATED -Wno-error -Wno-error=format-security -Wno-error=format -Wno-error=format-extra-args";
 
   postInstall = ''
-    mkdir -p "$out/bin"
-    makeWrapper "$out/RunRoR" "$out/bin/rigs-of-rods" \
-      --chdir "$out"
+    mkdir -p "$out/bin" "$out/libexec/rigs-of-rods"
+    mv "$out/RunRoR" "$out/libexec/rigs-of-rods/"
+    ln -s "$out/resources" "$out/libexec/rigs-of-rods/resources"
+
+    cp "$src/source/main/plugins.cfg.in" "$out/libexec/rigs-of-rods/plugins.cfg"
+    substituteInPlace "$out/libexec/rigs-of-rods/plugins.cfg" \
+      --replace-fail "@PLUGINS_FOLDER@" "${ogre}/lib/OGRE" \
+      --replace-fail "@CFG_COMMENT_RENDERSYSTEM_D3D9@" "# " \
+      --replace-fail "@CFG_COMMENT_RENDERSYSTEM_D3D11@" "# " \
+      --replace-fail "@CFG_COMMENT_RENDERSYSTEM_GL@" "" \
+      --replace-fail "@CFG_COMMENT_RENDERSYSTEM_GL3PLUS@" "# " \
+      --replace-fail "@CFG_OGRE_PLUGIN_CAELUM@" "${if caelum != null then "Plugin=libCaelum.so" else "# Plugin=libCaelum.so"}" \
+      --replace-fail "Plugin=Codec_FreeImage" "Plugin=Codec_STBI" \
+      --replace-fail "Plugin=Plugin_CgProgramManager" "# Plugin=Plugin_CgProgramManager"
+
+    makeWrapper "$out/libexec/rigs-of-rods/RunRoR" "$out/bin/rigs-of-rods" \
+      --chdir "$out/libexec/rigs-of-rods"
   '';
 
   meta = with lib; {
