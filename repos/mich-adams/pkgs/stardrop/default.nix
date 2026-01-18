@@ -3,12 +3,8 @@
 lib,
 imagemagick,
 fetchFromGitHub,
-buildFHSEnv,
-appimageTools,
 buildDotnetModule,
 dotnetCorePackages,
-dotnet-sdk_8,
-writeShellScript,
 makeDesktopItem,
 copyDesktopItems,
 makeWrapper,
@@ -16,23 +12,23 @@ zip,
 }:
 buildDotnetModule rec {
     pname = "StarDrop";
-    version = "1.3.0";
+    version = "1.5.0";
 
     src = fetchFromGitHub {
-	owner = "SZanko";
+	owner = "Floogen";
 	repo = "Stardrop";
-	rev = "cbe07f90d852607d2ce19d3dd586ce3cb9464482";
-	hash = "sha256-rKeIhyCRq2FZiN3CDoYYdiWpNuB4nHlVRSHjPpraIpE=";
+	rev = "v${version}";
+	hash = "sha256-bwyY0UYveDve6mK59Wn6bpTU8pbEbJWmjIFSDO6EB34=";
     };
-
 
     projectFile = "Stardrop/Stardrop.sln";
     executables = [ "Stardrop" ];
 
-    dotnet-sdk = dotnet-sdk_8;
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
     dotnet-runtime = dotnetCorePackages.runtime_8_0;
+
     nugetDeps = ./deps.json;
-    packNupkg = true;
+    selfContainedBuild = true;
 
     nativeBuildInputs = [
 	copyDesktopItems
@@ -40,7 +36,6 @@ buildDotnetModule rec {
 	zip
 	imagemagick
     ];
-    dotnetFlags = [ "-p:SelfContained=false" "-p:RuntimeIdentifier=" ];
 
     desktopItems = [
 	(makeDesktopItem {
@@ -57,9 +52,9 @@ buildDotnetModule rec {
     ];
 
     postInstall = ''
-		      install -Dm644 ${./stardrop.svg} \
-			"$out/share/icons/hicolor/scaleable/apps/stardrop.svg"
-			'';
+    install -Dm644 ${./stardrop.svg} \
+	"$out/share/icons/hicolor/scaleable/apps/stardrop.svg"
+    '';
 
     meta = {
 	mainProgram = "Stardrop";
