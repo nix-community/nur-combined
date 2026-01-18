@@ -66,7 +66,6 @@ stdenv.mkDerivation (finalAttrs: {
     ./fix-curlfailinfo.patch
     ./fix-mygui-stringview.patch
     ./init-data-dirs-to-nix-paths.patch
-    ./fix-ogrecore-stdquad-glsl.patch
   ];
 
   cmakeFlags = [
