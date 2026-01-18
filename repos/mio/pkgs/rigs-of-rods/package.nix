@@ -62,8 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     ./disable-peeroptions-without-socketw.patch
     ./fix-rornet-include.patch
-    ./fix-mygui-stringview.patch
-    ./fix-imgui-format-security.patch
+    ./fix-dashboard-regex-include.patch
+    ./fix-curlfailinfo.patch
   ];
 
   cmakeFlags = [
@@ -77,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DOIS_LIBRARY=${ois}/lib/libOIS.so"
   ];
 
-  NIX_CFLAGS_COMPILE = "-Wno-error=delete-incomplete -Wno-delete-incomplete -DAS_DEPRECATED";
+  NIX_CFLAGS_COMPILE = "-Wno-error=delete-incomplete -Wno-delete-incomplete -DAS_DEPRECATED -Wno-error -Wno-error=format-security -Wno-error=format -Wno-error=format-extra-args";
 
 
   postInstall = ''

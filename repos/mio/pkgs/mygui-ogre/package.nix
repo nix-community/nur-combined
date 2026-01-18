@@ -17,7 +17,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mygui";
-  version = "3.4.3";
+  version = "3.4.0";
 
   inherit src;
 
@@ -39,6 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
     "-DMYGUI_RENDERSYSTEM=3"
     "-DMYGUI_BUILD_DEMOS=OFF"
     "-DMYGUI_BUILD_TOOLS=OFF"

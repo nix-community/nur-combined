@@ -155,7 +155,12 @@ rec {
   superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
   ogre-1_11 = pkgs.callPackage ./pkgs/ogre-1_11/package.nix { };
   mygui-ogre = pkgs.callPackage ./pkgs/mygui-ogre/package.nix {
-    src = pkgs.mygui.src;
+    src = pkgs.fetchFromGitHub {
+      owner = "MyGUI";
+      repo = "mygui";
+      rev = "MyGUI3.4.0";
+      hash = "sha256-nKSEFT4O0YfXPXxCH8GVIacWaKO9zmNHQFJeFDiKnyg=";
+    };
     ogre = ogre-1_11;
   };
   rigs-of-rods = pkgs.callPackage ./pkgs/rigs-of-rods/package.nix {
