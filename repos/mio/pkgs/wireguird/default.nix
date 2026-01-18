@@ -136,6 +136,14 @@ stdenv.mkDerivation {
     ln -s ${wireguird-unwrapped}/share/icons "$out/share/icons"
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
+    makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/libexec/wireguird-wrapped" \
+      ''${gappsWrapperArgs[@]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          wireguard-tools
+          systemd
+        ]
+      }
     cat > "$out/bin/wireguird" <<EOF
     #!/bin/sh
     if [ "\$(id -u)" -ne 0 ]; then
@@ -149,6 +157,9 @@ stdenv.mkDerivation {
           XAUTHORITY="\$XAUTHORITY" \
           WAYLAND_DISPLAY="\$WAYLAND_DISPLAY" \
           XDG_RUNTIME_DIR="\$XDG_RUNTIME_DIR" \
+          XDG_DATA_DIRS="\$XDG_DATA_DIRS" \
+          XDG_CONFIG_DIRS="\$XDG_CONFIG_DIRS" \
+          XDG_CURRENT_DESKTOP="\$XDG_CURRENT_DESKTOP" \
           DBUS_SESSION_BUS_ADDRESS="\$DBUS_SESSION_BUS_ADDRESS" \
           "$out/bin/wireguird" "\$@"
       fi
@@ -156,7 +167,7 @@ stdenv.mkDerivation {
       exit 1
     fi
     mkdir -p /etc/wireguard 2>/dev/null || true
-    exec ${wireguird-unwrapped}/bin/wireguird "\$@"
+    exec $out/libexec/wireguird-wrapped "\$@"
     EOF
     chmod +x "$out/bin/wireguird"
 
@@ -192,17 +203,6 @@ stdenv.mkDerivation {
         </action>
       </policyconfig>
     EOF
-  '';
-
-  postFixup = ''
-    wrapProgram "$out/bin/wireguird" \
-      ''${gappsWrapperArgs[@]} \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          wireguard-tools
-          systemd
-        ]
-      }
   '';
 
   passthru.unwrapped = wireguird-unwrapped;
