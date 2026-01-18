@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  fetchFromGitHub,
   fetchurl,
   pkg-config,
   SDL2,
@@ -11,11 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ccleste";
-  version = "1.4.0";
+  version = "1.4.0-unstable-2025-01-18";
 
-  src = fetchurl {
-    url = "https://github.com/lemon32767/ccleste/archive/refs/tags/v${version}.tar.gz";
-    sha256 = "sha256-Mt/Xl/PIYyAeDBmql5dMVqjtWJo0wFIlA/JfbhOZ7dY=";
+  src = fetchFromGitHub {
+    owner = "LonkToThePast";
+    repo = "ccleste";
+    rev = "9a17a16de3006dbf2c5af79bd13e1d7c67fc7d31";
+    sha256 = "sha256-gxH1oKz+Q64ARM4yshGPNUp89TCO9hb0CGd1+/SC5Y4=";
   };
 
   nativeBuildInputs = [
@@ -26,6 +29,10 @@ stdenv.mkDerivation rec {
   buildInputs = [
     SDL2
     SDL2_mixer
+  ];
+
+  makeFlags = [
+    "USE_FIXEDP=1"
   ];
 
   desktopItems = [
@@ -44,7 +51,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./fix-pitch.patch
-  ];
+  ]; 
 
   postPatch = ''
     substituteInPlace sdl12main.c \
@@ -62,7 +69,13 @@ stdenv.mkDerivation rec {
     ''
       runHook preInstall
       mkdir -p $out/bin $out/share/ccleste $out/share/icons/hicolor/scalable/apps
-      cp ccleste $out/bin/
+      
+      if [ -f ccleste-fixedp ]; then
+        cp ccleste-fixedp $out/bin/ccleste
+      else
+        cp ccleste $out/bin/
+      fi
+      
       cp -r data $out/share/ccleste/
 
       # Install icon
@@ -73,7 +86,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Celeste Classic C source port";
-    homepage = "https://github.com/lemon32767/ccleste";
+    homepage = "https://github.com/LonkToThePast/ccleste";
     license = licenses.mit;
     maintainers = [ ];
     platforms = platforms.linux;

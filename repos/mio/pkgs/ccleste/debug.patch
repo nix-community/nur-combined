@@ -1,0 +1,21 @@
+diff --git a/sdl12main.c b/sdl12main.c
+index 933de08..debug 100644
+--- a/sdl12main.c
++++ b/sdl12main.c
+@@ -137,6 +137,8 @@ static void loadbmpscale(char* filename, SDL_Surface** s) {
+ 	unsigned char* data = surf->pixels;
+ 	/*memcpy((_S)->format->palette->colors, base_palette, 16*sizeof(SDL_Color));*/
++printf("DEBUG: loadbmpscale filename=%s w=%d h=%d scale=%d pitch=%d expected_width=%d\n", filename, w, h, scale, surf->pitch, w*scale);
++
+ 	for (int y = 0; y < h; y++) for (int x = 0; x < w; x++) {
+ 		unsigned char pix = getpixel(bmp, x, y);
+ 		for (int i = 0; i < scale; i++) for (int j = 0; j < scale; j++) {
+@@ -666,6 +668,8 @@ static inline void Xblit(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst,
+ if (w && h) {
+ 		unsigned char* srcpix = src->pixels;
+ 		int srcpitch = src->pitch;
++printf("DEBUG: Xblit srcpitch=%d dst->pitch=%d dst->w=%d width=%d height=%d\n", srcpitch, dst->pitch, dst->w, w, h);
++
+ 		Uint32* dstpix = dst->pixels;
+     #define _blitter(dp, xflip) do                                                                  \
+     for (int y = 0; y < h; y++) for (int x = 0; x < w; x++) {                                       \
