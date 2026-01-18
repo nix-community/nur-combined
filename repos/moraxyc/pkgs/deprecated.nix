@@ -10,6 +10,7 @@ let
 
     # Discontinued
     gzctf = "discontinued";
+    opencode = "discontinued";
 
     # Unmaintained
     exloli-next = "unmaintained";
