@@ -2974,10 +2974,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "7.1.1";
+      version = "7.2.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4660787/dictionaries-7.1.1.xpi";
-      sha256 = "bf3d4763271b8178149fa84037a4e0cbc2bbf68a2d87f4e9a5ef75a8e1c0cb41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4668362/dictionaries-7.2.0.xpi";
+      sha256 = "3c76322e387bf8b5a49c2712121ab4eab3d12743abfbc23f8e6c52c210c95935";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -9428,10 +9428,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "13.5.9";
+      version = "13.5.10";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4665893/noscript-13.5.9.xpi";
-      sha256 = "16ebe55490dc6de93d065c5b8e92281bf53517f46f46fe67b8cb4bb2ae7e55de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4668449/noscript-13.5.10.xpi";
+      sha256 = "1908595e63dee1cf2e6808638e161869ec493a1a8d4d13af5187ee74e4dfd64e";
       meta = with lib;
       {
         homepage = "https://noscript.net";
