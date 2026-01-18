@@ -1,0 +1,10 @@
+--- a/source/main/physics/ActorManager.h
++++ b/source/main/physics/ActorManager.h
+@@ -27,6 +27,7 @@
+ #include "Application.h"
+ #include "CmdKeyInertia.h"
+ #include "Network.h"
++#include "RoRnet.h"
+ #include "RigDef_Prerequisites.h"
+ #include "ScriptEvents.h"
+ #include "SimData.h"
