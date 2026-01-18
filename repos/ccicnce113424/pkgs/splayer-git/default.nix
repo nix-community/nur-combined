@@ -40,5 +40,14 @@ splayer.overrideAttrs (
         ))
       done
     '';
+
+    meta = prev.meta // {
+      sourceProvenance = with lib.sourceTypes; [
+        fromSource
+        # public/wasm/decode-audio.wasm
+        # source: https://github.com/apoint123/ffmpeg-audio-player
+        binaryBytecode
+      ];
+    };
   }
 )
