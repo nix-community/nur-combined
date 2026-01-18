@@ -1,0 +1,19 @@
+--- a/source/main/AppContext.cpp
++++ b/source/main/AppContext.cpp
+@@ -474,7 +474,15 @@
+         ErrorUtils::ShowError(_L("Startup error"), _L("Error while retrieving program directory path"));
+         return false;
+     }
+-    App::sys_process_dir->setStr(RoR::GetParentDirectory(exe_path.c_str()).c_str());
++    const char* env_data_dir = getenv("ROR_DATA_DIR");
++    if (env_data_dir != nullptr && env_data_dir[0] != '\0')
++    {
++        App::sys_process_dir->setStr(env_data_dir);
++    }
++    else
++    {
++        App::sys_process_dir->setStr(RoR::GetParentDirectory(exe_path.c_str()).c_str());
++    }
+ 
+     // RoR's home directory
+     std::string local_userdir = PathCombine(App::sys_process_dir->getStr(), "config"); // TODO: Think of a better name, this is ambiguious with ~/.rigsofrods/config which stores configfiles! ~ only_a_ptr, 02/2018

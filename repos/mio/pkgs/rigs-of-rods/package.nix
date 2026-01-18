@@ -5,7 +5,7 @@
   cmake,
   ninja,
   pkg-config,
-  makeWrapper,
+  makeBinaryWrapper,
   python3,
   ogre,
   ois,
@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     ninja
     pkg-config
-    makeWrapper
+    makeBinaryWrapper
     python3
   ];
 
@@ -65,6 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./fix-dashboard-regex-include.patch
     ./fix-curlfailinfo.patch
     ./fix-mygui-stringview.patch
+    ./init-data-dirs-to-nix-paths.patch
   ];
 
   cmakeFlags = [
@@ -81,23 +82,28 @@ stdenv.mkDerivation (finalAttrs: {
   NIX_CFLAGS_COMPILE = "-Wno-error=delete-incomplete -Wno-delete-incomplete -DAS_DEPRECATED -Wno-error -Wno-error=format-security -Wno-error=format -Wno-error=format-extra-args";
 
   postInstall = ''
-    mkdir -p "$out/bin" "$out/libexec/rigs-of-rods"
+    mkdir -p "$out/bin" "$out/libexec/rigs-of-rods" "$out/share/rigs-of-rods"
+    mv "$out/RoR" "$out/libexec/rigs-of-rods/"
     mv "$out/RunRoR" "$out/libexec/rigs-of-rods/"
-    ln -s "$out/resources" "$out/libexec/rigs-of-rods/resources"
+    mv "$out/resources" "$out/content" "$out/languages" "$out/share/rigs-of-rods/"
+    rm -f "$out/plugins.cfg" "$out/plugins_d.cfg" "$out/.itch.toml"
 
-    cp "$src/source/main/plugins.cfg.in" "$out/libexec/rigs-of-rods/plugins.cfg"
-    substituteInPlace "$out/libexec/rigs-of-rods/plugins.cfg" \
+    cp "$src/source/main/plugins.cfg.in" "$out/share/rigs-of-rods/plugins.cfg"
+    substituteInPlace "$out/share/rigs-of-rods/plugins.cfg" \
       --replace-fail "@PLUGINS_FOLDER@" "${ogre}/lib/OGRE" \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_D3D9@" "# " \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_D3D11@" "# " \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_GL@" "" \
       --replace-fail "@CFG_COMMENT_RENDERSYSTEM_GL3PLUS@" "# " \
-      --replace-fail "@CFG_OGRE_PLUGIN_CAELUM@" "${if caelum != null then "Plugin=libCaelum.so" else "# Plugin=libCaelum.so"}" \
+      --replace-fail "@CFG_OGRE_PLUGIN_CAELUM@" "${
+        if caelum != null then "Plugin=libCaelum.so" else "# Plugin=libCaelum.so"
+      }" \
       --replace-fail "Plugin=Codec_FreeImage" "Plugin=Codec_STBI" \
       --replace-fail "Plugin=Plugin_CgProgramManager" "# Plugin=Plugin_CgProgramManager"
 
-    makeWrapper "$out/libexec/rigs-of-rods/RunRoR" "$out/bin/rigs-of-rods" \
-      --chdir "$out/libexec/rigs-of-rods"
+    makeWrapper "$out/libexec/rigs-of-rods/RoR" "$out/bin/rigs-of-rods" \
+      --set ROR_DATA_DIR "$out/share/rigs-of-rods" \
+      --prefix LD_LIBRARY_PATH : "$out/lib"
   '';
 
   meta = with lib; {
