@@ -1,0 +1,44 @@
+diff --git a/sdl12main.c b/sdl12main.c
+index db6d76d..052d0d3 100644
+--- a/sdl12main.c
++++ b/sdl12main.c
+@@ -130,16 +130,25 @@ static void loadbmpscale(char* filename, SDL_Surface** s) {
+ 		return;
+ 	}
+ 
++printf("DEBUG: BMP loaded. format->BitsPerPixel=%d BytesPerPixel=%d\n", bmp->format->BitsPerPixel, bmp->format->BytesPerPixel);
++if (bmp->format->BitsPerPixel != 8) {
++printf("DEBUG: Converting BMP to 8-bit...\n");
++SDL_Surface* new_bmp = SDL_ConvertSurfaceFormat(bmp, SDL_PIXELFORMAT_INDEX8, 0);
++if (!new_bmp) ErrLog("warning: failed to convert bmp to 8-bit: %s\n", SDL_GetError());
++else { SDL_FreeSurface(bmp); bmp = new_bmp; }
++printf("DEBUG: Converted. New BPP=%d\n", bmp->format->BitsPerPixel);
++}
+ 	int w = bmp->w, h = bmp->h;
+ 
+ 	surf = SDL_CreateRGBSurface(SDL_SWSURFACE, w*scale, h*scale, 8, 0,0,0,0);
+ 	assert(surf != NULL);
+ 	unsigned char* data = surf->pixels;
++printf("DEBUG: loadbmpscale w=%d h=%d scale=%d pitch=%d\n", w, h, scale, surf->pitch);
+ 	/*memcpy((_S)->format->palette->colors, base_palette, 16*sizeof(SDL_Color));*/
+ 	for (int y = 0; y < h; y++) for (int x = 0; x < w; x++) {
+ 		unsigned char pix = getpixel(bmp, x, y);
+ 		for (int i = 0; i < scale; i++) for (int j = 0; j < scale; j++) {
+-			data[x*scale+i + (y*scale+j)*w*scale] = pix;
++			data[x*scale+i + (y*scale+j)*surf->pitch] = pix;
+ 		}
+ 	}
+ 	SDL_FreeSurface(bmp);
+@@ -665,10 +674,11 @@ static inline void Xblit(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst,
+ 		unsigned char* srcpix = src->pixels;
+ 		int srcpitch = src->pitch;
+ 		Uint32* dstpix = dst->pixels;
++if (1) printf("DEBUG: Xblit dst->w=%d dst->pitch=%d (pitch/4)=%d\n", dst->w, dst->pitch, dst->pitch/4);
+     #define _blitter(dp, xflip) do                                                                  \
+     for (int y = 0; y < h; y++) for (int x = 0; x < w; x++) {                                       \
+       unsigned char p = srcpix[!xflip ? srcx+x+(srcy+y)*srcpitch : srcx+(w-x-1)+(srcy+y)*srcpitch]; \
+-      if (p) dstpix[dstrect->x+x + (dstrect->y+y)*dst->w] = getcolor(dp);                           \
++      if (p) dstpix[dstrect->x+x + (dstrect->y+y)*(dst->pitch/4)] = getcolor(dp);                           \
+     } while(0)
+ 		if (color && flipx) _blitter(color, 1);
+ 		else if (!color && flipx) _blitter(p, 1);
