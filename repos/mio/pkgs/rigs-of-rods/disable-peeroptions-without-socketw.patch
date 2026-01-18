@@ -1,0 +1,37 @@
+diff --git a/source/main/main.cpp b/source/main/main.cpp
+index 6a9a4ef..8d14a9d 100644
+--- a/source/main/main.cpp
++++ b/source/main/main.cpp
+@@ -4823,6 +4823,7 @@ int main(int argc, char *argv[])
+ 
+                 case MSG_NET_ADD_PEEROPTIONS_REQUESTED:
+                 {
++#ifdef USE_SOCKETW
+                     PeerOptionsRequest* request = static_cast<PeerOptionsRequest*>(m.payload);
+                     try
+                     {
+@@ -4879,6 +4880,7 @@ int main(int argc, char *argv[])
+                     {
+                         HandleMsgQueueException(m.type);
+                     }
+                     delete request;
++#endif // USE_SOCKETW
+                     break;
+                 }
+ 
+@@ -4886,6 +4888,7 @@ int main(int argc, char *argv[])
+       
+          case MSG_NET_REMOVE_PEEROPTIONS_REQUESTED:
+                 {
++#ifdef USE_SOCKETW
+           PeerOptionsRequest* request = static_cast<PeerOptionsRequest*>(m.payload);
+                     try
+                     {
+@@ -4945,6 +4948,7 @@ int main(int argc, char *argv[])
+                     {
+                        HandleMsgQueueException(m.type);
+                     }
+               delete request;
++#endif // USE_SOCKETW
+                     break;
+                 }

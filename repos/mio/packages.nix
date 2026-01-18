@@ -153,6 +153,15 @@ rec {
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
   chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
   superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
+  ogre-1_11 = pkgs.callPackage ./pkgs/ogre-1_11/package.nix { };
+  mygui-ogre = pkgs.callPackage ./pkgs/mygui-ogre/package.nix {
+    src = pkgs.mygui.src;
+    ogre = ogre-1_11;
+  };
+  rigs-of-rods = pkgs.callPackage ./pkgs/rigs-of-rods/package.nix {
+    ogre = ogre-1_11;
+    mygui = mygui-ogre;
+  };
   ccleste = pkgs.callPackage ./pkgs/ccleste/package.nix { };
 
   firefox_nightly-unwrapped = v3override (

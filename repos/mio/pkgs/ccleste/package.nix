@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./fix-palette.patch
-  ]; 
+  ];
 
   postPatch = ''
     substituteInPlace sdl12main.c \
@@ -69,13 +69,13 @@ stdenv.mkDerivation rec {
     ''
       runHook preInstall
       mkdir -p $out/bin $out/share/ccleste $out/share/icons/hicolor/scalable/apps
-      
+
       if [ -f ccleste-fixedp ]; then
         cp ccleste-fixedp $out/bin/ccleste
       else
         cp ccleste $out/bin/
       fi
-      
+
       cp -r data $out/share/ccleste/
 
       # Install icon
