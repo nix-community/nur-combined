@@ -72,12 +72,13 @@ stdenv.mkDerivation (finalAttrs: {
     "-DROR_BUILD_DEV_VERSION=OFF"
     "-DROR_BUILD_INSTALLER=Off"
     "-DROR_BUILD_DOC_DOXYGEN=OFF"
-    "-DROR_USE_PCH=OFF"
+    "-DROR_USE_PCH=ON"
     "-DOIS_INCLUDE_DIR=${ois}/include/ois"
     "-DOIS_LIBRARY=${ois}/lib/libOIS.so"
   ];
 
   NIX_CFLAGS_COMPILE = "-Wno-error=delete-incomplete -Wno-delete-incomplete -DAS_DEPRECATED -Wno-error -Wno-error=format-security -Wno-error=format -Wno-error=format-extra-args";
+
 
 
   postInstall = ''

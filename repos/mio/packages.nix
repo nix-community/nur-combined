@@ -154,6 +154,7 @@ rec {
   chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
   superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
   ogre-1_11 = pkgs.callPackage ./pkgs/ogre-1_11/package.nix { };
+  socketw = pkgs.callPackage ./pkgs/socketw/package.nix { };
   mygui-ogre = pkgs.callPackage ./pkgs/mygui-ogre/package.nix {
     src = pkgs.fetchFromGitHub {
       owner = "MyGUI";
@@ -166,6 +167,7 @@ rec {
   rigs-of-rods = pkgs.callPackage ./pkgs/rigs-of-rods/package.nix {
     ogre = ogre-1_11;
     mygui = mygui-ogre;
+    socketw = socketw;
   };
   ccleste = pkgs.callPackage ./pkgs/ccleste/package.nix { };
 
