@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "partout-io/passepartout",
-    "query": ".filter(data => !data.prerelease)[0].tag_name",
+    "skipPrerelease": true,
     "tag_prefix": "v"
   },
   "version": "3.6.5",

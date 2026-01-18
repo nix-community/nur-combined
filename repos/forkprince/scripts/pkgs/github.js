@@ -6,10 +6,12 @@ async function getURL(url) {
     });
 }
 
-async function getReleases(repo) {
-    const releases = await (await getURL(`https://api.github.com/repos/${repo}/releases`)).json();
+async function getReleases(repo, skip = false) {
+    const url = skip ? `https://api.github.com/repos/${repo}/releases/latest` : `https://api.github.com/repos/${repo}/releases`;
 
-    return releases;
+    const releases = await (await getURL(url)).json();
+
+    return skip ? [releases] : releases;
 }
 
 module.exports = {

@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "OpenRCT2/OpenRCT2",
-    "query": ".filter(data => !data.prerelease)[0].tag_name",
+    "skipPrerelease": true,
     "tag_prefix": "v"
   },
   "asset": {
