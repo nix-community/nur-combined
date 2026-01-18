@@ -117,7 +117,6 @@ stdenv.mkDerivation {
   inherit (wireguird-unwrapped) version;
 
   nativeBuildInputs = [
-    makeWrapper
     wrapGAppsHook3
   ];
 
