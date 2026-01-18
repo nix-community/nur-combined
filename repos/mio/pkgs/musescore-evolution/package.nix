@@ -36,6 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-piOXHKlnfCO1n0kAgeszqa6JVoHgF8B2OF7agpadGKQ=";
   };
 
+  patches = [
+    ./musescore-evolution-fixes.patch
+  ];
+
   # From top-level CMakeLists.txt:
   # - DOWNLOAD_SOUNDFONT defaults ON and tries to fetch from the network.
   # Download manually at Help > Manage Resources

@@ -11,7 +11,6 @@
   wrapGAppsHook3,
   xorg,
   systemd,
-  polkit,
   pkg-config,
   makeWrapper,
   wireguard-tools,
@@ -194,7 +193,6 @@ stdenv.mkDerivation {
         lib.makeBinPath [
           wireguard-tools
           systemd
-          polkit
         ]
       }
   '';

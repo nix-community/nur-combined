@@ -1,0 +1,1139 @@
+diff --git a/audiofile/audiofile.cpp b/audiofile/audiofile.cpp
+index b56ffc704c..9b0c47fe0d 100644
+--- a/audiofile/audiofile.cpp
++++ b/audiofile/audiofile.cpp
+@@ -12,6 +12,13 @@
+ 
+ #include "audiofile.h"
+ 
++#include <QtGlobal>
++
++#include <climits>
++#include <cmath>
++#include <cstring>
++#include <vector>
++
+ static sf_count_t getFileLen(void* f) {
+       return ((AudioFile*)f)->getFileLen();
+       }
+@@ -143,4 +150,3 @@ sf_count_t AudioFile::write(const void* /*ptr*/, sf_count_t /*count*/)
+ //printf("write\n");
+       return 0;
+       }
+-
+diff --git a/audiofile/audiofile.h b/audiofile/audiofile.h
+index d2b9eb6e15..4381130f0d 100644
+--- a/audiofile/audiofile.h
++++ b/audiofile/audiofile.h
+@@ -13,6 +13,7 @@
+ #ifndef __AUDIOFILE_H__
+ #define __AUDIOFILE_H__
+ 
++#include <QByteArray>
+ #include <sndfile.h>
+ 
+ //---------------------------------------------------------
+@@ -56,4 +57,3 @@ class AudioFile {
+       };
+ 
+ #endif
+-
+diff --git a/awl/aslider.h b/awl/aslider.h
+index 087d96237b..fa8d2ef1ba 100644
+--- a/awl/aslider.h
++++ b/awl/aslider.h
+@@ -21,6 +21,7 @@
+ #define __AWLASLIDER_H__
+ 
+ // #include "synthesizer/sparm.h"
++#include <QWidget>
+ #include <QAccessibleWidget>
+ 
+ namespace Awl {
+@@ -158,4 +159,3 @@ public slots:
+ }
+ 
+ #endif
+-
+diff --git a/awl/colorlabel.cpp b/awl/colorlabel.cpp
+index c4ca00775d..4e2246b501 100644
+--- a/awl/colorlabel.cpp
++++ b/awl/colorlabel.cpp
+@@ -19,6 +19,9 @@
+ 
+ #include "colorlabel.h"
+ 
++#include <QColorDialog>
++#include <QPainter>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+diff --git a/awl/colorlabel.h b/awl/colorlabel.h
+index b206f1a51d..b7a6eb1532 100644
+--- a/awl/colorlabel.h
++++ b/awl/colorlabel.h
+@@ -20,6 +20,11 @@
+ #ifndef __AWLCOLORLABEL_H__
+ #define __AWLCOLORLABEL_H__
+ 
++#include <QColor>
++#include <QPixmap>
++#include <QPushButton>
++#include <QSize>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+@@ -53,4 +58,3 @@ class ColorLabel : public QPushButton {
+ 
+ }  // namespace Awl
+ #endif
+-
+diff --git a/awl/denomspinbox.h b/awl/denomspinbox.h
+index 9ee03a0742..637671b4e3 100644
+--- a/awl/denomspinbox.h
++++ b/awl/denomspinbox.h
+@@ -20,6 +20,10 @@
+ #ifndef __AWLDENOMSPINBOX_H__
+ #define __AWLDENOMSPINBOX_H__
+ 
++#include <QSpinBox>
++#include <QString>
++#include <QValidator>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+@@ -39,4 +43,3 @@ class DenominatorSpinBox : public QSpinBox {
+ }
+ 
+ #endif
+-
+diff --git a/awl/knob.cpp b/awl/knob.cpp
+index cd7fc238c7..d53f27a996 100644
+--- a/awl/knob.cpp
++++ b/awl/knob.cpp
+@@ -19,6 +19,10 @@
+ 
+ #include "knob.h"
+ 
++#include <QPainter>
++#include <QPainterPath>
++#include <QPen>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+@@ -271,4 +275,3 @@ void Knob::paintEvent(QPaintEvent* /*ev*/)
+             }
+       }
+ }
+-
+diff --git a/awl/knob.h b/awl/knob.h
+index d0f1ba5712..3cce12a7c3 100644
+--- a/awl/knob.h
++++ b/awl/knob.h
+@@ -23,6 +23,12 @@
+ #include "aslider.h"
+ // #include <QtDesigner/QDesignerExportWidget>
+ #include <QIcon>
++#include <QSize>
++#include <QString>
++
++class QMouseEvent;
++class QPaintEvent;
++class QPainterPath;
+ 
+ namespace Awl {
+ 
+@@ -86,4 +92,3 @@ class Q_DECL_EXPORT Knob : public AbstractSlider {
+ }
+ 
+ #endif
+-
+diff --git a/awl/mslider.cpp b/awl/mslider.cpp
+index 755eda5f40..cb29a6be70 100644
+--- a/awl/mslider.cpp
++++ b/awl/mslider.cpp
+@@ -20,6 +20,10 @@
+ #include "fastlog.h"
+ #include "mslider.h"
+ 
++#include <QLinearGradient>
++#include <QPainter>
++#include <QPen>
++
+ namespace Awl {
+ 
+ #define METER_LEFT_EDGE 18
+diff --git a/awl/pitchedit.h b/awl/pitchedit.h
+index 42bae20de7..bf85490842 100644
+--- a/awl/pitchedit.h
++++ b/awl/pitchedit.h
+@@ -20,6 +20,11 @@
+ #ifndef __AWLPITCHEDIT_H__
+ #define __AWLPITCHEDIT_H__
+ 
++#include <QObject>
++#include <QKeyEvent>
++#include <QSpinBox>
++#include <QString>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+diff --git a/awl/pitchlabel.cpp b/awl/pitchlabel.cpp
+index 8575f1b563..f664c5027c 100644
+--- a/awl/pitchlabel.cpp
++++ b/awl/pitchlabel.cpp
+@@ -20,6 +20,9 @@
+ #include "pitchlabel.h"
+ #include "utils.h"
+ 
++#include <QApplication>
++#include <QStyle>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+@@ -106,4 +109,3 @@ void PitchLabel::setPitch(int val)
+       setValue(val);
+       }
+ }
+-
+diff --git a/awl/pitchlabel.h b/awl/pitchlabel.h
+index 1ef2a3db13..6c4f7bb7f4 100644
+--- a/awl/pitchlabel.h
++++ b/awl/pitchlabel.h
+@@ -20,6 +20,9 @@
+ #ifndef __AWLPITCHLABEL_H__
+ #define __AWLPITCHLABEL_H__
+ 
++#include <QLabel>
++#include <QSize>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+diff --git a/awl/poslabel.cpp b/awl/poslabel.cpp
+index 22be1ed0a2..4cc6c13fa5 100644
+--- a/awl/poslabel.cpp
++++ b/awl/poslabel.cpp
+@@ -20,6 +20,9 @@
+ #include "poslabel.h"
+ #include "libmscore/pos.h"
+ 
++#include <QApplication>
++#include <QStyle>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+@@ -126,4 +129,3 @@ void PosLabel::setSmpte(bool val)
+       updateValue();
+       }
+ }
+-
+diff --git a/awl/poslabel.h b/awl/poslabel.h
+index 2ea0e6bf65..d904a56897 100644
+--- a/awl/poslabel.h
++++ b/awl/poslabel.h
+@@ -20,6 +20,9 @@
+ #ifndef __AWLPOSLABEL_H__
+ #define __AWLPOSLABEL_H__
+ 
++#include <QLabel>
++#include <QSize>
++
+ #include "libmscore/pos.h"
+ 
+ namespace Awl {
+@@ -56,4 +59,3 @@ class PosLabel : public QLabel {
+ }
+ 
+ #endif
+-
+diff --git a/awl/slider.cpp b/awl/slider.cpp
+index 066c442ac4..23bbf38412 100644
+--- a/awl/slider.cpp
++++ b/awl/slider.cpp
+@@ -19,6 +19,10 @@
+ 
+ #include "slider.h"
+ 
++#include <QPainter>
++#include <QPainterPath>
++#include <QPen>
++
+ namespace Awl {
+ 
+ //---------------------------------------------------------
+@@ -248,4 +252,3 @@ void Slider::paintEvent(QPaintEvent* /*ev*/)
+      	p.drawPath(*points);
+       }
+ }
+-
+diff --git a/awl/utils.cpp b/awl/utils.cpp
+index 5896c40831..cb62e56555 100644
+--- a/awl/utils.cpp
++++ b/awl/utils.cpp
+@@ -19,6 +19,8 @@
+ 
+ #include "utils.h"
+ 
++#include <QApplication>
++
+ static const char* vall[] = {
+       QT_TRANSLATE_NOOP("awlutils", "c"),
+       QT_TRANSLATE_NOOP("awlutils", "c♯"),
+@@ -65,4 +67,3 @@ QString pitch2string(int v)
+       return qApp->translate("awlutils", octave < 0 ? valu[i] : vall[i]) + o;
+       }
+ }
+-
+diff --git a/awl/utils.h b/awl/utils.h
+index 653d3a83eb..28e9ec38ca 100644
+--- a/awl/utils.h
++++ b/awl/utils.h
+@@ -20,9 +20,10 @@
+ #ifndef __AWLUTILS_H__
+ #define __AWLUTILS_H__
+ 
++#include <QString>
++
+ namespace Awl {
+       extern QString pitch2string(int);
+       }
+ 
+ #endif
+-
+diff --git a/effects/effect.h b/effects/effect.h
+index 2cbaa5ce06..ba825dae81 100644
+--- a/effects/effect.h
++++ b/effects/effect.h
+@@ -13,6 +13,9 @@
+ #ifndef __EFFECT_H__
+ #define __EFFECT_H__
+ 
++#include <QObject>
++#include <QString>
++#include <QtGlobal>
+ #include <vector>
+ #include "libmscore/synthesizerstate.h"
+ 
+@@ -71,4 +74,3 @@ class Effect : public QObject {
+       };
+ }
+ #endif
+-
+diff --git a/effects/effectgui.h b/effects/effectgui.h
+index a683e288a2..ee16aa4c8b 100644
+--- a/effects/effectgui.h
++++ b/effects/effectgui.h
+@@ -13,6 +13,11 @@
+ #ifndef __EFFECTGUI_H__
+ #define __EFFECTGUI_H__
+ 
++#include <QObject>
++#include <QString>
++#include <QtGlobal>
++#include <QWidget>
++
+ namespace Ms {
+ 
+ class Effect;
+@@ -40,4 +45,3 @@ class EffectGui : public QWidget {
+ 
+ }
+ #endif
+-
+diff --git a/effects/noeffect/noeffect.cpp b/effects/noeffect/noeffect.cpp
+index 6f16325e60..5d3c6bb450 100644
+--- a/effects/noeffect/noeffect.cpp
++++ b/effects/noeffect/noeffect.cpp
+@@ -15,6 +15,10 @@
+ #include "noeffect.h"
+ #include "noeffectgui.h"
+ 
++#include <QLabel>
++#include <QLayout>
++#include <QVBoxLayout>
++
+ namespace Ms {
+ 
+ //---------------------------------------------------------
+@@ -64,4 +68,3 @@ void NoEffect::process(int n, float* src, float* dst)
+       }
+ 
+ }
+-
+diff --git a/effects/zita1/zitagui.cpp b/effects/zita1/zitagui.cpp
+index 5494adcfcd..528eeac4df 100644
+--- a/effects/zita1/zitagui.cpp
++++ b/effects/zita1/zitagui.cpp
+@@ -10,6 +10,9 @@
+ //  the file LICENCE.GPL
+ //=============================================================================
+ 
++#include <QMouseEvent>
++#include <QPainter>
++
+ #include "zita.h"
+ #include "zitagui.h"
+ #include "effects/effectgui.h"
+@@ -145,4 +148,3 @@ void ZitaEffectGui::paintEvent(QPaintEvent*)
+       }
+ 
+ }
+-
+diff --git a/libmscore/barline.h b/libmscore/barline.h
+index a0d56717fb..cb364f6e33 100644
+--- a/libmscore/barline.h
++++ b/libmscore/barline.h
+@@ -13,6 +13,8 @@
+ #ifndef __BARLINE_H__
+ #define __BARLINE_H__
+ 
++#include <QApplication>
++
+ #include "element.h"
+ #include "mscore.h"
+ 
+@@ -154,4 +156,3 @@ class BarLine final : public Element {
+ }     // namespace Ms
+ 
+ #endif
+-
+diff --git a/libmscore/bracket.h b/libmscore/bracket.h
+index 7dbc76cfef..c868ceed07 100644
+--- a/libmscore/bracket.h
++++ b/libmscore/bracket.h
+@@ -13,6 +13,8 @@
+ #ifndef __BRACKET_H__
+ #define __BRACKET_H__
+ 
++#include <QPainterPath>
++
+ #include "element.h"
+ #include "bracketItem.h"
+ 
+@@ -112,4 +114,3 @@ class Bracket final : public Element {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/bsp.h b/libmscore/bsp.h
+index 6fdaec3bd5..7771b4c30a 100644
+--- a/libmscore/bsp.h
++++ b/libmscore/bsp.h
+@@ -16,6 +16,12 @@
+ #ifndef __BSP_H__
+ #define __BSP_H__
+ 
++#include <QList>
++#include <QPointF>
++#include <QRectF>
++#include <QVector>
++#include <QtGlobal>
++
+ namespace Ms {
+ 
+ class BspTreeVisitor;
+diff --git a/libmscore/changeMap.cpp b/libmscore/changeMap.cpp
+index 73b49dd772..30264cb9e4 100644
+--- a/libmscore/changeMap.cpp
++++ b/libmscore/changeMap.cpp
+@@ -15,6 +15,8 @@
+  Implementation of class ChangeMap.
+ */
+ 
++#include <QDebug>
++
+ #include "changeMap.h"
+ 
+ namespace Ms {
+@@ -544,4 +546,3 @@ bool ChangeEvent::operator==(const ChangeEvent& event) const
+       }
+ 
+ }
+-
+diff --git a/libmscore/chordline.h b/libmscore/chordline.h
+index 0e3405b8db..bc4891bf80 100644
+--- a/libmscore/chordline.h
++++ b/libmscore/chordline.h
+@@ -13,6 +13,8 @@
+ #ifndef __CHORDLINE_H__
+ #define __CHORDLINE_H__
+ 
++#include <QPainterPath>
++
+ #include "element.h"
+ 
+ namespace Ms {
+@@ -82,4 +84,3 @@ extern const char* scorelineNames[];
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/chordlist.h b/libmscore/chordlist.h
+index 47d91ff86f..1fb388a98f 100644
+--- a/libmscore/chordlist.h
++++ b/libmscore/chordlist.h
+@@ -13,6 +13,9 @@
+ #ifndef __CHORDLIST_H__
+ #define __CHORDLIST_H__
+ 
++#include <QMap>
++#include <QString>
++
+ namespace Ms {
+ 
+ class XmlWriter;
+@@ -261,4 +264,3 @@ class ChordList : public QMap<int, ChordDescription> {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/chordrest.cpp b/libmscore/chordrest.cpp
+index b6f51c4495..754e7d6d2b 100644
+--- a/libmscore/chordrest.cpp
++++ b/libmscore/chordrest.cpp
+@@ -10,6 +10,8 @@
+ //  the file LICENCE.GPL
+ //=============================================================================
+ 
++#include <cfloat>
++
+ #include "chordrest.h"
+ #include "chord.h"
+ #include "xml.h"
+@@ -1504,4 +1506,3 @@ void ChordRest::getChordRestsAtPosition(std::vector<ChordRest*>& chordRestsAtPos
+       }
+ 
+ }
+-
+diff --git a/libmscore/easeInOut.h b/libmscore/easeInOut.h
+index f5c4266555..62f73afdc1 100644
+--- a/libmscore/easeInOut.h
++++ b/libmscore/easeInOut.h
+@@ -13,6 +13,10 @@
+ #ifndef __EASEINOUT_H__
+ #define __EASEINOUT_H__
+ 
++#include <QList>
++#include <QPointF>
++#include <QtGlobal>
++
+ namespace Ms {
+ 
+ //---------------------------------------------------------
+@@ -45,4 +49,4 @@ public:
+ };
+ 
+ }     // namespace Ms
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/libmscore/edit.cpp b/libmscore/edit.cpp
+index e338d9e06c..7931cd99dd 100644
+--- a/libmscore/edit.cpp
++++ b/libmscore/edit.cpp
+@@ -10,6 +10,9 @@
+ //  the file LICENCE.GPL
+ //=============================================================================
+ 
++#include <QColorDialog>
++#include <QMessageBox>
++
+ #include "accidental.h"
+ #include "articulation.h"
+ #include "barline.h"
+diff --git a/libmscore/element.cpp b/libmscore/element.cpp
+index 70b580ee02..781e546917 100644
+--- a/libmscore/element.cpp
++++ b/libmscore/element.cpp
+@@ -15,6 +15,8 @@
+  Implementation of Element, ElementList
+ */
+ 
++#include <QBuffer>
++
+ #include "accidental.h"
+ #include "ambitus.h"
+ #include "arpeggio.h"
+diff --git a/libmscore/element.h b/libmscore/element.h
+index bd87a2efc7..aba59d0e6b 100644
+--- a/libmscore/element.h
++++ b/libmscore/element.h
+@@ -13,6 +13,9 @@
+ #ifndef __ELEMENT_H__
+ #define __ELEMENT_H__
+ 
++#include <QPainter>
++#include <QPointF>
++
+ #include "elementgroup.h"
+ #include "fraction.h"
+ #include "scoreElement.h"
+@@ -606,4 +609,3 @@ extern void collectElements(void* data, Element* e);
+ Q_DECLARE_METATYPE(Ms::ElementType);
+ 
+ #endif
+-
+diff --git a/libmscore/elementgroup.h b/libmscore/elementgroup.h
+index 7bb77200a0..8da3d65161 100644
+--- a/libmscore/elementgroup.h
++++ b/libmscore/elementgroup.h
+@@ -13,6 +13,8 @@
+ #ifndef __ELEMENTGROUP_H__
+ #define __ELEMENTGROUP_H__
+ 
++#include <QRectF>
++
+ namespace Ms {
+ 
+ class Element;
+diff --git a/libmscore/harmony.cpp b/libmscore/harmony.cpp
+index 9db8f44040..4cc2e0c74f 100644
+--- a/libmscore/harmony.cpp
++++ b/libmscore/harmony.cpp
+@@ -10,6 +10,9 @@
+ //  the file LICENCE.GPL
+ //=============================================================================
+ 
++#include <QPointF>
++#include <QStack>
++
+ #include "chordlist.h"
+ #include "fret.h"
+ #include "harmony.h"
+diff --git a/libmscore/image.h b/libmscore/image.h
+index aa693fd97c..c38b29a15a 100644
+--- a/libmscore/image.h
++++ b/libmscore/image.h
+@@ -13,6 +13,8 @@
+ #ifndef __IMAGE_H__
+ #define __IMAGE_H__
+ 
++#include <QSvgRenderer>
++
+ #include "bsymbol.h"
+ 
+ namespace Ms {
+@@ -99,4 +101,3 @@ class Image final : public BSymbol {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/instrument.cpp b/libmscore/instrument.cpp
+index 6960e17e70..0dc3ba21e5 100644
+--- a/libmscore/instrument.cpp
++++ b/libmscore/instrument.cpp
+@@ -24,6 +24,9 @@
+ #include "audio/midi/synthesizer.h"
+ #include "audio/midi/midipatch.h"
+ 
++#include <QDebug>
++#include <QTextDocumentFragment>
++
+ namespace Ms {
+ 
+ //: Channel name for otherwise unamed channels
+@@ -1697,4 +1700,3 @@ QStringList StaffNameList::toStringList() const
+       return result;
+       }
+ }
+-
+diff --git a/libmscore/layout.cpp b/libmscore/layout.cpp
+index beb890298a..507233546b 100644
+--- a/libmscore/layout.cpp
++++ b/libmscore/layout.cpp
+@@ -10,6 +10,9 @@
+ //  the file LICENCE.GPL
+ //=============================================================================
+ 
++#include <cfloat>
++#include <QtMath>
++
+ #include "accidental.h"
+ #include "ambitus.h"
+ #include "arpeggio.h"
+diff --git a/libmscore/layout.h b/libmscore/layout.h
+index d6b373ca69..d34df56bde 100644
+--- a/libmscore/layout.h
++++ b/libmscore/layout.h
+@@ -13,6 +13,8 @@
+ #ifndef __LAYOUT_H__
+ #define __LAYOUT_H__
+ 
++#include <set>
++
+ #include "system.h"
+ 
+ namespace Ms {
+@@ -136,4 +138,3 @@ extern bool notTopTuplet(ChordRest* cr);
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/layoutbreak.h b/libmscore/layoutbreak.h
+index 7f6510cdc1..7cb2850814 100644
+--- a/libmscore/layoutbreak.h
++++ b/libmscore/layoutbreak.h
+@@ -13,6 +13,8 @@
+ #ifndef __LAYOUTBREAK_H__
+ #define __LAYOUTBREAK_H__
+ 
++#include <QPainterPath>
++
+ #include "element.h"
+ 
+ namespace Ms {
+diff --git a/libmscore/line.cpp b/libmscore/line.cpp
+index 66962a9ff3..8a99413d92 100644
+--- a/libmscore/line.cpp
++++ b/libmscore/line.cpp
+@@ -763,6 +763,36 @@ SLine::SLine(const SLine& s)
+       _dashGapLen  = s._dashGapLen;
+       }
+ 
++LineSegment* SLine::frontSegment()
++      {
++      return toLineSegment(Spanner::frontSegment());
++      }
++
++const LineSegment* SLine::frontSegment() const
++      {
++      return toLineSegment(Spanner::frontSegment());
++      }
++
++LineSegment* SLine::backSegment()
++      {
++      return toLineSegment(Spanner::backSegment());
++      }
++
++const LineSegment* SLine::backSegment() const
++      {
++      return toLineSegment(Spanner::backSegment());
++      }
++
++LineSegment* SLine::segmentAt(int n)
++      {
++      return toLineSegment(Spanner::segmentAt(n));
++      }
++
++const LineSegment* SLine::segmentAt(int n) const
++      {
++      return toLineSegment(Spanner::segmentAt(n));
++      }
++
+ //---------------------------------------------------------
+ //   linePos
+ ///   - Anchor::NOTE:  return anchor note position in system
+@@ -1476,4 +1506,3 @@ QVariant SLine::propertyDefault(Pid pid) const
+       }
+ 
+ }
+-
+diff --git a/libmscore/line.h b/libmscore/line.h
+index cfbf0c821c..223f6ffad1 100644
+--- a/libmscore/line.h
++++ b/libmscore/line.h
+@@ -13,6 +13,7 @@
+ #ifndef __LINE_H__
+ #define __LINE_H__
+ 
++#include "scoreElement.h"
+ #include "spanner.h"
+ #include "mscore.h"
+ 
+@@ -122,12 +123,12 @@ class SLine : public Spanner {
+       qreal dashGapLen() const            { return _dashGapLen; }
+       void setDashGapLen(qreal val)       { _dashGapLen = val; }
+ 
+-      LineSegment* frontSegment()               { return toLineSegment(Spanner::frontSegment()); }
+-      const LineSegment* frontSegment() const   { return toLineSegment(Spanner::frontSegment()); }
+-      LineSegment* backSegment()                { return toLineSegment(Spanner::backSegment());  }
+-      const LineSegment* backSegment() const    { return toLineSegment(Spanner::backSegment());  }
+-      LineSegment* segmentAt(int n)             { return toLineSegment(Spanner::segmentAt(n));   }
+-      const LineSegment* segmentAt(int n) const { return toLineSegment(Spanner::segmentAt(n));   }
++      LineSegment* frontSegment();
++      const LineSegment* frontSegment() const;
++      LineSegment* backSegment();
++      const LineSegment* backSegment() const;
++      LineSegment* segmentAt(int n);
++      const LineSegment* segmentAt(int n) const;
+ 
+       virtual QVariant getProperty(Pid id) const override;
+       virtual bool setProperty(Pid propertyId, const QVariant&) override;
+@@ -139,4 +140,3 @@ class SLine : public Spanner {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/lyrics.cpp b/libmscore/lyrics.cpp
+index 58c3b7a607..7f9b380879 100644
+--- a/libmscore/lyrics.cpp
++++ b/libmscore/lyrics.cpp
+@@ -23,6 +23,9 @@
+ #include "undo.h"
+ #include "xml.h"
+ 
++#include <QClipboard>
++#include <QDebug>
++
+ namespace Ms {
+ 
+ //---------------------------------------------------------
+@@ -698,4 +701,3 @@ void Lyrics::undoChangeProperty(Pid id, const QVariant& v, PropertyFlags ps)
+       }
+ 
+ }
+-
+diff --git a/libmscore/measure.cpp b/libmscore/measure.cpp
+index 5c59db699e..94f7084f44 100644
+--- a/libmscore/measure.cpp
++++ b/libmscore/measure.cpp
+@@ -15,6 +15,8 @@
+  Implementation of most part of class Measure.
+ */
+ 
++#include <cfloat>
++
+ #include "global/log.h"
+ 
+ #include "accidental.h"
+diff --git a/libmscore/noteevent.h b/libmscore/noteevent.h
+index 40edf57f8b..621064126f 100644
+--- a/libmscore/noteevent.h
++++ b/libmscore/noteevent.h
+@@ -13,6 +13,9 @@
+ #ifndef __NOTEEVENT_H__
+ #define __NOTEEVENT_H__
+ 
++#include <algorithm>
++#include <QList>
++
+ namespace Ms {
+ 
+ class XmlWriter;
+diff --git a/libmscore/page.cpp b/libmscore/page.cpp
+index 56637670b3..e0b37fec95 100644
+--- a/libmscore/page.cpp
++++ b/libmscore/page.cpp
+@@ -30,6 +30,10 @@
+ #include "mscore.h"
+ #include "segment.h"
+ 
++#include <QDate>
++#include <QDateTime>
++#include <QTime>
++
+ namespace Ms {
+ 
+ extern QString revision;
+@@ -651,4 +655,3 @@ Fraction Page::endTick() const
+       return _systems.empty() ? Fraction(-1,1) : _systems.back()->measures().back()->endTick();
+       }
+ }
+-
+diff --git a/libmscore/pitch.h b/libmscore/pitch.h
+index 61739b934f..3e429153ca 100644
+--- a/libmscore/pitch.h
++++ b/libmscore/pitch.h
+@@ -13,6 +13,8 @@
+ #ifndef __PITCH_H__
+ #define __PITCH_H__
+ 
++#include <QMap>
++
+ namespace Ms {
+ 
+ //---------------------------------------------------------
+@@ -30,4 +32,3 @@ class PitchList : public QMap<int, int> {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/repeatlist.h b/libmscore/repeatlist.h
+index 10ca7abbce..f51e048d2b 100644
+--- a/libmscore/repeatlist.h
++++ b/libmscore/repeatlist.h
+@@ -13,6 +13,11 @@
+ #ifndef __REPEATLIST_H__
+ #define __REPEATLIST_H__
+ 
++#include <QList>
++#include <QString>
++#include <QtGlobal>
++#include <set>
++
+ namespace Ms {
+ 
+ class Score;
+@@ -98,4 +103,3 @@ class RepeatList: public QList<RepeatSegment*>
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/revisions.h b/libmscore/revisions.h
+index 118eff08cc..123e91535c 100644
+--- a/libmscore/revisions.h
++++ b/libmscore/revisions.h
+@@ -13,6 +13,10 @@
+ #ifndef __REVISIONS_H__
+ #define __REVISIONS_H__
+ 
++#include <QDateTime>
++#include <QList>
++#include <QString>
++
+ namespace Ms {
+ 
+ class XmlWriter;
+@@ -64,4 +68,3 @@ class Revisions {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/score.cpp b/libmscore/score.cpp
+index bf6e7b13fc..8c0b09fb01 100644
+--- a/libmscore/score.cpp
++++ b/libmscore/score.cpp
+@@ -72,6 +72,11 @@
+ #include "volta.h"
+ #include "xml.h"
+ 
++#include <QBuffer>
++#include <QDate>
++#include <QDateTime>
++#include <QMessageBox>
++
+ #ifdef OMR
+ #include "omr/omr.h"
+ #endif
+@@ -5597,4 +5602,3 @@ Movements::~Movements()
+ int ScoreLoad::_loading = 0;
+ 
+ }
+-
+diff --git a/libmscore/score.h b/libmscore/score.h
+index 1b72a7b3b5..5422af0638 100644
+--- a/libmscore/score.h
++++ b/libmscore/score.h
+@@ -18,6 +18,11 @@
+  Definition of Score class.
+ */
+ 
++#include <QFileInfo>
++#include <QQueue>
++#include <QSet>
++#include <set>
++
+ #include "input.h"
+ #include "instrument.h"
+ #include "layoutbreak.h"
+@@ -1508,4 +1513,3 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(LayoutFlags);
+ 
+ 
+ #endif
+-
+diff --git a/libmscore/segment.cpp b/libmscore/segment.cpp
+index d235bb7494..27a6a81997 100644
+--- a/libmscore/segment.cpp
++++ b/libmscore/segment.cpp
+@@ -37,6 +37,8 @@
+ #include "undo.h"
+ #include "xml.h"
+ 
++#include <cfloat>
++
+ namespace Ms {
+ 
+ //---------------------------------------------------------
+diff --git a/libmscore/select.cpp b/libmscore/select.cpp
+index f276f3d1b0..2ecfc41b1b 100644
+--- a/libmscore/select.cpp
++++ b/libmscore/select.cpp
+@@ -56,6 +56,8 @@
+ #include "utils.h"
+ #include "xml.h"
+ 
++#include <QBuffer>
++
+ namespace Ms {
+ 
+ //---------------------------------------------------------
+@@ -1434,4 +1436,3 @@ void SelectionFilter::setFiltered(SelectionFilterType type, bool set)
+             _filtered = _filtered & ~(int)type;
+       }
+ }
+-
+diff --git a/libmscore/spanner.h b/libmscore/spanner.h
+index 9229c7df7d..74c60ff09c 100644
+--- a/libmscore/spanner.h
++++ b/libmscore/spanner.h
+@@ -13,6 +13,9 @@
+ #ifndef __SPANNER_H__
+ #define __SPANNER_H__
+ 
++#include <deque>
++#include <vector>
++
+ #include "element.h"
+ 
+ namespace Ms {
+diff --git a/libmscore/style.h b/libmscore/style.h
+index 5713197ea1..a8e223cb89 100644
+--- a/libmscore/style.h
++++ b/libmscore/style.h
+@@ -13,6 +13,8 @@
+ #ifndef __STYLE_H__
+ #define __STYLE_H__
+ 
++#include <QFile>
++
+ #include "chordlist.h"
+ #include "types.h"
+ 
+diff --git a/libmscore/sym.h b/libmscore/sym.h
+index 48afdeacf5..e4f87284b7 100644
+--- a/libmscore/sym.h
++++ b/libmscore/sym.h
+@@ -13,6 +13,8 @@
+ #ifndef __SYM_H__
+ #define __SYM_H__
+ 
++#include <QApplication>
++
+ #include "config.h"
+ #include "style.h"
+ 
+diff --git a/libmscore/synthesizerstate.h b/libmscore/synthesizerstate.h
+index dd5c16b6a8..481b1b3356 100644
+--- a/libmscore/synthesizerstate.h
++++ b/libmscore/synthesizerstate.h
+@@ -14,6 +14,7 @@
+ #define __SYNTHESIZERSTATE_H__
+ 
+ #include <list>
++#include <QString>
+ 
+ namespace Ms {
+ 
+@@ -101,4 +102,3 @@ static SynthesizerState defaultState = {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/textbase.h b/libmscore/textbase.h
+index 56e9a1201c..4207292d47 100644
+--- a/libmscore/textbase.h
++++ b/libmscore/textbase.h
+@@ -13,6 +13,8 @@
+ #ifndef __TEXTBASE_H__
+ #define __TEXTBASE_H__
+ 
++#include <QTextCursor>
++
+ #include "element.h"
+ #include "property.h"
+ #include "style.h"
+diff --git a/libmscore/tremolo.h b/libmscore/tremolo.h
+index c66631aec6..25480a9c01 100644
+--- a/libmscore/tremolo.h
++++ b/libmscore/tremolo.h
+@@ -13,6 +13,8 @@
+ #ifndef __TREMOLO_H__
+ #define __TREMOLO_H__
+ 
++#include <QPainterPath>
++
+ #include "durationtype.h"
+ #include "symbol.h"
+ 
+@@ -120,4 +122,3 @@ class Tremolo final : public Element {
+ 
+ }     // namespace Ms
+ #endif
+-
+diff --git a/libmscore/types.h b/libmscore/types.h
+index 2c06b1abf9..3ea77f6f74 100644
+--- a/libmscore/types.h
++++ b/libmscore/types.h
+@@ -14,6 +14,10 @@
+ 
+ #include "config.h"
+ 
++#include <QComboBox>
++#include <QObject>
++#include <QString>
++
+ /**
+  * \namespace Ms .
+  */
+diff --git a/libmscore/undo.h b/libmscore/undo.h
+index d294e184ff..061cf14e45 100644
+--- a/libmscore/undo.h
++++ b/libmscore/undo.h
+@@ -18,6 +18,8 @@
+  Definition of undo-releated classes and structs.
+ */
+ 
++#include <QLoggingCategory>
++
+ #include "cleflist.h"
+ #include "chord.h"
+ #include "drumset.h"
+diff --git a/libmscore/xml.h b/libmscore/xml.h
+index 0d0453e71b..619f223f26 100644
+--- a/libmscore/xml.h
++++ b/libmscore/xml.h
+@@ -14,6 +14,8 @@
+ #define __XML_H__
+ 
+ #include <QMultiMap>
++#include <QTextStream>
++#include <QXmlStreamReader>
+ 
+ #include "connector.h"
+ #include "element.h"
+@@ -318,4 +320,3 @@ class XmlWriter : public QTextStream {
+ extern PlaceText readPlacement(XmlReader&);
+ }     // namespace Ms
+ #endif
+-
+diff --git a/mscore/macos/cocoabridge.h b/mscore/macos/cocoabridge.h
+index d6a217ad99..0c61197bbb 100644
+--- a/mscore/macos/cocoabridge.h
++++ b/mscore/macos/cocoabridge.h
+@@ -20,6 +20,10 @@
+ #ifndef __COCOABRIDGE_H__
+ #define __COCOABRIDGE_H__
+ 
++#include <functional>
++
++#include <QString>
++
+ class CocoaBridge {
+       CocoaBridge() {};
+    public:
+diff --git a/thirdparty/rtf2html/rtf2html.cpp b/thirdparty/rtf2html/rtf2html.cpp
+index a494c76ef2..71ea7881fd 100644
+--- a/thirdparty/rtf2html/rtf2html.cpp
++++ b/thirdparty/rtf2html/rtf2html.cpp
+@@ -47,6 +47,8 @@
+ #include <stdexcept>
+ #include <fstream>
+ #include <string>
++#include <QDebug>
++#include <QString>
+ 
+ QString rtf2html(const QString& iString)
+       {
+@@ -584,4 +586,3 @@ QString rtf2html(const QString& iString)
+             }
+       return "";
+       }
+-
