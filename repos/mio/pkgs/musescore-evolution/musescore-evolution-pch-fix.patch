@@ -45,3 +45,19 @@ index d6a217ad99..0c61197bbb 100644
  class CocoaBridge {
        CocoaBridge() {};
     public:
+diff --git a/mscore/qml/msqmlengine.cpp b/mscore/qml/msqmlengine.cpp
+index 77c94b593c..ffd066d41d 100644
+--- a/mscore/qml/msqmlengine.cpp
++++ b/mscore/qml/msqmlengine.cpp
+@@ -37,9 +37,9 @@ MsQmlEngine::MsQmlEngine(QObject* parent)
+       setImportPathList(importPaths);
+ #endif
+ #ifdef Q_OS_MAC
+-      QStringList importPaths;
++      QStringList importPaths = importPathList();
+       QDir dir(mscoreGlobalShare + QString("/qml"));
+-      importPaths.append(dir.absolutePath());
++      importPaths.prepend(dir.absolutePath());
+       setImportPathList(importPaths);
+ #endif
+       }
