@@ -52,15 +52,15 @@
       sha256 = "sha256-Pnj4ZRzW0ZW1mgtl+wT7JE/ccJ9kivGBe6tgbBiBMLs=";
     };
   };
-  boringssl = {
-    pname = "boringssl";
-    version = "0.20251124.0";
+  boringssl-oqs = {
+    pname = "boringssl-oqs";
+    version = "OQS-BoringSSL-snapshot-2025-01";
     src = fetchFromGitHub {
-      owner = "google";
+      owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "0.20251124.0";
+      rev = "OQS-BoringSSL-snapshot-2025-01";
       fetchSubmodules = false;
-      sha256 = "sha256-xRuerQhS2uk9eFNaSkl8krcepVwUDmAxc9nhLCI1w98=";
+      sha256 = "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=";
     };
   };
   english_words = {
