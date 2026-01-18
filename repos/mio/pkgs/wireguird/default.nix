@@ -140,7 +140,7 @@ stdenv.mkDerivation {
     #!/bin/sh
     mkdir -p /etc/wireguard 2>/dev/null || true
     if [ "\$(id -u)" -ne 0 ]; then
-      if command -v sudo >/dev/null 2>&1; then
+      if [ -t 0 ] && command -v sudo >/dev/null 2>&1; then
         exec sudo -p "wireguird must be run as root. Password for %u: " -- "$out/bin/wireguird" "\$@"
       fi
       exec ${polkit}/bin/pkexec --disable-internal-agent "$out/bin/wireguird" "\$@"
@@ -155,7 +155,7 @@ stdenv.mkDerivation {
       Type=Application
       Name=Wireguird
       Comment=WireGuard GUI
-      Exec=${polkit}/bin/pkexec $out/bin/wireguird
+      Exec=$out/bin/wireguird
       Terminal=false
       Icon=wireguird
       Categories=Network;Security;
