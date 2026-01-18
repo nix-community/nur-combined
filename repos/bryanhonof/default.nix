@@ -14,7 +14,11 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # Audio plugins/tools
   ratatouille = pkgs.callPackage ./pkgs/ratatouille { };
   stomptuner = pkgs.callPackage ./pkgs/stomptuner { };
   oscmix = pkgs.callPackage ./pkgs/oscmix { };
+
+  # LLM tools
+  matryoshka = pkgs.callPackage ./pkgs/matryoshka { };
 }
