@@ -153,6 +153,7 @@ rec {
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
   chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
   superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
+  ccleste = pkgs.callPackage ./pkgs/ccleste/package.nix { };
 
   firefox_nightly-unwrapped = v3override (
     v3overrideAttrs (
