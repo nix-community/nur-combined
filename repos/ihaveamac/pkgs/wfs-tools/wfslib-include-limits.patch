@@ -1,0 +1,12 @@
+diff --git a/wfslib/src/ftrees_iterator.h b/wfslib/src/ftrees_iterator.h
+index 2bbfd0d..c1370b6 100644
+--- a/wfslib/src/ftrees_iterator.h
++++ b/wfslib/src/ftrees_iterator.h
+@@ -12,6 +12,7 @@
+ #include <bitset>
+ #include <iterator>
+ #include <ranges>
++#include <limits>
+ 
+ #include "free_blocks_allocator.h"
+ #include "ftree.h"

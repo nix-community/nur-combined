@@ -48,6 +48,7 @@ stdenv.mkDerivation rec {
   patches = [
     ./wfslib-use-pkg-config-for-cryptopp.patch
     ./remove-fuse-check.patch
+    ./wfslib-include-limits.patch
   ]
   ++ lib.optional (!withFUSE) ./remove-wfs-fuse.patch;
 

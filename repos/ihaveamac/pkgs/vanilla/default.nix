@@ -12,11 +12,7 @@
   xorg,
   libtiff,
   networkmanager,
-  libsysprof-capture,
-  pcre2,
   util-linux,
-  libselinux,
-  libsepol,
   libnl,
   SDL2,
   SDL2_ttf,
@@ -25,6 +21,8 @@
   libxml2,
   libwebp,
   polkit,
+  libGL,
+  libdrm,
 }:
 let
   hostap = fetchFromGitHub {
@@ -37,13 +35,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "vanilla";
-  version = "continuous-unstable-2026-01-01";
+  version = "continuous-unstable-2026-01-16";
 
   src = fetchFromGitHub {
     owner = "vanilla-wiiu";
     repo = pname;
-    rev = "8e2f86712aba0e9020430dea9aea0a592375d380";
-    hash = "sha256-1UQUii6WDS2K9GISKduk4qaTzwuVowPclWit7yZTm6k=";
+    rev = "c62bbac9b00284584699e045c01f0a74a1736906";
+    hash = "sha256-nx40BurrDUSnairbs4huz8QEnNNmhz4rRM7UAaMVFgM=";
   };
 
   passthru = { inherit hostap; };
@@ -52,23 +50,13 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     git
-    # probably not needed, as the "git clone" has been replaced with a local clone
-    #cacert
   ];
 
   buildInputs = [
     openssl
-    # the gui has been replaced with something else... so is this still needed?
-    # if removed, i need xorg.libX11 and libtiff
-    gtk4
+    xorg.libX11
+    libtiff
     networkmanager
-    #libsysprof-capture
-    #pcre2
-    # i should determine if this is still needed
-    util-linux
-    # don't think these two are used at all? the executables don't appear in the source
-    #libselinux
-    #libsepol
     libnl
     SDL2
     SDL2_ttf
@@ -77,6 +65,8 @@ stdenv.mkDerivation rec {
     libxml2
     libwebp
     polkit
+    libGL
+    libdrm
   ];
 
   patches = [ ./fix-sdl2-include.patch ];
