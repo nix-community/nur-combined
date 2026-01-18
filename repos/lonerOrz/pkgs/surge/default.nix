@@ -6,14 +6,14 @@
 
 buildGoModule (finalAttrs: {
   pname = "surge";
-  version = "0.1.4";
+  version = "0.1.8";
 
   # https://github.com/junaid2005p/surge
   src = fetchFromGitHub {
     owner = "junaid2005p";
     repo = "surge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5nraTsNv/cmCbpyRxgXSHu8wzMhNZwIaO2YU6x9F5Ig=";
+    hash = "sha256-r15L3oISM4oQvC5ztnqqMwBuoiiF0ozH1vE5ufnBcvI=";
   };
 
   vendorHash = "sha256-pkYm14M9d9Aa9HO2Z7q2aoQmkt76igLJHH+U8T7otTo=";
