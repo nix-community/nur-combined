@@ -196,6 +196,7 @@ let
         stuntrally3
         nix-output-monitor
         stuntrally
+        musescore-evolution
         ;
     };
   };

@@ -8,6 +8,7 @@
   SDL2,
   libvorbis,
   pkg-config,
+  makeWrapper,
   enet,
   bullet,
   openal,
@@ -16,27 +17,26 @@
   ogre-next,
   ninja,
   libX11,
-  makeWrapper,
 }:
 
 let
   mygui = callPackage ./mygui.nix { inherit ogre-next; };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "stuntrally";
   version = "3.3";
 
   src = fetchFromGitHub {
     owner = "stuntrally";
     repo = "stuntrally3";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-BJMMsJ/ONZTpvXetaaHlgm6rih9oZmtJNBXv0IM855Y=";
   };
 
   tracks = fetchFromGitHub {
     owner = "stuntrally";
     repo = "tracks3";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-nvIN5hIfTfnuJdlLNlmpmYo3WQhUxYWz14OFra/55w4=";
   };
 
@@ -53,6 +53,7 @@ stdenv.mkDerivation rec {
       --replace-fail "@GAME_CONFIG_DIR@" "$out/share/stuntrally3/config"
   '';
 
+  strictDeps = true;
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -84,29 +85,16 @@ stdenv.mkDerivation rec {
     cp -r config $share_dir/config
     cp bin/Release/plugins.cfg $share_dir/config
     cp -r data $share_dir/data
-    cp -r ${tracks} $share_dir/data/tracks
+    cp -r ${finalAttrs.tracks} $share_dir/data/tracks
 
-    mkdir -p $out/bin
-    cp bin/Release/{sr-editor3,sr-translator,stuntrally3} $out/bin
+    install -Dm644 -t $out/share/icons/hicolor/512x512/apps data/gui/{stuntrally,sr-editor}.png
+    install -Dm644 -t $out/share/applications dist/{stuntrally3,sr-editor3}.desktop
 
-    # Desktop file + icon
-    mkdir -p $out/share/applications
-    mkdir -p $out/share/icons/hicolor/256x256/apps
-    install -m644 ./data/gui/stuntrally.png \
-      $out/share/icons/hicolor/256x256/apps/stuntrally3.png
-    cat > $out/share/applications/stuntrally3.desktop <<'EOF'
-    [Desktop Entry]
-    Type=Application
-    Name=Stunt Rally 3
-    Comment=Stunt Rally game with Track Editor, based on VDrift and OGRE
-    Exec=stuntrally3
-    Icon=stuntrally3
-    Terminal=false
-    Categories=Game;Racing;
-    EOF
-    # Wrap binaries to find data and force X11
-    for bin in stuntrally3 sr-editor3; do
-      wrapProgram $out/bin/$bin \
+    for binary in sr-editor3 sr-translator stuntrally3
+    do
+      install -Dm755 -t $out/bin bin/Release/$binary
+      # Force X11, otherwise fails with `OGRE EXCEPTION(9:UnimplementedException)`
+      wrapProgram $out/bin/$binary \
         --set SDL_VIDEODRIVER x11
     done
 
@@ -120,11 +108,11 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "Stunt Rally game with Track Editor, based on VDrift and OGRE";
-    homepage = "http://stuntrally.tuxfamily.org/";
+    description = "3D racing game with Sci-Fi elements and own Track Editor";
+    homepage = "https://cryham.org/stuntrally/";
+    mainProgram = "stuntrally3";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ pSub ];
     platforms = lib.platforms.linux;
-    mainProgram = "stuntrally3";
   };
-}
+})

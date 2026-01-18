@@ -335,6 +335,8 @@ rec {
     pkgs.callPackage ./pkgs/stuntrally-445054/package.nix { ogre-next = ogre-next-445054; }
   );
 
+  musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });
+
 }
 // (lib.optionalAttrs (!nurbot) rec {
 

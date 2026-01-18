@@ -143,7 +143,11 @@ stdenv.mkDerivation {
       if [ -t 0 ] && command -v sudo >/dev/null 2>&1; then
         exec sudo -p "wireguird must be run as root. Password for %u: " -- "$out/bin/wireguird" "\$@"
       fi
-      exec ${polkit}/bin/pkexec --disable-internal-agent "$out/bin/wireguird" "\$@"
+      if command -v pkexec >/dev/null 2>&1; then
+        exec pkexec --disable-internal-agent "$out/bin/wireguird" "\$@"
+      fi
+      echo "wireguird: pkexec not found in PATH (need a setuid pkexec, e.g. /run/wrappers/bin/pkexec on NixOS)" >&2
+      exit 1
     fi
     exec ${wireguird-unwrapped}/bin/wireguird "\$@"
     EOF
