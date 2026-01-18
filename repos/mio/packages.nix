@@ -171,22 +171,6 @@ rec {
     libName = "betterbird";
   };
 
-  mygui-next = x8664linux (
-    fixcmake (
-      pkgs.callPackage ./pkgs/mygui-next/package.nix {
-      }
-    )
-  );
-  ogre-next_3 = x8664linux (
-    v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next/default.nix { }).ogre-next_3
-  );
-  stuntrally3_deprecated = (
-    pkgs.callPackage ./pkgs/stuntrally3 {
-      ogre-next_3 = ogre-next_3;
-      mygui = mygui-next;
-    }
-  );
-
   plezy = nodarwin (pkgs.callPackage ./pkgs/by-name/pl/plezy/package.nix { });
 
   downkyicore = pkgs.callPackage ./pkgs/downkyicore/package.nix { };

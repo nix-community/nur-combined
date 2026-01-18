@@ -53,6 +53,16 @@ stdenv.mkDerivation (finalAttrs: {
       lib.makeLibraryPath [ libjack2 ]
     }"
   ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # Ensure QML modules (QtQuick.*) are discoverable on macOS.
+    "--prefix QML2_IMPORT_PATH : ${
+      lib.makeSearchPath "lib/qt-5.15.18/qml" [
+        qt5.qtdeclarative.bin
+        qt5.qtquickcontrols2.bin
+        qt5.qtgraphicaleffects
+      ]
+    }"
+  ]
   ++ lib.optionals (stdenv.hostPlatform.isLinux) [
     "--set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib"
   ]
