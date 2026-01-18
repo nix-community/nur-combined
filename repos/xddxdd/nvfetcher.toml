@@ -261,6 +261,10 @@ src.github = "rany2/edge-tts"
 fetch.github = "Liniyous/ElaWidgetTools"
 src.git = "https://github.com/Liniyous/ElaWidgetTools.git"
 
+[email-oauth2-proxy]
+fetch.github = "simonrob/email-oauth2-proxy"
+src.github = "simonrob/email-oauth2-proxy"
+
 [env-dedup]
 fetch.github = "alexjp/env-dedup"
 src.git = "https://github.com/alexjp/env-dedup.git"

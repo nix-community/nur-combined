@@ -1163,6 +1163,27 @@
         },
         "version": "5a03b7e60472ae5d8c4e866f089b0dab1b6c8f54"
     },
+    "email-oauth2-proxy": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "email-oauth2-proxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "simonrob",
+            "repo": "email-oauth2-proxy",
+            "rev": "2025-10-04",
+            "sha256": "sha256-ZWacjTO+2xeZv8lwcU5tFYsF61p7hduPQB1iOCSdeS4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2025-10-04"
+    },
     "env-dedup": {
         "cargoLocks": null,
         "date": "2025-09-06",

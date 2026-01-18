@@ -600,6 +600,16 @@
     };
     date = "2026-01-06";
   };
+  email-oauth2-proxy = {
+    pname = "email-oauth2-proxy";
+    version = "2025-10-04";
+    src = fetchFromGitHub {
+      owner = "simonrob";
+      repo = "email-oauth2-proxy";
+      tag = "2025-10-04";
+      hash = "sha256-ZWacjTO+2xeZv8lwcU5tFYsF61p7hduPQB1iOCSdeS4=";
+    };
+  };
   env-dedup = {
     pname = "env-dedup";
     version = "9df9f75c47bef6957245b0bf6f32720a67dad3a0";
