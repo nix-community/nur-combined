@@ -187,7 +187,7 @@ rec {
     }
   );
 
-  plezy = nodarwin (pkgs.callPackage ./pkgs/plezy { });
+  plezy = nodarwin (pkgs.callPackage ./pkgs/by-name/pl/plezy/package.nix { });
 
   downkyicore = pkgs.callPackage ./pkgs/downkyicore/package.nix { };
   bifrost = pkgs.callPackage ./pkgs/bifrost/package.nix { };

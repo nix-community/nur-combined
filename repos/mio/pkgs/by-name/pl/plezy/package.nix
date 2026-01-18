@@ -40,13 +40,13 @@ let
 in
 flutter.buildFlutterApplication rec {
   pname = "plezy";
-  version = "1.13.0";
+  version = "1.14.1";
 
   src = fetchFromGitHub {
     owner = "edde746";
     repo = "plezy";
     tag = version;
-    hash = "sha256-Df3KqeUpI4YO5DJ8GUMlJ1dO0id+DrzG3exBMzLBCJo=";
+    hash = "sha256-KQahdzrn7Fu+rkp7uFpX6ZaA7mou4g1ZYLl7lWBzN/8=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
@@ -122,15 +122,6 @@ flutter.buildFlutterApplication rec {
     done
   '';
 
-  meta = {
-    description = "Modern cross-platform Plex client built with Flutter";
-    homepage = "https://github.com/edde746/plezy";
-    mainProgram = "plezy";
-    license = lib.licenses.gpl3;
-    maintainers = [ ];
-    platforms = lib.platforms.linux;
-  };
-
   passthru.updateScript = writeShellApplication {
     name = "update-plezy";
     runtimeInputs = [
@@ -145,5 +136,18 @@ flutter.buildFlutterApplication rec {
       git
     ];
     text = builtins.readFile ./update.sh;
+  };
+
+  meta = {
+    description = "Modern cross-platform Plex client built with Flutter";
+    homepage = "https://github.com/edde746/plezy";
+    mainProgram = "plezy";
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ ];
+    platforms = lib.platforms.linux;
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryNativeCode # bundles prebuilt WebRTC artifacts
+    ];
   };
 }
