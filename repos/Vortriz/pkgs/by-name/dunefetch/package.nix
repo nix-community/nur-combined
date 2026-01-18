@@ -1,38 +1,38 @@
 {
-    lib,
-    python3Packages,
-    fetchFromGitHub,
+  lib,
+  python3Packages,
+  fetchFromGitHub,
 }:
 python3Packages.buildPythonApplication {
-    pname = "dunefetch";
-    version = "unstable-2025-08-12";
+  pname = "dunefetch";
+  version = "unstable-2025-08-12";
 
-    src = fetchFromGitHub {
-        owner = "datavorous";
-        repo = "dunefetch";
-        rev = "7adfd33406a556b7d096f11dc446570c81b17675";
-        hash = "sha256-x6VlBa6qgwKyg8JxTCl6Y9rSzFk/8gaj2lanTZvl6XM=";
-    };
+  src = fetchFromGitHub {
+    owner = "datavorous";
+    repo = "dunefetch";
+    rev = "7adfd33406a556b7d096f11dc446570c81b17675";
+    hash = "sha256-x6VlBa6qgwKyg8JxTCl6Y9rSzFk/8gaj2lanTZvl6XM=";
+  };
 
-    pyproject = true;
+  pyproject = true;
 
-    build-system = with python3Packages; [
-        setuptools
-        wheel
-    ];
+  build-system = with python3Packages; [
+    setuptools
+    wheel
+  ];
 
-    dependencies = with python3Packages; [
-        psutil
-    ];
+  dependencies = with python3Packages; [
+    psutil
+  ];
 
-    pythonImportsCheck = [
-        "dunefetch"
-    ];
+  pythonImportsCheck = [
+    "dunefetch"
+  ];
 
-    meta = {
-        description = "Neofetch + falling sand engine for your terminal";
-        homepage = "https://github.com/datavorous/dunefetch";
-        license = lib.licenses.mit;
-        mainProgram = "dunefetch";
-    };
+  meta = {
+    description = "Neofetch + falling sand engine for your terminal";
+    homepage = "https://github.com/datavorous/dunefetch";
+    license = lib.licenses.mit;
+    mainProgram = "dunefetch";
+  };
 }

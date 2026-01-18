@@ -1,31 +1,31 @@
 {
-    stdenvNoCC,
-    fetchFromGitHub,
+  stdenvNoCC,
+  fetchFromGitHub,
 }:
 stdenvNoCC.mkDerivation {
-    pname = "SFMono-Nerd-Font-Ligaturized";
-    version = "unstable-2023-07-01";
+  pname = "SFMono-Nerd-Font-Ligaturized";
+  version = "unstable-2023-07-01";
 
-    src = fetchFromGitHub {
-        owner = "shaunsingh";
-        repo = "SFMono-Nerd-Font-Ligaturized";
-        rev = "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea";
-        fetchSubmodules = false;
-        hash = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
-    };
+  src = fetchFromGitHub {
+    owner = "shaunsingh";
+    repo = "SFMono-Nerd-Font-Ligaturized";
+    rev = "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea";
+    fetchSubmodules = false;
+    hash = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
+  };
 
-    phases = [
-        "unpackPhase"
-        "installPhase"
-    ];
-    dontConfigure = true;
+  phases = [
+    "unpackPhase"
+    "installPhase"
+  ];
+  dontConfigure = true;
 
-    installPhase = ''
+  installPhase = ''
         install -Dm644 ./*.otf -t $out/share/fonts/opentype
     '';
 
-    meta = {
-        description = "Apple's SFMono font nerd-font patched and ligaturized";
-        homepage = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized";
-    };
+  meta = {
+    description = "Apple's SFMono font nerd-font patched and ligaturized";
+    homepage = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized";
+  };
 }

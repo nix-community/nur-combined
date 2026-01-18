@@ -210,7 +210,7 @@ def update_github_src(attrs, scoped_vars):
     try:
         tag = src.argument["tag"].value
     except KeyError:
-        pass
+        tag = None
     else:
         latest_tag = (
             subprocess.run(
