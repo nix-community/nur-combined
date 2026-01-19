@@ -14,18 +14,18 @@
   makeDesktopItem,
   copyDesktopItems,
   writeShellScriptBin,
-  nix-update-script,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nanokvm-usb";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "sipeed";
     repo = "NanoKVM-USB";
-    rev = finalAttrs.version;
-    hash = "sha256-OvcDQxAdN5xaQS942BpLAK3cnG3ha0hl9r2xRMZM2IQ=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-3EOeR2LnoCwzRIKe7z4aJs+/TLbE59QeRhumWQubTUw=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/desktop";
@@ -143,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     description = "NanoKVM-USB Desktop (Electron + React client)";

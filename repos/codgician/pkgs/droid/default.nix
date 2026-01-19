@@ -46,9 +46,7 @@ stdenvNoCC.mkDerivation {
   dontStrip = true;
   dontPatchELF = true;
 
-  nativeBuildInputs =
-    [ makeWrapper ]
-    ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [ patchelf ];
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [ patchelf ];
 
   installPhase = ''
     runHook preInstall
@@ -56,7 +54,9 @@ stdenvNoCC.mkDerivation {
     install -Dm755 $src $out/libexec/droid
 
     makeWrapper $out/libexec/droid $out/bin/droid \
-      --prefix PATH : ${lib.makeBinPath ([ ripgrep ] ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [ xdg-utils ])}
+      --prefix PATH : ${
+        lib.makeBinPath ([ ripgrep ] ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [ xdg-utils ])
+      }
 
     runHook postInstall
   '';
