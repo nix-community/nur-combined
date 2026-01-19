@@ -26,6 +26,7 @@
   pango,
   libglvnd,
   mesa,
+  vivaldi-ffmpeg-codecs,
   xorg,
   zlib,
 }:
@@ -76,6 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     pango
     libglvnd
     mesa
+    vivaldi-ffmpeg-codecs
     xorg.libX11
     xorg.libXcomposite
     xorg.libXdamage
@@ -114,23 +116,23 @@ stdenv.mkDerivation (finalAttrs: {
       rmdir "$out/usr/local" 2>/dev/null || true
     fi
 
-    if [ -f "$out/usr/share/applications/115Browser.desktop" ]; then
-      substituteInPlace "$out/usr/share/applications/115Browser.desktop" \
-        --replace-fail "/usr/local" "/opt/115"
-    fi
+    substituteInPlace "$out/usr/share/applications/115Browser.desktop" \
+      --replace-fail "/usr/local" "/opt/115"
 
-    if [ -f "$out/opt/115/115Browser/115.sh" ]; then
-      substituteInPlace "$out/opt/115/115Browser/115.sh" \
-        --replace-fail "/usr/local" "/opt/115" \
-        --replace-fail "/opt/115" "$out/opt/115"
-    fi
+    substituteInPlace "$out/opt/115/115Browser/115.sh" \
+      --replace-fail "/usr/local" "/opt/115" \
+      --replace-fail "/opt/115" "$out/opt/115"
+
+    ln -s "${vivaldi-ffmpeg-codecs}/lib/libffmpeg.so" "$out/opt/115/115Browser/libffmpeg.so"
 
     mkdir -p "$out/bin"
     makeWrapper "$out/opt/115/115Browser/115Browser" "$out/bin/115-browser" \
       --chdir "$out/opt/115/115Browser" \
       --prefix LD_LIBRARY_PATH : "$out/opt/115/115Browser" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}${lib.optionalString (stdenv.hostPlatform.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs)}" \
-      --prefix XDG_DATA_DIRS : "${addDriverRunpath.driverLink}/share"
+      --prefix XDG_DATA_DIRS : "${addDriverRunpath.driverLink}/share" \
+      --add-flags "--disable-breakpad" \
+      --add-flags "--disable-crashpad"
 
     install -Dm644 "$privacy" "$out/share/licenses/${finalAttrs.pname}/privacy.html"
     install -Dm644 "$copyright" "$out/share/licenses/${finalAttrs.pname}/copyright.html"
