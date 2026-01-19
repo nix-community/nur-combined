@@ -40,6 +40,13 @@ flutter338.buildFlutterApplication rec {
     })
   ];
 
+  postPatch = ''
+    # Force Flutter to regenerate plugin registrants with added deps.
+    rm -f linux/flutter/generated_plugin_registrant.cc \
+      linux/flutter/generated_plugin_registrant.h \
+      linux/flutter/generated_plugins.cmake
+  '';
+
   postInstall = ''
     install -Dm644 assets/icons/icon.png \
       $out/share/icons/hicolor/512x512/apps/rain.png

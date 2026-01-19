@@ -664,6 +664,16 @@
       "source": "hosted",
       "version": "3.2.0"
     },
+    "geoclue": {
+      "dependency": "transitive",
+      "description": {
+        "name": "geoclue",
+        "sha256": "c2a998c77474fc57aa00c6baa2928e58f4b267649057a1c76738656e9dbd2a7f",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "0.1.1"
+    },
     "geolocator": {
       "dependency": "direct main",
       "description": {
@@ -693,6 +703,16 @@
       },
       "source": "hosted",
       "version": "2.3.13"
+    },
+    "geolocator_linux": {
+      "dependency": "direct main",
+      "description": {
+        "name": "geolocator_linux",
+        "sha256": "c4e966f0a7a87e70049eac7a2617f9e16fd4c585a26e4330bdfc3a71e6a721f3",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "0.2.3"
     },
     "geolocator_platform_interface": {
       "dependency": "transitive",
@@ -733,6 +753,16 @@
       },
       "source": "hosted",
       "version": "4.7.2"
+    },
+    "gsettings": {
+      "dependency": "transitive",
+      "description": {
+        "name": "gsettings",
+        "sha256": "23f153e5992451a1c28e9b30d163363780d21311ecd55c9541d6ac9ed0ba7bb5",
+        "url": "https://pub.dev"
+      },
+      "source": "hosted",
+      "version": "0.2.5"
     },
     "glob": {
       "dependency": "transitive",
