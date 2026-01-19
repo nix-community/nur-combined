@@ -1671,10 +1671,10 @@
     };
     "chameleon-ext" = buildFirefoxXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.79.1";
+      version = "0.22.80.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4625824/chameleon_ext-0.22.79.1.xpi";
-      sha256 = "09d2b5ab590fb8f7294a5e3d260a5d62e3fb36f0e363e94594f01b493ac4df58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669240/chameleon_ext-0.22.80.1.xpi";
+      sha256 = "9325eb2a51090d0575f0ad2b04dd4497ed240632109dc94f6004e5d480a254e1";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -4567,10 +4567,10 @@
     };
     "gitako-github-file-tree" = buildFirefoxXpiAddon {
       pname = "gitako-github-file-tree";
-      version = "3.15.3";
+      version = "3.15.4";
       addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4667580/gitako_github_file_tree-3.15.3.xpi";
-      sha256 = "1bb6b0a951608269ae71d046e579dbde8bf7c9649f4a5d46b0b34e58f493e9bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4668841/gitako_github_file_tree-3.15.4.xpi";
+      sha256 = "851734bd764796dd0fdd4573b7e148a1e77f74e3eef5fd194ddd0dec5f4ef6d8";
       meta = with lib;
       {
         homepage = "https://github.com/EnixCoda/Gitako";
@@ -11767,10 +11767,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "26.1.6";
+      version = "26.1.18";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4658607/refined_github-26.1.6.xpi";
-      sha256 = "4cf37aa6880af46a312a87f976f6f73c4d1a485dbb9322680ea069e300eadc74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669016/refined_github-26.1.18.xpi";
+      sha256 = "7783de3e1dbeeec1fb9947a1d6e63cda259bcf4dd06b9f5d6d49e9baede60b4a";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
