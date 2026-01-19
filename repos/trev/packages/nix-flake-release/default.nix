@@ -14,18 +14,19 @@
   shellcheck,
   skopeo,
   stdenv,
+  tea,
   xz,
   zip,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-flake-release";
-  version = "0.8.0";
+  version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nix-flake-release";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-CFW3+25CBuXxrl/f3NS477WCkErAmDQNrTJyH/4RHOg=";
+    hash = "sha256-pTFg4Or2Mc+KRdk7QNoea4cixggWmXvlz2AFTh1dUzA=";
   };
 
   nativeBuildInputs = [
@@ -43,6 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     ncurses
     nix
     skopeo
+    tea
     xz
     zip
   ];
