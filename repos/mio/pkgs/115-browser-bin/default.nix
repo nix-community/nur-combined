@@ -4,6 +4,7 @@
   autoPatchelfHook,
   dpkg,
   fetchurl,
+  makeWrapper,
   dbus,
   expat,
   glib,
@@ -48,6 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg
+    makeWrapper
   ];
 
   buildInputs = [
@@ -114,11 +116,14 @@ stdenv.mkDerivation (finalAttrs: {
 
     if [ -f "$out/opt/115/115Browser/115.sh" ]; then
       substituteInPlace "$out/opt/115/115Browser/115.sh" \
-        --replace-fail "/usr/local" "/opt/115"
+        --replace-fail "/usr/local" "/opt/115" \
+        --replace-fail "/opt/115" "$out/opt/115"
     fi
 
     mkdir -p "$out/bin"
-    ln -s "/opt/115/115Browser/115.sh" "$out/bin/115-browser"
+    makeWrapper "$out/opt/115/115Browser/115Browser" "$out/bin/115-browser" \
+      --chdir "$out/opt/115/115Browser" \
+      --prefix LD_LIBRARY_PATH : "$out/opt/115/115Browser"
 
     install -Dm644 "$privacy" "$out/share/licenses/${finalAttrs.pname}/privacy.html"
     install -Dm644 "$copyright" "$out/share/licenses/${finalAttrs.pname}/copyright.html"

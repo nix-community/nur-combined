@@ -13,10 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
 
     install -d "$out/etc/firejail"
-    install -Dm644 ${./adobe-acrobat-reader.profile} \
-      "$out/etc/firejail/adobe-acrobat-reader.profile"
-    install -Dm644 ${./notepad++.profile} \
-      "$out/etc/firejail/notepad++.profile"
+    cp -rv ${./profiles}/* "$out/etc/firejail/"
 
     runHook postInstall
   '';
@@ -24,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Firejail profiles for packages in this repository";
     homepage = "https://firejail.wordpress.com/";
-    license = lib.licenses.unfreeRedistributable or lib.licenses.unfree;
+    license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };
 })
