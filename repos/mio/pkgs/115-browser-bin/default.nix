@@ -5,6 +5,8 @@
   dpkg,
   fetchurl,
   makeWrapper,
+  patchelf,
+  addDriverRunpath,
   dbus,
   expat,
   glib,
@@ -16,6 +18,7 @@
   cairo,
   cups,
   gdk-pixbuf,
+  libgbm,
   libdrm,
   libxkbcommon,
   nspr,
@@ -50,6 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     autoPatchelfHook
     dpkg
     makeWrapper
+    patchelf
   ];
 
   buildInputs = [
@@ -64,6 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     cairo
     cups
     gdk-pixbuf
+    libgbm
     libdrm
     libxkbcommon
     nspr
@@ -123,7 +128,9 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p "$out/bin"
     makeWrapper "$out/opt/115/115Browser/115Browser" "$out/bin/115-browser" \
       --chdir "$out/opt/115/115Browser" \
-      --prefix LD_LIBRARY_PATH : "$out/opt/115/115Browser"
+      --prefix LD_LIBRARY_PATH : "$out/opt/115/115Browser" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}${lib.optionalString (stdenv.hostPlatform.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs)}" \
+      --prefix XDG_DATA_DIRS : "${addDriverRunpath.driverLink}/share"
 
     install -Dm644 "$privacy" "$out/share/licenses/${finalAttrs.pname}/privacy.html"
     install -Dm644 "$copyright" "$out/share/licenses/${finalAttrs.pname}/copyright.html"
@@ -132,6 +139,24 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   dontStrip = true;
+
+  postFixup = ''
+    rpath="${lib.makeLibraryPath finalAttrs.buildInputs}${lib.optionalString (stdenv.hostPlatform.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs)}:${addDriverRunpath.driverLink}/lib"
+
+    for f in "$out/opt/115/115Browser/115Browser" \
+      "$out/opt/115/115Browser/chrome_crashpad_handler" \
+      "$out/opt/115/115Browser/chrome-sandbox"; do
+      if [ -f "$f" ]; then
+        patchelf --set-rpath "$rpath" "$f"
+      fi
+    done
+
+    for f in "$out/opt/115/115Browser"/lib*GL* "$out/opt/115/115Browser"/libGLESv2.so; do
+      if [ -f "$f" ]; then
+        patchelf --set-rpath "$rpath" "$f"
+      fi
+    done
+  '';
 
   meta = {
     description = "115 Browser";
