@@ -6,14 +6,14 @@
   gdb,
   stdenv,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ugdb";
   version = "0.1.12";
 
   src = fetchFromGitHub {
     owner = "ftilde";
     repo = "ugdb";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-6mlvr/2hqwu5Zoo9E2EfOmyg0yEGBi4jk3BsRZ+zkN8=";
   };
 
@@ -32,8 +32,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ftilde/ugdb";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    changelog = "https://github.com/ftilde/ugdb/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/ftilde/ugdb/blob/${finalAttrs.version}/CHANGELOG.md";
     mainProgram = "ugdb";
+    broken = true;
     maintainers = with lib.maintainers; [ kuflierl ];
   };
-}
+})

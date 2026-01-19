@@ -31,30 +31,6 @@ let
   gdb' = gdb.override {
     python3 = python;
   };
-
-  libptrscan = rustPlatform.buildRustPackage {
-    pname = "libptrscan";
-    version = "0.7.4-unstable-2024-09-13";
-
-    src = fetchFromGitHub {
-      owner = "kekeimiku";
-      repo = "PointerSearcher-X";
-      rev = "ba2b5eab4856aa4ffb3ece0bd2c7d0917fa4e6ce"; # last commit on pince_fix_32 branch
-      hash = "sha256-skOM2dx+u7dYbWywaC8dtUuJuXzc4Mm6skBbMfaTwfY=";
-    };
-
-    cargoLock.lockFile = ./libptrscan/Cargo.lock;
-
-    postPatch = ''
-      ln -s ${./libptrscan/Cargo.lock} Cargo.lock
-    '';
-
-    cargoBuildFlags = [ "-p libptrscan" ];
-
-    postInstall = ''
-      install -Dm644 libptrscan/ptrscan.py -t "$out"/lib/
-    '';
-  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pince";
@@ -103,8 +79,8 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 wrappers/scanmem.py -t ../libpince/libscanmem
     popd
 
-    install -Dm755 ${libptrscan}/lib/libptrscan.so -t libpince/libptrscan/
-    install -Dm644 ${libptrscan}/lib/ptrscan.py -t libpince/libptrscan/
+    install -Dm755 ${finalAttrs.passthru.libptrscan}/lib/libptrscan.so -t libpince/libptrscan/
+    install -Dm644 ${finalAttrs.passthru.libptrscan}/lib/ptrscan.py -t libpince/libptrscan/
 
     lrelease i18n/ts/*
     mkdir -p i18n/qm
@@ -133,7 +109,29 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    inherit libptrscan;
+    libptrscan = rustPlatform.buildRustPackage {
+      pname = "libptrscan";
+      version = "0.7.4-unstable-2024-09-13";
+
+      src = fetchFromGitHub {
+        owner = "kekeimiku";
+        repo = "PointerSearcher-X";
+        rev = "ba2b5eab4856aa4ffb3ece0bd2c7d0917fa4e6ce"; # last commit on pince_fix_32 branch
+        hash = "sha256-skOM2dx+u7dYbWywaC8dtUuJuXzc4Mm6skBbMfaTwfY=";
+      };
+
+      cargoLock.lockFile = ./libptrscan/Cargo.lock;
+
+      postPatch = ''
+        ln -s ${./libptrscan/Cargo.lock} Cargo.lock
+      '';
+
+      cargoBuildFlags = [ "-p libptrscan" ];
+
+      postInstall = ''
+        install -Dm644 libptrscan/ptrscan.py -t "$out"/lib/
+      '';
+    };
   };
 
   meta = {
