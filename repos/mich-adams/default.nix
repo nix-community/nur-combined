@@ -14,6 +14,7 @@
   afterglow-cursors = pkgs.callPackage ./pkgs/afterglow-cursors.nix { };
     #linux-postmarketos-allwinner = pkgs.callPackage ./pkgs/linux-postmarketos-allwinner.nix { };
     stardrop = pkgs.callPackage ./pkgs/stardrop { };
+    stardew-valley = pkgs.callPackage ./pkgs/stardew-valley.nix { };
     
     #crust-firmware = pkgs.callPackage ./pkgs/crust-firmware.nix { };
 }
