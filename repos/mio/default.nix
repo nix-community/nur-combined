@@ -193,7 +193,6 @@ let
         cider
         rocksmith2tab
         superTux
-        stuntrally3
         nix-output-monitor
         stuntrally
         musescore-evolution

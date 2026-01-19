@@ -5,8 +5,8 @@ on:
     branches:
       - main
       - master
-  schedule:
-    - cron:  '11 */4 * * *'
+  #schedule:
+  #  - cron:  '11 */4 * * *'
   workflow_dispatch:
 jobs:
   tests:
