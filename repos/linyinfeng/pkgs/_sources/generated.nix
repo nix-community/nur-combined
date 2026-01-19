@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.9.6";
+    version = "v2.9.7";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.9.6";
+      rev = "v2.9.7";
       fetchSubmodules = false;
-      sha256 = "sha256-TdKqc2fdooglPJt5Hgn3neiwRdZaKCnx+83aDxU/4Gc=";
+      sha256 = "sha256-UAD5pgA9ee+aS4Mbo2/md6nOGY84O/NzX2CnnBYw/io=";
     };
   };
   dot-tar = {
