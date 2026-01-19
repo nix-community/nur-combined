@@ -90,7 +90,10 @@ stdenv.mkDerivation rec {
       --replace-fail VANILLA_PIPE_PATH $out/bin/vanilla-pipe
   '';
 
-  outputs = [ "out" "polkit" ];
+  outputs = [
+    "out"
+    "polkit"
+  ];
 
   meta = with lib; {
     description = "A software clone of the Wii U GamePad for Linux";

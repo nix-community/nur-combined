@@ -12,13 +12,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "makerom";
-  version = "0.18.4";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "3DSGuy";
     repo = "Project_CTR";
     rev = "makerom-v${version}";
-    sha256 = "sha256-XGktRr/PY8LItXsN1sTJNKcPIfnTnAUQHx7Om/bniXg=";
+    sha256 = "sha256-GvEzv97DqCsaDWVqDpajQRWYe+WM8xCYmGE0D3UcSrM=";
   };
 
   buildInputs = [ libiconv ];

@@ -22,7 +22,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [Corgi3DS-2020-07-15](https://github.com/PSI-Rockin/Corgi3DS) | corgi3ds | An LLE dog-themed 3DS emulator |
 | [ctr-gputextool-0-unstable-2015-11-25](https://github.com/yellows8/ctr-gputextool) | ctr-gputextool | 3DS GPU texture conversion tool. |
 | [ctr-logobuilder-0-unstable-2015-11-25](https://github.com/yellows8/ctr-logobuilder) | ctr-logobuilder | Build 3DS logo files |
-| [ctrtool-1.2.1](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
+| [ctrtool-1.3.0](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
 | [cxitool-unstable-2019-04-10](https://github.com/devkitpro/3dstools) | cxitool | Convert 3dsx to CXI |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
 | [darctool-yls8-0-unstable-2015-11-21](https://github.com/yellows8/darctool) | darctool-yls8 | Tool for extracting and building 3DS darc archive files. |
@@ -34,7 +34,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [lnshot-0.1.3-unstable-2026-01-01](https://github.com/ticky/lnshot) | lnshot | Symlink your Steam screenshots to a sensible place |
 | [local-gpss-1.0.3](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
-| [makerom-0.18.4](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
+| [makerom-0.19.0](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
 | ~~[mediawiki-1.39.17](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_39~~ | ~~The collaborative editing software that runs Wikipedia~~ |
 | ~~[mediawiki-core-1.39.17](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_39\_core~~ | ~~The collaborative editing software that runs Wikipedia (without bundled extensions)~~ |
 | [mediawiki-1.43.6](https://www.mediawiki.org/) | mediawiki\_1\_43 | The collaborative editing software that runs Wikipedia |

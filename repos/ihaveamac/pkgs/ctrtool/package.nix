@@ -12,13 +12,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "ctrtool";
-  version = "1.2.1";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "3DSGuy";
     repo = "Project_CTR";
     rev = "ctrtool-v${version}";
-    sha256 = "sha256-HqqeQCEUof4EBUhuUAdTruMFgYIoXhtAN3yuWW6tD+Y=";
+    sha256 = "sha256-GvEzv97DqCsaDWVqDpajQRWYe+WM8xCYmGE0D3UcSrM=";
   };
 
   postPatch = ''
@@ -38,16 +38,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./libtoolchain-include-limits.patch
-    # TMDS > 1024 contents
-    (fetchpatch {
-      url = "https://github.com/3DSGuy/Project_CTR/commit/bca09927428c35253888efda8eb6e8a2150a6c08.patch";
-      hash = "sha256-w2+Gk2LiR20TzK5o6u8YE+lxQp1I+7lJnG2jEMYSzwM=";
-    })
-    # New 3DS bit
-    (fetchpatch {
-      url = "https://github.com/3DSGuy/Project_CTR/commit/ba33e8d3238150ad2b7e451a475852dbb4135c95.patch";
-      hash = "sha256-Au8TIR6Fp9tGxez52omdU0b64HbDDTkxyXbJHG1pJRY";
-    })
   ];
 
   preBuild = ''

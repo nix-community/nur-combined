@@ -42,7 +42,9 @@ in
         Description = "Steam Screenshot Symlinking Service";
       };
       Service = {
-        ExecStart = "${lnshot}/bin/lnshot ${optionalString (cfg.singleUserID64 != null) "--single-user-id64 ${toString cfg.singleUserID64}"} -p ${escapeShellArg cfg.picturesName} daemon";
+        ExecStart = "${lnshot}/bin/lnshot ${
+          optionalString (cfg.singleUserID64 != null) "--single-user-id64 ${toString cfg.singleUserID64}"
+        } -p ${escapeShellArg cfg.picturesName} daemon";
         Restart = "always";
       };
       Install = {
