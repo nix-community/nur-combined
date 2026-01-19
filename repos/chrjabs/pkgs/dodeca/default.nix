@@ -15,33 +15,33 @@ let
   wasm-bindgen-cli = buildWasmBindgenCli rec {
     src = fetchCrate {
       pname = "wasm-bindgen-cli";
-      version = "0.2.108";
-      hash = "sha256-UsuxILm1G6PkmVw0I/JF12CRltAfCJQFOaT4hFwvR8E=";
+      version = "0.2.106";
+      hash = "sha256-M6WuGl7EruNopHZbqBpucu4RWz44/MSdv6f0zkYw+44=";
     };
 
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit src;
       inherit (src) pname version;
-      hash = "sha256-iqQiWbsKlLBiJFeqIYiXo3cqxGLSjNM8SOWXGM9u43E=";
+      hash = "sha256-ElDatyOwdKwHg3bNH/1pcxKI7LXkhsotlDPQjiLHBwA=";
     };
   };
 in
 rustPlatform.buildRustPackage rec {
   pname = "dodeca";
-  version = "0.7.1";
+  version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "bearcove";
     repo = "dodeca";
     rev = "v${version}";
-    hash = "sha256-sd1Pyq1FFVJfP6gUXstOGBQ/0Wl/leEnenJZjMkejw0=";
+    hash = "sha256-5+am/hHq+xYdiXnT/UqG4fSx2VEDCOSdw/lhRV0+nUA=";
   };
 
   patches = [
     ./fix-wasm-symbols.patch
   ];
 
-  cargoHash = "sha256-4r2341EeSZGUJ5fbaixPdVzUQGrtvSnQfojC2GWKvT0=";
+  cargoHash = "sha256-xBhv9isgyzt2axcwRLVIZSiUf1E+yDIQOxc/W3XhcBM=";
 
   cargoPatches = [
     ./patch-dependencies.patch
@@ -93,6 +93,7 @@ rustPlatform.buildRustPackage rec {
         -p cell-minify --bin ddc-cell-minify \
         -p cell-sass --bin ddc-cell-sass \
         -p cell-svgo --bin ddc-cell-svgo \
+        -p cell-term --bin ddc-cell-term \
         -p cell-tui --bin ddc-cell-tui \
         -p cell-webp --bin ddc-cell-webp
 
@@ -129,6 +130,7 @@ rustPlatform.buildRustPackage rec {
       cp "target/release/ddc-cell-minify" $out/bin/
       cp "target/release/ddc-cell-sass" $out/bin/
       cp "target/release/ddc-cell-svgo" $out/bin/
+      cp "target/release/ddc-cell-term" $out/bin/
       cp "target/release/ddc-cell-tui" $out/bin/
       cp "target/release/ddc-cell-webp" $out/bin/
 
