@@ -19,13 +19,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-flake-release";
-  version = "0.5.1";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nix-flake-release";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5u+PW6LkKErejwJsfyq17cwxLSaSaTnuCiNambOT1aA=";
+    hash = "sha256-CFW3+25CBuXxrl/f3NS477WCkErAmDQNrTJyH/4RHOg=";
   };
 
   nativeBuildInputs = [
@@ -55,8 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = ''
     chmod +w src
-    sed -i '1c\#!${runtimeShell}' src/release.sh
-    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/release.sh
+    sed -i '1c\#!${runtimeShell}' src/start.sh
+    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/start.sh
   '';
 
   doCheck = true;
@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -R src/*.sh $out/lib/nix-flake-release
 
     mkdir -p $out/bin
-    makeWrapper "$out/lib/nix-flake-release/release.sh" "$out/bin/nix-flake-release"
+    makeWrapper "$out/lib/nix-flake-release/start.sh" "$out/bin/nix-flake-release"
   '';
 
   dontFixup = true;
