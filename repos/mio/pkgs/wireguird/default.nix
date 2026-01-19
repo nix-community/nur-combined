@@ -128,7 +128,6 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
   dontBuild = true;
-  dontWrapGApps = true; # we only want $gappsWrapperArgs here
 
   installPhase = ''
     mkdir -p "$out/bin" "$out/share"
@@ -136,7 +135,6 @@ stdenv.mkDerivation {
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
     makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/libexec/wireguird-wrapped" \
-      ''${gappsWrapperArgs[@]} \
       --prefix PATH : ${
         lib.makeBinPath [
           wireguard-tools
