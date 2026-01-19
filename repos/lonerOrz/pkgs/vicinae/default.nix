@@ -22,9 +22,9 @@
 
 let
   pname = "vicinae";
-  version = "0.18.3";
+  version = "0.19.0";
 
-  srcHash = "sha256-TU8MKOBYgTvYIFI8Col3ePeGntOlux3yYqmbSi7FG70=";
+  srcHash = "sha256-08SgAPfuyKu+Z1TVWHLYVgFZj22or7d1BnBda1/Qsag=";
   apiDepsHash = "sha256-UsTpMR23UQBRseRo33nbT6z/UCjZByryWfn2AQSgm6U=";
   extensionManagerDepsHash = "sha256-wl8FDFB6Vl1zD0/s2EbU6l1KX4rwUW6dOZof4ebMMO8=";
 
@@ -58,6 +58,7 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
     "CMAKE_INSTALL_BINDIR" = "bin";
     "CMAKE_INSTALL_LIBDIR" = "lib";
     "DCMAKE_INTERPROCEDURAL_OPTIMIZATION" = "ON"; # LTO
+    "INSTALL_BROWSER_NATIVE_HOST" = "OFF";
   };
 
   NIX_CFLAGS_COMPILE = "-O3 -march=native -mtune=native"; # native
