@@ -1,13 +1,13 @@
 {
   "platforms": {
     "aarch64-linux": {
-      "url": "https://github.com/home-assistant/operating-system/releases/download/16.3/haos_generic-aarch64-16.3.qcow2.xz",
-      "sha256": "8c39d2929eeb76febe58d1b9b019b89414c22595bef65ce3b6a57c88368f4a1d"
+      "url": "https://github.com/home-assistant/operating-system/releases/download/17.0/haos_generic-aarch64-17.0.qcow2.xz",
+      "sha256": "d6ed7f1bf59d8c7e0b5b894ef01aeff60916818615bdfc65d6506753dc00b609"
     },
     "x86_64-linux": {
-      "url": "https://github.com/home-assistant/operating-system/releases/download/16.3/haos_ova-16.3.qcow2.xz",
-      "sha256": "f3f56cae72cdc1732c35b1b2a7547a11397eaaac8c4de2ff63bb10f45721c8ce"
+      "url": "https://github.com/home-assistant/operating-system/releases/download/17.0/haos_ova-17.0.qcow2.xz",
+      "sha256": "5080f10959785dfc60bfa614fe0ef267b40ec33afcdf920040070e7afc1a43b2"
     }
   },
-  "version": "16.3"
+  "version": "17.0"
 }
