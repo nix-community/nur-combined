@@ -1,0 +1,22 @@
+diff --git a/lib/main.dart b/lib/main.dart
+index d3fd2c1..c5a6a88 100644
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -7,6 +7,7 @@ import 'package:dynamic_color/dynamic_color.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter/services.dart';
+ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
++import 'package:geolocator_linux/geolocator_linux.dart';
+ import 'package:flutter_localizations/flutter_localizations.dart';
+ import 'package:flutter_timezone/flutter_timezone.dart';
+ import 'package:get/get.dart';
+@@ -77,6 +78,9 @@ void main() async {
+ }
+ 
+ Future<void> initializeApp() async {
++  if (Platform.isLinux) {
++    await GeolocatorLinux.registerWith();
++  }
+   setupConnectivityListener();
+   await initializeTimeZone();
+   await initializeIsar();
