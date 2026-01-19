@@ -183,6 +183,7 @@ rec {
     angelscript = angelscript_2_35_1;
   };
   rain = pkgs.callPackage ./pkgs/rain/package.nix { };
+  overmorrow = pkgs.callPackage ./pkgs/overmorrow/package.nix { };
   ccleste = pkgs.callPackage ./pkgs/ccleste/package.nix { };
 
   firefox_nightly-unwrapped = v3override (
