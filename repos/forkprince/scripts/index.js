@@ -64,6 +64,19 @@ switch (config.source.type) {
         }
         break;
     }
+    case "forgejo-release": {
+        if (config.platforms) {
+            console.log(`Updating platforms for ${file}...`);
+            await update.forgejo.platforms(resolved, { config, force });
+        } else if (config.variants) {
+            console.log(`Updating variants for ${file}...`);
+            await update.forgejo.variants(resolved, { config, force });
+        } else {
+            console.log(`Updating single version for ${file}...`);
+            await update.forgejo.single(resolved, { config, force });
+        }
+        break;
+    }
     default: {
         console.error(`Error: unsupported source type: ${config.source.type}`);
         process.exit(1);

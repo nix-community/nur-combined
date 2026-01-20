@@ -67,6 +67,7 @@
 
   proton-ge-rtsp-bin = lib.callPackage ./pkgs/proton-ge-rtsp-bin {};
   proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
+  proton-dw-bin = lib.callPackage ./pkgs/proton-dw-bin {};
   proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
   boxtron-bin = lib.callPackage ./pkgs/boxtron-bin {};
 

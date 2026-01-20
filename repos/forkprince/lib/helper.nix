@@ -1,6 +1,8 @@
 {lib}: rec {
   githubUrl = repo: tagPrefix: version: file: "https://github.com/${repo}/releases/download/${tagPrefix}${version}/${file}";
 
+  forgejoUrl = instance: repo: tagPrefix: version: file: "${instance}/${repo}/releases/download/${tagPrefix}${version}/${file}";
+
   sanitizeName = name:
     builtins.replaceStrings
     [" " "%20"]
@@ -42,11 +44,23 @@
   getSingle = ver: let
     hasFile = ver.asset ? file;
     isGithub = (ver.source.type or "") == "github-release" && hasFile;
+    isForgejo = (ver.source.type or "") == "forgejo-release" && hasFile;
 
     url =
       if isGithub
       then
         githubUrl
+        ver.source.repo
+        (ver.source.tag_prefix or "")
+        ver.version
+        (substitute {
+          version = ver.version;
+          template = ver.asset.file;
+        })
+      else if isForgejo
+      then
+        forgejoUrl
+        ver.source.instance
         ver.source.repo
         (ver.source.tag_prefix or "")
         ver.version
@@ -71,6 +85,7 @@
     plat = lib.getAttr platform ver.platforms;
     version = plat.version or ver.version;
     hasUrl = plat ? url;
+    isForgejo = (ver.source.type or "") == "forgejo-release";
 
     url =
       if hasUrl
@@ -79,6 +94,17 @@
           inherit version;
           repo = plat.repo or ver.source.repo or "";
           template = plat.url;
+        })
+      else if isForgejo
+      then
+        forgejoUrl
+        (plat.instance or ver.source.instance)
+        (plat.repo or ver.source.repo)
+        (plat.tag_prefix or ver.source.tag_prefix or "")
+        version
+        (substitute {
+          inherit version;
+          template = plat.file;
         })
       else
         githubUrl
@@ -100,11 +126,23 @@
     vari = lib.getAttr variant ver.variants;
     hasFile = ver.asset ? file;
     isGithub = (ver.source.type or "") == "github-release" && hasFile;
+    isForgejo = (ver.source.type or "") == "forgejo-release" && hasFile;
 
     baseUrl =
       if isGithub
       then
         githubUrl
+        ver.source.repo
+        (ver.source.tag_prefix or "")
+        ver.version
+        (substitute {
+          version = ver.version;
+          template = ver.asset.file;
+        })
+      else if isForgejo
+      then
+        forgejoUrl
+        ver.source.instance
         ver.source.repo
         (ver.source.tag_prefix or "")
         ver.version

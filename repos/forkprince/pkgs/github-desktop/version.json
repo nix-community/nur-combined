@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "desktop/desktop",
-    "query": ".filter(data => !data.prerelease)[0].tag_name"
+    "skipPrerelease": true
   },
   "version": "release-3.5.4",
   "platforms": {

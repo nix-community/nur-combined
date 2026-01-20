@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "BrowserWorks/Waterfox",
-    "query": ".filter(data => !data.prerelease)[0].tag_name"
+    "skipPrerelease": true
   },
   "version": "6.6.8",
   "platforms": {

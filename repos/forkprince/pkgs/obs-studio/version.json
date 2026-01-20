@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "obsproject/obs-studio",
-    "query": ".filter(data => !data.prerelease)[0].tag_name"
+    "skipPrerelease": true
   },
   "version": "32.0.4",
   "platforms": {

@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "PlayCover/PlayCover",
-    "query": ".filter(data => !data.prerelease)[0].tag_name"
+    "skipPrerelease": true
   },
   "asset": {
     "file": "PlayCover_{version}.dmg",
