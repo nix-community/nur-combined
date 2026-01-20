@@ -43,7 +43,6 @@
       url = "github:Cryolitia/pgp-sig2dot";
       # For build to cachix
       # inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     pgp-sig2dot-beta = {
@@ -115,24 +114,24 @@
               else
                 { }
             )
-            # // pgp-sig2dot.packages.${system}
-            # // (
-            #   (nixpkgs.lib.attrsets.mapAttrs' (
-            #     name: value:
-            #     nixpkgs.lib.attrsets.nameValuePair (name + "-testing") (
-            #       if (value ? rustPlatform) then
-            #         value.override {
-            #           rustPlatform = pkgs.makeRustPlatform {
-            #             cargo = pkgs.rust-bin.stable.latest.minimal;
-            #             rustc = pkgs.rust-bin.stable.latest.minimal;
-            #           };
-            #         }
-            #       else
-            #         value
-            #     )
-            #   ))
-            #   pgp-sig2dot-beta.packages.${system}
-            # )
+            // pgp-sig2dot.packages.${system}
+            // (
+              (nixpkgs.lib.attrsets.mapAttrs' (
+                name: value:
+                nixpkgs.lib.attrsets.nameValuePair (name + "-testing") (
+                  if (value ? rustPlatform) then
+                    value.override {
+                      rustPlatform = pkgs.makeRustPlatform {
+                        cargo = pkgs.rust-bin.stable.latest.minimal;
+                        rustc = pkgs.rust-bin.stable.latest.minimal;
+                      };
+                    }
+                  else
+                    value
+                )
+              ))
+              pgp-sig2dot-beta.packages.${system}
+            )
           )
         )
       );
