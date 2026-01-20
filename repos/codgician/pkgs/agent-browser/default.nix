@@ -21,13 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "vercel-labs";
     repo = "agent-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-i3e7MunKwEWtDEYML1wygqaV5NJ6aXcCqd+moW9vbyY=";
+    hash = "sha256-7KrZcgyCmyvdMxOQMiPkPzA1Ywu85X6b2n/3R8SYVmo=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/cli";
-    hash = "sha256-B/Yqg6GVqhKBdjlvnVa4Mlp1laGY5sDIEQXdLPz64oM=";
+    hash = "sha256-Zw6n2DYE+ysCkLv40hidoAz2wZ1DBhL484FF/ZoSpww=";
   };
 
   cargoRoot = "cli";
