@@ -100,7 +100,7 @@ jobs:
           echo -E "cachePrefix=$cachePrefix" >> "$GITHUB_OUTPUT"
       - name: Restore GHA cache of Nix cache
         id: cache
-        uses: actions/cache/restore@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        uses: actions/cache/restore@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: |
             ~/.cache/nix/*
@@ -149,7 +149,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
       - name: Save GHA cache of Nix cache
-        uses: actions/cache/save@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        uses: actions/cache/save@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: |
             ~/.cache/nix/*
@@ -183,7 +183,7 @@ jobs:
         nix_conf: |
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem) || '' }}
     - name: Restore Nixpkgs cache
-      uses: actions/cache/restore@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+      uses: actions/cache/restore@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
       with:
         path: |
             ~/.cache/nix/*
@@ -216,7 +216,7 @@ jobs:
           -I $PWD
     - name: Restore cached build failures
       id: restoreFailCache
-      uses: actions/cache/restore@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+      uses: actions/cache/restore@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
       with:
         path: /tmp/buildFailures
         key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
@@ -337,7 +337,7 @@ jobs:
           path: /tmp/buildFailures
           merge-multiple: true
       - name: Save merged build failure cache
-        uses: actions/cache/save@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        uses: actions/cache/save@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: /tmp/buildFailures
           key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
