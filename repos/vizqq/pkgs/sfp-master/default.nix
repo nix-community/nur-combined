@@ -5,6 +5,7 @@
   qt6,
   pkg-config,
   libusb1,
+  wrapGAppsHook3,
   udev,
   source,
 }:
@@ -24,12 +25,18 @@ stdenv.mkDerivation rec {
     pkg-config
     qt6.wrapQtAppsHook
     qt6.qttools
+    wrapGAppsHook3
   ];
+
+  preFixup = ''
+    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+  '';
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace-fail "/usr/lib/udev" "$out/lib/udev"
   '';
 
+  dontWrapGApps = true;
   strictDeps = true;
   doInstallCheck = true;
 
