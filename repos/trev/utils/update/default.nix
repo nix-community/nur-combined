@@ -48,10 +48,13 @@ let
     (lib.attrsets.collect lib.isDerivation topDerivations)
     ++ (lib.attrsets.collect lib.isDerivation subDerivations);
   commands = map (d: ''
-    echo "updating ${d.pname}..."
+    echo "::group::updating ${d.pname}..."
+
     {
     ${d.updateScript}
     } || echo "failed to update ${d.pname}"
+
+    echo "::endgroup::"
   '') total;
 in
 writeShellApplication {

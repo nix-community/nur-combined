@@ -9,6 +9,7 @@
   makeWrapper,
   mktemp,
   ncurses,
+  nix-update-script,
   nix,
   runtimeShell,
   shellcheck,
@@ -75,6 +76,15 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   dontFixup = true;
+
+  passthru = {
+    updateScript = lib.concatStringsSep " " (nix-update-script {
+      extraArgs = [
+        "--commit"
+        "${finalAttrs.pname}"
+      ];
+    });
+  };
 
   meta = {
     description = "Nix flake package releaser";
