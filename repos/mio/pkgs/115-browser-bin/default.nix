@@ -129,7 +129,11 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper "$out/opt/115/115Browser/115Browser" "$out/bin/115-browser" \
       --chdir "$out/opt/115/115Browser" \
       --prefix LD_LIBRARY_PATH : "$out/opt/115/115Browser" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}${lib.optionalString (stdenv.hostPlatform.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs)}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}${
+        lib.optionalString (stdenv.hostPlatform.is64bit) (
+          ":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs
+        )
+      }" \
       --prefix XDG_DATA_DIRS : "${addDriverRunpath.driverLink}/share" \
       --add-flags "--disable-breakpad" \
       --add-flags "--disable-crashpad"
@@ -143,7 +147,11 @@ stdenv.mkDerivation (finalAttrs: {
   dontStrip = true;
 
   postFixup = ''
-    rpath="${lib.makeLibraryPath finalAttrs.buildInputs}${lib.optionalString (stdenv.hostPlatform.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs)}:${addDriverRunpath.driverLink}/lib"
+    rpath="${lib.makeLibraryPath finalAttrs.buildInputs}${
+      lib.optionalString (stdenv.hostPlatform.is64bit) (
+        ":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs
+      )
+    }:${addDriverRunpath.driverLink}/lib"
 
     for f in "$out/opt/115/115Browser/115Browser" \
       "$out/opt/115/115Browser/chrome_crashpad_handler" \

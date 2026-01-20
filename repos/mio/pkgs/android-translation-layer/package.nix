@@ -30,13 +30,13 @@
 
 stdenv.mkDerivation {
   pname = "android-translation-layer";
-  version = "0-unstable-2026-01-08";
+  version = "0-unstable-2026-01-19";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "b4d749b9b7f1a8620b976f03a2924d0661f7232f";
-    hash = "sha256-SeMxbqyD3MXDR4fHans7pdQSa/SLoWOl9QhnpH7CWCY=";
+    rev = "bfcfb696d83c9769e1d99d3cb0d7a5908fe3c767";
+    hash = "sha256-BTVduEJhKEOFhqoG0lgqlcg2x4k9RWABURj2nQECaek=";
   };
 
   patches = [
@@ -45,9 +45,6 @@ stdenv.mkDerivation {
 
     # Patch custon Dex install dir
     ./configure-dex-install-dir.patch
-
-    # Patch atl to load microg apk from custom path
-    ./configure-microg-path.patch
   ];
 
   postPatch = ''
@@ -82,10 +79,6 @@ stdenv.mkDerivation {
     webkitgtk_6_0
   ];
 
-  postInstall = ''
-    install -D $src/com.google.android.gms.apk $out/share/com.google.android.gms.apk
-  '';
-
   postFixup = ''
     wrapProgram $out/bin/android-translation-layer \
       --prefix LD_LIBRARY_PATH : ${art-standalone}/lib/art \
@@ -94,8 +87,7 @@ stdenv.mkDerivation {
           art-standalone # dex2oat
           bintools # addr2line
         ]
-      } \
-      --set MICROG_APK_PATH "$out/share/com.google.android.gms.apk"
+      }
   '';
 
   passthru.tests = {
