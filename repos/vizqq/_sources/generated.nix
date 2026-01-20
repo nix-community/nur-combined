@@ -14,15 +14,26 @@
   };
   pa = {
     pname = "pa";
-    version = "ac3aaa0f1c2579943aa565a98a461a9c382d0b4c";
+    version = "6e50129f24909b76ee4496c903824638a159d01c";
     src = fetchFromGitHub {
       owner = "biox";
       repo = "pa";
-      rev = "ac3aaa0f1c2579943aa565a98a461a9c382d0b4c";
+      rev = "6e50129f24909b76ee4496c903824638a159d01c";
       fetchSubmodules = false;
-      sha256 = "sha256-44CWFTZmTyeu52TXQQBG0od8RfXjlqF9kTkIgVcf9BY=";
+      sha256 = "sha256-NUel7H2YDl6lib+8hDj+bld5y7fu4Xs7HsrGqwgu7mE=";
     };
-    date = "2025-10-16";
+    date = "2025-12-15";
+  };
+  sfp-master = {
+    pname = "sfp-master";
+    version = "v1.0.7";
+    src = fetchFromGitHub {
+      owner = "bigbigmdm";
+      repo = "SFP-Master";
+      rev = "v1.0.7";
+      fetchSubmodules = false;
+      sha256 = "sha256-AiziWPyywfLJadSOKeppIdf3pFf+IoGbNfdNbQy/92U=";
+    };
   };
   thinkpad-uefi-sign = {
     pname = "thinkpad-uefi-sign";

@@ -22,7 +22,7 @@
     },
     "pa": {
         "cargoLocks": null,
-        "date": "2025-10-16",
+        "date": "2025-12-15",
         "extract": null,
         "name": "pa",
         "passthru": null,
@@ -34,12 +34,33 @@
             "name": null,
             "owner": "biox",
             "repo": "pa",
-            "rev": "ac3aaa0f1c2579943aa565a98a461a9c382d0b4c",
-            "sha256": "sha256-44CWFTZmTyeu52TXQQBG0od8RfXjlqF9kTkIgVcf9BY=",
+            "rev": "6e50129f24909b76ee4496c903824638a159d01c",
+            "sha256": "sha256-NUel7H2YDl6lib+8hDj+bld5y7fu4Xs7HsrGqwgu7mE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ac3aaa0f1c2579943aa565a98a461a9c382d0b4c"
+        "version": "6e50129f24909b76ee4496c903824638a159d01c"
+    },
+    "sfp-master": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "sfp-master",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bigbigmdm",
+            "repo": "SFP-Master",
+            "rev": "v1.0.7",
+            "sha256": "sha256-AiziWPyywfLJadSOKeppIdf3pFf+IoGbNfdNbQy/92U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.7"
     },
     "thinkpad-uefi-sign": {
         "cargoLocks": null,

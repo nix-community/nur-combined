@@ -13,3 +13,7 @@ fetch.github = "thrimbor/thinkpad-uefi-sign"
 [pa]
 src.git = "https://github.com/biox/pa"
 fetch.github = "biox/pa"
+
+[sfp-master]
+src.github_tag = "bigbigmdm/SFP-Master"
+fetch.github = "bigbigmdm/SFP-Master"
