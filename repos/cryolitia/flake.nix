@@ -48,7 +48,6 @@
     pgp-sig2dot-beta = {
       url = "github:Cryolitia/pgp-sig2dot";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
   };
   outputs =
