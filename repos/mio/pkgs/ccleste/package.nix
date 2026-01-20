@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Celeste Classic C source port";
     homepage = "https://github.com/LonkToThePast/ccleste";
-    license = licenses.mit;
+    license = licenses.unfree;
     maintainers = [ ];
     platforms = platforms.linux;
   };
