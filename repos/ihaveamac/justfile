@@ -1,4 +1,5 @@
 alias mm := merge-master
+alias u := update
 
 merge-master:
 	git checkout master

@@ -1,0 +1,18 @@
+diff --git a/src/libsmfc/libsmfc.h b/src/libsmfc/libsmfc.h
+index 166ff6a..0a0f66a 100644
+--- a/src/libsmfc/libsmfc.h
++++ b/src/libsmfc/libsmfc.h
+@@ -12,12 +12,7 @@ extern "C"
+ #endif
+ 
+ #include <stddef.h>
+-
+-#if !defined(bool) && !defined(__cplusplus)
+-  typedef int bool;
+-  #define true    1
+-  #define false   0
+-#endif /* !bool */
++#include <stdbool.h>
+ 
+ #ifndef byte
+   typedef unsigned char byte;

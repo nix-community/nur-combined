@@ -1,0 +1,48 @@
+diff --git a/src/sf2cute-0.2/src/sf2cute/riff_ibag_chunk.hpp b/src/sf2cute-0.2/src/sf2cute/riff_ibag_chunk.hpp
+index 7223f5c..382764a 100644
+--- a/src/sf2cute-0.2/src/sf2cute/riff_ibag_chunk.hpp
++++ b/src/sf2cute-0.2/src/sf2cute/riff_ibag_chunk.hpp
+@@ -11,6 +11,7 @@
+ #include <string>
+ #include <vector>
+ #include <ostream>
++#include <cstdint>
+ 
+ #include "riff.hpp"
+ 
+diff --git a/src/sf2cute-0.2/src/sf2cute/riff_inst_chunk.hpp b/src/sf2cute-0.2/src/sf2cute/riff_inst_chunk.hpp
+index d9e2d70..7eb2bef 100644
+--- a/src/sf2cute-0.2/src/sf2cute/riff_inst_chunk.hpp
++++ b/src/sf2cute-0.2/src/sf2cute/riff_inst_chunk.hpp
+@@ -11,6 +11,7 @@
+ #include <string>
+ #include <vector>
+ #include <ostream>
++#include <cstdint>
+ 
+ #include "riff.hpp"
+ 
+diff --git a/src/sf2cute-0.2/src/sf2cute/riff_pbag_chunk.hpp b/src/sf2cute-0.2/src/sf2cute/riff_pbag_chunk.hpp
+index 09ff44c..6e63bfd 100644
+--- a/src/sf2cute-0.2/src/sf2cute/riff_pbag_chunk.hpp
++++ b/src/sf2cute-0.2/src/sf2cute/riff_pbag_chunk.hpp
+@@ -11,6 +11,7 @@
+ #include <string>
+ #include <vector>
+ #include <ostream>
++#include <cstdint>
+ 
+ #include "riff.hpp"
+ 
+diff --git a/src/sf2cute-0.2/src/sf2cute/riff_phdr_chunk.hpp b/src/sf2cute-0.2/src/sf2cute/riff_phdr_chunk.hpp
+index ebc2300..d95b6ab 100644
+--- a/src/sf2cute-0.2/src/sf2cute/riff_phdr_chunk.hpp
++++ b/src/sf2cute-0.2/src/sf2cute/riff_phdr_chunk.hpp
+@@ -11,6 +11,7 @@
+ #include <string>
+ #include <vector>
+ #include <ostream>
++#include <cstdint>
+ 
+ #include "riff.hpp"
+ 

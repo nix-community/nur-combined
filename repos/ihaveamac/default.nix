@@ -70,6 +70,7 @@ rec {
   twltool = callPackage ./pkgs/twltool/package.nix { };
   tex3ds = callPackage ./pkgs/tex3ds/package.nix { };
   vanilla = callPackage ./pkgs/vanilla/package.nix { };
+  caesar = callPackage ./pkgs/caesar/package.nix { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
