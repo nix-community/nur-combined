@@ -1773,8 +1773,8 @@
       pname = "clearcache";
       version = "4.5";
       addonId = "clearcache@michel.de.almeida";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4646719/clearcache-4.5.xpi";
-      sha256 = "313b630b2f26600d2af4093a5bfd88ba5f98bc28ccee8c52c56ee6ce67e31ee5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4646719/clearcache-4.5_TBkLMw6.xpi";
+      sha256 = "de13cd087aa7b6c414afe3f8784b207816e6b61b38a08c5db179b425b3edb6a9";
       meta = with lib;
       {
         homepage = "https://github.com/TenSoja/clear-cache";
@@ -2725,10 +2725,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "148.0.20260116.90417";
+      version = "148.0.20260119.90523";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4667353/dansk_da_language_pack-148.0.20260116.90417.xpi";
-      sha256 = "3de6b652c36d31d662c357f4d36f00a8d13878b79e5c98f9c07deab2a191b648";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669700/dansk_da_language_pack-148.0.20260119.90523.xpi";
+      sha256 = "41375907683800d011c8492200bb2ac6f271c70d67e27ef3af78a38c89d3c576";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2938,10 +2938,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "148.0.20260116.90417";
+      version = "148.0.20260119.90523";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4667345/deutsch_de_language_pack-148.0.20260116.90417.xpi";
-      sha256 = "4ddb1cc929e9876df1a28a2cfe9a244465e777655f0b9c26f93608e77ae95b3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669698/deutsch_de_language_pack-148.0.20260119.90523.xpi";
+      sha256 = "586d2b02bf7e319bf4de1e533d553579a019ddac9ef3fd09b88583ebf12c093f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4142,10 +4142,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.8.3";
+      version = "5.8.4";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4647430/floccus-5.8.3.xpi";
-      sha256 = "df30c8f936e6f844fe977aaeecf0bfe16536b7617ce890cc68a64e14b884cfed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669994/floccus-5.8.4.xpi";
+      sha256 = "92ceae42b58f51dcd9b30f4553270ca2310753a7cc82aa69f1b9811dc772d87a";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -4414,10 +4414,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "148.0.20260116.90417";
+      version = "148.0.20260119.90523";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4667337/francais_language_pack-148.0.20260116.90417.xpi";
-      sha256 = "eda32b6d3089bfb95b2b0027e9c82763194904f617f4b17605ec99fffe54d49b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669631/francais_language_pack-148.0.20260119.90523.xpi";
+      sha256 = "a2a69afa5adb212b2734841b5927595c171347ae847754fa810ed0cf601e7a31";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4451,10 +4451,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "148.0.20260116.90417";
+      version = "148.0.20260119.90523";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4667327/gaidhlig_language_pack-148.0.20260116.90417.xpi";
-      sha256 = "cd2d55c1d1c6db255c92a8b7c617302329a88c4e480b9878735a62dfd430af05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669609/gaidhlig_language_pack-148.0.20260119.90523.xpi";
+      sha256 = "7ac9eacb3a0ea544ef451531671a4ce61a4175c4134fd91e98a16c971ad3e81e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9651,27 +9651,6 @@
         platforms = platforms.all;
       };
     };
-    "omnivore" = buildFirefoxXpiAddon {
-      pname = "omnivore";
-      version = "2.10.0";
-      addonId = "save-extension@omnivore.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246656/omnivore-2.10.0.xpi";
-      sha256 = "31142640e86215823150bd9dd3fac003cc0d2dd6735bb36c6f42c1c215916ca4";
-      meta = with lib;
-      {
-        homepage = "https://omnivore.app/";
-        description = "Omnivore is the read-it-later app for serious readers. Distraction free. Privacy focused. Open source.";
-        license = licenses.gpl3;
-        mozPermissions = [
-          "activeTab"
-          "storage"
-          "contextMenus"
-          "https://*/**"
-          "http://*/**"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "omori-headspace-by-lemon" = buildFirefoxXpiAddon {
       pname = "omori-headspace-by-lemon";
       version = "1.0";
@@ -11171,14 +11150,14 @@
     };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
-      version = "2.1.7";
+      version = "2.1.8";
       addonId = "jid1-7eplFgLu6atoog@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4592458/rabattcorner-2.1.7.xpi";
-      sha256 = "d9a3c397d84cd896661a1c2c5dc87b1ce7490e97bae0109a16be25f0ecfda533";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669492/rabattcorner-2.1.8.xpi";
+      sha256 = "28f94b5aae28c3f421c7e997b94b4fb024935aee5ed89f0ec65a954bbdae7e62";
       meta = with lib;
       {
         homepage = "https://www.rabattcorner.ch";
-        description = "Mit der Rabattcorner Cashback-Erinnerung kannst du beim Online-Shoppen bei über 800 Partnern Geld zurück bekommen.";
+        description = "Mit der Rabattcorner Cashback-Erinnerung kannst du beim Online-Shoppen bei über 825 Partnern Geld zurück bekommen.";
         license = licenses.mpl20;
         mozPermissions = [
           "cookies"
@@ -12083,10 +12062,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "148.0.20260116.90417";
+      version = "148.0.20260119.90523";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4667365/scots_language_pack-148.0.20260116.90417.xpi";
-      sha256 = "60464e56e8cc18795f9bbbfa3a5de40f3635b96505c9be52e4af28bf80ce04d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669681/scots_language_pack-148.0.20260119.90523.xpi";
+      sha256 = "0f9b9d3f601ec4854dac4f2d6aea585ccf0ee1bab3aa822e340f9def9112d12e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13204,10 +13183,10 @@
     };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "7.2.0";
+      version = "7.2.1";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4662467/tab_session_manager-7.2.0.xpi";
-      sha256 = "38788346ebe21a352252ded38ed20c4788397be4e291f6d718ec48e2fefc26b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669820/tab_session_manager-7.2.1.xpi";
+      sha256 = "826b957e4008e37d330aede1f6bb21571cb7b8ca08ed9d77013b4ef3023c9791";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
