@@ -10,7 +10,7 @@ crystal.buildCrystalPackage rec {
   src = fetchFromGitHub {
     owner = "coverallsapp";
     repo = "coverage-reporter";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-wbxPjNAUubbL9TJnyqR7aYkMmADkIuD2PF00xI2wa84=";
   };
 

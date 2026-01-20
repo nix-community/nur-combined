@@ -83,7 +83,7 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "model-checking";
     repo = "kani";
-    rev = "kani-${version}";
+    tag = "kani-${version}";
     hash = "sha256-IZ8rfDYkSw33vGDrvsUlRUSt3WUvV/ZOusz9JJWZka8=";
     fetchSubmodules = true;
   };

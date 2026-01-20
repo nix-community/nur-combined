@@ -1,35 +1,38 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 2af7feb3a8..71bc93dd69 100644
+index a94feaa964..0d6bf8192f 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -5706,7 +5706,7 @@
+@@ -5931,9 +5931,9 @@
  [[package]]
  name = "picante"
  version = "0.1.0"
--source = "git+https://github.com/bearcove/picante?branch=main#01f4e385610abae31f09eb4e8c3715eafa293b12"
-+source = "git+https://github.com/chrjabs/picante?branch=push-lyszvrwnuvpr#84abe1890813a42c5cfc37227445b2cffded1f6a"
+-source = "git+https://github.com/bearcove/picante?branch=main#0a99f42b67e9229c333b97144d553d046c3d9c30"
++source = "git+https://github.com/chrjabs/picante?branch=push-qprulyrpstyl#fb092c0baa2ed51fcc5b95f841c82d38f26441d7"
  dependencies = [
-  "dashmap 5.5.3",
+- "dashmap 6.1.0",
++ "dashmap 5.5.3",
   "facet",
-@@ -5724,7 +5724,7 @@
+  "facet-core",
+  "facet-postcard",
+@@ -5949,7 +5949,7 @@
  [[package]]
  name = "picante-macros"
  version = "0.1.0"
--source = "git+https://github.com/bearcove/picante?branch=main#01f4e385610abae31f09eb4e8c3715eafa293b12"
-+source = "git+https://github.com/chrjabs/picante?branch=push-lyszvrwnuvpr#84abe1890813a42c5cfc37227445b2cffded1f6a"
+-source = "git+https://github.com/bearcove/picante?branch=main#0a99f42b67e9229c333b97144d553d046c3d9c30"
++source = "git+https://github.com/chrjabs/picante?branch=push-qprulyrpstyl#fb092c0baa2ed51fcc5b95f841c82d38f26441d7"
  dependencies = [
   "heck",
   "proc-macro2",
 diff --git a/Cargo.toml b/Cargo.toml
-index 3c9ffdf704..39876eb09a 100644
+index ca52337a23..46d06e8fb4 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -66,7 +66,7 @@
+@@ -76,7 +76,7 @@
  ur-taking-me-with-you = { git = "https://github.com/bearcove/roam", branch = "main", features = ["tokio"] }
  
  # Incremental computation
 -picante = { git = "https://github.com/bearcove/picante", branch = "main" }
-+picante = { git = "https://github.com/chrjabs/picante", branch = "push-lyszvrwnuvpr" }
++picante = { git = "https://github.com/chrjabs/picante", branch = "push-qprulyrpstyl" }
  
  # File system
  fs-err = "3"

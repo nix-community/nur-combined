@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitLab {
     owner = "MIAOresearch";
     repo = "software/VeriPB";
-    rev = version;
+    tag = version;
     hash = "sha256-YbX2Amcavf1XOILRMaLjpWD1K/QnUyUnrvtRCzncJTw=";
   };
 

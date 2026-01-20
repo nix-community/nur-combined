@@ -25,23 +25,45 @@ let
       hash = "sha256-ElDatyOwdKwHg3bNH/1pcxKI7LXkhsotlDPQjiLHBwA=";
     };
   };
+
+  cells = [
+    "code-execution"
+    "css"
+    "dialoguer"
+    "fonts"
+    "gingembre"
+    "html"
+    "html-diff"
+    "http"
+    "image"
+    "js"
+    "jxl"
+    "linkcheck"
+    "markdown"
+    "minify"
+    "sass"
+    "svgo"
+    "term"
+    "tui"
+    "webp"
+  ];
 in
 rustPlatform.buildRustPackage rec {
   pname = "dodeca";
-  version = "0.8.1";
+  version = "0.9.2";
 
   src = fetchFromGitHub {
     owner = "bearcove";
     repo = "dodeca";
-    rev = "v${version}";
-    hash = "sha256-5+am/hHq+xYdiXnT/UqG4fSx2VEDCOSdw/lhRV0+nUA=";
+    tag = "v${version}";
+    hash = "sha256-O5TisKCGyA9MS0I4zD3l9JXQytosxQKlJfoG+pOZL7k=";
   };
 
   patches = [
     ./fix-wasm-symbols.patch
   ];
 
-  cargoHash = "sha256-xBhv9isgyzt2axcwRLVIZSiUf1E+yDIQOxc/W3XhcBM=";
+  cargoHash = "sha256-FrV6rUaUfi6g4+4eTmw67uoeRommY8Sed5dfkgBjqvU=";
 
   cargoPatches = [
     ./patch-dependencies.patch
@@ -63,39 +85,14 @@ rustPlatform.buildRustPackage rec {
     cargo build -j "$NIX_BUILD_CORES" -p dodeca-devtools --target wasm32-unknown-unknown --release
     wasm-bindgen --target web --out-dir crates/dodeca-devtools/pkg target/wasm32-unknown-unknown/release/dodeca_devtools.wasm
 
-    # Auto-discover plugins (crates with cdylib in Cargo.toml)
-    PLUGINS=()
-    for dir in crates/dodeca-*/; do
-        if [[ -f "$dir/Cargo.toml" ]] && grep -q 'cdylib' "$dir/Cargo.toml"; then
-            plugin=$(basename "$dir")
-            PLUGINS+=("$plugin")
-        fi
-    done
-
     echo "Building ddc..."
     cargo build -j "$NIX_BUILD_CORES" --release -p dodeca
 
     echo "Building cells..."
     cargo build -j "$NIX_BUILD_CORES" --release \
-        -p cell-code-execution --bin ddc-cell-code-execution \
-        -p cell-css --bin ddc-cell-css \
-        -p cell-dialoguer --bin ddc-cell-dialoguer \
-        -p cell-fonts --bin ddc-cell-fonts \
-        -p cell-gingembre --bin ddc-cell-gingembre \
-        -p cell-html --bin ddc-cell-html \
-        -p cell-html-diff --bin ddc-cell-html-diff \
-        -p cell-http --bin ddc-cell-http \
-        -p cell-image --bin ddc-cell-image \
-        -p cell-js --bin ddc-cell-js \
-        -p cell-jxl --bin ddc-cell-jxl \
-        -p cell-linkcheck --bin ddc-cell-linkcheck \
-        -p cell-markdown --bin ddc-cell-markdown \
-        -p cell-minify --bin ddc-cell-minify \
-        -p cell-sass --bin ddc-cell-sass \
-        -p cell-svgo --bin ddc-cell-svgo \
-        -p cell-term --bin ddc-cell-term \
-        -p cell-tui --bin ddc-cell-tui \
-        -p cell-webp --bin ddc-cell-webp
+        ${lib.strings.concatMapStringsSep " \\\n    " (
+          cell: "-p cell-${cell} --bin ddc-cell-${cell}"
+        ) cells}
 
     runHook postBuild
   '';
@@ -113,26 +110,9 @@ rustPlatform.buildRustPackage rec {
 
       cp "target/release/ddc" $out/bin/
 
-
-      cp "target/release/ddc-cell-code-execution" $out/bin/
-      cp "target/release/ddc-cell-css" $out/bin/
-      cp "target/release/ddc-cell-dialoguer" $out/bin/
-      cp "target/release/ddc-cell-fonts" $out/bin/
-      cp "target/release/ddc-cell-gingembre" $out/bin/
-      cp "target/release/ddc-cell-html" $out/bin/
-      cp "target/release/ddc-cell-html-diff" $out/bin/
-      cp "target/release/ddc-cell-http" $out/bin/
-      cp "target/release/ddc-cell-image" $out/bin/
-      cp "target/release/ddc-cell-js" $out/bin/
-      cp "target/release/ddc-cell-jxl" $out/bin/
-      cp "target/release/ddc-cell-linkcheck" $out/bin/
-      cp "target/release/ddc-cell-markdown" $out/bin/
-      cp "target/release/ddc-cell-minify" $out/bin/
-      cp "target/release/ddc-cell-sass" $out/bin/
-      cp "target/release/ddc-cell-svgo" $out/bin/
-      cp "target/release/ddc-cell-term" $out/bin/
-      cp "target/release/ddc-cell-tui" $out/bin/
-      cp "target/release/ddc-cell-webp" $out/bin/
+      ${lib.strings.concatMapStringsSep "\n" (
+        cell: "cp \"target/release/ddc-cell-${cell}\" $out/bin/"
+      ) cells}
 
       runHook postInstall
     '';
