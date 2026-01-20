@@ -171,15 +171,15 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "6700403118707cce1a2e9cbf8f426fd8a00a2db9";
+    version = "8f3cc2e28e903ba9229f5ea80774e380d26bf5fe";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "6700403118707cce1a2e9cbf8f426fd8a00a2db9";
+      rev = "8f3cc2e28e903ba9229f5ea80774e380d26bf5fe";
       fetchSubmodules = false;
-      sha256 = "sha256-eIfeCsyT3YqdzKR1p4IHnIm0PR3e5Cnu9WtNi4msrvs=";
+      sha256 = "sha256-FqrSo9vaHL2kwukA4+dcqwb9HMn3e3EviLyQhkQIYYs=";
     };
-    date = "2026-01-17";
+    date = "2026-01-19";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -194,21 +194,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "96b4e6126bd69bd0497a961ae340258bb0b507a8";
+    version = "08acd6c6a73e6743af7a522a5d9a899dea608df2";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "96b4e6126bd69bd0497a961ae340258bb0b507a8";
+      rev = "08acd6c6a73e6743af7a522a5d9a899dea608df2";
       fetchSubmodules = false;
-      sha256 = "sha256-/8WWaqcQ9ynZ7qIg2IAHyE/4Au8HYfuSkOCgkEu0G98=";
+      sha256 = "sha256-JfitGKDwdq5jU0H1PzpCv2+TaKLPFzGITkTJRyUR8sg=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-_8WWaqcQ9ynZ7qIg2IAHyE_4Au8HYfuSkOCgkEu0G98=/Cargo.lock";
+      lockFile = ./. + "/sha256-JfitGKDwdq5jU0H1PzpCv2+TaKLPFzGITkTJRyUR8sg=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-01-13";
+    date = "2026-01-19";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -234,13 +234,13 @@
   };
   opencode = {
     pname = "opencode";
-    version = "v1.1.25";
+    version = "v1.1.26";
     src = fetchFromGitHub {
       owner = "anomalyco";
       repo = "opencode";
-      rev = "v1.1.25";
+      rev = "v1.1.26";
       fetchSubmodules = false;
-      sha256 = "sha256-aF+4LL0x9wU2Ktrv/nJE2VXgUeXFrwJ16pa1sGNhpi4=";
+      sha256 = "sha256-3PpnLiVB+MxnWmdKolUpQ9BQf7nzzRQhoTsL8m0eIBA=";
     };
   };
   pixy2 = {
@@ -257,18 +257,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601182215";
+    version = "202601192216";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601182215/geoip.dat";
-      sha256 = "sha256-2CtHnGamXvJxdIn09B7wkBCVRptbGCUgDw/crCPgh50=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601192216/geoip.dat";
+      sha256 = "sha256-GyBfdD4EKx4L03sAELIySFQwFBXbzlmCVr8wczjmjDo=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601182215";
+    version = "202601192216";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601182215/geosite.dat";
-      sha256 = "sha256-nkzJjYEn0JRTP/6MaopFjuiocygs4DxaMsnWUoDiaxo=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601192216/geosite.dat";
+      sha256 = "sha256-gGOPZn+hOsUSOSSFxTLbrPyUQO9m7j5La2mF7RtXoAg=";
     };
   };
   watt-toolkit-aarch64-linux = {
