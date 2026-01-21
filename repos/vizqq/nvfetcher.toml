@@ -17,3 +17,8 @@ fetch.github = "biox/pa"
 [sfp-master]
 src.github_tag = "bigbigmdm/SFP-Master"
 fetch.github = "bigbigmdm/SFP-Master"
+
+[gerber2pdf]
+src.github_tag = "jpt13653903/Gerber2PDF"
+fetch.github = "jpt13653903/Gerber2PDF"
+git.fetchSubmodules = true

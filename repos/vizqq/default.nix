@@ -34,4 +34,6 @@ in
   sway-disable-titlebar = import ./pkgs/sway-disable-titlebar { inherit pkgs; };
 
   sfp-master = pkgs.callPackage ./pkgs/sfp-master { source = sources.sfp-master; };
+
+  gerber2pdf = pkgs.callPackage ./pkgs/gerber2pdf { source = sources.gerber2pdf; };
 }

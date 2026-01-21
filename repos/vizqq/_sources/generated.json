@@ -1,4 +1,25 @@
 {
+    "gerber2pdf": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gerber2pdf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jpt13653903",
+            "repo": "Gerber2PDF",
+            "rev": "Version_1.13",
+            "sha256": "sha256-LhLGiKsTVYs1Hrq0cDkflZCaj++pSmmHFZNdegoqi2s=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "Version_1.13"
+    },
     "huawei-password-tool": {
         "cargoLocks": null,
         "date": null,
