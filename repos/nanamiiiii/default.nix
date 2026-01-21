@@ -11,4 +11,5 @@
   xpipe = pkgs.callPackage ./pkgs/xpipe { };
   wl-x11-clipsync = pkgs.callPackage ./pkgs/wl-x11-clipsync { };
   md2puki = pkgs.callPackage ./pkgs/md2puki { };
+  cargo-compete = pkgs.callPackage ./pkgs/cargo-compete { };
 }
