@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildFirefoxXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.7.4";
+      version = "1.8.0";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4486799/2fas_two_factor_authentication-1.7.4.xpi";
-      sha256 = "1009604f495182a7e3f83c24252bcfafaa24061fc3e2e03e406b0e9f9a49038e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4670802/2fas_two_factor_authentication-1.8.0.xpi";
+      sha256 = "698cf4fa1597dda215d0cbea67817f7f88e5a79723ffbeb085208aaa4829eca6";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -2474,10 +2474,10 @@
     };
     "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.6.7";
+      version = "1.6.8";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4460922/copy_selected_tabs_to_clipboar-1.6.7.xpi";
-      sha256 = "8b08615999b120e9b4927193c94275059b7c24af8fc5df668f3e44720c383218";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4670715/copy_selected_tabs_to_clipboar-1.6.8.xpi";
+      sha256 = "de3d1bc8c7b2fac6ebce6b2189805f8df4abc926af25d8da0f1a988bb43f240c";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -2875,10 +2875,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "2.2.1";
+      version = "2.2.3";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4634684/dearrow-2.2.1.xpi";
-      sha256 = "9fefe049ccc9995bd0ccf517efff8d651cbfe7352af3f98d21ad028f7728c053";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4656721/dearrow-2.2.3.xpi";
+      sha256 = "7d5986ce0d92019c10f0ad62ab23a3293ec83c0f090a3c8c57379efb9455820c";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -4906,23 +4906,16 @@
     };
     "grasp" = buildFirefoxXpiAddon {
       pname = "grasp";
-      version = "0.7.1";
+      version = "1.0.2.2";
       addonId = "{37e42980-a7c9-473c-96d5-13f18e0efc74}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4049682/grasp-0.7.1.xpi";
-      sha256 = "a1cbebda55072e2c98242387d86fc51e9c9a9e9b7e72cac23be4757556acc370";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4670997/grasp-1.0.2.2.xpi";
+      sha256 = "9707881161c493b9ebbf720b11c627363303d873f21b57877dbe83df41e75d41";
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/grasp";
         description = "A reliable way of capturing and tagging web pages and content";
         license = licenses.mit;
-        mozPermissions = [
-          "storage"
-          "notifications"
-          "activeTab"
-          "scripting"
-          "http://localhost/capture"
-          "https://localhost/capture"
-        ];
+        mozPermissions = [ "storage" "notifications" "activeTab" "scripting" ];
         platforms = platforms.all;
       };
     };
@@ -11035,10 +11028,10 @@
     };
     "pwas-for-firefox" = buildFirefoxXpiAddon {
       pname = "pwas-for-firefox";
-      version = "2.17.2";
+      version = "2.18.0";
       addonId = "firefoxpwa@filips.si";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4606235/pwas_for_firefox-2.17.2.xpi";
-      sha256 = "08ef4240f769f10f81bc846128032b435666ee8b6bcf62f2c736e25ea22dcf05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652385/pwas_for_firefox-2.18.0.xpi";
+      sha256 = "b5553ba67b6f1bb72e15156e41c27d19b1713111c0a1aa5b2258a652b6a0c854";
       meta = with lib;
       {
         homepage = "https://github.com/filips123/PWAsForFirefox";
