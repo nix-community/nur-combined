@@ -48,6 +48,8 @@ splayer.overrideAttrs (
         fromSource
         # public/wasm/decode-audio.wasm
         # source: https://github.com/apoint123/ffmpeg-audio-player
+        # native/ferrous-opencc-wasm/pkg/ferrous_opencc_wasm_bg.wasm
+        # source: native/ferrous-opencc-wasm
         binaryBytecode
       ];
     };
