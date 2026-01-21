@@ -171,15 +171,15 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "8f3cc2e28e903ba9229f5ea80774e380d26bf5fe";
+    version = "c7a7f6ec200f5a783daf0500bbe37a9c77f97289";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "8f3cc2e28e903ba9229f5ea80774e380d26bf5fe";
+      rev = "c7a7f6ec200f5a783daf0500bbe37a9c77f97289";
       fetchSubmodules = false;
-      sha256 = "sha256-FqrSo9vaHL2kwukA4+dcqwb9HMn3e3EviLyQhkQIYYs=";
+      sha256 = "sha256-GrLRxVlTXjepBqIV7wlB27q6QhVX3v5UeTKjwixSHjM=";
     };
-    date = "2026-01-19";
+    date = "2026-01-20";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -234,13 +234,13 @@
   };
   opencode = {
     pname = "opencode";
-    version = "v1.1.26";
+    version = "v1.1.28";
     src = fetchFromGitHub {
       owner = "anomalyco";
       repo = "opencode";
-      rev = "v1.1.26";
+      rev = "v1.1.28";
       fetchSubmodules = false;
-      sha256 = "sha256-3PpnLiVB+MxnWmdKolUpQ9BQf7nzzRQhoTsL8m0eIBA=";
+      sha256 = "sha256-4WJs+JAmelroxvxRyTscbPGw5ryrELTri8nTy/YZAnU=";
     };
   };
   pixy2 = {
@@ -257,18 +257,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601192216";
+    version = "202601202217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601192216/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geoip.dat";
       sha256 = "sha256-GyBfdD4EKx4L03sAELIySFQwFBXbzlmCVr8wczjmjDo=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601192216";
+    version = "202601202217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601192216/geosite.dat";
-      sha256 = "sha256-gGOPZn+hOsUSOSSFxTLbrPyUQO9m7j5La2mF7RtXoAg=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geosite.dat";
+      sha256 = "sha256-0CzZ0FxdRivoIbwGfWwPsXPyCDzvBmQq0hrHxyeZ1N0=";
     };
   };
   watt-toolkit-aarch64-linux = {

@@ -298,7 +298,7 @@
     },
     "mautrix-telegramgo": {
         "cargoLock": null,
-        "date": "2026-01-19",
+        "date": "2026-01-20",
         "extract": null,
         "name": "mautrix-telegramgo",
         "passthru": null,
@@ -310,12 +310,12 @@
             "name": null,
             "owner": "mautrix",
             "repo": "telegramgo",
-            "rev": "8f3cc2e28e903ba9229f5ea80774e380d26bf5fe",
-            "sha256": "sha256-FqrSo9vaHL2kwukA4+dcqwb9HMn3e3EviLyQhkQIYYs=",
+            "rev": "c7a7f6ec200f5a783daf0500bbe37a9c77f97289",
+            "sha256": "sha256-GrLRxVlTXjepBqIV7wlB27q6QhVX3v5UeTKjwixSHjM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8f3cc2e28e903ba9229f5ea80774e380d26bf5fe"
+        "version": "c7a7f6ec200f5a783daf0500bbe37a9c77f97289"
     },
     "mm-geofeed-verifier": {
         "cargoLock": null,
@@ -420,12 +420,12 @@
             "name": null,
             "owner": "anomalyco",
             "repo": "opencode",
-            "rev": "v1.1.26",
-            "sha256": "sha256-3PpnLiVB+MxnWmdKolUpQ9BQf7nzzRQhoTsL8m0eIBA=",
+            "rev": "v1.1.28",
+            "sha256": "sha256-4WJs+JAmelroxvxRyTscbPGw5ryrELTri8nTy/YZAnU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.26"
+        "version": "v1.1.28"
     },
     "pixy2": {
         "cargoLock": null,
@@ -459,9 +459,9 @@
             "name": null,
             "sha256": "sha256-GyBfdD4EKx4L03sAELIySFQwFBXbzlmCVr8wczjmjDo=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601192216/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geoip.dat"
         },
-        "version": "202601192216"
+        "version": "202601202217"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -472,11 +472,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gGOPZn+hOsUSOSSFxTLbrPyUQO9m7j5La2mF7RtXoAg=",
+            "sha256": "sha256-0CzZ0FxdRivoIbwGfWwPsXPyCDzvBmQq0hrHxyeZ1N0=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601192216/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geosite.dat"
         },
-        "version": "202601192216"
+        "version": "202601202217"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLock": null,
