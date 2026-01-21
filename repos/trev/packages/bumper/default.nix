@@ -12,16 +12,17 @@
   runtimeShell,
   shellcheck,
   stdenv,
+  uv,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "bumper";
-  version = "0.8.2";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "bumper";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7tCtGOy1kfEa3gG5oDEJ7W7PgLP5RMJPRzpHTkZYamE=";
+    hash = "sha256-nw8B6oeF8Jc27jxCO4u86Majpt2YoGf5/a8E5VUIW28=";
   };
 
   nativeBuildInputs = [
@@ -43,6 +44,9 @@ stdenv.mkDerivation (finalAttrs: {
 
     # node
     nodejs_latest
+
+    # python
+    uv
   ];
 
   unpackPhase = ''
@@ -59,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   checkPhase = ''
-    shellcheck src/*.sh
+    shellcheck **/*.sh
   '';
 
   installPhase = ''

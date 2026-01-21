@@ -7,10 +7,10 @@
   jq,
   lib,
   makeWrapper,
+  manifest-tool,
   mktemp,
   ncurses,
   nix-update-script,
-  nix,
   runtimeShell,
   shellcheck,
   skopeo,
@@ -21,13 +21,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-flake-release";
-  version = "0.8.3";
+  version = "0.9.2";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nix-flake-release";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vS6cxTcjnG1ao9Vxjo1Wqx/S0en2TzQ/kiYRUjwhkEc=";
+    hash = "sha256-0IbbEb1McLPJdsoqxk0XzQuqPhX89iQTI5/M8RYTAJo=";
   };
 
   nativeBuildInputs = [
@@ -41,9 +41,9 @@ stdenv.mkDerivation (finalAttrs: {
     gh
     gnused
     jq
+    manifest-tool
     mktemp
     ncurses
-    nix
     skopeo
     tea
     xz
@@ -58,13 +58,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = ''
     chmod +w src
-    sed -i '1c\#!${runtimeShell}' src/start.sh
-    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/start.sh
+    sed -i '1c\#!${runtimeShell}' src/nix-release.sh
+    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/nix-release.sh
   '';
 
   doCheck = true;
   checkPhase = ''
-    shellcheck src/*.sh
+    shellcheck **/*.sh
   '';
 
   installPhase = ''
@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -R src/*.sh $out/lib/nix-flake-release
 
     mkdir -p $out/bin
-    makeWrapper "$out/lib/nix-flake-release/start.sh" "$out/bin/nix-flake-release"
+    makeWrapper "$out/lib/nix-flake-release/nix-release.sh" "$out/bin/nix-flake-release"
   '';
 
   dontFixup = true;
@@ -91,6 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "nix-flake-release";
     homepage = "https://github.com/spotdemo4/nix-flake-release";
     changelog = "https://github.com/spotdemo4/nix-flake-release/releases/tag/v${finalAttrs.version}";
+    license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
 })
