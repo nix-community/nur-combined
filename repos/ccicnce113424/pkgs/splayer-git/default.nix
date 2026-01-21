@@ -43,7 +43,7 @@ splayer.overrideAttrs (
     patches = [ ./fix-ferrous-opencc.patch ];
 
     # add env to build.rollupOptions.external in electron.vite.config.ts
-    postPatch = ''
+    postPatch = prev.postPatch + ''
       sed -i 's/"external-media-integration\.node"/"external-media-integration.node", "env"/g' electron.vite.config.ts
     '';
     buildPhase = ''
