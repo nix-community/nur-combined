@@ -6,11 +6,11 @@
 
 let
   pname = "vutronmusic";
-  version = "2.9.0";
+  version = "3.0.0";
 
   src = fetchurl {
     url = "https://github.com/stark81/VutronMusic/releases/download/v${version}/VutronMusic-${version}_linux_x86_64.AppImage";
-    sha256 = "sha256-Sff3QucW5x8OMT9WHxZ3oAsht8LFy93xxOtDvtLzz5Y=";
+    sha256 = "sha256-sA1Wkj4ZjC4+5m3xABhFUDErXyV4UINkp8vvQwj6Hww=";
   };
 
   appimageContents = appimageTools.extractType2 {
