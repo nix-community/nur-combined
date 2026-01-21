@@ -12,7 +12,7 @@
   xorg,
   systemd,
   pkg-config,
-  makeWrapper,
+  makeBinaryWrapper,
   wireguard-tools,
 }:
 let
@@ -34,13 +34,14 @@ let
 
   wireguird-unwrapped = buildGoModule {
     pname = "wireguird-unwrapped";
-    version = "1.1.0";
+    version = "1.1.0-unstable-2024-10-31";
 
     src = fetchFromGitHub {
-      owner = "UnnoTed";
+      owner = "nvlbg";
       repo = "wireguird";
-      rev = "6dac3cd8784118f4fe7ea6d544a583c26d589572";
-      sha256 = "sha256-iv0/HSu/6IOVmRZcyCazLdJyyBsu5PyTajLubk0speI=";
+      # https://github.com/UnnoTed/wireguird/pull/61#issuecomment-2449554201 and https://github.com/nvlbg/wireguird/tree/tray_tunnels_submenu
+      rev = "ce395e50f2ca3cf1a2bd92870b7c11623129dfc1";
+      sha256 = "sha256-vmVwve7YynlE59zSjQg6zxzSC3R8NTaZcQn80A6oays=";
     };
     proxyVendor = true;
 

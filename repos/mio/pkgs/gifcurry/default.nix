@@ -5,7 +5,7 @@
   fetchurl,
   haskell,
   haskellPackages,
-  makeWrapper,
+  makeBinaryWrapper,
   wrapGAppsHook3,
   gsettings-desktop-schemas,
   gtk3,
@@ -48,7 +48,7 @@ haskell.lib.doJailbreak (
     inherit src version;
 
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-      makeWrapper
+      makeBinaryWrapper
       wrapGAppsHook3
     ];
     buildInputs = (old.buildInputs or [ ]) ++ [

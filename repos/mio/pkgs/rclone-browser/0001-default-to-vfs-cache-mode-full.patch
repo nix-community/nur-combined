@@ -1,0 +1,25 @@
+From fe8b90559cee27454988438bfad56c1a7b6d11e6 Mon Sep 17 00:00:00 2001
+From: Mio <mio@mio19.uk>
+Date: Tue, 20 Jan 2026 22:55:23 +1100
+Subject: [PATCH] default to --vfs-cache-mode full
+
+---
+ src/preferences_dialog.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/preferences_dialog.cpp b/src/preferences_dialog.cpp
+index 1564621..7e065bd 100644
+--- a/src/preferences_dialog.cpp
++++ b/src/preferences_dialog.cpp
+@@ -79,7 +79,7 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent) {
+   ui.mount->setDisabled(true);
+ #else
+   ui.mount->setText(
+-      settings->value("Settings/mount", "--vfs-cache-mode writes").toString());
++      settings->value("Settings/mount", "--vfs-cache-mode full").toString());
+ #endif
+ 
+   ui.defaultDownloadDir->setText(QDir::toNativeSeparators(
+-- 
+2.52.0
+

@@ -1,0 +1,26 @@
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -274,9 +274,10 @@
+       weatherError = null;
+     } on TimeoutException {
+       await Future.delayed(const Duration(milliseconds: 600));
++      final l10n = AppLocalizations.of(context);
+       setState(() {
+         weatherError = WeatherError(
+-          errorTitle: AppLocalizations.of(context)!.weakOrNoWifiConnection,
++          errorTitle: l10n?.weakOrNoWifiConnection ?? "Weak or no WiFi connection",
+           errorIcon: Icons.signal_wifi_0_bar,
+           location: location,
+           latLon: latLon,
+@@ -299,9 +300,10 @@
+ 
+     } on SocketException {
+       await Future.delayed(const Duration(milliseconds: 600));
++      final l10n = AppLocalizations.of(context);
+       setState(() {
+         weatherError = WeatherError(
+-          errorTitle: AppLocalizations.of(context)!.notConnectedToTheInternet,
++          errorTitle: l10n?.notConnectedToTheInternet ?? "Not connected to the internet",
+           errorIcon: Icons.wifi_off_rounded,
+           location: location,
+           latLon: latLon,

@@ -22,7 +22,7 @@
   art-standalone,
   bionic-translation,
   alsa-lib,
-  makeWrapper,
+  makeBinaryWrapper,
   replaceVars,
   nixosTests,
   bintools,
@@ -54,7 +54,7 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [
-    makeWrapper
+    makeBinaryWrapper
     meson
     ninja
     openjdk17

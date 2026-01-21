@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
+    ./0001-default-to-vfs-cache-mode-full.patch
   ];
 
   nativeBuildInputs = [

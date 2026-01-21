@@ -5,7 +5,7 @@
   fetchsvn,
   cmake,
   pkg-config,
-  makeWrapper,
+  makeBinaryWrapper,
   SDL2,
   glew,
   openal,
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-    makeWrapper
+    makeBinaryWrapper
   ];
 
   buildInputs = [

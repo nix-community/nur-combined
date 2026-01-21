@@ -4,7 +4,7 @@
   fetchFromGitHub,
   makeDesktopItem,
   copyDesktopItems,
-  makeWrapper,
+  makeBinaryWrapper,
   electron_39,
   yarn-berry_4,
   nodejs,
@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    makeWrapper
+    makeBinaryWrapper
     copyDesktopItems
     yarn-berry
     yarn-berry.yarnBerryConfigHook

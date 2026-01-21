@@ -5,7 +5,7 @@
   electron,
   fetchFromGitHub,
   makeDesktopItem,
-  makeWrapper,
+  makeBinaryWrapper,
 }:
 
 buildNpmPackage rec {
@@ -33,7 +33,7 @@ buildNpmPackage rec {
 
   nativeBuildInputs = [
     copyDesktopItems
-    makeWrapper
+    makeBinaryWrapper
   ];
 
   postInstall = ''

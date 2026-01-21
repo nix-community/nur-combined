@@ -1,0 +1,56 @@
+diff --git a/lib/main.dart b/lib/main.dart
+index 912287b..0101655 100644
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -41,7 +41,7 @@ Future<void> main() async {
+ 
+   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+ 
+-  if (!kIsWeb) {
++  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+     initializeWidgetServices();
+   }
+ 
+@@ -238,7 +238,7 @@ class MyHomePageState extends State<MyHomePage> {
+     String latLon = context.read<SettingsProvider>().getLatLon;
+     String location = context.read<SettingsProvider>().getLocation;
+ 
+-    if (!kIsWeb) {
++    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+       if (Platform.isAndroid) {
+         Uri? appLaunchUri = await HomeWidget.initiallyLaunchedFromHomeWidget();
+ 
+diff --git a/lib/search_screens.dart b/lib/search_screens.dart
+index c829dab..b88fd84 100644
+--- a/lib/search_screens.dart
++++ b/lib/search_screens.dart
+@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ 
+ import 'dart:async';
+ import 'dart:convert';
++import 'dart:io';
+ 
+ import 'package:flutter/foundation.dart';
+ import 'package:flutter/material.dart';
+@@ -94,7 +95,9 @@ class _MySearchWidgetState extends State<MySearchWidget> {
+ 
+     //Save the favorites so the widgets can access them when selecting location
+     String jsonString = jsonEncode(fav);
+-    WidgetService.saveData('widget.favorites', jsonString);
++    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
++      WidgetService.saveData('widget.favorites', jsonString);
++    }
+ 
+     setState(() {
+       favorites.value = fav;
+@@ -323,7 +326,9 @@ class _HeroSearchPageState extends State<HeroSearchPage> {
+   saveCurrentLocationToWidget(Position position) async {
+     await PreferenceUtils.setString('LastKnownPositionName', placeName);
+     await PreferenceUtils.setString('LastKnownPositionCord', "${position.latitude.toStringAsFixed(2)}, ${position.longitude.toStringAsFixed(2)}");
+-    WidgetService.saveData("widget.lastKnownPlace", placeName); //save the name of the place to the widgets
++    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
++      WidgetService.saveData("widget.lastKnownPlace", placeName); //save the name of the place to the widgets
++    }
+   }
+ 
+   findCurrentPosition() async {

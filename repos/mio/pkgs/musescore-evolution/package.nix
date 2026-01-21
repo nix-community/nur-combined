@@ -26,14 +26,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "musescore-evolution";
-  version = "3.7.0-unstable-20260112";
+  version = "3.7.0-unstable-2026-01-12";
 
-  # nix run nixpkgs#nix-prefetch-git -- https://github.com/Jojo-Schmitz/MuseScore.git 0b4543baca9b1b70d54cecb33cbf846dabc073d1
   src = fetchFromGitHub {
     owner = "Jojo-Schmitz";
     repo = "MuseScore";
     rev = "0b4543baca9b1b70d54cecb33cbf846dabc073d1";
-    sha256 = "sha256-piOXHKlnfCO1n0kAgeszqa6JVoHgF8B2OF7agpadGKQ=";
+    hash = "sha256-piOXHKlnfCO1n0kAgeszqa6JVoHgF8B2OF7agpadGKQ=";
   };
 
   patches = [
@@ -64,6 +63,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+
+    # Recreate correct symlinks (let fixupPhase handle compression)
+    if [ -e "$manDir/mscore-evo.1" ]; then
+      ln -sf "mscore-evo.1" "$manDir/musescore-evo.1"
+    fi
   '';
 
   dontWrapGApps = true;
@@ -101,34 +105,28 @@ stdenv.mkDerivation (finalAttrs: {
     qt5.qtxmlpatterns
     qt5.qtquickcontrols2
     qt5.qtgraphicaleffects
-
-    # qt5.qtwebengine # Avoid depending on insecure QtWebEngine (and having to compile it (huge))
-    # Because we don't use this, we need to patch the CMakeLists and install scripts to not try to bundle it.
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
   ];
 
-  # Patch out QtWebEngine and Qt resource installation/bundling.
+  # Avoid depending on insecure QtWebEngine (and having to compile it (huge))
+  # Because we don't use this, we need to patch the CMakeLists and install scripts to not try to bundle it.
   postPatch = ''
     # Disable Qt bundling logic in the source CMakeLists.
-    if [ -f main/CMakeLists.txt ]; then
-      sed -i '/QT_INSTALL_PREFIX/d' main/CMakeLists.txt
-      sed -i '/QtWebEngineProcess/d' main/CMakeLists.txt
-    fi
+    sed -i '/QT_INSTALL_PREFIX/d' main/CMakeLists.txt
+    sed -i '/QtWebEngineProcess/d' main/CMakeLists.txt
   '';
 
   # Patch the generated install script to drop Qt resource / QtWebEngine installs.
   preInstall = ''
-    if [ -f main/cmake_install.cmake ]; then
-      sed -i '
-        /QtWebEngineProcess/d
-        /resources\"/d
-        /qtwebengine_locales/d
-        /qtwebengine/d
-        /QT_INSTALL_PREFIX/d
-      ' main/cmake_install.cmake
-    fi
+    sed -i '
+      /QtWebEngineProcess/d
+      /resources\"/d
+      /qtwebengine_locales/d
+      /qtwebengine/d
+      /QT_INSTALL_PREFIX/d
+    ' main/cmake_install.cmake
   '';
 
   # On macOS, move the .app into Applications/ and symlink the binary to bin/
@@ -142,37 +140,27 @@ stdenv.mkDerivation (finalAttrs: {
   # On Linux, let CMake + wrapQtAppsHook install/wrap "mscore", then rename it
   # and adjust the .desktop file so it doesn't clash with the main musescore package.
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    # 1) Rename binary
-    if [ -x "$out/bin/mscore" ]; then
-      mv "$out/bin/mscore" "$out/bin/mscore-evo"
-    fi
+    mv "$out/bin/mscore" "$out/bin/mscore-evo"
 
     # 2) Fix desktop entry to point to mscore-evo and avoid ID clash
     desktop="$out/share/applications/mscore.desktop"
-    if [ -f "$desktop" ]; then
-      substituteInPlace "$desktop" \
-        --replace "Exec=mscore" "Exec=mscore-evo" \
-        --replace "Name=MuseScore 3.7" "Name=MuseScore 3.7 (Evolution)" \
-        --replace "Icon=mscore" "Icon=mscore-evo"
-      mv "$desktop" "$out/share/applications/mscore-evo.desktop"
-    fi
+    substitute "$desktop" "$out/share/applications/mscore-evo.desktop" \
+      --replace "Exec=mscore" "Exec=mscore-evo" \
+      --replace "Name=MuseScore 3.7" "Name=MuseScore 3.7 (Evolution)" \
+      --replace "Icon=mscore" "Icon=mscore-evo"
 
     # 3) Rename app icons (apps/)
-    if [ -d "$out/share/icons/hicolor" ]; then
-      for sizeDir in "$out"/share/icons/hicolor/*/apps; do
-        [ -d "$sizeDir" ] || continue
-        for ext in png svg xpm; do
-          if [ -f "$sizeDir/mscore.$ext" ]; then
-            mv "$sizeDir/mscore.$ext" "$sizeDir/mscore-evo.$ext"
-          fi
-        done
+    for sizeDir in "$out"/share/icons/hicolor/*/apps/; do
+      for ext in png svg xpm; do
+        if [ -f "$sizeDir/mscore.$ext" ]; then
+          mv "$sizeDir/mscore.$ext" "$sizeDir/mscore-evo.$ext"
+        fi
       done
-    fi
+    done
 
     # 3b) Rename mimetype icons (mimetypes/) to unique names
     for icon in "$out"/share/icons/hicolor/*/mimetypes/application-x-musescore.* \
                 "$out"/share/icons/hicolor/*/mimetypes/application-x-musescore+xml.*; do
-      [ -e "$icon" ] || continue
       dir="''${icon%/*}"; base="''${icon##*/}"; ext="''${base##*.}"
       case "$base" in
         application-x-musescore.*) mv "$icon" "$dir/application-x-musescore-evo.$ext" ;;
@@ -181,13 +169,11 @@ stdenv.mkDerivation (finalAttrs: {
     done
 
     # 4) Rename MIME XML and point icons to the new names
-    if [ -f "$out/share/mime/packages/musescore.xml" ]; then
-      mv "$out/share/mime/packages/musescore.xml" "$out/share/mime/packages/musescore-evo.xml"
-      sed -i \
-        -e 's|<icon>application-x-musescore\(\+xml\)\?</icon>|<icon>application-x-musescore-evo\1</icon>|g' \
-        -e 's|<icon>musescore</icon>|<icon>mscore-evo</icon>|g' \
-        "$out/share/mime/packages/musescore-evo.xml"
-    fi
+    mv "$out/share/mime/packages/musescore.xml" "$out/share/mime/packages/musescore-evo.xml"
+    sed -i \
+      -e 's|<icon>application-x-musescore\(\+xml\)\?</icon>|<icon>application-x-musescore-evo\1</icon>|g' \
+      -e 's|<icon>musescore</icon>|<icon>mscore-evo</icon>|g' \
+      "$out/share/mime/packages/musescore-evo.xml"
 
     # 5) Rename man pages to match mscore-evo and remove legacy symlinks
     manDir="$out/share/man/man1"
@@ -198,39 +184,25 @@ stdenv.mkDerivation (finalAttrs: {
       -exec rm -f {} +
 
     # Rename real files
-    for man in "$manDir"/mscore.1* "$manDir"/musescore.1*; do
-      [ -e "$man" ] || continue
-      [ -L "$man" ] && continue
+    find "$manDir" \( -name 'mscore.1*' -o -name 'musescore.1*' \) -type f |
+    while IFS= read -r man; do
       base="$(basename "$man")"
       newname=$(echo "$base" | sed -e 's/^mscore/mscore-evo/' -e 's/^musescore/mscore-evo/')
       mv "$man" "$manDir/$newname"
     done
 
-    # Recreate correct symlinks
-    for ext in 1 1.gz; do
-      if [ -e "$manDir/mscore-evo.$ext" ]; then
-        ln -sf "mscore-evo.$ext" "$manDir/musescore-evo.$ext"
-      fi
-    done
-
     # 6) Rename AppStream metadata and its IDs
     meta="$out/share/metainfo/org.musescore.MuseScore.appdata.xml"
-    if [ -f "$meta" ]; then
-      new="$out/share/metainfo/org.musescore.MuseScoreEvolution.appdata.xml"
-      mv "$meta" "$new"
-      sed -i \
-        -e 's|<id>org\.musescore\.MuseScore</id>|<id>org.musescore.MuseScoreEvolution</id>|' \
-        -e 's|mscore\.desktop|mscore-evo.desktop|' \
-        "$new"
-    fi
+    new="$out/share/metainfo/org.musescore.MuseScoreEvolution.appdata.xml"
+    mv "$meta" "$new"
+    sed -i \
+      -e 's|<id>org\.musescore\.MuseScore</id>|<id>org.musescore.MuseScoreEvolution</id>|' \
+      -e 's|mscore\.desktop|mscore-evo.desktop|' \
+      "$new"
   '';
 
   # Don't run bundled upstreams tests, as they require a running X window system.
   doCheck = false;
-
-  # Also don't use upstream musescore tests since this is a different version/fork.
-  # passthru.tests = nixosTests.musescore;
-  passthru.tests = { };
 
   passthru.updateScript.command = [ ./update.sh ];
 

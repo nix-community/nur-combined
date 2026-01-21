@@ -1,0 +1,14 @@
+--- a/lib/services/caching_service.dart
++++ b/lib/services/caching_service.dart
+@@ -125,7 +125,10 @@
+       print("last data");
+       try {
+         final FileInfo? fileInfo = await _cacheManager.getFileFromCache(cacheKey);
+-        return [fileInfo!.file, false];
++        if (fileInfo == null) {
++          throw const SocketException("no wifi");
++        }
++        return [fileInfo.file, false];
+       }
+       catch (error) {
+         throw const SocketException("no wifi");

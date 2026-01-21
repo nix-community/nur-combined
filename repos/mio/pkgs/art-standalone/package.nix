@@ -18,7 +18,7 @@
   lz4,
   runtimeShell,
   libpng,
-  makeWrapper,
+  makeBinaryWrapper,
   binutils,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     jdk17
-    makeWrapper
+    makeBinaryWrapper
     python3
     which
     zip

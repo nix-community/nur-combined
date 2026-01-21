@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  makeWrapper,
+  makeBinaryWrapper,
   fetchFromGitHub,
   meson,
   ninja,
@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    makeWrapper
+    makeBinaryWrapper
     meson
     ninja
     pkg-config

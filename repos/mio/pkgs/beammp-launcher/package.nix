@@ -5,7 +5,7 @@
   copyDesktopItems,
   installShellFiles,
   makeDesktopItem,
-  makeWrapper,
+  makeBinaryWrapper,
 
   cmake,
   curl,
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ]
   ++ [
-    makeWrapper
+    makeBinaryWrapper
   ];
 
   buildInputs = [

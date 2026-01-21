@@ -4,7 +4,7 @@
   autoPatchelfHook,
   dpkg,
   fetchurl,
-  makeWrapper,
+  makeBinaryWrapper,
   patchelf,
   addDriverRunpath,
   dbus,
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg
-    makeWrapper
+    makeBinaryWrapper
     patchelf
   ];
 
@@ -123,7 +123,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "/usr/local" "/opt/115" \
       --replace-fail "/opt/115" "$out/opt/115"
 
-    ln -s "${vivaldi-ffmpeg-codecs}/lib/libffmpeg.so" "$out/opt/115/115Browser/libffmpeg.so"
+    rm -f "$out/opt/115/115Browser/libEGL.so" "$out/opt/115/115Browser/libGLESv2.so"
+    rm -f "$out/opt/115/115Browser/libvk_swiftshader.so" "$out/opt/115/115Browser/libvulkan.so.1"
+    rm -f "$out/opt/115/115Browser/vk_swiftshader_icd.json"
 
     mkdir -p "$out/bin"
     makeWrapper "$out/opt/115/115Browser/115Browser" "$out/bin/115-browser" \
@@ -136,7 +138,17 @@ stdenv.mkDerivation (finalAttrs: {
       }" \
       --prefix XDG_DATA_DIRS : "${addDriverRunpath.driverLink}/share" \
       --add-flags "--disable-breakpad" \
-      --add-flags "--disable-crashpad"
+      --add-flags "--disable-crashpad" \
+      --add-flags "--disable-crash-reporter" \
+      --add-flags "--disable-features=Crashpad" \
+      --add-flags "--no-sandbox" \
+      --add-flags "--disable-setuid-sandbox" \
+      --add-flags "--disable-seccomp-filter-sandbox" \
+      --add-flags "--use-gl=desktop" \
+      --add-flags "--ozone-platform=x11" \
+      --add-flags "--no-zygote" \
+      --add-flags "--disable-gpu" \
+      --add-flags "--disable-software-rasterizer"
 
     install -Dm644 "$privacy" "$out/share/licenses/${finalAttrs.pname}/privacy.html"
     install -Dm644 "$copyright" "$out/share/licenses/${finalAttrs.pname}/copyright.html"
@@ -153,19 +165,8 @@ stdenv.mkDerivation (finalAttrs: {
       )
     }:${addDriverRunpath.driverLink}/lib"
 
-    for f in "$out/opt/115/115Browser/115Browser" \
-      "$out/opt/115/115Browser/chrome_crashpad_handler" \
-      "$out/opt/115/115Browser/chrome-sandbox"; do
-      if [ -f "$f" ]; then
-        patchelf --set-rpath "$rpath" "$f"
-      fi
-    done
-
-    for f in "$out/opt/115/115Browser"/lib*GL* "$out/opt/115/115Browser"/libGLESv2.so; do
-      if [ -f "$f" ]; then
-        patchelf --set-rpath "$rpath" "$f"
-      fi
-    done
+    patchelf --set-rpath "$rpath" "$out/opt/115/115Browser/115Browser"
+    patchelf --set-rpath "$rpath" "$out/opt/115/115Browser/chrome_crashpad_handler"
   '';
 
   meta = {

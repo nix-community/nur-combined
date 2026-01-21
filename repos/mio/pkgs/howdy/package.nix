@@ -13,7 +13,7 @@
   pkg-config,
   wrapGAppsHook3,
   makeDesktopItem,
-  makeWrapper,
+  makeBinaryWrapper,
   fmt,
   gettext,
   gtk3,
@@ -77,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     pkg-config
     wrapGAppsHook3
-    makeWrapper
+    makeBinaryWrapper
   ];
 
   buildInputs = [

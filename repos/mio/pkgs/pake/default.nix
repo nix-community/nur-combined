@@ -9,7 +9,7 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   pnpm,
-  makeWrapper,
+  makeBinaryWrapper,
   node-gyp,
   pkg-config,
   python3,
@@ -106,7 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs_22
     pnpmConfigHook
     pnpm
-    makeWrapper
+    makeBinaryWrapper
     node-gyp
     pkg-config
     python3

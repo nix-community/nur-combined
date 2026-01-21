@@ -16,7 +16,7 @@
   cmake,
   pkg-config,
   buildGoModule,
-  makeWrapper,
+  makeBinaryWrapper,
   ncurses,
   which,
   opencv,
@@ -484,7 +484,7 @@ let
       protobuf
       protoc-gen-go
       protoc-gen-go-grpc
-      makeWrapper
+      makeBinaryWrapper
       ncurses # tput
       which
     ]

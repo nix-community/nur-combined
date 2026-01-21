@@ -3,7 +3,7 @@
   stdenv,
   autoPatchelfHook,
   dpkg,
-  makeWrapper,
+  makeBinaryWrapper,
   requireFile,
   qt5,
   wayland,
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg
-    makeWrapper
+    makeBinaryWrapper
   ];
 
   buildInputs = [

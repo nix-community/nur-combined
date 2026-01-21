@@ -8,7 +8,7 @@
   SDL2,
   libvorbis,
   pkg-config,
-  makeWrapper,
+  makeBinaryWrapper,
   enet,
   bullet,
   openal,
@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     pkg-config
     ninja
-    makeWrapper
+    makeBinaryWrapper
   ];
 
   buildInputs = [

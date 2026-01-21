@@ -184,7 +184,6 @@ let
         plezy
         downkyicore
         ego
-        #davinci-resolve-studio2001
         lix
         ghidra
         prismlauncher-diegiwg

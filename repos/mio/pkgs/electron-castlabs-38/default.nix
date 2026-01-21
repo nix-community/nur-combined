@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  makeWrapper,
+  makeBinaryWrapper,
   fetchurl,
   fetchzip,
   wrapGAppsHook3,
@@ -108,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     unzip
-    makeWrapper
+    makeBinaryWrapper
     wrapGAppsHook3
   ];
 

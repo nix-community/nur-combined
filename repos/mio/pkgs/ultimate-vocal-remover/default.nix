@@ -3,7 +3,7 @@
   fetchFromGitHub,
   fetchPypi,
   git,
-  makeWrapper,
+  makeBinaryWrapper,
   python311Packages,
   ffmpeg,
   rubberband,
@@ -255,7 +255,7 @@ py.buildPythonApplication rec {
 
   patches = [ ./uvr-data-dirs.patch ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeBinaryWrapper ];
   propagatedBuildInputs = pythonDeps;
   dontBuild = true;
   doCheck = false;

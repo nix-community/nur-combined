@@ -5,7 +5,7 @@
   fetchzip,
   mono,
   msbuild,
-  makeWrapper,
+  makeBinaryWrapper,
   perl,
   libgdiplus,
   fontconfig,
@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     mono
     msbuild
-    makeWrapper
+    makeBinaryWrapper
     perl
   ];
 

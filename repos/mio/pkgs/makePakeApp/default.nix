@@ -5,7 +5,7 @@
   pake,
   dpkg,
   autoPatchelfHook,
-  makeWrapper,
+  makeBinaryWrapper,
   nodejs_22,
   pnpm,
   cargo,
@@ -79,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg
-    makeWrapper
+    makeBinaryWrapper
     pake
     nodejs_22
     pnpm

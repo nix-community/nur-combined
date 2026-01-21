@@ -1,0 +1,55 @@
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -39,6 +39,15 @@
+ Future<void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+ 
++  FlutterError.onError = (FlutterErrorDetails details) {
++    FlutterError.dumpErrorToConsole(details);
++  };
++  PlatformDispatcher.instance.onError = (error, stack) {
++    debugPrint("Unhandled error: $error");
++    debugPrintStack(stackTrace: stack);
++    return true;
++  };
++
+   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+ 
+   if (!kIsWeb) {
+@@ -54,16 +63,7 @@
+     ChangeNotifierProvider(create: (_) => SettingsProvider()),
+   ];
+ 
+-  if (display.size.shortestSide / display.devicePixelRatio < 600) {
+-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+-        .then((value) => runApp(
+-          MultiProvider(
+-            providers: commonProviders,
+-            child: const MyApp(),
+-          ),
+-        )
+-    );
+-  } else {
++  void runAppWithProviders() {
+     runApp(
+       MultiProvider(
+         providers: commonProviders,
+@@ -71,6 +71,18 @@
+       ),
+     );
+   }
++
++  runZonedGuarded(() {
++    if (display.size.shortestSide / display.devicePixelRatio < 600) {
++      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
++          .then((value) => runAppWithProviders());
++    } else {
++      runAppWithProviders();
++    }
++  }, (error, stack) {
++    debugPrint("Unhandled zone error: $error");
++    debugPrintStack(stackTrace: stack);
++  });
+ }
+ 
+ class MyApp extends StatefulWidget {

@@ -11,7 +11,7 @@
   libX11,
   libvorbis,
   pkg-config,
-  makeWrapper,
+  makeBinaryWrapper,
   enet,
   libXcursor,
   bullet,
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-    makeWrapper
+    makeBinaryWrapper
   ];
   buildInputs = [
     boost

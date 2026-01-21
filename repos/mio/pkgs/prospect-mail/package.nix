@@ -7,7 +7,7 @@
   git,
   nodejs_22,
   yarn,
-  makeWrapper,
+  makeBinaryWrapper,
   copyDesktopItems,
   makeDesktopItem,
   electron,
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     yarn
     fixup-yarn-lock
     git
-    makeWrapper
+    makeBinaryWrapper
     copyDesktopItems
   ];
 

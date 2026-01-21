@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   cmake,
-  makeWrapper,
+  makeBinaryWrapper,
   wrapQtAppsHook,
   pkg-config,
   python3,
@@ -305,7 +305,7 @@ stdenv.mkDerivation (finalAttrs: {
     gettext
     pkg-config
     python3
-    makeWrapper
+    makeBinaryWrapper
     qt6.wrapQtAppsHook
     git
   ]

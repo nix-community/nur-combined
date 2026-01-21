@@ -7,7 +7,7 @@
   swt,
   jdk,
   jre,
-  makeWrapper,
+  makeBinaryWrapper,
   pkg-config,
   alsa-lib,
   jack2,
@@ -27,26 +27,21 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tuxguitar";
-  version = "2.0.0";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "helge17";
     repo = "tuxguitar";
     tag = finalAttrs.version;
-    hash = "sha256-Kk6TQ2t4exVeRyxrCqpdddJE7BfZRlW+B/lUJ+SPPd8=";
+    hash = "sha256-USdYj8ebosXkiZpDqyN5J+g1kjyWm225iQlx/szXmLA=";
   };
 
   patches = [
     ./fix-include.patch
-    # https://github.com/helge17/tuxguitar/pull/937
-    (fetchpatch {
-      url = "https://github.com/helge17/tuxguitar/pull/937/commits/6d4df91518ee46340fa473b80eb5d4638d282fae.patch";
-      hash = "sha256-Iek02qK0xxrZcTmcYVpC8hv3r8/5jzdPLvY7OasukJg=";
-    })
   ];
 
   nativeBuildInputs = [
-    makeWrapper
+    makeBinaryWrapper
     maven
     jdk
     pkg-config
@@ -91,9 +86,26 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
+    # Create a writable repository
+    mkdir -p .m2/repository
+    cp -r ${finalAttrs.finalPackage.mavenDeps}/* .m2/repository/
+    chmod -R +w .m2/repository
+
+    # Copy SWT jar to a fixed location to avoid path dependencies
+    cp ${swt}/jars/swt.jar swt-4.36.jar
+
+    # Install SWT jar into our mutable repository
+    mvn install:install-file \
+      -Dfile=$(pwd)/swt-4.36.jar \
+      -DgroupId=org.eclipse.swt \
+      -DartifactId=${finalAttrs.finalPackage.passthru.swtArtifactId} \
+      -Dpackaging=jar \
+      -Dversion=4.36 \
+      -Dmaven.repo.local=$(pwd)/.m2/repository
+
     mvn package -e -f ${finalAttrs.finalPackage.buildScript} -P native-modules \
       -o -Dmaven.test.skip=true \
-      -Dmaven.repo.local=${finalAttrs.finalPackage.mavenDeps}/repository
+      -Dmaven.repo.local=$(pwd)/.m2/repository
 
     runHook postBuild
   '';
@@ -243,13 +255,16 @@ stdenv.mkDerivation (finalAttrs: {
 
         # Copy to output, removing timestamps and non-deterministic files
         mkdir -p $out
-        cp -r .m2/repository $out/
+        cp -r .m2/repository/* $out/
+
+        # Remove swt from the output to avoid hash invalidation
+        rm -rf $out/org/eclipse/swt
 
         # Remove resolver status files that contain timestamps
-        find $out/repository -name "_remote.repositories" -delete
-        find $out/repository -name "*.lastUpdated" -delete
-        find $out/repository -name "resolver-status.properties" -delete
-        find $out/repository -type f -name "maven-metadata-*.xml" -delete
+        find $out -name "_remote.repositories" -delete
+        find $out -name "*.lastUpdated" -delete
+        find $out -name "resolver-status.properties" -delete
+        find $out -type f -name "maven-metadata-*.xml" -delete
 
         # Reset timestamps for determinism
         find $out -exec touch -t 197001010000 {} +
@@ -259,12 +274,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = finalAttrs.finalPackage.passthru.mavenDepsHashes.${stdenv.hostPlatform.system};
-    };
-    mavenDepsHashes = {
-      x86_64-linux = "sha256-Rl1nRCnr09fnP7qbHKgVuA+20u44Qbt2qcTZxGtKeGQ=";
-      aarch64-linux = "sha256-Ct+fH5vOBgAepxyHEEfnTXRaFrjXSqffB41T4RAQ+Xo=";
-      aarch64-darwin = "sha256-xjBRFMmC/LPIUCvdznD+vwFpLH1zPbHkxpYn6748Ew4=";
+      outputHash = "sha256-3KKwaHYDxEN3m2obuijzYrWEPGcbjI6z+eTmtiIl0Ic=";
     };
   };
 
@@ -276,8 +286,11 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/helge17/tuxguitar";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ ardumont ];
-    platforms = builtins.attrNames finalAttrs.finalPackage.passthru.mavenDepsHashes;
+    maintainers = with lib.maintainers; [
+      ardumont
+      mio
+    ];
+    platforms = builtins.attrNames swt.passthru.srcMetadataByPlatform;
     mainProgram = "tuxguitar";
   };
 })

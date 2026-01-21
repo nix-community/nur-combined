@@ -5,7 +5,7 @@
   fetchNpmDeps,
   npmHooks,
   nodejs_22,
-  makeWrapper,
+  makeBinaryWrapper,
   copyDesktopItems,
   makeDesktopItem,
   runCommand,
@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     nodejs_22
     npmHooks.npmConfigHook
-    makeWrapper
+    makeBinaryWrapper
     copyDesktopItems
     python3
   ];

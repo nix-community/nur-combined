@@ -20,6 +20,13 @@ flutter338.buildFlutterApplication rec {
   pubspecLock = lib.importJSON ./pubspec.lock.json;
   gitHashes = lib.importJSON ./git-hashes.json;
 
+  patches = [
+    ./no-workmanager-on-linux.patch
+    ./no-null-cache-fallback.patch
+    ./no-null-l10n-errors.patch
+    ./zoned-errors.patch
+  ];
+
   nativeBuildInputs = [
     copyDesktopItems
   ];
@@ -46,11 +53,11 @@ flutter338.buildFlutterApplication rec {
       sed -i "/^  geolocator:/a\\  geolocator_linux: ^0.2.3" pubspec.yaml
     fi
 
-    # Provide stub API keys so the build does not fail when the file is missing.
-    cat > lib/api_key.dart <<'APIKEYS'
-    const String wapi_Key = "REPLACE_ME";
+    # https://github.com/bmaroti9/Overmorrow/blob/master/lib/api_key_example.dart
+    cat > lib/api_key.dart <<APIKEYS
+    const String wapi_Key = "$(echo OGY3NzAwNjE4NTg5NDFjZGE5ZjkwNzA3MjYyMDAxCg== | base64 -d)";
     const String wapi_key = wapi_Key;
-    const String access_key = "REPLACE_ME";
+    const String access_key = "$(echo dkdIRzY1M0h3ZkgzTWFENUZqRloxWmZYbmYyeFZuVHFuNGNreElIbEdNYwo= | base64 -d)";
     const String timezonedbKey = "REPLACE_ME";
     APIKEYS
   '';
