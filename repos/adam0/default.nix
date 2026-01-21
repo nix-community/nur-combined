@@ -12,7 +12,7 @@
   overlays = import ./overlays; # nixpkgs overlays
   hmModules = import ./hm-modules; # Home Manager modules.
 
-  yaziPlugins = pkgs.callPackage ./pkgs/yazi/plugins {};
+  yaziPlugins = pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/yazi/plugins {});
 
   rust-mcp-server = pkgs.callPackage ./pkgs/rust-mcp-server {};
   modular-mcp = pkgs.callPackage ./pkgs/modular-mcp {};

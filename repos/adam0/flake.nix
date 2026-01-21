@@ -28,7 +28,12 @@
         }
     );
     packages = forAllSystems (
-      system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+      system: let
+        legacy = self.legacyPackages.${system};
+        topLevel = nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) legacy;
+        yaziPlugins = nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) legacy.yaziPlugins;
+      in
+        topLevel // {inherit yaziPlugins;}
     );
 
     formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
