@@ -7,15 +7,15 @@
 
 buildGoModule rec {
   pname = "aws-s3-reverse-proxy";
-  version = "1.1.1-patched.3";
+  version = "1.1.1-patched.4";
   src = fetchFromGitHub {
     owner = "linyinfeng";
     repo = "aws-s3-reverse-proxy";
     rev = "v${version}";
-    sha256 = "sha256-ntpXMQ+AGUOiKw1Uh/6Yw5vvJ1t8T3S8OFsHK7njR3g=";
+    sha256 = "sha256-11gWCUqv4SgxbUZtkQoD0nIrOoxZh2ZXfqlK+Fp4KOY=";
   };
 
-  vendorHash = "sha256-vwGdGjMNCQfFRROL1Pf4AMIQy0gDrCLKHniteiiVZ8c=";
+  vendorHash = "sha256-aH3BhRyu09XAGQns3BF/yxIdPCXWrK0GewUO/xcjR0A=";
 
   passthru = {
     updateScriptEnabled = true;
