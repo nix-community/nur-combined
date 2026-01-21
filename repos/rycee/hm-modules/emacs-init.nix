@@ -24,6 +24,19 @@ let
       options = {
         enable = mkEnableOption "Emacs package ${name}";
 
+        enableUsePackage = mkOption {
+          type = types.bool;
+          default = true;
+          example = false;
+          description = ''
+            Whether to emit a use-package entry in the generated initialization
+            file.
+            </para><para>
+            It may be beneficial to disable this if you want to load and
+            configure the package in the early initialization file.
+          '';
+        };
+
         package = mkOption {
           type = types.either (types.str // { description = "name of package"; }) packageFunctionType;
           default = name;
@@ -140,6 +153,18 @@ let
           '';
         };
 
+        bind' = mkOption {
+          type = types.attrsOf types.str;
+          default = { };
+          example = {
+            "M-<up>" = "drag-stuff-up";
+            "M-<down>" = "drag-stuff-down";
+          };
+          description = ''
+            The entries to use for <option>:bind*</option>.
+          '';
+        };
+
         bindLocal = mkOption {
           type = types.attrsOf (types.attrsOf types.str);
           default = { };
@@ -205,6 +230,9 @@ let
             </para><para>
             Note, the package is not automatically loaded so you will have to
             <literal>require</literal> the necessary features yourself.
+            </para><para>
+            When using this option you may also want to disable the
+            `enableUsePackage` option.
           '';
         };
 
@@ -232,7 +260,7 @@ let
         };
       };
 
-      config = mkIf config.enable {
+      config = mkIf (config.enable && config.enableUsePackage) {
         assembly =
           let
             quoted = v: ''"${escape [ ''"'' ] v}"'';
@@ -267,6 +295,7 @@ let
             mkInterpreter = map (v: ":interpreter ${v}");
             mkFunctions = vs: optional (vs != [ ]) ":functions (${toString vs})";
             mkBind = mkBindHelper "bind" "";
+            mkBind' = mkBindHelper "bind*" "";
             mkBindLocal =
               bs:
               let
@@ -283,6 +312,7 @@ let
             [ "(use-package ${name}" ]
             ++ mkAfter config.after
             ++ mkBind config.bind
+            ++ mkBind' config.bind'
             ++ mkBindKeyMap config.bindKeyMap
             ++ mkBindLocal config.bindLocal
             ++ mkChords config.chords
@@ -440,7 +470,7 @@ let
     ${usePackageSetup}
   ''
   + concatStringsSep "\n\n" (
-    map (getAttr "assembly") (filter (getAttr "enable") (attrValues cfg.usePackage))
+    map (v: v.assembly) (filter (v: v.enable && v.enableUsePackage) (attrValues cfg.usePackage))
   )
   + ''
 
