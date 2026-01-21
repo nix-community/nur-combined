@@ -29,6 +29,8 @@ splayer.overrideAttrs (
       hash = "sha256-2q/yaj2Fa9jaxSz5ftSa+2eTzPqt8vvGed8FZ/Whj7o=";
     };
 
+    env.VITE_BUILD_TYPE = "dev";
+
     # remove when splayer in nixpkgs has been updated
     nativeBuildInputs = prev.nativeBuildInputs ++ [
       python3
@@ -54,7 +56,7 @@ splayer.overrideAttrs (
       # Adapted from mkYarnModules.
       for f in $(find . -path '*/node_modules/better-sqlite3' -type d); do
         (cd "$f" && (
-        pnpm run build-release --offline --nodedir="${electron.headers}"
+        npm run build-release --offline --nodedir="${electron.headers}"
         find build -type f -exec \
           ${lib.getExe removeReferencesTo} \
           -t "${electron.headers}" {} \;
