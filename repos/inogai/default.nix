@@ -17,6 +17,7 @@ in {
 
   fzfmenu = callPackage ./pkgs/fzfmenu {};
   moegi-nvim = callPackage ./pkgs/moegi-nvim {};
+  prequery-preprocess = callPackage ./pkgs/prequery-preprocess {};
   prettier-inogai = callPackage ./pkgs/prettier-inogai {};
   ray-raycast = callPackage ./pkgs/ray-raycast {};
   winterm-rs = callPackage ./pkgs/winterm-rs {};
