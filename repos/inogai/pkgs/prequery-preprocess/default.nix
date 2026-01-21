@@ -2,6 +2,8 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  openssl,
+  pkg-config,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "prequery-preprocess";
@@ -15,6 +17,9 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-ohuhrHPyr/mgEIpBTAm65EcJVxiOYW3uwwn8/ZbpFs8=";
+
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   meta = {
     description = "A preprocessor for prequery metadata embedded in Typst documents";
