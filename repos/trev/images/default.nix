@@ -4,4 +4,5 @@
 }:
 {
   nix = import ./nix { inherit pkgs; };
+  ffmpeg = import ./ffmpeg { inherit pkgs; };
 }
