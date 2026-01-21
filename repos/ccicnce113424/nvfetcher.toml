@@ -73,7 +73,7 @@ fetch.github = "EnderIce2/rpc-bridge"
 src.github = "EnderIce2/rpc-bridge"
 
 [splayer-git]
-cargo_lock = ["Cargo.lock"]
+# cargo_lock = ["Cargo.lock"]
 fetch.github = "imsyy/SPlayer"
 src.git = "https://github.com/imsyy/SPlayer"
 
