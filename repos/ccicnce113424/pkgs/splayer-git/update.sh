@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gnugrep jq
+#!nix-shell -i bash -p jq nix-update
 set -euo pipefail
 
 # 支持 -f/--force 强制刷新 src-info.json
@@ -27,28 +27,9 @@ if [[ -f $src_info && $force != true ]]; then
   fi
 fi
 
-build_output=$(nix build --impure --expr "(import ./pkgs {}).${package_name}.pnpmDeps.overrideAttrs (_: { outputHash = \"\"; outputHashAlgo = \"sha256\"; })" 2>&1) || true
-echo "SPlayer git deps build output is:"
-echo "$build_output"
-hash_splayer_git=$(tr -s ' ' <<<$build_output | grep -Po "got: \K.+$")
-if [ -z "$hash_splayer_git" ]; then
-  echo "Failed to extract hash from build output."
-  exit 1
-fi
-echo "SPlayer git deps hash is: $hash_splayer_git"
-
-cargo_build_output=$(nix build --impure --expr "(import ./pkgs {}).${package_name}.cargoDeps.overrideAttrs (_: { outputHash = \"\"; outputHashAlgo = \"sha256\"; })" 2>&1) || true
-echo "SPlayer git cargo deps build output is:"
-echo "$cargo_build_output"
-cargo_hash_splayer_git=$(tr -s ' ' <<<$cargo_build_output | grep -Po "got: \K.+$")
-if [ -z "$cargo_hash_splayer_git" ]; then
-  echo "Failed to extract hash from build output."
-  exit 1
-fi
-echo "SPlayer git cargo deps hash is: $cargo_hash_splayer_git"
-
 jq -n \
   --arg version "$version" \
-  --arg hash "$hash_splayer_git" \
-  --arg cargoHash "$cargo_hash_splayer_git" \
-  '{ version: $version, hash: $hash, cargoHash: $cargoHash }' >"$src_info"
+  '{ version: $version }' >"$src_info"
+
+cd $SCRIPT_DIR/..
+nix-update --version=skip splayer-git

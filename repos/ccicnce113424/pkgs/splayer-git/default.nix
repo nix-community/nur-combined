@@ -1,8 +1,6 @@
 {
   sources,
   version,
-  hash,
-  cargoHash,
   pnpm_10,
   fetchPnpmDeps,
   rustPlatform,
@@ -22,13 +20,13 @@ splayer.overrideAttrs (
     inherit version;
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
-      inherit hash;
+      hash = "sha256-tAOtrxQasIQ1IS2jKdcX4KEM5p3zhshqw8phzsj667Q=";
       pnpm = pnpm_10;
       fetcherVersion = 2;
     };
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit (final) src patches;
-      hash = cargoHash;
+      hash = "sha256-2q/yaj2Fa9jaxSz5ftSa+2eTzPqt8vvGed8FZ/Whj7o=";
     };
 
     # remove when splayer in nixpkgs has been updated
