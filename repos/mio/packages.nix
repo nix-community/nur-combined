@@ -237,6 +237,9 @@ rec {
     electron = electron_castlabs_38;
   };
 
+  ladybird = pkgs.callPackage ./pkgs/ladybird/package.nix {
+  };
+
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
     tarballPrefix = "proton-";
