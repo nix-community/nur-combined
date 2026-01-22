@@ -68,33 +68,27 @@ mkWindowsAppNoCC rec {
     }
 
     echo "Installing Windows dependencies..."
-    winetricks --unattended dotnet35 >/dev/null 2>&1 || true
-    winetricks --unattended dotnet48 >/dev/null 2>&1 || true
-    winetricks --unattended vcrun2022 >/dev/null 2>&1 || true
-    winetricks --unattended corefonts >/dev/null 2>&1 || true
-    winetricks --unattended msxml3 >/dev/null 2>&1 || true
-    winetricks --unattended msxml6 >/dev/null 2>&1 || true
-    winetricks --unattended tahoma >/dev/null 2>&1 || true
-    winetricks --unattended win11 >/dev/null 2>&1 || true
-    winetricks renderer=vulkan >/dev/null 2>&1 || true
+    winetricks --unattended dotnet35
+    winetricks --unattended dotnet48
+    winetricks --unattended vcrun2022
+    winetricks --unattended corefonts
+    winetricks --unattended msxml3
+    winetricks --unattended msxml6
+    winetricks --unattended tahoma
+    winetricks --unattended win11
+    winetricks renderer=vulkan
 
     echo "Installing Windows metadata..."
     winmetadata_dir="$WINEPREFIX/drive_c/windows/system32/WinMetadata"
     mkdir -p "$winmetadata_dir"
     winmetadata_zip="$work/WinMetadata.zip"
-    if ${wget}/bin/wget -q "https://archive.org/download/win-metadata/WinMetadata.zip" -O "$winmetadata_zip"; then
-      ${p7zip}/bin/7z x -y -o"$winmetadata_dir" "$winmetadata_zip" >/dev/null 2>&1 || 
-      ${unzip}/bin/unzip -q -o "$winmetadata_zip" -d "$winmetadata_dir" >/dev/null 2>&1 || true
-    fi
+    ${wget}/bin/wget -q "https://archive.org/download/win-metadata/WinMetadata.zip" -O "$winmetadata_zip"
+    ${unzip}/bin/unzip -q -o "$winmetadata_zip" -d "$winmetadata_dir"
 
     echo "Installing Affinity from MSIX..."
     affinity_dest="$WINEPREFIX/drive_c/Program Files/Affinity"
     mkdir -p "$affinity_dest"
-    cp -r "$work/msix"/* "$affinity_dest/" 2>/dev/null || {
-      echo "Error: Failed to copy Affinity files" >&2
-      rm -rf "$work"
-      exit 1
-    }
+    cp -r "$work/msix"/* "$affinity_dest/"
 
     # Find and verify Affinity.exe location
     affinity_exe=$(find "$affinity_dest" -name "Affinity.exe" -type f | head -1)

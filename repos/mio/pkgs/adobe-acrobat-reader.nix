@@ -55,11 +55,11 @@ mkWindowsAppNoCC rec {
     export WINEDEBUG="-all"
     work="$(mktemp -d)"
 
-    winetricks --unattended mspatcha >/dev/null 2>&1 || true
-    winetricks --unattended riched20 >/dev/null 2>&1 || true
-    winetricks --unattended vcrun2015 >/dev/null 2>&1 || true
+    winetricks --unattended mspatcha
+    winetricks --unattended riched20
+    winetricks --unattended vcrun2015
 
-    ${p7zip}/bin/7z x -y -o"$work" ${src} >/dev/null 2>&1 || true
+    ${p7zip}/bin/7z x -y -o"$work" ${src}
     setup="$(find "$work" -maxdepth 2 -iname 'setup.exe' | head -n1)"
     if [ -n "$setup" ]; then
       $WINE "$setup" /sAll
@@ -71,12 +71,12 @@ mkWindowsAppNoCC rec {
 
     regfile="$WINEPREFIX/drive_c/acroread-dc.reg"
     cp ${regTweaks} "$regfile"
-    $WINE regedit "$($WINE winepath -w "$regfile")" >/dev/null 2>&1 || true
+    $WINE regedit "$($WINE winepath -w "$regfile")"
     wineserver -w
 
-    winetricks --unattended win7 >/dev/null 2>&1 || true
+    winetricks --unattended win7
 
-    winetricks --unattended cjkfonts >/dev/null 2>&1
+    winetricks --unattended cjkfonts
   '';
 
   winAppRun = ''

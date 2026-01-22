@@ -36,7 +36,7 @@ mkWindowsAppNoCC rec {
     wineserver -w
     rm -f "$WINEPREFIX/drive_c/Program Files/Notepad++/uninstall.exe"
     rm -fR "$WINEPREFIX/drive_c/Program Files/Notepad++/updater"
-    winetricks --unattended cjkfonts >/dev/null 2>&1
+    winetricks --unattended cjkfonts
   '';
 
   winAppRun = ''
