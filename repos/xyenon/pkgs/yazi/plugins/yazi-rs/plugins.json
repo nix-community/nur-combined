@@ -21,7 +21,7 @@
     "description": "Bring macOS's awesome tagging feature to Yazi"
   },
   "mime-ext": {
-    "description": "Mime-type provider based on a file extension database, replacing the [builtin `file(1)`](https://github.com/sxyazi/yazi/blob/main/yazi-plugin/preset/plugins/mime.lua) to speed up mime-type retrieval at the expense of accuracy"
+    "description": "MIME type provider based on a file extension database, replacing the [builtin `file(1)`](https://github.com/sxyazi/yazi/blob/main/yazi-plugin/preset/plugins/mime-local.lua) to speed up MIME type retrieval at the expense of accuracy"
   },
   "mount": {
     "description": "Mount manager for Yazi, providing disk mount, unmount, and eject functionality"
