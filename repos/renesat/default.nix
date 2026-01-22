@@ -42,6 +42,7 @@
     mal-cli = pkgs.callPackage ./pkgs/mal-cli {};
     gosuki = pkgs.callPackage ./pkgs/gosuki {};
     tukai = pkgs.callPackage ./pkgs/tukai {};
+    superseedr = pkgs.callPackage ./pkgs/superseedr {};
 
     tubefeed = pkgs.python3Packages.callPackage ./pkgs/tubefeed {};
     typy = pkgs.python3Packages.callPackage ./pkgs/typy {};

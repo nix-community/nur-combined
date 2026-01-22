@@ -5,13 +5,13 @@
 }:
 buildGoModule rec {
   pname = "gosuki";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "blob42";
     repo = "gosuki";
     tag = "v${version}";
-    hash = "sha256-BAiJpj3+yVdCGMlYGBBAIn1wSA/GwI/UWYrr5wrzIsE=";
+    hash = "sha256-F3lSymL2d/ABdDcDDb2jjXJtPAYcRZ2msJCbMgNvXdc=";
   };
 
   proxyVendor = true;

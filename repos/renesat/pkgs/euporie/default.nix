@@ -6,7 +6,7 @@
   prompt-toolkit,
   pygments,
   nbformat,
-  jupyter_client,
+  jupyter-client,
   typing-extensions,
   fastjsonschema,
   platformdirs,
@@ -51,7 +51,7 @@ buildPythonPackage rec {
     prompt-toolkit
     pygments
     nbformat
-    jupyter_client
+    jupyter-client
     typing-extensions
     fastjsonschema
     platformdirs
