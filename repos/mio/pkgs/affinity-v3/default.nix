@@ -15,6 +15,7 @@ let
     p7zip
     unzip
     wget
+    zstd
     ;
   inherit (build) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
 in
@@ -45,6 +46,7 @@ mkWindowsAppNoCC rec {
     p7zip
     unzip
     wget
+    zstd
   ];
 
   enabledWineSymlinks = {
@@ -84,6 +86,31 @@ mkWindowsAppNoCC rec {
     winmetadata_zip="$work/WinMetadata.zip"
     ${wget}/bin/wget -q "https://archive.org/download/win-metadata/WinMetadata.zip" -O "$winmetadata_zip"
     ${unzip}/bin/unzip -q -o "$winmetadata_zip" -d "$winmetadata_dir"
+
+    echo "Installing vkd3d-proton for OpenCL/hardware acceleration..."
+    vkd3d_url="https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v2.14.1/vkd3d-proton-2.14.1.tar.zst"
+    vkd3d_archive="$work/vkd3d-proton-2.14.1.tar.zst"
+    ${wget}/bin/wget -q "$vkd3d_url" -O "$vkd3d_archive"
+    ${zstd}/bin/zstd -d "$vkd3d_archive" -o "$work/vkd3d-proton.tar"
+    tar -xf "$work/vkd3d-proton.tar" -C "$work"
+    
+    vkd3d_dir=$(find "$work" -type d -name "vkd3d-proton-*" | head -1)
+    if [ -n "$vkd3d_dir" ]; then
+      wine_lib_dir="$WINEPREFIX/drive_c/windows/system32"
+      mkdir -p "$wine_lib_dir"
+      
+      # Copy d3d12 DLLs
+      if [ -f "$vkd3d_dir/x64/d3d12.dll" ]; then
+        cp "$vkd3d_dir/x64/d3d12.dll" "$wine_lib_dir/"
+      fi
+      if [ -f "$vkd3d_dir/x64/d3d12core.dll" ]; then
+        cp "$vkd3d_dir/x64/d3d12core.dll" "$wine_lib_dir/"
+      fi
+      
+      echo "Configuring Wine DLL overrides for vkd3d-proton..."
+      $WINE reg add "HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides" /v d3d12 /t REG_SZ /d native /f
+      $WINE reg add "HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides" /v d3d12core /t REG_SZ /d native /f
+    fi
 
     echo "Installing Affinity from MSIX..."
     affinity_dest="$WINEPREFIX/drive_c/Program Files/Affinity"
