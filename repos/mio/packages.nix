@@ -379,7 +379,7 @@ rec {
       gawk
       ;
     inherit (pkgs) xorg;
-    wine = pkgs.winePackages.full;
+    wine = pkgs.wineWow64Packages.full;
   };
   adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
     virtualDesktop = true;
@@ -388,7 +388,7 @@ rec {
   affinity-v3 = callPackage ./pkgs/affinity-v3 {
     inherit pkgs;
     build = lib;
-    wine = pkgs.wineWowPackages.full;
+    wine = pkgs.wineWow64Packages.full;
   };
 
   wineshell-wine64 = callPackage ./pkgs/wineshell/default.nix {
@@ -465,13 +465,13 @@ rec {
   notepad-plus-plus = callPackage ./pkgs/notepad++.nix {
     inherit pkgs;
     build = lib;
-    wine = pkgs.wineWowPackages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
+    wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
   };
 
   insta360-studio = callPackage ./pkgs/insta360-studio.nix {
     inherit pkgs;
     build = lib;
-    wine = pkgs.wineWowPackages.full;
+    wine = pkgs.wineWow64Packages.full;
   };
 
   supertuxkart-evolution = v3override (
