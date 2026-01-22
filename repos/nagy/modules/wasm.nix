@@ -20,6 +20,7 @@ in
       pkgs.wamr
       # pkgs.wasmer
       # pkgs.wasmedge # broken
+      # pkgs.wasm-language-tools
     ];
 
     boot.binfmt.emulatedSystems = [ "wasm32-wasi" ];
