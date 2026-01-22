@@ -359,7 +359,7 @@ rec {
 
   musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });
 
-  speed-dreams = v3overrideAttrs (pkgs.callPackage ./pkgs/speed-dreams/package.nix { });
+  speed-dreams = (pkgs.callPackage ./pkgs/speed-dreams/package.nix { });
 
 }
 // (lib.optionalAttrs (!nurbot) rec {
@@ -384,6 +384,13 @@ rec {
   adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
     virtualDesktop = true;
   };
+
+  affinity-v3 = callPackage ./pkgs/affinity-v3 {
+    inherit pkgs;
+    build = lib;
+    wine = pkgs.wineWowPackages.full;
+  };
+
   wineshell-wine64 = callPackage ./pkgs/wineshell/default.nix {
     inherit (lib) mkWindowsApp;
     wine = pkgs.wine64Packages.stableFull;
