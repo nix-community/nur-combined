@@ -124,26 +124,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.01.19";
+    version = "2026.01.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.19/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-OVFyJ56s+G+DlBiVARMry1lP1qfiJtCk7L6XixzsHmw=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.22/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-SIzcw1MnhWmZMx3vTWOGcq9w1NRzfCDk6J0EkDkYJ+c=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.01.19";
+    version = "2026.01.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.19/GeoLite2-City.mmdb";
-      sha256 = "sha256-7v484UnOmL5eKLFLsFV6sw+sqXcgs2uCAhjA5ALRPmo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.22/GeoLite2-City.mmdb";
+      sha256 = "sha256-kt37x/2pCf3GT8z/ykukaJuJm6L7TAtu/Ck4Tk/THAc=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.01.19";
+    version = "2026.01.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.19/GeoLite2-Country.mmdb";
-      sha256 = "sha256-bD+ZOVGEEKUBP8T4b4mSXs8MAQwumS0n5oKuUB3Gp0k=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.22/GeoLite2-Country.mmdb";
+      sha256 = "sha256-aPPDxH23HEcFlbFZlHUQ+o1uaUtypvBOmom0g8HvL9o=";
     };
   };
   git-mcp-server = {
@@ -223,24 +223,24 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v0.10.6-alpha.3";
+    version = "v0.10.6-alpha.4";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      rev = "v0.10.6-alpha.3";
+      rev = "v0.10.6-alpha.4";
       fetchSubmodules = false;
-      sha256 = "sha256-Gr5CkZmU6wgPmoNe17sZodeP/fuVbaDzzpkYcBamXlo=";
+      sha256 = "sha256-vCPZShMd0zFKkFKPk0g3QLFoNDRQa8DwS26ewaHgVc8=";
     };
   };
   opencode = {
     pname = "opencode";
-    version = "v1.1.28";
+    version = "v1.1.31";
     src = fetchFromGitHub {
       owner = "anomalyco";
       repo = "opencode";
-      rev = "v1.1.28";
+      rev = "v1.1.31";
       fetchSubmodules = false;
-      sha256 = "sha256-4WJs+JAmelroxvxRyTscbPGw5ryrELTri8nTy/YZAnU=";
+      sha256 = "sha256-csDcgd0V4QEG+jYIycCElTc0UbXh8FwZ5D34a7eg9wY=";
     };
   };
   pixy2 = {
@@ -257,18 +257,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601202217";
+    version = "202601212218";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geoip.dat";
       sha256 = "sha256-GyBfdD4EKx4L03sAELIySFQwFBXbzlmCVr8wczjmjDo=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601202217";
+    version = "202601212218";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geosite.dat";
-      sha256 = "sha256-0CzZ0FxdRivoIbwGfWwPsXPyCDzvBmQq0hrHxyeZ1N0=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geosite.dat";
+      sha256 = "sha256-xio8BPpZhNMjROU1HMGvJTuy/MK8GqBJA+H/gg/IZRU=";
     };
   };
   watt-toolkit-aarch64-linux = {

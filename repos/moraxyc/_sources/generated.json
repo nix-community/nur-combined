@@ -218,11 +218,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OVFyJ56s+G+DlBiVARMry1lP1qfiJtCk7L6XixzsHmw=",
+            "sha256": "sha256-SIzcw1MnhWmZMx3vTWOGcq9w1NRzfCDk6J0EkDkYJ+c=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.19/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.22/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.01.19"
+        "version": "2026.01.22"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -233,11 +233,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7v484UnOmL5eKLFLsFV6sw+sqXcgs2uCAhjA5ALRPmo=",
+            "sha256": "sha256-kt37x/2pCf3GT8z/ykukaJuJm6L7TAtu/Ck4Tk/THAc=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.19/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.22/GeoLite2-City.mmdb"
         },
-        "version": "2026.01.19"
+        "version": "2026.01.22"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -248,11 +248,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bD+ZOVGEEKUBP8T4b4mSXs8MAQwumS0n5oKuUB3Gp0k=",
+            "sha256": "sha256-aPPDxH23HEcFlbFZlHUQ+o1uaUtypvBOmom0g8HvL9o=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.19/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.22/GeoLite2-Country.mmdb"
         },
-        "version": "2026.01.19"
+        "version": "2026.01.22"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -399,12 +399,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v0.10.6-alpha.3",
-            "sha256": "sha256-Gr5CkZmU6wgPmoNe17sZodeP/fuVbaDzzpkYcBamXlo=",
+            "rev": "v0.10.6-alpha.4",
+            "sha256": "sha256-vCPZShMd0zFKkFKPk0g3QLFoNDRQa8DwS26ewaHgVc8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.6-alpha.3"
+        "version": "v0.10.6-alpha.4"
     },
     "opencode": {
         "cargoLock": null,
@@ -420,12 +420,12 @@
             "name": null,
             "owner": "anomalyco",
             "repo": "opencode",
-            "rev": "v1.1.28",
-            "sha256": "sha256-4WJs+JAmelroxvxRyTscbPGw5ryrELTri8nTy/YZAnU=",
+            "rev": "v1.1.31",
+            "sha256": "sha256-csDcgd0V4QEG+jYIycCElTc0UbXh8FwZ5D34a7eg9wY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.28"
+        "version": "v1.1.31"
     },
     "pixy2": {
         "cargoLock": null,
@@ -459,9 +459,9 @@
             "name": null,
             "sha256": "sha256-GyBfdD4EKx4L03sAELIySFQwFBXbzlmCVr8wczjmjDo=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geoip.dat"
         },
-        "version": "202601202217"
+        "version": "202601212218"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -472,11 +472,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0CzZ0FxdRivoIbwGfWwPsXPyCDzvBmQq0hrHxyeZ1N0=",
+            "sha256": "sha256-xio8BPpZhNMjROU1HMGvJTuy/MK8GqBJA+H/gg/IZRU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601202217/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geosite.dat"
         },
-        "version": "202601202217"
+        "version": "202601212218"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLock": null,
