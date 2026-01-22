@@ -381,11 +381,9 @@ rec {
     inherit (pkgs) xorg;
     wine = pkgs.winePackages.full;
   };
-  /*
-    adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
-      virtualDesktop = true;
-    };
-  */
+  adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
+    virtualDesktop = true;
+  };
 
   affinity-v3 = callPackage ./pkgs/affinity-v3 {
     inherit pkgs;

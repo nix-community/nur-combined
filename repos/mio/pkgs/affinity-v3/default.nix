@@ -15,7 +15,6 @@ let
     p7zip
     unzip
     wget
-    zstd
     ;
   inherit (build) copyDesktopIcons makeDesktopIcon mkWindowsAppNoCC;
 in
@@ -38,7 +37,7 @@ mkWindowsAppNoCC rec {
   persistRuntimeLayer = true;
   enableMonoBootPrompt = false;
   graphicsDriver = "auto";
-  enableVulkan = false; # Using vkd3d-proton instead for better compatibility
+  #enableVulkan = false; # Using vkd3d-proton instead for better compatibility
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -46,7 +45,6 @@ mkWindowsAppNoCC rec {
     p7zip
     unzip
     wget
-    zstd
   ];
 
   enabledWineSymlinks = {
@@ -87,53 +85,10 @@ mkWindowsAppNoCC rec {
     ${wget}/bin/wget -q "https://archive.org/download/win-metadata/WinMetadata.zip" -O "$winmetadata_zip"
     ${unzip}/bin/unzip -q -o "$winmetadata_zip" -d "$winmetadata_dir"
 
-    echo "Installing vkd3d-proton for OpenCL/hardware acceleration..."
-    vkd3d_url="https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v2.14.1/vkd3d-proton-2.14.1.tar.zst"
-    vkd3d_archive="$work/vkd3d-proton-2.14.1.tar.zst"
-    ${wget}/bin/wget -q "$vkd3d_url" -O "$vkd3d_archive"
-    ${zstd}/bin/zstd -d "$vkd3d_archive" -o "$work/vkd3d-proton.tar"
-    tar -xf "$work/vkd3d-proton.tar" -C "$work"
-
-    vkd3d_dir=$(find "$work" -type d -name "vkd3d-proton-*" | head -1)
-    if [ -n "$vkd3d_dir" ]; then
-      wine_lib_dir="$WINEPREFIX/drive_c/windows/system32"
-      mkdir -p "$wine_lib_dir"
-      
-      # Copy d3d12 DLLs to Wine system32
-      if [ -f "$vkd3d_dir/x64/d3d12.dll" ]; then
-        cp "$vkd3d_dir/x64/d3d12.dll" "$wine_lib_dir/"
-      fi
-      if [ -f "$vkd3d_dir/x64/d3d12core.dll" ]; then
-        cp "$vkd3d_dir/x64/d3d12core.dll" "$wine_lib_dir/"
-      fi
-      if [ -f "$vkd3d_dir/x64/dxgi.dll" ]; then
-        cp "$vkd3d_dir/x64/dxgi.dll" "$wine_lib_dir/"
-      fi
-      
-      echo "Configuring Wine DLL overrides for vkd3d-proton (d3d12 and d3d12core only)..."
-      $WINE reg add "HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides" /v d3d12 /t REG_SZ /d native /f
-      $WINE reg add "HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides" /v d3d12core /t REG_SZ /d native /f
-      $WINE reg add "HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides" /v dxgi /t REG_SZ /d native /f
-    fi
-
-    echo "Configuring Wine to use Windows 11 compatibility mode..."
-    $WINE winecfg -v win11
-
     echo "Installing Affinity from MSIX..."
     affinity_dest="$WINEPREFIX/drive_c/Program Files/Affinity"
     mkdir -p "$affinity_dest"
     cp -r "$work/msix"/* "$affinity_dest/"
-
-    # Copy vkd3d-proton DLLs to Affinity directory for OpenCL support
-    # Note: Only d3d12 and d3d12core are needed in app directory, not dxgi
-    if [ -n "$vkd3d_dir" ] && [ -d "$affinity_dest" ]; then
-      echo "Copying vkd3d-proton DLLs to Affinity directory for OpenCL..."
-      affinity_exe_dir=$(find "$affinity_dest" -name "Affinity.exe" -type f -exec dirname {} \; | head -1)
-      if [ -n "$affinity_exe_dir" ]; then
-        [ -f "$vkd3d_dir/x64/d3d12.dll" ] && cp "$vkd3d_dir/x64/d3d12.dll" "$affinity_exe_dir/"
-        [ -f "$vkd3d_dir/x64/d3d12core.dll" ] && cp "$vkd3d_dir/x64/d3d12core.dll" "$affinity_exe_dir/"
-      fi
-    fi
 
     # Find and verify Affinity.exe location
     affinity_exe=$(find "$affinity_dest" -name "Affinity.exe" -type f | head -1)
