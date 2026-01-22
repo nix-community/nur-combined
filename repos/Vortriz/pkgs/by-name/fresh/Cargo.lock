@@ -942,7 +942,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-core"
-version = "0.1.86"
+version = "0.1.87"
 dependencies = [
  "anyhow",
  "crossterm 0.28.1",
@@ -957,7 +957,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-editor"
-version = "0.1.86"
+version = "0.1.87"
 dependencies = [
  "alacritty_terminal",
  "anyhow",
@@ -1011,7 +1011,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-languages"
-version = "0.1.86"
+version = "0.1.87"
 dependencies = [
  "tracing",
  "tree-sitter",
@@ -1038,7 +1038,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-parser-js"
-version = "0.1.86"
+version = "0.1.87"
 dependencies = [
  "anyhow",
  "oxc_allocator",
@@ -1053,7 +1053,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-api-macros"
-version = "0.1.86"
+version = "0.1.87"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1062,7 +1062,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-runtime"
-version = "0.1.86"
+version = "0.1.87"
 dependencies = [
  "anyhow",
  "fresh-core",
