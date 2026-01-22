@@ -22,6 +22,9 @@
   expat,
   pango,
   libgbm,
+  libxtst,
+  krb5,
+  cups,
   dpkg,
   makeShellWrapper,
   commandLineArgs ? "",
@@ -53,6 +56,9 @@ let
     expat
     pango
     libgbm
+    libxtst
+    krb5
+    cups
   ]
   ++ (with xorg; [
     libXcomposite
