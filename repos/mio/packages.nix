@@ -368,7 +368,7 @@ rec {
 
   line = callPackage ./pkgs/line.nix {
     inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-    wine = pkgs.wineWowPackages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
+    wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
   };
   adobe-acrobat-reader = callPackage ./pkgs/adobe-acrobat-reader.nix {
     inherit (lib) mkWindowsAppNoCC makeDesktopIcon copyDesktopIcons;
