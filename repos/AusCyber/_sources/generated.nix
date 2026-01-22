@@ -638,10 +638,10 @@
   };
   helium-macos = {
     pname = "helium-macos";
-    version = "0.8.2.1";
+    version = "0.8.3.1";
     src = fetchurl {
-      url = "https://github.com/imputnet/helium-macos/releases/download/0.8.2.1/helium_0.8.2.1_arm64-macos.dmg";
-      sha256 = "sha256-Y42Fj+5KPZ2aO7XazV1CFB7liAmWSsafcXpvukJRqoM=";
+      url = "https://github.com/imputnet/helium-macos/releases/download/0.8.3.1/helium_0.8.3.1_arm64-macos.dmg";
+      sha256 = "sha256-5DKOByUwqLIdNO1U2OHY5tHivAwbYzFOaYO7wcy/QfI=";
     };
   };
   kanata = {
@@ -719,7 +719,7 @@
     version = "1.17.15b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
-      sha256 = "sha256-TzqoHM/4DH2Gu4DxVEQMQan7XtlaN8tuYDstW7nXEMg=";
+      sha256 = "sha256-s3oB521Zuamm6PAEdmdG2UBZoCa25vAsXZrfACIPyQc=";
     };
   };
 }
