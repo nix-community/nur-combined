@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchgit,
-  fetchFromGitHub,
   fetchpatch,
   callPackages,
   cmake,
@@ -24,45 +23,41 @@
   onnxruntime,
   pkg-config,
   curl,
-  tbb_2022,
+  onetbb,
 }:
 let
   rootSrc = stdenv.mkDerivation {
     pname = "iEDA-src";
-    version = "0.1.0-unstable-2025-11-01";
+    version = "0.1.0-unstable-2025-12-16";
     src = fetchgit {
       url = "https://gitee.com/oscc-project/iEDA";
-      rev = "86a0006451fff7a9b79da49173fe2b974974af26";
-      sha256 = "sha256-1TLfwiKGGNEjIv57kv15+nrv43hkjeNyMPt94XIM2AE=";
-      fetchSubmodules = true;
+      rev = "b73be0f1909294b56b2dbb27dba04b6cd9e0070d";
+      sha256 = "sha256-bvSHfQXDk7caTELtjgpSZhJdYfRzfk9VmFm2iBW2lRw=";
     };
 
     patches = [
-    # This patch is to fix the build error caused by the missing of the header file,
-    # and remove some libs or path that they hard-coded in the source code.
-    # Due to the way they organized the source code, it's hard to upstream this patch.
-    # So we have to maintain this patch locally.
-    ./patches/fix.patch
-    # Comment out the iCTS test cases that will fail due to some linking issues on aarch64-linux
-    (fetchpatch {
-      url = "https://github.com/Emin017/iEDA/commit/87c5dded74bc452249e8e69f4a77dd1bed7445c2.patch";
-      hash = "sha256-1Hd0DYnB5lVAoAcB1la5tDlox4cuQqApWDiiWtqWN0Q=";
-    })
-    ./patches/fix-cmake-require.patch
-  ];
+      # This patch is to fix the build system to properly find and link against rust libraries.
+      # Due to the way they organized the source code, it's hard to upstream this patch.
+      # So we have to maintain this patch locally.
+      (fetchpatch {
+        url = "https://github.com/Emin017/iEDA/commit/e5f3ce024965df5e1d400b6a1d7f8b5b307a4bf3.patch";
+        hash = "sha256-YJnY+r9A887WT0a/H/Zf++r1PpD7t567NpkesDmIsD0=";
+      })
+    ];
 
     dontBuild = true;
     dontFixup = true;
     installPhase = ''
       cp -r . $out
     '';
+
   };
 
   rustpkgs = callPackages ./rustpkgs.nix { inherit rootSrc; };
 in
 stdenv.mkDerivation {
   pname = "iEDA";
-  version = "0.1.0-unstable-2025-11-01";
+  inherit (rootSrc) version;
 
   src = rootSrc;
 
@@ -106,13 +101,28 @@ stdenv.mkDerivation {
     tcl
     zlib
     curl
-    tbb_2022
+    onetbb
   ];
 
   postInstall = ''
     # Tests rely on hardcoded path, so they should not be included
     rm $out/bin/*test $out/bin/*Test $out/bin/test_* $out/bin/*_app
+
+    # Copy scripts to the share directory for the test
+    mkdir -p $out/share/scripts
+    cp -r $src/scripts/hello.tcl $out/share/scripts/
   '';
+
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    # Run the tests
+    $out/bin/iEDA -script $out/share/scripts/hello.tcl
+
+    runHook postInstallCheck
+  '';
+
+  doInstallCheck = !stdenv.hostPlatform.isAarch64; # Tests will fail on aarch64-linux, wait for upstream fix: https://github.com/microsoft/onnxruntime/issues/10038
 
   enableParallelBuild = true;
 
