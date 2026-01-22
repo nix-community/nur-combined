@@ -6,63 +6,71 @@
 }:
 
 let
+  common = {
+    family = "Myosevka";
+    spacing = "fixed";
+    serifs = "sans";
+    noCvSs = true;
+    noLigation = true;
+    variants = {
+      design = rec {
+        ampersand = "upper-open";
+        at = "compact";
+        brace = "curly-flat-boundary";
+        capital-g = "toothless-corner-serifless-hooked";
+        capital-k = "symmetric-touching-serifless";
+        capital-m = "slanted-sides-hanging-serifless";
+        caret = "high";
+        eight = "crossing-asymmetric";
+        eszet = "longs-s-lig-serifless";
+        f = "flat-hook-serifless";
+        five = "oblique-arched-serifless";
+        four = "closed-serifless";
+        g = "double-storey-open";
+        j = "flat-hook-serifed";
+        k = "symmetric-touching-serifless";
+        l = "serifed-semi-tailed";
+        long-s = f;
+        lower-lambda = "straight-turn";
+        nine = "closed-contour";
+        number-sign = "upright-open";
+        one = "base";
+        pilcrow = "low";
+        paren = "large-contour";
+        seven = "curly-serifless";
+        six = "closed-contour";
+        t = "flat-hook";
+        underscore = "low";
+        y = "straight-turn-serifless";
+        zero = "reverse-slashed-cutout";
+      };
+      italic = {
+        capital-j = "descending-serifed";
+        eszet = "longs-s-lig-tailed-serifless";
+        f = "flat-hook-tailed";
+        g = "single-storey-serifless";
+        j = "serifed";
+        k = "cursive-serifless";
+        long-s = "flat-hook-descending";
+        t = "bent-hook";
+        y = "cursive-flat-hook-serifless";
+      };
+    };
+    widths.normal = {
+      shape = 600;
+      menu = 5;
+      css = "normal";
+    };
+    exportGlyphNames = true;
+  };
+
   plans = rec {
-    mono = {
-      family = "Myosevka";
-      spacing = "fixed";
-      serifs = "sans";
-      noCvSs = true;
-      noLigation = true;
+    mono = lib.recursiveUpdate common {
       variants = {
         design = rec {
-          ampersand = "upper-open";
-          at = "compact";
-          brace = "curly-flat-boundary";
-          capital-g = "toothless-corner-serifless-hooked";
-          capital-k = "symmetric-touching-serifless";
-          capital-m = "slanted-sides-hanging-serifless";
-          caret = "high";
-          eight = "crossing-asymmetric";
-          eszet = "longs-s-lig-serifless";
-          f = "flat-hook-serifless";
-          five = "oblique-arched-serifless";
-          four = "closed-serifless";
-          g = "double-storey-open";
-          j = "flat-hook-serifed";
-          k = "symmetric-touching-serifless";
-          l = "serifed-semi-tailed";
-          long-s = f;
-          lower-lambda = "straight-turn";
-          nine = "closed-contour";
-          number-sign = "upright-open";
-          one = "base";
-          pilcrow = "low";
-          paren = "large-contour";
-          seven = "curly-serifless";
-          six = "closed-contour";
-          t = "flat-hook";
-          underscore = "low";
-          y = "straight-turn-serifless";
-          zero = "reverse-slashed-cutout";
-        };
-        italic = {
-          capital-j = "descending-serifed";
-          eszet = "longs-s-lig-tailed-serifless";
-          f = "flat-hook-tailed";
-          g = "single-storey-serifless";
-          j = "serifed";
-          k = "cursive-serifless";
-          long-s = "flat-hook-descending";
-          t = "bent-hook";
-          y = "cursive-flat-hook-serifless";
+          asterisk = "penta-mid";
         };
       };
-      widths.normal = {
-        shape = 600;
-        menu = 5;
-        css = "normal";
-      };
-      exportGlyphNames = true;
     };
 
     proportional = lib.recursiveUpdate mono {
@@ -70,7 +78,7 @@ let
       spacing = "quasi-proportional";
     };
 
-    aile = lib.recursiveUpdate mono {
+    aile = lib.recursiveUpdate common {
       family = "Myosevka Aile";
       desc = "Sans-serif";
       spacing = "quasi-proportional";
@@ -109,10 +117,10 @@ let
         capital-j = "descending-serifless";
         y = "cursive";
       };
-      derivingVariants.mathtt = mono.variants;
+      derivingVariants.mathtt = common.variants;
     };
 
-    etoile = lib.recursiveUpdate mono {
+    etoile = lib.recursiveUpdate common {
       family = "Myosevka Etoile";
       desc = "Slab-serif";
       spacing = "quasi-proportional";
@@ -132,7 +140,7 @@ let
       italic = {
         f = "flat-hook-tailed";
       };
-      derivingVariants.mathtt = mono.variants;
+      derivingVariants.mathtt = common.variants;
     };
   };
 
