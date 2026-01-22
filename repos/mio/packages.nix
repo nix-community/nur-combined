@@ -359,6 +359,8 @@ rec {
 
   musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });
 
+  speed-dreams = v3overrideAttrs (pkgs.callPackage ./pkgs/speed-dreams/package.nix { });
+
 }
 // (lib.optionalAttrs (!nurbot) rec {
 
