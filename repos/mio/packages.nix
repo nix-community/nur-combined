@@ -139,6 +139,7 @@ rec {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
   browser-115-bin = pkgs.callPackage ./pkgs/115-browser-bin { };
+  browseros = pkgs.callPackage ./pkgs/browseros { };
   bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
   art-standalone = pkgs.callPackage ./pkgs/art-standalone/package.nix {
     bionic-translation = bionic-translation;
