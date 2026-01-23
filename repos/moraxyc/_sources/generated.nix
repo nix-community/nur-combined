@@ -234,13 +234,13 @@
   };
   opencode = {
     pname = "opencode";
-    version = "v1.1.31";
+    version = "v1.1.32";
     src = fetchFromGitHub {
       owner = "anomalyco";
       repo = "opencode";
-      rev = "v1.1.31";
+      rev = "v1.1.32";
       fetchSubmodules = false;
-      sha256 = "sha256-csDcgd0V4QEG+jYIycCElTc0UbXh8FwZ5D34a7eg9wY=";
+      sha256 = "sha256-XwiQq62QltzJjZzRy49BRibhLGB30eKEwIBNlmjO/aE=";
     };
   };
   pixy2 = {
@@ -257,18 +257,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601212218";
+    version = "202601222217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geoip.dat";
-      sha256 = "sha256-GyBfdD4EKx4L03sAELIySFQwFBXbzlmCVr8wczjmjDo=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601222217/geoip.dat";
+      sha256 = "sha256-P0HllTo8F/c5Yvy21TEcIJjAcWikLow6qjPDd8t3Xqc=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601212218";
+    version = "202601222217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geosite.dat";
-      sha256 = "sha256-xio8BPpZhNMjROU1HMGvJTuy/MK8GqBJA+H/gg/IZRU=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601222217/geosite.dat";
+      sha256 = "sha256-MLuNGMMaJGC8DD8rX0SgM1yWEDsW1AEni365bj7owaE=";
     };
   };
   watt-toolkit-aarch64-linux = {

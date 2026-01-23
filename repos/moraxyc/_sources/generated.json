@@ -420,12 +420,12 @@
             "name": null,
             "owner": "anomalyco",
             "repo": "opencode",
-            "rev": "v1.1.31",
-            "sha256": "sha256-csDcgd0V4QEG+jYIycCElTc0UbXh8FwZ5D34a7eg9wY=",
+            "rev": "v1.1.32",
+            "sha256": "sha256-XwiQq62QltzJjZzRy49BRibhLGB30eKEwIBNlmjO/aE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.31"
+        "version": "v1.1.32"
     },
     "pixy2": {
         "cargoLock": null,
@@ -457,11 +457,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GyBfdD4EKx4L03sAELIySFQwFBXbzlmCVr8wczjmjDo=",
+            "sha256": "sha256-P0HllTo8F/c5Yvy21TEcIJjAcWikLow6qjPDd8t3Xqc=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601222217/geoip.dat"
         },
-        "version": "202601212218"
+        "version": "202601222217"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -472,11 +472,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xio8BPpZhNMjROU1HMGvJTuy/MK8GqBJA+H/gg/IZRU=",
+            "sha256": "sha256-MLuNGMMaJGC8DD8rX0SgM1yWEDsW1AEni365bj7owaE=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601212218/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601222217/geosite.dat"
         },
-        "version": "202601212218"
+        "version": "202601222217"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLock": null,
