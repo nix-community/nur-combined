@@ -152,6 +152,7 @@ rec {
   };
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
   chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
+  dl-librescore = pkgs.callPackage ./pkgs/dl-librescore/package.nix { };
   superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
   ogre-1_11 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-1_11/package.nix { });
   angelscript_2_35_1 = v3overrideAttrs (
