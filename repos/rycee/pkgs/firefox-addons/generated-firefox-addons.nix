@@ -2013,10 +2013,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "4.2.5";
+      version = "4.2.7";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4664974/click_and_read-4.2.5.xpi";
-      sha256 = "eb77df7a891615403c637b0e97588b7b7dabb486c143633858dab2d691b575e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4672324/click_and_read-4.2.7.xpi";
+      sha256 = "7db61da63dac53cf7f42d1942e7e1af733889fafc1470d3a52125d378908f8e2";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2434,21 +2434,6 @@
         description = "Copy the text of the link.";
         license = licenses.mpl20;
         mozPermissions = [ "clipboardWrite" "menus" "scripting" ];
-        platforms = platforms.all;
-      };
-    };
-    "copy-n-paste" = buildFirefoxXpiAddon {
-      pname = "copy-n-paste";
-      version = "1.6.3";
-      addonId = "kazcfz@copy-n-paste";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4633525/copy_n_paste-1.6.3.xpi";
-      sha256 = "5e56200a58dde4e59c91a890f0e9ae2a2fa18028a3c2217ea9ac875acdda530e";
-      meta = with lib;
-      {
-        homepage = "https://github.com/kazcfz/Copy-n-Paste";
-        description = "Simplify uploading copied screenshots, images, files from your clipboard to webpages.";
-        license = licenses.gpl3;
-        mozPermissions = [ "clipboardRead" "alarms" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -8686,10 +8671,10 @@
     };
     "material-icons-for-github" = buildFirefoxXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.12.0";
+      version = "1.13.0";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649256/material_icons_for_github-1.12.0.xpi";
-      sha256 = "c4773235d93c8268b7defe8bf5d4c8fe48d65c47011da2a19463f4b2c6d3a8cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4672263/material_icons_for_github-1.13.0.xpi";
+      sha256 = "5b43b10f97ec769ca4c984defdf22efa5f5ab4d0ebae3518c6bac1c90b99c07b";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -10791,10 +10776,10 @@
     };
     "private-grammar-checker-harper" = buildFirefoxXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "1.4.1";
+      version = "1.5.1";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4660884/private_grammar_checker_harper-1.4.1.xpi";
-      sha256 = "86a009462865ab2e0fc60d604cf6780789f9137d312f8afdbbece78a7471ef69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4672920/private_grammar_checker_harper-1.5.1.xpi";
+      sha256 = "d570632485d934aead2941712c92f030f42d825874d1a70de8cd2465b9c99e69";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -11872,10 +11857,10 @@
     };
     "ruffle_rs" = buildFirefoxXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.25354";
+      version = "0.2.0.26008";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4647117/ruffle_rs-0.2.0.25354.xpi";
-      sha256 = "53961a7be6edb7be4e89e4fffd42ac6d7b4a589fb62a730d68f5f48d8637a722";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4660171/ruffle_rs-0.2.0.26008.xpi";
+      sha256 = "fa02f2dd8075f5c1a92fa0d84bdccc4eb0f2d6963e8020251ddb47e4f2bebfd8";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
