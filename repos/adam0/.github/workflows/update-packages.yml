@@ -1,0 +1,35 @@
+name: update-packages
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Run nix-update for all packages
+        run: ./scripts/update-all-packages.sh
+      - name: Import gpg key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "chore: update NUR packages"
+          title: "chore: update NUR packages"
+          body: "Automated package updates."
+          delete-branch: true
+          sign-commits: true
