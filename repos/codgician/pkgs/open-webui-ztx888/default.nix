@@ -18,5 +18,6 @@ open-webui.overrideAttrs (oldAttrs: rec {
   meta = with lib; oldAttrs.meta // {
     description = "Fork of Open WebUI with additional features and enhancements by ztx888";
     maintainers = with maintainers; [ codgician ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
 })
