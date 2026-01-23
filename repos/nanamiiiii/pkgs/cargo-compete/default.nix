@@ -5,6 +5,7 @@
   openssl,
   pkg-config,
   rustPlatform,
+  zlib,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "cargo-compete";
@@ -19,6 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     openssl
+    zlib
   ];
 
   nativeBuildInputs = [
@@ -27,6 +29,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-lid1tyR8Y6lvjpeGJ4vGzqDTY6V2y/5rL9fGyjyF3yw=";
   doCheck = false; # this requires network access
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Cargo subcommand for competitive programming";
