@@ -355,15 +355,7 @@ rec {
 
   stuntrally2 = pkgs.callPackage ./pkgs/stuntrally { };
 
-  ogre-next-445054 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-next-445054/package.nix { });
-
-  stuntrally = v3overrideAttrs (
-    pkgs.callPackage ./pkgs/stuntrally-445054/package.nix { ogre-next = ogre-next-445054; }
-  );
-
   musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });
-
-  speed-dreams = (pkgs.callPackage ./pkgs/speed-dreams/package.nix { });
 
   citron-emu = v3overrideAttrs (pkgs.callPackage ./pkgs/citron-emu/package.nix { });
 

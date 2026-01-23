@@ -193,7 +193,6 @@ let
         rocksmith2tab
         superTux
         nix-output-monitor
-        stuntrally
         musescore-evolution
         citron-emu
         ;
