@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-bc0OeqS52a1iIblor9QLIUG+0hUESRyrCVN8eIvzfiE=/Cargo.lock",
+                "sha256-tCTj172C2vKvdym5NtIdYC1KUDxDRjP_WtgOG4+aibI=/Cargo.lock",
                 {
                     "anthropic-0.0.8": "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA="
                 }
@@ -41,12 +41,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v1.12.0",
-            "sha256": "sha256-bc0OeqS52a1iIblor9QLIUG+0hUESRyrCVN8eIvzfiE=",
+            "rev": "v1.13.0",
+            "sha256": "sha256-tCTj172C2vKvdym5NtIdYC1KUDxDRjP/WtgOG4+aibI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.12.0"
+        "version": "v1.13.0"
     },
     "cowrie": {
         "cargoLock": null,
@@ -544,7 +544,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-01-17",
+        "date": "2026-01-23",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -554,13 +554,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c02c83c9e91f3e081052441330df00667abc64a8",
-            "sha256": "sha256-Qp1ALrmisXp2pr4Jz1ujvYYYP6c2rAPzsUeRAZQySoE=",
+            "rev": "86a581952134cf90c5e08986ff8aaaf7e936a1f4",
+            "sha256": "sha256-h0WQMmyc7xt9tXxjXslYb7unWfdUU8XFrH2lPjGOEkM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "c02c83c9e91f3e081052441330df00667abc64a8"
+        "version": "86a581952134cf90c5e08986ff8aaaf7e936a1f4"
     },
     "rime-loengfan": {
         "cargoLock": null,
