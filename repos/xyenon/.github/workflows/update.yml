@@ -1,0 +1,76 @@
+name: "Update packages"
+on:
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Setup git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Install nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+        with:
+          extra-conf: |
+            access-tokens = github.com=${{ github.token }}
+      - name: Setup cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: nur-xyenon
+          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Build nvfetcher
+        run: |
+          git clone --depth 1 https://github.com/berberman/nvfetcher.git /tmp/nvfetcher
+          nix build /tmp/nvfetcher -o /tmp/nvfetcher/result --accept-flake-config
+          cachix push nur-xyenon /tmp/nvfetcher/result
+      - name: Check if weekly update
+        id: weekly
+        run: |
+          if [ "$(date +%u)" = "5" ]; then
+            echo "is_weekly=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_weekly=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Update flake inputs (weekly)
+        if: github.event_name == 'workflow_dispatch' || steps.weekly.outputs.is_weekly == 'true'
+        run: nix flake update --commit-lock-file --accept-flake-config
+      - name: Setup nvchecker keyfile
+        run: |
+          mkdir -p ~/.config/nvchecker
+          echo '[keys]' > ~/.config/nvchecker/keyfile.toml
+          echo 'github = "${{ github.token }}"' >> ~/.config/nvchecker/keyfile.toml
+      - name: Run update script
+        env:
+          NIX_PATH: nixpkgs=flake:nixpkgs
+        run: |
+          sed -i 's|#!nix-shell -i bash -p nvfetcher|#!nix-shell -i bash -p|' scripts/update.sh
+          sed -i 's|nvfetcher --commit-changes|/tmp/nvfetcher/result/bin/nvfetcher --commit-changes|' scripts/update.sh
+          ./scripts/update.sh
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git log origin/${{ github.ref_name }}..HEAD)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git push origin HEAD:auto-update --force
+          gh pr create --base ${{ github.ref_name }} --head auto-update \
+            --title "chore: auto update packages" \
+            --body "Automated package updates" || true
