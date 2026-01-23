@@ -99,3 +99,4 @@ files are copied from following locations. some are modified in this repo and so
 + stuntrally-445054  ogre-next-445054 <https://github.com/NixOS/nixpkgs/pull/445054>
 + pkgs/by-name/mu/musescore-evolution/ <https://github.com/NixOS/nixpkgs/pull/478650>
 + ladybird nixpkgs commit a36b8c6d6e07764f64f3d3016cdb7a557897a435
++ citron-emu <https://github.com/NixOS/nixpkgs/pull/482846>

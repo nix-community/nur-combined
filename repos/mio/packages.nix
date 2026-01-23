@@ -364,6 +364,8 @@ rec {
 
   speed-dreams = (pkgs.callPackage ./pkgs/speed-dreams/package.nix { });
 
+  citron-emu = v3overrideAttrs (pkgs.callPackage ./pkgs/citron-emu/package.nix { });
+
 }
 // (lib.optionalAttrs (!nurbot) rec {
 
