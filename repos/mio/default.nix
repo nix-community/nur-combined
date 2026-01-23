@@ -195,6 +195,7 @@ let
         nix-output-monitor
         stuntrally
         musescore-evolution
+        citron-emu
         ;
     };
   };
