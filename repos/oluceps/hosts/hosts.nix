@@ -16,6 +16,7 @@ let
     "rqbit"
     "seed"
     "alert"
+    "tgs"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"

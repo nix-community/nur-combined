@@ -33,6 +33,10 @@
           ipv6;
           route fec0::1/128 via fdcc::1;
         }
+        protocol direct k8s {
+          ipv6;
+          interface "br0";
+        }
         protocol babel {
         ${lib.concatMapStrings genLink (lib.getPeerHostListFrom config)}
           ipv6 {

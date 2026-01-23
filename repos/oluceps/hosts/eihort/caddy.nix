@@ -34,6 +34,134 @@
                     ];
                     match = [ { host = [ "alert.nyaw.xyz" ]; } ];
                   }
+
+                  # {
+                  #   handle = [
+                  #     {
+                  #       handler = "subroute";
+                  #       routes = [
+                  #         {
+                  #           handle = [
+                  #             {
+                  #               handler = "headers";
+                  #               response = {
+                  #                 replace = {
+                  #                   Cache-Control = [
+                  #                     {
+                  #                       replace = "public, immutable, max-age=31536000";
+                  #                       search_regexp = "@static";
+                  #                     }
+                  #                   ];
+                  #                 };
+                  #                 set = {
+                  #                   "@static" = [ "\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$" ];
+                  #                   X-Content-Type-Options = [ "nosniff" ];
+                  #                   X-Frame-Options = [ "SAMEORIGIN" ];
+                  #                   X-Xss-Protection = [ "1; mode=block" ];
+                  #                 };
+                  #               };
+                  #             }
+                  #           ];
+                  #         }
+                  #         {
+                  #           handle = [
+                  #             {
+                  #               handler = "rewrite";
+                  #               uri = "{http.matchers.file.relative}";
+                  #             }
+                  #           ];
+                  #           match = [
+                  #             {
+                  #               file = {
+                  #                 try_files = [
+                  #                   "{http.request.uri.path}"
+                  #                   "{http.request.uri.path}/"
+                  #                   "/index.html"
+                  #                 ];
+                  #               };
+                  #             }
+                  #           ];
+                  #         }
+                  #         {
+                  #           handle = [
+                  #             {
+                  #               handler = "subroute";
+                  #               routes = [
+                  #                 {
+                  #                   handle = [
+                  #                     {
+                  #                       handler = "rewrite";
+                  #                       strip_path_prefix = "/api";
+                  #                     }
+                  #                   ];
+                  #                 }
+
+                  #               ];
+                  #             }
+                  #           ];
+                  #           match = [
+                  #             {
+                  #               path = [ "/api/*" ];
+                  #             }
+                  #           ];
+                  #         }
+                  #         {
+                  #           handle = [
+                  #             {
+                  #               body = "healthy";
+                  #               handler = "static_response";
+                  #               status_code = 200;
+                  #             }
+                  #           ];
+                  #           match = [
+                  #             {
+                  #               path = [ "/health" ];
+                  #             }
+                  #           ];
+                  #         }
+                  #         {
+                  #           handle = [
+                  #             {
+                  #               handler = "reverse_proxy";
+                  #               upstreams = [
+                  #                 { dial = "[fdcc::3]:3335"; }
+                  #               ];
+                  #             }
+                  #           ];
+                  #           match = [
+                  #             {
+                  #               path = [ "/ws*" ];
+                  #             }
+                  #           ];
+                  #         }
+                  #         {
+                  #           handle = [
+                  #             {
+                  #               handler = "file_server";
+                  #             }
+                  #           ];
+                  #         }
+                  #       ];
+                  #     }
+                  #   ];
+                  #   match = [
+                  #     {
+                  #       host = [ "tgs.nyaw.xyz" ];
+                  #     }
+                  #   ];
+                  #   terminal = true;
+                  # }
+
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:3336"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "tgs.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
                   {
                     handle = [
                       {
@@ -186,6 +314,8 @@
                 # upstreams = [ { dial = "unix//run/misskey/rw.sock"; } ];
                 trusted_proxies = [
                   "fdcc::4"
+                  "fdcc::5"
+                  "fdcc::6"
                 ];
               }
             ];

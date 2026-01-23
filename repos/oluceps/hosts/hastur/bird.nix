@@ -26,6 +26,11 @@
         '';
       in
       ''
+        # CATCH: repack/bird.nix `if proto = "vm" then accept;`
+        protocol direct k8s {
+          ipv6;
+          interface "br0";
+        }
         protocol babel {
         ${lib.concatMapStrings genLink (lib.getPeerHostListFrom config)}
           ipv6 {

@@ -1,0 +1,173 @@
+{
+  reIf,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+reIf {
+  # users = {
+  #   groups.tg-search = { };
+  #   users.tg-search = {
+  #     isSystemUser = true;
+  #     group = "tg-search";
+  #     home = "/var/lib/tg-search";
+  #     linger = true;
+  #     createHome = true;
+  #     uid = 1039;
+  #     subUidRanges = [
+  #       {
+  #         count = 65536;
+  #         startUid = 2147483646;
+  #       }
+  #     ];
+  #     subGidRanges = [
+  #       {
+  #         count = 65536;
+  #         startGid = 2147483647;
+  #       }
+  #     ];
+  #   };
+  # };
+
+  # virtualisation.oci-containers = {
+  #   containers.telegram-search = {
+  #     volumes =
+  #       let
+  #         cabundle = pkgs.cacert.override {
+  #           extraCertificateFiles = with lib.data.ca_cert; [
+  #             root_file
+  #           ];
+  #         };
+  #       in
+  #       [
+  #         "${cabundle}/etc/ssl/certs/ca-bundle.crt:/search/ca.crt:ro"
+  #         "${cabundle}/etc/ssl/certs/ca-bundle.crt:/etc/ssl/certs/ca-certificates.crt"
+  #         "/var/lib/tg-search/data:/app/data"
+  #       ];
+  #     image = "ghcr.io/groupultra/telegram-search:latest";
+  #     ports = [
+  #       # "3333:3333"
+  #     ];
+  #     networks = [
+  #       "host"
+  #     ];
+  #     podman = {
+  #       user = "tg-search";
+  #       sdnotify = "healthy";
+  #     };
+
+  #     environment = {
+  #       NODE_EXTRA_CA_CERTS = "/search/ca.crt";
+  #       TELEGRAM_API_ID = "611335";
+  #       TELEGRAM_API_HASH = "d524b414d21f4d37f08684c1df41ac9c";
+  #       DATABASE_URL = "postgresql://telegram_search:79bb5033e3f21778@[fdcc::3]:5432/telegram_search";
+  #       MINIO_URL = "http://minio:9000";
+  #       MINIO_ACCESS_KEY = "nMq8hHO5d1whXJvClTV0";
+  #       MINIO_SECRET_KEY = "di9C5CxhQUFMSCL8I36MWyL";
+  #       MINIO_BUCKET = "telegram-search";
+  #     };
+  #   };
+  # };
+  #
+  virtualisation.oci-containers.containers."telegram-search-app" = {
+    image = "ghcr.io/groupultra/telegram-search:latest";
+
+    volumes =
+      let
+        cabundle = pkgs.cacert.override {
+          extraCertificateFiles = with lib.data.ca_cert; [
+            root_file
+          ];
+        };
+      in
+      [
+        "${cabundle}/etc/ssl/certs/ca-bundle.crt:/search/ca.crt:ro"
+        "${cabundle}/etc/ssl/certs/ca-bundle.crt:/etc/ssl/certs/ca-certificates.crt"
+        "/var/lib/tg-search/data:/app/data:rw"
+      ];
+    ports = [
+      "[fdcc::3]:3335:3000/tcp"
+      "3336:3333/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--health-cmd=curl -f http://localhost:3000/health || exit 1"
+      "--health-interval=30s"
+      "--health-retries=3"
+      "--health-timeout=10s"
+      "--network-alias=app"
+      "--network=telegram-search_default"
+    ];
+
+    environment = {
+      NODE_EXTRA_CA_CERTS = "/search/ca.crt";
+      TELEGRAM_API_ID = "611335";
+      TELEGRAM_API_HASH = "d524b414d21f4d37f08684c1df41ac9c";
+      MINIO_URL = "http://10.89.2.1:8333";
+      MINIO_BUCKET = "telegram-search";
+      # BACKEND_URL = "http://[::]:3333";
+      HOST = "::";
+    };
+    environmentFiles = [ config.vaultix.secrets.tg-search.path ];
+  };
+  systemd.services."podman-telegram-search-app" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-telegram-search_default.service"
+      "podman-volume-telegram-search_app_data.service"
+    ];
+    requires = [
+      "podman-network-telegram-search_default.service"
+      "podman-volume-telegram-search_app_data.service"
+    ];
+    partOf = [
+      "podman-compose-telegram-search-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-telegram-search-root.target"
+    ];
+  };
+
+  # Networks
+  systemd.services."podman-network-telegram-search_default" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "podman network rm -f telegram-search_default";
+    };
+    script = ''
+      podman network inspect telegram-search_default || podman network create --ipv6 telegram-search_default
+    '';
+    partOf = [ "podman-compose-telegram-search-root.target" ];
+    wantedBy = [ "podman-compose-telegram-search-root.target" ];
+  };
+
+  # Volumes
+  systemd.services."podman-volume-telegram-search_app_data" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      podman volume inspect telegram-search_app_data || podman volume create telegram-search_app_data
+    '';
+    partOf = [ "podman-compose-telegram-search-root.target" ];
+    wantedBy = [ "podman-compose-telegram-search-root.target" ];
+  };
+
+  # Root service
+  # When started, this will automatically create all resources and start
+  # the containers. When stopped, this will teardown all resources.
+  systemd.targets."podman-compose-telegram-search-root" = {
+    unitConfig = {
+      Description = "Root target generated by compose2nix.";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
+}

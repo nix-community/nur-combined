@@ -26,7 +26,7 @@
     enableIPv6 = true;
     # WARNING: THIS FAILED MY DHCP
     # interfaces.eth0.wakeOnLan.enable = true;
-    wireless.iwd.enable = true;
+    # wireless.iwd.enable = true;
     useNetworkd = true;
     useDHCP = false;
     firewall = {
@@ -52,7 +52,7 @@
         table inet filter {
         	chain forward {
             type filter hook forward priority filter; policy drop;
-            iifname "br0" oifname "vm1" ip6 saddr fdcc::3 accept
+            iifname "eno1" oifname "vm1" ip6 saddr fdcc::3 accept
         	}
         }
       '';
@@ -91,7 +91,9 @@
 
       "40-wlan0" = {
         matchConfig.MACAddress = "70:66:55:e7:1c:b1";
-        linkConfig.Name = "wlan0";
+        linkConfig = {
+          Name = "wlan0";
+        };
       };
       "30-rndis" = {
         matchConfig.Driver = "rndis_host";

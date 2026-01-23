@@ -127,8 +127,9 @@
     grafana.enable = true;
     incus = {
       enable = true;
-      bridgeAddr = "192.168.0.3/24";
+      bridgeAddr = "fdcc:3::1/64";
     };
+    telegram-search.enable = true;
   };
 
   # systemd.services.minio.serviceConfig.Environment = [

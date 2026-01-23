@@ -52,7 +52,7 @@ reIf {
       # pull = "always";
       image = "misskey/misskey:2025.10.0";
       ports = [
-        "3012:3012"
+        # "3012:3012"
       ];
       networks = [
         # "pasta:-T,5432,-T,6379,-T,7700,-T,443"

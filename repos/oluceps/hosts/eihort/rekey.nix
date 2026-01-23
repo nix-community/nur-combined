@@ -19,6 +19,7 @@ in
         mode = "400";
       };
       syncthing-hastur-api = { };
+      tg-search = { };
       synapse-s3 = { };
       synapse-oidc = {
         owner = config.systemd.services.matrix-synapse.serviceConfig.User;

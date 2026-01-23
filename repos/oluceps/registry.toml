@@ -23,7 +23,7 @@ user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ8LFIGiv5IEqra7/ky0b0UgWdTGPY1CPA9cH8rMnyf"
 link_local_addr = "fe80::216:3eff:fe66:f780/64"
 wg_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
-addrs = ["192.168.1.186"]
+addrs = ["192.168.0.10"]
 # identifiers = [{ name = "kaambl.local", type = "mdns" }]
 
 [node.eihort]

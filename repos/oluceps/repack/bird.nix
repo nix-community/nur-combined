@@ -48,6 +48,7 @@ in
 
           filter to_hortus {
             if in_hortus() && (source = RTS_BABEL || source = RTS_DEVICE) then accept;
+            if proto = "k8s" then accept;
             reject;
           };
 
