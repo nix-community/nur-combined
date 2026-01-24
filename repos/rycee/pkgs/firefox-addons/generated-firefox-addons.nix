@@ -2710,10 +2710,10 @@
     };
     "danish-language-pack" = buildFirefoxXpiAddon {
       pname = "danish-language-pack";
-      version = "148.0.20260121.90347";
+      version = "148.0.20260123.90351";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4671527/dansk_da_language_pack-148.0.20260121.90347.xpi";
-      sha256 = "63790b14dfb8a793db873e55ec13e8d67c4401ea402b5f3dbdfc54f4ecfb8e08";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4673478/dansk_da_language_pack-148.0.20260123.90351.xpi";
+      sha256 = "5244db36233b67bc29a4f08e0e99c357a14e3b35953e3fdcfecfc461147c1f9b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2923,10 +2923,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "148.0.20260121.90347";
+      version = "148.0.20260123.90351";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4671530/deutsch_de_language_pack-148.0.20260121.90347.xpi";
-      sha256 = "5ef1855324f6ba105bb97e9194ea6f23af219209ab8904b606b18b79f56830f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4673480/deutsch_de_language_pack-148.0.20260123.90351.xpi";
+      sha256 = "0ead07cb6d6725b7b2eaa9831e655d68e4569b6b53073349b07720237c07d087";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4127,10 +4127,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.8.4";
+      version = "5.8.6";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4669994/floccus-5.8.4.xpi";
-      sha256 = "92ceae42b58f51dcd9b30f4553270ca2310753a7cc82aa69f1b9811dc772d87a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4673195/floccus-5.8.6.xpi";
+      sha256 = "52a7333b9a4984df65d0ad4b0c4d26c832fff4925b3c428a994f6b17bea03cf3";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -4399,10 +4399,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "148.0.20260121.90347";
+      version = "148.0.20260123.90351";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4671464/francais_language_pack-148.0.20260121.90347.xpi";
-      sha256 = "30a18e167f30ec30aa86303985c3e75714920d7454dd78e83f5e3f9e30072bf4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4673381/francais_language_pack-148.0.20260123.90351.xpi";
+      sha256 = "df1c74ca8e6e7719784e695aab9e22271736a379fbbba685a2f96072de4d643e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4436,10 +4436,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "148.0.20260121.90347";
+      version = "148.0.20260123.90351";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4671550/gaidhlig_language_pack-148.0.20260121.90347.xpi";
-      sha256 = "a88b37faa8b9dff5890c6a989e88c8e30932b4c9514096923ff62d25f6e6381a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4673373/gaidhlig_language_pack-148.0.20260123.90351.xpi";
+      sha256 = "32aac1df15d1c47ce386e660b773eaed2bd5409420d22c1cc3553932c4791902";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5170,10 +5170,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.1.9";
+      version = "1.1.10";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4636457/hover_zoom_plus-1.1.9.xpi";
-      sha256 = "88d64c2c73f3113b19bb0fd936cd10ec28435c36c270fa6103a2a262fde6883c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4662939/hover_zoom_plus-1.1.10.xpi";
+      sha256 = "58b604782793266f78ddb0f627f17f5cdf1281ee8a143722a3af88d9dfc6e8da";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -6171,6 +6171,7 @@
           "*://*.printables.com/*"
           "*://*.erome.com/*"
           "*://*.otempo.com.br/*"
+          "*://*.listal.com/*"
         ];
         platforms = platforms.all;
       };
@@ -7309,10 +7310,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "9.0.1";
+      version = "10.0.9";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4538560/languagetool-9.0.1.xpi";
-      sha256 = "c3dffe8754fe377a641fd54ed5858246efc0358212356a20b1dcfca14530fa95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4661374/languagetool-10.0.9.xpi";
+      sha256 = "9924c58c90b4d89e40609f31557be81398ac39a25803c7223236e30350044cea";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -7335,6 +7336,10 @@
           "*://docs.google.com/document/*"
           "*://docs.google.com/presentation/*"
           "*://languagetool.org/*"
+          "https://languagetool.org/*/webextension/premium-announcement*"
+          "https://languagetool.org/webextension/premium-announcement*"
+          "http://localhost:8000/*/webextension/premium-announcement*"
+          "http://localhost:8000/webextension/premium-announcement*"
         ];
         platforms = platforms.all;
       };
@@ -12040,10 +12045,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "148.0.20260121.90347";
+      version = "148.0.20260123.90351";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4671502/scots_language_pack-148.0.20260121.90347.xpi";
-      sha256 = "7a5a5768ef2c360a4da37497834afba35850266ce1cea99fb6bb9d2c24690c5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4673422/scots_language_pack-148.0.20260123.90351.xpi";
+      sha256 = "29f42329ada06b4470780a31db61e0a6ee9d80d5fb4723ce8957676630f9f543";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
