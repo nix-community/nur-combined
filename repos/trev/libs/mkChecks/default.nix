@@ -20,14 +20,17 @@ builtins.mapAttrs (
         ];
 
         installPhase = ''
-          touch $out
+          echo "#!${pkgs.runtimeShell}" >> $out
+          echo "export PATH=${pkgs.lib.makeBinPath final.nativeBuildInputs}:$PATH" >> $out
+          echo "${final.checkPhase}" >> $out
+          chmod +x $out
         '';
 
         dontFixup = true;
       }
     )
   else
-    pkgs.stdenvNoCC.mkDerivation {
+    pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
       name = name;
       src = check.src or ./.;
       nativeBuildInputs = check.deps or check.nativeBuildInputs or [ ];
@@ -43,9 +46,12 @@ builtins.mapAttrs (
       ];
 
       installPhase = ''
-        touch $out
+        echo "#!${pkgs.runtimeShell}" >> $out
+        echo "export PATH=${pkgs.lib.makeBinPath finalAttrs.nativeBuildInputs}:$PATH" >> $out
+        echo "${finalAttrs.checkPhase}" >> $out
+        chmod +x $out
       '';
 
       dontFixup = true;
-    }
+    })
 )
