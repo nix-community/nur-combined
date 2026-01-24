@@ -7,6 +7,7 @@
   autoPatchelfHook,
   copyDesktopItems,
   makeDesktopItem,
+  icoutils,
 
   aria2,
   ffmpeg,
@@ -27,7 +28,7 @@ buildDotnetModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "yaobiao131";
     repo = "downkyicore";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-1APolFe2eq7aIZdg3Sl4DI/6lnvaAgX/GDcHx3M+o/I=";
   };
 
@@ -41,15 +42,16 @@ buildDotnetModule (finalAttrs: {
   nativeBuildInputs = [
     copyDesktopItems
   ]
-  ++ lib.optionals stdenv.isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook
+    icoutils
   ];
 
   buildInputs = [
     aria2
     ffmpeg
   ]
-  ++ lib.optionals stdenv.isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     fontconfig
     freetype
     icu
@@ -60,7 +62,7 @@ buildDotnetModule (finalAttrs: {
     (lib.getLib stdenv.cc.cc)
   ];
 
-  runtimeDeps = lib.optionals stdenv.isLinux (
+  runtimeDeps = lib.optionals stdenv.hostPlatform.isLinux (
     with xorg;
     [
       libX11
@@ -80,7 +82,7 @@ buildDotnetModule (finalAttrs: {
 
   makeWrapperArgs = [
     "--chdir"
-    "${builtins.placeholder "out"}/lib/downkyicore"
+    "${placeholder "out"}/lib/downkyicore"
   ];
 
   passthru.updateScript = ./update.sh;
@@ -93,61 +95,53 @@ buildDotnetModule (finalAttrs: {
     ln -s ${ffmpeg}/bin/ffmpeg $out/lib/downkyicore/ffmpeg/ffmpeg
     ln -s ${ffmpeg}/bin/ffprobe $out/lib/downkyicore/ffmpeg/ffprobe
 
-    if [ -f ${aria2}/share/doc/aria2/COPYING ]; then
-      install -Dm644 ${aria2}/share/doc/aria2/COPYING $out/lib/downkyicore/aria2_COPYING.txt
-    fi
-
-    if [ -f ${ffmpeg}/share/doc/ffmpeg/COPYING.GPLv3 ]; then
-      install -Dm644 ${ffmpeg}/share/doc/ffmpeg/COPYING.GPLv3 $out/lib/downkyicore/FFmpeg_LICENSE.txt
-    elif [ -f ${ffmpeg}/share/licenses/ffmpeg/COPYING.GPLv3 ]; then
-      install -Dm644 ${ffmpeg}/share/licenses/ffmpeg/COPYING.GPLv3 $out/lib/downkyicore/FFmpeg_LICENSE.txt
-    else
-      printf 'See https://ffmpeg.org/legal.html for FFmpeg licensing information.\n' > $out/lib/downkyicore/FFmpeg_LICENSE.txt
-    fi
+    printf 'See https://github.com/aria2/aria2/blob/master/COPYING for aria2 licensing information.\n' > $out/lib/downkyicore/aria2_COPYING.txt
+    printf 'See https://ffmpeg.org/legal.html for FFmpeg licensing information.\n' > $out/lib/downkyicore/FFmpeg_LICENSE.txt
 
   ''
-  + lib.optionalString stdenv.isLinux ''
-    install -Dm644 DownKyi/Resources/favicon.ico $out/share/icons/hicolor/256x256/apps/downkyicore.ico
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
+    cp DownKyi/Resources/favicon.ico downkyicore.ico
+    icotool -x downkyicore.ico
+    install -Dm444 \
+      downkyicore_*_128x128x32.png \
+      $out/share/icons/hicolor/128x128/apps/downkyicore.png
   ''
-  + lib.optionalString stdenv.isDarwin ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     app="$out/Applications/DownKyi.app"
     mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 
-    cat > "$app/Contents/Info.plist" <<EOF
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-      <key>CFBundleExecutable</key>
-      <string>DownKyi</string>
-      <key>CFBundleIdentifier</key>
-      <string>org.nurpkgs.downkyicore</string>
-      <key>CFBundleName</key>
-      <string>DownKyi</string>
-      <key>CFBundlePackageType</key>
-      <string>APPL</string>
-      <key>CFBundleShortVersionString</key>
-      <string>${finalAttrs.version}</string>
-      <key>CFBundleVersion</key>
-      <string>${finalAttrs.version}</string>
-      <key>CFBundleIconFile</key>
-      <string>downkyicore.ico</string>
-    </dict>
-    </plist>
-    EOF
+    install -Dm644 ${builtins.toFile "Info.plist" ''
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>CFBundleExecutable</key>
+        <string>DownKyi</string>
+        <key>CFBundleIdentifier</key>
+        <string>org.nurpkgs.downkyicore</string>
+        <key>CFBundleName</key>
+        <string>DownKyi</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        <key>CFBundleShortVersionString</key>
+        <string>${finalAttrs.version}</string>
+        <key>CFBundleVersion</key>
+        <string>${finalAttrs.version}</string>
+        <key>CFBundleIconFile</key>
+        <string>downkyicore.ico</string>
+      </dict>
+      </plist>
+    ''} "$app/Contents/Info.plist"
 
-    cat > "$app/Contents/MacOS/DownKyi" <<EOF
-    #!/bin/sh
-    exec "$out/bin/DownKyi" "$@"
-    EOF
-    chmod +x "$app/Contents/MacOS/DownKyi"
+    install -Dm755 ${builtins.toFile "DownKyi" ''
+      #!/bin/sh
+      exec "$out/bin/DownKyi" "$@"
+    ''} "$app/Contents/MacOS/DownKyi"
 
-    if [ -f DownKyi/Resources/favicon.ico ]; then
-      cp DownKyi/Resources/favicon.ico "$app/Contents/Resources/downkyicore.ico"
-    fi
+    cp DownKyi/Resources/favicon.ico "$app/Contents/Resources/downkyicore.ico"
   '';
 
-  desktopItems = lib.optionals stdenv.isLinux [
+  desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
       name = "downkyicore";
       desktopName = "DownKyi";
