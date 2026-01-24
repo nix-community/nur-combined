@@ -1,6 +1,6 @@
 {
     "claudecode-nvim": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-01-03",
         "extract": null,
         "name": "claudecode-nvim",
@@ -21,7 +21,7 @@
         "version": "93f8e48b1f6cbf2469b378c20b3df4115252d379"
     },
     "copyq-darwin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "copyq-darwin",
@@ -36,8 +36,8 @@
         "version": "13.0.0"
     },
     "emacs-plus": {
-        "cargoLocks": null,
-        "date": "2026-01-23",
+        "cargoLock": null,
+        "date": "2026-01-24",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,15 +49,15 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "823244e0f02a3a9fa5459f30fb90962e0713d72a",
-            "sha256": "sha256-iwx6/sXYfohgQukwji2CA/QfhHU7xBC7mMlQFJZsR9I=",
+            "rev": "b9bd7d0650585f3b7a64200c42c604245fde2170",
+            "sha256": "sha256-t+ApvSCanSPW9XG2Xh38dsZb9Vyqbgd+CcGofZtHd2o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "823244e0f02a3a9fa5459f30fb90962e0713d72a"
+        "version": "b9bd7d0650585f3b7a64200c42c604245fde2170"
     },
     "hammerspoon": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "hammerspoon",
@@ -72,7 +72,7 @@
         "version": "1.1.0"
     },
     "nixpkgs-review": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-01-10",
         "extract": null,
         "name": "nixpkgs-review",
@@ -93,7 +93,7 @@
         "version": "b4d0a817180b1a079d00d41c0a41308cb11407f7"
     },
     "paperwm-spoon": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-01-19",
         "extract": null,
         "name": "paperwm-spoon",
@@ -114,7 +114,7 @@
         "version": "3a283f0c3bd63d73a8a7119f4d6c46bd61ec85e1"
     },
     "qmk-toolbox": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "qmk-toolbox",
@@ -129,7 +129,7 @@
         "version": "0.3.3"
     },
     "qutebrowser-darwin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "qutebrowser-darwin",
@@ -144,7 +144,7 @@
         "version": "3.6.3"
     },
     "sbarlua": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-08-12",
         "extract": null,
         "name": "sbarlua",
@@ -165,7 +165,7 @@
         "version": "437bd2031da38ccda75827cb7548e7baa4aa9978"
     },
     "skills-ref": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-01-23",
         "extract": null,
         "name": "skills-ref",
@@ -186,7 +186,7 @@
         "version": "2d0014513b7c77dfee8215eaa9be8266d74b1bfb"
     },
     "skkeleton": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-01-04",
         "extract": null,
         "name": "skkeleton",
@@ -207,7 +207,7 @@
         "version": "158ae753bc5099ab12537c23152926c42b1f7c3a"
     },
     "vivaldi-darwin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "vivaldi-darwin",
@@ -222,7 +222,7 @@
         "version": "7.7.3851.67"
     },
     "zen-browser": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "zen-browser",
@@ -230,10 +230,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Lv7K5782E2ci5rtRA3SQpkZ+kVdOgYhD2Lc+L+gyFtA=",
+            "sha256": "sha256-qVGNuHuCIRL9OAzF2EKdHPA3rAVCfv1vEx6W4Mtgyik=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.17.15b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.18b/zen.macos-universal.dmg"
         },
-        "version": "1.17.15b"
+        "version": "1.18b"
     }
 }
