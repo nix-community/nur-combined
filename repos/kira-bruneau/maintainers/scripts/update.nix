@@ -6,7 +6,7 @@
   packages,
   coreutils,
   git,
-  nix,
+  lix,
   nixpkgs,
   python3,
 }:
@@ -57,7 +57,7 @@ writeShellApplication {
         lib.makeBinPath [
           coreutils
           git
-          nix
+          lix
         ]
       } \
       NIX_PATH=nixpkgs=${nixpkgs} \

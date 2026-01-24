@@ -15,7 +15,7 @@
   git,
   gnused,
   ncurses,
-  nix,
+  lix,
   nix-fast-build,
   update,
 }:
@@ -77,7 +77,7 @@ writeShellApplication {
     git
     gnused
     ncurses
-    nix
+    lix
     nix-fast-build
     update
   ];
