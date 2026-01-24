@@ -35,11 +35,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "visualglitch91";
     repo = "niri";
-    rev = "d89bfc6c94aee3af14c35508e7c110c0ea8f1682";
-    hash = "sha256-2EggcED68efzYJAG5VqGshh+hfQbQq5sRvrtT1NNPo8=";
+    rev = "8756d0aff313617fc2af014d9bc43561532278ae";
+    hash = "sha256-e+0PeGvsQNz8o/lhOEe6dHdaap2AMOQUC/buH91QAtI=";
   };
 
-  cargoHash = "sha256-CXRI9LBmP2YXd2Kao9Z2jpON+98n2h7m0zQVVTuwqYQ=";
+  cargoHash = "sha256-i9YG3xDe8JsBgwQABfQeEaz4kzH+ZO2IaPZ7hhmpgN0=";
 
   outputs = [
     "out"
@@ -48,8 +48,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postPatch = ''
     patchShebangs resources/niri-session
+
     substituteInPlace resources/niri.service \
-      --replace-fail '/usr/bin' "$out/bin"
+      --replace-fail 'ExecStart=niri ' \
+                     'ExecStart=${placeholder "out"}/bin/niri '
   '';
 
   strictDeps = true;
