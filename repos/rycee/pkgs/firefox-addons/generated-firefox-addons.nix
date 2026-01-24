@@ -9262,6 +9262,32 @@
         platforms = platforms.all;
       };
     };
+    "nextcloud-passwords" = buildFirefoxXpiAddon {
+      pname = "nextcloud-passwords";
+      version = "2.8.0";
+      addonId = "ncpasswords@mdns.eu";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4477517/nextcloud_passwords-2.8.0.xpi";
+      sha256 = "a7c7bf7bd054e619f7c280c65986c75909fc621c58accb3119e033d0567f05ba";
+      meta = with lib;
+      {
+        homepage = "https://github.com/marius-wieschollek/passwords-webextension";
+        description = "The official browser extension for the Passwords app for Nextcloud.";
+        license = licenses.lgpl3;
+        mozPermissions = [
+          "*://*/*"
+          "tabs"
+          "menus"
+          "storage"
+          "notifications"
+          "clipboardWrite"
+          "webRequest"
+          "webRequestBlocking"
+          "http://*/*"
+          "https://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "ng-inspect" = buildFirefoxXpiAddon {
       pname = "ng-inspect";
       version = "1.1resigned1";
@@ -11729,10 +11755,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "26.1.18";
+      version = "26.1.24";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4669016/refined_github-26.1.18.xpi";
-      sha256 = "7783de3e1dbeeec1fb9947a1d6e63cda259bcf4dd06b9f5d6d49e9baede60b4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4674175/refined_github-26.1.24.xpi";
+      sha256 = "ba36e08ec22ee45a14ba8893f84ed3a8b1e27bfa89e356ffcedecd0e769542a2";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";

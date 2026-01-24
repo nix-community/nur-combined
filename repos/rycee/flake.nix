@@ -28,5 +28,9 @@
 
         emacs-notmuch = ./hm-modules/emacs-notmuch.nix;
       };
+
+      nixosModules = {
+        containers-docker-support = ./modules/containers-docker-support.nix;
+      };
     };
 }
