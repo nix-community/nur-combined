@@ -14,7 +14,13 @@ pkgs.buildNpmPackage rec {
     sha256 = "sha256-96J56ryarp5ZoVZR+URPxD/0Ns6znb0wdRWeO6wgnRU=";
   };
 
-  npmDepsHash = "sha256-Bg79GVpTeRczj8bqxLeePQGIR2Kkp/WzUxvPFwDSxBw=";
+  npmDepsHash = "sha256-6fbBkdLnCs3YLdy1v76fAqmrzVRLUuiF/Juj8g0Ted4=";
+
+  postPatch =
+    # bash
+    ''
+      cp ${./package-lock.json} package-lock.json
+    '';
 
   npmBuildScript = "build:all";
 
