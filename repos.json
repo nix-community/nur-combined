@@ -1285,6 +1285,9 @@
             "file": "nur.nix",
             "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
+        "shirok1": {
+            "url": "https://github.com/shirok1/flakes"
+        },
         "shymega": {
             "url": "https://github.com/shymega/nixfigs-nur"
         },
