@@ -27,6 +27,21 @@ jobs:
           nix_conf: experimental-features = nix-command flakes
 
       - name: Update packages
+        id: update
+        continue-on-error: true
+        run: |
+          find ./pkgs -name "version.json" -type f | while read -r version_file; do
+            bun ./scripts/index.js "$version_file"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Wait before retry
+        if: steps.update.outcome == 'failure'
+        run: sleep 300
+
+      - name: Retry update packages
+        if: steps.update.outcome == 'failure'
         run: |
           find ./pkgs -name "version.json" -type f | while read -r version_file; do
             bun ./scripts/index.js "$version_file"
@@ -103,6 +118,52 @@ jobs:
             -I $PWD
 
       - name: Build nix packages
+        id: build
+        continue-on-error: true
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs 2>&1 | tee build.log
+
+      - name: Check for hash mismatches
+        if: steps.build.outcome == 'failure'
+        run: |
+          # Extract package names with hash mismatches
+          grep -oP 'attribute.*(?=.*hash mismatch)' build.log | sed 's/attribute //' | sed 's/://g' > failed_packages.txt || true
+          if [ -s failed_packages.txt ]; then
+            echo "Found packages with hash mismatches:"
+            cat failed_packages.txt
+          fi
+
+      - name: Install Bun for fixes
+        if: steps.build.outcome == 'failure'
+        uses: oven-sh/setup-bun@v2
+
+      - name: Re-run update with --force for failed packages
+        if: steps.build.outcome == 'failure'
+        run: |
+          if [ -f failed_packages.txt ] && [ -s failed_packages.txt ]; then
+            while read -r pkg; do
+              version_file="./pkgs/${pkg}/version.json"
+              if [ -f "$version_file" ]; then
+                echo "Re-running update with --force for $pkg"
+                bun ./scripts/index.js --force "$version_file" || true
+              fi
+            done < failed_packages.txt
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit hash fixes
+        if: steps.build.outcome == 'failure'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "fix: update hashes for failed packages"
+            git push
+          fi
+
+      - name: Retry build after fixes
+        if: steps.build.outcome == 'failure'
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
 
   nur:
