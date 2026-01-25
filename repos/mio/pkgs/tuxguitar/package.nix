@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   maven,
   swt,
   jdk,
@@ -285,7 +284,7 @@ stdenv.mkDerivation (finalAttrs: {
       in Java-SWT. It can open GuitarPro, PowerTab and TablEdit files.
     '';
     homepage = "https://github.com/helge17/tuxguitar";
-    license = lib.licenses.lgpl2Plus;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [
       ardumont
       mio

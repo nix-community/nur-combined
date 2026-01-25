@@ -91,47 +91,27 @@ buildDotnetModule (finalAttrs: {
   postInstall = ''
     mkdir -p $out/lib/downkyicore/{aria2,ffmpeg}
 
-    ln -s ${aria2}/bin/aria2c $out/lib/downkyicore/aria2/aria2c
-    ln -s ${ffmpeg}/bin/ffmpeg $out/lib/downkyicore/ffmpeg/ffmpeg
-    ln -s ${ffmpeg}/bin/ffprobe $out/lib/downkyicore/ffmpeg/ffprobe
+    ln -s ${lib.getExe aria2} $out/lib/downkyicore/aria2/aria2c
+    ln -s ${lib.getExe' ffmpeg "ffmpeg"} $out/lib/downkyicore/ffmpeg/ffmpeg
+    ln -s ${lib.getExe' ffmpeg "ffprobe"} $out/lib/downkyicore/ffmpeg/ffprobe
 
     printf 'See https://github.com/aria2/aria2/blob/master/COPYING for aria2 licensing information.\n' > $out/lib/downkyicore/aria2_COPYING.txt
     printf 'See https://ffmpeg.org/legal.html for FFmpeg licensing information.\n' > $out/lib/downkyicore/FFmpeg_LICENSE.txt
 
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
-    cp DownKyi/Resources/favicon.ico downkyicore.ico
-    icotool -x downkyicore.ico
+    icotool -x DownKyi/Resources/favicon.ico
     install -Dm444 \
-      downkyicore_*_128x128x32.png \
+      favicon_*_128x128x32.png \
       $out/share/icons/hicolor/128x128/apps/downkyicore.png
   ''
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
     app="$out/Applications/DownKyi.app"
     mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 
-    install -Dm644 ${builtins.toFile "Info.plist" ''
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-      <dict>
-        <key>CFBundleExecutable</key>
-        <string>DownKyi</string>
-        <key>CFBundleIdentifier</key>
-        <string>org.nurpkgs.downkyicore</string>
-        <key>CFBundleName</key>
-        <string>DownKyi</string>
-        <key>CFBundlePackageType</key>
-        <string>APPL</string>
-        <key>CFBundleShortVersionString</key>
-        <string>${finalAttrs.version}</string>
-        <key>CFBundleVersion</key>
-        <string>${finalAttrs.version}</string>
-        <key>CFBundleIconFile</key>
-        <string>downkyicore.ico</string>
-      </dict>
-      </plist>
-    ''} "$app/Contents/Info.plist"
+    install -Dm644 ${./Info.plist} "$app/Contents/Info.plist"
+    substituteInPlace "$app/Contents/Info.plist" \
+      --replace-fail "@version@" "${finalAttrs.version}"
 
     install -Dm755 ${builtins.toFile "DownKyi" ''
       #!/bin/sh
@@ -159,7 +139,7 @@ buildDotnetModule (finalAttrs: {
     description = "Cross-platform Bilibili downloader built with Avalonia";
     homepage = "https://github.com/yaobiao131/downkyicore";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [ mio ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "DownKyi";
   };
