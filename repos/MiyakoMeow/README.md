@@ -98,7 +98,7 @@ This section is auto-generated. Do not edit manually.
 | `beatoraja` | [0.8.8](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/be/beatoraja/package.nix) | [🏠Homepage](https://www.mocha-repository.info/download.php) A modern BMS Player |
 | `clang-minimal` | [21.1.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/clang-minimal/package.nix) | [🏠Homepage](https://clang.llvm.org/) C language family frontend for LLVM (wrapper script) |
 | `claude-code-setting-switcher` | [0-unstable-2025-07-15](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/claude-code-setting-switcher/package.nix) | [🏠Homepage](https://github.com/yoyooyooo/claude-code-config) Claude Code configuration switcher - tool for managing different Claude API configurations |
-| `continue-cli` | [1.5.35](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/co/continue-cli/package.nix) | [🏠Homepage](https://continue.dev) [📝Changelog](https://changelog.continue.dev) Continue CLI |
+| `continue-cli` | [1.5.36](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/co/continue-cli/package.nix) | [🏠Homepage](https://continue.dev) [📝Changelog](https://changelog.continue.dev) Continue CLI |
 | `free-download-manager` | [6.33.0.6626](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fr/free-download-manager/package.nix) | [🏠Homepage](https://www.freedownloadmanager.org/) FDM is a powerful modern download accelerator and organizer. |
 | `hn-linux-client` | [V2-64](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/hn/hn-linux-client/package.nix) | [🏠Homepage](http://222.246.130.17:37209/) HN Linux Client, for net interface of China Telecom in HUNAN University |
 | `jportaudio` | [0-unstable-2025-10-24](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/jp/jportaudio/package.nix) | [🏠Homepage](https://github.com/philburk/portaudio-java) Java wrapper for PortAudio audio library |
@@ -107,7 +107,7 @@ This section is auto-generated. Do not edit manually.
 | `lr2oraja` | [build11611350155](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/lr/lr2oraja/package.nix) | [🏠Homepage](https://github.com/wcko87/lr2oraja) lr2oraja - A beatoraja fork |
 | `lr2oraja-endlessdream` | [0.4.0](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/lr/lr2oraja-endlessdream/package.nix) | [🏠Homepage](https://github.com/seraxis/lr2oraja-endlessdream) lr2oraja-endlessdream - A BMS player based on beatoraja |
 | `mbmconfig` | [3.24.0824.0](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/mb/mbmconfig/package.nix) | [🏠Homepage](https://mistyblue.info) mBMconfig - GUI configuration tool for mBMplay (runs via Wine) |
-| `mbmplay` | [3.24.0824.1](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/mb/mbmplay/package.nix) | [🏠Homepage](https://mistyblue.info) mBMplay - BMS 播放器 (通过 Wine 运行) |
+| `mbmplay` | [3.24.0824.1](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/mb/mbmplay/package.nix) | [🏠Homepage](https://mistyblue.info) mBMplay - BMS previewer (runs via Wine) |
 | `pbmsc` | [3.5.5.16](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/pb/pbmsc/package.nix) | [🏠Homepage](https://github.com/psyk2642/iBMSC) pBMSC (iBMSC Windows build) packaged to run with Wine |
 
 ### grub-themes
