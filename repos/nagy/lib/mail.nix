@@ -51,6 +51,8 @@
         [[ ! -d "INBOX" ]] && exit 1
         exec mbsync --config="$CONFIG_FILE" --all "$@"
       '';
+      derivationArgs.preferLocalBuild = true;
+      derivationArgs.allowSubstitutes = false;
     };
 
   mkMsmtpAccount =
@@ -70,5 +72,7 @@
       text = ''
         exec msmtp --file="$CONFIG_FILE" "$@"
       '';
+      derivationArgs.preferLocalBuild = true;
+      derivationArgs.allowSubstitutes = false;
     };
 }

@@ -15,6 +15,7 @@ in
     };
     config = ''
       . {
+        bind 127.0.0.1
         forward . tls://1.1.1.1 tls://1.0.0.1 {
             tls_servername cloudflare-dns.com
         }
@@ -25,7 +26,10 @@ in
         log
       }
 
-      ygg. {
+      # Alfis
+      # https://github.com/Revertron/Alfis
+      anon. btn. conf. index. merch. mirror. mob. screen. srv. ygg. {
+        bind 127.0.0.1
         hosts /etc/hosts {
           fallthrough
         }
@@ -38,6 +42,7 @@ in
       }
       # do not resolve onion domains
       onion. {
+        bind 127.0.0.1
         template ANY ANY {
             rcode NXDOMAIN
         }
@@ -45,6 +50,7 @@ in
 
       # do not resolve i2p domains
       i2p. {
+        bind 127.0.0.1
         template ANY ANY {
             rcode NXDOMAIN
         }

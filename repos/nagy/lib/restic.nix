@@ -16,11 +16,11 @@
       name = "restic-${name}";
       runtimeInputs = [ pkgs.restic ];
       runtimeEnv = {
-        RESTIC_READ_CONCURRENCY = 1;
         RESTIC_REPOSITORY = repo;
         RESTIC_CACHE_DIR = "/tmp/restic-cache-${name}";
         RESTIC_FROM_REPOSITORY = fromRepo;
-      } // runtimeEnv;
+      }
+      // runtimeEnv;
       derivationArgs.passthru = {
         inherit repo;
         shortcommands = lib.optionalAttrs (shortcut != null) {
@@ -45,5 +45,7 @@
       text = ''
         exec restic "$@"
       '';
+      derivationArgs.preferLocalBuild = true;
+      derivationArgs.allowSubstitutes = false;
     };
 }

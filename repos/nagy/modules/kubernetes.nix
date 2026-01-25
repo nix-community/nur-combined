@@ -23,6 +23,8 @@ in
       pkgs.k9s
       pkgs.crane
       pkgs.calicoctl
+      pkgs.nerdctl
+      pkgs.cri-tools
     ]
     ++ (lib.optionals (!config.services.k3s.enable) [
       pkgs.kubectl # this otherwise conflicts with the k3s provided binary

@@ -30,5 +30,11 @@ in
       ];
     };
 
+    # From https://nixos.wiki/wiki/Firefox
+    # You can make Firefox use xinput2 by setting the MOZ_USE_XINPUT2 environment
+    # variable. This improves touchscreen support and enables additional touchpad
+    # gestures. It also enables smooth scrolling as opposed to the stepped
+    # scrolling that Firefox has by default.
+    environment.sessionVariables = lib.mkIf config.services.xserver.enable { MOZ_USE_XINPUT2 = "1"; };
   };
 }

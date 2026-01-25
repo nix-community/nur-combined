@@ -3,10 +3,11 @@
 }:
 
 rec {
-  cargoCratesIoRegistryGit = pkgs.fetchgit {
-    url = "https://github.com/rust-lang/crates.io-index";
-    rev = "84dea051f93bb0c0834c9643e2ac2957ed9d7d8a";
-    hash = "sha256-dU2Cd9NAnxl6ians1TMftKIx3PGm6gV7ZtCmC56yocY=";
+  cargoCratesIoRegistryGit = pkgs.fetchFromGitHub {
+    owner = "rust-lang";
+    repo = "crates.io-index";
+    rev = "e3e22b04deaf9f0c580de8c4f8f684c52b0fb189";
+    hash = "sha256-GNnUkTXZSz6/QHSpWvOqeQ/YZb+/jUnR1Ny0WYUJRNg=";
   };
 
   cargoConfigWithLocalRegistry =
@@ -18,17 +19,13 @@ rec {
         }
       ];
     in
-    pkgs.writeTextFile {
-      name = "cargo_config";
-      destination = "/config.toml";
-      text = ''
-        [source]
-        [source.crates-io]
-        replace-with = "local-copy"
-        [source.local-copy]
-        local-registry = "${linkfarm}"
-      '';
-    };
+    pkgs.writeTextDir "config.toml" ''
+      [source]
+      [source.crates-io]
+      replace-with = "local-copy"
+      [source.local-copy]
+      local-registry = "${linkfarm}"
+    '';
 
   mkCargoLock =
     { file }:
@@ -78,7 +75,7 @@ rec {
         ln -s $cargotoml Cargo.toml
         mkdir src
         touch src/main.rs
-        cargo doc --no-deps --package "${name}" --offline
+        cargo doc --package "${name}" --offline
 
         runHook postBuild
       '';

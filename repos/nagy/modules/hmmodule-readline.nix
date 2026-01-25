@@ -1,5 +1,14 @@
 {
+  pkgs,
+  ...
+}:
+{
   imports = [ ./hmconvert.nix ];
+
+  config.environment.systemPackages = [
+    pkgs.tree
+    pkgs.gnumake
+  ];
 
   config.homeconfig.programs.readline = {
     enable = true;

@@ -23,6 +23,8 @@ let
             rev = "55eb75635490ec89c0903ccc21fd5c37fdb2a8d6";
             hash = "sha256-SZH4foUlazaJwlJAYGJNw2iTTvyQ6nrs1RhxppStILI=";
           };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
         };
         memoize = super.memoize.overrideAttrs {
           src = pkgs.fetchFromGitHub {
@@ -31,6 +33,8 @@ let
             rev = "985e95846b3442d0a9e87eeff2d8259ccaf0598f";
             hash = "sha256-EYq/3EPHvQSzdZ79eXONsyTcapr2CAQ6c14kHr5ug90=";
           };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
         };
         hy-mode = super.hy-mode.overrideAttrs {
           src = pkgs.fetchFromGitHub {
@@ -39,9 +43,30 @@ let
             rev = "202b05423fe6b520c8c5d5cc1b87134bfd2c89b6";
             hash = "sha256-buDciWz8nbf0a8M2IPUZpbyQPHSugZCYDZqwSKIQqFY=";
           };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
         };
+        nix-mode = super.nix-mode.overrideAttrs (
+          {
+            packageRequires ? [ ],
+            ...
+          }:
+          {
+            src = pkgs.fetchFromGitHub {
+              owner = "nagy";
+              repo = "nix-mode";
+              rev = "511b48de3f2aad8d34d029c6fa2f5aa7acf52492";
+              hash = "sha256-rUzBsIA5v7xzwBq6U2VCl4cu2aP14qA9tjc46KO9enc=";
+            };
+            packageRequires = packageRequires ++ [ super.dash ];
+            preferLocalBuild = true;
+            allowSubstitutes = false;
+          }
+        );
         lua = super.lua.override {
           lua = pkgs.lua5_4;
+          preferLocalBuild = true;
+          allowSubstitutes = false;
         };
         hledger-mode = super.hledger-mode.overrideAttrs {
           src = builtins.fetchTarball "https://github.com/nagy/hledger-mode/archive/master.tar.gz";
