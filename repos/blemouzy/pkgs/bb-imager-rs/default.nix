@@ -7,24 +7,33 @@
   wayland,
   libxkbcommon,
   vulkan-loader,
+  pkg-config,
+  openssl,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bb-imager-rs";
-  version = "0.0.14";
+  version = "0.0.19";
 
   src = fetchFromGitHub {
     owner = "beagleboard";
     repo = "bb-imager-rs";
-    rev = "v${version}";
-    hash = "sha256-6kMPWGdnl/nlZqELLA2tZ54edFmDwh4ZeuF18Ru35Ik=";
+    rev = "${version}";
+    hash = "sha256-ecvCxmQ/aF/GpqKBiaK2xAzoejhyZ3hHVYolWPD6XGo=";
   };
 
-  cargoHash = "sha256-+hXyUpFktUH44y5TB583gI6cfPqKH4GyX6Qun5tY1JE=";
+  cargoHash = "sha256-zuwDO6++6N4EqXNrWxh1WG1E3Gj6aYT+g1WE47vsvtA=";
 
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+
+  buildInputs = [
+    openssl
+  ];
 
   cargoBuildFlags = [
     "--bin"
