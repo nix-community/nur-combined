@@ -44,7 +44,13 @@
       );
 
       packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+        system:
+        let
+          lib = nixpkgs.lib;
+        in
+        lib.filterAttrs (
+          _: v: lib.isDerivation v && lib.meta.availableOn system v
+        ) self.legacyPackages.${system}
       );
     };
 }
