@@ -5,15 +5,15 @@
     "url": "https://www.gimp.org/gimp_versions.json",
     "version_path": ".STABLE[0].version"
   },
-  "version": "3.0.6",
+  "version": "3.0.8",
   "platforms": {
     "x86_64-darwin": {
-      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-{version}-x86_64.dmg",
-      "hash": "sha256-AmeuCdiOHUsSGBD73LkfMzlEIBsLAuKv27+r0aBGpVE="
+      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-3.0.8-x86_64.dmg",
+      "hash": "sha256-bR4rCPf7FkJn/bDm0YhZoqTxhlWj/sPPpveZXwyt4ZM="
     },
     "aarch64-darwin": {
-      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-{version}-arm64.dmg",
-      "hash": "sha256-b05/jtfr+oDctuDAX5sda9PVqZHpmrwvM5HPN7/ZfXA="
+      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-3.0.8-arm64.dmg",
+      "hash": "sha256-0U688v/UkgpJGVt/L9UMrhIME18+5pR6CO/qLdw4kTQ="
     }
   }
 }

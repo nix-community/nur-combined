@@ -54,7 +54,7 @@ async function platforms(file, { config, force }) {
     for (const [platform, settings] of Object.entries(platforms)) {
         let final;
 
-        if (!config.source.url_path) url = apply(settings.url.replace(/\{version\}/g, parsed), settings.substitutions);
+        if (!config.source.url_path) final = apply(settings.url.replace(/\{version\}/g, parsed), settings.substitutions);
         else {
             let link = apply(config.source.url, settings.substitutions);
 
