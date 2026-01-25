@@ -130,16 +130,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.5.4";
+    version = "1.1.5.5";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "1.1.5.4";
+      rev = "1.1.5.5";
       fetchSubmodules = false;
-      sha256 = "sha256-iyDc4NNCG9XQMsNYvtBfhkGJFtbWO/Vx1ueCMVXy5VY=";
+      sha256 = "sha256-fLCQ8TguCIe6qjN5XjvQIiCHg91Ry1uoqgO5DmjNqY4=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-iyDc4NNCG9XQMsNYvtBfhkGJFtbWO_Vx1ueCMVXy5VY=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-fLCQ8TguCIe6qjN5XjvQIiCHg91Ry1uoqgO5DmjNqY4=/pubspec.lock";
     };
   };
   pixes = {
@@ -184,21 +184,21 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "9eb2fbe032e96f96671655296d737c0223403f43";
+    version = "5f9300b0647ee940ae29f3a57747802f6c7c51cb";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "9eb2fbe032e96f96671655296d737c0223403f43";
+      rev = "5f9300b0647ee940ae29f3a57747802f6c7c51cb";
       fetchSubmodules = false;
-      sha256 = "sha256-j7ZHO2wJ3GebeM9buoSRhPtlHd1Nwx0M3Bm6jB2FUSQ=";
+      sha256 = "sha256-7JqwJPKdcrKayFFr/1ixxHm32G2Ch6LLAJ0m9GApT/g=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-j7ZHO2wJ3GebeM9buoSRhPtlHd1Nwx0M3Bm6jB2FUSQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-7JqwJPKdcrKayFFr_1ixxHm32G2Ch6LLAJ0m9GApT_g=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-01-24";
+    date = "2026-01-25";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
