@@ -25,12 +25,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "antigravity";
-  version = "1.15.6-5250816192937984";
+  version = "1.15.8-5724687216017408";
 
   # https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.13.3-4533425205018624/linux-x64/Antigravity.tar.gz
   src = fetchurl {
     url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${finalAttrs.version}/linux-x64/Antigravity.tar.gz";
-    hash = "sha256-45mxPkttjsW1enRkeKh7D3ZS+KaQJP69TCXshHpMjqY=";
+    hash = "sha256-RK/HbgZZm17tjqto2z0sVTx36mucx2UiUOPRpYu7FJg=";
   };
 
   nativeBuildInputs = [
