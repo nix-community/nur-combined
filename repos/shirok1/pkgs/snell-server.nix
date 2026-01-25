@@ -2,7 +2,9 @@
   lib,
   stdenv,
   fetchzip,
-  buildFHSEnv,
+  autoPatchelfHook,
+  libgcc,
+  upx,
 }:
 
 let
@@ -39,10 +41,20 @@ let
   };
 
 in
-buildFHSEnv {
-  inherit pname version;
+stdenv.mkDerivation {
+  inherit pname version src;
 
-  runScript = "${src}/${pname}";
+  nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [
+    libgcc.lib
+    upx
+  ];
+
+  installPhase = ''
+    mkdir -p $out/bin
+    install -Dm755 $src/$pname $out/bin/$pname
+    upx -d $out/bin/$pname
+  '';
 
   meta = with lib; {
     description = "Snell is a lean encrypted proxy protocol developed by Surge team";

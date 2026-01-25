@@ -12,7 +12,7 @@
 let
   pname = "stata";
   majorVersion = "19.5";
-  buildDate = "2025-04-08";
+  buildDate = "2025-05-07";
 
   isstataSuffix = builtins.replaceStrings [ "." ] [ "" ] majorVersion;
 in
@@ -22,14 +22,8 @@ stdenv.mkDerivation {
 
   src = pkgs.requireFile {
     name = "StataNow19Linux64.tar.gz";
-    message = ''
-      Please add the StataNow installer archive to the Nix store.
-
-      For example:
-        nix-store --add-fixed sha256 ./StataNow19Linux64.tar.gz
-      or put it into a directory listed in nix.conf's extra-sandbox-paths.
-    '';
-    sha256 = "sha256-miGGUs8wQh9GxasWCX3xx3Tjo0r2CeqNhuxENBWomuE=";
+    url = "https://www.stata.com/";
+    sha256 = "sha256-X1aRoxJSgVLJEDAuBff7BbLY+DEHgOQ1sQXNAe3XY6M=";
   };
 
   nativeBuildInputs = [
@@ -65,7 +59,7 @@ stdenv.mkDerivation {
     tar xzf unix/linux64/ado.taz --directory=$out
     tar xzf unix/linux64/docs.taz --directory=$out
 
-    if [ ! -f "isstata.${isstataSuffix}" ]; then
+    if [ ! -f "$out/isstata.${isstataSuffix}" ]; then
       echo "ERROR: expected marker file isstata.${isstataSuffix} not found"
       echo "  (derived from majorVersion=${majorVersion})"
       echo "  available isstata.* files:"

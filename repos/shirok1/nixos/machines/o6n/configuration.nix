@@ -384,7 +384,7 @@
   };
 
   services.clickhouse = {
-    enable = true;
+    enable = false;
     serverConfig = {
       listen_host = "::";
       http_port = 8234;
@@ -404,15 +404,9 @@
   };
 
   services.snell-server = {
-    enable = false;
+    enable = true;
     package = pkgs.shirok1.snell-server;
-    settings = {
-      snell-server = {
-        listen = "0.0.0.0:13831";
-        psk = "this_is_fake";
-        ipv6 = "true";
-      };
-    };
+    settingsFile = "/etc/snell-server.conf";
   };
 
   # Open ports in the firewall.
