@@ -18,7 +18,7 @@
   prettifyJsonLog = pkgs.callPackage ./pkgs/prettifyJsonLog {
     buildPythonPackage = pkgs.python3Packages.buildPythonPackage;
     fetchPypi = pkgs.python3Packages.fetchPypi;
-    setuptools_scm = pkgs.python3Packages.setuptools_scm;
+    setuptools_scm = pkgs.python3Packages.setuptools-scm;
   };
   startFirefox = pkgs.callPackage ./pkgs/startFirefox { };
 }
