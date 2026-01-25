@@ -23,7 +23,7 @@ in
       services.openssh.enable = true;
     };
 
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-server;
+    # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-server;
 
     # UTC is the default but we explicitly set it to disallow imperative changing.
     time.timeZone = "UTC";

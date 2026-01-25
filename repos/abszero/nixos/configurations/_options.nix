@@ -60,6 +60,7 @@ in
           inputs.disko.nixosModules.disko
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nixified-ai.nixosModules.comfyui
+          inputs.wisp.nixosModules.wisp
           inputs.catppuccin.nixosModules.catppuccin
           (toModuleList ../../lib/modules)
           (toModuleList ../modules)

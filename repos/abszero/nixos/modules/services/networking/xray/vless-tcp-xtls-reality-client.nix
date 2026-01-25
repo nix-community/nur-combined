@@ -11,8 +11,8 @@ let
       domainStrategy = "IPIfNonMatch";
       rules = [
         {
-          domain = [ "geosite:category-ads-all" ];
-          outboundTag = "block";
+          inboundTag = [ "api-in" ];
+          outboundTag = "api-out";
         }
         {
           port = 53;
@@ -23,6 +23,10 @@ let
         {
           port = 123;
           outboundTag = "direct";
+        }
+        {
+          domain = [ "geosite:category-ads-all" ];
+          outboundTag = "block";
         }
         {
           domain = [
@@ -56,18 +60,40 @@ let
       # Then, since sniffing is enabled and destOverride is set to fakedns,
       # Xray inspects all packets and overrides fake IPs with the corresponding
       # domain. Finally, traffic is routed using the domain name.
-      "fakedns"
-      # Alidns. Not sure if DoH does anything as CCP has obvious access to all
-      # DNS requests anyway. Thankfully, since fakedns is used and most requests
-      # are matched using domain rules, DNS requests will not be made for
-      # blocked sites. `+local` sends DNS requests by freedom outbound,
+      {
+        address = "fakedns";
+        # Prioritize fakedns before the other servers
+        domains = [ "geosite:google-cn" ];
+      }
+
+      # Since most requests sent to proxy are matched with domain rules, DNS
+      # requests are never sent to resolve their domains. The following DNS
+      # servers are used to resolve IP for routing and for freedom output.
+
+      # Avoid possible surveillance of google cn
+      # https://xtls.github.io/document/level-1/routing-with-dns.html
+      {
+        address = "https://1.1.1.1/dns-query";
+        domains = [ "geosite:google-cn" ];
+        skipFallback = true;
+        finalQuery = true; # Terminate DNS lookup chain
+      }
+      # Not sure if DoH does anything as CCP has obviously access to all DNS
+      # requests anyway. `+local` sends DNS requests by freedom outbound,
       # bypassing the routing module.
       {
-        address = "https+local://223.5.5.5/dns-query";
-        expectIPs = [ "geoip:cn" ];
+        address = "https+local://223.5.5.5/dns-query"; # Alidns
+        expectedIPs = [ "geoip:cn" ];
       }
-      "https://1.1.1.1/dns-query"
-      "https://8.8.8.8/dns-query"
+      # Attempt to request IP optimized for China using EDNS Client Subnet (ECS)
+      {
+        address = "https://1.1.1.1/dns-query";
+        clientIP = "202.96.209.133"; # China Telecom Shanghai DNS server IP
+      }
+      {
+        address = "https://8.8.8.8/dns-query";
+        clientIP = "202.96.209.133";
+      }
     ];
 
     inbounds = [
@@ -78,7 +104,12 @@ let
         port = 1;
         sniffing = {
           enabled = true;
-          destOverride = [ "fakedns" ];
+          destOverride = [
+            "fakedns"
+            "http"
+            "tls"
+            "quic"
+          ];
         };
         settings = {
           network = "tcp,udp";
@@ -93,7 +124,12 @@ let
         port = 10808;
         sniffing = {
           enabled = true;
-          destOverride = [ "fakedns" ];
+          destOverride = [
+            "fakedns"
+            "http"
+            "tls"
+            "quic"
+          ];
         };
         settings.udp = true;
       }
@@ -103,8 +139,19 @@ let
         port = 10809;
         sniffing = {
           enabled = true;
-          destOverride = [ "fakedns" ];
+          destOverride = [
+            "fakedns"
+            "http"
+            "tls"
+            "quic"
+          ];
         };
+      }
+      {
+        protocol = "tunnel";
+        listen = "127.0.0.1";
+        port = 8080;
+        tag = "api-in";
       }
     ];
 
@@ -150,6 +197,23 @@ let
         protocol = "dns";
       }
     ];
+
+    # Enable api server for stats
+    api = {
+      tag = "api-out";
+      services = [ "StatsService" ];
+    };
+
+    # Enable stats
+    stats = { };
+
+    # Enable traffic stats collection
+    policy.system = {
+      statsInboundUplink = true;
+      statsInboundDownlink = true;
+      statsOutboundUplink = true;
+      statsOutboundDownlink = true;
+    };
   };
 
   # About tproxy:

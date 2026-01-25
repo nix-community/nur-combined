@@ -20,7 +20,7 @@ in
       enable = true;
       fonts.enable = true;
     };
-    services.displayManager.sddm.catppuccin = {
+    catppuccin.sddm = {
       enable = true;
       font = "Open Sans";
       fontSize = "14";

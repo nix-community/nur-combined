@@ -40,7 +40,9 @@ in
       };
     };
 
-    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.07" ];
+    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.10" ];
+
+    hardware.keyboard.qmk.enable = true;
 
     virtualisation.waydroid.enable = true;
 
@@ -53,6 +55,7 @@ in
       dconf.enable = true;
       kdeconnect.enable = true;
       nix-ld.enable = true;
+      wisp.enable = true;
     };
 
     environment = {

@@ -140,6 +140,10 @@ in
             matches = [
               { app-id = "org\\.kde\\.polkit-kde-authentication-agent-1"; }
               { app-id = "it\\.mijorus\\.smile"; }
+              {
+                title = "Enter an arbitrary keycode";
+                app-id = "Vial";
+              }
             ];
           }
           # Float up and down

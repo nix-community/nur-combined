@@ -89,10 +89,12 @@ in
       };
       resolved = {
         enable = true;
-        fallbackDns = [ ]; # disable fallback DNS
-        dnsovertls = "true";
-        dnssec = "true";
-        llmnr = "false"; # For security
+        settings.Resolve = {
+          FallbackDNS = []; # Disable fallback DNS
+          DNSOverTLS = "true";
+          DNSSEC = "true";
+          LLMNR = "false"; # For security
+        };
       };
       scx = {
         enable = true;

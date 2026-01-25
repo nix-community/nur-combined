@@ -7,11 +7,6 @@ let
   cfg = config.abszero.services.xray;
 
   xraySettings = {
-    log = {
-      loglevel = "info";
-      dnsLog = true;
-    };
-
     # Never EVER proxy Chinese websites as GFW is known to recognise and record
     # the proxy server's IP. Traffic to Chinese websites should be direct on the
     # client side but also blocked on the server side just to be sure.
@@ -20,10 +15,13 @@ let
       domainStrategy = "IPIfNonMatch";
       rules = [
         # Since sniffing is disabled, requests to IP addresses are not matched
-        # using domain rules. We have to rely on the clients to send requests
-        # to domains.
+        # using domain rules. We have to rely on the clients to override
+        # destination with the domain using sniffing.
         {
-          domain = [ "geosite:bilibili" ];
+          domain = [
+            "geosite:tld-cn"
+            "geosite:geolocation-cn"
+          ];
           outboundTag = "block";
         }
         {
@@ -73,6 +71,11 @@ let
         protocol = "blackhole";
       }
     ];
+
+    log = {
+      loglevel = "info";
+      dnsLog = true;
+    };
 
     # Reduce fingerprint by changing default timeout
     # https://github.com/XTLS/Xray-core/issues/1511#issuecomment-1376887076

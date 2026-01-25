@@ -13,7 +13,7 @@ functions.
 
 - Display manager: [tuigreet](https://github.com/apognu/tuigreet)
 - Window manager: [niri](https://github.com/YaLTeR/niri)
-- Desktop shell: [under construction](https://github.com/Weathercold/cryosphere)
+- Desktop shell: [under construction](https://github.com/Weathercold/wisp)
 - Terminal: [foot](https://codeberg.org/dnkl/foot)
 - Shell: [Nu](https://www.nushell.sh)
 - Prompt: [starship](https://starship.rs)
@@ -24,6 +24,8 @@ functions.
 - Using [darkman](https://gitlab.com/WhyNotHugo/darkman) to
   [automatically switch theme](home/modules/services/scheduling/darkman.nix) based on
   [home-manager configurations](home/configurations/weathercold/nixos-redmibook.nix)
+- A [module](nixos/modules/services/hardware/framework_rgbafan.nix) to control
+  RGB on framework desktop
 - [Xray vless-tcp-xtls-reality tproxy configuration](nixos/modules/services/networking/xray)
 - Using [haumea](https://github.com/nix-community/haumea):
   - to generate lists and trees of modules for `home` and `nixos`

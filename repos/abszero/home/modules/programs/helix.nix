@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -12,27 +17,27 @@ in
     enable = true;
     defaultEditor = true;
 
+    extraPackages = with pkgs; [
+      helix-gpt
+    ];
+
     settings = {
       editor = {
-        text-width = 100;
-        rulers = [
-          100
-          120
-        ];
-        bufferline = "multiple";
-
-        lsp.display-inlay-hints = true;
-
+        # UI
+        bufferline = "multiple"; # Enable when there are multiple buffers
+        color-modes = true;
         file-picker.hidden = false;
 
-        auto-save = {
-          focus-lost = true;
-          after-delay = {
-            enable = true;
-            timeout = 300;
-          };
+        # Text area
+        text-width = 80;
+        rulers = [
+          80
+          100
+        ];
+        indent-guides = {
+          render = true;
+          character = "⎸"; # Default bar is in the middle
         };
-
         whitespace = {
           render = {
             tab = "all";
@@ -41,43 +46,75 @@ in
           };
           characters.tabpad = " ";
         };
+        end-of-line-diagnostics = "hint";
+        lsp.display-inlay-hints = true;
 
-        indent-guides = {
-          render = true;
-          character = "⎸"; # Default bar is in the middle
+        # Editing
+        auto-save = {
+          focus-lost = true;
+          after-delay = {
+            enable = true;
+            timeout = 300;
+          };
         };
+        trim-final-newlines = true;
+        trim-trailing-whitespace = true;
+        middle-click-paste = false;
+        smart-tab.supersede-menu = true; # Prioritize smart tab over tab menu naviguation
       };
 
       keys = {
         normal = {
           # Movement
           home = "goto_first_nonwhitespace";
+          A-f = "find_till_char";
+          A-S-f = "till_prev_char";
+
+          h = "no_op"; # move_char_left
+          j = "no_op"; # move_visual_line_down
+          k = "no_op"; # move_visual_line_up
 
           # Selection
-          A-n = "select_prev_sibling";
-          A-e = "shrink_selection";
-          A-i = "expand_selection";
-          A-a = "select_next_sibling";
-
-          A-S-e = "select_all_children";
-          A-S-a = "select_all_siblings";
+          A-e = "select_all_children";
 
           A-p = "no_op"; # select_prev_sibling
           A-o = "no_op"; # expand_selection
           A-S-i = "no_op"; # select_all_children
 
-          # Window
-          n = "@<C-w>";
-          C-w = {
-            n = "jump_view_left";
-            e = "jump_view_down";
-            i = "jump_view_up";
-            a = "jump_view_right";
+          # Space mode
+          space = {
+            w = "no_op"; # window mode
+          };
 
-            S-n = "swap_view_left";
-            S-e = "swap_view_down";
-            S-i = "swap_view_up";
-            S-a = "swap_view_right";
+          # Goto mode
+          g = {
+            s = "goto_line_start";
+
+            h = "no_op"; # goto_line_start
+            l = "no_op"; # goto_line_end
+            n = "no_op"; # goto_next_buffer
+            p = "no_op"; # goto_previous_buffer
+            j = "no_op"; # move_line_down
+            k = "no_op"; # move_line_up
+          };
+
+          # Unimpaired mode
+          n = "@]";
+          t = "@[";
+          "]" = {
+            b = "goto_next_buffer";
+          };
+          "[" = {
+            b = "goto_previous_buffer";
+          };
+
+          # Window mode
+          l = "@<C-w>";
+          C-w = {
+            S-left = "swap_view_left";
+            S-down = "swap_view_down";
+            S-up = "swap_view_up";
+            S-right = "swap_view_right";
 
             h = "hsplit";
 
@@ -91,28 +128,173 @@ in
             s = "no_op"; # hsplit
           };
         };
+
+        insert = {
+          home = "goto_first_nonwhitespace";
+          C-backspace = "delete_word_backward";
+          C-del = "delete_word_forward";
+        };
+
+        select = {
+          # Movement
+          home = "goto_first_nonwhitespace";
+          A-f = "find_till_char";
+          A-S-f = "till_prev_char";
+
+          h = "no_op"; # move_char_left
+          j = "no_op"; # move_visual_line_down
+          k = "no_op"; # move_visual_line_up
+
+          # Goto mode
+          g = {
+            s = "goto_line_start";
+
+            h = "no_op"; # goto_line_start
+            l = "no_op"; # goto_line_end
+            n = "no_op"; # goto_next_buffer
+            p = "no_op"; # goto_previous_buffer
+            j = "no_op"; # move_line_down
+            k = "no_op"; # move_line_up
+          };
+        };
       };
     };
 
     languages = {
       language = [
         {
+          name = "bash";
+          language-servers = [
+            "bash-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "clojure";
+          language-servers = [
+            "clojure-lsp"
+            "gpt"
+          ];
+        }
+        {
+          name = "css";
+          language-servers = [
+            "vscode-css-language-server"
+            "gpt"
+          ];
+        }
+        {
           name = "devicetree";
           file-types = [
             "dts"
             "dtsi"
-            "overlay"
             "keymap"
+            "overlay"
+          ];
+        }
+        {
+          name = "javascript";
+          language-servers = [
+            "ts"
+            "gpt"
+          ];
+        }
+        {
+          name = "json";
+          language-servers = [
+            "vscode-json-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "html";
+          language-servers = [
+            "vscode-html-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "markdown";
+          language-servers = [
+            "markdown-oxide"
+            "gpt"
+          ];
+        }
+        {
+          name = "nix";
+          language-servers = [
+            "nixd"
+            "gpt"
+          ];
+        }
+        {
+          name = "nu";
+          language-servers = [
+            "nu"
+            "gpt"
+          ];
+        }
+        {
+          name = "python";
+          language-servers = [
+            "ty"
+            "ruff"
+            "gpt"
+          ];
+        }
+        {
+          name = "qml";
+          language-servers = [
+            "qmlls"
+            "gpt"
+          ];
+        }
+        {
+          name = "toml";
+          language-servers = [
+            "tombi"
+            "gpt"
+          ];
+        }
+        {
+          name = "typescript";
+          language-servers = [
+            "ts"
+            "gpt"
+          ];
+        }
+        {
+          name = "vue";
+          language-servers = [
+            "vue-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "yaml";
+          language-servers = [
+            "yaml-language-server"
+            "gpt"
           ];
         }
       ];
 
-      language-server.nixd = {
-        config = {
+      language-server = {
+        gpt = {
+          command = "bash";
+          # Use copilot by default
+          # API key is provided in weathercold/_base.nix
+          args = [
+            "-c"
+            "helix-gpt --handler \${HANDLER:-copilot}"
+          ];
+          environment.COPILOT_MODEL = "claude-opus-4.5";
+        };
+        nixd.config = {
           nixpkgs.expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }";
           options = {
-            nixos.expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos-redmibook.options";
-            home-manager.expr = ''(builtins.getFlake (toString ./.)).homeConfigurations."weathercold@nixos-redmibook".options'';
+            nixos.expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos-fwdesktop.options";
+            home-manager.expr = ''(builtins.getFlake (toString ./.)).homeConfigurations."weathercold@nixos-fwdesktop".options'';
             flake-parts.expr = "(builtins.getFlake (toString ./.)).debug.options";
             flake-parts2.expr = "(builtins.getFlake (toString ./.)).currentSystem.options";
           };

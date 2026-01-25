@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    const
+    genAttrs
+    ;
   cfg = config.abszero.virtualisation.libvirtd;
 in
 
@@ -15,13 +20,16 @@ in
 
   config = mkIf cfg.enable {
     virtualisation = {
-      libvirtd.enable = true;
+      libvirtd = {
+        enable = true;
+        qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
+      };
       spiceUSBRedirection.enable = true;
     };
+    users.users = genAttrs config.abszero.users.admins (const {
+      extraGroups = [ "libvirtd" ];
+    });
     programs.virt-manager.enable = true;
-    environment.systemPackages = with pkgs; [
-      virtio-win
-      virtiofsd
-    ];
+    environment.systemPackages = with pkgs; [ virtio-win ];
   };
 }

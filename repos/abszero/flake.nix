@@ -1,12 +1,23 @@
 {
   description = "Weathercold's NixOS Flake";
 
+  nixConfig = {
+    extra-substituters = [ "https://abszero.cachix.org" ];
+    extra-trusted-public-keys = [ "abszero.cachix.org-1:HXOydaS51jSWrM07Ko8AVtGdoBRT9F+QhdYQBiNDaM0=" ];
+  };
+
   inputs = {
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:LunNova/nixpkgs/lunnova/rocm-7-inplace";
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+    nixified-ai = {
+      url = "github:nixified-ai/flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -19,11 +30,12 @@
         nixpkgs-stable.follows = "nixpkgs";
       };
     };
-    nixified-ai = {
-      url = "github:nixified-ai/flake";
+    wisp = {
+      url = "github:Weathercold/wisp";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
       };
     };
     zen-browser = {
@@ -129,18 +141,19 @@
 
             devShells.default = mkShell {
               packages = [
+                bash-language-server
                 cachix
                 deploy-rs
                 markdown-oxide
                 nixd
-                nixfmt-rfc-style
+                nixfmt
                 nixfmt-tree
                 nixos-anywhere
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts
                 nix-prefetch-scripts
                 nix-update
-                taplo # TOML language server
+                tombi # TOML language server
                 yaml-language-server
                 vscode-langservers-extracted # For vscode-json-language-server
               ];

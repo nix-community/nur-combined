@@ -11,6 +11,13 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    nixified-ai = {
+      url = "github:nixified-ai/flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs = {
@@ -18,8 +25,8 @@
         nixpkgs-stable.follows = "nixpkgs";
       };
     };
-    nixified-ai = {
-      url = "github:nixified-ai/flake";
+    wisp = {
+      url = "github:Weathercold/wisp";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
