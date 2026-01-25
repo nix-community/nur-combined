@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "b9bd7d0650585f3b7a64200c42c604245fde2170";
+    version = "e96bd96c49dc32fac13ba8a2e20fbbe2b298279d";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "b9bd7d0650585f3b7a64200c42c604245fde2170";
+      rev = "e96bd96c49dc32fac13ba8a2e20fbbe2b298279d";
       fetchSubmodules = false;
-      sha256 = "sha256-t+ApvSCanSPW9XG2Xh38dsZb9Vyqbgd+CcGofZtHd2o=";
+      sha256 = "sha256-eVSGlsxrFZQ8s9R7CVXH2JlvMYL2cUYwVxl7Wis+Q6o=";
     };
-    date = "2026-01-24";
+    date = "2026-01-25";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -132,10 +132,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.18b";
+    version = "1.18.1b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.18b/zen.macos-universal.dmg";
-      sha256 = "sha256-qVGNuHuCIRL9OAzF2EKdHPA3rAVCfv1vEx6W4Mtgyik=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.18.1b/zen.macos-universal.dmg";
+      sha256 = "sha256-bIofMbmMe/IPbxwPflGAorv8gc87D2yRuvfXWBUHhrc=";
     };
   };
 }
