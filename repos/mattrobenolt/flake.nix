@@ -57,6 +57,7 @@
           uvShellHook = prev.callPackage ./pkgs/uv/venv-shell-hook.nix { };
           inbox = prev.callPackage ./pkgs/inbox { };
           zigdoc = prev.callPackage ./pkgs/zigdoc { };
+          ziglint = prev.callPackage ./pkgs/ziglint { };
 
           # Latest Go version as go-bin (automatically uses the highest version)
           go-bin = makeGo prev latestGoVersion;
@@ -153,6 +154,7 @@
               uvShellHook
               inbox
               zigdoc
+              ziglint
               ;
             default = self.packages.${system}.zlint;
           }

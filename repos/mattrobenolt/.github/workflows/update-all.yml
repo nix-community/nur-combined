@@ -69,6 +69,10 @@ jobs:
           nix build .#zigdoc --no-link
           echo "✓ zigdoc builds"
 
+          # Build ziglint package
+          nix build .#ziglint --no-link
+          echo "✓ ziglint builds"
+
       - name: Test binaries
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
@@ -77,6 +81,7 @@ jobs:
           nix run .#zlint -- --version
           nix run .#inbox -- --help
           nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
+          nix run .#ziglint -- --version
           echo "✓ All binaries work"
 
       - name: Commit and push changes

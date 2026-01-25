@@ -1,0 +1,78 @@
+name: Update ziglint
+
+on:
+  schedule:
+    # Run daily at 3 AM UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+
+      - name: Run ziglint update script
+        run: |
+          nix develop -c just update-ziglint
+
+      - name: Check for changes
+        id: verify-diff
+        run: |
+          git diff --quiet pkgs/ziglint/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Validate flake
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🔍 Running flake checks..."
+          nix flake check --no-build
+          echo "✓ Flake checks passed"
+
+      - name: Build and test ziglint package
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🏗️ Building ziglint..."
+          nix build .#ziglint --no-link
+          echo "✓ ziglint builds successfully"
+
+          # Test that ziglint works
+          echo "🧪 Testing ziglint binary..."
+          nix run .#ziglint -- --version
+          echo "✓ ziglint binary works"
+
+      - name: Commit and push changes
+        if: steps.verify-diff.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update ziglint version'
+          file_pattern: 'pkgs/ziglint/*.nix'
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Summary
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "### 🎉 ziglint version updated and validated!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Validation:**" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Package builds successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ ziglint binary tested and working" >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes
+        if: steps.verify-diff.outputs.changed != 'true'
+        run: |
+          echo "### ℹ️ No updates available" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "ziglint version is already up to date." >> $GITHUB_STEP_SUMMARY
