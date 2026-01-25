@@ -1,11 +1,11 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, makeDesktopItem
-, copyDesktopItems
-, p7zip
-, wineWow64Packages
-,
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  p7zip,
+  wineWow64Packages,
 }:
 
 stdenvNoCC.mkDerivation rec {
