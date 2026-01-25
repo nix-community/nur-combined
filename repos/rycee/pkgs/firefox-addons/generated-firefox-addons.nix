@@ -4596,18 +4596,17 @@
     };
     "github-isometric-contributions" = buildFirefoxXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.1.31";
+      version = "1.2.0";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326182/github_isometric_contributions-1.1.31.xpi";
-      sha256 = "bb55818eb558344debfbd0c19ae7ae287ba4d6fa3d119904fe088220c3661be8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4674485/github_isometric_contributions-1.2.0.xpi";
+      sha256 = "4ccfc4f412264e1e52c2934d1a238d03c7103fc2b717cc3ce02355421ee2b401";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
         license = licenses.mit;
         mozPermissions = [
           "storage"
-          "contextMenus"
-          "activeTab"
+          "https://github.com/"
           "https://github.com/*"
         ];
         platforms = platforms.all;
@@ -11795,10 +11794,10 @@
     };
     "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.65";
+      version = "4.3.66";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649747/remove_youtube_s_suggestions-4.3.65.xpi";
-      sha256 = "38f659e8c3d10397536002dd914fa604849e559aaad8e5d4b356ed0083cabc11";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4674707/remove_youtube_s_suggestions-4.3.66.xpi";
+      sha256 = "cef748531751e7570721d86f1f2b402710e3294bf53f7e067cc2711100b7452d";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
