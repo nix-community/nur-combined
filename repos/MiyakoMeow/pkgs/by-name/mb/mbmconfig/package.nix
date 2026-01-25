@@ -44,8 +44,8 @@ stdenvNoCC.mkDerivation rec {
 
     install -Dm755 ${./mbmconfig.sh} $out/bin/mbmconfig
     substituteInPlace $out/bin/mbmconfig \
-      --replace "@out@" "$out" \
-      --replace "@wineWow64Packages@" "${wineWow64Packages.full}"
+      --replace-fail "@out@" "$out" \
+      --replace-fail "@wineWow64Packages@" "${wineWow64Packages.full}"
 
     # 安装桌面文件
     copyDesktopItems
@@ -57,7 +57,7 @@ stdenvNoCC.mkDerivation rec {
       name = pname;
       desktopName = "mBMconfig";
       exec = pname;
-      comment = "mBMplay GUI configuration tool (runs via Wine)";
+      comment = "mBMconfig - GUI configuration tool for mBMplay (runs via Wine)";
       categories = [
         "AudioVideo"
         "Audio"

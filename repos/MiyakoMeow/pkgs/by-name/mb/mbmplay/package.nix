@@ -44,8 +44,8 @@ stdenvNoCC.mkDerivation rec {
 
     install -Dm755 ${./mbmplay.sh} $out/bin/mbmplay
     substituteInPlace $out/bin/mbmplay \
-      --replace "@out@" "$out" \
-      --replace "@wineWow64Packages@" "${wineWow64Packages.full}"
+      --replace-fail "@out@" "$out" \
+      --replace-fail "@wineWow64Packages@" "${wineWow64Packages.full}"
 
     # 安装桌面文件
     copyDesktopItems
@@ -56,7 +56,7 @@ stdenvNoCC.mkDerivation rec {
       name = pname;
       desktopName = "mBMplay";
       exec = pname;
-      comment = "mBMplay - BMS 播放器 (Wine)";
+      comment = "mBMplay - BMS previewer (runs via Wine)";
       categories = [
         "Game"
         "AudioVideo"
@@ -76,7 +76,7 @@ stdenvNoCC.mkDerivation rec {
   propagatedBuildInputs = [ wineWow64Packages.full ];
 
   meta = with lib; {
-    description = "mBMplay - BMS 播放器 (通过 Wine 运行)";
+    description = "mBMplay - BMS previewer (runs via Wine)";
     homepage = "https://mistyblue.info";
     license = licenses.mit;
     maintainers = [ ];
