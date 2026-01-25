@@ -1,0 +1,29 @@
+name: Update coderabbit-cli package
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch: {}
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Set up Nix
+        uses: DeterminateSystems/nix-installer-action@v19
+      - name: Run updater
+        run: |
+          set -euxo pipefail
+          bash scripts/update-coderabbit-cli.sh
+      - name: Commit and push if changed
+        run: |
+          set -euxo pipefail
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "chore: update coderabbit-cli version+hash"
+            git push
+          fi
