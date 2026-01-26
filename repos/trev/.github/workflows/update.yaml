@@ -25,13 +25,13 @@ jobs:
           shell: update
 
       - name: Create branch
-        run: git checkout -B "update-packages"
+        run: git checkout -B update-packages
 
       - name: Update packages
         run: update
 
       - name: Push changes
-        run: git push "update-packages"
+        run: git push --force origin update-packages
 
   pkgs-arm64-linux:
     needs: pkgs-amd64-linux
@@ -51,7 +51,7 @@ jobs:
         run: update
 
       - name: Push changes
-        run: git push "update-packages"
+        run: git push origin update-packages
 
   pkgs-arm64-darwin:
     needs: pkgs-arm64-linux
@@ -71,7 +71,7 @@ jobs:
         run: update
 
       - name: Push changes
-        run: git push "update-packages"
+        run: git push origin update-packages
 
   pkgs-pr:
     needs: pkgs-arm64-darwin
@@ -96,11 +96,7 @@ jobs:
 
       - name: Enable automerge
         if: ${{ steps.cpr.outputs.pull-request-number }}
-        run: >
-          gh pr merge
-          --rebase
-          --auto
-          "${{ steps.cpr.outputs.pull-request-number }}"
+        run: gh pr merge --rebase --auto "${{ steps.cpr.outputs.pull-request-number }}"
         env:
           GH_TOKEN: ${{ steps.checkout.outputs.token }}
 
