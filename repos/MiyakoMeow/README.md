@@ -96,7 +96,7 @@ This section is auto-generated. Do not edit manually.
 | --- | --- | --- |
 | `baidunetdisk` | [4.17.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/ba/baidunetdisk/package.nix) | [🏠Homepage](https://pan.baidu.com/) 百度网盘 Linux 客户端 |
 | `beatoraja` | [0.8.8](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/be/beatoraja/package.nix) | [🏠Homepage](https://www.mocha-repository.info/download.php) A modern BMS Player |
-| `clang-minimal` | [21.1.7](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/clang-minimal/package.nix) | [🏠Homepage](https://clang.llvm.org/) C language family frontend for LLVM (wrapper script) |
+| `clang-minimal` | [21.1.8](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/clang-minimal/package.nix) | [🏠Homepage](https://clang.llvm.org/) C language family frontend for LLVM (wrapper script) |
 | `claude-code-setting-switcher` | [0-unstable-2025-07-15](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/cl/claude-code-setting-switcher/package.nix) | [🏠Homepage](https://github.com/yoyooyooo/claude-code-config) Claude Code configuration switcher - tool for managing different Claude API configurations |
 | `continue-cli` | [1.5.36](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/co/continue-cli/package.nix) | [🏠Homepage](https://continue.dev) [📝Changelog](https://changelog.continue.dev) Continue CLI |
 | `free-download-manager` | [6.33.0.6626](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/fr/free-download-manager/package.nix) | [🏠Homepage](https://www.freedownloadmanager.org/) FDM is a powerful modern download accelerator and organizer. |
