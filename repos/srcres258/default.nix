@@ -29,9 +29,12 @@ in {
   ag = pkgs.callPackage ./pkgs/ag {
       inherit maintainers;
   };
-#   peerbanhelper = pkgs.callPackage ./pkgs/peerbanhelper {
-#       inherit maintainers;
-#   };
+  # peerbanhelper = pkgs.callPackage ./pkgs/peerbanhelper {
+  #     inherit maintainers;
+  # };
+  simple-toml-configurator = pkgs.callPackage ./pkgs/simple-toml-configurator {
+    inherit maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
