@@ -8,7 +8,7 @@ lib.mkOption {
           lib.types.submodule {
             options = {
               args = lib.mkOption {
-                type = lib.types.nullOr lib.types.listOf lib.types.str;
+                type = lib.types.nullOr (lib.types.listOf lib.types.str);
                 default = null;
                 description = "Arguments to pass to the LSP server command";
               };
@@ -32,7 +32,7 @@ lib.mkOption {
               };
 
               filetypes = lib.mkOption {
-                type = lib.types.nullOr lib.types.listOf lib.types.str;
+                type = lib.types.nullOr (lib.types.listOf lib.types.str);
                 default = null;
                 description = "File types this LSP server handles";
               };
@@ -50,7 +50,7 @@ lib.mkOption {
               };
 
               root_markers = lib.mkOption {
-                type = lib.types.nullOr lib.types.listOf lib.types.str;
+                type = lib.types.nullOr (lib.types.listOf lib.types.str);
                 default = null;
                 description = "Files or directories that indicate the project root";
               };
@@ -67,7 +67,7 @@ lib.mkOption {
           lib.types.submodule {
             options = {
               args = lib.mkOption {
-                type = lib.types.nullOr lib.types.listOf lib.types.str;
+                type = lib.types.nullOr (lib.types.listOf lib.types.str);
                 default = null;
                 description = "Arguments to pass to the MCP server command";
               };
@@ -85,7 +85,7 @@ lib.mkOption {
               };
 
               disabled_tools = lib.mkOption {
-                type = lib.types.nullOr lib.types.listOf lib.types.str;
+                type = lib.types.nullOr (lib.types.listOf lib.types.str);
                 default = null;
                 description = "List of tools from this MCP server to disable";
               };
@@ -253,7 +253,7 @@ lib.mkOption {
             };
 
             context_paths = lib.mkOption {
-              type = lib.types.nullOr lib.types.listOf lib.types.str;
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
               description = "Paths to files containing context information for the AI";
             };
@@ -301,7 +301,7 @@ lib.mkOption {
             };
 
             disabled_tools = lib.mkOption {
-              type = lib.types.nullOr lib.types.listOf lib.types.str;
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
               description = "List of built-in tools to disable and hide from the agent";
             };
@@ -313,7 +313,7 @@ lib.mkOption {
             };
 
             skills_paths = lib.mkOption {
-              type = lib.types.nullOr lib.types.listOf lib.types.str;
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
               description = "Paths to directories containing Agent Skills (folders with SKILL.md files)";
             };
@@ -375,7 +375,7 @@ lib.mkOption {
         type = lib.types.submodule {
           options = {
             allowed_tools = lib.mkOption {
-              type = lib.types.nullOr lib.types.listOf lib.types.str;
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
               description = "List of tools that don't require permission prompts";
             };
@@ -536,7 +536,7 @@ lib.mkOption {
                       };
 
                       reasoning_levels = lib.mkOption {
-                        type = lib.types.nullOr lib.types.listOf lib.types.str;
+                        type = lib.types.nullOr (lib.types.listOf lib.types.str);
                         default = null;
                         description = "Reasoning levels";
                       };
