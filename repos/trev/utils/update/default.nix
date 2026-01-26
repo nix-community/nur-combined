@@ -10,9 +10,11 @@ let
     dontUnpack = true;
   };
 
-  derivations = import ../../packages {
-    inherit system pkgs;
-  };
+  packages = pkgs.lib.filterAttrs (_: pkg: builtins.elem system pkg.meta.platforms) (
+    import ../../packages {
+      inherit system pkgs;
+    }
+  );
 
   # Get valid top-level derivations for updating
   topDerivations = lib.filterAttrs (
@@ -26,11 +28,7 @@ let
         lib.strings.splitString " " drv.updateScript
       )
     )
-    # for the current system
-    && (
-      !lib.attrsets.hasAttrByPath [ "meta" "platforms" ] drv || builtins.elem system drv.meta.platforms
-    )
-  ) derivations;
+  ) packages;
 
   # Get valid sub derivations for updating
   subDerivations = lib.attrsets.mapAttrs (
@@ -48,12 +46,8 @@ let
           lib.strings.splitString " " drv.updateScript
         )
       )
-      # for the current system
-      && (
-        !lib.attrsets.hasAttrByPath [ "meta" "platforms" ] drv || builtins.elem system drv.meta.platforms
-      )
     ) top
-  ) derivations;
+  ) packages;
 
   total =
     (lib.attrsets.collect lib.isDerivation topDerivations)

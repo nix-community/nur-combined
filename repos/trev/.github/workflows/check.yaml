@@ -21,7 +21,6 @@ jobs:
         nix:
           - nixpkgs-unstable.tar.gz
           - nixos-unstable.tar.gz
-          - nixos-25.11.tar.gz
         image:
           - ubuntu-24.04
           - ubuntu-24.04-arm
@@ -44,7 +43,14 @@ jobs:
             --flake ".#packages.$(nix eval --raw --impure --expr builtins.currentSystem)"
 
   flake:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-26
+    runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
         uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
