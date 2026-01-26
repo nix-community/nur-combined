@@ -19,8 +19,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "systems": "systems",
-        "trev": "trev"
+        "systems": "systems"
       }
     },
     "systems": {
@@ -35,29 +34,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "trev": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769444762,
-        "narHash": "sha256-trEaONFFLk+sct6q9BTZSa7yzZEj840dzq52X1DHPok=",
-        "owner": "spotdemo4",
-        "repo": "nur",
-        "rev": "8d582f911c340414eb62c6f3ff04f8961af7e0fd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "spotdemo4",
-        "repo": "nur",
         "type": "github"
       }
     }

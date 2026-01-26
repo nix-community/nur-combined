@@ -13,18 +13,12 @@
   inputs = {
     systems.url = "github:nix-systems/default";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    trev = {
-      url = "github:spotdemo4/nur";
-      inputs.systems.follows = "systems";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
     {
       systems,
       nixpkgs,
-      trev,
       ...
     }:
     let
@@ -113,14 +107,14 @@
             name = "update";
             packages =
               let
+                nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
+                trenovate = pkgs.callPackage ./packages/renovate { };
                 update = pkgs.callPackage ./utils/update { inherit system; };
               in
               [
+                nix-fix-hash
+                trenovate
                 update
-
-                # use from lock to preserve cache
-                trev.packages."${system}".renovate
-                trev.packages."${system}".nix-fix-hash
               ];
           };
 
@@ -154,10 +148,13 @@
                 root = ./.github;
                 fileset = ./.github/renovate.json;
               };
-              deps = [
-                # use renovate from lock to preserve cache
-                trev.packages."${system}".renovate
-              ];
+              deps =
+                let
+                  trenovate = pkgs.callPackage ./packages/renovate { };
+                in
+                [
+                  trenovate
+                ];
               script = ''
                 renovate-config-validator renovate.json
               '';

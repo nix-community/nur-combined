@@ -12,8 +12,15 @@ permissions:
   contents: read
 
 jobs:
-  pkgs-amd64-linux:
-    runs-on: ubuntu-24.04
+  pkgs:
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-26
+    runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
         uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
@@ -27,60 +34,16 @@ jobs:
           arguments: ".#update"
 
       - name: Create branch
-        run: git checkout -B update-packages
+        run: git checkout -B "update-packages-${{ matrix.image }}"
 
       - name: Update packages
         run: update
 
       - name: Push changes
-        run: git push --force origin update-packages
-
-  pkgs-arm64-linux:
-    needs: pkgs-amd64-linux
-    runs-on: ubuntu-24.04-arm
-    steps:
-      - name: Initialize
-        uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
-        with:
-          app_id: ${{ vars.CLIENT_ID }}
-          app_key: ${{ secrets.PRIVATE_KEY }}
-          ref: update-packages
-
-      - name: Load update environment
-        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
-        with:
-          arguments: ".#update"
-
-      - name: Update packages
-        run: update
-
-      - name: Push changes
-        run: git push origin update-packages
-
-  pkgs-arm64-darwin:
-    needs: pkgs-arm64-linux
-    runs-on: macos-26
-    steps:
-      - name: Initialize
-        uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
-        with:
-          app_id: ${{ vars.CLIENT_ID }}
-          app_key: ${{ secrets.PRIVATE_KEY }}
-          ref: update-packages
-
-      - name: Load update environment
-        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
-        with:
-          arguments: ".#update"
-
-      - name: Update packages
-        run: update
-
-      - name: Push changes
-        run: git push origin update-packages
+        run: git push --force origin "update-packages-${{ matrix.image }}"
 
   pkgs-pr:
-    needs: pkgs-arm64-darwin
+    needs: pkgs
     runs-on: ubuntu-latest
     steps:
       - id: checkout
@@ -90,6 +53,14 @@ jobs:
           app-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
           fetch-depth: 0
+
+      - name: Create branch
+        run: |
+          git checkout -B update-packages
+          git merge -X ours --no-ff update-packages-ubuntu-24.04
+          git merge -X ours --no-ff update-packages-ubuntu-24.04-arm
+          git merge -X ours --no-ff update-packages-macos-26
+          git push --force origin update-packages
 
       - id: pr
         name: Create pull request
