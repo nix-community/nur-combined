@@ -83,20 +83,25 @@ jobs:
         with:
           app-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
-          ref: update-packages
           fetch-depth: 0
 
-      - id: cpr
+      - id: pr
         name: Create pull request
-        uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
-        with:
-          token: ${{ steps.checkout.outputs.token }}
-          title: package updates
-          body: updated some packages
+        run: |
+          url=$(gh pr create --title "package updates" --body "updated some packages" --head update-packages --base main)
 
-      - name: Enable automerge
-        if: ${{ steps.cpr.outputs.pull-request-number }}
-        run: gh pr merge --rebase --auto "${{ steps.cpr.outputs.pull-request-number }}"
+          if [[ -n "${url}" ]]; then
+            echo "Created PR: ${url}"
+            echo "url=${url}" >> $GITHUB_OUTPUT
+          else
+            echo "Could not create PR"
+          fi
+        env:
+          GH_TOKEN: ${{ steps.checkout.outputs.token }}
+
+      - if: ${{ steps.pr.outputs.url }}
+        name: Enable automerge
+        run: gh pr merge --rebase --auto "${{ steps.pr.outputs.url }}"
         env:
           GH_TOKEN: ${{ steps.checkout.outputs.token }}
 
