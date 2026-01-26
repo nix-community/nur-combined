@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 	"text/template"
 	"time"
@@ -296,9 +297,9 @@ func nixType(jsonType string) string {
 	case "boolean":
 		return "lib.types.bool"
 	case "array":
-		return "lib.types.listOf lib.types.str"
+		return "(lib.types.listOf lib.types.str)"
 	case "object":
-		return "lib.types.attrsOf lib.types.anything"
+		return "(lib.types.attrsOf lib.types.anything)"
 	default:
 		return "lib.types.anything"
 	}
@@ -309,8 +310,16 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 		return nil
 	}
 
+	// Sort keys for deterministic output
+	names := make([]string, 0, len(props))
+	for name := range props {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+
 	var options []OptionData
-	for name, prop := range props {
+	for _, name := range names {
+		prop := props[name]
 		if !isValidNixIdentifier(name) {
 			continue
 		}
