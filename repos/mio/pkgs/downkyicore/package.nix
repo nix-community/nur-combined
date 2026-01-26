@@ -4,11 +4,12 @@
   buildDotnetModule,
   dotnetCorePackages,
   fetchFromGitHub,
+  nix-update-script,
   autoPatchelfHook,
   copyDesktopItems,
   makeDesktopItem,
   icoutils,
-
+  runtimeShell,
   aria2,
   ffmpeg,
   fontconfig,
@@ -85,7 +86,7 @@ buildDotnetModule (finalAttrs: {
     "${placeholder "out"}/lib/downkyicore"
   ];
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = nix-update-script { };
 
   # Provide system ffmpeg/aria2 binaries and license texts where the app expects them.
   postInstall = ''
@@ -113,10 +114,11 @@ buildDotnetModule (finalAttrs: {
     substituteInPlace "$app/Contents/Info.plist" \
       --replace-fail "@version@" "${finalAttrs.version}"
 
-    install -Dm755 ${builtins.toFile "DownKyi" ''
-      #!/bin/sh
-      exec "$out/bin/DownKyi" "$@"
-    ''} "$app/Contents/MacOS/DownKyi"
+    cat > "$app/Contents/MacOS/DownKyi" <<'EOF'
+    #! ${runtimeShell}
+    exec "$out/bin/DownKyi" "$@"
+    EOF
+    chmod 755 "$app/Contents/MacOS/DownKyi"
 
     cp DownKyi/Resources/favicon.ico "$app/Contents/Resources/downkyicore.ico"
   '';
