@@ -57,12 +57,12 @@ local keys = {
 
 local objects = {
     mode = "o",
-    { "ih", gitsigns.select_hunk, desc = "Git hunk" },
+    { "ih", gitsigns.select_hunk, desc = "git hunk" },
 }
 -- Visual
 local visual = {
     mode = { "x" },
-    { "ih", gitsigns.select_hunk, desc = "Git hunk" },
+    { "ih", gitsigns.select_hunk, desc = "git hunk" },
     { "<leader>g", group = "Git" },
     { "<leader>gp", gitsigns.preview_hunk, desc = "Preview selection" },
     { "<leader>gr", make_visual(gitsigns.reset_hunk), desc = "Restore selection" },

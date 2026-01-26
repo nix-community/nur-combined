@@ -10,11 +10,11 @@ null_ls.setup({
 null_ls.register({
     null_ls.builtins.diagnostics.buildifier.with({
         -- Only used if available
-        condition = utils.is_executable_condition("buildifier"),
+        condition = utils.partial(utils.is_executable, "buildifier"),
     }),
     null_ls.builtins.formatting.buildifier.with({
         -- Only used if available
-        condition = utils.is_executable_condition("buildifier"),
+        condition = utils.partial(utils.is_executable, "buildifier"),
     }),
 })
 
@@ -22,7 +22,7 @@ null_ls.register({
 null_ls.register({
     null_ls.builtins.formatting.nixpkgs_fmt.with({
         -- Only used if available
-        condition = utils.is_executable_condition("nixpkgs-fmt"),
+        condition = utils.partial(utils.is_executable, "nixpkgs-fmt"),
     }),
 })
 
@@ -30,19 +30,19 @@ null_ls.register({
 null_ls.register({
     null_ls.builtins.diagnostics.mypy.with({
         -- Only used if available
-        condition = utils.is_executable_condition("mypy"),
+        condition = utils.partial(utils.is_executable, "mypy"),
     }),
     null_ls.builtins.diagnostics.pylint.with({
         -- Only used if available
-        condition = utils.is_executable_condition("pylint"),
+        condition = utils.partial(utils.is_executable, "pylint"),
     }),
     null_ls.builtins.formatting.black.with({
         extra_args = { "--fast" },
         -- Only used if available
-        condition = utils.is_executable_condition("black"),
+        condition = utils.partial(utils.is_executable, "black"),
     }),
     null_ls.builtins.formatting.isort.with({
         -- Only used if available
-        condition = utils.is_executable_condition("isort"),
+        condition = utils.partial(utils.is_executable, "isort"),
     }),
 })
