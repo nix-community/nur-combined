@@ -135,6 +135,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/rigaya/QSVEnc/releases/tag/${finalAttrs.src.tag}";
     description = "QSV high-speed encoding performance experiment tool";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
+    platforms = [ "x86_64-linux" ];
   };
 })

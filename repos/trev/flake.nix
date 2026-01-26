@@ -31,9 +31,11 @@
         fs = pkgs.lib.fileset;
       in
       rec {
-        packages = import ./packages {
-          inherit system pkgs;
-        };
+        packages = pkgs.lib.filterAttrs (_: pkg: builtins.elem system pkg.meta.platforms) (
+          import ./packages {
+            inherit system pkgs;
+          }
+        );
 
         bundlers = import ./bundlers {
           inherit system pkgs;
@@ -71,11 +73,13 @@
             packages =
               let
                 nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
+                fetch-hash = pkgs.callPackage ./packages/fetch-hash { };
                 update = pkgs.callPackage ./utils/update { inherit system; };
               in
               with pkgs;
               [
                 nix-fix-hash
+                fetch-hash
                 nixfmt
                 prettier
                 nix-update

@@ -12,22 +12,18 @@ let
   version = "1.15.1";
 
   binaries = {
-    # aarch64-linux = fetchurl {
-    #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_aarch64.tar.gz";
-    #   hash = "sha256-TEBchGGzeC+Foip7X3/vrWufshyLL3kVJLuaeLTmp8M=";
-    # };
+    aarch64-linux = fetchurl {
+      url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_aarch64.tar.gz";
+      hash = "sha256-d9tjIznABXE4VYM0xQDoU6hNtuTIrK7dzBJc3AG5Fbc=";
+    };
     x86_64-linux = fetchurl {
       url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_linux_x86.tar.gz";
       hash = "sha256-Bvp6TvYAWtmMlfC32nbGZnz0TUdkIvQFSMGe10LAnjM=";
     };
-    # aarch64-darwin = fetchurl {
-    #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";
-    #   hash = "sha256-CCzprXv74B98oxz8SiLkN/Hs2WWLsUXmEVHTEjfc9cs=";
-    # };
-    # x86_64-darwin = fetchurl {
-    #   url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_x86.tar.gz";
-    #   hash = "sha256-GsqPGONZ8BEuEYS3tsndltDO741SklrLwZtGKId15VM=";
-    # };
+    aarch64-darwin = fetchurl {
+      url = "https://github.com/opengrep/opengrep/releases/download/v${version}/opengrep-core_osx_aarch64.tar.gz";
+      hash = "sha256-dgTwT1cCGQLUamZTzUynfhJ3f0ErbhBnWgPdAUCgNs8=";
+    };
   };
 
   core = stdenv.mkDerivation {

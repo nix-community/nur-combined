@@ -31,8 +31,8 @@ jobs:
       - name: Initialize
         uses: spotdemo4/nix-init@ed84640dc773603827ade8ecfd81c535733130ac # v1.21.4
         with:
-          attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
           shell: check
 
       - name: Build packages
@@ -49,8 +49,8 @@ jobs:
       - name: Initialize
         uses: spotdemo4/nix-init@ed84640dc773603827ade8ecfd81c535733130ac # v1.21.4
         with:
-          attic_token: ${{ secrets.ATTIC_TOKEN }}
           attic_cache: nur
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
 
       - name: Run flake checks
         run: nix flake check
