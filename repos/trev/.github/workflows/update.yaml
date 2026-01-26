@@ -5,23 +5,18 @@ on:
     - cron: "0 9 * * *" # every day at 09:00 UTC
   workflow_dispatch:
 
+concurrency:
+  group: update
+
 permissions:
   contents: read
 
 jobs:
-  pkgs:
-    strategy:
-      fail-fast: false
-      matrix:
-        image:
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - macos-26
-    runs-on: ${{ matrix.image }}
+  pkgs-amd64-linux:
+    runs-on: ubuntu-24.04
     steps:
-      - id: init
-        name: Initialize
-        uses: spotdemo4/nix-init@ed84640dc773603827ade8ecfd81c535733130ac # v1.21.4
+      - name: Initialize
+        uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
         with:
           attic_cache: nur
           attic_token: ${{ secrets.ATTIC_TOKEN }}
@@ -29,14 +24,73 @@ jobs:
           app_key: ${{ secrets.PRIVATE_KEY }}
           shell: update
 
+      - name: Create branch
+        run: git checkout -B "update-packages"
+
       - name: Update packages
         run: update
+
+      - name: Push changes
+        run: git push "update-packages"
+
+  pkgs-arm64-linux:
+    needs: pkgs-amd64-linux
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Initialize
+        uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
+        with:
+          attic_cache: nur
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          app_id: ${{ vars.CLIENT_ID }}
+          app_key: ${{ secrets.PRIVATE_KEY }}
+          shell: update
+          ref: update-packages
+
+      - name: Update packages
+        run: update
+
+      - name: Push changes
+        run: git push "update-packages"
+
+  pkgs-arm64-darwin:
+    needs: pkgs-arm64-linux
+    runs-on: macos-26
+    steps:
+      - name: Initialize
+        uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
+        with:
+          attic_cache: nur
+          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          app_id: ${{ vars.CLIENT_ID }}
+          app_key: ${{ secrets.PRIVATE_KEY }}
+          shell: update
+          ref: update-packages
+
+      - name: Update packages
+        run: update
+
+      - name: Push changes
+        run: git push "update-packages"
+
+  pkgs-pr:
+    needs: pkgs-arm64-darwin
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: spotdemo4/better-checkout@9a8cc716065857724440d98bc9b2bc08be8ab4bd # v0.5.0
+        with:
+          app-id: ${{ vars.CLIENT_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          ref: update-packages
+          fetch-depth: 0
 
       - id: cpr
         name: Create pull request
         uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
         with:
-          token: ${{ steps.init.outputs.token }}
+          token: ${{ steps.checkout.outputs.token }}
           title: package updates
           body: updated some packages
 
@@ -48,14 +102,14 @@ jobs:
           --auto
           "${{ steps.cpr.outputs.pull-request-number }}"
         env:
-          GH_TOKEN: ${{ steps.init.outputs.token }}
+          GH_TOKEN: ${{ steps.checkout.outputs.token }}
 
   renovate:
     runs-on: ubuntu-latest
     steps:
       - id: init
         name: Initialize
-        uses: spotdemo4/nix-init@ed84640dc773603827ade8ecfd81c535733130ac # v1.21.4
+        uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
         with:
           attic_cache: nur
           attic_token: ${{ secrets.ATTIC_TOKEN }}
