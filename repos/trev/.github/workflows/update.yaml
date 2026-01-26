@@ -57,9 +57,9 @@ jobs:
       - name: Create branch
         run: |
           git checkout -B update-packages
-          git merge -X ours --no-ff update-packages-ubuntu-24.04
-          git merge -X ours --no-ff update-packages-ubuntu-24.04-arm
-          git merge -X ours --no-ff update-packages-macos-26
+          git merge -X ours --no-ff origin/update-packages-ubuntu-24.04
+          git merge -X ours --no-ff origin/update-packages-ubuntu-24.04-arm
+          git merge -X ours --no-ff origin/update-packages-macos-26
           git push --force origin update-packages
 
       - id: pr
@@ -89,11 +89,13 @@ jobs:
         name: Initialize
         uses: spotdemo4/nix-init@842337cdd1a41ced81cb88edfd632589ee53ad2d # v1.22.0
         with:
-          attic_cache: nur
-          attic_token: ${{ secrets.ATTIC_TOKEN }}
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
-          shell: update
+
+      - name: Load update environment
+        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
+        with:
+          arguments: ".#update"
 
       - name: Renovate
         run: renovate
