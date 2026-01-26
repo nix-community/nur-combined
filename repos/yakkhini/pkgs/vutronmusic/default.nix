@@ -22,12 +22,12 @@
   gtk3,
 }: let
   pname = "vutronmusic";
-  version = "2.9.0";
+  version = "3.0.0";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://github.com/stark81/VutronMusic/releases/download/v${version}/VutronMusic-${version}_linux_amd64.deb";
-      hash = "sha256-jfWIBLFpTglrT6LOOVsGlCePykDO2JlbrvQfgQ7nxR0=";
+      hash = "sha256-mG5NoLe1zqR4lSmNuGgU9SvYmM7HkVpiU4sKF2EazJY=";
     };
     # aarch64-linux = fetchurl {
     #   url = "https://github.com/stark81/VutronMusic/releases/download/v${version}/yesplaymusic_${version'}_arm64.deb";
