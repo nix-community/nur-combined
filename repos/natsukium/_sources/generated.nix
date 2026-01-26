@@ -8,15 +8,15 @@
 {
   claudecode-nvim = {
     pname = "claudecode-nvim";
-    version = "93f8e48b1f6cbf2469b378c20b3df4115252d379";
+    version = "aa9a5cebebdbfa449c1c5ff229ba5d98e66bafed";
     src = fetchFromGitHub {
       owner = "coder";
       repo = "claudecode.nvim";
-      rev = "93f8e48b1f6cbf2469b378c20b3df4115252d379";
+      rev = "aa9a5cebebdbfa449c1c5ff229ba5d98e66bafed";
       fetchSubmodules = false;
-      sha256 = "sha256-dh7RrWezkmEtMKRasYCqfYanl6VxybC6Ra649H/KrPI=";
+      sha256 = "sha256-B6BA+3h7RLmk+zk6O365DmY06ALdbbkFBmOaRH9muog=";
     };
-    date = "2026-01-03";
+    date = "2026-01-26";
   };
   copyq-darwin = {
     pname = "copyq-darwin";
@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "e96bd96c49dc32fac13ba8a2e20fbbe2b298279d";
+    version = "a18d28c5044c98c81971679be819c0a1afb38a5f";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "e96bd96c49dc32fac13ba8a2e20fbbe2b298279d";
+      rev = "a18d28c5044c98c81971679be819c0a1afb38a5f";
       fetchSubmodules = false;
-      sha256 = "sha256-eVSGlsxrFZQ8s9R7CVXH2JlvMYL2cUYwVxl7Wis+Q6o=";
+      sha256 = "sha256-M8om6dDwKK+t0NqCqOCNFoGlkgnkhYZgQ2PF6EMQ+Ds=";
     };
-    date = "2026-01-25";
+    date = "2026-01-26";
   };
   hammerspoon = {
     pname = "hammerspoon";
