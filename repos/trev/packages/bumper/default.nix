@@ -7,8 +7,10 @@
   lib,
   makeWrapper,
   ncurses,
+  nix-update-script,
   nix-update,
   nodejs_latest,
+  python3,
   runtimeShell,
   shellcheck,
   stdenv,
@@ -46,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs_latest
 
     # python
+    python3
     uv
   ];
 
@@ -75,6 +78,15 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   dontFixup = true;
+
+  passthru = {
+    updateScript = lib.concatStringsSep " " (nix-update-script {
+      extraArgs = [
+        "--commit"
+        "${finalAttrs.pname}"
+      ];
+    });
+  };
 
   meta = {
     description = "Git semantic version bumper";

@@ -41,12 +41,12 @@
           }
         );
 
-        bundlers = import ./bundlers {
+        # the entire attribute set
+        legacyPackages = import ./. {
           inherit system pkgs;
         };
 
-        # the entire attribute set
-        legacyPackages = import ./. {
+        bundlers = import ./bundlers {
           inherit system pkgs;
         };
 

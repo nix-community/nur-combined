@@ -6,16 +6,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "protoc-gen-connect-openapi";
-  version = "0.22.1";
+  version = "0.23.0";
 
   src = fetchFromGitHub {
     owner = "sudorandom";
     repo = "protoc-gen-connect-openapi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-X4OJUiIC4TycrV1m+pId7BgAm7bN4XxSQ36E9zuaG4M=";
+    hash = "sha256-M8OTu5U3CyIoUNV7loQXmxsBDZkRvkzGj87VmdYx/eE=";
   };
 
-  vendorHash = "sha256-n+ChIYtt8FkSWWoEor2KssoOb0k6rClyykKHJO60Xvg=";
+  vendorHash = "sha256-gtn32Oxjg5LpGpYqPOa62gUUpVcGB4y9RathNdRW8Wg=";
 
   passthru = {
     updateScript = lib.concatStringsSep " " (nix-update-script {
