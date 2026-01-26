@@ -9021,10 +9021,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.9.8";
+      version = "1.9.9";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4666777/mtab-1.9.8.xpi";
-      sha256 = "2f8392af3bffd21b67c731fb71a213e4d51f475399ae40ead51e5661113466ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4675426/mtab-1.9.9.xpi";
+      sha256 = "183130a1e9ff2a5680f6cb3e22fb52909d4b50459739af95f22728928b6c42bb";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
