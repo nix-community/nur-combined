@@ -10,23 +10,12 @@ builtins.mapAttrs (
         name = name;
         nativeBuildInputs = prev.nativeBuildInputs ++ (check.deps or check.nativeBuildInputs or [ ]);
 
-        dontBuild = true;
-
         doCheck = true;
         checkPhase = pkgs.lib.strings.concatLines [
           "export HOME=$(mktemp -d)"
           "export TREEFMT_TREE_ROOT=$(pwd)"
           check.script or check.checkPhase
         ];
-
-        installPhase = ''
-          echo "#!${pkgs.runtimeShell}" >> $out
-          echo "export PATH=${pkgs.lib.makeBinPath final.nativeBuildInputs}:$PATH" >> $out
-          echo "${final.checkPhase}" >> $out
-          chmod +x $out
-        '';
-
-        dontFixup = true;
       }
     )
   else
