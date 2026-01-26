@@ -28,6 +28,7 @@
         pkgs = import nixpkgs {
           inherit system;
         };
+        fs = pkgs.lib.fileset;
       in
       rec {
         packages = import ./packages {
@@ -66,6 +67,7 @@
 
         devShells = {
           default = pkgs.mkShell {
+            name = "dev";
             packages =
               let
                 nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
@@ -87,12 +89,14 @@
           };
 
           check = pkgs.mkShell {
+            name = "check";
             packages = with pkgs; [
               nix-fast-build
             ];
           };
 
           update = pkgs.mkShell {
+            name = "update";
             packages =
               let
                 nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
@@ -107,6 +111,7 @@
           };
 
           vulnerable = pkgs.mkShell {
+            name = "vulnerable";
             packages = with pkgs; [
               flake-checker
             ];
@@ -115,24 +120,61 @@
 
         checks =
           libs."${system}".mkChecks {
-            lint = {
-              src = ./.;
+            actions = {
+              src = fs.toSource {
+                root = ./.;
+                fileset = ./.github/workflows;
+              };
+              deps = with pkgs; [
+                action-validator
+                octoscan
+              ];
+              script = ''
+                action-validator **/*.yaml
+                octoscan scan .
+              '';
+            };
+
+            renovate = {
+              src = fs.toSource {
+                root = ./.github;
+                fileset = ./.github/renovate.json;
+              };
               deps =
                 let
                   trenovate = pkgs.callPackage ./packages/renovate { };
                 in
-                with pkgs;
                 [
-                  nixfmt-tree
-                  prettier
-                  action-validator
                   trenovate
                 ];
               script = ''
+                renovate-config-validator renovate.json
+              '';
+            };
+
+            nix = {
+              src = fs.toSource {
+                root = ./.;
+                fileset = fs.fileFilter (file: file.hasExt "nix") ./.;
+              };
+              deps = with pkgs; [
+                nixfmt-tree
+              ];
+              script = ''
                 treefmt --ci
+              '';
+            };
+
+            prettier = {
+              src = fs.toSource {
+                root = ./.;
+                fileset = fs.fileFilter (file: file.hasExt "yaml" || file.hasExt "json" || file.hasExt "md") ./.;
+              };
+              deps = with pkgs; [
+                prettier
+              ];
+              script = ''
                 prettier --check .
-                action-validator .github/**/*.yaml
-                renovate-config-validator .github/renovate.json
               '';
             };
           }

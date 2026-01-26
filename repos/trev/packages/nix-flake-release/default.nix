@@ -21,13 +21,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-flake-release";
-  version = "0.9.4";
+  version = "0.9.5";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nix-flake-release";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oss0zfKGYTRFjYDdSEJEPues/1s0VZ4UfQVN4kA2HG4=";
+    hash = "sha256-jbr+krGbB4UHWT8JgYhpRrtOiGQhy62Ta2jCXQhzK94=";
   };
 
   nativeBuildInputs = [

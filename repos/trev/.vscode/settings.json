@@ -2,7 +2,7 @@
   "editor.formatOnSave": true,
   "files.associations": {
     "renovate.json": "jsonc",
-    ".envrc.project": "shellscript"
+    ".envrc.project": "dotenv"
   },
 
   // nix
