@@ -1,0 +1,15 @@
+diff --git a/build.xml b/build.xml
+index c9aba3e..b01fc06 100644
+--- a/build.xml
++++ b/build.xml
+@@ -2,8 +2,8 @@
+ <project basedir="." default="all" name="riscVivid">
+     <property environment="env"/>
+     <property name="debuglevel" value="source,lines,vars"/>
+-    <property name="target" value="7"/>
+-    <property name="source" value="7"/>
++    <property name="target" value="8"/>
++    <property name="source" value="8"/>
+     <path id="riscVivid.classpath">
+         <pathelement location="bin"/>
+         <pathelement location="lib_local/apache-log4j-1.2.17/log4j-1.2.17.jar"/>
