@@ -1586,10 +1586,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.17.0";
+      version = "7.18.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4641921/castkodi-7.17.0.xpi";
-      sha256 = "92dd7b751ae4909cd4d62ad952124d6b30285def6038a50e3ac26687d32ed270";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4677320/castkodi-7.18.0.xpi";
+      sha256 = "50c3a2551302d3bdf91002d0c5ee0dcc8299ac7204763db208f436d486d73dda";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -2665,6 +2665,20 @@
         description = "Specify a custom URL to be shown when opening a new tab, **without changing the address bar content**.";
         license = licenses.isc;
         mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "custom-tab-title-from-file" = buildFirefoxXpiAddon {
+      pname = "custom-tab-title-from-file";
+      version = "2.1.0";
+      addonId = "custom-title-from-file@beathagenlocher.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4673694/custom_tab_title_from_file-2.1.0.xpi";
+      sha256 = "892404bd927bf6be0a6b1676fc091dedb41b0c3238b0a9f9d243c5c375b31e71";
+      meta = with lib;
+      {
+        description = "Firefox web extension to change the title of any tab depending on regular expressions applied to the tab address URL";
+        license = licenses.mpl20;
+        mozPermissions = [ "<all_urls>" "tabs" "storage" ];
         platforms = platforms.all;
       };
     };
@@ -7246,10 +7260,10 @@
     };
     "kiss-translator" = buildFirefoxXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.17";
+      version = "2.0.18";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4650480/kiss_translator-2.0.17.xpi";
-      sha256 = "b4298f03b6138ccb69faf4866f54ca030bf5ce6b9fec9325619d1b2cc091b0c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4677105/kiss_translator-2.0.18.xpi";
+      sha256 = "4538c3a3351a6093f4e713837accffe163329bdaa496f4709085bf8efedfc9b3";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -12835,10 +12849,10 @@
     };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "3.2.3";
+      version = "3.2.4";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4661302/statshunters-3.2.3.xpi";
-      sha256 = "8b17259edfa38c947cfb384033be4f85a8d0ffaae10df14d611a27939f4c0eb3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4676873/statshunters-3.2.4.xpi";
+      sha256 = "05cb22d509220302eccf62ff6bbeb4d8a1034749eac746884480614e037379b3";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -13401,10 +13415,10 @@
     };
     "temporary-containers-plus" = buildFirefoxXpiAddon {
       pname = "temporary-containers-plus";
-      version = "2.0.6";
+      version = "2.0.7";
       addonId = "{1ea2fa75-677e-4702-b06a-50fc7d06fe7e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4614530/temporary_containers_plus-2.0.6.xpi";
-      sha256 = "1d00f23bb4407d4d0263c1117b1b4583749799f1093fc346b7ae0ff3c0ecdb57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4676920/temporary_containers_plus-2.0.7.xpi";
+      sha256 = "0bde8c8ca689b7f87fa6d00f6bd6ac2d75e6da58d73f827ec7530c4838e532a7";
       meta = with lib;
       {
         homepage = "https://github.com/GodKratos/temporary-containers";
@@ -15028,10 +15042,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.31.0";
+      version = "2.32.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4455138/violentmonkey-2.31.0.xpi";
-      sha256 = "8880114a3ac30a5f3aebc71443f86a1f7fdd1ec9298def22dc2e250502ecccee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4669375/violentmonkey-2.32.0.xpi";
+      sha256 = "a6da170e90a125286e0066339e3e0055cdec9844adffc884ef98bed495e16f9a";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";

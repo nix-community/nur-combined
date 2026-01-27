@@ -250,6 +250,13 @@ let
         };
     });
 
+    bypass-paywalls-clean = import ./bypass-paywalls-clean.nix {
+      inherit
+        buildFirefoxXpiAddon
+        lib
+        ;
+    };
+
     zotero-connector = import ./zotero.nix {
       inherit
         buildFirefoxXpiAddon

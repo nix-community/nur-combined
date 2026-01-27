@@ -61,10 +61,11 @@ Update Firefox addons:
   script:
     - git pull --ff-only origin $CI_COMMIT_REF_NAME
     - pkgs/firefox-addons/zotero-update.sh pkgs/firefox-addons/zotero.nix
+    - pkgs/firefox-addons/bypass-paywalls-clean-update.sh pkgs/firefox-addons/bypass-paywalls-clean.nix
     - mozilla-addons-to-nix $ADDONS_INPUT $ADDONS_OUTPUT
     - |
       if [ "$(git status --porcelain --untracked-files=no)" ] ; then
-        git commit -m "Automatic update of Firefox addons" $ADDONS_OUTPUT pkgs/firefox-addons/zotero.nix
+        git commit -m "Automatic update of Firefox addons" $ADDONS_OUTPUT pkgs/firefox-addons/zotero.nix pkgs/firefox-addons/bypass-paywalls-clean.nix
         git push origin HEAD:$CI_COMMIT_REF_NAME
       else
         echo No changes to push
