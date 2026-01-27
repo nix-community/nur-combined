@@ -57,10 +57,10 @@
   };
   pyrime = {
     pname = "pyrime";
-    version = "0.2.2";
+    version = "0.2.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.2.2.tar.gz";
-      sha256 = "sha256-vlAWrn64SfNVgSlvD+vuc//oYwhx61CRZ8boKj8IlA0=";
+      url = "https://pypi.org/packages/source/p/pyrime/pyrime-0.2.3.tar.gz";
+      sha256 = "sha256-M5BEMvaWmTCh+DE2LrW5WqiOCXqMy2MlvAdCmK+GJ+w=";
     };
   };
   requirements-language-server = {
