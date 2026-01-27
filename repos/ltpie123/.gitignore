@@ -1,0 +1,4 @@
+# Add custom files or directories to ignore
+result
+result-*
+.direnv
