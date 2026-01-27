@@ -14,12 +14,12 @@
 
 let
   pname = "daed";
-  version = "1.21.1";
+  version = "1.22.0";
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = "daed";
     tag = "v${version}";
-    hash = "sha256-d8qNM9GQCzZvjH81+i28fhAt3Kyd0k5q4HlxL4js62w=";
+    hash = "sha256-NsMW+9+EJkzLr2XDn3zC6Gfu9UgFuJrrjsCCSmtZ3xk=";
     fetchSubmodules = true;
   };
 
