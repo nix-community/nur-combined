@@ -1,6 +1,7 @@
 {
   lib,
   fetchFromGitHub,
+  fetchNpmDeps,
   open-webui
 }:
 
@@ -16,9 +17,13 @@ let
     inherit hash;
   };
 
-  frontend = open-webui.frontend.overrideAttrs {
-    inherit src version npmDepsHash;
-  };
+  frontend = open-webui.frontend.overrideAttrs (oldAttrs: {
+    inherit version src;
+    npmDeps = fetchNpmDeps {
+      inherit src;
+      hash = npmDepsHash;
+    };
+  });
 in
 open-webui.overrideAttrs (oldAttrs: {
   pname = "open-webui-ztx888";
