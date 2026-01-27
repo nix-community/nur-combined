@@ -856,6 +856,9 @@
         "lschuermann": {
             "url": "https://github.com/lschuermann/nur-packages"
         },
+        "ltpie123": {
+            "url": "https://github.com/ltpie123/nur-packages"
+        },
         "lucasew": {
             "file": "nur.nix",
             "url": "https://github.com/lucasew/nixcfg"
@@ -1326,6 +1329,9 @@
         },
         "some-pkgs": {
             "url": "https://github.com/SomeoneSerge/pkgs"
+        },
+        "someron": {
+            "url": "https://codeberg.org/someron/nur"
         },
         "sondr3": {
             "url": "https://github.com/sondr3/nix-expressions"
