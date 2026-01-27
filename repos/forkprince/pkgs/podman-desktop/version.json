@@ -6,15 +6,15 @@
     "skipPrerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.24.2",
+  "version": "1.25.1",
   "platforms": {
     "aarch64-darwin": {
       "file": "podman-desktop-{version}-arm64.zip",
-      "hash": "sha256-kHozFCpJ0RfsuyrPfo6+vyCEBpHDLCzbkSZ4kuv0Bjk="
+      "hash": "sha256-WY2DmyOtHJa1IpKLhE1gXmVLVj0nzt8oWS7k1iLWjDg="
     },
     "x86_64-darwin": {
       "file": "podman-desktop-{version}-x64.zip",
-      "hash": "sha256-YmkCU6InDcFGdkQWo2tK/RmXtjOrCKUdoRW52mWSWuE="
+      "hash": "sha256-nmOAqeHNJ6DjC3Io7hYvxOEh2O0qMCWpqgAbyhJivHA="
     }
   }
 }
