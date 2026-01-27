@@ -1,0 +1,40 @@
+name: "Update flake.lock"
+on:
+  schedule:
+    # Run weekly on Sundays at 04:17 UTC
+    - cron: '17 4 * * 0'
+  workflow_dispatch:
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Update flake.lock
+      run: nix flake update
+
+    - name: Commit and push if changed
+      run: |
+        git add flake.lock
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "flake.lock: update [automated]"
+          git push
+        fi
