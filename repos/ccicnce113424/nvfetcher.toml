@@ -38,6 +38,11 @@ cargo_lock = ["Cargo.lock"]
 fetch.github = "01mf02/jaq"
 src.github_tag = "01mf02/jaq"
 
+[linux-enable-ir-emitter]
+cargo_lock = ["Cargo.lock"]
+fetch.github = "EmixamPP/linux-enable-ir-emitter"
+src.github_tag = "EmixamPP/linux-enable-ir-emitter"
+
 [loveiwara]
 extract = ["pubspec.lock"]
 fetch.github = "FoxSensei001/LoveIwara"

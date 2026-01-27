@@ -84,6 +84,23 @@
       };
     };
   };
+  linux-enable-ir-emitter = {
+    pname = "linux-enable-ir-emitter";
+    version = "7.0.0-beta";
+    src = fetchFromGitHub {
+      owner = "EmixamPP";
+      repo = "linux-enable-ir-emitter";
+      rev = "7.0.0-beta";
+      fetchSubmodules = false;
+      sha256 = "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=/Cargo.lock";
+      outputHashes = {
+        "ansipix-2.0.0" = "sha256-RkwicughatQcuXnPIRtnL36xkfFzCsHDgL+VZCi46WY=";
+      };
+    };
+  };
   loveiwara = {
     pname = "loveiwara";
     version = "0.4.1";

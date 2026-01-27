@@ -142,6 +142,34 @@
     },
     "version": "v3.0.0-beta"
   },
+  "linux-enable-ir-emitter": {
+    "cargoLock": {
+      "Cargo.lock": [
+        "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=/Cargo.lock",
+        {
+          "ansipix-2.0.0": "sha256-RkwicughatQcuXnPIRtnL36xkfFzCsHDgL+VZCi46WY="
+        }
+      ]
+    },
+    "date": null,
+    "extract": null,
+    "name": "linux-enable-ir-emitter",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "EmixamPP",
+      "repo": "linux-enable-ir-emitter",
+      "rev": "7.0.0-beta",
+      "sha256": "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "7.0.0-beta"
+  },
   "loveiwara": {
     "cargoLock": null,
     "date": null,

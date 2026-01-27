@@ -44,6 +44,11 @@ rec {
     version = stableVersion sources;
   };
 
+  linux-enable-ir-emitter = pkgs.callPackage ./linux-enable-ir-emitter rec {
+    sources = fetchedSrc.linux-enable-ir-emitter;
+    version = sources.version;
+  };
+
   loveiwara = pkgs.callPackage ./loveiwara rec {
     sources = fetchedSrc.loveiwara;
     version = stableVersion sources;
