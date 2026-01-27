@@ -2,6 +2,7 @@
   fetchFromGitHub,
   file,
   findutils,
+  forgejo-cli,
   gh,
   gnused,
   jq,
@@ -38,6 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   runtimeInputs = [
     file
     findutils
+    forgejo-cli
     gh
     gnused
     jq
