@@ -736,6 +736,9 @@
         "jjjollyjim": {
             "url": "https://github.com/jjjollyjim/nur-repo"
         },
+        "jkorinth": {
+            "url": "https://github.com/jkorinth/nur-packages"
+        },
         "jleightcap": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~jleightcap/nur-packages"
