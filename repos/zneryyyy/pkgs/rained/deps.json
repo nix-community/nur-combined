@@ -1,0 +1,247 @@
+[
+  {
+    "pname": "Cake.Tool",
+    "version": "5.0.0",
+    "hash": "sha256-USN9H1yhwWmrLOP9fLdVDujxaJ+G2+U3OhYrCjKqe7Y="
+  },
+  {
+    "pname": "DynamicLanguageRuntime",
+    "version": "1.3.3",
+    "hash": "sha256-XPspMzk8M+KRd1w3O+URBg5fzH/HnlVpz0DlcBPdncw="
+  },
+  {
+    "pname": "KeraLua",
+    "version": "1.4.1",
+    "hash": "sha256-ouRL7+0bW/VYUNNYQoXenXzYO0HNF3D1IsScqtah3DE="
+  },
+  {
+    "pname": "Microsoft.AspNetCore.App.Ref",
+    "version": "6.0.36",
+    "hash": "sha256-9jDkWbjw/nd8yqdzVTagCuqr6owJ/DUMi4BlUZT4hWU="
+  },
+  {
+    "pname": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+    "version": "6.0.36",
+    "hash": "sha256-zUsVIpV481vMLAXaLEEUpEMA9/f1HGOnvaQnaWdzlyY="
+  },
+  {
+    "pname": "Microsoft.Bcl.HashCode",
+    "version": "1.1.1",
+    "hash": "sha256-gP6ZhEsjjbmw6a477sm7UuOvGFFTxZYfRE2kKxK8jnc="
+  },
+  {
+    "pname": "Microsoft.CSharp",
+    "version": "4.7.0",
+    "hash": "sha256-Enknv2RsFF68lEPdrf5M+BpV1kHoLTVRApKUwuk/pj0="
+  },
+  {
+    "pname": "Microsoft.DotNet.PlatformAbstractions",
+    "version": "3.1.6",
+    "hash": "sha256-RfM2qXiqdiamPkXr4IDkNc0IZSF9iTZv4uou/E7zNS0="
+  },
+  {
+    "pname": "Microsoft.Extensions.DependencyModel",
+    "version": "8.0.0",
+    "hash": "sha256-qkCdwemqdZY/yIW5Xmh7Exv74XuE39T8aHGHCofoVgo="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Host.linux-x64",
+    "version": "6.0.36",
+    "hash": "sha256-VFRDzx7LJuvI5yzKdGmw/31NYVbwHWPKQvueQt5xc10="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Ref",
+    "version": "6.0.36",
+    "hash": "sha256-9LZgVoIFF8qNyUu8kdJrYGLutMF/cL2K82HN2ywwlx8="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Runtime.linux-x64",
+    "version": "6.0.36",
+    "hash": "sha256-U8wJ2snSDFqeAgDVLXjnniidC7Cr5aJ1/h/BMSlyu0c="
+  },
+  {
+    "pname": "Microsoft.NETCore.Platforms",
+    "version": "1.1.0",
+    "hash": "sha256-FeM40ktcObQJk4nMYShB61H/E8B7tIKfl9ObJ0IOcCM="
+  },
+  {
+    "pname": "Microsoft.NETCore.Platforms",
+    "version": "5.0.0",
+    "hash": "sha256-LIcg1StDcQLPOABp4JRXIs837d7z0ia6+++3SF3jl1c="
+  },
+  {
+    "pname": "NETStandard.Library",
+    "version": "2.0.3",
+    "hash": "sha256-Prh2RPebz/s8AzHb2sPHg3Jl8s31inv9k+Qxd293ybo="
+  },
+  {
+    "pname": "NLua",
+    "version": "1.7.2",
+    "hash": "sha256-q+Ty397Agw3tbz1CgrdDRnl5AZIo2OlV82IqtPGUb+M="
+  },
+  {
+    "pname": "Pidgin",
+    "version": "3.0.0",
+    "hash": "sha256-fdx3wjVeO9u7npy/S1K03jahedlLgvIUoRueSAsKu4Q="
+  },
+  {
+    "pname": "RectpackSharp",
+    "version": "1.2.0",
+    "hash": "sha256-JKCWfg7PThQUnG9WakDoxIpqp2jk4VU/sGTX9L1ofgs="
+  },
+  {
+    "pname": "Serilog",
+    "version": "2.12.0",
+    "hash": "sha256-JD+ud+CFoLGdYGasTWKTxx5PYj2W5pBv2lMybBK7HVM="
+  },
+  {
+    "pname": "Serilog",
+    "version": "4.0.2",
+    "hash": "sha256-vkd4s/PsKnnVzN1+f9haIP5LoxNWxnhdv3mBQYl/2Hc="
+  },
+  {
+    "pname": "Serilog.Sinks.Console",
+    "version": "6.0.0",
+    "hash": "sha256-QH8ykDkLssJ99Fgl+ZBFBr+RQRl0wRTkeccQuuGLyro="
+  },
+  {
+    "pname": "Serilog.Sinks.File",
+    "version": "6.0.0",
+    "hash": "sha256-KQmlUpG9ovRpNqKhKe6rz3XMLUjkBqjyQhEm2hV5Sow="
+  },
+  {
+    "pname": "Serilog.Sinks.TextWriter",
+    "version": "3.0.0",
+    "hash": "sha256-25YPNwn29hTaDr2TsXtzxNFg5xijfV/Ggpopua4VyOk="
+  },
+  {
+    "pname": "Silk.NET.Core",
+    "version": "2.22.0",
+    "hash": "sha256-1aBiBwifLel9aaGI97gxbvID/XKbFm1dpVv2zm0NSEc="
+  },
+  {
+    "pname": "Silk.NET.GLFW",
+    "version": "2.22.0",
+    "hash": "sha256-v3hgyZ0wdEuxVfvLTzf5RIcbrTQyZl3b3D0xlRnWZZI="
+  },
+  {
+    "pname": "Silk.NET.Input",
+    "version": "2.22.0",
+    "hash": "sha256-RLcIy5JpdtfuSrioEchWLww8dX46X//pARV/wsvsTM0="
+  },
+  {
+    "pname": "Silk.NET.Input.Common",
+    "version": "2.22.0",
+    "hash": "sha256-AIVIXUZTIP7AqoXqbqepMwQSs3/Ru9VGlhbxjOiHVHA="
+  },
+  {
+    "pname": "Silk.NET.Input.Glfw",
+    "version": "2.22.0",
+    "hash": "sha256-+lQ3xdJDHUBhWHWzPC63k5+Una6s3Ia3jF0sQPyiyCI="
+  },
+  {
+    "pname": "Silk.NET.Maths",
+    "version": "2.22.0",
+    "hash": "sha256-wBydHf4R69A3dm8SnD82zjBd5QgwXbmipRqXtk+AjpE="
+  },
+  {
+    "pname": "Silk.NET.OpenGL",
+    "version": "2.22.0",
+    "hash": "sha256-1XWABfBzsSg1nJzbDJ/FH140WLzjpuNTxDHNZfV85xo="
+  },
+  {
+    "pname": "Silk.NET.Windowing",
+    "version": "2.22.0",
+    "hash": "sha256-vyy+jNjO1foaGfKQxEc+rAyXxst2yR4nBqfo3PMRUVY="
+  },
+  {
+    "pname": "Silk.NET.Windowing.Common",
+    "version": "2.22.0",
+    "hash": "sha256-Eosl7u+LM0SSA+e4q0Ro0bj0S1wUhPXrZFH5FPL/SF4="
+  },
+  {
+    "pname": "Silk.NET.Windowing.Glfw",
+    "version": "2.22.0",
+    "hash": "sha256-Li/3hp9tnq08a8PymRhW5PDJeBIheFNA+xkPpfmypqE="
+  },
+  {
+    "pname": "SixLabors.ImageSharp",
+    "version": "2.1.11",
+    "hash": "sha256-NWuu83Ba2twZbJ3bgI6Ip6cpNjQqLgHh+WfeltQvW1A="
+  },
+  {
+    "pname": "System.Buffers",
+    "version": "4.4.0",
+    "hash": "sha256-KTxAhYawFG2V5VX1jw3pzx3IrQXRgn1TsvgjPgxAbqA="
+  },
+  {
+    "pname": "System.CodeDom",
+    "version": "6.0.0",
+    "hash": "sha256-uPetUFZyHfxjScu5x4agjk9pIhbCkt5rG4Axj25npcQ="
+  },
+  {
+    "pname": "System.Collections.Immutable",
+    "version": "5.0.0",
+    "hash": "sha256-GdwSIjLMM0uVfE56VUSLVNgpW0B//oCeSFj8/hSlbM8="
+  },
+  {
+    "pname": "System.Memory",
+    "version": "4.5.4",
+    "hash": "sha256-3sCEfzO4gj5CYGctl9ZXQRRhwAraMQfse7yzKoRe65E="
+  },
+  {
+    "pname": "System.Memory",
+    "version": "4.5.5",
+    "hash": "sha256-EPQ9o1Kin7KzGI5O3U3PUQAZTItSbk9h/i4rViN3WiI="
+  },
+  {
+    "pname": "System.Numerics.Vectors",
+    "version": "4.4.0",
+    "hash": "sha256-auXQK2flL/JpnB/rEcAcUm4vYMCYMEMiWOCAlIaqu2U="
+  },
+  {
+    "pname": "System.Numerics.Vectors",
+    "version": "4.5.0",
+    "hash": "sha256-qdSTIFgf2htPS+YhLGjAGiLN8igCYJnCCo6r78+Q+c8="
+  },
+  {
+    "pname": "System.Runtime.CompilerServices.Unsafe",
+    "version": "4.4.0",
+    "hash": "sha256-SeTI4+yVRO2SmAKgOrMni4070OD+Oo8L1YiEVeKDyig="
+  },
+  {
+    "pname": "System.Runtime.CompilerServices.Unsafe",
+    "version": "5.0.0",
+    "hash": "sha256-neARSpLPUzPxEKhJRwoBzhPxK+cKIitLx7WBYncsYgo="
+  },
+  {
+    "pname": "System.Runtime.CompilerServices.Unsafe",
+    "version": "6.0.0",
+    "hash": "sha256-bEG1PnDp7uKYz/OgLOWs3RWwQSVYm+AnPwVmAmcgp2I="
+  },
+  {
+    "pname": "System.Runtime.Experimental",
+    "version": "6.0.2",
+    "hash": "sha256-5RHru6YxvuPVbm5eM1g2JyZ+BRoGGxE/G4Jl4SlPtho="
+  },
+  {
+    "pname": "System.Text.Encoding.CodePages",
+    "version": "5.0.0",
+    "hash": "sha256-YJ5jJqkVPp+6fEzSXOmw1sNSdygB5Rx7TJ0TrNS/wq4="
+  },
+  {
+    "pname": "System.Text.Encodings.Web",
+    "version": "8.0.0",
+    "hash": "sha256-IUQkQkV9po1LC0QsqrilqwNzPvnc+4eVvq+hCvq8fvE="
+  },
+  {
+    "pname": "System.Text.Json",
+    "version": "8.0.0",
+    "hash": "sha256-XFcCHMW1u2/WujlWNHaIWkbW1wn8W4kI0QdrwPtWmow="
+  },
+  {
+    "pname": "Ultz.Native.GLFW",
+    "version": "3.4.0",
+    "hash": "sha256-+BIUZO+IwVvBxCHaTjnEApoRbYmU04pgD7uejZidE74="
+  }
+]
