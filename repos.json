@@ -1248,6 +1248,9 @@
         "rycee": {
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
+        "rypkgs": {
+            "url": "https://github.com/Ryder-C/rypkgs"
+        },
         "sagikazarmark": {
             "url": "https://github.com/sagikazarmark/nur-packages"
         },
