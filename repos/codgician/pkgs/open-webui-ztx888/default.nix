@@ -4,15 +4,31 @@
   open-webui
 }:
 
-open-webui.overrideAttrs (oldAttrs: rec {
-  pname = "open-webui-ztx888";
-  version = "0.7.3-6";
+let
+  version = "0.7.3-7";
+  hash = "sha256-aLWVGTl95NBIuBzAxWKx9M5w+jl8YNc4x2OCQOZvU64=";
+  npmDepsHash = "sha256-lOtrYlSuX6M1xQsO2QE1QS8PrZEEdWWtius5FnvDjko=";
 
   src = fetchFromGitHub {
     owner = "ztx888";
     repo = "open-webui";
     rev = "v${version}";
-    hash = "sha256-6TlgyMH3A9LwMl02UJDaAdQYd0MT71yxPOWULZin6Yw=";
+    inherit hash;
+  };
+
+  frontend = open-webui.frontend.overrideAttrs {
+    inherit src version npmDepsHash;
+  };
+in
+open-webui.overrideAttrs (oldAttrs: {
+  pname = "open-webui-ztx888";
+  inherit src version;
+
+  makeWrapperArgs = [ "--set FRONTEND_BUILD_DIR ${frontend}/share/open-webui" ];
+
+  passthru = oldAttrs.passthru // {
+    inherit frontend;
+    updateScript = ./update.sh;
   };
 
   meta = with lib; oldAttrs.meta // {
