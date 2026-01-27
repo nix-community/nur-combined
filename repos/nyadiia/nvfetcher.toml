@@ -1,0 +1,6 @@
+# nvfetcher configuration for automatic source updates
+# run `nix run .#nvfetcher` to update sources
+
+[cockpit-machines]
+src.github = "cockpit-project/cockpit-machines"
+fetch.tarball = "https://github.com/cockpit-project/cockpit-machines/releases/download/$ver/cockpit-machines-$ver.tar.xz"

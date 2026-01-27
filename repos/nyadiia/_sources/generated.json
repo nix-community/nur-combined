@@ -1,0 +1,16 @@
+{
+    "cockpit-machines": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cockpit-machines",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-Hc3M4JB+RHzABIKRQtvD4SyErh4CbY2ZV69lLerZDvw=",
+            "type": "tarball",
+            "url": "https://github.com/cockpit-project/cockpit-machines/releases/download/346/cockpit-machines-346.tar.xz"
+        },
+        "version": "346"
+    }
+}

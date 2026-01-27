@@ -1,0 +1,59 @@
+name: update sources
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: run nvfetcher
+        run: nix run nixpkgs#nvfetcher -- --changelog changes.txt
+
+      - name: check for changes
+        id: changes
+        run: |
+          if git diff --quiet _sources/; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: read changelog
+        if: steps.changes.outputs.changed == 'true'
+        id: changelog
+        run: |
+          if [ -f changes.txt ]; then
+            echo "content<<EOF" >> $GITHUB_OUTPUT
+            cat changes.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "content=sources updated" >> $GITHUB_OUTPUT
+          fi
+
+      - name: create pr
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "chore: update sources"
+          title: "chore: update sources"
+          body: |
+            automated source updates from nvfetcher
+
+            ```
+            ${{ steps.changelog.outputs.content }}
+            ```
+          branch: update-sources
+          delete-branch: true
+          labels: dependencies
