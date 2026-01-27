@@ -1395,6 +1395,9 @@
         "toonn": {
             "url": "https://github.com/toonn/nur-packages"
         },
+        "tortotubus": {
+            "url": "https://github.com/tortotubus/nur-packages"
+        },
         "tox": {
             "url": "https://github.com/tox-rs/nur-tox"
         },
@@ -1545,6 +1548,9 @@
         },
         "zjm54321": {
             "url": "https://github.com/zjm54321/NUR"
+        },
+        "zneryyyy": {
+            "url": "https://github.com/zneryyyy/nur-packages"
         },
         "zsien": {
             "url": "https://github.com/zsien/nur-packages"
