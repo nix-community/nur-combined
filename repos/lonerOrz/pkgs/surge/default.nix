@@ -6,17 +6,17 @@
 
 buildGoModule (finalAttrs: {
   pname = "surge";
-  version = "0.2.0";
+  version = "0.3.0";
 
   # https://github.com/junaid2005p/surge
   src = fetchFromGitHub {
     owner = "junaid2005p";
     repo = "surge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eb1sUQA1bnsb9S9RXhvNRJROhWEDXhCgdLR/1jsgorw=";
+    hash = "sha256-AET/YgfuVwGl38wXlNCRJwDMFONJzXeMQXWxoa3iP14=";
   };
 
-  vendorHash = "sha256-V9SEj/kI8VKB20RT7qkBb95ozecYwzGsOgHIUxB19lw=";
+  vendorHash = "sha256-IGVt/HanZHglYSZ8WASrzqvTZZtK/bJpJzXNVqSqUfE=";
 
   ldflags = [
     "-s"
