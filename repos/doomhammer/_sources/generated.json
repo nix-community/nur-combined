@@ -1,6 +1,6 @@
 {
     "hammerspoon": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "hammerspoon",
@@ -15,7 +15,7 @@
         "version": "1.1.0"
     },
     "paperwm-spoon": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-01-19",
         "extract": null,
         "name": "paperwm-spoon",
@@ -36,7 +36,7 @@
         "version": "3a283f0c3bd63d73a8a7119f4d6c46bd61ec85e1"
     },
     "powershell-beautifier": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "powershell-beautifier",
