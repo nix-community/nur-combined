@@ -54,7 +54,11 @@ jobs:
         id: update
         run: |
           nix profile add nixpkgs#nix-update
-          nix-update --flake "${{ matrix.package }}" 2>&1 | tee /tmp/nix-update.log
+          if ! nix-update --flake "${{ matrix.package }}" 2>&1 | tee /tmp/nix-update.log; then
+            echo "::warning::nix-update failed for ${{ matrix.package }} (see log for details)"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           if git diff --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
