@@ -14,7 +14,7 @@
     pkg.overrideAttrs (
       _: prev:
       let
-        name = if builtins.hasAttr "pname" then prev.pname else prev.name;
+        name = if builtins.hasAttr "pname" prev then prev.pname else prev.name;
         binName = if target == "x86_64-pc-windows-msvc" then "${name}.exe" else name;
 
         denort = {
@@ -36,7 +36,7 @@
           };
           aarch64-unknown-linux-gnu = pkgs.fetchurl {
             url = "https://dl.deno.land/release/v2.6.5/denort-aarch64-unknown-linux-gnu.zip";
-            hash = "sha256-rE6bKb2IzA18cSLzvvrWC5u2V2LvLuBq9DeqrTUFDwo=";
+            hash = "sha256-3P3kevpkxpnwpTKBQODfycanHKSb1LeNPjEux6A/dHc=";
           };
         };
       in
@@ -49,7 +49,7 @@
             deno
             jq
           ]
-          ++ previousAttrs.nativeBuildInputs;
+          ++ prev.nativeBuildInputs;
 
         # compile to binary with deno
         installPhase = ''
