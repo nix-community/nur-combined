@@ -13,12 +13,12 @@
             "name": null,
             "owner": "leanprover",
             "repo": "lean4-cli",
-            "rev": "v4.26.0",
-            "sha256": "sha256-paEOFOWnatP4uQJWVXNDd+s8z7bXOfIGMi0iVQPVZqg=",
+            "rev": "v4.27.0",
+            "sha256": "sha256-bWpx1+VgAaGsU7s/9rv3UgcttLpIxZWp4zvDAJuXIsA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.0"
+        "version": "v4.27.0"
     },
     "LeanSearchClient": {
         "cargoLock": null,
@@ -34,12 +34,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "LeanSearchClient",
-            "rev": "3591c3f664ac3719c4c86e4483e21e228707bfa2",
-            "sha256": "sha256-aDYHfikl60O+y3zLvFId8Sr/PypPmCrwxwmzwYnrJTw=",
+            "rev": "5ce7f0a355f522a952a3d678d696bd563bb4fd28",
+            "sha256": "sha256-SrH1HYMv1MAC5HJZyqjV2LnO5l/0QPuAuz3XXlLncQ0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3591c3f664ac3719c4c86e4483e21e228707bfa2"
+        "version": "5ce7f0a355f522a952a3d678d696bd563bb4fd28"
     },
     "Qq": {
         "cargoLock": null,
@@ -55,12 +55,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "quote4",
-            "rev": "v4.26.0",
-            "sha256": "sha256-g6BrhUs3Rx2PugvCYsTjz0CMklES5oRhK+rVERf3NmQ=",
+            "rev": "v4.27.0",
+            "sha256": "sha256-BfH4+M7JosqrRYV4Q1yVu/5swnCy9QRi+go0BZZ6M4c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.0"
+        "version": "v4.27.0"
     },
     "aesop": {
         "cargoLock": null,
@@ -76,12 +76,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "aesop",
-            "rev": "v4.26.0",
-            "sha256": "sha256-cGkaUz1eHeIrOL6hGzvTZQ9zxhdQlrnaQqdaadyk5X8=",
+            "rev": "v4.27.0",
+            "sha256": "sha256-OjQwTecqBK4szl8+EyJlJ+2wG3Yszw58rmq6w2Hc4zE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.0"
+        "version": "v4.27.0"
     },
     "amgcl": {
         "cargoLock": null,
@@ -181,12 +181,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "batteries",
-            "rev": "v4.26.0",
-            "sha256": "sha256-uqKmyyv1QlhwnhMRNlMi+BXWHUvHbUrHFZJ4VRgSlCg=",
+            "rev": "v4.27.0",
+            "sha256": "sha256-nPWPr2I3HVMBey0RlhD2s0S9/JOv3lZYm5dT1CBdoq4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.0"
+        "version": "v4.27.0"
     },
     "cmdlime": {
         "cargoLock": null,
@@ -385,12 +385,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "import-graph",
-            "rev": "v4.26.0",
-            "sha256": "sha256-82XY60WB3t/gcm/nbUtQwK1Ys7giOcaM28oFTrBsrZo=",
+            "rev": "v4.27.0",
+            "sha256": "sha256-xQLCm8vTDFidqMVbe65qMxvqgubde4wm+bzeHHucArE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.0"
+        "version": "v4.27.0"
     },
     "jax-md": {
         "cargoLock": null,
@@ -451,12 +451,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "mathlib4",
-            "rev": "v4.26.0",
-            "sha256": "sha256-eYl3wXgTZEvkTwhyu3W5bYeQxQvwYsnfYpP+2DoojKQ=",
+            "rev": "v4.27.0",
+            "sha256": "sha256-1FdK20QQ55JqyI9IwzjhRF9ftqzHQBQ8tI5rQDii7tE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.0"
+        "version": "v4.27.0"
     },
     "plausible": {
         "cargoLock": null,
@@ -472,12 +472,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "plausible",
-            "rev": "v4.26.0",
-            "sha256": "sha256-THm3uQgzYJSitPEW/mz3Jb5HFpx842RcYlRK/LlKlkw=",
+            "rev": "v4.27.0",
+            "sha256": "sha256-P/jwnnHlihWJDBqFJD1GlP/5SnjjuabxuK+/r7iLp7M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.0"
+        "version": "v4.27.0"
     },
     "proofwidgets": {
         "cargoLock": null,
@@ -493,12 +493,12 @@
             "name": null,
             "owner": "leanprover-community",
             "repo": "ProofWidgets4",
-            "rev": "v0.0.83",
-            "sha256": "sha256-+53ZX0jvkBU4TR67YPyULtJWVxSsJJDV8G2N7GFwUD0=",
+            "rev": "v0.0.85",
+            "sha256": "sha256-kSvyoXZALvUWYmJAYo+QNK9J5KADEUm7KF/Sza6tlDU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.0.83"
+        "version": "v0.0.85"
     },
     "ptrace-time-hook": {
         "cargoLock": null,
