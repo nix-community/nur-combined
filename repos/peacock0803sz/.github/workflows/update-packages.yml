@@ -53,7 +53,7 @@ jobs:
       - name: Run nix-update
         id: update
         run: |
-          nix profile install nixpkgs#nix-update
+          nix profile add nixpkgs#nix-update
           nix-update --flake "${{ matrix.package }}" 2>&1 | tee /tmp/nix-update.log
           if git diff --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"

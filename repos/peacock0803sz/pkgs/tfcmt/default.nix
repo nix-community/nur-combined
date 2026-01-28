@@ -1,20 +1,20 @@
 { lib, buildGo125Module, fetchFromGitHub }:
 let
-  version = "v4.14.12";
+  version = "4.14.12";
 in
 buildGo125Module {
   pname = "tfcmt";
-  version = version;
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "suzuki-shunsuke";
     repo = "tfcmt";
-    rev = version;
+    tag = "v${version}";
     hash = "sha256-S7zH8TxRRzRjLG9b3ixeCsOdMwNU10W6jFoqILPuGPs=";
   };
 
   vendorHash = "sha256-f/dKs9MkhSrWrmbmJLDMUDDwgrwWMs1q0WKnfHVioyU=";
-  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
+  ldflags = [ "-s" "-w" "-X=main.version=v${version}" ];
 
   meta = {
     description = "tfcmt enhances mercari/tfnotify in many ways, including Terraform >= v0.15 support and advanced formatting options";

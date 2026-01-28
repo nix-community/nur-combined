@@ -1,15 +1,15 @@
 { lib, buildGo124Module, fetchFromGitHub }:
 let
-  version = "v0.0.5";
+  version = "0.0.5";
 in
 buildGo124Module {
   pname = "gwq";
-  version = version;
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "d-kuro";
     repo = "gwq";
-    rev = version;
+    tag = "v${version}";
     hash = "sha256-oSgDH5E3ETSlpovhU+MNmDTpY2BRGsR9Bf57ot04Rng=";
   };
 
@@ -18,7 +18,7 @@ buildGo124Module {
   ldflags = [
     "-s"
     "-w"
-    "-X=github.com/d-kuro/gwq/internal/cmd.version=${version}"
+    "-X=github.com/d-kuro/gwq/internal/cmd.version=v${version}"
   ];
   doCheck = false;
 
