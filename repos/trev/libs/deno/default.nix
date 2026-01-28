@@ -2,8 +2,9 @@
 {
   compile = pkgs.lib.makeOverridable (
     {
-      pkg,
+      package,
       target ? "x86_64-unknown-linux-gnu",
+      entrypoint ? "",
       allow-read ? true,
       allow-write ? true,
       allow-net ? true,
@@ -11,7 +12,7 @@
       allow-run ? true,
       ...
     }:
-    pkg.overrideAttrs (
+    package.overrideAttrs (
       _: prev:
       let
         name = if builtins.hasAttr "pname" prev then prev.pname else prev.name;
@@ -63,9 +64,15 @@
           cp ${denort."${target}"} "$DENO_DIR/dl/release/v${pkgs.deno.version}/denort-${target}.zip"
 
           # find entrypoint
-          ENTRYPOINT=$(jq -r '.main' package.json)
-          if [ "$ENTRYPOINT" = "null" ] || [ -z "$ENTRYPOINT" ]; then
+          if [[ -n "${entrypoint}" ]]; then
+            ENTRYPOINT="${entrypoint}"
+          elif jq -e 'has("main")' package.json; then
+            ENTRYPOINT=$(jq -r '.main' package.json)
+          elif [[ -f build/index.js ]]; then
             ENTRYPOINT="build/index.js"
+          else
+            echo "Could not determine entrypoint. Please specify it explicitly."
+            exit 1
           fi
 
           # compile
