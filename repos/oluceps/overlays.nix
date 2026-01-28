@@ -8,6 +8,7 @@
   "niri"
   # "devenv"
   "nix-cachyos-kernel"
+  "run0-sudo-shim"
 ])
 ++ [
   (

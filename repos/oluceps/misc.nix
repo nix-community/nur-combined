@@ -231,6 +231,7 @@
     # srv.earlyoom.enable = true;
     systemPackages = [
       pkgs.eza
+      pkgs.run0-sudo-shim
     ];
 
     etc = {

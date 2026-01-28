@@ -176,6 +176,16 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
+                        upstreams = [ { dial = "localhost:8096"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "jellyfin.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
                         upstreams = [ { dial = "[fdcc::3]:9333"; } ];
                       }
                     ];
@@ -206,7 +216,7 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
-                        upstreams = [ { dial = "[fdcc::3]:3030"; } ];
+                        upstreams = [ { dial = "[fdcc::3]:3031"; } ];
                       }
                     ];
                     match = [ { host = [ "rqbit.nyaw.xyz" ]; } ];

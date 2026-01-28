@@ -107,7 +107,7 @@ reIf {
 
       loki.write "default" {
       	endpoint {
-      		url = "http://[fdcc::1]:3030/loki/api/v1/push"
+      		url = "http://[fdcc::3]:3030/loki/api/v1/push"
       	}
       	external_labels = {}
       }

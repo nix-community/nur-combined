@@ -17,6 +17,7 @@ let
     "seed"
     "alert"
     "tgs"
+    "jellyfin"
   ];
   srvOnHastur = [
     "cache.nyaw.xyz"

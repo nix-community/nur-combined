@@ -252,10 +252,8 @@
     # mautrix-telegram.enable = true;
     # calibre.enable = true;
     ipex.enable = true;
-    routed-subnet.enable = true;
-    loki.enable = true;
-    alloy.enable = true;
-    zeek.enable = true;
+    # alloy.enable = true;
+    # zeek.enable = true;
     earlyoom.enable = true;
     incus = {
       enable = true;

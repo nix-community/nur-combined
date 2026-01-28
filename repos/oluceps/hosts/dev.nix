@@ -47,7 +47,8 @@
           # ControlPath ~/.ssh/%r@%h:%p.socket
           # ControlPersist 10m
           Port 22
-          IdentityFile /persist/keys/sept
+          IdentityFile /persist/keys/sept.pub
+          IdentitiesOnly yes
           HashKnownHosts yes
     ''}"
     "L+ /root/.ssh/config - - - - /home/${user}/.ssh/config"

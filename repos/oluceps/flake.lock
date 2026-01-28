@@ -1220,7 +1220,25 @@
     },
     "flake-utils_11": {
       "inputs": {
-        "systems": "systems_15"
+        "systems": "systems_14"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_12": {
+      "inputs": {
+        "systems": "systems_16"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -1934,6 +1952,27 @@
         "owner": "nix-community",
         "repo": "nix-github-actions",
         "rev": "5163432afc817cf8bd1f031418d1869e4c9d5547",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "type": "github"
+      }
+    },
+    "nix-github-actions_3": {
+      "inputs": {
+        "nixpkgs": [
+          "run0-sudo-shim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737420293,
+        "narHash": "sha256-F1G5ifvqTpJq7fdkT34e/Jy9VCyzd5XfJ9TO8fHhJWE=",
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "rev": "f4158fa080ef4503c8f4c820967d946c2af31ec9",
         "type": "github"
       },
       "original": {
@@ -3268,10 +3307,35 @@
         "prismlauncher": "prismlauncher",
         "quickshell": "quickshell",
         "radicle": "radicle",
+        "run0-sudo-shim": "run0-sudo-shim",
         "tg-online-keeper": "tg-online-keeper",
         "vaultix": "vaultix",
         "vicinae": "vicinae",
         "xwayland-satellite": "xwayland-satellite"
+      }
+    },
+    "run0-sudo-shim": {
+      "inputs": {
+        "flake-utils": "flake-utils_11",
+        "nix-github-actions": "nix-github-actions_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_9",
+        "treefmt-nix": "treefmt-nix_4"
+      },
+      "locked": {
+        "lastModified": 1766568576,
+        "narHash": "sha256-4XMfEw0ugVIzYOOVZ17ctikK1zjoP6UJ/r7/A1buxn4=",
+        "owner": "lordgrimmauld",
+        "repo": "run0-sudo-shim",
+        "rev": "63684c217162b94ce15fed68d579e1109ed2753b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lordgrimmauld",
+        "repo": "run0-sudo-shim",
+        "type": "github"
       }
     },
     "rust-analyzer-src": {
@@ -3344,6 +3408,27 @@
       }
     },
     "rust-overlay_10": {
+      "inputs": {
+        "nixpkgs": [
+          "vaultix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762223900,
+        "narHash": "sha256-caxpESVH71mdrdihYvQZ9rTZPZqW0GyEG9un7MgpyRM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "cfe1598d69a42a5edb204770e71b8df77efef2c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_11": {
       "inputs": {
         "nixpkgs": [
           "xwayland-satellite",
@@ -3514,16 +3599,16 @@
     "rust-overlay_9": {
       "inputs": {
         "nixpkgs": [
-          "vaultix",
+          "run0-sudo-shim",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1762223900,
-        "narHash": "sha256-caxpESVH71mdrdihYvQZ9rTZPZqW0GyEG9un7MgpyRM=",
+        "lastModified": 1766371695,
+        "narHash": "sha256-W7CX9vy7H2Jj3E8NI4djHyF8iHSxKpb2c/7uNQ/vGFU=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "cfe1598d69a42a5edb204770e71b8df77efef2c3",
+        "rev": "d81285ba8199b00dc31847258cae3c655b605e8c",
         "type": "github"
       },
       "original": {
@@ -3639,6 +3724,21 @@
       }
     },
     "systems_15": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_16": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -3857,6 +3957,27 @@
         "type": "github"
       }
     },
+    "treefmt-nix_4": {
+      "inputs": {
+        "nixpkgs": [
+          "run0-sudo-shim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766000401,
+        "narHash": "sha256-+cqN4PJz9y0JQXfAK5J1drd0U05D5fcAGhzhfVrDlsI=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "42d96e75aa56a3f70cab7e7dc4a32868db28e8fd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
     "utils": {
       "inputs": {
         "systems": "systems_10"
@@ -3881,7 +4002,7 @@
         "flake-parts": "flake-parts_13",
         "nixpkgs": "nixpkgs_29",
         "pre-commit-hooks": "pre-commit-hooks_3",
-        "rust-overlay": "rust-overlay_9"
+        "rust-overlay": "rust-overlay_10"
       },
       "locked": {
         "lastModified": 1765367686,
@@ -3900,7 +4021,7 @@
     "vicinae": {
       "inputs": {
         "nixpkgs": "nixpkgs_30",
-        "systems": "systems_14"
+        "systems": "systems_15"
       },
       "locked": {
         "lastModified": 1768039142,
@@ -3918,11 +4039,11 @@
     },
     "xwayland-satellite": {
       "inputs": {
-        "flake-utils": "flake-utils_11",
+        "flake-utils": "flake-utils_12",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_10"
+        "rust-overlay": "rust-overlay_11"
       },
       "locked": {
         "lastModified": 1768106915,

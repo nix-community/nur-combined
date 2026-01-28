@@ -48,14 +48,14 @@
     };
     nftables = {
       enable = true;
-      ruleset = ''
-        table inet filter {
-        	chain forward {
-            type filter hook forward priority filter; policy drop;
-            iifname "eno1" oifname "vm1" ip6 saddr fdcc::3 accept
-        	}
-        }
-      '';
+      # ruleset = ''
+      #   table inet filter {
+      #   	chain forward {
+      #       type filter hook forward priority filter; policy drop;
+      #       iifname "eno1" oifname "vm1" ip6 saddr fdcc::3 accept
+      #   	}
+      #   }
+      # '';
     };
 
     networkmanager.enable = lib.mkForce false;

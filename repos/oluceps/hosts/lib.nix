@@ -114,6 +114,7 @@ rec {
     inputs.self.nixosModules.repack
   ]
   ++ (genModules [
+    "run0-sudo-shim"
     "vaultix"
     "lanzaboote"
     "catppuccin"

@@ -27,6 +27,10 @@
       in
       ''
         # CATCH: repack/bird.nix `if proto = "vm" then accept;`
+        protocol static vm {
+          ipv6;
+          route fec0::1/128 via fdcc::3;
+        }
         protocol direct k8s {
           ipv6;
           interface "br0";

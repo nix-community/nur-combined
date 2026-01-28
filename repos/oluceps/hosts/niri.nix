@@ -26,14 +26,38 @@
     greetd.enableGnomeKeyring = true;
     login.enableGnomeKeyring = true;
   };
-  services.gnome.gcr-ssh-agent.enable = true;
+  # services.gnome.gcr-ssh-agent.enable = true;
   environment.systemPackages = [
     pkgs.show-current-ws
+    pkgs.rbw
   ];
+  environment.sessionVariables = {
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/rbw/ssh-agent-socket";
+  };
 
   systemd.user = {
     services = {
 
+      rbw = {
+        description = "Bitwarden CLI (rbw) unlock and start Agent";
+
+        wantedBy = [
+          "graphical-session.target"
+          "default.target"
+        ];
+        after = [ "niri.service" ];
+        partOf = [ "graphical-session.target" ];
+        path = [ pkgs.rbw ];
+
+        serviceConfig = {
+          ExecStart = "${pkgs.rbw}/bin/rbw-agent --no-daemonize";
+          ExecStartPost = "${pkgs.rbw}/bin/rbw unlock";
+          Restart = "always";
+          RestartSec = "5s";
+          RuntimeDirectory = "rbw";
+          RuntimeDirectoryMode = "0700";
+        };
+      };
       niri-flake-polkit = {
         description = "PolicyKit Authentication Agent provided by niri-flake";
         wantedBy = [ "niri.service" ];

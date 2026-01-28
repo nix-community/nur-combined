@@ -20,6 +20,11 @@ in
       };
       syncthing-hastur-api = { };
       tg-search = { };
+      loki = {
+        owner = config.services.loki.user;
+        group = config.services.loki.group;
+        mode = "400";
+      };
       synapse-s3 = { };
       synapse-oidc = {
         owner = config.systemd.services.matrix-synapse.serviceConfig.User;

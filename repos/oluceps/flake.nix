@@ -375,6 +375,10 @@
     nix-cachyos-kernel.url = "github:oluceps/nix-cachyos-kernel";
     # nix-kernelsu-builder.url = "/home/riro/Src/nix-kernelsu-builder";
     # "github:xddxdd/nix-kernelsu-builder";
+    run0-sudo-shim = {
+      url = "github:lordgrimmauld/run0-sudo-shim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     self.submodules = true;
 
   };

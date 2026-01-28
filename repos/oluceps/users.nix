@@ -80,7 +80,7 @@
       wheelNeedsPassword = false;
     };
     sudo-rs = {
-      enable = true;
+      enable = false;
       extraRules = [
         # {
         #   users = [ "${user}" ];

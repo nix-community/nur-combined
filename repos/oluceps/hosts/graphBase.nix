@@ -233,7 +233,6 @@
     style = "adwaita";
   };
   security = {
-    pam.services.swaylock = { };
     rtkit.enable = true;
   };
   services = {
