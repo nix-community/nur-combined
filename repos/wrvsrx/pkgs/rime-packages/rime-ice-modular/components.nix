@@ -1,15 +1,16 @@
 { rime-ice-modular-src, callPackage }:
 let
+  prefix = "rime-ice-";
   components = builtins.fromJSON (builtins.readFile ./components.json);
   components' = builtins.listToAttrs (
     map (x: {
-      name = "rime-ice-" + x;
+      name = prefix + x;
       value =
         let
           src = callPackage (
             { stdenv }:
             stdenv.mkDerivation {
-              name = "rime-ice-" + x + "-src";
+              name = prefix + x + "-src";
               src = rime-ice-modular-src;
               buildPhase = "true";
               installPhase = ''
@@ -30,10 +31,10 @@ let
             stdenv,
           }:
           stdenv.mkDerivation {
-            pname = "rime-ice-" + x;
+            pname = prefix + x;
             inherit (rime-ice-modular-src) version;
             inherit src;
-            propagatedBuildInputs = (map (y: components'.${"rime-ice-" + y}) components.${x}.dependencies) ++ [
+            propagatedBuildInputs = (map (y: components'.${prefix + y}) components.${x}.dependencies) ++ [
               rime-prelude
             ];
             nativeBuildInputs = [

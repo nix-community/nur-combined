@@ -1,6 +1,6 @@
 {
     "Cli": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "Cli",
@@ -21,7 +21,7 @@
         "version": "v4.26.0"
     },
     "LeanSearchClient": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "LeanSearchClient",
@@ -42,7 +42,7 @@
         "version": "3591c3f664ac3719c4c86e4483e21e228707bfa2"
     },
     "Qq": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "Qq",
@@ -63,7 +63,7 @@
         "version": "v4.26.0"
     },
     "aesop": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "aesop",
@@ -84,7 +84,7 @@
         "version": "v4.26.0"
     },
     "amgcl": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-08-27",
         "extract": null,
         "name": "amgcl",
@@ -105,7 +105,7 @@
         "version": "93827a00fc926d951c75f08fdb1d491912ff7065"
     },
     "autobean-format": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "autobean-format",
@@ -126,7 +126,7 @@
         "version": "v0.1.6"
     },
     "autobean-refactor": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "autobean-refactor",
@@ -147,7 +147,7 @@
         "version": "v0.2.5"
     },
     "autodiff": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "autodiff",
@@ -168,7 +168,7 @@
         "version": "v1.0.3"
     },
     "batteries": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "batteries",
@@ -189,7 +189,7 @@
         "version": "v4.26.0"
     },
     "cmdlime": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "cmdlime",
@@ -210,7 +210,7 @@
         "version": "v2.7.0"
     },
     "cnpy": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2018-05-31",
         "extract": null,
         "name": "cnpy",
@@ -231,7 +231,7 @@
         "version": "4e8810b1a8637695171ed346ce68f6984e585ef4"
     },
     "coc-markdown": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-07-15",
         "extract": null,
         "name": "coc-markdown",
@@ -252,7 +252,7 @@
         "version": "2b9e5e7cdf2e6d027ab226c36e1175ad5030ce62"
     },
     "coc-zk": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-07-15",
         "extract": null,
         "name": "coc-zk",
@@ -273,7 +273,7 @@
         "version": "0e6b90d1809514e853a8e80245b9e7eec71117c6"
     },
     "cyCodeBase": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-05-26",
         "extract": null,
         "name": "cyCodeBase",
@@ -294,7 +294,7 @@
         "version": "6d3a2c9958d71794016119826d39206903e00d26"
     },
     "e3nn-jax": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "e3nn-jax",
@@ -309,7 +309,7 @@
         "version": "0.20.7"
     },
     "giraffe-wallpaper": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-04-06",
         "extract": null,
         "name": "giraffe-wallpaper",
@@ -330,7 +330,7 @@
         "version": "65a3b96f959d9ee95ee3e8333bbc4b9bbc510a40"
     },
     "happly": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-02-06",
         "extract": null,
         "name": "happly",
@@ -351,7 +351,7 @@
         "version": "8a606309daaa680eee495c8279feb0b704148f4a"
     },
     "hougeo": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2015-10-31",
         "extract": null,
         "name": "hougeo",
@@ -372,7 +372,7 @@
         "version": "7e48d2bda0f94fc96b2d8b2917d5ef306ba83c97"
     },
     "importGraph": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "importGraph",
@@ -393,7 +393,7 @@
         "version": "v4.26.0"
     },
     "jax-md": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "jax-md",
@@ -408,7 +408,7 @@
         "version": "0.2.8"
     },
     "jraph": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "jraph",
@@ -423,7 +423,7 @@
         "version": "0.0.6.dev0"
     },
     "keymap-drawer": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "keymap-drawer",
@@ -438,7 +438,7 @@
         "version": "0.22.1"
     },
     "mathlib": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "mathlib",
@@ -459,7 +459,7 @@
         "version": "v4.26.0"
     },
     "plausible": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "plausible",
@@ -480,7 +480,7 @@
         "version": "v4.26.0"
     },
     "proofwidgets": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "proofwidgets",
@@ -501,7 +501,7 @@
         "version": "v0.0.83"
     },
     "ptrace-time-hook": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "ptrace-time-hook",
@@ -522,7 +522,7 @@
         "version": "0.1.0"
     },
     "rime-ice-modular": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "rime-ice-modular",
@@ -535,15 +535,15 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "rime-ice-modular",
-            "rev": "2025.12.08-01",
-            "sha256": "sha256-fdM036a+73Q0lNKOicbg6dLvd5p+0jZe1nP4dInop3U=",
+            "rev": "2025.12.08-02",
+            "sha256": "sha256-CUlGNbOsbgmtbfkI4VB1SBv+LAChHXDKTm2De0Xk2lI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2025.12.08-01"
+        "version": "2025.12.08-02"
     },
     "rime-prelude": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-05-19",
         "extract": null,
         "name": "rime-prelude",
@@ -564,7 +564,7 @@
         "version": "3803f09458072e03b9ed396692ce7e1d35c88c95"
     },
     "seal_lake": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "seal_lake",
@@ -585,7 +585,7 @@
         "version": "v0.2.0"
     },
     "sfun": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "sfun",
@@ -606,7 +606,7 @@
         "version": "v5.1.0"
     },
     "structopt": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "structopt",
@@ -627,7 +627,7 @@
         "version": "v0.1.3"
     },
     "task-utils": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-24",
         "extract": null,
         "name": "task-utils",
@@ -648,7 +648,7 @@
         "version": "ac7b285b52385aaf5d45dc832b990060cdcdce90"
     },
     "tree-sitter-devicetree": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "tree-sitter-devicetree",
@@ -669,7 +669,7 @@
         "version": "v0.15.0"
     },
     "utfcpp": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "utfcpp",
@@ -690,7 +690,7 @@
         "version": "v4.0.6"
     },
     "v2ray-rules-dat-geoip": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "v2ray-rules-dat-geoip",
@@ -705,7 +705,7 @@
         "version": "202601142217"
     },
     "v2ray-rules-dat-geosite": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "v2ray-rules-dat-geosite",
@@ -720,7 +720,7 @@
         "version": "202601142217"
     },
     "xclip": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2022-01-29",
         "extract": null,
         "name": "xclip",
@@ -741,7 +741,7 @@
         "version": "b372f73579d30f9ba998ffd0a73694e7abe2c313"
     },
     "xdg": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "xdg",
