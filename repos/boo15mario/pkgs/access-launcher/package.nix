@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "access-launcher";
-  version = "0.4.3";
+  version = "0.4.3-unstable-2026-01-28";
 
   src = fetchFromGitHub {
     owner = "boo15mario";
     repo = "access-launcher";
-    rev = "0a4f587334b52d0eed7a4fdf9ec8db3259e92f4f";
-    hash = "sha256-wPyfhndwQ/iCMi/8rfel/tU/h8s3ykKJVrFWprkjjFQ=";
+    rev = "8b0973e1b6f579b173789e8b40f376a9c85fa319";
+    hash = "sha256-a1POB7vKdNWerlRJeLlEPPXLhY8fODLUHclDOBNmtBQ=";
   };
 
-  cargoHash = "sha256-XIHPkNEn7fIOdONoohYOjk3EeEnQF5xFsWD9Z6VM560=";
+  cargoHash = "sha256-9VU4AGBUOr5HZaSYfgNQIV7BJBmGoS9BW0osywAhuFc=";
 
   nativeBuildInputs = [
     pkg-config
@@ -38,6 +38,8 @@ rustPlatform.buildRustPackage rec {
       install -Dm644 assets/icon.png $out/share/icons/hicolor/512x512/apps/${pname}.png
     elif [ -f icon.png ]; then
       install -Dm644 icon.png $out/share/icons/hicolor/512x512/apps/${pname}.png
+    elif [ -f access-launcher.svg ]; then
+      install -Dm644 access-launcher.svg $out/share/icons/hicolor/scalable/apps/${pname}.svg
     else
       install -Dm644 ${./icon.svg} $out/share/icons/hicolor/scalable/apps/${pname}.svg
     fi
