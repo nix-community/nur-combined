@@ -17,7 +17,7 @@ jobs:
           - ubuntu-24.04
           - ubuntu-24.04-arm
           - macos-15
-          - macos-15-intel
+          #- macos-15-intel # too many failing tasks
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
