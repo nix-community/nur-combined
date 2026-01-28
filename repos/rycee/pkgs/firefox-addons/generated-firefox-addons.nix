@@ -11808,10 +11808,10 @@
     };
     "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.66";
+      version = "4.3.67";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4674707/remove_youtube_s_suggestions-4.3.66.xpi";
-      sha256 = "cef748531751e7570721d86f1f2b402710e3294bf53f7e067cc2711100b7452d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4677588/remove_youtube_s_suggestions-4.3.67.xpi";
+      sha256 = "e27bc2e17f20cf44bd0dddf1f2377081077d82ac9514bd030540834d0127c6b8";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
