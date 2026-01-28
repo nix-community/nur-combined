@@ -70,16 +70,17 @@ rec {
 
   emacsMakeDirectoryScope =
     {
-      path,
+      paths,
       epkgs ? pkgs.emacs.pkgs,
     }:
     let
-      elFiles = lib.filter (x: lib.hasSuffix ".el" x) (lib.filesystem.listFilesRecursive path);
+      allFiles = lib.flatten (map lib.filesystem.listFilesRecursive paths);
+      elFiles = lib.filter (x: lib.hasSuffix ".el" x) allFiles;
       final = lib.listToAttrs (
         map (filepath: {
           name = lib.removeSuffix ".el" (builtins.baseNameOf filepath);
           value = emacsMakeSingleFilePackage {
-            src = (path + "/${(builtins.baseNameOf filepath)}");
+            src = filepath;
             epkgs = epkgs.overrideScope (_self: _super: final);
           };
         }) elFiles

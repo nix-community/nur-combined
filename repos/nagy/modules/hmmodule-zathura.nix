@@ -24,9 +24,9 @@
       render-loading = false;
       dbus-raise-window = false;
       database = "null";
-      # first-page-column = "1:2";
       selection-clipboard = "clipboard";
-      # pages-per-row = 2;
+      first-page-column = "2";
+      pages-per-row = 2;
       open-first-page = true;
       # recolor-reverse-video = true; # this prevents image pdfs from being recolored
       # sandbox = "strict";

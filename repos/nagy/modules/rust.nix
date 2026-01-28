@@ -21,6 +21,7 @@ in
       pkgs.rustc
       pkgs.rustfmt
       pkgs.cargo
+      pkgs.clippy
       pkgs.cargo-bloat
       pkgs.rust-analyzer
       pkgs.rust-script

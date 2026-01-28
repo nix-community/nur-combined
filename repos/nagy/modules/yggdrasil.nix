@@ -8,19 +8,21 @@
 let
   inherit (lib.types) nullOr str;
   readYggdrasilOutput =
-    if (config.services.yggdrasil.enable && config.services.yggdrasil.settings ? PrivateKey) then
-      (
-        name:
-        builtins.readFile (
-          pkgs.runCommandLocal "yggdrasil-output-${name}.txt" {
+    name:
+    if (config.services.yggdrasil.enable && config.services.yggdrasil.settings ? PrivateKeyPath) then
+      (builtins.readFile (
+        pkgs.runCommandLocal "yggdrasil-output-${name}.txt"
+          {
             nativeBuildInputs = [ config.services.yggdrasil.package ];
             configfile = builtins.toJSON config.services.yggdrasil.settings;
             passAsFile = [ "configfile" ];
-          } ''yggdrasil -useconffile "$configfilePath" -${name}|tr -d $'\n'> $out''
-        )
-      )
+          }
+          ''
+            yggdrasil -useconffile "$configfilePath" -${name}|tr -d $'\n' > $out
+          ''
+      ))
     else
-      _name: null;
+      null;
 in
 {
   options = {
@@ -44,24 +46,30 @@ in
   config = lib.mkIf config.services.yggdrasil.enable {
     services.yggdrasil = {
       group = "wheel";
-      package = pkgs.yggdrasil.overrideAttrs (old: {
-        src = pkgs.fetchurl {
-          url = "https://github.com/nagy/yggdrasil-go/archive/vsock.tar.gz";
-          hash = "sha256-aym/WvnInF7o+0Ru96WYTpZm6IL0gW41XFW8C8KGk0s=";
-        };
-        vendorHash = "sha256-ZrciqrbH3/tD7yqT4+ZJJ0sloeHXI+wFn+aGEhgtQPI=";
-        patches = [
-          # shorter private keys
-          (pkgs.fetchpatch {
-            url = "https://github.com/nagy/yggdrasil-go/commit/a2f361eca7bb10ea198e25162c48892876763c23.patch";
-            hash = "sha256-NbCFhlkIyNcXFt5FM86XjEtWJpagDwWSeq4skazhaj0=";
-          })
-        ];
-      });
+      package = lib.mkDefault (
+        pkgs.yggdrasil.overrideAttrs (old: {
+          src = pkgs.fetchurl {
+            url = "https://github.com/nagy/yggdrasil-go/archive/vsock.tar.gz";
+            hash = "sha256-aym/WvnInF7o+0Ru96WYTpZm6IL0gW41XFW8C8KGk0s=";
+          };
+          vendorHash = "sha256-ZrciqrbH3/tD7yqT4+ZJJ0sloeHXI+wFn+aGEhgtQPI=";
+          patches = [
+            # shorter private keys
+            (pkgs.fetchpatch {
+              url = "https://github.com/nagy/yggdrasil-go/commit/a2f361eca7bb10ea198e25162c48892876763c23.patch";
+              hash = "sha256-NbCFhlkIyNcXFt5FM86XjEtWJpagDwWSeq4skazhaj0=";
+            })
+          ];
+        })
+      );
       settings = {
         IfName = "ygg0";
         NodeInfo = { };
         NodeInfoPrivacy = true;
+
+        Listen = [
+          "vsock://host:1234"
+        ];
       };
     };
     systemd.services.yggdrasil = {
