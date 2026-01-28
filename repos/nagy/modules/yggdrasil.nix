@@ -70,6 +70,14 @@ in
         Listen = [
           "vsock://host:1234"
         ];
+
+        Peers =
+          if (config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true) then
+            [
+              "vsock://host:1234"
+            ]
+          else
+            [ ];
       };
     };
     systemd.services.yggdrasil = {
@@ -78,6 +86,10 @@ in
         ${pkgs.iproute2}/bin/ip -6 address flush dev ${config.services.yggdrasil.settings.IfName} scope link
       '';
     };
+
+    # to include AF_VSOCK
+    systemd.services.yggdrasil.serviceConfig.RestrictAddressFamilies =
+      lib.mkForce "AF_UNIX AF_INET AF_INET6 AF_NETLINK AF_VSOCK";
 
     networking.hosts = {
       "222:3bd:cc26:9545:caaa:9fd6:ec56:cc1" = [

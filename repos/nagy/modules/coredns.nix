@@ -11,7 +11,14 @@ in
 {
   services.coredns = {
     package = pkgs.coredns.override {
-      # ...
+      externalPlugins = [
+        {
+          name = "meship";
+          repo = "github.com/zhoreeq/coredns-meship";
+          version = "ba2685d1803672262638f752edb0ae97932b58fa";
+        }
+      ];
+      vendorHash = "sha256-XNmlaBdxqQyJyNwa1juijHytB3SzZjtds3eDTEYAF7c="; # for 25.05
     };
     config = ''
       . {
@@ -40,6 +47,13 @@ in
         }
         log
       }
+
+      meship. {
+        bind 127.0.0.1
+        meship
+        log
+      }
+
       # do not resolve onion domains
       onion. {
         bind 127.0.0.1

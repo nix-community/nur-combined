@@ -69,16 +69,43 @@ let
           allowSubstitutes = false;
         };
         hledger-mode = super.hledger-mode.overrideAttrs {
-          src = builtins.fetchTarball "https://github.com/nagy/hledger-mode/archive/master.tar.gz";
+          src = pkgs.fetchFromGitHub {
+            owner = "nagy";
+            repo = "hledger-mode";
+            rev = "03b8c78d448823eade5d2a2ae08d150d00146263";
+            hash = "sha256-G9IHDhy1kdmnusHUQR0F4kLs2DUrawgxDnhloZvV7FM=";
+          };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        };
+
+        typst-ts-mode = super.melpaBuild {
+          pname = "typst-ts-mode";
+          version = "0-unstable-2025-11-05";
+          src = pkgs.fetchFromGitea {
+            domain = "codeberg.org";
+            owner = "meow_king";
+            repo = "typst-ts-mode";
+            rev = "7c2ef0d5bd2b5a8727fe6d00938c47ba562e0c94";
+            hash = "sha256-D+QEfEYlxJICcdUCleWpe7+HxePLSSmV7zAwvyTL0+Q=";
+          };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+          meta = {
+            homepage = "https://codeberg.org/meow_king/typst-ts-mode";
+            description = "Typst tree sitter major mode for Emacs";
+            license = lib.licenses.gpl3Plus;
+            maintainers = with lib.maintainers; [ nagy ];
+          };
         };
       }
     )
   );
   mkDirectoryPackagesValues =
-    path: epkgs:
+    paths: epkgs:
     (lib.attrValues (
       nur.repos.nagy.lib.emacsMakeDirectoryScope {
-        inherit path epkgs;
+        inherit paths epkgs;
       }
     ));
 in
@@ -100,7 +127,7 @@ in
       (customEmacsPackages.emacs.pkgs.withPackages (
         epkgs:
         [ epkgs.treesit-grammars.with-all-grammars ]
-        ++ (lib.flatten (map (it: mkDirectoryPackagesValues it epkgs) cfg.packageDirectories))
+        ++ (mkDirectoryPackagesValues cfg.packageDirectories epkgs)
       ))
     ];
 

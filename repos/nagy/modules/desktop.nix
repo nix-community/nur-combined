@@ -38,6 +38,14 @@
       })
       pkgs.ffmpeg_7-full
       pkgs.pandoc
+      # Spelling
+      (pkgs.aspellWithDicts (ps: [
+        ps.en
+        ps.de
+      ]))
+      # for jinx-mode to set DICPATH
+      pkgs.hunspellDicts.en-us
+      pkgs.hunspellDicts.de-de
       pkgs.gh
 
       (pkgs.redshift.override { withGeolocation = false; })
