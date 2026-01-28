@@ -1,0 +1,101 @@
+name: "Update packages"
+on:
+  schedule:
+    - cron: "0 3 * * 1" # Weekly Monday 03:00 UTC
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Package name to update (leave empty for all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  detect-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.list.outputs.packages }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: list
+        run: |
+          if [ -n "${{ inputs.package }}" ]; then
+            echo 'packages=["${{ inputs.package }}"]' >> "$GITHUB_OUTPUT"
+          else
+            packages=$(ls -d pkgs/*/ | xargs -I{} basename {} \
+              | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "packages=${packages}" >> "$GITHUB_OUTPUT"
+          fi
+
+  update-package:
+    needs: detect-packages
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.detect-packages.outputs.packages) }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run nix-update
+        id: update
+        run: |
+          nix profile install nixpkgs#nix-update
+          nix-update --flake "${{ matrix.package }}" 2>&1 | tee /tmp/nix-update.log
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            new_ver=$(grep 'version = ' "pkgs/${{ matrix.package }}/default.nix" \
+              | head -1 | sed 's/.*"\(.*\)".*/\1/')
+            echo "version=${new_ver}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create PR via gh
+        if: steps.update.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: "peacock0803sz"
+          GIT_AUTHOR_EMAIL: "33555487+peacock0803sz@users.noreply.github.com"
+          GIT_COMMITTER_NAME: "github-actions[bot]"
+          GIT_COMMITTER_EMAIL: "github-actions[bot]@users.noreply.github.com"
+        run: |
+          pkg="${{ matrix.package }}"
+          ver="${{ steps.update.outputs.version }}"
+          branch="update/${pkg}"
+
+          git switch -c "${branch}"
+          git add "pkgs/${pkg}/default.nix"
+          git commit -m ":arrow_up: Update ${pkg} to ${ver}"
+          git push -u origin "${branch}" --force
+
+          # Close existing open PRs for this package
+          gh pr list --head "${branch}" --state open --json number -q '.[].number' \
+            | while read -r pr_number; do
+                gh pr close "${pr_number}" --comment "Superseded by a newer update to \`${ver}\`."
+              done
+
+          gh pr create \
+            --title ":arrow_up: Update ${pkg} to ${ver}" \
+            --body "$(cat <<EOF
+          ## Summary
+
+          - Automated update by [nix-update](https://github.com/Mic92/nix-update)
+          - **Package**: \`${pkg}\`
+          - **New version**: \`${ver}\`
+          EOF
+            )" \
+            --label "dependencies" --label "nix"

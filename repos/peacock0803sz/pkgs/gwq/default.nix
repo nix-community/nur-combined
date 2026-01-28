@@ -1,6 +1,5 @@
 { lib, buildGo124Module, fetchFromGitHub }:
 let
-  commit = "2c07fc426fd000d2ea3963dec1b3c5efd9b1f4e7";
   version = "v0.0.5";
 in
 buildGo124Module {
@@ -10,7 +9,7 @@ buildGo124Module {
   src = fetchFromGitHub {
     owner = "d-kuro";
     repo = "gwq";
-    rev = commit;
+    rev = version;
     hash = "sha256-oSgDH5E3ETSlpovhU+MNmDTpY2BRGsR9Bf57ot04Rng=";
   };
 
@@ -20,7 +19,6 @@ buildGo124Module {
     "-s"
     "-w"
     "-X=github.com/d-kuro/gwq/internal/cmd.version=${version}"
-    "-X=github.com/d-kuro/gwq/internal/cmd.commit=${builtins.substring 0 7 commit}"
   ];
   doCheck = false;
 

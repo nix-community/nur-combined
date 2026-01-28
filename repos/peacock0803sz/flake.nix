@@ -2,17 +2,21 @@
   description = "peacock0803sz's NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs }:
-    let
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-    in
-    {
-      legacyPackages = forAllSystems (system: import ./default.nix {
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ] (system:
+      let
         pkgs = import nixpkgs { inherit system; };
-      });
-      packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
-    };
+        nurPackages = import ./default.nix { inherit pkgs; };
+      in
+      {
+        legacyPackages = nurPackages;
+        packages = nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) nurPackages;
+        devShells.default = pkgs.mkShellNoCC {
+          packages = [ pkgs.nix-update ];
+        };
+      }
+    );
 }
