@@ -165,6 +165,7 @@
             "lua/select_character.lua",
             "lua/t9_preedit.lua",
             "lua/unicode.lua",
+            "lua/uuid.lua",
             "lua/v_filter.lua"
         ],
         "outputs": [
@@ -194,6 +195,7 @@
             "lua/select_character.lua",
             "lua/t9_preedit.lua",
             "lua/unicode.lua",
+            "lua/uuid.lua",
             "lua/v_filter.lua"
         ]
     },
