@@ -363,7 +363,7 @@
     },
     "plugin-git": {
         "cargoLock": null,
-        "date": "2025-12-24",
+        "date": "2026-01-28",
         "extract": null,
         "name": "plugin-git",
         "passthru": null,
@@ -373,13 +373,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4ac0104bd4805f0272f23e93cc44150cca8a44f0",
-            "sha256": "sha256-ft3wygoKID1oh1S1eV9DyzyhROG4Q5o3wxzkZEsDNbs=",
+            "rev": "83a0a865d5031c436d47c9e3ab3a269b5d601615",
+            "sha256": "sha256-/62/2OXmpNqLYDTP3cCKHzsLFDiD3oQqUkgOyZ9Q3TM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/jhillyerd/plugin-git"
         },
-        "version": "4ac0104bd4805f0272f23e93cc44150cca8a44f0"
+        "version": "83a0a865d5031c436d47c9e3ab3a269b5d601615"
     },
     "pyim-greatdict": {
         "cargoLock": null,
@@ -544,7 +544,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-01-26",
+        "date": "2026-01-28",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -554,13 +554,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9d29a18917309486451a87fc139b571eeef0d26e",
-            "sha256": "sha256-BCQE1WjHO6ws9LQcmudtG+MfyeagxVBONpSAw5q4Xys=",
+            "rev": "e78ca1a42ca098202a487d8eb4559b93866d1e3d",
+            "sha256": "sha256-OCFeW5KGh4KGVVs5Fcbui2T20Q8M202eNXX3AtnnGHo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "9d29a18917309486451a87fc139b571eeef0d26e"
+        "version": "e78ca1a42ca098202a487d8eb4559b93866d1e3d"
     },
     "rime-loengfan": {
         "cargoLock": null,
