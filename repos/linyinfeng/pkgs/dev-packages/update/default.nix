@@ -1,34 +1,40 @@
 {
   lib,
   selfLib,
-  writeShellScriptBin,
+  writeShellApplication,
   nvfetcher-self,
   nvfetcher-changes-commit,
+  gawk,
   path,
   selfPackages,
   tmpDir ? "/tmp/linyinfeng-nur-packages-update",
   changelogFile ? "${tmpDir}/changelog",
   nvfetcherChangelogFile ? "${tmpDir}/nvfetcher-changelog",
   updateScriptCommitMessageFile ? "${tmpDir}/commit-message",
-  alternativeEnvFile ? "${tmpDir}/github-env",
+  alternativeOutputFile ? "${tmpDir}/github-output",
   nvcheckerKeyFile ? "keyfile.toml",
 }:
 
 let
   updateScripts = selfLib.getUpdateScripts selfPackages;
-  escapedUpdateScripts = builtins.map lib.escapeShellArgs updateScripts;
-
-  drv = writeShellScriptBin "update" ''
-    set -e
-
+  escapedUpdateScripts = map lib.escapeShellArgs updateScripts;
+in
+writeShellApplication {
+  name = "update";
+  runtimeInputs = [
+    gawk
+    nvfetcher-self
+    nvfetcher-changes-commit
+  ];
+  text = ''
     export NIX_PATH="nixpkgs=${path}"
 
     rm -rf "${tmpDir}"
     mkdir -p "${tmpDir}"
-    if [ -z "$GITHUB_ENV" ]; then
-      ENV_FILE="${alternativeEnvFile}"
+    if [ -z "$GITHUB_OUTPUT" ]; then
+      OUTPUT_FILE="${alternativeOutputFile}"
     else
-      ENV_FILE="$GITHUB_ENV"
+      OUTPUT_FILE="$GITHUB_OUTPUT"
     fi
 
     # setup git
@@ -51,11 +57,11 @@ let
         rm "${updateScriptCommitMessageFile}"
       fi
     }
-    ${lib.concatStringsSep "\n" (builtins.map (s: "handle_update_script ${s}") escapedUpdateScripts)}
+    ${lib.concatStringsSep "\n" (map (s: "handle_update_script ${s}") escapedUpdateScripts)}
 
     # remove old Cargo.lock files
     pushd pkgs/_sources
-    rm -f */Cargo.lock
+    rm -f ./*/Cargo.lock
     popd
 
     ## run nvfetcher
@@ -66,13 +72,13 @@ let
     fi
     pushd pkgs;
     set -x
-    "${nvfetcher-self}/bin/nvfetcher-self" "''${NVCHECKER_EXTRA_OPTIONS[@]}";
+    nvfetcher-self "''${NVCHECKER_EXTRA_OPTIONS[@]}";
     set +x
     popd
     nix fmt
 
     # get changelog
-    ${nvfetcher-changes-commit}/bin/nvfetcher-changes-commit "pkgs/_sources/generated.nix" > "${nvfetcherChangelogFile}"
+    nvfetcher-changes-commit "pkgs/_sources/generated.nix" > "${nvfetcherChangelogFile}"
     cat "${nvfetcherChangelogFile}" >> "${changelogFile}"
 
     ## nix flake update
@@ -83,15 +89,13 @@ let
     fi
 
     ## write to env file
-    echo "writing information to $ENV_FILE"
-    echo "CHANGELOG<<EOF" > $ENV_FILE
-    cat ${changelogFile} >> $ENV_FILE
-    echo "EOF" >> $ENV_FILE
+    echo "writing information to $OUTPUT_FILE"
+    echo "changelog<<EOF" > "$OUTPUT_FILE"
+    awk 1 "${changelogFile}" >> "$OUTPUT_FILE" # add missing newline automatically
+    echo "EOF" >> "$OUTPUT_FILE"
   '';
-in
-drv.overrideAttrs (old: {
   meta = with lib; {
     platforms = nvfetcher-self.meta.platforms;
     maintainers = with maintainers; [ yinfeng ];
   };
-})
+}
