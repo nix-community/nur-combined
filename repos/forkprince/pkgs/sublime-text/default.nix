@@ -1,4 +1,3 @@
-# NOTE: MacOS version untested
 {
   stdenvNoCC,
   sublime4,

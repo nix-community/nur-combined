@@ -1,4 +1,3 @@
-# NOTE: This is untested
 {
   stdenvNoCC,
   fetchurl,
@@ -24,8 +23,7 @@ in
     installPhase = ''
       runHook preInstall
       mkdir -p $out/Applications
-      app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
-      cp -R "$app" $out/Applications/
+      cp -R "Blip.app" $out/Applications/
       runHook postInstall
     '';
 

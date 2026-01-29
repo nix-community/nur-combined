@@ -1,5 +1,5 @@
 # NOTE: Linux version may not have a desktop file
-# NOTE: MacOS version untested
+# NOTE: Linux version is untested
 {
   appimageTools,
   fetchurl,
