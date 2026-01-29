@@ -16,7 +16,7 @@
       _: prev:
       let
         name = if builtins.hasAttr "pname" prev then prev.pname else prev.name;
-        binName = if target == "x86_64-pc-windows-msvc" then "${name}.exe" else name;
+        bin = if target == "x86_64-pc-windows-msvc" then "${name}.exe" else name;
 
         denort = {
           x86_64-pc-windows-msvc = pkgs.fetchurl {
@@ -85,13 +85,13 @@
             ${if allow-env then "--allow-env" else "--deny-env"} \
             ${if allow-run then "--allow-run" else "--deny-run"} \
             --target ${target} \
-            --output "$out/bin/${binName}" "$ENTRYPOINT"
+            --output "$out/bin/${bin}" "$ENTRYPOINT"
 
           runHook postInstall
         '';
 
         meta = prev.meta // {
-          mainProgram = binName;
+          mainProgram = bin;
         };
       }
     )
