@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage {
       writers.writeTOML "config.toml" {
         env = {
           LOG = "/var/log/linux-enable-ir-emitter.log";
-          CONFIG = "/var/lib/linux-enable-ir-emitter/config.toml";
+          CONFIG = "/var/lib/linux-enable-ir-emitter.toml";
         };
       }
     } .cargo/config.toml
