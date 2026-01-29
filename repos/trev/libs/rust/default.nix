@@ -7,7 +7,7 @@
       ...
     }:
     package.overrideAttrs (
-      _: prev:
+      final: prev:
       let
         platform = pkgs.lib.systems.elaborate {
           config = target;
@@ -16,17 +16,14 @@
         bin = if platform.isWindows then "${name}.exe" else name;
       in
       {
-        nativeBuildInputs =
-          with pkgs;
-          [
-            cargo-zigbuild
-            jq
-          ]
-          ++ prev.nativeBuildInputs;
-
         # fix for https://github.com/rust-cross/cargo-zigbuild/issues/162
         auditable = false;
         doCheck = false;
+
+        nativeBuildInputs = (prev.nativeBuildInputs or [ ]) ++ [
+          pkgs.cargo-zigbuild
+          pkgs.jq
+        ];
 
         buildPhase = ''
           runHook preBuild
