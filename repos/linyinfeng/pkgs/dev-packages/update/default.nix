@@ -97,5 +97,6 @@ writeShellApplication {
   meta = with lib; {
     platforms = nvfetcher-self.meta.platforms;
     maintainers = with maintainers; [ yinfeng ];
+    broken = nvfetcher-self.meta.broken;
   };
 }
