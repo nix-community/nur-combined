@@ -100,3 +100,4 @@ files are copied from following locations. some are modified in this repo and so
 + ladybird nixpkgs commit a36b8c6d6e07764f64f3d3016cdb7a557897a435
 + citron-emu <https://github.com/NixOS/nixpkgs/pull/482846>
 + polkit nixpkgs 88d3861acdd3d2f0e361767018218e51810df8a1
++ openscreen <https://github.com/NixOS/nixpkgs/pull/483633/changes>

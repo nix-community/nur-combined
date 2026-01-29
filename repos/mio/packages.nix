@@ -362,6 +362,8 @@ rec {
 
   polkit126 = pkgs.callPackage ./pkgs/polkit/package.nix { };
 
+  openscreen = pkgs.callPackage ./pkgs/openscreen/package.nix { };
+
 }
 // (lib.optionalAttrs (!nurbot) rec {
 
