@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nvfetcher ast-grep jq nix-prefetch
+#!nix-shell -i bash -p nvfetcher ast-grep jq
 # shellcheck shell=bash
 # See https://discourse.nixos.org/t/25274
 
@@ -12,15 +12,16 @@ nvfetcher --commit-changes -k ~/.config/nvchecker/keyfile.toml
 if ! git diff --quiet HEAD~1 -- "$root/_sources/generated.nix"; then
 	caddy_default="$root/pkgs/caddy/default.nix"
 	# shellcheck disable=SC2016
-	old_hash=$(ast-grep run --lang nix -p '{ hash = "$$HASH"; }' --selector binding --json "$caddy_default" | jq -r '.[0].metaVariables.single.HASH.text')
 	system=$(nix eval --raw --impure --expr builtins.currentSystem)
-	new_hash=$(nix-prefetch --option extra-experimental-features flakes \
-		"{ sha256 }: (builtins.getFlake \"$root\").packages.$system.caddy.src.overrideAttrs (_: { outputHash = sha256; })")
-	if [[ -n $new_hash && $new_hash != "$old_hash" ]]; then
-		# shellcheck disable=SC2016
-		ast-grep run --lang nix -p '{ hash = "$$HASH"; }' --selector binding -r "hash = \"$new_hash\";" "$caddy_default" --update-all
-		git add "$caddy_default"
-	fi
+	# Set hash to empty string to trigger build error
+	# shellcheck disable=SC2016
+	ast-grep run --lang nix -p '{ hash = "$$HASH"; }' --selector binding -r 'hash = "";' "$caddy_default" --update-all
+	# Build and capture the error output containing the actual hash
+	build_output=$(nix build --no-link "$root#packages.$system.caddy" 2>&1 || true)
+	# Extract hash from error message (format: "got: sha256-...")
+	new_hash=$(echo "$build_output" | grep -oP 'got:\s+\Ksha256-[A-Za-z0-9+/=]+')
+	ast-grep run --lang nix -p '{ hash = ""; }' --selector binding -r "hash = \"$new_hash\";" "$caddy_default" --update-all
+	git add "$caddy_default"
 
 	yazi_plugins_json="$root/pkgs/yazi/plugins/yazi-rs/plugins.json"
 	new_yazi_plugins_json=$(nix build --no-link --print-out-paths "$root"#yaziPlugins.yazi-rs.passthru.generate)
