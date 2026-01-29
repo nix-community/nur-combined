@@ -101,15 +101,15 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "a349ff4aa9fc6fa4cddbf2614fcda3ae309f095f";
+    version = "31121227af3e31b7f780cbdbfd832c706fac91fa";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "a349ff4aa9fc6fa4cddbf2614fcda3ae309f095f";
+      rev = "31121227af3e31b7f780cbdbfd832c706fac91fa";
       fetchSubmodules = false;
-      sha256 = "sha256-tXwr3A4+4QK1ua7TSjVoeeMstbTWgxAbd/DTV5z578s=";
+      sha256 = "sha256-4zDYHUSH3PMjC9K5oROyo/1auKWxd2bmM00m5hTAS4g=";
     };
-    date = "2026-01-27";
+    date = "2026-01-28";
   };
   flapalerted-stable = {
     pname = "flapalerted-stable";
@@ -234,13 +234,13 @@
   };
   opencode = {
     pname = "opencode";
-    version = "v1.1.36";
+    version = "v1.1.40";
     src = fetchFromGitHub {
       owner = "anomalyco";
       repo = "opencode";
-      rev = "v1.1.36";
+      rev = "v1.1.40";
       fetchSubmodules = false;
-      sha256 = "sha256-ovFGFI2dSZLKSeuanRZg9cNvMCxYnS3UbtaCKls5BYQ=";
+      sha256 = "sha256-n7EYPrF+Qjk9v9m/KzKtC6lG5Bt23ScFuQMLNkujz7Q=";
     };
   };
   pixy2 = {
@@ -257,18 +257,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202601272218";
+    version = "202601282220";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601272218/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601282220/geoip.dat";
       sha256 = "sha256-P0HllTo8F/c5Yvy21TEcIJjAcWikLow6qjPDd8t3Xqc=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202601272218";
+    version = "202601282220";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601272218/geosite.dat";
-      sha256 = "sha256-p5aIGDe5Ti4Z3EVKCRG9ZbqD6uHi0l/gFVaxxJwjzgU=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601282220/geosite.dat";
+      sha256 = "sha256-0w13LNUYsMdhFUu+wkewpjVqMwl1sfQk6HWORsgTtaQ=";
     };
   };
   watt-toolkit-aarch64-linux = {
