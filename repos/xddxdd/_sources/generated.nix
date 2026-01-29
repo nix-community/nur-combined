@@ -224,10 +224,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "3.8.2";
+    version = "4.0.2";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.8.2/cops-3.8.2-php82.zip";
-      hash = "sha256-y06HF4fd0Xb4XIc4iD08WXlOA6zan0tnQ4By8+V2Hzg=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.0.2/cops-4.0.2-php84.zip";
+      hash = "sha256-6lEbTuJ1LkkBScDUATqgwvsTYczLEmnhEF8E4cjnBpg=";
     };
   };
   cef-binary = {

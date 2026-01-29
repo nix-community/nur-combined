@@ -467,7 +467,7 @@
   "legacyPackages.x86_64-linux.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
     "pname": "calibre-cops",
-    "version": "3.8.2"
+    "version": "4.0.2"
   },
   "legacyPackages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",
@@ -4372,7 +4372,7 @@
   "legacyPackages.x86_64-linux.uncategorized.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
     "pname": "calibre-cops",
-    "version": "3.8.2"
+    "version": "4.0.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
@@ -5247,7 +5247,7 @@
   "packages.x86_64-linux.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
     "pname": "calibre-cops",
-    "version": "3.8.2"
+    "version": "4.0.2"
   },
   "packages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",

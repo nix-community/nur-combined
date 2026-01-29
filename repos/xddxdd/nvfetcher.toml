@@ -98,7 +98,7 @@ fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_
 src.aur = "browser360-bin"
 
 [calibre-cops]
-fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver-php82.zip"
+fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver-php84.zip"
 src.github = "mikespub-org/seblucas-cops"
 
 [cef-binary]
