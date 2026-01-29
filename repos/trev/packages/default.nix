@@ -13,6 +13,7 @@
   nix-scan = pkgs.callPackage ./nix-scan { };
   opengrep = pkgs.callPackage ./opengrep { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };
+  pysentry = pkgs.callPackage ./pysentry { };
   qsvenc = pkgs.callPackage ./qsvenc { };
   renovate = pkgs.callPackage ./renovate { };
   shellhook = pkgs.callPackage ./shellhook { };
