@@ -1,4 +1,4 @@
-{ pkgs, system }:
+{ pkgs }:
 {
   compile = pkgs.lib.makeOverridable (
     {
@@ -9,20 +9,19 @@
     package.overrideAttrs (
       _: prev:
       let
-        platform = pkgs.lib.systems.elaborate {
-          config = target;
-        };
-        name = if builtins.hasAttr "pname" prev then prev.pname else prev.name;
-        bin = if platform.isWindows then "${name}.exe" else name;
+        name = if (builtins.hasAttr "pname" prev) then prev.pname else prev.name;
+        bin = if (builtins.match ".*windows.*" target != null) then "${name}.exe" else name;
       in
       {
-        nativeBuildInputs = [
-          pkgs.cargo-zigbuild
-          pkgs.jq
-        ]
-        ++ builtins.filter (
-          drv: builtins.match ".*auditable.*" (pkgs.lib.getName drv) == null
-        ) prev.nativeBuildInputs;
+        nativeBuildInputs =
+          with pkgs;
+          [
+            cargo-zigbuild
+            jq
+          ]
+          ++ builtins.filter (
+            drv: builtins.match ".*auditable.*" (pkgs.lib.getName drv) == null
+          ) prev.nativeBuildInputs;
 
         auditable = false;
         doCheck = false;
@@ -35,7 +34,7 @@
           build_dir="''${TMPDIR:-/tmp}/rust"
           mkdir -p "$build_dir"
 
-          if [[ "${platform.system}" == "${system}" ]]; then
+          if [[ "${target}" == "${pkgs.stdenv.hostPlatform.rust.rustcTarget}" ]]; then
             cargo build --release --target-dir "$build_dir"
           else
             cargo zigbuild --release --target-dir "$build_dir" --target "${target}"
