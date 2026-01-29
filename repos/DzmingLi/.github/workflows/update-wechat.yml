@@ -1,0 +1,53 @@
+# This is a GitHub Actions workflow to automatically update the wechat package.
+name: Update WeChat Package
+
+on:
+  # Allows you to trigger this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+  # Defines a schedule. This example runs at 08:00 UTC every day.
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  update-package:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out your repository's code so the workflow can access it.
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      # Step 2: Install Nix in the CI environment.
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          # Ensures Nix can find the nixpkgs channel.
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      # Step 3: Run the update script we created earlier.
+      - name: Run the update script
+        run: |
+          chmod +x ./update-wechat.sh
+          ./update-wechat.sh
+
+      # Step 4: If the script made changes, commit and push them back to the repo.
+      - name: Commit and push changes
+        run: |
+          # Configure git with a bot user.
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Check if the package file has been modified by the script.
+          # If `git diff` is clean, it exits with 0 and the script stops.
+          if git diff --quiet ${{ env.PKG_FILE }}; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          # If there are changes, add, commit, and push them.
+          echo "Committing updated hashes..."
+          git add ${{ env.PKG_FILE }}
+          git commit -m "wechat: update to latest"
+          git push
+        env:
+          # Make the PKG_FILE variable from the other script available here.
+          PKG_FILE: "pkgs/wechat/default.nix"

@@ -1,0 +1,41 @@
+# This is a GitHub Actions workflow to automatically update the baidupcs-go package.
+name: Update baidupcs-go Package
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 8 * * *'
+
+jobs:
+  update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Run the update script
+        run: |
+          chmod +x ./update-baidupcs-go.sh
+          ./update-baidupcs-go.sh
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          if git diff --quiet ${{ env.PKG_FILE }}; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          echo "Committing updated hashes..."
+          git add ${{ env.PKG_FILE }}
+          git commit -m "baidupcs-go: update to latest"
+          git push
+        env:
+          PKG_FILE: "pkgs/baidupcs-go/default.nix"
