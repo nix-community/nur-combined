@@ -655,12 +655,12 @@
             "name": null,
             "owner": "imputnet",
             "repo": "helium-linux",
-            "rev": "0.8.3.1",
-            "sha256": "sha256-O8w5ElQV8N1uv1ytV3nZn2MhRedNj5wexW7Eqiy+kfU=",
+            "rev": "0.8.4.1",
+            "sha256": "sha256-uGhpTgvNIbFIqDUperkFrW2MAhpCFT7vN07F/p5QY4g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.8.3.1"
+        "version": "0.8.4.1"
     },
     "helium-macos": {
         "cargoLock": null,
