@@ -644,6 +644,11 @@
     "pname": "electron",
     "version": "11.5.0"
   },
+  "legacyPackages.x86_64-linux.email-oauth2-proxy": {
+    "description": "IMAP/POP/SMTP proxy that transparently adds OAuth 2.0 authentication for email clients",
+    "pname": "python3.13-email-oauth2-proxy",
+    "version": "2025-10-04"
+  },
   "legacyPackages.x86_64-linux.env-dedup": {
     "description": "Deduplicate the environment variables values",
     "pname": "env-dedup",
@@ -1042,7 +1047,7 @@
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "2.0.1.freeze"
+    "version": "0-unstable-2026-01-27"
   },
   "legacyPackages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
@@ -3919,6 +3924,11 @@
     "pname": "python3.13-edge-tts",
     "version": "7.2.7"
   },
+  "legacyPackages.x86_64-linux.python3Packages.email-oauth2-proxy": {
+    "description": "IMAP/POP/SMTP proxy that transparently adds OAuth 2.0 authentication for email clients",
+    "pname": "python3.13-email-oauth2-proxy",
+    "version": "2025-10-04"
+  },
   "legacyPackages.x86_64-linux.python3Packages.fish-speech": {
     "description": "SOTA Open Source TTS",
     "pname": "python3.13-fish-speech",
@@ -3952,7 +3962,7 @@
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "2.0.1.freeze"
+    "version": "0-unstable-2026-01-27"
   },
   "legacyPackages.x86_64-linux.python3Packages.open-webui-kb-manager": {
     "description": "Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI",
@@ -5364,6 +5374,11 @@
     "pname": "electron",
     "version": "11.5.0"
   },
+  "packages.x86_64-linux.email-oauth2-proxy": {
+    "description": "IMAP/POP/SMTP proxy that transparently adds OAuth 2.0 authentication for email clients",
+    "pname": "python3.13-email-oauth2-proxy",
+    "version": "2025-10-04"
+  },
   "packages.x86_64-linux.env-dedup": {
     "description": "Deduplicate the environment variables values",
     "pname": "env-dedup",
@@ -5632,7 +5647,7 @@
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "2.0.1.freeze"
+    "version": "0-unstable-2026-01-27"
   },
   "packages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",

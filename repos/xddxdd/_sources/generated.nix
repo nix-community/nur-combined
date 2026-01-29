@@ -1240,13 +1240,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "2.0.1.freeze";
+    version = "91f996b0f5cc4cc1801797a04afa114b844d2065";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      tag = "2.0.1.freeze";
-      hash = "sha256-y2VCfjds1fN2G9MHYZveT3NQqYF7RO26gBykHY1O6o8=";
+      rev = "91f996b0f5cc4cc1801797a04afa114b844d2065";
+      hash = "sha256-u/pQp9YyXeYwIJ/qyIp6N/kszcRtCYx1gKdF7y2Owlc=";
     };
+    date = "2026-01-27";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";

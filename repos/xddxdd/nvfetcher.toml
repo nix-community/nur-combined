@@ -538,7 +538,7 @@ src.github = "modelscope/modelscope"
 
 [mtkclient]
 fetch.github = "bkerler/mtkclient"
-src.github = "bkerler/mtkclient"
+src.git = "https://github.com/bkerler/mtkclient.git"
 
 [nbfc-linux-lantian]
 fetch.github = "xddxdd/nbfc-linux"
