@@ -10,24 +10,24 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   makeWrapper,
-  gitUpdater,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "agent-browser";
-  version = "0.6.0";
+  version = "0.8.4";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-7KrZcgyCmyvdMxOQMiPkPzA1Ywu85X6b2n/3R8SYVmo=";
+    hash = "sha256-3G5RahE/wiSSblsmiF1hi/QVM443vx1R+JcQCTSmbkE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/cli";
-    hash = "sha256-Zw6n2DYE+ysCkLv40hidoAz2wZ1DBhL484FF/ZoSpww=";
+    hash = "sha256-pNmSuvRA+WTu5F2ADZLsINc+Y9H6QO4aLwo3+8EWYew=";
   };
 
   cargoRoot = "cli";
@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 2;
-    hash = "sha256-BczyzgK1xdecqsmcWKcWpsD/vIxFHWa6yu+lpmHdFdc=";
+    hash = "sha256-RFALkJCkbg9cKB3fGiz/n54IaYTL5EFeRBEFP1peByk=";
   };
 
   nativeBuildInputs = [
@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Headless browser automation CLI for AI agents";

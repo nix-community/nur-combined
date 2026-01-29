@@ -17,7 +17,9 @@ fi
 
 echo "Updating open-webui-ztx888: $old_version -> $new_version"
 
-new_hash="$(nix-prefetch-github ztx888 open-webui --rev "v${new_version}" | jq -r '.hash')"
+# Fetch commit SHA from tag to avoid ambiguity when both tag and branch have the same name
+new_rev="$(curl --silent "https://api.github.com/repos/ztx888/open-webui/git/ref/tags/v${new_version}" | jq -r '.object.sha')"
+new_hash="$(nix-prefetch-github ztx888 open-webui --rev "$new_rev" | jq -r '.hash')"
 
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
@@ -26,6 +28,7 @@ curl -sS -O --output-dir "$tmpdir" "https://raw.githubusercontent.com/ztx888/ope
 new_npm_hash=$(prefetch-npm-deps "$tmpdir/package-lock.json")
 
 sed -i -e "s/version = \"$old_version\"/version = \"$new_version\"/" \
+    -e "s|rev = \"[^\"]*\"|rev = \"$new_rev\"|" \
     -e "s|hash = \"sha256-[^\"]*\"|hash = \"$new_hash\"|" \
     -e "s|npmDepsHash = \"sha256-[^\"]*\"|npmDepsHash = \"$new_npm_hash\"|" "$path"
 
