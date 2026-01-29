@@ -1848,12 +1848,12 @@
             "name": null,
             "owner": "studyzy",
             "repo": "imewlconverter",
-            "rev": "v3.3.0",
-            "sha256": "sha256-4O25M91zOGK8nTxT0s7QlIcYYV0erWBErNlc2+BMpGk=",
+            "rev": "v3.3.1",
+            "sha256": "sha256-+eVApayrwiiiotNV7QwKBBYUbOTkyp9qQA9Ny0KYCxM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.3.0"
+        "version": "v3.3.1"
     },
     "inter-knot": {
         "cargoLocks": null,

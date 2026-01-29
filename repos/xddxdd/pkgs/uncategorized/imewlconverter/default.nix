@@ -1,6 +1,7 @@
 {
   sources,
   lib,
+  git,
   buildDotnetModule,
   dotnetCorePackages,
 }:
@@ -11,8 +12,10 @@ buildDotnetModule (finalAttrs: {
   projectFile = "src/ImeWlConverterCmd/ImeWlConverterCmd.csproj";
   nugetDeps = ./deps.json;
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
+  nativeBuildInputs = [ git ];
+
+  dotnet-sdk = dotnetCorePackages.sdk_9_0;
+  dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
 
   meta = {
     changelog = "https://github.com/studyzy/imewlconverter/releases/tag/v${finalAttrs.version}";

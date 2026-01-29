@@ -946,12 +946,12 @@
   };
   imewlconverter = {
     pname = "imewlconverter";
-    version = "v3.3.0";
+    version = "v3.3.1";
     src = fetchFromGitHub {
       owner = "studyzy";
       repo = "imewlconverter";
-      tag = "v3.3.0";
-      hash = "sha256-4O25M91zOGK8nTxT0s7QlIcYYV0erWBErNlc2+BMpGk=";
+      tag = "v3.3.1";
+      hash = "sha256-+eVApayrwiiiotNV7QwKBBYUbOTkyp9qQA9Ny0KYCxM=";
     };
   };
   inter-knot = {

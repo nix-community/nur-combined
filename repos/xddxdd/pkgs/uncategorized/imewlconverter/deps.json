@@ -5,6 +5,11 @@
     "hash": "sha256-9g5WA+ii6ovKVGwpTaNIhs/Oti9YLwd//UhbNbBkn8E="
   },
   {
+    "pname": "MinVer",
+    "version": "5.0.0",
+    "hash": "sha256-JdixKF3xb7JIoFy1IRNOS4motKFOcTzwSHPdJmpFvQY="
+  },
+  {
     "pname": "SharpZipLib",
     "version": "1.4.2",
     "hash": "sha256-/giVqikworG2XKqfN9uLyjUSXr35zBuZ2FX2r8X/WUY="
