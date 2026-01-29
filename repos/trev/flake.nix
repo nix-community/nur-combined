@@ -43,7 +43,7 @@
 
         # the entire attribute set
         legacyPackages = import ./. {
-          inherit system nixpkgs pkgs;
+          inherit system pkgs;
         };
 
         bundlers = import ./bundlers {
@@ -59,7 +59,7 @@
           // pkgs.lib.genAttrs (import systems) (
             system:
             import ./libs {
-              inherit system nixpkgs pkgs;
+              inherit system pkgs;
             }
           );
 
@@ -67,9 +67,7 @@
           inherit system pkgs;
         };
 
-        overlays = import ./overlays {
-          inherit nixpkgs;
-        };
+        overlays = import ./overlays;
 
         nixosModules = import ./modules;
 

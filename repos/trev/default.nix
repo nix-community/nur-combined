@@ -1,6 +1,5 @@
 {
   system ? builtins.currentSystem,
-  nixpkgs ? <nixpkgs>,
   pkgs ? import <nixpkgs> { inherit system; },
 }:
 {
@@ -9,7 +8,7 @@
   };
 
   lib = import ./libs {
-    inherit system nixpkgs pkgs;
+    inherit system pkgs;
   };
 
   modules = import ./modules; # NixOS modules
