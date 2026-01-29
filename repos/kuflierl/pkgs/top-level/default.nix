@@ -6,6 +6,7 @@ let
   packages = {
     ugdb = callPackageByName "ugdb" { };
     pince = callPackageByName "pince" { };
+    ttymidi = callPackageByName "ttymidi" { };
   };
 in
 packages
