@@ -23,7 +23,7 @@
     # main nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # extra nixpkgs for checks
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs =
