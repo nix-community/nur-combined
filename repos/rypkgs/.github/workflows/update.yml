@@ -35,6 +35,14 @@ jobs:
         cd pkgs/blink
         ./update.sh
 
+    - name: Update bluevein
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd pkgs/bluevein
+        ./update.sh
+
     - name: Push changes
       run: |
         git push

@@ -51,6 +51,13 @@ Then use `nur.repos.rypkgs.<package-name>`.
 | Package | Description |
 |---------|-------------|
 | `blink` | A modern Jellyfin desktop client |
+| `bluevein` | Bluetooth device synchronization service for dual-boot systems |
+
+## Modules
+
+| Module | Description |
+|--------|-------------|
+| `bluevein` | `services.bluevein.enable` — runs the BlueVein sync service |
 
 > [!NOTE]
 > Packages are only tested against `nixpkgs-unstable`.

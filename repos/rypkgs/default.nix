@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   blink = pkgs.callPackage ./pkgs/blink { };
+  bluevein = pkgs.callPackage ./pkgs/bluevein { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
