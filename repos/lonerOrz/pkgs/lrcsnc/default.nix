@@ -12,7 +12,7 @@ buildGoModule (finalAttrs: {
     owner = "Endg4meZer0";
     repo = "lrcsnc";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-5NiZdKCQM17ci3WReLPWRCryVcUEi8xVSXl8D2tnQsg=";
+    hash = "sha256-U1wq3x9GkwJYoR7jA3EtRcFd6UkMf5UGWuBeG+6DYLY=";
   };
 
   vendorHash = "sha256-ww+SXy29woGlb120sj1oGb4MIQJzpBCKGpUKYsYxTMk=";
