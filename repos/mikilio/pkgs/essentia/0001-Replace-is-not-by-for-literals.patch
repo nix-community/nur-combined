@@ -1,0 +1,33 @@
+From 11cc77bcd45edd020acb58a70f28eba4dc3dd648 Mon Sep 17 00:00:00 2001
+From: pabloEntropia <pablo.alonso@upf.edu>
+Date: Fri, 12 Jun 2020 14:19:59 +0200
+Subject: [PATCH] Replace 'is not' by '!=' for literals
+
+The compiler now produces a SyntaxWarning when identity checks (is and
+is not) are used with certain types of literals (e.g. strings, numbers).
+These can often work by accident in CPython, but are not guaranteed by
+the language spec. The warning advises users to use equality tests
+(== and !=) instead. (Contributed by Serhiy Storchaka in bpo-34850.)
+https://bugs.python.org/issue34850
+
+Signed-off-by: Mikilio <official.mikilio@gmail.com>
+---
+ wscript | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/wscript b/wscript
+index 437a35f2..e325f195 100644
+--- a/wscript
++++ b/wscript
+@@ -299,7 +299,7 @@ def configure(ctx):
+         
+         # flags required for linking to static ffmpeg libs
+         # -Bsymbolic flag is not available on clang
+-        if ctx.env.CXX_NAME is not "clang":
++        if ctx.env.CXX_NAME != "clang":
+             ctx.env.LINKFLAGS += ['-Wl,-Bsymbolic']
+             ctx.env.LDFLAGS += ['-Wl,-Bsymbolic']
+ 
+-- 
+2.52.0
+

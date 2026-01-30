@@ -1,0 +1,26 @@
+diff --git a/src/wscript b/src/wscript
+index c98dbf79..442a96e7 100644
+--- a/src/wscript
++++ b/src/wscript
+@@ -406,7 +406,7 @@ def build(ctx):
+     #print('  BUILD ENV:\n%s' % ctx.env)
+ 
+     # add essentia root folder to path to be able to import utils.algorithms_info
+-    sys.path = [ctx.path.find_dir('..')] + sys.path
++    sys.path.insert(0, ctx.srcnode.abspath())
+ 
+     algos = buildRegFile(ctx)
+ 
+diff --git a/wscript b/wscript
+index 41680e49..0dce5531 100644
+--- a/wscript
++++ b/wscript
+@@ -302,6 +302,8 @@ def configure(ctx):
+             ctx.env.LINKFLAGS += ['-Wl,-Bsymbolic']
+             ctx.env.LDFLAGS += ['-Wl,-Bsymbolic']
+ 
++    sys.path.insert(0, ctx.srcnode.abspath())
++
+     ctx.recurse('src')
+ 
+ 

@@ -24,10 +24,12 @@ in
     modules = import ./modules; # NixOS modules
     overlays = import ./overlays {inherit pkgs;}; # nixpkgs overlays
   }
-  // ifSupported (with pkgs; {
+  // ifSupported (with pkgs; rec {
     snapshot-yazi = callPackage ./pkgs/snapshot-yazi {};
     gateway-st = callPackage ./pkgs/gateway-st {};
     rclone_zus = callPackage ./pkgs/rclone_zus {};
     xdg-terminal-exec = callPackage ./pkgs/xdg-terminal-exec {};
     xmclib = callPackage ./pkgs/xmclib {};
+    gaia = callPackage ./pkgs/gaia {};
+    essentia = callPackage ./pkgs/essentia {inherit gaia;};
   })

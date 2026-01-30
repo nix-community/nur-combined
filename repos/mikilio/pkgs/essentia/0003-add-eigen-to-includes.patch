@@ -1,0 +1,21 @@
+diff --git a/src/wscript b/src/wscript
+index c98dbf79..d98463af 100644
+--- a/src/wscript
++++ b/src/wscript
+@@ -165,6 +165,8 @@ def configure(ctx):
+     if ctx.env.WITH_GAIA:
+         ctx.check_cfg(package='gaia2', uselib_store='GAIA2',
+                       args=check_cfg_args, mandatory=True)
++        ctx.check_cfg(package='eigen3', uselib_store='EIGEN3',
++                      args=check_cfg_args, mandatory=True)
+ 
+     # needed by ffmpeg for the INT64_C macros
+     ctx.env.DEFINES += ['__STDC_CONSTANT_MACROS']
+@@ -268,6 +270,7 @@ def configure(ctx):
+             print('- Gaia2 detected!')
+             print('  The following algorithms will be included: %s\n' % algos)
+             ctx.env.USES += ' GAIA2'
++            ctx.env.USES += ' EIGEN3'
+     else:
+         print('- Essentia is configured without Gaia2.')
+         print('  The following algorithms will be ignored: %s' % algos)
