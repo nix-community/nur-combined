@@ -92,7 +92,7 @@ jobs:
           gh pr create \
             --title "$PR_TITLE" \
             --body "$PR_BODY" \
-            --base main \
+            --base master \
             --head "$PR_BRANCH"
 
           gh pr edit "$PR_BRANCH" \
