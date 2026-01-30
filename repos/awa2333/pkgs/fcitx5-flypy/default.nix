@@ -1,11 +1,11 @@
-{
-  pkgs,
-  lib,
-  fetchFromGitHub,
-  stdenvNoCC,
+{ pkgs
+, lib
+, fetchFromGitHub
+, stdenvNoCC
+,
 }:
 stdenvNoCC.mkDerivation rec {
-  name = "fcitx5-flypy-${version}";
+  name = "fcitx5-flypy";
   version = "20240827";
   src = fetchFromGitHub {
     owner = "cubercsl";
@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     description = "flypy schema for fcitx5(小鹤音形fcitx5码表)";
     homepage = "https://flypy.cc";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ yaoheng ];
     license = lib.licenses.unfree;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
 }
