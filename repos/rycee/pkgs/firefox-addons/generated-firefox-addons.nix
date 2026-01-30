@@ -2290,10 +2290,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.19.6";
+      version = "4.20.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4667896/control_panel_for_twitter-4.19.6.xpi";
-      sha256 = "862c33457ef0eaef0fc9579c92adbab1360ceac9becf56c260977f55fcd8b538";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4672825/control_panel_for_twitter-4.20.0.xpi";
+      sha256 = "748f1489fa5949a99bd471c058c73f2615e6a3b3475caa93bc5d8db8d5928f1d";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2841,10 +2841,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2551.3";
+      version = "6.2605.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4644414/dashlane-6.2551.3.xpi";
-      sha256 = "b480351b496fdbde6e98a5577f583a12ab9c8b446c73be70b88356d7a4ae2163";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4675781/dashlane-6.2605.0.xpi";
+      sha256 = "03f12b22b0efb856bce7791bc1ccaaf84122fa499d71db09c1a074c6869f69e5";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -6987,10 +6987,10 @@
     };
     "jump-cutter" = buildFirefoxXpiAddon {
       pname = "jump-cutter";
-      version = "1.32.1";
+      version = "1.32.2";
       addonId = "jump-cutter@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4678481/jump_cutter-1.32.1.xpi";
-      sha256 = "2d4f0849d078c32b4a2e7b4588379b67d589048c080675956b53e17c89723fd0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4679211/jump_cutter-1.32.2.xpi";
+      sha256 = "6de8ac10b327ea0817d1742cd07ef3e964b5afcf960cb128ede163ba4323c474";
       meta = with lib;
       {
         description = "Watch videos up to 2x faster by automatically skipping long pauses between sentences";
@@ -7533,10 +7533,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.36";
+      version = "2.3.38";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4653910/lingq_importer2-2.3.36.xpi";
-      sha256 = "b2b16371aeffcb3d4249c29b07fea67db6fe603a56b8fbc07a0dba142b73f5af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4679264/lingq_importer2-2.3.38.xpi";
+      sha256 = "0ed7f227cb7565f8c8d1df39c66c4878d6d89233c332f01ac370b5b38195840c";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -15042,10 +15042,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.32.0";
+      version = "2.34.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4669375/violentmonkey-2.32.0.xpi";
-      sha256 = "a6da170e90a125286e0066339e3e0055cdec9844adffc884ef98bed495e16f9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4677263/violentmonkey-2.34.0.xpi";
+      sha256 = "ac58eb2796765da73db571a9491352acbb8287b76ccd9e2375612364a4cd5473";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
