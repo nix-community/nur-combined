@@ -56,7 +56,7 @@ buildNpmPackage (finalAttrs: {
       export CSC_IDENTITY_AUTO_DISCOVERY=false
     ''}
     ${lib.optionalString stdenv.hostPlatform.isLinux ''
-      ln ${electron.dist} electron-dist
+      ln -s ${electron.dist} electron-dist
     ''}
 
     npm exec electron-builder -- \

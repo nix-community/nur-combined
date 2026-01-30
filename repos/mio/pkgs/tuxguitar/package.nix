@@ -34,6 +34,29 @@ let
     "native-modules"
     "-Dmaven.test.skip=true"
   ];
+  ldLibVar = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+  classpath = [
+    "${swt}/jars/swt.jar"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    "$out/lib/tuxguitar.jar"
+    "$out/lib/itext.jar"
+  ];
+  libraryPath = [
+    "$out/lib"
+    fluidsynth
+    lilv
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    swt
+    alsa-lib
+    jack2
+    libpulseaudio
+  ];
+  wrapperPaths = [
+    jre
+    which
+  ];
 in
 maven.buildMavenPackage rec {
   pname = "tuxguitar";
@@ -96,16 +119,16 @@ maven.buildMavenPackage rec {
     makeBinaryWrapper
     jdk
     pkg-config
-    fluidsynth.dev
-    lilv.dev
+    fluidsynth
+    lilv
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     wrapGAppsHook3
-    alsa-lib.dev
-    jack2.dev
-    libpulseaudio.dev
+    alsa-lib
+    jack2
+    libpulseaudio
     suil
-    qt5.qtbase.dev
+    qt5.qtbase
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     stdenv.cc
@@ -131,7 +154,6 @@ maven.buildMavenPackage rec {
   installPhase = ''
     runHook preInstall
 
-    # Find the built tuxguitar directory (it's in the subdirectory where we ran maven)
     cd ${buildDir}
   ''
   # macOS: The build creates tuxguitar-VERSION-macosx-swt-cocoa.app directly
@@ -162,15 +184,16 @@ maven.buildMavenPackage rec {
     cp -r $TUXGUITAR_DIR $out/lib/tuxguitar
     ln -s $out/lib/tuxguitar/tuxguitar.sh $out/bin/tuxguitar
 
-    # Selectively symlink share directories, but filter templates
+    # Selectively symlink share directories
     mkdir -p $out/share
-    for dir in $out/lib/tuxguitar/share/*; do
-      if [ "$(basename "$dir")" != "templates" ]; then
+    for name in applications man metainfo mime pixmaps; do
+      dir=$out/lib/tuxguitar/share/$name
+      if [ -e "$dir" ]; then
         ln -s "$dir" $out/share/
       fi
     done
 
-    # Only install templates that should appear in "Create New" menu (not localized defaults)
+    # Only install templates that should appear in "Create New" menu (not localized defaults) - workaround for https://github.com/helge17/tuxguitar/issues/961
     mkdir -p $out/share/templates
     cp $out/lib/tuxguitar/share/templates/template-1.tg $out/share/templates/
     cp $out/lib/tuxguitar/share/templates/template-2.tg $out/share/templates/
@@ -185,7 +208,7 @@ maven.buildMavenPackage rec {
     wrapProgram $out/bin/tuxguitar ${lib.concatStringsSep " " passthru.wrapperArgs}
   '';
 
-  passthru = rec {
+  passthru = {
     tests.nixos = nixosTests.tuxguitar;
     inherit swtArtifactId buildDir buildScript;
     # FIXME: Makes hash stable across platforms and convert to a single hash.
@@ -194,29 +217,6 @@ maven.buildMavenPackage rec {
       "aarch64-linux" = "sha256-7UDFGuOMERvY74mkneusJyuAHfF3U6b4qV4MPHGQYdM=";
       "aarch64-darwin" = "sha256-lfO2YH+yKZWzh3MeQ7baESGmmW7zPdTLs8CjZ/FtLu0";
     };
-    ldLibVar = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    classpath = [
-      "${swt}/jars/swt.jar"
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      "$out/lib/tuxguitar.jar"
-      "$out/lib/itext.jar"
-    ];
-    libraryPath = [
-      "$out/lib"
-      fluidsynth
-      lilv
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      swt
-      alsa-lib
-      jack2
-      libpulseaudio
-    ];
-    wrapperPaths = [
-      jre
-      which
-    ];
     wrapperArgs = [
       "\${gappsWrapperArgs[@]}"
       "--prefix"
