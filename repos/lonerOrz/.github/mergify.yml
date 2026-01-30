@@ -18,3 +18,15 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+  # for update flake.lock action
+  - name: Auto merge flake.lock updates
+    conditions:
+      - and:
+          - "title~=^chore(deps): bump flake.lock$"
+          - label=auto_update_flake
+          - label=github_actions
+          - check-success=flake check
+          - check-success=Build and populate cache
+    actions:
+      merge:
+        method: squash

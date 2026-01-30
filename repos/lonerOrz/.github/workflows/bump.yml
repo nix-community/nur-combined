@@ -1,0 +1,100 @@
+name: bump flake.lock
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 20 15 * *" # (UTC+8 00:00, monthly mid-month)
+
+concurrency:
+  group: chore-deps-bump-flake-lock
+  cancel-in-progress: true
+
+jobs:
+  bump-flake-lock:
+    runs-on: ubuntu-latest
+    name: bump flake.lock
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v34
+        with:
+          nix_conf: |
+            accept-flake-config = true
+
+      - name: Set metadata (title, date, branch)
+        run: |
+          DATE=$(date -u +'%Y-%m-%dT%H-%M-%SZ')
+          echo "DATE=$DATE" >> $GITHUB_ENV
+          echo "PR_TITLE=chore(deps): bump flake.lock" >> $GITHUB_ENV
+          echo "BRANCH_NAME=chore/deps-bump-flake-lock-${DATE}" >> $GITHUB_ENV
+
+      - name: Run flake update script and save output
+        run: |
+          BODY=$(python3 .github/script/bump.py)
+          echo "COMMIT_BODY<<EOF" >> $GITHUB_ENV
+          echo "$BODY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Check if flake.lock changed
+        id: check_diff
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "::notice title=No updates::flake.lock unchanged, skipping PR"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      # 关闭旧 PR + 删除旧分支
+      - name: Close previous flake update PRs and delete branches
+        if: steps.check_diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          gh pr list \
+            --state open \
+            --label auto_update_flake \
+            --label github_actions \
+            --json number,headRefName \
+            --jq '.[] | select(.headRefName | startswith("chore/deps-bump-flake-lock-")) | .number' \
+          | while read pr; do
+              echo "Closing auto-generated flake update PR #$pr"
+              gh pr close "$pr" \
+                --delete-branch \
+                --comment "Superseded by a newer automated flake.lock update."
+            done
+
+      - name: Commit and push changes
+        if: steps.check_diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          git add flake.lock
+          git commit -m "$PR_TITLE" -m "$COMMIT_BODY"
+          git push origin "$BRANCH_NAME"
+
+      - name: Create pull request with gh CLI
+        if: steps.check_diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          PR_TITLE: ${{ env.PR_TITLE }}
+          PR_BODY: ${{ env.COMMIT_BODY }}
+          PR_BRANCH: ${{ env.BRANCH_NAME }}
+        run: |
+          gh auth setup-git
+
+          gh pr create \
+            --title "$PR_TITLE" \
+            --body "$PR_BODY" \
+            --base main \
+            --head "$PR_BRANCH"
+
+          gh pr edit "$PR_BRANCH" \
+            --add-label auto_update_flake \
+            --add-label github_actions
