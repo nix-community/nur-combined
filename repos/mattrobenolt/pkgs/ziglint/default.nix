@@ -5,11 +5,12 @@
 }:
 
 let
-  version = "0.2.2";
+  version = "0.3.0";
 
   # Map Nix system to ziglint's target naming
   targets = {
     "x86_64-linux" = "x86_64-linux";
+    "aarch64-linux" = "aarch64-linux";
     "aarch64-darwin" = "aarch64-macos";
   };
 
@@ -19,8 +20,9 @@ let
 
   # SHA256 hashes for each platform
   hashes = {
-    "x86_64-linux" = "sha256-uATENOpgkV1bz0k2H8Uqujcu+JjAGGXznIdjw/wPe0I=";
-    "aarch64-macos" = "sha256-zgp4kulaeM1/bX+Men/WB1mtxxYAWZLOqAWYxJMWfw8=";
+    "x86_64-linux" = "sha256-GEieDWppI2w0G7NhmXfIrYICJXKK3QZSaRqETMh9I4I=";
+    "aarch64-linux" = "sha256-bSWheZHNH6QaLu/b9jFSfgEmu+ScV0HYA/QI5YYWbz4=";
+    "aarch64-macos" = "sha256-EIHDI5baChpt9zIcgRTZ+XMHeoA9XceBWWBhoi6wwyc=";
   };
 
 in
@@ -53,6 +55,7 @@ stdenv.mkDerivation {
     license = licenses.mit;
     platforms = [
       "x86_64-linux"
+      "aarch64-linux"
       "aarch64-darwin"
     ];
     maintainers = [ ];

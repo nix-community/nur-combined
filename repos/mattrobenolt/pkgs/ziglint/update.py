@@ -81,7 +81,7 @@ async def update_package(version):
     """Update ziglint package."""
     print(f"{GREEN}Updating ziglint to v{version}{NC}")
 
-    targets = ["x86_64-linux", "aarch64-macos"]
+    targets = ["x86_64-linux", "aarch64-linux", "aarch64-macos"]
 
     # Generate all hashes concurrently
     hashes_list = await asyncio.gather(*[
