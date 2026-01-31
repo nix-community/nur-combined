@@ -65,9 +65,7 @@ jobs:
       - id: pr
         name: Create pull request
         run: |
-          url=$(gh pr create --title "package updates" --body "updated some packages" --head update-packages --base main)
-
-          if [[ -n "${url}" ]]; then
+          if url=$(gh pr create --title "package updates" --body "updated some packages" --head update-packages --base main); then
             echo "Created PR: ${url}"
             echo "url=${url}" >> $GITHUB_OUTPUT
           else
