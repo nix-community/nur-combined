@@ -6,16 +6,16 @@
 
 buildGoModule {
   pname = "homescript";
-  version = "0-unstable-2025-12-22";
+  version = "0-unstable-2026-01-04";
 
   src = fetchFromGitHub {
     owner = "homescript-dev";
     repo = "server";
-    rev = "ca3be6e6fe0fbf9fb138215ce5868f191e2513fd";
-    hash = "sha256-aquUvoZBrvDzhGTb+VqFgK9vLhGrvoFszmksMIbjlN0=";
+    rev = "444bbd48f858cb12ae8cce7cc0d63be26aee5902";
+    hash = "sha256-JNEDv8OEEZ7tOlIKk2nxvIfTjrfWMT6Yp1Qi2Vn1H8Q=";
   };
 
-  vendorHash = "sha256-2nMOndl5v4B/nNK06jVp6OWsPazXj2VCiXYhVJ0VHKk=";
+  vendorHash = "sha256-6LsHT66cYqirOfl8bf2hmEZVypnYBHQuazjNO3lhfJg=";
 
   postInstall = ''
     mv $out/bin/{,homescript-}server
