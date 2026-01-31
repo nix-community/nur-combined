@@ -7,6 +7,7 @@
   modules = import ./modules;
   overlays = import ./overlays;
 
+  changesets = pkgs.callPackage ./pkgs/changesets { };
   etime = pkgs.callPackage ./pkgs/etime { };
   gon =
     if
