@@ -26,7 +26,7 @@ lib.mkOption {
               };
 
               env = lib.mkOption {
-                type = lib.types.nullOr lib.types.attrsOf lib.types.anything;
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
                 default = null;
                 description = "Environment variables to set to the LSP server command";
               };
@@ -91,13 +91,13 @@ lib.mkOption {
               };
 
               env = lib.mkOption {
-                type = lib.types.nullOr lib.types.attrsOf lib.types.anything;
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
                 default = null;
                 description = "Environment variables to set for the MCP server";
               };
 
               headers = lib.mkOption {
-                type = lib.types.nullOr lib.types.attrsOf lib.types.anything;
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
                 default = null;
                 description = "HTTP headers for HTTP/SSE MCP servers";
               };
@@ -415,7 +415,7 @@ lib.mkOption {
               };
 
               extra_headers = lib.mkOption {
-                type = lib.types.nullOr lib.types.attrsOf lib.types.anything;
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
                 default = null;
                 description = "Additional HTTP headers to send with requests";
               };
