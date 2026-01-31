@@ -7,6 +7,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     {
@@ -16,6 +18,7 @@
       llm-agents,
       home-manager,
       catppuccin,
+      sops-nix,
     }@inputs:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
@@ -73,6 +76,15 @@
           catppuccin.nixosModules.catppuccin
           {
             catppuccin.cache.enable = true;
+          }
+
+          sops-nix.nixosModules.sops
+          {
+            sops = {
+              environment = {
+                SOPS_AGE_SSH_PRIVATE_KEY_FILE = "/etc/ssh/ssh_host_ed25519_key";
+              };
+            };
           }
 
           self.nixosModules.qbittorrent-clientblocker

@@ -1,0 +1,19 @@
+keys:
+  - &mbp ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA156kuescaF7nCQo/2uPK270NlcycypQeSHKbABVuSH mbp
+  - &zeph ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGYSnku4FqRjxZ0zvKQYAr1kq6/6w9cOJs585HradOT4 zeph
+  - &o6n ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFOvXjhQioramA82U3JramWgbSHldbyLIKQhZWA8X/5g root@nixo6n
+  - &opi5 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFACHA9lFj2/j27y1Sg3R6t41xUZTlyAppSLRjk2LEYL root@nixopi5
+
+creation_rules:
+  - path_regex: nixos/machines/o6n/secrets\.yaml$
+    key_groups:
+    - age:
+      - *mbp
+      - *zeph
+      - *o6n
+  - path_regex: nixos/machines/opi5/secrets\.yaml$
+    key_groups:
+    - age:
+      - *mbp
+      - *zeph
+      - *opi5

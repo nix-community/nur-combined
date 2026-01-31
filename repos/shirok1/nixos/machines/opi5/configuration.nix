@@ -252,11 +252,9 @@
     enable = true;
     package = pkgs.shirok1.snell-server;
     settings = {
-      snell-server = {
-        listen = "0.0.0.0:13831";
-        psk = "this_is_fake";
-        ipv6 = "true";
-      };
+      listen = "0.0.0.0:13831";
+      psk = "this_is_fake";
+      ipv6 = "true";
     };
   };
 
