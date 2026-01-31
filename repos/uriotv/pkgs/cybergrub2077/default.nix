@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
   pname = "cyber-grub-2077";
-  version = "unstable-2024-01-20";
+  version = "unstable-2026-01-31";
 
   src = fetchFromGitHub {
     owner = "adnksharp";
     repo = "CyberGRUB-2077";
-    rev = "6a5736ef44e4ede9bb403d78eafe7271dd2928db";
-    sha256 = "sha256-RyKs2tJBp/A4eqjvsPDBLttSL5Bw6U+fanwLZeC0wbg=";
+    rev = "86ed7c3af18c3b69dd002b341dbb099daaf39eab";
+    sha256 = "sha256-quXluKYzylSnUnbLZbzdygM5pgDwB1PgLV4VAU66Lc0=";
   };
 
   # Faza instalacji odwzorowująca logikę skryptu install.sh

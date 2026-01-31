@@ -20,6 +20,7 @@
   # REQUIRED: Version and hash must be provided
   version,
   hash,
+  enableDGPU ? false,
 }:
 
 assert lib.assertMsg (version != null) ''
@@ -106,6 +107,7 @@ stdenv.mkDerivation {
     makeWrapper ${dotnet-runtime_8}/bin/dotnet $out/bin/vintagestory \
       --prefix LD_LIBRARY_PATH : "${runtimeLibs}" \
       --set-default mesa_glthread true \
+      ${lib.optionalString enableDGPU "--set DRI_PRIME 1 \\"}
       --add-flags $out/share/vintagestory/Vintagestory.dll
 
     makeWrapper ${dotnet-runtime_8}/bin/dotnet $out/bin/vintagestory-server \

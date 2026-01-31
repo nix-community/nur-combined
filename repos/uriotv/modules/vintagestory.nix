@@ -29,6 +29,7 @@ let
 
   vintagestoryPkg = pkgs.callPackage vintagestoryPkgPath {
     inherit (cfg) version hash;
+    enableDGPU = cfg.dGPU;
   };
 in
 {
@@ -54,6 +55,12 @@ in
           nix hash convert --hash-algo sha256 --to sri <HASH>
       '';
       example = "sha256-90YQOur7UhXxDBkGLSMnXQK7iQ6+Z8Mqx9PEG6FEXBs=";
+    };
+
+    dGPU = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable discrete GPU usage (DRI_PRIME=1).";
     };
 
     package = lib.mkOption {
