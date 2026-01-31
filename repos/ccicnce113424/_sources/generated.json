@@ -80,11 +80,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-XezfqwwKygUQcu/J6NtTFJHcKacy4xYSXzCWmLZg6Cw=",
+      "sha256": "sha256-pnFfnyWQxxRiy67kzTAGOBSnQQ617ebUpS6mSBpWndU=",
       "type": "url",
-      "url": "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-2.7.1-1/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.2.7.1-1.zip"
+      "url": "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-2.7.1-2/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.2.7.1-2.zip"
     },
-    "version": "2.7.1-1"
+    "version": "2.7.1-2"
   },
   "imfile-arm": {
     "cargoLock": null,
@@ -331,11 +331,11 @@
   "splayer-git": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-eV1yh06n_wGWmBupqiVGiOnWlDSLRgzFXpHrceZx_RY=/Cargo.lock",
+        "sha256-+9F4ckATxRE+_PhMi5c1GVDq5V9QMOogCD9uT6QkREM=/Cargo.lock",
         {}
       ]
     },
-    "date": "2026-01-29",
+    "date": "2026-01-30",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -347,12 +347,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "7fb0d14ce6b8a9fba8b240d69ca4feaaa2b290d2",
-      "sha256": "sha256-eV1yh06n/wGWmBupqiVGiOnWlDSLRgzFXpHrceZx/RY=",
+      "rev": "a00c0b48db82abd1a6dc011cd88e2ba318c3f3af",
+      "sha256": "sha256-+9F4ckATxRE+/PhMi5c1GVDq5V9QMOogCD9uT6QkREM=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "7fb0d14ce6b8a9fba8b240d69ca4feaaa2b290d2"
+    "version": "a00c0b48db82abd1a6dc011cd88e2ba318c3f3af"
   },
   "svt-av1-hdr": {
     "cargoLock": null,
