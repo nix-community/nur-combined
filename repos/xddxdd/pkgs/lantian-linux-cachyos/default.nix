@@ -7,7 +7,7 @@
 let
   prefix = "linux-cachyos-";
 
-  kernels = (inputs.nix-cachyos-kernel.overlays.default null pkgs).cachyosKernels;
+  kernels = (inputs.nix-cachyos-kernel.overlays.pinned pkgs pkgs).cachyosKernels;
 in
 lib.mapAttrs' (
   n: v:

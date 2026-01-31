@@ -3,59 +3,58 @@
   coredns,
   unbound,
   sources,
+  buildGoModule,
+  installShellFiles,
   ...
 }:
-(coredns.override {
-  externalPlugins = [
-    {
-      name = "mdns";
-      repo = "github.com/openshift/coredns-mdns/v4";
-      version = sources.coredns-mdns.rawVersion;
-    }
-    {
-      name = "alias";
-      repo = "github.com/serverwentdown/alias";
-      version = sources.coredns-alias.rawVersion;
-    }
-    {
-      name = "meshname";
-      repo = "github.com/zhoreeq/coredns-meshname";
-      version = sources.coredns-meshname.rawVersion;
-    }
-    {
-      name = "meship";
-      repo = "github.com/zhoreeq/coredns-meship";
-      version = sources.coredns-meship.rawVersion;
-    }
-    {
-      name = "unbound";
-      repo = "github.com/coredns/unbound";
-      version = sources.coredns-unbound.rawVersion;
-    }
-  ];
-  vendorHash = "sha256-kGPET0FxrtCsXCPbT0zy3Mbojb4AC7QaF/bvMzBqy30=";
-}).overrideAttrs
-  (old: {
-    patches = (old.patches or [ ]) ++ [ ./fix-large-axfr.patch ];
+buildGoModule (finalAttrs: {
+  inherit (coredns) pname version src;
 
-    buildInputs = (old.buildInputs or [ ]) ++ [ unbound ];
+  patches = [ ./fix-large-axfr.patch ];
 
-    deleteVendor = true;
-    proxyVendor = true;
+  buildInputs = [ unbound ];
+  nativeBuildInputs = [ installShellFiles ];
 
-    preBuild = ''
-      rm -rf vendor
-      cp -r --reflink=auto "$goModules" vendor
-    ''
-    + (old.preBuild or "");
+  vendorHash = "sha256-CtbppVPELo3KF80tobBp0ag3CvWlA+o9R+O6/dk4aUQ=";
 
-    doCheck = false;
+  # Override the go-modules fetcher derivation to fetch plugins
+  modBuildPhase = ''
+    cat >> plugin.cfg <<EOF
+    mdns:github.com/openshift/coredns-mdns/v4
+    alias:github.com/serverwentdown/alias
+    meshname:github.com/zhoreeq/coredns-meshname
+    meship:github.com/zhoreeq/coredns-meship
+    unbound:github.com/coredns/unbound
+    EOF
 
-    meta = {
-      maintainers = with lib.maintainers; [ xddxdd ];
-      homepage = "https://github.com/xddxdd/coredns";
-      description = "CoreDNS with Lan Tian's modifications";
-      license = lib.licenses.asl20;
-      mainProgram = "coredns";
-    };
-  })
+    go get github.com/openshift/coredns-mdns/v4@${sources.coredns-mdns.rawVersion}
+    go get github.com/serverwentdown/alias@${sources.coredns-alias.rawVersion}
+    go get github.com/zhoreeq/coredns-meshname@${sources.coredns-meshname.rawVersion}
+    go get github.com/zhoreeq/coredns-meship@${sources.coredns-meship.rawVersion}
+    go get github.com/coredns/unbound@${sources.coredns-unbound.rawVersion}
+
+    go mod vendor
+    CC= GOOS= GOARCH= go generate
+    go mod vendor
+    go mod tidy
+
+    mv -t vendor go.mod go.sum plugin.cfg
+  '';
+
+  preBuild = ''
+    chmod -R u+w vendor
+    mv -t . vendor/go.{mod,sum} vendor/plugin.cfg
+
+    CC= GOOS= GOARCH= go generate
+  '';
+
+  doCheck = false;
+
+  meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
+    homepage = "https://github.com/xddxdd/coredns";
+    description = "CoreDNS with Lan Tian's modifications";
+    license = lib.licenses.asl20;
+    mainProgram = "coredns";
+  };
+})
