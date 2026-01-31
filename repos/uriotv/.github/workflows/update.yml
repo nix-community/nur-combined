@@ -12,6 +12,9 @@ on:
 
 jobs:
   update:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -93,7 +96,7 @@ jobs:
         if: steps.changes.outputs.has_changes == 'true' && success()
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_FOR_UPDATES }}
           commit-message: "chore: auto-update packages"
           title: "chore: Auto-update packages"
           body: |

@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation {
   pname = "scopebuddy";
-  version = "unstable-2024-01-20";
+  version = "unstable-2026-01-31";
 
   src = fetchFromGitHub {
     owner = "HikariKnight";
     repo = "ScopeBuddy";
-    rev = "51cbc9a9daef05ff8015dc848f55cb1e0828a2ab";
-    hash = "sha256-ge89pCbisCF2ImxkUsNHJPVLO6kK4CsyCnYxZDNx75Y=";
+    rev = "4340ab2047eb9d7f840d342b932d98a8d0f7f652";
+    hash = "sha256-1n1lZidbtDV9Lm8QKd1s35bOS6Uh8sI3KtBJZ+FwdxQ=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
