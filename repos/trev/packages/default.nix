@@ -8,8 +8,8 @@
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   ffmpeg-quality-metrics = pkgs.callPackage ./ffmpeg-quality-metrics { };
+  flake-release = pkgs.callPackage ./flake-release { };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
-  nix-flake-release = pkgs.callPackage ./nix-flake-release { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   opengrep = pkgs.callPackage ./opengrep { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };

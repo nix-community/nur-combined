@@ -21,14 +21,14 @@
   zip,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "nix-flake-release";
-  version = "0.11.1";
+  pname = "flake-release";
+  version = "0.11.2";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
-    repo = "nix-flake-release";
+    repo = "flake-release";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UX1E+SEkurLE9rDYYvuuD1kJQ96dTJLfKeFHk255URw=";
+    hash = "sha256-4Na92heulwszW5JsHxofnOGsRZNPSLq/gf/qAyKhXy8=";
   };
 
   nativeBuildInputs = [
@@ -60,8 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = ''
     chmod +w src
-    sed -i '1c\#!${runtimeShell}' src/nix-release.sh
-    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/nix-release.sh
+    sed -i '1c\#!${runtimeShell}' src/flake-release.sh
+    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/flake-release.sh
   '';
 
   doCheck = true;
@@ -70,11 +70,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   installPhase = ''
-    mkdir -p $out/lib/nix-flake-release
-    cp -R src/*.sh $out/lib/nix-flake-release
+    mkdir -p $out/lib/flake-release
+    cp -R src/*.sh $out/lib/flake-release
 
     mkdir -p $out/bin
-    makeWrapper "$out/lib/nix-flake-release/nix-release.sh" "$out/bin/nix-flake-release"
+    makeWrapper "$out/lib/flake-release/flake-release.sh" "$out/bin/flake-release"
   '';
 
   dontFixup = true;
@@ -89,10 +89,10 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Nix flake package releaser";
-    mainProgram = "nix-flake-release";
-    homepage = "https://github.com/spotdemo4/nix-flake-release";
-    changelog = "https://github.com/spotdemo4/nix-flake-release/releases/tag/v${finalAttrs.version}";
+    description = "Flake package releaser";
+    mainProgram = "flake-release";
+    homepage = "https://github.com/spotdemo4/flake-release";
+    changelog = "https://github.com/spotdemo4/flake-release/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };

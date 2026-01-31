@@ -61,12 +61,12 @@ Nix hash fixer
 nix run github:spotdemo4/nur#nix-fix-hash
 ```
 
-### [nix-flake-release](https://github.com/spotdemo4/nix-flake-release)
+### [flake-release](https://github.com/spotdemo4/flake-release)
 
-Nix flake package releaser
+Flake package releaser
 
 ```elm
-nix run github:spotdemo4/nur#nix-flake-release
+nix run github:spotdemo4/nur#flake-release
 ```
 
 ### [opengrep](https://github.com/opengrep/opengrep)
@@ -85,6 +85,14 @@ Protobuf plugin for generating OpenAPI specs matching the Connect RPC interface
 
 ```elm
 nix run github:spotdemo4/nur#protoc-gen-connect-openapi
+```
+
+### [pysentry](https://github.com/nyudenkov/pysentry)
+
+Scans your Python dependencies for known security vulnerabilities
+
+```elm
+nix run github:spotdemo4/nur#pysentry
 ```
 
 ### [qsvenc](https://github.com/rigaya/QSVEnc)
