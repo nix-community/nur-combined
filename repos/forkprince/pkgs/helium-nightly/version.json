@@ -20,14 +20,14 @@
     "x86_64-darwin": {
       "repo": "imputnet/helium-macos",
       "file": "helium_{version}_x86_64-macos.dmg",
-      "hash": "sha256-T0ktNMm3U5+6jXtaF+94KQip04YCUt7+JT3bqWRQ6zY=",
-      "version": "0.8.3.1"
+      "hash": "sha256-Bg3ahXlmpkguSNND23W3ahGNZI93yX8Z/30mLF69JmY=",
+      "version": "0.8.4.1"
     },
     "aarch64-darwin": {
       "repo": "imputnet/helium-macos",
       "file": "helium_{version}_arm64-macos.dmg",
-      "hash": "sha256-5DKOByUwqLIdNO1U2OHY5tHivAwbYzFOaYO7wcy/QfI=",
-      "version": "0.8.3.1"
+      "hash": "sha256-0WZQDI/AVNQSl/m7QM47Yw2d+GyHRaCtj849hs854nM=",
+      "version": "0.8.4.1"
     }
   }
 }

@@ -15,6 +15,7 @@
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
+  hytale = lib.callPackage ./pkgs/hytale {};
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
@@ -37,17 +38,13 @@
   podman-desktop = lib.callPackage ./pkgs/podman-desktop {};
   sublime-text = lib.callPackage ./pkgs/sublime-text {};
   dolphin-emu = lib.callPackage ./pkgs/dolphin-emu {};
-  zed-editor = lib.callPackage ./pkgs/zed-editor {};
   obs-studio = lib.callPackage ./pkgs/obs-studio {};
   retroarch = lib.callPackage ./pkgs/retroarch {};
   overlayed = lib.callPackage ./pkgs/overlayed {};
   tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
-  ghostty = lib.callPackage ./pkgs/ghostty {};
-  vscode = lib.callPackage ./pkgs/vscode {};
   heroic = lib.callPackage ./pkgs/heroic {};
   pcsx2 = lib.callPackage ./pkgs/pcsx2 {};
-  micro = lib.callPackage ./pkgs/micro {};
   gimp = lib.callPackage ./pkgs/gimp {};
 
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};

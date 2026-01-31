@@ -1,0 +1,19 @@
+{
+  "name": "Hytale Launcher",
+  "source": {
+    "type": "api",
+    "url": "https://launcher.hytale.com/version/release/launcher.json",
+    "version_path": ".version"
+  },
+  "version": "2026.01.29-a86a538",
+  "platforms": {
+    "x86_64-linux": {
+      "url": "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-2026.01.29-a86a538.zip",
+      "hash": "sha256-WaFwIUOf4W8D8M7ZWzuwFCnHHdGtOI8Sx6BI1rXrL0k="
+    },
+    "aarch64-darwin": {
+      "url": "https://launcher.hytale.com/builds/release/darwin/arm64/hytale-launcher-2026.01.29-a86a538.zip",
+      "hash": "sha256-K75UlKVAojaDBkep/r4Oql16egkk4zzs641cLTucX2I="
+    }
+  }
+}

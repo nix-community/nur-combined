@@ -1,3 +1,4 @@
+# NOTE: Untested on Linux
 {
   stdenvNoCC,
   fetchurl,
