@@ -1,4 +1,4 @@
-From 8b302e3bb0b8d2bdc5034c7de6cd0849fc7d9288 Mon Sep 17 00:00:00 2001
+From 9abfc4d52a8b9276b465fd4de702830b53e437e2 Mon Sep 17 00:00:00 2001
 From: Benjamin Lemouzy <blemouzy.ml@gmail.com>
 Date: Sat, 31 Jan 2026 20:39:57 +0100
 Subject: [PATCH] Fix error[E0658]: `let` expressions in this position are
@@ -7,7 +7,8 @@ Subject: [PATCH] Fix error[E0658]: `let` expressions in this position are
 ---
  bb-downloader/src/lib.rs      | 9 ++++-----
  bb-flasher-sd/src/flashing.rs | 8 ++++----
- 2 files changed, 8 insertions(+), 9 deletions(-)
+ bb-imager-gui/src/helpers.rs  | 9 +++++----
+ 3 files changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/bb-downloader/src/lib.rs b/bb-downloader/src/lib.rs
 index 0463adb..f8b263a 100644
@@ -49,6 +50,28 @@ index fe1e799..02fbcef 100644
      }
  
      tracing::info!("Opening Destination");
+diff --git a/bb-imager-gui/src/helpers.rs b/bb-imager-gui/src/helpers.rs
+index 6a4848f..b6bdcd4 100644
+--- a/bb-imager-gui/src/helpers.rs
++++ b/bb-imager-gui/src/helpers.rs
+@@ -387,12 +387,13 @@ pub(crate) fn system_keymap() -> String {
+         parts.next();
+         if let Some(region) = parts.next() {
+             let region = region.split('@').next().unwrap_or(region).trim();
+-            if !region.is_empty()
+-                && let Some(&canon) = crate::constants::KEYMAP_LAYOUTS
++            if !region.is_empty() {
++                if let Some(&canon) = crate::constants::KEYMAP_LAYOUTS
+                     .iter()
+                     .find(|k| k.eq_ignore_ascii_case(region))
+-            {
+-                return Some(canon.to_string());
++                {
++                    return Some(canon.to_string());
++                }
+             }
+         }
+ 
 -- 
 2.51.2
 
