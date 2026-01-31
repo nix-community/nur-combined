@@ -13,5 +13,3 @@ This repository contains three types of packages:
 | `custom`   | Packages I maintain outside nixpkgs (e.g., `moonplayer`, `yaagl`). |
 | `modified` | Packages adjusted to my needs (e.g., `beeper-nightly`). |
 | `support`  | Packages patched for extra platforms/architectures (e.g., `gimp`, `dolphin-emu`). |
-
-This repository also provides an [overlay](./overlays/default.nix) which has platform-specific package overrides.
