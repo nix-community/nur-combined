@@ -1,19 +1,17 @@
 {
   lib,
   pkgs,
-  _experimental-update-script-combinators,
-  nix-update-script,
   ...
 }: let
-  version = "0.8.3.1";
+  version = "0.8.4.1";
   sourceMap = {
     x86_64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-GGltZ0/6rGQJixlGz3Na/vAwOlTeUR87WGyAPpLmtKM=";
+      hash = "sha256-y4KzR+pkBUuyVU+ALrzdY0n2rnTB7lTN2ZmVSzag5vE=";
     };
     aarch64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64.AppImage";
-      hash = "sha256-ZpLsiZYUT0ZaX/4z2yVN1hxJ3hNShDYD7Y+ggRq1/9Q=";
+      hash = "sha256-fTPLZmHAqJqDDxeGgfSji/AY8nCt+dVeCUQIqB80f7M=";
     };
   };
 in
@@ -25,9 +23,9 @@ in
       sourceMap.${pkgs.stdenv.hostPlatform.system}
       or (throw "Unsupported system: ${pkgs.stdenv.hostPlatform.system}");
 
-    passthru.updateScript = _experimental-update-script-combinators.sequence [
-      (nix-update-script {extraArgs = ["--system" "x86_64-linux"];})
-      (nix-update-script {extraArgs = ["--system" "aarch64-linux" "--version" "skip"];})
+    passthru.updateScript = pkgs._experimental-update-script-combinators.sequence [
+      (pkgs.nix-update-script {extraArgs = ["--system" "x86_64-linux" "--flake"];})
+      (pkgs.nix-update-script {extraArgs = ["--system" "aarch64-linux" "--version" "skip" "--flake"];})
     ];
 
     extraInstallCommands = let

@@ -5,12 +5,25 @@
 }:
 pkgs.appimageTools.wrapType2 rec {
   pname = "hayase";
-  version = "6.4.50";
+  version = "6.4.52";
 
   src = pkgs.fetchurl {
     url = "https://api.hayase.watch/files/linux-hayase-${version}-linux.AppImage";
-    hash = "sha256-uHtTMlbE53UrKAirEbyn/9dSGZjoCkVpkXE+y4ye1Ko=";
+    hash = "sha256-7Xar1NNWL2uLuhrsNyB6dTx8y0XDecotbs09WKzkWag=";
   };
+
+  passthru.updateScript =
+    pkgs.writeScript "update-${pname}"
+    # bash
+    ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl yq-go common-updater-scripts
+
+      set -eu -o pipefail
+
+      version="$(curl -s https://api.hayase.watch/files/latest-linux.yml | yq '.version')"
+      update-source-version ${pname} "$version"
+    '';
 
   nativeBuildInputs = with pkgs; [
     makeWrapper

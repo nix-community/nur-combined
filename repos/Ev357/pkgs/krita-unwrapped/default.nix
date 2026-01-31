@@ -55,8 +55,9 @@
   wayland,
   wayland-protocols,
   libxkbcommon,
+  writeScript,
 }:
-mkDerivation {
+mkDerivation rec {
   pname = "krita-unwrapped";
   version = "5.3.0-prealpha";
 
@@ -64,9 +65,22 @@ mkDerivation {
     domain = "invent.kde.org";
     owner = "graphics";
     repo = "krita";
-    rev = "3c045538b33ffe7b3db80a39674ecb6571c3a983";
-    hash = "sha256-q+nc+L1KfrtMZ1SS0w+M4TV6oC1p0Xd40EkUSMWkpuM=";
+    rev = "2f7160e6f0e5e60f0f4e04a44a8820fe42c25cc3";
+    hash = "sha256-dTHImcEwt6if+VPYxXiKHwhN95+hLIhUZE4WY04Pnis=";
   };
+
+  passthru.updateScript =
+    writeScript "update-${pname}"
+    # bash
+    ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl jq common-updater-scripts
+
+      set -eu -o pipefail
+
+      REV="$(curl -s "https://invent.kde.org/api/v4/projects/206/repository/commits/master" | jq -r '.id')"
+      update-source-version ${pname} "${version}" --ignore-same-version --rev="$REV"
+    '';
 
   nativeBuildInputs = [
     cmake
