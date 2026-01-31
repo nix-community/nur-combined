@@ -11,11 +11,9 @@ rec {
     }:
     {
       imports = [
-        howdy
         zfs-impermanence-on-shutdown
       ];
     }
   );
-  howdy = ./howdypr.nix;
   zfs-impermanence-on-shutdown = ./zfs-impermanence-on-shutdown.nix;
 }

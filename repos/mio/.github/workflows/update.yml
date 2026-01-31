@@ -82,6 +82,10 @@ jobs:
         cd pkgs/downkyicore
         ./update.sh
 
+    - name: Update more
+      run: |
+        nix-shell -p nix-update --run "nix-update --version=branch musescore-evolution --commit"
+
     - name: Push changes
       run: |
         git push

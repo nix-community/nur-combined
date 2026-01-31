@@ -135,9 +135,6 @@ rec {
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   miscutil = pkgs.callPackage ./pkgs/miscutil { };
   gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
-  rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
-    rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
-  };
   browser-115-bin = pkgs.callPackage ./pkgs/115-browser-bin { };
   browseros = pkgs.callPackage ./pkgs/browseros { };
   bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
@@ -214,10 +211,6 @@ rec {
 
   eden = nodarwin (v3overrideAttrs (pkgs.callPackage ./pkgs/eden/package.nix { }));
 
-  howdy = nodarwin (pkgs.callPackage ./pkgs/howdy/package.nix { });
-  linux-enable-ir-emitter = nodarwin (
-    pkgs.callPackage ./pkgs/linux-enable-ir-emitter/package.nix { }
-  );
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
   needy-girl-overdose-theme = pkgs.callPackage ./pkgs/needy-girl-overdose-theme { };
   zw3d = pkgs.callPackage ./pkgs/zw3d {
@@ -241,6 +234,12 @@ rec {
 
   ladybird = pkgs.callPackage ./pkgs/ladybird/package.nix {
   };
+
+  ego = v3overrideAttrs (pkgs.callPackage ./pkgs/ego/package.nix { });
+
+  #systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
+
+  musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });
 
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
@@ -307,9 +306,7 @@ rec {
     repo = "proton-ge-custom";
   };
 
-  ego = v3overrideAttrs (pkgs.callPackage ./pkgs/ego/package.nix { });
-
-  #systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
+  polkit126 = pkgs.callPackage ./pkgs/polkit/package.nix { };
 
   #davinci-resolve_20_0_1 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix { };
   davinci-resolve-studio_20_0_1 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix {
@@ -352,20 +349,24 @@ rec {
       ];
     });
 
-  rocksmith-custom-song-toolkit = pkgs.callPackage ./pkgs/rocksmith-custom-song-toolkit { };
-
   stuntrally2 = pkgs.callPackage ./pkgs/stuntrally { };
-
-  musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });
 
   citron-emu = v3overrideAttrs (pkgs.callPackage ./pkgs/citron-emu/package.nix { });
 
-  polkit126 = pkgs.callPackage ./pkgs/polkit/package.nix { };
-
   openscreen = pkgs.callPackage ./pkgs/openscreen/package.nix { };
+
+  rocksmith-custom-song-toolkit = pkgs.callPackage ./pkgs/rocksmith-custom-song-toolkit { };
+
+  rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
+    rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
+  };
 
 }
 // (lib.optionalAttrs (!nurbot) rec {
+
+  supertuxkart-evolution = v3override (
+    pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }
+  );
 
   mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
 
@@ -476,10 +477,6 @@ rec {
     build = lib;
     wine = pkgs.wineWow64Packages.full;
   };
-
-  supertuxkart-evolution = v3override (
-    pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }
-  );
 
   chatgpt-desktop-client = pkgs.callPackage ./pkgs/chatgpt-desktop-client/default.nix { };
 
