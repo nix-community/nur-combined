@@ -107,15 +107,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "6f1a6588cddcb5bd969823e81222b5dc2219382c";
+    version = "17c1f2559c0592b1fce84bbf73b148652037912e";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "6f1a6588cddcb5bd969823e81222b5dc2219382c";
+      rev = "17c1f2559c0592b1fce84bbf73b148652037912e";
       fetchSubmodules = false;
-      sha256 = "sha256-416hjMqqs6Bch3LYfygnpPfZNlIAkvZnr3KRfRM3izc=";
+      sha256 = "sha256-UnE2Mj0dDCkjLsrVoh3q3/eSuGHBGwhJYjmW9m9tvwA=";
     };
-    date = "2026-01-29";
+    date = "2026-01-31";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -127,14 +127,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "6f50636be808bd0455b7d58f62bbbb143e2f747a";
+    version = "557684bd388c12111dd86a7fb59ab5f9b7826b87";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "6f50636be808bd0455b7d58f62bbbb143e2f747a";
+      rev = "557684bd388c12111dd86a7fb59ab5f9b7826b87";
       fetchSubmodules = false;
-      sha256 = "sha256-4eytBRdyARGnnZHiuZ9wSPPyG/sTy5/gfARmTSuSKdo=";
+      sha256 = "sha256-yC3greK60RO09ILycwp6YXMV2AvFL/QliO70eOCEEWo=";
     };
-    date = "2026-01-29";
+    date = "2026-01-31";
   };
 }
