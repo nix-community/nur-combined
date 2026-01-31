@@ -1,0 +1,54 @@
+From 8b302e3bb0b8d2bdc5034c7de6cd0849fc7d9288 Mon Sep 17 00:00:00 2001
+From: Benjamin Lemouzy <blemouzy.ml@gmail.com>
+Date: Sat, 31 Jan 2026 20:39:57 +0100
+Subject: [PATCH] Fix error[E0658]: `let` expressions in this position are
+ unstable
+
+---
+ bb-downloader/src/lib.rs      | 9 ++++-----
+ bb-flasher-sd/src/flashing.rs | 8 ++++----
+ 2 files changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/bb-downloader/src/lib.rs b/bb-downloader/src/lib.rs
+index 0463adb..f8b263a 100644
+--- a/bb-downloader/src/lib.rs
++++ b/bb-downloader/src/lib.rs
+@@ -107,12 +107,11 @@ impl Downloader {
+         let file_path = self.path_from_sha(sha256);
+ 
+         if file_path.exists() {
+-            if let Ok(hash) = sha256_from_path(&file_path).await
+-                && hash == sha256
+-            {
+-                return Some(file_path);
++            if let Ok(hash) = sha256_from_path(&file_path).await {
++                if hash == sha256 {
++                    return Some(file_path);
++                }
+             }
+-
+             // Delete old file
+             let _ = tokio::fs::remove_file(&file_path).await;
+         }
+diff --git a/bb-flasher-sd/src/flashing.rs b/bb-flasher-sd/src/flashing.rs
+index fe1e799..02fbcef 100644
+--- a/bb-flasher-sd/src/flashing.rs
++++ b/bb-flasher-sd/src/flashing.rs
+@@ -209,10 +209,10 @@ pub async fn flash<R: Read + Send + 'static>(
+     customization: Option<Customization>,
+     cancel: Option<tokio_util::sync::CancellationToken>,
+ ) -> Result<()> {
+-    if let Some(x) = &customization
+-        && !x.validate()
+-    {
+-        return Err(crate::Error::InvalidCustomizaton);
++    if let Some(x) = &customization {
++        if !x.validate() {
++            return Err(crate::Error::InvalidCustomizaton);
++        }
+     }
+ 
+     tracing::info!("Opening Destination");
+-- 
+2.51.2
+
