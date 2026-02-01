@@ -89,6 +89,7 @@ stdenv.mkDerivation rec {
       ${patch patchUseOpensslMd5Sha1}
       ${patch ./patches/nginx-plain.patch}
       ${patch ./patches/nginx-plain-proxy.patch}
+      ${patch ./patches/nginx-gemini.patch}
       ${patch ./patches/nix-etag-1.15.4.patch}
       ${patch ./patches/nix-skip-check-logs-path.patch}
       ${patch ./patches/nginx-oqs-curves.patch}
@@ -130,6 +131,7 @@ stdenv.mkDerivation rec {
     "--with-pcre-jit"
     "--with-http_addition_module"
     "--with-http_auth_request_module"
+    "--with-http_gemini_module"
     "--with-http_gunzip_module"
     "--with-http_gzip_static_module"
     "--with-http_image_filter_module"

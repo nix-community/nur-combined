@@ -1,0 +1,422 @@
+diff --git a/auto/modules b/auto/modules
+index 648d3b54e..555ae3ff0 100644
+--- a/auto/modules
++++ b/auto/modules
+@@ -433,6 +433,18 @@ if [ $HTTP = YES ]; then
+         . auto/module
+     fi
+ 
++    if [ $HTTP_GEMINI = YES ]; then
++        have=NGX_HTTP_GEMINI . auto/have
++        ngx_module_name=
++        ngx_module_incs=
++        ngx_module_deps=
++        ngx_module_srcs=
++        ngx_module_libs=
++        ngx_module_link=$HTTP_GEMINI
++
++        . auto/module
++    fi
++
+     if [ $HTTP_V2 = YES ]; then
+         have=NGX_HTTP_V2 . auto/have
+ 
+diff --git a/auto/options b/auto/options
+index 6e1963162..d6e8d60bc 100644
+--- a/auto/options
++++ b/auto/options
+@@ -60,6 +60,7 @@ HTTP_CACHE=YES
+ HTTP_CHARSET=YES
+ HTTP_GZIP=YES
+ HTTP_PLAIN=NO
++HTTP_GEMINI=NO
+ HTTP_SSL=NO
+ HTTP_V2=NO
+ HTTP_V3=NO
+@@ -237,6 +238,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
+         --http-scgi-temp-path=*)         NGX_HTTP_SCGI_TEMP_PATH="$value" ;;
+ 
+         --with-http_plain_module)        HTTP_PLAIN=YES             ;;
++        --with-http_gemini_module)       HTTP_GEMINI=YES            ;;
+         --with-http_ssl_module)          HTTP_SSL=YES               ;;
+         --with-http_v2_module)           HTTP_V2=YES                ;;
+         --with-http_v3_module)           HTTP_V3=YES                ;;
+@@ -459,6 +461,7 @@ cat << END
+   --without-quic_bpf_module          disable ngx_quic_bpf_module
+ 
+   --with-http_plain_module           enable ngx_http_plain_module
++  --with-http_gemini_module          enable ngx_http_gemini_module
+   --with-http_ssl_module             enable ngx_http_ssl_module
+   --with-http_v2_module              enable ngx_http_v2_module
+   --with-http_v3_module              enable ngx_http_v3_module
+diff --git a/src/http/ngx_http.c b/src/http/ngx_http.c
+index 9aaa3e03f..ff5788f12 100644
+--- a/src/http/ngx_http.c
++++ b/src/http/ngx_http.c
+@@ -1238,6 +1238,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+ #if (NGX_HTTP_PLAIN)
+     ngx_uint_t             plain;
+ #endif
++#if (NGX_HTTP_GEMINI)
++    ngx_uint_t             gemini;
++#endif
+ #if (NGX_HTTP_SSL)
+     ngx_uint_t             ssl;
+ #endif
+@@ -1281,6 +1284,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+ #if (NGX_HTTP_PLAIN)
+         plain = lsopt->plain || addr[i].opt.plain;
+ #endif
++#if (NGX_HTTP_GEMINI)
++        gemini = lsopt->gemini || addr[i].opt.gemini;
++#endif
+ #if (NGX_HTTP_SSL)
+         ssl = lsopt->ssl || addr[i].opt.ssl;
+         protocols |= lsopt->ssl << 1;
+@@ -1378,6 +1384,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+ #if (NGX_HTTP_PLAIN)
+         addr[i].opt.plain = plain;
+ #endif
++#if (NGX_HTTP_GEMINI)
++        addr[i].opt.gemini = gemini;
++#endif
+ #if (NGX_HTTP_SSL)
+         addr[i].opt.ssl = ssl;
+ #endif
+@@ -1924,6 +1933,9 @@ ngx_http_add_addrs(ngx_conf_t *cf, ngx_http_port_t *hport,
+ #if (NGX_HTTP_PLAIN)
+         addrs[i].conf.plain = addr[i].opt.plain;
+ #endif
++#if (NGX_HTTP_GEMINI)
++        addrs[i].conf.gemini = addr[i].opt.gemini;
++#endif
+ #if (NGX_HTTP_SSL)
+         addrs[i].conf.ssl = addr[i].opt.ssl;
+ #endif
+@@ -1995,6 +2007,9 @@ ngx_http_add_addrs6(ngx_conf_t *cf, ngx_http_port_t *hport,
+ #if (NGX_HTTP_PLAIN)
+         addrs6[i].conf.plain = addr[i].opt.plain;
+ #endif
++#if (NGX_HTTP_GEMINI)
++        addrs6[i].conf.gemini = addr[i].opt.gemini;
++#endif
+ #if (NGX_HTTP_SSL)
+         addrs6[i].conf.ssl = addr[i].opt.ssl;
+ #endif
+diff --git a/src/http/ngx_http_core_module.c b/src/http/ngx_http_core_module.c
+index 645da2a43..8c4b9b1bf 100644
+--- a/src/http/ngx_http_core_module.c
++++ b/src/http/ngx_http_core_module.c
+@@ -4178,6 +4178,18 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+ #endif
+         }
+ 
++        if (ngx_strcmp(value[n].data, "gemini") == 0) {
++#if (NGX_HTTP_GEMINI)
++            lsopt.gemini = 1;
++            continue;
++#else
++            ngx_conf_log_error(NGX_LOG_EMERG, cf, 0,
++                               "the \"gemini\" parameter requires "
++                               "ngx_http_gemini_module");
++            return NGX_CONF_ERROR;
++#endif
++        }
++
+         if (ngx_strcmp(value[n].data, "ssl") == 0) {
+ #if (NGX_HTTP_SSL)
+             lsopt.ssl = 1;
+@@ -4365,6 +4377,12 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+         }
+     }
+ 
++#if (NGX_HTTP_GEMINI)
++    if (lsopt.gemini && !lsopt.ssl) {
++        return "the \"gemini\" parameter requires \"ssl\" parameter";
++    }
++#endif
++
+     for (n = 0; n < u.naddrs; n++) {
+ 
+         for (i = 0; i < n; i++) {
+diff --git a/src/http/ngx_http_core_module.h b/src/http/ngx_http_core_module.h
+index d4f5463e3..4da71559f 100644
+--- a/src/http/ngx_http_core_module.h
++++ b/src/http/ngx_http_core_module.h
+@@ -79,6 +79,9 @@ typedef struct {
+ #if (NGX_HTTP_PLAIN)
+     unsigned                   plain:1;
+ #endif
++#if (NGX_HTTP_GEMINI)
++    unsigned                   gemini:1;
++#endif
+ #if (NGX_HAVE_INET6)
+     unsigned                   ipv6only:1;
+ #endif
+@@ -245,6 +248,9 @@ struct ngx_http_addr_conf_s {
+     unsigned                   quic:1;
+ #if (NGX_HTTP_PLAIN)
+     unsigned                   plain:1;
++#endif
++#if (NGX_HTTP_GEMINI)
++    unsigned                   gemini:1;
+ #endif
+     unsigned                   proxy_protocol:1;
+ };
+diff --git a/src/http/ngx_http_header_filter_module.c b/src/http/ngx_http_header_filter_module.c
+index 76f6e9629..cf6a2254c 100644
+--- a/src/http/ngx_http_header_filter_module.c
++++ b/src/http/ngx_http_header_filter_module.c
+@@ -14,6 +14,10 @@
+ static ngx_int_t ngx_http_header_filter_init(ngx_conf_t *cf);
+ static ngx_int_t ngx_http_header_filter(ngx_http_request_t *r);
+ 
++#if (NGX_HTTP_GEMINI)
++static ngx_int_t ngx_http_gemini_header_filter(ngx_http_request_t *r);
++#endif
++
+ 
+ static ngx_http_module_t  ngx_http_header_filter_module_ctx = {
+     NULL,                                  /* preconfiguration */
+@@ -153,6 +157,122 @@ ngx_http_header_out_t  ngx_http_headers_out[] = {
+ };
+ 
+ 
++#if (NGX_HTTP_GEMINI)
++static ngx_int_t
++ngx_http_gemini_header_filter(ngx_http_request_t *r)
++{
++    size_t                     gemini_len;
++    ngx_buf_t                 *gb;
++    ngx_chain_t                gemini_out;
++    u_char                    *gp;
++    ngx_uint_t                 gemini_status;
++    ngx_str_t                  gemini_meta;
++
++    /* Map HTTP status to Gemini status */
++    if (r->headers_out.status >= 200 && r->headers_out.status < 300) {
++        gemini_status = 20;  /* SUCCESS */
++        if (r->headers_out.content_type.len) {
++            gemini_meta = r->headers_out.content_type;
++        } else {
++            ngx_str_set(&gemini_meta, "text/gemini");
++        }
++
++    } else if (r->headers_out.status == 301
++               || r->headers_out.status == 308)
++    {
++        gemini_status = 31;  /* REDIRECT - PERMANENT */
++        if (r->headers_out.location && r->headers_out.location->value.len) {
++            gemini_meta = r->headers_out.location->value;
++        } else {
++            ngx_str_set(&gemini_meta, "/");
++        }
++
++    } else if (r->headers_out.status >= 300
++               && r->headers_out.status < 400)
++    {
++        gemini_status = 30;  /* REDIRECT - TEMPORARY */
++        if (r->headers_out.location && r->headers_out.location->value.len) {
++            gemini_meta = r->headers_out.location->value;
++        } else {
++            ngx_str_set(&gemini_meta, "/");
++        }
++
++    } else if (r->headers_out.status == 400) {
++        gemini_status = 59;  /* BAD REQUEST */
++        ngx_str_set(&gemini_meta, "Bad Request");
++
++    } else if (r->headers_out.status == 401
++               || r->headers_out.status == 403)
++    {
++        gemini_status = 60;  /* CLIENT CERTIFICATE REQUIRED */
++        ngx_str_set(&gemini_meta, "Client Certificate Required");
++
++    } else if (r->headers_out.status == 404) {
++        gemini_status = 51;  /* NOT FOUND */
++        ngx_str_set(&gemini_meta, "Not Found");
++
++    } else if (r->headers_out.status == 410) {
++        gemini_status = 52;  /* GONE */
++        ngx_str_set(&gemini_meta, "Gone");
++
++    } else if (r->headers_out.status >= 400
++               && r->headers_out.status < 500)
++    {
++        gemini_status = 59;  /* BAD REQUEST */
++        ngx_str_set(&gemini_meta, "Bad Request");
++
++    } else if (r->headers_out.status == 503) {
++        gemini_status = 44;  /* SLOW DOWN */
++        /*
++         * Hardcoded 5-second retry interval. nginx's headers_out doesn't
++         * have a retry_after field, so we cannot use Retry-After header.
++         */
++        ngx_str_set(&gemini_meta, "5");
++
++    } else {
++        gemini_status = 40;  /* TEMPORARY FAILURE */
++        ngx_str_set(&gemini_meta, "Server Error");
++    }
++
++    /* Gemini protocol doesn't support keep-alive */
++    r->keepalive = 0;
++
++    /* For non-success (non-20) responses, don't send body */
++    if (gemini_status != 20) {
++        r->header_only = 1;
++    }
++
++    /* Calculate buffer length: "XX <meta>\r\n" */
++    gemini_len = 2 + 1 + gemini_meta.len + 2;
++
++    gb = ngx_create_temp_buf(r->pool, gemini_len);
++    if (gb == NULL) {
++        return NGX_ERROR;
++    }
++
++    gp = gb->pos;
++    *gp++ = (u_char) ('0' + gemini_status / 10);
++    *gp++ = (u_char) ('0' + gemini_status % 10);
++    *gp++ = ' ';
++    gp = ngx_cpymem(gp, gemini_meta.data, gemini_meta.len);
++    *gp++ = CR;
++    *gp++ = LF;
++    gb->last = gp;
++
++    /* For header-only responses, mark buffer as the last one */
++    if (gemini_status != 20) {
++        gb->last_buf = 1;
++        gb->last_in_chain = 1;
++    }
++
++    gemini_out.buf = gb;
++    gemini_out.next = NULL;
++
++    return ngx_http_write_filter(r, &gemini_out);
++}
++#endif
++
++
+ static ngx_int_t
+ ngx_http_header_filter(ngx_http_request_t *r)
+ {
+@@ -179,6 +299,12 @@ ngx_http_header_filter(ngx_http_request_t *r)
+         return NGX_OK;
+     }
+ 
++#if (NGX_HTTP_GEMINI)
++    if (r->gemini_request) {
++        return ngx_http_gemini_header_filter(r);
++    }
++#endif
++
+     if (r->http_version < NGX_HTTP_VERSION_10) {
+         return NGX_OK;
+     }
+diff --git a/src/http/ngx_http_parse.c b/src/http/ngx_http_parse.c
+index c420b65a8..bf6e9f7f5 100644
+--- a/src/http/ngx_http_parse.c
++++ b/src/http/ngx_http_parse.c
+@@ -158,6 +158,21 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+             }
+ #endif
+ 
++#if (NGX_HTTP_GEMINI)
++            if (r->gemini_request) {
++                /* Gemini request starts with gemini:// URI */
++                r->method = NGX_HTTP_GET;
++
++                if (ch != 'g' && ch != 'G') {
++                    return NGX_HTTP_PARSE_INVALID_REQUEST;
++                }
++
++                r->schema_start = p;
++                state = sw_schema;
++                break;
++            }
++#endif
++
+             if (ch == CR || ch == LF) {
+                 break;
+             }
+@@ -362,6 +377,18 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+ 
+         case sw_host_start:
+ 
++#if (NGX_HTTP_GEMINI)
++            /* Verify gemini:// schema for gemini requests */
++            if (r->gemini_request) {
++                if (r->schema_end - r->schema_start != 6
++                    || ngx_strncasecmp(r->schema_start,
++                                       (u_char *) "gemini", 6) != 0)
++                {
++                    return NGX_HTTP_PARSE_INVALID_REQUEST;
++                }
++            }
++#endif
++
+             r->host_start = p;
+ 
+             if (ch == '[') {
+diff --git a/src/http/ngx_http_request.c b/src/http/ngx_http_request.c
+index a008c6513..bd1c61277 100644
+--- a/src/http/ngx_http_request.c
++++ b/src/http/ngx_http_request.c
+@@ -683,6 +683,10 @@ ngx_http_alloc_request(ngx_connection_t *c)
+     r->plain_request = hc->addr_conf->plain;
+ #endif
+ 
++#if (NGX_HTTP_GEMINI)
++    r->gemini_request = hc->addr_conf->gemini;
++#endif
++
+     return r;
+ }
+ 
+@@ -1170,6 +1174,22 @@ ngx_http_process_request_line(ngx_event_t *rev)
+             }
+ #endif
+ 
++#if (NGX_HTTP_GEMINI)
++            if (r->gemini_request) {
++                r->method_name.len = 3;
++                r->method_name.data = (u_char *) "GET";
++                r->http_version = NGX_HTTP_VERSION_GEMINI;
++
++                if (ngx_http_process_request_uri(r) != NGX_OK) {
++                    break;
++                }
++
++                ngx_http_process_request(r);
++
++                break;
++            }
++#endif
++
+             r->method_name.len = r->method_end - r->request_start + 1;
+             r->method_name.data = r->request_line.data;
+ 
+diff --git a/src/http/ngx_http_request.h b/src/http/ngx_http_request.h
+index d5db49473..a4cae9461 100644
+--- a/src/http/ngx_http_request.h
++++ b/src/http/ngx_http_request.h
+@@ -20,6 +20,7 @@
+ #define NGX_HTTP_LINGERING_BUFFER_SIZE     4096
+ 
+ #define NGX_HTTP_VERSION_PLAIN             1
++#define NGX_HTTP_VERSION_GEMINI            2
+ #define NGX_HTTP_VERSION_9                 9
+ #define NGX_HTTP_VERSION_10                1000
+ #define NGX_HTTP_VERSION_11                1001
+@@ -573,6 +574,10 @@ struct ngx_http_request_s {
+     unsigned                          plain_request:1;
+ #endif
+ 
++#if (NGX_HTTP_GEMINI)
++    unsigned                          gemini_request:1;
++#endif
++
+     /* used to parse HTTP headers */
+ 
+     ngx_uint_t                        state;
