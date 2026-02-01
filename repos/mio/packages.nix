@@ -200,9 +200,16 @@ rec {
 
   firefox_nightly = pkgs.wrapFirefox firefox_nightly-unwrapped { };
   betterbird-unwrapped = v3overrideAttrs (pkgs.callPackage ./pkgs/betterbird { });
+  betterbird-unwrapped_mold = betterbird-unwrapped.override (prev: {
+    stdenv = pkgs.stdenvAdapters.useMoldLinker prev.stdenv;
+  });
   betterbird = pkgs.wrapThunderbird betterbird-unwrapped {
     applicationName = "betterbird";
     libName = "betterbird";
+  };
+  betterbird_mold = pkgs.wrapThunderbird betterbird-unwrapped_mold {
+    applicationName = "betterbird-mold";
+    libName = "betterbird-mold";
   };
 
   plezy = nodarwin (pkgs.callPackage ./pkgs/by-name/pl/plezy/package.nix { });
