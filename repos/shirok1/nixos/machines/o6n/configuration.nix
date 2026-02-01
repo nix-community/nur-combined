@@ -269,6 +269,28 @@
     };
   };
 
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      email = "admin@shiroki.tech";
+      extraLegoFlags = [ "--dns.propagation-wait=10s" ];
+    };
+    certs = {
+      "berry.shiroki.tech" = {
+        domain = "*.berry.shiroki.tech";
+        group = config.services.nginx.group;
+        dnsProvider = "cloudflare";
+        credentialFiles = {
+          "CF_DNS_API_TOKEN_FILE" = config.sops.secrets."acme/cloudflare".path;
+        };
+        reloadServices = [ "nginx" ];
+      };
+    };
+  };
+  sops.secrets."acme/cloudflare" = {
+    restartUnits = [ "acme-order-renew-berry.shiroki.tech.service" ];
+  };
+
   services.nginx = {
     enable = true;
 
@@ -287,12 +309,9 @@
 
     virtualHosts = {
       "ha.berry.shiroki.tech" = {
-        # # Redirect HTTP -> HTTPS
-        # forceSSL = true;
-        # # Enable ACME (Let's Encrypt). Set to false if you manage certs yourself.
-        # enableACME = true;
-        # If you enable ACME, also set services.acme.email below (or set
-        # services.nginx.extraConfig as needed).
+        addSSL = true;
+        acmeRoot = null;
+        useACMEHost = "berry.shiroki.tech";
         locations = {
           "/" = {
             proxyPass = "http://[::1]:8123";
@@ -304,12 +323,9 @@
         };
       };
       "qbt.berry.shiroki.tech" = {
-        # # Redirect HTTP -> HTTPS
-        # forceSSL = true;
-        # # Enable ACME (Let's Encrypt). Set to false if you manage certs yourself.
-        # enableACME = true;
-        # If you enable ACME, also set services.acme.email below (or set
-        # services.nginx.extraConfig as needed).
+        addSSL = true;
+        acmeRoot = null;
+        useACMEHost = "berry.shiroki.tech";
         locations = {
           "/" = {
             proxyPass = "http://[::1]:8080";
@@ -321,12 +337,9 @@
         };
       };
       "jellyfin.berry.shiroki.tech" = {
-        # # Redirect HTTP -> HTTPS
-        # forceSSL = true;
-        # # Enable ACME (Let's Encrypt). Set to false if you manage certs yourself.
-        # enableACME = true;
-        # If you enable ACME, also set services.acme.email below (or set
-        # services.nginx.extraConfig as needed).
+        addSSL = true;
+        acmeRoot = null;
+        useACMEHost = "berry.shiroki.tech";
         locations = {
           "/" = {
             proxyPass = "http://[::1]:8096";
