@@ -34,11 +34,9 @@
       flake = {
         overlays = import ./overlays;
         nixosModules = {
-          vintagestory = import ./modules/vintagestory.nix ./pkgs/vintagestory;
           default =
             { ... }:
             {
-              imports = [ inputs.self.nixosModules.vintagestory ];
             };
         };
       };

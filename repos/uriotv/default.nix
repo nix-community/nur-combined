@@ -17,11 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # Games
-  # vintagestory - requires version and hash, use via module or:
-  #   vintagestory = pkgs.callPackage ./pkgs/vintagestory {
-  #     version = "1.21.0";
-  #     hash = "sha256-90YQOur7UhXxDBkGLSMnXQK7iQ6+Z8Mqx9PEG6FEXBs=";
-  #   };
 
   # Themes
   cybergrub2077 = pkgs.callPackage ./pkgs/cybergrub2077 { };
