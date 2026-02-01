@@ -18,21 +18,21 @@ let
       crashreporterSupport = false;
     }).overrideAttrs
       rec {
-        version = "140.7.0esr";
+        version = "140.7.1esr";
         src = fetchurl {
           url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
           hash = "";
         };
       };
 
-  version = "140.7.0esr-bb17";
+  version = "140.7.1esr-bb18";
   majVer = lib.versions.major version;
 
   betterbird-patches = fetchFromGitHub {
     owner = "Betterbird";
     repo = "thunderbird-patches";
     rev = "${version}";
-    hash = "sha256-4eEKiBsuWe0dmetNdJfd5QcBp0yi8dTm2pgGBhIYl1E=";
+    hash = "sha256-SFqyFNarwJ6mrXW08rxTWIgGOr36za1yPChFKTO2HEY=";
   };
 
   remote-patch-data = lib.importJSON ./patchdata.json;
@@ -51,12 +51,12 @@ let
   remote-patches-folder = linkFarmFromDrvs "betterbird-remote-patches" remote-patches;
 
   # Fetch and extract comm subdirectory
-  # see https://github.com/Betterbird/thunderbird-patches/blob/140.7.0esr-bb17/140/140.sh
+  # see https://github.com/Betterbird/thunderbird-patches/blob/140.7.1esr-bb18/140/140.sh
   comm-source = fetchhg {
     name = "comm-source";
     url = "https://hg.mozilla.org/releases/comm-esr140";
-    rev = "baaa8c417478171703450031e7e0529efded6e6d";
-    hash = "sha256-oHkDZLbY/yzbPbhjU0fvTAvSaA0EqHFkzjuCTt6SIbE=";
+    rev = "65bbf2befd029eb1ffc67331bb65a31861ea61b5";
+    hash = "sha256-YuFMLfeSLwYmK/iCg+Z+I8yKBe9dIpG/jy9gstLtCsA=";
   };
 in
 (
@@ -72,7 +72,7 @@ in
     branding = "comm/mail/branding/betterbird";
     inherit (thunderbird-unwrapped) extraPatches;
 
-    # see https://github.com/Betterbird/thunderbird-patches/blob/140.7.0esr-bb17/140/140.sh
+    # see https://github.com/Betterbird/thunderbird-patches/blob/140.7.1esr-bb18/140/140.sh
     src = fetchhg {
       name = "mozilla-source";
       url = "https://hg.mozilla.org/releases/mozilla-esr140";
