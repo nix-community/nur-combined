@@ -93,6 +93,12 @@ beamPackages.mixRelease rec {
     export HOME=$TMPDIR
   '';
 
+  postBuild = ''
+    # Digest and compress static files
+    rm -f priv/static/READ_THIS_BEFORE_TOUCHING_FILES_HERE
+    mix do deps.loadpaths --no-deps-check, phx.digest --no-compile
+  '';
+
   postInstall = ''
     for f in $(find $out/bin/ -type f -executable); do
       wrapProgram "$f" \
