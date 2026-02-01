@@ -1,33 +1,32 @@
 {
-  pkgs,
   lib,
   fetchFromGitHub,
   stdenvNoCC,
+  librime,
+  rime-data,
 }:
 stdenvNoCC.mkDerivation rec {
-  name = "fcitx5-flypy";
+  pname = "rime-flypy";
   version = "20240827";
   src = fetchFromGitHub {
     owner = "cubercsl";
-    repo = "rime-flypy";
+    repo = pname;
     tag = "v${version}";
     hash = "sha256-shXcDjAaClemaOsE9ajZBedUzYKLw+ZATDTuyAu+zUc=";
   };
+  preBuild = ''
+    cp ${rime-data}/share/rime-data/*.yaml .
+  '';
   makeFlags = [
     "PREFIX=$(out)"
   ];
-  nativeBuildInputs = with pkgs; [
-    python3
-    libime
+  nativeBuildInputs = [
+    librime
   ];
-  preBuild = ''
-    patchShebangs scripts/fcitx5-flypy-dict
-    cd fcitx5
-  '';
   meta = {
-    description = "flypy schema for fcitx5(小鹤音形fcitx5码表)";
+    description = "flypy schema for rime. (小鹤音形 rime 挂接文件)";
     homepage = "https://flypy.cc";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.all;
     license = lib.licenses.unfree;
     sourceProvenance = [ lib.sourceTypes.fromSource ];
   };

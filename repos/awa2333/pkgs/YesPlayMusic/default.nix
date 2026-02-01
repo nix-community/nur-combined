@@ -1,8 +1,8 @@
-{ lib
-, appimageTools
-, fetchurl
-, libxshmfence
-,
+{
+  lib,
+  appimageTools,
+  fetchurl,
+  libxshmfence,
 }:
 appimageTools.wrapType2 rec {
   pname = "YesPlayMusic";
@@ -15,7 +15,7 @@ appimageTools.wrapType2 rec {
     libxshmfence
   ];
   meta = {
-    description = "A third party music application for Netease Music.(Use system-wide electron).高颜值的第三方网易云播放器.";
+    description = "A third party music application for Netease Music.高颜值的第三方网易云播放器.";
     homepage = "https://github.com/qier222/YesPlayMusic";
     license = lib.licenses.mit;
     mainProgram = "YesPlayMusic";
