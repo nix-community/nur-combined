@@ -5,7 +5,7 @@
 }:
 
 let
-  version = "0.4.0";
+  version = "0.4.1";
 
   # Map Nix system to ziglint's target naming
   targets = {
@@ -20,9 +20,9 @@ let
 
   # SHA256 hashes for each platform
   hashes = {
-    "x86_64-linux" = "sha256-R2An0vvlVLy3BKW/iwhozaNp7j7nogboka0oPirCrOg=";
-    "aarch64-linux" = "sha256-HIDjFuLaeWOW7hgVgvl/I3xRYOJ80s6HUlTsSu4GmwM=";
-    "aarch64-macos" = "sha256-vZ0oJCxTrDxh81aXdRAUOEBiA0gKiItzkjSuTn4CHEQ=";
+    "x86_64-linux" = "sha256-dgkXsrVKKiRv4SLzgFspxiJjxLavuToYRIGQFoc1NLY=";
+    "aarch64-linux" = "sha256-ghgmgmR4qru+2wO7ogQaDWBPsyj/Nn/wa5gsL/x8EUw=";
+    "aarch64-macos" = "sha256-I4v69xKXouZfuQr9c8WtOxsR8GykE4g4+K+xuDolcz8=";
   };
 
 in
