@@ -19,6 +19,8 @@
     ../../fragments/nix-settings.nix
   ];
 
+  sops.defaultSopsFile = ./secrets.yaml;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -89,6 +91,8 @@
   zramSwap.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+
+  documentation.man.generateCaches = false;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
@@ -446,8 +450,18 @@
   services.snell-server = {
     enable = true;
     package = pkgs.shirok1.snell-server;
-    settingsFile = "/etc/snell-server.conf";
+    settings = {
+      listen = "0.0.0.0:13831";
+      ipv6 = true;
+    };
+    pskFile = "/run/credentials/snell-server.service/psk";
   };
+  sops.secrets."snell/psk" = {
+    restartUnits = [ "snell-server.service" ];
+  };
+  systemd.services.snell-server.serviceConfig.LoadCredential = [
+    "psk:${config.sops.secrets."snell/psk".path}"
+  ];
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [

@@ -50,6 +50,16 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  documentation.man.generateCaches = false;
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Experimental = true;
+      KernelExperimental = true;
+    };
+  };
+
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 

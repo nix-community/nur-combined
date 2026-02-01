@@ -44,10 +44,12 @@ in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    upx
+  ];
   buildInputs = [
     libgcc.lib
-    upx
   ];
 
   installPhase = ''
