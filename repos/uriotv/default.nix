@@ -31,4 +31,6 @@
 
   # Tools
   scopebuddy = pkgs.callPackage ./pkgs/scopebuddy { };
+  # Launcher
+  vs-launcher = pkgs.callPackage ./pkgs/vs-launcher { };
 }

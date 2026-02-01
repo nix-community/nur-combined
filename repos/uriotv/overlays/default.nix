@@ -6,5 +6,6 @@
     cybergrub2077 = final.callPackage ../pkgs/cybergrub2077 { };
     wowup-cf = final.callPackage ../pkgs/wowup-cf { };
     scopebuddy = final.callPackage ../pkgs/scopebuddy { };
+    vs-launcher = final.callPackage ../pkgs/vs-launcher { };
   };
 }
