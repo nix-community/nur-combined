@@ -93,7 +93,7 @@ let
 
   newInputs = {
     nss_latest = nss_git;
-    icu77 = icu78;
+    # icu77 = icu78;
   };
 in
 nyxUtils.multiOverride mach newInputs postOverride

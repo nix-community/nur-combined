@@ -144,11 +144,6 @@ in
             continue
           fi
 
-          # requires vendored icu, fails to link with our icu
-          # feature-506064 depends on those icu patches
-          if [[ $patch == 14-feature-regexp-searchterm.patch || $patch == 14-feature-regexp-searchterm-moz.patch || $patch == feature-506064-match-diacritics.patch || $patch == feature-506064-match-diacritics-moz.patch ]]; then
-            continue
-          fi
           (
             cd -- "$srcRoot"
             echo "Applying patch $patch in $PWD"
