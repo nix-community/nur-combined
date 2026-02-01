@@ -84,4 +84,6 @@ rec {
   zsh-smart-suggestion = callPackage ./pkgs/zsh-smart-suggestion { };
   tsl-hat-trie = callPackage ./pkgs/tsl-hat-trie { };
   kvrocks = callPackage ./pkgs/kvrocks { inherit tsl-hat-trie; };
+  kvrocksTestHook = callPackage ./pkgs/kvrocksTestHook { inherit kvrocks; };
+  kvrocks-exporter = callPackage ./pkgs/kvrocks-exporter { inherit kvrocksTestHook; };
 }
