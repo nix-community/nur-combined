@@ -169,7 +169,7 @@
     },
     "flapalerted": {
         "cargoLock": null,
-        "date": "2026-01-28",
+        "date": "2026-01-31",
         "extract": null,
         "name": "flapalerted",
         "passthru": null,
@@ -181,12 +181,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "31121227af3e31b7f780cbdbfd832c706fac91fa",
-            "sha256": "sha256-4zDYHUSH3PMjC9K5oROyo/1auKWxd2bmM00m5hTAS4g=",
+            "rev": "ce2cbb87fa73c5193876cbe5949aa22bbd0a8fa8",
+            "sha256": "sha256-gsX1RVJ8HP4cjkXVYRttwAewfElwtK6FpGW60x3iCos=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "31121227af3e31b7f780cbdbfd832c706fac91fa"
+        "version": "ce2cbb87fa73c5193876cbe5949aa22bbd0a8fa8"
     },
     "flapalerted-stable": {
         "cargoLock": null,
@@ -218,11 +218,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+VNMgFPlJW0xTvPIYUedB0skYt4zTJjBKSmaDHsfaV8=",
+            "sha256": "sha256-jjaZf4tA6NVGSXgSVKRTl52op6CYYkeoFKuZ59ybj2c=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.31/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.01/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.01.31"
+        "version": "2026.02.01"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -235,9 +235,9 @@
             "name": null,
             "sha256": "sha256-+JLKf37YoPH/2tJii30gwoHbuUdNEvNulf3UMHRH6Io=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.31/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.01/GeoLite2-City.mmdb"
         },
-        "version": "2026.01.31"
+        "version": "2026.02.01"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -250,9 +250,9 @@
             "name": null,
             "sha256": "sha256-Q2E17pilIdpxWm1IOVHz271iVXY38tUNGYf8BIh0vV0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.01.31/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.01/GeoLite2-Country.mmdb"
         },
-        "version": "2026.01.31"
+        "version": "2026.02.01"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -420,12 +420,12 @@
             "name": null,
             "owner": "anomalyco",
             "repo": "opencode",
-            "rev": "v1.1.47",
-            "sha256": "sha256-f6TVxKV9q2yEQ9r9VCTttXLqpOrYdTEKDUJs+MuQJCQ=",
+            "rev": "v1.1.48",
+            "sha256": "sha256-zKkeJSsxEuhucQkWBHxLR7tCTu86q2p6neRST2g/1hA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.47"
+        "version": "v1.1.48"
     },
     "pixy2": {
         "cargoLock": null,
@@ -459,9 +459,9 @@
             "name": null,
             "sha256": "sha256-hNm02ObgG4FeL5p9y5UNMK63OtwMc4MYj0jDS3QK0a4=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601302219/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601312217/geoip.dat"
         },
-        "version": "202601302219"
+        "version": "202601312217"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -472,11 +472,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kY7kDNmWIOtp4e+AXjvfa5/KWef1l8QkgAAb6GHkbds=",
+            "sha256": "sha256-VC+2VgBdIkXP//EzkVo6IHx1h2qa9kR4BdK5v57FBAM=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601302219/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202601312217/geosite.dat"
         },
-        "version": "202601302219"
+        "version": "202601312217"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLock": null,
