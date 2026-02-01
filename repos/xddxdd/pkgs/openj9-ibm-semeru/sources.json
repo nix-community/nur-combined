@@ -1,54 +1,106 @@
 {
     "jdk-bin-8": {
         "x86_64": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jdk_x64_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "e6c7faea4fc0bcf43b252621f8ec9b1bfcc4986f5fb914266e80f135d3139940"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "5b7b1077d0245066917eb627bf201842a0347e37c3b21a68169d1c1f6287c817"
         },
         "s390x": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jdk_s390x_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "6fb5c76486bace90781a8133ab2619d073244ad2b8692bb3c9afefffd8f131b8"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "041a00d0acae88730412799f1a46e07805cd265241bdd86ef9c47414bf1f5888"
         },
         "ppc64le": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jdk_ppc64le_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "3df1f0b003ea7abfebdb5f6311f1f9bbac970897dabfb21a6d4d380df15d38b4"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "0d74b72c6310053e6b9396050b91a28284a687a970a07f6b7ab28cc682bb1ec7"
         },
         "aarch64": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jdk_aarch64_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "4f7b39daad8690ab08a2e73d8b7b3d8768c5771e0d83e1082fc89ae640f3e4b2"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "522ccead18b796530f260a6997bc5b9fe0f38ffc7cf16c9022b3d0f72cf1cf18"
         }
     },
     "jre-bin-8": {
         "x86_64": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jre_x64_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "5babd67d884af6251b504932e2cdce2e5a969075efa856c91087ecc6f3933fc6"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "9f13f8c5107a4743255b7fc5c557753050d9b6f52f46e19f303878478944502b"
         },
         "s390x": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jre_s390x_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "0225084f7067a8ccf5131b7656ea5ac62d6a68fbab71dc52aac24ab02299ee7a"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "2aa11016501e63beb5638242bcb8d824ba3df84166130c53b1110e32973e3d2f"
         },
         "ppc64le": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jre_ppc64le_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "995b091e78fe2e0fb201e3c06272d9bef018594e3205c0a981152bc3f537eda9"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "da6a204f2d3f84e6a15830524d4296aca5326895a3e32e3cb2e87b456f3bf345"
         },
         "aarch64": {
-            "version": "8.0.472.0",
+            "version": "8.0.482.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u472-b08_openj9-0.56.0/ibm-semeru-open-jre_aarch64_linux_8u472b08_openj9-0.56.0.tar.gz",
-            "sha256": "e9f04c51ace0cc724a7b3e54e58ad1823d899c77c2a141ab28efb226c3c7bb97"
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "9ca01471228baa5a57f2cc3a044358ab36adedecef72b07c700df40d8a0f855a"
+        }
+    },
+    "jdk-bin-8_0_482_0": {
+        "x86_64": {
+            "version": "8.0.482.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "5b7b1077d0245066917eb627bf201842a0347e37c3b21a68169d1c1f6287c817"
+        },
+        "s390x": {
+            "version": "8.0.482.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "041a00d0acae88730412799f1a46e07805cd265241bdd86ef9c47414bf1f5888"
+        },
+        "ppc64le": {
+            "version": "8.0.482.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "0d74b72c6310053e6b9396050b91a28284a687a970a07f6b7ab28cc682bb1ec7"
+        },
+        "aarch64": {
+            "version": "8.0.482.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "522ccead18b796530f260a6997bc5b9fe0f38ffc7cf16c9022b3d0f72cf1cf18"
+        }
+    },
+    "jre-bin-8_0_482_0": {
+        "x86_64": {
+            "version": "8.0.482.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "9f13f8c5107a4743255b7fc5c557753050d9b6f52f46e19f303878478944502b"
+        },
+        "s390x": {
+            "version": "8.0.482.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "2aa11016501e63beb5638242bcb8d824ba3df84166130c53b1110e32973e3d2f"
+        },
+        "ppc64le": {
+            "version": "8.0.482.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "da6a204f2d3f84e6a15830524d4296aca5326895a3e32e3cb2e87b456f3bf345"
+        },
+        "aarch64": {
+            "version": "8.0.482.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_8u482b08_openj9-0.57.0.tar.gz",
+            "sha256": "9ca01471228baa5a57f2cc3a044358ab36adedecef72b07c700df40d8a0f855a"
         }
     },
     "jdk-bin-8_0_472_0": {
@@ -1109,54 +1161,106 @@
     },
     "jdk-bin-11": {
         "x86_64": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jdk_x64_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "f17b7d34d108edff2b9da3a353378c972a1f5cf605cc2e08fce19e842e70d9d2"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "d38ff59f1becb2f8b31ba0c5ff94bcf23dcbfefc80b079533b398d4e93bb3bae"
         },
         "s390x": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jdk_s390x_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "00704dc2f0ca7aea13616fc5e1304248cb04f09170eb8eee728f5868476821f4"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "ca807012f56589826bfe40947efde8c58f3652d97c07bd7aa9aec9d89c982e73"
         },
         "ppc64le": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jdk_ppc64le_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "088a30c78efd377cf9d4d80c4f4288fa6538cf9cdccced79e4839171c9b3e151"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "1306ed223443830c1e4c0d393c67c6eb5a32de33cddd684057290ce38916fea3"
         },
         "aarch64": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jdk_aarch64_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "2c2d4bb11d96ff2e8c11dccd2012a34d62b635986b60fbfd22fe7e51ed889c8b"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "b8a9013f033798fb33861df42e411fe557400ae6b3dac69d98f1c1347432d202"
         }
     },
     "jre-bin-11": {
         "x86_64": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jre_x64_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "474acb3b9c1ba608efe0c3aa0321a271cfbe2044e89d73e7129b0b013eb484df"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "50853a87152631b13f2aed8a4a120655962d0e5a7a4cd1b98269900f7c23d464"
         },
         "s390x": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jre_s390x_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "42c7324f112975abc6a36c1cacad8f7515924cc60c21ac45e5985e7908d2c931"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "db46f3828e8701aec7deec1bba2c9fcc907d869acf53a965ae8a820f4bb8a49f"
         },
         "ppc64le": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jre_ppc64le_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "16289eb013673a686abfef6631570e5b08c6171a1f7cf79fd495759d53393c38"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "a573c8d5037fbc60a0c77a1ec9092bf7aca2071d1ce5268247defbd5e3c90e5d"
         },
         "aarch64": {
-            "version": "11.0.29.0",
+            "version": "11.0.30.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.29%2B7_openj9-0.56.0/ibm-semeru-open-jre_aarch64_linux_11.0.29_7_openj9-0.56.0.tar.gz",
-            "sha256": "9fd5b1e5f18c80d945570cd86db46f737fdecbdcd8978d502c4a601f704c6676"
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "e7d1ae806964e6b575df6fecc76f0dc2fabd475c8db810fbda36a2cef6caa612"
+        }
+    },
+    "jdk-bin-11_0_30_0": {
+        "x86_64": {
+            "version": "11.0.30.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "d38ff59f1becb2f8b31ba0c5ff94bcf23dcbfefc80b079533b398d4e93bb3bae"
+        },
+        "s390x": {
+            "version": "11.0.30.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "ca807012f56589826bfe40947efde8c58f3652d97c07bd7aa9aec9d89c982e73"
+        },
+        "ppc64le": {
+            "version": "11.0.30.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "1306ed223443830c1e4c0d393c67c6eb5a32de33cddd684057290ce38916fea3"
+        },
+        "aarch64": {
+            "version": "11.0.30.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "b8a9013f033798fb33861df42e411fe557400ae6b3dac69d98f1c1347432d202"
+        }
+    },
+    "jre-bin-11_0_30_0": {
+        "x86_64": {
+            "version": "11.0.30.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "50853a87152631b13f2aed8a4a120655962d0e5a7a4cd1b98269900f7c23d464"
+        },
+        "s390x": {
+            "version": "11.0.30.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "db46f3828e8701aec7deec1bba2c9fcc907d869acf53a965ae8a820f4bb8a49f"
+        },
+        "ppc64le": {
+            "version": "11.0.30.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "a573c8d5037fbc60a0c77a1ec9092bf7aca2071d1ce5268247defbd5e3c90e5d"
+        },
+        "aarch64": {
+            "version": "11.0.30.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.30%2B7_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_11.0.30_7_openj9-0.57.0.tar.gz",
+            "sha256": "e7d1ae806964e6b575df6fecc76f0dc2fabd475c8db810fbda36a2cef6caa612"
         }
     },
     "jdk-bin-11_0_29_0": {
@@ -2441,54 +2545,106 @@
     },
     "jdk-bin-17": {
         "x86_64": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jdk_x64_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "65b4d151e63554e708210af28ef53504327ba548cbe1ede1c95d79c2207985ed"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "20c04e48b91dc7782a1ec1e0598a012c61963dde137ff29f3cfa5ea0e0374222"
         },
         "s390x": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jdk_s390x_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "5dc10fb41d6ff69d098cc4f220bfa7a041d3afc7ae8ace2ad8d064e2a836d39b"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "db44eea213251aab75366adb713708aa808b68d303216df25f2c788573191646"
         },
         "ppc64le": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jdk_ppc64le_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "fde228977c7a1163c03a32ec7e79f9586c897b6ec5b13c8010b5713646290716"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "b5faa966ec4e33ea76b0b6d653b44f3548afeecf8881dbb580b28c98dd5da08b"
         },
         "aarch64": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jdk_aarch64_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "254dfceedcfa07faef415c701250093dfee5e7104bd9a6c42e384e54cecfa53a"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "7bfbe84830cbcd874737b6b6a3968410016cff0dc257ca1f04f350253d4661cf"
         }
     },
     "jre-bin-17": {
         "x86_64": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jre_x64_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "13c8bbbb9ffa57b33a48ca018fd281e69dd6fdbb4e96ca7df72a49db614d899c"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "b6c43cc8b824d69338e15ea220f2ca5b94a04ae657c95ad4372560b4ba0163e7"
         },
         "s390x": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jre_s390x_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "bc147228dc80b3add4a64b441cf3fe69e06b0b8ad3cd86444d7de2fd7c0fea86"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "fb4714fd7096537e366abcd2d817d3fbbf21f81458766cec9340302755a15107"
         },
         "ppc64le": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jre_ppc64le_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "5cc9ac62b665c1c61860dbfe8d06f2f30d1f0439f1e93f6ae09770ca91949feb"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "e62c6f38315bbabcfedc1c69ab4cf2f0619314cddeaffb517b593aae7141fd3d"
         },
         "aarch64": {
-            "version": "17.0.17.0",
+            "version": "17.0.18.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.17%2B10_openj9-0.56.0/ibm-semeru-open-jre_aarch64_linux_17.0.17_10_openj9-0.56.0.tar.gz",
-            "sha256": "56f11335a3c67f96f0dc8ca4ebe02239fa300fd871ab46de27103666998b2aec"
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "a01d4aec9c66e9f8cefd63564ee5be9d31df01b5bab8007ba7ed0410fa97a490"
+        }
+    },
+    "jdk-bin-17_0_18_0": {
+        "x86_64": {
+            "version": "17.0.18.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "20c04e48b91dc7782a1ec1e0598a012c61963dde137ff29f3cfa5ea0e0374222"
+        },
+        "s390x": {
+            "version": "17.0.18.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "db44eea213251aab75366adb713708aa808b68d303216df25f2c788573191646"
+        },
+        "ppc64le": {
+            "version": "17.0.18.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "b5faa966ec4e33ea76b0b6d653b44f3548afeecf8881dbb580b28c98dd5da08b"
+        },
+        "aarch64": {
+            "version": "17.0.18.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "7bfbe84830cbcd874737b6b6a3968410016cff0dc257ca1f04f350253d4661cf"
+        }
+    },
+    "jre-bin-17_0_18_0": {
+        "x86_64": {
+            "version": "17.0.18.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "b6c43cc8b824d69338e15ea220f2ca5b94a04ae657c95ad4372560b4ba0163e7"
+        },
+        "s390x": {
+            "version": "17.0.18.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "fb4714fd7096537e366abcd2d817d3fbbf21f81458766cec9340302755a15107"
+        },
+        "ppc64le": {
+            "version": "17.0.18.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "e62c6f38315bbabcfedc1c69ab4cf2f0619314cddeaffb517b593aae7141fd3d"
+        },
+        "aarch64": {
+            "version": "17.0.18.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.18%2B8_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_17.0.18_8_openj9-0.57.0.tar.gz",
+            "sha256": "a01d4aec9c66e9f8cefd63564ee5be9d31df01b5bab8007ba7ed0410fa97a490"
         }
     },
     "jdk-bin-17_0_17_0": {
@@ -4053,54 +4209,106 @@
     },
     "jdk-bin-21": {
         "x86_64": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jdk_x64_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "bbf506e09ad0c84b77534d3ce10afa60cfc50196a70580c75d6e4994530717c0"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "f7f971225362cac4170f601795da97371746ccddc9fa6ea937b83f08bb901b03"
         },
         "s390x": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jdk_s390x_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "bb2b26095039712ea2e9e096f854d20a8660d0ee48f1057a81684a1c361c1a78"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "5dcf896cb3ef72623e6e190d3fe72521a46dcab358984179e8c4addd0f7d11ff"
         },
         "ppc64le": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jdk_ppc64le_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "5af12681c5f84631e67cefde61790742dd9223afa3e8fc8af942773ca72afbe9"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "851215d482bcfb4c71ff576810fd086bf6e7359cee252d93d82c4929ad53c6eb"
         },
         "aarch64": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jdk_aarch64_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "98c30475e369b6c1f4a64f7334232623910ca19b5485ec49b5eb6ed830059307"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "35baeac85832c46fe9bd93cdf8a9b1b2dbaa08eb7eb74fa9ad3fba0e1ce05560"
         }
     },
     "jre-bin-21": {
         "x86_64": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jre_x64_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "6b3022f3d286b2fde9a964028da637a5ad9a93b1028741dcb72aa3bca49c83d2"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "1ba123e6eaf56d34885fd2ab3c8d165e791366a20b607cc6c25396f4e1e64405"
         },
         "s390x": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jre_s390x_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "e7828369bf76eb25426b807c039974f067888e1f67e9e461274407675946738e"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "b12a120ebe7dc5df94214d3c3c634fb568c8a5c9f3b7f181ae65e7006ca2e66b"
         },
         "ppc64le": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jre_ppc64le_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "876af8243616745796762539816cdb37c194e4b5942398277d6ccd35e96e3dcc"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "36edcdb78f65ccdb702498c12132f971baf75664981edf762c9df35631b5bd3e"
         },
         "aarch64": {
-            "version": "21.0.9.0",
+            "version": "21.0.10.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.9%2B10_openj9-0.56.0/ibm-semeru-open-jre_aarch64_linux_21.0.9_10_openj9-0.56.0.tar.gz",
-            "sha256": "ac8c6c5aa3c345e14e82966972040b479d672c12e5cd0eaa52d8b38e6bdea40c"
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "0e4c354db6043da5cdd34b8b7c44315b3ce6f55a94f1ed52aa2373438430a091"
+        }
+    },
+    "jdk-bin-21_0_10_0": {
+        "x86_64": {
+            "version": "21.0.10.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "f7f971225362cac4170f601795da97371746ccddc9fa6ea937b83f08bb901b03"
+        },
+        "s390x": {
+            "version": "21.0.10.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "5dcf896cb3ef72623e6e190d3fe72521a46dcab358984179e8c4addd0f7d11ff"
+        },
+        "ppc64le": {
+            "version": "21.0.10.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "851215d482bcfb4c71ff576810fd086bf6e7359cee252d93d82c4929ad53c6eb"
+        },
+        "aarch64": {
+            "version": "21.0.10.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "35baeac85832c46fe9bd93cdf8a9b1b2dbaa08eb7eb74fa9ad3fba0e1ce05560"
+        }
+    },
+    "jre-bin-21_0_10_0": {
+        "x86_64": {
+            "version": "21.0.10.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "1ba123e6eaf56d34885fd2ab3c8d165e791366a20b607cc6c25396f4e1e64405"
+        },
+        "s390x": {
+            "version": "21.0.10.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "b12a120ebe7dc5df94214d3c3c634fb568c8a5c9f3b7f181ae65e7006ca2e66b"
+        },
+        "ppc64le": {
+            "version": "21.0.10.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "36edcdb78f65ccdb702498c12132f971baf75664981edf762c9df35631b5bd3e"
+        },
+        "aarch64": {
+            "version": "21.0.10.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.10%2B7_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_21.0.10_7_openj9-0.57.0.tar.gz",
+            "sha256": "0e4c354db6043da5cdd34b8b7c44315b3ce6f55a94f1ed52aa2373438430a091"
         }
     },
     "jdk-bin-21_0_9_0": {
@@ -5145,54 +5353,106 @@
     },
     "jdk-bin-25": {
         "x86_64": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jdk_x64_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "827cd477c672b8280646ef5d52421fef8d0c8f24bf43c2a83031fadaf28dad19"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "02c67106e35eb9bc02fd78f527d3ff07b903332579aeee273bd056a98748fd6b"
         },
         "s390x": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jdk_s390x_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "4d2131798cf1589adce52f7c2f7afe17951430bee04165ff4d6a90e24b057426"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "af9eb2aacf9c78df6143b6ed37c431c1d69696d90a47ae8c1f5398ed4b7c1a8f"
         },
         "ppc64le": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jdk_ppc64le_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "eb14a211581c88e83912296794aec6efe8946c491db3190131b9ce9da587f43d"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "15ed4111379e4fb92d64add658d70d8e419b310ae14619e455d846d8918bc7fd"
         },
         "aarch64": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jdk_aarch64_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "a646d2925bff9772aea6ed7aa88ca8e7a44c79ea8ac8432a6eb9239c3ddc78ea"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "1b71d1229bf00f1b962b31feb70f379be92a2162d56a0675aaea26f3aabefbf6"
         }
     },
     "jre-bin-25": {
         "x86_64": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jre_x64_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "5d4bfbfe647e0a68d7f32aabc5047257fd3ae8b945008b44b102be202221eb12"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "ea803c380d35d847e7dc8f1b0da3b184075b9ae9769998274be514cb8081aad2"
         },
         "s390x": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jre_s390x_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "adf8e621c9d985da148859bfb0d44ad28936354ce5f662e383c1ce5ba8523c4a"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "08576d2a66aff1597041fbfb1ce45fbd3ede0147a95fa7265afc709dcbae9bb1"
         },
         "ppc64le": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jre_ppc64le_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "d0ef17a087114273df2cc7d40a53dfb4a0191050bb4408b678e45ee84481835d"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "9b31ee9c123311060180523121a902e6233b5ff5eb8590eefcf269de81c5001e"
         },
         "aarch64": {
-            "version": "25.0.1.0",
+            "version": "25.0.2.0",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.1%2B8_openj9-0.56.0/ibm-semeru-open-jre_aarch64_linux_25.0.1_8_openj9-0.56.0.tar.gz",
-            "sha256": "f975bf64c00f87e739cbcf2fb14f14b2e3aac299184dc4e348c3d38ce77d8a82"
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "2800983321677ff892405db39dc37881049b7e21b510184820dfe864bd32d4db"
+        }
+    },
+    "jdk-bin-25_0_2_0": {
+        "x86_64": {
+            "version": "25.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_x64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "02c67106e35eb9bc02fd78f527d3ff07b903332579aeee273bd056a98748fd6b"
+        },
+        "s390x": {
+            "version": "25.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_s390x_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "af9eb2aacf9c78df6143b6ed37c431c1d69696d90a47ae8c1f5398ed4b7c1a8f"
+        },
+        "ppc64le": {
+            "version": "25.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_ppc64le_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "15ed4111379e4fb92d64add658d70d8e419b310ae14619e455d846d8918bc7fd"
+        },
+        "aarch64": {
+            "version": "25.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jdk_aarch64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "1b71d1229bf00f1b962b31feb70f379be92a2162d56a0675aaea26f3aabefbf6"
+        }
+    },
+    "jre-bin-25_0_2_0": {
+        "x86_64": {
+            "version": "25.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_x64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "ea803c380d35d847e7dc8f1b0da3b184075b9ae9769998274be514cb8081aad2"
+        },
+        "s390x": {
+            "version": "25.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_s390x_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "08576d2a66aff1597041fbfb1ce45fbd3ede0147a95fa7265afc709dcbae9bb1"
+        },
+        "ppc64le": {
+            "version": "25.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_ppc64le_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "9b31ee9c123311060180523121a902e6233b5ff5eb8590eefcf269de81c5001e"
+        },
+        "aarch64": {
+            "version": "25.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.2%2B10_openj9-0.57.0/ibm-semeru-open-jre_aarch64_linux_25.0.2_10_openj9-0.57.0.tar.gz",
+            "sha256": "2800983321677ff892405db39dc37881049b7e21b510184820dfe864bd32d4db"
         }
     },
     "jdk-bin-25_0_1_0": {
