@@ -179,7 +179,7 @@ let
         cb
         beammp-launcher
         mdbook-generate-summary
-        #betterbird
+        betterbird
         eden
         plezy
         downkyicore

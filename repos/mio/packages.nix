@@ -138,6 +138,7 @@ rec {
   browser-115-bin = pkgs.callPackage ./pkgs/115-browser-bin { };
   browseros = pkgs.callPackage ./pkgs/browseros { };
   icloud-for-linux = pkgs.callPackage ./pkgs/icloud-for-linux { };
+  icloud-mail = pkgs.callPackage ./pkgs/icloud-mail { };
   bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
   art-standalone = pkgs.callPackage ./pkgs/art-standalone/package.nix {
     bionic-translation = bionic-translation;
