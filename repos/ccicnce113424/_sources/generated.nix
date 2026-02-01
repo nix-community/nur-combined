@@ -201,21 +201,21 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "f20cafbbda9c9e4a2d3f879808e094a6fb5ef652";
+    version = "15987472d649912dde7f9339b380eaef84d0a3ab";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "f20cafbbda9c9e4a2d3f879808e094a6fb5ef652";
+      rev = "15987472d649912dde7f9339b380eaef84d0a3ab";
       fetchSubmodules = false;
-      sha256 = "sha256-WdNICOULkPdSb3aWFVn/rZ9LcVfnhKyn+YmNgfHGm4E=";
+      sha256 = "sha256-IhGM2Pj7qWH7Bvk19bjTT9Rv3+kRqZneUaINdgglHtY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-WdNICOULkPdSb3aWFVn_rZ9LcVfnhKyn+YmNgfHGm4E=/Cargo.lock";
+      lockFile = ./. + "/sha256-IhGM2Pj7qWH7Bvk19bjTT9Rv3+kRqZneUaINdgglHtY=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-01-31";
+    date = "2026-02-01";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
