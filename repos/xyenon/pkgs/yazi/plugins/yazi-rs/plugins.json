@@ -41,9 +41,6 @@
   "smart-paste": {
     "description": "Paste files into the hovered directory or to the CWD if hovering over a file"
   },
-  "sudo-demo": {
-    "description": "Just an example showing how to use `sudo` in a Yazi plugin, and the plugin itself doesn't offer any features beyond logging a message"
-  },
   "toggle-pane": {
     "description": "Toggle the show, hide, and maximize states for different panes: parent, current, and preview"
   },
