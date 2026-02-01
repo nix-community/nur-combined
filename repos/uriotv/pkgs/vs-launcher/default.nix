@@ -6,6 +6,7 @@
   symlinkJoin,
   electron,
   mesa,
+  pkgs,
   ...
 }:
 
@@ -57,9 +58,10 @@ let
         # .NET runtime for game
         dotnet-runtime_8
         icu
+        xorg.libXcursor
       ];
 
-    runScript = "electron ${appimageContents}/resources/app.asar";
+    runScript = "env LD_PRELOAD=${pkgs.xorg.libXcursor}/lib/libXcursor.so.1 electron ${appimageContents}/resources/app.asar";
 
     multiPkgs = pkgs: [ pkgs.mesa ];
   };
