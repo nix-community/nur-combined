@@ -141,7 +141,7 @@ buildDotnetModule (finalAttrs: {
     description = "Cross-platform Bilibili downloader built with Avalonia";
     homepage = "https://github.com/yaobiao131/downkyicore";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ mio ];
+    maintainers = with lib.maintainers; [ ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "DownKyi";
   };

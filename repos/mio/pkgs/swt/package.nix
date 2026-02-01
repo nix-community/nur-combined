@@ -143,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
       mpl11
       mpl20
     ];
-    maintainers = with lib.maintainers; [ mio ];
+    maintainers = with lib.maintainers; [ ];
     # The darwin src zip file holds simply a prebuilt swt.jar file
     sourceProvenance = lib.optionals stdenv.hostPlatform.isDarwin [
       lib.sourceTypes.binaryNativeCode

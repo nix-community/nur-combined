@@ -240,7 +240,6 @@ maven.buildMavenPackage rec {
     license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [
       ardumont
-      mio
     ];
     platforms = builtins.attrNames passthru.mvnHashByPlatform;
     mainProgram = "tuxguitar";
