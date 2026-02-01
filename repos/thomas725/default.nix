@@ -12,4 +12,5 @@ in
     inherit libupnpp;
   };
   eezupnp = pkgs.callPackage ./pkgs/eezupnp { };
+  betterbird-bin = pkgs.callPackage ./pkgs/betterbird-bin { };
 }
