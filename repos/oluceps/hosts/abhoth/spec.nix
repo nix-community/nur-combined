@@ -51,6 +51,8 @@
     #   enable = true;
     # };
     sing-server.enable = true;
+    # snm.enable = true;
+    stalwart.enable = true;
   };
   services = {
     # dnsproxy.settings = lib.mkForce {
@@ -68,6 +70,7 @@
     #   ];
     # };
     metrics.enable = true;
+    qemuGuest.enable = true;
 
     realm = {
       enable = true;

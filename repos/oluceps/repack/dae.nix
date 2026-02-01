@@ -14,8 +14,8 @@ reIf {
   services.dae = {
     enable = true;
     disableTxChecksumIpGeneric = false;
-    package = inputs'.dae.packages.dae-next;
-    # package = inputs'.dae.packages.dae-unstable;
+    # package = inputs'.dae.packages.dae-next;
+    package = inputs'.dae.packages.dae-unstable;
     config =
       let
         notEihort = lib.optionalString (!(config.networking.hostName == "eihort"));
@@ -33,9 +33,9 @@ reIf {
             allow_insecure: false
             # metrics_addr: '[::]:8087'
             pprof_port: 9901
-            sniff_verify_mode: strict
-            reroute_mode: force
-            # dial_mode: domain
+            # sniff_verify_mode: strict
+            # reroute_mode: force
+            dial_mode: domain
             disable_waiting_network: false
             auto_config_kernel_parameter: true
             enable_local_tcp_fast_redirect: true

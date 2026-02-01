@@ -19,7 +19,7 @@ reIf {
     };
     immich-public-proxy = {
       enable = true;
-      immichUrl = "http://localhost:2283";
+      immichUrl = "http://[fdcc::3]:2283";
       port = 3001;
     };
   };

@@ -177,6 +177,22 @@
       ];
     };
 
+    realm = {
+      enable = true;
+      settings = {
+        log.level = "warn";
+        network = {
+          no_tcp = false;
+          use_udp = true;
+        };
+        endpoints = [
+          {
+            listen = "[::]:1905";
+            remote = "10.255.0.1:1095";
+          }
+        ];
+      };
+    };
     pocket-id = {
       enable = true;
       settings = {

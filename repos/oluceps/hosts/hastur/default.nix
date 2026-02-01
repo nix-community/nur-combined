@@ -79,7 +79,7 @@ withSystem "x86_64-linux" (
         ../../users.nix
 
         ../dev.nix
-        ../../vms/sep.nix
+        # ../../vms/sep.nix
         ../distributed-build.nix
       ]
       ++ (with inputs; [

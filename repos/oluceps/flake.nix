@@ -379,6 +379,7 @@
       url = "github:lordgrimmauld/run0-sudo-shim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    snm.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
     self.submodules = true;
 
   };

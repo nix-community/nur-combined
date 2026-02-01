@@ -67,6 +67,10 @@ reIf {
             ip_proto  = "ip_proto",
           }
         }
+        stage.timestamp {
+          source = "ts"
+          format = "RFC3339" // 匹配你日志中的格式 "2026-01-28T..."
+        }
 
         stage.geoip {
           source  = "dst"
@@ -91,16 +95,20 @@ reIf {
 
         stage.labels {
           values = {
-            ts  = "",
-            dst = "",
-            dpt = "",
             proto     = "",
-            ip_proto  = "",
             dst_city = "geoip_city_name",
             dst_as_org = "geoip_autonomous_system_organization",
-            dst_lat = "geoip_location_latitude",
-            dst_lon = "geoip_location_longitude",
           }
+        }
+        stage.structured_metadata {
+            values = {
+              dst      = "",
+              dpt      = "",
+              dst_city = "geoip_city_name",
+              dst_asn  = "geoip_autonomous_system_organization",
+              dst_lat  = "geoip_location_latitude",
+              dst_lon  = "geoip_location_longitude",
+            }
         }
         forward_to = [loki.write.default.receiver]
       }

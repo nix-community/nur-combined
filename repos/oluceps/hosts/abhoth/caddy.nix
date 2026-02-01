@@ -18,6 +18,16 @@
                 {
                   handler = "subroute";
                   routes = import ../caddy/nyaw-xyz.nix { inherit pkgs; } ++ [
+                    {
+                      handle = [
+                        {
+                          handler = "reverse_proxy";
+                          upstreams = [ { dial = "localhost:9313"; } ];
+                        }
+                      ];
+                      match = [ { host = [ "box.nyaw.xyz" ]; } ];
+                      terminal = true;
+                    }
                   ];
                 }
               ];

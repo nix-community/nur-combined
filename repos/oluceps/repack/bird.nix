@@ -48,7 +48,7 @@ in
 
           filter to_hortus {
             if in_hortus() && (source = RTS_BABEL || source = RTS_DEVICE) then accept;
-            if proto = "k8s" then accept;
+            if proto = "ext" then accept;
             reject;
           };
 
@@ -57,7 +57,6 @@ in
               RTS_STATIC: {
 
                 if proto = "guard" then reject;
-                if proto = "vm" then accept;
 
                 krt_prefsrc = HORTUS_OWNIP;
                 krt_metric = 512;

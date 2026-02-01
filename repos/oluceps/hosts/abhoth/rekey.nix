@@ -15,6 +15,8 @@ in
     settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
 
     secrets = {
+      postfix-sasl = { };
+      stalwart = { };
       hyst-us = {
         file = ../../sec/hyst-us.age;
         mode = "640";

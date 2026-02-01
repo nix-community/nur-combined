@@ -28,8 +28,10 @@
         '';
       in
       ''
-        protocol direct k8s {
+        # CATCH: repack/bird.nix `if proto = "ext" then accept;`
+        protocol direct ext {
           ipv6;
+          ipv4;
           interface "br0";
         }
         protocol babel {

@@ -72,6 +72,8 @@
                     "same-cpu-crypt"
                     "submit-from-crypt-cpus"
                     "fido2-device=auto"
+                    "tpm2-device=auto"
+                    "tpm2-measure-pcr=yes"
                   ];
                 };
                 content = {
