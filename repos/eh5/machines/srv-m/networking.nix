@@ -45,4 +45,11 @@
   networking.useNetworkd = true;
   networking.useDHCP = true;
   networking.interfaces.enp1s0.useDHCP = true;
+  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+  systemd.network.networks.enp1s0.dhcpV4Config = {
+    UseDNS = false;
+  };
+  services.resolved.settings.Resolve = {
+    DNSOverTLS = true;
+  };
 }
