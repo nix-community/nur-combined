@@ -20,6 +20,7 @@ in
   bb-imager = pkgs.callPackage ./pkgs/bb-imager-rs { withGui = true; };
   bb-imager-cli = pkgs.callPackage ./pkgs/bb-imager-rs { withGui = false; };
   cst = pkgs.callPackage ./pkgs/cst { };
+  dtsfmt = pkgs.callPackage ./pkgs/dtsfmt { };
   inherit potracer;
   supernote-tool = pkgs.python3Packages.callPackage ./pkgs/supernote-tool { inherit potracer; };
   trigger = pkgs.callPackage ./pkgs/trigger { };
