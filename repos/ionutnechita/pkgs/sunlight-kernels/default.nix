@@ -15,9 +15,9 @@ let
       hash = "sha256-G9nVhOFOpCXX1aMXvYzzNgC4LlP+pwfg6AhEr8LjnRQ=";
     };
     mainline = {
-      version = "6.19.0-rc6";
+      version = "6.19.0-rc7";
       suffix = "lowlatency-sunlight1";
-      hash = "sha256-1UPrykd1ftftcpL8uL1agT7YEOsI8mVO9o+HcOK2qCY=";
+      hash = "sha256-DxCKUuYvUb//qz2qtQ2wmBMPa1+X04HtXHg9LJz1oG0=";
     };
   };
 
