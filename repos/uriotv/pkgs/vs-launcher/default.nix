@@ -54,6 +54,9 @@ let
         at-spi2-core
         # Electron dependency
         electron
+        # .NET runtime for game
+        dotnet-runtime_8
+        icu
       ];
 
     runScript = "electron ${appimageContents}/resources/app.asar";
