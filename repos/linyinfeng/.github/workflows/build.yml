@@ -42,6 +42,7 @@ jobs:
     steps:
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
+      if: false # TODO wait for https://github.com/easimon/maximize-build-space/issues/58
       with:
         build-mount-path: '/nix'
         remove-dotnet: 'true'
