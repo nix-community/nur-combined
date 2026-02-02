@@ -62,6 +62,15 @@ jobs:
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
+      - name: Generate PR description
+        if: steps.changes.outputs.has_changes == 'true'
+        id: pr_body
+        run: |
+          {
+            echo 'body<<EOF'
+            git log origin/${{ github.ref_name }}..HEAD --pretty=format:'## %s%n%n%b'
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
       - name: Create Pull Request
         if: steps.changes.outputs.has_changes == 'true'
         env:
@@ -70,4 +79,5 @@ jobs:
           git push origin HEAD:auto-update --force
           gh pr create --base ${{ github.ref_name }} --head auto-update \
             --title "Automated package updates" \
-            --body "Automated package updates" || true
+            --body "${{ steps.pr_body.outputs.body }}" || \
+          gh pr edit auto-update --body "${{ steps.pr_body.outputs.body }}"
