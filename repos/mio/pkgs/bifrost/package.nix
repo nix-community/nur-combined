@@ -24,6 +24,7 @@
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
+  writeScript,
 }:
 
 let
@@ -42,10 +43,27 @@ let
       echo "kotlin.native.ignoreDisabledTargets=true" >> local.properties
       substituteInPlace desktop/build.gradle.kts \
         --replace-fail "this.vendor.set(JvmVendorSpec.MICROSOFT)" ""
+      substituteInPlace gradle/libs.versions.toml \
+        --replace-fail 'windowStyler = "0.3.3-20250226.143418-11"' \
+                       'windowStyler = "0.3.2"'
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace settings.gradle.kts \
+        --replace-fail 'id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"' \
+                       ""
     '';
 
     gradleBuildTask = ":desktop:createReleaseDistributable";
     gradleUpdateTask = finalAttrs.gradleBuildTask;
+
+    gradleUpdateScript = ''
+      runHook preBuild
+
+      gradle nixDownloadDeps -Dos.family=linux -Dos.arch=amd64
+      gradle nixDownloadDeps -Dos.family=linux -Dos.arch=aarch64
+      gradle nixDownloadDeps -Dos.name='mac os x' -Dos.arch=amd64
+      gradle nixDownloadDeps -Dos.name='mac os x' -Dos.arch=aarch64
+    '';
 
     mitmCache = gradle_8.fetchDeps {
       inherit (finalAttrs) pname;
@@ -56,6 +74,8 @@ let
     };
 
     env.JAVA_HOME = jdk21;
+    env.ANDROID_USER_HOME = "$TMPDIR/android";
+    env.GRADLE_USER_HOME = "$TMPDIR/gradle";
 
     gradleFlags = [
       "-Dorg.gradle.java.home=${jdk21}"
@@ -65,10 +85,12 @@ let
       gradle_8
       jdk21
       copyDesktopItems
+    ]
+    ++ lib.optionals stdenv.isLinux [
       autoPatchelfHook
     ];
 
-    buildInputs = [
+    buildInputs = lib.optionals stdenv.isLinux [
       fontconfig
       libXinerama
       libXrandr
@@ -94,15 +116,27 @@ let
       })
     ];
 
-    installPhase = ''
-      runHook preInstall
+    installPhase =
+      if stdenv.isDarwin then
+        ''
+          runHook preInstall
 
-      cp --recursive desktop/build/compose/binaries/main-release/app/Bifrost $out
-      install -D --mode=0644 $out/lib/Bifrost.png \
-        $out/share/icons/hicolor/512x512/apps/bifrost.png
+          mkdir -p $out/Applications
+          cp --recursive desktop/build/compose/binaries/main-release/app/Bifrost.app \
+            $out/Applications/Bifrost.app
 
-      runHook postInstall
-    '';
+          runHook postInstall
+        ''
+      else
+        ''
+          runHook preInstall
+
+          cp --recursive desktop/build/compose/binaries/main-release/app/Bifrost $out
+          install -D --mode=0644 $out/lib/Bifrost.png \
+            $out/share/icons/hicolor/512x512/apps/bifrost.png
+
+          runHook postInstall
+        '';
 
     meta = {
       description = "Samsung firmware downloader";
@@ -113,8 +147,8 @@ let
         fromSource
         binaryBytecode
       ];
-      platforms = lib.platforms.linux;
-      maintainers = with lib.maintainers; [ onny ];
+      platforms = lib.platforms.linux ++ lib.platforms.darwin;
+      maintainers = with lib.maintainers; [ ];
     };
   });
 
@@ -125,86 +159,111 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    if stdenv.isDarwin then
+      ''
+        runHook preInstall
 
-    mkdir -p $out/bin
-    cat > $out/bin/Bifrost <<'EOF'
-    #!/usr/bin/env bash
-    set -euo pipefail
+        mkdir -p $out/bin $out/Applications
+        ln -s ${bifrost-unwrapped}/Applications/Bifrost.app \
+          $out/Applications/Bifrost.app
+        cat > $out/bin/Bifrost <<'EOF'
+        #!/usr/bin/env bash
+        set -euo pipefail
+        exec "${bifrost-unwrapped}/Applications/Bifrost.app/Contents/MacOS/Bifrost" "$@"
+        EOF
+        chmod +x $out/bin/Bifrost
 
-    appdir="${bifrost-unwrapped}/lib/app"
-    cfg="$appdir/Bifrost.cfg"
-    classpath=""
-    main_class=""
-    java_opts=()
+        runHook postInstall
+      ''
+    else
+      ''
+        runHook preInstall
 
-    while IFS= read -r line; do
-      case "$line" in
-        app.classpath=*)
-          entry="''${line#app.classpath=}"
-          entry="''${entry//\$APPDIR/$appdir}"
-          if [ -z "$classpath" ]; then
-            classpath="$entry"
-          else
-            classpath="$classpath:$entry"
-          fi
-          ;;
-        app.mainclass=*)
-          main_class="''${line#app.mainclass=}"
-          ;;
-        java-options=*)
-          opt="''${line#java-options=}"
-          opt="''${opt//\$APPDIR/$appdir}"
-          java_opts+=("$opt")
-          ;;
-      esac
-    done < "$cfg"
+        mkdir -p $out/bin
+        cat > $out/bin/Bifrost <<'EOF'
+        #!/usr/bin/env bash
+        set -euo pipefail
 
-    if [ -z "$main_class" ]; then
-      echo "Missing main class in $cfg" >&2
-      exit 1
-    fi
+        appdir="${bifrost-unwrapped}/lib/app"
+        cfg="$appdir/Bifrost.cfg"
+        classpath=""
+        main_class=""
+        java_opts=()
 
-    export PATH="${
-      lib.makeBinPath [
-        glib
-        dconf
-        dpkg
-        rpm
-      ]
-    }:$PATH"
-    export GSETTINGS_SCHEMA_DIR="${glib.getSchemaPath gsettings-desktop-schemas}"
-    export XDG_DATA_DIRS="${
-      lib.makeSearchPath "share" [
-        gsettings-desktop-schemas
-        hicolor-icon-theme
-        adwaita-icon-theme
-      ]
-    }:''${XDG_DATA_DIRS:-}"
-    export LD_LIBRARY_PATH="${
-      lib.makeLibraryPath [
-        stdenv.cc.cc.lib
-        udev
-        libglvnd
-      ]
-    }:''${LD_LIBRARY_PATH:-}"
-    export JAVA_HOME="${jdk21}"
+        while IFS= read -r line; do
+          case "$line" in
+            app.classpath=*)
+              entry="''${line#app.classpath=}"
+              entry="''${entry//\$APPDIR/$appdir}"
+              if [ -z "$classpath" ]; then
+                classpath="$entry"
+              else
+                classpath="$classpath:$entry"
+              fi
+              ;;
+            app.mainclass=*)
+              main_class="''${line#app.mainclass=}"
+              ;;
+            java-options=*)
+              opt="''${line#java-options=}"
+              opt="''${opt//\$APPDIR/$appdir}"
+              java_opts+=("$opt")
+              ;;
+          esac
+        done < "$cfg"
 
-    exec "${jdk21}/bin/java" \
-      "''${java_opts[@]}" \
-      -cp "$classpath" \
-      "$main_class"
-    EOF
-    chmod +x $out/bin/Bifrost
+        if [ -z "$main_class" ]; then
+          echo "Missing main class in $cfg" >&2
+          exit 1
+        fi
 
-    ln -s ${bifrost-unwrapped}/share $out/share
-    ln -s ${bifrost-unwrapped}/lib $out/lib
+        export PATH="${
+          lib.makeBinPath [
+            glib
+            dconf
+            dpkg
+            rpm
+          ]
+        }:$PATH"
+        export GSETTINGS_SCHEMA_DIR="${glib.getSchemaPath gsettings-desktop-schemas}"
+        export XDG_DATA_DIRS="${
+          lib.makeSearchPath "share" [
+            gsettings-desktop-schemas
+            hicolor-icon-theme
+            adwaita-icon-theme
+          ]
+        }:''${XDG_DATA_DIRS:-}"
+        export LD_LIBRARY_PATH="${
+          lib.makeLibraryPath [
+            stdenv.cc.cc.lib
+            udev
+            libglvnd
+          ]
+        }:''${LD_LIBRARY_PATH:-}"
+        export JAVA_HOME="${jdk21}"
 
-    runHook postInstall
-  '';
+        exec "${jdk21}/bin/java" \
+          "''${java_opts[@]}" \
+          -cp "$classpath" \
+          "$main_class"
+        EOF
+        chmod +x $out/bin/Bifrost
+
+        ln -s ${bifrost-unwrapped}/share $out/share
+        ln -s ${bifrost-unwrapped}/lib $out/lib
+
+        runHook postInstall
+      '';
 
   passthru.unwrapped = bifrost-unwrapped;
+  passthru.updateScript = writeScript "update-bifrost" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p nix-update
+
+    nix-update bifrost
+    nix-build --no-out-link -A bifrost-unwrapped.mitmCache.updateScript
+  '';
 
   meta = bifrost-unwrapped.meta;
 }

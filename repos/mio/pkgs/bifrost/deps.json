@@ -1030,6 +1030,9 @@
   "compose/desktop#desktop-jvm-linux-x64/1.10.0-alpha04+dev3157": {
    "pom": "sha256-8y5OxB61jPWzPm7ZoHnCIG18J2rJaoCvA/+P4R0xWuY="
   },
+  "compose/desktop#desktop-jvm-macos-arm64/1.10.0-alpha04+dev3157": {
+   "pom": "sha256-2R1ew3MGAry1Q+5V2QqgnW0bLJIw6LbtDmBPt5VFj1E="
+  },
   "compose/desktop#desktop-jvm/1.10.0-alpha04+dev3157": {
    "jar": "sha256-/bY95Mm9xlcMU1XusPAT1GNe/9pCkHwtCErMd+CNT4o=",
    "module": "sha256-EpHv3qd/N8rudlxsumjIaMpkwRh5H3tI+jMLL4tlcQ0=",
@@ -2052,7 +2055,17 @@
    "pom": "sha256-UmJV234JkCxVmqpkcGpS/tnElbymfLGR4mmlhLeVNng="
   }
  },
- "https://repo.maven.apache.org/maven2": {
+"https://repo.maven.apache.org/maven2": {
+  "com/mayakapps/compose#window-styler-jvm/0.3.2": {
+   "jar": "sha256-CgZ+ViJliFOLyJSkiRMCbsy1/M5w9w2z7bG57uIU9DU=",
+   "module": "sha256-+vbsLMEV1YQePXlw3ncTiaZMMHUtp6XKeknNbELRS5U=",
+   "pom": "sha256-tkHEX+OK0s8k1ffWskEfcaXMywYJwKRrerM0nYw3CwQ="
+  },
+  "com/mayakapps/compose#window-styler/0.3.2": {
+   "jar": "sha256-vJKLowscP9TLykjZWr0tjNsCeC1v+SLmraMzoQtqfmo=",
+   "module": "sha256-X8dNSe1IImBLtiMbgqZoSnycSi5TAsB5SFbcnqL/4PA=",
+   "pom": "sha256-WjUR8QbYW0UjQSY4346LURnS6EQCbRG1hzpqlenq8xA="
+  },
   "co/touchlab#stately-concurrency-iosarm64/2.1.0": {
    "module": "sha256-pj+ggrL/5E6WHqh7IWlcDx5mnoPKi9udxLD1hHqVO7k=",
    "pom": "sha256-GOUzK34ACxVKxv1lu6ENLz96ChLThgFl7s++38qxIJU="
@@ -3763,6 +3776,10 @@
    "jar": "sha256-iAusYPe5PGv4OblUmWbGq/yFJFPpl4BR17GW+CPziaE=",
    "pom": "sha256-mh6Gdr5DxbIiM/Jr1rw9YPIijT4t++fIHHQsC4BiF+4="
   },
+  "org/jetbrains/skiko#skiko-awt-runtime-macos-arm64/0.9.30": {
+   "jar": "sha256-ibOjfnLZUsx1VF2N3wE3thES5nnPWtbHBnhzUP6sc5Q=",
+   "pom": "sha256-EBhnBorO0A3tv1FMa2x4UBd0DCP2VbVYeJOXYNgO4lw="
+  },
   "org/jetbrains/skiko#skiko-awt/0.9.30": {
    "jar": "sha256-kouFZsm9A+Udadcu0RBu9+riya0j1k5JlmxdwhLcpBE=",
    "module": "sha256-jbkyCBaD/Zhsbf8z3UYC0GDq4LRowFyQp+SjZJeOrhM=",
@@ -3914,23 +3931,6 @@
   "xml-apis#xml-apis/1.4.01": {
    "jar": "sha256-qECWgXZkVoS7Aa7TduBnqzlhSIX57uRKvjWl8g6+f60=",
    "pom": "sha256-Cagv8VCshr+jEUXgpq/YmgLkUEeF9doRLk+uFCUCDpI="
-  }
- },
- "https://s01.oss.sonatype.org/content/repositories/snapshots/com/mayakapps": {
-  "compose#window-styler-jvm/0.3.3-20250226.143418-11/SNAPSHOT": {
-   "jar": "sha256-5fisdMesacqKdeUQsKq7CGiZ7qXMjj3LCcDDmZ4eQvQ=",
-   "module": "sha256-E4Zik3fPmx01LctU41755ibdUq6u4mpzYAzUVQ/Tsy4=",
-   "pom": "sha256-mKrA61/EvxTEMqJ4eFxK0sj4rOxODqe+hJdnJtNkzmg="
-  },
-  "compose#window-styler/0.3.3-20250226.143418-11/SNAPSHOT": {
-   "module": "sha256-qe0i2IN609VHMl/uf/vdOZ9FioUQnM/f3/iV/YPIHGU=",
-   "pom": "sha256-slQAatDFAWk6cAQ3EzeMNv4gbxajDcJhbgLayJxcNAo="
-  },
-  "compose/window-styler-jvm/0.3.3-SNAPSHOT/maven-metadata": {
-   "xml": {
-    "groupId": "com.mayakapps.compose",
-    "lastUpdated": "20250226143418"
-   }
   }
  }
 }
