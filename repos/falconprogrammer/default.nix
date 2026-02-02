@@ -24,6 +24,7 @@ in
 	# some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 	# ...
 	alvr = pkgs.callPackage pkgs/alvr {};
+	cco = pkgs.callPackage pkgs/cco {};
 	g13d = pkgs.callPackage pkgs/g13d {};
 	gitignore-template = p_312.callPackage pkgs/gitignore-template {};
 	opencode-sst = pkgs.callPackage pkgs/opencode-sst {};

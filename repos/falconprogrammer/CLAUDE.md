@@ -126,7 +126,28 @@ This package requires runtime patching of downloaded binaries for NixOS compatib
 - Triggers NUR sync after merge
 - Creates draft PR for manual review if build fails
 
-To manually update: modify version in `pkgs/opencode-sst/default.nix`, set dummy hash, run `nix build .#opencode-sst` to get correct hash from error message.
+To manually update: modify version in `pkgs/opencode-sst/default.nix` and use `nix-prefetch-url` to get the hash (see below).
+
+## Getting Package Hashes
+
+For GitHub sources, use `nix-prefetch-url` with the archive URL:
+
+```bash
+# Fetch and get base32 hash
+nix-prefetch-url --unpack "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+
+# Convert to SRI format for use in fetchFromGitHub
+nix hash convert --hash-algo sha256 --to sri <base32-hash>
+```
+
+Example:
+```bash
+$ nix-prefetch-url --unpack "https://github.com/nikvdp/cco/archive/2d73a7bb.tar.gz"
+1pwbr2bpb869garcd8wpj112z6kzipblb5rm8gjz182qz3n89amq
+
+$ nix hash convert --hash-algo sha256 --to sri 1pwbr2bpb869garcd8wpj112z6kzipblb5rm8gjz182qz3n89amq
+sha256-uKqE7PhYoPDlQzWXRdeNf5ovQpCXo8ayesmgdZfIi98=
+```
 
 ## Flake Structure
 

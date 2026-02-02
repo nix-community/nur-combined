@@ -25,10 +25,19 @@ jobs:
           - name: opencode-sst
             owner: sst
             repo: opencode
+            type: release
           - name: spec-kit
             owner: github
             repo: spec-kit
+            type: release
+          - name: cco
+            owner: nikvdp
+            repo: cco
+            type: commit
+            branch: master
           # Add more packages here as they get auto-update support
+          # type: release - uses GitHub releases API
+          # type: commit - tracks latest commit on specified branch
 
     # Skip if manual run specified a different package
     if: ${{ github.event_name == 'schedule' || inputs.package == '' || inputs.package == matrix.package.name }}
@@ -53,44 +62,88 @@ jobs:
       - name: Check for new ${{ matrix.package.name }} version
         id: check_version
         run: |
-          CURRENT_VERSION=$(grep 'version = ' pkgs/${{ matrix.package.name }}/default.nix | sed 's/.*version = "\([^"]*\)".*/\1/')
-          echo "Current version: $CURRENT_VERSION"
+          PACKAGE_FILE="pkgs/${{ matrix.package.name }}/default.nix"
+          UPDATE_TYPE="${{ matrix.package.type }}"
 
-          if [ -z "$CURRENT_VERSION" ] || [ "$CURRENT_VERSION" = "null" ]; then
-            echo "❌ Failed to extract current version from package file"
-            exit 1
-          fi
+          if [ "$UPDATE_TYPE" = "commit" ]; then
+            # Commit-based package: check for new commits
+            CURRENT_REV=$(grep 'rev = ' "$PACKAGE_FILE" | sed 's/.*rev = "\([^"]*\)".*/\1/')
+            CURRENT_VERSION=$(grep 'version = ' "$PACKAGE_FILE" | sed 's/.*version = "\([^"]*\)".*/\1/')
+            echo "Current rev: $CURRENT_REV"
+            echo "Current version: $CURRENT_VERSION"
 
-          echo "Fetching latest version from GitHub API..."
-          API_RESPONSE=$(curl -s https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/latest)
+            BRANCH="${{ matrix.package.branch }}"
+            echo "Fetching latest commit from $BRANCH branch..."
+            API_RESPONSE=$(curl -s "https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/commits/$BRANCH")
 
-          if [ -z "$API_RESPONSE" ]; then
-            echo "❌ Failed to fetch data from GitHub API"
-            exit 1
-          fi
+            LATEST_SHA=$(echo "$API_RESPONSE" | jq -r '.sha')
+            COMMIT_DATE=$(echo "$API_RESPONSE" | jq -r '.commit.committer.date' | cut -d'T' -f1)
 
-          LATEST_VERSION=$(echo "$API_RESPONSE" | jq -r '.tag_name' | sed 's/^v//')
-          echo "Latest version: $LATEST_VERSION"
+            if [ -z "$LATEST_SHA" ] || [ "$LATEST_SHA" = "null" ]; then
+              echo "❌ Failed to get latest commit"
+              echo "API Response: $API_RESPONSE"
+              exit 1
+            fi
 
-          if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
-            echo "❌ Failed to extract latest version from GitHub API response"
-            echo "API Response: $API_RESPONSE"
-            exit 1
-          fi
+            LATEST_VERSION="0-unstable-$COMMIT_DATE"
+            echo "Latest commit: $LATEST_SHA"
+            echo "Latest version: $LATEST_VERSION"
 
-          if git log --oneline --grep="update ${{ matrix.package.name }}.*$LATEST_VERSION" --since="30 days ago" | grep -q "update ${{ matrix.package.name }}"; then
-            echo "Version $LATEST_VERSION already exists in recent commits"
-            echo "update_available=false" >> $GITHUB_OUTPUT
-            echo "reason=already_updated" >> $GITHUB_OUTPUT
-          elif [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
-            echo "Update available: $CURRENT_VERSION -> $LATEST_VERSION"
-            echo "update_available=true" >> $GITHUB_OUTPUT
-            echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-            echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+            if [ "$CURRENT_REV" = "$LATEST_SHA" ]; then
+              echo "No update available - already at latest commit"
+              echo "update_available=false" >> $GITHUB_OUTPUT
+              echo "reason=same_version" >> $GITHUB_OUTPUT
+            else
+              echo "Update available: $CURRENT_REV -> $LATEST_SHA"
+              echo "update_available=true" >> $GITHUB_OUTPUT
+              echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+              echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+              echo "current_rev=$CURRENT_REV" >> $GITHUB_OUTPUT
+              echo "latest_rev=$LATEST_SHA" >> $GITHUB_OUTPUT
+              echo "update_type=commit" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "No update available - versions match"
-            echo "update_available=false" >> $GITHUB_OUTPUT
-            echo "reason=same_version" >> $GITHUB_OUTPUT
+            # Release-based package: check for new releases
+            CURRENT_VERSION=$(grep 'version = ' "$PACKAGE_FILE" | sed 's/.*version = "\([^"]*\)".*/\1/')
+            echo "Current version: $CURRENT_VERSION"
+
+            if [ -z "$CURRENT_VERSION" ] || [ "$CURRENT_VERSION" = "null" ]; then
+              echo "❌ Failed to extract current version from package file"
+              exit 1
+            fi
+
+            echo "Fetching latest version from GitHub API..."
+            API_RESPONSE=$(curl -s https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/latest)
+
+            if [ -z "$API_RESPONSE" ]; then
+              echo "❌ Failed to fetch data from GitHub API"
+              exit 1
+            fi
+
+            LATEST_VERSION=$(echo "$API_RESPONSE" | jq -r '.tag_name' | sed 's/^v//')
+            echo "Latest version: $LATEST_VERSION"
+
+            if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
+              echo "❌ Failed to extract latest version from GitHub API response"
+              echo "API Response: $API_RESPONSE"
+              exit 1
+            fi
+
+            if git log --oneline --grep="update ${{ matrix.package.name }}.*$LATEST_VERSION" --since="30 days ago" | grep -q "update ${{ matrix.package.name }}"; then
+              echo "Version $LATEST_VERSION already exists in recent commits"
+              echo "update_available=false" >> $GITHUB_OUTPUT
+              echo "reason=already_updated" >> $GITHUB_OUTPUT
+            elif [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+              echo "Update available: $CURRENT_VERSION -> $LATEST_VERSION"
+              echo "update_available=true" >> $GITHUB_OUTPUT
+              echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+              echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+              echo "update_type=release" >> $GITHUB_OUTPUT
+            else
+              echo "No update available - versions match"
+              echo "update_available=false" >> $GITHUB_OUTPUT
+              echo "reason=same_version" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Update package version and hash
@@ -99,6 +152,7 @@ jobs:
         run: |
           LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
           PACKAGE_FILE="pkgs/${{ matrix.package.name }}/default.nix"
+          UPDATE_TYPE="${{ steps.check_version.outputs.update_type }}"
 
           if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
             echo "❌ Invalid version received: '$LATEST_VERSION'"
@@ -107,24 +161,39 @@ jobs:
 
           echo "Updating ${{ matrix.package.name }} to version $LATEST_VERSION..."
 
-          sed -i "s|version = \"[^\"]*\"|version = \"$LATEST_VERSION\"|" "$PACKAGE_FILE"
-          sed -i "s|hash = \"[^\"]*\"|hash = \"sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"|" "$PACKAGE_FILE"
+          # Get the correct hash using nix-prefetch-url
+          if [ "$UPDATE_TYPE" = "commit" ]; then
+            LATEST_REV="${{ steps.check_version.outputs.latest_rev }}"
+            echo "Fetching hash for commit $LATEST_REV..."
+            ARCHIVE_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/archive/$LATEST_REV.tar.gz"
+          else
+            echo "Fetching hash for version v$LATEST_VERSION..."
+            ARCHIVE_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/archive/v$LATEST_VERSION.tar.gz"
+          fi
 
-          echo "Getting correct hash from Nix..."
-          BUILD_OUTPUT=$(nix build .#${{ matrix.package.name }} --no-link 2>&1 || true)
-          NEW_HASH=$(echo "$BUILD_OUTPUT" | grep "got:" | grep -o "sha256-[A-Za-z0-9+/=]*")
+          BASE32_HASH=$(nix-prefetch-url --unpack "$ARCHIVE_URL" 2>/dev/null)
+          NEW_HASH=$(nix hash convert --hash-algo sha256 --to sri "$BASE32_HASH")
 
           if [ -z "$NEW_HASH" ]; then
-            echo "❌ Failed to extract hash from Nix output"
-            echo "Build output:"
-            echo "$BUILD_OUTPUT"
+            echo "❌ Failed to get hash from nix-prefetch-url"
             exit 1
           fi
 
+          echo "New hash: $NEW_HASH"
+
+          # Update version
+          sed -i "s|version = \"[^\"]*\"|version = \"$LATEST_VERSION\"|" "$PACKAGE_FILE"
+
+          # For commit-based packages, also update the rev
+          if [ "$UPDATE_TYPE" = "commit" ]; then
+            echo "Updating rev to $LATEST_REV..."
+            sed -i "s|rev = \"[^\"]*\"|rev = \"$LATEST_REV\"|" "$PACKAGE_FILE"
+          fi
+
+          # Update hash
           sed -i "s|hash = \"[^\"]*\"|hash = \"$NEW_HASH\"|" "$PACKAGE_FILE"
 
           echo "Updated to version: $LATEST_VERSION"
-          echo "New hash: $NEW_HASH"
 
           echo "hash_calculated=true" >> $GITHUB_OUTPUT
           echo "new_hash=$NEW_HASH" >> $GITHUB_OUTPUT
