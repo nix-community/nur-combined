@@ -58,10 +58,32 @@ let
     jre
     which
   ];
-in
-maven.buildMavenPackage rec {
-  pname = "tuxguitar";
+  # FIXME: Makes hash stable across platforms and convert to a single hash.
+  mvnHashByPlatform = {
+    "x86_64-linux" = "sha256-7UDFGuOMERvY74mkneusJyuAHfF3U6b4qV4MPHGQYdM=";
+    "aarch64-linux" = "sha256-7UDFGuOMERvY74mkneusJyuAHfF3U6b4qV4MPHGQYdM=";
+    "aarch64-darwin" = "sha256-lfO2YH+yKZWzh3MeQ7baESGmmW7zPdTLs8CjZ/FtLu0=";
+  };
+  wrapperArgs = [
+    "\${gappsWrapperArgs[@]}"
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath wrapperPaths)
+    "--prefix"
+    ldLibVar
+    ":"
+    (lib.makeLibraryPath libraryPath)
+    "--prefix"
+    "CLASSPATH"
+    ":"
+    (lib.concatStringsSep ":" classpath)
+  ];
   version = "2.0.1";
+in
+maven.buildMavenPackage {
+  pname = "tuxguitar";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "helge17";
@@ -85,7 +107,7 @@ maven.buildMavenPackage rec {
   mvnJdk = jdk;
 
   mvnHash = (
-    passthru.mvnHashByPlatform.${stdenv.system}
+    mvnHashByPlatform.${stdenv.system}
       or (lib.warn "Missing mvnHash for ${stdenv.system}, using lib.fakeHash" lib.fakeHash)
   );
 
@@ -108,7 +130,6 @@ maven.buildMavenPackage rec {
     postInstall = ''
       rm -rf $out/.m2/repository/org/eclipse/swt
       find $out -type f -name "maven-metadata-*.xml" -delete
-      find $out -exec touch -t 197001010000 {} +
     '';
   };
 
@@ -126,18 +147,9 @@ maven.buildMavenPackage rec {
     makeBinaryWrapper
     jdk
     pkg-config
-    fluidsynth
-    lilv
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     wrapGAppsHook3
-    alsa-lib
-    jack2
-    libpulseaudio
-    suil
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    stdenv.cc
   ];
 
   buildInputs = [
@@ -201,33 +213,11 @@ maven.buildMavenPackage rec {
   '';
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    wrapProgram $out/bin/tuxguitar ${lib.concatStringsSep " " passthru.wrapperArgs}
+    wrapProgram $out/bin/tuxguitar ${lib.concatStringsSep " " wrapperArgs}
   '';
 
   passthru = {
     tests.nixos = nixosTests.tuxguitar;
-    inherit swtArtifactId buildDir buildScript;
-    # FIXME: Makes hash stable across platforms and convert to a single hash.
-    mvnHashByPlatform = {
-      "x86_64-linux" = "sha256-7UDFGuOMERvY74mkneusJyuAHfF3U6b4qV4MPHGQYdM=";
-      "aarch64-linux" = "sha256-7UDFGuOMERvY74mkneusJyuAHfF3U6b4qV4MPHGQYdM=";
-      "aarch64-darwin" = "sha256-lfO2YH+yKZWzh3MeQ7baESGmmW7zPdTLs8CjZ/FtLu0";
-    };
-    wrapperArgs = [
-      "\${gappsWrapperArgs[@]}"
-      "--prefix"
-      "PATH"
-      ":"
-      (lib.makeBinPath wrapperPaths)
-      "--prefix"
-      ldLibVar
-      ":"
-      (lib.makeLibraryPath libraryPath)
-      "--prefix"
-      "CLASSPATH"
-      ":"
-      (lib.concatStringsSep ":" classpath)
-    ];
   };
 
   meta = {
@@ -239,9 +229,8 @@ maven.buildMavenPackage rec {
     homepage = "https://github.com/helge17/tuxguitar";
     license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [
-      ardumont
     ];
-    platforms = builtins.attrNames passthru.mvnHashByPlatform;
+    platforms = builtins.attrNames mvnHashByPlatform;
     mainProgram = "tuxguitar";
   };
 }
