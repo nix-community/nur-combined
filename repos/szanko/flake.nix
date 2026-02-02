@@ -48,5 +48,36 @@
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
       checks = forAllSystems (system: self.packages.${system});
+      devShells = forAllSystems (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              allowUnsupportedSystem = true;
+            };
+          };
+        in
+        {
+          default = pkgs.mkShell {
+            name = "nur-packages-devshell";
+
+            packages = with pkgs; [
+              git
+              nix
+              nixfmt-rfc-style
+              nil          
+              statix
+              deadnix
+              direnv
+              nix-init
+
+              just
+              jq
+            ];
+
+          };
+        }
+      );
     };
 }
