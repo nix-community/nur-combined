@@ -24,7 +24,12 @@
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
-  writeScript,
+  writeShellApplication,
+  nix-update,
+  git,
+  nix,
+  coreutils,
+  findutils,
 }:
 
 let
@@ -46,6 +51,38 @@ let
       substituteInPlace gradle/libs.versions.toml \
         --replace-fail 'windowStyler = "0.3.3-20250226.143418-11"' \
                        'windowStyler = "0.3.2"'
+      substituteInPlace common/build.gradle.kts \
+        --replace-fail '    alias(libs.plugins.android.library)' \
+                       '    alias(libs.plugins.android.library) apply false' \
+        --replace-fail '    alias(libs.plugins.moko.resources)
+}
+
+' \
+                       '    alias(libs.plugins.moko.resources)
+}
+
+val skipAndroid = project.hasProperty("skipAndroid")
+if (!skipAndroid) {
+    apply(plugin = "com.android.library")
+}
+
+' \
+        --replace-fail $'    androidTarget {\n' \
+                       $'    if (!skipAndroid) {\n        androidTarget {\n' \
+        --replace-fail $'    }\n\n    jvm {\n' \
+                       $'    }\n    }\n\n    jvm {\n' \
+        --replace-fail $'        val androidMain by getting {\n            dependsOn(androidAndJvmMain)\n\n            dependencies {\n                api(libs.androidx.activity.compose)\n                api(libs.androidx.core.ktx)\n                api(libs.androidx.documentfile)\n                api(libs.androidx.preference.ktx)\n                api(libs.bugsnag.android)\n                api(libs.google.material)\n                api(libs.kotlinx.coroutines.android)\n                api(libs.github.api)\n            }\n        }\n' \
+                       $'        if (!skipAndroid) {\n            val androidMain by getting {\n                dependsOn(androidAndJvmMain)\n\n                dependencies {\n                    api(libs.androidx.activity.compose)\n                    api(libs.androidx.core.ktx)\n                    api(libs.androidx.documentfile)\n                    api(libs.androidx.preference.ktx)\n                    api(libs.bugsnag.android)\n                    api(libs.google.material)\n                    api(libs.kotlinx.coroutines.android)\n                    api(libs.github.api)\n                }\n            }\n        }\n' \
+        --replace-fail $'android {\n' \
+                       $'plugins.withId(\"com.android.library\") {\n    extensions.configure<com.android.build.gradle.LibraryExtension>(\"android\") {\n' \
+        --replace-fail $'}\n\nbuildkonfig {\n' \
+                       $'}\n}\n\nbuildkonfig {\n' \
+        --replace-fail $'dependencies {\n    coreLibraryDesugaring(libs.desugar.jdk.libs)\n}\n' \
+                       $'plugins.withId(\"com.android.library\") {\n    dependencies {\n        add(\"coreLibraryDesugaring\", libs.desugar.jdk.libs)\n    }\n}\n'
+      substituteInPlace settings.gradle.kts \
+        --replace-fail '        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")' "" \
+        --replace-fail 'include(":android")' \
+                       $'if (!providers.gradleProperty("skipAndroid").isPresent) {\n    include(\":android\")\n}'
     ''
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace settings.gradle.kts \
@@ -59,10 +96,10 @@ let
     gradleUpdateScript = ''
       runHook preBuild
 
-      gradle nixDownloadDeps -Dos.family=linux -Dos.arch=amd64
-      gradle nixDownloadDeps -Dos.family=linux -Dos.arch=aarch64
-      gradle nixDownloadDeps -Dos.name='mac os x' -Dos.arch=amd64
-      gradle nixDownloadDeps -Dos.name='mac os x' -Dos.arch=aarch64
+      gradle :desktop:nixDownloadDeps -PskipAndroid=true -Dos.family=linux -Dos.arch=amd64
+      gradle :desktop:nixDownloadDeps -PskipAndroid=true -Dos.family=linux -Dos.arch=aarch64
+      gradle :desktop:nixDownloadDeps -PskipAndroid=true -Dos.name='Mac OS X' -Dos.arch=amd64
+      gradle :desktop:nixDownloadDeps -PskipAndroid=true -Dos.name='Mac OS X' -Dos.arch=aarch64
     '';
 
     mitmCache = gradle_8.fetchDeps {
@@ -257,13 +294,30 @@ stdenv.mkDerivation {
       '';
 
   passthru.unwrapped = bifrost-unwrapped;
-  passthru.updateScript = writeScript "update-bifrost" ''
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i bash -p nix-update
+  passthru.updateScript = lib.getExe (writeShellApplication {
+    name = "update-bifrost";
+    runtimeInputs = [
+      coreutils
+      findutils
+      git
+      nix
+      nix-update
+    ];
+    text = ''
+      set -euo pipefail
 
-    nix-update bifrost
-    nix-build --no-out-link -A bifrost-unwrapped.mitmCache.updateScript
-  '';
+      nix-update bifrost-unwrapped
+      updatePath="$(nix build .#bifrost-unwrapped.mitmCache.updateScript --no-link --print-out-paths)"
+      if [ -x "$updatePath" ]; then
+        "$updatePath"
+      elif [ -d "$updatePath"/bin ]; then
+        updateScript="$(find "$updatePath"/bin -maxdepth 1 -type f -name '*update*' | head -n 1 || true)"
+        if [ -n "$updateScript" ]; then
+          "$updateScript"
+        fi
+      fi
+    '';
+  });
 
   meta = bifrost-unwrapped.meta;
 }
