@@ -13,4 +13,5 @@ in
   };
   eezupnp = pkgs.callPackage ./pkgs/eezupnp { };
   betterbird-bin = pkgs.callPackage ./pkgs/betterbird-bin { };
+  czkawka-git = pkgs.callPackage ./pkgs/czkawka-git { };
 }
