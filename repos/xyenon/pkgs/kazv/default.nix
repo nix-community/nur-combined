@@ -27,21 +27,22 @@
   nlohmann_json,
   libkazv,
   cmark,
+  qcoro,
   breeze-icons,
   nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "kazv";
-  version = "0.6.0-unstable-2026-01-27";
+  version = "0.6.0-unstable-2026-02-01";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "the-kazv-project";
     repo = "kazv";
     fetchSubmodules = true;
-    rev = "db34a285e6a219c0bc23a6b9dfb5b9d7bf2dbf44";
-    hash = "sha256-69JSIAf3RPlBTiu6u3mdFo36+UMfAjS1sn24Sb4UWyk=";
+    rev = "a143e70c8b98f761732fdb61cb31d4a350b22d26";
+    hash = "sha256-uJb9xD3y2aTa83f2QaZNVDe6pbSmVwgEzx4dBhIxbZ0=";
   };
 
   nativeBuildInputs = [
@@ -75,6 +76,7 @@ stdenv.mkDerivation {
     nlohmann_json
     libkazv
     cmark
+    qcoro
   ];
 
   strictDeps = true;
