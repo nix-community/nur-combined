@@ -6,11 +6,11 @@
   rime-data,
 }:
 stdenvNoCC.mkDerivation rec {
-  pname = "rime-flypy";
+  name = "rime-flypy";
   version = "20240827";
   src = fetchFromGitHub {
     owner = "cubercsl";
-    repo = pname;
+    repo = name;
     tag = "v${version}";
     hash = "sha256-shXcDjAaClemaOsE9ajZBedUzYKLw+ZATDTuyAu+zUc=";
   };
