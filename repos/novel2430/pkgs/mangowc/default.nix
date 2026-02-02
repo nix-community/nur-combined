@@ -49,13 +49,13 @@
 in
   stdenv.mkDerivation rec {
     inherit pname;
-    version = "0.10.5";
+    version = "0.11.0";
 
     src = fetchFromGitHub {
       owner = "DreamMaoMao";
       repo = "mangowc";
-      tag = "0.10.5";
-      hash = "sha256-ZESyUtCiIQh6R0VYAo8YaP95Damw3MJVvKy5qU3pgTA=";
+      tag = "0.11.0";
+      hash = "sha256-zjMDW2Izd2GOKDfekf5/O1LaiI+rGzxmdhzOpzbAvvE=";
     };
 
     nativeBuildInputs = [

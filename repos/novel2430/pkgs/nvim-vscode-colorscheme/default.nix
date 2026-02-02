@@ -6,8 +6,8 @@ vimUtils.buildVimPlugin {
   src = fetchFromGitHub {
     owner = "Mofiqul";
     repo = "vscode.nvim";
-    rev = "7de58b7a6d55fe48475d0ba2fddbcec871717761";
-    sha256 = "sha256-ZKq3oVz9kZjFv/JeFiy5TPKf8kOgY/cpPgL42oopWDU=";
+    rev = "aa1102a7e15195c9cca22730b09224a7f7745ba8";
+    sha256 = "sha256-YGlTlHEuivPJzMyWfk+YmbZqftbj7Mrll8rB3vK3O2A=";
   };
   meta = with lib; {
     description = "Neovim/Vim color scheme inspired by Dark+ and Light+ theme in Visual Studio Code";

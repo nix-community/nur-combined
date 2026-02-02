@@ -33,13 +33,13 @@
 }:
 let
   pname = "shotcut-bin";
-  version = "25.11.2";
+  version = "26.1.30";
 
   _pname = "Shotcut";
 
   src = fetchurl {
-    url = "https://github.com/mltframework/shotcut/releases/download/v25.10.31/shotcut-linux-x86_64-${version}.txz";
-    hash = "sha256-2dbGvD61Gq7Fn9GF/HNMWrQ9pdJnMSlLhBme2/LTAwo=";
+    url = "https://github.com/mltframework/shotcut/releases/download/v26.1.30/shotcut-linux-x86_64-${version}.txz";
+    hash = "sha256-nAtm0NSwbYWqdds74Z1uRKekoPIAyt4zj7gHMflfQEA=";
   };
 
   libs = with qt6; [
@@ -110,7 +110,7 @@ stdenv.mkDerivation{
 
     mkdir -p $out/opt/${_pname}
     cp -r ./* $out/opt/${_pname}
-    rm $out/opt/Shotcut/lib/qt6/egldeviceintegrations/libqeglfs-kms-integration.so
+    rm $out/opt/${_pname}/lib/qt6/egldeviceintegrations/libqeglfs-kms-integration.so
     # Icon
     mkdir -p $out/share/icons
     mv $out/opt/${_pname}/share/icons $out/share/icons
@@ -128,19 +128,10 @@ stdenv.mkDerivation{
     runHook postInstall
   '';
   preFixup = ''
-    patchelf --replace-needed libedit.so.2 libedit.so $out/opt/Shotcut/lib/libLLVM-15.so.1
-    patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/Shotcut/bin/cwebp
-    patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/Shotcut/bin/img2webp
-    patchelf --replace-needed libmpdec.so.3 libmpdec.so $out/opt/Shotcut/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
-    patchelf --replace-needed libnsl.so.2 libnsl.so $out/opt/Shotcut/lib/python3.10/lib-dynload/nis.cpython-310-x86_64-linux-gnu.so
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/libtheoradec.so.1
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/libcairo-gobject.so.2
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairogradient.so
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairoblend.so
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairoimagegrid.so
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/cairoaffineblend.so
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/frei0r-1/mirr0r.so
-    # patchelf --replace-needed libcairo.so.2 libcairo.so $out/opt/Shotcut/lib/qt6/platformthemes/libqgtk3.so
+    patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/${_pname}/bin/cwebp
+    patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/${_pname}/bin/img2webp
+    patchelf --replace-needed libmpdec.so.3 libmpdec.so $out/opt/${_pname}/lib/python3.10/lib-dynload/_decimal.cpython-310-x86_64-linux-gnu.so
+    patchelf --replace-needed libnsl.so.2 libnsl.so $out/opt/${_pname}/lib/python3.10/lib-dynload/nis.cpython-310-x86_64-linux-gnu.so
   '';
 
   desktopItems = [
