@@ -1,6 +1,10 @@
 {
   description = "My NUR packages";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+
+  # Use nixpkgs/unstable so that czkawka-git has a new enough rustc by default
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  #inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+
   outputs =
     { self, nixpkgs }:
     let
