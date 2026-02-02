@@ -62,12 +62,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v2.9.8",
-            "sha256": "sha256-Nf3KcAxQcEPOlMC3egQkfpDWYCaFyHkw51ZeVJghgZQ=",
+            "rev": "v2.9.9",
+            "sha256": "sha256-QlW5jK9AW5/N7RqKVO3RCGoEbyplOIB4dmyPPv6c0XQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.9.8"
+        "version": "v2.9.9"
     },
     "dot-tar": {
         "cargoLock": {
@@ -190,12 +190,12 @@
             "name": null,
             "owner": "intel",
             "repo": "mainline-tracking",
-            "rev": "mainline-tracking-v6.17.11-linux-260107T074430Z",
-            "sha256": "sha256-/1qSHHr74+sGQ1r55wNt15+fKXOGZPymuQ0ZI3XNXdc=",
+            "rev": "mainline-tracking-v6.17.11-linux-260128T080735Z",
+            "sha256": "sha256-+gEB6KJNZHFUooiwf/S+BNlRJw+8MldVV32a5y6lhSk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "mainline-tracking-v6.17.11-linux-260107T074430Z"
+        "version": "mainline-tracking-v6.17.11-linux-260128T080735Z"
     },
     "lpac": {
         "cargoLock": null,

@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.9.8";
+    version = "v2.9.9";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.9.8";
+      rev = "v2.9.9";
       fetchSubmodules = false;
-      sha256 = "sha256-Nf3KcAxQcEPOlMC3egQkfpDWYCaFyHkw51ZeVJghgZQ=";
+      sha256 = "sha256-QlW5jK9AW5/N7RqKVO3RCGoEbyplOIB4dmyPPv6c0XQ=";
     };
   };
   dot-tar = {
@@ -117,13 +117,13 @@
   };
   linux-intel-mainline-tracking = {
     pname = "linux-intel-mainline-tracking";
-    version = "mainline-tracking-v6.17.11-linux-260107T074430Z";
+    version = "mainline-tracking-v6.17.11-linux-260128T080735Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "mainline-tracking";
-      rev = "mainline-tracking-v6.17.11-linux-260107T074430Z";
+      rev = "mainline-tracking-v6.17.11-linux-260128T080735Z";
       fetchSubmodules = false;
-      sha256 = "sha256-/1qSHHr74+sGQ1r55wNt15+fKXOGZPymuQ0ZI3XNXdc=";
+      sha256 = "sha256-+gEB6KJNZHFUooiwf/S+BNlRJw+8MldVV32a5y6lhSk=";
     };
   };
   lpac = {
