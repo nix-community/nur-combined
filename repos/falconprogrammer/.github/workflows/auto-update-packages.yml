@@ -39,17 +39,29 @@ jobs:
           # type: release - uses GitHub releases API
           # type: commit - tracks latest commit on specified branch
 
-    # Skip if manual run specified a different package
-    if: ${{ github.event_name == 'schedule' || inputs.package == '' || inputs.package == matrix.package.name }}
-
     steps:
+      - name: Check if should run
+        id: should_run
+        run: |
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          elif [[ -z "${{ github.event.inputs.package }}" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.inputs.package }}" == "${{ matrix.package.name }}" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          else
+            echo "run=false" >> $GITHUB_OUTPUT
+            echo "Skipping ${{ matrix.package.name }} - not selected"
+          fi
       - name: Checkout repository
+        if: steps.should_run.outputs.run == 'true'
         uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Install nix
+        if: steps.should_run.outputs.run == 'true'
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
@@ -57,9 +69,11 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Install jq for JSON parsing
+        if: steps.should_run.outputs.run == 'true'
         run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Check for new ${{ matrix.package.name }} version
+        if: steps.should_run.outputs.run == 'true'
         id: check_version
         run: |
           PACKAGE_FILE="pkgs/${{ matrix.package.name }}/default.nix"
@@ -74,7 +88,7 @@ jobs:
 
             BRANCH="${{ matrix.package.branch }}"
             echo "Fetching latest commit from $BRANCH branch..."
-            API_RESPONSE=$(curl -s "https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/commits/$BRANCH")
+            API_RESPONSE=$(curl -sL "https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/commits/$BRANCH")
 
             LATEST_SHA=$(echo "$API_RESPONSE" | jq -r '.sha')
             COMMIT_DATE=$(echo "$API_RESPONSE" | jq -r '.commit.committer.date' | cut -d'T' -f1)
@@ -113,7 +127,7 @@ jobs:
             fi
 
             echo "Fetching latest version from GitHub API..."
-            API_RESPONSE=$(curl -s https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/latest)
+            API_RESPONSE=$(curl -sL https://api.github.com/repos/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/latest)
 
             if [ -z "$API_RESPONSE" ]; then
               echo "❌ Failed to fetch data from GitHub API"
@@ -147,7 +161,7 @@ jobs:
           fi
 
       - name: Update package version and hash
-        if: steps.check_version.outputs.update_available == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true'
         id: update_package
         run: |
           LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
@@ -199,7 +213,7 @@ jobs:
           echo "new_hash=$NEW_HASH" >> $GITHUB_OUTPUT
 
       - name: Test build
-        if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
         id: test_build
         run: |
           echo "Testing build of updated package..."
@@ -213,13 +227,13 @@ jobs:
           fi
 
       - name: Configure git
-        if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Close existing update PRs
-        if: steps.check_version.outputs.update_available == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true'
         run: |
           echo "Checking for existing ${{ matrix.package.name }} update PRs to close..."
 
@@ -238,7 +252,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Delete existing update branches
-        if: steps.check_version.outputs.update_available == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true'
         run: |
           echo "Checking for existing ${{ matrix.package.name }} update branches..."
 
@@ -255,7 +269,7 @@ jobs:
           fi
 
       - name: Create Pull Request
-        if: steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
+        if: steps.should_run.outputs.run == 'true' && steps.check_version.outputs.update_available == 'true' && steps.update_package.outputs.hash_calculated == 'true'
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
@@ -285,7 +299,7 @@ jobs:
           delete-branch: true
 
       - name: Auto-merge successful builds
-        if: steps.test_build.outputs.build_success == 'true' && steps.create_pr.outputs.pull-request-number
+        if: steps.should_run.outputs.run == 'true' && steps.test_build.outputs.build_success == 'true' && steps.create_pr.outputs.pull-request-number
         run: |
           PR_NUMBER="${{ steps.create_pr.outputs.pull-request-number }}"
           echo "Attempting to auto-merge PR #$PR_NUMBER..."
@@ -302,7 +316,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Summary
-        if: always()
+        if: always() && steps.should_run.outputs.run == 'true'
         run: |
           echo "### ${{ matrix.package.name }} Update Summary" >> $GITHUB_STEP_SUMMARY
 
