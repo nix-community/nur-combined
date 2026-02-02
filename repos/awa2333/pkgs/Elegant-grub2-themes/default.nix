@@ -61,11 +61,8 @@ if isValid cfg then
       ''}
     '';
     meta = {
-      description = "Elegant grub2 themes for all linux systems.";
-      longDescription = ''
-        These grub themes include "Elegant-wave-grub-themes","Elegant-forest-grub-themes","Elegant-mojave-grub-themes" and "Elegant-mountain-grub-themes".
-        By default, it is "Elegant-forest-grub-themes".
-        I wrap the themes location, it now should locates in "${name}".
+      description = ''
+        Elegant grub2 themes for all linux systems. Include "Elegant-wave-grub-themes", "Elegant-forest-grub-themes", "Elegant-mojave-grub-themes" and "Elegant-mountain-grub-themes"
       '';
       homepage = "https://github.com/vinceliuice/Elegant-grub2-themes";
       platforms = lib.platforms.linux;
