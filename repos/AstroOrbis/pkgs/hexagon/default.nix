@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-   doCheck = false;
+  doCheck = false;
 
   meta = {
     name = "Hexagon";

@@ -13,14 +13,16 @@
   ...
 }:
 let
-  rustHome = (pkgs.extend (import ./roverlay/default.nix)).rust-bin.nightly."2025-08-06".minimal.override {
-    extensions = [
-      "rustc-dev"
-      "rust-src"
-      "llvm-tools"
-      "rustfmt"
-    ];
-  };
+  rustHome =
+    (pkgs.extend (import ./roverlay/default.nix)).rust-bin.nightly."2025-08-06".minimal.override
+      {
+        extensions = [
+          "rustc-dev"
+          "rust-src"
+          "llvm-tools"
+          "rustfmt"
+        ];
+      };
 
   rustPlatform = makeRustPlatform {
     cargo = rustHome;
