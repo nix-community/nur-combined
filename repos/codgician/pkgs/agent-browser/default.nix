@@ -15,19 +15,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "agent-browser";
-  version = "0.8.6";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-sYNe5DdAkDT9CsJ/m6esuBfG08IMGMdQgWyaRqwMN7Q=";
+    hash = "sha256-KwwjPR4x/WwA/jWyv2EORWieQqHGoA/eDpQSBeiaUnQ=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/cli";
-    hash = "sha256-9MB7+PyR5hCTrzVNzTVNEX/PnPD9MsKsZQKCKVh2/iA=";
+    hash = "sha256-WbVSazYTvoH8plEFzK3J9wP9F3mvu1T541T1llAo7Ko=";
   };
 
   cargoRoot = "cli";
@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 2;
-    hash = "sha256-RFALkJCkbg9cKB3fGiz/n54IaYTL5EFeRBEFP1peByk=";
+    hash = "sha256-hBX/ao4QKildvKxTDFSYAhvxrupyltKCJUzvKnHukpc=";
   };
 
   nativeBuildInputs = [
