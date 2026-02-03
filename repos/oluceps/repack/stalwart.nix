@@ -26,7 +26,7 @@ reIf {
       };
       directory = {
         internal = {
-          store = "rocksdb";
+          store = "db";
           type = "internal";
         };
       };
@@ -80,16 +80,16 @@ reIf {
         };
       };
       storage = {
-        blob = "rocksdb";
-        data = "rocksdb";
+        blob = "db";
+        data = "db";
         directory = "internal";
-        fts = "rocksdb";
-        lookup = "rocksdb";
+        fts = "db";
+        lookup = "db";
       };
       store = {
-        rocksdb = {
+        db = {
           compression = "lz4";
-          path = config.services.stalwart-mail.dataDir + "/rocksdb";
+          path = config.services.stalwart-mail.dataDir + "/db";
           type = "rocksdb";
         };
       };
