@@ -111,14 +111,14 @@ rec {
     version = stableVersion sources;
   };
 
-  uosc-danmaku = pkgs.mpvScripts.callPackage ./uosc-danmaku rec {
-    sources = fetchedSrc.uosc-danmaku;
-    version = stableVersion sources;
-  };
-  uosc-danmaku-git = pkgs.mpvScripts.callPackage ./uosc-danmaku rec {
-    sources = fetchedSrc.uosc-danmaku-git;
-    version = unstableVersion sources;
-  };
+  uosc-danmaku-git =
+    let
+      sources = fetchedSrc.uosc-danmaku-git;
+    in
+    pkgs.mpvScripts.uosc-danmaku.overrideAttrs {
+      inherit (sources) src;
+      version = unstableVersion sources;
+    };
 
   wild-reader = pkgs.callPackage ./wild-reader rec {
     sources = fetchedSrc.wild;
