@@ -194,21 +194,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "baee3b8802c94a4f1457695186896dd7db545a9d";
+    version = "5c6df2f5024cf1e1abec1b4f27aab3de41ab9b07";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "baee3b8802c94a4f1457695186896dd7db545a9d";
+      rev = "5c6df2f5024cf1e1abec1b4f27aab3de41ab9b07";
       fetchSubmodules = false;
-      sha256 = "sha256-kBHA83b/yQeD/eabH2VXm2pKhHLi4jex9FpTLUo/keo=";
+      sha256 = "sha256-aXaqsKC9WXzaKB8KNDT7Mx2fZKEdUj6jylquDxSTW6I=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-kBHA83b_yQeD_eabH2VXm2pKhHLi4jex9FpTLUo_keo=/Cargo.lock";
+      lockFile = ./. + "/sha256-aXaqsKC9WXzaKB8KNDT7Mx2fZKEdUj6jylquDxSTW6I=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-01-26";
+    date = "2026-02-02";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -234,13 +234,13 @@
   };
   opencode = {
     pname = "opencode";
-    version = "v1.1.48";
+    version = "v1.1.49";
     src = fetchFromGitHub {
       owner = "anomalyco";
       repo = "opencode";
-      rev = "v1.1.48";
+      rev = "v1.1.49";
       fetchSubmodules = false;
-      sha256 = "sha256-zKkeJSsxEuhucQkWBHxLR7tCTu86q2p6neRST2g/1hA=";
+      sha256 = "sha256-z09wDaEd4Dwnjgi36k+Wc2Tgv9DovvY51PB+alqYZyA=";
     };
   };
   pixy2 = {
