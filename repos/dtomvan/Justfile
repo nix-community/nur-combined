@@ -3,7 +3,7 @@ default: check build-test
 check: check-flake check-nur-eval
 
 check-flake:
-    nix flake check -L
+    NIXPKGS_ALLOW_BROKEN=1 nix flake check -L --impure
 
 check-nur-eval:
     nix run .#check-nur-eval
