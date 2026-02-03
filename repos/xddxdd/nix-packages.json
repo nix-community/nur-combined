@@ -477,7 +477,7 @@
   "legacyPackages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.7.41"
+    "version": "6.7.46"
   },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -892,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.asterisk": {
     "description": "Asterisk with Lan Tian modifications",
     "pname": "asterisk",
-    "version": "20.18.0"
+    "version": "20.18.1"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Multi-tenant Nix Binary Cache",
@@ -922,7 +922,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7898"
+    "version": "7923"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -992,7 +992,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2026-01-27"
+    "version": "0-unstable-2026-02-02"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1047,7 +1047,7 @@
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "0-unstable-2026-01-31"
+    "version": "0-unstable-2026-02-02"
   },
   "legacyPackages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
@@ -3429,6 +3429,11 @@
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "18_36_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "8u482-b08_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u322_b06": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
@@ -3513,6 +3518,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "8u472-b08_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u482_b08": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "8u482-b08_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -3729,6 +3739,11 @@
     "pname": "openjdk-adoptium-jre-bin",
     "version": "18.0.2_9_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "8u482-b08_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u322_b06": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
@@ -3813,6 +3828,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
     "version": "8u472-b08_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u482_b08": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "8u482-b08_adopt"
   },
   "legacyPackages.x86_64-linux.openssl-ech": {
     "description": "OpenSSL with Encrypted Client Hello support",
@@ -3992,7 +4012,7 @@
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "0-unstable-2026-01-31"
+    "version": "0-unstable-2026-02-02"
   },
   "legacyPackages.x86_64-linux.python3Packages.open-webui-kb-manager": {
     "description": "Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI",
@@ -4317,7 +4337,7 @@
   "legacyPackages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
-    "version": "0.6.2"
+    "version": "0.7.0"
   },
   "legacyPackages.x86_64-linux.uesave-0_3_0": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld",
@@ -4407,7 +4427,7 @@
   "legacyPackages.x86_64-linux.uncategorized.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.7.41"
+    "version": "6.7.46"
   },
   "legacyPackages.x86_64-linux.uncategorized.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -4652,7 +4672,7 @@
   "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2026-01-27"
+    "version": "0-unstable-2026-02-02"
   },
   "legacyPackages.x86_64-linux.uncategorized.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4977,7 +4997,7 @@
   "legacyPackages.x86_64-linux.uncategorized.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
-    "version": "0.6.2"
+    "version": "0.7.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.uesave-0_3_0": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld",
@@ -5287,7 +5307,7 @@
   "packages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.7.41"
+    "version": "6.7.46"
   },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -5622,7 +5642,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2026-01-27"
+    "version": "0-unstable-2026-02-02"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -5677,7 +5697,7 @@
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "0-unstable-2026-01-31"
+    "version": "0-unstable-2026-02-02"
   },
   "packages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
@@ -6062,7 +6082,7 @@
   "packages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
-    "version": "0.6.2"
+    "version": "0.7.0"
   },
   "packages.x86_64-linux.uesave-0_3_0": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld",

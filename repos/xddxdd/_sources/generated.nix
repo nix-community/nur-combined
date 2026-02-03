@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.7.41";
+    version = "v6.7.46";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.7.41";
-      hash = "sha256-a+aFIe2eDA1K7RZanoo+V66X6WuOU/sf8t/zvUEREkc=";
+      tag = "v6.7.46";
+      hash = "sha256-21OUW4GhOB6peFmX4meWwTeUFC+7pS3us3sLyktz1Kc=";
     };
   };
   cockpy = {
@@ -1108,14 +1108,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "4fa3045a186fad88b59bde3da9c49e804d1f8717";
+    version = "cb2d43ecf18e6916d4d14b740f1ef361156480d6";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "4fa3045a186fad88b59bde3da9c49e804d1f8717";
-      hash = "sha256-g6L5FLnn2SohEzNs6AF5Byp093XNgEckpugkLz7p3/Y=";
+      rev = "cb2d43ecf18e6916d4d14b740f1ef361156480d6";
+      hash = "sha256-ARQ2nwqS6Syr9T3xKSS2lm4/YF8J1ZwSExHBLRdXLu4=";
     };
-    date = "2026-01-27";
+    date = "2026-02-02";
   };
   libqcef = {
     pname = "libqcef";
@@ -1176,12 +1176,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7898";
+    version = "b7923";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7898";
-      hash = "sha256-SQ0TxHnOxH1QPdHxMU2n2fVyNrb8m7OfhbbFNvrn/m4=";
+      tag = "b7923";
+      hash = "sha256-XIpJnBYhbqcl2jfIz/sPZeX/Zf3cyRTbGosg1UbuLa4=";
     };
   };
   loralib = {
@@ -1245,14 +1245,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "70343f12f6a8252fb2bdd79b3cccec6cda4c12fb";
+    version = "a959db6becc8b31ef803a1ca7c498bbe8a68caf4";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "70343f12f6a8252fb2bdd79b3cccec6cda4c12fb";
-      hash = "sha256-dLHfm184DMZ63iT2LYjadIHOQCd2+NnAJPThrwVm548=";
+      rev = "a959db6becc8b31ef803a1ca7c498bbe8a68caf4";
+      hash = "sha256-W0v1YtiKPBipY5Z1o5TeicMSos+UlBoK6ns2pTanLgI=";
     };
-    date = "2026-01-31";
+    date = "2026-02-02";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -2240,12 +2240,12 @@
   };
   uesave = {
     pname = "uesave";
-    version = "v0.6.2";
+    version = "v0.7.0";
     src = fetchFromGitHub {
       owner = "trumank";
       repo = "uesave-rs";
-      tag = "v0.6.2";
-      hash = "sha256-cwkeuHmtIS8zTxTSa1qLtWfN2OZinqKngMEYvrCCAk0=";
+      tag = "v0.7.0";
+      hash = "sha256-Wn7/Ik8F3+gA66CpGZGwUer3zArCx7fx1IS6DGvqJDI=";
     };
   };
   uesave-0_3_0 = {

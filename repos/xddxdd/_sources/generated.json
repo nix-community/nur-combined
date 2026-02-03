@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.7.41",
-            "sha256": "sha256-a+aFIe2eDA1K7RZanoo+V66X6WuOU/sf8t/zvUEREkc=",
+            "rev": "v6.7.46",
+            "sha256": "sha256-21OUW4GhOB6peFmX4meWwTeUFC+7pS3us3sLyktz1Kc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.7.41"
+        "version": "v6.7.46"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2148,7 +2148,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-01-27",
+        "date": "2026-02-02",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2160,12 +2160,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "4fa3045a186fad88b59bde3da9c49e804d1f8717",
-            "sha256": "sha256-g6L5FLnn2SohEzNs6AF5Byp093XNgEckpugkLz7p3/Y=",
+            "rev": "cb2d43ecf18e6916d4d14b740f1ef361156480d6",
+            "sha256": "sha256-ARQ2nwqS6Syr9T3xKSS2lm4/YF8J1ZwSExHBLRdXLu4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4fa3045a186fad88b59bde3da9c49e804d1f8717"
+        "version": "cb2d43ecf18e6916d4d14b740f1ef361156480d6"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7898",
-            "sha256": "sha256-SQ0TxHnOxH1QPdHxMU2n2fVyNrb8m7OfhbbFNvrn/m4=",
+            "rev": "b7923",
+            "sha256": "sha256-XIpJnBYhbqcl2jfIz/sPZeX/Zf3cyRTbGosg1UbuLa4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7898"
+        "version": "b7923"
     },
     "loralib": {
         "cargoLock": null,
@@ -2415,7 +2415,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-01-31",
+        "date": "2026-02-02",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2427,12 +2427,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "70343f12f6a8252fb2bdd79b3cccec6cda4c12fb",
-            "sha256": "sha256-dLHfm184DMZ63iT2LYjadIHOQCd2+NnAJPThrwVm548=",
+            "rev": "a959db6becc8b31ef803a1ca7c498bbe8a68caf4",
+            "sha256": "sha256-W0v1YtiKPBipY5Z1o5TeicMSos+UlBoK6ns2pTanLgI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "70343f12f6a8252fb2bdd79b3cccec6cda4c12fb"
+        "version": "a959db6becc8b31ef803a1ca7c498bbe8a68caf4"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
@@ -4370,12 +4370,12 @@
             "name": null,
             "owner": "trumank",
             "repo": "uesave-rs",
-            "rev": "v0.6.2",
-            "sha256": "sha256-cwkeuHmtIS8zTxTSa1qLtWfN2OZinqKngMEYvrCCAk0=",
+            "rev": "v0.7.0",
+            "sha256": "sha256-Wn7/Ik8F3+gA66CpGZGwUer3zArCx7fx1IS6DGvqJDI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.6.2"
+        "version": "v0.7.0"
     },
     "uesave-0_3_0": {
         "cargoLock": null,
