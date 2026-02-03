@@ -14,8 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  pinentry-touchid = pkgs.callPackage ./pkgs/pinentry-touchid { };
+  pruner = pkgs.callPackage ./pkgs/pruner { };
   ory.hydra = pkgs.callPackage ./pkgs/ory/hydra { };
-  whereami = pkgs.callPackage ./pkgs/whereami { };
   some-sass-language-server = pkgs.callPackage ./pkgs/some-sass-language-server { };
 }
