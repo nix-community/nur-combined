@@ -26,14 +26,14 @@
 
 buildPythonPackage rec {
   pname = "py7zr";
-  version = "1.1.2";
+  version = "1.1.0";
   pyproject = true;
 
   disabled = pythonOlder "3.9";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Ku4hLFUW3cvrdodNw+zji0Vm/AA/UWAAMscjz+qJrFY=";
+    hash = "sha256-CHsalIYa2etNIWBPaqoKiYan4AWAq9ef7db4L+zwWSw=";
   };
 
   build-system = [
