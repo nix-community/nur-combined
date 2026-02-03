@@ -41,6 +41,7 @@ splayer.overrideAttrs (
           -t "${electron.headers}" {} \;
         ))
       done
+      rm -rf build/Release/{.deps,obj,obj.target,test_extension.node}
     '';
 
     meta = prev.meta // {
