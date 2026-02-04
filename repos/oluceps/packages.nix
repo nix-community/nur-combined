@@ -98,6 +98,7 @@ let
         lsof
         tree
         bat
+        shpool
       ]
       [
         broot

@@ -36,6 +36,14 @@
   };
 
   systemd.user = {
+    sockets.shpool = {
+      description = "Shpool - Shell Session Pool Socket";
+      socketConfig = {
+        ListenStream = "%t/shpool/shpool.socket";
+        DirectoryMode = "0700";
+      };
+      wantedBy = [ "sockets.target" ];
+    };
     services = {
 
       rbw = {
@@ -57,6 +65,20 @@
           RuntimeDirectory = "rbw";
           RuntimeDirectoryMode = "0700";
         };
+      };
+      shpool = {
+        description = "Shpool - Shell Session Pool";
+        requires = [ "shpool.socket" ];
+        after = [ "shpool.socket" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.shpool}/bin/shpool -c ${pkgs.writeText "config.toml" "prompt_prefix=\"\""} daemon";
+          KillMode = "mixed";
+          TimeoutStopSec = "2s";
+          SendSIGHUP = "yes";
+          Environment = [ "RUST_LOG=info" ];
+        };
+        wantedBy = [ "default.target" ];
       };
       niri-flake-polkit = {
         description = "PolicyKit Authentication Agent provided by niri-flake";

@@ -6,8 +6,8 @@ wezterm.on('gui-startup', function(cmd)
   window:gui_window():maximize()
 end)
 
-local custom = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
-custom.background = "#35333c"
+local custom = wezterm.color.get_builtin_schemes()["Ayu Mirage"]
+-- custom.background = "#35333c"
 -- custom.tab_bar.background = "#040404"
 -- custom.tab_bar.inactive_tab.bg_color = "#0f0f0f"
 -- custom.tab_bar.new_tab.bg_color = "#080808"
@@ -41,10 +41,6 @@ local config =
 		left = 8,
 	},
 
-	color_schemes = {
-		["kappuccin"] = custom,
-	},
-	color_scheme = "kappuccin",
 
 	window_background_opacity = 0.95,
 
@@ -54,13 +50,8 @@ local config =
 	-- https://wezfurlong.org/wezterm/config/fonts.html
 	font =
 			wezterm.font_with_fallback {
-				{ family = "Maple Mono" },
+				{ family = "Maple Mono NF CN" },
 			},
-	-- 	wezterm.font {
-	-- 	family = "Maple Mono",
-	-- 	weight = 'Light',
-	-- 	harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
-	-- },
 
 	font_size = 13.5,
 
@@ -83,6 +74,12 @@ local config =
 		{ key = 'n', mods = 'SHIFT|CTRL', action = wezterm.action.SpawnWindow },
 
 	},
+  unix_domains = {
+    {
+      name = 'unix',
+    },
+  },
+  default_gui_startup_args = { 'connect', 'unix' }
 
 }
 return config

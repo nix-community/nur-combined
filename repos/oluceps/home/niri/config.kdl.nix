@@ -13,6 +13,27 @@ let
       "--"
       app
     ];
+  spoolScript = pkgs.writeShellApplication {
+    name = "spoolexec";
+    text = ''
+      LOCK_DIR="''${XDG_RUNTIME_DIR:-/tmp}/shpool-''${USER}-locks"
+      mkdir -p "$LOCK_DIR"
+
+      for i in {1..20}; do
+          LOCK_FILE="$LOCK_DIR/slot_$i"
+          exec 9>>"$LOCK_FILE"
+
+          if flock -n 9; then
+              exec shpool attach "$i"
+          fi
+
+          exec 9>&-
+      done
+
+      echo "All 20 slots ran out."
+      read -rn 1
+    '';
+  };
 in
 # kdl
 ''
@@ -229,7 +250,13 @@ in
   // Add lines like this to spawn processes at startup.
   // Note that running niri as a session supports xdg-desktop-autostart,
   // which may be more convenient to use.
-  spawn-at-startup ${execApp [ (lib.getExe pkgs.foot) ]}
+  spawn-at-startup ${
+    execApp [
+      (lib.getExe pkgs.foot)
+      "${spoolScript}/bin/spoolexec"
+
+    ]
+  }
   spawn-at-startup ${execDesktop "chromium-browser"}
   spawn-at-startup ${execDesktop "Telegram"}
   spawn-at-startup ${execDesktop "thunderbird"}
@@ -273,7 +300,34 @@ in
       Mod+Shift+Slash { show-hotkey-overlay; }
 
       // Suggested binds for running programs: terminal, app launcher, screen locker.
-      Mod+Return { spawn ${execApp [ (lib.getExe pkgs.foot) ]}; }
+      Mod+Return { spawn ${
+        execApp [
+          (lib.getExe pkgs.foot)
+          # (pkgs.callPackage (pkgs.writeShellApplication {
+          #   name = "spoolexec.sh";
+          #   text = ''
+          #     LOCK_DIR="${XDG_RUNTIME_DIR: -/tmp}/shpool-$USER-locks"
+          #     mkdir -p "$LOCK_DIR"
+
+          #     for i in {1..20}; do
+          #         LOCK_FILE="$LOCK_DIR/slot_$i"
+
+          #         exec 9>>"$LOCK_FILE"
+
+          #         if flock -n 9; then
+          #             exec shpool attach "$i"
+          #         fi
+
+          #         exec 9>&-
+          #     done
+
+          #     echo "All 20 slots ran out."
+          #     read -rn 1
+          #   '';
+          # }) { })
+          "${spoolScript}/bin/spoolexec"
+        ]
+      }; }
       Mod+D repeat=false { spawn "${lib.getExe pkgs.vicinae}" "toggle"; }
       Ctrl+Shift+L { spawn "loginctl" "lock-session"; }
       Mod+W { toggle-column-tabbed-display; }

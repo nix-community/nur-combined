@@ -147,7 +147,7 @@
 
         command_timeout = 1000;
 
-        format = "$username$hostname$directory$git_branch$git_commit$git_status$nix_shell$cmd_duration$line_break$python$character";
+        format = "$username$hostname$directory$git_branch$git_commit$git_status$nix_shell$\{custom.shpool}$cmd_duration$line_break$python$character";
 
         directory.style = "blue";
 
@@ -164,6 +164,13 @@
           ssh_only = false;
           format = "[$hostname]($style) ";
           style = "#91b493";
+        };
+
+        custom.shpool = {
+          when = "test -n \"$SHPOOL_SESSION_NAME\"";
+          command = "echo $SHPOOL_SESSION_NAME";
+          format = "[> $output]($style) ";
+          style = "#91AD70";
         };
 
         git_branch = {

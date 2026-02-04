@@ -201,6 +201,32 @@ reIf {
             ];
           }
           {
+            job_name = "stalwart_metrics";
+            scheme = "https";
+            metrics_path = "/metrics/prometheus";
+            static_configs = [
+              {
+                targets = [
+                  "box.nyaw.xyz:443"
+                ];
+              }
+            ];
+            basic_auth = {
+              username = "stalwart_metric";
+              password_file = secPath;
+            };
+            metric_relabel_configs = [
+              {
+                source_labels = [ "__name__" ];
+                separator = "_";
+                regex = "(.*)";
+                target_label = "__name__";
+                replacement = "stalwart_$1";
+                action = "replace";
+              }
+            ];
+          }
+          {
             job_name = "http";
             scheme = "http";
             metrics_path = "/probe";
@@ -311,7 +337,7 @@ reIf {
       let
         cfg = config.services.prometheus;
       in
-      [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ];
+      [ "${cfg.alertmanager.listenAddress}:${toString cfg.alertmanager.port}" ];
     "datasource.url" = "http://localhost:9090";
     rule = {
       groups = [
@@ -320,7 +346,7 @@ reIf {
           rules = [
             {
               alert = "OOM";
-              expr = ''node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1'';
+              expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
             }
             {
               alert = "DiskFull";
@@ -332,7 +358,7 @@ reIf {
             }
             {
               alert = "BtrfsDevErr";
-              expr = ''sum(rate(node_btrfs_device_errors_total[2m])) > 0'';
+              expr = "sum(rate(node_btrfs_device_errors_total[2m])) > 0";
             }
           ];
         }
