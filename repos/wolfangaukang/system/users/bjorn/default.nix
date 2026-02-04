@@ -15,7 +15,6 @@
       "nixers"
     ]
     ++ lib.optionals config.networking.networkmanager.enable [ "networkmanager" ]
-    ++ lib.optionals config.programs.adb.enable [ "adbusers" ]
     ++ lib.optionals config.hardware.i2c.enable [ "i2c" ];
   };
 }

@@ -18,7 +18,6 @@ in
 {
   imports = [ ./wayland.nix ];
   programs.waybar.package = waybar.override {
-    hyprlandSupport = true;
     pipewireSupport = true;
     traySupport = true;
   };

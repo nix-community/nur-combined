@@ -23,7 +23,7 @@ in
     ./hardware-configuration.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_17;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
   networking.hostName = hostname;
   nixpkgs = {
     inherit overlays;

@@ -31,6 +31,23 @@
     fsType = "tmpfs";
   };
 
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/CCE4-2322";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
+
+  fileSystems."/mnt/performance" = {
+    device = "/dev/disk/by-uuid/1a6c3c04-fa15-45bd-a619-8dbaee1c5244";
+    fsType = "btrfs";
+    options = [ "subvol=@performance" ];
+  };
+
+  boot.initrd.luks.devices."fast".device = "/dev/disk/by-uuid/5f86c36c-e036-40db-b7ce-bdf532c05c42";
+
   fileSystems."/mnt/persist" = {
     device = "/dev/disk/by-uuid/3dc0eaaf-2af9-4c28-8286-2dc5d43e2c07";
     fsType = "btrfs";
@@ -45,29 +62,12 @@
     options = [ "subvol=@snapshots" ];
   };
 
-  fileSystems."/mnt/performance" = {
-    device = "/dev/disk/by-uuid/1a6c3c04-fa15-45bd-a619-8dbaee1c5244";
-    fsType = "btrfs";
-    options = [ "subvol=@performance" ];
-  };
-
-  boot.initrd.luks.devices."fast".device = "/dev/disk/by-uuid/5f86c36c-e036-40db-b7ce-bdf532c05c42";
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/99FB-834A";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
-  };
-
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/8f58da72-25e1-4eac-b8d0-ed6239bff172";
+    device = "/dev/disk/by-uuid/15a59133-fffa-473d-9fcc-ecf855e62896";
     fsType = "xfs";
   };
 
-  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/d9a22108-88f5-4990-b122-b663264d3000";
+  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/3611d88d-4b6b-4add-8d49-3f922d53bac6";
 
   swapDevices = [ ];
 
@@ -76,7 +76,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp14s0f3u4u1.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
 

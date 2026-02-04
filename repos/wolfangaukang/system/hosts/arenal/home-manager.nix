@@ -19,10 +19,12 @@
     };
     sharedModules = [
       inputs.sab.hmModule
-      inputs.impermanence.nixosModules.home-manager.impermanence
       inputs.sops.homeManagerModules.sops
-      inputs.self.homeManagerModules.peaclock
-    ];
+    ]
+    ++ (with inputs.self.homeManagerModules; [
+      dprint
+      peaclock
+    ]);
     users = localLib.importHMUsers [ "bjorn" ] hostname;
   };
 }

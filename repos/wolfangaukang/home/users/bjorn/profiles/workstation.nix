@@ -21,21 +21,19 @@ in
 
   home = {
     packages = with pkgs; [
-      # libreoffice NOTE: Not building since version 25
+      appflowy
       mpv
       mupdf
       multifirefox
-      onlyoffice-desktopeditors
+      libreoffice
       telegram-desktop
       thunderbird
-      vdhcoapp
     ];
-    persistence."/mnt/persist/home/bjorn" =
+    persistence."/mnt/persist" =
       let
         generatePaths = prefix: pathsList: map (dir: "${prefix}/${dir}") pathsList;
       in
       {
-        allowOther = osConfig.programs.fuse.userAllowOther;
         directories =
           let
             configDirs = generatePaths ".config/" [
@@ -140,18 +138,6 @@ in
           hostname = obtainIPV4Address "irazu" "activos";
           identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/id" ];
         };
-      };
-    };
-    zed-editor = {
-      enable = true;
-      userSettings = {
-        features = {
-          copilot = false;
-        };
-        telemetry = {
-          metrics = false;
-        };
-        vi-mode = true;
       };
     };
   };

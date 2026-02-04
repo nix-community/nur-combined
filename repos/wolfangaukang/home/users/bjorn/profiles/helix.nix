@@ -10,7 +10,7 @@ let
     dprint
     marksman
     nil
-    nixfmt-rfc-style
+    nixfmt
     rumdl
     taplo
     yaml-language-server
@@ -27,7 +27,10 @@ in
       language-server = {
         bash-language-server.command = getExe bash-language-server;
         marksman.command = getExe marksman;
-        nil.command = getExe nil;
+        nil = {
+          command = getExe nil;
+          config.nil.nix.flake.autoArchive = true;
+        };
         rumdl = {
           command = getExe rumdl;
           args = [ "server" ];
@@ -51,6 +54,8 @@ in
             command = getExe dprint;
             args = [
               "fmt"
+              "-c"
+              "~/.config/dprint/dprint.json"
               "--stdin"
               "md"
             ];
@@ -59,7 +64,7 @@ in
         }
         {
           name = "nix";
-          formatter.command = getExe nixfmt-rfc-style;
+          formatter.command = getExe nixfmt;
           auto-format = true;
         }
       ];

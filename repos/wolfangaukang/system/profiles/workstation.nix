@@ -28,6 +28,7 @@ in
 {
   environment.systemPackages = with pkgs; [
     # Android
+    android-tools
     jmtpfs
 
     # iOS
@@ -84,10 +85,7 @@ in
     ];
   };
 
-  programs = {
-    adb.enable = true;
-    fuse.userAllowOther = true;
-  };
+  programs.fuse.userAllowOther = true;
 
   # Remember to add users to the rfkillers group
   security = {

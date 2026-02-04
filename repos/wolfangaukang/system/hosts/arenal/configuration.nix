@@ -18,20 +18,20 @@ let
 in
 {
   imports = profiles ++ [
-    inputs.nixos-hardware.nixosModules.system76
-    inputs.self.nixosModules.system76-charging-thresholds
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel-gen6
 
     ./disk-setup.nix
     ./hardware-configuration.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18; # MUST USE THIS ONE TO RECOGNIZE DISPLAY OUTPUT IN SWAY
   environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
   networking.hostName = hostname;
   nixpkgs = {
     inherit overlays;
     hostPlatform = lib.mkDefault "x86_64-linux";
   };
+  powerManagement.enable = true;
   profile = {
     batteryNotifier = {
       enable = config.programs.sway.enable || config.programs.hyprland.enable;
@@ -40,16 +40,9 @@ in
     virtualization.podman.enable = true;
   };
   services = {
+    acpid.enable = true;
     openssh.hostKeys = localLib.generateSshHostKeyPaths;
-    system76-charging-threshold = {
-      enable = true;
-      # profile = "balanced";
-      profile = "custom";
-      thresholds = {
-        start = 85;
-        end = 90;
-      };
-    };
+    thinkfan.enable = true;
     xserver.xkb.layout = lib.mkForce "colemak-bs_cl,us";
   };
   sops = {

@@ -5,16 +5,16 @@
     "y": "1080",
     "scale": 1
   },
+  "ofi": {
+    "id": "LG Electronics LG ULTRAGEAR+ 510NTWGNM993",
+    "x": "3440",
+    "y": "1440",
+    "scale": 1
+  },
   "ofi2": {
     "id": "Dell Inc. DELL U3824DW 8X2VZR3",
     "x": "3840",
     "y": "1600",
-    "scale": 1
-  },
-  "ofi": {
-    "id": "ViewSonic Corporation VA2418-FHD W41205242610",
-    "x": "1920",
-    "y": "1080",
     "scale": 1
   },
   "sala": {

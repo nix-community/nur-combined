@@ -25,21 +25,11 @@ in
       gimp
       musescore
     ];
-    persistence =
-      let
-        allowOther = osConfig.programs.fuse.userAllowOther;
-      in
-      {
-        "/mnt/performance/home/bjorn" = {
-          inherit allowOther;
-          directories = [
-            "Ludoj"
-            "Torrentoj"
-            "VMs"
-          ];
-        };
-        "/mnt/persist/home/bjorn" = { inherit allowOther; };
-      };
+    persistence."/mnt/performance".directories = [
+      "Ludoj"
+      "Torrentoj"
+      "VMs"
+    ];
   };
 
   personaj = {
@@ -66,7 +56,7 @@ in
 
   programs = {
     kitty.font.size = lib.mkForce 10;
-    waybar.settings.mainBar.output = [ "HDMI-A-1" ];
+    waybar.settings.mainBar.output = [ "DP-1" ];
   };
 
   wayland.windowManager.sway.config.output."${displays.ofi.id}".bg =

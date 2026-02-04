@@ -18,6 +18,10 @@
         "discard=async"
         "space_cache=v2"
       ];
+      bootSettings = {
+        neededForBoot = true;
+        options = diskOptions;
+      };
     in
     {
       "/".options = [
@@ -26,11 +30,8 @@
         "mode=755"
       ];
       "/.snapshots".options = diskOptions;
-      "/mnt/performance".options = diskOptions;
-      "/mnt/persist" = {
-        neededForBoot = true;
-        options = diskOptions;
-      };
+      "/mnt/performance" = bootSettings;
+      "/mnt/persist" = bootSettings;
     };
   services.btrfs.autoScrub.enable = true;
   networking.hostId = "e416e925";

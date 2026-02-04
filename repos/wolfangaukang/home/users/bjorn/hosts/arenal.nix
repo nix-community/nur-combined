@@ -22,8 +22,7 @@ in
   imports = profiles ++ [ "${self}/home/users/bjorn" ];
 
   home = {
-    persistence."/mnt/persist/home/bjorn" = {
-      allowOther = osConfig.programs.fuse.userAllowOther;
+    persistence."/mnt/persist" = {
       directories = [ ".config/gPodder" ];
       files = [ ".wallpaper1.jpg" ];
     };
@@ -133,11 +132,12 @@ in
       '';
     };
     hyprland.settings = {
-      monitor =
-        let
-          arenal = displays.arenal;
-        in
-        "${arenal.id},preferred,auto,${arenal.scale}";
+      # FIXME
+      # monitor =
+      #   let
+      #     arenal = displays.arenal;
+      #   in
+      #   "${arenal.id},preferred,auto,${arenal.scale}";
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;

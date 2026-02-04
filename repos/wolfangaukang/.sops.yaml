@@ -9,7 +9,7 @@ keys:
 
   - &hosts:
     - &irazu age190znxm4mfq6gxhgng6w2ce5d983rj32fg50zys6et45e8lc5csxqxhvp8e
-    - &arenal age1qc7yq0j066kh8r4lftr4wkrfpqmqjkuxl97c6jqgdkjkggfvg9tqhku4h8
+    - &arenal age16jnxhl96c83wwpmg5590uql9uumnxw8kul93pzs8w88h6dua3uus0w6733
 
 creation_rules:
   - path_regex: system/hosts/common/secrets.ya?ml$

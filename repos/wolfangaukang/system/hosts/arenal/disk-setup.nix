@@ -8,46 +8,41 @@
   # Extra options to filesystem
   fileSystems =
     let
-      diskOptions = [
-        "defaults"
-        "ssd"
-        "compress=zstd"
-        "noatime"
-        "discard=async"
-        "space_cache=v2"
-      ];
+      bootSettings = {
+        neededForBoot = true;
+        options = [
+          "defaults"
+          "ssd"
+          "compress=zstd"
+          "noatime"
+          "discard=async"
+          "space_cache=v2"
+        ];
+      };
+
     in
     {
       "/".options = [
         "defaults"
-        "size=3G"
+        "size=25%"
         "mode=755"
       ];
-      "/nix".options = diskOptions;
-      "/mnt/persist" = {
-        neededForBoot = true;
-        options = diskOptions;
-      };
-      "/.snapshots".options = diskOptions;
+      "/nix" = bootSettings;
+      "/mnt/persist" = bootSettings;
     };
   services.btrfs.autoScrub.enable = true;
   boot = {
     initrd = {
       luks.devices."root" = {
         allowDiscards = true;
-        device = "/dev/disk/by-uuid/03924f8e-2aa7-4ae4-b153-95d8f1d57aeb";
         keyFile = "/keyfile0.bin";
-        preLVM = true;
       };
       secrets = {
         "keyfile0.bin" = "/etc/secrets/initrd/keyfile0.bin";
       };
     };
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
+      efi.canTouchEfiVariables = true;
       systemd-boot = {
         enable = true;
         configurationLimit = 10;

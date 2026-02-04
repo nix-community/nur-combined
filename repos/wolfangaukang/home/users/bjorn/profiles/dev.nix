@@ -23,6 +23,19 @@ in
     gnumake
   ];
   programs = {
+    dprint = {
+      enable = true;
+      settings = {
+        markdown = {
+          lineWidth = 120;
+          textWrap = "always";
+        };
+        excludes = [
+          "**/*-lock.json"
+        ];
+        plugins = [ "https://plugins.dprint.dev/markdown-0.20.0.wasm" ];
+      };
+    };
     git = {
       # FIXME: Make me private
       enable = true;
