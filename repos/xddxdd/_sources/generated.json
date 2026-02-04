@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.7.46",
-            "sha256": "sha256-21OUW4GhOB6peFmX4meWwTeUFC+7pS3us3sLyktz1Kc=",
+            "rev": "v6.7.47",
+            "sha256": "sha256-mD0ZckACFF71m24sX5kRxXrfnH61Jo/7Tjai8/kc42Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.7.46"
+        "version": "v6.7.47"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1486,7 +1486,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-01-28",
+        "date": "2026-02-04",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1498,12 +1498,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "42b6d3bc4b988451cec1c3a1c2f7468667be62a2",
-            "sha256": "sha256-P91BaGvA0mssvthFPpINuimNrCY7Mbc/j4ZOVxUgajQ=",
+            "rev": "a397d0b27eaf897de7b476d7946b7d2cc3b3e1a5",
+            "sha256": "sha256-g3LydulIrwZjFhED/owgwFaJSYguV0W/1/TIpRoo9ac=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "42b6d3bc4b988451cec1c3a1c2f7468667be62a2"
+        "version": "a397d0b27eaf897de7b476d7946b7d2cc3b3e1a5"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -1514,11 +1514,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jjaZf4tA6NVGSXgSVKRTl52op6CYYkeoFKuZ59ybj2c=",
+            "sha256": "sha256-Me92rXXlqBwkAvO9MfKXgpBoSfgBLAvQsC0KpFDDGOY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.01/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.02.01"
+        "version": "2026.02.04"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1529,11 +1529,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+JLKf37YoPH/2tJii30gwoHbuUdNEvNulf3UMHRH6Io=",
+            "sha256": "sha256-bZkAknXtIp8N4UDiV59MWAEzzRVoSTeF3n9N9zWJ1/I=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.01/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-City.mmdb"
         },
-        "version": "2026.02.01"
+        "version": "2026.02.04"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1544,11 +1544,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Q2E17pilIdpxWm1IOVHz271iVXY38tUNGYf8BIh0vV0=",
+            "sha256": "sha256-YuJjrwou4Q165ri/JRUZP/SWGX7Jn/JSeeWYfpvWfzk=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.01/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-Country.mmdb"
         },
-        "version": "2026.02.01"
+        "version": "2026.02.04"
     },
     "glauth": {
         "cargoLock": null,
@@ -1794,7 +1794,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLock": null,
-        "date": "2026-01-28",
+        "date": "2026-02-04",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -1806,12 +1806,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "7189414e2153186673806628c6ff433170a90d82",
-            "sha256": "sha256-mkA6kUx9yakScjsFvSX5xXCah7r1u43dk4QrckADnmk=",
+            "rev": "0a17695f8eee5559195c45f6caf637642be9d8b1",
+            "sha256": "sha256-SJ5WkQgPRczkHFwYh+IkNjDJq7jpyIYSJi9KXUJr7vo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7189414e2153186673806628c6ff433170a90d82"
+        "version": "0a17695f8eee5559195c45f6caf637642be9d8b1"
     },
     "igsc": {
         "cargoLock": null,
@@ -2148,7 +2148,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-02-02",
+        "date": "2026-02-04",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2160,12 +2160,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "cb2d43ecf18e6916d4d14b740f1ef361156480d6",
-            "sha256": "sha256-ARQ2nwqS6Syr9T3xKSS2lm4/YF8J1ZwSExHBLRdXLu4=",
+            "rev": "8078e892b0e9632fd7749ea1ea45f37aaf308bfd",
+            "sha256": "sha256-X8RIij9h596bNZZ3D+Pv0bogiR6Cu+KENTdpzsCjH+k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cb2d43ecf18e6916d4d14b740f1ef361156480d6"
+        "version": "8078e892b0e9632fd7749ea1ea45f37aaf308bfd"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7923",
-            "sha256": "sha256-XIpJnBYhbqcl2jfIz/sPZeX/Zf3cyRTbGosg1UbuLa4=",
+            "rev": "b7938",
+            "sha256": "sha256-6Lf8RJbK4ar568ZenCRA/rOUtw3U89LaSodcfytIpoE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7923"
+        "version": "b7938"
     },
     "loralib": {
         "cargoLock": null,
@@ -3719,7 +3719,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-01-31",
+        "date": "2026-02-04",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3731,12 +3731,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "17c1f2559c0592b1fce84bbf73b148652037912e",
-            "sha256": "sha256-UnE2Mj0dDCkjLsrVoh3q3/eSuGHBGwhJYjmW9m9tvwA=",
+            "rev": "42b6aa4f1cc5f7d03e72f2b3867c21a442ae21c4",
+            "sha256": "sha256-ELEC9+z1E1vBH84wV1+0urx6fhbAz2fckThCCRVy95g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "17c1f2559c0592b1fce84bbf73b148652037912e"
+        "version": "42b6aa4f1cc5f7d03e72f2b3867c21a442ae21c4"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -3953,7 +3953,7 @@
     },
     "sidestore-vpn": {
         "cargoLock": null,
-        "date": "2026-02-01",
+        "date": "2026-02-04",
         "extract": null,
         "name": "sidestore-vpn",
         "passthru": null,
@@ -3965,12 +3965,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "sidestore-vpn",
-            "rev": "d2fcda649d55fc68953fd5b5b3b6506a5b724be9",
-            "sha256": "sha256-c2QP/ouZKEsrUdu4I7GmMwp9hWGcopXN26hF7YxIFTY=",
+            "rev": "a81d2b33cd7d42a406e03c86fe46519219cd3a3c",
+            "sha256": "sha256-U73l3BUJjwncOZewUeD1vQKsI0iw0z80XACbniJYwrI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d2fcda649d55fc68953fd5b5b3b6506a5b724be9"
+        "version": "a81d2b33cd7d42a406e03c86fe46519219cd3a3c"
     },
     "silero-vad": {
         "cargoLock": null,
