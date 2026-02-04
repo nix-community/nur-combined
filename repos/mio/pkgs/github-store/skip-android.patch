@@ -1,0 +1,99 @@
+--- a/composeApp/build.gradle.kts
++++ b/composeApp/build.gradle.kts
+@@ -4,7 +4,6 @@
+ 
+ plugins {
+     alias(libs.plugins.kotlinMultiplatform)
+-    alias(libs.plugins.androidApplication)
+     alias(libs.plugins.composeMultiplatform)
+     alias(libs.plugins.composeCompiler)
+     alias(libs.plugins.composeHotReload)
+@@ -50,31 +49,13 @@
+ }
+ 
+ kotlin {
+-    androidTarget {
++    jvm {
+         compilerOptions {
+             jvmTarget.set(JvmTarget.JVM_21)
+         }
+     }
+ 
+-    jvm()
+-
+     sourceSets {
+-        androidMain.dependencies {
+-            implementation(compose.preview)
+-            implementation(libs.androidx.activity.compose)
+-            // Koin DI
+-            implementation(libs.koin.android)
+-            implementation(libs.koin.androidx.compose)
+-            // Ktor client for Android
+-            implementation(libs.ktor.client.core)
+-            implementation(libs.ktor.client.okhttp)
+-            implementation(libs.ktor.client.content.negotiation)
+-            implementation(libs.ktor.serialization.kotlinx.json)
+-            implementation(libs.kotlinx.serialization.json)
+-            // Secure storage (direct coordinate to avoid catalog accessor mismatch)
+-            implementation(libs.androidx.security.crypto)
+-            implementation(libs.core.splashscreen)
+-        }
+         commonMain.dependencies {
+             implementation(compose.runtime)
+             implementation(compose.foundation)
+@@ -167,55 +148,11 @@
+     dependsOn(generateJvmBuildConfig)
+ }
+ 
+-android {
+-    namespace = "zed.rainxch.githubstore"
+-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+-
+-    dependenciesInfo {
+-        includeInApk = false
+-        includeInBundle = false
+-    }
+-    defaultConfig {
+-        applicationId = "zed.rainxch.githubstore"
+-        minSdk = libs.versions.android.minSdk.get().toInt()
+-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+-        versionCode = appVersionCode
+-        versionName = appVersionName
+-
+-        buildConfigField("String", "GITHUB_CLIENT_ID", "\"${localGithubClientId}\"")
+-        buildConfigField("String", "VERSION_NAME", "\"${appVersionName}\"")
+-    }
+-    packaging {
+-        resources {
+-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+-        }
+-    }
+-    buildTypes {
+-        getByName("release") {
+-            isMinifyEnabled = true
+-            isShrinkResources = true
+-            proguardFiles(
+-                getDefaultProguardFile("proguard-android-optimize.txt"),
+-                "proguard-rules.pro"
+-            )
+-        }
+-    }
+-    compileOptions {
+-        sourceCompatibility = JavaVersion.VERSION_21
+-        targetCompatibility = JavaVersion.VERSION_21
+-    }
+-    buildFeatures {
+-        buildConfig = true
+-    }
+-}
+-
+ tasks.named<Test>("jvmTest") {
+     useJUnitPlatform()
+ }
+ 
+ dependencies {
+-    debugImplementation(compose.uiTooling)
+-
+     ksp(libs.androidx.room.compiler)
+ }
+ 
