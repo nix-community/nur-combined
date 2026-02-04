@@ -252,29 +252,19 @@ apps = pkgs.lib.mkApps {
 nix run #lint
 ```
 
-### go.toPlatform & go.toImage
+### go.compile
 
-Changes the goos & goarch values of a buildGoModule derivation, and turns a buildGoModule derivation into a docker image
+Cross-compile a package built by `buildGoModule`
 
 ```nix
-packages = forSystem (
-  {
-    pkgs,
-    system,
-    ...
-  }:
-    with pkgs.lib; rec {
-      linux-amd64 = go.toPlatform default "linux" "amd64";
-      linux-arm64 = go.toPlatform default "linux" "arm64";
-      linux-arm = go.toPlatform default "linux" "arm";
-      darwin-arm64 = go.toPlatform default "darwin" "arm64";
-      windows-amd64 = go.toPlatform default "windows" "amd64";
-
-      linux-amd64-image = go.toImage linux-amd64;
-      linux-arm64-image = go.toImage linux-arm64;
-      linux-arm-image = go.toImage linux-arm;
-    }
-);
+packages = forSystem ({ pkgs, ... }: rec {
+  # default = pkgs.buildGoModule { ... };
+  linux-amd64 = pkgs.lib.go.compile {
+    package = default;
+    goos = "linux";
+    goarch = "amd64";
+  };
+});
 ```
 
 ### buf.fetchDeps & buf.configHook

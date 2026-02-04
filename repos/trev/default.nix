@@ -14,6 +14,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 }
-// import ./packages {
-  inherit system pkgs;
-}
+// pkgs.lib.filterAttrs (_: pkg: if builtins.hasAttr "ifd" pkg then !pkg.ifd else true) (
+  import ./packages {
+    inherit system pkgs;
+  }
+)

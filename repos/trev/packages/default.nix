@@ -2,6 +2,11 @@
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
 }:
+let
+  libs = import ../libs {
+    inherit system pkgs;
+  };
+in
 {
   bobgen = pkgs.callPackage ./bobgen { };
   bumper = pkgs.callPackage ./bumper { };
@@ -9,6 +14,8 @@
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   ffmpeg-quality-metrics = pkgs.callPackage ./ffmpeg-quality-metrics { };
   flake-release = pkgs.callPackage ./flake-release { };
+  gleescript = pkgs.callPackage ./gleescript { inherit (libs) gleam; };
+  go-over = pkgs.callPackage ./go-over { inherit (libs) gleam; };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   opengrep = pkgs.callPackage ./opengrep { };
