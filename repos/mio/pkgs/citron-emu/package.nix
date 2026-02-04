@@ -164,20 +164,20 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Add GuiPrivate to the Qt6 components
     substituteInPlace CMakeLists.txt \
-      --replace "find_package(Qt6 REQUIRED COMPONENTS Widgets Multimedia Concurrent)" \
+      --replace-fail "find_package(Qt6 REQUIRED COMPONENTS Widgets Multimedia Concurrent)" \
                 "find_package(Qt6 REQUIRED COMPONENTS Widgets Multimedia Concurrent GuiPrivate)"
 
     # Link Qt6::GuiPrivate into the GUI target so its private headers are on the include path
     substituteInPlace src/citron/CMakeLists.txt \
-      --replace "target_link_libraries(citron PRIVATE Boost::headers" \
+      --replace-fail "target_link_libraries(citron PRIVATE Boost::headers" \
                 "target_link_libraries(citron PRIVATE Boost::headers Qt6::GuiPrivate"
 
     # --- Fix Qt 6 deprecation of QVariant::type() ---
 
     substituteInPlace src/citron/game_list.cpp \
-      --replace "orig_icon_data.isValid() && orig_icon_data.type() == QVariant::Pixmap" \
+      --replace-fail "orig_icon_data.isValid() && orig_icon_data.type() == QVariant::Pixmap" \
                 "orig_icon_data.isValid() && orig_icon_data.metaType().id() == QMetaType::QPixmap" \
-      --replace "icon_data.isValid() && icon_data.type() == QVariant::Pixmap" \
+      --replace-fail "icon_data.isValid() && icon_data.type() == QVariant::Pixmap" \
                 "icon_data.isValid() && icon_data.metaType().id() == QMetaType::QPixmap"
   '';
 
@@ -185,9 +185,13 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm444 $src/dist/72-citron-input.rules $out/lib/udev/rules.d/72-citron-input.rules
   '';
 
+  passthru = {
+    withOptimsation = callPackage ./package.nix (args // { withOptimisation = true; });
+  };
+
   meta = {
     homepage = "https://citron-emu.org";
-    changelog = "https://git.citron-emu.org/";
+    changelog = "https://git.citron-emu.org/Citron/Emulator/releases/tag/0.12.25";
     description = "Nintendo Switch emulator for PC";
     mainProgram = "citron";
     platforms = [ "x86_64-linux" ];
@@ -198,6 +202,5 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       cc0
     ];
-    maintainers = with lib.maintainers; [ samemrecebi ];
   };
 })
