@@ -7,8 +7,10 @@
   rustPlatform,
   lib,
   electron,
+  openssl,
   removeReferencesTo,
   python3,
+  pkg-config,
   splayer,
 }:
 splayer.overrideAttrs (
@@ -25,8 +27,13 @@ splayer.overrideAttrs (
 
     env.VITE_BUILD_TYPE = "dev";
 
+    buildInputs = (prev.buildInputs or [ ]) ++ [ openssl ];
+
     # remove when splayer in nixpkgs has been updated
-    nativeBuildInputs = prev.nativeBuildInputs ++ [ python3 ];
+    nativeBuildInputs = prev.nativeBuildInputs ++ [
+      python3
+      pkg-config
+    ];
     # After the pnpm configure, we need to build the binaries of all instances
     # of better-sqlite3. It has a native part that it wants to build using a
     # script which is disallowed.
