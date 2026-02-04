@@ -12,10 +12,10 @@ in
 mkWindowsAppNoCC rec {
   inherit wine;
   pname = "notepad-plus-plus";
-  version = "8.9";
+  version = "8.9.1";
   src = fetchurl {
     url = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v${version}/npp.${version}.Installer.x64.exe";
-    sha256 = "sha256-jiJyV1b6VnyGFw02ASKLvmI7nFsMSEbFRjGO/SrIpuM=";
+    sha256 = "sha256-BsQupu27wsH/p01cM1XO1RYWiW9BruZjcr+1XrVK5o8=";
   };
 
   dontUnpack = true;
