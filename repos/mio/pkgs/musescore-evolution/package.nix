@@ -148,6 +148,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "Exec=mscore" "Exec=mscore-evo" \
       --replace "Name=MuseScore 3.7" "Name=MuseScore 3.7 (Evolution)" \
       --replace "Icon=mscore" "Icon=mscore-evo"
+    rm "$desktop"
 
     # 3) Rename app icons (apps/)
     for sizeDir in "$out"/share/icons/hicolor/*/apps/; do
