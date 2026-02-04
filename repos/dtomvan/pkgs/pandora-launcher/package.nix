@@ -1,4 +1,5 @@
 {
+  addDriverRunpath,
   lib,
   stdenv,
   rustPlatform,
@@ -7,11 +8,27 @@
 
   alsa-lib,
   dbus,
+  glfw3-minecraft,
+  libGL,
+  libX11,
+  libXcursor,
+  libXext,
+  libXrandr,
+  libXxf86vm,
+  libjack2,
+  libpulseaudio,
   libxcb,
   libxkbcommon,
+  openal,
   openssl,
+  pipewire,
+  udev,
   vulkan-loader,
   wayland,
+
+  mesa-demos,
+  pciutils,
+  xrandr,
 
   copyDesktopItems,
   makeDesktopItem,
@@ -28,6 +45,41 @@
     jdk8
   ],
 }:
+let
+  # copied from prismlauncher
+  runtimeLibs = [
+    (lib.getLib stdenv.cc.cc)
+    openal
+    libGL
+    vulkan-loader # VulkanMod's lwjgl
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    wayland
+    ## native versions
+    glfw3-minecraft
+
+    ## openal
+    alsa-lib
+    libjack2
+    libpulseaudio
+    pipewire
+
+    ## glfw
+    libX11
+    libXcursor
+    libXext
+    libXrandr
+    libXxf86vm
+
+    udev # oshi
+  ];
+
+  runtimePrograms = [
+    mesa-demos
+    pciutils # need lspci
+    xrandr # needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
+  ];
+in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pandora-launcher";
@@ -83,9 +135,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     install -Dm444 package/windows_icons/icon_256x256.png $out/share/icons/hicolor/256x256/apps/pandora_launcher.png
     wrapProgram $out/bin/pandora_launcher \
       --set-default FORCE_EXTERNAL_JAVA "${lib.concatStringsSep ":" jdks}" \
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath ([ vulkan-loader ] ++ lib.optionals stdenv.hostPlatform.isLinux [ wayland ])
-      }"
+      --prefix LD_LIBRARY_PATH : "${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}" \
+      --prefix PATH : "${lib.makeBinPath runtimePrograms}"
   '';
 
   meta = {
