@@ -51,6 +51,8 @@ local moves = {
     { "[M", goto_previous_end("@function.outer"), desc = "Previous method end" },
     { "[]", goto_previous_end("@class.outer"), desc = "Previous class end" },
 }
+wk.add(objects)
+wk.add(moves)
 
 require("nvim-treesitter-textobjects").setup({
     select = {
