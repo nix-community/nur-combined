@@ -25,8 +25,8 @@ python3Packages.buildPythonApplication {
   src = fetchFromGitHub {
     owner = "iluvgirlswithglasses";
     repo = "linux-desktop-gremlin";
-    rev = "635d391815c0053dc8424c7ac2977c5cd6d30fbb";
-    hash = "sha256-nh2UPur6BXs5xncyPUtCdRbbhYU2LN9pYhEtQ4W4caE=";
+    rev = "695abe554a2f2c18d1fa9df30c1ae7d56831e7fb";
+    hash = "sha256-CI3o6O4I2u6GZYLpYiA1L36aVmso4vBIA0xf+CCO9YI=";
   };
 
   pyproject = true;
@@ -87,8 +87,8 @@ python3Packages.buildPythonApplication {
     mkdir -p $out/share/linux-desktop-gremlin/src
 
     cp -r $src/src/* $out/share/linux-desktop-gremlin/src/
-    cp -r $src/spritesheet $out/share/linux-desktop-gremlin/spritesheet
-    cp -r $src/sounds $out/share/linux-desktop-gremlin/sounds
+    cp -r $src/gremlins $out/share/linux-desktop-gremlin/gremlins
+    cp -r $src/images $out/share/linux-desktop-gremlin/images
 
     install -Dm644 $src/config.json \
       $out/share/linux-desktop-gremlin/config.json
