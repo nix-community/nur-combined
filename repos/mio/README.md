@@ -70,7 +70,6 @@ a binary cache may or may not be available on Garnix. See <https://garnix.io/doc
 files are copied from following locations. some are modified in this repo and some are not.
 
 + lmms - <https://github.com/NixOS/nixpkgs/pull/377643>
-+ musescore3 - <https://aur.archlinux.org/cgit/aur.git/tree/dtl-gcc14-fix.patch?h=musescore3-git> <https://github.com/NixOS/nixpkgs/blob/31968e86eddf260716458ee9ede65691f6e1987f/pkgs/applications/audio/musescore/default.nix>
 + minetest591 - from nixos-24.11 commit 50ab793786d9de88ee30ec4e4c24fb4236fc2674 <https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/games/minetest/default.nix>
 + minetest580 & irrlichtmt - parent of <https://github.com/NixOS/nixpkgs/commit/d61c03fe460f6349e5173e007fb2b678c33bed36> commit 33c8b1a7202d4c22d74f4db73666e9a868069d2c
 + wireguird <https://discourse.nixos.org/t/go-version-error-requires-go1-17-or-later/69176/4>
@@ -86,7 +85,7 @@ files are copied from following locations. some are modified in this repo and so
 + systemd257 <https://github.com/NixOS/nixpkgs/commit/70ca21d3c4982d7f95e48688d02cd9ef6b1347f5>  70ca21d3c4982d7f95e48688d02cd9ef6b1347f5^ <https://github.com/NixOS/nixpkgs/commit/38b523e9e8e607bcd8f638d8a53608bb1658a0e4>
 + davinci-resolve nixpkgs commit 49a636772fd8ea6f25b9c9ff9c5a04434e90b96f^
 + <https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp> commit 464f070d952afff764d82041d371cfee3e689d2a mkwindowsapp mkwindowsapp-tools line.nix hooks lib pkgs/wineshell
-+ unmodified - prismlauncher-unwrapped prismlauncher materialgram telegram-desktop swt - should sync with nixpkgs
++ unmodified - prismlauncher-unwrapped prismlauncher materialgram telegram-desktop - should sync with nixpkgs
 + android-translation-layer nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
 + bionic-translation nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
 + art-standalone nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044

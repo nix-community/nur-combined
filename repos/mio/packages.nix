@@ -64,11 +64,6 @@ rec {
     withTouchSupport = true;
   };
   minetest580server = minetest580.override { buildClient = false; };
-  musescore3 =
-    if pkgs.stdenv.isDarwin then
-      pkgs.callPackage ./pkgs/musescore3/darwin.nix { }
-    else
-      v3overrideAttrs (pkgs.libsForQt5.callPackage ./pkgs/musescore3 { });
   /*
     # https://github.com/musescore/MuseScore/pull/21874
     # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
@@ -103,12 +98,7 @@ rec {
       patches = [ ];
     })
   );
-  tuxguitar = v3overrideAttrs (
-    pkgs.callPackage ./pkgs/tuxguitar/package.nix {
-      swt = (pkgs.callPackage ./pkgs/swt/package.nix { });
-    }
-  );
-  mioplays = tuxguitar.overrideAttrs (old: {
+  mioplays = pkgs.tuxguitar.overrideAttrs (old: {
     src = pkgs.fetchFromGitHub {
       owner = "mio-19";
       repo = "tuxguitar";
@@ -205,8 +195,6 @@ rec {
     applicationName = "betterbird";
     libName = "betterbird";
   };
-
-  plezy = nodarwin (pkgs.callPackage ./pkgs/by-name/pl/plezy/package.nix { });
 
   downkyicore = pkgs.callPackage ./pkgs/downkyicore/package.nix { };
   bifrost = pkgs.callPackage ./pkgs/bifrost/package.nix { };

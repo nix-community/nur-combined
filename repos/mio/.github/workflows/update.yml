@@ -36,14 +36,6 @@ jobs:
         cd pkgs/lmms
         ./update.sh
 
-    - name: Update musescore3
-      continue-on-error: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        cd pkgs/musescore3
-        ./update.sh
-
     - name: Update firefox nightly
       continue-on-error: true
       run: nix run .#firefox_nightly-unwrapped.passthru.updateScript
@@ -71,10 +63,6 @@ jobs:
     - name: Update proton-ge-custom
       continue-on-error: true
       run: nix run .#proton-ge-custom.passthru.updateScript
-
-    - name: Update plezy
-      continue-on-error: true
-      run: nix run .#plezy.passthru.updateScript
 
     - name: Update downkyicore
       continue-on-error: true
