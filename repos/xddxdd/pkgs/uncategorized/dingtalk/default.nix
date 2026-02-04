@@ -56,6 +56,7 @@
   pango,
   pcre2,
   pipewire,
+  prelink,
   qt5,
   rtmpdump,
   udev,
@@ -154,6 +155,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
+    prelink
     qt5.wrapQtAppsHook
     copyDesktopItems
     dpkg
@@ -215,13 +217,18 @@ stdenv.mkDerivation (finalAttrs: {
       --unset WAYLAND_DISPLAY \
       --set QT_QPA_PLATFORM "xcb" \
       --set QT_AUTO_SCREEN_SCALE_FACTOR 1 \
-      --prefix LD_PRELOAD : "$out/lib/libcef.so:${dingtalk-wayland-screenshare}/lib/libdingtalkhook.so" \
+      --prefix LD_PRELOAD : "${dingtalk-wayland-screenshare}/lib/libdingtalkhook.so" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
     # App Menu
     install -Dm644 $out/lib/Resources/image/common/about/logo.png $out/share/pixmaps/dingtalk.png
 
     runHook postInstall
+  '';
+
+  postFixup = ''
+    execstack -c $out/lib/dingtalk_dll.so
+    execstack -c $out/lib/libconference_new.so
   '';
 
   desktopItems = [
