@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-02-03",
+        "date": "2026-02-04",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "4a95f5d9df6a3f0be810e48c2c2e14958c0a6ef9",
-            "sha256": "sha256-zc5pv90r5yUupKB/ABPbxlqbE4cGN4WzeUniCGkBZTM=",
+            "rev": "cc1d484049000d5adf37cf3f0234fbbeb243fb5e",
+            "sha256": "sha256-K2hK+E1DkHTv2J1R+KLFJfKvjfkw7Kob8d6Hn8l3M6w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4a95f5d9df6a3f0be810e48c2c2e14958c0a6ef9"
+        "version": "cc1d484049000d5adf37cf3f0234fbbeb243fb5e"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -215,11 +215,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XfDH1VokGIQwQeuszfA1AXUe5CR94eLnUpkESqiwbsw=",
+            "sha256": "sha256-Ee9jKOO5mNvCTRTLMxkmy3V1xElp66pRjU+Fp4mVrqc=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.8.3925.56.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.8.3925.62.universal.dmg"
         },
-        "version": "7.8.3925.56"
+        "version": "7.8.3925.62"
     },
     "zen-browser": {
         "cargoLock": null,
@@ -230,10 +230,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-akiBvt4HTSf5TIIIIEfWJ3E9MSCNypHkKoU5Hh6HSIc=",
+            "sha256": "sha256-OtMlmRfyBFLkWfnHi6R0VRxGk5bfF5VA3xoYPBmLFME=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.18.3b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.18.4b/zen.macos-universal.dmg"
         },
-        "version": "1.18.3b"
+        "version": "1.18.4b"
     }
 }
