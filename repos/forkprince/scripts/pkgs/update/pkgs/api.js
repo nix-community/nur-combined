@@ -60,7 +60,9 @@ async function platforms(file, { config, force }) {
 
       const api = await (await fetch(link)).json();
 
-      link = eval(`(${JSON.stringify(api)})${config.source.url_path}`);
+      const url = apply(config.source.url_path, settings.substitutions);
+
+      link = eval(`(${JSON.stringify(api)})${url}`);
 
       final = link;
     }
