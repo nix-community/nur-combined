@@ -363,6 +363,8 @@ rec {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
 
+  zotero = pkgs.callPackage ./pkgs/zotero/package.nix { };
+
 }
 // (lib.optionalAttrs (!nurbot) rec {
 

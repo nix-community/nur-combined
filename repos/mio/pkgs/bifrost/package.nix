@@ -45,44 +45,44 @@ let
     };
 
     postPatch = ''
-      echo "kotlin.native.ignoreDisabledTargets=true" >> local.properties
-      substituteInPlace desktop/build.gradle.kts \
-        --replace-fail "this.vendor.set(JvmVendorSpec.MICROSOFT)" ""
-      substituteInPlace gradle/libs.versions.toml \
-        --replace-fail 'windowStyler = "0.3.3-20250226.143418-11"' \
-                       'windowStyler = "0.3.2"'
-      substituteInPlace common/build.gradle.kts \
-        --replace-fail '    alias(libs.plugins.android.library)' \
-                       '    alias(libs.plugins.android.library) apply false' \
-        --replace-fail '    alias(libs.plugins.moko.resources)
-}
+            echo "kotlin.native.ignoreDisabledTargets=true" >> local.properties
+            substituteInPlace desktop/build.gradle.kts \
+              --replace-fail "this.vendor.set(JvmVendorSpec.MICROSOFT)" ""
+            substituteInPlace gradle/libs.versions.toml \
+              --replace-fail 'windowStyler = "0.3.3-20250226.143418-11"' \
+                             'windowStyler = "0.3.2"'
+            substituteInPlace common/build.gradle.kts \
+              --replace-fail '    alias(libs.plugins.android.library)' \
+                             '    alias(libs.plugins.android.library) apply false' \
+              --replace-fail '    alias(libs.plugins.moko.resources)
+      }
 
-' \
-                       '    alias(libs.plugins.moko.resources)
-}
+      ' \
+                             '    alias(libs.plugins.moko.resources)
+      }
 
-val skipAndroid = project.hasProperty("skipAndroid")
-if (!skipAndroid) {
-    apply(plugin = "com.android.library")
-}
+      val skipAndroid = project.hasProperty("skipAndroid")
+      if (!skipAndroid) {
+          apply(plugin = "com.android.library")
+      }
 
-' \
-        --replace-fail $'    androidTarget {\n' \
-                       $'    if (!skipAndroid) {\n        androidTarget {\n' \
-        --replace-fail $'    }\n\n    jvm {\n' \
-                       $'    }\n    }\n\n    jvm {\n' \
-        --replace-fail $'        val androidMain by getting {\n            dependsOn(androidAndJvmMain)\n\n            dependencies {\n                api(libs.androidx.activity.compose)\n                api(libs.androidx.core.ktx)\n                api(libs.androidx.documentfile)\n                api(libs.androidx.preference.ktx)\n                api(libs.bugsnag.android)\n                api(libs.google.material)\n                api(libs.kotlinx.coroutines.android)\n                api(libs.github.api)\n            }\n        }\n' \
-                       $'        if (!skipAndroid) {\n            val androidMain by getting {\n                dependsOn(androidAndJvmMain)\n\n                dependencies {\n                    api(libs.androidx.activity.compose)\n                    api(libs.androidx.core.ktx)\n                    api(libs.androidx.documentfile)\n                    api(libs.androidx.preference.ktx)\n                    api(libs.bugsnag.android)\n                    api(libs.google.material)\n                    api(libs.kotlinx.coroutines.android)\n                    api(libs.github.api)\n                }\n            }\n        }\n' \
-        --replace-fail $'android {\n' \
-                       $'plugins.withId(\"com.android.library\") {\n    extensions.configure<com.android.build.gradle.LibraryExtension>(\"android\") {\n' \
-        --replace-fail $'}\n\nbuildkonfig {\n' \
-                       $'}\n}\n\nbuildkonfig {\n' \
-        --replace-fail $'dependencies {\n    coreLibraryDesugaring(libs.desugar.jdk.libs)\n}\n' \
-                       $'plugins.withId(\"com.android.library\") {\n    dependencies {\n        add(\"coreLibraryDesugaring\", libs.desugar.jdk.libs)\n    }\n}\n'
-      substituteInPlace settings.gradle.kts \
-        --replace-fail '        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")' "" \
-        --replace-fail 'include(":android")' \
-                       $'if (!providers.gradleProperty("skipAndroid").isPresent) {\n    include(\":android\")\n}'
+      ' \
+              --replace-fail $'    androidTarget {\n' \
+                             $'    if (!skipAndroid) {\n        androidTarget {\n' \
+              --replace-fail $'    }\n\n    jvm {\n' \
+                             $'    }\n    }\n\n    jvm {\n' \
+              --replace-fail $'        val androidMain by getting {\n            dependsOn(androidAndJvmMain)\n\n            dependencies {\n                api(libs.androidx.activity.compose)\n                api(libs.androidx.core.ktx)\n                api(libs.androidx.documentfile)\n                api(libs.androidx.preference.ktx)\n                api(libs.bugsnag.android)\n                api(libs.google.material)\n                api(libs.kotlinx.coroutines.android)\n                api(libs.github.api)\n            }\n        }\n' \
+                             $'        if (!skipAndroid) {\n            val androidMain by getting {\n                dependsOn(androidAndJvmMain)\n\n                dependencies {\n                    api(libs.androidx.activity.compose)\n                    api(libs.androidx.core.ktx)\n                    api(libs.androidx.documentfile)\n                    api(libs.androidx.preference.ktx)\n                    api(libs.bugsnag.android)\n                    api(libs.google.material)\n                    api(libs.kotlinx.coroutines.android)\n                    api(libs.github.api)\n                }\n            }\n        }\n' \
+              --replace-fail $'android {\n' \
+                             $'plugins.withId(\"com.android.library\") {\n    extensions.configure<com.android.build.gradle.LibraryExtension>(\"android\") {\n' \
+              --replace-fail $'}\n\nbuildkonfig {\n' \
+                             $'}\n}\n\nbuildkonfig {\n' \
+              --replace-fail $'dependencies {\n    coreLibraryDesugaring(libs.desugar.jdk.libs)\n}\n' \
+                             $'plugins.withId(\"com.android.library\") {\n    dependencies {\n        add(\"coreLibraryDesugaring\", libs.desugar.jdk.libs)\n    }\n}\n'
+            substituteInPlace settings.gradle.kts \
+              --replace-fail '        maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")' "" \
+              --replace-fail 'include(":android")' \
+                             $'if (!providers.gradleProperty("skipAndroid").isPresent) {\n    include(\":android\")\n}'
     ''
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace settings.gradle.kts \
