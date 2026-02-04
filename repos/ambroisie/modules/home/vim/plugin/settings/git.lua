@@ -33,10 +33,6 @@ gitsigns.setup({
 })
 
 local keys = {
-    -- Navigation
-    { "[c", utils.partial(nav_hunk, "prev"), desc = "Previous hunk/diff" },
-    { "]c", utils.partial(nav_hunk, "next"), desc = "Next hunk/diff" },
-    -- Commands
     { "<leader>g", group = "Git" },
     { "<leader>gb", gitsigns.toggle_current_line_blame, desc = "Toggle blame virtual text" },
     { "<leader>gd", gitsigns.diffthis, desc = "Diff buffer" },
@@ -55,6 +51,12 @@ local keys = {
     { "<leader>g]", utils.partial(gitsigns.nav_hunk, "next"), desc = "Next hunk" },
 }
 
+local moves = {
+    mode = { "n", "x", "o" },
+    { "[c", utils.partial(nav_hunk, "prev"), desc = "Previous hunk/diff" },
+    { "]c", utils.partial(nav_hunk, "next"), desc = "Next hunk/diff" },
+}
+
 local objects = {
     mode = "o",
     { "ih", gitsigns.select_hunk, desc = "git hunk" },
@@ -71,5 +73,6 @@ local visual = {
 }
 
 wk.add(keys)
+wk.add(moves)
 wk.add(objects)
 wk.add(visual)
