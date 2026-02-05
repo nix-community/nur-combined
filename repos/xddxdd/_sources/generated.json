@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.7.47",
-            "sha256": "sha256-mD0ZckACFF71m24sX5kRxXrfnH61Jo/7Tjai8/kc42Y=",
+            "rev": "v6.7.51",
+            "sha256": "sha256-G1bkGzZY9Wdy64E4LU5Q2X8DTEcrI2wEmTi7gU8EKTo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.7.47"
+        "version": "v6.7.51"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7938",
-            "sha256": "sha256-6Lf8RJbK4ar568ZenCRA/rOUtw3U89LaSodcfytIpoE=",
+            "rev": "b7951",
+            "sha256": "sha256-OtTh5MAcg5HAwC6JIcs9ViXCzi5F6DjqIJo/hFX0/0A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7938"
+        "version": "b7951"
     },
     "loralib": {
         "cargoLock": null,
@@ -4421,7 +4421,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-01-29",
+        "date": "2026-02-05",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4433,12 +4433,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "d3e938a1b660d733d9ec3caad49bc6cf9582a16d",
-            "sha256": "sha256-oY3WHpoVyZVVkgxuilv81R4++NJ6GQk8ZUsXaivthKs=",
+            "rev": "14c8e18aed4677d1d2d4034062f64610d53443a9",
+            "sha256": "sha256-DYNPDFjvJyDJ+3ZPeWnH1Izv19Ggk7EtKYEbaIxRY4I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d3e938a1b660d733d9ec3caad49bc6cf9582a16d"
+        "version": "14c8e18aed4677d1d2d4034062f64610d53443a9"
     },
     "unigine-heaven": {
         "cargoLock": null,
