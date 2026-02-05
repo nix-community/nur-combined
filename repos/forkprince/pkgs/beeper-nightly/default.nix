@@ -54,7 +54,7 @@ in
 
       postFixup = ''
         # disable auto update
-        sed -i 's/[^=]*\.auto_update_disabled/true/' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
+        sed -i 's/auto_update_disabled:[^,}]*/auto_update_disabled:true/g' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
 
         # prevent updates
         sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
