@@ -23,7 +23,7 @@ jobs:
 
       - uses: wimpysworld/nothing-but-nix@v9
         with:
-          hatchet-protocol: "rampage"
+          hatchet-protocol: "cleave"
 
       - name: Install Nix
         uses: samueldr/lix-gha-installer-action@v2025-10-27
@@ -40,7 +40,7 @@ jobs:
 
       - name: Build
         run: |
-          nix run lixPackageSets.latest.nix-fast-build \
+          nix run nixpkgs#lixPackageSets.latest.nix-fast-build \
             -- --skip-cached --no-nom --no-link
-          nix run lixPackageSets.latest.nix-fast-build \
+          nix run nixpkgs#lixPackageSets.latest.nix-fast-build \
             -- --skip-cached --no-nom --no-link --flake ".#packages"
