@@ -1,0 +1,6 @@
+[package]
+name = "shpool-mux"
+version = "0.1.0"
+edition = "2024"
+[dependencies]
+rustix = { version = "^1.0.0", features = ["fs", "std"] }

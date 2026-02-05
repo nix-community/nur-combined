@@ -137,6 +137,8 @@
           IPv6AcceptRA = true;
           MulticastDNS = true;
         };
+        dhcpV4Config.RouteMetric = 2045;
+        dhcpV6Config.RouteMetric = 2045;
         ipv6AcceptRAConfig = {
           DHCPv6Client = false;
         };

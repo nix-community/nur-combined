@@ -67,6 +67,7 @@
         ];
       })
       pkgs.wechat
+      pkgs.signal-desktop
       pkgs.porsmo
       pkgs.libnotify # foot
       pkgs.bitwarden-cli
