@@ -23,12 +23,12 @@ jobs:
 
       - uses: wimpysworld/nothing-but-nix@v9
         with:
-          hatchet-protocol: "cleave"
+          hatchet-protocol: "rampage"
 
       - name: Install Nix
-        uses: samueldr/lix-gha-installer-action@v2025-10-27
+        uses: DeterminateSystems/nix-installer-action@main
         with:
-          extra_nix_config: |
+          extra-conf: |
             accept-flake-config = true
             build-dir = /nix/build
 
@@ -40,7 +40,5 @@ jobs:
 
       - name: Build
         run: |
-          nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- \
-            --skip-cached --no-nom --no-link
-          nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- \
-            --skip-cached --no-nom --no-link --flake ".#packages"
+          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link
+          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link --flake ".#packages"
