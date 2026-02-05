@@ -27,7 +27,6 @@ jobs:
         with:
           lix_conf: |
             accept-flake-config = true
-            build-dir = /nix/build
 
       - name: Update sources
         run: |
