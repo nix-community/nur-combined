@@ -201,16 +201,16 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "437c25ec20bd99b1444c505af85c8c00eb6cb900";
+    version = "9a16c165e0b17c42ee0bc8cc51235354e3efbff6";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "437c25ec20bd99b1444c505af85c8c00eb6cb900";
+      rev = "9a16c165e0b17c42ee0bc8cc51235354e3efbff6";
       fetchSubmodules = false;
-      sha256 = "sha256-Ngr4BLQw8lQ8A8PLMxk1WebpWviSBwrn8W7c9f0ahXw=";
+      sha256 = "sha256-sxtQKkMt9lUQ1LSTwKKwaD72EnLRH9/sUrCQ/4Z0hVc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Ngr4BLQw8lQ8A8PLMxk1WebpWviSBwrn8W7c9f0ahXw=/Cargo.lock";
+      lockFile = ./. + "/sha256-sxtQKkMt9lUQ1LSTwKKwaD72EnLRH9_sUrCQ_4Z0hVc=/Cargo.lock";
       outputHashes = {
 
       };
