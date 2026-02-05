@@ -331,7 +331,7 @@
   "splayer-git": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-q__rqRxgXx3drYSNH8DnCKlGnyi0jpnZMnBXDPeAuGc=/Cargo.lock",
+        "sha256-Ngr4BLQw8lQ8A8PLMxk1WebpWviSBwrn8W7c9f0ahXw=/Cargo.lock",
         {}
       ]
     },
@@ -347,12 +347,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "c3d3b2ec584cfcaa6b640fa421583c5237eed5fc",
-      "sha256": "sha256-q//rqRxgXx3drYSNH8DnCKlGnyi0jpnZMnBXDPeAuGc=",
+      "rev": "437c25ec20bd99b1444c505af85c8c00eb6cb900",
+      "sha256": "sha256-Ngr4BLQw8lQ8A8PLMxk1WebpWviSBwrn8W7c9f0ahXw=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "c3d3b2ec584cfcaa6b640fa421583c5237eed5fc"
+    "version": "437c25ec20bd99b1444c505af85c8c00eb6cb900"
   },
   "svt-av1-hdr": {
     "cargoLock": null,
