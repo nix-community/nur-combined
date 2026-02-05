@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   pname = "new-api";
   inherit (source) src version;
 
-  vendorHash = "sha256-SURF7rYR9D1MAEH8FhGP4RZUeBVLAZibIwfSMlDWR2U=";
+  vendorHash = "sha256-siaAfcUxWpv/etQAPDLky4k3/MzMoN2pZhUgBsA9mcY=";
 
   postPatch = ''
     cp -r ${new-api-frontend} web/dist

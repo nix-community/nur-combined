@@ -9,7 +9,7 @@ upstream.bark-server.overrideAttrs (
     src = prevAttrs.src.override {
       inherit (sources.bark-server.src) rev;
       tag = null;
-      hash = "sha256-T11vZOpX2Yf18LJ53LxLBv1tZj3VpJTsBNXngNNWYhc=";
+      hash = "sha256-noaXbQKikgIYG9z5nJrm8N6dMKrKu/drrMYTl5+X4QU=";
     };
 
     patches = prevAttrs.patches or [ ] ++ [

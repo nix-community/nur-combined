@@ -43,7 +43,7 @@
     },
     "bark-server": {
         "cargoLock": null,
-        "date": "2025-12-30",
+        "date": "2026-02-04",
         "extract": null,
         "name": "bark-server",
         "passthru": null,
@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Finb",
             "repo": "bark-server",
-            "rev": "1e2ecf2137e1e31edcc75b1c8438e816473c41f6",
-            "sha256": "sha256-6B+maZVHlh95+b2yR98cdc9CL4UnOQ0bKSgnPccqP9w=",
+            "rev": "9e50f46b7cfd231b699bd76fe32b759048871aa0",
+            "sha256": "sha256-u2BN4HJDQdhpJJATH0fD4c4WhSCMngEq4iw1IoUcAd4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1e2ecf2137e1e31edcc75b1c8438e816473c41f6"
+        "version": "9e50f46b7cfd231b699bd76fe32b759048871aa0"
     },
     "bark-server-stable": {
         "cargoLock": null,
@@ -399,12 +399,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v0.10.8-alpha.4",
-            "sha256": "sha256-7pHqFgUd5d5rn4m061aZpFH2X3WQ3MoEmMZPywe+Xfw=",
+            "rev": "v0.10.8-alpha.7",
+            "sha256": "sha256-67+75ZxwcnvMLRXMV7syAE1do/3Hp4T+NKvRaNZ00NY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.8-alpha.4"
+        "version": "v0.10.8-alpha.7"
     },
     "opencode": {
         "cargoLock": null,
@@ -420,12 +420,12 @@
             "name": null,
             "owner": "anomalyco",
             "repo": "opencode",
-            "rev": "v1.1.50",
-            "sha256": "sha256-6nNkv1ieUnZ6GQouTEO/cCFm1HEcOSKBfOq/hQkKKJY=",
+            "rev": "v1.1.51",
+            "sha256": "sha256-i9KR5n6bT0p7xLErlgaq2TAj/B7ZbLd9a+4Czg8q/cI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.50"
+        "version": "v1.1.51"
     },
     "pixy2": {
         "cargoLock": null,
@@ -459,9 +459,9 @@
             "name": null,
             "sha256": "sha256-hNm02ObgG4FeL5p9y5UNMK63OtwMc4MYj0jDS3QK0a4=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602032224/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602042220/geoip.dat"
         },
-        "version": "202602032224"
+        "version": "202602042220"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -472,11 +472,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0P/9LmOYcylYu7RRDRM56vdPGoYhxOnbA2lLs+lby0M=",
+            "sha256": "sha256-Q0DnVueD660Q8P2ZyHaf20p9WopMdkCTIgo0DbUMrwk=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602032224/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602042220/geosite.dat"
         },
-        "version": "202602032224"
+        "version": "202602042220"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLock": null,
