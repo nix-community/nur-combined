@@ -18,6 +18,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
     leaveDotGit = true;
   };
 
+  postPatch = ''
+    substituteInPlace create_map_poster.py font_management.py \
+      --replace-warn "FONTS_DIR = \"fonts\"" "FONTS_DIR = \"$out/share/maptoposter/fonts\"" \
+      --replace-warn "THEMES_DIR = \"themes\"" "THEMES_DIR = \"$out/share/maptoposter/themes\""
+  '';
+
   build-system = with python3Packages; [ setuptools ];
 
   pythonRelaxDeps = true;
@@ -53,6 +59,17 @@ python3Packages.buildPythonApplication (finalAttrs: {
     tzdata
     urllib3
   ];
+
+  postInstall = ''
+    site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
+    install -Dm644 font_management.py $site_packages
+    install -Dm644 fonts/* -t $out/share/maptoposter/fonts
+    install -Dm644 themes/* -t $out/share/maptoposter/themes
+
+    makeWrapper ${python3Packages.python.interpreter} $out/bin/create_map_poster \
+      --prefix PYTHONPATH : $PYTHONPATH:$(toPythonPath "$out") \
+      --add-flags "$site_packages/create_map_poster.py"
+  '';
 
   meta = {
     description = "City Map Poster Generator";
