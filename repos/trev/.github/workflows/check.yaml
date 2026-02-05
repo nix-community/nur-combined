@@ -25,7 +25,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e33bbfeb90b9958c0ec55db282c93c0c5605f914 # v1.25.2
+        uses: spotdemo4/nix-init@d46add347bcb1af8755ab1d64493a63b6b18de2b # v1.25.3
         with:
           attic_cache: nur
           attic_token: ${{ secrets.ATTIC_TOKEN }}
@@ -57,7 +57,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e33bbfeb90b9958c0ec55db282c93c0c5605f914 # v1.25.2
+        uses: spotdemo4/nix-init@d46add347bcb1af8755ab1d64493a63b6b18de2b # v1.25.3
         with:
           attic_cache: nur
           attic_token: ${{ secrets.ATTIC_TOKEN }}
