@@ -30,4 +30,7 @@
 
   # 微信
   wechat = pkgs.callPackage ./pkgs/wechat { };
+
+  # 夸克网盘工具
+  quarkpantool = pkgs.callPackage ./pkgs/quarkpantool { };
 }
