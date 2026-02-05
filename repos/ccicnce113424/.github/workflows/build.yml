@@ -26,10 +26,11 @@ jobs:
           hatchet-protocol: "rampage"
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: samueldr/lix-gha-installer-action@v2025-10-27
         with:
-          extra-conf: |
+          extra_nix_config: |
             accept-flake-config = true
+            build-dir = /nix/build
 
       - name: Set up Cachix
         uses: cachix/cachix-action@v16
@@ -39,5 +40,7 @@ jobs:
 
       - name: Build
         run: |
-          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link
-          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link --flake ".#packages"
+          nix run lixPackageSets.latest.nix-fast-build \
+            -- --skip-cached --no-nom --no-link
+          nix run lixPackageSets.latest.nix-fast-build \
+            -- --skip-cached --no-nom --no-link --flake ".#packages"
