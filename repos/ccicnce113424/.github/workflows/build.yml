@@ -21,12 +21,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - uses: wimpysworld/nothing-but-nix@v9
-        with:
-          hatchet-protocol: "rampage"
+      # - uses: wimpysworld/nothing-but-nix@v9
+      #   with:
+      #     hatchet-protocol: "cleave"
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: samueldr/lix-gha-installer-action@v2025-10-27
         with:
           extra_nix_config: |
             accept-flake-config = true
@@ -40,5 +40,5 @@ jobs:
 
       - name: Build
         run: |
-          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link
-          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link --flake ".#packages"
+          nix flake check -L
+          nix-build -A packages.x86_64-linux | cachix push ccicnce113424
