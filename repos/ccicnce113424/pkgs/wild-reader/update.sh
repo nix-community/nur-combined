@@ -1,5 +1,4 @@
-#! /usr/bin/env nix
-#! nix shell nixpkgs#nix-prefetch-git .#jaq -c bash
+#!/usr/bin/env -S nix shell nixpkgs#nix-prefetch-git .#jaq -c bash
 set -euo pipefail
 
 # 支持 -f/--force 强制刷新 src-info.json
