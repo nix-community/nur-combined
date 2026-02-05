@@ -86,4 +86,5 @@ rec {
   kvrocks = callPackage ./pkgs/kvrocks { inherit tsl-hat-trie; };
   kvrocksTestHook = callPackage ./pkgs/kvrocksTestHook { inherit kvrocks; };
   kvrocks-exporter = callPackage ./pkgs/kvrocks-exporter { inherit kvrocksTestHook; };
+  pg_search = callPackage ./pkgs/pg_search { };
 }
