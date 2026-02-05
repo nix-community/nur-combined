@@ -72,6 +72,7 @@ lib.makeScope newScope (
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     hardpy = callPackage ./development/python-modules/hardpy { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
+    lat-lon-parser = callPackage ./development/python-modules/lat-lon-parser { };
     portolan = callPackage ./development/python-modules/portolan { };
     pqdm = callPackage ./development/python-modules/pqdm { };
     pyarrow_ops = callPackage ./development/python-modules/pyarrow_ops { };
