@@ -23,9 +23,9 @@ jobs:
           persist-credentials: false
 
       - name: Install Nix
-        uses: canidae-solutions/lix-quick-install-action@v4
+        uses: nixbuild/nix-quick-install-action@v34
         with:
-          lix_conf: |
+          nix_conf: |
             accept-flake-config = true
 
       - name: Update sources
