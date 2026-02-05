@@ -26,9 +26,9 @@ jobs:
           hatchet-protocol: "rampage"
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: cachix/install-nix-action@v31
         with:
-          extra-conf: |
+          extra_nix_config: |
             accept-flake-config = true
             build-dir = /nix/build
 
