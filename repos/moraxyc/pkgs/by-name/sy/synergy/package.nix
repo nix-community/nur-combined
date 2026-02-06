@@ -13,6 +13,7 @@
   pkg-config,
   gdk-pixbuf,
   libnotify,
+  libei,
   libICE,
   libSM,
   libX11,
@@ -109,6 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     util-linux
+    libei
     libselinux
     libsepol
     libICE
