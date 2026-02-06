@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.7.51",
-            "sha256": "sha256-G1bkGzZY9Wdy64E4LU5Q2X8DTEcrI2wEmTi7gU8EKTo=",
+            "rev": "v6.8.1",
+            "sha256": "sha256-lUymKN3MOPYD91fPaRbf8LFdE0vzYvz4x7NyiE/zbpA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.7.51"
+        "version": "v6.8.1"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2148,7 +2148,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-02-04",
+        "date": "2026-02-06",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2160,12 +2160,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "8078e892b0e9632fd7749ea1ea45f37aaf308bfd",
-            "sha256": "sha256-X8RIij9h596bNZZ3D+Pv0bogiR6Cu+KENTdpzsCjH+k=",
+            "rev": "c58e93e97f460e36b87f0ab9a6b3e9742116d749",
+            "sha256": "sha256-WeNgXd5jIByWLv/m6h95vDZRG2xkq7JGkH1cOrw91BA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8078e892b0e9632fd7749ea1ea45f37aaf308bfd"
+        "version": "c58e93e97f460e36b87f0ab9a6b3e9742116d749"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7951",
-            "sha256": "sha256-OtTh5MAcg5HAwC6JIcs9ViXCzi5F6DjqIJo/hFX0/0A=",
+            "rev": "b7957",
+            "sha256": "sha256-t6/wg//kLr1EkVYVP77GzoZB/CVzig5APd6y+20n5f0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7951"
+        "version": "b7957"
     },
     "loralib": {
         "cargoLock": null,
@@ -3719,7 +3719,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-02-04",
+        "date": "2026-02-06",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3731,12 +3731,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "42b6aa4f1cc5f7d03e72f2b3867c21a442ae21c4",
-            "sha256": "sha256-ELEC9+z1E1vBH84wV1+0urx6fhbAz2fckThCCRVy95g=",
+            "rev": "23f0c39a0b443524e37dbff4f085236b32691291",
+            "sha256": "sha256-Y6/tU63+JQ9HX1m/kI9VQz6tIhFVRAPSsp6Vf47gzUk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "42b6aa4f1cc5f7d03e72f2b3867c21a442ae21c4"
+        "version": "23f0c39a0b443524e37dbff4f085236b32691291"
     },
     "rime-moegirl": {
         "cargoLock": null,
