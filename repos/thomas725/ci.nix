@@ -1,0 +1,4 @@
+{ pkgs ? import <nixpkgs> {} }:
+{
+  cacheOutputs = [];
+}
