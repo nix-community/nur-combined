@@ -9,13 +9,13 @@
 
 buildGoModule rec {
   pname = "zsh-smart-suggestion";
-  version = "0.1.13";
+  version = "0.1.14";
 
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "smart-suggestion";
     tag = "v${version}";
-    hash = "sha256-grxxUAxfVJ/BnnHWI07ax2h6BBzh/WZ/lxMxhUEmVaA=";
+    hash = "sha256-2yLDaLsHyaHGSJwalcthZIUj8+Hw9LDqj3ahZYID6EY=";
   };
 
   vendorHash = "sha256-H8S27E+ER2rfn3Y5PATC434O/em56GY0ShsQ+m1wm+4=";
