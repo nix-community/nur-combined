@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "222950c92579442793f025d679e1e359cfc03bb0";
+    version = "c32a196916b9b44f714e0a201a1bd6bd5a5c423e";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "222950c92579442793f025d679e1e359cfc03bb0";
+      rev = "c32a196916b9b44f714e0a201a1bd6bd5a5c423e";
       fetchSubmodules = false;
-      sha256 = "sha256-UurJfpGScjiRuV4upaFODtIO7LmF08s+241ffXxdETc=";
+      sha256 = "sha256-GvFRInGMG5gHbKj+5eDe91ewwHQmLqrQ4n7Zj1yIhD8=";
     };
-    date = "2026-02-05";
+    date = "2026-02-06";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -100,15 +100,15 @@
   };
   skills-ref = {
     pname = "skills-ref";
-    version = "505cd8efa8130e95e7aecefcbda055f1c70008ee";
+    version = "e81550daf13536f22cc9712118e14070f524449d";
     src = fetchFromGitHub {
       owner = "agentskills";
       repo = "agentskills";
-      rev = "505cd8efa8130e95e7aecefcbda055f1c70008ee";
+      rev = "e81550daf13536f22cc9712118e14070f524449d";
       fetchSubmodules = false;
-      sha256 = "sha256-ANZat29JkIgDmDBzT4B4HlZawznBiTrVh6we1TJH00Y=";
+      sha256 = "sha256-DoqTLslAzPGSXTMemU7hyRYEGU8xLn8PYQXnqd071o4=";
     };
-    date = "2026-02-05";
+    date = "2026-02-06";
   };
   skkeleton = {
     pname = "skkeleton";
