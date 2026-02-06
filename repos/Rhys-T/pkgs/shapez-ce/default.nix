@@ -3,16 +3,14 @@
     buildNpmPackage, fetchNpmDeps,
     fetchFromGitHub, fetchurl,
     nodejs_22,
-    electron_37,
+    electron,
     ffmpeg, jre, zip,
     rsync,
     removeReferencesTo, buildPackages, makeBinaryWrapper,
     copyDesktopItems, makeDesktopItem, iconConvTools,
     symlinkJoin, writeShellApplication, unstableGitUpdater,
     maintainers,
-}: buildNpmPackage (finalAttrs: let
-    electron = electron_37;
-in {
+}: buildNpmPackage (finalAttrs: {
     pname = "shapez-ce";
     version = "0-unstable-2026-01-22";
     src = fetchFromGitHub {
