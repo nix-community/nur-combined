@@ -14,6 +14,8 @@
           allowUnfree = true;
           permittedInsecurePackages = [
             "olm-3.2.16" # mautrix-telegramgo
+
+            "quickjs-2025-09-13-2" # subconverter
           ];
         };
         overlays = [
