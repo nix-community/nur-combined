@@ -17,11 +17,19 @@ in let
     python3Packages = (python3PackagesOrig.python.override {
         packageOverrides = pself: psuper: {
             pyglet = pself.callPackage ./fix-pyglet.nix { pyglet' = psuper.pyglet; };
-            # Backport fix from <https://github.com/NixOS/nixpkgs/pull/462286>
             pysdl2 = if
+                lib.versionAtLeast (sdl3.version or "0") "3.3.4" &&
+                !(builtins.elem "test_SDL_GetSetWindowMouseRect" (psuper.pysdl2.disabledTests or []))
+            # Backport fix from <https://github.com/NixOS/nixpkgs/pull/484455>
+            then psuper.pysdl2.overridePythonAttrs (old: {
+                disabledTests = (old.disabledTests or []) ++ [
+                    "test_SDL_GetSetWindowMouseRect"
+                ];
+            }) else if
                 lib.versionAtLeast (sdl3.version or "0") "3.2.26" &&
                 builtins.elem "test_SDL_SetWindowDisplayMode" (psuper.pysdl2.disabledTests or []) &&
                 !(builtins.elem "test_SDL_GetSetClipRect" (psuper.pysdl2.disabledTests or []))
+            # Backport fix from <https://github.com/NixOS/nixpkgs/pull/462286>
             then psuper.pysdl2.overridePythonAttrs (old: {
                 disabledTests = lib.subtractLists [
                     "test_SDL_SetWindowDisplayMode"
