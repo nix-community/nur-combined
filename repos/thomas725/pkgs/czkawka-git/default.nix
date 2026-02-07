@@ -32,7 +32,7 @@
 }:
 
 let
-  rev = "cbde79e7fba2963bb659b64e9d6147e48ec2a243";
+  rev = "73c912ca50f27194ead59fc14969ee6080696ea9";
   self = rustPlatform.buildRustPackage {
     pname = "czkawka-git";
     version = "10.0.0-git-${builtins.substring 0 7 rev}";
@@ -41,10 +41,10 @@ let
       owner = "thomas725";
       repo = "czkawka";
       inherit rev;
-      hash = "sha256-51emC9S5zf9aPr1rkJ7FsegGiJqEBblAwW+yzBzaFMk=";
+      hash = "sha256-aqY9huZC2n+XmjIl4oNoq9sZN1ddqz9i1Wz/FmlLCvQ=";
     };
 
-    cargoHash = "sha256-QrLBEkuOGC04Qwllqzy47ZQL+mtv7lmGFVR4UaqFoLM=";
+    cargoHash = "sha256-U1hdMWDZ3VOrWzI9gU5FD+YEGxDHJFWFiT/Alt9pLzI=";
 
     nativeBuildInputs = [
       gobject-introspection
