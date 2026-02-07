@@ -9,7 +9,21 @@
   addDriverRunpath,
   dbus,
   libGLU,
-  xorg,
+  libx11,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxt,
+  libxxf86vm,
+  libxcb,
+  xcbutil,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
+  xkeyboardconfig,
   buildFHSEnv,
   buildFHSEnvChroot,
   bash,
@@ -17,8 +31,15 @@
   ocl-icd,
   xkeyboard_config,
   glib,
+  libice,
   libarchive,
+  libsm,
+  libxcursor,
   libxcrypt,
+  libxi,
+  libxinerama,
+  libxrender,
+  libxtst,
   python3,
   aprutil,
   makeDesktopItem,
@@ -47,7 +68,7 @@ let
       # Pretty sure, there are missing dependencies ...
       buildInputs = [
         libGLU
-        xorg.libXxf86vm
+        libxxf86vm
       ];
 
       src =
@@ -222,28 +243,28 @@ buildFHSEnv {
       python3.pkgs.numpy
       udev
       xdg-utils # xdg-open needed to open URLs
-      xorg.libICE
-      xorg.libSM
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXt
-      xorg.libXtst
-      xorg.libXxf86vm
-      xorg.libxcb
-      xorg.xcbutil
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
-      xorg.xcbutilwm
-      xorg.xkeyboardconfig
+      libice
+      libsm
+      libx11
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxi
+      libxinerama
+      libxrandr
+      libxrender
+      libxt
+      libxtst
+      libxxf86vm
+      libxcb
+      xcbutil
+      xcbutilimage
+      xcbutilkeysyms
+      xcbutilrenderutil
+      xcbutilwm
+      xkeyboardconfig
       zlib
     ];
 

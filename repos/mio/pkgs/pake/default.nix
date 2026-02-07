@@ -21,7 +21,17 @@
   pango,
   cairo,
   atk,
-  xorg,
+  libx11,
+  libxext,
+  libxi,
+  libxcursor,
+  libxinerama,
+  libxrender,
+  libxrandr,
+  libxfixes,
+  libxcomposite,
+  libxdamage,
+  libxft,
   wayland,
   libxkbcommon,
   fontconfig,
@@ -175,15 +185,15 @@ stdenv.mkDerivation (finalAttrs: {
           (lib.getDev pango)
           (lib.getDev cairo)
           (lib.getDev atk)
-          (lib.getDev xorg.libX11)
-          (lib.getDev xorg.libXext)
-          (lib.getDev xorg.libXi)
-          (lib.getDev xorg.libXrandr)
-          (lib.getDev xorg.libXcursor)
-          (lib.getDev xorg.libXfixes)
-          (lib.getDev xorg.libXcomposite)
-          (lib.getDev xorg.libXdamage)
-          (lib.getDev xorg.libXinerama)
+          (lib.getDev libx11)
+          (lib.getDev libxext)
+          (lib.getDev libxi)
+          (lib.getDev libxrandr)
+          (lib.getDev libxcursor)
+          (lib.getDev libxfixes)
+          (lib.getDev libxcomposite)
+          (lib.getDev libxdamage)
+          (lib.getDev libxinerama)
           (lib.getDev wayland)
           (lib.getDev libxkbcommon)
           (lib.getDev fontconfig)
@@ -193,8 +203,8 @@ stdenv.mkDerivation (finalAttrs: {
           (lib.getDev libthai)
           (lib.getDev freetype)
           (lib.getDev libpng)
-          (lib.getDev xorg.libXrender)
-          (lib.getDev xorg.libXft)
+          (lib.getDev libxrender)
+          (lib.getDev libxft)
           (lib.getDev libsoup_3)
           (lib.getDev libayatana-indicator)
           (lib.getDev ayatana-ido)

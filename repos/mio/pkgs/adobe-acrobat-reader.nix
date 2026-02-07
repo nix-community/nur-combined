@@ -9,7 +9,7 @@
   copyDesktopIcons,
   p7zip,
   gawk,
-  xorg,
+  xrandr,
   virtualDesktop ? false,
 }:
 # Based on AUR acroread-dc-wine (maintainer Smoolak), adapted for mkWindowsAppNoCC. https://aur.archlinux.org/packages/acroread-dc-wine
@@ -93,7 +93,7 @@ mkWindowsAppNoCC rec {
     if ${
       if virtualDesktop then "true" else "false"
     } && [ "''${ACROREAD_NO_VIRTUAL_DESKTOP:-0}" != "1" ]; then
-      res="$(${xorg.xrandr}/bin/xrandr 2>/dev/null | ${gawk}/bin/awk '/\\*/ && $1 ~ /^[0-9]+x[0-9]+$/ {print $1; exit}')"
+      res="$(${xrandr}/bin/xrandr 2>/dev/null | ${gawk}/bin/awk '/\\*/ && $1 ~ /^[0-9]+x[0-9]+$/ {print $1; exit}')"
       if [ -z "$res" ]; then
         res="1920x1080"
       fi

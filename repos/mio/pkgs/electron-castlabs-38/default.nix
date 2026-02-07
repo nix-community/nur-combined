@@ -13,6 +13,7 @@
   libdrm,
   libgbm,
   libxkbcommon,
+  libxkbfile,
   libxshmfence,
   libGL,
   vulkan-loader,
@@ -24,7 +25,13 @@
   gdk-pixbuf,
   nss,
   nspr,
-  xorg,
+  libx11,
+  libxcb,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
   pango,
   systemd,
   pciutils,
@@ -62,14 +69,14 @@ let
     gtk4
     nss
     nspr
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxkbfile
+    libx11
+    libxcb
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxkbfile
     pango
     pciutils
     stdenv.cc.cc

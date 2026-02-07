@@ -9,7 +9,9 @@
   wayland,
   libglvnd,
   xkeyboard_config,
-  xorg,
+  libx11,
+  libxmu,
+  libxt,
   libjpeg_turbo,
   libwebp,
   freetype,
@@ -52,9 +54,9 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
     libglvnd
     stdenv.cc.cc.lib
-    xorg.libX11
-    xorg.libXmu
-    xorg.libXt
+    libx11
+    libxmu
+    libxt
     libjpeg_turbo
     libwebp
     freetype
@@ -101,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
     test -n "$lib3rd" && wrapperArgs+=(--prefix LD_LIBRARY_PATH : "$lib3rd")
     mkdir -p "$out/bin"
     wrapperArgs+=(
-      --set QTCOMPOSE ${xorg.libX11.out}/share/X11/locale
+      --set QTCOMPOSE ${libx11.out}/share/X11/locale
       --set QT_XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb
       --set XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb
     )

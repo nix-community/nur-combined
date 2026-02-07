@@ -42,7 +42,7 @@ in
 # https://github.com/nix-community/nur-combined/blob/af619b147352e88b4105fbfab03f9395e68e5ee5/repos/dtomvan/default.nix#L6
 lib.filesystem.packagesFromDirectoryRecursive {
   inherit (pkgs) callPackage newScope;
-  directory = ./packages;
+  directory = ./by-name;
 }
 // rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
@@ -304,10 +304,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
 
   polkit126 = pkgs.callPackage ./pkgs/polkit/package.nix { };
 
-  #davinci-resolve_20_0_1 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix { };
-  davinci-resolve-studio_20_0_1 = pkgs.callPackage ./pkgs/davinci-resolve/package.nix {
-    studioVariant = true;
-  };
   # https://github.com/NixOS/nixpkgs/commit/49a636772fd8ea6f25b9c9ff9c5a04434e90b96f
   #davinci-resolve_20_1_1 = pkgs.callPackage ./pkgs/davinci-resolve-201/package.nix { };
   davinci-resolve-studio_20_1_1 = pkgs.callPackage ./pkgs/davinci-resolve-201/package.nix {
@@ -349,8 +345,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
 
   citron-emu = v3overrideAttrs (pkgs.callPackage ./pkgs/citron-emu/package.nix { });
 
-  openscreen = pkgs.callPackage ./pkgs/openscreen/package.nix { };
-
   rocksmith-custom-song-toolkit = pkgs.callPackage ./pkgs/rocksmith-custom-song-toolkit { };
 
   rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
@@ -380,7 +374,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
       p7zip
       gawk
       ;
-    inherit (pkgs) xorg;
     wine = pkgs.wineWow64Packages.full;
   };
   adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {

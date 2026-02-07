@@ -21,13 +21,23 @@
   libgbm,
   libdrm,
   libxkbcommon,
+  libx11,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxcb,
+  libxcursor,
+  libxi,
+  libxrender,
+  libxscrnsaver,
   nspr,
   nss,
   pango,
   libglvnd,
   mesa,
   vivaldi-ffmpeg-codecs,
-  xorg,
   zlib,
 }:
 
@@ -78,17 +88,17 @@ stdenv.mkDerivation (finalAttrs: {
     libglvnd
     mesa
     vivaldi-ffmpeg-codecs
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxcb
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXScrnSaver
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxcb
+    libxcursor
+    libxi
+    libxrender
+    libxscrnsaver
     zlib
     stdenv.cc.cc.lib
   ];

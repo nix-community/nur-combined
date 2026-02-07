@@ -21,11 +21,22 @@
   libGL,
   libdrm,
   libxkbcommon,
+  libx11,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxcb,
+  libxcursor,
+  libxi,
+  libxinerama,
+  libxrender,
+  libxscrnsaver,
+  libxtst,
   mesa,
   nspr,
   nss,
   pango,
-  xorg,
 }:
 
 let
@@ -48,18 +59,18 @@ let
     nspr
     nss
     pango
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXinerama
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXScrnSaver
-    xorg.libXtst
-    xorg.libxcb
+    libx11
+    libxcursor
+    libxdamage
+    libxext
+    libxfixes
+    libxi
+    libxinerama
+    libxrandr
+    libxrender
+    libxscrnsaver
+    libxtst
+    libxcb
   ];
 in
 stdenv.mkDerivation (finalAttrs: {

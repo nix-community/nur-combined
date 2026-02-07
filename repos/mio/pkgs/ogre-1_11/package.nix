@@ -13,9 +13,18 @@
   freeglut,
   libglvnd,
   libGLU,
+  libx11,
+  libxaw,
+  libxmu,
+  libxrandr,
+  libxt,
+  libxxf86vm,
+  xorgproto,
+  libice,
+  libsm,
+  libxrender,
   ois,
   sdl2-compat,
-  xorg,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -46,16 +55,16 @@ stdenv.mkDerivation (finalAttrs: {
     libGLU
     ois
     sdl2-compat
-    xorg.libICE
-    xorg.libSM
-    xorg.libX11
-    xorg.libXaw
-    xorg.libXmu
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXt
-    xorg.libXxf86vm
-    xorg.xorgproto
+    libice
+    libsm
+    libx11
+    libxaw
+    libxmu
+    libxrandr
+    libxrender
+    libxt
+    libxxf86vm
+    xorgproto
   ];
 
   cmakeFlags = [

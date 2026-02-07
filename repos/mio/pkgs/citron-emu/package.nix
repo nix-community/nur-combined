@@ -37,10 +37,9 @@
   zlib,
   vulkan-memory-allocator,
   zstd,
-  callPackage,
   withDiscordPresence ? true,
   withOptimisation ? true,
-}@args:
+}:
 let
   nx_tzdbVersion = "221202";
   nx_tzdb = fetchzip {
@@ -58,7 +57,6 @@ let
     ;
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit nx_tzdb;
   pname = "citron-emu";
   version = "0.12.25";
   src = fetchFromGitea {
@@ -171,14 +169,6 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/citron/CMakeLists.txt \
       --replace-fail "target_link_libraries(citron PRIVATE Boost::headers" \
                 "target_link_libraries(citron PRIVATE Boost::headers Qt6::GuiPrivate"
-
-    # --- Fix Qt 6 deprecation of QVariant::type() ---
-
-    substituteInPlace src/citron/game_list.cpp \
-      --replace-fail "orig_icon_data.isValid() && orig_icon_data.type() == QVariant::Pixmap" \
-                "orig_icon_data.isValid() && orig_icon_data.metaType().id() == QMetaType::QPixmap" \
-      --replace-fail "icon_data.isValid() && icon_data.type() == QVariant::Pixmap" \
-                "icon_data.isValid() && icon_data.metaType().id() == QMetaType::QPixmap"
   '';
 
   postInstall = ''
@@ -186,12 +176,12 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    withOptimsation = callPackage ./package.nix (args // { withOptimisation = true; });
+    inherit nx_tzdb;
   };
 
   meta = {
     homepage = "https://citron-emu.org";
-    changelog = "https://git.citron-emu.org/Citron/Emulator/releases/tag/0.12.25";
+    changelog = "https://git.citron-emu.org/Citron/Emulator/releases/tag/${finalAttrs.version}";
     description = "Nintendo Switch emulator for PC";
     mainProgram = "citron";
     platforms = [ "x86_64-linux" ];
@@ -202,5 +192,6 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       cc0
     ];
+    maintainers = with lib.maintainers; [ ];
   };
 })

@@ -23,7 +23,7 @@
   doxygen,
   ncurses,
   graphviz,
-  xorg,
+  libx11,
   gmp,
   libspatialindex,
   leveldb,
@@ -31,8 +31,6 @@
   hiredis,
   libiconv,
   zlib,
-  libXrandr,
-  libX11,
   ninja,
   prometheus-cpp,
   mesa,
@@ -107,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
     libvorbis
   ]
   ++ lib.optionals (buildClient && !stdenv.hostPlatform.isDarwin) [
-    xorg.libX11
+    libx11
   ]
   ++ lib.optionals buildServer [
     leveldb

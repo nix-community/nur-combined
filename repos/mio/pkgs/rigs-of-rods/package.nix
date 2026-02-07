@@ -13,7 +13,7 @@
   fmt,
   rapidjson,
   openal,
-  xorg,
+  libx11,
   curl ? null,
   openssl ? null,
   angelscript ? null,
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     fmt
     rapidjson
     openal
-    xorg.libX11
+    libx11
   ]
   ++ lib.optionals (curl != null) [ curl ]
   ++ lib.optionals (openssl != null) [ openssl ]

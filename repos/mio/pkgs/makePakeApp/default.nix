@@ -37,6 +37,17 @@
   libpng,
   libsoup_3,
   libxkbcommon,
+  libx11,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxcb,
+  libxcursor,
+  libxi,
+  libxinerama,
+  libxrender,
   libayatana-appindicator,
   libdbusmenu,
   libayatana-indicator,
@@ -45,7 +56,6 @@
   pango,
   wayland,
   webkitgtk_4_1,
-  xorg,
 }:
 
 {
@@ -122,17 +132,17 @@ stdenv.mkDerivation (finalAttrs: {
     pango
     wayland
     webkitgtk_4_1
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxcb
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXinerama
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxcb
+    libxcursor
+    libxi
+    libxrender
+    libxinerama
   ];
 
   buildPhase = ''

@@ -11,7 +11,7 @@
   ois,
   libglvnd,
   libGLU,
-  xorg,
+  libx11,
   ogre,
 }:
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     ois
     libglvnd
     libGLU
-    xorg.libX11
+    libx11
     ogre
   ];
 

@@ -9,7 +9,11 @@
   glib,
   gsettings-desktop-schemas,
   wrapGAppsHook3,
-  xorg,
+  libx11,
+  libxrandr,
+  libxcursor,
+  libxinerama,
+  libxi,
   systemd,
   pkg-config,
   makeBinaryWrapper,
@@ -58,11 +62,11 @@ let
       gdk-pixbuf
       glib
       gsettings-desktop-schemas
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXrandr
-      xorg.libXinerama
-      xorg.libXi
+      libx11
+      libxcursor
+      libxrandr
+      libxinerama
+      libxi
     ];
 
     postPatch = ''

@@ -4,7 +4,7 @@
   fetchFromGitHub,
   makeBinaryWrapper,
   acl,
-  xorg,
+  xhost,
   libxcb,
 }:
 
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/ego \
-      --prefix PATH : ${lib.makeBinPath [ xorg.xhost ]} \
+      --prefix PATH : ${lib.makeBinPath [ xhost ]} \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libxcb ]}
   '';
 

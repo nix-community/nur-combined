@@ -12,8 +12,10 @@ rec {
     {
       imports = [
         zfs-impermanence-on-shutdown
+        darling
       ];
     }
   );
   zfs-impermanence-on-shutdown = ./zfs-impermanence-on-shutdown.nix;
+  darling = ./darling.nix;
 }

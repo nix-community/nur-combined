@@ -86,16 +86,6 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Check evaluation
-      continue-on-error: true
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
     - name: Determine system architecture
       run: |
         if [[ "${{ runner.os }}" == "macOS" ]]; then
@@ -116,8 +106,25 @@ jobs:
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
     # https://github.com/nix-community/nixos-apple-silicon/blob/7aad69158fc1b5bbbddac19040b6aae14daaa35c/.github/workflows/cache.yml#L45C56-L50C24
+    - name: Build nix packages Cuda
+      continue-on-error: true
+      if: runner.os == 'Linux' && runner.arch == 'X64'
+      run: |
+        nice -n 20 nix run nixpkgs#nix-fast-build -- --max-jobs 1 --option max-jobs 1 \
+          --no-nom \
+          -f .#cached-cuda.${{ env.SYSTEM }} ${{ matrix.nixpkgs-override }}
     - name: Build nix packages
+      continue-on-error: true
       run: |
         nice -n 20 nix run nixpkgs#nix-fast-build -- --max-jobs 1 --option max-jobs 1 \
           --no-nom \
           -f .#cached.${{ env.SYSTEM }} ${{ matrix.nixpkgs-override }}
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD

@@ -318,7 +318,7 @@ let
       if [ $WA_RUN_APP -eq 1 ]
       then
         ${lib.optionalString enableHUD "export MANGOHUD=\"${hudCommand}\""}
-        DPI=$(${lib.getExe pkgs.xorg.xrdb} -query | ${lib.getExe pkgs.gawk} '/Xft.dpi/ {print int($2)}')
+        DPI=$(${lib.getExe pkgs.xrdb} -query | ${lib.getExe pkgs.gawk} '/Xft.dpi/ {print int($2)}')
         $WINE reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d $DPI /f
         $WINE reg add "HKCU\Control Panel\Desktop" /v Win8DpiScaling /t REG_DWORD /d 1 /f
         ${winAppRun}

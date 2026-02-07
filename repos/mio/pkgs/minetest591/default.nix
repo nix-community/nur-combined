@@ -21,7 +21,8 @@
   doxygen,
   ncurses,
   graphviz,
-  xorg,
+  libx11,
+  libxi,
   gmp,
   libspatialindex,
   leveldb,
@@ -104,8 +105,8 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
   ]
   ++ lib.optionals (buildClient && !stdenv.hostPlatform.isDarwin && !useSDL2) [
-    xorg.libX11
-    xorg.libXi
+    libx11
+    libxi
   ]
   ++ lib.optionals buildServer [
     leveldb
