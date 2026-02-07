@@ -3,18 +3,19 @@
   fetchFromGitHub,
   python3Packages,
   portolan,
+  roentgen-icons,
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "map-machine";
-  version = "0.2.0";
+  version = "0.3.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "enzet";
     repo = "map-machine";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QDCbT4n8M2eJkv2uFyr9aDs16UzFG+oH/qMwpf08bfI=";
+    hash = "sha256-OLwW+mZ+zYhPV7w7qAWsAOt2q7FhpYYoY5Kz6KQuGfg=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -24,13 +25,16 @@ python3Packages.buildPythonApplication (finalAttrs: {
   dependencies = with python3Packages; [
     cairosvg
     colour
+    gpxpy
     numpy
     pillow
     portolan
     pycairo
     pyyaml
+    roentgen-icons
     shapely
     svgwrite
+    typing-extensions
     urllib3
   ];
 
