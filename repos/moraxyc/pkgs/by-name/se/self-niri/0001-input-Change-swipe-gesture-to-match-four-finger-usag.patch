@@ -1,0 +1,30 @@
+From 080096ca0893d4a66d6b8af680e9d0fc377ca97e Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Tue, 18 Nov 2025 11:48:07 +0800
+Subject: [PATCH] input: Change swipe gesture to match four-finger usage
+
+---
+ src/input/mod.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/input/mod.rs b/src/input/mod.rs
+index a952a23a..51274f10 100644
+--- a/src/input/mod.rs
++++ b/src/input/mod.rs
+@@ -3634,12 +3634,12 @@ impl State {
+             return;
+         }
+
+-        if event.fingers() == 3 {
++        if event.fingers() == 4 {
+             self.niri.gesture_swipe_3f_cumulative = Some((0., 0.));
+
+             // We handled this event.
+             return;
+-        } else if event.fingers() == 4 {
++        } else if event.fingers() == 5 {
+             self.niri.layout.overview_gesture_begin();
+             self.niri.queue_redraw_all();
+
+--
+2.51.2
