@@ -58,6 +58,7 @@
           inbox = prev.callPackage ./pkgs/inbox { };
           zigdoc = prev.callPackage ./pkgs/zigdoc { };
           ziglint = prev.callPackage ./pkgs/ziglint { };
+          tracy = prev.callPackage ./pkgs/tracy { };
 
           # Latest Go version as go-bin (automatically uses the highest version)
           go-bin = makeGo prev latestGoVersion;
@@ -155,6 +156,7 @@
               inbox
               zigdoc
               ziglint
+              tracy
               ;
             default = self.packages.${system}.zlint;
           }
