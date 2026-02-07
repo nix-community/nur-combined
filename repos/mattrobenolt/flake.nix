@@ -1,6 +1,11 @@
 {
   description = "mattrobenolt's nixpkgs";
 
+  nixConfig = {
+    extra-substituters = [ "https://mattrobenolt.cachix.org" ];
+    extra-trusted-public-keys = [ "mattrobenolt.cachix.org-1:sn1IDSC4OxQvWaOVD4RRcqyKlket5wgb11nd1QII6i8=" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";

@@ -1,0 +1,92 @@
+name: Build and Cache
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-x86-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: mattrobenolt
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          # Only push on main branch
+          skipPush: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Build packages (from source only)
+        run: |
+          echo "🏗️ Building source packages for x86_64-linux..."
+
+          # Only build packages that compile from source (skip prebuilt binaries)
+          nix build .#zlint .#zlint-unstable .#zigdoc .#tracy
+
+          echo "✅ All source packages built successfully"
+
+  build-arm-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up QEMU for ARM emulation
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+        with:
+          extra-conf: |
+            extra-platforms = aarch64-linux
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: mattrobenolt
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          skipPush: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Build packages (from source only)
+        run: |
+          echo "🏗️ Building source packages for aarch64-linux (via QEMU)..."
+
+          # Only build packages that compile from source (skip prebuilt binaries)
+          nix build .#zlint .#zlint-unstable .#zigdoc .#tracy --system aarch64-linux
+
+          echo "✅ All source packages built successfully"
+
+  build-arm-macos:
+    runs-on: macos-14  # ARM (M1/M2/M3)
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: mattrobenolt
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          skipPush: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Build packages (from source only)
+        run: |
+          echo "🏗️ Building source packages for aarch64-darwin..."
+
+          # Only build packages that compile from source (skip prebuilt binaries)
+          nix build .#zlint .#zlint-unstable .#zigdoc .#tracy
+
+          echo "✅ All source packages built successfully"
