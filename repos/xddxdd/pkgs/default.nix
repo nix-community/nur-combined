@@ -44,7 +44,6 @@ let
     nvidia-grid = ifNotCI ./nvidia-grid;
     openj9-ibm-semeru = ifNotCI ./openj9-ibm-semeru;
     openjdk-adoptium = ifNotCI ./openjdk-adoptium;
-    th-fonts = ./th-fonts;
   };
 
   self = lib.foldl (a: b: a // b) (

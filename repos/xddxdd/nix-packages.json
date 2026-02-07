@@ -4319,51 +4319,6 @@
     "pname": "sx1302-hal",
     "version": "2.1.0-unstable-2023-02-06"
   },
-  "legacyPackages.x86_64-linux.th-fonts.hak": {
-    "description": "TianHeng th-hak font",
-    "pname": "th-hak",
-    "version": "4.0.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.joeng": {
-    "description": "TianHeng th-joeng font",
-    "pname": "th-joeng",
-    "version": "4.0.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.khaai-p": {
-    "description": "TianHeng th-khaai-p font",
-    "pname": "th-khaai-p",
-    "version": "4.0.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.khaai-t": {
-    "description": "TianHeng th-khaai-t font",
-    "pname": "th-khaai-t",
-    "version": "4.0.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.ming": {
-    "description": "TianHeng th-ming font",
-    "pname": "th-ming",
-    "version": "5.0.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.sung-p": {
-    "description": "TianHeng th-sung-p font",
-    "pname": "th-sung-p",
-    "version": "4.0.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.sung-t": {
-    "description": "TianHeng th-sung-t font",
-    "pname": "th-sung-t",
-    "version": "4.1.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.sy": {
-    "description": "TianHeng th-sy font",
-    "pname": "th-sy",
-    "version": "4.1.0"
-  },
-  "legacyPackages.x86_64-linux.th-fonts.tshyn": {
-    "description": "TianHeng th-tshyn font",
-    "pname": "th-tshyn",
-    "version": "5.0.0"
-  },
   "legacyPackages.x86_64-linux.torch-complex": {
     "description": "Temporal python class for PyTorch-ComplexTensor",
     "pname": "python3.13-torch-complex",

@@ -928,51 +928,6 @@ src.to_pattern = "\\1"
 fetch.github = "huakim/telegram-desktop-patches"
 src.git = "https://github.com/huakim/telegram-desktop-patches.git"
 
-[th-hak]
-fetch.url = "http://cheonhyeong.com/File/TH-Hak-$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Hak-([0-9.]+).7z"
-
-[th-joeng]
-fetch.url = "http://cheonhyeong.com/File/TH-Joeng-$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Joeng-([0-9.]+).7z"
-
-[th-khaai-p]
-fetch.url = "http://cheonhyeong.com/File/TH-Khaai-P$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Khaai-P([0-9.]+).7z"
-
-[th-khaai-t]
-fetch.url = "http://cheonhyeong.com/File/TH-Khaai-T$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Khaai-T([0-9.]+).7z"
-
-[th-ming]
-fetch.url = "http://cheonhyeong.com/File/TH-Ming-$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Ming-([0-9.]+).7z"
-
-[th-sung-p]
-fetch.url = "http://cheonhyeong.com/File/TH-Sung-P$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Sung-P([0-9.]+).7z"
-
-[th-sung-t]
-fetch.url = "http://cheonhyeong.com/File/TH-Sung-T$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Sung-T([0-9.]+).7z"
-
-[th-sy]
-fetch.url = "http://cheonhyeong.com/File/TH-Sy-$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Sy-([0-9.]+).7z"
-
-[th-tshyn]
-fetch.url = "http://cheonhyeong.com/File/TH-Tshyn-$ver.7z"
-src.webpage = "http://cheonhyeong.com/Simplified/download.html"
-src.regex = "File/TH-Tshyn-([0-9.]+).7z"
-
 [torch-complex]
 fetch.pypi = "torch_complex"
 src.pypi = "torch_complex"

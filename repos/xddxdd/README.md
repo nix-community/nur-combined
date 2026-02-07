@@ -1055,22 +1055,6 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: th-fonts (9 packages)</summary>
-
-| State | Path | Name | Version | Description |
-| ----- | ---- | ---- | ------- | ----------- |
-|  | `th-fonts.hak` | [th-hak](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | TianHeng th-hak font |
-|  | `th-fonts.joeng` | [th-joeng](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | TianHeng th-joeng font |
-|  | `th-fonts.khaai-p` | [th-khaai-p](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | TianHeng th-khaai-p font |
-|  | `th-fonts.khaai-t` | [th-khaai-t](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | TianHeng th-khaai-t font |
-|  | `th-fonts.ming` | [th-ming](http://cheonhyeong.com/Simplified/download.html) | 5.0.0 | TianHeng th-ming font |
-|  | `th-fonts.sung-p` | [th-sung-p](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | TianHeng th-sung-p font |
-|  | `th-fonts.sung-t` | [th-sung-t](http://cheonhyeong.com/Simplified/download.html) | 4.1.0 | TianHeng th-sung-t font |
-|  | `th-fonts.sy` | [th-sy](http://cheonhyeong.com/Simplified/download.html) | 4.1.0 | TianHeng th-sy font |
-|  | `th-fonts.tshyn` | [th-tshyn](http://cheonhyeong.com/Simplified/download.html) | 5.0.0 | TianHeng th-tshyn font |
-</details>
-
-<details>
 <summary>Package set: uncategorized (147 packages)</summary>
 
 | State | Path | Name | Version | Description |
