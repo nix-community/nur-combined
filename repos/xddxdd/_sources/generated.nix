@@ -1176,12 +1176,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7965";
+    version = "b7966";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7965";
-      hash = "sha256-5+PqqhTS/MsrD/5L2B6s6deufn/AgltbEJqv0hbexeo=";
+      tag = "b7966";
+      hash = "sha256-l2NPC3Bm3JBjpH/ixPwVwGeX09Ziblpph9g89jboCjQ=";
     };
   };
   loralib = {
@@ -1349,14 +1349,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "247a5c86489d9b47cd14c60e252ee99d6079c944";
+    version = "ce2087004283ba6048687591a4762e3a1931ece3";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "247a5c86489d9b47cd14c60e252ee99d6079c944";
-      hash = "sha256-fIAH9wTkn5rR1Tn17EuzZbCvWPxBsOxXcdH383Mjms8=";
+      rev = "ce2087004283ba6048687591a4762e3a1931ece3";
+      hash = "sha256-sUI25OGzSfqMQqbnmdk3uMcW01hu9TE5lu/Y/UHVLpg=";
     };
-    date = "2026-02-07";
+    date = "2026-02-08";
   };
   nginx-njs = {
     pname = "nginx-njs";

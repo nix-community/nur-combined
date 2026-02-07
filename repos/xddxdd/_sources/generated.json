@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7965",
-            "sha256": "sha256-5+PqqhTS/MsrD/5L2B6s6deufn/AgltbEJqv0hbexeo=",
+            "rev": "b7966",
+            "sha256": "sha256-l2NPC3Bm3JBjpH/ixPwVwGeX09Ziblpph9g89jboCjQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7965"
+        "version": "b7966"
     },
     "loralib": {
         "cargoLock": null,
@@ -2613,7 +2613,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-02-07",
+        "date": "2026-02-08",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2625,12 +2625,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "247a5c86489d9b47cd14c60e252ee99d6079c944",
-            "sha256": "sha256-fIAH9wTkn5rR1Tn17EuzZbCvWPxBsOxXcdH383Mjms8=",
+            "rev": "ce2087004283ba6048687591a4762e3a1931ece3",
+            "sha256": "sha256-sUI25OGzSfqMQqbnmdk3uMcW01hu9TE5lu/Y/UHVLpg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "247a5c86489d9b47cd14c60e252ee99d6079c944"
+        "version": "ce2087004283ba6048687591a4762e3a1931ece3"
     },
     "nginx-njs": {
         "cargoLock": null,
