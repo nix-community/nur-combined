@@ -16,28 +16,6 @@ in
       sha256 = "sha256-wOq3VuIwZeBWh+oq8gUYGYWtBJc0b1uE0RjbnTcieRc=";
     };
 
-    passthru.updateScript =
-      pkgs.writeScript "update-${pname}"
-      # bash
-      ''
-        #!/usr/bin/env nix-shell
-        #!nix-shell -i bash -p curl jq git nodejs nix-update
-
-        set -eu -o pipefail
-
-        TAG="$(curl -s "https://api.github.com/repos/${owner}/${repo}/releases/latest" | jq -r .tag_name)"
-
-        WORKDIR=$(mktemp -d)
-
-        git clone --quiet --config advice.detachedHead=false --depth 1 --branch "$TAG" "https://github.com/${owner}/${repo}" "$WORKDIR"
-        pushd "$WORKDIR" > /dev/null
-        npm install --package-lock-only --ignore-scripts
-        popd > /dev/null
-        cp "$WORKDIR/package-lock.json" pkgs/${pname}/
-
-        nix-update ${pname} --flake
-      '';
-
     npmDepsHash = "sha256-4LVgsQV8ovszOfn/3lreyDPZpnlnsxAD//uPBzUkhRI=";
 
     postPatch =
