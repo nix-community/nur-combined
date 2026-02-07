@@ -155,7 +155,8 @@ stdenv.mkDerivation {
     ninja
     pkg-config
     python3
-  ] ++ lib.optional compilePy2Bytecode python2;
+  ]
+  ++ lib.optional compilePy2Bytecode python2;
   buildInputs = wrappedLibs ++ [
     libbsd
     openssl

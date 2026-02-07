@@ -160,15 +160,6 @@ let
     );
     nix-output-monitor = callPackage ./pkgs/nix-output-monitor/package.nix { };
 
-    lixPackageSets = recurseIntoAttrs (
-      callPackage ./pkgs/lix {
-        storeDir = pkgs.config.nix.storeDir or "/nix/store";
-        stateDir = pkgs.config.nix.stateDir or "/nix/var";
-      }
-    );
-
-    lix_2_93 = lixPackageSets.stable.lix;
-
     cached_ = self: {
       pkgscache = (
         pkgs.symlinkJoin {
@@ -197,6 +188,7 @@ let
         downkyicore
         ego
         lix_2_93
+        nix_2_31_2
         ghidra
         prismlauncher-diegiwg
         android-translation-layer
