@@ -6,21 +6,21 @@
     "skipPrerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.8.4",
+  "version": "1.8.5",
   "platforms": {
     "x86_64-linux": {
       "file": "ABDownloadManager_{version}_linux_x64.tar.gz",
-      "hash": "sha256-aaegDh0Usx0hyPQQTuO5EyS5sNRURMBELFusHVrCkLo=",
+      "hash": "sha256-Hjr0iSdXWG7Cbrp3vThcPRbbtsvvVhufi3SKrENN4GA=",
       "unpack": false
     },
     "x86_64-darwin": {
       "file": "ABDownloadManager_{version}_mac_x64.tar.gz",
-      "hash": "sha256-PcLQ+KtdC0BJ2UClbT03vun5joREjW64kabEVycBwRk=",
+      "hash": "sha256-ja04yqTCKpRsI/c71C6gFKU468su4J0Ip9yQEU/0URY=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "ABDownloadManager_{version}_mac_arm64.tar.gz",
-      "hash": "sha256-xGj+TQgqCb+JR95rHQTqo4SxWS7Eo9LbXb+hu80oZgo=",
+      "hash": "sha256-ohnDINOkElRN9APrDZRXbNR1UzT1cCI5xho/ZNtITrQ=",
       "unpack": false
     }
   }
