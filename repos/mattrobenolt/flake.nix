@@ -3,7 +3,9 @@
 
   nixConfig = {
     extra-substituters = [ "https://mattrobenolt.cachix.org" ];
-    extra-trusted-public-keys = [ "mattrobenolt.cachix.org-1:sn1IDSC4OxQvWaOVD4RRcqyKlket5wgb11nd1QII6i8=" ];
+    extra-trusted-public-keys = [
+      "mattrobenolt.cachix.org-1:sn1IDSC4OxQvWaOVD4RRcqyKlket5wgb11nd1QII6i8="
+    ];
   };
 
   inputs = {
