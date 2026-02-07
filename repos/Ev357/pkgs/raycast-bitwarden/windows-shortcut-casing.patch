@@ -1,0 +1,246 @@
+diff --git a/src/components/UnlockForm.tsx b/src/components/UnlockForm.tsx
+index 179d482..54cced6 100644
+--- a/src/components/UnlockForm.tsx
++++ b/src/components/UnlockForm.tsx
+@@ -91,7 +91,7 @@ const UnlockForm = ({ pendingAction = Promise.resolve() }: UnlockFormProps) => {
+                 icon={showPassword ? Icon.EyeDisabled : Icon.Eye}
+                 title={showPassword ? "Hide Password" : "Show Password"}
+                 onAction={() => setShowPassword((prev) => !prev)}
+-                shortcut={{ macOS: { key: "e", modifiers: ["opt"] }, windows: { key: "e", modifiers: ["alt"] } }}
++                shortcut={{ macOS: { key: "e", modifiers: ["opt"] }, Windows: { key: "e", modifiers: ["alt"] } }}
+               />
+             </>
+           )}
+diff --git a/src/components/actions/VaultActionsSection.tsx b/src/components/actions/VaultActionsSection.tsx
+index 05fd611..549c1bc 100644
+--- a/src/components/actions/VaultActionsSection.tsx
++++ b/src/components/actions/VaultActionsSection.tsx
+@@ -28,7 +28,7 @@ export function VaultActionsSection() {
+     <ActionPanel.Section title="Vault Actions">
+       <Action
+         title="Sync Vault"
+-        shortcut={{ macOS: { key: "r", modifiers: ["opt"] }, windows: { key: "r", modifiers: ["alt"] } }}
++        shortcut={{ macOS: { key: "r", modifiers: ["opt"] }, Windows: { key: "r", modifiers: ["alt"] } }}
+         icon={Icon.ArrowClockwise}
+         onAction={vault.syncItems}
+       />
+@@ -37,7 +37,7 @@ export function VaultActionsSection() {
+         title="Lock Vault"
+         shortcut={{
+           macOS: { key: "l", modifiers: ["opt", "shift"] },
+-          windows: { key: "l", modifiers: ["alt", "shift"] },
++          Windows: { key: "l", modifiers: ["alt", "shift"] },
+         }}
+         onAction={handleLockVault}
+       />
+diff --git a/src/components/generatePassword/ActionPanel.tsx b/src/components/generatePassword/ActionPanel.tsx
+index e088fcc..6ad37ef 100644
+--- a/src/components/generatePassword/ActionPanel.tsx
++++ b/src/components/generatePassword/ActionPanel.tsx
+@@ -25,7 +25,7 @@ const GeneratePasswordActionPanel = (props: GeneratePasswordActionPanelProps) =>
+             title="Copy Password"
+             icon={Icon.Clipboard}
+             onAction={handleCopy(password)}
+-            shortcut={{ macOS: { key: "enter", modifiers: ["opt"] }, windows: { key: "enter", modifiers: ["alt"] } }}
++            shortcut={{ macOS: { key: "enter", modifiers: ["opt"] }, Windows: { key: "enter", modifiers: ["alt"] } }}
+           />
+           <Action.Paste
+             title="Paste Password to Active App"
+@@ -34,7 +34,7 @@ const GeneratePasswordActionPanel = (props: GeneratePasswordActionPanelProps) =>
+             shortcut={{
+               key: "enter",
+               macOS: { key: "enter", modifiers: ["opt", "shift"] },
+-              windows: { key: "enter", modifiers: ["alt", "shift"] },
++              Windows: { key: "enter", modifiers: ["alt", "shift"] },
+             }}
+           />
+         </>
+@@ -44,7 +44,7 @@ const GeneratePasswordActionPanel = (props: GeneratePasswordActionPanelProps) =>
+         icon={Icon.ArrowClockwise}
+         shortcut={{
+           macOS: { key: "backspace", modifiers: ["opt"] },
+-          windows: { key: "backspace", modifiers: ["alt"] },
++          Windows: { key: "backspace", modifiers: ["alt"] },
+         }}
+         /* avoid passing a reference to onAction because, for some reason, a string
+         is passed to it, even though the type says otherwise 🤔 */
+diff --git a/src/components/searchVault/actions/CopyTotpAction.tsx b/src/components/searchVault/actions/CopyTotpAction.tsx
+index ecdaf06..93dd78b 100644
+--- a/src/components/searchVault/actions/CopyTotpAction.tsx
++++ b/src/components/searchVault/actions/CopyTotpAction.tsx
+@@ -36,7 +36,7 @@ function CopyTotpAction() {
+       title="Copy TOTP"
+       icon={Icon.Clipboard}
+       onAction={copyTotp}
+-      shortcut={{ macOS: { key: "t", modifiers: ["opt"] }, windows: { key: "t", modifiers: ["alt"] } }}
++      shortcut={{ macOS: { key: "t", modifiers: ["opt"] }, Windows: { key: "t", modifiers: ["alt"] } }}
+       repromptDescription={`Copying the TOTP of <${selectedItem.name}>`}
+     />
+   );
+diff --git a/src/components/searchVault/actions/CopyUsernameAction.tsx b/src/components/searchVault/actions/CopyUsernameAction.tsx
+index 29ec6a3..9675d29 100644
+--- a/src/components/searchVault/actions/CopyUsernameAction.tsx
++++ b/src/components/searchVault/actions/CopyUsernameAction.tsx
+@@ -29,7 +29,7 @@ function CopyUsernameAction() {
+       title="Copy Username"
+       icon={Icon.Person}
+       onAction={handleCopyUsername}
+-      shortcut={{ macOS: { key: "u", modifiers: ["opt"] }, windows: { key: "u", modifiers: ["alt"] } }}
++      shortcut={{ macOS: { key: "u", modifiers: ["opt"] }, Windows: { key: "u", modifiers: ["alt"] } }}
+     />
+   );
+ }
+diff --git a/src/components/searchVault/actions/FavoriteItemActions.tsx b/src/components/searchVault/actions/FavoriteItemActions.tsx
+index 5092d4c..877cceb 100644
+--- a/src/components/searchVault/actions/FavoriteItemActions.tsx
++++ b/src/components/searchVault/actions/FavoriteItemActions.tsx
+@@ -28,7 +28,7 @@ function FavoriteItemActions() {
+           title={isLocalFavorite ? "Remove Favorite" : "Mark As Favorite"}
+           onAction={handleToggleFavorite}
+           icon={isLocalFavorite ? Icon.StarDisabled : Icon.Star}
+-          shortcut={{ macOS: { key: "f", modifiers: ["opt"] }, windows: { key: "f", modifiers: ["alt"] } }}
++          shortcut={{ macOS: { key: "f", modifiers: ["opt"] }, Windows: { key: "f", modifiers: ["alt"] } }}
+         />
+       )}
+       {(isBitwardenFavorite || isLocalFavorite) && (
+@@ -39,7 +39,7 @@ function FavoriteItemActions() {
+             icon={Icon.ArrowUpCircleFilled}
+             shortcut={{
+               macOS: { key: "arrowUp", modifiers: ["opt", "shift"] },
+-              windows: { key: "arrowUp", modifiers: ["alt", "shift"] },
++              Windows: { key: "arrowUp", modifiers: ["alt", "shift"] },
+             }}
+           />
+           <Action
+@@ -48,7 +48,7 @@ function FavoriteItemActions() {
+             icon={Icon.ArrowDownCircleFilled}
+             shortcut={{
+               macOS: { key: "arrowDown", modifiers: ["opt", "shift"] },
+-              windows: { key: "arrowDown", modifiers: ["alt", "shift"] },
++              Windows: { key: "arrowDown", modifiers: ["alt", "shift"] },
+             }}
+           />
+         </>
+diff --git a/src/components/searchVault/actions/OpenUrlInBrowserAction.tsx b/src/components/searchVault/actions/OpenUrlInBrowserAction.tsx
+index 0573dc5..0cc7129 100644
+--- a/src/components/searchVault/actions/OpenUrlInBrowserAction.tsx
++++ b/src/components/searchVault/actions/OpenUrlInBrowserAction.tsx
+@@ -25,7 +25,7 @@ function OpenUrlInBrowserAction() {
+       title="Open in Browser"
+       onAction={handleOpenUrlInBrowser}
+       icon={Icon.Globe}
+-      shortcut={{ macOS: { key: "o", modifiers: ["opt"] }, windows: { key: "o", modifiers: ["alt"] } }}
++      shortcut={{ macOS: { key: "o", modifiers: ["opt"] }, Windows: { key: "o", modifiers: ["alt"] } }}
+     />
+   );
+ }
+diff --git a/src/components/searchVault/actions/PasteTotpAction.tsx b/src/components/searchVault/actions/PasteTotpAction.tsx
+index 43daa55..f14090f 100644
+--- a/src/components/searchVault/actions/PasteTotpAction.tsx
++++ b/src/components/searchVault/actions/PasteTotpAction.tsx
+@@ -37,7 +37,7 @@ function PasteTotpAction() {
+       onAction={pasteTotp}
+       shortcut={{
+         macOS: { key: "t", modifiers: ["opt", "shift"] },
+-        windows: { key: "t", modifiers: ["alt", "shift"] },
++        Windows: { key: "t", modifiers: ["alt", "shift"] },
+       }}
+       repromptDescription={`Pasting the TOTP of <${selectedItem.name}>`}
+     />
+diff --git a/src/components/searchVault/actions/PasteUsernameAction.tsx b/src/components/searchVault/actions/PasteUsernameAction.tsx
+index 63ba9c8..57c6f26 100644
+--- a/src/components/searchVault/actions/PasteUsernameAction.tsx
++++ b/src/components/searchVault/actions/PasteUsernameAction.tsx
+@@ -30,7 +30,7 @@ function PasteUsernameAction() {
+       repromptDescription={`Pasting the username of <${selectedItem.name}>`}
+       shortcut={{
+         macOS: { key: "u", modifiers: ["cmd", "opt"] },
+-        windows: { key: "u", modifiers: ["ctrl", "alt"] },
++        Windows: { key: "u", modifiers: ["ctrl", "alt"] },
+       }}
+     />
+   );
+diff --git a/src/components/searchVault/actions/ShowNotesAction.tsx b/src/components/searchVault/actions/ShowNotesAction.tsx
+index cf6c343..a4c6d98 100644
+--- a/src/components/searchVault/actions/ShowNotesAction.tsx
++++ b/src/components/searchVault/actions/ShowNotesAction.tsx
+@@ -29,7 +29,7 @@ function ShowNotesAction() {
+       icon={Icon.Eye}
+       onAction={showNotes}
+       repromptDescription={`Showing the notes of <${selectedItem.name}>`}
+-      shortcut={{ macOS: { key: "n", modifiers: ["opt"] }, windows: { key: "n", modifiers: ["alt"] } }}
++      shortcut={{ macOS: { key: "n", modifiers: ["opt"] }, Windows: { key: "n", modifiers: ["alt"] } }}
+     />
+   );
+ }
+diff --git a/src/components/searchVault/actions/shared/ShowDetailsScreen.tsx b/src/components/searchVault/actions/shared/ShowDetailsScreen.tsx
+index 2f9cef7..d51109a 100644
+--- a/src/components/searchVault/actions/shared/ShowDetailsScreen.tsx
++++ b/src/components/searchVault/actions/shared/ShowDetailsScreen.tsx
+@@ -64,7 +64,7 @@ function ShowDetailsScreen<TDetails extends Constraint>(props: ShowDetailsScreen
+                     shortcutKey
+                       ? {
+                           macOS: { key: shortcutKey, modifiers: ["opt"] },
+-                          windows: { key: shortcutKey, modifiers: ["alt"] },
++                          Windows: { key: shortcutKey, modifiers: ["alt"] },
+                         }
+                       : undefined
+                   }
+diff --git a/src/create-login.tsx b/src/create-login.tsx
+index 0b8d809..ae945e8 100644
+--- a/src/create-login.tsx
++++ b/src/create-login.tsx
+@@ -138,13 +138,13 @@ function CreateLoginComponent() {
+             icon={showPassword ? Icon.EyeDisabled : Icon.Eye}
+             title={showPassword ? "Hide Password" : "Show Password"}
+             onAction={togglePasswordVisibility}
+-            shortcut={{ macOS: { key: "e", modifiers: ["opt"] }, windows: { key: "e", modifiers: ["alt"] } }}
++            shortcut={{ macOS: { key: "e", modifiers: ["opt"] }, Windows: { key: "e", modifiers: ["alt"] } }}
+           />
+           <Action
+             icon={Icon.Key}
+             title="Generate Password"
+             onAction={generatePassword}
+-            shortcut={{ macOS: { key: "g", modifiers: ["opt"] }, windows: { key: "g", modifiers: ["alt"] } }}
++            shortcut={{ macOS: { key: "g", modifiers: ["opt"] }, Windows: { key: "g", modifiers: ["alt"] } }}
+           />
+           <DebuggingBugReportingActionSection />
+         </ActionPanel>
+diff --git a/src/search-sends.tsx b/src/search-sends.tsx
+index aeb70ff..d83d13a 100644
+--- a/src/search-sends.tsx
++++ b/src/search-sends.tsx
+@@ -339,7 +339,7 @@ function SearchSendsCommandContent() {
+         title="Create New Send"
+         target={<CreateSendCommand onSuccess={onCreateSuccess} />}
+         icon={Icon.NewDocument}
+-        shortcut={{ macOS: { key: "n", modifiers: ["opt"] }, windows: { key: "n", modifiers: ["alt"] } }}
++        shortcut={{ macOS: { key: "n", modifiers: ["opt"] }, Windows: { key: "n", modifiers: ["alt"] } }}
+       />
+       <Action
+         title={syncAction.title}
+@@ -390,21 +390,21 @@ function SearchSendsCommandContent() {
+                   title="Remove Password"
+                   onAction={() => onRemovePassword(send.id)}
+                   icon={Icon.LockUnlocked}
+-                  shortcut={{ macOS: { key: "p", modifiers: ["opt"] }, windows: { key: "p", modifiers: ["alt"] } }}
++                  shortcut={{ macOS: { key: "p", modifiers: ["opt"] }, Windows: { key: "p", modifiers: ["alt"] } }}
+                 />
+               )}
+               <Action.Push
+                 title="Edit Send"
+                 target={<CreateSendCommand send={send} onSuccess={onEditSuccess} />}
+                 icon={Icon.Pencil}
+-                shortcut={{ macOS: { key: "e", modifiers: ["opt"] }, windows: { key: "e", modifiers: ["alt"] } }}
++                shortcut={{ macOS: { key: "e", modifiers: ["opt"] }, Windows: { key: "e", modifiers: ["alt"] } }}
+               />
+               <Action
+                 title="Delete Send"
+                 style={Action.Style.Destructive}
+                 onAction={() => onDelete(send.id)}
+                 icon={Icon.Trash}
+-                shortcut={{ macOS: { key: "d", modifiers: ["opt"] }, windows: { key: "d", modifiers: ["alt"] } }}
++                shortcut={{ macOS: { key: "d", modifiers: ["opt"] }, Windows: { key: "d", modifiers: ["alt"] } }}
+               />
+               {sendManagementActionSection}
+               <DebuggingBugReportingActionSection />
