@@ -32,6 +32,9 @@ jobs:
           name: ${{ matrix.cachixName }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
+      #- name: Check cachix status
+      #  run: cachix --version && cachix list
+
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
