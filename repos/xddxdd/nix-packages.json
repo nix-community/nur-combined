@@ -477,7 +477,7 @@
   "legacyPackages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.1"
+    "version": "6.8.4"
   },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -712,7 +712,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2026.02.04"
+    "version": "2026.02.07"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -922,7 +922,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7957"
+    "version": "7965"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -4267,7 +4267,7 @@
   "legacyPackages.x86_64-linux.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2026-02-04"
+    "version": "0-unstable-2026-02-06"
   },
   "legacyPackages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",
@@ -4422,7 +4422,7 @@
   "legacyPackages.x86_64-linux.uncategorized.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.1"
+    "version": "6.8.4"
   },
   "legacyPackages.x86_64-linux.uncategorized.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -4547,7 +4547,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2026.02.04"
+    "version": "2026.02.07"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -4952,7 +4952,7 @@
   "legacyPackages.x86_64-linux.uncategorized.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2026-02-04"
+    "version": "0-unstable-2026-02-06"
   },
   "legacyPackages.x86_64-linux.uncategorized.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",
@@ -5302,7 +5302,7 @@
   "packages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.1"
+    "version": "6.8.4"
   },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -5487,7 +5487,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2026.02.04"
+    "version": "2026.02.07"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -6012,7 +6012,7 @@
   "packages.x86_64-linux.sidestore-vpn": {
     "description": "Allow SideStore to work across all iOS devices on your local network",
     "pname": "sidestore-vpn",
-    "version": "0-unstable-2026-02-04"
+    "version": "0-unstable-2026-02-06"
   },
   "packages.x86_64-linux.silero-vad": {
     "description": "Pre-trained enterprise-grade Voice Activity Detector",

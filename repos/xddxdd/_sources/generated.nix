@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.1";
+    version = "v6.8.4";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.1";
-      hash = "sha256-lUymKN3MOPYD91fPaRbf8LFdE0vzYvz4x7NyiE/zbpA=";
+      tag = "v6.8.4";
+      hash = "sha256-e0UZOlfesinrNMO2wQ1kEpPyTStLXD9eQ2GgXmEfJPo=";
     };
   };
   cockpy = {
@@ -781,26 +781,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.04";
+    version = "2026.02.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-ASN.mmdb";
-      hash = "sha256-Me92rXXlqBwkAvO9MfKXgpBoSfgBLAvQsC0KpFDDGOY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-ASN.mmdb";
+      hash = "sha256-4vkKGKYt40fhZS+i1O5OyFNpKzyeijswbyjt2te5S2E=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.04";
+    version = "2026.02.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-City.mmdb";
-      hash = "sha256-bZkAknXtIp8N4UDiV59MWAEzzRVoSTeF3n9N9zWJ1/I=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-City.mmdb";
+      hash = "sha256-FOjCYrPTy4C+S26iuMAiysvmj+Yb9c7QjQmG/QlRzQA=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.04";
+    version = "2026.02.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-Country.mmdb";
-      hash = "sha256-YuJjrwou4Q165ri/JRUZP/SWGX7Jn/JSeeWYfpvWfzk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-Country.mmdb";
+      hash = "sha256-55g4lBN8X26D+sF3UhZMTmmx+QzvMEHDWSG1CDhekAU=";
     };
   };
   glauth = {
@@ -1176,12 +1176,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7957";
+    version = "b7965";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7957";
-      hash = "sha256-t6/wg//kLr1EkVYVP77GzoZB/CVzig5APd6y+20n5f0=";
+      tag = "b7965";
+      hash = "sha256-5+PqqhTS/MsrD/5L2B6s6deufn/AgltbEJqv0hbexeo=";
     };
   };
   loralib = {
@@ -1349,14 +1349,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "37d319fd39358d76e5ddbb86b6bb7aa09043011d";
+    version = "247a5c86489d9b47cd14c60e252ee99d6079c944";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "37d319fd39358d76e5ddbb86b6bb7aa09043011d";
-      hash = "sha256-pDHMbIb+YKSEOIlfkv+NuQgpnnknp2HmLu51XkuETWk=";
+      rev = "247a5c86489d9b47cd14c60e252ee99d6079c944";
+      hash = "sha256-fIAH9wTkn5rR1Tn17EuzZbCvWPxBsOxXcdH383Mjms8=";
     };
-    date = "2026-01-04";
+    date = "2026-02-07";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -2029,14 +2029,14 @@
   };
   sidestore-vpn = {
     pname = "sidestore-vpn";
-    version = "a81d2b33cd7d42a406e03c86fe46519219cd3a3c";
+    version = "f2908f90552dbf2f6e2865c922a42984bcabdc99";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "sidestore-vpn";
-      rev = "a81d2b33cd7d42a406e03c86fe46519219cd3a3c";
-      hash = "sha256-U73l3BUJjwncOZewUeD1vQKsI0iw0z80XACbniJYwrI=";
+      rev = "f2908f90552dbf2f6e2865c922a42984bcabdc99";
+      hash = "sha256-+FbYDns6VfAExtyQII/V8CivR4nspf6JWb0h7miui2U=";
     };
-    date = "2026-02-04";
+    date = "2026-02-06";
   };
   silero-vad = {
     pname = "silero-vad";

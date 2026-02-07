@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.1",
-            "sha256": "sha256-lUymKN3MOPYD91fPaRbf8LFdE0vzYvz4x7NyiE/zbpA=",
+            "rev": "v6.8.4",
+            "sha256": "sha256-e0UZOlfesinrNMO2wQ1kEpPyTStLXD9eQ2GgXmEfJPo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.1"
+        "version": "v6.8.4"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1514,11 +1514,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Me92rXXlqBwkAvO9MfKXgpBoSfgBLAvQsC0KpFDDGOY=",
+            "sha256": "sha256-4vkKGKYt40fhZS+i1O5OyFNpKzyeijswbyjt2te5S2E=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.02.04"
+        "version": "2026.02.07"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1529,11 +1529,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bZkAknXtIp8N4UDiV59MWAEzzRVoSTeF3n9N9zWJ1/I=",
+            "sha256": "sha256-FOjCYrPTy4C+S26iuMAiysvmj+Yb9c7QjQmG/QlRzQA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-City.mmdb"
         },
-        "version": "2026.02.04"
+        "version": "2026.02.07"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1544,11 +1544,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YuJjrwou4Q165ri/JRUZP/SWGX7Jn/JSeeWYfpvWfzk=",
+            "sha256": "sha256-55g4lBN8X26D+sF3UhZMTmmx+QzvMEHDWSG1CDhekAU=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.04/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-Country.mmdb"
         },
-        "version": "2026.02.04"
+        "version": "2026.02.07"
     },
     "glauth": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7957",
-            "sha256": "sha256-t6/wg//kLr1EkVYVP77GzoZB/CVzig5APd6y+20n5f0=",
+            "rev": "b7965",
+            "sha256": "sha256-5+PqqhTS/MsrD/5L2B6s6deufn/AgltbEJqv0hbexeo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7957"
+        "version": "b7965"
     },
     "loralib": {
         "cargoLock": null,
@@ -2613,7 +2613,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-01-04",
+        "date": "2026-02-07",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2625,12 +2625,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "37d319fd39358d76e5ddbb86b6bb7aa09043011d",
-            "sha256": "sha256-pDHMbIb+YKSEOIlfkv+NuQgpnnknp2HmLu51XkuETWk=",
+            "rev": "247a5c86489d9b47cd14c60e252ee99d6079c944",
+            "sha256": "sha256-fIAH9wTkn5rR1Tn17EuzZbCvWPxBsOxXcdH383Mjms8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "37d319fd39358d76e5ddbb86b6bb7aa09043011d"
+        "version": "247a5c86489d9b47cd14c60e252ee99d6079c944"
     },
     "nginx-njs": {
         "cargoLock": null,
@@ -3953,7 +3953,7 @@
     },
     "sidestore-vpn": {
         "cargoLock": null,
-        "date": "2026-02-04",
+        "date": "2026-02-06",
         "extract": null,
         "name": "sidestore-vpn",
         "passthru": null,
@@ -3965,12 +3965,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "sidestore-vpn",
-            "rev": "a81d2b33cd7d42a406e03c86fe46519219cd3a3c",
-            "sha256": "sha256-U73l3BUJjwncOZewUeD1vQKsI0iw0z80XACbniJYwrI=",
+            "rev": "f2908f90552dbf2f6e2865c922a42984bcabdc99",
+            "sha256": "sha256-+FbYDns6VfAExtyQII/V8CivR4nspf6JWb0h7miui2U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a81d2b33cd7d42a406e03c86fe46519219cd3a3c"
+        "version": "f2908f90552dbf2f6e2865c922a42984bcabdc99"
     },
     "silero-vad": {
         "cargoLock": null,
