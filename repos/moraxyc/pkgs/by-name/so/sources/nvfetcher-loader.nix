@@ -12,6 +12,17 @@ lib.mapAttrs (
       removeVersionPrefix = {
         version = lib.removePrefix "V" (lib.removePrefix "v" v.version);
       };
+      storePathVersion =
+        if lib.hasPrefix "/nix/store/" v.version then
+          let
+            pathWithoutPrefix = lib.removePrefix "/nix/store/" v.version;
+            shortHash = builtins.substring 0 8 pathWithoutPrefix;
+          in
+          {
+            version = "store-${shortHash}";
+          }
+        else
+          { };
       unstableDateVersion =
         if
           (builtins.hasAttr "version" v)
@@ -35,5 +46,6 @@ lib.mapAttrs (
     lib.foldl lib.recursiveUpdate v [
       removeVersionPrefix
       unstableDateVersion
+      storePathVersion
     ]
 ) sources

@@ -2,6 +2,7 @@
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
   config ? { },
+  inputs ? { },
   ...
 }:
 let
@@ -16,6 +17,9 @@ let
         lib.callPackageWith (
           lib.optionalAttrs (config ? allModuleArgs) {
             inherit (config.allModuleArgs) self' inputs' system;
+          }
+          // {
+            inherit inputs;
           }
           // pkgsArg
           // self.packages
@@ -36,7 +40,7 @@ let
 
               fArgs = if builtins.isFunction imported then builtins.functionArgs imported else { };
 
-              requiresInputs = fArgs ? inputs';
+              requiresInputs = fArgs ? inputs' || fArgs ? inputs;
               shouldSkip = requiresInputs && !(config ? allModuleArgs);
             in
             {

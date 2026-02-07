@@ -1,6 +1,7 @@
 {
   lib,
   flake-parts-lib,
+  inputs,
   ...
 }:
 {
@@ -38,6 +39,7 @@
           pkgs
           config
           lib
+          inputs
           ;
       };
     };

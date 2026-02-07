@@ -232,6 +232,21 @@
       sha256 = "sha256-XC4DyT4QalCFPlZ0e/ysbh2hep9WgXNhp8sGgi49HSQ=";
     };
   };
+  niri = {
+    pname = "niri";
+    version = "/nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz";
+    src = fetchurl {
+      url = "file:///nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz";
+      sha256 = "sha256-8nxxlErMMnawQ2/nzHr8u1OFK9Icrja/Ka3l4oxRKng=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-8nxxlErMMnawQ2_nzHr8u1OFK9Icrja_Ka3l4oxRKng=/Cargo.lock";
+      outputHashes = {
+        "smithay-0.7.0" = "sha256-WSa06MRY/XIgaTS12bss+D4vz7GDYBRXXJawP8OsdjM=";
+        "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
+      };
+    };
+  };
   opencode = {
     pname = "opencode";
     version = "v1.1.53";

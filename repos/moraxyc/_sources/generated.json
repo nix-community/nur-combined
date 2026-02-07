@@ -406,6 +406,29 @@
         },
         "version": "v0.10.8-alpha.12"
     },
+    "niri": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-8nxxlErMMnawQ2_nzHr8u1OFK9Icrja_Ka3l4oxRKng=/Cargo.lock",
+                {
+                    "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
+                    "smithay-0.7.0": "sha256-WSa06MRY/XIgaTS12bss+D4vz7GDYBRXXJawP8OsdjM="
+                }
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "niri",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-8nxxlErMMnawQ2/nzHr8u1OFK9Icrja/Ka3l4oxRKng=",
+            "type": "url",
+            "url": "file:///nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz"
+        },
+        "version": "/nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz"
+    },
     "opencode": {
         "cargoLock": null,
         "date": null,
