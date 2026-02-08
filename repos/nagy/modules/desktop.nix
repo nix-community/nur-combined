@@ -29,9 +29,19 @@
       pkgs.scrot
       nur.repos.nagy.nsxivBigThumbs
       pkgs.xclip
+      pkgs.brave
       pkgs.pulsemixer
       pkgs.poppler-utils # pdf utils
       pkgs.yt-dlp
+      (
+        (pkgs.pass.override {
+          x11Support = false;
+        }).withExtensions
+        (exts: [
+          exts.pass-otp
+        ])
+      )
+      pkgs.passage
       (pkgs.zbar.override {
         withXorg = false;
         enableVideo = false;

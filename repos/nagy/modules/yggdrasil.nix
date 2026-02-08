@@ -49,17 +49,10 @@ in
       package = lib.mkDefault (
         pkgs.yggdrasil.overrideAttrs (old: {
           src = pkgs.fetchurl {
-            url = "https://github.com/nagy/yggdrasil-go/archive/vsock.tar.gz";
-            hash = "sha256-aym/WvnInF7o+0Ru96WYTpZm6IL0gW41XFW8C8KGk0s=";
+            url = "https://github.com/nagy/yggdrasil-go/archive/986e79760532bd602e243feb668982388c31f986.tar.gz";
+            hash = "sha256-vBalH6yaxH9jxnxfr6GyR6rMH4/fSo1zO53UChww0i0=";
           };
-          vendorHash = "sha256-ZrciqrbH3/tD7yqT4+ZJJ0sloeHXI+wFn+aGEhgtQPI=";
-          patches = [
-            # shorter private keys
-            (pkgs.fetchpatch {
-              url = "https://github.com/nagy/yggdrasil-go/commit/a2f361eca7bb10ea198e25162c48892876763c23.patch";
-              hash = "sha256-NbCFhlkIyNcXFt5FM86XjEtWJpagDwWSeq4skazhaj0=";
-            })
-          ];
+          vendorHash = "sha256-ksmD8R7yRF4si8D5bX7wfg1JhMu/dzdN7t/5qwNLyN8=";
         })
       );
       settings = {
@@ -72,12 +65,10 @@ in
         ];
 
         Peers =
-          if (config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true) then
+          lib.optionals (config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true)
             [
               "vsock://host:1234"
-            ]
-          else
-            [ ];
+            ];
       };
     };
     systemd.services.yggdrasil = {

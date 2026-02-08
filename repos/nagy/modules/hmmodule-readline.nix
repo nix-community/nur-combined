@@ -94,7 +94,7 @@
        "\epN": "\C-a\C-kncdu\C-m"
        "\eph": "\C-a\C-khtop\C-m"
        "\epd": "\C-a\C-kdool -N eth0 --bytes\C-m"
-       "\et": "\C-a\C-ktree -l\C-m"
+       "\et": "\C-a\C-ktree -l -a\C-m"
        "\eF": "\C-a\C-kfind -L\C-m"
        "\eG": "\C-a\C-kfd -j 1 -L\C-m"
 
