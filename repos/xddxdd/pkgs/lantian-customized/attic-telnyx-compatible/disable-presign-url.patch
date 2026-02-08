@@ -1,20 +1,44 @@
 diff --git a/server/src/storage/s3.rs b/server/src/storage/s3.rs
-index 3af7507..20f07f5 100644
+index 3af7507..fc6e6c0 100644
 --- a/server/src/storage/s3.rs
 +++ b/server/src/storage/s3.rs
-@@ -159,7 +159,14 @@ impl S3Backend {
-                 .await
-                 .map_err(ServerError::storage_error)?;
+@@ -1,14 +1,11 @@
+ //! S3 remote files.
  
+-use std::time::Duration;
+-
+ use async_trait::async_trait;
+ use aws_config::BehaviorVersion;
+ use aws_sdk_s3::{
+     config::Builder as S3ConfigBuilder,
+     config::{Credentials, Region},
+     operation::get_object::builders::GetObjectFluentBuilder,
+-    presigning::PresigningConfig,
+     types::{CompletedMultipartUpload, CompletedPart},
+     Client,
+ };
+@@ -150,16 +147,14 @@ impl S3Backend {
+ 
+             Ok(Download::AsyncRead(Box::new(output.body.into_async_read())))
+         } else {
+-            // FIXME: Configurable expiration
+-            let presign_config = PresigningConfig::expires_in(Duration::from_secs(600))
+-                .map_err(ServerError::storage_error)?;
+-
+-            let presigned = req
+-                .presigned(presign_config)
+-                .await
+-                .map_err(ServerError::storage_error)?;
+-
 -            Ok(Download::Url(presigned.uri().to_string()))
-+            // Telnyx uses different signing mechanism
-+            let url = presigned.uri();
-+            let url_clean = match url.find('?') {
-+                Some(index) => &url[..index],
-+                None => url,
-+            };
++            let url = format!(
++                "{}/{}/{}",
++                self.config.endpoint.as_ref().expect("endpoint not set"),
++                req.get_bucket().as_ref().expect("bucket not set"),
++                req.get_key().as_ref().expect("key not set"),
++            );
 +
-+            Ok(Download::Url(url_clean.to_string()))
++            Ok(Download::Url(url.to_string()))
          }
      }
  }
