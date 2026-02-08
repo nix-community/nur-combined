@@ -60,3 +60,14 @@ jobs:
       - name: Build
         run: |
           nix build -L '.#${{ matrix.attr }}'
+
+  all:
+    name: All
+    needs:
+      - nix-build
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps:
+      - name: All matrix builds succeeded
+        run: |
+          echo "All matrix builds succeeded."

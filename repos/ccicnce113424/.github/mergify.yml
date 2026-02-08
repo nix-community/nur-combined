@@ -3,7 +3,7 @@ pull_request_rules:
     conditions:
       - and:
           - label=dependencies
-          - check-success=Build
+          - check-success=All
     actions:
       update:
       merge:
