@@ -17,8 +17,12 @@ let
     (thunderbirdPackages.thunderbird-140.override {
       crashreporterSupport = false;
     }).overrideAttrs
-      {
+      rec {
         version = "140.7.1esr";
+        src = fetchurl {
+          url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
+          hash = "";
+        };
       };
 
   version = "140.7.1esr-bb18";
