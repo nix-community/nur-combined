@@ -5,7 +5,12 @@
   makeDesktopItem,
   copyDesktopItems,
   qt6,
-  xorg,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXi,
+  libXrender,
+  libXext,
   pipewire,
   wrapGAppsHook3,
   jq,
@@ -67,15 +72,13 @@ python3Packages.buildPythonApplication {
       qt6.qtwayland
       pipewire
     ]
-    ++ (with xorg; [
+    ++ [
       libX11
       libXcursor
       libXrandr
       libXi
       libXrender
       libXext
-    ])
-    ++ [
       libxcb
       libxcb-cursor
       libxcb-keysyms

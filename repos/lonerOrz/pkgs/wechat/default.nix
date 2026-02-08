@@ -26,6 +26,18 @@
   krb5,
   cups,
   dpkg,
+  libxcb,
+  libXcomposite,
+  libXrender,
+  libXrandr,
+  libXext,
+  libX11,
+  libXdamage,
+  libXfixes,
+  xcbutilwm,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
   makeShellWrapper,
   commandLineArgs ? "",
 }:
@@ -59,8 +71,6 @@ let
     libxtst
     krb5
     cups
-  ]
-  ++ (with xorg; [
     libXcomposite
     libXrender
     libXrandr
@@ -72,10 +82,10 @@ let
     xcbutilimage
     xcbutilkeysyms
     xcbutilrenderutil
-  ]);
+  ];
 
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   inherit pname version src;
 
   nativeBuildInputs = [
@@ -104,7 +114,7 @@ stdenvNoCC.mkDerivation rec {
         lib.makeLibraryPath (
           inputs
           ++ [
-            xorg.libxcb
+            libxcb
           ]
         )
       }" \

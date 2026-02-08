@@ -10,7 +10,9 @@
   libdrm,
   gtk3,
   nss,
-  xorg,
+  libX11,
+  libXtst,
+  libXScrnSaver,
   libgbm,
   alsa-lib,
   libnotify,
@@ -69,12 +71,10 @@ stdenv.mkDerivation (finalAttrs: {
     libuuid
     at-spi2-core
     wayland
-  ]
-  ++ (with xorg; [
     libX11
     libXtst
     libXScrnSaver
-  ]);
+  ];
 
   nativeBuildInputs = [
     electron
