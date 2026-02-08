@@ -139,6 +139,9 @@ python3Packages.buildPythonApplication {
 
   passthru.updateScript = ./update.sh;
 
+  # 等待上游素材下载逻辑完善
+  passthru.autoUpdate = false;
+
   meta = {
     description = "Linux Desktop Gremlins brings animated mascots to your Linux desktop.";
     homepage = "https://github.com/iluvgirlswithglasses/linux-desktop-gremlin";
