@@ -165,20 +165,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.5-1";
+    version = "v1.17.5-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.5-1/bilibili-asar-v1.17.5-1.tar.gz";
-      hash = "sha256-Voj1FEjgvJ2jd/OiWYSqGViBT0aSljFFIlMgT4bXro0=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.5-2/bilibili-asar-v1.17.5-2.tar.gz";
+      hash = "sha256-LnizxJV1OErI1G7aqDvJzJ7tsjNFcvYHWNmcH28RRvA=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.5-1";
+    version = "v1.17.5-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.5-1";
-      hash = "sha256-rMrqrtQZGrHkWPFZGBszgXM9bb/7Rs5dWIaogNiiDlY=";
+      tag = "v1.17.5-2";
+      hash = "sha256-EaLmM7qN5uP4C1xq/oDzkOHG91GFLrHdf+C8DN3NssM=";
     };
   };
   bin-cpuflags-x86 = {
@@ -229,10 +229,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "4.0.2";
+    version = "4.1.0";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.0.2/cops-4.0.2-php84.zip";
-      hash = "sha256-6lEbTuJ1LkkBScDUATqgwvsTYczLEmnhEF8E4cjnBpg=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.1.0/cops-4.1.0-php84.zip";
+      hash = "sha256-UX7FP7k8rBl7rFMyMKQ9iSGbtkQCjFHfTVZAPQ3oXg8=";
     };
   };
   cef-binary = {
@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.4";
+    version = "v6.8.6";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.4";
-      hash = "sha256-e0UZOlfesinrNMO2wQ1kEpPyTStLXD9eQ2GgXmEfJPo=";
+      tag = "v6.8.6";
+      hash = "sha256-w2aX3Ky5lz/J3qpABMHBJYh0Prq7N6VESiFfMzz8GTU=";
     };
   };
   cockpy = {
@@ -1176,12 +1176,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7966";
+    version = "b7972";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7966";
-      hash = "sha256-l2NPC3Bm3JBjpH/ixPwVwGeX09Ziblpph9g89jboCjQ=";
+      tag = "b7972";
+      hash = "sha256-IYjhoyWfBCl0pj8zvrovti8NHVXi+/+2Qhhc6hc/feo=";
     };
   };
   loralib = {
@@ -1245,14 +1245,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "a959db6becc8b31ef803a1ca7c498bbe8a68caf4";
+    version = "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "a959db6becc8b31ef803a1ca7c498bbe8a68caf4";
-      hash = "sha256-W0v1YtiKPBipY5Z1o5TeicMSos+UlBoK6ns2pTanLgI=";
+      rev = "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4";
+      hash = "sha256-JsPkUORt98q/mMlNt9TeCgTCjainIFMA5pezdE2gTko=";
     };
-    date = "2026-02-02";
+    date = "2026-02-06";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1349,12 +1349,12 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "ce2087004283ba6048687591a4762e3a1931ece3";
+    version = "26f481b456f9d8c6a865f00045da54ac30208304";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "ce2087004283ba6048687591a4762e3a1931ece3";
-      hash = "sha256-sUI25OGzSfqMQqbnmdk3uMcW01hu9TE5lu/Y/UHVLpg=";
+      rev = "26f481b456f9d8c6a865f00045da54ac30208304";
+      hash = "sha256-ZNWvC4ICYnKoz2yuSPO/Fs4CslW5+Cc/voqWIV9CJjs=";
     };
     date = "2026-02-08";
   };
@@ -1402,12 +1402,12 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.21";
+    version = "v0.22";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      tag = "v0.21";
-      hash = "sha256-csEfgXOXrFgWcyKmxEPKi33M7nVVI2hE+YGXMe4vdFE=";
+      tag = "v0.22";
+      hash = "sha256-UJubWx5QfzLAiYTN1BPaziT3gKsTI0OVCmcuwKX3Gp0=";
     };
   };
   oci-arm-host-capacity = {
@@ -1558,10 +1558,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.2.5";
+    version = "9.3.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.5/PeerBanHelper_9.2.5.zip";
-      hash = "sha256-lIT91twoaqv9+YNTWYN6CNY/nLafCG8PG+Aj9zPV+Kw=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.0/PeerBanHelper_9.3.0.zip";
+      hash = "sha256-vQenXkSiGZ9mhsiEjatMCR302AgU+Lm1y83IBItoqG8=";
     };
   };
   phpmyadmin = {

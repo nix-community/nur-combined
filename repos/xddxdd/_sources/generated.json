@@ -308,11 +308,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Voj1FEjgvJ2jd/OiWYSqGViBT0aSljFFIlMgT4bXro0=",
+            "sha256": "sha256-LnizxJV1OErI1G7aqDvJzJ7tsjNFcvYHWNmcH28RRvA=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.5-1/bilibili-asar-v1.17.5-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.5-2/bilibili-asar-v1.17.5-2.tar.gz"
         },
-        "version": "v1.17.5-1"
+        "version": "v1.17.5-2"
     },
     "bilibili-src": {
         "cargoLock": null,
@@ -328,12 +328,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.5-1",
-            "sha256": "sha256-rMrqrtQZGrHkWPFZGBszgXM9bb/7Rs5dWIaogNiiDlY=",
+            "rev": "v1.17.5-2",
+            "sha256": "sha256-EaLmM7qN5uP4C1xq/oDzkOHG91GFLrHdf+C8DN3NssM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.5-1"
+        "version": "v1.17.5-2"
     },
     "bin-cpuflags-x86": {
         "cargoLock": null,
@@ -437,11 +437,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6lEbTuJ1LkkBScDUATqgwvsTYczLEmnhEF8E4cjnBpg=",
+            "sha256": "sha256-UX7FP7k8rBl7rFMyMKQ9iSGbtkQCjFHfTVZAPQ3oXg8=",
             "type": "url",
-            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.0.2/cops-4.0.2-php84.zip"
+            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.1.0/cops-4.1.0-php84.zip"
         },
-        "version": "4.0.2"
+        "version": "4.1.0"
     },
     "cef-binary": {
         "cargoLock": null,
@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.4",
-            "sha256": "sha256-e0UZOlfesinrNMO2wQ1kEpPyTStLXD9eQ2GgXmEfJPo=",
+            "rev": "v6.8.6",
+            "sha256": "sha256-w2aX3Ky5lz/J3qpABMHBJYh0Prq7N6VESiFfMzz8GTU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.4"
+        "version": "v6.8.6"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7966",
-            "sha256": "sha256-l2NPC3Bm3JBjpH/ixPwVwGeX09Ziblpph9g89jboCjQ=",
+            "rev": "b7972",
+            "sha256": "sha256-IYjhoyWfBCl0pj8zvrovti8NHVXi+/+2Qhhc6hc/feo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7966"
+        "version": "b7972"
     },
     "loralib": {
         "cargoLock": null,
@@ -2415,7 +2415,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-02-02",
+        "date": "2026-02-06",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2427,12 +2427,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "a959db6becc8b31ef803a1ca7c498bbe8a68caf4",
-            "sha256": "sha256-W0v1YtiKPBipY5Z1o5TeicMSos+UlBoK6ns2pTanLgI=",
+            "rev": "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4",
+            "sha256": "sha256-JsPkUORt98q/mMlNt9TeCgTCjainIFMA5pezdE2gTko=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a959db6becc8b31ef803a1ca7c498bbe8a68caf4"
+        "version": "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
@@ -2625,12 +2625,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "ce2087004283ba6048687591a4762e3a1931ece3",
-            "sha256": "sha256-sUI25OGzSfqMQqbnmdk3uMcW01hu9TE5lu/Y/UHVLpg=",
+            "rev": "26f481b456f9d8c6a865f00045da54ac30208304",
+            "sha256": "sha256-ZNWvC4ICYnKoz2yuSPO/Fs4CslW5+Cc/voqWIV9CJjs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ce2087004283ba6048687591a4762e3a1931ece3"
+        "version": "26f481b456f9d8c6a865f00045da54ac30208304"
     },
     "nginx-njs": {
         "cargoLock": null,
@@ -2730,12 +2730,12 @@
             "name": null,
             "owner": "abbbi",
             "repo": "nullfsvfs",
-            "rev": "v0.21",
-            "sha256": "sha256-csEfgXOXrFgWcyKmxEPKi33M7nVVI2hE+YGXMe4vdFE=",
+            "rev": "v0.22",
+            "sha256": "sha256-UJubWx5QfzLAiYTN1BPaziT3gKsTI0OVCmcuwKX3Gp0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.21"
+        "version": "v0.22"
     },
     "oci-arm-host-capacity": {
         "cargoLock": null,
@@ -3037,11 +3037,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-lIT91twoaqv9+YNTWYN6CNY/nLafCG8PG+Aj9zPV+Kw=",
+            "sha256": "sha256-vQenXkSiGZ9mhsiEjatMCR302AgU+Lm1y83IBItoqG8=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.5/PeerBanHelper_9.2.5.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.0/PeerBanHelper_9.3.0.zip"
         },
-        "version": "9.2.5"
+        "version": "9.3.0"
     },
     "phpmyadmin": {
         "cargoLock": null,

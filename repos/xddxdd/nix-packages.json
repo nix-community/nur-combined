@@ -432,7 +432,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.5-1"
+    "version": "1.17.5-2"
   },
   "legacyPackages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
@@ -467,7 +467,7 @@
   "legacyPackages.x86_64-linux.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
     "pname": "calibre-cops",
-    "version": "4.0.2"
+    "version": "4.1.0"
   },
   "legacyPackages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",
@@ -477,7 +477,7 @@
   "legacyPackages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.4"
+    "version": "6.8.6"
   },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -857,7 +857,7 @@
   "legacyPackages.x86_64-linux.kernel-modules.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
-    "version": "0.21"
+    "version": "0.22"
   },
   "legacyPackages.x86_64-linux.kernel-modules.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -922,7 +922,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7966"
+    "version": "7972"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1047,7 +1047,7 @@
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "0-unstable-2026-02-02"
+    "version": "0-unstable-2026-02-06"
   },
   "legacyPackages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
@@ -1097,7 +1097,7 @@
   "legacyPackages.x86_64-linux.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
-    "version": "0.21"
+    "version": "0.22"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.11_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -3912,7 +3912,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.2.5"
+    "version": "9.3.0"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4052,7 +4052,7 @@
   "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "0-unstable-2026-02-02"
+    "version": "0-unstable-2026-02-06"
   },
   "legacyPackages.x86_64-linux.python3Packages.open-webui-kb-manager": {
     "description": "Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI",
@@ -4382,7 +4382,7 @@
   "legacyPackages.x86_64-linux.uncategorized.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.5-1"
+    "version": "1.17.5-2"
   },
   "legacyPackages.x86_64-linux.uncategorized.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
@@ -4417,12 +4417,12 @@
   "legacyPackages.x86_64-linux.uncategorized.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
     "pname": "calibre-cops",
-    "version": "4.0.2"
+    "version": "4.1.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.4"
+    "version": "6.8.6"
   },
   "legacyPackages.x86_64-linux.uncategorized.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -4807,7 +4807,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.2.5"
+    "version": "9.3.0"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5257,7 +5257,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Desktop client for Bilibili",
     "pname": "bilibili",
-    "version": "1.17.5-1"
+    "version": "1.17.5-2"
   },
   "packages.x86_64-linux.bin-cpuflags-x86": {
     "description": "Small CLI tool to detect CPU flags (instruction sets) of X86 binaries",
@@ -5292,7 +5292,7 @@
   "packages.x86_64-linux.calibre-cops": {
     "description": "Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks",
     "pname": "calibre-cops",
-    "version": "4.0.2"
+    "version": "4.1.0"
   },
   "packages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",
@@ -5302,7 +5302,7 @@
   "packages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.4"
+    "version": "6.8.6"
   },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -5692,7 +5692,7 @@
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.13-mtkclient",
-    "version": "0-unstable-2026-02-02"
+    "version": "0-unstable-2026-02-06"
   },
   "packages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
@@ -5742,7 +5742,7 @@
   "packages.x86_64-linux.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
-    "version": "0.21"
+    "version": "0.22"
   },
   "packages.x86_64-linux.nvlax": {
     "description": "Future-proof NvENC & NvFBC patcher",
@@ -5822,7 +5822,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.2.5"
+    "version": "9.3.0"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
