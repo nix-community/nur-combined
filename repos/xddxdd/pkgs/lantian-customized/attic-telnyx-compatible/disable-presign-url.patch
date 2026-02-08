@@ -1,0 +1,20 @@
+diff --git a/server/src/storage/s3.rs b/server/src/storage/s3.rs
+index 3af7507..20f07f5 100644
+--- a/server/src/storage/s3.rs
++++ b/server/src/storage/s3.rs
+@@ -159,7 +159,14 @@ impl S3Backend {
+                 .await
+                 .map_err(ServerError::storage_error)?;
+ 
+-            Ok(Download::Url(presigned.uri().to_string()))
++            // Telnyx uses different signing mechanism
++            let url = presigned.uri();
++            let url_clean = match url.find('?') {
++                Some(index) => &url[..index],
++                None => url,
++            };
++
++            Ok(Download::Url(url_clean.to_string()))
+         }
+     }
+ }
