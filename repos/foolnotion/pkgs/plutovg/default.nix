@@ -2,17 +2,19 @@
 
 stdenv.mkDerivation rec {
   pname = "plutovg";
-  version = "0.0.12";
+  version = "1.3.2";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "plutovg";
     rev = "v${version}";
-    hash = "sha256-ruwgZ+ZXXGDH/gi65hGhIF/NjuU4+S7uINNVh5ifOZY=";
+    hash = "sha256-4TvbNsElDL7WX3yXLDM5nwHFCHQdUclk6HQ5MbPUEZE=";
   };
 
   nativeBuildInputs = [ cmake ];
   cmakeFlags = [ "-DPLUTOVG_BUILD_EXAMPLES=0" ];
+
+  patches = [ ./fix_pc_prefix.patch ];
 
   meta = with lib; {
     description = "Tiny 2D vector graphics library in C";

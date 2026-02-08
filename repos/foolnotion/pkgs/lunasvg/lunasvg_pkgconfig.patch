@@ -1,0 +1,16 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c526159..5dab4a3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -131,9 +131,8 @@ if(NOT BUILD_SHARED_LIBS)
+ endif()
+
+ string(CONFIGURE [[
+-prefix=${pcfiledir}/@lunasvg_pc_prefix_relative@
+-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+-libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+
+ Name: LunaSVG
+ Description: SVG rendering and manipulation library

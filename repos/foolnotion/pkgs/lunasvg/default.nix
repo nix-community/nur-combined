@@ -1,18 +1,21 @@
 { lib, stdenv, fetchFromGitHub, cmake, plutovg }:
+
 stdenv.mkDerivation rec {
   pname = "lunasvg";
-  version = "3.1.1";
+  version = "3.5.0";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "lunasvg";
     rev = "v${version}";
-    hash = "sha256-9cw3flnQN366C9xbP2JTRsTQsFVJUVr5M25kDy6njcU=";
+    hash = "sha256-eSkYkxdV5L31cIJtH6cVfQU2nguA3BPCQXnIMnColek=";
   };
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ plutovg ];
-  cmakeFlags = [ "-DLUNASVG_BUILD_EXAMPLES=0" ];
+  cmakeFlags = [ "-DLUNASVG_BUILD_EXAMPLES=0" "-DUSE_SYSTEM_PLUTOVG=1" ];
+
+  patches = [ ./lunasvg_pkgconfig.patch ];
 
   meta = with lib; {
     description = "SVG rendering library in C++";
