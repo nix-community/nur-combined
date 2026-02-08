@@ -14,6 +14,10 @@ rec {
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +30,7 @@ rec {
         # optional: introduce nixpkgs into perSystem
         ./nixpkgs.nix
         ./pkgs/flake-module.nix
+        ./github-actions.nix
       ];
       perSystem =
         { pkgs, inputs', ... }:

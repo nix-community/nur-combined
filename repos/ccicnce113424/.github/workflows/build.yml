@@ -14,16 +14,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  nix-matrix:
     runs-on: ubuntu-latest
-    name: Build
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      # - uses: wimpysworld/nothing-but-nix@v9
-      #   with:
-      #     hatchet-protocol: "rampage"
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v34
+        with:
+          nix_conf: |
+            accept-flake-config = true
+
+      - id: set-matrix
+        name: Generate Nix Matrix
+        run: |
+          set -Eeu
+          matrix="$(nix eval --json '.#githubActions.matrix')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  nix-build:
+    name: ${{ matrix.name }} (${{ matrix.system }})
+    needs: nix-matrix
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -39,5 +59,4 @@ jobs:
 
       - name: Build
         run: |
-          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link
-          nix run nixpkgs#nix-fast-build -- --debug --skip-cached --no-nom --no-link --flake ".#packages"
+          nix build -L '.#${{ matrix.attr }}'
