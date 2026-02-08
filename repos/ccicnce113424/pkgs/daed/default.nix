@@ -14,12 +14,12 @@
 
 let
   pname = "daed";
-  version = "1.23.0";
+  version = "1.24.0";
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = "daed";
     tag = "v${version}";
-    hash = "sha256-MicUuNixp+k5+J0pMfVn5K/TwfQP0nJdHILn20pTpgU=";
+    hash = "sha256-vi31roanIqyTDMRjHG54nxx944gicrs03fh4pLEyOS8=";
     fetchSubmodules = true;
   };
 
@@ -34,7 +34,7 @@ let
         ;
       pnpm = pnpm_10;
       fetcherVersion = 2;
-      hash = "sha256-hZXs+T1Q90FdymkHYPTZ7ZXPLXgnwt9gIFWxSjLJOz8=";
+      hash = "sha256-z81LA/wel0CEs271NmZOZE3ub+u5Onwd5AuxcpRh2MU=";
     };
 
     nativeBuildInputs = [

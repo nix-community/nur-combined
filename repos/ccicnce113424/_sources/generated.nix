@@ -147,16 +147,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.5.7";
+    version = "1.1.6";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "1.1.5.7";
+      rev = "1.1.6";
       fetchSubmodules = false;
-      sha256 = "sha256-qUK7H/jKjVI5TmS/tXRk6KppXIYLC8JG7/ZyJdxpbyo=";
+      sha256 = "sha256-nHqvYy6/Oy/er2fyXaYIfExCAbkXeD4gSBSr1omuIoc=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-qUK7H_jKjVI5TmS_tXRk6KppXIYLC8JG7_ZyJdxpbyo=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-nHqvYy6_Oy_er2fyXaYIfExCAbkXeD4gSBSr1omuIoc=/pubspec.lock";
     };
   };
   pixes = {
@@ -201,21 +201,21 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "1d7dd0690dd321f1caf76b4e3f06892069f11151";
+    version = "83e10e79e3075513ff0465d463b3864c1cc31545";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "1d7dd0690dd321f1caf76b4e3f06892069f11151";
+      rev = "83e10e79e3075513ff0465d463b3864c1cc31545";
       fetchSubmodules = false;
-      sha256 = "sha256-KAaMw8yqgLHI4AqCK2CBvMjw36w3Nvb/DSCkIffFIhg=";
+      sha256 = "sha256-awZmCy3VV4yxn/rcWxd5XrLEWw0kyPwq06WBGk+i650=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-KAaMw8yqgLHI4AqCK2CBvMjw36w3Nvb_DSCkIffFIhg=/Cargo.lock";
+      lockFile = ./. + "/sha256-awZmCy3VV4yxn_rcWxd5XrLEWw0kyPwq06WBGk+i650=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-02-06";
+    date = "2026-02-08";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
@@ -252,15 +252,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "7527749ce7986f0c0080715f3d4dfbe00169b595";
+    version = "34a70875da0230b6a26a794f43938f881fd11311";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "7527749ce7986f0c0080715f3d4dfbe00169b595";
+      rev = "34a70875da0230b6a26a794f43938f881fd11311";
       fetchSubmodules = false;
-      sha256 = "sha256-jNBZ6Sw5Cf5pbyB5O8AYiqt9SVxlSdbEhDXnxjh6kJU=";
+      sha256 = "sha256-2Tol9Ryumv1Xc/tXtuYSNW2C05Rqve03IzK1GOwTxCA=";
     };
-    date = "2026-01-23";
+    date = "2026-02-07";
   };
   wild = {
     pname = "wild";
