@@ -230,8 +230,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
   ladybird = pkgs.callPackage ./pkgs/ladybird/package.nix {
   };
 
-  ego = v3overrideAttrs (pkgs.callPackage ./pkgs/ego/package.nix { });
-
   #systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
 
   musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });

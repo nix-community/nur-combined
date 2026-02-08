@@ -186,7 +186,6 @@ let
         #betterbird
         eden
         downkyicore
-        ego
         lix_2_93
         nix_2_31_2
         ghidra
