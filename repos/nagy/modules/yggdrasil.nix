@@ -87,12 +87,6 @@ in
         "y.www.nncpgo.org"
         "y.mirror.cypherpunks.su"
       ];
-      "202:2892:ef61:1c65:4822:8893:4b6f:87bd" = [ "ipfs.ygg" ];
-      "21e:a51c:885b:7db0:166e:927:98cd:d186" = [ "sites.ygg" ];
-      "200:6223::d35b:1fd8:be0d:2841" = [ "myip.ygg" ];
-      "324:71e:281a:9ed3::ace" = [ "acetone.ygg" ];
-      "128.140.56.86" = [ "ygg.mkg20001.io" ];
-      "5.75.213.206" = [ "ygg-uplink.thingylabs.io" ];
     };
   };
 }

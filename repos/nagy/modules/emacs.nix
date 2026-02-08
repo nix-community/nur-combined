@@ -79,6 +79,20 @@ let
           allowSubstitutes = false;
         };
 
+        # the unstable (5.2.0) variant gives some errors need to adapt
+        # to 5.1.0.
+        modus-themes = super.melpaStablePackages.modus-themes.overrideAttrs {
+          version = "5.1.0.0.20251228.92854";
+          src = pkgs.fetchFromGitHub {
+            owner = "protesilaos";
+            repo = "modus-themes";
+            rev = "refs/tags/5.1.0";
+            hash = "sha256-TP1t8fKyc8M0CUixPH7bAJrtSRNcSjeIqXuuaUlfiqk=";
+          };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        };
+
         typst-ts-mode = super.melpaBuild {
           pname = "typst-ts-mode";
           version = "0-unstable-2025-11-05";
