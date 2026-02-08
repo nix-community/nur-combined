@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "retro-aim-server";
-  version = "0.21.0";
+  version = "0.22.0";
 
   src = fetchFromGitHub {
     owner = "mk6i";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-a50KuydtE8+FCsIdDMhOMRxM+oA7AhwQxyBsV/9bLw8=";
+    hash = "sha256-M5OwiCSKagtUSTsqntq9oEMKCvZ/zXHv6Wdmz1GI+qk=";
   };
 
   vendorHash = "sha256-PWoohOrZC05urLWrbjnhDQiRCaWGlUHnAA2Kcgzn1z4=";

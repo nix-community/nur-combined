@@ -5,7 +5,6 @@
   curl,
   stdenv,
   cmake,
-  clang,
   fetchFromGitHub,
 }:
 
