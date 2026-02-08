@@ -14,7 +14,15 @@
   cairo,
   gtk3,
   pango,
-  xorg,
+  libX11,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libxcb,
+  libxshmfence,
+  libxkbfile,
   expat,
   libxkbcommon,
   udev,
@@ -22,6 +30,9 @@
   at-spi2-atk,
   at-spi2-core,
   libdrm,
+  webkitgtk_4_1,
+  libsoup_3,
+  libsecret,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "antigravity";
@@ -56,8 +67,6 @@ stdenv.mkDerivation (finalAttrs: {
     at-spi2-atk
     at-spi2-core
     libdrm
-  ]
-  ++ (with xorg; [
     libX11
     libXcomposite
     libXdamage
@@ -67,7 +76,10 @@ stdenv.mkDerivation (finalAttrs: {
     libxcb
     libxshmfence
     libxkbfile
-  ]);
+    webkitgtk_4_1
+    libsoup_3
+    libsecret
+  ];
 
   installPhase = ''
     runHook preInstall
