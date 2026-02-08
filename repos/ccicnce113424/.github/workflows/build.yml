@@ -32,7 +32,7 @@ jobs:
         name: Generate Nix Matrix
         run: |
           set -Eeu
-          matrix="$(nix eval --json '.#githubActions.matrix')"
+          matrix="$(nix eval --json '.#githubActions.build.matrix')"
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   nix-build:
