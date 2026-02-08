@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
 cd "$SCRIPT_DIR/.."
 
-DAED_NIX_FILE="$SCRIPT_DIR/daed/default.nix"
+DAED_NIX_FILE="$SCRIPT_DIR/default.nix"
 
 nix-update --use-github-releases daed.web
 
