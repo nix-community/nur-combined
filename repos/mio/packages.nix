@@ -201,7 +201,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     libName = "betterbird";
   };
 
-  downkyicore = pkgs.callPackage ./pkgs/downkyicore/package.nix { };
   bifrost = pkgs.callPackage ./pkgs/bifrost/package.nix { };
   bifrost-unwrapped = bifrost.unwrapped;
 

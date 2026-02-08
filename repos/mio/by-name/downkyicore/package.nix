@@ -9,7 +9,6 @@
   copyDesktopItems,
   makeDesktopItem,
   icoutils,
-  runtimeShell,
   aria2,
   ffmpeg,
   fontconfig,
@@ -19,13 +18,7 @@
   openssl,
   zlib,
   lttng-ust_2_12,
-  libx11,
-  libxcursor,
-  libxext,
-  libxi,
-  libxrandr,
-  libice,
-  libsm,
+  xorg,
 }:
 
 buildDotnetModule (finalAttrs: {
@@ -69,15 +62,18 @@ buildDotnetModule (finalAttrs: {
     (lib.getLib stdenv.cc.cc)
   ];
 
-  runtimeDeps = lib.optionals stdenv.hostPlatform.isLinux [
-    libx11
-    libxcursor
-    libxext
-    libxi
-    libxrandr
-    libice
-    libsm
-  ];
+  runtimeDeps = lib.optionals stdenv.hostPlatform.isLinux (
+    with xorg;
+    [
+      libX11
+      libXcursor
+      libXext
+      libXi
+      libXrandr
+      libICE
+      libSM
+    ]
+  );
 
   postPatch = ''
     substituteInPlace DownKyi/DownKyi.csproj DownKyi.Core/DownKyi.Core.csproj \
@@ -101,29 +97,20 @@ buildDotnetModule (finalAttrs: {
 
     printf 'See https://github.com/aria2/aria2/blob/master/COPYING for aria2 licensing information.\n' > $out/lib/downkyicore/aria2_COPYING.txt
     printf 'See https://ffmpeg.org/legal.html for FFmpeg licensing information.\n' > $out/lib/downkyicore/FFmpeg_LICENSE.txt
-
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     icotool -x DownKyi/Resources/favicon.ico
     install -Dm444 \
       favicon_*_128x128x32.png \
       $out/share/icons/hicolor/128x128/apps/downkyicore.png
-  ''
-  + lib.optionalString stdenv.hostPlatform.isDarwin ''
+  '';
+  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
     app="$out/Applications/DownKyi.app"
     mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 
-    install -Dm644 ${./Info.plist} "$app/Contents/Info.plist"
-    substituteInPlace "$app/Contents/Info.plist" \
-      --replace-fail "@version@" "${finalAttrs.version}"
-
-    cat > "$app/Contents/MacOS/DownKyi" <<'EOF'
-    #! ${runtimeShell}
-    exec "$out/bin/DownKyi" "$@"
-    EOF
-    chmod 755 "$app/Contents/MacOS/DownKyi"
-
-    cp DownKyi/Resources/favicon.ico "$app/Contents/Resources/downkyicore.ico"
+    cp $src/script/macos/Info.plist "$app/Contents/Info.plist"
+    makeWrapper "$out/bin/DownKyi" "$app/Contents/MacOS/DownKyi"
+    cp $src/script/macos/logo.icns "$app/Contents/Resources/logo.icns"
   '';
 
   desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
@@ -144,7 +131,7 @@ buildDotnetModule (finalAttrs: {
     description = "Cross-platform Bilibili downloader built with Avalonia";
     homepage = "https://github.com/yaobiao131/downkyicore";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [ mio ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "DownKyi";
   };

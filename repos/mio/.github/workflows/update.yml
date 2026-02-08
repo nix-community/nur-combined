@@ -64,12 +64,6 @@ jobs:
       continue-on-error: true
       run: nix run .#proton-ge-custom.passthru.updateScript
 
-    - name: Update downkyicore
-      continue-on-error: true
-      run: |
-        cd pkgs/downkyicore
-        ./update.sh
-
     - name: Update more
       run: |
         nix-shell -p nix-update --run "nix-update --version=branch musescore-evolution --commit"
