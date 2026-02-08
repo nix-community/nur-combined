@@ -2,23 +2,24 @@
 set -euo pipefail
 
 # Get latest commit from main branch
-LATEST=$(curl -s https://api.github.com/repos/HikariKnight/ScopeBuddy/commits/main | grep '"sha"' | head -1 | sed 's/.*"\([a-f0-9]\{40\}\)".*/\1/')
-CURRENT=$(grep "rev = " pkgs/scopebuddy/default.nix | sed 's/.*"\(.*\)".*/\1/')
+# Get latest release tag
+LATEST_TAG=$(curl -s https://api.github.com/repos/OpenGamingCollective/ScopeBuddy/releases/latest | grep '"tag_name":' | sed -E 's/.*"tag_name": "([^"]+)".*/\1/')
+CURRENT_VERSION=$(grep "version = " pkgs/scopebuddy/default.nix | sed 's/.*"\(.*\)".*/\1/')
 
-if [ "$LATEST" = "$CURRENT" ]; then
-    echo "scopebuddy is up to date ($CURRENT)"
+if [ "$LATEST_TAG" = "$CURRENT_VERSION" ]; then
+    echo "scopebuddy is up to date ($CURRENT_VERSION)"
     exit 0
 fi
 
-echo "Updating scopebuddy: ${CURRENT:0:7} -> ${LATEST:0:7}"
+echo "Updating scopebuddy: $CURRENT_VERSION -> $LATEST_TAG"
 
 # Get new hash using nix flake prefetch
-HASH=$(nix flake prefetch "github:HikariKnight/ScopeBuddy/$LATEST" --json 2>/dev/null | grep -o '"hash":"[^"]*"' | sed 's/"hash":"//;s/"//')
-DATE=$(date +%Y-%m-%d)
+HASH=$(nix flake prefetch "github:OpenGamingCollective/ScopeBuddy/$LATEST_TAG" --json 2>/dev/null | grep -o '"hash":"[^"]*"' | sed 's/"hash":"//;s/"//')
 
 # Update rev, hash, and version in file
-sed -i "s/rev = \"${CURRENT}\"/rev = \"${LATEST}\"/" pkgs/scopebuddy/default.nix
+# We are switching from commit hash to tag for rev, and unstable date to tag for version
+sed -i "s/rev = \".*\"/rev = \"${LATEST_TAG}\"/" pkgs/scopebuddy/default.nix
 sed -i "s|hash = \"sha256-.*\"|hash = \"${HASH}\"|" pkgs/scopebuddy/default.nix
-sed -i "s/version = \"unstable-.*\"/version = \"unstable-${DATE}\"/" pkgs/scopebuddy/default.nix
+sed -i "s/version = \".*\"/version = \"${LATEST_TAG}\"/" pkgs/scopebuddy/default.nix
 
-echo "Updated scopebuddy to ${LATEST:0:7} (${DATE})"
+echo "Updated scopebuddy to $LATEST_TAG"

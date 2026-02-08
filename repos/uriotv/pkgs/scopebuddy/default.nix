@@ -11,12 +11,12 @@
 
 stdenv.mkDerivation {
   pname = "scopebuddy";
-  version = "unstable-2026-01-31";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
-    owner = "HikariKnight";
+    owner = "OpenGamingCollective";
     repo = "ScopeBuddy";
-    rev = "4340ab2047eb9d7f840d342b932d98a8d0f7f652";
+    rev = "1.4.0";
     hash = "sha256-1n1lZidbtDV9Lm8QKd1s35bOS6Uh8sI3KtBJZ+FwdxQ=";
   };
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A manager script to make gamescope easier to use on desktop";
-    homepage = "https://github.com/HikariKnight/ScopeBuddy";
+    homepage = "https://github.com/OpenGamingCollective/ScopeBuddy";
     license = licenses.asl20;
     platforms = platforms.linux;
     mainProgram = "scopebuddy";
