@@ -17,11 +17,6 @@
 }:
 with (import ./private.nix { inherit pkgs; });
 let
-  pkgs-cuda = import <nixpkgs> {
-    config.allowUnfree = true;
-    config.cudaSupport = true;
-  };
-  self-cuda = import ./default.nix { pkgs = pkgs-cuda; };
   inherit (pkgs) callPackage;
   inherit (lib) recurseIntoAttrs;
   stdenv = pkgs.stdenv;
@@ -138,7 +133,7 @@ let
     );
     nix-output-monitor = callPackage ./pkgs/nix-output-monitor/package.nix { };
 
-    cached_ = self: {
+    cached = {
       pkgscache = (
         pkgs.symlinkJoin {
           name = "pkgscache";
@@ -180,8 +175,6 @@ let
         darling
         ;
     };
-    cached = cached_ self;
-    cached-cuda = cached_ self-cuda;
   };
 in
 self
