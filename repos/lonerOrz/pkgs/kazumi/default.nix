@@ -13,13 +13,13 @@
 }:
 
 let
-  version = "2.0.0";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "Predidit";
     repo = "Kazumi";
     tag = version;
-    hash = "sha256-4ZMxCHxEw580NTwFs4w5M9KAkHOwop9LyT/bWZKL8Tc=";
+    hash = "sha256-YV+8V1N6ZpmP1RKHTIP0+O39TZcsrAx+O/T/ixCIWCk=";
   };
 in
 flutter338.buildFlutterApplication {

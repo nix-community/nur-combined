@@ -16,11 +16,11 @@ rustPlatform.buildRustPackage (finallAttrs: {
   src = fetchFromGitHub {
     owner = "Immelancholy";
     repo = "Zarumet";
-    rev = "133fa9765afb547316812a2d945ad4e095d6b819";
-    hash = "sha256-TTluwrwOFFRdDk3M116Orij/h0CCXriS+UouFz/wbqo=";
+    rev = "99ad6949ec5053a881a594345d1d9cf3fc073ee6";
+    hash = "sha256-fT+C2IH0gs+QGuIaLvDPbxVXTDRD958Tc9mOSB91X2s=";
   };
 
-  cargoHash = "sha256-nDiHJj9HZ8/VOwdrd0wtHvdQ5h8uHphz6q2eekeZNEQ=";
+  cargoHash = "sha256-j3ZibmKookg0d7J6cLeaGdPeGjEuS5u+g6B8xVCJ2ZY=";
 
   nativeBuildInputs = [
     pkg-config
