@@ -1385,6 +1385,11 @@
             "sha256": "1v2n28yn4fb76n6w6amqv5fdinq1yj3cl93l624vpfrmifbgizay",
             "url": "https://github.com/lmdevv/nur-packages"
         },
+        "lonerOrz": {
+            "rev": "c34bfb1de60ee15f2d5c45b8ba9113a2fe02c0fb",
+            "sha256": "1kbr5j9ikvdrnkj64dc1jgksyxpf7472z7c6w49j2kz3n0d21ndn",
+            "url": "https://github.com/lonerOrz/loneros-nur"
+        },
         "lschuermann": {
             "rev": "121bbb5254e072a005b7f4ebcea7dc90c50e36f9",
             "sha256": "0yz4d51fxkr5samyvhp0rzsmqknqn9k31bchjwymq53y4c8y1gpr",
@@ -2317,8 +2322,8 @@
             "url": "https://github.com/ToyVo/nur-packages"
         },
         "trev": {
-            "rev": "dacf43fbf30d163389a5d2cc34bbf2e4d01724fd",
-            "sha256": "0wm2ar9x1bl0v4y0cr7l79wblqszpwl44wgsb7xj9gav1igpl3cl",
+            "rev": "56902555de076e39b997eb3d338c09206dcfbcb9",
+            "sha256": "1h3751gxdhpdrlf64x7pyny9fkl94by4h0ij81mv4rfng3xci4dj",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
