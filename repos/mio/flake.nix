@@ -34,7 +34,7 @@
             pkgs = import nixpkgs {
               config.allowUnfree = true;
               config.cudaSupport = true;
-              system = system;
+              inherit system;
             };
           };
         in
