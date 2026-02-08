@@ -1,0 +1,14 @@
+{
+  "aarch64-darwin": {
+    "version": "11.1.1",
+    "sign": "1-7275637d70043f7c125504a6cd368117bef41ef53dc6f2f0d8c0b49bdec8eb5c-6983fe11",
+    "build": "00",
+    "hash": "sha256-JKxoRZoiJLE9rCurapdIC8rzfxlVljAseXrrdJWDSUY="
+  },
+  "x86_64-darwin": {
+    "version": "11.1.1",
+    "sign": "1-7275637d70043f7c125504a6cd368117bef41ef53dc6f2f0d8c0b49bdec8eb5c-6983fe11",
+    "build": "00",
+    "hash": "sha256-JKxoRZoiJLE9rCurapdIC8rzfxlVljAseXrrdJWDSUY="
+  }
+}
