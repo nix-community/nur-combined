@@ -229,8 +229,6 @@ maven.buildMavenPackage {
     homepage = "https://github.com/helge17/tuxguitar";
     license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [
-      ardumont
-      mio
     ];
     platforms = builtins.attrNames mvnHashByPlatform;
     mainProgram = "tuxguitar";
