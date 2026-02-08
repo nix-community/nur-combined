@@ -61,10 +61,28 @@ jobs:
         run: |
           nix build -L '.#${{ matrix.attr }}'
 
+  check-flake:
+    runs-on: ubuntu-latest
+    name: Check Flake
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v34
+        with:
+          nix_conf: |
+            accept-flake-config = true
+
+      - name: Check Nix Flake
+        run: |
+          nix flake check
+
   all:
     name: All
     needs:
       - nix-build
+      - check-flake
     runs-on: ubuntu-latest
     if: ${{ success() }}
     steps:

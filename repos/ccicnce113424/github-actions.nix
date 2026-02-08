@@ -1,12 +1,11 @@
 {
   self,
   inputs,
-  lib,
   ...
 }:
 {
   flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-    checks = lib.recursiveUpdate self.packages self.checks;
+    checks = self.packages;
     platforms."x86_64-linux" = "ubuntu-latest";
   };
 }
