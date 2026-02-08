@@ -1,0 +1,10 @@
+{
+  "name": "Equicord",
+  "source": {
+    "type": "github-repo",
+    "repo": "Equicord/Equicord",
+    "tag_filter": "^(?!latest$).*$"
+  },
+  "version": "2026-02-08",
+  "hash": "sha256-uk4kF6i00jAnHQ8ldjTjO4zv0S+OmMZ5zOqfRb8XWS8="
+}

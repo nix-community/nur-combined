@@ -1,7 +1,7 @@
-const { getReleases } = require("../../github");
-const { apply } = require("../../text");
-const getHash = require("../../hash");
-const update = require("../../file");
+const { getReleases, check: checkVersion } = require("../../../github");
+const { apply } = require("../../../text");
+const getHash = require("../../../hash");
+const update = require("../../../file");
 
 async function check(file, { config, force }) {
   let api_repo = config.source.repo;
@@ -23,20 +23,7 @@ async function check(file, { config, force }) {
     api_repo = first?.substitutions ? apply(config.source.repo, first.substitutions) : api_repo;
   }
 
-  const releases = (await getReleases(api_repo, config.source.skipPrerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-
-  const version = config.source.skipPrerelease ? releases[0].tag_name : eval(`(${JSON.stringify(releases)})${config.source.query}`);
-  if (!version) throw new Error("Failed to extract version from GitHub releases");
-
-  const parsed = version.replace(/^v/, "");
-
-  console.log(`Latest version: ${parsed}`);
-
-  if (!force && parsed === config.version) return { releases: "", version: "" };
-
-  console.log(`Update: ${config.version} → ${parsed}`);
-
-  return { releases, version: parsed };
+  return await checkVersion(file, { config, force, repo: api_repo });
 }
 
 async function single(file, { config, force }) {

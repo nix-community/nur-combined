@@ -42,126 +42,141 @@
   read = path: builtins.fromJSON (builtins.readFile path);
 
   getSingle = ver: let
-    hasFile = ver.asset ? file;
-    isGithub = (ver.source.type or "") == "github-release" && hasFile;
-    isForgejo = (ver.source.type or "") == "forgejo-release" && hasFile;
-
-    url =
-      if isGithub
-      then
-        githubUrl
-        ver.source.repo
-        (ver.source.tag_prefix or "")
-        ver.version
-        (substitute {
-          version = ver.version;
-          template = ver.asset.file;
-        })
-      else if isForgejo
-      then
-        forgejoUrl
-        ver.source.instance
-        ver.source.repo
-        (ver.source.tag_prefix or "")
-        ver.version
-        (substitute {
-          version = ver.version;
-          template = ver.asset.file;
-        })
-      else
-        sanitizeUrl (substitute {
-          version = ver.version;
-          repo = ver.source.repo or "";
-          template = ver.asset.url;
-        });
-
-    name = extractName url;
-  in {
-    inherit url name;
-    hash = ver.asset.hash or ver.hash;
-  };
+    sourceType = ver.source.type or "";
+    tagPrefix = ver.source.tag_prefix or "";
+  in
+    # GitHub repository
+    if sourceType == "github-repo"
+    then let
+      parts = lib.splitString "/" ver.source.repo;
+    in {
+      owner = builtins.elemAt parts 0;
+      repo = builtins.elemAt parts 1;
+      tag = "${tagPrefix}${ver.version}";
+      inherit (ver) hash;
+    }
+    else let
+      url =
+        # GitHub release
+        if sourceType == "github-release" && ver.asset ? file
+        then
+          githubUrl
+          ver.source.repo
+          tagPrefix
+          ver.version
+          (substitute {
+            inherit (ver) version;
+            template = ver.asset.file;
+          })
+        # Forgejo release
+        else if sourceType == "forgejo-release" && ver.asset ? file
+        then
+          forgejoUrl
+          ver.source.instance
+          ver.source.repo
+          tagPrefix
+          ver.version
+          (substitute {
+            inherit (ver) version;
+            template = ver.asset.file;
+          })
+        # Custom URL
+        else
+          sanitizeUrl (substitute {
+            inherit (ver) version;
+            repo = ver.source.repo or "";
+            template = ver.asset.url;
+          });
+    in {
+      inherit url;
+      name = extractName url;
+      hash = ver.asset.hash or ver.hash;
+    };
 
   getPlatform = platform: ver: let
-    plat = lib.getAttr platform ver.platforms;
-    version = plat.version or ver.version;
-    hasUrl = plat ? url;
-    isForgejo = (ver.source.type or "") == "forgejo-release";
+    settings = lib.getAttr platform ver.platforms;
+    version = settings.version or ver.version;
+    sourceType = ver.source.type or "";
 
     url =
-      if hasUrl
+      # Custom URL
+      if settings ? url
       then
         sanitizeUrl (substitute {
           inherit version;
-          repo = plat.repo or ver.source.repo or "";
-          template = plat.url;
+          repo = settings.repo or ver.source.repo or "";
+          template = settings.url;
         })
-      else if isForgejo
+      # Forgejo release
+      else if sourceType == "forgejo-release"
       then
         forgejoUrl
-        (plat.instance or ver.source.instance)
-        (plat.repo or ver.source.repo)
-        (plat.tag_prefix or ver.source.tag_prefix or "")
+        (settings.instance or ver.source.instance)
+        (settings.repo or ver.source.repo)
+        (settings.tag_prefix or ver.source.tag_prefix or "")
         version
         (substitute {
           inherit version;
-          template = plat.file;
+          template = settings.file;
         })
+      # GitHub release
       else
         githubUrl
-        (plat.repo or ver.source.repo)
-        (plat.tag_prefix or ver.source.tag_prefix or "")
+        (settings.repo or ver.source.repo)
+        (settings.tag_prefix or ver.source.tag_prefix or "")
         version
         (substitute {
           inherit version;
-          template = plat.file;
+          template = settings.file;
         });
-
-    name = extractName url;
   in {
-    inherit url name;
-    inherit (plat) hash;
+    inherit url;
+    name = extractName url;
+    inherit (settings) hash;
   };
 
   getVariant = variant: ver: let
-    vari = lib.getAttr variant ver.variants;
-    hasFile = ver.asset ? file;
-    isGithub = (ver.source.type or "") == "github-release" && hasFile;
-    isForgejo = (ver.source.type or "") == "forgejo-release" && hasFile;
+    settings = lib.getAttr variant ver.variants;
+    sourceType = ver.source.type or "";
+    tagPrefix = ver.source.tag_prefix or "";
 
     baseUrl =
-      if isGithub
+      # GitHub release
+      if sourceType == "github-release" && ver.asset ? file
       then
         githubUrl
         ver.source.repo
-        (ver.source.tag_prefix or "")
+        tagPrefix
         ver.version
         (substitute {
-          version = ver.version;
+          inherit (ver) version;
           template = ver.asset.file;
         })
-      else if isForgejo
+      # Forgejo release
+      else if sourceType == "forgejo-release" && ver.asset ? file
       then
         forgejoUrl
         ver.source.instance
         ver.source.repo
-        (ver.source.tag_prefix or "")
+        tagPrefix
         ver.version
         (substitute {
-          version = ver.version;
+          inherit (ver) version;
           template = ver.asset.file;
         })
+      # Custom URL
       else
         substitute {
-          version = ver.version;
-          repo = ver.source.repo;
+          inherit (ver) version;
+          inherit (ver.source) repo;
           template = ver.asset.url;
         };
 
-    url = applySubstitutions vari.substitutions baseUrl 0;
-    name = extractName url;
+    url = applySubstitutions settings.substitutions baseUrl 0;
   in {
-    inherit url name;
-    inherit (vari) hash;
+    inherit url;
+    name = extractName url;
+    inherit (settings) hash;
   };
 
   unpack = ver: ver.asset.unpack or false;

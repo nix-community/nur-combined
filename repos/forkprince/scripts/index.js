@@ -41,16 +41,21 @@ force = force || config.force || false;
 console.log(`Updating ${file}...`);
 
 switch (config.source.type) {
+  case "github-repo": {
+    console.log(`Updating repository for ${file}...`);
+    await update.github.repo(resolved, { config, force });
+    break;
+  }
   case "github-release": {
     if (config.platforms) {
       console.log(`Updating platforms for ${file}...`);
-      await update.github.platforms(resolved, { config, force });
+      await update.github.release.platforms(resolved, { config, force });
     } else if (config.variants) {
       console.log(`Updating variants for ${file}...`);
-      await update.github.variants(resolved, { config, force });
+      await update.github.release.variants(resolved, { config, force });
     } else {
       console.log(`Updating single version for ${file}...`);
-      await update.github.single(resolved, { config, force });
+      await update.github.release.single(resolved, { config, force });
     }
     break;
   }
