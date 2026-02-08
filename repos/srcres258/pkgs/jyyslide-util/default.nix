@@ -6,8 +6,8 @@
   python = pkgs.python312;
   pythonEnv = pkgs.python312Packages;
 
-  pname = "ag";
-  version = "0.1.2";
+  pname = "jyyslide-util";
+  version = "0.1.0";
 in pythonEnv.buildPythonApplication {
   inherit pname version;
 
@@ -15,16 +15,20 @@ in pythonEnv.buildPythonApplication {
     owner = "srcres258";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-rKsddgwhzZEQeXgWfJ2oOvSMYdlol+Vm4UKMG+Ieb+s=";
+    sha256 = "sha256-bPdkt5vvDt6F/oYNR4Gyl19Qq39ZJEXcly7zD9Agol4=";
   };
 
   propagatedBuildInputs = with pythonEnv; [
-    openai
-    termcolor
-    prompt-toolkit
+    jinja2
+    pyquery
+    pyyaml
+    markdown
+    requests
   ];
   nativeBuildInputs = with pythonEnv; [
     hatchling
+    hatch-vcs
+    setuptools-scm
   ];
 
   format = "pyproject";
@@ -32,9 +36,9 @@ in pythonEnv.buildPythonApplication {
   doCheck = true;
 
   meta = with pkgs.lib; {
-    description = "A command-line AI assistant";
+    description = "A tool for creating jyy-style slides";
     homepage = "https://github.com/srcres258/${pname}";
-    license = licenses.mit;
+    license = licenses.bsd3;
     maintainers = with maintainers; [ srcres258 ];
     platforms = platforms.linux;
     mainProgram = pname;
