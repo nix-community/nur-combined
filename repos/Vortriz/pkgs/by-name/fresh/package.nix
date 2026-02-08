@@ -11,13 +11,13 @@ let
 in
 rustPlatform.buildRustPackage {
     pname = "fresh";
-    version = "unstable-2026-02-06";
+    version = "unstable-2026-02-08";
 
     src = fetchFromGitHub {
         owner = "sinelaw";
         repo = "fresh";
-        rev = "e04263c4b595daa09ed4b16e32a8e6904056ca1f";
-        hash = "sha256-gbrtnAs4BvDMS1C45pz06+DhK+Qh3d5v+lgFlh5U2Z8=";
+        rev = "0fbb7b4b920d84fc0e60f5bf8ae0a9bcc9713205";
+        hash = "sha256-/1G1XQNNXmpU4ojAQBxt4pGoACoDOL0z+PzMbLLaHlM=";
     };
 
     cargoLock.lockFile = ./Cargo.lock;
