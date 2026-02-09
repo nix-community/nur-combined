@@ -10,5 +10,11 @@
     "sign": "1-7275637d70043f7c125504a6cd368117bef41ef53dc6f2f0d8c0b49bdec8eb5c-6983fe11",
     "build": "00",
     "hash": "sha256-JKxoRZoiJLE9rCurapdIC8rzfxlVljAseXrrdJWDSUY="
+  },
+  "x86_64-linux": {
+    "version": "1.1.8",
+    "sign": "1-d1ca4d5c5a8369b26af88e881ba3ac544066a899dcaea29778b35c9f648e6fee-68cb7c1c",
+    "build": "",
+    "hash": "sha256-QtGNaow8F0FOW228DDrIk7slQMHFwJzpDSQYQ8xZN4g="
   }
 }
