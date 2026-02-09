@@ -341,11 +341,11 @@
     "mpv-danmaku": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-aXaqsKC9WXzaKB8KNDT7Mx2fZKEdUj6jylquDxSTW6I=/Cargo.lock",
+                "sha256-x5_PXNgrT8pvHybsBUA9E0ZMBbXjBBstgwiomvdm8Tk=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-02-02",
+        "date": "2026-02-09",
         "extract": null,
         "name": "mpv-danmaku",
         "passthru": null,
@@ -357,12 +357,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "mpv-danmaku",
-            "rev": "5c6df2f5024cf1e1abec1b4f27aab3de41ab9b07",
-            "sha256": "sha256-aXaqsKC9WXzaKB8KNDT7Mx2fZKEdUj6jylquDxSTW6I=",
+            "rev": "c6cf85dd18867e4ba6c179d0729f2411e678b082",
+            "sha256": "sha256-x5/PXNgrT8pvHybsBUA9E0ZMBbXjBBstgwiomvdm8Tk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5c6df2f5024cf1e1abec1b4f27aab3de41ab9b07"
+        "version": "c6cf85dd18867e4ba6c179d0729f2411e678b082"
     },
     "mpv-danmaku-stable": {
         "cargoLock": null,
@@ -399,12 +399,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v0.10.9-alpha.2",
-            "sha256": "sha256-5UrX5rEfNfVcnzQCqJ7LdxfHFVZnwL9fU62GmqY96oA=",
+            "rev": "v0.10.9-alpha.3",
+            "sha256": "sha256-mEp4os+quvTQzbZ+KoWfNK+g3/UX4M0VfxDjJ+KJ8ms=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.9-alpha.2"
+        "version": "v0.10.9-alpha.3"
     },
     "nipaplay-reload-darwin": {
         "cargoLock": null,
@@ -439,7 +439,7 @@
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-8nxxlErMMnawQ2_nzHr8u1OFK9Icrja_Ka3l4oxRKng=/Cargo.lock",
+                "sha256-DEHCqQ79CjJzvkclRFLssvb+_47aW+xCfYXsTO6Kctw=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-WSa06MRY/XIgaTS12bss+D4vz7GDYBRXXJawP8OsdjM="
@@ -453,11 +453,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8nxxlErMMnawQ2/nzHr8u1OFK9Icrja/Ka3l4oxRKng=",
+            "sha256": "sha256-DEHCqQ79CjJzvkclRFLssvb+/47aW+xCfYXsTO6Kctw=",
             "type": "url",
-            "url": "file:///nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz"
+            "url": "file:///nix/store/h9981w8b8zc36yxpyzvp6w5g4dihm3s0-niri-patched-src.tar.gz"
         },
-        "version": "/nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz"
+        "version": "/nix/store/h9981w8b8zc36yxpyzvp6w5g4dihm3s0-niri-patched-src.tar.gz"
     },
     "opencode": {
         "cargoLock": null,
@@ -512,9 +512,9 @@
             "name": null,
             "sha256": "sha256-jPPax9meQoo4C9OqEzD1dxinlNRf5PndIAd8AQ3AvNs=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602072219/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602082220/geoip.dat"
         },
-        "version": "202602072219"
+        "version": "202602082220"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -525,11 +525,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EZeJgHJCY08HnQwL36+Fkkpf2Tnb6Bl6/hG6er40uGE=",
+            "sha256": "sha256-THRNI7l4x8Zovp94rmGLzzMaUsdbq+g+qoWQtfEJ8og=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602072219/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602082220/geosite.dat"
         },
-        "version": "202602072219"
+        "version": "202602082220"
     },
     "watt-toolkit-aarch64-linux": {
         "cargoLock": null,

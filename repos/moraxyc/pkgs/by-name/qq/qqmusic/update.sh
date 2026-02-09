@@ -30,23 +30,20 @@ update_platform() {
        "$SOURCES_FILE" | sponge "$SOURCES_FILE"
 }
 
-RAW_DATA=$(curl -sL "https://y.qq.com/download/download.js" | sed 's/^MusicJsonCallback(//;s/)$//')
+RAW_DATA=$(curl -sL "https://y.qq.com/download/download.js" | sed 's/^MusicJsonCallback(//;s/)$//' | base64)
 
 # Mac
-MAC_ITEM=$(echo "$RAW_DATA" | jq -c '.data[] | select(.ID == 2)')
-MAC_VERSION=$(echo "$MAC_ITEM" | jq -r '.Fversion' | sed 's/最新版://')
-MAC_LINK=$(echo "$MAC_ITEM" | jq -r '.Flink1')
-MAC_SIGN=$(echo "$MAC_LINK" | sed -E 's/.*sign=([^&]+).*/\1/')
-MAC_BUILD=$(echo "$MAC_LINK" | sed -E 's/.*Build([0-9]+)\.dmg.*/\1/')
+MAC_LINK=$(echo "$RAW_DATA" | base64 -d | jq -r \
+    --arg title "Mac" '[.data[] | select(.Ftitle == $title)] | sort_by(.Fversion | sub("最新版:";"") | split(".") | map(tonumber)? // [0]) | last | .Flink1')
+read -r MAC_VERSION MAC_BUILD MAC_SIGN <<< $(echo "$MAC_LINK" | sed -n 's/.*QQMusicMac\([0-9.]*\)Build\([0-9]*\)\.dmg.*sign=\(.*\)/\1 \2 \3/p')
 MAC_URL="https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile%2Fmusic_clntupate%2Fmac%2Fother%2FQQMusicMac${MAC_VERSION}Build${MAC_BUILD}.dmg&sign=${MAC_SIGN}"
 for PLATFORM in "aarch64-darwin" "x86_64-darwin"; do
     update_platform "$PLATFORM" "$MAC_VERSION" "$MAC_BUILD" "$MAC_SIGN" "$MAC_URL" "QQMusicMac${MAC_VERSION}Build${MAC_BUILD}.dmg"
 done
 
 # Linux
-LINUX_ITEM=$(echo "$RAW_DATA" | jq -c '.data[] | select(.ID == 18)')
-LINUX_VERSION=$(echo "$LINUX_ITEM" | jq -r '.Fversion' | sed 's/最新版://')
-LINUX_LINK=$(echo "$LINUX_ITEM" | jq -r '.Flink1')
-LINUX_SIGN=$(echo "$LINUX_LINK" | sed -E 's/.*sign=([^&]+).*/\1/')
+LINUX_LINK=$(echo "$RAW_DATA" | base64 -d | jq -r \
+    --arg title "Linux" '[.data[] | select(.Ftitle == $title)] | sort_by(.Fversion | sub("最新版:";"") | split(".") | map(tonumber)? // [0]) | last | .Flink1')
+read -r LINUX_VERSION LINUX_SIGN <<< $(echo "$LINUX_LINK" | sed -n 's/.*qqmusic_\([0-9.]*\)_amd64.deb.*sign=\(.*\)/\1 \2/p')
 LINUX_URL="https://c.y.qq.com/cgi-bin/file_redirect.fcg?bid=dldir&file=ecosfile_plink%2Fmusic_clntupate%2Flinux%2Fother%2Fqqmusic_${LINUX_VERSION}_amd64.deb&sign=${LINUX_SIGN}"
 update_platform "x86_64-linux" "$LINUX_VERSION" "" "$LINUX_SIGN" "$LINUX_URL" "qqmusic_${LINUX_VERSION}_amd64.deb"
