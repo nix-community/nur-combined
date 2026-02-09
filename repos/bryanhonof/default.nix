@@ -21,4 +21,5 @@
 
   # LLM tools
   matryoshka = pkgs.callPackage ./pkgs/matryoshka { };
+  popup-mcp = pkgs.callPackage ./pkgs/popup-mcp { };
 }
