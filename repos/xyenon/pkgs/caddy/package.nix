@@ -30,6 +30,10 @@ buildGo125Module (finalAttrs: {
     hash = "sha256-C07tFO8MehgMmuubduRePYoYEB1JKsZ0CvjVeKiUse8=";
   };
 
+  patches = [
+    ./fix-reverse-proxy-unix-socket-xff.patch
+  ];
+
   vendorHash = "sha256-GmWnq/dmuhvsHE9/WFjUfn3jnukYv+ZwjqrbJfavSYc=";
 
   ldflags = [
