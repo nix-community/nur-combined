@@ -2,22 +2,34 @@ name: vulnerable
 
 on:
   schedule:
-    - cron: "0 9 * * *" # every day at 09:00 UTC
+    - cron: "0 9 * * 0" # every Sunday at 09:00 UTC
   workflow_dispatch:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   flake:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize
-        uses: spotdemo4/nix-init@e007104fa840f028e46ef5b24520ee14dda33cec # v1.26.0
+      - name: Checkout
+        uses: spotdemo4/nix-init@a5ea6d41ce120b209d0a58900d2906e1f59c2698 # v1.27.2
         with:
-          attic_cache: nur
-          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          audience: https://niks3.trev.zip
           shell: vulnerable
 
-      - name: Check flake
+      - name: Run flake-checker
         run: flake-checker -f
+
+  actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: spotdemo4/nix-init@a5ea6d41ce120b209d0a58900d2906e1f59c2698 # v1.27.2
+        with:
+          audience: https://niks3.trev.zip
+          shell: vulnerable
+
+      - name: Run octoscan
+        run: octoscan scan .github

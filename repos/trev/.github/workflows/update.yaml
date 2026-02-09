@@ -10,6 +10,7 @@ concurrency:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   pkgs:
@@ -23,15 +24,12 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e007104fa840f028e46ef5b24520ee14dda33cec # v1.26.0
+        uses: spotdemo4/nix-init@a5ea6d41ce120b209d0a58900d2906e1f59c2698 # v1.27.2
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
-
-      - name: Load update environment
-        uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1
-        with:
-          arguments: ".#update"
+          audience: https://niks3.trev.zip
+          shell: update
 
       - name: Create branch
         run: git checkout -B "update-packages-${{ matrix.image }}"
@@ -85,10 +83,12 @@ jobs:
     steps:
       - id: init
         name: Initialize
-        uses: spotdemo4/nix-init@e007104fa840f028e46ef5b24520ee14dda33cec # v1.26.0
+        uses: spotdemo4/nix-init@a5ea6d41ce120b209d0a58900d2906e1f59c2698 # v1.27.2
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
+          audience: https://niks3.trev.zip
+          shell: update
 
       - name: Load update environment
         uses: nicknovitski/nix-develop@9be7cfb4b10451d3390a75dc18ad0465bed4932a # v1.2.1

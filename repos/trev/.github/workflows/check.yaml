@@ -12,6 +12,7 @@ concurrency:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   check:
@@ -25,10 +26,9 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e007104fa840f028e46ef5b24520ee14dda33cec # v1.26.0
+        uses: spotdemo4/nix-init@a5ea6d41ce120b209d0a58900d2906e1f59c2698 # v1.27.2
         with:
-          attic_cache: nur
-          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          audience: https://niks3.trev.zip
 
       - name: Check flake
         run: nix flake check
@@ -57,10 +57,9 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e007104fa840f028e46ef5b24520ee14dda33cec # v1.26.0
+        uses: spotdemo4/nix-init@a5ea6d41ce120b209d0a58900d2906e1f59c2698 # v1.27.2
         with:
-          attic_cache: nur
-          attic_token: ${{ secrets.ATTIC_TOKEN }}
+          audience: https://niks3.trev.zip
           shell: check
 
       - name: Build packages
