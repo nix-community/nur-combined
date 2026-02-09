@@ -12,11 +12,6 @@ src.prefix = "v"
 fetch.github = "hihkm/DanmakuFactory"
 src.github = "hihkm/DanmakuFactory"
 
-[danmakufactory-git]
-fetch.github = "hihkm/DanmakuFactory"
-git.fetchSubmodules = true
-src.git = "https://github.com/hihkm/DanmakuFactory"
-
 [dxvk-gplall]
 fetch.url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-$ver/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.$ver.zip"
 src.github_tag = "Digger1955/dxvk-gplasync-lowlatency"
