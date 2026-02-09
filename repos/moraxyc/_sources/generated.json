@@ -399,17 +399,47 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v0.10.9-alpha.1",
-            "sha256": "sha256-lsCVieJJ07Ctgq20LnrjaGKdBECWpf7PNG1tJRWAdtc=",
+            "rev": "v0.10.9-alpha.2",
+            "sha256": "sha256-5UrX5rEfNfVcnzQCqJ7LdxfHFVZnwL9fU62GmqY96oA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.9-alpha.1"
+        "version": "v0.10.9-alpha.2"
+    },
+    "nipaplay-reload-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nipaplay-reload-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-WcuatMjqjBq5jUG9FRGkJ0iFAQ31ShQqgJRn5qPpn6M=",
+            "type": "url",
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.8/NipaPlay_1.9.8_macOS_Universal.dmg"
+        },
+        "version": "1.9.8"
+    },
+    "nipaplay-reload-x86_64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nipaplay-reload-x86_64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-PWYRzJ3QUWgCDGX5gZsMKa4SnRonKEYS/qvIsqCGRHA=",
+            "type": "url",
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.8/NipaPlay-1.9.8-Linux-amd64.AppImage"
+        },
+        "version": "1.9.8"
     },
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-twhfVFyCSbX1uPiJNcFTzJpqzIA+6E2TUVZpApLn1E8=/Cargo.lock",
+                "sha256-8nxxlErMMnawQ2_nzHr8u1OFK9Icrja_Ka3l4oxRKng=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-WSa06MRY/XIgaTS12bss+D4vz7GDYBRXXJawP8OsdjM="
@@ -423,11 +453,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-twhfVFyCSbX1uPiJNcFTzJpqzIA+6E2TUVZpApLn1E8=",
+            "sha256": "sha256-8nxxlErMMnawQ2/nzHr8u1OFK9Icrja/Ka3l4oxRKng=",
             "type": "url",
-            "url": "file:///nix/store/h9981w8b8zc36yxpyzvp6w5g4dihm3s0-niri-patched-src.tar.gz"
+            "url": "file:///nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz"
         },
-        "version": "/nix/store/h9981w8b8zc36yxpyzvp6w5g4dihm3s0-niri-patched-src.tar.gz"
+        "version": "/nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz"
     },
     "opencode": {
         "cargoLock": null,

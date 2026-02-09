@@ -115,3 +115,13 @@ src.github = "open-quantum-safe/boringssl"
 src.cmd = "nix build .#self-niri.src --no-link --print-out-paths"
 fetch.url = "file://$ver"
 cargo_lock = ["Cargo.lock"]
+
+[nipaplay-reload-x86_64-linux]
+src.github = "MCDFsteve/NipaPlay-Reload"
+src.prefix = "v"
+fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay-$ver-Linux-amd64.AppImage"
+
+[nipaplay-reload-darwin]
+src.github = "MCDFsteve/NipaPlay-Reload"
+src.prefix = "v"
+fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay_$ver_macOS_Universal.dmg"

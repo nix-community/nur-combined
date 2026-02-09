@@ -223,24 +223,40 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v0.10.9-alpha.1";
+    version = "v0.10.9-alpha.2";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      rev = "v0.10.9-alpha.1";
+      rev = "v0.10.9-alpha.2";
       fetchSubmodules = false;
-      sha256 = "sha256-lsCVieJJ07Ctgq20LnrjaGKdBECWpf7PNG1tJRWAdtc=";
+      sha256 = "sha256-5UrX5rEfNfVcnzQCqJ7LdxfHFVZnwL9fU62GmqY96oA=";
+    };
+  };
+  nipaplay-reload-darwin = {
+    pname = "nipaplay-reload-darwin";
+    version = "1.9.8";
+    src = fetchurl {
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.8/NipaPlay_1.9.8_macOS_Universal.dmg";
+      sha256 = "sha256-WcuatMjqjBq5jUG9FRGkJ0iFAQ31ShQqgJRn5qPpn6M=";
+    };
+  };
+  nipaplay-reload-x86_64-linux = {
+    pname = "nipaplay-reload-x86_64-linux";
+    version = "1.9.8";
+    src = fetchurl {
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.8/NipaPlay-1.9.8-Linux-amd64.AppImage";
+      sha256 = "sha256-PWYRzJ3QUWgCDGX5gZsMKa4SnRonKEYS/qvIsqCGRHA=";
     };
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/h9981w8b8zc36yxpyzvp6w5g4dihm3s0-niri-patched-src.tar.gz";
+    version = "/nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/h9981w8b8zc36yxpyzvp6w5g4dihm3s0-niri-patched-src.tar.gz";
-      sha256 = "sha256-twhfVFyCSbX1uPiJNcFTzJpqzIA+6E2TUVZpApLn1E8=";
+      url = "file:///nix/store/9gzj2ksad0yqwcd9wk8ks3gb3hm130g8-niri-patched-src.tar.gz";
+      sha256 = "sha256-8nxxlErMMnawQ2/nzHr8u1OFK9Icrja/Ka3l4oxRKng=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-twhfVFyCSbX1uPiJNcFTzJpqzIA+6E2TUVZpApLn1E8=/Cargo.lock";
+      lockFile = ./. + "/sha256-8nxxlErMMnawQ2_nzHr8u1OFK9Icrja_Ka3l4oxRKng=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-WSa06MRY/XIgaTS12bss+D4vz7GDYBRXXJawP8OsdjM=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
