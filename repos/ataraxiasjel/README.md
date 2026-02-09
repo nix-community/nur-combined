@@ -10,6 +10,8 @@
 
 * [authentik](https://goauthentik.io/), open-source Identity Provider focused on flexibility and versatility. Available as [services.authentik](modules/authentik.nix).
 
+* [endfield-daily](https://github.com/AtaraxiaSjel), daily check-in bot for Arknights: Endfield. Available as [services.endfield-daily](modules/endfield.nix).
+
 * [homepage](https://gethomepage.dev/), a modern, fully static, fast, secure fully proxied, highly customizable application dashboard. Available as [services.homepage-dashboard](modules/homepage.nix).
 Disables NixOS's homepage-dashboard service.
 

@@ -1,5 +1,6 @@
 {
   authentik = ./authentik.nix;
+  endfield = ./endfield.nix;
   homepage = ./homepage.nix;
   hoyolab = ./hoyolab.nix;
   kes = ./kes.nix;
