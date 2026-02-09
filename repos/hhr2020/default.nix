@@ -10,7 +10,7 @@
   pkgs ? import <nixpkgs> { },
   ...
 }:
-
+rec
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -19,6 +19,7 @@
   hmModules = import ./homeModules; # Home Manager modules
 
   celechron = pkgs.callPackage ./pkgs/celechron { };
+  ez4connect = pkgs.callPackage ./pkgs/ez4connect { zju-connect = zju-connect; };
   fiz = pkgs.callPackage ./pkgs/fiz { };
   loko = pkgs.callPackage ./pkgs/loko { };
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };

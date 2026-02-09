@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "soar";
-  version = "0.9.1";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "pkgforge";
     repo = "soar";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-081wCf5ICT32wiVnGbksr9Z2iYCcaB9Ba8lmaJZ3ekk=";
+    hash = "sha256-4QmjDhnO+wpwB/6woa2ObVgfAKJtvzBbx9gl2/QwPno=";
   };
 
-  cargoHash = "sha256-h3BkbVKYEY9w2G4kVELc7iwInbk4tw2qrlzb8mZm8oE=";
+  cargoHash = "sha256-HfYR2b1zn6pgEPC1iDkcI9up9WXI45u3TnS0AVY2gBc=";
 
   nativeBuildInputs = [
     pkg-config

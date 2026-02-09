@@ -6,16 +6,21 @@
 }:
 buildGoModule rec {
   pname = "zju-connect";
-  version = "0.9.0";
+  version = "1.0.0-beta.4";
 
   src = fetchFromGitHub {
     owner = "Mythologyli";
     repo = "ZJU-Connect";
     rev = "v${version}";
-    hash = "sha256-LrupxRFobVzzOiQCznnaIH17sTsnzjiMVnWDMyN0dwY=";
+    hash = "sha256-tc5R/mhA/AyMNBRlzp1g+zJMTi+iu0H9KpD4CnVoD0U=";
   };
 
-  vendorHash = "sha256-G+glwXw3zDA4XYWUnrkyG55PicHDutXRe7ZzdJGirZA=";
+  postPatch = ''
+    substituteInPlace go.mod \
+      --replace-fail "go 1.25.6" "go 1.25.5"
+  '';
+
+  vendorHash = "sha256-H+WtDkq8FckXuriEQNh1vhsGIkw1U7RlhQeAbO0jUXQ=";
 
   meta = {
     description = "ZJU RVPN 客户端的 Go 语言实现";

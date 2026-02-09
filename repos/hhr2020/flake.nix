@@ -15,9 +15,10 @@
     }:
     let
       systems = nixpkgs.lib.systems.flakeExposed;
-      eachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      forAllSystems = f: nixpkgs.lib.genAttrs systems f;
+      treefmtEval = forAllSystems (
+        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
+      );
     in
     {
       legacyPackages = forAllSystems (
@@ -32,9 +33,9 @@
       homeModules = import ./homeModules;
       nixosModules = import ./nixosModules;
       overlays = import ./overlays;
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
-      checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
+      formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
+      checks = forAllSystems (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
       });
     };
 
