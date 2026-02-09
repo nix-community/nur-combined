@@ -5,6 +5,7 @@
         "extract": null,
         "name": "WeidiDeng/caddy-cloudflare-ip",
         "passthru": {
+            "isCaddyPlugin": "true",
             "moduleName": "github.com/WeidiDeng/caddy-cloudflare-ip"
         },
         "pinned": false,
@@ -28,6 +29,7 @@
         "extract": null,
         "name": "caddy-dns/cloudflare",
         "passthru": {
+            "isCaddyPlugin": "true",
             "moduleName": "github.com/caddy-dns/cloudflare"
         },
         "pinned": false,
@@ -87,12 +89,37 @@
         },
         "version": "a9bdf479f8982c4b83b5c5005c8231c6b3352e2a"
     },
+    "fvbommel/caddy-combine-ip-ranges": {
+        "cargoLock": null,
+        "date": "20240127132546",
+        "extract": null,
+        "name": "fvbommel/caddy-combine-ip-ranges",
+        "passthru": {
+            "isCaddyPlugin": "true",
+            "moduleName": "github.com/fvbommel/caddy-combine-ip-ranges"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "fvbommel",
+            "repo": "caddy-combine-ip-ranges",
+            "rev": "5624d08f5f9e788816bdd877b7c81280c69b434e",
+            "sha256": "sha256-kWEOY2Xp7H9mDl8K0Z3YSDZl8vSB0FegyTYzw5/Tg4U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "5624d08f5f9e788816bdd877b7c81280c69b434e"
+    },
     "mholt/caddy-l4": {
         "cargoLock": null,
         "date": "20260127203130",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
+            "isCaddyPlugin": "true",
             "moduleName": "github.com/mholt/caddy-l4"
         },
         "pinned": false,
@@ -116,6 +143,7 @@
         "extract": null,
         "name": "mholt/caddy-webdav",
         "passthru": {
+            "isCaddyPlugin": "true",
             "moduleName": "github.com/mholt/caddy-webdav"
         },
         "pinned": false,

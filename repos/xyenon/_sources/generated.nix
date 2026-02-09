@@ -16,6 +16,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-b2JPVdXBgbI91zRzXGut7QKYT/pe15Gcr3JvIKxvTH4=";
     };
+    isCaddyPlugin = "true";
     moduleName = "github.com/WeidiDeng/caddy-cloudflare-ip";
     date = "20231130002422";
   };
@@ -29,6 +30,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-/FB0a/Ja4kDSw9SlNiusi6w7r87xHXafzEOQqLbTsyA=";
     };
+    isCaddyPlugin = "true";
     moduleName = "github.com/caddy-dns/cloudflare";
     date = "20251204174556";
   };
@@ -56,6 +58,20 @@
     };
     date = "2024-07-20";
   };
+  "fvbommel/caddy-combine-ip-ranges" = {
+    pname = "fvbommel/caddy-combine-ip-ranges";
+    version = "5624d08f5f9e788816bdd877b7c81280c69b434e";
+    src = fetchFromGitHub {
+      owner = "fvbommel";
+      repo = "caddy-combine-ip-ranges";
+      rev = "5624d08f5f9e788816bdd877b7c81280c69b434e";
+      fetchSubmodules = false;
+      sha256 = "sha256-kWEOY2Xp7H9mDl8K0Z3YSDZl8vSB0FegyTYzw5/Tg4U=";
+    };
+    isCaddyPlugin = "true";
+    moduleName = "github.com/fvbommel/caddy-combine-ip-ranges";
+    date = "20240127132546";
+  };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
     version = "040d25cc886ab41afe5a3e25a7cb33a2fcafa202";
@@ -66,6 +82,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-4DjBv0PFF2L+b48tvvgNx5twm40ToMXvdm5abw8Zwb8=";
     };
+    isCaddyPlugin = "true";
     moduleName = "github.com/mholt/caddy-l4";
     date = "20260127203130";
   };
@@ -79,6 +96,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-tzg7CxAj8MTdrF1ngutsmTjshvm+OKwl9tZUZRU1EGA=";
     };
+    isCaddyPlugin = "true";
     moduleName = "github.com/mholt/caddy-webdav";
     date = "20260127042217";
   };

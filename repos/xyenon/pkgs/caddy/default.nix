@@ -11,21 +11,12 @@ let
     inherit caddy;
     inherit buildGo125Module;
   };
-  pluginRepos = [
-    "WeidiDeng/caddy-cloudflare-ip"
-    "caddy-dns/cloudflare"
-    "mholt/caddy-l4"
-    "mholt/caddy-webdav"
-  ];
-  pluginSources = lib.filterAttrs (n: _v: lib.elem n pluginRepos) sources;
-  plugins =
-    with lib;
-    assert (length (attrNames pluginSources) == length pluginRepos);
-    mapAttrsToList (
-      _n: v: "${v.moduleName}@v0.0.0-${v.date}-${substring 0 12 v.version}"
-    ) pluginSources;
+  pluginSources = lib.filterAttrs (_n: v: (v.isCaddyPlugin or null) == "true") sources;
+  plugins = lib.mapAttrsToList (
+    _n: v: "${v.moduleName}@v0.0.0-${v.date}-${lib.substring 0 12 v.version}"
+  ) pluginSources;
 in
 (caddy.withPlugins.override { inherit go; }) {
   inherit plugins;
-  hash = "sha256-MFXs5JS+15exI80x+jy3x9GkdSDlzh5mMqYPwBkKZj8=";
+  hash = "sha256-RCdAgFQIM3XlQcge1Bd49QjAaTeCUVHiiAgxqIw8nZ4=";
 }
