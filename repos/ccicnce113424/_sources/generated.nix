@@ -188,17 +188,6 @@
     };
     date = "2025-10-19";
   };
-  rpc-bridge = {
-    pname = "rpc-bridge";
-    version = "v1.4.0.1";
-    src = fetchFromGitHub {
-      owner = "EnderIce2";
-      repo = "rpc-bridge";
-      rev = "v1.4.0.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-NB3GqwlJ1dkI+MmbjDEDhiAvvAtRHOdC/PEEyIP2i28=";
-    };
-  };
   splayer-git = {
     pname = "splayer-git";
     version = "e36e476738a8239e9d3f31ad335c7df704a87a1f";
