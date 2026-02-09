@@ -302,10 +302,10 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 {
   nixConfig = {
     extra-substituters = [
-      "https://cache.trev.zip/nur"
+      "https://nix.trev.zip"
     ];
     extra-trusted-public-keys = [
-      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
+      "trev:I39N/EsnHkvfmsbx8RUW+ia5dOzojTQNCTzKYij1chU="
     ];
   };
 
@@ -383,10 +383,10 @@ Using the [Nix User Repository](https://github.com/nix-community/NUR)
 {
   nixConfig = {
     extra-substituters = [
-      "https://cache.trev.zip/nur"
+      "https://nix.trev.zip"
     ];
     extra-trusted-public-keys = [
-      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
+      "trev:I39N/EsnHkvfmsbx8RUW+ia5dOzojTQNCTzKYij1chU="
     ];
   };
 
@@ -424,10 +424,10 @@ Every package in this repo is built and cached each update. To pull from the cac
 {
   nixConfig = {
     extra-substituters = [
-      "https://cache.trev.zip/nur"
+      "https://nix.trev.zip"
     ];
     extra-trusted-public-keys = [
-      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
+      "trev:I39N/EsnHkvfmsbx8RUW+ia5dOzojTQNCTzKYij1chU="
     ];
   };
 }
@@ -439,10 +439,10 @@ Every package in this repo is built and cached each update. To pull from the cac
 {
   nix.settings = {
     trusted-substituters = [
-      "https://cache.trev.zip/nur"
+      "https://nix.trev.zip"
     ];
     trusted-public-keys = [
-      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
+      "trev:I39N/EsnHkvfmsbx8RUW+ia5dOzojTQNCTzKYij1chU="
     ];
   };
 }

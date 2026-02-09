@@ -48,26 +48,26 @@
       "automerge": true
     },
     {
-      "groupName": "nix inputs",
-      "matchManagers": ["nix"]
+      "matchManagers": ["nix"],
+      "groupName": "nix inputs"
     },
     {
-      "groupName": "github actions",
-      "matchManagers": ["github-actions"]
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions"
     },
     {
-      "groupName": "docker images",
       "matchManagers": ["custom.regex"],
       "matchDepTypes": ["image"],
+      "groupName": "docker images",
       "pinDigests": true,
       "postUpgradeTasks": {
         "commands": ["nix-fix-hash --file utils/images"]
       }
     },
     {
-      "groupName": "flakes",
       "matchManagers": ["custom.regex"],
       "matchDepTypes": ["flake"],
+      "groupName": "flakes",
       "pinDigests": true
     }
   ]

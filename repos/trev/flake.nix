@@ -3,11 +3,9 @@
 
   nixConfig = {
     extra-substituters = [
-      "https://cache.trev.zip/nur"
       "https://nix.trev.zip"
     ];
     extra-trusted-public-keys = [
-      "nur:70xGHUW1+1b8FqBchldaunN//pZNVo6FKuPL4U/n844="
       "trev:I39N/EsnHkvfmsbx8RUW+ia5dOzojTQNCTzKYij1chU="
     ];
   };
