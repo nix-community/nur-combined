@@ -437,11 +437,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-UX7FP7k8rBl7rFMyMKQ9iSGbtkQCjFHfTVZAPQ3oXg8=",
+            "sha256": "sha256-T8AJQF+SkqK3cS1+YLLUkWyN9H5xu4vAvA0OGCuGPko=",
             "type": "url",
-            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.1.0/cops-4.1.0-php84.zip"
+            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.2.0/cops-4.2.0-php84.zip"
         },
-        "version": "4.1.0"
+        "version": "4.2.0"
     },
     "cef-binary": {
         "cargoLock": null,
@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.6",
-            "sha256": "sha256-w2aX3Ky5lz/J3qpABMHBJYh0Prq7N6VESiFfMzz8GTU=",
+            "rev": "v6.8.8",
+            "sha256": "sha256-G2V59sIfqmVO6rqJ7xFOX8Z8mguo/eeypdYtgLy30zQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.6"
+        "version": "v6.8.8"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1794,7 +1794,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLock": null,
-        "date": "2026-02-04",
+        "date": "2026-02-09",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -1806,12 +1806,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "0a17695f8eee5559195c45f6caf637642be9d8b1",
-            "sha256": "sha256-SJ5WkQgPRczkHFwYh+IkNjDJq7jpyIYSJi9KXUJr7vo=",
+            "rev": "9539d37f4254c2567ee6d1f58f360c588fd94e19",
+            "sha256": "sha256-lOgWtmS/bU+y8pi0PTR2DhcYQRkJVvhl7WiyBEn6V9s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0a17695f8eee5559195c45f6caf637642be9d8b1"
+        "version": "9539d37f4254c2567ee6d1f58f360c588fd94e19"
     },
     "igsc": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7972",
-            "sha256": "sha256-IYjhoyWfBCl0pj8zvrovti8NHVXi+/+2Qhhc6hc/feo=",
+            "rev": "b7974",
+            "sha256": "sha256-R6qV+0z0Vgl+7JGwC6a+jc+Wv9uIedoRbw9NzRDnjYM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7972"
+        "version": "b7974"
     },
     "loralib": {
         "cargoLock": null,
@@ -2415,7 +2415,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-02-06",
+        "date": "2026-02-09",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2427,12 +2427,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4",
-            "sha256": "sha256-JsPkUORt98q/mMlNt9TeCgTCjainIFMA5pezdE2gTko=",
+            "rev": "d14d139d5ead9b47fa89fe967254e91b46bf18bc",
+            "sha256": "sha256-6zo59xaXv/iAPc9DBn4zHIhhURG3BJ0+c4s22q6BN1E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4"
+        "version": "d14d139d5ead9b47fa89fe967254e91b46bf18bc"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
@@ -3037,11 +3037,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vQenXkSiGZ9mhsiEjatMCR302AgU+Lm1y83IBItoqG8=",
+            "sha256": "sha256-tJRMG7xr7xVghkZG0G3NdyvKg/UCtuz7Wsrf4Mo+QgY=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.0/PeerBanHelper_9.3.0.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.1/PeerBanHelper_9.3.1.zip"
         },
-        "version": "9.3.0"
+        "version": "9.3.1"
     },
     "phpmyadmin": {
         "cargoLock": null,
@@ -3747,11 +3747,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-S8zQTHMMFF0D7uW7OGAOpHXWK1KggnZZ6blvqdcGKM4=",
+            "sha256": "sha256-mzvxFW/lwrAnoBTQsfB1cnfUvn0D9666iWgUDpaYrcI=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260109/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260209/moegirl.dict.yaml"
         },
-        "version": "20260109"
+        "version": "20260209"
     },
     "rime-zhwiki": {
         "cargoLock": null,

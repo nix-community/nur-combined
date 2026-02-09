@@ -229,10 +229,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "4.1.0";
+    version = "4.2.0";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.1.0/cops-4.1.0-php84.zip";
-      hash = "sha256-UX7FP7k8rBl7rFMyMKQ9iSGbtkQCjFHfTVZAPQ3oXg8=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.2.0/cops-4.2.0-php84.zip";
+      hash = "sha256-T8AJQF+SkqK3cS1+YLLUkWyN9H5xu4vAvA0OGCuGPko=";
     };
   };
   cef-binary = {
@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.6";
+    version = "v6.8.8";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.6";
-      hash = "sha256-w2aX3Ky5lz/J3qpABMHBJYh0Prq7N6VESiFfMzz8GTU=";
+      tag = "v6.8.8";
+      hash = "sha256-G2V59sIfqmVO6rqJ7xFOX8Z8mguo/eeypdYtgLy30zQ=";
     };
   };
   cockpy = {
@@ -930,14 +930,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "0a17695f8eee5559195c45f6caf637642be9d8b1";
+    version = "9539d37f4254c2567ee6d1f58f360c588fd94e19";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "0a17695f8eee5559195c45f6caf637642be9d8b1";
-      hash = "sha256-SJ5WkQgPRczkHFwYh+IkNjDJq7jpyIYSJi9KXUJr7vo=";
+      rev = "9539d37f4254c2567ee6d1f58f360c588fd94e19";
+      hash = "sha256-lOgWtmS/bU+y8pi0PTR2DhcYQRkJVvhl7WiyBEn6V9s=";
     };
-    date = "2026-02-04";
+    date = "2026-02-09";
   };
   igsc = {
     pname = "igsc";
@@ -1176,12 +1176,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7972";
+    version = "b7974";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7972";
-      hash = "sha256-IYjhoyWfBCl0pj8zvrovti8NHVXi+/+2Qhhc6hc/feo=";
+      tag = "b7974";
+      hash = "sha256-R6qV+0z0Vgl+7JGwC6a+jc+Wv9uIedoRbw9NzRDnjYM=";
     };
   };
   loralib = {
@@ -1245,14 +1245,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4";
+    version = "d14d139d5ead9b47fa89fe967254e91b46bf18bc";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "32d7a0e1dddf5904fd5adde5e4fd7402e4ae01c4";
-      hash = "sha256-JsPkUORt98q/mMlNt9TeCgTCjainIFMA5pezdE2gTko=";
+      rev = "d14d139d5ead9b47fa89fe967254e91b46bf18bc";
+      hash = "sha256-6zo59xaXv/iAPc9DBn4zHIhhURG3BJ0+c4s22q6BN1E=";
     };
-    date = "2026-02-06";
+    date = "2026-02-09";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1558,10 +1558,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.0";
+    version = "9.3.1";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.0/PeerBanHelper_9.3.0.zip";
-      hash = "sha256-vQenXkSiGZ9mhsiEjatMCR302AgU+Lm1y83IBItoqG8=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.1/PeerBanHelper_9.3.1.zip";
+      hash = "sha256-tJRMG7xr7xVghkZG0G3NdyvKg/UCtuz7Wsrf4Mo+QgY=";
     };
   };
   phpmyadmin = {
@@ -1923,10 +1923,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260109";
+    version = "20260209";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260109/moegirl.dict.yaml";
-      hash = "sha256-S8zQTHMMFF0D7uW7OGAOpHXWK1KggnZZ6blvqdcGKM4=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260209/moegirl.dict.yaml";
+      hash = "sha256-mzvxFW/lwrAnoBTQsfB1cnfUvn0D9666iWgUDpaYrcI=";
     };
   };
   rime-zhwiki = {
