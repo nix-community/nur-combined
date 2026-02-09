@@ -58,11 +58,10 @@ stdenv.mkDerivation rec {
     sh autogen.sh
   '';
   configureFlags = [
-    #"--prefix=$out"
     "--enable-fast"
     "--enable-maxcpus=${builtins.toString maxCPUs}"
     "--disable-build-doc"
-    #"--with-hwloc=${hwloc.dev}"
+    "--with-hwloc=${hwloc.dev}"
   ]
   ++ lib.optional (!useFFT) [
     "--disable-starpufft"
