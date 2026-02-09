@@ -8,13 +8,10 @@ let
     sub-store = "upstreamed";
     sub-store-frontend = "upstreamed";
 
-    # Discontinued
-    gzctf = "discontinued";
-    opencode = "discontinued";
-
     # Unmaintained
     exloli-next = "unmaintained";
-  };
+  }
+  // lib.mapAttrs (_n: _v: "discontinued") (lib.filesystem.readDir ./discontinued);
 
   reasonMap = {
     upstreamed = "has been upstreamed to nixpkgs";
