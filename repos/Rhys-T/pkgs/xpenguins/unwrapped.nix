@@ -1,4 +1,4 @@
-{stdenv, lib, fetchurl, xorg, maintainers}: stdenv.mkDerivation {
+{stdenv, lib, fetchurl, libx11, libxext, libxpm, libxt, maintainers}: stdenv.mkDerivation {
     pname = "xpenguins";
     version = "2.2";
     src = fetchurl {
@@ -17,7 +17,7 @@
             'typedef int __ToonErrorHandler();' \
             'typedef int __ToonErrorHandler(Display *, XErrorEvent *);'
     '';
-    buildInputs = with xorg; [libX11 libXext libXpm libXt];
+    buildInputs = [libx11 libxext libxpm libxt];
     meta = {
         description = "Cute little penguins that walk along the tops of your windows";
         homepage = "http://xpenguins.seul.org/";

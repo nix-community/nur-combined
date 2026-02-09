@@ -10,7 +10,7 @@ let
         targetCode ? null,
         buildPackages,
         updateScript ? null,
-        callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, xorg, alsa-lib, maintainers, ...
+        callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, libx11, alsa-lib, maintainers, ...
     }@args:
         let targetCode' = targetCode; in
         let
@@ -83,7 +83,7 @@ let
             '';
             # Mini vMac gets stuck in the background if I run it from a symlink in bin - use a wrapper instead
             nativeBuildInputs = lib.optionals hostPlatform.isDarwin [ makeBinaryWrapper ];
-            buildInputs = lib.optionals hostPlatform.isLinux [ xorg.libX11 ];
+            buildInputs = lib.optionals hostPlatform.isLinux [ libx11 ];
             installPhase = ''
                 runHook preInstall
             '' + (if hostPlatform.isDarwin then ''

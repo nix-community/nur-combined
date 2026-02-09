@@ -1,4 +1,4 @@
-{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, xorg, ncurses, fpc, drl-common }: let
+{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, libx11, ncurses, fpc, drl-common }: let
     libExt = stdenv.hostPlatform.extensions.sharedLibrary;
     version = "0.9.9.8a";
     tag = builtins.replaceStrings ["."] ["_"] version;
@@ -39,7 +39,7 @@ in stdenv.mkDerivation rec {
         export FPCVALKYRIE_ROOT="$PWD/fpcvalkyrie/"
     '';
     nativeBuildInputs = [lua5_1 fpc-wrapper] ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
-    buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [xorg.libX11];
+    buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [libx11];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
     # env.NIX_DEBUG = 7;
     postPatch = ''

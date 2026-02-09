@@ -1,4 +1,4 @@
-{rev ? null, tag ? null, version, hash, stdenv, lib, fetchFromGitHub, fetchpatch, SDL_compat, SDL_mixer, xorg?null, yaml-cpp, maintainers}: let
+{rev ? null, tag ? null, version, hash, stdenv, lib, fetchFromGitHub, fetchpatch, SDL_compat, SDL_mixer, libx11?null, yaml-cpp, maintainers}: let
     # Eliminate any trace of the real SDL1:
     SDL_compat_mixer = if builtins.elem SDL_compat SDL_mixer.buildInputs then SDL_mixer else let
         SDL_compat' = SDL_compat // {
@@ -9,7 +9,7 @@
         smpeg = (old.smpeg.override {
             SDL = SDL_compat';
         }).overrideAttrs (old: lib.optionalAttrs (builtins.length SDL_compat.propagatedBuildInputs == 0) {
-            buildInputs = (old.buildInputs or []) ++ [xorg.libX11];
+            buildInputs = (old.buildInputs or []) ++ libx11;
         });
     });
     

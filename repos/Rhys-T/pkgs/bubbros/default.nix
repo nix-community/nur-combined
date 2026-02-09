@@ -1,7 +1,7 @@
 {
     stdenv, lib, fetchurl,
     # fetchFromGitHub, SDL2_image_2_0, darwin,
-    python27, xorg,
+    python27, libx11, libxext,
     groff, rsync,
     maintainers
 }: let
@@ -78,7 +78,7 @@ in stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
         done
     '';
     nativeBuildInputs = [groff rsync];
-    buildInputs = [python27ForBubBros xorg.libX11 xorg.libXext];
+    buildInputs = [python27ForBubBros libx11 libxext];
     makeFlags = ["BINDIR=$(out)/bin" "LIBDIR=$(out)/share" "MANDIR=$(out)/share/man"];
     buildFlags = ["all" "docs"];
     postBuild = ''

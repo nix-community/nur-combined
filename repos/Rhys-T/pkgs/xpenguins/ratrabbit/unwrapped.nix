@@ -1,4 +1,4 @@
-{stdenv, lib, fetchurl, pkg-config, xorg, gtk3-x11, maintainers}: stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
+{stdenv, lib, fetchurl, pkg-config, libx11, libxext, libxpm, libxt, gtk3-x11, maintainers}: stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
     pname = "xpenguins-ratrabbit";
     version = "3.2.3";
     src = fetchurl {
@@ -9,7 +9,7 @@
         hash = "sha256-NQ4TTiof8NuGA7F/nXRTA2z0ym/muhmrZQz4mnTmBPM=";
     };
     nativeBuildInputs = [pkg-config];
-    buildInputs = with xorg; [libX11 libXext libXpm libXt gtk3-x11];
+    buildInputs = [libx11 libxext libxpm libxt gtk3-x11];
     meta = {
         description = "Cute little penguins that walk along the tops of your windows (updated fork by RatrabbiT)";
         homepage = "https://ratrabbit.nl/ratrabbit/software/xpenguins/";

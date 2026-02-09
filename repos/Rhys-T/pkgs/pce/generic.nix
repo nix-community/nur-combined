@@ -5,7 +5,7 @@
     withX11 ? false, withSDL ? if supportsSDL2 then 2 else 1,
     withReadline ? true, readline ? null,
     enableUnfreeROMs ? false,
-    libX11 ? null, SDL ? null, SDL2 ? null,
+    libx11 ? null, SDL ? null, SDL2 ? null,
     buildExtensionROMs ? false, nasm ? null, pkgsCross ? null,
     appNames ? [],
     callPackage,
@@ -19,7 +19,7 @@ in
 assert withSDL2 -> supportsSDL2;
 assert withSDL2 -> SDL2 != null;
 assert withSDL1 -> SDL != null;
-assert withX11 -> libX11 != null;
+assert withX11 -> libx11 != null;
 assert withReadline -> readline != null;
 assert enableUnfreeROMs -> includesUnfreeROMs;
 assert buildExtensionROMs -> nasm != null && pkgsCross != null;
@@ -90,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
         "MACX_LD=${macplus-cc.targetPrefix}ld"
         "MACX_OC=${macplus-cc.targetPrefix}objcopy"
     ];
-    buildInputs =   lib.optional withX11 libX11
+    buildInputs =   lib.optional withX11 libx11
                 ++  lib.optional withSDL1 SDL
                 ++  lib.optional withSDL2 SDL2
                 ++  lib.optional withReadline readline

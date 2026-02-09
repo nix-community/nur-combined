@@ -1,11 +1,11 @@
-{stdenv, lib, fetchurl, xorg, maintainers}: stdenv.mkDerivation rec {
+{stdenv, lib, fetchurl, libx11, xtrans, maintainers}: stdenv.mkDerivation rec {
     pname = "xinvaders3d";
     version = "1.9.0";
     src = fetchurl {
         url = "https://github.com/JoesCat/xinvaders3d/releases/download/${version}/xinvaders3d-dist-${version}.tar.gz";
         hash = "sha256-L7QeFyWZSkGCP3ZmgFAPtzWUEOkHITava2iIpIYkxcM=";
     };
-    buildInputs = with xorg; [libX11 xtrans];
+    buildInputs = [libx11 xtrans];
     meta = {
         description = "3D Vector Graphics Space Invaders clone for X11";
         longDescription = ''

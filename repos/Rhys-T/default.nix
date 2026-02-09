@@ -45,6 +45,12 @@ overlays = pkgs'.lib.optional (with pkgs'; (
             hash = "sha256-uKzaqQRi6nnOH7sDla8o7gd++3L9iT8Xiwampf+NIR0=";
         })];
     });
+}) ++ pkgs'.lib.optional (!pkgs'?libx11) (self: super: with self.xorg; {
+    libx11 = libX11;
+    libxext = libXext;
+    libxpm = libXpm;
+    libxt = libXt;
+    inherit xtrans;
 });
 pkgs = if builtins.length overlays > 0 then pkgs'.appendOverlays overlays else pkgs';
 in
