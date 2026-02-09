@@ -78,6 +78,9 @@ lib.makeScope newScope (
     pyarrow_ops = callPackage ./development/python-modules/pyarrow_ops { };
     pycouchdb = callPackage ./development/python-modules/pycouchdb { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
+    pyramid-debugtoolbar = callPackage ./development/python-modules/pyramid-debugtoolbar { };
+    pyramid-retry = callPackage ./development/python-modules/pyramid-retry { };
+    pyramid-tm = callPackage ./development/python-modules/pyramid-tm { };
     pytest-docker-fixtures = callPackage ./development/python-modules/pytest-docker-fixtures { };
     pytest-mp = callPackage ./development/python-modules/pytest-mp { };
     pytest-shell-utilities = callPackage ./development/python-modules/pytest-shell-utilities { };
@@ -85,6 +88,7 @@ lib.makeScope newScope (
     python-cmr = callPackage ./development/python-modules/python-cmr { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
     tinynetrc = callPackage ./development/python-modules/tinynetrc { };
+    zope-sqlalchemy = callPackage ./development/python-modules/zope-sqlalchemy { };
 
     ### EMBEDDED
 
