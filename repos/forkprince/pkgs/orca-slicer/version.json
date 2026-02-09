@@ -1,0 +1,15 @@
+{
+  "name": "Orca Slicer",
+  "source": {
+    "type": "github-release",
+    "repo": "OrcaSlicer/OrcaSlicer",
+    "skipPrerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "OrcaSlicer_Mac_universal_V{version}.dmg",
+    "unpack": false
+  },
+  "version": "2.3.1",
+  "hash": "sha256-wkm1hke7hbVbDdZWABCXTpeRRYu4UMRkxaafBJnts3E="
+}

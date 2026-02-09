@@ -54,13 +54,15 @@ async function platforms(file, { config, force }) {
   for (const [platform, settings] of Object.entries(platforms)) {
     let final;
 
-    if (!config.source.url_path) final = apply(settings.url.replace(/\{version\}/g, parsed), settings.substitutions);
+    const url_path = settings.url_path || config.source.url_path;
+
+    if (!url_path) final = apply(settings.url.replace(/\{version\}/g, parsed), settings.substitutions);
     else {
       let link = apply(config.source.url, settings.substitutions);
 
       const api = await (await fetch(link)).json();
 
-      const url = apply(config.source.url_path, settings.substitutions);
+      const url = apply(url_path, settings.substitutions);
 
       link = eval(`(${JSON.stringify(api)})${url}`);
 

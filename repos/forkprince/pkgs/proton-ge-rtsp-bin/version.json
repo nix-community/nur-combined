@@ -1,5 +1,5 @@
 {
-  "name": "proton-ge-rtsp",
+  "name": "Proton GE RTSP",
   "source": {
     "type": "github-release",
     "repo": "SpookySkeletons/proton-ge-rtsp",

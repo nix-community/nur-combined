@@ -20,7 +20,9 @@ in
       hash = "sha256-iBCA4G1E1Yw/d94pQzcbBGJYeIIgZI+Gw87/x4ogoyg=";
     };
 
-    env = old.env // {
-      EQUICORD_HASH = src.tag;
-    };
+    env =
+      old.env
+      // {
+        EQUICORD_HASH = src.tag;
+      };
   })

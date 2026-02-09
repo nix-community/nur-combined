@@ -1,5 +1,5 @@
 {
-  "name": "proton-dw",
+  "name": "Proton DW",
   "source": {
     "type": "forgejo-release",
     "repo": "dawn-winery/dwproton",

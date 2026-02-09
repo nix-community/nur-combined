@@ -1,5 +1,5 @@
 {
-  "name": "proton-cachyos",
+  "name": "Proton CachyOS",
   "source": {
     "type": "github-release",
     "repo": "CachyOS/proton-cachyos",

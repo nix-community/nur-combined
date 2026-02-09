@@ -1,0 +1,21 @@
+{
+  "name": "Creality Print",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/creality-print.json",
+    "version_path": ".version"
+  },
+  "version": "7.0.0.4127",
+  "platforms": {
+    "x86_64-darwin": {
+      "url": "https://github.com/CrealityOfficial/CrealityPrint/releases/download/v7.0.0/CrealityPrint-7.0.0.4127-macx-x86_64-Release.dmg",
+      "hash": "sha256-Mp5+kYfvK8UjmaGiq941AfZU5FJG1qCG0h594zHAf8Q=",
+      "url_path": ".variations.tahoe.url"
+    },
+    "aarch64-darwin": {
+      "url": "https://github.com/CrealityOfficial/CrealityPrint/releases/download/v7.0.0/CrealityPrint-7.0.0.4127-macx-arm64-Release.dmg",
+      "hash": "sha256-XDYjXcBxlllnpifnCp3Ofhlnn84cyEKxxWHPRsqDMk0=",
+      "url_path": ".url"
+    }
+  }
+}
