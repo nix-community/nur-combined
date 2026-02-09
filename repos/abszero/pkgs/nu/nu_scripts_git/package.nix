@@ -1,12 +1,12 @@
 { nu_scripts, fetchFromGitHub }:
 nu_scripts.overrideAttrs (
   final: prev: {
-    version = "0-unstable-2026-02-07";
+    version = "0-unstable-2026-02-09";
     src = fetchFromGitHub {
       owner = "nushell";
       repo = "nu_scripts";
-      rev = "270c98442f0b3f5793aeab824fe0fe148d80baf9";
-      hash = "sha256-jUMIze6rvRoW+gO4O17D9G86g+77SONitr1P5yMmmd8=";
+      rev = "e95f3580453fb03f2fabb5e8d64aa240cab103bb";
+      hash = "sha256-+8M+pLnOyHphqtzU1E9wFihmakRIyv1aEspessRobec=";
     };
   }
 )
