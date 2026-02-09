@@ -1,7 +1,6 @@
 {
   lib,
   stdenvNoCC,
-  claude-code,
   makeWrapper,
   util-linux,
 }:
@@ -22,8 +21,6 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ makeWrapper ];
 
   postPatch = ''
-    substituteInPlace ccusage-usage.sh \
-      --replace-fail "@claude@" "${lib.getExe claude-code}"
     substituteInPlace CcusageWidget.qml \
       --replace-fail "@ccusage-usage@" "$out/bin/ccusage-usage"
   '';
