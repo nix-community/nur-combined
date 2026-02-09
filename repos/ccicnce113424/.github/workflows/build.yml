@@ -40,6 +40,7 @@ jobs:
     needs: nix-matrix
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
     steps:
       - name: Checkout repository
