@@ -62,12 +62,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v2.9.9",
-            "sha256": "sha256-QlW5jK9AW5/N7RqKVO3RCGoEbyplOIB4dmyPPv6c0XQ=",
+            "rev": "v2.9.10",
+            "sha256": "sha256-DiVVwGTsrsRudRrgiPSw14U6N14QYoc3ToF1kSiwXOk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.9.9"
+        "version": "v2.9.10"
     },
     "dot-tar": {
         "cargoLock": {
