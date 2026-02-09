@@ -1,0 +1,11 @@
+{
+  "id": "ccusageWidget",
+  "name": "Claude Code Usage",
+  "description": "Shows current Claude Code billing block usage percentage",
+  "version": "1.0.0",
+  "author": "Andrea Ciceri",
+  "icon": "monitoring",
+  "type": "widget",
+  "component": "./CcusageWidget.qml",
+  "permissions": ["process", "settings_read"]
+}
