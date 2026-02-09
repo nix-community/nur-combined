@@ -1,0 +1,19 @@
+{
+  "name": "Diffusionbee",
+  "source": {
+    "type": "github-release",
+    "repo": "divamgupta/diffusionbee-stable-diffusion-ui",
+    "skipPrerelease": true
+  },
+  "version": "2.5.3",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "DiffusionBee_MPS_arm64-{version}.dmg",
+      "hash": "sha256-HG3rn0x0XKhmMcyDCVG2nVNZoTutE+h+NHEmF4gcKXc="
+    },
+    "x86_64-darwin": {
+      "file": "DiffusionBee_MPS_Intel-{version}.dmg",
+      "hash": "sha256-KRe2vusdwSeo7wQeLympbHSgkxS2uvla6aK0WtCuX+o="
+    }
+  }
+}
