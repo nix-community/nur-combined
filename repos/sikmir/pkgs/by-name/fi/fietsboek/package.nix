@@ -8,7 +8,7 @@
   zope-sqlalchemy,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "fietsboek";
   version = "0.12.1";
   pyproject = true;
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     domain = "codeberg.org";
     owner = "dunj3";
     repo = "fietsboek";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-48ORARprpXN+2JJku+QMz0mLNZT0iWzvMXwFRylsUjU=";
   };
 
@@ -70,4 +70,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.agpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

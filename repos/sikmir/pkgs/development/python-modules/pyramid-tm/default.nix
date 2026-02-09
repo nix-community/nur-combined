@@ -3,14 +3,14 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyramid-tm";
   version = "2.6";
   pyproject = true;
 
   src = python3Packages.fetchPypi {
     pname = "pyramid_tm";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-gUjSGRKFKAyaDCPm3xAYs1FLTO8CEVuHLdA1Ck14cJw=";
   };
 
@@ -35,4 +35,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

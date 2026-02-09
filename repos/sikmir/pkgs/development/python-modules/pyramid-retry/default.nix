@@ -3,14 +3,14 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyramid-retry";
   version = "2.1.1";
   pyproject = true;
 
   src = python3Packages.fetchPypi {
     pname = "pyramid_retry";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-uqgnauaLq60J5fL5TvxPdCHzuPtSYVHfUiBS+M0+wMk=";
   };
 
@@ -33,4 +33,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd0;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

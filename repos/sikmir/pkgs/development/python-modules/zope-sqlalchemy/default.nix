@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "zope-sqlalchemy";
   version = "4.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "zopefoundation";
     repo = "zope.sqlalchemy";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-E8Z1ljtF66K7XVfIU9pmXVYduzMOGaemNWmN1ysSm1w=";
   };
 
@@ -34,4 +34,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.zpl21;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})
