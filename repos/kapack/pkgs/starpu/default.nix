@@ -1,14 +1,35 @@
-{ stdenv, fetchFromGitLab, lib, gnumake, gcc, libtool, autoconf, automake, pkg-config, fftw, hwloc, bashInteractive }:
+{
+  stdenv,
+  fetchFromGitLab,
+  lib,
+  gnumake,
+  gcc,
+  libtool,
+  autoconf,
+  automake,
+  pkg-config,
+  hwloc,
+  bashInteractive,
+  cudaPackages,
+  maxCPUs ? 64,
+  maxNUMANodes ? 16,
+  maxCUDADev ? 8,
+  useCUDA ? false,
+  useMPI ? false,
+  openmpi,
+  useFFT ? false,
+  fftw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "starpu";
-  version = "1.4.8";
+  version = "1.4.12";
   src = fetchFromGitLab {
     domain = "gitlab.inria.fr";
     owner = pname;
     repo = pname;
     rev = "${pname}-${version}";
-    sha256 = "sha256-3S2N4Nrnta36/4JQ8udRFJRuZPqv6OIuxHkW7bOKOnw=";
+    sha256 = "sha256-GJ8SFW62nNj/MMKt5ewYL7PugpB2lRxZYdjJf4/mUME=";
   };
   buildInputs = [
     gnumake
@@ -17,7 +38,15 @@ stdenv.mkDerivation rec {
     autoconf
     automake
     pkg-config
+  ]
+  ++ lib.optional useFFT [
     fftw
+  ]
+  ++ lib.optional useMPI [
+    openmpi
+  ]
+  ++ lib.optional useCUDA [
+    cudaPackages.cudatoolkit
   ];
   propagatedBuildInputs = [
     hwloc
@@ -28,6 +57,24 @@ stdenv.mkDerivation rec {
     substituteInPlace doc/fixLinks.sh --replace "/bin/bash" "${bashInteractive}/bin/bash"
     sh autogen.sh
   '';
+  configureFlags = [
+    #"--prefix=$out"
+    "--enable-fast"
+    "--enable-maxcpus=${builtins.toString maxCPUs}"
+    "--disable-build-doc"
+    #"--with-hwloc=${hwloc.dev}"
+  ]
+  ++ lib.optional (!useFFT) [
+    "--disable-starpufft"
+  ]
+  ++ lib.optional (!useMPI) [
+    "--disable-mpi"
+  ]
+  ++ lib.optional useCUDA [
+    "--enable-maxnumanodes=${builtins.toString maxNUMANodes}"
+    "--enable-maxcudadev=${builtins.toString maxCUDADev}"
+    "--with-cuda-dir=${cudaPackages.cudatoolkit}"
+  ];
   meta = with lib; {
     homepage = "https://gitlab.inria.fr/starpu/starpu";
     description = "Run-time system for heterogeneous computing";
@@ -42,4 +89,3 @@ stdenv.mkDerivation rec {
     '';
   };
 }
-

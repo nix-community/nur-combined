@@ -48,4 +48,4 @@
 |slices-cli|python3.12-slices-cli-0.4.0b9||
 |slurm-multiple-slurmd|slurm-24.11.5.1||
 |ssh-known-hosts-edit|python3.12-ssh_known_hosts_edit-0.2.0||
-|starpu|starpu-1.4.8|Run-time system for heterogeneous computing|
+|starpu|starpu-1.4.12|Run-time system for heterogeneous computing|
