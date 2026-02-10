@@ -7,7 +7,7 @@
       nixpkgs = {
         hostPlatform = system;
         overlays = [ ]; # put overlay here
-        # config.allowUnfree = true;
+        config.allowUnfree = true;
       };
     };
 }
