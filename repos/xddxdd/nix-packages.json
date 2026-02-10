@@ -477,7 +477,7 @@
   "legacyPackages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.8"
+    "version": "6.8.10"
   },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -712,7 +712,7 @@
   "legacyPackages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2026.02.07"
+    "version": "2026.02.10"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -892,7 +892,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.asterisk": {
     "description": "Asterisk with Lan Tian modifications",
     "pname": "asterisk",
-    "version": "20.18.1"
+    "version": "20.18.2"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Multi-tenant Nix Binary Cache",
@@ -922,7 +922,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "7974"
+    "version": "7988"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.ls-iommu": {
     "description": "List IOMMUs on system",
@@ -1002,12 +1002,12 @@
   "legacyPackages.x86_64-linux.linguaspark-server": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.linguaspark-server-x86-64-v3": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.loralib": {
     "description": "Implementation of \"LoRA: Low-Rank Adaptation of Large Language Models\"",
@@ -1052,7 +1052,7 @@
   "legacyPackages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
@@ -3912,7 +3912,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.3.1"
+    "version": "9.3.2"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -4117,7 +4117,7 @@
   "legacyPackages.x86_64-linux.python3Packages.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
     "pname": "python3.13-tqdm-loggable",
-    "version": "0-unstable-2024-10-10"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.python3Packages.vector-quantize-pytorch": {
     "description": "Vector (and Scalar) Quantization, in Pytorch",
@@ -4327,7 +4327,7 @@
   "legacyPackages.x86_64-linux.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
     "pname": "python3.13-tqdm-loggable",
-    "version": "0-unstable-2024-10-10"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
@@ -4422,7 +4422,7 @@
   "legacyPackages.x86_64-linux.uncategorized.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.8"
+    "version": "6.8.10"
   },
   "legacyPackages.x86_64-linux.uncategorized.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -4547,7 +4547,7 @@
   "legacyPackages.x86_64-linux.uncategorized.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2026.02.07"
+    "version": "2026.02.10"
   },
   "legacyPackages.x86_64-linux.uncategorized.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -4677,12 +4677,12 @@
   "legacyPackages.x86_64-linux.uncategorized.linguaspark-server": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.uncategorized.linguaspark-server-x86-64-v3": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.uncategorized.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
@@ -4712,7 +4712,7 @@
   "legacyPackages.x86_64-linux.uncategorized.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "legacyPackages.x86_64-linux.uncategorized.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
@@ -4807,7 +4807,7 @@
   "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.3.1"
+    "version": "9.3.2"
   },
   "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -5302,7 +5302,7 @@
   "packages.x86_64-linux.cliproxyapi": {
     "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service",
     "pname": "cliproxyapi",
-    "version": "6.8.8"
+    "version": "6.8.10"
   },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
@@ -5487,7 +5487,7 @@
   "packages.x86_64-linux.geolite2": {
     "description": "MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases",
     "pname": "geolite2",
-    "version": "2026.02.07"
+    "version": "2026.02.10"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -5647,12 +5647,12 @@
   "packages.x86_64-linux.linguaspark-server": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "packages.x86_64-linux.linguaspark-server-x86-64-v3": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "packages.x86_64-linux.loralib": {
     "description": "Implementation of \"LoRA: Low-Rank Adaptation of Large Language Models\"",
@@ -5697,7 +5697,7 @@
   "packages.x86_64-linux.mtranservercore-rs": {
     "description": "Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs",
     "pname": "linguaspark-server",
-    "version": "0-unstable-2026-01-30"
+    "version": "0-unstable-2026-02-10"
   },
   "packages.x86_64-linux.ncmdump-rs": {
     "description": "NetEase Cloud Music copyright protection file dump by rust",
@@ -5822,7 +5822,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission",
     "pname": "peerbanhelper",
-    "version": "9.3.1"
+    "version": "9.3.2"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "Web interface for MySQL and MariaDB",
@@ -6072,7 +6072,7 @@
   "packages.x86_64-linux.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
     "pname": "python3.13-tqdm-loggable",
-    "version": "0-unstable-2024-10-10"
+    "version": "0-unstable-2026-02-10"
   },
   "packages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",

@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.8",
-            "sha256": "sha256-G2V59sIfqmVO6rqJ7xFOX8Z8mguo/eeypdYtgLy30zQ=",
+            "rev": "v6.8.10",
+            "sha256": "sha256-pzN4inH42plCBLkezEwQK8j+6Bl2qiNeA5vjPSPJ+BQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.8"
+        "version": "v6.8.10"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1514,11 +1514,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4vkKGKYt40fhZS+i1O5OyFNpKzyeijswbyjt2te5S2E=",
+            "sha256": "sha256-4GpmPPwfA5ZyliGQ9Savc3PtB+scWg+6R86kKcw3WGk=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.02.07"
+        "version": "2026.02.10"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1531,9 +1531,9 @@
             "name": null,
             "sha256": "sha256-FOjCYrPTy4C+S26iuMAiysvmj+Yb9c7QjQmG/QlRzQA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-City.mmdb"
         },
-        "version": "2026.02.07"
+        "version": "2026.02.10"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1546,9 +1546,9 @@
             "name": null,
             "sha256": "sha256-55g4lBN8X26D+sF3UhZMTmmx+QzvMEHDWSG1CDhekAU=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-Country.mmdb"
         },
-        "version": "2026.02.07"
+        "version": "2026.02.10"
     },
     "glauth": {
         "cargoLock": null,
@@ -2253,7 +2253,7 @@
     },
     "linguaspark-server": {
         "cargoLock": null,
-        "date": "2026-01-30",
+        "date": "2026-02-10",
         "extract": null,
         "name": "linguaspark-server",
         "passthru": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "LinguaSpark",
             "repo": "server",
-            "rev": "276286c0bc8904a07ba9686d4b29dc8993a13522",
-            "sha256": "sha256-nx0fpbpyMI+Q1tSopQo+SeSF+QtQ8XmScP5WX2BvXkc=",
+            "rev": "8604625a3133e40708a72b84ea29398e2585f9fc",
+            "sha256": "sha256-fRZVvierfJRIiQ+o6pnlGiOL3eU/LOVYiNUa7JsX9p4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "276286c0bc8904a07ba9686d4b29dc8993a13522"
+        "version": "8604625a3133e40708a72b84ea29398e2585f9fc"
     },
     "llama-cpp": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7974",
-            "sha256": "sha256-R6qV+0z0Vgl+7JGwC6a+jc+Wv9uIedoRbw9NzRDnjYM=",
+            "rev": "b7988",
+            "sha256": "sha256-QygYNkPw+YV4RJmIgdf5plOgC3A55E3oV0p+63xJjH8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7974"
+        "version": "b7988"
     },
     "loralib": {
         "cargoLock": null,
@@ -3037,11 +3037,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tJRMG7xr7xVghkZG0G3NdyvKg/UCtuz7Wsrf4Mo+QgY=",
+            "sha256": "sha256-CWyPEE+pR4AhshLV2QkCAiiJsbzjw9I7msmLFNhUnVw=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.1/PeerBanHelper_9.3.1.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.2/PeerBanHelper_9.3.2.zip"
         },
-        "version": "9.3.1"
+        "version": "9.3.2"
     },
     "phpmyadmin": {
         "cargoLock": null,
@@ -4181,7 +4181,7 @@
     },
     "tqdm-loggable": {
         "cargoLock": null,
-        "date": "2024-10-10",
+        "date": "2026-02-10",
         "extract": null,
         "name": "tqdm-loggable",
         "passthru": null,
@@ -4193,12 +4193,12 @@
             "name": null,
             "owner": "tradingstrategy-ai",
             "repo": "tqdm-loggable",
-            "rev": "0cea2d244416abad69b463365465bc7620e88c39",
-            "sha256": "sha256-hjpGwmb2QQi/WCr+nY4PQvmRSGBoOAGvZWvsg7hCtw0=",
+            "rev": "826c5bd9a7d6e689066eb83c148fd269c849e09c",
+            "sha256": "sha256-2kSHYDffyYnWdmD/hfZ3PZ+5kX5uRyykcMR6v9Bf+II=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0cea2d244416abad69b463365465bc7620e88c39"
+        "version": "826c5bd9a7d6e689066eb83c148fd269c849e09c"
     },
     "transmission-web-control": {
         "cargoLock": null,

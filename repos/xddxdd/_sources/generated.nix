@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.8";
+    version = "v6.8.10";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.8";
-      hash = "sha256-G2V59sIfqmVO6rqJ7xFOX8Z8mguo/eeypdYtgLy30zQ=";
+      tag = "v6.8.10";
+      hash = "sha256-pzN4inH42plCBLkezEwQK8j+6Bl2qiNeA5vjPSPJ+BQ=";
     };
   };
   cockpy = {
@@ -781,25 +781,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.07";
+    version = "2026.02.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-ASN.mmdb";
-      hash = "sha256-4vkKGKYt40fhZS+i1O5OyFNpKzyeijswbyjt2te5S2E=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-ASN.mmdb";
+      hash = "sha256-4GpmPPwfA5ZyliGQ9Savc3PtB+scWg+6R86kKcw3WGk=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.07";
+    version = "2026.02.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-City.mmdb";
       hash = "sha256-FOjCYrPTy4C+S26iuMAiysvmj+Yb9c7QjQmG/QlRzQA=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.07";
+    version = "2026.02.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.07/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-Country.mmdb";
       hash = "sha256-55g4lBN8X26D+sF3UhZMTmmx+QzvMEHDWSG1CDhekAU=";
     };
   };
@@ -1164,24 +1164,24 @@
   };
   linguaspark-server = {
     pname = "linguaspark-server";
-    version = "276286c0bc8904a07ba9686d4b29dc8993a13522";
+    version = "8604625a3133e40708a72b84ea29398e2585f9fc";
     src = fetchFromGitHub {
       owner = "LinguaSpark";
       repo = "server";
-      rev = "276286c0bc8904a07ba9686d4b29dc8993a13522";
+      rev = "8604625a3133e40708a72b84ea29398e2585f9fc";
       fetchSubmodules = true;
-      hash = "sha256-nx0fpbpyMI+Q1tSopQo+SeSF+QtQ8XmScP5WX2BvXkc=";
+      hash = "sha256-fRZVvierfJRIiQ+o6pnlGiOL3eU/LOVYiNUa7JsX9p4=";
     };
-    date = "2026-01-30";
+    date = "2026-02-10";
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7974";
+    version = "b7988";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7974";
-      hash = "sha256-R6qV+0z0Vgl+7JGwC6a+jc+Wv9uIedoRbw9NzRDnjYM=";
+      tag = "b7988";
+      hash = "sha256-QygYNkPw+YV4RJmIgdf5plOgC3A55E3oV0p+63xJjH8=";
     };
   };
   loralib = {
@@ -1558,10 +1558,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.1";
+    version = "9.3.2";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.1/PeerBanHelper_9.3.1.zip";
-      hash = "sha256-tJRMG7xr7xVghkZG0G3NdyvKg/UCtuz7Wsrf4Mo+QgY=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.2/PeerBanHelper_9.3.2.zip";
+      hash = "sha256-CWyPEE+pR4AhshLV2QkCAiiJsbzjw9I7msmLFNhUnVw=";
     };
   };
   phpmyadmin = {
@@ -2146,14 +2146,14 @@
   };
   tqdm-loggable = {
     pname = "tqdm-loggable";
-    version = "0cea2d244416abad69b463365465bc7620e88c39";
+    version = "826c5bd9a7d6e689066eb83c148fd269c849e09c";
     src = fetchFromGitHub {
       owner = "tradingstrategy-ai";
       repo = "tqdm-loggable";
-      rev = "0cea2d244416abad69b463365465bc7620e88c39";
-      hash = "sha256-hjpGwmb2QQi/WCr+nY4PQvmRSGBoOAGvZWvsg7hCtw0=";
+      rev = "826c5bd9a7d6e689066eb83c148fd269c849e09c";
+      hash = "sha256-2kSHYDffyYnWdmD/hfZ3PZ+5kX5uRyykcMR6v9Bf+II=";
     };
-    date = "2024-10-10";
+    date = "2026-02-10";
   };
   transmission-web-control = {
     pname = "transmission-web-control";
