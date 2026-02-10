@@ -3,12 +3,12 @@
     needsFmt = fuzziqersoftwareFmtPatchHook.isNeeded;
 in stdenv.mkDerivation rec {
     pname = "resource_dasm";
-    version = "0-unstable-2026-01-14";
+    version = "0-unstable-2026-02-08";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "resource_dasm";
-        rev = "fd124d75fa7ccab7332ef07597d32f1e50f7cfd4";
-        hash = "sha256-GQ8+6hmPg/QcWzFTlG/NEioqo2zcJ5SYxPspcmDY9DU=";
+        rev = "035bd23d94dbf904d98ae145fce9f1348b110a04";
+        hash = "sha256-ofu6ag2vEejM0nlk/QSO/NOsKxRKFhD4kfVBLqPJyTI=";
     };
     nativeBuildInputs =
         [cmake]
@@ -17,8 +17,8 @@ in stdenv.mkDerivation rec {
         ++ lib.optionals needsFmt [fuzziqersoftwareFmtPatchHook]
     ;
     buildInputs = [phosg zlib] ++ lib.optionals useSDL [sdl3];
-    # The CMakeLists.txt file provided doesn't install all the executables. Patch it to include the rest:
     postPatch = ''
+        # HACK: The CMakeLists.txt file provided doesn't install all the executables. Patch it to include the rest:
         allExes=($(sed -En '
             /.*add_executable\(([-_A-Za-z0-9]+).*/ {
                 s//\1/
@@ -33,10 +33,16 @@ in stdenv.mkDerivation rec {
             installLine="install(TARGETS $exeToInstall DESTINATION bin)"
             ${lib.getExe ripgrep} -Fq "$installLine" CMakeLists.txt || echo "$installLine" >> CMakeLists.txt
         done
-        # Fix invalid format strings:
+        
+        # HACK: Fix invalid format strings.
         substituteInPlace src/Audio/MODSynthesizer.cc --replace-fail '{:-2}' '{:<2}'
         substituteInPlace src/Audio/smssynth.cc --replace-fail '{:-7}' '{:<7}'
     '';
+    # HACK: clang is fine with using the default values in src/Audio/Instrument.*, but gcc isn't.
+    # Remove this once fixed upstream.
+    env = lib.optionalAttrs stdenv.cc.isGNU {
+        NIX_CFLAGS_COMPILE = "-Wno-error=missing-field-initializers";
+    };
     ${if useNetpbm then "postInstall" else null} = ''
         for file in "$out"/bin/*; do
             wrapProgram "$file" --prefix PATH : ${lib.makeBinPath [netpbm]}
