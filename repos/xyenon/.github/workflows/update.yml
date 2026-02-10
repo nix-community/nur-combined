@@ -29,11 +29,6 @@ jobs:
           name: nur-xyenon
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: Build nvfetcher
-        run: |
-          git clone --depth 1 https://github.com/berberman/nvfetcher.git /tmp/nvfetcher
-          nix build /tmp/nvfetcher -o /tmp/nvfetcher/result --accept-flake-config
-          cachix push nur-xyenon /tmp/nvfetcher/result
       - name: Check if weekly update
         id: weekly
         run: |
@@ -51,9 +46,7 @@ jobs:
           echo '[keys]' > ~/.config/nvchecker/keyfile.toml
           echo 'github = "${{ github.token }}"' >> ~/.config/nvchecker/keyfile.toml
       - name: Run update script
-        run: |
-          sed -i 's|nvfetcher --commit-changes|/tmp/nvfetcher/result/bin/nvfetcher --commit-changes|' scripts/update.sh
-          ./scripts/update.sh
+        run: ./scripts/update.sh
       - name: Check for changes
         id: changes
         run: |
