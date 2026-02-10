@@ -39,6 +39,7 @@ packageSet = do
   gitPkg "rime-wubi" "https://github.com/rime/rime-wubi.git"
   gitPkg "rime-wugniu" "https://github.com/rime/rime-wugniu.git"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
+  gitPkg "v86" "https://github.com/copy/v86.git"
   gitPkgBranch "gnome-shell-mobile-shell" "https://gitlab.gnome.org/verdre/gnome-shell.git" "mobile-shell"
   gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
   -- keep-sorted end

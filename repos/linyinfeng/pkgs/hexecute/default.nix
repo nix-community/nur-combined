@@ -12,7 +12,7 @@
   libGL,
   libGLU,
   mesa,
-  xorg,
+  libX11,
 
   nix-update-script,
 }:
@@ -41,7 +41,7 @@ buildGoModule rec {
     libGL
     libGLU
     mesa
-    xorg.libX11
+    libX11
   ];
 
   passthru = {

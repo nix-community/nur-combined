@@ -5,7 +5,7 @@
   fetchFromGitHub,
   pkg-config,
   gtk3,
-  xorg,
+  libXxf86vm,
   libglvnd,
   glfw,
   wrapGAppsHook3,
@@ -40,7 +40,7 @@ buildGoModule rec {
   buildInputs = [
     gtk3
     libglvnd
-    xorg.libXxf86vm
+    libXxf86vm
   ]
   ++ glfw.buildInputs;
 

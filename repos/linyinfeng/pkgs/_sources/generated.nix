@@ -562,6 +562,20 @@
       sha256 = "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=";
     };
   };
+  v86 = {
+    pname = "v86";
+    version = "62fd36e0bbf3da60a24be75c5245cdb11c062908";
+    src = fetchgit {
+      url = "https://github.com/copy/v86.git";
+      rev = "62fd36e0bbf3da60a24be75c5245cdb11c062908";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-FnCmDfGmsdI0BSAXqdasWECMlOB6JvD144UaovceaZg=";
+    };
+    date = "2026-02-03";
+  };
   vlmcsd = {
     pname = "vlmcsd";
     version = "svn1113";

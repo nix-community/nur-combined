@@ -41,6 +41,7 @@ let
     (empty "rimePackages/rime-wubi")
     (empty "rimePackages/rime-wugniu")
     (empty "rimePackages/rimeDataBuildHook")
+    (empty "v86")
     (empty "yacd")
     (trivial "activate-dpt")
     (trivial "aws-s3-reverse-proxy")
