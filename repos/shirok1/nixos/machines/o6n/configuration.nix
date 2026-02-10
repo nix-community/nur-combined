@@ -303,9 +303,18 @@
     '';
 
     recommendedOptimisation = true;
-    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    recommendedBrotliSettings = true;
     recommendedGzipSettings = true;
     experimentalZstdSettings = true;
+    recommendedProxySettings = true;
+
+    commonHttpConfig = ''
+      map $http_x_forwarded_for $xff_passthrough {
+          default $http_x_forwarded_for;
+          ""      $remote_addr;
+      }
+    '';
 
     virtualHosts = {
       "ha.berry.shiroki.tech" = {
@@ -316,8 +325,16 @@
           "/" = {
             proxyPass = "http://[::1]:8123";
             proxyWebsockets = true;
+            recommendedProxySettings = false;
             extraConfig = ''
               proxy_buffering off;
+              proxy_set_header Host $host;
+              # Home Assistant use first untrusted X-Forwarded-For from RIGHT,
+              # using $proxy_add_x_forwarded_for will cause CDN IPs treated as client
+              proxy_set_header X-Forwarded-For $xff_passthrough;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_set_header X-Forwarded-Host $host;
+              proxy_set_header X-Forwarded-Server $hostname;
             '';
           };
         };
@@ -329,10 +346,6 @@
         locations = {
           "/" = {
             proxyPass = "http://[::1]:8080";
-            proxyWebsockets = true;
-            extraConfig = ''
-              proxy_buffering off;
-            '';
           };
         };
       };
@@ -421,6 +434,9 @@
       "scene ui" = "!include scenes.yaml";
       "script ui" = "!include scripts.yaml";
 
+      homeassistant = {
+        external_url = "https://ha.berry.shiroki.tech";
+      };
       http = {
         use_x_forwarded_for = true;
         trusted_proxies = [
