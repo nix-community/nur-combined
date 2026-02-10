@@ -69,7 +69,7 @@ in
                     inactive_state = "Idle";
                   };
                 in
-                builtins.map (block: defaults // block) cfg.vpn.blockConfigs
+                map (block: defaults // block) cfg.vpn.blockConfigs
               )
             )
             {

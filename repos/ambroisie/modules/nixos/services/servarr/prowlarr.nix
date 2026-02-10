@@ -5,7 +5,7 @@ let
 in
 {
   options.my.services.servarr.prowlarr = with lib; {
-    enable = lib.mkEnableOption "Prowlarr" // {
+    enable = mkEnableOption "Prowlarr" // {
       default = config.my.services.servarr.enableAll;
     };
 

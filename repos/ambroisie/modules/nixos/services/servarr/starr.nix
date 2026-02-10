@@ -12,7 +12,7 @@ let
 in
 {
   options.my.services.servarr.${starr} = with lib; {
-    enable = lib.mkEnableOption (lib.toSentenceCase starr) // {
+    enable = mkEnableOption (lib.toSentenceCase starr) // {
       default = config.my.services.servarr.enableAll;
     };
 
