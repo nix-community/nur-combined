@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
       }${
         if stdenv.isx86_64 then
           "_x64"
-        else if stdenv.isaarch64 then
+        else if stdenv.isAarch64 then
           "_arm64"
         else if stdenv.isi686 then
           "_x86"
