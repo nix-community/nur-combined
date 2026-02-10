@@ -24,10 +24,6 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-zuwDO6++6N4EqXNrWxh1WG1E3Gj6aYT+g1WE47vsvtA=";
 
-  patches = [
-    ./0001-Fix-error-E0658-let-expressions-in-this-position-are.patch
-  ];
-
   doCheck = false;
 
   nativeBuildInputs = [

@@ -21,6 +21,7 @@ in
   bb-imager-cli = pkgs.callPackage ./pkgs/bb-imager-rs { withGui = false; };
   cst = pkgs.callPackage ./pkgs/cst { };
   dtsfmt = pkgs.callPackage ./pkgs/dtsfmt { };
+  envoluntary = pkgs.callPackage ./pkgs/envoluntary { };
   inherit potracer;
   supernote-tool = pkgs.python3Packages.callPackage ./pkgs/supernote-tool { inherit potracer; };
   trigger = pkgs.callPackage ./pkgs/trigger { };
