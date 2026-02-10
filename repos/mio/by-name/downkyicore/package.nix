@@ -18,7 +18,13 @@
   openssl,
   zlib,
   lttng-ust_2_12,
-  xorg,
+  libx11,
+  libxcursor,
+  libxext,
+  libxi,
+  libxrandr,
+  libice,
+  libsm,
 }:
 
 buildDotnetModule (finalAttrs: {
@@ -62,18 +68,15 @@ buildDotnetModule (finalAttrs: {
     (lib.getLib stdenv.cc.cc)
   ];
 
-  runtimeDeps = lib.optionals stdenv.hostPlatform.isLinux (
-    with xorg;
-    [
-      libX11
-      libXcursor
-      libXext
-      libXi
-      libXrandr
-      libICE
-      libSM
-    ]
-  );
+  runtimeDeps = lib.optionals stdenv.hostPlatform.isLinux [
+    libx11
+    libxcursor
+    libxext
+    libxi
+    libxrandr
+    libice
+    libsm
+  ];
 
   postPatch = ''
     substituteInPlace DownKyi/DownKyi.csproj DownKyi.Core/DownKyi.Core.csproj \
