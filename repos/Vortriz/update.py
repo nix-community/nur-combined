@@ -15,6 +15,7 @@ from nima.expressions import FunctionCall
 FORCE_BLACKLIST = [
     Path("./pkgs/by-name/libfprint-focaltech-2808-a658-alt/package.nix"),
     Path("./pkgs/by-name/fprintd/package.nix"),
+    Path("./pkgs/by-name/surge/package.nix"),
 ]
 
 
