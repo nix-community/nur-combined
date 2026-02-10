@@ -29,5 +29,6 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ ccicnce113424 ];
     platforms = with lib.systems.inspect; patternLogicalAnd patterns.isx86_64 patterns.isLinux;
+    mainProgram = "asmc";
   };
 }

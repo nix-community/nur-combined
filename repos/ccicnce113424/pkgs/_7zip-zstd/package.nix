@@ -47,9 +47,10 @@ stdenv.mkDerivation (finalAttrs: {
     "CC=${stdenv.cc.targetPrefix}cc"
     "CXX=${stdenv.cc.targetPrefix}c++"
   ]
-  ++ lib.optionals stdenv.hostPlatform.isx86 [
+  ++ lib.optionals (stdenv.hostPlatform.isx86) [
     "MY_ASM=${if stdenv.hostPlatform.isLinux then "asmc" else "uasm"}"
   ]
+  ++ lib.optionals (stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isDarwin) [ "USE_ASM=1" ]
   ++ lib.optionals (!enableRar) [ "DISABLE_RAR_COMPRESS=true" ]
   ++ lib.optionals (stdenv.cc.isClang) [ "FLAGS_FLTO=-flto=thin" ]
   # ++ lib.optionals (stdenv.hostPlatform.isMinGW) [
