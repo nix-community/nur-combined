@@ -17,7 +17,6 @@
         programs.nixf-diagnose = {
           enable = true;
           priority = 2;
-          ignore = [ "sema-primop-overridden" ];
         };
         programs.prettier.enable = true;
         programs.just.enable = true;
