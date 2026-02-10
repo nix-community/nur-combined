@@ -5,6 +5,7 @@
   helix-master = pkgs.callPackage ./helix-master/_package.nix { };
   hyphenopoly = pkgs.callPackage ./hyphenopoly/_package.nix { };
   mirror-checks = pkgs.callPackage ./mirror-checks/_package.nix { };
+  opencode-claude-max-proxy = pkgs.callPackage ./opencode-claude-max-proxy/_package.nix { };
   reinstall-magisk-on-lineageos = pkgs.callPackage ./reinstall-magisk-on-lineageos/_package.nix { };
   yt-dlp-master = pkgs.callPackage ./yt-dlp-master/_package.nix { };
 }
