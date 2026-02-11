@@ -18,7 +18,7 @@
     in
     {
       overlays.default = _final: prev: {
-        chillcicada = self.packages."${prev.system}";
+        chillcicada = self.packages."${prev.stdenv.hostPlatform.system}";
       };
 
       legacyPackages = forAllSystems (
