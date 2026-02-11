@@ -1,10 +1,19 @@
 # nur
 My personal NUR packages.
 ## How to use
+### NUR
 You have to [include the NUR](https://github.com/nix-community/NUR?tab=readme-ov-file#installation) in your configuration.
 
 My NUR namespace is `nur.repos.someron`.
 
+### flake
+You can also include this repository as a standalone flake:
+```Nix
+inputs.someron-nur = {
+    url = "git+https://codeberg.org/someron/nur.git";
+    inputs.nixpkgs.follows = "nixpkgs";
+};
+```
 
 ## Packages
 ### External
