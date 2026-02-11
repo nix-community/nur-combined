@@ -31,6 +31,13 @@ inputs.someron-nur = {
 - License: Apache License 2.0
 - Attribute: `nur.repos.someron.pkgs.filebrowser-quantum`
 
+#### upsnap
+- Source: https://github.com/seriousm4x/UpSnap
+- Description: A simple wake on lan web app written with SvelteKit, Go and PocketBase.
+- Current Version: 5.2.7 *(2026-01-08)*
+- License: MIT
+- Attribute: `nur.repos.someron.pkgs.upsnap`
+
 ### Own packages
 #### systemd-sops-creds
 - Source: https://codeberg.org/someron/systemd-sops-creds

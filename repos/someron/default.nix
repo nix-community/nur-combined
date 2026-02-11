@@ -5,5 +5,6 @@
     filebrowser-quantum = pkgs.callPackage ./pkgs/filebrowser-quantum.nix { };
     beszel-provisioner = pkgs.callPackage ./pkgs/beszel-provisioner.nix { };
     carddav-immich-bday-sync = pkgs.callPackage ./pkgs/carddav-immich-bday-sync { };
+    upsnap = pkgs.callPackage ./pkgs/upsnap.nix { };
   };
 }
