@@ -3,8 +3,9 @@
   stdenv,
   fetchFromGitHub,
   makeWrapper,
-  uasm,
   asmc-linux,
+  uasm,
+  useUasm ? false,
   _experimental-update-script-combinators,
   nix-update-script,
   enableRar ? false,
@@ -34,9 +35,10 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     makeWrapper
   ]
-  ++ lib.optional stdenv.hostPlatform.isx86 (
-    if stdenv.hostPlatform.isLinux then asmc-linux else uasm
-  );
+  ++ lib.optionals useUasm [ uasm ]
+  ++ lib.optionals (!useUasm && stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isLinux) [
+    asmc-linux
+  ];
 
   outputs = [
     "out"
@@ -47,8 +49,12 @@ stdenv.mkDerivation (finalAttrs: {
     "CC=${stdenv.cc.targetPrefix}cc"
     "CXX=${stdenv.cc.targetPrefix}c++"
   ]
-  ++ lib.optionals (stdenv.hostPlatform.isx86) [
-    "MY_ASM=${if stdenv.hostPlatform.isLinux then "asmc" else "uasm"}"
+  ++ lib.optionals useUasm [ "MY_ASM=uasm" ]
+  ++ lib.optionals (!useUasm && stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isLinux) [
+    "MY_ASM=asmc"
+  ]
+  ++ lib.optionals (!useUasm && stdenv.hostPlatform.isx86 && !stdenv.hostPlatform.isLinux) [
+    "USE_ASM="
   ]
   ++ lib.optionals (!enableRar) [ "DISABLE_RAR_COMPRESS=true" ]
   ++ lib.optionals (stdenv.cc.isClang) [ "FLAGS_FLTO=-flto=thin" ]
