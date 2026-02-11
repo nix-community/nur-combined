@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/bin
-    install -Dm644 $src/upsnap $out/bin/upsnap
+    install -Dm755 $src/upsnap $out/bin/upsnap
 
     runHook postInstall
   '';
