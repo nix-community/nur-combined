@@ -52,6 +52,7 @@
   ghostty = lib.callPackage ./pkgs/ghostty {};
   vscode = lib.callPackage ./pkgs/vscode {};
   heroic = lib.callPackage ./pkgs/heroic {};
+  peazip = lib.callPackage ./pkgs/peazip {};
   pcsx2 = lib.callPackage ./pkgs/pcsx2 {};
   micro = lib.callPackage ./pkgs/micro {};
   gimp = lib.callPackage ./pkgs/gimp {};

@@ -1,0 +1,19 @@
+{
+  "name": "PeaZip",
+  "source": {
+    "type": "github-release",
+    "repo": "peazip/PeaZip",
+    "skipPrerelease": true
+  },
+  "version": "10.9.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "peazip-{version}.DARWIN.aarch64.dmg",
+      "hash": "sha256-9liV7aeV289IK6UHupjA9A6lSEnJGcWe96nP8ZpVQdw="
+    },
+    "x86_64-darwin": {
+      "file": "peazip-{version}.DARWIN.x86_64.dmg",
+      "hash": "sha256-6s8gvfR/vW82DMQSIJFkJnWIQQVMGYgdyAvJ48V2C2A="
+    }
+  }
+}
