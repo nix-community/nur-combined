@@ -95,7 +95,6 @@ files are copied from following locations. some are modified in this repo and so
 + 657da505ce2e5888ea07ac228327b7f317763963 nix-output-monitor
 + pkgs/by-name/mu/musescore-evolution/ <https://github.com/NixOS/nixpkgs/pull/478650>
 + ladybird nixpkgs commit a36b8c6d6e07764f64f3d3016cdb7a557897a435
-+ citron-emu <https://github.com/NixOS/nixpkgs/pull/482846>
 + polkit nixpkgs 88d3861acdd3d2f0e361767018218e51810df8a1
 + zotero <https://github.com/NixOS/nixpkgs/pull/483099/changes>
 + lix_2_93 nixpkgs commit bfc1b8a4574108ceef22f02bafcf6611380c100d
