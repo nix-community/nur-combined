@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.10";
+    version = "v6.8.12";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.10";
-      hash = "sha256-pzN4inH42plCBLkezEwQK8j+6Bl2qiNeA5vjPSPJ+BQ=";
+      tag = "v6.8.12";
+      hash = "sha256-V8CyUWRxJnqeEjNYEc9zwZ+D2s4FVZzO+GePsQrIBYw=";
     };
   };
   cockpy = {
@@ -1108,14 +1108,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "c58e93e97f460e36b87f0ab9a6b3e9742116d749";
+    version = "6b390dde2a77e79f887e50cf396e406c0ea7a0f5";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "c58e93e97f460e36b87f0ab9a6b3e9742116d749";
-      hash = "sha256-WeNgXd5jIByWLv/m6h95vDZRG2xkq7JGkH1cOrw91BA=";
+      rev = "6b390dde2a77e79f887e50cf396e406c0ea7a0f5";
+      hash = "sha256-31gckLDVwdjuaTyBMpfFyf6Ls0Ic8kZi5gA4KOWEcsM=";
     };
-    date = "2026-02-06";
+    date = "2026-02-11";
   };
   libqcef = {
     pname = "libqcef";
@@ -1176,12 +1176,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7988";
+    version = "b7999";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7988";
-      hash = "sha256-QygYNkPw+YV4RJmIgdf5plOgC3A55E3oV0p+63xJjH8=";
+      tag = "b7999";
+      hash = "sha256-R7CyLGCRMRV/rif7Khj9TqIRnxeCfUxxUIUdSBtywIs=";
     };
   };
   loralib = {
@@ -1349,14 +1349,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "26f481b456f9d8c6a865f00045da54ac30208304";
+    version = "d6359cc72f23517367c87441a5d3da8b42d6519a";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "26f481b456f9d8c6a865f00045da54ac30208304";
-      hash = "sha256-ZNWvC4ICYnKoz2yuSPO/Fs4CslW5+Cc/voqWIV9CJjs=";
+      rev = "d6359cc72f23517367c87441a5d3da8b42d6519a";
+      hash = "sha256-r0sVIDwTeXLOjVb4pZNPfMGGCmCMXR4oTQhfyNrGliM=";
     };
-    date = "2026-02-08";
+    date = "2026-02-11";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1402,12 +1402,12 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.22";
+    version = "v0.23";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      tag = "v0.22";
-      hash = "sha256-UJubWx5QfzLAiYTN1BPaziT3gKsTI0OVCmcuwKX3Gp0=";
+      tag = "v0.23";
+      hash = "sha256-yS7Bn4M4r7If7/8c74nqS97kg90eYqKhxMtz14MJaL4=";
     };
   };
   oci-arm-host-capacity = {
@@ -1558,10 +1558,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.2";
+    version = "9.2.5";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.2/PeerBanHelper_9.3.2.zip";
-      hash = "sha256-CWyPEE+pR4AhshLV2QkCAiiJsbzjw9I7msmLFNhUnVw=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.5/PeerBanHelper_9.2.5.zip";
+      hash = "sha256-lIT91twoaqv9+YNTWYN6CNY/nLafCG8PG+Aj9zPV+Kw=";
     };
   };
   phpmyadmin = {

@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.10",
-            "sha256": "sha256-pzN4inH42plCBLkezEwQK8j+6Bl2qiNeA5vjPSPJ+BQ=",
+            "rev": "v6.8.12",
+            "sha256": "sha256-V8CyUWRxJnqeEjNYEc9zwZ+D2s4FVZzO+GePsQrIBYw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.10"
+        "version": "v6.8.12"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2148,7 +2148,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-02-06",
+        "date": "2026-02-11",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2160,12 +2160,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "c58e93e97f460e36b87f0ab9a6b3e9742116d749",
-            "sha256": "sha256-WeNgXd5jIByWLv/m6h95vDZRG2xkq7JGkH1cOrw91BA=",
+            "rev": "6b390dde2a77e79f887e50cf396e406c0ea7a0f5",
+            "sha256": "sha256-31gckLDVwdjuaTyBMpfFyf6Ls0Ic8kZi5gA4KOWEcsM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c58e93e97f460e36b87f0ab9a6b3e9742116d749"
+        "version": "6b390dde2a77e79f887e50cf396e406c0ea7a0f5"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2286,12 +2286,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b7988",
-            "sha256": "sha256-QygYNkPw+YV4RJmIgdf5plOgC3A55E3oV0p+63xJjH8=",
+            "rev": "b7999",
+            "sha256": "sha256-R7CyLGCRMRV/rif7Khj9TqIRnxeCfUxxUIUdSBtywIs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b7988"
+        "version": "b7999"
     },
     "loralib": {
         "cargoLock": null,
@@ -2613,7 +2613,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-02-08",
+        "date": "2026-02-11",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2625,12 +2625,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "26f481b456f9d8c6a865f00045da54ac30208304",
-            "sha256": "sha256-ZNWvC4ICYnKoz2yuSPO/Fs4CslW5+Cc/voqWIV9CJjs=",
+            "rev": "d6359cc72f23517367c87441a5d3da8b42d6519a",
+            "sha256": "sha256-r0sVIDwTeXLOjVb4pZNPfMGGCmCMXR4oTQhfyNrGliM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "26f481b456f9d8c6a865f00045da54ac30208304"
+        "version": "d6359cc72f23517367c87441a5d3da8b42d6519a"
     },
     "nginx-njs": {
         "cargoLock": null,
@@ -2730,12 +2730,12 @@
             "name": null,
             "owner": "abbbi",
             "repo": "nullfsvfs",
-            "rev": "v0.22",
-            "sha256": "sha256-UJubWx5QfzLAiYTN1BPaziT3gKsTI0OVCmcuwKX3Gp0=",
+            "rev": "v0.23",
+            "sha256": "sha256-yS7Bn4M4r7If7/8c74nqS97kg90eYqKhxMtz14MJaL4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.22"
+        "version": "v0.23"
     },
     "oci-arm-host-capacity": {
         "cargoLock": null,
@@ -3037,11 +3037,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CWyPEE+pR4AhshLV2QkCAiiJsbzjw9I7msmLFNhUnVw=",
+            "sha256": "sha256-lIT91twoaqv9+YNTWYN6CNY/nLafCG8PG+Aj9zPV+Kw=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.2/PeerBanHelper_9.3.2.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.2.5/PeerBanHelper_9.2.5.zip"
         },
-        "version": "9.3.2"
+        "version": "9.2.5"
     },
     "phpmyadmin": {
         "cargoLock": null,
