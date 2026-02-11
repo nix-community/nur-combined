@@ -49,7 +49,10 @@ stdenv.mkDerivation (finalAttrs: {
     "CC=${stdenv.cc.targetPrefix}cc"
     "CXX=${stdenv.cc.targetPrefix}c++"
   ]
-  ++ lib.optionals useUasm [ "MY_ASM=uasm" ]
+  ++ lib.optionals useUasm [
+    "MY_ASM=uasm"
+    "USE_ASM=1"
+  ]
   ++ lib.optionals (!useUasm && stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isLinux) [
     "MY_ASM=asmc"
   ]
@@ -105,32 +108,27 @@ stdenv.mkDerivation (finalAttrs: {
       runHook postBuild
     '';
 
-  installPhase =
-    let
-      inherit (stdenv.hostPlatform) extensions;
-    in
-    ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      install -Dt "$out/lib/7zip" \
-        CPP/7zip/Bundles/Alone/b/*/7za${extensions.executable} \
-        CPP/7zip/Bundles/Alone2/b/*/7zz${extensions.executable} \
-        CPP/7zip/Bundles/Alone7z/b/*/7zr${extensions.executable} \
-        CPP/7zip/Bundles/Format7zF/b/*/7z${extensions.sharedLibrary} \
-        CPP/7zip/UI/Console/b/*/7z${extensions.executable}
+    install -Dt "$out/lib/7zip" \
+      CPP/7zip/Bundles/Alone/b/*/7za \
+      CPP/7zip/Bundles/Alone2/b/*/7zz \
+      CPP/7zip/Bundles/Alone7z/b/*/7zr \
+      CPP/7zip/Bundles/Format7zF/b/*/7z${stdenv.hostPlatform.extensions.sharedLibrary} \
+      CPP/7zip/UI/Console/b/*/7z
+    install -D CPP/7zip/Bundles/SFXCon/b/*/7zCon "$out/lib/7zip/7zCon.sfx"
 
-      install -D CPP/7zip/Bundles/SFXCon/b/*/7zCon${extensions.executable} "$out/lib/7zip/7zCon.sfx"
+    mkdir -p "$out/bin"
+    for prog in 7za 7zz 7zr 7z; do
+      makeWrapper "$out/lib/7zip/$prog" \
+        "$out/bin/$prog"
+    done
 
-      mkdir -p "$out/bin"
-      for prog in 7za 7zz 7zr 7z; do
-        makeWrapper "$out/lib/7zip/$prog${extensions.executable}" \
-          "$out/bin/$prog${extensions.executable}"
-      done
+    install -Dt "$out/share/doc/7zip" DOC/*.txt
 
-      install -Dt "$out/share/doc/7zip" DOC/*.txt
-
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   setupHook = ./setup-hook.sh;
   passthru.updateScript = _experimental-update-script-combinators.sequence [
