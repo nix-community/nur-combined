@@ -100,6 +100,7 @@ files are copied from following locations. some are modified in this repo and so
 + lix_2_93 nixpkgs commit bfc1b8a4574108ceef22f02bafcf6611380c100d
 + darling nixpkgs commit 01b6610eb0c98ee6d840e0d060cb41e334879f65^ 31bdcff5843e30d33eb758334435298a571bd2af^ <https://github.com/NixOS/nixpkgs/commit/31bdcff5843e30d33eb758334435298a571bd2af>
 + nix_2_31_2 nixpkgs commit 1412caf7bf9e660f2f962917c14b1ea1c3bc695e
++ widevine-firefox <https://github.com/ToborWinner/teanyth/blob/263decae003ec1b7ed0f7cde30b57c6f2f320c0e/pkgs/firefox-widevine.nix#L4>
 
 ## todo - reading
 
