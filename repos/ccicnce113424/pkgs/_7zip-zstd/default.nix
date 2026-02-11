@@ -5,7 +5,7 @@
   stdenvAdapters,
   callPackage,
   asmc-linux,
-  enableRar ? false,
+  enableUnfree ? false,
 }:
 let
   adapters = lib.optionals (stdenv.targetPlatform.isLinux) [
@@ -15,5 +15,5 @@ let
 in
 callPackage ./package.nix {
   stdenv = customStdenv;
-  inherit asmc-linux enableRar;
+  inherit asmc-linux enableUnfree;
 }

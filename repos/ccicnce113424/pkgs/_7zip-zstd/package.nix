@@ -5,10 +5,10 @@
   makeWrapper,
   asmc-linux,
   uasm,
-  useUasm ? false,
+  useUasm ? enableUnfree && stdenv.hostPlatform.isx86,
   _experimental-update-script-combinators,
   nix-update-script,
-  enableRar ? false,
+  enableUnfree ? false,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "7zip-zstd";
@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     repo = "7-Zip-zstd";
     tag = "v${finalAttrs.version}";
     hash =
-      if enableRar then
+      if enableUnfree then
         "sha256-qP4L5PIG7CHsmYbRock+cbCOGdgujUFG4LHenvvlqzw="
       else
         "sha256-R9AUWL35TPh0anyRDhnF28ZYG9FeOxntVIwnnW9e2xA=";
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     # > the license requires that you agree to these use restrictions,
     # > or you must remove the software (source and binary) from your hard disks
     # https://fedoraproject.org/wiki/Licensing:Unrar
-    postFetch = lib.optionalString (!enableRar) ''
+    postFetch = lib.optionalString (!enableUnfree) ''
       rm -r $out/CPP/7zip/Compress/Rar*
     '';
   };
@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals (!useUasm && stdenv.hostPlatform.isx86 && !stdenv.hostPlatform.isLinux) [
     "USE_ASM="
   ]
-  ++ lib.optionals (!enableRar) [ "DISABLE_RAR_COMPRESS=true" ]
+  ++ lib.optionals (!enableUnfree) [ "DISABLE_RAR_COMPRESS=true" ]
   ++ lib.optionals (stdenv.cc.isClang) [ "FLAGS_FLTO=-flto=thin" ]
   # ++ lib.optionals (stdenv.hostPlatform.isMinGW) [
   #   "IS_MINGW=1"
@@ -157,7 +157,7 @@ stdenv.mkDerivation (finalAttrs: {
       ++
         # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
         # the unRAR compression code is disabled by default
-        lib.optionals enableRar [ unfreeRedistributable ];
+        lib.optionals enableUnfree [ unfreeRedistributable ];
     maintainers = with lib.maintainers; [
       ccicnce113424
     ];
