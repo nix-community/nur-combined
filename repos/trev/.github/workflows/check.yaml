@@ -26,9 +26,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@216e4561869851deddcbe04c81f2e3a1e0236198 # v1.27.3
-        with:
-          audience: https://niks3.trev.zip
+        uses: spotdemo4/nix-init@33dd78ad344e4e6d4ef4c1ef8e135786125e9b0c # v1.27.5
 
       - name: Check flake
         run: nix flake check
@@ -56,9 +54,8 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@216e4561869851deddcbe04c81f2e3a1e0236198 # v1.27.3
+        uses: spotdemo4/nix-init@33dd78ad344e4e6d4ef4c1ef8e135786125e9b0c # v1.27.5
         with:
-          audience: https://niks3.trev.zip
           shell: check
 
       - name: Build packages
