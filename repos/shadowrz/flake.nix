@@ -21,7 +21,6 @@
         system:
         import ./packages.nix {
           pkgs = nixpkgs.legacyPackages.${system};
-          isFlake = true;
         }
       );
 
