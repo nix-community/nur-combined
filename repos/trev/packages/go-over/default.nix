@@ -21,6 +21,7 @@ gleam.build rec {
     ifd = true;
     updateScript = lib.concatStringsSep " " (nix-update-script {
       extraArgs = [
+        "--flake"
         "--commit"
         "${pname}"
       ];

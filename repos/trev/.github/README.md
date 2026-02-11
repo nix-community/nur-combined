@@ -115,10 +115,14 @@ nix run github:spotdemo4/nur#renovate
 
 ### [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh)
 
-Shell hook for nix development shells
+Shell hook for nix development shells. Displays info about the environment and creates a pre-push hook that runs `nix flake check`.
 
-```elm
-nix run github:spotdemo4/nur#shellhook
+```nix
+devShells = {
+  default = pkgs.mkShell {
+    shellHook = pkgs.shellhook.ref;
+  };
+};
 ```
 
 ## Bundlers
