@@ -25,7 +25,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "MASM-compatible assembler";
-    homepage = "https://github.com/nidud/asmc-linux";
+    homepage = "https://github.com/nidud/asmc_linux";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ ccicnce113424 ];
     platforms = with lib.systems.inspect; patternLogicalAnd patterns.isx86_64 patterns.isLinux;
