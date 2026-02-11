@@ -1,8 +1,8 @@
 diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
-index 23521855009..7b95d075d30 100644
+index 23521855009..c761fa96b9a 100644
 --- a/lib/modules/manager/nix/extract.spec.ts
 +++ b/lib/modules/manager/nix/extract.spec.ts
-@@ -1391,4 +1391,79 @@ describe('modules/manager/nix/extract', () => {
+@@ -1391,4 +1391,111 @@ describe('modules/manager/nix/extract', () => {
      expect(result?.deps).toHaveLength(1);
      expect(result?.deps[0].depName).toBe('nixpkgs');
    });
@@ -81,32 +81,74 @@ index 23521855009..7b95d075d30 100644
 +    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
 +    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
 +  });
++
++  it('returns null when root input is not a string', async () => {
++    const flakeLock = codeBlock`{
++      "nodes": {
++        "nixpkgs": {
++          "locked": {
++            "lastModified": 1757068644,
++            "narHash": "sha256-NOrUtIhTkIIumj1E/Rsv1J37Yi3xGStISEo8tZm3KW4=",
++            "owner": "NixOS",
++            "repo": "nixpkgs",
++            "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
++            "type": "github"
++          },
++          "original": {
++            "owner": "NixOS",
++            "ref": "nixos-unstable",
++            "repo": "nixpkgs",
++            "type": "github"
++          }
++        },
++        "root": {
++          "inputs": {
++            "nixpkgs": ["nixpkgs"]
++          }
++        }
++      },
++      "root": "root",
++      "version": 7
++    }`;
++    fs.readLocalFile.mockResolvedValueOnce(flakeLock);
++    expect(await extractPackageFile('', 'flake.nix')).toBeNull();
++  });
  });
 diff --git a/lib/modules/manager/nix/extract.ts b/lib/modules/manager/nix/extract.ts
-index 6404e030a8e..6d145251452 100644
+index 6404e030a8e..84f384c6b75 100644
 --- a/lib/modules/manager/nix/extract.ts
 +++ b/lib/modules/manager/nix/extract.ts
-@@ -45,25 +45,16 @@ export async function extractPackageFile(
-   const flakeLock = flakeLockParsed.data;
-   const rootInputs = flakeLock.nodes.root.inputs;
+@@ -43,27 +43,34 @@ export async function extractPackageFile(
+   }
  
--  if (!rootInputs) {
--    logger.debug(
+   const flakeLock = flakeLockParsed.data;
+-  const rootInputs = flakeLock.nodes.root.inputs;
++  const rootInputs = flakeLock.nodes[flakeLock.root].inputs;
+ 
+   if (!rootInputs) {
+     logger.debug(
 -      { flakeLockFile, error: flakeLockParsed.error },
 -      `flake.lock is missing "root" node`,
--    );
--    return null;
--  }
--
++      { flakeLockFile },
++      `root node in flake.lock does not contain inputs, skipping`,
+     );
+     return null;
+   }
+ 
 -  for (const [depName, flakeInput] of Object.entries(flakeLock.nodes)) {
 -    // the root input is a magic string for the entrypoint and only references other flake inputs
 -    if (depName === 'root') {
--      continue;
--    }
--
++  for (const [depName, nodeName] of Object.entries(rootInputs)) {
++    if (typeof nodeName !== 'string') {
++      logger.debug(
++        { flakeLockFile, nodeName },
++        `input node name is not a string, skipping`,
++      );
+       continue;
+     }
+ 
 -    // skip all locked and transitivie nodes as they cannot be updated by regular means
 -    if (!(depName in rootInputs)) {
-+  for (const [depName, nodeName] of Object.entries(rootInputs)) {
 +    if (!Object.hasOwn(flakeLock.nodes, nodeName)) {
 +      logger.debug(
 +        { flakeLockFile, nodeName },
@@ -120,25 +162,14 @@ index 6404e030a8e..6d145251452 100644
      const flakeLocked = flakeInput.locked;
      // flakeOriginal example: { owner: 'NuschtOS', repo: 'search', type: 'github' }
 diff --git a/lib/modules/manager/nix/schema.ts b/lib/modules/manager/nix/schema.ts
-index 01b3da431a4..ed815d511ff 100644
+index 01b3da431a4..21427a10828 100644
 --- a/lib/modules/manager/nix/schema.ts
 +++ b/lib/modules/manager/nix/schema.ts
-@@ -35,9 +35,17 @@ const NixInput = z.object({
-   original: OriginalInput.optional(),
- });
- 
-+const RootInput = z.object({
-+  inputs: z.record(z.string(), z.string()),
-+});
-+
+@@ -38,6 +38,7 @@ const NixInput = z.object({
  export const NixFlakeLock = Json.pipe(
    z.object({
--    nodes: z.record(z.string(), NixInput),
-+    nodes: z
-+      .object({
-+        root: RootInput,
-+      })
-+      .catchall(NixInput),
+     nodes: z.record(z.string(), NixInput),
++    root: z.string(),
      version: z.literal(7),
    }),
  );
