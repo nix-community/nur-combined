@@ -89,11 +89,11 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "gcc"
       }${
-        if stdenv.isx86_64 then
+        if stdenv.hostPlatform.isx86_64 then
           "_x64"
-        else if stdenv.isAarch64 then
+        else if stdenv.hostPlatform.isAarch64 then
           "_arm64"
-        else if stdenv.isi686 then
+        else if stdenv.hostPlatform.isi686 then
           "_x86"
         else
           ""
