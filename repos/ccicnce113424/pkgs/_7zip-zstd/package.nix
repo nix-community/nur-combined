@@ -5,7 +5,7 @@
   makeWrapper,
   asmc-linux,
   uasm,
-  useUasm ? enableUnfree && stdenv.hostPlatform.isx86,
+  useUasm ? enableUnfree && stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isLinux,
   _experimental-update-script-combinators,
   nix-update-script,
   enableUnfree ? false,
@@ -51,7 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals useUasm [
     "MY_ASM=uasm"
-    "USE_ASM=1"
   ]
   ++ lib.optionals (!useUasm && stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isLinux) [
     "MY_ASM=asmc"
