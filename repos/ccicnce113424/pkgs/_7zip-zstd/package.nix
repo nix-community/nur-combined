@@ -6,10 +6,7 @@
   asmc-linux,
   useAsmc ? !useUasm && stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isLinux,
   uasm,
-  useUasm ?
-    enableUnfree
-    && stdenv.hostPlatform.isx86
-    && (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isWindows),
+  useUasm ? enableUnfree && stdenv.hostPlatform.isx86 && stdenv.hostPlatform.isLinux,
   _experimental-update-script-combinators,
   nix-update-script,
   enableUnfree ? false,
@@ -60,24 +57,15 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals (stdenv.hostPlatform.isx86 && !useAsmc && !useUasm) [
     "USE_ASM="
   ]
+  # it's the compression code with the restriction, see DOC/License.txt
   ++ lib.optionals (!enableUnfree) [ "DISABLE_RAR_COMPRESS=true" ]
-  ++ lib.optionals (stdenv.cc.isClang) [ "FLAGS_FLTO=-flto=thin" ]
-  # ++ lib.optionals (stdenv.hostPlatform.isMinGW) [
-  #   "IS_MINGW=1"
-  #   "MSYSTEM=1"
-  # ]
-  ;
+  ++ lib.optionals (stdenv.cc.isClang) [ "FLAGS_FLTO=-flto=thin" ];
 
   enableParallelBuilding = true;
 
   postPatch = ''
     sed -i 's/-Werror//g' CPP/7zip/7zip_gcc.mak
-  ''
-  # + lib.optionalString stdenv.hostPlatform.isMinGW ''
-  #   substituteInPlace CPP/7zip/7zip_gcc.mak C/7zip_gcc_c.mak \
-  #     --replace windres.exe ${stdenv.cc.targetPrefix}windres
-  # ''
-  ;
+  '';
 
   buildPhase =
     let
@@ -109,31 +97,27 @@ stdenv.mkDerivation (finalAttrs: {
       runHook postBuild
     '';
 
-  installPhase =
-    let
-      inherit (stdenv.hostPlatform) extensions;
-    in
-    ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      install -Dt "$out/lib/7zip" \
-        CPP/7zip/Bundles/Alone/b/*/7za${extensions.executable} \
-        CPP/7zip/Bundles/Alone2/b/*/7zz${extensions.executable} \
-        CPP/7zip/Bundles/Alone7z/b/*/7zr${extensions.executable} \
-        CPP/7zip/Bundles/Format7zF/b/*/7z${extensions.sharedLibrary} \
-        CPP/7zip/UI/Console/b/*/7z${extensions.executable}
-      install -D CPP/7zip/Bundles/SFXCon/b/*/7zCon${extensions.executable} "$out/lib/7zip/7zCon.sfx"
+    install -Dt "$out/lib/7zip" \
+      CPP/7zip/Bundles/Alone/b/*/7za \
+      CPP/7zip/Bundles/Alone2/b/*/7zz \
+      CPP/7zip/Bundles/Alone7z/b/*/7zr \
+      CPP/7zip/Bundles/Format7zF/b/*/7z${stdenv.hostPlatform.extensions.sharedLibrary} \
+      CPP/7zip/UI/Console/b/*/7z
+    install -D CPP/7zip/Bundles/SFXCon/b/*/7zCon "$out/lib/7zip/7zCon.sfx"
 
-      mkdir -p "$out/bin"
-      for prog in 7za 7zz 7zr 7z; do
-        makeWrapper "$out/lib/7zip/$prog${extensions.executable}" \
-          "$out/bin/$prog"
-      done
+    mkdir -p "$out/bin"
+    for prog in 7za 7zz 7zr 7z; do
+      makeWrapper "$out/lib/7zip/$prog" \
+        "$out/bin/$prog"
+    done
 
-      install -Dt "$out/share/doc/7zip" DOC/*.txt
+    install -Dt "$out/share/doc/7zip" DOC/*.txt
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   setupHook = ./setup-hook.sh;
   passthru.updateScript = _experimental-update-script-combinators.sequence [
