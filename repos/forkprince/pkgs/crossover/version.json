@@ -6,9 +6,9 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "25.1.1",
+  "version": "26.0.0",
   "asset": {
-    "url": "https://media.codeweavers.com/pub/crossover/cxmac/demo/crossover-25.1.1.zip",
-    "hash": "sha256-VczgL8XDlMO1Iz5PxL81v7kh2/WOhfdEgWHH75pKBTM="
+    "url": "https://media.codeweavers.com/pub/crossover/cxmac/demo/crossover-26.0.0.zip",
+    "hash": "sha256-7/iDvBuNAE8JHkI0XgD/OymZzWLacj0/vBHs48hBbbM="
   }
 }
