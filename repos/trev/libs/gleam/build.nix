@@ -107,7 +107,7 @@
         pname = attrs.pname or gleamToml.name;
         version = attrs.version or gleamToml.version;
 
-        src = lib.cleanSource attrs.src;
+        src = attrs.src;
 
         postPatch = lib.concatMapStringsSep "\n" (p: ''
           sed -i -e 's|"${p.path}"|"${p.newPath}"|g' manifest.toml
