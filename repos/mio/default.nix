@@ -66,6 +66,8 @@ let
           # nixos-25.11 20251218
           "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.5" =
             "sha256-rNeWnktP6HU+tT10hT6q/ZcIJeJmtu7VFhcXrgcFflM=";
+          # nixos-25.11 20260211
+          "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.6" = "";
         };
         srcHash = pkgs.caddy.src.outputHash;
         goVersion = pkgs.caddy.passthru.go.version;
