@@ -1,6 +1,7 @@
 {
   fetchFromGitHub,
   lib,
+  nix-update-script,
   rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -15,6 +16,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-y5uNCc165MALQ82OE3p7quAX8daw8swrqOga/XYfQFo=";
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      "${finalAttrs.pname}"
+    ];
+  };
 
   meta = {
     description = "Scans your Python dependencies for known security vulnerabilities";

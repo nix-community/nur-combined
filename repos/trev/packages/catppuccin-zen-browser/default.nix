@@ -21,14 +21,12 @@ stdenv.mkDerivation {
     cp -r themes "$out"
   '';
 
-  passthru = {
-    updateScript = lib.concatStringsSep " " (nix-update-script {
-      extraArgs = [
-        "--commit"
-        "--version=branch=main"
-        "catppuccin-zen-browser"
-      ];
-    });
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      "--version=branch=main"
+      "catppuccin-zen-browser"
+    ];
   };
 
   meta = {

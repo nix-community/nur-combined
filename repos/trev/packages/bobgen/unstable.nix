@@ -2,7 +2,6 @@
   bobgen,
   fetchFromGitHub,
   nix-update-script,
-  lib,
   ...
 }:
 bobgen.overrideAttrs (
@@ -18,14 +17,12 @@ bobgen.overrideAttrs (
 
     vendorHash = "sha256-WzSUUgfWGz5XXq3iQrtpF91yOEr0QypTWq1rOJMntGQ=";
 
-    passthru = {
-      updateScript = lib.concatStringsSep " " (nix-update-script {
-        extraArgs = [
-          "--commit"
-          "--version=branch=main"
-          "${final.pname}.unstable"
-        ];
-      });
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        "--commit"
+        "--version=branch=main"
+        "${final.pname}.unstable"
+      ];
     };
 
     meta = prev.meta // {

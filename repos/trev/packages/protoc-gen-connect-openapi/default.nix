@@ -17,13 +17,11 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-DXpQ7T5NHxkRPn7nr93Nk7VhimkYJCxQwam2B7RWncc=";
 
-  passthru = {
-    updateScript = lib.concatStringsSep " " (nix-update-script {
-      extraArgs = [
-        "--commit"
-        "${finalAttrs.pname}"
-      ];
-    });
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      "${finalAttrs.pname}"
+    ];
   };
 
   meta = {

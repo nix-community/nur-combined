@@ -30,13 +30,11 @@ python3Packages.buildPythonApplication rec {
     sed -ie 's/requires = \["uv_build[^"]*"]/requires = ["uv_build"]/' pyproject.toml
   '';
 
-  passthru = {
-    updateScript = lib.concatStringsSep " " (nix-update-script {
-      extraArgs = [
-        "--commit"
-        "${pname}"
-      ];
-    });
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      "${pname}"
+    ];
   };
 
   meta = {

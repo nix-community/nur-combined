@@ -21,13 +21,7 @@ let
     _: drv:
     lib.isDerivation drv
     # contains a valid updateScript
-    && (
-      builtins.hasAttr "updateScript" drv
-      && builtins.isString drv.updateScript
-      && lib.lists.any (cmd: lib.strings.hasSuffix "nix-update" cmd) (
-        lib.strings.splitString " " drv.updateScript
-      )
-    )
+    && (builtins.hasAttr "updateScript" drv && builtins.isList drv.updateScript)
   ) packages;
 
   # Get valid sub derivations for updating
@@ -39,13 +33,7 @@ let
       # is not created by mkDerivation
       && (builtins.elem name (builtins.attrNames emptyDerivation) == false)
       # contains a valid updateScript
-      && (
-        builtins.hasAttr "updateScript" drv
-        && builtins.isString drv.updateScript
-        && lib.lists.any (cmd: lib.strings.hasSuffix "nix-update" cmd) (
-          lib.strings.splitString " " drv.updateScript
-        )
-      )
+      && (builtins.hasAttr "updateScript" drv && builtins.isList drv.updateScript)
     ) top
   ) packages;
 
@@ -56,7 +44,7 @@ let
     echo "::group::updating ${d.pname}..."
 
     {
-    ${d.updateScript}
+    ${lib.concatStringsSep " " d.updateScript}
     } || echo "failed to update ${d.pname}"
 
     echo "::endgroup::"

@@ -29,12 +29,12 @@ buildGoModule (finalAttrs: {
     unstable = callPackage ./unstable.nix {
       bobgen = finalAttrs.finalPackage;
     };
-    updateScript = lib.concatStringsSep " " (nix-update-script {
+    updateScript = nix-update-script {
       extraArgs = [
         "--commit"
         "${finalAttrs.pname}"
       ];
-    });
+    };
   };
 
   meta = {

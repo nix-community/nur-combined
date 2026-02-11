@@ -105,17 +105,17 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru = {
-    updateScript = ''
-      wget https://patch-diff.githubusercontent.com/raw/renovatebot/renovate/pull/40282.diff -O ./packages/renovate/40282.diff
-      ${lib.concatStringsSep " " (nix-update-script {
-        extraArgs = [
-          "--commit"
-          "${finalAttrs.pname}"
-        ];
-      })}
-    '';
-  };
+  passthru.updateScript =
+    nix-update-script {
+      extraArgs = [
+        "--commit"
+        "${finalAttrs.pname}"
+      ];
+    }
+    ++ [
+      "&&"
+      "wget https://patch-diff.githubusercontent.com/raw/renovatebot/renovate/pull/40282.diff -O ./packages/renovate/40282.diff"
+    ];
 
   meta = {
     description = "Cross-platform dependency automation, with patches for nix";

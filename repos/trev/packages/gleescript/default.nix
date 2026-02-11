@@ -19,13 +19,13 @@ gleam.build rec {
 
   passthru = {
     ifd = true;
-    updateScript = lib.concatStringsSep " " (nix-update-script {
+    updateScript = nix-update-script {
       extraArgs = [
         "--flake"
         "--commit"
         "${pname}"
       ];
-    });
+    };
   };
 
   meta = {

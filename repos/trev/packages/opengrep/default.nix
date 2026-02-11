@@ -103,14 +103,12 @@ python3Packages.buildPythonApplication {
     makeWrapperArgs+=(--prefix PATH : ${core}/bin)
   '';
 
-  passthru = {
-    updateScript = lib.concatStringsSep " " (nix-update-script {
-      extraArgs = [
-        "--commit"
-        "--subpackage core"
-        "${pname}"
-      ];
-    });
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      "--subpackage core"
+      "${pname}"
+    ];
   };
 
   meta = {

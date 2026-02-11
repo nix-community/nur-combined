@@ -120,13 +120,11 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru = {
-    updateScript = lib.concatStringsSep " " (nix-update-script {
-      extraArgs = [
-        "--commit"
-        "${finalAttrs.pname}"
-      ];
-    });
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      "${finalAttrs.pname}"
+    ];
   };
 
   meta = {
