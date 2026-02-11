@@ -1,8 +1,8 @@
 {
+  cctools,
   fetchFromGitHub,
   fetchPnpmDeps,
   lib,
-  libtool,
   makeWrapper,
   nix-update-script,
   nodejs_24,
@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optional stdenv.hostPlatform.isDarwin [
     xcbuild
-    libtool
+    cctools.libtool
   ];
 
   pnpmDeps = fetchPnpmDeps {
