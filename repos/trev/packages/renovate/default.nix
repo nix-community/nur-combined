@@ -2,6 +2,7 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   lib,
+  libtool,
   makeWrapper,
   nix-update-script,
   nodejs_24,
@@ -43,7 +44,10 @@ stdenv.mkDerivation (finalAttrs: {
     python3
     yq-go
   ]
-  ++ lib.optional stdenv.hostPlatform.isDarwin xcbuild;
+  ++ lib.optional stdenv.hostPlatform.isDarwin [
+    xcbuild
+    libtool
+  ];
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
