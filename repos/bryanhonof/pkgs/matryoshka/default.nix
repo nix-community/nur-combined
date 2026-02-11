@@ -6,16 +6,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "matryoshka";
-  version = "0.2.6";
+  version = "main";
 
   src = fetchFromGitHub {
     owner = "yogthos";
     repo = "Matryoshka";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-2CswwOhLGFQNB6ENWmLcJBWyQe+QpzP/rljW3g5Iz2w=";
+    rev = finalAttrs.version;
+    hash = "sha256-GTKccsRKzpu882MdIuB/SaePdzXOg3cR8Bu1UjedRDc=";
   };
 
-  npmDepsHash = "sha256-u1pOIz+JX2l9IgOL4msEV9LxK/A8WZU85SKLvBdvZjA=";
+  npmDepsHash = "sha256-ObFtyhw+8sSBEtlx00NLD4ueZgPgew6XyPr06UhN2Qo=";
 
   meta = with lib; {
     description = "A Local Recursive Language Model";
