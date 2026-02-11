@@ -35,14 +35,10 @@ Catppuccin theme for Zen Browser
 Using with [`0xc000022070/zen-browser-flake`](https://github.com/0xc000022070/zen-browser-flake):
 
 ```nix
-programs.zen-browser = {
-    # ...
-    profiles.default = {
-      # ...
-      userChrome = builtins.readFile "${pkgs.trev.catppuccin-zen-browser}/Mocha/Sky/userChrome.css";
-      userContent = builtins.readFile "${pkgs.trev.catppuccin-zen-browser}/Mocha/Sky/userContent.css";
-    };
-  };
+programs.zen-browser.profiles.default = {
+  userChrome = builtins.readFile "${pkgs.trev.catppuccin-zen-browser}/Mocha/Sky/userChrome.css";
+  userContent = builtins.readFile "${pkgs.trev.catppuccin-zen-browser}/Mocha/Sky/userContent.css";
+};
 ```
 
 ### [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
@@ -53,20 +49,28 @@ Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)
 nix run github:spotdemo4/nur#ffmpeg-quality-metrics
 ```
 
-### [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash)
-
-Nix hash fixer
-
-```elm
-nix run github:spotdemo4/nur#nix-fix-hash
-```
-
 ### [flake-release](https://github.com/spotdemo4/flake-release)
 
 Flake package releaser
 
 ```elm
 nix run github:spotdemo4/nur#flake-release
+```
+
+### [go-over](https://github.com/bwireman/go-over)
+
+A tool to audit Erlang & Elixir dependencies
+
+```elm
+nix run github:spotdemo4/nur#go-over
+```
+
+### [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash)
+
+Nix hash fixer
+
+```elm
+nix run github:spotdemo4/nur#nix-fix-hash
 ```
 
 ### [opengrep](https://github.com/opengrep/opengrep)
@@ -118,10 +122,8 @@ nix run github:spotdemo4/nur#renovate
 Shell hook for nix development shells. Displays info about the environment and creates a pre-push hook that runs `nix flake check`.
 
 ```nix
-devShells = {
-  default = pkgs.mkShell {
-    shellHook = pkgs.shellhook.ref;
-  };
+devShells.x86_64-linux.default = pkgs.mkShell {
+  shellHook = pkgs.shellhook.ref;
 };
 ```
 
