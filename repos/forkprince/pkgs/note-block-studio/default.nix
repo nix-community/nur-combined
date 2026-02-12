@@ -1,4 +1,3 @@
-# NOTE: Linux version may not have a desktop file
 # NOTE: Linux version is untested
 {
   appimageTools,
