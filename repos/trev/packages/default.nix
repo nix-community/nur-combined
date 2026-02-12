@@ -24,5 +24,7 @@ in
   qsvenc = pkgs.callPackage ./qsvenc { };
   renovate = pkgs.callPackage ./renovate { };
   shellhook = pkgs.callPackage ./shellhook { };
-  uv-build = pkgs.callPackage ./uv-build { };
+  uv-build = pkgs.callPackage ./uv-build {
+    inherit (pkgs.python3Packages) buildPythonPackage;
+  };
 }

@@ -1,13 +1,13 @@
 {
-  lib,
-  pkgs,
+  buildPythonPackage,
   fetchFromGitHub,
-  python3Packages,
-  rustPlatform,
+  lib,
   nix-update-script,
+  pkgs,
+  rustPlatform,
 }:
 
-python3Packages.buildPythonPackage (finalAttrs: {
+buildPythonPackage (finalAttrs: {
   pname = "uv-build";
   version = "0.10.2";
   pyproject = true;
@@ -39,11 +39,31 @@ python3Packages.buildPythonPackage (finalAttrs: {
   # The package has no tests
   doCheck = false;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--commit"
-      "${finalAttrs.pname}"
-    ];
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--commit"
+        "${finalAttrs.pname}"
+      ];
+    };
+    python310 = pkgs.callPackage ./. {
+      inherit (pkgs.python310Packages) buildPythonPackage;
+    };
+    python311 = pkgs.callPackage ./. {
+      inherit (pkgs.python311Packages) buildPythonPackage;
+    };
+    python312 = pkgs.callPackage ./. {
+      inherit (pkgs.python312Packages) buildPythonPackage;
+    };
+    python313 = pkgs.callPackage ./. {
+      inherit (pkgs.python313Packages) buildPythonPackage;
+    };
+    python314 = pkgs.callPackage ./. {
+      inherit (pkgs.python314Packages) buildPythonPackage;
+    };
+    python315 = pkgs.callPackage ./. {
+      inherit (pkgs.python315Packages) buildPythonPackage;
+    };
   };
 
   meta = {
