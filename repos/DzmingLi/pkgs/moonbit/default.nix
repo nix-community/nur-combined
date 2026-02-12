@@ -27,7 +27,9 @@ stdenv.mkDerivation  {
     chmod +x ./bin/*
     cp -r ${coreSrc} ./core_writable
     chmod -R u+w ./core_writable
-    ./bin/moon bundle --all --source-dir ./core_writable
+    pushd core_writable
+    ../bin/moon bundle --all --target-dir .
+    popd
     runHook postBuild  
   '';
   installPhase = ''

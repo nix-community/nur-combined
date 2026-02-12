@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  lib,
-  p7zip,
-  stdenvNoCC,
-  ...
-}:
+{ lib, stdenvNoCC, ... }:
 let
   inherit (lib)
     maintainers
@@ -20,10 +14,7 @@ let
     redistributable = false;
   };
 
-  src = fetchurl {
-    hash = "sha256-FqD9lfDYTlTiYNnxKbOePTFg17KU2YbduzqZs4KNHGI=";
-    url = "https://software-static.download.prss.microsoft.com/dbazure/888969d5-f34g-4e03-ac9d-1f9786c66749/26100.1742.240906-0331.ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_zh-cn.iso";
-  };
+  src = ./files;
 
   meta = {
     inherit
@@ -55,31 +46,13 @@ stdenvNoCC.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  buildInputs = nativeBuildInputs;
-
-  nativeBuildInputs = [
-    p7zip
-  ];
-
-  unpackPhase = ''
-    runHook preUnpack
-
-    tempdir=$(mktemp -d)
-
-    7z x $src -o$tempdir
-
-    mkdir fonts
-
-    7z e $tempdir/sources/install.wim Windows/{Fonts/"*".{ttf,ttc},System32/Licenses/neutral/"*"/"*"/license.rtf} -ofonts
-
-    runHook postUnpack
-  '';
+  dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
-    find fonts -type f \( -iname "*.ttf" -o -iname "*.ttc" \) -print0 \
-      | xargs -0 install -Dm444 -t $out/share/fonts/truetype/
+    mkdir -p $out/share/fonts/truetype
+    cp -a ${src}/truetype/. $out/share/fonts/truetype/
 
     runHook postInstall
   '';
