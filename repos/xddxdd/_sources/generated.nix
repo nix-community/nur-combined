@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.12";
+    version = "v6.8.14";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.12";
-      hash = "sha256-V8CyUWRxJnqeEjNYEc9zwZ+D2s4FVZzO+GePsQrIBYw=";
+      tag = "v6.8.14";
+      hash = "sha256-CSvEFbvxZqvRFftiEFozDMiVlIK0GYMYKE13BZsY/1Y=";
     };
   };
   cockpy = {
@@ -1176,12 +1176,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b7999";
+    version = "b8011";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b7999";
-      hash = "sha256-R7CyLGCRMRV/rif7Khj9TqIRnxeCfUxxUIUdSBtywIs=";
+      tag = "b8011";
+      hash = "sha256-eJ/goniz1lUlnb+ZaCknCs4D28YvMCgshRpeHQKUfmQ=";
     };
   };
   loralib = {
@@ -1245,14 +1245,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "d14d139d5ead9b47fa89fe967254e91b46bf18bc";
+    version = "8a0888ed443acffc4aa64649bf0c622f1f02270d";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "d14d139d5ead9b47fa89fe967254e91b46bf18bc";
-      hash = "sha256-6zo59xaXv/iAPc9DBn4zHIhhURG3BJ0+c4s22q6BN1E=";
+      rev = "8a0888ed443acffc4aa64649bf0c622f1f02270d";
+      hash = "sha256-bgV+8owZMtwFmR6L49ZYJhiAnw0XltFZW4RojadJ7fg=";
     };
-    date = "2026-02-09";
+    date = "2026-02-12";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1605,12 +1605,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.9.0";
+    version = "v2.10.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.9.0";
-      hash = "sha256-amPVa9OUi8Y4zdLNfWVFY6PeBOGnAoEYN5HxjT7U9co=";
+      tag = "v2.10.0";
+      hash = "sha256-AZq64Le2lV3gENbyA+t7mG96ABbex1KrC4m8PuyuTLs=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -2270,12 +2270,12 @@
   };
   vector-quantize-pytorch = {
     pname = "vector-quantize-pytorch";
-    version = "1.27.20";
+    version = "1.27.21";
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      tag = "1.27.20";
-      hash = "sha256-nKPWkhW/b/weIUuDu3tEprv4Wox3Q20WcMsXAq7Vn5U=";
+      tag = "1.27.21";
+      hash = "sha256-dH7PFV85VSRgcjpsxDbVTN1K6Grt8wvHPTLAYdyHRFI=";
     };
   };
   vgpu-unlock-rs = {
@@ -2331,12 +2331,12 @@
   };
   vuetorrent-backend = {
     pname = "vuetorrent-backend";
-    version = "v2.7.0";
+    version = "v2.7.1";
     src = fetchFromGitHub {
       owner = "VueTorrent";
       repo = "vuetorrent-backend";
-      tag = "v2.7.0";
-      hash = "sha256-sMt13zYiVE3NXvCf+sY8fzmB/puxlvNUg3RdwWuifMc=";
+      tag = "v2.7.1";
+      hash = "sha256-vDR3elwWZf6tA/3FrqfcrGrlsJm6Kj6AswgHtdM/FMQ=";
     };
   };
   wechat-uos = {
