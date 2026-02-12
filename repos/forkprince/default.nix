@@ -49,6 +49,7 @@
   overlayed = lib.callPackage ./pkgs/overlayed {};
   tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
+  lmstudio = lib.callPackage ./pkgs/lmstudio {};
   ghostty = lib.callPackage ./pkgs/ghostty {};
   vscode = lib.callPackage ./pkgs/vscode {};
   heroic = lib.callPackage ./pkgs/heroic {};

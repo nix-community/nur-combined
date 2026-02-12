@@ -1,0 +1,14 @@
+{
+  "name": "LM Studio",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/lm-studio.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "0.4.1-1",
+  "asset": {
+    "url": "https://installers.lmstudio.ai/darwin/arm64/0.4.1-1/LM-Studio-0.4.1-1-arm64.dmg",
+    "hash": "sha256-rVmBKDejuOYprHbQ/UhiAm8PfVgGoPTXbx1Qkdi4j+g="
+  }
+}
