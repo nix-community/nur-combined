@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "heapusage";
-  version = "2.07";
+  version = "2.17";
 
   src = fetchFromGitHub {
     owner = "d99kris";
     repo = "heapusage";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-p7Yhx/w1I0+dxD7YH15Eojs4wh337/mZnXBwpiqlt4A=";
+    hash = "sha256-+Q6fOp5eT0bDN6ojQOrto1lgdC4VIQlhc2iEsfIBFSs=";
   };
 
   nativeBuildInputs = [ cmake ];
