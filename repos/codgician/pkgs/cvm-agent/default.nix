@@ -4,8 +4,6 @@
   fetchurl,
   autoPatchelfHook,
   zlib,
-  bzip2,
-  libxcrypt-legacy,
 }:
 
 let
@@ -31,9 +29,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     stdenv.cc.cc.lib # libstdc++.so.6, libgcc_s.so.1
-    zlib # libz.so.1 (needed by sgagentarm64 and python26 zlib/binascii modules)
-    bzip2 # libbz2.so.1 (python26 bz2 module)
-    libxcrypt-legacy # libcrypt.so.1 (python26 crypt module)
+    zlib # libz.so.1
   ];
 
   dontUnpack = true;
@@ -66,11 +62,6 @@ stdenv.mkDerivation {
         install -Dm755 "$f" "$out/admin/$(basename "$f")"
       done
 
-      # Install python26 runtime (used by barad_agent monitoring component)
-      mkdir -p "$out/python26"
-      cp -r "python26-${arch}/." "$out/python26/"
-      chmod +x "$out/python26/bin/python"
-
       # Install systemd service file
       install -Dm644 systemd/stargate.service "$out/lib/systemd/system/stargate.service"
 
@@ -90,14 +81,6 @@ stdenv.mkDerivation {
       --replace-quiet '/var/lib/qcloud/stargate' "$out" \
       --replace-quiet '/usr/bin/sh' '/bin/sh'
   '';
-
-  # Python 2.6's gdbm/dbm modules need libgdbm.so.3 which is ancient;
-  # these modules are non-essential. libutil.so.1 was merged into glibc.
-  autoPatchelfIgnoreMissingDeps = [
-    "libgdbm.so.3"
-    "libgdbm_compat.so.3"
-    "libutil.so.1"
-  ];
 
   passthru.updateScript = ./update.sh;
 
