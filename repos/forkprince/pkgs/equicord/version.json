@@ -5,6 +5,6 @@
     "repo": "Equicord/Equicord",
     "tag_filter": "^(?!latest$).*$"
   },
-  "version": "2026-02-11",
-  "hash": "sha256-sYhH9izy/RUGpXMNutxNvCW3xlKclPW6OhiecT9iCIU="
+  "version": "2026-02-12",
+  "hash": "sha256-3EhopLC42aeHJC0NLMO1NClWwtc1dtGMj/8eCX0Vh/k="
 }

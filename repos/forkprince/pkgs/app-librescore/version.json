@@ -6,21 +6,21 @@
     "skipPrerelease": true,
     "tag_prefix": "v"
   },
-  "version": "6.0.21",
+  "version": "6.0.22",
   "platforms": {
     "x86_64-linux": {
       "file": "LibreScore.AppImage",
-      "hash": "sha256-oZK9oyjoqx8yhMAsECHVlb7MpbQP1lTajUTVGI0y6Ys=",
+      "hash": "sha256-qDrTHhniUYwTz0pTd20VoQ77AoRoJriIYMS507SnUsE=",
       "unpack": false
     },
     "x86_64-darwin": {
       "file": "LibreScore.dmg",
-      "hash": "sha256-jmvGI0/xD8wNcRlwEi4Atb7TaeJ5xq3MAxLIDWmTllg=",
+      "hash": "sha256-FVooTBCPaE8chR8YOjiQFi8L9G7anHICrufYDQjIh08=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "LibreScore.dmg",
-      "hash": "sha256-jmvGI0/xD8wNcRlwEi4Atb7TaeJ5xq3MAxLIDWmTllg=",
+      "hash": "sha256-FVooTBCPaE8chR8YOjiQFi8L9G7anHICrufYDQjIh08=",
       "unpack": false
     }
   }
