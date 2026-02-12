@@ -10,7 +10,7 @@
   nix-update-script,
   nix-update,
   nodejs_latest,
-  python3,
+  python315,
   runtimeShell,
   shellcheck,
   stdenv,
@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs_latest
 
     # python
-    python3
+    python315
     uv
   ];
 
