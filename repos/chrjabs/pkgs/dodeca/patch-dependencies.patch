@@ -1,38 +1,136 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index a94feaa964..0d6bf8192f 100644
+index 3c94e92cf9..58de86f05b 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -5931,9 +5931,9 @@
+@@ -1903,7 +1903,7 @@
+ [[package]]
+ name = "cinereus"
+ version = "0.42.0"
+-source = "git+https://github.com/bearcove/hotmeal?branch=main#745f7cbba6ef821e81831d5043b8d1622a81b04f"
++source = "git+https://github.com/chrjabs/hotmeal?branch=push-wwrtpowttoqn#96dbd52530811cb68653e717d2d33a2fcdb6d5df"
+ dependencies = [
+  "indextree",
+  "rapidhash 1.4.0",
+@@ -2921,7 +2921,7 @@
+  "impls",
+  "indexmap",
+  "smallvec 1.15.1",
+- "tendril 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
++ "tendril",
+ ]
+ 
+ [[package]]
+@@ -3827,7 +3827,7 @@
+ [[package]]
+ name = "hotmeal"
+ version = "0.1.0"
+-source = "git+https://github.com/bearcove/hotmeal?branch=main#745f7cbba6ef821e81831d5043b8d1622a81b04f"
++source = "git+https://github.com/chrjabs/hotmeal?branch=push-wwrtpowttoqn#96dbd52530811cb68653e717d2d33a2fcdb6d5df"
+ dependencies = [
+  "cinereus",
+  "compact_str",
+@@ -3836,14 +3836,14 @@
+  "html5ever",
+  "rapidhash 1.4.0",
+  "smallvec 1.15.1",
+- "tendril 0.5.0 (git+https://github.com/fasterthanlime/html5ever?branch=hotmeal)",
++ "tendril",
+  "tracing",
+ ]
+ 
+ [[package]]
+ name = "hotmeal-server"
+ version = "0.1.0"
+-source = "git+https://github.com/bearcove/hotmeal?branch=main#745f7cbba6ef821e81831d5043b8d1622a81b04f"
++source = "git+https://github.com/chrjabs/hotmeal?branch=push-wwrtpowttoqn#96dbd52530811cb68653e717d2d33a2fcdb6d5df"
+ dependencies = [
+  "facet",
+  "facet-postcard",
+@@ -3855,7 +3855,7 @@
+ [[package]]
+ name = "hotmeal-wasm"
+ version = "0.1.0"
+-source = "git+https://github.com/bearcove/hotmeal?branch=main#745f7cbba6ef821e81831d5043b8d1622a81b04f"
++source = "git+https://github.com/chrjabs/hotmeal?branch=push-wwrtpowttoqn#96dbd52530811cb68653e717d2d33a2fcdb6d5df"
+ dependencies = [
+  "facet-json",
+  "facet-postcard",
+@@ -4829,7 +4829,7 @@
+ source = "git+https://github.com/fasterthanlime/html5ever?branch=hotmeal#abf850e8730f5b67f5f4bd320c05907066b0e029"
+ dependencies = [
+  "log",
+- "tendril 0.5.0 (git+https://github.com/fasterthanlime/html5ever?branch=hotmeal)",
++ "tendril",
+  "web_atoms",
+ ]
+ 
+@@ -5956,7 +5956,7 @@
  [[package]]
  name = "picante"
  version = "0.1.0"
--source = "git+https://github.com/bearcove/picante?branch=main#0a99f42b67e9229c333b97144d553d046c3d9c30"
-+source = "git+https://github.com/chrjabs/picante?branch=push-qprulyrpstyl#fb092c0baa2ed51fcc5b95f841c82d38f26441d7"
+-source = "git+https://github.com/bearcove/picante?branch=main#2f4ae02c1642096e5fb0f5ba8bbed60f554cbb08"
++source = "git+https://github.com/chrjabs/picante?branch=push-mrskslvstvvr#65596d26b885cbe2769f90ffcb104f6ffb9ccd9d"
  dependencies = [
-- "dashmap 6.1.0",
-+ "dashmap 5.5.3",
+  "dashmap 6.1.0",
   "facet",
-  "facet-core",
-  "facet-postcard",
-@@ -5949,7 +5949,7 @@
+@@ -5974,7 +5974,7 @@
  [[package]]
  name = "picante-macros"
  version = "0.1.0"
--source = "git+https://github.com/bearcove/picante?branch=main#0a99f42b67e9229c333b97144d553d046c3d9c30"
-+source = "git+https://github.com/chrjabs/picante?branch=push-qprulyrpstyl#fb092c0baa2ed51fcc5b95f841c82d38f26441d7"
+-source = "git+https://github.com/bearcove/picante?branch=main#2f4ae02c1642096e5fb0f5ba8bbed60f554cbb08"
++source = "git+https://github.com/chrjabs/picante?branch=push-mrskslvstvvr#65596d26b885cbe2769f90ffcb104f6ffb9ccd9d"
  dependencies = [
   "heck",
   "proc-macro2",
+@@ -7840,16 +7840,6 @@
+ [[package]]
+ name = "tendril"
+ version = "0.5.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c4790fc369d5a530f4b544b094e31388b9b3a37c0f4652ade4505945f5660d24"
+-dependencies = [
+- "new_debug_unreachable",
+- "utf-8",
+-]
+-
+-[[package]]
+-name = "tendril"
+-version = "0.5.0"
+ source = "git+https://github.com/fasterthanlime/html5ever?branch=hotmeal#abf850e8730f5b67f5f4bd320c05907066b0e029"
+ dependencies = [
+  "new_debug_unreachable",
 diff --git a/Cargo.toml b/Cargo.toml
-index ca52337a23..46d06e8fb4 100644
+index 10ad3cf50c..5b9945bca0 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -76,7 +76,7 @@
- ur-taking-me-with-you = { git = "https://github.com/bearcove/roam", branch = "main", features = ["tokio"] }
+@@ -61,9 +61,9 @@
+ 
+ # Serialization - Facet ecosystem (git)
+ # Do NOT change those to path dependencies, use the patch blocks below.
+-hotmeal = { git = "https://github.com/bearcove/hotmeal", branch = "main" }
+-hotmeal-server = { git = "https://github.com/bearcove/hotmeal", branch = "main", features = ["tracing"] }
+-hotmeal-wasm = { git = "https://github.com/bearcove/hotmeal", branch = "main" }
++hotmeal = { git = "https://github.com/chrjabs/hotmeal", branch = "push-wwrtpowttoqn" }
++hotmeal-server = { git = "https://github.com/chrjabs/hotmeal", branch = "push-wwrtpowttoqn", features = ["tracing"] }
++hotmeal-wasm = { git = "https://github.com/chrjabs/hotmeal", branch = "push-wwrtpowttoqn" }
+ 
+ facet = { git = "https://github.com/facet-rs/facet", branch = "main" }
+ facet-default = { git = "https://github.com/facet-rs/facet", branch = "main" }
+@@ -94,7 +94,7 @@
+ ] }
  
  # Incremental computation
 -picante = { git = "https://github.com/bearcove/picante", branch = "main" }
-+picante = { git = "https://github.com/chrjabs/picante", branch = "push-qprulyrpstyl" }
++picante = { git = "https://github.com/chrjabs/picante", branch = "push-mrskslvstvvr" }
  
  # File system
  fs-err = "3"
+@@ -189,6 +189,8 @@
+ facet-yaml = { git = "https://github.com/facet-rs/facet", branch = "main" }
+ pikru = { git = "https://github.com/bearcove/pikru", branch = "main" }
+ 
++tendril = { git = "https://github.com/fasterthanlime/html5ever", branch = "hotmeal" }
++
+ # Uncomment to use local facet for development
+ # [patch.crates-io]
+ # cinereus = { path = "../hotmeal/cinereus" }

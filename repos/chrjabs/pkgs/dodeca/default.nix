@@ -15,20 +15,21 @@ let
   wasm-bindgen-cli = buildWasmBindgenCli rec {
     src = fetchCrate {
       pname = "wasm-bindgen-cli";
-      version = "0.2.106";
-      hash = "sha256-M6WuGl7EruNopHZbqBpucu4RWz44/MSdv6f0zkYw+44=";
+      version = "0.2.108";
+      hash = "sha256-UsuxILm1G6PkmVw0I/JF12CRltAfCJQFOaT4hFwvR8E=";
     };
 
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit src;
       inherit (src) pname version;
-      hash = "sha256-ElDatyOwdKwHg3bNH/1pcxKI7LXkhsotlDPQjiLHBwA=";
+      hash = "sha256-iqQiWbsKlLBiJFeqIYiXo3cqxGLSjNM8SOWXGM9u43E=";
     };
   };
 
   cells = [
     "code-execution"
     "css"
+    "data"
     "dialoguer"
     "fonts"
     "gingembre"
@@ -45,25 +46,22 @@ let
     "svgo"
     "term"
     "tui"
+    "vite"
     "webp"
   ];
 in
 rustPlatform.buildRustPackage rec {
   pname = "dodeca";
-  version = "0.9.2";
+  version = "0.13.0";
 
   src = fetchFromGitHub {
     owner = "bearcove";
     repo = "dodeca";
     tag = "v${version}";
-    hash = "sha256-O5TisKCGyA9MS0I4zD3l9JXQytosxQKlJfoG+pOZL7k=";
+    hash = "sha256-c6JQZLNOt4rmkNVlElALzl4Ph9+bzHpzesxUJDzM/QI=";
   };
 
-  patches = [
-    ./fix-wasm-symbols.patch
-  ];
-
-  cargoHash = "sha256-FrV6rUaUfi6g4+4eTmw67uoeRommY8Sed5dfkgBjqvU=";
+  cargoHash = "sha256-mN+zt90vmUhiB1vKVepCYzhObTrIBT+uOh9Dhq1t/O8=";
 
   cargoPatches = [
     ./patch-dependencies.patch
