@@ -55,6 +55,7 @@
   peazip = lib.callPackage ./pkgs/peazip {};
   pcsx2 = lib.callPackage ./pkgs/pcsx2 {};
   micro = lib.callPackage ./pkgs/micro {};
+  steam = lib.callPackage ./pkgs/steam {};
   gimp = lib.callPackage ./pkgs/gimp {};
 
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
