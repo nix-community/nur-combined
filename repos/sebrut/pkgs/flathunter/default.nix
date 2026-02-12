@@ -24,6 +24,5 @@ rustPlatform.buildRustPackage rec {
     cargo sqlx prepare --workspace
   '';
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-hcTLcNN+/Vqe2FJRwaT75I1N7Em/3mJVJYrqoqYJwXg=";
 }
