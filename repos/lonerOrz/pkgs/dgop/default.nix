@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "dgop";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "AvengeMedia";
     repo = "dgop";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-CxTvTx7WYKj9usa1uZDUmCqS9+W0QoIeTGDlkhHLVho=";
+    sha256 = "sha256-aVnWgTt/fx2yvec+a+/C1xhYeynCQANkBHs6JJUxV6k=";
   };
 
-  vendorHash = "sha256-4GslUKwUCO8oOqylsclJmAZL/ds0plenzcTAwAXKtrc=";
+  vendorHash = "sha256-wDFu46cJoqQTSW11vZ9skuwQg9vZNH4LejoGmo8P75A=";
 
   ldflags = [
     "-s"
@@ -27,7 +27,7 @@ buildGoModule (finalAttrs: {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp $GOPATH/bin/cli $out/bin/dgop
+    cp $GOPATH/bin/dgop $out/bin/dgop
   '';
 
   meta = {
