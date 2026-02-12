@@ -13,7 +13,7 @@ in
     inherit pname version;
 
     src = fetchFromGitHub {
-      owner = "TaserudConsulting";
+      owner = "etu";
       repo = "goprocmgr";
       rev = version;
       sha256 = "sha256-0HWumTY6qo4nTBRpmDVaDnwfMorZOGEOr6TVJBEoESw=";
@@ -41,8 +41,8 @@ in
 
     meta = with lib; {
       description = "A simple process manager for Go";
-      homepage = "https://github.com/TaserudConsulting/${pname}";
-      changelog = "https://github.com/TaserudConsulting/${pname}/releases/tag/${version}";
+      homepage = "https://github.com/etu/${pname}";
+      changelog = "https://github.com/etu/${pname}/releases/tag/${version}";
       license = licenses.isc;
       maintainers = [maintainers.etu];
       platforms = platforms.all;
