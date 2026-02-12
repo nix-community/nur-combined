@@ -58,13 +58,13 @@ fetch.github = "Finb/bark-server"
 src.git = "https://github.com/Finb/bark-server.git"
 fetch.github = "Finb/bark-server"
 
-[watt-toolkit-x86_64-linux]
-src.github = "BeyondDimension/SteamTools"
-fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ver/Steam++_v$ver_linux_x64.tgz"
-
-[watt-toolkit-aarch64-linux]
-src.github = "BeyondDimension/SteamTools"
-fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ver/Steam++_v$ver_linux_arm64.tgz"
+# [watt-toolkit-x86_64-linux]
+# src.github = "BeyondDimension/SteamTools"
+# fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ver/Steam++_v$ver_linux_x64.tgz"
+#
+# [watt-toolkit-aarch64-linux]
+# src.github = "BeyondDimension/SteamTools"
+# fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ver/Steam++_v$ver_linux_arm64.tgz"
 
 # [gzctf-contributors]
 # src.manual = "0.0.0"
@@ -78,9 +78,9 @@ fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ve
 src.git = "https://github.com/mautrix/telegramgo.git"
 fetch.github = "mautrix/telegramgo"
 
-[new-api]
-src.github = "QuantumNous/new-api"
-fetch.github = "QuantumNous/new-api"
+# [new-api]
+# src.github = "QuantumNous/new-api"
+# fetch.github = "QuantumNous/new-api"
 
 [aliyundrive-webdav-stable]
 src.github = "messense/aliyundrive-webdav"
@@ -99,9 +99,9 @@ src.git = "https://github.com/moraxyc/mpv-danmaku.git"
 fetch.github = "moraxyc/mpv-danmaku"
 cargo_lock = ["Cargo.lock"]
 
-[opencode]
-src.github = "anomalyco/opencode"
-fetch.github = "anomalyco/opencode"
+# [opencode]
+# src.github = "anomalyco/opencode"
+# fetch.github = "anomalyco/opencode"
 
 [git-mcp-server]
 src.github_tag = "cyanheads/git-mcp-server"
