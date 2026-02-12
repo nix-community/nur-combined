@@ -3,7 +3,7 @@
   stdenvNoCC,
   fetchurl,
   steam,
-  _7zz,
+  undmg,
   lib,
   ...
 }:
@@ -17,7 +17,7 @@ in
     src = fetchurl (lib.helper.getSingle ver);
     inherit (ver) version;
 
-    nativeBuildInputs = [_7zz];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 
