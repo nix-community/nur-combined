@@ -11,6 +11,8 @@
   cargo,
   rustc,
   python3,
+  pkg-config,
+  openssl,
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -59,6 +61,11 @@ stdenv.mkDerivation (finalAttrs: {
     python3
     makeWrapper
     copyDesktopItems
+    pkg-config
+  ];
+
+  buildInputs = [
+    openssl
   ];
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";

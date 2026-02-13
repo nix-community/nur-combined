@@ -31,18 +31,6 @@
       sha256 = "sha256-dPgWVJuNOzTc+ocMyGHBb4ExB9P1Wu+uTQ62UejAAfE=";
     };
   };
-  danmakufactory-git = {
-    pname = "danmakufactory-git";
-    version = "cfb63683dfe796fb604e652ed405366f41f8d25e";
-    src = fetchFromGitHub {
-      owner = "hihkm";
-      repo = "DanmakuFactory";
-      rev = "cfb63683dfe796fb604e652ed405366f41f8d25e";
-      fetchSubmodules = true;
-      sha256 = "sha256-MbWyu/dmFHONawDAHN7MwJgtUBSks82pv2zm15nj+x8=";
-    };
-    date = "2026-01-12";
-  };
   dxvk-gplall = {
     pname = "dxvk-gplall";
     version = "2.7.1-2";
@@ -190,31 +178,31 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "e36e476738a8239e9d3f31ad335c7df704a87a1f";
+    version = "b1668f36526c174d5b7f83bcf400d8f49ec7def4";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "e36e476738a8239e9d3f31ad335c7df704a87a1f";
+      rev = "b1668f36526c174d5b7f83bcf400d8f49ec7def4";
       fetchSubmodules = false;
-      sha256 = "sha256-JsN5XXcZ45x+hw+nF9H5wPgpqhg/6ffCabSfR70dA2s=";
+      sha256 = "sha256-JFA3rHw8pAlNQHqTv9Dlu8oW1c3kdBcALv96CbFJQns=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-JsN5XXcZ45x+hw+nF9H5wPgpqhg_6ffCabSfR70dA2s=/Cargo.lock";
+      lockFile = ./. + "/sha256-JFA3rHw8pAlNQHqTv9Dlu8oW1c3kdBcALv96CbFJQns=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-02-08";
+    date = "2026-02-13";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
-    version = "v3.1.3";
+    version = "v4.0.1";
     src = fetchFromGitHub {
       owner = "juliobbv-p";
       repo = "svt-av1-hdr";
-      rev = "v3.1.3";
+      rev = "v4.0.1";
       fetchSubmodules = false;
-      sha256 = "sha256-FekKVNMycfvFWTQ2LbYl5t2yCBYh7fdSDPdeYViGNbY=";
+      sha256 = "sha256-jfyolWcPcfMzxjBszg1KY9eHc6KRsp41h3lQKsrgiDU=";
     };
   };
   svt-av1-psyex = {

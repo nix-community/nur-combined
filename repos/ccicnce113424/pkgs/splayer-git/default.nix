@@ -5,15 +5,13 @@
   pnpm_10,
   fetchPnpmDeps,
   rustPlatform,
-  openssl,
-  pkg-config,
   callPackage,
 }:
 let
   splayer = callPackage ./package.nix { };
 in
 splayer.overrideAttrs (
-  final: prev: {
+  final: _prev: {
     inherit (sources) pname src;
     inherit version;
     pnpmDeps = fetchPnpmDeps {
@@ -25,11 +23,5 @@ splayer.overrideAttrs (
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
 
     env.VITE_BUILD_TYPE = "dev";
-
-    buildInputs = (prev.buildInputs or [ ]) ++ [ openssl ];
-
-    nativeBuildInputs = prev.nativeBuildInputs ++ [
-      pkg-config
-    ];
   }
 )
