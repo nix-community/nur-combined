@@ -6,15 +6,15 @@
     "skipPrerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.2.5",
+  "version": "1.2.6",
   "platforms": {
     "aarch64-darwin": {
       "file": "TinyRDM_{version}_mac_arm64.dmg",
-      "hash": "sha256-CRhhHIqW272lqOWcTIEGWbylAz2C94Dfhl1NHf7SW4o="
+      "hash": "sha256-ap3nLrtr5bT84evsMYbt+L0e1eMiG+3ggkecb/4Dphs="
     },
     "x86_64-darwin": {
       "file": "TinyRDM_{version}_mac_intel.dmg",
-      "hash": "sha256-RBX/G7KGA8K9GLV3AO9vUVCYv9DWubYfWqzK3DeKPDM="
+      "hash": "sha256-rGkoHsfZQ9njFah8FSoCzMo9pMvwMMVdtT8lBKo/eJg="
     }
   }
 }
