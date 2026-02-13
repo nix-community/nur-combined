@@ -5,7 +5,7 @@
   ...
 }: let
   pname = "llr";
-  version = "0.9.1";
+  version = "0.9.2";
 in
   buildGoModule {
     inherit pname version;
@@ -14,7 +14,7 @@ in
       owner = "etu";
       repo = pname;
       rev = version;
-      hash = "sha256-9lv4gaURmnEo5H1Ke6FiZ9qPm5bV2fpRPHEM3Tesf3c=";
+      hash = "sha256-VjHDDIXPWX+3GK1tIZnJpB2R1MoYSNqNBhNf3UmXE4c=";
     };
 
     vendorHash = "sha256-rGlO/dO7uNwBeC0zTfWHgyz+E9vlOylyJqzunUJ1cAw=";
