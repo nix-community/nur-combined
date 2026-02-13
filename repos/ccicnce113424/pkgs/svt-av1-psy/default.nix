@@ -8,6 +8,7 @@
   cmake,
   yasm,
   ninja,
+  pkg-config,
   cpuinfo,
   libdovi,
   hdr10plus,
@@ -41,6 +42,7 @@ customStdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     ninja
+    pkg-config
   ]
   ++ lib.optionals stdenv.hostPlatform.isx86_64 [
     yasm
