@@ -4,6 +4,13 @@
   fetchurl,
   autoPatchelfHook,
   zlib,
+  # Runtime dependencies for admin scripts
+  coreutils,
+  gnugrep,
+  gawk,
+  procps,
+  psmisc,
+  util-linux,
 }:
 
 let
@@ -68,19 +75,42 @@ stdenv.mkDerivation {
       runHook postInstall
     '';
 
-  # Patch admin scripts: replace hardcoded FHS paths with store paths
-  postFixup = ''
-    for f in "$out"/admin/*.sh; do
-      substituteInPlace "$f" \
-        --replace-quiet '/usr/local/qcloud/stargate' "$out" \
-        --replace-quiet '/var/lib/qcloud/stargate' "$out"
-    done
+  # Patch scripts: replace hardcoded FHS paths with Nix store paths
+  postFixup =
+    let
+      # PATH for admin scripts: coreutils (whoami, wc, rm, kill), gnugrep, gawk, procps (ps), psmisc (killall), util-linux (flock)
+      runtimePath = lib.makeBinPath [
+        coreutils
+        gnugrep
+        gawk
+        procps
+        psmisc
+        util-linux
+      ];
+    in
+    ''
+      # Patch FHS install paths (only scripts that reference them)
+      for f in "$out"/admin/{start,stop,uninstall}.sh; do
+        substituteInPlace "$f" \
+          --replace-fail '/usr/local/qcloud/stargate' "$out" \
+          --replace-fail '/var/lib/qcloud/stargate' "$out"
+      done
 
-    # Patch systemd service to use store paths
-    substituteInPlace "$out/lib/systemd/system/stargate.service" \
-      --replace-quiet '/var/lib/qcloud/stargate' "$out" \
-      --replace-quiet '/usr/bin/sh' '/bin/sh'
-  '';
+      # Patch FHS PATH -> Nix store PATH (two variants exist)
+      for f in "$out"/admin/{start,restart,addcrontab,delcrontab,stop}.sh; do
+        substituteInPlace "$f" \
+          --replace-fail "export PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'" \
+                         "export PATH='${runtimePath}'"
+      done
+      substituteInPlace "$out/admin/uninstall.sh" \
+        --replace-fail "export PATH='/usr/sbin:/sbin:/usr/bin:/bin'" \
+                       "export PATH='${runtimePath}'"
+
+      # Patch systemd service
+      substituteInPlace "$out/lib/systemd/system/stargate.service" \
+        --replace-fail '/var/lib/qcloud/stargate' "$out" \
+        --replace-fail '/usr/bin/sh' '/bin/sh'
+    '';
 
   passthru.updateScript = ./update.sh;
 

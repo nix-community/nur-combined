@@ -21,13 +21,6 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      # The admin scripts use ps, grep, wc, whoami, etc.
-      path = [
-        pkgs.coreutils
-        pkgs.gnugrep
-        pkgs.procps
-      ];
-
       serviceConfig = {
         Type = "forking";
         PIDFile = "/var/run/stargate.tencentyun.pid";
