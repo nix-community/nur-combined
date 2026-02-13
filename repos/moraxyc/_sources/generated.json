@@ -218,11 +218,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4GpmPPwfA5ZyliGQ9Savc3PtB+scWg+6R86kKcw3WGk=",
+            "sha256": "sha256-sxy505prse+l8xQKvlgpuVJNY1sWeko0UHjXgGHHWX4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.13/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.02.10"
+        "version": "2026.02.13"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -233,11 +233,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FOjCYrPTy4C+S26iuMAiysvmj+Yb9c7QjQmG/QlRzQA=",
+            "sha256": "sha256-FnvfGHH8b0506muEvlDXjgNKruorWeMXEbquGdZoH6Q=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.13/GeoLite2-City.mmdb"
         },
-        "version": "2026.02.10"
+        "version": "2026.02.13"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -248,11 +248,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-55g4lBN8X26D+sF3UhZMTmmx+QzvMEHDWSG1CDhekAU=",
+            "sha256": "sha256-HPgvCc4IpuFg10JvxZ/WwS1WZQ50CMgyFysuubYs8o0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.13/GeoLite2-Country.mmdb"
         },
-        "version": "2026.02.10"
+        "version": "2026.02.13"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -268,12 +268,12 @@
             "name": null,
             "owner": "cyanheads",
             "repo": "git-mcp-server",
-            "rev": "v2.4.9",
-            "sha256": "sha256-oS1zQWbD3pGHytrAKaufyeCeVg0nnktuzLDJQVXoa4E=",
+            "rev": "v2.7.0",
+            "sha256": "sha256-RA50Ub0I8janhlDImJvzjoFdUCERBtVKxdfotT16Wuw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.4.9"
+        "version": "v2.7.0"
     },
     "libinput-three-finger-drag": {
         "cargoLock": null,
@@ -385,27 +385,6 @@
         },
         "version": "v1.9.0"
     },
-    "new-api": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "new-api",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "QuantumNous",
-            "repo": "new-api",
-            "rev": "v0.10.9-alpha.5",
-            "sha256": "sha256-HkndCcKinME7aSHWBRb7LdmA8sdwBu5OLaGs+ne1930=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.10.9-alpha.5"
-    },
     "nipaplay-reload-darwin": {
         "cargoLock": null,
         "date": null,
@@ -439,7 +418,7 @@
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-JdgwVSFEepHwZxA2eRIMZX+RN+VfShG4KUjXtYY4jN0=/Cargo.lock",
+                "sha256-XVU7VfbqSiJpTaecPUnEcJMSGytUEBWJn13898+1Cgs=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-WSa06MRY/XIgaTS12bss+D4vz7GDYBRXXJawP8OsdjM="
@@ -453,32 +432,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JdgwVSFEepHwZxA2eRIMZX+RN+VfShG4KUjXtYY4jN0=",
+            "sha256": "sha256-XVU7VfbqSiJpTaecPUnEcJMSGytUEBWJn13898+1Cgs=",
             "type": "url",
             "url": "file:///nix/store/d2jnihav4dbd2gmfhi8wkxawy901q93y-niri-patched-src.tar.gz"
         },
         "version": "/nix/store/d2jnihav4dbd2gmfhi8wkxawy901q93y-niri-patched-src.tar.gz"
-    },
-    "opencode": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "opencode",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "anomalyco",
-            "repo": "opencode",
-            "rev": "v1.1.59",
-            "sha256": "sha256-+vvNQzfhuP91mK/BjBufWGdS+2vHJAtB8iDl14z4y48=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v1.1.59"
     },
     "pixy2": {
         "cargoLock": null,
@@ -510,11 +468,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jPPax9meQoo4C9OqEzD1dxinlNRf5PndIAd8AQ3AvNs=",
+            "sha256": "sha256-LU+b02onQ+VdfFdPB1E0RKtwb1bMmU6fN9J75PcxOHo=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602112224/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602122226/geoip.dat"
         },
-        "version": "202602112224"
+        "version": "202602122226"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -525,40 +483,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-lyJpg7d9uIoW1SkAPU41h1IYOdCo0goiQnw7N/2GRfI=",
+            "sha256": "sha256-hjyqHcM3wv+OnoZ6id6FedJj7jJ9PRX+qpdgVYqhpJs=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602112224/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602122226/geosite.dat"
         },
-        "version": "202602112224"
-    },
-    "watt-toolkit-aarch64-linux": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "watt-toolkit-aarch64-linux",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-xfzxxxMKsoMww9PzB/nvRcxqOqyn65escvxkzK9csCo=",
-            "type": "url",
-            "url": "https://github.com/BeyondDimension/SteamTools/releases/download/3.0.0-rc.16/Steam++_v3.0.0-rc.16_linux_arm64.tgz"
-        },
-        "version": "3.0.0-rc.16"
-    },
-    "watt-toolkit-x86_64-linux": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "watt-toolkit-x86_64-linux",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-mUk/gh8GPYwhs5OZzKorkNIMMKl+amFrwbTtH0AnHTI=",
-            "type": "url",
-            "url": "https://github.com/BeyondDimension/SteamTools/releases/download/3.0.0-rc.16/Steam++_v3.0.0-rc.16_linux_x64.tgz"
-        },
-        "version": "3.0.0-rc.16"
+        "version": "202602122226"
     }
 }
