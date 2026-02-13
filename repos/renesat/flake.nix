@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -29,7 +33,6 @@
       };
 
       perSystem = {
-        config,
         pkgs,
         lib,
         system,
@@ -49,6 +52,13 @@
         packages = import ./default.nix {
           inherit pkgs;
           inherit system;
+          rustPlatform = let
+            inherit (inputs.fenix.packages.${system}.stable) toolchain;
+          in
+            pkgs.makeRustPlatform {
+              cargo = toolchain;
+              rustc = toolchain;
+            };
         };
       };
     };

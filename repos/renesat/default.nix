@@ -5,6 +5,7 @@
       inherit system;
       overlays = import ./overlays.nix;
     },
+  rustPlatform ? pkgs.rustPlatform,
 }: let
   inherit (builtins) warn;
   lazyPackageWarn = msg: pkg:
@@ -43,6 +44,7 @@
     gosuki = pkgs.callPackage ./pkgs/gosuki {};
     tukai = pkgs.callPackage ./pkgs/tukai {};
     superseedr = pkgs.callPackage ./pkgs/superseedr {};
+    hazelnut = pkgs.callPackage ./pkgs/hazelnut {inherit rustPlatform;};
 
     tubefeed = pkgs.python3Packages.callPackage ./pkgs/tubefeed {};
     typy = pkgs.python3Packages.callPackage ./pkgs/typy {};
