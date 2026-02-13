@@ -1,4 +1,3 @@
-# NOTE: The hash is currently incorrect for MacOS (I will update it once I'm on my Mac)
 {
   lib,
   stdenvNoCC,
@@ -27,10 +26,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "${finalAttrs.pname}-node_modules";
     inherit (finalAttrs) version src;
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
-      "GIT_PROXY_COMMAND"
-      "SOCKS_SERVER"
-    ];
+    impureEnvVars =
+      lib.fetchers.proxyImpureEnvVars
+      ++ [
+        "GIT_PROXY_COMMAND"
+        "SOCKS_SERVER"
+      ];
 
     nativeBuildInputs = [
       bun
@@ -70,10 +71,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     dontFixup = true;
 
     outputHash =
-      if stdenvNoCC.hostPlatform.isDarwin then
-        "sha256-lS4SvY2h0FGuAFZJOv5vCNofKHRyyBuKxCfFL687S74="
-      else
-        "sha256-lS4SvY2h0FGuAFZJOv5vCNofKHRyyBuKxCfFL687S74=";
+      if stdenvNoCC.hostPlatform.isDarwin
+      then "sha256-lS4SvY2h0FGuAFZJOv5vCNofKHRyyBuKxCfFL687S74="
+      else "sha256-lS4SvY2h0FGuAFZJOv5vCNofKHRyyBuKxCfFL687S74=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -124,14 +124,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     wrapProgram $out/bin/kilo \
       --prefix PATH : ${
-        lib.makeBinPath (
-          [
-            ripgrep
-          ]
-          # bun runs sysctl to detect if dunning on rosetta2
-          ++ lib.optional stdenvNoCC.hostPlatform.isDarwin sysctl
-        )
-      }
+      lib.makeBinPath (
+        [
+          ripgrep
+        ]
+        # bun runs sysctl to detect if dunning on rosetta2
+        ++ lib.optional stdenvNoCC.hostPlatform.isDarwin sysctl
+      )
+    }
 
     runHook postInstall
   '';
@@ -148,7 +148,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
   doInstallCheck = true;
-  versionCheckKeepEnvironment = [ "HOME" "OPENCODE_DISABLE_MODELS_FETCH" ];
+  versionCheckKeepEnvironment = ["HOME" "OPENCODE_DISABLE_MODELS_FETCH"];
   versionCheckProgramArg = "--version";
 
   passthru = {
