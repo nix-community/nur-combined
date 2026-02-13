@@ -135,10 +135,14 @@ lib.filesystem.packagesFromDirectoryRecursive {
   icloud-for-linux = pkgs.callPackage ./pkgs/icloud-for-linux { };
   icloud-mail = pkgs.callPackage ./pkgs/icloud-mail { };
   github-store = pkgs.callPackage ./pkgs/github-store { };
-  bionic-translation = pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
-  art-standalone = pkgs.callPackage ./pkgs/art-standalone/package.nix {
-    bionic-translation = bionic-translation;
-  };
+  # currently no changes so just use nixpkgs version of bionic-translation and art-standalone
+  bionic-translation = pkgs.bionic-translation; # pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
+  art-standalone = pkgs.art-standalone;
+  /*
+    pkgs.callPackage ./pkgs/art-standalone/package.nix {
+      bionic-translation = bionic-translation;
+    };
+  */
   android-translation-layer = pkgs.callPackage ./pkgs/android-translation-layer/package.nix {
     art-standalone = art-standalone;
     bionic-translation = bionic-translation;
