@@ -1,4 +1,3 @@
-# NOTE: MacOS version is untested
 {
   stdenvNoCC,
   pcsx2-bin,

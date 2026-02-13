@@ -1,4 +1,3 @@
-# NOTE: This is untested on MacOS
 {
   stdenvNoCC,
   fetchurl,
