@@ -5,7 +5,11 @@
   git,
   lib,
   libGL,
+  libx11,
+  libxcursor,
+  libxi,
   libxkbcommon,
+  libxrandr,
   makeDesktopItem,
   nix-update-script,
   openssl,
@@ -13,7 +17,6 @@
   rustPlatform,
   stdenv,
   wayland,
-  xorg,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -50,12 +53,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   runtimeDependencies = [
     libGL
+    libx11
+    libxcursor
+    libxi
     libxkbcommon
+    libxrandr
     wayland
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
   ];
 
   postInstall = ''
