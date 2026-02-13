@@ -11,12 +11,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "jportaudio";
-  version = "0-unstable-2025-10-24";
+  version = "0-unstable-2026-02-13";
   src = fetchFromGitHub {
     owner = "philburk";
     repo = "portaudio-java";
-    rev = "ed2d3bc78b42f9c877863618b0ec4dac216102cc";
-    hash = "sha256-tpJ4JqNFcuDmW70fLa0mW4fytjlU7h77IgMwS3msUX8=";
+    rev = "d185a5322ecbe8bd209e14e7341fb73d0c7d2cc3";
+    hash = "sha256-XG1bJm0hDSF4cE2OvQ5bvN8pmaKwIl9zDlsRCnTXnLc=";
   };
 
   nativeBuildInputs = [
