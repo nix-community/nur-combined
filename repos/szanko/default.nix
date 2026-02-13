@@ -55,6 +55,12 @@ pkgs ? import <nixpkgs> { }
   anisette-v3-server = pkgs.callPackage ./pkgs/anisette-v3-server { };
   #go-haystack = pkgs.callPackage ./pkgs/go-haystack { };
 
+  hugomods-ascii = pkgs.callPackage ./pkgs/hugomods/ascii { };
+  hugomods-code-block-panel = pkgs.callPackage ./pkgs/hugomods/code-block-panel { };
+  hugomods-shortcodes = pkgs.callPackage ./pkgs/hugomods/shortcodes { };
+  hugomods-snackbar = pkgs.callPackage ./pkgs/hugomods/snackbar { };
+  hugomods-fuse-js = pkgs.callPackage ./pkgs/hugomods/fuse-js { };
+ 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   stardrop = if stardropPkgs != null then stardropPkgs.default else null;
 }

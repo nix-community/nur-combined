@@ -1,10 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
+{ lib
+, stdenv
+, fetchFromGitHub
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "chadstr";
   version = "unstable-2022-07-05";
 
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XigchUqdjoB8Dx830haMOftBQwrfO2NU2lC8oWkfLKk=";
   };
 
-  
+
   installPhase = ''
     runHook preInstall
 
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     cp chadstr.h $out/include/chadstr.h
 
     runHook postInstall
-  '';
+    '';
 
   meta = {
     description = "Chad Strings - The Chad way to handle strings in C";
@@ -34,4 +33,4 @@ stdenv.mkDerivation rec {
       in lib.optionals (m ? szanko) [ m.szanko ];
     platforms = lib.platforms.all;
   };
-}
+})
