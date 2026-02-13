@@ -30,12 +30,12 @@
   stdenv,
   substitute,
   suil,
-  wineWowPackages,
+  wineWow64Packages,
   withOptionals ? false,
 }:
 
 let
-  winePackage = if lib.isDerivation wineWowPackages then wineWowPackages else wineWowPackages.minimal;
+  winePackage = if lib.isDerivation wineWow64Packages then wineWow64Packages else wineWow64Packages.minimal;
 in
 stdenv.mkDerivation {
   pname = "lmms";

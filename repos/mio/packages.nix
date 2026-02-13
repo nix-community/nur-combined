@@ -408,7 +408,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
 
   wineshell-wineWow64 = callPackage ./pkgs/wineshell/default.nix {
     inherit (lib) mkWindowsApp;
-    wine = pkgs.wineWowPackages.stableFull;
+    wine = pkgs.wineWow64Packages.stableFull;
     wineArch = "win64";
     wineFlavor = "wineWow64";
   };
@@ -430,7 +430,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
 
   wineshell-wineWow64-base = callPackage ./pkgs/wineshell/default.nix {
     inherit (lib) mkWindowsApp;
-    wine = pkgs.wineWowPackages.base;
+    wine = pkgs.wineWow64Packages.base;
     wineArch = "win64";
     wineFlavor = "wineWow64";
     enableMonoBootPrompt = false;
