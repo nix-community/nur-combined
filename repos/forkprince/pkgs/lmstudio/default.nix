@@ -8,7 +8,7 @@
 }:
 if stdenvNoCC.isDarwin
 then let
-  ver = lib.helper.read ./locked.json;
+  ver = lib.helper.read ./version.json;
 
   src = fetchurl (lib.helper.getSingle ver);
   inherit (ver) version;

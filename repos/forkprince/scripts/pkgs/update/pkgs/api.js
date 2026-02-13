@@ -51,7 +51,13 @@ async function platforms(file, { config, force }) {
 
   console.log(`Update: ${config.version} → ${parsed}`);
 
+  let updated = 0;
   for (const [platform, settings] of Object.entries(platforms)) {
+    if (settings.locked && !force) {
+      console.log(`Skipping ${platform} because it is locked.`);
+      continue;
+    }
+
     let final;
 
     const url_path = settings.url_path || config.source.url_path;
@@ -78,11 +84,14 @@ async function platforms(file, { config, force }) {
     await update.platforms(file, { platform, url: final, hash });
 
     console.log(`Updated ${platform} to version ${parsed}`);
+
+    updated++;
   }
 
-  await update.single(file, { version: parsed });
-
-  console.log(`Updated ${Object.keys(platforms).length} platforms to version ${parsed}`);
+  if (updated > 0) {
+    await update.single(file, { version: parsed });
+    console.log(`Updated ${updated} platforms to version ${parsed}`);
+  }
 }
 
 module.exports = {

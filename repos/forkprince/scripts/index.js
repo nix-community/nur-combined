@@ -36,6 +36,11 @@ if (!await exists(resolved)) {
 
 const config = require(resolved);
 
+if (config.locked && !force) {
+  console.log(`Skipping ${file} because it is locked.`);
+  process.exit(0);
+}
+
 force = force || config.force || false;
 
 console.log(`Updating ${file}...`);

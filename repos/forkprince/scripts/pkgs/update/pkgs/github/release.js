@@ -54,12 +54,19 @@ async function single(file, { config, force }) {
 async function platforms(file, { config, force }) {
   const platforms = config.platforms || {};
 
+  let updated = 0;
+
   const hasVersions = Object.values(platforms).some(p => p.version !== undefined);
   if (!hasVersions) {
     const { version } = await check(file, { config, force });
     if (!version) return;
 
     for (const [platform, settings] of Object.entries(platforms)) {
+      if (settings.locked && !force) {
+        console.log(`Skipping ${platform} because it is locked.`);
+        continue;
+      }
+
       const repo = settings.repo || config.source.repo;
 
       const prefix = settings.tag_prefix || config.source.tag_prefix || "";
@@ -79,15 +86,21 @@ async function platforms(file, { config, force }) {
       await update.platforms(file, { platform, url: settings.url ? url : undefined, hash });
 
       console.log(`Updated ${platform} to version ${version}`);
+
+      updated++;
     }
 
-    await update.single(file, { version });
-
-    console.log(`Updated ${Object.keys(platforms).length} platforms to version ${version}`);
+    if (updated > 0) {
+      await update.single(file, { version });
+      console.log(`Updated ${updated} platforms to version ${version}`);
+    }
   } else {
-    let updated = 0;
-
     for (const [platform, settings] of Object.entries(platforms)) {
+      if (settings.locked && !force) {
+        console.log(`Skipping ${platform} because it is locked.`);
+        continue;
+      }
+
       const repo = settings.repo || config.source.repo;
 
       console.log(`Checking ${platform} (${repo})...`);
@@ -138,7 +151,13 @@ async function variants(file, { config, force }) {
 
   const variants = config.variants || {};
 
+  let updated = 0;
   for (const [variant, settings] of Object.entries(variants)) {
+    if (settings.locked && !force) {
+      console.log(`Skipping ${variant} because it is locked.`);
+      continue;
+    }
+
     const repo = settings.repo || config.source.repo;
 
     const prefix = settings.tag_prefix || config.source.tag_prefix || "";
@@ -156,11 +175,14 @@ async function variants(file, { config, force }) {
     await update.variants(file, { variant, hash });
 
     console.log(`Updated ${variant} to version ${version}`);
+
+    updated++;
   }
 
-  await update.single(file, { version });
-
-  console.log(`Updated ${Object.keys(variants).length} variants to version ${version}`);
+  if (updated > 0) {
+    await update.single(file, { version });
+    console.log(`Updated ${updated} variants to version ${version}`);
+  }
 }
 
 module.exports = {

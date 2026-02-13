@@ -6,6 +6,7 @@
     "version_path": ".version",
     "url_path": ".url"
   },
+  "locked": true,
   "version": "0.4.1-1",
   "asset": {
     "url": "https://installers.lmstudio.ai/darwin/arm64/0.4.1-1/LM-Studio-0.4.1-1-arm64.dmg",
