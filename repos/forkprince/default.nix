@@ -17,6 +17,7 @@
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   # equicord = lib.callPackage ./pkgs/equicord {};
   hytale = lib.callPackage ./pkgs/hytale {};
+  kilo = lib.callPackage ./pkgs/kilo {};
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
