@@ -3,6 +3,7 @@
   stdenv,
   fetchurl,
   autoPatchelfHook,
+  bzip2,
   zlib,
   # Runtime dependencies for admin scripts
   coreutils,
@@ -36,7 +37,30 @@ stdenv.mkDerivation {
 
   buildInputs = [
     stdenv.cc.cc.lib # libstdc++.so.6, libgcc_s.so.1
+    bzip2 # libbz2.so.1 (for bundled python2.6)
     zlib # libz.so.1
+  ];
+
+  # autoPatchelf: ignore optional Python modules' deps that aren't needed by barad_agent.
+  # The aarch64 bundle has many more deps than x86_64 (ncurses, ssl, ffi, etc.)
+  autoPatchelfIgnoreMissingDeps = [
+    # x86_64 + aarch64: gdbm/crypt modules
+    "libcrypt.so.1"
+    "libgdbm.so.3"
+    "libgdbm_compat.so.3"
+    # aarch64-only: _ctypes module (weirdly linked against python2.7)
+    "ld-linux-aarch64.so.1"
+    "libffi.so.6"
+    "libpython2.7.so.1.0"
+    # aarch64-only: _curses/_curses_panel modules
+    "libncursesw.so.5"
+    "libpanelw.so.5"
+    "libtinfo.so.5"
+    # aarch64-only: _ssl/_hashlib modules (old OpenSSL)
+    "libcrypto.so.10"
+    "libssl.so.10"
+    # aarch64-only: nis module
+    "libnsl.so.1"
   ];
 
   dontUnpack = true;
@@ -60,6 +84,12 @@ stdenv.mkDerivation {
       # Install sgagent binary
       install -Dm755 "stargate/bin/sgagent${arch}" "$out/bin/sgagent"
 
+      # Install stargate libs (bundled libstdc++ fallbacks)
+      mkdir -p "$out/lib"
+      for f in stargate/lib/libstdcxx-*/*; do
+        install -Dm644 "$f" "$out/lib/$(basename "$f")"
+      done
+
       # Install config
       install -Dm644 stargate/etc/base.conf "$out/etc/base.conf"
 
@@ -71,6 +101,12 @@ stdenv.mkDerivation {
 
       # Install systemd service file
       install -Dm644 systemd/stargate.service "$out/lib/systemd/system/stargate.service"
+
+      # Install bundled Python 2.6 (required by barad_agent for metric collection).
+      # This is a pre-built binary shipped inside the installer — not built from source.
+      mkdir -p "$out/python26"
+      cp -r "python26-${arch}/." "$out/python26/"
+      chmod +x "$out/python26/bin/python"
 
       runHook postInstall
     '';
@@ -115,7 +151,7 @@ stdenv.mkDerivation {
   passthru.updateScript = ./update.sh;
 
   meta = {
-    description = "Tencent Cloud CVM guest agent (Stargate)";
+    description = "Tencent Cloud CVM guest agent (Stargate + BaradAgent monitor)";
     homepage = "https://cloud.tencent.com/document/product/248/6211";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
