@@ -18,6 +18,10 @@ src.github_tag = "Digger1955/dxvk-gplasync-lowlatency"
 src.include_regex = "^DXVK-GPLALL-.+"
 src.prefix = "DXVK-GPLALL-"
 
+[fxz]
+fetch.github = "conor42/fxz"
+src.git = "https://github.com/conor42/fxz"
+
 [imfile-arm]
 fetch.url = "https://github.com/imfile-io/imfile-desktop/releases/download/v$ver/imFile-$ver-arm64.AppImage"
 src.github = "imfile-io/imfile-desktop"

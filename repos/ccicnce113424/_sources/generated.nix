@@ -39,6 +39,18 @@
       sha256 = "sha256-pnFfnyWQxxRiy67kzTAGOBSnQQ617ebUpS6mSBpWndU=";
     };
   };
+  fxz = {
+    pname = "fxz";
+    version = "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39";
+    src = fetchFromGitHub {
+      owner = "conor42";
+      repo = "fxz";
+      rev = "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39";
+      fetchSubmodules = false;
+      sha256 = "sha256-3NL/3XXmZRv/fYviA2KL/LEx0xVnPk8t4WQt5yxZmA8=";
+    };
+    date = "2022-01-09";
+  };
   imfile-arm = {
     pname = "imfile-arm";
     version = "1.1.2";

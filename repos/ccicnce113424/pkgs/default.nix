@@ -42,6 +42,23 @@ rec {
     sourceRoot = "x64";
   };
 
+  fxz =
+    let
+      sources = fetchedSrc.fxz;
+    in
+    pkgs.xz.overrideAttrs (
+      _final: prev: {
+        pname = "fxz";
+        version = unstableVersion sources;
+        inherit (sources) src;
+        postPatch = null;
+        nativeBuildInputs = [ pkgs.autoreconfHook ];
+        meta = prev.meta // {
+          pkgConfigModules = [ "libflzma" ];
+        };
+      }
+    );
+
   imfile = pkgs.callPackage ./imfile { inherit fetchedSrc; };
 
   jaq = pkgs.callPackage ./jaq rec {

@@ -65,6 +65,27 @@
     },
     "version": "2.7.1-2"
   },
+  "fxz": {
+    "cargoLock": null,
+    "date": "2022-01-09",
+    "extract": null,
+    "name": "fxz",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "conor42",
+      "repo": "fxz",
+      "rev": "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39",
+      "sha256": "sha256-3NL/3XXmZRv/fYviA2KL/LEx0xVnPk8t4WQt5yxZmA8=",
+      "sparseCheckout": [],
+      "type": "github"
+    },
+    "version": "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39"
+  },
   "imfile-arm": {
     "cargoLock": null,
     "date": null,
