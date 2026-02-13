@@ -43,6 +43,14 @@ jobs:
         cd pkgs/bluevein
         ./update.sh
 
+    - name: Update aw-watcher-media-player
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd pkgs/aw-watcher-media-player
+        ./update.sh
+
     - name: Push changes
       run: |
         git push

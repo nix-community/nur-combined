@@ -16,6 +16,7 @@
 
   blink = pkgs.callPackage ./pkgs/blink { };
   bluevein = pkgs.callPackage ./pkgs/bluevein { };
+  aw-watcher-media-player = pkgs.callPackage ./pkgs/aw-watcher-media-player { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
