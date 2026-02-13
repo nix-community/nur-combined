@@ -51,10 +51,6 @@ fetch.github = "ddemidov/amgcl"
 src.github_tag = "p-ranav/structopt"
 fetch.github = "p-ranav/structopt"
 
-[utfcpp]
-src.github_tag = "nemtrif/utfcpp"
-fetch.github = "nemtrif/utfcpp"
-
 [seal_lake]
 src.github = "kamchatka-volcano/seal_lake"
 fetch.github = "kamchatka-volcano/seal_lake"

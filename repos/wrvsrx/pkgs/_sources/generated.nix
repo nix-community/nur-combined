@@ -367,17 +367,6 @@
       sha256 = "sha256-iMmr4zSm6B7goevHE03DMj9scW4ldXS7CV74sKeqGD4=";
     };
   };
-  utfcpp = {
-    pname = "utfcpp";
-    version = "v4.0.6";
-    src = fetchFromGitHub {
-      owner = "nemtrif";
-      repo = "utfcpp";
-      rev = "v4.0.6";
-      fetchSubmodules = false;
-      sha256 = "sha256-TqtJfmxk+dgAy5I0Lnii0pPB570a0dCX7TSQTVy/dkM=";
-    };
-  };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
     version = "202601142217";

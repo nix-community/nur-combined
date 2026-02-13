@@ -13,7 +13,6 @@ let
     amgcl = callPackage ./amgcl { source = sources.amgcl; };
     cuda-samples-common = callPackage ./cuda-samples-common { };
     structopt = callPackage ./structopt { source = sources.structopt; };
-    utfcpp = callPackage ./utfcpp { source = sources.utfcpp; };
     seal_lake = callPackage ./seal_lake { source = sources.seal_lake; };
     sfun = callPackage ./sfun { source = sources.sfun; };
     cmdlime = callPackage ./cmdlime { source = sources.cmdlime; };
