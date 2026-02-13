@@ -18,15 +18,9 @@ stdenvNoCC.mkDerivation {
 
   nativeBuildInputs = [ zig_0_15 ];
 
-  dontConfigure = true;
-  dontInstall = true;
-
-  preBuild = "export HOME=$TMPDIR";
-
-  buildPhase = ''
-    runHook preBuild
-    zig build --prefix $out -Doptimize=ReleaseSafe
-    runHook postBuild
+  postPatch = ''
+    substituteInPlace build.zig \
+      --replace-fail '"../README.md"' '"README.md"'
   '';
 
   meta = with lib; {
