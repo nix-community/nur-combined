@@ -368,7 +368,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
     }
   );
 
-  nix_2_31_2 = nixVersions_2_31_2.stable;
+  nix_2_31_2 = nixVersions_2_31_2.nix_2_31;
 
 }
 // (lib.optionalAttrs (!nurbot) rec {
