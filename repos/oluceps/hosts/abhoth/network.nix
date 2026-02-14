@@ -96,7 +96,10 @@
           GatewayOnLink = true;
         }
       ];
-      linkConfig.RequiredForOnline = "routable";
+      linkConfig = {
+        RequiredForOnline = "routable";
+        MTUBytes = 1280;
+      };
     };
   };
 }

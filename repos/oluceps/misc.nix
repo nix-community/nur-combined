@@ -243,7 +243,10 @@
 
     etc = {
       "NIXOS".text = "";
-      "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
+      "machine-id" = {
+        text = "b08dfa6083e7567a1921a715000001fb\n";
+        mode = "0444";
+      };
       "sbctl/sbctl.conf".source =
         let
           sbctlVar = "/var/lib/sbctl";
@@ -399,6 +402,7 @@
   };
 
   systemd.tmpfiles.rules = [
+    # "C /etc/machine-id 0777 root root - ${pkgs.writeText "machine-id" "b08dfa6083e7567a1921a715000001fb\n"}"
     "C /var/cache/tuigreet/lastuser - - - - ${pkgs.writeText "lastuser" "${user}"}"
     "d /var/tmp/nix-daemon 0755 root root -"
     "d /var/lib/ssh 0755 root root -"

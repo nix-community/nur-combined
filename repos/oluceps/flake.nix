@@ -232,6 +232,7 @@
                   "resq"
                   "livecd"
                   "bootstrap"
+                  "nodens"
                   # "hastur"
                   # "kaambl"
                 ]
