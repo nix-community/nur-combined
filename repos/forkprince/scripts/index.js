@@ -1,6 +1,8 @@
 const path = require("path");
 
 const update = require("./pkgs/update");
+const extra = require("./pkgs/extra");
+
 const { exists } = require("./pkgs/fs");
 
 const args = process.argv.slice(2);
@@ -92,3 +94,7 @@ switch (config.source.type) {
     process.exit(1);
   }
 }
+
+const updated = require(resolved);
+
+await extra(resolved, { config: updated });

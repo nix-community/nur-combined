@@ -6,5 +6,6 @@
     "tag_filter": "^(?!latest$).*$"
   },
   "version": "2026-02-14",
-  "hash": "sha256-R052zfDkCZwHmE9te5kuTpGz9EwmazVixT/6UzAh43M="
+  "hash": "sha256-R052zfDkCZwHmE9te5kuTpGz9EwmazVixT/6UzAh43M=",
+  "pnpmHash": "sha256-UWsJmC0JCjGZTA9I4KjX94gE+jBPcbHbCXiy8Bs9Gcw="
 }

@@ -15,7 +15,7 @@
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
-  # equicord = lib.callPackage ./pkgs/equicord {};
+  equicord = lib.callPackage ./pkgs/equicord {};
   hytale = lib.callPackage ./pkgs/hytale {};
   kilo = lib.callPackage ./pkgs/kilo {};
 
