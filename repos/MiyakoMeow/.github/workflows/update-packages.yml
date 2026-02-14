@@ -1,7 +1,7 @@
 name: Update Packages via "updateScript"
 on:
   schedule:
-    - cron: "0 12 * * *" # 每天 UTC 中午12点运行
+    - cron: "15 * * * *" # hourly at :15
   workflow_dispatch: # 允许手动触发
 
 permissions:
