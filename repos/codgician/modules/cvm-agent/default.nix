@@ -45,6 +45,8 @@ in
         ReadWritePaths = [
           stateDir
           "/var/log/qcloud"
+          "/var/lib/qcloud"
+          "/usr/local/qcloud" # Server instructs barad_agent install here
           "/run"
         ];
 
@@ -61,6 +63,8 @@ in
     # We use 'r' to remove any stale symlinks, then 'f' to create regular files.
     systemd.tmpfiles.rules = [
       "d /var/log/qcloud 0755 root root -"
+      "d /var/lib/qcloud 0755 root root -"
+      "d /usr/local/qcloud 0755 root root -"
       "d ${stateDir} 0755 root root -"
       "d ${stateDir}/bin 0755 root root -"
       "d ${stateDir}/etc 0755 root root -"
