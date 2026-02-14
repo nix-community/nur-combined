@@ -1,0 +1,3 @@
+{
+  neolight = ./neolight.nix;
+}
