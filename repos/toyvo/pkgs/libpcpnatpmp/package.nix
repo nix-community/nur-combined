@@ -32,7 +32,15 @@ stdenv.mkDerivation {
     description = "PCP/NAT-PMP client library";
     homepage = "https://github.com/libpcpnatpmp/libpcpnatpmp";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ toyvo ];
+    maintainers = [
+      {
+        name = "Collin Diekvoss";
+        email = "Collin@Diekvoss.com";
+        matrix = "@toyvo:matrix.org";
+        github = "ToyVo";
+        githubId = 5168912;
+      }
+    ];
     mainProgram = "pcpnatpmpc";
     platforms = platforms.all;
   };
