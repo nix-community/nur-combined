@@ -9,7 +9,7 @@ mkOpencodePlugin rec {
 
   src = fetchFromGitHub {
     owner = "JRedeker";
-    repo = "opencode-morph-fast-apply";
+    repo = "opencode-${pname}";
     rev = "v${version}";
     hash = "sha256-0Ex1OnwhkZB9eZz2ZAK8pxGUVGIkIiaaiDhrkG29rN0=";
   };

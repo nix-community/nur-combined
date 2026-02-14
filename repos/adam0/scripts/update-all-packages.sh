@@ -4,7 +4,9 @@ set -euo pipefail
 SYSTEM="${SYSTEM:-x86_64-linux}"
 BLACKLIST=(
   "packages.${SYSTEM}.yaziPlugins.ucp"
+  "packages.${SYSTEM}.yaziPlugins.faster-piper"
   "yaziPlugins.ucp"
+  "yaziPlugins.faster-piper"
 )
 
 list_derivations() {
