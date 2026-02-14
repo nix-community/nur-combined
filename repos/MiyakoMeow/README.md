@@ -109,6 +109,7 @@ This section is auto-generated. Do not edit manually.
 | `mbmconfig` | [3.24.0824.0](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/mb/mbmconfig/package.nix) | [🏠Homepage](https://mistyblue.info) mBMconfig - GUI configuration tool for mBMplay (runs via Wine) |
 | `mbmplay` | [3.24.0824.1](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/mb/mbmplay/package.nix) | [🏠Homepage](https://mistyblue.info) mBMplay - BMS previewer (runs via Wine) |
 | `pbmsc` | [3.5.5.16](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/pb/pbmsc/package.nix) | [🏠Homepage](https://github.com/psyk2642/iBMSC) pBMSC (iBMSC Windows build) packaged to run with Wine |
+| `wechat-latest` | [20260214.152742](https://github.com/MiyakoMeow/nur-packages/blob/main/pkgs/by-name/we/wechat-latest/package.nix) | [🏠Homepage](https://weixin.qq.com/) WeChat for Linux (latest version) |
 
 ### grub-themes
 
