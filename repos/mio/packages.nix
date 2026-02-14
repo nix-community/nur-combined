@@ -350,8 +350,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
 
-  zotero = pkgs.callPackage ./pkgs/zotero/package.nix { };
-
   lixPackageSets_2_93 = lib.recurseIntoAttrs (
     callPackage ./pkgs/lix {
       storeDir = pkgs.config.nix.storeDir or "/nix/store";

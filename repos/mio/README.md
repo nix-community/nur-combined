@@ -96,7 +96,6 @@ files are copied from following locations. some are modified in this repo and so
 + pkgs/by-name/mu/musescore-evolution/ <https://github.com/NixOS/nixpkgs/pull/478650>
 + ladybird nixpkgs commit a36b8c6d6e07764f64f3d3016cdb7a557897a435
 + polkit nixpkgs 88d3861acdd3d2f0e361767018218e51810df8a1
-+ zotero <https://github.com/NixOS/nixpkgs/pull/483099/changes>
 + lix_2_93 nixpkgs commit bfc1b8a4574108ceef22f02bafcf6611380c100d
 + darling nixpkgs commit 01b6610eb0c98ee6d840e0d060cb41e334879f65^ 31bdcff5843e30d33eb758334435298a571bd2af^ <https://github.com/NixOS/nixpkgs/commit/31bdcff5843e30d33eb758334435298a571bd2af>
 + nix_2_31_2 nixpkgs commit 1412caf7bf9e660f2f962917c14b1ea1c3bc695e

@@ -173,7 +173,6 @@ let
         superTux
         nix-output-monitor
         musescore-evolution
-        zotero
         darling
         ;
     };
