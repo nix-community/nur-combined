@@ -55,11 +55,22 @@ in
       };
     };
 
+    # Use tmpfiles to ensure bind-mount targets are regular files, not symlinks.
+    # Symlinks get resolved by the kernel BEFORE bind-mounting, causing the mount
+    # to land on the symlink target instead of the intended path.
+    # We use 'r' to remove any stale symlinks, then 'f' to create regular files.
     systemd.tmpfiles.rules = [
       "d /var/log/qcloud 0755 root root -"
       "d ${stateDir} 0755 root root -"
+      "d ${stateDir}/bin 0755 root root -"
+      "d ${stateDir}/etc 0755 root root -"
       "d ${stateDir}/logs 0755 root root -"
       "d ${stateDir}/modules 0755 root root -"
+      # Remove stale symlinks and create regular files as bind-mount targets
+      "r ${stateDir}/bin/sgagent - - - -"
+      "r ${stateDir}/etc/base.conf - - - -"
+      "f ${stateDir}/bin/sgagent 0755 root root -"
+      "f ${stateDir}/etc/base.conf 0644 root root -"
     ];
   };
 }
