@@ -13,6 +13,7 @@
   patchelf,
   electron,
   makeWrapper,
+  commandLineArgs ? "",
   copyDesktopItems,
   makeDesktopItem,
   libva,
@@ -141,7 +142,9 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "$out/share/bilibili/app.asar" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-      --set-default ELECTRON_IS_DEV 0
+      --set-default ELECTRON_IS_DEV 0 \
+      --add-flags "--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL" \
+      --add-flags ${lib.escapeShellArg commandLineArgs}
 
     runHook postInstall
   '';
@@ -165,6 +168,11 @@ stdenv.mkDerivation (finalAttrs: {
     license = with lib.licenses; [
       unfree
       mit
+    ];
+    maintainers = with lib.maintainers; [
+      jedsek
+      kashw2
+      bot-wxt1221
     ];
     platforms = [
       "x86_64-linux"
