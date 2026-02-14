@@ -1,14 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cppsort";
-  version = "1.17.0";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "Morwenn";
     repo = "cpp-sort";
-    rev = "${version}";
-    hash = "sha256-AkObiVW0wFAbH4RW7Y7lw+kCM86Kl+Two67804rbUe4=";
+    rev = "v${version}";
+    hash = "sha256-VoK//2X+sPS5SFFnZf9WF02x5wAbv04X0ghPy1Z6pOo=";
   };
 
   nativeBuildInputs = [ cmake ];
