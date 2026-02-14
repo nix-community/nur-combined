@@ -19,6 +19,7 @@ mkOpencodePlugin rec {
   postInstall = ''
     cd "$out"
     bun build index.ts --outdir dist --target node
+    substituteInPlace package.json --replace-fail '"main": "index.ts"' '"main": "dist/index.js"'
   '';
 
   meta = {
