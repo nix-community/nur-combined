@@ -148,13 +148,28 @@
   };
   git-mcp-server = {
     pname = "git-mcp-server";
-    version = "v2.8.3";
+    version = "v2.8.4";
     src = fetchFromGitHub {
       owner = "cyanheads";
       repo = "git-mcp-server";
-      rev = "v2.8.3";
+      rev = "v2.8.4";
       fetchSubmodules = false;
-      sha256 = "sha256-sS+5KhHycGLFUxxZwwI0O/NXypqN8voNU6aMV8M/Fy8=";
+      sha256 = "sha256-bB0EHBvhFOk565wGNLvhJfBLWk/25S/D2b7mW23vp44=";
+    };
+  };
+  happydeliver = {
+    pname = "happydeliver";
+    version = "v1.1.1";
+    src = fetchFromGitHub {
+      owner = "happyDomain";
+      repo = "happydeliver";
+      rev = "v1.1.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-+1eJUqCAjae5syxSEvcn3vdgYeV5kSt6ckbDDwK7bB0=";
+    };
+    extract = {
+      "web/package.json" = ./. + "/sha256-+1eJUqCAjae5syxSEvcn3vdgYeV5kSt6ckbDDwK7bB0=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-+1eJUqCAjae5syxSEvcn3vdgYeV5kSt6ckbDDwK7bB0=/web/package-lock.json";
     };
   };
   libinput-three-finger-drag = {
@@ -239,13 +254,13 @@
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/xxw1xpf74h7wn0mmdybh0q4iak9mnb78-niri-patched-src.tar.gz";
+    version = "/nix/store/xia8nl7234fkqaldmdbi3fihi71qbwqw-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/xxw1xpf74h7wn0mmdybh0q4iak9mnb78-niri-patched-src.tar.gz";
-      sha256 = "sha256-Pw0olB/jELBvhIgvDDL7xp1BeqoU2nek0xRnnzPNktM=";
+      url = "file:///nix/store/xia8nl7234fkqaldmdbi3fihi71qbwqw-niri-patched-src.tar.gz";
+      sha256 = "sha256-5MwVTlYAjlNHmSqAHtwm+yPvn2lRuaRrJPzT4Sm7Sd8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Pw0olB_jELBvhIgvDDL7xp1BeqoU2nek0xRnnzPNktM=/Cargo.lock";
+      lockFile = ./. + "/sha256-5MwVTlYAjlNHmSqAHtwm+yPvn2lRuaRrJPzT4Sm7Sd8=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
