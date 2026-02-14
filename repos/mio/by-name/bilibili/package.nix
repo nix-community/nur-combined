@@ -30,7 +30,10 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   bilibiliInstaller = fetchurl {
-    url = "https://dl.hdslb.com/mobile/fixed/bili_win/bili_win-install.exe";
+    # Upstream update-bilibili checks installer ProductVersion against conf/bilibili_version.
+    # This is not ideal here: this archived snapshot is 1.17.5.4680, while upstream source
+    # (at this rev) expects 1.17.5.4665, and an exact 4665 snapshot was not found on Web Archive.
+    url = "https://web.archive.org/web/20260214125654/https://dl.hdslb.com/mobile/fixed/bili_win/bili_win-install.exe";
     hash = "sha256-m0SKH4PPAb/Fi1jcc6pEHMmVBesNQidD4H4pD4jaDnE=";
   };
 
