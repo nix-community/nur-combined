@@ -1,0 +1,15 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 4a335c9..652644d 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -151,10 +151,6 @@ func (c *Config) Validate() error {
+ 		return fmt.Errorf("email domain cannot be empty")
+ 	}
+ 
+-	if _, err := openapi_types.Email(fmt.Sprintf("%s1234-5678-9090@%s", c.Email.TestAddressPrefix, c.Email.Domain)).MarshalJSON(); err != nil {
+-		return fmt.Errorf("invalid email domain: %w", err)
+-	}
+-
+ 	if c.Database.Type != "sqlite" && c.Database.Type != "postgres" {
+ 		return fmt.Errorf("unsupported database type: %s", c.Database.Type)
+ 	}

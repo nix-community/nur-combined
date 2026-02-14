@@ -12,6 +12,8 @@
 buildGoModule (finalAttrs: {
   inherit (source) pname version src;
 
+  patches = [ ./remove-email-domain-check.patch ];
+
   proxyVendor = true;
   # nix-update auto
   vendorHash = "sha256-JiWSBYoZ2b+44LtfK+meB6SE9hZpR7I9X/Two1EthGQ=";
