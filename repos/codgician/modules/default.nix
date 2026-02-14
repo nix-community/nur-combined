@@ -1,3 +1,3 @@
 {
-  cvm-agent = ./cvm-agent;
+  # my_module = ./my_module
 }
