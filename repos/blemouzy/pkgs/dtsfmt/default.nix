@@ -6,17 +6,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "dtsfmt";
-  version = "0.6.0-3dd547f";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "mskelton";
     repo = "dtsfmt";
-    rev = "3dd547fe8c55c8f5b7c1e5454f4321c6fd9365d7";
-    hash = "sha256-ArGj5orWE2+4E/CJU5WOBUUlDvH4z0gAG4DM3htFSDY=";
+    tag = "v${version}";
+    hash = "sha256-IcTap6eDzDfaSRqgAxgCpsD7ObXBp7LUodCskyQzgeQ=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-VCI4qHOpN9xRTHuoE7/+Ybbg0eAmeDD4lNoUQZxJiAE=";
+  cargoHash = "sha256-BbX/IEfn5qhyW/IkgARfxD0rTx+hcoq8TmoDmUqclHQ=";
 
   meta = {
     description = "Auto formatter for device tree files";

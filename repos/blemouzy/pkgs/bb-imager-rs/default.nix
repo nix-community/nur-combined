@@ -13,16 +13,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "bb-imager-rs";
-  version = "0.0.19";
+  version = "0.0.20";
 
   src = fetchFromGitHub {
     owner = "beagleboard";
     repo = "bb-imager-rs";
-    rev = "${version}";
-    hash = "sha256-ecvCxmQ/aF/GpqKBiaK2xAzoejhyZ3hHVYolWPD6XGo=";
+    tag = "${version}";
+    hash = "sha256-fv1UqTbJf39EQ7cdFPpedsZK1k0buyw70ZtnIkiXAOE=";
   };
 
-  cargoHash = "sha256-zuwDO6++6N4EqXNrWxh1WG1E3Gj6aYT+g1WE47vsvtA=";
+  cargoHash = "sha256-mGrtPsvOZsjEY+PzoBTka0yTE8Ou+Q+iYq2p1QshiGQ=";
 
   doCheck = false;
 
