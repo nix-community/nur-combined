@@ -803,11 +803,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Euog0QqrtioSdmWCP+z8yqtPDOT0X0lcrrL9l/N57wY=",
+            "sha256": "sha256-84ZC6UEJnM1bG0WJDf4/XO7ruGUqAnCEsRNDed18MaQ=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.18.6b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.18.7b/zen.macos-universal.dmg"
         },
-        "version": "1.18.6b"
+        "version": "1.18.7b"
     },
     "zen-twilight": {
         "cargoLock": null,
@@ -822,6 +822,6 @@
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg"
         },
-        "version": "1.18.6b"
+        "version": "1.18.7b"
     }
 }

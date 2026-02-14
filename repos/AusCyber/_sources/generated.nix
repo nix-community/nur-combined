@@ -715,15 +715,15 @@
   };
   zen = {
     pname = "zen";
-    version = "1.18.6b";
+    version = "1.18.7b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.18.6b/zen.macos-universal.dmg";
-      sha256 = "sha256-Euog0QqrtioSdmWCP+z8yqtPDOT0X0lcrrL9l/N57wY=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.18.7b/zen.macos-universal.dmg";
+      sha256 = "sha256-84ZC6UEJnM1bG0WJDf4/XO7ruGUqAnCEsRNDed18MaQ=";
     };
   };
   zen-twilight = {
     pname = "zen-twilight";
-    version = "1.18.6b";
+    version = "1.18.7b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight/zen.macos-universal.dmg";
       sha256 = "sha256-groAVByQwS6Nbc48CcDsFnEWRMaVlJbcJpf8d1pWlok=";
