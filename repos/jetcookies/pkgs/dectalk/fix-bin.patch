@@ -1,0 +1,25 @@
+diff --git a/src/Makefile.in b/src/Makefile.in
+index c120325b..d9ec4dbd 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -110,13 +110,13 @@ install:: release
+ 	echo "LANG:la,Latin American" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "LANG:fr,French" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 
+-	-mkdir -p $(DESTDIR)/usr/bin/
+-	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/gspeak $(DESTDIR)/usr/bin/gspeak
+-	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/say $(DESTDIR)/usr/bin/say
+-	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/windic $(DESTDIR)/usr/bin/windic
+-	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/dtmemory $(DESTDIR)/usr/bin/dtmemory
+-	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/aclock $(DESTDIR)/usr/bin/aclock
+-	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/tools/* $(DESTDIR)/usr/bin/
++	-mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/bin/
++	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/gspeak $(DESTDIR)$(INSTALL_PREFIX)/bin/gspeak
++	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/say $(DESTDIR)$(INSTALL_PREFIX)/bin/say
++	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/windic $(DESTDIR)$(INSTALL_PREFIX)/bin/windic
++	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/dtmemory $(DESTDIR)$(INSTALL_PREFIX)/bin/dtmemory
++	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/aclock $(DESTDIR)$(INSTALL_PREFIX)/bin/aclock
++	-ln -sf $(DESTDIR)$(INSTALL_PREFIX)/tools/* $(DESTDIR)$(INSTALL_PREFIX)/bin/
+ 
+ english_release:
+ 	$(MAKE) -f Makefile.sub "LANGUAGE=ENGLISH -DENGLISH_US -DACNA" \

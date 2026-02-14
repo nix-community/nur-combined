@@ -1,0 +1,89 @@
+diff --git a/src/Makefile.in b/src/Makefile.in
+index d9ec4dbd..a06d6dbb 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -37,10 +37,15 @@ debug::	english_debug uk_debug spanish_debug german_debug latin_american_debug f
+ release:: english_release uk_release spanish_release german_release latin_american_release french_release
+ 
+ install:: release
+-	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/lib $(DESTDIR)$(INSTALL_PREFIX)/tools $(DESTDIR)$(INSTALL_PREFIX)/dic $(DESTDIR)$(INSTALL_PREFIX)/bitmaps
++	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/lib $(DESTDIR)$(INSTALL_PREFIX)/tools $(DESTDIR)$(INSTALL_PREFIX)/share/dict/american-english $(DESTDIR)$(INSTALL_PREFIX)/share/dict/british-english $(DESTDIR)$(INSTALL_PREFIX)/share/dict/spanish $(DESTDIR)$(INSTALL_PREFIX)/share/dict/german $(DESTDIR)$(INSTALL_PREFIX)/share/dict/latin-american $(DESTDIR)$(INSTALL_PREFIX)/share/dict/french $(DESTDIR)$(INSTALL_PREFIX)/share/bitmaps
+ 	install -m 0755 dapi/build/dectalk/$(OS_VERSION)/*/release/*.so $(DESTDIR)$(INSTALL_PREFIX)/lib/
+ 	install -m 0755 dapi/build/dic/$(OS_VERSION)/*/release/dic* $(DESTDIR)$(INSTALL_PREFIX)/tools/
+-	install -m 0644 dapi/build/dic/$(OS_VERSION)/*/release/*.dic $(DESTDIR)$(INSTALL_PREFIX)/dic/
++	install -m 0644 dapi/build/dic/$(OS_VERSION)/*/release/dtalk_us*.dic $(DESTDIR)$(INSTALL_PREFIX)/share/dict/american-english
++	install -m 0644 dapi/build/dic/$(OS_VERSION)/*/release/dtalk_uk*.dic $(DESTDIR)$(INSTALL_PREFIX)/share/dict/british-english
++	install -m 0644 dapi/build/dic/$(OS_VERSION)/*/release/dtalk_sp*.dic $(DESTDIR)$(INSTALL_PREFIX)/share/dict/spanish
++	install -m 0644 dapi/build/dic/$(OS_VERSION)/*/release/dtalk_gr*.dic $(DESTDIR)$(INSTALL_PREFIX)/share/dict/german
++	install -m 0644 dapi/build/dic/$(OS_VERSION)/*/release/dtalk_la*.dic $(DESTDIR)$(INSTALL_PREFIX)/share/dict/latin-american
++	install -m 0644 dapi/build/dic/$(OS_VERSION)/*/release/dtalk_fr*.dic $(DESTDIR)$(INSTALL_PREFIX)/share/dict/french
+ 	install -m 0755 dtalkml/build/$(OS_VERSION)/us/release/@ML_SONAME@ $(DESTDIR)$(INSTALL_PREFIX)/lib/
+ 	install -m 0755 samplosf/build/dtsamples/$(OS_VERSION)/us/release/say $(DESTDIR)$(INSTALL_PREFIX)/
+ 	install -m 0755 samplosf/build/dtsamples/$(OS_VERSION)/us/release/aclock $(DESTDIR)$(INSTALL_PREFIX)/
+@@ -57,9 +62,10 @@ install:: release
+ 	install -m 0755 samplosf/build/dtsamples/$(OS_VERSION)/us/release/dump_vdf $(DESTDIR)$(INSTALL_PREFIX)/tools/
+ 	install -m 0755 samplosf/build/dtsamples/$(OS_VERSION)/us/release/mfg_load $(DESTDIR)$(INSTALL_PREFIX)/tools/
+ 	-install -m 0755 samplosf/build/speak/$(OS_VERSION)/us/release/gspeak $(DESTDIR)$(INSTALL_PREFIX)/
+-	install -m 0644 samplosf/src/speak/bitmaps/* $(DESTDIR)$(INSTALL_PREFIX)/bitmaps/
++	install -m 0644 samplosf/src/speak/bitmaps/* $(DESTDIR)$(INSTALL_PREFIX)/share/bitmaps/
+ 	-install -m 0755 samplosf/build/windict/$(OS_VERSION)/us/release/windic $(DESTDIR)$(INSTALL_PREFIX)/
+-	install -m 0644 kitosf/kitbld/README $(DESTDIR)$(INSTALL_PREFIX)/
++	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk
++	install -m 0644 kitosf/kitbld/README $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/
+ 	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/src/DECtalk/dtsamples $(DESTDIR)$(INSTALL_PREFIX)/src/DECtalk/gspeak
+ 	install -m 0644 samplosf/src/dtsamples/aclock.c $(DESTDIR)$(INSTALL_PREFIX)/src/DECtalk/dtsamples/
+ 	install -m 0644 samplosf/src/dtsamples/say.c $(DESTDIR)$(INSTALL_PREFIX)/src/DECtalk/dtsamples/
+@@ -74,26 +80,26 @@ install:: release
+ 	install -m 0644 dapi/src/api/ttsapi.h $(DESTDIR)$(INSTALL_PREFIX)/include/dtk/
+ 	install -m 0644 dapi/src/osf/dtmmedefs.h $(DESTDIR)$(INSTALL_PREFIX)/include/dtk/
+ 	install -m 0644 dapi/src/include/l_*_ph.h $(DESTDIR)$(INSTALL_PREFIX)/include/dtk/
+-	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/ps $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/pdf $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/man/man1 $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/man/man3
+-	install -m 0644 docsosf/ps/dtk_install_guide.ps $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/ps/
+-	install -m 0644 docsosf/ps/dtk_prog_guide.ps $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/ps/
+-	install -m 0644 docsosf/ps/dtk_reference_guide.ps $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/ps/
+-	install -m 0644 docsosf/pdf/dtk_install_guide.pdf $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/pdf/
+-	install -m 0644 docsosf/pdf/dtk_prog_guide.pdf $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/pdf/
+-	install -m 0644 docsosf/pdf/dtk_reference_guide.pdf $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/pdf/
+-	install -m 0644 docsosf/man/man1/*.1 $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/man/man1/
+-	install -m 0644 docsosf/man/man3/*.3 $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/man/man3/
+-	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/html
+-	install -m 0644 docsosf/html/dectalk.htm $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/html/index.html
+-	install -m 0644 docsosf/html/* $(DESTDIR)$(INSTALL_PREFIX)/doc/DECtalk/html/
++	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/ps $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/pdf $(DESTDIR)$(INSTALL_PREFIX)/share/man/man1 $(DESTDIR)$(INSTALL_PREFIX)/share/man/man3
++	install -m 0644 docsosf/ps/dtk_install_guide.ps $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/ps/
++	install -m 0644 docsosf/ps/dtk_prog_guide.ps $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/ps/
++	install -m 0644 docsosf/ps/dtk_reference_guide.ps $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/ps/
++	install -m 0644 docsosf/pdf/dtk_install_guide.pdf $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/pdf/
++	install -m 0644 docsosf/pdf/dtk_prog_guide.pdf $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/pdf/
++	install -m 0644 docsosf/pdf/dtk_reference_guide.pdf $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/pdf/
++	install -m 0644 docsosf/man/man1/*.1 $(DESTDIR)$(INSTALL_PREFIX)/share/man/man1/
++	install -m 0644 docsosf/man/man3/*.3 $(DESTDIR)$(INSTALL_PREFIX)/share/man/man3/
++	mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/html
++	install -m 0644 docsosf/html/dectalk.htm $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/html/index.html
++	install -m 0644 docsosf/html/* $(DESTDIR)$(INSTALL_PREFIX)/share/doc/DECtalk/html/
+ 	echo "licenses:YV808w008IQ0" > $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "licensepassword:kw60P7Y0bGRNB1@W3L@" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+-	echo "US_dict:dic/dtalk_us.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+-	echo "UK_dict:dic/dtalk_uk.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+-	echo "SP_dict:dic/dtalk_sp.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+-	echo "GR_dict:dic/dtalk_gr.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+-	echo "LA_dict:dic/dtalk_la.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+-	echo "FR_dict:dic/dtalk_fr.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
++	echo "US_dict:share/dict/american-english/dtalk_us.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
++	echo "UK_dict:share/dict/british-english/dtalk_uk.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
++	echo "SP_dict:share/dict/spanish/dtalk_sp.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
++	echo "GR_dict:share/dict/german/dtalk_gr.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
++	echo "LA_dict:share/dict/latin-american/dtalk_la.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
++	echo "FR_dict:share/dict/french/dtalk_fr.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "US_udict:udict_us.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "UK_udict:udict_uk.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "SP_udict:udict_sp.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+@@ -101,7 +107,7 @@ install:: release
+ 	echo "LA_udict:udict_la.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "FR_udict:udict_fr.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	#echo "GR_fdict:dic/dtalk_fl_gr.dic" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+-	echo "Speak_xpm_dir:bitmaps/" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
++	echo "Speak_xpm_dir:share/bitmaps/" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "Default_lang:us" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "LANG:us,US English" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
+ 	echo "LANG:uk,UK English" >> $(DESTDIR)$(INSTALL_PREFIX)/DECtalk.conf
