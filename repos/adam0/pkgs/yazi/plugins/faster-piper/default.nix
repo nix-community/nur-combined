@@ -5,13 +5,13 @@
 }:
 mkYaziPlugin rec {
   pname = "faster-piper.yazi";
-  version = "1.0";
+  version = "unstable-2026-02-02";
 
   src = fetchFromGitHub {
     owner = "alberti42";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-Rr1JYSDi4wWQu5DTMu3i2NfrXNG46idXKYJtRTuD38c=";
+    rev = "8b794bfa3bc9c780e3f03b6f5a0ccde7744e54bb";
+    hash = "sha256-m6ZiwA36lcdZORK3KIz4Xq3bs7mmtC6j62B/+BuDGAQ=";
   };
 
   meta = {
