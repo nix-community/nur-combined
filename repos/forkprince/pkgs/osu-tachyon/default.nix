@@ -9,7 +9,7 @@
 }: let
   ver = lib.helper.read ./version.json;
 
-  platform = stdenvNoCC.system;
+  platform = stdenvNoCC.hostPlatform.system;
 
   source = lib.helper.getPlatform platform ver;
   shouldUnpack = lib.helper.unpackPlatform platform ver;
