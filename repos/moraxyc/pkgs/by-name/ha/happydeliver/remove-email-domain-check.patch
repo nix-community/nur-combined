@@ -1,8 +1,17 @@
 diff --git a/internal/config/config.go b/internal/config/config.go
-index 4a335c9..652644d 100644
+index 4a335c9..2ad868d 100644
 --- a/internal/config/config.go
 +++ b/internal/config/config.go
-@@ -151,10 +151,6 @@ func (c *Config) Validate() error {
+@@ -30,8 +30,6 @@ import (
+ 	"path"
+ 	"strings"
+ 	"time"
+-
+-	openapi_types "github.com/oapi-codegen/runtime/types"
+ )
+ 
+ // Config represents the application configuration
+@@ -151,10 +149,6 @@ func (c *Config) Validate() error {
  		return fmt.Errorf("email domain cannot be empty")
  	}
  
