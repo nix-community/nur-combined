@@ -59,7 +59,7 @@
         "meta"
       ])
       // {
-        nativeBuildInputs = [bun];
+        nativeBuildInputs = [bun] ++ (args.nativeBuildInputs or []);
         dontBuild = true;
 
         installPhase = ''

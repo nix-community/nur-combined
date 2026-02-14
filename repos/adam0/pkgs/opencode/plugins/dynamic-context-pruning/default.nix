@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   mkOpencodePlugin,
+  typescript,
 }:
 mkOpencodePlugin rec {
   pname = "dynamic-context-pruning";
@@ -15,6 +16,15 @@ mkOpencodePlugin rec {
   };
 
   dependencyHash = "sha256-j5sb70P0Mn/yV4zqWg8U8VbNacJlZZ0zeXC5nG6+/bk=";
+
+  nativeBuildInputs = [typescript];
+
+  postInstall = ''
+    cd "$out"
+
+    bun scripts/generate-prompts.ts
+    tsc -p tsconfig.json
+  '';
 
   meta = {
     description = "OpenCode plugin for dynamic context pruning and token usage optimization";

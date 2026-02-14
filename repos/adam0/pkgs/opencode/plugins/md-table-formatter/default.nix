@@ -16,6 +16,11 @@ mkOpencodePlugin rec {
 
   dependencyHash = null;
 
+  postInstall = ''
+    cd "$out"
+    bun build index.ts --outdir dist --target node
+  '';
+
   meta = {
     description = "OpenCode plugin for markdown table formatting with concealment mode support";
     homepage = "https://github.com/franlol/opencode-md-table-formatter";

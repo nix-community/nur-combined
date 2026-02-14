@@ -16,6 +16,11 @@ mkOpencodePlugin rec {
 
   dependencyHash = "sha256-pOdO7KHWbNIayPlUz1ydVklMTqROL/evADFw9OYRT7U=";
 
+  postInstall = ''
+    cd "$out"
+    bun build index.ts --outdir dist --target node
+  '';
+
   meta = {
     description = "OpenCode plugin for Morph Fast Apply - 10x faster code editing";
     homepage = "https://github.com/JRedeker/opencode-morph-fast-apply";
