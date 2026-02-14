@@ -31,6 +31,7 @@ in
     overlays = import ./overlays; # nixpkgs overlays
     hmModules = import ./hm-modules; # Home Manager modules.
 
+    opencodePlugins = lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/opencode/plugins {});
     yaziPlugins = lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/yazi/plugins {});
   }
   // allPackages
