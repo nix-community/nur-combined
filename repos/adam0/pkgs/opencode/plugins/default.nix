@@ -10,32 +10,48 @@
     pname,
     version,
     src,
-    dependencyHash,
+    dependencyHash ? null,
     meta ? {},
     ...
   }: let
-    deps = stdenvNoCC.mkDerivation {
-      pname = "${pname}-deps";
-      inherit version src;
+    deps =
+      if dependencyHash == null
+      then
+        stdenvNoCC.mkDerivation {
+          pname = "${pname}-deps";
+          inherit version src;
 
-      nativeBuildInputs = [bun];
+          dontBuild = true;
+          dontFixup = true;
+          dontUnpack = true;
 
-      dontBuild = true;
-      dontFixup = true;
+          installPhase = ''
+            mkdir -p "$out/node_modules"
+          '';
+        }
+      else
+        stdenvNoCC.mkDerivation {
+          pname = "${pname}-deps";
+          inherit version src;
 
-      installPhase = ''
-        export HOME="$TMPDIR"
+          nativeBuildInputs = [bun];
 
-        bun install --no-cache --production
+          dontBuild = true;
+          dontFixup = true;
 
-        mkdir -p "$out"
-        cp -r node_modules "$out/"
-      '';
+          installPhase = ''
+            export HOME="$TMPDIR"
 
-      outputHash = dependencyHash;
-      outputHashAlgo = "sha256";
-      outputHashMode = "recursive";
-    };
+            bun install --no-cache --production
+
+            mkdir -p "$out"
+            cp -r node_modules "$out/"
+          '';
+
+          outputHash = dependencyHash;
+          outputHashAlgo = "sha256";
+          outputHashMode = "recursive";
+        };
   in
     stdenvNoCC.mkDerivation (
       (lib.removeAttrs args [
