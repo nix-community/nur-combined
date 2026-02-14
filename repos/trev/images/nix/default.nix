@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  image = "docker.io/nixos/nix:2.33.2@sha256:c6ebd12d96b3374ee15e3986c15aa43f5e49310634f17afcaaf4dafe4f6732b2";
+  image = "docker.io/nixos/nix:2.33.3@sha256:37eafc36261a1efaf9b17f3e0cfb450be00893087e3797bd1e3be4df68dfe6fe";
   parts = builtins.match "(.+/)(.+):(.+)@(.+)" image;
 in
 # https://github.com/nixos/nixpkgs/issues/445481

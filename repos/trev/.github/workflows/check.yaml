@@ -26,7 +26,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e07a64840e6c1dcc886aef6cc971f4f263bb9884 # v1.28.0
+        uses: spotdemo4/nix-init@956a5db88619ed000a8bedc5e863353e11848021 # v1.29.0
 
       - name: Check flake
         run: nix flake check
@@ -54,7 +54,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@e07a64840e6c1dcc886aef6cc971f4f263bb9884 # v1.28.0
+        uses: spotdemo4/nix-init@956a5db88619ed000a8bedc5e863353e11848021 # v1.29.0
         with:
           shell: check
 
