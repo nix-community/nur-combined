@@ -9,7 +9,7 @@
   git,
   openssl,
   gtk4,
-  xorg,
+  libx11,
   libtiff,
   networkmanager,
   util-linux,
@@ -35,13 +35,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "vanilla";
-  version = "continuous-unstable-2026-01-16";
+  version = "continuous-unstable-2026-02-13";
 
   src = fetchFromGitHub {
     owner = "vanilla-wiiu";
     repo = pname;
-    rev = "c62bbac9b00284584699e045c01f0a74a1736906";
-    hash = "sha256-nx40BurrDUSnairbs4huz8QEnNNmhz4rRM7UAaMVFgM=";
+    rev = "f9e7318952938c11765666b1fbd7c505447b16c8";
+    hash = "sha256-EtX4ryX3eGz58cSpTwVzCs/Q/Mj1dETCA1yhuXpqhMg=";
   };
 
   passthru = { inherit hostap; };
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     openssl
-    xorg.libX11
+    libx11
     libtiff
     networkmanager
     libnl
