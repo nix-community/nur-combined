@@ -124,6 +124,9 @@
         "SuperKenVery": {
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
+        "VZstless": {
+            "url": "https://github.com/atlarator/NUR-repo"
+        },
         "Vortriz": {
             "url": "https://github.com/Vortriz/nur-packages"
         },
