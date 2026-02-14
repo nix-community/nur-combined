@@ -150,10 +150,12 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     ln -sf $out/opt/*/wechat $out/bin/wechat
 
-    if [ -d usr/share ]; then
-      mkdir -p $out/share
-      cp -r usr/share/* $out/share/
-    fi
+    mkdir -p $out/share
+    cp -r usr/share/* $out/share/
+
+    # Fix .desktop file Exec path
+    substituteInPlace $out/share/applications/wechat.desktop \
+      --replace-fail "/usr/bin/wechat" "wechat"
 
     runHook postInstall
   '';
