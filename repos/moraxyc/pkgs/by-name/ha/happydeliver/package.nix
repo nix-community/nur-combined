@@ -4,6 +4,7 @@
   callPackage,
   writableTmpDirAsHomeHook,
   versionCheckHook,
+  oapi-codegen,
 
   sources,
   source ? sources.happydeliver,
@@ -12,13 +13,17 @@
 buildGoModule (finalAttrs: {
   inherit (source) pname version src;
 
-  patches = [ ./remove-email-domain-check.patch ];
-
-  proxyVendor = true;
   # nix-update auto
-  vendorHash = "sha256-JiWSBYoZ2b+44LtfK+meB6SE9hZpR7I9X/Two1EthGQ=";
+  vendorHash = "sha256-qt5858cYOxrvl7RHybcf0O+R9YqqXSIW5DKvTtmssSI=";
+  modPostBuild = ''
+    substituteInPlace vendor/github.com/oapi-codegen/runtime/types/regexes.go \
+        --replace-fail ')))\\.?$' '))|dn42)\\.?$'
+  '';
 
-  nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+  nativeBuildInputs = [
+    writableTmpDirAsHomeHook
+    oapi-codegen
+  ];
   ldflags = [
     "-s"
     "-X git.happydns.org/happyDeliver/internal/version.Version=${finalAttrs.version}"
@@ -27,7 +32,8 @@ buildGoModule (finalAttrs: {
   subPackages = [ "cmd/happyDeliver" ];
 
   preBuild = ''
-    go generate ./...
+    oapi-codegen -config api/config-models.yaml api/openapi.yaml
+    oapi-codegen -config api/config-server.yaml api/openapi.yaml
     cp -r ${finalAttrs.passthru.frontend} web/build
   '';
 
