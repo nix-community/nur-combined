@@ -1,3 +1,4 @@
+# NOTE: On MacOS this package requires bun ~1.3.9
 {
   lib,
   stdenvNoCC,
