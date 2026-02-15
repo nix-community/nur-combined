@@ -60,6 +60,10 @@ pkgs ? import <nixpkgs> { }
   hugomods-shortcodes = pkgs.callPackage ./pkgs/hugomods/shortcodes { };
   hugomods-snackbar = pkgs.callPackage ./pkgs/hugomods/snackbar { };
   hugomods-fuse-js = pkgs.callPackage ./pkgs/hugomods/fuse-js { };
+  hugomods-i18n-js = pkgs.callPackage ./pkgs/hugomods/i18n-js { };
+  hugomods-encoder = pkgs.callPackage ./pkgs/hugomods/encoder { };
+  hugomods-decap-cms = pkgs.callPackage ./pkgs/hugomods/decap-cms { };
+  hugomods-pwa = pkgs.callPackage ./pkgs/hugomods/pwa { };
  
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   stardrop = if stardropPkgs != null then stardropPkgs.default else null;

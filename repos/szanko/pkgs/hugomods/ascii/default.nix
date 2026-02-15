@@ -31,7 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers =
       let m = lib.maintainers or {};
       in lib.optionals (m ? szanko) [ m.szanko ];
-    #mainProgram = "hugomods-ascii";
     platforms = lib.platforms.all;
   };
 })

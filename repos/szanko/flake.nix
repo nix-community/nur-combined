@@ -50,7 +50,7 @@
       checks = forAllSystems (system: self.packages.${system});
       devShells = forAllSystems (system:
         let
-          pkgs = import nixpkgs {
+          pkgs = import nixpkgs-unstable {
             inherit system;
             config = {
               allowUnfree = true;
@@ -65,7 +65,7 @@
             packages = with pkgs; [
               git
               nix
-              nixfmt-rfc-style
+              nixfmt
               nil          
               statix
               deadnix
