@@ -1,0 +1,30 @@
+{
+  lib,
+  fetchFromGitHub,
+  mkYaziPlugin,
+}:
+mkYaziPlugin rec {
+  pname = "preview-cbz.yazi";
+  version = "unstable-2026-02-15";
+
+  src = fetchFromGitHub {
+    owner = "AminurAlam";
+    repo = "yazi-plugins";
+    rev = "f3608defbcdf2d1485a7b8404716015b44fdb32c";
+    hash = "sha256-3CJrNnByxfR2OoRxXrlkBcFz2QHvocPnWIM3qyb/2WM=";
+  };
+
+  installPhase = ''
+    runHook preInstall
+
+    cp -rL ${pname} $out
+
+    runHook postInstall
+  '';
+
+  meta = {
+    description = "comic books and manga";
+    homepage = "https://github.com/AminurAlam/yazi-plugins/tree/main/preview-cbz.yazi";
+    license = lib.licenses.gpl3Only;
+  };
+}
