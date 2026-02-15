@@ -21,19 +21,16 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
-  version = "1.17.5-unstable-20260208";
+  version = "1.17.5-3";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "bilibili-linux";
-    rev = "ac81f90e1b5cf203956276f487a97ccfb6a9a38f";
-    hash = "sha256-UigCo27ourSvr4Ot2yEeMwM0UXoCqUd5cKnSR+rALqg=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-bmvpJqoAJSizRCI9WMMHfnldLo0nyhu/TeOKhfs7wPM=";
   };
 
   bilibiliInstaller = fetchurl {
-    # Upstream update-bilibili checks installer ProductVersion against conf/bilibili_version.
-    # This is not ideal here: this archived snapshot is 1.17.5.4680, while upstream source
-    # (at this rev) expects 1.17.5.4665, and an exact 4665 snapshot was not found on Web Archive.
     url = "https://web.archive.org/web/20260214125654/https://dl.hdslb.com/mobile/fixed/bili_win/bili_win-install.exe";
     hash = "sha256-m0SKH4PPAb/Fi1jcc6pEHMmVBesNQidD4H4pD4jaDnE=";
   };
@@ -86,6 +83,15 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm run build
 
     mkdir -p tmp/bili
+
+    # Keep parity with tools/update-bilibili version validation.
+    BILIBILI_VERSION="$(exiftool -S -ProductVersionNumber "${finalAttrs.bilibiliInstaller}" | sed 's/.*: //')"
+    CONF_VERSION="$(cat conf/bilibili_version)"
+    if [ "$BILIBILI_VERSION" != "$CONF_VERSION" ]; then
+      echo "bilibili installer version mismatch: $BILIBILI_VERSION != $CONF_VERSION" >&2
+      exit 1
+    fi
+
     7z x -y "${finalAttrs.bilibiliInstaller}" -otmp/bili '$PLUGINSDIR/app-64.7z'
     7z x -y tmp/bili/\$PLUGINSDIR/app-64.7z -otmp/bili resources
 
