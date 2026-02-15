@@ -7,7 +7,10 @@
   SDL2,
   libglvnd,
   libxext,
-  xorg,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXi,
 
   pkg-config,
 }:
@@ -28,10 +31,10 @@ stdenv.mkDerivation {
     SDL2
     libglvnd
     libxext
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXrandr
-    xorg.libXi
+    libX11
+    libXcursor
+    libXrandr
+    libXi
   ];
 
   installPhase = "make PREFIX=$out install";

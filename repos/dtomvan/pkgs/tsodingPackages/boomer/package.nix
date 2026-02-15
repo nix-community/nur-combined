@@ -7,7 +7,8 @@
   autoPatchelfHook,
   nim-1_0,
   libGL,
-  xorg,
+  libX11,
+  libXrandr,
 }:
 buildNimPackage (finalAttrs: {
   pname = "boomer";
@@ -23,8 +24,8 @@ buildNimPackage (finalAttrs: {
   lockFile = ./lock.json;
 
   buildInputs = [
-    xorg.libX11
-    xorg.libXrandr
+    libX11
+    libXrandr
     libGL
   ];
 
