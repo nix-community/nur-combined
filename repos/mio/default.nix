@@ -174,6 +174,7 @@ let
         nix-output-monitor
         musescore-evolution
         darling
+        wireguird
         ;
     };
   };
