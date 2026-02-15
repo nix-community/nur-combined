@@ -25,7 +25,7 @@ release_json=$(curl -sL "https://api.github.com/repos/INKCR0W/sparkle/releases/t
     arch=${archMap[$sys]}
 
     url=$(echo "$release_json" |
-      jq -r --arg arch "$arch" '.assets[] | select(.name | test($arch) and (test(".sha256") | not)) | .browser_download_url' |
+      jq -r --arg arch "$arch" '.assets[] | select(.name | test("^sparkle-linux-.*"+$arch+".deb$")) | .browser_download_url' |
       head -n 1)
 
     if [[ -z $url ]]; then
