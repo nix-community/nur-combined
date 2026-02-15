@@ -254,13 +254,13 @@
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/xia8nl7234fkqaldmdbi3fihi71qbwqw-niri-patched-src.tar.gz";
+    version = "/nix/store/ngaphh7i36rc37pzgfzgqvcsi0c1fsw5-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/xia8nl7234fkqaldmdbi3fihi71qbwqw-niri-patched-src.tar.gz";
-      sha256 = "sha256-5MwVTlYAjlNHmSqAHtwm+yPvn2lRuaRrJPzT4Sm7Sd8=";
+      url = "file:///nix/store/ngaphh7i36rc37pzgfzgqvcsi0c1fsw5-niri-patched-src.tar.gz";
+      sha256 = "sha256-3z5SA5XnWRrO7cpI72euASOip6f5GxFgffRLa6vRNiY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-5MwVTlYAjlNHmSqAHtwm+yPvn2lRuaRrJPzT4Sm7Sd8=/Cargo.lock";
+      lockFile = ./. + "/sha256-3z5SA5XnWRrO7cpI72euASOip6f5GxFgffRLa6vRNiY=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -281,18 +281,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202602132226";
+    version = "202602142217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602132226/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602142217/geoip.dat";
       sha256 = "sha256-LU+b02onQ+VdfFdPB1E0RKtwb1bMmU6fN9J75PcxOHo=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202602132226";
+    version = "202602142217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602132226/geosite.dat";
-      sha256 = "sha256-X63r8thbwRUGZrVOQnW7wmECgueegor+vUM3Hz8dxwQ=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602142217/geosite.dat";
+      sha256 = "sha256-CN/RKBMbVZ4oGyDGcWoczyT52Q6HfsJkOZPI97rZLUw=";
     };
   };
 }
