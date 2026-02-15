@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.2
 
       - uses: DeterminateSystems/nix-installer-action@v21
         with:
@@ -33,7 +33,7 @@ jobs:
         run: ./update.py --commit
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v8.0.0
+        uses: peter-evans/create-pull-request@v8.1.0
         with:
           token: ${{ secrets.GH_TOKEN }}
           branch: "update-shadow-channels"
