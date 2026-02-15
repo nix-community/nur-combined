@@ -137,6 +137,8 @@ Look for one `service=plugin path=file:///nix/store/...` line per plugin.
 - `dynamic-context-pruning`: prompt generation + `tsc` compile.
 - `notifier`: upstream build script (`bun run build`).
 - `morph-fast-apply`: direct bun build + main rewrite.
+- `unmoji`: `fetchFromCodeberg` + direct
+  `bun build src/index.ts --outdir dist --target node --format esm`.
 
 ## Consumer Config Pattern
 
