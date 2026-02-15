@@ -12,19 +12,19 @@
 stdenvNoCC.mkDerivation (finalAttrs: {
 
   pname = "typewords";
-  version = "0-unstable-2026-01-20";
+  version = "0-unstable-2026-02-13";
 
   src = fetchFromGitHub {
     owner = "zyronon";
     repo = "TypeWords";
-    rev = "6ef09b97d4072f434c0bf93d8b98342e1db7483d";
-    hash = "sha256-PEq+ChSQL+1+aKlNJNVuxntPAWoR5QdB0pHhBMtoaa0=";
+    rev = "62102fe266d0ae62e14881a4dde699a63ac3832c";
+    hash = "sha256-fnF0m4A0XM+C8urTG+6AZHtZZd7OKtjZOrEGLuhj1N4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-upWupATuY/IgRWblKtjLiF3Qi2qiS63gT5lldeUzrTc=";
+    hash = "sha256-oWARflsuQ0SRn5GFDyl1yrSBla3R8fvQe/WFbtykNck=";
   };
 
   nativeBuildInputs = [
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    cp -r .output $out
+    cp -r dist $out
 
     runHook postInstall
   '';

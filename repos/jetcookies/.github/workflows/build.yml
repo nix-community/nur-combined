@@ -1,20 +1,18 @@
 name: "Build and populate cache"
 on:
-  pull_request:
   push:
     branches:
       - main
-      - develop
     paths-ignore:
       - '**/README.md'
   schedule:
-    # rebuild everyday at 2:51
+    # rebuild everyday at 3:25
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '25 3 * * *'
   workflow_dispatch:
 jobs:
-  tests:
+  build:
     strategy:
       matrix:
         # Set this to notify the global nur package registry that changes are
@@ -23,7 +21,7 @@ jobs:
         # The repo name as used in
         # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
-          - <YOUR_REPO_NAME>
+          - jetcookies
         # Set this to cache your build results in cachix for faster builds
         # in CI and for everyone who uses your cache.
         #
