@@ -175,6 +175,7 @@ let
         musescore-evolution
         darling
         wireguird
+        supertuxkart-evolution
         ;
     };
   };

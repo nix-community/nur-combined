@@ -47,17 +47,17 @@ let
     "mojoal"
   ];
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
 
   pname = "supertuxkart-evolution";
-  version = "1.5-evolution-2025-12-05";
+  version = "1.5-evolution-2026-01-16";
 
   src = fetchFromGitHub {
     owner = "supertuxkart";
     repo = "stk-code";
     # BalanceSTK2 branch commit
-    rev = "26ebd89a985a8bcd41da7cd005524ea1a180ba42";
-    sha256 = "0s8bc8fkgr9bgrykkwfrxrpa26bq9751d0vdy2x2hfpz8h78mrpv";
+    rev = "0c4675c76da23fea3f533667ad5877c258d1954a";
+    hash = "sha256-KoHhvFXmR28RdTumUI9E0hvOV8WHKQ8S8Y9EhHX3/Zc=";
   };
 
   postPatch = ''
