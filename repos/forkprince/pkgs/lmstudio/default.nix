@@ -2,7 +2,7 @@
   stdenvNoCC,
   lmstudio,
   fetchurl,
-  _7zz,
+  undmg,
   lib,
   ...
 }:
@@ -18,7 +18,7 @@ in
 
     inherit version src;
 
-    nativeBuildInputs = [_7zz];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 
