@@ -29,21 +29,14 @@ in
     # Took that approach from https://github.com/NixOS/nixpkgs/blob/a3c6ed7ad2649c1a55ffd94f7747e3176053b833/pkgs/by-name/in/insomnia/package.nix#L52
     # and https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/by-name/lm/lmstudio/darwin.nix
     unpackCmd = ''
-      echo "Creating temp directory"
       mnt=$(TMPDIR=/tmp mktemp -d -t nix-XXXXXXXXXX)
       function finish {
-        echo "Ejecting temp directory"
         /usr/bin/hdiutil detach $mnt -force
         rm -rf $mnt
       }
-      # Detach volume when receiving SIG "0"
       trap finish EXIT
-      # Mount DMG file
-      echo "Mounting DMG file into \"$mnt\""
-      /usr/bin/hdiutil attach -nobrowse -mountpoint $mnt $curSrc
-      # Copy content to local dir for later use
-      echo 'Copying extracted content into "sourceRoot"'
-      cp -a $mnt/LM\ Studio.app $PWD/
+      /usr/bin/hdiutil attach -nobrowse -mountpoint "$mnt" "$curSrc"
+      cp -a "$mnt"/LM\ Studio.app "$PWD/"
     '';
 
     installPhase = ''
@@ -54,7 +47,11 @@ in
     '';
 
     postInstall = ''
-      sed -i 's|_0x345c2d && !_0x44174f\.startsWith(_0x4ce401(0x1185)) && \(|false && (|g' "$out/Applications/LM Studio.app/Contents/Resources/app/.webpack/main/index.js"
+      # Patch to allow running from non-/Applications location on macOS
+      # This modifies the check that prevents LM Studio from running outside /Applications
+      # The minified code uses: _0x345c2d&&!_0x44174f['startsWith'](_0x4ce401(0x1185))&&
+      substituteInPlace "$out/Applications/LM Studio.app/Contents/Resources/app/.webpack/main/index.js" \
+        --replace "_0x345c2d&&!_0x44174f['startsWith'](_0x4ce401(0x1185))&&" "false&&"
     '';
 
     meta = {
