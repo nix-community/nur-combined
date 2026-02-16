@@ -14,13 +14,8 @@
     };
 
     clj-nix.url = "github:jlesquembre/clj-nix";
-
-    stardrop = {
-      url = "github:SZanko/Stardrop/nix-packaging";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2311, nixpkgs-2411, nixpkgs-2505, nixpkgs-2511, pnpm2nix-nzbr, clj-nix, stardrop }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2311, nixpkgs-2411, nixpkgs-2505, nixpkgs-2511, pnpm2nix-nzbr, clj-nix, ... }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in
@@ -42,8 +37,6 @@
         in
           import ./default.nix {
             inherit pkgs pkgs2311 pkgs2411 pkgs2505 pkgs2511 pkgsUnstable;
-            stardropPkgs = stardrop.packages.${system};
-
             cljNix = clj-nix;
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
