@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dectalk";
     repo = "dectalk";
-    rev = lib.removePrefix "0-unstable-" finalAttrs.version;
+    rev = "cde003e85ea60ffa355c8adcdd35e01132b851d6";
     hash = "sha256-lpXiub6kE49t9kWG0tBqjG4uqWtG/m1/K9L2VjOA2Vk=";
   };
 
@@ -32,7 +32,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ./fix-fhs.patch
   ];
 
-  patchFlags = [ "-p1" "-d" ".." ];
+  patchFlags = [
+    "-p1"
+    "-d"
+    ".."
+  ];
 
   postPatch = ''
     sed -i configure.ac -e '/m4_esyscmd_s/c\\t${finalAttrs.version},'
@@ -91,7 +95,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    changelog = "https://github.com/dectalk/dectalk/releases/tag/${lib.removePrefix "0-unstable-" finalAttrs.version}";
     description = "Modern builds for the 90s/00s DECtalk text-to-speech application";
     homepage = "https://github.com/dectalk/dectalk";
     license = lib.licenses.unfree;

@@ -30,6 +30,6 @@ jobs:
     - name: Update flake packages
       uses: gepbird/nix-update-action@v2.1.1
       with:
-        blacklist: "pico-fido,typewords"
+        blacklist: "dectalk,pico-fido,picoforge,typewords"
     - name: Print PR number
       run: echo Pull request number is ${{ steps.update.outputs.pull-request-number }}.
