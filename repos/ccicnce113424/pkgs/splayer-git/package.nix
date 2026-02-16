@@ -91,12 +91,12 @@ stdenv.mkDerivation (finalAttrs: {
     for f in $(find . -path '*/node_modules/better-sqlite3' -type d); do
       (cd "$f" && (
       npm run build-release --offline --nodedir="${electron.headers}"
+      rm -rf build/Release/{.deps,obj,obj.target,test_extension.node}
       find build -type f -exec \
         ${lib.getExe removeReferencesTo} \
         -t "${electron.headers}" {} \;
       ))
     done
-    rm -rf build/Release/{.deps,obj,obj.target,test_extension.node}
 
     pnpm build
 
