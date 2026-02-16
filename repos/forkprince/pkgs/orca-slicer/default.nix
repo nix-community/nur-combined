@@ -9,9 +9,9 @@
 if stdenvNoCC.isDarwin
 then let
   ver = lib.helper.read ./version.json;
-  platform = stdenvNoCC.hostPlatform.system;
 
-  src = fetchurl (lib.helper.getPlatform platform ver);
+  src = fetchurl (lib.helper.getSingle ver);
+
   inherit (ver) version;
 in
   stdenvNoCC.mkDerivation {
