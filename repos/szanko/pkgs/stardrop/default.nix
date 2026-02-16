@@ -76,7 +76,7 @@ buildDotnetModule (finalAttrs: {
     description = "Stardrop is an open-source, cross-platform mod manager for the game Stardew Valley";
     homepage = "https://github.com/Floogen/Stardrop";
     license = lib.licenses.gpl3Only;
-    mainProgram = "stardrop";
+    mainProgram = "Stardrop";
     maintainers =
       let m = lib.maintainers or {};
       in lib.optionals (m ? szanko) [ m.szanko ];
