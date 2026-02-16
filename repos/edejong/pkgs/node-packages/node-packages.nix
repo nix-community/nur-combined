@@ -26,7 +26,7 @@ in
     meta = {
       description = "A meta-prompting, context engineering and spec-driven development system for Claude Code, OpenCode and Gemini by TÂCHES.";
       homepage = "https://github.com/glittercowboy/get-shit-done";
-      license = "MIT";
+      license = lib.licenses.mit;
       mainProgram = "get-shit-done-cc";
     };
     production = true;
