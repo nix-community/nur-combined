@@ -7,6 +7,7 @@
   rustPlatform,
   aflplusplus,
   makeWrapper,
+  rustc,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -60,6 +61,6 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
     # Code base uses let chains, which requires rust 1.88
-    broken = !versionAtLeast rustPlatform.rust.rustc.version "1.88";
+    broken = !lib.versionAtLeast rustc.version "1.88";
   };
 }

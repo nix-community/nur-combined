@@ -97,23 +97,19 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  installPhase =
-    let
-      libExt = if stdenv.isDarwin then "dylib" else "so";
-    in
-    ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out/bin
+    mkdir -p $out/bin
 
-      cp "target/release/ddc" $out/bin/
+    cp "target/release/ddc" $out/bin/
 
-      ${lib.strings.concatMapStringsSep "\n" (
-        cell: "cp \"target/release/ddc-cell-${cell}\" $out/bin/"
-      ) cells}
+    ${lib.strings.concatMapStringsSep "\n" (
+      cell: "cp \"target/release/ddc-cell-${cell}\" $out/bin/"
+    ) cells}
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = {
     description = "A salsa-infused static site generator ";
