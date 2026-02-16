@@ -62,6 +62,58 @@
   {
     handle = [
       {
+        handler = "subroute";
+        routes = [
+          {
+            handle = [
+              {
+                handler = "headers";
+                response = {
+                  set = {
+                    Access-Control-Allow-Origin = [ "https://blog.nyaw.xyz" ];
+                  };
+                };
+              }
+              {
+                handler = "headers";
+                response = {
+                  set = {
+                    Access-Control-Allow-Credentials = [ "true" ];
+                  };
+                };
+              }
+            ];
+            match = [
+              {
+                header = {
+                  Origin = [ "https://blog.nyaw.xyz" ];
+                };
+              }
+            ];
+          }
+          {
+            handle = [
+              {
+                handler = "reverse_proxy";
+                upstreams = [
+                  { dial = "[fdcc::1]:3010"; }
+                ];
+              }
+            ];
+          }
+        ];
+      }
+    ];
+    match = [
+      {
+        host = [ "heartrate.nyaw.xyz" ];
+      }
+    ];
+    terminal = true;
+  }
+  {
+    handle = [
+      {
         handler = "authentication";
         providers.http_basic.accounts = [
           {

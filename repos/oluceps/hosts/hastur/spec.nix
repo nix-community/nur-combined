@@ -92,6 +92,7 @@
   services = {
     userborn.enable = true;
 
+    blueman.enable = true;
     syncthing = {
       enable = true;
       openDefaultPorts = true;

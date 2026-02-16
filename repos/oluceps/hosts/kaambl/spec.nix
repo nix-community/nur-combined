@@ -108,7 +108,7 @@
       inherit user;
       openDefaultPorts = true;
     };
-    # sing-box.enable = true;
+    sing-box.enable = true;
     snapy.instances = [
       {
         name = "persist";
@@ -187,7 +187,7 @@
     };
 
     gvfs.enable = false;
-    # blueman.enable = true;
+    blueman.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;

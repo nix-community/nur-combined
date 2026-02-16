@@ -30,7 +30,7 @@
   environment.systemPackages = [
     pkgs.show-current-ws
     pkgs.rbw
-    pkgs.shpool-mux
+    # pkgs.shpool-mux
   ];
   environment.sessionVariables = {
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/rbw/ssh-agent-socket";
