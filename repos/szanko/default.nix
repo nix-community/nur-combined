@@ -69,5 +69,5 @@ pkgs ? import <nixpkgs> { }
   hugomods-icons = pkgs.callPackage ./pkgs/hugomods/icons { };
  
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  stardrop = if stardropPkgs != null then stardropPkgs.default else null;
+  stardrop = pkgs.callPackage ./pkgs/stardrop {};
 }
