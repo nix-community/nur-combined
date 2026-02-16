@@ -67,11 +67,6 @@ let
         kiconthemes
         ;
     };
-    plasma-workspace = kprev.plasma-workspace.overrideAttrs (oldAttrs: {
-      patches = (oldAttrs.patches or [ ]) ++ [
-        (prev.replaceVars ./plasma-workspace/krdb.patch { xrdb = prev.lib.getExe prev.xrdb; })
-      ];
-    });
   };
   lib-overlay = import ./lib-overlay final prev;
   rimePackages = callPackage ./rime-packages {
