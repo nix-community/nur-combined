@@ -45,13 +45,13 @@ class VersionManager:
             print(e)
             return
 
-        # we only want versions that are no pre-releases
+        # we only want versions that are not pre-releases
         release_versions = filter(
-            lambda v_name: 'pre' not in v_name, response.json()["versions"])
+            lambda v_name: ('pre' not in v_name and 'rc' not in v_name), response.json()["versions"])
 
         for version_name in release_versions:
 
-            # split version string, convert to list ot int
+            # split version string, convert to list to int
             version_split = version_name.split(".")
             version_split = list(map(int, version_split))
 
@@ -147,6 +147,9 @@ if __name__ == '__main__':
     version_manager = VersionManager()
 
     version_manager.fetch_versions()
+    print(f"Fetched {len(version_manager.versions)} versions")
     version_manager.fetch_latest_version_builds()
+    print("Fetched latest build numbers for all versions")
     version_manager.generate_version_hashes()
+    print("Generated hashes for all versions")
     version_manager.write_versions()
