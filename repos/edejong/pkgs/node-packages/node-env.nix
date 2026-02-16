@@ -556,9 +556,7 @@ let
 
         inherit nodejs;
 
-        inherit
-          dontStrip
-          ; # Stripping may fail a build for some package deployments
+        inherit dontStrip; # Stripping may fail a build for some package deployments
         inherit
           dontNpmInstall
           preRebuild
@@ -678,9 +676,7 @@ let
         ++ lib.optional (stdenv.isDarwin) libtool
         ++ buildInputs;
 
-        inherit
-          dontStrip
-          ; # Stripping may fail a build for some package deployments
+        inherit dontStrip; # Stripping may fail a build for some package deployments
         inherit dontNpmInstall unpackPhase buildPhase;
 
         includeScript = includeDependencies { inherit dependencies; };
