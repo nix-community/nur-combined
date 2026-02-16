@@ -4,7 +4,7 @@
 }:
 
 buildGoModule (finalAttrs: {
-  pname = "i18n-js";
+  pname = "hugomods-i18n-js";
   version = "0.2.1";
 
   src = fetchFromGitHub {
