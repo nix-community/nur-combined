@@ -54,7 +54,7 @@ in
     '';
 
     postInstall = ''
-      sed -i 's|_0x345c2d && !_0x44174f\.startsWith(_0x4ce401(0x1185)) && \(|false && \(|g' "$out/Applications/LM Studio.app/Contents/Resources/app/.webpack/main/index.js"
+      sed -i 's|_0x345c2d && !_0x44174f\.startsWith(_0x4ce401(0x1185)) && \(|false && (|g' "$out/Applications/LM Studio.app/Contents/Resources/app/.webpack/main/index.js"
     '';
 
     meta = {
