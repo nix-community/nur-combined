@@ -52,6 +52,8 @@ pkgs ? import <nixpkgs> { }
 
   pypush = pkgs.callPackage ./pkgs/pypush { };
 
+  gloriousctl = pkgs.callPackage ./pkgs/gloriousctl { };
+
   anisette-v3-server = pkgs.callPackage ./pkgs/anisette-v3-server { };
   #go-haystack = pkgs.callPackage ./pkgs/go-haystack { };
 
