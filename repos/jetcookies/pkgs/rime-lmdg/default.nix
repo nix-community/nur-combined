@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-  unstableGitUpdater,
+  gitUpdater,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rime-lmdg";
@@ -24,10 +24,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "github:jetcookies/RIME-LMDG-tracker";
-    branch = "master";
-    hardcodeZeroVersion = true;
+  passthru.updateScript = gitUpdater {
+    url = "https://github.com/jetcookies/RIME-LMDG-tracker.git";
   };
 
   meta = {
