@@ -1,4 +1,6 @@
 # NOTE: On MacOS this package requires bun ~1.3.9
+# I've added bun 1.3.9 to solve this problem for everyone.
+# Once 1.3.9 is in stable nixpkgs, we can remove that package.
 {
   lib,
   stdenvNoCC,
@@ -14,13 +16,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kilo";
-  version = "1.0.20";
+  version = "1.0.21";
 
   src = fetchFromGitHub {
     owner = "Kilo-Org";
     repo = "kilo";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tbu4GxARhmu0N8/bluGROzCvR/QZ+XhzXnEL0Bs6HP8=";
+    hash = "sha256-ep59osWVI685jHd0c1jw/toCDFwJYe5XeQ8AuOZ9UDI=";
   };
 
   node_modules = stdenvNoCC.mkDerivation {
@@ -102,10 +104,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postConfigure
   '';
 
-  env.MODELS_DEV_API_JSON = "${models-dev}/dist/_api.json";
-  env.OPENCODE_DISABLE_MODELS_FETCH = true;
-  env.KILO_VERSION = finalAttrs.version;
-  env.KILO_CHANNEL = "local";
+  env = {
+    MODELS_DEV_API_JSON = "${models-dev}/dist/_api.json";
+    OPENCODE_DISABLE_MODELS_FETCH = true;
+    KILO_VERSION = finalAttrs.version;
+    KILO_CHANNEL = "local";
+  };
 
   buildPhase = ''
     runHook preBuild

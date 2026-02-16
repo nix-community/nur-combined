@@ -72,8 +72,8 @@ jobs:
             nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - os: ubuntu-latest
             nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
-          # - os: macos-latest
-          #   nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - os: macos-latest
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - os: macos-latest
             nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-25.11-darwin.tar.gz
 
@@ -87,7 +87,7 @@ jobs:
 
       - name: Maximize Space
         if: runner.os == 'Linux'
-        uses: wimpysworld/nothing-but-nix@main
+        uses: wimpysworld/nothing-but-nix@v10
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31

@@ -17,7 +17,10 @@
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   equicord = lib.callPackage ./pkgs/equicord {};
   hytale = lib.callPackage ./pkgs/hytale {};
-  kilo = lib.callPackage ./pkgs/kilo {};
+
+  kilo = lib.callPackage ./pkgs/kilo {
+    inherit bun;
+  };
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
@@ -59,6 +62,9 @@
   micro = lib.callPackage ./pkgs/micro {};
   steam = lib.callPackage ./pkgs/steam {};
   gimp = lib.callPackage ./pkgs/gimp {};
+
+  # NOTE: This is a temporary fix for kilo
+  bun = lib.callPackage ./pkgs/bun {};
 
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
   waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
