@@ -124,26 +124,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.13";
+    version = "2026.02.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.13/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-sxy505prse+l8xQKvlgpuVJNY1sWeko0UHjXgGHHWX4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.16/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-QbxiMYElwoUfUqKDDyBtGPsFVUqkmvme7vftZHJlnCY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.13";
+    version = "2026.02.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.13/GeoLite2-City.mmdb";
-      sha256 = "sha256-FnvfGHH8b0506muEvlDXjgNKruorWeMXEbquGdZoH6Q=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.16/GeoLite2-City.mmdb";
+      sha256 = "sha256-focZgNDBjgFRS5SeA0/rAe6azRMLdUMdf7kP1CedYqc=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.13";
+    version = "2026.02.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.13/GeoLite2-Country.mmdb";
-      sha256 = "sha256-HPgvCc4IpuFg10JvxZ/WwS1WZQ50CMgyFysuubYs8o0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.16/GeoLite2-Country.mmdb";
+      sha256 = "sha256-mFtvdNbT/b/YRjRZiAXtq5UiAlVrnN9JaqfnK8HZnXs=";
     };
   };
   git-mcp-server = {
@@ -254,13 +254,13 @@
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/ngaphh7i36rc37pzgfzgqvcsi0c1fsw5-niri-patched-src.tar.gz";
+    version = "/nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/ngaphh7i36rc37pzgfzgqvcsi0c1fsw5-niri-patched-src.tar.gz";
-      sha256 = "sha256-3z5SA5XnWRrO7cpI72euASOip6f5GxFgffRLa6vRNiY=";
+      url = "file:///nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz";
+      sha256 = "sha256-YUIbUEQmA3u0L1gPkZ2vns3oXYOzrt1EiIbUvIhpW5c=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-3z5SA5XnWRrO7cpI72euASOip6f5GxFgffRLa6vRNiY=/Cargo.lock";
+      lockFile = ./. + "/sha256-YUIbUEQmA3u0L1gPkZ2vns3oXYOzrt1EiIbUvIhpW5c=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -281,18 +281,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202602142217";
+    version = "202602152218";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602142217/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602152218/geoip.dat";
       sha256 = "sha256-LU+b02onQ+VdfFdPB1E0RKtwb1bMmU6fN9J75PcxOHo=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202602142217";
+    version = "202602152218";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602142217/geosite.dat";
-      sha256 = "sha256-CN/RKBMbVZ4oGyDGcWoczyT52Q6HfsJkOZPI97rZLUw=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602152218/geosite.dat";
+      sha256 = "sha256-OC2gGod+6eGe3quaI57WKpkg7x6rG/CioGs80hz86uw=";
     };
   };
 }
