@@ -7,5 +7,10 @@
   },
   "version": "2026-02-16",
   "hash": "sha256-YSTLO2DtUWNfTpUMjtFjVOAt8jOnAxZnfZFFFXe7Fkg=",
-  "pnpmHash": "sha256-um8CmR4H+sck6sOpIpnISPhYn/rvXNfSn6i/EgQFvk0="
+  "pnpmHash": {
+    "x86_64-linux": "sha256-um8CmR4H+sck6sOpIpnISPhYn/rvXNfSn6i/EgQFvk0=",
+    "aarch64-linux": "sha256-um8CmR4H+sck6sOpIpnISPhYn/rvXNfSn6i/EgQFvk0=",
+    "aarch64-darwin": "sha256-UWsJmC0JCjGZTA9I4KjX94gE+jBPcbHbCXiy8Bs9Gcw=",
+    "x86_64-darwin": "sha256-UWsJmC0JCjGZTA9I4KjX94gE+jBPcbHbCXiy8Bs9Gcw="
+  }
 }

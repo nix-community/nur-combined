@@ -95,6 +95,6 @@ switch (config.source.type) {
   }
 }
 
-const updated = require(resolved);
+// const updated = require(resolved);
 
-await extra(resolved, { config: updated });
+// await extra(resolved, { config: updated });
