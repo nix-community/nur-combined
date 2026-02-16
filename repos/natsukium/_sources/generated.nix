@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "7ee44aac9d2886e09a7252a11b02849601e0bc0c";
+    version = "6a10c434aae45c34737a5d31e934e8e0ec857a2e";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "7ee44aac9d2886e09a7252a11b02849601e0bc0c";
+      rev = "6a10c434aae45c34737a5d31e934e8e0ec857a2e";
       fetchSubmodules = false;
-      sha256 = "sha256-9v0a7d54H9PWQr6Dhj3pr6Jhqog31N3ufFD22qtJRAk=";
+      sha256 = "sha256-bGh+xXvpms+wwHRSoBNjP1aHpNp/z0v5uBtjv+lJxXM=";
     };
-    date = "2026-02-15";
+    date = "2026-02-16";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -100,15 +100,15 @@
   };
   skills-ref = {
     pname = "skills-ref";
-    version = "e81550daf13536f22cc9712118e14070f524449d";
+    version = "59b5290e1097956a87a6174570729df330c6595a";
     src = fetchFromGitHub {
       owner = "agentskills";
       repo = "agentskills";
-      rev = "e81550daf13536f22cc9712118e14070f524449d";
+      rev = "59b5290e1097956a87a6174570729df330c6595a";
       fetchSubmodules = false;
-      sha256 = "sha256-DoqTLslAzPGSXTMemU7hyRYEGU8xLn8PYQXnqd071o4=";
+      sha256 = "sha256-C1FEzIy4FA2zSDuos8SXfzhnqgcclhVic9b/hnYywlY=";
     };
-    date = "2026-02-06";
+    date = "2026-02-16";
   };
   skkeleton = {
     pname = "skkeleton";
@@ -132,10 +132,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.18.7b";
+    version = "1.18.8b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.18.7b/zen.macos-universal.dmg";
-      sha256 = "sha256-84ZC6UEJnM1bG0WJDf4/XO7ruGUqAnCEsRNDed18MaQ=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.18.8b/zen.macos-universal.dmg";
+      sha256 = "sha256-HFiEuDtGyftlMDo/3n9p0nD3xUfcTPC/9GDBEBxTHMU=";
     };
   };
 }
