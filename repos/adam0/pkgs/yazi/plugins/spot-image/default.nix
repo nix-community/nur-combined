@@ -5,7 +5,7 @@
 }:
 mkYaziPlugin rec {
   pname = "spot-image.yazi";
-  version = "unstable-2026-02-15";
+  version = "unstable-2026-02-13";
 
   src = fetchFromGitHub {
     owner = "AminurAlam";
