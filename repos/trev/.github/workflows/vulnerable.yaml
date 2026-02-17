@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: spotdemo4/nix-init@956a5db88619ed000a8bedc5e863353e11848021 # v1.29.0
+        uses: spotdemo4/nix-init@404b7e941df54f8cde2a4efb20c2affa819af909 # v1.30.0
         with:
           shell: vulnerable
 
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: spotdemo4/nix-init@956a5db88619ed000a8bedc5e863353e11848021 # v1.29.0
+        uses: spotdemo4/nix-init@404b7e941df54f8cde2a4efb20c2affa819af909 # v1.30.0
         with:
           shell: vulnerable
 
