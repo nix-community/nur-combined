@@ -56,6 +56,10 @@ stdenv.mkDerivation {
       substituteInPlace src/proxy/server.ts \
         --replace-fail 'fetch: app.fetch' 'fetch: app.fetch, idleTimeout: 255'
 
+      # Conform to the official Anthropic API, which defaults to non-streaming
+      substituteInPlace src/proxy/server.ts \
+        --replace-fail 'body.stream ?? true' 'body.stream ?? false'
+
       # The SDK spawns `bun cli.js` (or `node cli.js`), so pathToClaudeCodeExecutable
       # must point to the actual cli.js, not a shell wrapper. On NixOS, `which claude`
       # returns a bash wrapper. We resolve through symlinks to find cli.js.
