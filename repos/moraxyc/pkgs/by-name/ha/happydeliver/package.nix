@@ -13,7 +13,10 @@
 buildGoModule (finalAttrs: {
   inherit (source) pname version src;
 
-  patches = [ ./0001-fix-analyzer-remove-hostname-filtering-for-Authentic.patch ];
+  patches = [
+    ./0001-fix-analyzer-remove-hostname-filtering-for-Authentic.patch
+    ./0002-fix-analyzer-extract-DKIM-selector-from-DKIM-Signatu.patch
+  ];
 
   # nix-update auto
   vendorHash = "sha256-qt5858cYOxrvl7RHybcf0O+R9YqqXSIW5DKvTtmssSI=";

@@ -1,0 +1,136 @@
+From ca461c9d818f16c52923f4bb7e2845ed6d888007 Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Tue, 17 Feb 2026 15:00:32 +0800
+Subject: [PATCH 2/2] fix(analyzer): extract DKIM selector from DKIM-Signature
+ when missing in Auth-Results
+
+When the Authentication-Results header does not contain the selector (s= tag), the DNS analyzer skips DKIM verification, leading to 'No DKIM signatures found'. This change parses the raw DKIM-Signature headers to find the selector and enriches the authentication results, ensuring DKIM records can be looked up and verified.
+---
+ pkg/analyzer/authentication.go           |  2 ++
+ pkg/analyzer/authentication_dkim.go      | 46 ++++++++++++++++++++++++
+ pkg/analyzer/authentication_dkim_test.go | 38 ++++++++++++++++++++
+ 3 files changed, 86 insertions(+)
+
+diff --git a/pkg/analyzer/authentication.go b/pkg/analyzer/authentication.go
+index 07f7794..9644b92 100644
+--- a/pkg/analyzer/authentication.go
++++ b/pkg/analyzer/authentication.go
+@@ -45,6 +45,8 @@ func (a *AuthenticationAnalyzer) AnalyzeAuthentication(email *EmailMessage) *api
+ 		a.parseAuthenticationResultsHeader(header, results)
+ 	}
+ 
++	a.enrichDKIMResults(email, results)
++
+ 	// If no Authentication-Results headers, try to parse legacy headers
+ 	if results.Spf == nil {
+ 		results.Spf = a.parseLegacySPF(email)
+diff --git a/pkg/analyzer/authentication_dkim.go b/pkg/analyzer/authentication_dkim.go
+index b6cf5f8..26d7ef0 100644
+--- a/pkg/analyzer/authentication_dkim.go
++++ b/pkg/analyzer/authentication_dkim.go
+@@ -84,3 +84,49 @@ func (a *AuthenticationAnalyzer) calculateDKIMScore(results *api.AuthenticationR
+ 
+ 	return 0
+ }
++
++func (a *AuthenticationAnalyzer) enrichDKIMResults(email *EmailMessage, results *api.AuthenticationResults) {
++	if results.Dkim == nil || len(*results.Dkim) == 0 {
++		return
++	}
++
++	signatures := email.Header["Dkim-Signature"]
++	if len(signatures) == 0 {
++		return
++	}
++
++	domainSelectors := make(map[string]string)
++
++	reDomain := regexp.MustCompile(`(?:^|[;\s])d\s*=\s*([^;\s]+)`)
++	reSelector := regexp.MustCompile(`(?:^|[;\s])s\s*=\s*([^;\s]+)`)
++
++	for _, sig := range signatures {
++		normSig := strings.ReplaceAll(sig, "\r\n", "")
++		normSig = strings.ReplaceAll(normSig, "\n", "")
++		normSig = strings.TrimSpace(normSig)
++
++		dMatches := reDomain.FindStringSubmatch(normSig)
++		if len(dMatches) < 2 {
++			continue
++		}
++		domain := strings.TrimSpace(dMatches[1])
++
++		sMatches := reSelector.FindStringSubmatch(normSig)
++		if len(sMatches) < 2 {
++			continue
++		}
++		selector := strings.TrimSpace(sMatches[1])
++
++		domainSelectors[domain] = selector
++	}
++
++	for i := range *results.Dkim {
++		dkim := &(*results.Dkim)[i]
++		if dkim.Selector == nil && dkim.Domain != nil {
++			if selector, ok := domainSelectors[*dkim.Domain]; ok {
++				sel := selector
++				dkim.Selector = &sel
++			}
++		}
++	}
++}
+diff --git a/pkg/analyzer/authentication_dkim_test.go b/pkg/analyzer/authentication_dkim_test.go
+index 2aab530..e44155d 100644
+--- a/pkg/analyzer/authentication_dkim_test.go
++++ b/pkg/analyzer/authentication_dkim_test.go
+@@ -22,6 +22,7 @@
+ package analyzer
+ 
+ import (
++	"strings"
+ 	"testing"
+ 
+ 	"git.happydns.org/happyDeliver/internal/api"
+@@ -84,3 +85,40 @@ func TestParseDKIMResult(t *testing.T) {
+ 		})
+ 	}
+ }
++
++func TestEnrichDKIMResults(t *testing.T) {
++	rawEmail := `From: sender@example.com
++To: recipient@example.com
++Subject: Test Email
++Authentication-Results: mail.example.com; dkim=pass header.d=example.com
++Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=example.com; s=default;
++	t=1615984443; bh=...; h=From:To:Subject:Date;
++	b=...
++
++Body content.
++`
++
++	email, err := ParseEmail(strings.NewReader(rawEmail))
++	if err != nil {
++		t.Fatalf("Failed to parse email: %v", err)
++	}
++
++	analyzer := NewAuthenticationAnalyzer()
++	results := analyzer.AnalyzeAuthentication(email)
++
++	if results.Dkim == nil || len(*results.Dkim) == 0 {
++		t.Fatal("Expected DKIM results, got none")
++	}
++
++	dkim := (*results.Dkim)[0]
++
++	if dkim.Domain == nil || *dkim.Domain != "example.com" {
++		t.Errorf("Expected domain example.com, got %v", dkim.Domain)
++	}
++
++	if dkim.Selector == nil {
++		t.Fatal("Expected selector to be populated, got nil")
++	} else if *dkim.Selector != "default" {
++		t.Errorf("Expected selector 'default', got '%s'", *dkim.Selector)
++	}
++}
+-- 
+2.52.0
+
