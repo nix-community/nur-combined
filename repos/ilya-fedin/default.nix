@@ -13,7 +13,7 @@ in with pkgs; rec {
 
   exo2 = runCommand "exo2" { nativeBuildInputs = [ pkgs.python3Packages.fonttools ]; } ''
     cp -r --no-preserve=mode ${google-fonts.override { fonts = [ "Exo2" ]; }} $out
-    find $out -name '*.ttf' -exec python -c "import sys; from fontTools.ttLib import TTFont; from fontTools.ttLib.tables.otTables import GlyphClassDef; f = TTFont(sys.argv[1]); f['GDEF'].table.GlyphClassDef.classDefs[f.getBestCmap()[0x60]] = 1; f.save(sys.argv[1])" {} \;
+    find $out -name '*.ttf' -exec python -c "import sys; from fontTools.ttLib import TTFont; f = TTFont(sys.argv[1]); g = f.getBestCmap()[0x60]; f['GDEF'].table.GlyphClassDef.classDefs[g] = 1; [s.MarkCoverage.glyphs.remove(g) for l in f['GPOS'].table.LookupList.Lookup for s in l.SubTable if hasattr(s, 'MarkCoverage') and g in s.MarkCoverage.glyphs]; f.save(sys.argv[1])" {} \;
   '';
 
   hplipWithPlugin = if stdenv.hostPlatform.isLinux then pkgs.hplipWithPlugin else null;
