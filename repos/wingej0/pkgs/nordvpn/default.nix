@@ -23,7 +23,7 @@
 
 let
   pname = "nordvpn";
-  version = "4.2.3";
+  version = "4.4.0";
   wingej0 = {
     name = "Jeff Winget";
     email = "wingej0@gmail.com";
@@ -48,7 +48,7 @@ let
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
-      hash = "sha256-LcTQEqaP1+UeBxi+gqQAuQKKzVgzMWSb7rMEB6qc6hk=";
+      hash = "sha256-rePBEVe6o49If5dYvIUW361E7nFqngzd+XkiOeehY7w=";
     };
 
     buildInputs = [
