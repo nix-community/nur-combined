@@ -7,6 +7,16 @@
   curl,
   zlib,
   ncurses,
+  withX11 ? false,
+  gtk2,
+  glib,
+  pango,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  fontconfig,
+  freetype,
+  xorg,
   ...
 }:
 let
@@ -35,19 +45,19 @@ stdenv.mkDerivation {
     curl
 
     ncurses # for TUI
-
-    # gtk2
-    # glib
-    # pango
-    # atk
-    # cairo
-    # gdk-pixbuf
-    # fontconfig
-    # freetype
-
-    # xorg.libX11
-    # xorg.libXext
-    # xorg.libXrender
+  ]
+  ++ lib.optional withX11 [
+    gtk2
+    glib
+    pango
+    atk
+    cairo
+    gdk-pixbuf
+    fontconfig
+    freetype
+    xorg.libX11
+    xorg.libXext
+    xorg.libXrender
   ];
 
   installPhase = ''
@@ -55,7 +65,12 @@ stdenv.mkDerivation {
     cd ..
 
     tar xzf unix/linux64/base.taz --directory=$out
-    tar xzf unix/linux64/bins.taz --directory=$out --exclude=utilities/java --exclude=xstata --exclude=xstata-se --exclude=xstata-mp
+    ${
+      if withX11 then
+        "tar xzf unix/linux64/bins.taz --directory=$out --exclude=utilities/java"
+      else
+        "tar xzf unix/linux64/bins.taz --directory=$out --exclude=utilities/java --exclude=xstata --exclude=xstata-se --exclude=xstata-mp"
+    }
     tar xzf unix/linux64/ado.taz --directory=$out
     tar xzf unix/linux64/docs.taz --directory=$out
 

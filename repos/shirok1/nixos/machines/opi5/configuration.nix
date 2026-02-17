@@ -290,8 +290,33 @@
     openFirewall = true;
   };
 
+  services.msd-lite = {
+    enable = true;
+    package = pkgs.shirok1.msd-lite;
+    http.bind = [
+      {
+        address = "0.0.0.0:7088";
+      }
+    ];
+    hub = {
+      precache = 4096;
+      ringBufSize = 2048;
+    };
+    source = {
+      skt = {
+        rcvBuf = 512;
+        rcvTimeout = 3;
+      };
+      multicast = {
+        ifName = "end0";
+        rejoinTime = 120;
+      };
+    };
+  };
+
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
+    7088
     8080
     13831
   ];

@@ -267,6 +267,16 @@
       enable = true;
       port = 2023;
     };
+    assetsPaths =
+      let
+        combined = pkgs.rules.combined."elysias123/geosite";
+      in
+      [
+        # "${pkgs.v2ray-geoip}/share/v2ray/geoip.dat"
+        # "${pkgs.v2ray-domain-list-community}/share/v2ray/geosite.dat"
+        "${combined}/share/v2ray/geoip.dat"
+        "${combined}/share/v2ray/geosite.dat"
+      ];
   };
 
   security.acme = {

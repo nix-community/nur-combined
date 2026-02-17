@@ -50,6 +50,7 @@
       custom_cpu_name =
         {
           "o6n" = "CIX P1";
+          "opi5" = "Rockchip RK3588S";
         }
         .${machine} or "";
     };
@@ -63,6 +64,8 @@
   programs.fzf.enable = true;
 
   programs.gitui.enable = true;
+
+  programs.helix.enable = true;
 
   programs.zellij.enable = true;
 
