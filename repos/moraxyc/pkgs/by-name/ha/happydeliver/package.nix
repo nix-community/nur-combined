@@ -16,6 +16,7 @@ buildGoModule (finalAttrs: {
   patches = [
     ./0001-fix-analyzer-remove-hostname-filtering-for-Authentic.patch
     ./0002-fix-analyzer-extract-DKIM-selector-from-DKIM-Signatu.patch
+    ./0003-feat-analyzer-add-parseLegacyIPRev-and-parseLegacyAl.patch
   ];
 
   # nix-update auto

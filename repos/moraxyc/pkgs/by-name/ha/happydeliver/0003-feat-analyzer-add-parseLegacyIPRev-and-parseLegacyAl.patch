@@ -1,0 +1,367 @@
+From 88f371552d9d091c477d888133af7d62d3ac7dc0 Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Tue, 17 Feb 2026 16:35:30 +0800
+Subject: [PATCH 3/3] feat(analyzer): add parseLegacyIPRev and
+ parseLegacyAlignedFrom
+
+---
+ pkg/analyzer/authentication.go                |   8 ++
+ pkg/analyzer/authentication_iprev.go          |  46 +++++++
+ pkg/analyzer/authentication_x_aligned_from.go | 111 +++++++++++++++
+ .../authentication_x_aligned_from_test.go     | 127 ++++++++++++++++++
+ 4 files changed, 292 insertions(+)
+
+diff --git a/pkg/analyzer/authentication.go b/pkg/analyzer/authentication.go
+index 9644b92..c874fba 100644
+--- a/pkg/analyzer/authentication.go
++++ b/pkg/analyzer/authentication.go
+@@ -60,6 +60,14 @@ func (a *AuthenticationAnalyzer) AnalyzeAuthentication(email *EmailMessage) *api
+ 		a.enhanceARCResult(email, results.Arc)
+ 	}
+ 
++	if results.Iprev == nil {
++		results.Iprev = a.parseLegacyIPRev(email)
++	}
++
++	if results.XAlignedFrom == nil {
++		results.XAlignedFrom = a.parseLegacyAlignedFrom(email, results)
++	}
++
+ 	return results
+ }
+ 
+diff --git a/pkg/analyzer/authentication_iprev.go b/pkg/analyzer/authentication_iprev.go
+index 6538cbb..2adb178 100644
+--- a/pkg/analyzer/authentication_iprev.go
++++ b/pkg/analyzer/authentication_iprev.go
+@@ -59,6 +59,52 @@ func (a *AuthenticationAnalyzer) parseIPRevResult(part string) *api.IPRevResult
+ 	return result
+ }
+ 
++func (a *AuthenticationAnalyzer) parseLegacyIPRev(email *EmailMessage) *api.IPRevResult {
++	received := email.Header["Received"]
++	if len(received) == 0 {
++		return nil
++	}
++
++	topReceived := received[0]
++
++	topReceived = strings.ReplaceAll(topReceived, "\r\n", " ")
++	topReceived = strings.ReplaceAll(topReceived, "\n", " ")
++
++	result := &api.IPRevResult{
++		Result:  api.Pass,
++		Details: api.PtrTo("extracted from Received header"),
++	}
++
++	found := false
++
++	// Format: ... ([1.2.3.4]) ... or ... ([IPv6:2001:db8::1]) ...
++	ipRe := regexp.MustCompile(`\[(?:IPv6:)?([0-9a-fA-F:.]+)\]`)
++	if matches := ipRe.FindStringSubmatch(topReceived); len(matches) > 1 {
++		ip := matches[1]
++		result.Ip = &ip
++		found = true
++	}
++
++	parenRe := regexp.MustCompile(`from\s+[^\s]+\s+\(([^)]+)\)`)
++	if matches := parenRe.FindStringSubmatch(topReceived); len(matches) > 1 {
++		inside := matches[1]
++		fields := strings.Fields(inside)
++		if len(fields) > 0 {
++			if !strings.HasPrefix(fields[0], "[") {
++				hostname := fields[0]
++				result.Hostname = &hostname
++				found = true
++			}
++		}
++	}
++
++	if found {
++		return result
++	}
++
++	return nil
++}
++
+ func (a *AuthenticationAnalyzer) calculateIPRevScore(results *api.AuthenticationResults) (score int) {
+ 	if results.Iprev != nil {
+ 		switch results.Iprev.Result {
+diff --git a/pkg/analyzer/authentication_x_aligned_from.go b/pkg/analyzer/authentication_x_aligned_from.go
+index 36da2b0..2a28b04 100644
+--- a/pkg/analyzer/authentication_x_aligned_from.go
++++ b/pkg/analyzer/authentication_x_aligned_from.go
+@@ -22,9 +22,12 @@
+ package analyzer
+ 
+ import (
++	"net/mail"
+ 	"regexp"
+ 	"strings"
+ 
++	"golang.org/x/net/publicsuffix"
++
+ 	"git.happydns.org/happyDeliver/internal/api"
+ )
+ 
+@@ -46,6 +49,114 @@ func (a *AuthenticationAnalyzer) parseXAlignedFromResult(part string) *api.AuthR
+ 	return result
+ }
+ 
++func (a *AuthenticationAnalyzer) parseLegacyAlignedFrom(email *EmailMessage, results *api.AuthenticationResults) *api.AuthResult {
++	if email.From == nil {
++		return nil
++	}
++
++	fromAddr, err := mail.ParseAddress(email.From.Address)
++	if err != nil {
++		if !strings.Contains(email.From.Address, "@") {
++			return nil
++		}
++		fromAddr = &mail.Address{Address: email.From.Address}
++	}
++
++	fromParts := strings.Split(fromAddr.Address, "@")
++	if len(fromParts) != 2 {
++		return nil
++	}
++	fromDomain := strings.ToLower(fromParts[1])
++	fromOrgDomain := a.getOrganizationalDomain(fromDomain)
++
++	if results.Spf != nil && results.Spf.Domain != nil {
++		spfDomain := strings.ToLower(*results.Spf.Domain)
++		if strings.EqualFold(spfDomain, fromDomain) {
++			return &api.AuthResult{
++				Result:  api.AuthResultResultPass,
++				Details: api.PtrTo("Address match (SPF)"),
++			}
++		}
++
++		spfOrgDomain := a.getOrganizationalDomain(spfDomain)
++		if strings.EqualFold(spfOrgDomain, fromOrgDomain) {
++			return &api.AuthResult{
++				Result:  api.AuthResultResultPass,
++				Details: api.PtrTo("Address match (SPF, Relaxed)"),
++			}
++		}
++	}
++
++	rp := email.ReturnPath
++	if rp != "" {
++		rp = strings.Trim(rp, "<>")
++		rpParts := strings.Split(rp, "@")
++		if len(rpParts) == 2 {
++			rpDomain := strings.ToLower(rpParts[1])
++			if rpDomain == fromDomain {
++				return &api.AuthResult{
++					Result:  api.AuthResultResultPass,
++					Details: api.PtrTo("Address match (Return-Path)"),
++				}
++			}
++
++			rpOrgDomain := a.getOrganizationalDomain(rpDomain)
++			if strings.EqualFold(rpOrgDomain, fromOrgDomain) {
++				return &api.AuthResult{
++					Result:  api.AuthResultResultPass,
++					Details: api.PtrTo("Address match (Return-Path, Relaxed)"),
++				}
++			}
++		}
++	}
++
++	if results.Dkim != nil {
++		for _, dkim := range *results.Dkim {
++			if dkim.Result == api.AuthResultResultPass && dkim.Domain != nil {
++				dkimDomain := strings.ToLower(*dkim.Domain)
++				if strings.EqualFold(dkimDomain, fromDomain) {
++					return &api.AuthResult{
++						Result:  api.AuthResultResultPass,
++						Details: api.PtrTo("Address match (DKIM)"),
++					}
++				}
++
++				dkimOrgDomain := a.getOrganizationalDomain(dkimDomain)
++				if strings.EqualFold(dkimOrgDomain, fromOrgDomain) {
++					return &api.AuthResult{
++						Result:  api.AuthResultResultPass,
++						Details: api.PtrTo("Address match (DKIM, Relaxed)"),
++					}
++				}
++			}
++		}
++	}
++
++	if results.Spf != nil || (results.Dkim != nil && len(*results.Dkim) > 0) {
++		return &api.AuthResult{
++			Result:  api.AuthResultResultFail,
++			Details: api.PtrTo("No alignment found"),
++		}
++	}
++
++	return nil
++}
++
++func (a *AuthenticationAnalyzer) getOrganizationalDomain(domain string) string {
++	domain = strings.ToLower(strings.TrimSpace(domain))
++
++	etldPlusOne, err := publicsuffix.EffectiveTLDPlusOne(domain)
++	if err != nil {
++		labels := strings.Split(domain, ".")
++		if len(labels) <= 2 {
++			return domain
++		}
++		return strings.Join(labels[len(labels)-2:], ".")
++	}
++
++	return etldPlusOne
++}
++
+ func (a *AuthenticationAnalyzer) calculateXAlignedFromScore(results *api.AuthenticationResults) (score int) {
+ 	if results.XAlignedFrom != nil {
+ 		switch results.XAlignedFrom.Result {
+diff --git a/pkg/analyzer/authentication_x_aligned_from_test.go b/pkg/analyzer/authentication_x_aligned_from_test.go
+index 220ac39..a714962 100644
+--- a/pkg/analyzer/authentication_x_aligned_from_test.go
++++ b/pkg/analyzer/authentication_x_aligned_from_test.go
+@@ -22,11 +22,138 @@
+ package analyzer
+ 
+ import (
++	"net/mail"
+ 	"testing"
+ 
+ 	"git.happydns.org/happyDeliver/internal/api"
+ )
+ 
++func TestParseLegacyAlignedFrom(t *testing.T) {
++	analyzer := NewAuthenticationAnalyzer()
++
++	tests := []struct {
++		name           string
++		from           string
++		returnPath     string
++		spfDomain      *string
++		dkimDomains    []string
++		expectedResult api.AuthResultResult
++		expectedDetail string
++	}{
++		{
++			name:           "Strict SPF Match",
++			from:           "user@example.dn42",
++			spfDomain:      api.PtrTo("example.dn42"),
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (SPF)",
++		},
++		{
++			name:           "Relaxed SPF Match",
++			from:           "user@sub.example.com",
++			spfDomain:      api.PtrTo("example.com"),
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (SPF, Relaxed)",
++		},
++		{
++			name:           "Strict Return-Path Match (No SPF)",
++			from:           "user@example.com",
++			returnPath:     "<bounce@example.com>",
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (Return-Path)",
++		},
++		{
++			name:           "Relaxed Return-Path Match (No SPF)",
++			from:           "user@sub.example.com",
++			returnPath:     "<bounce@example.com>",
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (Return-Path, Relaxed)",
++		},
++		{
++			name:           "Strict DKIM Match",
++			from:           "user@example.com",
++			dkimDomains:    []string{"example.com"},
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (DKIM)",
++		},
++		{
++			name:           "Relaxed DKIM Match",
++			from:           "user@sub.example.com",
++			dkimDomains:    []string{"example.com"},
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (DKIM, Relaxed)",
++		},
++		{
++			name:           "No Alignment",
++			from:           "user@example.com",
++			spfDomain:      api.PtrTo("other.com"),
++			dkimDomains:    []string{"another.com"},
++			expectedResult: api.AuthResultResultFail,
++			expectedDetail: "No alignment found",
++		},
++		{
++			name:           "Complex Address Parsing",
++			from:           "\"User Name\" <user@example.com>",
++			spfDomain:      api.PtrTo("example.com"),
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (SPF)",
++		},
++		{
++			name:           "Return-Path fallback when SPF mismatches",
++			from:           "user@example.com",
++			returnPath:     "<bounce@example.com>",
++			spfDomain:      api.PtrTo("mismatch.com"),
++			expectedResult: api.AuthResultResultPass,
++			expectedDetail: "Address match (Return-Path)",
++		},
++	}
++
++	for _, tt := range tests {
++		t.Run(tt.name, func(t *testing.T) {
++			email := &EmailMessage{
++				From:       &mail.Address{Address: tt.from},
++				ReturnPath: tt.returnPath,
++			}
++
++			results := &api.AuthenticationResults{}
++			if tt.spfDomain != nil {
++				results.Spf = &api.AuthResult{
++					Domain: tt.spfDomain,
++				}
++			}
++
++			if len(tt.dkimDomains) > 0 {
++				var dkimResults []api.AuthResult
++				for _, d := range tt.dkimDomains {
++					dkimResults = append(dkimResults, api.AuthResult{
++						Result: api.AuthResultResultPass,
++						Domain: api.PtrTo(d),
++					})
++				}
++				results.Dkim = &dkimResults
++			}
++
++			result := analyzer.parseLegacyAlignedFrom(email, results)
++
++			if result == nil {
++				if tt.expectedResult != "" {
++					t.Errorf("Expected result %v, got nil", tt.expectedResult)
++				}
++				return
++			}
++
++			if result.Result != tt.expectedResult {
++				t.Errorf("Result = %v, want %v", result.Result, tt.expectedResult)
++			}
++
++			if result.Details != nil && tt.expectedDetail != "" {
++				if *result.Details != tt.expectedDetail {
++					t.Errorf("Details = %v, want %v", *result.Details, tt.expectedDetail)
++				}
++			}
++		})
++	}
++}
++
+ func TestParseXAlignedFromResult(t *testing.T) {
+ 	tests := []struct {
+ 		name           string
+-- 
+2.52.0
+
