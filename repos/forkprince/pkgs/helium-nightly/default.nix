@@ -52,7 +52,9 @@ in
         contents = appimageTools.extract {inherit pname version src;};
       in ''
         install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications
-        substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
+        substituteInPlace $out/share/applications/${pname}.desktop \
+          --replace-warn 'Exec=AppRun' 'Exec=${meta.mainProgram}' \
+          --replace-warn 'Exec=${pname}' 'Exec=${meta.mainProgram}'
 
         cp -r ${contents}/usr/share/* $out/share/
 
