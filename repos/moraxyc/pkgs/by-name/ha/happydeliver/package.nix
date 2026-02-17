@@ -13,6 +13,8 @@
 buildGoModule (finalAttrs: {
   inherit (source) pname version src;
 
+  patches = [ ./0001-fix-analyzer-remove-hostname-filtering-for-Authentic.patch ];
+
   # nix-update auto
   vendorHash = "sha256-qt5858cYOxrvl7RHybcf0O+R9YqqXSIW5DKvTtmssSI=";
   modPostBuild = ''

@@ -9,7 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "mm-geofeed-verifier";
   inherit (sources.mm-geofeed-verifier) src version;
 
-  vendorHash = "sha256-FVEsxE7B5FA1X+hWq7bloaQs69qFOUkeYv5p22SKkh0=";
+  # nix-update auto
+  vendorHash = "sha256-zYPNcU2f+vX5GnhQ2PxVSW5HAGGlOq5Ii3nH8Sc4cKY=";
 
   ldflags = [
     "-X=main.version=${finalAttrs.version}"

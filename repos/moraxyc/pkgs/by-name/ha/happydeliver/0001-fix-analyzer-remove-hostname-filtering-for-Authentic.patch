@@ -1,0 +1,77 @@
+From ace1d7b941130f628ca2982b817aae14404cc9ab Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Tue, 17 Feb 2026 14:13:15 +0800
+Subject: [PATCH] fix(analyzer): remove hostname filtering for
+ Authentication-Results headers
+
+Previously, the analyzer would only process Authentication-Results headers that started with the current system's hostname. This caused issues when running in containers or when the authentication results were added by an upstream MTA. This change removes the filtering, allowing all Authentication-Results headers to be processed.
+---
+ pkg/analyzer/parser.go      | 27 +--------------------------
+ pkg/analyzer/parser_test.go |  3 ---
+ 2 files changed, 1 insertion(+), 29 deletions(-)
+
+diff --git a/pkg/analyzer/parser.go b/pkg/analyzer/parser.go
+index ca3cb46..4cb29dc 100644
+--- a/pkg/analyzer/parser.go
++++ b/pkg/analyzer/parser.go
+@@ -28,16 +28,9 @@ import (
+ 	"mime/multipart"
+ 	"net/mail"
+ 	"net/textproto"
+-	"os"
+ 	"strings"
+ )
+ 
+-var hostname = ""
+-
+-func init() {
+-	hostname, _ = os.Hostname()
+-}
+-
+ // EmailMessage represents a parsed email message
+ type EmailMessage struct {
+ 	Header     mail.Header
+@@ -220,25 +213,7 @@ func buildRawHeaders(header mail.Header) string {
+ // GetAuthenticationResults extracts Authentication-Results headers
+ // If hostname is provided, only returns headers that begin with that hostname
+ func (e *EmailMessage) GetAuthenticationResults() []string {
+-	allResults := e.Header[textproto.CanonicalMIMEHeaderKey("Authentication-Results")]
+-
+-	// If no hostname specified, return all results
+-	if hostname == "" {
+-		return allResults
+-	}
+-
+-	// Filter results that begin with the specified hostname
+-	var filtered []string
+-	prefix := hostname + ";"
+-	for _, result := range allResults {
+-		// Trim whitespace and check if it starts with hostname;
+-		trimmed := strings.TrimSpace(result)
+-		if strings.HasPrefix(trimmed, prefix) {
+-			filtered = append(filtered, result)
+-		}
+-	}
+-
+-	return filtered
++	return e.Header[textproto.CanonicalMIMEHeaderKey("Authentication-Results")]
+ }
+ 
+ // GetSpamAssassinHeaders extracts SpamAssassin-related headers
+diff --git a/pkg/analyzer/parser_test.go b/pkg/analyzer/parser_test.go
+index eb1fc6a..571f542 100644
+--- a/pkg/analyzer/parser_test.go
++++ b/pkg/analyzer/parser_test.go
+@@ -106,9 +106,6 @@ Content-Type: text/html; charset=utf-8
+ }
+ 
+ func TestGetAuthenticationResults(t *testing.T) {
+-	// Force hostname
+-	hostname = "example.com"
+-
+ 	rawEmail := `From: sender@example.com
+ To: recipient@example.com
+ Subject: Test Email
+-- 
+2.52.0
+
