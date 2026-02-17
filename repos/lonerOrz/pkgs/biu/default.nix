@@ -5,6 +5,7 @@
   appimageTools,
   makeWrapper,
   tree,
+  imagemagick,
 }:
 let
   pname = "biu";
@@ -34,6 +35,7 @@ appimageTools.wrapType2 {
   nativeBuildInputs = [
     tree
     makeWrapper
+    imagemagick
   ];
 
   extraInstallCommands = ''
@@ -43,9 +45,10 @@ appimageTools.wrapType2 {
       ${appimageContents}/Biu.desktop \
       $out/share/applications/biu.desktop
 
-    cp -r \
-      ${appimageContents}/usr/share/icons/hicolor \
-      $out/share/icons/
+    for size in 16 24 32 48 64 128 256 512; do
+      mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
+      magick convert -background none -resize "$size"x"$size" ${appimageContents}/Biu.png $out/share/icons/hicolor/"$size"x"$size"/apps/Biu.png
+    done
 
     substituteInPlace $out/share/applications/biu.desktop \
       --replace-fail 'Exec=AppRun' 'Exec=biu'
