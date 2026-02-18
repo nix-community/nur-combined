@@ -1,11 +1,13 @@
 {
   lib,
-  python310Packages,
+  python312Packages,
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
 }:
-
-python310Packages.buildPythonApplication {
+let
+  python3Packages = python312Packages;
+in
+python3Packages.buildPythonApplication {
   pname = "modbus_sim_cli";
   version = "0-unstable-2019-02-27";
   pyproject = true;
@@ -23,11 +25,11 @@ python310Packages.buildPythonApplication {
       --replace-fail "yaml.load(conffile.read())" "yaml.safe_load(conffile)"
   '';
 
-  build-system = with python310Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-  dependencies = with python310Packages; [
+  dependencies = with python3Packages; [
     coloredlogs
     modbus-tk
     pyyaml

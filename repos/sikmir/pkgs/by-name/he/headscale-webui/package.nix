@@ -2,8 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchPnpmDeps,
   nodejs_20,
   pnpm_9,
+  pnpmConfigHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -19,19 +21,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [ ./pnpm-lock.yaml.patch ];
 
-  pnpmDeps = pnpm_9.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
       version
       src
       patches
       ;
-    hash = "sha256-2aERyYmvkRh9A8rCTYRcNccn7431+02amu5a/VMwKt4=";
+    fetcherVersion = 3;
+    hash = "sha256-rwK8+vbs4fdETBzeC/oc3y6nSQ3VcznahdqmedzFgrg=";
   };
 
   nativeBuildInputs = [
     nodejs_20
-    pnpm_9.configHook
+    pnpm_9
+    pnpmConfigHook
   ];
 
   buildPhase = ''
