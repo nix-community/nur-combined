@@ -42,6 +42,8 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration -Wno-error=return-mismatch -Wno-error=implicit-int";
+
   dontInstall = true;
 
   meta = {
