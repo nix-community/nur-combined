@@ -109,19 +109,19 @@ src.github_tag = "wrvsrx/ptrace-time-hook"
 fetch.github = "wrvsrx/ptrace-time-hook"
 
 [aesop]
-src.manual = "v4.27.0"
+src.manual = "v4.28.0"
 fetch.github = "leanprover-community/aesop"
 
 [batteries]
-src.manual = "v4.27.0"
+src.manual = "v4.28.0"
 fetch.github = "leanprover-community/batteries"
 
 [importGraph]
-src.manual = "v4.27.0"
+src.manual = "v4.28.0"
 fetch.github = "leanprover-community/import-graph"
 
 [Cli]
-src.manual = "v4.27.0"
+src.manual = "v4.28.0"
 fetch.github = "leanprover/lean4-cli"
 
 [xdg]
@@ -129,21 +129,21 @@ src.github_tag = "wrvsrx/xdg"
 fetch.github = "wrvsrx/xdg"
 
 [Qq]
-src.manual = "v4.27.0"
+src.manual = "v4.28.0"
 fetch.github = "leanprover-community/quote4"
 
 [mathlib]
-src.manual = "v4.27.0"
+src.manual = "v4.28.0"
 fetch.github = "leanprover-community/mathlib4"
 
 [plausible]
-src.manual = "v4.27.0"
+src.manual = "v4.28.0"
 fetch.github = "leanprover-community/plausible"
 
 [LeanSearchClient]
-src.manual = "5ce7f0a355f522a952a3d678d696bd563bb4fd28"
+src.manual = "c5d5b8fe6e5158def25cd28eb94e4141ad97c843"
 fetch.github = "leanprover-community/LeanSearchClient"
 
 [proofwidgets]
-src.manual = "v0.0.85"
+src.manual = "v0.0.87"
 fetch.github = "leanprover-community/ProofWidgets4"

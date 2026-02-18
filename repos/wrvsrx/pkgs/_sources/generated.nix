@@ -8,46 +8,46 @@
 {
   Cli = {
     pname = "Cli";
-    version = "v4.27.0";
+    version = "v4.28.0";
     src = fetchFromGitHub {
       owner = "leanprover";
       repo = "lean4-cli";
-      rev = "v4.27.0";
+      rev = "v4.28.0";
       fetchSubmodules = false;
-      sha256 = "sha256-bWpx1+VgAaGsU7s/9rv3UgcttLpIxZWp4zvDAJuXIsA=";
+      sha256 = "sha256-9nX+dozmDAaVb5uKWL14zbILr7aqbVerTyPcN12Niw4=";
     };
   };
   LeanSearchClient = {
     pname = "LeanSearchClient";
-    version = "5ce7f0a355f522a952a3d678d696bd563bb4fd28";
+    version = "c5d5b8fe6e5158def25cd28eb94e4141ad97c843";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "LeanSearchClient";
-      rev = "5ce7f0a355f522a952a3d678d696bd563bb4fd28";
+      rev = "c5d5b8fe6e5158def25cd28eb94e4141ad97c843";
       fetchSubmodules = false;
-      sha256 = "sha256-SrH1HYMv1MAC5HJZyqjV2LnO5l/0QPuAuz3XXlLncQ0=";
+      sha256 = "sha256-L2aAwn3OeRLVt/VccLdBS0ogqmIIKAwnz94PpAOhaRc=";
     };
   };
   Qq = {
     pname = "Qq";
-    version = "v4.27.0";
+    version = "v4.28.0";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "quote4";
-      rev = "v4.27.0";
+      rev = "v4.28.0";
       fetchSubmodules = false;
-      sha256 = "sha256-BfH4+M7JosqrRYV4Q1yVu/5swnCy9QRi+go0BZZ6M4c=";
+      sha256 = "sha256-BRrSdDJQAsgM/NeSL2FODCez/8zEffjDRWUToGlKDNQ=";
     };
   };
   aesop = {
     pname = "aesop";
-    version = "v4.27.0";
+    version = "v4.28.0";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "aesop";
-      rev = "v4.27.0";
+      rev = "v4.28.0";
       fetchSubmodules = false;
-      sha256 = "sha256-OjQwTecqBK4szl8+EyJlJ+2wG3Yszw58rmq6w2Hc4zE=";
+      sha256 = "sha256-KeP46qtEf4/lgi4iCVuYIQbazufTR4luTbsuia9JkK4=";
     };
   };
   amgcl = {
@@ -97,13 +97,13 @@
   };
   batteries = {
     pname = "batteries";
-    version = "v4.27.0";
+    version = "v4.28.0";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "batteries";
-      rev = "v4.27.0";
+      rev = "v4.28.0";
       fetchSubmodules = false;
-      sha256 = "sha256-nPWPr2I3HVMBey0RlhD2s0S9/JOv3lZYm5dT1CBdoq4=";
+      sha256 = "sha256-3N1MCFsg5UiwBCMAhDK7WwIowMNnhjlFgAsm0UPtGKc=";
     };
   };
   cmdlime = {
@@ -211,13 +211,13 @@
   };
   importGraph = {
     pname = "importGraph";
-    version = "v4.27.0";
+    version = "v4.28.0";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "import-graph";
-      rev = "v4.27.0";
+      rev = "v4.28.0";
       fetchSubmodules = false;
-      sha256 = "sha256-xQLCm8vTDFidqMVbe65qMxvqgubde4wm+bzeHHucArE=";
+      sha256 = "sha256-fZS8bFQjV7eLZCJwD+SVRzmCcCthrl+PO8vL8U8AOYs=";
     };
   };
   jax-md = {
@@ -246,35 +246,35 @@
   };
   mathlib = {
     pname = "mathlib";
-    version = "v4.27.0";
+    version = "v4.28.0";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "mathlib4";
-      rev = "v4.27.0";
+      rev = "v4.28.0";
       fetchSubmodules = false;
-      sha256 = "sha256-1FdK20QQ55JqyI9IwzjhRF9ftqzHQBQ8tI5rQDii7tE=";
+      sha256 = "sha256-7kR0WvEDey5kEdqKKVEO/JgQd1VyB6a+zwPvIV5E5Pg=";
     };
   };
   plausible = {
     pname = "plausible";
-    version = "v4.27.0";
+    version = "v4.28.0";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "plausible";
-      rev = "v4.27.0";
+      rev = "v4.28.0";
       fetchSubmodules = false;
-      sha256 = "sha256-P/jwnnHlihWJDBqFJD1GlP/5SnjjuabxuK+/r7iLp7M=";
+      sha256 = "sha256-xuOfeoRPt5L0Rk4fEJPIi1A0aoNIkC1fsh5yeIx5bFI=";
     };
   };
   proofwidgets = {
     pname = "proofwidgets";
-    version = "v0.0.85";
+    version = "v0.0.87";
     src = fetchFromGitHub {
       owner = "leanprover-community";
       repo = "ProofWidgets4";
-      rev = "v0.0.85";
+      rev = "v0.0.87";
       fetchSubmodules = false;
-      sha256 = "sha256-kSvyoXZALvUWYmJAYo+QNK9J5KADEUm7KF/Sza6tlDU=";
+      sha256 = "sha256-qXEqNfwUBPnxAtLRkBZTBFhrM4JYl43gLo/PM6HOG7o=";
     };
   };
   ptrace-time-hook = {
