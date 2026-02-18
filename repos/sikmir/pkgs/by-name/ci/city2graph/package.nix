@@ -48,5 +48,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/c2g-dev/city2graph";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = stdenv.isDarwin;
   };
 })
