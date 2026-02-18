@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   src = fetchpijul {
     url = "https://nest.pijul.com/DzmingLi/nix-plugin-pijul";
-    hash = "sha256-6CgGJ34UXM81ZHVfLWRjVpMmGRDfaGbBytxDhLw7aY8="; # fill after pushing to nest
+    hash = "sha256-E7c2W0VTjtwTjG2muFIbSSUwwXWo7MInWgI0v8AhVh0="; # fill after pushing to nest
   };
 
   nativeBuildInputs = [meson ninja pkg-config];
