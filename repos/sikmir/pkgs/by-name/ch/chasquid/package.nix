@@ -8,16 +8,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "chasquid";
-  version = "1.16.0";
+  version = "1.17.0";
 
   src = fetchFromGitHub {
     owner = "albertito";
     repo = "chasquid";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-IWGO7sIesVg6n2mFeZEHHmT2qRAO7/PbrQiNhvEDhrI=";
+    hash = "sha256-KOfZKUK6KuW0yaDm5ZbjzGH3xYb84mNmIzEbSDjPtSk=";
   };
 
-  vendorHash = "sha256-rI4ClDcRWKywohe9uM3dXDrn5YfZjtJ4pxzheKDqIUk=";
+  vendorHash = "sha256-u+4Ncr0P32avy8+ZLAzZHCqNm9zNVIC8m618ENh7IXg=";
 
   subPackages = [
     "."

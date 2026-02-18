@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gpx-player";
-  version = "0.1.2";
+  version = "0.2.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kirienko";
     repo = "gpx-player";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vLY+uQvIT9WpbtU1lxRzEx/taxi3q6y7AITr+NJ1nW0=";
+    hash = "sha256-2teWg6DKO05T1GZV2N5PIyItRhCXPJBXbBOBmCWvyi8=";
   };
 
   build-system = with python3Packages; [ setuptools ];
