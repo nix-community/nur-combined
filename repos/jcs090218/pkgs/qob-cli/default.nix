@@ -22,11 +22,13 @@ stdenv.mkDerivation rec {
     deploy
   ]);
 
-  buildInputs = [ sbcl' ];
+  lisp = pkgs.sbcl;
 
-  buildPhase = ''
-    sbcl --eval "(progn (require :asdf) (asdf:load-system :clingon))"
-  '';
+  systems = [ "qob" ];
+
+  #buildPhase = ''
+  #  make build-nix
+  #'';
 
   # buildFlags = [ "build" ];
   #

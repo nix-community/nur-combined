@@ -17,5 +17,5 @@
   # List of your packages!
   flx-rs = pkgs.callPackage ./pkgs/flx-rs { };
   flxy-rs = pkgs.callPackage ./pkgs/flxy-rs { };
-  #qob-cli = pkgs.callPackage ./pkgs/qob-cli { };
+  qob-cli = pkgs.callPackage ./pkgs/qob-cli { };
 }
