@@ -66,10 +66,6 @@ fetch.github = "tree-sitter-grammars/tree-sitter-requirements"
 src.pypi = "mulimgviewer"
 fetch.pypi = "mulimgviewer"
 
-[clipman]
-src.pypi = "clipman"
-fetch.pypi = "clipman"
-
 [pyrime]
 src.pypi = "pyrime"
 fetch.pypi = "pyrime"

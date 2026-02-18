@@ -1,7 +1,6 @@
 {
   mySources,
   python3,
-  clipman,
   lib,
 }:
 
