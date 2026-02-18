@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    charm-nur.url = "github:charmbracelet/nur";
-    charm-nur.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -36,7 +34,6 @@
       flake = {
         overlays = import ./overlays;
         homeModules = {
-          crush = import ./modules/crush.nix { inherit (inputs) charm-nur; };
         };
         nixosModules = {
           default =
