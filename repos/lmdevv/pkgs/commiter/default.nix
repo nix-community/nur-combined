@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "committer";
-  version = "0.3.1";
+  version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "lmdevv";
     repo = "committer";
-    rev = "e058f5a33deaab37d1d83cda25c17aec684abab4";
-    sha256 = "0q2nnk0g6r5074qk5zzxhfw9j24avm01m9n5l1ryvxsg3k04m68h";
+    rev = "04d997b7b3c006cecc3b7d8575e144a05eabaf53";
+    sha256 = "0zw6nv9qaajzrbfp5nfygx3yzichkx6qrfjbk9p4ajqnjhy4c3mv";
   };
 
   vendorHash = null;
