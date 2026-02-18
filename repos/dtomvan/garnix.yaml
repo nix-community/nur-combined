@@ -2,5 +2,6 @@ builds:
   exclude:
     - "packages.x86_64-linux.shed" # broken
     - "packages.x86_64-linux.steel" # helix-steel depends on it, so if that one builds they both build, saves a lil compute I guess
+    - "packages.x86_64-linux.vintagestory-beta" # unfree
   include:
     - "*.x86_64-linux.*"
