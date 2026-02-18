@@ -33,4 +33,7 @@
 
   # 夸克网盘工具
   quarkpantool = pkgs.callPackage ./pkgs/quarkpantool { };
+
+  # Nix Pijul fetcher plugin
+  nix-plugin-pijul = pkgs.callPackage ./pkgs/nix-plugin-pijul { };
 }
