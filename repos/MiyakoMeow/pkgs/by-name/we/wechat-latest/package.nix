@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   fetchurl,
   autoPatchelfHook,
   dpkg,
@@ -57,7 +57,7 @@
   systemd,
   ...
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "wechat-latest";
   version = "20260214.152742";
 
@@ -161,9 +161,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "WeChat for Linux (latest version)";
-    homepage = "https://weixin.qq.com/";
+    description = "Messaging and calling app";
+    homepage = "https://www.wechat.com/en/";
+    downloadPage = "https://linux.weixin.qq.com/en";
     license = licenses.unfree;
+    sourceProvenance = [ sourceTypes.binaryNativeCode ];
     mainProgram = "wechat";
     platforms = [ "x86_64-linux" ];
     maintainers = [ ];
