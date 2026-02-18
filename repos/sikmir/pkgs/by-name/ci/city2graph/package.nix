@@ -8,14 +8,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "city2graph";
-  version = "0.1.6";
+  version = "0.2.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "c2g-dev";
     repo = "city2graph";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wjce9I1HBQklQUwVObhlPmXGOZeX1Jm+kGKC9dm4oEw=";
+    hash = "sha256-dqdupUF7mS49J8BNnh9VVdsNmPIqHHUzi8DF3zaLMZs=";
   };
 
   build-system = with python3Packages; [
@@ -25,6 +25,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
   pythonRelaxDeps = true;
 
   dependencies = with python3Packages; [
+    geopy
     networkx
     osmnx
     shapely
@@ -32,6 +33,9 @@ python3Packages.buildPythonPackage (finalAttrs: {
     libpysal
     momepy
     overturemaps
+    rustworkx
+    torch
+    torch-geometric
   ];
 
   nativeCheckInputs = with python3Packages; [
