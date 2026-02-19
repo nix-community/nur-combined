@@ -12,7 +12,7 @@ buildGoModule rec {
     owner = "lmdevv";
     repo = "committer";
     rev = "04d997b7b3c006cecc3b7d8575e144a05eabaf53";
-    sha256 = "0zw6nv9qaajzrbfp5nfygx3yzichkx6qrfjbk9p4ajqnjhy4c3mv";
+    sha256 = "igUWFVRnEyr+QMvmK9ZeKNZVTQH4PJYptbiP8rVpkqw=";
   };
 
   vendorHash = null;
