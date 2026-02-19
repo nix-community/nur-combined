@@ -1,47 +1,54 @@
 {
   copyDesktopItems,
   fetchFromGitHub,
+  fetchpatch,
   imagemagick,
   lib,
   makeDesktopItem,
   pandoc,
   pkg-config,
-  qtbase,
-  qtmultimedia,
-  qtsvg,
+  qt6,
   stdenv,
-  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "q5go";
-  version = "2.1.3";
+  version = "2.1.3-unstable-2023-05-01";
 
   src = fetchFromGitHub {
     owner = "bernds";
     repo = finalAttrs.pname;
-    tag = "${finalAttrs.pname}-${finalAttrs.version}";
-    hash = "sha256-MQ/FqAsBnQVaP9VDbFfEbg5ymteb/NSX4nS8YG49HXU=";
+    rev = "e5a003daabae58e18a1705757be25a7a086a591b";
+    hash = "sha256-MsXi0rI+U7xfLZjcctIODEVqfii63fZpmW9iuSJHbBw=";
   };
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    qtmultimedia
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/bernds/q5Go/commit/db74074e025685ed8c56d0420ae7602e6fc22ff7.patch";
+      hash = "sha256-GWOa4HFMhvgyDUtLhTyAjOv+wp+uJCFJS268paFXaas=";
+    })
   ];
+
+  buildInputs = builtins.attrValues {
+    inherit (qt6) qtbase qtmultimedia qtsvg qt5compat;
+  };
 
   nativeBuildInputs = [
     copyDesktopItems
     imagemagick
-    wrapQtAppsHook
     pandoc
     pkg-config
+    qt6.qmake
+    qt6.wrapQtAppsHook
   ];
 
-  configurePhase = ''
+  preConfigure = ''
     mkdir build && cd build
-    qmake ../src/q5go.pro PREFIX=$out
   '';
+
+  qmakeFlags = [
+    "../src/q5go.pro"
+  ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -65,11 +72,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall = ''
-    magick ../src/images/Bowl.ico ../src/images/Bowl.png
+    magick ../src/images/Bowl.ico -transparent black ../src/images/Bowl.png
     install -D ../src/images/Bowl.png $out/share/icons/hicolor/32x32/apps/q5go.png
   '';
-
-  enableParallelBuilding = true;
 
   meta = {
     description = "A tool for Go players";

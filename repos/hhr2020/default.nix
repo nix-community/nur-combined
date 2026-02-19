@@ -22,7 +22,7 @@ rec
   ez4connect = pkgs.callPackage ./pkgs/ez4connect { zju-connect = zju-connect; };
   fiz = pkgs.callPackage ./pkgs/fiz { };
   loko = pkgs.callPackage ./pkgs/loko { };
-  q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
+  q5go = pkgs.callPackage ./pkgs/q5go { };
   soar = pkgs.callPackage ./pkgs/soar { };
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
   zju-learning-assistant = pkgs.callPackage ./pkgs/zju-learning-assistant { };

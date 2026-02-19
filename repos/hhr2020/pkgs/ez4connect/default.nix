@@ -6,6 +6,8 @@
 
   qt6,
   zju-connect,
+  kdePackages,
+  glib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -31,7 +33,16 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwebengine
   ];
 
-  qtWrapperArgs = [ "--prefix" "PATH" ":" "${lib.makeBinPath [ zju-connect ]}" ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath [
+      zju-connect
+      kdePackages.kconfig
+      glib.bin
+    ]}"
+  ];
 
   meta = {
     description = "改进的 ZJU-Connect 图形界面";
