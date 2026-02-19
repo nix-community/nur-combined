@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.21";
+    version = "v6.8.22";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.21";
-      hash = "sha256-/VmKYUZ1XWvlH81EMGka/Z2rk7/pXTzCP4z3J5MLGW8=";
+      tag = "v6.8.22";
+      hash = "sha256-ZnpbMmx1ZVgtsWNNVDnGn2kyYVm/1dUkRAFuiQ/EDxY=";
     };
   };
   cockpy = {
@@ -988,20 +988,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.26.0";
+    version = "3.27.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.26.0";
-      hash = "sha256-Xkd+Cq0OnX2r6Y2Mgay4moIrmHbAQHqTCfkrlb9ZKzQ=";
+      tag = "3.27.0";
+      hash = "sha256-vNfGp+Izp2SxDMfHWLSCaok38m5ZaBhDgQbDsc+fqmc=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.26.0";
+    version = "3.27.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.26.0/kata-static-3.26.0-amd64.tar.zst";
-      hash = "sha256-bEzO5UgIvewUmKOQuprbJOBSVd2BE08bFhxFYZj3zD8=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.27.0/kata-static-3.27.0-amd64.tar.zst";
+      hash = "sha256-+RwnSNRbZ6E/CWUr41QwRSjk5+k1Avp40W/K18vJyyo=";
     };
   };
   kikoplay = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8095";
+    version = "b8102";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8095";
-      hash = "sha256-VYTdh0VuUjW9zoxIL6iS0qpAJ4/4nu5X1hnjRH1yBiM=";
+      tag = "b8102";
+      hash = "sha256-5T1WUwU1C0LHUm6mOOVE3Z8X4d40jpgI2k9ZYeHvMXM=";
     };
   };
   loralib = {
@@ -1235,14 +1235,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "343b649f816cc2c32e1a3a31655492abc6decaab";
+    version = "cb47cd4b912a50c02cd8fd1534749a4774f70ae1";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "343b649f816cc2c32e1a3a31655492abc6decaab";
-      hash = "sha256-G5PP8OIL7I/FKZL9dq77FCwZArrPGkW2BCphHGyo0ac=";
+      rev = "cb47cd4b912a50c02cd8fd1534749a4774f70ae1";
+      hash = "sha256-+8KId//dhQFhX3EajUGQdyI0yThT04K55hlCd3dXzNA=";
     };
-    date = "2026-02-18";
+    date = "2026-02-19";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";

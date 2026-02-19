@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.21",
-            "sha256": "sha256-/VmKYUZ1XWvlH81EMGka/Z2rk7/pXTzCP4z3J5MLGW8=",
+            "rev": "v6.8.22",
+            "sha256": "sha256-ZnpbMmx1ZVgtsWNNVDnGn2kyYVm/1dUkRAFuiQ/EDxY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.21"
+        "version": "v6.8.22"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1920,12 +1920,12 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.26.0",
-            "sha256": "sha256-Xkd+Cq0OnX2r6Y2Mgay4moIrmHbAQHqTCfkrlb9ZKzQ=",
+            "rev": "3.27.0",
+            "sha256": "sha256-vNfGp+Izp2SxDMfHWLSCaok38m5ZaBhDgQbDsc+fqmc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3.26.0"
+        "version": "3.27.0"
     },
     "kata-image": {
         "cargoLock": null,
@@ -1936,11 +1936,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bEzO5UgIvewUmKOQuprbJOBSVd2BE08bFhxFYZj3zD8=",
+            "sha256": "sha256-+RwnSNRbZ6E/CWUr41QwRSjk5+k1Avp40W/K18vJyyo=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.26.0/kata-static-3.26.0-amd64.tar.zst"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.27.0/kata-static-3.27.0-amd64.tar.zst"
         },
-        "version": "3.26.0"
+        "version": "3.27.0"
     },
     "kikoplay": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8095",
-            "sha256": "sha256-VYTdh0VuUjW9zoxIL6iS0qpAJ4/4nu5X1hnjRH1yBiM=",
+            "rev": "b8102",
+            "sha256": "sha256-5T1WUwU1C0LHUm6mOOVE3Z8X4d40jpgI2k9ZYeHvMXM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8095"
+        "version": "b8102"
     },
     "loralib": {
         "cargoLock": null,
@@ -2394,7 +2394,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-02-18",
+        "date": "2026-02-19",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2406,12 +2406,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "343b649f816cc2c32e1a3a31655492abc6decaab",
-            "sha256": "sha256-G5PP8OIL7I/FKZL9dq77FCwZArrPGkW2BCphHGyo0ac=",
+            "rev": "cb47cd4b912a50c02cd8fd1534749a4774f70ae1",
+            "sha256": "sha256-+8KId//dhQFhX3EajUGQdyI0yThT04K55hlCd3dXzNA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "343b649f816cc2c32e1a3a31655492abc6decaab"
+        "version": "cb47cd4b912a50c02cd8fd1534749a4774f70ae1"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
