@@ -57,7 +57,6 @@ _: {
           set -euo pipefail
           nix build .#_meta.readme
           cat result > README.md
-          nix search . ^ --json | ${lib.getExe pkgs.jq} > nix-packages.json
         '';
 
         trace = ''
