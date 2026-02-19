@@ -140,43 +140,40 @@ let
       pkgscache = (
         pkgs.symlinkJoin {
           name = "pkgscache";
-          paths = [
+          paths = with self; [
             self.materialgram
             self.telegram-desktop
+            aria2-wrapped
+            openssh_hpn
+            caddy
+            lmms
+            minetest591client
+            minetest580client
+            musescore-alex
+            cb
+            beammp-launcher
+            mdbook-generate-summary
+            #betterbird
+            eden
+            downkyicore
+            lix_2_93
+            nix_2_31_2
+            ghidra
+            prismlauncher-diegiwg
+            android-translation-layer
+            pake
+            cider
+            rocksmith2tab
+            superTux
+            nix-output-monitor
+            musescore-evolution
+            darling
+            wireguird
+            (self.rain or pkgs.hello)
+            supertuxkart-evolution
           ];
         }
       );
-      inherit (self)
-        aria2-wrapped
-        openssh_hpn
-        telegram-desktop
-        materialgram
-        caddy
-        lmms
-        minetest591client
-        minetest580client
-        musescore-alex
-        cb
-        beammp-launcher
-        mdbook-generate-summary
-        #betterbird
-        eden
-        downkyicore
-        lix_2_93
-        nix_2_31_2
-        ghidra
-        prismlauncher-diegiwg
-        android-translation-layer
-        pake
-        cider
-        rocksmith2tab
-        superTux
-        nix-output-monitor
-        musescore-evolution
-        darling
-        wireguird
-        supertuxkart-evolution
-        ;
     };
   };
 in
