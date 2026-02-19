@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      home.packages = [
+      home.packages = with pkgs; [
         cfg.package
       ];
 

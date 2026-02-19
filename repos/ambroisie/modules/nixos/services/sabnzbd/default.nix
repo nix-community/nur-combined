@@ -2,17 +2,35 @@
 { config, lib, ... }:
 let
   cfg = config.my.services.sabnzbd;
-  port = 9090; # NOTE: not declaratively set...
 in
 {
   options.my.services.sabnzbd = with lib; {
     enable = mkEnableOption "SABnzbd binary news reader";
+
+    port = mkOption {
+      type = types.port;
+      default = 9090;
+      example = 4242;
+      description = "The port on which SABnzbd will listen for incoming HTTP traffic";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     services.sabnzbd = {
       enable = true;
       group = "media";
+
+      # Don't warn about the config file
+      configFile = null;
+      # I want to configure servers outside of Nix
+      allowConfigWrite = true;
+
+      settings = {
+        misc = {
+          host = "127.0.0.1";
+          inherit (cfg) port;
+        };
+      };
     };
 
     # Set-up media group
@@ -20,7 +38,7 @@ in
 
     my.services.nginx.virtualHosts = {
       sabnzbd = {
-        inherit port;
+        inherit (cfg) port;
       };
     };
 

@@ -188,14 +188,14 @@ in
       ++ (lib.flip lib.mapAttrsToList cfg.virtualHosts (_: { subdomain, ... } @ args:
       let
         conflicts = [ "port" "root" "socket" "redirect" ];
-        optionsNotNull = map (v: args.${v} != null) conflicts;
+        optionsNotNull = builtins.map (v: args.${v} != null) conflicts;
         optionsSet = lib.filter lib.id optionsNotNull;
       in
       {
         assertion = builtins.length optionsSet == 1;
         message = ''
           Subdomain '${subdomain}' must have exactly one of ${
-            lib.concatStringsSep ", " (map (v: "'${v}'") conflicts)
+            lib.concatStringsSep ", " (builtins.map (v: "'${v}'") conflicts)
           } configured.
         '';
       }))
@@ -208,7 +208,7 @@ in
         assertion = args.websocketsLocations != [ ] -> proxyPassUsed;
         message = ''
           Subdomain '${subdomain}' can only use 'websocketsLocations' with one of ${
-            lib.concatStringsSep ", " (map (v: "'${v}'") proxyPass)
+            lib.concatStringsSep ", " (builtins.map (v: "'${v}'") proxyPass)
           }.
         '';
       }))

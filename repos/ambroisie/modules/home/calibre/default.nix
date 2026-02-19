@@ -10,7 +10,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [
+    home.packages = with pkgs; [
       cfg.package
     ];
   };

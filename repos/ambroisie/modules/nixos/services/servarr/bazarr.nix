@@ -4,7 +4,7 @@ let
 in
 {
   options.my.services.servarr.bazarr = with lib; {
-    enable = mkEnableOption "Bazarr" // {
+    enable = lib.mkEnableOption "Bazarr" // {
       default = config.my.services.servarr.enableAll;
     };
 

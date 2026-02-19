@@ -11,7 +11,7 @@ let
       lib.mkDefault [ (lib.getExe pkgs.ambroisie.rbw-pass) "Mail" passName ];
 
     address = mkMailAddress address domain;
-    aliases = map (lib.flip mkMailAddress domain) aliases;
+    aliases = builtins.map (lib.flip mkMailAddress domain) aliases;
 
     inherit primary;
 

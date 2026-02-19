@@ -96,7 +96,7 @@ in
       # Contains the UID/GID map, and other useful state
       "/var/lib/nixos"
       # SSH host keys (and public keys for convenience)
-      (map (key: [ key.path "${key.path}.pub" ]) config.services.openssh.hostKeys)
+      (builtins.map (key: [ key.path "${key.path}.pub" ]) config.services.openssh.hostKeys)
     ];
 
     services.restic.backups.backblaze = {

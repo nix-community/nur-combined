@@ -1,4 +1,4 @@
-{ lib, coreutils, gnused, makeWrapper, stdenvNoCC, xorg }:
+{ lib, coreutils, gnused, makeWrapper, stdenvNoCC, xprop, xwininfo }:
 stdenvNoCC.mkDerivation rec {
   pname = "i3-get-window-criteria";
   version = "0.1.0";
@@ -22,8 +22,8 @@ stdenvNoCC.mkDerivation rec {
   wrapperPath = lib.makeBinPath [
     coreutils
     gnused
-    xorg.xprop
-    xorg.xwininfo
+    xprop
+    xwininfo
   ];
 
   fixupPhase = ''

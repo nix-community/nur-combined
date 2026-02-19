@@ -95,7 +95,7 @@
               self.packages.${system}.project
             ];
 
-            packages = [
+            packages = with pkgs; [
               self.checks.${system}.pre-commit.enabledPackages
             ];
 
