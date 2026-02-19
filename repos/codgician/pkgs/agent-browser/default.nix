@@ -15,19 +15,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "agent-browser";
-  version = "0.11.1";
+  version = "0.12.0";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-KT4DZdOlDyDqFvi0jrbDNxemGGLkSUv+D66tW4siclo=";
+    hash = "sha256-RZrHetOaq6cQ1Lnn3WztllQZrhiqZlWnVRS4qYI3k9g=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/cli";
-    hash = "sha256-TPm3esSa5XnOlUrs7ln5mqMaUYha2Fh7VOrkbt8B54w=";
+    hash = "sha256-wKl9S0E4IVcp2F2lY65QPH4mO4+TuIz0OX2520WDYXw=";
   };
 
   cargoRoot = "cli";
