@@ -67,7 +67,8 @@ let
   };
 in
 symlinkJoin {
-  name = "vs-launcher";
+  name = "${pname}-${version}";
+  inherit pname version;
   paths = [ fhs ];
   postBuild = ''
     mkdir -p $out/share/applications $out/share/icons

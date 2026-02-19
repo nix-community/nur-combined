@@ -62,7 +62,8 @@ let
   };
 in
 symlinkJoin {
-  name = "wowup-cf";
+  name = "${pname}-${version}";
+  inherit pname version;
   paths = [ fhs ];
   postBuild = ''
     mkdir -p $out/share/applications $out/share/icons
