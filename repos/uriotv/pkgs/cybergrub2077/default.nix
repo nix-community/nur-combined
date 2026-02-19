@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation {
   pname = "cyber-grub-2077";
-  version = "unstable-2026-01-31";
+  version = "2.0.1-unstable-2026-01-25";
 
   src = fetchFromGitHub {
     owner = "adnksharp";

@@ -29,6 +29,11 @@
           packages = pkgs.lib.filterAttrs (_: v: pkgs.lib.isDerivation v) (
             import ./default.nix { inherit pkgs; }
           );
+          devShells.default = pkgs.mkShell {
+            packages = [
+              pkgs.nix-update
+            ];
+          };
         };
 
       flake = {
