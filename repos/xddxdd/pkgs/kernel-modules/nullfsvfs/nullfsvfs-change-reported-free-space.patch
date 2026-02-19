@@ -1,7 +1,7 @@
-diff --git a/nullfs.c b/nullfs.c
+diff --git a/nullfsvfs.c b/nullfsvfs.c
 index 509f1a2..78a9418 100644
---- a/nullfs.c
-+++ b/nullfs.c
+--- a/nullfsvfs.c
++++ b/nullfsvfs.c
 @@ -536,9 +536,9 @@ int nullfs_statfs(struct dentry *dentry, struct kstatfs *buf)
       **/
      buf->f_type  = dentry->d_sb->s_magic;
