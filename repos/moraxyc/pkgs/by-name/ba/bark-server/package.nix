@@ -9,7 +9,7 @@ upstream.bark-server.overrideAttrs (
     src = prevAttrs.src.override {
       inherit (sources.bark-server.src) rev;
       tag = null;
-      hash = "sha256-noaXbQKikgIYG9z5nJrm8N6dMKrKu/drrMYTl5+X4QU=";
+      hash = "sha256-yqghaROgLZvPhYnTD0Irs26/csucSd1jJbC64ZRjpyE=";
     };
 
     patches = prevAttrs.patches or [ ] ++ [
@@ -18,7 +18,7 @@ upstream.bark-server.overrideAttrs (
     ];
 
     # nix-update auto
-    vendorHash = "sha256-bf2uITCsa+mYsV2U3tVhxeKCidWFCPG7wjPOA9VMMnQ=";
+    vendorHash = "sha256-eYSePxBEoVtqLJxA9/MxQOUMwnYnnZrIl/TcJ353HMQ=";
 
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;
