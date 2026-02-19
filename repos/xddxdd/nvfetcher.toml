@@ -290,10 +290,6 @@ fetch.url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v$ver/fcitx5-
 src.webpage = "https://gitlab.com/api/v4/projects/53966606/releases/"
 src.regex = "\"https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v([0-9\\.]+)/fcitx5-breeze-"
 
-[fish-speech]
-fetch.github = "fishaudio/fish-speech"
-src.github_tag = "fishaudio/fish-speech"
-
 [flapalerted]
 fetch.github = "Kioubit/FlapAlerted"
 src.github = "Kioubit/FlapAlerted"
@@ -989,10 +985,6 @@ src.github = "Diniboy1123/usque"
 [vbmeta-disable-verification]
 fetch.github = "libxzr/vbmeta-disable-verification"
 src.github = "libxzr/vbmeta-disable-verification"
-
-[vector-quantize-pytorch]
-fetch.github = "lucidrains/vector-quantize-pytorch"
-src.github = "lucidrains/vector-quantize-pytorch"
 
 [vgpu-unlock-rs]
 fetch.github = "mbilker/vgpu_unlock-rs"

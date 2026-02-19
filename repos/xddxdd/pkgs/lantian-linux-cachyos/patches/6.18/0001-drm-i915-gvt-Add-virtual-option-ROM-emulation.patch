@@ -44,10 +44,10 @@ index 9bafac1eaf48..910a8895b2e3 100644
  	memset(vgpu_cfg_space(vgpu) + PCI_ROM_ADDRESS, 0, 4);
  
 diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
-index 2d65800d8e93..866c8d9de474 100644
+index 1d10c16e6465..c0313654411b 100644
 --- a/drivers/gpu/drm/i915/gvt/gvt.h
 +++ b/drivers/gpu/drm/i915/gvt/gvt.h
-@@ -557,6 +557,14 @@ int intel_vgpu_emulate_cfg_write(struct intel_vgpu *vgpu, unsigned int offset,
+@@ -546,6 +546,14 @@ int intel_vgpu_emulate_cfg_write(struct intel_vgpu *vgpu, unsigned int offset,
  
  void intel_vgpu_emulate_hotplug(struct intel_vgpu *vgpu, bool connected);
  
@@ -63,7 +63,7 @@ index 2d65800d8e93..866c8d9de474 100644
  {
  	/* We are 64bit bar. */
 diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 8ae7039b3683..9b10670ca0e9 100644
+index 69830a5c49d3..94399e8360b8 100644
 --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
 +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
 @@ -53,6 +53,8 @@
@@ -72,10 +72,10 @@ index 8ae7039b3683..9b10670ca0e9 100644
  
 +#include "vgpu_rom.c"
 +
- MODULE_IMPORT_NS(DMA_BUF);
- MODULE_IMPORT_NS(I915_GVT);
+ MODULE_IMPORT_NS("DMA_BUF");
+ MODULE_IMPORT_NS("I915_GVT");
  
-@@ -791,6 +793,23 @@ static int intel_vgpu_aperture_rw(struct intel_vgpu *vgpu, u64 off,
+@@ -796,6 +798,23 @@ static int intel_vgpu_aperture_rw(struct intel_vgpu *vgpu, u64 off,
  	return 0;
  }
  
@@ -99,7 +99,7 @@ index 8ae7039b3683..9b10670ca0e9 100644
  static ssize_t intel_vgpu_rw(struct intel_vgpu *vgpu, char *buf,
  			size_t count, loff_t *ppos, bool is_write)
  {
-@@ -820,12 +839,16 @@ static ssize_t intel_vgpu_rw(struct intel_vgpu *vgpu, char *buf,
+@@ -825,12 +844,16 @@ static ssize_t intel_vgpu_rw(struct intel_vgpu *vgpu, char *buf,
  	case VFIO_PCI_BAR2_REGION_INDEX:
  		ret = intel_vgpu_aperture_rw(vgpu, pos, buf, count, is_write);
  		break;
@@ -117,7 +117,7 @@ index 8ae7039b3683..9b10670ca0e9 100644
  		break;
  	default:
  		if (index >= VFIO_PCI_NUM_REGIONS + vgpu->num_regions)
-@@ -1234,6 +1257,11 @@ static long intel_vgpu_ioctl(struct vfio_device *vfio_dev, unsigned int cmd,
+@@ -1239,6 +1262,11 @@ static long intel_vgpu_ioctl(struct vfio_device *vfio_dev, unsigned int cmd,
  			break;
  
  		case VFIO_PCI_ROM_REGION_INDEX:

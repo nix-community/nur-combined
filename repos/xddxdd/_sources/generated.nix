@@ -676,16 +676,6 @@
       hash = "sha256-rRVRUY69M5Nz8MwarePlqy2JIOX8MP0nz6Ia2pwmkTA=";
     };
   };
-  fish-speech = {
-    pname = "fish-speech";
-    version = "v1.5.1";
-    src = fetchFromGitHub {
-      owner = "fishaudio";
-      repo = "fish-speech";
-      tag = "v1.5.1";
-      hash = "sha256-/PH2or5fvfb2+OgN6Wfg76ZyBo+fsAIVuQFrTtIzia8=";
-    };
-  };
   flapalerted = {
     pname = "flapalerted";
     version = "v4.3.0";
@@ -781,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.10";
+    version = "2026.02.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-ASN.mmdb";
-      hash = "sha256-4GpmPPwfA5ZyliGQ9Savc3PtB+scWg+6R86kKcw3WGk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.19/GeoLite2-ASN.mmdb";
+      hash = "sha256-4z0a82FAFAgibzUNGWNUMJ/Jvv+xpYxos6tvJlLt4K8=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.10";
+    version = "2026.02.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-City.mmdb";
-      hash = "sha256-FOjCYrPTy4C+S26iuMAiysvmj+Yb9c7QjQmG/QlRzQA=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.19/GeoLite2-City.mmdb";
+      hash = "sha256-COwExT/FMsErje3OWQtS9Mn7cU1zt1hjBHxKH9oP6rQ=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.10";
+    version = "2026.02.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.10/GeoLite2-Country.mmdb";
-      hash = "sha256-55g4lBN8X26D+sF3UhZMTmmx+QzvMEHDWSG1CDhekAU=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.19/GeoLite2-Country.mmdb";
+      hash = "sha256-4IEjQN3gOGKd00JOlmSY9Z5iXbIriKK3kkMC//sV9wc=";
     };
   };
   glauth = {
@@ -2266,16 +2256,6 @@
       repo = "vbmeta-disable-verification";
       tag = "v1.0";
       hash = "sha256-ml6RZkl2DT08sfJj9L1SGR6zNgRQ15ph0PPIPgxx7+M=";
-    };
-  };
-  vector-quantize-pytorch = {
-    pname = "vector-quantize-pytorch";
-    version = "1.27.21";
-    src = fetchFromGitHub {
-      owner = "lucidrains";
-      repo = "vector-quantize-pytorch";
-      tag = "1.27.21";
-      hash = "sha256-dH7PFV85VSRgcjpsxDbVTN1K6Grt8wvHPTLAYdyHRFI=";
     };
   };
   vgpu-unlock-rs = {
