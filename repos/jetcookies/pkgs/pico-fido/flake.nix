@@ -1,29 +1,34 @@
 {
-  description = "pico-fido matrix build flake";
+  description = "pico-fido-firmwares matrix build flake";
 
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        lib = nixpkgs.lib;
-        allSupportedBoards = lib.filter
-          (s: s != "" && !(lib.hasPrefix "#" s))
-          (lib.splitString "\n" (lib.trim (builtins.readFile ./allSupportedBoards.txt)));
-        argMatrix = lib.cartesianProduct {
-          picoBoard = allSupportedBoards;
-          vidpid = [ "NitroHSM" "NitroFIDO2" "NitroStart" "NitroPro" "Nitro3" "Yubikey5" "YubikeyNeo" "YubiHSM" "Gnuk" "GnuPG" null ];
-        };
-        allFirmwareDrvs = map (args: pkgs.callPackage ./default.nix { inherit (args) picoBoard vidpid; }) argMatrix;      
-      in
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { lib, ... }:
       {
-        packages.default = pkgs.symlinkJoin {
-          name = "all-pico-fido-firmwares";
-          paths = allFirmwareDrvs;
+        systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+        perSystem = { config, self', inputs', pkgs, system, ... }:
+        let
+          boards = lib.filter
+            (s: s != "" && !(lib.hasPrefix "#" s))
+            (lib.splitString "\n" (lib.trim (builtins.readFile ./boards.txt)));
+          picofidoArgMatrix = lib.cartesianProduct {
+            picoBoard = boards;
+            enableEdDSA = [ true false ];
+          };
+          picofidoFirmwares = map (args: pkgs.callPackage ./default.nix { inherit (args) picoBoard enableEdDSA; }) picofidoArgMatrix;
+        in
+        {
+          packages = {
+            pico-fido-firmwares = pkgs.symlinkJoin {
+              name = "pico-fido-firmwares";
+              paths = picofidoFirmwares;
+            };
+          };
         };
       }
     );

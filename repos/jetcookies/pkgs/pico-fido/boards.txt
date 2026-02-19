@@ -30,8 +30,8 @@ phyx_rick_tny_rp2350
 pi-plates_micropi
 pico
 pico2
-pico2_w
-pico_w
+# pico2_w
+# pico_w
 pimoroni_badger2040
 pimoroni_interstate75
 pimoroni_motor2040
@@ -40,7 +40,7 @@ pimoroni_picolipo_16mb
 pimoroni_picolipo_4mb
 pimoroni_picosystem
 pimoroni_pico_plus2_rp2350
-pimoroni_pico_plus2_w_rp2350
+# pimoroni_pico_plus2_w_rp2350
 pimoroni_plasma2040
 pimoroni_plasma2350
 pimoroni_servo2040
