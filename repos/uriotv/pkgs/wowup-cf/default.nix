@@ -63,7 +63,7 @@ let
 in
 symlinkJoin {
   name = "${pname}-${version}";
-  inherit pname version;
+  inherit pname version src;
   paths = [ fhs ];
   postBuild = ''
     mkdir -p $out/share/applications $out/share/icons
