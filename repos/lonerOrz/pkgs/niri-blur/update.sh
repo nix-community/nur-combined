@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OWNER="lonerOrz"
+OWNER="niri-wm"
 REPO="niri"
-BRANCH="feat/blur"
-package_name="niri-loner"
+BRANCH="wip/branch"
+package_name="niri-blur"
 pname="niri-blur"
 
 FAST_MODE=false
