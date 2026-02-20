@@ -10,42 +10,24 @@
 
 let
   lib = pkgs.lib;
-
-  importFromDir =
-    dir:
-    let
-      entries = builtins.readDir dir;
-      names = builtins.attrNames entries;
-      isDir = name: entries.${name} == "directory";
-      isFile = name: entries.${name} == "regular" && lib.hasSuffix ".nix" name;
-      mkEntry =
-        name: path:
-        let
-          pkg = pkgs.callPackage path { };
-        in
-        if pkg ? pname then
-          {
-            name = pkg.pname;
-            value = pkg;
-          }
-        else
-          null;
-      dirPkgs =
-        builtins.listToAttrs
-          (builtins.filter (entry: entry != null)
-            (map (name: mkEntry name (dir + "/${name}")) (builtins.filter isDir names)));
-      filePkgs =
-        builtins.listToAttrs
-          (builtins.filter (entry: entry != null)
-            (map (name: mkEntry (lib.removeSuffix ".nix" name) (dir + "/${name}")) (builtins.filter isFile names)));
-    in
-    dirPkgs // filePkgs;
-
-  pkgsFrom = importFromDir ./pkgs;
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-} // pkgsFrom
+  _115browser = pkgs.callPackage ./pkgs/115br { };
+  baidupcs-go = pkgs.callPackage ./pkgs/baidupcs-go { };
+  blueprint-mcp = pkgs.callPackage ./pkgs/blueprint-mcp { };
+  context7-mcp = pkgs.callPackage ./pkgs/context7-mcp { };
+  genryumin-tc = pkgs.callPackage ./pkgs/genryumin { };
+  gotham-fonts = pkgs.callPackage ./pkgs/gotham-fonts { };
+  huiwen-mincho = pkgs.callPackage ./pkgs/huiwen-mincho { };
+  moonbit = pkgs.callPackage ./pkgs/moonbit { };
+  nix-plugin-pijul = pkgs.callPackage ./pkgs/nix-plugin-pijul { };
+  quarkpantool = pkgs.callPackage ./pkgs/quarkpantool { };
+  TRWUDMincho = pkgs.callPackage ./pkgs/TRWUDMincho { };
+  waydroid-script = pkgs.callPackage ./pkgs/waydroid-script { };
+  wechat = pkgs.callPackage ./pkgs/wechat { };
+  windows-fonts = pkgs.callPackage ./pkgs/windows-fonts { };
+}
