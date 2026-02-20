@@ -27,4 +27,5 @@ in
   uv-build = pkgs.callPackage ./uv-build {
     inherit (pkgs.python3Packages) buildPythonPackage;
   };
+  yt-dlp = pkgs.callPackage ./yt-dlp { };
 }
