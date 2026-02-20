@@ -5,7 +5,13 @@
   settingsVersion,
   persistencedSha256,
   persistencedVersion,
+
+  prePatch ? "",
+  postPatch ? "",
+  patchFlags ? null,
   patches ? [ ],
+  preInstall ? "",
+  postInstall ? "",
 }:
 {
   lib,
@@ -17,6 +23,7 @@
   nukeReferences,
   which,
   libarchive,
+  jq,
 }:
 let
   nameSuffix = "-${kernel.version}";
@@ -28,89 +35,105 @@ let
       with pkgs;
       [
         libdrm
-        xorg.libXext
-        xorg.libX11
-        xorg.libXv
-        xorg.libXrandr
-        xorg.libxcb
+        libxext
+        libx11
+        libxv
+        libxrandr
+        libxcb
         zlib
         stdenv.cc.cc
         wayland
-        mesa
+        libgbm
         libGL
+        openssl
+        dbus # for nvidia-powerd
       ]
     );
+in
+kernel.stdenv.mkDerivation (finalAttrs: {
+  name = "nvidia-x11-${version}${nameSuffix}";
 
-  self = kernel.stdenv.mkDerivation {
-    name = "nvidia-x11-${version}${nameSuffix}";
+  builder = ./vgpu-builder.sh;
 
-    builder = ./vgpu-builder.sh;
+  inherit version src;
 
-    inherit version src;
-    inherit (kernel.stdenv.hostPlatform) system;
-    inherit i686bundled;
-    inherit patches;
+  inherit
+    patches
+    prePatch
+    patchFlags
+    ;
+  inherit preInstall postInstall;
+  inherit (kernel.stdenv.hostPlatform) system;
+  inherit i686bundled;
 
-    postPatch = ''
-      substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
-        --replace-quiet "no_llseek," "NULL,"
-      substituteInPlace kernel/nvidia-vgpu-vfio/vgpu-ctldev.c \
-        --replace-quiet "void nv_free_vgpu_type_info()" "void nv_free_vgpu_type_info(void)"
-    '';
+  postPatch = postPatch + ''
+    substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
+      --replace-quiet "no_llseek," "NULL,"
+    substituteInPlace kernel/nvidia-vgpu-vfio/vgpu-ctldev.c \
+      --replace-quiet "void nv_free_vgpu_type_info()" "void nv_free_vgpu_type_info(void)"
+  '';
 
-    outputs = [
-      "out"
-      "bin"
-      "vgpuConfig"
-    ]
-    ++ lib.optional i686bundled "lib32";
-    outputDev = "bin";
+  outputs = [
+    "out"
+    "bin"
+    "vgpuConfig"
+  ]
+  ++ lib.optional i686bundled "lib32";
+  outputDev = "bin";
 
-    kernel = kernel.dev;
-    kernelVersion = kernel.modDirVersion;
+  kernel = kernel.dev;
+  kernelVersion = kernel.modDirVersion;
 
-    makeFlags = (kernel.commonMakeFlags or kernel.makeFlags) ++ [
+  makeFlags =
+    (kernel.commonMakeFlags or kernel.makeFlags)
+    ++ [
       "IGNORE_PREEMPT_RT_PRESENCE=1"
       "NV_BUILD_SUPPORTS_HMM=1"
       "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
       "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ];
-
-    hardeningDisable = [
-      "pic"
-      "format"
-    ];
-
-    dontStrip = true;
-    dontPatchELF = true;
-
-    libPath = libPathFor pkgs;
-    libPath32 = lib.optionalString i686bundled (libPathFor pkgsi686Linux);
-
-    buildInputs = [ which ];
-    nativeBuildInputs = [
-      perl
-      nukeReferences
-      libarchive
     ]
-    ++ kernel.moduleBuildDependencies;
+    ++ lib.optionals kernel.stdenv.cc.isClang [
+      "C_INCLUDE_PATH=${lib.getLib kernel.stdenv.cc.cc}/lib/clang/${lib.versions.major kernel.stdenv.cc.cc.version}/include"
+    ];
 
-    disallowedReferences = [ kernel.dev ];
+  hardeningDisable = [
+    "pic"
+    "format"
+  ];
 
-    passthru = {
-      settings = callPackage (import ./settings.nix settingsSha256) { nvidia_x11 = self; };
-      persistenced = callPackage (import ./persistenced.nix persistencedSha256) { nvidia_x11 = self; };
-      inherit persistencedVersion settingsVersion;
-      compressFirmware = false;
+  dontStrip = true;
+  dontPatchELF = true;
+
+  libPath = libPathFor pkgs;
+  libPath32 = lib.optionalString i686bundled (libPathFor pkgsi686Linux);
+
+  nativeBuildInputs = [
+    perl
+    nukeReferences
+    which
+    libarchive
+    jq
+  ]
+  ++ kernel.moduleBuildDependencies;
+
+  disallowedReferences = [ kernel.dev ];
+
+  passthru = {
+    settings = callPackage (import ./settings.nix settingsSha256) {
+      nvidia_x11 = finalAttrs.finalPackage;
     };
-
-    meta = {
-      maintainers = with lib.maintainers; [ xddxdd ];
-      homepage = "https://www.nvidia.com/object/unix.html";
-      description = "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)";
-      license = lib.licenses.unfreeRedistributable;
-      platforms = [ "x86_64-linux" ];
+    persistenced = callPackage (import ./persistenced.nix persistencedSha256) {
+      nvidia_x11 = finalAttrs.finalPackage;
     };
+    inherit persistencedVersion settingsVersion;
+    compressFirmware = false;
   };
-in
-self
+
+  meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
+    homepage = "https://www.nvidia.com/object/unix.html";
+    description = "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)";
+    license = lib.licenses.unfreeRedistributable;
+    platforms = [ "x86_64-linux" ];
+  };
+})
