@@ -8,32 +8,32 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  lib = pkgs.lib;
+
+  importFromDir =
+    dir:
+    let
+      entries = builtins.readDir dir;
+      names = builtins.attrNames entries;
+      isDir = name: entries.${name} == "directory";
+      isFile = name: entries.${name} == "regular" && lib.hasSuffix ".nix" name;
+      dirPkgs = builtins.listToAttrs (map (name: {
+        name = name;
+        value = pkgs.callPackage (dir + "/${name}") { };
+      }) (builtins.filter isDir names));
+      filePkgs = builtins.listToAttrs (map (name: {
+        name = lib.removeSuffix ".nix" name;
+        value = pkgs.callPackage (dir + "/${name}") { };
+      }) (builtins.filter isFile names));
+    in
+    dirPkgs // filePkgs;
+
+  pkgsFrom = importFromDir ./pkgs;
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  moonbit = pkgs.callPackage ./pkgs/moonbit { };
-  waydroid-script = pkgs.callPackage ./pkgs/waydroid-script { };
-  huiwen-mincho = pkgs.callPackage ./pkgs/huiwen-mincho { };
-  genryumin = pkgs.callPackage ./pkgs/genryumin { };
-  TRWUDMincho = pkgs.callPackage ./pkgs/TRWUDMincho { };
-
-  gotham-fonts = pkgs.callPackage ./pkgs/gotham-fonts { };
-  windows-fonts = pkgs.callPackage ./pkgs/windows-fonts { };
-
-  # 115浏览器
-  _115browser = pkgs.callPackage ./pkgs/115br { };
-
-  baidupcs-go = pkgs.callPackage ./pkgs/baidupcs-go { };
-
-  # 微信
-  wechat = pkgs.callPackage ./pkgs/wechat { };
-
-  # 夸克网盘工具
-  quarkpantool = pkgs.callPackage ./pkgs/quarkpantool { };
-
-  # Nix Pijul fetcher plugin
-  nix-plugin-pijul = pkgs.callPackage ./pkgs/nix-plugin-pijul { };
-}
+} // pkgsFrom // { mcp-nixos = pkgs.mcp-nixos; }

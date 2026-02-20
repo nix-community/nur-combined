@@ -7,9 +7,12 @@
     in
     {
       legacyPackages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system;};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        };
       });
-      overlays.default=import ./overlay.nix;
+      overlays.default = import ./overlay.nix;
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
     };
 }

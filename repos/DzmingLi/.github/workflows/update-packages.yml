@@ -1,0 +1,59 @@
+# This is a GitHub Actions workflow to automatically update packages.
+name: Update Packages
+
+on:
+  # Allows you to trigger this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+  # Defines a schedule. This example runs at 08:00 UTC every day.
+  # You can customize the cron schedule to your liking.
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Run update scripts
+        run: |
+          chmod +x ./update-baidupcs-go.sh
+          chmod +x ./update-moonbit.sh
+          chmod +x ./update-quarkpantool.sh
+          chmod +x ./update-wechat.sh
+          chmod +x ./update-blueprint-mcp.sh
+          chmod +x ./update-context7-mcp.sh
+
+          ./update-baidupcs-go.sh
+          ./update-moonbit.sh
+          ./update-quarkpantool.sh
+          ./update-wechat.sh
+          ./update-blueprint-mcp.sh
+          ./update-context7-mcp.sh
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          echo "Committing updated hashes..."
+          git add pkgs/baidupcs-go/default.nix \
+            pkgs/moonbit/default.nix \
+            pkgs/quarkpantool/default.nix \
+            pkgs/wechat/default.nix \
+            pkgs/blueprint-mcp/default.nix \
+            pkgs/context7-mcp/default.nix \
+            pkgs/context7-mcp/package-lock.json
+          git commit -m "packages: update to latest"
+          git push

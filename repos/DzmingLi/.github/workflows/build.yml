@@ -7,7 +7,7 @@ on:
       - master
   workflow_dispatch:
   workflow_run:
-    workflows: ["Update Moonbit Package"]
+    workflows: ["Update Packages"]
     types:
       - completed
 jobs:
