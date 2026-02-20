@@ -137,27 +137,44 @@ let
     nix-output-monitor = callPackage ./pkgs/nix-output-monitor/package.nix { };
 
     cached = {
-      pkgscache = (
+      pkgscachelinux = (
+        pkgs.symlinkJoin {
+          name = "pkgscachelinux";
+          paths = with self; [
+            (self.rain or pkgs.hello)
+            wireguird
+          ];
+        }
+      );
+      pkgscachecommon = (
+        pkgs.symlinkJoin {
+          name = "pkgscachecommon";
+          paths = with self; [
+            aria2-wrapped
+            openssh_hpn
+            caddy
+            minetest591client
+            minetest580client
+            musescore-alex
+            musescore-evolution
+            downkyicore
+            lix_2_93
+            nix_2_31_2
+          ];
+        }
+      );
+      pkgscachex86linux = (
         pkgs.symlinkJoin {
           name = "pkgscache";
           paths = with self; [
             self.materialgram
             self.telegram-desktop
-            aria2-wrapped
-            openssh_hpn
-            caddy
             lmms
-            minetest591client
-            minetest580client
-            musescore-alex
             cb
             beammp-launcher
             mdbook-generate-summary
             #betterbird
             eden
-            downkyicore
-            lix_2_93
-            nix_2_31_2
             ghidra
             prismlauncher-diegiwg
             android-translation-layer
@@ -165,11 +182,8 @@ let
             cider
             rocksmith2tab
             superTux
-            nix-output-monitor
-            musescore-evolution
+            #nix-output-monitor
             darling
-            wireguird
-            (self.rain or pkgs.hello)
             supertuxkart-evolution
           ];
         }
