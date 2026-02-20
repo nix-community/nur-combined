@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   fetchFromGitHub,
   python3Packages,
   click_6_7,
@@ -68,5 +69,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "eio";
+    broken = stdenv.isDarwin; # postgresql-test-hook
   };
 })
