@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation rec {
     pname = "librusty_v8";
-    version = "145.0.0";
+    version = "146.0.0";
 
     src = fetchurl {
         url = "https://github.com/denoland/rusty_v8/releases/download/v${version}/librusty_v8_release_x86_64-unknown-linux-gnu.a.gz";

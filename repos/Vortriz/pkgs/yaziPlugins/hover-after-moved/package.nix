@@ -5,13 +5,13 @@
 }:
 mkYaziPlugin {
     pname = "hover-after-moved.yazi";
-    version = "unstable-2026-01-06";
+    version = "unstable-2026-02-16";
 
     src = fetchFromGitHub {
         owner = "boydaihungst";
         repo = "hover-after-moved.yazi";
-        rev = "c2e90df9278538741a3793d59f78af50e33bdff7";
-        hash = "sha256-PtX3tqRrXfBQDquESrL59fAUpKEENJOD0ZwoooKsXko=";
+        rev = "a41e8ec5cd10e3ede87ceddc563d6a25b7bd403c";
+        hash = "sha256-xN9T+9CfDQsl6ZVnz7XNQpxEOIZeRu+u+x0aksKBTLE=";
     };
 
     meta = {
