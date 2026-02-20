@@ -5,7 +5,8 @@ let coreSrc = fetchzip{
 };
 in
 stdenv.mkDerivation  {
-  name = "moonbit";
+  pname = "moonbit";
+  version = "latest";
   src = fetchzip{
     url = "https://cli.moonbitlang.com/binaries/latest/moonbit-linux-x86_64.tar.gz";
     sha256 = "sha256-lKo5jUnFhJRu9tuajZsvMWuk5HWeB2/8LmUuodYS/uk=";
