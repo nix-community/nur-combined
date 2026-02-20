@@ -11,7 +11,7 @@ mkOpencodePlugin rec {
     owner = "mohak34";
     repo = "opencode-${pname}";
     rev = "v${version}";
-    hash = "sha256-GnDTWjsqjDpN2UQXb4eHFAchJQRJ+uPOD75mdt8EX/g=";
+    hash = "sha256-ecLDRntg5CyZhJtZRRviYCbeWw69Dbh0tCNTHAcaqb4=";
   };
 
   dependencyHash = "sha256-qCsznzTzW30UzTOxj0dU2dpHb8PVxaZldcgRzhlQmbg=";

@@ -21,9 +21,9 @@ mkOpencodePlugin rec {
     bun build src/index.ts --outdir dist --target node --format esm
   '';
 
-  meta = with lib; {
+  meta = {
     description = "OpenCode plugin that removes or replaces emojis";
     homepage = "https://codeberg.org/bastiangx/opencode-unmoji";
-    license = licenses.mit;
+    license = lib.licenses.mit;
   };
 }

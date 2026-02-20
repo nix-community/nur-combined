@@ -12,10 +12,10 @@ mkOpencodePlugin rec {
     owner = "Opencode-DCP";
     repo = "opencode-${pname}";
     rev = "v${version}";
-    hash = "sha256-NTGo30IouPx94hwJiw+/MHChakq1+BkQs6BNLrO9tIE=";
+    hash = "sha256-GnDTWjsqjDpN2UQXb4eHFAchJQRJ+uPOD75mdt8EX/g=";
   };
 
-  dependencyHash = "sha256-j5sb70P0Mn/yV4zqWg8U8VbNacJlZZ0zeXC5nG6+/bk=";
+  dependencyHash = "sha256-NTGo30IouPx94hwJiw+/MHChakq1+BkQs6BNLrO9tIE=";
 
   nativeBuildInputs = [typescript];
 
