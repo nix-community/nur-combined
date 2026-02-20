@@ -50,16 +50,20 @@ python3Packages.buildPythonApplication rec {
   dependencies = lib.concatAttrValues optional-dependencies;
 
   optional-dependencies = {
-    default = with python3Packages; [
-      brotli
-      certifi
-      mutagen
-      pycryptodomex
-      requests
-      urllib3
-      websockets
-      yt-dlp-ejs # keep pinned version in sync!
-    ];
+    default =
+      with python3Packages;
+      [
+        brotli
+        certifi
+        mutagen
+        pycryptodomex
+        requests
+        urllib3
+        websockets
+      ]
+      ++ [
+        passthru.ejs # keep pinned version in sync!
+      ];
     curl-cffi = [ python3Packages.curl-cffi ];
     secretstorage = with python3Packages; [
       cffi
@@ -122,12 +126,15 @@ python3Packages.buildPythonApplication rec {
     install -Dm644 Changelog.md README.md -t "$out/share/doc/yt_dlp"
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--commit"
-      "--version=branch=master"
-      "${pname}"
-    ];
+  passthru = {
+    ejs = python3Packages.callPackage ./ejs.nix { };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--commit"
+        "--version=branch=master"
+        "${pname}"
+      ];
+    };
   };
 
   meta = {
