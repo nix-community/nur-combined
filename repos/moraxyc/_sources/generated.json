@@ -442,7 +442,7 @@
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-IRAD38L4Yt06VFtYWv_v1ZAt+gyRxW3Xt09jcEfTPBM=/Cargo.lock",
+                "sha256-NWQ1+hkOSn6RdtzveCb7lO7MpL8jZNQannFHTLenU+w=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig="
@@ -456,7 +456,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IRAD38L4Yt06VFtYWv/v1ZAt+gyRxW3Xt09jcEfTPBM=",
+            "sha256": "sha256-NWQ1+hkOSn6RdtzveCb7lO7MpL8jZNQannFHTLenU+w=",
             "type": "url",
             "url": "file:///nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz"
         },
@@ -492,11 +492,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LU+b02onQ+VdfFdPB1E0RKtwb1bMmU6fN9J75PcxOHo=",
+            "sha256": "sha256-pdWXkgQ2cuSLELtWfKYLYrZngmZmqaEiZS8b+qVWj6w=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602182226/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602192225/geoip.dat"
         },
-        "version": "202602182226"
+        "version": "202602192225"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -507,10 +507,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Cd//UYvxRCq8jE9+u5+95K3juK2G8zekMzczEUA1x+U=",
+            "sha256": "sha256-eRr5Q7ayLSKCk8oCCJQt18Lj0DvnrQ9iN9E6G2gBfv0=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602182226/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602192225/geosite.dat"
         },
-        "version": "202602182226"
+        "version": "202602192225"
     }
 }
