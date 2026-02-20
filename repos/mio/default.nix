@@ -157,6 +157,14 @@ in
             ];
           }
         );
+        pkgscachelinuxextra = (
+          pkgs.symlinkJoin {
+            name = "pkgscachelinuxextra";
+            paths = with self; [
+              nix_2_31_2
+            ];
+          }
+        );
         pkgscachecommon = (
           pkgs.symlinkJoin {
             name = "pkgscachecommon";
@@ -170,7 +178,6 @@ in
               musescore-evolution
               downkyicore
               lix_2_93
-              nix_2_31_2
             ];
           }
         );
