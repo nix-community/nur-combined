@@ -17,10 +17,10 @@ in
   get-shit-done-cc = nodeEnv.buildNodePackage {
     name = "get-shit-done-cc";
     packageName = "get-shit-done-cc";
-    version = "1.20.0";
+    version = "1.20.3";
     src = fetchurl {
-      url = "https://registry.npmjs.org/get-shit-done-cc/-/get-shit-done-cc-1.20.0.tgz";
-      sha512 = "Pp2vioh+iz9wkNh04BU4o0NVRcDtqERf1lt6JBgdQ4V/8FGuHmKhloLWEFCyXW9iaNQDQVo9Q+BgxJlx93XrUg==";
+      url = "https://registry.npmjs.org/get-shit-done-cc/-/get-shit-done-cc-1.20.3.tgz";
+      sha512 = "fAxzHfJt64dfYmzetSzOpV5oWMJOho08+3yO99ucD+TQuBoQAHXixbvJkF95WQv/aC4gjyZlCodFn3ANlogYJA==";
     };
     buildInputs = globalBuildInputs;
     meta = {
