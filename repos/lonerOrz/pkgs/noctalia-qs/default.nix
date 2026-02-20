@@ -24,7 +24,7 @@
   glib,
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "quickshell";
+  pname = "noctalia-qs";
   version = "0.2.1";
 
   # https://github.com/noctalia-dev/noctalia-qs
