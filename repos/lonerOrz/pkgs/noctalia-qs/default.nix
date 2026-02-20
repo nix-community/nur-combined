@@ -76,6 +76,12 @@ stdenv.mkDerivation (finalAttrs: {
   separateDebugInfo = true;
   dontStrip = false;
 
+  postInstall = ''
+    # Create symlinks for quickshell and qs commands
+    ln -sf "$out/bin/noctalia-qs" "$out/bin/quickshell"
+    ln -sf "$out/bin/noctalia-qs" "$out/bin/qs"
+  '';
+
   passthru.updateScript = ./update.sh;
 
   meta = {
