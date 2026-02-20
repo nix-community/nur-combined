@@ -48,4 +48,4 @@ in
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-} // pkgsFrom // { mcp-nixos = pkgs.mcp-nixos; }
+} // pkgsFrom
