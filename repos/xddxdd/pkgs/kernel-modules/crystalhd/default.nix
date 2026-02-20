@@ -14,6 +14,7 @@ stdenv.mkDerivation rec {
     cd driver/linux
 
     substituteInPlace Makefile.in \
+      --replace-fail "EXTRA_CFLAGS" "ccflags-y" \
       --replace-fail "-Werror" ""
   '';
 
