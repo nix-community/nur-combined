@@ -41,5 +41,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/geopandas/contextily";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = stdenv.isDarwin; # postgresql-test-hook
   };
 })
