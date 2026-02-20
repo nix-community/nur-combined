@@ -21,7 +21,7 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  formula-vst = pkgs.callPackage ./pkgs/formula-vst { };
+  formula-bin = pkgs.callPackage ./pkgs/formula-bin { };
 
   inherit (node-packages) get-shit-done-cc;
 }
