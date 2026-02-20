@@ -24,6 +24,7 @@
   gperf,
   pandoc,
   ncurses,
+  libjwt,
 }:
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.rtpengine) pname version src;
@@ -55,6 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     libmysqlclient
     libxml2
     ncurses
+    libjwt
   ];
 
   postPatch = ''
