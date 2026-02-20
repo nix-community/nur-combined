@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.22",
-            "sha256": "sha256-ZnpbMmx1ZVgtsWNNVDnGn2kyYVm/1dUkRAFuiQ/EDxY=",
+            "rev": "v6.8.23",
+            "sha256": "sha256-ZmdUQwrRkrVwtPdWxXVthJS1X8BC0lN+Y9xvQwynJV8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.22"
+        "version": "v6.8.23"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8102",
-            "sha256": "sha256-5T1WUwU1C0LHUm6mOOVE3Z8X4d40jpgI2k9ZYeHvMXM=",
+            "rev": "b8117",
+            "sha256": "sha256-bhoF5XbcQIPo149MRUDPuG5bvqjMVGGScR5EZBi4Xdg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8102"
+        "version": "b8117"
     },
     "loralib": {
         "cargoLock": null,
@@ -3016,11 +3016,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qgnPVyQZnmxwT5+Z8Y757XxXN9lsMs7u047HYUfpFzo=",
+            "sha256": "sha256-hajjDJ/1kOFbGsN3MuJXinEySTvcou8AyBxegzGGud0=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.5/PeerBanHelper_9.3.5.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.6/PeerBanHelper_9.3.6.zip"
         },
-        "version": "9.3.5"
+        "version": "9.3.6"
     },
     "phpmyadmin": {
         "cargoLock": null,

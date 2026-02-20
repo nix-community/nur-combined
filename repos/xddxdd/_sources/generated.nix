@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.22";
+    version = "v6.8.23";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.22";
-      hash = "sha256-ZnpbMmx1ZVgtsWNNVDnGn2kyYVm/1dUkRAFuiQ/EDxY=";
+      tag = "v6.8.23";
+      hash = "sha256-ZmdUQwrRkrVwtPdWxXVthJS1X8BC0lN+Y9xvQwynJV8=";
     };
   };
   cockpy = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8102";
+    version = "b8117";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8102";
-      hash = "sha256-5T1WUwU1C0LHUm6mOOVE3Z8X4d40jpgI2k9ZYeHvMXM=";
+      tag = "b8117";
+      hash = "sha256-bhoF5XbcQIPo149MRUDPuG5bvqjMVGGScR5EZBi4Xdg=";
     };
   };
   loralib = {
@@ -1548,10 +1548,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.5";
+    version = "9.3.6";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.5/PeerBanHelper_9.3.5.zip";
-      hash = "sha256-qgnPVyQZnmxwT5+Z8Y757XxXN9lsMs7u047HYUfpFzo=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.6/PeerBanHelper_9.3.6.zip";
+      hash = "sha256-hajjDJ/1kOFbGsN3MuJXinEySTvcou8AyBxegzGGud0=";
     };
   };
   phpmyadmin = {
