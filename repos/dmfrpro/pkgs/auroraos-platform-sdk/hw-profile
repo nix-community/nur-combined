@@ -24,9 +24,9 @@ alias habusdk="ubu-chroot -r /srv/mer/ubu-chroot"
 alias mb2="mb2 -t \$(sb2-config showtarget | sed 's/\.default//')"
     
 # Simplify target selection
-alias sb2-select-armv7hl="sb2-config -d \$(sb2-config -l | grep -E 'armv7hl.default$')"
-alias sb2-select-aarch64="sb2-config -d \$(sb2-config -l | grep -E 'aarch64.default$')"
-alias sb2-select-x86_64="sb2-config -d \$(sb2-config -l | grep -E 'x86_64.default$')"
+alias sb2-select-armv7hl="sb2-config -d \$(sdk-assistant target list | grep -E 'armv7hl.default$')"
+alias sb2-select-aarch64="sb2-config -d \$(sdk-assistant target list | grep -E 'aarch64.default$')"
+alias sb2-select-x86_64="sb2-config -d \$(sdk-assistant target list | grep -E 'x86_64.default$')"
     
 # Simplify build commands
 alias mb2-full-build="mb2 build-init && mb2 prepare && mb2 build"

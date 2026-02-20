@@ -1,68 +1,31 @@
 { pkgs, lib, ... }:
 
 let
-  dockerImage = pkgs.dockerTools.pullImage {
+  dockerRootfs = lib.fetchDockerRootfs {
     imageName = "hub.omp.ru/public/sdk-build-tools";
-    imageDigest = "sha256:7e9cbced02b42f8addb224e2eecf4a73e31e7581e7a0d68812b0df20857aaaaf";
-    hash = "sha256-t/fGS1NxtFuJgRyldWa6DkUJjb1lL+NJzL8zX8ydDhQ=";
+    imageDigest = "sha256:331a56b839b43acedd34014ae5f7723ba9d30ebe2c141ce4cc5d8cff702752a7";
+    hash = "sha256-+whD8xaccMQ+aZ6MF4M5I7JzDqI4ZHeYFsqVba0Tc20=";
     finalImageName = "hub.omp.ru/public/sdk-build-tools";
-    finalImageTag = "latest";
+    finalImageTag = "5.1.6";
   };
 
-in pkgs.stdenv.mkDerivation {
-  name = "auroraos-asbt-apptool";
-  version = "1.0";
-
-  nativeBuildInputs = with pkgs; [
-    proot
-  ];
-
-  phases = [ "buildPhase" "installPhase" ];
-
-  buildPhase = ''
-    # Create temporary directory for extraction
-    mkdir -p $out/rootfs
-    mkdir image_tmp
-    
-    # Extract the docker image tar
-    tar -xf ${dockerImage} -C image_tmp
-    
-    # Extract all layers in the correct order
-    for layer in $(find image_tmp -name "*.tar" | grep layer.tar | sort); do
-      echo "Extracting layer: $(basename $(dirname $layer))"
-      tar -xf "$layer" -C $out/rootfs
-    done
-  '';
-
-  installPhase = ''
-    mkdir -p $out/bin
-    mkdir -p $out/rootfs
-    
-    # Copy the complete rootfs
-    cp -r rootfs/* $out/rootfs/ 2>/dev/null || true
-    
-    # Create the apptool launcher
-    cat > $out/bin/apptool << 'EOF'
-    #!${pkgs.runtimeShell}
+  apptool = pkgs.writeShellScriptBin "apptool" ''
     set -e
-    
     BIND_MOUNTS="$BIND_MOUNTS -b $PWD:/mnt"
-    
     exec ${pkgs.proot}/bin/proot \
-      -r ${placeholder "out"}/rootfs \
+      -r ${dockerRootfs} \
       -b /dev -b /proc -b /sys -b /tmp -b /run -b /var \
       -w /mnt \
       /usr/bin/apptool "$@"
-    EOF
-    
-    chmod +x $out/bin/apptool
   '';
-
+in
+apptool
+// {
   meta = {
-    license = lib.licenses.unfree;
+    license = pkgs.lib.licenses.unfree;
     homepage = "https://developer.auroraos.ru/doc/sdk/tools/apptool";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ "dmfrpro" ];
+    sourceProvenance = [ pkgs.lib.sourceTypes.binaryNativeCode ];
+    maintainers = [ "dmfrpro" ];
     description = "AuroraOS SDK Build Tools - apptool";
     longDescription = ''
       Tool for cross-building, signing and validation of RPM packages.

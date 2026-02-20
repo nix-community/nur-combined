@@ -1,106 +1,154 @@
-# Previous work was done by MordragT
-# This package fixes appearance of config files in PATH
-# and additionally configures readback by scatter
-# https://github.com/MordragT/nixos/blob/master/pkgs/by-name/spflashtool-v5/default.nix
+{ pkgs, ... }:
 
-{
-  pkgs,
-  stdenv,
-  lib,
-  fetchzip,
-  autoPatchelfHook,
-  makeDesktopItem,
-  copyDesktopItems,
-  fontconfig,
-  freetype,
-  glib,
-  xorg,
-  zlib,
-  ...
-}:
+let
+  wrapper = pkgs.writeShellScriptBin "spflashtool5" ''
+    dir='@optDir@'
+    if [ -n "''${LD_LIBRARY_PATH:-}" ]; then
+      export LD_LIBRARY_PATH="''${LD_LIBRARY_PATH}:''${dir}:''${dir}/lib"
+    else
+      export LD_LIBRARY_PATH="''${dir}:''${dir}/lib"
+    fi
 
-stdenv.mkDerivation rec {
-  name = "spflashtool5";
+    # Segfault fixes
+    export FONTCONFIG_PATH='@fontconfigDir@'
+    export LC_ALL=C
+
+    exec "''${dir}/flash_tool" "''$@"
+  '';
+
+  fontconfigConf = pkgs.writeText "fonts.conf" ''
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+    <fontconfig>
+      <include>${pkgs.fontconfig.out}/etc/fonts/fonts.conf</include>
+      <dir>@fontDir@</dir>
+      <rejectfont>
+        <pattern>
+          <patelt name="family">
+            <string>Noto Color Emoji</string>
+          </patelt>
+        </pattern>
+      </rejectfont>
+      <rejectfont>
+        <pattern>
+          <patelt name="family">
+            <string>EmojiOne Color</string>
+          </patelt>
+        </pattern>
+      </rejectfont>
+      <rejectfont>
+        <pattern>
+          <patelt name="family">
+            <string>Twitter Color Emoji</string>
+          </patelt>
+        </pattern>
+      </rejectfont>
+    </fontconfig>
+  '';
+in
+
+pkgs.stdenv.mkDerivation rec {
+  pname = "spflashtool5";
   version = "5.2228";
 
-  src = fetchzip {
+  src = pkgs.fetchzip {
     url = "https://spflashtools.com/wp-content/uploads/SP_Flash_Tool_v${version}_Linux.zip";
     sha256 = "sha256-QZYltrfb7Sp+rmNfqgffKfbvBKlF8q0KhUnUyxaafFI=";
   };
 
-  desktopItem = makeDesktopItem {
+  desktopItem = pkgs.makeDesktopItem {
     name = "SP FlashTool 5";
     exec = "spflashtool5";
     icon = ../../share/icons/spflashtool5.png;
     comment = meta.description;
     desktopName = "SP FlashTool 5";
     genericName = "Mediatek FlashTool V5";
-    categories = [ "Development" "Engineering" "Utility" ];
+    categories = [
+      "Development"
+      "Engineering"
+      "Utility"
+    ];
     startupWMClass = "FlashTool";
   };
   desktopItems = [ desktopItem ];
 
-  nativeBuildInputs = [
+  nativeBuildInputs = with pkgs; [
+    unzip
     autoPatchelfHook
     copyDesktopItems
+    makeWrapper
   ];
 
-  buildInputs = [
+  buildInputs = with pkgs; [
+    bash
     stdenv.cc.cc.lib
     fontconfig
     freetype
     glib
-    xorg.libXrender
-    xorg.libXext
-    xorg.libX11
-    xorg.libSM
-    xorg.libICE
+    libxrender
+    libxext
+    libx11
+    libsm
+    libice
     zlib
+    liberation_ttf
   ];
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/opt/spflashtool5/lib $out/bin
-    cp -r $src/lib/pkgconfig $out/opt/spflashtool5/lib/pkgconfig
+    mkdir -p $out/opt/spflashtool5/{lib,fonts,fontconfig} $out/bin
 
-    install -Dm0644 $src/lib/lib* $out/opt/spflashtool5/lib
-    install -Dm0644 $src/libflashtool.so $out/opt/spflashtool5/lib/libflashtool.so
-    install -Dm0644 $src/libflashtool.v1.so $out/opt/spflashtool5/lib/libflashtool.v1.so
-    install -Dm0644 $src/libflashtoolEx.so $out/opt/spflashtool5/lib/libflashtoolEx.so
-    install -Dm0644 $src/libsla_challenge.so $out/opt/spflashtool5/lib/libsla_challenge.so
-    install -Dm0644 $src/MTK_AllInOne_DA.bin $out/opt/spflashtool5/MTK_AllInOne_DA.bin
-    install -Dm0644 $src/console_mode.xsd $out/opt/spflashtool5/console_mode.xsd
-    install -Dm0644 $src/download_scene.ini $out/opt/spflashtool5/download_scene.ini
-    install -Dm0644 $src/key.ini $out/opt/spflashtool5/key.ini
-    install -Dm0644 $src/option.ini $out/opt/spflashtool5/option.ini
-    install -Dm0644 $src/platform.xml $out/opt/spflashtool5/platform.xml
-    install -Dm0644 $src/rb_without_scatter.xml $out/opt/spflashtool5/rb_without_scatter.xml
-    install -Dm0644 $src/storage_setting.xml $out/opt/spflashtool5/storage_setting.xml
-    install -Dm0644 $src/usb_setting.xml $out/opt/spflashtool5/usb_setting.xml
+    cp -r $src/lib/pkgconfig $out/opt/spflashtool5/lib/
+
+    install -Dm0644 $src/lib/lib* \
+                    $src/libflashtool{,.v1}.so \
+                    $src/libflashtoolEx.so \
+                    $src/libsla_challenge.so \
+                    -t $out/opt/spflashtool5/lib/
+
+    install -Dm0644 $src/MTK_AllInOne_DA.bin \
+                    $src/console_mode.xsd \
+                    $src/download_scene.ini \
+                    $src/key.ini \
+                    $src/option.ini \
+                    $src/platform.xml \
+                    $src/rb_without_scatter.xml \
+                    $src/storage_setting.xml \
+                    $src/usb_setting.xml \
+                    -t $out/opt/spflashtool5/
 
     install -Dm0755 $src/flash_tool $out/opt/spflashtool5/flash_tool
-    install -Dm0755 $src/flash_tool.sh $out/opt/spflashtool5/flash_tool.sh
 
-    echo "#!/usr/bin/env sh" > $out/bin/spflashtool5
-    echo "$out/opt/spflashtool5/flash_tool.sh" >> $out/bin/spflashtool5
-    chmod +x $out/bin/spflashtool5
+    substituteInPlace $out/opt/spflashtool5/option.ini \
+      --replace-fail "ShowByScatter=false" "ShowByScatter=true" \
+      --replace-fail "ShowWelcome=true" "ShowWelcome=false"
 
-    # Enable readback by scatter
-    sed -i 's/ShowByScatter=false/ShowByScatter=true/' $out/opt/spflashtool5/option.ini
- 
-    # Disable welcome page at startup
-    sed -i 's/ShowWelcome=true/ShowWelcome=false/' $out/opt/spflashtool5/option.ini
+    mkdir -p $out/opt/spflashtool5/fonts
+    cp ${pkgs.liberation_ttf}/share/fonts/truetype/*.ttf \
+      $out/opt/spflashtool5/fonts/
+
+    cp ${fontconfigConf} $out/opt/spflashtool5/fontconfig/fonts.conf
+    substituteInPlace $out/opt/spflashtool5/fontconfig/fonts.conf \
+      --replace '@fontDir@' "$out/opt/spflashtool5/fonts"
 
     runHook postInstall
   '';
 
+  postFixup = ''
+    mkdir -p $out/bin
+    cp ${wrapper}/bin/spflashtool5 $out/bin/spflashtool5
+    substituteInPlace $out/bin/spflashtool5 \
+      --replace '@optDir@' "$out/opt/spflashtool5" \
+      --replace '@fontconfigDir@' "$out/opt/spflashtool5/fontconfig"
+  '';
+
   meta = {
-    license = lib.licenses.unfree;
-    homepage = "https://spflashtools.com/linux/sp-flash-tool-v5-2228-for-linux";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ "dmfrpro" ];
-    description = "SP Flash Tool is an application to flash your MediaTek (MTK) SmartPhone.";
+    license = pkgs.lib.licenses.unfree;
+    homepage = "https://spflashtools.com/linux/sp-flash-tool-v5-${version}-for-linux";
+    sourceProvenance = [ pkgs.lib.sourceTypes.binaryNativeCode ];
+    maintainers = [ "dmfrpro" ];
+    description = "SP Flash Tool is an application to flash your MediaTek (MTK) SmartPhone";
     platforms = [ "x86_64-linux" ];
     mainProgram = "spflashtool5";
   };
