@@ -854,6 +854,10 @@ src.github = "xddxdd/route-chain"
 
 [rtpengine]
 fetch.github = "sipwise/rtpengine"
+src.git = "https://github.com/sipwise/rtpengine.git"
+
+[rtpengine-stable]
+fetch.github = "sipwise/rtpengine"
 src.github = "sipwise/rtpengine"
 
 [runpod-python]

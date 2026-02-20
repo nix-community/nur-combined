@@ -3812,9 +3812,30 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": null,
+        "date": "2026-02-19",
         "extract": null,
         "name": "rtpengine",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sipwise",
+            "repo": "rtpengine",
+            "rev": "ce029008f8074ff726aa5f1876cfb5c996d9040a",
+            "sha256": "sha256-DREdcKh4s9d5k6Agb4JDDyVYjAK0y6xRH12L6zTseFo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "ce029008f8074ff726aa5f1876cfb5c996d9040a"
+    },
+    "rtpengine-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "rtpengine-stable",
         "passthru": null,
         "pinned": false,
         "src": {

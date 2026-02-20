@@ -1960,6 +1960,17 @@
   };
   rtpengine = {
     pname = "rtpengine";
+    version = "ce029008f8074ff726aa5f1876cfb5c996d9040a";
+    src = fetchFromGitHub {
+      owner = "sipwise";
+      repo = "rtpengine";
+      rev = "ce029008f8074ff726aa5f1876cfb5c996d9040a";
+      hash = "sha256-DREdcKh4s9d5k6Agb4JDDyVYjAK0y6xRH12L6zTseFo=";
+    };
+    date = "2026-02-19";
+  };
+  rtpengine-stable = {
+    pname = "rtpengine-stable";
     version = "mr13.3.1.4";
     src = fetchFromGitHub {
       owner = "sipwise";
