@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pysentry";
-  version = "0.4.1";
+  version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "nyudenkov";
     repo = "pysentry";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-tjTQDgVL1bkeCouoa5aCqA6YXW1GTh+6Hxad5JK/Qoo=";
+    hash = "sha256-BTUSeJs/43+G53nKRuhkFrCSu8/hdftloS1VVuPCyHM=";
   };
 
-  cargoHash = "sha256-6zbJPcQ3Lw0K2fsUr8p1wqbNRBmcrAaJOV1ou4PjCX4=";
+  cargoHash = "sha256-wM1RqJ4pB/1ahREiISNfL1ZaqmSClJM0ADuDcm8vyN8=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

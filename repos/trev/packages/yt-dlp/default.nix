@@ -17,7 +17,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "yt-dlp";
-  version = "2026.02.04-unstable-2026-02-19";
+  version = "2026.02.04-unstable-2026-02-20";
   pyproject = true;
 
   src = fetchFromGitHub {
