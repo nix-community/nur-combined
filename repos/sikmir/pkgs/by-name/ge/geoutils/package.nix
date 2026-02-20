@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   fetchFromGitHub,
   python3Packages,
 }:
@@ -43,5 +44,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/GlacioHack/geoutils";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = stdenv.isDarwin; # postgresql-test-hook
   };
 })
