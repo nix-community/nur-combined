@@ -21,6 +21,11 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
 
+      - name: Install ripgrep
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ripgrep
+
       - name: Run update scripts
         run: |
           chmod +x ./update-baidupcs-go.sh
