@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-autocomplete-plus";
-  version = "1.10.0";
+  version = "1.11.0";
 
   src = fetchFromGitHub {
     owner = "newtextdoc1111";
     repo = "ComfyUI-Autocomplete-Plus";
     rev = "v${final.version}";
-    hash = "sha256-vgfbnZmWJ2e2xwGbMWBQyjMuMOViF097sy2VIAWfeaY=";
+    hash = "sha256-MjhGd38G5Wz46t1AchTe/IqmTzVO43mlXPDHie5i3EE=";
   };
 
   # Fix readonly config dir
