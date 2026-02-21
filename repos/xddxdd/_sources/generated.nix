@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.23";
+    version = "v6.8.24";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.23";
-      hash = "sha256-ZmdUQwrRkrVwtPdWxXVthJS1X8BC0lN+Y9xvQwynJV8=";
+      tag = "v6.8.24";
+      hash = "sha256-Cw6AxWHvSACK40aA6+DKp/ZD8Ou5bdqbzEuxJLWdXa8=";
     };
   };
   cockpy = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8117";
+    version = "b8123";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8117";
-      hash = "sha256-bhoF5XbcQIPo149MRUDPuG5bvqjMVGGScR5EZBi4Xdg=";
+      tag = "b8123";
+      hash = "sha256-t6C/+b/bLXSdmkM6aQKuUcpOdB5AcTYt0E1UV3JbLog=";
     };
   };
   loralib = {
@@ -1339,14 +1339,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "fa5e3f0c69dc709e777ba1bbeccc3a2e8a5c5adf";
+    version = "1ca72290f5ea7017d75200a96a15cf545973eda7";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "fa5e3f0c69dc709e777ba1bbeccc3a2e8a5c5adf";
-      hash = "sha256-duKMdlC/NC8CKsCoh9mra+coQY+gxs2frG0DG448dlg=";
+      rev = "1ca72290f5ea7017d75200a96a15cf545973eda7";
+      hash = "sha256-gvQm1xuYo7JiGSYA8AeyaSMMe4OWrdBjh+F8KapXsDA=";
     };
-    date = "2026-02-15";
+    date = "2026-02-21";
   };
   nginx-njs = {
     pname = "nginx-njs";

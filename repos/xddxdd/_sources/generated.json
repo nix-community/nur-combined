@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.23",
-            "sha256": "sha256-ZmdUQwrRkrVwtPdWxXVthJS1X8BC0lN+Y9xvQwynJV8=",
+            "rev": "v6.8.24",
+            "sha256": "sha256-Cw6AxWHvSACK40aA6+DKp/ZD8Ou5bdqbzEuxJLWdXa8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.23"
+        "version": "v6.8.24"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8117",
-            "sha256": "sha256-bhoF5XbcQIPo149MRUDPuG5bvqjMVGGScR5EZBi4Xdg=",
+            "rev": "b8123",
+            "sha256": "sha256-t6C/+b/bLXSdmkM6aQKuUcpOdB5AcTYt0E1UV3JbLog=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8117"
+        "version": "b8123"
     },
     "loralib": {
         "cargoLock": null,
@@ -2592,7 +2592,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-02-15",
+        "date": "2026-02-21",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2604,12 +2604,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "fa5e3f0c69dc709e777ba1bbeccc3a2e8a5c5adf",
-            "sha256": "sha256-duKMdlC/NC8CKsCoh9mra+coQY+gxs2frG0DG448dlg=",
+            "rev": "1ca72290f5ea7017d75200a96a15cf545973eda7",
+            "sha256": "sha256-gvQm1xuYo7JiGSYA8AeyaSMMe4OWrdBjh+F8KapXsDA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fa5e3f0c69dc709e777ba1bbeccc3a2e8a5c5adf"
+        "version": "1ca72290f5ea7017d75200a96a15cf545973eda7"
     },
     "nginx-njs": {
         "cargoLock": null,
