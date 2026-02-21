@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "CachyOS/proton-cachyos",
-    "skipPrerelease": true
+    "skip_prerelease": true
   },
   "asset": {
     "file": "proton-{version}-x86_64{0}.tar.xz",

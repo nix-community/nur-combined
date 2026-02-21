@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "pythonlover02/Proton-Sarek",
-    "skipPrerelease": true
+    "skip_prerelease": true
   },
   "asset": {
     "file": "{version}.tar.gz",

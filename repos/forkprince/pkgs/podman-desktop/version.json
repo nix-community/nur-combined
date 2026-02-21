@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "podman-desktop/podman-desktop",
-    "skipPrerelease": true,
+    "skip_prerelease": true,
     "tag_prefix": "v"
   },
   "version": "1.25.1",

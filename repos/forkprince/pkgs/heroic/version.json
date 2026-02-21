@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "Heroic-Games-Launcher/HeroicGamesLauncher",
-    "skipPrerelease": true,
+    "skip_prerelease": true,
     "tag_prefix": "v"
   },
   "version": "2.20.0",

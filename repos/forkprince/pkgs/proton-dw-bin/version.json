@@ -4,7 +4,7 @@
     "type": "forgejo-release",
     "repo": "dawn-winery/dwproton",
     "instance": "https://dawn.wine",
-    "skipPrerelease": true
+    "skip_prerelease": true
   },
   "asset": {
     "file": "{version}-x86_64.tar.xz",

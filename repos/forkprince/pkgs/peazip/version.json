@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "peazip/PeaZip",
-    "skipPrerelease": true
+    "skip_prerelease": true
   },
   "version": "10.9.0",
   "platforms": {

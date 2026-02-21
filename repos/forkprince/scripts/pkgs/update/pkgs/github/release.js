@@ -95,6 +95,8 @@ async function platforms(file, { config, force }) {
       console.log(`Updated ${updated} platforms to version ${version}`);
     }
   } else {
+    let display = null;
+
     for (const [platform, settings] of Object.entries(platforms)) {
       if (settings.locked && !force) {
         console.log(`Skipping ${platform} because it is locked.`);
@@ -105,11 +107,9 @@ async function platforms(file, { config, force }) {
 
       console.log(`Checking ${platform} (${repo})...`);
 
-      const releases = (await getReleases(repo, config.source.skipPrerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      const releases = (await getReleases(repo, config.source.skip_prerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
-      const version = config.source.skipPrerelease
-        ? releases[0].tag_name
-        : eval(`(${JSON.stringify(releases)})${config.source.query}`);
+      const version = config.source.skip_prerelease ? releases[0].tag_name : eval(`(${JSON.stringify(releases)})${config.source.query}`);
       if (!version) continue;
 
       const parsed = version.replace(/^v/, "");
@@ -123,7 +123,9 @@ async function platforms(file, { config, force }) {
       const prefix = settings.tag_prefix || config.source.tag_prefix || "";
       const unpack = settings.unpack || false;
 
-      let url = settings.file ? `https://github.com/${repo}/releases/download/${prefix}${parsed}/${settings.file}` : settings.url;
+      const resolved = settings.query ? eval(`(${JSON.stringify(releases)})${settings.query}`) : settings.file;
+
+      let url = resolved ? `https://github.com/${repo}/releases/download/${prefix}${parsed}/${resolved}` : settings.url;
 
       url = url
         .replace(/\{repo\}/g, repo)
@@ -134,11 +136,18 @@ async function platforms(file, { config, force }) {
 
       const hash = await getHash(url, unpack);
 
-      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash, version: parsed });
+      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash, version: parsed, file: settings.query ? resolved : undefined });
+
+      if (config.source.name_query && !display) display = eval(`(${JSON.stringify(releases)})${config.source.name_query}`);
 
       console.log(`Updated ${platform} to version ${parsed}`);
 
       updated++;
+    }
+
+    if (display) {
+      await update.single(file, { version: display });
+      console.log(`Updated top-level version to ${display}`);
     }
 
     console.log(`Updated ${updated} platforms`);

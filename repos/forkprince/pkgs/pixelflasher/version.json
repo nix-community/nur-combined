@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "badabing2005/PixelFlasher",
-    "skipPrerelease": true,
+    "skip_prerelease": true,
     "tag_prefix": "v"
   },
   "asset": {

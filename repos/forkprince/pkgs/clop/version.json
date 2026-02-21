@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "FuzzyIdeas/Clop",
-    "skipPrerelease": true,
+    "skip_prerelease": true,
     "tag_prefix": "v"
   },
   "asset": {

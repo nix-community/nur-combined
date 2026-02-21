@@ -3,7 +3,7 @@
   "source": {
     "type": "github-release",
     "repo": "Prince527GitHub/Re-Lunatic-Player",
-    "skipPrerelease": true,
+    "skip_prerelease": true,
     "tag_prefix": "v"
   },
   "version": "1.1.0",
