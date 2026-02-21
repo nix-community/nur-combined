@@ -28,6 +28,11 @@ stdenv.mkDerivation rec {
       --replace-fail "/usr/local/bin" "${blast}/bin" \
       --replace-fail "../bin" "$out/bin" \
       --replace-fail "../data" "$out/data"
+
+    # Remove K&R-style calloc/malloc declarations that conflict with
+    # <stdlib.h> on GCC 15+, where implicit redeclarations are errors
+    substituteInPlace ./src/sspred_avpred.c \
+      --replace-fail "void           *calloc(), *malloc();" ""
   '';
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-int";
