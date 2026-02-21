@@ -174,7 +174,7 @@
     "cargoLock": null,
     "date": null,
     "extract": {
-      "pubspec.lock": "sha256-PVbNK8k+JL0r94uQBtIxYu6J3d+4+7FkvDEvS6koyzI=/pubspec.lock"
+      "pubspec.lock": "sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=/pubspec.lock"
     },
     "name": "loveiwara",
     "passthru": null,
@@ -186,12 +186,12 @@
       "name": null,
       "owner": "FoxSensei001",
       "repo": "LoveIwara",
-      "rev": "0.4.1",
-      "sha256": "sha256-PVbNK8k+JL0r94uQBtIxYu6J3d+4+7FkvDEvS6koyzI=",
+      "rev": "0.4.2",
+      "sha256": "sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "0.4.1"
+    "version": "0.4.2"
   },
   "lxgw-wenkai-gb": {
     "cargoLock": null,
@@ -310,11 +310,11 @@
   "splayer-git": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-33TCSkwmCNBWgxCCyG2PG+UQE4wqPUSBxHfsNP+WciY=/Cargo.lock",
+        "sha256-nNKYC45zbGdbxHIzg0bCIBUYoctRPsO1N5xQ7u6sPsQ=/Cargo.lock",
         {}
       ]
     },
-    "date": "2026-02-19",
+    "date": "2026-02-20",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -326,12 +326,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "d5b0b02b8276acb9dc0f42076e6b0088107f0fff",
-      "sha256": "sha256-33TCSkwmCNBWgxCCyG2PG+UQE4wqPUSBxHfsNP+WciY=",
+      "rev": "f3f9bc647f3bd5d9537c3b46d9a6e2eb0cc0f1b1",
+      "sha256": "sha256-nNKYC45zbGdbxHIzg0bCIBUYoctRPsO1N5xQ7u6sPsQ=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "d5b0b02b8276acb9dc0f42076e6b0088107f0fff"
+    "version": "f3f9bc647f3bd5d9537c3b46d9a6e2eb0cc0f1b1"
   },
   "svt-av1-hdr": {
     "cargoLock": null,

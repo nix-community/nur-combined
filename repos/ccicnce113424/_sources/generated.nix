@@ -103,16 +103,16 @@
   };
   loveiwara = {
     pname = "loveiwara";
-    version = "0.4.1";
+    version = "0.4.2";
     src = fetchFromGitHub {
       owner = "FoxSensei001";
       repo = "LoveIwara";
-      rev = "0.4.1";
+      rev = "0.4.2";
       fetchSubmodules = false;
-      sha256 = "sha256-PVbNK8k+JL0r94uQBtIxYu6J3d+4+7FkvDEvS6koyzI=";
+      sha256 = "sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-PVbNK8k+JL0r94uQBtIxYu6J3d+4+7FkvDEvS6koyzI=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=/pubspec.lock";
     };
   };
   lxgw-wenkai-gb = {
@@ -190,21 +190,21 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "d5b0b02b8276acb9dc0f42076e6b0088107f0fff";
+    version = "f3f9bc647f3bd5d9537c3b46d9a6e2eb0cc0f1b1";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "d5b0b02b8276acb9dc0f42076e6b0088107f0fff";
+      rev = "f3f9bc647f3bd5d9537c3b46d9a6e2eb0cc0f1b1";
       fetchSubmodules = false;
-      sha256 = "sha256-33TCSkwmCNBWgxCCyG2PG+UQE4wqPUSBxHfsNP+WciY=";
+      sha256 = "sha256-nNKYC45zbGdbxHIzg0bCIBUYoctRPsO1N5xQ7u6sPsQ=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-33TCSkwmCNBWgxCCyG2PG+UQE4wqPUSBxHfsNP+WciY=/Cargo.lock";
+      lockFile = ./. + "/sha256-nNKYC45zbGdbxHIzg0bCIBUYoctRPsO1N5xQ7u6sPsQ=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-02-19";
+    date = "2026-02-20";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
