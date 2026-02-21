@@ -17,11 +17,6 @@ fetch.github = "d12frosted/homebrew-emacs-plus"
 src.github = "Hammerspoon/hammerspoon"
 fetch.url = "https://github.com/Hammerspoon/hammerspoon/releases/download/$ver/Hammerspoon-$ver.zip"
 
-[nixpkgs-review]
-src.git = "https://github.com/natsukium/nixpkgs-review"
-src.branch = "develop"
-fetch.github = "natsukium/nixpkgs-review"
-
 [paperwm-spoon]
 src.git = "https://github.com/mogenson/PaperWM.spoon"
 src.branch = "main"

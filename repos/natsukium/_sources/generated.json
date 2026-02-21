@@ -71,27 +71,6 @@
         },
         "version": "1.1.0"
     },
-    "nixpkgs-review": {
-        "cargoLock": null,
-        "date": "2025-01-10",
-        "extract": null,
-        "name": "nixpkgs-review",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "natsukium",
-            "repo": "nixpkgs-review",
-            "rev": "b4d0a817180b1a079d00d41c0a41308cb11407f7",
-            "sha256": "sha256-fZkXkhwsNoxcQcC4fqwnkfGherazl/YZBkuVWGmnWPY=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "b4d0a817180b1a079d00d41c0a41308cb11407f7"
-    },
     "paperwm-spoon": {
         "cargoLock": null,
         "date": "2026-02-10",

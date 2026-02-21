@@ -46,18 +46,6 @@
       sha256 = "sha256-Oe+Qe3mE9s04d41b7jdyq6yL5rSKpGof9detzNQec7U=";
     };
   };
-  nixpkgs-review = {
-    pname = "nixpkgs-review";
-    version = "b4d0a817180b1a079d00d41c0a41308cb11407f7";
-    src = fetchFromGitHub {
-      owner = "natsukium";
-      repo = "nixpkgs-review";
-      rev = "b4d0a817180b1a079d00d41c0a41308cb11407f7";
-      fetchSubmodules = false;
-      sha256 = "sha256-fZkXkhwsNoxcQcC4fqwnkfGherazl/YZBkuVWGmnWPY=";
-    };
-    date = "2025-01-10";
-  };
   paperwm-spoon = {
     pname = "paperwm-spoon";
     version = "8a7ab83dd48b6d1b0e22359c41e788ef55871295";
