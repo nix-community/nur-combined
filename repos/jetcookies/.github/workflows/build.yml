@@ -7,6 +7,7 @@ on:
       - '.github/**'
       - 'maintainers/**'
       - '.gitignore'
+      - 'git-town.toml'
       - '**/README.md'
   schedule:
     - cron:  '25 3 * * *'

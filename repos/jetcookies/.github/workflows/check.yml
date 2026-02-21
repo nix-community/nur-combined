@@ -5,6 +5,7 @@ on:
       - '.github/**'
       - 'maintainers/**'
       - '.gitignore'
+      - 'git-town.toml'
       - '**/README.md'
 jobs:
   tests:
