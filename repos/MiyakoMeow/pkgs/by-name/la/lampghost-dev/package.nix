@@ -1,16 +1,7 @@
 {
   lib,
   stdenv,
-  nodejs,
-  gtk3,
-  webkitgtk_4_1,
-  pkg-config,
-  libsoup_3,
-  glib-networking,
-  gsettings-desktop-schemas,
-  xorg,
-  at-spi2-core,
-  wails,
+  pkgs,
   buildGoModule,
   fetchFromGitHub,
   fetchNpmDeps,
@@ -45,57 +36,55 @@ buildGoModule (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    wails
-    nodejs
-    pkg-config
+    pkgs.wails
+    pkgs.pkg-config
     copyDesktopItems
-    gsettings-desktop-schemas
-    # Hooks
-    autoPatchelfHook
     npmHooks.npmConfigHook
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    pkgs.gsettings-desktop-schemas
+    autoPatchelfHook
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    webkitgtk_4_1
-    gtk3
-    libsoup_3
-    glib-networking
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    # Core X11 libraries
-    xorg.libX11 # X11 core protocol client library
-    xorg.libXcursor # X11 cursor management library
-    xorg.libXrandr # X11 RandR extension library for screen configuration
-    xorg.libXinerama # X11 Xinerama extension for multi-monitor support
-    xorg.libXi # X11 Input extension library for input devices
-    xorg.libXxf86vm # X11 video mode extension library
-
-    # X11 clipboard and graphics extensions
-    xorg.libXfixes # X11 fixes extension for clipboard and window regions
-    xorg.libXext # X11 basic extensions library
-    xorg.libXcomposite # X11 composite extension for window composition
-    xorg.libXdamage # X11 damage extension for window damage tracking
-    xorg.libXrender # X11 rendering extension for 2D graphics
-
-    # Additional Linux dependencies
-    xorg.xvfb # X Virtual Framebuffer for headless testing
-    xorg.xorgserver # X11 server utilities
-    at-spi2-core # AT-SPI core for accessibility
-  ];
+  buildInputs =
+    [ ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux (
+      with pkgs;
+      [
+        webkitgtk_4_1
+        gtk3
+        libsoup_3
+        glib-networking
+        libx11
+        libxcursor
+        libxrandr
+        libxinerama
+        libxi
+        libxxf86vm
+        libxfixes
+        libxext
+        libxcomposite
+        libxdamage
+        libxrender
+        xvfb
+        xorg-server
+        at-spi2-core
+      ]
+    );
 
   buildPhase = ''
     runHook preBuild
 
-    wails build -m -tags webkit2_41 -o ${finalAttrs.pname}
+    wails build -m -trimpath -devtools ${lib.optionalString stdenv.hostPlatform.isLinux "-tags webkit2_41"} -o lampghost-dev
 
     runHook postBuild
   '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = finalAttrs.pname;
-      exec = finalAttrs.pname;
+      name = "lampghost-dev";
+      exec = "lampghost-dev";
       desktopName = "LampGhost (Dev Version)";
       comment = "Offline & Cross-platform beatoraja lamp viewer and more";
       categories = [ "Game" ];
@@ -107,7 +96,7 @@ buildGoModule (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm0755 build/bin/${finalAttrs.pname} $out/bin/${finalAttrs.pname}
+    install -Dm0755 build/bin/lampghost-dev $out/bin/lampghost-dev
 
     runHook postInstall
   '';
@@ -125,8 +114,8 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/Catizard/lampghost";
     changelog = "https://github.com/Catizard/lampghost/commits/main";
     license = lib.licenses.asl20;
-    mainProgram = finalAttrs.pname;
     maintainers = with lib.maintainers; [ ];
+    mainProgram = "lampghost-dev";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })
