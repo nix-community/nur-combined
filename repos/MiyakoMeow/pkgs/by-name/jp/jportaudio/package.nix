@@ -1,11 +1,7 @@
 {
   lib,
   stdenv,
-  portaudio,
-  jdk,
-  cmake,
-  ninja,
-  gradle,
+  pkgs,
   fetchFromGitHub,
   nix-update-script,
 }:
@@ -19,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XG1bJm0hDSF4cE2OvQ5bvN8pmaKwIl9zDlsRCnTXnLc=";
   };
 
-  nativeBuildInputs = [
+  nativeBuildInputs = with pkgs; [
     cmake
     # Prefer Ninja-backed CMake builds if available
     # (falls back to Makefiles when ninja is absent)
@@ -28,11 +24,11 @@ stdenv.mkDerivation (finalAttrs: {
     gradle
     jdk
   ];
-  buildInputs = [ portaudio ];
+  buildInputs = with pkgs; [ portaudio ];
 
   env = {
-    JAVA_HOME = jdk.home;
-    GRADLE_HOME = gradle;
+    JAVA_HOME = pkgs.jdk.home;
+    GRADLE_HOME = pkgs.gradle;
   };
 
   cmakeFlags = [

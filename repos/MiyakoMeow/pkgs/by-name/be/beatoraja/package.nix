@@ -41,14 +41,14 @@ stdenv.mkDerivation (finalAttrs: {
     unzip
     copyDesktopItems
   ];
-  buildInputs = [
+  buildInputs = with pkgs; [
     javaPackageWithJavaFX
-    pkgs.gtk3
-    pkgs.gnome-themes-extra
-    pkgs.colord-gtk
-    pkgs.xorg.xrandr
-    pkgs.xorg.libXrandr
-    pkgs.ffmpeg
+    gtk3
+    gnome-themes-extra
+    colord-gtk
+    xrandr
+    libxrandr
+    ffmpeg
     jportaudio
   ];
 

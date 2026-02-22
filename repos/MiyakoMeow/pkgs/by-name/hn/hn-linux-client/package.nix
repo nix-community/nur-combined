@@ -1,16 +1,11 @@
 {
   lib,
   stdenv,
+  pkgs,
   fetchurl,
   autoPatchelfHook,
   makeWrapper,
   makeDesktopItem,
-  # Deps
-  gtk2,
-  glib,
-  gdk-pixbuf,
-  curl,
-  coreutils,
   ...
 }:
 let
@@ -40,7 +35,7 @@ stdenv.mkDerivation {
   ];
 
   # 添加运行时依赖，显式声明所有缺失的库
-  buildInputs = [
+  buildInputs = with pkgs; [
     stdenv.cc.cc.lib # 提供 libstdc++.so.6, libgcc_s.so.1
     gtk2 # 提供 libgtk-x11-2.0.so.0, libgdk-x11-2.0.so.0
     glib # 提供 libgobject-2.0.so.0

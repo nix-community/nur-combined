@@ -1,10 +1,10 @@
 {
   lib,
   stdenvNoCC,
+  pkgs,
   fetchurl,
   makeDesktopItem,
   copyDesktopItems,
-  p7zip,
   wineWow64Packages,
 }:
 
@@ -19,14 +19,14 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
   dontBuild = true;
-  nativeBuildInputs = [
+  nativeBuildInputs = with pkgs; [
     copyDesktopItems
     p7zip
   ];
 
   installPhase = ''
     install -dm755 $out/share/${pname}
-    7z x -y -o"$out/share/${pname}" "$src"
+     ${pkgs.p7zip}/bin/7z x -y -o"$out/share/${pname}" "$src"
     # 修正反斜杠为目录分隔符
     while IFS= read -r -d $'\0' p; do
       case "$p" in

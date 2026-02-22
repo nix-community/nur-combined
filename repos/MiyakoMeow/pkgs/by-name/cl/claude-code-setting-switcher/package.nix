@@ -1,8 +1,8 @@
 {
   lib,
   stdenv,
+  pkgs,
   fetchFromGitHub,
-  jq,
   nix-update-script,
   ...
 }:
@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     hash = "sha256-mVs9IHXl7zYz77Jq3KjNV5/cR7yywiUvMWaORdjZiYI=";
   };
 
-  propagatedBuildInputs = [ jq ];
+  propagatedBuildInputs = with pkgs; [ jq ];
 
   installPhase = ''
     runHook preInstall

@@ -1,9 +1,8 @@
 {
   lib,
   stdenvNoCC,
-  fetchurl,
-  callPackage,
   pkgs,
+  fetchurl,
 }:
 let
   # 首先构建 jar 文件的 derivation

@@ -1,6 +1,6 @@
 {
-  pkgs,
   lib,
+  pkgs,
   ...
 }:
 pkgs.llvmPackages.clang.overrideAttrs (old: {

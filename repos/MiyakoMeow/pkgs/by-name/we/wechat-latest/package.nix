@@ -1,60 +1,10 @@
 {
   lib,
   stdenvNoCC,
+  pkgs,
   fetchurl,
   autoPatchelfHook,
   dpkg,
-  # 基础依赖
-  glib,
-  zlib,
-  libgcc,
-  # X11 相关
-  libx11,
-  libxext,
-  libxrender,
-  libxrandr,
-  libxinerama,
-  libxcursor,
-  libxfixes,
-  libxcomposite,
-  libxdamage,
-  libxtst,
-  libxi,
-  libxcb,
-  libxcb-util,
-  libxcb-cursor,
-  libxcb-image,
-  libxcb-keysyms,
-  libxcb-render-util,
-  libxcb-wm,
-  # 网络、加密和认证
-  nss,
-  nspr,
-  krb5,
-  # D-Bus
-  dbus,
-  # 音频
-  alsa-lib,
-  libjack2,
-  libpulseaudio,
-  # 图形相关
-  libxkbcommon,
-  fontconfig,
-  # GTK 相关
-  gtk3,
-  pango,
-  atk,
-  cairo,
-  gdk-pixbuf,
-  at-spi2-atk,
-  at-spi2-core,
-  # OpenGL/EGL
-  mesa,
-  libdrm,
-  # 打印
-  cups,
-  # 系统
-  systemd,
   ...
 }:
 stdenvNoCC.mkDerivation rec {
@@ -71,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     # 基础库
     glib
     zlib

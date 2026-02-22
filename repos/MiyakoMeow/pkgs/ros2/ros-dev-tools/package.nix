@@ -1,12 +1,10 @@
 {
   lib,
   stdenv,
+  pkgs,
   fetchFromGitHub,
   nix-update-script,
   makeWrapper,
-  docker,
-  bash,
-  coreutils,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -20,8 +18,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-/b2zFBJMTwD/VQDEk7UoiZqmsvl7iFzSTBPzT0hRc4I=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
+  nativeBuildInputs = with pkgs; [ makeWrapper ];
+  buildInputs = with pkgs; [
     docker
     bash
     coreutils
@@ -38,12 +36,12 @@ stdenv.mkDerivation rec {
 
     # 修复Makefile中的/bin/bash引用
     substituteInPlace $out/share/${pname}/Makefile \
-      --replace '/bin/bash' '${bash}/bin/bash'
+      --replace '/bin/bash' '${pkgs.bash}/bin/bash'
 
     # 创建独立的启动脚本（解决参数传递问题）
     mkdir -p $out/bin
     cat > $out/bin/ros-dev-tools <<EOF
-    #!${bash}/bin/bash
+    #!${pkgs.bash}/bin/bash
     set -euo pipefail
     cd "$out/share/${pname}"
     exec make "\$@"
@@ -53,10 +51,13 @@ stdenv.mkDerivation rec {
     # 确保PATH中有docker和coreutils
     wrapProgram $out/bin/ros-dev-tools \
       --prefix PATH : ${
-        lib.makeBinPath [
-          docker
-          coreutils
-        ]
+        lib.makeBinPath (
+          with pkgs;
+          [
+            docker
+            coreutils
+          ]
+        )
       }
 
     runHook postInstall

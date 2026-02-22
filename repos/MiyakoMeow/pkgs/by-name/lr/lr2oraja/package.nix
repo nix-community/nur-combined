@@ -1,10 +1,8 @@
 {
   lib,
   stdenvNoCC,
-  fetchurl,
-  callPackage,
   pkgs,
-  unzip,
+  fetchurl,
 }:
 let
   # 首先构建 jar 文件的 derivation
@@ -12,7 +10,7 @@ let
     pname = "lr2oraja";
     version = "build11611350155";
 
-    nativeBuildInputs = [
+    nativeBuildInputs = with pkgs; [
       unzip
     ];
 

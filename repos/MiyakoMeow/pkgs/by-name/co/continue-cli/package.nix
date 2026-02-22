@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  nodejs,
+  pkgs,
   fetchurl,
   nix-update-script,
 }:
@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-AuZqCsdHpBBpuNlHH8TIuCGeFUA9D8tS8UuX0Y9TIBY=";
   };
 
-  nativeBuildInputs = [ nodejs ];
+  nativeBuildInputs = with pkgs; [ nodejs ];
 
   unpackPhase = ''
     mkdir -p $out/lib
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
     cat > $out/bin/cn <<EOF
     #!/bin/sh
-    exec ${nodejs}/bin/node $out/lib/node_modules/@continuedev/cli/dist/cn.js "\$@"
+    exec ${pkgs.nodejs}/bin/node $out/lib/node_modules/@continuedev/cli/dist/cn.js "\$@"
     EOF
 
     chmod +x $out/bin/cn

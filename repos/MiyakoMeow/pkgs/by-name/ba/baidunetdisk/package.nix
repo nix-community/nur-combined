@@ -1,33 +1,10 @@
 {
   lib,
   stdenv,
+  pkgs,
   fetchurl,
   autoPatchelfHook,
   dpkg,
-  # 基础依赖
-  gtk3,
-  pango,
-  atk,
-  cairo,
-  gdk-pixbuf,
-  # X11 相关
-  xorg,
-  # 网络和加密
-  openssl,
-  curl,
-  nss,
-  nspr,
-  # 多媒体
-  ffmpeg,
-  # 其他系统库
-  zlib,
-  libuuid,
-  libselinux,
-  libsepol,
-  libcap,
-  systemd,
-  # 桌面集成
-  xdg-utils,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -44,7 +21,7 @@ stdenv.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     # GTK 相关
     gtk3
     pango
@@ -53,25 +30,25 @@ stdenv.mkDerivation rec {
     gdk-pixbuf
 
     # X11 相关
-    xorg.libX11
-    xorg.libXext
-    xorg.libXrender
-    xorg.libXrandr
-    xorg.libXinerama
-    xorg.libXcursor
-    xorg.libXfixes
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXtst
-    xorg.libXi
-    xorg.libXScrnSaver
-    xorg.libxcb
-    xorg.xcbutil
-    xorg.xcbutilcursor
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
+    libx11
+    libxext
+    libxrender
+    libxrandr
+    libxinerama
+    libxcursor
+    libxfixes
+    libxcomposite
+    libxdamage
+    libxtst
+    libxi
+    libxscrnsaver
+    libxcb
+    libxcb-util
+    libxcb-cursor
+    libxcb-image
+    libxcb-keysyms
+    libxcb-render-util
+    libxcb-wm
 
     # 网络和加密
     openssl
@@ -92,10 +69,13 @@ stdenv.mkDerivation rec {
 
     # 桌面集成
     xdg-utils
+
+    # GBM (Mesa GPU 库)
+    libgbm
   ];
 
-  runtimeDependencies = [
-    "${xorg.xcbutilwm}/lib"
+  runtimeDependencies = with pkgs; [
+    "${libxcb-wm}/lib"
   ];
 
   # 确保自动修补ELF文件

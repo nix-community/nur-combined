@@ -1,27 +1,10 @@
 {
   lib,
   stdenv,
+  pkgs,
   fetchurl,
   autoPatchelfHook,
   dpkg,
-  openssl,
-  xdg-utils,
-  ffmpeg,
-  libtorrent,
-  gst_all_1,
-  xorg,
-  libxcrypt,
-  unixODBC,
-  postgresql,
-  mysql80,
-  # 额外依赖
-  gtk3,
-  pango,
-  atk,
-  cairo,
-  gdk-pixbuf,
-  # Qt6 依赖
-  qt6,
   qt6Packages,
   ...
 }:
@@ -34,28 +17,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hit9RkR/gFfU4WJz7ldkpg3tsd72OKrrtZ1xeCOs13I=";
   };
 
-  nativeBuildInputs = [
+  nativeBuildInputs = with pkgs; [
     autoPatchelfHook
     dpkg
     qt6.wrapQtAppsHook
   ];
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     openssl
     xdg-utils
     ffmpeg
-    libtorrent
+    libtorrent-rakshasa
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
+    libtiff
 
     # 新增XCB依赖
-    xorg.libxcb
-    xorg.xcbutil
-    xorg.xcbutilcursor
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm # 新增包含libxcb-icccm.so.4的包
+    libxcb
+    libxcb-util
+    libxcb-cursor
+    libxcb-image
+    libxcb-keysyms
+    libxcb-render-util
+    libxcb-wm # 新增包含libxcb-icccm.so.4的包
 
     # 数据库驱动依赖
     unixODBC
@@ -82,16 +66,24 @@ stdenv.mkDerivation rec {
     qt6Packages.quazip
   ];
 
-  runtimeDependencies = [
+  runtimeDependencies = with pkgs; [
     "${gst_all_1.gst-plugins-base}/lib"
     "${gst_all_1.gstreamer}/lib"
     # 确保XCB库能被自动发现
-    "${xorg.xcbutilwm}/lib"
+    "${libxcb-wm}/lib"
   ];
 
   # 确保自动修补ELF文件
   dontBuild = true;
   dontConfigure = true;
+
+  # 忽略缺失的数据库驱动依赖（Firebird 和 Oracle 客户端在 nixpkgs 中不可用）
+  # 忽略缺失的 TIFF 库（可选插件）
+  autoPatchelfIgnoreMissingDeps = [
+    "libfbclient.so.2"
+    "libclntsh.so.23.1"
+    "libtiff.so.5"
+  ];
 
   unpackPhase = ''
     dpkg-deb -x $src .
