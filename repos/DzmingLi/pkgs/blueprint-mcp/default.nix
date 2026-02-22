@@ -5,7 +5,7 @@
 }:
 
 let
-  version = "1.9.21";
+  version = "1.9.21^{}";
 in
 buildNpmPackage rec {
   pname = "blueprint-mcp";
