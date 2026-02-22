@@ -2,20 +2,22 @@
   lib,
   stdenv,
   fetchFromGitHub,
+
+  cmake,
 }:
 stdenv.mkDerivation (finalAttrs: {
 
   pname = "libtinycbor";
-  version = "0.6.1";
+  version = "7.0";
 
   src = fetchFromGitHub {
     owner = "intel";
     repo = "tinycbor";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-JgkZAvZ63jjTdFRnyk+AeIWcGsg36UtPPFbhFjky9e8=";
+    hash = "sha256-Fuw/hV3tVzoKf2Xrw64xuU+7xzSRPWL/ZdLjF0qICDY=";
   };
 
-  makeFlags = [ "prefix=$(out)" ];
+  nativeBuildInputs = [ cmake ];
 
   meta = {
     changelog = "https://github.com/intel/tinycbor/releases/tag/v${finalAttrs.version}";

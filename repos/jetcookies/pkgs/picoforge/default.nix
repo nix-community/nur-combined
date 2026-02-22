@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
   makeDesktopItem,
-  nix-update-script,
 
   pkg-config,
   copyDesktopItems,
@@ -27,16 +26,16 @@ assert withGLES -> stdenv.hostPlatform.isLinux;
 rustPlatform.buildRustPackage (finalAttrs: {
 
   pname = "picoforge";
-  version = "0.3.1-unstable-2026-02-20";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "librekeys";
     repo = "picoforge";
-    rev = "0954fab7b4dba5466a15016d72319965b879a465";
-    hash = "sha256-9bPDEBp1fdRbVffMPMYdYTJQ7/SFGY2CWYQeqnbUOng=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-K9X0VRcDVrV09unRBIKz1YDKTBHYYqMIC1xDw3MFmmU=";
   };
 
-  cargoHash = "sha256-/HcwGFV+v282nAdMzEZ4bWQZy0PTIXQ2yOc9IRU75pY=";
+  cargoHash = "sha256-Lx36gpZMaQ0b/WDDPBxwykWlobVMvtw+sF+dz96PX9E=";
 
   nativeBuildInputs = [
     pkg-config
@@ -92,13 +91,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       startupNotify = true;
     })
   ];
-
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version=branch"
-      "--use-github-releases"
-    ];
-  };
 
   meta = {
     changelog = "https://github.com/librekeys/picoforge/releases/tag/v${finalAttrs.version}";

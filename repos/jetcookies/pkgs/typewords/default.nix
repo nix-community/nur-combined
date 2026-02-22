@@ -12,13 +12,13 @@
 stdenvNoCC.mkDerivation (finalAttrs: {
 
   pname = "typewords";
-  version = "0-unstable-2026-02-13";
+  version = "0-unstable-2026-02-17";
 
   src = fetchFromGitHub {
     owner = "zyronon";
     repo = "TypeWords";
-    rev = "62102fe266d0ae62e14881a4dde699a63ac3832c";
-    hash = "sha256-fnF0m4A0XM+C8urTG+6AZHtZZd7OKtjZOrEGLuhj1N4=";
+    rev = "dc822bc13d2d89d3273276e5cb11af892daaf897";
+    hash = "sha256-hWhBPhFq8yomeRHC59btfH1raUNazgNzL7YoYBBurY0=";
   };
 
   pnpmDeps = fetchPnpmDeps {
