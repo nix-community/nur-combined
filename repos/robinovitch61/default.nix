@@ -19,5 +19,6 @@
   # ...
   goreleaser-testing = pkgs.callPackage ./pkgs/goreleaser-testing { };
   wander = pkgs.callPackage ./pkgs/wander { };
+  lore = pkgs.callPackage ./pkgs/lore { };
   kl = pkgs.callPackage ./pkgs/kl { };
 }
