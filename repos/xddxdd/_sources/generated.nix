@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.24";
+    version = "v6.8.26";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.24";
-      hash = "sha256-Cw6AxWHvSACK40aA6+DKp/ZD8Ou5bdqbzEuxJLWdXa8=";
+      tag = "v6.8.26";
+      hash = "sha256-KZwsaBaE6cFNvxMYGd6hxfsrbNv0ej3O+YhDe0JZ960=";
     };
   };
   cockpy = {
@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.19";
+    version = "2026.02.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.19/GeoLite2-ASN.mmdb";
-      hash = "sha256-4z0a82FAFAgibzUNGWNUMJ/Jvv+xpYxos6tvJlLt4K8=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.22/GeoLite2-ASN.mmdb";
+      hash = "sha256-ImOqaufpHAXjwV94HhOiMcRkcEXKmbqfK7s//JpdJfY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.19";
+    version = "2026.02.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.19/GeoLite2-City.mmdb";
-      hash = "sha256-COwExT/FMsErje3OWQtS9Mn7cU1zt1hjBHxKH9oP6rQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.22/GeoLite2-City.mmdb";
+      hash = "sha256-CU0Ahm8IKqRrms1nWjqEVArl38YmvPMo1Vb49exED6o=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.19";
+    version = "2026.02.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.19/GeoLite2-Country.mmdb";
-      hash = "sha256-4IEjQN3gOGKd00JOlmSY9Z5iXbIriKK3kkMC//sV9wc=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.22/GeoLite2-Country.mmdb";
+      hash = "sha256-hv4A4CcoZbi+x53vyi6fsZrQz0RYaXmS4aN7qJB3wTo=";
     };
   };
   glauth = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8123";
+    version = "b8130";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8123";
-      hash = "sha256-t6C/+b/bLXSdmkM6aQKuUcpOdB5AcTYt0E1UV3JbLog=";
+      tag = "b8130";
+      hash = "sha256-9JktE1lDLLE+YgaoNshBEJdmP9k928GJgHdigxbqgQc=";
     };
   };
   loralib = {
@@ -1235,14 +1235,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "cb47cd4b912a50c02cd8fd1534749a4774f70ae1";
+    version = "fa97df7df41140e60f215f24eea82cb46faf9ff0";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "cb47cd4b912a50c02cd8fd1534749a4774f70ae1";
-      hash = "sha256-+8KId//dhQFhX3EajUGQdyI0yThT04K55hlCd3dXzNA=";
+      rev = "fa97df7df41140e60f215f24eea82cb46faf9ff0";
+      hash = "sha256-f91b76Z5kEgiPO1D5jAI+nMahLJB1mE8Gs//4wCn0io=";
     };
-    date = "2026-02-19";
+    date = "2026-02-22";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -2199,15 +2199,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "14c8e18aed4677d1d2d4034062f64610d53443a9";
+    version = "22dffe13f2ffb179e868ebc6d2eaefc241c82c15";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "14c8e18aed4677d1d2d4034062f64610d53443a9";
+      rev = "22dffe13f2ffb179e868ebc6d2eaefc241c82c15";
       fetchSubmodules = true;
-      hash = "sha256-DYNPDFjvJyDJ+3ZPeWnH1Izv19Ggk7EtKYEbaIxRY4I=";
+      hash = "sha256-1HPS/3xJH753n8a5v9zrfYJqZJ5nReZe2LrEdFYeQ48=";
     };
-    date = "2026-02-05";
+    date = "2026-02-22";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
