@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "yt-dlp-ejs";
-  version = "0.4.0-unstable-2026-02-16";
+  version = "0.5.0-unstable-2026-02-21";
   pyproject = true;
 
   # needed because setuptools-scm doesn't like the 0-unstable format
@@ -22,8 +22,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "yt-dlp";
     repo = "ejs";
-    rev = "1b648c34c134c3adf599416457ee307f059ad016";
-    hash = "sha256-R7ztNcznpWarTczndBifmY7seIwax54IAp8NiVL5Ntk=";
+    rev = "5bc9811c7a2f64a88279d2b90884df2160e51b34";
+    hash = "sha256-mn0JpJQNCzDwNr0L1tit2B1Iwz2x3KNHi8Um3khfrHs=";
   };
 
   pnpmDeps = fetchPnpmDeps {
