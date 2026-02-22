@@ -827,11 +827,6 @@
             "sha256": "13a065jrdqay0njymhrys1mrbbzlb31rdvl0x8gr25x207rngm4x",
             "url": "https://github.com/Eggflaw/nur-packages"
         },
-        "eh5": {
-            "rev": "40955bfe8d3d4b5cb4d8b2478d882d0cf1843bf7",
-            "sha256": "0aba6p5izzwwsp9v71jq9a4dy5z8kxhwiib4nz40k6dskxq3yfg0",
-            "url": "https://github.com/EHfive/flakes"
-        },
         "emiller88": {
             "rev": "0e0450a7b5e653ecb7bf72103e4374d1e91c6c17",
             "sha256": "08hczl8k44dxdxfr234dfv6qnakirvxx7jmfbf7hzqzpiyd8jahq",
