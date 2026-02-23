@@ -15,10 +15,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   pyproject = true;
 
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-yZWlEAs53cHXx8ODZij97QQnq663usiGRJRqoX2KniY=";
-  };
+  cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook

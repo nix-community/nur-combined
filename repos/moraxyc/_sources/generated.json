@@ -1,6 +1,11 @@
 {
     "aliyundrive-webdav": {
-        "cargoLock": null,
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-Glr_PryfyihEMM+41ZkXp3I0VeXerHMKO82znLJJ2mc=/Cargo.lock",
+                {}
+            ]
+        },
         "date": "2026-02-20",
         "extract": null,
         "name": "aliyundrive-webdav",
@@ -365,11 +370,11 @@
     "mpv-danmaku": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-xmK7SL7k4xBhkAvUvZbUsX1ZjXDmaA1QnvuR9eFh2z8=/Cargo.lock",
+                "sha256-ghoYpsqQUTauaUZrldkswhG8JM1O7s_ut8toOefIZTU=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-02-17",
+        "date": "2026-02-23",
         "extract": null,
         "name": "mpv-danmaku",
         "passthru": null,
@@ -381,12 +386,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "mpv-danmaku",
-            "rev": "4e4509dbb577a07e17acdecf2abd56f646a8dd8d",
-            "sha256": "sha256-xmK7SL7k4xBhkAvUvZbUsX1ZjXDmaA1QnvuR9eFh2z8=",
+            "rev": "296202abc8a041edc7e5bb29627cc71bca56b27b",
+            "sha256": "sha256-ghoYpsqQUTauaUZrldkswhG8JM1O7s/ut8toOefIZTU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4e4509dbb577a07e17acdecf2abd56f646a8dd8d"
+        "version": "296202abc8a041edc7e5bb29627cc71bca56b27b"
     },
     "mpv-danmaku-stable": {
         "cargoLock": null,
@@ -418,11 +423,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VReilfzN5uRn6ys7m+zYSqcg9TxLP3WKippT0+DKNDc=",
+            "sha256": "sha256-N8DR0x2Y1I+NuGjIeflIDjMqspsryd5BROiv/bjJxxU=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.12/NipaPlay_1.9.12_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay_1.9.13_macOS_Universal.dmg"
         },
-        "version": "1.9.12"
+        "version": "1.9.13"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -433,16 +438,16 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nghqRc8hI83ky5WlPNEde89zuvlC3DHhfoA88L+aaN0=",
+            "sha256": "sha256-X2qM2COjz6G0zmE6HJ+fIS8fOjuZCbD+wPxg9bWCa+c=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.12/NipaPlay-1.9.12-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay-1.9.13-Linux-amd64.AppImage"
         },
-        "version": "1.9.12"
+        "version": "1.9.13"
     },
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-s0kHNJO59KNf9joGv0p1pzk9nw3+OC_lfmix05VLlIw=/Cargo.lock",
+                "sha256-QDP3dIdb8J+6xQMUU0KqRudjHmnPeSDUk3fWqsrH1u8=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig="
@@ -456,11 +461,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-s0kHNJO59KNf9joGv0p1pzk9nw3+OC/lfmix05VLlIw=",
+            "sha256": "sha256-QDP3dIdb8J+6xQMUU0KqRudjHmnPeSDUk3fWqsrH1u8=",
             "type": "url",
-            "url": "file:///nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz"
+            "url": "file:///nix/store/46pvsfny0715393arhabyh8qfh3smzf4-niri-patched-src.tar.gz"
         },
-        "version": "/nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz"
+        "version": "/nix/store/46pvsfny0715393arhabyh8qfh3smzf4-niri-patched-src.tar.gz"
     },
     "pixy2": {
         "cargoLock": null,

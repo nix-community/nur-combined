@@ -89,6 +89,7 @@ fetch.github = "messense/aliyundrive-webdav"
 [aliyundrive-webdav]
 src.git = "https://github.com/messense/aliyundrive-webdav.git"
 fetch.github = "messense/aliyundrive-webdav"
+cargo_lock = ['Cargo.lock']
 
 [mpv-danmaku-stable]
 src.github = "moraxyc/mpv-danmaku"
@@ -129,4 +130,4 @@ fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ve
 [happydeliver]
 src.github = "happyDomain/happydeliver"
 fetch.github = "happyDomain/happydeliver"
-extract = ["web/package-lock.json" ,"web/package.json"]
+extract = ["web/package-lock.json", "web/package.json"]

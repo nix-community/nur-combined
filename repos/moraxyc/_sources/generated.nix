@@ -16,6 +16,12 @@
       fetchSubmodules = false;
       sha256 = "sha256-Glr/PryfyihEMM+41ZkXp3I0VeXerHMKO82znLJJ2mc=";
     };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-Glr_PryfyihEMM+41ZkXp3I0VeXerHMKO82znLJJ2mc=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
     date = "2026-02-20";
   };
   aliyundrive-webdav-stable = {
@@ -209,21 +215,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "4e4509dbb577a07e17acdecf2abd56f646a8dd8d";
+    version = "296202abc8a041edc7e5bb29627cc71bca56b27b";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "4e4509dbb577a07e17acdecf2abd56f646a8dd8d";
+      rev = "296202abc8a041edc7e5bb29627cc71bca56b27b";
       fetchSubmodules = false;
-      sha256 = "sha256-xmK7SL7k4xBhkAvUvZbUsX1ZjXDmaA1QnvuR9eFh2z8=";
+      sha256 = "sha256-ghoYpsqQUTauaUZrldkswhG8JM1O7s/ut8toOefIZTU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-xmK7SL7k4xBhkAvUvZbUsX1ZjXDmaA1QnvuR9eFh2z8=/Cargo.lock";
+      lockFile = ./. + "/sha256-ghoYpsqQUTauaUZrldkswhG8JM1O7s_ut8toOefIZTU=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-02-17";
+    date = "2026-02-23";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -238,29 +244,29 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.9.12";
+    version = "1.9.13";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.12/NipaPlay_1.9.12_macOS_Universal.dmg";
-      sha256 = "sha256-VReilfzN5uRn6ys7m+zYSqcg9TxLP3WKippT0+DKNDc=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay_1.9.13_macOS_Universal.dmg";
+      sha256 = "sha256-N8DR0x2Y1I+NuGjIeflIDjMqspsryd5BROiv/bjJxxU=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.9.12";
+    version = "1.9.13";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.12/NipaPlay-1.9.12-Linux-amd64.AppImage";
-      sha256 = "sha256-nghqRc8hI83ky5WlPNEde89zuvlC3DHhfoA88L+aaN0=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay-1.9.13-Linux-amd64.AppImage";
+      sha256 = "sha256-X2qM2COjz6G0zmE6HJ+fIS8fOjuZCbD+wPxg9bWCa+c=";
     };
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz";
+    version = "/nix/store/46pvsfny0715393arhabyh8qfh3smzf4-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz";
-      sha256 = "sha256-s0kHNJO59KNf9joGv0p1pzk9nw3+OC/lfmix05VLlIw=";
+      url = "file:///nix/store/46pvsfny0715393arhabyh8qfh3smzf4-niri-patched-src.tar.gz";
+      sha256 = "sha256-QDP3dIdb8J+6xQMUU0KqRudjHmnPeSDUk3fWqsrH1u8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-s0kHNJO59KNf9joGv0p1pzk9nw3+OC_lfmix05VLlIw=/Cargo.lock";
+      lockFile = ./. + "/sha256-QDP3dIdb8J+6xQMUU0KqRudjHmnPeSDUk3fWqsrH1u8=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
