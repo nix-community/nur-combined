@@ -1,0 +1,37 @@
+# This example uses YAML anchors which allows reuse of multiple keys
+# without having to repeat yourself.
+# Also see https://github.com/Mic92/dotfiles/blob/master/nixos/.sops.yaml
+# for a more complex example.
+keys:
+  - &server_hp_envy age1nzt0v9qhfxkesgumzjrg6nxh4narxrlsvllkrdt3szp75v0nvpnsz0ksc3
+  - &server_hp_zbook age1vmg4qw7t6hjrulggky8lvujhrenufv6qjjvsejhfrdnnstlrcehqp6c65m
+  - &server_mac_mini_m1 age1058m4v4ylsrg5wyedy3lxcc0lps9t6sqhqd9y8zyq8d740v84afsvsrke9
+  - &server_mac_mini_intel age19654camqtu0y2n6gdhttm4xrnm8sggnjztt0u40fgewlm9ku4f3qa347l0
+  - &server_macbook_pro age1604q5hpr027v8dg4x96chgkf2cs2zgnq8ntg0ce6uat4umvn45ws6s6dhc
+  - &server_macbook_pro_nixos age1v3frajfater66nykc3rynceg359qwjpwlg48ne338w0zlkgr0ecq542f9f
+  - &server_nas age1cdhakptq68qa7w3kmszkmlygfgu94evze6x66l7ekafsr2jlyf0sfhq29x
+  - &server_oracle_cloud_nixos age1wvmgkw6ud4xxt8fp65v0wcvkste8qgkrcjlrau7mu0z27ey2zq3qtpqpcl
+  - &server_pinebook_pro age1vpstfqc4ratdd60ne5k38zr8jddnc3lvvadgkr4s8y2nkehl73xsemx7ny
+  - &server_protectli age1p62hrzq947f3ft2pljpctmudvvpazzafxe46kuyac7tkypjkpspshh6wnm
+  - &server_router age1v5v7n0klvuusw7r55jg25fppw7u26pj85zffs0cpjajgeeuqadxqf40sgg
+  - &server_steamdeck_nixos age1wlrat6ckl34359tnqrww8jc0tlyedy33puzw9uvhszralfzcpaaqesg4ts
+  - &server_thinkpad age1xech2qev7kpnquuv88qtaygnqtp4972ke605puef5hj6mjvh6ypqg7ud7q
+  - &server_work age1hftc90y0377ekg80a6e2080fl7qtve6jqrx3wwzmtpm7fcucqu2sn7mema
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+      - age:
+          - *server_hp_envy
+          - *server_hp_zbook
+          - *server_mac_mini_m1
+          - *server_mac_mini_intel
+          - *server_macbook_pro
+          - *server_macbook_pro_nixos
+          - *server_nas
+          - *server_oracle_cloud_nixos
+          - *server_pinebook_pro
+          - *server_protectli
+          - *server_router
+          - *server_steamdeck_nixos
+          - *server_thinkpad
+          - *server_work

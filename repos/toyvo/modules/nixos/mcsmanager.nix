@@ -13,7 +13,6 @@ in
       enable = lib.mkEnableOption "MCSManager daemon (game server instance manager)";
       package = lib.mkPackageOption pkgs "mcsmanager-daemon" {
         default = [
-          "toyvo"
           "mcsmanager"
           "mcsmanager-daemon"
         ];

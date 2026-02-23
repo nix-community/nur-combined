@@ -140,7 +140,7 @@ rec {
           { ${n} = p; }
         else if shouldRecurseForDerivations p then
           mapAttrs' (sn: sp: {
-            name = if sn == n then n else "${n}.${sn}";
+            name = if sn == n then n else sn;
             value = sp;
           }) (filterAttrs (_: sp: isDerivation sp && forSystem system sp) p)
         else

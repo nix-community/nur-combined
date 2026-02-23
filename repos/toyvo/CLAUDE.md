@@ -2,70 +2,101 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Repository Purpose
 
-Personal NUR (Nix User Repository) for sharing Nix packages outside nixpkgs. Uses Nix Flakes with flake-parts. Packages are auto-discovered from `pkgs/` via `callDirPackageWithRecursive` in `lib/default.nix`. Pre-built binaries are available from `toyvo.cachix.org`.
+Dual-purpose Nix flake: a **NUR (Nix User Repository)** publishing custom packages, and a **shared system configuration** for 16+ machines across NixOS, nix-darwin, and Home Manager.
+
+GitHub: `ToyVo/nixcfg`. Primary branch: `main`. Uses `nixpkgs-unstable` as the base nixpkgs.
 
 ## Common Commands
 
 ```bash
-# Format all files (nixfmt, yamlfmt, mdformat via treefmt)
+# Format all files (nixfmt, prettier, yamlfmt, mdformat)
 nix fmt
 
-# Show all available packages and outputs
+# Show all flake outputs (evaluation check)
 nix flake show
 
+# Build a specific system configuration
+nix build .#darwinConfigurations.MacBook-Pro.config.system.build.toplevel
+nix build .#nixosConfigurations.nas.config.system.build.toplevel
+
 # Build a specific package
-nix build ".#packageName"
+nix build .#setup-sops
 
-# Build all checks for the current system
-nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)"
-
-# Evaluate all packages (NUR-style validation)
-NIX_PAGER=cat nix-env -f . -qa \* --meta --xml \
-  --allowed-uris https://static.rust-lang.org \
-  --option allow-import-from-derivation true \
-  --drv-path --show-trace -I $PWD
-
-# Enter dev shell (or use direnv)
+# Enter the dev shell (provides setup-sops, setup-git-sops, git hooks)
 nix develop
+
+# Update flake inputs
+nix flake update
+
+# Deploy with nh (system rebuild tool)
+nh os switch ~/nixcfg          # NixOS
+nh darwin switch ~/nixcfg      # nix-darwin
 ```
+
+There are no test commands beyond `nix flake show` (evaluation check) and building specific outputs. CI builds all checks via `nix-fast-build`.
 
 ## Architecture
 
-### Flake Structure
+### Flake Structure (flake-parts)
 
-`flake.nix` uses flake-parts with inputs: nixpkgs (unstable), devshell, flake-parts, treefmt-nix. Outputs include `lib`, `overlays`, `modules`, `packages`, `legacyPackages`, and `checks`. The `default.nix` and `overlay.nix` provide legacy (non-flake) entry points.
+The flake uses `flake-parts` to split per-system outputs from system-independent outputs:
 
-### Package Auto-Discovery
+- **`flake.*`** — System-independent: `lib`, `modules`, `nixosConfigurations`, `darwinConfigurations`, `homeConfigurations`
+- **`perSystem`** — Per-system: `packages`, `checks`, `devshells`, `treefmt`, `overlayAttrs`
 
-Packages are not registered manually. The `callDirPackageWithRecursive` function in `lib/default.nix` recursively scans `pkgs/` for `package.nix` files and makes them available. To add a package, create `pkgs/<name>/package.nix` — it will be picked up automatically.
+### Module Tree (`modules/`)
 
-The function uses a fixed-point combinator (`fix`) so packages within this repo can depend on each other.
+Four module directories, auto-discovered via `lib.importDirRecursive`:
 
-### Library (`lib/default.nix`)
+| Directory         | Scope        | Description                                                     |
+| ----------------- | ------------ | --------------------------------------------------------------- |
+| `modules/os/`     | Shared       | OS-agnostic config imported by both NixOS and Darwin            |
+| `modules/nixos/`  | NixOS        | Linux-specific: services, containers, filesystems, gaming       |
+| `modules/darwin/` | Darwin       | macOS-specific: ollama, podman                                  |
+| `modules/home/`   | Home Manager | User-level programs (editors, shells, terminals), user profiles |
 
-Key functions:
+Modules are referenced via `self.modules.<tree>.<path>` (e.g., `self.modules.nixos.systems`, `self.modules.home.systems`).
 
-- `callDirPackageWithRecursive` — auto-discovers and builds all `package.nix` files in a directory tree
-- `importDirRecursive` — imports all `.nix` files in a directory, used for overlays and modules
-- `isBuildable` — checks a package isn't broken and has free licenses
-- `isCacheable` — checks a package doesn't set `preferLocalBuild`
-- `flakeChecks` / `flakePackages` — generates CI check and package attributes filtered by system
+### System Configurations (`systems/`)
 
-### Package Patterns
+`systems/default.nix` defines three factory functions that wire all flake inputs and shared modules:
 
-**Simple package** (`pkgs/libpcpnatpmp/package.nix`): A single `package.nix` with a standard derivation.
+- **`nixosSystem { system, nixosModules, homeModules }`** — Creates a NixOS config with arion, disko, sops-nix, home-manager, catppuccin, etc.
+- **`darwinSystem { system, darwinModules, homeModules }`** — Creates a nix-darwin config with mac-app-util, sops-nix, home-manager, etc.
+- **`homeConfiguration { system, homeModules }`** — Standalone Home Manager config (used for steamdeck).
 
-**Multi-version package** (Minecraft servers): Contains `package.nix` (version management, exports attrset with `recurseForDerivations`), `derivation.nix` (build logic), `versions.json` (version→hash mapping), and `update.py` (fetches new versions from upstream APIs).
+Each machine has a file (or directory) in `systems/` that passes its system architecture and machine-specific modules to the appropriate factory function. All flake inputs are passed as `specialArgs`.
 
-**Flavor wrapper** (Catppuccin themes): `package.nix` calls existing nixpkgs packages with different parameter combinations.
+### Custom Library (`lib/default.nix`)
 
-### Git Hooks (via devshell)
+Key functions used throughout:
 
-- **Pre-commit**: Runs `nix fmt` on staged files
-- **Pre-push**: Evaluates flake, builds all checks, validates NUR compatibility
+- **`importDirRecursive`** — Recursively imports all `.nix` files in a directory tree, building a nested attrset (powers module auto-discovery)
+- **`callDirPackageWithRecursive`** — Auto-discovers packages by finding `package.nix` files recursively (powers NUR package discovery)
+- **`flakePackages`** / **`flakeChecks`** — Filters packages by platform and buildability for flake outputs
 
-### CI
+These factory functions are also exported as `self.lib` so downstream flakes (e.g., work machine config) can use `nixcfg.lib.darwinSystem`.
 
-`.github/workflows/build.yml` runs on PRs, pushes to main/master, and daily. It evaluates the flake, builds packages with nix-fast-build, uploads to Cachix, and tests against multiple nixpkgs branches (nixpkgs-unstable, nixos-unstable, nixos-25.05).
+### Packages (`pkgs/`)
+
+Each package gets a directory with a `package.nix` entry point, auto-discovered by `callDirPackageWithRecursive`. Categories: Minecraft servers (fabricServers, neoforgeServers, papermcServers, purpurServers), SOPS utilities (setup-sops, setup-git-sops, git-sops), git hooks (pre-commit, pre-push), themes (catppuccin KDE/Papirus).
+
+### Secrets
+
+sops-nix with age encryption. `.sops.yaml` defines per-machine age keys. `secrets.yaml` contains all encrypted secrets. Never commit unencrypted secrets.
+
+### Overlays
+
+Global overlays applied: `nixpkgs-esp-dev`, `nur`, `rust-overlay`. Custom packages are exposed via `overlayAttrs.toyvo` through flake-parts' easyOverlay.
+
+## Conventions
+
+- **Formatter:** Always run `nix fmt` on changed files. Configured formatters: nixfmt (Nix), prettier (JS/YAML/MD), yamlfmt (YAML), mdformat (Markdown).
+- **New packages:** Create `pkgs/<name>/package.nix` — auto-discovered, no manual registration needed.
+- **New modules:** Place `.nix` files under the appropriate `modules/` subtree — auto-discovered via `importDirRecursive`.
+- **New machines:** Add a `.nix` file (or directory with `default.nix`) in `systems/`, then register it in `systems/default.nix` using the appropriate factory function.
+- **Binary caches:** `toyvo.cachix.org`, `cache.toyvo.dev`, nix-community cachix, garnix, zed cachix.
+- **Git hooks:** Dev shell includes pre-commit and pre-push hooks (auto-enabled via devshell).
+- **Downstream usage:** Work machine config imports this flake and uses `nixcfg.lib.darwinSystem` to inherit all shared modules/overlays.

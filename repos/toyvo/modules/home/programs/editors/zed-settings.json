@@ -1,0 +1,93 @@
+{
+  "icon_theme": "Catppuccin Frappé",
+  "terminal": {
+    "shell": {
+      "program": "fish"
+    }
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "agent": {
+    "default_profile": "write",
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini"
+    }
+  },
+  "language_models": {
+    "ollama": {
+      "api_url": "https://ollama.diekvoss.net"
+    }
+  },
+  "theme": "Catppuccin Frappé",
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "format_on_save": "on",
+  "autosave": "on_focus_change",
+  "auto_update": false,
+  "buffer_font_family": "MonaspiceNe Nerd Font",
+  "buffer_font_features": {
+    "ss01": true,
+    "ss02": true,
+    "ss03": true,
+    "ss04": true,
+    "ss05": true,
+    "ss06": true,
+    "ss07": true,
+    "ss08": true,
+    "calt": true,
+    "dlig": true
+  },
+  "formatter": [
+    {
+      "language_server": {
+        "name": "rust-analyzer"
+      }
+    },
+    {
+      "external": {
+        "command": "sed",
+        "arguments": ["-e", "s/ *$//"]
+      }
+    }
+  ],
+  "languages": {
+    "JavaScript": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports": true
+      },
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "JSON": {
+      "tab_size": 4
+    },
+    "Nix": {
+      "language_servers": ["nil", "!nixd"]
+    }
+  },
+  "inlay_hints": {
+    "enabled": true
+  },
+  "vim_mode": true,
+  "lsp": {
+    "nil": {
+      "initialization_options": {
+        "formatting": {
+          "command": ["nixfmt"]
+        },
+        "nix": {
+          "flake": {
+            "autoArchive": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,10 @@
+.DS_Store
+.direnv
+.idea
+.luarc.json
 result
 result-*
-.idea
-.direnv
+requests.http
 __pycache__
+CLAUDE.local.md
+.claude/settings.local.json

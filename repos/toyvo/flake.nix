@@ -1,67 +1,132 @@
 {
-  description = "My personal NUR repository";
+  description = "Collin Diekvoss Nix Configurations and NUR packages";
+
   nixConfig = {
     extra-substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
       "https://toyvo.cachix.org"
+      "https://zed.cachix.org"
+      "https://cache.garnix.io"
+      "https://cache.toyvo.dev"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "toyvo.cachix.org-1:s++CG1te6YaS9mjICre0Ybbya2o/S9fZIyDNGiD4UXs="
+      "zed.cachix.org-1:/pHQ6dpMsAZk2DiP4WCL0p9YDNKWj2Q5FL20bNmw1cU="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "cache.toyvo.dev:6bv4Qc2/SVaWnWzDOUcoB4pT3i3l4wcM+WrhRBFb7E4="
     ];
   };
+
   inputs = {
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+    arion = {
+      url = "github:hercules-ci/arion";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    catppuccin.url = "github:catppuccin/nix";
     devshell = {
       url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
+    dioxus_monorepo.url = "github:toyvo/dioxus_monorepo";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    # want to make scrypted available to me
-    nixpkgs-scrypted.url = "github:nixos/nixpkgs?ref=pull/404971/head";
+    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
+    mac-app-util.url = "github:hraban/mac-app-util";
+    nh.url = "github:toyvo/nh";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-wsl.url = "github:nix-community/nixos-wsl";
+    nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/nur";
+    nvf.url = "github:NotAShelf/nvf";
+    openclaw-pr.url = "github:nixos/nixpkgs/pull/485407/head";
+    plasma-manager.url = "github:pjones/plasma-manager";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    sops-nix.url = "github:Mic92/sops-nix";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    zed.url = "github:zed-industries/zed";
   };
+
   outputs =
     inputs@{
       devshell,
       flake-parts,
-      nixpkgs,
-      treefmt-nix,
+      nixpkgs-esp-dev,
+      nixpkgs-unstable,
+      nur,
+      rust-overlay,
       self,
-      nixpkgs-scrypted,
+      treefmt-nix,
+      zed,
       ...
     }:
     let
-      inherit (nixpkgs) lib;
+      configurations = import ./systems inputs;
+      import_nixpkgs =
+        system: nixpkgs:
+        import nixpkgs {
+          inherit system;
+          overlays = [
+            nixpkgs-esp-dev.overlays.default
+            nur.overlays.default
+            rust-overlay.overlays.default
+            # zed.overlays.default
+          ];
+          config = {
+            allowUnfree = true;
+            android_sdk.accept_license = true;
+          };
+        };
+      inherit (nixpkgs-unstable) lib;
       pkgsDir = "${self}/pkgs";
       libDir = "${self}/lib";
-      overlaysDir = "${self}/overlays";
+      # overlaysDir = "${self}/overlays";
       modulesDir = "${self}/modules";
     in
     flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{
+      {
         config,
         moduleWithSystem,
         withSystem,
         ...
       }:
       let
-        ourLib = (import libDir { inherit lib; });
+        ourLib =
+          (import libDir { inherit lib; })
+          // {
+            inherit import_nixpkgs;
+          }
+          // configurations.lib;
         lib' = lib.recursiveUpdate lib ourLib;
       in
       {
         flake = {
           lib = ourLib;
-          overlays = lib'.importDirRecursive overlaysDir;
+          # overlays = lib'.importDirRecursive overlaysDir;
           modules = lib'.importDirRecursive modulesDir;
+          nixosConfigurations = configurations.nixosConfigurations;
+          darwinConfigurations = configurations.darwinConfigurations;
+          homeConfigurations = configurations.homeConfigurations;
         };
         systems = lib.systems.flakeExposed;
         imports = [
@@ -71,74 +136,59 @@
         ];
         perSystem =
           {
-            self',
             config,
             pkgs,
             system,
+            self',
             ...
           }:
           with lib';
           let
-            pkgs' = recursiveUpdate pkgs { lib = lib'; };
+            basePkgs = import_nixpkgs system nixpkgs-unstable;
+            pkgs' = recursiveUpdate basePkgs { lib = lib'; };
             ourPackages = callDirPackageWithRecursive pkgs' pkgsDir;
           in
           {
-            legacyPackages = ourPackages // {
-              inherit (self) lib overlays modules;
-              maintainers = pkgs.callPackage "${self}/maintainers" { };
-              inherit (nixpkgs-scrypted.legacyPackages.${system}) scrypted;
+            _module.args = {
+              pkgs = pkgs';
             };
-            packages = flakePackages system ourPackages;
-            overlayAttrs.toyvo = ourPackages;
-            # we get infinite recursion on freebsd with `nix flake show`, not investigating
-            checks = lib.mkIf (system != "x86_64-freebsd") (flakeChecks system self'.packages);
 
             treefmt = {
               programs = {
                 nixfmt.enable = true;
+                prettier.enable = true;
                 yamlfmt.enable = true;
                 mdformat.enable = true;
               };
             };
+            legacyPackages = ourPackages // {
+              # inherit (self) lib overlays modules;
+              inherit (self) lib modules;
+              maintainers = pkgs.callPackage "${self}/maintainers" { };
+            };
+            packages = flakePackages system ourPackages;
+            overlayAttrs.toyvo = ourPackages;
             devshells.default = {
+              commands = [
+                {
+                  package = self'.packages.setup-sops;
+                }
+                {
+                  package = self'.packages.setup-git-sops;
+                }
+              ];
               imports = [ "${devshell}/extra/git/hooks.nix" ];
               git.hooks = {
                 enable = true;
-                pre-commit.text = ''
-                  echo "Stashing unstaged changes..."
-                  git commit --allow-empty --no-verify --message 'Save index'
-                  stash_output=$(git stash push --include-untracked --message 'Unstaged changes')
-                  echo $stash_output
-                  git reset --soft HEAD^
-
-                  echo "Formatting..."
-                  nix fmt
-
-                  git add --all
-
-                  if [ -n "$stash_output" ] && [ "$stash_output" != "No local changes to save" ]; then
-                      echo "Restoring unstaged changes..."
-                      git stash pop
-                  else
-                      echo "No unstaged changes to restore."
-                  fi
-                '';
-                pre-push.text = ''
-                  echo "Check evaluation"
-                  nix flake show
-                  echo "Build nix packages"
-                  nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" -j 1 --eval-workers 1
-                  echo "Check evaluation"
-                  NIX_PAGER=cat nix-env -f . -qa \* --meta --xml \
-                    --allowed-uris https://static.rust-lang.org \
-                    --option allow-import-from-derivation true \
-                    --drv-path --show-trace \
-                    -I $PWD
-                  echo "Build nix packages"
-                  nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached maintainers/ci.nix -A cacheOutputs
-                '';
+                pre-commit.text = self'.legacyPackages.pre-commit.text;
+                pre-push.text = self'.legacyPackages.pre-push.text;
               };
             };
+            # we get infinite recursion on freebsd with `nix flake show`, not investigating
+            checks = lib.mkIf (system != "x86_64-freebsd") (
+              flakeChecks system self'.packages
+              // mapAttrs' (n: nameValuePair "devShells-${n}") (filterAttrs (n: v: isCacheable v) self'.devShells)
+            );
           };
       }
     );

@@ -1,0 +1,29 @@
+{ ... }:
+{
+  imports = [
+    ./bat.nix
+    ./editors/helix.nix
+    ./editors/ideavim.nix
+    ./editors/neovim.nix
+    ./editors/zed.nix
+    ./eza.nix
+    ./git.nix
+    ./gtk.nix
+    ./kde.nix
+    ./shells/bash.nix
+    ./shells/fish.nix
+    ./shells/ion.nix
+    ./shells/nushell.nix
+    ./shells/powershell.nix
+    ./shells/zsh.nix
+    ./ssh.nix
+    ./terminals/alacritty.nix
+    ./terminals/ghostty.nix
+    ./terminals/hyper.nix
+    ./terminals/kitty.nix
+    ./terminals/rio.nix
+    ./terminals/wezterm.nix
+    ./volta.nix
+    ./zellij.nix
+  ];
+}

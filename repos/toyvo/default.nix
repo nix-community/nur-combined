@@ -11,6 +11,6 @@ let
 in
 lib.recursiveUpdate (lib'.callDirPackageWithRecursive pkgs' "${self}/pkgs") {
   lib = ourLib;
-  overlays = lib'.importDirRecursive "${self}/overlays";
+  # overlays = lib'.importDirRecursive "${self}/overlays";
   modules = lib'.importDirRecursive "${self}/modules";
 }
