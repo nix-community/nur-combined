@@ -1,0 +1,27 @@
+{
+  "name": "Fluxer",
+  "source": {
+    "type": "api",
+    "url": "https://api.fluxer.app/dl/desktop/stable/darwin/x64/RELEASES.json",
+    "version_path": ".currentRelease"
+  },
+  "version": "0.0.8",
+  "platforms": {
+    "x86_64-darwin": {
+      "url": "https://api.fluxer.app/dl/desktop/stable/darwin/x64/fluxer-stable-{version}-x64.zip",
+      "hash": "sha256-CH9a9gFFiXKsSiD60OCZ5NEMhHMJwhbfKVtiVSUAapQ="
+    },
+    "aarch64-darwin": {
+      "url": "https://api.fluxer.app/dl/desktop/stable/darwin/arm64/fluxer-stable-{version}-arm64.zip",
+      "hash": "sha256-xOosvmiVYYzejNP7HNhUxV84xkL22OQBcgUG4zizNjk="
+    },
+    "x86_64-linux": {
+      "url": "https://api.fluxer.app/dl/desktop/stable/linux/x64/fluxer-stable-{version}-x86_64.AppImage",
+      "hash": "sha256-GdoBK+Z/d2quEIY8INM4IQy5tzzIBBM+3CgJXQn0qAw="
+    },
+    "aarch64-linux": {
+      "url": "https://api.fluxer.app/dl/desktop/stable/linux/arm64/fluxer-stable-{version}-arm64.AppImage",
+      "hash": "sha256-wxLNekbw3E0YPcC27COWtp8VphKmBB9bF2dp7lnjPf8="
+    }
+  }
+}

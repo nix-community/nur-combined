@@ -69,6 +69,7 @@
 
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
   waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
+  fluxer-bin = lib.callPackage ./pkgs/fluxer-bin {};
 
   yaagl = lib.callPackage ./pkgs/yaagl {};
   yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};
