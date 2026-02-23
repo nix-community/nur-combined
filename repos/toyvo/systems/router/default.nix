@@ -185,6 +185,7 @@ in
             };
           }
         ];
+        litellm_settings.check_provider_endpoint = true;
       };
     };
     caddy.enable = true;
