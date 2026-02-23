@@ -120,8 +120,8 @@ let
   _lib_uos = "libuosdevicea";
   _pkgname = "wechat-universal";
   xdg-dir = "${xdg-user-dirs}/bin";
-  # ver = "4.0.0.23";
-  ver = "4.0.1.13";
+  # ver = "4.0.1.13";
+  ver = "4.1.0.16";
   
   # zerocallusedregs hardening breaks WeChat
   glibcWithoutHardening = stdenv.cc.libc.overrideAttrs (old: {
@@ -159,10 +159,10 @@ let
     version = "${ver}";
 
     src = fetchurl {
-      # url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
-      # hash = "sha256-Q3gmo83vJddj9p4prhBHm16LK6CAtW3ltd5j4FqPcgM=";
       url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb";
-      hash = "sha256-OYWMSEZj93ObszGswFul2KbrQIEyOvEppqJ4Ff08CqU=";
+      hash = "sha256-hEXk6wB0zV3R+i3DT3ClSPHh/ut660Uq1p3L0oBNAaI=";
+	  # hash = "sha256-OYWMSEZj93ObszGswFul2KbrQIEyOvEppqJ4Ff08CqU=";
+
     };
     
     nativeBuildInputs = [
