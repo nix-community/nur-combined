@@ -7,6 +7,7 @@
   "platform": "github",
   "repositories": ["spotdemo4/nur"],
   "allowedCommands": ["nix-fix-hash --file utils/images"],
+  "allowedEnv": ["NIX_PATH"],
 
   // repository
   "extends": ["config:recommended"],

@@ -88,6 +88,9 @@ jobs:
           app_key: ${{ secrets.PRIVATE_KEY }}
           shell: update
 
+      - name: Nix path
+        run: echo "${NIX_PATH}"
+
       - name: Renovate
         run: renovate
         env:
