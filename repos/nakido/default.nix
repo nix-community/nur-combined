@@ -1,26 +1,18 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
-# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
-# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
-# commands such as:
-#     nix-build -A mypackage
 {
   pkgs ? import <nixpkgs> { },
 }:
+
+# `(import ./dependencies/flake-compat-ff81ac966bb2cae68946d5ed5fc4994f96d0ffec { src = ./.; }).outputs.legacyPackages.${pkgs.stdenv.system}`
+# error: access to URI 'git+file:///path/to/this?exportIgnore=1' is forbidden in restricted mode
+# `(builtins.getFlake "path:${./.}").outputs.legacyPackages.${pkgs.stdenv.system}`
+# error: the string 'path:/nix/store/8r5nw74maswcsbgb9h4j7gkw61w946wi-nurpkgs' is not allowed to refer to a store path (such as '8r││5nw74maswcsbgb9h4j7gkw61w946wi-nurpkgs')
+
 let
-  mylib = import ./lib { inherit pkgs; };
-  mypkgs = builtins.listToAttrs (
-    map (file: {
-      name = mylib.getFilenameNoSuffix file;
-      value = pkgs.callPackage file { };
-    }) (mylib.globPackages ./pkgs)
-  );
+  mylib = import ./lib { inherit (pkgs) lib; };
 in
-{
-  # The `lib`, `modules`, and `overlays` names are special
-  # modules = import ./modules; # NixOS modules
-  # overlays = import ./overlays; # nixpkgs overlays
-  # example-package = pkgs.callPackage ./pkgs/example-package { };
-}
-// mypkgs
+builtins.listToAttrs (
+  map (file: {
+    name = mylib.getFilenameNoSuffix file;
+    value = pkgs.callPackage file { };
+  }) (mylib.globPackages ./pkgs)
+)

@@ -1,6 +1,5 @@
-{ pkgs }:
+{ lib }:
 let
-  lib = pkgs.lib;
   globNixFiles = import ./globNixFiles.nix lib;
   getFilenameNoSuffix = import ./getFilenameNoSuffix.nix lib;
 in
