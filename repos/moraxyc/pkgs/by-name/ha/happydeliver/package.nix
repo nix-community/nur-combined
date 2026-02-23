@@ -20,7 +20,7 @@ buildGoModule (finalAttrs: {
   ];
 
   # nix-update auto
-  vendorHash = "sha256-qt5858cYOxrvl7RHybcf0O+R9YqqXSIW5DKvTtmssSI=";
+  vendorHash = "sha256-4mQ3/Hc+Ow2MYSNsnACopDhTblCs593Y4uTbtKRWWks=";
   modPostBuild = ''
     substituteInPlace vendor/github.com/oapi-codegen/runtime/types/regexes.go \
         --replace-fail ')))\\.?$' '))|dn42)\\.?$'
