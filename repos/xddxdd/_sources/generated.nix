@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8130";
+    version = "b8133";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8130";
-      hash = "sha256-9JktE1lDLLE+YgaoNshBEJdmP9k928GJgHdigxbqgQc=";
+      tag = "b8133";
+      hash = "sha256-69CSRE7Fr0O//Or6OrNyaThTQBbkxjqPKVYyTu9Gh8c=";
     };
   };
   loralib = {
@@ -1197,10 +1197,10 @@
   };
   magiskboot = {
     pname = "magiskboot";
-    version = "v30.6";
+    version = "v30.7";
     src = fetchurl {
-      url = "https://github.com/topjohnwu/Magisk/releases/download/v30.6/Magisk-v30.6.apk";
-      hash = "sha256-8f/DyaVhTCUbprraMIFjrMPD2ETPAdM/Vai8FRrcNM4=";
+      url = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk";
+      hash = "sha256-4NMtISNTKGD5cSPZJ7G7hsTgjm/YpIv8a1vuCvrp69U=";
     };
   };
   mautrix-gmessages = {
@@ -1548,10 +1548,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.6";
+    version = "9.3.7";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.6/PeerBanHelper_9.3.6.zip";
-      hash = "sha256-hajjDJ/1kOFbGsN3MuJXinEySTvcou8AyBxegzGGud0=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.7/PeerBanHelper_9.3.7.zip";
+      hash = "sha256-Z/P6eA8v+bBnHNQodwGfgFYMHzbJjtbVPYYn7RcRApM=";
     };
   };
   phpmyadmin = {
@@ -2199,15 +2199,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "22dffe13f2ffb179e868ebc6d2eaefc241c82c15";
+    version = "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "22dffe13f2ffb179e868ebc6d2eaefc241c82c15";
+      rev = "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039";
       fetchSubmodules = true;
-      hash = "sha256-1HPS/3xJH753n8a5v9zrfYJqZJ5nReZe2LrEdFYeQ48=";
+      hash = "sha256-+l21lBYMjPM80+eyRkWdAcHFD0P0YnRJoIqJMYOL5U8=";
     };
-    date = "2026-02-22";
+    date = "2026-02-23";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

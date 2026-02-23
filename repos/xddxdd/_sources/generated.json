@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8130",
-            "sha256": "sha256-9JktE1lDLLE+YgaoNshBEJdmP9k928GJgHdigxbqgQc=",
+            "rev": "b8133",
+            "sha256": "sha256-69CSRE7Fr0O//Or6OrNyaThTQBbkxjqPKVYyTu9Gh8c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8130"
+        "version": "b8133"
     },
     "loralib": {
         "cargoLock": null,
@@ -2323,11 +2323,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8f/DyaVhTCUbprraMIFjrMPD2ETPAdM/Vai8FRrcNM4=",
+            "sha256": "sha256-4NMtISNTKGD5cSPZJ7G7hsTgjm/YpIv8a1vuCvrp69U=",
             "type": "url",
-            "url": "https://github.com/topjohnwu/Magisk/releases/download/v30.6/Magisk-v30.6.apk"
+            "url": "https://github.com/topjohnwu/Magisk/releases/download/v30.7/Magisk-v30.7.apk"
         },
-        "version": "v30.6"
+        "version": "v30.7"
     },
     "mautrix-gmessages": {
         "cargoLock": null,
@@ -3016,11 +3016,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hajjDJ/1kOFbGsN3MuJXinEySTvcou8AyBxegzGGud0=",
+            "sha256": "sha256-Z/P6eA8v+bBnHNQodwGfgFYMHzbJjtbVPYYn7RcRApM=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.6/PeerBanHelper_9.3.6.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.7/PeerBanHelper_9.3.7.zip"
         },
-        "version": "9.3.6"
+        "version": "9.3.7"
     },
     "phpmyadmin": {
         "cargoLock": null,
@@ -4286,7 +4286,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-02-22",
+        "date": "2026-02-23",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4298,12 +4298,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "22dffe13f2ffb179e868ebc6d2eaefc241c82c15",
-            "sha256": "sha256-1HPS/3xJH753n8a5v9zrfYJqZJ5nReZe2LrEdFYeQ48=",
+            "rev": "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039",
+            "sha256": "sha256-+l21lBYMjPM80+eyRkWdAcHFD0P0YnRJoIqJMYOL5U8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "22dffe13f2ffb179e868ebc6d2eaefc241c82c15"
+        "version": "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039"
     },
     "unigine-heaven": {
         "cargoLock": null,
