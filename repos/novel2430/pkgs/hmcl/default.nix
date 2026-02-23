@@ -56,11 +56,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "hmcl";
-  version = "3.10.2";
+  version = "3.10.3";
 
   src = fetchurl {
     url = "https://github.com/HMCL-dev/HMCL/releases/download/v${version}/HMCL-${version}.jar";
-    hash = "sha256-tmQN0kSjm8oU36ENHhgA649IohdG4ZDHyEaMPscd3nQ=";
+    hash = "sha256-+xxDACa2ECbWaCUzK0b/rcRS49Hex4GZDcNNK/aEURs=";
   };
 
   dontUnpack = true;

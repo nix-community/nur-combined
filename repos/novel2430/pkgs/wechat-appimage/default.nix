@@ -12,26 +12,18 @@
 }:
 let
   pkgname = "wechat-appimage";
-  pkgver = "4.0.13";
-  wechat-src = appimageTools.wrapType2 {
+  pkgver = "4.1.0.16";
+  wechat-appimage-src = {
     pname = "${pkgname}";
     version = "${pkgver}";
 
     src = fetchurl {
       url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
-      hash = "sha256-+r5Ebu40GVGG2m2lmCFQ/JkiDsN/u7XEtnLrB98602w=";
+      hash = "sha256-Pfl81lNVlMJWyPqFli1Af2q8pRLujcKCjYoILCKDx8U=";
     };
   };
-  appimageContent = appimageTools.extractType1 {
-    pname = "${pkgname}";
-    version = "${pkgver}";
-
-    src = fetchurl {
-      url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
-      hash = "sha256-+r5Ebu40GVGG2m2lmCFQ/JkiDsN/u7XEtnLrB98602w=";
-    };
-
-  };
+  wechat-src = appimageTools.wrapType2 wechat-appimage-src;
+  appimageContent = appimageTools.extractType1 wechat-appimage-src;
   xdg-dir = "${xdg-user-dirs}/bin";
   startScript = writeShellScript "wechat-start" ''
     export QT_QPA_PLATFORM=xcb
