@@ -46,9 +46,6 @@ buildPythonPackage (finalAttrs: {
         "${finalAttrs.pname}"
       ];
     };
-    python310 = pkgs.callPackage ./. {
-      inherit (pkgs.python310Packages) buildPythonPackage;
-    };
     python311 = pkgs.callPackage ./. {
       inherit (pkgs.python311Packages) buildPythonPackage;
     };
