@@ -6,10 +6,12 @@ in
 # https://github.com/nixos/nixpkgs/issues/445481
 (pkgs.dockerTools.pullImage {
   imageName = builtins.elemAt parts 0 + builtins.elemAt parts 1;
-  imageDigest = builtins.elemAt parts 3;
-  hash = "sha256-CGhiEMsJP+BGP1OOti5uc6SIzX2Yc2Yg1sClyhTV3yc=";
   finalImageName = builtins.elemAt parts 1;
   finalImageTag = builtins.elemAt parts 2;
+  imageDigest = builtins.elemAt parts 3;
+  hash = "sha256-CGhiEMsJP+BGP1OOti5uc6SIzX2Yc2Yg1sClyhTV3yc=";
+  os = "linux";
+  arch = "x86_64";
 }).overrideAttrs
   {
     __structuredAttrs = true;

@@ -14,12 +14,20 @@
   packages =
     _: prev:
     let
-      pkgs = import ../packages {
+      packages = import ../packages {
         system = prev.stdenv.hostPlatform.system;
         pkgs = prev;
       };
     in
-    prev // pkgs;
+    prev // packages;
+
+  pythonPackages = _: prev: {
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      (py-final: _: {
+        uv-build = py-final.callPackage ../packages/uv-build { };
+      })
+    ];
+  };
 
   libs =
     _: prev:
