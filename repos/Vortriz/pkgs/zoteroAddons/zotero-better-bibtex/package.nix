@@ -9,7 +9,7 @@ mkZoteroAddon rec {
 
     src = fetchurl {
         url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v${version}/zotero-better-bibtex-${version}.xpi";
-        hash = "sha256-2jiiZL7eX7538YsJcNs8gQLRhji7oxhKo1ANrVhyfXM=";
+        hash = "sha256-zBg0VyVIXqMFoJan90d56sDS+t3jqA6+lro/cCbO678=";
     };
 
     addonId = "better-bibtex@iris-advies.com";
