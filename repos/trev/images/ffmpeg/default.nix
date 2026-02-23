@@ -7,7 +7,7 @@ in
 (pkgs.dockerTools.pullImage {
   imageName = builtins.elemAt parts 0 + builtins.elemAt parts 1;
   imageDigest = builtins.elemAt parts 3;
-  hash = "sha256-fzhJe5F37t+8xsquRXqimrPavgVdYBLx1udjMM6rK/k=";
+  hash = "sha256-CGhiEMsJP+BGP1OOti5uc6SIzX2Yc2Yg1sClyhTV3yc=";
   finalImageName = builtins.elemAt parts 1;
   finalImageTag = builtins.elemAt parts 2;
 }).overrideAttrs

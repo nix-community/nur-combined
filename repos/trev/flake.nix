@@ -190,7 +190,8 @@
               '';
             };
           }
-          // packages;
+          // packages
+          // images;
 
         formatter = pkgs.nixfmt-tree;
       }
