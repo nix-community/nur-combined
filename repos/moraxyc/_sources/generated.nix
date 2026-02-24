@@ -260,13 +260,13 @@
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/46pvsfny0715393arhabyh8qfh3smzf4-niri-patched-src.tar.gz";
+    version = "/nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/46pvsfny0715393arhabyh8qfh3smzf4-niri-patched-src.tar.gz";
-      sha256 = "sha256-QDP3dIdb8J+6xQMUU0KqRudjHmnPeSDUk3fWqsrH1u8=";
+      url = "file:///nix/store/ksxp4pm8sz3jd9l7z4v0v7aar8yk6dmd-niri-patched-src.tar.gz";
+      sha256 = "sha256-huYNOaL/3UPCoFA0JRd05LuV/AF68jc1pm6lGrctSck=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-QDP3dIdb8J+6xQMUU0KqRudjHmnPeSDUk3fWqsrH1u8=/Cargo.lock";
+      lockFile = ./. + "/sha256-huYNOaL_3UPCoFA0JRd05LuV_AF68jc1pm6lGrctSck=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -287,18 +287,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202602222218";
+    version = "202602232234";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602222218/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602232234/geoip.dat";
       sha256 = "sha256-pdWXkgQ2cuSLELtWfKYLYrZngmZmqaEiZS8b+qVWj6w=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202602222218";
+    version = "202602232234";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602222218/geosite.dat";
-      sha256 = "sha256-3uE36UBUDnsnDQpZGI1ftLD/hXtSGt4A6YUTq+zO4ME=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602232234/geosite.dat";
+      sha256 = "sha256-G80gVAKCnvYO4DmX+F4mvU07Axz7rf7iTUBziPls0DQ=";
     };
   };
 }
