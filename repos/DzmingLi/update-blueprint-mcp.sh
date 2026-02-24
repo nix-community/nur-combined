@@ -21,6 +21,7 @@ echo "Current version: $current_version"
 latest_version=$(git ls-remote --tags "https://github.com/${REPO_OWNER}/${REPO_NAME}.git" \
   | awk -F/ '{print $3}' \
   | rg '^v' \
+  | rg -v '\^' \
   | sed 's/^v//' \
   | sort -V \
   | tail -n1)
