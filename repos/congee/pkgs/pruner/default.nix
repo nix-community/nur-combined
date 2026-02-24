@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "pruner";
-  version = "1.0.0-alpha.8";
+  version = "1.0.0-alpha.9";
 
   src = fetchFromGitHub {
     owner = "pruner-formatter";
     repo = "pruner";
     rev = "v${version}";
-    hash = "sha256-N1EzPIni0fr8vfQr+R4zF5yeFraio1FguQy6aiq2QVw=";
+    hash = "sha256-1vicEI84f7wGU0/0tEDN6EImkjVX0/SJIMASzrvZEPk=";
   };
 
-  cargoHash = "sha256-KSe6lN9JL8WLhndh+jfs3I9BVMJxxQpFBQvdjEpOskk=";
+  cargoHash = "sha256-8T4v3QZk1PNFCvgAa6q+fXCXuasPE8miGuM84MftbGU=";
 
   doCheck = false; # missing treesitter files
 
