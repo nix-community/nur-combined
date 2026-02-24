@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.26";
+    version = "v6.8.27";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.26";
-      hash = "sha256-KZwsaBaE6cFNvxMYGd6hxfsrbNv0ej3O+YhDe0JZ960=";
+      tag = "v6.8.27";
+      hash = "sha256-XB89onmtSV6IC9yFKR1jNuVChSZ/9Ne3f92UrSRi1Jo=";
     };
   };
   cockpy = {
@@ -1098,14 +1098,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "6b390dde2a77e79f887e50cf396e406c0ea7a0f5";
+    version = "d1d8447dd890e0bbeeb6868477fd9f4cdefb253b";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "6b390dde2a77e79f887e50cf396e406c0ea7a0f5";
-      hash = "sha256-31gckLDVwdjuaTyBMpfFyf6Ls0Ic8kZi5gA4KOWEcsM=";
+      rev = "d1d8447dd890e0bbeeb6868477fd9f4cdefb253b";
+      hash = "sha256-K38Cr4uXHgxg1emIe1qkF9cqGhIUmLL3RE6JoptPfeQ=";
     };
-    date = "2026-02-11";
+    date = "2026-02-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8133";
+    version = "b8145";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8133";
-      hash = "sha256-69CSRE7Fr0O//Or6OrNyaThTQBbkxjqPKVYyTu9Gh8c=";
+      tag = "b8145";
+      hash = "sha256-scl7ncBf5fOKo7pY4f3dgexADKxj7OBiEO9XKqYz6y4=";
     };
   };
   loralib = {
@@ -1339,14 +1339,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "1ca72290f5ea7017d75200a96a15cf545973eda7";
+    version = "d421ab031439d83eeb13901a37b57e90b67e330a";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "1ca72290f5ea7017d75200a96a15cf545973eda7";
-      hash = "sha256-gvQm1xuYo7JiGSYA8AeyaSMMe4OWrdBjh+F8KapXsDA=";
+      rev = "d421ab031439d83eeb13901a37b57e90b67e330a";
+      hash = "sha256-DqCA5JFWH7WIEH7vodMfHWhr957OMv72X4DHsgNMk0E=";
     };
-    date = "2026-02-21";
+    date = "2026-02-24";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1392,12 +1392,12 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.23";
+    version = "v0.24";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      tag = "v0.23";
-      hash = "sha256-yS7Bn4M4r7If7/8c74nqS97kg90eYqKhxMtz14MJaL4=";
+      tag = "v0.24";
+      hash = "sha256-yA710tgdLOw/HDrD17Qy6ogZMUOVcXZ11Jf6kKPBoBM=";
     };
   };
   oci-arm-host-capacity = {
@@ -1697,12 +1697,12 @@
   };
   pysctp = {
     pname = "pysctp";
-    version = "v0.7.2";
+    version = "v0.7.3";
     src = fetchFromGitHub {
       owner = "p1sec";
       repo = "pysctp";
-      tag = "v0.7.2";
-      hash = "sha256-XDBuxCaT8ho7UPfQHhFdYs9KCRWmguebZa2fqb423A4=";
+      tag = "v0.7.3";
+      hash = "sha256-CtWS+tuh2+Q9Hr64W6bsPE2v020BpnUJ5FDHblGCcYs=";
     };
   };
   pytorch-wpe = {
@@ -1991,12 +1991,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v1.14.15";
+    version = "v2.0.0";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v1.14.15";
-      hash = "sha256-D1B5j1HYSXDgr1vW8kHzCohu3HiDljTEhQhzfa5q/Us=";
+      tag = "v2.0.0";
+      hash = "sha256-NvGv4B/FT137fVrj67wPe2CZHIxcADjbPHAOK2T8vIw=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2041,12 +2041,12 @@
   };
   silero-vad = {
     pname = "silero-vad";
-    version = "v6.2";
+    version = "v6.2.1";
     src = fetchFromGitHub {
       owner = "snakers4";
       repo = "silero-vad";
-      tag = "v6.2";
-      hash = "sha256-UOkmXMnbKBSiey5Gf46mgGxBfLGTh0SgblZ7iGQgjRc=";
+      tag = "v6.2.1";
+      hash = "sha256-peGaJkSqjeobgx479OKt8ErorFviTIA7naFPewgab4U=";
     };
   };
   smartrent_py = {

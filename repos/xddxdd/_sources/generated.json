@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.26",
-            "sha256": "sha256-KZwsaBaE6cFNvxMYGd6hxfsrbNv0ej3O+YhDe0JZ960=",
+            "rev": "v6.8.27",
+            "sha256": "sha256-XB89onmtSV6IC9yFKR1jNuVChSZ/9Ne3f92UrSRi1Jo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.26"
+        "version": "v6.8.27"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2127,7 +2127,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-02-11",
+        "date": "2026-02-23",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2139,12 +2139,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "6b390dde2a77e79f887e50cf396e406c0ea7a0f5",
-            "sha256": "sha256-31gckLDVwdjuaTyBMpfFyf6Ls0Ic8kZi5gA4KOWEcsM=",
+            "rev": "d1d8447dd890e0bbeeb6868477fd9f4cdefb253b",
+            "sha256": "sha256-K38Cr4uXHgxg1emIe1qkF9cqGhIUmLL3RE6JoptPfeQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6b390dde2a77e79f887e50cf396e406c0ea7a0f5"
+        "version": "d1d8447dd890e0bbeeb6868477fd9f4cdefb253b"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8133",
-            "sha256": "sha256-69CSRE7Fr0O//Or6OrNyaThTQBbkxjqPKVYyTu9Gh8c=",
+            "rev": "b8145",
+            "sha256": "sha256-scl7ncBf5fOKo7pY4f3dgexADKxj7OBiEO9XKqYz6y4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8133"
+        "version": "b8145"
     },
     "loralib": {
         "cargoLock": null,
@@ -2592,7 +2592,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-02-21",
+        "date": "2026-02-24",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2604,12 +2604,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "1ca72290f5ea7017d75200a96a15cf545973eda7",
-            "sha256": "sha256-gvQm1xuYo7JiGSYA8AeyaSMMe4OWrdBjh+F8KapXsDA=",
+            "rev": "d421ab031439d83eeb13901a37b57e90b67e330a",
+            "sha256": "sha256-DqCA5JFWH7WIEH7vodMfHWhr957OMv72X4DHsgNMk0E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1ca72290f5ea7017d75200a96a15cf545973eda7"
+        "version": "d421ab031439d83eeb13901a37b57e90b67e330a"
     },
     "nginx-njs": {
         "cargoLock": null,
@@ -2709,12 +2709,12 @@
             "name": null,
             "owner": "abbbi",
             "repo": "nullfsvfs",
-            "rev": "v0.23",
-            "sha256": "sha256-yS7Bn4M4r7If7/8c74nqS97kg90eYqKhxMtz14MJaL4=",
+            "rev": "v0.24",
+            "sha256": "sha256-yA710tgdLOw/HDrD17Qy6ogZMUOVcXZ11Jf6kKPBoBM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.23"
+        "version": "v0.24"
     },
     "oci-arm-host-capacity": {
         "cargoLock": null,
@@ -3317,12 +3317,12 @@
             "name": null,
             "owner": "p1sec",
             "repo": "pysctp",
-            "rev": "v0.7.2",
-            "sha256": "sha256-XDBuxCaT8ho7UPfQHhFdYs9KCRWmguebZa2fqb423A4=",
+            "rev": "v0.7.3",
+            "sha256": "sha256-CtWS+tuh2+Q9Hr64W6bsPE2v020BpnUJ5FDHblGCcYs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.7.2"
+        "version": "v0.7.3"
     },
     "pytorch-wpe": {
         "cargoLock": null,
@@ -3887,12 +3887,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v1.14.15",
-            "sha256": "sha256-D1B5j1HYSXDgr1vW8kHzCohu3HiDljTEhQhzfa5q/Us=",
+            "rev": "v2.0.0",
+            "sha256": "sha256-NvGv4B/FT137fVrj67wPe2CZHIxcADjbPHAOK2T8vIw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.15"
+        "version": "v2.0.0"
     },
     "sam-toki-mouse-cursors": {
         "cargoLock": null,
@@ -3986,12 +3986,12 @@
             "name": null,
             "owner": "snakers4",
             "repo": "silero-vad",
-            "rev": "v6.2",
-            "sha256": "sha256-UOkmXMnbKBSiey5Gf46mgGxBfLGTh0SgblZ7iGQgjRc=",
+            "rev": "v6.2.1",
+            "sha256": "sha256-peGaJkSqjeobgx479OKt8ErorFviTIA7naFPewgab4U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.2"
+        "version": "v6.2.1"
     },
     "smartrent_py": {
         "cargoLock": null,
