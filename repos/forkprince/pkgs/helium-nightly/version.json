@@ -8,14 +8,14 @@
     "x86_64-linux": {
       "repo": "imputnet/helium-linux",
       "file": "helium-{version}-x86_64.AppImage",
-      "hash": "sha256-wUmFmfZPWSvPzArbegegQpY1CFu/XAguqPQpINDE2qY=",
-      "version": "0.9.3.1"
+      "hash": "sha256-N5gdWuxOrIudJx/4nYo4/SKSxakpTFvL4zzByv6Cnug=",
+      "version": "0.9.4.1"
     },
     "aarch64-linux": {
       "repo": "imputnet/helium-linux",
       "file": "helium-{version}-arm64.AppImage",
-      "hash": "sha256-UfYTPdgE4kUIkritmkjGnSQofElmn24nvwZDA8uHdLk=",
-      "version": "0.9.3.1"
+      "hash": "sha256-BvU0bHtJMd6e09HY+9Vhycr3J0O2hunRJCHXpzKF8lk=",
+      "version": "0.9.4.1"
     },
     "x86_64-darwin": {
       "repo": "imputnet/helium-macos",
