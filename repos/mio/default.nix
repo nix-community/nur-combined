@@ -73,13 +73,15 @@ in
         # nixos-unstable-small 20260224
         "sha256-8NvRodMtq9Yrock7QRvF6ZOjuqpiK0KS3UeJzYcIbsg=:1.25.5" =
           "sha256-1oLtb7TmXRjElHOUouXzH2emMB+bz5YHtj9xdwetItA=";
+        # nixos-unstable 20260224
+        "sha256-8NvRodMtq9Yrock7QRvF6ZOjuqpiK0KS3UeJzYcIbsg=:1.25.7" = "";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
       lookupKey = "${srcHash}:${goVersion}";
       pluginsHash =
         caddyPluginsHashTable.${lookupKey}
-          or (throw "Unknown caddy source hash + Go version: ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
+          or (lib.warn "Unknown caddy source hash + Go version: ${lookupKey}. Please update caddyPluginsHashTable in default.nix" "");
     in
     (goV3OverrideAttrs pkgs.caddy).withPlugins {
       # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
