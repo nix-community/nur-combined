@@ -71,7 +71,8 @@ in
         "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.6" =
           "sha256-WzhF5560CgM6a3frbv3JxyNZA9D7WYhWab5Ds9WEO0k=";
         # nixos-unstable-small 20260224
-        "sha256-8NvRodMtq9Yrock7QRvF6ZOjuqpiK0KS3UeJzYcIbsg=:1.25.5" = "";
+        "sha256-8NvRodMtq9Yrock7QRvF6ZOjuqpiK0KS3UeJzYcIbsg=:1.25.5" =
+          "sha256-1oLtb7TmXRjElHOUouXzH2emMB+bz5YHtj9xdwetItA=";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
