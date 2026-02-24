@@ -11,12 +11,12 @@
   versionCheckHook,
 }:
 let
-  version = "2.11.0-beta.2";
+  version = "2.11.1";
   dist = fetchFromGitHub {
     owner = "caddyserver";
     repo = "dist";
     tag = "v${version}";
-    hash = "sha256-qYRvKvtr6aE5AY9EYYujl/pGJM0c8kNYdQ6+sDdgn4I=";
+    hash = "sha256-D1qI7TDJpSvtgpo1FsPZk6mpqRvRharFZ8soI7Mn3RE=";
   };
 in
 buildGo125Module (finalAttrs: {
@@ -27,14 +27,10 @@ buildGo125Module (finalAttrs: {
     owner = "caddyserver";
     repo = "caddy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-C07tFO8MehgMmuubduRePYoYEB1JKsZ0CvjVeKiUse8=";
+    hash = "sha256-8NvRodMtq9Yrock7QRvF6ZOjuqpiK0KS3UeJzYcIbsg=";
   };
 
-  patches = [
-    ./fix-reverse-proxy-unix-socket-xff.patch
-  ];
-
-  vendorHash = "sha256-GmWnq/dmuhvsHE9/WFjUfn3jnukYv+ZwjqrbJfavSYc=";
+  vendorHash = "sha256-jZ/oxAVBedbFEnqXrQnya2vLQZjXubAc1vUKwpUL66M=";
 
   ldflags = [
     "-s"
