@@ -18,7 +18,7 @@ fi
 
 echo "Current version: $current_version"
 
-latest_version=$(git ls-remote --tags --refs "https://github.com/${REPO_OWNER}/${REPO_NAME}.git" \
+latest_version=$(git ls-remote --tags "https://github.com/${REPO_OWNER}/${REPO_NAME}.git" \
   | awk -F/ '{print $3}' \
   | rg '^v' \
   | sed 's/^v//' \
