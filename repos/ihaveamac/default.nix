@@ -71,6 +71,7 @@ rec {
   tex3ds = callPackage ./pkgs/tex3ds/package.nix { };
   vanilla = callPackage ./pkgs/vanilla/package.nix { };
   caesar = callPackage ./pkgs/caesar/package.nix { };
+  azahar-master = callPackage ./pkgs/azahar-master/package.nix { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 

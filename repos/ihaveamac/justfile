@@ -15,6 +15,7 @@ update:
 	nix-update --version=branch _3beans
 	nix-update --version=branch lnshot
 	nix-update --version=branch vanilla
+	nix-update --version=branch azahar-master
 	nix-update retro-aim-server
 
 	nix-shell build-readme.nix
