@@ -52,7 +52,7 @@ generic {
   src = fetchFromGitHub {
     owner = "unstable-code";
     repo = "lyrics";
-    rev = "a4ed424764f513115e963b6aec73b46f481b00f4";
-    hash = "sha256-VK9OabtOaM1Y5J43OC3pFekX4TomNWt+4jFNXvbrL34=";
+    rev = "666bcf11575739322197e0c7e72b88e37ad37bc8";
+    hash = "sha256-3BnSn912GClCKU/p1mwX1lklT8k3TAlCs5DUlVSGgCk=";
   };
 }
