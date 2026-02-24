@@ -6,13 +6,13 @@
 
 buildGoModule {
   pname = "tsnsrv";
-  version = "0-unstable-2025-10-01";
+  version = "0-unstable-2025-12-29";
 
   src = fetchFromGitHub {
     owner = "boinkor-net";
     repo = "tsnsrv";
-    rev = "a4e47c178e0bdd4da72fad6f0dd2dea6b89d2d25";
-    hash = "sha256-b0d0lfERd3+N/K0oq4YsX2pSMGh5HX5D6ocehEoJjeU=";
+    rev = "8f3fbf69e1517612c0fde9be27522e12c2ddc238";
+    hash = "sha256-uRm4oWMFUBSmXgofOngMWIyA/yUmLlon6f3XoFTWvBA=";
   };
 
   subPackages = [ "cmd/tsnsrv" ];

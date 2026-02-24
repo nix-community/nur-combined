@@ -10,12 +10,12 @@
 
 stdenv.mkDerivation {
   pname = "scc";
-  version = "0-unstable-2025-10-29";
+  version = "0-unstable-2026-02-20";
 
   src = fetchgit {
     url = "git://git.simple-cc.org/scc";
-    rev = "1ed0ff0000999561feee336c289252faf2502a7e";
-    hash = "sha256-BVs+ypb6/aE2BsCsDMLZa2ppK6ypjLZQumUgzIehg/k=";
+    rev = "05c02ab56769cd7ff85630d501627941d6abe84f";
+    hash = "sha256-JW/aDsOF8AwosfCZ4E3pnEnsBM7exUl1lpVssLlKXl0=";
   };
 
   postPatch = ''
