@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   environment.systemPackages = with pkgs; [
@@ -28,12 +32,35 @@
     dool
     doggo
     optipng
+    taplo
+    libjxl
+    perl # needed for magit cherry spinout
+    jqfmt
   ];
 
   # tmpfs on all machines
   boot.tmp = {
     useTmpfs = true;
     tmpfsSize = "100%";
+  };
+
+  # Almost all hosts should have this timezone
+  time.timeZone = lib.mkDefault "Europe/Berlin";
+
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
+
+  programs.ssh = {
+    enableAskPassword = lib.mkForce false;
+    extraConfig = ''
+      Host *
+        StrictHostKeyChecking accept-new
+        ControlPath /tmp/ssh-%r@%h:%p
+        ServerAliveInterval 60
+        ServerAliveCountMax 2
+    '';
   };
 
   programs.fuse.userAllowOther = true;
@@ -78,6 +105,10 @@
     DENO_NO_UPDATE_CHECK = "1";
 
     IPFS_GATEWAY = lib.mkDefault "https://ipfs.io";
+
+    # Release memory of polars data library, because they hardcode "-1" ms muzzy decay
+    # https://github.com/pola-rs/polars/issues/23128#issuecomment-2976179171
+    _RJEM_MALLOC_CONF = "background_thread:true,dirty_decay_ms:500,muzzy_decay_ms:500";
   };
 
   # too noisy, not needed by default

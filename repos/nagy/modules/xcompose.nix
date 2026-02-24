@@ -1,4 +1,10 @@
-{ config, lib, pkgs, nur, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nur,
+  ...
+}:
 
 # TODO maybe integrate:
 # https://github.com/kragen/xcompose/blob/master/dotXCompose

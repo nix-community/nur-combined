@@ -9,24 +9,24 @@
   imports = [ ./shortcommands.nix ];
 
   config = {
-    environment.systemPackages = with pkgs; [
-      nixfmt
-      nil
+    environment.systemPackages = [
+      pkgs.nixfmt
+      pkgs.nil
 
-      nix-prefetch
+      pkgs.nix-prefetch
       # nix-prefetch-git # creates spooky temporary files during fetch.
-      nix-diff
-      nvd
+      pkgs.nix-diff
+      pkgs.nvd
       # nix-du
-      nix-tree
-      nix-init
-      nix-update
-      nix-output-monitor
+      pkgs.nix-tree
+      pkgs.nix-init
+      pkgs.nix-update
+      pkgs.nix-output-monitor
       # nix-eval-jobs
-      nixpkgs-review
+      pkgs.nixpkgs-review
 
-      nickel
-      nls
+      pkgs.nickel
+      pkgs.nls
     ];
     nix = {
       nixPath = [

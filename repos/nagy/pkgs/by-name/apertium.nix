@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "apertium";
-  version = "3.9.4";
+  version = "3.9.12";
 
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "apertium";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-/47A1dYHsFUsIUVPek0pN+bZbANDvwK0elShpIvij78=";
+    hash = "sha256-/NdXRr5ic1D3tP3NazXF5R3RkD1H0nuMF2RWxXBDa/I=";
   };
 
   nativeBuildInputs = [

@@ -4,13 +4,10 @@
 
 rec {
   makeCompressedQcow2 =
-    {
-      image,
-      qemu-utils ? pkgs.qemu-utils,
-    }:
+    { image }:
     pkgs.runCommandLocal "${image.name}.qcow2"
       {
-        nativeBuildInputs = [ qemu-utils ];
+        nativeBuildInputs = [ pkgs.qemu-utils ];
       }
       ''
         xzcat ${image} > image

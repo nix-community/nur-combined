@@ -24,8 +24,8 @@
     console.useXkbConfig = true;
 
     environment.systemPackages = [
-      pkgs.xorg.xcursorthemes
-      pkgs.xorg.xwininfo
+      pkgs.xcursorthemes
+      pkgs.xwininfo
       pkgs.scrot
       nur.repos.nagy.nsxivBigThumbs
       pkgs.xclip

@@ -1,13 +1,6 @@
 {
-  lib,
   fetchurl,
-  nettools,
-  openssl,
-  readline,
   fetchpatch,
-  stdenv,
-  which,
-  buildPackages,
   socat,
 }:
 

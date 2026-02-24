@@ -10,7 +10,7 @@ rec {
       epkgs ? pkgs.emacs.pkgs,
     }:
     lib.pipe src [
-      builtins.readFile
+      lib.readFile
       (
         x:
         (emacsParsePackagesFromPackageRequires x)
@@ -21,7 +21,7 @@ rec {
         ++ (
           let
             prefix = ";; NIX-EMACS-PACKAGE: ";
-            lines = (lib.splitString "\n" x);
+            lines = lib.splitString "\n" x;
             filtered = (lib.filter (y: lib.hasPrefix prefix y)) lines;
             mapped = map (z: lib.removePrefix prefix z) filtered;
           in
@@ -36,13 +36,13 @@ rec {
       (x: lib.lists.remove "use-package" x)
       (x: map (name: epkgs.${name}) x)
     ]
-  # map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (builtins.readFile src))
+  # map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (lib.readFile src))
   ;
 
   emacsMakeSingleFilePackage =
     {
       src,
-      pname ? lib.removeSuffix ".el" (builtins.baseNameOf src),
+      pname ? lib.removeSuffix ".el" (baseNameOf src),
       version ? "0.0.1",
       epkgs ? pkgs.emacs.pkgs,
       packageRequires ? emacsParsePackageSet { inherit src epkgs; },
@@ -78,7 +78,7 @@ rec {
       elFiles = lib.filter (x: lib.hasSuffix ".el" x) allFiles;
       final = lib.listToAttrs (
         map (filepath: {
-          name = lib.removeSuffix ".el" (builtins.baseNameOf filepath);
+          name = lib.removeSuffix ".el" (baseNameOf filepath);
           value = emacsMakeSingleFilePackage {
             src = filepath;
             epkgs = epkgs.overrideScope (_self: _super: final);
@@ -92,27 +92,78 @@ rec {
   emacsParsePackagesFromPackageRequires =
     packageElisp:
     let
-      isStrEmpty = s: (builtins.replaceStrings [ " " ] [ "" ] s) == "";
-      splitString = _sep: _s: builtins.filter (x: builtins.typeOf x == "string") (builtins.split _sep _s);
+      isStrEmpty = s: (lib.replaceStrings [ " " ] [ "" ] s) == "";
+      splitString = _sep: _s: lib.filter (x: lib.typeOf x == "string") (lib.split _sep _s);
       lines = splitString "\r?\n" packageElisp;
       requires = lib.concatMapStrings (
         line:
         let
-          match = builtins.match ";;;* *[pP]ackage-[rR]equires *: *\\((.*)\\) *" line;
+          match = lib.match ";;;* *[pP]ackage-[rR]equires *: *\\((.*)\\) *" line;
         in
-        if match == null then "" else builtins.head match
+        if match == null then "" else lib.head match
       ) lines;
       parseReqList =
         s:
         let
-          matchAndRest = builtins.match " *\\(? *([^ \"\\)]+)( +\"[^\"]+\" *\\)| *\\))?(.*)" s;
+          matchAndRest = lib.match " *\\(? *([^ \"\\)]+)( +\"[^\"]+\" *\\)| *\\))?(.*)" s;
         in
         if isStrEmpty s then
           [ ]
         else if matchAndRest == null then
           throw "Failed to parse package requirements list: ${s}"
         else
-          [ (builtins.head matchAndRest) ] ++ (parseReqList (builtins.elemAt matchAndRest 2));
+          [ (lib.head matchAndRest) ] ++ (parseReqList (lib.elemAt matchAndRest 2));
     in
     parseReqList requires;
+
+  convertOrgToJson = pkgs.writeShellApplication {
+    name = "convert-org-to-json";
+    runtimeInputs = [ pkgs.emacs ];
+    runtimeEnv = {
+      emacsOrgExportJsonCleanup = pkgs.writeText "emacsOrgExportJsonCleanup.org" ''
+        (defun my/org-export-sanitize-value (val)
+          (cond
+           ((bufferp val) (buffer-name val))
+           ((markerp val) (marker-position val))
+           ((listp val)
+            (if (keywordp (car val))
+                (my/org-export-clean-plist val)
+              (mapcar #'my/org-export-sanitize-value val)))
+           ((or (stringp val) (numberp val) (booleanp val) (symbolp val)) val)
+           (t (format "%s" val))))
+        (defun my/org-export-clean-plist (plist)
+          (let (result)
+            (while plist
+              (let ((key (pop plist))
+                    (val (pop plist)))
+                (push key result)
+                (push (my/org-export-sanitize-value val) result)))
+            (nreverse result)))
+      '';
+
+    };
+    text = ''
+      exec emacs -Q -nw -f package-initialize --batch "$@" \
+        --load "$emacsOrgExportJsonCleanup" \
+        --eval "(setq json-encoding-pretty-print t)" \
+        --eval "(setq json-encoding-object-sort-predicate #'string<)" \
+        --eval "(princ (json-encode (my/org-export-clean-plist (org-export-get-environment))))" \
+        --eval "(princ \"\\n\")"
+    '';
+  };
+
+  importOrg = {
+    check = lib.hasSuffix ".org";
+    __functor =
+      _self: filename:
+      lib.pipe filename [
+        (
+          it:
+          pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ convertOrgToJson ]; } ''
+            convert-org-to-json ${it} > $out
+          ''
+        )
+        lib.importJSON
+      ];
+  };
 }

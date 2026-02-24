@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -111,7 +110,7 @@ let
       cfg = hmmodule.programs.alacritty;
       tomlFile = tomlFormat.generate "alacritty.toml" cfg.settings;
     in
-    pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.readFile tomlFile));
+    pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ] (lib.readFile tomlFile));
   mkAlacrittySwitcher =
     name: hmmodule:
     (pkgs.writeShellScriptBin "ala-${name}" ''
@@ -129,21 +128,12 @@ let
     ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules)
     ++ [ pkgs.alacritty ];
   };
-
-  cfg = config.nagy.alacritty;
 in
 {
   imports = [ ./shortcommands.nix ];
 
-  options.nagy.alacritty = {
-    enable = lib.mkEnableOption "alacritty config";
-  };
+  environment.systemPackages = [
+    alacrittyCombined
+  ];
 
-  config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [
-      alacrittyCombined
-    ];
-
-  };
 }

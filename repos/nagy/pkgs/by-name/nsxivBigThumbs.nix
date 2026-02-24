@@ -6,7 +6,6 @@
 
 nsxiv.overrideAttrs (
   {
-    src,
     patches ? [ ],
     postPatch ? "",
     ...
@@ -27,14 +26,12 @@ nsxiv.overrideAttrs (
         hash = "sha256-exY30/MxWInO5hTRSyxM5H5zv0bj2aAZpODWlJ31IyE=";
       })
     ];
-    postPatch =
-      postPatch
-      + ''
-        # increase thumbnail sizes
-        substituteInPlace config.def.h \
-          --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
-          --replace 'THUMB_SIZE = 3' 'THUMB_SIZE = 5'  \
-          --replace 'SQUARE_THUMBS = false' 'SQUARE_THUMBS = true'
-      '';
+    postPatch = postPatch + ''
+      # increase thumbnail sizes
+      substituteInPlace config.def.h \
+        --replace '96, 128, 160' '96, 128, 160, 320, 640'  \
+        --replace 'THUMB_SIZE = 3' 'THUMB_SIZE = 5'  \
+        --replace 'SQUARE_THUMBS = false' 'SQUARE_THUMBS = true'
+    '';
   }
 )

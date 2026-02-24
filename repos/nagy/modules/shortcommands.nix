@@ -7,7 +7,7 @@
 
 let
   inherit (lib.types) attrsOf listOf str;
-  inherit (import ../lib/shortcommands.nix { inherit pkgs; }) mkShortCommand;
+  self = import ../. { inherit pkgs; };
   cfg = config.nagy.shortcommands;
 in
 {
@@ -21,6 +21,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = lib.mapAttrsToList mkShortCommand cfg.commands;
+    environment.systemPackages = lib.mapAttrsToList self.lib.mkShortCommand cfg.commands;
   };
 }

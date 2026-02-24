@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "snid";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "AGWA";
     repo = "snid";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-f00lga6nmLJHsfx3sB3oBhfutCmmMddEM5fJptb9EPw=";
+    hash = "sha256-syKEtG/B1Yy0BAQqlR6o4uIRSwCnFOBsPpV4arqO/I4=";
   };
 
-  vendorHash = "sha256-6o0Rp7tKt6j1HgRUKwnZ604hOITq64e6zhYl3rw8Wj4=";
+  vendorHash = "sha256-cVarG6Tx4yWpZE5BLZsMtLV9LF1lsiFfIXxhYiNjQlY=";
 
   meta = {
     description = "Zero config SNI proxy server";

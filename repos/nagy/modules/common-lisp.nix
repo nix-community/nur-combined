@@ -1,4 +1,8 @@
-{ pkgs, nur, ... }:
+{
+  pkgs,
+  nur,
+  ...
+}:
 
 {
   environment.systemPackages = [

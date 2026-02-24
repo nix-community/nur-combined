@@ -12,8 +12,10 @@
       (
         {
           buildInputs = [ pkgs.nodejs ];
-          NPM_CONFIG_CACHE = "/tmp";
-          NPM_CONFIG_PREFIX = placeholder "out";
+          env = {
+            NPM_CONFIG_CACHE = "/tmp";
+            NPM_CONFIG_PREFIX = placeholder "out";
+          };
         }
         // args
       )

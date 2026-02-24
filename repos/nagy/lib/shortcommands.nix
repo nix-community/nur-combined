@@ -32,7 +32,10 @@ rec {
     '';
 
   mkShortCommandScript =
-    cmd: list: pkgs.writeShellScriptBin cmd ''exec ${lib.escapeShellArgs list} "$@"'';
+    cmd: list:
+    pkgs.writeShellScriptBin cmd ''
+      exec ${lib.escapeShellArgs list} "$@"
+    '';
 
   mkShortCommand =
     cmd: list:

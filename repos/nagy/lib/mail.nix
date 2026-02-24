@@ -13,7 +13,7 @@
       #     is now the file's containing directory
       maildirpath,
       host ? lib.elemAt (lib.splitString "@" email) 1,
-      passcmd ? "pass ${host} | head -1",
+      passcmd ? "passage ${host} | head -1",
       package ? pkgs.isync,
       configHeadExtra ? "",
     }:

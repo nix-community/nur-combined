@@ -29,6 +29,7 @@ melpaBuild {
   ];
 
   meta = {
+    description = "Emacs support for passage: an age encryption based port of the standard unix password manager";
     homepage = "https://github.com/anticomputer/passage.el";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ nagy ];

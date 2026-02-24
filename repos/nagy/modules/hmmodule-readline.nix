@@ -84,6 +84,7 @@
        "\ew": "\C-awatch \C-m"
        "\ee": "\C-aexec \C-e\C-m"
        "\eR": "\C-a\C-k reset\C-m"
+       "\eP": "\C-a\C-k reset\C-m\C-p\C-m"
        "\eh": "\C-e --help\C-m"
        "\ev": "\C-e --version\C-m"
        "\ep\ev": "\C-e --version\C-m"

@@ -1,11 +1,12 @@
 {
+  pkgs,
   stdenv,
   symlinkJoin,
-  callPackage,
 }:
 
 let
-  inherit (callPackage ../../lib/rfc.nix { }) fetchRFCBulk;
+  self = import ../../. { inherit pkgs; };
+  inherit (self.lib) fetchRFCBulk;
 in
 stdenv.mkDerivation {
   name = "rfcs";
@@ -96,7 +97,7 @@ stdenv.mkDerivation {
         postFetch = ''
           find -not -regex ".*/rfc95[0-9][0-9][0-9]\\.txt" -delete
         '';
-        hash = "sha256-Yu1pwSJKp2PB38xVXrxlcbm5eS9zf0Fj/ZUVONef2tY=";
+        hash = "sha256-PKNuNMzFRiVtfXHTOLNz59i4QKU1iZbN4+T2w00qEkY=";
       })
     ];
   };

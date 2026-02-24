@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Lightweight CLI tool to view Rust documentation as plain text";
-    homepage = "https://github.com/shanejonas/jsonrpc-debugger";
+    homepage = "https://github.com/lmmx/rustdoc-text";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "rustdoc-text";
