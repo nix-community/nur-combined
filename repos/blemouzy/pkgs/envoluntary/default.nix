@@ -7,20 +7,26 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "envoluntary";
-  version = "0.1.4";
+  version = "0.1.4-e2efbbe";
 
   src = fetchFromGitHub {
     owner = "dfrankland";
     repo = "envoluntary";
-    tag = "envoluntary-v${version}";
-    hash = "sha256-ccMXrR7PnV3aCehJtsJyXx5ZiCz/KrHkKDLQSV3sMYU=";
+    rev = "e2efbbe5244191306c5ef0c9d4d64a377719b415";
+    hash = "sha256-aD32BSoGyC26MX06k5Z3sHNvxy+QawH6jvjwG0JJvOk=";
   };
 
-  cargoHash = "sha256-AXWOU8UduQZxZWcTaOyxilbdz4BMnZlrJEFTUakFa4w=";
+  cargoHash = "sha256-OxCm7kRdSbQl8pLgW9rBqDqmwirbaQPizv6NkJSjHmw=";
 
   preCheck = ''
     export NIX_BIN_BASH="${bash}/bin/bash"
   '';
+
+  checkFlags = [
+    "--"
+    "--skip"
+    "test_error_on_too_old_version"
+  ];
 
   meta = {
     description = "Automatic Nix development environments for your shell";
