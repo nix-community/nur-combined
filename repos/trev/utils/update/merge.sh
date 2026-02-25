@@ -10,13 +10,19 @@ for branch in "${branches[@]}"; do
 
     system=$(echo "${branch}" | cut -d "/" -f 1)
     package=$(echo "${branch}" | cut -d "/" -f 2)
-    updates["${package}"]+="${system}"
+
+    if [[ -v updates["${package}"] ]]; then
+        updates["${package}"]="${updates["${package}"]},${system}"
+    else
+        updates["${package}"]="${system}"
+    fi
 done
 
 for package in "${!updates[@]}"; do
-    systems="${updates["${package}"]}"
+    systems_str="${updates["${package}"]}"
+    IFS="," read -r -a systems <<< "${systems_str}"
 
-    echo "::group::updating ${package}"
+    echo "::group::updating ${package} for systems ${systems_str}"
     git checkout -B "update/${package}"
 
     echo "getting pr"
