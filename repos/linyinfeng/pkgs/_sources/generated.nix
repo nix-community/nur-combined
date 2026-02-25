@@ -8,27 +8,27 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "v1.11";
+    version = "v1.11.1";
     src = fetchFromGitHub {
       owner = "awslabs";
       repo = "aws-sigv4-proxy";
-      rev = "v1.11";
+      rev = "v1.11.1";
       fetchSubmodules = false;
-      sha256 = "sha256-1NJJFocDTOlZfDRn/YFFIwaqCGyn+rUZKf1/m1ybC68=";
+      sha256 = "sha256-ni5uE9Sa2PblePxg+mZBQ0jD8YHugfIXhtNRuLrQCzY=";
     };
   };
   baibot = {
     pname = "baibot";
-    version = "v1.14.0";
+    version = "v1.14.3";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.14.0";
+      rev = "v1.14.3";
       fetchSubmodules = false;
-      sha256 = "sha256-deklCS29jkc2QO6mRpr1XXWlxOWwp6Cjlzc5suTvC0U=";
+      sha256 = "sha256-bFUijsvwUQhISjWVoVvoDXNSDPaWZTunqUfxfgaxclM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-deklCS29jkc2QO6mRpr1XXWlxOWwp6Cjlzc5suTvC0U=/Cargo.lock";
+      lockFile = ./. + "/sha256-bFUijsvwUQhISjWVoVvoDXNSDPaWZTunqUfxfgaxclM=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
       };
@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.9.10";
+    version = "v2.9.12";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.9.10";
+      rev = "v2.9.12";
       fetchSubmodules = false;
-      sha256 = "sha256-DiVVwGTsrsRudRrgiPSw14U6N14QYoc3ToF1kSiwXOk=";
+      sha256 = "sha256-vjJmyrr4Zm/C/SyQC4Gh/MSBY2Tq7FtKD5qFB7YVV8M=";
     };
   };
   dot-tar = {
@@ -228,17 +228,17 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "83a0a865d5031c436d47c9e3ab3a269b5d601615";
+    version = "09db2a91510ca8b6abc2ad23c6484f56b3cd72be";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "83a0a865d5031c436d47c9e3ab3a269b5d601615";
+      rev = "09db2a91510ca8b6abc2ad23c6484f56b3cd72be";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-/62/2OXmpNqLYDTP3cCKHzsLFDiD3oQqUkgOyZ9Q3TM=";
+      sha256 = "sha256-2+CX9ZGNkois7h3m30VG19Cf4ykRdoiPpEVxJMk75I4=";
     };
-    date = "2026-01-28";
+    date = "2026-02-15";
   };
   pyim-greatdict = {
     pname = "pyim-greatdict";

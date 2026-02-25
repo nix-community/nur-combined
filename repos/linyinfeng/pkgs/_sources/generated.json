@@ -13,17 +13,17 @@
             "name": null,
             "owner": "awslabs",
             "repo": "aws-sigv4-proxy",
-            "rev": "v1.11",
-            "sha256": "sha256-1NJJFocDTOlZfDRn/YFFIwaqCGyn+rUZKf1/m1ybC68=",
+            "rev": "v1.11.1",
+            "sha256": "sha256-ni5uE9Sa2PblePxg+mZBQ0jD8YHugfIXhtNRuLrQCzY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.11"
+        "version": "v1.11.1"
     },
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-deklCS29jkc2QO6mRpr1XXWlxOWwp6Cjlzc5suTvC0U=/Cargo.lock",
+                "sha256-bFUijsvwUQhISjWVoVvoDXNSDPaWZTunqUfxfgaxclM=/Cargo.lock",
                 {
                     "anthropic-0.0.8": "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA="
                 }
@@ -41,12 +41,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v1.14.0",
-            "sha256": "sha256-deklCS29jkc2QO6mRpr1XXWlxOWwp6Cjlzc5suTvC0U=",
+            "rev": "v1.14.3",
+            "sha256": "sha256-bFUijsvwUQhISjWVoVvoDXNSDPaWZTunqUfxfgaxclM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0"
+        "version": "v1.14.3"
     },
     "cowrie": {
         "cargoLock": null,
@@ -62,12 +62,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v2.9.10",
-            "sha256": "sha256-DiVVwGTsrsRudRrgiPSw14U6N14QYoc3ToF1kSiwXOk=",
+            "rev": "v2.9.12",
+            "sha256": "sha256-vjJmyrr4Zm/C/SyQC4Gh/MSBY2Tq7FtKD5qFB7YVV8M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.9.10"
+        "version": "v2.9.12"
     },
     "dot-tar": {
         "cargoLock": {
@@ -363,7 +363,7 @@
     },
     "plugin-git": {
         "cargoLock": null,
-        "date": "2026-01-28",
+        "date": "2026-02-15",
         "extract": null,
         "name": "plugin-git",
         "passthru": null,
@@ -373,13 +373,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "83a0a865d5031c436d47c9e3ab3a269b5d601615",
-            "sha256": "sha256-/62/2OXmpNqLYDTP3cCKHzsLFDiD3oQqUkgOyZ9Q3TM=",
+            "rev": "09db2a91510ca8b6abc2ad23c6484f56b3cd72be",
+            "sha256": "sha256-2+CX9ZGNkois7h3m30VG19Cf4ykRdoiPpEVxJMk75I4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/jhillyerd/plugin-git"
         },
-        "version": "83a0a865d5031c436d47c9e3ab3a269b5d601615"
+        "version": "09db2a91510ca8b6abc2ad23c6484f56b3cd72be"
     },
     "pyim-greatdict": {
         "cargoLock": null,
