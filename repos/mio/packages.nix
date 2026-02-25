@@ -303,7 +303,9 @@ lib.filesystem.packagesFromDirectoryRecursive {
     repo = "proton-ge-custom";
   };
 
-  polkit126 = pkgs.callPackage ./pkgs/polkit/package.nix { };
+  polkit126 = (pkgs.callPackage ./pkgs/polkit/package.nix { }).overrideAttrs (prev: {
+    dontCheck = true; # something wrong with check pharse after last staging-next merge. checking not terminate. 20260225
+  });
 
   # https://github.com/NixOS/nixpkgs/commit/49a636772fd8ea6f25b9c9ff9c5a04434e90b96f
   #davinci-resolve_20_1_1 = pkgs.callPackage ./pkgs/davinci-resolve-201/package.nix { };
