@@ -6,14 +6,14 @@
 
 buildGoModule (finalAttrs: {
   pname = "surge";
-  version = "0.5.5";
+  version = "0.6.9";
 
-  # https://github.com/junaid2005p/surge
+  # https://github.com/surge-downloader/surge
   src = fetchFromGitHub {
-    owner = "junaid2005p";
+    owner = "surge-downloader";
     repo = "surge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-IpDPJYPDeUHxgtbqgUCgdTg+h98H3xhn5gN4T+D0YjU=";
+    hash = "sha256-ZCbDGfdN8Z6dxgxdJR+t3gfOY1gYnFOVyll1XYt0kes=";
   };
 
   vendorHash = "sha256-IGVt/HanZHglYSZ8WASrzqvTZZtK/bJpJzXNVqSqUfE=";
@@ -29,7 +29,7 @@ buildGoModule (finalAttrs: {
 
   meta = {
     description = "Surge is an open-source download manager";
-    homepage = "https://github.com/junaid2005p/surge";
+    homepage = "https://github.com/surge-downloader/surge";
     mainProgram = "surge";
     binaryNativeCode = true;
     license = lib.licenses.mit;
