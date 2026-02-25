@@ -1,6 +1,6 @@
 { pkgs, stdenv }:
 
-with pkgs.python312Packages;
+with pkgs.python3Packages;
 buildPythonPackage rec {
   pname = "ether-ghost";
   version = "0.2.0";
@@ -24,7 +24,7 @@ buildPythonPackage rec {
   src = pkgs.fetchFromGitHub {
     owner = "Marven11";
     repo = "EtherGhost";
-    rev = "a04dbbc640e39cd64bb785c2b0783bb7d99bbb29";
-    sha256 = "sha256-qh3zn5dxzP8/0QL0AdLdLlJ5UWAjk6R49mt3CigfLkc=";
+    rev = "42f1f660035bfab48b6e5dc16dd7b5daaed8e2d0";
+    sha256 = "sha256-0K84SrlCHNXphzKmttlO1p0kpHAbWyZZDmoIq8wJX4I=";
   };
 }
