@@ -1,6 +1,6 @@
 {
   lib,
-  python312Packages,
+  python3Packages,
   fetchFromGitHub,
   fetchurl,
   gtk3,
@@ -16,7 +16,7 @@ let
   pygobject_hash = "sha256-jYNudbWogdRX7hYiyuSjK826KKC6ViGTrbO7tHJHIhI=";
   src_hash = "sha256-YVlwsUz4SLj8qYAb21ernT3lDB/piU1V6hTW/UjikWA=";
 
-  pygobject_3_50 = python312Packages.pygobject3.overrideAttrs (old: {
+  pygobject_3_50 = python3Packages.pygobject3.overrideAttrs (old: {
     version = "3.50.0";
     src = fetchurl {
       url = "mirror://gnome/sources/pygobject/3.50/pygobject-3.50.0.tar.xz";
@@ -24,7 +24,7 @@ let
     };
   });
 in
-python312Packages.buildPythonPackage {
+python3Packages.buildPythonPackage {
   pname = "fabric";
   version = "0.0.2";
   pyproject = true;
@@ -47,7 +47,7 @@ python312Packages.buildPythonPackage {
     gnome-bluetooth
   ];
 
-  dependencies = with python312Packages; [
+  dependencies = with python3Packages; [
     setuptools
     click
     pycairo
