@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.27";
+    version = "v6.8.28";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.27";
-      hash = "sha256-XB89onmtSV6IC9yFKR1jNuVChSZ/9Ne3f92UrSRi1Jo=";
+      tag = "v6.8.28";
+      hash = "sha256-PrRjI5zvT/bVo5Z2uIOWg5C5uGna05vLuMsNLiIkkiI=";
     };
   };
   cockpy = {
@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.22";
+    version = "2026.02.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.22/GeoLite2-ASN.mmdb";
-      hash = "sha256-ImOqaufpHAXjwV94HhOiMcRkcEXKmbqfK7s//JpdJfY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-ASN.mmdb";
+      hash = "sha256-bWkRTJPV862B2GUAqNjJXV8FCNmFjA9y6g2p5zIinfE=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.22";
+    version = "2026.02.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.22/GeoLite2-City.mmdb";
-      hash = "sha256-CU0Ahm8IKqRrms1nWjqEVArl38YmvPMo1Vb49exED6o=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-City.mmdb";
+      hash = "sha256-l2CAj9VTPA7uAXtNidmT2HcWQMrvk31PCv+dsS2Y1I0=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.22";
+    version = "2026.02.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.22/GeoLite2-Country.mmdb";
-      hash = "sha256-hv4A4CcoZbi+x53vyi6fsZrQz0RYaXmS4aN7qJB3wTo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-Country.mmdb";
+      hash = "sha256-yWW8iMNHXPjtaOrnwxcL6BZhK4MvEjAoRp50SQ/keaM=";
     };
   };
   glauth = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8145";
+    version = "b8149";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8145";
-      hash = "sha256-scl7ncBf5fOKo7pY4f3dgexADKxj7OBiEO9XKqYz6y4=";
+      tag = "b8149";
+      hash = "sha256-LIxd6lSVrh34niHMvJOTNdT0Do/m6AgK9sZBAgtF7kQ=";
     };
   };
   loralib = {
@@ -1235,14 +1235,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "fa97df7df41140e60f215f24eea82cb46faf9ff0";
+    version = "4ee021531144e7aadff63479bb5c4a44b721131e";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "fa97df7df41140e60f215f24eea82cb46faf9ff0";
-      hash = "sha256-f91b76Z5kEgiPO1D5jAI+nMahLJB1mE8Gs//4wCn0io=";
+      rev = "4ee021531144e7aadff63479bb5c4a44b721131e";
+      hash = "sha256-6Ur6NVF8U3d+ZG6dXGpDB1dpq4RiDQjU/aTceFAnMLk=";
     };
-    date = "2026-02-22";
+    date = "2026-02-25";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1392,12 +1392,12 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.24";
+    version = "v0.25";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      tag = "v0.24";
-      hash = "sha256-yA710tgdLOw/HDrD17Qy6ogZMUOVcXZ11Jf6kKPBoBM=";
+      tag = "v0.25";
+      hash = "sha256-6XEIRiBr7pHZdou5QPStPFIvLN8s427DOynch4+Hfmc=";
     };
   };
   oci-arm-host-capacity = {
@@ -1991,12 +1991,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.0.0";
+    version = "v2.1.0";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.0.0";
-      hash = "sha256-NvGv4B/FT137fVrj67wPe2CZHIxcADjbPHAOK2T8vIw=";
+      tag = "v2.1.0";
+      hash = "sha256-bd/4QOOblQPLRJt5qgZX51Njd+dw1PKSadu385vB1NE=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2312,12 +2312,12 @@
   };
   vpp = {
     pname = "vpp";
-    version = "v25.10";
+    version = "v26.02";
     src = fetchFromGitHub {
       owner = "FDio";
       repo = "vpp";
-      tag = "v25.10";
-      hash = "sha256-J+aJXzq9jKzcFKpUNBskX3KccwKtZhK+m8NTbrGjsXw=";
+      tag = "v26.02";
+      hash = "sha256-z9yh1ZMP28SSzHNBdO7UnvVqsIqtXUcwYZUH1UdBUB0=";
     };
   };
   vuetorrent-backend = {
