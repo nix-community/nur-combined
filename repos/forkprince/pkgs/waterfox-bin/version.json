@@ -5,7 +5,7 @@
     "repo": "BrowserWorks/Waterfox",
     "skip_prerelease": true
   },
-  "version": "6.6.8",
+  "version": "6.6.9",
   "platforms": {
     "x86_64-linux": {
       "url": "https://cdn1.waterfox.net/waterfox/releases/6.6.8/Linux_x86_64/waterfox-6.6.8.tar.bz2",

@@ -6,9 +6,9 @@
     "version_path": ".archived_snapshots.closest.timestamp",
     "url_path": ".archived_snapshots.closest.url"
   },
-  "version": "20250309233347",
+  "version": "20251221042842",
   "asset": {
-    "url": "http://web.archive.org/web/20250309233347/https://cdn.cloudflare.steamstatic.com/client/installer/steam.dmg",
+    "url": "http://web.archive.org/web/20251221042842/https://cdn.cloudflare.steamstatic.com/client/installer/steam.dmg",
     "hash": "sha256-X1VnDJGv02A6ihDYKhedqQdE/KmPAQZkeJHudA6oS6M="
   }
 }
