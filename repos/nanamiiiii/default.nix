@@ -13,5 +13,5 @@
   md2puki = pkgs.callPackage ./pkgs/md2puki { };
   cargo-compete = pkgs.callPackage ./pkgs/cargo-compete { };
   git-credential-1password = pkgs.callPackage ./pkgs/git-credential-1password { };
-  zotero = pkgs.callPackage ./pkgs/zotero { };
+  #zotero = pkgs.callPackage ./pkgs/zotero { };
 }
