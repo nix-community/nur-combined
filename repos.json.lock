@@ -1578,8 +1578,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "692d6290d0aaa011b4bd19cef4e253bdc19c67a5",
-            "sha256": "0rxmryspiavidf3ayrr246rvwd9fcl7kpz64sxfpwd2ja2x0ldf2",
+            "rev": "973382853623e93f1b32209447e672ccb8ebd7a3",
+            "sha256": "1fk9p02qzpxfc0y6vk42hrsajgrxdwbjfy6ylslv21f3yis963d3",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2347,8 +2347,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "cd2342bdec58e15b2e42e287c0cf6fe99e234de7",
-            "sha256": "03k16xks4zbzgzza2nba0lnqgm3i2c838y2vsbxyn94gqisqrl4r",
+            "rev": "a66a577ebe7423854b6aed09f670df1bf798f46e",
+            "sha256": "0d4gimcn86lrpjqzh50rwdrs80y1mlvjpb0p4rs8d98mjw7cqjzx",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
