@@ -8,16 +8,16 @@
 
 buildRustPackage (finalAttrs: {
   pname = "pysentry";
-  version = "0.4.2";
+  version = "0.4.3";
 
   src = fetchFromGitHub {
     owner = "nyudenkov";
     repo = "pysentry";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-BTUSeJs/43+G53nKRuhkFrCSu8/hdftloS1VVuPCyHM=";
+    hash = "sha256-IATeghqhEKAQM2qyVeyUYd3LJkgxHShcgEqHET8xZwU=";
   };
 
-  cargoHash = "sha256-wM1RqJ4pB/1ahREiISNfL1ZaqmSClJM0ADuDcm8vyN8=";
+  cargoHash = "sha256-yL2yM/oIMeIpBTWj2ldf30fCkLV+1F+VD9pOi0pceBM=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
