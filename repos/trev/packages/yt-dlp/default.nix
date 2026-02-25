@@ -12,6 +12,7 @@
   pandoc,
   rtmpdump,
   rtmpSupport ? true,
+  stdenv,
 
   # python packages
   brotli,
@@ -74,11 +75,11 @@ buildPythonApplication rec {
       websockets
       yt-dlp-ejs
     ];
-    secretstorage = [
+    curl-cffi = [ curl-cffi ];
+    secretstorage = lib.optionals (!stdenv.isDarwin) [
       cffi
       secretstorage
     ];
-    curl-cffi = [ curl-cffi ];
   };
 
   pythonRelaxDeps = [ "websockets" ];
