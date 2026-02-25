@@ -1,6 +1,6 @@
 {
-  description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  description = "Repository for my NUR packages.";
+  inputs.nixpkgs.url = "github:nixoS/nixpkgs/nixpkgs-unstable";
   outputs = { self, nixpkgs }:
     let
       systems = [
