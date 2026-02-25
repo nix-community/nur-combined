@@ -4,7 +4,7 @@ bufConfigHook() {
     echo "Executing bufConfigHook"
 
     if [ -n "${bufRoot-}" ]; then
-      pushd "$bufRoot"
+      pushd "$bufRoot" || exit 1
     fi
 
     if [ -z "${bufDeps-}" ]; then
@@ -14,8 +14,11 @@ bufConfigHook() {
 
     echo "Configuring buf cache"
 
-    export HOME=$(mktemp -d)
-    export STORE_PATH=$(mktemp -d)
+    HOME=$(mktemp -d)
+    export HOME
+
+    STORE_PATH=$(mktemp -d)
+    export STORE_PATH
 
     cp -Tr "$bufDeps" "$STORE_PATH"
     chmod -R +w "$STORE_PATH"
@@ -34,7 +37,7 @@ bufConfigHook() {
     fi
 
     if [ -n "${bufRoot-}" ]; then
-      popd
+      popd || exit 1
     fi
 
     echo "Finished bufConfigHook"

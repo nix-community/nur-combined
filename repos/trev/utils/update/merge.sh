@@ -19,49 +19,59 @@ for branch in "${branches[@]}"; do
 done
 
 for package in "${!updates[@]}"; do
-    systems_str="${updates["${package}"]}"
-    IFS="," read -r -a systems <<< "${systems_str}"
-
-    echo "::group::updating ${package} for systems ${systems_str}"
+    echo "::group::Updating ${package}"
     git checkout -B "update/${package}"
 
-    echo "getting pr"
-    pr_number="$(gh pr list --head "update/${package}" --state open --json number --jq '.[].number')"
+    IFS="," read -r -a systems <<< "${updates["${package}"]}"
 
-    echo "getting commit message"
+    echo "Getting pr"
+    pr="$(gh pr list --head "update/${package}" --state open --json number --jq '.[].number')"
+    if [[ -n "${pr}" ]]; then
+        gh pr merge "${pr}" --disable-auto
+    fi
+
+    echo "Getting commit message"
     subject=$(git show -s --format=%s "origin/update/${systems[0]}/${package}")
     body=$(git show -s --format=%b "origin/update/${systems[0]}/${package}")
     version=${subject##* }
 
-    echo "merging changes"
+    echo "Merging changes"
     for system in "${systems[@]}"; do
-        git merge -X ours --no-ff "origin/update/${system}/${package}"
+        git merge -X ours "origin/update/${system}/${package}"
     done
 
-    echo "pushing changes"
+    echo "Pushing changes"
     git push --force origin "update/${package}"
 
-    if [[ -n "${pr_number}" ]]; then
-        echo "editing pr"
-        gh pr edit "${pr_number}" \
-            --title "chore(deps): update ${package} to ${version}" \
+    if [[ -n "${pr}" ]]; then
+        echo "Editing pr"
+        gh pr edit "${pr}" \
+            --title "chore(deps): update ${package} to v${version}" \
             --body "${body}"
     else
-        echo "creating pr"
-        url=$(
+        echo "Creating pr"
+        pr=$(
             gh pr create \
-                --title "chore(deps): update ${package} to ${version}" \
+                --title "chore(deps): update ${package} to v${version}" \
                 --body "${body}" \
                 --head "update/${package}" \
                 --base main
         )
-        gh pr merge --rebase --auto "${url}"
     fi
 
-    echo "pruning branches"
+    echo "Merging pr"
+    gh pr merge "${pr}" \
+        --auto \
+        --delete-branch \
+        --squash \
+        --subject "chore(deps): update ${package} to v${version}" \
+        --body "${body}"
+
+    echo "Pruning branches"
     for system in "${systems[@]}"; do
         git push origin --delete "update/${system}/${package}"
     done
 
+    git checkout main
     echo "::endgroup::"
 done
