@@ -7,7 +7,9 @@
   "platform": "github",
   "repositories": ["spotdemo4/nur"],
   "allowedCommands": ["nix-fix-hash --file utils/images"],
-  "allowedEnv": ["NIX_PATH"],
+  "customEnvVariables": {
+    "NIX_PATH": "nixpkgs=flake:nixpkgs"
+  },
 
   // repository
   "extends": ["config:recommended"],

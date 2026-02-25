@@ -1,18 +1,25 @@
 {
-  pkgs,
-  runtimeShell,
+  git,
+  jq,
   lib,
+  ncurses,
+  nix,
+  openssh,
+  runtimeShell,
+  shellcheck-minimal,
+  stdenv,
 }:
-pkgs.stdenv.mkDerivation (finalAttrs: {
+
+stdenv.mkDerivation (finalAttrs: {
   name = "shellhook";
   src = ./shellhook.sh;
   dontBuild = true;
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     shellcheck-minimal
   ];
 
-  runtimeInputs = with pkgs; [
+  runtimeInputs = [
     git
     ncurses
     jq
@@ -21,7 +28,7 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    ref = "${pkgs.lib.meta.getExe finalAttrs.finalPackage}";
+    ref = "${lib.meta.getExe finalAttrs.finalPackage}";
   };
 
   unpackPhase = ''

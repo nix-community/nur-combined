@@ -1,10 +1,12 @@
 {
+  buildRustPackage ? rustPlatform.buildRustPackage,
   fetchFromGitHub,
   lib,
   nix-update-script,
   rustPlatform,
 }:
-rustPlatform.buildRustPackage (finalAttrs: {
+
+buildRustPackage (finalAttrs: {
   pname = "pysentry";
   version = "0.4.2";
 

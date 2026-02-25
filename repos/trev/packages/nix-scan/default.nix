@@ -11,6 +11,7 @@
   shellcheck,
   stdenv,
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-scan";
   version = "1.1.2";

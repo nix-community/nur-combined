@@ -2,8 +2,8 @@
   bobgen,
   fetchFromGitHub,
   nix-update-script,
-  ...
 }:
+
 bobgen.overrideAttrs (
   final: prev: {
     version = "0.42.0-unstable-2026-02-20";

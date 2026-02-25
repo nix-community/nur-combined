@@ -1,10 +1,15 @@
 {
   lib,
   fetchFromGitHub,
-  python3Packages,
   nix-update-script,
+
+  # python packages
+  buildPythonApplication,
+  ffmpeg-progress-yield,
+  uv-build,
 }:
-python3Packages.buildPythonApplication rec {
+
+buildPythonApplication rec {
   pname = "ffmpeg-quality-metrics";
   version = "3.11.2";
   pyproject = true;
@@ -18,16 +23,17 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-2H6Sd0x6c1a2UOcq+rOyaTwKXR6VQElxViWK5LoE1LI=";
   };
 
-  build-system = with python3Packages; [
+  build-system = [
     uv-build
   ];
 
-  dependencies = with python3Packages; [
+  dependencies = [
     ffmpeg-progress-yield
   ];
 
   postPatch = ''
-    sed -ie 's/requires = \["uv_build[^"]*"]/requires = ["uv_build"]/' pyproject.toml
+    sed -i 's/requires = \["uv_build[^"]*"]/requires = ["uv_build"]/' pyproject.toml
+    sed -i '/license-files = ["LICENSE.md"]/d' pyproject.toml
   '';
 
   passthru.updateScript = nix-update-script {

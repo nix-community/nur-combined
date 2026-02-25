@@ -1,10 +1,11 @@
 {
-  lib,
   buildGoModule,
-  fetchFromGitHub,
   callPackage,
+  fetchFromGitHub,
+  lib,
   nix-update-script,
 }:
+
 buildGoModule (finalAttrs: {
   pname = "bobgen";
   version = "0.42.0";

@@ -1,21 +1,35 @@
 {
-  lib,
-  python3Packages,
   atomicparsley,
+  atomicparsleySupport ? true,
   deno,
   fetchFromGitHub,
   ffmpeg-headless,
+  ffmpegSupport ? true,
   installShellFiles,
+  javascriptSupport ? true,
+  lib,
+  nix-update-script,
   pandoc,
   rtmpdump,
-  atomicparsleySupport ? true,
-  ffmpegSupport ? true,
-  javascriptSupport ? true,
   rtmpSupport ? true,
-  nix-update-script,
+
+  # python packages
+  brotli,
+  buildPythonApplication,
+  certifi,
+  cffi,
+  curl-cffi,
+  hatchling,
+  mutagen,
+  pycryptodomex,
+  requests,
+  secretstorage,
+  urllib3,
+  websockets,
+  yt-dlp-ejs,
 }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "yt-dlp";
   version = "2026.02.21-unstable-2026-02-21";
   pyproject = true;
@@ -39,7 +53,7 @@ python3Packages.buildPythonApplication rec {
     ''}
   '';
 
-  build-system = with python3Packages; [ hatchling ];
+  build-system = [ hatchling ];
 
   nativeBuildInputs = [
     installShellFiles
@@ -50,25 +64,21 @@ python3Packages.buildPythonApplication rec {
   dependencies = lib.concatAttrValues optional-dependencies;
 
   optional-dependencies = {
-    default =
-      with python3Packages;
-      [
-        brotli
-        certifi
-        mutagen
-        pycryptodomex
-        requests
-        urllib3
-        websockets
-      ]
-      ++ [
-        passthru.ejs # keep pinned version in sync!
-      ];
-    curl-cffi = [ python3Packages.curl-cffi ];
-    secretstorage = with python3Packages; [
+    default = [
+      brotli
+      certifi
+      mutagen
+      pycryptodomex
+      requests
+      urllib3
+      websockets
+      yt-dlp-ejs
+    ];
+    secretstorage = [
       cffi
       secretstorage
     ];
+    curl-cffi = [ curl-cffi ];
   };
 
   pythonRelaxDeps = [ "websockets" ];
@@ -126,15 +136,12 @@ python3Packages.buildPythonApplication rec {
     install -Dm644 Changelog.md README.md -t "$out/share/doc/yt_dlp"
   '';
 
-  passthru = {
-    ejs = python3Packages.callPackage ./ejs.nix { };
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--commit"
-        "--version=branch=master"
-        "${pname}"
-      ];
-    };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      "--version=branch=master"
+      "${pname}"
+    ];
   };
 
   meta = {

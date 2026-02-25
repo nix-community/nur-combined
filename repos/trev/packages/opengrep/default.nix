@@ -4,8 +4,32 @@
   fetchurl,
   lib,
   nix-update-script,
-  python3Packages,
   stdenv,
+
+  # python packages
+  attrs,
+  boltons,
+  buildPythonApplication,
+  click-option-group,
+  click,
+  colorama,
+  defusedxml,
+  exceptiongroup,
+  glom,
+  jaraco-text,
+  jsonschema,
+  packaging,
+  peewee,
+  protobuf,
+  requests,
+  rich,
+  ruamel-yaml,
+  setuptools,
+  tomli,
+  tqdm,
+  typing-extensions,
+  urllib3,
+  wcmatch,
 }:
 let
   pname = "opengrep";
@@ -45,7 +69,7 @@ let
     '';
   };
 in
-python3Packages.buildPythonApplication {
+buildPythonApplication {
   inherit core pname version;
   pyproject = true;
 
@@ -57,7 +81,7 @@ python3Packages.buildPythonApplication {
     fetchSubmodules = true;
   };
 
-  build-system = with python3Packages; [
+  build-system = [
     setuptools
   ];
 
@@ -71,7 +95,7 @@ python3Packages.buildPythonApplication {
     "wcmatch"
   ];
 
-  dependencies = with python3Packages; [
+  dependencies = [
     attrs
     boltons
     click

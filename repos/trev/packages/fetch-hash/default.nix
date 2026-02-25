@@ -1,13 +1,14 @@
 {
-  pkgs,
-  runtimeShell,
   lib,
-  nix,
-  wget,
   mktemp,
+  nix,
+  runtimeShell,
   shellcheck-minimal,
+  stdenv,
+  wget,
 }:
-pkgs.stdenv.mkDerivation (finalAttrs: {
+
+stdenv.mkDerivation (finalAttrs: {
   name = "fetch-hash";
   src = ./fetch-hash.sh;
 

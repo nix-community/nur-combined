@@ -20,6 +20,7 @@
   xz,
   zip,
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "flake-release";
   version = "0.11.3";
@@ -61,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   configurePhase = ''
     chmod +w src
     sed -i '1c\#!${runtimeShell}' src/flake-release.sh
-    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/flake-release.sh
+    sed -i '2i\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/flake-release.sh
   '';
 
   doCheck = true;

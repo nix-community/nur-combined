@@ -8,6 +8,7 @@
   fetchFromGitHub,
   nix-update-script,
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-fix-hash";
   version = "0.1.1";

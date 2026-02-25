@@ -4,6 +4,7 @@
   lib,
   nix-update-script,
 }:
+
 gleam.build rec {
   pname = "gleescript";
   version = "1.5.2";

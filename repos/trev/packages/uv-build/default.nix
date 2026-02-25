@@ -1,10 +1,12 @@
 {
-  buildPythonPackage,
   fetchFromGitHub,
   lib,
   nix-update-script,
   pkgs,
   rustPlatform,
+
+  # python packages
+  buildPythonPackage,
 }:
 
 buildPythonPackage (finalAttrs: {

@@ -4,6 +4,7 @@
   fetchFromGitHub,
   nix-update-script,
 }:
+
 buildGoModule (finalAttrs: {
   pname = "protoc-gen-connect-openapi";
   version = "0.25.2";

@@ -1,9 +1,10 @@
 {
-  stdenv,
   fetchFromGitHub,
   lib,
   nix-update-script,
+  stdenv,
 }:
+
 stdenv.mkDerivation {
   pname = "catppuccin-zen-browser";
   version = "0-unstable-2025-09-28";
