@@ -31,6 +31,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
+          config.allowUnfree = true;
         };
         fs = pkgs.lib.fileset;
       in

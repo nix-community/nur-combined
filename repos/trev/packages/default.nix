@@ -19,6 +19,7 @@ rec {
   go-over = pkgs.callPackage ./go-over { inherit (libs) gleam; };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-scan = pkgs.callPackage ./nix-scan { };
+  nvtop-exporter = pkgs.python3Packages.callPackage ./nvtop-exporter { };
   opengrep = pkgs.python3Packages.callPackage ./opengrep { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };
   pysentry = pkgs.callPackage ./pysentry { };
