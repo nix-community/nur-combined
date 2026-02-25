@@ -21,14 +21,6 @@
     wireguard-tools
     tcpdump
     htop
-    (curlECH.override {
-      ldapSupport = true;
-      gsaslSupport = true;
-      rtmpSupport = true;
-      pslSupport = true;
-      websocketSupport = true;
-      echSupport = true;
-    })
   ];
   system = {
     # server.

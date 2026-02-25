@@ -60,6 +60,14 @@ reIf {
             static_configs = [ { inherit targets; } ];
           }
           {
+            job_name = "ncps";
+            static_configs = [
+              {
+                targets = [ "localhost:8501" ];
+              }
+            ];
+          }
+          {
             job_name = "metrics";
             scheme = "https";
             basic_auth = {

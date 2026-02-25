@@ -272,7 +272,10 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
+    nixpkgs-2505-kernel.url = "github:NixOS/nixpkgs?rev=c1a044ba6864653fa8cc7236fad37fa8a37917d3";
     nixpkgs-factorio.url = "github:NixOS/nixpkgs?rev=1b9bd8dd0fd5b8be7fc3435f7446272354624b01";
+    nixpkgs-fix-mautrix.url = "github:NixOS/nixpkgs?rev=f6c9cba6ba89bd2d2f64c4a9e70e19b234784154";
+    nixpkgs-origin-vaul.url = "github:NixOS/nixpkgs?rev=ccfbb9cd5859cc51c9d720b47b08e48d1aff633f";
 
     nix-topology.url = "github:oddlama/nix-topology";
     niri = {
@@ -402,6 +405,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snm.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+    nuanmonito.url = "/home/riro/Src/nuanmonito";
     self.submodules = true;
 
   };

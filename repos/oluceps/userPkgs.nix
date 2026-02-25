@@ -1,10 +1,10 @@
 { pkgs, ... }:
 with pkgs;
 [
-  turbo
+  # turbo
   eva
   paperback
-  termusic
+  # termusic
   chatmcp
   thunderbird
   amberol
@@ -14,7 +14,7 @@ with pkgs;
   # chromium
   # apotris
   # celeste
-  obsidian
+  # obsidian
   stellarium
   # celluloid
   # thiefmd
@@ -80,7 +80,7 @@ with pkgs;
   yubikey-manager
   # canokey-manager
 
-  xdeltaUnstable
+  # xdeltaUnstable
 
   # feeluown
   # feeluown-bilibili
@@ -96,7 +96,7 @@ with pkgs;
   # s-tui
 
   # reader
-  calibre
+  # calibre
   mdbook
   sioyek
   zathura
@@ -114,7 +114,7 @@ with pkgs;
   # zathura
 
   # social
-  discord
+  # discord
   # materialgram
   telegram-desktop
   # thunderbird
@@ -151,7 +151,7 @@ with pkgs;
   # netease-cloud-music-gtk
   cmatrix
   # kotatogram-desktop
-  krita
+  # krita
   nmap
   lm_sensors
 

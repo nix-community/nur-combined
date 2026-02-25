@@ -151,8 +151,10 @@
             devenv
             zoxide
             nodejs_latest
+            opencode
+            gemini-cli
             gh
-            zed-editor
+            # zed-editor
             # vscode.fhs
             # nodejs_latest.pkgs.pnpm
             # nodejs_latest
@@ -345,7 +347,6 @@
     ++ (with pkgs.nodePackages; [
       typescript-language-server
       vscode-json-languageserver
-      node2nix
       markdownlint-cli2
       prettier
     ]);

@@ -86,9 +86,7 @@
               type = "ed25519";
             }
           ];
-          services.resolved.extraConfig = ''
-            DNSStubListenerExtra=10.10.10.1
-          '';
+          services.resolved.settings.Resolve.DNSStubListenerExtra = "10.10.10.1";
           boot.kernel.sysctl = {
             "net.ipv4.tcp_rfc1337" = 1;
             "net.ipv4.tcp_fastopen" = 0;

@@ -20,7 +20,7 @@ in
 lib.mkIf (cfg.enable) {
 
   # We generate the cache ourselves.
-  documentation.man.generateCaches = false;
+  documentation.man.cache.enable = false;
 
   systemd.services."man-db" = {
     requires = [ "sysinit-reactivation.target" ];

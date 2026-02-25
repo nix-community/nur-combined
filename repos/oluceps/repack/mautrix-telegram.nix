@@ -1,4 +1,10 @@
-{ reIf, config, ... }:
+{
+  reIf,
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 reIf {
 
   systemd.services = {
@@ -7,6 +13,13 @@ reIf {
 
   services.mautrix-telegram = {
     enable = true;
+    package =
+      (import inputs.nixpkgs-fix-mautrix {
+        system = pkgs.system;
+        config.permittedInsecurePackages = [
+          "olm-3.2.16"
+        ];
+      }).mautrix-telegram;
     environmentFile = config.vaultix.secrets.mautrix-tg.path;
     serviceDependencies = [ "matrix-synapse.service" ];
     settings = {

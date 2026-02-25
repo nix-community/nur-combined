@@ -25,6 +25,15 @@
       };
       timeout = 3;
     };
+    blacklistedKernelModules = [
+      "intel_oc_wdt"
+      "iTCO_wdt"
+      "iTCO_vendor_support"
+    ];
+    kernelModules = [ "ipmi_watchdog" ];
+    extraModprobeConfig = ''
+      options ipmi_watchdog action=reset
+    '';
 
     kernelParams = [
       # "audit=0"

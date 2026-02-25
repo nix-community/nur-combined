@@ -61,6 +61,7 @@ withSystem "x86_64-linux" (
       # inputs.nixos-facter-modules.nixosModules.facter
       inputs.tg-online-keeper.nixosModules.default
       inputs.online-exporter.nixosModules.default
+      inputs.nuanmonito.nixosModules.nuanmonito
     ];
   }
 )

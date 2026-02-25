@@ -7,9 +7,7 @@
       llmnr = "true";
       dnssec = "false";
       fallbackDns = [ "8.8.8.8#dns.google" ];
-      extraConfig = ''
-        Cache=no
-      '';
+      settings.Resolve.Cache = "no";
     };
   };
   networking = {

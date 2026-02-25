@@ -18,9 +18,9 @@ let
     "alert"
     "tgs"
     "jellyfin"
+    "cache"
   ];
   srvOnHastur = [
-    "cache.nyaw.xyz"
   ];
 
   sum = lib.mkMerge [

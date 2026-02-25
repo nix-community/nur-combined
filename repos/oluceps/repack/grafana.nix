@@ -19,6 +19,7 @@ reIf {
         auth = {
           oauth_allow_insecure_email_lookup = true;
         };
+        security.secret_key = "$__file{${config.vaultix.secrets.grafana-secretkey.path}}";
         # "auth.anonymous" = {
         #   org_name = "Main Org.";
         #   org_role = "Viewer";
@@ -26,6 +27,12 @@ reIf {
         #   device_limit = 1;
         # };
       };
+    };
+  };
+  vaultix.secrets = {
+    grafana = { };
+    grafana-secretkey = {
+      owner = "grafana";
     };
   };
   systemd.services.grafana.serviceConfig = {

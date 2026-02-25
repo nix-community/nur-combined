@@ -12,7 +12,7 @@ in
     settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
 
     secrets = {
-      grafana = { };
+      nuan = { };
       wg-eihort = {
         owner = "systemd-network";
         group = "root";

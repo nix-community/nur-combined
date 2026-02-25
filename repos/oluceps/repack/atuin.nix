@@ -1,5 +1,7 @@
 {
   reIf,
+  lib,
+  pkgs,
   ...
 }:
 reIf {
@@ -12,7 +14,8 @@ reIf {
     maxHistoryLength = 65536;
     database.uri = "postgresql://atuin@127.0.0.1:5432/atuin";
   };
-  # systemd.services = {
-  #   atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-  # };
+
+  systemd.services = {
+    atuin.serviceConfig.ExecStart = lib.mkForce "${(lib.getExe pkgs.atuin)} server start";
+  };
 }

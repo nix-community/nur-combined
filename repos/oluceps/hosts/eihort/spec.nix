@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -125,16 +126,17 @@
 
     prometheus.enable = true;
     grafana.enable = true;
-    incus = {
-      enable = true;
-      bridgeAddr = "fdcc:3::1/64";
-    };
+    # incus = {
+    #   enable = true;
+    #   bridgeAddr = "fdcc:3::1/64";
+    # };
     telegram-search.enable = true;
     loki.enable = true;
     alloy.enable = true;
     zeek.enable = true;
     jellyfin.enable = true;
     samba.enable = true;
+    ncps.enable = true;
   };
 
   # systemd.services.minio.serviceConfig.Environment = [
@@ -144,6 +146,11 @@
     rsyncd = {
       enable = true;
       socketActivated = true;
+    };
+    nuanmonito = {
+      enable = true;
+      package = inputs.nuanmonito.packages.${pkgs.stdenv.hostPlatform.system}.nuanmonito;
+      environmentFile = config.vaultix.secrets.nuan.path;
     };
     memos = {
       enable = true;
@@ -282,8 +289,8 @@
     # If the hardware watchdog does not get a signal for 20s,
     # it will forcefully reboot the system.
     settings.Manager = {
-      RebootWatchdogSec = "20s";
-      RuntimeWatchdogSec = "30s";
+      RebootWatchdogSec = "3min";
+      RuntimeWatchdogSec = "60s";
     };
   };
 

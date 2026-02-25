@@ -17,6 +17,7 @@ let
   cfg = config.services.rqbit;
 in
 {
+  disabledModules = [ "services/torrent/rqbit.nix" ];
   options.services.rqbit = {
     enable = mkEnableOption "rqbit service";
     package = mkPackageOption pkgs "rqbit" { };

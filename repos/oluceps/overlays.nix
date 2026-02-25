@@ -35,7 +35,8 @@
       #   factorio-headless-experimental
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
-      inherit (inputs'.nixpkgs-stable.legacyPackages) meilisearch;
+      inherit (inputs'.nixpkgs-stable.legacyPackages) calibre-web;
+      # inherit (inputs'.nixpkgs-origin-vaul.legacyPackages) vaultwarden;
       # inherit (inputs'.nixpkgs-master.legacyPackages) cinny-unwrapped;
 
       # sing-box = prev.sing-box.overrideAttrs (old: rec {

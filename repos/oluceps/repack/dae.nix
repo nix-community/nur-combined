@@ -130,6 +130,7 @@ reIf {
             dip(geoip:private) -> direct
 
             domain(suffix:'api.atuin.nyaw.xyz') -> all
+            domain(suffix:'911993.xyz') -> all
 
             domain(suffix: '4.ip.skk.moe') -> all
             domain(suffix: '2.ip.skk.moe') -> direct

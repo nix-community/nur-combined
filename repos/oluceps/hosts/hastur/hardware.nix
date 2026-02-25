@@ -5,7 +5,7 @@
   config,
   lib,
   modulesPath,
-  inputs,
+  inputs',
   pkgs,
   ...
 }:
@@ -48,7 +48,8 @@
     '';
     kernelPackages =
       # (inputs.nix-cachyos-kernel.mkFixedVersionKernelWith pkgs).linuxPackages-cachyos-latest-lto;
-      pkgs.linuxPackages_latest;
+      # pkgs.linuxPackages_stable;
+      inputs'.nixpkgs-2505-kernel.legacyPackages.linuxPackages;
     blacklistedKernelModules = [ "hid_nintendo" ];
     # pkgs.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [

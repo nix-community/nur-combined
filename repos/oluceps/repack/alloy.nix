@@ -1,4 +1,9 @@
-{ pkgs, reIf, ... }:
+{
+  config,
+  pkgs,
+  reIf,
+  ...
+}:
 reIf {
   services.alloy = {
     enable = true;
@@ -23,7 +28,7 @@ reIf {
           relabel_rules = discovery.relabel.journal.rules
           forward_to    = [loki.write.default.receiver]
           labels        = {
-              host = "hastur",
+              host = "${config.networking.hostName}",
               job  = "systemd-journal",
           }
       }
@@ -67,10 +72,6 @@ reIf {
             ip_proto  = "ip_proto",
           }
         }
-        stage.timestamp {
-          source = "ts"
-          format = "RFC3339" // 匹配你日志中的格式 "2026-01-28T..."
-        }
 
         stage.geoip {
           source  = "dst"
@@ -96,8 +97,6 @@ reIf {
         stage.labels {
           values = {
             proto     = "",
-            dst_city = "geoip_city_name",
-            dst_as_org = "geoip_autonomous_system_organization",
           }
         }
         stage.structured_metadata {

@@ -53,9 +53,7 @@
     resolved = {
       dnssec = "false";
       llmnr = "false";
-      extraConfig = ''
-        MulticastDNS=off
-      '';
+      settings.Resolve.MulticastDNS = "off";
     };
   };
 

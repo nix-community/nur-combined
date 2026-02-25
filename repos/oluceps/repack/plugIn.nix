@@ -160,5 +160,6 @@ in
         	}
         }
       '';
+    repack.yggdrasil.enable = true;
   };
 }

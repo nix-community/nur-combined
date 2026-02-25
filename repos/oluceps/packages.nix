@@ -42,13 +42,13 @@ let
         dig
         wireguard-tools
         # curlFull
-        (curlECH.override {
+        (curl.override {
           ldapSupport = true;
           gsaslSupport = true;
           rtmpSupport = true;
           pslSupport = true;
           websocketSupport = true;
-          echSupport = true;
+          # echSupport = true;
         })
         xh
         # ngrep

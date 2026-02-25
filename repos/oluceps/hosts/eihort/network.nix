@@ -3,12 +3,10 @@
   imports = [ ./bird.nix ];
   services = {
     resolved = {
-      llmnr = "true";
-      dnssec = "false";
-      fallbackDns = [ "8.8.8.8#dns.google" ];
-      extraConfig = ''
-        Cache=no
-      '';
+      settings.Resolve.LLMNR = "true";
+      settings.Resolve.DNSSEC = "false";
+      settings.Resolve.FallbackDNS = [ "8.8.8.8#dns.google" ];
+      settings.Resolve.Cache = "no";
     };
   };
   networking = {
@@ -31,13 +29,11 @@
       allowedUDPPorts = [
         80
         443
-        8080
         5353 # mdns
       ];
       allowedTCPPorts = [
         80
         443
-        8080
         3260
       ];
     };

@@ -3,11 +3,11 @@
   imports = [ ./bird.nix ];
   services = {
     resolved = {
-      llmnr = "true";
-      dnssec = "false";
-      extraConfig = ''
-        Cache=no
-      '';
+      settings.Resolve = {
+        LLMNR = "true";
+        Cache = "no";
+        DNSSEC = "false";
+      };
     };
   };
   networking = {

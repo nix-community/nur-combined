@@ -309,6 +309,7 @@
         "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
+        "cache.nyaw.xyz:c8dPG7KwH3Qf+/pfJJ+k2yUpiFCa1Mg1DbdqKyZlBis="
       ];
       extra-substituters = [
         # "https://cache.lix.systems"
@@ -321,6 +322,7 @@
       ]);
       substituters = [
         # "https://cache.garnix.io"
+        "http://cache.nyaw.xyz:8501"
       ];
       auto-optimise-store = true;
       experimental-features = [

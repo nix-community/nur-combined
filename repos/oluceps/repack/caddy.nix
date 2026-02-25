@@ -29,7 +29,7 @@ in
             "github.com/greenpau/caddy-security@v1.1.31"
             "github.com/mholt/caddy-l4@v0.0.0-20260112235400-e24201789f06"
           ];
-          hash = "sha256-z31sZbACYkScY2/Op00pwebvlBSeZkX3qiJj6tu+Kkg=";
+          hash = "sha256-IMTrU4w9PS1qZqpArLl6wFJjfapz6HCpz4+bEk+nhGI=";
         };
       };
       settings = lib.mkOption {

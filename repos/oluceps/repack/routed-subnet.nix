@@ -55,9 +55,7 @@ reIf
           }
         '';
       };
-      services.resolved.extraConfig = ''
-        DNSStubListenerExtra=10.255.0.0
-      '';
+      services.resolved.settings.Resolve.DNSStubListenerExtra = "10.255.0.0";
 
     }
   )

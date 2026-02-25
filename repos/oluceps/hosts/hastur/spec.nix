@@ -109,11 +109,11 @@
     # radicle.enable = true;
     metrics.enable = true;
     # fwupd.enable = true;
-    harmonia = {
-      enable = true;
-      settings.bind = "[::]:5000";
-      signKeyPaths = [ config.vaultix.secrets.harmonia.path ];
-    };
+    # harmonia = {
+    #   enable = true;
+    #   settings.bind = "[::]:5000";
+    #   signKeyPaths = [ config.vaultix.secrets.harmonia.path ];
+    # };
 
     btrfs.autoScrub = {
       enable = true;
@@ -256,9 +256,9 @@
     # alloy.enable = true;
     # zeek.enable = true;
     earlyoom.enable = true;
-    incus = {
-      enable = true;
-      bridgeAddr = "fdcc:1::1/64";
-    };
+    # incus = {
+    #   enable = true;
+    #   bridgeAddr = "fdcc:1::1/64";
+    # };
   };
 }
