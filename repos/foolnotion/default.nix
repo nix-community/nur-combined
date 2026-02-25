@@ -6,7 +6,10 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }: rec {
+{
+  pkgs ? import <nixpkgs> { },
+}:
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -72,7 +75,11 @@
 
   cpptrace = pkgs.callPackage ./pkgs/cpptrace { libdwarf = libdwarf; };
 
-  libassert = pkgs.callPackage ./pkgs/libassert { libdwarf = libdwarf; cpptrace = cpptrace; enableTesting = false; };
+  libassert = pkgs.callPackage ./pkgs/libassert {
+    libdwarf = libdwarf;
+    cpptrace = cpptrace;
+    enableTesting = false;
+  };
 
   linasm = pkgs.callPackage ./pkgs/linasm { };
 
@@ -106,7 +113,7 @@
 
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
 
-  fast-float-6_1_6 = pkgs.fast-float.overrideAttrs(old: rec {
+  fast-float-6_1_6 = pkgs.fast-float.overrideAttrs (old: rec {
     version = "6.1.6";
     src = pkgs.fetchFromGitHub {
       owner = "fastfloat";
@@ -151,9 +158,6 @@
   xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
 
   qobuz-linux = pkgs.callPackage ./pkgs/qobuz-linux { };
-
-  qpdfview-qt5 = pkgs.libsForQt5.callPackage ./pkgs/qpdfview { };
-  qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
   ned14-status-code = pkgs.callPackage ./pkgs/ned14-status-code { };
   ned14-quickcpplib = pkgs.callPackage ./pkgs/ned14-quickcpplib {
