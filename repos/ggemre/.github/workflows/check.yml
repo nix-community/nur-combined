@@ -1,9 +1,7 @@
 name: "Run checks on builds"
 on:
   pull_request:
-  push:
-    branches-ignore:
-      - main
+    types: [opened, reopened]
 jobs:
   tests:
     strategy:

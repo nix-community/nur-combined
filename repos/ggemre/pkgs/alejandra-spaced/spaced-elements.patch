@@ -1,0 +1,44 @@
+diff --git a/src/alejandra/src/rules/attr_set.rs b/src/alejandra/src/rules/attr_set.rs
+index cb9a106..c5f2e69 100644
+--- a/src/alejandra/src/rules/attr_set.rs
++++ b/src/alejandra/src/rules/attr_set.rs
+@@ -58,6 +58,8 @@ pub(crate) fn rule(
+     steps.push_back(crate::builder::Step::Format(child));
+     if vertical {
+         steps.push_back(crate::builder::Step::Indent);
++    } else if items_count >= 1 {
++        steps.push_back(crate::builder::Step::Whitespace);
+     }
+ 
+     let mut item_index: usize = 0;
+@@ -116,6 +118,8 @@ pub(crate) fn rule(
+         steps.push_back(crate::builder::Step::Dedent);
+         steps.push_back(crate::builder::Step::NewLine);
+         steps.push_back(crate::builder::Step::Pad);
++    } else if items_count >= 1 {
++        steps.push_back(crate::builder::Step::Whitespace);
+     }
+     steps.push_back(crate::builder::Step::Format(child));
+ 
+diff --git a/src/alejandra/src/rules/list.rs b/src/alejandra/src/rules/list.rs
+index 4fbb241..dfd21ed 100644
+--- a/src/alejandra/src/rules/list.rs
++++ b/src/alejandra/src/rules/list.rs
+@@ -23,6 +23,8 @@ pub(crate) fn rule(
+     steps.push_back(crate::builder::Step::Format(child));
+     if vertical {
+         steps.push_back(crate::builder::Step::Indent);
++    } else if items_count >= 1 {
++        steps.push_back(crate::builder::Step::Whitespace);
+     }
+ 
+     let mut item_index: usize = 0;
+@@ -90,6 +92,8 @@ pub(crate) fn rule(
+         steps.push_back(crate::builder::Step::Dedent);
+         steps.push_back(crate::builder::Step::NewLine);
+         steps.push_back(crate::builder::Step::Pad);
++    } else if items_count >= 1 {
++        steps.push_back(crate::builder::Step::Whitespace);
+     }
+     steps.push_back(crate::builder::Step::Format(child));
+ 
