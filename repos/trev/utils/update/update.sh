@@ -12,25 +12,24 @@ readarray -t commands < <(echo "${json}" | jq -r -S '. | values[]')
 for index in "${!packages[@]}"; do
     package="${packages[${index}]}"
     command="${commands[${index}]}"
+
+    echo
     echo "::group::Updating ${package}"
-
     git checkout -B "update/${system}/${package}"
+    eval "${command}"
+    status=$?
+    echo "::endgroup::"
 
-    if ! ${command}; then
-        echo "Failed to update ${package}"
-        echo "::endgroup::"
+    if [[ "$status" -ne 0 ]]; then
+        echo "Failed to update ${package}!"
         continue
     fi
 
     commits=$(git log 'main..HEAD')
     if [[ -z "${commits}" ]]; then
-        echo "No update needed for ${package}"
-        echo "::endgroup::"
         continue
     fi
 
-    git push --force origin "update/${system}/${package}"
-    git checkout main
-
-    echo "::endgroup::"
+    git push --quiet --force origin "update/${system}/${package}"
+    git checkout --quiet main
 done
