@@ -73,12 +73,10 @@
 
         devShells = {
           default = pkgs.mkShell {
-            name = "dev";
             packages =
               let
                 nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
                 fetch-hash = pkgs.callPackage ./packages/fetch-hash { };
-                update = pkgs.callPackage ./utils/update { inherit system; };
               in
               with pkgs;
               [
@@ -87,7 +85,7 @@
                 nixfmt
                 prettier
                 nix-update
-                update
+                gh
               ];
             shellHook =
               let
@@ -97,29 +95,26 @@
           };
 
           check = pkgs.mkShell {
-            name = "check";
             packages = with pkgs; [
               nix-fast-build
             ];
           };
 
           update = pkgs.mkShell {
-            name = "update";
             packages =
               let
                 nix-fix-hash = pkgs.callPackage ./packages/nix-fix-hash { };
                 trenovate = pkgs.callPackage ./packages/renovate { };
-                update = pkgs.callPackage ./utils/update { inherit system; };
               in
+              with pkgs;
               [
                 nix-fix-hash
                 trenovate
-                update
+                nix-update
               ];
           };
 
           vulnerable = pkgs.mkShell {
-            name = "vulnerable";
             packages = with pkgs; [
               # flake
               flake-checker

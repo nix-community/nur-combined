@@ -30,14 +30,8 @@ jobs:
           app_key: ${{ secrets.PRIVATE_KEY }}
           shell: update
 
-      - name: Create branch
-        run: git checkout -B "update-packages-${{ matrix.image }}"
-
       - name: Update packages
-        run: update
-
-      - name: Push changes
-        run: git push --force origin "update-packages-${{ matrix.image }}"
+        run: ./utils/update/update.sh
 
   pkgs-pr:
     needs: pkgs
@@ -51,29 +45,8 @@ jobs:
           private-key: ${{ secrets.PRIVATE_KEY }}
           fetch-depth: 0
 
-      - name: Create branch
-        run: |
-          git checkout -B update-packages
-          git merge -X ours --no-ff origin/update-packages-ubuntu-24.04
-          git merge -X ours --no-ff origin/update-packages-ubuntu-24.04-arm
-          git merge -X ours --no-ff origin/update-packages-macos-26
-          git push --force origin update-packages
-
-      - id: pr
-        name: Create pull request
-        run: |
-          if url=$(gh pr create --title "package updates" --body "updated some packages" --head update-packages --base main); then
-            echo "Created PR: ${url}"
-            echo "url=${url}" >> $GITHUB_OUTPUT
-          else
-            echo "Could not create PR"
-          fi
-        env:
-          GH_TOKEN: ${{ steps.checkout.outputs.token }}
-
-      - if: ${{ steps.pr.outputs.url }}
-        name: Enable automerge
-        run: gh pr merge --rebase --auto "${{ steps.pr.outputs.url }}"
+      - name: Merge packages
+        run: ./utils/update/merge.sh
         env:
           GH_TOKEN: ${{ steps.checkout.outputs.token }}
 

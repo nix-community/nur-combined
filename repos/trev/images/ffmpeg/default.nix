@@ -11,7 +11,7 @@ in
   imageDigest = builtins.elemAt parts 3;
   hash = "sha256-CGhiEMsJP+BGP1OOti5uc6SIzX2Yc2Yg1sClyhTV3yc=";
   os = "linux";
-  arch = "x86_64";
+  arch = "amd64";
 }).overrideAttrs
   {
     __structuredAttrs = true;
