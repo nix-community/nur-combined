@@ -834,27 +834,6 @@
         },
         "version": "d3aea3f2dc37c39521ce59c5fb156427764ad68f"
     },
-    "trojan": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "trojan",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "trojan-gfw",
-            "repo": "trojan",
-            "rev": "v1.16.0",
-            "sha256": "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v1.16.0"
-    },
     "v86": {
         "cargoLock": null,
         "date": "2026-02-03",

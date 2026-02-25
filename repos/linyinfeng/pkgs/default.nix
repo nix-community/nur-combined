@@ -56,7 +56,6 @@ lib.makeScope newScope (
     ssl-handshake = callPackage ./ssl-handshake { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };
-    trojan = callPackage ./trojan { };
     v86 = callPackage ./v86 { };
     vlmcsd = callPackage ./vlmcsd { };
     yacd = callPackage ./yacd { };

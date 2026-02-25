@@ -64,7 +64,6 @@ let
     (trivial "ssl-handshake")
     (trivial "telegram-send")
     (trivial "tg-send")
-    (trivial "trojan")
     (trivial "vlmcsd")
     (trivial "zeronsd")
     {

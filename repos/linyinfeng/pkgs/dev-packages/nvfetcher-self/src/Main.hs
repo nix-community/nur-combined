@@ -19,7 +19,6 @@ packageSet = do
   ghPkg "estkme-group" "lpac"
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "microsoft" "secureboot_objects"
-  ghPkg "trojan-gfw" "trojan"
   gitPkg "libva-v4l2" "https://github.com/mxsrc/libva-v4l2.git"
   gitPkg "pyim-greatdict" "https://github.com/tumashu/pyim-greatdict.git"
   gitPkg "rime-bopomofo" "https://github.com/rime/rime-bopomofo.git"

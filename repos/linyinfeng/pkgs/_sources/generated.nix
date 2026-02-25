@@ -551,17 +551,6 @@
     };
     date = "2023-03-25";
   };
-  trojan = {
-    pname = "trojan";
-    version = "v1.16.0";
-    src = fetchFromGitHub {
-      owner = "trojan-gfw";
-      repo = "trojan";
-      rev = "v1.16.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=";
-    };
-  };
   v86 = {
     pname = "v86";
     version = "62fd36e0bbf3da60a24be75c5245cdb11c062908";
