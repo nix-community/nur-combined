@@ -113,7 +113,7 @@ stdenv.mkDerivation (finalAttrs: {
     nix-update-script {
       extraArgs = [
         "--commit"
-        "${finalAttrs.pname}"
+        finalAttrs.pname
       ];
     }
     ++ [

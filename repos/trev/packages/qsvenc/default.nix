@@ -124,7 +124,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--commit"
-      "${finalAttrs.pname}"
+      finalAttrs.pname
     ];
   };
 

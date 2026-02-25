@@ -39,7 +39,7 @@ buildPythonApplication rec {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--commit"
-      "${pname}"
+      pname
     ];
   };
 

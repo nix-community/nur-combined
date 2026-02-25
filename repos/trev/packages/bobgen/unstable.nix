@@ -17,15 +17,17 @@ bobgen.overrideAttrs (
 
     vendorHash = "sha256-WzSUUgfWGz5XXq3iQrtpF91yOEr0QypTWq1rOJMntGQ=";
 
-    passthru.updateScript = nix-update-script {
-      extraArgs = [
-        "--commit"
-        "--version=branch=main"
-        "${final.pname}.unstable"
-      ];
+    passthru = (prev.passthru or { }) // {
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--commit"
+          "--version=branch=main"
+          "${final.pname}-unstable"
+        ];
+      };
     };
 
-    meta = prev.meta // {
+    meta = (prev.meta or { }) // {
       description = "${prev.meta.description} - main branch";
       changelog = "https://github.com/stephenafamo/bob/commits/${final.src.rev}/";
     };

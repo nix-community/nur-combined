@@ -9,6 +9,7 @@ let
 in
 rec {
   bobgen = pkgs.callPackage ./bobgen { };
+  bobgen-unstable = pkgs.callPackage ./bobgen/unstable.nix { inherit bobgen; };
   bumper = pkgs.callPackage ./bumper { };
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
   fetch-hash = pkgs.callPackage ./fetch-hash { };

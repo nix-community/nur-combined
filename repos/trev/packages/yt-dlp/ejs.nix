@@ -53,7 +53,7 @@ buildPythonPackage rec {
     extraArgs = [
       "--commit"
       "--version=branch=main"
-      "yt-dlp.ejs"
+      pname
     ];
   };
 

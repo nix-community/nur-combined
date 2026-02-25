@@ -141,7 +141,7 @@ buildPythonApplication rec {
     extraArgs = [
       "--commit"
       "--version=branch=master"
-      "${pname}"
+      pname
     ];
   };
 

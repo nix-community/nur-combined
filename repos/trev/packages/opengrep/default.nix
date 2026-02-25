@@ -131,7 +131,7 @@ buildPythonApplication {
     extraArgs = [
       "--commit"
       "--subpackage core"
-      "${pname}"
+      pname
     ];
   };
 

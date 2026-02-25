@@ -2,8 +2,8 @@
   fetchFromGitHub,
   lib,
   nix-update-script,
-  pkgs,
   rustPlatform,
+  uv,
 
   # python packages
   buildPythonPackage,
@@ -41,34 +41,17 @@ buildPythonPackage (finalAttrs: {
   # The package has no tests
   doCheck = false;
 
-  passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--commit"
-        "${finalAttrs.pname}"
-      ];
-    };
-    python311 = pkgs.callPackage ./. {
-      inherit (pkgs.python311Packages) buildPythonPackage;
-    };
-    python312 = pkgs.callPackage ./. {
-      inherit (pkgs.python312Packages) buildPythonPackage;
-    };
-    python313 = pkgs.callPackage ./. {
-      inherit (pkgs.python313Packages) buildPythonPackage;
-    };
-    python314 = pkgs.callPackage ./. {
-      inherit (pkgs.python314Packages) buildPythonPackage;
-    };
-    python315 = pkgs.callPackage ./. {
-      inherit (pkgs.python315Packages) buildPythonPackage;
-    };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      finalAttrs.pname
+    ];
   };
 
   meta = {
     description = "Minimal build backend for uv";
     homepage = "https://docs.astral.sh/uv/reference/settings/#build-backend";
-    inherit (pkgs.uv.meta) changelog license;
+    inherit (uv.meta) changelog license;
     platforms = lib.platforms.all;
   };
 })

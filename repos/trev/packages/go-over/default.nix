@@ -24,7 +24,7 @@ gleam.build rec {
       extraArgs = [
         "--flake"
         "--commit"
-        "${pname}"
+        pname
       ];
     };
   };

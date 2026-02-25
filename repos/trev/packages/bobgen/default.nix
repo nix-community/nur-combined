@@ -1,6 +1,5 @@
 {
   buildGoModule,
-  callPackage,
   fetchFromGitHub,
   lib,
   nix-update-script,
@@ -26,16 +25,11 @@ buildGoModule (finalAttrs: {
     "gen/bobgen-sqlite"
   ];
 
-  passthru = {
-    unstable = callPackage ./unstable.nix {
-      bobgen = finalAttrs.finalPackage;
-    };
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--commit"
-        "${finalAttrs.pname}"
-      ];
-    };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      finalAttrs.pname
+    ];
   };
 
   meta = {

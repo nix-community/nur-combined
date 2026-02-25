@@ -17,12 +17,12 @@ permissions:
 jobs:
   check:
     strategy:
-      fail-fast: false
       matrix:
         image:
           - ubuntu-24.04
           - ubuntu-24.04-arm
           - macos-26
+      fail-fast: false
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
@@ -33,7 +33,7 @@ jobs:
 
       - name: Check evaluation
         run: |
-          nix-env -f . -qa \* --meta --xml \
+          nix-env -f . -qa \* --meta --json \
             --allowed-uris https://static.rust-lang.org \
             --option restrict-eval true \
             --option allow-import-from-derivation true \
@@ -42,7 +42,6 @@ jobs:
 
   build:
     strategy:
-      fail-fast: false
       matrix:
         nix:
           - nixpkgs-unstable.tar.gz
@@ -51,6 +50,7 @@ jobs:
           - ubuntu-24.04
           - ubuntu-24.04-arm
           - macos-26
+      fail-fast: false
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
@@ -68,6 +68,7 @@ jobs:
 
   trigger:
     needs: [check, build]
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update
