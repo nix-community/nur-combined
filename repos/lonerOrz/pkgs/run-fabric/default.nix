@@ -1,7 +1,8 @@
 {
   lib,
   stdenv,
-  python3,
+  fetchurl,
+  python3Packages,
   makeShellWrapper,
   callPackage,
   gtk3,
@@ -18,14 +19,21 @@
 }:
 
 let
+  pygobject_3_50 = python3Packages.pygobject3.overrideAttrs (old: {
+    version = "3.50.0";
+    src = fetchurl {
+      url = "mirror://gnome/sources/pygobject/3.50/pygobject-3.50.0.tar.xz";
+      hash = "sha256-jYNudbWogdRX7hYiyuSjK826KKC6ViGTrbO7tHJHIhI=";
+    };
+  });
   fabric = callPackage ../fabric { };
-  python = python3.withPackages (
+  python = python3Packages.python.withPackages (
     ps:
     with ps;
     [
       click
       pycairo
-      pygobject3
+      pygobject_3_50
       loguru
       psutil
       pygobject-stubs
