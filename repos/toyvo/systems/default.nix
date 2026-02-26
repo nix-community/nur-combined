@@ -84,6 +84,7 @@ let
         nur.modules.nixos.default
         self.modules.nixos.mcsmanager
         self.modules.nixos.systems
+        self.modules.nixos.vintagestory.default
         sops-nix.nixosModules.sops
         {
           home-manager = {

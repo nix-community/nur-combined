@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
 {
@@ -16,6 +17,7 @@
   containerPresets = {
     podman.enable = true;
   };
+  home-manager.users.toyvo.programs.beets.enable = lib.mkForce false;
   networking = {
     hostName = "oracle-cloud-nixos";
     firewall = {
@@ -28,8 +30,6 @@
         25566
         # terraria
         7777
-        # vintage story
-        42420
       ];
       allowedUDPPorts = [
         53
@@ -43,8 +43,6 @@
         24454
         # terraria
         7777
-        # vintage story
-        42420
       ];
     };
   };
@@ -99,6 +97,10 @@
         };
       };
     };
+  };
+  vintagestory = {
+    enable = true;
+    openFirewall = true;
   };
   containerPresets.portainer = {
     enable = true;

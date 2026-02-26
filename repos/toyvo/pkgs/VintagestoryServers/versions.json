@@ -1,178 +1,178 @@
 {
-    "1.21.6": {
-        "hash": "sha256-Zk1Gj44mLJVB6JBIukXohKuzm6Jlmwld3h75VxIkfqw=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.6.tar.gz"
-    },
-    "1.21.5": {
-        "hash": "sha256-Js9l53S2156whJlV/D3m0id+lDerEfsQaMotWJ0sygM=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.5.tar.gz"
-    },
-    "1.21.4": {
-        "hash": "sha256-+n8m3F/Qy1i/t++VYe4SrunlASf1FTVxkOBL6/WLqQc=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.4.tar.gz"
-    },
-    "1.21.3": {
-        "hash": "sha256-/6mJi2CQ1w5cWdYgKldK1iIYZ9Hc3TsA6HSqnV+W4NU=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.3.tar.gz"
-    },
-    "1.21.2": {
-        "hash": "sha256-pUKfFC26B/BbsBuG3wPiLBr6cBhFOHH9mpEFY6GLHhk=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.2.tar.gz"
-    },
-    "1.21.1": {
-        "hash": "sha256-eiWgZGAnr/AjlDfyJsHlCMQWvMKnPfY3PLEICud88m4=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.1.tar.gz"
-    },
-    "1.21.0": {
-        "hash": "sha256-hf8ewdKYMC0lyBbIpaHOkfR5wS0zujPdl/JF3Xwbj4s=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.0.tar.gz"
-    },
-    "1.20.12": {
-        "hash": "sha256-DqLHv9lVxXTG/qRJ2f6DFuJkB8gmHDAUiHD+d+RZpJQ=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.12.tar.gz"
-    },
-    "1.20.11": {
-        "hash": "sha256-GzNUrVZZAddLAEhReSHLWXK0sea3IlbTvOCkSRfzrrs=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.11.tar.gz"
-    },
-    "1.20.10": {
-        "hash": "sha256-y7jEIqt75UssBxQBmSOggSvhdPWP2Mq3lx2rtp3BIlQ=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.10.tar.gz"
-    },
-    "1.20.9": {
-        "hash": "sha256-a5Hk3xdOmXrfNgLVzA/OHdDrTTfPKqsyVpiMTbYXNHw=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.9.tar.gz"
-    },
-    "1.20.8": {
-        "hash": "sha256-1pvv3EoYPXhXva3QwJI3Jw2Uj7+EVA+TSHshD0UCPp4=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.8.tar.gz"
-    },
-    "1.20.7": {
-        "hash": "sha256-QW8pBZS2Xalg+DqkGHg/Kx9P2L+d6+xavQoLMP0D5Ds=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.7.tar.gz"
-    },
-    "1.20.6": {
-        "hash": "sha256-X0JrADCIXG1nYXGO2nJ2VexYWev7bmntXuyrchPWrMU=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.6.tar.gz"
-    },
-    "1.20.5": {
-        "hash": "sha256-jyAfHld7xepGGXtj66WRkJSJjUiZ4COgwnBS81s7VNI=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.5.tar.gz"
-    },
-    "1.20.4": {
-        "hash": "sha256-59rhptbypGbb+7g/JbzAFfvFDtyJiOVhFjMHKxnN29Y=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.4.tar.gz"
-    },
-    "1.20.3": {
-        "hash": "sha256-Rk3kSo5hAnTZjPa+Ggqrw1erDLIKquHG5xPe9D3yYCA=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.3.tar.gz"
-    },
-    "1.20.2": {
-        "hash": "sha256-i0we9qKib+7d2ndJcBDoF1VfTgToYB07j8zvfvwxOsc=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.2.tar.gz"
-    },
-    "1.20.1": {
-        "hash": "sha256-fGoY+fW4LTAFlP7ktc0B5XqSe+VzHOud1eTfrDjQ94Y=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.1.tar.gz"
-    },
-    "1.20.0": {
-        "hash": "sha256-T+S3ub4TC2piqlJdp+WHE0jNIi84pOh+V3Rn6LDdUGk=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.0.tar.gz"
-    },
-    "1.19.8": {
-        "hash": "sha256-77IFr/F0P7RGv7Gbb+1RHwsaBlzFgfuRqrXN0Ec1qlY=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.8.tar.gz"
-    },
-    "1.19.7": {
-        "hash": "sha256-LzY/rcC1Mrt13teK3aSfxWjlziBjbUMPrg3bXIXuAJI=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.7.tar.gz"
-    },
-    "1.19.6": {
-        "hash": "sha256-dPRzAZhZgT47NlZjXbGGQHFsFJY/YslYxwm9s3iagaE=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.6.tar.gz"
-    },
-    "1.19.5": {
-        "hash": "sha256-IOvwj8Gd2r9qei6lO2rITyEN+wdudMjEZd+uW/kyHoM=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.5.tar.gz"
-    },
-    "1.19.4": {
-        "hash": "sha256-4BBmX3KwPJdkeeEvzuUiNtnI97LNdKoS7zSr1UKEY/0=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.4.tar.gz"
-    },
-    "1.19.3": {
-        "hash": "sha256-gNnH+OTMRMELICfMOmO0YnTm9+OPdJz2C0fP2pLXXLI=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.3.tar.gz"
-    },
-    "1.19.2": {
-        "hash": "sha256-Y6i++uYe6ICzvjkKHteMnIlK/R2opXRjzJv/b5wNwfk=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.2.tar.gz"
-    },
-    "1.19.1": {
-        "hash": "sha256-hmOkksYT0yc5XNGU1iOpX+9BOkjoSSwuZCl04ymmv8w=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.1.tar.gz"
-    },
-    "1.19.0": {
-        "hash": "sha256-27xxiRKVscOL224RR9/oJVpyYHyy3mf8KbKRQZKNExs=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.0.tar.gz"
-    },
-    "1.18.15": {
-        "hash": "sha256-gPe5ZQn7MrK07R1nT6UK1D9YMUbVTUltzkOycvJFZ3o=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.18.15.tar.gz"
-    },
-    "1.17.12": {
-        "hash": "sha256-uIwFDkGcofKm/qvOaBgMtX8nZmVXMQRvFoIrWp3UHYE=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.17.12.tar.gz"
-    },
-    "1.16.5": {
-        "hash": "sha256-L+euGABaSmYRHrjWtLx4NKQzX7RiWILoQubzWcD/AcM=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.16.5.tar.gz"
-    },
-    "1.15.10": {
-        "hash": "sha256-5vYqqDkC3tJb30qo/P+E4b+cGc0Q2pxaZOu+tPP0MmA=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.15.10.tar.gz"
-    },
-    "1.15.0": {
-        "hash": "sha256-jHMpPXfFM+v+Urp3Mtbvhr5muG1Z3fipJMXzFG42R/M=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.15.0.tar.gz"
-    },
-    "1.14.10": {
-        "hash": "sha256-mMegdQIFRjG4Nly/4rJFWR7yeXuLvIRdOcZyqwPQkaw=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.14.10.tar.gz"
-    },
-    "1.13.4": {
-        "hash": "sha256-ungzx8PdrU2VgbuV3IstcicgmaSYdpS1/3IrDdZIriE=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.4.tar.gz"
-    },
-    "1.13.3": {
-        "hash": "sha256-gp6n2QO1OnRuDuCtuVkybPKBWE3VwlirrqdKXWEO8Hk=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.3.tar.gz"
-    },
-    "1.13.2": {
-        "hash": "sha256-mXDFSVp4VrgDjgwQz/MY0VH1+j4OnMcFriXEEiIDJdI=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.2.tar.gz"
-    },
-    "1.13.1": {
-        "hash": "sha256-dPvqz+8cwzfRMyqBhKdvDn8SfzNzuKWdaDh9d+N/2Lg=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.1.tar.gz"
-    },
-    "1.13.0": {
-        "hash": "sha256-yHWWsnLPztS586GxxdKkFbTAVcrbt//NNJN2b7wjsRM=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.0.tar.gz"
-    },
-    "1.12.14": {
-        "hash": "sha256-rVXlNgILSnItR71PkTnJl+HxXgnUpL1Cb5uvVHJrHiE=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.12.14.tar.gz"
-    },
-    "1.11.11": {
-        "hash": "sha256-jLfFCmSPT2LIhH61EQFubOmuFESa2k7z2FTxk8Z23SQ=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.11.11.tar.gz"
-    },
-    "1.10.19": {
-        "hash": "sha256-AeBviXETR5WNz7kt11pKuEAhbtFDelGFtKsNvECNUq4=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.10.19.tar.gz"
-    },
-    "1.9.14": {
-        "hash": "sha256-nV03X6aV/ZzdEsnyeMoJ2Ciu8dCkMAjjBLARN8/h0K4=",
-        "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.9.14.tar.gz"
-    }
+  "1.21.6": {
+    "hash": "sha256-Zk1Gj44mLJVB6JBIukXohKuzm6Jlmwld3h75VxIkfqw=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.6.tar.gz"
+  },
+  "1.21.5": {
+    "hash": "sha256-Js9l53S2156whJlV/D3m0id+lDerEfsQaMotWJ0sygM=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.5.tar.gz"
+  },
+  "1.21.4": {
+    "hash": "sha256-+n8m3F/Qy1i/t++VYe4SrunlASf1FTVxkOBL6/WLqQc=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.4.tar.gz"
+  },
+  "1.21.3": {
+    "hash": "sha256-/6mJi2CQ1w5cWdYgKldK1iIYZ9Hc3TsA6HSqnV+W4NU=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.3.tar.gz"
+  },
+  "1.21.2": {
+    "hash": "sha256-pUKfFC26B/BbsBuG3wPiLBr6cBhFOHH9mpEFY6GLHhk=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.2.tar.gz"
+  },
+  "1.21.1": {
+    "hash": "sha256-eiWgZGAnr/AjlDfyJsHlCMQWvMKnPfY3PLEICud88m4=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.1.tar.gz"
+  },
+  "1.21.0": {
+    "hash": "sha256-hf8ewdKYMC0lyBbIpaHOkfR5wS0zujPdl/JF3Xwbj4s=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.21.0.tar.gz"
+  },
+  "1.20.12": {
+    "hash": "sha256-DqLHv9lVxXTG/qRJ2f6DFuJkB8gmHDAUiHD+d+RZpJQ=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.12.tar.gz"
+  },
+  "1.20.11": {
+    "hash": "sha256-GzNUrVZZAddLAEhReSHLWXK0sea3IlbTvOCkSRfzrrs=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.11.tar.gz"
+  },
+  "1.20.10": {
+    "hash": "sha256-y7jEIqt75UssBxQBmSOggSvhdPWP2Mq3lx2rtp3BIlQ=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.10.tar.gz"
+  },
+  "1.20.9": {
+    "hash": "sha256-a5Hk3xdOmXrfNgLVzA/OHdDrTTfPKqsyVpiMTbYXNHw=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.9.tar.gz"
+  },
+  "1.20.8": {
+    "hash": "sha256-1pvv3EoYPXhXva3QwJI3Jw2Uj7+EVA+TSHshD0UCPp4=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.8.tar.gz"
+  },
+  "1.20.7": {
+    "hash": "sha256-QW8pBZS2Xalg+DqkGHg/Kx9P2L+d6+xavQoLMP0D5Ds=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.7.tar.gz"
+  },
+  "1.20.6": {
+    "hash": "sha256-X0JrADCIXG1nYXGO2nJ2VexYWev7bmntXuyrchPWrMU=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.6.tar.gz"
+  },
+  "1.20.5": {
+    "hash": "sha256-jyAfHld7xepGGXtj66WRkJSJjUiZ4COgwnBS81s7VNI=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.5.tar.gz"
+  },
+  "1.20.4": {
+    "hash": "sha256-59rhptbypGbb+7g/JbzAFfvFDtyJiOVhFjMHKxnN29Y=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.4.tar.gz"
+  },
+  "1.20.3": {
+    "hash": "sha256-Rk3kSo5hAnTZjPa+Ggqrw1erDLIKquHG5xPe9D3yYCA=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.3.tar.gz"
+  },
+  "1.20.2": {
+    "hash": "sha256-i0we9qKib+7d2ndJcBDoF1VfTgToYB07j8zvfvwxOsc=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.2.tar.gz"
+  },
+  "1.20.1": {
+    "hash": "sha256-fGoY+fW4LTAFlP7ktc0B5XqSe+VzHOud1eTfrDjQ94Y=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.1.tar.gz"
+  },
+  "1.20.0": {
+    "hash": "sha256-T+S3ub4TC2piqlJdp+WHE0jNIi84pOh+V3Rn6LDdUGk=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.20.0.tar.gz"
+  },
+  "1.19.8": {
+    "hash": "sha256-77IFr/F0P7RGv7Gbb+1RHwsaBlzFgfuRqrXN0Ec1qlY=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.8.tar.gz"
+  },
+  "1.19.7": {
+    "hash": "sha256-LzY/rcC1Mrt13teK3aSfxWjlziBjbUMPrg3bXIXuAJI=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.7.tar.gz"
+  },
+  "1.19.6": {
+    "hash": "sha256-dPRzAZhZgT47NlZjXbGGQHFsFJY/YslYxwm9s3iagaE=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.6.tar.gz"
+  },
+  "1.19.5": {
+    "hash": "sha256-IOvwj8Gd2r9qei6lO2rITyEN+wdudMjEZd+uW/kyHoM=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.5.tar.gz"
+  },
+  "1.19.4": {
+    "hash": "sha256-4BBmX3KwPJdkeeEvzuUiNtnI97LNdKoS7zSr1UKEY/0=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.4.tar.gz"
+  },
+  "1.19.3": {
+    "hash": "sha256-gNnH+OTMRMELICfMOmO0YnTm9+OPdJz2C0fP2pLXXLI=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.3.tar.gz"
+  },
+  "1.19.2": {
+    "hash": "sha256-Y6i++uYe6ICzvjkKHteMnIlK/R2opXRjzJv/b5wNwfk=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.2.tar.gz"
+  },
+  "1.19.1": {
+    "hash": "sha256-hmOkksYT0yc5XNGU1iOpX+9BOkjoSSwuZCl04ymmv8w=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.1.tar.gz"
+  },
+  "1.19.0": {
+    "hash": "sha256-27xxiRKVscOL224RR9/oJVpyYHyy3mf8KbKRQZKNExs=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.19.0.tar.gz"
+  },
+  "1.18.15": {
+    "hash": "sha256-gPe5ZQn7MrK07R1nT6UK1D9YMUbVTUltzkOycvJFZ3o=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.18.15.tar.gz"
+  },
+  "1.17.12": {
+    "hash": "sha256-uIwFDkGcofKm/qvOaBgMtX8nZmVXMQRvFoIrWp3UHYE=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.17.12.tar.gz"
+  },
+  "1.16.5": {
+    "hash": "sha256-L+euGABaSmYRHrjWtLx4NKQzX7RiWILoQubzWcD/AcM=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.16.5.tar.gz"
+  },
+  "1.15.10": {
+    "hash": "sha256-5vYqqDkC3tJb30qo/P+E4b+cGc0Q2pxaZOu+tPP0MmA=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.15.10.tar.gz"
+  },
+  "1.15.0": {
+    "hash": "sha256-jHMpPXfFM+v+Urp3Mtbvhr5muG1Z3fipJMXzFG42R/M=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.15.0.tar.gz"
+  },
+  "1.14.10": {
+    "hash": "sha256-mMegdQIFRjG4Nly/4rJFWR7yeXuLvIRdOcZyqwPQkaw=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.14.10.tar.gz"
+  },
+  "1.13.4": {
+    "hash": "sha256-ungzx8PdrU2VgbuV3IstcicgmaSYdpS1/3IrDdZIriE=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.4.tar.gz"
+  },
+  "1.13.3": {
+    "hash": "sha256-gp6n2QO1OnRuDuCtuVkybPKBWE3VwlirrqdKXWEO8Hk=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.3.tar.gz"
+  },
+  "1.13.2": {
+    "hash": "sha256-mXDFSVp4VrgDjgwQz/MY0VH1+j4OnMcFriXEEiIDJdI=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.2.tar.gz"
+  },
+  "1.13.1": {
+    "hash": "sha256-dPvqz+8cwzfRMyqBhKdvDn8SfzNzuKWdaDh9d+N/2Lg=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.1.tar.gz"
+  },
+  "1.13.0": {
+    "hash": "sha256-yHWWsnLPztS586GxxdKkFbTAVcrbt//NNJN2b7wjsRM=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.13.0.tar.gz"
+  },
+  "1.12.14": {
+    "hash": "sha256-rVXlNgILSnItR71PkTnJl+HxXgnUpL1Cb5uvVHJrHiE=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.12.14.tar.gz"
+  },
+  "1.11.11": {
+    "hash": "sha256-jLfFCmSPT2LIhH61EQFubOmuFESa2k7z2FTxk8Z23SQ=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.11.11.tar.gz"
+  },
+  "1.10.19": {
+    "hash": "sha256-AeBviXETR5WNz7kt11pKuEAhbtFDelGFtKsNvECNUq4=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.10.19.tar.gz"
+  },
+  "1.9.14": {
+    "hash": "sha256-nV03X6aV/ZzdEsnyeMoJ2Ciu8dCkMAjjBLARN8/h0K4=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_1.9.14.tar.gz"
+  }
 }
