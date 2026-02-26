@@ -481,11 +481,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1772014238,
-        "narHash": "sha256-iYLoK6Dq9cKYD6WBIxwUFFHQFxhK+ssvSRf/TWxPbUQ=",
+        "lastModified": 1772108436,
+        "narHash": "sha256-rKRHAKnUolC+icX7SwT2lLPBYaCvKKuOyB6q5+3OBj0=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "52f140c07493f8bb6cd0773c7e1afe3e1fd1d1fa",
+        "rev": "aa31fa7f26454629a6029c81a849c17255176f87",
         "type": "github"
       },
       "original": {
@@ -1090,11 +1090,11 @@
         "nixpkgs": "nixpkgs_14"
       },
       "locked": {
-        "lastModified": 1772083802,
-        "narHash": "sha256-UTBfppz1AseQlJ10tPCcktCR0Am6qd3M2JqWwzLkkYs=",
+        "lastModified": 1772109686,
+        "narHash": "sha256-lVKqO7EyJO1Q/9UV292K/0fN8Gbx3bBPrOPxx2L137s=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "1ba677f29f6b242f4ffd7d9f35a3bebde7f75289",
+        "rev": "57099e4438cf9fc90e05f9aa72ea4067ad93279c",
         "type": "github"
       },
       "original": {
@@ -1406,11 +1406,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1772084098,
-        "narHash": "sha256-7klAMJxKglcpa/OdC4x7MihZPqr2N+bZQG5Xrch0RkM=",
+        "lastModified": 1772116673,
+        "narHash": "sha256-wRaK02lADLKQue6eJyrbhbxr+cV5yRpIvVVXghQymI8=",
         "owner": "zed-industries",
         "repo": "zed",
-        "rev": "845328662d59aaedf2e25edcdeb7a3d0b15c2249",
+        "rev": "c767dcc6cdf98abc27cfeebf64df8f28434d129e",
         "type": "github"
       },
       "original": {
