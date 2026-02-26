@@ -1,0 +1,19 @@
+diff --git a/src/core/main.ts b/src/core/main.ts
+index 294daaa6..cc198ce8 100644
+--- a/src/core/main.ts
++++ b/src/core/main.ts
+@@ -1075,12 +1075,11 @@ export default class ExcalidrawPlugin extends Plugin {
+     const path = this.settings.startupScriptPath.endsWith(".md")
+       ? this.settings.startupScriptPath
+       : `${this.settings.startupScriptPath}.md`;
+-    const f = this.app.vault.getAbstractFileByPath(path);
+-    if (!f || !(f instanceof TFile)) {
++    if (!(await this.app.vault.adapter.exists(path))) {
+       new Notice(`Startup script not found: ${path}`);
+       return;
+     }
+-    const script = await this.app.vault.read(f);
++    const script = await this.app.vault.adapter.read(path);
+     const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
+     try {
+       await new AsyncFunction("ea", script)(this.ea);

@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  enableHiddenScriptPatch ? false,
   ...
 }: let
   owner = "zsviczian";
@@ -39,6 +40,10 @@ in
       '';
 
     npmDepsHash = "sha256-eEczre9rTLlrJV1g/9HlUPr9ToyI+OG9eOIV9fxAOfg=";
+
+    patches =
+      []
+      ++ lib.optional enableHiddenScriptPatch ./hidden-script.patch;
 
     postPatch =
       # bash
