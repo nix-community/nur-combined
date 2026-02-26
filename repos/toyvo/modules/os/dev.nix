@@ -12,30 +12,6 @@ in
 {
   options = {
     profiles.dev.enable = lib.mkEnableOption "Development Programs to be available outside of a devshell";
-    environment.pythonPackage = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.python312.withPackages (
-        ps:
-        with ps;
-        [
-          distutils
-          jupyter
-          numpy
-          pandas
-          pip
-          pipx
-          pygraphviz
-          python-dotenv
-          setuptools
-          virtualenv
-        ]
-        ++ config.environment.pythonPackages
-      );
-    };
-    environment.pythonPackages = lib.mkOption {
-      type = lib.types.listOf lib.types.package;
-      default = [ ];
-    };
   };
 
   config = lib.mkIf cfg.dev.enable {
@@ -52,7 +28,6 @@ in
           cargo-watch
           ccache
           cmake
-          config.environment.pythonPackage
           dfu-util
           dioxus-cli
           dotnet-sdk
