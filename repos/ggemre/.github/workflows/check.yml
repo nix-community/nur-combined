@@ -14,6 +14,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v5
+    # Enable this if you run out of space. Optimize runtime for now.
+    # - name: Nothing but Nix
+    #   uses: wimpysworld/nothing-but-nix@main
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
@@ -24,7 +27,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Check formatting
-      run: nix fmt .
+      run: nix fmt -- . --check
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \

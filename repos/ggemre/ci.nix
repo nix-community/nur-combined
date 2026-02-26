@@ -28,21 +28,20 @@ with builtins; let
       if shouldRecurseForDerivations p
       then flattenPkgs p
       else if isDerivation p
-      then [ p ]
+      then [p]
       else [];
   in
     concatMap f (attrValues s);
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs = import ./default.nix {inherit pkgs;};
 
-  nurPkgs =
-    flattenPkgs
-    (listToAttrs
-      (map (n: nameValuePair n nurAttrs.${n})
-        (filter (n: !isReserved n)
-          (attrNames nurAttrs))));
+  nurPkgs = flattenPkgs (
+    listToAttrs (
+      map (n: nameValuePair n nurAttrs.${n}) (filter (n: !isReserved n) (attrNames nurAttrs))
+    )
+  );
 in rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;

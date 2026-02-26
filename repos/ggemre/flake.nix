@@ -17,13 +17,17 @@
     ];
     forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
   in {
-    legacyPackages = forAllSystems (system:
-      import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
-      });
+    legacyPackages = forAllSystems (
+      system:
+        import ./default.nix {
+          pkgs = import nixpkgs {inherit system;};
+        }
+    );
 
-    packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+    packages = forAllSystems (
+      system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+    );
 
-    formatter = forAllSystems (system: self.packages.${system}.alejandra-spaced);
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 }
