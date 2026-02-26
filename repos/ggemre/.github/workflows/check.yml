@@ -23,6 +23,8 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Check formatting
+      run: nix fmt .
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \

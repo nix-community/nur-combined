@@ -1,5 +1,9 @@
-{ lib, rustPlatform, fetchFromGitHub, ncurses }:
-
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  ncurses,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "stacklet";
   version = "1.0.1";
