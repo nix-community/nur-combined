@@ -43,6 +43,30 @@ let
     done
   '';
 
+  tmuxSocket = "/run/minecraft-server/tmux.sock";
+
+  lazymcStartScript = pkgs.writeShellScript "minecraft-lazymc-start" ''
+    ${pkgs.tmux}/bin/tmux -S ${tmuxSocket} new-session -d -s minecraft '${lib.getExe pkgs.lazymc} start'
+    # Allow minecraft group to attach to the tmux session
+    chmod 0660 ${tmuxSocket}
+    # Stay alive as long as the tmux session exists so systemd can track it
+    while ${pkgs.tmux}/bin/tmux -S ${tmuxSocket} has-session -t minecraft 2>/dev/null; do
+      sleep 1
+    done
+  '';
+
+  mcConsole = pkgs.writeShellScriptBin "mc-console" ''
+    # Attach to the Minecraft server tmux console.
+    # Usage: sudo -u minecraft mc-console
+    #   (or just mc-console if your user is in the minecraft group)
+    #
+    # Once attached:
+    #   - Type server commands directly (e.g. "say hello", "op player", "stop")
+    #   - Detach without stopping the server: Ctrl-b then d
+    #   - Scroll up through output: Ctrl-b then [ (exit scroll mode with q)
+    exec ${pkgs.tmux}/bin/tmux -S ${tmuxSocket} attach -t minecraft
+  '';
+
   # To be able to open the firewall, we need to read out port values in the
   # server properties, but fall back to the defaults when those don't exist.
   # These defaults are from https://minecraft.wiki/w/Server.properties#Java_Edition
@@ -480,9 +504,11 @@ in
       serviceConfig = {
         ExecStart =
           if cfg.lazymc.enable then
-            "${lib.getExe pkgs.lazymc} start"
+            lazymcStartScript
           else
             "${cfg.package}/bin/minecraft-server ${cfg.jvmOpts}";
+        RuntimeDirectory = lib.mkIf cfg.lazymc.enable "minecraft-server";
+        RuntimeDirectoryMode = lib.mkIf cfg.lazymc.enable "0750";
         ExecStop = lib.mkIf (!cfg.lazymc.enable) "${stopScript} $MAINPID";
         Restart = "always";
         User = "minecraft";
@@ -561,6 +587,8 @@ in
         ln -sf "${cfg.icon}" "${cfg.dataDir}/server-icon.png"
       '';
     };
+
+    environment.systemPackages = lib.mkIf cfg.lazymc.enable [ mcConsole ];
 
     networking.firewall = lib.mkIf cfg.openFirewall (
       if cfg.declarative then
