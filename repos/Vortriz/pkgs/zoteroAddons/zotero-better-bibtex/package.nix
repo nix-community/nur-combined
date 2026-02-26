@@ -5,11 +5,11 @@
 }:
 mkZoteroAddon rec {
     pname = "Better BibTeX for Zotero";
-    version = "8.0.33";
+    version = "8.0.38";
 
     src = fetchurl {
         url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v${version}/zotero-better-bibtex-${version}.xpi";
-        hash = "sha256-zBg0VyVIXqMFoJan90d56sDS+t3jqA6+lro/cCbO678=";
+        hash = "sha256-YxNzmkpZ+pvmLD0tcgfHfi/cp5UIhHFIKCIlVrMQ8aI=";
     };
 
     addonId = "better-bibtex@iris-advies.com";
