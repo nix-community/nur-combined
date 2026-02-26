@@ -74,3 +74,43 @@ jobs:
         # Don't replace <YOUR_REPO_NAME> here!
         if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+  flake-build:
+    strategy:
+      matrix:
+        cachixName:
+          - nur-xyenon
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Setup cachix
+        uses: cachix/cachix-action@v16
+        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+        with:
+          name: ${{ matrix.cachixName }}
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - name: Build all flake packages
+        run: |
+          system="$(nix eval --raw --impure --expr builtins.currentSystem)"
+          filter=$(cat <<NIXEOF
+          ps:
+            let
+              isSupported = p:
+                !(p.meta.broken or false)
+                && builtins.elem "${system}" (p.meta.platforms or [ "${system}" ]);
+            in builtins.attrNames (builtins.removeAttrs ps (builtins.filter (n: !isSupported ps.\${n}) (builtins.attrNames ps)))
+          NIXEOF
+          )
+          mapfile -t packages < <(nix eval --accept-flake-config --json ".#packages.${system}" --apply "$filter" | jq -r '.[]')
+          args=()
+          for package in "${packages[@]}"; do
+            args+=(".#packages.${system}.${package}")
+          done
+          nix build --accept-flake-config --no-link --show-trace "${args[@]}"
