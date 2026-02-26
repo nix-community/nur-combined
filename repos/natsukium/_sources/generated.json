@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-02-25",
+        "date": "2026-02-26",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "df393ba5a3f10183fe77a3cf792d15cded73595d",
-            "sha256": "sha256-KrmL/j7XSxy2iKH2sXmT/DzINiEdgKMEwjkSSSIN8FY=",
+            "rev": "86f5095c1a87c93eeca0e0de2f7f9add78638728",
+            "sha256": "sha256-QuNKvCkiB8Hx7X08kF7DIuIoos2jdo3XJYYGt6X5qXU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "df393ba5a3f10183fe77a3cf792d15cded73595d"
+        "version": "86f5095c1a87c93eeca0e0de2f7f9add78638728"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -65,11 +65,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Oe+Qe3mE9s04d41b7jdyq6yL5rSKpGof9detzNQec7U=",
+            "sha256": "sha256-EbsckPr1Qn83x71P5+q5d0rkPh1csCDFswiNrDKEnvo=",
             "type": "url",
-            "url": "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.0/Hammerspoon-1.1.0.zip"
+            "url": "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.1/Hammerspoon-1.1.1.zip"
         },
-        "version": "1.1.0"
+        "version": "1.1.1"
     },
     "paperwm-spoon": {
         "cargoLock": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Lh17dGl3O2BA9zyGilaNyMNY0DevKZLlDhBb+iBUUvg=",
+            "sha256": "sha256-q/j+YW7sjG99FX1zlfEl6iZA+CGhivP9uhHx1K07+WQ=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.8.3925.73.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.8.3925.74.universal.dmg"
         },
-        "version": "7.8.3925.73"
+        "version": "7.8.3925.74"
     },
     "zen-browser": {
         "cargoLock": null,

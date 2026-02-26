@@ -28,22 +28,22 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "df393ba5a3f10183fe77a3cf792d15cded73595d";
+    version = "86f5095c1a87c93eeca0e0de2f7f9add78638728";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "df393ba5a3f10183fe77a3cf792d15cded73595d";
+      rev = "86f5095c1a87c93eeca0e0de2f7f9add78638728";
       fetchSubmodules = false;
-      sha256 = "sha256-KrmL/j7XSxy2iKH2sXmT/DzINiEdgKMEwjkSSSIN8FY=";
+      sha256 = "sha256-QuNKvCkiB8Hx7X08kF7DIuIoos2jdo3XJYYGt6X5qXU=";
     };
-    date = "2026-02-25";
+    date = "2026-02-26";
   };
   hammerspoon = {
     pname = "hammerspoon";
-    version = "1.1.0";
+    version = "1.1.1";
     src = fetchurl {
-      url = "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.0/Hammerspoon-1.1.0.zip";
-      sha256 = "sha256-Oe+Qe3mE9s04d41b7jdyq6yL5rSKpGof9detzNQec7U=";
+      url = "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.1/Hammerspoon-1.1.1.zip";
+      sha256 = "sha256-EbsckPr1Qn83x71P5+q5d0rkPh1csCDFswiNrDKEnvo=";
     };
   };
   paperwm-spoon = {
@@ -112,10 +112,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.8.3925.73";
+    version = "7.8.3925.74";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.8.3925.73.universal.dmg";
-      sha256 = "sha256-Lh17dGl3O2BA9zyGilaNyMNY0DevKZLlDhBb+iBUUvg=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.8.3925.74.universal.dmg";
+      sha256 = "sha256-q/j+YW7sjG99FX1zlfEl6iZA+CGhivP9uhHx1K07+WQ=";
     };
   };
   zen-browser = {
