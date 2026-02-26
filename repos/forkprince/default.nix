@@ -55,6 +55,7 @@
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
   lmstudio = lib.callPackage ./pkgs/lmstudio {};
   ghostty = lib.callPackage ./pkgs/ghostty {};
+  equibop = lib.callPackage ./pkgs/equibop {};
   vscode = lib.callPackage ./pkgs/vscode {};
   heroic = lib.callPackage ./pkgs/heroic {};
   peazip = lib.callPackage ./pkgs/peazip {};
