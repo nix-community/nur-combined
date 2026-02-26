@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.28";
+    version = "v6.8.30";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.28";
-      hash = "sha256-PrRjI5zvT/bVo5Z2uIOWg5C5uGna05vLuMsNLiIkkiI=";
+      tag = "v6.8.30";
+      hash = "sha256-djPdkTRnM3u/FFJqORVa2pTaWHhUeX+uyFRTdGK7jf0=";
     };
   };
   cockpy = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8149";
+    version = "b8161";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8149";
-      hash = "sha256-LIxd6lSVrh34niHMvJOTNdT0Do/m6AgK9sZBAgtF7kQ=";
+      tag = "b8161";
+      hash = "sha256-yFzzhCrMhNVGTlzeqRVksiZJbzonSEtF7IqF3zT5e+w=";
     };
   };
   loralib = {
@@ -1902,14 +1902,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "23f0c39a0b443524e37dbff4f085236b32691291";
+    version = "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "23f0c39a0b443524e37dbff4f085236b32691291";
-      hash = "sha256-Y6/tU63+JQ9HX1m/kI9VQz6tIhFVRAPSsp6Vf47gzUk=";
+      rev = "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32";
+      hash = "sha256-u4KYZaaXDayPHa+TuMKoYoVEmOJm1egonAje+NF65aM=";
     };
-    date = "2026-02-06";
+    date = "2026-02-26";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "ce029008f8074ff726aa5f1876cfb5c996d9040a";
+    version = "f33206648fdf92207616c7c5ebb9d9e2348ba509";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "ce029008f8074ff726aa5f1876cfb5c996d9040a";
-      hash = "sha256-DREdcKh4s9d5k6Agb4JDDyVYjAK0y6xRH12L6zTseFo=";
+      rev = "f33206648fdf92207616c7c5ebb9d9e2348ba509";
+      hash = "sha256-2ruGpYjNomo4X3C7oshdTSSXKK88I567qLly37itBaQ=";
     };
-    date = "2026-02-19";
+    date = "2026-02-26";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -1991,12 +1991,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.1.0";
+    version = "v2.1.2";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.1.0";
-      hash = "sha256-bd/4QOOblQPLRJt5qgZX51Njd+dw1PKSadu385vB1NE=";
+      tag = "v2.1.2";
+      hash = "sha256-dKQREmJ+bzNVkC1nRbrKgzZ3BB38ayOl+HTAYtQyI2o=";
     };
   };
   sam-toki-mouse-cursors = {

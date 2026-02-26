@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.28",
-            "sha256": "sha256-PrRjI5zvT/bVo5Z2uIOWg5C5uGna05vLuMsNLiIkkiI=",
+            "rev": "v6.8.30",
+            "sha256": "sha256-djPdkTRnM3u/FFJqORVa2pTaWHhUeX+uyFRTdGK7jf0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.28"
+        "version": "v6.8.30"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8149",
-            "sha256": "sha256-LIxd6lSVrh34niHMvJOTNdT0Do/m6AgK9sZBAgtF7kQ=",
+            "rev": "b8161",
+            "sha256": "sha256-yFzzhCrMhNVGTlzeqRVksiZJbzonSEtF7IqF3zT5e+w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8149"
+        "version": "b8161"
     },
     "loralib": {
         "cargoLock": null,
@@ -3698,7 +3698,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-02-06",
+        "date": "2026-02-26",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3710,12 +3710,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "23f0c39a0b443524e37dbff4f085236b32691291",
-            "sha256": "sha256-Y6/tU63+JQ9HX1m/kI9VQz6tIhFVRAPSsp6Vf47gzUk=",
+            "rev": "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32",
+            "sha256": "sha256-u4KYZaaXDayPHa+TuMKoYoVEmOJm1egonAje+NF65aM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "23f0c39a0b443524e37dbff4f085236b32691291"
+        "version": "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -3812,7 +3812,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-02-19",
+        "date": "2026-02-26",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3824,12 +3824,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "ce029008f8074ff726aa5f1876cfb5c996d9040a",
-            "sha256": "sha256-DREdcKh4s9d5k6Agb4JDDyVYjAK0y6xRH12L6zTseFo=",
+            "rev": "f33206648fdf92207616c7c5ebb9d9e2348ba509",
+            "sha256": "sha256-2ruGpYjNomo4X3C7oshdTSSXKK88I567qLly37itBaQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ce029008f8074ff726aa5f1876cfb5c996d9040a"
+        "version": "f33206648fdf92207616c7c5ebb9d9e2348ba509"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -3887,12 +3887,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v2.1.0",
-            "sha256": "sha256-bd/4QOOblQPLRJt5qgZX51Njd+dw1PKSadu385vB1NE=",
+            "rev": "v2.1.2",
+            "sha256": "sha256-dKQREmJ+bzNVkC1nRbrKgzZ3BB38ayOl+HTAYtQyI2o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.1.0"
+        "version": "v2.1.2"
     },
     "sam-toki-mouse-cursors": {
         "cargoLock": null,
