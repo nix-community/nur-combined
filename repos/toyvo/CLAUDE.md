@@ -24,7 +24,7 @@ nix build .#nixosConfigurations.nas.config.system.build.toplevel
 # Build a specific package
 nix build .#setup-sops
 
-# Enter the dev shell (provides setup-sops, setup-git-sops, git hooks)
+# Enter the dev shell (provides setup-sops, git hooks)
 nix develop
 
 # Update flake inputs
@@ -81,7 +81,7 @@ These factory functions are also exported as `self.lib` so downstream flakes (e.
 
 ### Packages (`pkgs/`)
 
-Each package gets a directory with a `package.nix` entry point, auto-discovered by `callDirPackageWithRecursive`. Categories: Minecraft servers (fabricServers, neoforgeServers, papermcServers, purpurServers), SOPS utilities (setup-sops, setup-git-sops, git-sops), git hooks (pre-commit, pre-push), themes (catppuccin KDE/Papirus).
+Each package gets a directory with a `package.nix` entry point, auto-discovered by `callDirPackageWithRecursive`. Categories: Minecraft servers (fabricServers, neoforgeServers, papermcServers, purpurServers), SOPS utilities (setup-sops), git hooks (pre-commit, pre-push), themes (catppuccin KDE/Papirus).
 
 ### Secrets
 

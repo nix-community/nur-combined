@@ -173,9 +173,6 @@
                 {
                   package = self'.packages.setup-sops;
                 }
-                {
-                  package = self'.packages.setup-git-sops;
-                }
               ];
               imports = [ "${devshell}/extra/git/hooks.nix" ];
               git.hooks = {
