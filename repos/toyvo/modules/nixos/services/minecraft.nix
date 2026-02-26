@@ -480,6 +480,10 @@ in
     };
     users.groups.minecraft = { };
 
+    systemd.tmpfiles.rules = lib.mkIf cfg.lazymc.enable [
+      "d /run/minecraft-server 0750 minecraft minecraft -"
+    ];
+
     systemd.sockets.minecraft-server = lib.mkIf (!cfg.lazymc.enable) {
       bindsTo = [ "minecraft-server.service" ];
       socketConfig = {
@@ -507,14 +511,9 @@ in
             lazymcStartScript
           else
             "${cfg.package}/bin/minecraft-server ${cfg.jvmOpts}";
-        RuntimeDirectory = lib.mkIf cfg.lazymc.enable "minecraft-server";
-        RuntimeDirectoryMode = lib.mkIf cfg.lazymc.enable "0750";
-        ExecStop = lib.mkIf (!cfg.lazymc.enable) "${stopScript} $MAINPID";
         Restart = "always";
         User = "minecraft";
         WorkingDirectory = cfg.dataDir;
-
-        StandardInput = lib.mkIf (!cfg.lazymc.enable) "socket";
         StandardOutput = "journal";
         StandardError = "journal";
 
@@ -542,6 +541,14 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         UMask = "0077";
+      }
+      // lib.optionalAttrs cfg.lazymc.enable {
+        RuntimeDirectory = "minecraft-server";
+        RuntimeDirectoryMode = "0750";
+      }
+      // lib.optionalAttrs (!cfg.lazymc.enable) {
+        ExecStop = "${stopScript} $MAINPID";
+        StandardInput = "socket";
       };
 
       preStart = ''
