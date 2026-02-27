@@ -5,14 +5,14 @@
   nix-update-script,
 }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tsl-hat-trie";
-  version = "0.7.1-unstable-2025-11-11";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "Tessil";
     repo = "hat-trie";
-    rev = "f1380d704eccf753db5f9df175789fff8ff353e0";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-5L3qSlwYc2G60GPFrEz06eAWdUcdBQTVBLLOf1sLP0c=";
   };
 
@@ -25,13 +25,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { };
 
-  meta = {
+  meta = with lib; {
     description = "C++ implementation of a fast and memory efficient HAT-trie";
     homepage = "https://github.com/Tessil/hat-trie";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xyenon ];
-    platforms = lib.platforms.all;
+    license = licenses.mit;
+    maintainers = with maintainers; [ xyenon ];
+    platforms = platforms.all;
   };
-}
+})

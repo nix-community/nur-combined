@@ -13,7 +13,7 @@
   snappy,
   lz4,
   zstd,
-  zlib,
+  zlib-ng,
   onetbb,
   gtest,
   xxHash,
@@ -28,70 +28,21 @@
 }:
 
 let
-  rocksdb_10_6 = rocksdb.overrideAttrs rec {
-    version = "10.6.2";
-    src = fetchFromGitHub {
-      owner = "facebook";
-      repo = "rocksdb";
-      tag = "v${version}";
-      hash = "sha256-Sl5o2uQBS+D43PX827FGTpLIcW6msksFFxGxDyqBdIs=";
-    };
-  };
-
-  jsoncons_1_4 = jsoncons.overrideAttrs rec {
-    version = "1.4.3";
-    src = fetchFromGitHub {
-      owner = "danielaparker";
-      repo = "jsoncons";
-      tag = "v${version}";
-      hash = "sha256-7ySbnWiX5pHMG2BcnLowKegEwjSdkKReh72Y3z8cpLg=";
-    };
-  };
-
   luajit-src = fetchzip {
     url = "https://github.com/RocksLabs/LuaJIT/archive/c0a8e68325ec261a77bde1c8eabad398168ffe74.zip";
     hash = "sha256-Wjh14d0JR5ecAwdYVBjQYIHb2vJ1I61oR0N0LMmtq4E=";
   };
 in
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kvrocks";
-  version = "2.14.0";
+  version = "2.15.0";
 
   src = fetchFromGitHub {
     owner = "apache";
     repo = "kvrocks";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-E3zKZXc23sDB5kiyWv424F8uFek3kwcgNYhxAp5OLWM=";
+    hash = "sha256-s4saKuezPYvcmKSqVBVDbPJcQXr6pVfIWjff7Txg8tY=";
   };
-
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-  ];
-
-  buildInputs = [
-    rocksdb_10_6
-    libevent
-    fmt
-    spdlog
-    snappy
-    lz4
-    zstd
-    zlib
-    onetbb
-    gtest
-    xxHash
-    jemalloc
-    openssl
-    range-v3
-    cpptrace
-    jsoncons_1_4
-    span-lite
-    tsl-hat-trie
-    pegtl
-  ];
 
   postPatch = ''
     # Replace FetchContent-based cmake files with system library finders
@@ -224,6 +175,34 @@ stdenv.mkDerivation (finalAttrs: {
                      'target_include_directories(kvrocks_objs PUBLIC src src/common src/config src/vendor'
   '';
 
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+  ];
+
+  buildInputs = [
+    rocksdb
+    libevent
+    fmt
+    spdlog
+    snappy
+    lz4
+    zstd
+    zlib-ng
+    onetbb
+    gtest
+    xxHash
+    jemalloc
+    openssl
+    range-v3
+    cpptrace
+    jsoncons
+    span-lite
+    tsl-hat-trie
+    pegtl
+  ];
+
   preConfigure = ''
     # Copy LuaJIT to writable location for in-source build
     cp -r ${luajit-src} $TMPDIR/luajit
@@ -239,8 +218,6 @@ stdenv.mkDerivation (finalAttrs: {
     "-DENABLE_STATIC_LIBSTDCXX=OFF"
   ];
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=uninitialized";
-
   installPhase = ''
     runHook preInstall
     install -Dm755 kvrocks -t $out/bin
@@ -249,12 +226,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = {
+  meta = with lib; {
     description = "Distributed key value NoSQL database that uses RocksDB as storage engine and is compatible with Redis protocol";
     homepage = "https://kvrocks.apache.org/";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ xyenon ];
-    platforms = lib.platforms.unix;
+    license = licenses.asl20;
+    maintainers = with maintainers; [ xyenon ];
+    platforms = platforms.unix;
     mainProgram = "kvrocks";
   };
 })
