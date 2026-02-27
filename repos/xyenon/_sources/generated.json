@@ -205,7 +205,7 @@
     },
     "rime-ice-unstable": {
         "cargoLock": null,
-        "date": "2026-02-06",
+        "date": "2026-02-26",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -217,12 +217,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "23f0c39a0b443524e37dbff4f085236b32691291",
-            "sha256": "sha256-Y6/tU63+JQ9HX1m/kI9VQz6tIhFVRAPSsp6Vf47gzUk=",
+            "rev": "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32",
+            "sha256": "sha256-u4KYZaaXDayPHa+TuMKoYoVEmOJm1egonAje+NF65aM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "23f0c39a0b443524e37dbff4f085236b32691291"
+        "version": "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -241,7 +241,7 @@
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
-        "date": "2026-02-21",
+        "date": "2026-02-27",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -253,11 +253,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "b224ddfb4bb6a9b438ac00ccb607b0eb517207d2",
-            "sha256": "sha256-hn6oEFCLhACPh8T/qoPVHbX8Npsjd1EDXsZlm9SzIII=",
+            "rev": "196281844b8cbcac658a59013e4805300c2d6126",
+            "sha256": "sha256-pAkBlodci4Yf+CTjhGuNtgLOTMNquty7xP0/HSeoLzE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b224ddfb4bb6a9b438ac00ccb607b0eb517207d2"
+        "version": "196281844b8cbcac658a59013e4805300c2d6126"
     }
 }
