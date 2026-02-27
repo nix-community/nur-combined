@@ -7,6 +7,13 @@
   pre-commit,
 }:
 
+let
+  inherit (python3.pkgs)
+    typer
+    uv-build
+    ;
+in
+
 python3.pkgs.buildPythonApplication rec {
   pname = "jj-pre-push";
   version = "0.3.3";
@@ -19,9 +26,15 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-dZrZjzygT6Q7jIPkasYgJ2uN3eyPQXsg0opksookLYI=";
   };
 
-  build-system = [ python3.pkgs.uv-build ];
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "<0.10.0" "<=${uv-build.version}" \
+      --replace-warn typer-slim typer
+  '';
 
-  dependencies = with python3.pkgs; [ typer-slim ];
+  build-system = [ uv-build ];
+
+  dependencies = [ typer ];
 
   makeWrapperArgs = [
     "--prefix"
