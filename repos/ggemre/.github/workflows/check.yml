@@ -1,7 +1,10 @@
 name: "Run checks on builds"
 on:
   pull_request:
-    types: [opened, reopened]
+    types:
+      - opened
+      - reopened
+      - synchronize
 jobs:
   tests:
     strategy:
