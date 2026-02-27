@@ -5,7 +5,7 @@
 }:
 buildGoModule (finalAttrs: {
   inherit (sources.deeplx) pname version src;
-  vendorHash = "sha256-HkLlgspXrUHfBGcIsFLDXB4aJzPp6D/MR1/UrY+C7i8=";
+  vendorHash = "sha256-sukJQkCgGZcqGp1VQam8LHdLroSU7wm0WNIC2eX8OQA=";
 
   meta = {
     changelog = "https://github.com/OwO-Network/DeepLX/releases/tag/v${finalAttrs.version}";

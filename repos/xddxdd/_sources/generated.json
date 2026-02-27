@@ -370,12 +370,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "v1.4.3",
-            "sha256": "sha256-En18f98o9IlYB/t2T519zxk4IIZvqt+E6V4mAmvPeLE=",
+            "rev": "v1.4.4",
+            "sha256": "sha256-60QyqilUI0yNCTZrCyUZhQYFio0gP/Z5Lcb3btlQRaE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.4.3"
+        "version": "v1.4.4"
     },
     "boringssl-oqs": {
         "cargoLock": null,
@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.30",
-            "sha256": "sha256-djPdkTRnM3u/FFJqORVa2pTaWHhUeX+uyFRTdGK7jf0=",
+            "rev": "v6.8.32",
+            "sha256": "sha256-Z0ykwaii0UP7pYqrkrfBXIcg8by1p4xEvvRstioYGFc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.30"
+        "version": "v6.8.32"
     },
     "cockpy": {
         "cargoLock": null,
@@ -867,12 +867,12 @@
             "name": null,
             "owner": "OwO-Network",
             "repo": "DeepLX",
-            "rev": "v1.1.0",
-            "sha256": "sha256-LJC9iSH9XrX87hqhZVLgmSml7wLj6G0H6RE6kxKVyFg=",
+            "rev": "v1.1.1",
+            "sha256": "sha256-M51z7iXJmYSRc9bsVPsbhD3v8Fq8Gwg+CO37B18wRZo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.0"
+        "version": "v1.1.1"
     },
     "dingtalk": {
         "cargoLock": null,
@@ -1465,7 +1465,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-02-04",
+        "date": "2026-02-27",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1477,12 +1477,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "a397d0b27eaf897de7b476d7946b7d2cc3b3e1a5",
-            "sha256": "sha256-g3LydulIrwZjFhED/owgwFaJSYguV0W/1/TIpRoo9ac=",
+            "rev": "b6c29a64766358b5d3acdac7ece1f47c1553ebaf",
+            "sha256": "sha256-P9twerKaKfSu4dA81zXdjIjI7KTl6PWT9JMlt3b/jao=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a397d0b27eaf897de7b476d7946b7d2cc3b3e1a5"
+        "version": "b6c29a64766358b5d3acdac7ece1f47c1553ebaf"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8161",
-            "sha256": "sha256-yFzzhCrMhNVGTlzeqRVksiZJbzonSEtF7IqF3zT5e+w=",
+            "rev": "b8179",
+            "sha256": "sha256-UlEhDyfYVQ1WdgPSg1REAbNbfIOVI0FRfBzyFeXQtYY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8161"
+        "version": "b8179"
     },
     "loralib": {
         "cargoLock": null,
@@ -3812,7 +3812,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-02-26",
+        "date": "2026-02-27",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3824,12 +3824,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "f33206648fdf92207616c7c5ebb9d9e2348ba509",
-            "sha256": "sha256-2ruGpYjNomo4X3C7oshdTSSXKK88I567qLly37itBaQ=",
+            "rev": "0b726872b72563861e88f8e3b85842fc5559f40a",
+            "sha256": "sha256-PhsE9xK6xZAEThXqaiMlPCxWLFFI3r8mEilGn6udHP0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f33206648fdf92207616c7c5ebb9d9e2348ba509"
+        "version": "0b726872b72563861e88f8e3b85842fc5559f40a"
     },
     "rtpengine-stable": {
         "cargoLock": null,
