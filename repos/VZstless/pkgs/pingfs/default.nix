@@ -19,7 +19,9 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [ fuse pkg-config ];
 
   buildPhase = ''
+    runHook preBuild
     make
+    runHook postBuild
   '';
 
   installPhase = ''
