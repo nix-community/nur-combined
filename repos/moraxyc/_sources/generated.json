@@ -327,7 +327,7 @@
     },
     "mautrix-telegramgo": {
         "cargoLock": null,
-        "date": "2026-02-16",
+        "date": "2026-02-26",
         "extract": null,
         "name": "mautrix-telegramgo",
         "passthru": null,
@@ -339,12 +339,12 @@
             "name": null,
             "owner": "mautrix",
             "repo": "telegramgo",
-            "rev": "52b237352837c4ddaa4d2cecd3bd84c37dedeaf0",
-            "sha256": "sha256-4tlidsxK3MCc42vlK2BPrGjlroCXE1Ojs89bbNwr4Ms=",
+            "rev": "6af986ded57706c63c05e4ee08e2d049051275c9",
+            "sha256": "sha256-ln5G4QRsxVf9mE6Qx/AmLn73w2TaQxgn7t8fKgYBohs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "52b237352837c4ddaa4d2cecd3bd84c37dedeaf0"
+        "version": "6af986ded57706c63c05e4ee08e2d049051275c9"
     },
     "mm-geofeed-verifier": {
         "cargoLock": null,
@@ -423,11 +423,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-N8DR0x2Y1I+NuGjIeflIDjMqspsryd5BROiv/bjJxxU=",
+            "sha256": "sha256-VuCE74NpfXl6a5iJlyuDM6XZDGzQtDJk9lPef6t0u2I=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay_1.9.13_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.14/NipaPlay_1.9.14_macOS_Universal.dmg"
         },
-        "version": "1.9.13"
+        "version": "1.9.14"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -438,16 +438,16 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-X2qM2COjz6G0zmE6HJ+fIS8fOjuZCbD+wPxg9bWCa+c=",
+            "sha256": "sha256-7vqQFyg6Ckb0wiVN+cYCypOGRkDvkGfFg5p1MVyviFk=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay-1.9.13-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.14/NipaPlay-1.9.14-Linux-amd64.AppImage"
         },
-        "version": "1.9.13"
+        "version": "1.9.14"
     },
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-+oic2gBZiT0wqowEp09HdGb4LepaZfzMXo71TIVmG2w=/Cargo.lock",
+                "sha256-hhY__51qEHmya36g3z8RpgEs5KrY7xhz8jZvipDy72Q=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig="
@@ -461,7 +461,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+oic2gBZiT0wqowEp09HdGb4LepaZfzMXo71TIVmG2w=",
+            "sha256": "sha256-hhY//51qEHmya36g3z8RpgEs5KrY7xhz8jZvipDy72Q=",
             "type": "url",
             "url": "file:///nix/store/2b4crraf56gss7vann33anakd5raqg1h-niri-patched-src.tar.gz"
         },
@@ -497,11 +497,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pdWXkgQ2cuSLELtWfKYLYrZngmZmqaEiZS8b+qVWj6w=",
+            "sha256": "sha256-X33IirmNViJywrNpbUIhT4JZ9h1Llw25PAB6umBUsEs=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602252226/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602262227/geoip.dat"
         },
-        "version": "202602252226"
+        "version": "202602262227"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -512,10 +512,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-e5ude9u3rlN/dhUcRvd2G83Ich7ZSDMUcDjb7msuIaw=",
+            "sha256": "sha256-SxQFzRgBMFNjgRmoFNJRiMs7i1Wc/9kRpGMYwn1ssj0=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602252226/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602262227/geosite.dat"
         },
-        "version": "202602252226"
+        "version": "202602262227"
     }
 }

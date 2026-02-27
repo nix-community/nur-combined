@@ -192,15 +192,15 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "52b237352837c4ddaa4d2cecd3bd84c37dedeaf0";
+    version = "6af986ded57706c63c05e4ee08e2d049051275c9";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "52b237352837c4ddaa4d2cecd3bd84c37dedeaf0";
+      rev = "6af986ded57706c63c05e4ee08e2d049051275c9";
       fetchSubmodules = false;
-      sha256 = "sha256-4tlidsxK3MCc42vlK2BPrGjlroCXE1Ojs89bbNwr4Ms=";
+      sha256 = "sha256-ln5G4QRsxVf9mE6Qx/AmLn73w2TaQxgn7t8fKgYBohs=";
     };
-    date = "2026-02-16";
+    date = "2026-02-26";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -244,18 +244,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.9.13";
+    version = "1.9.14";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay_1.9.13_macOS_Universal.dmg";
-      sha256 = "sha256-N8DR0x2Y1I+NuGjIeflIDjMqspsryd5BROiv/bjJxxU=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.14/NipaPlay_1.9.14_macOS_Universal.dmg";
+      sha256 = "sha256-VuCE74NpfXl6a5iJlyuDM6XZDGzQtDJk9lPef6t0u2I=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.9.13";
+    version = "1.9.14";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.13/NipaPlay-1.9.13-Linux-amd64.AppImage";
-      sha256 = "sha256-X2qM2COjz6G0zmE6HJ+fIS8fOjuZCbD+wPxg9bWCa+c=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.14/NipaPlay-1.9.14-Linux-amd64.AppImage";
+      sha256 = "sha256-7vqQFyg6Ckb0wiVN+cYCypOGRkDvkGfFg5p1MVyviFk=";
     };
   };
   niri = {
@@ -263,10 +263,10 @@
     version = "/nix/store/2b4crraf56gss7vann33anakd5raqg1h-niri-patched-src.tar.gz";
     src = fetchurl {
       url = "file:///nix/store/2b4crraf56gss7vann33anakd5raqg1h-niri-patched-src.tar.gz";
-      sha256 = "sha256-+oic2gBZiT0wqowEp09HdGb4LepaZfzMXo71TIVmG2w=";
+      sha256 = "sha256-hhY//51qEHmya36g3z8RpgEs5KrY7xhz8jZvipDy72Q=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-+oic2gBZiT0wqowEp09HdGb4LepaZfzMXo71TIVmG2w=/Cargo.lock";
+      lockFile = ./. + "/sha256-hhY__51qEHmya36g3z8RpgEs5KrY7xhz8jZvipDy72Q=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -287,18 +287,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202602252226";
+    version = "202602262227";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602252226/geoip.dat";
-      sha256 = "sha256-pdWXkgQ2cuSLELtWfKYLYrZngmZmqaEiZS8b+qVWj6w=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602262227/geoip.dat";
+      sha256 = "sha256-X33IirmNViJywrNpbUIhT4JZ9h1Llw25PAB6umBUsEs=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202602252226";
+    version = "202602262227";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602252226/geosite.dat";
-      sha256 = "sha256-e5ude9u3rlN/dhUcRvd2G83Ich7ZSDMUcDjb7msuIaw=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602262227/geosite.dat";
+      sha256 = "sha256-SxQFzRgBMFNjgRmoFNJRiMs7i1Wc/9kRpGMYwn1ssj0=";
     };
   };
 }
