@@ -8,7 +8,11 @@
   ncurses5,
   glib,
   gtk3,
-  xorg,
+  libx11,
+  libxext,
+  libxtst,
+  libxrender,
+  libxi,
   zlib,
   krb5,
   libusb1,
@@ -85,11 +89,11 @@ buildFHSEnv {
       package
       glib
       gtk3
-      xorg.libX11
-      xorg.libXext
-      xorg.libXtst
-      xorg.libXrender
-      xorg.libXi
+      libx11
+      libxext
+      libxtst
+      libxrender
+      libxi
       zlib
       krb5.lib
       ncurses'

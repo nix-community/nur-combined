@@ -11,8 +11,16 @@ let
   # replace dependency pydantic with pydantic_1
   fastapi-customized =
     (python3Packages.fastapi.override { pydantic = pydantic_1; }).overridePythonAttrs
-      (old: {
-        disabledTestPaths = old.disabledTestPaths ++ [
+      (old: rec {
+        version = "0.116.1";
+        src = old.src.override {
+          tag = version;
+          hash = "sha256-sd0SnaxuuF3Zaxx7rffn4ttBpRmWQoOtXln/amx9rII=";
+        };
+        disabledTestPaths = [
+          # Don't test docs and examples
+          "docs_src"
+          "tests/test_tutorial/test_sql_databases"
           "tests/test_tutorial/test_query_param_models"
         ];
       });

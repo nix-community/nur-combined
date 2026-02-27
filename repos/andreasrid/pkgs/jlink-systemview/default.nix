@@ -48,15 +48,13 @@ buildFHSEnv {
       package
       freetype
       fontconfig
-    ])
-    ++ (with pkgs.xorg; [
-      libSM
-      libICE
-      libXrender
-      libXrandr
-      libXfixes
-      libXcursor
-      libX11
+      libsm
+      libice
+      libxrender
+      libxrandr
+      libxfixes
+      libxcursor
+      libx11
     ])
     ++ extraPkgs;
 }
