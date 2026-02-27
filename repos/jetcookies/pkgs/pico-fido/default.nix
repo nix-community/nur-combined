@@ -11,7 +11,7 @@
   pico-sdk,
 
   # Options
-  # https://github.com/polhenarejos/pico-fido#build-for-raspberry-pico
+  # https://github.com/librekeys/pico-fido#build-for-raspberry-pico
   picoBoard ? "pico",
   vidpid ? "",
   usbVID ? "",
@@ -27,19 +27,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "7.4";
 
   src = fetchFromGitHub {
-    owner = "polhenarejos";
+    owner = "librekeys";
     repo = "pico-fido";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-/IhKw+9NsRoRlm9Qcme+NqsdRN3myusn3ImSk8oAA5U=";
+    rev = "v7.4-librekeys";
+    hash = "sha256-kPIhVMV5pZYDredoE4crF0scragmKIt2LHfZTaqKQ64=";
     fetchSubmodules = true;
   };
 
   mbedtls =
     if enableEdDSA then
       fetchFromGitHub {
-        owner = "polhenarejos";
+        owner = "librekeys";
         repo = "mbedtls";
-        rev = "32604790a0433470ac1836be4faa1e0793035673";
+        rev = "mbedtls-3.6-eddsa";
         hash = "sha256-a2edwKskmOKMy34xsD29OW/TlfHCn5PtUKDliDGUXi8=";
       }
     else
@@ -92,9 +92,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    changelog = "https://github.com/polhenarejos/pico-fido/releases/tag/v${finalAttrs.version}";
     description = "FIDO Passkey for Raspberry Pico and ESP32";
-    homepage = "https://github.com/polhenarejos/pico-fido";
+    homepage = "https://github.com/librekeys/pico-fido";
     license = lib.licenses.agpl3Only;
     platforms = pico-sdk.meta.platforms;
   };
