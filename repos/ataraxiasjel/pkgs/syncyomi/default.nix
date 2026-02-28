@@ -11,16 +11,16 @@
 
 buildGoModule rec {
   pname = "syncyomi";
-  version = "1.1.6";
+  version = "1.1.7";
 
   src = fetchFromGitHub {
     owner = "SyncYomi";
     repo = "SyncYomi";
     tag = "v${version}";
-    hash = "sha256-f+8sK1V3ZTJedSUS2TBRmoraHBZjfuBkh+Pa/ipWzUk=";
+    hash = "sha256-ot8c7+a/YLhjt9HkcI8QZ2ICgtBj3VGJhxtnhWC0f+0=";
   };
 
-  vendorHash = "sha256-fzPEljXFskr1/qzTsnASFNNc+8vA7kqO21mhMqwT44w=";
+  vendorHash = "sha256-7AySGQBQHaTp2M1uj5581ZqcpzgexI1KvanWMOc6rx0=";
 
   web = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "${pname}-web";
