@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.32",
-            "sha256": "sha256-Z0ykwaii0UP7pYqrkrfBXIcg8by1p4xEvvRstioYGFc=",
+            "rev": "v6.8.34",
+            "sha256": "sha256-Um+J5CzmilUMh87wqTli8JHzrAmuJpcMUSHi1hn/j7A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.32"
+        "version": "v6.8.34"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1465,7 +1465,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-02-27",
+        "date": "2026-02-28",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1477,12 +1477,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "b6c29a64766358b5d3acdac7ece1f47c1553ebaf",
-            "sha256": "sha256-P9twerKaKfSu4dA81zXdjIjI7KTl6PWT9JMlt3b/jao=",
+            "rev": "43e05d42d6efd133de191f51337e20504012826a",
+            "sha256": "sha256-Vd+BPXbMVBRzsK97il/e3RfQatGT1tE45NFkFAxCbEU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6c29a64766358b5d3acdac7ece1f47c1553ebaf"
+        "version": "43e05d42d6efd133de191f51337e20504012826a"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -1493,11 +1493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bWkRTJPV862B2GUAqNjJXV8FCNmFjA9y6g2p5zIinfE=",
+            "sha256": "sha256-nwX0UCj4aqTYnc3lFfVwpN5h2EFuemjbTR9znrnGO7k=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.02.25"
+        "version": "2026.02.28"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1508,11 +1508,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-l2CAj9VTPA7uAXtNidmT2HcWQMrvk31PCv+dsS2Y1I0=",
+            "sha256": "sha256-SZ/m8b53sawF86Ak46uX7CxdzEMFrmob7Yd12Y+xJfA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-City.mmdb"
         },
-        "version": "2026.02.25"
+        "version": "2026.02.28"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1523,11 +1523,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yWW8iMNHXPjtaOrnwxcL6BZhK4MvEjAoRp50SQ/keaM=",
+            "sha256": "sha256-0wMeAhllI8u190KREiAz8r4neyEwq+3Utb7lK6eYMr4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-Country.mmdb"
         },
-        "version": "2026.02.25"
+        "version": "2026.02.28"
     },
     "glauth": {
         "cargoLock": null,
@@ -1773,7 +1773,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLock": null,
-        "date": "2026-02-09",
+        "date": "2026-02-28",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -1785,12 +1785,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "9539d37f4254c2567ee6d1f58f360c588fd94e19",
-            "sha256": "sha256-lOgWtmS/bU+y8pi0PTR2DhcYQRkJVvhl7WiyBEn6V9s=",
+            "rev": "c9ac0c3424eeb7e82a3bbe5e0f3cc421039bd4ef",
+            "sha256": "sha256-18rbgAqd+dn72LmTBl/oP+/RMh5zffCISKYsiWIgVOg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9539d37f4254c2567ee6d1f58f360c588fd94e19"
+        "version": "c9ac0c3424eeb7e82a3bbe5e0f3cc421039bd4ef"
     },
     "igsc": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8179",
-            "sha256": "sha256-UlEhDyfYVQ1WdgPSg1REAbNbfIOVI0FRfBzyFeXQtYY=",
+            "rev": "b8182",
+            "sha256": "sha256-i29BWfm4hQdnRvnW224sqZ0tubAZCSAmd+AKmIuGVpg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8179"
+        "version": "b8182"
     },
     "loralib": {
         "cargoLock": null,
@@ -3016,11 +3016,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Z/P6eA8v+bBnHNQodwGfgFYMHzbJjtbVPYYn7RcRApM=",
+            "sha256": "sha256-o3i6mIndaSnhfQ76lld6qyY5w+zePFU2o25ivnONDhI=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.7/PeerBanHelper_9.3.7.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.8/PeerBanHelper_9.3.8.zip"
         },
-        "version": "9.3.7"
+        "version": "9.3.8"
     },
     "phpmyadmin": {
         "cargoLock": null,

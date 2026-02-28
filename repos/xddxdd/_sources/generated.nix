@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.32";
+    version = "v6.8.34";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.32";
-      hash = "sha256-Z0ykwaii0UP7pYqrkrfBXIcg8by1p4xEvvRstioYGFc=";
+      tag = "v6.8.34";
+      hash = "sha256-Um+J5CzmilUMh87wqTli8JHzrAmuJpcMUSHi1hn/j7A=";
     };
   };
   cockpy = {
@@ -760,37 +760,37 @@
   };
   funasr = {
     pname = "funasr";
-    version = "b6c29a64766358b5d3acdac7ece1f47c1553ebaf";
+    version = "43e05d42d6efd133de191f51337e20504012826a";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "b6c29a64766358b5d3acdac7ece1f47c1553ebaf";
-      hash = "sha256-P9twerKaKfSu4dA81zXdjIjI7KTl6PWT9JMlt3b/jao=";
+      rev = "43e05d42d6efd133de191f51337e20504012826a";
+      hash = "sha256-Vd+BPXbMVBRzsK97il/e3RfQatGT1tE45NFkFAxCbEU=";
     };
-    date = "2026-02-27";
+    date = "2026-02-28";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.25";
+    version = "2026.02.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-ASN.mmdb";
-      hash = "sha256-bWkRTJPV862B2GUAqNjJXV8FCNmFjA9y6g2p5zIinfE=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-ASN.mmdb";
+      hash = "sha256-nwX0UCj4aqTYnc3lFfVwpN5h2EFuemjbTR9znrnGO7k=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.25";
+    version = "2026.02.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-City.mmdb";
-      hash = "sha256-l2CAj9VTPA7uAXtNidmT2HcWQMrvk31PCv+dsS2Y1I0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-City.mmdb";
+      hash = "sha256-SZ/m8b53sawF86Ak46uX7CxdzEMFrmob7Yd12Y+xJfA=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.25";
+    version = "2026.02.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-Country.mmdb";
-      hash = "sha256-yWW8iMNHXPjtaOrnwxcL6BZhK4MvEjAoRp50SQ/keaM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-Country.mmdb";
+      hash = "sha256-0wMeAhllI8u190KREiAz8r4neyEwq+3Utb7lK6eYMr4=";
     };
   };
   glauth = {
@@ -920,14 +920,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "9539d37f4254c2567ee6d1f58f360c588fd94e19";
+    version = "c9ac0c3424eeb7e82a3bbe5e0f3cc421039bd4ef";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "9539d37f4254c2567ee6d1f58f360c588fd94e19";
-      hash = "sha256-lOgWtmS/bU+y8pi0PTR2DhcYQRkJVvhl7WiyBEn6V9s=";
+      rev = "c9ac0c3424eeb7e82a3bbe5e0f3cc421039bd4ef";
+      hash = "sha256-18rbgAqd+dn72LmTBl/oP+/RMh5zffCISKYsiWIgVOg=";
     };
-    date = "2026-02-09";
+    date = "2026-02-28";
   };
   igsc = {
     pname = "igsc";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8179";
+    version = "b8182";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8179";
-      hash = "sha256-UlEhDyfYVQ1WdgPSg1REAbNbfIOVI0FRfBzyFeXQtYY=";
+      tag = "b8182";
+      hash = "sha256-i29BWfm4hQdnRvnW224sqZ0tubAZCSAmd+AKmIuGVpg=";
     };
   };
   loralib = {
@@ -1548,10 +1548,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.7";
+    version = "9.3.8";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.7/PeerBanHelper_9.3.7.zip";
-      hash = "sha256-Z/P6eA8v+bBnHNQodwGfgFYMHzbJjtbVPYYn7RcRApM=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.8/PeerBanHelper_9.3.8.zip";
+      hash = "sha256-o3i6mIndaSnhfQ76lld6qyY5w+zePFU2o25ivnONDhI=";
     };
   };
   phpmyadmin = {
