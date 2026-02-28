@@ -30,4 +30,5 @@ in
   waydroid-script = pkgs.callPackage ./pkgs/waydroid-script { };
   wechat = pkgs.callPackage ./pkgs/wechat { };
   windows-fonts = pkgs.callPackage ./pkgs/windows-fonts { };
+  zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
 }

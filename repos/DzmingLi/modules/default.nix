@@ -18,21 +18,27 @@ let
     else
       str;
 
+  # Use plain strings to avoid store-path context when probing for default.nix;
+  # this keeps evaluation working even when the Nix daemon/store is unavailable.
   importModulesFromDir =
     dir:
     let
-      entries = builtins.readDir dir;
+      dirStr = builtins.unsafeDiscardStringContext (toString dir);
+      entries = builtins.readDir dirStr;
       names = builtins.attrNames entries;
       isDefault = name: name == "default.nix";
-      isDir = name: entries.${name} == "directory" && builtins.pathExists "${dir}/${name}/default.nix";
+      hasDefault = name:
+        let path = "${dirStr}/${name}/default.nix"; in
+        builtins.pathExists path;
+      isDir = name: entries.${name} == "directory" && hasDefault name;
       isFile = name: entries.${name} == "regular" && hasSuffix ".nix" name && !isDefault name;
       dirMods = builtins.listToAttrs (map (name: {
         name = name;
-        value = "${dir}/${name}";
+        value = builtins.toPath "${dirStr}/${name}";
       }) (builtins.filter isDir names));
       fileMods = builtins.listToAttrs (map (name: {
         name = removeSuffix ".nix" name;
-        value = "${dir}/${name}";
+        value = builtins.toPath "${dirStr}/${name}";
       }) (builtins.filter isFile names));
     in
     dirMods // fileMods;

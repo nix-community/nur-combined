@@ -14,5 +14,7 @@
       });
       overlays.default = import ./overlay.nix;
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+      homeManagerModules = (import ./modules).home-manager;
+      nixosModules = (import ./modules).nixos;
     };
 }
