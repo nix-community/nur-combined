@@ -14,13 +14,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rofi-snippets";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-PVMhUhdwm8/4W1zVylaj5T3Q1ppszN1ZzGXsjZe8xw4=";
+    hash = "sha256-ePlvVLKe0Pb+F3wLV1vHAxlMQeOuvdndWB0jCu71i+A=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     [ glib cairo pango libxkbcommon ]
     ++ lib.optionals (builtins.elem "x11" features) [ xdotool ];
 
-  cargoHash = "sha256-O6/M+H8Btj3P7Svr409KCA9BCXYj+BVzFL9IJ+pmLdA=";
+  cargoHash = "sha256-LdsXbJL6J04sI+9w0zkyV/bGQz2X5nC1uQ/dRM2voww=";
 
   buildNoDefaultFeatures = true;
   buildFeatures = features;
