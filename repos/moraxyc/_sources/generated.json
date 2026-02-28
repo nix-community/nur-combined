@@ -223,11 +223,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bWkRTJPV862B2GUAqNjJXV8FCNmFjA9y6g2p5zIinfE=",
+            "sha256": "sha256-nwX0UCj4aqTYnc3lFfVwpN5h2EFuemjbTR9znrnGO7k=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.02.25"
+        "version": "2026.02.28"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -238,11 +238,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-l2CAj9VTPA7uAXtNidmT2HcWQMrvk31PCv+dsS2Y1I0=",
+            "sha256": "sha256-SZ/m8b53sawF86Ak46uX7CxdzEMFrmob7Yd12Y+xJfA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-City.mmdb"
         },
-        "version": "2026.02.25"
+        "version": "2026.02.28"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -253,11 +253,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yWW8iMNHXPjtaOrnwxcL6BZhK4MvEjAoRp50SQ/keaM=",
+            "sha256": "sha256-0wMeAhllI8u190KREiAz8r4neyEwq+3Utb7lK6eYMr4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.25/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-Country.mmdb"
         },
-        "version": "2026.02.25"
+        "version": "2026.02.28"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -447,7 +447,7 @@
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-hhY__51qEHmya36g3z8RpgEs5KrY7xhz8jZvipDy72Q=/Cargo.lock",
+                "sha256-Smf_5jQS9Voo90Z_LRnIV6_i14zlu5NdWyLpSRl6JgM=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig="
@@ -461,11 +461,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hhY//51qEHmya36g3z8RpgEs5KrY7xhz8jZvipDy72Q=",
+            "sha256": "sha256-Smf/5jQS9Voo90Z/LRnIV6/i14zlu5NdWyLpSRl6JgM=",
             "type": "url",
-            "url": "file:///nix/store/2b4crraf56gss7vann33anakd5raqg1h-niri-patched-src.tar.gz"
+            "url": "file:///nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz"
         },
-        "version": "/nix/store/2b4crraf56gss7vann33anakd5raqg1h-niri-patched-src.tar.gz"
+        "version": "/nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz"
     },
     "pixy2": {
         "cargoLock": null,
@@ -499,9 +499,9 @@
             "name": null,
             "sha256": "sha256-X33IirmNViJywrNpbUIhT4JZ9h1Llw25PAB6umBUsEs=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602262227/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602272217/geoip.dat"
         },
-        "version": "202602262227"
+        "version": "202602272217"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -512,10 +512,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SxQFzRgBMFNjgRmoFNJRiMs7i1Wc/9kRpGMYwn1ssj0=",
+            "sha256": "sha256-h2KfOUj4CBGy8E5Pp/y78CQbPfyV4SPM0YhjBmS+A9o=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602262227/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602272217/geosite.dat"
         },
-        "version": "202602262227"
+        "version": "202602272217"
     }
 }
