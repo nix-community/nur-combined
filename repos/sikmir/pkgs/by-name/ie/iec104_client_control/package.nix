@@ -8,18 +8,17 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "iec104_client_control";
-  version = "1.0.1";
+  version = "1.0.1-unstable-2026-02-26";
 
   src = fetchFromGitHub {
     owner = "PVKonovalov";
     repo = "iec104_client_control";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-RrQtDehRxQFNbXelIE2KwLH6iMj29CuMmnEjjgHX+hM=";
+    rev = "975971dfd35dd45e7662fcb88393a06b7cccf5e8";
+    hash = "sha256-tQvfX9jN4UTL/IyHRtqDTIu5pB5+ZomEqyo8bSC3EtI=";
   };
 
   postPatch = ''
     sed -i '/LIB_60870/d' CMakeLists.txt
-    sed -i '27i #include <chrono>' main.cpp
   '';
 
   nativeBuildInputs = [ cmake ];
