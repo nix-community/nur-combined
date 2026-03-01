@@ -2,7 +2,6 @@
   fetchFromGitHub,
   stdenv,
   python3,
-  python310,
   pkg-config,
   waf,
   eigen,

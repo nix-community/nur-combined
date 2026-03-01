@@ -6,7 +6,8 @@
 # commands such as:
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}}: let
-  inherit (pkgs) lib hostPlatform;
+  inherit (pkgs) lib;
+  inherit (pkgs.stdenv) hostPlatform;
   ifSupported = with lib; (
     attr:
       mapAttrsRecursiveCond
