@@ -12,7 +12,7 @@
 }: let
     programName = "lceda-pro";
     programNameDesc = "LCEDA Pro";
-    programVersion = "2.2.44.12";
+    programVersion = "3.2.91";
 
     desktopEntry = makeDesktopItem {
         name = programName;
@@ -78,7 +78,7 @@ in stdenv.mkDerivation {
             binaryData
         ];
         maintainers = [ maintainers.srcres258 ];
-        platforms = platforms.linux;
+        platforms = [ "x86_64-linux" ];
         mainProgram = programName;
     };
 }
