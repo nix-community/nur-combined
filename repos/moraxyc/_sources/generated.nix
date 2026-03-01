@@ -130,25 +130,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.02.28";
+    version = "2026.03.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-nwX0UCj4aqTYnc3lFfVwpN5h2EFuemjbTR9znrnGO7k=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.01/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-+tbzDYWFoYqKIu2kFBysp7qSGvDEYcoAvE/NOVQRU6s=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.02.28";
+    version = "2026.03.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.01/GeoLite2-City.mmdb";
       sha256 = "sha256-SZ/m8b53sawF86Ak46uX7CxdzEMFrmob7Yd12Y+xJfA=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.02.28";
+    version = "2026.03.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.02.28/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.01/GeoLite2-Country.mmdb";
       sha256 = "sha256-0wMeAhllI8u190KREiAz8r4neyEwq+3Utb7lK6eYMr4=";
     };
   };
@@ -244,18 +244,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.9.14";
+    version = "1.9.15";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.14/NipaPlay_1.9.14_macOS_Universal.dmg";
-      sha256 = "sha256-VuCE74NpfXl6a5iJlyuDM6XZDGzQtDJk9lPef6t0u2I=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.15/NipaPlay_1.9.15_macOS_Universal.dmg";
+      sha256 = "sha256-VbtWEQZ215UQBRAnEjM2y3mSpK9tUfP74rXmfy88wJI=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.9.14";
+    version = "1.9.15";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.14/NipaPlay-1.9.14-Linux-amd64.AppImage";
-      sha256 = "sha256-7vqQFyg6Ckb0wiVN+cYCypOGRkDvkGfFg5p1MVyviFk=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.15/NipaPlay-1.9.15-Linux-amd64.AppImage";
+      sha256 = "sha256-lR0R8TULrtgqSA60gapAtnfu7QNPGHNU9CNbmubpWQ4=";
     };
   };
   niri = {
@@ -263,10 +263,10 @@
     version = "/nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
     src = fetchurl {
       url = "file:///nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
-      sha256 = "sha256-Smf/5jQS9Voo90Z/LRnIV6/i14zlu5NdWyLpSRl6JgM=";
+      sha256 = "sha256-dtlO22gAaR21UhfNUvMsPvTaYyYheqynBl5eYNDbZVU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Smf_5jQS9Voo90Z_LRnIV6_i14zlu5NdWyLpSRl6JgM=/Cargo.lock";
+      lockFile = ./. + "/sha256-dtlO22gAaR21UhfNUvMsPvTaYyYheqynBl5eYNDbZVU=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -287,18 +287,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202602272217";
+    version = "202602282217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602272217/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602282217/geoip.dat";
       sha256 = "sha256-X33IirmNViJywrNpbUIhT4JZ9h1Llw25PAB6umBUsEs=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202602272217";
+    version = "202602282217";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602272217/geosite.dat";
-      sha256 = "sha256-h2KfOUj4CBGy8E5Pp/y78CQbPfyV4SPM0YhjBmS+A9o=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602282217/geosite.dat";
+      sha256 = "sha256-n0N56SvKoapLp/mheJBXsMYS1lbOaAYe8DHQk1nLY3s=";
     };
   };
 }
