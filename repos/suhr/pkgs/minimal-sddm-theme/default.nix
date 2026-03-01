@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Minimal theme for sddm display manager";
-    homepage = https://github.com/egdoc/minimal-sddm-theme;
+    homepage = "https://github.com/egdoc/minimal-sddm-theme";
     license = licenses.unfree;
     maintainers = [ ];
     platforms = platforms.linux;

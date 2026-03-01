@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     broken = true;
 
     description = "A simple command line time tracker";
-    homepage = https://github.com/Geemili/augr;
+    homepage = "https://github.com/Geemili/augr";
     license = licenses.gpl3;
     maintainers = [ maintainers.suhr ];
     platforms = platforms.all;
