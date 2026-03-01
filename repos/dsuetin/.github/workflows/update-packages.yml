@@ -17,6 +17,6 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update flake packages
-        uses: selfuryon/nix-update-action@v1.1.0
+        uses: gepbird/nix-update-action@v2.1.1
         with:
           token: ${{ secrets.UPDATE_TOKEN }}
