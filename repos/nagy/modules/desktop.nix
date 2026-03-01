@@ -2,10 +2,12 @@
   config,
   pkgs,
   lib,
-  nur,
   ...
 }:
 
+let
+  self = import ../. { inherit pkgs; };
+in
 {
   config = lib.mkIf config.services.xserver.enable {
 
@@ -27,7 +29,7 @@
       pkgs.xcursorthemes
       pkgs.xwininfo
       pkgs.scrot
-      nur.repos.nagy.nsxivBigThumbs
+      self.nsxivBigThumbs
       pkgs.xclip
       pkgs.brave
       pkgs.pulsemixer
@@ -102,11 +104,13 @@
     };
 
     environment.etc."X11/Xresources".text = ''
-      *.font: -USGC-*
       *.background: #000000
       *.foreground: #ffffff
       Xcursor.size: 48
       Xcursor.theme: whiteglass
     '';
+
+    # Too large closure size
+    services.speechd.enable = lib.mkForce false;
   };
 }

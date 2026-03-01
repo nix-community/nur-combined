@@ -21,7 +21,6 @@ rec {
       toSuffix = ".json";
     };
     runtimeInputs = [
-      (pkgs.python3.withPackages (ps: [ ps.python-calamine ]))
       (pkgs.writers.writePython3Bin "xlsx2json" { libraries = ps: [ ps.python-calamine ]; } ''
         import json
         import sys

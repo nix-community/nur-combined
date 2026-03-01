@@ -24,7 +24,7 @@
     enableDefaultPackages = true;
     packages = [
       pkgs.iosevka-comfy.comfy
-      pkgs.etBook # EtBembo https://edwardtufte.github.io/et-book/
+      pkgs.et-book # EtBembo https://edwardtufte.github.io/et-book/
       pkgs.noto-fonts
       pkgs.noto-fonts-monochrome-emoji
       pkgs.nerd-fonts.symbols-only
