@@ -29,7 +29,7 @@ in stdenv.mkDerivation {
     version = programVersion;
     src = fetchzip {
         url = "https://image.lceda.cn/files/lceda-pro-linux-x64-${programVersion}.zip";
-        hash = "sha256-SM+aviLeYKTjZpQO2f1z3ManYjF+WOYWKvIYv7+neu4=";
+        hash = "sha256-sNyKQcRz5cZ4QlqqIAxgAGuKzsSN7N5BiJTgfSTJvYw=";
         stripRoot = false;
     };
 
