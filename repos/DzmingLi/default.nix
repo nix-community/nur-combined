@@ -22,6 +22,7 @@ in
   context7-mcp = pkgs.callPackage ./pkgs/context7-mcp { };
   genryumin-tc = pkgs.callPackage ./pkgs/genryumin { };
   gotham-fonts = pkgs.callPackage ./pkgs/gotham-fonts { };
+  hust-network-login = pkgs.callPackage ./pkgs/hust-network-login { };
   huiwen-mincho = pkgs.callPackage ./pkgs/huiwen-mincho { };
   moonbit = pkgs.callPackage ./pkgs/moonbit { };
   nix-plugin-pijul = pkgs.callPackage ./pkgs/nix-plugin-pijul { };
