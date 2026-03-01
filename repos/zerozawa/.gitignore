@@ -3,3 +3,5 @@ result-*
 tmp
 log
 .pre-commit-config.yaml
+pkgs/UnrealEngine.nix
+*.log

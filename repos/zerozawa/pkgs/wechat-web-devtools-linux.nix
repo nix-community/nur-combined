@@ -51,10 +51,10 @@
 in
   stdenv.mkDerivation rec {
     pname = "wechat-web-devtools-linux";
-    version = "1.06.2504060-1";
+    version = "2.01.2510280-2";
     src = fetchurl {
       url = "https://github.com/msojocs/${pname}/releases/download/v${version}/WeChat_Dev_Tools_v${version}_x86_64_linux.tar.gz";
-      hash = "sha256-fZBMnyChGWfNR8A8v8hGXwL8iPiv00izJoqEuKo2/vY=";
+      hash = "sha256-afzbxUeVh5NBo0mW8r0HgOzzul65xuQfEznw3K//sAs=";
     };
 
     nativeBuildInputs = [
@@ -115,13 +115,20 @@ in
         substituteInPlace $out/share/applications/${pname}.desktop \
           --replace-fail wechat-devtools ${pname}
       ''
-      + (lib.concatStringsSep "\n" (lib.map (x: ''
-        wrapProgram ${x} \
-          --prefix LD_LIBRARY_PATH : "$out/opt/${pname}/nwjs/lib" \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs} \
-          --set-default XDG_CONFIG_HOME "\$HOME/.config" \
-          --set LIBGL_DRIVERS_PATH "${mesa}/lib/dri"
-      '') ["$out/bin/${pname}" "$out/bin/${pname}-cli"]))
+      + (lib.concatStringsSep "\n" (
+        lib.map
+        (x: ''
+          wrapProgram ${x} \
+            --prefix LD_LIBRARY_PATH : "$out/opt/${pname}/nwjs/lib" \
+            --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs} \
+            --set-default XDG_CONFIG_HOME "\$HOME/.config" \
+            --set LIBGL_DRIVERS_PATH "${mesa}/lib/dri"
+        '')
+        [
+          "$out/bin/${pname}"
+          "$out/bin/${pname}-cli"
+        ]
+      ))
       + "\nrunHook postInstall";
 
     meta = with lib; {

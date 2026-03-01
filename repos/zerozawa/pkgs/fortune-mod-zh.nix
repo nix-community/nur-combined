@@ -20,7 +20,6 @@ in
       hash = "sha256-+i0Leyna+F/9vpPNSlVnShug2wLDPi8OpYSwkhW6z14=";
     };
 
-    buildInputs = [fortune];
     nativeBuildInputs = [
       coreutils
       python3
@@ -45,12 +44,13 @@ in
       install -m0644 song100.dat "$out/share/fortune"
       install -m0644 chinese "$out/share/fortune"
       install -m0644 chinese.dat "$out/share/fortune"
+
       runHook postInstall
     '';
 
     meta = with lib; {
-      description = "Chinese ancient poetry fortune.";
-      homepage = "https://github.com/shenyunhang/fortune-zh";
+      description = "Debian Chinese Team: fortune-zh";
+      homepage = "https://salsa.debian.org/chinese-team/fortunes-zh";
       platforms = fortune.meta.platforms;
       license = with licenses; [lgpl3];
       sourceProvenance = with sourceTypes; [fromSource];
