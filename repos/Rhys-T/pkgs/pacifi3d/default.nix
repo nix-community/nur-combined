@@ -1,14 +1,23 @@
 {
     stdenv, lib, fetchurl, SDL_compat,
     romsFromMAME ? null, runCommand, python3,
-    romsFromXML ? if romsFromMAME != null then runCommand "${romsFromMAME.pname}-pacman-roms.xml" {} ''
-        "${lib.getExe romsFromMAME}" -listbrothers puckman \
-            | tail -n +2 \
-            | tr -s ' ' \
-            | cut -d' ' -f2 \
-            | xargs ${lib.getExe romsFromMAME} -listxml \
-            > "$out"
-    '' else null,
+    romsFromXML ? if romsFromMAME != null then let
+        xml = runCommand "${romsFromMAME.pname}-pacman-roms.xml" {} ''
+            "${lib.getExe romsFromMAME}" -listbrothers puckman \
+                | tail -n +2 \
+                | tr -s ' ' \
+                | cut -d' ' -f2 \
+                | xargs ${lib.getExe romsFromMAME} -listxml \
+                > "$out"
+        '';
+        # See NixOS/nixpkgs#495438.
+        xml' = if
+            lib.getName romsFromMAME == "mame" &&
+            lib.versionAtLeast (lib.getVersion romsFromMAME) "0.286" &&
+            (lib.systems.elaborate romsFromMAME.system).isDarwin &&
+            lib.all (p: lib.getName p != "sdl3") romsFromMAME.buildInputs
+        then lib.addMetaAttrs { broken = true; } xml else xml;
+    in xml' else null,
     maintainers
 }: let
     romSourceName = romsFromMAME.name or (lib.removeSuffix ".xml" (romsFromXML.name or ""));
