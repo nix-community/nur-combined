@@ -40,7 +40,7 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Virtual piano instrument using physical modelling synthesis";
-    homepage = https://www.pianoteq.com/;
+    homepage = "https://www.pianoteq.com/";
     license = licenses.unfree;
     maintainers = with maintainers; [ suhr ];
     platforms = platforms.linux;
