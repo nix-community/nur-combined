@@ -5,25 +5,21 @@
   ...
 }:
 buildNpmPackage rec {
-  pname = "bitwarden";
+  pname = "raycast-bitwarden";
   version = "1.0.0";
 
   src =
     fetchgit {
       url = "https://github.com/raycast/extensions";
-      rev = "4a6e46f1dae389a4f8c52f12eb5722542cdfe6f3";
-      sha256 = "sha256-/kVt//0L7KnwDMTW/JzixTDWeAj/e36YOwT4OKYFUCU=";
+      rev = "da0541211ea1b41869002f196f09afb013b28bc1";
+      sha256 = "sha256-YcjrBdqeNgC116LKzfPdz1AmupxwvkmwFBbzBDK7wCI=";
       sparseCheckout = [
         "/extensions/${pname}"
       ];
     }
     + "/extensions/${pname}";
 
-  patches = [
-    ./windows-shortcut-casing.patch
-  ];
-
-  npmDepsHash = "sha256-f4YTY0PxAfZ3boxNSUNVHIePxvU1KZXCBLum+j1hEL4=";
+  npmDepsHash = "sha256-jvocYE8POcfGSDCSpr015zB/5cCbx3jTaMyccO3AVIg=";
 
   installPhase =
     # bash
