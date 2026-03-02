@@ -1,16 +1,16 @@
 { lib, buildGo125Module, fetchFromGitHub }:
 let
-  version = "0.3.3";
+  version = "0.1.0";
 in
 buildGo125Module {
-  pname = "mado";
+  pname = "notizen";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "peacock0803sz";
-    repo = "darwin-mado";
+    repo = "notizen";
     tag = "v${version}";
-    hash = "sha256-9cGe542WXiPbyRMLdzm9a+kgZfHoqvbEHVEROecVTHs=";
+    hash = "sha256-nZFUGoNiTpKIDSV0arD19n/iCwHaHkioe2RDr/Zx1U0=";
   };
 
   vendorHash = "sha256-y8ZUtc70LFItESZsLtor/pd7vJusvCH4AwYzAl0y8u0=";
@@ -18,15 +18,15 @@ buildGo125Module {
   ldflags = [
     "-s"
     "-w"
-    "-X=github.com/peacock0803sz/darwin-mado/cmd/mado/main.version=v${version}"
+    "-X=github.com/peacock0803sz/notizen/cmd/notizen/main.version=v${version}"
   ];
   doCheck = false;
 
   meta = {
-    description = "窓; window - A CLI tool for managing macOS windows";
-    homepage = "https://github.com/peacock0803sz/darwin-mado";
+    description = "A simple note-taking CLI";
+    homepage = "https://github.com/peacock0803sz/notizen";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    mainProgram = "mado";
+    mainProgram = "notizen";
   };
 }

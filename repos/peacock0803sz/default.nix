@@ -17,6 +17,7 @@
   tfcmt = pkgs.callPackage ./pkgs/tfcmt { };
   gwq = pkgs.callPackage ./pkgs/gwq { };
   mado = pkgs.callPackage ./pkgs/mado { };
+  notizen = pkgs.callPackage ./pkgs/mado { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
