@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "hmq";
-  version = "1.5.6";
+  version = "1.5.7";
 
   src = fetchFromGitHub {
     owner = "fhmq";
     repo = "hmq";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vBsUDKrs7add8gFF6dMK5WK8irfWowCrRdB3N4Aegwg=";
+    hash = "sha256-tOp2HPv+iTmmuSd3d8sMfMRQNy+IJrwPtgfO2Zz+Acg=";
   };
 
-  vendorHash = "sha256-bmyFXI6OBddzvu6mJxI/TW3pRqq6w6LsDveBvUd10tk=";
+  vendorHash = "sha256-oTzSCT2vYBYPQAQHBD0exmtuHZUxomf22XZlpECWllM=";
 
   ldflags = [
     "-s"

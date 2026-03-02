@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "overpass-turbo";
-  version = "2026-01-28";
+  version = "2026-02-22";
 
   src = fetchFromGitHub {
     owner = "tyrasd";
     repo = "overpass-turbo";
-    rev = "644c5ec33864d3acadf25b5b7d3e6ad876d09c0d";
-    hash = "sha256-HvCarTfqL33wYlrY6S+tqyc7d4fYqkYgw0P7X/bgTqQ=";
+    rev = "55612905349b668f9f05e0272960c194dc289745";
+    hash = "sha256-s3A33o0jV2edkav2VvkbjRqFJ/qpo+EAATPgc2ZR5JA=";
   };
 
   postPatch = ''
@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-S3MkYiQQUiztdFhfDkoPrI8c77VNx4AQVq0MPrCuqF4=";
+    hash = "sha256-lyz1bcr7bnD5Wp9Srxn6dOH+gVdEQVF6xxuVE3Av3yc=";
   };
 
   nativeBuildInputs = [

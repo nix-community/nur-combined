@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "acarsdec";
-  version = "4.3.1-unstable-2025-11-02";
+  version = "4.4.1";
 
   src = fetchFromGitHub {
     owner = "f00b4r0";
     repo = "acarsdec";
-    rev = "4360dee11600bd6821883c1755fb156328976830";
-    hash = "sha256-jb8YCtOVCkKwtzm6y/wQjYlkekD+ZUGkPb2T3DgoSW8=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-eo5Uj4X8OtGMDTfVgr0TGwSzgUW8QzO0VSFY2Ogzq/M=";
   };
 
   nativeBuildInputs = [

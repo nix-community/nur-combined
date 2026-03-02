@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "geoutils";
-  version = "0.1.17";
+  version = "0.2.5";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "GlacioHack";
     repo = "geoutils";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EfDqr0nKRCoypi7cX3B1Smiw4IaWqQf0v/CpTAFQpzw=";
+    hash = "sha256-uwWIFdNeGoOs5mLIgIMQ+TB1716dmwVTgwWIotIb+cY=";
   };
 
   build-system = with python3Packages; [ setuptools-scm ];

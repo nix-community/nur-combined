@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "comqtt";
-  version = "2.6.1";
+  version = "2.6.2";
 
   src = fetchFromGitHub {
     owner = "wind-c";
     repo = "comqtt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-FUdOzJ2COMrzU4C/xYblrUsW0SzYhESG68DF8Dg1KMM=";
+    hash = "sha256-aknPBbe9bSp33s58SBg/SFhLK1VOuCwOmnHBwCPfwWU=";
   };
 
-  vendorHash = "sha256-aw9sdkDaa2Z1ZrJ38RxilRRnMMMnWRzBrNIq58ia7zE=";
+  vendorHash = "sha256-dK5o3BOskSAb1FU1rndzJTlJJF5l76tBjwPqysh8GwI=";
 
   subPackages = [
     "cmd/single"

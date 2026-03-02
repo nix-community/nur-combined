@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amqtt";
-  version = "0.11.1";
+  version = "0.11.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Yakifo";
     repo = "amqtt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-l/YbfrjJsBA5a/IHH2p/B3irZF/z2xzNYxXOMOieV04=";
+    hash = "sha256-J2BWaUJacsCDa3N9fNohn0l+5Vl4+g8Y8aWetjCfZ/A=";
   };
 
   postPatch = ''
@@ -27,6 +27,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   dependencies = with python3Packages; [
+    dacite
     passlib
     psutil
     pyyaml

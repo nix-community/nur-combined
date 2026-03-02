@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ais-catcher";
-  version = "0.62";
+  version = "0.66";
 
   src = fetchFromGitHub {
     owner = "jvde-github";
     repo = "AIS-catcher";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zeWb3TNhWx/CVs07s/xF1lJYk0jXeR7YaJ2HlRwU5lU=";
+    hash = "sha256-O+6b5AWlQjUJDFEunmsGNs3vV8h/4iCR9PxzwuSVfoM=";
   };
 
   nativeBuildInputs = [

@@ -9,16 +9,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "go-mosquitto";
-  version = "1.0.6";
+  version = "1.0.8";
 
   src = fetchFromGitHub {
     owner = "mutablelogic";
     repo = "go-mosquitto";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eUe6ntxWW0eAQMNSiW73EpZH8SRF/fM9bluBxR3ajY4=";
+    hash = "sha256-JCsIUbQuMkJrzOI3naUZkEJXYPUHAzIucSj/bbhDFFs=";
   };
 
-  vendorHash = "sha256-DAHB9u1S7DkxcpN1zdwFGjZTFLKVQG+O3hK/mqZZUMM=";
+  vendorHash = "sha256-/1xaR3jFqKgyFMBsHmwgWrE7kG5MYX86uqyBmiQqPh4=";
 
   subPackages = [
     "cmd/mqttpub"

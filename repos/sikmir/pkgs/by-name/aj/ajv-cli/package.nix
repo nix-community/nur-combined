@@ -6,16 +6,16 @@
 
 buildNpmPackage rec {
   pname = "ajv-cli";
-  version = "6.0.0-beta.4";
+  version = "6.0.0";
 
   src = fetchFromGitHub {
     owner = "jirutka";
     repo = "ajv-cli";
     tag = "v${version}";
-    hash = "sha256-qk/UQskIybDqU9DSqK5RhPk4ho0Pu1qDcUKra72IMUc=";
+    hash = "sha256-jXWVwo2pUdLPrUrLEK2hL3ayjUwZC/RZCgRavhsVDiQ=";
   };
 
-  npmDepsHash = "sha256-oPJh7kUdZn94NcV5SmNWt4hRvVEF8G4kKux1EV/Z9e8=";
+  npmDepsHash = "sha256-zD+32AFTlOHhmclNQ4PQUjkY6ImAwiLe6sd7NbXAchA=";
 
   meta = {
     description = "Command-line interface for Ajv JSON Validator";

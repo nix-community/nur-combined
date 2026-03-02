@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "goto";
-  version = "1.4.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "grafviktor";
     repo = "goto";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xQIsA/UC9daR1k6c3TMsWWIt3iYVeHd96OxYlFo27oI=";
+    hash = "sha256-UxOxOdT5HZM8u3gSXKt5OygSJz8set5qTJnXdGTpPo8=";
   };
 
-  vendorHash = "sha256-IiwanGg/Q28GWb7+BeHAZbhTP8ZHXiUG1XTwEu5v88w=";
+  vendorHash = "sha256-ngtjhDzZFOcq7bE6JtA7/xfinfRX2qB0ncE+MCgJTTQ=";
 
   ldflags = [
     "-s"

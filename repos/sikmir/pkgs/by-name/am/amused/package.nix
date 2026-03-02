@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "amused";
-  version = "0.16";
+  version = "0.19";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = "amused";
     tag = finalAttrs.version;
-    hash = "sha256-g1TNP5nih43gl4GulHcdKQAXYAZh5y7xiwxjz/asoR4=";
+    hash = "sha256-VF+Jm4dz6Pd4WYBBTgjFN0VpJUVxkQhP+URosvmN8pU=";
   };
 
   nativeBuildInputs = [

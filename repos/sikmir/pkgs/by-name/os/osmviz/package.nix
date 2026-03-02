@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "osmviz";
-  version = "4.4.0";
+  version = "4.5.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "hugovk";
     repo = "osmviz";
     tag = finalAttrs.version;
-    hash = "sha256-rEbCMF5G4C/xJTEqO0XwV+VfoL63alh5IzjOdQ34NzU=";
+    hash = "sha256-Kvdbw5RMBVHt6sM8oGkMM28SPIIegNpJ/53pSpOx36I=";
   };
 
   build-system = with python3Packages; [

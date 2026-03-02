@@ -15,16 +15,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cassini";
-  version = "0.13.0";
+  version = "0.16.0";
 
   src = fetchFromGitHub {
     owner = "NicoRio42";
     repo = "cassini";
     tag = finalAttrs.version;
-    hash = "sha256-up4JCejl+/0t/8F4tG1DaX3aNz6anD2kDb2aO5DdnIE=";
+    hash = "sha256-6KfsB8yz0iXifknSFUi3AayBiNjuVtLFDSBXUkQ6zek=";
   };
 
-  cargoHash = "sha256-JLHHkad0kXY5yFITGnB+g2RIGLnIJmx3cwPnt7idVM8=";
+  cargoHash = "sha256-itHY9LAIQf94rdEdHCWIGBLaD8D4c0id4DDSyU3TIt0=";
 
   nativeBuildInputs = [
     python3 # skia

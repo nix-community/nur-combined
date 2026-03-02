@@ -13,16 +13,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "arnis";
-  version = "2.4.0";
+  version = "2.5.0";
 
   src = fetchFromGitHub {
     owner = "louis-e";
     repo = "arnis";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-A/nDVqv0XA8TD6tfHo9dEknTuhuGmsrv9PqgV7oLPek=";
+    hash = "sha256-LDFzoUNA0LxiiupxFNG932fewGFWfdp948hcULzUExY=";
   };
 
-  cargoHash = "sha256-aRrWdTNZV9/ev//pGkOOR8dKUWZG/fk1tLyZzMTbm6Y=";
+  cargoHash = "sha256-/laozHkeoig/pnzApn0hae/78XL48UAhTMtkvFlxICU=";
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     copyDesktopItems

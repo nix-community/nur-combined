@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "geojson-pydantic";
-  version = "2.0.0";
+  version = "2.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "geojson-pydantic";
     tag = finalAttrs.version;
-    hash = "sha256-SOo4Hs1WMUerMLMgjzUVuDkUXCuiStJ4P9iMSpUF8Uw=";
+    hash = "sha256-7UGU0zdXX0NfZwDiI8NXZrg6KhJmLBjQ9EBe22Yp5hE=";
   };
 
   build-system = with python3Packages; [ flit ];

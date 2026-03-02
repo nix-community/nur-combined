@@ -1,18 +1,18 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
+  fetchFromSourcehut,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edit";
-  version = "0-unstable-2024-02-04";
+  version = "0-unstable-2026-02-19";
 
-  src = fetchFromGitHub {
-    owner = "arthur-jacquin";
+  src = fetchFromSourcehut {
+    owner = "~arthur-jacquin";
     repo = "edit";
-    rev = "d0814100f003649c5afe3ec6cdd0c8d3fd7593f9";
-    hash = "sha256-woFX3nGSOY4RSNPGRAt40xHDNOPlO2t1kgzb8U2v5+U=";
+    rev = "f23ba2414daaa0e5e9c794dde67cfb32a301de15";
+    hash = "sha256-AtAR9WnJ4+R1ic0tayA//3DNrAJet6w2ma7zUbAQjcY=";
   };
 
   makeFlags = [
@@ -20,6 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
     "LDFLAGS="
     "PREFIX=$(out)"
   ];
+
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result";
 
   meta = {
     description = "A suckless, simple, featured text editor";
