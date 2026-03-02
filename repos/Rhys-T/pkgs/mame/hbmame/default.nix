@@ -14,12 +14,12 @@
     } else mame;
     hbmame' = mame'.overrideAttrs (old: rec {
         pname = "hbmame";
-        version = "0.245.30";
+        version = "0.245.31";
         src = fetchFromGitHub {
             owner = "Robbbert";
             repo = "hbmame";
             tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            hash = "sha256-2FzxQXZpXhs5epU2FgKPi2m6VoWAPbxtJefAhYbDh8U=";
+            hash = "sha256-CWNQDctK1/dwgpzaDymozrFvx76TuDpeIe6o6BRdNeY=";
             forceFetchGit = true; # Avoids unstable hash issues - see:
             # https://github.com/NixOS/nixpkgs/issues/84312
             # https://github.com/NixOS/nixpkgs/issues/259488
@@ -71,11 +71,8 @@
         ] [
             "install -Dm755 hbmame -t $out/bin"
             "{artwork,bgfx,plugins,language,ctrlr,hash}" # no keymaps included with HBMAME
-            "installManPage docs/man/*.6" # not installing tools
+            "" # no man pages
         ] installPhase'';
-        postInstall = (old.postInstall or "") + ''
-            mv "$out"/share/man/man6/{,hb}mame.6
-        '';
         postFixup = let
             postFixup = builtins.replaceStrings ["moveToOutput share/man/man1 $tools"] [""] (old.postFixup or "");
         in if postFixup == "\n" then null else postFixup;
