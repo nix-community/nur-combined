@@ -22,6 +22,8 @@ builtins.mapAttrs (
     pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
       name = name;
       src = check.src or ./.;
+
+      buildInputs = check.buildInputs or [ ];
       nativeBuildInputs = check.deps or check.nativeBuildInputs or [ ];
 
       dontConfigure = true;
