@@ -133,7 +133,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
         ]
       ))
       + " -C debuginfo=line-tables-only"
-      + lib.optionalString withNative " -C target-cpu=native"
+      + lib.optionalString withNative " -C target-cpu=x86-64-v3"
       + lib.optionalString withLto " -C lto=thin -C opt-level=3";
 
     # Upstream recommends manually setting the commit hash in build environments without a Git repository
