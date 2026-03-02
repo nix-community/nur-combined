@@ -447,7 +447,7 @@
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-dtlO22gAaR21UhfNUvMsPvTaYyYheqynBl5eYNDbZVU=/Cargo.lock",
+                "sha256-aM4lJy3Dy5wo2KtxdDeB59Pb9NF0sl3do4c_Q2L09bs=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig="
@@ -461,7 +461,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dtlO22gAaR21UhfNUvMsPvTaYyYheqynBl5eYNDbZVU=",
+            "sha256": "sha256-aM4lJy3Dy5wo2KtxdDeB59Pb9NF0sl3do4c/Q2L09bs=",
             "type": "url",
             "url": "file:///nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz"
         },
@@ -499,9 +499,9 @@
             "name": null,
             "sha256": "sha256-X33IirmNViJywrNpbUIhT4JZ9h1Llw25PAB6umBUsEs=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602282217/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603012218/geoip.dat"
         },
-        "version": "202602282217"
+        "version": "202603012218"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -512,10 +512,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-n0N56SvKoapLp/mheJBXsMYS1lbOaAYe8DHQk1nLY3s=",
+            "sha256": "sha256-ZnVtCndfmJNT2x3JtesRGOErQ9CeHcfe+JptewqWsU0=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202602282217/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603012218/geosite.dat"
         },
-        "version": "202602282217"
+        "version": "202603012218"
     }
 }
