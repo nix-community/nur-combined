@@ -103,16 +103,16 @@
   };
   loveiwara = {
     pname = "loveiwara";
-    version = "0.4.2";
+    version = "0.4.3";
     src = fetchFromGitHub {
       owner = "FoxSensei001";
       repo = "LoveIwara";
-      rev = "0.4.2";
+      rev = "0.4.3";
       fetchSubmodules = false;
-      sha256 = "sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=";
+      sha256 = "sha256-55mGXiAZFl6DxRuqnsZalCFTUwqs7RZKV6kq9S966zE=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-55mGXiAZFl6DxRuqnsZalCFTUwqs7RZKV6kq9S966zE=/pubspec.lock";
     };
   };
   lxgw-wenkai-gb = {
@@ -125,25 +125,25 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "67fbccecf8d048cf6ed7a73e93f640469b132b42";
+    version = "625b66df84513dc9b0f878c0739db5339629bf37";
     src = fetchFromGitHub {
       owner = "ccicnce113424";
       repo = "lyrica";
-      rev = "67fbccecf8d048cf6ed7a73e93f640469b132b42";
+      rev = "625b66df84513dc9b0f878c0739db5339629bf37";
       fetchSubmodules = false;
-      sha256 = "sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=";
+      sha256 = "sha256-RHNx3MvLXW7wAX2xftVoodlbxd+ieX5bruYmErdez1g=";
     };
     extract = {
       "plasmoid/metadata.json" =
-        ./. + "/sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=/plasmoid/metadata.json";
+        ./. + "/sha256-RHNx3MvLXW7wAX2xftVoodlbxd+ieX5bruYmErdez1g=/plasmoid/metadata.json";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=/Cargo.lock";
+      lockFile = ./. + "/sha256-RHNx3MvLXW7wAX2xftVoodlbxd+ieX5bruYmErdez1g=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.1" = "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4=";
       };
     };
-    date = "2025-11-27";
+    date = "2026-03-03";
   };
   piliplus = {
     pname = "piliplus";
@@ -190,21 +190,21 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "1c819712707b817ccccb0189f4bc666e472794c9";
+    version = "d99e074fa46ee53c5ed74638263399dea854d088";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "1c819712707b817ccccb0189f4bc666e472794c9";
+      rev = "d99e074fa46ee53c5ed74638263399dea854d088";
       fetchSubmodules = false;
-      sha256 = "sha256-+4WaefwxgK12RI5jc9fKhGUJ45E4yI6HMNANKnPEMfQ=";
+      sha256 = "sha256-pSp0Gn/foR11+zkS1JiqDV6Rqx6Mzk8RL2YlL06SYQU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-+4WaefwxgK12RI5jc9fKhGUJ45E4yI6HMNANKnPEMfQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-pSp0Gn_foR11+zkS1JiqDV6Rqx6Mzk8RL2YlL06SYQU=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-03-01";
+    date = "2026-03-02";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";

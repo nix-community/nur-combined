@@ -174,7 +174,7 @@
     "cargoLock": null,
     "date": null,
     "extract": {
-      "pubspec.lock": "sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=/pubspec.lock"
+      "pubspec.lock": "sha256-55mGXiAZFl6DxRuqnsZalCFTUwqs7RZKV6kq9S966zE=/pubspec.lock"
     },
     "name": "loveiwara",
     "passthru": null,
@@ -186,12 +186,12 @@
       "name": null,
       "owner": "FoxSensei001",
       "repo": "LoveIwara",
-      "rev": "0.4.2",
-      "sha256": "sha256-DoIprqQ4HRuyjp96yIkK9ZG0t1Zny0BXOAlRCNJ9+KA=",
+      "rev": "0.4.3",
+      "sha256": "sha256-55mGXiAZFl6DxRuqnsZalCFTUwqs7RZKV6kq9S966zE=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "0.4.2"
+    "version": "0.4.3"
   },
   "lxgw-wenkai-gb": {
     "cargoLock": null,
@@ -211,15 +211,15 @@
   "lyrica": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=/Cargo.lock",
+        "sha256-RHNx3MvLXW7wAX2xftVoodlbxd+ieX5bruYmErdez1g=/Cargo.lock",
         {
           "netease-cloud-music-api-1.5.1": "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4="
         }
       ]
     },
-    "date": "2025-11-27",
+    "date": "2026-03-03",
     "extract": {
-      "plasmoid/metadata.json": "sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=/plasmoid/metadata.json"
+      "plasmoid/metadata.json": "sha256-RHNx3MvLXW7wAX2xftVoodlbxd+ieX5bruYmErdez1g=/plasmoid/metadata.json"
     },
     "name": "lyrica",
     "passthru": null,
@@ -231,12 +231,12 @@
       "name": null,
       "owner": "ccicnce113424",
       "repo": "lyrica",
-      "rev": "67fbccecf8d048cf6ed7a73e93f640469b132b42",
-      "sha256": "sha256-Tku6wfMWM1UBRDZcayAYLhlR+w2+Ix1AVMhubslPGZU=",
+      "rev": "625b66df84513dc9b0f878c0739db5339629bf37",
+      "sha256": "sha256-RHNx3MvLXW7wAX2xftVoodlbxd+ieX5bruYmErdez1g=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "67fbccecf8d048cf6ed7a73e93f640469b132b42"
+    "version": "625b66df84513dc9b0f878c0739db5339629bf37"
   },
   "piliplus": {
     "cargoLock": null,
@@ -310,11 +310,11 @@
   "splayer-git": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-+4WaefwxgK12RI5jc9fKhGUJ45E4yI6HMNANKnPEMfQ=/Cargo.lock",
+        "sha256-pSp0Gn_foR11+zkS1JiqDV6Rqx6Mzk8RL2YlL06SYQU=/Cargo.lock",
         {}
       ]
     },
-    "date": "2026-03-01",
+    "date": "2026-03-02",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -326,12 +326,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "1c819712707b817ccccb0189f4bc666e472794c9",
-      "sha256": "sha256-+4WaefwxgK12RI5jc9fKhGUJ45E4yI6HMNANKnPEMfQ=",
+      "rev": "d99e074fa46ee53c5ed74638263399dea854d088",
+      "sha256": "sha256-pSp0Gn/foR11+zkS1JiqDV6Rqx6Mzk8RL2YlL06SYQU=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "1c819712707b817ccccb0189f4bc666e472794c9"
+    "version": "d99e074fa46ee53c5ed74638263399dea854d088"
   },
   "svt-av1-hdr": {
     "cargoLock": null,

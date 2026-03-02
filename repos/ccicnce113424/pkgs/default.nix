@@ -8,12 +8,7 @@ let
   unstableVersion = src: "0-unstable-${src.date}";
 in
 rec {
-  _7zip-zstd = pkgs.callPackage ./_7zip-zstd { inherit asmc-linux; };
-  _7zip-zstd-rar = _7zip-zstd.override { enableUnfree = true; };
-
   algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
-
-  asmc-linux = pkgs.callPackage ./asmc-linux/package.nix { };
 
   daed = pkgs.callPackage ./daed { };
 
