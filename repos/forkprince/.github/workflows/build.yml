@@ -50,6 +50,8 @@ jobs:
             --arg apps "$app_list" \
             --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{
+              username: "NUR",
+              avatar_url: "https://api.serversmp.xyz/upload/69a58cf144d40b74d08297dc.webp",
               embeds: [{
                 title: $title,
                 description: "The following apps failed to update:\n```\n\($apps)\n```",
@@ -94,6 +96,8 @@ jobs:
             --arg apps "$app_list" \
             --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{
+              username: "NUR",
+              avatar_url: "https://api.serversmp.xyz/upload/69a58cf144d40b74d08297dc.webp",
               embeds: [{
                 title: $title,
                 description: "The following apps failed even after retry:\n```\n\($apps)\n```",
