@@ -36,8 +36,7 @@ builtins.mapAttrs (
       final: prev: {
         name = name;
 
-        nativeBuildInputs = prev.nativeBuildInputs ++ (check.deps or check.nativeBuildInputs or [ ]); # build-time dependencies
-        buildInputs = prev.buildInputs ++ (check.buildInputs or [ ]); # run-time dependencies
+        nativeBuildInputs = prev.nativeBuildInputs ++ (check.deps or check.nativeBuildInputs or [ ]);
 
         doCheck = true;
         inherit checkPhase;
@@ -70,8 +69,7 @@ builtins.mapAttrs (
         else
           check.src;
 
-      nativeBuildInputs = check.deps or check.nativeBuildInputs or [ ]; # build-time dependencies
-      buildInputs = check.buildInputs or [ ]; # run-time dependencies
+      nativeBuildInputs = check.deps or check.nativeBuildInputs or [ ];
 
       dontConfigure = true;
       dontBuild = true;
@@ -81,7 +79,7 @@ builtins.mapAttrs (
 
       installPhase = ''
         echo "#!${pkgs.runtimeShell}" >> $out
-        echo "export PATH=${pkgs.lib.makeBinPath finalAttrs.buildInputs}:$PATH" >> $out
+        echo "export PATH=${pkgs.lib.makeBinPath finalAttrs.nativeBuildInputs}:$PATH" >> $out
         echo "${finalAttrs.checkPhase}" >> $out
         chmod +x $out
       '';
