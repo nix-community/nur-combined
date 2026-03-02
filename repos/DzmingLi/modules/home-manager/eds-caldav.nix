@@ -91,6 +91,7 @@ let
   '' + lib.optionalString (eds.passwordFile != null) ''
     if [ -f "${eds.passwordFile}" ]; then
       _password=$(tr -d '\n' < "${eds.passwordFile}")
+      GI_TYPELIB_PATH="${pkgs.libsecret}/lib/girepository-1.0''${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}" \
       ${pkgs.python3.withPackages (ps: [ ps.pygobject3 ])}/bin/python3 -c "
 import gi
 gi.require_version('Secret', '1')
