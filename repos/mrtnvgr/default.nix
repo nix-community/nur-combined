@@ -57,11 +57,11 @@ in rec {
     plugins = [ "LUFSMeter" ];
   }).overrideAttrs { pname = "LUFSMeter-vst2"; };
 
-  surge-XT-vst3 = (pkgs.surge-XT.override {
+  surge-xt-vst3 = (pkgs.surge-xt.override {
     buildLV2 = false;
     buildCLAP = false;
     buildStandalone = false;
-  }).overrideAttrs { pname = "surge-XT-vst3"; };
+  }).overrideAttrs { pname = "surge-xt-vst3"; };
 
   lsp-plugins-vst3 = (pkgs.lsp-plugins.override {
     buildVST2 = false;
