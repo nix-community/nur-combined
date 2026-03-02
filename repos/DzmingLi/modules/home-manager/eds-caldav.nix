@@ -15,7 +15,7 @@ let
     path = "/" + lib.concatStringsSep "/" (builtins.tail parts);
   in { inherit host path; };
 
-  mkEdsSource = name: account: let
+  mkEdsSourceBase = name: account: extensionSection: let
     remote = account.remote;
     displayName = if account.eds.displayName != null then account.eds.displayName else name;
     parsed = parseUrl remote.url;
@@ -58,27 +58,43 @@ let
     "EnabledOnMeteredNetwork=true"
     "IntervalMinutes=30"
     ""
+  ] ++ extensionSection);
+
+  mkEdsSource = name: account: mkEdsSourceBase name account [
     "[Calendar]"
     "BackendName=caldav"
     "Color=${account.eds.color}"
     "Selected=true"
     "Order=0"
-  ]);
+  ];
+
+  mkEdsTaskSource = name: account: mkEdsSourceBase name account [
+    "[Task List]"
+    "BackendName=caldav"
+    "Color=${account.eds.color}"
+    "Selected=true"
+    "Order=0"
+  ];
 
   # Generate the source file and optionally store password in libsecret
   mkActivationScript = name: account: let
     sourceContent = mkEdsSource name account;
     sourceFile = pkgs.writeText "eds-caldav-${name}.source" sourceContent;
+    taskSourceContent = mkEdsTaskSource name account;
+    taskSourceFile = pkgs.writeText "eds-caldav-${name}-tasks.source" taskSourceContent;
     eds = account.eds;
   in ''
     _eds_dir="${config.xdg.configHome}/evolution/sources"
     $DRY_RUN_CMD mkdir -p "$_eds_dir"
     $DRY_RUN_CMD cp --no-preserve=mode "${sourceFile}" "$_eds_dir/eds-caldav-${name}.source"
+    $DRY_RUN_CMD cp --no-preserve=mode "${taskSourceFile}" "$_eds_dir/eds-caldav-${name}-tasks.source"
   '' + lib.optionalString (eds.passwordFile != null) ''
     if [ -f "${eds.passwordFile}" ]; then
       _password=$(tr -d '\n' < "${eds.passwordFile}")
       ${pkgs.libsecret}/bin/secret-tool store --label="eds-caldav-${name}" \
         e-source-uid "eds-caldav-${name}" <<< "$_password"
+      ${pkgs.libsecret}/bin/secret-tool store --label="eds-caldav-${name}-tasks" \
+        e-source-uid "eds-caldav-${name}-tasks" <<< "$_password"
     fi
   '';
 
