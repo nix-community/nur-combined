@@ -6,7 +6,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "cpond";
-  version = "unstable-2025-11-23";
+  version = "0-unstable-2025-11-23";
 
   src = fetchFromGitHub {
     owner = "ayuzur";
