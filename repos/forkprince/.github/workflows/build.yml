@@ -28,26 +28,83 @@ jobs:
 
       - name: Update Packages
         id: update
-        continue-on-error: true
         run: |
-          find ./pkgs -name "version.json" -type f | while read -r version_file; do
-            bun ./scripts/index.js "$version_file"
-          done
+          failed_apps=""
+          while IFS= read -r version_file; do
+            app_name=$(basename "$(dirname "$version_file")")
+            if ! bun ./scripts/index.js "$version_file"; then
+              echo "::warning::Failed to update $app_name ($version_file)"
+              failed_apps="${failed_apps}${app_name}\n"
+            fi
+          done < <(find ./pkgs -name "version.json" -type f)
+          echo "failed_apps=${failed_apps}" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Wait
-        if: steps.update.outcome == 'failure'
+      - name: Notify (Discord)
+        if: steps.update.outputs.failed_apps != ''
+        run: |
+          app_list=$(printf '%s' "${{ steps.update.outputs.failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
+          payload=$(jq -n \
+            --arg title "⚠️ NUR package update failures" \
+            --arg desc "The following apps failed to update:\n\`\`\`\n${app_list}\n\`\`\`" \
+            --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{
+              embeds: [{
+                title: $title,
+                description: $desc,
+                color: 16744272,
+                url: $url
+              }]
+            }')
+          curl -s -o /dev/null -w "%{http_code}" \
+            -H "Content-Type: application/json" \
+            -d "$payload" \
+            "${{ secrets.DISCORD }}"
+
+      - name: Wait (5 minutes)
+        if: steps.update.outputs.failed_apps != ''
         run: sleep 300
 
       - name: Retry Updates
-        if: steps.update.outcome == 'failure'
+        if: steps.update.outputs.failed_apps != ''
+        id: retry
         run: |
-          find ./pkgs -name "version.json" -type f | while read -r version_file; do
-            bun ./scripts/index.js "$version_file"
-          done
+          still_failed_apps=""
+          while IFS= read -r version_file; do
+            app_name=$(basename "$(dirname "$version_file")")
+            # Only retry apps that failed in the first pass
+            if printf '%s' "${{ steps.update.outputs.failed_apps }}" | grep -qx "$app_name"; then
+              if ! bun ./scripts/index.js "$version_file"; then
+                echo "::warning::Retry also failed for $app_name ($version_file)"
+                still_failed_apps="${still_failed_apps}${app_name}\n"
+              fi
+            fi
+          done < <(find ./pkgs -name "version.json" -type f)
+          echo "still_failed_apps=${still_failed_apps}" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify (Discord)
+        if: steps.retry.outputs.still_failed_apps != ''
+        run: |
+          app_list=$(printf '%s' "${{ steps.retry.outputs.still_failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
+          payload=$(jq -n \
+            --arg title "🚨 NUR package update still failing after retry" \
+            --arg desc "The following apps failed even after retry:\n\`\`\`\n${app_list}\n\`\`\`" \
+            --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{
+              embeds: [{
+                title: $title,
+                description: $desc,
+                color: 15548997,
+                url: $url
+              }]
+            }')
+          curl -s -o /dev/null -w "%{http_code}" \
+            -H "Content-Type: application/json" \
+            -d "$payload" \
+            "${{ secrets.DISCORD }}"
 
       - name: Commit and push
         run: |

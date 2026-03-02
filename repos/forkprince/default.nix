@@ -15,12 +15,9 @@
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
+  kilo = lib.callPackage ./pkgs/kilo {inherit bun;};
   equicord = lib.callPackage ./pkgs/equicord {};
   hytale = lib.callPackage ./pkgs/hytale {};
-
-  kilo = lib.callPackage ./pkgs/kilo {
-    inherit bun;
-  };
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};

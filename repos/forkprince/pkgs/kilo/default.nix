@@ -16,7 +16,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kilo";
-  version = "7.0.30";
+  version = "7.0.33";
 
   src = fetchFromGitHub {
     owner = "Kilo-Org";
