@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.37";
+    version = "v6.8.39";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.37";
-      hash = "sha256-B48Dosg0Voc+sZr7RH47w5UlAUH7GrOq75h+apKE8iE=";
+      tag = "v6.8.39";
+      hash = "sha256-mzwJJuc586OC+JrwZn+4o5GXzaCSwcd1kulPaP6HjjU=";
     };
   };
   cockpy = {
@@ -728,18 +728,18 @@
   };
   fr24feed-arm64 = {
     pname = "fr24feed-arm64";
-    version = "1.0.54-0";
+    version = "1.0.55-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.54-0_arm64.deb";
-      hash = "sha256-slrK8RABK7+pWwk95+zhEMixq42kouSWHV7Kf0MnoEI=";
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.55-0_arm64.deb";
+      hash = "sha256-K1Uel3b1pFbAvQwyyIK5YpS18GnBT8c7DsB/ZxH71Wk=";
     };
   };
   fr24feed-armhf = {
     pname = "fr24feed-armhf";
-    version = "1.0.54-0";
+    version = "1.0.55-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.54-0_armhf.deb";
-      hash = "sha256-IE4mRtbl3Pu5nUVNwOFzw6+lePy4JWLtvPUVPj2GaK0=";
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.55-0_armhf.deb";
+      hash = "sha256-ibExwCxhjKn3XYV7/TzlCZx+yD6UW6733IbLIk1xWsw=";
     };
   };
   fr24feed-i386 = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8184";
+    version = "b8189";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8184";
-      hash = "sha256-PJmYM2kHMwLQyYgUESSUDbENo3bni5tUWwKvIyn6lv0=";
+      tag = "b8189";
+      hash = "sha256-NflL3quRg3DF6LoEsA+n0PlXaXju127M762VtE+AgXk=";
     };
   };
   loralib = {
@@ -1902,14 +1902,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32";
+    version = "9228654ecf46a0c1b9f29a94256ff6eba384b793";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "7d9415cc2085a1a33ff25682c8a8fbf7ba2eac32";
-      hash = "sha256-u4KYZaaXDayPHa+TuMKoYoVEmOJm1egonAje+NF65aM=";
+      rev = "9228654ecf46a0c1b9f29a94256ff6eba384b793";
+      hash = "sha256-iGrDedW9bfv2byayZ5yZiXk9HKENEwdZQQ6vxrjbE24=";
     };
-    date = "2026-02-26";
+    date = "2026-03-02";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "0b726872b72563861e88f8e3b85842fc5559f40a";
+    version = "f307c32c8081719a13b16fba263526400118a70c";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "0b726872b72563861e88f8e3b85842fc5559f40a";
-      hash = "sha256-PhsE9xK6xZAEThXqaiMlPCxWLFFI3r8mEilGn6udHP0=";
+      rev = "f307c32c8081719a13b16fba263526400118a70c";
+      hash = "sha256-45dNW5sGmsvY9czubgjTLDJbNBkp0XfctiuAVklyjYU=";
     };
-    date = "2026-02-27";
+    date = "2026-03-02";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -1991,12 +1991,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.1.2";
+    version = "v2.1.3";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.1.2";
-      hash = "sha256-dKQREmJ+bzNVkC1nRbrKgzZ3BB38ayOl+HTAYtQyI2o=";
+      tag = "v2.1.3";
+      hash = "sha256-LTGErahXx4VyXbne+OasRcn6biY8IT38tG3XDlsVLM4=";
     };
   };
   sam-toki-mouse-cursors = {
