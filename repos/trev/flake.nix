@@ -33,7 +33,6 @@
           inherit system;
           config.allowUnfree = true;
         };
-        fs = pkgs.lib.fileset;
       in
       rec {
         packages = pkgs.lib.filterAttrs (_: pkg: builtins.elem system pkg.meta.platforms) (
@@ -121,11 +120,9 @@
         checks =
           libs."${system}".mkChecks {
             actions = {
-              src = fs.toSource {
-                root = ./.github/workflows;
-                fileset = ./.github/workflows;
-              };
-              deps = with pkgs; [
+              root = ./.github/workflows;
+              fileset = ./.github/workflows;
+              nativeBuildInputs = with pkgs; [
                 action-validator
                 octoscan
               ];
@@ -136,10 +133,8 @@
             };
 
             renovate = {
-              src = fs.toSource {
-                root = ./.github;
-                fileset = ./.github/renovate.json;
-              };
+              root = ./.github;
+              fileset = ./.github/renovate.json;
               deps = [
                 (pkgs.callPackage ./packages/renovate { })
               ];
@@ -149,10 +144,8 @@
             };
 
             nix = {
-              src = fs.toSource {
-                root = ./.;
-                fileset = fs.fileFilter (file: file.hasExt "nix") ./.;
-              };
+              root = ./.;
+              filter = file: file.hasExt "nix";
               deps = with pkgs; [
                 nixfmt
               ];
@@ -162,10 +155,8 @@
             };
 
             shell = {
-              src = fs.toSource {
-                root = ./.;
-                fileset = fs.fileFilter (file: file.hasExt "sh") ./.;
-              };
+              root = ./.;
+              filter = file: file.hasExt "sh";
               deps = with pkgs; [
                 shellcheck
               ];
@@ -175,10 +166,8 @@
             };
 
             prettier = {
-              src = fs.toSource {
-                root = ./.;
-                fileset = fs.fileFilter (file: file.hasExt "yaml" || file.hasExt "json" || file.hasExt "md") ./.;
-              };
+              root = ./.;
+              filter = file: file.hasExt "yaml" || file.hasExt "json" || file.hasExt "md";
               deps = with pkgs; [
                 prettier
               ];
@@ -187,8 +176,8 @@
               '';
             };
           }
-          // packages
-          // images;
+          // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("package_" + name) value) packages
+          // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("image_" + name) value) images;
 
         formatter = pkgs.nixfmt-tree;
       }

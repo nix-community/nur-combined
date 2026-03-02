@@ -31,7 +31,7 @@ builtins.mapAttrs (
       ''
     );
   in
-  if isDerivation check.src then
+  if check ? src && isDerivation check.src then
     check.src.overrideAttrs (
       final: prev: {
         name = name;
@@ -46,7 +46,18 @@ builtins.mapAttrs (
   else
     pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
       name = name;
-      src = check.src or ./.;
+      src =
+        if check ? root then
+          pkgs.lib.fileset.toSource {
+            root = check.root;
+            fileset =
+              if check ? filter then
+                pkgs.lib.fileset.fileFilter check.filter (if check ? fileset then check.fileset else check.root)
+              else
+                check.fileset;
+          }
+        else
+          check.src;
 
       nativeBuildInputs = check.deps or check.nativeBuildInputs or [ ]; # build-time dependencies
       buildInputs = check.buildInputs or [ ]; # run-time dependencies
