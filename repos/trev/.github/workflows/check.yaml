@@ -38,7 +38,7 @@ jobs:
             --option restrict-eval true \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \
-            -I $PWD
+            -I "$PWD"
 
   build:
     strategy:

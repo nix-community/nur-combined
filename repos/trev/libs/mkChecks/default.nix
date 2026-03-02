@@ -14,11 +14,19 @@ builtins.mapAttrs (
       ++ pkgs.lib.optional (check ? script) check.script
       ++ pkgs.lib.optional (check ? forEach) ''
         shopt -s globstar
-        for f in ./**; do
-          if [[ -f "$f" ]]; then
-            ${check.forEach}
+
+        for_each() {
+          local file="$1"
+          ${check.forEach}
+        }
+
+        for file in ./**; do
+          if [[ -f "$file" ]]; then
+            echo "Checking $(basename "$file")"
+            for_each "$(realpath "$file")"
           fi
         done
+
         shopt -u globstar
       ''
     );

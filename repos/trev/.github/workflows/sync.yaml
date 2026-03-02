@@ -15,14 +15,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Get repos.json
-        run: |
-          curl -o repos.json "https://raw.githubusercontent.com/nix-community/NUR/refs/heads/main/repos.json.lock"
-          echo "REPOS_JSON=$(jq -c . < repos.json)" >> $GITHUB_ENV
-
       - name: Compare revs
         run: |
-          NUR_REV='${{ fromJson(env.REPOS_JSON).repos.trev.rev }}'
+          NUR_REV=$(curl -s "https://raw.githubusercontent.com/nix-community/NUR/refs/heads/main/repos.json.lock" | jq -r '.repos.trev.rev')
           echo "nur rev: ${NUR_REV}"
 
           GIT_REV=$(git rev-parse HEAD)

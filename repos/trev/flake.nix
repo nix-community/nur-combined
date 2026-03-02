@@ -85,6 +85,8 @@
               # util
               nix-update
               gh
+              action-validator
+              octoscan
               (pkgs.callPackage ./packages/nix-fix-hash { })
               (pkgs.callPackage ./packages/fetch-hash { })
             ];
@@ -120,16 +122,16 @@
           libs."${system}".mkChecks {
             actions = {
               src = fs.toSource {
-                root = ./.;
+                root = ./.github/workflows;
                 fileset = ./.github/workflows;
               };
               deps = with pkgs; [
                 action-validator
                 octoscan
               ];
-              script = ''
-                action-validator **/*.yaml
-                octoscan scan .
+              forEach = ''
+                action-validator "$file"
+                octoscan scan "$file" --ignore macos-26
               '';
             };
 
@@ -152,10 +154,10 @@
                 fileset = fs.fileFilter (file: file.hasExt "nix") ./.;
               };
               deps = with pkgs; [
-                nixfmt-tree
+                nixfmt
               ];
-              script = ''
-                treefmt --ci
+              forEach = ''
+                nixfmt --check "$file"
               '';
             };
 
@@ -167,8 +169,8 @@
               deps = with pkgs; [
                 shellcheck
               ];
-              script = ''
-                find -type f -name '*.sh' -exec shellcheck {} +
+              forEach = ''
+                shellcheck "$file"
               '';
             };
 
@@ -180,8 +182,8 @@
               deps = with pkgs; [
                 prettier
               ];
-              script = ''
-                prettier --check .
+              forEach = ''
+                prettier --check "$file"
               '';
             };
           }
