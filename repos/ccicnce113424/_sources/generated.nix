@@ -125,20 +125,20 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "3768309ee209bd4951dd244f048cad9518ea1f0d";
+    version = "b62cb74e9214898e8f56524bd11dedcf83b23874";
     src = fetchFromGitHub {
       owner = "ccicnce113424";
       repo = "lyrica";
-      rev = "3768309ee209bd4951dd244f048cad9518ea1f0d";
+      rev = "b62cb74e9214898e8f56524bd11dedcf83b23874";
       fetchSubmodules = false;
-      sha256 = "sha256-R3E/PVe7PTnBac+uPaATiw6abjIsg5F4qBax0OM6zTw=";
+      sha256 = "sha256-S/Lpum4JQttq1iHorfiqBO9eIEAX+IDMIY0pnXqzNXM=";
     };
     extract = {
       "plasmoid/metadata.json" =
-        ./. + "/sha256-R3E_PVe7PTnBac+uPaATiw6abjIsg5F4qBax0OM6zTw=/plasmoid/metadata.json";
+        ./. + "/sha256-S_Lpum4JQttq1iHorfiqBO9eIEAX+IDMIY0pnXqzNXM=/plasmoid/metadata.json";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-R3E_PVe7PTnBac+uPaATiw6abjIsg5F4qBax0OM6zTw=/Cargo.lock";
+      lockFile = ./. + "/sha256-S_Lpum4JQttq1iHorfiqBO9eIEAX+IDMIY0pnXqzNXM=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.1" = "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4=";
       };
