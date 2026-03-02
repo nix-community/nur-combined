@@ -91,10 +91,20 @@ let
   '' + lib.optionalString (eds.passwordFile != null) ''
     if [ -f "${eds.passwordFile}" ]; then
       _password=$(tr -d '\n' < "${eds.passwordFile}")
-      ${pkgs.libsecret}/bin/secret-tool store --label="eds-caldav-${name}" \
-        e-source-uid "eds-caldav-${name}" <<< "$_password"
-      ${pkgs.libsecret}/bin/secret-tool store --label="eds-caldav-${name}-tasks" \
-        e-source-uid "eds-caldav-${name}-tasks" <<< "$_password"
+      ${pkgs.python3.withPackages (ps: [ ps.pygobject3 ])}/bin/python3 -c "
+import gi
+gi.require_version('Secret', '1')
+from gi.repository import Secret
+schema = Secret.Schema.new('org.gnome.Evolution.Data.Source',
+    Secret.SchemaFlags.DONT_MATCH_NAME,
+    {'e-source-uid': Secret.SchemaAttributeType.STRING})
+import sys
+pw = sys.stdin.read()
+Secret.password_store_sync(schema, {'e-source-uid': 'eds-caldav-${name}'},
+    Secret.COLLECTION_DEFAULT, 'eds-caldav-${name}', pw, None)
+Secret.password_store_sync(schema, {'e-source-uid': 'eds-caldav-${name}-tasks'},
+    Secret.COLLECTION_DEFAULT, 'eds-caldav-${name}-tasks', pw, None)
+" <<< "$_password"
     fi
   '';
 
