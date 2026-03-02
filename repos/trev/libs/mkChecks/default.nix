@@ -51,10 +51,21 @@ builtins.mapAttrs (
           pkgs.lib.fileset.toSource {
             root = check.root;
             fileset =
-              if check ? filter then
-                pkgs.lib.fileset.fileFilter check.filter (if check ? fileset then check.fileset else check.root)
+              let
+                set =
+                  if check ? fileset then
+                    check.fileset
+                  else if check ? filter then
+                    pkgs.lib.fileset.fileFilter check.filter check.root
+                  else
+                    check.root;
+              in
+              if check ? ignore then
+                pkgs.lib.fileset.difference set (
+                  if builtins.isList check.ignore then pkgs.lib.fileset.unions check.ignore else check.ignore
+                )
               else
-                check.fileset;
+                set;
           }
         else
           check.src;
