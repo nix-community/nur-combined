@@ -44,15 +44,15 @@ jobs:
       - name: Notify (Discord)
         if: steps.update.outputs.failed_apps != ''
         run: |
-          app_list=$(printf '%s' "${{ steps.update.outputs.failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
+          app_list=$(printf '%b' "${{ steps.update.outputs.failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
           payload=$(jq -n \
             --arg title "⚠️ NUR package update failures" \
-            --arg desc "The following apps failed to update:\n\`\`\`\n${app_list}\n\`\`\`" \
+            --arg apps "$app_list" \
             --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{
               embeds: [{
                 title: $title,
-                description: $desc,
+                description: "The following apps failed to update:\n```\n\($apps)\n```",
                 color: 16744272,
                 url: $url
               }]
@@ -74,7 +74,7 @@ jobs:
           while IFS= read -r version_file; do
             app_name=$(basename "$(dirname "$version_file")")
             # Only retry apps that failed in the first pass
-            if printf '%s' "${{ steps.update.outputs.failed_apps }}" | grep -qx "$app_name"; then
+            if printf '%b' "${{ steps.update.outputs.failed_apps }}" | grep -qx "$app_name"; then
               if ! bun ./scripts/index.js "$version_file"; then
                 echo "::warning::Retry also failed for $app_name ($version_file)"
                 still_failed_apps="${still_failed_apps}${app_name}\n"
@@ -88,15 +88,15 @@ jobs:
       - name: Notify (Discord)
         if: steps.retry.outputs.still_failed_apps != ''
         run: |
-          app_list=$(printf '%s' "${{ steps.retry.outputs.still_failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
+          app_list=$(printf '%b' "${{ steps.retry.outputs.still_failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
           payload=$(jq -n \
             --arg title "🚨 NUR package update still failing after retry" \
-            --arg desc "The following apps failed even after retry:\n\`\`\`\n${app_list}\n\`\`\`" \
+            --arg apps "$app_list" \
             --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{
               embeds: [{
                 title: $title,
-                description: $desc,
+                description: "The following apps failed even after retry:\n```\n\($apps)\n```",
                 color: 15548997,
                 url: $url
               }]
