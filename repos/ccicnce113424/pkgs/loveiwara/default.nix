@@ -3,12 +3,10 @@
   version,
   srcInfo,
   lib,
-  stdenv,
   flutter338,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
-  mimalloc,
   mpv-unwrapped,
 }:
 let
@@ -20,54 +18,7 @@ flutter.buildFlutterApplication {
   inherit (srcInfo) pubspecLock;
   inherit (srcInfo) gitHashes;
 
-  # from https://github.com/NixOS/nixpkgs/blob/418468ac9527e799809c900eda37cbff999199b6/pkgs/by-name/on/oneanime/package.nix#L81
-  customSourceBuilders = {
-    # unofficial media_kit_libs_linux
-    media_kit_libs_linux =
-      { version, src, ... }:
-      stdenv.mkDerivation rec {
-        pname = "media_kit_libs_linux";
-        inherit version src;
-        inherit (src) passthru;
-
-        postPatch = ''
-          sed -i '/set(MIMALLOC "mimalloc-/,/add_custom_target/d' libs/linux/media_kit_libs_linux/linux/CMakeLists.txt
-          sed -i '/set(PLUGIN_NAME "media_kit_libs_linux_plugin")/i add_custom_target("MIMALLOC_TARGET" ALL DEPENDS ${mimalloc}/lib/mimalloc.o)' libs/linux/media_kit_libs_linux/linux/CMakeLists.txt
-        '';
-
-        installPhase = ''
-          runHook preInstall
-
-          cp -r . $out
-
-          runHook postInstall
-        '';
-      };
-    # unofficial media_kit_video
-    media_kit_video =
-      { version, src, ... }:
-      stdenv.mkDerivation rec {
-        pname = "media_kit_video";
-        inherit version src;
-        inherit (src) passthru;
-
-        postPatch = ''
-          sed -i '/if(ARCH_NAME STREQUAL "x86_64")/,/if(MEDIA_KIT_LIBS_AVAILABLE)/{ /if(MEDIA_KIT_LIBS_AVAILABLE)/!d; /set(LIBMPV_ZIP_URL/d }' media_kit_video/linux/CMakeLists.txt
-          sed -i '/if(MEDIA_KIT_LIBS_AVAILABLE)/i \
-            set(LIBMPV_UNZIP_DIR "${mpv-unwrapped}/lib")\n\
-            set(LIBMPV_PATH "${mpv-unwrapped}/lib")\n\
-            set(LIBMPV_HEADER_UNZIP_DIR "${mpv-unwrapped.dev}/include")' media_kit_video/linux/CMakeLists.txt
-        '';
-
-        installPhase = ''
-          runHook preInstall
-
-          cp -r . $out
-
-          runHook postInstall
-        '';
-      };
-  };
+  customSourceBuilders.sqlite3_flutter_libs = { src, ... }: src;
 
   desktopItems = [
     (makeDesktopItem {
