@@ -23,6 +23,7 @@ rec
   fiz = pkgs.callPackage ./pkgs/fiz { };
   loko = pkgs.callPackage ./pkgs/loko { };
   q5go = pkgs.callPackage ./pkgs/q5go { };
+  qbittorrent-dual-boot = pkgs.callPackage ./pkgs/qbittorrent-dual-boot { };
   soar = pkgs.callPackage ./pkgs/soar { };
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
   zju-learning-assistant = pkgs.callPackage ./pkgs/zju-learning-assistant { };
