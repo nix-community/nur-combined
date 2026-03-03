@@ -437,11 +437,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-T8AJQF+SkqK3cS1+YLLUkWyN9H5xu4vAvA0OGCuGPko=",
+            "sha256": "sha256-oUfP81ViJvvKUhFvCOlvuXBACKV2PvWNCLdCb90BxBU=",
             "type": "url",
-            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.2.0/cops-4.2.0-php84.zip"
+            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.3.1/cops-4.3.1-php84.zip"
         },
-        "version": "4.2.0"
+        "version": "4.3.1"
     },
     "cef-binary": {
         "cargoLock": null,
@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.39",
-            "sha256": "sha256-mzwJJuc586OC+JrwZn+4o5GXzaCSwcd1kulPaP6HjjU=",
+            "rev": "v6.8.40",
+            "sha256": "sha256-zOSK9hw3PfIUA29KePdS68BuhKltpt23/RERKeilASE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.39"
+        "version": "v6.8.40"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1144,7 +1144,7 @@
     },
     "ela-widget-tools": {
         "cargoLock": null,
-        "date": "2026-03-01",
+        "date": "2026-03-03",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "7310f94048a3ab87a7c13d9a4ec25f3c4b5a6b92",
-            "sha256": "sha256-ksqnhiW5AsTUCXlVSmLvT6+BGNiUBE2rrGWxC29Ksf8=",
+            "rev": "9f98e922e10a2f17ea3b0247eae527edd012eb31",
+            "sha256": "sha256-sg2NRZOo63UYUxFJoKEQ1MO7kJ7J3AHaCfNv04kGsqY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7310f94048a3ab87a7c13d9a4ec25f3c4b5a6b92"
+        "version": "9f98e922e10a2f17ea3b0247eae527edd012eb31"
     },
     "email-oauth2-proxy": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8189",
-            "sha256": "sha256-NflL3quRg3DF6LoEsA+n0PlXaXju127M762VtE+AgXk=",
+            "rev": "b8192",
+            "sha256": "sha256-7/zaDYbdKEu9ovC3DuMxvcIwZDOJ4UCKLtQQDmZphwU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8189"
+        "version": "b8192"
     },
     "loralib": {
         "cargoLock": null,
@@ -2625,12 +2625,12 @@
             "name": null,
             "owner": "nginx",
             "repo": "njs",
-            "rev": "0.9.5",
-            "sha256": "sha256-mmMXtVtAwOrblfg6VkWK2nTyQGjhmEc8ZdHvytP2+CE=",
+            "rev": "0.9.6",
+            "sha256": "sha256-MU1948qakc+ZSH30r2s0v3JZEtBoiuvUfRCfmzlpiEQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.9.5"
+        "version": "0.9.6"
     },
     "ngx_brotli": {
         "cargoLock": null,
@@ -3812,7 +3812,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-03-02",
+        "date": "2026-03-03",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3824,12 +3824,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "f307c32c8081719a13b16fba263526400118a70c",
-            "sha256": "sha256-45dNW5sGmsvY9czubgjTLDJbNBkp0XfctiuAVklyjYU=",
+            "rev": "68c6bf60a8e239bd8e39b6e79a4cd641c2a52a06",
+            "sha256": "sha256-DlEmUIzuhMF/ix6ogvxbWRpl5psQFX1bYcsXd05U9BU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f307c32c8081719a13b16fba263526400118a70c"
+        "version": "68c6bf60a8e239bd8e39b6e79a4cd641c2a52a06"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -3887,12 +3887,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v2.1.3",
-            "sha256": "sha256-LTGErahXx4VyXbne+OasRcn6biY8IT38tG3XDlsVLM4=",
+            "rev": "v2.1.4",
+            "sha256": "sha256-PhOMszLROYqkd8+tcHdTe4nnB3q3AJkzVNOJFP96vSA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.1.3"
+        "version": "v2.1.4"
     },
     "sam-toki-mouse-cursors": {
         "cargoLock": null,
@@ -3953,7 +3953,7 @@
     },
     "sidestore-vpn": {
         "cargoLock": null,
-        "date": "2026-02-06",
+        "date": "2026-03-02",
         "extract": null,
         "name": "sidestore-vpn",
         "passthru": null,
@@ -3965,12 +3965,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "sidestore-vpn",
-            "rev": "f2908f90552dbf2f6e2865c922a42984bcabdc99",
-            "sha256": "sha256-+FbYDns6VfAExtyQII/V8CivR4nspf6JWb0h7miui2U=",
+            "rev": "c33f99455c041860f01184626cf71d6e7926f07d",
+            "sha256": "sha256-WVvZeeaWv/j1X6M+911LmYEgM7TGiwBas/qIGWRBtWQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f2908f90552dbf2f6e2865c922a42984bcabdc99"
+        "version": "c33f99455c041860f01184626cf71d6e7926f07d"
     },
     "silero-vad": {
         "cargoLock": null,
@@ -4655,7 +4655,7 @@
     },
     "zstd-nginx-module": {
         "cargoLock": null,
-        "date": "2025-07-07",
+        "date": "2026-03-04",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,
@@ -4667,11 +4667,11 @@
             "name": null,
             "owner": "HanadaLee",
             "repo": "ngx_http_zstd_module",
-            "rev": "87f3302e72e0faf721db0cc9462d0a9b960e4061",
-            "sha256": "sha256-OJEEUK1inS8chCLWNZOh3VsW6TwYgh2F1z0jKV5IE8c=",
+            "rev": "f81c5f811d3ba3f46af040d140766ea65cca029e",
+            "sha256": "sha256-MI5dZg7I8F6Yd1rHijEb5bsOaOn6IkzrvM2DTNtHBog=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "87f3302e72e0faf721db0cc9462d0a9b960e4061"
+        "version": "f81c5f811d3ba3f46af040d140766ea65cca029e"
     }
 }

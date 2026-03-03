@@ -229,10 +229,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "4.2.0";
+    version = "4.3.1";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.2.0/cops-4.2.0-php84.zip";
-      hash = "sha256-T8AJQF+SkqK3cS1+YLLUkWyN9H5xu4vAvA0OGCuGPko=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.3.1/cops-4.3.1-php84.zip";
+      hash = "sha256-oUfP81ViJvvKUhFvCOlvuXBACKV2PvWNCLdCb90BxBU=";
     };
   };
   cef-binary = {
@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.39";
+    version = "v6.8.40";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.39";
-      hash = "sha256-mzwJJuc586OC+JrwZn+4o5GXzaCSwcd1kulPaP6HjjU=";
+      tag = "v6.8.40";
+      hash = "sha256-zOSK9hw3PfIUA29KePdS68BuhKltpt23/RERKeilASE=";
     };
   };
   cockpy = {
@@ -596,14 +596,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "7310f94048a3ab87a7c13d9a4ec25f3c4b5a6b92";
+    version = "9f98e922e10a2f17ea3b0247eae527edd012eb31";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "7310f94048a3ab87a7c13d9a4ec25f3c4b5a6b92";
-      hash = "sha256-ksqnhiW5AsTUCXlVSmLvT6+BGNiUBE2rrGWxC29Ksf8=";
+      rev = "9f98e922e10a2f17ea3b0247eae527edd012eb31";
+      hash = "sha256-sg2NRZOo63UYUxFJoKEQ1MO7kJ7J3AHaCfNv04kGsqY=";
     };
-    date = "2026-03-01";
+    date = "2026-03-03";
   };
   email-oauth2-proxy = {
     pname = "email-oauth2-proxy";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8189";
+    version = "b8192";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8189";
-      hash = "sha256-NflL3quRg3DF6LoEsA+n0PlXaXju127M762VtE+AgXk=";
+      tag = "b8192";
+      hash = "sha256-7/zaDYbdKEu9ovC3DuMxvcIwZDOJ4UCKLtQQDmZphwU=";
     };
   };
   loralib = {
@@ -1350,12 +1350,12 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.9.5";
+    version = "0.9.6";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      tag = "0.9.5";
-      hash = "sha256-mmMXtVtAwOrblfg6VkWK2nTyQGjhmEc8ZdHvytP2+CE=";
+      tag = "0.9.6";
+      hash = "sha256-MU1948qakc+ZSH30r2s0v3JZEtBoiuvUfRCfmzlpiEQ=";
     };
   };
   ngx_brotli = {
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "f307c32c8081719a13b16fba263526400118a70c";
+    version = "68c6bf60a8e239bd8e39b6e79a4cd641c2a52a06";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "f307c32c8081719a13b16fba263526400118a70c";
-      hash = "sha256-45dNW5sGmsvY9czubgjTLDJbNBkp0XfctiuAVklyjYU=";
+      rev = "68c6bf60a8e239bd8e39b6e79a4cd641c2a52a06";
+      hash = "sha256-DlEmUIzuhMF/ix6ogvxbWRpl5psQFX1bYcsXd05U9BU=";
     };
-    date = "2026-03-02";
+    date = "2026-03-03";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -1991,12 +1991,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.1.3";
+    version = "v2.1.4";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.1.3";
-      hash = "sha256-LTGErahXx4VyXbne+OasRcn6biY8IT38tG3XDlsVLM4=";
+      tag = "v2.1.4";
+      hash = "sha256-PhOMszLROYqkd8+tcHdTe4nnB3q3AJkzVNOJFP96vSA=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2030,14 +2030,14 @@
   };
   sidestore-vpn = {
     pname = "sidestore-vpn";
-    version = "f2908f90552dbf2f6e2865c922a42984bcabdc99";
+    version = "c33f99455c041860f01184626cf71d6e7926f07d";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "sidestore-vpn";
-      rev = "f2908f90552dbf2f6e2865c922a42984bcabdc99";
-      hash = "sha256-+FbYDns6VfAExtyQII/V8CivR4nspf6JWb0h7miui2U=";
+      rev = "c33f99455c041860f01184626cf71d6e7926f07d";
+      hash = "sha256-WVvZeeaWv/j1X6M+911LmYEgM7TGiwBas/qIGWRBtWQ=";
     };
-    date = "2026-02-06";
+    date = "2026-03-02";
   };
   silero-vad = {
     pname = "silero-vad";
@@ -2391,13 +2391,13 @@
   };
   zstd-nginx-module = {
     pname = "zstd-nginx-module";
-    version = "87f3302e72e0faf721db0cc9462d0a9b960e4061";
+    version = "f81c5f811d3ba3f46af040d140766ea65cca029e";
     src = fetchFromGitHub {
       owner = "HanadaLee";
       repo = "ngx_http_zstd_module";
-      rev = "87f3302e72e0faf721db0cc9462d0a9b960e4061";
-      hash = "sha256-OJEEUK1inS8chCLWNZOh3VsW6TwYgh2F1z0jKV5IE8c=";
+      rev = "f81c5f811d3ba3f46af040d140766ea65cca029e";
+      hash = "sha256-MI5dZg7I8F6Yd1rHijEb5bsOaOn6IkzrvM2DTNtHBog=";
     };
-    date = "2025-07-07";
+    date = "2026-03-04";
   };
 }
