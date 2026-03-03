@@ -87,6 +87,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Program matching and transformation engine";
     homepage = "https://coccinelle.gitlabpages.inria.fr/website/";
     license = lib.licenses.gpl2;
-    mainProgram = "spatch";
+    mainProgram = [ "spatch" "spgen" ];
   };
 })
