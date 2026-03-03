@@ -1,7 +1,7 @@
 {
   sources,
   lib,
-  stdenv,
+  gcc14Stdenv,
   cmake,
   mkl,
   pcre2,
@@ -11,7 +11,7 @@ let
   mklStatic = mkl.override { enableStatic = true; };
   suffix = if buildArch != null then "-${buildArch}" else "";
 in
-stdenv.mkDerivation (finalAttrs: {
+gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "${sources.linguaspark-core.pname}${suffix}";
   inherit (sources.linguaspark-core) version src;
   sourceRoot = "source/linguaspark";

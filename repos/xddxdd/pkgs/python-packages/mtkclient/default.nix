@@ -10,6 +10,7 @@
   flake8,
   fusepy,
   keystone-engine,
+  hatchling,
   mock,
   pycryptodome,
   pycryptodomex,
@@ -31,6 +32,7 @@ buildPythonPackage rec {
     flake8
     fusepy
     keystone-engine
+    hatchling
     mock
     pycryptodome
     pycryptodomex

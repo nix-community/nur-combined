@@ -1,10 +1,14 @@
 {
   sources,
   lib,
-  openssl,
+  openssl_3_6,
 }:
-openssl.overrideAttrs (old: {
+openssl_3_6.overrideAttrs (old: {
   inherit (sources.openssl-ech) pname version src;
+
+  patches = (builtins.filter (p: !(lib.hasInfix "use-etc-ssl-certs.patch" "${p}")) old.patches) ++ [
+    ./use-etc-ssl-certs.patch
+  ];
 
   meta = old.meta // {
     maintainers = with lib.maintainers; [ xddxdd ];

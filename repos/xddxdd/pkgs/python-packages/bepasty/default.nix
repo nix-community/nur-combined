@@ -2,6 +2,7 @@
   lib,
   sources,
   buildPythonPackage,
+  callPackage,
   # Dependencies
   flask,
   pygments,
@@ -9,7 +10,6 @@
   setuptools,
   xstatic-asciinema-player,
   xstatic-bootbox,
-  xstatic-bootstrap,
   xstatic-font-awesome,
   xstatic-jquery-file-upload,
   xstatic-jquery-ui,
@@ -17,6 +17,9 @@
   xstatic-pygments,
   xstatic,
 }:
+let
+  xstatic-bootstrap = callPackage ./xstatic-bootstrap-4.nix { };
+in
 buildPythonPackage rec {
   inherit (sources.bepasty) pname version src;
   pyproject = true;
