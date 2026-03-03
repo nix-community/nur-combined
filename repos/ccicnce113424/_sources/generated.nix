@@ -125,20 +125,20 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "9fd29c66651924e07966dff0f60019ae9e11c64f";
+    version = "cef566473193300ccaaca6945ef34524cf685a53";
     src = fetchFromGitHub {
       owner = "ccicnce113424";
       repo = "lyrica";
-      rev = "9fd29c66651924e07966dff0f60019ae9e11c64f";
+      rev = "cef566473193300ccaaca6945ef34524cf685a53";
       fetchSubmodules = false;
-      sha256 = "sha256-r/6MQWl8HopEuY3NeVm2Ry/f5m9fkpQrQOjooWPnFBE=";
+      sha256 = "sha256-ILonmoyhFNWhfqmuNIdhY7B0jsE+j0O909GxHAimKW4=";
     };
     extract = {
       "plasmoid/metadata.json" =
-        ./. + "/sha256-r_6MQWl8HopEuY3NeVm2Ry_f5m9fkpQrQOjooWPnFBE=/plasmoid/metadata.json";
+        ./. + "/sha256-ILonmoyhFNWhfqmuNIdhY7B0jsE+j0O909GxHAimKW4=/plasmoid/metadata.json";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-r_6MQWl8HopEuY3NeVm2Ry_f5m9fkpQrQOjooWPnFBE=/Cargo.lock";
+      lockFile = ./. + "/sha256-ILonmoyhFNWhfqmuNIdhY7B0jsE+j0O909GxHAimKW4=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.1" = "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4=";
       };
@@ -147,16 +147,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "1.1.6";
+    version = "2.0.0";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "1.1.6";
+      rev = "2.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-nHqvYy6/Oy/er2fyXaYIfExCAbkXeD4gSBSr1omuIoc=";
+      sha256 = "sha256-t12pQIdBB75ZIZ283be0BjiK6ktSrFCAEbOxmCvKqJ8=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-nHqvYy6_Oy_er2fyXaYIfExCAbkXeD4gSBSr1omuIoc=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-t12pQIdBB75ZIZ283be0BjiK6ktSrFCAEbOxmCvKqJ8=/pubspec.lock";
     };
   };
   pixes = {
