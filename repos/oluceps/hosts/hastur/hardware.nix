@@ -17,10 +17,10 @@
   #   tailor-gui.enable = true;
   # };
 
-  services.scx = {
-    enable = true;
-    scheduler = "scx_lavd";
-  };
+  # services.scx = {
+  #   enable = true;
+  #   scheduler = "scx_lavd";
+  # };
   boot = {
     tmp.useTmpfs = true;
     loader.efi = {
@@ -48,8 +48,8 @@
     '';
     kernelPackages =
       # (inputs.nix-cachyos-kernel.mkFixedVersionKernelWith pkgs).linuxPackages-cachyos-latest-lto;
-      # pkgs.linuxPackages_stable;
-      inputs'.nixpkgs-2505-kernel.legacyPackages.linuxPackages;
+      # pkgs.linuxPackages_testing;
+      inputs'.nixpkgs-rstable.legacyPackages.linuxPackages;
     blacklistedKernelModules = [ "hid_nintendo" ];
     # pkgs.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [

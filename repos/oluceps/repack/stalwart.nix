@@ -11,8 +11,8 @@ reIf {
     587
     465
   ];
-  systemd.services.stalwart-mail.serviceConfig.EnvironmentFile = config.vaultix.secrets.stalwart.path;
-  services.stalwart-mail = {
+  systemd.services.stalwart.serviceConfig.EnvironmentFile = config.vaultix.secrets.stalwart.path;
+  services.stalwart = {
     enable = true;
     settings = {
       http.use-x-forwarded = true;

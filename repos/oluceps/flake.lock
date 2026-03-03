@@ -2526,6 +2526,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-rstable": {
+      "locked": {
+        "lastModified": 1704290814,
+        "narHash": "sha256-LWvKHp7kGxk/GEtlrGYV68qIvPHkU9iToomNFGagixU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "70bdadeb94ffc8806c0570eb5c2695ad29f0e421",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1724316499,
@@ -3507,6 +3523,7 @@
         "nixpkgs-fix-mautrix": "nixpkgs-fix-mautrix",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-origin-vaul": "nixpkgs-origin-vaul",
+        "nixpkgs-rstable": "nixpkgs-rstable",
         "nixpkgs-stable": "nixpkgs-stable_4",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nixyDomains": "nixyDomains",

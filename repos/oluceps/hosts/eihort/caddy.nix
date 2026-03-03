@@ -334,6 +334,18 @@
           }
         ];
 
+        # tls_connection_policies = [
+        #   {
+        #     match = {
+        #       sni = [
+        #         "*.*.nyaw.xyz"
+        #         "*.nyaw.xyz"
+        #         "nyaw.xyz"
+        #       ];
+        #     };
+        #     protocol_min = "tls1.3";
+        #   }
+        # ];
         tls_connection_policies = [
           {
             match = {
@@ -343,63 +355,52 @@
                 "nyaw.xyz"
               ];
             };
+            certificate_selection = {
+              any_tag = [ "cert0" ];
+            };
             protocol_min = "tls1.3";
           }
         ];
-        # tls_connection_policies = [
-        #   {
-        #     match = {
-        #       sni = [
-        #         "*.nyaw.xyz"
-        #         "nyaw.xyz"
-        #       ];
-        #     };
-        #     certificate_selection = {
-        #       any_tag = [ "cert0" ];
-        #     };
-        #     protocol_min = "tls1.3";
-        #   }
-        # ];
       };
 
-      tls =
-        let
-          dns = {
-            name = "cloudflare";
-            api_token = "{env.CF_API_TOKEN}";
-            zone_token = "{env.CF_ZONE_TOKEN}";
-          };
-        in
-        {
-          inherit dns;
-          automation.policies = [
-            {
-              issuers = [
-                {
-                  module = "acme";
-                  email = "mn1.674927211@gmail.com";
-                  challenges.dns.provider = dns;
-                  preferred_chains.smallest = true;
-                }
-              ];
-              key_type = "p256";
-            }
-          ];
-          encrypted_client_hello.configs = [
-            {
-              public_name = "nyaw.xyz";
-            }
-          ];
-        };
-      # tls = {
-      #   certificates.load_files = [
-      #     {
-      #       certificate = "/run/credentials/caddy.service/nyaw.cert";
-      #       key = "/run/credentials/caddy.service/nyaw.key";
-      #       tags = [ "cert0" ];
-      #     }
-      #   ];
-      # };
+      # tls =
+      #   let
+      #     dns = {
+      #       name = "cloudflare";
+      #       api_token = "{env.CF_API_TOKEN}";
+      #       zone_token = "{env.CF_ZONE_TOKEN}";
+      #     };
+      #   in
+      #   {
+      #     inherit dns;
+      #     automation.policies = [
+      #       {
+      #         issuers = [
+      #           {
+      #             module = "acme";
+      #             email = "mn1.674927211@gmail.com";
+      #             challenges.dns.provider = dns;
+      #             preferred_chains.smallest = true;
+      #           }
+      #         ];
+      #         key_type = "p256";
+      #       }
+      #     ];
+      #     encrypted_client_hello.configs = [
+      #       {
+      #         public_name = "nyaw.xyz";
+      #       }
+      #     ];
+      #   };
+      tls = {
+        certificates.load_files = [
+          {
+            certificate = "/run/credentials/caddy.service/nyaw.cert";
+            key = "/run/credentials/caddy.service/nyaw.key";
+            tags = [ "cert0" ];
+          }
+        ];
+      };
     };
   };
 }

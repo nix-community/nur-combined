@@ -17,32 +17,37 @@ reIf {
   services.yggdrasil = {
     enable = true;
     # openMulticastPort = true;
-    settings = {
-      Listen = [
-        "tcp://[::]:1234"
-        "tls://[::]:12344"
-      ];
-      Peers =
-        let
-          thisName = config.networking.hostName;
-          thisNode = lib.data.node.${thisName};
-          able2Connect =
-            peerNode:
-            (!peerNode.nat)
-            || (thisNode.nat && thisNode ? region && peerNode ? region && thisNode.region == peerNode.region);
-          directConnect = peerNode: ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
-        in
-        (lib.mapAttrsToList (
-          _: v:
-          let
-            addr = (lib.elemAt v.addrs 0);
-          in
-          if (directConnect v) then
-            "tcp://" + addr + ":1234"
-          else
-            "sockstls://127.0.0.1:1900/" + addr + ":12344"
-        ) (lib.filterAttrs (k: v: (able2Connect v) && k != thisName) lib.data.node));
-    };
+    settings =
+      let
+        thisName = config.networking.hostName;
+        thisNode = lib.data.node.${thisName};
+        able2Connect =
+          peerNode:
+          (!peerNode.nat)
+          || (thisNode.nat && thisNode ? region && peerNode ? region && thisNode.region == peerNode.region);
+        directConnect = peerNode: ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
+      in
+      {
+        Listen = [
+          "tcp://[::]:1234"
+          "tls://[::]:12344"
+        ];
+        Peers = (
+          lib.mapAttrsToList (
+            _: v:
+            let
+              addr = (lib.elemAt v.addrs 0);
+            in
+            if (directConnect v) then
+              "tcp://" + addr + ":1234"
+            else
+              "sockstls://127.0.0.1:1900/" + addr + ":12344"
+          ) (lib.filterAttrs (k: v: (able2Connect v) && k != thisName) lib.data.node)
+        );
+        AllowedPublicKeys = lib.mapAttrsToList (_: v: v.ygg_pubkey) (
+          lib.filterAttrs (k: _: k != thisName) lib.data.node
+        );
+      };
     package = pkgs.yggdrasil.overrideAttrs (old: {
       version = old.version + "-patch";
       src = pkgs.fetchFromGitHub {

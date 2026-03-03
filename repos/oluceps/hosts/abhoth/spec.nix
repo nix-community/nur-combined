@@ -47,6 +47,9 @@
     stalwart.enable = true;
   };
   services = {
+    yggdrasil.settings.AllowedPublicKeys = [
+      "870b1f8c965df2b3220d9d6e4e8457f8f025f641873d00266adb3275d9025f14"
+    ];
     # dnsproxy.settings = lib.mkForce {
     #   bootstrap = [
     #     "1.1.1.1"

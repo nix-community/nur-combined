@@ -51,9 +51,11 @@
 
   services = {
     resolved = {
-      dnssec = "false";
-      llmnr = "false";
-      settings.Resolve.MulticastDNS = "off";
+      settings.Resolve = {
+        LLMNR = "false";
+        Cache = "no";
+        DNSSEC = "false";
+      };
     };
   };
 
