@@ -187,33 +187,11 @@ jobs:
             exit 1
           fi
 
-      - name: Extract Failed Packages
-        if: steps.build.outcome == 'failure'
-        id: extract_failures
-        run: |
-          failed_packages=""
-          grep -oP 'attribute.*(?=.*hash mismatch)' build.log | sed 's/attribute //' | sed 's/://g' > failed_packages.txt || true
-          grep -oP "error: builder for '.*' failed" build.log | sed "s/error: builder for '\/nix\/store\/[^-]*-//" | sed "s/\.drv' failed//" >> failed_packages.txt || true
-
-          if [ -s failed_packages.txt ]; then
-            failed_packages=$(cat failed_packages.txt | sort -u | sed 's/^/• /')
-            echo "failed_packages<<EOF" >> "$GITHUB_OUTPUT"
-            echo "$failed_packages" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Notify Build Failures
         if: steps.build.outcome == 'failure'
         run: |
-          if [ -n "${{ steps.extract_failures.outputs.failed_packages }}" ]; then
-            description="The following packages failed to build:\n\`\`\`\n${{ steps.extract_failures.outputs.failed_packages }}\n\`\`\`\n**Nix Path:** \`${{ matrix.nixPath }}\`"
-          else
-            description="Build failed but could not extract specific package names. Check the logs for details.\n\n**Nix Path:** \`${{ matrix.nixPath }}\`"
-          fi
-
           payload=$(jq -n \
             --arg title "❌ NUR build failures on ${{ matrix.os }}" \
-            --arg desc "$description" \
             --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             '{
               username: "NUR",
@@ -221,7 +199,7 @@ jobs:
               content: "@everyone",
               embeds: [{
                 title: $title,
-                description: $desc,
+                description: "Build failed, check the logs for details.",
                 color: 15158332,
                 url: $url
               }]

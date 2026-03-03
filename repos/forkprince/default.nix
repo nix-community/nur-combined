@@ -15,7 +15,6 @@
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
-  kilo = lib.callPackage ./pkgs/kilo {inherit bun;};
   equicord = lib.callPackage ./pkgs/equicord {};
   hytale = lib.callPackage ./pkgs/hytale {};
 
@@ -61,9 +60,6 @@
   steam = lib.callPackage ./pkgs/steam {};
   rpcs3 = lib.callPackage ./pkgs/rpcs3 {};
   gimp = lib.callPackage ./pkgs/gimp {};
-
-  # NOTE: This is a temporary fix for kilo
-  bun = lib.callPackage ./pkgs/bun {};
 
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
   waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
