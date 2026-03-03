@@ -874,7 +874,8 @@ stdenv.mkDerivation (finalAttrs: {
       # 'or p' is for manually specified buildPackages as they dont have __spliced
       (builtins.filter (p: p != null) (map (p: p.__spliced.buildHost or p) finalAttrs.nativeBuildInputs));
 
-  /* # causing building issue on latest nixpkgs
+  /*
+    # causing building issue on latest nixpkgs
     disallowedRequisites = lib.optionals (!withUkify) [
       bash
       bashNonInteractive

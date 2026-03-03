@@ -37,8 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 2;
-    hash = "sha256-oU372NVVFjWFB2/9vYIz7rZz+LIdW+1FGQlwkaYZkJM=";
+    fetcherVersion = 3;
+    hash = "sha256-a24NJtnZhDxfJ2eNxbpFYsKw84KMrRjKdtZdLUZP8uk=";
   };
 
   nativeBuildInputs = [
@@ -84,7 +84,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p tmp/bili
 
-    # Keep parity with tools/update-bilibili version validation.
     BILIBILI_VERSION="$(exiftool -S -ProductVersionNumber "${finalAttrs.bilibiliInstaller}" | sed 's/.*: //')"
     CONF_VERSION="$(cat conf/bilibili_version)"
     if [ "$BILIBILI_VERSION" != "$CONF_VERSION" ]; then
@@ -184,7 +183,10 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryNativeCode
+    ];
     mainProgram = "bilibili";
   };
 })
