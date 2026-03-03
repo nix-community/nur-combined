@@ -2,29 +2,58 @@
   description = "JuniorIsAJitterbug's nur-packages";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # pin until https://github.com/NixOS/nixpkgs/pull/493988 is merged
+    nixpkgs.url = "github:NixOS/nixpkgs/?ref=0182a361324364ae3f436a63005877674cf45efb";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+    }:
     let
       systems = [
         "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
         "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
+
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
-      forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
     in
     {
-      packages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
-      });
+      legacyPackages = forAllSystems (
+        system:
+        import ./default.nix {
+          pkgs = import nixpkgs {
+            inherit system;
 
+            config = {
+              allowUnfree = true;
+            };
+          };
+        }
+      );
+
+      packages = forAllSystems (
+        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+      );
+
+      checks = forAllSystems (system: self.packages.${system});
       nixosModules = import ./modules;
-      devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
+
+      devShells = forAllSystems (
+        system:
+        import ./shell.nix {
+          pkgs = import nixpkgs { inherit system; };
+        }
+      );
     };
+
+  nixConfig = {
+    extra-experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 }
