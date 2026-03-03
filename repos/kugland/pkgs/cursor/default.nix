@@ -3,19 +3,18 @@
   lib,
 }: let
   pname = "cursor";
-  version = "";
+  version = "2.5";
   sources = {
-    x86_64.url = "https://downloads.cursor.com/production/4f2b772756b8f609e1354b3063de282ccbe7a69b/linux/x64/Cursor-2.4.27-x86_64.AppImage";
-    x86_64.hash = "sha256-VAdpltgyfajmJdKKiEXIY6IzkJAg790LWZrONkEnkNc=";
-    # Arm64 link is giving 403 for some reason
-    #aarch64.url = "https://downloads.cursor.com/production/45fd70f3fe72037444ba35c9e51ce86a1977ac11/linux/arm64/Cursor-2.0.34-aarch64.AppImage";
-    #aarch64.hash = "";
+    x86_64.url = "https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/2.5";
+    x86_64.hash = "sha256-5dzRSqehpJDBFSFTn0W07H6fKho1oRW/oMEVPjfZaxo=";
+    aarch64.url = "https://api2.cursor.sh/updates/download/golden/linux-arm64/cursor/2.5";
+    aarch64.hash = "sha256-0aGHUabQuYZZIuRz+O0etOi29cfQ7ihSZCSn4IHoiKo=";
   };
   src = pkgs.fetchurl (
     if pkgs.stdenv.hostPlatform.isx86_64
     then sources.x86_64
-    #else if pkgs.stdenv.hostPlatform.isAarch64
-    #then sources.aarch64
+    else if pkgs.stdenv.hostPlatform.isAarch64
+    then sources.aarch64
     else throw "Unsupported architecture for Cursor"
   );
   appimageContents = pkgs.appimageTools.extract {inherit pname version src;};
@@ -49,7 +48,7 @@ in
       downloadPage = "https://cursor.com/download";
       changelog = "https://github.com/getcursor/cursor/releases";
       license = lib.licenses.unfree;
-      platforms = ["x86_64-linux"]; # "aarch64-linux" ];
+      platforms = ["x86_64-linux" "aarch64-linux"];
       maintainers = [lib.maintainers.kugland];
       mainProgram = "cursor";
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

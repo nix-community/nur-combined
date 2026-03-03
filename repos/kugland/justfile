@@ -12,19 +12,22 @@ update-flakes:
     nix flake update
 
 update-cursor:
-    #! /usr/bin/env nix-shell
-    #! nix-shell -i bash -p curl htmlq
-    x86_64_url="$(curl -sSL 'https://cursor.com/download' | htmlq 'a[href$=".AppImage"]' -a href | grep -F 'x86_64' | head -1)"
-    aarch64_url="$(curl -sSL 'https://cursor.com/download' | htmlq 'a[href$=".AppImage"]' -a href | grep -F 'aarch64' | head -1)"
-    version="$(echo "$x86_64_url" | sed 's/.*\/Cursor-\(.*\)-x86_64\.AppImage/\1/')"
+    #! /usr/bin/env bash
+    x86_64_url="$(curl -sSL https://cursor.com/download | grep -E -o 'https://[^"]+/linux-x64/cursor/[^"\]+' | head -n1)"
+    aarch64_url="$(curl -sSL https://cursor.com/download | grep -E -o 'https://[^"]+/linux-arm64/cursor/[^"\]+' | head -n1)"
+    version="$(echo "$x86_64_url" | sed 's|^.*/||')"
+
+    echo "x86_64_url: $x86_64_url"
+    echo "aarch64_url: $aarch64_url"
+    echo "version: $version"
     x86_64_hash="$(nix hash convert --hash-algo sha256 --to sri $(nix-prefetch-url "$x86_64_url"))"
     aarch64_hash="$(nix hash convert --hash-algo sha256 --to sri $(nix-prefetch-url "$aarch64_url"))"
     sed -i -Ee '
-            /^(\s*x86_64[.]url)\s*=\s*"[^"]+"\s*;\s*$/s||\1 = "'"${x86_64_url}"'";|g;
-            /^(\s*x86_64[.]hash)\s*=\s*"[^"]+"\s*;\s*$/s||\1 = "'"${x86_64_hash}"'";|g;
-            /^(\s*aarch64[.]url)\s*=\s*"[^"]+"\s*;\s*$/s||\1 = "'"${aarch64_url}"'";|g;
-            /^(\s*aarch64[.]hash)\s*=\s*"[^"]+"\s*;\s*$/s||\1 = "'"${aarch64_hash}"'";|g;
-            /^(\s*version)\s*=\s*"[^"]+"\s*;\s*$/s||\1 = "'"${version}"'";|g;
+            /^(\s*x86_64[.]url)\s*=\s*"[^"]*"\s*;\s*$/s||\1 = "'"${x86_64_url}"'";|g;
+            /^(\s*x86_64[.]hash)\s*=\s*"[^"]*"\s*;\s*$/s||\1 = "'"${x86_64_hash}"'";|g;
+            /^(\s*aarch64[.]url)\s*=\s*"[^"]*"\s*;\s*$/s||\1 = "'"${aarch64_url}"'";|g;
+            /^(\s*aarch64[.]hash)\s*=\s*"[^"]*"\s*;\s*$/s||\1 = "'"${aarch64_hash}"'";|g;
+            /^(\s*version)\s*=\s*"[^"]*"\s*;\s*$/s||\1 = "'"${version}"'";|g;
         ' pkgs/cursor/default.nix
 
 update-musescore:
