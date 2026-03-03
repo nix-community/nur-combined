@@ -8,7 +8,7 @@
 }:
 
 let
-  version = "0.3.6";
+  version = "0.3.7";
 
   # Map platform to upstream's OS/ARCH path segments.
   os =
@@ -31,10 +31,10 @@ let
       throw "coderabbit-cli: unsupported arch ${stdenv.hostPlatform.system}";
 
   sha256BySystem = {
-    "x86_64-linux" = "sha256-X87wVqXBjaZaPz/ER/ExyV5EqZqE7IudlRF2cOFL04A=";
-    "aarch64-linux" = "sha256-XDmdcQHoEBqq1Z6OGrRa96/oXRNpCnPr4P0pa40wPEo=";
-    "x86_64-darwin" = "sha256-daJTcCypYbZGqQa2Z3BshaeoxrdtMxTJSUXgDbILu/4=";
-    "aarch64-darwin" = "sha256-s5A/FDmEQ28kGyQniV5entMAdjeLIR+/oC/DiJocw6k=";
+    "x86_64-linux" = "sha256-ko5u4KoH1U1ZAJRamFk8W8JNb4aEX6AxYao3A2aG7yk=";
+    "aarch64-linux" = "sha256-qo4DcdazJmHqoVPxmOB4zG+hzg+XKukh3bKoK0VKAdQ=";
+    "x86_64-darwin" = "sha256-j8/fVJievur/CBnyspYx4UD6PwIcVqNjnvnjM0LUP0I=";
+    "aarch64-darwin" = "sha256-aUKYHntpDf0ge5URA9XyRZvl5OKfZYULjwgf+pZRAIQ=";
   };
 
   srcUrl = "https://cli.coderabbit.ai/releases/${version}/coderabbit-${os}-${arch}.zip";
