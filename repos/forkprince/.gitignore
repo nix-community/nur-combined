@@ -2,3 +2,5 @@ result
 result-*
 .vscode
 .DS_Store
+failed_packages.txt
+build.log
