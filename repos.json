@@ -323,10 +323,6 @@
         "cawilliamson": {
             "url": "https://github.com/cawilliamson/nur-packages"
         },
-        "ccicnce113424": {
-            "file": "pkgs/default.nix",
-            "url": "https://github.com/ccicnce113424/nix-packages"
-        },
         "chagra": {
             "url": "https://github.com/ihebchagra/nur-packages"
         },
