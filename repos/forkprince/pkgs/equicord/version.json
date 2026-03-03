@@ -8,8 +8,8 @@
   "version": "2026-03-03",
   "hash": "sha256-JGzzT0HXkopUVocgtz3cSQBD69W+PPFZqWrfJth12uo=",
   "pnpmHash": {
-    "x86_64-linux": "sha256-um8CmR4H+sck6sOpIpnISPhYn/rvXNfSn6i/EgQFvk0=",
-    "aarch64-linux": "sha256-um8CmR4H+sck6sOpIpnISPhYn/rvXNfSn6i/EgQFvk0=",
+    "x86_64-linux": "sha256-AuHNcHosbYlPXKT0YFTLQihbTjff0Z9SlhoV1LDZc7c=",
+    "aarch64-linux": "sha256-AuHNcHosbYlPXKT0YFTLQihbTjff0Z9SlhoV1LDZc7c=",
     "aarch64-darwin": "sha256-UWsJmC0JCjGZTA9I4KjX94gE+jBPcbHbCXiy8Bs9Gcw=",
     "x86_64-darwin": "sha256-UWsJmC0JCjGZTA9I4KjX94gE+jBPcbHbCXiy8Bs9Gcw="
   }
