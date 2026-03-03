@@ -211,7 +211,7 @@
   "lyrica": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-svmUy4gZ0LUCdjS8B8rxV8OzonkYN7Fp5EG+GT2RerY=/Cargo.lock",
+        "sha256-r_6MQWl8HopEuY3NeVm2Ry_f5m9fkpQrQOjooWPnFBE=/Cargo.lock",
         {
           "netease-cloud-music-api-1.5.1": "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4="
         }
@@ -219,7 +219,7 @@
     },
     "date": "2026-03-03",
     "extract": {
-      "plasmoid/metadata.json": "sha256-svmUy4gZ0LUCdjS8B8rxV8OzonkYN7Fp5EG+GT2RerY=/plasmoid/metadata.json"
+      "plasmoid/metadata.json": "sha256-r_6MQWl8HopEuY3NeVm2Ry_f5m9fkpQrQOjooWPnFBE=/plasmoid/metadata.json"
     },
     "name": "lyrica",
     "passthru": null,
@@ -231,12 +231,12 @@
       "name": null,
       "owner": "ccicnce113424",
       "repo": "lyrica",
-      "rev": "e9cc9c077923a7676fd5da8e541997c67115f60e",
-      "sha256": "sha256-svmUy4gZ0LUCdjS8B8rxV8OzonkYN7Fp5EG+GT2RerY=",
+      "rev": "9fd29c66651924e07966dff0f60019ae9e11c64f",
+      "sha256": "sha256-r/6MQWl8HopEuY3NeVm2Ry/f5m9fkpQrQOjooWPnFBE=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "e9cc9c077923a7676fd5da8e541997c67115f60e"
+    "version": "9fd29c66651924e07966dff0f60019ae9e11c64f"
   },
   "piliplus": {
     "cargoLock": null,
