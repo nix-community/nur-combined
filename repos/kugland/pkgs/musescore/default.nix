@@ -4,15 +4,15 @@
 }:
 let
   sources = {
-    x86_64.url = "https://github.com/musescore/MuseScore/releases/download/v4.6.3/MuseScore-Studio-4.6.3.252940956-x86_64.AppImage";
-    x86_64.hash = "sha256-YWdQhWgslsYZCkxnlB4JpMNX5CGNUiCIhrJzmtpJuwA=";
-    aarch64.url = "https://github.com/musescore/MuseScore/releases/download/v4.6.3/MuseScore-Studio-4.6.3.252940956-aarch64.AppImage";
-    aarch64.hash = "sha256-YaEMWpQMWIk/wqPR1BU0E05U5QOSP9ouXqazxUki8K8=";
+    x86_64.url = "https://github.com/musescore/MuseScore/releases/download/v4.6.5/MuseScore-Studio-4.6.5.253511702-x86_64.AppImage";
+    x86_64.hash = "sha256-GT2qDqGLz6kKRxRahCJ1uAabeyuNFT5WKxX6tf5Q/K8=";
+    aarch64.url = "https://github.com/musescore/MuseScore/releases/download/v4.6.5/MuseScore-Studio-4.6.5.253511702-aarch64.AppImage";
+    aarch64.hash = "sha256-iPE0Kl7gAz3HbSgdtwPkgqXcQzvsrccNIdWP22Y8ceY=";
   };
 in
 appimageTools.wrapType2 {
   pname = "musescore";
-  version = "4.6.3.252940956";
+  version = "4.6.5.253511702";
   src =
     pkgs.fetchurl
       (
