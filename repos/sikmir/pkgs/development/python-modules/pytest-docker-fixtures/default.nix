@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pytest-docker-fixtures";
-  version = "1.3.19";
+  version = "1.4.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "guillotinaweb";
     repo = "pytest-docker-fixtures";
     tag = finalAttrs.version;
-    hash = "sha256-9MR2gz69/oGNjuZNGTSe58j8ykOl6AWWII+XzLkri60=";
+    hash = "sha256-G4kij7xqulosUkU8XzseoMN0yXykMrsgnJYLmH+MrUw=";
   };
 
   build-system = with python3Packages; [ setuptools ];

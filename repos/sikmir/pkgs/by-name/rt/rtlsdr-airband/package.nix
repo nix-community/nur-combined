@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtlsdr-airband";
-  version = "5.1.1";
+  version = "5.1.6";
 
   src = fetchFromGitHub {
     owner = "rtl-airband";
     repo = "RTLSDR-Airband";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-NHxRMaOqYrjy+dQvVsRwM/+v6BC7ufPC4O93BRQ6Nuc=";
+    hash = "sha256-i4bqjVTez9JYr/oAMpSxImoy55khSxVTUliHaCfLiw4=";
   };
 
   patches = [ ./find-version.patch ];

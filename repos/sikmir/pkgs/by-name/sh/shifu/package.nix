@@ -9,16 +9,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "shifu";
-  version = "0.73.0";
+  version = "0.91.0";
 
   src = fetchFromGitHub {
     owner = "Edgenesis";
     repo = "shifu";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-XKfnBXKdob+mxVVmjro8LUZoxUFYWRemyNfD5fo+FQU=";
+    hash = "sha256-YLXT10FCNpS8SubvQjECLIA7mK/DaKjCH+6hA6cpVtg=";
   };
 
-  vendorHash = "sha256-YCHEOe1VpmqJhBirmeIU5MyrxRnDOXdahr+gr4EDKXY=";
+  vendorHash = "sha256-oKn4RnNbDYMJHY2TmAeBlbI10+80taE3+JiO+cfSSjU=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -28,7 +28,6 @@ buildGoModule (finalAttrs: {
     "cmd/deviceshifu/cmdhttp"
     "cmd/deviceshifu/cmdmqtt"
     "cmd/deviceshifu/cmdopcua"
-    "cmd/deviceshifu/cmdplc4x"
     "cmd/deviceshifu/cmdsocket"
     "cmd/httpstub/powershellstub"
     "cmd/httpstub/sshstub"

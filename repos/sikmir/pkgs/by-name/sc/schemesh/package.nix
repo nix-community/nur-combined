@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "schemesh";
-  version = "0.9.2-unstable-2025-10-30";
+  version = "0.9.3";
 
   src = fetchFromGitHub {
     owner = "cosmos72";
     repo = "schemesh";
-    rev = "e5bb172238179ba769398150c856d8f16407626a";
-    hash = "sha256-9qBIV3O5uU5Wouiy4roe0UW1bNJYJ0l0EySYdWZcX80=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-OhQpXFg3eroVpw4zkENM4zwqHqGNolstlq9oLhQ2cbY=";
   };
 
   buildInputs = [

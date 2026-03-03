@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "supermercado";
-  version = "0.3.0";
+  version = "0.4.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "supermercado";
     tag = finalAttrs.version;
-    hash = "sha256-5wE4XGRmMMFOCT4YCn4lwu9O6nn2wqYeQoU/cEjkv0g=";
+    hash = "sha256-OzYAtZB85v/R636PzzSpwDyXopdMun9OQXS47ofenAc=";
   };
 
   build-system = with python3Packages; [ setuptools ];

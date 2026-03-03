@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pytest-skip-markers";
-  version = "1.5.1";
+  version = "1.5.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "saltstack";
     repo = "pytest-skip-markers";
     tag = finalAttrs.version;
-    hash = "sha256-jrNPF68sKpEmwU12ZbKK/24DqA1RrjIXYPyoKE/3FLM=";
+    hash = "sha256-+e+VhNDVC/585IIhnL4ARouWCbB3QzlAhRtjPN5+jls=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;

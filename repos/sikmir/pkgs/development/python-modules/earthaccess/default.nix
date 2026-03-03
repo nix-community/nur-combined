@@ -9,14 +9,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "earthaccess";
-  version = "0.11.0";
+  version = "0.16.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "nsidc";
     repo = "earthaccess";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-N4pRODkCPUNW3EPTLgtSscHJv4B/YN37VNOhzCC33+M=";
+    hash = "sha256-/DJW0wHXUC/a9xO+c58bw5jWnrK4vlHta7nbFicAgcE=";
   };
 
   build-system = with python3Packages; [
@@ -33,6 +33,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     tinynetrc
     multimethod
     importlib-resources
+    tenacity
     typing-extensions
     numpy
   ];

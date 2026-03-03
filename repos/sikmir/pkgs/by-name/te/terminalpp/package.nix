@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminalpp";
-  version = "4.0.1";
+  version = "4.0.2";
 
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "terminalpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-d9fUfzEU5jUqWhaYVl6SH7+I4qn1Q7JIw0rtjZXivDU=";
+    hash = "sha256-9DxBxNhCHAojGkb5knzi0Zzqv5inzJ8K+r0jyskRtVU=";
   };
 
   nativeBuildInputs = [

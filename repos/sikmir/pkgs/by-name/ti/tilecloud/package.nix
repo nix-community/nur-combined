@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tilecloud";
-  version = "1.13.2";
+  version = "1.13.5";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "tilecloud";
     tag = finalAttrs.version;
-    hash = "sha256-nxTfMTKj0pXAzQPYRdh08Qi0u+WY865s3JtvdNy2eIQ=";
+    hash = "sha256-w/lKtxGjKz8AW4QhLolnTYP+89BZAbxcG8rY40OKLHU=";
   };
 
   pythonRelaxDeps = true;
@@ -24,7 +24,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail "\"poetry-plugin-tweak-dependencies-version\"," "" \
-      --replace-fail "\"poetry-plugin-tweak-dependencies-version>=1.1.0\"," ""
+      --replace-fail "\"poetry-plugin-tweak-dependencies-version>=1.1.0\"," "" \
+      --replace-fail "\"poetry-plugin-drop-python-upper-constraint\"" ""
   '';
 
   build-system = with python3Packages; [

@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qstudio";
-  version = "4.03";
+  version = "5.01";
 
   src = fetchfromgh {
     owner = "timeseries";
     repo = "qstudio";
     tag = finalAttrs.version;
-    hash = "sha256-96E+exTt1Vebg2XL/c9c7gUFWYMkxjnAVumxg0U6Gpg=";
+    hash = "sha256-htDdm7ozSXKVdjPbQK2D+rZwJVb6h/gGug0orTKWrmI=";
     name = "qstudio.jar";
   };
 

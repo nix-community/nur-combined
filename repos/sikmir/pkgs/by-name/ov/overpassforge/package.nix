@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "overpassforge";
-  version = "0.4.3";
+  version = "0.4.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Krafpy";
     repo = "Overpass-Forge";
     tag = finalAttrs.version;
-    hash = "sha256-HtP1aSIf6iOyZDhDF/kDps1hMgKHKOAlPjYwOQSeXjE=";
+    hash = "sha256-UH8fZl9qXsJHM1/kDL1Z7ZynALbK8Wiex/e3+KAWH7A=";
   };
 
   build-system = with python3Packages; [ setuptools-scm ];

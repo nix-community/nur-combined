@@ -7,17 +7,17 @@
 
 buildGoModule (finalAttrs: {
   pname = "twins";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "tslocum";
     repo = "twins";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-kq1qhWx0kwvW8I+hUz0MgbOTaS/vSfdwkt56RZ7eAVk=";
+    hash = "sha256-WV9OEiT/M5lCCTelc7vWoIkOt7SAAPnzuacNR08uCBQ=";
   };
 
-  vendorHash = "sha256-XwQJjTxKlbJjbq556jXWBx2BNpKxGJmwoR1om005mb0=";
+  vendorHash = "sha256-/v7DXGOiL8jZtOnIx8R+gYmmayyuIvx8ahYSbRQjUAY=";
 
   ldflags = [
     "-s"

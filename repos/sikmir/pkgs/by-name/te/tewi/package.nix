@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tewi";
-  version = "2.2.0";
+  version = "2.3.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "anlar";
     repo = "tewi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-XLriHazE+YyLTEWcjDuW+3WX3NKYdsvzRmIc/Oc81oM=";
+    hash = "sha256-+8yLgwH1toxN99mwlNEFrSeBwko0ZTAHCtDQIkoisy8=";
   };
 
   build-system = with python3Packages; [ setuptools ];

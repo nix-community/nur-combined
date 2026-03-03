@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tinyflux";
-  version = "1.0.0";
+  version = "1.2.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "citrusvanilla";
     repo = "tinyflux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WgNkYFWZvZJ8MYMqfnqXH8YgjzRemMxAkyN9On+5PQI=";
+    hash = "sha256-hsWxxWplkJtdaSGdfQvD2jMw/ad6wa6pQ2PCGoFFU9Y=";
   };
 
   postPatch = ''

@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "thorvg";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "thorvg";
     repo = "thorvg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-V01jPj52fGtovOHwSXJq/eq4n8TUGVKq7fIzdMmCFk4=";
+    hash = "sha256-3UtZvGAz1BUSBXY5ZhnueMohIvzFcZ6MO8crVhR0ppI=";
   };
 
   nativeBuildInputs = [

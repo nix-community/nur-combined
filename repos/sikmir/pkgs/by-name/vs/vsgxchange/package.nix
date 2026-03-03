@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vsgxchange";
-  version = "1.1.8";
+  version = "1.1.9";
 
   src = fetchFromGitHub {
     owner = "vsg-dev";
     repo = "vsgXchange";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-R/6D81SN7Po8tsx1vEjQHj79MjVwpEDHswMmiekeuMs=";
+    hash = "sha256-aS7kF0cSjueY2/eIIchd48dZhbuqrPFcEK1iobYFUfE=";
   };
 
   nativeBuildInputs = [

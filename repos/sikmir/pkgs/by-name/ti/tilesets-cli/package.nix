@@ -9,14 +9,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tilesets-cli";
-  version = "1.13.0";
+  version = "2.2.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "tilesets-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9IGJ3jhw2U5vZl9dG0ourxFgKV+QRf6JXT6nmvuTx7A=";
+    hash = "sha256-HdPaQyVLtNWnpMd0XkgX53iU0JPxLj/aIDc91wMyo/w=";
   };
 
   build-system = with python3Packages; [ setuptools ];
