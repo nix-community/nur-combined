@@ -10,11 +10,13 @@
 home-manager.lib.homeManagerConfiguration {
   modules = [
     ./home.nix
-    ./dotfiles.nix
     {
       home = {
         inherit username homeDirectory;
-        stateVersion = "22.05";
+        stateVersion = "25.11";
+      };
+      nix = {
+        nixPath = [ "nixpkgs=${nixpkgs}" ];
       };
     }
   ];

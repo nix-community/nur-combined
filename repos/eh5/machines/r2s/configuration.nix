@@ -50,6 +50,7 @@
   programs.vim.enable = true;
   programs.vim.defaultEditor = true;
   programs.git.enable = true;
+  programs.mosh.enable = true;
 
   services.openssh = {
     enable = true;

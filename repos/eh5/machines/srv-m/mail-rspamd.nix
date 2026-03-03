@@ -31,10 +31,26 @@ in
         path = "/run/secrets/$domain.$selector.key";
       '';
       "multimap.conf".text = ''
-        type = "ip";
-        map = "${secrets.trustedNetworks.path}";
-        prefilter = true;
-        action = "accept";
+        ACCEPT_TRUSTED {
+          type = "ip";
+          map = "${secrets.trustedNetworksMap.path}";
+          prefilter = true;
+          action = "accept";
+        }
+        REJECT_BLOCKLISTED {
+          type = "from";
+          filter = "email:domain";
+          map = "${secrets.blocklistDomainsMap.path}";
+          prefilter = true;
+          action = "reject";
+          score = 15;
+        }
+      '';
+      "dmarc.conf".text = ''
+        actions {
+          reject = "reject";
+          quarantine = "add header";
+        }
       '';
     };
 

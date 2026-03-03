@@ -21,7 +21,9 @@ in
         mode = "0500";
         owner = "acme";
       };
-      trustedNetworks = { };
+      trustedNetworks.owner = dovecotUser;
+      trustedNetworksMap.owner = rspamdUser;
+      blocklistDomainsMap.owner = rspamdUser;
       bindDnPw = { };
       passdbLdap.owner = dovecotUser;
       # sieveLdap = { mode = "440"; owner = dovecotUser; };
@@ -82,6 +84,7 @@ in
   programs.vim.enable = true;
   programs.vim.defaultEditor = true;
   programs.git.enable = true;
+  programs.mosh.enable = true;
 
   services.openssh = {
     enable = true;

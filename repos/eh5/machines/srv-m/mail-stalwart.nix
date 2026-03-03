@@ -17,8 +17,8 @@ in
     group = acmeCert.group;
   };
 
-  services.stalwart-mail.enable = false;
-  services.stalwart-mail.settings = {
+  services.stalwart.enable = false;
+  services.stalwart.settings = {
     include.files = [ secrets."stalwart.toml".path ];
 
     global.tracing.level = "trace";
@@ -141,7 +141,7 @@ in
     };
   };
 
-  systemd.services.stalwart-mail = {
+  systemd.services.stalwart = {
     serviceConfig = {
       StandardOutput = lib.mkForce "journal";
       StandardError = lib.mkForce "journal";

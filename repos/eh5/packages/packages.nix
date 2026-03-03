@@ -19,16 +19,7 @@ let
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
     kcptun = callPackage ./kcptun { };
-    #libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { };
-    # end of service
-    #netease-cloud-music = callPackage ./netease-cloud-music { };
-    # out-of-tree module outdated, and failed to compile against kernel 6.12 structs
-    #nft-fullcone = callPackage ./nft-fullcone { };
-    #nftables-fullcone = callPackage ./nftables-fullcone { };
-    nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
-    # built failure with gnome2.ORBit2
-    # qcef = callPackage ./qcef { };
     rtl8152-led-ctrl = callPackage ./rtl8152-led-ctrl { };
     udpspeeder = callPackage ./udpspeeder { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };

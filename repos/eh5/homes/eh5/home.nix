@@ -39,6 +39,8 @@
   programs.man.enable = false;
 
   targets.genericLinux.enable = true;
+  # disable to prevent pulling nix graphic drivers
+  targets.genericLinux.gpu.enable = false;
 
   xdg.mime.enable = false;
 
@@ -46,14 +48,14 @@
 
   home.packages = with pkgs; [
     cachix
-    nil
-    nix-gfx-mesa
+    # nil
+    # nix-gfx-mesa
     nix-output-monitor
     nix-prefetch
     nix-update
     nixd
-    nixfmt-rfc-style
-    nixpkgs-fmt
+    nixfmt
     ssh-to-age
+    stuntman
   ];
 }

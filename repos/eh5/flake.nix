@@ -74,6 +74,9 @@
             ] platformPackages
           else
             { };
+        cachePkgs = {
+          inherit (sops-nix.packages.${system}) sops-install-secrets;
+        };
       in
       rec {
         packages = platformPackages;
@@ -81,7 +84,7 @@
         apps = builtins.mapAttrs (name: drv: mkApp { inherit name drv; }) appPkgs;
         devShells.default = pkgs.mkShell {
           buildInputs = builtins.filter (f: f != null) (
-            (builtins.attrValues shellPackages) ++ (builtins.attrValues appPkgs)
+            (builtins.attrValues shellPackages) ++ (builtins.attrValues (appPkgs // cachePkgs))
           );
         };
       }
@@ -103,6 +106,7 @@
       };
 
       nixosConfigurations = {
+        # TODO: cross compile all custom packages
         nixos-r2s = import ./machines/r2s {
           system = systems.aarch64-linux;
           inherit self nixpkgs sops-nix;
