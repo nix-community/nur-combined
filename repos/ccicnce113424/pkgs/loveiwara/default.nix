@@ -3,14 +3,16 @@
   version,
   srcInfo,
   lib,
-  flutter338,
+  flutter341,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
+  sqlite,
+  alsa-lib,
   mpv-unwrapped,
 }:
 let
-  flutter = flutter338;
+  flutter = flutter341;
 in
 flutter.buildFlutterApplication {
   inherit (sources) pname src;
@@ -46,16 +48,29 @@ flutter.buildFlutterApplication {
     autoPatchelfHook
   ];
 
-  # https://github.com/NixOS/nixpkgs/blob/7905606cfa51a1815787377b9cb04291e87ebcb4/pkgs/by-name/fl/fluffychat/package.nix#L120
+  buildInputs = [
+    sqlite
+    alsa-lib
+    mpv-unwrapped
+  ];
+
   postPatch = ''
+    # https://github.com/NixOS/nixpkgs/blob/7905606cfa51a1815787377b9cb04291e87ebcb4/pkgs/by-name/fl/fluffychat/package.nix#L120
     substituteInPlace linux/CMakeLists.txt \
       --replace-fail \
       "PRIVATE -Wall -Werror" \
       "PRIVATE -Wall -Werror -Wno-deprecated"
+
+    # https://github.com/simolus3/sqlite3.dart/blob/f39d797adcb9ea9f7903982560d7076b596538f5/sqlite3/doc/hook.md#system-provided-sqlite
+    cat <<EOL >> pubspec.yaml
+    hooks:
+      user_defines:
+        sqlite3:
+          source: system
+    EOL
   '';
 
   postInstall = ''
-    ln --symbolic --no-dereference --force ${mpv-unwrapped}/lib/libmpv.so.2 $out/app/loveiwara/lib/libmpv.so.2
     install -D assets/icon/launcher_icon_v2.png $out/share/pixmaps/loveiwara.png
   '';
 

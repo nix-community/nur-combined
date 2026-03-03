@@ -66,11 +66,11 @@ rec {
     version = sources.version;
   };
 
-  # loveiwara = pkgs.callPackage ./loveiwara rec {
-  #   sources = fetchedSrc.loveiwara;
-  #   version = stableVersion sources;
-  #   srcInfo = lib.importJSON ./loveiwara/src-info.json;
-  # };
+  loveiwara = pkgs.callPackage ./loveiwara rec {
+    sources = fetchedSrc.loveiwara;
+    version = stableVersion sources;
+    srcInfo = lib.importJSON ./loveiwara/src-info.json;
+  };
 
   lxgw-wenkai-gb = pkgs.callPackage ./lxgw-wenkai-gb rec {
     sources = fetchedSrc.lxgw-wenkai-gb;
