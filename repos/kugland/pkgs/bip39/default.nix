@@ -8,7 +8,7 @@
 , fetchFromGitHub
 ,
 }:
-stdenv.mkDerivation (final: rec {
+stdenv.mkDerivation (_final: rec {
   pname = "bip39";
   version = "0.2.1";
 

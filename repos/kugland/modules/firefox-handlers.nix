@@ -143,7 +143,7 @@ in
 
   config = {
     home.file.${handlersJson} = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       force = cfg.enable;
       text = builtins.toJSON {
         defaultHandlersVersion = { };

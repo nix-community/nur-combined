@@ -15,7 +15,7 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      forAllSystems = f: nixpkgs.lib.genAttrs systems f;
     in
     {
       overlays = import ./overlays;

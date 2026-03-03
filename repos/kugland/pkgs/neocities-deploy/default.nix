@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , fetchFromGitHub
 , rustPlatform
 , buildRustPackage ? rustPlatform.buildRustPackage

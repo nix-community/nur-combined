@@ -30,8 +30,8 @@ in
   };
   config = lib.mkIf cfg.enable {
     nixpkgs.overlays = [
-      (final: prev: {
-        google-authenticator = prev.google-authenticator.overrideAttrs (attrs: {
+      (_final: prev: {
+        google-authenticator = prev.google-authenticator.overrideAttrs (_attrs: {
           patches = [ ./singlesecret.patch ];
           preBuild =
             let

@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , stdenvNoCC
 , fetchFromGitHub
 ,
