@@ -17,5 +17,6 @@
   git-blame-someone-else = pkgs.callPackage ./pkgs/git-blame-someone-else { };
   pingfs = pkgs.callPackage ./pkgs/pingfs { };
   terminalphone = pkgs.callPackage ./pkgs/terminalphone { };
+  coccinelle = pkgs.callPackage ./pkgs/coccinelle { };
   # yamlresume = pkgs.callPackage ./pkgs/yamlresume { };
 }
