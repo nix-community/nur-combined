@@ -114,10 +114,6 @@ in
     emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages
   );
 
-  gamemode = callPackage ./tools/games/gamemode rec {
-    libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode { inherit libgamemode32; }).lib;
-  };
-
   jakirica-client = jakirica.client;
 
   linuxPackages = lib.recurseIntoAttrs (
@@ -135,10 +131,6 @@ in
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };
   };
-
-  yabridge = callPackage ./tools/audio/yabridge { wine = wineWowPackages.yabridge; };
-
-  yabridgectl = callPackage ./tools/audio/yabridgectl { wine = wineWowPackages.yabridge; };
 
   zynaddsubfx = callPackage ./applications/audio/zynaddsubfx {
     guiModule = "zest";

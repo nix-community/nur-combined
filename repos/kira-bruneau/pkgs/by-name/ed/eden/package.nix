@@ -12,7 +12,6 @@
   boost,
   cpp-jwt,
   cubeb,
-  discord-rpc,
   enet,
   ffmpeg-headless,
   fmt,
@@ -39,14 +38,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "eden";
-  version = "0.0.4";
+  version = "0.1.1";
 
   src = fetchFromGitea {
     domain = "git.eden-emu.dev";
     owner = "eden-emu";
     repo = "eden";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-z+YEb3VjRyzrOXfL25jGPzn7s24p0oJKcHBrU6yIOfE=";
+    hash = "sha256-tkro7ZHgn2809Utf/Li5+OiseywyQKH15eqphxlJZQQ=";
   };
 
   deps = stdenv.mkDerivation {
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
         -czf $out .cache/cpm
     '';
 
-    outputHash = "sha256-zzpRNERPGdknfhZtkPTX8ndyOGJ4sqkU3Aru2XaDRBE=";
+    outputHash = "sha256-8RoIKZvEMLhqpfc/BkR1IAfN3SSZRkCzWsJTnHyceGs=";
     outputHashAlgo = "sha256";
   };
 
@@ -92,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     # intentionally omitted: catch2_3 - only used for tests
     cpp-jwt
     cubeb
-    discord-rpc
+    # intentionally omitted: discord-rpc - prefer vendored version for compatibility
     # intentionally omitted: dynarmic - prefer vendored version for compatibility
     enet
     ffmpeg-headless

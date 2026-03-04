@@ -3,7 +3,7 @@
   rustPlatform,
   yabridge,
   makeWrapper,
-  wine,
+  wineWow64Packages,
 }:
 
 rustPlatform.buildRustPackage {
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage {
     wrapProgram "$out/bin/yabridgectl" \
       --prefix PATH : ${
         lib.makeBinPath [
-          wine # winedump
+          wineWow64Packages.yabridge # winedump
         ]
       }
   '';

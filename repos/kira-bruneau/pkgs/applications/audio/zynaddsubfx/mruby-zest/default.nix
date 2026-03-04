@@ -8,7 +8,7 @@
   ruby,
   libGL,
   libuv,
-  libX11,
+  libx11,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "mruby-zest";
     repo = "mruby-zest-build";
-    rev = "refs/tags/${finalAttrs.version}";
+    tag = finalAttrs.version;
     fetchSubmodules = true;
     sha256 = "sha256-rIb6tQimwrUj+623IU5zDyKNWsNYYBElLQClOsP+5Dc=";
   };
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libGL
     libuv
-    libX11
+    libx11
   ];
 
   # Force optimization to fix:
