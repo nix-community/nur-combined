@@ -203,7 +203,7 @@ in
               ghidra
               prismlauncher-diegiwg
               android-translation-layer
-              pake
+              #pake # started failing recently
               cider
               rocksmith2tab
               superTux
