@@ -19,6 +19,10 @@ buildGoModule (finalAttrs: {
 
   ldflags = [ "-s" ];
 
+  postInstall = ''
+    mv $out/bin/qbitorrent_convert $out/bin/qbittorrent-dual-boot
+  '';
+
   meta = {
     description = "Sync qBittorrent data between Linux and Windows dual boot";
     homepage = "https://github.com/Ovenoboyo/qbittorrent_dual_boot";
