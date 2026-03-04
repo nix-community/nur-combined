@@ -17,6 +17,7 @@
   copyDesktopItems,
   makeDesktopItem,
   libva,
+  writableTmpDirAsHomeHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -51,6 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchelf
     makeWrapper
     copyDesktopItems
+    writableTmpDirAsHomeHook
   ];
 
   env = {
@@ -72,8 +74,6 @@ stdenv.mkDerivation (finalAttrs: {
   # Reason: those scripts call `wget` at build time
   buildPhase = ''
     runHook preBuild
-
-    export HOME="$TMPDIR"
 
     # sass-embedded ships a prebuilt ELF with a FHS interpreter path; patch it for Nix.
     for dart_bin in $(find node_modules -type f -path '*/dart-sass/src/dart'); do
