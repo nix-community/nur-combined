@@ -35,7 +35,7 @@ in
   config = lib.mkIf cfg.enable {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud32;
+      package = pkgs.nextcloud33;
       hostName = "nextcloud.${config.networking.domain}";
       home = "/var/lib/nextcloud";
       maxUploadSize = cfg.maxSize;

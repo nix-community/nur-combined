@@ -29,7 +29,10 @@ in
 
       man = {
         enable = cfg.man.enable;
-        generateCaches = true;
+
+        cache = {
+          enable = true;
+        };
       };
 
       nixos.enable = cfg.nixos.enable;
