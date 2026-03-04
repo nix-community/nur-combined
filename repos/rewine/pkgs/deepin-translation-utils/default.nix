@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "deepin-translation-utils";
-  version = "0.4.1";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "linuxdeepin";
     repo = "deepin-translation-utils";
     rev = version;
-    hash = "sha256-FxSU753m0+7UzIKPKm4Swn12IBfnzPVsdKPtiAjAH+E=";
+    hash = "sha256-JavdbR3w1k/TPJrPnTHuEDDAbch1s4CvB/1xlzjVQZc=";
   };
 
-  cargoHash = "sha256-Kne2GXtsDGWyCExX6yC3pdSmsp0XHeEiPUrf/pWleeo=";
+  cargoHash = "sha256-JsqWrU3g2MpTK7ICRiOtXbPcu3nUDH3CFGpFmWwLaR8=";
 
   meta = {
     description = "A commandline tool to help you work with translation files and Transifex configurations that are used in deepin's workflow";
