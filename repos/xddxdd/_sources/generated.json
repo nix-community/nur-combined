@@ -407,11 +407,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ri4HhJ+g4jzJ/kCUaNUmWFmyuxK+UWCX9VqUl7au5WM=",
+            "sha256": "sha256-9xD6wLaQ2u6dkd637vf22NUnruvqGAUKhVi7TbwjkF4=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.32-1_amd64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.62-1_amd64.deb"
         },
-        "version": "13.4.1120.32"
+        "version": "13.4.1120.62"
     },
     "browser360-arm64": {
         "cargoLock": null,
@@ -422,11 +422,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-e27X7K9HeKrV8gKl+g8ldgBsHv2O0TZ9JTk2euVfdRI=",
+            "sha256": "sha256-D4htAk20/LnavuQPto6kO5s8auT29tOXc+BYamhG1YQ=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.32-1_arm64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.62-1_arm64.deb"
         },
-        "version": "13.4.1120.32"
+        "version": "13.4.1120.62"
     },
     "calibre-cops": {
         "cargoLock": null,
@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.40",
-            "sha256": "sha256-zOSK9hw3PfIUA29KePdS68BuhKltpt23/RERKeilASE=",
+            "rev": "v6.8.41",
+            "sha256": "sha256-eoYI7o912cvcgqpRiwh7WOA8b9egJmBIr7fKWK38GH8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.40"
+        "version": "v6.8.41"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1493,11 +1493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+tbzDYWFoYqKIu2kFBysp7qSGvDEYcoAvE/NOVQRU6s=",
+            "sha256": "sha256-SgKQEeG90MKxaxiUkuoy97DW8mY9DG3s3h0gUQvAjt4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.01/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.04/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.03.01"
+        "version": "2026.03.04"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1508,11 +1508,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SZ/m8b53sawF86Ak46uX7CxdzEMFrmob7Yd12Y+xJfA=",
+            "sha256": "sha256-PfkOiZ2iyg3Ux/rhFtHNZYYmGii2OJSmPHlZLp8ow20=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.01/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.04/GeoLite2-City.mmdb"
         },
-        "version": "2026.03.01"
+        "version": "2026.03.04"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1523,11 +1523,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0wMeAhllI8u190KREiAz8r4neyEwq+3Utb7lK6eYMr4=",
+            "sha256": "sha256-jDeRvlfROMTOsOeJHlKezvwISIPvm7k9mIldBGfei3E=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.01/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.04/GeoLite2-Country.mmdb"
         },
-        "version": "2026.03.01"
+        "version": "2026.03.04"
     },
     "glauth": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8192",
-            "sha256": "sha256-7/zaDYbdKEu9ovC3DuMxvcIwZDOJ4UCKLtQQDmZphwU=",
+            "rev": "b8198",
+            "sha256": "sha256-OzoDd+FXPtE9wn6HXcit/LrxGp0zkmph6TIp/wVaaI0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8192"
+        "version": "b8198"
     },
     "loralib": {
         "cargoLock": null,
@@ -3812,7 +3812,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-03-03",
+        "date": "2026-03-04",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3824,12 +3824,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "68c6bf60a8e239bd8e39b6e79a4cd641c2a52a06",
-            "sha256": "sha256-DlEmUIzuhMF/ix6ogvxbWRpl5psQFX1bYcsXd05U9BU=",
+            "rev": "76d5e6d439e25120bc05c23bc5011588cb207f47",
+            "sha256": "sha256-zDQJcJuAlffyOuJhgQ5UCuaW7I1qR4IBsuAuo341pq0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "68c6bf60a8e239bd8e39b6e79a4cd641c2a52a06"
+        "version": "76d5e6d439e25120bc05c23bc5011588cb207f47"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4028,12 +4028,12 @@
             "name": null,
             "owner": "petersulyok",
             "repo": "smfc",
-            "rev": "v4.2.1",
-            "sha256": "sha256-z5SYjo6c8gXaG4Ez/Fd6RzTnGj5EloRa3NbFfKh8+qw=",
+            "rev": "v5.0.0",
+            "sha256": "sha256-iJ5nlZJT/NpWQlv0UW+DB6D2MmPGO+Fd1s5v1ZYjhLE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.2.1"
+        "version": "v5.0.0"
     },
     "soggy": {
         "cargoLock": null,
@@ -4667,11 +4667,11 @@
             "name": null,
             "owner": "HanadaLee",
             "repo": "ngx_http_zstd_module",
-            "rev": "f81c5f811d3ba3f46af040d140766ea65cca029e",
-            "sha256": "sha256-MI5dZg7I8F6Yd1rHijEb5bsOaOn6IkzrvM2DTNtHBog=",
+            "rev": "ce08bc6d770d80464424ef11fda11caddada16de",
+            "sha256": "sha256-YqU21CWmg8Hmwpjw3/koN9K4cxfn9B/mt1tqYU1x74w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f81c5f811d3ba3f46af040d140766ea65cca029e"
+        "version": "ce08bc6d770d80464424ef11fda11caddada16de"
     }
 }
