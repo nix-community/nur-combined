@@ -46,7 +46,12 @@ let
   tmuxSocket = "/run/minecraft-server/tmux.sock";
 
   lazymcStartScript = pkgs.writeShellScript "minecraft-lazymc-start" ''
+    mkdir -p "$(dirname ${tmuxSocket})"
     ${pkgs.tmux}/bin/tmux -S ${tmuxSocket} new-session -d -s minecraft '${lib.getExe pkgs.lazymc} start'
+    # Wait for tmux to create the socket before setting permissions
+    while [ ! -S ${tmuxSocket} ]; do
+      sleep 0.1
+    done
     # Allow minecraft group to attach to the tmux session
     chmod 0660 ${tmuxSocket}
     # Stay alive as long as the tmux session exists so systemd can track it
