@@ -23,7 +23,7 @@ in
       enable = true;
     };
 
-    environment.systemPackages = builtins.map lib.hiPrio [
+    environment.systemPackages = map lib.hiPrio [
       # Respect XDG conventions, leave my HOME alone
       (pkgs.writeShellScriptBin "steam" ''
         mkdir -p "${cfg.dataDir}"

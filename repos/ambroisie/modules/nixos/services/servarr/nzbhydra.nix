@@ -4,7 +4,7 @@ let
 in
 {
   options.my.services.servarr.nzbhydra = with lib; {
-    enable = lib.mkEnableOption "NZBHydra2" // {
+    enable = mkEnableOption "NZBHydra2" // {
       default = config.my.services.servarr.enableAll;
     };
   };

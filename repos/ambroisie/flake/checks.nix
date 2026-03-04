@@ -15,6 +15,10 @@
             enable = true;
           };
 
+          nixf-diagnose = {
+            enable = true;
+          };
+
           nixpkgs-fmt = {
             enable = true;
           };

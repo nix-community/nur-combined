@@ -4,7 +4,7 @@ let
 in
 {
   options.my.services.servarr.jackett = with lib; {
-    enable = lib.mkEnableOption "Jackett" // {
+    enable = mkEnableOption "Jackett" // {
       default = config.my.services.servarr.enableAll;
     };
 
