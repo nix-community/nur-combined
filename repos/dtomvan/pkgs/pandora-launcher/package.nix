@@ -83,13 +83,13 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pandora-launcher";
-  version = "2.7.3";
+  version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "Moulberry";
     repo = "PandoraLauncher";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pdeKtN/Zv97LGX4bscR8DwNzHx/Yk15ckDM7MP7oDgg=";
+    hash = "sha256-elPKbnnjrNakZhCl34qz7bW5PEkjSKs3v1IaZEVB64w=";
   };
 
   nativeBuildInputs = [
@@ -119,7 +119,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     OPENSSL_NO_VENDOR = true;
   };
 
-  cargoHash = "sha256-e2QZnwv8Wl4rr+4wCTWhJu9Xq8ZFgJ4iArLc7nRLUuM=";
+  cargoHash = "sha256-jxJXEgZbLIcZizokJhaTcEfGt+KHclbQ+uZVdEF+hnQ=";
 
   doCheck = false;
 
@@ -145,5 +145,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dtomvan ];
     mainProgram = "pandora_launcher";
+    broken = true;
   };
 })
