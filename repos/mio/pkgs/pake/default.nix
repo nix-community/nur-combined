@@ -99,13 +99,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.10.0-unstable-20260304";
+  version = "3.10.0";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
-    rev = "dc2ad86541b376f6ef4820ac596635ebfd3674e2";
-    hash = "sha256-VAIYsr5XMjVu7bylyeyRZFidjOUJDUazdW/19LHQ100=";
+    rev = "V${finalAttrs.version}";
+    hash = "sha256-0JF35A0/qF5LirMZN5YL/ZSwer2LmrLINX0OarLgryw=";
   };
 
   patches = [

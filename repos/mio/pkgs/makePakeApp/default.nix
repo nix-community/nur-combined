@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
   pake,
   dpkg,
   autoPatchelfHook,
@@ -75,7 +74,7 @@ let
     inherit version;
     src = pakeSrc;
     cargoRoot = "src-tauri";
-    hash = "sha256-OJi0iiXTWZoPzS3HWVXJ2NTlA+xT3je4AC1APEoczbo=";
+    hash = "sha256-r54xHSlfn44+jz/wmiFtV+CN6QJ8KB6hyang3xnJZdA=";
   };
 
   executableName = "pake-${pname}";
