@@ -18,6 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Install Nix
         uses: nixbuild/nix-quick-install-action@v34
         with:
