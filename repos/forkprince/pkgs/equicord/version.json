@@ -5,12 +5,12 @@
     "repo": "Equicord/Equicord",
     "tag_filter": "^(?!latest$).*$"
   },
-  "version": "2026-03-03",
-  "hash": "sha256-JGzzT0HXkopUVocgtz3cSQBD69W+PPFZqWrfJth12uo=",
+  "version": "2026-03-04",
+  "hash": "sha256-BGEjZF8lGjhqa90nIyMjYAOAb/QZuLboDPUoN2MdQVw=",
   "pnpmHash": {
-    "x86_64-linux": "sha256-AuHNcHosbYlPXKT0YFTLQihbTjff0Z9SlhoV1LDZc7c=",
-    "aarch64-linux": "sha256-AuHNcHosbYlPXKT0YFTLQihbTjff0Z9SlhoV1LDZc7c=",
-    "aarch64-darwin": "sha256-jxJhDhfXWtQND4luaGmmIIIfnqFkXw2T3zdOSKcna68=",
-    "x86_64-darwin": "sha256-jxJhDhfXWtQND4luaGmmIIIfnqFkXw2T3zdOSKcna68="
+    "x86_64-linux": "sha256-7YkB7KO96UUeVAk5VwxGcAhHYDTue7gj0nk/gxs3BmI=",
+    "aarch64-linux": "sha256-7YkB7KO96UUeVAk5VwxGcAhHYDTue7gj0nk/gxs3BmI=",
+    "aarch64-darwin": "sha256-dudV1ZQXFlXfU6yRrQYsfQmXD8jb0QNICva/cdS/s+4=",
+    "x86_64-darwin": "sha256-dudV1ZQXFlXfU6yRrQYsfQmXD8jb0QNICva/cdS/s+4="
   }
 }

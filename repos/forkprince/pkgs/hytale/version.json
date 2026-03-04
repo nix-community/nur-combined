@@ -6,19 +6,19 @@
     "version_path": ".version",
     "url_path": ".download_url.{0}.{1}.url"
   },
-  "version": "2026.02.26-8739a13",
+  "version": "2026.03.03-a4f6003",
   "platforms": {
     "x86_64-linux": {
-      "url": "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-2026.02.26-8739a13.zip",
-      "hash": "sha256-A0avAHYAXcfAvGxyKj9y96iQx75e0ge6NBKCGImrXcc=",
+      "url": "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-2026.03.03-a4f6003.zip",
+      "hash": "sha256-YhDrFFGhgOX0bjF4GPZHyASCYwtQDnUssl89K7fz+nc=",
       "substitutions": [
         "linux",
         "amd64"
       ]
     },
     "aarch64-darwin": {
-      "url": "https://launcher.hytale.com/builds/release/darwin/arm64/hytale-launcher-2026.02.26-8739a13.zip",
-      "hash": "sha256-2HUmzZnUnQcKgJJWf9uuxhv0g9Q7eHbbZmw3OZq7C9E=",
+      "url": "https://launcher.hytale.com/builds/release/darwin/arm64/hytale-launcher-2026.03.03-a4f6003.zip",
+      "hash": "sha256-2G4x3GB+EYg3w77IOBmlIlU8Ye4USV5PCvDxoZocDcY=",
       "substitutions": [
         "darwin",
         "arm64"
