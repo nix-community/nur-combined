@@ -16,5 +16,7 @@
       entryBefore = d.dagEntryBefore;
     };
 
+  mozilla = import ./mozilla.nix { inherit lib; };
+
   strings = import ./strings.nix { inherit lib; };
 }

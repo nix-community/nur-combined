@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p curlMinimal jq nix
+#! nix-shell -i bash -p curlMinimal jq
 
 set -euo pipefail
 
@@ -19,7 +19,7 @@ UPDATES_FILE="$TMP_DIR/bpc-updates.json"
 curl -sSL -o "$UPDATES_FILE" "$UPDATES_URL"
 
 VERSION="$(jq -r '.addons."magnolia@12.34".updates[-1].version' "$UPDATES_FILE")"
-URL="https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-${VERSION}.xpi&branch=main"
+URL="$(jq -r '.addons."magnolia@12.34".updates[-1].update_link' "$UPDATES_FILE")"
 
 # Download file first, then calculate hash (URL contains & which nix-prefetch-url can't handle)
 XPI_FILE="$TMP_DIR/bypass_paywalls_clean.xpi"

@@ -1,54 +1,22 @@
 {
+  buildMozillaXpiAddon,
   fetchurl,
   lib,
   stdenv,
-}@args:
+}:
 
 let
 
-  buildFirefoxXpiAddon = lib.makeOverridable (
-    {
-      stdenv ? args.stdenv,
-      fetchurl ? args.fetchurl,
-      pname,
-      version,
-      addonId,
-      url ? "",
-      urls ? [ ], # Alternative for 'url' a list of URLs to try in specified order.
-      sha256,
-      meta,
-      ...
-    }:
-    stdenv.mkDerivation {
-      name = "${pname}-${version}";
-
-      inherit meta;
-
-      src = fetchurl { inherit url urls sha256; };
-
-      preferLocalBuild = true;
-      allowSubstitutes = true;
-
-      passthru = {
-        inherit addonId;
-      };
-
-      buildCommand = ''
-        dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-        mkdir -p "$dst"
-        install -v -m644 "$src" "$dst/${addonId}.xpi"
-      '';
-    }
-  );
-
   generatedPackages = import ./generated-firefox-addons.nix {
     inherit
-      buildFirefoxXpiAddon
+      buildMozillaXpiAddon
       fetchurl
       lib
       stdenv
       ;
   };
+
+  buildFirefoxXpiAddon = buildMozillaXpiAddon;
 
   packages = generatedPackages // {
     inherit buildFirefoxXpiAddon;
@@ -61,7 +29,7 @@ let
       let
         version = "1.12.0";
       in
-      buildFirefoxXpiAddon {
+      buildMozillaXpiAddon {
         pname = "asbplayer";
         inherit version;
         addonId = "{e4b27483-2e73-4762-b2ec-8d988a143a40}";
@@ -84,7 +52,7 @@ let
         };
       };
 
-    enhancer-for-youtube = buildFirefoxXpiAddon {
+    enhancer-for-youtube = buildMozillaXpiAddon {
       pname = "enhancer-for-youtube";
       version = "2.0.130.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
@@ -120,7 +88,7 @@ let
       let
         version = "0.3.1";
       in
-      buildFirefoxXpiAddon {
+      buildMozillaXpiAddon {
         pname = "fx_cast";
         inherit version;
         addonId = "fx_cast@matt.tf";
@@ -128,13 +96,13 @@ let
         sha256 = "sha256-zaYnUJpJkRAPSCpM3S20PjMS4aeBtQGhXB2wgdlFkSQ=";
         meta = with lib; {
           homepage = "https://hensm.github.io/fx_cast/";
-          description = "Chromecast Web Sender SDK implementation for Firefox";
+          description = "Chromecast Web Sender SDK implementation for Mozilla";
           license = licenses.mit;
           platforms = platforms.all;
         };
       };
 
-    gaoptout = buildFirefoxXpiAddon {
+    gaoptout = buildMozillaXpiAddon {
       pname = "gaoptout";
       version = "1.0.8";
       addonId = "{6d96bb5e-1175-4ebf-8ab5-5f56f1c79f65}";
@@ -157,7 +125,7 @@ let
       let
         version = "0.9.3";
       in
-      buildFirefoxXpiAddon {
+      buildMozillaXpiAddon {
         pname = "mullvad";
         inherit version;
         addonId = "{d19a89b9-76c1-4a61-bcd4-49e8de916403}";
@@ -171,12 +139,14 @@ let
         };
       };
 
-    proxydocile = buildFirefoxXpiAddon {
+    penetration-testing-kit = lib.warnOnInstantiate "'penetration-testing-kit' has been replaced by 'owasp-penetration-testing-kit'" packages.owasp-penetration-testing-kit;
+
+    proxydocile = buildMozillaXpiAddon {
       pname = "proxydocile";
       version = "2.5";
       addonId = "proxydocile@unipd.it";
       url = "https://softwarecab.cab.unipd.it/proxydocile/proxydocile.xpi";
-      sha256 = "sha256-w07JQmaq0eu+KnC26F6fS5iFg7bgsYMSZaTHgklu2aw=";
+      sha256 = "sha256-d/nGStjtyABrKrsVAQ+L6QWdR4Qm49qiCCy/8uzehUc=";
       meta = with lib; {
         homepage = "https://bibliotecadigitale.cab.unipd.it/bd/proxy/proxy-docile";
         description = "Automatically connect to university proxy.";
@@ -188,7 +158,7 @@ let
       let
         version = "3.0.9";
       in
-      buildFirefoxXpiAddon {
+      buildMozillaXpiAddon {
         pname = "7tv";
         inherit version;
         addonId = "moz-addon-prod@7tv.app";
@@ -206,7 +176,7 @@ let
       let
         version = "1.0.1";
       in
-      buildFirefoxXpiAddon {
+      buildMozillaXpiAddon {
         pname = "trilium-web-clipper";
         inherit version;
         addonId = "{1410742d-b377-40e7-a9db-63dc9c6ec99c}";
@@ -224,7 +194,7 @@ let
       let
         version = "2.1.1";
       in
-      buildFirefoxXpiAddon {
+      buildMozillaXpiAddon {
         pname = "free-map-genie";
         inherit version;
         addonId = "viper-fmg@freemapgenie.com";
@@ -268,7 +238,7 @@ let
       let
         version = "4.4.0";
       in
-      buildFirefoxXpiAddon {
+      buildMozillaXpiAddon {
         pname = "improved-intra";
         inherit version;
         addonId = "{56d1b2d9-ceba-435d-b8a5-b89dd0d1f9ef}";

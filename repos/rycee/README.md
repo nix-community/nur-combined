@@ -18,7 +18,7 @@ attribute names you can run
 
 If you use one or more add-on that is not listed here then feel free
 to open an issue. In the issue include links to the add-ons at
-<https://addons.mozilla.org/>.
+<https://addons.mozilla.org/>, do not create a MR.
 
 [install NUR]: https://github.com/nix-community/NUR/#installation
 
@@ -63,3 +63,15 @@ To understand what each permission does, see the
 [permission-req]: https://support.mozilla.org/en-US/kb/permission-request-messages-firefox-extensions
 [module-assert]: https://nixos.org/manual/nixos/stable/#sec-assertions
 [firefox-permissions]: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
+
+## Thunderbird Add-ons
+
+This repo also contains a set of Thunderbird extensions that is
+updated daily, exactly like the Firefox ones. To list the available
+add-ons and see their attribute names you can run
+
+    $ nix-env -f '<nixpkgs>' -qaP -A nur.repos.rycee.thunderbird-addons
+
+If you use one or more add-on that is not listed here then feel free
+to open an issue. In the issue include links to the add-ons at
+<https://addons.thunderbird.net/>, do not create a MR.

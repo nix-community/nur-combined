@@ -16,15 +16,15 @@
 
 let
   pname = "mozilla-addons-to-nix";
-  version = "0.13.0";
+  version = "1.0.0";
 in
 mkDerivation {
   inherit pname version;
   src = fetchFromSourcehut {
     owner = "~rycee";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-axePwQLOAOT8Jt0kcznYtle7wKzdWuqnzg5WvKHZdjI=";
+    rev = "81124e855c7eefc903def9537e523d268814590c"; # v${version}";
+    hash = "sha256-z8dC2ASauYaa09MyquBJt+AHe+D4Kd6HPHWQ4OjdU2o=";
   };
   isLibrary = false;
   isExecutable = true;

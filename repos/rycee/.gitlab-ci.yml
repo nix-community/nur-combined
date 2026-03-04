@@ -1,8 +1,8 @@
-image: nixos/nix:2.18.1
+image: nixos/nix:2.31.3
 
 variables:
-  # Pinned 2025-04-18.
-  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/18dd725c29603f582cf1900e0d25f9f1063dbf11.tar.gz"
+  # Pinned 2026-02-18.
+  NIX_PATH: "nixpkgs=https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre946843.ac055f38c798/nixexprs.tar.xz"
 
 # stages:
 #   - build
@@ -45,11 +45,13 @@ Build NUR:
   only:
     - pushes
 
-Update Firefox addons:
+Update Mozilla Addons:
   stage: build
   variables:
-    ADDONS_INPUT: pkgs/firefox-addons/addons.json
-    ADDONS_OUTPUT: pkgs/firefox-addons/generated-firefox-addons.nix
+    FIREFOX_INPUT: pkgs/firefox-addons/addons.json
+    FIREFOX_OUTPUT: pkgs/firefox-addons/generated-firefox-addons.nix
+    THUNDERBIRD_INPUT: pkgs/thunderbird-addons/addons.json
+    THUNDERBIRD_OUTPUT: pkgs/thunderbird-addons/generated-thunderbird-addons.nix
     REMOTE_URL: https://nur-updates:$RYBOT_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
   before_script:
     - nix-env -f '<nixpkgs>' -iA cachix
@@ -60,15 +62,28 @@ Update Firefox addons:
     - git config --global user.name 'rybot'
   script:
     - git pull --ff-only origin $CI_COMMIT_REF_NAME
+
+    # Update Firefox addons
     - pkgs/firefox-addons/zotero-update.sh pkgs/firefox-addons/zotero.nix
     - pkgs/firefox-addons/bypass-paywalls-clean-update.sh pkgs/firefox-addons/bypass-paywalls-clean.nix
-    - mozilla-addons-to-nix $ADDONS_INPUT $ADDONS_OUTPUT
+    - mozilla-addons-to-nix $FIREFOX_INPUT $FIREFOX_OUTPUT
     - |
       if [ "$(git status --porcelain --untracked-files=no)" ] ; then
-        git commit -m "Automatic update of Firefox addons" $ADDONS_OUTPUT pkgs/firefox-addons/zotero.nix pkgs/firefox-addons/bypass-paywalls-clean.nix
-        git push origin HEAD:$CI_COMMIT_REF_NAME
+        git commit -m "Automatic update of Firefox addons" $FIREFOX_OUTPUT pkgs/firefox-addons/zotero.nix pkgs/firefox-addons/bypass-paywalls-clean.nix
       else
-        echo No changes to push
+        echo No changes to commit
       fi
+
+    # Update Thunderbird addons
+    - pkgs/thunderbird-addons/tbkeys-update.sh pkgs/thunderbird-addons/tbkeys.nix
+    - mozilla-addons-to-nix --api-base-url https://addons.thunderbird.net/api/v4 $THUNDERBIRD_INPUT $THUNDERBIRD_OUTPUT
+    - |
+      if [ "$(git status --porcelain --untracked-files=no)" ] ; then
+        git commit -m "Automatic update of Thunderbird addons" $THUNDERBIRD_OUTPUT pkgs/thunderbird-addons/tbkeys.nix
+      else
+        echo No changes to commit
+      fi
+
+    - git push origin HEAD:$CI_COMMIT_REF_NAME
   only:
     - schedules

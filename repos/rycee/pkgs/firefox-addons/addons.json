@@ -226,6 +226,16 @@
     "slug": "capture-print"
   },
   {
+    "slug": "cardpointers-x",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "castkodi"
   },
   {
@@ -311,6 +321,9 @@
   },
   {
     "slug": "cookie-autodelete"
+  },
+  {
+    "slug": "cookie-editor"
   },
   {
     "slug": "cookie-quick-manager"
@@ -540,6 +553,16 @@
     "slug": "enhancer-for-nebula"
   },
   {
+    "slug": "enhancer-for-youtube",
+    "license": {
+      "tag": "custom",
+      "shortName": "enhancer-for-youtube",
+      "fullName": "Custom License for Enhancer for YouTube™",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/",
+      "free": false
+    }
+  },
+  {
     "slug": "ether-metamask",
     "pname": "metamask"
   },
@@ -761,6 +784,9 @@
   },
   {
     "slug": "gopass-bridge"
+  },
+  {
+    "slug": "grammalecte-fr"
   },
   {
     "slug": "grammarly-1",
@@ -1057,6 +1083,9 @@
     "slug": "leechblock-ng"
   },
   {
+    "slug": "lemmy-keyboard-navigation"
+  },
+  {
     "slug": "lesspass"
   },
   {
@@ -1118,8 +1147,14 @@
     }
   },
   {
+    "slug": "llmfeeder"
+  },
+  {
     "slug": "localcdn-fork-of-decentraleyes",
     "pname": "localcdn"
+  },
+  {
+    "slug": "lockedin-yt"
   },
   {
     "slug": "lovely-forks"
@@ -1325,6 +1360,9 @@
     }
   },
   {
+    "slug": "numatrix"
+  },
+  {
     "slug": "nyaa-linker"
   },
   {
@@ -1393,6 +1431,9 @@
     "slug": "overview"
   },
   {
+    "slug": "owasp-penetration-testing-kit"
+  },
+  {
     "slug": "pakkujs"
   },
   {
@@ -1424,9 +1465,6 @@
   },
   {
     "slug": "peertubeify"
-  },
-  {
-    "slug": "penetration-testing-kit"
   },
   {
     "slug": "persistentpin"
@@ -1547,6 +1585,9 @@
   },
   {
     "slug": "pwas-for-firefox"
+  },
+  {
+    "slug": "pwnfox"
   },
   {
     "slug": "pywalfox"
@@ -1735,6 +1776,9 @@
     "slug": "simple-dark-vlasak"
   },
   {
+    "slug": "simple-modify-header"
+  },
+  {
     "slug": "simple-tab-groups"
   },
   {
@@ -1775,6 +1819,9 @@
   },
   {
     "slug": "snoozetabs"
+  },
+  {
+    "slug": "solarize-fox"
   },
   {
     "slug": "solarized-light",
@@ -1830,6 +1877,16 @@
   },
   {
     "slug": "substitoot"
+  },
+  {
+    "slug": "super-agent",
+    "license": {
+      "tag": "custom",
+      "shortName": "super-agent",
+      "fullName": "End-User License Agreement for Super Agent - Automatic cookie consent",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/super-agent/eula/",
+      "free": false
+    }
   },
   {
     "pname": "surfingkeys",
@@ -2308,6 +2365,9 @@
       "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
       "free": false
     }
+  },
+  {
+    "slug": "youtube-enhancer-vc"
   },
   {
     "slug": "youtube-high-definition"

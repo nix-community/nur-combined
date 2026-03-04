@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -I nixpkgs=https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre837798.e7eabdc701d7/nixexprs.tar.xz -i bash -p findutils nixfmt jq moreutils
+#! nix-shell -I nixpkgs=https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre946843.ac055f38c798/nixexprs.tar.xz -i bash -p findutils nixfmt jq moreutils
 
 CHECK_ARG=
 
@@ -14,9 +14,13 @@ esac
 
 find . -name '*.nix' \
   ! -path ./pkgs/firefox-addons/generated-firefox-addons.nix \
+  -a ! -path ./pkgs/thunderbird-addons/generated-thunderbird-addons.nix \
   -exec nixfmt $CHECK_ARG {} +
 
 if [[ -z $CHECK_ARG ]] ; then
   jq 'sort_by(.slug)' < pkgs/firefox-addons/addons.json \
     | sponge pkgs/firefox-addons/addons.json
+
+  jq 'sort_by(.slug)' < pkgs/thunderbird-addons/addons.json \
+    | sponge pkgs/thunderbird-addons/addons.json
 fi
