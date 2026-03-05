@@ -4,7 +4,7 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-  electron_36,
+  electron_39,
   makeBinaryWrapper,
 }:
 buildNpmPackage rec {
@@ -23,7 +23,7 @@ buildNpmPackage rec {
   # Useful for debugging, just run "nix-shell" and then "electron ."
   nativeBuildInputs = [
     makeBinaryWrapper
-    electron_36 # Electron 36.6.0
+    electron_39 # Electron 36.6.0
   ];
 
   # Otherwise it will try to run a build phase (via npm build) that we don't have or need, with an error:
@@ -40,7 +40,7 @@ buildNpmPackage rec {
   # The node_modules/XXX is such that XXX is the "name" in package.json
   # The path might differ, for instance in electron-forge you need build/main/main.js
   postInstall = ''
-    makeWrapper ${electron_36}/bin/electron $out/bin/${pname} \
+    makeWrapper ${electron_39}/bin/electron $out/bin/${pname} \
       --add-flags $out/lib/node_modules/${pname}/src/main.js
   '';
 

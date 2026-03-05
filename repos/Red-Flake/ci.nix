@@ -15,7 +15,6 @@
       permittedInsecurePackages = [
         "python-2.7.18.8"
         "python27Full"
-        "electron-36.9.5"
       ];
     };
   } 

@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  electron_39-bin,
+  electron_39,
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     cp -r src/. $out/lib/outline-electron/
 
     mkdir -p $out/bin
-    makeWrapper ${electron_39-bin}/bin/electron $out/bin/outline-electron \
+    makeWrapper ${electron_39}/bin/electron $out/bin/outline-electron \
       --add-flags "$out/lib/outline-electron"
 
     mkdir -p $out/share/icons/hicolor/192x192/apps
