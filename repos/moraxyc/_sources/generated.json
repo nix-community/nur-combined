@@ -447,7 +447,7 @@
     "niri": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-vYcv27mpG62QJgZ69hLMPuYeOBmgc0BFQeGCM3xNduU=/Cargo.lock",
+                "sha256-JQvOEWbnLQMDmAebrFcr30dMXPDc2QKiBPrak92VepA=/Cargo.lock",
                 {
                     "reis-0.5.0": "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=",
                     "smithay-0.7.0": "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig="
@@ -461,11 +461,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vYcv27mpG62QJgZ69hLMPuYeOBmgc0BFQeGCM3xNduU=",
+            "sha256": "sha256-JQvOEWbnLQMDmAebrFcr30dMXPDc2QKiBPrak92VepA=",
             "type": "url",
-            "url": "file:///nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz"
+            "url": "file:///nix/store/3zqw1w8yvs4pqk7vlyjzlpx2x05zims4-niri-patched-src.tar.gz"
         },
-        "version": "/nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz"
+        "version": "/nix/store/3zqw1w8yvs4pqk7vlyjzlpx2x05zims4-niri-patched-src.tar.gz"
     },
     "pixy2": {
         "cargoLock": null,
@@ -517,5 +517,26 @@
             "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603042225/geosite.dat"
         },
         "version": "202603042225"
+    },
+    "yass": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "yass",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hukeyue",
+            "repo": "yass",
+            "rev": "1.22.0",
+            "sha256": "sha256-hQXcCINbmBIv6W5wNRP0jTlw6gupaKJ7fZ6onVvjP8M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.22.0"
     }
 }

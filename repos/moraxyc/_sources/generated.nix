@@ -260,13 +260,13 @@
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
+    version = "/nix/store/3zqw1w8yvs4pqk7vlyjzlpx2x05zims4-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
-      sha256 = "sha256-vYcv27mpG62QJgZ69hLMPuYeOBmgc0BFQeGCM3xNduU=";
+      url = "file:///nix/store/3zqw1w8yvs4pqk7vlyjzlpx2x05zims4-niri-patched-src.tar.gz";
+      sha256 = "sha256-JQvOEWbnLQMDmAebrFcr30dMXPDc2QKiBPrak92VepA=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-vYcv27mpG62QJgZ69hLMPuYeOBmgc0BFQeGCM3xNduU=/Cargo.lock";
+      lockFile = ./. + "/sha256-JQvOEWbnLQMDmAebrFcr30dMXPDc2QKiBPrak92VepA=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -299,6 +299,17 @@
     src = fetchurl {
       url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603042225/geosite.dat";
       sha256 = "sha256-evGmbPP02uVU63WeT9R5NYq9n3TBqIHECIjpDrTBNwo=";
+    };
+  };
+  yass = {
+    pname = "yass";
+    version = "1.22.0";
+    src = fetchFromGitHub {
+      owner = "hukeyue";
+      repo = "yass";
+      rev = "1.22.0";
+      fetchSubmodules = true;
+      sha256 = "sha256-hQXcCINbmBIv6W5wNRP0jTlw6gupaKJ7fZ6onVvjP8M=";
     };
   };
 }

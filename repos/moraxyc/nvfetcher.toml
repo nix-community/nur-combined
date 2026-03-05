@@ -131,3 +131,8 @@ fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ve
 src.github = "happyDomain/happydeliver"
 fetch.github = "happyDomain/happydeliver"
 extract = ["web/package-lock.json", "web/package.json"]
+
+[yass]
+src.github = "hukeyue/yass"
+fetch.github = "hukeyue/yass"
+git.fetchSubmodules = true
