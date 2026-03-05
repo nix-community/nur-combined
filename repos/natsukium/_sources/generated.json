@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-03-04",
+        "date": "2026-03-05",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "05325bed1b4df7af6eb68f6ca4f0335e0cc4034d",
-            "sha256": "sha256-R/4gtw5lhMDTkGA9gvuyvfrPEZgt46uyisTx0QEHiVg=",
+            "rev": "381d78cc95a0632facecd3270fa1e261179d6750",
+            "sha256": "sha256-zFWsnr5FHzF416+ZlMSX97piXt+qOltQgVQQoxGls5Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "05325bed1b4df7af6eb68f6ca4f0335e0cc4034d"
+        "version": "381d78cc95a0632facecd3270fa1e261179d6750"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -145,7 +145,7 @@
     },
     "skills-ref": {
         "cargoLock": null,
-        "date": "2026-03-02",
+        "date": "2026-03-05",
         "extract": null,
         "name": "skills-ref",
         "passthru": null,
@@ -157,12 +157,12 @@
             "name": null,
             "owner": "agentskills",
             "repo": "agentskills",
-            "rev": "f019a02dbbb1302217c4b4a14557d6384d9ace9a",
-            "sha256": "sha256-juWyT2YrW3nZ9Z8xcXv6OIRQjr4dQgWqvLLjVcEoW2w=",
+            "rev": "09055204dd51d3034a6dd9253b3de93d28cd7c3e",
+            "sha256": "sha256-RdZlUAebsXYQ6zatVFZd0SaSHaIdODhFgzzDeAU7GTw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f019a02dbbb1302217c4b4a14557d6384d9ace9a"
+        "version": "09055204dd51d3034a6dd9253b3de93d28cd7c3e"
     },
     "skkeleton": {
         "cargoLock": null,
