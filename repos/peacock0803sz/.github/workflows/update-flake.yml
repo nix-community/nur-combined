@@ -1,0 +1,38 @@
+name: Update flake inputs
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 16 * * * # everyday 01:00 JST
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  update-nix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GIT_AUTHOR_NAME: "peaock0803sz"
+      GIT_AUTHOR_EMAIL: "33555487+peacock0803sz@users.noreply.github.com"
+      GIT_COMMITTER_NAME: "github-actions[bot]"
+      GIT_COMMITTER_EMAIL: "github-actions[bot]@users.noreply.github.com"
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: cachix/install-nix-action@2126ae7fc54c9df00dd18f7f18754393182c73cd # v31.9.1
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: update flake inputs
+        run: |
+          nix flake update
+
+          if [[ $(git status --untracked-files --short) ]]; then
+            git add .
+            git commit -m "Update flake.lock"
+            git push origin HEAD
+          else
+            echo "Nothing to commit"
+          fi

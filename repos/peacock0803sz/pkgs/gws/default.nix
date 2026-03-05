@@ -1,8 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, darwinMinVersionHook, pkg-config, dbus, apple-sdk_14, ... }:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, darwinMinVersionHook, pkg-config, dbus, apple-sdk_14, fenixRustPlatform ? null, ... }:
 let
   version = "0.4.4";
+  useFenix = fenixRustPlatform != null && fenixRustPlatform ? buildRustPackage;
+  effectiveRustPlatform = if useFenix then fenixRustPlatform else rustPlatform;
 in
-rustPlatform.buildRustPackage (final: {
+effectiveRustPlatform.buildRustPackage {
   pname = "gws";
   inherit version;
 
@@ -30,6 +32,5 @@ rustPlatform.buildRustPackage (final: {
     license = lib.licenses.asl20;
     maintainers = [ ];
     mainProgram = "gws";
-    broken = true; # requires rustc >= 1.88.0, nixpkgs has 1.86.0
-  };
-})
+  } // lib.optionalAttrs (!useFenix) { broken = true; };
+}
