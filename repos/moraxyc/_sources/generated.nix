@@ -192,13 +192,13 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "0e45edd1f4892d609367428c8afddc1ca0df2b6c";
+    version = "f7ae7ba80425954acd7a6e322d3cd505cd427781";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "0e45edd1f4892d609367428c8afddc1ca0df2b6c";
+      rev = "f7ae7ba80425954acd7a6e322d3cd505cd427781";
       fetchSubmodules = false;
-      sha256 = "sha256-9cmKJYXmxbZdHSOytoEetFDcOPM92slT8IsJacLdKDU=";
+      sha256 = "sha256-dSIiGmPL4UXGbZMrQW1NmClJjWERj2F1NfonlQfDqQk=";
     };
     date = "2026-03-04";
   };
@@ -263,10 +263,10 @@
     version = "/nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
     src = fetchurl {
       url = "file:///nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
-      sha256 = "sha256-puIc/kopXv5S5OSa/F/ZbBor4lLCOYPjS5l2DSxfkUc=";
+      sha256 = "sha256-vYcv27mpG62QJgZ69hLMPuYeOBmgc0BFQeGCM3xNduU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-puIc_kopXv5S5OSa_F_ZbBor4lLCOYPjS5l2DSxfkUc=/Cargo.lock";
+      lockFile = ./. + "/sha256-vYcv27mpG62QJgZ69hLMPuYeOBmgc0BFQeGCM3xNduU=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -287,18 +287,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603032223";
+    version = "202603042225";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603032223/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603042225/geoip.dat";
       sha256 = "sha256-X33IirmNViJywrNpbUIhT4JZ9h1Llw25PAB6umBUsEs=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603032223";
+    version = "202603042225";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603032223/geosite.dat";
-      sha256 = "sha256-fnOqhhRsKqewW9jy7JeDQ+q3GrLj6ynmQ8a7bM0DMHU=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603042225/geosite.dat";
+      sha256 = "sha256-evGmbPP02uVU63WeT9R5NYq9n3TBqIHECIjpDrTBNwo=";
     };
   };
 }
