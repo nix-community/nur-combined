@@ -66,7 +66,7 @@ jobs:
 
     - name: Update more
       run: |
-        nix-shell -p nix-update --run "nix-update --version=branch musescore-evolution --commit"
+        #nix-shell -p nix-update --run "nix-update --version=branch musescore-evolution --commit"
 
     - name: Push changes
       run: |
