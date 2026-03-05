@@ -64,7 +64,7 @@ buildGoModule {
   # Set to the vendor hash for the Go module graph (Nix will prompt if it changes)
   vendorHash = "sha256-2Eyyy7aJQ4WF2yddSM55gL2P3qSfR7/zoJJv1hcR2ks=";
 
-  # No Node/Yarn: we don’t build frontend here.
+  # No Node/Yarn: we don't build frontend here.
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ ];
 
