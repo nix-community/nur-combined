@@ -13,6 +13,7 @@ Available through `nur.repos.Vortriz.<package>` as well as `default` overlay.
 | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
 | [`batteryd`](https://github.com/Naxdy/batteryd)                                                                                        | Auto updated     |
 | [`dl`](https://github.com/Vortriz/dl)                                                                                                  | Auto updated     |
+| [`doi2bib3`](https://github.com/archisman-panigrahi/doi2bib3)                                                                          | Auto updated     |
 | [`dunefetch`](https://github.com/datavorous/dunefetch)                                                                                 | Auto updated     |
 | [`fprintd`](https://gitlab.freedesktop.org/libfprint/fprintd)                                                                          | Pinned to 1.94.4 |
 | [`fresh`](https://github.com/sinelaw/fresh)                                                                                            | Auto updated     |
@@ -20,6 +21,7 @@ Available through `nur.repos.Vortriz.<package>` as well as `default` overlay.
 | [`libfprint-focaltech-2808-a658-alt`](https://github.com/Varrkan82/RTS5811-FT9366-fingerprint-linux-driver-with-VID-2808-and-PID-a658) | Pinned to 1.94.4 |
 | [`nima`](https://github.com/Vortriz/nix-manipulator)                                                                                   | Auto updated     |
 | [`nixos-boot-plymouth-theme`](https://github.com/daVinci13/nixos_boot_plymouth)                                                        | Pinned to 1.0    |
+| [`surge`](https://github.com/surge-downloader/surge)                                                                                   | Auto updated     |
 | [`xdg-desktop-portal-termfilechooser`](https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser)                             | Auto updated     |
 
 ## Espanso packages
