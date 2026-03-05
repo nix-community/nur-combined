@@ -15574,10 +15574,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.2.4.2";
+      version = "10.2.5.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4700431/video_downloadhelper-10.2.4.2.xpi";
-      sha256 = "6e94d3adb48caa782466b5241410abeea502930f746d32ed0b0290b87f405697";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4714322/video_downloadhelper-10.2.5.2.xpi";
+      sha256 = "9653585ea05aefd24ccb933a8778bb9cb8a014f4ee2f73cfb3e08738b1acf5b6";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -15598,7 +15598,6 @@
           "storage"
           "notifications"
           "contextMenus"
-          "unlimitedStorage"
           "*://*.youtube.com/*"
           "*://*.vimeo.com/*"
           "*://*.facebook.com/*"
@@ -15612,10 +15611,6 @@
           "*://*.canva.com/*"
           "*://*.iq.com/*"
           "*://*.twitcasting.tv/*"
-          "*://*.bilibili.tv/*"
-          "*://*.bilibili.com/*"
-          "*://*.taiav.com/*"
-          "*://*.osmosis.org/*"
           "https://v10.downloadhelper.net/activate*"
           "https://app.v10.downloadhelper.net/activate*"
           "https://v10.downloadhelper.net/changelog*"
