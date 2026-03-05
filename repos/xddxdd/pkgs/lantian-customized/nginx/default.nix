@@ -93,6 +93,7 @@ stdenv.mkDerivation rec {
       ${patch ./patches/nix-etag-1.15.4.patch}
       ${patch ./patches/nix-skip-check-logs-path.patch}
       ${patch ./patches/nginx-oqs-curves.patch}
+      ${patch ./patches/nginx-binary-remote-network.patch}
       ${patch (sources.ja4-nginx-module.src + "/patches/nginx.patch")}
       ${patch patchUring}
 
@@ -114,10 +115,6 @@ stdenv.mkDerivation rec {
 
       pushd bundle/stream-echo-nginx-module
       ${patch ./patches/stream-echo-nginx-module.patch}
-      popd
-
-      pushd bundle/zstd-nginx-module
-      ${patch ./patches/zstd-static-sync-gzip-static.patch}
       popd
 
       # pushd bundle/nginx-njs
