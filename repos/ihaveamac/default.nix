@@ -72,6 +72,7 @@ rec {
   vanilla = callPackage ./pkgs/vanilla/package.nix { };
   caesar = callPackage ./pkgs/caesar/package.nix { };
   azahar-master = callPackage ./pkgs/azahar-master/package.nix { };
+  vacuumtube = callPackage ./pkgs/vacuumtube/package.nix { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
