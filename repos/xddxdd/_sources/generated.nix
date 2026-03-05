@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.41";
+    version = "v6.8.44";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.41";
-      hash = "sha256-eoYI7o912cvcgqpRiwh7WOA8b9egJmBIr7fKWK38GH8=";
+      tag = "v6.8.44";
+      hash = "sha256-33pywfAe/GZTOZ2C9V+5xqGZdVDUqL3vRGs9Ev/qWLo=";
     };
   };
   cockpy = {
@@ -736,10 +736,10 @@
   };
   fr24feed-armhf = {
     pname = "fr24feed-armhf";
-    version = "1.0.55-0";
+    version = "1.0.55-1";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.55-0_armhf.deb";
-      hash = "sha256-ibExwCxhjKn3XYV7/TzlCZx+yD6UW6733IbLIk1xWsw=";
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.55-1_armhf.deb";
+      hash = "sha256-E7tubFyXbF/nmIaGiS5Ge+0mumrjfeaeq3LTNdunwgo=";
     };
   };
   fr24feed-i386 = {
@@ -805,10 +805,10 @@
   };
   google-earth-pro = {
     pname = "google-earth-pro";
-    version = "7.3.6.10441";
+    version = "7.3.7.1094";
     src = fetchurl {
-      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.10441-r0_amd64.deb";
-      hash = "sha256-P3TwIjHiu0c5ltS1pyUw8M96DW5/k7JSPf4KR9+xDbw=";
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.7.1094-r0_amd64.deb";
+      hash = "sha256-Gu88agdbFZ07fqm6/c9aQMx1pkQ5usQ29buVvqnpy+o=";
     };
   };
   gopherus = {
@@ -920,14 +920,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "c9ac0c3424eeb7e82a3bbe5e0f3cc421039bd4ef";
+    version = "0481357c40951b6edab10d058010c3a2f5df0aa3";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "c9ac0c3424eeb7e82a3bbe5e0f3cc421039bd4ef";
-      hash = "sha256-18rbgAqd+dn72LmTBl/oP+/RMh5zffCISKYsiWIgVOg=";
+      rev = "0481357c40951b6edab10d058010c3a2f5df0aa3";
+      hash = "sha256-uOAzxutLKQIKajX17C8fD7pxWjQJqj4486EZ5DgnK8U=";
     };
-    date = "2026-02-28";
+    date = "2026-03-05";
   };
   igsc = {
     pname = "igsc";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8198";
+    version = "b8208";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8198";
-      hash = "sha256-OzoDd+FXPtE9wn6HXcit/LrxGp0zkmph6TIp/wVaaI0=";
+      tag = "b8208";
+      hash = "sha256-lk+we6uW5fgQzz87RZFqja8wI1hRedEgcXw0Tn1wq4s=";
     };
   };
   loralib = {
@@ -1235,14 +1235,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "e347162642f0c881c91038d6b5d5bf37dd06c3be";
+    version = "c79729aab9c34c92d05e3e1fc0981c7d10401e6b";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "e347162642f0c881c91038d6b5d5bf37dd06c3be";
-      hash = "sha256-OvtDbNzDwF/fO58L0Iy7TDgHyLpHn1AksD+Hhaj3fMc=";
+      rev = "c79729aab9c34c92d05e3e1fc0981c7d10401e6b";
+      hash = "sha256-g2U0xCoUTj+YL5ZJ/C2bMKO8t52x6coFM3plkUh+wjQ=";
     };
-    date = "2026-03-01";
+    date = "2026-03-05";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1392,12 +1392,12 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.25";
+    version = "v0.26";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      tag = "v0.25";
-      hash = "sha256-6XEIRiBr7pHZdou5QPStPFIvLN8s427DOynch4+Hfmc=";
+      tag = "v0.26";
+      hash = "sha256-gEvkl8IKekuiQjY+TVaC72vJ310k2A/kXfR5mxdvPpc=";
     };
   };
   oci-arm-host-capacity = {
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "76d5e6d439e25120bc05c23bc5011588cb207f47";
+    version = "14919df584524cf550c3c0543b521f9dd9609821";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "76d5e6d439e25120bc05c23bc5011588cb207f47";
-      hash = "sha256-zDQJcJuAlffyOuJhgQ5UCuaW7I1qR4IBsuAuo341pq0=";
+      rev = "14919df584524cf550c3c0543b521f9dd9609821";
+      hash = "sha256-YczPTc7VLM1OGQUpwzPeci+nnLnswOTs256B7nDoseI=";
     };
-    date = "2026-03-04";
+    date = "2026-03-05";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -1991,12 +1991,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.1.4";
+    version = "v2.1.5";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.1.4";
-      hash = "sha256-PhOMszLROYqkd8+tcHdTe4nnB3q3AJkzVNOJFP96vSA=";
+      tag = "v2.1.5";
+      hash = "sha256-uvLXFW+7L2NUEFO9MXOuBhlI7aHL8WIolG4f2EgqMBI=";
     };
   };
   sam-toki-mouse-cursors = {
