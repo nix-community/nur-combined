@@ -59,7 +59,7 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          if git diff --quiet; then
+          if git diff --quiet "pkgs/${{ matrix.package }}/default.nix"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -87,20 +87,20 @@ jobs:
           git commit -m ":arrow_up: Update ${pkg} to ${ver}"
           git push -u origin "${branch}" --force
 
-          # Close existing open PRs for this package
-          gh pr list --head "${branch}" --state open --json number -q '.[].number' \
-            | while read -r pr_number; do
-                gh pr close "${pr_number}" --comment "Superseded by a newer update to \`${ver}\`."
-              done
-
-          gh pr create \
-            --title ":arrow_up: Update ${pkg} to ${ver}" \
-            --label "dependencies" --label "nix" \
-            --body "$(cat <<EOF
+          title=":arrow_up: Update ${pkg} to ${ver}"
+          body="$(cat <<EOF
           ## Summary
 
           - Automated update by [nix-update](https://github.com/Mic92/nix-update)
           - **Package**: \`${pkg}\`
           - **New version**: \`${ver}\`
           EOF
-            )"
+          )"
+
+          # Update existing PR or create a new one
+          existing_pr=$(gh pr list --head "${branch}" --state open --json number -q '.[0].number')
+          if [ -n "${existing_pr}" ]; then
+            gh pr edit "${existing_pr}" --title "${title}" --body "${body}"
+          else
+            gh pr create --title "${title}" --label "dependencies" --label "nix" --body "${body}"
+          fi
