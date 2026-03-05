@@ -112,6 +112,16 @@ in
 
     # PostgreSQL (API DB)
     database = {
+      createLocally = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Whether to create the PostgreSQL database and user locally.
+          When enabled, this will automatically create the database and user
+          with proper ownership and permissions.
+          Requires services.postgresql.enable to be true.
+        '';
+      };
       host = mkOption {
         type = types.str;
         default = "/run/postgresql";
@@ -341,6 +351,26 @@ in
 
       # Open firewall if requested
       networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.server.port ];
+    })
+
+    # PostgreSQL local database setup
+    (lib.mkIf (cfg.enable && cfg.database.createLocally) {
+      assertions = [
+        {
+          assertion = config.services.postgresql.enable;
+          message = "bloodhound-ce requires services.postgresql.enable to be true when database.createLocally is enabled.";
+        }
+      ];
+
+      services.postgresql = {
+        ensureDatabases = [ cfg.database.name ];
+        ensureUsers = [
+          {
+            name = cfg.database.user;
+            ensureDBOwnership = true;
+          }
+        ];
+      };
     })
   ];
 
