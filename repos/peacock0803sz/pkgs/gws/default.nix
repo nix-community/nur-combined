@@ -1,6 +1,6 @@
 { lib, stdenv, rustPlatform, fetchFromGitHub, darwinMinVersionHook, pkg-config, dbus, apple-sdk_14, ... }:
 let
-  version = "0.3.4";
+  version = "0.4.4";
 in
 rustPlatform.buildRustPackage (final: {
   pname = "gws";
@@ -11,10 +11,10 @@ rustPlatform.buildRustPackage (final: {
     repo = "cli";
     rev = "v${version}";
     fetchSubmodules = false;
-    sha256 = "sha256-xPKxsMr0klLeOcfbgtgPCvzAryiOWXhZy2TUU7DrHHQ=";
+    sha256 = "sha256-M1Xy9nLfS+U7dDpbVhlNCGGp+K4//CJ5l10R3VVc5qo=";
   };
 
-  cargoHash = "sha256-ah/aYp/dAymh6g/Kw9Scmarvrg/Zli1Drtvlnq6gDp8=";
+  cargoHash = "sha256-vK77ay23TFrT0e9G1ml3BJTh0teOsyLnd9HpESePdYo=";
 
   nativeBuildInputs = [ pkg-config ];
 
