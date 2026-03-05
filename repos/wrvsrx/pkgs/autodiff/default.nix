@@ -7,6 +7,18 @@
   python3 ? null,
   source,
 }:
+let
+  python =
+    if python3 != null then
+      python3.withPackages (
+        ps: with ps; [
+          setuptools
+          pybind11
+        ]
+      )
+    else
+      null;
+in
 
 stdenv.mkDerivation rec {
   inherit (source) pname src;
@@ -18,26 +30,19 @@ stdenv.mkDerivation rec {
     eigen
     catch2_3
   ]
-  ++ (
-    if python3 != null then
-      [
-        (python3.withPackages (
-          ps: with ps; [
-            setuptools
-            pybind11
-          ]
-        ))
-      ]
-    else
-      [ ]
-  );
+  ++ (if python != null then [ python ] else [ ]);
 
   # Building the tests currently fails on AArch64 due to internal compiler
   # errors (with GCC 9.2):
   cmakeFlags = [
     "-DRANGES_ENABLE_WERROR=OFF"
   ]
-  ++ (if python3 != null then [ ] else [ "-DAUTODIFF_BUILD_PYTHON=OFF" ]);
+  ++ (
+    if python != null then
+      [ "-DPYTHON_EXECUTABLE=${python}/bin/python" ]
+    else
+      [ "-DAUTODIFF_BUILD_PYTHON=OFF" ]
+  );
 
   # checkTarget = "test";
 
