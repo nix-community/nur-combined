@@ -83,6 +83,7 @@ jobs:
 
           git switch -c "${branch}"
           git add "pkgs/${pkg}/default.nix"
+          git restore .
           git commit -m ":arrow_up: Update ${pkg} to ${ver}"
           git push -u origin "${branch}" --force
 
@@ -94,6 +95,7 @@ jobs:
 
           gh pr create \
             --title ":arrow_up: Update ${pkg} to ${ver}" \
+            --label "dependencies" --label "nix" \
             --body "$(cat <<EOF
           ## Summary
 
@@ -101,5 +103,4 @@ jobs:
           - **Package**: \`${pkg}\`
           - **New version**: \`${ver}\`
           EOF
-            )" \
-            --label "dependencies" --label "nix"
+            )"

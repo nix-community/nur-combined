@@ -30,5 +30,6 @@ rustPlatform.buildRustPackage (final: {
     license = lib.licenses.asl20;
     maintainers = [ ];
     mainProgram = "gws";
+    broken = true; # requires rustc >= 1.88.0, nixpkgs has 1.86.0
   };
 })
