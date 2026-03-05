@@ -9,7 +9,7 @@
 
 let
   # BloodHound version we package
-  version = "8.2.0";
+  version = "8.7.0";
   rev = "v${version}";
 
   # Upstream Go source (no frontend build here)
@@ -21,17 +21,17 @@ let
   };
 
   # Collector binaries (shipped alongside the server)
-  sharphoundVersion = "v2.7.2";
-  azurehoundVersion = "v2.7.1";
+  sharphoundVersion = "v2.10.0";
+  azurehoundVersion = "v2.10.0";
 
   sharphound = fetchurl {
     url = "https://github.com/SpecterOps/SharpHound/releases/download/${sharphoundVersion}/SharpHound_${sharphoundVersion}_windows_x86.zip";
-    sha256 = "sha256-bfdEJD+lwkQUBh6okW53RIbOrw+M71y8cB18Cpjxxzw=";
+    sha256 = "sha256-eWyHRpcSl8OdF6xM2qRB6CnIiPKdIqrPqIvdrGQPakc=";
   };
 
   azurehound = fetchurl {
     url = "https://github.com/SpecterOps/AzureHound/releases/download/${azurehoundVersion}/AzureHound_${azurehoundVersion}_linux_amd64.zip";
-    sha256 = "sha256-oLWZsHxod2mAmilDpnfucaX9wwBZg8sdXDKGYDg8bZ8=";
+    sha256 = "sha256-L1iYMk/lczgDBdFhv9dGU4dQDel/5YQjZuwUdxvfpeg=";
   };
 
   # Keep upstream's version flags
@@ -62,7 +62,7 @@ buildGoModule {
   goPackagePath = "github.com/specterops/bloodhound";
 
   # Set to the vendor hash for the Go module graph (Nix will prompt if it changes)
-  vendorHash = "sha256-Lm6g0pxGVIuns6mUwnkbnBQQQp1V0TvEakX5fAo8qMo=";
+  vendorHash = "sha256-2Eyyy7aJQ4WF2yddSM55gL2P3qSfR7/zoJJv1hcR2ks=";
 
   # No Node/Yarn: we don’t build frontend here.
   nativeBuildInputs = [ makeWrapper ];

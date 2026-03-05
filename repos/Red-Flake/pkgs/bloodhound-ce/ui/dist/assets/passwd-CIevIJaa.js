@@ -1,0 +1,1 @@
+const s=new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\\w\\s])(?=.{12,})","u"),t=e=>s.test(e),a=["must have at least 12 characters","must have at least one lowercase","must have at least one uppercase","must have at least one number","must have at least one of (!@#$%^&*)"];export{a as P,s as p,t};

@@ -1,0 +1,1 @@
+import{b as r,f as o}from"./index-DfsG1-44.js";const l=()=>r({queryKey:["getRoles"],queryFn:({signal:t})=>o.getRoles({signal:t}).then(a=>{var e,s;return(s=(e=a.data)==null?void 0:e.data)==null?void 0:s.roles})});export{l as u};

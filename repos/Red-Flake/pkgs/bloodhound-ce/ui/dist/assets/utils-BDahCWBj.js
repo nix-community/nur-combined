@@ -1,0 +1,1 @@
+import{j as t,L as e}from"./index-DfsG1-44.js";const a=t.jsxs(t.Fragment,{children:["See the"," ",t.jsx(e,{target:"_blank",href:"https://bloodhound.specterops.io/collect-data/overview",children:"Data Collection"})," ","page to view instructions on how to begin data collection."]});export{a as d};
