@@ -18,13 +18,13 @@
 }:
 buildDotnetModule rec {
   pname = "StarDrop";
-  version = "1.5.0";
+  version = "1.8.3";
 
   src = fetchFromGitHub {
     owner = "Floogen";
     repo = "Stardrop";
     rev = "v${version}";
-    hash = "sha256-bwyY0UYveDve6mK59Wn6bpTU8pbEbJWmjIFSDO6EB34=";
+    hash = "sha256-CumU2wLYmT/L3hdV5I/o1j3O+sKIODW7DU+DDOefHd0=";
   };
 
   projectFile = "Stardrop/Stardrop.csproj";
