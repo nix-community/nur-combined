@@ -23,7 +23,7 @@ rollback() {
 trap rollback EXIT
 
 echo "Checking latest version"
-latest_version=$(curl -sL "https://api.github.com/repos/quickshell-mirror/quickshell/releases/latest" | jq -r '.tag_name')
+latest_version=$("$script_dir/../../.github/script/github-tag-fetch.sh" "quickshell-mirror/quickshell")
 latest_version="${latest_version#v}"
 if [[ -z "$latest_version" ]]; then
   echo "ERROR: Cannot fetch latest version"
@@ -32,7 +32,7 @@ fi
 echo "Latest version: $latest_version"
 
 echo "Checking latest revision"
-latest_rev="$(git ls-remote "https://github.com/${owner}/${repo}.git" "${branch}" | cut -f1)"
+latest_rev=$("$script_dir/../../.github/script/github-rev-fetch.sh" "${owner}/${repo}" "${branch}")
 
 if [[ -z "$latest_rev" ]]; then
   echo "ERROR: Cannot fetch latest commit"

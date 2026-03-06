@@ -10,11 +10,8 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 package_file="$script_dir/default.nix"
 
 echo "Checking latest version"
-
-latest_version=$(curl -sL "https://github.com/${owner}/${repo}/releases/latest" \
-    | grep -oP 'tag/v\K[0-9]+\.[0-9]+\.[0-9]+' \
-    | head -1)
-
+latest_version=$("$script_dir/../../.github/script/github-tag-fetch.sh" "${owner}/${repo}")
+latest_version="${latest_version#v}"
 echo "Latest version: $latest_version"
 
 current_version=$(grep -oP '^\s*version\s*=\s*"\K[0-9.]+' "$package_file")

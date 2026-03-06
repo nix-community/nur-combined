@@ -57,6 +57,8 @@ stdenv.mkDerivation {
       }
   '';
 
+  passthru.autoUpdate = false;
+
   meta = {
     description = "Low-latency key click sound engine using evdev + pygame";
     homepage = "https://github.com/dusklinux/dusky";

@@ -3,7 +3,8 @@
 
 set -euo pipefail
 
-cd "$(readlink -e "$(dirname "${BASH_SOURCE[0]}")")"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$(readlink -e "$SCRIPT_DIR")"
 
 pname="fluxer"
 package_file="./default.nix"
@@ -45,15 +46,11 @@ x86_url="https://api.fluxer.app/dl/desktop/stable/linux/x64/latest/appimage"
 arm64_url="https://api.fluxer.app/dl/desktop/stable/linux/arm64/latest/appimage"
 
 echo "Getting hash for x86_64-linux..."
-x86_hash=$(nix-prefetch-url --type sha256 "$x86_url")
-x86_hash=$(nix hash to-base64 "sha256:$x86_hash")
-x86_hash="sha256-$x86_hash"
+x86_hash=$("$SCRIPT_DIR/../../.github/script/fetch-sri-hash.sh" "$x86_url")
 echo "x86_64 hash: $x86_hash"
 
 echo "Getting hash for aarch64-linux..."
-if arm64_hash=$(nix-prefetch-url --type sha256 "$arm64_url" 2>/dev/null); then
-  arm64_hash=$(nix hash to-base64 "sha256:$arm64_hash")
-  arm64_hash="sha256-$arm64_hash"
+if arm64_hash=$("$SCRIPT_DIR/../../.github/script/fetch-sri-hash.sh" "$arm64_url" 2>/dev/null); then
   echo "aarch64 hash: $arm64_hash"
 else
   echo "Failed to get aarch64 hash, keeping placeholder"

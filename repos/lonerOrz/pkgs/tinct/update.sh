@@ -56,8 +56,9 @@ trap rollback EXIT
 
 echo "🔍 Checking latest upstream revision"
 
+# 使用 github-rev-fetch.sh 获取最新 commit（支持 GITHUB_TOKEN 认证避免限流）
 latest_rev="$(
-  git ls-remote "https://github.com/$owner/$repo.git" HEAD | cut -f1
+  "$script_dir/../../.github/script/github-rev-fetch.sh" "$owner/$repo"
 )"
 
 if [[ -z "$latest_rev" ]]; then

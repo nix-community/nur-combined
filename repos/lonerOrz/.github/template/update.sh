@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+# Update script template
+# See README.md for guidelines on writing update scripts
+#
+# 标准流程：
+# 1. 初始化配置
+# 2. 获取最新版本/commit（使用工具脚本）
+# 3. 检查是否需要更新
+# 4. 设置回退机制
+# 5. 更新 rev/version
+# 6. 逐个获取 hash（dummy + 构建）
+# 7. 最终验证
+# 8. 清理并退出
 set -euo pipefail
 
 # =============================================================================
@@ -30,6 +42,7 @@ build_log="$workdir/build.log"
 
 # =============================================================================
 # （可选）预处理钩子（必须在更新 rev 之前）
+# 用途：更新子模块、应用 patch 等
 # =============================================================================
 
 pre_update_hook() {
@@ -55,8 +68,10 @@ trap rollback EXIT
 
 echo "🔍 Checking latest upstream revision"
 
+# 使用 github-rev-fetch.sh 获取最新 commit（支持 GITHUB_TOKEN 认证避免限流）
+# 注意：模板脚本使用 ../script/，实际包脚本使用 ../../.github/script/
 latest_rev="$(
-  git ls-remote "https://github.com/$owner/$repo.git" HEAD | cut -f1
+  "$script_dir/../script/github-rev-fetch.sh" "$owner/$repo"
 )"
 
 if [[ -z "$latest_rev" ]]; then
@@ -98,7 +113,7 @@ sed -i -E \
 # 3️⃣ 逐个 hash 获取（逐次收敛，一 build 一 hash）
 # =============================================================================
 # 语义保证：
-#   - 每一轮 build 都运行在“之前 hash 已修复”的表达式之上
+#   - 每一轮 build 都运行在"之前 hash 已修复"的表达式之上
 #   - 支持 hash = "" / hash = "..." 两种状态
 #   - 对 buildRustPackage 是合法且正确的
 # =============================================================================

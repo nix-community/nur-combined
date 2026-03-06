@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")"
-
-sources_file="./sources.nix"
-package_file="./default.nix"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+sources_file="$SCRIPT_DIR/sources.nix"
+package_file="$SCRIPT_DIR/default.nix"
 
 # 获取最新 release tag
-latestTag=$(curl -sL https://api.github.com/repos/INKCR0W/sparkle/releases/latest | jq -r ".tag_name")
+latestTag=$("$SCRIPT_DIR/../../.github/script/github-tag-fetch.sh" "INKCR0W/sparkle")
 latestVersion="${latestTag#v}"
 
 declare -A archMap=(
@@ -16,7 +15,21 @@ declare -A archMap=(
 )
 
 # 获取该 tag 的完整 release JSON
-release_json=$(curl -sL "https://api.github.com/repos/INKCR0W/sparkle/releases/tags/$latestTag")
+if [ -n "${GITHUB_TOKEN:-}" ]; then
+  release_json=$(curl -sL -H "Authorization: Bearer ${GITHUB_TOKEN}" "https://api.github.com/repos/INKCR0W/sparkle/releases/tags/$latestTag")
+else
+  release_json=$(curl -sL "https://api.github.com/repos/INKCR0W/sparkle/releases/tags/$latestTag")
+fi
+
+# 检查 API 响应是否有效
+if echo "$release_json" | jq -e '.message' >/dev/null 2>&1; then
+  msg=$(echo "$release_json" | jq -r '.message')
+  echo "❌ GitHub API error: $msg" >&2
+  if [ -z "${GITHUB_TOKEN:-}" ]; then
+    echo "💡 Hint: Set GITHUB_TOKEN to avoid rate limits" >&2
+  fi
+  exit 1
+fi
 
 # 生成合法的 sources.nix
 {
@@ -33,8 +46,7 @@ release_json=$(curl -sL "https://api.github.com/repos/INKCR0W/sparkle/releases/t
       continue
     fi
 
-    raw_hash=$(nix-prefetch-url "$url")
-    hash="sha256-$(nix hash to-base64 "sha256:$raw_hash")"
+    hash=$("$SCRIPT_DIR/../../.github/script/fetch-sri-hash.sh" "$url")
 
     echo "  $sys = {"
     echo "    url = \"$url\";"

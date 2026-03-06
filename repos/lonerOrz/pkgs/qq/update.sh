@@ -20,9 +20,7 @@ fetch_version_info() {
 # Get nix-prefetch-url hash (SRI)
 fetch_url_hash() {
     local url="$1"
-    local hash
-    hash=$(nix-prefetch-url "$url")
-    echo "sha256-$(nix hash to-base64 "sha256:$hash")"
+    "$SCRIPT_DIR/../../.github/script/fetch-sri-hash.sh" "$url"
 }
 
 # Compare versions

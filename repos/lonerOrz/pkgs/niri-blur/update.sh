@@ -18,7 +18,7 @@ package_file="$script_dir/default.nix"
 cd "$script_dir/"
 
 # 1️⃣ Get the latest commit from remote
-latest_rev=$(git ls-remote https://github.com/${OWNER}/${REPO}.git ${BRANCH} | cut -f1)
+latest_rev=$("$script_dir/../../.github/script/github-rev-fetch.sh" "${OWNER}/${REPO}" "${BRANCH}")
 if [ -z "$latest_rev" ]; then
   echo "ERROR: Cannot fetch the latest commit of ${OWNER}/${REPO}:${BRANCH}"
   exit 1

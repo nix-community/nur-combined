@@ -58,7 +58,7 @@ trap rollback ERR EXIT
 # -----------------------------------------------------------------------------
 # upstream 检查
 # -----------------------------------------------------------------------------
-latest_rev=$(git ls-remote "https://github.com/$owner/$repo.git" HEAD | cut -f1)
+latest_rev=$("$script_dir/../../.github/script/github-rev-fetch.sh" "$owner/$repo")
 current_rev=$(grep -oP 'rev\s*=\s*"\K[0-9a-f]+' "$package_file" | head -n1)
 
 if [[ "$latest_rev" == "$current_rev" ]]; then

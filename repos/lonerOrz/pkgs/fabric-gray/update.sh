@@ -10,7 +10,7 @@ package_file="$script_dir/default.nix"
 
 # 检查是否需要更新
 echo "Checking latest version"
-latest_rev=$(git ls-remote "https://github.com/$owner/$repo.git" HEAD | cut -f1)
+latest_rev=$("$script_dir/../../.github/script/github-rev-fetch.sh" "$owner/$repo")
 echo "Latest commit: $latest_rev"
 
 current_rev=$(grep -oP 'rev\s*=\s*"\K[^"]+' "$package_file" | head -n1)
