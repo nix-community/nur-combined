@@ -12,7 +12,7 @@
 }: let
     programName = "lceda-pro";
     programNameDesc = "LCEDA Pro";
-    programVersion = "3.2.91";
+    programVersion = "2.2.45.5";
 
     desktopEntry = makeDesktopItem {
         name = programName;
