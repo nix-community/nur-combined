@@ -36,12 +36,12 @@ let
   };
 
   apiDeps = fetchNpmDeps {
-    src = src + /typescript/api;
+    src = src + /src/typescript/api;
     hash = "${apiDepsHash}";
   };
 
   extensionManagerDeps = fetchNpmDeps {
-    src = src + /typescript/extension-manager;
+    src = src + /src/typescript/extension-manager;
     hash = "${extensionManagerDepsHash}";
   };
 in
@@ -79,6 +79,7 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
     cmark-gfm
     kdePackages.layer-shell-qt
     kdePackages.qtkeychain
+    kdePackages.syntax-highlighting
     libqalculate
     minizip
     nodejs
@@ -94,8 +95,8 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     local postPatchHooks=()
     source ${npmHooks.npmConfigHook}/nix-support/setup-hook
-    npmRoot=typescript/api npmDeps=${apiDeps} npmConfigHook
-    npmRoot=typescript/extension-manager npmDeps=${extensionManagerDeps} npmConfigHook
+    npmRoot=src/typescript/api npmDeps=${apiDeps} npmConfigHook
+    npmRoot=src/typescript/extension-manager npmDeps=${extensionManagerDeps} npmConfigHook
   '';
 
   qtWrapperArgs = [
