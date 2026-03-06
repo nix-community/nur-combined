@@ -305,6 +305,8 @@ echo "✅ Update completed"
 | `.deb`, `.AppImage` | 不使用 `--unpack` |
 | `.tar.gz`, `.tgz` | 使用 `--unpack` |
 | Git archive | 使用 `--unpack` |
+| Git 仓库（无子模块） | 使用 `--git` |
+| Git 仓库（有子模块） | 使用 `--git --fetch-submodules` |
 
 ### 3. GITHUB_TOKEN
 
@@ -380,6 +382,12 @@ ca1067afd8c1a3707f1aaf6eb64e980539945b43
 # 用法（tarball）
 .github/script/fetch-sri-hash.sh <url> --unpack
 
+# 用法（git 仓库，不含子模块）
+.github/script/fetch-sri-hash.sh <url> --git
+
+# 用法（git 仓库，含子模块）
+.github/script/fetch-sri-hash.sh <url> --git --fetch-submodules
+
 # 输出
 sha256-xxxxx...
 
@@ -387,6 +395,8 @@ sha256-xxxxx...
 # - 一步获取 SRI 格式 hash
 # - 无需手动转换 base64
 # - 支持 --unpack 用于需要解压的归档
+# - 支持 --git 用于 git 仓库（使用 nix-prefetch-git）
+# - 支持 --fetch-submodules 用于获取 git 子模块
 ```
 
 ## 🔧 调试技巧

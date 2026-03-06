@@ -18,8 +18,9 @@ fi
 # 生成版本号，格式：0-unstable-YYYY-MM-DD
 VERSION="0-unstable-$(date +%F)"
 
-# 获取 SRI hash（使用 git archive tarball）
-HASH=$("$SCRIPT_DIR/../../.github/script/fetch-sri-hash.sh" "https://github.com/$OWNER/$REPO/archive/$LATEST_COMMIT.tar.gz" --unpack)
+# 获取 SRI hash（使用 nix-prefetch-git 带子模块）
+HASH=$("$SCRIPT_DIR/../../.github/script/fetch-sri-hash.sh" \
+  "https://github.com/$OWNER/$REPO" --git --fetch-submodules)
 
 # 替换 rev/version/hash
 # 只替换 linux-wallpaperengine 的字段（确保 p.name 行在文件中）
