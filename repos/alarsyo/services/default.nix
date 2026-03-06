@@ -1,12 +1,12 @@
 {...}: {
   imports = [
-    ./vaultwarden.nix
     ./fail2ban.nix
     ./fava.nix
     ./forgejo
     ./gitea
     ./immich.nix
     ./jellyfin.nix
+    ./journiv.nix
     ./lohr.nix
     ./matrix.nix
     ./mealie.nix
@@ -27,5 +27,6 @@
     ./scribe.nix
     ./tailscale.nix
     ./transmission.nix
+    ./vaultwarden.nix
   ];
 }
