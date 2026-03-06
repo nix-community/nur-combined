@@ -2046,10 +2046,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.2.12";
+      version = "4.3.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4700373/click_and_read-4.2.12.xpi";
-      sha256 = "32b89f3d90b93e82ff6c35ff077cff69c0267702fb1a2ee674258517893e1695";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4714690/click_and_read-4.3.0.xpi";
+      sha256 = "e2b6db638bf1704410cca25345596de3e3a297a77799d9d03dd08ea096e64bf1";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -3744,10 +3744,10 @@
     };
     "export-tabs-urls-and-titles" = buildMozillaXpiAddon {
       pname = "export-tabs-urls-and-titles";
-      version = "0.3.7";
+      version = "0.3.8";
       addonId = "{17165bd9-9b71-4323-99a5-3d4ce49f3d75}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4710902/export_tabs_urls_and_titles-0.3.7.xpi";
-      sha256 = "347c4c3ed8dc2e837a08cbc84d4568833099007d40944ea7ed28e6792b8d55d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4714917/export_tabs_urls_and_titles-0.3.8.xpi";
+      sha256 = "d5abde3d9e5398a0aece7b5bb5e4993ff1abafb8223a7e8592ce544cfd738b46";
       meta = with lib;
       {
         homepage = "https://github.com/alct/export-tabs-urls";
@@ -10616,10 +10616,10 @@
     };
     "open-in-freedium" = buildMozillaXpiAddon {
       pname = "open-in-freedium";
-      version = "1.1.0";
+      version = "1.2.0";
       addonId = "freedium-browser-extension@wywywywy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4214075/open_in_freedium-1.1.0.xpi";
-      sha256 = "b396390f5c86a4433554f56c4816ef8527b50e1808761e3f9a68d4859192f1a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4714715/open_in_freedium-1.2.0.xpi";
+      sha256 = "8b527e3f4e092b4887ad91a8b39a06a4b1859e50cace1bb0883703614d602969";
       meta = with lib;
       {
         homepage = "https://github.com/wywywywy/freedium-browser-extension";
@@ -16764,10 +16764,10 @@
     };
     "ycs-continued" = buildMozillaXpiAddon {
       pname = "ycs-continued";
-      version = "1.8.6";
+      version = "1.8.7";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4702456/ycs_continued-1.8.6.xpi";
-      sha256 = "20fd82803eaf1f33e7a17c78c2a7d0b3d2963e059a6fdf06eaf290b5e9768bdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4714564/ycs_continued-1.8.7.xpi";
+      sha256 = "b8e3b12b8621ec945e1c06347a99f2becbc6b409862249249dc4df622f01d8f4";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
