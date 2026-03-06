@@ -32,7 +32,6 @@ in {
 
     port = mkOption {
       type = types.port;
-      default = 2342;
       example = 8080;
       description = "Internal port for Journiv webapp";
     };
@@ -51,6 +50,20 @@ in {
       "journiv.${domain}" = {
         forceSSL = true;
         useACMEHost = fqdn;
+
+        listen = [
+          # FIXME: hardcoded tailscale IP
+          {
+            addr = "100.115.172.44";
+            port = 443;
+            ssl = true;
+          }
+          {
+            addr = "100.115.172.44";
+            port = 80;
+            ssl = false;
+          }
+        ];
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString cfg.port}";
