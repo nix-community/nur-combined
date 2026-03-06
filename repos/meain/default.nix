@@ -6,9 +6,12 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
-  callPackage' = pkg:
+  callPackage' =
+    pkg:
     pkgs.callPackage pkg {
       inherit pkgs callPackage';
       sources = pkgs.callPackage (pkg + "/_sources/generated.nix") { };
@@ -54,6 +57,7 @@ in
   # fabric = pkgs.callPackage ./pkgs/fabric { };
   prr = pkgs.callPackage ./pkgs/prr { };
   html-to-markdown = pkgs.callPackage ./pkgs/html-to-markdown { };
+  defuddle = pkgs.callPackage ./pkgs/defuddle { };
   probe = pkgs.callPackage ./pkgs/probe { };
 
   # Run nvfetcher in the haskellPackages directory to update sources
