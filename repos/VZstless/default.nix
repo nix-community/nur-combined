@@ -18,5 +18,6 @@
   pingfs = pkgs.callPackage ./pkgs/pingfs { };
   terminalphone = pkgs.callPackage ./pkgs/terminalphone { };
   coccinelle = pkgs.callPackage ./pkgs/coccinelle { };
+  runmat = pkgs.callPackage ./pkgs/runmat { };
   # yamlresume = pkgs.callPackage ./pkgs/yamlresume { };
 }
