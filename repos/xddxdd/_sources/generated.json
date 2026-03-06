@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.44",
-            "sha256": "sha256-33pywfAe/GZTOZ2C9V+5xqGZdVDUqL3vRGs9Ev/qWLo=",
+            "rev": "v6.8.45",
+            "sha256": "sha256-kNXqhBIHwOXFBxdSc4JfxGa5LZ+9pAYlbvScpFQ7x0k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.44"
+        "version": "v6.8.45"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1144,7 +1144,7 @@
     },
     "ela-widget-tools": {
         "cargoLock": null,
-        "date": "2026-03-03",
+        "date": "2026-03-06",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "9f98e922e10a2f17ea3b0247eae527edd012eb31",
-            "sha256": "sha256-sg2NRZOo63UYUxFJoKEQ1MO7kJ7J3AHaCfNv04kGsqY=",
+            "rev": "7563a021eee90a892c9628c91d7a996a3897b2e7",
+            "sha256": "sha256-wzSoNsINR2aXUpdU1Mw74dFtsilRu8RaM6pv9Bl88jQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9f98e922e10a2f17ea3b0247eae527edd012eb31"
+        "version": "7563a021eee90a892c9628c91d7a996a3897b2e7"
     },
     "email-oauth2-proxy": {
         "cargoLock": null,
@@ -2127,7 +2127,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-02-23",
+        "date": "2026-03-06",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2139,12 +2139,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "d1d8447dd890e0bbeeb6868477fd9f4cdefb253b",
-            "sha256": "sha256-K38Cr4uXHgxg1emIe1qkF9cqGhIUmLL3RE6JoptPfeQ=",
+            "rev": "a2fb2644c12b0f7f6659dba9585cc9f2bac6be93",
+            "sha256": "sha256-P/q+s9Ls2H/scz8rubOZySJIDeASUsygin9+CtZqsnY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d1d8447dd890e0bbeeb6868477fd9f4cdefb253b"
+        "version": "a2fb2644c12b0f7f6659dba9585cc9f2bac6be93"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8208",
-            "sha256": "sha256-lk+we6uW5fgQzz87RZFqja8wI1hRedEgcXw0Tn1wq4s=",
+            "rev": "b8216",
+            "sha256": "sha256-75BAttyJPuULoyz62Kmowj4euke82LAafwVYu7IjbFs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8208"
+        "version": "b8216"
     },
     "loralib": {
         "cargoLock": null,
@@ -2394,7 +2394,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-03-05",
+        "date": "2026-03-06",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2406,12 +2406,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "c79729aab9c34c92d05e3e1fc0981c7d10401e6b",
-            "sha256": "sha256-g2U0xCoUTj+YL5ZJ/C2bMKO8t52x6coFM3plkUh+wjQ=",
+            "rev": "0fdbe498eddb276e57e522c2cfb824072e6cf853",
+            "sha256": "sha256-N4BUrIbx1Q5QMcdJqZ3mSTnB7GfYu9W28NM4Rn9tm6g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c79729aab9c34c92d05e3e1fc0981c7d10401e6b"
+        "version": "0fdbe498eddb276e57e522c2cfb824072e6cf853"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
@@ -3285,7 +3285,7 @@
     },
     "pyosmocom": {
         "cargoLock": null,
-        "date": "2025-12-19",
+        "date": "2026-03-06",
         "extract": null,
         "name": "pyosmocom",
         "passthru": null,
@@ -3295,13 +3295,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1c55c95b73fb2cdfe211c57fd3b5babd9a04e202",
-            "sha256": "sha256-9PRDUUjLSNloFLJBWNhH/yDZUNwFUGFb+Ayy6RDl/hI=",
+            "rev": "a5bc2a20f439f2ab309a38bfa6e2cf4266e9c11a",
+            "sha256": "sha256-5owAoUR+sQr08B+tpd3liIOJ8V6mgCzUBvqI4AmbqEg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitea.osmocom.org/osmocom/pyosmocom.git"
         },
-        "version": "1c55c95b73fb2cdfe211c57fd3b5babd9a04e202"
+        "version": "a5bc2a20f439f2ab309a38bfa6e2cf4266e9c11a"
     },
     "pysctp": {
         "cargoLock": null,
@@ -3698,7 +3698,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-03-02",
+        "date": "2026-03-07",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3710,12 +3710,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "9228654ecf46a0c1b9f29a94256ff6eba384b793",
-            "sha256": "sha256-iGrDedW9bfv2byayZ5yZiXk9HKENEwdZQQ6vxrjbE24=",
+            "rev": "83b641e74ead2f2c741f1dd9b9896d7a3db072a3",
+            "sha256": "sha256-HsVPe9nRhULG4DsZrw953D6Uyiu9A1sZNc4u50zZ8L0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9228654ecf46a0c1b9f29a94256ff6eba384b793"
+        "version": "83b641e74ead2f2c741f1dd9b9896d7a3db072a3"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -3887,12 +3887,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v2.1.5",
-            "sha256": "sha256-uvLXFW+7L2NUEFO9MXOuBhlI7aHL8WIolG4f2EgqMBI=",
+            "rev": "v2.1.6",
+            "sha256": "sha256-rMMPhvhkiNRDX507h6f4ukd5mWSs09eHo5edb7ToeME=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.1.5"
+        "version": "v2.1.6"
     },
     "sam-toki-mouse-cursors": {
         "cargoLock": null,
@@ -4655,7 +4655,7 @@
     },
     "zstd-nginx-module": {
         "cargoLock": null,
-        "date": "2026-03-04",
+        "date": "2026-03-07",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,
@@ -4667,11 +4667,11 @@
             "name": null,
             "owner": "HanadaLee",
             "repo": "ngx_http_zstd_module",
-            "rev": "ce08bc6d770d80464424ef11fda11caddada16de",
-            "sha256": "sha256-YqU21CWmg8Hmwpjw3/koN9K4cxfn9B/mt1tqYU1x74w=",
+            "rev": "ff4e53b734251a46a00fb77645938e9af8a4c27b",
+            "sha256": "sha256-I6jwIvZS2ALcmMlVhEzmFV1yhA95/mAPM1yqtsL3z3A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ce08bc6d770d80464424ef11fda11caddada16de"
+        "version": "ff4e53b734251a46a00fb77645938e9af8a4c27b"
     }
 }
