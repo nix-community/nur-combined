@@ -260,13 +260,13 @@
   };
   niri = {
     pname = "niri";
-    version = "/nix/store/3zqw1w8yvs4pqk7vlyjzlpx2x05zims4-niri-patched-src.tar.gz";
+    version = "/nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
     src = fetchurl {
-      url = "file:///nix/store/3zqw1w8yvs4pqk7vlyjzlpx2x05zims4-niri-patched-src.tar.gz";
-      sha256 = "sha256-JQvOEWbnLQMDmAebrFcr30dMXPDc2QKiBPrak92VepA=";
+      url = "file:///nix/store/k8syx9a5i3c2anxkv9qlpwfc4za76hsi-niri-patched-src.tar.gz";
+      sha256 = "sha256-kDnmUcoqIHYLhqKxWx0txpTWzhwOmKU7vtPAEntv3W8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-JQvOEWbnLQMDmAebrFcr30dMXPDc2QKiBPrak92VepA=/Cargo.lock";
+      lockFile = ./. + "/sha256-kDnmUcoqIHYLhqKxWx0txpTWzhwOmKU7vtPAEntv3W8=/Cargo.lock";
       outputHashes = {
         "smithay-0.7.0" = "sha256-By+gqymYHqlrcLzy6J90i2utsxsmr1SP17jodA8apig=";
         "reis-0.5.0" = "sha256-e6F52FCV5sHYXjBwLvpUg/EGfUjtUfVto3PVedbti28=";
@@ -287,18 +287,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603042225";
+    version = "202603052225";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603042225/geoip.dat";
-      sha256 = "sha256-X33IirmNViJywrNpbUIhT4JZ9h1Llw25PAB6umBUsEs=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603052225/geoip.dat";
+      sha256 = "sha256-OgBwbgJo7YOB56JhW1xG9si64ym953gRQnqm+0vEXLE=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603042225";
+    version = "202603052225";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603042225/geosite.dat";
-      sha256 = "sha256-evGmbPP02uVU63WeT9R5NYq9n3TBqIHECIjpDrTBNwo=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603052225/geosite.dat";
+      sha256 = "sha256-nGW4yiuIpypaaUA0mdi+19DyrPz0M5ZDYA5Wn9GKutE=";
     };
   };
   yass = {
