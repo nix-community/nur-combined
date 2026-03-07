@@ -125,6 +125,7 @@ let
         # buildInputs = with selfPkgs; [
         #   glibc
         # ];
+        NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
         externalDeps = with selfPkgs; [
           {
             name = "RT";
