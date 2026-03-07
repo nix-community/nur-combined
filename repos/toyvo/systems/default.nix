@@ -184,6 +184,12 @@ in
         plasma-manager.homeModules.plasma-manager
       ];
     };
+    "droid@debian" = homeConfiguration {
+      system = "aarch64-linux";
+      homeModules = [
+        ./pixel10a.nix
+      ];
+    };
   };
   nixosConfigurations = {
     HP-Envy = nixosSystem {
