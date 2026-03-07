@@ -5,13 +5,13 @@
 }:
 mkOpencodePlugin rec {
   pname = "morph-fast-apply";
-  version = "1.7.0";
+  version = "1.8.0";
 
   src = fetchFromGitHub {
     owner = "JRedeker";
     repo = "opencode-${pname}";
     rev = "v${version}";
-    hash = "sha256-mne9YMFZQPHzGqj4z/Nyp732kdexVH2dGPCTCIQv8eQ=";
+    hash = "sha256-I24qrBRPLhF1Oaa1TjvKE4AcEpuTLxQjyXqD01zrxS4=";
   };
 
   dependencyHash = "sha256-pOdO7KHWbNIayPlUz1ydVklMTqROL/evADFw9OYRT7U=";
