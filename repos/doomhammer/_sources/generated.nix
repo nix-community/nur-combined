@@ -8,23 +8,23 @@
 {
   hammerspoon = {
     pname = "hammerspoon";
-    version = "1.1.0";
+    version = "1.1.1";
     src = fetchurl {
-      url = "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.0/Hammerspoon-1.1.0.zip";
-      sha256 = "sha256-Oe+Qe3mE9s04d41b7jdyq6yL5rSKpGof9detzNQec7U=";
+      url = "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.1/Hammerspoon-1.1.1.zip";
+      sha256 = "sha256-EbsckPr1Qn83x71P5+q5d0rkPh1csCDFswiNrDKEnvo=";
     };
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "8a7ab83dd48b6d1b0e22359c41e788ef55871295";
+    version = "f86f76bae635307d6cb12c8d66693acff57cf82a";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "8a7ab83dd48b6d1b0e22359c41e788ef55871295";
+      rev = "f86f76bae635307d6cb12c8d66693acff57cf82a";
       fetchSubmodules = false;
-      sha256 = "sha256-PdG/fv2j4HMksePIEzWFaZHOP0OEvImh8sEEBwPLfd8=";
+      sha256 = "sha256-+mmvWshi619WqZFmmkua9gE28PWhpspUV/J2vNmKtKM=";
     };
-    date = "2026-02-10";
+    date = "2026-03-07";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";
