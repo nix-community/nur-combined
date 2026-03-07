@@ -101,6 +101,7 @@ files are copied from following locations. some are modified in this repo and so
 + nix_2_31_2 nixpkgs commit 1412caf7bf9e660f2f962917c14b1ea1c3bc695e
 + widevine-firefox <https://github.com/ToborWinner/teanyth/blob/263decae003ec1b7ed0f7cde30b57c6f2f320c0e/pkgs/firefox-widevine.nix#L4>
 + systemd258 nixpkgs commit 3ca49aa290e92b6a885e8c0045033fe2538a4977
++ zen-browser <https://github.com/NixOS/nixpkgs/pull/363992/changes/753a48b91c124ae01063b70221a160c6f3cc4b81>
 
 ## todo - reading
 
