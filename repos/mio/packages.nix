@@ -236,8 +236,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
 
   #systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
 
-  musescore-evolution = v3overrideAttrs (pkgs.callPackage ./pkgs/musescore-evolution/package.nix { });
-
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
     tarballPrefix = "proton-";
