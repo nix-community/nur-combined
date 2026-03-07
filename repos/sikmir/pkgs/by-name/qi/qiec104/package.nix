@@ -2,6 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  copyDesktopItems,
+  desktopToDarwinBundle,
+  makeDesktopItem,
   qt5,
 }:
 
@@ -17,12 +20,29 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
+    copyDesktopItems
     qt5.qmake
     qt5.wrapQtAppsHook
+  ]
+  ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "qiec104";
+      desktopName = "Q104";
+      comment = finalAttrs.meta.description;
+      exec = "Q104";
+      icon = "Q104";
+      terminal = false;
+      categories = [
+        "Utility"
+      ];
+    })
   ];
 
   postInstall = ''
     install -Dm755 Q104 -t $out/bin
+    install -Dm644 icons/Q104.png -t $out/share/icons/hicolor/128x128/apps
   '';
 
   meta = {
