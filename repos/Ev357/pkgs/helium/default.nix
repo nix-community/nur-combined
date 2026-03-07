@@ -9,13 +9,14 @@
   enableWideVine ? false,
 }: let
   version = "0.9.4.1";
+  repo = "https://github.com/imputnet/helium-linux";
   sourceMap = {
     x86_64-linux = fetchurl {
-      url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
+      url = "${repo}/releases/download/${version}/helium-${version}-x86_64.AppImage";
       hash = "sha256-N5gdWuxOrIudJx/4nYo4/SKSxakpTFvL4zzByv6Cnug=";
     };
     aarch64-linux = fetchurl {
-      url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64.AppImage";
+      url = "${repo}/releases/download/${version}/helium-${version}-arm64.AppImage";
       hash = "sha256-BvU0bHtJMd6e09HY+9Vhycr3J0O2hunRJCHXpzKF8lk=";
     };
   };
@@ -39,8 +40,14 @@ in
     };
 
     passthru.updateScript = _experimental-update-script-combinators.sequence [
-      (nix-update-script {extraArgs = ["--system" "x86_64-linux" "--flake"];})
-      (nix-update-script {extraArgs = ["--system" "aarch64-linux" "--version" "skip" "--flake"];})
+      (nix-update-script {
+        attrPath = "helium";
+        extraArgs = ["--system" "x86_64-linux" "--flake" "--url" repo];
+      })
+      (nix-update-script {
+        attrPath = "helium";
+        extraArgs = ["--system" "aarch64-linux" "--version" "skip" "--flake" "--url" repo];
+      })
     ];
 
     extraInstallCommands =

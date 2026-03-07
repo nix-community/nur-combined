@@ -8,13 +8,13 @@
 in
   stdenv.mkDerivation rec {
     pname = "obsidian-git";
-    version = "2.37.1";
+    version = "2.38.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "Vinzent03";
       repo = "obsidian-git";
       rev = version;
-      sha256 = "sha256-2zodtLlaQSdMPdTAuLE7AvAhVXe12coRAR4k5/ZeT5U=";
+      sha256 = "sha256-cG7TBoLFUbsOHd/H2O+iRTmxj5lkPh3u0mNo8lCsiuM=";
     };
 
     nativeBuildInputs = with pkgs;
