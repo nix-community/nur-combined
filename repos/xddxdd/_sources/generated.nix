@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.45";
+    version = "v6.8.47";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.45";
-      hash = "sha256-kNXqhBIHwOXFBxdSc4JfxGa5LZ+9pAYlbvScpFQ7x0k=";
+      tag = "v6.8.47";
+      hash = "sha256-lFv6AVi+/iEFBc2832Cilpc/MZ2xCGJCwANSOqDeJLI=";
     };
   };
   cockpy = {
@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.03.04";
+    version = "2026.03.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.04/GeoLite2-ASN.mmdb";
-      hash = "sha256-SgKQEeG90MKxaxiUkuoy97DW8mY9DG3s3h0gUQvAjt4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-ASN.mmdb";
+      hash = "sha256-Zbm+DQBusgja1DsPutYVuV0YN+fGntybu5Garf8N7wQ=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.03.04";
+    version = "2026.03.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.04/GeoLite2-City.mmdb";
-      hash = "sha256-PfkOiZ2iyg3Ux/rhFtHNZYYmGii2OJSmPHlZLp8ow20=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-City.mmdb";
+      hash = "sha256-b/e+kgTwLOFLF+aGhg9uddaNbbIvDv1EfXgp8t5Nh/A=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.03.04";
+    version = "2026.03.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.04/GeoLite2-Country.mmdb";
-      hash = "sha256-jDeRvlfROMTOsOeJHlKezvwISIPvm7k9mIldBGfei3E=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-Country.mmdb";
+      hash = "sha256-t5r8KKClL4nBXo2SsFwXPzFN1PaHcZ+Wz5IQEtkA/M4=";
     };
   };
   glauth = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8216";
+    version = "b8233";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8216";
-      hash = "sha256-75BAttyJPuULoyz62Kmowj4euke82LAafwVYu7IjbFs=";
+      tag = "b8233";
+      hash = "sha256-gFgyHDImflGsu5mGluWhtkudb+FNx8XBGZKXSQDlHxc=";
     };
   };
   loralib = {
@@ -1902,14 +1902,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "83b641e74ead2f2c741f1dd9b9896d7a3db072a3";
+    version = "375db0b1df19630f6f415ad9ec53f29de3773396";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "83b641e74ead2f2c741f1dd9b9896d7a3db072a3";
-      hash = "sha256-HsVPe9nRhULG4DsZrw953D6Uyiu9A1sZNc4u50zZ8L0=";
+      rev = "375db0b1df19630f6f415ad9ec53f29de3773396";
+      hash = "sha256-UYU5qKw+lygCA8EvAde9m8n7YxzyIvqqC/HqtTsE/D0=";
     };
-    date = "2026-03-07";
+    date = "2026-03-08";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
