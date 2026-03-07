@@ -29,10 +29,6 @@ let
             ghostty.enable = true;
             gtk.enable = true;
             hyprland.enable = true;
-            hyprpaper = {
-              enable = true;
-              wallpaper = "nixos-logo";
-            };
           };
         };
       };

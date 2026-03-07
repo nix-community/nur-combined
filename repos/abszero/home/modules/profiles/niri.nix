@@ -31,8 +31,6 @@ in
       smile
     ];
 
-    services.hyprpaper.enable = true;
-
     programs.niri.settings = {
       binds = with config.lib.niri.actions; {
         XF86MonBrightnessDown.action = spawn "sudo" "brillo" "-qu" "200000" "-U" "5";

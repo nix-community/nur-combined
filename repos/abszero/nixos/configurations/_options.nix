@@ -7,7 +7,7 @@
 }:
 
 let
-  inherit (inputs) nixpkgs;
+  inherit (inputs) nixpkgs-patcher;
   inherit (lib)
     types
     mkOption
@@ -51,8 +51,9 @@ in
     _: c:
     withSystem c.system (
       { system, ... }:
-      nixpkgs.lib.nixosSystem {
+      nixpkgs-patcher.lib.nixosSystem {
         inherit system lib;
+        nixpkgsPatcher.inputs = inputs;
         specialArgs = {
           inherit inputs;
         };

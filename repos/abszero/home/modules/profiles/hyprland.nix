@@ -78,7 +78,5 @@ in
 
       exec-once = [ "albert" ];
     };
-
-    services.hyprpaper.enable = true;
   };
 }

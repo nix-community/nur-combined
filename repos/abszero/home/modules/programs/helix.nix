@@ -17,10 +17,6 @@ in
     enable = true;
     defaultEditor = true;
 
-    extraPackages = with pkgs; [
-      helix-gpt
-    ];
-
     settings = {
       editor = {
         # UI
@@ -162,27 +158,27 @@ in
 
     languages = {
       language = [
-        {
-          name = "bash";
-          language-servers = [
-            "bash-language-server"
-            "gpt"
-          ];
-        }
-        {
-          name = "clojure";
-          language-servers = [
-            "clojure-lsp"
-            "gpt"
-          ];
-        }
-        {
-          name = "css";
-          language-servers = [
-            "vscode-css-language-server"
-            "gpt"
-          ];
-        }
+        # {
+        #   name = "bash";
+        #   language-servers = [
+        #     "bash-language-server"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "clojure";
+        #   language-servers = [
+        #     "clojure-lsp"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "css";
+        #   language-servers = [
+        #     "vscode-css-language-server"
+        #     "gpt"
+        #   ];
+        # }
         {
           name = "devicetree";
           file-types = [
@@ -192,104 +188,104 @@ in
             "overlay"
           ];
         }
-        {
-          name = "javascript";
-          language-servers = [
-            "ts"
-            "gpt"
-          ];
-        }
-        {
-          name = "json";
-          language-servers = [
-            "vscode-json-language-server"
-            "gpt"
-          ];
-        }
-        {
-          name = "html";
-          language-servers = [
-            "vscode-html-language-server"
-            "gpt"
-          ];
-        }
-        {
-          name = "markdown";
-          language-servers = [
-            "markdown-oxide"
-            "gpt"
-          ];
-        }
-        {
-          name = "nix";
-          language-servers = [
-            "nixd"
-            "gpt"
-          ];
-        }
-        {
-          name = "nu";
-          language-servers = [
-            "nu"
-            "gpt"
-          ];
-        }
-        {
-          name = "python";
-          language-servers = [
-            "ty"
-            "ruff"
-            "gpt"
-          ];
-        }
-        {
-          name = "qml";
-          language-servers = [
-            "qmlls"
-            "gpt"
-          ];
-        }
-        {
-          name = "toml";
-          language-servers = [
-            "tombi"
-            "gpt"
-          ];
-        }
-        {
-          name = "typescript";
-          language-servers = [
-            "ts"
-            "gpt"
-          ];
-        }
-        {
-          name = "vue";
-          language-servers = [
-            "vue-language-server"
-            "gpt"
-          ];
-        }
-        {
-          name = "yaml";
-          language-servers = [
-            "yaml-language-server"
-            "gpt"
-          ];
-        }
+        # {
+        #   name = "javascript";
+        #   language-servers = [
+        #     "ts"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "json";
+        #   language-servers = [
+        #     "vscode-json-language-server"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "html";
+        #   language-servers = [
+        #     "vscode-html-language-server"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "markdown";
+        #   language-servers = [
+        #     "markdown-oxide"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "nix";
+        #   language-servers = [
+        #     "nixd"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "nu";
+        #   language-servers = [
+        #     "nu"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "python";
+        #   language-servers = [
+        #     "ty"
+        #     "ruff"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "qml";
+        #   language-servers = [
+        #     "qmlls"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "toml";
+        #   language-servers = [
+        #     "tombi"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "typescript";
+        #   language-servers = [
+        #     "ts"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "vue";
+        #   language-servers = [
+        #     "vue-language-server"
+        #     "gpt"
+        #   ];
+        # }
+        # {
+        #   name = "yaml";
+        #   language-servers = [
+        #     "yaml-language-server"
+        #     "gpt"
+        #   ];
+        # }
       ];
 
       language-server = {
-        gpt = {
-          command = "bash";
-          # Use copilot by default
-          # API key is provided in weathercold/_base.nix
-          args = [
-            "-c"
-            "helix-gpt --handler \${HANDLER:-copilot}"
-          ];
-          environment.COPILOT_MODEL = "claude-opus-4.5";
-        };
+        # gpt = {
+        #   command = "bash";
+        #   # Use copilot by default
+        #   # API key is provided in weathercold/_base.nix
+        #   args = [
+        #     "-c"
+        #     "helix-gpt --handler \${HANDLER:-copilot}"
+        #   ];
+        #   environment.COPILOT_MODEL = "claude-opus-4.5";
+        # };
         nixd.config = {
           nixpkgs.expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }";
           options = {

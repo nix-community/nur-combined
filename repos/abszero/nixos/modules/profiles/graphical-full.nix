@@ -64,12 +64,10 @@ in
         anki-wayland
         aseprite
         ayugram-desktop
-        collector
         ffmpeg-full
         gh
         git-absorb
         git-secret
-        gnome-solanum
         goldendict-ng
         hyperfine
         inkscape
@@ -88,6 +86,7 @@ in
         # taisei
         tenacity
         unzip
+        vial
         ventoy-full
         vesktop
         vscode
@@ -96,6 +95,7 @@ in
         wev
         wget
         xorg.xeyes
+        ytmdesktop
         zip
         zotero
       ];

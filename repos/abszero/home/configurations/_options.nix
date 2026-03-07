@@ -7,7 +7,7 @@
 }:
 
 let
-  inherit (inputs) home-manager;
+  inherit (inputs) nixpkgs-patcher home-manager;
   inherit (lib)
     types
     mkOption
@@ -55,7 +55,11 @@ in
   config.flake.homeConfigurations = mapAttrs (
     _: c:
     withSystem c.system (
-      { pkgs, ... }:
+      { system, ... }:
+      let
+        nixpkgs = nixpkgs-patcher.lib.patchNixpkgs { inherit system inputs; };
+        pkgs = import nixpkgs { inherit system; };
+      in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs lib;
         extraSpecialArgs = {

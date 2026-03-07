@@ -22,10 +22,6 @@ let
           fcitx5.enable = true;
           foot.enable = true;
           gtk.enable = true;
-          hyprpaper = {
-            enable = true;
-            wallpaper = "xppen-chan";
-          };
           niri = {
             enable = true;
             enableCompactLayout = true;
