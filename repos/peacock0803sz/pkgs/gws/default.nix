@@ -1,6 +1,6 @@
 { lib, stdenv, rustPlatform, fetchFromGitHub, darwinMinVersionHook, pkg-config, dbus, apple-sdk_14, fenixRustPlatform ? null, ... }:
 let
-  version = "0.4.4";
+  version = "0.6.3";
   useFenix = fenixRustPlatform != null && fenixRustPlatform ? buildRustPackage;
   effectiveRustPlatform = if useFenix then fenixRustPlatform else rustPlatform;
 in
@@ -13,10 +13,10 @@ effectiveRustPlatform.buildRustPackage {
     repo = "cli";
     rev = "v${version}";
     fetchSubmodules = false;
-    sha256 = "sha256-M1Xy9nLfS+U7dDpbVhlNCGGp+K4//CJ5l10R3VVc5qo=";
+    sha256 = "sha256-8vRBW7RUwHHAvAiF8WahkRh0pH205UiuJloY0DgFwLM=";
   };
 
-  cargoHash = "sha256-vK77ay23TFrT0e9G1ml3BJTh0teOsyLnd9HpESePdYo=";
+  cargoHash = "sha256-tIJikoRFbUYYlkOjfWoPogoB+yhY80TTtSzEXgSEP8A=";
 
   nativeBuildInputs = [ pkg-config ];
 
