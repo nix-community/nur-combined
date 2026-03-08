@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  boost,
+  boost188,
   gdal,
   gsl,
   hdf5,
@@ -14,19 +14,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rsgislib";
-  version = "5.1.8";
+  version = "5.2.1";
 
   src = fetchFromGitHub {
     owner = "remotesensinginfo";
     repo = "rsgislib";
     tag = finalAttrs.version;
-    hash = "sha256-Hy7wYdi9M2UTAC9paZz2/EXC4FpjxTjuZ5iRPHw8zIU=";
+    hash = "sha256-2U5Kyrp7mc/x2GP/HMU5grVk4Trzo5Jq4YjMbGBZvm4=";
   };
 
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
-    boost
+    boost188
     gdal
     gsl
     hdf5

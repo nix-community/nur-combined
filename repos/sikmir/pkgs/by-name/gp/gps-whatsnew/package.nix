@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  boost,
+  boost188,
   qt5,
 }:
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [ qt5.qmake ];
-  buildInputs = [ boost ];
+  buildInputs = [ boost188 ];
 
   dontWrapQtApps = true;
 

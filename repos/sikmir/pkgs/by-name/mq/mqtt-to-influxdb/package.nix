@@ -9,7 +9,7 @@
   cxxopts,
   nlohmann_json,
   influxdb-cxx,
-  boost,
+  boost188,
   curl,
   paho-mqtt-cpp,
   paho-mqtt-c,
@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     cxxopts
     nlohmann_json
     influxdb-cxx
-    boost
+    boost188
     curl
     paho-mqtt-cpp
     paho-mqtt-c
