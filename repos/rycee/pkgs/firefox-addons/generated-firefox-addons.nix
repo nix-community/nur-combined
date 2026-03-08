@@ -8622,10 +8622,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.0.99";
+      version = "1.1.0";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4701858/lockedin_yt-1.0.99.xpi";
-      sha256 = "6b26a909bb519b090d6ab4e2a7b0960bf879ecf76174864e7fbb216042dada9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4717089/lockedin_yt-1.1.0.xpi";
+      sha256 = "390e27c9a174a924d853ef97c0d027b0464ddbbcead99c0b2dc9ccdc44f0e863";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -9771,10 +9771,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.11.8";
+      version = "1.11.9";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4716973/mtab-1.11.8.xpi";
-      sha256 = "87876b0ddc9f16eddf27ce3f9df48170f9cc4114f74fc5411b67df9c29433056";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4717571/mtab-1.11.9.xpi";
+      sha256 = "3f2c5fce63af27f16fdf815142cfd58a0801ef919bec609e92fb408a2cdec617";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -10590,7 +10590,7 @@
       meta = with lib;
       {
         homepage = "http://www.one-tab.com";
-        description = "OneTab - Too many tabs? Convert tabs to a list and reduce browser memory";
+        description = "Save up to 95% memory and reduce tab clutter";
         license = {
           shortName = "onetab";
           fullName = "Custom License for OneTab";
