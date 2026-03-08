@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   copyDesktopItems,
-  desktopToDarwinBundle,
   makeDesktopItem,
   qt5,
 }:
@@ -20,29 +19,38 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    copyDesktopItems
     qt5.qmake
     qt5.wrapQtAppsHook
   ]
-  ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
 
   desktopItems = [
     (makeDesktopItem {
       name = "qiec104";
       desktopName = "Q104";
       comment = finalAttrs.meta.description;
-      exec = "Q104";
+      exec = finalAttrs.meta.mainProgram;
       icon = "Q104";
       terminal = false;
-      categories = [
-        "Utility"
-      ];
+      categories = [ "Utility" ];
     })
   ];
 
-  postInstall = ''
-    install -Dm755 Q104 -t $out/bin
-    install -Dm644 icons/Q104.png -t $out/share/icons/hicolor/128x128/apps
+  installPhase = ''
+    runHook preInstall
+
+    ${lib.optionalString stdenv.hostPlatform.isLinux ''
+      install -Dm755 Q104 -t $out/bin
+      install -Dm644 icons/Q104.png -t $out/share/icons/hicolor/128x128/apps
+    ''}
+
+    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p $out/{Applications,bin}
+      mv Q104.app $out/Applications
+      ln -s $out/Applications/Q104.app/Contents/MacOS/Q104 $out/bin/Q104
+    ''}
+
+    runHook postInstall
   '';
 
   meta = {
@@ -51,5 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    mainProgram = "Q104";
   };
 })
