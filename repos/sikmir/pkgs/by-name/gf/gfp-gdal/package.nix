@@ -21,6 +21,12 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail "find_package( GDAL 3.5 REQUIRED )" \
+                     "find_package( GDAL CONFIG REQUIRED )"
+  '';
+
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
