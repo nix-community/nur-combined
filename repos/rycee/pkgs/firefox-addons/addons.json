@@ -157,6 +157,13 @@
     "slug": "bibbot"
   },
   {
+    "slug": "bilibili-clean-homepage",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Only"
+    }
+  },
+  {
     "slug": "bilisponsorblock"
   },
   {
@@ -171,6 +178,9 @@
   },
   {
     "slug": "blocktube"
+  },
+  {
+    "slug": "blueprint-mcp-for-firefox"
   },
   {
     "slug": "bonjourr-startpage"
@@ -340,6 +350,9 @@
   {
     "pname": "copy-link-text",
     "slug": "copy-link-text-webextension"
+  },
+  {
+    "slug": "copy-link-to-highlight"
   },
   {
     "slug": "copy-n-paste"
@@ -868,6 +881,9 @@
   {
     "slug": "hulu-ad-blocker-firefox",
     "pname": "hulu-ad-blocker"
+  },
+  {
+    "slug": "humble-new-tab"
   },
   {
     "slug": "hyperchat"
@@ -1622,6 +1638,9 @@
     "slug": "read-aloud"
   },
   {
+    "slug": "read-on-remarkable-unofficial"
+  },
+  {
     "slug": "readeck"
   },
   {
@@ -2297,6 +2316,9 @@
     "slug": "widegithub"
   },
   {
+    "slug": "wikipedia-first"
+  },
+  {
     "slug": "wikipedia-vector-skin"
   },
   {
@@ -2437,6 +2459,14 @@
   },
   {
     "slug": "zybooks-auto"
+  },
+  {
+    "slug": "知乎推荐屏蔽器",
+    "pname": "zhihu-blocker",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Only"
+    }
   },
   {
     "slug": "非官方-沙拉查词-聚合词典划词翻译",

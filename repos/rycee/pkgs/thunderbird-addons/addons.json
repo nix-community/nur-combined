@@ -6,7 +6,26 @@
     "slug": "eas-4-tbsync"
   },
   {
+    "slug": "filtaquilla"
+  },
+  {
+    "slug": "filter-manager"
+  },
+  {
+    "slug": "manually-sort-folders"
+  },
+  {
     "slug": "provider-for-google-calendar"
+  },
+  {
+    "slug": "quickfilters",
+    "license": {
+      "tag": "custom",
+      "shortName": "quickfilters",
+      "fullName": "quickFilters license (CC BY-ND 4.0)",
+      "url": "https://addons.thunderbird.net/en-US/thunderbird/addon/quickfilters/license/",
+      "free": false
+    }
   },
   {
     "slug": "send-later-3",

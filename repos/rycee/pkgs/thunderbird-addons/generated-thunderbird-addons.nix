@@ -30,6 +30,58 @@
         platforms = platforms.all;
       };
     };
+    "filtaquilla" = buildMozillaXpiAddon {
+      pname = "filtaquilla";
+      version = "6.1";
+      addonId = "filtaquilla@mesquilla.com";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1044060/filtaquilla-6.1-tb.xpi?src=";
+      sha256 = "a4f9e6422ec7c6e8086489a0cae9dd4939f76fcf2134e8bdcc902ac1cfc653f7";
+      meta = with lib;
+      {
+        homepage = "http://quickfilters.mozdev.org/filtaquilla.html";
+        description = "Adds many new mail filter actions - launch a file, suppress notification, remove star or tag, mark replied or unread, copy as \"read\", append text to subject.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "messagesRead"
+          "messagesModifyPermanent"
+          "menus"
+          "notifications"
+          "storage"
+          "tabs"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "filter-manager" = buildMozillaXpiAddon {
+      pname = "filter-manager";
+      version = "1.3";
+      addonId = "filterManager@dillinger";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1036137/filter_manager-1.3-tb.xpi?src=";
+      sha256 = "0e386d269c28e79231567fae0256b022ccb28db597081ad5756d1f99309cc4ef";
+      meta = with lib;
+      {
+        homepage = "https://addons.thunderbird.net/en-US/thunderbird/addon/filter-manager/";
+        description = "Adds a Filters Button, opens Filter Manager";
+        license = licenses.gpl3;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "manually-sort-folders" = buildMozillaXpiAddon {
+      pname = "manually-sort-folders";
+      version = "2.3.0";
+      addonId = "tbsortfolders@xulforum.org";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1021687/manually_sort_folders-2.3.0-tb.xpi?src=";
+      sha256 = "ef750e487ba259142d8281e630440ed5965fa1da3d6c9b0e9ce13ccb2cc0e19d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/protz/Manually-Sort-Folders/";
+        description = "This extension allows you to manually sort (order) your folders in the folder pane of Thunderbird or automatically sort them, but in a better way. This extension also allows you to re-order accounts in the folder pane.";
+        license = licenses.gpl2;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "provider-for-google-calendar" = buildMozillaXpiAddon {
       pname = "provider-for-google-calendar";
       version = "128.5.11";
@@ -42,6 +94,33 @@
         description = "Provider for Google Calendar connects Thunderbird with Google Calendar for full task sync, conference details, and scheduling support. It offers deeper integration than Thunderbird’s native support using Google’s official API.";
         license = licenses.mpl20;
         mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "quickfilters" = buildMozillaXpiAddon {
+      pname = "quickfilters";
+      version = "6.11";
+      addonId = "quickFilters@axelg.com";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1044211/quickfilters-6.11-tb.xpi?src=";
+      sha256 = "4d6174829e54a2f2c9b3468160c870b35cc3641dc3892df2c7ccb698df4f22a6";
+      meta = with lib;
+      {
+        homepage = "https://quickfilters.quickfolders.org/";
+        description = "Quickly generate mail filters on the fly, by dragging and dropping mails and analyzing their attributes. Create a filter in less than 10 seconds, it's as easy as: drag, click, click.\n\nBy popular demand, supports SORTING filters alphabetically.";
+        license = {
+          shortName = "quickfilters";
+          fullName = "quickFilters license (CC BY-ND 4.0)";
+          url = "https://addons.thunderbird.net/en-US/thunderbird/addon/quickfilters/license/";
+          free = false;
+        };
+        mozPermissions = [
+          "accountsRead"
+          "notifications"
+          "menus"
+          "messagesRead"
+          "clipboardRead"
+          "tabs"
+        ];
         platforms = platforms.all;
       };
     };

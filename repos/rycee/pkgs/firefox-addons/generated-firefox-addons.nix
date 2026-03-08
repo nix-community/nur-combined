@@ -1184,6 +1184,20 @@
         platforms = platforms.all;
       };
     };
+    "bilibili-clean-homepage" = buildMozillaXpiAddon {
+      pname = "bilibili-clean-homepage";
+      version = "1.0";
+      addonId = "bilibili-clean-homepage@dzming.li";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4705895/bilibili_clean_homepage-1.0.xpi";
+      sha256 = "177208db434cedb9e022ac8b15ec66fe0ff7038e550402f790f33f12e3767a6a";
+      meta = with lib;
+      {
+        description = "屏蔽B站首页视频推荐，只保留搜索框和导航栏.";
+        license = licenses.agpl3Only;
+        mozPermissions = [ "*://www.bilibili.com/*" ];
+        platforms = platforms.all;
+      };
+    };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
       version = "0.11.5";
@@ -1279,6 +1293,30 @@
           "unlimitedStorage"
           "https://www.youtube.com/*"
           "https://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "blueprint-mcp-for-firefox" = buildMozillaXpiAddon {
+      pname = "blueprint-mcp-for-firefox";
+      version = "1.9.18";
+      addonId = "blueprint-mcp@railsblueprint.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4637587/blueprint_mcp_for_firefox-1.9.18.xpi";
+      sha256 = "bb154a40580aaedbe29fd032fce61e1a0a9e321f9dbe73d2d1a527a005bcab83";
+      meta = with lib;
+      {
+        description = "Give Claude Code and other AI assistants direct control of your real Firefox browser through the Model Context Protocol. Stay logged in, bypass bot detection, automate authenticated workflows.";
+        license = licenses.mit;
+        mozPermissions = [
+          "tabs"
+          "activeTab"
+          "webNavigation"
+          "webRequest"
+          "storage"
+          "management"
+          "scripting"
+          "alarms"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -2482,6 +2520,25 @@
         description = "Copy the text of the link.";
         license = licenses.mpl20;
         mozPermissions = [ "clipboardWrite" "menus" "scripting" ];
+        platforms = platforms.all;
+      };
+    };
+    "copy-link-to-highlight" = buildMozillaXpiAddon {
+      pname = "copy-link-to-highlight";
+      version = "1.0";
+      addonId = "copy-link-highlight@example.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4577403/copy_link_to_highlight-1.0.xpi";
+      sha256 = "45179857b0d4d83ac18dd3438c92790f47b2f9be39f331e83778da7d80a1fe9c";
+      meta = with lib;
+      {
+        description = "Create a shareable link from any selected text on a webpage—just highlight, copy, and share!";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "contextMenus"
+          "clipboardWrite"
+          "activeTab"
+          "<all_urls>"
+        ];
         platforms = platforms.all;
       };
     };
@@ -6304,6 +6361,21 @@
         description = "Block All Hulu Ads, Stream Freely!";
         license = licenses.mpl20;
         mozPermissions = [ "https://*/*" "http://*/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "humble-new-tab" = buildMozillaXpiAddon {
+      pname = "humble-new-tab";
+      version = "1.26.2";
+      addonId = "{bb9cfae3-9ac6-4c72-b90b-71814ab7d789}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4511933/humble_new_tab-1.26.2.xpi";
+      sha256 = "c4708739bc3556a86a04b4d70e4d085326b69750dfb51aca32b7f38c0e444eff";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ibillingsley/HumbleNewTabPage";
+        description = "Redesigned new tab page featuring your bookmarks, most visited, recently closed, and weather in a custom layout.";
+        license = licenses.mit;
+        mozPermissions = [ "bookmarks" "topSites" "tabs" "sessions" ];
         platforms = platforms.all;
       };
     };
@@ -12121,6 +12193,20 @@
         platforms = platforms.all;
       };
     };
+    "read-on-remarkable-unofficial" = buildMozillaXpiAddon {
+      pname = "read-on-remarkable-unofficial";
+      version = "0.2";
+      addonId = "remarkable-firefox@lilleengen.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4056608/read_on_remarkable_unofficial-0.2.xpi";
+      sha256 = "00c21c65ad63dbc683d15f3bc359bc9f26e93ecabcdb78adf237421ff0d144eb";
+      meta = with lib;
+      {
+        description = "Unofficial extension letting you read web articles on your reMarkable with a click.";
+        license = licenses.mpl20;
+        mozPermissions = [ "activeTab" "scripting" "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "readeck" = buildMozillaXpiAddon {
       pname = "readeck";
       version = "2.6.2";
@@ -16600,6 +16686,24 @@
         platforms = platforms.all;
       };
     };
+    "wikipedia-first" = buildMozillaXpiAddon {
+      pname = "wikipedia-first";
+      version = "1.0";
+      addonId = "wikifirst@mzza.xyz";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232672/wikipedia_first-1.0.xpi";
+      sha256 = "90dd279f6a8755a4e1abf5bfb0bee07683f3ef004e59be6f5e53d394017edf8d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/itsjustmustafa/reorder_google_results_extension";
+        description = "Reorders Google and DuckDuckGo search results so Wikipedia is on top.";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "*://*.google.com/search*"
+          "*://duckduckgo.com/*q=*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "wikipedia-vector-skin" = buildMozillaXpiAddon {
       pname = "wikipedia-vector-skin";
       version = "1.3";
@@ -17153,6 +17257,20 @@
           "webRequestBlocking"
           "contextMenus"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "zhihu-blocker" = buildMozillaXpiAddon {
+      pname = "zhihu-blocker";
+      version = "1.1.0";
+      addonId = "zhihu-blocker@dzming.li";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4690490/2977607-1.1.0.xpi";
+      sha256 = "b5ace992910fab7fe336c5564a66f0489ed9ee24431b34dc019df101f2d3e759";
+      meta = with lib;
+      {
+        description = "本插件能屏蔽知乎首页的所有推荐内容和热搜栏，但保留关注和搜索功能，有助于数字健康。";
+        license = licenses.agpl3Only;
+        mozPermissions = [ "activeTab" "*://www.zhihu.com/*" ];
         platforms = platforms.all;
       };
     };
