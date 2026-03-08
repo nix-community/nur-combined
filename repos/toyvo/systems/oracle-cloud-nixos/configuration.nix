@@ -128,10 +128,6 @@
         email = "collin@diekvoss.com";
         dnsProvider = "cloudflare";
         credentialFiles = {
-          "CF_API_EMAIL_FILE" = "${pkgs.writeText "cfemail" ''
-            collin@diekvoss.com
-          ''}";
-          "CF_API_KEY_FILE" = config.sops.secrets.cloudflare_global_api_key.path;
           "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_w_dns_r_zone_token.path;
         };
       };
@@ -145,7 +141,6 @@
     enable = true;
   };
   sops.secrets = {
-    cloudflare_global_api_key = { };
     cloudflare_w_dns_r_zone_token = { };
     "discord_bot.env" = { };
     "rclone.conf" = { };

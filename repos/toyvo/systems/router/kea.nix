@@ -10,6 +10,8 @@ in
         interfaces-config = {
           interfaces = [
             "br0"
+            "br0.20"
+            "br0.30"
           ];
           dhcp-socket-type = "raw";
         };
@@ -63,6 +65,36 @@ in
                   ) homelab
                 );
           }
+          {
+            id = 20;
+            pools = [
+              {
+                pool = "10.1.20.${toString reserved} - 10.1.20.254";
+              }
+            ];
+            subnet = "10.1.20.0/24";
+            option-data = [
+              {
+                name = "routers";
+                data = "10.1.20.1";
+              }
+            ];
+          }
+          {
+            id = 30;
+            pools = [
+              {
+                pool = "10.1.30.${toString reserved} - 10.1.30.254";
+              }
+            ];
+            subnet = "10.1.30.0/24";
+            option-data = [
+              {
+                name = "routers";
+                data = "10.1.30.1";
+              }
+            ];
+          }
         ];
         option-data = [
           {
@@ -93,6 +125,8 @@ in
       settings = {
         interfaces-config.interfaces = [
           "br0"
+          "br0.20"
+          "br0.30"
         ];
         lease-database = {
           name = "/var/lib/kea/dhcp6.leases";
@@ -140,6 +174,24 @@ in
                     inSubnet && hostAddress > 1 && hostAddress < reserved
                   ) homelab
                 );
+          }
+          {
+            id = 20;
+            pools = [
+              {
+                pool = "fdcd:2022:1118:20::${lib.toHexString reserved} - fdcd:2022:1118:20::ffff";
+              }
+            ];
+            subnet = "fdcd:2022:1118:20::/64";
+          }
+          {
+            id = 30;
+            pools = [
+              {
+                pool = "fdcd:2022:1118:30::${lib.toHexString reserved} - fdcd:2022:1118:30::ffff";
+              }
+            ];
+            subnet = "fdcd:2022:1118:30::/64";
           }
         ];
         option-data = [

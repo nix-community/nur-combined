@@ -59,6 +59,8 @@ in
       externalInterface = "enp2s0";
       internalInterfaces = [
         "br0"
+        "br0.20"
+        "br0.30"
       ];
     };
     firewall = {
@@ -79,6 +81,7 @@ in
           22
           80
           443
+          homelab.${hostName}.services.litellm.port
         ];
         allowedUDPPorts = [
           53
@@ -87,9 +90,65 @@ in
           443
         ];
       };
+      interfaces."br0.20" = {
+        allowedTCPPorts = [ 53 ];
+        allowedUDPPorts = [
+          53
+          67
+          68
+        ];
+      };
+      interfaces."br0.30" = {
+        allowedTCPPorts = [ 53 ];
+        allowedUDPPorts = [
+          53
+          67
+          68
+        ];
+      };
+      extraCommands = ''
+        # Guest (VLAN 20): internet only, no access to any internal subnet
+        iptables -I FORWARD -i br0.20 -d 10.0.0.0/8 -j DROP
+        iptables -I FORWARD -i br0.20 -d 172.16.0.0/12 -j DROP
+        iptables -I FORWARD -i br0.20 -d 192.168.0.0/16 -j DROP
+
+        # IoT (VLAN 30): internet only, no access to any internal subnet
+        iptables -I FORWARD -i br0.30 -d 10.0.0.0/8 -j DROP
+        iptables -I FORWARD -i br0.30 -d 172.16.0.0/12 -j DROP
+        iptables -I FORWARD -i br0.30 -d 192.168.0.0/16 -j DROP
+
+        # Allow CDWifi (br0) to initiate connections to IoT (VLAN 30)
+        # Established/related responses from IoT back to CDWifi are allowed by conntrack
+        iptables -I FORWARD -i br0 -d 10.1.30.0/24 -j ACCEPT
+      '';
+      extraStopCommands = ''
+        iptables -D FORWARD -i br0.20 -d 10.0.0.0/8 -j DROP 2>/dev/null || true
+        iptables -D FORWARD -i br0.20 -d 172.16.0.0/12 -j DROP 2>/dev/null || true
+        iptables -D FORWARD -i br0.20 -d 192.168.0.0/16 -j DROP 2>/dev/null || true
+        iptables -D FORWARD -i br0.30 -d 10.0.0.0/8 -j DROP 2>/dev/null || true
+        iptables -D FORWARD -i br0.30 -d 172.16.0.0/12 -j DROP 2>/dev/null || true
+        iptables -D FORWARD -i br0.30 -d 192.168.0.0/16 -j DROP 2>/dev/null || true
+        iptables -D FORWARD -i br0 -d 10.1.30.0/24 -j ACCEPT 2>/dev/null || true
+      '';
     };
   };
   boot = {
+    kernel.sysctl = {
+      # Prevent IP spoofing
+      "net.ipv4.conf.all.rp_filter" = 1;
+      "net.ipv4.conf.default.rp_filter" = 1;
+      # Ignore ICMP redirects
+      "net.ipv4.conf.all.accept_redirects" = 0;
+      "net.ipv6.conf.all.accept_redirects" = 0;
+      # Don't send ICMP redirects
+      "net.ipv4.conf.all.send_redirects" = 0;
+      # Log martian packets
+      "net.ipv4.conf.all.log_martians" = 1;
+      # Ignore broadcast pings
+      "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
+      # SYN flood protection
+      "net.ipv4.tcp_syncookies" = 1;
+    };
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     initrd.availableKernelModules = [
@@ -125,16 +184,81 @@ in
       };
       networks.br0 = {
         matchConfig.Name = "br0";
+        address = [
+          "10.1.0.1/24"
+          "fdcd:2022:1118::1/64"
+        ];
         networkConfig = {
-          Address = "10.1.0.1/24";
           IPMasquerade = "ipv4";
           MulticastDNS = true;
+          IPv6SendRA = true;
         };
+        ipv6SendRAConfig = {
+          EmitDNS = true;
+          DNS = [ "fdcd:2022:1118::1" ];
+        };
+        ipv6Prefixes = [
+          { Prefix = "fdcd:2022:1118::/64"; }
+        ];
+        vlan = [
+          "br0.20"
+          "br0.30"
+        ];
+      };
+      networks."br0.20" = {
+        matchConfig.Name = "br0.20";
+        address = [
+          "10.1.20.1/24"
+          "fdcd:2022:1118:20::1/64"
+        ];
+        networkConfig = {
+          IPMasquerade = "ipv4";
+          IPv6SendRA = true;
+        };
+        ipv6SendRAConfig = {
+          EmitDNS = true;
+          DNS = [ "fdcd:2022:1118::1" ];
+        };
+        ipv6Prefixes = [
+          { Prefix = "fdcd:2022:1118:20::/64"; }
+        ];
+      };
+      networks."br0.30" = {
+        matchConfig.Name = "br0.30";
+        address = [
+          "10.1.30.1/24"
+          "fdcd:2022:1118:30::1/64"
+        ];
+        networkConfig = {
+          IPMasquerade = "ipv4";
+          IPv6SendRA = true;
+        };
+        ipv6SendRAConfig = {
+          EmitDNS = true;
+          DNS = [ "fdcd:2022:1118::1" ];
+        };
+        ipv6Prefixes = [
+          { Prefix = "fdcd:2022:1118:30::/64"; }
+        ];
       };
       netdevs.br0.netdevConfig = {
         Name = "br0";
         Kind = "bridge";
         MACAddress = "none";
+      };
+      netdevs."br0.20" = {
+        netdevConfig = {
+          Name = "br0.20";
+          Kind = "vlan";
+        };
+        vlanConfig.Id = 20;
+      };
+      netdevs."br0.30" = {
+        netdevConfig = {
+          Name = "br0.30";
+          Kind = "vlan";
+        };
+        vlanConfig.Id = 30;
       };
       links.br0 = {
         matchConfig.OriginalName = "br0";
@@ -143,6 +267,11 @@ in
     };
   };
   services = {
+    fail2ban = {
+      enable = true;
+      maxretry = 5;
+      bantime = "1h";
+    };
     openssh = {
       enable = true;
       openFirewall = false;
@@ -203,9 +332,8 @@ in
     };
     litellm = {
       enable = true;
-      host = "0.0.0.0";
+      host = "10.1.0.1";
       port = homelab.${hostName}.services.litellm.port;
-      openFirewall = true;
       settings = {
         model_list = [
           {
@@ -236,10 +364,6 @@ in
         email = "collin@diekvoss.com";
         dnsProvider = "cloudflare";
         credentialFiles = {
-          "CF_API_EMAIL_FILE" = "${pkgs.writeText "cfemail" ''
-            collin@diekvoss.com
-          ''}";
-          "CF_API_KEY_FILE" = config.sops.secrets.cloudflare_global_api_key.path;
           "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_w_dns_r_zone_token.path;
         };
       };
@@ -257,7 +381,6 @@ in
       };
     };
   sops.secrets = {
-    cloudflare_global_api_key = { };
     cloudflare_w_dns_r_zone_token = { };
   };
 }
