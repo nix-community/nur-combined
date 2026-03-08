@@ -47,7 +47,7 @@ in
                 "uinput"
                 cfg.toyvo.name
               ]
-              ++ lib.optionals config.containerPresets.podman.enable [ "podman" ];
+              ++ lib.optionals (config.containerPresets.podman.enable or false) [ "podman" ];
               hashedPasswordFile = config.sops.secrets.toyvo_hashed_password.path;
             })
           ]

@@ -100,29 +100,27 @@
           68
         ];
       };
-      extraCommands = ''
-        # Guest (VLAN 20): internet only, no access to any internal subnet
-        iptables -I FORWARD -i br0.20 -d 192.168.0.0/16 -j DROP
-        iptables -I FORWARD -i br0.20 -d 10.0.0.0/8 -j DROP
-        iptables -I FORWARD -i br0.20 -d 172.16.0.0/12 -j DROP
+    };
+    nftables.tables.vlan-isolation = {
+      family = "inet";
+      content = ''
+        chain forward {
+          type filter hook forward priority filter; policy accept;
 
-        # IoT (VLAN 30): internet only, no access to any internal subnet
-        iptables -I FORWARD -i br0.30 -d 192.168.0.0/16 -j DROP
-        iptables -I FORWARD -i br0.30 -d 10.0.0.0/8 -j DROP
-        iptables -I FORWARD -i br0.30 -d 172.16.0.0/12 -j DROP
+          # Allow established/related traffic (enables CDWifi->IoT return traffic)
+          ct state established,related accept
 
-        # Allow CDWifi (br0) to initiate connections to IoT (VLAN 30)
-        # Established/related responses from IoT back to CDWifi are allowed by conntrack
-        iptables -I FORWARD -i br0 -d 192.168.30.0/24 -j ACCEPT
-      '';
-      extraStopCommands = ''
-        iptables -D FORWARD -i br0.20 -d 192.168.0.0/16 -j DROP 2>/dev/null || true
-        iptables -D FORWARD -i br0.20 -d 10.0.0.0/8 -j DROP 2>/dev/null || true
-        iptables -D FORWARD -i br0.20 -d 172.16.0.0/12 -j DROP 2>/dev/null || true
-        iptables -D FORWARD -i br0.30 -d 192.168.0.0/16 -j DROP 2>/dev/null || true
-        iptables -D FORWARD -i br0.30 -d 10.0.0.0/8 -j DROP 2>/dev/null || true
-        iptables -D FORWARD -i br0.30 -d 172.16.0.0/12 -j DROP 2>/dev/null || true
-        iptables -D FORWARD -i br0 -d 192.168.30.0/24 -j ACCEPT 2>/dev/null || true
+          # Allow CDWifi (br0) to initiate connections to IoT (VLAN 30)
+          iifname "br0" oifname "br0.30" accept
+
+          # Guest (VLAN 20): drop all forwarding to private subnets
+          iifname "br0.20" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
+          iifname "br0.20" ip6 daddr { fc00::/7 } drop
+
+          # IoT (VLAN 30): drop all forwarding to private subnets
+          iifname "br0.30" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
+          iifname "br0.30" ip6 daddr { fc00::/7 } drop
+        }
       '';
     };
   };
