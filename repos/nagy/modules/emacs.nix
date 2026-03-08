@@ -101,6 +101,11 @@ let
         };
 
       }
+      // (lib.optionalAttrs (lib.pathExists ~/emacs-map-extras) {
+        map-extras = import ~/emacs-map-extras {
+          emacsPackages = self;
+        };
+      })
     )
   );
   mkDirectoryPackagesValues =
