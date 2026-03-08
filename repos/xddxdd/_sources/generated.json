@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.47",
-            "sha256": "sha256-lFv6AVi+/iEFBc2832Cilpc/MZ2xCGJCwANSOqDeJLI=",
+            "rev": "v6.8.48",
+            "sha256": "sha256-SwZiGJpy4T9oJB9d7RyvGVeznKrDI0z8TNbqeb3wq+A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.47"
+        "version": "v6.8.48"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8233",
-            "sha256": "sha256-gFgyHDImflGsu5mGluWhtkudb+FNx8XBGZKXSQDlHxc=",
+            "rev": "b8238",
+            "sha256": "sha256-C37YtU1wCGyqprpxCjyyQI9vPtafdSe6KHZ7F7Ddxok=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8233"
+        "version": "b8238"
     },
     "loralib": {
         "cargoLock": null,
@@ -3710,12 +3710,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "375db0b1df19630f6f415ad9ec53f29de3773396",
-            "sha256": "sha256-UYU5qKw+lygCA8EvAde9m8n7YxzyIvqqC/HqtTsE/D0=",
+            "rev": "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7",
+            "sha256": "sha256-zPANe/wImRcbDS8Y7gv+XF38kb1Swjz/XKqydS254AU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "375db0b1df19630f6f415ad9ec53f29de3773396"
+        "version": "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7"
     },
     "rime-moegirl": {
         "cargoLock": null,

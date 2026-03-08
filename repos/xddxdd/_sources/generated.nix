@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.47";
+    version = "v6.8.48";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.47";
-      hash = "sha256-lFv6AVi+/iEFBc2832Cilpc/MZ2xCGJCwANSOqDeJLI=";
+      tag = "v6.8.48";
+      hash = "sha256-SwZiGJpy4T9oJB9d7RyvGVeznKrDI0z8TNbqeb3wq+A=";
     };
   };
   cockpy = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8233";
+    version = "b8238";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8233";
-      hash = "sha256-gFgyHDImflGsu5mGluWhtkudb+FNx8XBGZKXSQDlHxc=";
+      tag = "b8238";
+      hash = "sha256-C37YtU1wCGyqprpxCjyyQI9vPtafdSe6KHZ7F7Ddxok=";
     };
   };
   loralib = {
@@ -1902,12 +1902,12 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "375db0b1df19630f6f415ad9ec53f29de3773396";
+    version = "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "375db0b1df19630f6f415ad9ec53f29de3773396";
-      hash = "sha256-UYU5qKw+lygCA8EvAde9m8n7YxzyIvqqC/HqtTsE/D0=";
+      rev = "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7";
+      hash = "sha256-zPANe/wImRcbDS8Y7gv+XF38kb1Swjz/XKqydS254AU=";
     };
     date = "2026-03-08";
   };
