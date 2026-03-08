@@ -9,7 +9,7 @@
 in
   buildNpmPackage rec {
     pname = "bitwarden";
-    version = "0-unstable-2026-03-07";
+    version = "1.0.0";
 
     src = fetchgit {
       url = repo;
