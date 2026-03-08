@@ -6,11 +6,11 @@
 
 let
   pname = "openscreen";
-  version = "1.1.2";
+  version = "1.2.0";
 
   src = fetchurl {
     url = "https://github.com/siddharthvaddem/openscreen/releases/download/v${version}/Openscreen-Linux-latest.AppImage";
-    hash = "sha256-N0+n/S2kAa+327vUvCMxpRJsZzDI56mGF0aueBGfpgw=";
+    hash = "sha256-raOQdl98FetJBMvnZn/znKRmXuuARUZoyAJcSLtZgrQ=";
   };
 
   appimageContents = appimageTools.extractType2 {
