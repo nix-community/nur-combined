@@ -33,6 +33,5 @@ in
 
     opencodePlugins = lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/opencode/plugins {});
     yaziPlugins = lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/yazi/plugins {});
-    hyprlandPlugins = lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/hyprland/plugins {});
   }
   // allPackages
