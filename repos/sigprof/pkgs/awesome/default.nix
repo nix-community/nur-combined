@@ -139,7 +139,7 @@ in
       description = "Highly configurable, dynamic window manager for X";
       homepage = "https://awesomewm.org/";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [lovek323];
+      maintainers = with maintainers; [];
       platforms = platforms.linux;
     };
   }
