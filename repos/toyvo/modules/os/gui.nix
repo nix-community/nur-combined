@@ -61,7 +61,7 @@ in
           gimp2
           pinentry_mac
           utm
-          warp-terminal
+          # warp-terminal
         ];
     };
   };
