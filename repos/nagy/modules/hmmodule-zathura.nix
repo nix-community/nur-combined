@@ -1,25 +1,10 @@
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, ... }:
 
 {
   imports = [ ./hmconvert.nix ];
 
   config.homeconfig.programs.zathura = {
     enable = config.services.xserver.enable;
-    # package = (pkgs.zathuraPkgs.override { useMupdf = false; }).zathuraWrapper;
-    package = pkgs.zathura.override {
-      zathura_core = pkgs.zathuraPkgs.zathura_core.overrideAttrs {
-        # Use 0.5.11 because 0.5.13 has a bug that when opening a
-        # file, the view mode is broken
-        src = pkgs.fetchurl {
-          url = "https://pwmt.org/projects/zathura/download/zathura-0.5.11.tar.xz";
-          hash = "sha256-VEWKmZivD7j67y6TSoESe75LeQyG3NLIuPMjZfPRtTw=";
-        };
-      };
-    };
     options = {
       render-loading = false;
       dbus-raise-window = false;
