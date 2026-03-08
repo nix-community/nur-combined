@@ -111,12 +111,9 @@
         ...
       }:
       let
-        ourLib =
-          (import libDir { inherit lib; })
-          // {
-            inherit import_nixpkgs;
-          }
-          // configurations.lib;
+        ourLib = (import libDir { inherit lib; }) // {
+          inherit import_nixpkgs;
+        };
         lib' = lib.recursiveUpdate lib ourLib;
       in
       {
