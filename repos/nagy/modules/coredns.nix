@@ -19,7 +19,7 @@ in
           version = "ba2685d1803672262638f752edb0ae97932b58fa";
         }
       ];
-      vendorHash = "sha256-XNmlaBdxqQyJyNwa1juijHytB3SzZjtds3eDTEYAF7c="; # for 25.05
+      vendorHash = "sha256-bnY7vHM3cZZaijOM7rGcWm14ANsnqIGFSvIOIY2bCaQ="; # for 26.05-unstable
     };
     config = ''
       . {
@@ -72,6 +72,34 @@ in
         log
       }
     '';
+  };
+
+  systemd.services.coredns.serviceConfig = {
+    IPAddressDeny = "any";
+    IPAddressAllow = [
+      "localhost"
+      "1.1.1.1"
+      "1.0.0.1"
+    ]
+    ++ lib.optionals config.services.yggdrasil.enable [
+      "324:71e:281a:9ed3::53"
+    ];
+
+    # Hardening
+    MemoryDenyWriteExecute = true;
+    ProtectHome = true;
+    ProtectClock = true;
+    ProtectHostname = true;
+    ProtectKernelTunables = true;
+    ProtectKernelModules = true;
+    ProtectKernelLogs = true;
+    ProtectProc = "invisible";
+    ProcSubset = "pid";
+    PrivateTmp = true;
+    RestrictAddressFamilies = [
+      "AF_INET"
+      "AF_INET6"
+    ];
   };
 
   networking.nameservers = lib.mkIf cfg.enable [ "127.0.0.1" ];

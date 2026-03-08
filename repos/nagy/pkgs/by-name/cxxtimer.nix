@@ -1,10 +1,10 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cxxtimer";
   version = "1.1.0";
 
@@ -28,5 +28,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/andremaravilha/cxxtimer";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 })
