@@ -4,6 +4,9 @@
   ...
 }:
 
+let
+  self = import ../. { inherit pkgs; };
+in
 {
   environment.systemPackages = with pkgs; [
     jq
@@ -36,6 +39,7 @@
     libjxl
     perl # needed for magit cherry spinout
     jqfmt
+    self.all-converters
   ];
 
   # tmpfs on all machines
@@ -96,6 +100,12 @@
   environment.homeBinInPath = true;
 
   environment.sessionVariables = {
+    # Shell History
+    HISTCONTROL = "ignoredups:ignorespace";
+    HISTFILESIZE = "10000000";
+    HISTSIZE = "1000000";
+    HISTFILE = "$HOME/.local/share/bash_history";
+
     # Misc
     LESSHISTFILE = "-";
     WATCH_INTERVAL = "1";

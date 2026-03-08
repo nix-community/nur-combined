@@ -9,6 +9,7 @@
 {
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-esr-140;
     policies = {
       Cookies = {
         AcceptThirdParty = "never";

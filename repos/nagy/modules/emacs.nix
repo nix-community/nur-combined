@@ -81,6 +81,13 @@ let
 
         # the unstable (5.2.0) variant gives some errors need to adapt
         # to 5.1.0.
+        # The error is:
+        # >   command-line()
+        # >   normal-top-level()
+        # > reference to free variable `c'
+        # For full logs, run:
+        #   nix log /nix/store/ll46fqw8ypi4pxxhb44plc9a07icrxwh-emacs-nagy-modus-themes-0.0.1.drv
+        # modus-themes = super.elpaPackages.modus-themes;
         modus-themes = super.melpaStablePackages.modus-themes.overrideAttrs {
           version = "5.1.0.0.20251228.92854";
           src = pkgs.fetchFromGitHub {
