@@ -50,7 +50,7 @@ in
     ) (byType "nixos")
   );
 
-  darwinConfigurations = lib.mapAttrs (
+  darwinConfigurations = lib.listToAttrs (
     lib.mapAttrsToList (
       name: cfg:
       let

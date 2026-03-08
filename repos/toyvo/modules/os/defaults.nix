@@ -8,6 +8,8 @@ let
   cfg = config.profiles;
 in
 {
+  imports = [ ./gui.nix ];
+
   options.profiles.defaults.enable = lib.mkEnableOption "Enable Defaults";
 
   config = lib.mkIf cfg.defaults.enable {

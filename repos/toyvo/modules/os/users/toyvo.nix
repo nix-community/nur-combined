@@ -8,7 +8,7 @@
 let
   cfg = config.userPresets;
   homePath = if pkgs.stdenv.isDarwin then "/Users" else "/home";
-  enableGui = config.profiles.gui.enable;
+  enableGui = config.profiles.gui.enable or false;
 in
 {
   options.userPresets = {
