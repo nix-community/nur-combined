@@ -134,7 +134,7 @@ Look for one `service=plugin path=file:///nix/store/...` line per plugin.
 ## Existing Package Patterns
 
 - `cc-safety-net`: no extra build step.
-- `dynamic-context-pruning`: prompt generation + `tsc` compile.
+- `dynamic-context-pruning`: `tsc` compile.
 - `notifier`: upstream build script (`bun run build`).
 - `morph-fast-apply`: direct bun build + main rewrite.
 - `unmoji`: `fetchFromCodeberg` + direct

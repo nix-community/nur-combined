@@ -15,14 +15,13 @@ mkOpencodePlugin rec {
     hash = "sha256-9jShUIMZVBpImOo2vmC+tIvGExOhvpGSYAMJ254qEn0=";
   };
 
-  dependencyHash = "sha256-NTGo30IouPx94hwJiw+/MHChakq1+BkQs6BNLrO9tIE=";
+  dependencyHash = "sha256-4+MtTe4CD2D873hPPPHxAALkH7MsHak5DHnDaUqI8DU=";
 
   nativeBuildInputs = [typescript];
 
   postInstall = ''
     cd "$out"
 
-    bun scripts/generate-prompts.ts
     tsc -p tsconfig.json
   '';
 
