@@ -217,12 +217,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "042906d04ead85400b4ef3fe2e4aaa8062c056df",
-            "sha256": "sha256-cIAcK58HOSGlUbnN35zxzOwG/wwYiuwYSeNG3Qr/DCg=",
+            "rev": "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7",
+            "sha256": "sha256-zPANe/wImRcbDS8Y7gv+XF38kb1Swjz/XKqydS254AU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "042906d04ead85400b4ef3fe2e4aaa8062c056df"
+        "version": "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7"
     },
     "rime-moegirl": {
         "cargoLock": null,
