@@ -5,13 +5,13 @@
 }:
 mkYaziPlugin rec {
   pname = "preview-epub.yazi";
-  version = "unstable-2026-03-06";
+  version = "unstable-2026-03-08";
 
   src = fetchFromGitHub {
     owner = "AminurAlam";
     repo = "yazi-plugins";
-    rev = "0739017aa104a0473327e9eb81af267e955c9d1a";
-    hash = "sha256-gn02Le02bbIwyB/mTXN0U2MEzZTtVMRVeuLeYBDT9sM=";
+    rev = "1d28640882b13d5724c6225f22ef999da458bf9d";
+    hash = "sha256-iE1UFF7U/yRABOucDMPYyncm0VTCpNBgRQy+GoyXM1Y=";
   };
 
   installPhase = ''
