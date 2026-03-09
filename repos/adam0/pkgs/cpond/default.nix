@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Procedurally animated fish for your terminal";
     homepage = "https://github.com/ayuzur/cpond";
-    license = licenses.mit;
-    mainProgram = "cpond";
+    license = lib.licenses.mit;
+    mainProgram = pname;
   };
 }
