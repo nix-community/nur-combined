@@ -20,5 +20,7 @@ buildRustPackage rec {
     homepage = "https://github.com/kugland/neocities-deploy";
     license = licenses.gpl3;
     maintainers = with lib.maintainers; [ kugland ];
+    mainProgram = "neocities-deploy";
+    platforms = platforms.all;
   };
 }

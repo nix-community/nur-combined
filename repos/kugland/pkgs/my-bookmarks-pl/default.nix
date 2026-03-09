@@ -43,5 +43,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ lib.maintainers.kugland ];
+    mainProgram = "my-bookmarks.pl";
   };
 }

@@ -31,5 +31,6 @@ stdenv.mkDerivation (_final: rec {
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ lib.maintainers.kugland ];
+    mainProgram = "bip39";
   };
 })

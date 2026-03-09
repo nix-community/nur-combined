@@ -68,5 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/smacke/ffsubsync";
     license = licenses.mit;
     maintainers = [ lib.maintainers.kugland ];
+    mainProgram = "ffsubsync";
   };
 }
