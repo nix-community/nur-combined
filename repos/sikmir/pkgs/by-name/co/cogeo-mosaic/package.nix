@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "cogeo-mosaic";
-  version = "8.2.0";
+  version = "9.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "cogeo-mosaic";
     tag = finalAttrs.version;
-    hash = "sha256-g5ZRdqs/nY1i2xB8UsJjKwdb0BhlR1Bfj4FSPBRJrss=";
+    hash = "sha256-84fFwWWhq2DK4lX0E26hCPsGm+/fG52pZhUtIEouGjQ=";
   };
 
   build-system = with python3Packages; [
@@ -48,6 +48,5 @@ python3Packages.buildPythonPackage (finalAttrs: {
     homepage = "https://developmentseed.org/cogeo-mosaic/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    inherit (python3Packages.rio-tiler.meta) broken;
   };
 })

@@ -60,6 +60,7 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / PYTHON MODULES
 
+    binapy = callPackage ./development/python-modules/binapy { };
     bounded-pool-executor = callPackage ./development/python-modules/bounded-pool-executor { };
     click_6_7 = callPackage ./development/python-modules/click { };
     config-path = callPackage ./development/python-modules/config-path { };
@@ -72,6 +73,7 @@ lib.makeScope newScope (
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     hardpy = callPackage ./development/python-modules/hardpy { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
+    jwskate = callPackage ./development/python-modules/jwskate { };
     lat-lon-parser = callPackage ./development/python-modules/lat-lon-parser { };
     portolan = callPackage ./development/python-modules/portolan { };
     pqdm = callPackage ./development/python-modules/pqdm { };
@@ -86,6 +88,7 @@ lib.makeScope newScope (
     pytest-shell-utilities = callPackage ./development/python-modules/pytest-shell-utilities { };
     pytest-skip-markers = callPackage ./development/python-modules/pytest-skip-markers { };
     python-cmr = callPackage ./development/python-modules/python-cmr { };
+    requests-oauth2client = callPackage ./development/python-modules/requests-oauth2client { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
     tinynetrc = callPackage ./development/python-modules/tinynetrc { };
     zope-sqlalchemy = callPackage ./development/python-modules/zope-sqlalchemy { };

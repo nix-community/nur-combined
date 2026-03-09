@@ -9,16 +9,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "taudem";
-  version = "5.3.8";
+  version = "5.4.0";
 
   src = fetchFromGitHub {
     owner = "dtarb";
     repo = "TauDEM";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lomjPyNzm9K4jCs7fYwDYrG48qbeRedakWFwJj7pDEI=";
+    hash = "sha256-9gQUXmaA463Fra7u6Kyn2dplOXRCdvYp04gKNoG7Q4Y=";
   };
-
-  sourceRoot = "${finalAttrs.src.name}/src";
 
   nativeBuildInputs = [ cmake ];
 
@@ -27,11 +25,11 @@ stdenv.mkDerivation (finalAttrs: {
     mpich
   ];
 
-  cmakeFlags = [
-    (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
-  ];
+  env.NIX_CFLAGS_COMPILE = "-Wno-parentheses";
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
+  postInstall = ''
+    mv $out/{taudem,bin}
+  '';
 
   meta = {
     description = "Terrain Analysis Using Digital Elevation Models";

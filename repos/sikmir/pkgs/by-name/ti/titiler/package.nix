@@ -1,22 +1,24 @@
 {
   lib,
   fetchFromGitHub,
+  makeWrapper,
+  writeShellScript,
   python3Packages,
-  rio-stac,
+  cogeo-mosaic,
   geojson-pydantic,
   rio-cogeo,
+  rio-stac,
   starlette-cramjam,
-  cogeo-mosaic,
 }:
 let
   pname = "titiler";
-  version = "0.22.4";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     tag = version;
-    hash = "sha256-VZAKh3y+Uaiha7oI3nWG2gIOXvWm1T1/RHj/kaAx89I=";
+    hash = "sha256-SisZc/m3id+E6lGwPsTSezfw2atMop3APYZVXK3LPPI=";
   };
 
   meta = {
@@ -24,67 +26,101 @@ let
     homepage = "https://developmentseed.org/titiler/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    inherit (python3Packages.rio-tiler.meta) broken;
   };
 
-  titiler-core = python3Packages.buildPythonPackage {
+  titiler-core = python3Packages.buildPythonPackage (finalAttrs: {
     inherit version src meta;
     pname = "${pname}.core";
     sourceRoot = "${src.name}/src/titiler/core";
     pyproject = true;
 
-    postPatch = ''
-      substituteInPlace pyproject.toml --replace "fastapi-slim>=0.111.0" "fastapi"
-    '';
+    build-system = with python3Packages; [ hatchling ];
 
-    nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     dependencies = with python3Packages; [
       fastapi
-      jinja2
-      rio-tiler
       geojson-pydantic
+      jinja2
+      numpy
+      pydantic
+      rasterio
+      rio-tiler
+      morecantile
       simplejson
+      typing-extensions
     ];
-    doCheck = false;
-    nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
-  };
 
-  titiler-extensions = python3Packages.buildPythonPackage {
+    optional-dependencies = {
+      telemetry = with python3Packages; [
+        opentelemetry-api
+        opentelemetry-sdk
+        opentelemetry-instrumentation-fastapi
+        opentelemetry-instrumentation-logging
+        opentelemetry-exporter-otlp
+      ];
+    };
+
+    nativeCheckInputs = [
+      python3Packages.pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
+  });
+
+  titiler-extensions = python3Packages.buildPythonPackage (finalAttrs: {
     inherit version src meta;
     pname = "${pname}.extensions";
     sourceRoot = "${src.name}/src/titiler/extensions";
     pyproject = true;
 
-    nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
-    dependencies = with python3Packages; [
-      rio-cogeo
-      rio-stac
-      titiler-core
-    ];
-    doCheck = false;
-    nativeCheckInputs = with python3Packages; [
-      pytestCheckHook
-      jsonschema
-    ];
-    disabledTests = [ "test_stacExtension" ];
-  };
+    build-system = with python3Packages; [ hatchling ];
 
-  titiler-mosaic = python3Packages.buildPythonPackage {
+    dependencies = [ titiler-core ];
+
+    optional-dependencies = {
+      cogeo = [ rio-cogeo ];
+      stac = [ python3Packages.rio-stac ];
+    };
+
+    nativeCheckInputs =
+      with python3Packages;
+      [
+        jsonschema
+        owslib
+        pytestCheckHook
+      ]
+      ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
+
+    disabledTests = [
+      "test_stacExtension" # requires network
+    ];
+  });
+
+  titiler-mosaic = python3Packages.buildPythonPackage (finalAttrs: {
     inherit version src meta;
     pname = "${pname}.mosaic";
     sourceRoot = "${src.name}/src/titiler/mosaic";
     pyproject = true;
 
-    nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
-    dependencies = with python3Packages; [
+    build-system = with python3Packages; [ hatchling ];
+
+    dependencies = [
       cogeo-mosaic
       titiler-core
     ];
-    doCheck = false;
-    nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
-  };
+
+    optional-dependencies = {
+      mosaicjson = [ cogeo-mosaic ];
+    };
+
+    nativeCheckInputs =
+      with python3Packages;
+      [
+        owslib
+        pytestCheckHook
+      ]
+      ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
+  });
 in
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage (finalAttrs: {
   inherit
     pname
     version
@@ -94,18 +130,40 @@ python3Packages.buildPythonPackage {
   sourceRoot = "${src.name}/src/titiler/application";
   pyproject = true;
 
-  nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
+  build-system = with python3Packages; [ hatchling ];
+
+  nativeBuildInputs = [ makeWrapper ];
+
   dependencies = with python3Packages; [
-    python-dotenv
-    rio-cogeo
+    pydantic-settings
     starlette-cramjam
     titiler-core
+    titiler-core.optional-dependencies.telemetry
     titiler-extensions
+    titiler-extensions.optional-dependencies.cogeo
+    titiler-extensions.optional-dependencies.stac
     titiler-mosaic
+    titiler-mosaic.optional-dependencies.mosaicjson
   ];
 
-  doCheck = false;
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [
+    boto3
+    pytestCheckHook
+  ];
 
-  disabledTests = [ "test_mosaic_auth_error" ];
-}
+  disabledTests = [
+    "test_mosaic_auth_error" # requires network
+  ];
+
+  postInstall =
+    let
+      start_script = writeShellScript "titiler-serve" ''
+        ${lib.getExe python3Packages.uvicorn} "$@" titiler.application.main:app;
+      '';
+    in
+    ''
+      makeWrapper ${start_script} $out/bin/titiler-serve \
+        --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}" \
+        --prefix PYTHONPATH : "${python3Packages.makePythonPath finalAttrs.passthru.dependencies}";
+    '';
+})

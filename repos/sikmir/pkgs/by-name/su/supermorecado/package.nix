@@ -29,6 +29,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "test_burn_tile_center_point_roundtrip"
     "test_burn_tile_center_lines_roundtrip"
     "test_burn_cli_tile_shape"
+    "test_burn_cli"
   ];
 
   meta = {

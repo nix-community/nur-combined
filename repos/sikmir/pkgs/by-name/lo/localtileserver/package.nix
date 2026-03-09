@@ -8,14 +8,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "localtileserver";
-  version = "0.10.6";
+  version = "0.11.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "banesullivan";
     repo = "localtileserver";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-09POlT+3gWGoP/tKRur9OaFsfQvC4OwSHE+ssqSQi1Q=";
+    hash = "sha256-vB5w5FdKcwljNrE7HgIy1QfbvEBbbesVkWz+vbUmDHc=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -59,6 +59,5 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://localtileserver.banesullivan.com/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    inherit (python3Packages.rio-tiler.meta) broken;
   };
 })
