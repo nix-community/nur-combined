@@ -4,50 +4,69 @@
 , ...
 }:
 let
-  repo = pkgs.fetchFromGitHub {
-    owner = "StevenBlack";
-    repo = "hosts";
-    rev = "c66c4aa05a95669943eb3b8f68ba3d359825c4b9"; # master
-    sha256 = "13m2f2v2aqj1ggrg2d9ichm8wkmwg8d9c61g08a4b6cjq57qk7mh";
-  };
+  inherit (builtins) any concatLists filter head map match readFile;
+  inherit (lib) concatStringsSep hasPrefix hasSuffix removePrefix sort splitString;
+
+  cfg = config.networking.adblock;
+  recipes = map (list: "${cfg.blocklistPackage.${list}}/hosts") cfg.recipe;
+  recipeLines = concatLists (map (f: splitString "\n" (readFile f)) recipes);
+  shouldBlock = a: !(any (b: a == b || (hasSuffix ".${b}" a)) cfg.allowedHosts);
+  stripComments = s: head (match "^([^# ]*)( *#.*)?$" s);
+  blocked =
+    sort
+      (a: b: a <= b)
+      (filter (a: a != "0.0.0.0" && (shouldBlock a))
+        (map (a: stripComments (removePrefix "0.0.0.0 " a))
+          (filter (hasPrefix "0.0.0.0 ")
+            recipeLines)));
+
+  extraHosts = concatStringsSep "\n" (map (a: "0.0.0.0 ${a}") blocked);
+  unboundCfg = concatStringsSep "\n" (map (a: ''local-zone: "${a}." always_refuse'') blocked);
 in
 {
   options.networking.adblock = {
     enable = lib.mkEnableOption "Enable hosts ad-blocking";
     recipe = lib.mkOption {
-      type = lib.types.listOf (lib.types.enum [ "fakenews" "gambling" "porn" "social" ]);
-      default = [ ];
+      type = lib.types.listOf (lib.types.enum [
+        "ads"
+        "fakenews"
+        "gambling"
+        "porn"
+        "social"
+      ]);
+      default = [ "ads" ];
+      example = [ "ads" "gambling" "porn" ];
+      description = ''
+        The blocklist recipe to use. This will determine which hosts are blocked.
+        The blocklists are provided by StevenBlack's hosts project.
+      '';
+    };
+    blocklistPackage = lib.mkPackageOption pkgs "stevenblack-blocklist" {
+      default = [ "stevenblack-blocklist" ];
+      example = "pkgs.unstable.stevenblack-blocklist";
     };
     allowedHosts = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
+      description = ''
+        A list of hosts to allow even if they are in the blocklist. This is useful
+        for allowing certain hosts that are commonly blocked but you want to access.
+
+        Note: any subdomain of the allowed hosts will also be allowed.
+      '';
+      example = [ "myshopify.com" "shopify.com" ];
+    };
+    extraHosts.enable = (lib.mkEnableOption "Add ad-blocking entries to /etc/hosts") // {
+      default = true;
+    };
+    unbound.enable = (lib.mkEnableOption "Add ad-blocking entries to unbound config") // {
+      default = config.services.unbound.enable;
     };
   };
-  config = lib.mkIf config.networking.adblock.enable (
-    let
-      recipe = [ "basic" ] ++ config.networking.adblock.recipe;
-      myHosts = pkgs.runCommand "my-hosts" { } ''
-        ${pkgs.perl}/bin/perl -e '
-          my $allowed = ${builtins.toJSON config.networking.adblock.allowedHosts};
-          my @allowedRegex = map { qr/(?:\A|.*[.])$_$/ } map { quotemeta $_ } @$allowed;
-          my $listStarted = 0;
-          LINE: foreach (<>) {
-            $listStarted = 1 if /^# Start StevenBlack$/;
-            next LINE if $listStarted == 0;
-            s/\s*#.*$//; # Remove comments
-            next LINE if /^$/; # Skip empty lines
-            s/^\s*//; s/\s*$//; s/\s+/ /g; # Normalize whitespace
-            s/^\Q0.0.0.0\E\s+//; # Remove 0.0.0.0 prefix
-            foreach my $a (@allowedRegex) {
-              next LINE if /$a/;
-            }
-            print "0.0.0.0 $_\n";
-          }
-        ' ${repo}/hosts ${builtins.concatStringsSep " " (builtins.map (list: "${repo}/alternates/${list}-only/hosts") recipe)} > $out
-      '';
-    in
-    {
-      networking.extraHosts = builtins.readFile myHosts.outPath;
-    }
-  );
+  config = lib.mkIf config.networking.adblock.enable {
+    networking.extraHosts = lib.mkIf cfg.extraHosts.enable extraHosts;
+    services.unbound.settings.server.include = lib.mkIf cfg.unbound.enable [
+      "${pkgs.writeText "unbound-adblock.conf" unboundCfg}"
+    ];
+  };
 }
