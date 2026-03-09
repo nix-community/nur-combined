@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.48";
+    version = "v6.8.50";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.48";
-      hash = "sha256-SwZiGJpy4T9oJB9d7RyvGVeznKrDI0z8TNbqeb3wq+A=";
+      tag = "v6.8.50";
+      hash = "sha256-yGp0ArLZbmdo1YGXzBbKxehFwt/UwtPNxAms3I2rdP8=";
     };
   };
   cockpy = {
@@ -1098,14 +1098,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "a2fb2644c12b0f7f6659dba9585cc9f2bac6be93";
+    version = "94662d924ecd2b257f6a279d206085ec0b59dcf8";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "a2fb2644c12b0f7f6659dba9585cc9f2bac6be93";
-      hash = "sha256-P/q+s9Ls2H/scz8rubOZySJIDeASUsygin9+CtZqsnY=";
+      rev = "94662d924ecd2b257f6a279d206085ec0b59dcf8";
+      hash = "sha256-eluhR8Kh+6vPzpu/YyK0SWFtlrW1nkPnnJ1QKZTBU7o=";
     };
-    date = "2026-03-06";
+    date = "2026-03-09";
   };
   libqcef = {
     pname = "libqcef";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8238";
+    version = "b8250";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8238";
-      hash = "sha256-C37YtU1wCGyqprpxCjyyQI9vPtafdSe6KHZ7F7Ddxok=";
+      tag = "b8250";
+      hash = "sha256-MBs1f3fsud1Za2iLSUmEh/IzZBF6lhdi5iASewOBDDw=";
     };
   };
   loralib = {
@@ -1902,14 +1902,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7";
+    version = "6319944ea9ea3dc17aa62d3aef5e019e7890d6b5";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a69a11559ecddc1c1ca17a00f7a5c7d3d3273de7";
-      hash = "sha256-zPANe/wImRcbDS8Y7gv+XF38kb1Swjz/XKqydS254AU=";
+      rev = "6319944ea9ea3dc17aa62d3aef5e019e7890d6b5";
+      hash = "sha256-/9clctDtFlngn0zcGb/OL055/i+PGzVK7qjJv3xh4+g=";
     };
-    date = "2026-03-08";
+    date = "2026-03-09";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
