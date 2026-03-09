@@ -6,7 +6,7 @@
   cargo,
   rustc,
   nodejs,
-  pnpm,
+  pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
   makeWrapper,
@@ -34,16 +34,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    inherit pnpm;
-    fetcherVersion = 2;
-    hash = "sha256-C1fnSNVNmcFQ6Yv8WdH+QrcJzz5X37OEVODdRw8V1ys=";
+    pnpm = pnpm_10;
+    fetcherVersion = 3;
+    hash = "sha256-akW4F0fc4coU38x/og2fedKmTZ0wRyvmYzQbQCYn8VU=";
   };
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
     cargo
     rustc
-    pnpm
+    pnpm_10
     pnpmConfigHook
     nodejs
     makeWrapper
@@ -62,18 +62,18 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
+  # Upstream's postinstall.js downloads pre-built binaries from GitHub releases.
+  # We build the Rust CLI from source instead, setting AGENT_BROWSER_HOME so
+  # the CLI can locate dist/daemon.js at runtime.
+  # skills/ contains AI agent documentation (SKILL.md) for tools like Claude Code.
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/agent-browser/bin
+    mkdir -p $out/lib/agent-browser
+    cp -r dist node_modules package.json skills $out/lib/agent-browser/
+    install -Dm755 cli/target/release/agent-browser $out/lib/agent-browser/agent-browser
 
-    cp -r dist $out/lib/agent-browser/
-    cp -r node_modules $out/lib/agent-browser/
-    cp package.json $out/lib/agent-browser/
-
-    install -Dm755 cli/target/release/agent-browser $out/lib/agent-browser/bin/agent-browser
-
-    makeWrapper $out/lib/agent-browser/bin/agent-browser $out/bin/agent-browser \
+    makeWrapper $out/lib/agent-browser/agent-browser $out/bin/agent-browser \
       --prefix PATH : ${lib.makeBinPath [ nodejs ]} \
       --set AGENT_BROWSER_HOME "$out/lib/agent-browser"
 
@@ -86,6 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Headless browser automation CLI for AI agents";
     homepage = "https://github.com/vercel-labs/agent-browser";
     license = lib.licenses.asl20;
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [ codgician ];
     mainProgram = "agent-browser";
