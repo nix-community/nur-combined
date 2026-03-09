@@ -1,6 +1,4 @@
 {
-  cargo-edit,
-  cargo,
   fetchFromGitHub,
   gnused,
   jq,
@@ -9,23 +7,20 @@
   ncurses,
   nix-update-script,
   nix-update,
-  nodejs_latest,
-  python315,
   runtimeShell,
   shellcheck,
   stdenv,
-  uv,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bumper";
-  version = "0.10.4";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "bumper";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AnmviJWSdBd4wm0VfHF4UvzvkkeokLNFXw1agGBha54=";
+    hash = "sha256-BK0gySYs/+qxwoWFVd7T1RcNqIuieUpdyulf07FA4Hs=";
   };
 
   nativeBuildInputs = [
@@ -34,23 +29,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   runtimeInputs = [
-    jq
     ncurses
     gnused
-
-    # rust
-    cargo
-    cargo-edit
+    jq
 
     # nix
     nix-update
-
-    # node
-    nodejs_latest
-
-    # python
-    python315
-    uv
   ];
 
   unpackPhase = ''

@@ -13,6 +13,11 @@
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },
 
+  // json
+  "json.schemaDownload.trustedDomains": {
+    "https://docs.renovatebot.com/": true
+  },
+
   // prettier
   "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
