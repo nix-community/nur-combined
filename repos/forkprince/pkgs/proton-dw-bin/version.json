@@ -10,6 +10,6 @@
     "file": "{version}-x86_64.tar.xz",
     "unpack": true
   },
-  "version": "dwproton-10.0-18",
-  "hash": "sha256-v87DiRf/NFMeDa0D9Td24zIZOvU5fIZ5JfNfLSAYGXc="
+  "version": "dwproton-10.0-19",
+  "hash": "sha256-q+oNDKGAA5FfacoG5maI2gZGoD1EM+LtC4eZlwBG2C4="
 }
