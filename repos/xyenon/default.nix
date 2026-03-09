@@ -88,4 +88,5 @@ rec {
   kvrocks-exporter = callPackage ./pkgs/kvrocks-exporter { inherit kvrocksTestHook; };
   pg_search = callPackage ./pkgs/pg_search { };
   nh-unwrapped = callPackage ./pkgs/nh { inherit (pkgs) nh-unwrapped; };
+  xurl = callPackage ./pkgs/xurl { };
 }
