@@ -16845,10 +16845,10 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.0.6";
+      version = "2.0.7";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4624030/yang_addon-2.0.6.xpi";
-      sha256 = "594695cbacd94ccd2b68898996bffc6a48aa63ecd46bd20ac1fafb49b24e9e9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4718203/yang_addon-2.0.7.xpi";
+      sha256 = "e93dc08ca824cd9f88d39f220808e1288b754c8d883df600cd4b65b55adb9e30";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
@@ -16954,10 +16954,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.13.5";
+      version = "1.14.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4690315/youtube_auto_hd_fps-1.13.5.xpi";
-      sha256 = "701266cd2e7dce1fdb83e2d30d0e8f7a28ff2deabe8a5baaa6f9534939e9f8d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4718049/youtube_auto_hd_fps-1.14.0.xpi";
+      sha256 = "8ab497e71f8a32169695d68c8617558da7a6c51713ac2105b50f0683bbf3890a";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
@@ -16969,6 +16969,7 @@
           "https://www.youtube-nocookie.com/*"
           "https://www.youtube.com/*"
           "https://youtube.googleapis.com/*"
+          "https://music.youtube.com/*"
         ];
         platforms = platforms.all;
       };
