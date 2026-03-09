@@ -142,6 +142,10 @@ Look for one `service=plugin path=file:///nix/store/...` line per plugin.
 
 ## Consumer Config Pattern
 
+Two supported consumption patterns are documented here.
+
+### Direct OpenCode Config
+
 In Home Manager/NixOS config, load package roots only:
 
 ```nix
@@ -149,3 +153,66 @@ programs.opencode.settings.plugin = [
   "file://${pkgs.nur.repos.adam0.opencodePlugins.<name>}"
 ];
 ```
+
+### Home Manager Module
+
+This repository also exports a Home Manager module that adds
+`programs.opencode.plugins.<name>.enable`,
+`programs.opencode.plugins.notifier.settings`, and
+`programs.opencode.plugins.extraPackages`.
+
+When using flakes, import NUR without `pkgs` for Home Manager modules and then
+import `nurNoPkgs.repos.adam0.hmModules.opencode-plugins`:
+
+```nix
+{
+  outputs = inputs@{ self, nixpkgs, home-manager, nur, ... }: let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+    nurNoPkgs = import inputs.nur {
+      pkgs = null;
+      nurpkgs = pkgs;
+    };
+  in {
+    homeConfigurations.me = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [
+        nurNoPkgs.repos.adam0.hmModules.opencode-plugins
+        {
+          programs.opencode = {
+            enable = true;
+
+            plugins.notifier = {
+              enable = true;
+              settings = {
+                sound = false;
+              };
+            };
+
+            plugins.<name>.enable = true;
+
+            plugins.extraPackages = [
+              pkgs.my-opencode-plugin
+            ];
+          };
+        }
+      ];
+    };
+  };
+}
+```
+
+`programs.opencode.plugins.notifier.settings` accepts either:
+
+- a JSON attrset/list/value, which is written to
+  `opencode/opencode-notifier.json`
+- a path to an existing JSON file, which is used as the file source directly
+
+Example with an existing file:
+
+```nix
+programs.opencode.plugins.notifier.settings = ./opencode-notifier.json;
+```
+
+The module still writes package-root plugin URLs under the hood, so do not use
+explicit entrypoint paths like `/dist/index.js`.
