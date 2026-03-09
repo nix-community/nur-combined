@@ -9,6 +9,11 @@ let
   cfg = config.profiles;
 in
 {
+  imports = [
+    ../programs/terminals/hyper.nix
+    ../programs/editors/zed.nix
+  ];
+
   options.profiles.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
 
   config = lib.mkIf cfg.toyvo.enable {
