@@ -1,9 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }: rec {
-  # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-
+{ pkgs ? import <nixpkgs> { }, ... }: rec {
   auditok = pkgs.callPackage ./pkgs/auditok { };
   bip39 = pkgs.callPackage ./pkgs/bip39 { };
   bop = pkgs.callPackage ./pkgs/bop { };
@@ -14,5 +9,4 @@
   neocities-deploy = pkgs.callPackage ./pkgs/neocities-deploy { };
   pd-else = pkgs.callPackage ./pkgs/pd-else { };
   pysubs2 = pkgs.callPackage ./pkgs/pysubs2 { };
-  subtitlecomposer = pkgs.callPackage ./pkgs/subtitlecomposer { };
 }

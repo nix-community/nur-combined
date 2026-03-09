@@ -4,12 +4,12 @@
 }:
 let
   pname = "cursor";
-  version = "2.5";
+  version = "2.6";
   sources = {
-    x86_64.url = "https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/2.5";
-    x86_64.hash = "sha256-5dzRSqehpJDBFSFTn0W07H6fKho1oRW/oMEVPjfZaxo=";
-    aarch64.url = "https://api2.cursor.sh/updates/download/golden/linux-arm64/cursor/2.5";
-    aarch64.hash = "sha256-0aGHUabQuYZZIuRz+O0etOi29cfQ7ihSZCSn4IHoiKo=";
+    x86_64.url = "https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/2.6";
+    x86_64.hash = "sha256-5jiZJ6afm5+lNXkFejkCWHbeJkK9fDRIVA+YqB+tuyU=";
+    aarch64.url = "https://api2.cursor.sh/updates/download/golden/linux-arm64/cursor/2.6";
+    aarch64.hash = "sha256-37T+25saAH8YwTJHJUUIddf9sEgHl2f9P5XLb+EfkAI=";
   };
   src = pkgs.fetchurl (
     if pkgs.stdenv.hostPlatform.isx86_64
