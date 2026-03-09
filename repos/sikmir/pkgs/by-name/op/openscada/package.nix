@@ -23,6 +23,7 @@
   withPostgreSQL ? false,
   withSNMP ? false,
   withSoundCard ? false,
+  withSiemens ? stdenv.hostPlatform.isLinux,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -77,6 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.enableFeature withPostgreSQL "PostgreSQL")
     (lib.enableFeature withSNMP "SNMP")
     (lib.enableFeature withSoundCard "SoundCard")
+    (lib.enableFeature withSiemens "Siemens")
   ];
 
   enableParallelBuilding = true;

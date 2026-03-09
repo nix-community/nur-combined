@@ -1,9 +1,10 @@
 {
   lib,
   stdenv,
-  fetchfossil,
+  fetchFromGitHub,
   libGL,
   libX11,
+  libxrender,
   SDL,
   ghostscript,
   sqlite,
@@ -11,12 +12,13 @@
 
 stdenv.mkDerivation {
   pname = "farbfeld-utils";
-  version = "0-unstable-2022-12-16";
+  version = "0-unstable-2025-10-12";
 
-  src = fetchfossil {
-    url = "http://zzo38computer.org/fossil/farbfeld.ui";
-    rev = "499eb1854cf8695353abc10621d7b0d66e8064f8";
-    sha256 = "sha256-I1o94L2up9eByH38aCW756sSzPrPhnGFDeOOQmPu/cU=";
+  src = fetchFromGitHub {
+    owner = "bakkeby";
+    repo = "farbfeld-utils";
+    rev = "123fc1060d554a67f8c7f1ba9e9c60fe10a48730";
+    hash = "sha256-oXTMnTsldf5IoKL6O4HtMmUAyJTy75PH0gBmO81a9Wo=";
   };
 
   postPatch = lib.optionalString stdenv.isDarwin ''
@@ -29,7 +31,10 @@ stdenv.mkDerivation {
     ghostscript
     sqlite
   ]
-  ++ lib.optional stdenv.isLinux libX11;
+  ++ lib.optionals stdenv.isLinux [
+    libX11
+    libxrender
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -37,14 +42,14 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     $CC -c lodepng.c
     find . -name '*.c' -exec grep 'gcc' {} + -print0 | \
-      awk -F: '{print $2}' | sed 's#~/bin#$out/bin#;s#gcc#$CC#;s#/usr/lib/libgs.so.9#-lgs#' | xargs -0 sh -c
+      awk -F: '{print $2}' | sed 's#~/bin#$out/bin#;s#gcc#$CC#;s#/usr/lib/libgs.so#-lgs#;s#sqlite3.o#-lsqlite#' | xargs -0 sh -c
 
     runHook postBuild
   '';
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration -Wno-error=return-mismatch -Wno-error=implicit-int";
 
-  dontInstall = true;
+  installFlags = [ "PREFIX=$(out)" ];
 
   meta = {
     description = "Collection of utilities for farbfeld picture format";
