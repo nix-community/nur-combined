@@ -1,6 +1,7 @@
 name: "Build and populate cache"
 on:
   pull_request:
+  pull_request_target:
   push:
     branches:
       - main
@@ -55,7 +56,7 @@ jobs:
       - name: Setup cachix
         uses: cachix/cachix-action@v16
         # Don't replace <YOUR_CACHIX_NAME> here!
-        if: ${{ github.event_name != 'pull_request' && matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' && github.event_name != 'pull_request' && github.event_name != 'pull_request_target' }}
         with:
           name: ${{ matrix.cachixName }}
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
@@ -77,5 +78,5 @@ jobs:
 
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && false }}
+        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
