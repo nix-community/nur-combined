@@ -6,7 +6,7 @@ index e356433..1040357 100644
  [package]
  name = "dtsfmt"
 -version = "0.6.1"
-+version = "0.7.0"
++version = "0.8.0"
  edition = "2021"
  
  [[bin]]
