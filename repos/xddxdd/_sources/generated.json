@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.50",
-            "sha256": "sha256-yGp0ArLZbmdo1YGXzBbKxehFwt/UwtPNxAms3I2rdP8=",
+            "rev": "v6.8.51",
+            "sha256": "sha256-MXRmAyf6Dt0Tqwkmcd+o/9eBmP7t54h4aZXM8pGDlmc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.50"
+        "version": "v6.8.51"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1493,11 +1493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Zbm+DQBusgja1DsPutYVuV0YN+fGntybu5Garf8N7wQ=",
+            "sha256": "sha256-WbepKNqCshQdR7qLJvb5cRtAUfIm1zBRzN3k+iTKiDc=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.03.07"
+        "version": "2026.03.10"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1510,9 +1510,9 @@
             "name": null,
             "sha256": "sha256-b/e+kgTwLOFLF+aGhg9uddaNbbIvDv1EfXgp8t5Nh/A=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-City.mmdb"
         },
-        "version": "2026.03.07"
+        "version": "2026.03.10"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1525,9 +1525,9 @@
             "name": null,
             "sha256": "sha256-t5r8KKClL4nBXo2SsFwXPzFN1PaHcZ+Wz5IQEtkA/M4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-Country.mmdb"
         },
-        "version": "2026.03.07"
+        "version": "2026.03.10"
     },
     "glauth": {
         "cargoLock": null,
@@ -2127,7 +2127,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-03-09",
+        "date": "2026-03-10",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2139,12 +2139,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "94662d924ecd2b257f6a279d206085ec0b59dcf8",
-            "sha256": "sha256-eluhR8Kh+6vPzpu/YyK0SWFtlrW1nkPnnJ1QKZTBU7o=",
+            "rev": "04ab195f104aaabe5322bacc526478f5d584920c",
+            "sha256": "sha256-STOVe+Gjt8xUjOfq9HjZvJYE+DXB7UXYS2GDZ5AbmjI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "94662d924ecd2b257f6a279d206085ec0b59dcf8"
+        "version": "04ab195f104aaabe5322bacc526478f5d584920c"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8250",
-            "sha256": "sha256-MBs1f3fsud1Za2iLSUmEh/IzZBF6lhdi5iASewOBDDw=",
+            "rev": "b8261",
+            "sha256": "sha256-3fGrpCzykos4EOBwRfnNIyWlE9FFJQYXnEEnIIfNKC8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8250"
+        "version": "b8261"
     },
     "loralib": {
         "cargoLock": null,
@@ -3726,11 +3726,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mzvxFW/lwrAnoBTQsfB1cnfUvn0D9666iWgUDpaYrcI=",
+            "sha256": "sha256-FN69i+9BqXCioLk7g8ai9b7v+w2pk9TFr87Xv3MqNuI=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260209/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260310/moegirl.dict.yaml"
         },
-        "version": "20260209"
+        "version": "20260310"
     },
     "rime-zhwiki": {
         "cargoLock": null,

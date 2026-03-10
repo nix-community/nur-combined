@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.50";
+    version = "v6.8.51";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.50";
-      hash = "sha256-yGp0ArLZbmdo1YGXzBbKxehFwt/UwtPNxAms3I2rdP8=";
+      tag = "v6.8.51";
+      hash = "sha256-MXRmAyf6Dt0Tqwkmcd+o/9eBmP7t54h4aZXM8pGDlmc=";
     };
   };
   cockpy = {
@@ -771,25 +771,25 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.03.07";
+    version = "2026.03.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-ASN.mmdb";
-      hash = "sha256-Zbm+DQBusgja1DsPutYVuV0YN+fGntybu5Garf8N7wQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-ASN.mmdb";
+      hash = "sha256-WbepKNqCshQdR7qLJvb5cRtAUfIm1zBRzN3k+iTKiDc=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.03.07";
+    version = "2026.03.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-City.mmdb";
       hash = "sha256-b/e+kgTwLOFLF+aGhg9uddaNbbIvDv1EfXgp8t5Nh/A=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.03.07";
+    version = "2026.03.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.07/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-Country.mmdb";
       hash = "sha256-t5r8KKClL4nBXo2SsFwXPzFN1PaHcZ+Wz5IQEtkA/M4=";
     };
   };
@@ -1098,14 +1098,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "94662d924ecd2b257f6a279d206085ec0b59dcf8";
+    version = "04ab195f104aaabe5322bacc526478f5d584920c";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "94662d924ecd2b257f6a279d206085ec0b59dcf8";
-      hash = "sha256-eluhR8Kh+6vPzpu/YyK0SWFtlrW1nkPnnJ1QKZTBU7o=";
+      rev = "04ab195f104aaabe5322bacc526478f5d584920c";
+      hash = "sha256-STOVe+Gjt8xUjOfq9HjZvJYE+DXB7UXYS2GDZ5AbmjI=";
     };
-    date = "2026-03-09";
+    date = "2026-03-10";
   };
   libqcef = {
     pname = "libqcef";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8250";
+    version = "b8261";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8250";
-      hash = "sha256-MBs1f3fsud1Za2iLSUmEh/IzZBF6lhdi5iASewOBDDw=";
+      tag = "b8261";
+      hash = "sha256-3fGrpCzykos4EOBwRfnNIyWlE9FFJQYXnEEnIIfNKC8=";
     };
   };
   loralib = {
@@ -1913,10 +1913,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260209";
+    version = "20260310";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260209/moegirl.dict.yaml";
-      hash = "sha256-mzvxFW/lwrAnoBTQsfB1cnfUvn0D9666iWgUDpaYrcI=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260310/moegirl.dict.yaml";
+      hash = "sha256-FN69i+9BqXCioLk7g8ai9b7v+w2pk9TFr87Xv3MqNuI=";
     };
   };
   rime-zhwiki = {
