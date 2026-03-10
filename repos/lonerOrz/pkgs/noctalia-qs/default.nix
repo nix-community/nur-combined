@@ -31,8 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "noctalia-dev";
     repo = "noctalia-qs";
-    rev = "70d328e3b951ddb40c91bef7bb76770ea55f9d7c";
-    hash = "sha256-thQ7Ht+7P7eLBpXrr5owAPk6Xj84W0DHgUzmZnkqwNk=";
+    rev = "2dbd00cac711209283c11a6e4d11c41123d61431";
+    hash = "sha256-86qsfxyO7CJlDxyIPuFNY+MKaPL+Q7DOM6NDJEQ3IUE=";
   };
 
   nativeBuildInputs = [

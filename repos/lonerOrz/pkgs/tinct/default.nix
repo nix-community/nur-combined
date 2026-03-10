@@ -12,11 +12,11 @@ rustPlatform.buildRustPackage (finallAttrs: {
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "tinct";
-    rev = "44689c430599975034a9eecfd2a9c37bb8a1816d";
-    hash = "sha256-XrcFU7JtlPUPZ1FtaEywGU53Qc3xePjrauf6TLnp9os=";
+    rev = "d1769ea8974b1f4ea2656393cd354dbb736aef6e";
+    hash = "sha256-n3+touFYeLtctxXvZtbt6m6nvQ35EmoUqlCckKHPyC8=";
   };
 
-  cargoHash = "sha256-MslAFqteq4Aa0gs88C+v//dQC2LtQsqkN9VbmeV+4Qw=";
+  cargoHash = "sha256-fN/CykGctlGmN2JfuIj5/KYOSuUbpxrNkU0ucvsWRM0=";
 
   passthru.updateScript = ./update.sh;
 
