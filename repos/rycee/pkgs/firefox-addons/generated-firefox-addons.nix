@@ -2829,10 +2829,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "149.0.20260306.90449";
+      version = "148.0.20260309.125808";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4716080/dansk_da_language_pack-149.0.20260306.90449.xpi";
-      sha256 = "38197fd5cc0037f77b800f71ca81168e39a5c3d921c14922ad519e639c94c396";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719874/dansk_da_language_pack-148.0.20260309.125808.xpi";
+      sha256 = "e2c67751baa686c7cd31a2fb58aa521936ed000c9abc44ac23f55fba3fff3d70";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3042,10 +3042,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "149.0.20260306.90449";
+      version = "148.0.20260309.125808";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4716092/deutsch_de_language_pack-149.0.20260306.90449.xpi";
-      sha256 = "050583ce582ff4a0fc7d03b14b2b938019282760f2d9343caed8d7c84304d077";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719892/deutsch_de_language_pack-148.0.20260309.125808.xpi";
+      sha256 = "c86d110c9b6c69b637536ff2e2ae369a5d85279af4521b999c2493de7326e425";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4544,10 +4544,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "149.0.20260306.90449";
+      version = "148.0.20260309.125808";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4716137/francais_language_pack-149.0.20260306.90449.xpi";
-      sha256 = "730f1a6270c3301818d3a0f88e14beeb31ea0792245295328893991da87d7a6e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719910/francais_language_pack-148.0.20260309.125808.xpi";
+      sha256 = "ff67c522f45cff57ce85dca1168a5dcec97453e9842432464884cd571f1e050a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4581,10 +4581,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "149.0.20260306.90449";
+      version = "148.0.20260309.125808";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4716081/gaidhlig_language_pack-149.0.20260306.90449.xpi";
-      sha256 = "cb322dc94631865e325e6e57b0491a91b5002d3e05e91a8e8ebf58221f0e9657";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719967/gaidhlig_language_pack-148.0.20260309.125808.xpi";
+      sha256 = "4e2decdfe0bbfe72bddfc0ac4c5f9fdf1db16854a6933f1959a5ae270830502b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7231,10 +7231,10 @@
     };
     "kagi-translate" = buildMozillaXpiAddon {
       pname = "kagi-translate";
-      version = "0.1.6";
+      version = "0.1.7";
       addonId = "{bd6be57d-91d7-41d2-b61d-3ba20f7942e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4635166/kagi_translate-0.1.6.xpi";
-      sha256 = "14b4cde7ef75237cb3027d7e51ba590c2b64dbf9279ac4949cbdf669e221a6f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4720016/kagi_translate-0.1.7.xpi";
+      sha256 = "225fe17aa5a8cefe3546a484f5aef286a6ad91381a27b534504651b6b0f031c6";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -9843,10 +9843,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.11.9";
+      version = "1.12.0";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4717571/mtab-1.11.9.xpi";
-      sha256 = "3f2c5fce63af27f16fdf815142cfd58a0801ef919bec609e92fb408a2cdec617";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4720396/mtab-1.12.0.xpi";
+      sha256 = "99771561eff3f8eae1f6390086654cf811ea6f364f4b07c67ebb77e7474dc23f";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -10801,7 +10801,7 @@
       meta = with lib;
       {
         homepage = "https://pentestkit.co.uk/";
-        description = "Penetration Testing Kit is an extension for application security practitioners, penetration testers, and red teams. Penetration Testing Kit is an extension for application security practitioners, penetration testers, and red teams.";
+        description = "Penetration Testing Kit is an extension for application security practitioners, penetration testers, and red teams.";
         mozPermissions = [
           "<all_urls>"
           "activeTab"
@@ -13024,10 +13024,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "149.0.20260306.90449";
+      version = "148.0.20260309.125808";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4716114/scots_language_pack-149.0.20260306.90449.xpi";
-      sha256 = "58aaae904daab6213cba7855ae8535f8607cc51921f95e58d99dcde28481e620";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719969/scots_language_pack-148.0.20260309.125808.xpi";
+      sha256 = "4bff7b0e1c57c45147486c12d800b013a7bed09f6f53e3d8f0fb75ab415330ff";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -16742,7 +16742,7 @@
       meta = with lib;
       {
         homepage = "http://www.wikiwand.com";
-        description = "AI-driven wiki aggregator created to enhance user experience on Wikipedia by streamlining knowledge consumption";
+        description = "Wikipedia, beautifully redesigned. Timelines, top questions, fact-checking, and more. AI built in.";
         license = {
           shortName = "wikiwand";
           fullName = "Terms of Service - Wikiwand";
