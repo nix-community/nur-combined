@@ -161,23 +161,22 @@ This repository also exports a Home Manager module that adds
 `programs.opencode.plugins.notifier.settings`, and
 `programs.opencode.plugins.extraPackages`.
 
-When using flakes, import NUR without `pkgs` for Home Manager modules and then
-import `nurNoPkgs.repos.adam0.hmModules.opencode-plugins`:
+When using flakes, enable the NUR overlay in configuration so `pkgs.nur` is
+available on the existing package set, then import
+`pkgs.nur.repos.adam0.hmModules.opencode-plugins`:
 
 ```nix
 {
-  outputs = inputs@{ self, nixpkgs, home-manager, nur, ... }: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
-    nurNoPkgs = import inputs.nur {
-      pkgs = null;
-      nurpkgs = pkgs;
-    };
-  in {
+  outputs = inputs@{ self, nixpkgs, home-manager, nur, ... }: {
     homeConfigurations.me = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+      };
       modules = [
-        nurNoPkgs.repos.adam0.hmModules.opencode-plugins
+        {
+          nixpkgs.overlays = [ nur.overlays.default ];
+        }
+        pkgs.nur.repos.adam0.hmModules.opencode-plugins
         {
           programs.opencode = {
             enable = true;

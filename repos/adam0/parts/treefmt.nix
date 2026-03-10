@@ -8,7 +8,6 @@
       deadnix.enable = true;
       statix.enable = true;
 
-      rumdl-check.enable = true;
       rumdl-format.enable = true;
     };
   };
