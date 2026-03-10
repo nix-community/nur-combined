@@ -59,46 +59,54 @@ echo "New source hash: $NEW_SRC_HASH"
 sed -i "s|version = \"$CURRENT_VERSION\"|version = \"$LATEST_VERSION\"|" default.nix
 sed -i "s|hash = \"sha256-[^\"]*\";|hash = \"$NEW_SRC_HASH\";|" default.nix
 
-# Function to extract hash from nix build error
+# Function to extract hash from nix build error for a specific attribute
 get_hash_from_build_error() {
     local attr="$1"
-    local error_output
-    
-    # Set a fake hash first
-    sed -i "s|$attr = \"sha256-[^\"]*\";|$attr = \"sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\";|" default.nix
-    
+    local fake_hash="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+
+    # Set a fake hash for the specific attribute
+    if [ "$attr" = "cargoHash" ]; then
+        sed -i "s|cargoHash = \"sha256-[^\"]*\";|cargoHash = \"$fake_hash\";|" default.nix
+    elif [ "$attr" = "pnpmDeps" ]; then
+        sed -i "/pnpmDeps = fetchPnpmDeps/,/};/s|hash = \"sha256-[^\"]*\";|hash = \"$fake_hash\";|" default.nix
+    else
+        echo "ERROR: Unknown attribute $attr" >&2
+        return 1
+    fi
+
     # Try to build and capture the error
+    local error_output
     error_output=$(nix-build "$REPO_ROOT" -A blink 2>&1 || true)
-    
+
     # Extract the correct hash from error message
     local correct_hash
     correct_hash=$(echo "$error_output" | grep -oP "got:\s+\Ksha256-[^\s]+" | head -1)
-    
+
     if [ -n "$correct_hash" ]; then
+        # Write the correct hash back
+        if [ "$attr" = "cargoHash" ]; then
+            sed -i "s|cargoHash = \"$fake_hash\";|cargoHash = \"$correct_hash\";|" default.nix
+        elif [ "$attr" = "pnpmDeps" ]; then
+            sed -i "/pnpmDeps = fetchPnpmDeps/,/};/s|hash = \"$fake_hash\";|hash = \"$correct_hash\";|" default.nix
+        fi
         echo "$correct_hash"
     else
         echo "ERROR: Could not extract hash for $attr" >&2
+        echo "Build output:" >&2
+        echo "$error_output" | tail -20 >&2
         return 1
     fi
 }
 
 # Update pnpmDeps hash
 echo "Updating pnpmDeps hash (this may take a while)..."
-PNPM_HASH=$(get_hash_from_build_error "hash")
-if [ -n "$PNPM_HASH" ] && [ "$PNPM_HASH" != "ERROR"* ]; then
-    # The first hash after src hash is pnpmDeps hash
-    # We need to be more specific - update the one in pnpmDeps block
-    sed -i "/pnpmDeps = fetchPnpmDeps/,/};/s|hash = \"sha256-[^\"]*\";|hash = \"$PNPM_HASH\";|" default.nix
-    echo "New pnpmDeps hash: $PNPM_HASH"
-fi
+PNPM_HASH=$(get_hash_from_build_error "pnpmDeps")
+echo "New pnpmDeps hash: $PNPM_HASH"
 
 # Update cargoHash
 echo "Updating cargoHash (this may take a while)..."
 CARGO_HASH=$(get_hash_from_build_error "cargoHash")
-if [ -n "$CARGO_HASH" ] && [ "$CARGO_HASH" != "ERROR"* ]; then
-    sed -i "s|cargoHash = \"sha256-[^\"]*\";|cargoHash = \"$CARGO_HASH\";|" default.nix
-    echo "New cargoHash: $CARGO_HASH"
-fi
+echo "New cargoHash: $CARGO_HASH"
 
 # Verify the build works
 echo "Verifying build..."
