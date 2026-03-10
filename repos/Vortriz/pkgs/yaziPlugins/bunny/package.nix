@@ -5,13 +5,13 @@
 }:
 mkYaziPlugin {
     pname = "bunny.yazi";
-    version = "unstable-2026-01-08";
+    version = "unstable-2026-03-08";
 
     src = fetchFromGitHub {
         owner = "stelcodes";
         repo = "bunny.yazi";
-        rev = "6ee99bc743be6a4cbda3e2e44ca8d59e757c5e51";
-        hash = "sha256-hTD/gW+xdz5rN3e/hyI9U/E17MlKgDd9sTnfES7SxCo=";
+        rev = "71b14a3d624572f4884354c2e218296e9ece07cc";
+        hash = "sha256-uQO0C00yOFPWq8KEO/kEZM6tFZRc9SiXfgN7kzlwDeA=";
     };
 
     meta = {
