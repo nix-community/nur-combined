@@ -23,13 +23,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "mango";
-  version = "0.12.5";
+  version = "0.12.6";
 
   src = fetchFromGitHub {
     owner = "mangowm";
     repo = "mango";
     rev = finalAttrs.version;
-    hash = "sha256-kZF47c8eVlAWkUDzAcH7d+6Cks+YdhQDH1A0X0v7DBo=";
+    hash = "sha256-MXCXjnGPE+wagrHR8cxGTDhJO4xYp+aBQPApV3JG9XY=";
   };
 
   mesonFlags = [
