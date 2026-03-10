@@ -21,21 +21,26 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gupax";
-  version = "1.3.11";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "hinto-janai";
     repo = "gupax";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Ix7TEJmhbTRKJvDkv83fRJ6um3cbhpwgHv5c6SehEPk=";
+    hash = "sha256-dIuGp4qIdw5rGqAHIJoNpOABxo9CBMD8d06Kl0T5PNM=";
     leaveDotGit = true; # build.rs uses git
   };
 
-  cargoHash = "sha256-PILtRjQ8Vt20ObFhsb4qBoC8VEqHPshZvjLxqtfpj9Y=";
+  cargoHash = "sha256-BNwMD8XDOF50sa1vwVAbqJcAz3vxm33PG6IjWP4FFWk=";
 
   checkFlags = [
     # Test requires filesystem write outside of sandbox.
     "--skip disk::test::create_and_serde_gupax_p2pool_api"
+    # Tests require access to CA certificates
+    "--skip disk::tests::test::create_and_serde_gupax_p2pool_api"
+    "--skip helper::tests::test::public_api_deserialize"
+    "--skip helper::xvb::algorithm::test::test_manual_p2pool_mode"
+    "--skip helper::xvb::algorithm::test::test_manual_xvb_mode"
   ];
 
   nativeBuildInputs = [
@@ -62,8 +67,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postInstall = ''
-    install -m 444 -D "images/icons/icon.png" "$out/share/icons/hicolor/256x256/apps/gupax.png"
-    install -m 444 -D "images/icons/icon@2x.png" "$out/share/icons/hicolor/1024x1024/apps/gupax.png"
+    install -m 444 -D "assets/images/icons/icon.png" "$out/share/icons/hicolor/256x256/apps/gupax.png"
+    install -m 444 -D "assets/images/icons/icon@2x.png" "$out/share/icons/hicolor/1024x1024/apps/gupax.png"
   '';
 
   desktopItems = [
@@ -80,8 +85,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     })
   ];
 
-  # Needed to get openssl-sys to use pkg-config.
-  OPENSSL_NO_VENDOR = 1;
+  env = {
+    # Needed to get openssl-sys to use pkg-config.
+    OPENSSL_NO_VENDOR = 1;
+    # Rust nightly
+    RUSTC_BOOTSTRAP = 1;
+    # cuprate-constants requires a SHA hash and git doesn't work here.
+    # cuprate rev used: https://github.com/gupax-io/gupax/blob/main/Cargo.lock
+    # build script: https://github.com/Cuprate/cuprate/blob/main/constants/build.rs
+    GITHUB_SHA = "adbded5ffa2cd472dea20e227466d6573588e6af";
+  };
 
   passthru.updateScript = nix-update-script { };
 
