@@ -22,20 +22,20 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "blink";
-  version = "1.0.0-alpha03";
+  version = "1.0.0-alpha04";
 
   src = fetchFromGitHub {
     owner = "prayag17";
     repo = "Blink";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-C2qMR9GgZBukITkSV+yKfys6Z1wANmcypYrpevSerFQ=";
+    hash = "sha256-wwEsSFzH8D2dZXAxRDaq+FAnv2DCo461juAU8zWT0X4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 1;
-    hash = "sha256-s/FUu/QGImUVV7sx2KUoL+CQeM0HG9erj1Hvz6kRxwE=";
+    hash = "sha256-VClnofSWe8H6rAlxMIZmRNfjL1oiJ/NYAEWM3bCDs1E=";
   };
 
   postPatch = ''
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  cargoHash = "sha256-bDhTsAaO/v8HiQBXuala5ZSjMIdrVr0rAE++/x4pM7Y=";
+  cargoHash = "sha256-PLHQ35qXTM04ORRXS8WDtanqTLtv9P5H7x4pYoGIz3g=";
 
   nativeBuildInputs = [
     jq
