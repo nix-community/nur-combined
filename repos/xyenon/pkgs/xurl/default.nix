@@ -8,13 +8,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "xurl";
-  version = "0-unstable-2026-03-04";
+  version = "0.0.22-unstable-2026-03-09";
 
   src = fetchFromGitHub {
     owner = "Xuanwo";
     repo = "xurl";
-    rev = "98943811af9c2aa1f7c930130a6788c64afb58a9";
-    hash = "sha256-47DcbF4ay25OLh1aqQl6eEr2ZiyMtzExN7Z+Q7mNEoE=";
+    rev = "fa30f4b436add23f0a0edf6abca166637c91f627";
+    hash = "sha256-nIYKmTiexZCyRcC/JsKo0QNjrLbyh+GisJSOZPxQWa4=";
   };
 
   cargoHash = "sha256-AAoiruBie/Pa3tRJUweN35Ve7Q2l1T0qRQsWmi4XZ6g=";
