@@ -8,16 +8,16 @@
 
 nh-unwrapped.overrideAttrs (
   finalAttrs: prevAttrs: {
-    version = "4.3.0-unstable-2026-03-02";
+    version = "4.3.0-unstable-2026-03-09";
 
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "4df030686d2075d7a07abf17bc64a8fe203ca782";
-      hash = "sha256-nD78kKULpT+RGrPpVXWBzjnFRx7VrUhsCNnPJZMVBaQ=";
+      rev = "aeafd7c65ef079ec8232fb4f17889604004f1601";
+      hash = "sha256-BhbGMF6TMEKwTVxyF7nrWMwkVHdrafso97jOux8epaA=";
     };
 
-    cargoHash = "sha256-BLv69rL5L84wNTMiKHbSumFU4jVQqAiI1pS5oNLY9yE=";
+    cargoHash = "sha256-GaIitsTwsNXb/14WYGsIgwUuGWNxHJBExoIy4w2QeI4=";
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit (finalAttrs) pname src;
       hash = finalAttrs.cargoHash;
