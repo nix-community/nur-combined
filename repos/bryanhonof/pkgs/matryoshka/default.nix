@@ -12,10 +12,10 @@ buildNpmPackage (finalAttrs: {
     owner = "yogthos";
     repo = "Matryoshka";
     rev = finalAttrs.version;
-    hash = "sha256-GTKccsRKzpu882MdIuB/SaePdzXOg3cR8Bu1UjedRDc=";
+    hash = "sha256-EUQhcPV7UKUCc8qTfnSTuwImdj0kpS9EOBYOO6VwE5o=";
   };
 
-  npmDepsHash = "sha256-ObFtyhw+8sSBEtlx00NLD4ueZgPgew6XyPr06UhN2Qo=";
+  npmDepsHash = "sha256-dgu0vMJcLt6cpYt0agszBrwGtcgRLs6p/hZc10I6Xoo=";
 
   meta = with lib; {
     description = "A Local Recursive Language Model";
