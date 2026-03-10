@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  gcc11,
+  gcc13,
   cmake,
   pkgconf,
   bison,
@@ -17,7 +17,10 @@ let
   openssl-static = openssl.override {
     static = true;
   };
-  libusb1-static = libusb1.override { withStatic = true; };
+  libusb1-static = libusb1.override {
+    enableUdev = false;
+    withStatic = true;
+  };
   hidapi-static = hidapi.overrideAttrs (oldAttrs: {
     cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
       "-DBUILD_SHARED_LIBS=OFF"
@@ -26,7 +29,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "cst";
-  version = "4.0.0";
+  version = "4.0.1";
 
   # Old CST version original link: https://www.nxp.com/webapp/sps/download/license.jsp?colCode=IMX_CST_TOOL
   # New CST version original link: https://www.nxp.com/webapp/sps/download/license.jsp?colCode=IMX_CST_TOOL_NEW
@@ -42,8 +45,8 @@ stdenv.mkDerivation {
   # - cst-4.0.0.tgz: 8533b5a32400674d7c44edbd5cb032c2c64e6442da73c9bd04788429161071af
   # - cst-4.0.1.tgz: 60ffc243daa5e4e2ccfac8a9b74aec6d21446122a453fcb896dc52881d2a779d
   src = fetchurl {
-    url = "http://github.com/compulab-yokneam/cst-tools/raw/ac2a63da087c6e9e5b02d3fe19d615d7c19f929f/nxp/cst-4.0.0.tgz";
-    hash = "sha256-hTO1oyQAZ018RO29XLAywsZOZELac8m9BHiEKRYQca8=";
+    url = "http://deb.debian.org/debian/pool/main/i/imx-code-signing-tool/imx-code-signing-tool_4.0.1+dfsg.orig.tar.xz";
+    hash = "sha256-/ZKhqfqhD7gbv3UsfuHiV/F+HsTClk+KR634o+qn30E=";
   };
 
   patches = [
@@ -51,7 +54,7 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs = [
-    gcc11
+    gcc13
     cmake
     pkgconf
     bison
