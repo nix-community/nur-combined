@@ -285,6 +285,18 @@
     };
     date = "2024-07-17";
   };
+  superpowers-skills = {
+    pname = "superpowers-skills";
+    version = "33e55e60b2efcb69509bc233dfc128112012b2c8";
+    src = fetchFromGitHub {
+      owner = "obra";
+      repo = "superpowers";
+      rev = "33e55e60b2efcb69509bc233dfc128112012b2c8";
+      fetchSubmodules = false;
+      sha256 = "sha256-Re8VNhcgbfmW/AENCcDc/hRTlkVT9e+AE/vrQkbqs68=";
+    };
+    date = "2026-03-09";
+  };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
     version = "202603092222";

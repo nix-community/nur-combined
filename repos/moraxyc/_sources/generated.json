@@ -488,6 +488,27 @@
         },
         "version": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621"
     },
+    "superpowers-skills": {
+        "cargoLock": null,
+        "date": "2026-03-09",
+        "extract": null,
+        "name": "superpowers-skills",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "obra",
+            "repo": "superpowers",
+            "rev": "33e55e60b2efcb69509bc233dfc128112012b2c8",
+            "sha256": "sha256-Re8VNhcgbfmW/AENCcDc/hRTlkVT9e+AE/vrQkbqs68=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "33e55e60b2efcb69509bc233dfc128112012b2c8"
+    },
     "v2ray-rules-dat-geoip": {
         "cargoLock": null,
         "date": null,

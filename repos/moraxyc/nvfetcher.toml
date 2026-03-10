@@ -136,3 +136,7 @@ extract = ["web/package-lock.json", "web/package.json"]
 src.github = "hukeyue/yass"
 fetch.github = "hukeyue/yass"
 git.fetchSubmodules = true
+
+[superpowers-skills]
+src.git = "https://github.com/obra/superpowers.git"
+fetch.github = "obra/superpowers"
