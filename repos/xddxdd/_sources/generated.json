@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8261",
-            "sha256": "sha256-3fGrpCzykos4EOBwRfnNIyWlE9FFJQYXnEEnIIfNKC8=",
+            "rev": "b8277",
+            "sha256": "sha256-iOprMD+Jn29PFC/aQ8rkAdJ498EppKR6gVHfFX/XLeY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8261"
+        "version": "b8277"
     },
     "loralib": {
         "cargoLock": null,
@@ -3494,7 +3494,7 @@
     },
     "qsp": {
         "cargoLock": null,
-        "date": "2026-02-17",
+        "date": "2026-03-11",
         "extract": null,
         "name": "qsp",
         "passthru": null,
@@ -3506,12 +3506,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qspgui",
-            "rev": "c5e819b93f8f7b0b9f67ccf66363f977bb2d2882",
-            "sha256": "sha256-uj/jhnKa0lRT2PJ97VaGvpTvM/kikywfehuyRZ0cqP0=",
+            "rev": "419066a0b135cff67e6516c62064208250546d16",
+            "sha256": "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c5e819b93f8f7b0b9f67ccf66363f977bb2d2882"
+        "version": "419066a0b135cff67e6516c62064208250546d16"
     },
     "qsp-lib": {
         "cargoLock": null,
@@ -3548,12 +3548,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qspgui",
-            "rev": "v5.9.5-b2",
-            "sha256": "sha256-uj/jhnKa0lRT2PJ97VaGvpTvM/kikywfehuyRZ0cqP0=",
+            "rev": "v5.9.5-b3",
+            "sha256": "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.9.5-b2"
+        "version": "v5.9.5-b3"
     },
     "qsp-wx": {
         "cargoLock": null,
@@ -3569,12 +3569,12 @@
             "name": null,
             "owner": "wxWidgets",
             "repo": "wxWidgets",
-            "rev": "f3da561f78ff54befeb98e7a10c3e583aef51882",
-            "sha256": "sha256-JTVHw3+2wyp5sNXDgdPvimUJIrZyg6bAPuzTkoUkzfk=",
+            "rev": "5d63efc902e8b29c05ee492ff0c732a929f7b096",
+            "sha256": "sha256-VIVancRxrRTOVS6T1TX5NCAX+O1G/ZqIRVIyLlY+mys=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f3da561f78ff54befeb98e7a10c3e583aef51882"
+        "version": "5d63efc902e8b29c05ee492ff0c732a929f7b096"
     },
     "qtwebapp": {
         "cargoLock": null,
@@ -3698,7 +3698,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-03-09",
+        "date": "2026-03-11",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3710,12 +3710,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "6319944ea9ea3dc17aa62d3aef5e019e7890d6b5",
-            "sha256": "sha256-/9clctDtFlngn0zcGb/OL055/i+PGzVK7qjJv3xh4+g=",
+            "rev": "4fe519c81eb0f7add2707ea80af5efe73f9d55f5",
+            "sha256": "sha256-n1XFLBNxrbYf9c/6LzGV92zNQNXyJyCjpGtWR81YG5M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6319944ea9ea3dc17aa62d3aef5e019e7890d6b5"
+        "version": "4fe519c81eb0f7add2707ea80af5efe73f9d55f5"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -3812,7 +3812,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-03-05",
+        "date": "2026-03-11",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3824,12 +3824,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "14919df584524cf550c3c0543b521f9dd9609821",
-            "sha256": "sha256-YczPTc7VLM1OGQUpwzPeci+nnLnswOTs256B7nDoseI=",
+            "rev": "db1307da8fa8e589c4d04c7c06c9b5025f9d2761",
+            "sha256": "sha256-/Vut7HCp7En0LNFEN8gNSYJRSzuxNLdBFzHLSjdb1Ww=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "14919df584524cf550c3c0543b521f9dd9609821"
+        "version": "db1307da8fa8e589c4d04c7c06c9b5025f9d2761"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4286,7 +4286,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-02-23",
+        "date": "2026-03-11",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4298,12 +4298,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039",
-            "sha256": "sha256-+l21lBYMjPM80+eyRkWdAcHFD0P0YnRJoIqJMYOL5U8=",
+            "rev": "3d38e411c390f39b2b8e262289bd7443a87801e5",
+            "sha256": "sha256-yTDRXEQjhgkKE3teE/FMYvTiekucIyRqeD/YyGmnbfk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039"
+        "version": "3d38e411c390f39b2b8e262289bd7443a87801e5"
     },
     "unigine-heaven": {
         "cargoLock": null,

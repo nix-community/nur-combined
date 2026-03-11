@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8261";
+    version = "b8277";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8261";
-      hash = "sha256-3fGrpCzykos4EOBwRfnNIyWlE9FFJQYXnEEnIIfNKC8=";
+      tag = "b8277";
+      hash = "sha256-iOprMD+Jn29PFC/aQ8rkAdJ498EppKR6gVHfFX/XLeY=";
     };
   };
   loralib = {
@@ -1799,14 +1799,14 @@
   };
   qsp = {
     pname = "qsp";
-    version = "c5e819b93f8f7b0b9f67ccf66363f977bb2d2882";
+    version = "419066a0b135cff67e6516c62064208250546d16";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "c5e819b93f8f7b0b9f67ccf66363f977bb2d2882";
-      hash = "sha256-uj/jhnKa0lRT2PJ97VaGvpTvM/kikywfehuyRZ0cqP0=";
+      rev = "419066a0b135cff67e6516c62064208250546d16";
+      hash = "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=";
     };
-    date = "2026-02-17";
+    date = "2026-03-11";
   };
   qsp-lib = {
     pname = "qsp-lib";
@@ -1821,23 +1821,23 @@
   };
   qsp-stable = {
     pname = "qsp-stable";
-    version = "v5.9.5-b2";
+    version = "v5.9.5-b3";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      tag = "v5.9.5-b2";
-      hash = "sha256-uj/jhnKa0lRT2PJ97VaGvpTvM/kikywfehuyRZ0cqP0=";
+      tag = "v5.9.5-b3";
+      hash = "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=";
     };
   };
   qsp-wx = {
     pname = "qsp-wx";
-    version = "f3da561f78ff54befeb98e7a10c3e583aef51882";
+    version = "5d63efc902e8b29c05ee492ff0c732a929f7b096";
     src = fetchFromGitHub {
       owner = "wxWidgets";
       repo = "wxWidgets";
-      rev = "f3da561f78ff54befeb98e7a10c3e583aef51882";
+      rev = "5d63efc902e8b29c05ee492ff0c732a929f7b096";
       fetchSubmodules = true;
-      hash = "sha256-JTVHw3+2wyp5sNXDgdPvimUJIrZyg6bAPuzTkoUkzfk=";
+      hash = "sha256-VIVancRxrRTOVS6T1TX5NCAX+O1G/ZqIRVIyLlY+mys=";
     };
   };
   qtwebapp = {
@@ -1902,14 +1902,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "6319944ea9ea3dc17aa62d3aef5e019e7890d6b5";
+    version = "4fe519c81eb0f7add2707ea80af5efe73f9d55f5";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "6319944ea9ea3dc17aa62d3aef5e019e7890d6b5";
-      hash = "sha256-/9clctDtFlngn0zcGb/OL055/i+PGzVK7qjJv3xh4+g=";
+      rev = "4fe519c81eb0f7add2707ea80af5efe73f9d55f5";
+      hash = "sha256-n1XFLBNxrbYf9c/6LzGV92zNQNXyJyCjpGtWR81YG5M=";
     };
-    date = "2026-03-09";
+    date = "2026-03-11";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "14919df584524cf550c3c0543b521f9dd9609821";
+    version = "db1307da8fa8e589c4d04c7c06c9b5025f9d2761";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "14919df584524cf550c3c0543b521f9dd9609821";
-      hash = "sha256-YczPTc7VLM1OGQUpwzPeci+nnLnswOTs256B7nDoseI=";
+      rev = "db1307da8fa8e589c4d04c7c06c9b5025f9d2761";
+      hash = "sha256-/Vut7HCp7En0LNFEN8gNSYJRSzuxNLdBFzHLSjdb1Ww=";
     };
-    date = "2026-03-05";
+    date = "2026-03-11";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2199,15 +2199,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039";
+    version = "3d38e411c390f39b2b8e262289bd7443a87801e5";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "fc8b6e212fd399fd0f89383b17b52f6cc3e1c039";
+      rev = "3d38e411c390f39b2b8e262289bd7443a87801e5";
       fetchSubmodules = true;
-      hash = "sha256-+l21lBYMjPM80+eyRkWdAcHFD0P0YnRJoIqJMYOL5U8=";
+      hash = "sha256-yTDRXEQjhgkKE3teE/FMYvTiekucIyRqeD/YyGmnbfk=";
     };
-    date = "2026-02-23";
+    date = "2026-03-11";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
