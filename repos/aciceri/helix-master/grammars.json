@@ -3328,18 +3328,6 @@
     },
     "subpath": null
   },
-  "bovex": {
-    "nurl": {
-      "args": {
-        "hash": "sha256-PAGuW+e6/4+IrsDDUkx/Tj5pS/cMAM8ojscMNWxKtX4=",
-        "owner": "mi2ebi",
-        "repo": "tree-sitter-bovex",
-        "rev": "de7657a9cc3525b9b77c6d268da09dad5b1346b0"
-      },
-      "fetcher": "fetchFromGitHub"
-    },
-    "subpath": null
-  },
   "haxe": {
     "nurl": {
       "args": {
