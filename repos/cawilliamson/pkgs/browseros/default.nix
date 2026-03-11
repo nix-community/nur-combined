@@ -8,7 +8,8 @@
 
 let
   pname = "browseros";
-  version = "0.41.0";
+  version = "0.42.0";
+  patchVersion = "0.42.0.1";
 
   desktopItem = makeDesktopItem {
     name = "${pname}";
@@ -24,8 +25,8 @@ let
 
   src = fetchurl {
     name = "browseros.AppImage";
-    sha256 = "sha256-H9zz90XwpmiVHzD3CSO+g2IaZrM54Olerc3gsjr91Vk=";
-    url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
+    sha256 = "sha256-KQ++ntOsnw7bKdXPFnBzgB2lSjtM7v+KhvlFJRZe1uM=";
+    url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${patchVersion}_x64.AppImage";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
