@@ -48,7 +48,7 @@ jobs:
             git pull
             git checkout -b "$branch"
 
-            nix run nixpkgs#nix-update "$pkg" || true
+            nix run nixpkgs#nix-update "$pkg" --flake || true
 
             if git diff --quiet; then
               echo "No update for $pkg"

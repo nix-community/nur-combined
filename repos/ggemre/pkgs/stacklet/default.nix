@@ -3,20 +3,23 @@
   rustPlatform,
   fetchFromGitHub,
   ncurses,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "stacklet";
-  version = "1.0.1";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "ggemre";
     repo = pname;
     rev = version;
-    sha256 = "0zfm4v6hnzjgcn8566frcixqz8y8w9k0yjhx8fvakyagnbscvvbk";
+    hash = "sha256-Y9egeqmsX7RI4wVb34xNNtYIz/2ZlSl10uJSnTm8qnc=";
   };
 
-  cargoHash = "sha256-SUt4uvs7iUYO480z4qODOc06biwnHXiwVdmuAXDMTjg=";
+  cargoHash = "sha256-imZsN0Sx7Hq9l298UkJPSmEOwRSx3dDfMbQSivx9PC4=";
   buildInputs = [ncurses];
+
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Generate custom applets and menus";
