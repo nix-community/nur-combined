@@ -15,7 +15,7 @@ buildGoModule (finalAttrs: {
   buildInputs = [ unbound ];
   nativeBuildInputs = [ installShellFiles ];
 
-  vendorHash = "sha256-CtbppVPELo3KF80tobBp0ag3CvWlA+o9R+O6/dk4aUQ=";
+  vendorHash = "sha256-iKcuVI0RQnL2Ab0QesLCiKfrZ48JxDZEN1Rpzm8R4v8=";
 
   # Override the go-modules fetcher derivation to fetch plugins
   modBuildPhase = ''
