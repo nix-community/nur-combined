@@ -1,0 +1,71 @@
+name: Update packages
+
+on:
+  schedule:
+    - cron: "50 10 * * 0"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Install necessary tools
+        run: nix shell nixpkgs#jq nixpkgs#gh
+
+      - name: Find packages with updateScript
+        run: |
+          nix eval --json \
+            --apply 'pkgs:
+              builtins.mapAttrs
+                (name: pkg: pkg.passthru.updateScript or null)
+                pkgs
+            ' \
+            .#packages.x86_64-linux \
+          | jq -r '
+              to_entries[]
+              | select(.value != null)
+              | .key
+            ' > packages.txt
+
+      - name: Update packages individually
+        run: |
+          while read pkg; do
+            echo "== Checking $pkg =="
+
+            old=$(nix eval --raw ".#packages.x86_64-linux.$pkg.version")
+            branch="update-$pkg"
+
+            git checkout main
+            git pull
+            git checkout -b "$branch"
+
+            nix run nixpkgs#nix-update "$pkg" || true
+
+            if git diff --quiet; then
+              echo "No update for $pkg"
+              continue
+            fi
+
+            new=$(nix eval --raw ".#packages.x86_64-linux.$pkg.version")
+
+            git commit -am "$pkg: $old -> $new"
+            git push origin "$branch"
+
+            gh pr create \
+              --title "$pkg: $old -> $new" \
+              --body "Automated update via nix-update" \
+              --base main \
+              --head "$branch"
+
+          done < packages.txt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
