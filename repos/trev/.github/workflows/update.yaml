@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@5fe5a93e1ff2a6a4cfba1ae7d3f30d0dfed9d1a9 # v1.34.1
+        uses: spotdemo4/nix-init@86acbeccd17e66cd05f9dcd7bdc2be56292d9339 # v1.36.0
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
@@ -55,7 +55,7 @@ jobs:
     steps:
       - id: init
         name: Initialize
-        uses: spotdemo4/nix-init@5fe5a93e1ff2a6a4cfba1ae7d3f30d0dfed9d1a9 # v1.34.1
+        uses: spotdemo4/nix-init@86acbeccd17e66cd05f9dcd7bdc2be56292d9339 # v1.36.0
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
