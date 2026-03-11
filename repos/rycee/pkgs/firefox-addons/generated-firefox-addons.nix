@@ -7231,10 +7231,10 @@
     };
     "kagi-translate" = buildMozillaXpiAddon {
       pname = "kagi-translate";
-      version = "0.1.7";
+      version = "0.1.8";
       addonId = "{bd6be57d-91d7-41d2-b61d-3ba20f7942e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4720016/kagi_translate-0.1.7.xpi";
-      sha256 = "225fe17aa5a8cefe3546a484f5aef286a6ad91381a27b534504651b6b0f031c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4720796/kagi_translate-0.1.8.xpi";
+      sha256 = "f5d8134298383687ad75b7c67519ddf4c3e8a6de779a8c5bb788c5ded6590684";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -11000,10 +11000,10 @@
     };
     "pipewire-screenaudio" = buildMozillaXpiAddon {
       pname = "pipewire-screenaudio";
-      version = "0.3.4";
+      version = "0.4.1";
       addonId = "pipewire-screenaudio@icenjim";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4186504/pipewire_screenaudio-0.3.4.xpi";
-      sha256 = "a74714514f490b6d5c36e32b88510ae3e5e7f1afdcb29c2041a836d3aa484cbe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4721567/pipewire_screenaudio-0.4.1.xpi";
+      sha256 = "cd7ec2ce64f9990df69b266c708cae3bbb8438fdce4e80f492af710e5fdffc44";
       meta = with lib;
       {
         homepage = "https://github.com/IceDBorn/pipewire-screenaudio";
@@ -16954,10 +16954,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.14.0";
+      version = "1.14.1";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4718049/youtube_auto_hd_fps-1.14.0.xpi";
-      sha256 = "8ab497e71f8a32169695d68c8617558da7a6c51713ac2105b50f0683bbf3890a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4721712/youtube_auto_hd_fps-1.14.1.xpi";
+      sha256 = "1b3151e6af0a9d8ce979cd3b5139794e1ed5c5a84e31f5462cacbc06e8e5b72f";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
