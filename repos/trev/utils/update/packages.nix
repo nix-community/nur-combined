@@ -3,11 +3,14 @@
   pkgs ? import <nixpkgs> { inherit system; },
 }:
 let
-  packages = pkgs.lib.filterAttrs (_: pkg: builtins.elem system pkg.meta.platforms) (
-    import ../../packages {
-      inherit system pkgs;
-    }
-  );
+  packages =
+    pkgs.lib.filterAttrs
+      (_: pkg: pkg ? meta && pkg.meta ? platforms && builtins.elem system pkg.meta.platforms)
+      (
+        import ../../packages {
+          inherit system pkgs;
+        }
+      );
 
   # Get valid top-level derivations for updating
   derivations = pkgs.lib.filterAttrs (
