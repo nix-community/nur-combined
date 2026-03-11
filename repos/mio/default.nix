@@ -40,7 +40,7 @@ in
     })
   );
   aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
-    ${aria2}/bin/aria2c -s65536 -j65536 -x256 -k1k "$@"
+    ${aria2}/bin/aria2c -s65536 -j65536 -x256 -k1k --file-allocation=none "$@"
   '';
   caddy =
     let
