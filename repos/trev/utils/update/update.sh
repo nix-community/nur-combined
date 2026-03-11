@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-export NIX_PATH="nixpkgs=flake:nixpkgs"
-
 system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
 echo "Updating packages for ${system}"
 
