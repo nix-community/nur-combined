@@ -129,7 +129,7 @@ devShells.x86_64-linux.default = pkgs.mkShell {
 
 ## Bundlers
 
-A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle) mainly used for cross-compilation. The `system` is in the format given by `builtins.currentSystem` ([systems](https://github.com/NixOS/nixpkgs/blob/master/lib/systems/flake-systems.nix)).
+A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle)
 
 ### deno-`system`
 
@@ -141,27 +141,11 @@ nix bundle --bundler github:spotdemo4/nur#deno-x86_64-linux
 
 ### docker & docker-stream
 
-An alternative to `github:NixOS/bundlers#toDockerImage`
+A better alternative to `github:NixOS/bundlers#toDockerImage` that also sets `org.opencontainers.image` labels according to the packages `meta` attributes.
 
 ```elm
 nix bundle --bundler github:spotdemo4/nur#docker # buildLayeredImage
 nix bundle --bundler github:spotdemo4/nur#docker-stream # streamLayeredImage
-```
-
-### go-`system`
-
-Overrides `pkgs.buildGoModule` to build a go module for the given system
-
-```elm
-nix bundle --bundler github:spotdemo4/nur#go-x86_64-linux
-```
-
-### go-compress-`system`
-
-Overrides `pkgs.buildGoModule` to build a go module for the given system and compresses the output with [upx](https://upx.github.io/)
-
-```elm
-nix bundle --bundler github:spotdemo4/nur#go-compress-x86_64-linux -o binary
 ```
 
 ## Libs
@@ -258,45 +242,45 @@ apps = pkgs.lib.mkApps {
 nix run #lint
 ```
 
-### go.compile
-
-Cross-compile a package built by `buildGoModule`
-
-```nix
-packages = forSystem ({ pkgs, ... }: rec {
-  # default = pkgs.buildGoModule { ... };
-  linux-amd64 = pkgs.lib.go.compile {
-    package = default;
-    goos = "linux";
-    goarch = "amd64";
-  };
-});
-```
-
-### buf.fetchDeps & buf.configHook
+### buf.fetchDeps & buf.hook
 
 Creates a fixed-output derivation for [buf](https://buf.build/) dependencies
 
 ```nix
 pkgs.stdenv.mkDerivation (finalAttrs: {
-  pname = "proto";
+  pname = "protobuf-pkg";
   version = "1.0.0";
   src = ./.;
 
   nativeBuildInputs = with pkgs; [
-    lib.buf.configHook
-    buf
+    buf.hook
   ];
 
-  bufDeps = pkgs.lib.buf.fetchDeps {
+  bufDeps = pkgs.buf.fetchDeps {
     inherit (finalAttrs) pname version src;
     hash = "...";
   };
+});
+```
 
-  doCheck = true;
-  checkPhase = ''
-    buf lint
-  '';
+### gleam.fetchDeps, gleam.erlangHook & gleam.javascriptHook
+
+Creates a fixed-output derivation for [gleam](https://gleam.run/) dependencies
+
+```nix
+pkgs.stdenv.mkDerivation (finalAttrs: {
+  pname = "gleam-pkg";
+  version = "1.0.0";
+  src = ./.;
+
+  nativeBuildInputs = with pkgs; [
+    gleam.erlangHook
+  ];
+
+  gleamDeps = pkgs.gleam.fetchDeps {
+    inherit (finalAttrs) pname version src;
+    hash = "...";
+  };
 });
 ```
 

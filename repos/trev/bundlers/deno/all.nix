@@ -25,7 +25,7 @@ let
   ];
 in
 builtins.listToAttrs (
-  builtins.map (
+  map (
     target:
     pkgs.lib.attrsets.nameValuePair "deno-${target.normalized}" (
       drv:

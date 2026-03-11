@@ -35,7 +35,7 @@
         };
       in
       rec {
-        packages = pkgs.lib.filterAttrs (_: pkg: builtins.elem system pkg.meta.platforms) (
+        packages = pkgs.lib.filterAttrs (_: pkg: pkg ? meta && builtins.elem system pkg.meta.platforms) (
           import ./packages {
             inherit system pkgs;
           }
@@ -63,7 +63,7 @@
             }
           );
 
-        images = import ./images {
+        ociImages = import ./images {
           inherit system pkgs;
         };
 
@@ -121,7 +121,6 @@
           libs."${system}".mkChecks {
             actions = {
               root = ./.github/workflows;
-              fileset = ./.github/workflows;
               nativeBuildInputs = with pkgs; [
                 action-validator
                 octoscan
@@ -177,7 +176,7 @@
             };
           }
           // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("package_" + name) value) packages
-          // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("image_" + name) value) images;
+          // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("image_" + name) value) ociImages;
 
         formatter = pkgs.nixfmt-tree;
       }

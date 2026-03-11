@@ -1,20 +1,20 @@
 {
   lib,
   stdenvNoCC,
-  buf,
+  gleam,
 }:
 let
-  buf' = buf;
+  gleam' = gleam;
 in
 lib.makeOverridable (
   {
     hash ? "",
     pname,
-    buf ? buf',
+    gleam ? gleam',
     ...
   }@args:
   let
-    args' = builtins.removeAttrs args [
+    args' = removeAttrs args [
       "hash"
       "pname"
     ];
@@ -32,10 +32,10 @@ lib.makeOverridable (
     (
       args'
       // {
-        name = "${pname}-buf-deps";
+        name = "${pname}-gleam-deps";
 
         nativeBuildInputs = [
-          buf
+          gleam
         ];
 
         installPhase = ''
@@ -44,8 +44,8 @@ lib.makeOverridable (
           export HOME=$(mktemp -d)
           mkdir -p $out
 
-          export BUF_CACHE_DIR="$out"
-          buf dep graph
+          gleam deps download
+          cp -Tr build $out
 
           runHook postInstall
         '';

@@ -1,14 +1,14 @@
 # shellcheck shell=bash
 
-bufConfigHook() {
-    echo "Executing bufConfigHook"
+bufHook() {
+    echo "Executing bufHook"
 
     if [ -n "${bufRoot-}" ]; then
       pushd "$bufRoot" || exit 1
     fi
 
     if [ -z "${bufDeps-}" ]; then
-      echo "Error: 'bufDeps' must be set when using pnpmConfigHook."
+      echo "Error: 'bufDeps' must be set when using bufHook."
       exit 1
     fi
 
@@ -40,7 +40,7 @@ bufConfigHook() {
       popd || exit 1
     fi
 
-    echo "Finished bufConfigHook"
+    echo "Finished bufHook"
 }
 
-postConfigureHooks+=(bufConfigHook)
+postConfigureHooks+=(bufHook)

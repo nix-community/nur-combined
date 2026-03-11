@@ -2,7 +2,8 @@
   makeSetupHook,
   buf,
 }:
+
 makeSetupHook {
-  name = "buf-config-hook";
+  name = "buf-hook";
   propagatedBuildInputs = [ buf ];
-} ./buf-config-hook.sh
+} ./hook.sh

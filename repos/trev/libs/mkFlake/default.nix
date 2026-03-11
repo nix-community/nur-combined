@@ -2,7 +2,6 @@
   systems ? [
     "aarch64-linux"
     "aarch64-darwin"
-    "x86_64-darwin"
     "x86_64-linux"
   ],
 }:
@@ -15,6 +14,7 @@ let
     "nixosConfigurations"
     "hydraJobs"
     "templates"
+    "schemas"
   ];
 
   # Applies a merge operation across systems.

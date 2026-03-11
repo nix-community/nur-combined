@@ -3,28 +3,35 @@
   gleam,
   lib,
   nix-update-script,
+  stdenv,
 }:
 
-gleam.build rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gleescript";
   version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "lpil";
     repo = "gleescript";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-thKcoHYPM4/5oukpKIPIp8Q7HnhM6cvmBVWwWqmFnCg=";
   };
 
-  target = "erlang";
+  gleamDeps = gleam.fetchDeps {
+    inherit (finalAttrs) pname version src;
+    hash = "sha256-fZaekh+WUSEaGCgfwiPp+tYHCGUoeJkNnchaL3WeZFs=";
+  };
+
+  nativeBuildInputs = [
+    gleam.erlangHook
+  ];
 
   passthru = {
-    ifd = true;
     updateScript = nix-update-script {
       extraArgs = [
         "--flake"
         "--commit"
-        pname
+        finalAttrs.pname
       ];
     };
   };
@@ -33,7 +40,7 @@ gleam.build rec {
     description = "Bundles your Gleam-on-Erlang project into an escript";
     mainProgram = "gleescript";
     homepage = "https://github.com/lpil/gleescript";
-    changelog = "https://github.com/lpil/gleescript/releases/tag/v${version}";
+    changelog = "https://github.com/lpil/gleescript/releases/tag/v${finalAttrs.version}";
     platforms = lib.platforms.all;
   };
-}
+})

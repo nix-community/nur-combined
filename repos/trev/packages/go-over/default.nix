@@ -3,28 +3,35 @@
   gleam,
   lib,
   nix-update-script,
+  stdenv,
 }:
 
-gleam.build rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "go-over";
   version = "3.2.2";
 
   src = fetchFromGitHub {
     owner = "bwireman";
     repo = "go-over";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-I2r0kKxqWMNSqg/tj23A7eljrW8R5TnGSEX8Ltr7dZA=";
   };
 
-  target = "erlang";
+  gleamDeps = gleam.fetchDeps {
+    inherit (finalAttrs) pname version src;
+    hash = "sha256-FvxML+hkpi1YIPq3+Uk1pyBnwt5m4JggkQxvEfeFNdM=";
+  };
+
+  nativeBuildInputs = [
+    gleam.erlangHook
+  ];
 
   passthru = {
-    ifd = true;
     updateScript = nix-update-script {
       extraArgs = [
         "--flake"
         "--commit"
-        pname
+        finalAttrs.pname
       ];
     };
   };
@@ -33,8 +40,8 @@ gleam.build rec {
     description = "Audits Erlang & Elixir dependencies";
     mainProgram = "go_over";
     homepage = "https://github.com/bwireman/go-over";
-    changelog = "https://github.com/bwireman/go-over/releases/tag/v${version}";
+    changelog = "https://github.com/bwireman/go-over/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})
