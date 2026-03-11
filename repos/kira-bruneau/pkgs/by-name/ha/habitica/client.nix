@@ -49,7 +49,7 @@ buildNpmPackage {
     ./add-implied-client-dependencies.patch
   ];
 
-  npmDepsHash = "sha256-17kv0O3FWao5PydXZSdnM9sKTyM5+Row/pTDDa4RMVY=";
+  npmDepsHash = "sha256-q7LhmbC3uW4aJ+JvnJXXquEjNoEExfeQGH1zKLeBJ6Y=";
 
   nodejs = nodejs_22;
   makeCacheWritable = true;

@@ -9,7 +9,7 @@ let
     final
     // {
       emacsPackages = prev.emacsPackages.overrideScope emacsPackagesOverlay;
-      linuxPackages = prev.linuxPackages_latest.overrideScope linuxModulesOverlay;
+      linuxPackages = prev.linuxPackages.extend linuxModulesOverlay;
     }
     // (builtins.foldl' (
       acc: name:
@@ -28,14 +28,10 @@ let
     pkgs = final;
   };
 
-  linuxModulesOverlay =
-    if stdenv.hostPlatform.isLinux then
-      import ./os-specific/linux/modules.nix {
-        inherit lib;
-        pkgs = final;
-      }
-    else
-      lfinal: lprev: { };
+  linuxModulesOverlay = import ./os-specific/linux/modules.nix {
+    inherit lib;
+    pkgs = final;
+  };
 
   mapDisabledToBroken =
     attrs:
@@ -119,14 +115,6 @@ in
   linuxPackages = lib.recurseIntoAttrs (
     linuxModulesOverlay (prev.linuxPackages_latest // linuxPackages) prev.linuxPackages_latest
   );
-
-  mangohud = callPackage ./tools/graphics/mangohud rec {
-    libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
-    mangohud32 = pkgsi686Linux.callPackage ./tools/graphics/mangohud {
-      libXNVCtrl = prev.pkgsi686Linux.linuxPackages.nvidia_x11.settings.libXNVCtrl;
-      inherit mangohud32;
-    };
-  };
 
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };
