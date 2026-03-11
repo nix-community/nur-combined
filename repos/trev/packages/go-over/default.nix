@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   gleamDeps = gleam.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-FvxML+hkpi1YIPq3+Uk1pyBnwt5m4JggkQxvEfeFNdM=";
+    hash = "sha256-6iZdSexuRcg2IPoPbFLAQ2w3E3s/K92s8wxBoJPwHLM=";
   };
 
   nativeBuildInputs = [

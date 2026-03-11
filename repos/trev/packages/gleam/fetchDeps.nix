@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   gleam,
+  toml-sort,
 }:
 let
   gleam' = gleam;
@@ -36,6 +37,7 @@ lib.makeOverridable (
 
         nativeBuildInputs = [
           gleam
+          toml-sort
         ];
 
         installPhase = ''
@@ -45,6 +47,9 @@ lib.makeOverridable (
           mkdir -p $out
 
           gleam deps download
+
+          toml-sort --in-place --all build/packages/packages.toml 
+
           cp -Tr build $out
 
           runHook postInstall
