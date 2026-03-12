@@ -7,13 +7,13 @@
  buildDotnetModule(finalAttrs: {
 
   pname = "x4-xmldiff";
-  version = "0.2.28";
+  version = "0.2.29";
 
   src = fetchFromGitHub {
     owner = "chemodun";
     repo = "X4-XMLDiffAndPatch";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-3yd6s10De79fAwN4JGJEWbXMMCDbPNyvZTqGI0mBJaU=";
+    hash = "sha256-pjICgg1rmuXwm0P+e3g7xP/NADVY04tOPQIO+zC+pqw=";
   };
 
   projectFile = "XMLDiffAndPatch.sln";
