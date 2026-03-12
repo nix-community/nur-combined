@@ -14,6 +14,12 @@
     import ./docker/stream.nix {
       inherit drv pkgs;
     };
+
+  cross =
+    drv:
+    import ./cross {
+      inherit drv pkgs;
+    };
 }
 // import ./deno/all.nix {
   inherit pkgs;
