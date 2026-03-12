@@ -5,4 +5,4 @@
 let
   targetSystem = pkgs.pkgsCross.aarch64-multiplatform;
 in
-(targetSystem.callPackage drv)
+targetSystem.callPackage drv { }
