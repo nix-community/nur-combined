@@ -127,6 +127,14 @@ devShells.x86_64-linux.default = pkgs.mkShell {
 };
 ```
 
+## Images
+
+OCI container images for docker/podman
+
+### nix
+
+### ffmpeg
+
 ## Bundlers
 
 A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle)

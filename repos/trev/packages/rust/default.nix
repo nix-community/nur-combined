@@ -1,9 +1,10 @@
 {
   rust,
   callPackage,
+  lib,
 }:
 
 rust
-// {
-  compile = callPackage ./compile.nix { };
+// lib.filterAttrs (_: v: v != null) {
+  compile = if rust ? compile then null else callPackage ./compile.nix { };
 }

@@ -8,13 +8,13 @@
 let
   # Ignore flake output attributes that are not per-system.
   ignoredAttrs = [
-    "libs"
-    "overlays"
-    "nixosModules"
-    "nixosConfigurations"
     "hydraJobs"
-    "templates"
+    "libs"
+    "nixosConfigurations"
+    "nixosModules"
+    "overlays"
     "schemas"
+    "templates"
   ];
 
   # Applies a merge operation across systems.
