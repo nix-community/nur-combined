@@ -179,7 +179,7 @@
               cmake
             ]
             lua
-            delta
+            # delta
             go
             nix-tree
             kotlin
@@ -202,7 +202,7 @@
               yaml-language-server
               tree-sitter
               stylua
-              biome
+              # biome
               # black
             ]
             # languages related
@@ -216,10 +216,10 @@
               android-file-transfer
               nixpkgs-review
               shfmt
-              markdown-oxide
+              #   markdown-oxide
             ]
             [
-              vscode-langservers-extracted
+              #   vscode-langservers-extracted
               bash-language-server
               texlab
             ]
@@ -240,7 +240,7 @@
               arduino-language-server
 
               vhdl-ls
-              delve
+              #   delve
               # python311Packages.python-lsp-server
               taplo
               tinymist

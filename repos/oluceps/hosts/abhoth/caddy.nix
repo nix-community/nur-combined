@@ -85,11 +85,11 @@
               key_type = "p256";
             }
           ];
-          encrypted_client_hello.configs = [
-            {
-              public_name = "nyaw.xyz";
-            }
-          ];
+          # encrypted_client_hello.configs = [
+          #   {
+          #     public_name = "nyaw.xyz";
+          #   }
+          # ];
         };
     };
   };

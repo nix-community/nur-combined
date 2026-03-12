@@ -85,7 +85,7 @@
     # };
     links = {
       "10-eno1" = {
-        matchConfig.MACAddress = "3c:7c:3f:22:49:80";
+        matchConfig.MACAddress = "30:56:0f:58:e1:b3";
         linkConfig.Name = "eno1";
       };
 
@@ -144,7 +144,7 @@
         };
 
         linkConfig.RequiredForOnline = "routable";
-        address = [ "192.168.0.2/24" ];
+        address = [ "192.168.0.16/24" ];
         dns = [ "192.168.0.1" ];
         routes = [
           { Gateway = "192.168.0.1"; }

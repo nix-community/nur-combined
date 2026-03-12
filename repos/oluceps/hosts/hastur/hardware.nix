@@ -48,8 +48,8 @@
     '';
     kernelPackages =
       # (inputs.nix-cachyos-kernel.mkFixedVersionKernelWith pkgs).linuxPackages-cachyos-latest-lto;
-      # pkgs.linuxPackages_testing;
-      inputs'.nixpkgs-rstable.legacyPackages.linuxPackages;
+      pkgs.linuxPackages_latest;
+    # inputs'.nixpkgs-rstable.legacyPackages.linuxPackages;
     blacklistedKernelModules = [ "hid_nintendo" ];
     # pkgs.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [
@@ -69,6 +69,14 @@
       # "bdev_allow_write_mounted=0"
     ];
   };
+  # systemd.services.trigger-hard-reboot = {
+  #   wantedBy = [ "basic.target" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.bash}/bin/bash -c 'sleep 7; echo b > /proc/sysrq-trigger'";
+  #     User = "root";
+  #   };
+  # };
 
   disko.devices = {
     disk = {

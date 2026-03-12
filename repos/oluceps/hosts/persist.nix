@@ -8,8 +8,7 @@
     files = [
       ".npmrc"
       ".mongoshrc.js"
-      ".gitconfig"
-      ".gitconfig"
+      # ".gitconfig"
       ".bash_history"
     ];
     directories = [

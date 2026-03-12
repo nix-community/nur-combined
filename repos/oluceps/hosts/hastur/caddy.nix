@@ -16,24 +16,6 @@
               routes = [
                 {
                   handle = [
-                    {
-                      handler = "subroute";
-                      routes = [
-                        {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:5000"; } ];
-                            }
-                          ];
-                        }
-                      ];
-                    }
-                  ];
-                  match = [ { host = [ "cache.nyaw.xyz" ]; } ];
-                }
-                {
-                  handle = [
 
                   ];
                   match = [ { host = [ config.networking.fqdn ]; } ];

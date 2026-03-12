@@ -17,6 +17,7 @@ reIf {
   services.yggdrasil = {
     enable = true;
     # openMulticastPort = true;
+    persistentKeys = true;
     settings =
       let
         thisName = config.networking.hostName;
@@ -48,15 +49,15 @@ reIf {
           lib.filterAttrs (k: _: k != thisName) lib.data.node
         );
       };
-    package = pkgs.yggdrasil.overrideAttrs (old: {
-      version = old.version + "-patch";
-      src = pkgs.fetchFromGitHub {
-        owner = "yggdrasil-network";
-        repo = "yggdrasil-go";
-        rev = "dc521be6ac50f9df82e82451c25b72da9486432a";
-        hash = "sha256-lKmI8wdmdnQnuityFJ5ZkfcksqvMiuvEvAgrEhWy5bE=";
-      };
-      vendorHash = "sha256-z09K/ZDw9mM7lfqeyZzi0WRSedzgKED0Sywf1kJXlDk=";
-    });
+    # package = pkgs.yggdrasil.overrideAttrs (old: {
+    #   version = old.version + "-patch-252";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "yggdrasil-network";
+    #     repo = "yggdrasil-go";
+    #     rev = "2527290bfd70776e41763e1a9302736ad9f684f9";
+    #     hash = "sha256-NerzusQkz1FYTLRpmz9sfrw2BVG9O2Uh2N7r5HwAMM0=";
+    #   };
+    #   vendorHash = "";
+    # });
   };
 }

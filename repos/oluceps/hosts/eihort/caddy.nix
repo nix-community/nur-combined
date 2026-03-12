@@ -8,7 +8,7 @@
   systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "misskey" ];
   repack.caddy = {
     enable = true;
-    expose = true;
+    # expose = true;
     settings.apps = {
       http.servers.srv0 = {
         routes = [

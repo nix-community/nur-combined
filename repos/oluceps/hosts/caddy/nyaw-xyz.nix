@@ -220,25 +220,7 @@
     inherit pkgs;
     matrix-upstream = "[fdcc::3]:8196";
   })
-  {
-    handle = [
-      {
-        handler = "subroute";
-        routes = [
-          {
-            handle = [
-              {
-                handler = "reverse_proxy";
-                upstreams = [ { dial = "[fdcc::1]:5000"; } ];
-              }
-            ];
-          }
-        ];
-      }
-    ];
-    match = [ { host = [ "cache.nyaw.xyz" ]; } ];
-    terminal = true;
-  }
+
   {
     handle = [
       {

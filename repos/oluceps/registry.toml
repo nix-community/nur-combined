@@ -11,8 +11,8 @@ ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4XC7dGxwY7VUPr4t+NtWL+c7pTl8g56
 link_local_addr = "fe80::216:3eff:fe0f:37d8/64"
 wg_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 # identifiers = [{ name = "hastur.local", type = "mdns" }]
-addrs = ["192.168.0.2"]
-ygg_pubkey = "895b69953b4956086c4193e3a9aea9ce42bcbee100815136659d1797e2fd1196"
+addrs = ["192.168.0.16"]
+ygg_pubkey = "30dd36b2bf9b9e96430e79ebf4c3d0ba7b6758140953246407bc9dddffbd09b8"
 
 [node.kaambl]
 # laptop
@@ -24,8 +24,8 @@ user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ8LFIGiv5IEqra7/ky0b0UgWdTGPY1CPA9cH8rMnyf"
 link_local_addr = "fe80::216:3eff:fe66:f780/64"
 wg_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
-addrs = ["192.168.0.10"]
-ygg_pubkey = "1c9e85de2dadac7405eeaee9c31f386bcfaee54b2245a999009083d93d3186ce"
+addrs = ["192.168.0.15"]
+ygg_pubkey = "6368e736160c39e887509a1fba75e16f357ee92910a44edb77e135bbc87889c5"
 # identifiers = [{ name = "kaambl.local", type = "mdns" }]
 
 [node.eihort]
@@ -38,7 +38,7 @@ user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImlt3ABsoFfuPwiPR2vyO8sDAFEQtu3BKPqrCBdcsch"
 link_local_addr = "fe80::216:3eff:fe4f:e85f/64"
 wg_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
-ygg_pubkey = "50e7610d188368a0ec18221c4126f837771f3c6680aa2b3ddecdd23f2005b611"
+ygg_pubkey = "38f6eb396caad927898ab182e882452499b0181477c25d7adb679905f12deb33"
 
 addrs = ["192.168.0.3"]
 # identifiers = [{ name = "eihort.local", type = "mdns" }]
@@ -55,7 +55,7 @@ link_local_addr = "fe80::216:3eff:fe41:49c6/64"
 wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
 iata = "NRT"
 city = "Tokyo"
-ygg_pubkey = "fb04b03670a14536ee00d3689fc1d0d01ec9b74ce4cddf66ac440a4a58048051"
+ygg_pubkey = "1aea5a3bc4ab6a92d103d745d3e19aa2bf66b33c5d77e8d5896a905b2ef3ac15"
 
 [node.abhoth]
 # dmit
@@ -69,7 +69,7 @@ link_local_addr = "fe80::216:3eff:fe15:ec52/64"
 wg_key = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A="
 iata = "NRT"
 city = "Tokyo"
-ygg_pubkey = "4c38ca650055c4b23b739c4a21ab793eccc656481cefbab7959098b33d642907"
+ygg_pubkey = "b382696fe2e84c8a33c51923453de48caa666745a9228582892b5703600725a9"
 
 # [node.nodens]
 # # dmit lax

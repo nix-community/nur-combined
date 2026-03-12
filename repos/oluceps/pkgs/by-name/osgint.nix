@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     requests
     # argparse
   ];
-  installPhase = ''install -Dm755 osgint.py $out/bin/osgint'';
+  installPhase = "install -Dm755 osgint.py $out/bin/osgint";
 
   meta = {
   };

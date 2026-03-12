@@ -66,7 +66,7 @@ export def d [
       # let user = do $get_user $per;
       log info $"deploy ($per) @ ($per_node_addr)"
 
-      nixos-rebuild $mode --flake $'.#($per)' --target-host $'root@($per_node_addr)' --sudo ...($extra_builder_args)
+      nixos-rebuild --option extra-experimental-features "pipe-operator pipe-operators flake-self-attrs" $mode --flake $'.#($per)' --target-host $'root@($per_node_addr)' --sudo ...($extra_builder_args)
     
     }
   }

@@ -288,14 +288,16 @@
   # powerManagement.powertop.enable = true;
 
   nix = {
-    package = pkgs.nixVersions.stable;
+    # package = pkgs.nixVersions.stable;
+    package = pkgs.lixPackageSets.stable.lix;
+
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     channel.enable = false;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {
       flake-registry = "";
       nix-path = [ "nixpkgs=${pkgs.path}" ];
-      fsync-store-paths = true;
+      # fsync-store-paths = true;
       keep-outputs = true;
       keep-derivations = true;
       trusted-users = [ "remotebuild" ];
@@ -330,11 +332,12 @@
         "flakes"
         "auto-allocate-uids"
         "cgroups"
-        "recursive-nix"
-        "ca-derivations"
-        # "pipe-operator"
-        "pipe-operators"
-        "blake3-hashes"
+        "flake-self-attrs"
+        # "recursive-nix"
+        # "ca-derivations"
+        "pipe-operator"
+        # "pipe-operators"
+        # "blake3-hashes"
       ];
       auto-allocate-uids = true;
       use-cgroups = true;
@@ -346,7 +349,7 @@
       cores = 0;
       builders-use-substitutes = true;
       allow-import-from-derivation = true;
-      download-buffer-size = 524288000;
+      # download-buffer-size = 524288000;
     };
 
     daemonCPUSchedPolicy = lib.mkDefault "batch";

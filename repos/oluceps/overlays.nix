@@ -36,6 +36,12 @@
       #   ;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
       inherit (inputs'.nixpkgs-stable.legacyPackages) calibre-web;
+
+      # inherit (prev.lixPackageSets.stable)
+      #   nixpkgs-review
+      #   nix-eval-jobs
+      #   nix-fast-build
+      #   ;
       # inherit (inputs'.nixpkgs-origin-vaul.legacyPackages) vaultwarden;
       # inherit (inputs'.nixpkgs-master.legacyPackages) cinny-unwrapped;
 

@@ -39,7 +39,7 @@ reIf {
         domains = [
           "box.nyaw.xyz"
         ];
-        cache = config.services.stalwart-mail.dataDir + "/acme";
+        cache = config.services.stalwart.dataDir + "/acme";
         renew-before = "30d";
         default = true;
       };
@@ -89,7 +89,7 @@ reIf {
       store = {
         db = {
           compression = "lz4";
-          path = config.services.stalwart-mail.dataDir + "/db";
+          path = config.services.stalwart.dataDir + "/db";
           type = "rocksdb";
         };
       };

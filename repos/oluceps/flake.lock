@@ -3189,14 +3189,16 @@
         "nixpkgs": "nixpkgs_25"
       },
       "locked": {
-        "lastModified": 1771565892,
-        "narHash": "sha256-V751QWipmcqmsA5JQ3HhsydQXFhJEhLCkrExKwfcmGg=",
-        "path": "/home/riro/Src/nuanmonito",
-        "type": "path"
+        "dirtyRev": "b892f12c89534e8d9c9457e14915aae7a5ac70c8-dirty",
+        "dirtyShortRev": "b892f12-dirty",
+        "lastModified": 1770923588,
+        "narHash": "sha256-BUS0rM69qNYC6rJJc3P1h17cRqwVNlMIJYodCH9ELro=",
+        "type": "git",
+        "url": "file:///home/riro/Src/nuanmonito"
       },
       "original": {
-        "path": "/home/riro/Src/nuanmonito",
-        "type": "path"
+        "type": "git",
+        "url": "file:///home/riro/Src/nuanmonito"
       }
     },
     "nuenv": {
@@ -3243,14 +3245,16 @@
         "nixpkgs": "nixpkgs_27"
       },
       "locked": {
-        "lastModified": 1771072583,
-        "narHash": "sha256-zsMvigGGhhvm9Uq2T5buu7nn1jTdxsQ+RBavtdPQ/SQ=",
-        "path": "/home/riro/Src/monitou",
-        "type": "path"
+        "dirtyRev": "fe143bd5cba609e38c48fb057e18103fd778dd9c-dirty",
+        "dirtyShortRev": "fe143bd-dirty",
+        "lastModified": 1771070568,
+        "narHash": "sha256-/XXTN8xwqcI78mQ4Pvv8SJTGMCHlI/UOgx2B3KDBDTg=",
+        "type": "git",
+        "url": "file:///home/riro/Src/monitou"
       },
       "original": {
-        "path": "/home/riro/Src/monitou",
-        "type": "path"
+        "type": "git",
+        "url": "file:///home/riro/Src/monitou"
       }
     },
     "pgvectors-nixpkgs": {
