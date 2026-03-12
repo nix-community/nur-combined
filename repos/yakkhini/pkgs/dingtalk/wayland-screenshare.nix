@@ -1,5 +1,5 @@
 {
-  sources,
+  fetchFromGitHub,
   lib,
   stdenv,
   cmake,
@@ -9,49 +9,65 @@
   libportal,
   pipewire,
   opencv,
-  xorg,
-}:
-# https://github.com/xddxdd/nur-packages/issues/71
-stdenv.mkDerivation {
-  inherit (sources.dingtalk-wayland-screenshare) pname version src;
+  libx11,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxtst,
+}: let
+  pname = "dingtalk-wayland-screenshare";
+  version = "e15063310eb3251e4619345c8fad0059e8a0558a";
+in
+  stdenv.mkDerivation {
+    inherit pname version;
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-  ];
+    src = fetchFromGitHub {
+      owner = "lzl200110";
+      repo = "dingtalk-wayland-screenshare";
+      rev = version;
+      fetchSubmodules = true;
+      hash = "sha256-yCTb1gy6gzy1WzcetrRAsoG77ST1yf+zKtTD3fojKRw=";
+    };
 
-  buildInputs = [
-    libsForQt5.qtbase
-    libsForQt5.qtx11extras
-    libportal
-    pipewire
-    opencv
-    # X11 依赖 (Hook 需要操作 X11 窗口)
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libXtst
-  ];
-  # 修复构建错误：这是库文件，不需要 wrap
-  dontWrapQtApps = true;
-  installPhase = ''
-    runHook preInstall
+    nativeBuildInputs = [
+      cmake
+      ninja
+      pkg-config
+    ];
 
-    mkdir -p $out/lib
-    cp libdingtalkhook.so $out/lib/
+    buildInputs = [
+      libsForQt5.qtbase
+      libsForQt5.qtx11extras
+      libportal
+      pipewire
+      opencv
+      libx11
+      libxcomposite
+      libxdamage
+      libxext
+      libxfixes
+      libxrandr
+      libxtst
+    ];
 
-    runHook postInstall
-  '';
+    dontWrapQtApps = true;
 
-  meta = {
-    maintainers = with lib.maintainers; [ xddxdd ];
-    description = "DingTalk screen sharing implementation under Wayland";
-    homepage = "https://github.com/lzl200110/dingtalk-wayland-screenshare";
-    license = lib.licenses.mit;
-    mainProgram = "dingtalk";
-  };
-}
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/lib
+      cp libdingtalkhook.so $out/lib/
+
+      runHook postInstall
+    '';
+
+    meta = {
+      maintainers = with lib.maintainers; [xddxdd];
+      description = "DingTalk screen sharing implementation under Wayland";
+      homepage = "https://github.com/lzl200110/dingtalk-wayland-screenshare";
+      license = lib.licenses.mit;
+      mainProgram = "dingtalk";
+    };
+  }
