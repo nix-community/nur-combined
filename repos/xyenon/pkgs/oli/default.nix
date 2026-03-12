@@ -8,20 +8,20 @@
 
 rustPlatform.buildRustPackage {
   pname = "oli";
-  version = "0-unstable-2026-02-24";
+  version = "0-unstable-2026-03-11";
 
   src = fetchFromGitHub {
     owner = "apache";
     repo = "opendal-oli";
-    rev = "f74cb15ee00e07f422455ff36ac7128784c55f16";
-    hash = "sha256-7RnzJc432uDjy+7j7/spsaaly+LnfzQ0mKKdQ875MX4=";
+    rev = "79b3b365bab60758f5c4676b5f4e8637c8884a3e";
+    hash = "sha256-JdctM/sNXBYSCStajtl0qXzoNaMEBHhONq4pdtMYE5o=";
   };
 
   postPatch = ''
     substituteInPlace tests/integration/edit.rs --replace-warn '#!/bin/bash' '#!${runtimeShell}'
   '';
 
-  cargoHash = "sha256-q4RPQTOoI7hP5f/ICPCEVZY8/xaJvCRiPL1/OkD0pnk=";
+  cargoHash = "sha256-+3HlkFYn4zqxk32q2xIhegvsFpWXYnbkzixBVbT52mg=";
 
   checkFlags = [
     "--skip=edit::test_edit_file_content_replacement"
