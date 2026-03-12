@@ -1,8 +1,5 @@
-{ pkgs }:
-{
-  packageFunc,
-  startPkgs ? pkgs,
-}:
+{ }:
+startPkgs: packageFunc:
 let
   base-pkgs = packageFunc startPkgs;
   aarch64-linux-pkgs = packageFunc startPkgs.pkgsCross.aarch64-multiplatform;
