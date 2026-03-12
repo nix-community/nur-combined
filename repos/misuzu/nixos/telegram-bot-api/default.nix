@@ -110,9 +110,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
-        ExecStart = "${lib.getExe cfg.package} ${
-          lib.cli.toCommandLineShell { optionValueSeparator = "="; } cfg.settings
-        }";
+        ExecStart = "${lib.getExe cfg.package} ${lib.cli.toCommandLineShellGNU { } cfg.settings}";
         Restart = "on-failure";
         RestartSec = "5s";
         StateDirectory = "telegram-bot-api";
