@@ -11,16 +11,22 @@ let
 in
 builtins.mapAttrs (
   name: image:
-  image.overrideAttrs (
-    _: prev: {
-      passthru =
-        (prev.passthru or { })
-        // pkgs.lib.filterAttrs (_: v: v != null) {
-          x86_64-linux = if image.pkg ? x86_64-linux then x86_64-pkgs.${name} else null;
-          aarch64-linux = if image.pkg ? aarch64-pkgs-linux then aarch64-pkgs.${name} else null;
-          armv7l-linux = if image.pkg ? armv7l-linux then armv7l-pkgs.${name} else null;
-          armv6l-linux = if image.pkg ? armv6l-linux then armv6l-pkgs.${name} else null;
-        };
-    }
-  )
+  let
+    pkg = image.pkg or null;
+  in
+  if pkg == null then
+    image
+  else
+    image.overrideAttrs (
+      _: prev: {
+        passthru =
+          (prev.passthru or { })
+          // pkgs.lib.filterAttrs (_: v: v != null) {
+            x86_64-linux = if pkg ? x86_64-linux then x86_64-pkgs.${name} else null;
+            aarch64-linux = if pkg ? aarch64-pkgs-linux then aarch64-pkgs.${name} else null;
+            armv7l-linux = if pkg ? armv7l-linux then armv7l-pkgs.${name} else null;
+            armv6l-linux = if pkg ? armv6l-linux then armv6l-pkgs.${name} else null;
+          };
+      }
+    )
 ) base-pkgs

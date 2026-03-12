@@ -13,18 +13,63 @@ let
 in
 builtins.mapAttrs (
   name: package:
-  package.overrideAttrs (
-    _: prev: {
-      passthru = prev.passthru // {
-        x86_64-linux = x86_64-linux-pkgs.${name};
-        x86_64-darwin = x86_64-darwin-pkgs.${name};
-        x86_64-windows = x86_64-windows-pkgs.${name};
-        aarch64-linux = aarch64-linux-pkgs.${name};
-        aarch64-darwin = aarch64-darwin-pkgs.${name};
-        aarch64-windows = aarch64-windows-pkgs.${name};
-        armv7l-linux = armv7l-linux-pkgs.${name};
-        armv6l-linux = armv6l-linux-pkgs.${name};
-      };
-    }
-  )
+  let
+    platforms = package.meta.platforms or [ ];
+  in
+  if builtins.length platforms == 0 then
+    package
+  else
+    package.overrideAttrs (
+      _: prev: {
+        passthru = prev.passthru // {
+          x86_64-linux =
+            let
+              cross = x86_64-linux-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+
+          x86_64-darwin =
+            let
+              cross = x86_64-darwin-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+
+          x86_64-windows =
+            let
+              cross = x86_64-windows-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+
+          aarch64-linux =
+            let
+              cross = aarch64-linux-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+
+          aarch64-darwin =
+            let
+              cross = aarch64-darwin-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+
+          aarch64-windows =
+            let
+              cross = aarch64-windows-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+
+          armv7l-linux =
+            let
+              cross = armv7l-linux-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+
+          armv6l-linux =
+            let
+              cross = armv6l-linux-pkgs.${name};
+            in
+            if builtins.elem cross.stdenv.hostPlatform.system platforms then cross else null;
+        };
+      }
+    )
 ) base-pkgs
