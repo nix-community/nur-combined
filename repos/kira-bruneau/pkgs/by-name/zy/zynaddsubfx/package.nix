@@ -11,7 +11,7 @@
   pkg-config,
 
   # Required dependencies
-  fftw,
+  fftwSinglePrec,
   liblo,
   minixml,
   zlib,
@@ -31,7 +31,7 @@
   sndio,
 
   # Optional GUI dependencies
-  guiModule ? "off",
+  guiModule ? "zest",
   cairo,
   fltk,
   libGL,
@@ -100,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    fftw
+    fftwSinglePrec
     liblo
     minixml
     zlib
@@ -183,6 +183,10 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix PATH : ${mruby-zest} \
       --prefix LD_LIBRARY_PATH : ${mruby-zest}
   '';
+
+  passthru = {
+    inherit mruby-zest;
+  };
 
   meta = {
     description = "High quality software synthesizer (${guiName} GUI)";

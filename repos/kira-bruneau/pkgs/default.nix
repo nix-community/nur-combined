@@ -120,11 +120,6 @@ in
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };
   };
 
-  zynaddsubfx = callPackage ./applications/audio/zynaddsubfx {
-    guiModule = "zest";
-    fftw = fftwSinglePrec;
-  };
-
   zynaddsubfx-fltk = zynaddsubfx.override { guiModule = "fltk"; };
 
   zynaddsubfx-ntk = zynaddsubfx.override { guiModule = "ntk"; };
