@@ -596,14 +596,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "7563a021eee90a892c9628c91d7a996a3897b2e7";
+    version = "3ac6fe97b8c91ef870c9d706c7c7a8cbcdc5d4a3";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "7563a021eee90a892c9628c91d7a996a3897b2e7";
-      hash = "sha256-wzSoNsINR2aXUpdU1Mw74dFtsilRu8RaM6pv9Bl88jQ=";
+      rev = "3ac6fe97b8c91ef870c9d706c7c7a8cbcdc5d4a3";
+      hash = "sha256-m8ChhGjeF2Z42x4tE1WAXkIiUmQupLGKpGTY1cb1KsE=";
     };
-    date = "2026-03-06";
+    date = "2026-03-12";
   };
   email-oauth2-proxy = {
     pname = "email-oauth2-proxy";
@@ -760,14 +760,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "43e05d42d6efd133de191f51337e20504012826a";
+    version = "612944229384df959ee570548ac7f9dceddbd0f1";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "43e05d42d6efd133de191f51337e20504012826a";
-      hash = "sha256-Vd+BPXbMVBRzsK97il/e3RfQatGT1tE45NFkFAxCbEU=";
+      rev = "612944229384df959ee570548ac7f9dceddbd0f1";
+      hash = "sha256-u38WtXQ/x3c4+M3HiRq69hdOyz3GXKLVJS638NYUdHI=";
     };
-    date = "2026-02-28";
+    date = "2026-03-12";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8277";
+    version = "b8292";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8277";
-      hash = "sha256-iOprMD+Jn29PFC/aQ8rkAdJ498EppKR6gVHfFX/XLeY=";
+      tag = "b8292";
+      hash = "sha256-nlUG9b+LGKdQ4kfUTqWUPgqavOMVhD8mAYwf3WARO3s=";
     };
   };
   loralib = {
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "db1307da8fa8e589c4d04c7c06c9b5025f9d2761";
+    version = "9a3f33a7030473679b8ee73ce86a7860c409e88c";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "db1307da8fa8e589c4d04c7c06c9b5025f9d2761";
-      hash = "sha256-/Vut7HCp7En0LNFEN8gNSYJRSzuxNLdBFzHLSjdb1Ww=";
+      rev = "9a3f33a7030473679b8ee73ce86a7860c409e88c";
+      hash = "sha256-b/jHvqmZv4ZoBmy64Dy6Gnb13TAyeyrw7hH6lJWuYD4=";
     };
-    date = "2026-03-11";
+    date = "2026-03-12";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2199,15 +2199,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "3d38e411c390f39b2b8e262289bd7443a87801e5";
+    version = "40868c9248511ffc7474a24b1ebb54df141e0806";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "3d38e411c390f39b2b8e262289bd7443a87801e5";
+      rev = "40868c9248511ffc7474a24b1ebb54df141e0806";
       fetchSubmodules = true;
-      hash = "sha256-yTDRXEQjhgkKE3teE/FMYvTiekucIyRqeD/YyGmnbfk=";
+      hash = "sha256-5qqugaTrpY4KlRhA1fGa0Btg0CSHO5nIPItyQzsA0+w=";
     };
-    date = "2026-03-11";
+    date = "2026-03-12";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

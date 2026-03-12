@@ -1144,7 +1144,7 @@
     },
     "ela-widget-tools": {
         "cargoLock": null,
-        "date": "2026-03-06",
+        "date": "2026-03-12",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "7563a021eee90a892c9628c91d7a996a3897b2e7",
-            "sha256": "sha256-wzSoNsINR2aXUpdU1Mw74dFtsilRu8RaM6pv9Bl88jQ=",
+            "rev": "3ac6fe97b8c91ef870c9d706c7c7a8cbcdc5d4a3",
+            "sha256": "sha256-m8ChhGjeF2Z42x4tE1WAXkIiUmQupLGKpGTY1cb1KsE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7563a021eee90a892c9628c91d7a996a3897b2e7"
+        "version": "3ac6fe97b8c91ef870c9d706c7c7a8cbcdc5d4a3"
     },
     "email-oauth2-proxy": {
         "cargoLock": null,
@@ -1465,7 +1465,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-02-28",
+        "date": "2026-03-12",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1477,12 +1477,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "43e05d42d6efd133de191f51337e20504012826a",
-            "sha256": "sha256-Vd+BPXbMVBRzsK97il/e3RfQatGT1tE45NFkFAxCbEU=",
+            "rev": "612944229384df959ee570548ac7f9dceddbd0f1",
+            "sha256": "sha256-u38WtXQ/x3c4+M3HiRq69hdOyz3GXKLVJS638NYUdHI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "43e05d42d6efd133de191f51337e20504012826a"
+        "version": "612944229384df959ee570548ac7f9dceddbd0f1"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8277",
-            "sha256": "sha256-iOprMD+Jn29PFC/aQ8rkAdJ498EppKR6gVHfFX/XLeY=",
+            "rev": "b8292",
+            "sha256": "sha256-nlUG9b+LGKdQ4kfUTqWUPgqavOMVhD8mAYwf3WARO3s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8277"
+        "version": "b8292"
     },
     "loralib": {
         "cargoLock": null,
@@ -3812,7 +3812,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-03-11",
+        "date": "2026-03-12",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3824,12 +3824,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "db1307da8fa8e589c4d04c7c06c9b5025f9d2761",
-            "sha256": "sha256-/Vut7HCp7En0LNFEN8gNSYJRSzuxNLdBFzHLSjdb1Ww=",
+            "rev": "9a3f33a7030473679b8ee73ce86a7860c409e88c",
+            "sha256": "sha256-b/jHvqmZv4ZoBmy64Dy6Gnb13TAyeyrw7hH6lJWuYD4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "db1307da8fa8e589c4d04c7c06c9b5025f9d2761"
+        "version": "9a3f33a7030473679b8ee73ce86a7860c409e88c"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4286,7 +4286,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-03-11",
+        "date": "2026-03-12",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4298,12 +4298,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "3d38e411c390f39b2b8e262289bd7443a87801e5",
-            "sha256": "sha256-yTDRXEQjhgkKE3teE/FMYvTiekucIyRqeD/YyGmnbfk=",
+            "rev": "40868c9248511ffc7474a24b1ebb54df141e0806",
+            "sha256": "sha256-5qqugaTrpY4KlRhA1fGa0Btg0CSHO5nIPItyQzsA0+w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3d38e411c390f39b2b8e262289bd7443a87801e5"
+        "version": "40868c9248511ffc7474a24b1ebb54df141e0806"
     },
     "unigine-heaven": {
         "cargoLock": null,
