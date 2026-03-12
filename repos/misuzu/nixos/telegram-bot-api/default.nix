@@ -111,7 +111,7 @@ in
       serviceConfig = {
         EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${lib.getExe cfg.package} ${
-          lib.cli.toGNUCommandLineShell { optionValueSeparator = "="; } cfg.settings
+          lib.cli.toCommandLineShell { optionValueSeparator = "="; } cfg.settings
         }";
         Restart = "on-failure";
         RestartSec = "5s";
