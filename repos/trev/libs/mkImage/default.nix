@@ -1,8 +1,9 @@
 { pkgs }:
-{ pkg, ... }@args:
+pkg:
+{ ... }@args:
 
 (pkgs.dockerTools.buildLayeredImage (
-  (removeAttrs args [ "pkg" ])
+  args
   // {
     name = args.name or pkg.pname;
     tag = args.tag or pkg.version;
