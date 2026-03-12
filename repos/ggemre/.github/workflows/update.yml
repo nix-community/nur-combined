@@ -28,26 +28,14 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Install necessary tools
-        run: nix shell nixpkgs#jq nixpkgs#gh
-
-      - name: Find packages with updateScript
-        run: |
-          nix eval --json \
-            --apply 'pkgs:
-              builtins.mapAttrs
-                (name: pkg: pkg.passthru.updateScript or null)
-                pkgs
-            ' \
-            .#packages.x86_64-linux \
-          | jq -r '
-              to_entries[]
-              | select(.value != null)
-              | .key
-            ' > packages.txt
+        run: nix shell nixpkgs#gh
 
       - name: Update packages individually
         run: |
-          while read pkg; do
+          for script in pkgs/*/update.sh; do
+            [ -f "$script" ] || continue
+
+            pkg=$(basename "$(dirname "$script")")
             echo "== Checking $pkg =="
 
             old=$(nix eval --raw ".#packages.x86_64-linux.$pkg.version")
@@ -57,7 +45,7 @@ jobs:
             git pull
             git checkout -b "$branch"
 
-            nix run nixpkgs#nix-update -- "$pkg" --flake || true
+            bash "$script" || true
 
             if git diff --quiet; then
               echo "No update for $pkg"
@@ -73,12 +61,12 @@ jobs:
 
             gh pr create \
               --title "$pkg: $old -> $new" \
-              --body "Automated update via nix-update.\n$date" \
+              --body "Automated update via nix-update on $date." \
               --base main \
               --head "$branch"
 
             gh pr edit "$branch" --add-reviewer ggemre
 
-          done < packages.txt
+          done
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

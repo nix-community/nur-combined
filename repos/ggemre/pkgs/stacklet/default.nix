@@ -19,8 +19,6 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-imZsN0Sx7Hq9l298UkJPSmEOwRSx3dDfMbQSivx9PC4=";
   buildInputs = [ncurses];
 
-  passthru.updateScript = nix-update-script {};
-
   meta = with lib; {
     description = "Generate custom applets and menus";
     longDescription = ''

@@ -19,7 +19,6 @@
   scenefx,
   wlroots_0_19,
   libGL,
-  nix-update-script,
   enableXWayland ? true,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -65,7 +64,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     providedSessions = ["mango"];
-    updateScript = nix-update-script {};
   };
 
   meta = {
