@@ -121,7 +121,7 @@ let
   _pkgname = "wechat-universal";
   xdg-dir = "${xdg-user-dirs}/bin";
   # ver = "4.0.1.13";
-  ver = "4.1.0.16";
+  ver = "4.1.1.4";
   
   # zerocallusedregs hardening breaks WeChat
   glibcWithoutHardening = stdenv.cc.libc.overrideAttrs (old: {
@@ -160,8 +160,7 @@ let
 
     src = fetchurl {
       url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb";
-      hash = "sha256-hEXk6wB0zV3R+i3DT3ClSPHh/ut660Uq1p3L0oBNAaI=";
-	  # hash = "sha256-OYWMSEZj93ObszGswFul2KbrQIEyOvEppqJ4Ff08CqU=";
+      hash = "sha256-zmpcIBg5OD1qsBmMAm7OwnS9YoAwRK7GH9yiDgLHl+I=";
 
     };
     
