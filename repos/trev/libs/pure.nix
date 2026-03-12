@@ -8,4 +8,5 @@
 {
   mkFlake = import ./mkFlake { inherit systems; };
   mkPackages = import ./mkPackages { };
+  mkImages = import ./mkImages { };
 }
