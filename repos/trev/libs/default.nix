@@ -5,6 +5,7 @@
 {
   mkApps = import ./mkApps { inherit pkgs; };
   mkChecks = import ./mkChecks { inherit pkgs; };
+  mkImage = import ./mkImage { inherit pkgs; };
 }
 // import ./pure.nix {
   systems = [ system ];
