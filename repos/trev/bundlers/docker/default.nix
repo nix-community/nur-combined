@@ -14,7 +14,7 @@ pkgs.dockerTools.buildLayeredImage {
   meta = drv.meta;
 
   config = {
-    Cmd = [ "${pkgs.meta.getExe drv}" ];
+    Cmd = [ "${pkgs.lib.meta.getExe drv}" ];
     Labels = pkgs.lib.filterAttrs (_: v: v != null) {
       "org.opencontainers.image.title" = if drv ? pname then drv.pname else null;
 
