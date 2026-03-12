@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.nix'
   # schedule:
   #   # rebuild everyday at 01:55
   #   - cron:  '55 1 * * *'

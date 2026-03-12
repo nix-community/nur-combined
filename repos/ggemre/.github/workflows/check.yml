@@ -5,6 +5,8 @@ on:
       - opened
       - reopened
       - synchronize
+    paths:
+      - '**.nix'
 jobs:
   tests:
     strategy:
