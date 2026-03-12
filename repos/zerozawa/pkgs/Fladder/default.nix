@@ -23,12 +23,12 @@
   ...
 }: let
   pname = "Fladder";
-  version = "0.10.1";
+  version = "0.10.2";
   src = fetchFromGitHub {
     owner = "DonutWare";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-lmtEgBxCmEYcckhSAXhMPDzNQBluTyW0yjkt6Rr9byA=";
+    hash = "sha256-D2FFIBRWi66TRB4LkUWZu/jc+edVXo70FZDzGFh11Wk=";
   };
   media_kit_hash = "sha256-wQ5HOztwfJRymo+GzgTgHcRS/rzJfZcvBul5teSf/h8=";
 in
