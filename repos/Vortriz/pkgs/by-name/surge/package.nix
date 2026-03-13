@@ -11,7 +11,7 @@ buildGoModule rec {
     src = fetchFromGitHub {
         owner = "surge-downloader";
         repo = "surge";
-        tag = "refs/tags/v0.7.0";
+        tag = "v0.7.0";
         hash = "sha256-0rgD9tMt3P/Bme39WleIdQQFOzU1RlG8H43bVNjkC50=";
     };
 

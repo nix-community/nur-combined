@@ -263,7 +263,7 @@ def update_github_src(attrs, scoped_vars):
         date = str(datetime.datetime.fromisoformat(result["date"]).date())
         attrs.argument["version"].value = f"unstable-{date}"
     if tag:
-        src.argument["tag"].value = f"refs/tags/{latest_tag}"
+        src.argument["tag"].value = latest_tag
 
         version = latest_tag
         if version.startswith(("v", "V")):
