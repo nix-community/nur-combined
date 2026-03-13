@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.51";
+    version = "v6.8.52";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.51";
-      hash = "sha256-MXRmAyf6Dt0Tqwkmcd+o/9eBmP7t54h4aZXM8pGDlmc=";
+      tag = "v6.8.52";
+      hash = "sha256-/lD5Sg34ywNvXeoc5LN+hJfLdCiX50C+k/iAQycv1EI=";
     };
   };
   cockpy = {
@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.03.10";
+    version = "2026.03.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-ASN.mmdb";
-      hash = "sha256-WbepKNqCshQdR7qLJvb5cRtAUfIm1zBRzN3k+iTKiDc=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-ASN.mmdb";
+      hash = "sha256-Llmk5CZzi4URr+X4gcXHD0mcMatUgRipigycl7/Od0U=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.03.10";
+    version = "2026.03.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-City.mmdb";
-      hash = "sha256-b/e+kgTwLOFLF+aGhg9uddaNbbIvDv1EfXgp8t5Nh/A=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-City.mmdb";
+      hash = "sha256-z9TMqb3aiJbkcL9gKVA8BBQoZ9TwVe4jA5QXVZDhMUU=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.03.10";
+    version = "2026.03.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-Country.mmdb";
-      hash = "sha256-t5r8KKClL4nBXo2SsFwXPzFN1PaHcZ+Wz5IQEtkA/M4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-Country.mmdb";
+      hash = "sha256-qhVPxrzXEmRN4jKkq83QfawfgBMIwLb5PbwrN1RD2ns=";
     };
   };
   glauth = {
@@ -1098,14 +1098,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "04ab195f104aaabe5322bacc526478f5d584920c";
+    version = "e8b2e779c91a2da9d0ed45a2bdd4adbbf3a97d10";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "04ab195f104aaabe5322bacc526478f5d584920c";
-      hash = "sha256-STOVe+Gjt8xUjOfq9HjZvJYE+DXB7UXYS2GDZ5AbmjI=";
+      rev = "e8b2e779c91a2da9d0ed45a2bdd4adbbf3a97d10";
+      hash = "sha256-gE6WnmJE8z1tRPOl4U0ugOSc8zby5X2QZbviolssJIk=";
     };
-    date = "2026-03-10";
+    date = "2026-03-13";
   };
   libqcef = {
     pname = "libqcef";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8292";
+    version = "b8323";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8292";
-      hash = "sha256-nlUG9b+LGKdQ4kfUTqWUPgqavOMVhD8mAYwf3WARO3s=";
+      tag = "b8323";
+      hash = "sha256-kwmqfJY4HILRslW3i8h+cbLeWoaKkEAbxMK9Ku0oZBk=";
     };
   };
   loralib = {
@@ -1686,14 +1686,14 @@
   };
   pyosmocom = {
     pname = "pyosmocom";
-    version = "a5bc2a20f439f2ab309a38bfa6e2cf4266e9c11a";
+    version = "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e";
     src = fetchgit {
       url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
-      rev = "a5bc2a20f439f2ab309a38bfa6e2cf4266e9c11a";
+      rev = "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e";
       fetchSubmodules = false;
-      hash = "sha256-5owAoUR+sQr08B+tpd3liIOJ8V6mgCzUBvqI4AmbqEg=";
+      hash = "sha256-PIRr5V8hVaqyVl7zW8WJq+revjYDaJ+l/gPVUI9Cdk4=";
     };
-    date = "2026-03-06";
+    date = "2026-03-13";
   };
   pysctp = {
     pname = "pysctp";
@@ -1960,12 +1960,12 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "9a3f33a7030473679b8ee73ce86a7860c409e88c";
+    version = "061b556952a38ced8529ac1d7b4b8e261a81e1bd";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "9a3f33a7030473679b8ee73ce86a7860c409e88c";
-      hash = "sha256-b/jHvqmZv4ZoBmy64Dy6Gnb13TAyeyrw7hH6lJWuYD4=";
+      rev = "061b556952a38ced8529ac1d7b4b8e261a81e1bd";
+      hash = "sha256-cvDCjVsg0PN5KDBJjPpi1xjk7e8tn/gldtyfAKTbsQA=";
     };
     date = "2026-03-12";
   };
@@ -2199,15 +2199,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "40868c9248511ffc7474a24b1ebb54df141e0806";
+    version = "c40c78fe0ddd545126d2a31bedf897f2c26eda28";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "40868c9248511ffc7474a24b1ebb54df141e0806";
+      rev = "c40c78fe0ddd545126d2a31bedf897f2c26eda28";
       fetchSubmodules = true;
-      hash = "sha256-5qqugaTrpY4KlRhA1fGa0Btg0CSHO5nIPItyQzsA0+w=";
+      hash = "sha256-/sKxChOmXcV4u4eqMUiT/7buP84g7W+UGCUz4hix7iE=";
     };
-    date = "2026-03-12";
+    date = "2026-03-13";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

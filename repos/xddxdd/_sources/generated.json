@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.51",
-            "sha256": "sha256-MXRmAyf6Dt0Tqwkmcd+o/9eBmP7t54h4aZXM8pGDlmc=",
+            "rev": "v6.8.52",
+            "sha256": "sha256-/lD5Sg34ywNvXeoc5LN+hJfLdCiX50C+k/iAQycv1EI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.51"
+        "version": "v6.8.52"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1493,11 +1493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-WbepKNqCshQdR7qLJvb5cRtAUfIm1zBRzN3k+iTKiDc=",
+            "sha256": "sha256-Llmk5CZzi4URr+X4gcXHD0mcMatUgRipigycl7/Od0U=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.03.10"
+        "version": "2026.03.13"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1508,11 +1508,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-b/e+kgTwLOFLF+aGhg9uddaNbbIvDv1EfXgp8t5Nh/A=",
+            "sha256": "sha256-z9TMqb3aiJbkcL9gKVA8BBQoZ9TwVe4jA5QXVZDhMUU=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-City.mmdb"
         },
-        "version": "2026.03.10"
+        "version": "2026.03.13"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1523,11 +1523,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-t5r8KKClL4nBXo2SsFwXPzFN1PaHcZ+Wz5IQEtkA/M4=",
+            "sha256": "sha256-qhVPxrzXEmRN4jKkq83QfawfgBMIwLb5PbwrN1RD2ns=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.10/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-Country.mmdb"
         },
-        "version": "2026.03.10"
+        "version": "2026.03.13"
     },
     "glauth": {
         "cargoLock": null,
@@ -2127,7 +2127,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-03-10",
+        "date": "2026-03-13",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2139,12 +2139,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "04ab195f104aaabe5322bacc526478f5d584920c",
-            "sha256": "sha256-STOVe+Gjt8xUjOfq9HjZvJYE+DXB7UXYS2GDZ5AbmjI=",
+            "rev": "e8b2e779c91a2da9d0ed45a2bdd4adbbf3a97d10",
+            "sha256": "sha256-gE6WnmJE8z1tRPOl4U0ugOSc8zby5X2QZbviolssJIk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "04ab195f104aaabe5322bacc526478f5d584920c"
+        "version": "e8b2e779c91a2da9d0ed45a2bdd4adbbf3a97d10"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8292",
-            "sha256": "sha256-nlUG9b+LGKdQ4kfUTqWUPgqavOMVhD8mAYwf3WARO3s=",
+            "rev": "b8323",
+            "sha256": "sha256-kwmqfJY4HILRslW3i8h+cbLeWoaKkEAbxMK9Ku0oZBk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8292"
+        "version": "b8323"
     },
     "loralib": {
         "cargoLock": null,
@@ -3285,7 +3285,7 @@
     },
     "pyosmocom": {
         "cargoLock": null,
-        "date": "2026-03-06",
+        "date": "2026-03-13",
         "extract": null,
         "name": "pyosmocom",
         "passthru": null,
@@ -3295,13 +3295,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a5bc2a20f439f2ab309a38bfa6e2cf4266e9c11a",
-            "sha256": "sha256-5owAoUR+sQr08B+tpd3liIOJ8V6mgCzUBvqI4AmbqEg=",
+            "rev": "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e",
+            "sha256": "sha256-PIRr5V8hVaqyVl7zW8WJq+revjYDaJ+l/gPVUI9Cdk4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitea.osmocom.org/osmocom/pyosmocom.git"
         },
-        "version": "a5bc2a20f439f2ab309a38bfa6e2cf4266e9c11a"
+        "version": "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e"
     },
     "pysctp": {
         "cargoLock": null,
@@ -3824,12 +3824,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "9a3f33a7030473679b8ee73ce86a7860c409e88c",
-            "sha256": "sha256-b/jHvqmZv4ZoBmy64Dy6Gnb13TAyeyrw7hH6lJWuYD4=",
+            "rev": "061b556952a38ced8529ac1d7b4b8e261a81e1bd",
+            "sha256": "sha256-cvDCjVsg0PN5KDBJjPpi1xjk7e8tn/gldtyfAKTbsQA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9a3f33a7030473679b8ee73ce86a7860c409e88c"
+        "version": "061b556952a38ced8529ac1d7b4b8e261a81e1bd"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4286,7 +4286,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-03-12",
+        "date": "2026-03-13",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4298,12 +4298,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "40868c9248511ffc7474a24b1ebb54df141e0806",
-            "sha256": "sha256-5qqugaTrpY4KlRhA1fGa0Btg0CSHO5nIPItyQzsA0+w=",
+            "rev": "c40c78fe0ddd545126d2a31bedf897f2c26eda28",
+            "sha256": "sha256-/sKxChOmXcV4u4eqMUiT/7buP84g7W+UGCUz4hix7iE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "40868c9248511ffc7474a24b1ebb54df141e0806"
+        "version": "c40c78fe0ddd545126d2a31bedf897f2c26eda28"
     },
     "unigine-heaven": {
         "cargoLock": null,
