@@ -21,4 +21,5 @@
   rsql = pkgs.callPackage ./pkgs/rsql { };
   skills = pkgs.callPackage ./pkgs/skills { };
   gh-clean-notifications = pkgs.callPackage ./pkgs/gh-clean-notifications { };
+  agent-browser = pkgs.callPackage ./pkgs/agent-browser { };
 }
