@@ -310,11 +310,11 @@
   "splayer-git": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-K+ztcesOeOGzC5eU7IkEB2fdqVXWXS2oMCIAoeKlCQs=/Cargo.lock",
+        "sha256-RYV90LzucO5hOq4C0dRBaexAH3lH40Sq2FvvmPzOHf0=/Cargo.lock",
         {}
       ]
     },
-    "date": "2026-03-10",
+    "date": "2026-03-14",
     "extract": null,
     "name": "splayer-git",
     "passthru": null,
@@ -326,12 +326,12 @@
       "name": null,
       "owner": "imsyy",
       "repo": "SPlayer",
-      "rev": "11221574082a17cbf986f52b5543beed32706083",
-      "sha256": "sha256-K+ztcesOeOGzC5eU7IkEB2fdqVXWXS2oMCIAoeKlCQs=",
+      "rev": "5c64302c10ad89ce70b3df075fc66dc5691621d8",
+      "sha256": "sha256-RYV90LzucO5hOq4C0dRBaexAH3lH40Sq2FvvmPzOHf0=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "11221574082a17cbf986f52b5543beed32706083"
+    "version": "5c64302c10ad89ce70b3df075fc66dc5691621d8"
   },
   "svt-av1-hdr": {
     "cargoLock": null,
@@ -420,13 +420,13 @@
   "wild": {
     "cargoLock": {
       "rust/Cargo.lock": [
-        "sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06_tqk0SQMAZOk=/rust/Cargo.lock",
+        "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/rust/Cargo.lock",
         {}
       ]
     },
     "date": null,
     "extract": {
-      "pubspec.lock": "sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06_tqk0SQMAZOk=/pubspec.lock"
+      "pubspec.lock": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/pubspec.lock"
     },
     "name": "wild",
     "passthru": null,
@@ -438,12 +438,12 @@
       "name": null,
       "owner": "niuhuan",
       "repo": "wild",
-      "rev": "v0.0.13",
-      "sha256": "sha256-MnAg9AqLvku6HnINRI5KfzIHJQthM06/tqk0SQMAZOk=",
+      "rev": "v0.0.14",
+      "sha256": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "v0.0.13"
+    "version": "v0.0.14"
   },
   "zhuque": {
     "cargoLock": null,

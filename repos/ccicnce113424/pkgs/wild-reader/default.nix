@@ -4,14 +4,14 @@
   srcInfo,
   lib,
   stdenv,
-  flutter329,
+  flutter335,
   rustPlatform,
   writeText,
   makeDesktopItem,
   copyDesktopItems,
 }:
 let
-  flutter = flutter329;
+  flutter = flutter335;
   description = "Third-party Wenku8 client developed in Flutter";
 
   commonMeta = {
