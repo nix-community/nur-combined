@@ -3519,10 +3519,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.68.1";
+      version = "2.68.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4703735/dualsub-2.68.1.xpi";
-      sha256 = "0c92f2e4c79530b419be111e94c599a4c370a88151e80cd9e7f04beb805fbb7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4723247/dualsub-2.68.2.xpi";
+      sha256 = "d4e6618d1068baf4972a2ac4409987fd261443cf0ac681b47b25d4bb15b25057";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3678,15 +3678,14 @@
     };
     "elasticvue" = buildMozillaXpiAddon {
       pname = "elasticvue";
-      version = "1.13.0";
+      version = "1.14.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4682855/elasticvue-1.13.0.xpi";
-      sha256 = "0dc23230ba870bfd012a52d3b0dea579084d991f23ced75edac49d6abc43fc7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4723810/elasticvue-1.14.0.xpi";
+      sha256 = "fd57c4b6da2bf1a77bcbb116189805b7aec9aa532b068f8b975a836ed43765eb";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
         description = "Elasticvue is a free and simple elasticsearch gui for your browser";
-        license = licenses.mit;
         mozPermissions = [ "http://*/*" "https://*/*" ];
         platforms = platforms.all;
       };
@@ -16050,10 +16049,10 @@
     };
     "violentmonkey" = buildMozillaXpiAddon {
       pname = "violentmonkey";
-      version = "2.34.0";
+      version = "2.35.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4677263/violentmonkey-2.34.0.xpi";
-      sha256 = "ac58eb2796765da73db571a9491352acbb8287b76ccd9e2375612364a4cd5473";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4704557/violentmonkey-2.35.0.xpi";
+      sha256 = "00d6ed07f730e4f5e15395d9a204ea91dff4e06e70c51f0df11edf54dc645ec9";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
