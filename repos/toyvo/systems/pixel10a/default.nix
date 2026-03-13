@@ -1,5 +1,4 @@
 {
-  type = "home";
+  type = "nixos";
   system = "aarch64-linux";
-  configName = "droid@debian";
 }
