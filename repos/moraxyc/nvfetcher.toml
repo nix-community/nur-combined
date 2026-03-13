@@ -112,10 +112,10 @@ fetch.github = "cyanheads/git-mcp-server"
 fetch.github = "open-quantum-safe/boringssl"
 src.github = "open-quantum-safe/boringssl"
 
-[niri]
-src.cmd = "nix build .#self-niri.src --no-link --print-out-paths"
-fetch.url = "file://$ver"
-cargo_lock = ["Cargo.lock"]
+# [niri]
+# src.cmd = "nix build .#self-niri.src --no-link --print-out-paths"
+# fetch.url = "file://$ver"
+# cargo_lock = ["Cargo.lock"]
 
 [nipaplay-reload-x86_64-linux]
 src.github = "MCDFsteve/NipaPlay-Reload"

@@ -15,13 +15,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    niri = {
-      url = "github:YaLTeR/niri";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "";
-      };
-    };
   };
   outputs =
     {
