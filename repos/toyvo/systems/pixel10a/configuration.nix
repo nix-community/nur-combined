@@ -39,6 +39,7 @@
   home-manager.users.toyvo.programs.beets.enable = lib.mkForce false;
   networking = {
     hostName = "pixel10a";
+    networkmanager.enable = lib.mkForce false;
   };
   profiles.defaults.enable = true;
   services = {
