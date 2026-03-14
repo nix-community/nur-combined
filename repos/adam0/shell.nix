@@ -1,5 +1,11 @@
 let
-  lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+  inherit
+    (builtins)
+    fromJSON
+    readFile
+    ;
+
+  lock = fromJSON (readFile ./flake.lock);
   nodeName = lock.nodes.root.inputs.flake-compat;
   flakeCompat = fetchTarball {
     url =

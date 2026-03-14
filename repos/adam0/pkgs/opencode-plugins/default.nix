@@ -4,6 +4,18 @@
   stdenvNoCC,
   bun,
 }: let
+  inherit
+    (builtins)
+    readDir
+    mapAttrs
+    ;
+  inherit
+    (lib)
+    filterAttrs
+    pipe
+    platforms
+    ;
+
   root = ./.;
 
   mkOpencodePlugin = args @ {
@@ -54,7 +66,7 @@
         };
   in
     stdenvNoCC.mkDerivation (
-      (lib.removeAttrs args [
+      (removeAttrs args [
         "dependencyHash"
         "meta"
       ])
@@ -77,17 +89,17 @@
           meta
           // {
             description = meta.description or "";
-            platforms = meta.platforms or lib.platforms.unix;
+            platforms = meta.platforms or platforms.unix;
           };
       }
     );
 
   call = name: callPackage (root + "/${name}") {inherit mkOpencodePlugin;};
 in
-  lib.pipe root [
-    builtins.readDir
-    (lib.filterAttrs (_: type: type == "directory"))
-    (builtins.mapAttrs (name: _: call name))
+  pipe root [
+    readDir
+    (filterAttrs (_: type: type == "directory"))
+    (mapAttrs (name: _: call name))
   ]
   // {
     inherit mkOpencodePlugin;

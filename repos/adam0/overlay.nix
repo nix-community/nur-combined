@@ -2,6 +2,13 @@
 # case where you don't want to add the whole NUR namespace to your
 # configuration.
 _self: super: let
+  inherit
+    (builtins)
+    listToAttrs
+    filter
+    attrNames
+    ;
+
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   nameValuePair = n: v: {
     name = n;
@@ -9,8 +16,8 @@ _self: super: let
   };
   nurAttrs = import ./default.nix {pkgs = super;};
 in
-  builtins.listToAttrs (
+  listToAttrs (
     map (n: nameValuePair n nurAttrs.${n}) (
-      builtins.filter (n: !isReserved n) (builtins.attrNames nurAttrs)
+      filter (n: !isReserved n) (attrNames nurAttrs)
     )
   )

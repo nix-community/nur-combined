@@ -8,18 +8,29 @@
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
-{pkgs ? import <nixpkgs> {}}:
-with builtins; let
+{pkgs ? import <nixpkgs> {}}: let
+  inherit
+    (builtins)
+    isAttrs
+    concatLists
+    attrValues
+    listToAttrs
+    filter
+    attrNames
+    all
+    isList
+    ;
+
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: let
     licenseFromMeta = p.meta.license or [];
     licenseList =
-      if builtins.isList licenseFromMeta
+      if isList licenseFromMeta
       then licenseFromMeta
       else [licenseFromMeta];
   in
-    !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
+    !(p.meta.broken or false) && all (license: license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 

@@ -6,23 +6,36 @@
 # commands such as:
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}, ...}: let
-  inherit (pkgs) lib;
+  inherit (builtins) isAttrs;
+  inherit
+    (pkgs)
+    lib
+    callPackage
+    ;
+  inherit
+    (lib)
+    isDerivation
+    recurseIntoAttrs
+    filesystem
+    filterAttrs
+    mapAttrs
+    ;
 
   normalizePackage = v:
-    if lib.isDerivation v
+    if isDerivation v
     then v
-    else if builtins.isAttrs v && v ? default && lib.isDerivation v.default
+    else if isAttrs v && v ? default && isDerivation v.default
     then v.default
     else v;
 
-  discoveredPackages = lib.filesystem.packagesFromDirectoryRecursive {
+  recurseCallPackage = path: recurseIntoAttrs (callPackage path {});
+
+  discoveredPackages = filesystem.packagesFromDirectoryRecursive {
     inherit (pkgs) callPackage newScope;
     directory = ./pkgs;
   };
 
-  allPackages = lib.filterAttrs (_: lib.isDerivation) (
-    lib.mapAttrs (_: normalizePackage) discoveredPackages
-  );
+  allPackages = filterAttrs (_: isDerivation) (mapAttrs (_: normalizePackage) discoveredPackages);
 in
   {
     # The `lib`, `modules`, and `overlays` names are special
@@ -31,7 +44,8 @@ in
     overlays = import ./overlays; # nixpkgs overlays
     hmModules = import ./hm-modules; # Home Manager modules.
 
-    opencodePlugins = lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/opencode/plugins {});
-    yaziPlugins = lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/yazi/plugins {});
+    fishPlugins = recurseCallPackage ./pkgs/fish-plugins;
+    opencodePlugins = recurseCallPackage ./pkgs/opencode-plugins;
+    yaziPlugins = recurseCallPackage ./pkgs/yazi-plugins;
   }
   // allPackages

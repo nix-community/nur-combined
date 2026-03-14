@@ -3,6 +3,19 @@
   callPackage,
   stdenvNoCC,
 }: let
+  inherit
+    (builtins)
+    readDir
+    mapAttrs
+    ;
+  inherit
+    (lib)
+    filterAttrs
+    pipe
+    platforms
+    removeSuffix
+    ;
+
   root = ./.;
 
   mkYaziPlugin = args @ {
@@ -12,7 +25,7 @@
     installPhase ? null,
     ...
   }: let
-    pluginName = lib.removeSuffix ".yazi" pname;
+    pluginName = removeSuffix ".yazi" pname;
   in
     stdenvNoCC.mkDerivation (
       args
@@ -41,7 +54,7 @@
           meta
           // {
             description = meta.description or "";
-            platforms = meta.platforms or lib.platforms.all;
+            platforms = meta.platforms or platforms.all;
             homepage =
               if (src ? owner && src.owner == "yazi-rs")
               then "https://github.com/yazi-rs/plugins/tree/main/${pname}"
@@ -57,10 +70,10 @@
 
   call = name: callPackage (root + "/${name}") {inherit mkYaziPlugin;};
 in
-  lib.pipe root [
-    builtins.readDir
-    (lib.filterAttrs (_: type: type == "directory"))
-    (builtins.mapAttrs (name: _: call name))
+  pipe root [
+    readDir
+    (filterAttrs (_: type: type == "directory"))
+    (mapAttrs (name: _: call name))
   ]
   // {
     inherit mkYaziPlugin;
