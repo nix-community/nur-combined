@@ -7,6 +7,7 @@
   inherit
     (builtins)
     attrNames
+    filter
     ;
   inherit
     (lib)
@@ -16,6 +17,9 @@
     mkOption
     types
     mkAfter
+    genAttrs
+    optionalAttrs
+    mkMerge
     ;
   inherit (pkgs) callPackage;
 
@@ -30,13 +34,29 @@
     mkOption {
       default = {};
       type = types.submodule {
-        options = {
-          enable = mkEnableOption "the ${name} opencode plugin";
-        };
+        options =
+          {
+            enable = mkEnableOption "the ${name} opencode plugin";
+          }
+          // optionalAttrs (name == "notifier") {
+            settings = mkOption {
+              type = types.nullOr jsonFormat.type;
+              default = null;
+              example = literalExpression ''
+                {
+                  sound = false;
+                }
+              '';
+              description = ''
+                Configuration written to $XDG_CONFIG_HOME/opencode/opencode-notifier.json.
+                The value is rendered to JSON and managed by Home Manager.
+              '';
+            };
+          };
       };
     };
 
-  enabledPluginNames = builtins.filter (name: cfg.plugins.${name}.enable) pluginNames;
+  enabledPluginNames = filter (name: cfg.plugins.${name}.enable) pluginNames;
   pluginSources =
     map (name: "file://${pluginPackages.${name}}") enabledPluginNames
     ++ map (pkg: "file://${pkg}") cfg.plugins.extraPackages;
@@ -46,22 +66,8 @@ in {
     description = "OpenCode plugin packages to enable and configure.";
     type = types.submodule {
       options =
-        lib.genAttrs pluginNames pluginOption
+        genAttrs pluginNames pluginOption
         // {
-          notifier.settings = mkOption {
-            type = types.nullOr jsonFormat.type;
-            default = null;
-            example = literalExpression ''
-              {
-                sound = false;
-              }
-            '';
-            description = ''
-              Configuration written to $XDG_CONFIG_HOME/opencode/opencode-notifier.json.
-              The value is rendered to JSON and managed by Home Manager.
-            '';
-          };
-
           extraPackages = mkOption {
             type = types.listOf types.package;
             default = [];
@@ -76,7 +82,7 @@ in {
   };
 
   config = mkIf cfg.enable (
-    lib.mkMerge [
+    mkMerge [
       (mkIf (pluginSources != []) {programs.opencode.settings.plugin = mkAfter pluginSources;})
 
       (mkIf (cfg.plugins.notifier.settings != null) {
