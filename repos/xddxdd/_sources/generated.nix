@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.52";
+    version = "v6.8.53";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.52";
-      hash = "sha256-/lD5Sg34ywNvXeoc5LN+hJfLdCiX50C+k/iAQycv1EI=";
+      tag = "v6.8.53";
+      hash = "sha256-bsM2qlok7KlwQlTO2BWSQ2bu5Oc4MRmZA5w5MNC40os=";
     };
   };
   cockpy = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8323";
+    version = "b8347";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8323";
-      hash = "sha256-kwmqfJY4HILRslW3i8h+cbLeWoaKkEAbxMK9Ku0oZBk=";
+      tag = "b8347";
+      hash = "sha256-N9f0Mnz9HgRlKPWfoojHrReXReHRP3VO5Clj+ub4sMU=";
     };
   };
   loralib = {
@@ -1225,12 +1225,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.34.0";
+    version = "v1.35.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.34.0";
-      hash = "sha256-Uq8qmU8ZmNRegaWHn1hlDDpRjWjgfecBvJklmhW36eM=";
+      tag = "v1.35.0";
+      hash = "sha256-mWcMJWUdxC3Y5rcfx2urMYmYoJXbV5LudPzVB6wxRJA=";
     };
   };
   mtkclient = {
@@ -1891,14 +1891,14 @@
   };
   rime-dict = {
     pname = "rime-dict";
-    version = "325ecbda51cd93e07e2fe02e37e5f14d94a4a541";
+    version = "a2057baecf53e5a45dfd5b72f1ec50773d8c9271";
     src = fetchFromGitHub {
       owner = "Iorest";
       repo = "rime-dict";
-      rev = "325ecbda51cd93e07e2fe02e37e5f14d94a4a541";
-      hash = "sha256-LmY2EQ1VjfX9UJ8ubwoHgxDdJUicSuE0uqxKRnniJ+k=";
+      rev = "a2057baecf53e5a45dfd5b72f1ec50773d8c9271";
+      hash = "sha256-8XkMAy2PLu17kWexU9il6jPQNaDQ3IujFbr2bLno1QM=";
     };
-    date = "2020-12-26";
+    date = "2026-03-14";
   };
   rime-ice = {
     pname = "rime-ice";
@@ -2391,13 +2391,13 @@
   };
   zstd-nginx-module = {
     pname = "zstd-nginx-module";
-    version = "ff4e53b734251a46a00fb77645938e9af8a4c27b";
+    version = "09ce44eb68bccaa855206f7316fa0219a54bea3f";
     src = fetchFromGitHub {
       owner = "HanadaLee";
       repo = "ngx_http_zstd_module";
-      rev = "ff4e53b734251a46a00fb77645938e9af8a4c27b";
-      hash = "sha256-I6jwIvZS2ALcmMlVhEzmFV1yhA95/mAPM1yqtsL3z3A=";
+      rev = "09ce44eb68bccaa855206f7316fa0219a54bea3f";
+      hash = "sha256-i9NZjtYvNWW8UbR9S7rD7JCICuqXR/NzQ4K622HcTUc=";
     };
-    date = "2026-03-07";
+    date = "2026-03-14";
   };
 }

@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.52",
-            "sha256": "sha256-/lD5Sg34ywNvXeoc5LN+hJfLdCiX50C+k/iAQycv1EI=",
+            "rev": "v6.8.53",
+            "sha256": "sha256-bsM2qlok7KlwQlTO2BWSQ2bu5Oc4MRmZA5w5MNC40os=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.52"
+        "version": "v6.8.53"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8323",
-            "sha256": "sha256-kwmqfJY4HILRslW3i8h+cbLeWoaKkEAbxMK9Ku0oZBk=",
+            "rev": "b8347",
+            "sha256": "sha256-N9f0Mnz9HgRlKPWfoojHrReXReHRP3VO5Clj+ub4sMU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8323"
+        "version": "b8347"
     },
     "loralib": {
         "cargoLock": null,
@@ -2385,12 +2385,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "modelscope",
-            "rev": "v1.34.0",
-            "sha256": "sha256-Uq8qmU8ZmNRegaWHn1hlDDpRjWjgfecBvJklmhW36eM=",
+            "rev": "v1.35.0",
+            "sha256": "sha256-mWcMJWUdxC3Y5rcfx2urMYmYoJXbV5LudPzVB6wxRJA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.34.0"
+        "version": "v1.35.0"
     },
     "mtkclient": {
         "cargoLock": null,
@@ -3677,7 +3677,7 @@
     },
     "rime-dict": {
         "cargoLock": null,
-        "date": "2020-12-26",
+        "date": "2026-03-14",
         "extract": null,
         "name": "rime-dict",
         "passthru": null,
@@ -3689,12 +3689,12 @@
             "name": null,
             "owner": "Iorest",
             "repo": "rime-dict",
-            "rev": "325ecbda51cd93e07e2fe02e37e5f14d94a4a541",
-            "sha256": "sha256-LmY2EQ1VjfX9UJ8ubwoHgxDdJUicSuE0uqxKRnniJ+k=",
+            "rev": "a2057baecf53e5a45dfd5b72f1ec50773d8c9271",
+            "sha256": "sha256-8XkMAy2PLu17kWexU9il6jPQNaDQ3IujFbr2bLno1QM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "325ecbda51cd93e07e2fe02e37e5f14d94a4a541"
+        "version": "a2057baecf53e5a45dfd5b72f1ec50773d8c9271"
     },
     "rime-ice": {
         "cargoLock": null,
@@ -4655,7 +4655,7 @@
     },
     "zstd-nginx-module": {
         "cargoLock": null,
-        "date": "2026-03-07",
+        "date": "2026-03-14",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,
@@ -4667,11 +4667,11 @@
             "name": null,
             "owner": "HanadaLee",
             "repo": "ngx_http_zstd_module",
-            "rev": "ff4e53b734251a46a00fb77645938e9af8a4c27b",
-            "sha256": "sha256-I6jwIvZS2ALcmMlVhEzmFV1yhA95/mAPM1yqtsL3z3A=",
+            "rev": "09ce44eb68bccaa855206f7316fa0219a54bea3f",
+            "sha256": "sha256-i9NZjtYvNWW8UbR9S7rD7JCICuqXR/NzQ4K622HcTUc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ff4e53b734251a46a00fb77645938e9af8a4c27b"
+        "version": "09ce44eb68bccaa855206f7316fa0219a54bea3f"
     }
 }
