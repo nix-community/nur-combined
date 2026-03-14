@@ -23,6 +23,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 
+  __darwinAllowLocalNetworking = true;
+
   postInstall = ''
     mkdir -p $out/lib/agent-browser
     cp -r ../skills $out/lib/agent-browser/
