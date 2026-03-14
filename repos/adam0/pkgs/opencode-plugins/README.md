@@ -1,6 +1,6 @@
 # OpenCode Plugin Packaging Guide
 
-This guide is for agents adding or updating packages under `pkgs/opencode/plugins`.
+This guide is for agents adding or updating packages under `pkgs/opencode-plugins`.
 
 ## Objective
 
@@ -20,7 +20,7 @@ paths with no runtime rebuild hacks.
 
 ## Current Builder Contract
 
-`mkOpencodePlugin` in `pkgs/opencode/plugins/default.nix`:
+`mkOpencodePlugin` in `pkgs/opencode-plugins/default.nix`:
 
 - Copies dependencies to `./node_modules`.
 - Copies source tree to `$out`.
@@ -32,7 +32,7 @@ Implication: `postInstall` should usually start with `cd "$out"`.
 
 ## New Plugin Workflow
 
-1. Create `pkgs/opencode/plugins/<name>/default.nix`.
+1. Create `pkgs/opencode-plugins/<name>/default.nix`.
 2. Choose dependency strategy:
    - `dependencyHash = null` for no external npm deps.
    - Set `dependencyHash` for plugins requiring `node_modules`.

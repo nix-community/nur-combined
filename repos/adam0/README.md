@@ -10,4 +10,4 @@
 
 ## OpenCode plugins
 
-- Packaging guide: `pkgs/opencode/plugins/README.md`
+- Packaging guide: `pkgs/opencode-plugins/README.md`

@@ -2,9 +2,9 @@
 
 ## OpenCode plugin packaging
 
-When adding or updating any package in `pkgs/opencode/plugins`, follow:
+When adding or updating any package in `pkgs/opencode-plugins`, follow:
 
-- `pkgs/opencode/plugins/README.md`
+- `pkgs/opencode-plugins/README.md`
 
 Required checks before finishing:
 

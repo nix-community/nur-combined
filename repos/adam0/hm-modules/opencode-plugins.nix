@@ -27,7 +27,7 @@
 
   cfg = config.programs.opencode;
 
-  pluginPackages = removeAttrs (callPackage ../pkgs/opencode/plugins {}) ["mkOpencodePlugin"];
+  pluginPackages = removeAttrs (callPackage ../pkgs/opencode-plugins {}) ["mkOpencodePlugin"];
   pluginNames = attrNames pluginPackages;
 
   pluginOption = name:
