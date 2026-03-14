@@ -4,6 +4,7 @@
   postgresql,
   cargo-pgrx_0_16_1,
   fetchFromGitHub,
+  cacert,
   clang,
   icu,
   fetchurl,
@@ -14,16 +15,16 @@ buildPgrxExtension (finalAttrs: {
   cargo-pgrx = cargo-pgrx_0_16_1;
 
   pname = "pg_search";
-  version = "0.21.6";
+  version = "0.21.14";
 
   src = fetchFromGitHub {
     owner = "paradedb";
     repo = "paradedb";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/VUyPeIvizuCVEE33GkVv/dcIIYwtwvD584XuyBTsCo=";
+    hash = "sha256-uXEtb9e9YgNuPOO9O8nPbCvG+MSwYiKFifI/GJqE9i8=";
   };
 
-  cargoHash = "sha256-ox5g+VQ31M6TZsyBMQAZv25ymkJPTcgPHoRtQxe+Bd8=";
+  cargoHash = "sha256-sTkbpnB/N5eDfTCk86TIM6BZQ20hdHUqSbRFo4Wyo68=";
 
   # https://github.com/NixOS/nixpkgs/blob/1e5d278f3159de05fdc39bb557be3ba4e1a201c4/pkgs/by-name/pa/pagefind/package.nix
   postPatch = ''
@@ -60,6 +61,10 @@ buildPgrxExtension (finalAttrs: {
     "--package"
     "pg_search"
   ];
+
+  # lindera dictionary URLs are patched to file:// paths above, but reqwest's
+  # Client::builder().build() still requires CA certificates at construction time
+  nativeBuildInputs = [ cacert ];
 
   buildInputs = [
     clang

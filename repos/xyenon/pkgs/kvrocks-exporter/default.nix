@@ -3,17 +3,18 @@
   buildGoModule,
   fetchFromGitHub,
   kvrocksTestHook,
+  nix-update-script,
 }:
 
 buildGoModule rec {
   pname = "kvrocks_exporter";
-  version = "1.0.8";
+  version = "1.0.9";
 
   src = fetchFromGitHub {
     owner = "RocksLabs";
     repo = "kvrocks_exporter";
     rev = "v${version}";
-    hash = "sha256-+o7DWxDtKYdcL+Fp1NHmQ/A82oFme/aRdNF9Av2SkcM=";
+    hash = "sha256-nyNdQfSXD6mAusO5VCEfvKuyvNawH4C5xDGOZSnTn7A=";
   };
 
   vendorHash = "sha256-QVbcHQQr6o3jnF3CWw2NCCeRkGBDdA8OkmDd/GPfHuI=";
@@ -30,7 +31,7 @@ buildGoModule rec {
     export TEST_REDIS_URI="redis://127.0.0.1:6666"
 
     # Create directory for tests that expect files in ../contrib
-    # Note: These files are not in the v1.0.8 release tarball but are expected by tests
+    # Note: These files are not in the release tarball but are expected by tests
     # We create empty files or dummy content where needed to let tests that check existence pass,
     # though tests that actually read them might still be skipped.
     mkdir -p contrib/tls
@@ -61,7 +62,7 @@ buildGoModule rec {
         # These tests require a running instance and are sensitive to the environment
         "TestIncludeSystemMemoryMetric"
 
-        # These tests require valid JSON in password files or valid certs which we don't have in v1.0.8
+        # These tests require valid JSON in password files or valid certs
         "TestLoadPwdFile"
         "TestPasswordMap"
         "TestCreateClientTLSConfig"
@@ -69,6 +70,8 @@ buildGoModule rec {
       ];
     in
     [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Prometheus exporter for Kvrocks metrics";
