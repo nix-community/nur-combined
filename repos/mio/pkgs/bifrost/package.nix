@@ -30,6 +30,7 @@
   nix,
   coreutils,
   findutils,
+  libsForQt5,
 }:
 
 let
@@ -229,6 +230,7 @@ stdenv.mkDerivation {
             dconf
             dpkg
             rpm
+            libsForQt5.kconfig
           ]
         }:$PATH"
         export GSETTINGS_SCHEMA_DIR="${glib.getSchemaPath gsettings-desktop-schemas}"
