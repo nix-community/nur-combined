@@ -284,6 +284,10 @@ in
       port = homelab.${hostName}.services.adguard.port;
       mutableSettings = false;
       settings = {
+        user_rules = [
+          # Need to allow split.io for my work
+          "@@||split.io^"
+        ];
         dns = {
           bind_hosts = [ "127.0.1.53" ];
           bootstrap_dns = [ "9.9.9.9" ];
