@@ -14,8 +14,8 @@ stdenvNoCC.mkDerivation rec {
   };
   installPhase = ''
     runHook preInstall
-    mkdir -p $out
-    cp *.yaml $out
+    install -d $out/share/rime-data
+    cp *.yaml $out/share/rime-data
     runHook postInstall
   '';
   meta = {
