@@ -13,18 +13,20 @@ lib.mapAttrs (
         version = lib.removePrefix "V" (lib.removePrefix "v" v.version);
       };
       unstableDateVersion =
-        if
-          (builtins.hasAttr "version" v)
-          && (builtins.match "[0-9a-f]{40}" v.version != null)
-          && (builtins.hasAttr "date" v)
-        then
-          let
-            lastStableVersion =
-              if builtins.hasAttr "${n}-stable" sources then
-                lib.removePrefix "v" sources."${n}-stable".version
-              else
-                "0";
-          in
+        let
+          version = v.version or "";
+          lastStableVersion =
+            if builtins.hasAttr "${n}-stable" sources then
+              lib.removePrefix "v" sources."${n}-stable".version
+            else
+              "0";
+        in
+        if builtins.match "[0-9]{4}-[0-9]{2}-[0-9]{2}" version != null then
+          {
+            version = "${lastStableVersion}-unstable-${version}";
+            rawVersion = v.version;
+          }
+        else if (builtins.match "[0-9a-f]{40}" version != null) && (builtins.hasAttr "date" v) then
           {
             version = "${lastStableVersion}-unstable-${v.date}";
             rawVersion = v.version;

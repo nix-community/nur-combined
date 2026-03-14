@@ -1,36 +1,24 @@
 {
   lib,
   sources,
-  buildPythonPackage,
-  # Dependencies
-  cryptography,
-  prompt-toolkit,
-  pyasyncore,
-  pyjwt,
-  setuptools,
-  # GUI dependencies
-  packaging,
-  pillow,
-  pystray,
-  pywebview,
-  timeago,
+  python3Packages,
 }:
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   inherit (sources.email-oauth2-proxy) pname version src;
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [ python3Packages.setuptools ];
   dependencies = [
-    cryptography
-    prompt-toolkit
-    pyasyncore
-    pyjwt
+    python3Packages.cryptography
+    python3Packages.prompt-toolkit
+    python3Packages.pyasyncore
+    python3Packages.pyjwt
     # GUI dependencies
-    packaging
-    pillow
-    pystray
-    pywebview
-    timeago
+    python3Packages.packaging
+    python3Packages.pillow
+    python3Packages.pystray
+    python3Packages.pywebview
+    python3Packages.timeago
   ];
 
   pythonImportsCheck = [ "emailproxy" ];
