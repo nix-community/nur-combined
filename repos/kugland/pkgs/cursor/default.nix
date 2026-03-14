@@ -6,11 +6,11 @@
 }:
 let
   pname = "cursor";
-  version = "2.6";
+  version = "2.6.19";
   sources = {
-    x86_64.url = "https://api2.cursor.sh/updates/download/golden/linux-x64/${pname}/${version}";
+    x86_64.url = "https://downloads.cursor.com/production/224838f96445be37e3db643a163a817c15b3606c/linux/x64/Cursor-2.6.19-x86_64.AppImage";
     x86_64.hash = "sha256-KPHcY7KhcWTpiFPvHUXmP57ePOW1ouANYVtFMaSzN3Y=";
-    aarch64.url = "https://api2.cursor.sh/updates/download/golden/linux-arm64/${pname}/${version}";
+    aarch64.url = "https://downloads.cursor.com/production/224838f96445be37e3db643a163a817c15b3606c/linux/arm64/Cursor-2.6.19-aarch64.AppImage";
     aarch64.hash = "sha256-oyWGiuMkfEgwVd5c28CWfPjZHK3agtfrWZ54/Bk4c6E=";
   };
   src = fetchurl (
