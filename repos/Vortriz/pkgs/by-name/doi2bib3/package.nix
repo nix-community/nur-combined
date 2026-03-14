@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication {
     src = fetchFromGitHub {
         owner = "archisman-panigrahi";
         repo = "doi2bib3";
-        tag = "refs/tags/v0.6.0";
+        tag = "v0.6.0";
         hash = "sha256-q8L6ofVMeDQCcQkvKEQirmWQtPD3hFMabzeofo2bPCM=";
     };
 
