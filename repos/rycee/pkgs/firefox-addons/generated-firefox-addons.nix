@@ -2829,10 +2829,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "149.0.20260311.92412";
+      version = "149.0.20260313.102041";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4722208/dansk_da_language_pack-149.0.20260311.92412.xpi";
-      sha256 = "b32ab03c7620e937505326bf14834f9e434dd823328e1e30a0c7dc2b5463f326";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4724673/dansk_da_language_pack-149.0.20260313.102041.xpi";
+      sha256 = "930fef7d99f2f5596257e17812a435c62d5014249bb13337d0ce498edebcf533";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3042,10 +3042,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "149.0.20260311.92412";
+      version = "149.0.20260313.102041";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4722171/deutsch_de_language_pack-149.0.20260311.92412.xpi";
-      sha256 = "184a5cc6fea3ce463f10dc4b9540e765a10c5293bad73a4830f3a00b32a0965c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4724680/deutsch_de_language_pack-149.0.20260313.102041.xpi";
+      sha256 = "3a8221e72ef03548ecaeea482d89671696912991e7f895926613d696a46b94f4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3970,44 +3970,6 @@
         platforms = platforms.all;
       };
     };
-    "faststream" = buildMozillaXpiAddon {
-      pname = "faststream";
-      version = "1.3.72.2";
-      addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4664185/faststream-1.3.72.2.xpi";
-      sha256 = "ab0a9ca496b37ddc0ca24b44ae095b51093d4c26e6cd48c08d054ca5427ecefb";
-      meta = with lib;
-      {
-        homepage = "https://faststream.online/";
-        description = "Stream videos without buffering in the browser. An extension that gives you a better, accessible video player designed for your needs.";
-        license = {
-          shortName = "allrightsreserved";
-          fullName = "All Rights Reserved";
-          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
-          free = false;
-        };
-        mozPermissions = [
-          "storage"
-          "tabs"
-          "webRequest"
-          "declarativeNetRequest"
-          "downloads"
-          "cookies"
-          "contextualIdentities"
-          "https://www.bilibili.com/*"
-          "https://www.bilibili.tv/*"
-          "https://www.facebook.com/*"
-          "https://www.instagram.com/*"
-          "https://www.youtube.com/*"
-          "https://youtube.com/*"
-          "https://m.youtube.com/*"
-          "https://music.youtube.com/*"
-          "https://www.youtube-nocookie.com/*"
-          "<all_urls>"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "fediact" = buildMozillaXpiAddon {
       pname = "fediact";
       version = "0.9.8.7";
@@ -4543,10 +4505,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "149.0.20260311.92412";
+      version = "149.0.20260313.102041";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4722183/francais_language_pack-149.0.20260311.92412.xpi";
-      sha256 = "bfbd33903aee47ea07ed44f6f001c0f96c2f9d62174ee5b1caac451df25735cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4724736/francais_language_pack-149.0.20260313.102041.xpi";
+      sha256 = "3b819fa7b9312071a94fccc43a51d25f0a0f3fc9fb3b9c42261440ba3cb2c436";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4580,10 +4542,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "149.0.20260311.92412";
+      version = "149.0.20260313.102041";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4722250/gaidhlig_language_pack-149.0.20260311.92412.xpi";
-      sha256 = "a0491e991c0998cd61f71a0bb2c422d3a1445b4b5f09c53bcc4ed9fe68fbd9a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4724676/gaidhlig_language_pack-149.0.20260313.102041.xpi";
+      sha256 = "df1f7ccf3c627510dedcb75f2a9eea5b40c882b1ac8ef013240dbe01419ef6d8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -13028,10 +12990,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "149.0.20260311.92412";
+      version = "149.0.20260313.102041";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4722205/scots_language_pack-149.0.20260311.92412.xpi";
-      sha256 = "eceffe711382dbb275c72674fc8e1faf903b44cf341f7bfbbf9b18d2c5dcab04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4724691/scots_language_pack-149.0.20260313.102041.xpi";
+      sha256 = "1f94b1a3b2e7bac441102dbeb9625772ce1ff87e575f55e4ac6b26d87f239b67";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13311,8 +13273,8 @@
       sha256 = "9dff43872018461f2dc82b6519395e3159f35b3d6a262ae58a4944d822ecfb1a";
       meta = with lib;
       {
-        homepage = "https://github.com/mikecrittenden/shortkeys";
-        description = "Easily customizable custom keyboard shortcuts for Firefox. To configure this addon go to Addons (ctrl+shift+a) -&gt;Shortkeys -&gt;Options. Report issues here (please specify that the issue is found in Firefox): https://github.com/mikecrittenden/shortkeys";
+        homepage = "https://shortkeys.app";
+        description = "Create custom keyboard shortcuts for your browser: 125+ built-in actions, macros, shortcut packs, command palette, cloud sync, and more.";
         license = licenses.mit;
         mozPermissions = [
           "tabs"
@@ -13492,10 +13454,10 @@
     };
     "simplifygmail" = buildMozillaXpiAddon {
       pname = "simplifygmail";
-      version = "3.4.1";
+      version = "3.4.2";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4705939/simplifygmail-3.4.1.xpi";
-      sha256 = "09ea2748dc950e820d122c4589562980c407286a630869e0ad03a13d0a75d9af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4724262/simplifygmail-3.4.2.xpi";
+      sha256 = "6dbfd8c8a5ef9ae39790cbbf55365b1730dfcffc00092b0837755e093f6ec126";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -15399,10 +15361,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.69.0";
+      version = "1.70.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4675310/ublock_origin-1.69.0.xpi";
-      sha256 = "785bcde68a25faa8a0949964ec5ffe9bdcb85d3f0ae21c23f607c6c8f91472cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4721638/ublock_origin-1.70.0.xpi";
+      sha256 = "f2730d2877005763a45d765749892e936f49cae713d28f7aa6ea314454b89cf1";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -16958,10 +16920,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.14.2";
+      version = "1.14.3";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4722414/youtube_auto_hd_fps-1.14.2.xpi";
-      sha256 = "9ddee8c736450a1d8771a72574f0f16a2ba0950c5b21b8915308a3181c34486d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4724541/youtube_auto_hd_fps-1.14.3.xpi";
+      sha256 = "8fdf9bdca1cf115299a2a145efcae7795839ba10c1d492a0dc0e86154bed10ab";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
