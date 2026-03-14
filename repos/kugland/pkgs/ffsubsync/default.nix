@@ -1,23 +1,17 @@
 { lib
 , python312Packages
-, buildPythonPackage ? python312Packages.buildPythonPackage
-, fetchPypi ? python312Packages.fetchPypi
 , auditok
 , pysubs2
 ,
-}:
-let
-  python3Packages = python312Packages;
-in
-buildPythonPackage rec {
+}: python312Packages.buildPythonPackage rec {
   pname = "ffsubsync";
   version = "0.4.26";
-  src = fetchPypi {
+  src = python312Packages.fetchPypi {
     inherit pname version;
     sha256 = "sha256-GsA6gy7bqdqIzu7XU+Laqk5iC2Mv15SXEMsxUWthFBA=";
   };
   pyproject = true;
-  build-system = [ python3Packages.setuptools ];
+  build-system = with python312Packages; [ setuptools ];
   preBuild = ''
     rm ffsubsync/ffsubsync_gui.py
     cat > requirements.txt << EOF
@@ -40,7 +34,7 @@ buildPythonPackage rec {
     EOF
   '';
   propagatedBuildInputs =
-    (with python3Packages; [
+    (with python312Packages; [
       chardet
       charset-normalizer
       faust-cchardet
@@ -57,10 +51,10 @@ buildPythonPackage rec {
     ])
     ++ [
       (auditok.override {
-        inherit python3Packages;
+        python3Packages = python312Packages;
       })
       (pysubs2.override {
-        inherit python3Packages;
+        python3Packages = python312Packages;
       })
     ];
   meta = with lib; {

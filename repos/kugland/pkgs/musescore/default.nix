@@ -1,5 +1,6 @@
-{ pkgs
-, lib
+{ lib
+, stdenv
+, fetchurl
 , appimageTools
 }:
 let
@@ -14,15 +15,15 @@ appimageTools.wrapType2 {
   pname = "musescore";
   version = "4.6.5.253511702";
   src =
-    pkgs.fetchurl
+    fetchurl
       (
-        if pkgs.stdenv.hostPlatform.isx86_64
+        if stdenv.hostPlatform.isx86_64
         then sources.x86_64
-        else if pkgs.stdenv.hostPlatform.isAarch64
+        else if stdenv.hostPlatform.isAarch64
         then sources.aarch64
         else "Unsupported architecture for MuseScore"
       );
-  meta = {
+  meta = with lib; {
     description = "Free and open-source music notation software for creating, playing and printing sheet music";
     longDescription = ''
       MuseScore is a free and open-source music notation software that allows users to create,
@@ -32,10 +33,10 @@ appimageTools.wrapType2 {
     homepage = "https://musescore.org";
     downloadPage = "https://musescore.org/download";
     changelog = "https://github.com/musescore/MuseScore/releases";
-    license = lib.licenses.gpl3Only;
-    platforms = [ "x86_64-linux" "aarch64-linux" "armv7l-linux" ];
-    maintainers = [ lib.maintainers.kugland ];
+    license = licenses.gpl3Only;
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [ kugland ];
     mainProgram = "musescore";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [ sourceTypes.binaryNativeCode ];
   };
 }

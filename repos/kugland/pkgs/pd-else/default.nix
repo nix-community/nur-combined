@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     find $out -type f -executable -exec patchelf --set-interpreter "$interpreter" --set-rpath ${lib.makeLibraryPath buildInputs} {} \;
   '';
 
-  meta = {
+  meta = with lib; {
     description = "EL Locus Solus' Externals for Pure Data";
     longDescription = ''
       ELSE is a library of externals and abstractions for Pure Data.
@@ -73,8 +73,8 @@ stdenv.mkDerivation rec {
       MIDI, GUI, and more in Pure Data.
     '';
     homepage = "https://github.com/porres/pd-else";
-    license = lib.licenses.wtfpl;
-    platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.kugland ];
+    license = licenses.wtfpl;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ kugland ];
   };
 }
