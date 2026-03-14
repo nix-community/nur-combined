@@ -35,7 +35,7 @@ rec {
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };
   liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };
 
-  my-firefox-addons = pkgs.recurseIntoAttrs (
+  my-firefox-addons = pkgs.lib.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/firefox-addons {
       # buildFirefoxXpiAddon function vendored from https://gitlab.com/rycee/nur-expressions
       # Original source: https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/default.nix
@@ -76,7 +76,7 @@ rec {
     }
   );
 
-  vimPlugins = pkgs.recurseIntoAttrs (
+  vimPlugins = pkgs.lib.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/vim-plugins {
       inherit (pkgs.vimUtils) buildVimPlugin;
       inherit sources;
