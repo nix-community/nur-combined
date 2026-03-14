@@ -45,7 +45,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tatoeba";
-  version = "2026-02-28";
+  version = "2026-03-14";
 
   srcs = lib.mapAttrsToList (name: spec: fetchurl spec) tatoeba;
 
