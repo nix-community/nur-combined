@@ -12,19 +12,19 @@
 stdenvNoCC.mkDerivation (finalAttrs: {
 
   pname = "typewords";
-  version = "3.0.1-unstable-2026-03-07";
+  version = "3.0.1-unstable-2026-03-10";
 
   src = fetchFromGitHub {
     owner = "zyronon";
     repo = "TypeWords";
-    rev = "2d691934072bb67a7b6dc99a350d33d14d319388";
-    hash = "sha256-fyuDeRmlIcPxApDZxj04tFr9eq4INd+QeVVTew8+7IA=";
+    rev = "da398c176133f42ed2a1f521b6e01574a60dd97c";
+    hash = "sha256-ltcRLX9KFDyy87cNESbxgtaAxjof41RfWT4/HzkhxLg=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-oWARflsuQ0SRn5GFDyl1yrSBla3R8fvQe/WFbtykNck=";
+    hash = "sha256-Nl7V6bSH6u1Bjwsol/aWdGu+bmkM+ZE4ZbLUP1BaXG0=";
   };
 
   nativeBuildInputs = [
