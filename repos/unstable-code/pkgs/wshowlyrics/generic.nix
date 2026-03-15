@@ -84,7 +84,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Wayland Lyrics Overlay inspired by LyricsX";
-    homepage = "https://github.com/unstable-code/lyrics";
+    homepage = "https://gitlab.com/wshowlyrics/wshowlyrics";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ "unstable-code" ];
     mainProgram = "wshowlyrics";
