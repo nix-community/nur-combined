@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  coccinelle = pkgs.callPackage ./pkgs/coccinelle { };
   git-blame-someone-else = pkgs.callPackage ./pkgs/git-blame-someone-else { };
   pingfs = pkgs.callPackage ./pkgs/pingfs { };
   runmat = pkgs.callPackage ./pkgs/runmat { };
