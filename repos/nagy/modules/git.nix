@@ -20,6 +20,9 @@ in
     Host github.com gitlab.com git.sr.ht codeberg.org
       IdentitiesOnly yes
       IdentityFile ~/.ssh/id_nagy
+    Host git.mgmt.innovo-cloud.de git.wiit.one
+      IdentitiesOnly yes
+      IdentityFile ~/.ssh/id_nagywiit
   '';
 
   programs.git = {

@@ -85,13 +85,9 @@ let
 
           environment.sessionVariables.XAUTHORITY = lib.mkDefault "/run/user/1000/Xauthority";
 
-          nagy.shortcommands = {
-            enable = true;
-          };
-
           nagy.emacs = {
             packageDirectories = [
-              (if (lib.pathExists ~/dotfiles/emacs) then ~/dotfiles/emacs else <dot/emacs>)
+              <dot/emacs>
             ];
           };
 
