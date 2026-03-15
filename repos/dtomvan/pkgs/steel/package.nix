@@ -17,16 +17,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "steel";
-  version = "0-unstable-2026-02-03";
+  version = "0-unstable-2026-03-15";
 
   src = fetchFromGitHub {
     owner = "mattwparas";
     repo = "steel";
-    rev = "c41534cc5cc7125fd931b41acdb7b833576253b5";
-    hash = "sha256-KNI392td6cr7A2PFxtYrY/IJ4mARitsi74tkRqLdoCM=";
+    rev = "0d849a268a93f44683371620fb0cb046f777de2c";
+    hash = "sha256-maeEP+20LjS4WONDOI7EcvHjSRyOUhequWb9WfcdO4g=";
   };
 
-  cargoHash = "sha256-1YUbAHefisaCOD1y0qITzAyk0PmEwb3ad+ZJUSmzcUs=";
+  cargoHash = "sha256-n1I6M6Q0FOBjKDfDHfeKT2XKhaiUFZ5zM39d68bKCkk=";
 
   doCheck = false; # does impure things like access ~/.local/share
 

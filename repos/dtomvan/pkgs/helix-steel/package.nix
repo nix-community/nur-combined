@@ -21,7 +21,7 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "helix-steel";
-  version = "0-unstable-2026-02-03";
+  version = "0-unstable-2026-03-10";
   outputs = [
     "out"
     "doc"
@@ -30,8 +30,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "mattwparas";
     repo = "helix";
-    rev = "63fb23413a9710297cabb37d87f60b402329838f";
-    hash = "sha256-6t8BKnLMdvkUqjcyC1F8UmfrJ9tBPJq2YoBCHxTrYSo=";
+    rev = "78b999f11eb67de3ed4cd9946ad71fc00b8737c7";
+    hash = "sha256-DEQy04W/+AM7oLIbndTha3//GLJkOksOTGy3HK0/4+w=";
   };
 
   patches = [
@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "steel-core-0.7.0" = "sha256-QHLXHvV/VG+gehwFveaAhGUtaGOL+FJM7qlh+4L208w=";
+      "steel-core-0.8.2" = "sha256-km24vdNehUkp1M2oJyibEt4DHiPT5NfoKMF0N7BSEfE=";
     };
   };
 
