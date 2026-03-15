@@ -78,12 +78,72 @@
       "browser.safebrowsing.malware.enabled" = false;
       "browser.safebrowsing.phishing.enabled" = false;
 
+      "browser.translations.enable" = false;
+
+      "network.dns.disablePrefetch" = true;
+      "network.dns.disablePrefetchFromHTTPS" = true;
+      "network.captive-portal-service.enabled" = false;
+      # https://wiki.archlinux.org/title/Firefox/Privacy#Disable/enforce_'Trusted_Recursive_Resolver'
+      "network.trr.mode" = 5;
+      # "geo.enabled" = false;
+      # "beacon.enabled" = false;
+      # "network.stricttransportsecurity.preloadlist" = false;
+      # "network.http.sendRefererHeader" = 2; # 0 never send header, 1 only on click, 2 (default) send for all requests
+      "network.http.referer.XOriginPolicy" = 1; # 0 is default, 1 means only send when base domain matches, 2 means only send when full domain matches
+
+      "browser.urlbar.suggest.calculator" = true;
+
+      # No need to check for blocked extensions
+      # "extensions.blocklist.enabled" = false;
+
+      "browser.tabs.crashReporting.sendReport" = false;
+      "browser.tabs.firefox-view" = false;
+      # "browser.fixup.dns_first_for_single_words" = true;
+      "browser.fixup.domainsuffixwhitelist.meship" = true;
+      "browser.fixup.domainsuffixwhitelist.ygg" = true;
+      "browser.fixup.domainsuffixwhitelist.anon" = true;
+      "browser.fixup.domainsuffixwhitelist.glue" = true; # OpenNIC
+      "browser.fixup.fallback-to-https" = false;
+
+      "widget.gtk.overlay-scrollbars.enabled" = false;
+      "widget.non-native-theme.scrollbar.size.override" = 20;
+      "widget.non-native-theme.scrollbar.style" = 4; # sharp corners
+
+      "media.autoplay.default" = 5; # block audio and video by default
+      # "media.autoplay.enabled" = true;
+      # "media.eme.enabled" = false;
+      "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
+      "media.webspeech.synth.enabled" = false;
+      # "browser.eme.ui.enabled" = false;
+
+      # https://support.mozilla.org/en-US/kb/privacy-preserving-attribution?as=u&utm_source=inproduct
+      # https://michael.kjorling.se/blog/2024/disabling-privacy-preserving-ad-measurement-in-firefox-128/
+      "dom.private-attribution.submission.enabled" = false;
 
       # No more search by url bar typing
       "keyword.enabled" = false;
 
       # Disable favicons
       "browser.chrome.site_icons" = false;
+
+      # HIDDEN PREF: disable recommendation pane in about:addons (uses Google Analytics)
+      "extensions.getAddons.showPane" = false;
+      # recommendations in about:addons' Extensions and Themes panes [FF68+]
+      "extensions.htmlaboutaddons.recommendations.enabled" = false;
+
+      # From here https://git.sr.ht/~toastal/nixcfg/tree/trunk/item/program/browser/firefox/settings.nix
+      "browser.uidensity" = 1;
+
+      # Disable open264 plugin
+      "media.gmp-gmpopenh264.enabled" = false;
+
+      # "media.navigator.enabled" = false; # Disable mic and camera
+      # "media.peerconnection.enabled" = false; # Disable WebRTC
+
+      # Disable expensive backdrop filter CSS property (performance, recommended for old and slow computers only):
+      # "layout.css.backdrop-filter.enabled" = false;
+      "layout.css.visited_links_enabled" = false;
+
       # Remove AI chatbot integration (sidebar, context menu):
       "browser.ml.enabled" = false;
       "browser.ml.chat.enabled" = false;
