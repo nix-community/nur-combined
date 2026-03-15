@@ -58,41 +58,6 @@ lib.makeScope newScope (
     perlPackages =
       (callPackage ./perl-packages.nix { }) // pkgs.perlPackages // { recurseForDerivations = false; };
 
-    ### DEVELOPMENT / PYTHON MODULES
-
-    binapy = callPackage ./development/python-modules/binapy { };
-    bounded-pool-executor = callPackage ./development/python-modules/bounded-pool-executor { };
-    click_6_7 = callPackage ./development/python-modules/click { };
-    config-path = callPackage ./development/python-modules/config-path { };
-    contextily = callPackage ./development/python-modules/contextily { };
-    curses-menu = callPackage ./development/python-modules/curses-menu { };
-    earthaccess = callPackage ./development/python-modules/earthaccess { };
-    earthpy = callPackage ./development/python-modules/earthpy { };
-    geoip2fast = callPackage ./development/python-modules/geoip2fast { };
-    geotiler = callPackage ./development/python-modules/geotiler { };
-    gpxelevations = callPackage ./development/python-modules/gpxelevations { };
-    hardpy = callPackage ./development/python-modules/hardpy { };
-    jsonseq = callPackage ./development/python-modules/jsonseq { };
-    jwskate = callPackage ./development/python-modules/jwskate { };
-    lat-lon-parser = callPackage ./development/python-modules/lat-lon-parser { };
-    portolan = callPackage ./development/python-modules/portolan { };
-    pqdm = callPackage ./development/python-modules/pqdm { };
-    pyarrow_ops = callPackage ./development/python-modules/pyarrow_ops { };
-    pycouchdb = callPackage ./development/python-modules/pycouchdb { };
-    pymbtiles = callPackage ./development/python-modules/pymbtiles { };
-    pyramid-debugtoolbar = callPackage ./development/python-modules/pyramid-debugtoolbar { };
-    pyramid-retry = callPackage ./development/python-modules/pyramid-retry { };
-    pyramid-tm = callPackage ./development/python-modules/pyramid-tm { };
-    pytest-docker-fixtures = callPackage ./development/python-modules/pytest-docker-fixtures { };
-    pytest-mp = callPackage ./development/python-modules/pytest-mp { };
-    pytest-shell-utilities = callPackage ./development/python-modules/pytest-shell-utilities { };
-    pytest-skip-markers = callPackage ./development/python-modules/pytest-skip-markers { };
-    python-cmr = callPackage ./development/python-modules/python-cmr { };
-    requests-oauth2client = callPackage ./development/python-modules/requests-oauth2client { };
-    s2sphere = callPackage ./development/python-modules/s2sphere { };
-    tinynetrc = callPackage ./development/python-modules/tinynetrc { };
-    zope-sqlalchemy = callPackage ./development/python-modules/zope-sqlalchemy { };
-
     ### EMBEDDED
 
     embox-aarch64 = callPackage ./embedded/embox { arch = "aarch64"; };
