@@ -9,10 +9,11 @@ let
   inherit (lib.types) attrsOf listOf str;
   self = import ../. { inherit pkgs; };
   cfg = config.nagy.shortcommands;
+  mkEnableTrueOption = name: lib.mkEnableOption name // { default = true; };
 in
 {
   options.nagy.shortcommands = {
-    enable = lib.mkEnableOption "shortcommand config";
+    enable = mkEnableTrueOption "shortcommand config";
     commands = lib.mkOption {
       type = attrsOf (listOf str);
       default = { };

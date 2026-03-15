@@ -17,7 +17,18 @@ in
   };
 
   programs.git = {
+    enable = true;
     config = {
+      user.name = "Daniel Nagy";
+      user.email = "danielnagy" + "@" + "posteo.de";
+      user.signingkey = "/home/user/.ssh/id_nagy";
+      gpg = {
+        format = "ssh";
+        ssh.allowedSignersFile = pkgs.writeText "allowed_signers" ''
+          danielnagy@posteo.de ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVwcaKID2HpE4ZRYClT1URJCRXiSPsJR4FC5TwnlmCS
+          daniel.nagy@wiit.cloud ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP3LpZ81RkReP5MG3A+MoRB93E+XENLCFh9qmQNcuXV
+        '';
+      };
       alias = {
         # c = "commit"; # in included git aliases
         # co = "checkout"; # in included git aliases

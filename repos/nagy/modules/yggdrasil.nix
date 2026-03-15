@@ -9,7 +9,7 @@ let
   cfg = config.services.yggdrasil;
   readYggdrasilOutput =
     assert lib.assertMsg (
-      !cfg.enable || !(cfg.settings ? PrivateKeyPath)
+      !cfg.enable || (config.nagy.yggdrasil.privatekeyEntropy != null)
     ) "Yggdrasil service is not enabled and/or no PrivateKeyPath is set.";
     name:
     lib.readFile (
@@ -23,23 +23,37 @@ let
           yggdrasil -useconffile "$configfilePath" -${name}|tr -d $'\n' > $out
         ''
     );
+  privateKeyFromEntropy =
+    hashfile:
+    pkgs.runCommandLocal "mykey.pem"
+      {
+        nativeBuildInputs = [ config.services.yggdrasil.package ];
+      }
+      ''
+        hash=$(sha256sum < ${hashfile} | cut -d" " -f1 | tr -d $'\n')
+        echo "{\"PrivateKey\":\"$hash\"}" | yggdrasil -useconf -exportkey > $out
+      '';
 in
 {
   options = {
     nagy.yggdrasil.addressOutput = lib.mkOption {
-      type = lib.nullOr lib.str;
+      type = lib.types.nullOr lib.types.str;
       default = readYggdrasilOutput "address";
       readOnly = true;
     };
     nagy.yggdrasil.subnetOutput = lib.mkOption {
-      type = lib.nullOr lib.str;
+      type = lib.types.nullOr lib.types.str;
       default = readYggdrasilOutput "subnet";
       readOnly = true;
     };
     nagy.yggdrasil.publickeyOutput = lib.mkOption {
-      type = lib.nullOr lib.str;
+      type = lib.types.nullOr lib.types.str;
       default = readYggdrasilOutput "publickey";
       readOnly = true;
+    };
+    nagy.yggdrasil.privatekeyEntropy = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
     };
   };
 
@@ -64,7 +78,10 @@ in
         Peers = lib.optionals (
           config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true
         ) [ "vsock://host:1234" ];
-      };
+      }
+      // (lib.optionalAttrs (config.nagy.yggdrasil.privatekeyEntropy != null) {
+        PrivateKeyPath = privateKeyFromEntropy config.nagy.yggdrasil.privatekeyEntropy;
+      });
     };
     systemd.services.yggdrasil = {
       postStart = ''
@@ -72,6 +89,15 @@ in
         ${pkgs.iproute2}/bin/ip -6 address flush dev ${cfg.settings.IfName} scope link
       '';
     };
+
+    environment.etc."yggdrasil-address.txt" =
+      lib.mkIf (config.nagy.yggdrasil.privatekeyEntropy != null)
+        {
+          mode = "0444";
+          text = ''
+            ${config.nagy.yggdrasil.addressOutput}
+          '';
+        };
 
     # to include AF_VSOCK
     systemd.services.yggdrasil.serviceConfig.RestrictAddressFamilies =

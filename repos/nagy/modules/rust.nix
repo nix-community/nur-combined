@@ -22,6 +22,17 @@
     # wasm
     pkgs.binaryen
     pkgs.cargo-component
+
+    # C environment needed for many crates
+    pkgs.gcc
+
+    # Trunk and Leptos
+    pkgs.cargo-leptos
+    pkgs.sass
+    pkgs.lld
+    pkgs.wasm-bindgen-cli_0_2_108
+    pkgs.trunk
+    pkgs.tailwindcss_4
   ];
 
   # # Maybe this is better done via a config file.

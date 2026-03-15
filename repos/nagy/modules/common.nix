@@ -67,6 +67,10 @@ in
     '';
   };
 
+  services.openssh = {
+    enable = lib.mkDefault true;
+  };
+
   programs.fuse.userAllowOther = true;
 
   environment.shellAliases = {
@@ -120,6 +124,8 @@ in
     # https://github.com/pola-rs/polars/issues/23128#issuecomment-2976179171
     _RJEM_MALLOC_CONF = "background_thread:true,dirty_decay_ms:500,muzzy_decay_ms:500";
   };
+
+  networking.nameservers = lib.mkDefault [ "1.1.1.1" ];
 
   # too noisy, not needed by default
   networking.firewall.logRefusedConnections = lib.mkDefault false;

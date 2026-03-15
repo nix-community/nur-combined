@@ -118,7 +118,7 @@ rec {
 
   convertOrgToJson = pkgs.writeShellApplication {
     name = "convert-org-to-json";
-    runtimeInputs = [ pkgs.emacs ];
+    runtimeInputs = [ pkgs.emacs-nox ];
     runtimeEnv = {
       emacsOrgExportJsonCleanup = pkgs.writeText "emacsOrgExportJsonCleanup.org" ''
         (defun my/org-export-sanitize-value (val)

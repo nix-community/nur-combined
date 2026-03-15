@@ -20,6 +20,7 @@ in
         (lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ])
         # mkGitBranch
         (lib.replaceStrings [ "[git_branch]\n" ] [ "[git_branch]\nignore_branches = ['master', 'main']\n" ])
+        (lib.replaceStrings [ "[openstack]\n" ] [ "[openstack]\ndisabled = true\n" ])
       ]}
     '').outPath;
 

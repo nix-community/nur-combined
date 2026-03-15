@@ -20,6 +20,24 @@
       subpixel.lcdfilter = "default";
       subpixel.rgba = "rgb";
       includeUserConf = false;
+      # This local config prevents these two characters from being sourced from Noto Serif Display:
+      # Ŧ  LATIN CAPITAL LETTER T WITH STROKE
+      # ŧ  LATIN SMALL LETTER T WITH STROKE
+      localConf = ''
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+        <fontconfig>
+          <selectfont>
+            <rejectfont>
+              <pattern>
+                <patelt name="family">
+                  <string>Noto Serif Display</string>
+                </patelt>
+              </pattern>
+            </rejectfont>
+          </selectfont>
+        </fontconfig>
+      '';
     };
     enableDefaultPackages = true;
     packages = [
