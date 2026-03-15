@@ -22,11 +22,11 @@ rustPlatform.buildRustPackage (finallAttrs: {
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "pantry";
-    rev = "71910cbc3b7cfe4b01df4cbff4d7e4b3025f3925";
-    hash = "sha256-YqpGZFh/oTrWFXpVG+zWuKGSk/Vncq33sQFwPyRKvYE=";
+    rev = "b79e379f1d1a2f12edcbcd759a20cd24e4014908";
+    hash = "sha256-rn/2b/ch+FYuIeW5gFPo3MbaRiVPZoyU6kdeBWYAIYM=";
   };
 
-  cargoHash = "sha256-M4wHlnPJ1maucWDaArvqzUmnmBDA3A1UZ+0csDM/ggA=";
+  cargoHash = "sha256-TNqhOBqimm2/Idvrxj13ZWgqJ8ycEI9oKSfFQv6hHAc=";
 
   nativeBuildInputs = [
     pkg-config

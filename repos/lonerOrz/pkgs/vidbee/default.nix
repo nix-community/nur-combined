@@ -7,28 +7,32 @@
   fetchPnpmDeps,
   electron,
   makeWrapper,
+  copyDesktopItems,
   makeDesktopItem,
   stdenv,
-  ...
+  python3,
+  removeReferencesTo,
+  yt-dlp,
+  ffmpeg,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vidbee";
 
-  version = "1.3.0";
+  version = "1.3.4";
 
   src = fetchFromGitHub {
     owner = "nexmoe";
     repo = "VidBee";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zZ5t9s2MV6HdUElx0Ef1VMR3RyZT71YcfpkS9ydK1tY=";
+    hash = "sha256-GmOmZt7qcejN1JQE9bP8AqFSmCLoQjmOQmVvbD9yo08=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     pname = finalAttrs.pname;
     inherit (finalAttrs) version src;
     pnpm = pnpm_10;
-    hash = "sha256-gqiSSdDc1HIcDTkPipFK4Aytha5Pst5DQQ9s+1me518=";
+    hash = "sha256-VsNR78vjr8vdlFDTAUYOGh7nlIvNPZEojinyEZXO/IM=";
     fetcherVersion = 3;
   };
 
@@ -37,6 +41,11 @@ stdenv.mkDerivation (finalAttrs: {
     pnpmConfigHook
     pnpm_10
     makeWrapper
+    copyDesktopItems
+    (python3.withPackages (ps: [ ps.setuptools ]))
+  ];
+
+  buildInputs = [
     electron
   ];
 
@@ -44,21 +53,74 @@ stdenv.mkDerivation (finalAttrs: {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
   };
 
-  desktopItem = makeDesktopItem {
-    name = "vidbee";
-    desktopName = "VidBee";
-    comment = "A modern Electron application for downloading videos and audios";
-    exec = "vidbee";
-    categories = [ "Utility" ];
-  };
+  # Patch for Nix packaging compatibility
+  # These patches address assumptions about filesystem layout that don't hold in Nix:
+  # 1. Electron's process.resourcesPath points to Electron's resources, not app's
+  # 2. Nix store is read-only, so chmod fails on bundled binaries
+  # TODO: Upstream PR to make these configurable via env vars
+  postPatch = ''
+    # Override resource path resolution with NIX_VIDBEE_RESOURCES env var
+    # This is patched at the variable usage sites since the app doesn't have
+    # a centralized resource path getter
+    substituteInPlace apps/desktop/src/main/lib/ytdlp-manager.ts \
+      --replace-fail 'process.resourcesPath' \
+      '((process.env.NIX_VIDBEE_RESOURCES) || process.resourcesPath)'
+
+    substituteInPlace apps/desktop/src/main/lib/ffmpeg-manager.ts \
+      --replace-fail 'process.resourcesPath' \
+      '((process.env.NIX_VIDBEE_RESOURCES) || process.resourcesPath)'
+
+    substituteInPlace apps/desktop/src/main/lib/database/migrate.ts \
+      --replace-fail 'process.resourcesPath' \
+      '((process.env.NIX_VIDBEE_RESOURCES) || process.resourcesPath)'
+
+    # Skip chmod on read-only Nix store
+    # The binaries are already executable in our derivation
+    substituteInPlace apps/desktop/src/main/lib/ytdlp-manager.ts \
+      --replace-fail 'fs.chmodSync(bundledPath, 0o755)' \
+      'try { fs.chmodSync(bundledPath, 0o755) } catch {}'
+
+    substituteInPlace apps/desktop/src/main/lib/ffmpeg-manager.ts \
+      --replace-fail 'fs.chmodSync(ffmpegPath, 0o755)' \
+      'try { fs.chmodSync(ffmpegPath, 0o755) } catch {}'
+
+    substituteInPlace apps/desktop/src/main/lib/ffmpeg-manager.ts \
+      --replace-fail 'fs.chmodSync(ffprobePath, 0o755)' \
+      'try { fs.chmodSync(ffprobePath, 0o755) } catch {}'
+  '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "vidbee";
+      desktopName = "VidBee";
+      comment = "A modern Electron application for downloading videos and audios";
+      exec = "vidbee";
+      categories = [ "Utility" ];
+      mimeTypes = [ "x-scheme-handler/vidbee" ];
+    })
+  ];
 
   buildPhase = ''
     runHook preBuild
 
-    # Use --ignore-scripts to skip postinstall (no network in Nix build)
-    pnpm install --offline --frozen-lockfile --ignore-scripts
+    # Install dependencies
+    pnpm install --offline --frozen-lockfile
 
+    # Compile better-sqlite3 native module for Electron
+    for f in $(find . -path '*/node_modules/better-sqlite3' -type d); do
+      (cd "$f" && (
+        npm run build-release --offline --nodedir="${electron.headers}"
+        rm -rf build/Release/{.deps,obj,obj.target,test_extension.node}
+        find build -type f -exec ${lib.getExe removeReferencesTo} -t "${electron.headers}" {} \;
+      ))
+    done
+
+    # Build the application
     pnpm run build
+
+    # Remove dev dependencies to reduce closure size
+    # Use --ignore-scripts to skip prepare scripts (husky)
+    CI=true pnpm prune --prod --ignore-scripts
 
     runHook postBuild
   '';
@@ -66,25 +128,53 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    # Copy the built application to lib directory
-    mkdir -p $out/lib/vidbee
-    cp -r out/* $out/lib/vidbee/
+    # Create the standard Electron app structure:
+    # $out/lib/vidbee/
+    #   app/         <- main app code
+    #   resources/   <- bundled resources (yt-dlp, ffmpeg, drizzle)
+    #
+    # When launched: electron $out/lib/vidbee/app
+    # process.resourcesPath = $out/lib/vidbee (parent of app directory)
+    # But we override with NIX_VIDBEE_RESOURCES
+
+    mkdir -p $out/lib/vidbee/app
+    mkdir -p $out/lib/vidbee/resources
+
+    # Copy build outputs - keep the out/ structure
+    cp -r apps/desktop/out $out/lib/vidbee/app/
+
+    # Copy package.json
+    cp apps/desktop/package.json $out/lib/vidbee/app/
 
     # Copy node_modules
-    cp -r node_modules $out/lib/vidbee/
+    cp -r node_modules $out/lib/vidbee/app/
 
-    # Create wrapper - follow nixpkgs electron pattern
+    # Copy resources
+    # Use install command for proper permission handling
+    cp -r apps/desktop/resources/drizzle $out/lib/vidbee/resources/
+
+    install -Dm755 ${yt-dlp}/bin/yt-dlp \
+      $out/lib/vidbee/resources/yt-dlp_linux
+
+    install -Dm755 ${ffmpeg}/bin/ffmpeg \
+      $out/lib/vidbee/resources/ffmpeg/ffmpeg
+
+    install -Dm755 ${ffmpeg}/bin/ffprobe \
+      $out/lib/vidbee/resources/ffmpeg/ffprobe
+
+    # Create wrapper
+    # Pass app path directly to electron
+    # Set NIX_VIDBEE_RESOURCES to override the default resources path
+    # Note: code adds "/resources" suffix, so we point to parent directory
     makeWrapper "${electron}/bin/electron" "$out/bin/vidbee" \
       --inherit-argv0 \
       --set ELECTRON_IS_DEV 0 \
-      --set ELECTRON_RESOURCES_PATH $out/lib/vidbee \
-      --set NODE_PATH $out/lib/vidbee/node_modules \
-      --add-flags $out/lib/vidbee/main/index.js \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
+      --set NIX_VIDBEE_RESOURCES $out/lib/vidbee \
+      --add-flags "$out/lib/vidbee/app" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime}}"
 
-    # Install desktop file
-    install -m 444 -D "${finalAttrs.desktopItem}/share/applications/"* \
-        -t $out/share/applications/
+    # Remove broken symlinks from pnpm workspace
+    find $out/lib/vidbee/app/node_modules -xtype l -delete
 
     runHook postInstall
   '';
