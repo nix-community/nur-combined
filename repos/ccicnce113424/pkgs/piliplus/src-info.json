@@ -1,8 +1,8 @@
 {
-  "version": "2.0.1",
-  "rev": "ffbbd8e70221bc4d77448d832fbd11f6f3946099",
-  "time": 1773481935,
-  "revCount": 4769,
+  "version": "2.0.1.1",
+  "rev": "e2930834923c44b3d7879c264077a4507dff0b17",
+  "time": 1773539311,
+  "revCount": 4775,
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
