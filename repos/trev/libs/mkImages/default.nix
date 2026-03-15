@@ -3,6 +3,13 @@
 }:
 pkgs: func:
 let
+  try =
+    e:
+    let
+      res = builtins.tryEval e;
+    in
+    if res.success then res.value else null;
+
   pkgs-x86_64-linux = import nixpkgs {
     localSystem = pkgs.stdenv.hostPlatform.system;
     crossSystem = {
@@ -39,7 +46,9 @@ builtins.mapAttrs (
   name: image:
   let
     pkg = image.pkg or null;
-    hasPlatform = platform: pkgsTarget: if pkg ? platform then ((func pkgsTarget).${name}) else null;
+    hasPlatform =
+      platform: pkgsTarget:
+      if builtins.hasAttr "${platform}" pkg then try ((func pkgsTarget).${name}) else null;
   in
   if pkg == null then
     image

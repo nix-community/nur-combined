@@ -4,6 +4,12 @@
 pkgs: func:
 let
   nullIf = x: y: if x then null else y;
+  try =
+    e:
+    let
+      res = builtins.tryEval e;
+    in
+    if res.success then res.value else null;
 
   # cross configs -
   # https://github.com/NixOS/nixpkgs/blob/557e6a9892434f7a7247907d3aa12cbdb068649e/lib/systems/examples.nix
@@ -89,7 +95,7 @@ builtins.mapAttrs (
     platforms = package.meta.platforms or [ ];
     hasPlatform =
       platform: pkgsTarget:
-      if builtins.elem platform platforms then ((func pkgsTarget).${name}) else null;
+      if builtins.elem platform platforms then try ((func pkgsTarget).${name}) else null;
   in
   if builtins.length platforms == 0 then
     package
