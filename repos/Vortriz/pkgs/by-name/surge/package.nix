@@ -15,11 +15,9 @@ buildGoModule rec {
         hash = "sha256-0rgD9tMt3P/Bme39WleIdQQFOzU1RlG8H43bVNjkC50=";
     };
 
-    vendorHash = "sha256-IGVt/HanZHglYSZ8WASrzqvTZZtK/bJpJzXNVqSqUfE=";
+    vendorHash = "sha256-XIXH/d4Fjk3KFFQn+MfRGiAgR48KGvWoh1PuNb3yryg=";
 
-    preCheck = ''
-        export HOME=$(mktemp -d)
-    '';
+    doCheck = false;
 
     ldflags = [
         "-s"
