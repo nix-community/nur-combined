@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.53",
-            "sha256": "sha256-bsM2qlok7KlwQlTO2BWSQ2bu5Oc4MRmZA5w5MNC40os=",
+            "rev": "v6.8.54",
+            "sha256": "sha256-fsCwNhQATsLCkqfYaYsnM0UBh6CMdJ5TUvAjmv0n8TQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.53"
+        "version": "v6.8.54"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8347",
-            "sha256": "sha256-N9f0Mnz9HgRlKPWfoojHrReXReHRP3VO5Clj+ub4sMU=",
+            "rev": "b8358",
+            "sha256": "sha256-qGcCfdUZHawdZNLYH92HIHBmZ9sha4zD5w6tBgpTlcM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8347"
+        "version": "b8358"
     },
     "loralib": {
         "cargoLock": null,
@@ -2394,7 +2394,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-03-06",
+        "date": "2026-03-15",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2406,12 +2406,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "0fdbe498eddb276e57e522c2cfb824072e6cf853",
-            "sha256": "sha256-N4BUrIbx1Q5QMcdJqZ3mSTnB7GfYu9W28NM4Rn9tm6g=",
+            "rev": "353cc49139f7574883696e31fe0ef535273872ba",
+            "sha256": "sha256-P/gSg/mqVwvpfunQ0L+iUla2ip0ogmbABg4Ww2VojHw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0fdbe498eddb276e57e522c2cfb824072e6cf853"
+        "version": "353cc49139f7574883696e31fe0ef535273872ba"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
@@ -3016,11 +3016,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-o3i6mIndaSnhfQ76lld6qyY5w+zePFU2o25ivnONDhI=",
+            "sha256": "sha256-DRBH63Id06gWjHonnLkUEUeORT3erNunepnRGLSQsoA=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.8/PeerBanHelper_9.3.8.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.9/PeerBanHelper_9.3.9.zip"
         },
-        "version": "9.3.8"
+        "version": "9.3.9"
     },
     "phpmyadmin": {
         "cargoLock": null,
@@ -3726,11 +3726,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FN69i+9BqXCioLk7g8ai9b7v+w2pk9TFr87Xv3MqNuI=",
+            "sha256": "sha256-iNRDQsDg8G58mSkDnzoGUVfWX3YezIWVwl5CJMKB+wE=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260310/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260315/moegirl.dict.yaml"
         },
-        "version": "20260310"
+        "version": "20260315"
     },
     "rime-zhwiki": {
         "cargoLock": null,
@@ -4181,7 +4181,7 @@
     },
     "tqdm-loggable": {
         "cargoLock": null,
-        "date": "2026-02-10",
+        "date": "2026-03-15",
         "extract": null,
         "name": "tqdm-loggable",
         "passthru": null,
@@ -4193,12 +4193,12 @@
             "name": null,
             "owner": "tradingstrategy-ai",
             "repo": "tqdm-loggable",
-            "rev": "826c5bd9a7d6e689066eb83c148fd269c849e09c",
-            "sha256": "sha256-2kSHYDffyYnWdmD/hfZ3PZ+5kX5uRyykcMR6v9Bf+II=",
+            "rev": "8c556a56282c8b0de2c81abdf07bc885983c596e",
+            "sha256": "sha256-Gsp4fb1AAESbiDQ+vqhPcVrwmhDI6wVjFPr4JqseZ9k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "826c5bd9a7d6e689066eb83c148fd269c849e09c"
+        "version": "8c556a56282c8b0de2c81abdf07bc885983c596e"
     },
     "transmission-web-control": {
         "cargoLock": null,

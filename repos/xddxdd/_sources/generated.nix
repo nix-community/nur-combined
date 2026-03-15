@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.8.53";
+    version = "v6.8.54";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.8.53";
-      hash = "sha256-bsM2qlok7KlwQlTO2BWSQ2bu5Oc4MRmZA5w5MNC40os=";
+      tag = "v6.8.54";
+      hash = "sha256-fsCwNhQATsLCkqfYaYsnM0UBh6CMdJ5TUvAjmv0n8TQ=";
     };
   };
   cockpy = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8347";
+    version = "b8358";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8347";
-      hash = "sha256-N9f0Mnz9HgRlKPWfoojHrReXReHRP3VO5Clj+ub4sMU=";
+      tag = "b8358";
+      hash = "sha256-qGcCfdUZHawdZNLYH92HIHBmZ9sha4zD5w6tBgpTlcM=";
     };
   };
   loralib = {
@@ -1235,14 +1235,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "0fdbe498eddb276e57e522c2cfb824072e6cf853";
+    version = "353cc49139f7574883696e31fe0ef535273872ba";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "0fdbe498eddb276e57e522c2cfb824072e6cf853";
-      hash = "sha256-N4BUrIbx1Q5QMcdJqZ3mSTnB7GfYu9W28NM4Rn9tm6g=";
+      rev = "353cc49139f7574883696e31fe0ef535273872ba";
+      hash = "sha256-P/gSg/mqVwvpfunQ0L+iUla2ip0ogmbABg4Ww2VojHw=";
     };
-    date = "2026-03-06";
+    date = "2026-03-15";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1548,10 +1548,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.8";
+    version = "9.3.9";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.8/PeerBanHelper_9.3.8.zip";
-      hash = "sha256-o3i6mIndaSnhfQ76lld6qyY5w+zePFU2o25ivnONDhI=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.9/PeerBanHelper_9.3.9.zip";
+      hash = "sha256-DRBH63Id06gWjHonnLkUEUeORT3erNunepnRGLSQsoA=";
     };
   };
   phpmyadmin = {
@@ -1913,10 +1913,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260310";
+    version = "20260315";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260310/moegirl.dict.yaml";
-      hash = "sha256-FN69i+9BqXCioLk7g8ai9b7v+w2pk9TFr87Xv3MqNuI=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260315/moegirl.dict.yaml";
+      hash = "sha256-iNRDQsDg8G58mSkDnzoGUVfWX3YezIWVwl5CJMKB+wE=";
     };
   };
   rime-zhwiki = {
@@ -2147,14 +2147,14 @@
   };
   tqdm-loggable = {
     pname = "tqdm-loggable";
-    version = "826c5bd9a7d6e689066eb83c148fd269c849e09c";
+    version = "8c556a56282c8b0de2c81abdf07bc885983c596e";
     src = fetchFromGitHub {
       owner = "tradingstrategy-ai";
       repo = "tqdm-loggable";
-      rev = "826c5bd9a7d6e689066eb83c148fd269c849e09c";
-      hash = "sha256-2kSHYDffyYnWdmD/hfZ3PZ+5kX5uRyykcMR6v9Bf+II=";
+      rev = "8c556a56282c8b0de2c81abdf07bc885983c596e";
+      hash = "sha256-Gsp4fb1AAESbiDQ+vqhPcVrwmhDI6wVjFPr4JqseZ9k=";
     };
-    date = "2026-02-10";
+    date = "2026-03-15";
   };
   transmission-web-control = {
     pname = "transmission-web-control";
