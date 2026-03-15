@@ -1,6 +1,7 @@
 {
+  nixpkgs ? <nixpkgs>,
   system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { inherit system; },
+  pkgs ? import nixpkgs { inherit system; },
 }:
 {
   bundlers = import ./bundlers {
@@ -8,11 +9,11 @@
   };
 
   lib = import ./libs {
-    inherit system pkgs;
+    inherit nixpkgs system pkgs;
   };
 
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  modules = import ./modules { inherit nixpkgs; }; # NixOS modules
+  overlays = import ./overlays { inherit nixpkgs; }; # nixpkgs overlays
 }
 // pkgs.lib.filterAttrs (_: pkg: if builtins.hasAttr "ifd" pkg then !pkg.ifd else true) (
   import ./packages {

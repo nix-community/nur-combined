@@ -49,7 +49,7 @@
 
         # the entire attribute set
         legacyPackages = import ./. {
-          inherit system pkgs;
+          inherit nixpkgs system pkgs;
         };
 
         bundlers = import ./bundlers {
@@ -73,9 +73,9 @@
           inherit system pkgs;
         };
 
-        overlays = import ./overlays;
+        overlays = import ./overlays { inherit nixpkgs; };
 
-        nixosModules = import ./modules;
+        nixosModules = import ./modules { inherit nixpkgs; };
 
         devShells = {
           default = pkgs.mkShell {

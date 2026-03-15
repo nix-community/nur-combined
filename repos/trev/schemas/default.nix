@@ -4,6 +4,6 @@
   schemas ? { },
 }:
 {
-  images = import ./images.nix { inherit pkgs schemas; };
-  packages = import ./packages.nix { inherit pkgs schemas; };
+  images = import ./images.nix { inherit system pkgs schemas; };
+  packages = import ./packages.nix { inherit system pkgs schemas; };
 }

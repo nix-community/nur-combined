@@ -1,3 +1,6 @@
 {
-  overlay = import ./overlay.nix;
+  nixpkgs ? <nixpkgs>,
+}:
+{
+  overlay = import ./overlay.nix { inherit nixpkgs; };
 }

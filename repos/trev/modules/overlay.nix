@@ -1,5 +1,8 @@
 {
+  nixpkgs ? <nixpkgs>,
+}:
+{
   nixpkgs.overlays = [
-    (import ../overlays).default
+    (import ../overlays { inherit nixpkgs; }).default
   ];
 }

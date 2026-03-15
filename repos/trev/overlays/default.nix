@@ -1,8 +1,12 @@
 {
+  nixpkgs ? <nixpkgs>,
+}:
+{
   default =
     _: prev:
     let
       nur = import ../. {
+        inherit nixpkgs;
         system = prev.stdenv.hostPlatform.system;
         pkgs = prev;
       };
@@ -33,6 +37,7 @@
     _: prev:
     let
       libs = import ../libs {
+        inherit nixpkgs;
         system = prev.stdenv.hostPlatform.system;
         pkgs = prev;
       };
