@@ -69,6 +69,38 @@ in
           };
         in
         "${git-alias}/gitalias.txt";
+
+      includeIf."hasconfig:remote.*.url:git@github.com:*/**".path =
+        pkgs.writeText "gitconfig-includeIf" ''
+          [commit]
+              gpgsign = true
+        '';
+      includeIf."hasconfig:remote.*.url:git@github.com:wiit-cloud/**".path =
+        pkgs.writeText "gitconfig-includeIf" ''
+          [user]
+              name = Daniel Nagy
+              email = daniel.nagy@wiit.cloud
+              signingkey = /home/user/.ssh/id_nagywiit
+        '';
+      includeIf."hasconfig:remote.*.url:git@git.wiit.one:*/**".path =
+        pkgs.writeText "gitconfig-includeIf" ''
+          [commit]
+              gpgsign = true
+          [user]
+              name = Daniel Nagy
+              email = daniel.nagy@wiit.cloud
+              signingkey = /home/user/.ssh/id_nagywiit
+        '';
+      includeIf."hasconfig:remote.*.url:git@git.mgmt.innovo-cloud.de:*/**".path =
+        pkgs.writeText "gitconfig-includeIf" ''
+          [commit]
+              gpgsign = true
+          [user]
+              name = Daniel Nagy
+              email = daniel.nagy@wiit.cloud
+              signingkey = /home/user/.ssh/id_nagywiit
+        '';
+
       merge.conflictStyle = "diff3";
       gc = {
         auto = "0";
@@ -176,43 +208,7 @@ in
           xfuncname = "^(\\(.*)$";
         };
       };
-    }
-    //
-      # to make sure any include extra comes at last
-      (lib.mkAfter [
-        {
-          includeIf."hasconfig:remote.*.url:git@github.com:*/**".path =
-            pkgs.writeText "gitconfig-includeIf" ''
-              [commit]
-                  gpgsign = true
-            '';
-          includeIf."hasconfig:remote.*.url:git@github.com:wiit-cloud/**".path =
-            pkgs.writeText "gitconfig-includeIf" ''
-              [user]
-                  name = Daniel Nagy
-                  email = daniel.nagy@wiit.cloud
-                  signingkey = /home/user/.ssh/id_nagywiit
-            '';
-          includeIf."hasconfig:remote.*.url:git@git.wiit.one:*/**".path =
-            pkgs.writeText "gitconfig-includeIf" ''
-              [commit]
-                  gpgsign = true
-              [user]
-                  name = Daniel Nagy
-                  email = daniel.nagy@wiit.cloud
-                  signingkey = /home/user/.ssh/id_nagywiit
-            '';
-          includeIf."hasconfig:remote.*.url:git@git.mgmt.innovo-cloud.de:*/**".path =
-            pkgs.writeText "gitconfig-includeIf" ''
-              [commit]
-                  gpgsign = true
-              [user]
-                  name = Daniel Nagy
-                  email = daniel.nagy@wiit.cloud
-                  signingkey = /home/user/.ssh/id_nagywiit
-            '';
-        }
-      ]);
+    };
   };
 
   environment.etc.gitattributes = lib.mkIf cfg.enable {
