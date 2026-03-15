@@ -77,6 +77,23 @@ jobs:
         run: |
           bash scripts/update-packages/execute-update-script.sh "${{ matrix.package }}"
 
+      - name: Check for existing PR
+        id: check-pr
+        run: |
+          PACKAGE='${{ matrix.package }}'
+          EXISTING_PR=$(gh pr list --state open \
+            --json number,headRefName \
+            -q '.[] | select(.headRefName | startswith("update/'$PACKAGE'-")) | .number' \
+            2>/dev/null || echo "")
+          
+          if [ -n "$EXISTING_PR" ]; then
+            echo "has_existing_pr=true" >> $GITHUB_OUTPUT
+            echo "existing_pr_number=$EXISTING_PR" >> $GITHUB_OUTPUT
+            echo "发现已存在的 PR #$EXISTING_PR，跳过创建"
+          else
+            echo "has_existing_pr=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Generate branch name
         id: gen-branch-name
         shell: bash
@@ -96,8 +113,15 @@ jobs:
           append_github_output "branch_name" "$branch_name"
           echo "分支名称: $branch_name"
 
+      - name: Generate GitHub App Token
+        id: gen-token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.HELPER_BOT_APP_ID }}
+          private_key: ${{ secrets.HELPER_BOT_PRIVATE_KEY }}
+
       - name: Create Pull Request
-        if: steps.update.outputs.has_update == 'true'
+        if: steps.update.outputs.has_update == 'true' && steps.check-pr.outputs.has_existing_pr != 'true'
         id: create-pull-request
         uses: peter-evans/create-pull-request@v8
         with:
@@ -109,7 +133,7 @@ jobs:
 
             此更新由包的updateScript自动生成
           labels: automated, dependencies
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.gen-token.outputs.token }}
 
       - name: Wait for CI completion
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
@@ -128,4 +152,4 @@ jobs:
           echo "启用PR #$PR_NUMBER ($PACKAGE) 的自动合并"
           gh pr merge "$PR_NUMBER" --auto --squash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.gen-token.outputs.token }}
