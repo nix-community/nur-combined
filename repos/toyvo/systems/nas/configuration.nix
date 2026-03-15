@@ -13,7 +13,9 @@ let
   openclawPkgs = import inputs.openclaw-pr {
     inherit system;
     config = {
-      allowInsecure = true;
+      permittedInsecurePackages = [
+        "openclaw-2026.2.26"
+      ];
     };
   };
 in
@@ -280,7 +282,10 @@ in
       # Ensure OpenClaw has a directory to store its identity/memory/state
       StateDirectory = "openclaw";
       # The application should point to this directory for state
-      Environment = [ "OPENCLAW_HOME=/var/lib/openclaw" ];
+      Environment = [
+        "OPENCLAW_HOME=/var/lib/openclaw"
+        "GEMINI_API_KEY_FILE=/run/secrets/openclaw_gemini.key"
+      ];
       ExecStart = "${openclawPkgs.openclaw}/bin/openclaw";
       Restart = "always";
     };
@@ -317,5 +322,10 @@ in
   sops.secrets."discord_bot.env" = {
     owner = "discord_bot";
     group = "discord_bot";
+  };
+  sops.secrets."openclaw_gemini.key" = {
+    owner = "openclaw";
+    group = "openclaw";
+    mode = "0400";
   };
 }
