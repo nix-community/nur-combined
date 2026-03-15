@@ -42,20 +42,10 @@
     sharedModules = [
       ./home.nix
     ];
-    users.toyvo.sops.secrets = {
-      "openclaw_gemini.key".mode = "0644";
-    };
   };
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
     port = homelab.MacMini-M1.services.ollama.port;
-  };
-  environment.systemPackages = with unstablePkgs; [
-    signal-cli
-  ];
-  sops.secrets = {
-    "openclaw_gemini.key" = { };
-    github_runner_toyvodev_pat = { };
   };
 }

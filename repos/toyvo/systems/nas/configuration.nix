@@ -10,14 +10,6 @@
 }:
 let
   inherit (config.networking) hostName;
-  openclawPkgs = import inputs.openclaw-pr {
-    inherit system;
-    config = {
-      permittedInsecurePackages = [
-        "openclaw-2026.2.26"
-      ];
-    };
-  };
 in
 {
   imports = [
@@ -71,7 +63,6 @@ in
         443
         8080
         7080
-        homelab.${hostName}.services.openclaw.port
       ];
       allowedUDPPorts = [
         53
@@ -260,36 +251,12 @@ in
     device = "/dev/disk/by-label/POOL";
     fsType = "btrfs";
   };
-
   users.users = {
     toyvo.extraGroups = [ "libvirtd" ];
     jellyfin.extraGroups = [
       "video"
       "render"
     ];
-    openclaw = {
-      isSystemUser = true;
-      group = "openclaw";
-    };
-  };
-  users.groups.openclaw = { };
-
-  systemd.services.openclaw = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      User = "openclaw";
-      Group = "openclaw";
-      # Ensure OpenClaw has a directory to store its identity/memory/state
-      StateDirectory = "openclaw";
-      # The application should point to this directory for state
-      Environment = [
-        "OPENCLAW_HOME=/var/lib/openclaw"
-        "GEMINI_API_KEY_FILE=${config.sops.secrets."openclaw_gemini.key".path}"
-      ];
-      ExecStart = "${openclawPkgs.openclaw}/bin/openclaw gateway --port ${toString homelab.${hostName}.services.openclaw.port}";
-      Restart = "always";
-    };
   };
   home-manager.users.toyvo.programs.beets.settings.directory = "/mnt/POOL/Public/Music";
   programs.dconf.enable = true;
@@ -323,10 +290,5 @@ in
   sops.secrets."discord_bot.env" = {
     owner = "discord_bot";
     group = "discord_bot";
-  };
-  sops.secrets."openclaw_gemini.key" = {
-    owner = "openclaw";
-    group = "openclaw";
-    mode = "0400";
   };
 }
