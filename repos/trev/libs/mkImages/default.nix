@@ -1,18 +1,45 @@
-{ }:
-pkgs: imagesFunc:
+{
+  nixpkgs ? <nixpkgs>,
+}:
+pkgs: func:
 let
-  base-pkgs = imagesFunc pkgs;
+  pkgs-x86_64-linux = import nixpkgs {
+    localSystem = pkgs.stdenv.hostPlatform.system;
+    crossSystem = {
+      config = "x86_64-unknown-linux-musl";
+      isStatic = true;
+    };
+  };
 
-  # Images are always built for linux, so we only need to consider the architecture.
-  aarch64-pkgs = imagesFunc pkgs.pkgsCross.aarch64-multiplatform;
-  x86_64-pkgs = imagesFunc pkgs.pkgsCross.musl64;
-  armv7l-pkgs = imagesFunc pkgs.pkgsCross.armv7l-hf-multiplatform;
-  armv6l-pkgs = imagesFunc pkgs.pkgsCross.raspberryPi;
+  pkgs-aarch64-linux = import nixpkgs {
+    localSystem = pkgs.stdenv.hostPlatform.system;
+    crossSystem = {
+      config = "aarch64-unknown-linux-musl";
+      isStatic = true;
+    };
+  };
+
+  pkgs-armv7l-linux = import nixpkgs {
+    localSystem = pkgs.stdenv.hostPlatform.system;
+    crossSystem = {
+      config = "armv7l-unknown-linux-musleabihf";
+      isStatic = true;
+    };
+  };
+
+  pkgs-armv6l-linux = import nixpkgs {
+    localSystem = pkgs.stdenv.hostPlatform.system;
+    crossSystem = {
+      config = "armv6l-unknown-linux-musleabihf";
+      isStatic = true;
+    };
+  };
 in
 builtins.mapAttrs (
   name: image:
   let
     pkg = image.pkg or null;
+    hasPlatform = platform: pkgsTarget: if pkg ? platform then ((func pkgsTarget).${name}) else null;
   in
   if pkg == null then
     image
@@ -22,11 +49,11 @@ builtins.mapAttrs (
         passthru =
           (prev.passthru or { })
           // pkgs.lib.filterAttrs (_: v: v != null) {
-            x86_64-linux = if pkg ? x86_64-linux then x86_64-pkgs.${name} else null;
-            aarch64-linux = if pkg ? aarch64-pkgs-linux then aarch64-pkgs.${name} else null;
-            armv7l-linux = if pkg ? armv7l-linux then armv7l-pkgs.${name} else null;
-            armv6l-linux = if pkg ? armv6l-linux then armv6l-pkgs.${name} else null;
+            x86_64-linux = hasPlatform "x86_64-linux" pkgs-x86_64-linux;
+            aarch64-linux = hasPlatform "aarch64-linux" pkgs-aarch64-linux;
+            armv7l-linux = hasPlatform "armv7l-linux" pkgs-armv7l-linux;
+            armv6l-linux = hasPlatform "armv6l-linux" pkgs-armv6l-linux;
           };
       }
     )
-) base-pkgs
+) (func pkgs)

@@ -11,6 +11,7 @@
   };
 
   inputs = {
+    schemas.url = "github:DeterminateSystems/flake-schemas";
     systems.url = "github:nix-systems/default";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
@@ -20,7 +21,7 @@
       systems,
       nixpkgs,
       ...
-    }:
+    }@inputs:
     let
       mkFlake = import ./libs/mkFlake {
         systems = import systems;
@@ -33,12 +34,17 @@
           inherit system;
           config.allowUnfree = true;
         };
+        mkPackages = import ./libs/mkPackages { inherit nixpkgs; };
       in
       rec {
-        packages = pkgs.lib.filterAttrs (_: pkg: pkg ? meta && builtins.elem system pkg.meta.platforms) (
-          import ./packages {
-            inherit system pkgs;
-          }
+        packages = mkPackages pkgs (
+          target:
+          pkgs.lib.filterAttrs (_: pkg: builtins.elem system (pkg.meta.platforms or [ ])) (
+            import ./packages {
+              inherit system;
+              pkgs = target;
+            }
+          )
         );
 
         # the entire attribute set
@@ -53,6 +59,7 @@
         libs =
           # pure libs without pkgs/system injected
           import ./libs/pure.nix {
+            inherit nixpkgs;
             systems = import systems;
           }
           # libs for each system
@@ -63,7 +70,7 @@
             }
           );
 
-        ociImages = import ./images {
+        images = import ./images {
           inherit system pkgs;
         };
 
@@ -176,7 +183,14 @@
             };
           }
           // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("package_" + name) value) packages
-          // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("image_" + name) value) ociImages;
+          // pkgs.lib.mapAttrs' (name: value: pkgs.lib.nameValuePair ("image_" + name) value) images;
+
+        schemas =
+          inputs.schemas.schemas
+          // import ./schemas {
+            inherit system pkgs;
+            schemas = inputs.schemas;
+          };
 
         formatter = pkgs.nixfmt-tree;
       }

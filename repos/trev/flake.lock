@@ -19,7 +19,23 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "schemas": "schemas",
         "systems": "systems"
+      }
+    },
+    "schemas": {
+      "locked": {
+        "lastModified": 1773072327,
+        "narHash": "sha256-jffaEGY9Tt0IgiI1qHd/cXLeTMftOqpI/gtkS/J+Xg0=",
+        "owner": "DeterminateSystems",
+        "repo": "flake-schemas",
+        "rev": "834aaadfc96174a3abd124cf3c9a7373c26d12ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DeterminateSystems",
+        "repo": "flake-schemas",
+        "type": "github"
       }
     },
     "systems": {
