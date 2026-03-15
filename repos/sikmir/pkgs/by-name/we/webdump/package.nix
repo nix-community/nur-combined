@@ -6,12 +6,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "webdump";
-  version = "0-unstable-2025-09-21";
+  version = "0.2";
 
   src = fetchgit {
     url = "git://git.codemadness.org/webdump";
-    rev = "31fac2476f06b72f3d8bc7ac654cfde4e8452525";
-    hash = "sha256-RsYPcKSjunI2UIKN5rrG/w+cLuSRnNN20AEWk7hZBY0=";
+    tag = finalAttrs.version;
+    hash = "sha256-YtgZkAnbQkIr2fhUYpSp/PaduuBFjxIkrkaROxrmT/0=";
   };
 
   makeFlags = [ "RANLIB:=$(RANLIB)" ];

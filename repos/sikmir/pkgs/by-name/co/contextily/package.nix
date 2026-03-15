@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "contextily";
-  version = "1.6.0";
+  version = "1.7.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "geopandas";
     repo = "contextily";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Pkw21EOjRiIhdZvCY6JJ2T2yjShF9Io4NAQZIIjeKpU=";
+    hash = "sha256-qAc4WM64b026kuwARLAXgJFXMU8I2O4nXh5aDxzThtI=";
   };
 
   build-system = with python3Packages; [ setuptools-scm ];
