@@ -176,7 +176,58 @@ stdenv.mkDerivation {
         cat > $out/bin/Bifrost <<'EOF'
         #!/usr/bin/env bash
         set -euo pipefail
-        exec "${bifrost-unwrapped}/Applications/Bifrost.app/Contents/MacOS/Bifrost" "$@"
+
+        appdir="${bifrost-unwrapped}/Applications/Bifrost.app/Contents/app"
+        cfg="$appdir/Bifrost.cfg"
+        classpath=""
+        main_class=""
+        main_jar=""
+        java_opts=()
+
+        while IFS= read -r line; do
+          case "$line" in
+            app.classpath=*)
+              entry="''${line#app.classpath=}"
+              entry="''${entry//\$APPDIR/$appdir}"
+              if [ -z "$classpath" ]; then
+                classpath="$entry"
+              else
+                classpath="$classpath:$entry"
+              fi
+              ;;
+            app.mainclass=*)
+              main_class="''${line#app.mainclass=}"
+              ;;
+            app.mainjar=*)
+              main_jar="''${line#app.mainjar=}"
+              main_jar="''${main_jar//\$APPDIR/$appdir}"
+              ;;
+            java-options=*)
+              opt="''${line#java-options=}"
+              opt="''${opt//\$APPDIR/$appdir}"
+              java_opts+=("$opt")
+              ;;
+          esac
+        done < "$cfg"
+
+        if [ -z "$main_class" ]; then
+          echo "Missing main class in $cfg" >&2
+          exit 1
+        fi
+
+        if [ -n "$main_jar" ]; then
+          if [ -z "$classpath" ]; then
+            classpath="$main_jar"
+          else
+            classpath="$classpath:$main_jar"
+          fi
+        fi
+
+        exec "${jdk21}/bin/java" \
+          "''${java_opts[@]}" \
+          -cp "$classpath" \
+          "$main_class" \
+          "$@"
         EOF
         chmod +x $out/bin/Bifrost
 
