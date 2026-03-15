@@ -1,7 +1,9 @@
 {
   nixpkgs ? <nixpkgs>,
+  system ? builtins.currentSystem,
+  pkgs ? import nixpkgs { inherit system; },
 }:
-pkgs: func:
+func:
 let
   nullIf = x: y: if x then null else y;
   try =

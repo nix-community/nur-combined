@@ -1,4 +1,7 @@
-{ pkgs }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
+}:
 builtins.mapAttrs (
   name: app:
   let

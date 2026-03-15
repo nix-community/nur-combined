@@ -1,9 +1,11 @@
-{ pkgs }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
+}:
 pkg:
 { ... }@args:
 let
-  system = pkg.stdenv.hostPlatform.system;
-  package = pkg.${system} or pkg;
+  package = pkg.${pkgs.stdenv.hostPlatform.system} or pkg;
 in
 
 (pkgs.dockerTools.buildLayeredImage (

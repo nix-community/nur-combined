@@ -1,4 +1,7 @@
-{ pkgs }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
+}:
 let
   isDerivation = p: builtins.isAttrs p && p ? type && p.type == "derivation";
 in

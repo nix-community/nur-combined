@@ -1,7 +1,9 @@
 {
   nixpkgs ? <nixpkgs>,
+  system ? builtins.currentSystem,
+  pkgs ? import nixpkgs { inherit system; },
 }:
-pkgs: func:
+func:
 let
   try =
     e:
@@ -10,12 +12,22 @@ let
     in
     if res.success then res.value else null;
 
+  mkImage = _: prev: {
+    mkImage = import ./mkImage.nix {
+      inherit system;
+      pkgs = prev;
+    };
+  };
+
+  pkgs-default = pkgs.appendOverlays [ mkImage ];
+
   pkgs-x86_64-linux = import nixpkgs {
     localSystem = pkgs.stdenv.hostPlatform.system;
     crossSystem = {
       config = "x86_64-unknown-linux-musl";
       isStatic = true;
     };
+    overlays = [ mkImage ];
   };
 
   pkgs-aarch64-linux = import nixpkgs {
@@ -24,6 +36,7 @@ let
       config = "aarch64-unknown-linux-musl";
       isStatic = true;
     };
+    overlays = [ mkImage ];
   };
 
   pkgs-armv7l-linux = import nixpkgs {
@@ -32,6 +45,7 @@ let
       config = "armv7l-unknown-linux-musleabihf";
       isStatic = true;
     };
+    overlays = [ mkImage ];
   };
 
   pkgs-armv6l-linux = import nixpkgs {
@@ -40,6 +54,7 @@ let
       config = "armv6l-unknown-linux-musleabihf";
       isStatic = true;
     };
+    overlays = [ mkImage ];
   };
 in
 builtins.mapAttrs (
@@ -65,4 +80,4 @@ builtins.mapAttrs (
           };
       }
     )
-) (func pkgs)
+) (func pkgs-default)
