@@ -55,7 +55,7 @@
     signal-cli
   ];
   sops.secrets = {
-    "openclaw_gemini.key" = {};
-    github_runner_toyvodev_pat = {};
+    "openclaw_gemini.key" = { };
+    github_runner_toyvodev_pat = { };
   };
 }

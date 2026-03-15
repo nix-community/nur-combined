@@ -63,6 +63,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/nur";
     nvf.url = "github:NotAShelf/nvf";
+    openclaw-pr.url = "github:nixos/nixpkgs/pull/485407/head";
     plasma-manager.url = "github:pjones/plasma-manager";
     rust-overlay.url = "github:oxalica/rust-overlay";
     sops-nix.url = "github:Mic92/sops-nix";

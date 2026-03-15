@@ -10,6 +10,12 @@
 }:
 let
   inherit (config.networking) hostName;
+  openclawPkgs = import inputs.openclaw-pr {
+    inherit system;
+    config = {
+      allowInsecure = true;
+    };
+  };
 in
 {
   imports = [
@@ -251,12 +257,33 @@ in
     device = "/dev/disk/by-label/POOL";
     fsType = "btrfs";
   };
+
   users.users = {
     toyvo.extraGroups = [ "libvirtd" ];
     jellyfin.extraGroups = [
       "video"
       "render"
     ];
+    openclaw = {
+      isSystemUser = true;
+      group = "openclaw";
+    };
+  };
+  users.groups.openclaw = { };
+
+  systemd.services.openclaw = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      User = "openclaw";
+      Group = "openclaw";
+      # Ensure OpenClaw has a directory to store its identity/memory/state
+      StateDirectory = "openclaw";
+      # The application should point to this directory for state
+      Environment = [ "OPENCLAW_HOME=/var/lib/openclaw" ];
+      ExecStart = "${openclawPkgs.openclaw}/bin/openclaw";
+      Restart = "always";
+    };
   };
   home-manager.users.toyvo.programs.beets.settings.directory = "/mnt/POOL/Public/Music";
   programs.dconf.enable = true;
