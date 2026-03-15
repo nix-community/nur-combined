@@ -225,13 +225,17 @@ stdenv.mkDerivation {
         fi
 
         export PATH="${
-          lib.makeBinPath [
-            glib
-            dconf
-            dpkg
-            rpm
-            libsForQt5.kconfig
-          ]
+          lib.makeBinPath (
+            [
+              glib
+              dconf
+              dpkg
+              rpm
+            ]
+            ++ lib.optionals stdenv.isLinux [
+              libsForQt5.kconfig
+            ]
+          )
         }:$PATH"
         export GSETTINGS_SCHEMA_DIR="${glib.getSchemaPath gsettings-desktop-schemas}"
         export XDG_DATA_DIRS="${
