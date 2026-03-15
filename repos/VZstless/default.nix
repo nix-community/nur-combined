@@ -14,11 +14,11 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  coccinelle = pkgs.callPackage ./pkgs/coccinelle { };
   git-blame-someone-else = pkgs.callPackage ./pkgs/git-blame-someone-else { };
   pingfs = pkgs.callPackage ./pkgs/pingfs { };
-  terminalphone = pkgs.callPackage ./pkgs/terminalphone { };
-  coccinelle = pkgs.callPackage ./pkgs/coccinelle { };
   runmat = pkgs.callPackage ./pkgs/runmat { };
   snmalloc = pkgs.callPackage ./pkgs/snmalloc { };
+  terminalphone = pkgs.callPackage ./pkgs/terminalphone { };
   # yamlresume = pkgs.callPackage ./pkgs/yamlresume { };
 }

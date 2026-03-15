@@ -85,6 +85,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Program matching and transformation engine";
+    longDescription = ''
+      Coccinelle allows programmers to easily write some complex
+      style-preserving source-to-source transformations on C source code,
+      like for instance to perform some refactorings.
+    '';
     homepage = "https://coccinelle.gitlabpages.inria.fr/website/";
     license = lib.licenses.gpl2;
     mainProgram = [ "spatch" "spgen" ];
