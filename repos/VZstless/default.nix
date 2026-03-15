@@ -19,5 +19,6 @@
   terminalphone = pkgs.callPackage ./pkgs/terminalphone { };
   coccinelle = pkgs.callPackage ./pkgs/coccinelle { };
   runmat = pkgs.callPackage ./pkgs/runmat { };
+  snmalloc = pkgs.callPackage ./pkgs/snmalloc { };
   # yamlresume = pkgs.callPackage ./pkgs/yamlresume { };
 }

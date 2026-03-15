@@ -16,7 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-G0j2vJ2cnmj9TgZ9WHAq/3a7ZD269rLbNtxgm2WHKMs=";
   };
 
-  buildInputs = [ fuse pkg-config ];
+  nativeBuildInputs = [ 
+    fuse 
+    pkg-config 
+  ];
 
   buildPhase = ''
     runHook preBuild
