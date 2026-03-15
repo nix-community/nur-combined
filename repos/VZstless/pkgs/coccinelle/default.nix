@@ -92,6 +92,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://coccinelle.gitlabpages.inria.fr/website/";
     license = lib.licenses.gpl2;
-    mainProgram = [ "spatch" "spgen" ];
+    mainProgram = "spatch";
   };
 })

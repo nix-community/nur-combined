@@ -37,8 +37,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Stores your data in ICMP ping packets";
+    longDescription = ''
+    pingfs is a filesystem where the data is stored only in the Internet itself, 
+    as ICMP Echo packets (pings) travelling from you to remote servers and back again.
+
+    It is implemented using raw sockets and FUSE, so superuser powers are required.
+    Linux is the only intended target OS, portability is not a goal.
+    Both IPv4 and IPv6 remote hosts are supported.
+    '';
     homepage = "https://code.kryo.se/pingfs";
     license = lib.licenses.isc;
+    platforms = lib.platforms.linux;
     mainProgram = "pingfs";
   };
 })
