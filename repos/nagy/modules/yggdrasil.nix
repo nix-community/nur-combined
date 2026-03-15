@@ -55,6 +55,12 @@ in
       type = lib.types.nullOr lib.types.path;
       default = null;
     };
+    nagy.yggdrasil.connectToPublicPeers = lib.mkEnableOption ''
+      yggdrasil should connect to some public peers in Europe
+    '';
+    nagy.yggdrasil.listenIpv4All = lib.mkEnableOption ''
+      yggdrasil should listen on all ipv4 addresses
+    '';
   };
 
   config = {
@@ -74,10 +80,21 @@ in
         IfName = "ygg0";
         NodeInfo = { };
         NodeInfoPrivacy = true;
-        Listen = [ "vsock://host:1234" ];
-        Peers = lib.optionals (
-          config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true
-        ) [ "vsock://host:1234" ];
+        Listen = [
+          "vsock://host:1234"
+        ]
+        ++ (lib.optionals config.nagy.yggdrasil.listenIpv4All [
+          "tcp://0.0.0.0:9001"
+        ]);
+        Peers =
+          (lib.optionals config.nagy.yggdrasil.connectToPublicPeers [
+            # Hetzner
+            "tls://ygg1.mk16.de:1338"
+            "tls://ygg.mkg20001.io:443"
+          ])
+          ++ (lib.optionals (
+            config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true
+          ) [ "vsock://host:1234" ]);
       }
       // (lib.optionalAttrs (config.nagy.yggdrasil.privatekeyEntropy != null) {
         PrivateKeyPath = privateKeyFromEntropy config.nagy.yggdrasil.privatekeyEntropy;
@@ -88,6 +105,10 @@ in
         sleep 1
         ${pkgs.iproute2}/bin/ip -6 address flush dev ${cfg.settings.IfName} scope link
       '';
+    };
+
+    networking.firewall = lib.mkIf config.nagy.yggdrasil.listenIpv4All {
+      allowedTCPPorts = [ 9001 ];
     };
 
     environment.etc."yggdrasil-address.txt" =

@@ -1,10 +1,8 @@
-{ config, ... }:
-
 {
   imports = [ ./hmconvert.nix ];
 
   config.homeconfig.programs.zathura = {
-    enable = config.services.xserver.enable;
+    enable = true;
     options = {
       render-loading = false;
       dbus-raise-window = false;

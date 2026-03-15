@@ -1,4 +1,7 @@
 {
+
+  imports = [ ./shortcommands.nix ];
+
   nagy.shortcommands.commands = {
     # sqlite
     q = [ "sqlite3" ];

@@ -1,14 +1,10 @@
-{
-  config,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   imports = [ ./hmconvert.nix ];
 
   config.homeconfig.programs.mpv = {
-    enable = config.services.xserver.enable;
+    enable = true;
     config = {
       # audio
       mute = "yes";
