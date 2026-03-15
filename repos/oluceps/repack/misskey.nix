@@ -27,9 +27,9 @@ reIf {
           "${cabundle}/etc/ssl/certs/ca-bundle.crt:/etc/ssl/certs/ca-certificates.crt"
         ];
       # pull = "always";
-      ports = [
-        "3012:3012"
-      ];
+      # ports = [
+      #   "3012:3012"
+      # ];
       image = "misskey/misskey:2026.3.1";
       networks = [
         "host"

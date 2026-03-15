@@ -13,6 +13,7 @@ wg_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 # identifiers = [{ name = "hastur.local", type = "mdns" }]
 addrs = ["192.168.0.16"]
 ygg_pubkey = "30dd36b2bf9b9e96430e79ebf4c3d0ba7b6758140953246407bc9dddffbd09b8"
+mac = "30:56:0f:58:e1:b3"
 
 [node.kaambl]
 # laptop
@@ -27,6 +28,7 @@ wg_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
 addrs = ["192.168.0.15"]
 ygg_pubkey = "6368e736160c39e887509a1fba75e16f357ee92910a44edb77e135bbc87889c5"
 # identifiers = [{ name = "kaambl.local", type = "mdns" }]
+mac = "38:d5:7a:e2:19:7b"
 
 [node.eihort]
 # nas
@@ -39,6 +41,7 @@ ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImlt3ABsoFfuPwiPR2vyO8sDAFEQtu3B
 link_local_addr = "fe80::216:3eff:fe4f:e85f/64"
 wg_key = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk="
 ygg_pubkey = "38f6eb396caad927898ab182e882452499b0181477c25d7adb679905f12deb33"
+mac = "ac:1f:6b:e5:fe:3a"
 
 addrs = ["192.168.0.3"]
 # identifiers = [{ name = "eihort.local", type = "mdns" }]
@@ -46,7 +49,7 @@ addrs = ["192.168.0.3"]
 
 [node.yidhra]
 id = 3
-addrs = ["205.198.76.6", "2404:c140:2000:2::32:1d9f"]
+addrs = ["64.118.146.101", "2404:c140:2005::b:a72a"]
 censor = false
 nat = false
 user = "elen"

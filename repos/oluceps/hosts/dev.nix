@@ -16,10 +16,16 @@
         lib.mapAttrsToList (n: v: ''
           Host ${n}
               HostName ${
-                if lib.elem config.networking.hostName [ "kaambl" ] then
+                if
+                  lib.elem config.networking.hostName [
+                    "kaambl"
+                    "eihort"
+                    "hastur"
+                  ]
+                then
                   lib.getAddrFromCIDR v.unique_addr
                 else if v ? addrs then
-                  lib.elemAt v.addrs 0
+                  lib.getAddrFromCIDR v.unique_addr
                 else
                   (lib.elemAt v.identifiers 0).name
               }

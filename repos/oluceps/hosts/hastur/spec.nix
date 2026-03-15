@@ -13,71 +13,6 @@
   nix.settings.trusted-users = [ "riro" ];
 
   # systemd.services.systemd-networkd.serviceConfig.Environment = [ "SYSTEMD_LOG_LEVEL=debug" ];
-  vaultix.templates = {
-    hyst-ab = {
-      content =
-        config.vaultix.placeholder.hyst-ab-cli
-        + (
-          let
-            port = toString (lib.conn { }).${config.networking.hostName}.abhoth;
-          in
-          ''
-            socks5:
-              listen: 127.0.0.1:1091
-            udpForwarding:
-            - listen: 127.0.0.1:${port}
-              remote: 127.0.0.1:${port}
-              timeout: 120s
-          ''
-        );
-      owner = "root";
-      group = "users";
-      name = "tyo.yaml";
-      trim = false;
-    };
-    hyst-yi = {
-      content =
-        config.vaultix.placeholder.hyst-yi-cli
-        + (
-          let
-            port = toString (lib.conn { }).${config.networking.hostName}.yidhra;
-          in
-          ''
-            socks5:
-              listen: 127.0.0.1:1092
-            udpForwarding:
-            - listen: 127.0.0.1:${port}
-              remote: 127.0.0.1:${port}
-              timeout: 120s
-          ''
-        );
-      owner = "root";
-      group = "users";
-      name = "hk.yaml";
-      trim = false;
-    };
-    # hyst-no = {
-    #   content =
-    #     config.vaultix.placeholder.hyst-no-cli
-    #     + (
-    #       let
-    #         port = toString (lib.conn { }).${config.networking.hostName}.nodens;
-    #       in
-    #       ''
-    #         socks5:
-    #           listen: 127.0.0.1:1093
-    #         udpForwarding:
-    #         - listen: 127.0.0.1:${port}
-    #           remote: 127.0.0.1:${port}
-    #           timeout: 120s
-    #       ''
-    #     );
-    #   owner = "root";
-    #   group = "users";
-    #   name = "no.yaml";
-    #   trim = false;
-    # };
-  };
   system = {
     # This headless machine uses to perform heavy task.
     # Running database and web services.
@@ -144,35 +79,6 @@
     # };
 
     sing-box.enable = true;
-
-    hysteria.instances = {
-      # nodens = {
-      #   enable = true;
-      #   configFile = config.vaultix.secrets.hyst-us-cli.path;
-      # };
-      abhoth = {
-        enable = true;
-        configFile = config.vaultix.templates.hyst-ab.path;
-      };
-      yidhra = {
-        enable = true;
-        configFile = config.vaultix.templates.hyst-yi.path;
-      };
-      # nodens = {
-      #   enable = true;
-      #   configFile = config.vaultix.templates.hyst-no.path;
-      # };
-    };
-    # shadowsocks.instances = [
-    #   {
-    #     name = "rha";
-    #     configFile = config.vaultix.secrets.ss-az.path;
-    #     serve = {
-    #       enable = true;
-    #       port = 6059;
-    #     };
-    #   }
-    # ];
 
     gvfs.enable = false;
 

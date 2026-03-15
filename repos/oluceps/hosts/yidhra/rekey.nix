@@ -24,14 +24,6 @@ in
         mode = "400";
       };
 
-      hyst-us = {
-        file = ../../sec/hyst-us.age;
-        mode = "640";
-        owner = "root";
-        group = "users";
-        name = "hyst-us.yaml";
-      };
-
       wgy-warp = {
         file = ../../sec/wgy-warp.age;
         owner = "systemd-network";

@@ -31,11 +31,11 @@ in
           protocol device {
             scan time 20;
           };
-
           protocol direct {
             ipv6;
-            interface "anchor-*";
-          };
+            # include zt interfaces and any other local interfaces you want to route
+            interface "anchor-0"; 
+          }
 
           protocol static guard {
             ipv6;

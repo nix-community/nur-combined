@@ -72,7 +72,7 @@ reIf {
 
         routing {
             pname(bird, systemd-networkd, smartdns,
-                  dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
+                  dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy, yggdrasil, zerotier-one) -> must_direct
 
             pname(prometheus,ssh) -> direct
             pname(chatmcp) -> ai
@@ -80,7 +80,7 @@ reIf {
             pname(Misskey, conduit, tuwunel, conduwuit, .mautrix-telegr, arti, .synapse_homese) -> all
             dip(9.9.9.9) -> direct
             dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
-            dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8') -> direct
+            dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8', '200::/7') -> direct
 
 
             domain(suffix:migadu.com) -> all
@@ -122,7 +122,6 @@ reIf {
             domain(${
               lib.concatMapStringsSep "," (n: "suffix: ${n}.nyaw.xyz") (builtins.attrNames lib.data.node)
             }) -> direct
-
             ${notEihort ''
               domain(geosite:cn) -> direct
               dip(geoip:cn) -> direct

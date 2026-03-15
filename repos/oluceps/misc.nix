@@ -91,16 +91,7 @@
         "。。。" = "cd ../..";
         "...." = "cd ../../..";
         "。。。。" = "cd ../../..";
-      }
-      // lib.genAttrs [
-        "rha"
-        "lsa"
-        "tcs"
-        "ubt"
-        "rka"
-        "dgs"
-        "rt"
-      ] (n: "ssh ${n} -t fish");
+      };
 
       shellInit = ''
         fish_vi_key_bindings

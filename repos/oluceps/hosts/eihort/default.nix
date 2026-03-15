@@ -48,6 +48,7 @@ withSystem "x86_64-linux" (
       ./bees.nix
       ../persist.nix
       ../secureboot.nix
+      # ../nat64-gateway.nix
       ../sysvars.nix
       ../dev.nix
       # ../perlless.nix

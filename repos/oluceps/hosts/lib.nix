@@ -102,6 +102,8 @@ rec {
 
   targetsFromNodes = (import ../lib/nodesToTargets.nix { inherit (pkgs) lib; }) data.node;
 
+  macToLL = (import ../lib/macToLL.nix { inherit (pkgs) lib; });
+
   getAddrFromCIDR = i: builtins.elemAt (pkgs.lib.splitString "/" i) 0;
 
   getThisNodeFrom = config: data.node.${config.networking.hostName};

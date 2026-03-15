@@ -13,6 +13,7 @@ in
 
     secrets = {
       nuan = { };
+      cfd = { };
       wg-eihort = {
         owner = "systemd-network";
         group = "root";

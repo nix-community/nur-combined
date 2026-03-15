@@ -17,13 +17,6 @@ in
     secrets = {
       postfix-sasl = { };
       stalwart = { };
-      hyst-us = {
-        file = ../../sec/hyst-us.age;
-        mode = "640";
-        owner = "root";
-        group = "users";
-        name = "hyst-us.yaml";
-      };
       wg-abhoth = {
         file = ../../sec/wg-abhoth.age;
         owner = "systemd-network";

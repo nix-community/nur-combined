@@ -57,6 +57,8 @@
               upstreams = [ { dial = "[fdcc::3]:443"; } ];
             }
           ];
+          match = [ { host = [ "nyaw.xyz" ]; } ];
+          terminal = true;
         }
       ];
     }

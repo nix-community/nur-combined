@@ -131,7 +131,7 @@
       "8-eno1" = {
         matchConfig.Name = "eno1";
         networkConfig = {
-          DHCP = "no";
+          DHCP = "ipv4";
           IPv4Forwarding = true;
           IPv6Forwarding = true;
           IPv6AcceptRA = true;
@@ -144,11 +144,11 @@
         };
 
         linkConfig.RequiredForOnline = "routable";
-        address = [ "192.168.0.16/24" ];
-        dns = [ "192.168.0.1" ];
-        routes = [
-          { Gateway = "192.168.0.1"; }
-        ];
+        # address = [ "192.168.0.16/24" ];
+        # dns = [ "192.168.0.1" ];
+        # routes = [
+        #   { Gateway = "192.168.0.1"; }
+        # ];
       };
 
       "25-ncm" = {

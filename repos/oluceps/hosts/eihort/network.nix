@@ -1,14 +1,15 @@
 { lib, config, ... }:
 {
   imports = [ ./bird.nix ];
-  services = {
-    resolved = {
-      settings.Resolve.LLMNR = "true";
-      settings.Resolve.DNSSEC = "false";
-      settings.Resolve.FallbackDNS = [ "8.8.8.8#dns.google" ];
-      settings.Resolve.Cache = "no";
-    };
+
+  services.resolved.settings.Resolve = {
+    LLMNR = "true";
+    DNSSEC = "false";
+    FallbackDNS = [ "8.8.8.8#dns.google" ];
+    Cache = "no";
   };
+
+  # services.resolved.enable = false;
   networking = {
     # resolvconf.useLocalResolver = true;
     hosts = lib.data.hosts.${config.networking.hostName};
@@ -35,6 +36,7 @@
         80
         443
         3260
+        21027 # syncthing
       ];
     };
     hostId = "0bc55a2e";
@@ -89,7 +91,7 @@
       "5-eno1" = {
         matchConfig.Name = "eno1";
         networkConfig = {
-          DHCP = "no";
+          DHCP = "ipv4";
           IPv4Forwarding = true;
           IPv6Forwarding = true;
           IPv6AcceptRA = true;
@@ -99,11 +101,6 @@
           DHCPv6Client = false;
         };
         linkConfig.RequiredForOnline = "routable";
-        address = [ "192.168.0.3/24" ];
-        dns = [ "192.168.0.1" ];
-        routes = [
-          { Gateway = "192.168.0.1"; }
-        ];
       };
     };
   };

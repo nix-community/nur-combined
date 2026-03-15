@@ -83,18 +83,5 @@
         ];
       };
     };
-    hysteria.instances = {
-      only = {
-        enable = true;
-        serve = true;
-        openFirewall = 4432;
-        credentials = [
-          # signed by my ca
-          "key:${config.vaultix.secrets."nyaw.key".path}"
-          "crt:${config.vaultix.secrets."nyaw.cert".path}"
-        ];
-        configFile = config.vaultix.secrets.hyst-us.path;
-      };
-    };
   };
 }

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "misskey" ];
+  # systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "misskey" ];
   repack.caddy = {
     enable = true;
     # expose = true;
