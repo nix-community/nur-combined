@@ -81,7 +81,6 @@ in
           22
           80
           443
-          homelab.${hostName}.services.litellm.port
         ];
         allowedUDPPorts = [
           53
@@ -330,23 +329,6 @@ in
             }
           ) (lib.filterAttrs (hostname: hostConf: lib.hasAttr "ip" hostConf) homelab);
         };
-      };
-    };
-    litellm = {
-      enable = true;
-      host = "10.1.0.1";
-      port = homelab.${hostName}.services.litellm.port;
-      settings = {
-        model_list = [
-          {
-            model_name = "ollama/*";
-            litellm_params = {
-              model = "ollama/*";
-              api_base = "https://ollama.diekvoss.net";
-            };
-          }
-        ];
-        litellm_settings.check_provider_endpoint = true;
       };
     };
     caddy.enable = true;

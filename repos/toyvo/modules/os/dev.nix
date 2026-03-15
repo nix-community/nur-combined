@@ -42,6 +42,11 @@ in
           libusb1
           ninja
           nodejs
+          pnpm
+          gemini-cli-bin
+          claude-code-bin
+          codex
+          opencode
           nodePackages.prettier
           pipenv
           pkg-config

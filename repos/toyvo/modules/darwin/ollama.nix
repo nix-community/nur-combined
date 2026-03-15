@@ -69,8 +69,8 @@ in
     launchd.daemons.ollama = {
       serviceConfig = {
         Label = "ollama";
-        StandardOutPath = "${primaryUser.home}/.ollama/launchd.stdout.log";
-        StandardErrorPath = "${primaryUser.home}/.ollama/launchd.stderr.log";
+        StandardOutPath = "${cfg.home}/launchd.stdout.log";
+        StandardErrorPath = "${cfg.home}/launchd.stderr.log";
         EnvironmentVariables = cfg.environmentVariables // {
           HOME = cfg.home;
           OLLAMA_MODELS = cfg.models;

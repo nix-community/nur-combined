@@ -1146,22 +1146,6 @@
         "type": "github"
       }
     },
-    "openclaw-pr": {
-      "locked": {
-        "lastModified": 1772215203,
-        "narHash": "sha256-BluLuWyOgS8OG5r6tnNlgH63asEdvb2w7oeHwrefWb4=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "adc9c1e8dcac832422bdb19d229d08b79bf010d4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "pull/485407/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "plasma-manager": {
       "inputs": {
         "home-manager": "home-manager_2",
@@ -1204,7 +1188,6 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "nvf": "nvf",
-        "openclaw-pr": "openclaw-pr",
         "plasma-manager": "plasma-manager",
         "rust-overlay": "rust-overlay_2",
         "sops-nix": "sops-nix",

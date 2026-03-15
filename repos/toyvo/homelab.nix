@@ -21,13 +21,6 @@
         password = "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}";
       };
     };
-    services.litellm = {
-      port = 4000;
-      category = "AI";
-      displayName = "LiteLLM";
-      description = "OpenAI-compatible LLM Proxy";
-      icon = "sh-litellm";
-    };
   };
   omada = {
     ip = "10.1.0.2";
