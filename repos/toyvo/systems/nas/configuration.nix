@@ -71,6 +71,7 @@ in
         443
         8080
         7080
+        homelab.${hostName}.services.openclaw.port
       ];
       allowedUDPPorts = [
         53
@@ -284,9 +285,9 @@ in
       # The application should point to this directory for state
       Environment = [
         "OPENCLAW_HOME=/var/lib/openclaw"
-        "GEMINI_API_KEY_FILE=/run/secrets/openclaw_gemini.key"
+        "GEMINI_API_KEY_FILE=${config.sops.secrets."openclaw_gemini.key".path}"
       ];
-      ExecStart = "${openclawPkgs.openclaw}/bin/openclaw";
+      ExecStart = "${openclawPkgs.openclaw}/bin/openclaw gateway --port ${toString homelab.${hostName}.services.openclaw.port}";
       Restart = "always";
     };
   };

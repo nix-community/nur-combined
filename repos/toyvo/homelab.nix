@@ -262,6 +262,15 @@
         category = "Utilities";
         icon = "sh-nixos";
       };
+      openclaw = {
+        port = 8090;
+        subdomain = "openclaw";
+        domain = "toyvo.dev";
+        displayName = "OpenClaw";
+        description = "OpenClaw Agent";
+        category = "Utilities";
+        icon = "sh-openclaw";
+      };
       collabora = {
         port = 9980;
         displayName = "Collabora";
