@@ -112,5 +112,9 @@ in
 
     # Too large closure size
     services.speechd.enable = lib.mkForce false;
+
+    # https://doc.qt.io/qt-6/highdpi.html#platform-details
+    environment.sessionVariables.QT_USE_PHYSICAL_DPI = "1"; # for qt6
+    # environment.sessionVariables.QT_SCALE_FACTOR = "2"; # for qutebrowser
   };
 }
