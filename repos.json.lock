@@ -1098,8 +1098,8 @@
             "url": "https://github.com/ifd3f/nur-packages"
         },
         "ihaveamac": {
-            "rev": "8159e06a17a7cd0e9000b5083257b046f5357b80",
-            "sha256": "15lkws05s8jn8vmnj1nb014jczb42k7fn11j7apig8d0pjpxhp56",
+            "rev": "24a1ab183b647a29353b867f5271fa7ab334e421",
+            "sha256": "1wf5nkmcrkd4908l1yaw19023kbwbhycyrbyqr0lh9bqq94pagym",
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
@@ -1588,8 +1588,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "51a3734b48e4344af022be1bf42d12cd384b57f1",
-            "sha256": "0d8fmhpnbd98qpgpi49jgcrl14jhng9hbd81zcw9nd2pn5yz9gf3",
+            "rev": "aff6331ad208c8ab9cd229e11f867fa01e982e8b",
+            "sha256": "1jbnlri5f0r8a9vacrqjpjjj5nl5mp9lmdg7lfy6a9jfq2gizp71",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
