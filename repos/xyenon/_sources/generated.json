@@ -205,7 +205,7 @@
     },
     "rime-ice-unstable": {
         "cargoLock": null,
-        "date": "2026-03-11",
+        "date": "2026-03-16",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -217,12 +217,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "4fe519c81eb0f7add2707ea80af5efe73f9d55f5",
-            "sha256": "sha256-n1XFLBNxrbYf9c/6LzGV92zNQNXyJyCjpGtWR81YG5M=",
+            "rev": "18cb213d9f9da76ac58dae67fc428220889e370e",
+            "sha256": "sha256-bFsIUnV0Ulyj5lY8a7FYGhlQZYieFqYhCsQXcfqZajw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4fe519c81eb0f7add2707ea80af5efe73f9d55f5"
+        "version": "18cb213d9f9da76ac58dae67fc428220889e370e"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -233,11 +233,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FN69i+9BqXCioLk7g8ai9b7v+w2pk9TFr87Xv3MqNuI=",
+            "sha256": "sha256-iNRDQsDg8G58mSkDnzoGUVfWX3YezIWVwl5CJMKB+wE=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260310/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260315/moegirl.dict.yaml"
         },
-        "version": "20260310"
+        "version": "20260315"
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
