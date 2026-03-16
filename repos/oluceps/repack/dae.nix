@@ -72,7 +72,7 @@ reIf {
 
         routing {
             pname(bird, systemd-networkd, smartdns,
-                  dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy, yggdrasil, zerotier-one) -> must_direct
+                  dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy, yggdrasil, zerotier-one, cloudflared) -> must_direct
 
             pname(prometheus,ssh) -> direct
             pname(chatmcp) -> ai
