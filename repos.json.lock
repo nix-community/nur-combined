@@ -356,8 +356,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "ad2b95d0484d39b011c53866e15608974bdebdfe",
-            "sha256": "046jmcy3nlr9idmn7wbg8vsz1jd9gpksgqb0f4s3v6xdcaipv75m",
+            "rev": "aeda8fd217a2bab8e1db19140ad60b24f241bfae",
+            "sha256": "0c6x816mm9nbqvi88vby3imbvg8xphnylmqxbzdj6cwsidzyfba6",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
