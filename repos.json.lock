@@ -296,8 +296,8 @@
             "url": "https://gitlab.com/AlwinB/nur-packages"
         },
         "ambroisie": {
-            "rev": "b3c0321b4038f15eb035e076da5e6be43a889d66",
-            "sha256": "0z1l468pjkb36k7b6cf3zv333m6w286prn58mi9i94fyx4ss0br7",
+            "rev": "38dc0488a930b5a9410b3faec86fd2f9d28923d9",
+            "sha256": "1vxbg1kqg8wfqzxqr3bqp0r4y99zclppgyhfy5s312mvr86020ji",
             "url": "https://github.com/ambroisie/nix-config"
         },
         "amesgen": {
@@ -1839,8 +1839,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "1272e725a46f065af52ea79a1264c73b3d02e217",
-            "sha256": "1rdhhbsyh108xmzh08qn49wvp08b8ghqav5ld75pzm7ll2i556w3",
+            "rev": "84aea68b1e17a0cd94e98371706a4e8896cf6778",
+            "sha256": "09x77w4ajlldpcsgydvbqh630jl7vb06adb04k4a3ymf500zg8l0",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "e71824b61b261a2611410f5aa743c902c383fa2e",
-            "sha256": "06zbbv3s6i1cxc97xqy9q6pk6qy8nk5nk9k9w2b2kd7fjb3a0zv8",
+            "rev": "0b0ca16cddd452a046b7b39213b14d0891b28339",
+            "sha256": "0gxnz7pkg233434mgaym8m3hviiw6zd61ncc4gghdg423gl78v6w",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
