@@ -24,7 +24,7 @@ if ! git diff --quiet HEAD~1 -- "$root/_sources/generated.nix"; then
 	git add "$caddy_default"
 
 	yazi_plugins_json="$root/pkgs/yazi/plugins/yazi-rs/plugins.json"
-	new_yazi_plugins_json=$(nix build --no-link --print-out-paths "$root"#yaziPlugins.yazi-rs.passthru.generate)
+	new_yazi_plugins_json=$(nix build --no-link --print-out-paths "$root#yaziPlugins.yazi-rs.passthru.generate")
 	cp "$new_yazi_plugins_json" "$yazi_plugins_json"
 	nix fmt "$root"
 	git add "$yazi_plugins_json"
