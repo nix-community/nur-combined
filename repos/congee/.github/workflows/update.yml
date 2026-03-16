@@ -1,7 +1,7 @@
 name: Update packages
 on:
   schedule:
-    - cron: '20 8 * * 1' # Weekly on Monday
+    - cron: '20 8 * * *' # Daily
   workflow_dispatch:
     inputs:
       package:
@@ -26,35 +26,43 @@ jobs:
           - rsql
           - skills
           - some-sass-language-server
-    runs-on: macos-latest
-    if: ${{ !inputs.package || inputs.package == matrix.package }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        if: ${{ !inputs.package || inputs.package == matrix.package }}
       - uses: cachix/install-nix-action@v31
+        if: ${{ !inputs.package || inputs.package == matrix.package }}
         with:
+          nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - uses: cachix/cachix-action@v16
+        if: ${{ !inputs.package || inputs.package == matrix.package }}
         with:
           name: congee
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - name: Update ${{ matrix.package }}
+        if: ${{ !inputs.package || inputs.package == matrix.package }}
         run: |
           nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
       - name: Create PR
+        if: ${{ !inputs.package || inputs.package == matrix.package }}
         run: |
           pkg="${{ matrix.package }}"
           if git diff --quiet origin/master HEAD; then
             echo "No update for $pkg"
             exit 0
           fi
+          # nix-update commit message is "pkg: old -> new"
+          commit_msg=$(git log -1 --format=%s)
+          title="chore(pkgs): bump ${commit_msg}"
           branch="auto-update/${pkg}"
           git checkout -b "$branch"
           git push -u origin "$branch" --force-with-lease
           gh pr create \
-            --title "chore(pkgs): bump ${pkg}" \
+            --title "$title" \
             --body "Automated update by nix-update." \
             --base master \
             --head "$branch" || true
