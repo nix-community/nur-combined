@@ -1,0 +1,62 @@
+name: Update packages
+on:
+  schedule:
+    - cron: '20 8 * * 1' # Weekly on Monday
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Single package to update (leave empty for all)'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - agent-browser
+          - gh-clean-notifications
+          - ory.hydra
+          - playwright-cli
+          - pruner
+          - rsql
+          - skills
+          - some-sass-language-server
+    runs-on: macos-latest
+    if: ${{ !inputs.package || inputs.package == matrix.package }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/cachix-action@v16
+        with:
+          name: congee
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - name: Update ${{ matrix.package }}
+        run: |
+          nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
+      - name: Create PR
+        run: |
+          pkg="${{ matrix.package }}"
+          if git diff --quiet origin/master HEAD; then
+            echo "No update for $pkg"
+            exit 0
+          fi
+          branch="auto-update/${pkg}"
+          git checkout -b "$branch"
+          git push -u origin "$branch" --force-with-lease
+          gh pr create \
+            --title "chore(pkgs): bump ${pkg}" \
+            --body "Automated update by nix-update." \
+            --base master \
+            --head "$branch" || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
