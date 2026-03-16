@@ -125,7 +125,7 @@ buildDotnetModule rec {
   meta = with lib; {
     description = "Custom launcher for FFXIV";
     homepage = "https://github.com/rankynbass/XIVLauncher.Core";
-    license = licenses.gpl3;
+    license = if useSteamRun then licenses.unfree else licenses.gpl3;
     #maintainers = with maintainers; [ sersorrel witchof0x20 ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "XIVLauncher.Core";
