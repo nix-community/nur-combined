@@ -233,6 +233,17 @@
     enable = true;
   };
 
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        acl = [ "pattern readwrite #" ];
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
+    ];
+  };
+
   systemd = {
     packages = [ pkgs.qbittorrent-nox ];
     services."qbittorrent-nox@shiroki" = {
@@ -316,6 +327,7 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
+    1883
     7088
     8080
     13831

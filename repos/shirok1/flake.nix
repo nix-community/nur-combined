@@ -106,8 +106,31 @@
 
                 ./nixos/machines/opi5/configuration.nix
 
+                home-manager.nixosModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users.shiroki = {
+                    imports = [
+                      ./home.nix
+                      catppuccin.homeModules.catppuccin
+                    ];
+                  };
+
+                  # Optionally, use home-manager.extraSpecialArgs to pass
+                  # arguments to home.nix
+                  home-manager.extraSpecialArgs = {
+                    machine = "opi5";
+                  };
+                }
+
                 inputs.daeuniverse.nixosModules.dae
                 inputs.daeuniverse.nixosModules.daed
+
+                catppuccin.nixosModules.catppuccin
+                {
+                  catppuccin.cache.enable = true;
+                }
 
                 self.nixosModules.msd-lite
                 self.nixosModules.qbittorrent-clientblocker
@@ -136,6 +159,13 @@
             packages = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
               inherit (pkgs) callPackage;
               directory = ./pkgs;
+            };
+
+            # Expose tcp-brutal so users can manually build and test it against different kernels.
+            # Not placed in pkgs/ to avoid it being automatically discovered and breaking CI checks.
+            legacyPackages = {
+              tcp-brutal = pkgs.linuxPackages.callPackage ./_pkgs/tcp-brutal.nix { };
+              tcp-brutal-latest = pkgs.linuxPackages_latest.callPackage ./_pkgs/tcp-brutal.nix { };
             };
           };
       }

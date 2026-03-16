@@ -5,4 +5,5 @@
   msd-lite = ./msd-lite.nix;
   qbittorrent-clientblocker = ./qbittorrent-clientblocker.nix;
   snell-server = ./snell-server.nix;
+  tcp-brutal = ./tcp-brutal.nix;
 }
