@@ -7,13 +7,18 @@
   openssh,
   runtimeShell,
   shellcheck-minimal,
-  stdenv,
+  stdenvNoCC,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   name = "shellhook";
-  src = ./shellhook.sh;
-  dontBuild = true;
+  src = lib.fileset.toSource {
+    root = ./.;
+    fileset = lib.fileset.unions [
+      ./shellhook.sh
+      ./pre-push.sh
+    ];
+  };
 
   nativeBuildInputs = [
     shellcheck-minimal
@@ -32,31 +37,28 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   unpackPhase = ''
-    cp "$src" .
-    mv *shellhook.sh shellhook.sh
+    cp -a "$src/." .
+    chmod -R a+w .
   '';
 
-  configurePhase = ''
+  dontConfigure = true;
+
+  buildPhase = ''
     echo "#!${runtimeShell}" >> shellhook
-    echo "${
-      lib.concatMapStringsSep "\n" (option: "set -o ${option}") [
-        "errexit"
-        "nounset"
-        "pipefail"
-      ]
-    }" >> shellhook
     echo 'export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> shellhook
-    tail -n +2 shellhook.sh >> shellhook
+    echo "prepush=$out/etc/pre-push" >> shellhook
+    tail -n +4 shellhook.sh >> shellhook
     chmod +x shellhook
   '';
 
   doCheck = true;
   checkPhase = ''
-    shellcheck ./shellhook
+    shellcheck shellhook
   '';
 
   installPhase = ''
-    mkdir -p $out/bin
+    mkdir -p $out/bin $out/etc
+    cp pre-push.sh $out/etc/pre-push
     cp shellhook $out/bin/shellhook
   '';
 

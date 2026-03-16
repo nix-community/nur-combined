@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+prepush=""
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
 # don't run in CI
 if [[ -n "${CI-}" ]]; then
     exit 0
@@ -233,18 +239,18 @@ go_info &
 pids["go"]=$!
 
 for key in "${!pids[@]}"; do
-    value="${pids[$key]}"
-    wait "$value" || true
+    wait "${pids[$key]}" || true
     pids["${key}"]=$?
 done
 
 # add pre-push hook
-if [[ "${pids["git"]}" -eq 0 ]] && [[ "${pids["nix"]}" -eq 0 ]] && [[ -d ".git" ]] && [[ ! -f ".git/hooks/pre-push" ]]; then
-    info "$git_icon" "creating git pre-push hook"
-    {
-        echo "if git branch --show-current | grep -q 'main'; then"
-        echo "nix flake check --accept-flake-config"
-        echo "fi"
-    } >> .git/hooks/pre-push
+if
+    [[ "${pids["git"]}" -eq 0 ]] &&
+    [[ "${pids["nix"]}" -eq 0 ]] &&
+    [[ -d ".git" ]] &&
+    ! cmp -s .git/hooks/pre-push "${prepush}";
+then
+    info "${git_icon}" "creating git pre-push hook"
+    cat "${prepush}" > .git/hooks/pre-push
     chmod +x .git/hooks/pre-push
 fi
