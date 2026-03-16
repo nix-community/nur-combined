@@ -7,6 +7,8 @@
   cfg = config.services.ocid;
   pkg = cfg.package;
 in {
+  _class = "nixos";
+
   options.services.ocid = {
     enable = lib.mkEnableOption "Oracle Cloud Infrastructure utilities daemon (ocid)";
 

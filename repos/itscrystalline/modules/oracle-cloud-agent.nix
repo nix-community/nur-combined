@@ -17,6 +17,8 @@
       ${agentDir}/agent.yml > $out
   '';
 in {
+  _class = "nixos";
+
   options.services.oracle-cloud-agent = {
     enable = lib.mkEnableOption "Oracle Cloud Infrastructure agent";
 

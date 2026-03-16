@@ -11,7 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  app2nix = pkgs.callPackage ./pkgs/app2unit {};
+  app2unit = pkgs.callPackage ./pkgs/app2unit {};
   occasion = pkgs.callPackage ./pkgs/occasion {};
   sipa-th-fonts = pkgs.callPackage ./pkgs/sipa-th-fonts {};
   hass-localtuya = pkgs.callPackage ./pkgs/hass-localtuya {};
