@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "25db63958eaeb85d3556cfe6426e9a6d979f5e97",
-            "sha256": "1vs15f8r43nwf2gdz4hl4fx94i8k5mbr5zd4d29365xi30mz61w2",
+            "rev": "a372f8f3e052d49df88fede3b57e0bb2d036a528",
+            "sha256": "1sil4sr5x9k6shcv7gic2073pcgwzanj7wsa48cvfqf23d8s1lrc",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "963bf0f6605b06bb957ff19c4c572d5cde593503",
-            "sha256": "1zm0jjid9wn0yhn0z3x4m7jcmqailvqvmrkv2jmpw8hb0m68d54k",
+            "rev": "2c61605817247d2f7d3a0ebc96cb587f36dbdc6e",
+            "sha256": "0cmxmxirmrni3n966lcqk2iwl78y0k3n9ns3q6lgn5hhs2qs1qvl",
             "url": "https://github.com/adam01110/nur"
         },
         "afreakk": {
