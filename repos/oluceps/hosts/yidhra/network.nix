@@ -83,11 +83,16 @@
         IPv6AcceptRA = true;
         MulticastDNS = true;
       };
-      ipv6AcceptRAConfig = {
-        DHCPv6Client = false;
-        # UseDNS = false;
-      };
 
+      address = [
+        "2404:c140:2005::b:a72a/64"
+      ];
+      routes = [
+        {
+          Gateway = "2404:c140:2005::1";
+          GatewayOnLink = true;
+        }
+      ];
       linkConfig.RequiredForOnline = "routable";
     };
   };

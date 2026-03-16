@@ -51,6 +51,10 @@
       // (rrr [ "ntfy-token" ])
       // (if type != "default" then (import ./${type}.nix gener) else { })
       // {
+
+        "babel-auth" = {
+          owner = "bird";
+        };
         "nyaw.cert" = {
           cleanPlaceholder = true;
           mode = "400";

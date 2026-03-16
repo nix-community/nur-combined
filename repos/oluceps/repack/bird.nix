@@ -96,6 +96,7 @@ in
     services.bird = {
       enable = true;
       config = cfg.baseConfig + cfg.config;
+      checkConfig = false;
     };
   };
 }
