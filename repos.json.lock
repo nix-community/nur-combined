@@ -983,8 +983,8 @@
             "url": "https://github.com/gepbird/nur-packages"
         },
         "ggemre": {
-            "rev": "ef6e306afc06576d3090612d2a48eb2a924d5d78",
-            "sha256": "0y0cs2wrjvhfhwwmsb9vsl73zmdd0mxncsjand6qm37y1vbxznla",
+            "rev": "7cda22b027b180f030f6c8f5fd80911a1311a026",
+            "sha256": "1jks43fp48wyf86r43mjc2n8gdb8vg1ypc6rxxx3k20rk52775qb",
             "url": "https://github.com/ggemre/nur-packages"
         },
         "gigamonster256": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "9d4e4f23866f5e5e2a0e8b06eab486274d9b244b",
-            "sha256": "086q593sgf5b3ls828y15v53z9scbb2pnam1hy90sd9vcnkfvwm6",
+            "rev": "e71824b61b261a2611410f5aa743c902c383fa2e",
+            "sha256": "06zbbv3s6i1cxc97xqy9q6pk6qy8nk5nk9k9w2b2kd7fjb3a0zv8",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
