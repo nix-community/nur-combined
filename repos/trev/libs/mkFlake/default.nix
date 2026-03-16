@@ -7,7 +7,7 @@
   ],
 }:
 let
-  overlays = import ../overlays {
+  overlays = import ../../overlays {
     inherit nixpkgs;
   };
 

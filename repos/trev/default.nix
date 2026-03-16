@@ -5,13 +5,13 @@
 }:
 {
   libs =
-    (import ./libs {
+    import ./libs {
       inherit system pkgs;
-    })
-    // (import ./libs/pure.nix {
+    }
+    // import ./libs/pure.nix {
       inherit nixpkgs;
       systems = [ system ];
-    });
+    };
 
   bundlers = import ./bundlers {
     inherit system pkgs;
@@ -21,11 +21,14 @@
     inherit system pkgs;
   };
 
-  modules = import ./modules { inherit nixpkgs; }; # NixOS modules
-  overlays = import ./overlays { inherit nixpkgs; }; # nixpkgs overlays
+  modules = import ./modules {
+    inherit nixpkgs;
+  };
+
+  overlays = import ./overlays {
+    inherit nixpkgs;
+  };
 }
-// pkgs.lib.filterAttrs (_: pkg: if builtins.hasAttr "exclude" pkg then pkg.exclude else true) (
-  import ./packages {
-    inherit system pkgs;
-  }
-)
+// import ./packages {
+  inherit system pkgs;
+}
