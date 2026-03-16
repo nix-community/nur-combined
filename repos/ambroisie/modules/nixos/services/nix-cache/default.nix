@@ -33,14 +33,16 @@ in
 
   config = lib.mkIf cfg.enable {
     services.harmonia = {
-      enable = true;
+      cache = {
+        enable = true;
 
-      settings = {
-        bind = "127.0.0.1:${toString cfg.port}";
-        inherit (cfg) priority;
+        settings = {
+          bind = "127.0.0.1:${toString cfg.port}";
+          inherit (cfg) priority;
+        };
+
+        signKeyPaths = [ cfg.secretKeyFile ];
       };
-
-      signKeyPaths = [ cfg.secretKeyFile ];
     };
 
     my.services.nginx.virtualHosts = {
