@@ -913,8 +913,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "2bdbbcf74ebbf8e8fcb3ce958d832f1837510e89",
-            "sha256": "1biqpbcckcj92a3v97ih69h9pcmcxnr9b919bw5r7bx9bj5y6nrd",
+            "rev": "0cbaeec5a1ae4b877b32627ce7ca57c9f6867bfc",
+            "sha256": "19xr5h3q7fhblz8vmp3786l010cgc7yspvh4vn4ladpdlm5paf0y",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
