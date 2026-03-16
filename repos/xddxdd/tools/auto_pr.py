@@ -53,17 +53,14 @@ class NvfetcherDefinition:
         if version.startswith('"V'):
             version = '"' + version[2:]
 
-        try:
-            stable_definition = NvfetcherDefinition.load(f"{package}-stable")
-            base_version = ast.literal_eval(stable_definition.version)
-        except Exception:
-            base_version = "0"
-
-        if re.match(r"\"[0-9]{4}-[0-9]{2}-[0-9]{2}\"", version):
-            version = f'"{base_version}-unstable-{version.strip('"')}"'
-        elif re.match(r"\"[0-9a-f]{40}\"", version):
-            date_match = re.search(r"^\s+date\s+=\s+\"(.+)\";$", result, re.MULTILINE)
-            if date_match:
+        date_match = re.search(r"^\s+date\s+=\s+\"(.+)\";$", result, re.MULTILINE)
+        if date_match:
+            if re.match(r"\"[0-9a-f]{40}\"", version):
+                try:
+                    stable_definition = NvfetcherDefinition.load(f"{package}-stable")
+                    base_version = ast.literal_eval(stable_definition.version)
+                except Exception:
+                    base_version = "0"
                 version = f'"{base_version}-unstable-{date_match[1]}"'
 
         return NvfetcherDefinition(
