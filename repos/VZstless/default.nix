@@ -17,7 +17,6 @@
   git-blame-someone-else = pkgs.callPackage ./pkgs/git-blame-someone-else { };
   pingfs = pkgs.callPackage ./pkgs/pingfs { };
   runmat = pkgs.callPackage ./pkgs/runmat { };
-  snmalloc = pkgs.callPackage ./pkgs/snmalloc { };
   terminalphone = pkgs.callPackage ./pkgs/terminalphone { };
   # yamlresume = pkgs.callPackage ./pkgs/yamlresume { };
 }
