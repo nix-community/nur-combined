@@ -140,3 +140,7 @@ git.fetchSubmodules = true
 [superpowers-skills]
 src.git = "https://github.com/obra/superpowers.git"
 fetch.github = "obra/superpowers"
+
+[subconverter]
+src.git = "https://github.com/tindy2013/subconverter"
+fetch.github = "tindy2013/subconverter"

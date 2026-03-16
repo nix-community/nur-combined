@@ -215,21 +215,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "095e95e4e831ec3797710471d290cb57e7e177df";
+    version = "b2bc6552209500e96231fc173d4702e819820c0e";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "095e95e4e831ec3797710471d290cb57e7e177df";
+      rev = "b2bc6552209500e96231fc173d4702e819820c0e";
       fetchSubmodules = false;
-      sha256 = "sha256-uOJfjtM+cl0fhXLSJFQ0xPZ7BuFaWaUTpqW/l297kR8=";
+      sha256 = "sha256-mcfmu9JMyYxINKGTpa9HKWH/bySGlF2pTMokaDVKwZQ=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-uOJfjtM+cl0fhXLSJFQ0xPZ7BuFaWaUTpqW_l297kR8=/Cargo.lock";
+      lockFile = ./. + "/sha256-mcfmu9JMyYxINKGTpa9HKWH_bySGlF2pTMokaDVKwZQ=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-03-09";
+    date = "2026-03-16";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -269,6 +269,18 @@
       sha256 = "sha256-w0t7KqV8OS3PJBdZtLn86zknQYo70rBv7fuK/UFx9zQ=";
     };
     date = "2024-07-17";
+  };
+  subconverter = {
+    pname = "subconverter";
+    version = "5b8d3af0d7b659e3ff6029560e4a6811538a9c21";
+    src = fetchFromGitHub {
+      owner = "tindy2013";
+      repo = "subconverter";
+      rev = "5b8d3af0d7b659e3ff6029560e4a6811538a9c21";
+      fetchSubmodules = false;
+      sha256 = "sha256-gfzjH/KtgcfESv3SjJSRsx6GmoDbhjfPI7B9NdfyV9o=";
+    };
+    date = "2026-02-27";
   };
   superpowers-skills = {
     pname = "superpowers-skills";

@@ -370,11 +370,11 @@
     "mpv-danmaku": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-uOJfjtM+cl0fhXLSJFQ0xPZ7BuFaWaUTpqW_l297kR8=/Cargo.lock",
+                "sha256-mcfmu9JMyYxINKGTpa9HKWH_bySGlF2pTMokaDVKwZQ=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-03-09",
+        "date": "2026-03-16",
         "extract": null,
         "name": "mpv-danmaku",
         "passthru": null,
@@ -386,12 +386,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "mpv-danmaku",
-            "rev": "095e95e4e831ec3797710471d290cb57e7e177df",
-            "sha256": "sha256-uOJfjtM+cl0fhXLSJFQ0xPZ7BuFaWaUTpqW/l297kR8=",
+            "rev": "b2bc6552209500e96231fc173d4702e819820c0e",
+            "sha256": "sha256-mcfmu9JMyYxINKGTpa9HKWH/bySGlF2pTMokaDVKwZQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "095e95e4e831ec3797710471d290cb57e7e177df"
+        "version": "b2bc6552209500e96231fc173d4702e819820c0e"
     },
     "mpv-danmaku-stable": {
         "cargoLock": null,
@@ -464,6 +464,27 @@
             "type": "github"
         },
         "version": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621"
+    },
+    "subconverter": {
+        "cargoLock": null,
+        "date": "2026-02-27",
+        "extract": null,
+        "name": "subconverter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tindy2013",
+            "repo": "subconverter",
+            "rev": "5b8d3af0d7b659e3ff6029560e4a6811538a9c21",
+            "sha256": "sha256-gfzjH/KtgcfESv3SjJSRsx6GmoDbhjfPI7B9NdfyV9o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "5b8d3af0d7b659e3ff6029560e4a6811538a9c21"
     },
     "superpowers-skills": {
         "cargoLock": null,

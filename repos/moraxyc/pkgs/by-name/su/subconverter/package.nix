@@ -8,29 +8,25 @@
   nix-update-script,
 
   curl,
-  toml11,
-  yaml-cpp,
+  libcron,
   pcre2,
   quickjs,
   quickjspp,
-  libcron,
   rapidjson,
+  toml11,
+  yaml-cpp,
+  howard-hinnant-date,
+
+  sources,
+  source ? sources.subconverter,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "subconverter";
-  version = "0.9.0-unstable-2025-11-08";
-
-  src = fetchFromGitHub {
-    owner = "tindy2013";
-    repo = "subconverter";
-    rev = "6d312fe52cf05a76e06038feef6011d3c9b77e4f";
-    hash = "sha256-CLfG9PcFbHAvG4VB9KFbcNSVW/xx0NGmoKDwWscKtf4=";
-  };
+  inherit (source) pname version src;
 
   postPatch = ''
     substituteInPlace src/main.cpp \
-      --replace 'setcd(prgpath);' '// setcd(prgpath); read-only nix store'
+      --replace-fail 'setcd(prgpath);' '// setcd(prgpath); read-only nix store'
   '';
 
   outputs = [
@@ -52,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     quickjspp
     libcron
     rapidjson
+    howard-hinnant-date
   ];
 
   # Fix link error by aliasing the unhandled promise API to the legacy symbol.
