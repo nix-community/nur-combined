@@ -16,7 +16,7 @@
   _models ? {},
   ...
 }: let
-  modelsJson = lib.escapeShellArg (lib.toJSON _models);
+  modelsJson = lib.escapeShellArg (builtins.toJSON _models);
 
   # 优先使用git tag，若无则使用commit hash
   resourceHandler = {

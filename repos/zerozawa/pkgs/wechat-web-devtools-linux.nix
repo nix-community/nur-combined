@@ -16,6 +16,9 @@
   expat,
   alsa-lib,
   xorg,
+  libxdamage ? xorg.libXdamage,
+  libxcomposite ? xorg.libXcomposite,
+  libxshmfence ? xorg.libxshmfence,
   libxcb ? xorg.libxcb,
   libxkbcommon,
   libX11 ? xorg.libX11,
@@ -62,38 +65,35 @@ in
       autoPatchelfHook
     ];
 
-    buildInputs =
-      [
-        glib
-        nss
-        nspr
-        at-spi2-core
-        cups
-        libdrm
-        dbus
-        expat
-        alsa-lib
-        libxcb
-        libxkbcommon
-        libxkbfile
-        libX11
-        libxext
-        libxfixes
-        libxrandr
-        libgbm
-        pango
-        cairo
-        gtk3
-        krb5
-        systemd
-        mesa
-        curl
-      ]
-      ++ (with xorg; [
-        libXdamage
-        libXcomposite
-        libxshmfence
-      ]);
+    buildInputs = [
+      glib
+      nss
+      nspr
+      at-spi2-core
+      cups
+      libdrm
+      dbus
+      expat
+      alsa-lib
+      libxcb
+      libxkbcommon
+      libxkbfile
+      libX11
+      libxext
+      libxfixes
+      libxrandr
+      libgbm
+      pango
+      cairo
+      gtk3
+      krb5
+      systemd
+      mesa
+      curl
+      libxdamage
+      libxcomposite
+      libxshmfence
+    ];
 
     # 忽略 musl libc，因为这是 @swc/core 的可选依赖
     autoPatchelfIgnoreMissingDeps = [
