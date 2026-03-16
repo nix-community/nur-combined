@@ -1,6 +1,7 @@
 {
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { inherit system; },
+  lib,
+  runtimeShell,
+  stdenvNoCC,
 }:
 let
   isDerivation = p: builtins.isAttrs p && p ? type && p.type == "derivation";
@@ -8,14 +9,14 @@ in
 builtins.mapAttrs (
   name: check:
   let
-    checkPhase = pkgs.lib.strings.concatLines (
+    checkPhase = lib.strings.concatLines (
       [
         "export HOME=$(mktemp -d)"
         "export TREEFMT_TREE_ROOT=$(pwd)"
       ]
-      ++ pkgs.lib.optional (check ? checkPhase) check.checkPhase
-      ++ pkgs.lib.optional (check ? script) check.script
-      ++ pkgs.lib.optional (check ? forEach) ''
+      ++ lib.optional (check ? checkPhase) check.checkPhase
+      ++ lib.optional (check ? script) check.script
+      ++ lib.optional (check ? forEach) ''
         shopt -s globstar
 
         for_each() {
@@ -46,11 +47,11 @@ builtins.mapAttrs (
       }
     )
   else
-    pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
+    stdenvNoCC.mkDerivation (finalAttrs: {
       name = name;
       src =
         if check ? root then
-          pkgs.lib.fileset.toSource {
+          lib.fileset.toSource {
             root = check.root;
             fileset =
               let
@@ -58,13 +59,13 @@ builtins.mapAttrs (
                   if check ? fileset then
                     check.fileset
                   else if check ? filter then
-                    pkgs.lib.fileset.fileFilter check.filter check.root
+                    lib.fileset.fileFilter check.filter check.root
                   else
                     check.root;
               in
               if check ? ignore then
-                pkgs.lib.fileset.difference set (
-                  if builtins.isList check.ignore then pkgs.lib.fileset.unions check.ignore else check.ignore
+                lib.fileset.difference set (
+                  if builtins.isList check.ignore then lib.fileset.unions check.ignore else check.ignore
                 )
               else
                 set;
@@ -81,8 +82,8 @@ builtins.mapAttrs (
       inherit checkPhase;
 
       installPhase = ''
-        echo "#!${pkgs.runtimeShell}" >> $out
-        echo "export PATH=${pkgs.lib.makeBinPath finalAttrs.nativeBuildInputs}:$PATH" >> $out
+        echo "#!${runtimeShell}" >> $out
+        echo "export PATH=${lib.makeBinPath finalAttrs.nativeBuildInputs}:$PATH" >> $out
         echo "${finalAttrs.checkPhase}" >> $out
         chmod +x $out
       '';

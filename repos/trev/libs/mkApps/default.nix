@@ -1,11 +1,12 @@
 {
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { inherit system; },
+  lib,
+  runtimeShell,
+  stdenvNoCC,
 }:
 builtins.mapAttrs (
   name: app:
   let
-    program = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
+    program = stdenvNoCC.mkDerivation (finalAttrs: {
       name = name;
 
       runtimeInputs = app.deps or app.runtimeInputs or [ ];
@@ -13,8 +14,8 @@ builtins.mapAttrs (
       dontUnpack = true;
 
       configurePhase = ''
-        echo "#!${pkgs.runtimeShell}" >> ${name}
-        echo 'export PATH="${pkgs.lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> ${name}
+        echo "#!${runtimeShell}" >> ${name}
+        echo 'export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' >> ${name}
         echo "${app.script}" >> ${name}
 
         chmod +x ${name}

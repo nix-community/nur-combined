@@ -1,9 +1,9 @@
 {
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { inherit system; },
-  schemas ? { },
+  nixpkgs ? <nixpkgs>,
+  lib ? nixpkgs.lib,
 }:
 {
-  images = import ./images.nix { inherit system pkgs schemas; };
-  packages = import ./packages.nix { inherit system pkgs schemas; };
+  images = import ./images.nix { inherit lib; };
+  libs = import ./libs.nix { };
+  packages = import ./packages.nix { inherit lib; };
 }

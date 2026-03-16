@@ -1,4 +1,5 @@
 {
+  nixpkgs ? <nixpkgs>,
   systems ? [
     "aarch64-linux"
     "aarch64-darwin"
@@ -6,6 +7,20 @@
   ],
 }:
 let
+  overlays = import ../overlays {
+    inherit nixpkgs;
+  };
+
+  mkPackages =
+    system:
+    import nixpkgs {
+      inherit system;
+      overlays = [
+        overlays.packages
+        overlays.libs
+      ];
+    };
+
   # Ignore flake output attributes that are not per-system.
   ignoredAttrs = [
     "hydraJobs"
@@ -33,7 +48,7 @@ eachSystemOp (
   # Merge outputs for each system.
   f: attrs: system:
   let
-    ret = f system;
+    ret = f system (mkPackages system);
   in
   builtins.foldl' (
     attrs: key:

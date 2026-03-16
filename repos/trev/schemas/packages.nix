@@ -1,15 +1,20 @@
 {
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { inherit system; },
-  schemas ? { },
+  lib,
 }:
 let
   isEmpty = set: builtins.attrNames set == [ ];
+  mkChildren = children: { inherit children; };
+  try =
+    e: default:
+    let
+      res = builtins.tryEval e;
+    in
+    if res.success then res.value else default;
 in
 {
   version = 1;
   doc = ''
-    The `packages` flake output contains packages that can be added to a shell using `nix shell`.
+    The `packages` flake output contains packaged applications for nix.
   '';
   roles = {
     nix-build = { };
@@ -21,7 +26,7 @@ in
   defaultAttrPath = [ "default" ];
   inventory =
     output:
-    schemas.lib.mkChildren (
+    mkChildren (
       builtins.mapAttrs (systemType: packagesForSystem: {
         forSystems = [ systemType ];
         children =
@@ -32,10 +37,10 @@ in
                 attrName: attrs:
 
                 # Necessary to deal with `AAAAAASomeThingsFailToEvaluate` etc. in Nixpkgs.
-                schemas.lib.try (
-                  if pkgs.lib.isDerivation attrs then
+                try (
+                  if lib.isDerivation attrs then
                     let
-                      crosses = pkgs.lib.filterAttrs (n: _: builtins.elem n (attrs.meta.platforms or [ ])) attrs;
+                      crosses = lib.filterAttrs (n: _: builtins.elem n (attrs.meta.platforms or [ ])) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];

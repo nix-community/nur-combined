@@ -43,11 +43,6 @@ let
     isStatic = true;
   };
 
-  pkgs-armv6l-linux = mkCrossPkgs {
-    config = "armv6l-unknown-linux-musleabihf";
-    isStatic = true;
-  };
-
   # Get all images that support the current system
   images = pkgs.lib.filterAttrs (
     _: image:
@@ -71,10 +66,9 @@ builtins.mapAttrs (
         passthru =
           (prev.passthru or { })
           // pkgs.lib.filterAttrs (_: v: v != null) {
-            x86_64-linux = hasPlatform "x86_64-linux" pkgs-x86_64-linux;
-            aarch64-linux = hasPlatform "aarch64-linux" pkgs-aarch64-linux;
-            armv7l-linux = hasPlatform "armv7l-linux" pkgs-armv7l-linux;
-            armv6l-linux = hasPlatform "armv6l-linux" pkgs-armv6l-linux;
+            amd64 = hasPlatform "x86_64-linux" pkgs-x86_64-linux;
+            arm64 = hasPlatform "aarch64-linux" pkgs-aarch64-linux;
+            arm = hasPlatform "armv7l-linux" pkgs-armv7l-linux;
           };
       }
     )

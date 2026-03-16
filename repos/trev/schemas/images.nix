@@ -1,10 +1,21 @@
 {
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { inherit system; },
-  schemas ? { },
+  lib,
 }:
 let
-  isEmpty = set: builtins.attrNames set == [ ];
+  isSingle = set: builtins.length (builtins.attrNames set) <= 1;
+  mkChildren = children: { inherit children; };
+  try =
+    e: default:
+    let
+      res = builtins.tryEval e;
+    in
+    if res.success then res.value else default;
+
+  architectures = [
+    "amd64"
+    "arm64"
+    "arm"
+  ];
 in
 {
   version = 1;
@@ -18,7 +29,7 @@ in
   defaultAttrPath = [ "default" ];
   inventory =
     output:
-    schemas.lib.mkChildren (
+    mkChildren (
       builtins.mapAttrs (systemType: imagesForSystem: {
         forSystems = [ systemType ];
         children =
@@ -29,10 +40,10 @@ in
                 attrName: attrs:
 
                 # Necessary to deal with `AAAAAASomeThingsFailToEvaluate` etc. in Nixpkgs.
-                schemas.lib.try (
-                  if pkgs.lib.isDerivation attrs then
+                try (
+                  if lib.isDerivation attrs then
                     let
-                      crosses = pkgs.lib.filterAttrs (n: _: builtins.elem n (attrs.meta.platforms or [ ])) attrs;
+                      archs = lib.filterAttrs (n: _: builtins.elem n architectures) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];
@@ -40,7 +51,7 @@ in
                       derivationAttrPath = [ ];
                       what = "image";
                     }
-                    // (if isEmpty crosses then { } else { children = recurse (prefix + attrName + ".") crosses; })
+                    // (if isSingle archs then { } else { children = recurse (prefix + attrName + ".") archs; })
 
                   else
 

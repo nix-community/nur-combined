@@ -19,11 +19,11 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "schemas": "schemas",
+        "schema": "schema",
         "systems": "systems"
       }
     },
-    "schemas": {
+    "schema": {
       "locked": {
         "lastModified": 1773072327,
         "narHash": "sha256-jffaEGY9Tt0IgiI1qHd/cXLeTMftOqpI/gtkS/J+Xg0=",
