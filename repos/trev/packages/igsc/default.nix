@@ -30,7 +30,13 @@ stdenv.mkDerivation (finalAttrs: {
     "-DMETEE_HEADER_PATH=${metee}/include"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--flake"
+      "--commit"
+      finalAttrs.pname
+    ];
+  };
 
   meta = {
     mainProgram = "igsc";

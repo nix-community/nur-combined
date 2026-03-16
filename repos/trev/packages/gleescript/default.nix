@@ -26,14 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     gleam.erlangHook
   ];
 
-  passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--flake"
-        "--commit"
-        finalAttrs.pname
-      ];
-    };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--flake"
+      "--commit"
+      finalAttrs.pname
+    ];
   };
 
   meta = {
