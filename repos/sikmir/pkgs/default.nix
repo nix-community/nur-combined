@@ -49,10 +49,6 @@ lib.makeScope newScope (
 
     poi = callPackage ./data/misc/poi { };
 
-    osm-extracts = callPackage ./data/osm/osm-extracts { };
-    overpassdb = callPackage ./data/osm/overpassdb { };
-    routinodb = callPackage ./data/osm/routinodb { };
-
     ### DEVELOPMENT / PERL MODULES
 
     perlPackages =
