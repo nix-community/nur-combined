@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "7d2407489c657478368455374f1a273aee9f036e",
-            "sha256": "02g3am4vz2vkxvy07q12l8hdcd7h403bdp86xsjcgfzrypl7ff2x",
+            "rev": "141058105d3d238eace7669ea58465f53cb5a025",
+            "sha256": "0yl8wy62cnx1damiws6q8dkgji09gddl5z4ja8cs8jxvwq03rsvp",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -2165,8 +2165,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "d38001a3f70c0abba1f11693a4c324a035565687",
-            "sha256": "0mqw7ybmlbf6jkcppg56v2axpx5a36z2dpwpdzfsyw0xxygmn7vz",
+            "rev": "97d45e83c08d1c186b78cc01a19a79d611271c48",
+            "sha256": "1cvl8idzadjg5grb8wxbwa9frmrinms7hkh68kfx6wc4zl3zjy13",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
