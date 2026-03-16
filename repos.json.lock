@@ -2085,8 +2085,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "25eebc691a8f49d97d1c15b933fbdb1d90722b1c",
-            "sha256": "0crqz8hgp4rwlhyyd91skbr75fzpp1yv9p04jma7sxw32j3aj1lk",
+            "rev": "cd73982e721557fcea774dcf914d3c5627a8b64b",
+            "sha256": "1lbjp48fd25wzfv45xc2zbrsm776s1nvzp4ma7xlxa7ss7kk7z72",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "rypkgs": {
