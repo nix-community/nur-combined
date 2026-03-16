@@ -3587,6 +3587,21 @@
         platforms = platforms.all;
       };
     };
+    "easy-container-shortcuts" = buildMozillaXpiAddon {
+      pname = "easy-container-shortcuts";
+      version = "1.8.0";
+      addonId = "firefox.container-shortcuts@strategery.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4710923/easy_container_shortcuts-1.8.0.xpi";
+      sha256 = "acdfe15f9a93f5cd0e1000f3af67006e187f239903b642528f5ea875e2ff6c79";
+      meta = with lib;
+      {
+        homepage = "https://github.com/gsomoza/firefox-easy-container-shortcuts";
+        description = "Easy keyboard shortcuts to open new tabs and windows on different containers";
+        license = licenses.bsd2;
+        mozPermissions = [ "tabs" "contextualIdentities" "cookies" ];
+        platforms = platforms.all;
+      };
+    };
     "ebates" = buildMozillaXpiAddon {
       pname = "ebates";
       version = "5.67.3";
@@ -5090,6 +5105,21 @@
         description = "Share links with GSConnect, direct to the browser or by SMS. Requires at least v7 of the Gnome Shell extension to function.";
         license = licenses.gpl2;
         mozPermissions = [ "nativeMessaging" "tabs" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
+    "gumbo-twitch-companion" = buildMozillaXpiAddon {
+      pname = "gumbo-twitch-companion";
+      version = "1.21.3";
+      addonId = "{59a39734-1e66-452e-a7b8-cc79f72062f0}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4701614/gumbo_twitch_companion-1.21.3.xpi";
+      sha256 = "e05c9c04213cd629c2935d3ed140e8101ed76a0ffcdf972ef1d54d302b8ed59e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/seldszar/gumbo";
+        description = "Swollen companion keeping you updated on your Twitch experience";
+        license = licenses.mit;
+        mozPermissions = [ "alarms" "notifications" "storage" ];
         platforms = platforms.all;
       };
     };
@@ -10238,6 +10268,21 @@
       {
         description = "A theme with the nord color scheme.";
         license = licenses.cc-by-30;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "norsk-bokmal-ordliste" = buildMozillaXpiAddon {
+      pname = "norsk-bokmal-ordliste";
+      version = "2.2.0.2resigned1";
+      addonId = "nb-NO@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270193/norsk_bokmal_ordliste-2.2.0.2resigned1.xpi";
+      sha256 = "cacf57c358287459244ba30f7bdd524efa889bffa89c627fadbcd2af26c367a1";
+      meta = with lib;
+      {
+        homepage = "http://firefox.no";
+        description = "Norsk bokmål ordliste for Mozilla Firefox, Mozilla Thunderbird og SeaMonkey.";
+        license = licenses.gpl3;
         mozPermissions = [];
         platforms = platforms.all;
       };

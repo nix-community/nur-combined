@@ -536,6 +536,9 @@
     }
   },
   {
+    "slug": "easy-container-shortcuts"
+  },
+  {
     "slug": "ebates"
   },
   {
@@ -826,6 +829,9 @@
   },
   {
     "slug": "gsconnect"
+  },
+  {
+    "slug": "gumbo-twitch-companion"
   },
   {
     "slug": "gàidhlig-language-pack",
@@ -1351,6 +1357,10 @@
   },
   {
     "slug": "nord123"
+  },
+  {
+    "slug": "norsk-bokmål-ordliste",
+    "pname": "norsk-bokmal-ordliste"
   },
   {
     "slug": "nos2x-fox",
