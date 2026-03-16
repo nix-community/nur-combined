@@ -1,6 +1,5 @@
 {
-  buildGoModule,
-  go_latest,
+  buildGoLatestModule,
 }:
 
-buildGoModule.override { go = go_latest; }
+buildGoLatestModule
