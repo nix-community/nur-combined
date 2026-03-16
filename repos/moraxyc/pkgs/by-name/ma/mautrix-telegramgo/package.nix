@@ -11,7 +11,7 @@ buildGoModule {
   pname = "mautrix-telegram";
 
   inherit (source) version src;
-  vendorHash = "sha256-4N3GHsvtUZTZ2vp+eSDXVH2QhCadffrtVOm/lujAkZs=";
+  vendorHash = "sha256-Mk9aTidYoOnvrEc1v4qFkmOaIdbAyZnhOKUtzk1SCdk=";
 
   buildInputs = [ olm ];
 
