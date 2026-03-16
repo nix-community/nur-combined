@@ -708,6 +708,9 @@
         "iopq": {
             "url": "https://github.com/iopq/nur-packages"
         },
+        "itscrystalline": {
+            "url": "https://github.com/itscrystalline/nur-packages"
+        },
         "iuricarras": {
             "url": "https://github.com/iuricarras/nur-packages"
         },
@@ -1201,6 +1204,9 @@
         "priegger": {
             "file": "nur.nix",
             "url": "https://git.sr.ht/~priegger/nur-packages"
+        },
+        "prince213": {
+            "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
             "url": "https://github.com/mistzzt/program-synthesis-nur"

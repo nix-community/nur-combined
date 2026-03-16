@@ -1142,6 +1142,11 @@
             "sha256": "0dab3x95c2i8gz3lsd3kwb3qz9zxh958y450rq0h4jw9am6iisf6",
             "url": "https://github.com/iopq/nur-packages"
         },
+        "itscrystalline": {
+            "rev": "0186957b8fc563330d8424a96ec29bca970582ff",
+            "sha256": "072dzjamp3h1da8gn5s06r1axfcc44v1vmqrlzj8630386df7qx6",
+            "url": "https://github.com/itscrystalline/nur-packages"
+        },
         "iuricarras": {
             "rev": "06005ab9ffdb5fd743e0a38e554bbc887431fcc6",
             "sha256": "1rvjvaz1qf6w6xc3i9ikgkh6vllc0ccia8x7bd8p1aqlw20bwfxl",
@@ -1942,6 +1947,11 @@
             "rev": "500a7658b1dd2d50f14db6d5afa06fac645b7035",
             "sha256": "193bmpf4aqqmaq6g8lvjxv5hsi15p19b0ly6wki21sq8rgw67lmf",
             "url": "https://git.sr.ht/~priegger/nur-packages"
+        },
+        "prince213": {
+            "rev": "8d5e4c76ce551b7b9e8c3156dacd0f050c0f8462",
+            "sha256": "18fgri7184ypl8glw7dba50zbjp184461xpfbccv61cl0y71s6b4",
+            "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
             "rev": "7ff4b00054b968e6fcde7a3fb23a5a9bb248cb1c",
