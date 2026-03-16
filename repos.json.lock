@@ -1416,8 +1416,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "3c7e6a9296bd10be8690153835ff7201352a098d",
-            "sha256": "1zr6hj0smg6yszjmiznv4pqv2yjwhfcljpwz6xwh30k9phc82i2a",
+            "rev": "3a149aa4d9526701e4917da44a0953df6337718d",
+            "sha256": "0dyylqfvy6jph3rrhc2f171l4v2c7327a1ksxw0ca336pq5hljdr",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2512,8 +2512,8 @@
             "url": "https://github.com/wwmoraes/nurpkgs"
         },
         "wyzdwdz": {
-            "rev": "0499f91739ccd1eefe39e544a1bf10b72c008f5e",
-            "sha256": "15ahn97rcpfwg0ncd7bbfnp28myxa322l4hqzj0895zbwmkxikna",
+            "rev": "0e36127b330eb90706b1290250a1032e835864cc",
+            "sha256": "09jvvfiyl3vj92bv1ghqyw9x8x404zdyb07984cg9qnrh2rxby6f",
             "url": "https://github.com/wyzdwdz/nur-pkgs"
         },
         "x71c9": {
