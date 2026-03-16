@@ -637,8 +637,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "3cc3da3637dbeca369de99e41e210c774bc80dd2",
-            "sha256": "1p94zffarchdif1v78mjfv0d5zxqz3ww573id7gb5bbfxr5bja8i",
+            "rev": "f74568b0bae46f8fbb0e34f0f264885ed1aa822c",
+            "sha256": "03yai7qp0krlnlgcpah5ifvlv5vvjakkj7ldhaamq8y1016rhksp",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
