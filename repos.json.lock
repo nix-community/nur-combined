@@ -2035,8 +2035,8 @@
             "url": "https://github.com/robertodr/nur-packages"
         },
         "robinovitch61": {
-            "rev": "ccc4076615c42128c6cb27c55e5fe9105612b61c",
-            "sha256": "1jdgw9lh93h6a99mj5jhzgxs4zj2855cp1vaj8fhn3yvi8xihs1a",
+            "rev": "06a91df992ff0f9133499655fb3952fc31222eff",
+            "sha256": "0casxh02a6al4g0xd2zvpqlkc51dwv7hrvbpvx1x7bf3gix6snn0",
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
