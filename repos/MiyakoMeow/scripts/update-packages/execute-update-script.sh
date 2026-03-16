@@ -29,11 +29,9 @@ init_worktree() {
   wt_dir=$(mktemp -d)
   branch_name="update-$(date +%s)-$$"
   
-  # 先进入工作目录执行，避免任何路径相关的问题
-  (git worktree add -b "$branch_name" "$wt_dir" HEAD) 2>/dev/null
+  git worktree add -b "$branch_name" "$wt_dir" HEAD
   
-  # 输出目录和分支名
-  echo "$wt_dir|$branch_name"
+  echo "$branch_name"
 }
 
 cleanup_worktree() {
@@ -60,9 +58,8 @@ export HOME="${HOME:-/tmp}"
 
 # 创建临时 worktree
 echo "创建临时 worktree..."
-worktree_info=$(init_worktree)
-WT_DIR="${worktree_info%%|*}"
-BRANCH_NAME="${worktree_info##*|}"
+BRANCH_NAME=$(init_worktree)
+WT_DIR=$(git worktree list --porcelain | grep "^worktree " | head -1 | cut -c9-)
 trap cleanup_worktree EXIT
 
 echo "Worktree: $WT_DIR"
