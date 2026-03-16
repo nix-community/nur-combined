@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "2ef6e1a7a45dc44f4a0e0e475df867caafb2f507",
-            "sha256": "137smg0dpsrlisj7xxzv5n1ws6pyvd3c7rspr2ah49ml2j39rf1g",
+            "rev": "963bf0f6605b06bb957ff19c4c572d5cde593503",
+            "sha256": "1zm0jjid9wn0yhn0z3x4m7jcmqailvqvmrkv2jmpw8hb0m68d54k",
             "url": "https://github.com/adam01110/nur"
         },
         "afreakk": {
@@ -828,8 +828,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "fa9c8506e59288d1cd5a3cc5af8c990d7f128992",
-            "sha256": "0bf3vm1xqdfplapf2xkjwvv557dgmkip5p3faicnnkx3162khyi5",
+            "rev": "53cfdbfc5a1bb2fb63067a988dec7039640f7093",
+            "sha256": "0lhy5v1h16y1iy9zad0ngyazj92gs7ccx79w9pxsyi0r5n4qvvr6",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
