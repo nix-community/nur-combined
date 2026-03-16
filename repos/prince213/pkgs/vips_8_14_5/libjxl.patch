@@ -1,0 +1,21 @@
+diff -ur a/libvips/foreign/jxlload.c b/libvips/foreign/jxlload.c
+--- a/libvips/foreign/jxlload.c
++++ b/libvips/foreign/jxlload.c
+@@ -561,7 +561,7 @@
+ 
+ 		case JXL_DEC_COLOR_ENCODING:
+ 			if( JxlDecoderGetICCProfileSize( jxl->decoder,
+-				&jxl->format, 
++				/* &jxl->format, */
+ 				JXL_COLOR_PROFILE_TARGET_DATA, 
+ 				&jxl->icc_size ) ) {
+ 				vips_foreign_load_jxl_error( jxl, 
+@@ -578,7 +578,7 @@
+ 				return( -1 );
+ 
+ 			if( JxlDecoderGetColorAsICCProfile( jxl->decoder, 
+-				&jxl->format, 
++				/* &jxl->format, */
+ 				JXL_COLOR_PROFILE_TARGET_DATA,
+ 				jxl->icc_data, jxl->icc_size ) ) {
+ 				vips_foreign_load_jxl_error( jxl, 

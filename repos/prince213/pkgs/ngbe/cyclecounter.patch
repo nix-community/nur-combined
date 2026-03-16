@@ -1,0 +1,11 @@
+--- a/ngbe_ptp.c
++++ b/ngbe_ptp.c
+@@ -166,7 +166,7 @@
+  * cyclecounter structure used to construct a ns counter from the
+  * arbitrary fixed point registers
+  */
+-static u64 ngbe_ptp_read(const struct cyclecounter *hw_cc)
++static u64 ngbe_ptp_read(struct cyclecounter *hw_cc)
+ {
+ 	struct ngbe_adapter *adapter =
+ 		container_of(hw_cc, struct ngbe_adapter, hw_cc);

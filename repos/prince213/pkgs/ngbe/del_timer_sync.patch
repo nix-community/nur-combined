@@ -1,0 +1,14 @@
+--- a/ngbe_main.c
++++ b/ngbe_main.c
+@@ -6161,9 +6161,9 @@
+ 						NGBE_FLAG2_GLOBAL_RESET_REQUESTED);
+ 	adapter->flags &= ~NGBE_FLAG_NEED_LINK_UPDATE;
+ 
+-	del_timer_sync(&adapter->service_timer);
++	timer_delete_sync(&adapter->service_timer);
+ 	if (NGBE_POLL_LINK_STATUS == 1)
+-		del_timer_sync(&adapter->link_check_timer);
++		timer_delete_sync(&adapter->link_check_timer);
+ 
+ 	if (hw->bus.lan_id == 0)
+ 		wr32m(hw, NGBE_MIS_PRB_CTL,

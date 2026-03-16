@@ -1,0 +1,20 @@
+--- a/ngbe_main.c
++++ b/ngbe_main.c
+@@ -7921,7 +7921,7 @@
+  **/
+ static void ngbe_service_timer(struct timer_list *t)
+ {
+-	struct ngbe_adapter *adapter = from_timer(adapter, t, service_timer);
++	struct ngbe_adapter *adapter = timer_container_of(adapter, t, service_timer);
+ 	unsigned long next_event_offset;
+ 	struct ngbe_hw *hw = &adapter->hw;
+ 	u32 val = 0;
+@@ -7970,7 +7970,7 @@
+ 
+ static void ngbe_link_check_timer(struct timer_list *t)
+ {
+-	struct ngbe_adapter *adapter = from_timer(adapter, t, link_check_timer);
++	struct ngbe_adapter *adapter = timer_container_of(adapter, t, link_check_timer);
+ 	unsigned long next_event_offset = HZ / 1000;
+ 	if (adapter->hw.phy.type == ngbe_phy_yt8521s_sfi)
+ 		next_event_offset = HZ / 10;
