@@ -1,0 +1,22 @@
+--- a/bin/cli.js
++++ b/bin/cli.js
+@@ -202,16 +202,16 @@
+   fs.cpSync(PACKAGE_DIR, installDir, {
+     recursive: true,
+     filter: (src) => {
+-      // Skip node_modules and .git directories
+       const basename = path.basename(src);
+-      return basename !== 'node_modules' && basename !== '.git';
++      return basename !== '.git';
+     }
+   });
++  execSync('chmod -R u+w ' + JSON.stringify(installDir), { stdio: 'pipe' });
+ }
+
+ function installDependencies(installDir) {
+   console.log('Installing dependencies...');
+-  execSync('npm install --production', { cwd: installDir, stdio: 'inherit' });
++  console.log('Using bundled Nix dependencies...');
+ }
+
+ // --- External Plugin Fetching ---

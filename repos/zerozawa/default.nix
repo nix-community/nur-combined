@@ -60,4 +60,5 @@ in {
   StartLive = pkgs.callPackage ./pkgs/StartLive.nix {};
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix {};
   Fladder = pkgs.callPackage ./pkgs/Fladder {};
+  agentsys = pkgs.callPackage ./pkgs/agentsys {};
 }
