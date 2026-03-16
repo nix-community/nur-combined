@@ -34,17 +34,15 @@
           inherit system;
           config.allowUnfree = true;
         };
-        mkPackages = import ./libs/mkPackages { inherit nixpkgs system pkgs; };
+        mkPackages = import ./libs/mkPackages { inherit nixpkgs; };
       in
       rec {
-        packages = mkPackages (
+        packages = mkPackages pkgs (
           target:
-          pkgs.lib.filterAttrs (_: pkg: builtins.elem system (pkg.meta.platforms or [ ])) (
-            import ./packages {
-              inherit system;
-              pkgs = target;
-            }
-          )
+          import ./packages {
+            inherit system;
+            pkgs = target;
+          }
         );
 
         # the entire attribute set
@@ -59,6 +57,7 @@
         libs =
           # pure libs without pkgs/system injected
           import ./libs/pure.nix {
+            inherit nixpkgs;
             systems = import systems;
           }
           # libs for each system

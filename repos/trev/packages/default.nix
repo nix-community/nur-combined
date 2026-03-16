@@ -16,6 +16,7 @@ rec {
   gleescript = pkgs.callPackage ./gleescript { inherit gleam; };
   go = pkgs.callPackage ./go { inherit (pkgs) go_latest; };
   go-over = pkgs.callPackage ./go-over { inherit gleam; };
+  igsc = pkgs.callPackage ./igsc { };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   nvtop-exporter = pkgs.python3Packages.callPackage ./nvtop-exporter { };
@@ -24,7 +25,6 @@ rec {
   pysentry = pkgs.callPackage ./pysentry { };
   qsvenc = pkgs.callPackage ./qsvenc { };
   renovate = pkgs.callPackage ./renovate { };
-  rust = pkgs.callPackage ./rust { inherit (pkgs) rust; };
   shellhook = pkgs.callPackage ./shellhook { };
   uv-build = pkgs.python3Packages.callPackage ./uv-build { };
   yt-dlp = pkgs.python3Packages.callPackage ./yt-dlp { inherit yt-dlp-ejs; };

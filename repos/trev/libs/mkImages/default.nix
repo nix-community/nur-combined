@@ -1,9 +1,7 @@
 {
   nixpkgs ? <nixpkgs>,
-  system ? builtins.currentSystem,
-  pkgs ? import nixpkgs { inherit system; },
 }:
-func:
+pkgs: func:
 let
   try =
     e:
@@ -14,48 +12,48 @@ let
 
   mkImage = _: prev: {
     mkImage = import ./mkImage.nix {
-      inherit system;
+      system = pkgs.stdenv.buildPlatform.system;
       pkgs = prev;
     };
   };
 
+  mkCrossPkgs =
+    crossSystem:
+    (import nixpkgs {
+      localSystem = pkgs.stdenv.buildPlatform.system;
+      inherit crossSystem;
+      inherit (pkgs) config;
+      overlays = pkgs.overlays ++ [ mkImage ];
+    });
+
   pkgs-default = pkgs.appendOverlays [ mkImage ];
 
-  pkgs-x86_64-linux = import nixpkgs {
-    localSystem = pkgs.stdenv.hostPlatform.system;
-    crossSystem = {
-      config = "x86_64-unknown-linux-musl";
-      isStatic = true;
-    };
-    overlays = [ mkImage ];
+  pkgs-x86_64-linux = mkCrossPkgs {
+    config = "x86_64-unknown-linux-musl";
+    isStatic = true;
   };
 
-  pkgs-aarch64-linux = import nixpkgs {
-    localSystem = pkgs.stdenv.hostPlatform.system;
-    crossSystem = {
-      config = "aarch64-unknown-linux-musl";
-      isStatic = true;
-    };
-    overlays = [ mkImage ];
+  pkgs-aarch64-linux = mkCrossPkgs {
+    config = "aarch64-unknown-linux-musl";
+    isStatic = true;
   };
 
-  pkgs-armv7l-linux = import nixpkgs {
-    localSystem = pkgs.stdenv.hostPlatform.system;
-    crossSystem = {
-      config = "armv7l-unknown-linux-musleabihf";
-      isStatic = true;
-    };
-    overlays = [ mkImage ];
+  pkgs-armv7l-linux = mkCrossPkgs {
+    config = "armv7l-unknown-linux-musleabihf";
+    isStatic = true;
   };
 
-  pkgs-armv6l-linux = import nixpkgs {
-    localSystem = pkgs.stdenv.hostPlatform.system;
-    crossSystem = {
-      config = "armv6l-unknown-linux-musleabihf";
-      isStatic = true;
-    };
-    overlays = [ mkImage ];
+  pkgs-armv6l-linux = mkCrossPkgs {
+    config = "armv6l-unknown-linux-musleabihf";
+    isStatic = true;
   };
+
+  # Get all images that support the current system
+  images = pkgs.lib.filterAttrs (
+    _: image:
+    (!pkgs.lib.attrsets.hasAttrByPath [ "meta" "platforms" ] image)
+    || (builtins.elem pkgs.stdenv.buildPlatform.system (image.meta.platforms or [ ]))
+  ) (func pkgs-default);
 in
 builtins.mapAttrs (
   name: image:
@@ -80,4 +78,4 @@ builtins.mapAttrs (
           };
       }
     )
-) (func pkgs-default)
+) images
