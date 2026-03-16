@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.8.54",
-            "sha256": "sha256-fsCwNhQATsLCkqfYaYsnM0UBh6CMdJ5TUvAjmv0n8TQ=",
+            "rev": "v6.8.55",
+            "sha256": "sha256-B7EtK/x40uwt8fufSUPppbzSWNaPh1hQpFwMMAppgog=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.8.54"
+        "version": "v6.8.55"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1493,11 +1493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Llmk5CZzi4URr+X4gcXHD0mcMatUgRipigycl7/Od0U=",
+            "sha256": "sha256-IgNj1T66NIVae15mW0ILxEvAhh47zC3xQgLkjQ+L69Q=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.16/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.03.13"
+        "version": "2026.03.16"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1508,11 +1508,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-z9TMqb3aiJbkcL9gKVA8BBQoZ9TwVe4jA5QXVZDhMUU=",
+            "sha256": "sha256-eHWAF7l6LGSO8Jy9mNTRF33ca/pJKEf9u+SEqJw1UjA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.16/GeoLite2-City.mmdb"
         },
-        "version": "2026.03.13"
+        "version": "2026.03.16"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1523,11 +1523,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qhVPxrzXEmRN4jKkq83QfawfgBMIwLb5PbwrN1RD2ns=",
+            "sha256": "sha256-y0cJ/vPknThBSdomrnUVRISo0bWV+9MMa2GQInQ/kTo=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.13/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.16/GeoLite2-Country.mmdb"
         },
-        "version": "2026.03.13"
+        "version": "2026.03.16"
     },
     "glauth": {
         "cargoLock": null,
@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8358",
-            "sha256": "sha256-qGcCfdUZHawdZNLYH92HIHBmZ9sha4zD5w6tBgpTlcM=",
+            "rev": "b8377",
+            "sha256": "sha256-OFUyVK/YPFG2wqPSvp10EySE5Mfkug+K1hy3lTrZHVg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8358"
+        "version": "b8377"
     },
     "loralib": {
         "cargoLock": null,
@@ -3698,7 +3698,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-03-11",
+        "date": "2026-03-16",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3710,12 +3710,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "4fe519c81eb0f7add2707ea80af5efe73f9d55f5",
-            "sha256": "sha256-n1XFLBNxrbYf9c/6LzGV92zNQNXyJyCjpGtWR81YG5M=",
+            "rev": "18cb213d9f9da76ac58dae67fc428220889e370e",
+            "sha256": "sha256-bFsIUnV0Ulyj5lY8a7FYGhlQZYieFqYhCsQXcfqZajw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4fe519c81eb0f7add2707ea80af5efe73f9d55f5"
+        "version": "18cb213d9f9da76ac58dae67fc428220889e370e"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -4181,7 +4181,7 @@
     },
     "tqdm-loggable": {
         "cargoLock": null,
-        "date": "2026-03-15",
+        "date": "2026-03-16",
         "extract": null,
         "name": "tqdm-loggable",
         "passthru": null,
@@ -4193,12 +4193,12 @@
             "name": null,
             "owner": "tradingstrategy-ai",
             "repo": "tqdm-loggable",
-            "rev": "8c556a56282c8b0de2c81abdf07bc885983c596e",
-            "sha256": "sha256-Gsp4fb1AAESbiDQ+vqhPcVrwmhDI6wVjFPr4JqseZ9k=",
+            "rev": "5083a123a4df17b6cb3cf3a80c0206c39eb5ec0b",
+            "sha256": "sha256-NmokphM0trQmIm3Ke436gRMctAvV38hbo5MLjbcgLDs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8c556a56282c8b0de2c81abdf07bc885983c596e"
+        "version": "5083a123a4df17b6cb3cf3a80c0206c39eb5ec0b"
     },
     "transmission-web-control": {
         "cargoLock": null,
