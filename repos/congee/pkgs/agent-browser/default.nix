@@ -5,43 +5,32 @@
   rustPlatform,
   cargo,
   rustc,
-  nodejs,
-  pnpm_10,
   makeWrapper,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "agent-browser";
-  version = "0.19.0";
+  version = "0.20.13";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tdPWbMcszqBhXj4IU3DPrxiY0/XozbPLXlO0UGrZsnQ=";
+    hash = "sha256-b68m3/bhiAPZ4l5C0ike3CMnLaec+997gRwLZfmvOZA=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/cli";
-    hash = "sha256-HoV3rFnpo+wKYVSErnKcXQ+os9ark2xzj0oB3QERK3U=";
+    hash = "sha256-CsuxwV62LUmLPkAYIza1Tx1vPx3jMBehxmX/BZpMN4s=";
   };
 
   cargoRoot = "cli";
-
-  pnpmDeps = pnpm_10.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    fetcherVersion = 3;
-    hash = "sha256-akW4F0fc4coU38x/og2fedKmTZ0wRyvmYzQbQCYn8VU=";
-  };
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
     cargo
     rustc
-    pnpm_10
-    pnpm_10.configHook
-    nodejs
     makeWrapper
   ];
 
@@ -52,7 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    pnpm run build
     cargo build --release --manifest-path cli/Cargo.toml
 
     runHook postBuild
@@ -62,11 +50,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/lib/agent-browser
-    cp -r dist node_modules package.json skills $out/lib/agent-browser/
+    cp -r skills $out/lib/agent-browser/
     install -Dm755 cli/target/release/agent-browser $out/lib/agent-browser/agent-browser
 
     makeWrapper $out/lib/agent-browser/agent-browser $out/bin/agent-browser \
-      --prefix PATH : ${lib.makeBinPath [ nodejs ]} \
       --set AGENT_BROWSER_HOME "$out/lib/agent-browser"
 
     runHook postInstall
