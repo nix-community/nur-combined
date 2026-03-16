@@ -6,14 +6,15 @@
 
 with python3Packages;
 buildPythonPackage rec {
+  pyproject = true;
+
   inherit (generated) pname version src;
 
-  nativeBuildInputs = [
-    beets
-    setuptools-scm
-  ];
+  build-system = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ jsonpath_rw ];
+  nativeBuildInputs = [ beets ];
+
+  propagatedBuildInputs = [ jsonpath-rw ];
 
   # There's no test
   doCheck = false;

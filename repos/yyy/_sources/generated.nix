@@ -11,21 +11,21 @@
   };
   autobean-refactor = {
     pname = "autobean-refactor";
-    version = "0.2.5";
+    version = "0.2.6";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/a/autobean-refactor/autobean-refactor-0.2.5.tar.gz";
-      sha256 = "sha256-YRzfHlcjSky1z8/zxe2IfWgLI9N5LksyHzCV1P7U7YE=";
+      url = "https://pypi.org/packages/source/a/autobean-refactor/autobean-refactor-0.2.6.tar.gz";
+      sha256 = "sha256-89wwbaaqTSrp52yHttltG1jzigELy6VtrRNdac9apIA=";
     };
   };
   beets-filetote = {
     pname = "beets-filetote";
-    version = "v0.4.9";
+    version = "v1.3.3";
     src = fetchFromGitHub {
       owner = "gtronset";
       repo = "beets-filetote";
-      rev = "v0.4.9";
+      rev = "v1.3.3";
       fetchSubmodules = false;
-      sha256 = "sha256-pZ6c2XQMSiiPHyZMLSiSE+LXeCfi3HEWtsTK5DP9YZE=";
+      sha256 = "sha256-GmVQNUTVr6lke0T/1mDbQdD1HW4CR/EyCvRwO/gQs5w=";
     };
   };
   beets-originquery = {
@@ -41,15 +41,15 @@
   };
   beets-summarize = {
     pname = "beets-summarize";
-    version = "72d74824c065a080e66da36fd8210fde8a541728";
+    version = "fceb024d7d78fc5b6baf06c3c95bc1c6992f4748";
     src = fetchFromGitHub {
       owner = "steven-murray";
       repo = "beet-summarize";
-      rev = "72d74824c065a080e66da36fd8210fde8a541728";
+      rev = "fceb024d7d78fc5b6baf06c3c95bc1c6992f4748";
       fetchSubmodules = false;
-      sha256 = "sha256-j9GVqCX229961rjDXb/NUSv9XfcAh5CoSRRj5fBaVDk=";
+      sha256 = "sha256-KoTMQT8n1WAwdudSfguwhNeo9uUCrsVnGCkBh266oso=";
     };
-    date = "2025-03-01";
+    date = "2026-03-10";
   };
   beets-yearfixer = {
     pname = "beets-yearfixer";
@@ -86,22 +86,22 @@
   };
   fava-dashboards = {
     pname = "fava-dashboards";
-    version = "6994c45bae2eaefedce3167edd8a57b7b3fd36b9";
+    version = "19f45c9e8272df6a07f8ca021a83a85a56ac4e37";
     src = fetchFromGitHub {
       owner = "andreasgerstmayr";
       repo = "fava-dashboards";
-      rev = "6994c45bae2eaefedce3167edd8a57b7b3fd36b9";
+      rev = "19f45c9e8272df6a07f8ca021a83a85a56ac4e37";
       fetchSubmodules = false;
-      sha256 = "sha256-4/CraeZGAEAQ7fFzQHay5GbrGlBaKUfAA89CH+bh4Lg=";
+      sha256 = "sha256-jWc8ZQ6o9nxE464ekEED8jHgPwJ6akeeVhyERV2wJaM=";
     };
-    date = "2025-02-12";
+    date = "2026-03-16";
   };
   stash = {
     pname = "stash";
-    version = "v0.27.2";
+    version = "v0.30.1";
     src = fetchurl {
-      url = "https://github.com/stashapp/stash/releases/download/v0.27.2/stash-linux";
-      sha256 = "sha256-R9uCyJF1eEU0ms4Op08bJI/eY6RKrBaxMl0x6yK8A9o=";
+      url = "https://github.com/stashapp/stash/releases/download/v0.30.1/stash-linux";
+      sha256 = "sha256-cQozIz0MjmzZBOEs0qjz8chGA9thS1xU4q/OkoZRpF4=";
     };
   };
 }

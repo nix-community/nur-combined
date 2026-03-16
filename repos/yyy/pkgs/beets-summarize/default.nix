@@ -9,7 +9,7 @@ buildPythonPackage rec {
   inherit (generated) pname src;
 
   version = "0.2.1"; # Must be a valid PEP 440 version, for SETUPTOOLS_SCM_PRETEND_VERSION
-  format = "pyproject";
+  pyproject = true;
 
   # LookupError: setuptools-scm was unable to detect version for xxx
   # https://github.com/steven-murray/beet-summarize/blob/main/pyproject.toml
@@ -19,10 +19,9 @@ buildPythonPackage rec {
     export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
   '';
 
-  nativeBuildInputs = [
-    beets
-    setuptools-scm
-  ];
+  build-system = [ setuptools-scm ];
+
+  nativeBuildInputs = [ beets ];
 
   # nativeCheckInputs = [ pytestCheckHook ];
 

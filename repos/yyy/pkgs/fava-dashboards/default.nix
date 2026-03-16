@@ -15,6 +15,9 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  pythonRelaxDeps = [ "fava" ];
+
   dependencies = [
     pkgs.fava
     pkgs.beancount

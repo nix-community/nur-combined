@@ -6,14 +6,17 @@
 
 with python3Packages;
 buildPythonPackage rec {
-  format = "pyproject";
+  pyproject = true;
 
   inherit (generated) pname version src;
 
-  nativeBuildInputs = [
-    beets
-    poetry-core
-  ];
+  build-system = [ poetry-core ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml --replace-fail "poetry-core<2.0.0" "poetry-core"
+  '';
+
+  nativeBuildInputs = [ beets ];
 
   # pythonImportsCheck = [ "beetsplug.filetote" ];
 

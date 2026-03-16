@@ -6,7 +6,11 @@
 
 with python3Packages;
 buildPythonPackage rec {
+  pyproject = true;
+
   inherit (generated) pname version src;
+
+  build-system = [ setuptools ];
 
   nativeBuildInputs = [ beets ];
 
