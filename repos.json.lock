@@ -2170,8 +2170,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "a36b1c49364d33329de44e7bec40eec3582f737e",
-            "sha256": "1p8c5ki8dnk3s5my7f5f41p8cm4mmdk9kx3lz6alfvjip35q5wlv",
+            "rev": "2e19ef7198d5bf9a8ab98f7dfa479d6979cec703",
+            "sha256": "0nagyj47c163bcb966gln0lkylgw6s4zkwm3h1p804hhggsknqag",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
