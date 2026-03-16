@@ -3,6 +3,7 @@ set -euo pipefail
 
 # execute-update-script.sh
 # 在 GitHub Actions 的 update-package job 中执行，接收一个包属性路径作为参数。
+# 使用 git worktree 来处理可写性问题
 
 if [ $# -lt 1 ]; then
   echo "用法: bash scripts/update-packages/execute-update-script.sh <package-attr-path>"
@@ -10,6 +11,7 @@ if [ $# -lt 1 ]; then
 fi
 
 PACKAGE="$1"
+WORKDIR="${GITHUB_WORKSPACE:-$PWD}"
 
 # Helper: 向 GitHub Actions 的 $GITHUB_OUTPUT 追加输出（本地调试时退回到 stdout）
 append_github_output() {
@@ -21,25 +23,52 @@ append_github_output() {
   fi
 }
 
+# 创建临时 git worktree
+create_worktree() {
+  local wt_dir
+  wt_dir=$(mktemp -d)
+  local branch_name="update-$(date +%s)-$$"
+  
+  # 重定向 stderr 到 /dev/null，避免 "HEAD is now at ..." 消息干扰输出
+  git worktree add -b "$branch_name" "$wt_dir" HEAD 2>/dev/null
+  echo "$wt_dir|$branch_name"
+}
+
+cleanup_worktree() {
+  if [ -n "${WT_DIR:-}" ] && [ -n "${BRANCH_NAME:-}" ]; then
+    git worktree remove --force "$WT_DIR" 2>/dev/null || true
+    git branch -D "$BRANCH_NAME" 2>/dev/null || true
+  fi
+}
+
 # 设置 Git 用户信息
 git config --global user.email "actions@github.com"
 git config --global user.name "GitHub Actions"
 
 # 传入绝对 flake 引用，避免内置 '.' 被拒绝
-export FLAKE_REF="path:${GITHUB_WORKSPACE:-$PWD}"
+export FLAKE_REF="path:$WORKDIR"
 
 # 准备执行环境变量（兼容不同脚本类型）
 export NIXPKGS_ALLOW_UNFREE=1
 export NIXPKGS_ALLOW_BROKEN=1
 export NIXPKGS_ALLOW_INSECURE=1
 
-echo "NIX_PATH=$NIX_PATH"
+# 使用临时 HOME 目录以防脚本写入 HOME
+export HOME="${HOME:-/tmp}"
 
-# 使用临时HOME目录以防脚本写入HOME
-export ORI_HOME="$HOME"
-export HOME=$(mktemp -d)
+# 创建临时 worktree
+echo "创建临时 worktree..."
+worktree_info=$(create_worktree)
+WT_DIR="${worktree_info%%|*}"
+BRANCH_NAME="${worktree_info##*|}"
+trap cleanup_worktree EXIT
 
-echo "获取包 $PACKAGE 的updateScript"
+echo "Worktree: $WT_DIR"
+
+# 设置 worktree 中的 flake 引用
+export FLAKE_REF="path:$WT_DIR"
+
+echo "获取包 $PACKAGE 的 updateScript"
 script_json=$(nix eval --impure --json --expr "
   let
     f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
@@ -54,27 +83,47 @@ script_json=$(nix eval --impure --json --expr "
     else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
     else if (pkg ? updateScript) then pkg.updateScript
     else throw \"no updateScript\"
-")
+" --argstr FLAKE_REF "$WT_DIR" 2>/dev/null)
+
 script_type=$(echo "$script_json" | jq -r 'type')
 
-# 将命令数组重写为使用完整属性路径的 nix-update，并保留标志参数
+# 将 store 路径替换为 worktree 路径
+rewrite_paths() {
+  local cmd_array=("$@")
+  local new_array=()
+  
+  for arg in "${cmd_array[@]}"; do
+    if [[ "$arg" =~ ^/nix/store/[a-z0-9]+-(.+)$ ]]; then
+      local filename="${BASH_REMATCH[1]}"
+      local replaced
+      if find "$WT_DIR" -name "$filename" -type f 2>/dev/null | read -r replaced; then
+        new_array+=("$replaced")
+        continue
+      fi
+    fi
+    new_array+=("$arg")
+  done
+  
+  printf '%s\n' "${new_array[@]}"
+}
+
+# 执行命令数组
 execute_command_array() {
   local script_array=("$@")
-  local cmd="${script_array[0]}"
-
-  # 将 store 路径的 nix-update 规范化为 "nix-update"
-  if [[ "$cmd" =~ ^/nix/store/.*/bin/nix-update$ ]]; then
-    cmd="nix-update"
-    script_array[0]="nix-update"
-  fi
-
-  if [[ "$cmd" == "nix-update" ]]; then
+  
+  # 重写路径
+  local rewritten
+  mapfile -t rewritten < <(rewrite_paths "${script_array[@]}")
+  
+  local cmd="${rewritten[0]}"
+  
+  # 处理 nix-update 命令
+  if [[ "$cmd" == "nix-update" ]] || [[ "$cmd" =~ ^/nix/store/.*/bin/nix-update$ ]]; then
     local new_command=("nix-update")
     local has_flake=0
-
-    # 保留所有以 - 开头或包含 = 的标志参数；丢弃位置参数，最后追加完整属性路径
-    for ((i=1; i<${#script_array[@]}; i++)); do
-      arg="${script_array[$i]}"
+    
+    for ((i=1; i<${#rewritten[@]}; i++)); do
+      arg="${rewritten[$i]}"
       if [[ "$arg" == "--flake" ]]; then
         has_flake=1
       fi
@@ -82,22 +131,25 @@ execute_command_array() {
         new_command+=("$arg")
       fi
     done
-
+    
     if [[ $has_flake -eq 0 ]]; then
       new_command+=("--flake")
     fi
-
+    
     new_command+=("$PACKAGE")
-
-    echo "替换后的命令: ${new_command[@]}"
+    
+    echo "执行: ${new_command[@]}"
+    cd "$WT_DIR"
     "${new_command[@]}"
   else
-    # 非 nix-update 命令按原样执行
-    echo "执行更新命令(数组): ${script_array[@]}"
-    "${script_array[@]}"
+    # 其他命令直接在 worktree 中执行
+    echo "执行: ${rewritten[@]}"
+    cd "$WT_DIR"
+    "${rewritten[@]}"
   fi
 }
 
+echo "执行更新脚本..."
 case "$script_type" in
   "array")
     mapfile -t script_array < <(echo "$script_json" | jq -r '.[]')
@@ -120,30 +172,49 @@ case "$script_type" in
         read -r -a script_array <<< "$command_str"
         execute_command_array "${script_array[@]}"
       else
-        echo "错误：不支持的command类型: $command_type"
+        echo "错误：不支持的 command 类型: $command_type"
         exit 1
       fi
     else
-      echo "错误：属性集缺少command字段"
+      echo "错误：属性集缺少 command 字段"
       exit 1
     fi
     ;;
   *)
-    echo "错误：未知的updateScript类型: $script_type"
+    echo "错误：未知的 updateScript 类型: $script_type"
     exit 1
     ;;
 esac
 
-# 恢复原始HOME并清理临时目录
-export TEMP_HOME="$HOME"
-export HOME="$ORI_HOME"
-rm -rf "$TEMP_HOME"
-
-# 检查是否有需要提交的更改（不在此处提交，交由后续PR步骤）
+# 检查变更并同步到主仓库
+cd "$WT_DIR"
 if [ -n "$(git status --porcelain)" ]; then
-    append_github_output "has_update" "true"
-    echo "更新完成: $PACKAGE"
+  # 复制变更文件到主仓库
+  for file in $(git diff --name-only HEAD); do
+    if [ -f "$file" ]; then
+      mkdir -p "$(dirname "$WORKDIR/$file")"
+      cp "$file" "$WORKDIR/$file"
+      echo "已更新: $file"
+    fi
+  done
+  
+  # 处理新增文件
+  for file in $(git status --porcelain | grep '^??' | cut -c4-); do
+    if [ -f "$file" ]; then
+      mkdir -p "$(dirname "$WORKDIR/$file")"
+      cp "$file" "$WORKDIR/$file"
+      git -C "$WORKDIR" add "$file"
+      echo "已添加: $file"
+    fi
+  done
+  
+  cd "$WORKDIR"
+  
+  append_github_output "has_update" "true"
+  echo "更新完成: $PACKAGE"
 else
-    append_github_output "has_update" "false"
-    echo "没有更新: $PACKAGE"
+  cd "$WORKDIR"
+  
+  append_github_output "has_update" "false"
+  echo "没有更新: $PACKAGE"
 fi
