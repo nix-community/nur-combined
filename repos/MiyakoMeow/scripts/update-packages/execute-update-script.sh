@@ -26,12 +26,35 @@ append_github_output() {
 # 创建临时 git worktree
 create_worktree() {
   local wt_dir
-  wt_dir=$(mktemp -d)
+  wt_dir=$(mktemp)
+  rm "$wt_dir" # mktemp 创建文件，需要删除后用作目录
   local branch_name="update-$(date +%s)-$$"
   
-  # 重定向 stderr 到 /dev/null，避免 "HEAD is now at ..." 消息干扰输出
+  # 重定向 stderr 到 /dev/null，避免 "Preparing worktree" 和 "HEAD is now at ..." 消息
   git worktree add -b "$branch_name" "$wt_dir" HEAD 2>/dev/null
+  
+  # 输出分支名（用于后续清理）
+  printf '%s' "$branch_name"
+}
+
+# 从目录创建 worktree 并获取路径
+init_worktree() {
+  local wt_dir
+  wt_dir=$(mktemp)
+  rm "$wt_dir"
+  local branch_name="update-$(date +%s)-$$"
+  
+  git worktree add -b "$branch_name" "$wt_dir" HEAD 2>/dev/null
+  
+  # 输出目录和分支名
   echo "$wt_dir|$branch_name"
+}
+
+# 从 worktree 路径解析出分支名
+parse_worktree_info() {
+  local wt_dir="$1"
+  # 查找对应的分支名
+  git worktree list --porcelain | grep -A1 "^path $wt_dir$" | grep "branch " | sed 's/branch refs\/heads\///'
 }
 
 cleanup_worktree() {
@@ -58,7 +81,7 @@ export HOME="${HOME:-/tmp}"
 
 # 创建临时 worktree
 echo "创建临时 worktree..."
-worktree_info=$(create_worktree)
+worktree_info=$(init_worktree)
 WT_DIR="${worktree_info%%|*}"
 BRANCH_NAME="${worktree_info##*|}"
 trap cleanup_worktree EXIT
@@ -69,6 +92,11 @@ echo "Worktree: $WT_DIR"
 export FLAKE_REF="path:$WT_DIR"
 
 echo "获取包 $PACKAGE 的 updateScript"
+
+# 临时文件存储 stderr
+nix_stderr=$(mktemp)
+trap "rm -f $nix_stderr" RETURN
+
 script_json=$(nix eval --impure --json --expr "
   let
     f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
@@ -83,7 +111,13 @@ script_json=$(nix eval --impure --json --expr "
     else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
     else if (pkg ? updateScript) then pkg.updateScript
     else throw \"no updateScript\"
-" --argstr FLAKE_REF "$WT_DIR" 2>/dev/null)
+" --argstr FLAKE_REF "$WT_DIR" 2>"$nix_stderr")
+
+# 检查是否有错误
+if [ -s "$nix_stderr" ]; then
+  # 如果有错误输出，显示它们
+  cat "$nix_stderr"
+fi
 
 script_type=$(echo "$script_json" | jq -r 'type')
 
