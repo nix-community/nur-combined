@@ -8,18 +8,18 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "agent-browser";
-  version = "0.20.6";
+  version = "0.20.13";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AKmRtgqPCd9elv4zM8OWNu1i94IpIFraM16jJgzDIpA=";
+    hash = "sha256-b68m3/bhiAPZ4l5C0ike3CMnLaec+997gRwLZfmvOZA=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/cli";
 
-  cargoHash = "sha256-PUB1WuK1ikAH301qa20aCWCvtZUQEhfRMyiH8ZAVTz4=";
+  cargoHash = "sha256-CsuxwV62LUmLPkAYIza1Tx1vPx3jMBehxmX/BZpMN4s=";
 
   nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 
