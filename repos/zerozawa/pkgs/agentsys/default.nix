@@ -13,10 +13,10 @@
     * key: file path eg. `agents/xxx.md` or `commands/xxx.md`
     * value: attrset for overriding fields in skill/command/agent front-matter; null removes a field
    */
-  _models ? {},
+  frontmattersOverride ? {},
   ...
 }: let
-  modelsJson = lib.escapeShellArg (builtins.toJSON _models);
+  frontmattersJson = builtins.toJSON frontmattersOverride;
 
   # 优先使用git tag，若无则使用commit hash
   resourceHandler = {
@@ -119,16 +119,33 @@
     nativeBuildInputs = [yq-go];
     dontBuild = true;
     installPhase = ''
+      frontmatters_json_file="$TMPDIR/agentsys-model-overrides.json"
+      cat > "$frontmatters_json_file" <<'EOF'
+${frontmattersJson}
+EOF
+
       apply_frontmatter_overrides() {
         local file="$1"
         local relative_path="$2"
+        local override_json
+        local key
+        local value_json
 
-        MODELS_JSON=${modelsJson} OVERRIDE_KEY="$relative_path" \
-          yq --front-matter=process -P -i '
-            ((strenv(MODELS_JSON) | fromjson | .[strenv(OVERRIDE_KEY)]) // {}) as $overrides
-            | . *= ($overrides | with_entries(select(.value != null)))
-            | del(.[($overrides | to_entries | map(select(.value == null) | .key)[])])
-          ' "$file"
+        override_json="$(FRONTMATTER_PATH="$relative_path" yq -o=json -I=0 '.[strenv(FRONTMATTER_PATH)]' "$frontmatters_json_file")"
+
+        if [ "$override_json" = "null" ] || [ "$override_json" = "{}" ]; then
+          return 0
+        fi
+
+        while IFS= read -r key; do
+          value_json="$(printf '%s' "$override_json" | FIELD_NAME="$key" yq -o=json -I=0 '.[strenv(FIELD_NAME)]')"
+
+          if [ "$value_json" = "null" ]; then
+            FIELD_NAME="$key" yq --front-matter=process -P -i 'del(.[strenv(FIELD_NAME)])' "$file"
+          else
+            FIELD_NAME="$key" FIELD_VALUE_JSON="$value_json" yq --front-matter=process -P -i '.[strenv(FIELD_NAME)] = (strenv(FIELD_VALUE_JSON) | fromjson)' "$file"
+          fi
+        done < <(printf '%s' "$override_json" | yq -r 'keys | .[]')
       }
 
       normalize_skill() {
