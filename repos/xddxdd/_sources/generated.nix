@@ -760,14 +760,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "612944229384df959ee570548ac7f9dceddbd0f1";
+    version = "b842ff8107e1da950947ada0d11ae3c008baeb54";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "612944229384df959ee570548ac7f9dceddbd0f1";
-      hash = "sha256-u38WtXQ/x3c4+M3HiRq69hdOyz3GXKLVJS638NYUdHI=";
+      rev = "b842ff8107e1da950947ada0d11ae3c008baeb54";
+      hash = "sha256-xomZ0cwKsi3Kw6tHarXtTWXwgZwlJrmkf70dLbbyNLE=";
     };
-    date = "2026-03-12";
+    date = "2026-03-17";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -988,20 +988,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.27.0";
+    version = "3.28.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.27.0";
-      hash = "sha256-vNfGp+Izp2SxDMfHWLSCaok38m5ZaBhDgQbDsc+fqmc=";
+      tag = "3.28.0";
+      hash = "sha256-gf1z2lHRN9wRFTN6l62pBE1aeUXOv1auMGhloKRY6WQ=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.27.0";
+    version = "3.28.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.27.0/kata-static-3.27.0-amd64.tar.zst";
-      hash = "sha256-+RwnSNRbZ6E/CWUr41QwRSjk5+k1Avp40W/K18vJyyo=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.28.0/kata-static-3.28.0-amd64.tar.zst";
+      hash = "sha256-mc77RtcLwnt7z/11lb6QEMa+1D4c38+AeFVMGefJsZ0=";
     };
   };
   kikoplay = {
@@ -1098,14 +1098,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "e8b2e779c91a2da9d0ed45a2bdd4adbbf3a97d10";
+    version = "ab0e07c3eead79aff5ce800179f7b6ac15fdd1de";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "e8b2e779c91a2da9d0ed45a2bdd4adbbf3a97d10";
-      hash = "sha256-gE6WnmJE8z1tRPOl4U0ugOSc8zby5X2QZbviolssJIk=";
+      rev = "ab0e07c3eead79aff5ce800179f7b6ac15fdd1de";
+      hash = "sha256-AE+kIpuP5liN5pMYniBtt8vCMQcHpU2RsLLjPUuIImU=";
     };
-    date = "2026-03-13";
+    date = "2026-03-17";
   };
   libqcef = {
     pname = "libqcef";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8377";
+    version = "b8398";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8377";
-      hash = "sha256-OFUyVK/YPFG2wqPSvp10EySE5Mfkug+K1hy3lTrZHVg=";
+      tag = "b8398";
+      hash = "sha256-8TroihNBfYVyZjxhhi2x9EEIbhhVXJPRgdzluaevtmA=";
     };
   };
   loralib = {
@@ -1595,12 +1595,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.10.0";
+    version = "v2.11.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.10.0";
-      hash = "sha256-AZq64Le2lV3gENbyA+t7mG96ABbex1KrC4m8PuyuTLs=";
+      tag = "v2.11.0";
+      hash = "sha256-tdiawHDPpnOJJpQcggQbVuUqZBAVSOs7bwjCfFMAt/8=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -1902,14 +1902,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "18cb213d9f9da76ac58dae67fc428220889e370e";
+    version = "85c0b0f6c2a05e22d79345e84b6fd78178d2edfa";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "18cb213d9f9da76ac58dae67fc428220889e370e";
-      hash = "sha256-bFsIUnV0Ulyj5lY8a7FYGhlQZYieFqYhCsQXcfqZajw=";
+      rev = "85c0b0f6c2a05e22d79345e84b6fd78178d2edfa";
+      hash = "sha256-qNOHUKzKd99QJ7ka8TzXJ6ubTuj8qxNTFdUgVRp6w64=";
     };
-    date = "2026-03-16";
+    date = "2026-03-17";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "061b556952a38ced8529ac1d7b4b8e261a81e1bd";
+    version = "aa5413d3bb1020f699d78da4b519fba9b18ea8e0";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "061b556952a38ced8529ac1d7b4b8e261a81e1bd";
-      hash = "sha256-cvDCjVsg0PN5KDBJjPpi1xjk7e8tn/gldtyfAKTbsQA=";
+      rev = "aa5413d3bb1020f699d78da4b519fba9b18ea8e0";
+      hash = "sha256-AYSRC2D82/gjD/89daiGnxL3PRJCzXnT64O+ajO1AG8=";
     };
-    date = "2026-03-12";
+    date = "2026-03-17";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
