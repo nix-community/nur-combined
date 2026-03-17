@@ -6,16 +6,21 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "platforms": {
     "x86_64-linux": {
       "file": "Re-Lunatic.Player-linux-x64-{version}.zip",
-      "hash": "sha256-IZ2SNsBa3/fyP8SWtiZPqNTJDUeGKYx85E04KFgtw/c=",
+      "hash": "sha256-h7xteXqXAA9DF9g6X5nryJD6ys9j5Vl5b7iL4vzsyTw=",
+      "unpack": false
+    },
+    "aarch64-linux": {
+      "file": "Re-Lunatic.Player-linux-arm64-{version}.zip",
+      "hash": "sha256-v+jy3s2FeKyWdV+46F5XllC1sc/r9rKR5I27ki9IBEA=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "Re-Lunatic.Player-darwin-arm64-{version}.zip",
-      "hash": "sha256-Tif+YPYjmrvgNkguxV7R2FJQyX5UtBKJ6IicnV6HOYg=",
+      "hash": "sha256-ZvEm82c1i5E+YrKjSGNIK2JT7EjMFXoih7WHjC5Tsq8=",
       "unpack": false
     }
   }

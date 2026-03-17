@@ -5,8 +5,8 @@
   libxkbcommon,
   at-spi2-atk,
   makeWrapper,
+  electron_40,
   stdenvNoCC,
-  electron,
   alsa-lib,
   fetchurl,
   cairo,
@@ -34,7 +34,7 @@
     homepage = "https://github.com/Prince527GitHub/Re-Lunatic-Player";
     license = lib.licenses.agpl3Only;
     maintainers = ["Wam25" "Prinky"];
-    platforms = ["x86_64-linux" "aarch64-darwin"];
+    platforms = lib.platforms.unix;
     mainProgram = "re-lunatic-player";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
@@ -74,7 +74,7 @@ in
           libxkbcommon
           at-spi2-atk
           alsa-lib
-          electron
+          electron_40
           cairo
           cups
           dbus
@@ -115,7 +115,7 @@ in
         mkdir $out
         cp -r . $out/opt
 
-        makeWrapper ${electron}/bin/electron $out/bin/re-lunatic-player \
+        makeWrapper ${electron_40}/bin/electron $out/bin/re-lunatic-player \
           --add-flags $out/opt/resources/app.asar
 
         runHook postInstall
