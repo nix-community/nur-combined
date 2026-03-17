@@ -527,8 +527,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "chap9": {
-            "rev": "1db5a5e8eca5df6184f536d943c24d11438aeba4",
-            "sha256": "0k282jyf02l6scgw34h0a0jxifxax6997xy3wr1c8x77kc8a9ivg",
+            "rev": "e63da00ab51218a05ee031d62fa97ca2c52516f4",
+            "sha256": "15740w9l13kachcfjc4lh6q8vzjh72j92sygwggh98wry8p4hbrl",
             "url": "https://github.com/chap9/chap9-nur"
         },
         "charmbracelet": {
