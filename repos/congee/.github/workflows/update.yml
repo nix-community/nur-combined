@@ -13,21 +13,30 @@ permissions:
   pull-requests: write
 
 jobs:
+  detect-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.list.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - id: list
+        run: |
+          packages=$(nix-instantiate --eval --json -E \
+            'builtins.filter (n: !builtins.elem n ["lib" "modules" "overlays"]) (builtins.attrNames (import ./default.nix {}))')
+          echo "packages=$packages" >> $GITHUB_OUTPUT
+
   update:
+    needs: detect-packages
     strategy:
       fail-fast: false
       matrix:
-        package:
-          - agent-browser
-          - gh-clean-notifications
-          - playwright-cli
-          - pruner
-          - rsql
-          - skills
-          - some-sass-language-server
+        package: ${{ fromJson(needs.detect-packages.outputs.packages) }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: ${{ !inputs.package || inputs.package == matrix.package }}
       - uses: cachix/install-nix-action@v31
         if: ${{ !inputs.package || inputs.package == matrix.package }}
