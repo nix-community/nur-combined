@@ -50,6 +50,7 @@ in
           nodePackages.prettier
           pipenv
           pkg-config
+          pnpm
           rustup
           systemfd
           uv
