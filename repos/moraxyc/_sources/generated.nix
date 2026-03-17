@@ -192,15 +192,15 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "49d99aff82afbd24a8f7e18320aa400136ff4e31";
+    version = "326906644e6446e933e5c3f32fd8868cac3aca79";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "49d99aff82afbd24a8f7e18320aa400136ff4e31";
+      rev = "326906644e6446e933e5c3f32fd8868cac3aca79";
       fetchSubmodules = false;
-      sha256 = "sha256-TnroZ8n6Yu+bH+HgdzLxO57nQCIr3i8JOm3KugSTjog=";
+      sha256 = "sha256-encb/cXCw32oRgaqNOj3wr7zELgKNyFJAGVa3fEH1wc=";
     };
-    date = "2026-03-15";
+    date = "2026-03-16";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -284,41 +284,41 @@
   };
   superpowers-skills = {
     pname = "superpowers-skills";
-    version = "363923f74aa9cd7b470c0aaa73dee629a8bfdc90";
+    version = "3cee13e516e91d44b957c1336c3d08c8a8392702";
     src = fetchFromGitHub {
       owner = "obra";
       repo = "superpowers";
-      rev = "363923f74aa9cd7b470c0aaa73dee629a8bfdc90";
+      rev = "3cee13e516e91d44b957c1336c3d08c8a8392702";
       fetchSubmodules = false;
-      sha256 = "sha256-AyRGXwWI9xHGeHw9vD64cnV19txR/lOtxudcHnbV75I=";
+      sha256 = "sha256-X4heQM1YjE7m4licqZ/6yJrpq5eIJNMIuQJ1C1XP1FM=";
     };
-    date = "2026-03-11";
+    date = "2026-03-16";
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603152220";
+    version = "202603162227";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603152220/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603162227/geoip.dat";
       sha256 = "sha256-5IuSXZhde/M8/udvMJJBrw8XeWmZY7aTY97CxHQAQdE=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603152220";
+    version = "202603162227";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603152220/geosite.dat";
-      sha256 = "sha256-ov011diedK0EykFAOFANbvhKz13vUZvEgwOZTLyJSrY=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603162227/geosite.dat";
+      sha256 = "sha256-ovg+Jbi+Pwic/dlCP8e27aWg1AYJGZF5AnEdZaysHgw=";
     };
   };
   yass = {
     pname = "yass";
-    version = "1.22.3";
+    version = "1.22.4";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.22.3";
+      rev = "1.22.4";
       fetchSubmodules = true;
-      sha256 = "sha256-1Cfki/Uq0sOrAnhV7AeJYBbNKLlPpPUqBf56yPyz7dY=";
+      sha256 = "sha256-lRyrNKohEGLq+mp7y932BJcgUtnEhAiBANG1IzKdR1o=";
     };
   };
 }
