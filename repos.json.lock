@@ -1552,8 +1552,8 @@
             "url": "https://github.com/michaelglass/nur-packages"
         },
         "mikaelfangel-nur": {
-            "rev": "ad0de59b170bb15dff1834382c0aaaf36fcfb8ca",
-            "sha256": "19l1z0hqrwp071q7vx6b0967ly3mr3zw58psq1libal6ciw8x9i8",
+            "rev": "9c3f50512b528f0ce6bbd9bbe707b8e829350a02",
+            "sha256": "0kp3q2qm3gshaxsv6wmmap6p3gnyzmqrfzm4ffq2m4zq2iyqc256",
             "url": "https://github.com/MikaelFangel/NUR"
         },
         "mikidep": {
