@@ -8,13 +8,13 @@
 
 nh-unwrapped.overrideAttrs (
   finalAttrs: prevAttrs: {
-    version = "4.3.0-unstable-2026-03-15";
+    version = "4.3.0-unstable-2026-03-17";
 
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "605ade361500cf5618818a4a5e8a54fe8d1c3006";
-      hash = "sha256-Hbt7/qK7yupdHBfd4LQ6d1mh4d9PvLw49zhdUQxXHxE=";
+      rev = "98ad645dc185e6db8ff324c49773c08acd4acdd9";
+      hash = "sha256-NIqdQ4xZ7ov8ljVKJv6yIHkP3U2zjG5JrFKalPdh+Qo=";
     };
 
     cargoHash = "sha256-cyho/mSYUQtH0x+cD696TZhdpd0X9UrmtzsSbFfbO30=";
@@ -32,6 +32,7 @@ nh-unwrapped.overrideAttrs (
     };
 
     meta = prevAttrs.meta // {
+      changelog = "https://github.com/XYenon/nh/blob/master/CHANGELOG.md";
       homepage = "https://github.com/XYenon/nh";
       maintainers = with lib.maintainers; [ xyenon ];
     };
