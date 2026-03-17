@@ -266,6 +266,9 @@ EOF
         cp $src/adapters/opencode-plugin/index.ts $out/share/opencode/plugins/
         mkdir -p $out/share/opencode/commands
         cp -r $src/lib $out/share/opencode/commands/
+        chmod -R u+w $out/share/opencode/commands
+
+        find $out/share/opencode/commands -type f -name '*.md' -delete
 
         runHook postInstall
       '';
