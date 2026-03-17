@@ -52,7 +52,7 @@ reIf (
             idp_name = "Pocket ID";
             issuer = "https://oidc.nyaw.xyz/";
 
-            allow_existing_users = true;
+            allow_existing_users = false;
             backchannel_logout_enabled = true;
 
             scopes = [

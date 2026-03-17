@@ -88,7 +88,9 @@ in
         table inet filter {
         	chain forward {
             type filter hook forward priority filter; policy drop;
+            ct state { established, related } accept # allow package back
             iifname "br0" accept
+            ip6 saddr fdcc::/16 ip6 daddr fdcc::/16 accept
         	}
         }
       '';

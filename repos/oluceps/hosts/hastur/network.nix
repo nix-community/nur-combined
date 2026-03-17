@@ -87,6 +87,7 @@
       "10-eno1" = {
         matchConfig.MACAddress = "30:56:0f:58:e1:b3";
         linkConfig.Name = "eno1";
+        linkConfig.MTUBytes = "1492";
       };
 
       "40-wlan0" = {

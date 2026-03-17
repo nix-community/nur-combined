@@ -76,6 +76,7 @@
       linkConfig = {
         Name = "eno1";
         WakeOnLan = "magic";
+        MTUBytes = "1492";
       };
     };
 

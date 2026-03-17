@@ -66,7 +66,7 @@
           obs-pipewire-audio-capture
         ];
       })
-      pkgs.wechat
+      # pkgs.wechat
       pkgs.signal-desktop
       pkgs.porsmo
       pkgs.libnotify # foot
