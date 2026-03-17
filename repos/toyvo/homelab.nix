@@ -351,7 +351,7 @@
   MacMini-Intel = {
     ip = "10.1.0.12";
     # Ethernet
-    mac = "14:c2:13:ed:e6:ed";
+    mac = "68:fe:f7:0e:bc:80";
     # Wifi
     # mac = "f0:18:98:8a:6d:ee";
   };

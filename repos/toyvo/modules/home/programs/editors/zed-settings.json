@@ -1,4 +1,8 @@
 {
+  "git_panel": {
+    "tree_view": true,
+    "sort_by_path": true
+  },
   "icon_theme": "Catppuccin Frappé",
   "terminal": {
     "shell": {

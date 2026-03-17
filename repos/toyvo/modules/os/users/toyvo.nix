@@ -48,7 +48,7 @@ in
                 cfg.toyvo.name
               ]
               ++ lib.optionals (config.containerPresets.podman.enable or false) [ "podman" ];
-              hashedPasswordFile = config.sops.secrets.toyvo_hashed_password.path;
+              initialHashedPassword = "$y$j9T$tkZ4b5vK1fCsRP0oWUb0e1$w0QbUEv9swXir33ivvM70RYTYflQszeLBi3vubYTqd8";
             })
           ]
         );
