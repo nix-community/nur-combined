@@ -612,8 +612,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "029df9ef5e5a247ef0f142e9a77c5840a2ffd658",
-            "sha256": "1x5j2417x1h9k9qhmqmg4cmi63pxwngrgv3vazy31n36v9yxj1ab",
+            "rev": "bc7873f700a94798d776e535a87641b49a32ff86",
+            "sha256": "1bi392d52lndcs10ayy2m661vg53vh3psd6z0xrmn53npqp4pklx",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
@@ -913,8 +913,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "46095345fa052408973e1594775092e2b2250aae",
-            "sha256": "1plmx859wrhbddr4720pmdgdbb745psj38hb3i56bck821972d4i",
+            "rev": "1289d63aba1f425e847f23fee1cff2f2b7c6066e",
+            "sha256": "137d3yf24xdqk8fknzapc9js1mzn110qsmz527zfbdik4q6rgg24",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
