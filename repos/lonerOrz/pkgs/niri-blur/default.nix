@@ -35,8 +35,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "niri-wm";
     repo = "niri";
-    rev = "92c168f56d6653c4899222c235fdd6467c1c351b";
-    hash = "sha256-q3NwYzd/qxcCr2m37uQCnc5BHvC3hsJ4fK5KN5aNSGc=";
+    rev = "17577e7db0e530d56e74ec244a185cdd1b9ad6cc";
+    hash = "sha256-ky0eBF/zoiJTIoLSpV1EmupVCEZMSp9pQIlHOpvDoMU=";
   };
 
   cargoHash = "sha256-F6dT3xBWsjN+pGT3D2PvoqiWJpY/Rv8TkEBX1fthzYs=";
