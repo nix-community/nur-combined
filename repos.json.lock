@@ -532,8 +532,8 @@
             "url": "https://github.com/chap9/chap9-nur"
         },
         "charmbracelet": {
-            "rev": "188a8ddf86fb3b8148e040d9a23bd0a09da37e98",
-            "sha256": "0gqbx8q50p7yx22vivs4b74wbhgk74ijlm7ysdgiycz6kgdav52i",
+            "rev": "76cf1bc0b0ed3635cce87d51cf318f918ac08788",
+            "sha256": "06vxibwy3j430pzhz4szi5iy5c9h6211yhj6n21yjv3h1cp82zha",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
@@ -1416,8 +1416,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "3a149aa4d9526701e4917da44a0953df6337718d",
-            "sha256": "0dyylqfvy6jph3rrhc2f171l4v2c7327a1ksxw0ca336pq5hljdr",
+            "rev": "83f227d500164977f634f64dcc99ece574771f6f",
+            "sha256": "10dkijmhh6v3xmaw57lcqfscrfs95spamgv3nq3g2hy54j435xrp",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
