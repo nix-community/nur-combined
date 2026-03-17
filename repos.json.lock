@@ -1401,8 +1401,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "d0a4ccb614dd078b2329875ee8d52df38c6fd88c",
-            "sha256": "1iyvzd2j9ccl1jj52s8218093h93iinlffjhzgj7vqwc70sd7jyg",
+            "rev": "b9aae1faf7dd1b4f92576eb8068bb361f396ccd0",
+            "sha256": "1majc557zz4xhhzxnvrxqd55k9f9qskkajh9zjlhc60nfqnrvv45",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
@@ -2261,8 +2261,8 @@
             "url": "https://github.com/syberant/nur-packages"
         },
         "szanko": {
-            "rev": "1d2123f5eb202eb597025eb1396273432bc6f6f1",
-            "sha256": "1vakpk0cpwbib343dxjzl6sk9ggg8575g2mpkjmrwh4hmzy2m6x9",
+            "rev": "7670d28d09fd4810783740522f7fba26901070b0",
+            "sha256": "0l17mbv1cma8iqidhqhqx10jvlbhqmvl4mzr6w7wdcxblb7zsqkv",
             "url": "https://github.com/SZanko/nur-packages"
         },
         "tarantoj": {
