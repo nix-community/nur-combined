@@ -1593,8 +1593,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "f70911c347bf538b42ce0d0992188ba90c4c056d",
-            "sha256": "05mgqxmchf0isxkq8bwzaif4x18h2l04ai7whwh6fskgwqlnqjfc",
+            "rev": "7c597ec6f9967e7d87c01716288bc9945d67b889",
+            "sha256": "1wjqqbff5634wy2i3fqfl7wklix71apgzjb1hbya2hqzx8nhbfdb",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2261,8 +2261,8 @@
             "url": "https://github.com/syberant/nur-packages"
         },
         "szanko": {
-            "rev": "7670d28d09fd4810783740522f7fba26901070b0",
-            "sha256": "0l17mbv1cma8iqidhqhqx10jvlbhqmvl4mzr6w7wdcxblb7zsqkv",
+            "rev": "e3c7191b66cfd87be1e9f252248229d283f6e55b",
+            "sha256": "0ddzdaqfz6bfaf7piai2rmchlpsd7y4xagzq4v2m95d9h2s8ls4l",
             "url": "https://github.com/SZanko/nur-packages"
         },
         "tarantoj": {
