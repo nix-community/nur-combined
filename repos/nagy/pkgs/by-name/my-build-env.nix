@@ -79,6 +79,9 @@ let
             pkgs.duf
             pkgs.squashfsTools
             pkgs.qsv
+            pkgs.ytt
+            pkgs.yamllint
+            pkgs.crane
           ];
 
           services.xserver.enable = true;

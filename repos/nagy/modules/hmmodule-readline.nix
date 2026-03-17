@@ -87,7 +87,7 @@
        "\ev": "\C-e --version\C-m"
        "\ep\ev": "\C-e --version\C-m"
        "\ep\ej": "\C-e|j\C-m"
-       "\eT": "\C-a\C-kcd $(mktemp -d)\C-m"
+       "\eT": "\C-a\C-ktmux\C-m"
 
        # apps
        "\epN": "\C-a\C-kncdu\C-m"

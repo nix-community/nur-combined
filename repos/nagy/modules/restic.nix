@@ -2,14 +2,14 @@
   config,
   lib,
   pkgs,
-  nur,
   ...
 }:
 
 let
+  self = import ../. { inherit pkgs; };
   cfg = config.nagy.restic;
   packages = lib.mapAttrsToList (
-    name: value: nur.repos.nagy.lib.mkResticWrapper ({ inherit name; } // value)
+    name: value: self.lib.mkResticWrapper ({ inherit name; } // value)
   ) cfg.attrs;
 in
 {
@@ -25,7 +25,8 @@ in
     environment.systemPackages = [
       pkgs.restic
       # pkgs.rustic
-    ] ++ packages;
+    ]
+    ++ packages;
     nagy.shortcommands.commands = lib.mergeAttrsList (map (x: x.shortcommands) packages);
   };
 }

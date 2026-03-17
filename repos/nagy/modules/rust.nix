@@ -36,7 +36,7 @@
   ];
 
   # # Maybe this is better done via a config file.
-  # environment.variables = {
+  # environment.sessionVariables = {
   #   CARGO_ALIAS_r = "run --quiet";
   #   CARGO_ALIAS_rr = "run --release --quiet";
   #   CARGO_ALIAS_b = "build";

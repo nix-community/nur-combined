@@ -20,198 +20,206 @@ in
     Host github.com gitlab.com git.sr.ht codeberg.org
       IdentitiesOnly yes
       IdentityFile ~/.ssh/id_nagy
-    Host git.mgmt.innovo-cloud.de git.wiit.one
+    Host git.wiit.one git.mgmt.innovo-cloud.de
       IdentitiesOnly yes
       IdentityFile ~/.ssh/id_nagywiit
   '';
 
   programs.git = {
     enable = true;
-    config = {
-      user.name = "Daniel Nagy";
-      user.email = "danielnagy" + "@" + "posteo.de";
-      user.signingkey = "/home/user/.ssh/id_nagy";
-      gpg = {
-        format = "ssh";
-        ssh.allowedSignersFile = pkgs.writeText "allowed_signers" ''
-          danielnagy@posteo.de ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVwcaKID2HpE4ZRYClT1URJCRXiSPsJR4FC5TwnlmCS
-          daniel.nagy@wiit.cloud ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP3LpZ81RkReP5MG3A+MoRB93E+XENLCFh9qmQNcuXV
-        '';
-      };
-      alias = {
-        # c = "commit"; # in included git aliases
-        # co = "checkout"; # in included git aliases
-        cl = "clone";
-        cl1 = "clone --depth 1";
-        f = "fetch";
-        lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
-        lola = "lol --all";
-      };
-      # spend more time to produce a smaller diff
-      # https://git-scm.com/docs/diff-config#Documentation/diff-config.txt-diffalgorithm
-      diff.algorithm = "minimal";
-      commit = {
-        # Show my changes when writing the message
-        verbose = true;
-      };
-      init = {
-        defaultBranch = "master";
-      };
-      push = {
-        default = "current";
-      };
-      pull.rebase = true;
-      fetch.prune = true;
-      include.path =
-        let
-          git-alias = pkgs.fetchFromGitHub {
-            owner = "GitAlias";
-            repo = "gitalias";
-            rev = "ed036c1fd16c8e690329c594bc028f58c6e3b349";
-            sha256 = "sha256-OtKdN4SeJSswtF3Uvs3cMZwTwpL2wEm4KU1iKmfEr30=";
-          };
-        in
-        "${git-alias}/gitalias.txt";
-
-      includeIf."hasconfig:remote.*.url:git@github.com:*/**".path =
-        pkgs.writeText "gitconfig-includeIf" ''
-          [commit]
-              gpgsign = true
-        '';
-      includeIf."hasconfig:remote.*.url:git@github.com:wiit-cloud/**".path =
-        pkgs.writeText "gitconfig-includeIf" ''
-          [user]
-              name = Daniel Nagy
-              email = daniel.nagy@wiit.cloud
-              signingkey = /home/user/.ssh/id_nagywiit
-        '';
-      includeIf."hasconfig:remote.*.url:git@git.wiit.one:*/**".path =
-        pkgs.writeText "gitconfig-includeIf" ''
-          [commit]
-              gpgsign = true
-          [user]
-              name = Daniel Nagy
-              email = daniel.nagy@wiit.cloud
-              signingkey = /home/user/.ssh/id_nagywiit
-        '';
-      includeIf."hasconfig:remote.*.url:git@git.mgmt.innovo-cloud.de:*/**".path =
-        pkgs.writeText "gitconfig-includeIf" ''
-          [commit]
-              gpgsign = true
-          [user]
-              name = Daniel Nagy
-              email = daniel.nagy@wiit.cloud
-              signingkey = /home/user/.ssh/id_nagywiit
-        '';
-
-      merge.conflictStyle = "diff3";
-      gc = {
-        auto = "0";
-      };
-      # https://baecher.dev/stdout/reproducible-git-bundles/
-      # to make packs reproducible
-      pack.threads = 1;
-      # another attempt. untested.
-      index.threads = 1;
-      tar = {
-        "tar.xz".command = "${pkgs.xz}/bin/xz -c";
-        "tar.bz2".command = "${pkgs.bzip2}/bin/bzip2 -c";
-        "tar.zst".command = "${pkgs.zstd}/bin/zstd -c";
-      };
-      # Shiny colors
-      color = {
-        branch = "auto";
-        diff = "auto";
-        interactive = "auto";
-        status = "auto";
-        ui = "auto";
-      };
-      # Pretty much the usual diff colors
-      "color.diff" = {
-        commit = "yellow";
-        frag = "cyan";
-        meta = "yellow";
-        new = "green";
-        old = "red";
-        whitespace = "red reverse";
-      };
-      "color.diff-highlight" = {
-        oldNormal = "red bold";
-        oldHighlight = "red bold 52";
-        newNormal = "green bold";
-        newHighlight = "green bold 22";
-      };
-      # To work around the workaround of CVE-2022-24765.
-      # See https://github.com/NixOS/nixpkgs/issues/169193 for more
-      safe.directory = "*";
-      filter = {
-        # use with `.gitattributes`
-        # file content: *.sqlite3 filter=sqlite3-sql
-        # more info https://github.com/theTaikun/SQLite-git-smudge-and-clean
-        sqlite3-sql = {
-          clean = "${pkgs.sqlite}/bin/sqlite3 %f .dump";
-          smudge = toString (
-            pkgs.writeShellScript "git-smudge-sqlite3" ''
-              TMPFILE=$(mktemp)
-              cat | ${pkgs.sqlite}/bin/sqlite3 "$TMPFILE"
-              cat -- "$TMPFILE"
-              rm -f -- "$TMPFILE"
-            ''
-          );
-        };
-        jq = {
-          clean = "${pkgs.jq}/bin/jq --sort-keys";
-        };
-        # without this, restic snapshots output is not deterministic
-        # jq-restic = {
-        #   clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'";
-        # };
-        # taplo-fmt = {
-        #   clean = "${pkgs.taplo}/bin/taplo fmt -";
-        # };
-        # ruff-format = {
-        #   clean = "ruff format -";
-        # };
-      };
-      diff = {
-        pdf = {
-          textconv = pkgs.writeShellScript "pdftostdout" ''
-            exec ${pkgs.poppler-utils}/bin/pdftotext -layout "$@" -
+    config = [
+      {
+        user.name = "Daniel Nagy";
+        user.email = "danielnagy" + "@" + "posteo.de";
+        user.signingkey = "/home/user/.ssh/id_nagy";
+        gpg = {
+          format = "ssh";
+          ssh.allowedSignersFile = pkgs.writeText "allowed_signers" ''
+            danielnagy@posteo.de ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVwcaKID2HpE4ZRYClT1URJCRXiSPsJR4FC5TwnlmCS
+            daniel.nagy@wiit.cloud ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP3LpZ81RkReP5MG3A+MoRB93E+XENLCFh9qmQNcuXV
           '';
-          binary = true;
         };
-        exif = {
-          textconv = lib.getExe pkgs.exiftool;
-          binary = true;
+        alias = {
+          # c = "commit"; # in included git aliases
+          # co = "checkout"; # in included git aliases
+          cl = "clone";
+          cl1 = "clone --depth 1";
+          f = "fetch";
+          lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
+          lola = "lol --all";
         };
+        # spend more time to produce a smaller diff
+        # https://git-scm.com/docs/diff-config#Documentation/diff-config.txt-diffalgorithm
+        diff.algorithm = "minimal";
+        commit = {
+          # Show my changes when writing the message
+          verbose = true;
+        };
+        init = {
+          defaultBranch = "master";
+        };
+        push = {
+          default = "current";
+        };
+        pull.rebase = true;
+        fetch.prune = true;
+        include.path =
+          let
+            git-alias = pkgs.fetchFromGitHub {
+              owner = "GitAlias";
+              repo = "gitalias";
+              rev = "ed036c1fd16c8e690329c594bc028f58c6e3b349";
+              sha256 = "sha256-OtKdN4SeJSswtF3Uvs3cMZwTwpL2wEm4KU1iKmfEr30=";
+            };
+          in
+          "${git-alias}/gitalias.txt";
+        merge.conflictStyle = "diff3";
+        gc = {
+          auto = "0";
+        };
+        # https://baecher.dev/stdout/reproducible-git-bundles/
+        # to make packs reproducible
+        pack.threads = 1;
+        # another attempt. untested.
+        index.threads = 1;
         tar = {
-          textconv = "${pkgs.gnutar}/bin/tar -tvf";
-          binary = true;
+          "tar.xz".command = "${pkgs.xz}/bin/xz -c";
+          "tar.bz2".command = "${pkgs.bzip2}/bin/bzip2 -c";
+          "tar.zst".command = "${pkgs.zstd}/bin/zstd -c";
         };
-        tar-gz = {
-          textconv = "${pkgs.gnutar}/bin/tar -tvzf";
-          binary = true;
+        # Shiny colors
+        color = {
+          branch = "auto";
+          diff = "auto";
+          interactive = "auto";
+          status = "auto";
+          ui = "auto";
         };
-        tar-bz2 = {
-          textconv = "${pkgs.gnutar}/bin/tar -tvjf";
-          binary = true;
+        # Pretty much the usual diff colors
+        "color.diff" = {
+          commit = "yellow";
+          frag = "cyan";
+          meta = "yellow";
+          new = "green";
+          old = "red";
+          whitespace = "red reverse";
         };
-        tar-xz = {
-          textconv = "${pkgs.gnutar}/bin/tar -tvJf";
-          binary = true;
+        "color.diff-highlight" = {
+          oldNormal = "red bold";
+          oldHighlight = "red bold 52";
+          newNormal = "green bold";
+          newHighlight = "green bold 22";
         };
-        tar-zstd = {
-          textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
-          binary = true;
+        # To work around the workaround of CVE-2022-24765.
+        # See https://github.com/NixOS/nixpkgs/issues/169193 for more
+        safe.directory = "*";
+        filter = {
+          # use with `.gitattributes`
+          # file content: *.sqlite3 filter=sqlite3-sql
+          # more info https://github.com/theTaikun/SQLite-git-smudge-and-clean
+          sqlite3-sql = {
+            clean = "${pkgs.sqlite}/bin/sqlite3 %f .dump";
+            smudge = toString (
+              pkgs.writeShellScript "git-smudge-sqlite3" ''
+                TMPFILE=$(mktemp)
+                cat | ${pkgs.sqlite}/bin/sqlite3 "$TMPFILE"
+                cat -- "$TMPFILE"
+                rm -f -- "$TMPFILE"
+              ''
+            );
+          };
+          jq = {
+            clean = "${pkgs.jq}/bin/jq --sort-keys";
+          };
+          # without this, restic snapshots output is not deterministic
+          # jq-restic = {
+          #   clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'";
+          # };
+          # taplo-fmt = {
+          #   clean = "${pkgs.taplo}/bin/taplo fmt -";
+          # };
+          # ruff-format = {
+          #   clean = "ruff format -";
+          # };
         };
-        orgmode = {
-          xfuncname = "^(\\*+.*)$";
+        diff = {
+          pdf = {
+            textconv = pkgs.writeShellScript "pdftostdout" ''
+              exec ${pkgs.poppler-utils}/bin/pdftotext -layout "$@" -
+            '';
+            binary = true;
+          };
+          exif = {
+            textconv = lib.getExe pkgs.exiftool;
+            binary = true;
+          };
+          tar = {
+            textconv = "${pkgs.gnutar}/bin/tar -tvf";
+            binary = true;
+          };
+          tar-gz = {
+            textconv = "${pkgs.gnutar}/bin/tar -tvzf";
+            binary = true;
+          };
+          tar-bz2 = {
+            textconv = "${pkgs.gnutar}/bin/tar -tvjf";
+            binary = true;
+          };
+          tar-xz = {
+            textconv = "${pkgs.gnutar}/bin/tar -tvJf";
+            binary = true;
+          };
+          tar-zstd = {
+            textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
+            binary = true;
+          };
+          orgmode = {
+            xfuncname = "^(\\*+.*)$";
+          };
+          lisp = {
+            xfuncname = "^(\\(.*)$";
+          };
         };
-        lisp = {
-          xfuncname = "^(\\(.*)$";
-        };
-      };
-    };
+      }
+      {
+        includeIf."hasconfig:remote.*.url:git@github.com:*/**".path =
+          pkgs.writeText "gitconfig-includeIf" ''
+            [commit]
+                gpgsign = true
+          '';
+      }
+      {
+        includeIf."hasconfig:remote.*.url:git@github.com:wiit-cloud/**".path =
+          pkgs.writeText "gitconfig-includeIf" ''
+            [user]
+                name = Daniel Nagy
+                email = daniel.nagy@wiit.cloud
+                signingkey = /home/user/.ssh/id_nagywiit
+          '';
+      }
+      {
+        includeIf."hasconfig:remote.*.url:git@git.wiit.one:*/**".path =
+          pkgs.writeText "gitconfig-includeIf" ''
+            [commit]
+                gpgsign = true
+            [user]
+                name = Daniel Nagy
+                email = daniel.nagy@wiit.cloud
+                signingkey = /home/user/.ssh/id_nagywiit
+          '';
+      }
+      {
+        includeIf."hasconfig:remote.*.url:git@git.mgmt.innovo-cloud.de:*/**".path =
+          pkgs.writeText "gitconfig-includeIf" ''
+            [commit]
+                gpgsign = true
+            [user]
+                name = Daniel Nagy
+                email = daniel.nagy@wiit.cloud
+                signingkey = /home/user/.ssh/id_nagywiit
+          '';
+      }
+    ];
   };
 
   environment.etc.gitattributes = lib.mkIf cfg.enable {
