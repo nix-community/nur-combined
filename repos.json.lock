@@ -1133,8 +1133,8 @@
             "url": "https://github.com/instantOS/nix"
         },
         "ionutnechita": {
-            "rev": "c4f3dd00edbd5a2cb1bf48960ff9910b5b8f7e37",
-            "sha256": "0v9dcyqw48v4nin79ambywand62cmli0m9sw46z5yxc8w874hbm6",
+            "rev": "128cdae7366f37aed33275d2f8b393c5e5cab07a",
+            "sha256": "0flhr3vpagqg04bdr3p25vg6yznhsidxsbvfmms9xl25a9w9hrxk",
             "url": "https://github.com/ionutnechita/ionutnechita-nur-packages"
         },
         "iopq": {
