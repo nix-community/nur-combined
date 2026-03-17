@@ -69,6 +69,7 @@ pkgs ? import <nixpkgs> { }
  
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   stardrop = pkgs.callPackage ./pkgs/stardrop { };
+  redlib = pkgs.callPackage ./pkgs/redlib { };
 
   phantom = pkgs.callPackage ./pkgs/phantom { };
 }
