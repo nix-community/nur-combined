@@ -65,7 +65,7 @@
 , pexpect
 , pillow
 , posthog
-, prompt_toolkit
+, prompt-toolkit
 , propcache
 , proto-plus
 , protobuf
@@ -189,7 +189,7 @@ buildPythonApplication {
     pexpect
     pillow
     posthog
-    prompt_toolkit
+    prompt-toolkit
     propcache
     proto-plus
     protobuf
