@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   pruner = pkgs.callPackage ./pkgs/pruner { };
-  ory.hydra = pkgs.callPackage ./pkgs/ory/hydra { };
   some-sass-language-server = pkgs.callPackage ./pkgs/some-sass-language-server { };
   playwright-cli = pkgs.callPackage ./pkgs/playwright-cli { };
   rsql = pkgs.callPackage ./pkgs/rsql { };
