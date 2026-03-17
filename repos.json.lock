@@ -1839,8 +1839,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "84aea68b1e17a0cd94e98371706a4e8896cf6778",
-            "sha256": "09x77w4ajlldpcsgydvbqh630jl7vb06adb04k4a3ymf500zg8l0",
+            "rev": "eff495e4beedd9f4eb4181e942ffc66fc1f7379c",
+            "sha256": "1j99ncsiqx5gd7g8pjp8kzl3y1ln1cgvrdzr08ddc019z43s7z43",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "dcc0f663e4abf44d80738fca44b9443a99b76f97",
-            "sha256": "0q46fzsiqmg1dk4hgkd06y3lmvf11182kamxsvwmshazkhgx7lji",
+            "rev": "ac1d5570c787c2170f35bc4265bf4f24c60a6c73",
+            "sha256": "00whkny24hr318h9s26xv9p7yp0ib7agg4wnn0caw9ykg82y0ffz",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
