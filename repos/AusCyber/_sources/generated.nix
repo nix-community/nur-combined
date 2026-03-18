@@ -39,7 +39,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-+lHWoixdyGOaKSGhf37DL5wuUXU1yjYhR2XOiJ0yV3Q=";
+      sha256 = "sha256-KmtSQepjuMobT089dVrpbD0XSWMkl8OYZRuxF1VJr+M=";
     };
   };
   helium-linux = {
@@ -103,13 +103,13 @@
   };
   karabiner-dk = {
     pname = "karabiner-dk";
-    version = "v6.10.0";
+    version = "v6.11.0";
     src = fetchFromGitHub {
       owner = "pqrs-org";
       repo = "Karabiner-DriverKit-VirtualHIDDevice";
-      rev = "v6.10.0";
+      rev = "v6.11.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Nlw64Qstdgeh9C7RELiOPkoVNbiZsT3OKHLqhF44yS8=";
+      sha256 = "sha256-eIYpxW7R4EHRRVRKL9HH788D+CLZptd2k2qz2fNKZRY=";
     };
   };
   yabai = {
