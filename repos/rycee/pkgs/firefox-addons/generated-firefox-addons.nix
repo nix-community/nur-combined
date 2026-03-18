@@ -8361,10 +8361,10 @@
     };
     "linkding-injector" = buildMozillaXpiAddon {
       pname = "linkding-injector";
-      version = "1.3.9";
+      version = "1.3.10";
       addonId = "{19561335-5a63-4b4e-8182-1eced17f9b47}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4727363/linkding_injector-1.3.9.xpi";
-      sha256 = "495c966d91fe8da40fd11fb58f645cdd0c04384f7949a9e56475ed949bbe4363";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4730150/linkding_injector-1.3.10.xpi";
+      sha256 = "631cc687e5e5152d0f8e4992295a397c2f99032a2ba0e95b2f69e8982a387c27";
       meta = with lib;
       {
         homepage = "https://github.com/Fivefold/linkding-injector";
@@ -13181,10 +13181,10 @@
     };
     "shaarli" = buildMozillaXpiAddon {
       pname = "shaarli";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "shaarli@imirhil.fr";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4500528/shaarli-2.2.0.xpi";
-      sha256 = "26a123b469718792c25b7382918fc2c20d7bc54dfb24a93d4faa2386c9ac8180";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4730331/shaarli-2.2.1.xpi";
+      sha256 = "080e6e4a92ed42837cb497d98c9178c7501b1985b52a4252cd51cd288572db64";
       meta = with lib;
       {
         description = "Cette extension remplace le bookmarklet officiel et intègre un bouton « Shaarli » dans la barre des modules.";
@@ -14894,10 +14894,10 @@
     };
     "transparent-zen" = buildMozillaXpiAddon {
       pname = "transparent-zen";
-      version = "0.6.1";
+      version = "0.7.0";
       addonId = "{74186d10-f6f2-4f73-b33a-83bb72e50654}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4728443/transparent_zen-0.6.1.xpi";
-      sha256 = "91d9e3143f42cc9ac897b901bdfd5299ae5336c1f44a5485678371c8d7ad40c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4730135/transparent_zen-0.7.0.xpi";
+      sha256 = "772f297cf90bd6232ae9b49d31d5ef07aaf8aaeb93d91370ca4fa869b1810daa";
       meta = with lib;
       {
         description = "Applies custom styles to make your favorite websites transparent.";
