@@ -50,4 +50,5 @@
   };
   userPresets.toyvo.enable = true;
   avf.defaultUser = "toyvo";
+  users.users.toyvo.initialHashedPassword = lib.mkForce "";
 }

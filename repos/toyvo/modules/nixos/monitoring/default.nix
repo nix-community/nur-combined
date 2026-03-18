@@ -85,7 +85,12 @@ in
       extraFlags = [ "--stability.level=generally-available" ];
     };
 
-    users.users.alloy.extraGroups = [ "systemd-journal" ];
+    users.users.alloy = {
+      isSystemUser = true;
+      group = "alloy";
+      extraGroups = [ "systemd-journal" ];
+    };
+    users.groups.alloy = { };
 
     environment.etc."alloy/config.alloy".text = alloyConfig;
   };

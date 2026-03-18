@@ -180,7 +180,6 @@ in
       port = homelab.${hostName}.services.immich.port;
       group = "multimedia";
       package = stablePkgs.immich;
-      database.enableVectors = false;
     };
     jellyfin = {
       enable = true;
@@ -302,6 +301,10 @@ in
     group = "discord_bot";
   };
   sops.secrets."grafana-admin-password" = {
+    owner = "grafana";
+    group = "grafana";
+  };
+  sops.secrets."grafana-secret-key" = {
     owner = "grafana";
     group = "grafana";
   };
