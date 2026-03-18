@@ -241,8 +241,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "aff6fe72bc7a20e834df814534b966b28bed77f2",
-            "sha256": "0adzp9d0k9apxjz3fqrpxwymrndxzwcqvra7vz32s8n5arljahkr",
+            "rev": "f40bb1094d1800bfd3b539834164946af8b876c1",
+            "sha256": "0cvnhklyjh3gwic6jvzwi9a2q5h71r62bfk8jlxq7z3zwbssyjd1",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
@@ -1148,8 +1148,8 @@
             "url": "https://github.com/iopq/nur-packages"
         },
         "itscrystalline": {
-            "rev": "05ef3f118da13d4e9cc0311af578c5bd96b15338",
-            "sha256": "0y4nnarwsnw1gl7awhx1pjh7w5w7n6dfhb95bjfyqpj8gsfcp0sh",
+            "rev": "f16f9baa6d758cbab3f072396492a61397f70118",
+            "sha256": "15xk4zfip6vjkrrwjj6l1jlazk1xn9lc98wqcg2jivx6ws143mkr",
             "url": "https://github.com/itscrystalline/nur-packages"
         },
         "iuricarras": {
@@ -2572,8 +2572,8 @@
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
         "ymstnt": {
-            "rev": "3cf817e006b68f3e2589c827595a2752d5017f44",
-            "sha256": "1329yzcprzi8pg08jzcks1wvjhidhpl8lpd93fs63j8bd6ad83hg",
+            "rev": "41bb3e81c46c0ccd608fceee02ed2e9244fadc19",
+            "sha256": "0fzss0zrywskhbdlcnj6vyawrwn7yvrrw2cxgy9v79mfg71zbci6",
             "url": "https://github.com/ymstnt/nur-packages"
         },
         "ysndr": {
