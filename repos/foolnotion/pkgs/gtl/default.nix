@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "greg7mdp";
     repo = "gtl";
-    rev = "v${version}";
-    sha256 = "sha256-kSmHgcaCZDNgNZdGqacrUa7d6iTtDm9BVazXUPnI5Zc=";
+    rev = "b4ac266c9008b6a1ea3d92633adb2066c05a48e6";
+    sha256 = "sha256-c0Mwzems8sGeYgGe0LKsk+5v2KR2js/StXInTR3GZ6o=";
   };
 
   nativeBuildInputs = [ cmake ];
