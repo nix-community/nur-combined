@@ -7,6 +7,7 @@ keys:
   - &server_hp_zbook age1vmg4qw7t6hjrulggky8lvujhrenufv6qjjvsejhfrdnnstlrcehqp6c65m
   - &server_mac_mini_m1 age1058m4v4ylsrg5wyedy3lxcc0lps9t6sqhqd9y8zyq8d740v84afsvsrke9
   - &server_mac_mini_intel age19654camqtu0y2n6gdhttm4xrnm8sggnjztt0u40fgewlm9ku4f3qa347l0
+  - &server_mac_mini_intel_nixos age1rn29fe3kpr2564fqj77z04fku4579kptusxm3lwatzg0fpkghpus48g75p
   - &server_macbook_pro age1604q5hpr027v8dg4x96chgkf2cs2zgnq8ntg0ce6uat4umvn45ws6s6dhc
   - &server_macbook_pro_nixos age1v3frajfater66nykc3rynceg359qwjpwlg48ne338w0zlkgr0ecq542f9f
   - &server_nas age1cdhakptq68qa7w3kmszkmlygfgu94evze6x66l7ekafsr2jlyf0sfhq29x
@@ -17,6 +18,7 @@ keys:
   - &server_steamdeck_nixos age1wlrat6ckl34359tnqrww8jc0tlyedy33puzw9uvhszralfzcpaaqesg4ts
   - &server_thinkpad age1xech2qev7kpnquuv88qtaygnqtp4972ke605puef5hj6mjvh6ypqg7ud7q
   - &server_work age1hftc90y0377ekg80a6e2080fl7qtve6jqrx3wwzmtpm7fcucqu2sn7mema
+  - &server_pixel10a age15x3ujyd9u805dfe3txdrpc00cvna83tygvctf0j4ccmuys3f2ajsy3ed4t
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
@@ -25,6 +27,7 @@ creation_rules:
           - *server_hp_zbook
           - *server_mac_mini_m1
           - *server_mac_mini_intel
+          - *server_mac_mini_intel_nixos
           - *server_macbook_pro
           - *server_macbook_pro_nixos
           - *server_nas
@@ -35,3 +38,4 @@ creation_rules:
           - *server_steamdeck_nixos
           - *server_thinkpad
           - *server_work
+          - *server_pixel10a

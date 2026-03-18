@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   inputs,
   system,
@@ -10,11 +11,13 @@
 {
   imports = [
     ../../modules/os/defaults.nix
+    ../../modules/os/dev.nix
     ../../modules/os/console.nix
     ../../modules/os/podman.nix
     ../../modules/os/users/toyvo.nix
     ../../modules/nixos/defaults.nix
     ../../modules/nixos/filesystems.nix
+    inputs.nixos-hardware.nixosModules.apple-t2
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
@@ -26,6 +29,17 @@
     inputs.nur.modules.nixos.default
     inputs.sops-nix.nixosModules.sops
   ];
+
+  # Override T2 kernel to use stablePkgs.linux_6_12 (6.12.76) because
+  # unstablePkgs.linux_6_12 (6.12.77) has a patch failure in nixos-hardware.
+  boot.kernelPackages = lib.mkForce (
+    pkgs.linuxPackagesFor (
+      pkgs.callPackage (inputs.nixos-hardware + "/apple/t2/pkgs/linux-t2") {
+        linux_6_12 = stablePkgs.linux_6_12;
+      }
+    )
+  );
+
   home-manager = {
     extraSpecialArgs = {
       inherit
@@ -55,8 +69,12 @@
     kernelModules = [ "kvm-intel" ];
   };
   profiles.defaults.enable = true;
+  profiles.dev.enable = true;
   userPresets.toyvo.enable = true;
   services.openssh.enable = true;
+  environment.systemPackages = with pkgs; [
+    signal-cli
+  ];
   disko.devices.disk.nvme0n1 = {
     type = "disk";
     device = "/dev/nvme0n1";
