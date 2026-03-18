@@ -202,11 +202,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-CtL4FEBNIhj4lQWhonDY3jEfJKY/tqt9r4l3NGWUmTM=",
+      "sha256": "sha256-arcHfwuy5GK3FwikzJi7Qo0Cn/+6ShxLCoHin8RTpww=",
       "type": "url",
-      "url": "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.521/lxgw-wenkai-gb-v1.521.tar.gz"
+      "url": "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.522/lxgw-wenkai-gb-v1.522.tar.gz"
     },
-    "version": "v1.521"
+    "version": "v1.522"
   },
   "lyrica": {
     "cargoLock": {
