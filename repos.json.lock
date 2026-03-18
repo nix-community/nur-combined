@@ -1899,8 +1899,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "547db0cd2239e7cdcf4f84e2befec238488bb9bb",
-            "sha256": "16xw072hani8wrv5gjvfqy8nx8rd09gwfjx3qcbci09qxkdxfda7",
+            "rev": "503845db7760b7cceea2ac6eb2bb37c871614616",
+            "sha256": "0hjm6mnrq9ywvjn4hn998ycjglh37yxagfzssv0dcrwlpdhdc1z1",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
@@ -2437,8 +2437,8 @@
             "url": "https://github.com/ViZiD/nur-vizqq"
         },
         "vladexa": {
-            "rev": "a350cdc30e9aaacfc59babe327e2ece8e65c3730",
-            "sha256": "0s6814f8pnpp01f2wdvr569r8f3pccqsinpa10hmz9dmhk4dg803",
+            "rev": "e444dffbc7be86e48a4cc27fb40447226b1f3e34",
+            "sha256": "09c6dmsyv7f1gjmv91cn8dcp8siqpgvfvh639g972i260wian6xw",
             "url": "https://github.com/VlaDexa/nur-packages"
         },
         "vojtechstep": {
