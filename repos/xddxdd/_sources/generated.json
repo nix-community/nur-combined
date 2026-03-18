@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8398",
-            "sha256": "sha256-8TroihNBfYVyZjxhhi2x9EEIbhhVXJPRgdzluaevtmA=",
+            "rev": "b8412",
+            "sha256": "sha256-6LF/cBwpMMY233h4eeiRKfN1pN4SOQQOneaeMBnVmRs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8398"
+        "version": "b8412"
     },
     "loralib": {
         "cargoLock": null,
@@ -2394,7 +2394,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-03-15",
+        "date": "2026-03-18",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2406,12 +2406,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "353cc49139f7574883696e31fe0ef535273872ba",
-            "sha256": "sha256-P/gSg/mqVwvpfunQ0L+iUla2ip0ogmbABg4Ww2VojHw=",
+            "rev": "3e43928bf4d26f6e07a858248e8b1f7f6fbe05f8",
+            "sha256": "sha256-VgKX5p1rS5R8ClqT/AO5aCK5wrt3a3oqW8sBCb0bKfM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "353cc49139f7574883696e31fe0ef535273872ba"
+        "version": "3e43928bf4d26f6e07a858248e8b1f7f6fbe05f8"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,

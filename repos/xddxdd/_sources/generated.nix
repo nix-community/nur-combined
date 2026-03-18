@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8398";
+    version = "b8412";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8398";
-      hash = "sha256-8TroihNBfYVyZjxhhi2x9EEIbhhVXJPRgdzluaevtmA=";
+      tag = "b8412";
+      hash = "sha256-6LF/cBwpMMY233h4eeiRKfN1pN4SOQQOneaeMBnVmRs=";
     };
   };
   loralib = {
@@ -1235,14 +1235,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "353cc49139f7574883696e31fe0ef535273872ba";
+    version = "3e43928bf4d26f6e07a858248e8b1f7f6fbe05f8";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "353cc49139f7574883696e31fe0ef535273872ba";
-      hash = "sha256-P/gSg/mqVwvpfunQ0L+iUla2ip0ogmbABg4Ww2VojHw=";
+      rev = "3e43928bf4d26f6e07a858248e8b1f7f6fbe05f8";
+      hash = "sha256-VgKX5p1rS5R8ClqT/AO5aCK5wrt3a3oqW8sBCb0bKfM=";
     };
-    date = "2026-03-15";
+    date = "2026-03-18";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
