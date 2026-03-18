@@ -30,7 +30,7 @@ buildNpmPackage (finalAttrs: {
     owner = "Brainicism";
     repo = "bgutil-ytdlp-pot-provider";
     rev = version;
-    hash = "sha256-WPLNjfVYDbPsEMVhjuF3dVarahdIKT7pt518SePfB8A=";
+    hash = "sha256-dhpataQ1HSCRPnm4k3K/NMaQPQdNrx8C4q855l7kbbQ=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/server";
