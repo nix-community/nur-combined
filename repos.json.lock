@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "f7cb685d8cc9a5140b3ff375c558045b95345810",
-            "sha256": "1hagqkbc3nbp6mcixk6505y2q6m32r2bhp07qcixkkfqh8isbhqs",
+            "rev": "5db7a1ba0aa89abf59130d318154ded5abe5b999",
+            "sha256": "1aqva9268z7c2ga5y8v1xf03qd6i7zkhc4r9zwvm9m47l9nhl4xx",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -241,8 +241,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "f40bb1094d1800bfd3b539834164946af8b876c1",
-            "sha256": "0cvnhklyjh3gwic6jvzwi9a2q5h71r62bfk8jlxq7z3zwbssyjd1",
+            "rev": "e2f36c1548ec059fe6ee5f2aac30bd27614c3041",
+            "sha256": "1ccykrkn8v1ka8dkc2q3kzx8vl777rmzr4fx9g72x2na620bxf02",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
