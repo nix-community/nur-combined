@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "eve";
@@ -14,6 +16,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [ "-DEVE_BUILD_TEST=OFF" "-DEVE_BUILD_BENCHMARKS=OFF" "-DEVE_BUILD_DOCUMENTATION=OFF" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "EVE - the Expressive Vector Engine in C++20.";

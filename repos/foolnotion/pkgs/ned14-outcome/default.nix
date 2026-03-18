@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, git, quickcpplib, status-code, byte-lite, span-lite }:
+{ lib, stdenv, fetchFromGitHub, cmake, git, quickcpplib, status-code, byte-lite, span-lite 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "ned14-outcome";
@@ -28,6 +30,8 @@ stdenv.mkDerivation rec {
     mkdir -p include/outcome/experimental/status-code
     cp -r ${status-code}/* include/outcome/experimental/status-code/
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++14 library for reporting and handling function failures";

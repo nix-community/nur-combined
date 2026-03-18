@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     owner = "jeremy-rifkin";
     repo = "cpptrace";
     rev = "v${version}";
-    hash = "sha256-Rqj0yFOOOZyK4BJWVFGyYznMSSwNgb+o1HTykyyOWcA=";
+    hash = "sha256-KmAJEEU1aTKwleGBllSxlrsO4jVSTKnSTQQZyJ50loY=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -19,6 +19,8 @@ stdenv.mkDerivation rec {
     "-DCPPTRACE_USE_EXTERNAL_LIBDWARF=1"
     "-DCPPTRACE_USE_EXTERNAL_ZSTD=1"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Simple, portable, and self-contained C++ stacktrace library";

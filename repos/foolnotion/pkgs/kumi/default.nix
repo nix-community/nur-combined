@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cpm-cmake, copacabana }:
+{ lib, stdenv, fetchFromGitHub, cmake, cpm-cmake, copacabana 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "kumi";
@@ -23,6 +25,8 @@ stdenv.mkDerivation rec {
     "-DKUMI_BUILD_TEST=0"
     "-DCPM_COPACABANA_SOURCE=${copacabana}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++20 implementation of a tuple-like class";

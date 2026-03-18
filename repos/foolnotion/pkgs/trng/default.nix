@@ -3,6 +3,8 @@
 , cmake
 , fetchFromGitHub
 , enableStatic ? stdenv.hostPlatform.isStatic
+
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
@@ -24,6 +26,8 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}"
   ];
 
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Modern C++ pseudo random number generator library";

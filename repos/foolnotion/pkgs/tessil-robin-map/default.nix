@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "tessil-robin-map";
@@ -12,6 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++ implementation of a fast hash map and hash set using open-addressing and linear robin hood hashing with backward shift deletion to resolve collisions.";

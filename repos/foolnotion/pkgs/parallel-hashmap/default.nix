@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "parallel-hashmap";
@@ -21,6 +23,8 @@ stdenv.mkDerivation rec {
     install -m 644 phmapTargets.cmake $out/lib/cmake/phmap/
     echo "include(\"''\\$''\{CMAKE_CURRENT_LIST_DIR}/phmapTargets.cmake\"''\)" > $out/lib/cmake/phmap/phmapConfig.cmake
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Very efficient, memory friendly, concurrent, drop-in replacement for std::unordered_map, std::unordered_set, std::map and std::set";

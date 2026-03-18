@@ -1,4 +1,6 @@
-{ lib, pkgs, stdenv, fetchFromGitHub, cmake, cpptrace, magic-enum, zstd, libdwarf, enableTesting ? true }:
+{ lib, pkgs, stdenv, fetchFromGitHub, cmake, cpptrace, magic-enum, zstd, libdwarf, enableTesting ? true 
+, nix-update-script
+}:
 let
   magic-enum = pkgs.magic-enum.overrideAttrs (old: { cmakeFlags = old.cmakeFlags ++ (if !enableTesting then [ "-DMAGIC_ENUM_OPT_BUILD_TESTS=0" "-DMAGIC_ENUM_OPT_BUILD_EXAMPLES=0" ] else [ ]); });
 in
@@ -21,6 +23,8 @@ stdenv.mkDerivation rec {
     "-DLIBASSERT_USE_EXTERNAL_CPPTRACE=1"
     "-DLIBASSERT_USE_EXTERNAL_MAGIC_ENUM=1"
   ] ++ cpptrace.cmakeFlags;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++ assertion library";

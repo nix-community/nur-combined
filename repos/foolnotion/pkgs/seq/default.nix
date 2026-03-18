@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, headerOnly ? false, enableAvx2 ? true }:
+{ lib, stdenv, fetchFromGitHub, cmake, headerOnly ? false, enableAvx2 ? true 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "seq";
@@ -18,6 +20,8 @@ stdenv.mkDerivation rec {
     "-DENABLE_AVX2=${if enableAvx2 then "ON" else "OFF"}"
     "-DCMAKE_CXX_FLAGS=-march=x86-64-v3"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Collection of original C++11 STL-like containers and related tools";

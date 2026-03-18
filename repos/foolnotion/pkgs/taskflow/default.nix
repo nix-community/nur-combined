@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,10 +25,12 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = ''
-    cmakeFlags="$cmakeFlags -DCMAKE_INSTALL_PREFIX=$out" 
+    cmakeFlags="$cmakeFlags -DCMAKE_INSTALL_PREFIX=$out"
   '';
 
   doCheck = false;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A general-purpose parallel and heterogeneous task programming system";

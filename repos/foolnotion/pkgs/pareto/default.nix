@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, git, pythonPackages }:
+{ lib, stdenv, fetchFromGitHub, cmake, git, pythonPackages 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "pareto";
@@ -20,6 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = false;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Spatial Containers, Pareto Fronts, and Pareto Archives";

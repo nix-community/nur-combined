@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "xad";
@@ -19,6 +21,8 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
     "${if stdenv.targetPlatform.isx86_64 then "-DXAD_SIMD_OPTION=AVX2" else ""}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++ library for automatic differentiation";

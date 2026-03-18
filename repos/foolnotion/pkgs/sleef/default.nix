@@ -1,5 +1,7 @@
 { lib, stdenv, fetchFromGitHub, cmake, git, tlfloat, pkg-config
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+, enableShared ? !stdenv.hostPlatform.isStatic 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "sleef";
@@ -24,6 +26,8 @@ stdenv.mkDerivation rec {
     "-DSLEEF_ENABLE_TLFLOAT=ON"
     "-DSLEEF_BUILD_TESTS=OFF"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "SIMD Library for Evaluating Elementary Functions";

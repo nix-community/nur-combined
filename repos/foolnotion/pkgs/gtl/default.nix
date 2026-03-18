@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtl";
@@ -26,6 +28,8 @@ stdenv.mkDerivation rec {
     install -m 644 gtlTargets.cmake $out/lib/cmake/gtl/
     echo "include(\"''\\$''\{CMAKE_CURRENT_LIST_DIR}/gtlTargets.cmake\"''\)" > $out/lib/cmake/gtl/gtlConfig.cmake
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Greg's template library of useful classes";

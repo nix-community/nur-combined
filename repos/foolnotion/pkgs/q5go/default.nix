@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, qmake, libxcb, qtbase, qtsvg, qtmultimedia, wrapQtAppsHook }:
+{ lib, stdenv, fetchFromGitHub, qmake, libxcb, qtbase, qtsvg, qtmultimedia, wrapQtAppsHook 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "q5go";
@@ -18,6 +20,8 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     qmake ./src/q5go.pro PREFIX=$out
     '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "SGF editor and analysis frontend for KataGo, Leela Zero or compatible engines";

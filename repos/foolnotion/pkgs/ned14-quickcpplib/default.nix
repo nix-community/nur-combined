@@ -1,5 +1,7 @@
 
-{ lib, stdenv, fetchFromGitHub, cmake, git, byte-lite, span-lite }:
+{ lib, stdenv, fetchFromGitHub, cmake, git, byte-lite, span-lite 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "ned14-quickcpplib";
@@ -25,6 +27,8 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     substituteInPlace cmakelib/quickcpplibConfig.override.cmake.in --replace-fail find_dependency find_package
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Library to eliminate all the tedious hassle when making state-of-the-art C++ 14 - 23 libraries.";

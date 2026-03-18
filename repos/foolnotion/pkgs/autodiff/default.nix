@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, catch2, cmake, eigen }:
+{ lib, stdenv, fetchFromGitHub, python3Packages, catch2, cmake, eigen 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "autodiff";
@@ -19,6 +21,8 @@ stdenv.mkDerivation rec {
     "-DAUTODIFF_BUILD_EXAMPLES=OFF"
     "-DAUTODIFF_BUILD_DOCS=OFF"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++17 library that uses modern and advanced programming techniques to enable automatic computation of derivatives in an efficient, easy, and intuitive way.";

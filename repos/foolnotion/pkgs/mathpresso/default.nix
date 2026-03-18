@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, cmake }:
+{ stdenv, lib, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 let
   asmjit_src = fetchFromGitHub {
     repo   = "asmjit";
@@ -30,6 +32,8 @@ stdenv.mkDerivation {
     install -m 755 ./libmathpresso.so $out/lib
     install -m 644 $src/src/mathpresso/mathpresso.h $out/include
     '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Mathematical expression parser and JIT compiler";

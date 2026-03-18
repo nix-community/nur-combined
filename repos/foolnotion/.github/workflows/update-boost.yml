@@ -1,0 +1,76 @@
+name: Update Boost Cluster
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-boost:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Boost cluster
+        run: ./pkgs/boost-parser/update.sh
+
+      - name: Build Boost packages
+        run: |
+          nix build "path:$PWD#boost-hana" "path:$PWD#boost-type-index" "path:$PWD#boost-parser" -L
+
+      - name: Smoke test boost-parser consumer
+        run: |
+          out=$(nix build "path:$PWD#boost-parser" --print-out-paths --no-link)
+          cat > test.cpp <<'EOF'
+          #include <boost/parser/parser.hpp>
+
+          int main()
+          {
+            namespace bp = boost::parser;
+            auto result = bp::parse("123", bp::int_);
+            return result ? 0 : 1;
+          }
+          EOF
+          nix shell nixpkgs#gcc -c c++ -std=c++20 -I"$out/include" test.cpp -o test
+
+      - name: Determine Boost version
+        id: boost-version
+        run: |
+          version=$(sed -n 's/^  version = "\([0-9.]*\)";/\1/p' pkgs/boost-parser/default.nix | head -n1)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "boost: update cluster to ${{ steps.boost-version.outputs.version }}"
+          title: "boost: update cluster to ${{ steps.boost-version.outputs.version }}"
+          body: |
+            Automated Boost cluster update.
+
+            Updated packages:
+            - boost-config
+            - boost-core
+            - boost-assert
+            - boost-container-hash
+            - boost-throw-exception
+            - boost-type-index
+            - boost-hana
+            - boost-parser
+
+            Validation run in CI:
+            - built boost-hana, boost-type-index, and boost-parser
+            - compiled a minimal consumer against boost-parser headers
+          branch: automation/update-boost-${{ steps.boost-version.outputs.version }}
+          delete-branch: true

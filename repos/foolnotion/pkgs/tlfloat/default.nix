@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "tlfloat";
@@ -16,6 +18,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DBUILD_TESTS=OFF"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++ template library for floating point operations";

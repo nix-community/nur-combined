@@ -2,6 +2,8 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
@@ -20,6 +22,8 @@ stdenv.mkDerivation rec {
   patches = [ ./fix_errors.patch ];
 
   cmakeFlags = [ "-DNB_sanitizer=OFF" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Platform independent microbenchmarking library for C++11/14/17/20";

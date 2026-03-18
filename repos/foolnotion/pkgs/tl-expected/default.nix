@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "tl-expected";
@@ -16,6 +18,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DEXPECTED_BUILD_TESTS=OFF"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Single header implementation of std::expected with functional-style extension    s";

@@ -1,16 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, boostConfig 
+{ lib, stdenv, fetchFromGitHub, boostConfig, boostCore 
 , nix-update-script
 }:
 
 stdenv.mkDerivation rec {
-  pname = "boost-hana";
+  pname = "boost-assert";
   version = "1.90.0";
 
   src = fetchFromGitHub {
     owner = "boostorg";
-    repo = "hana";
+    repo = "assert";
     rev = "boost-${version}";
-    sha256 = "sha256-lFaH6qPEDtYEKAjZhFyvqtfQR3GENkE/15zkGNgAy7A=";
+    sha256 = "sha256-uTS34jOzHoo4yz1ZcN6gHYYzR7ihcPlvVrmOHnRK8BU=";
   };
 
   dontConfigure = true;
@@ -23,15 +23,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = [ boostConfig ];
+  propagatedBuildInputs = [ boostConfig boostCore ];
 
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "Header-only library for C++ metaprogramming suited for computations on both types and values";
-    homepage = "https://github.com/boostorg/hana";
+    description = "Boost assertion support headers";
+    homepage = "https://github.com/boostorg/assert";
     license = licenses.boost;
     platforms = platforms.all;
-    #maintainers = with maintainers; [ foolnotion ];
   };
 }

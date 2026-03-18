@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub 
+, nix-update-script
+}:
 stdenv.mkDerivation rec {
   name = "cmake-utils";
   version = "1.0.1";
@@ -14,6 +16,8 @@ stdenv.mkDerivation rec {
     mkdir $out
     install -D $src/*.cmake $out/
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Utility functions for CMake projects";

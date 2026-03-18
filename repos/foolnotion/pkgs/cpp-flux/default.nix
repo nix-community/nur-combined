@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "cpp-flux";
@@ -17,6 +19,8 @@ stdenv.mkDerivation rec {
     "-DFLUX_BUILD_EXAMPLES=OFF"
     "-DFLUX_BUILD_TESTS=OFF"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A C++20 library for sequence-orientated programming";

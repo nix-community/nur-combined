@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake
+, nix-update-script
+}:
 stdenv.mkDerivation rec {
   pname = "libdwarf";
   version = "2.0.0";
@@ -11,6 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Library for reading DWARF2 and DWARF formats";

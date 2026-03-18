@@ -3,6 +3,8 @@
 , fetchFromGitHub
 , cmake
 , buildShared ? !stdenv.hostPlatform.isStatic
+
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
@@ -19,6 +21,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [ ] ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++ library to make performance analysis more intuitive and focused";

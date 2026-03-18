@@ -1,4 +1,6 @@
-{ cmake, lib, stdenv, fetchFromGitHub }:
+{ cmake, lib, stdenv, fetchFromGitHub 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "aria-csv";
@@ -12,6 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Fast, header-only, C++11 CSV parser.";

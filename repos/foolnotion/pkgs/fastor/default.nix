@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "Fastor";
@@ -14,6 +16,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   patches = [ ./pkgconfig-includedir.patch ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A lightweight high performance tensor algebra framework for modern C++";

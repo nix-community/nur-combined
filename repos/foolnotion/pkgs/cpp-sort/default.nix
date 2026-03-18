@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,6 +23,8 @@ stdenv.mkDerivation rec {
     "-DCPPSORT_BUILD_TESTING=OFF"
     "-DCPPSORT_BUILD_EXAMPLES=OFF"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Generic header-only C++14 sorting library.";

@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "boost_unordered";
@@ -16,6 +18,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DBUS_INCLUDE_TESTS=OFF" ];
 
   patches = [ ./cmake_install_rules.patch ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Standalone version of the boost::unordered library";

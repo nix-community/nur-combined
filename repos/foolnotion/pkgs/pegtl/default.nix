@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "PEGTL";
@@ -19,6 +21,8 @@ stdenv.mkDerivation rec {
     "-DPEGTL_INSTALL_DOC_DIR=share/pegtl"
     "-DPEGTL_INSTALL_CMAKE_DIR=share/pegtl/cmake"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Zero-dependency C++ header-only parser combinator library.";

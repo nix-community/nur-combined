@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub 
+, nix-update-script
+}:
 stdenv.mkDerivation rec {
   name = "copacabana";
   version = "0.0~git20241110.f699088";
@@ -15,6 +17,8 @@ stdenv.mkDerivation rec {
     install -D $src/copacabana/cmake/*.cmake $out/copacabana/cmake/
     install -D $src/copacabana/cmake/asset/* $out/copacabana/cmake/asset/
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "CMake tools for the Kumi and Eve projects";

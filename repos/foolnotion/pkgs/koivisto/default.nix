@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub }:
+{ lib, stdenv, fetchurl, fetchFromGitHub 
+, nix-update-script
+}:
 stdenv.mkDerivation rec {
   pname = "Koivisto";
   version = "9.0";
@@ -26,6 +28,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" "PEXT=0" "POPCNT=1" "AVX=1" "AVX2=1" "PGO=0" ];
   enableParallelBuilding = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://github.com/Luecx/Koivisto";

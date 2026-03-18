@@ -1,4 +1,6 @@
-{ vectorclass-cmake, lib, stdenv, fetchFromGitHub }:
+{ vectorclass-cmake, lib, stdenv, fetchFromGitHub 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "vectorclass";
@@ -31,6 +33,8 @@ Cflags: -I$out/include/vectorclass" > $out/lib/pkgconfig/vectorclass.pc
 
     sed -i "s|VECTORCLASS_INCLUDE_DIR|$out/include|g" $out/share/vectorclass/vectorclassTargets.cmake
     '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++ class library for using the Single Instruction Multiple Data (SIMD) instructions to improve performance on modern microprocessors with the x86 or x86/64 instruction set";

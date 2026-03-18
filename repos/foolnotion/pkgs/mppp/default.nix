@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gmp }:
+{ lib, stdenv, fetchFromGitHub, cmake, gmp 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "mppp";
@@ -13,6 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ gmp ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++11/14/17/20 library for multiprecision arithmetic";

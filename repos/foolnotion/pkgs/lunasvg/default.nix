@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, plutovg }:
+{ lib, stdenv, fetchFromGitHub, cmake, plutovg 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "lunasvg";
@@ -16,6 +18,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DLUNASVG_BUILD_EXAMPLES=0" "-DUSE_SYSTEM_PLUTOVG=1" ];
 
   patches = [ ./lunasvg_pkgconfig.patch ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "SVG rendering library in C++";

@@ -25,7 +25,47 @@ rec {
     stdenv = pkgs.llvmPackages_latest.stdenv;
   };
 
-  boost-hana = pkgs.callPackage ./pkgs/boost-hana { };
+  boost-config = pkgs.callPackage ./pkgs/boost-config { };
+
+  boost-core = pkgs.callPackage ./pkgs/boost-core {
+    boostConfig = boost-config;
+  };
+
+  boost-assert = pkgs.callPackage ./pkgs/boost-assert {
+    boostConfig = boost-config;
+    boostCore = boost-core;
+  };
+
+  boost-hana = pkgs.callPackage ./pkgs/boost-hana {
+    boostConfig = boost-config;
+  };
+
+  boost-container-hash = pkgs.callPackage ./pkgs/boost-container-hash {
+    boostConfig = boost-config;
+  };
+
+  boost-throw-exception = pkgs.callPackage ./pkgs/boost-throw-exception {
+    boostAssert = boost-assert;
+    boostConfig = boost-config;
+    boostCore = boost-core;
+  };
+
+  boost-type-index = pkgs.callPackage ./pkgs/boost-type-index {
+    boostConfig = boost-config;
+    boostContainerHash = boost-container-hash;
+    boostCore = boost-core;
+    boostThrowException = boost-throw-exception;
+  };
+
+  boost-parser = pkgs.callPackage ./pkgs/boost-parser {
+    boostAssert = boost-assert;
+    boostConfig = boost-config;
+    boostContainerHash = boost-container-hash;
+    boostCore = boost-core;
+    boostHana = boost-hana;
+    boostThrowException = boost-throw-exception;
+    boostTypeIndex = boost-type-index;
+  };
 
   boost_unordered = pkgs.callPackage ./pkgs/boost_unordered { };
 

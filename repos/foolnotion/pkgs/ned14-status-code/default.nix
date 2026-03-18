@@ -1,5 +1,7 @@
 
-{ lib, stdenv, fetchFromGitHub, cmake, git }:
+{ lib, stdenv, fetchFromGitHub, cmake, git 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "ned14-status-code";
@@ -17,6 +19,8 @@ stdenv.mkDerivation rec {
   postInstall = ''
     cp -r ${src}/single-header $out/
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Reference implementation for proposed SG14 status_code";

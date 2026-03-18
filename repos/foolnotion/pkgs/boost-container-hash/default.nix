@@ -3,14 +3,14 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "boost-hana";
+  pname = "boost-container-hash";
   version = "1.90.0";
 
   src = fetchFromGitHub {
     owner = "boostorg";
-    repo = "hana";
+    repo = "container_hash";
     rev = "boost-${version}";
-    sha256 = "sha256-lFaH6qPEDtYEKAjZhFyvqtfQR3GENkE/15zkGNgAy7A=";
+    sha256 = "sha256-Yu3Qc7yRFkusfnS107Rrs+yXFcBQuNhfZ9lAAMsHbLA=";
   };
 
   dontConfigure = true;
@@ -28,10 +28,9 @@ stdenv.mkDerivation rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "Header-only library for C++ metaprogramming suited for computations on both types and values";
-    homepage = "https://github.com/boostorg/hana";
+    description = "Boost container hash support headers";
+    homepage = "https://github.com/boostorg/container_hash";
     license = licenses.boost;
     platforms = platforms.all;
-    #maintainers = with maintainers; [ foolnotion ];
   };
 }

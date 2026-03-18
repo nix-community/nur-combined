@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja }:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "optional";
@@ -17,6 +19,8 @@ stdenv.mkDerivation rec {
     "-DOPTIONAL_ENABLE_TESTING=OFF"
     "-DCMAKE_CXX_STANDARD=20"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++26 Extensions for std::optional";

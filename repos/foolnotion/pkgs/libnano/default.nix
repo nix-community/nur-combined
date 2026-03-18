@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, eigen, writeShellScriptBin }:
+{ lib, stdenv, fetchFromGitHub, cmake, eigen, writeShellScriptBin 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnano";
@@ -23,6 +25,8 @@ stdenv.mkDerivation rec {
     "-DNANO_BUILD_CMD_APP=OFF"
     "-DNANO_BUILD_TESTS=OFF"
   ] ++ lib.optionals stdenv.isx86_64 [ "-DCMAKE_CXX_FLAGS=-march=x86-64-v3" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Extensive collection of numerical optimization algorithms in C++";

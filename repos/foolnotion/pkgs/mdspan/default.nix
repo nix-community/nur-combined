@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "mdspan";
@@ -20,6 +22,8 @@ stdenv.mkDerivation rec {
     "-DMDSPAN_ENABLE_BENCHMARKS=OFF"
     "-DMDSPAN_INSTALL_STDMODE_HEADERS=ON"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Header-only implementation of ISO-C++ proposal P0009 (non-owning multi-dimensional array)";

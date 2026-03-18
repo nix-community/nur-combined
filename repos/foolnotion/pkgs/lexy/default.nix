@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "lexy";
@@ -18,6 +20,8 @@ stdenv.mkDerivation rec {
     "-DLEXY_BUILD_EXAMPLES=OFF"
     "-DLEXY_ENABLE_INSTALL=ON"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A parser combinator library for C++17 and onwards.";

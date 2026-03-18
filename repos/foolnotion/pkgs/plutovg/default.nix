@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "plutovg";
@@ -15,6 +17,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DPLUTOVG_BUILD_EXAMPLES=0" ];
 
   patches = [ ./fix_pc_prefix.patch ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Tiny 2D vector graphics library in C";

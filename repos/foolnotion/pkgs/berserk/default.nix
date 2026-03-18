@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub }:
+{ lib, stdenv, fetchurl, fetchFromGitHub 
+, nix-update-script
+}:
 
 let
   version = "13";
@@ -35,6 +37,8 @@ in stdenv.mkDerivation rec {
 
   makeFlags = [ "VERBOSE=1" "VERSION=${version}" "PREFIX=$(out)" ];
   enableParallelBuilding = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://github.com/jhonnold/berserk";

@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "cpp-lazy";
@@ -16,6 +18,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCPP-LAZY_USE_STANDALONE=ON"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A fast C++11/14/17/20 header only library for lazy evaluation and function tools";

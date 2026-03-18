@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cmake-utils }:
+{ lib, stdenv, fetchFromGitHub, cmake, cmake-utils 
+, nix-update-script
+}:
 stdenv.mkDerivation rec {
   pname = "ktl";
   version = "1.4.2";
@@ -13,6 +15,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [ "-DKTL_INSTALL=ON" "-DFETCHCONTENT_SOURCE_DIR_CMAKE-UTILS=${cmake-utils}" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A lightweight set of utility headers written in C++20.";

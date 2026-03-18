@@ -4,6 +4,8 @@
 , cmake
 , fast-float
 , enableShared ? !stdenv.hostPlatform.isStatic
+
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
@@ -31,6 +33,8 @@ stdenv.mkDerivation rec {
     "-DSCN_INSTALL=ON"
     "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Modern C++ library for replacing scanf and std::istream";

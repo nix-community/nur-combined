@@ -2,6 +2,8 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
@@ -26,6 +28,8 @@ stdenv.mkDerivation rec {
     "-DDYNAMICBITSET_USE_STD_BITOPS=ON"
     "-DDYNAMICBITSET_USE_COMPILER_BUILTIN=ON"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "C++17/20 header-only dynamic bitset";

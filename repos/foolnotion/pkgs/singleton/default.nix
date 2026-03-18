@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake 
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "singleton";
@@ -16,6 +18,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DSINGLETON_INSTALL=ON"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Implement thread-safe singleton classes using CRTP";
