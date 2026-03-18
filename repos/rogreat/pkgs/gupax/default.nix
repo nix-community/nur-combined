@@ -21,22 +21,22 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gupax";
-  version = "2.0.0";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "hinto-janai";
     repo = "gupax";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-dIuGp4qIdw5rGqAHIJoNpOABxo9CBMD8d06Kl0T5PNM=";
+    hash = "sha256-sBmgX8nRfo5i4CgZpFcepfyH8K4InQTqiZK65U8wGaM=";
     leaveDotGit = true; # build.rs uses git
   };
 
-  cargoHash = "sha256-BNwMD8XDOF50sa1vwVAbqJcAz3vxm33PG6IjWP4FFWk=";
+  cargoHash = "sha256-7Kew11N/rakHLhKBu+BUM3f4AP9xDZl1xARpbyqHCFY=";
 
   checkFlags = [
     # Test requires filesystem write outside of sandbox.
     "--skip disk::test::create_and_serde_gupax_p2pool_api"
-    # Tests require access to CA certificates
+    # Tests require access to CA certificates.
     "--skip disk::tests::test::create_and_serde_gupax_p2pool_api"
     "--skip helper::tests::test::public_api_deserialize"
     "--skip helper::xvb::algorithm::test::test_manual_p2pool_mode"
@@ -93,7 +93,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # cuprate-constants requires a SHA hash and git doesn't work here.
     # cuprate rev used: https://github.com/gupax-io/gupax/blob/main/Cargo.lock
     # build script: https://github.com/Cuprate/cuprate/blob/main/constants/build.rs
-    GITHUB_SHA = "adbded5ffa2cd472dea20e227466d6573588e6af";
+    GITHUB_SHA = "aa35ebdcb1a44dd11d778d50f6d32234c8802803";
   };
 
   passthru.updateScript = nix-update-script { };
