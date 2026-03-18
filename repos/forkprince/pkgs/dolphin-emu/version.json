@@ -6,9 +6,9 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "2603",
+  "version": "2603a",
   "asset": {
-    "url": "https://dl.dolphin-emu.org/releases/2603/dolphin-2603-universal.dmg",
-    "hash": "sha256-WO2PBWfHn84vKH0JZxjrAxj+pOt/dHt/bgn+japoya0="
+    "url": "https://dl.dolphin-emu.org/releases/2603a/dolphin-2603a-universal.dmg",
+    "hash": "sha256-K33dixjgsOi0ks/VOF2igBSlSXBh3C2AciK7PMRXXf0="
   }
 }
