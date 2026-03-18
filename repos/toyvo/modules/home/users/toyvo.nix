@@ -138,7 +138,7 @@ in
           };
           matchBlocks."10.1.0.*" = identityConfig;
         };
-      zed = {
+      zed-editor = {
         enable = cfg.gui.enable;
         package = pkgs.zed-editor;
       };

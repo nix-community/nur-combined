@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.programs.zed;
+  cfg = config.programs.zed-editor;
   baseSettings = builtins.fromJSON (builtins.readFile ./zed-settings.json);
   settingsWithSecrets = baseSettings // {
     context_servers = (baseSettings.context_servers or { }) // {
@@ -27,12 +27,7 @@ let
   };
 in
 {
-  options.programs.zed = {
-    enable = lib.mkEnableOption "enable zed";
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.zed-editor;
-    };
+  options.programs.zed-editor = {
     githubPatSecret = lib.mkOption {
       type = lib.types.str;
       default = "github_toyvo_pat";
