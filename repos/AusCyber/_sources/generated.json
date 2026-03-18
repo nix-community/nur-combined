@@ -54,7 +54,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6wAXxzTogIPJIIf8f5vCkixdt88RxTyoujEy9bCDZzw=",
+            "sha256": "sha256-+lHWoixdyGOaKSGhf37DL5wuUXU1yjYhR2XOiJ0yV3Q=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip"
         },
