@@ -365,6 +365,11 @@
             "sha256": "1781gnwcahb5v4r9aysclr4qgba3w6ym23bbkqy61hzqsgjsjznk",
             "url": "https://github.com/avrahambenaram/nur-packages"
         },
+        "avycado13": {
+            "rev": "b1ac2f843009d1036e8ea327ed4640149f3dbe36",
+            "sha256": "16cvqsphlnzni2v8b9il40ql5q1r51dg0zmk4gnf7v0zh1h9v7xh",
+            "url": "https://github.com/avycado13/nur-packages"
+        },
         "awa2333": {
             "rev": "68ab044728841032452e824c3a8dc1be1f53de25",
             "sha256": "07m6h452iyrq55a42rjh949qv0ksn7mq7c0bm9x3phy29anq7fiw",
@@ -525,11 +530,6 @@
             "rev": "48e11e3bb7df3aa9a23b309b543a47cbb29ee40b",
             "sha256": "18x03ga9l41nzj32nrmw39gssnza69inki0jh6bg4xv6mygmrdy2",
             "url": "https://github.com/ihebchagra/nur-packages"
-        },
-        "chap9": {
-            "rev": "0572b339b276f633dcd6cd178261eec9e7eefeac",
-            "sha256": "15740w9l13kachcfjc4lh6q8vzjh72j92sygwggh98wry8p4hbrl",
-            "url": "https://github.com/chap9/chap9-nur"
         },
         "charmbracelet": {
             "rev": "76cf1bc0b0ed3635cce87d51cf318f918ac08788",
@@ -1111,6 +1111,11 @@
             "rev": "53a73b95ec91360af4f969b45f71faa12dd71948",
             "sha256": "038skvs2536ryy6f9dahl3zdg6r0gpxcf8sp17pawzcz418v9bk0",
             "url": "https://github.com/ilkecan/nur-packages"
+        },
+        "illidan127": {
+            "rev": "0572b339b276f633dcd6cd178261eec9e7eefeac",
+            "sha256": "15740w9l13kachcfjc4lh6q8vzjh72j92sygwggh98wry8p4hbrl",
+            "url": "https://github.com/illidan127/illidan127-nur"
         },
         "ilya-fedin": {
             "rev": "c9525c76b4d092ea0646024f78eeafeafff0d71b",
