@@ -8,3 +8,4 @@ requests.http
 __pycache__
 CLAUDE.local.md
 .claude/settings.local.json
+.superpowers/

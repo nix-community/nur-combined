@@ -115,12 +115,19 @@
         icon = "sh-coder";
       };
       cockpit = {
-        port = 9090;
+        port = 9091;
         selfSigned = true;
         displayName = "Cockpit";
         description = "Server Management";
         category = "DevOps";
         icon = "sh-cockpit";
+      };
+      grafana = {
+        port = 3000;
+        displayName = "Grafana";
+        description = "Observability Dashboards";
+        category = "DevOps";
+        icon = "sh-grafana";
       };
       qbittorrent = {
         port = 4080;
@@ -366,7 +373,7 @@
     ip = "10.1.0.14";
     mac = "b4:8c:9d:b9:5d:fb";
   };
-  oracle = {
+  oracle-cloud-nixos = {
     ip = "149.130.210.149";
     services.minecraft = {
       port = 7878;

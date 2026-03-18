@@ -3,7 +3,7 @@
   ...
 }:
 let
-  wireguardInterface = "wg0";
+  wireguardInterface = "wg-proton";
   wireguardInterfaceNamespace = "protonvpn0";
   wireguardGateway = "10.2.0.1";
 in

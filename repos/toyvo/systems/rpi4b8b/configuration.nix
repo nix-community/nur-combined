@@ -16,6 +16,7 @@
     ../../modules/os/users/toyvo.nix
     ../../modules/nixos/defaults.nix
     ../../modules/nixos/filesystems.nix
+    ../../modules/nixos/monitoring/default.nix
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
@@ -56,5 +57,6 @@
   profiles.defaults.enable = true;
   userPresets.toyvo.enable = true;
   fileSystemPresets.sd.enable = true;
+  services.monitoring.enable = true;
   services.openssh.enable = true;
 }

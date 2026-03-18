@@ -25,6 +25,10 @@ in
     ../../modules/nixos/containers/podman.nix
     ../../modules/nixos/containers/portainer.nix
     ../../modules/nixos/containers/chat.nix
+    ../../modules/nixos/monitoring/default.nix
+    ../../modules/nixos/monitoring/grafana.nix
+    ../../modules/nixos/monitoring/prometheus.nix
+    ../../modules/nixos/monitoring/loki.nix
     ./samba.nix
     ./nextcloud.nix
     ./homepage.nix
@@ -232,6 +236,12 @@ in
     };
     spice-vdagentd.enable = true;
     qbittorrent.enable = true;
+    monitoring = {
+      enable = true;
+      grafana.enable = true;
+      prometheus.enable = true;
+      loki.enable = true;
+    };
   };
   containerPresets = {
     podman.enable = true;
@@ -290,5 +300,9 @@ in
   sops.secrets."discord_bot.env" = {
     owner = "discord_bot";
     group = "discord_bot";
+  };
+  sops.secrets."grafana-admin-password" = {
+    owner = "grafana";
+    group = "grafana";
   };
 }

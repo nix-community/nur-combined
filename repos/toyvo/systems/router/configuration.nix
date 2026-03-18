@@ -20,6 +20,8 @@ in
     ../../modules/os/users/toyvo.nix
     ../../modules/nixos/defaults.nix
     ../../modules/nixos/filesystems.nix
+    ../../modules/nixos/monitoring/default.nix
+    ../../modules/nixos/wireguard/default.nix
     ./kea.nix
     ./virtual-hosts.nix
     inputs.arion.nixosModules.arion
@@ -61,6 +63,7 @@ in
         "br0"
         "br0.20"
         "br0.30"
+        "wg0"
       ];
     };
     firewall = {
@@ -73,6 +76,7 @@ in
         ];
         allowedUDPPorts = [
           443
+          51820
         ];
       };
       interfaces.br0 = {
@@ -331,7 +335,23 @@ in
         };
       };
     };
-    caddy.enable = true;
+    caddy = {
+      enable = true;
+      globalConfig = ''
+        servers {
+          metrics
+        }
+      '';
+    };
+    monitoring.enable = true;
+    wireguard-tunnel = {
+      enable = true;
+      role = "server";
+      address = "10.100.0.1/24";
+      privateKeySecret = "wireguard-router-private-key";
+      peerPublicKey = "G78etq+AQlSTd1fOXTpxt+mSB5A+kozeUFfagXz49Ws=";
+      peerAllowedIPs = [ "10.100.0.2/32" ];
+    };
     cloudflare-dyndns = {
       enable = true;
       domains = [
@@ -366,5 +386,6 @@ in
     };
   sops.secrets = {
     cloudflare_w_dns_r_zone_token = { };
+    "wireguard-router-private-key" = { };
   };
 }

@@ -16,7 +16,9 @@
     ../../modules/os/podman.nix
     ../../modules/os/users/toyvo.nix
     ../../modules/nixos/defaults.nix
+    ../../modules/nixos/monitoring/default.nix
     ../../modules/nixos/services/minecraft.nix
+    ../../modules/nixos/wireguard/default.nix
     ../../modules/nixos/containers/podman.nix
     ../../modules/nixos/containers/portainer.nix
     ../../modules/nixos/vintagestory.nix
@@ -94,9 +96,27 @@
       enable = true;
       settings.PasswordAuthentication = false;
     };
+    monitoring.enable = true;
+    wireguard-tunnel = {
+      enable = true;
+      role = "peer";
+      address = "10.100.0.2/24";
+      privateKeySecret = "wireguard-oracle-private-key";
+      peerPublicKey = "9EZ8ZiCF34RiMr06QiKBIYGckS9DFUBeX85boFhz2yo=";
+      peerEndpoint = "toyvo.dev:51820";
+      peerAllowedIPs = [
+        "10.100.0.0/24"
+        "10.1.0.0/24"
+      ];
+    };
     caddy = {
       enable = true;
       email = "collin@diekvoss.com";
+      globalConfig = ''
+        servers {
+          metrics
+        }
+      '';
       virtualHosts."mc.toyvo.dev" = {
         useACMEHost = "mc.toyvo.dev";
         extraConfig = "reverse_proxy http://0.0.0.0:7878";
@@ -144,6 +164,7 @@
     cloudflare_w_dns_r_zone_token = { };
     "discord_bot.env" = { };
     "rclone.conf" = { };
+    "wireguard-oracle-private-key" = { };
   };
   users.users.caddy.extraGroups = [ "acme" ];
   userPresets.toyvo.enable = true;
