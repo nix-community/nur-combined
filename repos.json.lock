@@ -1623,8 +1623,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "c6cadb4100fbfc96a3019f4523ee7d3e317ee201",
-            "sha256": "0jn6dgrm6s149grpaw1mf8hki63q6n7yihn91gnf7p48d44d2qh9",
+            "rev": "dc7b0fa2094d239acf5ca2e8eba446e2df3a3b85",
+            "sha256": "12dcc1yv8mb59cckii7f4mmgjvwsa7hv8w7v0wk4j261hr26ihkb",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
