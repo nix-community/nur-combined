@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "2de04391ecb2e4db289b641de27cbe9eb64ee0fc",
-            "sha256": "1wsr5zfviawgx0mah3zi11xafbh8ql4mvm4f2ghrb95lwm2i9q22",
+            "rev": "f7cb685d8cc9a5140b3ff375c558045b95345810",
+            "sha256": "1hagqkbc3nbp6mcixk6505y2q6m32r2bhp07qcixkkfqh8isbhqs",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -2352,8 +2352,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "8d1813030c770bbd9188e8cbdc47a153aa7c4dc1",
-            "sha256": "0my6p3378c51c78c4rg2gaqwkxx5rz9idvfgmc9az3psdcims0m7",
+            "rev": "c4418571230a92f01ba354daf1d0edec69393de0",
+            "sha256": "03vj9s14b4awqz4zdhrk5a6h9nlsawz4pzd1fnp1phvw9rgrs7b7",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
