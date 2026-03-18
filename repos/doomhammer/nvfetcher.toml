@@ -6,6 +6,10 @@ fetch.github = "DTW-DanWard/PowerShell-Beautifier"
 src.github = "Hammerspoon/hammerspoon"
 fetch.url = "https://github.com/Hammerspoon/hammerspoon/releases/download/$ver/Hammerspoon-$ver.zip"
 
+[omniwm]
+src.github = "BarutSRB/OmniWM"
+fetch.url = "https://github.com/BarutSRB/OmniWM/releases/download/$ver/OmniWM-$ver.zip"
+
 [paperwm-spoon]
 src.git = "https://github.com/mogenson/PaperWM.spoon"
 src.branch = "main"

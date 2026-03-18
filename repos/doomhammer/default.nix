@@ -21,6 +21,7 @@ in
   overlays = import ./overlays; # nixpkgs overlays
 
   hammerspoon = pkgs.callPackage ./pkgs/hammerspoon { source = sources.hammerspoon; };
+  omniwm = pkgs.callPackage ./pkgs/omniwm { source = sources.omniwm; };
   paperwm-spoon = pkgs.callPackage ./pkgs/paperwm-spoon { source = sources.paperwm-spoon; };
   powershell-beautifier = pkgs.callPackage ./pkgs/powershell-beautifier {
     source = sources.powershell-beautifier;

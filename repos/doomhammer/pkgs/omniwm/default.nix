@@ -6,14 +6,12 @@
 }:
 
 let
-  appName = "Hammerspoon.app";
+  appName = "OmniWM.app";
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   inherit (source) pname version src;
 
   nativeBuildInputs = [ unzip ];
-
-  preferLocalBuild = true;
 
   installPhase = ''
     runHook preInstall
@@ -24,12 +22,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  doInstallCheck = true;
+
   meta = {
-    description = "Staggeringly powerful macOS desktop automation with Lua";
-    homepage = "https://github.com/Hammerspoon/hammerspoon";
-    changelog = "https://github.com/Hammerspoon/hammerspoon/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.mit;
+    license = lib.licenses.gpl2;
+    mainProgram = "omniwm";
+    homepage = "https://github.com/BarutSRB/OmniWM";
+    description = "MacOS Niri and Hyprland inspired tiling window manager that's developer signed and notorized (safe for managed enterprise environments)";
     platforms = lib.platforms.darwin;
+    maintainers = [ ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
-})
+}

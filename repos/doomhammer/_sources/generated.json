@@ -14,6 +14,21 @@
         },
         "version": "1.1.1"
     },
+    "omniwm": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "omniwm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-T0U1NXU9hXdC/1Uebbcowxub99qNZIA1zsgA5t+4WiY=",
+            "type": "url",
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.2.1/OmniWM-v0.4.2.1.zip"
+        },
+        "version": "v0.4.2.1"
+    },
     "paperwm-spoon": {
         "cargoLock": null,
         "date": "2026-03-12",
