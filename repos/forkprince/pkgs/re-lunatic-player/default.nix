@@ -32,7 +32,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs =
     [
-      copyDesktopItems
       makeWrapper
       pnpmConfigHook
       nodejs
@@ -41,6 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ]
     ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
       autoPatchelfHook
+      copyDesktopItems
     ];
 
   buildInputs = lib.optionals stdenvNoCC.hostPlatform.isLinux [
@@ -59,27 +59,32 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
+    CI = 1; # makes the logs more readable during builds
   };
 
-  desktopItems = makeDesktopItem {
-    name = finalAttrs.pname;
-    desktopName = "Re:Lunatic Player";
-    exec = finalAttrs.pname;
-    startupWMClass = "Re:Lunatic Player";
-    genericName = "Radio Player";
-    icon = finalAttrs.pname;
-    keywords = [
-      "radio"
-      "touhou"
-      "lunatic"
-      "player"
-      "music"
-    ];
-    categories = [
-      "Audio"
-      "AudioVideo"
-    ];
-  };
+  desktopItems = lib.optionals stdenvNoCC.hostPlatform.isLinux [
+    (makeDesktopItem {
+      name = finalAttrs.pname;
+      desktopName = "Re:Lunatic Player";
+      exec = finalAttrs.pname;
+      icon = finalAttrs.pname;
+      startupNotify = true;
+      startupWMClass = "Re:Lunatic Player";
+      terminal = false;
+      genericName = "Radio Player";
+      keywords = [
+        "radio"
+        "touhou"
+        "lunatic"
+        "player"
+        "music"
+      ];
+      categories = [
+        "Audio"
+        "AudioVideo"
+      ];
+    })
+  ];
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
@@ -89,6 +94,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     export npm_config_nodedir=${electron.headers}
+
+    # disabling this fixes darwin builds
+    substituteInPlace node_modules/@electron-forge/plugin-fuses/dist/FusesPlugin.js \
+      --replace-fail "resetAdHocDarwinSignature: !hasOSXSignConfig &&" \
+                     "resetAdHocDarwinSignature: false &&"
 
     # override the detected electron version
     substituteInPlace node_modules/@electron-forge/core-utils/dist/electron-version.js \
@@ -111,30 +121,36 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     pnpm package
   '';
 
-  installPhase =
-    lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
-      mkdir -p $out/share
+  installPhase = builtins.concatStringsSep "\n" [
+    (
+      lib.optionalString stdenvNoCC.hostPlatform.isLinux
+      ''
+        mkdir -p $out/share
+        cp -r out/*/resources{,.pak} "$out/share"
 
-      install -Dm644 src/img/logo.png $out/share/icons/hicolor/256x256/apps/re-lunatic-player.png
+        makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
+          --add-flags $out/share/resources/app.asar \
+          --set ELECTRON_FORCE_IS_PACKAGED 1 \
+          --inherit-argv0
 
-      cp -r out/*/resources{,.pak} "$out/share"
+        install -Dm644 src/img/logo.png $out/share/icons/hicolor/256x256/apps/re-lunatic-player.png
+      ''
+    )
+    (
+      lib.optionalString stdenvNoCC.hostPlatform.isDarwin
+      ''
+        mkdir -p $out/Applications
+        cp -r out/*/Re-Lunatic\ Player.app $out/Applications
 
-      makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
-        --add-flags $out/share/resources/app.asar \
-        --set ELECTRON_FORCE_IS_PACKAGED 1 \
-        --inherit-argv0
+        makeWrapper "$out/Applications/Re-Lunatic Player.app/Contents/MacOS/re-lunatic-player" "$out/bin/re-lunatic-player" \
+          --set ELECTRON_FORCE_IS_PACKAGED 1 \
+          --inherit-argv0
+      ''
+    )
     ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
-      mkdir -p $out/Applications
-      cp -r out/*/Re-Lunatic\ Player.app $out/Applications
-
-      makeWrapper "$out/Applicaations/Re-Lunatic Player.app/Contents/Macos/re-lunatic-player" "$out/bin/re-lunatic-player" \
-        --set ELECTRON_FORCE_IS_PACKAGED 1 \
-        --inherit argv0
-    ''
-    + ''
       runHook postInstall
-    '';
+    ''
+  ];
 
   meta = {
     description = "Music player for Gensokyo Radio";
