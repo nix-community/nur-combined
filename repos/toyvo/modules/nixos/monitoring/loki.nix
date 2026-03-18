@@ -55,6 +55,7 @@
           retention_enabled = true;
           delete_request_cancel_period = "10m";
           retention_delete_delay = "2h";
+          delete_request_store = "filesystem";
         };
       };
     };
