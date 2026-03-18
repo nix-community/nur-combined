@@ -13,7 +13,7 @@ let
   pname = "vhs-decode";
   version = "0.3.9";
 
-  rev = version;
+  rev = "v${version}";
   hash = "sha256-FehJW/4lkstM0WI9EhEGOTnEls9E5MGHY/QGMGpg+QY=";
   cargoHash = "sha256-fKAqjvx4Gqa426OyR2qEPXUPEneXGOT1GqOMFDol0Zc=";
 
