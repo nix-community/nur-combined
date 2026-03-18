@@ -11,6 +11,11 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '25 9 * * *'
   workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   tests:
     strategy:
@@ -74,3 +79,43 @@ jobs:
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+    - name: Update nix flake (scheduled only)
+      if: github.event_name == 'schedule'
+      run: |
+        set -e
+        nix flake update
+        nix flake show --json > /dev/null
+        # Re-validate after update to ensure nothing broke
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build with updated flake (scheduled only)
+      if: github.event_name == 'schedule'
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Check if flake.lock changed (scheduled only)
+      if: github.event_name == 'schedule'
+      id: flake-check
+      run: |
+        if git diff --quiet flake.lock; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+        fi
+    - name: Commit and push flake updates (scheduled only)
+      if: github.event_name == 'schedule' && steps.flake-check.outputs.changed == 'true'
+      uses: EndBug/add-and-commit@v9
+      with:
+        author_name: github-actions
+        author_email: github-actions[bot]@users.noreply.github.com
+        message: |
+          chore: update nix flake (automated)
+
+          Updated flake inputs via automated scheduled workflow.
+        add: flake.lock
+        committer_name: github-actions
+        committer_email: github-actions[bot]@users.noreply.github.com
+
