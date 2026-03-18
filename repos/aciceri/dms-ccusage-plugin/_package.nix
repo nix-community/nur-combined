@@ -2,7 +2,10 @@
   lib,
   stdenvNoCC,
   makeWrapper,
-  util-linux,
+  coreutils,
+  gnused,
+  gnugrep,
+  expect,
 }:
 
 stdenvNoCC.mkDerivation {
@@ -23,6 +26,8 @@ stdenvNoCC.mkDerivation {
   postPatch = ''
     substituteInPlace CcusageWidget.qml \
       --replace-fail "@ccusage-usage@" "$out/bin/ccusage-usage"
+    substituteInPlace ccusage-usage.sh \
+      --replace-fail "@expect@" "${expect}/bin/expect"
   '';
 
   installPhase = ''
@@ -33,7 +38,13 @@ stdenvNoCC.mkDerivation {
 
     install -m755 ccusage-usage.sh $out/bin/ccusage-usage
     wrapProgram $out/bin/ccusage-usage \
-      --prefix PATH : ${lib.makeBinPath [ util-linux ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          gnused
+          gnugrep
+        ]
+      }
 
     runHook postInstall
   '';
