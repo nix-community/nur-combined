@@ -25,17 +25,17 @@ let
 
   sha256 =
     {
-      x86_64-linux = "19av7y1am384mzpac7kdnqi0c094dbzq8lld4nrlan2p405z5p1a";
-      x86_64-darwin = "0bmryqff3hxb0i8rww62dl50w199h2b7w4d83pfxr2dpxhiba7l0";
-      aarch64-linux = "1nxkbi6zk00glkisj8rm76amccm4zq33155sn4pbf5dv3j91rl68";
-      aarch64-darwin = "08h5mfayd7l65ni7xlvrvm7zjbys10q5vc74n9j4a5sadl42fqrs";
-      armv7l-linux = "0s3n8rw9fcc57nri52c8dccyin49f5xivhinf0c3wz0inlqwjxk3";
+      x86_64-linux = "01y376ilx8rlw31f7l86wf4n7b1xrx2bncaj0yf518kmmwx1lnc8";
+      x86_64-darwin = "1644hpcxd8c7s0gs0kaxwp68x708nw3p32ll35fzdxn4qq4xrlrz";
+      aarch64-linux = "0zc39bza4j94irpkr5n2saf8jbgl5m8hi823rc3yci3m6fcpr8f3";
+      aarch64-darwin = "1d1xz64m9ghcxyzghki6phhlysz09ix4nyna9s42z65v5p1iyd3w";
+      armv7l-linux = "0s0nc0fs34wikhvykq901cffr3ljx48k7g9apqnmwgvqazhdslvd";
     }
     .${system} or throwSystem;
 in
 
 callPackage "${path}/pkgs/applications/editors/vscode/generic.nix" rec {
-  version = "1.112.0-insider";
+  version = "1.113.0-insider";
   pname = "vscode-insiders";
   updateScript = ./update.sh;
 
