@@ -244,18 +244,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.9.17";
+    version = "1.9.18";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.17/NipaPlay_1.9.17_macOS_Universal.dmg";
-      sha256 = "sha256-UfG0DspnUsPlf1BUgTfIDvdl1Tc/D5X6RfeNeeF8zhA=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay_1.9.18_macOS_Universal.dmg";
+      sha256 = "sha256-VY6wgcZvAD1SoNaPZALbnQMrFwbN38NKW2hDUVWCyZU=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.9.17";
+    version = "1.9.18";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.17/NipaPlay-1.9.17-Linux-amd64.AppImage";
-      sha256 = "sha256-XOyuUIj2FRIPY6vSuoepKrdm8chDk/nei9XlMAyf/7k=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay-1.9.18-Linux-amd64.AppImage";
+      sha256 = "sha256-EHqXU7rLxuZhO1xpQzqUB1hk+YrRdWj0pE23Ekpo4yg=";
     };
   };
   pixy2 = {
@@ -293,6 +293,17 @@
       sha256 = "sha256-Yq7y6VDrREV60WpfaGsYdnWqoaS7g1hrtci4bGtgtZM=";
     };
     date = "2026-03-17";
+  };
+  udpxy = {
+    pname = "udpxy";
+    version = "1.0-25.2";
+    src = fetchFromGitHub {
+      owner = "pcherenkov";
+      repo = "udpxy";
+      rev = "1.0-25.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-v+w4Y6MyJqUrgwuYUYTZW0Zn1jhW4vEpgBEQyEjvkzg=";
+    };
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";

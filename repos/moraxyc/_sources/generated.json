@@ -423,11 +423,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-UfG0DspnUsPlf1BUgTfIDvdl1Tc/D5X6RfeNeeF8zhA=",
+            "sha256": "sha256-VY6wgcZvAD1SoNaPZALbnQMrFwbN38NKW2hDUVWCyZU=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.17/NipaPlay_1.9.17_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay_1.9.18_macOS_Universal.dmg"
         },
-        "version": "1.9.17"
+        "version": "1.9.18"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -438,11 +438,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XOyuUIj2FRIPY6vSuoepKrdm8chDk/nei9XlMAyf/7k=",
+            "sha256": "sha256-EHqXU7rLxuZhO1xpQzqUB1hk+YrRdWj0pE23Ekpo4yg=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.17/NipaPlay-1.9.17-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay-1.9.18-Linux-amd64.AppImage"
         },
-        "version": "1.9.17"
+        "version": "1.9.18"
     },
     "pixy2": {
         "cargoLock": null,
@@ -506,6 +506,27 @@
             "type": "github"
         },
         "version": "7e516434f2a30114300efc9247db32fb37daa5f9"
+    },
+    "udpxy": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "udpxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "pcherenkov",
+            "repo": "udpxy",
+            "rev": "1.0-25.2",
+            "sha256": "sha256-v+w4Y6MyJqUrgwuYUYTZW0Zn1jhW4vEpgBEQyEjvkzg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.0-25.2"
     },
     "v2ray-rules-dat-geoip": {
         "cargoLock": null,
