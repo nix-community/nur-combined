@@ -276,8 +276,8 @@
             "url": "https://git.alanpearce.eu/nix-packages"
         },
         "alarsyo": {
-            "rev": "6459ca71c13e77152e9c4f06251746da819239ba",
-            "sha256": "031b50nmnagb5n51llw1prq34fvfzj69ij37887dlvnngw51v3k7",
+            "rev": "4621ae4151a13dccd41c311b8df31efe5bdee6b5",
+            "sha256": "1s5g1dhjcjh8brwn96nzgv2wyr2nsqf9l7ql5flvapvvn2xii3ii",
             "url": "https://github.com/alarsyo/nixos-config"
         },
         "aleksana": {
