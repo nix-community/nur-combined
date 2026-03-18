@@ -522,8 +522,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "4928b0c479d280f37783e3cf44ea472184c7b436",
-            "sha256": "0f2ik0y8rk0z4avxpci78g4jncsmp3fmlq3f4j1z3cs4m57h9438",
+            "rev": "426fe2b8559d896dd52970cfce5801321ea69f93",
+            "sha256": "0al1cbkm1bl0sax6p9kfyvkrffawjjfnqjz1ax1lrzkn87rw5mxb",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -577,8 +577,8 @@
             "url": "https://github.com/ChrisOboe/nurrepo"
         },
         "chrjabs": {
-            "rev": "0123914f3b437a6d2a3147ac1bc91037c3c69a39",
-            "sha256": "0412pn649i0l4v60kglmc4nyzwrvcyw6rw28sqiddgphx8l19y6b",
+            "rev": "1a3e5b094937d3d5be4a9b12597ca339454038bb",
+            "sha256": "05z6r9ddfv5x2g7866v61dwxhn2s87j18cfv6l4c5w3k1ls74dnh",
             "url": "https://github.com/chrjabs/nur-packages"
         },
         "cinqwqeggs": {
@@ -597,8 +597,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "5b6cfce93d61f55a14dd6d41d2e4de2f5ae18f24",
-            "sha256": "1bqg1h3dlag3rcmqz9r9fw0wkpapwgp25b304f3j1p720iyjqj0x",
+            "rev": "51a74c92c51279d9d7d6e31a5a41a9fb580f6dfe",
+            "sha256": "0lyqfq5f0g5gif8f4wn1wy9yqxbfxv22yyj9zri4m0j2wprcl29g",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -612,8 +612,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "746a16b0aa82c892dc64a6af597548d93a0a52e9",
-            "sha256": "0ppb08xrd577lcn2qyw4y6zgkvl68xi5qxyqmi2i8lnzfixmv3xp",
+            "rev": "f8441c44686e8ebc1c7abeb22715b3822481f504",
+            "sha256": "0vraa2m94i8azaz3h3y0v299bzvaabwz0izhb2n05gbsycj7jm7d",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
