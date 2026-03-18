@@ -38,7 +38,7 @@ in
 
         "Mod+Ctrl+t".action = spawn "foot";
         "Mod+Ctrl+slash".action = spawn "albert" "show";
-        "Mod+Ctrl+b".action = spawn "zen";
+        "Mod+Ctrl+b".action = spawn "zen-beta";
         "Mod+Ctrl+period".action = spawn "smile";
       };
 

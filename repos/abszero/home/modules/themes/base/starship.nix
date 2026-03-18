@@ -47,8 +47,6 @@ in
       style = "bold blue";
       show_milliseconds = true;
       min_time = 1000;
-      show_notifications = true;
-      min_time_to_notify = 60000;
     };
     status = {
       disabled = false;

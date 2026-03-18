@@ -64,7 +64,7 @@ in
         anki-wayland
         aseprite
         ayugram-desktop
-        ffmpeg-full
+        ffmpeg
         gh
         git-absorb
         git-secret
@@ -94,7 +94,7 @@ in
         waypipe
         wev
         wget
-        xorg.xeyes
+        xeyes
         ytmdesktop
         zip
         zotero

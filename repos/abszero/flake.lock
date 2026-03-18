@@ -449,18 +449,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-patch-local-ai-update": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-4KrOIrtx1Lmx8zTxTtUtDEvQ508hWkQSMXdUXcep49E=",
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/480216.diff"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/480216.diff"
-      }
-    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1772817589,
@@ -581,7 +569,6 @@
         "nixified-ai": "nixified-ai",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-patch-local-ai-update": "nixpkgs-patch-local-ai-update",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "wisp": "wisp",
         "zen-browser": "zen-browser"

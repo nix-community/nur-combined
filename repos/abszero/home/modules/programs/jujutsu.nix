@@ -23,7 +23,6 @@ in
         signing = {
           behavior = "own";
           backend = mkIf config.programs.gpg.enable "gpg";
-          key = mkDefault primaryEmail.address;
         };
         ui = {
           default-command = "log";

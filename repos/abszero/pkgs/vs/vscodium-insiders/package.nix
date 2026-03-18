@@ -1,8 +1,7 @@
 {
   stdenv,
   lib,
-  path,
-  callPackage,
+  buildVscode,
   fetchurl,
   commandLineArgs ? "",
 }:
@@ -36,7 +35,7 @@ let
   sourceRoot = if stdenv.isDarwin then "" else ".";
 in
 
-callPackage "${path}/pkgs/applications/editors/vscode/generic.nix" rec {
+buildVscode rec {
   version = "1.112.01855-insider";
   pname = "vscodium-insiders";
   updateScript = ./update.sh;
@@ -54,7 +53,7 @@ callPackage "${path}/pkgs/applications/editors/vscode/generic.nix" rec {
   };
   inherit sourceRoot;
 
-  # tests = nixosTests.vscodium;
+  tests = {};
 
   meta = with lib; {
     description = ''
