@@ -60,6 +60,11 @@ jobs:
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         run: |
           nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
+          # Rewrite nix-update's "pkg: old -> new" to conventional commit style
+          if ! git diff --quiet origin/master HEAD; then
+            commit_msg=$(git log -1 --format=%s)
+            git commit --amend -m "feat(pkgs): bump ${commit_msg}"
+          fi
       - name: Create PR
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         run: |
@@ -68,9 +73,7 @@ jobs:
             echo "No update for $pkg"
             exit 0
           fi
-          # nix-update commit message is "pkg: old -> new"
-          commit_msg=$(git log -1 --format=%s)
-          title="chore(pkgs): bump ${commit_msg}"
+          title=$(git log -1 --format=%s)
           branch="auto-update/${pkg}"
           git checkout -b "$branch"
           git push -u origin "$branch" --force-with-lease
