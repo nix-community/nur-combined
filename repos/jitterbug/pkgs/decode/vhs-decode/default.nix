@@ -5,18 +5,16 @@
   fetchFromGitHub,
   symlinkJoin,
   rustPlatform,
-  rustc,
-  cargo,
   qwt-qt6,
   ezpwd-reed-solomon,
   ...
 }:
 let
   pname = "vhs-decode";
-  version = "0.3.8.1";
+  version = "0.3.9";
 
   rev = version;
-  hash = "sha256-fkbJPDLWKtoyim3WpnrlcC2P4U5L/G19uLdP3fy+INg=";
+  hash = "sha256-FehJW/4lkstM0WI9EhEGOTnEls9E5MGHY/QGMGpg+QY=";
   cargoHash = "sha256-fKAqjvx4Gqa426OyR2qEPXUPEneXGOT1GqOMFDol0Zc=";
 
   src = fetchFromGitHub {
@@ -54,20 +52,14 @@ symlinkJoin {
         hash = cargoHash;
       };
 
-      nativeBuildInputs = [
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
         rustPlatform.cargoSetupHook
-        rustc
-        cargo
       ];
     }))
 
     (
       (callPackage ./vhs-decode-tools {
-        inherit
-          meta
-          qwt-qt6
-          ezpwd-reed-solomon
-          ;
+        inherit meta qwt-qt6 ezpwd-reed-solomon;
       }).overrideAttrs
       (
         finalAttrs: prevAttrs: {

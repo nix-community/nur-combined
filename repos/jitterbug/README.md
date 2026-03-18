@@ -8,13 +8,14 @@ This repo contains packages for RF decoding on NixOS.
 ## Packages
 ### Decoders
 - [vhs-decode[-unstable]](https://github.com/oyvindln/vhs-decode)
-- [ld-decode[-unstable]](https://github.com/happycube/ld-decode)
+- ~~[ld-decode[-unstable]](https://github.com/happycube/ld-decode)~~ [^1]
 
 ### Tools
 - [cxadc-vhs-server[-jitterbug]](https://github.com/namazso/cxadc_vhs_server)
 - [tbc-raw-stack](https://github.com/namazso/tbc-raw-stack)
 - [tbc-video-export](https://github.com/JuniorIsAJitterbug/tbc-video-export)
 - [vhs-decode-auto-audio-align](https://gitlab.com/wolfre/vhs-decode-auto-audio-align)
+- ~~[decode-orc[-unstable]](https://github.com/simoninns/decode-orc)~~ [^1]
 
 ### Hardware
 - [cxadc](https://github.com/happycube/cxadc-linux3)
@@ -34,11 +35,16 @@ This repo contains packages for RF decoding on NixOS.
 
 ### Dependencies
 - [binnah](https://gitlab.com/wolfre/binnah) *(vhs-decode-auto-audio-align)*
-- [ezpwd-reed-solomon](https://github.com/pjkundert/ezpwd-reed-solomon) *(vhs-decode, vhs-decode-unstable, ld-decode-unstable)*
+- [ezpwd-reed-solomon](https://github.com/pjkundert/ezpwd-reed-solomon) *(vhs-decode, vhs-decode-unstable)*
 - [hsdaoh[-unstable]](https://github.com/Stefan-Olt/hsdaoh) *(misrc-tools, misrc-tools-unstable)*
 - [qwt-(qt5|qt6)](https://qwt.sourceforge.net) *(vhs-decode, vhs-decode-unstable, ld-decode)*
+- ~~[nodeeditor[-unstable]](https://github.com/paceholder/nodeeditor)~~ [^2]
 
 ## Modules
 - [cxadc](modules/cxadc/README.md)
-- [ld-decode](modules/ld-decode/README.md)
 - [vhs-decode](modules/vhs-decode/README.md)
+- ~~[ld-decode](modules/ld-decode/README.md)~~ [^1]
+
+
+[^1]: Upstream project provides flake
+[^2]: Dependency no longer required

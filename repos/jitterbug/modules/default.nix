@@ -1,7 +1,6 @@
 let
   modules = {
     cxadc = ./cxadc;
-    ld-decode = ./ld-decode;
     vhs-decode = ./vhs-decode;
   };
 

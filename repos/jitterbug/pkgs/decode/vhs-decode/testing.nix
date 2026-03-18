@@ -5,19 +5,17 @@
   fetchFromGitHub,
   symlinkJoin,
   rustPlatform,
-  rustc,
-  cargo,
   ezpwd-reed-solomon,
   ...
 }:
 let
   pname = "vhs-decode-testing";
-  version = "0.3.8.1-unstable-2026-02-26";
+  version = "0.3.9-unstable-2026-03-17";
 
   pySrc =
     let
-      rev = "6589d7cfc27cab8216dbf9d82b38b1a0bcb0b2b0";
-      hash = "sha256-8Wue1Mh6bKq1DhlnFzdo60eFozCnZI3T7o0dI0fhNRE=";
+      rev = "4effaf86d45a2f0c8b54f91db23c8787a3d3a521";
+      hash = "sha256-YffYxGLL9djQ2HF1krkoWzEruvaYFu+oaVZNQ7pCgT8=";
       cargoHash = "sha256-fKAqjvx4Gqa426OyR2qEPXUPEneXGOT1GqOMFDol0Zc=";
 
       src = fetchFromGitHub {
@@ -34,18 +32,12 @@ let
         inherit src;
         hash = cargoHash;
       };
-
-      SETUPTOOLS_SCM_PRETEND_VERSION = (
-        (lib.strings.removeSuffix "-unstable" (lib.strings.getName version))
-        + "+"
-        + (builtins.substring 0 7 rev)
-      );
     };
 
   toolSrc =
     let
-      rev = "f637c73e780c52f05633a72b665234b0829dfcf1";
-      hash = "sha256-m1FORhASaOh9t5jx1R/gX6YJMZu1H6DEXpOukMh6v6Y=";
+      rev = "5e0a178d7947bb13382bc69cfe247cd3d1f2e619";
+      hash = "sha256-ALbbNTzeJC4XLvU0Cta0W8fXotcpmPkFVXf2IR7PEpI=";
     in
     {
       src = fetchFromGitHub {
@@ -74,12 +66,16 @@ symlinkJoin {
   paths = [
     ((callPackage ./vhs-decode-py { }).overridePythonAttrs (prevAttrs: {
       inherit version meta;
-      inherit (pySrc) src cargoDeps SETUPTOOLS_SCM_PRETEND_VERSION;
+      inherit (pySrc) src cargoDeps;
 
-      nativeBuildInputs = [
+      SETUPTOOLS_SCM_PRETEND_VERSION = (
+        (lib.strings.removeSuffix "-unstable" (lib.strings.getName version))
+        + "+"
+        + (builtins.substring 0 7 pySrc.src.rev)
+      );
+
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
         rustPlatform.cargoSetupHook
-        rustc
-        cargo
       ];
 
       propagatedBuildInputs =

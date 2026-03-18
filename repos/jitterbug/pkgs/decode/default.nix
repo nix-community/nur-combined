@@ -6,12 +6,6 @@ let
   inherit (pkgs.callPackage ../lib { inherit pkgs; }) callPackage;
 in
 rec {
-  ld-decode = callPackage ./ld-decode {
-    inherit ezpwd-reed-solomon;
-  };
-  ld-decode-unstable = callPackage ./ld-decode/unstable.nix {
-    inherit ezpwd-reed-solomon;
-  };
   vhs-decode = callPackage ./vhs-decode {
     inherit ezpwd-reed-solomon qwt-qt6;
   };
