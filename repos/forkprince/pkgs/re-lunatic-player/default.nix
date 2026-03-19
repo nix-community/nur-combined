@@ -22,12 +22,12 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "re-lunatic-player";
-  version = "1.2.0";
+  version = "1.2.1";
   src = fetchFromGitHub {
     owner = "Prince527Github";
     repo = "Re-Lunatic-Player";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-9iegBLUGESVhYPSCSeqn+X6SEgTQnpGgXA5C9KhhhAw=";
+    hash = "sha256-E+m0hzufdUT0tXnQuXrxeaaFXkSLfFr+0NAy9f7ZTzs=";
   };
 
   nativeBuildInputs =
