@@ -983,8 +983,8 @@
             "url": "https://github.com/gepbird/nur-packages"
         },
         "ggemre": {
-            "rev": "1f98f98e8faa3dcb0b150c1c929e9c8a4add6844",
-            "sha256": "0dqzzxvv8l84vvdzxqb9fzfgswvpdfkgfh9d7b6dhxxz7cfvmrbx",
+            "rev": "8a870b68cf46d29f9d2abcca87627258fd2a6982",
+            "sha256": "0q7dnd9ayas3adsc7cc1blkgpqnq0h0rsvl6af5wah4nw5fqrjdm",
             "url": "https://github.com/ggemre/nur-packages"
         },
         "gigamonster256": {
