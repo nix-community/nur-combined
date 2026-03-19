@@ -5,18 +5,18 @@
 }:
 buildGoModule rec {
   pname = "gosuki";
-  version = "1.2.1";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "blob42";
     repo = "gosuki";
     tag = "v${version}";
-    hash = "sha256-F3lSymL2d/ABdDcDDb2jjXJtPAYcRZ2msJCbMgNvXdc=";
+    hash = "sha256-7//uQwUhpzBQueLEZccW8D3eGiGcuzYr7jy4Udr1tdA=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-0Z6ozWWwlRVqp5MKzYHuGjFNQkf42p/ddRb3NwmMiu8=";
+  vendorHash = "sha256-k71L+Gil9FdfKnpl9YfeA7me+PUHTfAlqqco9g2/Cl8=";
 
   meta = {
     description = "Extension-free, multi-browser, real time, cloudless bookmark manager";

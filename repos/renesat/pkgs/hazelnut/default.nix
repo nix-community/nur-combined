@@ -5,16 +5,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "hazelnut";
-  version = "0.2.39";
+  version = "0.2.49";
 
   src = fetchFromGitHub {
     owner = "ricardodantas";
     repo = "hazelnut";
     rev = "v${version}";
-    hash = "sha256-YEcRw/oq47Jtaq0V87WzgwJskkVVCgIYrz1rqqdheiA=";
+    hash = "sha256-u/995uyTWzuG0z6QAEdUU+CNiQtt5rZzAheVdhxZXxU=";
   };
 
-  cargoHash = "sha256-Vb2c9CCVwW1pYBcWUHM9mrtE8Gk1jNVQSjy3P8rot7Y=";
+  cargoHash = "sha256-qjfIChzzxkU1vEHCzNloCTD3is8O+k0OEEf+N6ppRsI=";
 
   meta = {
     description = "Terminal-based automated file organizer inspired by Hazel. Watch folders and organize files with rules.";

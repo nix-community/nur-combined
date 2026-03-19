@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "superseedr";
-  version = "0.9.32";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "Jagalite";
     repo = "superseedr";
     rev = "v${version}";
-    hash = "sha256-+d+S4+gnucxbkuwnfHdPuPtTPc/XwuCXLWB4GEuGDmg=";
+    hash = "sha256-C2U3claHvSkRHxc7dAMEI0cosJnjMAsuBlFy3cNJuBA=";
   };
 
-  cargoHash = "sha256-HbTil4HpnclZkE+lJ+B1Wx2O7Cr0VpnBfAHRKtt4E7Y=";
+  cargoHash = "sha256-5jtkYW++OdF7mKHl6Yw/xshbt/oEVvG3PFa+xnDqE9k=";
 
   nativeBuildInputs = [openssl];
 

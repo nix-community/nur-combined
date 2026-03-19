@@ -12,7 +12,7 @@
 }:
 buildPythonPackage rec {
   pname = "tubefeed";
-  version = "2.1.7";
+  version = "3.0.12";
   disabled = pythonOlder "3.10";
   pyproject = true;
 
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "troebs";
     repo = "tubefeed";
     tag = version;
-    hash = "sha256-n4A0ltxpBkettQIZ8Y38NXpI934ySmvaF5HTs+AHnZI=";
+    hash = "sha256-a2Q/0U7CSlENogpP3LGR1tqnWdiHtBSv+A9oFx4gCJc=";
   };
 
   patches = [
