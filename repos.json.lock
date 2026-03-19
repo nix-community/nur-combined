@@ -16,8 +16,8 @@
             "url": "https://github.com/12Boti/nur"
         },
         "715d": {
-            "rev": "c9095009a413e9d9ebd624dc8583aebaa0bd4a26",
-            "sha256": "08yw5wa9az6yfajrhd3wp43lf9isl8jwx68lm7m1mqlsj4y6lx5z",
+            "rev": "fc9b5198900e5dd6bc717ce06b1445643389c8e7",
+            "sha256": "0pkklbjx61kxzah7ichds6ym4bj8n9jjj7g21f02ajdl9n1yk3bd",
             "url": "https://github.com/715d/nur"
         },
         "7mind": {
@@ -532,8 +532,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "charmbracelet": {
-            "rev": "76cf1bc0b0ed3635cce87d51cf318f918ac08788",
-            "sha256": "06vxibwy3j430pzhz4szi5iy5c9h6211yhj6n21yjv3h1cp82zha",
+            "rev": "bfce93b9a85fad0fbad0a90be7b4c1426d058bc1",
+            "sha256": "1w5by0mkmz5lpb7mc4f3v0c1n21c55p0i83knwh57n9svpzji47p",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
