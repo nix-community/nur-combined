@@ -29,6 +29,7 @@ in
     inputs.nixcfg.modules.nixos.monitoring.grafana
     inputs.nixcfg.modules.nixos.monitoring.prometheus
     inputs.nixcfg.modules.nixos.monitoring.loki
+    inputs.nixcfg.modules.nixos.monitoring.tempo
     ./samba.nix
     ./nextcloud.nix
     ./homepage.nix
@@ -240,6 +241,7 @@ in
       grafana.enable = true;
       prometheus.enable = true;
       loki.enable = true;
+      tempo.enable = true;
     };
   };
   containerPresets = {

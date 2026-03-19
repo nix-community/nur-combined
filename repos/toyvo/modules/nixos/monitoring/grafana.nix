@@ -46,6 +46,12 @@ in
             url = "http://localhost:3101";
             access = "proxy";
           }
+          {
+            name = "Tempo";
+            type = "tempo";
+            url = "http://localhost:3200";
+            access = "proxy";
+          }
         ];
       };
     };
