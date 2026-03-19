@@ -19,7 +19,6 @@
     inputs.nixcfg.modules.home.programs.shells.nushell
     inputs.nixcfg.modules.home.programs.shells.powershell
     inputs.nixcfg.modules.home.programs.shells.zsh
-    inputs.nixcfg.modules.home.programs.terminals.hyper
     inputs.plasma-manager.homeModules.plasma-manager
     inputs.catppuccin.homeModules.catppuccin
     inputs.nh.homeManagerModules.default
