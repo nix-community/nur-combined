@@ -29,11 +29,6 @@ let
       aarch64-linux = "0mjp1x0q13jp78rcb48wrr0z5zhpq57svpvb0mb1nh51l3zv0a3b";
       aarch64-darwin = "18gsfsmamvap4bgivx4zg7nk6wi7jp98b9q7ql45r1xpcxvslj6y";
       armv7l-linux = "041h39699aj1sfqnr54bib2pak6bc4lix89jaaqjjsmm0azhjzlh";
-      x86_64-linux = "17j1w16piplr8mnphslghcf0gqq45g5wllwvzjqbkk273n6x0qhp";
-      x86_64-darwin = "0jcj1fllffz78868vf7fhgl4cwh0nvkj4gwl6qsqx6pd834xwb8k";
-      aarch64-linux = "0mjp1x0q13jp78rcb48wrr0z5zhpq57svpvb0mb1nh51l3zv0a3b";
-      aarch64-darwin = "18gsfsmamvap4bgivx4zg7nk6wi7jp98b9q7ql45r1xpcxvslj6y";
-      armv7l-linux = "041h39699aj1sfqnr54bib2pak6bc4lix89jaaqjjsmm0azhjzlh";
     }
     .${system} or throwSystem;
 in
