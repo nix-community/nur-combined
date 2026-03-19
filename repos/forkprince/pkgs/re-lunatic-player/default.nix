@@ -1,5 +1,6 @@
+# FIXME: Update to electron_41 once it's in nixpkgs stable
 {
-  electron_41,
+  electron_40,
   nodejs,
   pnpm,
   zip,
@@ -44,7 +45,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
 
   buildInputs = lib.optionals stdenvNoCC.hostPlatform.isLinux [
-    electron_41
+    electron_40
 
     alsa-lib
     gtk3
@@ -93,7 +94,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   buildPhase = ''
-    export npm_config_nodedir=${electron_41.headers}
+    export npm_config_nodedir=${electron_40.headers}
 
     # disabling this fixes darwin builds
     substituteInPlace node_modules/@electron-forge/plugin-fuses/dist/FusesPlugin.js \
@@ -102,10 +103,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # override the detected electron version
     substituteInPlace node_modules/@electron-forge/core-utils/dist/electron-version.js \
-      --replace-fail "return version" "return '${electron_41.version}'"
+      --replace-fail "return version" "return '${electron_40.version}'"
 
     # create the electron archive to be used by electron-packager
-    cp -r ${electron_41.dist} electron-dist
+    cp -r ${electron_40.dist} electron-dist
     chmod -R u+w electron-dist
 
     pushd electron-dist
@@ -128,7 +129,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         mkdir -p $out/share
         cp -r out/*/resources{,.pak} "$out/share"
 
-        makeWrapper ${lib.getExe electron_41} $out/bin/re-lunatic-player \
+        makeWrapper ${lib.getExe electron_40} $out/bin/re-lunatic-player \
           --add-flags $out/share/resources/app.asar \
           --set ELECTRON_FORCE_IS_PACKAGED 1 \
           --inherit-argv0
