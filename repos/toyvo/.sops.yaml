@@ -11,7 +11,7 @@ keys:
   - &server_macbook_pro age1604q5hpr027v8dg4x96chgkf2cs2zgnq8ntg0ce6uat4umvn45ws6s6dhc
   - &server_macbook_pro_nixos age1v3frajfater66nykc3rynceg359qwjpwlg48ne338w0zlkgr0ecq542f9f
   - &server_nas age1cdhakptq68qa7w3kmszkmlygfgu94evze6x66l7ekafsr2jlyf0sfhq29x
-  - &server_oracle_cloud_nixos age1wvmgkw6ud4xxt8fp65v0wcvkste8qgkrcjlrau7mu0z27ey2zq3qtpqpcl
+  - &server_oracle_cloud_nixos age1qcasr36jkxpyy2ehpngdyvdg7nfvvqrv56pynzem6cvgtkw64das0frg26
   - &server_pinebook_pro age1vpstfqc4ratdd60ne5k38zr8jddnc3lvvadgkr4s8y2nkehl73xsemx7ny
   - &server_protectli age1p62hrzq947f3ft2pljpctmudvvpazzafxe46kuyac7tkypjkpspshh6wnm
   - &server_router age1v5v7n0klvuusw7r55jg25fppw7u26pj85zffs0cpjajgeeuqadxqf40sgg
