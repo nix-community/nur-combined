@@ -10,24 +10,24 @@
 }:
 
 let
-  version = "0.79.0";
+  version = "0.80.0";
 
   sources = {
     x86_64-linux = {
       url = "https://downloads.factory.ai/factory-cli/releases/${version}/linux/x64/droid";
-      hash = "sha256-CjPFVUBKdUsUSiFb8MBU+8xqIGYZmIQeY60mur9WiWU=";
+      hash = "sha256-Pf93UuWjWsoT1pcpuQnHs9+LvmgeA2oSXxFowxrlTro=";
     };
     aarch64-linux = {
       url = "https://downloads.factory.ai/factory-cli/releases/${version}/linux/arm64/droid";
-      hash = "sha256-UwksFBVUX8ExmWMX1r10bMOcyQzfT0VHoQZoSp/hDDg=";
+      hash = "sha256-dxkJt6B1rnJQcgu/ZatRiLSD12QiokVWInI8wsAgs1A=";
     };
     x86_64-darwin = {
       url = "https://downloads.factory.ai/factory-cli/releases/${version}/darwin/x64/droid";
-      hash = "sha256-LUvGSnSDeXCDf7MQIa9dDcvQZZmx9OPvetG+L53dFhw=";
+      hash = "sha256-5S7Zm8n3LelU7bsaIj5EnHtBsstgL8TE7ioSR+R+8iI=";
     };
     aarch64-darwin = {
       url = "https://downloads.factory.ai/factory-cli/releases/${version}/darwin/arm64/droid";
-      hash = "sha256-GN7ygldhrvc9QiSBf84Eqg7yrg9ZADf56ZXjVDBsxyc=";
+      hash = "sha256-ItLRcf7CFLxXA0F2Y846ctl0UzJIVglGC/tY0GEzsL4=";
     };
   };
 in
