@@ -8,15 +8,14 @@
 }:
 {
   imports = [
-    ../../modules/os/defaults.nix
-    ../../modules/os/console.nix
-    ../../modules/os/gui.nix
-    ../../modules/os/dev.nix
-    ../../modules/os/podman.nix
-    ../../modules/os/users/toyvo.nix
-    ../../modules/darwin/defaults.nix
-    ../../modules/darwin/podman.nix
-    ../../modules/darwin/ollama.nix
+    inputs.nixcfg.modules.os.defaults
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.dev
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.users.toyvo
+    inputs.nixcfg.modules.darwin.defaults
+    inputs.nixcfg.modules.darwin.podman
+    inputs.nixcfg.modules.darwin.ollama
     inputs.home-manager.darwinModules.default
     inputs.mac-app-util.darwinModules.default
     inputs.nh.nixDarwinModules.prebuiltin

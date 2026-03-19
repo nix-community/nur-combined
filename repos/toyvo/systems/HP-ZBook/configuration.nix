@@ -10,14 +10,14 @@
 }:
 {
   imports = [
-    ../../modules/os/defaults.nix
-    ../../modules/os/console.nix
-    ../../modules/os/gui.nix
-    ../../modules/os/podman.nix
-    ../../modules/os/users/toyvo.nix
-    ../../modules/nixos/defaults.nix
-    ../../modules/nixos/filesystems.nix
-    ../../modules/nixos/services/desktopManager/cosmic.nix
+    inputs.nixcfg.modules.os.defaults
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.gui
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.users.toyvo
+    inputs.nixcfg.modules.nixos.defaults
+    inputs.nixcfg.modules.nixos.filesystems
+    inputs.nixcfg.modules.nixos.services.desktopManager.cosmic
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot

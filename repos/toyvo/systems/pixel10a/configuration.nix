@@ -9,11 +9,11 @@
 }:
 {
   imports = [
-    ../../modules/os/defaults.nix
-    ../../modules/os/console.nix
-    ../../modules/os/podman.nix
-    ../../modules/os/users/toyvo.nix
-    ../../modules/nixos/defaults.nix
+    inputs.nixcfg.modules.os.defaults
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.users.toyvo
+    inputs.nixcfg.modules.nixos.defaults
     "${inputs.nixpkgs-unstable}/nixos/modules/profiles/qemu-guest.nix"
     inputs.catppuccin.nixosModules.catppuccin
     inputs.home-manager.nixosModules.default
@@ -41,7 +41,6 @@
     hostName = "pixel10a";
     networkmanager.enable = lib.mkForce false;
   };
-  profiles.defaults.enable = true;
   services = {
     openssh = {
       enable = true;

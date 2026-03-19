@@ -13,22 +13,22 @@ let
 in
 {
   imports = [
-    ../../modules/os/defaults.nix
-    ../../modules/os/console.nix
-    ../../modules/os/dev.nix
-    ../../modules/os/podman.nix
-    ../../modules/os/users/toyvo.nix
-    ../../modules/os/users/chloe.nix
-    ../../modules/nixos/defaults.nix
-    ../../modules/nixos/filesystems.nix
-    ../../modules/nixos/services/ollama.nix
-    ../../modules/nixos/containers/podman.nix
-    ../../modules/nixos/containers/portainer.nix
-    ../../modules/nixos/containers/chat.nix
-    ../../modules/nixos/monitoring/default.nix
-    ../../modules/nixos/monitoring/grafana.nix
-    ../../modules/nixos/monitoring/prometheus.nix
-    ../../modules/nixos/monitoring/loki.nix
+    inputs.nixcfg.modules.os.defaults
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.dev
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.users.toyvo
+    inputs.nixcfg.modules.os.users.chloe
+    inputs.nixcfg.modules.nixos.defaults
+    inputs.nixcfg.modules.nixos.filesystems
+    inputs.nixcfg.modules.nixos.services.ollama
+    inputs.nixcfg.modules.nixos.containers.podman
+    inputs.nixcfg.modules.nixos.containers.portainer
+    inputs.nixcfg.modules.nixos.containers.chat
+    inputs.nixcfg.modules.nixos.monitoring.default
+    inputs.nixcfg.modules.nixos.monitoring.grafana
+    inputs.nixcfg.modules.nixos.monitoring.prometheus
+    inputs.nixcfg.modules.nixos.monitoring.loki
     ./samba.nix
     ./nextcloud.nix
     ./homepage.nix

@@ -11,17 +11,17 @@
 }:
 {
   imports = [
-    ../../modules/os/defaults.nix
-    ../../modules/os/console.nix
-    ../../modules/os/podman.nix
-    ../../modules/os/users/toyvo.nix
-    ../../modules/nixos/defaults.nix
-    ../../modules/nixos/monitoring/default.nix
-    ../../modules/nixos/services/minecraft.nix
-    ../../modules/nixos/wireguard/default.nix
-    ../../modules/nixos/containers/podman.nix
-    ../../modules/nixos/containers/portainer.nix
-    ../../modules/nixos/vintagestory.nix
+    inputs.nixcfg.modules.os.defaults
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.users.toyvo
+    inputs.nixcfg.modules.nixos.defaults
+    inputs.nixcfg.modules.nixos.monitoring.default
+    inputs.nixcfg.modules.nixos.services.minecraft
+    inputs.nixcfg.modules.nixos.wireguard.default
+    inputs.nixcfg.modules.nixos.containers.podman
+    inputs.nixcfg.modules.nixos.containers.portainer
+    inputs.nixcfg.modules.nixos.vintagestory
     "${inputs.nixpkgs-unstable}/nixos/modules/profiles/qemu-guest.nix"
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin

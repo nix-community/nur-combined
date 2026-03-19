@@ -71,7 +71,7 @@
   };
 
   outputs =
-    inputs@{
+    flake_inputs@{
       devshell,
       flake-parts,
       nixpkgs-esp-dev,
@@ -84,6 +84,7 @@
       ...
     }:
     let
+      inputs = flake_inputs // { nixcfg = self; };
       configurations = import ./systems inputs;
       import_nixpkgs =
         system: nixpkgs:

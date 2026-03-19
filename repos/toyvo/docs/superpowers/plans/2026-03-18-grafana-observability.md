@@ -584,10 +584,10 @@ git commit -m "feat: add Grafana server module with auto-provisioned datasources
 Add to the `imports` list in `systems/nas/configuration.nix` (after the existing module imports, before the `inputs.*` lines):
 
 ```nix
-../../modules/nixos/monitoring/default.nix
-../../modules/nixos/monitoring/grafana.nix
-../../modules/nixos/monitoring/prometheus.nix
-../../modules/nixos/monitoring/loki.nix
+inputs.nixcfg.modules.nixos.monitoring.default
+inputs.nixcfg.modules.nixos.monitoring.grafana
+inputs.nixcfg.modules.nixos.monitoring.prometheus
+inputs.nixcfg.modules.nixos.monitoring.loki
 ```
 
 - [ ] **Step 2: Enable monitoring services**
@@ -670,7 +670,7 @@ git commit -m "style: format nix files"
 Add to imports in `systems/router/configuration.nix`:
 
 ```nix
-../../modules/nixos/monitoring/default.nix
+inputs.nixcfg.modules.nixos.monitoring.default
 ```
 
 - [ ] **Step 2: Enable monitoring**
@@ -706,7 +706,7 @@ git commit -m "feat: enable Alloy monitoring agent on Router"
 Add to imports in `systems/Protectli/configuration.nix`:
 
 ```nix
-../../modules/nixos/monitoring/default.nix
+inputs.nixcfg.modules.nixos.monitoring.default
 ```
 
 - [ ] **Step 2: Enable monitoring**
@@ -892,7 +892,7 @@ git commit -m "feat: add WireGuard tunnel module (general purpose)"
 Add to imports:
 
 ```nix
-../../modules/nixos/wireguard/default.nix
+inputs.nixcfg.modules.nixos.wireguard.default
 ```
 
 - [ ] **Step 2: Configure WireGuard server**
@@ -968,8 +968,8 @@ git commit -m "feat: configure WireGuard server on Router (wg0, 10.100.0.1)"
 Add to imports:
 
 ```nix
-../../modules/nixos/wireguard/default.nix
-../../modules/nixos/monitoring/default.nix
+inputs.nixcfg.modules.nixos.wireguard.default
+inputs.nixcfg.modules.nixos.monitoring.default
 ```
 
 - [ ] **Step 2: Configure WireGuard peer**
@@ -1078,7 +1078,7 @@ git commit -m "style: format nix files"
 For each RPi configuration file, add to imports:
 
 ```nix
-../../modules/nixos/monitoring/default.nix
+inputs.nixcfg.modules.nixos.monitoring.default
 ```
 
 Add to config body:

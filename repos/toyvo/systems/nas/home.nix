@@ -1,26 +1,26 @@
 { inputs, ... }:
 {
   imports = [
-    ../../modules/home/defaults.nix
-    ../../modules/home/users/toyvo.nix
-    ../../modules/home/users/chloe.nix
-    ../../modules/home/programs/bat.nix
-    ../../modules/home/programs/eza.nix
-    ../../modules/home/programs/git.nix
-    ../../modules/home/programs/ssh.nix
-    ../../modules/home/programs/volta.nix
-    ../../modules/home/programs/zellij.nix
-    ../../modules/home/programs/editors/helix.nix
-    ../../modules/home/programs/editors/ideavim.nix
-    ../../modules/home/programs/editors/neovim.nix
-    ../../modules/home/programs/editors/zed.nix
-    ../../modules/home/programs/shells/bash.nix
-    ../../modules/home/programs/shells/fish.nix
-    ../../modules/home/programs/shells/ion.nix
-    ../../modules/home/programs/shells/nushell.nix
-    ../../modules/home/programs/shells/powershell.nix
-    ../../modules/home/programs/shells/zsh.nix
-    ../../modules/home/programs/terminals/hyper.nix
+    inputs.nixcfg.modules.home.defaults
+    inputs.nixcfg.modules.home.users.toyvo
+    inputs.nixcfg.modules.home.users.chloe
+    inputs.nixcfg.modules.home.programs.bat
+    inputs.nixcfg.modules.home.programs.eza
+    inputs.nixcfg.modules.home.programs.git
+    inputs.nixcfg.modules.home.programs.ssh
+    inputs.nixcfg.modules.home.programs.volta
+    inputs.nixcfg.modules.home.programs.zellij
+    inputs.nixcfg.modules.home.programs.editors.helix
+    inputs.nixcfg.modules.home.programs.editors.ideavim
+    inputs.nixcfg.modules.home.programs.editors.neovim
+    inputs.nixcfg.modules.home.programs.editors.zed
+    inputs.nixcfg.modules.home.programs.shells.bash
+    inputs.nixcfg.modules.home.programs.shells.fish
+    inputs.nixcfg.modules.home.programs.shells.ion
+    inputs.nixcfg.modules.home.programs.shells.nushell
+    inputs.nixcfg.modules.home.programs.shells.powershell
+    inputs.nixcfg.modules.home.programs.shells.zsh
+    inputs.nixcfg.modules.home.programs.terminals.hyper
     inputs.plasma-manager.homeModules.plasma-manager
     inputs.catppuccin.homeModules.catppuccin
     inputs.nh.homeManagerModules.default

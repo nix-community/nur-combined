@@ -10,13 +10,13 @@
 }:
 {
   imports = [
-    ../../modules/os/defaults.nix
-    ../../modules/os/dev.nix
-    ../../modules/os/console.nix
-    ../../modules/os/podman.nix
-    ../../modules/os/users/toyvo.nix
-    ../../modules/nixos/defaults.nix
-    ../../modules/nixos/filesystems.nix
+    inputs.nixcfg.modules.os.defaults
+    inputs.nixcfg.modules.os.dev
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.users.toyvo
+    inputs.nixcfg.modules.nixos.defaults
+    inputs.nixcfg.modules.nixos.filesystems
     inputs.nixos-hardware.nixosModules.apple-t2
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
