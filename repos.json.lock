@@ -206,8 +206,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "3aa3e7cedfb35e2b8244c3f0049c77d8cca0decc",
-            "sha256": "19kd2nls36l8z2k30lq3fh446kklqmdql4ab9x7n3qc0b9v9yvic",
+            "rev": "c31c9bd84684c39f991e0284cb1cc60cdfb8599c",
+            "sha256": "0wmq2hl7m4z83rwxxla07qb389k3b2f0v9cqmxqfj4lgsc1561j1",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -2040,8 +2040,8 @@
             "url": "https://github.com/rewardenv/nur"
         },
         "rewine": {
-            "rev": "4b9ee0ea2975b847f1a33fe144af153609bb76c7",
-            "sha256": "01rk507pbkvsbym7pjwg8q4km95mr5z194478dz3hsaqqgp2fzml",
+            "rev": "1f243f20b3ff01b386624a73e434316319767ac7",
+            "sha256": "00dcnnrkis5prf9v4v5l12cglcswzz2rfii9n8pngaqxqinzbi7n",
             "url": "https://github.com/wineee/nur-packages"
         },
         "robertodr": {
