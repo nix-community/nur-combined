@@ -61,4 +61,5 @@ in {
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix {};
   Fladder = pkgs.callPackage ./pkgs/Fladder {};
   mcp-cli = pkgs.callPackage ./pkgs/mcp-cli.nix {};
+  snip = pkgs.callPackage ./pkgs/snip.nix {};
 }
