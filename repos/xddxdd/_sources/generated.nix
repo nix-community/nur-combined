@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.03.16";
+    version = "2026.03.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.16/GeoLite2-ASN.mmdb";
-      hash = "sha256-IgNj1T66NIVae15mW0ILxEvAhh47zC3xQgLkjQ+L69Q=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.19/GeoLite2-ASN.mmdb";
+      hash = "sha256-QJzfxL+grvyIKmrxMQBFQStWTk89FCXLTvp0zFxjaPQ=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.03.16";
+    version = "2026.03.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.16/GeoLite2-City.mmdb";
-      hash = "sha256-eHWAF7l6LGSO8Jy9mNTRF33ca/pJKEf9u+SEqJw1UjA=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.19/GeoLite2-City.mmdb";
+      hash = "sha256-rDIolijheLWRyt5MtBlnPu+t1wbUEmhaGUMDojG5C/8=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.03.16";
+    version = "2026.03.19";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.16/GeoLite2-Country.mmdb";
-      hash = "sha256-y0cJ/vPknThBSdomrnUVRISo0bWV+9MMa2GQInQ/kTo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.19/GeoLite2-Country.mmdb";
+      hash = "sha256-KUupQWdEruNIYT5dfbbtp7xlmD66oKBa0B2LEmlNmSc=";
     };
   };
   glauth = {
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8412";
+    version = "b8429";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8412";
-      hash = "sha256-6LF/cBwpMMY233h4eeiRKfN1pN4SOQQOneaeMBnVmRs=";
+      tag = "b8429";
+      hash = "sha256-A/FfrcZyF665nyuYFISyuP8jZJe7gItpXAhvrCPseZI=";
     };
   };
   loralib = {
@@ -1225,24 +1225,24 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.35.0";
+    version = "v1.35.1";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.35.0";
-      hash = "sha256-mWcMJWUdxC3Y5rcfx2urMYmYoJXbV5LudPzVB6wxRJA=";
+      tag = "v1.35.1";
+      hash = "sha256-p8Pv58IpP165z4CHq+CO6160LyHd3BS3Y3I2JBGp4KE=";
     };
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "3e43928bf4d26f6e07a858248e8b1f7f6fbe05f8";
+    version = "6f70783d10cb004a403d7b5dca36c38664465bde";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "3e43928bf4d26f6e07a858248e8b1f7f6fbe05f8";
-      hash = "sha256-VgKX5p1rS5R8ClqT/AO5aCK5wrt3a3oqW8sBCb0bKfM=";
+      rev = "6f70783d10cb004a403d7b5dca36c38664465bde";
+      hash = "sha256-ufycx+Xin8QJmUOywkgZtnetNGqsOzHOCm0pXHuLd3I=";
     };
-    date = "2026-03-18";
+    date = "2026-03-19";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
