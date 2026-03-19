@@ -148,6 +148,7 @@ in
       with pkgs;
       [
         cifs-utils
+        ghostty.terminfo
       ]
       ++ lib.optionals (config.system.activationScripts ? setupSecrets) [
         (writeShellScriptBin "sops-nix-system" "${config.system.activationScripts.setupSecrets.text}")

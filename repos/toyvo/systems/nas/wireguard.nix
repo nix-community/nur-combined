@@ -21,13 +21,13 @@ in
         }
       ];
       interfaceNamespace = wireguardInterfaceNamespace;
-      preSetup = ''ip netns add "${wireguardInterfaceNamespace}"'';
+      preSetup = ''ip netns add "${wireguardInterfaceNamespace}" 2>/dev/null || true'';
       postSetup = ''
         ip -n "${wireguardInterfaceNamespace}" link set up dev "lo"
-        ip -n "${wireguardInterfaceNamespace}" route add default dev "${wireguardInterface}"
+        ip -n "${wireguardInterfaceNamespace}" route replace default dev "${wireguardInterface}"
       '';
-      preShutdown = ''ip -n "${wireguardInterfaceNamespace}" route del default dev "${wireguardInterface}"'';
-      postShutdown = ''ip netns del "${wireguardInterfaceNamespace}"'';
+      preShutdown = ''ip -n "${wireguardInterfaceNamespace}" route del default dev "${wireguardInterface}" 2>/dev/null || true'';
+      postShutdown = ''ip netns del "${wireguardInterfaceNamespace}" 2>/dev/null || true'';
     };
     environment.etc."netns/${wireguardInterfaceNamespace}/resolv.conf".text =
       "nameserver ${wireguardGateway}";
