@@ -1,15 +1,15 @@
 {
   "aarch64-darwin": {
-    "version": "11.2.0",
-    "sign": "1-0e254dc1b454de3062bfdf5736e7ae809209b7d64dc84284d131bd5cb59730de-69b8bbe8",
-    "build": "01",
-    "hash": "sha256-GmzNhseb5AHwEQPYg+NbwVmVQdWQ1Mu131C910KgERQ="
+    "version": "11.2.1",
+    "sign": "1-25395f2a4bc8ee476d2e32a1dbb86534214af51e1546974ee2bf591af902933b-69ba7107",
+    "build": "00",
+    "hash": "sha256-ldJT4k4MSr39abjo84FnvVABhMx5uvZmS2wPvVS8nUM="
   },
   "x86_64-darwin": {
-    "version": "11.2.0",
-    "sign": "1-0e254dc1b454de3062bfdf5736e7ae809209b7d64dc84284d131bd5cb59730de-69b8bbe8",
-    "build": "01",
-    "hash": "sha256-GmzNhseb5AHwEQPYg+NbwVmVQdWQ1Mu131C910KgERQ="
+    "version": "11.2.1",
+    "sign": "1-25395f2a4bc8ee476d2e32a1dbb86534214af51e1546974ee2bf591af902933b-69ba7107",
+    "build": "00",
+    "hash": "sha256-ldJT4k4MSr39abjo84FnvVABhMx5uvZmS2wPvVS8nUM="
   },
   "x86_64-linux": {
     "version": "1.1.8",
