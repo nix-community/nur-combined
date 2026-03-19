@@ -24,16 +24,16 @@ let
 
   sha256 =
     {
-      x86_64-linux = "1bs5fmd640f3fybh8vszppm0aq07rm617198r4vba75b3y9sl8zz";
-      x86_64-darwin = "0k4by55v1gcxbq4qf5gbj4xg08xfs43843x7njis2q9mp6hbc275";
-      aarch64-linux = "0cml7jamk5q6alp6qg5ar19d5i5pzhmzla5h33bcp3kkhhl92vg2";
-      aarch64-darwin = "02b4h92mffipylp11r74qxrs3xil7jdkd5vy9vzlsfjaw1964zl6";
-      armv7l-linux = "107jxppgf4x4v16pmzasyhzaijjlvxdjb3kybb4iddksnz9fd4gx";
-      x86_64-linux = "1bs5fmd640f3fybh8vszppm0aq07rm617198r4vba75b3y9sl8zz";
-      x86_64-darwin = "0k4by55v1gcxbq4qf5gbj4xg08xfs43843x7njis2q9mp6hbc275";
-      aarch64-linux = "0cml7jamk5q6alp6qg5ar19d5i5pzhmzla5h33bcp3kkhhl92vg2";
-      aarch64-darwin = "02b4h92mffipylp11r74qxrs3xil7jdkd5vy9vzlsfjaw1964zl6";
-      armv7l-linux = "107jxppgf4x4v16pmzasyhzaijjlvxdjb3kybb4iddksnz9fd4gx";
+      x86_64-linux = "1581l5kx5r0ha6x07nyczngxbjbsskczyjijrl7zzg8hi5hbjwg8";
+      x86_64-darwin = "1fsigighcvhjwc1356j8n7bjn1w98gj1w6mphjk7kgk9pxkcj3fa";
+      aarch64-linux = "1ijwjpa0a17m8ccrlqjk3z5fixqdld9gx62iprfq1xiq585k66dm";
+      aarch64-darwin = "1wvk4c46awc3nmnl6yi4gxdb5dpnkaxsqhjik73gvrabvmhv6r8a";
+      armv7l-linux = "0ygzjgvzfhknda695fi88w5sfby55ws1h2xqr033bwjhbgivraag";
+      x86_64-linux = "1581l5kx5r0ha6x07nyczngxbjbsskczyjijrl7zzg8hi5hbjwg8";
+      x86_64-darwin = "1fsigighcvhjwc1356j8n7bjn1w98gj1w6mphjk7kgk9pxkcj3fa";
+      aarch64-linux = "1ijwjpa0a17m8ccrlqjk3z5fixqdld9gx62iprfq1xiq585k66dm";
+      aarch64-darwin = "1wvk4c46awc3nmnl6yi4gxdb5dpnkaxsqhjik73gvrabvmhv6r8a";
+      armv7l-linux = "0ygzjgvzfhknda695fi88w5sfby55ws1h2xqr033bwjhbgivraag";
     }
     .${system} or throwSystem;
 in
