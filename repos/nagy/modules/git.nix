@@ -20,7 +20,7 @@ in
     Host github.com gitlab.com git.sr.ht codeberg.org
       IdentitiesOnly yes
       IdentityFile ~/.ssh/id_nagy
-    Host git.wiit.one git.mgmt.innovo-cloud.de
+    Host git.wiit.one
       IdentitiesOnly yes
       IdentityFile ~/.ssh/id_nagywiit
   '';
@@ -208,17 +208,6 @@ in
                 signingkey = /home/user/.ssh/id_nagywiit
           '';
       }
-      {
-        includeIf."hasconfig:remote.*.url:git@git.mgmt.innovo-cloud.de:*/**".path =
-          pkgs.writeText "gitconfig-includeIf" ''
-            [commit]
-                gpgsign = true
-            [user]
-                name = Daniel Nagy
-                email = daniel.nagy@wiit.cloud
-                signingkey = /home/user/.ssh/id_nagywiit
-          '';
-      }
     ];
   };
 
@@ -303,16 +292,16 @@ in
       "git"
       "tags"
     ];
+    gP = [
+      "git"
+      "push"
+    ];
+    gPf = [
+      "git"
+      "push"
+      "--force-with-lease"
+    ];
     gp = [
-      "git"
-      "push"
-    ];
-    gpf = [
-      "git"
-      "push"
-      "--force"
-    ];
-    gpl = [
       "git"
       "pull"
     ];

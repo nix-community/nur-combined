@@ -15,7 +15,7 @@
     sc = [ "systemctl" ];
     scc = [ "systemctl" "cat" ];
     scs = [ "systemctl" "status" ];
-    scw = [ "watch" "--color" "SYSTEMD_COLORS=1" "systemctl" "status" ];
+    scw = [ "watch" "--color" "SYSTEMD_URLIFY=0" "SYSTEMD_COLORS=1" "systemctl" "status" ];
     sca = [ "systemctl" "start" ];
     sco = [ "systemctl" "stop" ];
     scr = [ "systemctl" "restart" ];
