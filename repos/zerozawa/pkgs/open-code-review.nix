@@ -21,6 +21,7 @@ let
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
+    pnpm = pnpm_9;
     fetcherVersion = 3;
     hash = "sha256-b7MSyps0l5BZLc2deEheA2fFpRZQhIDMebUK1D1x15A=";
   };
@@ -40,7 +41,6 @@ stdenvNoCC.mkDerivation {
   buildPhase = ''
     runHook preBuild
 
-    pnpm install --offline --frozen-lockfile --ignore-scripts
     pnpm build:cli
 
     runHook postBuild
@@ -59,6 +59,7 @@ stdenvNoCC.mkDerivation {
     cp -a packages/cli "$packageOut/packages/"
     cp -a packages/agents "$packageOut/packages/"
     cp -a packages/dashboard "$packageOut/packages/"
+    rm -f "$packageOut/node_modules/.modules.yaml"
 
     makeWrapper ${lib.getExe nodejs_20} "$out/bin/ocr" \
       --add-flags "$packageOut/packages/cli/dist/index.js"
