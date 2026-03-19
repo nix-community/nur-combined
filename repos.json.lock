@@ -1684,8 +1684,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "24c895f31286b2659d2d69ad11f1c39a4954c069",
-            "sha256": "1vwlq1b5capb70kr9jram8icgpa4wifsz0s1g44q9zz0lh7jhlkx",
+            "rev": "4f360278faafc8ed378194428964e48eacc46e4d",
+            "sha256": "0ycpnj26yixzrx5lr8ibx1g1w79c414nn55lcnyz78w22nmpyzc5",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
@@ -2597,8 +2597,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "cbe3687e363f1f7309dc017b5bd27ce88dd9948c",
-            "sha256": "1417z525x5a8c3ba7rb5za6rmpdjhw65ch9n0f87ggqigj1rh3wb",
+            "rev": "7ad60ade6a1273fa040047499b9e2d2d09dd1746",
+            "sha256": "1l628qjhx289qlm7lg3hlzmm9ik68qybdpvjfr8nbl614q3fra3a",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
