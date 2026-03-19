@@ -39,6 +39,11 @@
 | `waybar-vd` | Waybar with custom configuration |
 | `sddm-eucalyptus-drop` | SDDM theme |
 | `zsh-url-highlighter` | Zsh URL syntax highlighting |
+| `agentic-contract` | Policy engine CLI for AI agents |
+| `agentic-contract-mcp` | MCP server for AgenticContract |
+| `open-code-review` | Multi-agent code review CLI with dashboard |
+| `mcp-cli` | Lightweight CLI to interact with MCP servers |
+| `snip` | CLI proxy that reduces LLM token consumption by filtering shell output |
 
 ## Usage
 
@@ -67,6 +72,7 @@
 nix-build -A JMComic-qt
 nix-build -A picacg-qt
 nix-build -A sr-vulkan
+nix-build -A open-code-review
 
 # Build all packages
 nix-build ci.nix -A cacheOutputs

@@ -61,5 +61,8 @@ in {
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix {};
   Fladder = pkgs.callPackage ./pkgs/Fladder {};
   mcp-cli = pkgs.callPackage ./pkgs/mcp-cli.nix {};
+  agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix {};
+  agentic-contract-mcp = pkgs.callPackage ./pkgs/agentic-contract-mcp.nix {};
+  open-code-review = pkgs.callPackage ./pkgs/open-code-review.nix {};
   snip = pkgs.callPackage ./pkgs/snip.nix {};
 }
