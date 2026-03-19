@@ -1623,8 +1623,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "dc7b0fa2094d239acf5ca2e8eba446e2df3a3b85",
-            "sha256": "12dcc1yv8mb59cckii7f4mmgjvwsa7hv8w7v0wk4j261hr26ihkb",
+            "rev": "e57d2c2c6d72e65104ff5bb0fda6729dd9df4cca",
+            "sha256": "0isljl7qc148h7fmhfs039375djh6821p8mxv3ynfy26l39hipjh",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2090,8 +2090,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "df5c2d43f13c73d6bc16f4ccdacd588d8442af3d",
-            "sha256": "1njdkym42pzvjkyac4lvz34s44qa466mi8xk7v3pgk976n1iw7cs",
+            "rev": "394a8d49da42d2a63e8845c7262c636051f0f823",
+            "sha256": "183cy9bm7l95l4440xnlwqwz9rc0r9ws21cynqms2warvk7804ci",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "rypkgs": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "8314b5bad09b419ac137175d5797ac307c4feee6",
-            "sha256": "16qrzw8vd1hff3cymj5xbvhqac8sdb2znjbwmjmqy4n8vqldlpmn",
+            "rev": "ac9daa807dadd5eb45ba8b294cbb92224b0522a2",
+            "sha256": "1hwsb0vgnlp32jzmh3n02zl9bgg3zg7za1hmyfssm9g92zdqa35g",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
