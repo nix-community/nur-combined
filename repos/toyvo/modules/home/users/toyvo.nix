@@ -106,7 +106,7 @@ in
           };
           matchBlocks."oracle" = identityConfig // {
             user = "toyvo";
-            hostname = "oracle.internal";
+            hostname = "oracle-cloud-nixos.internal";
           };
           matchBlocks."router" = identityConfig // {
             user = "toyvo";

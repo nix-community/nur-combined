@@ -11,6 +11,40 @@ let
   prometheusUrl = "http://${homelab.nas.ip}:9090/api/v1/write";
   hostname = config.networking.hostName;
 
+  # Detect which services are enabled on this machine
+  caddyEnabled = config.services.caddy.enable;
+  postgresEnabled = config.services.postgresql.enable;
+  keaEnabled = config.services.kea.dhcp4.enable or false;
+
+  # Alloy scrape blocks for detected services
+  caddyScrape = lib.optionalString caddyEnabled ''
+    // Caddy metrics
+    prometheus.scrape "caddy" {
+      targets = [{"__address__" = "localhost:2019"}]
+      forward_to = [prometheus.relabel.instance.receiver]
+      scrape_interval = "15s"
+      metrics_path = "/metrics"
+    }
+  '';
+
+  postgresScrape = lib.optionalString postgresEnabled ''
+    // PostgreSQL metrics (via NixOS postgres exporter on :9187)
+    prometheus.scrape "postgres" {
+      targets = [{"__address__" = "localhost:9187"}]
+      forward_to = [prometheus.relabel.instance.receiver]
+      scrape_interval = "15s"
+    }
+  '';
+
+  keaScrape = lib.optionalString keaEnabled ''
+    // Kea DHCP metrics (via NixOS kea exporter on :9547)
+    prometheus.scrape "kea" {
+      targets = [{"__address__" = "localhost:9547"}]
+      forward_to = [prometheus.relabel.instance.receiver]
+      scrape_interval = "15s"
+    }
+  '';
+
   alloyConfig = ''
     // Node metrics — push to Prometheus via remote_write
     prometheus.exporter.unix "node" {
@@ -22,6 +56,10 @@ let
       forward_to = [prometheus.relabel.instance.receiver]
       scrape_interval = "15s"
     }
+
+    ${caddyScrape}
+    ${postgresScrape}
+    ${keaScrape}
 
     prometheus.relabel "instance" {
       rule {
@@ -91,6 +129,19 @@ in
       extraGroups = [ "systemd-journal" ];
     };
     users.groups.alloy = { };
+
+    # Enable NixOS Prometheus exporters for detected services
+    services.prometheus.exporters.postgres = lib.mkIf postgresEnabled {
+      enable = true;
+      runAsLocalSuperUser = true;
+    };
+
+    services.prometheus.exporters.kea = lib.mkIf keaEnabled {
+      enable = true;
+      controlSocketPaths = [
+        "/run/kea/kea-dhcp4.socket"
+      ];
+    };
 
     environment.etc."alloy/config.alloy".text = alloyConfig;
   };

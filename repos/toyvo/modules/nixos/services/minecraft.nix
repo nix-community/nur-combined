@@ -485,10 +485,6 @@ in
     };
     users.groups.minecraft = { };
 
-    systemd.tmpfiles.rules = lib.mkIf cfg.lazymc.enable [
-      "d /run/minecraft-server 0750 minecraft minecraft -"
-    ];
-
     systemd.sockets.minecraft-server = lib.mkIf (!cfg.lazymc.enable) {
       bindsTo = [ "minecraft-server.service" ];
       socketConfig = {
@@ -513,12 +509,15 @@ in
       serviceConfig = {
         ExecStart =
           if cfg.lazymc.enable then
-            lazymcStartScript
+            "${lib.getExe pkgs.lazymc} start"
           else
             "${cfg.package}/bin/minecraft-server ${cfg.jvmOpts}";
+        ExecStop = lib.mkIf (!cfg.lazymc.enable) "${stopScript} $MAINPID";
         Restart = "always";
         User = "minecraft";
         WorkingDirectory = cfg.dataDir;
+
+        StandardInput = lib.mkIf (!cfg.lazymc.enable) "socket";
         StandardOutput = "journal";
         StandardError = "journal";
 
@@ -546,14 +545,6 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         UMask = "0077";
-      }
-      // lib.optionalAttrs cfg.lazymc.enable {
-        RuntimeDirectory = "minecraft-server";
-        RuntimeDirectoryMode = "0750";
-      }
-      // lib.optionalAttrs (!cfg.lazymc.enable) {
-        ExecStop = "${stopScript} $MAINPID";
-        StandardInput = "socket";
       };
 
       preStart = ''
@@ -599,8 +590,6 @@ in
         ln -sf "${cfg.icon}" "${cfg.dataDir}/server-icon.png"
       '';
     };
-
-    environment.systemPackages = lib.mkIf cfg.lazymc.enable [ mcConsole ];
 
     networking.firewall = lib.mkIf cfg.openFirewall (
       if cfg.declarative then

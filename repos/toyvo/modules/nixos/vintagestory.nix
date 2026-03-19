@@ -1,8 +1,8 @@
 {
   lib,
   config,
-  self,
   system,
+  inputs,
   ...
 }:
 let
@@ -13,7 +13,7 @@ in
     enable = lib.mkEnableOption "Vintage Story dedicated server";
     package = lib.mkOption {
       type = lib.types.package;
-      default = self.packages.${system}.VintagestoryServer;
+      default = inputs.nixcfg.packages.${system}.VintagestoryServer;
       description = "The Vintage Story server package to use.";
     };
     dataDir = lib.mkOption {
