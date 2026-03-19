@@ -45,8 +45,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "LMMS";
     repo = "lmms";
-    rev = "0f0d972b5282041c861517365d3f48379276020c";
-    hash = "sha256-zdMPtd9fJ+LS5cywTWi/6Y3x32ayFWxX9+PJboSvRwQ=";
+    rev = "eb5b75794782120395e39766002420d1a82e2483";
+    hash = "sha256-MHb8sC5e4K2qKpVXVr54/1ba14G0zmoNxw3kNXMCfhU=";
     fetchSubmodules = true;
   };
 
