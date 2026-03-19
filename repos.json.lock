@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "b98d002f1ee11cde5c7b1e53e0f86de3b32f50c4",
-            "sha256": "1n510b2d6llkplwif9fjd6z7ihr5xx14dd5ib4h1psgp7hdqlcfv",
+            "rev": "0b9c0fa4a730d60624c06f3cc7861b28cfe969d7",
+            "sha256": "1wrlnifn75g6c29gm64i4lc93hy9j7vhsqjam3vn50197b2xkghx",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1598,8 +1598,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "e4b99ac1be8b40c1f3ab53e01ab1a9001555b4f4",
-            "sha256": "0hx7w8cialmp3q3i5jgykbgwapi0f5b9x0j22zgnxsbdh3da3plk",
+            "rev": "a38e6daf28d884729df3f861d4b574e1809bfc4a",
+            "sha256": "1mj3yxc199z4izi00cd2ilhaz33wapq7586d19aq3j7fh27fy1pc",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "def15bfa795964808dd786ec3627009f57432913",
-            "sha256": "00snvm72w1r6ihc5h8zhdw3nq1gqp09w2kaxdcd95rsxdi03yjim",
+            "rev": "f744bc5c04e437be2827c4db6cf765facb97b703",
+            "sha256": "1h62sbzwz8p5r5m0qhm2x2rv96gimqls6a3lqc7v83nflh27xqa6",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
