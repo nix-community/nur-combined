@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "e90cea20214520c96e797d28a8fcb9d3b0b34de8",
-            "sha256": "1m3cr6a297jz2z8shwcc0k3khbgndxlxacrnigq36f90llmkmd53",
+            "rev": "178c3f3d8a68e94b1309c210b08896a7f9c4d498",
+            "sha256": "0n142bxgvag6c3algwair52vy9y3cczlprfraqpw3h1akhpwv958",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -653,8 +653,8 @@
             "url": "https://github.com/cwyc/nur-packages"
         },
         "dagger": {
-            "rev": "8d0af7d01e0cc6f80b2352fa6fdd3c872ddaccfb",
-            "sha256": "1qn0hkqs8qwxnrkl6iyvnkszzcy2i741jjpis84rrqrabnqlrna9",
+            "rev": "bb2e1f1e077e49ea3236ef32a87a1b33a5600b83",
+            "sha256": "17z2v1x0nb4dny605xw1mykvwmcl0z8v8zp3il6zhixjcai8jc3v",
             "url": "https://github.com/dagger/nix"
         },
         "dan4ik605743": {
@@ -1684,8 +1684,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "4f360278faafc8ed378194428964e48eacc46e4d",
-            "sha256": "0ycpnj26yixzrx5lr8ibx1g1w79c414nn55lcnyz78w22nmpyzc5",
+            "rev": "cad8fd6aebc99406796015ae081fd201291f89c8",
+            "sha256": "07bqg5d6y7mqhi4k13gc6zv7kfrd953sh3x3q50gc59yb4nnapwr",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
