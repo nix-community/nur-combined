@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "f8c8a43e8cb03d240c8d9cdef8054f02a85ed52c",
-            "sha256": "19rzs4wdbas8dppn1f01ln34rk1visqq6x20b2ksz7i6gn4ngah5",
+            "rev": "cca8d67508770bc2539dadc7e20021511a9e81eb",
+            "sha256": "0gh283mmpxfbry5avyi3rq7yyjnk0cya7d2gj05wxxx188z3r3wc",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -2507,8 +2507,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "d737b985821b8a15fb462c66d860e0df4e16362a",
-            "sha256": "1zjmvqr43l69vkik6d6vbjvir60di95pal41hgpwbhkba9hswm60",
+            "rev": "a0210ff27f7cfae83b5ef7d8211612195be5867a",
+            "sha256": "0lh36svia6csrsvc46y35gm98vfpvmi6y30v4rjrsb4kbydi1kxf",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
