@@ -48,7 +48,7 @@ jobs:
       - name: Set nixpkgs flake reference
         run: |
           nix registry add nixpkgs github:NixOS/nixpkgs/nixos-unstable-small
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@v3
         id: app-token
         with:
           app-id: ${{ secrets.APP_ID }}
