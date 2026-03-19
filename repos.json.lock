@@ -1416,8 +1416,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "88aa5ca9c1d3e62be09c797bec90a894d279d916",
-            "sha256": "0xz8cy5xrcnvcvbb8pi5ryblvx05qvbfx7vy6r8rhvk1xmma4756",
+            "rev": "a40cf165839cc5f3d2728e3961a135cf06c5145f",
+            "sha256": "1rjmys50z63d9w5pvyxjzinwxr1254mn3bw2irb3p1r9gxczp592",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "7d0dc0ca4f0a94eb10ee466e60cca5e5c5ce6d1d",
-            "sha256": "1194s88isjm3y4by3pj36ahg46pr7v35858zkhw90qb2gjihrxrm",
+            "rev": "1227598e9857f4b48baf2a84c376793273450fc9",
+            "sha256": "0wmj2k3kddwpw48ad95hdxpcm1s2xjlwrdxn42y035p64f90qs3q",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
@@ -2552,8 +2552,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "1850b5abc7ec327ced9e192a84e85a7e6f6a5aa1",
-            "sha256": "1j6lm30fbav7krnnzbja0dq7yw00zr8gs27ng1z1zcj3qhqa16sx",
+            "rev": "c2070bfdec4b457eb4622b490daa9c226e13f93d",
+            "sha256": "1ssmvmh61bwbknk1x78xpdpspp4mpcs010kba34cm2d9h31xkjz0",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
