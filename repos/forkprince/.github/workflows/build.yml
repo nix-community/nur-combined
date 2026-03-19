@@ -131,10 +131,10 @@ jobs:
     strategy:
       matrix:
         include:
-          # - os: ubuntu-latest
-          #   nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - os: ubuntu-latest
-            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          # - os: ubuntu-latest
+          #   nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
           - os: macos-latest
             nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           # - os: macos-latest
