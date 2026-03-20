@@ -1421,8 +1421,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "022344611faf8186c4b72374e9ba0e06de93c368",
-            "sha256": "0r5ls5m85j37rcqhlhvc7i5x2dzngs3wl2l676z9izxq0hwpkqvy",
+            "rev": "f1ee9e2103bd5ef7b341651014279c7264ecdef0",
+            "sha256": "16rnzgv52g9gxgbdhpj4gp7pkm4vmf68f5364fwrkjzf39aqdk6p",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2180,8 +2180,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "bea410f1a45a7e18d46de62df958d6800e5b65d6",
-            "sha256": "1prczs60hy0553n5h2jxaghfiddbga3ish9rx5180xx7hkynqc0d",
+            "rev": "4cce4a6393a21a1ae5685fa1190d41416d9d61a5",
+            "sha256": "0l0yj405rm6mm6bck8g6ayizc52g1v74cbb706wygpc4vyi3xlmx",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
