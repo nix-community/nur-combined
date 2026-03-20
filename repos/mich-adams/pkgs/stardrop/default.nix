@@ -14,10 +14,21 @@
   dbus,
   gtk3,
   wrapGAppsHook3,
-
+  colors ? {
+    background = "282828"; # DarkSeaBlue
+    borders = "d65d0e"; # NeonOrange
+    foreground = "8ec07c"; # NeonMint
+    error = "cc241d"; # NeonRed
+    modListBackground = "928374"; # PerfectGray
+    modListHeader = "3c3836"; # DarkestGray
+    modListForeground = "fbf1c7"; # White
+    modListForegroundAlt = "504945"; # OffGray
+    selected = "689d6a"; # GrayBlue
+    update = "d79921"; # NeonYellow
+  },
 }:
 buildDotnetModule rec {
-  pname = "StarDrop";
+  pname = "Stardrop";
   version = "1.8.3";
 
   src = fetchFromGitHub {
@@ -72,9 +83,19 @@ buildDotnetModule rec {
     })
   ];
 
-  postInstall = ''
-        install -Dm644 ${./stardrop.svg} \
-    	"$out/share/icons/hicolor/scaleable/apps/stardrop.svg"
+  postInstall = with colors; ''
+    substituteInPlace $out/lib/Stardrop/Themes/Stardrop.xaml \
+        --replace-fail 'ff9f2a' '${borders}' \
+        --replace-fail '031332' '${background}' \
+        --replace-fail '1cff96' '${foreground}' \
+        --replace-fail 'f74040' '${error}' \
+        --replace-fail '3abcbc' '${selected}' \
+        --replace-fail '6B6B6B' '${modListBackground}' \
+        --replace-fail '525252' '${modListForegroundAlt}' \
+        --replace-fail '2a2824' '${modListHeader}' \
+        --replace-fail 'ffffff' '${modListForeground}'
+    install -Dm644 ${./stardrop.svg} \
+        "$out/share/icons/hicolor/scaleable/apps/stardrop.svg"
   '';
 
   meta = {
