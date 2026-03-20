@@ -19,6 +19,7 @@ let
         overlays.packages
         overlays.libs
       ];
+      config.allowUnfree = true;
     };
 
   # Ignore flake output attributes that are not per-system.
