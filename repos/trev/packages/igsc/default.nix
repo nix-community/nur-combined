@@ -1,10 +1,10 @@
 {
+  cmake,
   fetchFromGitHub,
   lib,
+  metee,
   nix-update-script,
   stdenv,
-  cmake,
-  metee,
   udev,
 }:
 
@@ -16,14 +16,17 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "intel";
     repo = "igsc";
     tag = "V${finalAttrs.version}";
-    hash = "sha256-ecjcDYirbJC2s48+SOwFuJAJQ6eaabTrmgTjgb+dXrA=";
+    hash = "sha256-eBN05r2o6MUTJvIrkwY2uic7afj6YMHvt/apHyyGgug=";
   };
+
+  nativeBuildInputs = [
+    cmake
+  ];
 
   buildInputs = [
     metee
     udev
   ];
-  nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
     "-DMETEE_LIB_PATH=${metee}/lib"
