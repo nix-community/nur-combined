@@ -15,6 +15,7 @@ rec {
   gleam = pkgs.callPackage ./gleam { };
   gleescript = pkgs.callPackage ./gleescript { inherit gleam; };
   go-over = pkgs.callPackage ./go-over { inherit gleam; };
+  helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-scan = pkgs.callPackage ./nix-scan { };
