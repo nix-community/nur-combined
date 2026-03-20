@@ -327,7 +327,7 @@
     },
     "mautrix-telegramgo": {
         "cargoLock": null,
-        "date": "2026-03-18",
+        "date": "2026-03-19",
         "extract": null,
         "name": "mautrix-telegramgo",
         "passthru": null,
@@ -339,12 +339,12 @@
             "name": null,
             "owner": "mautrix",
             "repo": "telegramgo",
-            "rev": "98936fdf7a5d15d96a78a95d2f74cf44861af932",
-            "sha256": "sha256-MdyK98iRZqrnX9BHB5AuM8RWfYME1t3JGLMk4Mlvo1I=",
+            "rev": "b17bb0d5c756ed92becb1111be68e50d827a2885",
+            "sha256": "sha256-zpbi7Mq8JdWCn2Ph2Llq3jeJSJEwo8k++tSAvb8T/uU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "98936fdf7a5d15d96a78a95d2f74cf44861af932"
+        "version": "b17bb0d5c756ed92becb1111be68e50d827a2885"
     },
     "mm-geofeed-verifier": {
         "cargoLock": null,
@@ -488,7 +488,7 @@
     },
     "superpowers-skills": {
         "cargoLock": null,
-        "date": "2026-03-17",
+        "date": "2026-03-19",
         "extract": null,
         "name": "superpowers-skills",
         "passthru": null,
@@ -500,12 +500,12 @@
             "name": null,
             "owner": "obra",
             "repo": "superpowers",
-            "rev": "7e516434f2a30114300efc9247db32fb37daa5f9",
-            "sha256": "sha256-Yq7y6VDrREV60WpfaGsYdnWqoaS7g1hrtci4bGtgtZM=",
+            "rev": "8ea39819eed74fe2a0338e71789f06b30e953041",
+            "sha256": "sha256-wmOArGgOahJK/mqzYJZW6qcUNaOB6yL57RQMe56S1uw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7e516434f2a30114300efc9247db32fb37daa5f9"
+        "version": "8ea39819eed74fe2a0338e71789f06b30e953041"
     },
     "udpxy": {
         "cargoLock": null,
@@ -537,11 +537,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-5IuSXZhde/M8/udvMJJBrw8XeWmZY7aTY97CxHQAQdE=",
+            "sha256": "sha256-S9scHPAeyYh4kIWprPVSK18zVZBuPqpqkOpg21tYNxE=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603182227/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603192222/geoip.dat"
         },
-        "version": "202603182227"
+        "version": "202603192222"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -552,11 +552,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CGhr2rKq7Cvqvpe6ojxoEqQ4Okgz5aOHe+cS5mqBpMM=",
+            "sha256": "sha256-GVYhN88MXUVBItmg7f0jC1ycLJaooAdu6y4sMw9l4Tg=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603182227/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603192222/geosite.dat"
         },
-        "version": "202603182227"
+        "version": "202603192222"
     },
     "yass": {
         "cargoLock": null,
