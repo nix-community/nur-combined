@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "66c0187ebe0f648b1ab8ec9f1098fe73e6c756fd",
-            "sha256": "1bjr463q5bc7abkbh3lk2m709jdiwckjhyxmy7z74d56jx0ncbqv",
+            "rev": "fd23726262057edc10e80212cdec5d56856566c6",
+            "sha256": "0cqbz7pf0d6ywwyy7nvydkyzpfmmwyg7wii7wr8snpddbaxkvqvs",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -557,8 +557,8 @@
             "url": "https://github.com/pillowtrucker/tooo000oooot"
         },
         "chillcicada": {
-            "rev": "bbb7d625466b1032316dae62bdc5762da1f04097",
-            "sha256": "0hgdi7c7xfwhhk48vpq9kyds50fwlw272lv1mfri2xnvn984z9wa",
+            "rev": "febb6a2a466955dfe63781a7aba753f664ea6efc",
+            "sha256": "16r3shmkzz1bgpdwhgr2fkgnpz2lbsab8vrvkcn9fsa8c099i3fl",
             "url": "https://github.com/chillcicada/nurpkgs"
         },
         "chisui": {
