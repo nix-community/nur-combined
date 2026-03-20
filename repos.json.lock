@@ -743,8 +743,8 @@
             "url": "https://github.com/dmfrpro/nur-packages"
         },
         "doomhammer": {
-            "rev": "dbf05df3a8cb56c54616fa7816140b3501746871",
-            "sha256": "0irmjc5yans4rmx0vamsmbwjs6cq9vh8shdfcjsv2mcf86dbxlva",
+            "rev": "663030a4f2a1a5cd42578a894f34283ca7d5f424",
+            "sha256": "1v4hc0p7bb94wviqc1in2a2lwnfkxyv09j0jb9br4qnlsig33zck",
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
@@ -903,8 +903,8 @@
             "url": "https://github.com/fooker/nur-packages"
         },
         "foolnotion": {
-            "rev": "5c240b9f484213080e1d57cdd73ba7d8125c753a",
-            "sha256": "0pbb7x1vqviji8zmzsms3fhd7y6qa2la2bnm61whhm102i2iacry",
+            "rev": "43117971f5738c183dabe17d2ef310c47606bea4",
+            "sha256": "04w1lnrpy6n367lswzfbgpbk9vvnyhc62kws8vnmc4fgb13khsak",
             "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "f744bc5c04e437be2827c4db6cf765facb97b703",
-            "sha256": "1h62sbzwz8p5r5m0qhm2x2rv96gimqls6a3lqc7v83nflh27xqa6",
+            "rev": "50668f61d9c6afbb64c229b6136b72f40cfc3342",
+            "sha256": "0nwpizdl35zw1xcc09ma24a2qz82lapfcwshnwzfjc6n655dhkqz",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
