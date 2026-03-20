@@ -2597,8 +2597,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "ceecff71dbbdfebfd13ab914063e40a5e8c3a112",
-            "sha256": "0av5y2zpbvk5hzq980g9rpbcblxysybvbpgapdk570b3vnncvfzz",
+            "rev": "40e51d21347b18d32099f95951ea8302449c8644",
+            "sha256": "0kln9ccxgrb37lpz87v1anj36h16xpd4ldls3ym39gs7vz2047bi",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
