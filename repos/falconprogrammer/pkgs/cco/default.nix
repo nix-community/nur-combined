@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cco";
-  version = "0-unstable-2026-03-16";
+  version = "0-unstable-2026-03-19";
 
   src = fetchFromGitHub {
     owner = "nikvdp";
     repo = "cco";
-    rev = "7c83caf4a7a090d360a820db534fb6d32b0b7642";
-    hash = "sha256-albM33kz9BAPEo/3wDUn07TBG3JJfnIj/dKJT8Pvcog=";
+    rev = "9e514ba33e36d8a51243147541f141b008b3a016";
+    hash = "sha256-n8zk5eIXIfRhmhEkDGe4L81zCeGOPS46ybVsQLZKgsQ=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
