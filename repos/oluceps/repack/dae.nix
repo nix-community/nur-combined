@@ -38,7 +38,6 @@ reIf {
             dial_mode: domain
             disable_waiting_network: false
             auto_config_kernel_parameter: true
-            enable_local_tcp_fast_redirect: true
             # sniffing_timeout: 50ms
             tls_implementation: utls
             utls_imitate: chrome_auto

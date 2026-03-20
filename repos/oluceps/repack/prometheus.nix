@@ -63,7 +63,7 @@ reIf {
             job_name = "ncps";
             static_configs = [
               {
-                targets = [ "localhost:8501" ];
+                targets = [ "[fdcc::3]:8501" ];
               }
             ];
           }

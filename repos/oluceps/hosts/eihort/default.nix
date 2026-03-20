@@ -21,6 +21,11 @@ withSystem "x86_64-linux" (
         permittedInsecurePackages = [
           "olm-3.2.16"
         ];
+        allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "antigravity"
+          ];
       };
       overlays = lib.hostOverlays { inherit inputs inputs'; };
     };

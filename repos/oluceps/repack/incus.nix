@@ -43,6 +43,13 @@ in
                 type = "nic";
                 network = "br0";
               };
+              # incus profile edit default
+              eth1 = {
+                name = "eth1";
+                type = "nic";
+                nictype = "macvlan";
+                parent = "eno1";
+              };
               root = {
                 path = "/";
                 pool = "default";
@@ -95,13 +102,13 @@ in
         }
       '';
 
-      nat = {
-        enable = true;
-        internalIPs = [
-          "172.0.0.0/24"
-        ];
-        externalInterface = "eno1";
-      };
+      # nat = {
+      #   enable = true;
+      #   internalIPs = [
+      #     "172.0.0.0/24"
+      #   ];
+      #   externalInterface = "eno1";
+      # };
 
     };
     systemd.network.networks."40-br0" = {
@@ -109,12 +116,12 @@ in
       address = [
         cfg.bridgeAddr
       ];
-      routes = [
-        {
-          Destination = "172.0.0.0/24";
-          Scope = "link";
-        }
-      ];
+      # routes = [
+      #   {
+      #     Destination = "172.0.0.0/24";
+      #     Scope = "link";
+      #   }
+      # ];
     };
     # systemd.network.networks."10-lan" = {
     #   matchConfig.Name = [

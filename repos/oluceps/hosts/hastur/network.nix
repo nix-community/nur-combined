@@ -41,9 +41,11 @@
       allowedUDPPorts = [
         8080
         5353
+        1901
       ];
       allowedTCPPorts = [
         8080
+        1901
       ];
     };
     nftables = {

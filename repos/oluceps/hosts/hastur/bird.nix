@@ -7,7 +7,7 @@
       protocol direct ext {
         ipv6;
         interface "br0";
-      }
+      };
       include "${config.vaultix.secrets.babel-auth.path}";
     '';
   };

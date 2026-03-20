@@ -41,9 +41,11 @@
                 "Vulkan"
                 "VulkanFromANGLE"
                 "DefaultANGLEVulkan"
+                "UseOzonePlatform"
               ]
             }"
             "--ozone-platform-hint=auto"
+            "--ozone-platform=wayland"
             "--enable-wayland-ime"
             "--wayland-text-input-version=3"
             "--disk-cache-dir=\"$XDG_RUNTIME_DIR/chromium-cache\""

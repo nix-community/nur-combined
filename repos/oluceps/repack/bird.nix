@@ -33,7 +33,7 @@ in
           };
           protocol direct {
             ipv6;
-            # include zt interfaces and any other local interfaces you want to route
+            # include zt interfaces
             interface "anchor-0"; 
           }
 

@@ -152,13 +152,15 @@
           dev = [
             (nixos-rebuild-ng.override {
               # withNgSuffix = false;
-              # nix = inputs'.lix-module.packages.default;
+              nix = pkgs.lixPackageSets.stable.lix;
             })
             devenv
             zoxide
             nodejs_latest
             opencode
+            codex
             gemini-cli
+            antigravity-fhs
             gh
             # zed-editor
             # vscode.fhs

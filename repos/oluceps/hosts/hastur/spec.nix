@@ -12,6 +12,7 @@
   ];
   nix.settings.trusted-users = [ "riro" ];
 
+  services.hardware.openrgb.enable = true;
   # systemd.services.systemd-networkd.serviceConfig.Environment = [ "SYSTEMD_LOG_LEVEL=debug" ];
   system = {
     # This headless machine uses to perform heavy task.

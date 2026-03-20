@@ -40,11 +40,13 @@
       ".rustup"
       ".mozilla"
       ".FeelUOwn"
+      ".antigravity"
       ".config"
       ".mongodb"
       ".vscode"
       ".gradle"
       ".steam"
+      ".gemini"
       "Android"
       "Games"
       {
