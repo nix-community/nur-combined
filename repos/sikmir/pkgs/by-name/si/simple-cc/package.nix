@@ -1,21 +1,20 @@
 {
   lib,
   stdenv,
-  fetchgit,
+  fetchurl,
   ed,
   qbe,
   makeWrapper,
   buildPackages,
 }:
 
-stdenv.mkDerivation {
-  pname = "scc";
-  version = "0-unstable-2026-02-20";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "simple-cc";
+  version = "0.1";
 
-  src = fetchgit {
-    url = "git://git.simple-cc.org/scc";
-    rev = "05c02ab56769cd7ff85630d501627941d6abe84f";
-    hash = "sha256-JW/aDsOF8AwosfCZ4E3pnEnsBM7exUl1lpVssLlKXl0=";
+  src = fetchurl {
+    url = "https://www.simple-cc.org/releases/scc-${finalAttrs.version}.tar.gz";
+    hash = "sha256-0oZUxtl1GxUMmeXLHhSn2SVQdOyaWzPn7IP4jnlcaS8=";
   };
 
   postPatch = ''
@@ -68,4 +67,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})
