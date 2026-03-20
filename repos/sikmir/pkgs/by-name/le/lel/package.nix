@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchgit,
+  fetchurl,
   libX11,
   farbfeld,
   farbfeld-utils,
@@ -11,10 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "lel";
   version = "0.2";
 
-  src = fetchgit {
-    url = "git://git.codemadness.org/lel";
-    tag = finalAttrs.version;
-    hash = "sha256-p0lgzSgNyXUAMo/LXhbQZW8LRUGg+Iz+KEQiNYeaL7E=";
+  src = fetchurl {
+    url = "https://codemadness.org/releases/lel/lel-${finalAttrs.version}.tar.gz";
+    hash = "sha256-y00PnBpIgQaT8V9VL7wvNPOvugFhLXmt0AqZYQY+7dg=";
   };
 
   postPatch = ''

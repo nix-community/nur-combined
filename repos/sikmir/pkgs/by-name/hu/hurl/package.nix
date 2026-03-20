@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchgit,
+  fetchurl,
   libressl,
   libbsd,
 }:
@@ -10,10 +10,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "hurl";
   version = "0.8";
 
-  src = fetchgit {
-    url = "git://git.codemadness.org/hurl";
-    tag = finalAttrs.version;
-    hash = "sha256-/aalBz4HbR8GZYt+gI4o1tfN5PfpSLG1gADcbo0Mp94=";
+  src = fetchurl {
+    url = "https://codemadness.org/releases/hurl/hurl-${finalAttrs.version}.tar.gz";
+    hash = "sha256-APrPH2qlB6+FRPUK1nItHxNySzVT26Ku0auGxNdrQsE=";
   };
 
   buildInputs = [
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     libbsd
   ];
 
-  NIX_LDFLAGS = "-lbsd";
+  env.NIX_LDFLAGS = "-lbsd";
 
   makeFlags = [ "PREFIX=$(out)" ];
 

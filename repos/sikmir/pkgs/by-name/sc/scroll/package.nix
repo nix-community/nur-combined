@@ -1,17 +1,16 @@
 {
   lib,
   stdenv,
-  fetchgit,
+  fetchurl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "scroll";
   version = "0.1";
 
-  src = fetchgit {
-    url = "git://git.suckless.org/scroll";
-    tag = finalAttrs.version;
-    hash = "sha256-dr1s1K13BigfGSFvfBuOOy+yhuAcN1fb/4AEZPj9C48=";
+  src = fetchurl {
+    url = "https://dl.suckless.org/tools/scroll-${finalAttrs.version}.tar.gz";
+    hash = "sha256-nrLVnOat9gEAvSFxsNIx3bR+J0sp3tAiVpYKEezO7tY=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

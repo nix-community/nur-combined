@@ -1,17 +1,16 @@
 {
   lib,
   stdenv,
-  fetchgit,
+  fetchurl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "webdump";
   version = "0.2";
 
-  src = fetchgit {
-    url = "git://git.codemadness.org/webdump";
-    tag = finalAttrs.version;
-    hash = "sha256-YtgZkAnbQkIr2fhUYpSp/PaduuBFjxIkrkaROxrmT/0=";
+  src = fetchurl {
+    url = "https://codemadness.org/releases/webdump/webdump-${finalAttrs.version}.tar.gz";
+    hash = "sha256-rsYj92QujrRxHfdsJbP4S41/hO8iUXj+LGmvDzdfvbQ=";
   };
 
   makeFlags = [ "RANLIB:=$(RANLIB)" ];

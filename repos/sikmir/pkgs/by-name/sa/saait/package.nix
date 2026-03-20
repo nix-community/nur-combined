@@ -1,17 +1,16 @@
 {
   lib,
   stdenv,
-  fetchgit,
+  fetchurl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "saait";
   version = "0.8";
 
-  src = fetchgit {
-    url = "git://git.codemadness.org/saait";
-    tag = finalAttrs.version;
-    hash = "sha256-W86JAYUsyvOWt/YTqXfqMA/CwQq7uVIV1F6+AeRB/8s=";
+  src = fetchurl {
+    url = "https://codemadness.org/releases/saait/saait-${finalAttrs.version}.tar.gz";
+    hash = "sha256-ulYpErfzpSiE0pKyDroEdxmVQT5wFdNFT5Bf88AhBAQ=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];
