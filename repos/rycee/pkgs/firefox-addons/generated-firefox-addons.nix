@@ -7067,24 +7067,24 @@
     };
     "jabref" = buildMozillaXpiAddon {
       pname = "jabref";
-      version = "2.5";
+      version = "3.0";
       addonId = "@jabfox";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898690/jabref-2.5.xpi";
-      sha256 = "959f38cdf9fcc516261105947bbbf0356693b05a5e8024f2e9fd044566b120a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4733107/jabref-3.0.xpi";
+      sha256 = "45d9b209054c1beed50f1fded3287432e8c9e701fa18588bd2d896bd1020c355";
       meta = with lib;
       {
         homepage = "http://www.jabref.org/";
         description = "Browser extension for users of the bibliographic reference manager JabRef.\nIt automatically identifies and extracts bibliographic information on websites and sends them to JabRef with one click.";
         license = licenses.agpl3Plus;
         mozPermissions = [
-          "<all_urls>"
+          "scripting"
           "activeTab"
           "tabs"
-          "webNavigation"
           "storage"
           "nativeMessaging"
-          "http://*/*"
-          "https://*/*"
+          "offscreen"
+          "webRequest"
+          "declarativeNetRequest"
         ];
         platforms = platforms.all;
       };
@@ -11719,10 +11719,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "1.10.0";
+      version = "1.12.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4722849/private_grammar_checker_harper-1.10.0.xpi";
-      sha256 = "be273deaef3ebb4d273e66c93dabd6f7e025b91b66a95a86f826c8a20e1e63cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4733097/private_grammar_checker_harper-1.12.0.xpi";
+      sha256 = "5715f1e90de798f68f19adf7ec4c466fd07b347b42dc18a6462e7a137d9490a1";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -13181,10 +13181,10 @@
     };
     "shaarli" = buildMozillaXpiAddon {
       pname = "shaarli";
-      version = "2.2.1";
+      version = "2.2.2";
       addonId = "shaarli@imirhil.fr";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4730331/shaarli-2.2.1.xpi";
-      sha256 = "080e6e4a92ed42837cb497d98c9178c7501b1985b52a4252cd51cd288572db64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4733192/shaarli-2.2.2.xpi";
+      sha256 = "6844bfcc3a116f41a74b4012e0a2458e569c9adec584bef7cebf69331938899f";
       meta = with lib;
       {
         description = "Cette extension remplace le bookmarklet officiel et intègre un bouton « Shaarli » dans la barre des modules.";
