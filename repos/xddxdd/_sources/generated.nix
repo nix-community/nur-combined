@@ -596,14 +596,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "3ac6fe97b8c91ef870c9d706c7c7a8cbcdc5d4a3";
+    version = "785abef56b7775527fdb49a077671e784d9039da";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "3ac6fe97b8c91ef870c9d706c7c7a8cbcdc5d4a3";
-      hash = "sha256-m8ChhGjeF2Z42x4tE1WAXkIiUmQupLGKpGTY1cb1KsE=";
+      rev = "785abef56b7775527fdb49a077671e784d9039da";
+      hash = "sha256-KOsJ0e19DPU5hvP0XWDaKmHqhT/GVWasJ3FZbEVtoR8=";
     };
-    date = "2026-03-12";
+    date = "2026-03-20";
   };
   email-oauth2-proxy = {
     pname = "email-oauth2-proxy";
@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8429";
+    version = "b8457";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8429";
-      hash = "sha256-A/FfrcZyF665nyuYFISyuP8jZJe7gItpXAhvrCPseZI=";
+      tag = "b8457";
+      hash = "sha256-i71q48EnO3MeY9KdfxcCU0u+6tdGvqIvVNt+9NuAb70=";
     };
   };
   loralib = {
@@ -1235,14 +1235,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "6f70783d10cb004a403d7b5dca36c38664465bde";
+    version = "74545af0ceb251a5115dfd82758149b15966b4ee";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "6f70783d10cb004a403d7b5dca36c38664465bde";
-      hash = "sha256-ufycx+Xin8QJmUOywkgZtnetNGqsOzHOCm0pXHuLd3I=";
+      rev = "74545af0ceb251a5115dfd82758149b15966b4ee";
+      hash = "sha256-GDiR4uFcxb10V91uVUmTnj+IC6AO2u1L7EhKjbYQw+8=";
     };
-    date = "2026-03-19";
+    date = "2026-03-20";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1717,38 +1717,38 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.2.1+ds-1";
+    version = "10.2.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.1+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-39KRGgsGG77EimAIZnHN/jWn3VU+grWT9lqsNqHzyuw=";
+      hash = "sha256-TfewBQuuG0wD3dQYoVVlpVe2TVMPiI0SoJjNFadb53M=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.2.1+ds-1";
+    version = "10.2.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.1+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-iKQppFIoFrO0IA0OI8ozMT9aJjKx5Ql8VsXU5yGA49A=";
+      hash = "sha256-+L+J2s0E5moeNFJr9uubTrG02mIF0NggOB8Mh8sNuLs=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "10.2.1+ds-1";
+    version = "10.2.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.1+ds-1_armhf.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_armhf.deb";
       name = "qemu.deb";
-      hash = "sha256-ULN+MlFL8rOFhAQwqvx5behASIiFRmZc15XqBoOaP3w=";
+      hash = "sha256-m982gZ9dFcEHqyUF5crCBIuoOQnxzqDI3ZvGBDIBeCg=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "10.2.1+ds-1";
+    version = "10.2.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.1+ds-1_i386.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_i386.deb";
       name = "qemu.deb";
-      hash = "sha256-sgvySoiCjcYfa52ce0jr7U6aD4uIwbx088U0Xay7HsE=";
+      hash = "sha256-HBeC9Npxpo896bY9O+mh6ieT9GSOoCp1YJ9OO53a3LI=";
     };
   };
   qq-amd64 = {
@@ -1902,14 +1902,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "85c0b0f6c2a05e22d79345e84b6fd78178d2edfa";
+    version = "20b21a0ebe88dbba845621cd89bdb5f2b7f33fe7";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "85c0b0f6c2a05e22d79345e84b6fd78178d2edfa";
-      hash = "sha256-qNOHUKzKd99QJ7ka8TzXJ6ubTuj8qxNTFdUgVRp6w64=";
+      rev = "20b21a0ebe88dbba845621cd89bdb5f2b7f33fe7";
+      hash = "sha256-VILiRdsb2AHmlCqGnYeX7SZ7eg97pkMImzuW8zZhfxY=";
     };
-    date = "2026-03-17";
+    date = "2026-03-21";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1960,14 +1960,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "aa5413d3bb1020f699d78da4b519fba9b18ea8e0";
+    version = "4d417cdd37c2b7158e3709ca44c1cacb735a286a";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "aa5413d3bb1020f699d78da4b519fba9b18ea8e0";
-      hash = "sha256-AYSRC2D82/gjD/89daiGnxL3PRJCzXnT64O+ajO1AG8=";
+      rev = "4d417cdd37c2b7158e3709ca44c1cacb735a286a";
+      hash = "sha256-6ZYzhdCmFv5mu86FCu8ui/u2zVehD4OrbaD3d3IXJjk=";
     };
-    date = "2026-03-17";
+    date = "2026-03-20";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
