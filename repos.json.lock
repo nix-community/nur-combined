@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "c64da1fc619ce1b707a6366f03358df9dc7990f7",
-            "sha256": "0c6457kcrhkwq8a94lkg14khz6g9mgmlmywl8rqz00kbmr16xypf",
+            "rev": "66c0187ebe0f648b1ab8ec9f1098fe73e6c756fd",
+            "sha256": "1bjr463q5bc7abkbh3lk2m709jdiwckjhyxmy7z74d56jx0ncbqv",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -2597,8 +2597,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "0b75b05f24634ec3c356e2078b94b040c5549e5a",
-            "sha256": "0a79m7i8791ild9m1a6s28c73dvwdknxi2kkmirqm8i62591q2w7",
+            "rev": "ceecff71dbbdfebfd13ab914063e40a5e8c3a112",
+            "sha256": "0av5y2zpbvk5hzq980g9rpbcblxysybvbpgapdk570b3vnncvfzz",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
