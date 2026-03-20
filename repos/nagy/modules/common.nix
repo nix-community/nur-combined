@@ -18,6 +18,10 @@ in
   };
   services.getty.autologinUser = lib.mkForce "user";
 
+  # Systemd tools pager should not take over when the output fits on
+  # one screen. See man:less(1)
+  environment.sessionVariables.SYSTEMD_LESS = "FRX";
+
   users.users."user".openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVwcaKID2HpE4ZRYClT1URJCRXiSPsJR4FC5TwnlmCS"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP3LpZ81RkReP5MG3A+MoRB93E+XENLCFh9qmQNcuXV daniel.nagy@wiit.cloud"
@@ -88,6 +92,9 @@ in
 
   services.openssh = {
     enable = lib.mkDefault true;
+    settings.AcceptEnv = [
+      "COLORTERM"
+    ];
   };
 
   programs.fuse.userAllowOther = true;
@@ -103,7 +110,7 @@ in
     to32 = "nix-hash --to-base32 --type sha256";
     lt = "ls --human-readable --size -1 -S --classify";
     ll = "ls --human-readable -l";
-    la = "ls --human-readable --all -l";
+    la = "ls --human-readable -l --all";
     llH = "ls --human-readable -l --dereference-command-line";
     laH = "ls --human-readable --all -l --dereference-command-line";
     ltH = "ls --human-readable --size -1 -S --classify --dereference-command-line";
@@ -118,6 +125,14 @@ in
     "......" = "cd ../../../../..";
     "......." = "cd ../../../../../..";
   };
+
+  programs.bash.interactiveShellInit = ''
+    function .r() {
+      cd -- /run/user/1000/
+      source "$@"
+      cd -
+    }
+  '';
 
   # environment.localBinInPath = true;
   environment.homeBinInPath = true;

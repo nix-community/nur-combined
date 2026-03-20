@@ -92,6 +92,11 @@ let
             # bindings has no effect on qwertz keyboards.
             mods = "Shift";
           }
+          {
+            key = "K";
+            mods = "Control|Shift";
+            action = "ClearHistory";
+          }
         ];
       };
     };
@@ -102,7 +107,7 @@ let
     day = alacrittyMyTheme false;
     night = alacrittyMyTheme true;
   };
-  alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.json";
+  alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.toml";
   getAlaText =
     hmmodule:
     let

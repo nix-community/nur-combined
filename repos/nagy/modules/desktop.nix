@@ -14,6 +14,8 @@ in
     enable = true;
   };
 
+  environment.sessionVariables.XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+
   # Almost all hosts should have this keymap
   console.keyMap = lib.mkDefault "de";
 

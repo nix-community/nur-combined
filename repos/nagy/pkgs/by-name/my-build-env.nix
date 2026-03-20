@@ -82,11 +82,13 @@ let
             pkgs.ytt
             pkgs.yamllint
             pkgs.crane
+
+            pkgs.sops
+            pkgs.rbw
+            pkgs.imgpkg
           ];
 
           services.xserver.enable = true;
-
-          environment.sessionVariables.XAUTHORITY = lib.mkDefault "/run/user/1000/Xauthority";
 
           nagy.emacs = {
             packageDirectories = [
@@ -113,6 +115,7 @@ pkgs.writeText "my-build-env-script" ''
   export MANPATH="${myBuildEnv}/share/man:$MANPATH"
   export INFOPATH="${myBuildEnv}/share/info:$INFOPATH"
   export NIX_PATH="nixpkgs=${lib.cleanSource pkgs.path}:$NIX_PATH"
+  export XAUTHORITY="${sys.config.environment.sessionVariables.XAUTHORITY}"
 
   # TODO make this dynamic
   export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" sys.config.fonts.packages}"

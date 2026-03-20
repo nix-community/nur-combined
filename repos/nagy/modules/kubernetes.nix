@@ -16,6 +16,14 @@
     pkgs.calicoctl
     pkgs.nerdctl
     pkgs.cri-tools
+    pkgs.kind
+
+    # Userful tools for k8s development
+    pkgs.ytt
+    pkgs.yamllint
+    pkgs.sops
+    pkgs.kustomize
+    pkgs.kustomize-sops
   ]
   ++ (lib.optionals (!config.services.k3s.enable) [
     pkgs.kubectl # this otherwise conflicts with the k3s provided binary

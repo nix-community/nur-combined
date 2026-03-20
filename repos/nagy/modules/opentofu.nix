@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  self = import ../. { inherit pkgs; };
+in
 {
   imports = [ ./shortcommands.nix ];
 
@@ -8,9 +11,14 @@
       p.integrations_github
       p.gitlabhq_gitlab
       p.hetznercloud_hcloud
+      p.terraform-provider-openstack_openstack
     ]))
     # pkgs.opentofu-ls
+    self.pug
+
   ];
+
+  environment.sessionVariables.PUG_PROGRAM = "tofu";
 
   nagy.shortcommands.commands = {
     # tf = [ "tofu" ];
