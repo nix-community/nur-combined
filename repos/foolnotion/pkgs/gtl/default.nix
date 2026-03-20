@@ -15,18 +15,29 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'target_sources(''${PROJECT_NAME} INTERFACE ''${GTL_HEADERS})' '# stripped for install-export compatibility' \
+      --replace-fail 'export(EXPORT ''${PROJECT_NAME}-targets' 'install(EXPORT gtl-targets
+            NAMESPACE gtl::
+            FILE gtlTargets.cmake
+            DESTINATION lib/cmake/gtl' \
+      --replace-fail 'FILE "''${CMAKE_CURRENT_BINARY_DIR}/''${PROJECT_NAME}Targets.cmake")' ')'
+  '';
+
   cmakeFlags = [
     "-DGTL_INSTALL=ON"
     "-DGTL_BUILD_TESTS=OFF"
     "-DGTL_BUILD_EXAMPLES=OFF"
     "-DGTL_BUILD_BENCHMARKS=OFF"
+    "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
   postInstall = ''
-    substituteInPlace gtlTargets.cmake --replace "/build/source/" "$out/"
     mkdir -p $out/lib/cmake/gtl
-    install -m 644 gtlTargets.cmake $out/lib/cmake/gtl/
-    echo "include(\"''\\$''\{CMAKE_CURRENT_LIST_DIR}/gtlTargets.cmake\"''\)" > $out/lib/cmake/gtl/gtlConfig.cmake
+    cat > $out/lib/cmake/gtl/gtlConfig.cmake <<'EOF'
+include("''${CMAKE_CURRENT_LIST_DIR}/gtlTargets.cmake")
+EOF
   '';
 
   passthru.updateScript = nix-update-script { };
