@@ -6,13 +6,13 @@
 }:
 python3.pkgs.buildPythonApplication {
     pname = "dl";
-    version = "unstable-2025-12-19";
+    version = "unstable-2026-03-19";
 
     src = fetchFromGitHub {
         owner = "Vortriz";
         repo = "dl";
-        rev = "13c9002d5bb08a6935027fd45a4489ec2bccf952";
-        hash = "sha256-eNz0qhg5+QkBcIUeGEWfwrjA9u43PoDXgzj97AOSPTg=";
+        rev = "4b14f7192939ef17afe31ea649dfd9184bbf3fcb";
+        hash = "sha256-8EeIMXcK3dRY4+RKXJXENI7hpCzTXFZPstwYV1CZ/ZM=";
     };
 
     pyproject = true;
