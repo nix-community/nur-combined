@@ -229,7 +229,8 @@ cmd_export() {
   case "$compress_fmt" in
     gz)  tar -cf - -C "$work_dir" "$archive_name"            | pv -s "$tar_size" -N "compressing (gz-${compress_level})"            | gzip -${compress_level} > "$archive_path" ;;
     xz)  tar -cf - -C "$work_dir" "$archive_name"            | pv -s "$tar_size" -N "compressing (xz-${compress_level})"            | xz -${compress_level} > "$archive_path" ;;
-    zst) tar -cf - -C "$work_dir" "$archive_name"            | pv -s "$tar_size" -N "compressing (zst-${compress_level})"            | zstd -${compress_level} -o "$archive_path" ;;
+    zst) tar -cf - -C "$work_dir" "$archive_name" \
+             | zstd -${compress_level} --progress -o "$archive_path" ;;
   esac || die "Failed to create archive."
 
   log_ok "Archive created: $archive_path"
@@ -302,7 +303,7 @@ cmd_import() {
   case "$archive_path" in
     *.tar.gz)  pv -s "$arc_size" -N "extracting (gz)"  "$archive_path" | tar -xzf - -C "$work_dir" ;;
     *.tar.xz)  pv -s "$arc_size" -N "extracting (xz)"  "$archive_path" | tar -xJf - -C "$work_dir" ;;
-    *.tar.zst) pv -s "$arc_size" -N "extracting (zst)" "$archive_path" | zstd -d | tar -xf - -C "$work_dir" ;;
+    *.tar.zst) zstd -d --progress "$archive_path" -c | tar -xf - -C "$work_dir" ;;
     *) die "Unsupported archive format. Expected .tar.gz, .tar.xz or .tar.zst" ;;
   esac || die "Failed to extract archive."
 
@@ -375,6 +376,9 @@ cmd_import() {
   fi
 
   # 5. Register VM in libvirt
+  # Strip UUID so libvirt generates a fresh one — avoids conflicts with archives
+  # of VMs that still exist or were previously imported
+  sed -i '/<uuid>/d' "$xml_file"
   log_info "Defining VM in libvirt..."
   virsh define "$xml_file" \
     || die "Failed to define VM. Check vm.xml manually."
