@@ -1,0 +1,64 @@
+{
+    "mical": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-16NSGJTBbKEhWymfL2UaBfkRZzJ7yn+XT45lSHAhw88=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "mical",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mical-lang",
+            "repo": "mical",
+            "rev": "v0.0.2",
+            "sha256": "sha256-16NSGJTBbKEhWymfL2UaBfkRZzJ7yn+XT45lSHAhw88=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.2"
+    },
+    "pleckjp-font": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pleckjp-font",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-h7iW/arXNQZuW+9OpKdAWF9FtjSyi9/DLIuyuE1ckCY=",
+            "type": "url",
+            "url": "https://github.com/ryota2357/PleckJP/releases/download/v2.1.2/PleckJP_v2.1.2.zip"
+        },
+        "version": "v2.1.2"
+    },
+    "vm_stat2": {
+        "cargoLock": null,
+        "date": "2026-01-12",
+        "extract": null,
+        "name": "vm_stat2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ryota2357",
+            "repo": "vm_stat2",
+            "rev": "83349699f0773be1d18daed358f7d50b5fefccda",
+            "sha256": "sha256-UGJAghgqbuN3HIYrE+/ImjMwErrE6lYKeXhVk8nc+ZE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "83349699f0773be1d18daed358f7d50b5fefccda"
+    }
+}

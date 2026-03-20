@@ -1,0 +1,12 @@
+[mical]
+src.github_tag = "mical-lang/mical"
+fetch.github = "mical-lang/mical"
+cargo_lock = ["Cargo.lock"]
+
+[pleckjp-font]
+src.github_tag = "ryota2357/PleckJP"
+fetch.url = "https://github.com/ryota2357/PleckJP/releases/download/$ver/PleckJP_$ver.zip"
+
+[vm_stat2]
+src.git = "https://github.com/ryota2357/vm_stat2.git"
+fetch.github = "ryota2357/vm_stat2"
