@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "4e5db0cac0a901b8c4389738e648b22f47c18f54",
-            "sha256": "0f6ak5v8gda4nlz5fkh3gn8bmm4rd0d74mcfp5nlgpps1jdvfs34",
+            "rev": "dad17790fffd34318c9bd51ab0a2ba03a311e98e",
+            "sha256": "0c339xshifph00wnr6fh7gs73wa6xkhpafpf8myk4v037j4l53h2",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -366,8 +366,8 @@
             "url": "https://github.com/avrahambenaram/nur-packages"
         },
         "avycado13": {
-            "rev": "492dcca761b5477f20ca1076ba843d1197e87a4c",
-            "sha256": "0sapm90xajyphd7xqqghllvsn7bvi44qqkj90n1ahrm9h7s6vzac",
+            "rev": "6d5bc1c68c4ec07807a8a729944b9f91407b9b4c",
+            "sha256": "13pmdy5m8mxm9n50a7kj5nf78c32q2mjdcfw0ia4zl9h46d116cc",
             "url": "https://github.com/avycado13/nur-packages"
         },
         "awa2333": {
@@ -532,8 +532,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "charmbracelet": {
-            "rev": "5c84d752d4590b5a62a34bad08deb3744360a78e",
-            "sha256": "189c6mb1amb08vw1kdkfsgl0c9aqq6n728xy4q8g08b3pmqg40f5",
+            "rev": "a0d7c7fc7a819c2bf3204ac2d92181b0307d0b42",
+            "sha256": "0g84ww0344d25b3d7iczm8avk0vvjxxr95mq27azjfx5jwqicxfp",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
@@ -1844,8 +1844,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "d6dba03290dcf90b82cdcd44f057a44d28436e38",
-            "sha256": "12q2kx2f1n4xn33xwakml94yvbgjdadf10h0h6s6ijwkmzdpgahg",
+            "rev": "8a416d31c59526541079a19460e729fa20453073",
+            "sha256": "1m93ddxwikf4kdpwq0p32ljriyincpmhdglvnixzqad9zin3qc3n",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
@@ -2367,8 +2367,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "4d31c97e8dbdbe85289e0f0503b390a3db83b0a8",
-            "sha256": "19p9j7q82llzx5sjh32rq7r8wi5gs8g6594243cnz9a2vs61llxj",
+            "rev": "9febe747ea0800259ebc7531ef4ae3cc2197a79e",
+            "sha256": "1z6fssmqj2w3wc4j0874xz1dx7bi20kqpcz4856lz9v6f2mvb6p3",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
