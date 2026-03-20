@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: apiserver-vip-pool
+spec:
+  blocks:
+    - cidr: "fdcc::100/128"
+  serviceSelector: # v2 版本正确的字段名
+    matchLabels:
+      app: kube-apiserver

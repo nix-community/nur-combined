@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-apiserver-lb
+  labels:
+    app: kube-apiserver
+spec:
+  type: LoadBalancer
+  loadBalancerIP: "fdcc::100"
+  ipFamilies: [IPv6]
+  ipFamilyPolicy: SingleStack
+  ports:
+    - port: 6443
+      targetPort: 6443
+      protocol: TCP
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: kube-apiserver-lb-slice1
+  labels:
+    # EndpointSlice 必须通过这个内置标签来告诉 K8s 它属于哪个 Service
+    kubernetes.io/service-name: kube-apiserver-lb 
+addressType: IPv6 # 必须明确声明是 IPv6 还是 IPv4
+endpoints:
+  - addresses:
+      - "fdcc:3::3" # 当前 Node-2 的真实物理 IP
+    conditions:
+      ready: true
+    # - addresses: ["fdcc:3::1"]
+    # - addresses: ["fdcc:3::2"]
+ports:
+  - port: 6443
+    protocol: TCP

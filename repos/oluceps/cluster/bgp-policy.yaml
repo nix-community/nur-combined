@@ -1,0 +1,55 @@
+# define what to advertise (CiliumBGPAdvertisement)
+apiVersion: cilium.io/v2
+kind: CiliumBGPAdvertisement
+metadata:
+  name: bgp-adv-api-server
+  labels:
+    # use this label to link in peer config
+    advertise: "bgp-vip"
+spec:
+  advertisements:
+    - advertisementType: "Service"
+      # selector and service must be siblings under the list item
+      selector:
+        matchLabels:
+          app: kube-apiserver
+      service:
+        addresses:
+          - LoadBalancerIP
+---
+# define peer configuration (CiliumBGPPeerConfig)
+apiVersion: cilium.io/v2
+kind: CiliumBGPPeerConfig
+metadata:
+  name: bgp-peer-host-config
+spec:
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 120
+  families:
+    - afi: ipv6
+      safi: unicast
+      # this is where we link the advertisement via label
+      advertisements:
+        matchLabels:
+          advertise: "bgp-vip"
+---
+# define cluster configuration (CiliumBGPClusterConfig)
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+metadata:
+  name: bgp-cluster-config
+spec:
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/control-plane: ""
+  bgpInstances:
+    - name: "instance-64512"
+      localASN: 64512
+      localPort: 11179
+      peers:
+        - name: "host-gateway"
+          peerAddress: "fdcc:3::1"
+          peerASN: 64512
+          peerConfigRef:
+            name: bgp-peer-host-config
