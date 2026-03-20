@@ -54,7 +54,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4eP6FufpWBZ91Y3zEYGV+gTTMc/iFkBy5O9EyxP+19g=",
+            "sha256": "sha256-LuuIuWJTlBatgvzqw8WYhXgJQLTJCmRTaVhX1yIvQ24=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip"
         },
@@ -74,12 +74,12 @@
             "name": null,
             "owner": "imputnet",
             "repo": "helium-linux",
-            "rev": "0.10.5.1",
-            "sha256": "sha256-fMRqFP8zCMBmMMu0drx/mYa38cdEopOj11sMHSLs2fE=",
+            "rev": "0.10.6.1",
+            "sha256": "sha256-syIucConR2djjLFMXXT3mgoJDyQAZAT3L4LX5ONxD2c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.10.5.1"
+        "version": "0.10.6.1"
     },
     "helium-macos": {
         "cargoLock": null,
