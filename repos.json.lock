@@ -366,8 +366,8 @@
             "url": "https://github.com/avrahambenaram/nur-packages"
         },
         "avycado13": {
-            "rev": "b1ac2f843009d1036e8ea327ed4640149f3dbe36",
-            "sha256": "16cvqsphlnzni2v8b9il40ql5q1r51dg0zmk4gnf7v0zh1h9v7xh",
+            "rev": "6e1312bb3dfb76be377dbad6ab5b0d05c8ba4011",
+            "sha256": "0ll7rys1hrszzjvcp48fw37h9d4vhw34iv3hshkm6crzg5k7jj0p",
             "url": "https://github.com/avycado13/nur-packages"
         },
         "awa2333": {
@@ -1406,8 +1406,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "002c468ceb336913cad516f854e11412655c69c4",
-            "sha256": "1lzpyc6ndn8gmq36dm6bzb05fda1zkcgqyjbyjs8rrgmq76hc53k",
+            "rev": "ad26004e24a33889e3d22a557187de982b3d98eb",
+            "sha256": "1r6fs9g8vdqlqnfdwr61fvk51p7a73kxpb86dj66cpln47axm3lr",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
@@ -2362,8 +2362,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "897af2187c604131207a1582a236b25367d10c2d",
-            "sha256": "1s93xpb76cazcnp7nqs8ivzwrnb54sfk70d8xzhawpsrrf07vzbz",
+            "rev": "2fc1d140ca99dbe8f45433b3c6f921d36e6e4340",
+            "sha256": "11kzr84cg1mq16ybj1s0rabn7pv0gbqdsvzdqihgg8cbwfg2hn6k",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
