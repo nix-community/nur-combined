@@ -1547,8 +1547,8 @@
             "url": "https://github.com/Mic92/nur-packages"
         },
         "mich-adams": {
-            "rev": "41a02f8dba94647d559d20156ac59476f17fe28d",
-            "sha256": "0q6jh0xs03rjrcdljwijg8w0bxrhyn773xlkj270z6i93ndv3jaf",
+            "rev": "6bffd236fb1526ab7fe278f9154e19d71c8f3a4e",
+            "sha256": "1rn7kbar5a1j10a3nr3i3p4ipfm8vq0kddmgk5sfgg5lkvrnhrjq",
             "url": "https://github.com/mich-adams/nix-packages"
         },
         "michaelglass": {
@@ -1684,8 +1684,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "cad8fd6aebc99406796015ae081fd201291f89c8",
-            "sha256": "07bqg5d6y7mqhi4k13gc6zv7kfrd953sh3x3q50gc59yb4nnapwr",
+            "rev": "cca7753913c7e5b38bf935575b3bb33a2792a16f",
+            "sha256": "1jvnbx3zi6rx52dx9ddvhfv34pqrwkyj1176x3l2iswn71zyv8s7",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
