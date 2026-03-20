@@ -7,7 +7,6 @@
   commonMeta = with lib; {
     homepage = "https://github.com/agentralabs/agentic-contract";
     license = with licenses; [mit];
-    mainProgram = "acon";
     platforms = platforms.linux ++ platforms.darwin;
     sourceProvenance = with sourceTypes; [fromSource];
   };
@@ -59,6 +58,7 @@ in
           commonMeta
           // {
             description = "MCP server for AgenticContract";
+            mainProgram = pname;
           };
       };
     };
@@ -74,5 +74,6 @@ in
       commonMeta
       // {
         description = "Policy engine CLI for AI agents";
+        mainProgram = "acon";
       };
   }
