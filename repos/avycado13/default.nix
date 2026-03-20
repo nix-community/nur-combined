@@ -16,6 +16,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  gitcredits = pkgs.callPackage ./pkgs/gitcredits { };
   zmx = pkgs.callPackage ./pkgs/zmx { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
