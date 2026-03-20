@@ -50,14 +50,7 @@ let
   };
   pkgs-x86_64-windows = mkCrossPkgs {
     config = "x86_64-w64-mingw32";
-    libc = "ucrt"; # This distinguishes the mingw (non posix) toolchain
-    isStatic = true;
-  };
-  pkgs-aarch64-windows = mkCrossPkgs {
-    config = "aarch64-w64-mingw32";
-    libc = "ucrt"; # This distinguishes the mingw (non posix) toolchain
-    rust.rustcTarget = "aarch64-pc-windows-gnullvm";
-    useLLVM = true; # GCC does not support this platform yet
+    libc = "ucrt";
     isStatic = true;
   };
   pkgs-x86_64-darwin = mkCrossPkgs {
@@ -120,7 +113,6 @@ builtins.mapAttrs (
             armv7l-linux = hasPlatform pkgs-armv7l-linux;
             armv6l-linux = hasPlatform pkgs-armv6l-linux;
             x86_64-windows = hasPlatform pkgs-x86_64-windows;
-            aarch64-windows = hasPlatform pkgs-aarch64-windows;
 
             # Cross-compilation to darwin doesn't work on linux yet :(
             x86_64-darwin = nullIf pkgs.stdenv.hostPlatform.isLinux (hasPlatform pkgs-x86_64-darwin);

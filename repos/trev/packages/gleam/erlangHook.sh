@@ -4,7 +4,7 @@ gleamConfigHook() {
     echo "Executing gleamConfigHook"
 
     if [ -n "${gleamRoot-}" ]; then
-      pushd "$gleamRoot" || exit 1
+      pushd "${gleamRoot}" || exit 1
     fi
 
     if [ -z "${gleamDeps-}" ]; then

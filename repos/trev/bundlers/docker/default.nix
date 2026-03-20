@@ -5,32 +5,21 @@
 pkgs.dockerTools.buildLayeredImage {
   name = drv.pname;
   tag = drv.version;
+  architecture = drv.stdenv.hostPlatform.go.GOARCH or "amd64";
+  meta = drv.meta or { };
 
   contents = with pkgs; [
     dockerTools.caCertificates
   ];
 
-  created = "now";
-  meta = drv.meta;
-
   config = {
     Cmd = [ "${pkgs.lib.meta.getExe drv}" ];
     Labels = pkgs.lib.filterAttrs (_: v: v != null) {
-      "org.opencontainers.image.title" = if drv ? pname then drv.pname else null;
-
-      "org.opencontainers.image.description" =
-        if drv ? meta && drv.meta ? description then drv.meta.description else null;
-
-      "org.opencontainers.image.version" = if drv ? version then drv.version else null;
-
-      "org.opencontainers.image.source" =
-        if drv ? meta && drv.meta ? homepage then drv.meta.homepage else null;
-
-      "org.opencontainers.image.licenses" =
-        if drv ? meta && drv.meta ? license && drv.meta.license ? spdxId then
-          drv.meta.license.spdxId
-        else
-          null;
+      "org.opencontainers.image.title" = drv.pname or null;
+      "org.opencontainers.image.description" = drv.meta.description or null;
+      "org.opencontainers.image.version" = drv.version or null;
+      "org.opencontainers.image.source" = drv.meta.homepage or null;
+      "org.opencontainers.image.licenses" = drv.meta.license.spdxId or null;
     };
   };
 }

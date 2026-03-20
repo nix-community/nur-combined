@@ -1,22 +1,22 @@
 {
-  makeSetupHook,
-  tomlq,
-  gleam,
-  erlang,
-  rebar3,
   bash,
+  beamMinimalPackages,
+  gleam,
+  makeSetupHook,
+  rebar3,
+  tomlq,
 }:
 
 makeSetupHook {
   name = "gleam-erlang-hook";
   propagatedBuildInputs = [
-    tomlq
+    beamMinimalPackages.erlang
     gleam
-    erlang
     rebar3
+    tomlq
   ];
   substitutions = {
     shell = "${bash}/bin/bash";
-    erl = "${erlang}/bin/erl";
+    erl = "${beamMinimalPackages.erlang}/bin/erl";
   };
 } ./erlangHook.sh
