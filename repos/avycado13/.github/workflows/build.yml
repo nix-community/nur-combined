@@ -12,6 +12,24 @@ on:
     - cron:  '34 5 * * *'
   workflow_dispatch:
 jobs:
+  update-flake-lock:
+      runs-on: ubuntu-latest
+      environment: production
+      steps:
+        - uses: actions/checkout@v6
+        - uses: DeterminateSystems/nix-installer-action@v12
+        - id: update
+          uses: DeterminateSystems/update-flake-lock@v23
+          with:
+            commit-msg: "chore(flake.lock): update"
+            pr-title: "chore(flake.lock): update"
+            pr-labels: auto-merge
+            token: "${{ secrets.GITHUB_TOKEN }}"
+        - name: Merge
+          run: gh pr merge --auto "${{ steps.update.outputs.pull-request-number }}" --rebase
+          env:
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          if: ${{ steps.update.outputs.pull-request-number != '' }}
   tests:
     strategy:
       matrix:
@@ -21,7 +39,7 @@ jobs:
         # The repo name as used in
         # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
-          - <YOUR_REPO_NAME>
+          - avycado13
         # Set this to cache your build results in cachix for faster builds
         # in CI and for everyone who uses your cache.
         #
