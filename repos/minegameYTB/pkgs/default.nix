@@ -10,6 +10,7 @@ rec {
   GLFfetch = callPackage ./misc/GLFfetch { };
   GLFfetch-glfos = GLFfetch.override { glfIcon = "GLFos"; };
   gsettings-diff = callPackage ./tools/gsettings-diff { };
+  kvm-archive = callPackage ./tools/kvm-archive { };
 
   ### Editor set
   editor = rec {

@@ -1,0 +1,464 @@
+#!/usr/bin/env bash
+# kvm-archive.sh — KVM VM import/export tool for virt-manager
+# NixOS-compatible (bash via /usr/bin/env, no hardcoded system paths)
+#
+# Usage:
+#   ./kvm-archive.sh export <vm_name> [destination_dir] [--format gz|xz|zst] [--level 1-9]
+#   ./kvm-archive.sh import <archive.tar.gz|xz|zst> [--pool <pool_name>] [--name <new_name>]
+#   ./kvm-archive.sh list
+#   ./kvm-archive.sh help
+
+set -euo pipefail
+IFS=$'\n\t'
+
+# ─────────────────────────────────────────────
+# DEFAULTS
+# ─────────────────────────────────────────────
+
+readonly SCRIPT_NAME="$(basename "$0")"
+readonly DEFAULT_EXPORT_DIR="${HOME}/kvm-archives"
+readonly DEFAULT_POOL="default"
+readonly DEFAULT_FORMAT="gz"   # gz | xz | zst
+readonly DEFAULT_LEVEL="6"     # 1 (fast) to 9 (best ratio)
+readonly TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+
+# libvirt URI — override with: VIRSH_URI=qemu:///session ./kvm-archive.sh
+VIRSH_URI="${VIRSH_URI:-qemu:///system}"
+
+# Always inject the URI into every virsh call
+virsh() { command virsh -c "$VIRSH_URI" "$@"; }
+
+# Colors — disabled when not in an interactive terminal
+if [[ -t 1 ]]; then
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  YELLOW='\033[1;33m'
+  BLUE='\033[0;34m'
+  BOLD='\033[1m'
+  RESET='\033[0m'
+else
+  RED='' GREEN='' YELLOW='' BLUE='' BOLD='' RESET=''
+fi
+
+# ─────────────────────────────────────────────
+# LOGGING
+# ─────────────────────────────────────────────
+
+log_info()    { echo -e "${BLUE}[INFO]${RESET}  $*"; }
+log_ok()      { echo -e "${GREEN}[OK]${RESET}    $*"; }
+log_warn()    { echo -e "${YELLOW}[WARN]${RESET}  $*"; }
+log_error()   { echo -e "${RED}[ERROR]${RESET} $*" >&2; }
+log_section() { echo -e "\n${BOLD}══ $* ══${RESET}"; }
+
+die() { log_error "$*"; exit 1; }
+
+# ─────────────────────────────────────────────
+# CHECKS
+# ─────────────────────────────────────────────
+
+check_root() {
+  if [[ "$EUID" -ne 0 ]]; then
+    log_error "This script must be run as root."
+    echo -e "  ${YELLOW}→ Re-run with:${RESET} sudo $SCRIPT_NAME $*" >&2
+    exit 1
+  fi
+}
+
+check_dependencies() {
+  local deps=("virsh" "tar" "gzip" "qemu-img" "pv" "xz" "zstd")
+  local missing=()
+  for dep in "${deps[@]}"; do
+    command -v "$dep" &>/dev/null || missing+=("$dep")
+  done
+  if [[ ${#missing[@]} -gt 0 ]]; then
+    die "Missing dependencies: ${missing[*]}\n  On NixOS, add to your config: libvirt, qemu, pv, xz, zstd"
+  fi
+}
+
+# ─────────────────────────────────────────────
+# VM HELPERS
+# ─────────────────────────────────────────────
+
+# Dump VM XML definition
+get_vm_xml() {
+  virsh dumpxml "$1" 2>/dev/null \
+    || die "Cannot get XML for VM '$1'. Does it exist?"
+}
+
+# Returns true if VM exists (any state)
+vm_exists() {
+  virsh dominfo "$1" &>/dev/null
+}
+
+# Returns current VM state: running, shut off, paused, etc.
+get_vm_state() {
+  virsh domstate "$1" 2>/dev/null | tr -d ' '
+}
+
+# List disk image paths for a VM (excludes cdroms)
+get_disk_paths() {
+  virsh domblklist "$1" --details \
+    | awk '$2 == "disk" && $4 != "-" { print $4 }'
+}
+
+# ─────────────────────────────────────────────
+# COMMAND: LIST
+# ─────────────────────────────────────────────
+
+cmd_list() {
+  log_section "KVM virtual machines"
+  virsh list --all
+}
+
+# ─────────────────────────────────────────────
+# COMMAND: EXPORT
+# ─────────────────────────────────────────────
+
+cmd_export() {
+  local vm_name="${1:-}"
+  local dest_dir="${2:-$DEFAULT_EXPORT_DIR}"
+  local compress_fmt="$DEFAULT_FORMAT"
+  local compress_level="$DEFAULT_LEVEL"
+
+  # Consume positional args first, then parse options
+  shift 2 2>/dev/null || shift $# 2>/dev/null || true
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --format)
+        shift
+        compress_fmt="${1:-}"
+        [[ "$compress_fmt" =~ ^(gz|xz|zst)$ ]] || die "--format must be gz, xz or zst."
+        ;;
+      --level)
+        shift
+        compress_level="${1:-}"
+        [[ "$compress_level" =~ ^[1-9]$ ]] || die "--level must be between 1 and 9."
+        ;;
+      -*) die "Unknown option: $1" ;;
+    esac
+    shift
+  done
+
+  [[ -z "$vm_name" ]] && die "Usage: $SCRIPT_NAME export <vm_name> [destination_dir] [--format gz|xz|zst] [--level 1-9]"
+
+  log_section "Exporting VM: $vm_name"
+
+  vm_exists "$vm_name" || die "VM '$vm_name' not found."
+  mkdir -p "$dest_dir"  || die "Cannot create directory '$dest_dir'."
+
+  local archive_name="${vm_name}_${TIMESTAMP}"
+
+  # Work dir on the destination to avoid /tmp (often a tmpfs on NixOS)
+  local work_dir="${dest_dir}/.kvm-archive-work-${archive_name}"
+  mkdir -p "$work_dir" || die "Cannot create work directory in '$dest_dir'."
+  trap 'rm -rf "$work_dir"' EXIT
+
+  local vm_dir="${work_dir}/${archive_name}"
+  mkdir -p "$vm_dir"
+
+  # 1. Save XML definition
+  log_info "Saving XML definition..."
+  get_vm_xml "$vm_name" > "${vm_dir}/vm.xml"
+  log_ok "XML saved."
+
+  # 2. Graceful shutdown if running
+  local initial_state was_running=false
+  initial_state="$(get_vm_state "$vm_name")"
+
+  if [[ "$initial_state" == "running" ]]; then
+    log_warn "VM is running — sending shutdown..."
+    virsh shutdown "$vm_name" || die "Failed to shutdown VM."
+
+    # Wait up to 60s, force-kill on timeout
+    local timeout=60
+    while [[ "$(get_vm_state "$vm_name")" != "shutoff" ]]; do
+      sleep 2
+      timeout=$((timeout - 2))
+      if [[ $timeout -le 0 ]]; then
+        log_warn "Timeout reached — forcing destroy..."
+        virsh destroy "$vm_name" || die "Failed to force stop VM."
+        break
+      fi
+    done
+    was_running=true
+    log_ok "VM stopped."
+  fi
+
+  # 3. Copy disk images
+  log_info "Collecting disk paths..."
+  local disks
+  mapfile -t disks < <(get_disk_paths "$vm_name")
+
+  [[ ${#disks[@]} -eq 0 ]] && log_warn "No disks found — archive will contain XML only."
+
+  local disks_dir="${vm_dir}/disks"
+  mkdir -p "$disks_dir"
+
+  # Index file maps: original_path|filename|format
+  local index_file="${vm_dir}/disk_index.txt"
+  : > "$index_file"
+
+  for disk_path in "${disks[@]}"; do
+    if [[ ! -f "$disk_path" ]]; then
+      log_warn "Disk not found, skipping: $disk_path"
+      continue
+    fi
+
+    local disk_format disk_filename
+    disk_format="$(qemu-img info "$disk_path" | awk -F': ' '/^file format:/ { print $2 }')"
+    disk_filename="$(basename "$disk_path")"
+
+    log_info "Copying disk: $disk_path (format: $disk_format)..."
+    qemu-img convert -O "$disk_format" -p \
+      "$disk_path" \
+      "${disks_dir}/${disk_filename}" \
+      || die "Failed to copy disk '$disk_path'."
+
+    echo "${disk_path}|${disk_filename}|${disk_format}" >> "$index_file"
+    log_ok "Disk copied: $disk_filename"
+  done
+
+  # 4. Pack with selected compression format and level
+  local archive_path="${dest_dir}/${archive_name}.tar.${compress_fmt}"
+  log_info "Creating archive: $archive_path (format: $compress_fmt, level: $compress_level)..."
+
+  # pv monitors raw tar stream size — gives accurate progress for all formats
+  local tar_size
+  tar_size="$(du -sb "${work_dir}/${archive_name}" | cut -f1)"
+
+  case "$compress_fmt" in
+    gz)  tar -cf - -C "$work_dir" "$archive_name"            | pv -s "$tar_size" -N "compressing (gz-${compress_level})"            | gzip -${compress_level} > "$archive_path" ;;
+    xz)  tar -cf - -C "$work_dir" "$archive_name"            | pv -s "$tar_size" -N "compressing (xz-${compress_level})"            | xz -${compress_level} > "$archive_path" ;;
+    zst) tar -cf - -C "$work_dir" "$archive_name"            | pv -s "$tar_size" -N "compressing (zst-${compress_level})"            | zstd -${compress_level} -o "$archive_path" ;;
+  esac || die "Failed to create archive."
+
+  log_ok "Archive created: $archive_path"
+  log_info "Size: $(du -sh "$archive_path" | cut -f1)"
+
+  # 5. Restart VM if it was running before
+  if [[ "$was_running" == true ]]; then
+    log_info "Restarting VM (it was running before export)..."
+    virsh start "$vm_name" && log_ok "VM restarted." \
+      || log_warn "Could not restart VM automatically."
+  fi
+
+  log_section "Export complete"
+  log_ok "VM '$vm_name' exported to: $archive_path"
+
+  trap - EXIT
+  rm -rf "$work_dir"
+}
+
+# ─────────────────────────────────────────────
+# COMMAND: IMPORT
+# ─────────────────────────────────────────────
+
+cmd_import() {
+  local archive_path=""
+  local target_pool="$DEFAULT_POOL"
+  local new_vm_name=""
+
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --pool)
+        shift
+        target_pool="${1:-}"
+        [[ -z "$target_pool" ]] && die "--pool requires a pool name."
+        ;;
+      --name)
+        shift
+        new_vm_name="${1:-}"
+        [[ -z "$new_vm_name" ]] && die "--name requires a VM name."
+        ;;
+      -*) die "Unknown option: $1" ;;
+      *)  archive_path="$1" ;;
+    esac
+    shift
+  done
+
+  [[ -z "$archive_path" ]] && die "Usage: $SCRIPT_NAME import <archive.tar.gz|xz|zst> [--pool <pool_name>] [--name <new_name>]"
+  [[ -f "$archive_path" ]]  || die "Archive not found: $archive_path"
+
+  log_section "Importing from: $archive_path"
+
+  # 1. Resolve target pool path
+  local pool_path
+  pool_path="$(virsh pool-dumpxml "$target_pool" 2>/dev/null \
+    | grep '<path>' | sed 's|.*<path>\(.*\)</path>.*|\1|' | xargs)" \
+    || die "Pool '$target_pool' not found. Check with: virsh pool-list --all"
+  [[ -d "$pool_path" ]] || die "Pool directory '$pool_path' does not exist."
+
+  # 2. Extract archive — work dir next to the archive to avoid /tmp (tmpfs on NixOS)
+  local archive_dir work_dir
+  archive_dir="$(dirname "$archive_path")"
+  work_dir="$(mktemp -d "${archive_dir}/.kvm-import-work-XXXXXX")"
+  trap 'rm -rf "$work_dir"' EXIT
+
+  log_info "Extracting archive..."
+  local arc_size
+  arc_size="$(du -sb "$archive_path" | cut -f1)"
+
+  case "$archive_path" in
+    *.tar.gz)  pv -s "$arc_size" -N "extracting (gz)"  "$archive_path" | tar -xzf - -C "$work_dir" ;;
+    *.tar.xz)  pv -s "$arc_size" -N "extracting (xz)"  "$archive_path" | tar -xJf - -C "$work_dir" ;;
+    *.tar.zst) pv -s "$arc_size" -N "extracting (zst)" "$archive_path" | zstd -d | tar -xf - -C "$work_dir" ;;
+    *) die "Unsupported archive format. Expected .tar.gz, .tar.xz or .tar.zst" ;;
+  esac || die "Failed to extract archive."
+
+  local vm_dir
+  vm_dir="$(find "$work_dir" -mindepth 1 -maxdepth 1 -type d | head -n1)"
+  [[ -d "$vm_dir" ]] || die "Invalid archive structure: no directory found."
+
+  local xml_file="${vm_dir}/vm.xml"
+  local index_file="${vm_dir}/disk_index.txt"
+  local disks_dir="${vm_dir}/disks"
+
+  [[ -f "$xml_file" ]] || die "vm.xml not found in archive."
+
+  # 3. Read VM name from XML
+  local vm_name original_vm_name
+  vm_name="$(grep -oP '(?<=<name>)[^<]+' "$xml_file" | head -n1)"
+  [[ -z "$vm_name" ]] && die "Cannot read VM name from vm.xml."
+
+  original_vm_name="$vm_name"  # kept to rename disk files if --name is used
+  log_info "Detected VM name: $vm_name"
+
+  # Rename if --name was given: patch the <name> tag in XML
+  if [[ -n "$new_vm_name" ]]; then
+    log_info "Renaming VM: $vm_name → $new_vm_name"
+    sed -i "s|<name>${vm_name}</name>|<name>${new_vm_name}</name>|g" "$xml_file"
+    vm_name="$new_vm_name"
+  fi
+
+  vm_exists "$vm_name" && die "A VM named '$vm_name' already exists. Remove or rename it first."
+
+  # 4. Restore disks into the pool
+  if [[ -f "$index_file" ]]; then
+    log_info "Restoring disks to pool '$target_pool' ($pool_path)..."
+
+    # index format: original_path|filename|format
+    while IFS='|' read -r original_path disk_filename disk_format; do
+      local src_disk="${disks_dir}/${disk_filename}"
+
+      # If --name was given, replace the original VM name in the disk filename
+      local dest_filename="$disk_filename"
+      if [[ -n "$new_vm_name" ]]; then
+        dest_filename="${disk_filename/$original_vm_name/$new_vm_name}"
+      fi
+
+      local dest_disk="${pool_path}/${dest_filename}"
+
+      if [[ ! -f "$src_disk" ]]; then
+        log_warn "Disk missing in archive: $disk_filename — skipping."
+        continue
+      fi
+
+      log_info "Restoring: $disk_filename → $dest_filename (format: $disk_format)..."
+      qemu-img convert -O "$disk_format" -p         "$src_disk" "$dest_disk"         || die "Failed to restore disk '$disk_filename'."
+
+      log_ok "Disk restored: $dest_disk"
+
+      # Patch XML with new path (covers both path change and filename rename)
+      if [[ "$original_path" != "$dest_disk" ]]; then
+        log_info "Updating path in vm.xml: $original_path → $dest_disk"
+        sed -i "s|${original_path}|${dest_disk}|g" "$xml_file"
+      fi
+
+    done < "$index_file"
+
+    # Refresh pool so libvirt picks up the new volumes
+    virsh pool-refresh "$target_pool" &>/dev/null || true
+
+  else
+    log_warn "No disk index found — importing XML definition only."
+  fi
+
+  # 5. Register VM in libvirt
+  log_info "Defining VM in libvirt..."
+  virsh define "$xml_file" \
+    || die "Failed to define VM. Check vm.xml manually."
+
+  log_section "Import complete"
+  log_ok "VM '$vm_name' imported successfully."
+  log_info "Start it with: virsh start $vm_name"
+  log_info "Or open virt-manager."
+
+  trap - EXIT
+  rm -rf "$work_dir"
+}
+
+# ─────────────────────────────────────────────
+# COMMAND: HELP
+# ─────────────────────────────────────────────
+
+cmd_help() {
+  echo -e ""
+  echo -e "${BOLD}${SCRIPT_NAME}${RESET} — KVM VM import/export for virt-manager"
+  echo -e ""
+  echo -e "${BOLD}USAGE${RESET}"
+  echo -e "  ${SCRIPT_NAME} <command> [options]"
+  echo -e ""
+  echo -e "${BOLD}COMMANDS${RESET}"
+  echo -e "  ${GREEN}list${RESET}"
+  echo -e "      List all defined VMs (running or not)."
+  echo -e ""
+  echo -e "  ${GREEN}export${RESET} <vm_name> [destination_dir] [--format gz|xz|zst] [--level 1-9]"
+  echo -e "      Export a VM (XML + disks) to a compressed archive."
+  echo -e "      • Gracefully stops the VM if running, restarts it after."
+  echo -e "      • Default destination: ${DEFAULT_EXPORT_DIR}"
+  echo -e "      • Default format: gz (level 6) — xz for best ratio, zst for best speed."
+  echo -e ""
+  echo -e "  ${GREEN}import${RESET} <archive.tar.gz|xz|zst> [--pool <pool_name>] [--name <new_name>]"
+  echo -e "      Import a VM from an archive created by this script."
+  echo -e "      • Disks are restored into the target libvirt pool."
+  echo -e "      • Default pool: ${DEFAULT_POOL}"
+  echo -e "      • Use --name <new_name> to rename the VM on import."
+  echo -e ""
+  echo -e "  ${GREEN}help${RESET}"
+  echo -e "      Show this help."
+  echo -e ""
+  echo -e "${BOLD}EXAMPLES${RESET}"
+  echo -e "  ${SCRIPT_NAME} list"
+  echo -e "  sudo ${SCRIPT_NAME} export myVM ~/archives/"
+  echo -e "  sudo ${SCRIPT_NAME} export myVM ~/archives/ --format xz --level 9"
+  echo -e "  sudo ${SCRIPT_NAME} export myVM ~/archives/ --format zst --level 3"
+  echo -e "  sudo ${SCRIPT_NAME} import ~/archives/myVM_20260101_120000.tar.gz"
+  echo -e "  sudo ${SCRIPT_NAME} import ~/archives/myVM_20260101_120000.tar.gz --pool ssd-pool"
+  echo -e "  sudo ${SCRIPT_NAME} import ~/archives/myVM_20260101_120000.tar.gz --name myVM-clone"
+  echo -e ""
+  echo -e "${BOLD}DEPENDENCIES${RESET}"
+  echo -e "  Required : virsh, qemu-img, tar, gzip, pv, xz, zstd"
+  echo -e "  On NixOS : nix-shell -p libvirt qemu pv xz zstd"
+  echo -e ""
+}
+
+# ─────────────────────────────────────────────
+# ENTRYPOINT
+# ─────────────────────────────────────────────
+
+main() {
+  local command="${1:-help}"
+  shift || true
+
+  # help doesn't need root
+  if [[ "$command" != "help" && "$command" != "--help" && "$command" != "-h" ]]; then
+    check_root "$command" "$@"
+  fi
+
+  check_dependencies
+
+  case "$command" in
+    export)         cmd_export "$@" ;;
+    import)         cmd_import "$@" ;;
+    list)           cmd_list        ;;
+    help|--help|-h) cmd_help        ;;
+    *)
+      log_error "Unknown command: '$command'"
+      cmd_help
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"
