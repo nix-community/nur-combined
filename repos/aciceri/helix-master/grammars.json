@@ -3019,10 +3019,10 @@
   "fga": {
     "nurl": {
       "args": {
-        "hash": "sha256-3wcmVNq22uB1Fx5PLSzgKs9FEQKZmkwAKsxOqo3SdDs=",
+        "hash": "sha256-8op8IFKh3dZY02Yiehvqz1XyeOw9qSoe0f31M4yzw1U=",
         "owner": "matoous",
         "repo": "tree-sitter-fga",
-        "rev": "5005e8dd976e1f67beb3d23204580eb6f8b4c965"
+        "rev": "ce72d1c484ba133a18e966d67be66bce85695451"
       },
       "fetcher": "fetchFromGitHub"
     },
