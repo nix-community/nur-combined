@@ -4,6 +4,9 @@
   makeWrapper,
   coreutils,
   gawk,
+  gnused,
+  findutils,
+  gnugrep,
   pv,
   libvirt,
   qemu_kvm,
@@ -21,6 +24,9 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     coreutils
+    gnused
+    findutils
+    gnugrep
     gawk
     pv
     libvirt
@@ -49,6 +55,9 @@ stdenvNoCC.mkDerivation rec {
       --set PATH ${
         lib.makeBinPath [
           coreutils
+          gnused
+          findutils
+          gnugrep
           gawk
           pv
           libvirt
