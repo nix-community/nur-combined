@@ -325,6 +325,27 @@
         },
         "version": "6acd3f84b551b855b5f21b08db55e95dae3305c5"
     },
+    "manpage-zh": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "manpage-zh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "man-pages-zh",
+            "repo": "manpages-zh",
+            "rev": "v1.6.4.3",
+            "sha256": "sha256-EcgRNxdxjhv73dDqw8G5lpgD5VvKNHaSoBst6N0LOjo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.6.4.3"
+    },
     "mautrix-telegramgo": {
         "cargoLock": null,
         "date": "2026-03-19",

@@ -148,3 +148,8 @@ fetch.github = "tindy2013/subconverter"
 [udpxy]
 src.github_tag = "pcherenkov/udpxy"
 fetch.github = "pcherenkov/udpxy"
+
+[manpage-zh]
+src.github_tag = "man-pages-zh/manpages-zh"
+fetch.github = "man-pages-zh/manpages-zh"
+git.fetchSubmodules = true

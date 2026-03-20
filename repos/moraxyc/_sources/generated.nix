@@ -190,6 +190,17 @@
     };
     date = "2024-06-17";
   };
+  manpage-zh = {
+    pname = "manpage-zh";
+    version = "v1.6.4.3";
+    src = fetchFromGitHub {
+      owner = "man-pages-zh";
+      repo = "manpages-zh";
+      rev = "v1.6.4.3";
+      fetchSubmodules = true;
+      sha256 = "sha256-EcgRNxdxjhv73dDqw8G5lpgD5VvKNHaSoBst6N0LOjo=";
+    };
+  };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
     version = "b17bb0d5c756ed92becb1111be68e50d827a2885";
