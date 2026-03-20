@@ -597,8 +597,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "5e837a3ff136b74303d896ec046b3fdcad12f592",
-            "sha256": "199q8g3pb8mcjg007gzghqk19xfr8im01dn3xf8nr842wik2qj86",
+            "rev": "47001defa578243753e8b23b1aa9c42a1df94c08",
+            "sha256": "1h2mcn6q5hzrsrmqyfiypjvi9zsr24rd08c1mjq7r9f5y8kfhhpj",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -1446,8 +1446,8 @@
             "url": "https://github.com/lucasfa/nur-packages"
         },
         "lucassabreu": {
-            "rev": "32933b67299cc68a845df2cc0ff04a299418a612",
-            "sha256": "1zfa7dfw5xjra08pcqdv6xfnligrmf523rsk6i6dbigpk0gvkx64",
+            "rev": "ce948336d318a9f321bbea03dbc2ba29c28815cc",
+            "sha256": "0zh7dazr7zrrv1kzwlnzl4jfawfy2wlrhkminvkaa3499gfl7bzl",
             "url": "https://github.com/lucassabreu/nur-packages"
         },
         "lunik1": {
