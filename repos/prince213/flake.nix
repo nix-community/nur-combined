@@ -52,6 +52,7 @@
           packages = {
             inherit (pkgs)
               aidoku-cli
+              anytype-darwin
               cronet-go
               feishu-darwin
               gallant
