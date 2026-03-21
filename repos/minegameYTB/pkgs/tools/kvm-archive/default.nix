@@ -3,6 +3,7 @@
   stdenvNoCC,
   makeWrapper,
   coreutils,
+  getent,
   gawk,
   gnused,
   findutils,
@@ -24,6 +25,7 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     coreutils
+    getent
     gnused
     findutils
     gnugrep
@@ -55,6 +57,7 @@ stdenvNoCC.mkDerivation rec {
       --set PATH ${
         lib.makeBinPath [
           coreutils
+          getent
           gnused
           findutils
           gnugrep
