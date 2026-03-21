@@ -6,35 +6,39 @@
     "skip_prerelease": true
   },
   "asset": {
-    "file": "proton-{version}-x86_64{0}.tar.xz",
+    "file": "proton-{version}-{0}{1}.tar.xz",
     "unpack": true
   },
   "force": true,
-  "version": "cachyos-10.0-20260312-slr",
+  "version": "cachyos-10.0-20260319-slr",
   "variants": {
+    "arm": {
+      "substitutions": [
+        "arm64",
+        ""
+      ],
+      "hash": "sha256-j7nDJX/ThMjkeH9SGcr1r/yTKIcvQ5VxCuTG6pu/srU="
+    },
     "v1": {
       "substitutions": [
+        "x86_64",
         ""
       ],
       "hash": "sha256-zY9bGMAt905xm2dOZ1OkzLT2pjiS3ISdVz9K01ZbRpU="
     },
-    "v2": {
-      "substitutions": [
-        "_v2"
-      ],
-      "hash": "sha256-NM7QeGhQ9S2vO/001ug0qU6V/3ZZVg0DieNeoMwdlFU="
-    },
     "v3": {
       "substitutions": [
+        "x86_64",
         "_v3"
       ],
-      "hash": "sha256-4VRruz/lpg58C0fOgfNwgZryZ6WiKQw2GErUSCAGMXI="
+      "hash": "sha256-GbO1Q4O2EqwdQdFso2SoZq49/8REXDo7eM6pma94lWg="
     },
     "v4": {
       "substitutions": [
+        "x86_64",
         "_v4"
       ],
-      "hash": "sha256-alednqEtSyonjKMDuxYaAbs2M7huivFIQJ5qY+XFYH0="
+      "hash": "sha256-F9cs5M31GSVV8HVs444buzjtM0PizfV9wlATVrJDGHU="
     }
   }
 }
