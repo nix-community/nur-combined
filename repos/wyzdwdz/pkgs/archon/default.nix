@@ -6,11 +6,11 @@
 
 let
   pname = "archon";
-  version = "9.0.17";
+  version = "9.0.34";
 
   src = fetchurl {
     url = "https://github.com/RPGLogs/Uploaders-archon/releases/download/v${version}/archon-v${version}.AppImage";
-    hash = "sha256-wey4qGQUTFVTdyYA3MOW0lp/DnhMK1FDAjzG6BvyZ6s=";
+    hash = "sha256-7t/gibR1UBxMSgA8qkNVhoOc52YWRsCQyzBRriGuzzI=";
   };
 
   appimageContents = appimageTools.extractType2 {
@@ -34,7 +34,7 @@ appimageTools.wrapType2 rec {
 
   meta = with lib; {
     description = "The complete toolkit for mastering endgame content";
-    homepage = "https://www.archon.gg/";
+    homepage = "https://www.archon.gg/download";
     license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
     mainProgram = "archon";
