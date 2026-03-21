@@ -14,14 +14,14 @@
 
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "edk2-cix";
-  version = "1.2.0-1";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "radxa-pkg";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    hash = "sha256-zG2X/h3XzRocavEsjTDspT8jFTB2QQP2s0Ta9zNo+Y8=";
+    hash = "sha256-Kg3v9LOtnkejPeMxZEvic69E59SCHM+hbMKvZO2mF1A=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -49,8 +49,6 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     gcc14Stdenv.cc.cc.lib
   ];
 
-  GCC5_AARCH64_PREFIX = pkgsCross.aarch64-multiplatform.gcc14Stdenv.cc.targetPrefix;
-
   postPatch =
     let
       inherit (gcc14Stdenv.hostPlatform) system;
@@ -76,7 +74,18 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
       substituteInPlace ./Makefile \
         --replace-fail 'GCC5_AARCH64_PREFIX := aarch64-linux-gnu-' \
                        'GCC5_AARCH64_PREFIX := ${pkgsCross.aarch64-multiplatform.gcc14Stdenv.cc.targetPrefix}'
-                      
+
+      # Fix MemConfigBinTool.c: void main() has undefined return value causing
+      # build failure with bash -e (added in upstream 1.2.1)
+      for memtool in edk2-platforms/Platform/Radxa/Orion/*/mem_config/MemConfigBinTool.c; do
+        # Change 'void main' to 'int main' (handles CRLF line endings)
+        sed -i 's/void\r*$/int/' "$memtool"
+        # Change early 'return;' to 'return 1;' for error case
+        sed -i 's/return;\r*$/return 1;/' "$memtool"
+        # Add 'return 0;' before closing brace
+        sed -i '$ i\  return 0;' "$memtool"
+      done
+
       patchShebangs .    
     '';
 
