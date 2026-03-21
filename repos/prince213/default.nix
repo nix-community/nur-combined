@@ -3,9 +3,9 @@
 }:
 let
   overlay =
-    _: super:
-    super.lib.packagesFromDirectoryRecursive {
-      inherit (super) callPackage;
+    final: prev:
+    prev.lib.packagesFromDirectoryRecursive {
+      inherit (final) callPackage;
       directory = ./pkgs;
     };
 
