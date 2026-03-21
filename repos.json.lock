@@ -983,8 +983,8 @@
             "url": "https://github.com/gepbird/nur-packages"
         },
         "ggemre": {
-            "rev": "8a870b68cf46d29f9d2abcca87627258fd2a6982",
-            "sha256": "0q7dnd9ayas3adsc7cc1blkgpqnq0h0rsvl6af5wah4nw5fqrjdm",
+            "rev": "b49aa7d053a200490b0b41bd17e25a932b124167",
+            "sha256": "1z8wrpc09vjjhgv1wcy3qbcz8am2q4g9w2khblhpah9j20cca3i5",
             "url": "https://github.com/ggemre/nur-packages"
         },
         "gigamonster256": {
@@ -1406,8 +1406,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "42110496e45f64a3483f32ec02147e8fb132896c",
-            "sha256": "03wsvc8n7f6bh9rbkwx15gbz98lpi380cl3agd20j5b931rcxrga",
+            "rev": "167376ae3dcab22728c1e2aabb690649bbbb7bd9",
+            "sha256": "1d4zw14bppczydi94zsvfapsqv3wvkfy36wy9bnbadza5g8rqxv6",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
