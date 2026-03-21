@@ -255,18 +255,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.9.18";
+    version = "1.9.19";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay_1.9.18_macOS_Universal.dmg";
-      sha256 = "sha256-VY6wgcZvAD1SoNaPZALbnQMrFwbN38NKW2hDUVWCyZU=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.19/NipaPlay_1.9.19_macOS_Universal.dmg";
+      sha256 = "sha256-lk4gWfkwRnpf+8Z7J68FiCXEeHbPsskprC4meRezK4U=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.9.18";
+    version = "1.9.19";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay-1.9.18-Linux-amd64.AppImage";
-      sha256 = "sha256-EHqXU7rLxuZhO1xpQzqUB1hk+YrRdWj0pE23Ekpo4yg=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.19/NipaPlay-1.9.19-Linux-amd64.AppImage";
+      sha256 = "sha256-WR0JIx+8pVuLWA305WL/WmeC52LkGKikJLuqUqtHjE8=";
     };
   };
   pixy2 = {
@@ -318,18 +318,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603192222";
+    version = "202603202222";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603192222/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603202222/geoip.dat";
       sha256 = "sha256-S9scHPAeyYh4kIWprPVSK18zVZBuPqpqkOpg21tYNxE=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603192222";
+    version = "202603202222";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603192222/geosite.dat";
-      sha256 = "sha256-GVYhN88MXUVBItmg7f0jC1ycLJaooAdu6y4sMw9l4Tg=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603202222/geosite.dat";
+      sha256 = "sha256-Qw218kvxizXvbIxkPkX8vSiWUR2ey6DhNtv7kjPwU/A=";
     };
   };
   yass = {

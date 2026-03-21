@@ -444,11 +444,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VY6wgcZvAD1SoNaPZALbnQMrFwbN38NKW2hDUVWCyZU=",
+            "sha256": "sha256-lk4gWfkwRnpf+8Z7J68FiCXEeHbPsskprC4meRezK4U=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay_1.9.18_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.19/NipaPlay_1.9.19_macOS_Universal.dmg"
         },
-        "version": "1.9.18"
+        "version": "1.9.19"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -459,11 +459,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EHqXU7rLxuZhO1xpQzqUB1hk+YrRdWj0pE23Ekpo4yg=",
+            "sha256": "sha256-WR0JIx+8pVuLWA305WL/WmeC52LkGKikJLuqUqtHjE8=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.18/NipaPlay-1.9.18-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.19/NipaPlay-1.9.19-Linux-amd64.AppImage"
         },
-        "version": "1.9.18"
+        "version": "1.9.19"
     },
     "pixy2": {
         "cargoLock": null,
@@ -560,9 +560,9 @@
             "name": null,
             "sha256": "sha256-S9scHPAeyYh4kIWprPVSK18zVZBuPqpqkOpg21tYNxE=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603192222/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603202222/geoip.dat"
         },
-        "version": "202603192222"
+        "version": "202603202222"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -573,11 +573,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GVYhN88MXUVBItmg7f0jC1ycLJaooAdu6y4sMw9l4Tg=",
+            "sha256": "sha256-Qw218kvxizXvbIxkPkX8vSiWUR2ey6DhNtv7kjPwU/A=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603192222/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603202222/geosite.dat"
         },
-        "version": "202603192222"
+        "version": "202603202222"
     },
     "yass": {
         "cargoLock": null,
