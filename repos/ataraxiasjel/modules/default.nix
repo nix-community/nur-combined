@@ -9,6 +9,7 @@
   rinetd = ./rinetd.nix;
   rustic = ./rustic.nix;
   syncyomi = ./syncyomi.nix;
+  telemt = ./telemt.nix;
   whoogle = ./whoogle.nix;
   wopiserver = ./wopiserver.nix;
 }

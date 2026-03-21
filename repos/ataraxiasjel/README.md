@@ -29,7 +29,9 @@ Package [ocis-bin](pkgs/ocis-bin/) included in this repo. Until [#230190](https:
 * [rustic](https://github.com/rustic-rs/rustic), rustic - fast, encrypted, and deduplicated backups powered by Rust. Available as [services.rustic](modules/rustic.nix).
 Usage [example](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor/backups.nix)
 
-* [syncyomi](https://github.com/syncyomi/syncyomi/tree/develop), an open-source project crafted to provide a seamless synchronization experience for TachiyomiSY. Available as [services.syncyomi](modules/syncyomi.nix).
+* [syncyomi](https://github.com/syncyomi/syncyomi/), an open-source project crafted to provide a seamless synchronization experience for TachiyomiSY. Available as [services.syncyomi](modules/syncyomi.nix).
+
+* [telemt](https://github.com/telemt/lelemt/), MTProxy for Telegram on Rust + Tokio. Available as [services.telemt](modules/telemt.nix).
 
 * [wopiserver](https://github.com/benbusby/whoogle-search/), a self-hosted, ad-free, privacy-respecting metasearch engine. Available as [services.services.whoogle-search](modules/whoogle.nix).
 

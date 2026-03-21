@@ -40,6 +40,7 @@ let
       sing-box-beta = final.callPackage ./sing-box/beta.nix { };
       sing-box-extended = final.callPackage ./sing-box/extended.nix { };
       syncyomi = final.callPackage ./syncyomi { };
+      telemt = final.callPackage ./telemt { };
       waydroid-script = final.python3Packages.callPackage ./waydroid-script { };
       whoogle-search = final.python3Packages.callPackage ./whoogle-search { };
       wopiserver = final.python3Packages.callPackage ./wopiserver { };
