@@ -18,4 +18,5 @@
 
   anyrun-weather = pkgs.callPackage ./pkgs/Anyrun-Weather { };
   anyrun-qalculate = pkgs.callPackage ./pkgs/Anyrun-Qalculate { };
+  taskwarrior-mcp = pkgs.callPackage ./pkgs/taskwarrior-mcp { };
 }
