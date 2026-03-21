@@ -91,8 +91,8 @@
             "url": "https://github.com/Emin017/nur-packages"
         },
         "Ev357": {
-            "rev": "a851359bf7b1053733865c9cda177fa60cc70402",
-            "sha256": "0xf7cfvbdk9g5ffn6yb2vfipabmi4fp1kmipkaphsz2y20ci1nqf",
+            "rev": "23446515ab4074a58beed5e1fcea616cf82121d3",
+            "sha256": "16npcblax12ngipxcwld9c75k1vwpyv2d63cwcg24jnf14w2m5hj",
             "url": "https://github.com/Ev357/nur-packages"
         },
         "Ex-32": {
@@ -2170,8 +2170,8 @@
             "url": "https://github.com/shirok1/flakes"
         },
         "shymega": {
-            "rev": "4cc6967c6b8fd6680c98ffeb91689909ccb61e42",
-            "sha256": "04rircgkprrkm5qzxhdawjcbx3q649488gnhv2qz0jidj77yyi26",
+            "rev": "3ad6fc7a4dfd9bce243ae7b86c5560b5b707a0ac",
+            "sha256": "13hyyiw20xsw98pk25bixamv4nbi9zqm07icism3ly83sn5wx11m",
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
