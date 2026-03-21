@@ -28,6 +28,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "MTProxy for Telegram on Rust + Tokio";
     homepage = "https://github.com/telemt/telemt";
     license = licenses.unfree;
+    mainProgram = "telemt";
     maintainers = with maintainers; [ ataraxiasjel ];
     platforms = platforms.linux;
   };
