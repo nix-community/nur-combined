@@ -20,9 +20,8 @@
   removeReferencesTo,
 }:
 let
-  # https://github.com/NixOS/nixpkgs/pull/497702
-  pnpm = pnpm_10_29_2;
   electron = electron_39;
+  pnpm = pnpm_10_29_2;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer";
