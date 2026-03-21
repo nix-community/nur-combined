@@ -1,5 +1,8 @@
 # Packages for the NUR
 
+> [!WARNING]
+> Major changes as of now, don't use
+
 ![Build & Distribute](https://github.com/ggemre/nur-packages/workflows/Build%20and%20distribute/badge.svg)
 
 * Learn more about the [NUR](https://github.com/nix-community/NUR).
@@ -9,6 +12,4 @@
 
 | Name | Description | Notes |
 | ---- | ----------- | ----- |
-| alejandra-spaced | The Alejandra formatter with spaces around elements. | |
-| mangowm | A streamlined but feature-rich Wayland compositor. | If you don't want to use their nightly flake. |
-
+| N/A | N/A | N/A |
