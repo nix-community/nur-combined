@@ -1166,12 +1166,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8457";
+    version = "b8467";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8457";
-      hash = "sha256-i71q48EnO3MeY9KdfxcCU0u+6tdGvqIvVNt+9NuAb70=";
+      tag = "b8467";
+      hash = "sha256-HH2KWrL0znyMfJ8QIDDS5/a4fhxB4u0rrDdv9D050Eg=";
     };
   };
   loralib = {
@@ -1842,12 +1842,12 @@
   };
   qtwebapp = {
     pname = "qtwebapp";
-    version = "v1.9.0";
+    version = "v1.9.1";
     src = fetchFromGitHub {
       owner = "fffaraz";
       repo = "QtWebApp";
-      tag = "v1.9.0";
-      hash = "sha256-L6/M8klo7bDKKwKC2tCc9IqN0nYy+x2c5Es51LHD7z4=";
+      tag = "v1.9.1";
+      hash = "sha256-RbFgz2ed1eEVy44LX+milP4hPSeiabakU3TMvHYR7TU=";
     };
   };
   r8125 = {
@@ -1991,12 +1991,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.1.6";
+    version = "v2.1.7";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.1.6";
-      hash = "sha256-rMMPhvhkiNRDX507h6f4ukd5mWSs09eHo5edb7ToeME=";
+      tag = "v2.1.7";
+      hash = "sha256-xP27uCCeTz9FNIbE0Ovlg/37mUpHzwHCIltr3YDTm/A=";
     };
   };
   sam-toki-mouse-cursors = {

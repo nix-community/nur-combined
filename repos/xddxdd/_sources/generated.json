@@ -2265,12 +2265,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8457",
-            "sha256": "sha256-i71q48EnO3MeY9KdfxcCU0u+6tdGvqIvVNt+9NuAb70=",
+            "rev": "b8467",
+            "sha256": "sha256-HH2KWrL0znyMfJ8QIDDS5/a4fhxB4u0rrDdv9D050Eg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8457"
+        "version": "b8467"
     },
     "loralib": {
         "cargoLock": null,
@@ -3590,12 +3590,12 @@
             "name": null,
             "owner": "fffaraz",
             "repo": "QtWebApp",
-            "rev": "v1.9.0",
-            "sha256": "sha256-L6/M8klo7bDKKwKC2tCc9IqN0nYy+x2c5Es51LHD7z4=",
+            "rev": "v1.9.1",
+            "sha256": "sha256-RbFgz2ed1eEVy44LX+milP4hPSeiabakU3TMvHYR7TU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.0"
+        "version": "v1.9.1"
     },
     "r8125": {
         "cargoLock": null,
@@ -3887,12 +3887,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v2.1.6",
-            "sha256": "sha256-rMMPhvhkiNRDX507h6f4ukd5mWSs09eHo5edb7ToeME=",
+            "rev": "v2.1.7",
+            "sha256": "sha256-xP27uCCeTz9FNIbE0Ovlg/37mUpHzwHCIltr3YDTm/A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.1.6"
+        "version": "v2.1.7"
     },
     "sam-toki-mouse-cursors": {
         "cargoLock": null,
