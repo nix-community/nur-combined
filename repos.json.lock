@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "7698f5900f7b5ee987e4d3ccf412da8f2ff02267",
-            "sha256": "1r6nb3h7y3kdgnvzfpzy8y466wx6x647xcf0p3p37ng119d23f88",
+            "rev": "e178d3552d2bb58803db6e1411350376cc1f64fe",
+            "sha256": "0r84mv05nfp9zdh2mpq7z5fvy1d15vr7yrsrgfrkhv1pk9pywdvr",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -356,8 +356,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "aeda8fd217a2bab8e1db19140ad60b24f241bfae",
-            "sha256": "0c6x816mm9nbqvi88vby3imbvg8xphnylmqxbzdj6cwsidzyfba6",
+            "rev": "02bc569744f7e62a76caeffdc5fcb59dfe7c246c",
+            "sha256": "15zp65nq1h8w3ii3cagl1y8x3rjn6vllybgmpfwkf5swvs2pikdf",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -1578,8 +1578,8 @@
             "url": "https://github.com/milahu/nur-packages"
         },
         "minegameYTB": {
-            "rev": "27c6520df5266d5060600a04535c8f4cb09f763c",
-            "sha256": "12ikbkw3q6xv2lzdcqrs6ckgwnikm72wwk620b55in31bwvhllln",
+            "rev": "4dfd74a7293d5d1f57d91fa70a289b074c2a0cb8",
+            "sha256": "1g06hf0lyp8j5pxkjfkxdm617sv6hxzy96i0slqzgsxjbb80m062",
             "url": "https://github.com/minegameYTB/nurpkgs-repo"
         },
         "minion3665": {
