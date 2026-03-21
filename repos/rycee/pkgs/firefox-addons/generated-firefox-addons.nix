@@ -7324,10 +7324,10 @@
     };
     "keepassxc-browser" = buildMozillaXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.11";
+      version = "1.10.0.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628286/keepassxc_browser-1.9.11.xpi";
-      sha256 = "bee523ac8d968d36ae3ae317b12b1b2bbe85e2c6f5b9ddb0fb822c2d90af6139";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4717960/keepassxc_browser-1.10.0.1.xpi";
+      sha256 = "b7ddeb144036ce22fd687a531dbc5a04bd7b3596f9fa713fc004b29b6ca28340";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -8237,10 +8237,10 @@
     };
     "libredirect" = buildMozillaXpiAddon {
       pname = "libredirect";
-      version = "3.2.0";
+      version = "3.3.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4522826/libredirect-3.2.0.xpi";
-      sha256 = "ba4cf8fe97275d7082fea085a09796481122845455df1af524a7210fff3ecf3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4734268/libredirect-3.3.0.xpi";
+      sha256 = "1c91739ae52c6eb8522f0efb38397c3d5e85d961b3999f3c5d60f89db447877d";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -8286,10 +8286,10 @@
     };
     "lingq-importer2" = buildMozillaXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.39";
+      version = "2.3.40";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4703232/lingq_importer2-2.3.39.xpi";
-      sha256 = "b06e106042991c24b5b43b563f28937938294b58dcffdf6293e1d4e5da1732a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4734063/lingq_importer2-2.3.40.xpi";
+      sha256 = "45ee1ffe94417ca9d788d6ea76a5bbfbdef2df4de5ffec4f1acedf9bcbddfa98";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -8303,6 +8303,7 @@
           "https://*.netflix.com/*"
           "https://*.primevideo.com/*"
           "https://*.youtube.com/*"
+          "https://tv.apple.com/*"
           "https://*.lingq.com/*"
         ];
         platforms = platforms.all;
@@ -9833,10 +9834,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.12.0";
+      version = "1.12.1";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4720396/mtab-1.12.0.xpi";
-      sha256 = "99771561eff3f8eae1f6390086654cf811ea6f364f4b07c67ebb77e7474dc23f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4733390/mtab-1.12.1.xpi";
+      sha256 = "6bc040172bf7c76aaf2788133199bf2b296bdd0d1a22ca9ac46ac54379114880";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -14908,10 +14909,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.2.10";
+      version = "4.2.12";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4698277/tree_style_tab-4.2.10.xpi";
-      sha256 = "cafd025b04025005b391b1bf23831ae22d6eec53cd0e968a00c058bcd300a9a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4729676/tree_style_tab-4.2.12.xpi";
+      sha256 = "d3cb231306c108b5d0048b2b28a8ae4e84d4319a212c92ca1943fc1c3778be5f";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -16841,10 +16842,10 @@
     };
     "xkit-rewritten" = buildMozillaXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4703128/xkit_rewritten-1.2.2.xpi";
-      sha256 = "b71cd20365deea5583db0479899b55285b7f80eb1f3e35c1167a8820a6746e6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4716345/xkit_rewritten-1.2.3.xpi";
+      sha256 = "759b5dcc9427623742bd82f6a793ec4da770c91afd78c7a888f1a69c6cd06257";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
