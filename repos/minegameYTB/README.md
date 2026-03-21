@@ -12,3 +12,20 @@ Uncomment this if you use travis:
 -->
 [![Cachix Cache](https://img.shields.io/badge/cachix-minegameytb-blue.svg)](https://minegameytb.cachix.org)
 
+# How to add my cachix cache
+
+Here an exemple of nix configuration for use the cache
+
+```nix
+{
+  nix.settings = {
+    substituters = [
+      "https://minegameytb.cachix.org"
+    ];
+    trusted-public-keys = [
+      "minegameytb.cachix.org-1:JvOgXYklqCayYEJWzlt0Sqc6zvs0S65ZZsWHYWh7qnc="
+    ];
+  };
+}
+```
+
