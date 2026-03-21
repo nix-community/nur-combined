@@ -206,8 +206,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "df2129425744b962e8cc16242747bbd101d509b1",
-            "sha256": "04pmz65ywl47pnm4mml20zgbq8z4rlmq37z5dfp58qv5v94whny9",
+            "rev": "1d5e49af11c4d5be5cf9b19b20a9989596d6f1c0",
+            "sha256": "1cls5ff1zbii9p14sxlr8lvgq36733hf6n0455jhfxlj8649lpan",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "dad17790fffd34318c9bd51ab0a2ba03a311e98e",
-            "sha256": "0c339xshifph00wnr6fh7gs73wa6xkhpafpf8myk4v037j4l53h2",
+            "rev": "00df94da3f518b0f728b47669c3bbc88ba52bab1",
+            "sha256": "1d3805rynmdsm436vy3vah0c6g156844pchl95pc89w1id1bjsmy",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
