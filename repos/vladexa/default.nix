@@ -27,6 +27,16 @@
   SteamTokenDumper = pkgs.callPackage ./pkgs/SteamTokenDumper/package.nix { };
   h3get = pkgs.callPackage ./pkgs/h3get/package.nix { };
   bgutil-ytdlp-pot-provider = import ./pkgs/bgutil-ytdlp-pot-provider { inherit pkgs; };
+  proton-cachyos = pkgs.callPackage ./pkgs/proton-cachyos/package.nix { };
+  proton-cachyos-v3 = pkgs.callPackage ./pkgs/proton-cachyos/package.nix {
+    archVersion = "x86_64_v3";
+  };
+  proton-cachyos-v4 = pkgs.callPackage ./pkgs/proton-cachyos/package.nix {
+    archVersion = "x86_64_v4";
+  };
+  proton-cachyos-arm64 = pkgs.callPackage ./pkgs/proton-cachyos/package.nix {
+    archVersion = "arm64";
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
