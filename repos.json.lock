@@ -356,8 +356,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "bc3e29d77937227ed21321212ede622e0f3e75e2",
-            "sha256": "1qmd9fjh0i6bb410igwjjjj9nsbd3zrkhb3rdxx0hdh7ylh43vsq",
+            "rev": "d5fbfd1fe462fee23f058812e356d92dbaa41e56",
+            "sha256": "18v06rxz9m5b1bznhql7drvr3n6fxs5qyjafpfmrkp54f92a1917",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -1704,8 +1704,8 @@
             "url": "https://github.com/nasirhm/nasirhmpkgs"
         },
         "natsukium": {
-            "rev": "95720a8d5d1e6efaf92ec4fcdbd1c72ad9c56f20",
-            "sha256": "0wqknw5n4ladlf3fiii80dldfddal375d02zh01pzav46vslvl1c",
+            "rev": "b2438d9923240bfb679f357a88871601106900f3",
+            "sha256": "0mxaq2py3p3j8hnm289kf4r70mznrk5ks54sgp2n59rpqklld8iz",
             "url": "https://github.com/natsukium/nur-packages"
         },
         "nelonn": {
