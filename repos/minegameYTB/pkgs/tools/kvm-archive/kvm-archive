@@ -16,7 +16,10 @@ IFS=$'\n\t'
 # ─────────────────────────────────────────────
 
 readonly SCRIPT_NAME="$(basename "$0")"
-readonly DEFAULT_EXPORT_DIR="${HOME}/kvm-archives"
+# Use the real user's home, not /root — SUDO_USER is set by sudo, falls back to $USER
+readonly REAL_USER="${SUDO_USER:-$USER}"
+readonly REAL_HOME="$(getent passwd "$REAL_USER" | cut -d: -f6)"
+readonly DEFAULT_EXPORT_DIR="${REAL_HOME}/kvm-archives"
 readonly DEFAULT_POOL="default"
 readonly DEFAULT_FORMAT="gz"   # gz | xz | zst
 readonly DEFAULT_LEVEL="6"     # 1 (fast) to 9 (best ratio)
@@ -115,13 +118,13 @@ cmd_list() {
 # ─────────────────────────────────────────────
 
 cmd_export() {
-  local vm_name="${1:-}"
-  local dest_dir="${2:-$DEFAULT_EXPORT_DIR}"
+  local vm_name=""
+  local dest_dir="$DEFAULT_EXPORT_DIR"
   local compress_fmt="$DEFAULT_FORMAT"
   local compress_level="$DEFAULT_LEVEL"
 
-  # Consume positional args first, then parse options
-  shift 2 2>/dev/null || shift $# 2>/dev/null || true
+  # Parse all args: first two non-option args are vm_name and dest_dir
+  local positional=0
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --format)
@@ -134,7 +137,18 @@ cmd_export() {
         compress_level="${1:-}"
         [[ "$compress_level" =~ ^[1-9]$ ]] || die "--level must be between 1 and 9."
         ;;
-      -*) die "Unknown option: $1" ;;
+      -*)
+        die "Unknown option: $1"
+        ;;
+      *)
+        # First positional = vm_name, second = dest_dir
+        if [[ $positional -eq 0 ]]; then
+          vm_name="$1"
+        elif [[ $positional -eq 1 ]]; then
+          dest_dir="$1"
+        fi
+        positional=$((positional + 1))
+        ;;
     esac
     shift
   done
