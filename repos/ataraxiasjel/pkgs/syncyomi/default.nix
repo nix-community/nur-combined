@@ -35,7 +35,7 @@ buildGoModule rec {
         sourceRoot
         ;
       fetcherVersion = 1;
-      hash = "sha256-Gg4nOxqWb692GvvwE7AJKQzGrrLLW7haaooEkUZW7FQ=";
+      hash = "sha256-NHPOTDbaDORmiqFSrPPTAQ/3MlL08/HJHp23o+3Wp9A=";
     };
 
     nativeBuildInputs = [
@@ -50,12 +50,12 @@ buildGoModule rec {
           buildGoModule (
             args
             // rec {
-              version = "0.19.11";
+              version = "0.21.5";
               src = fetchFromGitHub {
                 owner = "evanw";
                 repo = "esbuild";
                 rev = "v${version}";
-                hash = "sha256-NUwjzOpHA0Ijuh0E69KXx8YVS5GTnKmob9HepqugbIU=";
+                hash = "sha256-FpvXWIlt67G8w3pBKZo/mcp57LunxDmRUaCU/Ne89B8=";
               };
               vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
             }
