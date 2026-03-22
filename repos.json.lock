@@ -2542,8 +2542,8 @@
             "url": "https://github.com/Xe/xepkgs"
         },
         "xeals": {
-            "rev": "7802f55a3bd1bfea4aba4d5e55167a6fb19af569",
-            "sha256": "0rkdarrb91iv8mlmzb0y62ld6g389n26n9n3gskjwqjjz5rsykra",
+            "rev": "f1813b2ee23479d3bc2c22710230e859d2917ceb",
+            "sha256": "1s0ihs0ami3zi454dwcj10457cwmj9r3qwf3mhd23f5ns2n7sj3q",
             "url": "https://github.com/xeals/nur-packages"
         },
         "xfix": {
