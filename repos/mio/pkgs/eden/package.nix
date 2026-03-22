@@ -1,52 +1,51 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitea,
-  cacert,
-  cmake,
-  glslang,
-  pkg-config,
-  python3,
-  qt6Packages,
-  vulkan-headers,
-  boost,
-  cpp-jwt,
-  cubeb,
-  discord-rpc,
-  enet,
-  ffmpeg-headless,
-  fmt,
-  gamemode,
-  httplib,
-  libopus,
-  libusb1,
-  openssl,
-  lz4,
-  mbedtls,
-  nlohmann_json,
-  SDL2,
-  simpleini,
-  spirv-headers,
-  spirv-tools,
-  unordered_dense,
-  vulkan-memory-allocator,
-  vulkan-utility-libraries,
-  zlib,
-  zstd,
-  vulkan-loader,
-  nix-update-script,
+{ lib
+, stdenv
+, fetchFromGitea
+, cacert
+, cmake
+, glslang
+, pkg-config
+, python3
+, qt6Packages
+, vulkan-headers
+, boost
+, cpp-jwt
+, cubeb
+, enet
+, ffmpeg-headless
+, fmt
+, gamemode
+, httplib
+, libopus
+, libusb1
+, openssl
+, lz4
+, mbedtls
+, nlohmann_json
+, SDL2
+, simpleini
+, spirv-headers
+, spirv-tools
+, unordered_dense
+, vulkan-memory-allocator
+, vulkan-utility-libraries
+, zlib
+, zstd
+, vulkan-loader
+, nix-update-script
+,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "eden";
-  version = "0.0.4-rc3";
+  version = "0.2.0-rc2";
 
   src = fetchFromGitea {
     domain = "git.eden-emu.dev";
     owner = "eden-emu";
     repo = "eden";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-w5H6r9R3HuMTRw49GpMiIS9ELPmBQnZkQZ8buXkZkCA=";
+    hash = "sha256-keLkB5qeQch+tM2J6zVh9oQGhP5TuxItqrZRN24apJw=";
   };
 
   deps = stdenv.mkDerivation {
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
         -czf $out .cache/cpm
     '';
 
-    outputHash = "sha256-Dl0dWEVWxBXjY4Mgwyso6MYeCZMrBJBNJB/Ur/+iEDk=";
+    outputHash = "sha256-cxE2k86nknSaxx8quJGQYzItaSY7N/y6wpq4+Wneuks=";
     outputHashAlgo = "sha256";
   };
 
@@ -92,7 +91,6 @@ stdenv.mkDerivation (finalAttrs: {
     # intentionally omitted: catch2_3 - only used for tests
     cpp-jwt
     cubeb
-    discord-rpc
     # intentionally omitted: dynarmic - prefer vendored version for compatibility
     enet
     ffmpeg-headless
@@ -121,6 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ (with qt6Packages; [
     qtbase
+    qtcharts
     qtmultimedia
     qtwayland
     qtwebengine
@@ -144,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # enable some optional features
     (lib.cmakeBool "ENABLE_QT_TRANSLATION" true)
-    (lib.cmakeBool "USE_DISCORD_PRESENCE" true)
+    (lib.cmakeBool "USE_DISCORD_PRESENCE" false)
     (lib.cmakeBool "YUZU_USE_QT_MULTIMEDIA" true)
     (lib.cmakeBool "YUZU_USE_QT_WEB_ENGINE" true)
 
