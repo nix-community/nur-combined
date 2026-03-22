@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "027c07183c1945d20fd1d0e440a35e25a2006f50",
-            "sha256": "1h2k2xjhbx865p2n8d2yy7f4j3wppiz05395jnqjl3wh11jhiy83",
+            "rev": "0ace3e6e32d671eb88e268ce5cee0582ac97b00c",
+            "sha256": "0fij7w6cimixnqpx8rg5izqlmxmkmlrca0p6vsxkwxlyvmc3dyny",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -1138,8 +1138,8 @@
             "url": "https://github.com/instantOS/nix"
         },
         "ionutnechita": {
-            "rev": "128cdae7366f37aed33275d2f8b393c5e5cab07a",
-            "sha256": "0flhr3vpagqg04bdr3p25vg6yznhsidxsbvfmms9xl25a9w9hrxk",
+            "rev": "e84782f5075d797e7946aa20a36199dfc0aee011",
+            "sha256": "04y824422f8f0skmia73w3kfh25xy10pjb9cl793bhczznimh4pi",
             "url": "https://github.com/ionutnechita/ionutnechita-nur-packages"
         },
         "iopq": {
@@ -1421,8 +1421,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "d7e4e9923096a1660cde7d9afc70db5b29ef8acc",
-            "sha256": "1r9k2nayp7capr0mlb1m0czil0z4slp552dk6wx1nxv2mzv4nasi",
+            "rev": "25c46183f7beefcbd9ff7e3b8a65155fac8a0208",
+            "sha256": "0nab6v1b71majdn0icrf2dryvz190cyi8krws2d8mq4m4kian77d",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
