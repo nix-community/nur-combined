@@ -134,7 +134,6 @@ in
   );
   bees = nodarwin (v3overridegcc pkgs.bees);
   netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
-  lix_v3 = v3override pkgs.lixPackageSets.latest.lix;
   # https://gist.github.com/nstarke/baa031e0cab64a608c9bd77d73c50fc6
   ghidra = v3override (
     pkgs.ghidra.overrideAttrs (old: {
@@ -184,7 +183,6 @@ in
               musescore-alex
               musescore-evolution
               downkyicore
-              lix_2_93
             ];
           }
         );

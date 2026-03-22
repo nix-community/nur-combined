@@ -350,15 +350,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
 
-  lixPackageSets_2_93 = lib.recurseIntoAttrs (
-    callPackage ./pkgs/lix {
-      storeDir = pkgs.config.nix.storeDir or "/nix/store";
-      stateDir = pkgs.config.nix.stateDir or "/nix/var";
-    }
-  );
-
-  lix_2_93 = lixPackageSets_2_93.stable.lix;
-
   nixVersions_2_31_2 = lib.recurseIntoAttrs (
     callPackage ./pkgs/nix {
       storeDir = pkgs.config.nix.storeDir or "/nix/store";
