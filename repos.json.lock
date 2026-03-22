@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "d62ff5afabba5a5c8a137a913871b41bbc8eaaca",
-            "sha256": "0jad6q50f4i8q7w838cf6xd8d1ay0cw067x2ph7r6h9pykqvsbba",
+            "rev": "a9445bf1bde8a1869cf42b14381c259bc7f25bdf",
+            "sha256": "1w0h9jiwr6h6z5wvzygmivzl1v8i1iv9mzj94zwrwfimgcgb89gs",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -321,8 +321,8 @@
             "url": "https://github.com/anntnzrb/nurpkgs"
         },
         "anthonyroussel": {
-            "rev": "659c041338cd19c20733f8fb21968619ee153fc2",
-            "sha256": "01vj6yjhdriv30whycsh9ap92hdivwmddcqys053j1x9skj73g7a",
+            "rev": "bf19dd7596519e8edefab128fa12304c17229daf",
+            "sha256": "0k9lhzrxki9xdjvv771z9wc1b8mwmc1czm040p0fd3c4gzr4mygj",
             "url": "https://github.com/anthonyroussel/nur-packages"
         },
         "aprilthepink": {
