@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: https://gitea.com/actions/checkout@v3
+        uses: https://gitea.com/actions/checkout@v6
       - name: Install nix
-        uses: https://github.com/cachix/install-nix-action@v24
+        uses: https://github.com/cachix/install-nix-action@v31
       - name: Check ${{ matrix.check }}
         # Depends on nixos/nix#7759 to simply `nix flake check`
         run: nix run .#checks.$(nix eval --raw --impure --expr "builtins.currentSystem").${{ matrix.check }}
@@ -44,13 +44,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: https://gitea.com/actions/checkout@v3
+      uses: https://gitea.com/actions/checkout@v6
     - name: Install nix
-      uses: https://github.com/cachix/install-nix-action@v24
+      uses: https://github.com/cachix/install-nix-action@v31
     - name: Show nixpkgs version
       run: nix eval --impure --expr '(import ./flake-compat.nix { src = ./.; }).lib.version'
     - name: Setup cachix
-      uses: https://github.com/cachix/cachix-action@v12
+      uses: https://github.com/cachix/cachix-action@v17
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}

@@ -11,13 +11,12 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v23
+        uses: https://github.com/actions/checkout@v6
+      - uses: https://github.com/actions/install-nix-action@v31
         with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.INPUT_GITHUB_ACCESS_TOKEN }}
+          github_access_token: ${{ secrets.INPUT_GITHUB_ACCESS_TOKEN }}
       - name: "flake: update inputs"
-        uses: DeterminateSystems/update-flake-lock@v20
+        uses: https://github.com/actions/update-flake-lock@v28
         with:
           pr-title: "flake: update inputs"
           pr-labels: dependencies
