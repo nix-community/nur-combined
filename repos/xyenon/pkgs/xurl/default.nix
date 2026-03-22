@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "xurl";
-  version = "0.0.23-unstable-2026-03-18";
+  version = "0.0.24-unstable-2026-03-22";
 
   src = fetchFromGitHub {
     owner = "Xuanwo";
     repo = "xurl";
-    rev = "89e6e63e0cfa1068bc5ae885ea4b6b4c47f6a3de";
-    hash = "sha256-IkJ3Ap1TXZ6zZPrmdyIUCBgkcFTb6fYQjBEyR6HjUYA=";
+    rev = "ba1f6e355d21d3fdad59bd8bb7b75a2f0b0f3b5d";
+    hash = "sha256-l+LMcCXYDqu85VNpRV+E3iCNgeMS3VZ/fSRD01AqzJ8=";
   };
 
-  cargoHash = "sha256-AAoiruBie/Pa3tRJUweN35Ve7Q2l1T0qRQsWmi4XZ6g=";
+  cargoHash = "sha256-us5+xKHjxO3d4tCnqSrvdoqi6v7ii+DdmIURykTcaH0=";
 
   nativeCheckInputs = [ git ];
 
