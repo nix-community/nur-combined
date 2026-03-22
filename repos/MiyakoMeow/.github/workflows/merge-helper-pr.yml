@@ -1,0 +1,76 @@
+name: "Merge Helper PRs"
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  checks: read
+  pull-requests: write
+
+jobs:
+  merge-helper-pr:
+    if: github.event.pull_request.user.login == 'miyakomeow-helper-bot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait 30 seconds
+        run: sleep 30
+
+      - name: Wait for CI completion
+        id: wait-for-ci
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER='${{ github.event.pull_request.number }}'
+          REPO='${{ github.repository }}'
+          SHA='${{ github.event.pull_request.head.sha }}'
+          echo "等待 PR #$PR_NUMBER 的 CI 检查完成..."
+
+          while true; do
+            check_json=$(gh api repos/"$REPO"/commits/"$SHA"/check-runs)
+            if [ -z "$check_json" ]; then
+              echo "API 返回空数据"
+              echo "ci_status=skip" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            if ! echo "$check_json" | jq -e 'has("check_runs")' > /dev/null 2>&1; then
+              echo "API 返回异常: $check_json"
+              echo "ci_status=skip" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            total=$(echo "$check_json" | jq '.check_runs | length')
+            if [ "$total" -eq 0 ]; then
+              echo "没有检测到任何检查，跳过"
+              echo "ci_status=skip" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            running=$(echo "$check_json" | jq -r '.check_runs[] | select(.status == "in_progress" or .status == "queued" or .status == "waiting" or .status == "pending" or .status == "requested") | select(.name != "merge-helper-pr") | .name' | paste -sd, -)
+            if [ -n "$running" ]; then
+              echo "等待检查完成: $running"
+              sleep 30
+              continue
+            fi
+
+            non_passed=$(echo "$check_json" | jq -c '.check_runs[] | select(.conclusion != "success" and .conclusion != "skipped") | {id, conclusion}')
+            if [ -n "$non_passed" ]; then
+              failed_types=$(echo "$non_passed" | jq -r '.conclusion' | sort -u | paste -sd, -)
+              echo "检测到未通过的检查: $failed_types"
+              echo "ci_status=failed" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "所有检查已完成 (包含已跳过的检查)"
+            echo "ci_status=passed" >> "$GITHUB_OUTPUT"
+            exit 0
+          done
+
+      - name: Merge Pull Request
+        if: steps.wait-for-ci.outputs.ci_status == 'passed'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER='${{ github.event.pull_request.number }}'
+          echo "正在合并 PR #$PR_NUMBER"
+          gh pr merge "$PR_NUMBER" --auto --squash --delete-branch

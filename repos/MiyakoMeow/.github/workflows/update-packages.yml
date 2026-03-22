@@ -79,17 +79,18 @@ jobs:
 
       - name: Check for existing PR
         id: check-pr
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           PACKAGE='${{ matrix.package }}'
           EXISTING_PR=$(gh pr list --state open \
             --json number,headRefName \
-            -q '.[] | select(.headRefName | startswith("update/'$PACKAGE'-")) | .number' \
-            2>/dev/null || echo "")
-          
+            -q '.[] | select(.headRefName | startswith("update/'$PACKAGE'-")) | .number')
+
           if [ -n "$EXISTING_PR" ]; then
+            echo "发现已存在的 PR #$EXISTING_PR"
             echo "has_existing_pr=true" >> $GITHUB_OUTPUT
             echo "existing_pr_number=$EXISTING_PR" >> $GITHUB_OUTPUT
-            echo "发现已存在的 PR #$EXISTING_PR，跳过创建"
           else
             echo "has_existing_pr=false" >> $GITHUB_OUTPUT
           fi
@@ -134,22 +135,3 @@ jobs:
             此更新由包的updateScript自动生成
           labels: automated, dependencies
           token: ${{ steps.gen-token.outputs.token }}
-
-      - name: Wait for CI completion
-        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
-        run: |
-          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
-          PACKAGE='${{ matrix.package }}'
-          scripts/actions/wait-for-actions.sh "$PR_NUMBER" "$PACKAGE"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Enable Pull Request Automerge
-        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
-        run: |
-          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
-          PACKAGE='${{ matrix.package }}'
-          echo "启用PR #$PR_NUMBER ($PACKAGE) 的自动合并"
-          gh pr merge "$PR_NUMBER" --auto --squash
-        env:
-          GITHUB_TOKEN: ${{ steps.gen-token.outputs.token }}
