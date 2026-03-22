@@ -1573,6 +1573,9 @@
         "xonsh-xontribs": {
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
+        "xyenon": {
+            "url": "https://github.com/XYenon/nur-packages"
+        },
         "yakkhini": {
             "url": "https://github.com/Yakkhini/nur-packages"
         },
