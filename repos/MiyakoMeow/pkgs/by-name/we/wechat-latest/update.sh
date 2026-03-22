@@ -43,7 +43,7 @@ sed -E \
   "$PACKAGE_FILE" > "$tmpfile"
 
 # 替换原文件
-cp "$tmpfile" "$PACKAGE_FILE"
+mv "$tmpfile" "$PACKAGE_FILE"
 
 echo "已更新 $PACKAGE_FILE:"
 echo "  version: $VERSION"

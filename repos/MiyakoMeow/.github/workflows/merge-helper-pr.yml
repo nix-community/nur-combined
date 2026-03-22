@@ -70,7 +70,8 @@ jobs:
         if: steps.wait-for-ci.outputs.ci_status == 'passed'
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
         run: |
-          PR_NUMBER='${{ github.event.pull_request.number }}'
-          echo "正在合并 PR #$PR_NUMBER"
-          gh pr merge "$PR_NUMBER" --auto --squash --delete-branch
+          echo "Enabling auto-merge for PR #$PR_NUMBER"
+          gh pr merge --repo "$REPO" "$PR_NUMBER" --auto --squash

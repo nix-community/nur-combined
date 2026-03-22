@@ -124,7 +124,7 @@ stdenvNoCC.mkDerivation rec {
   passthru.updateScript = {
     command = [
       "bash"
-      "${toString ./update.sh}"
+      "update.sh"
     ];
     group = "we.wechat-latest";
   };
