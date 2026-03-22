@@ -155,7 +155,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/throneproj/Throne";
     license = lib.licenses.gpl3Plus;
     mainProgram = "Throne";
-    maintainers = with lib.maintainers; [ "cinqwqeggs" ];
+    maintainers = with lib.maintainers; [
+      tomasajt
+      aleksana
+    ];
     platforms = lib.platforms.linux;
   };
 })
