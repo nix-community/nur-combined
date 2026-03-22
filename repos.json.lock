@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "0928025aff5c66a22ca9a71a0628c3c9ccdc0688",
-            "sha256": "16jqh5pdqhpn4pks9wg8nqbfx8h4kma3lbi4ygdg6vm9qk7nava8",
+            "rev": "027c07183c1945d20fd1d0e440a35e25a2006f50",
+            "sha256": "1h2k2xjhbx865p2n8d2yy7f4j3wppiz05395jnqjl3wh11jhiy83",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -356,8 +356,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "6e6f144ec7e7f492f3eeb8bc9b0f52465853d3c0",
-            "sha256": "1s6l1h9z4cj3m2ada70nkpv8qabsjcg54rwsip99l8bc5lfkj7ch",
+            "rev": "df6cf1afc064ae1eca5cda8cb682d3249700089b",
+            "sha256": "1f21maapc4wg3iydlj8m3m33adn91rzs1p4vk5fvbpsp4yc5iiqw",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
