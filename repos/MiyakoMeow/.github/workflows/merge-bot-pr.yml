@@ -6,9 +6,10 @@ on:
 permissions:
   checks: read
   pull-requests: write
+  contents: write
 
 jobs:
-  merge-helper-pr:
+  merge-bot-pr:
     if: github.event.pull_request.user.login == 'miyakomeow-helper-bot[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +47,7 @@ jobs:
               exit 0
             fi
 
-            running=$(echo "$check_json" | jq -r '.check_runs[] | select(.status == "in_progress" or .status == "queued" or .status == "waiting" or .status == "pending" or .status == "requested") | select(.name != "merge-helper-pr") | .name' | paste -sd, -)
+            running=$(echo "$check_json" | jq -r '.check_runs[] | select(.status == "in_progress" or .status == "queued" or .status == "waiting" or .status == "pending" or .status == "requested") | select(.name != "merge-bot-pr") | .name' | paste -sd, -)
             if [ -n "$running" ]; then
               echo "等待检查完成: $running"
               sleep 30
@@ -66,7 +67,7 @@ jobs:
             exit 0
           done
 
-      - name: Merge Pull Request
+      - name: Enable Pull Request Automerge
         if: steps.wait-for-ci.outputs.ci_status == 'passed'
         env:
           GH_TOKEN: ${{ github.token }}
