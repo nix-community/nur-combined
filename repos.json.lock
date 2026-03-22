@@ -1588,8 +1588,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "78a4c332a1d04d55aa820ecf4f007bf6c85b7bc7",
-            "sha256": "072lprq644k3kjjw4q1iqzd3gj8364jqbb891y4laas064bynj33",
+            "rev": "bc7d6c7103382fa4a599d57ebe603a8d960b8df5",
+            "sha256": "0rbq06na37wnj3gvvcz7phl9vl80swjrk6gp69brwfbjsmgqd6ak",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -1623,8 +1623,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "3a4ee253931d5f2172226d2e00f719bd18d820b5",
-            "sha256": "0ni1i52jj1g8n5kib5jma4nc23494gdfbx9nf983l24jbkj559dk",
+            "rev": "94e149b477e14fed4b83795d68e67b4d42766d9b",
+            "sha256": "11jjr9pr7k89a0971qqfbqn7zphx8pp6rraicqw1kprg5zlaa863",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
