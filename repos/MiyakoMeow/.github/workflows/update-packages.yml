@@ -50,12 +50,32 @@ jobs:
         package: ${{ fromJson(needs.prepare.outputs.package_list) }}
     outputs:
       pr_data: ${{ steps.create-pull-request.outputs.pr_data }}
-      has_update: ${{ steps.update.outputs.has_update }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Generate branch name
+        id: gen-branch-name
+        shell: bash
+        run: |
+          append_github_output() {
+            if [ -n "${GITHUB_OUTPUT:-}" ]; then
+              printf '%s=%s\n' "$1" "$2" >> "$GITHUB_OUTPUT"
+            else
+              printf '%s=%s\n' "$1" "$2"
+            fi
+          }
+          timestamp=$(date +%s)
+          branch_name="update/${{ matrix.package }}-$timestamp-$GITHUB_RUN_ID"
+          append_github_output "branch_name" "$branch_name"
+          echo "分支名称: $branch_name"
+
+      - name: Create update branch
+        run: |
+          git checkout -b "${{ steps.gen-branch-name.outputs.branch_name }}"
 
       - name: Setup Nix
         uses: cachix/install-nix-action@v31
@@ -68,14 +88,30 @@ jobs:
 
       - name: Install required tools
         run: |
-          # 安装通用工具（包括git用于提交）
-          nix profile install nixpkgs#git nixpkgs#python313 nixpkgs#python313Packages.requests nixpkgs#python313Packages.beautifulsoup4 nixpkgs#nix-update nixpkgs#bash nixpkgs#gh
+          nix profile install nixpkgs#python313 nixpkgs#python313Packages.requests nixpkgs#python313Packages.beautifulsoup4 nixpkgs#nix-update
 
       - name: Update package
         id: update
         shell: bash
         run: |
           bash scripts/update-packages/execute-update-script.sh "${{ matrix.package }}"
+
+      - name: Check for file updates
+        id: check-updates
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_update=true" >> $GITHUB_OUTPUT
+            echo "发现文件更新"
+          else
+            echo "has_update=false" >> $GITHUB_OUTPUT
+            echo "没有文件更新"
+          fi
+
+      - name: Commit changes
+        if: steps.check-updates.outputs.has_update == 'true'
+        run: |
+          git add -A
+          git commit -m "${{ matrix.package }}: auto-update by updateScript"
 
       - name: Check for existing PR
         id: check-pr
@@ -95,25 +131,6 @@ jobs:
             echo "has_existing_pr=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate branch name
-        id: gen-branch-name
-        shell: bash
-        run: |
-          # Helper: 向 GitHub Actions 的 $GITHUB_OUTPUT 追加输出（本地调试时退回到 stdout）
-          append_github_output() {
-            # $1 = key, $2 = value
-            if [ -n "${GITHUB_OUTPUT:-}" ]; then
-              printf '%s=%s\n' "$1" "$2" >> "$GITHUB_OUTPUT"
-            else
-              printf '%s=%s\n' "$1" "$2"
-            fi
-          }
-          # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
-          timestamp=$(date +%s)
-          branch_name="update/${{ matrix.package }}-$timestamp-$GITHUB_RUN_ID"
-          append_github_output "branch_name" "$branch_name"
-          echo "分支名称: $branch_name"
-
       - name: Generate GitHub App Token
         id: gen-token
         uses: tibdex/github-app-token@v2
@@ -122,12 +139,11 @@ jobs:
           private_key: ${{ secrets.HELPER_BOT_PRIVATE_KEY }}
 
       - name: Create Pull Request
-        if: steps.update.outputs.has_update == 'true' && steps.check-pr.outputs.has_existing_pr != 'true'
+        if: steps.check-updates.outputs.has_update == 'true' && steps.check-pr.outputs.has_existing_pr != 'true'
         id: create-pull-request
         uses: peter-evans/create-pull-request@v8
         with:
           branch: ${{ steps.gen-branch-name.outputs.branch_name }}
-          commit-message: "${{ matrix.package }}: auto-update by updateScript"
           title: "${{ matrix.package }}: auto-update by updateScript"
           body: |
             由GitHub Actions自动更新包 ${{ matrix.package }}

@@ -53,7 +53,7 @@ jobs:
               continue
             fi
 
-            non_passed=$(echo "$check_json" | jq -c '.check_runs[] | select(.conclusion != "success" and .conclusion != "skipped") | {id, conclusion}')
+            non_passed=$(echo "$check_json" | jq -c '.check_runs[] | select(.status == "completed" and .conclusion != "success" and .conclusion != "skipped") | {id, conclusion}')
             if [ -n "$non_passed" ]; then
               failed_types=$(echo "$non_passed" | jq -r '.conclusion' | sort -u | paste -sd, -)
               echo "检测到未通过的检查: $failed_types"

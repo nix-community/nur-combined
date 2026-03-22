@@ -3,7 +3,7 @@ set -euo pipefail
 
 # execute-update-script.sh
 # 在 GitHub Actions 的 update-package job 中执行，接收一个包属性路径作为参数。
-# 使用 git worktree 来处理可写性问题
+# 直接在当前分支执行更新脚本
 
 if [ $# -lt 1 ]; then
   echo "用法: bash scripts/update-packages/execute-update-script.sh <package-attr-path>"
@@ -23,24 +23,6 @@ append_github_output() {
   fi
 }
 
-# 创建临时 worktree
-init_worktree() {
-  local wt_dir branch_name
-  wt_dir=$(mktemp -d)
-  branch_name="update-$(date +%s)-$$"
-  
-  git worktree add -b "$branch_name" "$wt_dir" HEAD
-  
-  echo "$branch_name"
-}
-
-cleanup_worktree() {
-  if [ -n "${WT_DIR:-}" ] && [ -n "${BRANCH_NAME:-}" ]; then
-    git worktree remove --force "$WT_DIR" 2>/dev/null || true
-    git branch -D "$BRANCH_NAME" 2>/dev/null || true
-  fi
-}
-
 # 设置 Git 用户信息
 git config --global user.email "actions@github.com"
 git config --global user.name "GitHub Actions"
@@ -55,17 +37,6 @@ export NIXPKGS_ALLOW_INSECURE=1
 
 # 使用临时 HOME 目录以防脚本写入 HOME
 export HOME="${HOME:-/tmp}"
-
-# 创建临时 worktree
-echo "创建临时 worktree..."
-BRANCH_NAME=$(init_worktree)
-WT_DIR=$(git worktree list --porcelain | grep "^worktree " | head -1 | cut -c9-)
-trap cleanup_worktree EXIT
-
-echo "Worktree: $WT_DIR"
-
-# 设置 worktree 中的 flake 引用
-export FLAKE_REF="path:$WT_DIR"
 
 echo "获取包 $PACKAGE 的 updateScript"
 
@@ -89,53 +60,25 @@ if ! nix eval --impure --json --expr "
     else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
     else if (pkg ? updateScript) then pkg.updateScript
     else throw \"no updateScript\"
-" --argstr FLAKE_REF "$WT_DIR" >"$nix_stdout" 2>"$nix_stderr"; then
+" --argstr FLAKE_REF "$WORKDIR" >"$nix_stdout" 2>"$nix_stderr"; then
   echo "获取 updateScript 失败，错误信息:"
   cat "$nix_stderr"
   exit 1
 fi
 
 script_json=$(cat "$nix_stdout")
-
 script_type=$(echo "$script_json" | jq -r 'type')
 
-# 将 store 路径替换为 worktree 路径
-rewrite_paths() {
-  local cmd_array=("$@")
-  local new_array=()
-  
-  for arg in "${cmd_array[@]}"; do
-    if [[ "$arg" =~ ^/nix/store/[a-z0-9]+-(.+)$ ]]; then
-      local filename="${BASH_REMATCH[1]}"
-      local replaced
-      if find "$WT_DIR" -name "$filename" -type f 2>/dev/null | read -r replaced; then
-        new_array+=("$replaced")
-        continue
-      fi
-    fi
-    new_array+=("$arg")
-  done
-  
-  printf '%s\n' "${new_array[@]}"
-}
-
-# 执行命令数组
 execute_command_array() {
   local script_array=("$@")
-  
-  # 重写路径
-  local rewritten
-  mapfile -t rewritten < <(rewrite_paths "${script_array[@]}")
-  
-  local cmd="${rewritten[0]}"
-  
-  # 处理 nix-update 命令
+  local cmd="${script_array[0]}"
+
   if [[ "$cmd" == "nix-update" ]] || [[ "$cmd" =~ ^/nix/store/.*/bin/nix-update$ ]]; then
     local new_command=("nix-update")
     local has_flake=0
-    
-    for ((i=1; i<${#rewritten[@]}; i++)); do
-      arg="${rewritten[$i]}"
+
+    for ((i=1; i<${#script_array[@]}; i++)); do
+      arg="${script_array[$i]}"
       if [[ "$arg" == "--flake" ]]; then
         has_flake=1
       fi
@@ -143,21 +86,21 @@ execute_command_array() {
         new_command+=("$arg")
       fi
     done
-    
+
     if [[ $has_flake -eq 0 ]]; then
       new_command+=("--flake")
     fi
-    
+
     new_command+=("$PACKAGE")
-    
+
     echo "执行: ${new_command[@]}"
-    cd "$WT_DIR"
+    cd "$WORKDIR"
     "${new_command[@]}"
   else
-    # 其他命令直接在 worktree 中执行
-    echo "执行: ${rewritten[@]}"
-    cd "$WT_DIR"
-    "${rewritten[@]}"
+    # 其他命令直接在当前目录执行
+    echo "执行: ${script_array[@]}"
+    cd "$WORKDIR"
+    "${script_array[@]}"
   fi
 }
 
@@ -169,7 +112,7 @@ case "$script_type" in
     ;;
   "string")
     command_str=$(echo "$script_json" | jq -r '.')
-    # 将字符串拆分为数组以便重写
+    # 将字符串拆分为数组以便执行
     read -r -a script_array <<< "$command_str"
     execute_command_array "${script_array[@]}"
     ;;
@@ -198,35 +141,4 @@ case "$script_type" in
     ;;
 esac
 
-# 检查变更并同步到主仓库
-cd "$WT_DIR"
-if [ -n "$(git status --porcelain)" ]; then
-  # 复制变更文件到主仓库
-  for file in $(git diff --name-only HEAD); do
-    if [ -f "$file" ]; then
-      mkdir -p "$(dirname "$WORKDIR/$file")"
-      cp "$file" "$WORKDIR/$file"
-      echo "已更新: $file"
-    fi
-  done
-  
-  # 处理新增文件
-  for file in $(git status --porcelain | grep '^??' | cut -c4-); do
-    if [ -f "$file" ]; then
-      mkdir -p "$(dirname "$WORKDIR/$file")"
-      cp "$file" "$WORKDIR/$file"
-      git -C "$WORKDIR" add "$file"
-      echo "已添加: $file"
-    fi
-  done
-  
-  cd "$WORKDIR"
-  
-  append_github_output "has_update" "true"
-  echo "更新完成: $PACKAGE"
-else
-  cd "$WORKDIR"
-  
-  append_github_output "has_update" "false"
-  echo "没有更新: $PACKAGE"
-fi
+echo "更新脚本执行完成: $PACKAGE"
