@@ -3746,10 +3746,10 @@
     };
     "enhancer-for-nebula" = buildMozillaXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.4";
+      version = "1.7.5";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4655215/enhancer_for_nebula-1.7.4.xpi";
-      sha256 = "8bb272c64957bbf6ea75faa378f6972fee5b60e9ecc4482c7cb39d61c5f49978";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4735236/enhancer_for_nebula-1.7.5.xpi";
+      sha256 = "25d02046dbc6b6307d8b0d9c36697f7d4c2b2361d82059dc1af0dbe55493ba2a";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -12716,10 +12716,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.3.17";
+      version = "26.3.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4728945/refined_github-26.3.17.xpi";
-      sha256 = "26cdf4d0432bca4107439d769cc9b093c3068fe50f1d563bf688e9084b721c23";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4735200/refined_github-26.3.21.xpi";
+      sha256 = "1a2087c885c552b5530fa85a7bb8b6d104ca0283b9a6345d4c13f70e7dd7369b";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
