@@ -19,4 +19,5 @@
   assfonts = pkgs.callPackage ./pkgs/assfonts { };
   archon = pkgs.callPackage ./pkgs/archon { };
   xivlauncher-rb = pkgs.callPackage ./pkgs/xivlauncher-rb { };
+  autoeq = pkgs.callPackage ./pkgs/autoeq { };
 }
