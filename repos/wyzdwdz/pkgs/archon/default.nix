@@ -37,6 +37,7 @@ appimageTools.wrapType2 rec {
     homepage = "https://www.archon.gg/download";
     license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     mainProgram = "archon";
     broken = false;
   };
