@@ -121,11 +121,8 @@ stdenvNoCC.mkDerivation rec {
     maintainers = [ ];
   };
 
-  passthru.updateScript = {
-    command = [
-      "bash"
-      "update.sh"
-    ];
-    group = "we.wechat-latest";
-  };
+  passthru.updateScript = [
+    "bash"
+    "update.sh"
+  ];
 }

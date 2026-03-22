@@ -62,7 +62,6 @@ let
     dontInstall = true;
 
     passthru.updateScript = {
-      group = "grub-themes.star-rail";
       command = [
         "nix-shell"
         "-p"

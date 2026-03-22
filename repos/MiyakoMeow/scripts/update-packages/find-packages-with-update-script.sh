@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # find-packages-with-update-script.sh
-# 从 flake 的 legacyPackages 中查找具有 updateScript 的包并去重（优先按 group）
+# 从 flake 的 legacyPackages 中查找具有 updateScript 的包
 #
 # 输出:
 # - 向 GitHub Actions 输出变量 $GITHUB_OUTPUT 写入:
@@ -49,7 +49,7 @@ trap cleanup EXIT
 ALL_PACKAGES_FILE="$TMPDIR/all-packages.txt"
 PACKAGE_LIST_FILE="$TMPDIR/package-list.txt"
 
-# 递归收集 legacyPackages 下具有 updateScript 的派生（含 groups）
+# 递归收集 legacyPackages 下具有 updateScript 的派生
 echo "收集所有候选包属性路径..."
 nix eval --impure --json --expr "
   let
@@ -72,8 +72,6 @@ nix eval --impure --json --expr "
 
 # 初始化 package list
 : > "$PACKAGE_LIST_FILE"
-
-# 不再使用 unique_groups/unique_commands 去重 —— 保留所有具有 updateScript 的包
 
 # 遍历所有候选包，提取 updateScript 并按规则去重
 while IFS= read -r pkg; do
@@ -105,8 +103,6 @@ while IFS= read -r pkg; do
     continue
   fi
 
-  # 简化逻辑：只要成功读取到了 updateScript 就包含该包（不再按 group/command 去重）
-  # 这样可以保证像 free-download-manager 和 lampghost-dev 这样的包不会被误跳过。
   if ! grep -Fxq "$pkg" "$PACKAGE_LIST_FILE"; then
     echo "$pkg" >> "$PACKAGE_LIST_FILE"
   else
