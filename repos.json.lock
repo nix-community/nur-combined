@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "e178d3552d2bb58803db6e1411350376cc1f64fe",
-            "sha256": "0r84mv05nfp9zdh2mpq7z5fvy1d15vr7yrsrgfrkhv1pk9pywdvr",
+            "rev": "7e9eb1405ab0929930720c97f319c8ccf97a0db6",
+            "sha256": "013dx39kax5ly53kdsmls68mi6m7a67j9j47gbanj5b02zrkmvrq",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -2555,11 +2555,6 @@
             "rev": "57096c1ad777d00c2bfbc5c2d77a8413bc9b41e2",
             "sha256": "188xfr22sbfl1d2spnblxcnp575xm9l3hbpw6grck4x3r7jpfvpw",
             "url": "https://github.com/drmikecrowe/nur-packages"
-        },
-        "xyenon": {
-            "rev": "07115b7f244938d3e1c96d026e8f26391f4e3609",
-            "sha256": "0mbwq8dvswbff9jvn32dd1rg95d1n2418f31f5knc97asfz66p7q",
-            "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
             "rev": "40e0d0971109557349d4c102c1e083a57296ec3d",
