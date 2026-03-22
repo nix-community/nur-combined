@@ -99,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   disabledTests = [
-    "test.direct"
+    "test.direct" # https://github.com/ccache/ccache/issues/1699
     "test.fileclone" # flaky on hydra, also seems to fail on zfs
     "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
   ]
