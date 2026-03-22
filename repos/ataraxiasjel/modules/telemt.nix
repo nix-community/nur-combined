@@ -7,7 +7,6 @@
 with lib;
 let
   cfg = config.services.telemt;
-  stateDir = "/var/lib/telemt";
 in
 {
   options.services.telemt = {
@@ -19,23 +18,29 @@ in
       description = lib.mdDoc "Path to the config file.";
     };
 
+    stateDir = mkOption {
+      type = types.str;
+      default = "/var/lib/telemt";
+      description = lib.mdDoc "The state directory where telemt data are stored.";
+    };
+
     user = mkOption {
       type = types.str;
       default = "telemt";
-      description = lib.mdDoc "";
+      description = lib.mdDoc "User account under which telemt runs.";
     };
 
     group = mkOption {
       type = types.str;
       default = "telemt";
-      description = lib.mdDoc "";
+      description = lib.mdDoc "Group under which telemt runs.";
     };
   };
 
   config = mkIf cfg.enable {
     users.users.telemt = {
       isSystemUser = true;
-      home = cfg.package;
+      home = cfg.stateDir;
       group = "telemt";
     };
     users.groups.telemt = { };
@@ -50,9 +55,9 @@ in
         Group = cfg.group;
 
         ReadOnlyPaths = [ cfg.configFile ];
-        ReadWritePaths = [ stateDir ];
+        ReadWritePaths = [ cfg.stateDir ];
         StateDirectory = "telemt";
-        WorkingDirectory = stateDir;
+        WorkingDirectory = cfg.stateDir;
 
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
