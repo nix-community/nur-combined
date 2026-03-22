@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bumper";
-  version = "0.11.0";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "bumper";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BK0gySYs/+qxwoWFVd7T1RcNqIuieUpdyulf07FA4Hs=";
+    hash = "sha256-st/e7Y6Xw75RfY/3aeRBa+9JGLxzuTcvGLP4ssuF0H8=";
   };
 
   nativeBuildInputs = [
