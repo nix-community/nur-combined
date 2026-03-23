@@ -349,16 +349,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
   rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
-
-  nixVersions_2_31_2 = lib.recurseIntoAttrs (
-    callPackage ./pkgs/nix {
-      storeDir = pkgs.config.nix.storeDir or "/nix/store";
-      stateDir = pkgs.config.nix.stateDir or "/nix/var";
-    }
-  );
-
-  nix_2_31_2 = nixVersions_2_31_2.nix_2_31;
-
 }
 // (lib.optionalAttrs (!nurbot) rec {
 

@@ -167,7 +167,6 @@ in
           pkgs.symlinkJoin {
             name = "pkgscachelinuxextra";
             paths = with self; [
-              nix_2_31_2
             ];
           }
         );
