@@ -371,8 +371,8 @@
             "url": "https://github.com/avycado13/nur-packages"
         },
         "awa2333": {
-            "rev": "68ab044728841032452e824c3a8dc1be1f53de25",
-            "sha256": "07m6h452iyrq55a42rjh949qv0ksn7mq7c0bm9x3phy29anq7fiw",
+            "rev": "097716872cec6bf2e7af14e35996d08116ab9e0a",
+            "sha256": "17i556f15kar632dhpw8cydkpz250zd285aifvwyrvxvnlh5l814",
             "url": "https://github.com/awa2333/nurpkgs"
         },
         "awl-fcarza": {
@@ -2255,8 +2255,8 @@
             "url": "https://github.com/Stupremee/nur-packages"
         },
         "suhr": {
-            "rev": "2667d9d96d815cf115b60e4e63da7c7eb6b0e00f",
-            "sha256": "0mn2zlg8xjn8rkcdrp5vnr1831bdwqcd4mch4wxpzcka42qwyq89",
+            "rev": "1150a2f1d51e5d7f57f62b054eebe788b265f9fe",
+            "sha256": "0bsjmx53frinr97rcxdcgakhmbz5vpihxcb154mb6jx0mnqdz58d",
             "url": "https://github.com/suhr/nur-packages"
         },
         "swarsel": {
