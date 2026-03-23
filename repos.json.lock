@@ -1889,8 +1889,8 @@
             "url": "https://github.com/PascalThesing/NUR"
         },
         "pborzenkov": {
-            "rev": "140e600310eb50f924b629ed4a10920d4caedc39",
-            "sha256": "1qdqmj7yxwq769337kpppgssy7z2k7wk6jyix6fvz6941ch4zqkh",
+            "rev": "f8ff4ea56581b09d3929dcacc32e544bfffe5e0c",
+            "sha256": "0z0ly61jgnrap785hspx95ifcik68mix5xpvj6b908132s39m68x",
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
