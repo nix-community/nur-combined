@@ -7,7 +7,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.uesave) pname version src;
 
-  cargoHash = "sha256-Ccggso8rD6qxe3W3ztzcdJINSqVF5HU9BKZiO8tM+wo=";
+  cargoHash = "sha256-6VTy/KHk2mSDfRonxyen4kRMvwBS3uZjsZqMhBJ+boM=";
 
   doCheck = false;
 
