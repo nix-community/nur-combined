@@ -1,15 +1,18 @@
 {
   lib,
+  callPackage,
   makeSetupHook,
   kvrocks,
-  redis,
+  valkey,
 }:
 
 makeSetupHook {
   name = "kvrocks-test-hook";
-  meta.maintainers = with lib.maintainers; [ xyenon ];
   substitutions = {
-    cli = lib.getExe' redis "redis-cli";
+    cli = lib.getExe' valkey "redis-cli";
     server = lib.getExe' kvrocks "kvrocks";
+  };
+  passthru.tests = {
+    simple = callPackage ./test.nix { };
   };
 } ./kvrocks-test-hook.sh

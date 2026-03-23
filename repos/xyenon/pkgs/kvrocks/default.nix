@@ -2,36 +2,107 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchzip,
+
+  # keep-sorted start
   cmake,
   ninja,
   pkg-config,
-  rocksdb,
-  libevent,
-  fmt,
-  spdlog,
-  snappy,
-  lz4,
-  zstd,
-  zlib-ng,
-  onetbb,
-  gtest,
-  xxHash,
-  jemalloc,
-  openssl,
-  range-v3,
+  # keep-sorted end
+
+  # keep-sorted start
   cpptrace,
+  fmt,
+  gtest,
+  hat-trie,
+  jemalloc,
   jsoncons,
-  span-lite,
-  tsl-hat-trie,
+  libevent,
+  lz4,
+  onetbb,
+  openssl,
   pegtl,
+  range-v3,
+  rocksdb,
+  snappy,
+  span-lite,
+  spdlog,
+  xxHash,
+  zlib-ng,
+  zstd,
+  # keep-sorted end
 }:
 
 let
-  luajit-src = fetchzip {
-    url = "https://github.com/RocksLabs/LuaJIT/archive/c0a8e68325ec261a77bde1c8eabad398168ffe74.zip";
+  # Generate a cmake file that replaces FetchContent with system library finders.
+  #   findPackage: optional package name for find_package(name REQUIRED)
+  #   pkgConfig:   optional { varName; modules; } for pkg_check_modules
+  #   libraries:   list of { name; target?; linkLibs?; compileDefs?; }
+  #                  - if 'target' is set: add_library(name ALIAS target)
+  #                  - otherwise: add_library(name INTERFACE) with optional link/defs
+  #   extraLines:  optional list of extra cmake lines appended at the end
+  mkCmakeFile =
+    cmakeFile:
+    {
+      findPackage ? null,
+      pkgConfig ? null,
+      libraries ? [ ],
+      extraLines ? [ ],
+    }:
+    let
+      mkLibEntry =
+        entry:
+        if entry ? target then
+          [ "add_library(${entry.name} ALIAS ${entry.target})" ]
+        else
+          [ "add_library(${entry.name} INTERFACE)" ]
+          ++ lib.optional (
+            entry ? linkLibs
+          ) "target_link_libraries(${entry.name} INTERFACE ${entry.linkLibs})"
+          ++ lib.optional (
+            entry ? compileDefs
+          ) "target_compile_definitions(${entry.name} INTERFACE ${entry.compileDefs})";
+      lines = [
+        "include_guard()"
+      ]
+      ++ lib.optional (pkgConfig != null) "find_package(PkgConfig REQUIRED)"
+      ++ lib.optional (findPackage != null) "find_package(${findPackage} REQUIRED)"
+      ++ lib.optional (
+        pkgConfig != null
+      ) "pkg_check_modules(${pkgConfig.varName} REQUIRED IMPORTED_TARGET ${pkgConfig.modules})"
+      ++ lib.concatMap mkLibEntry libraries
+      ++ extraLines;
+      content = lib.concatStringsSep "\n" lines;
+    in
+    ''
+      cat > cmake/${cmakeFile}.cmake << 'EOF'
+      ${content}
+      EOF
+    '';
+
+  luajit-src = fetchFromGitHub {
+    owner = "RocksLabs";
+    repo = "LuaJIT";
+    rev = "c0a8e68325ec261a77bde1c8eabad398168ffe74";
     hash = "sha256-Wjh14d0JR5ecAwdYVBjQYIHb2vJ1I61oR0N0LMmtq4E=";
   };
+
+  zlib-ng' = zlib-ng.override { withZlibCompat = true; };
+  rocksdb' =
+    (rocksdb.override {
+      zlib = zlib-ng';
+      enableJemalloc = true;
+    }).overrideAttrs
+      (oldAttrs: {
+        cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [ (lib.cmakeBool "WITH_TBB" true) ];
+        buildInputs = (oldAttrs.buildInputs or [ ]) ++ [ onetbb ];
+        # On aarch64-darwin, libc++ hardening can trigger a SIGTRAP in
+        # RocksDB's startup path via unique_ptr<T[]> bounds checks.
+        hardeningDisable =
+          (oldAttrs.hardeningDisable or [ ])
+          ++ (lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
+            "libcxxhardeningfast"
+          ]);
+      });
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "kvrocks";
@@ -46,125 +117,136 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     # Replace FetchContent-based cmake files with system library finders
-    cat > cmake/rocksdb.cmake << 'EOF'
-    include_guard()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(ROCKSDB REQUIRED IMPORTED_TARGET rocksdb)
-    add_library(rocksdb_with_headers INTERFACE)
-    target_link_libraries(rocksdb_with_headers INTERFACE PkgConfig::ROCKSDB)
-    EOF
-
-    cat > cmake/libevent.cmake << 'EOF'
-    include_guard()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(LIBEVENT REQUIRED IMPORTED_TARGET libevent libevent_pthreads)
-    add_library(event_with_headers INTERFACE)
-    target_link_libraries(event_with_headers INTERFACE PkgConfig::LIBEVENT)
-    if(ENABLE_OPENSSL)
-      pkg_check_modules(LIBEVENT_OPENSSL REQUIRED IMPORTED_TARGET libevent_openssl)
-      target_link_libraries(event_with_headers INTERFACE PkgConfig::LIBEVENT_OPENSSL)
-    endif()
-    EOF
-
-    cat > cmake/fmt.cmake << 'EOF'
-    include_guard()
-    find_package(fmt REQUIRED)
-    EOF
-
-    cat > cmake/spdlog.cmake << 'EOF'
-    include_guard()
-    find_package(spdlog REQUIRED)
-    EOF
-
-    cat > cmake/snappy.cmake << 'EOF'
-    include_guard()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(SNAPPY REQUIRED IMPORTED_TARGET snappy)
-    add_library(snappy ALIAS PkgConfig::SNAPPY)
-    EOF
-
-    cat > cmake/lz4.cmake << 'EOF'
-    include_guard()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(LZ4 REQUIRED IMPORTED_TARGET liblz4)
-    add_library(lz4 ALIAS PkgConfig::LZ4)
-    EOF
-
-    cat > cmake/zstd.cmake << 'EOF'
-    include_guard()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(ZSTD REQUIRED IMPORTED_TARGET libzstd)
-    add_library(zstd ALIAS PkgConfig::ZSTD)
-    EOF
-
-    cat > cmake/zlib.cmake << 'EOF'
-    include_guard()
-    find_package(ZLIB REQUIRED)
-    add_library(zlib_with_headers INTERFACE)
-    target_link_libraries(zlib_with_headers INTERFACE ZLIB::ZLIB)
-    EOF
-
-    cat > cmake/tbb.cmake << 'EOF'
-    include_guard()
-    find_package(TBB REQUIRED)
-    add_library(tbb ALIAS TBB::tbb)
-    EOF
-
-    cat > cmake/gtest.cmake << 'EOF'
-    include_guard()
-    find_package(GTest REQUIRED)
-    # Create aliases that kvrocks expects, linking gtest properly
-    add_library(gtest_main INTERFACE)
-    target_link_libraries(gtest_main INTERFACE GTest::gtest_main GTest::gtest)
-    add_library(gmock INTERFACE)
-    target_link_libraries(gmock INTERFACE GTest::gmock GTest::gtest)
-    EOF
-
-    cat > cmake/xxhash.cmake << 'EOF'
-    include_guard()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(XXHASH REQUIRED IMPORTED_TARGET libxxhash)
-    add_library(xxhash ALIAS PkgConfig::XXHASH)
-    EOF
-
-    cat > cmake/jemalloc.cmake << 'EOF'
-    include_guard()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(JEMALLOC REQUIRED IMPORTED_TARGET jemalloc)
-    add_library(jemalloc INTERFACE)
-    target_link_libraries(jemalloc INTERFACE PkgConfig::JEMALLOC)
-    target_compile_definitions(jemalloc INTERFACE ENABLE_JEMALLOC)
-    EOF
-
-    cat > cmake/jsoncons.cmake << 'EOF'
-    include_guard()
-    add_library(jsoncons INTERFACE)
-    EOF
-
-    cat > cmake/span.cmake << 'EOF'
-    include_guard()
-    add_library(span-lite INTERFACE)
-    EOF
-
-    cat > cmake/trie.cmake << 'EOF'
-    include_guard()
-    add_library(tsl_hat_trie INTERFACE)
-    EOF
-
-    cat > cmake/pegtl.cmake << 'EOF'
-    include_guard()
-    add_library(pegtl INTERFACE)
-    EOF
-
-    cat > cmake/rangev3.cmake << 'EOF'
-    include_guard()
-    find_package(range-v3 REQUIRED)
-    EOF
-
-    cat > cmake/cpptrace.cmake << 'EOF'
-    include_guard()
-    find_package(cpptrace REQUIRED)
-    EOF
+    ${mkCmakeFile "rocksdb" {
+      pkgConfig = {
+        varName = "ROCKSDB";
+        modules = "rocksdb";
+      };
+      libraries = [
+        {
+          name = "rocksdb_with_headers";
+          linkLibs = "PkgConfig::ROCKSDB";
+        }
+      ];
+    }}
+    ${mkCmakeFile "libevent" {
+      pkgConfig = {
+        varName = "LIBEVENT";
+        modules = "libevent libevent_pthreads";
+      };
+      libraries = [
+        {
+          name = "event_with_headers";
+          linkLibs = "PkgConfig::LIBEVENT";
+        }
+      ];
+      extraLines = [
+        "if(ENABLE_OPENSSL)"
+        "  pkg_check_modules(LIBEVENT_OPENSSL REQUIRED IMPORTED_TARGET libevent_openssl)"
+        "  target_link_libraries(event_with_headers INTERFACE PkgConfig::LIBEVENT_OPENSSL)"
+        "endif()"
+      ];
+    }}
+    ${mkCmakeFile "fmt" { findPackage = "fmt"; }}
+    ${mkCmakeFile "spdlog" { findPackage = "spdlog"; }}
+    ${mkCmakeFile "snappy" {
+      pkgConfig = {
+        varName = "SNAPPY";
+        modules = "snappy";
+      };
+      libraries = [
+        {
+          name = "snappy";
+          target = "PkgConfig::SNAPPY";
+        }
+      ];
+    }}
+    ${mkCmakeFile "lz4" {
+      pkgConfig = {
+        varName = "LZ4";
+        modules = "liblz4";
+      };
+      libraries = [
+        {
+          name = "lz4";
+          target = "PkgConfig::LZ4";
+        }
+      ];
+    }}
+    ${mkCmakeFile "zstd" {
+      pkgConfig = {
+        varName = "ZSTD";
+        modules = "libzstd";
+      };
+      libraries = [
+        {
+          name = "zstd";
+          target = "PkgConfig::ZSTD";
+        }
+      ];
+    }}
+    ${mkCmakeFile "zlib" {
+      findPackage = "ZLIB";
+      libraries = [
+        {
+          name = "zlib_with_headers";
+          linkLibs = "ZLIB::ZLIB";
+        }
+      ];
+    }}
+    ${mkCmakeFile "tbb" {
+      findPackage = "TBB";
+      libraries = [
+        {
+          name = "tbb";
+          target = "TBB::tbb";
+        }
+      ];
+    }}
+    ${mkCmakeFile "gtest" {
+      findPackage = "GTest";
+      libraries = [
+        {
+          name = "gtest_main";
+          linkLibs = "GTest::gtest_main GTest::gtest";
+        }
+        {
+          name = "gmock";
+          linkLibs = "GTest::gmock GTest::gtest";
+        }
+      ];
+    }}
+    ${mkCmakeFile "xxhash" {
+      pkgConfig = {
+        varName = "XXHASH";
+        modules = "libxxhash";
+      };
+      libraries = [
+        {
+          name = "xxhash";
+          target = "PkgConfig::XXHASH";
+        }
+      ];
+    }}
+    ${mkCmakeFile "jemalloc" {
+      pkgConfig = {
+        varName = "JEMALLOC";
+        modules = "jemalloc";
+      };
+      libraries = [
+        {
+          name = "jemalloc";
+          linkLibs = "PkgConfig::JEMALLOC";
+          compileDefs = "ENABLE_JEMALLOC";
+        }
+      ];
+    }}
+    ${mkCmakeFile "jsoncons" { libraries = [ { name = "jsoncons"; } ]; }}
+    ${mkCmakeFile "span" { libraries = [ { name = "span-lite"; } ]; }}
+    ${mkCmakeFile "trie" { libraries = [ { name = "tsl_hat_trie"; } ]; }}
+    ${mkCmakeFile "pegtl" { libraries = [ { name = "pegtl"; } ]; }}
+    ${mkCmakeFile "rangev3" { findPackage = "range-v3"; }}
+    ${mkCmakeFile "cpptrace" { findPackage = "cpptrace"; }}
 
     # Remove static linking flags and git requirement
     substituteInPlace CMakeLists.txt \
@@ -175,47 +257,56 @@ stdenv.mkDerivation (finalAttrs: {
                      'target_include_directories(kvrocks_objs PUBLIC src src/common src/config src/vendor'
   '';
 
+  strictDeps = true;
+
   nativeBuildInputs = [
+    # keep-sorted start
     cmake
     ninja
     pkg-config
+    # keep-sorted end
   ];
 
   buildInputs = [
-    rocksdb
-    libevent
-    fmt
-    spdlog
-    snappy
-    lz4
-    zstd
-    zlib-ng
-    onetbb
-    gtest
-    xxHash
-    jemalloc
-    openssl
-    range-v3
+    # keep-sorted start
     cpptrace
+    fmt
+    gtest
+    hat-trie
+    jemalloc
     jsoncons
-    span-lite
-    tsl-hat-trie
+    libevent
+    lz4
+    onetbb
+    openssl
     pegtl
+    range-v3
+    rocksdb'
+    snappy
+    span-lite
+    spdlog
+    xxHash
+    zlib-ng'
+    zstd
+    # keep-sorted end
   ];
 
   preConfigure = ''
     # Copy LuaJIT to writable location for in-source build
     cp -r ${luajit-src} $TMPDIR/luajit
     chmod -R u+w $TMPDIR/luajit
+    # LuaJIT defaults to gcc, which may be unavailable (e.g. Darwin stdenv).
+    substituteInPlace $TMPDIR/luajit/src/Makefile \
+      --replace-fail "DEFAULT_CC = gcc" "DEFAULT_CC = $CC"
     cmakeFlagsArray+=("-DFETCHCONTENT_SOURCE_DIR_LUAJIT=$TMPDIR/luajit")
   '';
 
   cmakeFlags = [
-    "-DDISABLE_JEMALLOC=OFF"
-    "-DENABLE_OPENSSL=ON"
-    "-DENABLE_LUAJIT=ON"
-    "-DPORTABLE=1"
-    "-DENABLE_STATIC_LIBSTDCXX=OFF"
+    (lib.cmakeBool "DISABLE_JEMALLOC" false)
+    (lib.cmakeBool "ENABLE_STATIC_LIBSTDCXX" false)
+    (lib.cmakeBool "ENABLE_LUAJIT" true)
+    (lib.cmakeBool "ENABLE_OPENSSL" true)
+    (lib.cmakeFeature "PORTABLE" "1")
   ];
 
   installPhase = ''
@@ -226,12 +317,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Distributed key value NoSQL database that uses RocksDB as storage engine and is compatible with Redis protocol";
     homepage = "https://kvrocks.apache.org/";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ xyenon ];
-    platforms = platforms.unix;
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ xyenon ];
+    platforms = lib.platforms.unix;
     mainProgram = "kvrocks";
   };
 })

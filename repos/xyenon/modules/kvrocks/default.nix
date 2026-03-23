@@ -7,10 +7,11 @@
 
 let
   cfg = config.services.kvrocks;
+
   format = pkgs.formats.keyValue {
     mkKeyValue =
       let
-        mkValueString = v: if lib.isBool v then if v then "yes" else "no" else toString v;
+        mkValueString = v: if lib.isBool v then lib.boolToYesNo v else toString v;
       in
       k: v:
       if lib.isList v then
@@ -18,6 +19,7 @@ let
       else
         "${k} ${mkValueString v}";
   };
+
   configFile = format.generate "kvrocks.conf" (
     cfg.settings
     // {
@@ -27,11 +29,25 @@ let
   );
 in
 {
+  meta.maintainers = pkgs.kvrocks.meta.maintainers;
+
   options = {
     services.kvrocks = {
-      enable = lib.mkEnableOption "kvrocks";
+      enable = lib.mkEnableOption "Kvrocks server";
 
       package = lib.mkPackageOption pkgs "nur.repos.xyenon.kvrocks" { };
+
+      user = lib.mkOption {
+        type = lib.types.str;
+        default = "kvrocks";
+        description = "User account under which kvrocks runs.";
+      };
+
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = "kvrocks";
+        description = "Group under which kvrocks runs.";
+      };
 
       settings = lib.mkOption {
         type = lib.types.submodule {
@@ -40,20 +56,20 @@ in
           options = {
             bind = lib.mkOption {
               type = lib.types.str;
-              default = "127.0.0.1";
+              default = "127.0.0.1 ::1";
               description = "The address to bind to.";
             };
 
             port = lib.mkOption {
               type = lib.types.port;
               default = 6666;
-              description = "The port to listen on.";
+              description = "Accept connections on the specified port.";
             };
 
             dir = lib.mkOption {
               type = lib.types.str;
               default = "/var/lib/kvrocks";
-              description = "The working directory.";
+              description = "The DB will be written inside this directory.";
             };
           };
         };
@@ -76,34 +92,67 @@ in
     networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.settings.port ];
 
     systemd.services.kvrocks = {
-      description = "Kvrocks - A distributed key value NoSQL database that uses RocksDB as storage engine";
+      description = "Kvrocks - Distributed key value database";
       documentation = [ "https://kvrocks.apache.org/" ];
       wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      after = [ "network.target" ];
 
       serviceConfig = {
         Type = "notify";
         ExecStart = "${lib.getExe cfg.package} -c ${configFile}";
         Restart = "on-failure";
         RestartSec = "10s";
-        User = "kvrocks";
-        Group = "kvrocks";
+        User = cfg.user;
+        Group = cfg.group;
         StateDirectory = "kvrocks";
         RuntimeDirectory = "kvrocks";
         LimitNOFILE = 100000;
         LimitNPROC = 4096;
         TimeoutSec = 300;
+        # Capabilities
+        CapabilityBoundingSet = "";
+        # Security
         NoNewPrivileges = true;
+        # Sandboxing
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        PrivateUsers = true;
+        ProtectClock = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        PrivateMounts = true;
+        # System Call Filtering
+        SystemCallArchitectures = "native";
+        SystemCallFilter = "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid";
       };
     };
 
-    users.users.kvrocks = {
-      isSystemUser = true;
-      group = "kvrocks";
-      description = "Kvrocks daemon user";
+    users = {
+      users = lib.mkIf (cfg.user == "kvrocks") {
+        kvrocks = {
+          isSystemUser = true;
+          inherit (cfg) group;
+          description = "Kvrocks daemon user";
+        };
+      };
+      groups = lib.mkIf (cfg.group == "kvrocks") {
+        kvrocks = { };
+      };
     };
-
-    users.groups.kvrocks = { };
   };
 }

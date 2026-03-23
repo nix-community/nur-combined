@@ -6,21 +6,21 @@
   nix-update-script,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "kvrocks_exporter";
   version = "1.0.9";
 
   src = fetchFromGitHub {
     owner = "RocksLabs";
     repo = "kvrocks_exporter";
-    rev = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-nyNdQfSXD6mAusO5VCEfvKuyvNawH4C5xDGOZSnTn7A=";
   };
 
   vendorHash = "sha256-QVbcHQQr6o3jnF3CWw2NCCeRkGBDdA8OkmDd/GPfHuI=";
 
   ldflags = [
-    "-X main.BuildVersion=${version}"
+    "-X main.BuildVersion=${finalAttrs.version}"
     "-X main.BuildCommitSha=unknown"
     "-X main.BuildDate=unknown"
   ];
@@ -29,19 +29,9 @@ buildGoModule rec {
 
   preCheck = ''
     export TEST_REDIS_URI="redis://127.0.0.1:6666"
-
-    # Create directory for tests that expect files in ../contrib
-    # Note: These files are not in the release tarball but are expected by tests
-    # We create empty files or dummy content where needed to let tests that check existence pass,
-    # though tests that actually read them might still be skipped.
-    mkdir -p contrib/tls
-    touch contrib/sample-pwd-file.json
-    touch contrib/sample-pwd-file.json-malformed
-    touch contrib/tls/redis.crt
-    touch contrib/tls/redis.key
-    touch contrib/tls/ca.crt
-    touch contrib/tls/ca.key
   '';
+
+  __darwinAllowLocalNetworking = true;
 
   checkFlags =
     let
@@ -69,7 +59,7 @@ buildGoModule rec {
         "TestGetServerCertificateFunc"
       ];
     in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+    [ "-skip=^(${builtins.concatStringsSep "|" skippedTests})$" ];
 
   passthru.updateScript = nix-update-script { };
 
@@ -80,4 +70,4 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [ xyenon ];
     mainProgram = "kvrocks_exporter";
   };
-}
+})

@@ -13,14 +13,13 @@ let
     mkPackageOption
     mkIf
     types
-    concatStringsSep
     ;
 in
 {
   options.services.prometheus.exporters.kvrocks = {
     enable = mkEnableOption "the prometheus kvrocks exporter";
 
-    package = mkPackageOption pkgs "nur.repos.xyenon.kvrocks-exporter" { };
+    package = mkPackageOption pkgs "nur.repos.xyenon.prometheus-kvrocks-exporter" { };
 
     port = mkOption {
       type = types.port;
@@ -65,12 +64,7 @@ in
         Restart = "always";
         WorkingDirectory = /tmp;
         DynamicUser = true;
-        ExecStart = ''
-          ${lib.getExe cfg.package} \
-            -web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
-            -kvrocks.addr ${cfg.kvrocksAddress} \
-            ${concatStringsSep " " cfg.extraFlags}
-        '';
+        ExecStart = "${lib.getExe cfg.package} -web.listen-address ${cfg.listenAddress}:${toString cfg.port} ${lib.escapeShellArgs cfg.extraFlags}";
 
         # Hardening
         CapabilityBoundingSet = [ "" ];

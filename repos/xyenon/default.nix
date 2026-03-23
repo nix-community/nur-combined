@@ -82,10 +82,12 @@ rec {
   };
   lsp-ai = callPackage ./pkgs/lsp-ai { };
   zsh-smart-suggestion = callPackage ./pkgs/zsh-smart-suggestion { };
-  tsl-hat-trie = callPackage ./pkgs/tsl-hat-trie { };
-  kvrocks = callPackage ./pkgs/kvrocks { inherit tsl-hat-trie; };
+  hat-trie = callPackage ./pkgs/hat-trie { };
+  kvrocks = callPackage ./pkgs/kvrocks { inherit hat-trie; };
   kvrocksTestHook = callPackage ./pkgs/kvrocksTestHook { inherit kvrocks; };
-  kvrocks-exporter = callPackage ./pkgs/kvrocks-exporter { inherit kvrocksTestHook; };
+  prometheus-kvrocks-exporter = callPackage ./pkgs/prometheus-kvrocks-exporter {
+    inherit kvrocksTestHook;
+  };
   nh-unwrapped = callPackage ./pkgs/nh { inherit (pkgs) nh-unwrapped; };
   xurl = callPackage ./pkgs/xurl { };
 }

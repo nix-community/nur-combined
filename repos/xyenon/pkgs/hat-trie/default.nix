@@ -6,7 +6,7 @@
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "tsl-hat-trie";
+  pname = "hat-trie";
   version = "0.7.1";
 
   src = fetchFromGitHub {
@@ -27,11 +27,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     description = "C++ implementation of a fast and memory efficient HAT-trie";
     homepage = "https://github.com/Tessil/hat-trie";
-    license = licenses.mit;
-    maintainers = with maintainers; [ xyenon ];
-    platforms = platforms.all;
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ xyenon ];
+    platforms = lib.platforms.all;
   };
 })
