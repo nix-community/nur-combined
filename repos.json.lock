@@ -577,8 +577,8 @@
             "url": "https://github.com/ChrisOboe/nurrepo"
         },
         "chrjabs": {
-            "rev": "1a3e5b094937d3d5be4a9b12597ca339454038bb",
-            "sha256": "05z6r9ddfv5x2g7866v61dwxhn2s87j18cfv6l4c5w3k1ls74dnh",
+            "rev": "c8e5f2e9bee28218c8fcff4a5b1d1dd33c0dc9b0",
+            "sha256": "1zbr7fc6iw9i0lk7mzs6r3bzxx8rm972py7r2b6z51az3xiigwwk",
             "url": "https://github.com/chrjabs/nur-packages"
         },
         "cinqwqeggs": {
