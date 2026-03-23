@@ -982,11 +982,6 @@
             "sha256": "08gswf8qd2r1gm52vwxzcjmva9wnmssnadalspbw55vwvrcm8zkd",
             "url": "https://github.com/gepbird/nur-packages"
         },
-        "ggemre": {
-            "rev": "b49aa7d053a200490b0b41bd17e25a932b124167",
-            "sha256": "1z8wrpc09vjjhgv1wcy3qbcz8am2q4g9w2khblhpah9j20cca3i5",
-            "url": "https://github.com/ggemre/nur-packages"
-        },
         "gigamonster256": {
             "rev": "6c8b6a25aa4d4324087e65b3df65fab00c3d91fe",
             "sha256": "0lwvcq09z0wglz9v6dp80ip9y9qxyfscl5r1r3z7b3yykslfzlk6",
@@ -1118,8 +1113,8 @@
             "url": "https://github.com/illidan127/illidan127-nur"
         },
         "ilya-fedin": {
-            "rev": "c9525c76b4d092ea0646024f78eeafeafff0d71b",
-            "sha256": "1zmjslrkg6i9jmx7320qr5d0hcg999ci3qzn3vsf47r1ixmz21q4",
+            "rev": "05d5912cc2b28c2d0b25b04123c8478a36c0691b",
+            "sha256": "1ci4af66qmzwcqxyfpav4n6i19kqbwfyisyb15kd4q1kqkzxcrby",
             "url": "https://github.com/ilya-fedin/nur-repository"
         },
         "immae": {
