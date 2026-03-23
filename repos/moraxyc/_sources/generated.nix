@@ -203,13 +203,13 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "50aefd68975610c4ace5aa51ca3084f5fb9aeedc";
+    version = "ae5f2f30938c857157c75906973b6a495c7ff55a";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "50aefd68975610c4ace5aa51ca3084f5fb9aeedc";
+      rev = "ae5f2f30938c857157c75906973b6a495c7ff55a";
       fetchSubmodules = false;
-      sha256 = "sha256-uSTUKvOMRTYCXHssAmBu/VZe/lTvYFeeOPViakG6mIM=";
+      sha256 = "sha256-D3dBrbXs5Ey5zW2jXxKhvLnsC9luAYYPe0y3SNI7OZk=";
     };
     date = "2026-03-22";
   };
@@ -226,21 +226,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "b2bc6552209500e96231fc173d4702e819820c0e";
+    version = "6eab6a2429b84cea02fe926eef24463d695f48b2";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "b2bc6552209500e96231fc173d4702e819820c0e";
+      rev = "6eab6a2429b84cea02fe926eef24463d695f48b2";
       fetchSubmodules = false;
-      sha256 = "sha256-mcfmu9JMyYxINKGTpa9HKWH/bySGlF2pTMokaDVKwZQ=";
+      sha256 = "sha256-HcIOEe0r32XtVU84bnJHVf5YOIETsVAIGs9/LfxdKIA=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-mcfmu9JMyYxINKGTpa9HKWH_bySGlF2pTMokaDVKwZQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-HcIOEe0r32XtVU84bnJHVf5YOIETsVAIGs9_LfxdKIA=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-03-16";
+    date = "2026-03-23";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -318,29 +318,29 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603212218";
+    version = "202603222219";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603212218/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603222219/geoip.dat";
       sha256 = "sha256-S9scHPAeyYh4kIWprPVSK18zVZBuPqpqkOpg21tYNxE=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603212218";
+    version = "202603222219";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603212218/geosite.dat";
-      sha256 = "sha256-nz28K1Lpth2QfWFpTKMPTlpTnytmC+Cd9xtmVDT0RYg=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603222219/geosite.dat";
+      sha256 = "sha256-KASDSkE5rxGU/7e639v00S92cjvidXXAuV9ntwKiwnY=";
     };
   };
   yass = {
     pname = "yass";
-    version = "1.22.5";
+    version = "1.22.6";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.22.5";
+      rev = "1.22.6";
       fetchSubmodules = true;
-      sha256 = "sha256-2WhVX689IzTSc3npVJoD8KfMZYIGHIvHbp2Owf95ajc=";
+      sha256 = "sha256-iFByjcwpeJG3uNSGBPag1Lg5HLowEXQwpL8OKEXX5XY=";
     };
   };
 }

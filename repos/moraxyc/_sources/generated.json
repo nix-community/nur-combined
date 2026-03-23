@@ -360,12 +360,12 @@
             "name": null,
             "owner": "mautrix",
             "repo": "telegramgo",
-            "rev": "50aefd68975610c4ace5aa51ca3084f5fb9aeedc",
-            "sha256": "sha256-uSTUKvOMRTYCXHssAmBu/VZe/lTvYFeeOPViakG6mIM=",
+            "rev": "ae5f2f30938c857157c75906973b6a495c7ff55a",
+            "sha256": "sha256-D3dBrbXs5Ey5zW2jXxKhvLnsC9luAYYPe0y3SNI7OZk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "50aefd68975610c4ace5aa51ca3084f5fb9aeedc"
+        "version": "ae5f2f30938c857157c75906973b6a495c7ff55a"
     },
     "mm-geofeed-verifier": {
         "cargoLock": null,
@@ -391,11 +391,11 @@
     "mpv-danmaku": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-mcfmu9JMyYxINKGTpa9HKWH_bySGlF2pTMokaDVKwZQ=/Cargo.lock",
+                "sha256-HcIOEe0r32XtVU84bnJHVf5YOIETsVAIGs9_LfxdKIA=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-03-16",
+        "date": "2026-03-23",
         "extract": null,
         "name": "mpv-danmaku",
         "passthru": null,
@@ -407,12 +407,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "mpv-danmaku",
-            "rev": "b2bc6552209500e96231fc173d4702e819820c0e",
-            "sha256": "sha256-mcfmu9JMyYxINKGTpa9HKWH/bySGlF2pTMokaDVKwZQ=",
+            "rev": "6eab6a2429b84cea02fe926eef24463d695f48b2",
+            "sha256": "sha256-HcIOEe0r32XtVU84bnJHVf5YOIETsVAIGs9/LfxdKIA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b2bc6552209500e96231fc173d4702e819820c0e"
+        "version": "6eab6a2429b84cea02fe926eef24463d695f48b2"
     },
     "mpv-danmaku-stable": {
         "cargoLock": null,
@@ -560,9 +560,9 @@
             "name": null,
             "sha256": "sha256-S9scHPAeyYh4kIWprPVSK18zVZBuPqpqkOpg21tYNxE=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603212218/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603222219/geoip.dat"
         },
-        "version": "202603212218"
+        "version": "202603222219"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -573,11 +573,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nz28K1Lpth2QfWFpTKMPTlpTnytmC+Cd9xtmVDT0RYg=",
+            "sha256": "sha256-KASDSkE5rxGU/7e639v00S92cjvidXXAuV9ntwKiwnY=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603212218/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603222219/geosite.dat"
         },
-        "version": "202603212218"
+        "version": "202603222219"
     },
     "yass": {
         "cargoLock": null,
@@ -593,11 +593,11 @@
             "name": null,
             "owner": "hukeyue",
             "repo": "yass",
-            "rev": "1.22.5",
-            "sha256": "sha256-2WhVX689IzTSc3npVJoD8KfMZYIGHIvHbp2Owf95ajc=",
+            "rev": "1.22.6",
+            "sha256": "sha256-iFByjcwpeJG3uNSGBPag1Lg5HLowEXQwpL8OKEXX5XY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.22.5"
+        "version": "1.22.6"
     }
 }
