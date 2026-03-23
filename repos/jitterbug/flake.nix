@@ -2,8 +2,7 @@
   description = "JuniorIsAJitterbug's nur-packages";
 
   inputs = {
-    # pin until https://github.com/NixOS/nixpkgs/pull/493988 is merged
-    nixpkgs.url = "github:NixOS/nixpkgs/?ref=0182a361324364ae3f436a63005877674cf45efb";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs =
