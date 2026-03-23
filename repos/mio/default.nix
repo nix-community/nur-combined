@@ -76,8 +76,9 @@ in
         # nixos-unstable 20260310
         "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.25.7" =
           "sha256-18QmFEF57R+a9YCPXJd2nHgW8fg2EdcY3qhvWAfxbwI=";
-          # nixos-unstable-small 20260323
-          "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.26.1" = "";
+        # nixos-unstable-small 20260323
+        "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.26.1" =
+          "sha256-4Suk4D3TVcrKIvaHYFE5jG4gddyHrfaOsPzl9wxL4rw=";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
