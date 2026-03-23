@@ -18,19 +18,14 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "mixxx-to-rekordbox";
-  version = "0.1.0-unstable-2025-10-28";
+  version = "0.1.0-unstable-2026-03-23";
 
   src = fetchFromGitHub {
-    owner = "TheKantankerus";
+    owner = "bendlas";
     repo = "MixxxToRekordbox";
-    rev = "1dbc393e72ede9a6a39e286362ec88de05254f56";
-    hash = "sha256-B4YnubS46ktGSK7D564v77GPzX8brjkiIFJsx9jmT78=";
+    rev = "04dc58a40a85766a5a985f802f25cd4c38f16fe2";
+    hash = "sha256-SD8DLPbV9bnJ3tumDYVckXnejcbeMWdCFOt1USKafOY=";
   };
-
-  patches = [
-    ./mixxx-to-rekordbox/0001-fix-db-discovery-in-linux-and-mac.patch
-    ./mixxx-to-rekordbox/0002-make-track-loading-robust-against-non-existent-track.patch
-  ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -49,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Sync your Mixxx Playlists to Rekordbox XML, optionally reformatting your files";
-    homepage = "https://github.com/TheKantankerus/MixxxToRekordbox";
+    homepage = "https://github.com/bendlas/MixxxToRekordbox";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.bendlas ];
     mainProgram = "mixxx-to-rekordbox";
