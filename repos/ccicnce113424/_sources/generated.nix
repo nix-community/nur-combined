@@ -6,18 +6,18 @@
 {
   algermusicplayer-arm = {
     pname = "algermusicplayer-arm";
-    version = "5.0.0";
+    version = "5.1.0";
     src = fetchurl {
-      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.0.0/AlgerMusicPlayer-5.0.0-linux-arm64.AppImage";
-      sha256 = "sha256-nbDg74IdemTIJFyWXM16kuFl3TzMCOAuKy27X4iEmRc=";
+      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.1.0/AlgerMusicPlayer-5.1.0-linux-arm64.AppImage";
+      sha256 = "sha256-WaBw7pSstFxqTY6X41iojsJl4KEc5rEWVA3Z5+VqRBc=";
     };
   };
   algermusicplayer-x86 = {
     pname = "algermusicplayer-x86";
-    version = "5.0.0";
+    version = "5.1.0";
     src = fetchurl {
-      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.0.0/AlgerMusicPlayer-5.0.0-linux-x86_64.AppImage";
-      sha256 = "sha256-weIHNJN9CmeMIiAjwd3e6RG5dpb5lhJ9HwtETaLoNkk=";
+      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.1.0/AlgerMusicPlayer-5.1.0-linux-x86_64.AppImage";
+      sha256 = "sha256-nYMDNSpyyCHRKIBhP++sA7FmodSHBUwRSPEM8yLFaF0=";
     };
   };
   danmakufactory = {
