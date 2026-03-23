@@ -16,23 +16,23 @@
   };
   omniwm = {
     pname = "omniwm";
-    version = "v0.4.2.1";
+    version = "v0.4.3";
     src = fetchurl {
-      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.2.1/OmniWM-v0.4.2.1.zip";
-      sha256 = "sha256-T0U1NXU9hXdC/1Uebbcowxub99qNZIA1zsgA5t+4WiY=";
+      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.3/OmniWM-v0.4.3.zip";
+      sha256 = "sha256-21i3eEb1zXb6l61hO5BMF3quxT3wgGhpgWotOQ1Zar0=";
     };
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "b1a13147a7a08e604a5d878c88ba24d871a809fa";
+    version = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "b1a13147a7a08e604a5d878c88ba24d871a809fa";
+      rev = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
       fetchSubmodules = false;
-      sha256 = "sha256-VrtOMAmVEvfl6pITQfHF+u/ACAFDHOGuaNbqWA6I+1w=";
+      sha256 = "sha256-gmj5hxIX3uLy7iOiRzUtknT0TgwlRig9l1ZgmscF5t0=";
     };
-    date = "2026-03-19";
+    date = "2026-03-23";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";
