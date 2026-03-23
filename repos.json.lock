@@ -637,8 +637,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "a3b40f80a79f02e45b2cc875fb03c2fa4cdcd923",
-            "sha256": "1xvyihjsm6h24mr08458q8k96rcqjhjrr0biyx5gcwrj6wyh3k11",
+            "rev": "33f26458baeeb8b59cadf1a29c0537d8c19b1297",
+            "sha256": "09wk3bgv108r1i8z7vbcqd4hxa7psa6drdnky27qcq8bagw5nd9h",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
@@ -688,8 +688,8 @@
             "url": "https://github.com/DeeUnderscore/nur-packages"
         },
         "definfo": {
-            "rev": "11ec714af30793f18e291fd080dc4118c8df37f3",
-            "sha256": "09j27hyrv927d1hipnnf65dazhad8hkg9nq3lczmd0iqlzspj6bx",
+            "rev": "ec9a73364b2da4e852ee2dca1d3f0849d7630fc3",
+            "sha256": "1c5dk92ibdqa82mfp8c1rwvfllpdjqpmivjx1vpv2vv1d51k14gq",
             "url": "https://github.com/definfo/nur-packages"
         },
         "demivan": {
@@ -2442,8 +2442,8 @@
             "url": "https://github.com/ViZiD/nur-vizqq"
         },
         "vladexa": {
-            "rev": "234f13bfbeffd4c890f044c0eb2df5cb19ea9e43",
-            "sha256": "13qr8al3npqr0602xw3kqms66g5n3dbxzl37g5h0yz81pbybbxgx",
+            "rev": "039bcc462301af4dc11be148dd04d30ac0376dcf",
+            "sha256": "0czq9nml75wxhcxblnwl6zdyzqalzc3i0703lw1x02swbg9l61hn",
             "url": "https://github.com/VlaDexa/nur-packages"
         },
         "vojtechstep": {
