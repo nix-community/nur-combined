@@ -371,8 +371,8 @@
             "url": "https://github.com/avycado13/nur-packages"
         },
         "awa2333": {
-            "rev": "097716872cec6bf2e7af14e35996d08116ab9e0a",
-            "sha256": "17i556f15kar632dhpw8cydkpz250zd285aifvwyrvxvnlh5l814",
+            "rev": "379925e4b7a72f4bcfa9e484bb59e2317f044002",
+            "sha256": "0q2dcabgfzc27rvm9rmklfd6nyj97ax22dqlvspkm8m97hzaxbv2",
             "url": "https://github.com/awa2333/nurpkgs"
         },
         "awl-fcarza": {
@@ -1048,8 +1048,8 @@
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {
-            "rev": "c795a7769e548b0d4cb815d9319a7acc8da2f80f",
-            "sha256": "176ymxb3rw4rsg47d6fz4dqsqmawj5i58zcqgjl3c755yvp605nx",
+            "rev": "da08ed2a5524bee82713cee818aa241ba769b95f",
+            "sha256": "05dwyz81dyy1x6zh6r0h1kg4zsg3mdf24a2sr5d9qnilbilgk9qz",
             "url": "https://github.com/hhr2020/nur-packages"
         },
         "hilorioze": {
