@@ -1088,8 +1088,8 @@
             "url": "https://github.com/iagocq/nix"
         },
         "ianmurphy1": {
-            "rev": "da0c552446fd5788ea9d5ebb0d9686a6ccbe1018",
-            "sha256": "0cc71g9qnq5bhjfjhdqza2lrif077l3s8sfsif0y9grqaja1g3n0",
+            "rev": "6d518d51b02aa15a54bfaa40e175ae7f3317dfa0",
+            "sha256": "06fxiwysymfx09s965rqn1yn61xzgnkjfxvyj92qc3afby8x4yrn",
             "url": "https://github.com/ianmurphy1/nurpkgs"
         },
         "ifd3f": {
@@ -1588,8 +1588,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "83e08b3fc837bdf5e42c632b3cbd32bbe641e22e",
-            "sha256": "1wvd4l55m4ismlvkinzv46fgjl8vh2j63qyrjq1cl0qddfmx86ix",
+            "rev": "5b6a4393f6eb3895329fcb1653434f801f165876",
+            "sha256": "12njza89mcjysyw55d74acmxdsrqyhw3wy1i99whw747xsqkpqrl",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
