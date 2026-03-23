@@ -18,15 +18,15 @@ stdenvNoCC.mkDerivation (
     pureVersion = lib.removeSuffix "-${archVersion}" finalAttrs.version;
     fullname = "proton-cachyos-${pureVersion}-slr-${archVersion}";
     hashes = {
-      x86_64 = "sha256-zY9bGMAt905xm2dOZ1OkzLT2pjiS3ISdVz9K01ZbRpU=";
-      x86_64_v3 = "sha256-GbO1Q4O2EqwdQdFso2SoZq49/8REXDo7eM6pma94lWg=";
-      x86_64_v4 = "sha256-F9cs5M31GSVV8HVs444buzjtM0PizfV9wlATVrJDGHU=";
-      arm64 = "sha256-j7nDJX/ThMjkeH9SGcr1r/yTKIcvQ5VxCuTG6pu/srU=";
+      x86_64 = "sha256-bOppcHF4XpCTM+BJCPiR6GsVr2r/yGxEwSaQr5Hamh8=";
+      x86_64_v3 = "sha256-vVAWphVI8fTSvfelVn4KNksrbPnbgtTLNZ3xSooP9rY=";
+      x86_64_v4 = "sha256-WBZcBL2bDG9liumSoXJlGemYnkNU7otM45zTqngxrKE=";
+      arm64 = "sha256-9Fbvp0pYa1z8eL7pwuLjdsVQQuHvyhzb4GX1yx6rN8w=";
     };
   in
   {
     pname = "proton-cachyos-bin";
-    version = "10.0-20260319-${archVersion}";
+    version = "10.0-20260320-${archVersion}";
 
     src = fetchzip {
       url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${pureVersion}-slr/${fullname}.tar.xz";
