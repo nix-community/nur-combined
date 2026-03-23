@@ -431,8 +431,8 @@
             "url": "https://github.com/behoof4mind/packages"
         },
         "bendlas": {
-            "rev": "f38d032f45bc7fc98eb0ad8f8a12a85b980c8ad2",
-            "sha256": "1psghx1idwmp29j5xy27s44qxjia1rjhjm86xk9wrw9pmk3i103f",
+            "rev": "b229a6ab820aad443a2df5b925a0407f6ba9d6c9",
+            "sha256": "1ffylvxlrdb54i8ddknvppps0blfxmh341llnqryhss3nrj7h81h",
             "url": "https://github.com/bendlas/nur-packages"
         },
         "berbiche": {
