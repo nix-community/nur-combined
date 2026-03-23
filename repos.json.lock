@@ -1583,8 +1583,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "5b6a4393f6eb3895329fcb1653434f801f165876",
-            "sha256": "12njza89mcjysyw55d74acmxdsrqyhw3wy1i99whw747xsqkpqrl",
+            "rev": "d12a7d91b8041fba03e614ae9964b6261aaa7e26",
+            "sha256": "0i814g29wj5hfgkxw328f2j6vr674h9jlswpwi6lxnc0hw7gmklh",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -1889,8 +1889,8 @@
             "url": "https://github.com/PascalThesing/NUR"
         },
         "pborzenkov": {
-            "rev": "f8ff4ea56581b09d3929dcacc32e544bfffe5e0c",
-            "sha256": "0z0ly61jgnrap785hspx95ifcik68mix5xpvj6b908132s39m68x",
+            "rev": "87561b7e8cfe41677326060effa3d6be8fa884af",
+            "sha256": "0ba1krrxhn6gi5zs6xxl05l87dh1j9zq3ngqabvx9bs9y4qzhj0a",
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
@@ -1954,8 +1954,8 @@
             "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
-            "rev": "7ff4b00054b968e6fcde7a3fb23a5a9bb248cb1c",
-            "sha256": "0v57wgcgx3pyh1cncpzlk44r1sy4ndvk2gn42v3fharh3k1pmbk4",
+            "rev": "29eda05b0da2abf0e7f9b4ff557f1300fc5a051b",
+            "sha256": "1215gqjshhz10w86gfv150w2y479aqkxsjibir8m8bsg142as6r1",
             "url": "https://github.com/mistzzt/program-synthesis-nur"
         },
         "propheci": {
