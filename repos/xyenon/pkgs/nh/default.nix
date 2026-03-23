@@ -8,13 +8,13 @@
 
 nh-unwrapped.overrideAttrs (
   finalAttrs: prevAttrs: {
-    version = "4.3.0-unstable-2026-03-17";
+    version = "4.3.0-unstable-2026-03-23";
 
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "98ad645dc185e6db8ff324c49773c08acd4acdd9";
-      hash = "sha256-NIqdQ4xZ7ov8ljVKJv6yIHkP3U2zjG5JrFKalPdh+Qo=";
+      rev = "4a06a374384b99a4e95dbecefab6da633c3db149";
+      hash = "sha256-mxBboB9Q9UKUH9feHU+2B7bPjDygp9OTpmpS/1MeJVk=";
     };
 
     cargoHash = "sha256-cyho/mSYUQtH0x+cD696TZhdpd0X9UrmtzsSbFfbO30=";
