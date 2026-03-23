@@ -5,16 +5,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "veripb";
-  version = "3.0.1";
+  version = "3.0.2";
 
   src = fetchFromGitLab {
     owner = "MIAOresearch";
     repo = "software/VeriPB";
     tag = version;
-    hash = "sha256-YbX2Amcavf1XOILRMaLjpWD1K/QnUyUnrvtRCzncJTw=";
+    hash = "sha256-7cUxC4JBuNpJ/cEYyX2QE15i1z8lv7VjCALOvIgrrgc=";
   };
 
-  cargoHash = "sha256-KTXoUV3ho7lEz6txs/TgMEBDKpfOplfrWq0OAomjFfE=";
+  cargoHash = "sha256-TDLssYJxL7M80nQmR7HTtOA4AZDeD7qr9aQ37ZDbgAE=";
 
   meta = {
     description = "VeriPB is a proof checker for verifying pseudo-Boolean certificates of satisfiability, unsatisfiability, and optimality bounds";
