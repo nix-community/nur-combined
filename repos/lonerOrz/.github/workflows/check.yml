@@ -27,7 +27,7 @@ jobs:
             accept-flake-config = true
 
       - name: Add Cachix
-        uses: cachix/cachix-action@v16
+        uses: cachix/cachix-action@v17
         with:
           name: nix-community
           skipPush: true
