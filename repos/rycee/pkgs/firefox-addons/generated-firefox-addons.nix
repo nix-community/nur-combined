@@ -1200,10 +1200,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.11.5";
+      version = "0.12.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4712956/bilisponsorblock-0.11.5.xpi";
-      sha256 = "8d6387db0cb1e06444aff2ad70299b724ac46eb8fbaf642180d97c75fc21818d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4735936/bilisponsorblock-0.12.0.xpi";
+      sha256 = "2c5d3dbd75c6bb2b308f7eab52ac433231e7e69def94190180a9550ce9dbbe10";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -3525,7 +3525,7 @@
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
-        description = "Display dual subtitles on video websites.";
+        description = "Translate and display dual subtitles on YouTube and other video websites.";
         license = {
           shortName = "allrightsreserved";
           fullName = "All Rights Reserved";
