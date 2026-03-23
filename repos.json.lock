@@ -863,8 +863,8 @@
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
         "falconprogrammer": {
-            "rev": "fc1fb0c5ddc3b14cc9290345f622077781c6bb6a",
-            "sha256": "0wlkw2idzz7yh6a5q6was7dz3l3128aap0w04vggl6b6wdsjd173",
+            "rev": "a4fe7af1614e1fc2d8ad7465c23cedd432f25504",
+            "sha256": "0989chczifx61c6ipyvawfnb4fq10yji5zv75jhg55iar49xrg8g",
             "url": "https://github.com/JonBoyleCoding/falconprogrammer-nur"
         },
         "fanbb2333": {
