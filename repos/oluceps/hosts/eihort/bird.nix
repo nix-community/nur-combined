@@ -3,14 +3,6 @@
   repack.bird = {
     enable = true;
     config = ''
-      protocol bgp k8s_net {
-        local as 64512;
-        neighbor fdcc:3::3 port 11179 as 64512; # vm ipv6 address
-        ipv6 {
-          import all; # accept vip from vm
-          export none;
-        };
-      };
       # CATCH: repack/bird.nix `if proto = "ext" then accept;`
       protocol direct ext {
         ipv6;
