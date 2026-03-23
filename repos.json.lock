@@ -522,8 +522,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "dc3182c185c0a55ef392b2d9cae10bb95a941e1e",
-            "sha256": "170jxlqb8j6i3hpmiml2m1gm1nr9i29rd1yrq880fgfxp369vi27",
+            "rev": "bbee3de80ef8624327404c12b26e589cc8ad426d",
+            "sha256": "12vwhr14pnfy8mqhwpma3vb26f7l4id874jzbgncb9zfafacdb1a",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -2367,8 +2367,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "177dd49207d0948ddd18f12f5e226f7ceeca6d72",
-            "sha256": "0ad8pviwsvn7gg81xm3sdqxj6lb5b8j82bjh0b5j3p43k6vkm0f2",
+            "rev": "3f4f934d01ee35037ebe9579379970af694a04d3",
+            "sha256": "0jphcffw6r7p94w9xmqx2hwnbvgybnrqvvih5910vscjwy7dr47l",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
