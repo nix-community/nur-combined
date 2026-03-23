@@ -903,8 +903,8 @@
             "url": "https://github.com/fooker/nur-packages"
         },
         "foolnotion": {
-            "rev": "43117971f5738c183dabe17d2ef310c47606bea4",
-            "sha256": "04w1lnrpy6n367lswzfbgpbk9vvnyhc62kws8vnmc4fgb13khsak",
+            "rev": "3e4a2f1b9dd1fb14bd66c6a17fc0f82026b64218",
+            "sha256": "0gqn90db2h1f6f4nbpm3ysnz85yyp3yda20il8p2vdqfxdn8b8r8",
             "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
@@ -1588,8 +1588,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "9c1bdb175acf3f8b52a549297c9407e84598f367",
-            "sha256": "0bc7181yqgixadfri0g0pic30xlw0mfr6zvjifyfr0qmfb20sai8",
+            "rev": "83e08b3fc837bdf5e42c632b3cbd32bbe641e22e",
+            "sha256": "1wvd4l55m4ismlvkinzv46fgjl8vh2j63qyrjq1cl0qddfmx86ix",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
