@@ -1542,8 +1542,8 @@
             "url": "https://github.com/mhuesch/nur-packages"
         },
         "mic92": {
-            "rev": "a076722af6181be0f6c4262545218bf2ebf696cd",
-            "sha256": "1mva8siq87yd4s7x39slv5zxwwfvrl1f3h9swlbp1b3z778q0m27",
+            "rev": "72f0302f434ff8fde194b7679a2740491c9fcbaa",
+            "sha256": "0drcc3jnnbsjjfjfginnpxg06jfbk9qs9rzzhnf4ysm6g6clil0i",
             "url": "https://github.com/Mic92/nur-packages"
         },
         "mich-adams": {
