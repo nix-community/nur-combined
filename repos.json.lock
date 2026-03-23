@@ -381,8 +381,8 @@
             "url": "https://github.com/francescocarzaniga/awl-fcarza"
         },
         "aymanbagabas": {
-            "rev": "b9abcbaa554cc80fc5070a34c7c6f3b0e504d115",
-            "sha256": "0y19srhyaz950pda7m7n9aw4c5h5syvr62446c4nbvc2pff5n782",
+            "rev": "60f06de7e21b25278cd15e17c7965976270935e4",
+            "sha256": "1jryzxzhnrsg0gsd61n3b5sy5yww05zqlccdpymibg9shv94dfil",
             "url": "https://github.com/aymanbagabas/nur"
         },
         "babariviere": {
