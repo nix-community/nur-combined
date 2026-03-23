@@ -1739,8 +1739,8 @@
             "url": "https://github.com/nikolaizombie1/nur-packages"
         },
         "nikpkgs": {
-            "rev": "fa579ff4ccfd22e6ad7d3e13ef80ad679c44806c",
-            "sha256": "1x6d6dnvvp2nazic2dhyd0wkv13smnhy9g1lw3ly9yzbsdf4wydn",
+            "rev": "94c0b9403b5b8940a407c6343359605928f4d209",
+            "sha256": "0axas8zm6ydrba5gbarp36432nahmrgp4q0dini3q8g1a5v6awig",
             "url": "https://github.com/nikp123/nur-packages"
         },
         "nim65s": {
