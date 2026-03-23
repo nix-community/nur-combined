@@ -174,6 +174,7 @@ in
           pkgs.symlinkJoin {
             name = "pkgscachecommon";
             paths = with self; [
+              aria2
               aria2-wrapped
               openssh_hpn
               caddy
