@@ -79,6 +79,8 @@ in
         # nixos-unstable-small 20260323
         "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.26.1" =
           "sha256-4Suk4D3TVcrKIvaHYFE5jG4gddyHrfaOsPzl9wxL4rw=";
+        # nixos-unstable 20260324
+        "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.25.8" = "";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
