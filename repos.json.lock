@@ -1406,8 +1406,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "ddbc7a3d9d51a4d961eb49783c02441e3822d7b8",
-            "sha256": "1afk8a673v5zcscq0qn7gqbnw4lrgjcvbczwzanrab4r5yshkkrl",
+            "rev": "ed220b4ed4f410990c1c75fabad8197f3544e8ea",
+            "sha256": "1k0r8da0858gshrywzxrndchpc82kqwzazzmd1xv9dnycj81v57n",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
