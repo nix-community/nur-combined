@@ -12,7 +12,7 @@ Uncomment this if you use travis:
 -->
 [![Cachix Cache](https://img.shields.io/badge/cachix-hhr2020--nur-blue.svg)](https://hhr2020-nur.cachix.org)
 
-It provides pre-compiled binary cache for nixos-unstable. 
+It provides pre-compiled binary cache for nixos-unstable.
 
 ```
 substituters = https://hhr2020-nur.cachix.org
