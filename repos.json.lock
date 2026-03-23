@@ -1370,8 +1370,8 @@
             "url": "https://github.com/kreisys/nur-packages"
         },
         "kuflierl": {
-            "rev": "d62571bcf8247dfff0126fa38b70f075c71de41e",
-            "sha256": "02pj8kf5qxx772j416mb961z5r431nz08lgx0phxha2zxzqdrbvw",
+            "rev": "2300b96f5f1f23546c4506f90b1bacba5e95e48b",
+            "sha256": "0xah7z26s0grjxn966f7623484j4f1wa9nla113x3m3660zpkwan",
             "url": "https://github.com/kuflierl/NUR"
         },
         "kugland": {
