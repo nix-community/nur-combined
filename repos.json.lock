@@ -1598,8 +1598,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "45a494fd292760de6c0dd36d7a9e841f0374878d",
-            "sha256": "0qshfnm6vb3nwpkwxlqxddvssvvlxz3wn39g1vykn5slhwv8diq8",
+            "rev": "f6952fadf9143df9cd9574262784540eac7f62b2",
+            "sha256": "19qfbf2gv6j0dhslk3wgwlf4gvmzpmn4dp07c78bj0rv4s31qhk0",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2512,8 +2512,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "a0210ff27f7cfae83b5ef7d8211612195be5867a",
-            "sha256": "0lh36svia6csrsvc46y35gm98vfpvmi6y30v4rjrsb4kbydi1kxf",
+            "rev": "5e67972b11985f63cc7107becdef336b22bfcdb3",
+            "sha256": "0pg4awjijn2ls38agvq1ac2mja5vcbws2nhjmdv5m5zm29vb8s1s",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
