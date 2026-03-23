@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "864f3e9b73ccccb3f90a62fc66df3edfd891ef19",
-            "sha256": "0x8y7cyaqa8vhgd0k4fk75148k7pd81z1r4kwyc3by4xyj76wzsd",
+            "rev": "bb6e304ca94f2eb438e5e3b72a9fd243e3a647c1",
+            "sha256": "1r02n1vk6yzndzn3mbd4fqg0kicmzlih0gq9xwc7pv6vcr6jvvbq",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -1223,8 +1223,8 @@
             "url": "https://github.com/jerrita/nur"
         },
         "jetcookies": {
-            "rev": "d23a6f817b0e9e55b05e8ac6191bac784adb30ab",
-            "sha256": "0ybgswlrmamp68sngr5milj73zfdnxrzpymfc37pizw3y9h4b3aq",
+            "rev": "ef5c4c5ecc79f70af62c4655dbd61b26da77dfed",
+            "sha256": "024mrwq14nbxrdfrn3wir8yszz8s95sddm46flagfq8fln68v515",
             "url": "https://github.com/jetcookies/nur-packages"
         },
         "jitterbug": {
