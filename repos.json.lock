@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "70aceb8e44ef1eed6dc045b6d059fcc639db6ae4",
-            "sha256": "02qilfiiwgh8vbq7c60f18nmbpwb92zdyw88qapaqlmghy4i7sql",
+            "rev": "233a13a119e05477b1c47e9d508f3f0883d27e4a",
+            "sha256": "07m95lih94d3zbzhhr1gkqxlkjyy7grvs88f40szbdfrvs0s4nif",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -597,8 +597,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "d42d6eb445c7fa2a1b817d5352deb97c27edab8e",
-            "sha256": "0wkd777ldy9m45y7ds84hs7vrx2w0ja97g9ppk4syzspz4q9pfhy",
+            "rev": "002ea071d21be8e156ed801db3f8ca772cf71aa6",
+            "sha256": "04kw5fr78srqsgjmap81qvmwli2daaaa6l2627r0q60x6ip3nzpv",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -2165,8 +2165,8 @@
             "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
-            "rev": "96c70a74c5435d46d441a2f0bba86b0a040262fa",
-            "sha256": "1c8ibkdypq3rcsw79rjvxbcy5gbmbcay1ncafwzpagdiy77wkv0f",
+            "rev": "ee72003f6cf629c03e1228b9e3359041158ca16e",
+            "sha256": "1ibidicchhw2r9cjvvc0nx3wq64ks78nmlcpkh13lnm73ffd41q7",
             "url": "https://github.com/shirok1/flakes"
         },
         "shymega": {
