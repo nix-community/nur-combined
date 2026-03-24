@@ -612,8 +612,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "e45cd5cfd31d1ee1e520254a1346e552101f9f05",
-            "sha256": "1cs7kfpdz3kj8vmxkcsghvlkqfa0zfxrkg85y8ggwj3hmmi9lb8m",
+            "rev": "bb1d1e52c6731e332d8f646c08545a6f5c5cd9a9",
+            "sha256": "1ffqbjad1bn34j0k4vxgyshljyg7sqzvjwq9n6yc8082y0x8rp7h",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/zachcoyle/nur-packages"
         },
         "zeratax": {
-            "rev": "1f5d577511a1bdbe67c7eb1b4ce2376e61f7a0ef",
-            "sha256": "1rlpyldms02fy53rwbaki81478xnqjwiv5jdhr6hm8smmijjnbwr",
+            "rev": "dec9b1a2c7f7028dd57c934aee09cd1d31d88ef5",
+            "sha256": "1b0nkcrdxd1ps0xssxag24y225zdh58zysi9f1rjd535jipra40p",
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
