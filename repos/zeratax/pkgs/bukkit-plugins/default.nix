@@ -12,6 +12,7 @@ lib.makeScope pkgs.newScope (self:
       dynmap = callPackage ./dynmap {};
       harbor = callPackage ./harbor {};
       paper-tweaks = callPackage ./paper-tweaks {};
+      packet-events = callPackage ./packet-events {};
       protocol-lib = callPackage ./protocol-lib {};
       vivecraft = callPackage ./vivecraft {};
       voicechat-interactions-paper = callPackage ./voicechat-interaction-paper {};

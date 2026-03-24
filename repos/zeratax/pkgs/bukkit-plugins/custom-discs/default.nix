@@ -5,8 +5,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "custom-discs";
-  version = "5.1.2";
-  owner = "Navoei";
+  version = "5.2.0";
 
   preferLocalBuild = true;
 
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
 
   installPhase = let
     jar = fetchurl {
-      url = "https://github.com/${owner}/CustomDiscs/releases/download/v${version}/custom-discs-${version}.jar";
-      sha256 = "1818qv95pdjlj4fflmy5605gah1y62p9i01wziq0z87zzy0684dp";
+      url = "https://cdn.modrinth.com/data/b7pWaVta/versions/TzveQutv/custom-discs-${version}.jar";
+      sha256 = "0n8w3skqyhbz46im2i9xdy53zqvz2gaw0dgvl879jv47ym1r891i";
     };
   in ''
     mkdir -p $out

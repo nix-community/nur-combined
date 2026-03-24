@@ -4,9 +4,8 @@
   fetchurl,
 }:
 stdenv.mkDerivation rec {
-  pname = "VivecraftSpigot";
-  version = "3.2.0";
-  owner = "CJCrafter";
+  pname = "vivecraft";
+  version = "1.3.6-1";
 
   preferLocalBuild = true;
 
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
 
   installPhase = let
     jar = fetchurl {
-      url = "https://github.com/${owner}/${pname}/releases/download/v${version}/${pname}-${version}.jar";
-      sha256 = "0s5a9bqykwpn8ym2lgj38r7yfji976w4cfi60zyzbnc89529c4bm";
+      url = "https://cdn.modrinth.com/data/o8TGTrsR/versions/vK2WTkaR/Vivecraft-Spigot-Extension-${version}.jar";
+      sha256 = "1w2845yd239f8plgj2cvj24rsmay1zrsms9rd49aq4yf0c5f82vz";
     };
   in ''
     mkdir -p $out
@@ -24,8 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://www.vivecraft.org";
-    description = "Spigot plugin for Vivecraft, the VR mod for Java Minecraft.";
+    homepage = "https://github.com/Vivecraft/Vivecraft-Spigot-Extension";
+    description = "Official Vivecraft server-side Spigot extension for VR support.";
     maintainers = with maintainers; [zeratax];
   };
 }
