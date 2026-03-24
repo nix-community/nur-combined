@@ -1949,8 +1949,8 @@
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
         "prince213": {
-            "rev": "ea214af1b2f59bfc608c5b541ba5f778ef15bbd4",
-            "sha256": "1kl4if1w3fznb1wjrsmz9dh7csy9wybcrmqiysllpsmgmv7xkvai",
+            "rev": "43c15f64b07971d8ae76118f68e899cce2d07657",
+            "sha256": "0msrk40mpcm3n50adzhf83m6wly8mg4qgq60f8hph29maw7rqvvd",
             "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
@@ -2362,8 +2362,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "197d90499b6b610dfa547c9351c3a6416d2f82c1",
-            "sha256": "1zh9zxpg053dnf8hy76ahsm5d8fxx4rz5z5v3jkf3j140i0rv7qm",
+            "rev": "9c78081f51f85544b4e564a4276bdbf0892f0cfd",
+            "sha256": "1xr5mygriicrwx23zqfmfywy44i0hp9jf7vkwi1xql5m5pxpa5g7",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
