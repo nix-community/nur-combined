@@ -597,8 +597,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "002ea071d21be8e156ed801db3f8ca772cf71aa6",
-            "sha256": "04kw5fr78srqsgjmap81qvmwli2daaaa6l2627r0q60x6ip3nzpv",
+            "rev": "3a63d7bfabeeb95d717eea112a1776fdcc81e72f",
+            "sha256": "1sfinb0wcf0givj6j59pnm3gmw2c6801n1s4v9agp44231l67rma",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -1593,8 +1593,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "f6952fadf9143df9cd9574262784540eac7f62b2",
-            "sha256": "19qfbf2gv6j0dhslk3wgwlf4gvmzpmn4dp07c78bj0rv4s31qhk0",
+            "rev": "c242a3ccd22fad456856ae7881ef22a40f4fd1fd",
+            "sha256": "0y1npm1pc3knwi8i2an1cjgh9p4rmi3ijyza4463g932p4icy1iz",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
