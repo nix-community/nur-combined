@@ -637,8 +637,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "33f26458baeeb8b59cadf1a29c0537d8c19b1297",
-            "sha256": "09wk3bgv108r1i8z7vbcqd4hxa7psa6drdnky27qcq8bagw5nd9h",
+            "rev": "6f775ef32d881ac6f5d2b1b98e02bd2e9e1eb08d",
+            "sha256": "1dcnbism29ig0bqpa2h2sz0xi7jabv9di1h8n5qgw3x55as70fyd",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
@@ -1411,8 +1411,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "055dbfad7e75996cdb63bb6ccea3dc6c6422a442",
-            "sha256": "1pb8xww7qfqfkh0kpf0vdppkhq1ylwd8khx2zxbmb7ify5r4n2ng",
+            "rev": "4cd050d786fdfd0cc30140da8433fc9e28fd15df",
+            "sha256": "1cwzwdklgvaw8q997wl517k2cn1yrhkk91bkp0840jnf8j4j691a",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
