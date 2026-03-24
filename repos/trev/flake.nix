@@ -128,6 +128,13 @@
               (pkgs.callPackage ./packages/renovate { })
             ];
           };
+
+          vulnerable = pkgs.mkShell {
+            packages = with pkgs; [
+              flake-checker # flake
+              octoscan # actions
+            ];
+          };
         }
       );
 

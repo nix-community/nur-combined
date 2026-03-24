@@ -16,8 +16,9 @@ let
     import nixpkgs {
       inherit system;
       overlays = [
-        overlays.packages
+        overlays.images
         overlays.libs
+        overlays.packages
       ];
       config.allowUnfree = true;
     };

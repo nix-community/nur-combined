@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "intel";
     repo = "igsc";
-    tag = "V${finalAttrs.version}";
+    rev = "V${finalAttrs.version}";
     hash = "sha256-eBN05r2o6MUTJvIrkwY2uic7afj6YMHvt/apHyyGgug=";
   };
 
@@ -44,8 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "igsc";
     description = "Intel graphics system controller firmware update library";
     homepage = "https://github.com/intel/igsc";
-    license = lib.licenses.asl20;
     changelog = "https://github.com/intel/igsc/releases/tag/V${finalAttrs.version}";
+    license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
   };
 })
