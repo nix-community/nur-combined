@@ -241,8 +241,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "603cc1640558b1b9c2cb6f038e45b38b4028edd1",
-            "sha256": "06l3w2a6f3kkrx9dnabfwv75pappw90g07hzzzbdyf6g1aqad2yj",
+            "rev": "31337506c6526013bbbd53413cca1edb5f850792",
+            "sha256": "0rpkc2im2143pvcivjk2n2f7yp67pgksfn39j8aggmx3l645j0cp",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
@@ -356,8 +356,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "3e4dcb13272b2ee795ac9ef32fd4173cd44c2878",
-            "sha256": "156f7cajsxqm0j5kvg2y9n40jzv78pzx9z9ckbl7rky79fx1vx04",
+            "rev": "91ab17a295aab55bfa7dd3a6a1b0ed96e87ee91f",
+            "sha256": "0ahv7ifx4h2gh88i0bnnplsmlm5pvbaa8ydgzjvic32jz8s42jj6",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
