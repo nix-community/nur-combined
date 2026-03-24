@@ -1416,8 +1416,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "0146c3f42feea17ff537d92a75530c2a7fd5901c",
-            "sha256": "1h62089kl7b9yj80a3dnnqnwpdc5ajxw3s77j9rkh9y4l822ab5z",
+            "rev": "b26edfef77ee8ece9468779dc32cca4c84c15371",
+            "sha256": "1wr4sl50kg8n41c0mzdd5pb44c2qp78axrdqi7sbsbhficxcyvl2",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2287,8 +2287,8 @@
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
         "the-code-fixer-23-nur": {
-            "rev": "7d383cb7822f46f501f5e717d103440076639acd",
-            "sha256": "1afx634cp5npr9d3dq02bhfw9hq94yfpkjyb6c9b16m8fp5zwpgf",
+            "rev": "11466f2a5e1d2db383be8eb56f52fd69b6a2b9c8",
+            "sha256": "1f1gra7ifi3igl2vkynv08a5pvqkf32j6afpr8rakp5b8b48vrnl",
             "url": "https://github.com/louiss0/the-code-fixer-23-nur"
         },
         "therobot2105": {
