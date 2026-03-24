@@ -8,9 +8,9 @@
   "version": "2026-03-24",
   "hash": "sha256-rPDKq46AnuRF3IeQsKh01877L06/TKOdegxmyRrC/WQ=",
   "pnpmHash": {
-    "x86_64-linux": "sha256-f2kRnQ2mfbxzfJMLPcMu3a4ThIHHj7pyw3V+9G7h60w=",
-    "aarch64-linux": "sha256-f2kRnQ2mfbxzfJMLPcMu3a4ThIHHj7pyw3V+9G7h60w=",
-    "aarch64-darwin": "sha256-SOe+yvfMwIhak5N8UqJA+ATFkoWsdjq44+c0gDehjHs=",
-    "x86_64-darwin": "sha256-SOe+yvfMwIhak5N8UqJA+ATFkoWsdjq44+c0gDehjHs="
+    "x86_64-linux": "sha256-pmhPRKp1m2ZbpBxPLWBDYEDPphmgO8LVcT9BwW/onJg=",
+    "aarch64-linux": "sha256-pmhPRKp1m2ZbpBxPLWBDYEDPphmgO8LVcT9BwW/onJg=",
+    "aarch64-darwin": "sha256-VDA0hR82+sxFF9JS2/tR+KuNKlpnlUWcKoS53Am2jUY=",
+    "x86_64-darwin": "sha256-VDA0hR82+sxFF9JS2/tR+KuNKlpnlUWcKoS53Am2jUY="
   }
 }
