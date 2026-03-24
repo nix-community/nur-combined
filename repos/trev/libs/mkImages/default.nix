@@ -35,6 +35,7 @@ let
       inherit (pkgs) config;
       overlays = pkgs.overlays ++ [ mkImage ];
     });
+
   pkgs-default = pkgs.appendOverlays [ mkImage ];
   pkgs-x86_64-linux = mkCrossPkgs {
     config = "x86_64-unknown-linux-musl";
@@ -56,17 +57,19 @@ in
 builtins.mapAttrs (
   name: image:
   let
-    package = image.pkg or null;
-    hasPlatform =
-      crossPkgs:
-      if builtins.hasAttr crossPkgs.stdenv.hostPlatform.system package then
-        mkPackage crossPkgs name
-      else
-        null;
+    package = image.package or null;
   in
   if package == null then
     image
   else
+    let
+      hasPlatform =
+        crossPkgs:
+        if pkgs.lib.meta.availableOn crossPkgs.stdenv.hostPlatform package then
+          mkPackage crossPkgs name
+        else
+          null;
+    in
     image.overrideAttrs (
       _: prev: {
         passthru =

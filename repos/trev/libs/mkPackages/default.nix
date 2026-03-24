@@ -19,12 +19,7 @@ let
     || (builtins.elem pkgs.stdenv.buildPlatform.system package.meta.platforms)
   ) (func pkgs);
 
-  # pkgs for cross-compilation
-  # cross configs -
-  # https://github.com/NixOS/nixpkgs/blob/557e6a9892434f7a7247907d3aa12cbdb068649e/lib/systems/examples.nix
-  # static config -
-  # https://github.com/NixOS/nixpkgs/blob/d5d19eb94ed8350ab4c7d20ee61565b3d8e6b188/pkgs/top-level/stage.nix#L280
-  #
+  # create cross-compilation pkgs
   mkCrossPkgs =
     crossSystem:
     (import nixpkgs {
@@ -32,6 +27,13 @@ let
       inherit crossSystem;
       inherit (pkgs) config overlays;
     });
+
+  # pkgs for cross-compilation
+  # cross configs -
+  # https://github.com/NixOS/nixpkgs/blob/557e6a9892434f7a7247907d3aa12cbdb068649e/lib/systems/examples.nix
+  # static config -
+  # https://github.com/NixOS/nixpkgs/blob/d5d19eb94ed8350ab4c7d20ee61565b3d8e6b188/pkgs/top-level/stage.nix#L280
+
   pkgs-x86_64-linux = mkCrossPkgs {
     config = "x86_64-unknown-linux-musl";
     isStatic = true;
@@ -91,18 +93,17 @@ in
 
 builtins.mapAttrs (
   name: package:
-  let
-    platforms = package.meta.platforms or [ ];
-    hasPlatform =
-      crossPkgs:
-      if builtins.elem crossPkgs.stdenv.hostPlatform.system platforms then
-        fixupPackage (mkPackage crossPkgs name)
-      else
-        null;
-  in
-  if builtins.length platforms == 0 then
+  if builtins.length (package.meta.platforms or [ ]) == 0 then
     package
   else
+    let
+      hasPlatform =
+        crossPkgs:
+        if pkgs.lib.meta.availableOn crossPkgs.stdenv.hostPlatform package then
+          fixupPackage (mkPackage crossPkgs name)
+        else
+          null;
+    in
     package.overrideAttrs (
       _: prev: {
         passthru =

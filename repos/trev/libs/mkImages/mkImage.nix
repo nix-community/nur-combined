@@ -2,11 +2,8 @@
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
 }:
-pkg:
+package:
 { ... }@args:
-let
-  package = pkg.${pkgs.stdenv.hostPlatform.system} or pkg;
-in
 
 (pkgs.dockerTools.buildLayeredImage (
   args
@@ -21,10 +18,12 @@ in
       Labels =
         (args.config.Labels or { })
         // pkgs.lib.filterAttrs (_: v: v != null) {
-          "org.opencontainers.image.title" = package.pname or null;
-          "org.opencontainers.image.description" = package.meta.description or null;
+          "org.opencontainers.image.title" = package.pname or package.name or null;
+          "org.opencontainers.image.description" =
+            package.meta.longDescription or package.meta.description or null;
           "org.opencontainers.image.version" = package.version or null;
-          "org.opencontainers.image.source" = package.meta.homepage or null;
+          "org.opencontainers.image.url" = package.meta.homepage or null;
+          "org.opencontainers.image.source" = package.meta.downloadPage or package.meta.homepage or null;
           "org.opencontainers.image.licenses" = package.meta.license.spdxId or null;
         };
     };
@@ -33,7 +32,7 @@ in
   (
     _: prev: {
       passthru = (prev.passthru or { }) // {
-        inherit pkg;
+        inherit package;
       };
     }
   )
