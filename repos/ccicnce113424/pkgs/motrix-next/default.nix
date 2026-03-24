@@ -73,4 +73,32 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
       --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
   '';
+
+  meta = {
+    description = "Full-featured download manager, rebuilt from scratch with Tauri 2, Vue 3, and Rust";
+    homepage = "https://github.com/AnInsomniacy/motrix-next";
+    changelog = "https://github.com/AnInsomniacy/motrix-next/releases/tag/v${finalAttrs.version}";
+    license = with lib.licenses; [
+      mit
+      gpl2Plus
+    ];
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      # bundled a modified aria2
+      # source available at https://github.com/AnInsomniacy/aria2-builder
+      binaryNativeCode
+    ];
+    maintainers = with lib.maintainers; [ ccicnce113424 ];
+    mainProgram = "motrix-next";
+    platforms = lib.mapCartesianProduct ({ arch, platform }: "${arch}-${platform}") {
+      arch = [
+        "x86-64"
+        "aarch64"
+      ];
+      platform = [
+        "linux"
+        "darwin"
+      ];
+    };
+  };
 })
