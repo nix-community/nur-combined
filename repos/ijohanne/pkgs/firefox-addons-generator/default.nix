@@ -1,7 +1,6 @@
 { aeson
 , base-noprelude
 , directory
-, fetchFromGitHub
 , hnix
 , lib
 , microlens-aeson
@@ -16,7 +15,7 @@
 mkDerivation rec {
   pname = "nixpkgs-firefox-addons";
   version = "0.8.0";
-  src = fetchFromGitHub { inherit (sources.nixpkgs-firefox-addons) owner repo rev sha256; };
+  src = sources.nixpkgs-firefox-addons;
   isLibrary = false;
   isExecutable = true;
   enableSeparateDataOutput = true;
@@ -36,4 +35,3 @@ mkDerivation rec {
   license = lib.licenses.gpl3;
   maintainers = with lib.maintainers; [ rycee ];
 }
-

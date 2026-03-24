@@ -1,12 +1,12 @@
-{ pkgs, unwrappedFirefox ? pkgs.firefox-esr-78-unwrapped, forceWayland ? false, nixExtensions ? [ ], ... }:
+{ pkgs, unwrappedFirefox ? pkgs.firefox-esr-unwrapped, ... }:
 pkgs.wrapFirefox unwrappedFirefox {
-  inherit forceWayland nixExtensions;
   extraPolicies = {
     CaptivePortal = false;
     DisableFirefoxStudies = true;
     DisablePocket = true;
     DisableTelemetry = true;
     DisableFirefoxAccounts = true;
+    DontCheckDefaultBrowser = true;
     FirefoxHome = {
       Pocket = false;
       Snippets = false;
@@ -34,5 +34,6 @@ pkgs.wrapFirefox unwrappedFirefox {
     lockPref("media.eme.enabled", true);
     lockPref("browser.eme.ui.enabled", true);
     lockPref("xpinstall.signatures.required",false);
+    lockPref("browser.shell.checkDefaultBrowser", false );
   '';
 }

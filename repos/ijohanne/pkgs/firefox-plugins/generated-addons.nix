@@ -2,10 +2,10 @@
 {
   "bitwarden-password-manager" = buildFirefoxXpiAddon {
     pname = "bitwarden-password-manager";
-    version = "1.51.1";
+    version = "1.55.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3807401/bitwarden_free_password_manager-1.51.1-an+fx.xpi";
-    sha256 = "9cd1db78e612473e1c7a9e57b9868f82b3d5fd770cbea7ffa488cc9efc65a345";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3878893/bitwarden_free_password_manager-1.55.0-an+fx.xpi";
+    sha256 = "0236326c4d03c69e347a0264f5219ca3f1ae69de43d48173cd53e006da3933dd";
     meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -29,10 +29,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.34";
+    version = "4.9.47";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3806938/dark_reader-4.9.34-an+fx.xpi";
-    sha256 = "9ba482118d25675af31ee403c740972a106fdccfd117c4449c046b70f1a2d95d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3922130/dark_reader-4.9.47-an+fx.xpi";
+    sha256 = "e849883de7211e344d2608abb8c527df09316eb9a8d3a4aef3fcfe18ff9d5502";
     meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -43,10 +43,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.105";
+    version = "2.0.113";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3824758/enhancer_for_youtubetm-2.0.105-fx.xpi";
-    sha256 = "8944a1fad859450ce61b3c151e126ec871bf84a6d664baf6701c4244cd1d2246";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3930384/enhancer_for_youtubetm-2.0.113-fx.xpi";
+    sha256 = "8e9ae86d11e5248fa63bb75cc7003a65bbe25105abaf9c8da32aa64129828007";
     meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -56,10 +56,10 @@
   };
   "facebook-container" = buildFirefoxXpiAddon {
     pname = "facebook-container";
-    version = "2.3.1";
+    version = "2.3.2";
     addonId = "@contain-facebook";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3818838/facebook_container-2.3.1-fx.xpi";
-    sha256 = "37e5def08a300360a1667a16b281af41a9f282d0d85a2c7b05693db8b3e33853";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3923300/facebook_container-2.3.2-fx.xpi";
+    sha256 = "a1851f15ae4ec790c40f9a751ad6d64a44a6bf47f70ee497ef4ee17115bb7e06";
     meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -68,38 +68,12 @@
         platforms = platforms.all;
       };
   };
-  "https-everywhere" = buildFirefoxXpiAddon {
-    pname = "https-everywhere";
-    version = "2021.7.13";
-    addonId = "https-everywhere@eff.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3809748/https_everywhere-2021.7.13-an+fx.xpi";
-    sha256 = "e261461b5d4d3621285fce70773558184d691c614b330744dab672f032db731c";
-    meta = with lib;
-      {
-        homepage = "https://www.eff.org/https-everywhere";
-        description = "Encrypt the web! HTTPS Everywhere is a Firefox extension to protect your communications by enabling HTTPS encryption automatically on sites that are known to support it, even when you type URLs or follow links that omit the https: prefix.";
-        platforms = platforms.all;
-      };
-  };
-  "lastpass-password-manager" = buildFirefoxXpiAddon {
-    pname = "lastpass-password-manager";
-    version = "4.77.0.17";
-    addonId = "support@lastpass.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3815803/lastpass_password_manager-4.77.0.17-an+fx.xpi";
-    sha256 = "1c1062b1483aa57494ff2a3f2659706341be75debe85acb2a4f5bd393c841c89";
-    meta = with lib;
-      {
-        homepage = "https://lastpass.com/";
-        description = "LastPass, an award-winning password manager, saves your passwords and gives you secure access from every computer and mobile device.";
-        platforms = platforms.all;
-      };
-  };
   "reddit-enhancement-suite" = buildFirefoxXpiAddon {
     pname = "reddit-enhancement-suite";
-    version = "5.22.5";
+    version = "5.22.10";
     addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3784229/reddit_enhancement_suite-5.22.5-an+fx.xpi";
-    sha256 = "213f1ada92bb9d2814e6760cf20a2dc3cf2cc31b503e2baa8fe2f784be6df11c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3902655/reddit_enhancement_suite-5.22.10-an+fx.xpi";
+    sha256 = "749ecad7db8a9411ab72ea7f5f40b468a084128f2e6ba9446fc1745a2b734045";
     meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -110,10 +84,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.37.2";
+    version = "1.42.4";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3816867/ublock_origin-1.37.2-an+fx.xpi";
-    sha256 = "b3a3c81891acb4620e33dd548b50375aad826376044a6143b5a947d0406a559e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3933192/ublock_origin-1.42.4-an+fx.xpi";
+    sha256 = "bc3c335c961269cb40dd11551788d0d8674aefcacdc8fbdf6c19845eaea339ce";
     meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";

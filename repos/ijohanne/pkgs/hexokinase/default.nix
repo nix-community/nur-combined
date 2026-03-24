@@ -1,13 +1,11 @@
-{ sources, pkgs, buildGoModule, fetchFromGitHub, ... }:
+{ sources, pkgs, buildGoModule, ... }:
 buildGoModule rec {
   pname = "hexokinase";
   version = "master";
-  src = fetchFromGitHub {
-    inherit (sources.hexokinase) owner repo rev sha256;
-  };
-  vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
+  src = sources.hexokinase;
+  vendorHash = null;
   subPackages = [ "." ];
-  runVend = false;
+  proxyVendor = false;
 
   nativeBuildInputs = with pkgs; [ pkg-config ];
   buildInputs = with pkgs; [ ];

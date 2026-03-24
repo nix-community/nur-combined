@@ -1,8 +1,8 @@
 { pkgs, sources }:
-pkgs.vimUtils.buildVimPluginFrom2Nix {
-  pname = "nvim-tree-docs";
+pkgs.vimUtils.buildVimPlugin {
+  name = "nvim-tree-docs-master";
   version = "master";
-  src = pkgs.fetchFromGitHub {
-    inherit (sources.nvim-tree-docs) owner repo rev sha256;
-  };
+  pname = "nvim-tree-docs";
+  src = sources.nvim-tree-docs;
+  doCheck = false;
 }

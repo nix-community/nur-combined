@@ -9,3 +9,4 @@ It provides a pre-compiled binary cache for NixOS unstable. To use it add the fo
 ```
 trusted-public-keys = ijohanne.cachix.org-1:oDy0m6h+CimPEcaUPaTZpEyVk6FVFpYPAXrrA9L5i9M=
 ```
+
