@@ -938,8 +938,8 @@
             "url": "https://github.com/friedow/nur-packages"
         },
         "friendsofshopware": {
-            "rev": "55c1ddee48a2c8b4f5456f6fe46b02c2b1c7a45f",
-            "sha256": "0gn9jp332z9ixmysvg88v0ivbqxldrfb64vxq6l7nql42g7w2ccc",
+            "rev": "5fb7e77f7ddac27018845677c3826e02d40e0765",
+            "sha256": "1q8hvprhlwdvn7dvak5m7xkgawzq5zpxkniwn6qsdwdcsscjp95c",
             "url": "https://github.com/FriendsOfShopware/nur-packages/"
         },
         "ftbwiki": {
