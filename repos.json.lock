@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "0d70adeea32f8d46e00fff4f1b9e47d1d1d7ac6b",
-            "sha256": "1z02gs7hdpr1skn5jaqshp133l2mjw58a3zq2mxam9mqv41kka7a",
+            "rev": "d458c91e1168748cc23f1c0b4d4ce3772aa33729",
+            "sha256": "1pw5v7qyjzdkznhblmd67a253wka6rw41ipsj763jbp5pb4hng9x",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -522,8 +522,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "bbee3de80ef8624327404c12b26e589cc8ad426d",
-            "sha256": "12vwhr14pnfy8mqhwpma3vb26f7l4id874jzbgncb9zfafacdb1a",
+            "rev": "50268457a6f45afc68e56a5b19f610d09f934496",
+            "sha256": "1kgmgp6c1zvm35h12sfrc3gf6jnc799frhxwmpdfdki1c0mpf482",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1487,8 +1487,8 @@
             "url": "https://github.com/marsupialgutz/nur-pkgs"
         },
         "marven11": {
-            "rev": "5bbe7aaa569b2e16ceb1b5004308a3f983ea7d33",
-            "sha256": "0h4xc51a72iaqw6yp9jhlq472wv9ny0i8chvv9433n81kxjvkr17",
+            "rev": "d5c49e3262281c5eb3f59c5c407086aee78f229d",
+            "sha256": "1nr7siha1zb5gj0dw1zi8p2rg9b95yww8432vf7w0d64iabcwvan",
             "url": "https://github.com/Marven11/nur-packages"
         },
         "marzipankaiser": {
@@ -1659,8 +1659,8 @@
             "url": "https://github.com/mrene/nur-packages"
         },
         "mrtnvgr": {
-            "rev": "1a97b5fd78531cb31780201afc4fee38d5d85d83",
-            "sha256": "02v06yi5l5hqcvdw0365li386sy5gpwzp1n8fvi9xaclyjyqqx5p",
+            "rev": "cb0f2c365cf8f72146cff2d8b3cee96fe343d77a",
+            "sha256": "0nq0n1whdzb2hxihg00zvzwz735mw10qygwl3z1h51f4q2873r3r",
             "url": "https://github.com/mrtnvgr/nurpkgs"
         },
         "mur": {
@@ -2552,8 +2552,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "2341a805d0ab9a164406c2c83ff044f9fa86df85",
-            "sha256": "057yzh1lchwcnm153l2rf7fdzy72xhdd0yzmxc9gy74v0kypnscr",
+            "rev": "d19aa55ab2ec55c46013b7ba071425b1edca6249",
+            "sha256": "059gzwg3rin0qpfq5snyar8jj82wg3ky9kp2sxjvn8l0cg156hh0",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
