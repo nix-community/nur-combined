@@ -86,7 +86,5 @@ in
             yubikey-personalization
           ];
       };
-
-    services.netbird.enable = true;
   };
 }
