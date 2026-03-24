@@ -1,8 +1,9 @@
 {
   description = "AtaraxiaSjel's NUR repository";
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     devenv.url = "github:cachix/devenv";
     devenv-root = {
       url = "file+file:///dev/null";
@@ -14,11 +15,9 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
-        "i686-linux"
         "x86_64-darwin"
         "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
+        "aarch64-darwin"
       ];
       imports = [
         inputs.devenv.flakeModule
@@ -38,7 +37,6 @@
           legacyPackages = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
-            # overlays = [ (import ./overlay.nix) ];
             overlays = [
               (
                 _: prev:
@@ -80,7 +78,7 @@
                 actionlint.enable = true;
                 deadnix.enable = true;
                 flake-checker.enable = true;
-                nixfmt-rfc-style.enable = true;
+                nixfmt.enable = true;
                 ripsecrets.enable = true;
               };
             };
