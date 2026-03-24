@@ -1517,8 +1517,8 @@
             "url": "https://github.com/CajuM/nur-packages"
         },
         "meain": {
-            "rev": "1e16166472bc38732a5fc522614c65f320858ff1",
-            "sha256": "1c76h8044if171kd2v3kq6pg8mwkg324vhb4wy68cwhq9m2lzjaa",
+            "rev": "a70e82c5ec2b4dd9c9456b3d66b12b44dd5d8629",
+            "sha256": "1j2m3sgs8xrnkxg2i3jjwk4pcrk3wh08r2hdc2qcncrbz6sd6gmj",
             "url": "https://github.com/meain/nur-packages"
         },
         "merrkry": {
@@ -1552,8 +1552,8 @@
             "url": "https://github.com/michaelglass/nur-packages"
         },
         "mikaelfangel-nur": {
-            "rev": "9c3f50512b528f0ce6bbd9bbe707b8e829350a02",
-            "sha256": "0kp3q2qm3gshaxsv6wmmap6p3gnyzmqrfzm4ffq2m4zq2iyqc256",
+            "rev": "0620f4d32514984ef291e3abafa05b0d027b0fca",
+            "sha256": "02g16aakxfdb7d3hwk0wsp3q7glbbzxm5kxi1yl1l75bldxn09ih",
             "url": "https://github.com/MikaelFangel/NUR"
         },
         "mikidep": {
