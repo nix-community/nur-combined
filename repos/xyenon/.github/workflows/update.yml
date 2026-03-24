@@ -24,7 +24,7 @@ jobs:
           extra-conf: |
             access-tokens = github.com=${{ github.token }}
       - name: Setup cachix
-        uses: cachix/cachix-action@v16
+        uses: cachix/cachix-action@v17
         with:
           name: nur-xyenon
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
