@@ -2180,8 +2180,8 @@
             "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
-            "rev": "cb52464145b84f9c15f7252635767b60f713fc6c",
-            "sha256": "18m43ks103xzah3vfp6vhqxxc80cypif4r48v62ymfiy8hsqry2h",
+            "rev": "2604ffc5b67c0d5a177a41e159775f041e757922",
+            "sha256": "1y62lqha06nlmgrgbbl57djn565hkkgvslzpzxw2i71sxkbxc22c",
             "url": "https://github.com/skiletro/nur-repo"
         },
         "sky": {
