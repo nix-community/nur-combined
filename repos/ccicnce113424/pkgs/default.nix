@@ -85,6 +85,12 @@ rec {
     inherit lyrica;
   };
 
+  motrix-next = pkgs.callPackage ./motrix-next rec {
+    inherit (lib.importJSON ./motrix-next/src-info.json) hash;
+    sources = fetchedSrc.motrix-next;
+    version = stableVersion sources;
+  };
+
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;
@@ -105,7 +111,7 @@ rec {
   shijima-qt = pkgs.callPackage ./shijima-qt { };
 
   splayer-git = pkgs.callPackage ./splayer-git rec {
-    inherit ((lib.importJSON ./splayer-git/src-info.json)) hash;
+    inherit (lib.importJSON ./splayer-git/src-info.json) hash;
     sources = fetchedSrc.splayer-git;
     version = unstableVersion sources;
   };

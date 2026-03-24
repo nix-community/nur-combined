@@ -18,7 +18,7 @@ splayer.overrideAttrs (
       inherit (final) pname version src;
       inherit hash;
       pnpm = pnpm_10;
-      fetcherVersion = 2;
+      fetcherVersion = 3;
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
 
