@@ -15,6 +15,7 @@
   copyDesktopItems,
   writeShellScriptBin,
   nix-update-script,
+  autoPatchelfHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -39,11 +40,14 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.isLinux [
     copyDesktopItems
+    autoPatchelfHook
   ]
   ++ lib.optionals stdenv.isDarwin [
     # mock codesign
     (writeShellScriptBin "codesign" "true")
   ];
+
+  pnpmInstallFlags = [ "--shamefully-hoist" ];
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
@@ -60,7 +64,11 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = lib.optionals stdenv.isLinux [
     libusb1
     udev
+    stdenv.cc.cc.lib
   ];
+
+  # Ignore musl libc in prebuilt binaries (they're for Alpine, unused on glibc)
+  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -97,6 +105,9 @@ stdenv.mkDerivation (finalAttrs: {
       # Install application files
       mkdir -p $out/opt/${finalAttrs.pname}
       cp -r dist/*-unpacked/{locales,resources{,.pak}} $out/opt/${finalAttrs.pname}/
+
+      # Copy node_modules for runtime dependencies (externalized by electron-vite)
+      cp -r node_modules $out/opt/${finalAttrs.pname}/resources/
 
       # Install icon
       install -Dm644 build/icons/512x512.png $out/share/icons/hicolor/512x512/apps/${finalAttrs.pname}.png
