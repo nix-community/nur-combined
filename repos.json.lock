@@ -567,8 +567,8 @@
             "url": "https://github.com/chisui/nur-pkgs"
         },
         "chordtoll": {
-            "rev": "c02ee618f2482bb1781bf0b7a320376506365ee8",
-            "sha256": "1kpi2jahkby9f8y0mdillfqc7k1qmhyc85vkxl42ms5qb5m6dcdi",
+            "rev": "1580ced1e383a4ee4d000cad1a42d892fcd501b1",
+            "sha256": "1b3n911ky9c2mdq65hpb1y2iryw4a1i4axlhlbl1d4ljzhxsgipm",
             "url": "https://github.com/chordtoll/nur-packages"
         },
         "chrisoboe": {
