@@ -1,7 +1,7 @@
 { lib, buildGo125Module, fetchFromGitHub }:
 # https://github.com/k1LoW/deck
 let
-  version = "1.23.0";
+  version = "1.23.1";
   pname = "deck";
 in
 buildGo125Module {
@@ -11,10 +11,10 @@ buildGo125Module {
     owner = "k1LoW";
     repo = pname;
     tag = "v${version}";
-    hash = "sha256-7sDj96aVUvpNgv/gPdc0qUQioYe80tnS95ivyCKjqbY=";
+    hash = "sha256-xqEIG+58OiJnXe5i1CJrxbELHlhBt8Cyv8OowLSUCJ4=";
   };
 
-  vendorHash = "sha256-/8N10uxIH+tyw36Fi4wLu381Cebahm3BesLNCalGfAc=";
+  vendorHash = "sha256-IkWkiU4QhHg6yRKEtXAJajLjryMScqolLu8yGIOpXeI=";
 
   ldflags = [
     "-s"
