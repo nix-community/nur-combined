@@ -1583,8 +1583,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "4426fc4c10032801bc6b1011200ebc6ff72f32a0",
-            "sha256": "0d84yrifjmhvi24vri8k0y5wsym1ycb7yxmypdrl353nshi1bp3q",
+            "rev": "bf972bd14f85623648edc81ed68e806737209785",
+            "sha256": "0y3wfzgqci06n485gwmsazwi4ya5fdfb7hrz3vn9mq056p5v1mzk",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "7982223bcd6a464df25182536b0305f61f8fe13e",
-            "sha256": "0qvk0mnz5jz62glbx97dni9rfj916q297wazsh47s86drcwqk8j1",
+            "rev": "0a0cd0b7cdcceba1a4c327ea463ed13bef72c825",
+            "sha256": "06fqiamxwazgsf68qz6mckak18f667wl1nhfrakdhl62yki1r4dq",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
