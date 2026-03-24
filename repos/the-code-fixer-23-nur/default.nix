@@ -10,12 +10,18 @@
   pkgs ? import <nixpkgs> { },
 }:
 
+let
+  inherit (pkgs) lib;
+
+  packageEntries = builtins.readDir ./pkgs;
+  packageNames = lib.filter (name: packageEntries.${name} == "directory") (builtins.attrNames packageEntries);
+  packages = lib.genAttrs packageNames (name: pkgs.callPackage (./pkgs + "/${name}") { });
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  jpd = pkgs.callPackage ./pkgs/javascript-package-delegator { };
-  # ...
-}
+  jpd = packages.javascript-package-delegator;
+} // packages
