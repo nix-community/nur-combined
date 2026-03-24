@@ -306,8 +306,8 @@
             "url": "https://github.com/amesgen/nur-packages"
         },
         "andreasrid": {
-            "rev": "57dfb0ecd03da7a6fc67a787b0a91d160bed24b7",
-            "sha256": "1sxhxdgi8w9pz18zms8w1vw8ajk9s6fp4zbvij39zp05s45vvw25",
+            "rev": "3da8f43e292cf43760471c252d54e912fec9cb53",
+            "sha256": "043zmmsj29rf48dx72bl1myqxfvb0cvqxmpf20mif34s8xyanpd9",
             "url": "https://github.com/andreasrid/nur-packages"
         },
         "angr": {
@@ -1143,8 +1143,8 @@
             "url": "https://github.com/iopq/nur-packages"
         },
         "itscrystalline": {
-            "rev": "c7ba23d9062712ccaa653e7430b36617e0fb74e7",
-            "sha256": "0w7mmgv6cd3ndv0kcj3cbn4p4757fkwzg3snmg382rxr6ilnzpy0",
+            "rev": "e0f870fae9cf3065d91ae64e021b94813dedbd0d",
+            "sha256": "1lr2j335bq5vmlwwd8is0m8i0r2980yri0jdp7wmjg07y166sv2m",
             "url": "https://github.com/itscrystalline/nur-packages"
         },
         "iuricarras": {
