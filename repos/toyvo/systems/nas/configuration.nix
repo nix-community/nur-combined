@@ -6,6 +6,7 @@
   homelab,
   stablePkgs,
   unstablePkgs,
+  lib,
   ...
 }:
 let
@@ -66,6 +67,7 @@ in
         80
         53
         443
+        5432
         8080
         7080
       ];
@@ -209,7 +211,18 @@ in
       settings.PasswordAuthentication = false;
     };
     # Immich doesn't support postgresql_17 yet;
-    postgresql.package = pkgs.postgresql_16;
+    postgresql = {
+      package = pkgs.postgresql_16;
+      enableTCPIP = true;
+      authentication = lib.mkOverride 10 ''
+        local all postgres         peer map=postgres
+        local all all              peer
+        host  all all 127.0.0.1/32 md5
+        host  all all ::1/128      md5
+        host  dioxus_music  dioxus_music  10.1.0.0/16  scram-sha-256
+        host  discord_bot  discord_bot  10.1.0.0/16  scram-sha-256
+      '';
+    };
     prowlarr = {
       enable = true;
       openFirewall = true;
