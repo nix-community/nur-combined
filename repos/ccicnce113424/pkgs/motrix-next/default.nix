@@ -92,7 +92,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "motrix-next";
     platforms = lib.mapCartesianProduct ({ arch, platform }: "${arch}-${platform}") {
       arch = [
-        "x86-64"
+        "x86_64"
         "aarch64"
       ];
       platform = [
