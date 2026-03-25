@@ -5,7 +5,7 @@
     "repo": "Equicord/Equicord",
     "tag_filter": "^(?!latest$).*$"
   },
-  "version": "2026-03-24",
+  "version": "2026-03-25",
   "hash": "sha256-rPDKq46AnuRF3IeQsKh01877L06/TKOdegxmyRrC/WQ=",
   "pnpmHash": {
     "x86_64-linux": "sha256-pmhPRKp1m2ZbpBxPLWBDYEDPphmgO8LVcT9BwW/onJg=",
