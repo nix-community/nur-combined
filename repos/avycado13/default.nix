@@ -18,6 +18,7 @@
 
   gitcredits = pkgs.callPackage ./pkgs/gitcredits { };
   zmx = pkgs.callPackage ./pkgs/zmx { };
+  brew2nur = pkgs.callPackage ./pkgs/brew2nur { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
