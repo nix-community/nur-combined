@@ -9,24 +9,24 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "0j6262bwjkyafb0iqy8vmqzglvch2xwynnhnmr214ml65adhpcm1";
-    x86_64-linux = "0401a87yb3s5z97ds3cvkj3plgl822d0z0lid97xmk5pfq5y11mp";
-    aarch64-linux = "0nswrg7nvslg4k7lzl3j2x9akq25j6pydc7wac0lb0rvzv760qka";
-    x86_64-darwin = "0gmcincy2kw80jvxjk5krn953clspfzz7gd89jvawxwm045dal1j";
-    aarch64-darwin = "0gmcincy2kw80jvxjk5krn953clspfzz7gd89jvawxwm045dal1j";
+    i686-linux = "0przi2rd9l3r7c42n1b9wbarflnbp2vhym2xxvwskchdicmiw9gh";
+    x86_64-linux = "111sgf0cdx6mkskkvcabbhk6v4p2vmwbrp4ah0k9isg5k85cakjc";
+    aarch64-linux = "0kn0h41cqfp26h0bi49ic489p6li2gqvrx1bsld9dpdxayfv5lh8";
+    x86_64-darwin = "1m3xf0g5fqqf0139ah8jq8bbkfxxcscy4n37d2vnbnhl090c0k3n";
+    aarch64-darwin = "1m3xf0g5fqqf0139ah8jq8bbkfxxcscy4n37d2vnbnhl090c0k3n";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/lore/releases/download/v0.3.0/lore_0.3.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/lore/releases/download/v0.3.0/lore_0.3.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/lore/releases/download/v0.3.0/lore_0.3.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/lore/releases/download/v0.3.0/lore_0.3.0_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/lore/releases/download/v0.3.0/lore_0.3.0_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/lore/releases/download/v0.3.1/lore_0.3.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/lore/releases/download/v0.3.1/lore_0.3.1_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/lore/releases/download/v0.3.1/lore_0.3.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/lore/releases/download/v0.3.1/lore_0.3.1_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/lore/releases/download/v0.3.1/lore_0.3.1_Darwin_all.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "lore";
-  version = "0.3.0";
+  version = "0.3.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
