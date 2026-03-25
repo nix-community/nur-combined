@@ -5,23 +5,36 @@
   ...
 }:
 let
-  cfg = config.programs.vhs-decode;
+  cfg = config.programs.decode;
   maintainers = import ../../maintainers.nix;
 in
 {
-  options.programs.vhs-decode = {
-    enable = lib.mkEnableOption "vhs-decode";
+  options.programs.decode = {
+    enable = lib.mkEnableOption "Enable decode packages.";
+
     package = lib.mkPackageOption pkgs "vhs-decode" {
       default = [
         "vhs-decode"
       ];
+      example = ''
+        ld-decode
+      '';
+    };
+
+    toolsPackage = lib.mkPackageOption pkgs "vhs-decode-tools" {
+      default = [
+        "vhs-decode-tools"
+      ];
+      example = ''
+        ld-decode-tools
+      '';
     };
 
     exportVersionVariable = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = ''
-        Set the environment variable __VHS_DECODE_VERSION.
+        Set the environment variables __DECODE_VERSION and __DECODE_TOOLS_VERSION.
       '';
     };
   };
@@ -30,10 +43,12 @@ in
     environment = {
       systemPackages = [
         cfg.package
+        cfg.toolsPackage
       ];
 
       variables = lib.mkIf cfg.exportVersionVariable {
-        "__VHS_DECODE_VERSION" = cfg.package.version;
+        "__DECODE_VERSION" = cfg.package.version;
+        "__DECODE_TOOLS_VERSION" = cfg.toolsPackage.version;
       };
     };
   };

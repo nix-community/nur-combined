@@ -1,12 +1,14 @@
 {
   maintainers,
   lib,
-  pkgs,
+  stdenv,
   fetchFromGitHub,
-  symlinkJoin,
+  python3Packages,
   rustPlatform,
-  qwt-qt6,
-  ezpwd-reed-solomon,
+  rustc,
+  cargo,
+  ffmpeg,
+  qt6,
   ...
 }:
 let
@@ -22,54 +24,91 @@ let
     owner = "oyvindln";
     repo = "vhs-decode";
   };
+in
+python3Packages.buildPythonPackage {
+  inherit pname version src;
+
+  pyproject = true;
+
+  SETUPTOOLS_SCM_PRETEND_VERSION = (
+    (lib.strings.removeSuffix "-unstable" (lib.strings.getName version))
+    + "+"
+    + (builtins.substring 0 7 rev)
+  );
+
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit pname version src;
+    hash = cargoHash;
+  };
+
+  build-system = [
+    python3Packages.setuptools
+    python3Packages.setuptools-scm
+    python3Packages.setuptools-rust
+  ];
+
+  buildInputs = [
+    ffmpeg
+    qt6.qtbase
+    qt6.wrapQtAppsHook
+  ]
+  ++ lib.optional stdenv.isLinux [
+    qt6.qtwayland
+  ];
+
+  propagatedBuildInputs = [
+    python3Packages.cython
+    python3Packages.matplotlib
+    python3Packages.noisereduce
+    python3Packages.numba
+    python3Packages.numpy
+    python3Packages.scipy
+    python3Packages.setproctitle
+    python3Packages.sounddevice
+    python3Packages.soundfile
+    python3Packages.soxr
+
+    python3Packages.pyqt6
+  ];
+
+  nativeBuildInputs = [
+    rustc
+    cargo
+    rustPlatform.cargoSetupHook
+  ];
+
+  postPatch = ''
+    # remove static-ffmpeg dep
+    substituteInPlace pyproject.toml \
+      --replace-fail '"static-ffmpeg",' ""
+
+    # fix duplicate script
+    substituteInPlace setup.py \
+      --replace-fail '"decode-launcher",' ""
+  '';
+
+  postFixup = ''
+    wrapQtApp $out/bin/hifi-decode
+    wrapQtApp $out/bin/filter-tune
+    wrapQtApp $out/bin/decode-launcher
+  '';
+
+  pythonImportsCheck = [
+    "lddecode"
+    "vhsdecode"
+    "vhsdecode.hifi"
+    "vhsdecode.decode_launcher"
+    "cvbsdecode"
+    "filter_tune.filter_tune"
+    "vhsd_rust"
+  ];
 
   meta = {
     inherit maintainers;
     description = "Software Decoder for raw rf captures of laserdisc, vhs and other analog video formats.";
     homepage = "https://github.com/oyvindln/vhs-decode";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainprogram = "vhs-decode";
   };
-
-  inherit (pkgs.callPackage ../../lib { inherit pkgs; }) callPackage;
-in
-symlinkJoin {
-  inherit
-    pname
-    version
-    src
-    meta
-    ;
-
-  paths = [
-    ((callPackage ./vhs-decode-py { }).overridePythonAttrs (prevAttrs: {
-      inherit src version meta;
-
-      cargoDeps = rustPlatform.fetchCargoVendor {
-        inherit (prevAttrs) pname;
-        inherit version src;
-        hash = cargoHash;
-      };
-
-      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
-        rustPlatform.cargoSetupHook
-      ];
-    }))
-
-    (
-      (callPackage ./vhs-decode-tools {
-        inherit meta qwt-qt6 ezpwd-reed-solomon;
-      }).overrideAttrs
-      (
-        finalAttrs: prevAttrs: {
-          inherit src version;
-
-          buildInputs = prevAttrs.buildInputs ++ [
-            qwt-qt6
-          ];
-        }
-      )
-    )
-  ];
 }
