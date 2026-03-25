@@ -622,8 +622,8 @@
             "url": "https://github.com/cransom/nur-packages"
         },
         "crazazy": {
-            "rev": "83ef4e1afa166ecb757700cc730cb5574f81d48c",
-            "sha256": "0n4ylwwq8p9cfbs8g4ckl4wxz248i7wa9hyjvx5k4z1vgffjbinz",
+            "rev": "d3b1c15958e87eea1512e4e1f3c685665a160aeb",
+            "sha256": "0v534zlrw1g7mv5r07zc0k1ikmmrg3qk8c323gqw03qlybbg1xb2",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
@@ -2045,8 +2045,8 @@
             "url": "https://github.com/robertodr/nur-packages"
         },
         "robinovitch61": {
-            "rev": "06a91df992ff0f9133499655fb3952fc31222eff",
-            "sha256": "0casxh02a6al4g0xd2zvpqlkc51dwv7hrvbpvx1x7bf3gix6snn0",
+            "rev": "05691af340d66daa6d01f9d9c43be7739092f154",
+            "sha256": "0jxq11p2kznlj15bk4i8pq5nmc6697wyg8l86wp9b9baffccrhr2",
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
