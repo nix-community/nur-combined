@@ -67,8 +67,13 @@ stdenv.mkDerivation (finalAttrs: {
     stdenv.cc.cc.lib
   ];
 
-  # Ignore musl libc in prebuilt binaries (they're for Alpine, unused on glibc)
-  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
+  # Ignore dependencies in prebuilt binaries for other platforms (Alpine musl, Android)
+  autoPatchelfIgnoreMissingDeps = [
+    "libc.musl-x86_64.so.1"
+    "libc.musl-aarch64.so.1"
+    "libc++_shared.so"
+    "liblog.so"
+  ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
