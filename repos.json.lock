@@ -1421,8 +1421,8 @@
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
-            "rev": "121bbb5254e072a005b7f4ebcea7dc90c50e36f9",
-            "sha256": "0yz4d51fxkr5samyvhp0rzsmqknqn9k31bchjwymq53y4c8y1gpr",
+            "rev": "3131002e6c1c5fb016082cbb16af0fd78eafbe71",
+            "sha256": "1vylvawwgq91g0nmm9wagcawsiax3cicikc42l57rr8phmsr1hix",
             "url": "https://github.com/lschuermann/nur-packages"
         },
         "ltpie123": {
