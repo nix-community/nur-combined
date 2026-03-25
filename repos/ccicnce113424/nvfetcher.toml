@@ -57,11 +57,6 @@ extract = ["plasmoid/metadata.json"]
 fetch.github = "ccicnce113424/lyrica"
 src.git = "https://github.com/ccicnce113424/lyrica"
 
-[motrix-next]
-cargo_lock = ["src-tauri/Cargo.lock"]
-fetch.github = "AnInsomniacy/motrix-next"
-src.github = "AnInsomniacy/motrix-next"
-
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"

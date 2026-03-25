@@ -145,23 +145,6 @@
     };
     date = "2026-03-03";
   };
-  motrix-next = {
-    pname = "motrix-next";
-    version = "v3.4.8";
-    src = fetchFromGitHub {
-      owner = "AnInsomniacy";
-      repo = "motrix-next";
-      rev = "v3.4.8";
-      fetchSubmodules = false;
-      sha256 = "sha256-z1SCRfIzA/w/V2TO0Q2PJM5ZB9kSXMS7ehJyVipxrfA=";
-    };
-    cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-z1SCRfIzA_w_V2TO0Q2PJM5ZB9kSXMS7ehJyVipxrfA=/src-tauri/Cargo.lock";
-      outputHashes = {
-
-      };
-    };
-  };
   piliplus = {
     pname = "piliplus";
     version = "2.0.1.1";
