@@ -913,8 +913,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "f68d8e0c26f7cb574f0213258c70ab276b511f90",
-            "sha256": "1pkwkjxxbvbszs7a77kmgwm4xgi2j6na7rxzzj8sqn0dq5q80jfd",
+            "rev": "86250da5b6a2b0c931e0e019e6f0cd6c13d2046f",
+            "sha256": "13gb0x0faj197yvjpfmjcwkdqrgv9469nfhs2dz5z8psa75g7k7c",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -1593,8 +1593,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "642bc29727cd128eed820b7f94260ce2fbd4f144",
-            "sha256": "08y9gxwzpqncn0ixpi5lypw7xy2g1j5j264qdfp5cn0nq9s8f9mf",
+            "rev": "75bcf895999285f6b9d8c6722d1d0bb090114d03",
+            "sha256": "09c5vplhykpigg5gnm46gp5n0dixr5yqipmmrqmamzr0pjqp7y93",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
