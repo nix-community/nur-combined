@@ -1223,8 +1223,8 @@
             "url": "https://github.com/jetcookies/nur-packages"
         },
         "jitterbug": {
-            "rev": "1db966a9583cc0c726987584a5eab8329ec47edc",
-            "sha256": "1g58nd0szjm60yvp6wdmvkzz138678l9i1v31bcblklqaqimbdrw",
+            "rev": "57cb5639bdbb0195530d5ebb90f75c7e4cfe232c",
+            "sha256": "1xi2rq0k0z0zn3prqzrv76zbi4qd9likbrhbnjr2g4nkhnnpvmb5",
             "url": "https://github.com/JuniorIsAJitterbug/nur-packages"
         },
         "jj": {
