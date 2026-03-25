@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
-# update-wechat-latest.sh
-# 更新 wechat-latest 包到最新版本
-
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# 优先使用 CI 提供的源码目录，否则使用脚本所在目录
+if [[ -n "${UPDATE_NIX_SOURCE_DIR:-}" && -d "$UPDATE_NIX_SOURCE_DIR" ]]; then
+  SCRIPT_DIR="$UPDATE_NIX_SOURCE_DIR"
+else
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fi
+
 PACKAGE_FILE="$SCRIPT_DIR/package.nix"
 
 # 获取最新的 .deb 包 URL

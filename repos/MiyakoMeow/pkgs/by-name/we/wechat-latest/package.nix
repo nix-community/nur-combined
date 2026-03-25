@@ -121,8 +121,5 @@ stdenvNoCC.mkDerivation rec {
     maintainers = [ ];
   };
 
-  passthru.updateScript = [
-    "bash"
-    "update.sh"
-  ];
+  passthru.updateScript = ./update.sh;
 }
