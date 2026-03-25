@@ -2292,8 +2292,8 @@
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
         "the-code-fixer-23-nur": {
-            "rev": "d04a80014a32380983d8399fa52a1649459a3469",
-            "sha256": "1gdyfcw58cwm8zij6i387svkgl35k8a6plnljgvrp5i92yd7jklw",
+            "rev": "0b7fb3bbf70b200f5066acad4c88ac9caff740a0",
+            "sha256": "0zjh0xh09d4xylxl1qi3bw71fc4bww2x2sa8xrv06rz4pnbzlz8d",
             "url": "https://github.com/louiss0/the-code-fixer-23-nur"
         },
         "therobot2105": {
