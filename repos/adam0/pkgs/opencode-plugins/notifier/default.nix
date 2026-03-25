@@ -5,13 +5,13 @@
 }:
 mkOpencodePlugin rec {
   pname = "notifier";
-  version = "0.1.34";
+  version = "0.1.36";
 
   src = fetchFromGitHub {
     owner = "mohak34";
     repo = "opencode-${pname}";
     rev = "v${version}";
-    hash = "sha256-5JPwWq2RDCHN2GRr4kW+eBcTF6HcfIS7okjBlfnq0NQ=";
+    hash = "sha256-tjxaqh9akN81MMToeGG1wNEiTp0/WEOmatmXewCThWU=";
   };
 
   dependencyHash = "sha256-qCsznzTzW30UzTOxj0dU2dpHb8PVxaZldcgRzhlQmbg=";

@@ -5,13 +5,13 @@
 }:
 buildFishPlugin {
   pname = "fzfish";
-  version = "unstable-2026-03-23";
+  version = "unstable-2026-03-24";
 
   src = fetchFromGitHub {
     owner = "adam01110";
     repo = "FzFish";
-    rev = "ccc9a53c74aead741720d0e27eaa092794f740ad";
-    hash = "sha256-SWn1XYWnGd14aDRTYEishbUC6H0V22SIUfXDdgUUUmI=";
+    rev = "b1364e5bc434a71e93076a4a7a833e2f0546f5a0";
+    hash = "sha256-CZq3vqvjcFuxhttgEtumfsFIZY9kfOVDhMUQLZIimQ8=";
   };
 
   meta = {
