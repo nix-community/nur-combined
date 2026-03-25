@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "hinto-janai";
     repo = "gupax";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-sBmgX8nRfo5i4CgZpFcepfyH8K4InQTqiZK65U8wGaM=";
+    hash = "sha256-BBFovEZwjZNcC8eEnp3IgQf70O1QCJ+tdwxHk+vUp1E=";
     leaveDotGit = true; # build.rs uses git
   };
 
