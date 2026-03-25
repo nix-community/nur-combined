@@ -1,0 +1,49 @@
+name: "Packages: update"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "25 4 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.2
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31.9.1
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update packages
+        run: |
+          packages="$(nix eval --raw '.#packages.x86_64-linux' --apply 'pkgs: toString (builtins.attrNames pkgs)')"
+          if [ -z "$packages" ]; then
+            echo "No flake packages exposed for x86_64-linux."
+            exit 0
+          fi
+
+          for pkg in $packages; do
+            echo "Updating package: $pkg"
+            if [ "$pkg" = "deploy-rs" ]; then
+              nix run nixpkgs#nix-update -- --flake --commit --version branch=master "$pkg"
+            else
+              nix run nixpkgs#nix-update -- --flake --commit "$pkg"
+            fi
+          done
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8.1.0
