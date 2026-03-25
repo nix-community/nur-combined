@@ -1223,8 +1223,8 @@
             "url": "https://github.com/jetcookies/nur-packages"
         },
         "jitterbug": {
-            "rev": "bb0b17ea0002af742e64e0d384b4821e6a9e8e3a",
-            "sha256": "0kgd6r78p01kx381zxvchkr88pp23sfhjckbg5k0ldgl6ij9cgvp",
+            "rev": "1db966a9583cc0c726987584a5eab8329ec47edc",
+            "sha256": "1g58nd0szjm60yvp6wdmvkzz138678l9i1v31bcblklqaqimbdrw",
             "url": "https://github.com/JuniorIsAJitterbug/nur-packages"
         },
         "jj": {
@@ -1416,8 +1416,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "b26edfef77ee8ece9468779dc32cca4c84c15371",
-            "sha256": "1wr4sl50kg8n41c0mzdd5pb44c2qp78axrdqi7sbsbhficxcyvl2",
+            "rev": "4236dc3d301ef1fc340f059f53d29ded65fa6c92",
+            "sha256": "0az6an8klz3s3ywqmyijbkq8rk9gk5bhhzc2s651zva12i7q3qvi",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2292,8 +2292,8 @@
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
         "the-code-fixer-23-nur": {
-            "rev": "0b7fb3bbf70b200f5066acad4c88ac9caff740a0",
-            "sha256": "0zjh0xh09d4xylxl1qi3bw71fc4bww2x2sa8xrv06rz4pnbzlz8d",
+            "rev": "e3649ca1719f7f1ef7e2f8b5ebc55b566c7ebdac",
+            "sha256": "1w2nixq3x4jnqki90caazm5awla64313f15mr45m6rpnx35r2v3a",
             "url": "https://github.com/louiss0/the-code-fixer-23-nur"
         },
         "therobot2105": {
