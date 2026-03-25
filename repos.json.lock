@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "d76f1844f2878f6e770684413527997d919bd801",
-            "sha256": "03zfqmargdzl3b3sw4nirwbv6980dw0idfjr75mx1v82hzvwfwcs",
+            "rev": "302b06e9e8f8d671fde02e07751d68f1d0586df0",
+            "sha256": "0dp0vpphq50fbhcibhwklvqm34q8pki4phyq5dkvwr7q7l7c0gla",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -2113,6 +2113,11 @@
             "rev": "56182bcd9997c7231e04ecc25b9f620b15776382",
             "sha256": "0i08i2a26nxvshxplz3k8wp2psgkiiawpnaa69gwh07042ghwrm0",
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
+        },
+        "sedlund": {
+            "rev": "538c7f4b1b44eb33bebbb8d13775eb7adf238c6d",
+            "sha256": "0sqdsjfxabf0c3rmard8zj3rwhl7psy9lq90pvrngmniyhnbpqbf",
+            "url": "https://github.com/sedlund/nur-packages"
         },
         "sehqlr": {
             "rev": "a907d055117cae96ebd5f626827803be52dfc272",

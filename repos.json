@@ -1305,6 +1305,9 @@
         "sebrut": {
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
         },
+        "sedlund": {
+            "url": "https://github.com/sedlund/nur-packages"
+        },
         "sehqlr": {
             "url": "https://github.com/sehqlr/nur-packages"
         },
