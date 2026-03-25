@@ -90,11 +90,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SSGLqGeodjk31D1jr/nZaiaMYXFbyrmpvYWodFPIj2E=",
+            "sha256": "sha256-zQUIP9LoZnjPKyvxPAOmyOsNp/cr0EBSxX0YEdmJO58=",
             "type": "url",
-            "url": "https://github.com/imputnet/helium-macos/releases/download/0.10.6.1/helium_0.10.6.1_arm64-macos.dmg"
+            "url": "https://github.com/imputnet/helium-macos/releases/download/0.10.7.1/helium_0.10.7.1_arm64-macos.dmg"
         },
-        "version": "0.10.6.1"
+        "version": "0.10.7.1"
     },
     "kanata": {
         "cargoLock": {
@@ -230,7 +230,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-KW+JhGhYphpyXBpX35g5SgvIZd5v0eaEULF3hE+HPMU=",
+            "sha256": "sha256-IPYuwHYgfZjFAo+MDOAkkTLIP46MzSthVVfIFDO2On8=",
             "type": "url",
             "url": "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg"
         },
