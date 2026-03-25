@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       else if stdenv.isLinux then
         "sha256-6bZbakDdXIj5toN2oFoOzGrHfuu7pE8WKfTbjoO2Eag="
       else if stdenv.isDarwin && stdenv.isAarch64 then
-        "sha256-SlShkwyaKmRyGmBL5/PSy+xN/Ft7z9BsQs3pEUc81QU="
+        "sha256-bc03jhwdXQft4MdeDjKSlPQJkHGCKP+ujoTWQq6s7uE="
       else
         "sha256-Tlxh+pbVN3kC7x5dZsuIlAn5BHTSeH5MMEvrJmEbTRw=";
   };
