@@ -161,10 +161,10 @@
     };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
-      version = "3.0.2";
+      version = "3.0.3";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4691902/addy_io-3.0.2.xpi";
-      sha256 = "f5d7b6f39f5c8db590e874e7a597ffad24d9c1166bcde459f33c19aaec7fd170";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4738398/addy_io-3.0.3.xpi";
+      sha256 = "4817d1428401c2ca6c2eb1d20f0810e2658c4959ff2a9a922d8eb8c0e53dd5dd";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -8286,10 +8286,10 @@
     };
     "lingq-importer2" = buildMozillaXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.40";
+      version = "2.3.41";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4734063/lingq_importer2-2.3.40.xpi";
-      sha256 = "45ee1ffe94417ca9d788d6ea76a5bbfbdef2df4de5ffec4f1acedf9bcbddfa98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4739181/lingq_importer2-2.3.41.xpi";
+      sha256 = "a95dc90efe37d05c26de1a2c3d005d2b61147a22604a17160660075012de368e";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -8590,10 +8590,10 @@
     };
     "linkwarden" = buildMozillaXpiAddon {
       pname = "linkwarden";
-      version = "1.5.1";
+      version = "1.5.2";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4693064/linkwarden-1.5.1.xpi";
-      sha256 = "092e376952433647d61ea571e92602be3f0214e4f0d7e971c14fe1e30d64866c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4738893/linkwarden-1.5.2.xpi";
+      sha256 = "8a3374e58cbd806a214354eaff33d884d18a361553627dff5bb47a63f6322f28";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -8685,10 +8685,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.1";
+      version = "1.1.2";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4728611/lockedin_yt-1.1.1.xpi";
-      sha256 = "3b171ba4a130ea7b814406e8094bd7d8ed14f603696401fccecbe48c8dc91f56";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4738229/lockedin_yt-1.1.2.xpi";
+      sha256 = "38909a4d6fd016f2782064b0ce10d2d3178083553650d6f082d4d8a646dcc4a9";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -11013,16 +11013,16 @@
     };
     "pipewire-screenaudio" = buildMozillaXpiAddon {
       pname = "pipewire-screenaudio";
-      version = "0.4.1";
+      version = "0.4.2";
       addonId = "pipewire-screenaudio@icenjim";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4721567/pipewire_screenaudio-0.4.1.xpi";
-      sha256 = "cd7ec2ce64f9990df69b266c708cae3bbb8438fdce4e80f492af710e5fdffc44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4738931/pipewire_screenaudio-0.4.2.xpi";
+      sha256 = "3c9a6f2094b54ac0cadb9e1cfaf73aa1fbea332ce6f5a28d5c32c985a7363a9c";
       meta = with lib;
       {
         homepage = "https://github.com/IceDBorn/pipewire-screenaudio";
         description = "Passthrough pipewire audio to WebRTC screenshare";
         license = licenses.gpl3;
-        mozPermissions = [ "nativeMessaging" "<all_urls>" ];
+        mozPermissions = [ "nativeMessaging" "storage" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
