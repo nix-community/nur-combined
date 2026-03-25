@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "c7dc54663d93ed037c38d2d0395291011203707b",
-            "sha256": "0yb64h965rvwk2j1g2c8a4l67gfk6v8grnqzj3jfqbdnx4qs85wn",
+            "rev": "87b782df4d8eb64720bd6e8cddbd1ece3fd3c196",
+            "sha256": "1rrk8gs4rhwbxzimdska17spjnc7mc5yj957fxzlnhldjs2ky4is",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -2467,8 +2467,8 @@
             "url": "https://github.com/weirdrock/weirdpkgs"
         },
         "wenjinnn": {
-            "rev": "92c2ee61d8f77c57c416a25262eff54a0cc71a5e",
-            "sha256": "1hc6i55ljbpp4q37k1lr51i5739xmyl85dm1mjra3mardw5wcg4g",
+            "rev": "df3dcc9898f7372a69336fceb2dbe5961f1a80b8",
+            "sha256": "0j92vc94nw490vzsnfxllrya5bijl2spx1dh7vr99379xx2b6nm3",
             "url": "https://github.com/wenjinnn/nur-packages"
         },
         "whs": {
