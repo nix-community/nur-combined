@@ -55,7 +55,7 @@ jobs:
       - name: Setup cachix
         uses: cachix/cachix-action@v16
         # Don't replace <YOUR_CACHIX_NAME> here!
-        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' && github.event_name != 'pull_request' }}
+        if: ${{ github.event_name != 'pull_request' && matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
         with:
           name: ${{ matrix.cachixName }}
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
@@ -77,5 +77,5 @@ jobs:
 
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && false }}
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

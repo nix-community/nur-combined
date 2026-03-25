@@ -150,6 +150,7 @@ stdenv.mkDerivation rec {
   };
 
   passthru.updateScript = {
+    group = "fr.free-download-manager";
     command = [
       "nix-shell"
       "-p"

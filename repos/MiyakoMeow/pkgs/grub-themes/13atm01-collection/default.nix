@@ -34,6 +34,7 @@ let
 
     # 统一更新脚本：生成 theme-list.json
     passthru.updateScript = {
+      group = "grub-themes.13atm01-collection";
       command = [
         "nix-shell"
         "-p"

@@ -13,67 +13,11 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      package_list: ${{ steps.find-packages.outputs.package_list }}
-      package_count: ${{ steps.find-packages.outputs.package_count }}
+      package_list: ${{ steps.package-list.outputs.package_list }}
+      package_count: ${{ steps.package-list.outputs.package_count }}
     steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Setup Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: nixpkgs=channel:nixpkgs-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
-            trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-
-      - name: Find packages with updateScript
-        id: find-packages
-        run: |
-          set -euo pipefail
-          export FLAKE_REF="path:$GITHUB_WORKSPACE"
-          export NIXPKGS_ALLOW_UNFREE=1
-
-          echo "Finding packages with updateScript..."
-          packages=$(nix eval --impure --json --expr "
-            let
-              f = builtins.getFlake (builtins.getEnv \"FLAKE_REF\");
-              sys = \"x86_64-linux\";
-              lp = builtins.getAttr sys f.legacyPackages;
-              pkgsN = import <nixpkgs> {};
-              lib = pkgsN.lib;
-              hasUS = pkg: (pkg ? passthru && pkg.passthru ? updateScript) || (pkg ? updateScript);
-              collect = attrs: path:
-                lib.concatMap (name:
-                  let v = attrs.${name}; p = path ++ [ name ]; in
-                  if lib.isDerivation v then
-                    if hasUS v then [ (lib.concatStringsSep \".\" p) ] else []
-                  else if lib.isAttrs v then collect v p
-                  else []
-                ) (builtins.attrNames attrs);
-            in collect lp []
-          " | jq -r '.[]' | sort -u)
-
-          count=$(echo "$packages" | wc -l)
-          package_list_json=$(echo "$packages" | jq -R -s -c 'split("\n") | map(select(. != ""))')
-
-          echo "Found $count packages with updateScript"
-          echo "$packages"
-
-          echo "package_list=$package_list_json" >> $GITHUB_OUTPUT
-          echo "package_count=$count" >> $GITHUB_OUTPUT
-
-  update-package:
-    needs: prepare
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        package: ${{ fromJson(needs.prepare.outputs.package_list) }}
-    steps:
-      - uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -87,191 +31,70 @@ jobs:
             trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
       - name: Install dependencies
-        run: nix profile install nixpkgs#nix-update
-
-      - name: Create update branch
-        id: create-branch
         run: |
+          # 安装必要工具
+          nix profile install nixpkgs#curl nixpkgs#jq nixpkgs#python3 nixpkgs#nix-update
+
+      - name: Find packages with updateScript
+        id: package-list
+        shell: bash
+        run: |
+          bash scripts/update-packages/find-packages-with-update-script.sh
+
+  update-package:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.prepare.outputs.package_list) }}
+    outputs:
+      pr_data: ${{ steps.create-pull-request.outputs.pr_data }}
+      has_update: ${{ steps.update.outputs.has_update }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
+            trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - name: Install required tools
+        run: |
+          # 安装通用工具（包括git用于提交）
+          nix profile install nixpkgs#git nixpkgs#python313 nixpkgs#python313Packages.requests nixpkgs#python313Packages.beautifulsoup4 nixpkgs#nix-update nixpkgs#bash nixpkgs#gh
+
+      - name: Update package
+        id: update
+        shell: bash
+        run: |
+          bash scripts/update-packages/execute-update-script.sh "${{ matrix.package }}"
+
+      - name: Generate branch name
+        id: gen-branch-name
+        shell: bash
+        run: |
+          # Helper: 向 GitHub Actions 的 $GITHUB_OUTPUT 追加输出（本地调试时退回到 stdout）
+          append_github_output() {
+            # $1 = key, $2 = value
+            if [ -n "${GITHUB_OUTPUT:-}" ]; then
+              printf '%s=%s\n' "$1" "$2" >> "$GITHUB_OUTPUT"
+            else
+              printf '%s=%s\n' "$1" "$2"
+            fi
+          }
+          # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
           timestamp=$(date +%s)
           branch_name="update/${{ matrix.package }}-$timestamp-$GITHUB_RUN_ID"
-          git checkout -b "$branch_name"
-          echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
-
-      - name: Get package metadata
-        id: pkg-metadata
-        run: |
-          set -euo pipefail
-          PACKAGE="${{ matrix.package }}"
-          export FLAKE_REF="path:$GITHUB_WORKSPACE"
-
-          pkg_info=$(nix eval --impure --json --expr '
-            let
-              f = builtins.getFlake (builtins.getEnv "FLAKE_REF");
-              sys = "x86_64-linux";
-              lp = builtins.getAttr sys f.legacyPackages;
-              pkgsN = import <nixpkgs> {};
-              lib = pkgsN.lib;
-              path = lib.strings.splitString "." "'"${PACKAGE}"'";
-              pkg = lib.attrsets.attrByPath path null lp;
-            in
-              if pkg == null then throw "no pkg"
-              else {
-                name = pkg.name or "";
-                pname = pkg.pname or (lib.getName pkg);
-                version = pkg.version or (lib.getVersion pkg);
-              }
-          ')
-
-          echo "name=$(echo "$pkg_info" | jq -r '.name // ""')" >> $GITHUB_OUTPUT
-          echo "pname=$(echo "$pkg_info" | jq -r '.pname // ""')" >> $GITHUB_OUTPUT
-          echo "version=$(echo "$pkg_info" | jq -r '.version // ""')" >> $GITHUB_OUTPUT
-
-          echo "Package: ${{ matrix.package }}"
-          NAME=$(jq -r '.name // ""' <<< "$pkg_info")
-          PNAME=$(jq -r '.pname // ""' <<< "$pkg_info")
-          VERSION=$(jq -r '.version // ""' <<< "$pkg_info")
-
-          echo "  Name: $NAME"
-          echo "  Pname: $PNAME"
-          echo "  Version: $VERSION"
-      - name: Get updateScript
-        id: get-script
-        run: |
-          set -euo pipefail
-          PACKAGE="${{ matrix.package }}"
-          export FLAKE_REF="path:$GITHUB_WORKSPACE"
-
-          script_json=$(nix eval --impure --json --expr '
-            let
-              f = builtins.getFlake (builtins.getEnv "FLAKE_REF");
-              sys = "x86_64-linux";
-              lp = builtins.getAttr sys f.legacyPackages;
-              pkgsN = import <nixpkgs> {};
-              lib = pkgsN.lib;
-              path = lib.strings.splitString "." "'"${PACKAGE}"'";
-              pkg = lib.attrsets.attrByPath path null lp;
-            in
-              if pkg == null then throw "no pkg"
-              else if (pkg ? passthru && pkg.passthru ? updateScript) then pkg.passthru.updateScript
-              else if (pkg ? updateScript) then pkg.updateScript
-              else throw "no updateScript"
-          ')
-
-          echo "script=$script_json" >> $GITHUB_OUTPUT
-          echo "type=$(echo "$script_json" | jq -r 'type')" >> $GITHUB_OUTPUT
-
-      - name: Setup update environment
-        id: setup-env
-        run: |
-          set -euo pipefail
-          export PACKAGE="${{ matrix.package }}"
-          export WORKSPACE="$GITHUB_WORKSPACE"
-
-          # 从 meta.position 获取路径（通用方法）
-          SOURCE_DIR=$(nix eval --impure --raw --expr '
-            let
-              f = builtins.getFlake ("path:" + builtins.getEnv "WORKSPACE");
-              pkg = f.legacyPackages.x86_64-linux.${builtins.getEnv "PACKAGE"};
-              outPath = f.outPath;
-              position = pkg.meta.position or null;
-            in
-              if position == null then
-                "null"
-              else
-                let
-                  parts = builtins.match "([^\"]+):([0-9]+)" position;
-                  file = builtins.elemAt parts 0;
-                in
-                  if builtins.substring 0 1 file == "/" then
-                    let
-                      relPath = builtins.substring (builtins.stringLength outPath + 1) (builtins.stringLength file) file;
-                      dirPath = builtins.dirOf (builtins.getEnv "WORKSPACE" + "/" + relPath);
-                    in
-                      dirPath
-                  else
-                    "null"
-          ' 2>&1 | tail -1)
-
-          # 验证目录
-          if [[ -n "$SOURCE_DIR" && "$SOURCE_DIR" != "null" && -d "$SOURCE_DIR" ]]; then
-            echo "UPDATE_NIX_SOURCE_DIR=$SOURCE_DIR" >> $GITHUB_OUTPUT
-            echo "✓ 源码目录: $SOURCE_DIR"
-          else
-            echo "UPDATE_NIX_SOURCE_DIR=" >> $GITHUB_OUTPUT
-            echo "⚠ 无法确定源码目录"
-          fi
-
-      - name: Parse updateScript
-        id: parse-script
-        run: |
-          script_json='${{ steps.get-script.outputs.script }}'
-          script_type='${{ steps.get-script.outputs.type }}'
-
-          case "$script_type" in
-            array)
-              cmd_json=$(echo "$script_json" | jq -c '.')
-              ;;
-            string)
-              cmd_json=$(echo "$script_json" | jq -c '. | split(" ")')
-              ;;
-            object)
-              cmd_json=$(echo "$script_json" | jq -c '.command')
-              ;;
-          esac
-
-          echo "cmd=$cmd_json" >> $GITHUB_OUTPUT
-
-      - name: Execute updateScript
-        run: |
-          set -euo pipefail
-          export FLAKE_REF="path:$GITHUB_WORKSPACE"
-          export NIXPKGS_ALLOW_UNFREE=1
-          export NIXPKGS_ALLOW_BROKEN=1
-          export NIXPKGS_ALLOW_INSECURE=1
-          export UPDATE_NIX_ATTR_PATH="${{ matrix.package }}"
-          export UPDATE_NIX_NAME="${{ steps.pkg-metadata.outputs.name }}"
-          export UPDATE_NIX_PNAME="${{ steps.pkg-metadata.outputs.pname }}"
-          export UPDATE_NIX_OLD_VERSION="${{ steps.pkg-metadata.outputs.version }}"
-          export UPDATE_NIX_SOURCE_DIR="${{ steps.setup-env.outputs.UPDATE_NIX_SOURCE_DIR }}"
-
-          cmd_json='${{ steps.parse-script.outputs.cmd }}'
-          cmd_type='${{ steps.get-script.outputs.type }}'
-
-          case "$cmd_type" in
-            array)
-              mapfile -t cmd < <(echo "$cmd_json" | jq -r '.[]')
-              ;;
-            string)
-              read -r -a cmd <<< "$(echo "$cmd_json" | jq -r '.')"
-              ;;
-            object)
-              cmd_type=$(echo "$cmd_json" | jq -r 'type')
-              if [ "$cmd_type" = "array" ]; then
-                mapfile -t cmd < <(echo "$cmd_json" | jq -r '.[]')
-              elif [ "$cmd_type" = "string" ]; then
-                read -r -a cmd <<< "$(echo "$cmd_json" | jq -r '.')"
-              fi
-              ;;
-          esac
-
-          echo "Executing: ${cmd[*]}"
-          "${cmd[@]}"
-
-      - name: Check for existing PR
-        id: check-pr
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          EXISTING_PR=$(gh pr list --state open \
-            --json number,headRefName \
-            -q '.[] | select(.headRefName | startswith("update/${{ matrix.package }}-")) | .number')
-
-          if [ -n "$EXISTING_PR" ]; then
-            echo "Found existing PR #$EXISTING_PR"
-            echo "has_existing_pr=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_existing_pr=false" >> $GITHUB_OUTPUT
-          fi
+          append_github_output "branch_name" "$branch_name"
+          echo "分支名称: $branch_name"
 
       - name: Generate GitHub App Token
         id: gen-token
@@ -281,14 +104,35 @@ jobs:
           private_key: ${{ secrets.HELPER_BOT_PRIVATE_KEY }}
 
       - name: Create Pull Request
-        if: steps.check-pr.outputs.has_existing_pr != 'true'
+        if: steps.update.outputs.has_update == 'true'
+        id: create-pull-request
         uses: peter-evans/create-pull-request@v8
         with:
-          branch: ${{ steps.create-branch.outputs.branch_name }}
+          branch: ${{ steps.gen-branch-name.outputs.branch_name }}
+          commit-message: "${{ matrix.package }}: auto-update by updateScript"
           title: "${{ matrix.package }}: auto-update by updateScript"
           body: |
-            Automated update for ${{ matrix.package }}
+            由GitHub Actions自动更新包 ${{ matrix.package }}
 
-            Generated by the package's updateScript
+            此更新由包的updateScript自动生成
           labels: automated, dependencies
           token: ${{ steps.gen-token.outputs.token }}
+
+      - name: Wait for CI completion
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        run: |
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          PACKAGE='${{ matrix.package }}'
+          scripts/actions/wait-for-actions.sh "$PR_NUMBER" "$PACKAGE"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable Pull Request Automerge
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        run: |
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          PACKAGE='${{ matrix.package }}'
+          echo "启用PR #$PR_NUMBER ($PACKAGE) 的自动合并"
+          gh pr merge "$PR_NUMBER" --auto --squash
+        env:
+          GITHUB_TOKEN: ${{ steps.gen-token.outputs.token }}

@@ -25,34 +25,13 @@ jobs:
             substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
             trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
+      - name: Install required tools
+        run: |
+          nix profile install nixpkgs#gh
+
       - name: Update flake.lock
-        run: nix flake update
-
-      - name: Check for changes
-        id: check-changes
         run: |
-          if git diff --quiet flake.lock; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Check for existing PR
-        id: check-pr
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          EXISTING_PR=$(gh pr list --state open \
-            --json number,headRefName \
-            -q '.[] | select(.headRefName | startswith("update/flake-")) | .number')
-
-          if [ -n "$EXISTING_PR" ]; then
-            echo "发现已存在的 PR #$EXISTING_PR"
-            echo "has_existing_pr=true" >> $GITHUB_OUTPUT
-            echo "existing_pr_number=$EXISTING_PR" >> $GITHUB_OUTPUT
-          else
-            echo "has_existing_pr=false" >> $GITHUB_OUTPUT
-          fi
+          nix flake update
 
       - name: Generate branch name
         id: gen-branch-name
@@ -60,7 +39,7 @@ jobs:
         run: |
           # 创建唯一分支名（可根据 group 优化命名，但此处保持兼容）
           timestamp=$(date +%s)
-          printf '%s=%s\n' "branch_name" "update/flake-$timestamp" >> "$GITHUB_OUTPUT"
+          printf '%s=%s\n' "branch_name" "update-flake-$timestamp" >> "$GITHUB_OUTPUT"
 
       - name: Generate GitHub App Token
         id: gen-token
@@ -70,7 +49,6 @@ jobs:
           private_key: ${{ secrets.HELPER_BOT_PRIVATE_KEY }}
 
       - name: Create Pull Request
-        if: steps.check-changes.outputs.changed == 'true' && steps.check-pr.outputs.has_existing_pr != 'true'
         id: create-pull-request
         uses: peter-evans/create-pull-request@v8
         with:
@@ -83,3 +61,20 @@ jobs:
           labels: |
             automated
             dependencies
+
+      - name: Wait for CI completion
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        run: |
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          scripts/actions/wait-for-actions.sh "$PR_NUMBER"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable Pull Request Automerge
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        env:
+          GITHUB_TOKEN: ${{ steps.gen-token.outputs.token }}
+        run: |
+          PR_NUMBER='${{ steps.create-pull-request.outputs.pull-request-number }}'
+          echo "Enabling auto-merge for PR #$PR_NUMBER"
+          gh pr merge "$PR_NUMBER" --auto --squash
