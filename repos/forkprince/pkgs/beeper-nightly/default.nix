@@ -60,7 +60,7 @@ in
         sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
 
         # hide version status element on about page otherwise a error message is shown
-        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/renderer/PrefsPanes-"*.css
+        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/renderer/PrefsPanes-"*.js
       '';
     }
   else
