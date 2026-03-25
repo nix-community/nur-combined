@@ -15,8 +15,8 @@ let
 
   src = fetchFromGitHub {
     inherit hash rev;
-    owner = "oyvindln";
-    repo = "vhs-decode";
+    owner = "happycube";
+    repo = "ld-decode";
   };
 in
 python3Packages.buildPythonPackage {
