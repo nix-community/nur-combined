@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "b9e99d9d428d555a0cdb621d3f4ea479ad948c63",
-            "sha256": "078hxnc45q2p0gqj0667vjdf8iszj5vbkhp9p90fa81xw9sdmxjp",
+            "rev": "6d2517f09c6aa8148d88ffe92403972fc53d7b67",
+            "sha256": "1h8sacl6bir6iq2hq0swplby7wpz9zv5hnqalfgf46b183lwag0l",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -1944,8 +1944,8 @@
             "url": "https://github.com/pokon548/nur-packages"
         },
         "presto8": {
-            "rev": "8ae6915bb7ad6e23e86d64dd594443cbec57477c",
-            "sha256": "00ziq33dbcrwqzr9gx3f3f2k6s1b2ilhr339sqi0ggyv4ixc4hqd",
+            "rev": "9e2a6d64947c266c2f0ea5ce827de3f00c8d57b3",
+            "sha256": "19vv32sfkdp6hx383c5q7cf45ay5lrcxfwmgxcdj00piw6i933an",
             "url": "https://github.com/presto8/nur-packages"
         },
         "priegger": {
