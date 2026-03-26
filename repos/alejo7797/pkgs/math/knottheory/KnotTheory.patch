@@ -1,0 +1,47 @@
+diff -rua a/QuantumGroups/QuantumGroups.m b/QuantumGroups/QuantumGroups.m
+--- a/QuantumGroups/QuantumGroups.m
++++ b/QuantumGroups/QuantumGroups.m
+@@ -97,10 +97,10 @@
+
+
+ (* ::Input::Initialization:: *)
+-Print[
++Print[StringJoin[
+ "Loading QuantumGroups` version 2.0\n",
+ "Read more at http://katlas.math.toronto.edu/wiki/QuantumGroups"
+-]
++]]
+
+
+ (* ::Input::Initialization:: *)
+@@ -211,7 +211,7 @@
+
+
+ (* ::Input::Initialization:: *)
+-QuantumGroupsDirectory[]:=QuantumGroupsDirectory[]=StringDrop[(File/.Flatten[FileInformation[ToFileName[#,"QuantumGroups"]]&/@($Path/."."->Directory[])]),-14]
++QuantumGroupsDirectory[]:=QuantumGroupsDirectory[]=StringDrop[("FileName"/.Flatten[FileInformation[ToFileName[#,"QuantumGroups"]]&/@($Path/."."->Directory[])]),-14]
+
+
+ (* ::Input::Initialization:: *)
+@@ -223,8 +223,7 @@
+ If[StringTake[QuantumGroupsDirectory[],-7]=="package",
+ QuantumGroupsDataDirectory[]:=StringDrop[QuantumGroupsDirectory[],-7]<>"data";
+ Print["Found precomputed data in ",QuantumGroupsDataDirectory[]];
+-If[!MemberQ[$Path,QuantumGroupsDataDirectory[]],AppendTo[$Path,QuantumGroupsDataDirectory[]]],
+-Print["Remember to set QuantumGroupsDataDirectory[] to the appropriate path, if you've downloaded precomputed data."]
++If[!MemberQ[$Path,QuantumGroupsDataDirectory[]],AppendTo[$Path,QuantumGroupsDataDirectory[]]]
+ ];
+
+
+diff -rua a/WikiLink/mathematica/WikiLink.m b/WikiLink/mathematica/WikiLink.m
+--- a/WikiLink/mathematica/WikiLink.m
++++ b/WikiLink/mathematica/WikiLink.m
+@@ -59,7 +59,7 @@
+ WikiLinkDirectory[]=
+     ParentDirectory[
+       DirectoryName[
+-        File/.Flatten[
++        "FileName"/.Flatten[
+             FileInformation[ToFileName[#,"WikiLink.m"]]&/@($Path/.
+                   "."\[Rule]Directory[])]]];
+ 
