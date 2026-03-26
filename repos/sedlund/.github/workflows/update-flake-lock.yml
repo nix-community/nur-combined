@@ -24,26 +24,17 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Update root flake.lock
-        run: nix flake update --commit-lock-file
-        env:
-          GIT_AUTHOR_NAME: github-actions[bot]
-          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
-          GIT_COMMITTER_NAME: github-actions[bot]
-          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: nix flake update
 
       - name: Update dev flake.lock
-        run: nix flake update --commit-lock-file --flake ./dev
-        env:
-          GIT_AUTHOR_NAME: github-actions[bot]
-          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
-          GIT_COMMITTER_NAME: github-actions[bot]
-          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: nix flake update --flake ./dev
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8.1.0
         with:
           branch: update_flake_lock_action
           delete-branch: true
+          commit-message: "chore(flake): update lock files"
           title: "flake.lock: update"
           body: |
             Automated changes for root and dev lock files.

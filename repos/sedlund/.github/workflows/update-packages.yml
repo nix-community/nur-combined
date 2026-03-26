@@ -39,11 +39,16 @@ jobs:
           for pkg in $packages; do
             echo "Updating package: $pkg"
             if [ "$pkg" = "deploy-rs" ]; then
-              nix run nixpkgs#nix-update -- --flake --commit --version branch=master "$pkg"
+              nix run nixpkgs#nix-update -- --flake --version branch=master "$pkg"
             else
-              nix run nixpkgs#nix-update -- --flake --commit "$pkg"
+              nix run nixpkgs#nix-update -- --flake "$pkg"
             fi
           done
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8.1.0
+        with:
+          branch: update_packages_action
+          delete-branch: true
+          commit-message: "chore(packages): update package versions"
+          title: "packages: update"
