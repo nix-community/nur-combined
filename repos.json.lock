@@ -2562,8 +2562,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "6b9d30648de8fb4af8ee855b18cafa762bb5eb13",
-            "sha256": "07kk7nr67723hxkfg9zbg6cfy9v9bxna30gmk0ddfb6ng013wzv5",
+            "rev": "0f93095c7f3f089589b63e39617d9eacd73bb60d",
+            "sha256": "1ai9dh5i891d6271llmkz7vafpl34q448qs4xxzv6drx04zdajwp",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
