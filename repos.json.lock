@@ -507,8 +507,8 @@
             "url": "https://github.com/c2vi/nixos"
         },
         "caarlos0": {
-            "rev": "39303bde75df1beb2f91c66c19190a915f7d4d31",
-            "sha256": "1r6vhb0ks9w5cd8cpmbv5jm5f1gl23s9y2iigg33fddfb2r19zzh",
+            "rev": "c2e6dbcb6ffe39f6909449986f7499db457237d4",
+            "sha256": "0hj0ciipwhsnzshhmbyr8jkbwq7h2a5cpf06gsiyfrawsad7sidk",
             "url": "https://github.com/caarlos0/nur"
         },
         "cameronyule": {
@@ -1411,8 +1411,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "4cd050d786fdfd0cc30140da8433fc9e28fd15df",
-            "sha256": "1cwzwdklgvaw8q997wl517k2cn1yrhkk91bkp0840jnf8j4j691a",
+            "rev": "1445f202a15f6ba2b516c5450dbd3b9cee9b10e2",
+            "sha256": "065icv4mqm80xlbivdz8i7d3czywn6nn6z5h5p4wgp3q5hnd9xii",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -1593,8 +1593,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "e6d1c255e264c1aba3f8891ef771fb2b90600366",
-            "sha256": "19dp9vpkzhs0yfli6vp7slwicsihqq3y767dl8gp5bakdaqa9byn",
+            "rev": "4d1e359fbf36b6ff2cef2bb917cb74516f512926",
+            "sha256": "1iz56m18baf602fgj2xjsgng5r8vp7924d6pa38ksf5xxg2yghbh",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2045,8 +2045,8 @@
             "url": "https://github.com/robertodr/nur-packages"
         },
         "robinovitch61": {
-            "rev": "05691af340d66daa6d01f9d9c43be7739092f154",
-            "sha256": "0jxq11p2kznlj15bk4i8pq5nmc6697wyg8l86wp9b9baffccrhr2",
+            "rev": "6b839a7b05c3d7420c119ca50e2012313b3b43e1",
+            "sha256": "1spnqqfrmj99kaf8r9a7d7s53lpwajliw305clps90p977k7ly9j",
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
