@@ -21,13 +21,12 @@
 
 #### DAWs
 
-- [bitwig-custom](https://bitwig.com) - patchable Bitwig Studio
 - [js_ReaScriptAPI](https://github.com/juliansader/ReaExtensions)
 
 #### Plugins
 
 - [TAL-NoiseMaker](https://tal-software.com/products/TAL-NoiseMaker)
-- [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
+- [ANINA](https://crql.works/archive/anina/)
 - [vitalium-vst3](https://github.com/DISTRHO/DISTRHO-Ports)
 - [TAL-plugins-vst2](https://github.com/DISTRHO/DISTRHO-Ports)
 - [luftikus-vst2](https://github.com/DISTRHO/DISTRHO-Ports)

@@ -27,13 +27,10 @@ in rec {
   fetchurl-gz = p ./pkgs/builders/fetchers/fetchurl-gz { };
 
   # Audio
-  bitwig-custom = p ./pkgs/audio/bitwig-custom/default.nix { };
-
   js_ReaScriptAPI = p ./pkgs/audio/js_ReaScriptAPI { };
 
   # OneTrick-KEYS = p ./pkgs/audio/OneTrick-KEYS { };
   TAL-NoiseMaker = p ./pkgs/audio/TAL-NoiseMaker { };
-  neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
 
   vitalium-vst3 = (pkgs.distrho-ports.override {
     buildVST2 = false;
