@@ -154,13 +154,13 @@
   };
   git-mcp-server = {
     pname = "git-mcp-server";
-    version = "v2.10.3";
+    version = "v2.10.5";
     src = fetchFromGitHub {
       owner = "cyanheads";
       repo = "git-mcp-server";
-      rev = "v2.10.3";
+      rev = "v2.10.5";
       fetchSubmodules = false;
-      sha256 = "sha256-gdkNz3h/tK7zWKCb+G+RAzxHdHCuN1JT9Ww0U5gQOlw=";
+      sha256 = "sha256-+/wVcyBx28xKgU999o95TH1adwKtxUVGEEVEN8cxQ9M=";
     };
   };
   happydeliver = {
@@ -295,15 +295,15 @@
   };
   superpowers-skills = {
     pname = "superpowers-skills";
-    version = "8ea39819eed74fe2a0338e71789f06b30e953041";
+    version = "eafe962b18f6c5dc70fb7c8cc7e83e61f4cdde06";
     src = fetchFromGitHub {
       owner = "obra";
       repo = "superpowers";
-      rev = "8ea39819eed74fe2a0338e71789f06b30e953041";
+      rev = "eafe962b18f6c5dc70fb7c8cc7e83e61f4cdde06";
       fetchSubmodules = false;
-      sha256 = "sha256-wmOArGgOahJK/mqzYJZW6qcUNaOB6yL57RQMe56S1uw=";
+      sha256 = "sha256-r/Z+UxSFQIx99HnSPoU/toWMddXDcnLsbFXpQfLfj1k=";
     };
-    date = "2026-03-19";
+    date = "2026-03-25";
   };
   udpxy = {
     pname = "udpxy";
@@ -318,18 +318,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603242224";
+    version = "202603252229";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603242224/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603252229/geoip.dat";
       sha256 = "sha256-S9scHPAeyYh4kIWprPVSK18zVZBuPqpqkOpg21tYNxE=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603242224";
+    version = "202603252229";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603242224/geosite.dat";
-      sha256 = "sha256-EcAVIKUldSBKqxBsq9ZBIBVua/PIUV3HfJxNQ82xbrc=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603252229/geosite.dat";
+      sha256 = "sha256-SfED3n3k0FC3XYiRV9m7252kSpOty+gOeIX/i/XHLiY=";
     };
   };
   yass = {

@@ -273,12 +273,12 @@
             "name": null,
             "owner": "cyanheads",
             "repo": "git-mcp-server",
-            "rev": "v2.10.3",
-            "sha256": "sha256-gdkNz3h/tK7zWKCb+G+RAzxHdHCuN1JT9Ww0U5gQOlw=",
+            "rev": "v2.10.5",
+            "sha256": "sha256-+/wVcyBx28xKgU999o95TH1adwKtxUVGEEVEN8cxQ9M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.10.3"
+        "version": "v2.10.5"
     },
     "happydeliver": {
         "cargoLock": null,
@@ -509,7 +509,7 @@
     },
     "superpowers-skills": {
         "cargoLock": null,
-        "date": "2026-03-19",
+        "date": "2026-03-25",
         "extract": null,
         "name": "superpowers-skills",
         "passthru": null,
@@ -521,12 +521,12 @@
             "name": null,
             "owner": "obra",
             "repo": "superpowers",
-            "rev": "8ea39819eed74fe2a0338e71789f06b30e953041",
-            "sha256": "sha256-wmOArGgOahJK/mqzYJZW6qcUNaOB6yL57RQMe56S1uw=",
+            "rev": "eafe962b18f6c5dc70fb7c8cc7e83e61f4cdde06",
+            "sha256": "sha256-r/Z+UxSFQIx99HnSPoU/toWMddXDcnLsbFXpQfLfj1k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8ea39819eed74fe2a0338e71789f06b30e953041"
+        "version": "eafe962b18f6c5dc70fb7c8cc7e83e61f4cdde06"
     },
     "udpxy": {
         "cargoLock": null,
@@ -560,9 +560,9 @@
             "name": null,
             "sha256": "sha256-S9scHPAeyYh4kIWprPVSK18zVZBuPqpqkOpg21tYNxE=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603242224/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603252229/geoip.dat"
         },
-        "version": "202603242224"
+        "version": "202603252229"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -573,11 +573,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EcAVIKUldSBKqxBsq9ZBIBVua/PIUV3HfJxNQ82xbrc=",
+            "sha256": "sha256-SfED3n3k0FC3XYiRV9m7252kSpOty+gOeIX/i/XHLiY=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603242224/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603252229/geosite.dat"
         },
-        "version": "202603242224"
+        "version": "202603252229"
     },
     "yass": {
         "cargoLock": null,
