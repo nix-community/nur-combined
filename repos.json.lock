@@ -36,8 +36,8 @@
             "url": "https://github.com/9glenda/nur-packages"
         },
         "Adamekka": {
-            "rev": "4189ee494c068774e4848e4a5096978722f3de4e",
-            "sha256": "1idcp5pk5yc14lvvfjqqia8aqh21p8kgfsflm1c3vwzj0akalm8j",
+            "rev": "85581671fc8fa1fb9cab0d620b17cbcb1930af4c",
+            "sha256": "1ks08qkzpg7w0zjd30nnwv2qavhrg02r14w64s2fg0s6isdd9540",
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "AndrewKvalheim": {
@@ -2562,8 +2562,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "f715b5679c73d7254568aacbec00f16ba1550a4b",
-            "sha256": "0r22vx21nbdirgjwwws534xvdk61x96nizmcq4lwiv7k357bbgmw",
+            "rev": "6b9d30648de8fb4af8ee855b18cafa762bb5eb13",
+            "sha256": "07kk7nr67723hxkfg9zbg6cfy9v9bxna30gmk0ddfb6ng013wzv5",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
