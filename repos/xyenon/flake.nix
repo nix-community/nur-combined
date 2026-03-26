@@ -32,10 +32,13 @@
         treefmtEval.config.build.wrapper
       );
       legacyPackages = forAllSystems (
-        system: import ./default.nix { pkgs = import nixpkgs { inherit system; }; }
+        system: import ./default.nix { pkgs = nixpkgs.legacyPackages.${system}; }
       );
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+      );
+      cacheOutputAttrs = forAllSystems (
+        system: (import ./ci.nix { pkgs = nixpkgs.legacyPackages.${system}; }).cacheOutputAttrs
       );
       nixosModules = import ./modules;
       hmModules = import ./hm-modules;
