@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A protobuf 3 implementation for zig";
-    mainProgram = "zig-protobuf";
+    mainProgram = "protoc-gen-zig";
     homepage = "https://github.com/Arwalk/zig-protobuf";
     changelog = "https://github.com/Arwalk/zig-protobuf/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
