@@ -2120,8 +2120,8 @@
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
         },
         "sedlund": {
-            "rev": "538c7f4b1b44eb33bebbb8d13775eb7adf238c6d",
-            "sha256": "0sqdsjfxabf0c3rmard8zj3rwhl7psy9lq90pvrngmniyhnbpqbf",
+            "rev": "b590ba51a6478e8cd4bf8a161dffb3a42aa6dd3d",
+            "sha256": "1dhivi9y8bkxy9a62y7g0r3rpq5d6dz99azpnlbc5ncgfi8lwy7z",
             "url": "https://github.com/sedlund/nur-packages"
         },
         "sehqlr": {
@@ -2562,8 +2562,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "0f93095c7f3f089589b63e39617d9eacd73bb60d",
-            "sha256": "1ai9dh5i891d6271llmkz7vafpl34q448qs4xxzv6drx04zdajwp",
+            "rev": "7b1b0ff448ae6236b616370770927cd7d1c439c5",
+            "sha256": "1hq8r8agnlh1d3sl2m368gicjxryq9ldll8a7k3pbqlyggl5cplp",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
