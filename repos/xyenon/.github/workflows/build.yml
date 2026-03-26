@@ -12,7 +12,7 @@ on:
     - cron: "43 3 * * *"
   workflow_dispatch:
 jobs:
-  tests:
+  channel-build:
     strategy:
       fail-fast: false
       matrix:
@@ -33,25 +33,26 @@ jobs:
         # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
+        cachixName: &cachixName
           - nur-xyenon
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-    runs-on: ubuntu-latest
+        runs-on: &runs-on [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
+    runs-on: ${{ matrix.runs-on }}
+    env:
+      NIX_PATH: ${{ matrix.nixPath }}
     steps:
-      - name: Checkout repository
+      - &checkoutRepository
+        name: Checkout repository
         uses: actions/checkout@v6
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: "${{ matrix.nixPath }}"
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - &installNix
+        name: Install nix
+        uses: DeterminateSystems/nix-installer-action@v21
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Setup cachix
+      - &setupCachix
+        name: Setup cachix
         uses: cachix/cachix-action@v17
         # Don't replace <YOUR_CACHIX_NAME> here!
         if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
@@ -76,26 +77,15 @@ jobs:
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
   flake-build:
     strategy:
+      fail-fast: false
       matrix:
-        cachixName:
-          - nur-xyenon
-    runs-on: ubuntu-latest
+        cachixName: *cachixName
+        runs-on: *runs-on
+    runs-on: ${{ matrix.runs-on }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Setup cachix
-        uses: cachix/cachix-action@v17
-        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-        with:
-          name: ${{ matrix.cachixName }}
-          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - *checkoutRepository
+      - *installNix
+      - *setupCachix
       - name: Build all flake packages
         run: |
           system="$(nix eval --raw --impure --expr builtins.currentSystem)"
