@@ -1446,8 +1446,8 @@
             "url": "https://github.com/lucasfa/nur-packages"
         },
         "lucassabreu": {
-            "rev": "ce948336d318a9f321bbea03dbc2ba29c28815cc",
-            "sha256": "0zh7dazr7zrrv1kzwlnzl4jfawfy2wlrhkminvkaa3499gfl7bzl",
+            "rev": "1b6eb930a7ab8268a98c0d7becedcefaa4041207",
+            "sha256": "0a3nbxxpfmpapq5l83ph6g2k2rl4j437apfwh09f3bjpnfzni58y",
             "url": "https://github.com/lucassabreu/nur-packages"
         },
         "lunik1": {
@@ -1824,8 +1824,8 @@
             "url": "https://github.com/nuclear06/NUR"
         },
         "nyadiia": {
-            "rev": "3cb212ee4c9846e57547c719979d40136ae20f7c",
-            "sha256": "1y7n9r59byrpm8a6qp3s5qrj59w1wwn3r5m3naig2gj6k7pwhpp7",
+            "rev": "101860493db0d8ece92c43c0a36bf26beadad55e",
+            "sha256": "0g4771xhr63fkyxnc4pmk7g6mr6vl4bkkdfkv7zr68rwi1n61igx",
             "url": "https://github.com/nyadiia/nur-packages"
         },
         "nykma": {
