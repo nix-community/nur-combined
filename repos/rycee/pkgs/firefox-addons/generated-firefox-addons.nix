@@ -2693,10 +2693,10 @@
     };
     "csgofloat" = buildMozillaXpiAddon {
       pname = "csgofloat";
-      version = "5.11.0";
+      version = "5.14.0";
       addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4715509/csgofloat-5.11.0.xpi";
-      sha256 = "e673babf5d9a130e1625fe1374561a7525ec10c845eb6dc046f7032b8c36dc3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4734421/csgofloat-5.14.0.xpi";
+      sha256 = "2c0b08ae3ed55f6bca82dffd87a8d7351a8753d6a8161fe7706f5103e21d8496";
       meta = with lib;
       {
         homepage = "https://csgofloat.com";
@@ -2828,10 +2828,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "150.0.20260324.2508";
+      version = "150.0.20260325.90410";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4737981/dansk_da_language_pack-150.0.20260324.2508.xpi";
-      sha256 = "1b105076f1b4482f982bf4ed966c2da95024a260c74da43e0c28fa1a3dd9ce50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4739816/dansk_da_language_pack-150.0.20260325.90410.xpi";
+      sha256 = "fe5dbb323934cc7c9ee456df813c5464b3615752fedc02f8decb00e01eee862d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2978,10 +2978,10 @@
     };
     "dearrow" = buildMozillaXpiAddon {
       pname = "dearrow";
-      version = "2.2.3";
+      version = "2.3.2";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4656721/dearrow-2.2.3.xpi";
-      sha256 = "7d5986ce0d92019c10f0ad62ab23a3293ec83c0f090a3c8c57379efb9455820c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4730911/dearrow-2.3.2.xpi";
+      sha256 = "d3185e2f773881b278f2bcd9be22256420dba8ec6d9628a565c01ce1fabf2f11";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2997,6 +2997,7 @@
           "https://*.youtube.com/*"
           "https://www.youtube-nocookie.com/embed/*"
           "scripting"
+          "https://dearrow.ajay.app/*"
         ];
         platforms = platforms.all;
       };
@@ -3041,10 +3042,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "150.0.20260324.2508";
+      version = "150.0.20260325.90410";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4737979/deutsch_de_language_pack-150.0.20260324.2508.xpi";
-      sha256 = "f7c58cea5b732af7f1fdfe7a13b71579d7d6fe8a10fade7fe723c835ce863b53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4739815/deutsch_de_language_pack-150.0.20260325.90410.xpi";
+      sha256 = "4afd9eb984cf82c324ba4490372131217e13f7f654adb5d5596fe5775a736d5f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4519,10 +4520,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "150.0.20260324.2508";
+      version = "150.0.20260325.90410";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4737972/francais_language_pack-150.0.20260324.2508.xpi";
-      sha256 = "7d659f7b3fbda5e547a92c2a2503c00bf35978d9582b0e138317b1948e5f1393";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4739745/francais_language_pack-150.0.20260325.90410.xpi";
+      sha256 = "b7cf05b0b6f667235b714bf33aeff9a2eefdd2c77e17a02c4adf03132868264d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4556,10 +4557,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "150.0.20260324.2508";
+      version = "150.0.20260325.90410";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4737963/gaidhlig_language_pack-150.0.20260324.2508.xpi";
-      sha256 = "90497d99f8253353a4e017401afe7145c570841dd7aab25f5e53aab932275ded";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4739761/gaidhlig_language_pack-150.0.20260325.90410.xpi";
+      sha256 = "e1a67ef71c89222a20e593038e7abe771d37fa162a8851434aa0eb967deaab43";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5332,10 +5333,10 @@
     };
     "hover-zoom-plus" = buildMozillaXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.1.11";
+      version = "1.1.12";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4680437/hover_zoom_plus-1.1.11.xpi";
-      sha256 = "15b8a73ab5d4c0f01c513d5db94c82f0e2cbd14af171a8a492d20e8649a50275";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4718772/hover_zoom_plus-1.1.12.xpi";
+      sha256 = "ee8c6be1328922b89b2c857af014ad040f4452b3266721328f1b52b3d64000fc";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -9654,10 +9655,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.0.36";
+      version = "1.0.37";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4698629/mergify-1.0.36.xpi";
-      sha256 = "e640a9b0fbc5bf1de8b0b4aa78bb846379f34577b6f93567cb227b435a497c9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4740130/mergify-1.0.37.xpi";
+      sha256 = "2c258f7961732ed2247c44b52998ec86bf326b5379c9c974b3e108411fb6796c";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -9773,10 +9774,10 @@
     };
     "momentumdash" = buildMozillaXpiAddon {
       pname = "momentumdash";
-      version = "2.26.1";
+      version = "2.26.3";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4708761/momentumdash-2.26.1.xpi";
-      sha256 = "4b49e5693e29ac57c008a043689c52407cc1339b3650bcebfdc9532dd34c4168";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4737854/momentumdash-2.26.3.xpi";
+      sha256 = "1bfbc9845b77e84389988150843cb7278285ff5eeded311abddfd993742a7335";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -10517,10 +10518,10 @@
     };
     "old-reddit-redirect" = buildMozillaXpiAddon {
       pname = "old-reddit-redirect";
-      version = "2.0.9";
+      version = "2.1.0";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4526031/old_reddit_redirect-2.0.9.xpi";
-      sha256 = "91e7554b85b79201f72c175f6e5f6f493b3330ee833b8289fb6417d991add50a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4716803/old_reddit_redirect-2.1.0.xpi";
+      sha256 = "2d1a432acab1b5dd8dfb8fd7eedadf88b5c1938600498a009710edf4ef1b0f9a";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -12859,10 +12860,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.26058";
+      version = "0.2.0.26068";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4707327/ruffle_rs-0.2.0.26058.xpi";
-      sha256 = "53eb7632f3ad3a3c939c92d2359c3adcc98589e4c2c87967742d1181bc4f6f8c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4718696/ruffle_rs-0.2.0.26068.xpi";
+      sha256 = "69b1b3557a2cf708312f70c598e4078fee37c3e13176b568bff0e2eb3c094fd0";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -13042,10 +13043,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "150.0.20260324.2508";
+      version = "150.0.20260325.90410";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4738003/scots_language_pack-150.0.20260324.2508.xpi";
-      sha256 = "79eda760d2894ba933f3e54cb0e98aae978552c1d3828032e955deaf8451b324";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4739824/scots_language_pack-150.0.20260325.90410.xpi";
+      sha256 = "74a05b60ac097a3730f0b5c8882c1f0f006ff2d114a45b7e1c2df14c2c9b0efa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14679,10 +14680,10 @@
     };
     "toggl-button-time-tracker" = buildMozillaXpiAddon {
       pname = "toggl-button-time-tracker";
-      version = "4.11.8";
+      version = "4.11.10";
       addonId = "toggl-button@toggl.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4666536/toggl_button_time_tracker-4.11.8.xpi";
-      sha256 = "cd9a31a6b8c75e27e37eeb3217205cd0c3ea30b03fa6a22a729e6cec0636fc86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4721113/toggl_button_time_tracker-4.11.10.xpi";
+      sha256 = "897e1d54d05cd81ae0a8e942115a1718be45c4878a36eee8aa061ee8f3d6ea0b";
       meta = with lib;
       {
         homepage = "https://toggl.com/track/";
@@ -15177,21 +15178,16 @@
     };
     "twitch-auto-points" = buildMozillaXpiAddon {
       pname = "twitch-auto-points";
-      version = "1.2.5";
+      version = "1.3.0";
       addonId = "{076d8ebb-5df6-48e0-a619-99315c395644}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3783975/twitch_auto_points-1.2.5.xpi";
-      sha256 = "7b11fd334267f61c6f4b2a3ff0450ae227776214790e056cdaf051532eaa8459";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4740625/twitch_auto_points-1.3.0.xpi";
+      sha256 = "0ee58ae7af9c7270977b0ba1c82b31c951749e1a527d64ae84757db5e1750bae";
       meta = with lib;
       {
         homepage = "https://github.com/Spring3/twitch-auto-points";
         description = "Automatic twitch channel points collection";
         license = licenses.gpl3;
-        mozPermissions = [
-          "activeTab"
-          "storage"
-          "tabs"
-          "https://www.twitch.tv/*"
-        ];
+        mozPermissions = [ "activeTab" "storage" "tabs" "*://*.twitch.tv/*" ];
         platforms = platforms.all;
       };
     };
@@ -16007,10 +16003,10 @@
     };
     "vimium" = buildMozillaXpiAddon {
       pname = "vimium";
-      version = "2.4.0";
+      version = "2.4.2";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4698049/vimium_ff-2.4.0.xpi";
-      sha256 = "9ad35d0857031770e5c2f419789a5dfa8ea2fa3de7056c1dd32ca0bc81bb4d37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4717567/vimium_ff-2.4.2.xpi";
+      sha256 = "131e2a67580e7ae9125ab19781159e61409fac47b441fc2782aab76396ead196";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
@@ -16189,10 +16185,10 @@
     };
     "wappalyzer" = buildMozillaXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.89";
+      version = "6.11.1";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4678569/wappalyzer-6.10.89.xpi";
-      sha256 = "dcd8c710246cf0b7f8847d89d9cbf233277e815a7c2a8b58cceea2c6174e2025";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4734393/wappalyzer-6.11.1.xpi";
+      sha256 = "2eb0314619acbf6c2788905461331277b52fd1a65b9d9ce4d8a0422a9ceaff66";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -16753,10 +16749,10 @@
     };
     "wikiwand-wikipedia-modernized" = buildMozillaXpiAddon {
       pname = "wikiwand-wikipedia-modernized";
-      version = "10.0.1";
+      version = "11.0.0";
       addonId = "jid1-D7momAzRw417Ag@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4341711/wikiwand_wikipedia_modernized-10.0.1.xpi";
-      sha256 = "ccd5e25bc14a7ce1ba9ada666e7bdb120b60beaf40c6c8ed77120e549171542a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4720146/wikiwand_wikipedia_modernized-11.0.0.xpi";
+      sha256 = "5201eb24f98f48d6dca5ae328f28b6edba241f9a86ddbffe1bf48c32693af198";
       meta = with lib;
       {
         homepage = "http://www.wikiwand.com";
@@ -16767,7 +16763,7 @@
           url = "https://www.wikiwand.com/terms";
           free = false;
         };
-        mozPermissions = [ "webNavigation" "menus" ];
+        mozPermissions = [ "declarativeNetRequest" "contextMenus" ];
         platforms = platforms.all;
       };
     };
@@ -17059,10 +17055,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.21.1";
+      version = "2.21.4";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4714437/youtube_no_translation-2.21.1.xpi";
-      sha256 = "a6ce0c91046c35d4eac0e4bbffe87f19a0481dd49d04b3943fc34c00840fceb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4732610/youtube_no_translation-2.21.4.xpi";
+      sha256 = "92c97b6bea1d1d14563c467a2993cd448228aba895a16df16887c65069072e99";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
@@ -17235,10 +17231,10 @@
     };
     "zen-internet" = buildMozillaXpiAddon {
       pname = "zen-internet";
-      version = "2.7.0";
+      version = "3.0.1";
       addonId = "{91aa3897-2634-4a8a-9092-279db23a7689}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4537733/zen_internet-2.7.0.xpi";
-      sha256 = "3c43e841136388eea54a3bf9c993482b5eaa62025a7895a852abaa6c4651d35a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4740383/zen_internet-3.0.1.xpi";
+      sha256 = "7ca93d129af3351d6bbaa1dcce01c24031c6bb5f649e4d374b1f1d86a0111897";
       meta = with lib;
       {
         homepage = "https://www.sameerasw.com";
