@@ -7,7 +7,6 @@
   alsa-lib,
   autoPatchelfHook,
   dpkg,
-  fetchurl,
   gtk3,
   lib,
   libdrm,

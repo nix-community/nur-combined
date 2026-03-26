@@ -62,8 +62,6 @@ if stdenvNoCC.hostPlatform.isDarwin then
       ;
 
     inherit
-      fetchurl
-      lib
       stdenvNoCC
       unzip
       ;
@@ -81,7 +79,6 @@ else
       alsa-lib
       autoPatchelfHook
       dpkg
-      fetchurl
       gtk3
       lib
       libdrm

@@ -4,8 +4,6 @@
   src,
   meta,
 
-  fetchurl,
-  lib,
   stdenvNoCC,
   unzip,
 }:
