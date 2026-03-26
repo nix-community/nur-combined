@@ -1734,8 +1734,8 @@
             "url": "https://github.com/nikolaizombie1/nur-packages"
         },
         "nikpkgs": {
-            "rev": "94c0b9403b5b8940a407c6343359605928f4d209",
-            "sha256": "0axas8zm6ydrba5gbarp36432nahmrgp4q0dini3q8g1a5v6awig",
+            "rev": "20ec3475f8ce478e58fb6c075c62ed0249faf3b0",
+            "sha256": "1bls4pylf9cbmjf4b3zdlw2dg32dj3ipa9gp1gvqqblsbfinnwvf",
             "url": "https://github.com/nikp123/nur-packages"
         },
         "nim65s": {
@@ -2602,13 +2602,13 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "40e51d21347b18d32099f95951ea8302449c8644",
-            "sha256": "0kln9ccxgrb37lpz87v1anj36h16xpd4ldls3ym39gs7vz2047bi",
+            "rev": "cb4c6b0ea18de63b39d8398762c312a60be130b2",
+            "sha256": "0ai3hhihi1h64gi811aw1i1d10knn6zjpd0wdkjppffchlm11fq3",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
-            "rev": "11165f3ccfcf4a78d6bfe9a15bbe431da27bdbde",
-            "sha256": "042g45rsvik5vx2p4hvydkcnqn84vd2ynbvcmslb37w6gdx92pz6",
+            "rev": "f8abdfd030c0d5f3cf6929be7166846827bf1afb",
+            "sha256": "16vszy8zxk5pl2knm1z6319phy77blf03rkcgwkz0i1464j1z1pw",
             "url": "https://github.com/zimeg/nur-packages"
         },
         "zjm54321": {
