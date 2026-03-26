@@ -1954,8 +1954,8 @@
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
         "prince213": {
-            "rev": "8e654fe2691db2f637a86156dd5db52aa508cba4",
-            "sha256": "0qlxgwhc5v30ydsxg31wwasl7cijbgjzni5hf3kb3vwqrmfrr37f",
+            "rev": "af87924173b742729c8d6564128195d60aa2b049",
+            "sha256": "1hibygf5r6nmk4y3mzdl2g5n8m21zx7h6cs3b5rda3kqy5l0jlrp",
             "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
