@@ -39,7 +39,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-BLQ59f5knhwFf5MFJtJCc5D4myoYxM2dz/2egvYBKHU=";
+      sha256 = "sha256-Ge1X3FzZ+lDYZgjYZpvXO+/lgS99d1p7orolbXnQPOc=";
     };
   };
   helium-linux = {
@@ -136,7 +136,7 @@
     version = "1.19.3b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg";
-      sha256 = "sha256-IPYuwHYgfZjFAo+MDOAkkTLIP46MzSthVVfIFDO2On8=";
+      sha256 = "sha256-OrS95nOp/Fj9K5ffY6cDbExsirkGy0CM3bPwtquS1j4=";
     };
   };
 }
