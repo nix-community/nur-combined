@@ -1664,8 +1664,8 @@
             "url": "https://github.com/mrene/nur-packages"
         },
         "mrtnvgr": {
-            "rev": "cb0f2c365cf8f72146cff2d8b3cee96fe343d77a",
-            "sha256": "0nq0n1whdzb2hxihg00zvzwz735mw10qygwl3z1h51f4q2873r3r",
+            "rev": "0352cd45a87992106e12986fbd30a3d927d588d2",
+            "sha256": "1wjm39p5m8hb06fcyc21fl31fgax8ck1y0rawgcqp64a31hnhbj9",
             "url": "https://github.com/mrtnvgr/nurpkgs"
         },
         "mur": {
