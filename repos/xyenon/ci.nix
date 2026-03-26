@@ -22,8 +22,11 @@ let
     let
       licenseFromMeta = p.meta.license or [ ];
       licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
+      platforms = p.meta.platforms or [ ];
     in
-    !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
+    !(p.meta.broken or false)
+    && builtins.all (license: license.free or true) licenseList
+    && (platforms == [ ] || builtins.elem pkgs.stdenv.hostPlatform.system platforms);
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 

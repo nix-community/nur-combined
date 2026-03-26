@@ -44,5 +44,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://r.lily-is.land/the-kazv-project/vodozemac-bindings";
     license = licenses.asl20;
     maintainers = with maintainers; [ xyenon ];
+    platforms = platforms.linux;
   };
 }

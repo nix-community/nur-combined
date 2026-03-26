@@ -23,7 +23,7 @@
   immer,
   zug,
   cryptopp,
-  vodozemac-bindings-kazv-unstable,
+  vodozemac-bindings-kazv,
   nlohmann_json,
   libkazv,
   cmark,
@@ -72,7 +72,7 @@ stdenv.mkDerivation {
     immer
     zug
     cryptopp
-    vodozemac-bindings-kazv-unstable
+    vodozemac-bindings-kazv
     nlohmann_json
     libkazv
     cmark

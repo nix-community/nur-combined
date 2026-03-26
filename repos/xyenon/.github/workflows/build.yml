@@ -16,6 +16,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        runs-on: &runs-on [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
+        nixChannel:
+          - nixpkgs-unstable
+          - nixos-unstable
         # Set this to notify the global nur package registry that changes are
         # available.
         #
@@ -35,13 +39,9 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName: &cachixName
           - nur-xyenon
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-        runs-on: &runs-on [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
     runs-on: ${{ matrix.runs-on }}
     env:
-      NIX_PATH: ${{ matrix.nixPath }}
+      NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/${{ matrix.nixChannel }}.tar.gz
     steps:
       - &checkoutRepository
         name: Checkout repository
@@ -80,8 +80,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cachixName: *cachixName
         runs-on: *runs-on
+        cachixName: *cachixName
     runs-on: ${{ matrix.runs-on }}
     steps:
       - *checkoutRepository

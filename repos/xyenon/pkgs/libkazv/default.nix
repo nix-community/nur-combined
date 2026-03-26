@@ -9,7 +9,7 @@
   zug,
   boost,
   nlohmann_json,
-  vodozemac-bindings-kazv-unstable,
+  vodozemac-bindings-kazv,
   cryptopp,
   libcpr,
   libhttpserver,
@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     zug
     boost
     nlohmann_json
-    vodozemac-bindings-kazv-unstable
+    vodozemac-bindings-kazv
     cryptopp
 
     libcpr
@@ -67,5 +67,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://lily-is.land/kazv/libkazv";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ xyenon ];
+    platforms = platforms.linux;
   };
 })
