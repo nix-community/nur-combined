@@ -70,7 +70,7 @@ jobs:
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
       - name: Build nix packages
-        run: nix run github:Mic92/nix-fast-build -- --no-nom --skip-cached --file ci.nix -A cacheOutputs
+        run: nix run github:Mic92/nix-fast-build -- --no-nom --skip-cached --file ci.nix -A cacheOutputAttrs
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
         if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
@@ -87,4 +87,4 @@ jobs:
       - *installNix
       - *setupCachix
       - name: Build nix packages
-        run: nix run github:Mic92/nix-fast-build -- --no-nom --skip-cached --flake ".#packages.$(nix eval --raw --impure --file builtins.currentSystem)"
+        run: nix run github:Mic92/nix-fast-build -- --no-nom --skip-cached --flake ".#packages.$(nix eval --raw --impure --expr builtins.currentSystem)"

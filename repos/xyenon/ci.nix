@@ -50,6 +50,15 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
+  outputsToAttrs =
+    outputs:
+    builtins.listToAttrs (
+      map (o: {
+        name = "${o.name}-${o.outputName}";
+        value = o;
+      }) outputs
+    );
+
   nurAttrs = import ./default.nix { inherit pkgs; };
 
   nurPkgs = flattenPkgs (
@@ -64,4 +73,7 @@ rec {
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
+
+  buildOutputAttrs = outputsToAttrs buildOutputs;
+  cacheOutputAttrs = outputsToAttrs cacheOutputs;
 }
