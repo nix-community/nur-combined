@@ -2447,8 +2447,8 @@
             "url": "https://github.com/ViZiD/nur-vizqq"
         },
         "vladexa": {
-            "rev": "039bcc462301af4dc11be148dd04d30ac0376dcf",
-            "sha256": "0czq9nml75wxhcxblnwl6zdyzqalzc3i0703lw1x02swbg9l61hn",
+            "rev": "0439173e36f0d59179a3f5d203a6262141816df2",
+            "sha256": "0fdq0n5djwyrs9qw2a21i2azz6dbkv5lzny4f4z8q83yjs2c0icc",
             "url": "https://github.com/VlaDexa/nur-packages"
         },
         "vojtechstep": {
