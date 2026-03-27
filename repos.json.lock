@@ -1578,8 +1578,8 @@
             "url": "https://github.com/milahu/nur-packages"
         },
         "minegameYTB": {
-            "rev": "b2d10c8de853e2d74f85e64921b5670296056b3f",
-            "sha256": "188bg25nzvjjdshrpy1vm2fqbi5nk3g1vvvpwdmfsksyq7z6gcyq",
+            "rev": "62d073738d57c52cf92508a8e0a1d4a2270b719a",
+            "sha256": "1px75qskx60mklvw8kszg69l4q83ni4anikcacl5kp2xyvfa5pyg",
             "url": "https://github.com/minegameYTB/nurpkgs-repo"
         },
         "minion3665": {
@@ -1598,8 +1598,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "eeba67facc2c40b117d76f89a810b61b9bce9959",
-            "sha256": "0z1wg4czbf563v81478k7cajbnjhasafvlq5g7hmxyq9cvj3ck39",
+            "rev": "1a038e67cca7d8a9e74fdea2495f085a8d24ae3d",
+            "sha256": "01gkfwbi834vxprkjyr1plzwzzvk9dd1l9vdb1qck9550ign9nzp",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
