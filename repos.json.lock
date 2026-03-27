@@ -1598,8 +1598,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "5f3ce6c1c4fa26a365ff8d9d059d9763cd4ff336",
-            "sha256": "1pmsakpv8dwxrgh27y2vvh3z18j85ipv1xm4r968zlxv24kndhyg",
+            "rev": "3545cd9b93edd8e570839368c899ebea1ea83ea1",
+            "sha256": "0zkzn25afv02k7fkiib0lqp5g1q1kqccf1ac6ahwg1g32m6s3k8l",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2120,8 +2120,8 @@
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
         },
         "sedlund": {
-            "rev": "196776f5c36be3b9bbf07a82a02935e91f3c7160",
-            "sha256": "1by1nf52h7biw49yx9bksmj6l3lqxys3b609b90iznclr44m6wfv",
+            "rev": "189dd4e4e3db8e3391595753bda577a2745d5e9c",
+            "sha256": "0p6sf2xni6dsrmpifx369s5ywzylill58ng0qypdx7vzl1kih3xd",
             "url": "https://github.com/sedlund/nur-packages"
         },
         "sehqlr": {
@@ -2297,8 +2297,8 @@
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
         "the-code-fixer-23-nur": {
-            "rev": "e3649ca1719f7f1ef7e2f8b5ebc55b566c7ebdac",
-            "sha256": "1w2nixq3x4jnqki90caazm5awla64313f15mr45m6rpnx35r2v3a",
+            "rev": "173134d336fe40cb96d40f89ec281f1657c2357f",
+            "sha256": "12gg549879biycl3wngqk94kwkm901m7dha7f75kjg8cmz5yb18v",
             "url": "https://github.com/louiss0/the-code-fixer-23-nur"
         },
         "therobot2105": {
