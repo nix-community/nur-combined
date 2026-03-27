@@ -1,4 +1,7 @@
 {
+  "edit_predictions": {
+    "provider": "copilot"
+  },
   "git_panel": {
     "tree_view": true,
     "sort_by_path": true
@@ -8,9 +11,6 @@
     "shell": {
       "program": "fish"
     }
-  },
-  "features": {
-    "edit_prediction_provider": "copilot"
   },
   "agent": {
     "default_profile": "write",

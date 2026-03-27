@@ -62,6 +62,7 @@ in
             openssl
             rclone
             ripgrep
+            ast-grep
             rsync
             sops
             sqlite
