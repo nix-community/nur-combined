@@ -74,7 +74,7 @@ jobs:
         run: nix run github:Mic92/nix-fast-build -- --no-nom --skip-cached --file ci.nix -A cacheOutputAttrs
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && github.event_name == 'push' }}
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
   flake-build:
     strategy:
