@@ -1451,8 +1451,8 @@
             "url": "https://github.com/lucassabreu/nur-packages"
         },
         "lunik1": {
-            "rev": "fc1edd82694a0c5f28134c8824710f992e342874",
-            "sha256": "0ggzkby2ikd4l3ampri5if0mswxqlddvs5gv14vdl4c7mg7y8byy",
+            "rev": "6009798a8088b07f863c905ebd7f64773ad2fcc6",
+            "sha256": "1ymi93nclbsxvxjhkl9v2bkf5pbq4qyqg5jv24wbdyg4zjq270ln",
             "url": "https://github.com/lunik1/nur-packages"
         },
         "lxl66566": {
@@ -2090,8 +2090,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "11af6f465a038233b8123022dcb7e293f3229f11",
-            "sha256": "1y8dphi2mhgkh00sr3x2vhrw580jxxgqs7rxblxcacc4l0lk2f5p",
+            "rev": "6dd173bedf338d5632aa4dfec2595ce299a35645",
+            "sha256": "1z36fbsvrj1mjgl6cv04kmdvx3lad1lkk8n1qdy0kj4fdvrdsg3q",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
