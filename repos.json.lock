@@ -587,8 +587,8 @@
             "url": "https://github.com/chrjabs/nur-packages"
         },
         "cinqwqeggs": {
-            "rev": "91d9f0a9444a56fab846f12e583ff3076ab805c6",
-            "sha256": "1a6wc93wk4pig5gw10pgprhsfkwa96kasry7dnpf3d7ga1cpsbkc",
+            "rev": "72dfc49803282613730969a71b2eb8afd0b588f1",
+            "sha256": "0ay0ww4n6hr52xfzr2y1dmr8dqdccp1291qiwliz2y35hxwly619",
             "url": "https://github.com/CinQwQeggs01/nur-packages-template"
         },
         "clefru": {
