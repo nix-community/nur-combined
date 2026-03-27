@@ -1,3 +1,4 @@
+{ localFlake, withSystem }:
 {
   config,
   lib,
@@ -27,7 +28,7 @@ in
     assertions = [ ];
 
     boot.extraModulePackages = [
-      (config.boot.kernelPackages.callPackage ../_pkgs/tcp-brutal.nix { })
+      (config.boot.kernelPackages.callPackage "${localFlake}/_pkgs/tcp-brutal.nix" { })
     ];
   };
 }

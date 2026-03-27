@@ -41,6 +41,7 @@
         flake =
           # Put your original flake attributes here.
           let
+            inherit (inputs.flake-parts.lib) importApply;
             pkgsOverlays = {
               nixpkgs.overlays = [
                 self.overlays.default
@@ -50,93 +51,70 @@
             };
           in
           {
-            nixosModules = import ./modules;
+            nixosModules = import ./modules {
+              inherit importApply withSystem;
+              localFlake = self;
+            };
 
-            nixosConfigurations.nixo6n = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs; };
-              modules = [
-                pkgsOverlays
+            nixosConfigurations =
+              let
+                mkSystem =
+                  machine: extraModules:
+                  nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit inputs; };
+                    modules = [
+                      pkgsOverlays
 
-                ./nixos/machines/o6n/configuration.nix
+                      (./. + "/nixos/machines/${machine}/configuration.nix")
 
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.users.shiroki = {
-                    imports = [
-                      ./home.nix
-                      catppuccin.homeModules.catppuccin
-                    ];
+                      home-manager.nixosModules.home-manager
+                      {
+                        home-manager.useGlobalPkgs = true;
+                        home-manager.useUserPackages = true;
+                        home-manager.users.shiroki = {
+                          imports = [
+                            ./home.nix
+                            catppuccin.homeModules.catppuccin
+                          ];
+                        };
+
+                        # Optionally, use home-manager.extraSpecialArgs to pass
+                        # arguments to home.nix
+                        home-manager.extraSpecialArgs = {
+                          inherit machine;
+                        };
+                      }
+
+                      inputs.daeuniverse.nixosModules.dae
+                      inputs.daeuniverse.nixosModules.daed
+
+                      catppuccin.nixosModules.catppuccin
+                      {
+                        catppuccin.cache.enable = true;
+                      }
+                    ] ++ extraModules;
                   };
-
-                  # Optionally, use home-manager.extraSpecialArgs to pass
-                  # arguments to home.nix
-                  home-manager.extraSpecialArgs = {
-                    machine = "o6n";
-                  };
-                }
-
-                inputs.daeuniverse.nixosModules.dae
-                inputs.daeuniverse.nixosModules.daed
-
-                catppuccin.nixosModules.catppuccin
-                {
-                  catppuccin.cache.enable = true;
-                }
-
-                sops-nix.nixosModules.sops
-                {
-                  sops = {
-                    environment = {
-                      SOPS_AGE_SSH_PRIVATE_KEY_FILE = "/etc/ssh/ssh_host_ed25519_key";
+              in
+              {
+                nixo6n = mkSystem "o6n" [
+                  sops-nix.nixosModules.sops
+                  {
+                    sops = {
+                      environment = {
+                        SOPS_AGE_SSH_PRIVATE_KEY_FILE = "/etc/ssh/ssh_host_ed25519_key";
+                      };
                     };
-                  };
-                }
+                  }
+                  self.nixosModules.qbittorrent-clientblocker
+                  self.nixosModules.snell-server
+                ];
 
-                self.nixosModules.qbittorrent-clientblocker
-                self.nixosModules.snell-server
-              ];
-            };
-
-            nixosConfigurations.nixopi5 = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs; };
-              modules = [
-                pkgsOverlays
-
-                ./nixos/machines/opi5/configuration.nix
-
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.users.shiroki = {
-                    imports = [
-                      ./home.nix
-                      catppuccin.homeModules.catppuccin
-                    ];
-                  };
-
-                  # Optionally, use home-manager.extraSpecialArgs to pass
-                  # arguments to home.nix
-                  home-manager.extraSpecialArgs = {
-                    machine = "opi5";
-                  };
-                }
-
-                inputs.daeuniverse.nixosModules.dae
-                inputs.daeuniverse.nixosModules.daed
-
-                catppuccin.nixosModules.catppuccin
-                {
-                  catppuccin.cache.enable = true;
-                }
-
-                self.nixosModules.msd-lite
-                self.nixosModules.qbittorrent-clientblocker
-                self.nixosModules.snell-server
-              ];
-            };
+                nixopi5 = mkSystem "opi5" [
+                  self.nixosModules.msd-lite
+                  self.nixosModules.qbittorrent-clientblocker
+                  self.nixosModules.snell-server
+                ];
+              };
           };
         systems =
           # systems for which you want to build the `perSystem` attributes

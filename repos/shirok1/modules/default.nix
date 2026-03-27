@@ -1,9 +1,8 @@
+{ importApply, localFlake, withSystem }:
+
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
-  msd-lite = ./msd-lite.nix;
-  qbittorrent-clientblocker = ./qbittorrent-clientblocker.nix;
-  snell-server = ./snell-server.nix;
-  tcp-brutal = ./tcp-brutal.nix;
+  msd-lite = importApply ./msd-lite.nix { inherit localFlake withSystem; };
+  qbittorrent-clientblocker = importApply ./qbittorrent-clientblocker.nix { inherit localFlake withSystem; };
+  snell-server = importApply ./snell-server.nix { inherit localFlake withSystem; };
+  tcp-brutal = importApply ./tcp-brutal.nix { inherit localFlake withSystem; };
 }

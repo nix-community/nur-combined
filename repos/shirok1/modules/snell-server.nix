@@ -1,3 +1,4 @@
+{ localFlake, withSystem }:
 {
   config,
   lib,
@@ -41,7 +42,14 @@ in
       '';
     };
 
-    package = lib.options.mkPackageOption pkgs "snell-server" { };
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = withSystem pkgs.stdenv.hostPlatform.system (
+        { config, ... }: config.packages.snell-server
+      );
+      defaultText = lib.literalMD "`packages.snell-server` from the shirok1/flakes flake";
+      description = "The snell-server package to use.";
+    };
   };
 
   config = lib.mkIf cfg.enable {

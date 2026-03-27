@@ -1,3 +1,4 @@
+{ localFlake, withSystem }:
 {
   config,
   lib,
@@ -46,12 +47,14 @@ in
       };
     };
 
-    package = lib.options.mkPackageOption pkgs "qbittorrent-clientblocker" { };
-    # package = lib.mkOption {
-    #   type = lib.types.package;
-    #   default = pkgs.qbittorrent-clientblocker;
-    #   description = "The qbittorrent-clientblocker package to use.";
-    # };
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = withSystem pkgs.stdenv.hostPlatform.system (
+        { config, ... }: config.packages.qbittorrent-clientblocker
+      );
+      defaultText = lib.literalMD "`packages.qbittorrent-clientblocker` from the shirok1/flakes flake";
+      description = "The qbittorrent-clientblocker package to use.";
+    };
   };
 
   config = lib.mkIf cfg.enable {

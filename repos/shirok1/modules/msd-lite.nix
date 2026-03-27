@@ -1,3 +1,4 @@
+{ localFlake, withSystem }:
 {
   config,
   lib,
@@ -316,7 +317,14 @@ in
       description = "List of source profile templates (sourceProfile).";
     };
 
-    package = lib.options.mkPackageOption pkgs "msd-lite" { };
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = withSystem pkgs.stdenv.hostPlatform.system (
+        { config, ... }: config.packages.msd-lite
+      );
+      defaultText = lib.literalMD "`packages.msd-lite` from the shirok1/flakes flake";
+      description = "The msd-lite package to use.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
