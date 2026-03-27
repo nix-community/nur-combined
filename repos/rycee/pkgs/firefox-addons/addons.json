@@ -330,6 +330,16 @@
     "slug": "control-panel-for-twitter"
   },
   {
+    "slug": "control-panel-for-youtube",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "cookie-autodelete"
   },
   {
@@ -1108,6 +1118,9 @@
     "slug": "lemmy-keyboard-navigation"
   },
   {
+    "slug": "less-mixes-for-youtube"
+  },
+  {
     "slug": "lesspass"
   },
   {
@@ -1228,6 +1241,26 @@
     "license": {
       "tag": "predefined",
       "shortName": "wtfpl"
+    }
+  },
+  {
+    "slug": "modern-for-hacker-news",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
+    "slug": "modern-for-wikipedia",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
     }
   },
   {

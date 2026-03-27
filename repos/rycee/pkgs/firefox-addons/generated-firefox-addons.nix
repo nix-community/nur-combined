@@ -2379,6 +2379,32 @@
         platforms = platforms.all;
       };
     };
+    "control-panel-for-youtube" = buildMozillaXpiAddon {
+      pname = "control-panel-for-youtube";
+      version = "1.31.6";
+      addonId = "control-panel-for-youtube@jbscript.dev";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4718751/control_panel_for_youtube-1.31.6.xpi";
+      sha256 = "7bfdc56b82bcccb2f78b5c261a749743bacb841aad8d8630fb3acaa07416a37c";
+      meta = with lib;
+      {
+        homepage = "https://soitis.dev/control-panel-for-youtube";
+        description = "Gives you more control over YouTube by adding missing options and UI improvements";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "storage"
+          "https://www.youtube.com/*"
+          "https://m.youtube.com/*"
+          "https://www.youtube.com/embed/*"
+          "https://www.youtube-nocookie.com/embed/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "cookie-autodelete" = buildMozillaXpiAddon {
       pname = "cookie-autodelete";
       version = "3.8.2";
@@ -8173,6 +8199,24 @@
         platforms = platforms.all;
       };
     };
+    "less-mixes-for-youtube" = buildMozillaXpiAddon {
+      pname = "less-mixes-for-youtube";
+      version = "3.1.2";
+      addonId = "yt-less-mixes@example.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4684006/less_mixes_for_youtube-3.1.2.xpi";
+      sha256 = "5dfd7c09ed1341fd9df57f5d26bd0747456b7f5637af53b653c09ebed7b53da4";
+      meta = with lib;
+      {
+        description = "Prevent YouTube Mix generation for music videos";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "declarativeNetRequestWithHostAccess"
+          "storage"
+          "*://*.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "lesspass" = buildMozillaXpiAddon {
       pname = "lesspass";
       version = "11.0.10";
@@ -9748,6 +9792,53 @@
         description = "Scroll fast or precise through long documents with pressed middle mouse button";
         license = licenses.wtfpl;
         mozPermissions = [ "*://*/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "modern-for-hacker-news" = buildMozillaXpiAddon {
+      pname = "modern-for-hacker-news";
+      version = "1.14";
+      addonId = "{b9edf38a-e293-4606-a088-e63cd4e56d2d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029681/modern_for_hacker_news-1.14.xpi";
+      sha256 = "ce329f7062e7a42ad24d2a1aea4ebec9e6abb14ad49b077fbb263ca8fc2001c0";
+      meta = with lib;
+      {
+        homepage = "https://www.modernhn.com";
+        description = "A redesigned web interface for Hacker News. Enhance your Hacker News experience with a beautiful, clean, modern design that's fully customizable.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "unlimitedStorage"
+          "*://news.ycombinator.com/*"
+          "https://extensionpay.com/*"
+          "https://hacker-news.firebaseio.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "modern-for-wikipedia" = buildMozillaXpiAddon {
+      pname = "modern-for-wikipedia";
+      version = "1.25";
+      addonId = "{e9090647-32ff-48e4-9c3c-1361e8fd270e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4060590/modern_for_wikipedia-1.25.xpi";
+      sha256 = "99ad4756585daaa4f6131d095fd1e49584733df88ef75c825e843e28ec0e61f6";
+      meta = with lib;
+      {
+        homepage = "https://www.modernwiki.app";
+        description = "A redesigned user interface for Wikipedia. Enhance your Wikipedia experience with a beautiful, clean, modern design that's fully customizable.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [ "tabs" "storage" "*://*.wikipedia.org/*" ];
         platforms = platforms.all;
       };
     };
@@ -15185,7 +15276,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/Spring3/twitch-auto-points";
-        description = "Automatic twitch channel points collection";
+        description = "Automatic twitch channel points collection. Click on the icon to disable the extension (becomes grey). If the icon is colorful, it means it's working. Wait for the collect points button to appear on the screen and see it being automatically claimed.";
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" "storage" "tabs" "*://*.twitch.tv/*" ];
         platforms = platforms.all;
@@ -17231,10 +17322,10 @@
     };
     "zen-internet" = buildMozillaXpiAddon {
       pname = "zen-internet";
-      version = "3.0.1";
+      version = "3.1.2";
       addonId = "{91aa3897-2634-4a8a-9092-279db23a7689}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4740383/zen_internet-3.0.1.xpi";
-      sha256 = "7ca93d129af3351d6bbaa1dcce01c24031c6bb5f649e4d374b1f1d86a0111897";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4741120/zen_internet-3.1.2.xpi";
+      sha256 = "79291e0da3ce9fea332a39993c62b1f71106cc5a062f82297bbd3f2d0c873a68";
       meta = with lib;
       {
         homepage = "https://www.sameerasw.com";
