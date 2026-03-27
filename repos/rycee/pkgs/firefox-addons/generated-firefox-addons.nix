@@ -15269,10 +15269,10 @@
     };
     "twitch-auto-points" = buildMozillaXpiAddon {
       pname = "twitch-auto-points";
-      version = "1.3.0";
+      version = "1.3.1";
       addonId = "{076d8ebb-5df6-48e0-a619-99315c395644}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4740625/twitch_auto_points-1.3.0.xpi";
-      sha256 = "0ee58ae7af9c7270977b0ba1c82b31c951749e1a527d64ae84757db5e1750bae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4741845/twitch_auto_points-1.3.1.xpi";
+      sha256 = "67dbdd04253f7aa15bde11a7e403833d1c8085f7b352ba1010305280887901ec";
       meta = with lib;
       {
         homepage = "https://github.com/Spring3/twitch-auto-points";
@@ -15762,16 +15762,22 @@
     };
     "varia-integrator" = buildMozillaXpiAddon {
       pname = "varia-integrator";
-      version = "1.4";
+      version = "1.5";
       addonId = "giantpinkrobots@protonmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4556398/varia_integrator-1.4.xpi";
-      sha256 = "58f6143ae499f19e931af43ea5403fd3397dcd9b823115ccec59e2c9d847fbd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4741785/varia_integrator-1.5.xpi";
+      sha256 = "1486f3a2c9c485578b296ae2e40d89200779f7b69729d5022d60966e6378300c";
       meta = with lib;
       {
         homepage = "https://giantpinkrobots.github.io/varia/";
         description = "Route all downloads to Varia if it's running.";
         license = licenses.mpl20;
-        mozPermissions = [ "downloads" "storage" "<all_urls>" "tabs" ];
+        mozPermissions = [
+          "downloads"
+          "storage"
+          "<all_urls>"
+          "tabs"
+          "cookies"
+        ];
         platforms = platforms.all;
       };
     };
