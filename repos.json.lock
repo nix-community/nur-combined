@@ -241,8 +241,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "dd2c8360bb41b29c81bf73dcdbd308f33636300b",
-            "sha256": "1p6spqwnjl04mj9wf3ihqi3l342ln58xfqsxbvkqpkbp7vcs7xvm",
+            "rev": "a2a67ec19530f4a3b66d8d672fd31d4781bea602",
+            "sha256": "002zzl72hb63d4686racm6x55gj4rfqx7vzndxv05bccz6jz9dn2",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
@@ -2367,8 +2367,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "60b12f984f283043d78bb5e51ba380470f85e85f",
-            "sha256": "1507yf00z9c8ypcbaqgn2wvgbm9a762h4rgc5khl7wvxx0jg9401",
+            "rev": "92645cc32e71a55294bcaddba0fe78d4444f37e7",
+            "sha256": "1rqbdiny358sx30833nbh8mni0cmk11rnc6mgm4aa03ys1vdpqz7",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
