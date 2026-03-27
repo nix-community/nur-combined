@@ -9,13 +9,13 @@
 
 melpaBuild (finalAttrs: {
   pname = "majutsu";
-  version = "0.6.0-unstable-2026-03-04";
+  version = "0.6.0-unstable-2026-03-13";
 
   src = fetchFromGitHub {
     owner = "0WD0";
     repo = "majutsu";
-    rev = "bb56ca9223df4a54582852b79421d9cccfc0d78e";
-    hash = "sha256-GJ1HuacEvir269dE+9V4J/r4mLasQ3eB9yokqx0UJEI=";
+    rev = "c329beb4a959efe2ad07007dc9c983a0dfbf34a3";
+    hash = "sha256-0XE/+4feNnu2Ip2bQLR++kl5rD/rkdlA2B3g3ZuQEfg=";
   };
 
   packageRequires = [
