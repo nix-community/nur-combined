@@ -2417,8 +2417,8 @@
             "url": "https://github.com/unstable-code/nur-packages"
         },
         "uriotv": {
-            "rev": "b8392e2767107a8daf3cbc0608f06ad0b3a16a23",
-            "sha256": "0m2qdwmwbyj7a4pz7k9cacg7ny526kqxyi2sxpfpmvbvdfc1pjfp",
+            "rev": "1de4ba2dad632f1623ca3caefd36775657d11b5c",
+            "sha256": "0qn916nss0jcijxlndsygkabn07jsd122jkgfz60djb7nwp4mas2",
             "url": "https://github.com/urioTV/urio-nur"
         },
         "utybo": {
