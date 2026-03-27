@@ -11,22 +11,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "0d6mypkaacrq4xf1cj6xsyqa98chspm598xg6prsp5bp00pgn5aw";
-    aarch64-linux = "0dn59lpnb4y1ac767wvyx0bz4payg0sajs8fp7qxdz41sa8hgs0l";
-    x86_64-darwin = "0azr703rh10hz68wxkzs5ba1iyzy54yxcxzzrxdldsnsm6prn921";
-    aarch64-darwin = "1bg138cz3v7am9qw1zzqdy0fwc0nnhdwib6iaaffk0yaaha712ps";
+    x86_64-linux = "1snkryarlm60504h2mp238ba9ads6jwqi6nhikyda1n6kvmdm4kq";
+    aarch64-linux = "0nj9apw32cn07wijdsg69has0vqgfdyb241zqcz92cxlw4qqfw66";
+    x86_64-darwin = "06397y47wndzgpmgryyiilkn0344k5n7wfc62qk6p4kfg7f8j0mx";
+    aarch64-darwin = "1vnqcnywa1xxqx89hs1ikyqmwaf99ckk2r7mrn4ax30j2a2sshzb";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/Sheltons-CLI-Projects/go-toolkit/releases/download/v0.11.5-alpha/go-toolkit_0.11.5-alpha_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/Sheltons-CLI-Projects/go-toolkit/releases/download/v0.11.5-alpha/go-toolkit_0.11.5-alpha_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/Sheltons-CLI-Projects/go-toolkit/releases/download/v0.11.5-alpha/go-toolkit_0.11.5-alpha_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/Sheltons-CLI-Projects/go-toolkit/releases/download/v0.11.5-alpha/go-toolkit_0.11.5-alpha_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.0/go-toolkit_0.2.0_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.0/go-toolkit_0.2.0_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.0/go-toolkit_0.2.0_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.0/go-toolkit_0.2.0_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "go-toolkit";
-  version = "0.11.5-alpha";
+  version = "0.2.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     description = "CLI for scaffolding Go projects and managing module dependencies.";
-    homepage = "https://github.com/Sheltons-CLI-Projects/go-toolkit";
+    homepage = "https://github.com/louiss0/go-toolkit";
     license = lib.licenses.mit;
 
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
