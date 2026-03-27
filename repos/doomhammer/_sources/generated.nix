@@ -16,10 +16,10 @@
   };
   omniwm = {
     pname = "omniwm";
-    version = "v0.4.3";
+    version = "v0.4.3.2";
     src = fetchurl {
-      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.3/OmniWM-v0.4.3.zip";
-      sha256 = "sha256-21i3eEb1zXb6l61hO5BMF3quxT3wgGhpgWotOQ1Zar0=";
+      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.3.2/OmniWM-v0.4.3.2.zip";
+      sha256 = "sha256-0fM2qDfoMONOQBl3iAAgtD2gsKw+hN5OHkdtaSbTxO8=";
     };
   };
   paperwm-spoon = {
