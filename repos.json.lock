@@ -642,8 +642,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "6ac4ee64f2fe82aeae9547437604a5d20041c9c2",
-            "sha256": "15dmvlrv28qjf9qn0bih7wxkr3yrb9kjxpzfnp9x3h9rsqlz60ib",
+            "rev": "a14d977b1ee4a98d59f5c60b2a93d8b1ae858e9b",
+            "sha256": "0h9h8q5ij0dlm2nrz16kh6gndxwp5axf8fw1vvixr1qv88sxfzpl",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
@@ -1421,8 +1421,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "88f547f5e66ca76e6e1add92df2e16bbaa2b42c6",
-            "sha256": "17ihpiidcsngcg126dapkyqqcam6hjpvlg0awpmzl2vy1rm1yxhs",
+            "rev": "5ac239fdba3b2db402afe846ff3d1779a90a0aae",
+            "sha256": "03kl2d6j662ri0b4f8qh461av6rpnibm3m5p7s8v3cg19gv31rks",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2562,8 +2562,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "7b1b0ff448ae6236b616370770927cd7d1c439c5",
-            "sha256": "1hq8r8agnlh1d3sl2m368gicjxryq9ldll8a7k3pbqlyggl5cplp",
+            "rev": "25986c7f067fb6026e72f35e820bd2b68758d638",
+            "sha256": "1fn4qilg680rz9xyngi751xrcj5l44pswww2qpsxympmpqn78ryk",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
