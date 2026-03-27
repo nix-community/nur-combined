@@ -6,9 +6,9 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "0.713.0.7130910,0b2afd6436e74a1f",
+  "version": "0.714.0.7141083,a5198682ea0f4848",
   "asset": {
-    "url": "https://setup.rbxcdn.com/mac/arm64/version-0b2afd6436e74a1f-RobloxPlayer.zip",
-    "hash": "sha256-eYm0m9IrlnbTUE7NnGiOEHVNaRKabiwGYjN1PxYrCvc="
+    "url": "https://setup.rbxcdn.com/mac/arm64/version-a5198682ea0f4848-RobloxPlayer.zip",
+    "hash": "sha256-bB86PHZbSu8/zyvnmgTjP3VbkRuHJPRJdJs1W8XgT/c="
   }
 }
