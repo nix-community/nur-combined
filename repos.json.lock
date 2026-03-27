@@ -2442,8 +2442,8 @@
             "url": "https://github.com/tejing1/vieb-nix"
         },
         "vizqq": {
-            "rev": "7f696ee7641d82446d9743d37a43b5694ae2cdce",
-            "sha256": "0f3qvy437dnpfjp2ih2klri5sicpwj256grgxnqlisvi21z7fshf",
+            "rev": "2871e2abfdd66e091857d79eb4a334d4f7559081",
+            "sha256": "09pvbr2z7qv1jf50chnyjbq2k5jp1dblp56lr4jxgc0dc2hqyxp4",
             "url": "https://github.com/ViZiD/nur-vizqq"
         },
         "vladexa": {
