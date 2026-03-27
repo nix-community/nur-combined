@@ -1724,8 +1724,8 @@
             "url": "https://github.com/neXromancers/nixromancers"
         },
         "nginx": {
-            "rev": "c412d96fb8354ae5d9bd86cc9c07091b1b5ae03d",
-            "sha256": "019181gpm45g4isqfr6fy7js88wphlzbr9ni6i6fbkxjsi61qcly",
+            "rev": "1cdecfea6c5c12ebca5483de89f5bc511f993666",
+            "sha256": "1dvqc1a6gm4zqgk48iny5z1801qxh9r2g47aaw9jn13y98laa2wa",
             "url": "https://github.com/nginxinc/nur"
         },
         "nighthawk": {
