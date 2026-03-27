@@ -1,6 +1,6 @@
 { dockerTools }:
 let
-  image = "docker.io/linuxserver/ffmpeg:8.0.1@sha256:73a527e064e19aff06b470b192b522cab8749ca3915f0e71cd70af41299b8809";
+  image = "docker.io/linuxserver/ffmpeg:8.0.1@sha256:605f27ab2067c0418f7453964a9a301a20993636e16bafaf3bf3faab1f2b6a0d";
   parts = builtins.match "(.+/)(.+):(.+)@(.+)" image;
 in
 # https://github.com/nixos/nixpkgs/issues/445481
