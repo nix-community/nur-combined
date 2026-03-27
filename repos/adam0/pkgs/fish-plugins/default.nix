@@ -12,10 +12,22 @@
     (lib)
     filterAttrs
     pipe
+    platforms
     ;
 
   root = ./.;
-  inherit (fishPlugins) buildFishPlugin;
+  buildFishPlugin = args @ {meta ? {}, ...}:
+    fishPlugins.buildFishPlugin (
+      args
+      // {
+        meta =
+          meta
+          // {
+            description = meta.description or "";
+            platforms = meta.platforms or platforms.unix;
+          };
+      }
+    );
 
   call = name: callPackage (root + "/${name}") {inherit buildFishPlugin;};
 in

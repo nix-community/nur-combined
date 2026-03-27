@@ -8,8 +8,7 @@
   hicolor-icon-theme,
   folder-color ? "plasma",
 }:
-
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "gruvbox-plus-icons";
   version = "6.3.0-unstable-2026-03-26";
 
@@ -20,9 +19,9 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-xIYUi+eEegAGxRlBKIdJiaYtYQ3FX4HysWTDfShglec=";
   };
 
-  patches = [ ./folder-color.patch ];
+  patches = [./folder-color.patch];
 
-  nativeBuildInputs = [ gtk3 ];
+  nativeBuildInputs = [gtk3];
 
   propagatedBuildInputs = [
     plasma5Packages.breeze-icons
@@ -48,10 +47,10 @@ stdenvNoCC.mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
 
-  meta = {
+  meta = with lib; {
     description = "Icon pack for Linux desktops based on the Gruvbox color scheme";
     homepage = "https://github.com/SylEleuth/gruvbox-plus-icon-pack";
-    license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.linux;
+    license = licenses.gpl3Only;
+    platforms = platforms.linux;
   };
 }

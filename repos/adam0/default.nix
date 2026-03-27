@@ -46,6 +46,7 @@ in
 
     fishPlugins = recurseCallPackage ./pkgs/fish-plugins;
     opencodePlugins = recurseCallPackage ./pkgs/opencode-plugins;
+    spicetifyExtensions = recurseCallPackage ./pkgs/spicetify-extensions;
     yaziPlugins = recurseCallPackage ./pkgs/yazi-plugins;
   }
   // allPackages

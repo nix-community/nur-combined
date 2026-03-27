@@ -30,5 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ayuzur/cpond";
     license = lib.licenses.mit;
     mainProgram = pname;
+    platforms = lib.platforms.unix;
   };
 }

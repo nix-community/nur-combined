@@ -101,10 +101,11 @@ in
       runHook postInstall
     '';
 
-    meta = {
+    meta = with lib; {
       description = "A Model Context Protocol (MCP) proxy server that enables efficient management of large tool collections";
       homepage = "https://github.com/d-kimuson/modular-mcp";
-      license = lib.licenses.mit;
+      license = licenses.mit;
       mainProgram = pname;
+      platforms = platforms.unix;
     };
   }

@@ -17,10 +17,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-acR6hs/OhVEG87b8BrX62VV64lahexQoJlpPU3ue6nM=";
 
-  meta = {
+  meta = with lib; {
     description = "MCP server for development in Rust";
     homepage = "https://github.com/Vaiz/rust-mcp-server";
-    license = lib.licenses.unlicense;
+    license = licenses.unlicense;
     mainProgram = pname;
+    platforms = platforms.unix;
   };
 }
