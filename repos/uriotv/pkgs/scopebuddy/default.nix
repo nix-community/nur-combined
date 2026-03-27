@@ -24,7 +24,9 @@ stdenv.mkDerivation {
 
   buildInputs = [
     bash
-    gamescope
+    (gamescope.overrideAttrs (_: {
+      NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+    }))
     perl
     jq
   ];
@@ -38,15 +40,16 @@ stdenv.mkDerivation {
       --prefix PATH : ${
         lib.makeBinPath [
           bash
-          gamescope
+          (gamescope.overrideAttrs (_: {
+            NIX_CFLAGS_COMPILE = [ "-fno-fast-math" ];
+          }))
           perl
           jq
         ]
       } \
       --set SCB_AUTO_RES "1" \
       --set SCB_AUTO_HDR "1" \
-      --set SCB_AUTO_VRR "1" \
-      --add-flags "--force-composition"
+      --set SCB_AUTO_VRR "1"
   '';
 
   meta = with lib; {
