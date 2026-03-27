@@ -2,35 +2,23 @@
   lib,
   stdenv,
   pkgs,
-  makeWrapper,
-  jdk25_headless,
   ...
 }:
-let
+
+stdenv.mkDerivation rec {
   pname = "peerbanhelper";
-  version = "9.2.3";
-in
-stdenv.mkDerivation {
-  inherit pname version;
+  version = "9.3.9";
 
   src = pkgs.fetchzip {
     url = "https://github.com/PBH-BTN/PeerBanHelper/releases/download/v${version}/PeerBanHelper_${version}.zip";
-    sha256 = "sha256-j8gB2T5Ymc4jLg/RTvtXsW/xvzyxEvb6JSPcJq+fJxY=";
+    hash = "sha256-ieZxZVrzbY2YckapKDWD5YNFjygibEabG+v4nVbCZvI=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    jdk25_headless
-  ];
-
   installPhase = ''
-    # create the bin directory
-    mkdir -p $out/bin
+    mkdir -p $out/share/java/libraries
 
-    # create a wrapper that will automatically set the classpath
-    # this should be the paths from the dependency derivation
-    makeWrapper ${jdk25_headless}/bin/java $out/bin/${pname} \
-        --add-flags "-cp $src/libraries -jar $src/PeerBanHelper.jar"
+    install -Dm644 $src/libraries/* $out/share/java/libraries
+    install -Dm644 $src/PeerBanHelper.jar $out/share/java
   '';
 
   meta = with lib; {

@@ -260,7 +260,6 @@
 
   services.qbittorrent-clientblocker = {
     enable = true;
-    package = pkgs.shirok1.qbittorrent-clientblocker;
     settings = {
       checkUpdate = false;
       clientType = "qBittorrent";
@@ -271,7 +270,6 @@
 
   services.snell-server = {
     enable = true;
-    package = pkgs.shirok1.snell-server;
     settings = {
       listen = "0.0.0.0:13831";
       psk = "this_is_fake";
@@ -303,7 +301,6 @@
 
   services.msd-lite = {
     enable = true;
-    package = pkgs.shirok1.msd-lite;
     http.bind = [
       {
         address = "0.0.0.0:7088";

@@ -73,9 +73,5 @@ in
         DynamicUser = true;
       };
     };
-
-    environment = {
-      systemPackages = [ cfg.package ];
-    };
   };
 }

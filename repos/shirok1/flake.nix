@@ -105,6 +105,7 @@
                       };
                     };
                   }
+                  self.nixosModules.peerbanhelper
                   self.nixosModules.qbittorrent-clientblocker
                   self.nixosModules.snell-server
                 ];

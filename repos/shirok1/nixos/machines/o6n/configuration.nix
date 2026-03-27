@@ -127,6 +127,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shiroki = {
     isNormalUser = true;
+    linger = true;
     extraGroups = [
       "wheel"
       "audio"
@@ -477,8 +478,7 @@
   };
 
   services.qbittorrent-clientblocker = {
-    enable = true;
-    package = pkgs.shirok1.qbittorrent-clientblocker;
+    enable = false;
     settings = {
       checkUpdate = false;
       clientType = "qBittorrent";
@@ -489,7 +489,6 @@
 
   services.snell-server = {
     enable = true;
-    package = pkgs.shirok1.snell-server;
     settings = {
       listen = "0.0.0.0:13831";
       ipv6 = true;
@@ -502,6 +501,24 @@
   systemd.services.snell-server.serviceConfig.LoadCredential = [
     "psk:${config.sops.secrets."snell/psk".path}"
   ];
+
+  services.peerbanhelper = {
+    enable = true;
+    jrePackage = pkgs.jdk25_headless;
+    jvmOptions = [
+      "-cp ${pkgs.jdk25_headless}/share/java/libraries/jna-5.18.1.jar"
+    ];
+  };
+
+  systemd.user.services.mihomo = {
+    enable = true;
+    after = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = lib.getExe pkgs.mihomo;
+    };
+  };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
