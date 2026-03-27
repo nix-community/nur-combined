@@ -5,7 +5,7 @@
 }:
 buildFishPlugin {
   pname = "fzfish";
-  version = "unstable-2026-03-24";
+  version = "0-unstable-2026-03-24";
 
   src = fetchFromGitHub {
     owner = "adam01110";

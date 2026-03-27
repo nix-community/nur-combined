@@ -117,12 +117,23 @@ normalize_unstable_version_format() {
   local file_path=$1
   local previous_version=$2
   local current_version=$3
+  local prefix="0"
+  local date_part
+  local escaped_prefix
 
-  if [[ ! "${previous_version}" =~ ^unstable-[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] && [[ ! "${current_version}" =~ ^[0-9]+-unstable-[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+  if [[ ! "${current_version}" =~ ^([A-Za-z0-9.+-]+-)?unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})$ ]]; then
     return 0
   fi
 
-  sed -E -i '0,/version = "[^\"]*-unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})";/s/version = "[^\"]*-unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})";/version = "unstable-\1";/' "${file_path}"
+  date_part=${BASH_REMATCH[2]}
+
+  if [[ "${previous_version}" =~ ^([A-Za-z0-9.+-]+)-unstable-[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+    prefix=${BASH_REMATCH[1]}
+  fi
+
+  escaped_prefix=$(printf '%s' "${prefix}" | sed -e 's/[&|\\]/\\&/g')
+
+  sed -E -i "0,/version = \"([^\"]+-)?unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})\";/s|version = \"([^\"]+-)?unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})\";|version = \"${escaped_prefix}-unstable-${date_part}\";|" "${file_path}"
 }
 
 version_is_older() {

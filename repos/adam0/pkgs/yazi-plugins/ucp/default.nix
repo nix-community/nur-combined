@@ -5,7 +5,7 @@
 }:
 mkYaziPlugin rec {
   pname = "ucp.yazi";
-  version = "unstable-2025-11-11";
+  version = "0-unstable-2025-11-11";
 
   src = fetchFromGitHub {
     owner = "simla33";

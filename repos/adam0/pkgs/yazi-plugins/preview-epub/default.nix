@@ -5,7 +5,7 @@
 }:
 mkYaziPlugin rec {
   pname = "preview-epub.yazi";
-  version = "unstable-2026-03-08";
+  version = "0-unstable-2026-03-08";
 
   src = fetchFromGitHub {
     owner = "AminurAlam";
