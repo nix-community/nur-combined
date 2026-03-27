@@ -76,18 +76,18 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.7",
-    "hash": "sha256-Kxm/AWK7mzHwpH5DL6b2DpywggKqSWNkKPQZxSvabxk="
+    "version": "10.0.8",
+    "hash": "sha256-49n9MrvbaehUtggjOeUYn6HGkczlZ6X+TWaYY4bY7Ts="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.8",
-    "hash": "sha256-kMBS0z7xJRnhU+86puxWcINxtUKy6AN5Uhuz8ZNNCKo="
+    "version": "10.0.9",
+    "hash": "sha256-SxBf8Wq0uTgIpVcQpqRc3IfX10DF8mysT62Wcw4xMaU="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
-    "version": "10.0.1",
-    "hash": "sha256-CWW8seTTZONmRykwkVMVQI/X0IrD01DbAXLFHZYjIRo="
+    "version": "10.0.2",
+    "hash": "sha256-eNvwUgJLYjEi4dtPKDiECumbaPMTkL8nrcnOFs7IlKU="
   },
   {
     "pname": "AsyncKeyedLock",
