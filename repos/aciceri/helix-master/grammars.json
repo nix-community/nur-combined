@@ -3199,10 +3199,10 @@
   "caddyfile": {
     "nurl": {
       "args": {
-        "hash": "sha256-WaCWKq3wqjhWdsUd2vAT/JPqaxbHhOsaZrCg6MeXZZw=",
+        "hash": "sha256-mU9q2VKqUl3zmiW+CYUMqSUCYWYJi+UFdhOyyF1b5N4=",
         "owner": "caddyserver",
         "repo": "tree-sitter-caddyfile",
-        "rev": "b04bdb4ec53e40c44afbf001e15540f60a296aef"
+        "rev": "8951716aa2855e02dada302c540a90f277546095"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -3461,6 +3461,18 @@
       "fetcher": "fetchFromGitea"
     },
     "subpath": null
+  },
+  "ebnf": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-Cch6WCYq9bsWGypzDGapxBLJ0ZB432uAl6YjEjBJ5yg=",
+        "owner": "RubixDev",
+        "repo": "ebnf",
+        "rev": "8e635b0b723c620774dfb8abf382a7f531894b40"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": "crates/tree-sitter-ebnf"
   },
   "drools": {
     "nurl": {
