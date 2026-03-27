@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
 
   # keep-sorted start
   cmake,
@@ -114,6 +115,13 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-s4saKuezPYvcmKSqVBVDbPJcQXr6pVfIWjff7Txg8tY=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/apache/kvrocks/commit/37c8c69d9ceaff469a1bdbb34c0332bb0a1b0ae1.patch";
+      hash = "sha256-ExTXIrYKGfGB7xJsxykEEmRCX+Af9BUezxJIbYCyskA=";
+    })
+  ];
 
   postPatch = ''
     # Replace FetchContent-based cmake files with system library finders
