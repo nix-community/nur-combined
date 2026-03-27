@@ -10,16 +10,7 @@ rec {
   GLFfetch = callPackage ./misc/GLFfetch { };
   GLFfetch-glfos = GLFfetch.override { glfIcon = "GLFos"; };
   gsettings-diff = callPackage ./tools/gsettings-diff { };
-  kvm-archive = callPackage ./tools/kvm-archive {
-    libvirt = pkgs.libvirt.override {
-      ### Explicit disable other functionnality from libvirt dependancy
-      enableCeph = false;
-      enableGlusterfs = false;
-      enableIscsi = false;
-      enableXen = false;
-      enableZfs = false;
-    };
-  };
+  kvm-archive = callPackage ./tools/kvm-archive { };
 
   ### Editor set
   editor = rec {
