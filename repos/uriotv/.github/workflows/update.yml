@@ -28,7 +28,7 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v16
+        uses: cachix/cachix-action@v17
         with:
           name: uriotv
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
