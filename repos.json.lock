@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "db4c1ad1282827ad7779aa64a39830b26237ae92",
-            "sha256": "06iii5ccn9s7jgplxmf11cmj7js7d5l5afk1ic8fhid3qwskgq54",
+            "rev": "8006c6a0b8ab43eace1b0c9681f091f7ae94c3f0",
+            "sha256": "19qcnfwbrn4wkalshbd1bp9p6l4j052kpk73w9y1fgxihngnfswm",
             "url": "https://github.com/adam01110/nur"
         },
         "afreakk": {
@@ -748,8 +748,8 @@
             "url": "https://github.com/dmfrpro/nur-packages"
         },
         "doomhammer": {
-            "rev": "20d0339a0f0b2117030591dfacbe9818705ba77e",
-            "sha256": "0xy0nb56vdxj7rpzg7d6gz1ga1jp93944cya8hr5kkcqms37jryw",
+            "rev": "11d05c35a80414b8ac6e3bcaca6e2ffab1762202",
+            "sha256": "161vh1znnbx0c29r3dxm4d70ddjmfn4d30ry19b454yscvy8l00n",
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
