@@ -22,6 +22,5 @@
   picoforge = pkgs.callPackage ./pkgs/picoforge { };
   typewords = pkgs.callPackage ./pkgs/typewords { };
   libtinycbor = pkgs.callPackage ./pkgs/libtinycbor { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  virtualgamepad-pc = pkgs.libsForQt5.callPackage ./pkgs/virtualgamepad-pc { };
 }

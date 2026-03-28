@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a2c8452..3b4e6be 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -198,19 +198,6 @@ if(WIN32)
+     install(
+         CODE "execute_process(COMMAND \"${WINDEPLOYQT_EXECUTABLE}\" \"\${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/VGamepadPC.exe\")"
+     )
+-elseif(LINUX)
+-    # https://cmake.org/cmake/help/latest/prop_tgt/INSTALL_RPATH.html
+-    set_target_properties(VGamepadPC PROPERTIES
+-        INSTALL_RPATH_USE_LINK_PATH TRUE
+-        INSTALL_RPATH "$ORIGIN/../lib"
+-        BUILD_WITH_INSTALL_RPATH FALSE
+-    )
+-    qt_generate_deploy_app_script(
+-        TARGET VGamepadPC
+-        OUTPUT_SCRIPT deploy_script
+-    )
+-    message(STATUS "Deploy script generated: ${deploy_script}")
+-    install(SCRIPT ${deploy_script})
+ endif()
+ 
+ # Platform-specific post-build steps
