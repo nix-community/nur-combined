@@ -602,8 +602,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "a4e8ec2f71996a3de4b7649b45a897a83747a691",
-            "sha256": "1vibcw19rxmmx02awxvw7hz2vmzz5zdg7f9lr5vw8kk6si71cm48",
+            "rev": "6aed21d521846984a418317f127f3e1d8a3488e9",
+            "sha256": "02yrgisx3flsiw47j6mnxy7diwn2337zashkk3inccdqsd52h531",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -1684,8 +1684,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "164a853f8cd35c2b5e20d68a106d4ef530dbd9e4",
-            "sha256": "05gysyklzhh5972v5sr537pc396266bfgxp4jr1ybkh3as8zvxqs",
+            "rev": "0f077eb14024766b48e20fa7bc1482b4998db982",
+            "sha256": "0j1s1crgdikhpk8d5ba5mn6xb2j632i0d7cpbpglh7cpnr7h7ykb",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
@@ -2372,8 +2372,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "d8a7e63c17fc2b3fc6bd7edacaabda2f010cd01c",
-            "sha256": "0q8ygn5k74ay8m1x37db4ghhb4awlgf3kfync84r94lf54ydhs6p",
+            "rev": "6b412cec0b0e4dc0d4f9427c611c86b89150ab93",
+            "sha256": "1vlaxqf3d3yckx9c9zi7ny6hk4zqqnd1if6zd5xkjwx4qmsq36j0",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
@@ -2517,8 +2517,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "5e67972b11985f63cc7107becdef336b22bfcdb3",
-            "sha256": "0pg4awjijn2ls38agvq1ac2mja5vcbws2nhjmdv5m5zm29vb8s1s",
+            "rev": "60749d2b77963ab712ce0af731b00a3d82fce51b",
+            "sha256": "0n2anyhk0v4p9aglncmnbjwcm40g2miclaqsnp2r664ifi7ymjab",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
