@@ -617,8 +617,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "bb1d1e52c6731e332d8f646c08545a6f5c5cd9a9",
-            "sha256": "1ffqbjad1bn34j0k4vxgyshljyg7sqzvjwq9n6yc8082y0x8rp7h",
+            "rev": "633cae138ebdf6c127e9b16910ceae9ac31852ef",
+            "sha256": "1kzcdqnily9i927s93yzb0vjcdn02nmlmyy5zi6fa6ir59114wny",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
@@ -1567,8 +1567,8 @@
             "url": "https://github.com/mikidep/nur-packages"
         },
         "mikilio": {
-            "rev": "d3a952ddcb4ba9de79e9754db8b8f1e5fd4f5223",
-            "sha256": "1mly8x3196dd9b2xid4lljm92xi5zzdy3awbpjlska8ndjj3hywb",
+            "rev": "26f239cce5e7079cc58414b19675ffb11773d9fe",
+            "sha256": "1rlz89j5s230l9a6am8ifpihlzf49k9361xzzay3f5gjpxav9pim",
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
