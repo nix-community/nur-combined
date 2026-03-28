@@ -2090,8 +2090,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "81ee38f72dbc9c06fb0a198819a8e934bbe82502",
-            "sha256": "17s90nr54kpkd6c0r3brbv5cca7ar891ywir33a349njfvnn6qkn",
+            "rev": "f4fc55e8011f82a9e0d66c610c1bec5274751b10",
+            "sha256": "0why2rdmf8hn5niysnlgnni0fdsfi2cx5x2mbm1ahf1kzg1hph50",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
@@ -2372,8 +2372,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "6b412cec0b0e4dc0d4f9427c611c86b89150ab93",
-            "sha256": "1vlaxqf3d3yckx9c9zi7ny6hk4zqqnd1if6zd5xkjwx4qmsq36j0",
+            "rev": "a28ef6b3633325172aab622a8ab2679af56569bf",
+            "sha256": "0b3vq1cplj72czjr1y06mdn3c6h556y4gf2p1b1ylh52gcjw26dl",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
