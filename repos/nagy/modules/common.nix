@@ -62,7 +62,10 @@ in
     libjxl
     perl # needed for magit cherry spinout
     jqfmt
+    jless
     self.all-converters
+    glab
+    jc
   ];
 
   # tmpfs on all machines
@@ -87,11 +90,13 @@ in
         ControlPath /tmp/ssh-%r@%h:%p
         ServerAliveInterval 60
         ServerAliveCountMax 2
+        SendEnv COLORTERM
     '';
   };
 
   services.openssh = {
     enable = lib.mkDefault true;
+    settings.PrintLastLog = false;
     settings.AcceptEnv = [
       "COLORTERM"
     ];
@@ -116,6 +121,7 @@ in
     ltH = "ls --human-readable --size -1 -S --classify --dereference-command-line";
     path = "echo -e \${PATH//:/\\\\n}";
     nixpath = "echo -e \${NIX_PATH//:/\\\\n} | column -s= -t";
+    manpath = "echo -e \${MANPATH//:/\\\\n}";
     fastping = "ping -c 20 -i.2";
     reset = "tput reset";
     ".." = "cd ..";
@@ -132,6 +138,7 @@ in
       source "$@"
       cd -
     }
+    shopt -s autocd
   '';
 
   # environment.localBinInPath = true;
@@ -157,6 +164,10 @@ in
     # Release memory of polars data library, because they hardcode "-1" ms muzzy decay
     # https://github.com/pola-rs/polars/issues/23128#issuecomment-2976179171
     _RJEM_MALLOC_CONF = "background_thread:true,dirty_decay_ms:500,muzzy_decay_ms:500";
+
+    # GitLab CLI
+    GLAB_CHECK_UPDATE = "false";
+    GLAB_SEND_TELEMETRY = "false";
   };
 
   networking.nameservers = lib.mkDefault [ "1.1.1.1" ];

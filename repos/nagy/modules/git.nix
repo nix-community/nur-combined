@@ -30,7 +30,7 @@ in
     config = [
       {
         user.name = "Daniel Nagy";
-        user.email = "danielnagy" + "@" + "posteo.de";
+        user.email = "danielnagy@posteo.de";
         user.signingkey = "/home/user/.ssh/id_nagy";
         gpg = {
           format = "ssh";
@@ -192,7 +192,6 @@ in
         includeIf."hasconfig:remote.*.url:git@github.com:wiit-cloud/**".path =
           pkgs.writeText "gitconfig-includeIf" ''
             [user]
-                name = Daniel Nagy
                 email = daniel.nagy@wiit.cloud
                 signingkey = /home/user/.ssh/id_nagywiit
           '';
@@ -203,7 +202,6 @@ in
             [commit]
                 gpgsign = true
             [user]
-                name = Daniel Nagy
                 email = daniel.nagy@wiit.cloud
                 signingkey = /home/user/.ssh/id_nagywiit
           '';
@@ -251,6 +249,10 @@ in
 
   nagy.shortcommands.commands = lib.mkIf cfg.enable {
     g = [ "git" ];
+    gs = [
+      "git"
+      "status"
+    ];
     gcl = [
       "git"
       "clone"

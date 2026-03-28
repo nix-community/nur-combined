@@ -1,13 +1,10 @@
 {
   lib,
-  buildPythonApplication,
+  python3,
   fetchFromGitHub,
-  setuptools,
-  pyxdg,
-  google-auth-oauthlib,
 }:
 
-buildPythonApplication {
+python3.pkgs.buildPythonApplication {
   pname = "oauth2token";
   version = "0.0.3";
   format = "setuptools";
@@ -19,13 +16,13 @@ buildPythonApplication {
     hash = "sha256-40wBZzgj+qpj6hABT1zEjdtOx5v6CZWr8cFIFa7DPVo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [ python3.pkgs.setuptools ];
 
   doCheck = false;
 
   propagatedBuildInputs = [
-    pyxdg
-    google-auth-oauthlib
+    python3.pkgs.pyxdg
+    python3.pkgs.google-auth-oauthlib
   ];
 
   meta = {

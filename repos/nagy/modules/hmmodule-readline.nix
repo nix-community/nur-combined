@@ -76,7 +76,7 @@
       $if Bash
         # Do history expansion on !$/!^/!!/!* when space is pressed
         Space: magic-space
-       "\eu": "\C-ucd ..\C-j"
+       "\eu": "\C-a\C-kcd ..\C-j"
        "\el": "\C-uls\C-j"
        "\eL": "\C-uls -lah\C-j"
        "\ew": "\C-awatch \C-m"
@@ -87,6 +87,9 @@
        "\ev": "\C-e --version\C-m"
        "\ep\ev": "\C-e --version\C-m"
        "\ep\ej": "\C-e|j\C-m"
+       "\ep\eJ": "\C-e|jless\C-m"
+       "\ep\ey": "\C-e|y\C-m"
+       "\ep\eY": "\C-e|jless --yaml\C-m"
        "\eT": "\C-a\C-ktmux\C-m"
 
        # apps

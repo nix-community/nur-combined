@@ -21,6 +21,10 @@ in
         # mkGitBranch
         (lib.replaceStrings [ "[git_branch]\n" ] [ "[git_branch]\nignore_branches = ['master', 'main']\n" ])
         (lib.replaceStrings [ "[openstack]\n" ] [ "[openstack]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[hostname]\n" ] [ "[hostname]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[nodejs]\n" ] [ "[nodejs]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[python]\n" ] [ "[python]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[terraform]\n" ] [ "[terraform]\ndisabled = true\n" ])
       ]}
     '').outPath;
 

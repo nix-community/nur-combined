@@ -32,7 +32,7 @@
     scU = [ "systemctl" "--user" ];
     scUc = [ "systemctl" "--user" "cat" ];
     scUs = [ "systemctl" "--user" "status" ];
-    scUw = [ "watch" "--color" "SYSTEMD_COLORS=1" "systemctl" "--user" "status" ];
+    scUw = [ "watch" "--color" "SYSTEMD_URLIFY=0" "SYSTEMD_COLORS=1" "systemctl" "--user" "status" ];
     scUa = [ "systemctl" "--user" "start" ];
     scUo = [ "systemctl" "--user" "stop" ];
     scUr = [ "systemctl" "--user" "restart" ];
@@ -46,17 +46,21 @@
     scUlmj = [ "systemctl" "--user" "list-machines" "--output=json" ];
     scUluj = [ "systemctl" "--user" "list-units" "--output=json" ];
     scUlfj = [ "systemctl" "--user" "list-unit-files" "--output=json" ];
-    juf = [ "journalctl" "-f" ];
+    juf = [ "journalctl" "--follow" ];
+    jufu = [ "journalctl" "--follow" "--unit" ];
+    juUf = [ "journalctl" "--user" "--follow" ];
+    juUfu = [ "journalctl" "--user" "--follow" "--unit" ];
 
     # misc
-    j = [ "jq" "--monochrome-output" "--sort-keys" ];
-    jr = [ "jq" "--monochrome-output" "--sort-keys" "--raw-output" ];
+    j = [ "jq" "--monochrome-output" ];
+    jr = [ "jq" "--monochrome-output" "--raw-output" ];
     js = [ "jq" "--monochrome-output" "--slurp" ];
     jl = [ "jq" "--monochrome-output" "length" ];
 
     jcP = [ "jc" "--pretty" ];
 
     y = [ "yq" "--prettyPrint" "--no-colors" ];
+    yj = [ "yq" "--prettyPrint" "--no-colors" "--output-format" "json" ];
     cpa = [ "cp" "--archive" ];
     rmf = [ "rm" "--force" ];
     i4 = [ "ip" "-4" ];

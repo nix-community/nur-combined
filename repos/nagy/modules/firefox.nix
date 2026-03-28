@@ -90,6 +90,8 @@
       # "network.stricttransportsecurity.preloadlist" = false;
       # "network.http.sendRefererHeader" = 2; # 0 never send header, 1 only on click, 2 (default) send for all requests
       "network.http.referer.XOriginPolicy" = 1; # 0 is default, 1 means only send when base domain matches, 2 means only send when full domain matches
+      # Disallow web mail clients to ask to set themselves as an app
+      "network.protocol-handler.external.mailto" = false;
 
       "browser.urlbar.suggest.calculator" = true;
 
