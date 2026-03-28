@@ -1223,8 +1223,8 @@
             "url": "https://github.com/jerrita/nur"
         },
         "jetcookies": {
-            "rev": "ef5c4c5ecc79f70af62c4655dbd61b26da77dfed",
-            "sha256": "024mrwq14nbxrdfrn3wir8yszz8s95sddm46flagfq8fln68v515",
+            "rev": "e094ff4342654a2d0c06ebe4e329500ccd8caadd",
+            "sha256": "04l0krkvxzhmdkfbsnsyj69597pma5i1rdq1qbj79w48hnm7npks",
             "url": "https://github.com/jetcookies/nur-packages"
         },
         "jitterbug": {
@@ -1598,8 +1598,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "5e9a8e479fc6c9fd46b9b986ad2c438e0bf83292",
-            "sha256": "0yz2m1392x4j063sb38ar7sygwl0vdqchja09fdf0yg6qp2qkwsd",
+            "rev": "0f26020a678f233ae5141f1781a695353490dc4c",
+            "sha256": "0dkbq1ymy6w13s94jrka38ryza6k3wvynayxnr3j9s8cwpx0bcgl",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
