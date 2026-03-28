@@ -5,13 +5,13 @@
 }:
 pkgs.buildNpmPackage rec {
   pname = "folder-notes";
-  version = "1.8.18";
+  version = "1.8.19";
 
   src = pkgs.fetchFromGitHub {
     owner = "LostPaul";
     repo = "obsidian-folder-notes";
     rev = version;
-    sha256 = "sha256-dIwjeabJ4/EhAqgD+FhgGHTzj/uG1VDgkyX8FAoONTg=";
+    sha256 = "sha256-oBKctRIA/VF1YrS63xmAWaUnn7vg/ykW2lWD4Y4bYLA=";
     fetchSubmodules = true;
   };
 
