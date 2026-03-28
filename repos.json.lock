@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "f9cd3b5c3aa1d46b5b8b5019a8e7ccfcc3a6ebb5",
-            "sha256": "1f7whxfjhfhcvlg39qjgj1n6a9vcdma2s8slhd0p03c8y31fxpvj",
+            "rev": "ae5aad6d1d59da5e9c66343d8873096fc2bc784d",
+            "sha256": "0qrql1w5f8j34xk7fkpjcsnxhrjfb5yzkmlwzgmijhkzcl9nf90n",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -91,8 +91,8 @@
             "url": "https://github.com/Emin017/nur-packages"
         },
         "Ev357": {
-            "rev": "fdb169dc9efdc5ccdef20f286666f9471f4d59b5",
-            "sha256": "094snskjnk7ksw69xdgynn1f1p1f632vfgm8r4vwc552bk1s6721",
+            "rev": "8c16fb6b21e02a3c100e210292fe27085047e6bd",
+            "sha256": "1a8r323kmwxqd297bccqbw9w8yldcjgw53wmsqff53ixz8in3si3",
             "url": "https://github.com/Ev357/nur-packages"
         },
         "Ex-32": {
@@ -748,8 +748,8 @@
             "url": "https://github.com/dmfrpro/nur-packages"
         },
         "doomhammer": {
-            "rev": "11d05c35a80414b8ac6e3bcaca6e2ffab1762202",
-            "sha256": "161vh1znnbx0c29r3dxm4d70ddjmfn4d30ry19b454yscvy8l00n",
+            "rev": "3eee13d64408fd9db31f0cd7850b353b08561019",
+            "sha256": "0wd50b18b8xw35p4ykn8w3qlngvjgjylhsk82zplw6fq2y57p5wz",
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
