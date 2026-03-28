@@ -540,6 +540,8 @@ in
 
     usePackageVerbose = mkEnableOption "verbose use-package mode";
 
+    checkGeneratedConfig = mkEnableOption "try to load the generated config with emacs -batch";
+
     usePackage = mkOption {
       type = types.attrsOf usePackageType;
       default = { };
@@ -602,16 +604,18 @@ in
         packages = concatMap (v: getPkg (v.package)) (
           filter (getAttr "enable") (builtins.attrValues cfg.usePackage)
         );
-      in
-      [
-        (epkgs.trivialBuild {
+
+        hmEarlyInit = epkgs.trivialBuild {
           pname = "hm-early-init";
           src = pkgs.writeText "hm-early-init.el" earlyInitFile;
           version = "0.1.0";
           packageRequires = packages;
           preferLocalBuild = true;
           allowSubstitutes = false;
-        })
+        };
+      in
+      [
+        hmEarlyInit
 
         (epkgs.trivialBuild {
           pname = "hm-init";
@@ -619,6 +623,7 @@ in
           version = "0.1.0";
           packageRequires = [
             epkgs.use-package
+            hmEarlyInit
           ]
           ++ packages
           ++ optional hasBind epkgs.bind-key
@@ -626,6 +631,34 @@ in
           ++ optional hasChords epkgs.use-package-chords;
           preferLocalBuild = true;
           allowSubstitutes = false;
+          doCheck = cfg.checkGeneratedConfig;
+          checkPhase = optionalString cfg.checkGeneratedConfig ''
+            runHook preCheck
+            HOME=$(mktemp -d)
+            output=$(mktemp)
+
+            emacs -batch \
+              -f package-initialize \
+              -L . \
+              -l hm-early-init \
+              -l hm-init \
+              --eval '(message "init.el loaded successfully!")' 2>&1 | tee "$output"
+
+            if ! grep -q "init.el loaded successfully" "$output"; then
+              echo "ERROR: 'init.el loaded successfully' message not found"
+              exit 1
+            fi
+
+            if grep -q "^Error " "$output"; then
+              echo "ERROR: Found lines starting with 'Error ' in output:"
+              grep "^Error " "$output"
+              exit 1
+            fi
+
+            rm -f "$output"
+            rm -rf "$HOME"
+            runHook postCheck
+          '';
           preBuild = ''
             # Do a bit of basic formatting of the generated init file.
             emacs -Q --batch \
