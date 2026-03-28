@@ -5,7 +5,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "bat-syntax-just";
-  version = "0-unstable-2026-03-27";
+  version = "4148-1.1.5-unstable-2025-05-08";
 
   src = fetchFromGitHub {
     owner = "nk9";
