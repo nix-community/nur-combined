@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "8006c6a0b8ab43eace1b0c9681f091f7ae94c3f0",
-            "sha256": "19qcnfwbrn4wkalshbd1bp9p6l4j052kpk73w9y1fgxihngnfswm",
+            "rev": "3d8246add23f480692873e9b648d5dbb36485b0d",
+            "sha256": "1b20rapxfkgxjvwi6wi0mwn30b81kjwqc9h5lgnnal94ri3lxmas",
             "url": "https://github.com/adam01110/nur"
         },
         "afreakk": {
@@ -642,8 +642,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "a14d977b1ee4a98d59f5c60b2a93d8b1ae858e9b",
-            "sha256": "0h9h8q5ij0dlm2nrz16kh6gndxwp5axf8fw1vvixr1qv88sxfzpl",
+            "rev": "8d20fafa925edddabc7693931a8645c19617e413",
+            "sha256": "0vihri7qiyr8cmbdfd5ip9fc9y269vm75wq9grjq3v9ci1xff8r0",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
