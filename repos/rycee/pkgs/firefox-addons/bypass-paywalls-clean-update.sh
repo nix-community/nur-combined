@@ -4,7 +4,7 @@
 set -euo pipefail
 
 function cleanup() {
-    [[ -d "$TMP_DIR" ]] && rm -r "$TMP_DIR"
+  [[ -d "$TMP_DIR" ]] && rm -r "$TMP_DIR"
 }
 
 trap "cleanup" EXIT
@@ -26,6 +26,17 @@ XPI_FILE="$TMP_DIR/bypass_paywalls_clean.xpi"
 curl -sSL -o "$XPI_FILE" "$URL"
 HASH="$(nix-hash --type sha256 --flat "$XPI_FILE")"
 
+MOZ_PERMISSIONS="$(
+  {
+    unzip -p "$XPI_FILE" manifest.json |
+      jq -r '
+def perms:
+  [(.permissions // [])[], (.optional_permissions // [])[]];
+
+perms[] | "      \(tojson)"'
+  }
+)"
+
 cat << EOF > "$OUT_PATH"
 {
   buildFirefoxXpiAddon,
@@ -43,6 +54,9 @@ buildFirefoxXpiAddon {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
     license = licenses.mit;
+    mozPermissions = [
+${MOZ_PERMISSIONS}
+    ];
     platforms = platforms.all;
   };
 }
