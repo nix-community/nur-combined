@@ -91,8 +91,8 @@
             "url": "https://github.com/Emin017/nur-packages"
         },
         "Ev357": {
-            "rev": "fd692034792ef2c3e7fb506927fd97808075ec0e",
-            "sha256": "1ckapgylpr6g8ad3dh4gkimgcc5zlmf5m64w1knapqx26r3xka1q",
+            "rev": "fdb169dc9efdc5ccdef20f286666f9471f4d59b5",
+            "sha256": "094snskjnk7ksw69xdgynn1f1p1f632vfgm8r4vwc552bk1s6721",
             "url": "https://github.com/Ev357/nur-packages"
         },
         "Ex-32": {
@@ -1567,8 +1567,8 @@
             "url": "https://github.com/mikidep/nur-packages"
         },
         "mikilio": {
-            "rev": "7dbc8cdb44d6a721b58ed168ce50bd60ab8ab724",
-            "sha256": "09h0x0qx1ncqdrmjxs6s61h491hpmf32sy6srihdb7r6ngw4cadi",
+            "rev": "d3a952ddcb4ba9de79e9754db8b8f1e5fd4f5223",
+            "sha256": "1mly8x3196dd9b2xid4lljm92xi5zzdy3awbpjlska8ndjj3hywb",
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
