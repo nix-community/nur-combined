@@ -5,31 +5,29 @@
     krita-plugin-gmic
   ],
   callPackage,
-}: let
-  krita-unwrapped = callPackage ../krita-unwrapped {};
-in
-  symlinkJoin {
-    pname = "krita";
-    inherit
-      (krita-unwrapped)
-      version
-      buildInputs
-      nativeBuildInputs
-      meta
-      ;
+  unwrapped ? callPackage ../krita-unwrapped {},
+}:
+symlinkJoin {
+  pname = "krita";
+  inherit
+    (unwrapped)
+    version
+    buildInputs
+    nativeBuildInputs
+    meta
+    ;
 
-    paths = [krita-unwrapped] ++ binaryPlugins;
+  paths = [unwrapped] ++ binaryPlugins;
 
-    postBuild =
-      # bash
-      ''
-        wrapQtApp "$out/bin/krita" \
-          --prefix PYTHONPATH : "$PYTHONPATH" \
-          --set KRITA_PLUGIN_PATH "$out/lib/kritaplugins"
-      '';
+  postBuild =
+    # bash
+    ''
+      wrapQtApp "$out/bin/krita" \
+        --prefix PYTHONPATH : "$PYTHONPATH" \
+        --set KRITA_PLUGIN_PATH "$out/lib/kritaplugins"
+    '';
 
-    passthru = {
-      inherit binaryPlugins;
-      unwrapped = krita-unwrapped;
-    };
-  }
+  passthru = {
+    inherit unwrapped binaryPlugins;
+  };
+}
