@@ -69,16 +69,16 @@
   };
   jaq = {
     pname = "jaq";
-    version = "v3.0.0-beta";
+    version = "v3.0.0";
     src = fetchFromGitHub {
       owner = "01mf02";
       repo = "jaq";
-      rev = "v3.0.0-beta";
+      rev = "v3.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=";
+      sha256 = "sha256-FhmnJm/MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=/Cargo.lock";
+      lockFile = ./. + "/sha256-FhmnJm_MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=/Cargo.lock";
       outputHashes = {
 
       };

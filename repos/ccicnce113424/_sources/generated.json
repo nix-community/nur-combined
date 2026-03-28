@@ -119,7 +119,7 @@
   "jaq": {
     "cargoLock": {
       "Cargo.lock": [
-        "sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=/Cargo.lock",
+        "sha256-FhmnJm_MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=/Cargo.lock",
         {}
       ]
     },
@@ -135,12 +135,12 @@
       "name": null,
       "owner": "01mf02",
       "repo": "jaq",
-      "rev": "v3.0.0-beta",
-      "sha256": "sha256-vDrkk3fVF7SMzJzA7AI3kFQyYMbZPWS0gTEaK97cwX4=",
+      "rev": "v3.0.0",
+      "sha256": "sha256-FhmnJm/MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "v3.0.0-beta"
+    "version": "v3.0.0"
   },
   "linux-enable-ir-emitter": {
     "cargoLock": {
