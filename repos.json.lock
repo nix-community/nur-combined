@@ -753,8 +753,8 @@
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
-            "rev": "8be0461fa1796afc3c8f61b6df43a4d36edcf3cc",
-            "sha256": "1hbqpm370v0jdh7fbgfc1kvcd1kxzslnrb77am7li9amcq390x7i",
+            "rev": "209f567d790650357c2c4b0deb253488825eb580",
+            "sha256": "0lbx9n9r8cb9zphgiaxm8hrq3cnrh19ylj4wczsnsqk4597p961f",
             "url": "https://github.com/drafolin/nur"
         },
         "draftea": {
