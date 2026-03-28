@@ -30,7 +30,6 @@ let
 
       "nixos/tests/xpadneo.nix"
 
-      "pkgs/applications/audio/zynaddsubfx"
       "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm"
       "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm-terminal"
       "pkgs/applications/editors/emacs/elisp-packages/manual-packages/lsp-bridge"
@@ -39,10 +38,6 @@ let
       "pkgs/development/python-modules/pytest-datadir"
       "pkgs/development/python-modules/vdf"
       "pkgs/os-specific/linux/xpadneo"
-      "pkgs/tools/audio/yabridge"
-      "pkgs/tools/audio/yabridgectl"
-      "pkgs/tools/games/gamemode"
-      "pkgs/tools/graphics/mangohud"
       "pkgs/tools/graphics/vkbasalt"
 
       "pkgs/by-name/cc/ccache"
