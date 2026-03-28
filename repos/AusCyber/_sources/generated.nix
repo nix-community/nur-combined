@@ -39,7 +39,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-Ge1X3FzZ+lDYZgjYZpvXO+/lgS99d1p7orolbXnQPOc=";
+      sha256 = "sha256-Ihi+sRHw2q0xEIXFtuWvKm1WlYnQ4pTD1pwWc2SoYJc=";
     };
   };
   helium-linux = {
@@ -103,13 +103,13 @@
   };
   karabiner-dk = {
     pname = "karabiner-dk";
-    version = "v6.11.0";
+    version = "v6.12.0";
     src = fetchFromGitHub {
       owner = "pqrs-org";
       repo = "Karabiner-DriverKit-VirtualHIDDevice";
-      rev = "v6.11.0";
+      rev = "v6.12.0";
       fetchSubmodules = false;
-      sha256 = "sha256-eIYpxW7R4EHRRVRKL9HH788D+CLZptd2k2qz2fNKZRY=";
+      sha256 = "sha256-Yo4oyD0NRYg6gg20ryE2C7zwBdULhw0xrSMkXSgyD7U=";
     };
   };
   yabai = {
@@ -125,18 +125,18 @@
   };
   zen = {
     pname = "zen";
-    version = "1.19.3b";
+    version = "1.19.5b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.19.3b/zen.macos-universal.dmg";
-      sha256 = "sha256-TqzzSX71eG7V1zcur0RMQmVuI5bWl8z0bySeuzUGmIQ=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.19.5b/zen.macos-universal.dmg";
+      sha256 = "sha256-g0+L6XtCID0jdtngJ7v6i//rpeOGxOKeJQVC/5ZKSPA=";
     };
   };
   zen-twilight = {
     pname = "zen-twilight";
-    version = "1.19.3b";
+    version = "1.19.5b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg";
-      sha256 = "sha256-OrS95nOp/Fj9K5ffY6cDbExsirkGy0CM3bPwtquS1j4=";
+      sha256 = "sha256-qVcK7GyTv/k+eWmgpwasO1xLKwd3YX064LWdraiNH64=";
     };
   };
 }
