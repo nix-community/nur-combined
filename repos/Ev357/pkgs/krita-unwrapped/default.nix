@@ -1,65 +1,46 @@
 {
-  mkDerivation,
-  lib,
   stdenv,
-  fetchFromGitLab,
+  SDL2,
+  boost,
   cmake,
-  extra-cmake-modules,
-  karchive,
-  kconfig,
-  kwidgetsaddons,
-  kcompletion,
-  kcoreaddons,
-  kguiaddons,
-  ki18n,
-  kitemmodels,
-  kitemviews,
-  kwindowsystem,
-  kio,
-  kcrash,
-  breeze-icons,
-  boost188,
-  libraw,
-  fftw,
-  eigen,
-  exiv2,
-  fribidi,
-  libaom,
-  libheif,
-  lcms2,
-  gsl,
-  openexr,
-  giflib,
-  libjxl,
-  mlt,
-  openjpeg,
-  opencolorio,
-  xsimd,
-  poppler,
   curl,
+  eigen_5,
+  exiv2,
+  fftw,
+  fribidi,
+  giflib,
+  gsl,
   ilmbase,
   immer,
   kseexpr,
   lager,
+  lcms2,
+  lib,
+  libaom,
+  libheif,
+  libjxl,
   libmypaint,
+  libraw,
+  qt6,
+  kdePackages,
   libunibreak,
   libwebp,
-  qtmultimedia,
-  qtx11extras,
-  quazip,
-  SDL2,
-  zug,
+  opencolorio,
+  openexr,
+  openjpeg,
   pkg-config,
   python3Packages,
-  qtquickcontrols2,
+  xsimd,
+  zug,
+  fetchFromGitLab,
   wayland,
   wayland-protocols,
   libxkbcommon,
   writeScript,
 }:
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "krita-unwrapped";
-  version = "5.4.0-prealpha";
+  version = "6.1.0-prealpha";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
@@ -84,64 +65,69 @@ mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    extra-cmake-modules
+    kdePackages.extra-cmake-modules
     pkg-config
     python3Packages.sip
+    qt6.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    karchive
-    kconfig
-    kwidgetsaddons
-    kcompletion
-    kcoreaddons
-    kguiaddons
-    ki18n
-    kitemmodels
-    kitemviews
-    kwindowsystem
-    kio
-    kcrash
-    breeze-icons
-    boost188
-    libraw
-    fftw
-    eigen
-    exiv2
-    fribidi
-    lcms2
-    gsl
-    openexr
-    (lager.override {boost = boost188;})
-    libaom
-    libheif
-    giflib
-    libjxl
-    mlt
-    openjpeg
-    opencolorio
-    xsimd
-    poppler
-    curl
-    ilmbase
-    immer
-    kseexpr
-    libmypaint
-    libunibreak
-    libwebp
-    qtmultimedia
-    qtx11extras
-    quazip
-    SDL2
-    zug
-    python3Packages.pyqt5
-    qtquickcontrols2
-    wayland
-    wayland-protocols
-    libxkbcommon
-  ];
+  buildInputs =
+    [
+      boost
+      libraw
+      fftw
+      eigen_5
+      exiv2
+      fribidi
+      lcms2
+      gsl
+      openexr
+      lager
+      libaom
+      libheif
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optional stdenv.cc.isGNU "-Wno-deprecated-copy");
+      giflib
+      libjxl
+      openjpeg
+      opencolorio
+      xsimd
+      curl
+      ilmbase
+      immer
+      kseexpr
+      libmypaint
+      libunibreak
+      libwebp
+      SDL2
+      zug
+      python3Packages.pyqt6
+
+      qt6.qtmultimedia
+      qt6.qttools
+
+      wayland
+      wayland-protocols
+      libxkbcommon
+    ]
+    ++ (with kdePackages; [
+      breeze-icons
+      karchive
+      kcompletion
+      kconfig
+      kcoreaddons
+      kcrash
+      kguiaddons
+      ki18n
+      kio
+      kitemmodels
+      kitemviews
+      kwidgetsaddons
+      kwindowsystem
+      mlt
+      poppler
+      quazip
+      libkdcraw
+    ]);
 
   postPatch = let
     pythonPath = python3Packages.makePythonPath (
@@ -163,8 +149,9 @@ mkDerivation rec {
   cmakeBuildType = "RelWithDebInfo";
 
   cmakeFlags = [
-    "-DPYQT5_SIP_DIR=${python3Packages.pyqt5}/${python3Packages.python.sitePackages}/PyQt5/bindings"
-    "-DPYQT_SIP_DIR_OVERRIDE=${python3Packages.pyqt5}/${python3Packages.python.sitePackages}/PyQt5/bindings"
+    "-DBUILD_WITH_QT6=ON"
+    "-DALLOW_UNSTABLE=QT6"
+    "-DENABLE_UPDATERS=OFF"
     "-DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON"
   ];
 
