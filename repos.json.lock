@@ -928,8 +928,8 @@
             "url": "https://github.com/fortuneteller2k/nur"
         },
         "fractuscontext": {
-            "rev": "31530a5cef33fd49b09488891f0599ea86fc7c2e",
-            "sha256": "0a3gl4p42wp5bvlkf2daarrzn298p5q0cy8ilqqn2qd19z1sd1lv",
+            "rev": "bac666dbc01e442327373bb28bfbeb7fdc3864a7",
+            "sha256": "1g6kx1ikw47ipd6z76nfxh9738p8lv9cdfam9ylsi98zlji6d058",
             "url": "https://github.com/fractuscontext/nix-nur"
         },
         "frankoslaw": {
