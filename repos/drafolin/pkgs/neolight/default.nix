@@ -1,8 +1,10 @@
 {
   xkeyboard_config,
   ed,
+  gnused,
   fetchFromGitHub,
   lib,
+  enableNavigationLayer ? true,
 }:
 xkeyboard_config.overrideAttrs (old: {
   neolightSrc = fetchFromGitHub {
@@ -16,6 +18,23 @@ xkeyboard_config.overrideAttrs (old: {
     cd $out/share/X11/xkb
     cp $neolightSrc/linux/neolight_symbols symbols/neolight
     cp $neolightSrc/linux/neolight_types types/neolight
+
+    ${lib.optionalString (!enableNavigationLayer) ''
+      # Strip navigation layer (levels 7-8): blank nav symbols to NoSymbol
+      ${gnused}/bin/sed -i \
+        's/symbols\[Group1\] = \[\([^]]*\), [A-Za-z_]*, [A-Za-z_]*\]/symbols[Group1] = [\1, NoSymbol, NoSymbol]/g' \
+        symbols/neolight
+
+      # Blank RedirectKey actions to NoAction()
+      ${gnused}/bin/sed -i \
+        's/RedirectKey(keycode=<[A-Z]*>, clearmods=LevelFive)/NoAction()/g' \
+        symbols/neolight
+
+      # Remove Mod4 modifier keys (< and Menu) so they revert to default behavior
+      ${gnused}/bin/sed -i '/\/\/ Modifier keys for layer 4/d' symbols/neolight
+      ${gnused}/bin/sed -i '/key <LSGT>/,/};/d' symbols/neolight
+      ${gnused}/bin/sed -i '/key <MENU>/,/};/d' symbols/neolight
+    ''}
 
     ${ed}/bin/ed -v rules/evdev.xml <<EOF
     /<layoutList>/

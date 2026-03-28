@@ -7,7 +7,9 @@
 
 let
   cfg = config.services.xserver.xkb.neolight;
-  neolightPkg = pkgs.callPackage ../pkgs/neolight { };
+  neolightPkg = pkgs.callPackage ../pkgs/neolight {
+    inherit (cfg) enableNavigationLayer;
+  };
 in
 {
   _class = "nixos";
@@ -20,6 +22,11 @@ in
       description = "The neolight package to use.";
     };
     enable = lib.mkEnableOption "neolight xkb layout, extra keyboard layers for programming based on Neo";
+    enableNavigationLayer = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable the navigation layer (Mod4, arrows on hjkl etc.).";
+    };
   };
 
   config = lib.mkIf cfg.enable {
