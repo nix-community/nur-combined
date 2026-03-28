@@ -51,7 +51,7 @@ in {
 
   postPatch = ''
     substituteInPlace Cargo.toml \
-      --replace-fail 'rust-version = "1.93"' 'rust-version = "1.91"'
+      --replace-fail 'rust-version = "1.93"' 'rust-version = "${rustPlatform.rust.rustc.version}"'
   '';
 
   checkFlags = [
@@ -76,8 +76,13 @@ in {
   postInstall = ''
     mkdir -p $out/libexec/rosec/
     mkdir -p $out/lib/security/
+    mkdir -p $out/lib/systemd/
+    mkdir -p $out/share/dbus-1/system.d/
+    mkdir -p $out/share/systemd/user/
     cp ${pamModule}/lib/security/pam_rosec.so $out/lib/security/pam_rosec.so
     mv $out/bin/rosec-pam-unlock $out/libexec/rosec/
+
+    XDG_CONFIG_HOME=$out/lib XDG_DATA_HOME=$out/share $out/bin/rosec enable
   '';
 
   meta = {
