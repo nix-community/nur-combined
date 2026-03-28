@@ -22,6 +22,8 @@ bind ,<Space> nohlsearch
 
 bind <ArrowUp> scrollline -10
 bind <ArrowDown> scrollline 10
+bind <S-ArrowUp> tabprev
+bind <S-ArrowDown> tabnext
 
 " case insensitive if lowercase, case sensitive if using some uppercase letters
 set findcase smart
