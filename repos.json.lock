@@ -1623,8 +1623,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "e690723c550c8e9e736f38b450f56025f6973de6",
-            "sha256": "17ynyyr3dl07jpak22vg0k34dz8jdggah51s0b7bddn3sa38n8wl",
+            "rev": "b90a386b69f49d5fd7ed97d43bdf0a04f2fa58a2",
+            "sha256": "1sfnda00a5v73mpw2yf0kxgxsk57890j6r5pdrf0dgahpm3qyvdc",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2090,8 +2090,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "9e84571429d01fc3971f05ee3daa3316516b460f",
-            "sha256": "0rpqidca0p000dxc78l1swbyr2ryb3afm4dc04f2ii9n89rkj3yy",
+            "rev": "81ee38f72dbc9c06fb0a198819a8e934bbe82502",
+            "sha256": "17s90nr54kpkd6c0r3brbv5cca7ar891ywir33a349njfvnn6qkn",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
@@ -2562,8 +2562,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "b837acc9238d6a3babc07eee4d188483b50bcec9",
-            "sha256": "165aw5m3i43iydvg02sdsdpxsppnlzs54y8cga1l1mdv0akcw23a",
+            "rev": "187cbe7e3403bb569eacc1e532f93a2f035cfff9",
+            "sha256": "11i6vvwcg26zsk314gq5dp4lxk21mds12mkpxr9z25l2i4v1cr86",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
