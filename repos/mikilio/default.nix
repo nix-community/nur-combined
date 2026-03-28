@@ -29,6 +29,7 @@ in
     snapshot-yazi = callPackage ./pkgs/snapshot-yazi {};
     gateway-st = callPackage ./pkgs/gateway-st {};
     rclone_zus = callPackage ./pkgs/rclone_zus {};
+    rosec = callPackage ./pkgs/rosec {};
     xdg-terminal-exec = callPackage ./pkgs/xdg-terminal-exec {};
     xmclib = callPackage ./pkgs/xmclib {};
     gaia = callPackage ./pkgs/gaia {};
