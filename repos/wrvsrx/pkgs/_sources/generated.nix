@@ -290,13 +290,13 @@
   };
   rime-ice-modular = {
     pname = "rime-ice-modular";
-    version = "2026.03.18-01";
+    version = "2026.03.26-01";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "rime-ice-modular";
-      rev = "2026.03.18-01";
+      rev = "2026.03.26-01";
       fetchSubmodules = true;
-      sha256 = "sha256-LvYMVSIDbSyT2J1LbTREXr1VDWZuY4PMfhrTfauU2xU=";
+      sha256 = "sha256-/hwL1voVPcoIIR+hNsIvRKjXg46o18SC4ozDVXIbMPI=";
     };
   };
   rime-prelude = {
