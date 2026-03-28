@@ -91,8 +91,8 @@
             "url": "https://github.com/Emin017/nur-packages"
         },
         "Ev357": {
-            "rev": "8c16fb6b21e02a3c100e210292fe27085047e6bd",
-            "sha256": "1a8r323kmwxqd297bccqbw9w8yldcjgw53wmsqff53ixz8in3si3",
+            "rev": "52c1c5af3eabbbde60a5f948f74099c15596433a",
+            "sha256": "11mga7l261x9dwxny3j6nv7kn7sanczabw8n0zgl548ya7149rvg",
             "url": "https://github.com/Ev357/nur-packages"
         },
         "Ex-32": {
@@ -833,8 +833,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "0637decfaf33328ebb91817b0759dedbd393bd62",
-            "sha256": "1yx6n33pwikcfb5c1yqmnsssqhhpp00fpw1jwps5vm7jdks79dpx",
+            "rev": "210ed1cb10f24ba9d6b3eaa41b8c0328bdbeb896",
+            "sha256": "154zf0bv5wabkkq6gi36bzbxifz8ljpl8zhp7bzg0za1565nzc3g",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
