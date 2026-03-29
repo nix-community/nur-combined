@@ -241,13 +241,13 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "49baabe7918f88450587d615c933a75e85ac82c7",
-            "sha256": "0f69a0l1n450bwj39sy498il88v1jvzn4mi8s074d7n9vh7qmvnv",
+            "rev": "7cd21e5325021734ae5b9e945a3c8dd77f0bffbe",
+            "sha256": "02bnn38xb97cz2s08nvxhh0r0kgjff5hid0dnb3jn18pp7pgz9y4",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "3d8246add23f480692873e9b648d5dbb36485b0d",
-            "sha256": "1b20rapxfkgxjvwi6wi0mwn30b81kjwqc9h5lgnnal94ri3lxmas",
+            "rev": "a2d4003b1f7ba792b5d97b89ae8158740b153790",
+            "sha256": "1ajbk92zf9djz2zlh3w5gcswf6li9cin3xg11y9pwwklddnv0z49",
             "url": "https://github.com/adam01110/nur"
         },
         "afreakk": {
