@@ -4,7 +4,6 @@
 pkgs: func:
 let
   # helpers
-  nullIf = x: y: if x then null else y;
   try =
     e:
     let
@@ -65,11 +64,8 @@ let
     platform = { };
   };
 
-  # tries to create the cross-compiled package
-  mkPackage = crossPkgs: name: try ((func crossPkgs).${name});
-
-  # fixes the mainProgram attribute for windows binaries
-  fixupPackage =
+  # fixes the mainProgram attribute for windows packages
+  fixWindows =
     package:
     if package == null then
       null
@@ -86,36 +82,69 @@ let
       )
     else
       package;
+
+  # cross-compilation from linux to darwin doesn't work yet
+  # https://nixos.org/manual/nixpkgs/stable/#sec-platform-breakdown
+  fixDarwin =
+    package:
+    if package == null then
+      null
+    else if package.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isLinux then
+      null
+    else
+      package;
+
+  # add dev otherwise the result will have the entire buildInputs closure
+  # https://github.com/NixOS/nixpkgs/issues/83667
+  fixStatic =
+    package:
+    if package == null then
+      null
+    else if package.stdenv.hostPlatform.isStatic then
+      package.overrideAttrs (
+        _: prev: {
+          outputs =
+            if prev ? outputs then
+              if builtins.elem "dev" prev.outputs then prev.outputs else prev.outputs ++ [ "dev" ]
+            else
+              [
+                "out"
+                "dev"
+              ];
+        }
+      )
+    else
+      package;
+
+  # make sure the package is available on the current platform
+  hasPlatform =
+    package:
+    if package == null then
+      null
+    else if pkgs.lib.meta.availableOn package.stdenv.hostPlatform package then
+      package
+    else
+      null;
+
+  # creates a package for a given pkgs set and fixes it up
+  mkPackage = name: pkgs: fixWindows (fixDarwin (fixStatic (hasPlatform (try (func pkgs).${name}))));
 in
 
 builtins.mapAttrs (
   name: package:
-  if builtins.length (package.meta.platforms or [ ]) == 0 then
-    package
-  else
-    let
-      hasPlatform =
-        crossPkgs:
-        if pkgs.lib.meta.availableOn crossPkgs.stdenv.hostPlatform package then
-          fixupPackage (mkPackage crossPkgs name)
-        else
-          null;
-    in
-    package.overrideAttrs (
-      _: prev: {
-        passthru =
-          (prev.passthru or { })
-          // pkgs.lib.filterAttrs (_: v: v != null) {
-            x86_64-linux = hasPlatform pkgs-x86_64-linux;
-            aarch64-linux = hasPlatform pkgs-aarch64-linux;
-            armv7l-linux = hasPlatform pkgs-armv7l-linux;
-            armv6l-linux = hasPlatform pkgs-armv6l-linux;
-            x86_64-windows = hasPlatform pkgs-x86_64-windows;
-
-            # Cross-compilation to darwin doesn't work on linux yet :(
-            x86_64-darwin = nullIf pkgs.stdenv.hostPlatform.isLinux (hasPlatform pkgs-x86_64-darwin);
-            aarch64-darwin = nullIf pkgs.stdenv.hostPlatform.isLinux (hasPlatform pkgs-aarch64-darwin);
-          };
-      }
-    )
+  package.overrideAttrs (
+    _: prev: {
+      passthru =
+        (prev.passthru or { })
+        // pkgs.lib.filterAttrs (_: v: v != null) {
+          x86_64-linux = mkPackage name pkgs-x86_64-linux;
+          aarch64-linux = mkPackage name pkgs-aarch64-linux;
+          armv7l-linux = mkPackage name pkgs-armv7l-linux;
+          armv6l-linux = mkPackage name pkgs-armv6l-linux;
+          x86_64-windows = mkPackage name pkgs-x86_64-windows;
+          x86_64-darwin = mkPackage name pkgs-x86_64-darwin;
+          aarch64-darwin = mkPackage name pkgs-aarch64-darwin;
+        };
+    }
+  )
 ) packages
