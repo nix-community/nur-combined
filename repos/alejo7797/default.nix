@@ -33,7 +33,7 @@
 
   sage = self.callPackage ./pkgs/math/sage { __sage = pkgs.sage; };
 
-  snappy-topology = self.callPackage ./pkgs/math/snappy-topology { };
+  snappy-topology = self.callPackage ./pkgs/math/snappy-topology { __snappy-topology = pkgs.snappy-topology; };
 
   snarkjs = self.callPackage ./pkgs/zk/snarkjs { };
 
