@@ -19,20 +19,20 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "vidbee";
 
-  version = "1.3.5";
+  version = "1.3.7";
 
   src = fetchFromGitHub {
     owner = "nexmoe";
     repo = "VidBee";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-23IE7KqovKPgPLa9cZH6L6Kki9c5RCASoWVySiUYMn0=";
+    hash = "sha256-TQobAAH2aGG7j4P6yEfx1G7FKfbfo+NLJ2OsBHZigCk=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     pname = finalAttrs.pname;
     inherit (finalAttrs) version src;
     pnpm = pnpm_10;
-    hash = "sha256-VsNR78vjr8vdlFDTAUYOGh7nlIvNPZEojinyEZXO/IM=";
+    hash = "sha256-nq7tKqOIvfDyGMF8SvtTXn9x5ZpLJOAEuiBsLxAqVxM=";
     fetcherVersion = 3;
   };
 
