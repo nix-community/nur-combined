@@ -18,6 +18,7 @@
     hue_exporter = { url = "github:aexel90/hue_exporter"; flake = false; };
     netatmo-exporter = { url = "github:xperimental/netatmo-exporter/b555053621a2e61c4242f7c11e90a093c026b8b3"; flake = false; };
     nftables-exporter = { url = "github:metal-stack/nftables-exporter/v0.4.3"; flake = false; };
+    prometheus-ecowitt-exporter = { url = "github:ijohanne/prometheus-ecowitt-exporter"; };
     prometheus-tplink-p110-exporter = { url = "github:ijohanne/prometheus-tplink-p110-exporter"; };
     ts3exporter = { url = "github:hikhvar/ts3exporter/a38c91b397a67f3675af4985ecd2f8c0e5354a7c"; flake = false; };
 
@@ -47,7 +48,7 @@
       devSystems = packSystems;
       forPackSystems = f: nixpkgs.lib.genAttrs packSystems (system: f system);
       forDevSystems = f: nixpkgs.lib.genAttrs devSystems (system: f system);
-      sources = builtins.removeAttrs inputs [ "self" "nixpkgs" "prometheus-tplink-p110-exporter" ];
+      sources = builtins.removeAttrs inputs [ "self" "nixpkgs" "prometheus-ecowitt-exporter" "prometheus-tplink-p110-exporter" ];
     in
     {
       legacyPackages = forPackSystems (system:
@@ -55,6 +56,7 @@
           pkgs = import nixpkgs { inherit system; };
           inherit sources;
         }) // {
+          prometheus-ecowitt-exporter = inputs.prometheus-ecowitt-exporter.packages.${system}.default;
           prometheus-tplink-p110-exporter = inputs.prometheus-tplink-p110-exporter.packages.${system}.default;
         });
 
@@ -78,6 +80,7 @@
         multicast-relay = import ./modules/multicast-relay self;
         prometheus-hue-exporter = import ./modules/prometheus-hue-exporter self;
         prometheus-nftables-exporter = import ./modules/prometheus-nftables-exporter self;
+        prometheus-ecowitt-exporter = inputs.prometheus-ecowitt-exporter.nixosModules.default;
         prometheus-tplink-p110-exporter = inputs.prometheus-tplink-p110-exporter.nixosModules.default;
         pg-exporter = import ./modules/pg-exporter self;
         zot = import ./modules/zot self;
