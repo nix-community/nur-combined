@@ -1542,8 +1542,8 @@
             "url": "https://github.com/mhuesch/nur-packages"
         },
         "mic92": {
-            "rev": "72f0302f434ff8fde194b7679a2740491c9fcbaa",
-            "sha256": "0drcc3jnnbsjjfjfginnpxg06jfbk9qs9rzzhnf4ysm6g6clil0i",
+            "rev": "285d0b3831074bc369fe600112fcafcfa1b20c31",
+            "sha256": "0hdvwsdwcfnq77nqpw72milc160vqldnmlls55zn521cw47li44d",
             "url": "https://github.com/Mic92/nur-packages"
         },
         "mich-adams": {
@@ -2180,8 +2180,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "65f06eebb3958d7654fd0965bd6bbd257e6b6cf9",
-            "sha256": "1ly00zd6hmrziymm92q6140z9s9kizg112pw6ng7arqabhj68j96",
+            "rev": "e83fa8674430bcc65563b0207df7931b58694a0c",
+            "sha256": "0jncyxk9k6hwk307wgw0g1ry6i85d3b3mc6cg18qfpywshm8r19z",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
@@ -2562,8 +2562,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "942e3c5c78b9da8efbf09de32cce7b1d728389a2",
-            "sha256": "0xyvddj9k7ibnlsvl4ad0mdbra0vy3lhaav4f5ivs3ljl2crvkhq",
+            "rev": "92bb34514e547f8a4e2f754289fd5c66daef466c",
+            "sha256": "1cqjh6s640s7w4rb9bxx7my7mana2qcz4bjblfg176igc0rpf3j2",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
