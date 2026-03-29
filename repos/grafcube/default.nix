@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  lora-cyrillic = pkgs.callPackage ./pkgs/lora-cyrillic { };
   doasedit = pkgs.callPackage ./pkgs/doasedit { };
   antidot = pkgs.callPackage ./pkgs/antidot { };
 }

@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "doasedit";
-  version = "1.0.6";
+  version = "1.0.9";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "TotallyLeGIT";
     repo = pname;
     rev = version;
-    sha256 = "1hgj1ph5h6fkal4911wzb508sajr2123cqfgmw707my1g8gwgwij";
+    sha256 = "0akx7m5l8j3n4ayk1ab7jb7a8wwrmwkd3hnlmfdrz3jwr20h0z41";
   };
 
   installPhase = ''
