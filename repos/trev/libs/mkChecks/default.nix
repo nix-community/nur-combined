@@ -11,6 +11,7 @@ builtins.mapAttrs (
   let
     checkPhase = lib.strings.concatLines (
       [
+        "runHook preCheck"
         "export HOME=$(mktemp -d)"
         "export TREEFMT_TREE_ROOT=$(pwd)"
       ]
@@ -33,22 +34,24 @@ builtins.mapAttrs (
 
         shopt -u globstar
       ''
+      ++ [ "runHook postCheck" ]
     );
   in
   if check ? src && isDerivation check.src then
     check.src.overrideAttrs (
       final: prev: {
-        name = name;
+        inherit name checkPhase;
 
-        nativeBuildInputs = prev.nativeBuildInputs ++ (check.deps or check.nativeBuildInputs or [ ]);
+        nativeCheckInputs =
+          prev.nativeCheckInputs ++ (check.deps or check.packages or check.nativeBuildInputs or [ ]);
 
         doCheck = true;
-        inherit checkPhase;
       }
     )
   else
     stdenvNoCC.mkDerivation (finalAttrs: {
-      name = name;
+      inherit name checkPhase;
+
       src =
         if check ? root then
           lib.fileset.toSource {
@@ -73,13 +76,11 @@ builtins.mapAttrs (
         else
           check.src;
 
-      nativeBuildInputs = check.deps or check.nativeBuildInputs or [ ];
+      nativeBuildInputs = check.deps or check.packages or check.nativeBuildInputs or [ ];
 
       dontConfigure = true;
       dontBuild = true;
-
       doCheck = true;
-      inherit checkPhase;
 
       installPhase = ''
         echo "#!${runtimeShell}" >> $out
