@@ -33,7 +33,7 @@ jobs:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v24
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
@@ -41,14 +41,14 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v13
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ env.CACHIX_SIGNING_KEY }}'
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs

@@ -32,12 +32,12 @@ jobs:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v24
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v13
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ env.CACHIX_SIGNING_KEY }}'
@@ -51,7 +51,7 @@ jobs:
         EOF
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: ${{ github.event.inputs.ref }}
 
@@ -82,12 +82,12 @@ jobs:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v24
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v13
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ env.CACHIX_SIGNING_KEY }}'
@@ -101,7 +101,7 @@ jobs:
         EOF
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Start SSH via ngrok
       uses: P3TERX/ssh2actions@v1.0.0

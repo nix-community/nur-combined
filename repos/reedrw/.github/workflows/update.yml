@@ -19,25 +19,25 @@ jobs:
       env:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
-    - uses: tibdex/github-app-token@v1.8
+    - uses: tibdex/github-app-token@v2.1
       id: generate-token
       with:
         app_id: ${{ env.APP_ID }}
         private_key: ${{ env.APP_PRIVATE_KEY }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v24
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v13
       with:
         name: reedrw
         signingKey: '${{ env.CACHIX_SIGNING_KEY }}'
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Update packages
       run: find -L "$(pwd)/" -type f -name "update.sh" | while read -r updatescript; do ( dir="$(dirname -- "$updatescript")"; cd "$dir" || exit; $updatescript ); done

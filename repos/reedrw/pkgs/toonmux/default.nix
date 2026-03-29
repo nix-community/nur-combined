@@ -6,7 +6,7 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub (lib.importJSON ./source.json);
 
   cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-Y/iwWzUrRBEB6p9n4zmsF5E6FsFCrrmQ3RBZzsklSyY=";
+  cargoHash = "sha256-kXJjfwQOpRll4ybBjHKM4r2bd+qK6JULQiBODbPoMzI=";
 
   nativeBuildInputs = [
     pkg-config
