@@ -60,4 +60,4 @@ nix run "$FLAKE_URI"\#knotjob
 ```
 
 ## NUR etc.
-Also available on the [Nix User Repository](https://github.com/nix-community/NUR), if that's your kind of thing.
+Also available on the [Nix User Repository](https://nur.nix-community.org/repos/alejo7797/), if that's your kind of thing.
