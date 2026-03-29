@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "ae5aad6d1d59da5e9c66343d8873096fc2bc784d",
-            "sha256": "0qrql1w5f8j34xk7fkpjcsnxhrjfb5yzkmlwzgmijhkzcl9nf90n",
+            "rev": "7ba1604535377a59c517682015a11680c6b7944b",
+            "sha256": "0yn1man7fp1rik0sj8fyj38csq30b0qvh7icms24430sx44nkx6q",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "6d2517f09c6aa8148d88ffe92403972fc53d7b67",
-            "sha256": "1h8sacl6bir6iq2hq0swplby7wpz9zv5hnqalfgf46b183lwag0l",
+            "rev": "9cd33e0afd8477cd9002d29ad7c331951f84df73",
+            "sha256": "1wqyiqbclv15jz3al2xjamsqfb2n93lc351fpyfgay54jl63qkl9",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -1588,8 +1588,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "25acb9ceae6eb5f407cdea04f9e28e3488ef72fb",
-            "sha256": "1j6pdf7wq8ig2sviygfycgx9qy2v2sv32v38f0p5w3njg1w91b4b",
+            "rev": "e6d1fe544b6d04ccad599c5ca158d14e9f217e99",
+            "sha256": "1pb28cwifpdnh2lxc1asb8cg77h2i72d3iiqrl6sdxrw6cf90m9i",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
