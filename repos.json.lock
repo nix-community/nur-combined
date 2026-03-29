@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "41db70ea9b0f4ed93a30acb156e6d3aa61d11c85",
-            "sha256": "1fcrix3cacn1fgik8z59qdqhk71hs5gkn5lkg9g7fr9riwsznacq",
+            "rev": "beb9bc75e5877e6f0a1ed59eecd2d30530bf1c1b",
+            "sha256": "0jyyhzb86mk8vyn4d3l9p024sqgvg8d9xdw64l73yc1l1928pprx",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -2447,8 +2447,8 @@
             "url": "https://github.com/ViZiD/nur-vizqq"
         },
         "vladexa": {
-            "rev": "9cecf273dfa8725c9b2d022f7a8309c3ae3b3842",
-            "sha256": "01a84iwvsybzirdwvs23nkgn421w9lxpwbhs7924kqjzgahyxv01",
+            "rev": "29520bd27d5e752c4f06ac15984debf82d4c863b",
+            "sha256": "0jswf3ha0g84hlabl6mfa4if34n4rj9ywga6xgkwi7lps2fjqv5c",
             "url": "https://github.com/VlaDexa/nur-packages"
         },
         "vojtechstep": {
