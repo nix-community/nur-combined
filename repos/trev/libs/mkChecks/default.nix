@@ -43,7 +43,7 @@ builtins.mapAttrs (
         inherit name checkPhase;
 
         nativeCheckInputs =
-          prev.nativeCheckInputs ++ (check.deps or check.packages or check.nativeBuildInputs or [ ]);
+          (prev.nativeCheckInputs or [ ]) ++ (check.deps or check.packages or check.nativeBuildInputs or [ ]);
 
         doCheck = true;
       }
