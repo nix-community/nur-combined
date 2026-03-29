@@ -748,8 +748,8 @@
             "url": "https://github.com/dmfrpro/nur-packages"
         },
         "doomhammer": {
-            "rev": "3eee13d64408fd9db31f0cd7850b353b08561019",
-            "sha256": "0wd50b18b8xw35p4ykn8w3qlngvjgjylhsk82zplw6fq2y57p5wz",
+            "rev": "78068bd14794e0b753a368645c97aacdc87cab89",
+            "sha256": "0x7w3qaww6143cnr1fn8mrqfqjq3vy8n2zv76jv47p5fsvva4fnz",
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
@@ -1008,8 +1008,8 @@
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
-            "rev": "ca87cb15343430f0ee658ae00f151358d96b3ad3",
-            "sha256": "0qjphg9w2b5fg679wy8l0zvd800vq4sq4y9v7pi0h9vrw79gis1r",
+            "rev": "99f0858df99e4f72a7646565be2db661c25edbea",
+            "sha256": "10q92hk7cz2v5c2cnblgj5xb8b07jl1lsmz8ifsgvc8yg3c8k6rn",
             "url": "https://github.com/Grafcube/nur-packages"
         },
         "graham33": {
