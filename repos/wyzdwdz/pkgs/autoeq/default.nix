@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-let
+python311Packages.buildPythonApplication {
   pname = "autoeq";
   version = "unstable-2025-07-20";
 
@@ -14,9 +14,6 @@ let
     rev = "7ae0f56d53074872b028649617a22bbb4232feb7";
     hash = "sha256-/kj5ITqtaEWtcZkmB5DEIfj44otXKXYBE7ArV++YLkM=";
   };
-in
-python311Packages.buildPythonApplication rec {
-  inherit pname version src;
 
   pyproject = true;
 

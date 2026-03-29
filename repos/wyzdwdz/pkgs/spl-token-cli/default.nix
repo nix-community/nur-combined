@@ -1,19 +1,20 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, udev
-, openssl
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  udev,
+  openssl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "spl-token-cli";
   version = "5.5.0";
 
   src = fetchFromGitHub {
     owner = "solana-program";
     repo = "token-2022";
-    tag = "cli@v${version}";
+    tag = "cli@v${finalAttrs.version}";
     hash = "sha256-7zbMspIwfYBYurv8xROJUP22EcmkMyDi9LoOwpFHaW4=";
   };
 
@@ -22,7 +23,10 @@ rustPlatform.buildRustPackage rec {
   cargoBuildFlags = [ "-p spl-token-cli" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ udev openssl ];
+  buildInputs = [
+    udev
+    openssl
+  ];
   strictDeps = true;
 
   doCheck = false;
@@ -35,4 +39,4 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "spl-token";
     broken = false;
   };
-}
+})

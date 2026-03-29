@@ -43,7 +43,7 @@ let
     src = "${tarSrc}/assfonts-gui.AppImage";
   };
 in
-appimageTools.wrapType2 rec {
+appimageTools.wrapType2 {
   pname = "assfonts";
   inherit version;
 
