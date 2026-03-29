@@ -9,5 +9,5 @@
   exec ${lib.getExe sage} --python -c 'import sys; from snappy.app import main; sys.exit(main())'
 '')
 // {
-  inherit (__snappy-topology) meta;
+  inherit (__snappy-topology) name meta;
 }
