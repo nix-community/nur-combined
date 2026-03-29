@@ -10,13 +10,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "framework_rgbafan";
-  version = "0-unstable-2025-12-09";
+  version = "0-unstable-2026-03-28";
 
   src = fetchFromGitHub {
     owner = "jazz-g";
     repo = "framework_rgbafan";
-    rev = "d37b5acc2acfa6bf49ee73c968589f3545f0c89d";
-    hash = "sha256-hJY1sKwGbKxPL/kP9oo6VNvIYfgdDkgNJg8Hm+yJFW0=";
+    rev = "004c1b878e8f5b3faffb8fb1b93536372a6fe2bb";
+    hash = "sha256-pJkXEHt/vQ1LP3S6ZfI/EpyOJ0KxLeVLYxFnyMZT40o=";
   };
 
   cargoLock = {
