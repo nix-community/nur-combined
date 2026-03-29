@@ -234,6 +234,13 @@ let
         ;
     };
 
+    ubolite = import ./ubol.nix {
+      inherit
+        buildFirefoxXpiAddon
+        lib
+        ;
+    };
+
     improved-intra =
       let
         version = "4.4.0";

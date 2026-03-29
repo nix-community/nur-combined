@@ -66,10 +66,11 @@ Update Mozilla Addons:
     # Update Firefox addons
     - pkgs/firefox-addons/zotero-update.sh pkgs/firefox-addons/zotero.nix
     - pkgs/firefox-addons/bypass-paywalls-clean-update.sh pkgs/firefox-addons/bypass-paywalls-clean.nix
+    - pkgs/firefox-addons/ubol-update.sh pkgs/firefox-addons/ubol.nix
     - mozilla-addons-to-nix $FIREFOX_INPUT $FIREFOX_OUTPUT
     - |
       if [ "$(git status --porcelain --untracked-files=no)" ] ; then
-        git commit -m "Automatic update of Firefox addons" $FIREFOX_OUTPUT pkgs/firefox-addons/zotero.nix pkgs/firefox-addons/bypass-paywalls-clean.nix
+        git commit -m "Automatic update of Firefox addons" $FIREFOX_OUTPUT pkgs/firefox-addons/zotero.nix pkgs/firefox-addons/bypass-paywalls-clean.nix pkgs/firefox-addons/ubol.nix
       else
         echo No changes to commit
       fi
