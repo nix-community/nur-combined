@@ -62,6 +62,7 @@ jobs:
               # "mame",
               "hbmame",
               "qemu-screamer",
+              "lix-game-darwin",
             empty] as $subsets |
             
             {include: [
@@ -78,7 +79,8 @@ jobs:
               }[$qemuSystem] else null end) as $qemuSystemForAction |
               # (if $qemuSystem then $subsets[] else "all" end) as $subset |
               $subsets[] as $subset |
-              select(($runner | startswith("macos")) or ($subset != "mame")) |
+              # select(($runner | startswith("macos")) or ($subset != "mame")) |
+              select(($runner | startswith("macos")) or ($subset != "lix-game-darwin")) |
               (if $nixpkgs | test("^[0-9a-f]{40}$") then $nixpkgs else "refs/heads/\($nixpkgs)" end) as $nixpkgsPath |
               ($nixpkgs |
                 gsub("^nixpkgs-"; "NP-") |

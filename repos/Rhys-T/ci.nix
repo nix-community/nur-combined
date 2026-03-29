@@ -31,6 +31,11 @@ let
     
     hbmame = p: lib.hasInfix "hbmame" (p.name or "");
     qemu-screamer = p: lib.hasInfix "qemu" (p.name or "") && lib.hasInfix "screamer" (p.name or "");
+    lix-game-darwin = if (lib.systems.elaborate platform).isDarwin then
+      p: lib.hasInfix "lix-game" (p.name or "")
+    else
+      p: false
+    ;
     
     _disabled-mame = p: lib.hasInfix "mame" (p.name or "") && !(subsets.hbmame p) && !(lib.hasInfix "mame-pacman-roms.xml" (p.name or ""));
   };
