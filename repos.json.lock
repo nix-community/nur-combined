@@ -2014,8 +2014,8 @@
             "url": "https://github.com/reDpz/nur-packages"
         },
         "reedrw": {
-            "rev": "62ec6d600039ccc0b68df137321be1eeae92c5fa",
-            "sha256": "15pa6py6aljyyxyrg3gi4nkbrsy8a3c6l71b103qna1pi0hcw4ag",
+            "rev": "48646173abe06907df83920e9db0002cb62a0857",
+            "sha256": "0zfs7i42f6jag1n5vvr626xw2qb6s0brfrw25vgarsfa4dyhsqya",
             "url": "https://github.com/reedrw/nur-packages"
         },
         "rencire": {
@@ -2372,8 +2372,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "72e76b94c5bc56526f092e795a8bd041d4bb7398",
-            "sha256": "07djz0ngj3jmnd67bj844v27gjvmpibkinw142s739qnf8zxm2px",
+            "rev": "f3cd7700be31b5d68ebb91c5dd54bf0fd9daf4a5",
+            "sha256": "1k10i7x2s5qx02gs9gn8m0c26cawli5lsw8hrd4ylijg6h9df51r",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
