@@ -833,8 +833,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "210ed1cb10f24ba9d6b3eaa41b8c0328bdbeb896",
-            "sha256": "154zf0bv5wabkkq6gi36bzbxifz8ljpl8zhp7bzg0za1565nzc3g",
+            "rev": "6ee5a61aea41f229f23cae5a75b122831fc5873a",
+            "sha256": "0m67qfk7mag97fgcb4rvfkwivfzipmk2af2i1pgj05psbrmiwkm2",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
@@ -1421,8 +1421,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "cb5e916ca593b46c4ccc477f2ecf0fe44c4e1657",
-            "sha256": "1n31jbvlpalwjqc9nnk687kgikvbisakbznys98d1a1vf6hx8nfs",
+            "rev": "47ac065212a0ba8cafe6620a5a645fff808ca567",
+            "sha256": "177c4ysba0g0c7ixa6fkvwis7n4xglwlckp2flnhzsbxpnspfakn",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
