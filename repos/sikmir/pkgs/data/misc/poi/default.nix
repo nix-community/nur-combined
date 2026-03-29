@@ -9,10 +9,10 @@
 
 {
   geocachingSu = fetchwebarchive {
-    name = "geocaching_su-2025-01-18";
+    name = "geocaching_su-2026-03-29";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    timestamp = "20250118085408";
-    hash = "sha256-JsSbx1sgt1E4+zn6g+tPfbBK/7O+Y9+ReuAiECDyBac=";
+    timestamp = "20260329082540";
+    hash = "sha256-Hztr2diLBWQXG4U0hSiodpuQui+63Io4q2LjJDDaHJA=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
