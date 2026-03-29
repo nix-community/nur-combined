@@ -39,7 +39,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-/i7j7niMRN6lrSEBV5/luBTWdRtkQRifAhg7xQB3frY=";
+      sha256 = "sha256-7uHUJ9Bdh8CF8xkjXYGGHX4tfStiuubSTytWtiCRuI0=";
     };
   };
   helium-linux = {
@@ -114,13 +114,13 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v7.1.17";
+    version = "v7.1.18";
     src = fetchFromGitHub {
       owner = "koekeishiya";
       repo = "yabai";
-      rev = "v7.1.17";
+      rev = "v7.1.18";
       fetchSubmodules = false;
-      sha256 = "sha256-XBJUh2l1DurftKZtved0D4LXe+kQ5od9SfIL6J/ymKI=";
+      sha256 = "sha256-go3CsFxJCHpEJ8EGv9B5pXt/1AifGLM8S5TIXkhKgDc=";
     };
   };
   zen = {
