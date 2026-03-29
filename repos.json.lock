@@ -281,8 +281,8 @@
             "url": "https://github.com/alarsyo/nixos-config"
         },
         "alejo7797": {
-            "rev": "2b8e3aaa7319f9507e9d7879d88c9c255b4fd0f8",
-            "sha256": "1ks3vqxgdcwk6qza5yfdqfr1b99ish8hxx4rasw0afw2bvc4ggg8",
+            "rev": "c2edf5120a5eb912480b8cce380429fec10937f0",
+            "sha256": "1f4a12jdddr8jha7v4h3xhbd9y413hkdl40livicmqwmjn11l8i1",
             "url": "https://codeberg.org/alejo7797/nix-expressions"
         },
         "aleksana": {
@@ -1103,8 +1103,8 @@
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
-            "rev": "ebc363ff1310a3e9600c93de4714d335dcbba179",
-            "sha256": "1fg9n7lyr1hwg137yibi4hwzfh045p3fn73zm94g94f05yiprbph",
+            "rev": "b5b98fd1d87097dc20eb27785cc9273df6336256",
+            "sha256": "1db1n5makl7kr6r1lhsmnjawxpc71gg9fyiaz7y9krgsk9vwjc8a",
             "url": "https://github.com/ijohanne/nur-packages"
         },
         "ilkecan": {
@@ -1338,8 +1338,8 @@
             "url": "https://github.com/kinzoku-dev/nur-kinzoku"
         },
         "kira-bruneau": {
-            "rev": "7f45359827496d28e16b3379a240e23ebdbae931",
-            "sha256": "1i6yg0ip8vr75j47pmig3hkx4mkh596j26mxhh973rqi1cb33bs8",
+            "rev": "eee934d628acc735104e7234c02f4940198e807e",
+            "sha256": "0m2c5qkd98q6z2da6yflfg36c6vb15syjqjrfsmpc5hs093xp2b9",
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
         "kokakiwi": {
