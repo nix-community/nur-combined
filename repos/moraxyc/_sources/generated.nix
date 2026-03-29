@@ -107,25 +107,25 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "ce2cbb87fa73c5193876cbe5949aa22bbd0a8fa8";
+    version = "a50d2da948049bc3ce1f34ae4681cb77bfda7fce";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "ce2cbb87fa73c5193876cbe5949aa22bbd0a8fa8";
+      rev = "a50d2da948049bc3ce1f34ae4681cb77bfda7fce";
       fetchSubmodules = false;
-      sha256 = "sha256-gsX1RVJ8HP4cjkXVYRttwAewfElwtK6FpGW60x3iCos=";
+      sha256 = "sha256-nbwRAIWenqjGBH/wbps/v82hb3W/wR79UGI7Sdo2bh8=";
     };
-    date = "2026-01-31";
+    date = "2026-03-28";
   };
   flapalerted-stable = {
     pname = "flapalerted-stable";
-    version = "v4.3.0";
+    version = "v4.4.1";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "v4.3.0";
+      rev = "v4.4.1";
       fetchSubmodules = false;
-      sha256 = "sha256-xoskkM5xdU3+T5AtgGv0uPZEUOLtMGl7RPv8gKBJBho=";
+      sha256 = "sha256-nbwRAIWenqjGBH/wbps/v82hb3W/wR79UGI7Sdo2bh8=";
     };
   };
   geolite2-asn = {
@@ -203,15 +203,15 @@
   };
   mautrix-telegramgo = {
     pname = "mautrix-telegramgo";
-    version = "bec7ee8f5e0199491260495ae33f4a58b47a212d";
+    version = "0303f707788e3f6f2d2228a5dc55c9f94cfc19e6";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "telegramgo";
-      rev = "bec7ee8f5e0199491260495ae33f4a58b47a212d";
+      rev = "0303f707788e3f6f2d2228a5dc55c9f94cfc19e6";
       fetchSubmodules = false;
-      sha256 = "sha256-Komh2VO9V3xd4UpHzg3q2IqI0K7f9yNnPgCnYspjBpE=";
+      sha256 = "sha256-2qworo9N13TlJwFusOhsmgx/2UloxOI1UOwLIBnQ7h4=";
     };
-    date = "2026-03-24";
+    date = "2026-03-29";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -255,18 +255,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.9.19";
+    version = "1.9.20";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.19/NipaPlay_1.9.19_macOS_Universal.dmg";
-      sha256 = "sha256-lk4gWfkwRnpf+8Z7J68FiCXEeHbPsskprC4meRezK4U=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.20/NipaPlay_1.9.20_macOS_Universal.dmg";
+      sha256 = "sha256-ik8A0DvIu3EIE6XWANt7o4EaI+/w1IdeRkBylxrQ3kk=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.9.19";
+    version = "1.9.20";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.19/NipaPlay-1.9.19-Linux-amd64.AppImage";
-      sha256 = "sha256-WR0JIx+8pVuLWA305WL/WmeC52LkGKikJLuqUqtHjE8=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.9.20/NipaPlay-1.9.20-Linux-amd64.AppImage";
+      sha256 = "sha256-wHzfLutyw1MacbBTyFtqag7NFFrpnS0aAYKNLtIkaNc=";
     };
   };
   pixy2 = {
@@ -318,18 +318,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603272225";
+    version = "202603282222";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603272225/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603282222/geoip.dat";
       sha256 = "sha256-dEyXt0xSuuKshmT+9qxIHXdly4QyoN9U8DaKiLm0o1Q=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603272225";
+    version = "202603282222";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603272225/geosite.dat";
-      sha256 = "sha256-nPLyMgXBs3bWoY9EBznT/x6CoFGM6h3AwE6BGsuD52Y=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603282222/geosite.dat";
+      sha256 = "sha256-wgLl7Talkd3W17AWRFPTbHyRoyvkXk0mJW/RnSTHC3E=";
     };
   };
   yass = {
