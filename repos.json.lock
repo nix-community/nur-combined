@@ -2035,8 +2035,8 @@
             "url": "https://github.com/ressu/nur-packages"
         },
         "reward": {
-            "rev": "b8fcdbb6b86aa11d7f1df0b4170f9382e327d076",
-            "sha256": "1yyqkdhdvip8g2dv8mb51qcy1dzxqwcxhr0gfvzcf65k8isivgrs",
+            "rev": "4f58d497af0f10d34f6625c1837c9f909164d2c7",
+            "sha256": "1r3hmjya7qp03qvhb910kldpjdyajcmd7jbacq4vzinzh5fk8pdm",
             "url": "https://github.com/rewardenv/nur"
         },
         "rewine": {
