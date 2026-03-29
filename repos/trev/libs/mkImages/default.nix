@@ -16,15 +16,7 @@ let
     _: image:
     (!pkgs.lib.attrsets.hasAttrByPath [ "meta" "platforms" ] image)
     || (builtins.elem pkgs.stdenv.buildPlatform.system image.meta.platforms)
-  ) (func pkgs-default);
-
-  # overlay to create images
-  mkImage = _: prev: {
-    mkImage = import ./mkImage.nix {
-      system = pkgs.stdenv.buildPlatform.system;
-      pkgs = prev;
-    };
-  };
+  ) (func pkgs);
 
   # pkgs for cross-compilation
   mkCrossPkgs =
@@ -32,11 +24,9 @@ let
     (import nixpkgs {
       localSystem = pkgs.stdenv.buildPlatform.system;
       inherit crossSystem;
-      inherit (pkgs) config;
-      overlays = pkgs.overlays ++ [ mkImage ];
+      inherit (pkgs) config overlays;
     });
 
-  pkgs-default = pkgs.appendOverlays [ mkImage ];
   pkgs-x86_64-linux = mkCrossPkgs {
     config = "x86_64-unknown-linux-musl";
     isStatic = true;

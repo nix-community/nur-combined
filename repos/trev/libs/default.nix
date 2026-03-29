@@ -5,4 +5,5 @@
 {
   mkApps = pkgs.callPackage ./mkApps { };
   mkChecks = pkgs.callPackage ./mkChecks { };
+  mkImage = pkgs.callPackage ./mkImage { };
 }
