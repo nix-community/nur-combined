@@ -918,8 +918,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "23c29da571a562b20ffbe1c0e884fbac40fd3747",
-            "sha256": "1hj9zhk9jjbsy9qs1v6pxydvgb032rcd6b1rx633ix2424i1n3qy",
+            "rev": "cffe864bdc44b9f2a7d4b92540219f7a1bdec78a",
+            "sha256": "0j802ji0j2zkj4ba25zyqr9jd2b6ymr183wkfz5a84vkyr3qamyj",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -2090,8 +2090,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "46fc842b2d7d0c9d2d0748914afefe6c81a2d997",
-            "sha256": "0i7b3x3mk9fhjchz9w78nim4rvmilwc7kvcy53pabwl9sk7rjz73",
+            "rev": "e129cc88992dd627d7a195d1e19ab091a27eabe9",
+            "sha256": "02bryi09k86wlwsww0wfhrlj9bidcmfy9d5vqbzkmfcgk8i3v1ca",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
@@ -2517,8 +2517,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "60749d2b77963ab712ce0af731b00a3d82fce51b",
-            "sha256": "0n2anyhk0v4p9aglncmnbjwcm40g2miclaqsnp2r664ifi7ymjab",
+            "rev": "263b642e8cf934c25bcacdb088f02961459fdd1b",
+            "sha256": "1wikri5bfq8zhmaxxysdjz69gjiw3m44iqlk9jy7laa4f5x4p1ah",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
