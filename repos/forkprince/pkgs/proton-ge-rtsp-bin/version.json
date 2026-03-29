@@ -6,10 +6,10 @@
     "skip_prerelease": true
   },
   "asset": {
-    "file": "{version}.tar.gz",
+    "file": "{version}-4.tar.gz",
     "unpack": true
   },
   "force": true,
-  "version": "GE-Proton10-26-rtsp20",
-  "hash": "sha256-eAJjw575cJlj7qLsPC1LgRsVMW4O754Q6SO7IV74EyE="
+  "version": "GE-Proton10-33-rtsp22",
+  "hash": "sha256-YmdO4XaEFbq1lWWorZMqFKVQb+bMxDDH/dpwKaq+Qjg="
 }
