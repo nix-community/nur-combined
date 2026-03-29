@@ -918,8 +918,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "cffe864bdc44b9f2a7d4b92540219f7a1bdec78a",
-            "sha256": "0j802ji0j2zkj4ba25zyqr9jd2b6ymr183wkfz5a84vkyr3qamyj",
+            "rev": "05947f7551ade1719e39c67ff4708b48bdf0258d",
+            "sha256": "19mii79jhwrjwwdfa90y32jvaw9apbpjc0ssbh9gnjh115z1qnkx",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -1008,8 +1008,8 @@
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
-            "rev": "99f0858df99e4f72a7646565be2db661c25edbea",
-            "sha256": "10q92hk7cz2v5c2cnblgj5xb8b07jl1lsmz8ifsgvc8yg3c8k6rn",
+            "rev": "7fe77f06aa287d69b40fa55999c2b86edba89795",
+            "sha256": "0wlvmkk6bpilhx3hvdmy3fsglbasjwbl2zbwf5msiysnk8w3bv01",
             "url": "https://github.com/Grafcube/nur-packages"
         },
         "graham33": {
