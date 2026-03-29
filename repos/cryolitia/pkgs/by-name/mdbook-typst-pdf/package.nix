@@ -8,13 +8,13 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-typst-pdf";
-  version = "0.7.2";
+  version = "0.7.3";
 
   src = fetchFromGitHub {
     owner = "KaiserY";
     repo = "mdbook-typst-pdf";
     rev = "v${version}";
-    hash = "sha256-ASM8U6tFViRoMfc1DhTVSLr7P9eksGP3suD/+UOkPcE=";
+    hash = "sha256-RwIlIZYAPO0FN6wMq6gO2Oq2vR2lp6IpGlh8WyY0Pbs=";
   };
 
   buildInputs = [
@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = 1;
 
-  cargoHash = "sha256-ZcVjAvQrplLW42e6t9e/QsmTPBmhQfIFR7SnemuqEgI=0.7.2";
+  cargoHash = "sha256-bQ+zZpmVUs9dFPq6fnjoOZWAdvIlqHlS97//pHYs2Yg=";
 
   meta = with lib; {
     description = "将 mdBook 转换为 PDF。";
