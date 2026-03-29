@@ -1103,8 +1103,8 @@
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
-            "rev": "5d701f1bdd9e21477d9bf6bfabd3d3996ab50a1e",
-            "sha256": "0693w5s5szj79vf7l76jacvqbdpa2gjm56257n1dq58rmlfj2ywa",
+            "rev": "b22a6107da85be159dd65cabbb71570251cc867d",
+            "sha256": "0v19275q5z058xzxq5ckgrxq8cqxl390m7pf6h91ympm1f58yzyg",
             "url": "https://github.com/ijohanne/nur-packages"
         },
         "ilkecan": {
@@ -1899,8 +1899,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "64c9f0a0cc77edc2b95385180032f1b420535565",
-            "sha256": "1b5n6n4pl2dr270970xgjqflrh9rfrnfk4fh17rdq1gdwkbm75jb",
+            "rev": "8985cc08e631e010d28f9b830270e631ae872672",
+            "sha256": "1nd64nxg176srwhrm326gym9l63l4k27b40p37bxg1qr9pym4w1n",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
