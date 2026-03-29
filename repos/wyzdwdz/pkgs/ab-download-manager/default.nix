@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchgit,
+  fetchFromGitHub,
   gradle,
   autoPatchelfHook,
   makeWrapper,
@@ -20,8 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ab-download-manager";
   version = "1.8.7";
 
-  src = fetchgit {
-    url = "https://github.com/amir1376/ab-download-manager.git";
+  src = fetchFromGitHub {
+    owner = "amir1376";
+    repo = "ab-download-manager";
     rev = "v${finalAttrs.version}";
     hash = "sha256-YDARV3pbT8jvWuYthgKN+XxgJdDuZNbfqvfddKnp1Ls=";
   };
@@ -51,6 +52,11 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i '/useFileSystemPermissions()/d' desktop/app/build.gradle.kts
 
     sed -i 's/from(tasks.named("createReleaseDistributable"))/dependsOn("createReleaseDistributable");from(project.layout.buildDirectory.dir("compose\/binaries\/main-release\/app"))/g' desktop/app/build.gradle.kts
+
+    substituteInPlace build.gradle.kts \
+        --replace-fail 'version = (gitVersion.getVersion() ?: fallBackVersion).toVersion()' \
+        'version = "${finalAttrs.version}".toVersion()'
+
 
     cat >> build.gradle.kts <<'EOF'
     allprojects {
@@ -83,6 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     EOF
   '';
 
+  # nix build .#ab-download-manager.mitmCache.updateScript && ./result
   mitmCache = gradle.fetchDeps {
     pkg = finalAttrs.finalPackage;
     data = ./deps.json;
