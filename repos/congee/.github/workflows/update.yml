@@ -60,11 +60,25 @@ jobs:
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         run: |
           nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
-          # Rewrite nix-update's "pkg: old -> new" to conventional commit style
-          if ! git diff --quiet origin/master HEAD; then
-            commit_msg=$(git log -1 --format=%s)
-            git commit --amend -m "feat(pkgs): bump ${commit_msg}"
+          if git diff --quiet origin/master HEAD; then
+            echo "No update for ${{ matrix.package }}"
+            exit 0
           fi
+
+          # Fix any stale FOD hashes by building and extracting correct hashes
+          pkg="${{ matrix.package }}"
+          nix_file="pkgs/${pkg}/default.nix"
+          if [[ -f "$nix_file" ]]; then
+            .github/scripts/fix-fod-hashes.sh "$pkg" "$nix_file"
+            if ! git diff --quiet -- "$nix_file"; then
+              git add "$nix_file"
+              git commit --amend --no-edit
+            fi
+          fi
+
+          # Rewrite nix-update's "pkg: old -> new" to conventional commit style
+          commit_msg=$(git log -1 --format=%s)
+          git commit --amend -m "feat(pkgs): bump ${commit_msg}"
       - name: Create PR
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         run: |
