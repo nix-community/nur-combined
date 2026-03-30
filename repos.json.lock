@@ -1148,8 +1148,8 @@
             "url": "https://github.com/iopq/nur-packages"
         },
         "itscrystalline": {
-            "rev": "088d5dd011ee0ec7a29caa331da1378baac2e0da",
-            "sha256": "1akfif4nfbdlb3n89ybkhgdh48xm4wcvrl2lsaqg24v5bqxbfl8g",
+            "rev": "2858412b5d9a0a80cd1bcef9d8664c3f96a1f1a5",
+            "sha256": "0ashrwhd7ymf78h4iq4xi599iamipdy63jpj3qbq3yj8sz49jyr9",
             "url": "https://github.com/itscrystalline/nur-packages"
         },
         "iuricarras": {
@@ -1370,8 +1370,8 @@
             "url": "https://github.com/kreisys/nur-packages"
         },
         "kuflierl": {
-            "rev": "2300b96f5f1f23546c4506f90b1bacba5e95e48b",
-            "sha256": "0xah7z26s0grjxn966f7623484j4f1wa9nla113x3m3660zpkwan",
+            "rev": "40be7d354557382653ca1f3af45384e139199cd5",
+            "sha256": "06y7kgn0z8dj7pgdljnvcmbb1qf7y1fii014z0hf3in8xpk4vnln",
             "url": "https://github.com/kuflierl/NUR"
         },
         "kugland": {
