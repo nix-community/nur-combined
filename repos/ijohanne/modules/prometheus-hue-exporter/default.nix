@@ -3,7 +3,7 @@ self:
 with lib;
 let
   cfg = config.services.prometheus-hue-exporter;
-  package = self.legacyPackages.${pkgs.system}.prometheus-hue-exporter;
+  package = self.legacyPackages.${pkgs.stdenv.hostPlatform.system}.prometheus-hue-exporter;
 
   instanceModule = { name, ... }: {
     options = {

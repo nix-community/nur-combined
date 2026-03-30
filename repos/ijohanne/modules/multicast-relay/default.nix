@@ -3,7 +3,7 @@ self:
 with lib;
 let
   cfg = config.services.multicast-relay;
-  package = self.legacyPackages.${pkgs.system}.multicast-relay;
+  package = self.legacyPackages.${pkgs.stdenv.hostPlatform.system}.multicast-relay;
 in
 {
   options.services.multicast-relay = with types; mkOption {

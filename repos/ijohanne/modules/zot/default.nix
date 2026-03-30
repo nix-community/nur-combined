@@ -3,7 +3,7 @@ self:
 with lib;
 let
   cfg = config.services.zot;
-  package = self.legacyPackages.${pkgs.system}.zot;
+  package = self.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zot;
   settingsFormat = pkgs.formats.json { };
 
   hasAuthUsers = cfg.auth.users != { };

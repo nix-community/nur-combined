@@ -3,7 +3,7 @@ self:
 with lib;
 let
   cfg = config.services.pg-exporter;
-  package = self.legacyPackages.${pkgs.system}.pg-exporter;
+  package = self.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pg-exporter;
 
   settingsFormat = pkgs.formats.yaml { };
 

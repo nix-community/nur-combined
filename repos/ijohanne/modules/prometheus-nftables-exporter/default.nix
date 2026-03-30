@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.services.prometheus-nftables-exporter;
   name = "nftables";
-  package = self.legacyPackages.${pkgs.system}.prometheus-nftables-exporter;
+  package = self.legacyPackages.${pkgs.stdenv.hostPlatform.system}.prometheus-nftables-exporter;
   configFile = pkgs.writeText "nftables_exporter.yaml" (builtins.toJSON {
     nftables_exporter = {
       bind_to = "${cfg.listenAddress}:${toString cfg.port}";
