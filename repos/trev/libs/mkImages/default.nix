@@ -39,9 +39,18 @@ let
     config = "armv7l-unknown-linux-musleabihf";
     isStatic = true;
   };
+  pkgs-armv6l-linux = mkCrossPkgs {
+    config = "armv6l-unknown-linux-musleabihf";
+    isStatic = true;
+  };
 
-  # tries to create the cross-compiled image
-  mkPackage = crossPkgs: name: try ((func crossPkgs).${name});
+  # tries to create an image for a given pkgs set
+  mkImage = name: pkgs: try ((func pkgs).${name});
+
+  # make sure the main package for the image is available for its hostPlatform
+  mkImageIf =
+    name: package: pkgs:
+    if pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package then mkImage name pkgs else null;
 in
 
 builtins.mapAttrs (
@@ -50,24 +59,28 @@ builtins.mapAttrs (
     package = image.package or null;
   in
   if package == null then
-    image
-  else
-    let
-      hasPlatform =
-        crossPkgs:
-        if pkgs.lib.meta.availableOn crossPkgs.stdenv.hostPlatform package then
-          mkPackage crossPkgs name
-        else
-          null;
-    in
     image.overrideAttrs (
       _: prev: {
         passthru =
           (prev.passthru or { })
           // pkgs.lib.filterAttrs (_: v: v != null) {
-            amd64 = hasPlatform pkgs-x86_64-linux;
-            arm64 = hasPlatform pkgs-aarch64-linux;
-            arm = hasPlatform pkgs-armv7l-linux;
+            x86_64-linux = mkImage name pkgs-x86_64-linux;
+            aarch64-linux = mkImage name pkgs-aarch64-linux;
+            armv7l-linux = mkImage name pkgs-armv7l-linux;
+            armv6l-linux = mkImage name pkgs-armv6l-linux;
+          };
+      }
+    )
+  else
+    image.overrideAttrs (
+      _: prev: {
+        passthru =
+          (prev.passthru or { })
+          // pkgs.lib.filterAttrs (_: v: v != null) {
+            x86_64-linux = mkImageIf name package pkgs-x86_64-linux;
+            aarch64-linux = mkImageIf name package pkgs-aarch64-linux;
+            armv7l-linux = mkImageIf name package pkgs-armv7l-linux;
+            armv6l-linux = mkImageIf name package pkgs-armv6l-linux;
           };
       }
     )

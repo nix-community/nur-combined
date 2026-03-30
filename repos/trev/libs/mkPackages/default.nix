@@ -119,12 +119,7 @@ let
   # make sure the package is available for its hostPlatform
   mkPackageIf =
     name: package: pkgs:
-    if package == null then
-      null
-    else if pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package then
-      mkPackage name pkgs
-    else
-      null;
+    if pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package then mkPackage name pkgs else null;
 in
 
 pkgs.lib.filterAttrs (_: v: v != null) (
