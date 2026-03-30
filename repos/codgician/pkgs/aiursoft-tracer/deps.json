@@ -30,6 +30,21 @@
     "hash": "sha256-02NIUD2wFGdPPcEJRvTSr8oAvnV80WrLnoZer/UDqpk="
   },
   {
+    "pname": "Aiursoft.ClickhouseLoggerProvider",
+    "version": "10.0.16",
+    "hash": "sha256-odhc8ja4dOV303A3J8Zd84Lw46plc0ItiiPbVSaqzPE="
+  },
+  {
+    "pname": "Aiursoft.ClickhouseSdk",
+    "version": "10.0.16",
+    "hash": "sha256-f+7IL8a8o5x+LkQN/fZqe2+WxdoAgHh0YsV1Uvpu5SE="
+  },
+  {
+    "pname": "Aiursoft.ClickhouseSdk.Abstractions",
+    "version": "10.0.16",
+    "hash": "sha256-AXQWypwCK7x2vo3Cns7NHvca3FmcaZOtcH3XmmPllNE="
+  },
+  {
     "pname": "Aiursoft.CSTools",
     "version": "10.0.4",
     "hash": "sha256-Y5/ypJtSxS2/CH1nv2EzOkuaVGJnPf/ejSfAbqwi1Gc="
@@ -93,6 +108,11 @@
     "pname": "AsyncKeyedLock",
     "version": "8.0.1",
     "hash": "sha256-XqVL2x0naM69p3HPO4PCAp1p1DZm8s9kPDLfL+nID5U="
+  },
+  {
+    "pname": "ClickHouse.Client",
+    "version": "7.14.0",
+    "hash": "sha256-nIEhyU9hXXayN8H+WQEdf3K5EC2GA2Rfh6hQvEe7ouA="
   },
   {
     "pname": "coverlet.collector",
@@ -465,6 +485,11 @@
     "hash": "sha256-beVbbVQy874HlXkTKarPTT5/r7XR1NGHA/50ywWp7YA="
   },
   {
+    "pname": "Microsoft.IO.RecyclableMemoryStream",
+    "version": "3.0.1",
+    "hash": "sha256-unFg/5EcU/XKJbob4GtQC43Ydgi5VjeBGs7hfhj4EYo="
+  },
+  {
     "pname": "Microsoft.NET.Test.Sdk",
     "version": "18.3.0",
     "hash": "sha256-o2bILLF5i+XUoi8xZYgolU3CxLTdql5R/tEVWVnKFPU="
@@ -563,6 +588,11 @@
     "pname": "Newtonsoft.Json.Bson",
     "version": "1.0.2",
     "hash": "sha256-ZUj6YFSMZp5CZtXiamw49eZmbp1iYBuNsIKNnjxcRzA="
+  },
+  {
+    "pname": "NodaTime",
+    "version": "3.2.2",
+    "hash": "sha256-4ZABw5+MFhgwk9/nj1pKx6QzpqhVmDDxR/Pc1ZgP5Ug="
   },
   {
     "pname": "SixLabors.ImageSharp",
