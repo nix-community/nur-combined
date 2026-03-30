@@ -12,7 +12,7 @@
 
   inputs = {
     schema.url = "github:DeterminateSystems/flake-schemas";
-    systems.url = "github:nix-systems/default";
+    systems.url = "github:spotdemo4/systems";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
