@@ -274,6 +274,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "bindgen"
+version = "0.72.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "993776b509cfb49c750f11b8f07a46fa23e0a1386ffc01fb1e7d343efc387895"
+dependencies = [
+ "bitflags 2.11.0",
+ "cexpr",
+ "clang-sys",
+ "itertools 0.11.0",
+ "log",
+ "prettyplease",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "rustc-hash 2.1.1",
+ "shlex",
+ "syn 2.0.117",
+]
+
+[[package]]
 name = "bit-set"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -475,6 +495,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6d43a04d8753f35258c91f8ec639f792891f748a1edbd759cf1dcea3382ad83c"
 
 [[package]]
+name = "cexpr"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6fac387a98bb7c37292057cffc56d62ecb629900026402633ae9160df93a8766"
+dependencies = [
+ "nom 7.1.3",
+]
+
+[[package]]
 name = "cfg-expr"
 version = "0.15.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -529,6 +558,17 @@ name = "chunked_transfer"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6e4de3bc4ea267985becf712dc6d9eed8b04c953b3fcfb339ebc87acd9804901"
+
+[[package]]
+name = "clang-sys"
+version = "1.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b023947811758c97c59bf9d1c188fd619ad4718dcaa767947df1cadb14f39f4"
+dependencies = [
+ "glob",
+ "libc",
+ "libloading 0.8.9",
+]
 
 [[package]]
 name = "clap"
@@ -1298,7 +1338,7 @@ checksum = "aa9a19cbb55df58761df49b23516a86d432839add4af60fc256da840f66ed35b"
 
 [[package]]
 name = "fresh-core"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "anyhow",
  "lsp-types",
@@ -1313,7 +1353,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-editor"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "alacritty_terminal",
  "anyhow",
@@ -1372,7 +1412,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-gui"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "anyhow",
  "block2",
@@ -1391,7 +1431,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-languages"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "tree-sitter",
  "tree-sitter-bash",
@@ -1417,7 +1457,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-parser-js"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "anyhow",
  "oxc_allocator",
@@ -1431,7 +1471,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-api-macros"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1440,7 +1480,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-runtime"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "anyhow",
  "fresh-core",
@@ -1463,7 +1503,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-winterm"
-version = "0.2.18"
+version = "0.2.20"
 dependencies = [
  "tracing",
  "windows-sys 0.61.2",
@@ -4336,6 +4376,7 @@ version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "27344601ef27460e82d6a4e1ecb9e7e99f518122095f3c51296da8e9be2b9d83"
 dependencies = [
+ "bindgen",
  "cc",
 ]
 
