@@ -527,8 +527,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "58386f5db0a6afd41569cca483df569f16d549a5",
-            "sha256": "1x1iv2xan1v0nqznwhbjips7fcycr9ijp73qsdm37iim0zdi25vw",
+            "rev": "aeb245a1f519a85e103f13a1120605bd72eef123",
+            "sha256": "1hzm474dcmp56ls7d1yp54m838imf272q212x4nnvdbxnjr6qp11",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1003,8 +1003,8 @@
             "url": "https://github.com/glostis/nur-packages"
         },
         "goreleaser": {
-            "rev": "4f70bc187227c716c828e9314cfeefa638756661",
-            "sha256": "1v71abgkyzqcb3ihh877zkly0ma5sjwfh041y2505x2hm3ls8rlw",
+            "rev": "27c2e0b20879277112a34d73650dc3e5048f889a",
+            "sha256": "0n2ajbva6zir9kyv3bv22nmjqggay694grhpapj3a027g8mbfkb6",
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
