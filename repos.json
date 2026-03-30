@@ -156,6 +156,9 @@
         "adam0": {
             "url": "https://github.com/adam01110/nur"
         },
+        "af-nur": {
+            "url": "https://github.com/AstralFlare-owo/nur-packages"
+        },
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
         },
@@ -1070,6 +1073,9 @@
         },
         "nginx": {
             "url": "https://github.com/nginxinc/nur"
+        },
+        "nickheyer": {
+            "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
             "url": "https://github.com/CDotNightHawk/nur-packages"

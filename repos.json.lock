@@ -250,6 +250,11 @@
             "sha256": "1ajbk92zf9djz2zlh3w5gcswf6li9cin3xg11y9pwwklddnv0z49",
             "url": "https://github.com/adam01110/nur"
         },
+        "af-nur": {
+            "rev": "04c7a602f5489c1e9aee06d6e3c845bfe0c513b3",
+            "sha256": "0n8x07qj13pnhpfd9g5id2ky06hqzvx1mqs31j27bn7fhv99djas",
+            "url": "https://github.com/AstralFlare-owo/nur-packages"
+        },
         "afreakk": {
             "rev": "7d5f4ec7271abb7d0a7cc4ed53d2fb14859fe924",
             "sha256": "0cnq8hsdwmsnmv4rdnyl38md420chsm7c9n4zlwpnjxxyqhp7yb0",
@@ -1421,8 +1426,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "47ac065212a0ba8cafe6620a5a645fff808ca567",
-            "sha256": "177c4ysba0g0c7ixa6fkvwis7n4xglwlckp2flnhzsbxpnspfakn",
+            "rev": "aebff6d97d0451280a2aaa5e5c4bd63724954e40",
+            "sha256": "1y0yj0k8mcipxim4x7skna5pq63clkhb7c9r4qdkns5vzyp49k5g",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -1727,6 +1732,11 @@
             "rev": "1cdecfea6c5c12ebca5483de89f5bc511f993666",
             "sha256": "1dvqc1a6gm4zqgk48iny5z1801qxh9r2g47aaw9jn13y98laa2wa",
             "url": "https://github.com/nginxinc/nur"
+        },
+        "nickheyer": {
+            "rev": "564c398661c3866271a83dfdc398a751202a6bdd",
+            "sha256": "04dwi6cvsfz76rsdy2j01j9kfgfva79bjdgmm4rdnmz8nfync9s1",
+            "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
             "rev": "4f8ab25f79b0c341227ecdba9e4a591ae6759c18",
