@@ -36,16 +36,8 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
   installPhase = ''
     mkdir -p $out/bin
-    if [ "${platform.pkg}" = "yunyi-cli-linux-amd64" ]; then
-      tar --strip-components=2 -xzf $src package/bin/yunyi-cli-linux-amd64
-      mv yunyi-cli-linux-amd64 $out/bin/yunyi-cli
-    elif [ "${platform.pkg}" = "yunyi-cli-darwin-arm64" ]; then
-      tar --strip-components=2 -xzf $src package/bin/yunyi-cli-darwin-arm64
-      mv yunyi-cli-darwin-arm64 $out/bin/yunyi-cli
-    else
-      tar --strip-components=2 -xzf $src package/bin/yunyi-cli
-      mv yunyi-cli $out/bin/yunyi-cli
-    fi
+    tar --strip-components=2 -xzf $src "package/bin/${platform.pkg}"
+    mv "${platform.pkg}" $out/bin/yunyi-cli
     chmod +x $out/bin/yunyi-cli
   '';
   meta = with lib; {
