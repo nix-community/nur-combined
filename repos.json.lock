@@ -617,8 +617,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "acca5c4920fd4b74da26638c9831bad700e9d924",
-            "sha256": "0nysjfjlkflw7ydv9xajdapp24m3vbd17cc2i756ngs4qabql8yr",
+            "rev": "62fa8c55c320f5639e4b570b2cec0fdcb97889fe",
+            "sha256": "0hrpd0g6jk1kvbbvy2gbqa42nmhv1imsw7yadgccp80011dxvb26",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
@@ -1598,8 +1598,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "523d09be2eea43e48d41c2a8b6706784669fe685",
-            "sha256": "19q24bfrq19ycxbb89yn6wry1wk1vb5rm8ysldihaibljpsy4bbq",
+            "rev": "35cd1055f83ccd30d96e22c6f89de2012cabbbe8",
+            "sha256": "12dj05q3zrihcmzjpc8zy2prvajlxpgv3ny7dgsgjybp7ryzz5k9",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -1899,8 +1899,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "8985cc08e631e010d28f9b830270e631ae872672",
-            "sha256": "1nd64nxg176srwhrm326gym9l63l4k27b40p37bxg1qr9pym4w1n",
+            "rev": "03dfe1631510cf7e1deb2a9fa2823f02e6b04735",
+            "sha256": "13c29jg4h02pdlxjl8v437c52gcvw3bjgl4xjc39s6nn3garf0z0",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
