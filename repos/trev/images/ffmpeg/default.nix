@@ -1,17 +1,17 @@
 { pkgs }:
 let
-  arch = {
-    amd64 = import ./amd64.nix { inherit (pkgs) dockerTools; };
-    arm64 = import ./arm64.nix { inherit (pkgs) dockerTools; };
+  systems = {
+    x86_64-linux = import ./amd64.nix { inherit (pkgs) dockerTools; };
+    aarch64-linux = import ./arm64.nix { inherit (pkgs) dockerTools; };
   };
 in
-(arch.${pkgs.stdenv.hostPlatform.go.GOARCH}
-  or (builtins.warn "Using default architecture (amd64) for image" arch.amd64)
+(systems.${pkgs.stdenv.hostPlatform.system}
+  or (builtins.warn "Using default architecture (amd64) for image" systems.x86_64-linux)
 ).overrideAttrs
   (
     _: prev: {
       passthru = (prev.passthru or { }) // {
-        inherit (arch) amd64 arm64;
+        inherit (systems) x86_64-linux aarch64-linux;
       };
     }
   )

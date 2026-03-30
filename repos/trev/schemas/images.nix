@@ -10,12 +10,6 @@ let
       res = builtins.tryEval e;
     in
     if res.success then res.value else default;
-
-  architectures = [
-    "amd64"
-    "arm64"
-    "arm"
-  ];
 in
 {
   version = 1;
@@ -43,7 +37,7 @@ in
                 try (
                   if lib.isDerivation attrs then
                     let
-                      archs = lib.filterAttrs (n: _: builtins.elem n architectures) attrs;
+                      archs = lib.filterAttrs (n: _: builtins.elem n lib.systems.flakeExposed) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];
