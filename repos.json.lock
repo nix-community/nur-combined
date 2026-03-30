@@ -1338,8 +1338,8 @@
             "url": "https://github.com/kinzoku-dev/nur-kinzoku"
         },
         "kira-bruneau": {
-            "rev": "dc086ce04a06366e0eb5593d90fd53b1e7a9606b",
-            "sha256": "1xfnynl5i5svv4yrnjllhq9kd25pzmx9cn1ymjsjc4k9gskhqhcm",
+            "rev": "ae59ab46afd8e6e8ae12c6459448a20066a86810",
+            "sha256": "1md6a2m74x06qm7q8arf7jvm9qcqj9a1krvlqx7zv6v4aq9wrm0c",
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
         "kokakiwi": {
@@ -1598,8 +1598,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "0f26020a678f233ae5141f1781a695353490dc4c",
-            "sha256": "0dkbq1ymy6w13s94jrka38ryza6k3wvynayxnr3j9s8cwpx0bcgl",
+            "rev": "523d09be2eea43e48d41c2a8b6706784669fe685",
+            "sha256": "19q24bfrq19ycxbb89yn6wry1wk1vb5rm8ysldihaibljpsy4bbq",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
