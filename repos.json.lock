@@ -617,7 +617,7 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "62fa8c55c320f5639e4b570b2cec0fdcb97889fe",
+            "rev": "35e8b163d86ca2474ac531f35a158088977be4f7",
             "sha256": "0hrpd0g6jk1kvbbvy2gbqa42nmhv1imsw7yadgccp80011dxvb26",
             "url": "https://github.com/congee/nur"
         },
@@ -1689,8 +1689,8 @@
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
-            "rev": "796bf99d22c1a5e2127c4bd38ac4849fd6acd93f",
-            "sha256": "1j0g0killq5yab5swhxzikjmjrqqxl3jkqzc7ddr4qf65r933c6m",
+            "rev": "94137c22b2ed831127bea46164465a16b968340f",
+            "sha256": "0rv5hydd1cxij1qvlf6ina5vxwa698b3ia51sw7hwdsirsa9il37",
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
