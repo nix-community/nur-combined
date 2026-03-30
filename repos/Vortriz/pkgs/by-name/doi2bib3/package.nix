@@ -34,7 +34,6 @@ python3Packages.buildPythonApplication {
         description = "DOI/arXiv → BibTeX command line utility";
         homepage = "https://github.com/archisman-panigrahi/doi2bib3";
         license = lib.licenses.gpl3Only;
-        maintainers = with lib.maintainers; [ ];
         mainProgram = "doi2bib3";
     };
 }
