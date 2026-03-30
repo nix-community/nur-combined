@@ -339,11 +339,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1774818266,
-        "narHash": "sha256-cpuiZEfpZh469/sRanM6XJT1XUK/ffhCwBB3bJFaTfU=",
+        "lastModified": 1774873296,
+        "narHash": "sha256-2VQ8LQz6qB/BB7PBbEoPvr2fQiNktrROqzm1/RLdu3g=",
         "owner": "ijohanne",
         "repo": "prometheus-ecowitt-exporter",
-        "rev": "0ca501b0d2a3eff8909e706c757d62d88ee8d0a6",
+        "rev": "9f35ba845d6da5923a5ffe559b1bfc7fc2d6ddca",
         "type": "github"
       },
       "original": {
@@ -359,11 +359,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1773331033,
-        "narHash": "sha256-2ly9DRtvj9o7J7hICtQ93nXJpH4KYsgsJeNCuTlPHw0=",
+        "lastModified": 1774873296,
+        "narHash": "sha256-DCH+L27JgeFAfSZ686/rLM/l1C4QSnasGiS8F2aH6Fs=",
         "owner": "ijohanne",
         "repo": "prometheus-tplink-p110-exporter",
-        "rev": "b71fba838924dc60736ab3fd70e613c91d719b93",
+        "rev": "32a5aacb9c922ea3861017159221532cf1200e95",
         "type": "github"
       },
       "original": {
