@@ -69,14 +69,11 @@ let
     package:
     if package == null then
       null
-    else if
-      package.stdenv.hostPlatform.isWindows
-      && pkgs.lib.attrsets.hasAttrByPath [ "meta" "mainProgram" ] package
-    then
+    else if package.stdenv.hostPlatform.isWindows then
       package.overrideAttrs (
         _: prev: {
           meta = prev.meta // {
-            mainProgram = "${prev.meta.mainProgram}.exe";
+            mainProgram = "${prev.meta.mainProgram or prev.pname or prev.name}.exe";
           };
         }
       )
@@ -116,35 +113,40 @@ let
     else
       package;
 
-  # make sure the package is available on the current platform
-  hasPlatform =
-    package:
+  # creates a package for a given pkgs set and fixes it up
+  mkPackage = name: pkgs: fixWindows (fixDarwin (fixStatic (try (func pkgs).${name})));
+
+  # make sure the package is available for its hostPlatform
+  mkPackageIf =
+    name: package: pkgs:
     if package == null then
       null
-    else if pkgs.lib.meta.availableOn package.stdenv.hostPlatform package then
-      package
+    else if pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package then
+      mkPackage name pkgs
     else
       null;
-
-  # creates a package for a given pkgs set and fixes it up
-  mkPackage = name: pkgs: fixWindows (fixDarwin (fixStatic (hasPlatform (try (func pkgs).${name}))));
 in
 
-builtins.mapAttrs (
-  name: package:
-  package.overrideAttrs (
-    _: prev: {
-      passthru =
-        (prev.passthru or { })
-        // pkgs.lib.filterAttrs (_: v: v != null) {
-          x86_64-linux = mkPackage name pkgs-x86_64-linux;
-          aarch64-linux = mkPackage name pkgs-aarch64-linux;
-          armv7l-linux = mkPackage name pkgs-armv7l-linux;
-          armv6l-linux = mkPackage name pkgs-armv6l-linux;
-          x86_64-windows = mkPackage name pkgs-x86_64-windows;
-          x86_64-darwin = mkPackage name pkgs-x86_64-darwin;
-          aarch64-darwin = mkPackage name pkgs-aarch64-darwin;
-        };
-    }
-  )
-) packages
+pkgs.lib.filterAttrs (_: v: v != null) (
+  builtins.mapAttrs (
+    name: package:
+    if pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package then
+      package.overrideAttrs (
+        _: prev: {
+          passthru =
+            (prev.passthru or { })
+            // pkgs.lib.filterAttrs (_: v: v != null) {
+              x86_64-linux = mkPackageIf name package pkgs-x86_64-linux;
+              aarch64-linux = mkPackageIf name package pkgs-aarch64-linux;
+              armv7l-linux = mkPackageIf name package pkgs-armv7l-linux;
+              armv6l-linux = mkPackageIf name package pkgs-armv6l-linux;
+              x86_64-windows = mkPackageIf name package pkgs-x86_64-windows;
+              x86_64-darwin = mkPackageIf name package pkgs-x86_64-darwin;
+              aarch64-darwin = mkPackageIf name package pkgs-aarch64-darwin;
+            };
+        }
+      )
+    else
+      null
+  ) packages
+)
