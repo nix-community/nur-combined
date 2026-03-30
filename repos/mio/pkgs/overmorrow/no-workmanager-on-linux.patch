@@ -1,5 +1,5 @@
 diff --git a/lib/main.dart b/lib/main.dart
-index 912287b..0101655 100644
+index 912287b..0e6a593 100644
 --- a/lib/main.dart
 +++ b/lib/main.dart
 @@ -41,7 +41,7 @@ Future<void> main() async {
@@ -10,15 +10,6 @@ index 912287b..0101655 100644
 +  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
      initializeWidgetServices();
    }
- 
-@@ -238,7 +238,7 @@ class MyHomePageState extends State<MyHomePage> {
-     String latLon = context.read<SettingsProvider>().getLatLon;
-     String location = context.read<SettingsProvider>().getLocation;
- 
--    if (!kIsWeb) {
-+    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-       if (Platform.isAndroid) {
-         Uri? appLaunchUri = await HomeWidget.initiallyLaunchedFromHomeWidget();
  
 diff --git a/lib/search_screens.dart b/lib/search_screens.dart
 index c829dab..b88fd84 100644

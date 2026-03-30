@@ -8,16 +8,16 @@
 
 buildNpmPackage rec {
   pname = "dl-librescore";
-  version = "0.35.34";
+  version = "0.35.40";
 
   src = fetchFromGitHub {
     owner = "LibreScore";
     repo = "dl-librescore";
-    rev = "040f23db5855e8db9c497abd1e6a5ba83c044e19";
-    hash = "sha256-IuHX4wFhilSK09WWNopHtkAfd9Mm2oo5M2m4KcRkCBE=";
+    rev = "v${version}";
+    hash = "sha256-jCwySndc3ZeEoKVA9Ne2PLStyM73hDPO1vaNeVShwQ0=";
   };
 
-  npmDepsHash = "sha256-qnWCvf5bNcYazsgop1Zza/8p/36W2QU8XIX6I9eSE/8=";
+  npmDepsHash = "sha256-WloDDqxUVVA/DzJq6Q+39kU9ZiUJubmshZVAZaxCBg0=";
   forceGitDeps = true;
   makeCacheWritable = true;
 

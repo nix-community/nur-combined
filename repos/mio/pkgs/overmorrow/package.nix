@@ -8,13 +8,13 @@
 
 flutter338.buildFlutterApplication rec {
   pname = "overmorrow";
-  version = "2.6.2";
+  version = "2.6.3";
 
   src = fetchFromGitHub {
     owner = "bmaroti9";
     repo = "Overmorrow";
     tag = "v${version}";
-    hash = "sha256-QWjUicl9UTnK9wXxl+PzYZ4XUz8eScaC5BZ9/bZNtiI=";
+    hash = "sha256-Z39Az8JcHwggbBRxyf8aaI3P1ifUezyWpc0hLFtPDVw=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
@@ -60,6 +60,11 @@ flutter338.buildFlutterApplication rec {
     const String access_key = "$(echo dkdIRzY1M0h3ZkgzTWFENUZqRloxWmZYbmYyeFZuVHFuNGNreElIbEdNYwo= | base64 -d)";
     const String timezonedbKey = "REPLACE_ME";
     APIKEYS
+  '';
+
+  preBuild = ''
+    chmod -R u+w .dart_tool || true
+    cp ${./package_graph.json} .dart_tool/package_graph.json
   '';
 
   postInstall = ''
