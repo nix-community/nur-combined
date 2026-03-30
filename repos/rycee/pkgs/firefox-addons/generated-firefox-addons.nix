@@ -1741,10 +1741,10 @@
     };
     "chameleon-ext" = buildMozillaXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.81.1";
+      version = "0.22.82.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4710334/chameleon_ext-0.22.81.1.xpi";
-      sha256 = "85de73454a8e36a1eb0cdfe907f7ad9fe052dd3a352d1d46a6694c71400499e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4744257/chameleon_ext-0.22.82.1.xpi";
+      sha256 = "9bae16c38a09d0dec62515844cadf08e4245671e7602e9a6c1d378e09148318c";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -5319,10 +5319,10 @@
     };
     "holodex-plus" = buildMozillaXpiAddon {
       pname = "holodex-plus";
-      version = "0.5";
+      version = "1.0.0";
       addonId = "{7ff078b3-b3e9-44df-a646-45c702b2e17c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4281538/holodex_plus-0.5.xpi";
-      sha256 = "1cb2bdf9fed54dc92c9866f3a362152999c3cf182c871d003907bfcd70e27065";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4744518/holodex_plus-1.0.0.xpi";
+      sha256 = "7fefd335e86796da552665c0e95c1fd51cf38c66820e0c5cf2a173ecaacf2912";
       meta = with lib;
       {
         homepage = "https://holodex.net";
@@ -5331,13 +5331,13 @@
         mozPermissions = [
           "tabs"
           "storage"
-          "webRequest"
-          "webRequestBlocking"
           "contextMenus"
-          "*://*.youtube.com/*"
+          "webRequest"
+          "declarativeNetRequestWithHostAccess"
           "*://*.holodex.net/*"
-          "*://*.youtube.com/embed/*"
           "*://*.youtube.com/live_chat*"
+          "*://*.youtube.com/*"
+          "*://*.youtube.com/embed/*"
         ];
         platforms = platforms.all;
       };
@@ -13920,20 +13920,6 @@
         platforms = platforms.all;
       };
     };
-    "startup-bookmarks" = buildMozillaXpiAddon {
-      pname = "startup-bookmarks";
-      version = "1.7.18";
-      addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4589645/startup_bookmarks-1.7.18.xpi";
-      sha256 = "e2cb9941cc63b2c33ec06df519e1f6b5bbe97ebc5d77237748af21763fc9e4b2";
-      meta = with lib;
-      {
-        homepage = "https://github.com/igorlogius/webextensions/tree/main/sources/startup-bookmarks";
-        description = "Open a set of bookmarks on browser startup";
-        mozPermissions = [ "bookmarks" "storage" ];
-        platforms = platforms.all;
-      };
-    };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
       version = "3.2.4";
@@ -15244,10 +15230,10 @@
     };
     "tweaks-for-youtube" = buildMozillaXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.87.0";
+      version = "3.88.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4711690/tweaks_for_youtube-3.87.0.xpi";
-      sha256 = "fcc4acc62371fe9487fc1c509af5a975f9c9360393e53206efb42e67ba09f2ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4743805/tweaks_for_youtube-3.88.0.xpi";
+      sha256 = "1b29bd556600fe3d0694df1ecf9a8821b22db63dae4eff63930dbe1e5d4d2994";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
@@ -15763,22 +15749,16 @@
     };
     "varia-integrator" = buildMozillaXpiAddon {
       pname = "varia-integrator";
-      version = "1.5";
+      version = "1.5.2";
       addonId = "giantpinkrobots@protonmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4741785/varia_integrator-1.5.xpi";
-      sha256 = "1486f3a2c9c485578b296ae2e40d89200779f7b69729d5022d60966e6378300c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4744787/varia_integrator-1.5.2.xpi";
+      sha256 = "8e80d321cb77b3c1e2129d68e7a260142189cbc8cfbb2622a7b8405af8f3e098";
       meta = with lib;
       {
         homepage = "https://giantpinkrobots.github.io/varia/";
         description = "Route all downloads to Varia if it's running.";
         license = licenses.mpl20;
-        mozPermissions = [
-          "downloads"
-          "storage"
-          "<all_urls>"
-          "tabs"
-          "cookies"
-        ];
+        mozPermissions = [ "downloads" "storage" "tabs" "cookies" ];
         platforms = platforms.all;
       };
     };
