@@ -1391,8 +1391,8 @@
             "url": "https://github.com/lcx12901/nur-nixpkgs"
         },
         "lennis-dev": {
-            "rev": "8936dbe47bc9f0680423e8d8ce0bce04823f8ec0",
-            "sha256": "0vip886di79k3hs5fh056p45221r2j6b742bh45pbwq0j6h3a9h0",
+            "rev": "b2a3b4bffc4bbd7dc0240a0f0ea8bf4245317223",
+            "sha256": "0blhwyab4q7jmywcdj67nn1yh10yr027x58xmp422m8yr8zix1j9",
             "url": "https://github.com/lennis-dev/nur-packages"
         },
         "lheckemann": {
