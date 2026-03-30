@@ -36,8 +36,8 @@ let
     outputHashMode = "recursive";
     # bun installs platform-specific native deps, so the hash differs per system
     outputHash = {
-      x86_64-linux = "sha256-8nEf42NfKVspZiL8cUHI6K+wJ5dGF584irXE7h6EaF4=";
-      aarch64-darwin = "sha256-iAxMGw1Vii4D7kCYTYNgs0sd9mbLLarF1uDMdZJjqzs=";
+      x86_64-linux = "sha256-EvPtXqgMpjhikJLO3Xf6OMkn/dF3XXF6Y8ZQ2ioKGTo=";
+      aarch64-darwin = "sha256-G/FuIQD0siKOdGJBEucw1HW7tLiM/3UNkBmsnYDuZhY=";
     }.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
     buildPhase = ''
       runHook preBuild
