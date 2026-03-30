@@ -11,8 +11,6 @@ jobs:
       matrix:
         nurRepo:
           - ijohanne
-        cachixName:
-          - ijohanne
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
@@ -27,16 +25,18 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          extra-substituters = https://nix-cache.unixpimps.net/ijohanne
+          extra-trusted-public-keys = ijohanne:55EJTBFbq5pCYx2tf+aR8pmVPvCmP7QlafHH90/kikw=
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v16
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - name: Login to Attic
+      if: github.event_name != 'pull_request'
+      run: nix shell nixpkgs#attic-client -c attic login ci https://nix-cache.unixpimps.net/ "${{ secrets.ATTIC_TOKEN }}"
     - name: Build nix packages
       run: nix shell nixpkgs#nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Push build outputs to Attic
+      if: github.event_name != 'pull_request'
+      run: nix shell nixpkgs#attic-client -c sh -lc 'attic push ci:ijohanne result*'
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
