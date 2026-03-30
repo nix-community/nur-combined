@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "6e0a2f7a491a5f95a3b863744a18a995773e94b2",
-            "sha256": "0ylwapscj80n38xyblx9iy0w8rmas5wf5zslghdqrzspybp53sy0",
+            "rev": "32a587cfa055342c62676f12d6993e8e3006d5ac",
+            "sha256": "0j8rz0l3z4xaxzskq86bz2zzln6fp9f5m5hjr4s3iai8yqksli7v",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
