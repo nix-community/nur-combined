@@ -923,8 +923,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "b3ebd6c5dfc0cdd542049551ff57da7428df7970",
-            "sha256": "0kiic90rp5sxhwsch7qqr6kvanh4ndkayr3gv788k6wjn4jjgp8d",
+            "rev": "c7e85d21d4eaa1ee09db058a64aba658a8483ec8",
+            "sha256": "1yal3m46idsbfz4xz036kbjw0qn4ybxrw8fbg03ngxn87xrxcgil",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -1593,8 +1593,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "a19b2d9043904b6607f3c3b8403d8a8212cf65d0",
-            "sha256": "026msybqcdqi1a3x0fj2yd81jfnd95j93aq44vq24z6l75hpcd9n",
+            "rev": "96551b45a498a68d9983d96ff527c5c41b7f71f5",
+            "sha256": "13hrx0kfk00sg4hl9va65izrxa8k9vlwj6x8mbm2yj1z57c75ayg",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
