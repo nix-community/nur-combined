@@ -542,8 +542,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "charmbracelet": {
-            "rev": "f9607d176b01f866257ce6fcdd8053083da2da2a",
-            "sha256": "01zl4zv4053cwinj7zanyv9ayhx17b87fcrylv84z4ykm377gnaw",
+            "rev": "02b38219665682b03075d0f000c7aab07697b58b",
+            "sha256": "0j1b9ixzg6rr1s4bbaygq3acp717dd708h8411z9kiklxkw5mvn4",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
@@ -1572,8 +1572,8 @@
             "url": "https://github.com/mikidep/nur-packages"
         },
         "mikilio": {
-            "rev": "e23b6065b3fc12361c4a8381f583d1b113d3b196",
-            "sha256": "0xxz1wld1ab0hs6qwfir7cncs64wcg4w3nqi17cxlk6z6n8calgw",
+            "rev": "76e3d423bac0aee933be40e7d3b2c38c605a6640",
+            "sha256": "0bmfdsnwkkbdp0dw3r35018ka1b8zsv9q2l1pi5qxw33s31cq7hv",
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
