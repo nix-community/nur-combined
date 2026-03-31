@@ -14,6 +14,32 @@
         },
         "version": "1.1.1"
     },
+    "mermaid-rs-renderer": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-lQCloOhTqqEU8MNrkUmmJFdoOTEE3j5nvZJo21GJlMU=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "mermaid-rs-renderer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "1jehuang",
+            "repo": "mermaid-rs-renderer",
+            "rev": "v0.2.1",
+            "sha256": "sha256-lQCloOhTqqEU8MNrkUmmJFdoOTEE3j5nvZJo21GJlMU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.1"
+    },
     "omniwm": {
         "cargoLock": null,
         "date": null,
@@ -23,15 +49,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BT5GTP+rjjw6kq4tIg/WsdNBUwDlgYN7J+xQQaGBUZE=",
+            "sha256": "sha256-QQcw36JDhD2p0aYIycUHdV5lXMH3ZHHJHVtRy/zhG2g=",
             "type": "url",
-            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.4/OmniWM-v0.4.4.zip"
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.5/OmniWM-v0.4.5.zip"
         },
-        "version": "v0.4.4"
+        "version": "v0.4.5"
     },
     "paperwm-spoon": {
         "cargoLock": null,
-        "date": "2026-03-23",
+        "date": "2026-03-30",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -43,12 +69,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074",
-            "sha256": "sha256-gmj5hxIX3uLy7iOiRzUtknT0TgwlRig9l1ZgmscF5t0=",
+            "rev": "e5f81eaa3f9e514de022d85d135b839e7163982e",
+            "sha256": "sha256-k3CtPkUWTGW4ul8IW6l02Y8zn3ziVcDSAPNZy5WJF/o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074"
+        "version": "e5f81eaa3f9e514de022d85d135b839e7163982e"
     },
     "powershell-beautifier": {
         "cargoLock": null,

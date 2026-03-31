@@ -14,25 +14,42 @@
       sha256 = "sha256-EbsckPr1Qn83x71P5+q5d0rkPh1csCDFswiNrDKEnvo=";
     };
   };
+  mermaid-rs-renderer = {
+    pname = "mermaid-rs-renderer";
+    version = "v0.2.1";
+    src = fetchFromGitHub {
+      owner = "1jehuang";
+      repo = "mermaid-rs-renderer";
+      rev = "v0.2.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-lQCloOhTqqEU8MNrkUmmJFdoOTEE3j5nvZJo21GJlMU=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-lQCloOhTqqEU8MNrkUmmJFdoOTEE3j5nvZJo21GJlMU=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+  };
   omniwm = {
     pname = "omniwm";
-    version = "v0.4.4";
+    version = "v0.4.5";
     src = fetchurl {
-      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.4/OmniWM-v0.4.4.zip";
-      sha256 = "sha256-BT5GTP+rjjw6kq4tIg/WsdNBUwDlgYN7J+xQQaGBUZE=";
+      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.5/OmniWM-v0.4.5.zip";
+      sha256 = "sha256-QQcw36JDhD2p0aYIycUHdV5lXMH3ZHHJHVtRy/zhG2g=";
     };
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
+    version = "e5f81eaa3f9e514de022d85d135b839e7163982e";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
+      rev = "e5f81eaa3f9e514de022d85d135b839e7163982e";
       fetchSubmodules = false;
-      sha256 = "sha256-gmj5hxIX3uLy7iOiRzUtknT0TgwlRig9l1ZgmscF5t0=";
+      sha256 = "sha256-k3CtPkUWTGW4ul8IW6l02Y8zn3ziVcDSAPNZy5WJF/o=";
     };
-    date = "2026-03-23";
+    date = "2026-03-30";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";
