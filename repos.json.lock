@@ -251,8 +251,8 @@
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
-            "rev": "56a057a86b28ff6f3552ad3224656ba1acc08bee",
-            "sha256": "0194rx5gb5h3k1bqih7p1jy1l7gsy93lyq2dbhrqxanzmv08hpz5",
+            "rev": "aadf0d43fd5b0432e03be6630dd079953537f417",
+            "sha256": "0vggg6hghqq02dd64lgncawamp4z4d0b6cyyvi7ih7y3iq45m7v1",
             "url": "https://github.com/AstralFlare-owo/nur-packages"
         },
         "afreakk": {
@@ -753,8 +753,8 @@
             "url": "https://github.com/dmfrpro/nur-packages"
         },
         "doomhammer": {
-            "rev": "5f8616bf0211ffc8343ccdd36fa651d1d826963e",
-            "sha256": "1ad9cys2sif5plqx9hfxkw1v9zj45n0ryzdmfj764bjf2y95i7j0",
+            "rev": "f45bb06997d4cb980815773bb109eb71fd5fc5bc",
+            "sha256": "0qxr0nxrmbcn9x71fqzm523didjc19zpxnx0qvxg800ayfwsbkls",
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
@@ -1421,8 +1421,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "6a7bb4683f3c617bdbdd33b330236ae34e367bd3",
-            "sha256": "0hrvhyk7j1xqs1djwhpvlnk7qsb9rcwv3ggs7wmxdfb35xvsd498",
+            "rev": "bbf8d92a7ea6ffbd4305f14e2f0197397924d086",
+            "sha256": "1fz7cwrcfax90i4h3zsfvmp3hkxk6f115z68p8nl5fnzaq2dnf9m",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -2617,8 +2617,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "282755e3d2a604dbb83d097e8210e047d9879cf5",
-            "sha256": "04ldgkvk9dkyfddvgngry9k02c1fwz63biyprjqphbn14xngr647",
+            "rev": "da57ace3e2ae53c14719ed648eac12b45fc517ac",
+            "sha256": "0l5yl58pj3lgph78vb0w2ybgzi0w7gb4smnx1rvx4v2afw4dc0rq",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
