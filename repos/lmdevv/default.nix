@@ -18,4 +18,5 @@
   code-cursor = pkgs.callPackage ./pkgs/code-cursor { };
   coderabbit-cli = pkgs.callPackage ./pkgs/coderabbit-cli { };
   commiter = pkgs.callPackage ./pkgs/commiter { };
+  t3code = pkgs.callPackage ./pkgs/t3code { };
 }
