@@ -69,8 +69,12 @@ in rec {
     buildGStreamer = false;
   }).overrideAttrs { pname = "lsp-plugins-vst3"; };
 
+  keepOnlyVST3 = p ./pkgs/audio/keepOnlyVST3.nix { };
+
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
+
+  convert-gig-file = p ./pkgs/convert-gig-file { };
 
   # Media
   obs-studio-plus = (pkgs.wrapOBS {
