@@ -36,6 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/solana-program/token-2022";
     license = licenses.asl20;
     platforms = platforms.linux;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
     mainProgram = "spl-token";
     broken = false;
   };

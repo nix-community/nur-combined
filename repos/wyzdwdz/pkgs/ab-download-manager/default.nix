@@ -4,15 +4,13 @@
   fetchFromGitHub,
   gradle,
   autoPatchelfHook,
-  makeWrapper,
-  libX11,
+  makeDesktopItem,
+  copyDesktopItems,
   libXrender,
   libXtst,
   fontconfig,
   harfbuzz,
-  libGL,
   gtk3,
-  vulkan-loader,
   libappindicator,
 }:
 
@@ -30,23 +28,17 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     gradle
     autoPatchelfHook
-    makeWrapper
+    copyDesktopItems
   ];
 
   buildInputs = [
-    stdenv.cc.cc.lib
     libXrender
     libXtst
     fontconfig
     harfbuzz
     gtk3
-    libGL
-    vulkan-loader
     libappindicator
   ];
-
-  enableParallelUpdating = false;
-  enableParallelBuilding = false;
 
   postPatch = ''
     sed -i '/useFileSystemPermissions()/d' desktop/app/build.gradle.kts
@@ -56,7 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace build.gradle.kts \
         --replace-fail 'version = (gitVersion.getVersion() ?: fallBackVersion).toVersion()' \
         'version = "${finalAttrs.version}".toVersion()'
-
 
     cat >> build.gradle.kts <<'EOF'
     allprojects {
@@ -105,6 +96,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = false;
 
+  desktopItems = [
+    (makeDesktopItem {
+      name = "abdownloadmanager";
+      exec = "ABDownloadManager";
+      icon = "abdownloadmanager";
+      desktopName = "AB Download Manager";
+      comment = "Manage and organize your download files better than before";
+      categories = [
+        "Utility"
+        "Network"
+      ];
+      startupWMClass = "com-abdownloadmanager-desktop-AppKt";
+    })
+  ];
+
   installPhase = ''
     runHook preInstall
 
@@ -112,27 +118,22 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r desktop/app/build/compose/binaries/main-release/app/ABDownloadManager/* $out/opt/abdownloadmanager/
 
     mkdir -p $out/bin
-    makeWrapper $out/opt/abdownloadmanager/bin/ABDownloadManager $out/bin/ABDownloadManager \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
+    ln -s $out/opt/abdownloadmanager/bin/ABDownloadManager $out/bin/ABDownloadManager
 
     install -Dm644 desktop/app/icons/icon.png "$out/share/icons/hicolor/512x512/apps/abdownloadmanager.png"
 
-    mkdir -p "$out/share/applications"
-    substitute "${./abdownloadmanager.desktop}" "$out/share/applications/abdownloadmanager.desktop" \
-        --replace-fail "Exec=/opt/abdownloadmanager/bin/ABDownloadManager" "Exec=$out/bin/ABDownloadManager" \
-        --replace-fail "Icon=/usr/share/icons/hicolor/512x512/apps/abdownloadmanager.png" \
-            "Icon=$out/share/icons/hicolor/512x512/apps/abdownloadmanager.png"
-
     runHook postInstall
   '';
-
-  appendRunpaths = [ "${stdenv.cc.cc.lib}/lib" ];
 
   meta = with lib; {
     description = "A Download Manager that speeds up your downloads";
     homepage = "https://github.com/amir1376/ab-download-manager";
     license = lib.licenses.asl20;
     platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryBytecode
+    ];
     mainProgram = "ABDownloadManager";
     broken = false;
   };
