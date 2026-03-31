@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v6
       - &installNix
         name: Install nix
-        uses: DeterminateSystems/nix-installer-action@v21
+        uses: DeterminateSystems/nix-installer-action@v22
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - &setupCachix
