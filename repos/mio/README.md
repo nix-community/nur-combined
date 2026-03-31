@@ -2,6 +2,8 @@
 
 see all packages: <https://nur.nix-community.org/repos/mio/> How to use (NUR guide) <https://nur.nix-community.org/documentation/> You will want to use `nur.repos.mio.*`
 
+Some packages are fully broken or mostly broken.
+
 + linux: x86_64-v3, aarch64
 + darwin: aarch64
 
