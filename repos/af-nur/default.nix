@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   classin = pkgs.callPackage ./pkgs/classin { };
+  mefrpc = pkgs.callPackage ./pkgs/mefrpc { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
