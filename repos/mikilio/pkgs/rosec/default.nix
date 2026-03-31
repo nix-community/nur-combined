@@ -4,6 +4,7 @@
   rustPlatform,
   rustc,
   stdenv,
+  makeWrapper,
   symlinkJoin,
   pam,
   wayland,
@@ -23,11 +24,14 @@ symlinkJoin (finalAttrs: let
     pname = "pam_rosec";
     inherit version src;
     sourceRoot = "${src.name}/contrib/pam";
+
     buildInputs = [pam];
+
     makeFlags = [
       "PREFIX=$(out)"
       "ROSEC_PAM_UNLOCK_PATH=${rosec}/libexec/rosec/rosec-pam-unlock"
     ];
+
     installPhase = ''
       runHook preInstall
       install -Dm755 pam_rosec.so "$out/lib/security/pam_rosec.so"
@@ -40,6 +44,10 @@ symlinkJoin (finalAttrs: let
     inherit version src;
 
     cargoHash = "sha256-Aeufqe1F9xXhGd68+sW3tPT7VAXGZfinkgJSUPwT40Q=";
+
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
     postPatch = ''
       substituteInPlace Cargo.toml \
@@ -60,7 +68,7 @@ symlinkJoin (finalAttrs: let
       mv $out/bin/rosec-pam-unlock $out/libexec/rosec/
 
       wrapProgram $out/bin/rosec-prompt \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ wayland ]}
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [wayland]}
 
       XDG_CONFIG_HOME=$out/lib XDG_DATA_HOME=$out/share $out/bin/rosec enable
     '';
@@ -68,6 +76,7 @@ symlinkJoin (finalAttrs: let
 in {
   pname = "rosec";
   version = "0.0.21";
+
   paths = [rosec rosec_pam] ++ provider;
 
   meta = {
