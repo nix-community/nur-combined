@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "a2d4003b1f7ba792b5d97b89ae8158740b153790",
-            "sha256": "1ajbk92zf9djz2zlh3w5gcswf6li9cin3xg11y9pwwklddnv0z49",
+            "rev": "324cfa16c4307da6b0a512512ca3b8acada79d68",
+            "sha256": "1rn84lpww4g86sds85xjcfv4qf9x0rlmyqn8srx2gj37vck7k0db",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -2382,8 +2382,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "ea2bdc620b21cc5e30a595e80ff3101e84aedf6b",
-            "sha256": "1hs3lml8add5v96jvfvj3hdr707k8bzz5kpfdimjp5xfiybxgybi",
+            "rev": "7c574ef6c471fae079b30ff5cf9d61a4c8eef038",
+            "sha256": "1g38fxma5hd6ry6gjagkdmkyalp1h62j80xa432cgaa2305044yr",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
