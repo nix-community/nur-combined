@@ -188,6 +188,7 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "Download lightnovels from various online sources and generate e-books";
     homepage = "https://github.com/lncrawl/lightnovel-crawler";
+    broken = versionOlder python3Packages.pywebview.version "6.1";
     license = with licenses; [ gpl3Only ];
     platforms = platforms.linux;
     sourceProvenance = with sourceTypes; [ fromSource ];
