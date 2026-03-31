@@ -1308,8 +1308,8 @@
             "url": "https://github.com/k0ral/nur-packages"
         },
         "k3a": {
-            "rev": "c248eb53f2bc03c8df726beee9545bd48e11c9ca",
-            "sha256": "1px01kx6anznf1g4n5gz27fhl27896k625xmylk6hw138q3byi7s",
+            "rev": "b7ebdcf5958a6d9604814bcf2b4e6db49b3459af",
+            "sha256": "0h06vm1n069bmpwq9zsqznhldk8h5hx5qfcahgsmgxyzfqwv8gf7",
             "url": "https://github.com/k3a/nurpkgs"
         },
         "kagura": {
@@ -1734,8 +1734,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "564c398661c3866271a83dfdc398a751202a6bdd",
-            "sha256": "04dwi6cvsfz76rsdy2j01j9kfgfva79bjdgmm4rdnmz8nfync9s1",
+            "rev": "1e6405298e9917a9b8b57f2805bab0906fb95dab",
+            "sha256": "0lan2hrnli4y66vgifx6awca86vp8zg125fipgsp89659b5yrvm5",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
