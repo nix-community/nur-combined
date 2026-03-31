@@ -5,12 +5,15 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{pkgs ? import <nixpkgs> {}}: let
+{
+  pkgs ? import <nixpkgs> { },
+}:
+let
   # Define model packages first (no dependencies)
-  sr-vulkan-model-waifu2x = pkgs.callPackage ./pkgs/sr-vulkan-model-waifu2x.nix {};
-  sr-vulkan-model-realcugan = pkgs.callPackage ./pkgs/sr-vulkan-model-realcugan.nix {};
-  sr-vulkan-model-realesrgan = pkgs.callPackage ./pkgs/sr-vulkan-model-realesrgan.nix {};
-  sr-vulkan-model-realsr = pkgs.callPackage ./pkgs/sr-vulkan-model-realsr.nix {};
+  sr-vulkan-model-waifu2x = pkgs.callPackage ./pkgs/sr-vulkan-model-waifu2x.nix { };
+  sr-vulkan-model-realcugan = pkgs.callPackage ./pkgs/sr-vulkan-model-realcugan.nix { };
+  sr-vulkan-model-realesrgan = pkgs.callPackage ./pkgs/sr-vulkan-model-realesrgan.nix { };
+  sr-vulkan-model-realsr = pkgs.callPackage ./pkgs/sr-vulkan-model-realsr.nix { };
 
   sr-vulkan-models = [
     sr-vulkan-model-waifu2x
@@ -23,9 +26,10 @@
   sr-vulkan-with-models = pkgs.callPackage ./pkgs/sr-vulkan.nix {
     inherit sr-vulkan-models;
   };
-in {
+in
+{
   # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib {inherit pkgs;}; # functions
+  lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
@@ -38,10 +42,10 @@ in {
     ;
 
   # Base sr-vulkan without models (for custom use)
-  sr-vulkan = pkgs.callPackage ./pkgs/sr-vulkan.nix {};
+  sr-vulkan = pkgs.callPackage ./pkgs/sr-vulkan.nix { };
 
-  fortune-mod-zh = pkgs.callPackage ./pkgs/fortune-mod-zh.nix {};
-  fortune-mod-hitokoto = pkgs.callPackage ./pkgs/fortune-mod-hitokoto.nix {};
+  fortune-mod-zh = pkgs.callPackage ./pkgs/fortune-mod-zh.nix { };
+  fortune-mod-hitokoto = pkgs.callPackage ./pkgs/fortune-mod-hitokoto.nix { };
 
   JMComic-qt = pkgs.callPackage ./pkgs/JMComic-qt.nix {
     sr-vulkan = sr-vulkan-with-models;
@@ -50,17 +54,18 @@ in {
     sr-vulkan = sr-vulkan-with-models;
   };
 
-  mikusays = pkgs.callPackage ./pkgs/mikusays.nix {};
-  sddm-eucalyptus-drop = pkgs.callPackage ./pkgs/sddm-eucalyptus-drop.nix {};
-  wechat-web-devtools-linux = pkgs.callPackage ./pkgs/wechat-web-devtools-linux.nix {};
-  zsh-url-highlighter = pkgs.callPackage ./pkgs/zsh-url-highlighter.nix {};
-  waybar-vd = pkgs.callPackage ./pkgs/waybar-vd {};
-  mihomo-smart = pkgs.callPackage ./pkgs/mihomo-smart.nix {};
+  mikusays = pkgs.callPackage ./pkgs/mikusays.nix { };
+  sddm-eucalyptus-drop = pkgs.callPackage ./pkgs/sddm-eucalyptus-drop.nix { };
+  wechat-web-devtools-linux = pkgs.callPackage ./pkgs/wechat-web-devtools-linux.nix { };
+  zsh-url-highlighter = pkgs.callPackage ./pkgs/zsh-url-highlighter.nix { };
+  waybar-vd = pkgs.callPackage ./pkgs/waybar-vd { };
+  mihomo-smart = pkgs.callPackage ./pkgs/mihomo-smart.nix { };
   # Fladder handled separately using optionalAttrs
-  StartLive = pkgs.callPackage ./pkgs/StartLive.nix {};
-  bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix {};
-  Fladder = pkgs.callPackage ./pkgs/Fladder {};
-  mcp-cli = pkgs.callPackage ./pkgs/mcp-cli.nix {};
-  agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix {};
-  snip = pkgs.callPackage ./pkgs/snip.nix {};
+  StartLive = pkgs.callPackage ./pkgs/StartLive.nix { };
+  bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix { };
+  Fladder = pkgs.callPackage ./pkgs/Fladder { };
+  mcp-cli = pkgs.callPackage ./pkgs/mcp-cli.nix { };
+  agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix { };
+  snip = pkgs.callPackage ./pkgs/snip.nix { };
+  lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
 }
