@@ -277,7 +277,7 @@ jobs:
           !/nix/var/log/nix/drvs/*/*user-environment*
         if-no-files-found: ignore
     - name: Find build failures for subset
-      if: ${{ !cancelled() && steps.build.outcome == 'failure' }}
+      if: ${{ !cancelled() && steps.build.outcome == 'failure' && (matrix.subset != 'lix-game-darwin' || matrix.nixpkgs != 'nixpkgs-unstable') }}
       run: |
         mv /tmp/buildFailures{,-old} || true
         mkdir /tmp/buildFailures
@@ -302,7 +302,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Upload build failures for subset
-      if: ${{ !cancelled() && steps.build.outcome == 'failure' }}
+      if: ${{ !cancelled() && steps.build.outcome == 'failure' && (matrix.subset != 'lix-game-darwin' || matrix.nixpkgs != 'nixpkgs-unstable') }}
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: buildFailures-${{ matrix.cacheName }}
