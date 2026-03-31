@@ -5,7 +5,8 @@
 pkg:
 { ... }@args:
 let
-  package = pkg.${pkg.stdenv.hostPlatform.system} or pkg;
+  package =
+    if pkgs.stdenv.hostPlatform.isStatic then pkg.${pkgs.stdenv.hostPlatform.system} or pkg else pkg;
 in
 (pkgs.dockerTools.buildLayeredImage (
   args
