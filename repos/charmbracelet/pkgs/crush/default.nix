@@ -11,34 +11,34 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "01237f7x5x76fq86av46gnwds0kq6l01rkv996rnbcyk04rbpfzq";
-    x86_64-linux = "0ca06hb068gl670krlyz37c9hfmm1v1c6g4l6fa0hpbddyw2ld70";
-    armv7l-linux = "0lmjm25r9g969599wdfivmry1zlpvv0lzxhkdbmif6yj9ypjr1i0";
-    aarch64-linux = "1daxi0hwrvm6gcp91nzlbf0vvjf2w1gjpq02bah5lkxq7v86z9d0";
-    x86_64-darwin = "04zdwgf213yby6a6ak5yijjyix6yxqflakj69i3i79302pyap0cf";
-    aarch64-darwin = "0dyydxpfmcy3xm2qs7xrq663mb3dm0w1q3ivgy6akz0sj8w5ggxl";
+    i686-linux = "1bg7f5n0q32nl9mk24m0scvvqlw3ibi155a7p2zfp2vy9wr2nhgn";
+    x86_64-linux = "0fnqkmhdmpdaridlsx3sbc86c1cw6q5ad4k1miy8psw7csck9qip";
+    armv7l-linux = "1ka6qpvfg8wpbrl86ni9l41i7rk5c8wwmrgrayi7vh63cya5nnca";
+    aarch64-linux = "03q23xcv3zrrhw59j6q1f3knimjgrl6j88gvdmz95r8bwv2pw86k";
+    x86_64-darwin = "1bcshjxi24lg2538kffxkvfrmd1c6jv42ibxvj30bqsbxw1yia8r";
+    aarch64-darwin = "0q2r4jw9gvdgliafhb58yns3r3mci2zrgjq4njy6fjmwzkxl1xdb";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/crush/releases/download/v0.53.0/crush_0.53.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/crush/releases/download/v0.53.0/crush_0.53.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/crush/releases/download/v0.53.0/crush_0.53.0_Linux_armv7.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/crush/releases/download/v0.53.0/crush_0.53.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/crush/releases/download/v0.53.0/crush_0.53.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/crush/releases/download/v0.53.0/crush_0.53.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/crush/releases/download/v0.54.0/crush_0.54.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/crush/releases/download/v0.54.0/crush_0.54.0_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/crush/releases/download/v0.54.0/crush_0.54.0_Linux_armv7.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/crush/releases/download/v0.54.0/crush_0.54.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/crush/releases/download/v0.54.0/crush_0.54.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/crush/releases/download/v0.54.0/crush_0.54.0_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "crush_0.53.0_Linux_i386";
-    x86_64-linux = "crush_0.53.0_Linux_x86_64";
-    armv7l-linux = "crush_0.53.0_Linux_armv7";
-    aarch64-linux = "crush_0.53.0_Linux_arm64";
-    x86_64-darwin = "crush_0.53.0_Darwin_x86_64";
-    aarch64-darwin = "crush_0.53.0_Darwin_arm64";
+    i686-linux = "crush_0.54.0_Linux_i386";
+    x86_64-linux = "crush_0.54.0_Linux_x86_64";
+    armv7l-linux = "crush_0.54.0_Linux_armv7";
+    aarch64-linux = "crush_0.54.0_Linux_arm64";
+    x86_64-darwin = "crush_0.54.0_Darwin_x86_64";
+    aarch64-darwin = "crush_0.54.0_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "crush";
-  version = "0.53.0";
+  version = "0.54.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
