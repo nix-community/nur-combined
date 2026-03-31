@@ -1421,8 +1421,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "2de2b7c6d17da9f5573baf2a40842bdddf380111",
-            "sha256": "1n0zj5kb84bz6vrz3c26a0bq5r9zxm8yxmy3ncv861z0ahhay33w",
+            "rev": "ec1bed0f4c42a56b7c5fddca30bbc84af13549c4",
+            "sha256": "0by5aqwrz4gjwcik7qfpnhdq3m17qkqi2nj7p1vivi7d9lm0z35w",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -1603,8 +1603,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "35cd1055f83ccd30d96e22c6f89de2012cabbbe8",
-            "sha256": "12dj05q3zrihcmzjpc8zy2prvajlxpgv3ny7dgsgjybp7ryzz5k9",
+            "rev": "e7c6ef409a517746d1e8b43cb07de1bf511f8467",
+            "sha256": "0ra435hmsdjgskshy89px761bc2nlm6x54mfx7j97jb5j869a2n8",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
