@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (198 packages)</summary>
+<summary>Package set: (Uncategorized) (199 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -96,7 +96,7 @@ Or, use variables from this repository in case I change them:
 |  | `axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
 | `x86_64-linux` | `baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 4.17.7 | Baidu Netdisk |
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.0-unstable-2025-11-08 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
-| `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 9540 | PC Software for BambuLab and other 3D printers |
+| `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
 |  | `bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.2 | Universal pastebin server |
 |  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.5-3 | Desktop client for Bilibili |
 |  | `bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.8 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
@@ -116,7 +116,7 @@ Or, use variables from this repository in case I change them:
 |  | `dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-03 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `deeplx` | [deeplx](https://deeplx.owo.network) | 1.1.1 | Powerful Free DeepL API, No Token Required |
-| `x86_64-linux` | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.45.5041701 | Enterprise communication and collaboration platform developed by Alibaba Group |
+| `x86_64-linux` | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 8.1.0.6021101 | Enterprise communication and collaboration platform developed by Alibaba Group |
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.2.1-unstable-2022-11-06 | DN42 Pingfinder |
 |  | `download-kit` | [download-kit](https://github.com/g1879/DownloadKit) | 2.0.7 | Simple to use multi-threaded download toolkit |
 |  | `dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | 0-unstable-2024-11-20 | DPDK kernel modules or add-ons |
@@ -140,7 +140,7 @@ Or, use variables from this repository in case I change them:
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
 |  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-03-17 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.03.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.03.31 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1094 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -168,6 +168,7 @@ Or, use variables from this repository in case I change them:
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.15.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-03-17 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | 0-unstable-2019-11-23 | Qt5 binding of CEF |
+|  | `lightpanda` | [lightpanda](https://lightpanda.io) | 0.2.7 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-02-10 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-02-10 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
@@ -1068,7 +1069,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (148 packages)</summary>
+<summary>Package set: uncategorized (149 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1078,7 +1079,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 4.17.7 | Baidu Netdisk |
 |  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.0-unstable-2025-11-08 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
-| `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 9540 | PC Software for BambuLab and other 3D printers |
+| `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
 |  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.5-3 | Desktop client for Bilibili |
 |  | `uncategorized.bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.8 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
 |  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.4 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
@@ -1092,7 +1093,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-03 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `uncategorized.deeplx` | [deeplx](https://deeplx.owo.network) | 1.1.1 | Powerful Free DeepL API, No Token Required |
-| `x86_64-linux` | `uncategorized.dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.45.5041701 | Enterprise communication and collaboration platform developed by Alibaba Group |
+| `x86_64-linux` | `uncategorized.dingtalk` | [dingtalk](https://www.dingtalk.com/) | 8.1.0.6021101 | Enterprise communication and collaboration platform developed by Alibaba Group |
 |  | `uncategorized.dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.2.1-unstable-2022-11-06 | DN42 Pingfinder |
 |  | `uncategorized.drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-25 | Secret provider for Drone CI that reads secrets from a given folder |
 |  | `uncategorized.drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
@@ -1111,7 +1112,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.03.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.03.31 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `uncategorized.glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1094 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -1137,6 +1138,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.15.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-03-17 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `uncategorized.libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | 0-unstable-2019-11-23 | Qt5 binding of CEF |
+|  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 0.2.7 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `uncategorized.linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-02-10 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `uncategorized.linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-02-10 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `uncategorized.lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.14-1 | Linux desktop lyrics widget focused on simplicity and integration |

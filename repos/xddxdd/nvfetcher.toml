@@ -56,9 +56,8 @@ fetch.url = "https://google.com/generate_204"
 src.github_tag = "qjfoidnh/BaiduPCS-Go"
 
 [bambu-studio-bin]
-fetch.url = "https://github.com/bambulab/BambuStudio/releases/latest/download/$ver"
-src.webpage = "https://api.github.com/repos/bambulab/BambuStudio/releases/latest"
-src.regex = "Bambu_Studio_ubuntu-24\\.04_PR-[0-9]+\\.AppImage"
+fetch.url = "https://github.com/bambulab/BambuStudio/releases/download/v02.05.02.51/BambuStudio_ubuntu-24.04_v02.05.02.51-20260327222803.AppImage"
+src.manual = "02.05.02.51"
 
 [bepasty]
 fetch.pypi = "bepasty"
@@ -198,9 +197,8 @@ fetch.github = "OwO-Network/DeepLX"
 src.github = "OwO-Network/DeepLX"
 
 [dingtalk]
-fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/$ver_amd64.deb"
-src.webpage = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Update/other/amd64/linux_dingtalk_update_package_release.json"
-src.regex = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/(.*)_amd64.deb"
+fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$ver_amd64.deb"
+src.aur = "dingtalk-bin"
 
 [dingtalk-wayland-screenshare]
 fetch.github = "lzl200110/dingtalk-wayland-screenshare"
@@ -493,6 +491,16 @@ src.git = "https://github.com/rime/librime-charcode.git"
 [librime-proto]
 fetch.github = "lotem/librime-proto"
 src.git = "https://github.com/lotem/librime-proto.git"
+
+[lightpanda-amd64]
+fetch.url = "https://github.com/lightpanda-io/browser/releases/download/$ver/lightpanda-x86_64-linux"
+src.github_tag = "lightpanda-io/browser"
+src.exclude_regex = "nightly"
+
+[lightpanda-arm64]
+fetch.url = "https://github.com/lightpanda-io/browser/releases/download/$ver/lightpanda-aarch64-linux"
+src.github_tag = "lightpanda-io/browser"
+src.exclude_regex = "nightly"
 
 [linguaspark-core]
 fetch.github = "LinguaSpark/core"

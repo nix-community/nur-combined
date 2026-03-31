@@ -137,10 +137,10 @@
   };
   bambu-studio-bin = {
     pname = "bambu-studio-bin";
-    version = "Bambu_Studio_ubuntu-24.04_PR-9540.AppImage";
+    version = "02.05.02.51";
     src = fetchurl {
-      url = "https://github.com/bambulab/BambuStudio/releases/latest/download/Bambu_Studio_ubuntu-24.04_PR-9540.AppImage";
-      hash = "sha256-3ubZblrsOJzz1p34QiiwiagKaB7nI8xDeadFWHBkWfg=";
+      url = "https://github.com/bambulab/BambuStudio/releases/download/v02.05.02.51/BambuStudio_ubuntu-24.04_v02.05.02.51-20260327222803.AppImage";
+      hash = "sha256-tWda80M3cV5hztEoYkZVGabQMgg6pyc/OniPJfghN0Q=";
     };
   };
   bepasty = {
@@ -457,10 +457,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "com.alibabainc.dingtalk_7.6.45.5041701";
+    version = "8.1.0.6021101";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.45.5041701_amd64.deb";
-      hash = "sha256-HXvVkIrQgXWA5NKvcVgJeOtK+kSD6a3yXJB5nyLNqzU=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.1.0.6021101_amd64.deb";
+      hash = "sha256-7EkvEv6r7ONHAupH48/BoWSuLo2r3umwXnSjpeTeIdU=";
     };
   };
   dingtalk-wayland-screenshare = {
@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.03.22";
+    version = "2026.03.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.22/GeoLite2-ASN.mmdb";
-      hash = "sha256-Z+SY/usKXELmrmegqrUSkDZ/wdYzurnHJkqN1UpXTHM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-ASN.mmdb";
+      hash = "sha256-wK6eOF25JcmJAiEOPM2kQpNjPqI1ebWRhItyok+jLpg=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.03.22";
+    version = "2026.03.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.22/GeoLite2-City.mmdb";
-      hash = "sha256-RRgPH6Kd2FziOkuSpvXTefLH9L8sxY/9yUrdhWx4VOU=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-City.mmdb";
+      hash = "sha256-pL6o8SQ8HbErdXi11wOihdOjDu3P/H6n1oej+xB2/TE=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.03.22";
+    version = "2026.03.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.22/GeoLite2-Country.mmdb";
-      hash = "sha256-xlSYB5UPk/YJ1kM/opX6UX+97ArZdaSq+6acE21dI0c=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-Country.mmdb";
+      hash = "sha256-eED0uIkefIZvlI1LAgzcEq7qUbCUULRK2W0fFPbjKHk=";
     };
   };
   glauth = {
@@ -1139,6 +1139,22 @@
       hash = "sha256-HdypebfmzreSdEQBwbvRG6sJZPASP+e8Tew+GrMnpOQ=";
     };
     date = "2023-10-17";
+  };
+  lightpanda-amd64 = {
+    pname = "lightpanda-amd64";
+    version = "0.2.7";
+    src = fetchurl {
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.7/lightpanda-x86_64-linux";
+      hash = "sha256-cGrMzVDnChi4IG/Js8Fvy4V0uYS21prgWppCYv7KvxI=";
+    };
+  };
+  lightpanda-arm64 = {
+    pname = "lightpanda-arm64";
+    version = "0.2.7";
+    src = fetchurl {
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.7/lightpanda-aarch64-linux";
+      hash = "sha256-C0LCBkVxnjzfYCKUrIH7zcEMi7NhBL4IbPMoTax4gAs=";
+    };
   };
   linguaspark-core = {
     pname = "linguaspark-core";
