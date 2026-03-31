@@ -26,3 +26,8 @@ version.
 Ultra-fast, minimal AI commit helper I made specifically for own workflow, it is
 quite simple. Nixpkgs hosts richer alternatives (opencommit, geminicommit, etc.)
 if you need more features.
+
+### t3code
+
+Desktop GUI for coding agents (Codex, Claude, and similar). Packaged from upstream
+AppImage/DMG releases.
