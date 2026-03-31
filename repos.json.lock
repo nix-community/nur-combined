@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "c3328a79e611866a8490138c5fe32ca087155738",
-            "sha256": "07pi2w9905llgrd5xmnm5ymc7p7cx2crd4723m2ljhla8kif9whg",
+            "rev": "7f3e6e2493ddd913d2e8b62e141173331036fcbe",
+            "sha256": "1bfzvg3ldm1b8l43zhh0l8cq9v9iqzbjpm7fszjb05613qjc82nm",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -2382,8 +2382,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "098867c004c1c8da3e75504858b72b73f448c5fe",
-            "sha256": "00ng0i98jrxf7vbzkj2ic0p26bh8vqsxv09hz0kq2hcwqcrdrhhy",
+            "rev": "c3b010549e16819decfcaa7bc63929d85f76a535",
+            "sha256": "11nyszh7gwjibdq1dhhxf88ajx9074r442gwlxxqddhq2c2npr68",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
