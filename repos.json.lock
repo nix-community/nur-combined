@@ -1008,8 +1008,8 @@
             "url": "https://github.com/glostis/nur-packages"
         },
         "goreleaser": {
-            "rev": "5b5bce1cd0d49e9457d3c4a0b3cfb8598195af60",
-            "sha256": "1igr9lp9np17mmvb1w9i6v3ljagyk6vxp9b7sqcyqcb1ifk0z956",
+            "rev": "da3499ef9d85a60d402e03400fb7d2e22c4748d9",
+            "sha256": "028ddwddjnf8hvlgxf3y9j4vivlxv5cr0p5vsal21nnz3lm009l9",
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
@@ -1909,8 +1909,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "03dfe1631510cf7e1deb2a9fa2823f02e6b04735",
-            "sha256": "13c29jg4h02pdlxjl8v437c52gcvw3bjgl4xjc39s6nn3garf0z0",
+            "rev": "152292fa45b16471cb6c0a5e6b98d6514c464464",
+            "sha256": "14h52xk671y9ajf12mmw3nnw4hfkv7smh1jpfgssf7fr3r4diyl5",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
