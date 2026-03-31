@@ -8,6 +8,7 @@
   symlinkJoin,
   pam,
   wayland,
+  libxkbcommon,
   provider ? [],
 }:
 symlinkJoin (finalAttrs: let
@@ -49,6 +50,11 @@ symlinkJoin (finalAttrs: let
       makeWrapper
     ];
 
+    buildInputs = [
+      libxkbcommon
+      wayland
+    ];
+
     postPatch = ''
       substituteInPlace Cargo.toml \
         --replace-fail 'rust-version = "1.93"' 'rust-version = "${rustc.version}"'
@@ -66,9 +72,6 @@ symlinkJoin (finalAttrs: let
       mkdir -p $out/share/systemd/user
 
       mv $out/bin/rosec-pam-unlock $out/libexec/rosec/
-
-      wrapProgram $out/bin/rosec-prompt \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [wayland]}
 
       XDG_CONFIG_HOME=$out/lib XDG_DATA_HOME=$out/share $out/bin/rosec enable
     '';
