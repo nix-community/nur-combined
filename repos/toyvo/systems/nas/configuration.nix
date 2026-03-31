@@ -120,6 +120,11 @@ in
       openFirewall = true;
       port = homelab.${hostName}.services.cockpit.port;
       allowed-origins = [ "https://cockpit.diekvoss.net" ];
+      plugins = with pkgs; [
+        cockpit-machines
+        cockpit-podman
+        cockpit-files
+      ];
     };
     coder = {
       enable = true;
