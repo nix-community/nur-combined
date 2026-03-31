@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "7f3e6e2493ddd913d2e8b62e141173331036fcbe",
-            "sha256": "1bfzvg3ldm1b8l43zhh0l8cq9v9iqzbjpm7fszjb05613qjc82nm",
+            "rev": "c872ea9127f562456d8d261f1ddaba920ed9593c",
+            "sha256": "0rpqld50r1m9g85nzlz6dyyhlcl8mnn9iadffpmiv0c3is2a31im",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -1572,8 +1572,8 @@
             "url": "https://github.com/mikidep/nur-packages"
         },
         "mikilio": {
-            "rev": "76e3d423bac0aee933be40e7d3b2c38c605a6640",
-            "sha256": "0bmfdsnwkkbdp0dw3r35018ka1b8zsv9q2l1pi5qxw33s31cq7hv",
+            "rev": "544b666430679fac7a868622d39809566a2cc9c5",
+            "sha256": "0jq0jbqmxj5jvfxhha5nq6cbb0aa5vjs2ywxqdkss5imzm74nz6n",
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
@@ -2547,8 +2547,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "17938ff369f7212974eaf412b2fe3812b558a054",
-            "sha256": "0ab0b7m6v8hkij3a6flc90hvj9yw1y5hhvy56dv190kk3nvql5sv",
+            "rev": "bb2d9990f5c182f6ad559ab6cc91222404d46a44",
+            "sha256": "1dm1y2sgv58r4s2gwjp30xp24phljdsjvfkhcxxdq9w3866di1w0",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
