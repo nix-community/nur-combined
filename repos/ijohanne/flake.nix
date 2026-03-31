@@ -1,15 +1,6 @@
 {
   description = "ijohanne's NUR repository";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://nix-cache.unixpimps.net/ijohanne"
-    ];
-    extra-trusted-public-keys = [
-      "ijohanne:55EJTBFbq5pCYx2tf+aR8pmVPvCmP7QlafHH90/kikw="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 

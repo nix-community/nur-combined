@@ -7,8 +7,6 @@
 
 It provides a pre-compiled binary cache for NixOS unstable.
 
-If you consume this repository as a flake, the cache is advertised automatically via `nixConfig`.
-
 To configure Nix manually, add the following to your `nix.conf`:
 
 ```
