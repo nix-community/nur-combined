@@ -241,8 +241,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "7cd21e5325021734ae5b9e945a3c8dd77f0bffbe",
-            "sha256": "02bnn38xb97cz2s08nvxhh0r0kgjff5hid0dnb3jn18pp7pgz9y4",
+            "rev": "83c0aa08d41865328d783ce1698f4730e12861ff",
+            "sha256": "0nq4zg7yh1l88ff3xbx7vsiq2rjv30ivhsfplyvm4baqhv8an5nc",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
@@ -251,8 +251,8 @@
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
-            "rev": "04c7a602f5489c1e9aee06d6e3c845bfe0c513b3",
-            "sha256": "0n8x07qj13pnhpfd9g5id2ky06hqzvx1mqs31j27bn7fhv99djas",
+            "rev": "56a057a86b28ff6f3552ad3224656ba1acc08bee",
+            "sha256": "0194rx5gb5h3k1bqih7p1jy1l7gsy93lyq2dbhrqxanzmv08hpz5",
             "url": "https://github.com/AstralFlare-owo/nur-packages"
         },
         "afreakk": {
