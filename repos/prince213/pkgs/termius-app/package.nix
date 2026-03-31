@@ -16,7 +16,7 @@
   unzip,
 }:
 let
-  pname = "terminus-app";
+  pname = "termius-app";
   version = "9.37.5";
 
   meta = {
