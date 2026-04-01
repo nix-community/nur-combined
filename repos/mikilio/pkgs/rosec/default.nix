@@ -4,7 +4,7 @@
   rustPlatform,
   rustc,
   stdenv,
-  makeWrapper,
+  autoPatchelfHook,
   symlinkJoin,
   pam,
   wayland,
@@ -47,10 +47,10 @@ symlinkJoin (finalAttrs: let
     cargoHash = "sha256-Aeufqe1F9xXhGd68+sW3tPT7VAXGZfinkgJSUPwT40Q=";
 
     nativeBuildInputs = [
-      makeWrapper
+      autoPatchelfHook
     ];
 
-    buildInputs = [
+    runtimeDependencies = [
       libxkbcommon
       wayland
     ];
