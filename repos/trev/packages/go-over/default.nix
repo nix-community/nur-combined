@@ -1,6 +1,7 @@
 {
   fetchFromGitHub,
-  gleam,
+  gleamErlangHook,
+  gleamFetchDeps,
   lib,
   nix-update-script,
   stdenv,
@@ -17,13 +18,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-I2r0kKxqWMNSqg/tj23A7eljrW8R5TnGSEX8Ltr7dZA=";
   };
 
-  gleamDeps = gleam.fetchDeps {
+  gleamDeps = gleamFetchDeps {
     inherit (finalAttrs) pname version src;
     hash = "sha256-6iZdSexuRcg2IPoPbFLAQ2w3E3s/K92s8wxBoJPwHLM=";
   };
 
   nativeBuildInputs = [
-    gleam.erlangHook
+    gleamErlangHook
   ];
 
   passthru.updateScript = nix-update-script {

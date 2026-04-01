@@ -2,6 +2,9 @@
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
 }:
+let
+  libs = import ../libs { inherit system pkgs; };
+in
 rec {
   bobgen = pkgs.callPackage ./bobgen { };
   bobgen-unstable = pkgs.callPackage ./bobgen/unstable.nix { inherit bobgen; };
@@ -12,9 +15,8 @@ rec {
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   ffmpeg-quality-metrics = pkgs.python3Packages.callPackage ./ffmpeg-quality-metrics { };
   flake-release = pkgs.callPackage ./flake-release { };
-  gleam = pkgs.callPackage ./gleam { };
-  gleescript = pkgs.callPackage ./gleescript { inherit gleam; };
-  go-over = pkgs.callPackage ./go-over { inherit gleam; };
+  gleescript = pkgs.callPackage ./gleescript { inherit (libs) gleamErlangHook gleamFetchDeps; };
+  go-over = pkgs.callPackage ./go-over { inherit (libs) gleamErlangHook gleamFetchDeps; };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
   modal = pkgs.python3Packages.callPackage ./modal { inherit synchronicity; };
