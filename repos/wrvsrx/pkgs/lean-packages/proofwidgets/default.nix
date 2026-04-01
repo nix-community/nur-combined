@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   passthru.npmDeps = fetchNpmDeps {
     name = "widget";
-    hash = "sha256-CzBRrreOSytquZ/xFHPlY8r+lz5Bg9Zk9ienRhc8SiY=";
+    hash = "sha256-ShH6MDr76wzWQrJvhMWCnklaox/uRsfoe+aYVSo/eNA=";
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/widget";
   };
