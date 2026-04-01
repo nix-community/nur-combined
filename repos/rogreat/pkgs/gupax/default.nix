@@ -11,7 +11,6 @@
   libxkbcommon,
   libxrandr,
   makeDesktopItem,
-  nix-update-script,
   openssl,
   pkg-config,
   rustPlatform,
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "hinto-janai";
     repo = "gupax";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-BBFovEZwjZNcC8eEnp3IgQf70O1QCJ+tdwxHk+vUp1E=";
     leaveDotGit = true; # build.rs uses git
   };
@@ -67,8 +66,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postInstall = ''
-    install -m 444 -D "assets/images/icons/icon.png" "$out/share/icons/hicolor/256x256/apps/gupax.png"
-    install -m 444 -D "assets/images/icons/icon@2x.png" "$out/share/icons/hicolor/1024x1024/apps/gupax.png"
+    install -Dm444 assets/images/icons/icon.png $out/share/icons/hicolor/256x256/apps/gupax.png
+    install -Dm444 assets/images/icons/icon@2x.png $out/share/icons/hicolor/1024x1024/apps/gupax.png
   '';
 
   desktopItems = [
@@ -76,19 +75,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
       name = "gupax";
       desktopName = "Gupax";
       icon = "gupax";
-      exec = finalAttrs.meta.mainProgram;
-      comment = finalAttrs.meta.description;
-      categories = [
-        "Network"
-        "Utility"
-      ];
+      exec = "gupax";
+      comment = "P2Pool and XMRig";
+      categories = [ "Network" ];
     })
   ];
 
   env = {
     # Needed to get openssl-sys to use pkg-config.
     OPENSSL_NO_VENDOR = 1;
-    # Rust nightly
+    # Enable Rust nightly.
     RUSTC_BOOTSTRAP = 1;
     # cuprate-constants requires a SHA hash and git doesn't work here.
     # cuprate rev used: https://github.com/gupax-io/gupax/blob/main/Cargo.lock
@@ -99,7 +95,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "GUI Uniting P2Pool And XMRig";
     homepage = "https://gupax.io";
-    changelog = "https://github.com/hinto-janai/gupax/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/hinto-janai/gupax/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "gupax";

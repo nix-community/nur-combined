@@ -1,8 +1,10 @@
 {
+  copyDesktopItems,
   fetchFromGitHub,
-  gobject-introspection,
+  imagemagick,
   iw,
   lib,
+  makeDesktopItem,
   python3Packages,
   qt5,
 }:
@@ -30,6 +32,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   nativeBuildInputs = [
+    copyDesktopItems
+    imagemagick
     qt5.wrapQtAppsHook
   ];
 
@@ -52,8 +56,21 @@ python3Packages.buildPythonApplication (finalAttrs: {
     for module in "''${modules[@]}"; do
       install -Dm444 $module.py $out/${python3Packages.python.sitePackages}/$module.py
     done
+    mkdir -p $out/share/icons/hicolor/64x64/apps
+    magick wifi_icon.png -background none -resize 64x64 -gravity center -extent 64x64 $out/share/icons/hicolor/64x64/apps/sparrow_wifi.png
     runHook postInstall
   '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "sparrow-wifi";
+      desktopName = "Sparrow WiFi";
+      icon = "sparrow_wifi";
+      exec = "sparrow-wifi";
+      comment = "WiFi and Bluetooth Analyzer";
+      categories = [ "Network" ];
+    })
+  ];
 
   dontWrapQtApps = true;
 

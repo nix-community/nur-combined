@@ -10,7 +10,6 @@
   libxkbcommon,
   libxrandr,
   makeDesktopItem,
-  nix-update-script,
   openssl,
   pkg-config,
   rustPlatform,
@@ -53,7 +52,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postInstall = ''
-    install -m 444 -D assets/icon.svg $out/share/icons/hicolor/scalable/apps/steam_optionx.svg
+    install -Dm444 assets/icon.svg $out/share/icons/hicolor/scalable/apps/steam_optionx.svg
   '';
 
   desktopItems = [
@@ -61,19 +60,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
       name = "steam-optionx";
       desktopName = "Steam OptionX";
       icon = "steam_optionx";
-      exec = finalAttrs.meta.mainProgram;
-      comment = finalAttrs.meta.description;
+      exec = "steam-optionx";
+      comment = "Modify Steam launch options";
       categories = [ "Game" ];
     })
   ];
 
   meta = {
-    description = "Modify Steam launch options";
-    longDescription = ''
-      An egui application to modify app launch options in Steam's config file.
-    '';
+    description = "Modify app launch options in Steam's config file";
     homepage = "https://github.com/RoGreat/steam-optionx";
-    changelog = "https://github.com/RoGreat/steam-optionx/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/RoGreat/steam-optionx/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "steam-optionx";
