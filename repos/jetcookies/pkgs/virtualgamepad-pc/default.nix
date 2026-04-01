@@ -2,12 +2,14 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  makeDesktopItem,
 
   libevdev,
   qt6,
 
   cmake,
   pkg-config,
+  copyDesktopItems,
 }:
 stdenv.mkDerivation (finalAttrs: {
 
@@ -30,6 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     pkg-config
     qt6.wrapQtAppsHook
+    copyDesktopItems
   ];
 
   buildInputs = [
@@ -38,11 +41,31 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DPORTABLE_BUILD=OFF"
+    (lib.cmakeBool "PORTABLE_BUILD" false)
   ];
 
   qtWrapperArgs = [
     "--unset QT_QPA_PLATFORMTHEME"
+  ];
+
+  postInstall = ''
+    install -Dm644 $src/res/logos/SquareIcon.png $out/share/icons/hicolor/256x256/apps/VGamepadPC.png
+  '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "VGamepadPC";
+      type = "Application";
+      desktopName = "Virtual Gamepad PC";
+      exec = "VGamepadPC";
+      terminal = false;
+      icon = "VGamepadPC";
+      comment = "Control your PC with a virtual gamepad from your mobile device";
+      categories = [
+        "Utility"
+        "Game"
+      ];
+    })
   ];
 
   meta = {
