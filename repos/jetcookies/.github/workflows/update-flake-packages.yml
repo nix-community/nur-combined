@@ -3,15 +3,13 @@ on:
   schedule:
     - cron:  '0 10 * * 0' # https://crontab.guru/#0_10_*_*_0
   workflow_dispatch:
+
 permissions:
   contents: write
   pull-requests: write
+
 jobs:
   update:
-    strategy:
-      matrix:
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -19,17 +17,24 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
+        nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Copy nixpkgs scripts
+      run: |
+        NIXPKGS=$(nix-instantiate --eval -E '<nixpkgs>')
+        cp -r $NIXPKGS/maintainers .
+        chmod -R +w maintainers
+        sed -i "s|./../../default.nix|$NIXPKGS|g" maintainers/scripts/update.nix
     - name: Update flake packages
       id: update
       uses: gepbird/nix-update-action@v2.1.1
       with:
         token: ${{ secrets.NIX_UPDATE_PR_TOKEN }}
         blacklist: "dectalk,pico-fido"
+        pr-body: |
+          Automated changes by the [nix-update-actions](https://github.com/gepbird/nix-update-action) GitHub Action.
+        pr-labels: "automated"
     - name: Print PR number
       run: echo Pull request number is ${{ steps.update.outputs.pull-request-number }}.
