@@ -61,7 +61,6 @@ in
   zsh-url-highlighter = pkgs.callPackage ./pkgs/zsh-url-highlighter.nix { };
   waybar-vd = pkgs.callPackage ./pkgs/waybar-vd { };
   mihomo-smart = pkgs.callPackage ./pkgs/mihomo-smart.nix { };
-  # Fladder handled separately using optionalAttrs
   StartLive = pkgs.callPackage ./pkgs/StartLive.nix { };
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix { };
   Fladder = pkgs.callPackage ./pkgs/Fladder { };
@@ -69,4 +68,5 @@ in
   agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix { };
   snip = pkgs.callPackage ./pkgs/snip.nix { };
   lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
+  hyprmcp = pkgs.callPackage ./pkgs/hyprmcp.nix { };
 }
