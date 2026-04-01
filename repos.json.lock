@@ -2165,8 +2165,8 @@
             "url": "https://github.com/Shados/nur-packages"
         },
         "shadowrz": {
-            "rev": "a5e1f7965d7f5934d9334033580302dd5a2bbee4",
-            "sha256": "1skl0rj7nc897k1wsbpnrzli5ff99ls503kpm4k87a3vj9rdznmm",
+            "rev": "629e0a9df2ed200a86a670a6902e1011a02fb7b8",
+            "sha256": "1652m37dichbx0wf5pc9ljc11wlq846975f1x8c5n5s94dfzpgfg",
             "url": "https://github.com/ShadowRZ/nur-packages"
         },
         "shamilton": {
