@@ -68,5 +68,5 @@ in
   agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix { };
   snip = pkgs.callPackage ./pkgs/snip.nix { };
   lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
-  hyprmcp = pkgs.callPackage ./pkgs/hyprmcp.nix { };
+  hyprland-mcp-server = pkgs.callPackage ./pkgs/hyprland-mcp-server.nix { };
 }

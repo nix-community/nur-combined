@@ -40,7 +40,7 @@ stdenvNoCC.mkDerivation {
     description = "YoRHa GRUB theme packaged as a pure asset copy with selectable resolution";
     homepage = "https://github.com/OliveThePuffin/yorha-grub-theme";
     platforms = platforms.linux;
-    license = licenses.unlicense;
+    license = [ ];
     sourceProvenance = with sourceTypes; [ fromSource ];
   };
 }
