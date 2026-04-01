@@ -30,7 +30,7 @@
     pkgs.cargo-leptos
     pkgs.sass
     pkgs.lld
-    pkgs.wasm-bindgen-cli_0_2_108
+    pkgs.wasm-bindgen-cli_0_2_114
     pkgs.trunk
     pkgs.tailwindcss_4
   ];

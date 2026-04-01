@@ -5,12 +5,9 @@
   ...
 }:
 
-let
-  cfg = config.services.coredns;
-in
 {
   services.coredns = {
-    enable = lib.mkDefault true;
+    enable = true;
     package = pkgs.coredns.override {
       externalPlugins = [
         {
@@ -102,5 +99,5 @@ in
     ];
   };
 
-  networking.nameservers = lib.mkIf cfg.enable [ "127.0.0.1" ];
+  networking.nameservers = [ "127.0.0.1" ];
 }

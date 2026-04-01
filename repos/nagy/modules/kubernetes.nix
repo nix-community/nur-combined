@@ -58,27 +58,27 @@
       "get"
       "pod"
     ];
-    kgd = [
-      "kubectl"
-      "get"
-      "deployment"
-    ];
-    kgn = [
-      "kubectl"
-      "get"
-      "node"
-    ];
     kgpw = [
       "kubectl"
       "get"
       "pod"
       "--watch"
     ];
+    kgd = [
+      "kubectl"
+      "get"
+      "deployment"
+    ];
     kgdw = [
       "kubectl"
       "get"
       "deployment"
       "--watch"
+    ];
+    kgn = [
+      "kubectl"
+      "get"
+      "node"
     ];
     kgnw = [
       "kubectl"

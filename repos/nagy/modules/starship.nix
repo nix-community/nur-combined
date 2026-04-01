@@ -24,6 +24,8 @@ in
         (lib.replaceStrings [ "[hostname]\n" ] [ "[hostname]\ndisabled = true\n" ])
         (lib.replaceStrings [ "[nodejs]\n" ] [ "[nodejs]\ndisabled = true\n" ])
         (lib.replaceStrings [ "[python]\n" ] [ "[python]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[package]\n" ] [ "[package]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[rust]\n" ] [ "[rust]\ndisabled = true\n" ])
         (lib.replaceStrings [ "[terraform]\n" ] [ "[terraform]\ndisabled = true\n" ])
       ]}
     '').outPath;
