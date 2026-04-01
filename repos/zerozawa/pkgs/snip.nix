@@ -5,13 +5,13 @@
 }:
 buildGo126Module rec {
   pname = "snip";
-  version = "0.6.5";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "edouard-claude";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-vCuVh40PfwuEZhKDBPFp6N4BZPoKRZWOZfVnRW3/jP4=";
+    hash = "sha256-vVXb2+BWPdS6R1DL46BmQCFM/52P0TMCl/uSgSOZpBA=";
   };
 
   vendorHash = "sha256-2MxFZqjNuLzcuu+bsLyOyHIakCxh7j0FUx8LsjZRhrY=";
