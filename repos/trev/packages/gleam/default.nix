@@ -6,10 +6,10 @@
 gleam.overrideAttrs (
   finalAttrs: prevAttrs: {
     passthru = prevAttrs.passthru // {
-      fetchDeps = callPackage ./fetchDeps.nix { };
-      erlangHook = callPackage ./erlangHook.nix { };
-      javascriptHook = callPackage ./javascriptHook.nix { };
-      build = callPackage ./build.nix { };
+      fetchDeps = callPackage ./fetchDeps.nix { inherit gleam; };
+      erlangHook = callPackage ./erlangHook.nix { inherit gleam; };
+      javascriptHook = callPackage ./javascriptHook.nix { inherit gleam; };
+      build = callPackage ./build.nix { inherit gleam; };
     };
   }
 )
