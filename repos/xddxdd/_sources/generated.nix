@@ -413,26 +413,26 @@
   };
   dbip-asn-lite = {
     pname = "dbip-asn-lite";
-    version = "2026-03";
+    version = "2026-04";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-asn-lite-2026-03.mmdb.gz";
-      hash = "sha256-cGdiwiJP6JUNZ8rKZK/XvtNglVWhm81ap7VmVdOW6NE=";
+      url = "https://download.db-ip.com/free/dbip-asn-lite-2026-04.mmdb.gz";
+      hash = "sha256-wJA6XqFbVxsWNEJ4AzwiKMOjsayJczVU/L3i98Y1x+I=";
     };
   };
   dbip-city-lite = {
     pname = "dbip-city-lite";
-    version = "2026-03";
+    version = "2026-04";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-city-lite-2026-03.mmdb.gz";
-      hash = "sha256-Vfi3SiGKs8l2mc5AROuIF6afgpOl5HgZWBSKd7orBoI=";
+      url = "https://download.db-ip.com/free/dbip-city-lite-2026-04.mmdb.gz";
+      hash = "sha256-sIb1DGVNmvV0B3ltTcT4yQkMMMiZt89X0eDIzT0U/r8=";
     };
   };
   dbip-country-lite = {
     pname = "dbip-country-lite";
-    version = "2026-03";
+    version = "2026-04";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-country-lite-2026-03.mmdb.gz";
-      hash = "sha256-YlPwkNIbI6kAnt5zGPhp5P/NnY6l9UTK0LJM2OEkgW4=";
+      url = "https://download.db-ip.com/free/dbip-country-lite-2026-04.mmdb.gz";
+      hash = "sha256-d+6Bq1l6XZHI+maW20SmpXjfP9O1a4FmhtfL3poEOfs=";
     };
   };
   decluttarr = {
@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.03.31";
+    version = "2026.04.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-ASN.mmdb";
-      hash = "sha256-wK6eOF25JcmJAiEOPM2kQpNjPqI1ebWRhItyok+jLpg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-ASN.mmdb";
+      hash = "sha256-dFPvAZ1D13nDHsD0o8bn113MbVW2Vt8W2PuIZRWPrFY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.03.31";
+    version = "2026.04.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-City.mmdb";
-      hash = "sha256-pL6o8SQ8HbErdXi11wOihdOjDu3P/H6n1oej+xB2/TE=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-City.mmdb";
+      hash = "sha256-r+iE9jIV4bPltS1hIE+fL/yJYKToK2tq9zPDLr6wz+4=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.03.31";
+    version = "2026.04.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-Country.mmdb";
-      hash = "sha256-eED0uIkefIZvlI1LAgzcEq7qUbCUULRK2W0fFPbjKHk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-Country.mmdb";
+      hash = "sha256-HG+Psx4q/kh6v2AdxO+9bA1l6wdACPU5rWouSRSZvu4=";
     };
   };
   glauth = {
@@ -1048,12 +1048,12 @@
   };
   kui = {
     pname = "kui";
-    version = "v1.14.0";
+    version = "v1.14.1";
     src = fetchFromGitHub {
       owner = "abersheeran";
       repo = "kui";
-      tag = "v1.14.0";
-      hash = "sha256-JDl95wzIGG1fgEJcy9+3+FfFt4QbsTBnSZb6uTrnyAA=";
+      tag = "v1.14.1";
+      hash = "sha256-PbE90v7y5qzyNJCCh8759BDPq2nFKO7A2FchIbHYWxk=";
     };
   };
   ldap-auth-proxy = {
@@ -1182,12 +1182,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8598";
+    version = "b8611";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8598";
-      hash = "sha256-kN/5fSBJ9Uwpqpt9h7CqgFhOSqu5kZdm050L3DybWEE=";
+      tag = "b8611";
+      hash = "sha256-VII26nN61vBGSfrkg+x1WNiCVa7PtS/QZZy2zuRn0rA=";
     };
   };
   loralib = {
@@ -1826,14 +1826,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "d48167b5d82a36781f6e00193a21daaaa16d74bd";
+    version = "e1d4e461c3371733ff04ebe1f3370cb3517a5017";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "d48167b5d82a36781f6e00193a21daaaa16d74bd";
-      hash = "sha256-RQyPjEBs/UVfJLyzPBey6U13rjG+wcMF7f4iVDsWx+Q=";
+      rev = "e1d4e461c3371733ff04ebe1f3370cb3517a5017";
+      hash = "sha256-P3+wAzNnN9Uc9ODZhSxF6PTie/UFjvfFI/7GKqr4AVc=";
     };
-    date = "2026-03-31";
+    date = "2026-04-01";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1976,14 +1976,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "b1aec46de86c2ee9b8d8455082eba32b2b8b61b6";
+    version = "e1f53410037304c396a679eb5c4aac49d534777c";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "b1aec46de86c2ee9b8d8455082eba32b2b8b61b6";
-      hash = "sha256-aNw8PTZHksCmrks5MepxtU82VI8zLiHWboFp0AgfWpc=";
+      rev = "e1f53410037304c396a679eb5c4aac49d534777c";
+      hash = "sha256-b+IAmJ+WLaP2CC4E+wXH922NJ0GKoAn8RkUsnpx+yb4=";
     };
-    date = "2026-03-26";
+    date = "2026-04-01";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";

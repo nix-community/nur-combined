@@ -796,11 +796,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cGdiwiJP6JUNZ8rKZK/XvtNglVWhm81ap7VmVdOW6NE=",
+            "sha256": "sha256-wJA6XqFbVxsWNEJ4AzwiKMOjsayJczVU/L3i98Y1x+I=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-asn-lite-2026-03.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-asn-lite-2026-04.mmdb.gz"
         },
-        "version": "2026-03"
+        "version": "2026-04"
     },
     "dbip-city-lite": {
         "cargoLock": null,
@@ -811,11 +811,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Vfi3SiGKs8l2mc5AROuIF6afgpOl5HgZWBSKd7orBoI=",
+            "sha256": "sha256-sIb1DGVNmvV0B3ltTcT4yQkMMMiZt89X0eDIzT0U/r8=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-city-lite-2026-03.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-city-lite-2026-04.mmdb.gz"
         },
-        "version": "2026-03"
+        "version": "2026-04"
     },
     "dbip-country-lite": {
         "cargoLock": null,
@@ -826,11 +826,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YlPwkNIbI6kAnt5zGPhp5P/NnY6l9UTK0LJM2OEkgW4=",
+            "sha256": "sha256-d+6Bq1l6XZHI+maW20SmpXjfP9O1a4FmhtfL3poEOfs=",
             "type": "url",
-            "url": "https://download.db-ip.com/free/dbip-country-lite-2026-03.mmdb.gz"
+            "url": "https://download.db-ip.com/free/dbip-country-lite-2026-04.mmdb.gz"
         },
-        "version": "2026-03"
+        "version": "2026-04"
     },
     "decluttarr": {
         "cargoLock": null,
@@ -1493,11 +1493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wK6eOF25JcmJAiEOPM2kQpNjPqI1ebWRhItyok+jLpg=",
+            "sha256": "sha256-dFPvAZ1D13nDHsD0o8bn113MbVW2Vt8W2PuIZRWPrFY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.03.31"
+        "version": "2026.04.01"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1508,11 +1508,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pL6o8SQ8HbErdXi11wOihdOjDu3P/H6n1oej+xB2/TE=",
+            "sha256": "sha256-r+iE9jIV4bPltS1hIE+fL/yJYKToK2tq9zPDLr6wz+4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-City.mmdb"
         },
-        "version": "2026.03.31"
+        "version": "2026.04.01"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1523,11 +1523,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-eED0uIkefIZvlI1LAgzcEq7qUbCUULRK2W0fFPbjKHk=",
+            "sha256": "sha256-HG+Psx4q/kh6v2AdxO+9bA1l6wdACPU5rWouSRSZvu4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.03.31/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-Country.mmdb"
         },
-        "version": "2026.03.31"
+        "version": "2026.04.01"
     },
     "glauth": {
         "cargoLock": null,
@@ -2040,12 +2040,12 @@
             "name": null,
             "owner": "abersheeran",
             "repo": "kui",
-            "rev": "v1.14.0",
-            "sha256": "sha256-JDl95wzIGG1fgEJcy9+3+FfFt4QbsTBnSZb6uTrnyAA=",
+            "rev": "v1.14.1",
+            "sha256": "sha256-PbE90v7y5qzyNJCCh8759BDPq2nFKO7A2FchIbHYWxk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0"
+        "version": "v1.14.1"
     },
     "ldap-auth-proxy": {
         "cargoLock": null,
@@ -2295,12 +2295,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8598",
-            "sha256": "sha256-kN/5fSBJ9Uwpqpt9h7CqgFhOSqu5kZdm050L3DybWEE=",
+            "rev": "b8611",
+            "sha256": "sha256-VII26nN61vBGSfrkg+x1WNiCVa7PtS/QZZy2zuRn0rA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8598"
+        "version": "b8611"
     },
     "loralib": {
         "cargoLock": null,
@@ -3545,7 +3545,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2026-03-31",
+        "date": "2026-04-01",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3557,12 +3557,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "d48167b5d82a36781f6e00193a21daaaa16d74bd",
-            "sha256": "sha256-RQyPjEBs/UVfJLyzPBey6U13rjG+wcMF7f4iVDsWx+Q=",
+            "rev": "e1d4e461c3371733ff04ebe1f3370cb3517a5017",
+            "sha256": "sha256-P3+wAzNnN9Uc9ODZhSxF6PTie/UFjvfFI/7GKqr4AVc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d48167b5d82a36781f6e00193a21daaaa16d74bd"
+        "version": "e1d4e461c3371733ff04ebe1f3370cb3517a5017"
     },
     "qsp-stable": {
         "cargoLock": null,
@@ -3842,7 +3842,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-03-26",
+        "date": "2026-04-01",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3854,12 +3854,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "b1aec46de86c2ee9b8d8455082eba32b2b8b61b6",
-            "sha256": "sha256-aNw8PTZHksCmrks5MepxtU82VI8zLiHWboFp0AgfWpc=",
+            "rev": "e1f53410037304c396a679eb5c4aac49d534777c",
+            "sha256": "sha256-b+IAmJ+WLaP2CC4E+wXH922NJ0GKoAn8RkUsnpx+yb4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b1aec46de86c2ee9b8d8455082eba32b2b8b61b6"
+        "version": "e1f53410037304c396a679eb5c4aac49d534777c"
     },
     "rtpengine-stable": {
         "cargoLock": null,
