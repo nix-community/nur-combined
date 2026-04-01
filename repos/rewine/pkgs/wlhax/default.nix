@@ -1,25 +1,27 @@
 { lib
-, fetchFromSourcehut
+, fetchFromGitHub
 , buildGoModule
 }:
 
 buildGoModule rec {
   pname = "wlhax";
-  version = "unstable-2024-03-23";
+  version = "0.2.0";
 
-  src = fetchFromSourcehut {
-    owner = "~kennylevinsen";
+  src = fetchFromGitHub {
+    owner = "dwapp";
     repo = pname;
-    rev = "10b42941847f11a43dceaf8bf449301056c71f3b";
-    hash = "sha256-A9oohPiXKP4mFN6CnWsaRalQuDc0dEFohHNUgm5NjjI=";
+    rev = "90357bc3cdcf50d9eee10c005ae54545a38ebdb6";
+    hash = "sha256-/IOQ/DGyit50EIKpkK3MsvI1N75YCRbb4blRKlL4q6Q=";
   };
 
-  vendorHash = "sha256-1zAKVg+l1frdE+PYgc0sjjQ+v/OJa9b7leikPwbDl3o=";
+  vendorHash = "sha256-+214VlKahlf0BA2ZChUZgzU3RENYsSP6CZoqPeeXxZg=";
   
   meta = with lib; {
     description = "Wayland proxy that monitors and displays various application state";
-    homepage = "https://git.sr.ht/~kennylevinsen/wlhax";
+    homepage = "https://github.com/dwapp/wlhax";
     license = licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.wineee ];
+    mainProgram = "wlhax";
   };
 }
-
