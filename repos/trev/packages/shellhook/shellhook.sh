@@ -11,6 +11,11 @@ if [[ -n "${CI-}" ]]; then
     exit 0
 fi
 
+# don't run if stdout is not a terminal
+if [[ ! -t 1 ]]; then
+    exit 0
+fi
+
 reset_color=""
 info_color=""
 warn_color=""
