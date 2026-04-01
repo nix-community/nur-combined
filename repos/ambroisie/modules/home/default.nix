@@ -49,8 +49,7 @@
     ./zsh
   ];
 
-  # First sane reproducible version
-  home.stateVersion = "20.09";
+  home.stateVersion = "26.05";
 
   # Start services automatically
   systemd.user.startServices = "sd-switch";

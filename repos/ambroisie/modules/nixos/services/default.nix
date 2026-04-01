@@ -31,7 +31,6 @@
     ./podgrab
     ./postgresql
     ./postgresql-backup
-    ./pyload
     ./quassel
     ./rss-bridge
     ./sabnzbd
