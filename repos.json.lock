@@ -1909,8 +1909,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "152292fa45b16471cb6c0a5e6b98d6514c464464",
-            "sha256": "14h52xk671y9ajf12mmw3nnw4hfkv7smh1jpfgssf7fr3r4diyl5",
+            "rev": "65d7af462e1416cbe85b7fc46df02896a8ed1475",
+            "sha256": "01qvv4d76zimjw2p6jc861d3jldkqq19jgny6kxngn46ba1nympw",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
@@ -2382,8 +2382,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "9422055082e8499d63f1092d0a17c874ed670c6e",
-            "sha256": "05sy6c6zxqk2nad59wp0wrvpzhi22gbb6s5vdmzql16dh1sk2w00",
+            "rev": "b5e9713675a1e31ccdee78214e3ad0749c610317",
+            "sha256": "0jj6531aqx13jhza205gj4xf3zckbr0dv7qsb7l11amns0h4w5b5",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
@@ -2527,8 +2527,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "59f4db0fafdb73e61793d93c7dcc8cfc0a7b0686",
-            "sha256": "0qq3m4wqign7c2slm4gywr9ajg9gygpynnazvp5ymrf2kdzlszip",
+            "rev": "45f5eac78bb6bce982f875a1678caebdc1314527",
+            "sha256": "0jh3fhwmva8g496pd4xh45b1x85lj0i5j5xwwfz9vgarn6cs8r7r",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
