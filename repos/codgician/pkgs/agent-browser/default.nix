@@ -25,9 +25,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   __darwinAllowLocalNetworking = true;
 
+  # skills/ contains SKILL.md for tools like Claude Code
   postInstall = ''
-    mkdir -p $out/lib/agent-browser
-    cp -r ../skills $out/lib/agent-browser/
+    mkdir -p $out/share/agent-browser
+    cp -r ../skills $out/share/agent-browser/
   '';
 
   passthru.updateScript = nix-update-script { };
