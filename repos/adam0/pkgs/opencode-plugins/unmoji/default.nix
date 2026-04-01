@@ -22,7 +22,7 @@ mkOpencodePlugin rec {
   '';
 
   meta = {
-    description = "OpenCode plugin that removes or replaces emojis";
+    description = "OpenCode plugin that strips emojis from agent outputs in Opencode";
     homepage = "https://codeberg.org/bastiangx/opencode-unmoji";
     license = lib.licenses.mit;
   };

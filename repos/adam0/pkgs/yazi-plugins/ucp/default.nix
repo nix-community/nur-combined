@@ -15,7 +15,7 @@ mkYaziPlugin rec {
   };
 
   meta = {
-    description = "Integrates Yazi copy/paste with system clipboard";
+    description = "Integrates yazi copy/paste with system clipboard similar to GUI file managers";
     homepage = "https://github.com/simla33/ucp.yazi";
     license = lib.licenses.mit;
   };

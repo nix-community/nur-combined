@@ -19,7 +19,7 @@ buildGoModule rec {
   ldflags = ["-s" "-w"];
 
   meta = {
-    description = "jq-compatible multi-format configuration transcoder";
+    description = "jq, but with many interoperable configuration format transcodings and interactive querying";
     homepage = "https://github.com/JFryy/qq";
     license = lib.licenses.mit;
     mainProgram = "qq";

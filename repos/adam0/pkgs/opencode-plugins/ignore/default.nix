@@ -22,7 +22,7 @@ mkOpencodePlugin rec {
   '';
 
   meta = {
-    description = "OpenCode plugin that blocks access to paths matched by .ignore patterns";
+    description = "OpenCode plugin to restrict AI access to files and directories using .ignore patterns";
     homepage = "https://github.com/lgladysz/opencode-ignore";
     license = lib.licenses.mit;
   };

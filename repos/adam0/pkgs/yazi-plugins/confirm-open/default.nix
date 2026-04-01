@@ -15,7 +15,7 @@ mkYaziPlugin rec {
   };
 
   meta = {
-    description = "Yazi plugin that confirms before opening many files";
+    description = "A Yazi plugin to show a confirmation popup when opening a large number of files";
     homepage = "https://github.com/walldmtd/confirm-open.yazi";
     license = lib.licenses.mit;
   };

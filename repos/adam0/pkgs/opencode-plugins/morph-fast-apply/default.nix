@@ -23,7 +23,7 @@ mkOpencodePlugin rec {
   '';
 
   meta = {
-    description = "OpenCode plugin for Morph Fast Apply - 10x faster code editing";
+    description = "OpenCode plugin for Morph Fast Apply - 10x faster code editing with lazy edit markers.";
     homepage = "https://github.com/JRedeker/opencode-morph-fast-apply";
     license = lib.licenses.mit;
   };

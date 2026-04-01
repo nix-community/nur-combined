@@ -14,7 +14,7 @@ mkSpicetifyExtension {
   name = "playlist-icons.js";
 
   meta = with lib; {
-    description = "Add playlist icons to Spicetify";
+    description = "Add the icon of a playlist in front of the playlist in the playlist list";
     homepage = "https://github.com/jeroentvb/spicetify-playlist-icons";
     license = licenses.mit;
   };

@@ -15,7 +15,7 @@ buildFishPlugin {
   };
 
   meta = {
-    description = "Fzf-powered fish completions with customizable completion rules";
+    description = "Configurable fzf completions for fish shell";
     homepage = "https://github.com/adam01110/FzFish";
     license = lib.licenses.mit;
   };

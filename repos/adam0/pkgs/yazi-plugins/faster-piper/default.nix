@@ -15,7 +15,7 @@ mkYaziPlugin rec {
   };
 
   meta = {
-    description = "Pipe any shell command as a cached previewer.";
+    description = "Pipe any shell command as a cached previewer";
     homepage = "https://github.com/alberti42/faster-piper.yazi";
     license = lib.licenses.mit;
   };

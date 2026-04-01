@@ -17,7 +17,7 @@ mkOpencodePlugin rec {
   dependencyHash = null;
 
   meta = {
-    description = "OpenCode plugin that blocks destructive git and filesystem commands";
+    description = "A coding agent hook that acts as a safety net";
     homepage = "https://github.com/kenryu42/claude-code-safety-net";
     license = lib.licenses.mit;
   };

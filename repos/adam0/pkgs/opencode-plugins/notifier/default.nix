@@ -22,7 +22,7 @@ mkOpencodePlugin rec {
   '';
 
   meta = {
-    description = "OpenCode plugin for system notifications and sounds";
+    description = "OpenCode plugin for desktop notifications and sounds on permission, completion, and error events";
     homepage = "https://github.com/mohak34/opencode-notifier";
     license = lib.licenses.mit;
   };
