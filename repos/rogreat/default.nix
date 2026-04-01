@@ -17,5 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   gupax = pkgs.callPackage ./pkgs/gupax { };
+  sparrow-wifi = pkgs.callPackage ./pkgs/sparrow-wifi { };
   steam-optionx = pkgs.callPackage ./pkgs/steam-optionx { };
 }
