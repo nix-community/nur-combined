@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "9232fd824a0f205ba0c05e1c7b4deceb92d99d7a",
-            "sha256": "0gkhrbl7ps3yj4nm99gfd874baam5hywkzdijq9aaypzvqid6sdb",
+            "rev": "f0b43c0a568e38495bbc802f5d926524c178baea",
+            "sha256": "08hx8cnzhafdj5vdkx6rkqxrkqsn4d9qqkr6xy7fnpja3hqn3dhn",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
@@ -1593,8 +1593,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "7d91b0e76061b987bc1f19452151646a6e4a8e78",
-            "sha256": "0ywpsfzldjwxw12fc55y6gfzq9ni8vqfz5jgg84cb2c3b824yvp9",
+            "rev": "99dbacabdf3213b2153853864473c629f6f7cb7d",
+            "sha256": "1b635gj76iz1d010flllxbb4bw9m088hijw7g6cvc6975gfzywxs",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2050,8 +2050,8 @@
             "url": "https://github.com/rewardenv/nur"
         },
         "rewine": {
-            "rev": "1f243f20b3ff01b386624a73e434316319767ac7",
-            "sha256": "00dcnnrkis5prf9v4v5l12cglcswzz2rfii9n8pngaqxqinzbi7n",
+            "rev": "bf4255285847466cccce9536ba6e6967d2b55579",
+            "sha256": "036ddmqihz2fp37y2cpvabhap1gmyb2g2lm6lwrm56rykda5kzan",
             "url": "https://github.com/wineee/nur-packages"
         },
         "robertodr": {
