@@ -2527,8 +2527,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "263b642e8cf934c25bcacdb088f02961459fdd1b",
-            "sha256": "1wikri5bfq8zhmaxxysdjz69gjiw3m44iqlk9jy7laa4f5x4p1ah",
+            "rev": "d83502ea0d6bae28c9422cdcae274be59e4f4599",
+            "sha256": "1f8w317m2g6vj1pgh6da3jzzzc125x2na6r29dz7zj9cn9c412il",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
         "ymstnt": {
-            "rev": "583f3519e74a0a604573691dc2b86d69c442036d",
-            "sha256": "1b117zn6anrgsm42dbmbhz1nh7fgjj51m8xhld2mzcdxz4p79pw2",
+            "rev": "39c7d4e86dc6a7287d33906c0630ad947034cdfe",
+            "sha256": "1g1c3arf1fds7rd54aqfmq46ir5c93zw505nl95xapkh8ga6513c",
             "url": "https://github.com/ymstnt/nur-packages"
         },
         "ysndr": {
