@@ -147,16 +147,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.1.1";
+    version = "2.0.2";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.1.1";
+      rev = "2.0.2";
       fetchSubmodules = false;
-      sha256 = "sha256-1rOxmmh8gyXUnIK6yBDK/PfxkXEpczG93bNCiDA2YMU=";
+      sha256 = "sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-1rOxmmh8gyXUnIK6yBDK_PfxkXEpczG93bNCiDA2YMU=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=/pubspec.lock";
     };
   };
   pixes = {
