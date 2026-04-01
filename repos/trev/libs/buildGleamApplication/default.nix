@@ -1,16 +1,17 @@
 # ripped from https://github.com/arnarg/nix-gleam
 {
-  stdenv,
-  lib,
-  git,
-  fetchHex,
-  gleam,
-  erlang,
-  rebar3,
-  elixir,
   beamPackages,
-  rsync,
+  dashMinimal,
+  elixir,
+  erlang,
+  fetchHex,
+  git,
+  gleam,
+  lib,
   nodejs,
+  rebar3,
+  rsync,
+  stdenv,
 }:
 
 lib.extendMkDerivation {
@@ -186,7 +187,7 @@ lib.extendMkDerivation {
           rsync --exclude=entrypoint.sh -r build/erlang-shipment/* $out/lib/
 
           cat <<EOF > $out/bin/${gleamToml.name}
-          #!/usr/bin/env sh
+          #!${dashMinimal}/bin/dash
           ${erlangPackage}/bin/erl \
             -pa $out/lib/*/ebin \
             -eval "${gleamToml.name}@@main:run(${gleamToml.name})" \
@@ -229,7 +230,7 @@ lib.extendMkDerivation {
           EOF
 
           cat <<EOF > $out/bin/${gleamToml.name}
-          #!/usr/bin/env sh
+          #!${dashMinimal}/bin/dash
           ${nodejs}/bin/node $out/lib/${gleamToml.name}/main.mjs "\$@"
           EOF
           chmod +x $out/bin/${gleamToml.name}
