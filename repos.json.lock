@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "f0b43c0a568e38495bbc802f5d926524c178baea",
-            "sha256": "08hx8cnzhafdj5vdkx6rkqxrkqsn4d9qqkr6xy7fnpja3hqn3dhn",
+            "rev": "3cc0a9b2c2fdff1960af77dfba8daf46cd8b871a",
+            "sha256": "0c7idymsnq7z20amricd1dwybzv42y9cvpavzbs5s1k3lgana55p",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "DanNixon": {
