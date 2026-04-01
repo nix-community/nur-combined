@@ -1228,8 +1228,8 @@
             "url": "https://github.com/jerrita/nur"
         },
         "jetcookies": {
-            "rev": "4ce1c841900419163980c5f4b7884a35c229b20d",
-            "sha256": "0fvx2vbfhn8yp569z2x2bvlk03xgzdc2mzwgwwzmczvq0dg68ksf",
+            "rev": "7bd0328b535ad556062eb0dfe94fcaeeed6927c8",
+            "sha256": "0jwpzns2ih63qj3mc4nnp4prdbdzz24fq59yphdvqrg6pr3z151y",
             "url": "https://github.com/jetcookies/nur-packages"
         },
         "jitterbug": {
@@ -2617,8 +2617,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "65a35aa4a3a86f5b21108a1a0a44c82ca974af0a",
-            "sha256": "1f8rnzkjsh45fmabcp3ri0plal956hsldrkpqhkizi6ykjz34nvy",
+            "rev": "a4c9906bcc73fc1db2d2065e7183d9cc8ca81a3b",
+            "sha256": "028k9hkrm212jn2bgnggg6zl6xxin33n21kij95xzgm1x7j2g1yw",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
