@@ -96,8 +96,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     GITHUB_SHA = "aa35ebdcb1a44dd11d778d50f6d32234c8802803";
   };
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     description = "GUI Uniting P2Pool And XMRig";
     homepage = "https://gupax.io";

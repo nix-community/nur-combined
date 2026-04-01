@@ -67,8 +67,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     description = "Modify Steam launch options";
     longDescription = ''
