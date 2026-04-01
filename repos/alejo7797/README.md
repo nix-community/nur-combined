@@ -6,12 +6,12 @@ These should work out of the box on any Linux or macOS host. (Maybe even [Window
 
 Pretend that you've just run the following:
 ```bash
-export FLAKE_URI=https://codeberg.org/alejo7797/nix-expressions/archive/main.tar.gz
+nix registry add alejo7797 https://codeberg.org/alejo7797/nix-expressions/archive/main.tar.gz
 ```
 
 ### [SnapPy](https://snappy.computop.org)
 ```bash
-nix run "$FLAKE_URI"\#snappy-topology
+nix run alejo7797\#snappy-topology
 ```
 
 #### Features
@@ -20,7 +20,7 @@ nix run "$FLAKE_URI"\#snappy-topology
 
 ### [KnotJob](https://www.maths.dur.ac.uk/users/dirk.schuetz/knotjob.html)
 ```bash
-nix run "$FLAKE_URI"\#knotjob
+nix run alejo7797\#knotjob
 ```
 
 ## NixOS with flakes
