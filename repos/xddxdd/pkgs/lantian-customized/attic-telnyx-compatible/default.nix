@@ -6,7 +6,7 @@ attic-server.overrideAttrs (old: {
   patches = (old.patches or [ ]) ++ [ ./disable-presign-url.patch ];
 
   postPatch = (old.postPatch or "") + ''
-    sed -i "/x-id/d" $cargoDepsCopy/aws-sdk-s3-*/src/operation/*.rs
+    sed -i "/x-id/d" $cargoDepsCopy/source-registry-0/aws-sdk-s3-*/src/operation/*.rs
   '';
 
   meta = old.meta // {
