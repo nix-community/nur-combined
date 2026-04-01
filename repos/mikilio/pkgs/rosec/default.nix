@@ -52,6 +52,10 @@ symlinkJoin (finalAttrs: let
 
     runtimeDependencies = [
       libxkbcommon
+    ];
+
+    buildInputs = [
+      stdenv.cc.cc.lib
       wayland
     ];
 
