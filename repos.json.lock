@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "324cfa16c4307da6b0a512512ca3b8acada79d68",
-            "sha256": "1rn84lpww4g86sds85xjcfv4qf9x0rlmyqn8srx2gj37vck7k0db",
+            "rev": "90b751fa06a26f0a712db0f2bc6267ea7e8d1bbe",
+            "sha256": "017w81jm3w6zvg5s2059bffcpm69yzbyn6avwvc3k1l0aqh9xw7x",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -1694,8 +1694,8 @@
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
-            "rev": "94137c22b2ed831127bea46164465a16b968340f",
-            "sha256": "0rv5hydd1cxij1qvlf6ina5vxwa698b3ia51sw7hwdsirsa9il37",
+            "rev": "1ae691dbd9cb7b8cc85fa02c08b6458fe4620267",
+            "sha256": "0a153s7gflwpdp9cmg437rbjkxrxv66xbi8sfakqwf2xrvjp9w51",
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
@@ -2382,8 +2382,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "b5e9713675a1e31ccdee78214e3ad0749c610317",
-            "sha256": "0jj6531aqx13jhza205gj4xf3zckbr0dv7qsb7l11amns0h4w5b5",
+            "rev": "b8488272b17faca28b5b04ad1c653cd7a6c6ce4a",
+            "sha256": "1whh00q1da8zpd4jnrk9lywrfb6mh8bam2rq8403bazpknqa486w",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
