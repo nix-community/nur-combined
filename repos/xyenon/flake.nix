@@ -40,8 +40,8 @@
       cacheOutputAttrs = forAllSystems (
         system: (import ./ci.nix { pkgs = nixpkgs.legacyPackages.${system}; }).cacheOutputAttrs
       );
-      nixosModules = import ./modules;
-      hmModules = import ./hm-modules;
+      nixosModules = import ./nixos-modules;
+      homeModules = import ./home-modules;
       overlays = import ./overlays;
     };
 }

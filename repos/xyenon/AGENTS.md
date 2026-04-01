@@ -11,7 +11,7 @@
 ## Architecture
 NUR (Nix User Repository) flake. Entry point is `default.nix`; each package lives in `pkgs/<name>/default.nix` and is wired via `callPackage`. Sources are auto-fetched by nvfetcher (`nvfetcher.toml` → `_sources/generated.nix`).
 - `pkgs/` — package derivations
-- `modules/` — NixOS modules; `hm-modules/` — Home Manager modules
+- `nixos-modules/` — NixOS modules; `home-modules/` — Home Manager modules
 - `overlays/` — nixpkgs overlays
 - `lib/` — helper functions
 

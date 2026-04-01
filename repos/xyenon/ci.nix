@@ -15,7 +15,14 @@
 
 with builtins;
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "hmModules";
+  isReserved =
+    n:
+    n == "lib"
+    || n == "overlays"
+    || n == "nixosModules"
+    || n == "homeModules"
+    || n == "darwinModules"
+    || n == "flakeModules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable =
     p:

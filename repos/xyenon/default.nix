@@ -1,6 +1,7 @@
 # This file describes your repository contents.
 # It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
+# and optionally the special attributes `lib`, `nixosModules`, `homeModules`,
+# `darwinModules`, `flakeModules` and `overlays`.
 # It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
@@ -24,8 +25,8 @@ in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  hmModules = import ./hm-modules; # Home Manager modules
+  nixosModules = import ./nixos-modules; # NixOS modules
+  homeModules = import ./home-modules; # Home Manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
   go-check = callPackage ./pkgs/go-check { };
