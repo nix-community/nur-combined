@@ -6,13 +6,13 @@
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "hanekokoro-mono-e";
+  pname = "hanekokoro-mono-k";
   version = "0.2.4";
 
   src = fetchzip {
-    url = "https://github.com/ShadowRZ/hanekokoro-fonts/releases/download/v${version}/PkgTTF-HanekokoroMonoE.zip";
+    url = "https://github.com/ShadowRZ/hanekokoro-fonts/releases/download/v${version}/PkgTTF-HanekokoroMonoK.zip";
     stripRoot = false;
-    hash = "sha256-+ldcMPpLLF718L7Bjw7lAeJd/apKo6S54oIhGkbpknY=";
+    hash = "sha256-VpLN9ykS1dkMh45Dhll9YOQv0hTxooABLcdwKtu5Zuk=";
   };
 
   installPhase = ''
