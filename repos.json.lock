@@ -241,8 +241,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "83c0aa08d41865328d783ce1698f4730e12861ff",
-            "sha256": "0nq4zg7yh1l88ff3xbx7vsiq2rjv30ivhsfplyvm4baqhv8an5nc",
+            "rev": "49e281b87613e893569425f91258dc023395a976",
+            "sha256": "1b1cya6c8ayqd9w0kas4ydmm964x956mqym13f2l168q58dc2bag",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
@@ -1228,8 +1228,8 @@
             "url": "https://github.com/jerrita/nur"
         },
         "jetcookies": {
-            "rev": "1f2eed9051860d4807d2849da8c9d07efe0ef4cf",
-            "sha256": "1vbdi1gnl7f6ilzvdg4jfazdd0iyb0ajich6hbyp1vkkpnkqra1l",
+            "rev": "4ce1c841900419163980c5f4b7884a35c229b20d",
+            "sha256": "0fvx2vbfhn8yp569z2x2bvlk03xgzdc2mzwgwwzmczvq0dg68ksf",
             "url": "https://github.com/jetcookies/nur-packages"
         },
         "jitterbug": {
@@ -2382,7 +2382,7 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "b8488272b17faca28b5b04ad1c653cd7a6c6ce4a",
+            "rev": "7b07eb5f8fec263b3131b46f3eaffaa45c6e33bb",
             "sha256": "1whh00q1da8zpd4jnrk9lywrfb6mh8bam2rq8403bazpknqa486w",
             "url": "https://github.com/spotdemo4/nur"
         },
