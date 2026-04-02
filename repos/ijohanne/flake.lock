@@ -33,6 +33,22 @@
         "type": "github"
       }
     },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -54,6 +70,24 @@
     "flake-utils_2": {
       "inputs": {
         "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -92,6 +126,29 @@
         "type": "github"
       }
     },
+    "git-hooks_2": {
+      "inputs": {
+        "flake-compat": "flake-compat_2",
+        "gitignore": "gitignore_2",
+        "nixpkgs": [
+          "prometheus-gpsd-exporter",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775036584,
+        "narHash": "sha256-zW0lyy7ZNNT/x8JhzFHBsP2IPx7ATZIPai4FJj12BgU=",
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "rev": "4e0eb042b67d863b1b34b3f64d52ceb9cd926735",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -114,20 +171,25 @@
         "type": "github"
       }
     },
-    "gpsd-prometheus-exporter": {
-      "flake": false,
+    "gitignore_2": {
+      "inputs": {
+        "nixpkgs": [
+          "prometheus-gpsd-exporter",
+          "git-hooks",
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1774276705,
-        "narHash": "sha256-87j9DpMk8T7HfeHMCZDqjVBBqydIHqE01e7+bd+6bhA=",
-        "owner": "brendanbank",
-        "repo": "gpsd-prometheus-exporter",
-        "rev": "18630b19722fbb56111301abe9b3dc38f8cc3650",
+        "lastModified": 1709087332,
+        "narHash": "sha256-HG2cCnktfHsKV0s4XW83gU3F57gaTljL9KNSuG6bnQs=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "637db329424fd7e46cf4185293b9cc8c88c95394",
         "type": "github"
       },
       "original": {
-        "owner": "brendanbank",
-        "ref": "v1.1.19",
-        "repo": "gpsd-prometheus-exporter",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
         "type": "github"
       }
     },
@@ -266,6 +328,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1775002709,
+        "narHash": "sha256-d3Yx83vSrN+2z/loBh4mJpyRqr9aAJqlke4TkpFmRJA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bcd464ccd2a1a7cd09aa2f8d4ffba83b761b1d0e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1772598333,
         "narHash": "sha256-YaHht/C35INEX3DeJQNWjNaTcPjYmBwwjFJ2jdtr+5U=",
         "owner": "NixOS",
@@ -369,11 +447,32 @@
         "type": "github"
       }
     },
-    "prometheus-tplink-p110-exporter": {
+    "prometheus-gpsd-exporter": {
       "inputs": {
         "flake-utils": "flake-utils_2",
+        "git-hooks": "git-hooks_2",
         "nixpkgs": "nixpkgs_3",
         "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1775148591,
+        "narHash": "sha256-aGAyvOrRTQLqrs9oO91pJPmROh4xXI8P/JENaxUdZow=",
+        "owner": "ijohanne",
+        "repo": "prometheus-gpsd-exporter",
+        "rev": "b4b5c4767fa2175f2efab1f0c0d75a4bfa9ed8ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ijohanne",
+        "repo": "prometheus-gpsd-exporter",
+        "type": "github"
+      }
+    },
+    "prometheus-tplink-p110-exporter": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": "nixpkgs_4",
+        "rust-overlay": "rust-overlay_3"
       },
       "locked": {
         "lastModified": 1774873296,
@@ -392,7 +491,6 @@
     "root": {
       "inputs": {
         "agent-skills-cli": "agent-skills-cli",
-        "gpsd-prometheus-exporter": "gpsd-prometheus-exporter",
         "hexokinase": "hexokinase",
         "hue_exporter": "hue_exporter",
         "multicast-relay": "multicast-relay",
@@ -405,6 +503,7 @@
         "oh-my-fish-plugin-ssh": "oh-my-fish-plugin-ssh",
         "pg-exporter": "pg-exporter",
         "prometheus-ecowitt-exporter": "prometheus-ecowitt-exporter",
+        "prometheus-gpsd-exporter": "prometheus-gpsd-exporter",
         "prometheus-tplink-p110-exporter": "prometheus-tplink-p110-exporter",
         "sddm-chili": "sddm-chili",
         "sddm-sugar-dark": "sddm-sugar-dark",
@@ -434,6 +533,27 @@
       }
     },
     "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "prometheus-gpsd-exporter",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775099554,
+        "narHash": "sha256-3xBsGnGDLOFtnPZ1D3j2LU19wpAlYefRKTlkv648rU0=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "8d6387ed6d8e6e6672fd3ed4b61b59d44b124d99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_3": {
       "inputs": {
         "nixpkgs": [
           "prometheus-tplink-p110-exporter",
@@ -504,6 +624,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
