@@ -6,13 +6,13 @@
 }:
 mkOpencodePlugin rec {
   pname = "dynamic-context-pruning";
-  version = "3.1.5";
+  version = "3.1.6";
 
   src = fetchFromGitHub {
     owner = "Opencode-DCP";
     repo = "opencode-${pname}";
     rev = "v${version}";
-    hash = "sha256-OCBCk0DitIhIeYowmmNjXRjLoMlb85ogeUKdz/zhSeE=";
+    hash = "sha256-z/HxGK2RkEKDwVdMf8Z+AG5wkX2N5MAZjzbtHPyiu4k=";
   };
 
   dependencyHash = "sha256-0kGXgBOC/7qXV8sDiTLe0H3RO/KlwbZTIudMxT5zbMI=";

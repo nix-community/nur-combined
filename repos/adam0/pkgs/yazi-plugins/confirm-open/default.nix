@@ -5,7 +5,7 @@
 }:
 mkYaziPlugin rec {
   pname = "confirm-open.yazi";
-  version = "0-unstable-2026-03-10";
+  version = "0-unstable-2026-03-11";
 
   src = fetchFromGitHub {
     owner = "walldmtd";
