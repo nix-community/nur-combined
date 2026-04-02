@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "b2c77c106299b4984ab51024bdf68269aff6cf50",
-            "sha256": "1kc13z7r6c0sq5cqp2wvvihjz6nl4q5asb48iz4gcjjdb0kkx1pc",
+            "rev": "9311c3fd5eb8b734f029fe79b88b672782ecfabf",
+            "sha256": "1jq9yqyn5n7i2zq399pn5k464jmlk6aavk2zn52z5crfqczzlssr",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -2045,8 +2045,8 @@
             "url": "https://github.com/ressu/nur-packages"
         },
         "reward": {
-            "rev": "d4293fc0446ebd0f9a5884acba31d9a6bea06e55",
-            "sha256": "032h485az354a0rmk9qkd7m87rd3ahnia3z6yvhvc4xj98j2fz2i",
+            "rev": "ab4d6136d2f7178da4ae901ab71bfdf93a45e307",
+            "sha256": "1iik3ig62wgah0kyf3klghri1c02shv0dj7aq9faiggdj1y2bj3d",
             "url": "https://github.com/rewardenv/nur"
         },
         "rewine": {
