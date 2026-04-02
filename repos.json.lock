@@ -91,8 +91,8 @@
             "url": "https://github.com/Emin017/nur-packages"
         },
         "Ev357": {
-            "rev": "7045767cd4246c13a25a91d0f89866ea82f50ce2",
-            "sha256": "00m3xjghcda9vgq1k6vgwynbn6m1z44pdfphq725q8iw2mc1a08s",
+            "rev": "8c17d3262b31c4f29b4528676666871ff6776cf9",
+            "sha256": "084mx3xhnz6hyanl11a8nic67z95myr7kb7zxwqbys5vbdn55jpy",
             "url": "https://github.com/Ev357/nur-packages"
         },
         "Ex-32": {
@@ -1628,8 +1628,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "f74f604287ef490734d13161073ad9a481b582fb",
-            "sha256": "04x2afl2img017j16yisj2vfn4v3r95m09rkxiqg29m30ypmlrv1",
+            "rev": "2417622ecf4195b8fdd55562529e331621e41490",
+            "sha256": "14npzk131f3qkyamhgacihd9p5lp83nam7wvr07xxiqf9ghx18rc",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
