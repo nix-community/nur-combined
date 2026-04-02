@@ -83,6 +83,8 @@ stdenv.mkDerivation {
       --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
   '';
 
+  passthru.autoUpdate = false;
+
   meta = {
     mainProgram = "run-fabric";
     description = "Wrapper to run Fabric widgets";

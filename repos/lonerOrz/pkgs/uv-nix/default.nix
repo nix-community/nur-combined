@@ -55,6 +55,9 @@ writeShellApplication {
 
       echo "🎉 Project '$name' created!"
   '';
+
+  passthru.autoUpdate = false;
+
   meta = {
     description = "Using Nix to manage UV-based Python projects";
     homepage = "https://github.com/lonerOrz/uv-python-nix-template";

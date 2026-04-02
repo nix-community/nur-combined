@@ -3,7 +3,8 @@
 
 set -euo pipefail
 
-cd "$(readlink -e "$(dirname "${BASH_SOURCE[0]}")")"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 # Fetch JSON payload from URL
 fetch_payload() {
