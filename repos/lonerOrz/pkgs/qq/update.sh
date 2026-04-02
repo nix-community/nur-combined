@@ -1,10 +1,26 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash --pure --keep GITHUB_TOKEN -p nix curl cacert jq
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash --pure --keep GITHUB_TOKEN -p nix curl cacert jq
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+# Package metadata
+# https://github.com/TencentQQ/linuxqq
+# QQ 使用多渠道源（macOS/Linux），不遵循标准 GitHub release 模式
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$script_dir"
+
+# 回退机制
+backup="$(mktemp)"
+cp "sources.nix" "$backup" 2>/dev/null || true
+
+rollback() {
+  echo "⚠️  更新失败，回滚 sources.nix"
+  cp "$backup" "sources.nix" 2>/dev/null || true
+}
+trap rollback EXIT
+
+# 工具函数
 
 # Fetch JSON payload from URL
 fetch_payload() {
@@ -21,7 +37,7 @@ fetch_version_info() {
 # Get nix-prefetch-url hash (SRI)
 fetch_url_hash() {
     local url="$1"
-    "$SCRIPT_DIR/../../.github/script/fetch-sri-hash.sh" "$url"
+    "$script_dir/../../.github/script/fetch-sri-hash.sh" "$url"
 }
 
 # Compare versions
@@ -97,7 +113,10 @@ done
 
 # Write sources.nix
 if ! $update_needed; then
-    echo "⏭ No updates needed. sources.nix unchanged."
+    echo ""
+    echo "✅ 所有架构已是最新版本，无需更新"
+    trap - EXIT
+    rm -f "$backup"
     exit 0
 fi
 
@@ -135,3 +154,8 @@ in
   };
 }
 EOF
+
+# 成功，解除回滚
+trap - EXIT
+rm -f "$backup"
+echo "✅ Update finished successfully"
