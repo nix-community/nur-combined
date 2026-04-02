@@ -7,9 +7,13 @@
     };
     samba = {
       openFirewall = true;
+      nmbd.enable = false;
       settings = {
         global = {
           "netbios name" = "nas";
+          "local master" = "no";
+          "preferred master" = "no";
+          "domain master" = "no";
           security = "user";
           "server role" = "standalone";
           # 10.1.0.0/24 is the local network,

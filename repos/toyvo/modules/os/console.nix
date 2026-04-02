@@ -78,6 +78,7 @@ in
             aha
             clinfo
             fwupd
+            kexec-tools
             mesa-demos
             pciutils
             vulkan-tools
