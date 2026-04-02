@@ -4,6 +4,11 @@
 PKG_DIR="$(realpath "$(dirname "$0")")"
 SOURCES_FILE="$PKG_DIR/sources.json"
 
+is_empty_or_null() {
+    local VALUE=$1
+    [[ -z "$VALUE" || "$VALUE" == "null" ]]
+}
+
 update_platform() {
     local PLATFORM=$1
     local VERSION=$2
@@ -12,6 +17,16 @@ update_platform() {
     local URL=$5
     local FILENAME=$6
     local OLD_VERSION=$(jq -r --arg p "$PLATFORM" '.[$p].version // ""' "$SOURCES_FILE")
+
+    if is_empty_or_null "$VERSION" || is_empty_or_null "$SIGN" || is_empty_or_null "$FILENAME"; then
+        echo "Skip $PLATFORM: resolved metadata is empty (version/sign/filename), keeping sources.json unchanged."
+        return 0
+    fi
+
+    if [[ "$PLATFORM" == *"darwin" ]] && is_empty_or_null "$BUILD"; then
+        echo "Skip $PLATFORM: resolved metadata is empty (build), keeping sources.json unchanged."
+        return 0
+    fi
 
     if [[ "$OLD_VERSION" == "$VERSION" ]]; then
         echo "$PLATFORM is already up to date ($VERSION)!"
@@ -31,6 +46,11 @@ update_platform() {
 }
 
 RAW_DATA=$(curl -sL "https://y.qq.com/download/download.js" | sed 's/^MusicJsonCallback(//;s/)$//' | base64)
+
+if is_empty_or_null "$RAW_DATA"; then
+    echo "Download payload is empty, keeping sources.json unchanged."
+    exit 0
+fi
 
 # Mac
 MAC_LINK=$(echo "$RAW_DATA" | base64 -d | jq -r \
