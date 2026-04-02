@@ -753,8 +753,8 @@
             "url": "https://github.com/dmfrpro/nur-packages"
         },
         "doomhammer": {
-            "rev": "c89413408c635518412c409c286b4cd353c9222c",
-            "sha256": "0f8r76qkiw20wy6i6m9nzw38hz8v1mkrrddrjm9n9dlzf2z92rmy",
+            "rev": "71a7e68fbf35a142f557cccc9d63f859b29e2377",
+            "sha256": "1ghsyxq6i328vims3z33i14mx93p89v8w4svxl2wa2kcqjsxb8rl",
             "url": "https://github.com/doomhammer/nur-packages"
         },
         "drafolin": {
