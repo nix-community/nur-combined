@@ -1628,8 +1628,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "5995444c2e1213bf1a77241687ce0ad2c8ce8070",
-            "sha256": "16x7pprlm8n8f08c2bh81idwxc33x412ivbc74zfrhwcaimz71id",
+            "rev": "f74f604287ef490734d13161073ad9a481b582fb",
+            "sha256": "04x2afl2img017j16yisj2vfn4v3r95m09rkxiqg29m30ypmlrv1",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -1734,8 +1734,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "fbcd710c4822dd59a9ffa742d738fdedeb2faa29",
-            "sha256": "1cn3g63mw4a5p8f4aq66dmk45riqyphzkkm3s016l5sb00clhv1j",
+            "rev": "22b95d7c26a9fcc92ce7800705a86ffbc7589647",
+            "sha256": "1hlclqzlaa48p91p15in036j30z3wwi2za0b75vd7r5mr3nfw3xd",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
