@@ -1421,8 +1421,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "bbf8d92a7ea6ffbd4305f14e2f0197397924d086",
-            "sha256": "1fz7cwrcfax90i4h3zsfvmp3hkxk6f115z68p8nl5fnzaq2dnf9m",
+            "rev": "83a03b62af4ce0a3e9935779a41aaaf4e4e7a237",
+            "sha256": "146ck8fjan2pcbf1d642wn76aajna7fjkf5z1jhq2ya2rscz640x",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -2165,8 +2165,8 @@
             "url": "https://github.com/Shados/nur-packages"
         },
         "shadowrz": {
-            "rev": "629e0a9df2ed200a86a670a6902e1011a02fb7b8",
-            "sha256": "1652m37dichbx0wf5pc9ljc11wlq846975f1x8c5n5s94dfzpgfg",
+            "rev": "bf7dd5512b542f9490b18146034991ccda4e5218",
+            "sha256": "0jxkhlxvk0f884mzqxpy57f462zrv77ccz7c12h5jvmns66ksaca",
             "url": "https://github.com/ShadowRZ/nur-packages"
         },
         "shamilton": {
