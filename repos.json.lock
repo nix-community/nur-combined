@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "c057b94a9becbf8ca65aa76c9fd270574c9441e4",
-            "sha256": "0va88chb3brq9rl1p6wbfdij0kkahx9hn6cm13avk64dgxzmgn17",
+            "rev": "644dd95936a7d99cffdcc4550524f7160a828e56",
+            "sha256": "06s5qbnqm9gck3b2s21g7crk5dw7xiblmnawk0v1x9mgycp3r58n",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -2190,8 +2190,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "cb453faa37b2a226f6612ce09e856a7b1d9f7961",
-            "sha256": "0pnjb2pfj2g3ds2qpk8q4h6kspli65p7v5bx7fm0kvync29w48fa",
+            "rev": "c104e70d4d3b89a33fa56882b0e63ac68e7caaa8",
+            "sha256": "183zq44xn5bzrkrjzsvhx6k6hhj84qja020284qjvib7x0hwqrnq",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
