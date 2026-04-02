@@ -407,11 +407,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9xD6wLaQ2u6dkd637vf22NUnruvqGAUKhVi7TbwjkF4=",
+            "sha256": "sha256-OwU8ELtmyzg1UGAis/EdFpMPfZm3qyqV53OPoI2iILM=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.62-1_amd64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.68-1_amd64.deb"
         },
-        "version": "13.4.1120.62"
+        "version": "13.4.1130.68"
     },
     "browser360-arm64": {
         "cargoLock": null,
@@ -422,11 +422,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-D4htAk20/LnavuQPto6kO5s8auT29tOXc+BYamhG1YQ=",
+            "sha256": "sha256-jeguR8HoZz+1TyS6/RCcPPrGQH2Etwq7m3ngBwGdDrU=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1120.62-1_arm64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.68-1_arm64.deb"
         },
-        "version": "13.4.1120.62"
+        "version": "13.4.1130.68"
     },
     "calibre-cops": {
         "cargoLock": null,
@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.7",
-            "sha256": "sha256-KlVn7Pi7Gr67vpFME2f/9RIYnZJxP2A8UrzUNP5f1Ug=",
+            "rev": "v6.9.10",
+            "sha256": "sha256-RTnrFbrtgF0/5AivxW2w9r0w/kXrZpSevdB2uL6W/+c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.7"
+        "version": "v6.9.10"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1144,7 +1144,7 @@
     },
     "ela-widget-tools": {
         "cargoLock": null,
-        "date": "2026-03-31",
+        "date": "2026-04-02",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "65efb4760ee46cb775e10a9df71f1b3f427ef862",
-            "sha256": "sha256-WVAle+22rkGal1Q1ss/gejFb34IsAY+ph2Sw3y1L/94=",
+            "rev": "24f6282c099828ca7b3f8143fc793f79c3b390dc",
+            "sha256": "sha256-rxSqU+3TaUSUv26VVr+DsgiiS7Glv5qbce6DIK99sOk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "65efb4760ee46cb775e10a9df71f1b3f427ef862"
+        "version": "24f6282c099828ca7b3f8143fc793f79c3b390dc"
     },
     "email-oauth2-proxy": {
         "cargoLock": null,
@@ -2218,11 +2218,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cGrMzVDnChi4IG/Js8Fvy4V0uYS21prgWppCYv7KvxI=",
+            "sha256": "sha256-jjpeBM9QhpmZCnigqGhuozmJEs2Ykf2pBRNCm4kjAwA=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.7/lightpanda-x86_64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.8/lightpanda-x86_64-linux"
         },
-        "version": "0.2.7"
+        "version": "0.2.8"
     },
     "lightpanda-arm64": {
         "cargoLock": null,
@@ -2233,11 +2233,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-C0LCBkVxnjzfYCKUrIH7zcEMi7NhBL4IbPMoTax4gAs=",
+            "sha256": "sha256-n1TyzDGw2t2Ge6BuzOWfiqWfeHY5R5jpeIKupoC1rRk=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.7/lightpanda-aarch64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.8/lightpanda-aarch64-linux"
         },
-        "version": "0.2.7"
+        "version": "0.2.8"
     },
     "linguaspark-core": {
         "cargoLock": null,
@@ -2295,12 +2295,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8611",
-            "sha256": "sha256-VII26nN61vBGSfrkg+x1WNiCVa7PtS/QZZy2zuRn0rA=",
+            "rev": "b8639",
+            "sha256": "sha256-rOyMY+ywRscf64aaF9Lwme8s0im9Zh3ivThH8tm01jY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8611"
+        "version": "b8639"
     },
     "loralib": {
         "cargoLock": null,
@@ -2424,7 +2424,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-03-31",
+        "date": "2026-04-02",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2436,12 +2436,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "e21b95e9296adbf496cc340346ba20a9607061a5",
-            "sha256": "sha256-13Qc8ovexp6omWDiLbCt5jqHb8MWQT9xJa1vY1nuczc=",
+            "rev": "87a304eb06d12f9ecba4529d0ef12fda3a8bd20f",
+            "sha256": "sha256-/badw5wCDYKBSNbumh0Dujb4bBhM+meJfNR5s7u2rrA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e21b95e9296adbf496cc340346ba20a9607061a5"
+        "version": "87a304eb06d12f9ecba4529d0ef12fda3a8bd20f"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
@@ -3210,7 +3210,7 @@
     },
     "pterodactyl-wings": {
         "cargoLock": null,
-        "date": "2026-01-14",
+        "date": "2026-04-01",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3222,12 +3222,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "3b968bbae1491e3922bb8b67912b30e462111cee",
-            "sha256": "sha256-E5jD/IYkFXhhJyRRftCFjn8cq0QAX60s5Nbdw6zLYow=",
+            "rev": "ac814095055e999aa60c2cd1aac7f6ac45ee1742",
+            "sha256": "sha256-kLa21sh8XilEstn+hNGN6ABl2SoS3HbT9NqcTlLx9Mo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3b968bbae1491e3922bb8b67912b30e462111cee"
+        "version": "ac814095055e999aa60c2cd1aac7f6ac45ee1742"
     },
     "pterodactyl-wings-stable": {
         "cargoLock": null,
@@ -3545,7 +3545,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2026-04-01",
+        "date": "2026-04-02",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3557,12 +3557,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "e1d4e461c3371733ff04ebe1f3370cb3517a5017",
-            "sha256": "sha256-P3+wAzNnN9Uc9ODZhSxF6PTie/UFjvfFI/7GKqr4AVc=",
+            "rev": "5c4fa8aa0a3510826215aceb7729a8f882546cd4",
+            "sha256": "sha256-zUGiL4h72Xc5z7xTeePI6DKEuDnjAK3aDVrvfTY3+JA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e1d4e461c3371733ff04ebe1f3370cb3517a5017"
+        "version": "5c4fa8aa0a3510826215aceb7729a8f882546cd4"
     },
     "qsp-stable": {
         "cargoLock": null,
@@ -3728,7 +3728,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-03-31",
+        "date": "2026-04-02",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3740,12 +3740,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "48789c26d9dd809329d57065baabc0053009f540",
-            "sha256": "sha256-JIctv6ShqlEe/tfk2afHvquVxuaqqU0Z+Ejd5naubag=",
+            "rev": "4c15933d984bc9fffaba898379a2db88483cf7c5",
+            "sha256": "sha256-pl3hCwKRzFEfWW9w8mEAM1OaqhFMFyjsFQiKmB4fbSQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "48789c26d9dd809329d57065baabc0053009f540"
+        "version": "4c15933d984bc9fffaba898379a2db88483cf7c5"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -3842,7 +3842,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-04-01",
+        "date": "2026-04-02",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3854,12 +3854,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "e1f53410037304c396a679eb5c4aac49d534777c",
-            "sha256": "sha256-b+IAmJ+WLaP2CC4E+wXH922NJ0GKoAn8RkUsnpx+yb4=",
+            "rev": "896a34f7e53db0c80379b9f78b10e9b55f9cc5e2",
+            "sha256": "sha256-jJEVj5TMaKqt4GTnXF4hsI4wCzrCmPjgECV1Oa2XTYY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e1f53410037304c396a679eb5c4aac49d534777c"
+        "version": "896a34f7e53db0c80379b9f78b10e9b55f9cc5e2"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4316,7 +4316,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-03-30",
+        "date": "2026-04-02",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4328,12 +4328,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "234b90bb405c88fcf4783254ed97d4ad22534eda",
-            "sha256": "sha256-jNq0H3yNoqnr0tx2ROKKUA2Lb+A76IPa0GDFnAPYYTs=",
+            "rev": "7394026fcaee2eff8125b5e88159d00eaf1e0b66",
+            "sha256": "sha256-X6C/7zXqDo9BPb+i+BqnP/sQr7hCPCAFpA+NznyLGi0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "234b90bb405c88fcf4783254ed97d4ad22534eda"
+        "version": "7394026fcaee2eff8125b5e88159d00eaf1e0b66"
     },
     "unigine-heaven": {
         "cargoLock": null,
