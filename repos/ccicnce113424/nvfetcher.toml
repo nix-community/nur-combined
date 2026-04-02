@@ -22,16 +22,6 @@ src.prefix = "DXVK-GPLALL-"
 fetch.github = "conor42/fxz"
 src.git = "https://github.com/conor42/fxz"
 
-[imfile-arm]
-fetch.url = "https://github.com/imfile-io/imfile-desktop/releases/download/v$ver/imFile-$ver-arm64.AppImage"
-src.github = "imfile-io/imfile-desktop"
-src.prefix = "v"
-
-[imfile-x86]
-fetch.url = "https://github.com/imfile-io/imfile-desktop/releases/download/v$ver/imFile-$ver.AppImage"
-src.github = "imfile-io/imfile-desktop"
-src.prefix = "v"
-
 [jaq]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "01mf02/jaq"

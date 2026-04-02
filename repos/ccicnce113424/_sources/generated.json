@@ -86,36 +86,6 @@
     },
     "version": "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39"
   },
-  "imfile-arm": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "imfile-arm",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-l5htATu2ADr2BIEZ6VQeW5fdnPmTTqluMYP99hfIzOk=",
-      "type": "url",
-      "url": "https://github.com/imfile-io/imfile-desktop/releases/download/v1.1.2/imFile-1.1.2-arm64.AppImage"
-    },
-    "version": "1.1.2"
-  },
-  "imfile-x86": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "imfile-x86",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-gtyeB66w5kBp92bjYPjtVNOuTVvu8uWfzHwc0fcocvw=",
-      "type": "url",
-      "url": "https://github.com/imfile-io/imfile-desktop/releases/download/v1.1.2/imFile-1.1.2.AppImage"
-    },
-    "version": "1.1.2"
-  },
   "jaq": {
     "cargoLock": {
       "Cargo.lock": [

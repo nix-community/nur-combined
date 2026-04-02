@@ -54,8 +54,6 @@ rec {
       }
     );
 
-  imfile = pkgs.callPackage ./imfile { inherit fetchedSrc; };
-
   jaq = pkgs.callPackage ./jaq rec {
     sources = fetchedSrc.jaq;
     version = stableVersion sources;
