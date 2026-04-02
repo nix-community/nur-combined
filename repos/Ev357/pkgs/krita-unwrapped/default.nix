@@ -11,7 +11,6 @@
   fribidi,
   giflib,
   gsl,
-  ilmbase,
   immer,
   kseexpr,
   lager,
@@ -93,7 +92,6 @@ stdenv.mkDerivation rec {
       opencolorio
       xsimd
       curl
-      ilmbase
       immer
       kseexpr
       libmypaint
