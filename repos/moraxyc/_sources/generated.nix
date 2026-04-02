@@ -295,15 +295,15 @@
   };
   superpowers-skills = {
     pname = "superpowers-skills";
-    version = "dd237283dbfe466e11bd4be55acf14ecb8f6636e";
+    version = "b7a8f76985f1e93e75dd2f2a3b424dc731bd9d37";
     src = fetchFromGitHub {
       owner = "obra";
       repo = "superpowers";
-      rev = "dd237283dbfe466e11bd4be55acf14ecb8f6636e";
+      rev = "b7a8f76985f1e93e75dd2f2a3b424dc731bd9d37";
       fetchSubmodules = false;
-      sha256 = "sha256-c2BfYwqPcg7XwhVC15fZ/anr5yNUvVavN8G6gazSBM8=";
+      sha256 = "sha256-hGEMwmSojy3cNtUQvB5djExlD39O2dwcnLOMUNaVIHg=";
     };
-    date = "2026-03-31";
+    date = "2026-04-01";
   };
   udpxy = {
     pname = "udpxy";
@@ -318,18 +318,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202603312228";
+    version = "202604012231";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603312228/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604012231/geoip.dat";
       sha256 = "sha256-dEyXt0xSuuKshmT+9qxIHXdly4QyoN9U8DaKiLm0o1Q=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202603312228";
+    version = "202604012231";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202603312228/geosite.dat";
-      sha256 = "sha256-rjnmM5WcfbTvc8RgFgZNtowYIfKq51Javsqy3AKmyHQ=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604012231/geosite.dat";
+      sha256 = "sha256-lJQJg096rd2V7+rU7H68hnaPdyIWLHVD2oGHh8b0DoU=";
     };
   };
   yass = {
