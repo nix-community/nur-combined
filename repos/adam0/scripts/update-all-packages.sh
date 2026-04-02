@@ -2,6 +2,11 @@
 set -euo pipefail
 
 SYSTEM="${SYSTEM:-x86_64-linux}"
+# BEGIN opencode-vim updater block
+OPENCODE_RELEASE_OWNER="leohenon"
+OPENCODE_RELEASE_REPO="opencode"
+OPENCODE_HASHES_FILE="pkgs/opencode/hashes.json"
+# END opencode-vim updater block
 declare -a TEMP_BACKUP_FILES=()
 
 cleanup_temp_backups() {
@@ -223,6 +228,124 @@ cleanup_backup_file() {
   fi
 }
 
+# BEGIN opencode-vim updater block
+opencode_vim_asset_for_system() {
+  local system=$1
+
+  case "${system}" in
+  x86_64-linux)
+    printf '%s' 'ocv-linux-x64.tar.gz'
+    ;;
+  aarch64-linux)
+    printf '%s' 'ocv-linux-arm64.tar.gz'
+    ;;
+  x86_64-darwin)
+    printf '%s' 'ocv-darwin-x64.zip'
+    ;;
+  aarch64-darwin)
+    printf '%s' 'ocv-darwin-arm64.zip'
+    ;;
+  *)
+    return 1
+    ;;
+  esac
+}
+
+read_opencode_vim_hashes_version() {
+  nix shell nixpkgs#jq --command jq -r '.version' "${OPENCODE_HASHES_FILE}"
+}
+
+read_latest_opencode_vim_release_tag() {
+  nix shell nixpkgs#curl nixpkgs#jq --command sh -eu -c '
+    curl -fsSL "https://api.github.com/repos/'"${OPENCODE_RELEASE_OWNER}"'/'"${OPENCODE_RELEASE_REPO}"'/releases/latest" \
+      | jq -r .tag_name
+  '
+}
+
+prefetch_opencode_vim_asset_hash() {
+  local version=$1
+  local system=$2
+  local asset
+
+  asset=$(opencode_vim_asset_for_system "${system}")
+  nix store prefetch-file --json --hash-type sha256 \
+    "https://github.com/${OPENCODE_RELEASE_OWNER}/${OPENCODE_RELEASE_REPO}/releases/download/v${version}/${asset}" |
+    nix shell nixpkgs#jq --command jq -r '.hash'
+}
+
+write_opencode_vim_hashes_json() {
+  local version=$1
+  local aarch64_darwin_hash=$2
+  local x86_64_darwin_hash=$3
+  local x86_64_linux_hash=$4
+  local aarch64_linux_hash=$5
+
+  # shellcheck disable=SC2016
+  nix shell nixpkgs#jq --command jq -n \
+    --arg version "${version}" \
+    --arg aarch64_darwin_hash "${aarch64_darwin_hash}" \
+    --arg x86_64_darwin_hash "${x86_64_darwin_hash}" \
+    --arg x86_64_linux_hash "${x86_64_linux_hash}" \
+    --arg aarch64_linux_hash "${aarch64_linux_hash}" \
+    '{
+      version: $version,
+      hashes: {
+        "aarch64-darwin": $aarch64_darwin_hash,
+        "x86_64-darwin": $x86_64_darwin_hash,
+        "x86_64-linux": $x86_64_linux_hash,
+        "aarch64-linux": $aarch64_linux_hash
+      }
+    }' >"${OPENCODE_HASHES_FILE}"
+}
+
+update_opencode_vim_package() {
+  local before_version
+  local latest_tag
+  local latest_version
+  local aarch64_darwin_hash
+  local x86_64_darwin_hash
+  local x86_64_linux_hash
+  local aarch64_linux_hash
+
+  if [ ! -f "${OPENCODE_HASHES_FILE}" ]; then
+    return 0
+  fi
+
+  before_version=$(read_opencode_vim_hashes_version)
+  latest_tag=$(read_latest_opencode_vim_release_tag)
+  latest_version=${latest_tag#v}
+
+  if [ -z "${latest_version}" ]; then
+    printf 'Failed to determine latest opencode release version\n' >&2
+    return 1
+  fi
+
+  if should_block_downgrade "${before_version}" "${latest_version}" && version_is_older "${latest_version}" "${before_version}"; then
+    printf 'Skipping apparent downgrade for opencode (%s -> %s)\n' "${before_version}" "${latest_version}" >&2
+    return 0
+  fi
+
+  if [ "${before_version}" = "${latest_version}" ]; then
+    printf 'opencode already up to date at %s\n' "${before_version}"
+    return 0
+  fi
+
+  printf 'Updating opencode from %s to %s\n' "${before_version}" "${latest_version}"
+
+  aarch64_darwin_hash=$(prefetch_opencode_vim_asset_hash "${latest_version}" 'aarch64-darwin')
+  x86_64_darwin_hash=$(prefetch_opencode_vim_asset_hash "${latest_version}" 'x86_64-darwin')
+  x86_64_linux_hash=$(prefetch_opencode_vim_asset_hash "${latest_version}" 'x86_64-linux')
+  aarch64_linux_hash=$(prefetch_opencode_vim_asset_hash "${latest_version}" 'aarch64-linux')
+
+  write_opencode_vim_hashes_json \
+    "${latest_version}" \
+    "${aarch64_darwin_hash}" \
+    "${x86_64_darwin_hash}" \
+    "${x86_64_linux_hash}" \
+    "${aarch64_linux_hash}"
+}
+# END opencode-vim updater block
+
 run_updates_from_file() {
   local attrset=$1
   local -a attrs=()
@@ -282,3 +405,6 @@ run_discovered_attrsets() {
 
 run_discovered_attrsets list_update_attrsets_from_flake run_updates
 run_discovered_attrsets list_update_attrsets_from_file run_updates_from_file
+# BEGIN opencode-vim updater block
+update_opencode_vim_package
+# END opencode-vim updater block

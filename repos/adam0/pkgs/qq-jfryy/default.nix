@@ -16,8 +16,6 @@ buildGoModule rec {
 
   vendorHash = "sha256-x4tEGE/ewE4SjUm9m+NTbKZVLNJsvbNg03Wdw7s4qhI=";
 
-  ldflags = ["-s" "-w"];
-
   meta = {
     description = "jq, but with many interoperable configuration format transcodings and interactive querying";
     homepage = "https://github.com/JFryy/qq";
