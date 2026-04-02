@@ -2,7 +2,7 @@
     description = "My personal NUR repository";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs?rev=b63fe7f000adcfa269967eeff72c64cafecbbebe";
+        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
         systems.url = "github:nix-systems/x86_64-linux";
         flake-parts.url = "github:hercules-ci/flake-parts";
         devshell = {
