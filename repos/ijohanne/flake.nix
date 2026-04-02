@@ -22,6 +22,7 @@
     prometheus-tplink-p110-exporter = { url = "github:ijohanne/prometheus-tplink-p110-exporter"; };
     ts3exporter = { url = "github:hikhvar/ts3exporter/a38c91b397a67f3675af4985ecd2f8c0e5354a7c"; flake = false; };
 
+    gpsd-prometheus-exporter = { url = "github:brendanbank/gpsd-prometheus-exporter/v1.1.19"; flake = false; };
     pg-exporter = { url = "github:pgsty/pg_exporter/v1.2.0"; flake = false; };
 
     # CLI tools
@@ -78,6 +79,7 @@
 
       nixosModules = (import ./modules) // {
         multicast-relay = import ./modules/multicast-relay self;
+        prometheus-gpsd-exporter = import ./modules/prometheus-gpsd-exporter self;
         prometheus-hue-exporter = import ./modules/prometheus-hue-exporter self;
         prometheus-nftables-exporter = import ./modules/prometheus-nftables-exporter self;
         prometheus-ecowitt-exporter = inputs.prometheus-ecowitt-exporter.nixosModules.default;

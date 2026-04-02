@@ -8,6 +8,7 @@
   hexokinase = pkgs.callPackage ./hexokinase { inherit pkgs sources; };
   nixpkgs-firefox-addons = pkgs.haskellPackages.callPackage ./firefox-addons-generator { inherit sources; };
   prometheus-teamspeak3-exporter = pkgs.callPackage ./prometheus-teamspeak3-exporter { inherit pkgs sources; };
+  prometheus-gpsd-exporter = pkgs.callPackage ./prometheus-gpsd-exporter { inherit pkgs sources; };
   prometheus-hue-exporter = pkgs.callPackage ./prometheus-hue-exporter { inherit pkgs sources; };
   prometheus-nftables-exporter = pkgs.callPackage ./prometheus-nftables-exporter { inherit pkgs sources; };
   prometheus-netatmo-exporter = pkgs.callPackage ./prometheus-netatmo-exporter { inherit pkgs sources; };

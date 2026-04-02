@@ -114,6 +114,23 @@
         "type": "github"
       }
     },
+    "gpsd-prometheus-exporter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774276705,
+        "narHash": "sha256-87j9DpMk8T7HfeHMCZDqjVBBqydIHqE01e7+bd+6bhA=",
+        "owner": "brendanbank",
+        "repo": "gpsd-prometheus-exporter",
+        "rev": "18630b19722fbb56111301abe9b3dc38f8cc3650",
+        "type": "github"
+      },
+      "original": {
+        "owner": "brendanbank",
+        "ref": "v1.1.19",
+        "repo": "gpsd-prometheus-exporter",
+        "type": "github"
+      }
+    },
     "hexokinase": {
       "flake": false,
       "locked": {
@@ -375,6 +392,7 @@
     "root": {
       "inputs": {
         "agent-skills-cli": "agent-skills-cli",
+        "gpsd-prometheus-exporter": "gpsd-prometheus-exporter",
         "hexokinase": "hexokinase",
         "hue_exporter": "hue_exporter",
         "multicast-relay": "multicast-relay",
