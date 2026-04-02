@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "9311c3fd5eb8b734f029fe79b88b672782ecfabf",
-            "sha256": "1jq9yqyn5n7i2zq399pn5k464jmlk6aavk2zn52z5crfqczzlssr",
+            "rev": "323028ef5a7b45a3a2fa43e5f5d5006c689705ff",
+            "sha256": "0mqrl1cpaqdsv04qhdri9f4cz81b5rbc5m45mswqggxlyd43pv80",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1426,8 +1426,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "22e4df9b25c1199bb8cd0629b8cbf78f13b540d8",
-            "sha256": "0ymbyswig7w1n9vs6sygwhghdy6afn3v6kpmy20q7z6d6b6v327c",
+            "rev": "3e79c940fa83db3a4a141e0c25e29955f0c62e7b",
+            "sha256": "112fxa1ivy2z6r08fwsm5ah23qjiygl0s9f8dsg4lzvicx3d3n9q",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
