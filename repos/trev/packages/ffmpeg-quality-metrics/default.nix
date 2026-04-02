@@ -11,7 +11,7 @@
 
 buildPythonApplication rec {
   pname = "ffmpeg-quality-metrics";
-  version = "3.11.2";
+  version = "3.11.3";
   pyproject = true;
 
   pythonRelaxDeps = true;
@@ -20,7 +20,7 @@ buildPythonApplication rec {
     owner = "slhck";
     repo = "ffmpeg-quality-metrics";
     tag = "v${version}";
-    hash = "sha256-2H6Sd0x6c1a2UOcq+rOyaTwKXR6VQElxViWK5LoE1LI=";
+    hash = "sha256-MC1Xw+glFeUNBlgKPQ4Tf6kqDz+XPxDIDY8Q75sMXTE=";
   };
 
   build-system = [

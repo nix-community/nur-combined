@@ -5,12 +5,12 @@
   nix-update-script,
 }:
 let
-  version = "0.10.7.1";
+  version = "0.10.8.1";
   pname = "helium";
 
   src = fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-    hash = "sha256-+vmxXcg8TkR/GAiHKnjq4b04bGtQzErfJkOb4P4nZUk=";
+    hash = "sha256-pN/Iw1ANggDOxxFb2CN436qbcrs8/bDcEqjZC80grQs=";
   };
 in
 
