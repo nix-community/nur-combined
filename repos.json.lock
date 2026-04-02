@@ -206,8 +206,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "4f669dd1525402b2343c49136fa649f02cca4bc6",
-            "sha256": "0m1r3n0jipkk2mmla0nmih8y1cvm6mzvnv90y9h2d8i7p4jbxsjb",
+            "rev": "c0e9b1d4dabe7d71a4c8e67fe122f266fba3c2dc",
+            "sha256": "0835j2ib7di71zkjjv5qzdpazkkpl47i7yql5g7p9wyh6ngnajvr",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -1734,8 +1734,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "2319a2d955641471a5dc6ec9fece92c0207691ee",
-            "sha256": "0rs2n368i9p65mgmhrlnjkrgqlq3r32lc3hvmyg2d9n3ak52398g",
+            "rev": "fbcd710c4822dd59a9ffa742d738fdedeb2faa29",
+            "sha256": "1cn3g63mw4a5p8f4aq66dmk45riqyphzkkm3s016l5sb00clhv1j",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
