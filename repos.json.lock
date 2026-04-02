@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "090288588d9baa71e56c5aefc93f71ebf4049899",
-            "sha256": "1snw7zibsl1j66913jw3sdxmma0carkmjk7g50ivlxls6ary37w8",
+            "rev": "93691ca5c73f1854a100f50a94badc9be040cd95",
+            "sha256": "15rv28nhkcwr55p1wbamqski9zhwnnbs9cys3hsgvyzg0cbqaiyq",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -532,8 +532,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "b14d4835543115f53f79fe8ed4d784fe9731fbd6",
-            "sha256": "0i7zc0qbrb8nxngx823samncsbyqllw02ispa9zagi2qcbxi0knx",
+            "rev": "4c66309d8aae5300bb9d1d058dbb6ae9511f054b",
+            "sha256": "06qm4iixkxik8dk7nlxiajfg9lwzdyyk2hxllph9djpy9yshpcnm",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
