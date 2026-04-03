@@ -477,8 +477,8 @@
             "url": "https://github.com/blakat360/nur-packages"
         },
         "blemouzy": {
-            "rev": "f54148b94e200ad802c02ce2dd310fed494a3458",
-            "sha256": "1qppl95sydnmjq5pinzy76f90bhbhkn197dyaildki1j0s22y3nf",
+            "rev": "cf4c98b26de3d23724fd0cd55bd6b8248596c208",
+            "sha256": "15g0vz1wpsgys1z2fnvfnxzavfcrgd5w8vqiv017y0432qam3zq2",
             "url": "https://github.com/blemouzy/nur-packages"
         },
         "boo15mario": {
