@@ -1628,8 +1628,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "75d9bd9298ce42c5b185df79f3887882e608c2e4",
-            "sha256": "0prfix3dwfvfrc2drx9gcshrxa4k6zxlqq8rqnd67469ka3q93jw",
+            "rev": "3d40f4bbcbb5a07d86710d9cdeea8b571c320a93",
+            "sha256": "0cikj73yybka76nwla333rk1zc3riwca6h45c8kfnr9q9d04pvnr",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -1854,8 +1854,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "ef13973ed785eb95db79f2b82bf122ed4fa2391f",
-            "sha256": "0wam0gh85j2764wqrslnxwg6n9m7ymclisivnvhxk5d4bl9qidfn",
+            "rev": "689df74e5a8e334254a836efb9bddc3a4c747710",
+            "sha256": "0gligypilhhscbspvlkz8i95kgqcbxwzi3s25j18q3f2rs74yq63",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
@@ -2040,8 +2040,8 @@
             "url": "https://github.com/renesat/nur-renesat"
         },
         "ressu": {
-            "rev": "d6fc58d201baa3d799b28e8eaffc2444c9564493",
-            "sha256": "0y13i7agv1s7a95vnngcayd14spl20r5aavsxy5fmxfhymwrxr8b",
+            "rev": "cc6c2537700c361e2cea2c1abb5e061f1cd0399f",
+            "sha256": "086ali9jygfp34wmp2aabhsrvd8lh6lfl8lzxr02fx51vvk62nv1",
             "url": "https://github.com/ressu/nur-packages"
         },
         "reward": {
