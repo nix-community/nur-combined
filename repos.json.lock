@@ -236,8 +236,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "367dbebf188d356ff84b4660ddba1e5fd30ed0e2",
-            "sha256": "00x871w24gq0qymcdl3478mcd2r8a2ah4ymfdw6zxqzl8lsbpcvz",
+            "rev": "1f66b14ac3fa828af9d09c803901c8ba329cde74",
+            "sha256": "1gc884zpcribqdg0194lnc87bfl4sywbbda8n3ndpkddk1mgdz76",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1108,8 +1108,8 @@
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
-            "rev": "5be351b7c915ec6f59f22d316894be4a7d240ca5",
-            "sha256": "0rwkaw7j2yg7wph8ffqrj0nk14ix2virrqyb61vgdzkxfj66kbff",
+            "rev": "8a5862efc83b1069e8cc636f8662f97daafbfe8e",
+            "sha256": "16i7nywx9c95pw5f8j59zhfqnmshki237r799m9lnl90qsv8klda",
             "url": "https://github.com/ijohanne/nur-packages"
         },
         "ilkecan": {
