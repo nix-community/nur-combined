@@ -83,6 +83,7 @@ in
       };
       helix.enable = true;
       hyper.enable = cfg.gui.enable;
+      opencode.enable = true;
       ssh =
         let
           identityConfig = {

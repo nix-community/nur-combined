@@ -9,6 +9,7 @@
     inputs.nixcfg.modules.home.programs.kde
     inputs.nixcfg.modules.home.programs.volta
     inputs.nixcfg.modules.home.programs.editors.neovim
+    inputs.nixcfg.modules.home.programs.editors.opencode
     inputs.nixcfg.modules.home.programs.shells.bash
     inputs.nixcfg.modules.home.programs.shells.fish
     inputs.nixcfg.modules.home.programs.shells.ion

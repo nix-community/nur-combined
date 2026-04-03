@@ -13,6 +13,7 @@
     inputs.nixcfg.modules.home.programs.editors.helix
     inputs.nixcfg.modules.home.programs.editors.ideavim
     inputs.nixcfg.modules.home.programs.editors.neovim
+    inputs.nixcfg.modules.home.programs.editors.opencode
     inputs.nixcfg.modules.home.programs.editors.zed
     inputs.nixcfg.modules.home.programs.shells.bash
     inputs.nixcfg.modules.home.programs.shells.fish

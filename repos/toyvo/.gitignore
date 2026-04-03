@@ -9,3 +9,5 @@ __pycache__
 CLAUDE.local.md
 .claude/settings.local.json
 .superpowers/
+docs/plans
+docs/superpowers

@@ -47,7 +47,7 @@ in
           claude-code-bin
           codex
           opencode
-          nodePackages.prettier
+          prettier
           pipenv
           pkg-config
           pnpm
