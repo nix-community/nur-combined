@@ -2,8 +2,6 @@
   reIf,
   config,
   lib,
-  pkgs,
-  inputs',
   ...
 }:
 
@@ -26,19 +24,11 @@ let
   genMacHashed =
     input:
     let
-      # ensure input is converted to a string
       inputStr = toString input;
-
-      # calculate sha256 hash, returns a 64-character hex string
       hashHex = builtins.hashString "sha256" inputStr;
-
-      # extract the first 10 characters (5 bytes) for the mac payload
       payload = builtins.substring 0 10 hashHex;
-
-      # prefix with "02" to ensure it's a valid locally administered unicast mac
       fullHex = "02" + payload;
     in
-    # format into standard xx:xx:xx:xx:xx:xx structure
     "${builtins.substring 0 2 fullHex}:${builtins.substring 2 2 fullHex}:${builtins.substring 4 2 fullHex}:${builtins.substring 6 2 fullHex}:${builtins.substring 8 2 fullHex}:${
       builtins.substring 10 2 fullHex
     }";
@@ -96,11 +86,7 @@ reIf {
     networks."30-vxlan-mesh" = {
       matchConfig.Name = "vxlan-mesh";
 
-      address = [
-        "fdcc::${toString (thisNode.id + 1)}/64"
-      ];
       networkConfig = {
-        # LinkLocalAddressing = thisNode.link_local_addr;
         IPv6LinkLocalAddressGenerationMode = "random";
       };
 
@@ -168,24 +154,15 @@ reIf {
         "172.19.0.1/30"
         "fdfe:dcba:9876::1/126"
       ];
-      routes = [
-        {
-          Destination = "154.31.114.112/32";
-          Scope = "link";
-        }
-        {
-          Destination = "2403:18c0:1000:13a:343b:65ff:fe1b:7a0f/128";
-          Scope = "link";
-        }
-        {
-          Destination = "64.118.146.101/32";
-          Scope = "link";
-        }
-        {
-          Destination = "2404:c140:2005::b:a72a/128";
-          Scope = "link";
-        }
-      ];
+      routes = lib.flatten (
+        map (
+          v:
+          map (a: {
+            Destination = if (getFamily a == "ip6") then a + "/128" else a + "/32";
+            Scope = "link";
+          }) v.addrs
+        ) (lib.attrValues (lib.filterAttrs (_: v: !v.nat && !v.censor) lib.data.node))
+      );
       networkConfig.DHCP = false;
       linkConfig.RequiredForOnline = false;
     };
