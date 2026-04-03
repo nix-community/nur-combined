@@ -62,17 +62,17 @@ in
       };
       radarr = lib.mkOption {
         type = lib.types.port;
-        radarr = homelab.starr.services.radarr.port;
+        default = homelab.starr.services.radarr.port;
         description = "Radarr listen port";
       };
       readarr = lib.mkOption {
         type = lib.types.port;
-        readarr = homelab.starr.services.readarr.port;
+        default = homelab.starr.services.readarr.port;
         description = "Readarr listen port";
       };
       sonarr = lib.mkOption {
         type = lib.types.port;
-        sonarr = homelab.starr.services.sonarr.port;
+        default = homelab.starr.services.sonarr.port;
         description = "Sonarr listen port";
       };
     };
