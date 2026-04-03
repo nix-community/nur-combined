@@ -107,7 +107,7 @@ Or, use variables from this repository in case I change them:
 |  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1130.68 | Browser from 360 |
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.1 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.10 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.13 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
@@ -126,7 +126,7 @@ Or, use variables from this repository in case I change them:
 |  | `dump978` | [dump978](https://github.com/flightaware/dump978) | 10.2 | FlightAware's 978MHz UAT demodulator |
 | `x86_64-linux` | `easycli` | [easycli](https://github.com/router-for-me/EasyCLI) | 0.1.32 | Desktop GUI from CLIProxyAPI |
 |  | `edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.8 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2026-04-02 | Fluent-UI For QT-Widget |
+|  | `ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2026-04-03 | Fluent-UI For QT-Widget |
 |  | `electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `email-oauth2-proxy` | [email-oauth2-proxy](https://github.com/simonrob/email-oauth2-proxy) | 2025-10-04 | IMAP/POP/SMTP proxy that transparently adds OAuth 2.0 authentication for email clients |
 |  | `env-dedup` | [env-dedup](https://github.com/alexjp/env-dedup) | 0-unstable-2025-09-06 | Deduplicate the environment variables values |
@@ -242,7 +242,7 @@ Or, use variables from this repository in case I change them:
 |  | `sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2026-03-02 | Allow SideStore to work across all iOS devices on your local network |
 |  | `silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.2.1 | Pre-trained enterprise-grade Voice Activity Detector |
 |  | `smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.5.2 | Api for SmartRent locks, thermostats, moisture sensors and switches |
-|  | `smfc` | [smfc](https://github.com/petersulyok/smfc) | 5.2.0 | Super Micro Fan Control |
+|  | `smfc` | [smfc](https://github.com/petersulyok/smfc) | 5.3.0 | Super Micro Fan Control |
 |  | `space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
 |  | `suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.1.1867 | Rewrite of Tachiyomi for the Desktop |
 | `x86_64-linux` | `svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.7.305-1 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player |
@@ -253,7 +253,7 @@ Or, use variables from this repository in case I change them:
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2026-03-16 | TQDM progress bar helpers for logging and other headless application |
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-04-02 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-04-03 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -418,7 +418,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 8.0.1 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.16.1 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 8639 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 8656 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.4.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -433,16 +433,16 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianLinuxCachyOS.lts` | [linux-cachyos-lts](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel |
-|  | `lantianLinuxCachyOS.lts-lto` | [linux-cachyos-lts-lto](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel with Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.lts-lto-x86_64-v2` | [linux-cachyos-lts-lto-x86_64-v2](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel with Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.lts-lto-x86_64-v3` | [linux-cachyos-lts-lto-x86_64-v3](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel with Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.lts-lto-x86_64-v4` | [linux-cachyos-lts-lto-x86_64-v4](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel with Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.lts-lto-zen4` | [linux-cachyos-lts-lto-zen4](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel with Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.lts-x86_64-v2` | [linux-cachyos-lts-x86_64-v2](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel |
-|  | `lantianLinuxCachyOS.lts-x86_64-v3` | [linux-cachyos-lts-x86_64-v3](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel |
-|  | `lantianLinuxCachyOS.lts-x86_64-v4` | [linux-cachyos-lts-x86_64-v4](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel |
-|  | `lantianLinuxCachyOS.lts-zen4` | [linux-cachyos-lts-zen4](https://www.kernel.org/) | 6.18.20 | Linux CachyOS Kernel |
+|  | `lantianLinuxCachyOS.lts` | [linux-cachyos-lts](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel |
+|  | `lantianLinuxCachyOS.lts-lto` | [linux-cachyos-lts-lto](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel with Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.lts-lto-x86_64-v2` | [linux-cachyos-lts-lto-x86_64-v2](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel with Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.lts-lto-x86_64-v3` | [linux-cachyos-lts-lto-x86_64-v3](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel with Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.lts-lto-x86_64-v4` | [linux-cachyos-lts-lto-x86_64-v4](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel with Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.lts-lto-zen4` | [linux-cachyos-lts-lto-zen4](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel with Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.lts-x86_64-v2` | [linux-cachyos-lts-x86_64-v2](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel |
+|  | `lantianLinuxCachyOS.lts-x86_64-v3` | [linux-cachyos-lts-x86_64-v3](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel |
+|  | `lantianLinuxCachyOS.lts-x86_64-v4` | [linux-cachyos-lts-x86_64-v4](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel |
+|  | `lantianLinuxCachyOS.lts-zen4` | [linux-cachyos-lts-zen4](https://www.kernel.org/) | 6.18.21 | Linux CachyOS Kernel |
 </details>
 
 <details>
@@ -1058,7 +1058,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.8.2 | Python library for RunPod API and serverless worker SDK |
 |  | `python3Packages.silero-vad` | [silero-vad](https://github.com/snakers4/silero-vad) | 6.2.1 | Pre-trained enterprise-grade Voice Activity Detector |
 |  | `python3Packages.smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.5.2 | Api for SmartRent locks, thermostats, moisture sensors and switches |
-|  | `python3Packages.smfc` | [smfc](https://github.com/petersulyok/smfc) | 5.2.0 | Super Micro Fan Control |
+|  | `python3Packages.smfc` | [smfc](https://github.com/petersulyok/smfc) | 5.3.0 | Super Micro Fan Control |
 |  | `python3Packages.torch-complex` | [torch-complex](https://pypi.org/project/torch-complex) | 0.4.4 | Temporal python class for PyTorch-ComplexTensor |
 |  | `python3Packages.tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2026-03-16 | TQDM progress bar helpers for logging and other headless application |
 |  | `python3Packages.xstatic-asciinema-player` | [xstatic-asciinema-player](https://github.com/asciinema/asciinema-player) | 2.6.1.1 | Asciinema-player packaged for setuptools (easy_install) / pip |
@@ -1088,7 +1088,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1130.68 | Browser from 360 |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.1 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.10 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.13 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-04 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
@@ -1099,7 +1099,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `uncategorized.dump978` | [dump978](https://github.com/flightaware/dump978) | 10.2 | FlightAware's 978MHz UAT demodulator |
 | `x86_64-linux` | `uncategorized.easycli` | [easycli](https://github.com/router-for-me/EasyCLI) | 0.1.32 | Desktop GUI from CLIProxyAPI |
-|  | `uncategorized.ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2026-04-02 | Fluent-UI For QT-Widget |
+|  | `uncategorized.ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2026-04-03 | Fluent-UI For QT-Widget |
 |  | `uncategorized.electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `uncategorized.email-oauth2-proxy` | [email-oauth2-proxy](https://github.com/simonrob/email-oauth2-proxy) | 2025-10-04 | IMAP/POP/SMTP proxy that transparently adds OAuth 2.0 authentication for email clients |
 |  | `uncategorized.env-dedup` | [env-dedup](https://github.com/alexjp/env-dedup) | 0-unstable-2025-09-06 | Deduplicate the environment variables values |
@@ -1203,7 +1203,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.sx1302-hal` | [sx1302-hal](https://github.com/NebraLtd/sx1302_hal) | 2.1.0-unstable-2023-02-06 | SX1302/SX1303 Hardware Abstraction Layer and tools |
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-04-02 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-04-03 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |

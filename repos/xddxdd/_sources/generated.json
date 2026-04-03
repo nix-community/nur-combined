@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.10",
-            "sha256": "sha256-RTnrFbrtgF0/5AivxW2w9r0w/kXrZpSevdB2uL6W/+c=",
+            "rev": "v6.9.13",
+            "sha256": "sha256-tBSWTdOEtFe70rxT771f+tsgV0oOUS0hxt1XMAl5k5Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.10"
+        "version": "v6.9.13"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1144,7 +1144,7 @@
     },
     "ela-widget-tools": {
         "cargoLock": null,
-        "date": "2026-04-02",
+        "date": "2026-04-03",
         "extract": null,
         "name": "ela-widget-tools",
         "passthru": null,
@@ -1156,12 +1156,12 @@
             "name": null,
             "owner": "Liniyous",
             "repo": "ElaWidgetTools",
-            "rev": "24f6282c099828ca7b3f8143fc793f79c3b390dc",
-            "sha256": "sha256-rxSqU+3TaUSUv26VVr+DsgiiS7Glv5qbce6DIK99sOk=",
+            "rev": "c6e2903ad99b04200ad9d283d6b60f14f17e8764",
+            "sha256": "sha256-Nll0hxpcxdSE4HEKmbwnSo2E7qJWsR6Bm2mWtl6QGCM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "24f6282c099828ca7b3f8143fc793f79c3b390dc"
+        "version": "c6e2903ad99b04200ad9d283d6b60f14f17e8764"
     },
     "email-oauth2-proxy": {
         "cargoLock": null,
@@ -2295,12 +2295,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8639",
-            "sha256": "sha256-rOyMY+ywRscf64aaF9Lwme8s0im9Zh3ivThH8tm01jY=",
+            "rev": "b8656",
+            "sha256": "sha256-75trel+xUSq+xRkJWnDzWQnFemuayWwaryVcPH52ZuM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8639"
+        "version": "b8656"
     },
     "loralib": {
         "cargoLock": null,
@@ -4058,12 +4058,12 @@
             "name": null,
             "owner": "petersulyok",
             "repo": "smfc",
-            "rev": "v5.2.0",
-            "sha256": "sha256-Ph8bRQIpYlL5vNnBKy1G64UftxjN5YVq/jKOK03wsUc=",
+            "rev": "v5.3.0",
+            "sha256": "sha256-PgWihVpxzy5gPWkaCKikJ9rNy3xXeFJpWPfdyg2ypAM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.2.0"
+        "version": "v5.3.0"
     },
     "soggy": {
         "cargoLock": null,
@@ -4316,7 +4316,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-04-02",
+        "date": "2026-04-03",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4328,12 +4328,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "7394026fcaee2eff8125b5e88159d00eaf1e0b66",
-            "sha256": "sha256-X6C/7zXqDo9BPb+i+BqnP/sQr7hCPCAFpA+NznyLGi0=",
+            "rev": "152ad843a94a5d13215ccb15eb8d739f3ffda9c9",
+            "sha256": "sha256-1GyViQa6jA/1KjONbZJStfTrzkPkK0H2c75kJF6Wvcs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7394026fcaee2eff8125b5e88159d00eaf1e0b66"
+        "version": "152ad843a94a5d13215ccb15eb8d739f3ffda9c9"
     },
     "unigine-heaven": {
         "cargoLock": null,

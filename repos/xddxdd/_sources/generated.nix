@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.10";
+    version = "v6.9.13";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.10";
-      hash = "sha256-RTnrFbrtgF0/5AivxW2w9r0w/kXrZpSevdB2uL6W/+c=";
+      tag = "v6.9.13";
+      hash = "sha256-tBSWTdOEtFe70rxT771f+tsgV0oOUS0hxt1XMAl5k5Y=";
     };
   };
   cockpy = {
@@ -596,14 +596,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "24f6282c099828ca7b3f8143fc793f79c3b390dc";
+    version = "c6e2903ad99b04200ad9d283d6b60f14f17e8764";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "24f6282c099828ca7b3f8143fc793f79c3b390dc";
-      hash = "sha256-rxSqU+3TaUSUv26VVr+DsgiiS7Glv5qbce6DIK99sOk=";
+      rev = "c6e2903ad99b04200ad9d283d6b60f14f17e8764";
+      hash = "sha256-Nll0hxpcxdSE4HEKmbwnSo2E7qJWsR6Bm2mWtl6QGCM=";
     };
-    date = "2026-04-02";
+    date = "2026-04-03";
   };
   email-oauth2-proxy = {
     pname = "email-oauth2-proxy";
@@ -1182,12 +1182,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8639";
+    version = "b8656";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8639";
-      hash = "sha256-rOyMY+ywRscf64aaF9Lwme8s0im9Zh3ivThH8tm01jY=";
+      tag = "b8656";
+      hash = "sha256-75trel+xUSq+xRkJWnDzWQnFemuayWwaryVcPH52ZuM=";
     };
   };
   loralib = {
@@ -2077,12 +2077,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v5.2.0";
+    version = "v5.3.0";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v5.2.0";
-      hash = "sha256-Ph8bRQIpYlL5vNnBKy1G64UftxjN5YVq/jKOK03wsUc=";
+      tag = "v5.3.0";
+      hash = "sha256-PgWihVpxzy5gPWkaCKikJ9rNy3xXeFJpWPfdyg2ypAM=";
     };
   };
   soggy = {
@@ -2215,15 +2215,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "7394026fcaee2eff8125b5e88159d00eaf1e0b66";
+    version = "152ad843a94a5d13215ccb15eb8d739f3ffda9c9";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "7394026fcaee2eff8125b5e88159d00eaf1e0b66";
+      rev = "152ad843a94a5d13215ccb15eb8d739f3ffda9c9";
       fetchSubmodules = true;
-      hash = "sha256-X6C/7zXqDo9BPb+i+BqnP/sQr7hCPCAFpA+NznyLGi0=";
+      hash = "sha256-1GyViQa6jA/1KjONbZJStfTrzkPkK0H2c75kJF6Wvcs=";
     };
-    date = "2026-04-02";
+    date = "2026-04-03";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
