@@ -2971,10 +2971,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2608.0";
+      version = "6.2614.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4696083/dashlane-6.2608.0.xpi";
-      sha256 = "96015e5c37033243378e67c7900dc794b1ad60774f28f1fd875dd0f542f4f47c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4747392/dashlane-6.2614.1.xpi";
+      sha256 = "918660810b2b7fac83e92f7525a1ca281104f6af27880a24b37cd93c5f198508";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -4743,10 +4743,10 @@
     };
     "github-isometric-contributions" = buildMozillaXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4708681/github_isometric_contributions-1.2.2.xpi";
-      sha256 = "f7b6d4fe3d7ab00d037ec42f3c947232bfb695c84a968abdc726d8f387298892";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4749741/github_isometric_contributions-1.2.3.xpi";
+      sha256 = "5c17439ef55df0ac991968600e13efeaeea943935ab328b70ea8dce8a7cdebf0";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
@@ -10469,10 +10469,10 @@
     };
     "numatrix" = buildMozillaXpiAddon {
       pname = "numatrix";
-      version = "0.0.0.7";
+      version = "0.0.0.8";
       addonId = "nuMatrix@arek.codes";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4555750/numatrix-0.0.0.7.xpi";
-      sha256 = "02aae421ca610601d5e1fa33611771e0e0f33d31d5258178d0d8bd8a692b5c9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719114/numatrix-0.0.0.8.xpi";
+      sha256 = "27f388ef01b6bb365944def3d8f66cf6259b6ed154b8f7c9f66d486602422d37";
       meta = with lib;
       {
         homepage = "https://codeberg.org/arek.codes/nuMatrix";
@@ -11219,10 +11219,10 @@
     };
     "polkadot-js" = buildMozillaXpiAddon {
       pname = "polkadot-js";
-      version = "0.62.5";
+      version = "0.63.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4621498/polkadot_js_extension-0.62.5.xpi";
-      sha256 = "862c36315abdcc2b39247c9bc33a3727bf313ad8b32492da35d36849710da779";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4749898/polkadot_js_extension-0.63.1.xpi";
+      sha256 = "833c463c9e21c57666b70e86f3fc5a6a18906d5e80ece742c9fbb71d6c04d1eb";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -13924,10 +13924,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.2.4";
+      version = "3.2.6";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4676873/statshunters-3.2.4.xpi";
-      sha256 = "05cb22d509220302eccf62ff6bbeb4d8a1034749eac746884480614e037379b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4750072/statshunters-3.2.6.xpi";
+      sha256 = "fe3c5829e3bd314ee4577c2a2c7235b4f581f75a15d28a381c9e2b9d705d65ea";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -13950,6 +13950,7 @@
           "https://brouter.m11n.de/*"
           "https://bikerouter.de/*"
           "https://brouter.damsy.net/*"
+          "https://*.outdooractive.com/*/routeplanner*"
           "https://ridewithgps.com/routes/new*"
           "https://ridewithgps.com/routes/*/edit*"
           "https://connect.garmin.com/modern/*"
@@ -13961,6 +13962,7 @@
           "https://cycle.travel/map"
           "https://*.mapy.cz/*"
           "https://*.mapy.com/*"
+          "https://web.dev.locusmap.app/*"
           "https://web.locusmap.app/*"
           "https://dashboard.hammerhead.io/*"
           "https://dynamic.watch/*/plan*"
@@ -15232,10 +15234,10 @@
     };
     "tweaks-for-youtube" = buildMozillaXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.88.0";
+      version = "3.88.1";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4743805/tweaks_for_youtube-3.88.0.xpi";
-      sha256 = "1b29bd556600fe3d0694df1ecf9a8821b22db63dae4eff63930dbe1e5d4d2994";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4750457/tweaks_for_youtube-3.88.1.xpi";
+      sha256 = "95d2d8cb88d47b5925f93d52977ccff1f7e2972dd3c28a319fa9bbe516f05dbc";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
@@ -17249,10 +17251,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.3.4";
+      version = "18.3.14";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4726196/youtube_subscription_groups-18.3.4.xpi";
-      sha256 = "a15d2c5c339de6fea59485cb75e10d0f0552781f45e1ab7efea372babe2337f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4746326/youtube_subscription_groups-18.3.14.xpi";
+      sha256 = "35b71d5685ecc5adad25348ae9469f0ab8514fa7537396b83562a5ba613fb19c";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
