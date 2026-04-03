@@ -1854,8 +1854,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "689df74e5a8e334254a836efb9bddc3a4c747710",
-            "sha256": "0gligypilhhscbspvlkz8i95kgqcbxwzi3s25j18q3f2rs74yq63",
+            "rev": "67ce13cdc612e677f659992c6b6560764df6a36c",
+            "sha256": "0dcfh35pp93ys0v0lyxag3582976dg98cga18zsgdpwsszx4pvmm",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
@@ -2377,8 +2377,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "0ddc99c81ba2f51c6a17e51cdbbd6141dd77cbc1",
-            "sha256": "0ip871gq1mnw7mbspyb60snf80idw36vxi7ml7nxa4imgvar18rs",
+            "rev": "1d75d54c1ce9f948735dd0aa821faf1678802c97",
+            "sha256": "0jifxn604kqsr0nl6i0i7n6ag185wkkbwdv7rp0nbymrkvl0ngdw",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
