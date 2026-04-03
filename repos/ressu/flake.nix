@@ -25,10 +25,7 @@
         in
         {
           default = pkgs.mkShell {
-            buildInputs = [
-              self.legacyPackages.${system}.beads
-              self.legacyPackages.${system}.beads-mcp
-            ];
+            buildInputs = [ ];
           };
         }
       );
