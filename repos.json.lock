@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "59080a737934e008858c66b820cdaed27c5bfff3",
-            "sha256": "01i5x95ffgprm58khnh0hyvx67lkvczai9cndbyaqpvimqiivc1r",
+            "rev": "21b7e034cfb86617e0a480b0679c3b872151e355",
+            "sha256": "0awnsal65nchygx5m9cqjh15x9bx14hzkv7ni2j35r22lgd2bnbh",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -1461,8 +1461,8 @@
             "url": "https://github.com/lunik1/nur-packages"
         },
         "lxl66566": {
-            "rev": "781da0caf3a135950b87c998b5764a65e48b0d77",
-            "sha256": "1aa2zgx2a60a0cad8ng3rswp6ccpm36fv4v7bw0fpb9ma67axyb9",
+            "rev": "d66ca81ecf5064bef32146744b03049f022a9c3a",
+            "sha256": "0lflbbsgbz22is943w3hlamq75vgpbh8kh2wnpx12zcvqqsj5b9m",
             "url": "https://github.com/lxl66566/NUR"
         },
         "lykos153": {
