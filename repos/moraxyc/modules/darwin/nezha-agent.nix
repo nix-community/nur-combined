@@ -39,7 +39,7 @@ in
       path = [ config.environment.systemPath ];
       script = ''
         CONFIG_DIR="/Library/Application Support/nezha-agent"
-        CONFIG_FILE="$CONFIG_DIR/config.json
+        CONFIG_FILE="$CONFIG_DIR/config.json"
         mkdir -p "$CONFIG_DIR"
         cp "${configFile}" "$CONFIG_FILE"
       ''
@@ -59,6 +59,10 @@ in
       serviceConfig = {
         KeepAlive = true;
         RunAtLoad = true;
+      }
+      // lib.optionalString cfg.debug {
+        StandardOutPath = "/Library/Logs/nezha-agent/stdout";
+        StandardErrorPath = "/Library/Logs/nezha-agent/stderr";
       };
     };
   };
