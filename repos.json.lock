@@ -206,8 +206,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "782e88dd67b004f197fe7b2a59f20a096881cc63",
-            "sha256": "124s4ycr3w9az8wmjm4h9h0i136dfsil2spxjqjlr2ic788bahyj",
+            "rev": "a0383ecb1e5b2d7c7948c476d0660c9ac3abc24a",
+            "sha256": "0gif954a6b3ldjfv2sazz4dbqwwpdjd99248crnqid67y63f38fj",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -1593,8 +1593,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "38679f50b11455dab436973a1b1fd42dcf6144c7",
-            "sha256": "1kh8i13hla4jxbxfhzw8xa1lfb24fzgjccb64l5h2pw5bdz2aimg",
+            "rev": "b7805852bf4089221e23e34cd788a3d43d118f74",
+            "sha256": "13g18i41733y9n7yy755ninmgbwmsrjxi1fg76xl2wg6f03rpjcm",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
