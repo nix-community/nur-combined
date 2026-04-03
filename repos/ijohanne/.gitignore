@@ -1,4 +1,5 @@
 result
+.direnv/
 result-*
 tags
 .pre-commit-config.yaml
