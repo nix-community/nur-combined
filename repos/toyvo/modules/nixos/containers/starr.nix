@@ -1,4 +1,9 @@
-{ config, lib, homelab, ... }:
+{
+  config,
+  lib,
+  homelab,
+  ...
+}:
 let
   cfg = config.containerPresets.starr;
 in
@@ -96,20 +101,8 @@ in
       localAddress = cfg.localAddress;
 
       bindMounts = {
-        "/mnt/Books" = {
-          hostPath = "${cfg.mediaDir}/Books";
-          isReadOnly = false;
-        };
-        "/mnt/Movies" = {
-          hostPath = "${cfg.mediaDir}/Movies";
-          isReadOnly = false;
-        };
-        "/mnt/Music" = {
-          hostPath = "${cfg.mediaDir}/Music";
-          isReadOnly = false;
-        };
-        "/mnt/TV Shows" = {
-          hostPath = "${cfg.mediaDir}/TV Shows";
+        "/mnt" = {
+          hostPath = cfg.mediaDir;
           isReadOnly = false;
         };
         "/var/lib/bazarr" = {
