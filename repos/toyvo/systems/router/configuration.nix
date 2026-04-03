@@ -189,6 +189,14 @@ in
           "10.1.0.1/24"
           "fdcd:2022:1118::1/64"
         ];
+        routes = [
+          {
+            routeConfig = {
+              Destination = "10.200.0.0/16";
+              Gateway = "10.1.0.3";
+            };
+          }
+        ];
         networkConfig = {
           IPMasquerade = "ipv4";
           MulticastDNS = true;

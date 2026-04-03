@@ -66,7 +66,7 @@
                 ip ? "",
                 ...
               }:
-              lib.hasPrefix "10.1.0." ip
+              (lib.hasPrefix "10.1.0." ip || lib.hasPrefix "10.200." ip)
             ) homelab
           );
     };

@@ -181,85 +181,6 @@
           password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}";
         };
       };
-      bazarr = {
-        port = 6767;
-        displayName = "Bazarr";
-        description = "Subtitle Manager";
-        category = "Starr";
-        icon = "sh-bazarr";
-        widget = {
-          type = "bazarr";
-          url = "https://bazarr.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_BAZARR_API_KEY}}";
-        };
-      };
-      radarr = {
-        port = 7878;
-        displayName = "Radarr";
-        description = "Movie Manager";
-        category = "Starr";
-        icon = "sh-radarr";
-        widget = {
-          type = "radarr";
-          url = "https://radarr.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_RADARR_API_KEY}}";
-        };
-      };
-      lidarr = {
-        port = 8686;
-        displayName = "Lidarr";
-        description = "Music Manager";
-        category = "Starr";
-        icon = "sh-lidarr";
-        widget = {
-          type = "lidarr";
-          url = "https://lidarr.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_LIDARR_API_KEY}}";
-        };
-      };
-      sonarr = {
-        port = 8989;
-        displayName = "Sonarr";
-        description = "TV Show Manager";
-        category = "Starr";
-        icon = "sh-sonarr";
-        widget = {
-          type = "sonarr";
-          url = "https://sonarr.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_SONARR_API_KEY}}";
-        };
-      };
-      prowlarr = {
-        port = 9696;
-        displayName = "Prowlarr";
-        description = "Indexer Manager";
-        category = "Starr";
-        icon = "sh-prowlarr";
-        widget = {
-          type = "prowlarr";
-          url = "https://prowlarr.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}";
-        };
-      };
-      readarr = {
-        port = 8787;
-        displayName = "Readarr";
-        description = "EBook/Audiobook Manager";
-        category = "Starr";
-        icon = "sh-readarr";
-        widget = {
-          type = "readarr";
-          url = "https://readarr.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_READARR_API_KEY}}";
-        };
-      };
-      flaresolverr = {
-        port = 8191;
-        displayName = "FlareSolverr";
-        description = "Cloudflare Bypass";
-        category = "APIs";
-        icon = "sh-flaresolverr";
-      };
       nix-serve = {
         port = 5000;
         subdomain = "cache";
@@ -275,6 +196,90 @@
         description = "Office Suite for Nextcloud";
         category = "APIs";
         icon = "sh-docs-collaboration";
+      };
+    };
+  };
+  starr = {
+    ip = "10.200.0.2";
+    services = {
+      bazarr = {
+        port = 6767;
+        displayName = "Bazarr";
+        description = "Subtitle Manager";
+        category = "Starr";
+        icon = "sh-bazarr";
+        widget = {
+          type = "bazarr";
+          url = "https://bazarr.diekvoss.net";
+          key = "{{HOMEPAGE_VAR_BAZARR_API_KEY}}";
+        };
+      };
+      flaresolverr = {
+        port = 8191;
+        displayName = "FlareSolverr";
+        description = "Cloudflare Bypass";
+        category = "APIs";
+        icon = "sh-flaresolverr";
+      };
+      lidarr = {
+        port = 8686;
+        displayName = "Lidarr";
+        description = "Music Manager";
+        category = "Starr";
+        icon = "sh-lidarr";
+        widget = {
+          type = "lidarr";
+          url = "https://lidarr.diekvoss.net";
+          key = "{{HOMEPAGE_VAR_LIDARR_API_KEY}}";
+        };
+      };
+      prowlarr = {
+        port = 9696;
+        displayName = "Prowlarr";
+        description = "Indexer Manager";
+        category = "Starr";
+        icon = "sh-prowlarr";
+        widget = {
+          type = "prowlarr";
+          url = "https://prowlarr.diekvoss.net";
+          key = "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}";
+        };
+      };
+      radarr = {
+        port = 7878;
+        displayName = "Radarr";
+        description = "Movie Manager";
+        category = "Starr";
+        icon = "sh-radarr";
+        widget = {
+          type = "radarr";
+          url = "https://radarr.diekvoss.net";
+          key = "{{HOMEPAGE_VAR_RADARR_API_KEY}}";
+        };
+      };
+      readarr = {
+        port = 8787;
+        displayName = "Readarr";
+        description = "EBook/Audiobook Manager";
+        category = "Starr";
+        icon = "sh-readarr";
+        widget = {
+          type = "readarr";
+          url = "https://readarr.diekvoss.net";
+          key = "{{HOMEPAGE_VAR_READARR_API_KEY}}";
+        };
+      };
+      sonarr = {
+        port = 8989;
+        displayName = "Sonarr";
+        description = "TV Show Manager";
+        category = "Starr";
+        icon = "sh-sonarr";
+        widget = {
+          type = "sonarr";
+          url = "https://sonarr.diekvoss.net";
+          key = "{{HOMEPAGE_VAR_SONARR_API_KEY}}";
+        };
       };
     };
   };
