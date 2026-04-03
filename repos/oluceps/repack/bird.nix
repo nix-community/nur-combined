@@ -15,7 +15,7 @@ in
         readOnly = true;
         default = ''
           log syslog all;
-          # debug protocols all;
+          debug protocols all;
           timeformat protocol iso long;
 
           router id 10.0.0.${toString ((lib.getThisNodeFrom config).id + 1)};
@@ -33,8 +33,7 @@ in
           };
           protocol direct {
             ipv6;
-            # include zt interfaces
-            interface "anchor-0"; 
+            interface "anchor-*"; 
           }
 
           protocol static guard {

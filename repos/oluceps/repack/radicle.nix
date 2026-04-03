@@ -64,7 +64,7 @@ reIf {
       publicExplorer = "https://app.radicle.xyz/nodes/$host/$rid$path";
       web = {
         avatarUrl = "https://raw.githubusercontent.com/milieuim/mdbook-theme-milieuim/refs/heads/main/favicon.svg";
-        bannerUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/15_Qian_Xuan_Eight_Flowers_National_Palace_Museum_Beijing.JPG/2560px-15_Qian_Xuan_Eight_Flowers_National_Palace_Museum_Beijing.JPG";
+        bannerUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/15_Qian_Xuan_Eight_Flowers_National_Palace_Museum_Beijing.JPG/1920px-15_Qian_Xuan_Eight_Flowers_National_Palace_Museum_Beijing.JPG?_=20110805194302";
         description = "radicle seed hosted on nyaw.xyz";
         pinned = {
           repositories = [

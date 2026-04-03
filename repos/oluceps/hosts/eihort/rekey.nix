@@ -14,11 +14,6 @@ in
     secrets = {
       nuan = { };
       cfd = { };
-      wg-eihort = {
-        owner = "systemd-network";
-        group = "root";
-        mode = "400";
-      };
       syncthing-hastur-api = { };
       tg-search = { };
       loki = {

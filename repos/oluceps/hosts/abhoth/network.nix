@@ -18,6 +18,7 @@
       checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
+        "docker0"
       ];
       allowedUDPPorts = [
         80
@@ -40,18 +41,18 @@
     nftables = {
       enable = true;
       # for hysteria port hopping
-      ruleset = ''
-        define INGRESS_INTERFACE="eth0"
-        define PORT_RANGE=20000-50000
-        define HYSTERIA_SERVER_PORT=4432
+      # ruleset = ''
+      #   define INGRESS_INTERFACE="eth0"
+      #   define PORT_RANGE=20000-50000
+      #   define HYSTERIA_SERVER_PORT=4432
 
-        table inet hysteria_porthopping {
-          chain prerouting {
-            type nat hook prerouting priority dstnat; policy accept;
-            iifname $INGRESS_INTERFACE udp dport $PORT_RANGE counter redirect to :$HYSTERIA_SERVER_PORT
-          }
-        }
-      '';
+      #   table inet hysteria_porthopping {
+      #     chain prerouting {
+      #       type nat hook prerouting priority dstnat; policy accept;
+      #       iifname $INGRESS_INTERFACE udp dport $PORT_RANGE counter redirect to :$HYSTERIA_SERVER_PORT
+      #     }
+      #   }
+      # '';
       # table ip6 nat {
       #   chain postrouting {
       #     type nat hook postrouting priority srcnat; policy accept;

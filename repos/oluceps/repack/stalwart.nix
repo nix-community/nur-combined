@@ -77,6 +77,13 @@ reIf {
               implicit = true;
             };
           };
+          submission = {
+            bind = [ "[::]:587" ];
+            protocol = "smtp";
+            tls = {
+              implicit = false;
+            };
+          };
         };
       };
       storage = {

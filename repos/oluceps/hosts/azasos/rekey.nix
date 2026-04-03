@@ -17,12 +17,6 @@ in
   vaultix = {
     settings.hostPubkey = data.node.${config.networking.hostName}.ssh_key;
     secrets = {
-      wg-azasos = {
-        file = self + "/sec/wg-azasos.age";
-        owner = "systemd-network";
-        group = "root";
-        mode = "400";
-      };
       shadow-tls-relay = {
         file = self + "/sec/shadow-tls-relay.age";
       };

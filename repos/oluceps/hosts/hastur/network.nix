@@ -35,6 +35,7 @@
       trustedInterfaces = [
         "virbr0"
         "podman*"
+        "docker0"
         "tun-sing"
         "dae0"
       ];
@@ -147,10 +148,11 @@
         };
 
         linkConfig.RequiredForOnline = "routable";
-        # address = [ "192.168.0.16/24" ];
-        # dns = [ "192.168.0.1" ];
+        # address = [ "fdcc::1" ];
         # routes = [
-        #   { Gateway = "192.168.0.1"; }
+        #   {
+        #     Destination = "fdcc::3/128";
+        #   }
         # ];
       };
 

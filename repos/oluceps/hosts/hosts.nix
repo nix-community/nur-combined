@@ -36,6 +36,9 @@ let
       "fdcc::1" = srvOnHastur;
       "127.0.0.1" = [ "sync.nyaw.xyz" ];
     }
+    # (builtins.listToAttrs (
+    #   lib.singleton (lib.nameValuePair (lib.elemAt lib.data.node.abhoth.addrs 0) [ "box.nyaw.xyz" ])
+    # ))
   ];
 in
 {

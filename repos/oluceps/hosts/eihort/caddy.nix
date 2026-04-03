@@ -140,6 +140,16 @@
                     handle = [
                       {
                         handler = "reverse_proxy";
+                        upstreams = [ { dial = "[fdcc::3]:8003"; } ];
+                      }
+                    ];
+                    match = [ { host = [ "vault.nyaw.xyz" ]; } ];
+                    terminal = true;
+                  }
+                  {
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
                         upstreams = [ { dial = "[fdcc::3]:5244"; } ];
                       }
                     ];

@@ -72,6 +72,12 @@
         timerConfig.onCalendar = "daily";
       }
     ];
+    ranet-discover = {
+      enable = true;
+      registry = "/var/lib/garden/registry.json";
+      key = config.vaultix.secrets.garden_key.path;
+      interface = "eno1";
+    };
 
     # tailscale = {
     #   enable = true;
@@ -128,6 +134,8 @@
     # sleep.settings.Sleep.AllowHibernation = "no";
   };
   repack = {
+    # ranet.enable = true;
+
     plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;

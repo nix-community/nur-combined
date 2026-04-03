@@ -8,7 +8,7 @@ let
   inherit (self.lib) genAttrs;
   hosts = (self.lib.data.node |> builtins.attrNames) ++ [
     # "bootstrap"
-    # "livecd"
+    "livecd"
   ];
 in
 {

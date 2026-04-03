@@ -11,7 +11,7 @@
   system = {
 
     etc.overlay.enable = true;
-    etc.overlay.mutable = true;
+    etc.overlay.mutable = false;
 
     stateVersion = "25.05";
   };
@@ -34,6 +34,7 @@
     supportedFilesystems = [ "tcp_bbr" ];
   };
   repack = {
+    # ranet.enable = true;
     plugIn.enable = true;
     openssh.enable = true;
     fail2ban.enable = true;
@@ -71,6 +72,8 @@
     jellyfin.enable = true;
     samba.enable = true;
     ncps.enable = true;
+    earlyoom.enable = true;
+    forgejo.enable = true;
   };
 
   # systemd.services.minio.serviceConfig.Environment = [
@@ -123,6 +126,12 @@
       ];
     };
 
+    # ranet-discover = {
+    #   enable = true;
+    #   registry = "/var/lib/garden/registry.json";
+    #   key = config.vaultix.secrets.garden_key.path;
+    #   interface = "eno1";
+    # };
     realm = {
       enable = true;
       settings = {

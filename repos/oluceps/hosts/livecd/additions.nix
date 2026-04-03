@@ -15,10 +15,10 @@
     )
   ];
   networking = {
-    wireless.iwd.enable = true;
-    wireless.enable = false;
+    # wireless.iwd.enable = true;
+    # wireless.enable = false;
     useNetworkd = true;
-    useDHCP = true;
+    # useDHCP = true;
     firewall.enable = false;
     enableIPv6 = true;
     nftables.enable = true;
@@ -81,9 +81,9 @@
         "flakes"
         "auto-allocate-uids"
         "cgroups"
-        "recursive-nix"
-        "ca-derivations"
-        "pipe-operator"
+        # "recursive-nix"
+        # "ca-derivations"
+        # "pipe-operator"
         "pipe-operators"
       ];
       auto-allocate-uids = true;
@@ -103,9 +103,6 @@
     daemonIOSchedClass = lib.mkDefault "idle";
     daemonIOSchedPriority = lib.mkDefault 7;
 
-    extraOptions = ''
-      !include ${config.vaultix.secrets.gh-token.path}
-    '';
   };
 
   services = {
@@ -158,7 +155,7 @@
       whois
       dig
       wireguard-tools
-      curlHTTP3
+      # curlHTTP3
 
       srm
 
@@ -202,8 +199,8 @@
     ++ [
       rage
       age-plugin-yubikey
-      yubikey-manager
-      yubikey-manager-qt
+      # yubikey-manager
+      # yubikey-manager-qt
       gnupg
       cryptsetup
     ];

@@ -18,12 +18,6 @@ in
         group = "users";
       };
       garage = { };
-      wg-kaambl = {
-        file = ../../sec/wg-kaambl.age;
-        owner = "systemd-network";
-        group = "root";
-        mode = "400";
-      };
     };
   };
   services.openssh.hostKeys = [

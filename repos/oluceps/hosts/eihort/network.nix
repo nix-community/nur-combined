@@ -102,6 +102,12 @@
           DHCPv6Client = false;
         };
         linkConfig.RequiredForOnline = "routable";
+        # address = [ "fdcc::3" ];
+        # routes = [
+        #   {
+        #     Destination = "fdcc::1/128";
+        #   }
+        # ];
       };
     };
   };

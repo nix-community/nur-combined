@@ -407,6 +407,8 @@
     };
     snm.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
     nuanmonito.url = "/home/riro/Src/nuanmonito";
+    ranet.url = "/home/riro/Src/ranet";
+    ranet-discover.url = "/home/riro/Src/ranet-discover";
     self.submodules = true;
 
   };

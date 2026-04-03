@@ -68,6 +68,7 @@ withSystem "x86_64-linux" (
       inputs.tg-online-keeper.nixosModules.default
       inputs.online-exporter.nixosModules.default
       inputs.nuanmonito.nixosModules.nuanmonito
+      inputs.ranet-discover.nixosModules.default
     ];
   }
 )

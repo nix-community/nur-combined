@@ -57,6 +57,14 @@
     };
     fish = {
       enable = true;
+      shellAbbrs = {
+        sc = "systemctl";
+        scs = "systemctl status";
+        scr = "systemctl restart";
+        jc = "journalctl";
+        jcfu = "journalctl -fu";
+        jcfk = "journalctl -fk";
+      };
       shellAliases = {
         j = "just";
         ls = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos";
@@ -74,17 +82,9 @@
         lks = "lsd --icon never --hyperlink auto";
         g = "lazygit";
         "cd.." = "cd ..";
-        up = "nix flake update --commit-lock-file /etc/nixos && swc";
-        fp = "fish --private";
-        e = "exit";
         st = "sudo systemctl-tui";
         rp = "rustplayer";
         y = "yazi";
-        i = "kitty +kitten icat";
-        sc = "systemctl";
-        scs = "systemctl status";
-        scr = "systemctl restart";
-        jc = "journalctl";
         ".." = "cd ..";
         "。。" = "cd ..";
         "..." = "cd ../..";
@@ -138,7 +138,7 @@
 
         command_timeout = 1000;
 
-        format = "$username$hostname$directory$git_branch$git_commit$git_status$nix_shell$\{custom.shpool}$cmd_duration$line_break$python$character";
+        format = "$username$hostname$directory$git_branch$git_commit$git_status$nix_shell$cmd_duration$line_break$python$character";
 
         directory.style = "blue";
 
@@ -157,12 +157,12 @@
           style = "#91b493";
         };
 
-        custom.shpool = {
-          when = "test -n \"$SHPOOL_SESSION_NAME\"";
-          command = "echo $SHPOOL_SESSION_NAME";
-          format = "[> $output]($style) ";
-          style = "#91AD70";
-        };
+        # custom.shpool = {
+        #   when = "test -n \"$SHPOOL_SESSION_NAME\"";
+        #   command = "echo $SHPOOL_SESSION_NAME";
+        #   format = "[> $output]($style) ";
+        #   style = "#91AD70";
+        # };
 
         git_branch = {
           format = "[$branch]($style) ";

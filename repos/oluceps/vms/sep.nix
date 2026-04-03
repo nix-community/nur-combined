@@ -14,6 +14,15 @@
   networking.firewall.extraInputRules = ''
     iifname "vm1" ip saddr 10.255.0.1 ip daddr 10.255.0.0 tcp dport { 3030, 53 } accept
   '';
+  networking = {
+    nat = {
+      enable = true;
+      enableIPv6 = true;
+      internalIPv6s = [ "fcbd::ad41:a5b0:eefb:d24c:1/64" ];
+      # the interface with upstream Internet access, TODO: change with host
+      externalInterface = "eno1";
+    };
+  };
   microvm.autostart = [
     "sept"
   ];
@@ -52,7 +61,8 @@
             table inet nat {
               chain postrouting {
                 type nat hook postrouting priority srcnat; policy accept;
-                iifname "wg-ext" oifname "enp0s4" ip saddr 10.10.10.0/24 masquerade
+                iifname "wg-ext" oifname "enp0s4" ip saddr 10.10.10.0/24 masquerade;
+                iifname "wg-ext" oifname "enp0s4" meta nfproto ipv6 snat to fec0::1;
               }
             }
             table inet filter {
@@ -90,6 +100,7 @@
             "net.ipv4.tcp_rfc1337" = 1;
             "net.ipv4.tcp_fastopen" = 0;
             "net.ipv4.tcp_congestion_control" = "bbr";
+            "net.ipv6.tcp_congestion_control" = "bbr";
             "net.core.default_qdisc" = "cake";
             "net.ipv4.tcp_rmem" = "4096 87380 2500000";
             "net.ipv4.tcp_wmem" = "4096 65536 2500000";
@@ -115,13 +126,17 @@
                   PersistentKeepalive = 15;
                   AllowedIPs = [
                     "10.10.10.2/32"
+                    "fcbd::ad41:a5b0:eefb:d24c:2/128"
                   ];
                 }
               ];
             };
             networks."90-wg-ext" = {
               matchConfig.Name = "wg-ext";
-              address = [ "10.10.10.1/24" ];
+              address = [
+                "10.10.10.1/24"
+                "fcbd::ad41:a5b0:eefb:d24c:1/64"
+              ];
               DHCP = "no";
             };
 

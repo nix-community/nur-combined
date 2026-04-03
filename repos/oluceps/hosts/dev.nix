@@ -57,6 +57,15 @@
           IdentitiesOnly yes
           HashKnownHosts yes
     ''}"
+    "L+ /home/${user}/.gitconfig - - - - ${pkgs.writeText "gitconfig" ''
+      [credential]
+        helper = cache --timeout 7200
+        helper = oauth
+      [credential "https://git.nyaw.xyz"]
+        oauthClientId = a4792ccc-144e-407e-86c9-5e7d8d9c3269
+        oauthAuthURL = /login/oauth/authorize
+        oauthTokenURL = /login/oauth/access_token
+    ''}"
     "L+ /root/.ssh/config - - - - /home/${user}/.ssh/config"
   ];
   programs = {
@@ -72,8 +81,9 @@
       # clean.extraArgs = "--keep-since 4d --keep 7";
       flake = "/home/${user}/Src/nixos";
     };
-
-    git.enable = true;
+    git = {
+      enable = true;
+    };
     bash.interactiveShellInit = ''
       eval "$(${lib.getExe pkgs.atuin} init bash)"
     '';
@@ -158,9 +168,10 @@
             zoxide
             nodejs_latest
             opencode
+            git-credential-oauth
             codex
             gemini-cli
-            antigravity-fhs
+            antigravity
             gh
             # zed-editor
             # vscode.fhs

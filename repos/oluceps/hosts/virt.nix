@@ -6,7 +6,7 @@
         cores = 6;
       };
     };
-    docker.enable = false;
+
     podman = {
       enable = true;
       dockerSocket.enable = true;

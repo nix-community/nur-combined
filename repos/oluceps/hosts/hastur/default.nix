@@ -74,7 +74,19 @@ withSystem "x86_64-linux" (
 
         ../sysctl-boost.nix
         ../pam.nix
-        ../virt.nix
+        # ../virt.nix
+        {
+          virtualisation.docker = {
+            daemon.settings = {
+              dns = [
+                "223.5.5.5"
+                "8.8.8.8"
+              ];
+            };
+            enable = true;
+          };
+
+        }
 
         ../../users.nix
 
@@ -85,6 +97,7 @@ withSystem "x86_64-linux" (
       ++ (with inputs; [
         # aagl.nixosModules.default
         disko.nixosModules.default
+        ranet-discover.nixosModules.default
         # niri.nixosModules.niri
         # nixos-cosmic.nixosModules.default
         # inputs.j-link.nixosModule

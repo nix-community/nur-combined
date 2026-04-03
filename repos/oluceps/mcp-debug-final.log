@@ -1,0 +1,184 @@
+2026-04-02T14:33:14.873Z mcp:log Starting Chrome DevTools MCP Server v0.21.0
+2026-04-02T14:33:14.892Z mcp:log Chrome DevTools MCP Server connected
+2026-04-02T14:33:15.131Z mcp:log Watchdog started {
+  "pid": 1439933,
+  "parentPid": 1439924,
+  "version": "0.21.0",
+  "osType": 3
+}
+2026-04-02T14:33:15.133Z mcp:log Enqueing telemetry event {
+  "mcp_client": 0,
+  "server_start": {
+    "flag_usage": {
+      "auto_connect_present": false,
+      "browser_url_present": true,
+      "ws_endpoint_present": false,
+      "ws_headers_present": false,
+      "headless": false,
+      "executable_path_present": false,
+      "isolated_present": false,
+      "user_data_dir_present": false,
+      "channel_present": false,
+      "log_file_present": true,
+      "viewport_present": false,
+      "proxy_server_present": false,
+      "accept_insecure_certs_present": false,
+      "experimental_page_id_routing_present": false,
+      "experimental_devtools_present": false,
+      "experimental_vision_present": false,
+      "experimental_structured_content_present": false,
+      "experimental_include_all_pages_present": false,
+      "experimental_interop_tools_present": false,
+      "experimental_screencast_present": false,
+      "chrome_arg_present": false,
+      "ignore_default_chrome_arg_present": false,
+      "category_emulation": true,
+      "category_performance": true,
+      "category_network": true,
+      "category_extensions_present": false,
+      "category_in_page_tools_present": false,
+      "performance_crux": true,
+      "usage_statistics": true,
+      "clearcut_endpoint_present": false,
+      "clearcut_force_flush_interval_ms_present": false,
+      "clearcut_include_pid_header_present": false,
+      "slim_present": false,
+      "via_cli_present": false
+    }
+  }
+}
+2026-04-02T14:33:15.133Z mcp:log Scheduling flush in 900000
+2026-04-02T14:48:15.224Z mcp:log Sending batch of 1
+2026-04-02T14:48:15.797Z mcp:log Scheduling flush in 900000
+2026-04-02T15:03:15.824Z mcp:log Scheduling flush in 900000
+2026-04-02T15:18:15.866Z mcp:log Scheduling flush in 900000
+2026-04-02T15:32:44.710Z mcp:log Starting Chrome DevTools MCP Server v0.21.0
+2026-04-02T15:32:44.730Z mcp:log Chrome DevTools MCP Server connected
+2026-04-02T15:32:44.968Z mcp:log Watchdog started {
+  "pid": 1498043,
+  "parentPid": 1498035,
+  "version": "0.21.0",
+  "osType": 3
+}
+2026-04-02T15:32:44.970Z mcp:log Enqueing telemetry event {
+  "mcp_client": 0,
+  "server_start": {
+    "flag_usage": {
+      "auto_connect_present": false,
+      "browser_url_present": true,
+      "ws_endpoint_present": false,
+      "ws_headers_present": false,
+      "headless": false,
+      "executable_path_present": false,
+      "isolated_present": false,
+      "user_data_dir_present": false,
+      "channel_present": false,
+      "log_file_present": true,
+      "viewport_present": false,
+      "proxy_server_present": false,
+      "accept_insecure_certs_present": false,
+      "experimental_page_id_routing_present": false,
+      "experimental_devtools_present": false,
+      "experimental_vision_present": false,
+      "experimental_structured_content_present": false,
+      "experimental_include_all_pages_present": false,
+      "experimental_interop_tools_present": false,
+      "experimental_screencast_present": false,
+      "chrome_arg_present": false,
+      "ignore_default_chrome_arg_present": false,
+      "category_emulation": true,
+      "category_performance": true,
+      "category_network": true,
+      "category_extensions_present": false,
+      "category_in_page_tools_present": false,
+      "performance_crux": true,
+      "usage_statistics": true,
+      "clearcut_endpoint_present": false,
+      "clearcut_force_flush_interval_ms_present": false,
+      "clearcut_include_pid_header_present": false,
+      "slim_present": false,
+      "via_cli_present": false
+    }
+  }
+}
+2026-04-02T15:32:44.970Z mcp:log Scheduling flush in 900000
+2026-04-02T15:33:15.968Z mcp:log Scheduling flush in 900000
+2026-04-02T15:47:45.107Z mcp:log Sending batch of 1
+2026-04-02T15:47:45.808Z mcp:log Scheduling flush in 900000
+2026-04-02T15:48:16.072Z mcp:log Scheduling flush in 900000
+2026-04-02T16:02:45.837Z mcp:log Scheduling flush in 900000
+2026-04-02T16:03:16.133Z mcp:log Scheduling flush in 900000
+2026-04-02T16:07:42.772Z mcp:log Parent death detected (stdin end). Sending shutdown event...
+2026-04-02T16:07:42.775Z mcp:log Enqueing telemetry event {
+  "server_shutdown": {}
+}
+2026-04-02T16:07:42.775Z mcp:log Sending batch of 1
+2026-04-02T16:07:43.719Z mcp:log Final flush completed
+2026-04-02T16:07:43.719Z mcp:log Shutdown event sent. Exiting.
+2026-04-02T16:17:45.971Z mcp:log Scheduling flush in 900000
+2026-04-02T16:25:37.330Z mcp:log Parent death detected (stdin end). Sending shutdown event...
+2026-04-02T16:25:37.342Z mcp:log Enqueing telemetry event {
+  "server_shutdown": {}
+}
+2026-04-02T16:25:37.345Z mcp:log Sending batch of 1
+2026-04-02T16:25:37.704Z mcp:log Final flush completed
+2026-04-02T16:25:37.705Z mcp:log Shutdown event sent. Exiting.
+2026-04-02T16:31:22.126Z mcp:log Starting Chrome DevTools MCP Server v0.21.0
+2026-04-02T16:31:22.146Z mcp:log Chrome DevTools MCP Server connected
+2026-04-02T16:31:22.388Z mcp:log Watchdog started {
+  "pid": 1578229,
+  "parentPid": 1578222,
+  "version": "0.21.0",
+  "osType": 3
+}
+2026-04-02T16:31:22.390Z mcp:log Enqueing telemetry event {
+  "mcp_client": 0,
+  "server_start": {
+    "flag_usage": {
+      "auto_connect_present": false,
+      "browser_url_present": true,
+      "ws_endpoint_present": false,
+      "ws_headers_present": false,
+      "headless": false,
+      "executable_path_present": false,
+      "isolated_present": false,
+      "user_data_dir_present": false,
+      "channel_present": false,
+      "log_file_present": true,
+      "viewport_present": false,
+      "proxy_server_present": false,
+      "accept_insecure_certs_present": false,
+      "experimental_page_id_routing_present": false,
+      "experimental_devtools_present": false,
+      "experimental_vision_present": false,
+      "experimental_structured_content_present": false,
+      "experimental_include_all_pages_present": false,
+      "experimental_interop_tools_present": false,
+      "experimental_screencast_present": false,
+      "chrome_arg_present": false,
+      "ignore_default_chrome_arg_present": false,
+      "category_emulation": true,
+      "category_performance": true,
+      "category_network": true,
+      "category_extensions_present": false,
+      "category_in_page_tools_present": false,
+      "performance_crux": true,
+      "usage_statistics": true,
+      "clearcut_endpoint_present": false,
+      "clearcut_force_flush_interval_ms_present": false,
+      "clearcut_include_pid_header_present": false,
+      "slim_present": false,
+      "via_cli_present": false
+    }
+  }
+}
+2026-04-02T16:31:22.390Z mcp:log Scheduling flush in 900000
+2026-04-02T16:46:22.454Z mcp:log Sending batch of 1
+2026-04-02T16:46:22.921Z mcp:log Scheduling flush in 900000
+2026-04-02T16:49:05.600Z mcp:log Parent death detected (stdin end). Sending shutdown event...
+2026-04-02T16:49:05.600Z mcp:log Enqueing telemetry event {
+  "server_shutdown": {}
+}
+2026-04-02T16:49:05.600Z mcp:log Sending batch of 1
+2026-04-02T16:49:06.014Z mcp:log Final flush completed
+2026-04-02T16:49:06.014Z mcp:log Shutdown event sent. Exiting.

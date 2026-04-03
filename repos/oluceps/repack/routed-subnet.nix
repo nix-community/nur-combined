@@ -42,7 +42,11 @@ reIf
       networking = {
         nat = {
           enable = true;
-          internalIPs = [ "10.255.0.0/24" ];
+          enableIPv6 = true;
+          internalIPs = [
+            "10.255.0.0/24"
+          ];
+          internalIPv6s = [ "fec0::/64" ];
           # the interface with upstream Internet access, TODO: change with host
           externalInterface = "eno1";
         };

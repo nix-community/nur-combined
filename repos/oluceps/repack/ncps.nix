@@ -8,6 +8,7 @@ reIf {
     EnvironmentFile = config.vaultix.secrets.ncps.path;
   };
   vaultix.secrets.ncps = { };
+  systemd.services.ncps.requires = [ "seaweedfs.service" ];
   services.ncps = {
     enable = true;
     cache = {

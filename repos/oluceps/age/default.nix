@@ -42,6 +42,7 @@
         "sing-server"
         "caddy"
         "k3s_token"
+        "garden_key"
       ])
       // (userRo [
         "nyaw.key"
@@ -54,6 +55,12 @@
 
         "babel-auth" = {
           owner = "bird";
+        };
+        "wg-${config.networking.hostName}" = {
+          owner = "systemd-network";
+        };
+        psk = {
+          owner = "systemd-network";
         };
         "nyaw.cert" = {
           cleanPlaceholder = true;
