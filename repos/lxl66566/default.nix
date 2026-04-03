@@ -27,4 +27,5 @@ in
   system76-scheduler-niri = callPackage ./pkgs/system76-scheduler-niri { };
   user-startup-rs = callPackage ./pkgs/user-startup-rs { };
   xp3-pack-unpack = callPackage ./pkgs/xp3-pack-unpack { };
+  urldecoder = callPackage ./pkgs/urldecoder { };
 }
