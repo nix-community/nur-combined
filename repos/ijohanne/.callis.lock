@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "name": "git-commit",
+      "source": "github:github/awesome-copilot@git-commit",
+      "version": "0c3c5bbbfb2a",
+      "agents": [
+        "claude",
+        "opencode",
+        "codex-cli"
+      ],
+      "global": false,
+      "installed_at": "2026-04-03T14:51:01.242363+00:00",
+      "updated_at": "2026-04-03T14:51:01.242363+00:00"
+    }
+  ]
+}
