@@ -838,8 +838,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "7d3b55c5209bbc91a44958d7243aff8fb3b987bc",
-            "sha256": "07dsflw5j2gpxkxwbjpmzjqn1760ms6qj6669jc45lxfv45q3dlg",
+            "rev": "22a2e3bd2d969d27d5c2178b806cc320d24faf61",
+            "sha256": "1033kdm25rj6q4by4mz30ka9mag7i759llzrl7jnld3m1cak2b6a",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
@@ -2377,8 +2377,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "856f4345aae8f279b0955e051c302bd0d91a4d47",
-            "sha256": "1i89rb383xzb755rxbr7apq26rwar61wr3cylwv2yy6f08l1dcy0",
+            "rev": "0180202fbceed7793977d6150a88e159a9c33c33",
+            "sha256": "0nkh9f0x19ib977r8pmv6nbnvp8gc5iglhbj0f93r7k66yl2jjpg",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
@@ -2622,8 +2622,8 @@
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
-            "rev": "fd75156ad008c64a7912c36973e5ed75fcf9b2f1",
-            "sha256": "0pryhbi40659acs0hvsliwwh15n037axaf85yjkpvr9z3nqmm6b9",
+            "rev": "e3a29bb0b02966e02a870221c52058fb0270ac59",
+            "sha256": "02rwgshy4ax7jkqy43bvrw5dagh904f702hwj0hmc70g6hv3s805",
             "url": "https://github.com/zimeg/nur-packages"
         },
         "zjm54321": {
