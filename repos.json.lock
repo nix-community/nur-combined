@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "c872ea9127f562456d8d261f1ddaba920ed9593c",
-            "sha256": "0rpqld50r1m9g85nzlz6dyyhlcl8mnn9iadffpmiv0c3is2a31im",
+            "rev": "d62429e3149b00109a9924634ea124d61f4cd6d7",
+            "sha256": "0vpygvblzn1gsqzcfn0rn20gqw5dpxas5ln1bnkj3ip0agd38nps",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "609ce4d121e4c1c9950cc2e8c8be6651b44d87db",
-            "sha256": "19gyp2fbcrv5n20klj0mh8smx10imrdplfjmzq7qm8b5qzl37nc4",
+            "rev": "300e82a36ad404d3700bcfb0daa88a339312f788",
+            "sha256": "0a8vl5f5qflql88xhfsnan5jqhi3019iky273ghrqlk01j0wrvad",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
