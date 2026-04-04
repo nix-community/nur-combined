@@ -532,8 +532,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "573df811d182524db550dfd16d0cd8c8002464bd",
-            "sha256": "14pcbm26khy70d370p6ljhwp59a2qx4a34k4jknk148dxbdky97h",
+            "rev": "287ba4f7a1f1ff013eda32cacd2ee4f362b22c20",
+            "sha256": "1r1a3ygiql1x32icsw5pwszvsbalkfpdg1f8cbikhz5dm8zi7ksa",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -2377,8 +2377,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "169f96e1e2539b5b5c3c6eb044bd9ab3768e0eb3",
-            "sha256": "19akl29hbnnw43b3z8rzyxbzshcg1fv99c9yxksh6scma6b2ibrm",
+            "rev": "abf8602b8064c031954366b3feeed8f93e37c557",
+            "sha256": "0p19109z4b069hdcvbawys6pbdpas42y7yrk2mr5y8bbdka8f73b",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
