@@ -26,7 +26,7 @@ in
     inputs.nixcfg.modules.nixos.containers.podman
     inputs.nixcfg.modules.nixos.containers.portainer
     inputs.nixcfg.modules.nixos.containers.starr
-    inputs.nixcfg.modules.nixos.containers.chat
+    inputs.nixcfg.modules.nixos.containers.open-webui
     inputs.nixcfg.modules.nixos.containers.monitoring
     inputs.nixcfg.modules.nixos.containers.jellyfin
     inputs.nixcfg.modules.nixos.containers.home-assistant
@@ -162,8 +162,9 @@ in
     open-webui = {
       enable = true;
       openFirewall = true;
-      dataDir = "/mnt/POOL/open-webui";
+      stateDir = "/mnt/POOL/open-webui";
       port = homelab.${hostName}.services.open-webui.port;
+      ollamaBaseUrl = "https://ollama.diekvoss.net";
     };
     portainer = {
       enable = true;
