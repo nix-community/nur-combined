@@ -40,25 +40,25 @@ in
 
     multimediaGid = lib.mkOption {
       type = lib.types.int;
-      default = 976;
+      default = 349;
       description = "Pinned GID for the multimedia group on both host and container";
     };
 
     bazarrUid = lib.mkOption {
       type = lib.types.int;
-      default = 999;
+      default = 350;
       description = "Pinned UID for the bazarr user (must match state dir ownership on host)";
     };
 
     prowlarrUid = lib.mkOption {
       type = lib.types.int;
-      default = 61654;
+      default = 351;
       description = "Pinned UID for the prowlarr user (must match state dir ownership on host; prowlarr uses DynamicUser upstream so this is required)";
     };
 
     readarrUid = lib.mkOption {
       type = lib.types.int;
-      default = 997;
+      default = 352;
       description = "Pinned UID for the readarr user (must match state dir ownership on host)";
     };
 
