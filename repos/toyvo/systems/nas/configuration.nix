@@ -28,6 +28,7 @@ in
     inputs.nixcfg.modules.nixos.containers.starr
     inputs.nixcfg.modules.nixos.containers.chat
     inputs.nixcfg.modules.nixos.containers.monitoring
+    inputs.nixcfg.modules.nixos.containers.jellyfin
     inputs.nixcfg.modules.nixos.monitoring.default
     ./samba.nix
     ./nextcloud.nix
@@ -174,11 +175,6 @@ in
       group = "multimedia";
       package = stablePkgs.immich;
     };
-    jellyfin = {
-      enable = true;
-      openFirewall = true;
-      group = "multimedia";
-    };
     nextcloud.enable = true;
     nix-serve = {
       enable = true;
@@ -224,6 +220,12 @@ in
       openFirewall = true;
       sport = homelab.${hostName}.services.portainer.port;
     };
+    jellyfin = {
+      enable = true;
+      natInterface = "eno1";
+      stateDir = "/mnt/POOL/jellyfin";
+      mediaDir = "/mnt/POOL/Public";
+    };
     monitoring = {
       enable = true;
       stateDir = "/mnt/POOL/monitoring";
@@ -258,13 +260,7 @@ in
     device = "/dev/disk/by-label/POOL";
     fsType = "btrfs";
   };
-  users.users = {
-    toyvo.extraGroups = [ "libvirtd" ];
-    jellyfin.extraGroups = [
-      "video"
-      "render"
-    ];
-  };
+  users.users.toyvo.extraGroups = [ "libvirtd" ];
   home-manager.users.toyvo.programs.beets.settings.directory = "/mnt/POOL/Public/Music";
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [

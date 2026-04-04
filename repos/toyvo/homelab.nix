@@ -80,19 +80,6 @@
         category = "APIs";
         displayName = "Discord Bot UI";
       };
-      # port not configured through nix
-      jellyfin = {
-        port = 8096;
-        displayName = "Jellyfin";
-        description = "Media Server";
-        category = "Media";
-        icon = "sh-jellyfin";
-        widget = {
-          type = "jellyfin";
-          url = "https://jellyfin.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}";
-        };
-      };
       portainer = {
         port = 9443;
         selfSigned = true;
@@ -176,6 +163,21 @@
         description = "Office Suite for Nextcloud";
         category = "APIs";
         icon = "sh-docs-collaboration";
+      };
+    };
+  };
+  jellyfin = {
+    ip = "10.200.0.6";
+    services.jellyfin = {
+      port = 8096;
+      displayName = "Jellyfin";
+      description = "Media Server";
+      category = "Media";
+      icon = "sh-jellyfin";
+      widget = {
+        type = "jellyfin";
+        url = "https://jellyfin.diekvoss.net";
+        key = "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}";
       };
     };
   };
