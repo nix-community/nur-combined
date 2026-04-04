@@ -246,8 +246,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "ab75859156242f33989262f7ebe8fa5a38664f37",
-            "sha256": "0f22bm857mkxvwxg8pirh560fss8b82mf2d58zwk66f5mf32r69l",
+            "rev": "5cac47ea73a396a8e8c75df562b5ed22adbdfb3d",
+            "sha256": "17vgz7zcf2gz38j9b7fkamkyqgx4ydcc01zg0fv2gjyjjzg9rhgz",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
