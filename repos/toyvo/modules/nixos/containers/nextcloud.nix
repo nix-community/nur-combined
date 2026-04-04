@@ -143,8 +143,13 @@ in
               server_name = "collabora.diekvoss.net";
               storage.wopi = {
                 "@allow" = true;
-                # nextcloud is co-located so WOPI requests come from localhost
-                host = [ "localhost" ];
+                # Collabora validates the WOPI file URL host against this list.
+                # The token Nextcloud generates embeds the public hostname, so both
+                # the internal localhost and the public domain must be allowed.
+                host = [
+                  "localhost"
+                  "nextcloud\\.diekvoss\\.net"
+                ];
               };
               net = {
                 listen = "0.0.0.0";
@@ -164,8 +169,10 @@ in
               # Co-located: nextcloud PHP reaches collabora on localhost
               wopi_url = "http://localhost:${toString cfg.ports.collabora}";
               public_wopi_url = "https://collabora.diekvoss.net";
-              # Only localhost can make WOPI requests (nextcloud and collabora are co-located)
-              wopi_allowlist = "127.0.0.1";
+              # Collabora reaches Nextcloud's WOPI endpoint via the public domain, which routes
+              # through Caddy on the NAS host and arrives from the veth host address (cfg.hostAddress).
+              # Allow localhost (direct) and the entire container/host veth subnet.
+              wopi_allowlist = "127.0.0.1,${cfg.hostAddress}";
             in
             {
               wantedBy = [ "multi-user.target" ];
