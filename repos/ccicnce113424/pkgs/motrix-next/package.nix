@@ -16,6 +16,8 @@
   webkitgtk_4_1,
   libayatana-appindicator,
   wrapGAppsHook4,
+  desktop-file-utils,
+  xdg-utils,
   nix-update-script,
 }:
 let
@@ -87,9 +89,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    # fix Nvidia issues with Tauri
-    # https://github.com/tauri-apps/tauri/issues/9394#issuecomment-3795449374
     gappsWrapperArgs+=(
+      --suffix PATH : ${
+        lib.makeBinPath [
+          desktop-file-utils
+          xdg-utils
+        ]
+      }
+      # fix Nvidia issues with Tauri
+      # https://github.com/tauri-apps/tauri/issues/9394#issuecomment-3795449374
       --set-default __NV_DISABLE_EXPLICIT_SYNC 1
     )
     wrapGApp $out/bin/motrix-next
