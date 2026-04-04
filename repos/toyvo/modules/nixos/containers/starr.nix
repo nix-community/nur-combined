@@ -193,7 +193,7 @@ in
           hostPath = "${cfg.stateDir}/prowlarr";
           isReadOnly = false;
         };
-        "/var/lib/qbittorrent" = {
+        "/var/lib/qBittorrent" = {
           hostPath = "${cfg.stateDir}/qbittorrent";
           isReadOnly = false;
         };
