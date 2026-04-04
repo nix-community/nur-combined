@@ -35,8 +35,6 @@ in
     ./samba.nix
     ./nextcloud.nix
     ./homepage.nix
-    ./qbittorrent.nix
-    ./wireguard.nix
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
@@ -214,7 +212,6 @@ in
     };
     samba.enable = true;
     spice-vdagentd.enable = true;
-    qbittorrent.enable = true;
     monitoring = {
       enable = true;
       grafana.enable = true;
@@ -244,6 +241,20 @@ in
       stateDir = "/mnt/POOL/starr";
       # this dir is also exposed via samba
       mediaDir = "/mnt/POOL/Public";
+      protonvpn = {
+        privateKeyFile = config.sops.secrets."protonvpn-US-IL-503.key".path;
+        publicKey = "Ad0UnBi3NeIgVpM1baC8HAp6wfSli0wGS1OCmS7uYRo=";
+        endpoint = "79.127.187.156:51820";
+      };
+      qbittorrent.serverConfig = {
+        Preferences = {
+          WebUI = {
+            Username = "toyvo";
+            Password_PBKDF2 = "@ByteArray(w/tVwkQ82PheDXAAMg5D7A==:exy5JA4JdCm7pZ6n0cci16mEmZYxSaFe642TmZBvq9MIzps3tnZY7vbUIj3esJNClzy/YrRI4Dkexg1luhSveg==)";
+          };
+          General.Locale = "en";
+        };
+      };
     };
   };
   fileSystems."/mnt/POOL" = {
@@ -298,4 +309,8 @@ in
     owner = "grafana";
     group = "grafana";
   };
+  # The ProtonVPN private key is decrypted here on the host by sops-nix so that
+  # it can be bind-mounted read-only into the starr container, where the WireGuard
+  # interface and network namespace are actually configured.
+  sops.secrets."protonvpn-US-IL-503.key" = { };
 }

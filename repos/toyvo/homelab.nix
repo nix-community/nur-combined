@@ -129,19 +129,6 @@
         category = "DevOps";
         icon = "sh-grafana";
       };
-      qbittorrent = {
-        port = 4080;
-        displayName = "qBittorrent";
-        description = "Torrent Client";
-        category = "Media";
-        icon = "sh-qbittorrent";
-        widget = {
-          type = "qbittorrent";
-          url = "https://qbittorrent.diekvoss.net";
-          username = "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}";
-          password = "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}";
-        };
-      };
       immich = {
         port = 2283;
         displayName = "Immich";
@@ -279,6 +266,19 @@
           type = "sonarr";
           url = "https://sonarr.diekvoss.net";
           key = "{{HOMEPAGE_VAR_SONARR_API_KEY}}";
+        };
+      };
+      qbittorrent = {
+        port = 4080;
+        displayName = "qBittorrent";
+        description = "Torrent Client";
+        category = "Media";
+        icon = "sh-qbittorrent";
+        widget = {
+          type = "qbittorrent";
+          url = "https://qbittorrent.diekvoss.net";
+          username = "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}";
+          password = "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}";
         };
       };
     };
