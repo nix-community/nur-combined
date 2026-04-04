@@ -83,7 +83,11 @@ rec {
     inherit lyrica;
   };
 
-  motrix-next = pkgs.callPackage ./motrix-next/package.nix { };
+  motrix-next = pkgs.callPackage ./motrix-next rec {
+    inherit (lib.importJSON ./motrix-next/src-info.json) hash;
+    sources = fetchedSrc.motrix-next;
+    version = stableVersion sources;
+  };
 
   piliplus = pkgs.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
