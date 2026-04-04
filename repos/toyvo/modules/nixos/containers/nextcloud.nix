@@ -75,11 +75,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # The nixpkgs nextcloud module references services.nextcloud.hostName as an attrset
-    # key when constructing nginx virtualHosts, which Nix evaluates eagerly regardless of
-    # services.nextcloud.enable. Set it on the host so evaluation doesn't fail even though
-    # nextcloud itself runs inside the container.
-    services.nextcloud.hostName = "nextcloud.diekvoss.net";
+    # The nixpkgs nextcloud module references services.nextcloud.hostName as an attrset key
+    # when constructing nginx virtualHosts, evaluated eagerly regardless of enable. Stub out
+    # the minimum required config on the host to satisfy assertions without enabling nextcloud.
+    services.nextcloud = {
+      hostName = "nextcloud.diekvoss.net";
+      config = {
+        dbtype = "sqlite";
+        adminuser = null; # null + null adminpassFile = disable initial admin creation
+      };
+    };
 
     networking.nat = {
       enable = true;
