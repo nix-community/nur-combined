@@ -30,9 +30,9 @@ in
     inputs.nixcfg.modules.nixos.containers.monitoring
     inputs.nixcfg.modules.nixos.containers.jellyfin
     inputs.nixcfg.modules.nixos.containers.home-assistant
+    inputs.nixcfg.modules.nixos.containers.nextcloud
     inputs.nixcfg.modules.nixos.monitoring.default
     ./samba.nix
-    ./nextcloud.nix
     ./homepage.nix
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
@@ -102,7 +102,6 @@ in
   users.groups.multimedia.members = [
     "chloe"
     "toyvo"
-    "nextcloud"
   ];
   fileSystemPresets.boot.enable = true;
   fileSystemPresets.btrfs.enable = true;
@@ -191,6 +190,24 @@ in
       natInterface = "eno1";
       stateDir = "/mnt/POOL/jellyfin";
       mediaDir = "/mnt/POOL/Public";
+    };
+    nextcloud = {
+      enable = true;
+      natInterface = "eno1";
+      stateDir = "/mnt/POOL/nextcloud";
+      nextcloudAdminPasswordFile = config.sops.secrets."nextcloud_admin_password".path;
+      package = pkgs.nextcloud33;
+      extraAppNames = [
+        "bookmarks"
+        "calendar"
+        "contacts"
+        "cookbook"
+        "mail"
+        "music"
+        "notes"
+        "richdocuments"
+        "tasks"
+      ];
     };
     home-assistant = {
       enable = true;
@@ -291,6 +308,9 @@ in
   # Grafana credentials are bind-mounted into the monitoring container where the grafana user
   # reads them via $__file{}. mode 0444 allows any process (including container-side grafana) to
   # read them without needing to match UIDs across the host/container boundary.
+  # Nextcloud admin password bind-mounted into the nextcloud container; mode 0444 so
+  # the nextcloud user inside the container can read it without UID alignment on the host.
+  sops.secrets."nextcloud_admin_password".mode = "0444";
   sops.secrets."grafana-admin-password".mode = "0444";
   sops.secrets."grafana-secret-key".mode = "0444";
   # The ProtonVPN private key is decrypted here on the host by sops-nix so that

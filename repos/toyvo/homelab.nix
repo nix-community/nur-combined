@@ -122,7 +122,20 @@
           version = "2";
         };
       };
-      # port not configured through nix
+      nix-serve = {
+        port = 5000;
+        subdomain = "cache";
+        domain = "toyvo.dev";
+        displayName = "Nix Cache";
+        description = "Binary Cache";
+        category = "Utilities";
+        icon = "sh-nixos";
+      };
+    };
+  };
+  nextcloud = {
+    ip = "10.200.0.10";
+    services = {
       nextcloud = {
         port = 80;
         displayName = "Nextcloud";
@@ -135,15 +148,6 @@
           username = "{{HOMEPAGE_VAR_NEXTCLOUD_USERNAME}}";
           password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}";
         };
-      };
-      nix-serve = {
-        port = 5000;
-        subdomain = "cache";
-        domain = "toyvo.dev";
-        displayName = "Nix Cache";
-        description = "Binary Cache";
-        category = "Utilities";
-        icon = "sh-nixos";
       };
       collabora = {
         port = 9980;
