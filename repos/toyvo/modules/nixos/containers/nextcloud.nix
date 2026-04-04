@@ -169,10 +169,10 @@ in
               # Co-located: nextcloud PHP reaches collabora on localhost
               wopi_url = "http://localhost:${toString cfg.ports.collabora}";
               public_wopi_url = "https://collabora.diekvoss.net";
-              # Collabora reaches Nextcloud's WOPI endpoint via the public domain, which routes
-              # through Caddy on the NAS host and arrives from the veth host address (cfg.hostAddress).
-              # Allow localhost (direct) and the entire container/host veth subnet.
-              wopi_allowlist = "127.0.0.1,${cfg.hostAddress}";
+              # Collabora reaches Nextcloud's WOPI endpoint via the public domain, routing through
+              # Caddy on the NAS host. Due to NAT hairpin, requests arrive as the router IP.
+              # Allow localhost, the veth host address, the NAS LAN IP, and the router IP.
+              wopi_allowlist = "127.0.0.1,${cfg.hostAddress},${homelab.nas.ip},${homelab.router.ip}";
             in
             {
               wantedBy = [ "multi-user.target" ];
