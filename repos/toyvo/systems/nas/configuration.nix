@@ -140,7 +140,6 @@ in
       group = "multimedia";
       package = stablePkgs.immich;
     };
-    nextcloud.enable = true;
     nix-serve = {
       enable = true;
       openFirewall = true;

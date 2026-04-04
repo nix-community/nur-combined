@@ -75,11 +75,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # The nixpkgs nextcloud module references services.nextcloud.hostName as an attrset key
-    # when constructing nginx virtualHosts, evaluated eagerly regardless of enable. Setting
-    # hostName on the host satisfies that without enabling nextcloud here.
-    services.nextcloud.hostName = "nextcloud.diekvoss.net";
-
     networking.nat = {
       enable = true;
       externalInterface = cfg.natInterface;
