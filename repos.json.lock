@@ -201,8 +201,8 @@
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
         "VZstless": {
-            "rev": "067872b36fcae7c08ce6dc782a7064d61ce0382d",
-            "sha256": "0wc408vybv25gix2i5jajr6i6640spdyvscj0a7n8kal7vjak25p",
+            "rev": "505adc88890cf182e03591566326f37b1c73778e",
+            "sha256": "0wk3x3c3syfnrqnlx8a8xr61sabhandl48hwipi04jagczcwjwjl",
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
@@ -241,13 +241,13 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "49e281b87613e893569425f91258dc023395a976",
-            "sha256": "1b1cya6c8ayqd9w0kas4ydmm964x956mqym13f2l168q58dc2bag",
+            "rev": "1fd4027960a62c29973ee8e6834f09db9c973319",
+            "sha256": "1fz8md0kgzpmc3jlgcz2r55r62i38k4fzr2w7rjhdvzca0qlxlyl",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "300e82a36ad404d3700bcfb0daa88a339312f788",
-            "sha256": "0a8vl5f5qflql88xhfsnan5jqhi3019iky273ghrqlk01j0wrvad",
+            "rev": "ab75859156242f33989262f7ebe8fa5a38664f37",
+            "sha256": "0f22bm857mkxvwxg8pirh560fss8b82mf2d58zwk66f5mf32r69l",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -2377,8 +2377,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "2be2a1767ec1aba37312f941836fca285626abb4",
-            "sha256": "16ms4i6xa70r705hw9a6sl2qgizywsh596riq0k8yg2nb4k7byg5",
+            "rev": "5dd1e684e7ff28f16fe5612abde42da0924e57e6",
+            "sha256": "0ad3cb55n32dykc5vzmiajs5zvz8dralck5zg8vckp32c43zsrmf",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
