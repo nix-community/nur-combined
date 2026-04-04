@@ -2854,10 +2854,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "150.0.20260401.90400";
+      version = "149.0.20260403.140140";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748451/dansk_da_language_pack-150.0.20260401.90400.xpi";
-      sha256 = "ac1b1cb2a279a8bffd3e51a8d36816f4d0de4e7926cffeed2693c399562860a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751352/dansk_da_language_pack-149.0.20260403.140140.xpi";
+      sha256 = "07f7ab3df55315026b970f2157f611876d5fee1e4b74c7eda611cb5e49f7598b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3068,10 +3068,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "150.0.20260401.90400";
+      version = "149.0.20260403.140140";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748455/deutsch_de_language_pack-150.0.20260401.90400.xpi";
-      sha256 = "332718e32b435f6127405d920a3ea48f0468008c4ae4b3400f819e0da0e85542";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751343/deutsch_de_language_pack-149.0.20260403.140140.xpi";
+      sha256 = "930d42cc9e5d5b8bedf17aa5e3a6a509ae51a40339330260b774d02a93906303";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3104,10 +3104,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "7.3.1";
+      version = "7.3.2";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4694167/dictionaries-7.3.1.xpi";
-      sha256 = "3114c5c44a8cd62e84051dcea42d0d49844fb13419658a35647d6e7612744685";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751844/dictionaries-7.3.2.xpi";
+      sha256 = "0c6e85ff4f0aabed69c2cda8619b359fedbd533a9f1a6b65f5713efeeb04edbb";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4546,10 +4546,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "150.0.20260401.90400";
+      version = "149.0.20260403.140140";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748468/francais_language_pack-150.0.20260401.90400.xpi";
-      sha256 = "5ca4de7e4a8bab30ef69d4490004af74bf5d11f1ef34116e398a5c8222047b94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751412/francais_language_pack-149.0.20260403.140140.xpi";
+      sha256 = "f3b6841702e08027d9d9a3293ddadb7e207ca84d9a082ea50769dbb3804e52b1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4583,10 +4583,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "150.0.20260401.90400";
+      version = "149.0.20260403.140140";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748446/gaidhlig_language_pack-150.0.20260401.90400.xpi";
-      sha256 = "9270a93c1e05e56c6783ea501fc80c6256b83a4a715d6567be0b95447d5ddf98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751355/gaidhlig_language_pack-149.0.20260403.140140.xpi";
+      sha256 = "87d72cfa97a7714604c4e71e4abff1d998cc1806c3111cf9f2e564103ebfdd0c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8731,10 +8731,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.2";
+      version = "1.1.3";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4738229/lockedin_yt-1.1.2.xpi";
-      sha256 = "38909a4d6fd016f2782064b0ce10d2d3178083553650d6f082d4d8a646dcc4a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751959/lockedin_yt-1.1.3.xpi";
+      sha256 = "99f7300e5f89f8f98caca3d370aced28eda2926cafb59dc89b8ccc9742f58792";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -8743,6 +8743,7 @@
         mozPermissions = [
           "storage"
           "alarms"
+          "declarativeNetRequest"
           "*://www.youtube.com/*"
           "*://m.youtube.com/*"
           "*://youtube.com/*"
@@ -12322,10 +12323,10 @@
     };
     "readeck" = buildMozillaXpiAddon {
       pname = "readeck";
-      version = "2.6.2";
+      version = "2.6.3";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4712888/readeck-2.6.2.xpi";
-      sha256 = "84ef914bb1e06bc59282821af4c7f894d41ebfbe350016f5dc18f6ca94658de8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751337/readeck-2.6.3.xpi";
+      sha256 = "d5f9b1a25856133048ff0a96f7d2b5abe0beb3ce890a61ae1a64f8ab2b0facaf";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
@@ -13137,10 +13138,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "150.0.20260401.90400";
+      version = "149.0.20260403.140140";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748508/scots_language_pack-150.0.20260401.90400.xpi";
-      sha256 = "9b723e00f21e497fcb5f81d485aaf0d45f528939c478d25e52465a0b67d09a49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751405/scots_language_pack-149.0.20260403.140140.xpi";
+      sha256 = "1fac227264e530257dd10d76d41a4196d22b08540465bd01edfafdd626f29e96";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14418,10 +14419,10 @@
     };
     "tabwrangler" = buildMozillaXpiAddon {
       pname = "tabwrangler";
-      version = "7.8.0";
+      version = "8.0.0";
       addonId = "{81b74d53-9416-4fb3-afa2-ab46684b253b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4438127/tabwrangler-7.8.0.xpi";
-      sha256 = "1371955dc30d64c664ea8f644b95615dd5c44997bb7456457089c58941eecf69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4752079/tabwrangler-8.0.0.xpi";
+      sha256 = "81a0b6ec0c21ee14bffaa88f771e2e2d88cdd0571baebbc2fd493b6e56c1b25b";
       meta = with lib;
       {
         homepage = "https://github.com/tabwrangler/tabwrangler/";
@@ -16252,10 +16253,10 @@
     };
     "wallabagger" = buildMozillaXpiAddon {
       pname = "wallabagger";
-      version = "1.23.0";
+      version = "1.23.1";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748024/wallabagger-1.23.0.xpi";
-      sha256 = "a198dc11828124569f32d74bae383083b43411c2f1eb32fa53d726b8f06510e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751788/wallabagger-1.23.1.xpi";
+      sha256 = "117d67b9898ee1ee8297d339e65da3fbea9f4ce98432c80a45ccb7b5f971c532";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
