@@ -19,8 +19,9 @@ in
 flutter341.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version;
-  inherit (srcInfo) pubspecLock;
-  inherit (srcInfo) gitHashes;
+  inherit (srcInfo) pubspecLock gitHashes;
+
+  patches = [ ./disable-auto-update.patch ];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -37,9 +38,7 @@ flutter341.buildFlutterApplication {
     cat <<EOL > lib/build_config.dart
     class BuildConfig {
       static const int versionCode = ${toString srcInfo.revCount};
-      static const String versionName = '${majorMinorPatch version}-${
-        builtins.substring 0 9 srcInfo.rev
-      }';
+      static const String versionName = '${majorMinorPatch version}';
       static const int buildTime = ${toString srcInfo.time};
       static const String commitHash = '${srcInfo.rev}';
     }
@@ -64,18 +63,21 @@ flutter341.buildFlutterApplication {
   desktopItems = [
     (makeDesktopItem {
       name = "piliplus";
-      exec = "piliplus";
-      icon = "piliplus";
       desktopName = "PiliPlus";
-      categories = [
-        "Video"
-        "AudioVideo"
-      ];
       comment = description;
       extraConfig = {
         "Comment[zh_CN]" = "使用 Flutter 开发的 BiliBili 第三方客户端";
         "Comment[zh_TW]" = "使用 Flutter 開發的 BiliBili 第三方客戶端";
       };
+      exec = "piliplus";
+      icon = "piliplus";
+      terminal = false;
+      startupWMClass = "com.example.piliplus";
+      categories = [
+        "Video"
+        "AudioVideo"
+        "Player"
+      ];
     })
   ];
 
@@ -84,7 +86,10 @@ flutter341.buildFlutterApplication {
     homepage = "https://github.com/bggRGjQaUbCoE/PiliPlus";
     changelog = "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ulysseszhan ];
+    maintainers = with lib.maintainers; [
+      ulysseszhan
+      ccicnce113424
+    ];
     platforms = lib.platforms.linux;
     mainProgram = "piliplus";
   };
