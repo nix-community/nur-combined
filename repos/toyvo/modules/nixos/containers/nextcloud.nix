@@ -125,6 +125,7 @@ in
               dbtype = "pgsql";
               dbhost = "/run/postgresql";
             };
+            settings.overwriteprotocol = "https";
             database.createLocally = true;
             extraApps = lib.genAttrs cfg.extraAppNames (
               name: config.services.nextcloud.package.packages.apps.${name}
