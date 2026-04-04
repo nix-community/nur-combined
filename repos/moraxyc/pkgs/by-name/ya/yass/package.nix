@@ -111,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   checkPhase = ''
-    ./yass_test --gtest_filter='-SSL_TEST.LoadSystemCa:DOH_TEST.*:DOT_TEST.*:CARES_TEST*'
+    ./yass_test --gtest_filter='-SSL_TEST.LoadSystemCa:DNS_*:CARES_TEST*'
   '';
 
   postInstall = ''

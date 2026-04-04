@@ -36,5 +36,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "gestures";
+    platforms = lib.platforms.linux;
   };
 })
