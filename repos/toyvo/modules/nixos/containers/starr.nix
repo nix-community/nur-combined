@@ -384,7 +384,7 @@ in
                   tcp_out=$(${pkgs.libnatpmp}/bin/natpmpc -a 1 0 tcp 60 -g ${cfg.protonvpn.gateway} 2>&1) || true
                   ${pkgs.libnatpmp}/bin/natpmpc -a 1 0 udp 60 -g ${cfg.protonvpn.gateway} >/dev/null 2>&1 || true
 
-                  port=$(printf '%s\n' "$tcp_out" | grep "Mapped public port" | awk '{print $4}')
+                  port=$(printf '%s\n' "$tcp_out" | grep "Mapped public port" | ${pkgs.gawk}/bin/awk '{print $4}')
 
                   if [ -n "$port" ]; then
                     echo "NAT-PMP mapped port $port — updating qBittorrent listen port"
