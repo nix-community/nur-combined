@@ -9,8 +9,10 @@
   pkg-config,
   qt6,
   glslang,
+  lua5_4,
   openal,
   sfml,
+  sol2,
   vulkanscenegraph,
   vsgimgui,
   vsgxchange,
@@ -18,13 +20,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rrs";
-  version = "1.8.0";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "maisvendoo";
     repo = "RRS";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4CSTMC0z/uddZ0PF2bY15Jq7d7eZCiCDTIxjYPw2OZs=";
+    hash = "sha256-6XLml0iSKNOexvyAj7wVHMQXcxaG13SsMTAiyVySaLg=";
   };
 
   postPatch = ''
@@ -38,6 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     copyDesktopItems
     makeWrapper
     pkg-config
+    qt6.qttools
     qt6.wrapQtAppsHook
   ];
 
@@ -45,8 +48,10 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
     qt6.qtserialbus
     glslang
+    lua5_4
     openal
     sfml
+    sol2
     vulkanscenegraph
     vsgimgui
     vsgxchange
