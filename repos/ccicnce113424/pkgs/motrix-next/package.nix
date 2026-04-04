@@ -96,6 +96,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
           xdg-utils
         ]
       }
+      # Tricky way to make the protocol handler desktop file point to the wrapper
+      --set-default APPIMAGE $out/bin/motrix-next
       # fix Nvidia issues with Tauri
       # https://github.com/tauri-apps/tauri/issues/9394#issuecomment-3795449374
       --set-default __NV_DISABLE_EXPLICIT_SYNC 1
