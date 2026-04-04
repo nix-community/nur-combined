@@ -168,6 +168,7 @@ in
 
           systemd.tmpfiles.rules = [
             "d /var/lib/terraria 0750 terraria terraria -"
+            "d /var/lib/terraria/tshock 0750 terraria terraria -"
           ];
 
           systemd.services.terraria = {
@@ -180,6 +181,7 @@ in
               Type = "forking";
               GuessMainPID = true;
               UMask = 7;
+              WorkingDirectory = "/var/lib/terraria";
               ExecStart = "${tmuxCmd} new -d ${lib.getExe cfg.package} ${flags}";
               ExecStop = "${stopScript} $MAINPID";
             };

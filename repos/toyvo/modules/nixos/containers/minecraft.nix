@@ -42,6 +42,12 @@ in
       description = "Pinned UID for the minecraft user (static, below 400; chown stateDir to this UID before first start)";
     };
 
+    minecraftGid = lib.mkOption {
+      type = lib.types.int;
+      default = 355;
+      description = "Pinned GID for the minecraft group (static, below 400; chown stateDir to this GID before first start)";
+    };
+
     settings = lib.mkOption {
       type = lib.types.attrs;
       default = { };
@@ -147,8 +153,9 @@ in
         {
           imports = [ inputs.nixcfg.modules.nixos.services.minecraft ];
 
-          # Pin UID to match stateDir ownership on the host
+          # Pin UID/GID to match stateDir ownership on the host
           users.users.minecraft.uid = lib.mkForce cfg.minecraftUid;
+          users.groups.minecraft.gid = lib.mkForce cfg.minecraftGid;
 
           services.minecraft-server = lib.recursiveUpdate {
             enable = true;

@@ -41,6 +41,12 @@ in
       description = "Pinned UID for the vintagestory user (static, below 400; chown stateDir to this UID before first start)";
     };
 
+    vintagestoryGid = lib.mkOption {
+      type = lib.types.int;
+      default = 356;
+      description = "Pinned GID for the vintagestory group (static, below 400; chown stateDir to this GID before first start)";
+    };
+
     package = lib.mkOption {
       type = lib.types.package;
       default = inputs.nixcfg.packages.${system}.VintagestoryServer;
@@ -103,7 +109,7 @@ in
             isSystemUser = true;
             group = "vintagestory";
           };
-          users.groups.vintagestory = { };
+          users.groups.vintagestory.gid = lib.mkForce cfg.vintagestoryGid;
 
           systemd.tmpfiles.rules = [
             "d /var/lib/vintagestory 0750 vintagestory vintagestory -"
