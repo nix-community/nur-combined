@@ -162,7 +162,7 @@ in
     open-webui = {
       enable = true;
       stateDir = "/mnt/POOL/open-webui";
-      port = homelab.${hostName}.services.open-webui.port;
+      port = homelab.open-webui.services.open-webui.port;
       ollamaBaseUrl = "https://ollama.diekvoss.net";
     };
     portainer = {

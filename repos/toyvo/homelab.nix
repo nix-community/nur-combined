@@ -64,14 +64,6 @@
         description = "Ollama API (Slower)";
         icon = "sh-ollama";
       };
-      open-webui = {
-        port = 11435;
-        subdomain = "chat";
-        category = "Nas";
-        displayName = "Open WebUI";
-        description = "Chat with LLMs";
-        icon = "sh-open-webui";
-      };
       discord_bot = {
         port = 8080;
         subdomain = "@";
@@ -182,6 +174,17 @@
         url = "https://jellyfin.diekvoss.net";
         key = "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}";
       };
+    };
+  };
+  open-webui = {
+    ip = "10.200.0.14";
+    services.open-webui = {
+      port = 11435;
+      subdomain = "chat";
+      category = "Nas";
+      displayName = "Open WebUI";
+      description = "Chat with LLMs";
+      icon = "sh-open-webui";
     };
   };
   monitoring = {
