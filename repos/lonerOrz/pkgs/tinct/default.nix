@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage (finallAttrs: {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tinct";
   version = "0.1.0";
 
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage (finallAttrs: {
     description = "Theme injector tool that applies Material Design 3 color palettes to various configuration files";
     homepage = "https://github.com/lonerOrz/tinct";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "tinct";
+    maintainers = with lib.maintainers; [ lonerOrz ];
   };
 })
