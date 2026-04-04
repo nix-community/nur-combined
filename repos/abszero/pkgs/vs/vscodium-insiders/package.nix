@@ -24,11 +24,11 @@ let
 
   sha256 =
     {
-      x86_64-linux = "1nlds50m7cl0clzg0kh3q0b3yjk8k45a1msgd3li3xwd9qvyw0mk";
-      x86_64-darwin = "0j1h4pp4ns1ghshnv8cgl3r0plr9a4zflllafapms8wdinn2lasw";
-      aarch64-linux = "11znzviglh7r1hn6ws96jxw4sj00sinsaa0bwlir5a69h7cnn1l6";
-      aarch64-darwin = "15jx70sars5snkswr9gf06sqrm2xm1rp7x3xm68i91gxbc1cds9g";
-      armv7l-linux = "1p0ir241n1qkf4ss2ywvm133m8db6nsw706qwf3qc4fs6a9qsfcz";
+      x86_64-linux = "0vca91cv25hxfpi6r58yjxf1sh0md1kyfcj52p4xmxqp0rl7y8ih";
+      x86_64-darwin = "0ks7f87sgfnf0mblma1pd6ilqknhi5620kpm5sbz4cdyy2b018yx";
+      aarch64-linux = "19zkvi4vs0wkjk5f66gp9ffbmcbm6jk606qraf4bww729xi0n71j";
+      aarch64-darwin = "03ndjic3678v6rcxsd38hk91i6w4v4vahqj3r52pdsmi1ps2d5dw";
+      armv7l-linux = "0mpnbdwbim47h5zs3f5f29cishfq8p1xr16wmn3s7gfr9mmd6zjj";
     }
     .${system} or throwSystem;
 
@@ -36,7 +36,7 @@ let
 in
 
 buildVscode rec {
-  version = "1.112.02168-insider";
+  version = "1.112.02251-insider";
   pname = "vscodium-insiders";
   updateScript = ./update.sh;
 
