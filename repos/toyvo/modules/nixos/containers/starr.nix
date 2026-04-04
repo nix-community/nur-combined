@@ -285,7 +285,21 @@ in
               openFirewall = true;
               group = "multimedia";
               webuiPort = cfg.ports.qbittorrent;
-              serverConfig = lib.recursiveUpdate { LegalNotice.Accepted = true; } cfg.qbittorrent.serverConfig;
+              # Disable built-in UPnP/NAT-PMP: ProtonVPN's gateway won't respond to
+              # qbittorrent's own mapping requests through the tunnel — handled by
+              # the protonvpn-port-forward service instead.
+              # LocalHostAuth=false lets the port-forward service call the API from
+              # within the VPN namespace without needing credentials.
+              serverConfig = lib.recursiveUpdate {
+                LegalNotice.Accepted = true;
+                Preferences = {
+                  Connection = {
+                    UPnP = false;
+                    NATPMPEnabled = false;
+                  };
+                  WebUI.LocalHostAuth = false;
+                };
+              } cfg.qbittorrent.serverConfig;
             };
             radarr = {
               enable = true;
@@ -344,64 +358,51 @@ in
             wantedBy = [ "sockets.target" ];
           };
 
-          # systemd.services.port-forward-qbittorrent = {
-          #   enable = true;
-          #   bindsTo = [ "wireguard-${wireguardInterface}.service" ];
-          #   requires = [
-          #     "network-online.target"
-          #     "wireguard-${wireguardInterface}.service"
-          #   ];
-          #   after = [ "qbittorrent.service" ];
-          #   description = "Port Forwarding for qBittorrent through ProtonVPN";
-          #   unitConfig = {
-          #     JoinsNamespaceOf = "qbittorrent.service";
-          #   };
-          #   serviceConfig = {
-          #     User = "qbittorrent";
-          #     Group = "multimedia";
-          #     PrivateNetwork = "yes";
-          #     ExecStart = pkgs.writeScript "port-forward-qbittorrent.py" ''
-          #       #!${pkgs.python3}/bin/python3
-          #       import time
-          #       import subprocess
-          #       while True:
-          #           try:
-          #               print(time.strftime("%Y-%m-%d %H:%M:%S"))
-          #               udp_result = subprocess.run(
-          #                   ["${pkgs.libnatpmp}/bin/natpmpc", "-a", "1", "0", "udp", "60", "-g", "${wireguardGateway}"],
-          #                   capture_output=True, text=True
-          #               )
-          #               tcp_result = subprocess.run(
-          #                   ["${pkgs.libnatpmp}/bin/natpmpc", "-a", "1", "0", "tcp", "60", "-g", "${wireguardGateway}"],
-          #                   capture_output=True, text=True
-          #               )
-          #               if udp_result.returncode == 0 and tcp_result.returncode == 0:
-          #                   # Extract the port from the TCP result
-          #                   for line in tcp_result.stdout.splitlines():
-          #                       if line.startswith("Mapped public port"):
-          #                           port = int(line.split()[3])
-          #                           # TODO: set forwarding port to whatever comes back and ensure the checkbox to use UPnP / NAT-PMP is disabled
-          #                           print(f"TCP port {port} mapped successfully")
-          #                           break
-          #                   # Extract the port from the UDP result
-          #                   for line in udp_result.stdout.splitlines():
-          #                       if line.startswith("Mapped public port"):
-          #                           port = int(line.split()[3])
-          #                           # TODO: set forwarding port to whatever comes back and ensure the checkbox to use UPnP / NAT-PMP is disabled
-          #                           print(f"UDP port {port} mapped successfully")
-          #                           break
-          #               else:
-          #                   print("ERROR with natpmpc command")
-          #                   print("UDP Output:", udp_result.stdout)
-          #                   print("TCP Output:", tcp_result.stdout)
-          #                   break
-          #           except Exception as e:
-          #               print(f"Unexpected error: {e}")
-          #               break
-          #           time.sleep(45)
-          #     '';
-          #   };
-          # };
+          # NAT-PMP port forwarding: asks ProtonVPN's gateway for a public port
+          # mapping every 45 s and pushes that port into qbittorrent via its API.
+          # Runs inside the VPN namespace (JoinsNamespaceOf) so natpmpc can reach
+          # the ProtonVPN gateway and the API call hits qbittorrent directly.
+          systemd.services.protonvpn-port-forward = {
+            description = "NAT-PMP port forwarding through ProtonVPN for qBittorrent";
+            bindsTo = [
+              "wireguard-${vpnInterface}.service"
+              "qbittorrent.service"
+            ];
+            after = [ "qbittorrent.service" ];
+            wantedBy = [ "multi-user.target" ];
+            unitConfig.JoinsNamespaceOf = "qbittorrent.service";
+            serviceConfig = {
+              User = "qbittorrent";
+              Group = "multimedia";
+              PrivateNetwork = "yes";
+              Restart = "on-failure";
+              RestartSec = "30s";
+              ExecStart = pkgs.writeShellScript "protonvpn-port-forward" ''
+                # Give qbittorrent's web server time to come up
+                sleep 5
+                while true; do
+                  tcp_out=$(${pkgs.libnatpmp}/bin/natpmpc -a 1 0 tcp 60 -g ${cfg.protonvpn.gateway} 2>&1) || true
+                  ${pkgs.libnatpmp}/bin/natpmpc -a 1 0 udp 60 -g ${cfg.protonvpn.gateway} >/dev/null 2>&1 || true
+
+                  port=$(printf '%s\n' "$tcp_out" | grep "Mapped public port" | awk '{print $4}')
+
+                  if [ -n "$port" ]; then
+                    echo "NAT-PMP mapped port $port — updating qBittorrent listen port"
+                    ${pkgs.curl}/bin/curl -sf -X POST \
+                      "http://127.0.0.1:${toString cfg.ports.qbittorrent}/api/v2/app/setPreferences" \
+                      --data-urlencode "json={\"listen_port\": $port}" \
+                      -o /dev/null \
+                      || echo "Failed to update qBittorrent listen port (will retry)"
+                  else
+                    echo "NAT-PMP request failed:"
+                    printf '%s\n' "$tcp_out"
+                  fi
+
+                  sleep 45
+                done
+              '';
+            };
+          };
 
           system.stateVersion = "26.05";
         };
