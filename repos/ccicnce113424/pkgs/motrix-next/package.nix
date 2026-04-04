@@ -57,6 +57,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     moreutils
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
+
   # we don't want to wrap aria2c
   dontWrapGApps = true;
 
@@ -83,7 +84,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
   '';
 
-  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+  preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+    # fix Nvidia issues with Tauri
+    # https://github.com/tauri-apps/tauri/issues/9394#issuecomment-3795449374
+    gappsWrapperArgs+=(
+      --set-default __NV_DISABLE_EXPLICIT_SYNC 1
+    )
     wrapGApp $out/bin/motrix-next
   '';
 
