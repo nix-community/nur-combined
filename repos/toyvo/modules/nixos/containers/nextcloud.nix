@@ -76,15 +76,9 @@ in
 
   config = lib.mkIf cfg.enable {
     # The nixpkgs nextcloud module references services.nextcloud.hostName as an attrset key
-    # when constructing nginx virtualHosts, evaluated eagerly regardless of enable. Stub out
-    # the minimum required config on the host to satisfy assertions without enabling nextcloud.
-    services.nextcloud = {
-      hostName = "nextcloud.diekvoss.net";
-      config = {
-        dbtype = "sqlite";
-        adminuser = null; # null + null adminpassFile = disable initial admin creation
-      };
-    };
+    # when constructing nginx virtualHosts, evaluated eagerly regardless of enable. Setting
+    # hostName on the host satisfies that without enabling nextcloud here.
+    services.nextcloud.hostName = "nextcloud.diekvoss.net";
 
     networking.nat = {
       enable = true;
@@ -134,6 +128,7 @@ in
               adminpassFile = "/run/secrets/nextcloud_admin_password";
               adminuser = "toyvo";
               dbtype = "pgsql";
+              dbhost = "/run/postgresql";
             };
             database.createLocally = true;
             extraApps = lib.genAttrs cfg.extraAppNames (
