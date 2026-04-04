@@ -153,3 +153,8 @@ fetch.github = "pcherenkov/udpxy"
 src.github_tag = "man-pages-zh/manpages-zh"
 fetch.github = "man-pages-zh/manpages-zh"
 git.fetchSubmodules = true
+
+[ferstar-gestures]
+src.github = "ferstar/gestures"
+fetch.github = "ferstar/gestures"
+cargo_lock = ["Cargo.lock"]

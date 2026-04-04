@@ -105,6 +105,23 @@
     };
     date = "2025-11-07";
   };
+  ferstar-gestures = {
+    pname = "ferstar-gestures";
+    version = "v0.8.3";
+    src = fetchFromGitHub {
+      owner = "ferstar";
+      repo = "gestures";
+      rev = "v0.8.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-o0nPFTvvf+g95bi2Vf0kZMbgY8dWoLBgrNTrPExO6ro=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-o0nPFTvvf+g95bi2Vf0kZMbgY8dWoLBgrNTrPExO6ro=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+  };
   flapalerted = {
     pname = "flapalerted";
     version = "c60dbfe31c0428eed62cad6299e26bee466dbe28";
@@ -334,13 +351,13 @@
   };
   yass = {
     pname = "yass";
-    version = "1.22.11";
+    version = "1.24.0";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.22.11";
+      rev = "1.24.0";
       fetchSubmodules = true;
-      sha256 = "sha256-kIcf879pYNyuUKQ25kPzTjZ5yoZMPkXNn7t6hVwcn24=";
+      sha256 = "sha256-HKLPC80tQG3yYrteqo7ffm1M4VBbrXxCCsB3zZX7mcg=";
     };
   };
 }
