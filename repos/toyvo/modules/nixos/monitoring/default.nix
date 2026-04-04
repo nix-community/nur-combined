@@ -7,8 +7,8 @@
 }:
 let
   cfg = config.services.monitoring;
-  lokiUrl = "http://${homelab.nas.ip}:3100/loki/api/v1/push";
-  prometheusUrl = "http://${homelab.nas.ip}:9090/api/v1/write";
+  lokiUrl = "http://${homelab.monitoring.ip}:3100/loki/api/v1/push";
+  prometheusUrl = "http://${homelab.monitoring.ip}:9090/api/v1/write";
   hostname = config.networking.hostName;
 
   # Detect which services are enabled on this machine

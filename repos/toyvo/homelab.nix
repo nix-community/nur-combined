@@ -122,13 +122,6 @@
         category = "DevOps";
         icon = "sh-cockpit";
       };
-      grafana = {
-        port = 3000;
-        displayName = "Grafana";
-        description = "Observability Dashboards";
-        category = "DevOps";
-        icon = "sh-grafana";
-      };
       immich = {
         port = 2283;
         displayName = "Immich";
@@ -183,6 +176,18 @@
         description = "Office Suite for Nextcloud";
         category = "APIs";
         icon = "sh-docs-collaboration";
+      };
+    };
+  };
+  monitoring = {
+    ip = "10.200.0.4";
+    services = {
+      grafana = {
+        port = 3000;
+        displayName = "Grafana";
+        description = "Observability Dashboards";
+        category = "DevOps";
+        icon = "sh-grafana";
       };
     };
   };

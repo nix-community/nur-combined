@@ -27,11 +27,8 @@ in
     inputs.nixcfg.modules.nixos.containers.portainer
     inputs.nixcfg.modules.nixos.containers.starr
     inputs.nixcfg.modules.nixos.containers.chat
+    inputs.nixcfg.modules.nixos.containers.monitoring
     inputs.nixcfg.modules.nixos.monitoring.default
-    inputs.nixcfg.modules.nixos.monitoring.grafana
-    inputs.nixcfg.modules.nixos.monitoring.prometheus
-    inputs.nixcfg.modules.nixos.monitoring.loki
-    inputs.nixcfg.modules.nixos.monitoring.tempo
     ./samba.nix
     ./nextcloud.nix
     ./homepage.nix
@@ -212,13 +209,7 @@ in
     };
     samba.enable = true;
     spice-vdagentd.enable = true;
-    monitoring = {
-      enable = true;
-      grafana.enable = true;
-      prometheus.enable = true;
-      loki.enable = true;
-      tempo.enable = true;
-    };
+    monitoring.enable = true;
   };
   containerPresets = {
     podman.enable = true;
@@ -232,6 +223,12 @@ in
       enable = true;
       openFirewall = true;
       sport = homelab.${hostName}.services.portainer.port;
+    };
+    monitoring = {
+      enable = true;
+      stateDir = "/mnt/POOL/monitoring";
+      grafanaAdminPasswordFile = config.sops.secrets."grafana-admin-password".path;
+      grafanaSecretKeyFile = config.sops.secrets."grafana-secret-key".path;
     };
     starr = {
       enable = true;
@@ -301,14 +298,11 @@ in
     owner = "discord_bot";
     group = "discord_bot";
   };
-  sops.secrets."grafana-admin-password" = {
-    owner = "grafana";
-    group = "grafana";
-  };
-  sops.secrets."grafana-secret-key" = {
-    owner = "grafana";
-    group = "grafana";
-  };
+  # Grafana credentials are bind-mounted into the monitoring container where the grafana user
+  # reads them via $__file{}. mode 0444 allows any process (including container-side grafana) to
+  # read them without needing to match UIDs across the host/container boundary.
+  sops.secrets."grafana-admin-password".mode = "0444";
+  sops.secrets."grafana-secret-key".mode = "0444";
   # The ProtonVPN private key is decrypted here on the host by sops-nix so that
   # it can be bind-mounted read-only into the starr container, where the WireGuard
   # interface and network namespace are actually configured.
