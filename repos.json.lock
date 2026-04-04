@@ -532,8 +532,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "25a4c0241a37070df4d3b63786661fb5ce2b9661",
-            "sha256": "1w6fzzafhk7w24hm36x9q9kbh75qisn7lc79qzkz6xadgs3d27sq",
+            "rev": "c2ce45d8adb19a103ebbee376be881bb4e258138",
+            "sha256": "1zp8pqq7d8cqnffnjswwxpg8c8frfvq0hbvn0rjkpinfn1ws2wa6",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1628,8 +1628,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "36c50145794a747fce8c3aaa1b0dcc98b3abd5a1",
-            "sha256": "1swh47z3pv3wr927fwkgwwvzi4kwqf3hml6izz6l2hxbrxw5y7dw",
+            "rev": "0372fa571ab4a563c08b85bffb35c930fb9b3b0d",
+            "sha256": "1bpv5g7r12jgrhqfpjxqmrdx78fx4ib6zians174rnm5jba0d12v",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -1964,8 +1964,8 @@
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
         "prince213": {
-            "rev": "0b9034d1b9ca474e3f4a31907e2a9006c9a63b96",
-            "sha256": "17jrzsjqh1ajnhmmq5yykv34ckn1ki5i41n05wxfzlm05dswjb2v",
+            "rev": "d62e32a40a1655ab1980444b2c36eca8fb197143",
+            "sha256": "0k33mxgib336x1mxyhh9iqrhy1jjwgdiz1vchc9z8fplja11r9a0",
             "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
