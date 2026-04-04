@@ -29,6 +29,7 @@ in
     inputs.nixcfg.modules.nixos.containers.chat
     inputs.nixcfg.modules.nixos.containers.monitoring
     inputs.nixcfg.modules.nixos.containers.jellyfin
+    inputs.nixcfg.modules.nixos.containers.home-assistant
     inputs.nixcfg.modules.nixos.monitoring.default
     ./samba.nix
     ./nextcloud.nix
@@ -131,41 +132,6 @@ in
         BASE_URL = "https://toyvo.dev";
       };
     };
-    home-assistant = {
-      enable = true;
-      package = stablePkgs.home-assistant.override {
-        extraComponents = [
-          "analytics"
-          "google_pubsub"
-          "google_translate"
-          "html5"
-          "isal"
-          "met"
-          "nest"
-          "radio_browser"
-          "shopping_list"
-          "tplink_omada"
-        ];
-        extraPackages =
-          ps: with ps; [
-            grpcio
-          ];
-      };
-      openFirewall = true;
-      config = {
-        default_config = { };
-        homeassistant = {
-          name = "Home";
-          unit_system = "metric";
-          temperature_unit = "F";
-        };
-        http = {
-          use_x_forwarded_for = true;
-          trusted_proxies = [ homelab.router.ip ];
-          server_port = homelab.${hostName}.services.home-assistant.port;
-        };
-      };
-    };
     homepage-dashboard.enable = true;
     immich = {
       enable = true;
@@ -225,6 +191,34 @@ in
       natInterface = "eno1";
       stateDir = "/mnt/POOL/jellyfin";
       mediaDir = "/mnt/POOL/Public";
+    };
+    home-assistant = {
+      enable = true;
+      natInterface = "eno1";
+      stateDir = "/mnt/POOL/home-assistant";
+      package = stablePkgs.home-assistant.override {
+        extraComponents = [
+          "analytics"
+          "google_pubsub"
+          "google_translate"
+          "html5"
+          "isal"
+          "met"
+          "nest"
+          "radio_browser"
+          "shopping_list"
+          "tplink_omada"
+        ];
+        extraPackages = ps: with ps; [ grpcio ];
+      };
+      haConfig = {
+        default_config = { };
+        homeassistant = {
+          name = "Home";
+          unit_system = "metric";
+          temperature_unit = "F";
+        };
+      };
     };
     monitoring = {
       enable = true;

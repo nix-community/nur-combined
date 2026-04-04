@@ -122,18 +122,6 @@
           version = "2";
         };
       };
-      home-assistant = {
-        port = 8123;
-        displayName = "Home Assistant";
-        description = "Home Automation";
-        category = "DevOps";
-        icon = "sh-home-assistant";
-        widget = {
-          type = "homeassistant";
-          url = "https://home-assistant.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_HOMEASSISTANT_API_KEY}}";
-        };
-      };
       # port not configured through nix
       nextcloud = {
         port = 80;
@@ -166,13 +154,28 @@
       };
     };
   };
+  home-assistant = {
+    ip = "10.200.0.8";
+    services.home-assistant = {
+      port = 8123;
+      displayName = "Home Assistant";
+      description = "Home Automation";
+      category = "Home Assistant";
+      icon = "sh-home-assistant";
+      widget = {
+        type = "homeassistant";
+        url = "https://home-assistant.diekvoss.net";
+        key = "{{HOMEPAGE_VAR_HOMEASSISTANT_API_KEY}}";
+      };
+    };
+  };
   jellyfin = {
     ip = "10.200.0.6";
     services.jellyfin = {
       port = 8096;
       displayName = "Jellyfin";
       description = "Media Server";
-      category = "Media";
+      category = "Jellyfin";
       icon = "sh-jellyfin";
       widget = {
         type = "jellyfin";
@@ -188,7 +191,7 @@
         port = 3000;
         displayName = "Grafana";
         description = "Observability Dashboards";
-        category = "DevOps";
+        category = "Monitoring";
         icon = "sh-grafana";
       };
     };
@@ -212,7 +215,7 @@
         port = 8191;
         displayName = "FlareSolverr";
         description = "Cloudflare Bypass";
-        category = "APIs";
+        category = "Starr";
         icon = "sh-flaresolverr";
       };
       lidarr = {
@@ -279,7 +282,7 @@
         port = 4080;
         displayName = "qBittorrent";
         description = "Torrent Client";
-        category = "Media";
+        category = "Starr";
         icon = "sh-qbittorrent";
         widget = {
           type = "qbittorrent";
