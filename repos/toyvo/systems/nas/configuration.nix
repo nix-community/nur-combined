@@ -68,13 +68,11 @@ in
         443
         5432
         8080
-        7080
       ];
       allowedUDPPorts = [
         53
         443
         8080
-        7080
       ];
     };
   };
@@ -117,11 +115,6 @@ in
         cockpit-podman
         cockpit-files
       ];
-    };
-    coder = {
-      enable = true;
-      accessUrl = "https://coder.diekvoss.net";
-      listenAddress = "0.0.0.0:${toString homelab.${hostName}.services.coder.port}";
     };
     discord_bot = {
       enable = true;

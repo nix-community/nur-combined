@@ -94,13 +94,6 @@
           env = "2";
         };
       };
-      coder = {
-        port = 7080;
-        displayName = "Coder";
-        description = "Dev Container Environments";
-        category = "Nas";
-        icon = "sh-coder";
-      };
       cockpit = {
         port = 9091;
         selfSigned = true;

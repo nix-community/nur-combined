@@ -17,11 +17,12 @@
     inputs.nixcfg.modules.os.users.toyvo
     inputs.nixcfg.modules.nixos.defaults
     inputs.nixcfg.modules.nixos.monitoring.default
-    inputs.nixcfg.modules.nixos.services.minecraft
     inputs.nixcfg.modules.nixos.wireguard.default
     inputs.nixcfg.modules.nixos.containers.podman
     inputs.nixcfg.modules.nixos.containers.portainer
-    inputs.nixcfg.modules.nixos.vintagestory
+    inputs.nixcfg.modules.nixos.containers.minecraft
+    inputs.nixcfg.modules.nixos.containers.vintagestory
+    inputs.nixcfg.modules.nixos.containers.terraria
     "${inputs.nixpkgs-unstable}/nixos/modules/profiles/qemu-guest.nix"
     inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
@@ -66,11 +67,6 @@
         443
         # gmod
         27015
-        # minecraft java
-        25565
-        25566
-        # terraria
-        7777
       ];
       allowedUDPPorts = [
         53
@@ -78,12 +74,6 @@
         # gmod
         27015
         27005
-        # minecraft bedrock
-        19132
-        # mincraft voice mod
-        24454
-        # terraria
-        7777
       ];
     };
   };
@@ -119,26 +109,9 @@
       '';
       virtualHosts."mc.toyvo.dev" = {
         useACMEHost = "mc.toyvo.dev";
-        extraConfig = "reverse_proxy http://0.0.0.0:7878";
+        # Proxy to the terraria container's TShock REST API
+        extraConfig = "reverse_proxy http://10.200.1.6:7878";
       };
-    };
-    minecraft-server = {
-      declarative = false;
-      enable = true;
-      eula = true;
-      lazymc = {
-        enable = true;
-        config = {
-          public = {
-            protocol = 774;
-            version = "1.21.11";
-          };
-          rcon.randomize_password = true;
-        };
-      };
-      openFirewall = true;
-      package = pkgs.papermcServers.papermc-1_21_11;
-      jvmOpts = "-Xms10G -Xmx10G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
     };
   };
   security = {
@@ -153,12 +126,45 @@
       };
     };
   };
-  vintagestory = {
-    enable = true;
-    openFirewall = true;
-  };
-  containerPresets.portainer = {
-    enable = true;
+  containerPresets = {
+    portainer.enable = true;
+    minecraft = {
+      enable = true;
+      natInterface = "enp0s6";
+      stateDir = "/var/lib/minecraft";
+      minecraftUid = 355;
+      settings = {
+        declarative = false;
+        package = pkgs.papermcServers.papermc-1_21_11;
+        jvmOpts = "-Xms10G -Xmx10G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
+        lazymc = {
+          enable = true;
+          config = {
+            public = {
+              protocol = 774;
+              version = "1.21.11";
+            };
+            rcon.randomize_password = true;
+          };
+        };
+      };
+    };
+    vintagestory = {
+      enable = true;
+      natInterface = "enp0s6";
+      stateDir = "/var/lib/vintagestory";
+      vintagestoryUid = 356;
+    };
+    terraria = {
+      enable = true;
+      natInterface = "enp0s6";
+      stateDir = "/var/lib/terraria";
+      settings = {
+        worldPath = "/var/lib/terraria/world.wld";
+        autoCreatedWorldSize = "large";
+        maxPlayers = 8;
+      };
+    };
   };
   sops.secrets = {
     cloudflare_w_dns_r_zone_token = { };
