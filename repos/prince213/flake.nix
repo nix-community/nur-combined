@@ -58,6 +58,7 @@
               gallant
               imunes
               kodama
+              ltspice-darwin
               mccgdi
               naiveproxy
               qqmusic-darwin
