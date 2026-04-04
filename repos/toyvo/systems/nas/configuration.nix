@@ -31,6 +31,7 @@ in
     inputs.nixcfg.modules.nixos.containers.jellyfin
     inputs.nixcfg.modules.nixos.containers.home-assistant
     inputs.nixcfg.modules.nixos.containers.nextcloud
+    inputs.nixcfg.modules.nixos.containers.immich
     inputs.nixcfg.modules.nixos.monitoring.default
     ./samba.nix
     ./homepage.nix
@@ -132,14 +133,6 @@ in
       };
     };
     homepage-dashboard.enable = true;
-    immich = {
-      enable = true;
-      openFirewall = true;
-      host = "0.0.0.0";
-      port = homelab.${hostName}.services.immich.port;
-      group = "multimedia";
-      package = stablePkgs.immich;
-    };
     nix-serve = {
       enable = true;
       openFirewall = true;
@@ -183,6 +176,13 @@ in
       enable = true;
       openFirewall = true;
       sport = homelab.${hostName}.services.portainer.port;
+    };
+    immich = {
+      enable = true;
+      natInterface = "eno1";
+      stateDir = "/mnt/POOL/immich";
+      package = stablePkgs.immich;
+      immichUid = 354;
     };
     jellyfin = {
       enable = true;
