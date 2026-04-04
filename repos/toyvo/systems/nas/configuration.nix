@@ -161,7 +161,6 @@ in
     podman.enable = true;
     open-webui = {
       enable = true;
-      openFirewall = true;
       stateDir = "/mnt/POOL/open-webui";
       port = homelab.${hostName}.services.open-webui.port;
       ollamaBaseUrl = "https://ollama.diekvoss.net";
