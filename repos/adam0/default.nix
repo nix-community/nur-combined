@@ -45,7 +45,7 @@ in
     hmModules = import ./hm-modules; # Home Manager modules.
 
     fishPlugins = recurseCallPackage ./pkgs/fish-plugins;
-    opencode = callPackage ./pkgs/opencode {};
+    opencodeVim = callPackage ./pkgs/opencode {};
     opencodePlugins = recurseCallPackage ./pkgs/opencode/plugins;
     spicetifyExtensions = recurseCallPackage ./pkgs/spicetify-extensions;
     yaziPlugins = recurseCallPackage ./pkgs/yazi-plugins;
