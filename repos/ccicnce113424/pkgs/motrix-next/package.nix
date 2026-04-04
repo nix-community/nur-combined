@@ -82,14 +82,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
       .plugins.updater = {"active": false, "pubkey": "", "endpoints": []}
     ' \
     src-tauri/tauri.conf.json | sponge src-tauri/tauri.conf.json
-  ''
-  + lib.optionalString stdenv.hostPlatform.isLinux ''
-    substituteInPlace $cargoDepsCopy/{,*/}libappindicator-sys-*/src/lib.rs \
-      --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
   '';
 
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libayatana-appindicator
+        ]
+      }
       --suffix PATH : ${
         lib.makeBinPath [
           desktop-file-utils
