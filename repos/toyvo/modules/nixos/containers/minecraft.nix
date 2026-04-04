@@ -151,6 +151,7 @@ in
           users.users.minecraft.uid = lib.mkForce cfg.minecraftUid;
 
           services.minecraft-server = lib.recursiveUpdate {
+            enable = true;
             eula = true;
             openFirewall = true;
           } cfg.settings;

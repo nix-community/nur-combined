@@ -93,6 +93,8 @@ in
       config =
         { ... }:
         {
+          nixpkgs.config.allowUnfree = true;
+
           # services.terraria uses the registered nixpkgs UID/GID 253 — no custom pinning needed
           services.terraria = lib.recursiveUpdate {
             enable = true;
