@@ -159,11 +159,9 @@
       enable = true;
       natInterface = "enp0s6";
       stateDir = "/var/lib/terraria";
-      settings = {
-        worldPath = "/var/lib/terraria/world.wld";
-        autoCreatedWorldSize = "large";
-        maxPlayers = 8;
-      };
+      worldPath = "/var/lib/terraria/world.wld";
+      autoCreatedWorldSize = "large";
+      maxPlayers = 8;
     };
   };
   sops.secrets = {

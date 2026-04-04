@@ -1,15 +1,16 @@
 {
   config,
   lib,
-  homelab,
+  pkgs,
   ...
 }:
 let
   cfg = config.containerPresets.terraria;
+  tmuxCmd = "${pkgs.tmux}/bin/tmux -S /var/lib/terraria/terraria.sock";
 in
 {
   options.containerPresets.terraria = {
-    enable = lib.mkEnableOption "Terraria NixOS container";
+    enable = lib.mkEnableOption "Terraria (TShock) NixOS container";
 
     hostAddress = lib.mkOption {
       type = lib.types.str;
@@ -34,10 +35,39 @@ in
       description = "Host path bind-mounted into the container at /var/lib/terraria";
     };
 
-    settings = lib.mkOption {
-      type = lib.types.attrs;
-      default = { };
-      description = "Settings merged into services.terraria. openFirewall = true is always set.";
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.tshock;
+      defaultText = lib.literalExpression "pkgs.tshock";
+      description = "TShock (or vanilla terraria-server) package to use";
+    };
+
+    worldPath = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/terraria/world.wld";
+      description = "Path to the world file; auto-created if it does not exist";
+    };
+
+    autoCreatedWorldSize = lib.mkOption {
+      type = lib.types.enum [
+        "small"
+        "medium"
+        "large"
+      ];
+      default = "large";
+      description = "Size of the auto-created world if worldPath does not exist";
+    };
+
+    maxPlayers = lib.mkOption {
+      type = lib.types.int;
+      default = 8;
+      description = "Maximum number of players";
+    };
+
+    password = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Server password; null for no password";
     };
 
     port = lib.mkOption {
@@ -92,18 +122,74 @@ in
 
       config =
         { ... }:
+        let
+          worldSizeFlag =
+            {
+              small = "1";
+              medium = "2";
+              large = "3";
+            }
+            .${cfg.autoCreatedWorldSize};
+          flags = lib.concatStringsSep " " (
+            [
+              "-port ${toString cfg.port}"
+              "-maxplayers ${toString cfg.maxPlayers}"
+              "-world ${cfg.worldPath}"
+              "-autocreate ${worldSizeFlag}"
+            ]
+            ++ lib.optional (cfg.password != null) "-pass ${lib.escapeShellArg cfg.password}"
+          );
+          stopScript = pkgs.writeShellScript "terraria-stop" ''
+            if ! [ -d "/proc/$1" ]; then exit 0; fi
+            lastline=$(${tmuxCmd} capture-pane -p | grep . | tail -n1)
+            if [[ "$lastline" =~ ^'Choose World' ]]; then
+              ${tmuxCmd} kill-session
+            else
+              ${tmuxCmd} send-keys Enter exit Enter
+            fi
+            tail --pid="$1" -f /dev/null
+          '';
+        in
         {
-          nixpkgs.config.allowUnfree = true;
+          # The nixpkgs services.terraria module hardcodes pkgs.terraria-server in ExecStart
+          # with no package override option, so we can't swap in TShock through it.
+          # Instead the service is defined inline using TShock, which is aarch64-linux
+          # compatible and free (unlike the vanilla server which is x86_64-only and unfree).
+          #
+          # TShock uses the registered nixpkgs UID/GID 253 (same as vanilla terraria-server)
+          users.users.terraria = {
+            description = "Terraria server service user";
+            group = "terraria";
+            home = "/var/lib/terraria";
+            createHome = true;
+            uid = 253;
+          };
+          users.groups.terraria.gid = 253;
 
-          # services.terraria uses the registered nixpkgs UID/GID 253 — no custom pinning needed
-          services.terraria = lib.recursiveUpdate {
-            enable = true;
-            openFirewall = true;
-            dataDir = "/var/lib/terraria";
-          } cfg.settings;
+          systemd.tmpfiles.rules = [
+            "d /var/lib/terraria 0750 terraria terraria -"
+          ];
 
-          # TShock REST API — host Caddy proxies to this port directly via container IP
-          networking.firewall.allowedTCPPorts = [ cfg.restPort ];
+          systemd.services.terraria = {
+            description = "Terraria Server (TShock)";
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+            serviceConfig = {
+              User = "terraria";
+              Group = "terraria";
+              Type = "forking";
+              GuessMainPID = true;
+              UMask = 7;
+              ExecStart = "${tmuxCmd} new -d ${lib.getExe cfg.package} ${flags}";
+              ExecStop = "${stopScript} $MAINPID";
+            };
+          };
+
+          networking.firewall.allowedTCPPorts = [
+            cfg.port
+            cfg.restPort
+          ];
+          networking.firewall.allowedUDPPorts = [ cfg.port ];
 
           system.stateVersion = "26.05";
         };
