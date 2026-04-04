@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.13";
+    version = "v6.9.15";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.13";
-      hash = "sha256-tBSWTdOEtFe70rxT771f+tsgV0oOUS0hxt1XMAl5k5Y=";
+      tag = "v6.9.15";
+      hash = "sha256-bX5Ch2mxy3dObSZGgHEylJ1Qd8ToDVkJTSzAd6jh7tA=";
     };
   };
   cockpy = {
@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.04.01";
+    version = "2026.04.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-ASN.mmdb";
-      hash = "sha256-dFPvAZ1D13nDHsD0o8bn113MbVW2Vt8W2PuIZRWPrFY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.04/GeoLite2-ASN.mmdb";
+      hash = "sha256-ai+CSB83uBCMki0Id1iTgprOae1dB7U5AtCXdq0TuYA=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.04.01";
+    version = "2026.04.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-City.mmdb";
-      hash = "sha256-r+iE9jIV4bPltS1hIE+fL/yJYKToK2tq9zPDLr6wz+4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.04/GeoLite2-City.mmdb";
+      hash = "sha256-/MlWGz7DPCR5/D5pqNht18UK2y671BhpbdO5oexkaAM=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.04.01";
+    version = "2026.04.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-Country.mmdb";
-      hash = "sha256-HG+Psx4q/kh6v2AdxO+9bA1l6wdACPU5rWouSRSZvu4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.04/GeoLite2-Country.mmdb";
+      hash = "sha256-9egKmjEp1G51yMzNZr+sclsESabIm6UJOhZWHVjyC9o=";
     };
   };
   glauth = {
@@ -1182,12 +1182,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8656";
+    version = "b8664";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8656";
-      hash = "sha256-75trel+xUSq+xRkJWnDzWQnFemuayWwaryVcPH52ZuM=";
+      tag = "b8664";
+      hash = "sha256-Y9FvhL+q8rvI+si0ctyhV9o4y+OWrVMHnXnz1iJqvqk=";
     };
   };
   loralib = {
@@ -1826,14 +1826,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "5c4fa8aa0a3510826215aceb7729a8f882546cd4";
+    version = "b88431689bf1f64d7177656122bce7840398f0cb";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "5c4fa8aa0a3510826215aceb7729a8f882546cd4";
-      hash = "sha256-zUGiL4h72Xc5z7xTeePI6DKEuDnjAK3aDVrvfTY3+JA=";
+      rev = "b88431689bf1f64d7177656122bce7840398f0cb";
+      hash = "sha256-us08yogL5yRCXEJs39sbi/z10GPsO9Tzy/TgY3c4wZw=";
     };
-    date = "2026-04-02";
+    date = "2026-04-04";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -2140,6 +2140,16 @@
     src = fetchurl {
       url = "https://google.com/generate_204";
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
+  tcpser = {
+    pname = "tcpser";
+    version = "v1.1.4";
+    src = fetchFromGitHub {
+      owner = "go4retro";
+      repo = "tcpser";
+      tag = "v1.1.4";
+      hash = "sha256-Ir/tQde7hfqlgOVXE2HqJSzEXdceCTywptN8PRqylMI=";
     };
   };
   telegram-desktop-patches = {

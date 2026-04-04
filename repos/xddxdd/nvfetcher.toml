@@ -932,6 +932,10 @@ src.include_regex = "^V([0-9\\.]+)$"
 src.from_pattern = "^V([0-9\\.]+)$"
 src.to_pattern = "\\1"
 
+[tcpser]
+fetch.github = "go4retro/tcpser"
+src.github = "go4retro/tcpser"
+
 [telegram-desktop-patches]
 fetch.github = "huakim/telegram-desktop-patches"
 src.git = "https://github.com/huakim/telegram-desktop-patches.git"

@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.13",
-            "sha256": "sha256-tBSWTdOEtFe70rxT771f+tsgV0oOUS0hxt1XMAl5k5Y=",
+            "rev": "v6.9.15",
+            "sha256": "sha256-bX5Ch2mxy3dObSZGgHEylJ1Qd8ToDVkJTSzAd6jh7tA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.13"
+        "version": "v6.9.15"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1493,11 +1493,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dFPvAZ1D13nDHsD0o8bn113MbVW2Vt8W2PuIZRWPrFY=",
+            "sha256": "sha256-ai+CSB83uBCMki0Id1iTgprOae1dB7U5AtCXdq0TuYA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.04/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.04.01"
+        "version": "2026.04.04"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1508,11 +1508,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-r+iE9jIV4bPltS1hIE+fL/yJYKToK2tq9zPDLr6wz+4=",
+            "sha256": "sha256-/MlWGz7DPCR5/D5pqNht18UK2y671BhpbdO5oexkaAM=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.04/GeoLite2-City.mmdb"
         },
-        "version": "2026.04.01"
+        "version": "2026.04.04"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1523,11 +1523,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HG+Psx4q/kh6v2AdxO+9bA1l6wdACPU5rWouSRSZvu4=",
+            "sha256": "sha256-9egKmjEp1G51yMzNZr+sclsESabIm6UJOhZWHVjyC9o=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.01/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.04/GeoLite2-Country.mmdb"
         },
-        "version": "2026.04.01"
+        "version": "2026.04.04"
     },
     "glauth": {
         "cargoLock": null,
@@ -2295,12 +2295,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8656",
-            "sha256": "sha256-75trel+xUSq+xRkJWnDzWQnFemuayWwaryVcPH52ZuM=",
+            "rev": "b8664",
+            "sha256": "sha256-Y9FvhL+q8rvI+si0ctyhV9o4y+OWrVMHnXnz1iJqvqk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8656"
+        "version": "b8664"
     },
     "loralib": {
         "cargoLock": null,
@@ -3545,7 +3545,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2026-04-02",
+        "date": "2026-04-04",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3557,12 +3557,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "5c4fa8aa0a3510826215aceb7729a8f882546cd4",
-            "sha256": "sha256-zUGiL4h72Xc5z7xTeePI6DKEuDnjAK3aDVrvfTY3+JA=",
+            "rev": "b88431689bf1f64d7177656122bce7840398f0cb",
+            "sha256": "sha256-us08yogL5yRCXEJs39sbi/z10GPsO9Tzy/TgY3c4wZw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5c4fa8aa0a3510826215aceb7729a8f882546cd4"
+        "version": "b88431689bf1f64d7177656122bce7840398f0cb"
     },
     "qsp-stable": {
         "cargoLock": null,
@@ -4172,6 +4172,27 @@
             "url": "https://google.com/generate_204"
         },
         "version": "2.1.0"
+    },
+    "tcpser": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "tcpser",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "go4retro",
+            "repo": "tcpser",
+            "rev": "v1.1.4",
+            "sha256": "sha256-Ir/tQde7hfqlgOVXE2HqJSzEXdceCTywptN8PRqylMI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.1.4"
     },
     "telegram-desktop-patches": {
         "cargoLock": null,
