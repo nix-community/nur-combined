@@ -131,8 +131,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "cd3d59752db471202143042d61d4a71f3daab648",
-            "sha256": "01q3jcjr0z7s1v0hl2prbcrpm7dcmr16nk7hm3p8ilxp4zmzyg39",
+            "rev": "a151de2de5dae83687aa5a32a75a467e909a6cf3",
+            "sha256": "19g93vifmkjzfd7ysky01mhl7284i4gvpbhqwqc7y88vh8hfgp9q",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -2377,8 +2377,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "a2bc023bfe6c44d63d06d0294c491fda5c675878",
-            "sha256": "1knclspp07i75a1rxjlz8r07yaj80bm4d4w5gq6if2yrmzrmixln",
+            "rev": "529c85099b9196cc1613527566cd900f991946b4",
+            "sha256": "1zf9c0mqdhll7mpxk9z7xniy7bdvndid6i955w8asxpmx4ig62bh",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
