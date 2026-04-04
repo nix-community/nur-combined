@@ -17,13 +17,13 @@
 let
   xpifile = stdenv.mkDerivation rec {
     pname = "violentmonkey";
-    version = "2.31.6";
+    version = "2.35.0";
 
     src = fetchFromGitHub {
       owner = "violentmonkey";
       repo = "violentmonkey";
       rev = "v${version}";
-      hash = "sha256-NMvIkgc0p6pQaCpGPdkZALYD7so83LVmxNeyNYzTcYM=";
+      hash = "sha256-EnPY6lHwgZtiONJlQF7kqaYkEc6/wkG5a87dhCePiDs=";
     };
 
     yarnOfflineCache = fetchYarnDeps {

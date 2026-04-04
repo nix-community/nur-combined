@@ -15,13 +15,13 @@ let
 
   xpifile = stdenv.mkDerivation (finalAttrs: {
     pname = "ublock-origin";
-    version = "1.69.1b5";
+    version = "1.70.1b4";
 
     src = fetchFromGitHub {
       owner = "gorhill";
       repo = "uBlock";
       tag = finalAttrs.version;
-      hash = "sha256-DdzPyhzo3Yvk0O3abP1VDVeS+6xGJl/dpCAlIYQVySA=";
+      hash = "sha256-rFVXZuel9OlR5mnojEHrfylhwXPN09XVF9dBI9iRZCA=";
     };
 
     postPatch = ''

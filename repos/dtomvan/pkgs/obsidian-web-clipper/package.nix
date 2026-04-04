@@ -9,16 +9,16 @@
 let
   xpifile = buildNpmPackage (finalAttrs: {
     pname = "obsidian-web-clipper";
-    version = "1.2.0";
+    version = "1.3.0";
 
     src = fetchFromGitHub {
       owner = "obsidianmd";
       repo = "obsidian-clipper";
       rev = finalAttrs.version;
-      hash = "sha256-yckPVwhTcR5ooAP0rP8qfVO9ZTcWvEGyRAH96JuWb9Q=";
+      hash = "sha256-32ekfFsk7uzfvlyhpbzKXL/cjsTOpk7sXCzbzr3mXms=";
     };
 
-    npmDepsHash = "sha256-OZ+lu8/cIbppG7pbt28RCLWrO3fdq2Mif3aDFH1jf/I=";
+    npmDepsHash = "sha256-zidaPnjSIqSPRhprIJbR4Mc4dcO+RNmrb6o9DiWGBnI=";
     npmBuildScript = "build:firefox";
 
     installPhase = ''

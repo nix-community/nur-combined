@@ -16,19 +16,19 @@ in
 
 python3.pkgs.buildPythonApplication rec {
   pname = "jj-pre-push";
-  version = "0.3.3";
+  version = "0.3.5";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "acarapetis";
     repo = "jj-pre-push";
     rev = "v${version}";
-    hash = "sha256-dZrZjzygT6Q7jIPkasYgJ2uN3eyPQXsg0opksookLYI=";
+    hash = "sha256-T9IKPFGswwrszGkBCIz8et2vTgRpQ2l6ta2UfojGj7A=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail "<0.10.0" "<=${uv-build.version}" \
+      --replace-fail "<0.11.0" "<=${uv-build.version}" \
       --replace-warn typer-slim typer
   '';
 

@@ -13,13 +13,13 @@
 let
   xpifile = buildNpmPackage (finalAttrs: {
     pname = "zotero-connector";
-    version = "5.0.164";
+    version = "5.0.200";
 
     src = fetchFromGitHub {
       owner = "zotero";
       repo = "zotero-connectors";
       rev = finalAttrs.version;
-      hash = "sha256-yuoKQmid8utJiKhbFcvE+C3TdsIGpSnP1U6wu7PkP88=";
+      hash = "sha256-7V2pCr+mrLB95T9HzDDFU63RS0dgpzY1b3CvZsHs4mY=";
       fetchSubmodules = true;
     };
 
@@ -28,7 +28,11 @@ let
       ${lib.getExe jq} 'del(.devDependencies.chromedriver) | del(.devDependencies.geckodriver)' package.json | ${moreutils}/bin/sponge package.json
     '';
 
-    npmDepsHash = "sha256-RmSdzn1IERTnP0ttRlIMVdhzQrs7oAaiU/3AwrJRt+4=";
+    npmDepsHash = "sha256-GuRKtzxaLqGLSGEktEK6Gz2J/Wa4El4A5yMGirh9NZE=";
+
+    env = {
+      PUPPETEER_SKIP_DOWNLOAD = "1";
+    };
 
     buildPhase = ''
       runHook preBuild
