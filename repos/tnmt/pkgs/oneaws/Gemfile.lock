@@ -1,0 +1,55 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aws-eventstream (1.4.0)
+    aws-partitions (1.1233.0)
+    aws-sdk-core (3.244.0)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.992.0)
+      aws-sigv4 (~> 1.9)
+      base64
+      bigdecimal
+      jmespath (~> 1, >= 1.6.1)
+      logger
+    aws-sigv4 (1.12.1)
+      aws-eventstream (~> 1, >= 1.0.2)
+    base64 (0.3.0)
+    bigdecimal (4.1.0)
+    csv (3.3.5)
+    httparty (0.24.2)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
+    inifile (3.0.0)
+    jmespath (1.6.2)
+    logger (1.7.0)
+    mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
+    multi_xml (0.8.1)
+      bigdecimal (>= 3.1, < 5)
+    nokogiri (1.19.2)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    oneaws (0.7.2)
+      aws-sdk-core
+      base64
+      inifile
+      logger
+      onelogin (~> 1.6)
+      openssl
+      thor
+    onelogin (1.6.0)
+      httparty (>= 0.13.7)
+      nokogiri (>= 1.6.3.1)
+    openssl (4.0.1)
+    racc (1.8.1)
+    thor (1.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  oneaws
+
+BUNDLED WITH
+   2.6.6
