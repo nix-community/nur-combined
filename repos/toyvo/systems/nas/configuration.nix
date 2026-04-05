@@ -272,6 +272,7 @@ in
     libosinfo
     win-spice
     distrobox
+    signal-cli
   ];
   virtualisation = {
     libvirtd = {

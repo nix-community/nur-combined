@@ -1110,11 +1110,11 @@
         "nixpkgs": "nixpkgs_15"
       },
       "locked": {
-        "lastModified": 1775349880,
-        "narHash": "sha256-+98WOsvLv6FUEHeyhvRpLIz70ilfLPhL/x4jfu7AKpo=",
+        "lastModified": 1775352620,
+        "narHash": "sha256-7E0zqMjMaTyZ0cby7hRQ+gteHnniq7KPYUdrPNQpHR0=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "38dd6424f76e7adf5db01ab8faa8ad3ac40bd8fa",
+        "rev": "3607457beae3dc426eaa6303f070e597a77cc7ce",
         "type": "github"
       },
       "original": {
