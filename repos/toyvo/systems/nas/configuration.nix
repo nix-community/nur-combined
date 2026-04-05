@@ -233,6 +233,7 @@ in
     };
     monitoring = {
       enable = true;
+      natInterface = "eno1";
       stateDir = "/mnt/POOL/monitoring";
       grafanaAdminPasswordFile = config.sops.secrets."grafana-admin-password".path;
       grafanaSecretKeyFile = config.sops.secrets."grafana-secret-key".path;

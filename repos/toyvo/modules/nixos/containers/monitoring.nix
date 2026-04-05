@@ -39,6 +39,12 @@ in
       description = "Path to the Grafana secret key file on the host (decrypted by sops; bind-mounted read-only into the container)";
     };
 
+    natInterface = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Host WAN-facing interface for NAT masquerade; required when the container needs to reach external hosts (e.g. grafana.com for dashboard imports)";
+    };
+
     ports = {
       grafana = lib.mkOption {
         type = lib.types.port;
@@ -49,6 +55,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    networking.nat = lib.mkIf (cfg.natInterface != null) {
+      enable = true;
+      externalInterface = cfg.natInterface;
+      internalInterfaces = [ "ve-monitoring" ];
+    };
+
     containers.monitoring = {
       autoStart = true;
       privateNetwork = true;
@@ -247,6 +259,9 @@ in
               };
             };
           };
+
+          networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+          networking.defaultGateway = cfg.hostAddress;
 
           networking.firewall.allowedTCPPorts = [
             cfg.ports.grafana
