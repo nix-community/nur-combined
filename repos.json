@@ -38,6 +38,9 @@
         "AusCyber": {
             "url": "https://github.com/Auscyber/nur-packages"
         },
+        "Baum": {
+            "url": "https://git.kruemmelspalter.org/Baum/nur-packages"
+        },
         "DanNixon": {
             "url": "https://github.com/DanNixon/nur-packages"
         },
@@ -1446,6 +1449,9 @@
         "tinybeachthor": {
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
+        "tnmt": {
+            "url": "https://github.com/tnmt/nur-packages"
+        },
         "tokudan": {
             "url": "https://github.com/tokudan/nur"
         },
@@ -1484,6 +1490,10 @@
         },
         "uleenucks": {
             "url": "https://github.com/uleenucks/nurpkgs"
+        },
+        "ulypkgs": {
+            "file": "nur.nix",
+            "url": "https://github.com/UlyssesZh/ulypkgs"
         },
         "ungood": {
             "url": "https://github.com/ungood/nur-packages"

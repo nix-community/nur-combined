@@ -60,6 +60,11 @@
             "sha256": "0vpaklp1llgn72zfyin6lrd6jqky5jji5gg51vcajyl6s93i1ik6",
             "url": "https://github.com/Auscyber/nur-packages"
         },
+        "Baum": {
+            "rev": "01816fcfead16cbfda23e99c4100bbc8343b7bc4",
+            "sha256": "1k4vnswlspgp0prfsxbdbkkb03qz11bsq6p5msp5m2h4fhwdlfk0",
+            "url": "https://git.kruemmelspalter.org/Baum/nur-packages"
+        },
         "DanNixon": {
             "rev": "09498fb582ad32eb13d00e5be16760cd60a49c71",
             "sha256": "0k0ql6az48nnjkaizrvl4mwq6zx6f0xp51v9yfkzz116mi6cy8h8",
@@ -2346,6 +2351,11 @@
             "sha256": "18ligbpv7dv1754nphw0fgga5jmqz8xj11b9x2adfr8j5wlm9jg7",
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
+        "tnmt": {
+            "rev": "aa0f2f1156b33ecaff626a513a3ecea7ac183a65",
+            "sha256": "1cyjcslymafz2633cx4dkb2qwih8ldv90pdmr9413clww7pcd22r",
+            "url": "https://github.com/tnmt/nur-packages"
+        },
         "tokudan": {
             "rev": "e44bf45d2b1106a4e158361a43bd80a35110333d",
             "sha256": "0amkcrnfm0gdn23ycvawbldx1qrqchhx7v6jgnyxqvfpvi2pgd8v",
@@ -2377,8 +2387,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "b8261c6729c9e73f021b7c6d4af3860485b0cc3b",
-            "sha256": "1df82gygwjbjijj6bdhijny2afk3kv9avjyx8ihckx5kff8234ff",
+            "rev": "a9ea3d17a5297f26e15be4f7582c54bf8eb827b8",
+            "sha256": "1011cqmjd67kcxkacrzfh6ifaz615j8m4yqn4gi28k25gq19xysz",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
@@ -2410,6 +2420,11 @@
             "rev": "2e0c90538f4eb161fdab76d0d71301d1c7040833",
             "sha256": "0203851sfwpz596sn9ksan3iqxlzygz8hng6j0kzlp8hvp8jrckl",
             "url": "https://github.com/uleenucks/nurpkgs"
+        },
+        "ulypkgs": {
+            "rev": "2d9bfb7f164fa203a68b06258a3c71b305e00608",
+            "sha256": "16s80r2sq0l6k5l9br6ryvvf9466g8x9cph5h6c0190cx2l54pcv",
+            "url": "https://github.com/UlyssesZh/ulypkgs"
         },
         "ungood": {
             "rev": "fb8b4c8ae8cc8b90127b4f80cb6ebb20c522e26b",
