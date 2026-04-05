@@ -28,7 +28,7 @@ jobs:
             dependencies
             automated
       - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable.lib.version'
+        run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixos-unstable.lib.version'
       - name: Check evaluation
         run: nix flake show
       - name: Build nix packages

@@ -1,20 +1,20 @@
 {
   home-manager,
   nix-darwin,
-  nixpkgs-stable,
-  nixpkgs-unstable,
+  nixos-stable,
+  nixos-unstable,
   self,
   ...
 }@inputs:
 let
   homelab = import ../homelab.nix;
-  lib = nixpkgs-unstable.lib;
+  lib = nixos-unstable.lib;
 
   mkSpecialArgs =
     system:
     let
-      unstablePkgs = self.lib.import_nixpkgs system nixpkgs-unstable;
-      stablePkgs = self.lib.import_nixpkgs system nixpkgs-stable;
+      unstablePkgs = self.lib.import_nixpkgs system nixos-unstable;
+      stablePkgs = self.lib.import_nixpkgs system nixos-stable;
     in
     {
       inherit

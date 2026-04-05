@@ -46,5 +46,7 @@
     enable = true;
     host = "0.0.0.0";
     port = homelab.MacMini-M1.services.ollama.port;
+    # temporary until 1.20.2 lands in nixos-unstable
+    package = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin.ollama;
   };
 }

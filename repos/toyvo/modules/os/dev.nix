@@ -43,9 +43,6 @@ in
           ninja
           nodejs
           pnpm
-          gemini-cli-bin
-          claude-code-bin
-          codex
           opencode
           prettier
           pipenv

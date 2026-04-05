@@ -25,39 +25,40 @@
     catppuccin.url = "github:catppuccin/nix";
     devshell = {
       url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     dioxus_monorepo.url = "github:toyvo/dioxus_monorepo";
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     hermes-agent.url = "github:NousResearch/hermes-agent";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     mac-app-util.url = "github:hraban/mac-app-util";
     nh.url = "github:toyvo/nh";
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     nixos-avf = {
       url = "github:nix-community/nixos-avf";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-wsl.url = "github:nix-community/nixos-wsl";
     nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/nur";
     nvf.url = "github:NotAShelf/nvf";
     plasma-manager.url = "github:pjones/plasma-manager";
@@ -72,7 +73,7 @@
       devshell,
       flake-parts,
       nixpkgs-esp-dev,
-      nixpkgs-unstable,
+      nixos-unstable,
       nur,
       rust-overlay,
       self,
@@ -100,7 +101,7 @@
             android_sdk.accept_license = true;
           };
         };
-      inherit (nixpkgs-unstable) lib;
+      inherit (nixos-unstable) lib;
       pkgsDir = "${self}/pkgs";
       libDir = "${self}/lib";
       # overlaysDir = "${self}/overlays";
@@ -144,7 +145,7 @@
           }:
           with lib';
           let
-            basePkgs = import_nixpkgs system nixpkgs-unstable;
+            basePkgs = import_nixpkgs system nixos-unstable;
             pkgs' = recursiveUpdate basePkgs { lib = lib'; };
             ourPackages = callDirPackageWithRecursive pkgs' pkgsDir;
           in

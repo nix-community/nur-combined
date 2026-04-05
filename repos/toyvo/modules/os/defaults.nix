@@ -45,7 +45,7 @@ in
         ];
       };
       nixPath = [
-        "nixpkgs=${inputs.nixpkgs-unstable}"
+        "nixpkgs=${inputs.nixos-unstable}"
       ];
     };
     sops = {

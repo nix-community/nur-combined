@@ -8,7 +8,7 @@ Dual-purpose Nix flake: a **NUR (Nix User Repository)** publishing custom packag
 
 - GitHub: `ToyVo/nixcfg`
 - Primary branch: `main`
-- Uses `nixpkgs-unstable` as base nixpkgs
+- Uses `nixos-unstable` as base nixpkgs
 
 ## Build, Lint, and Test Commands
 

@@ -22,14 +22,14 @@
     inputs.nixcfg.modules.nixos.containers.minecraft
     inputs.nixcfg.modules.nixos.containers.vintagestory
     inputs.nixcfg.modules.nixos.containers.terraria
-    "${inputs.nixpkgs-unstable}/nixos/modules/profiles/qemu-guest.nix"
+    "${inputs.nixos-unstable}/nixos/modules/profiles/qemu-guest.nix"
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.default
     inputs.nh.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
-    inputs.nixpkgs-unstable.nixosModules.notDetected
+    inputs.nixos-unstable.nixosModules.notDetected
     inputs.nur.modules.nixos.default
     inputs.sops-nix.nixosModules.sops
   ];

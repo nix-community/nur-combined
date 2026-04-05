@@ -27,7 +27,7 @@
     inputs.home-manager.nixosModules.default
     inputs.nh.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
-    inputs.nixpkgs-unstable.nixosModules.notDetected
+    inputs.nixos-unstable.nixosModules.notDetected
     inputs.nur.modules.nixos.default
     inputs.sops-nix.nixosModules.sops
   ];
