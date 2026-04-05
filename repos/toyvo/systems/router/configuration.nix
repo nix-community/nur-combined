@@ -190,10 +190,8 @@ in
         ];
         routes = [
           {
-            routeConfig = {
-              Destination = "10.200.0.0/16";
-              Gateway = "10.1.0.3";
-            };
+            Destination = "10.200.0.0/16";
+            Gateway = "10.1.0.3";
           }
         ];
         networkConfig = {

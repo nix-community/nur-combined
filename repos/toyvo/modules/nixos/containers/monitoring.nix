@@ -260,7 +260,10 @@ in
             };
           };
 
-          networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+          networking.nameservers = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
           networking.defaultGateway = cfg.hostAddress;
 
           networking.firewall.allowedTCPPorts = [

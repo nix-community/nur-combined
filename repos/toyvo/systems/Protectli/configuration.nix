@@ -282,6 +282,10 @@
               persist = true;
               type = "memfile";
             };
+            control-socket = {
+              socket-type = "unix";
+              socket-name = "/run/kea/kea-dhcp4.socket";
+            };
             authoritative = true;
             renew-timer = 3600 * 5;
             rebind-timer = 3600 * 8;
