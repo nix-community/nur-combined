@@ -1421,8 +1421,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "1133c608b01044304e7366dc96d82542e887eb33",
-            "sha256": "1067dl8v1aqgh332w08yhi9gsh2dsjxz4azd6l9x7wxfpv5m68d7",
+            "rev": "9bca32a14af5fa3b209ab50173d20a7decc2b17a",
+            "sha256": "06h4v1ql8rvla5zpm3s5hpy33j4y2kw6q9l0n4y4qpm0pnr00vyl",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -2100,8 +2100,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "30a2e55fc20909b4b9e104e0254a2473184138a2",
-            "sha256": "0rw2vxv4mvbcg5b47inqgjpx2sqidm47hivdn0z8dsj4inz3p9b5",
+            "rev": "f8df1456eb3ddf837e3743f1cb5bcfc7730d29d2",
+            "sha256": "14nnkwzvwyqmw8fxxsh4zyyx84j8ga1l9qclndjp3894qhdkfini",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
