@@ -68,6 +68,7 @@ in
         443
         5432
         8080
+        8642 # hermes-agent API (reachable from open-webui container via veth)
       ];
       allowedUDPPorts = [
         53
