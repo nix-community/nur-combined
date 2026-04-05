@@ -206,8 +206,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "413317545395ff95066bcb2471e6b4e1f2cf9c39",
-            "sha256": "0jg9c28w0b4kqadbpqc7hmgayjxxhsnpxq6sp4xgghw3kkh347ph",
+            "rev": "77d3bec6b5c3d8dfc126371e4f51e85ff783c490",
+            "sha256": "1275a2rhkv3ar3gv3c1xinm3daycs86lwbw2gjx1ys637arx6k1d",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -1426,8 +1426,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "fd2dab3815d061cbc56c5f5395f81caa8fc9b27d",
-            "sha256": "1j171c6xriw0bpdab6a6mvm9031a4ikldwdzim9zl6a89yv8vcw2",
+            "rev": "b5042cc65fd1c6ee1972f62e30f509b89bd08c26",
+            "sha256": "1qhz69pa3l6m0xwi8xwavh1rjj895n8jf4d3s0375ca3qmvv408l",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
