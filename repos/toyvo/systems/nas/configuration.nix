@@ -161,13 +161,14 @@ in
     podman.enable = true;
     open-webui = {
       enable = true;
+      natInterface = "eno1";
       stateDir = "/mnt/POOL/open-webui";
       port = homelab.open-webui.services.open-webui.port;
-      ollamaBaseUrl = "https://ollama.diekvoss.net";
+      ollamaBaseUrl = "http://${homelab.MacMini-M1.ip}:${toString homelab.MacMini-M1.services.ollama.port}";
       environmentFile = config.sops.secrets."openwebui.env".path;
       environment = {
         # Hermes agent OpenAI-compatible API (host IP from container's perspective)
-        OPENAI_API_BASE_URL = "http://10.200.0.13:8642/v1";
+        OPENAI_API_BASE_URL = "http://${config.containerPresets.open-webui.hostAddress}:8642/v1";
       };
     };
     immich = {

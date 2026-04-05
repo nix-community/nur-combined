@@ -59,9 +59,21 @@ in
       default = null;
       description = "Host path to an environment file bind-mounted into the container and passed to Open WebUI (useful for secrets)";
     };
+
+    natInterface = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Host WAN-facing interface for NAT masquerade; required when Open WebUI needs to reach LAN hosts outside the container network";
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    networking.nat = lib.mkIf (cfg.natInterface != null) {
+      enable = true;
+      externalInterface = cfg.natInterface;
+      internalInterfaces = [ "ve-open-webui" ];
+    };
+
     containers.open-webui = {
       autoStart = true;
       privateNetwork = true;
