@@ -176,8 +176,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "d62429e3149b00109a9924634ea124d61f4cd6d7",
-            "sha256": "0vpygvblzn1gsqzcfn0rn20gqw5dpxas5ln1bnkj3ip0agd38nps",
+            "rev": "4f5259c2161eb7ef9e4a373ae16a6ce0378f5624",
+            "sha256": "0bqh96j578cd711fhi1f8x9zg0av5byk9n95d8mm1dzpay1jh17w",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -532,8 +532,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "774d297ad467d0248fbac467a78ee9c37f077439",
-            "sha256": "0kil7k4mfpslawh1hfl51mybyvds6r7by2lnqfaypnqs9xqfs81d",
+            "rev": "dbbe360be8c082d90626abaf7a4ba09fc13f8fdc",
+            "sha256": "1y0nginzyd45m0495j8ar00nw4g7n4nglasbnnf2syb422q7zr33",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
