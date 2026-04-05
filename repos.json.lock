@@ -2195,8 +2195,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "079d4faf2a5dc136b58a4057fbe92e03974c5630",
-            "sha256": "1pkanh5gxg9xxjw0kpphrvkwpph6wpckikx277m4appy6kmfs16a",
+            "rev": "f5cb2626e874f19fba6df6cd87e4dedc9ab18b8f",
+            "sha256": "1g73rxaimymg1v2g1ndi476i4n8hxwvvg5mpb9c47yialn1d9bxv",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
@@ -2377,8 +2377,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "87a0359e02282625be0364d68e9d4946a5fb160d",
-            "sha256": "15wl24y5yfif2rrdl9b7xkq916hcbjmkl15r32scia8dmj1anp7b",
+            "rev": "4f5d9fc970856ed4213b821f62e7df5cace03e1d",
+            "sha256": "0k9jqqr25ksgswgn8d745hk2s6w9mjg19amml1gxi2ywcrakzx8p",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
