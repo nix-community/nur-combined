@@ -13,13 +13,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nmag";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "nmag";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RricOfbvTD7C6z5KVRYRn5+KKHi9JLJ7bIdY+7X+CAM=";
+    hash = "sha256-8QMIT5ouXEgv+EzhmEvhjdCBw+Hc62ByqasCwQNYK3g=";
   };
 
   cargoHash = "sha256-14k3+GpyKf7mNrnjKUTAsROyml7JUp4iXkLtdhBqEl4=";

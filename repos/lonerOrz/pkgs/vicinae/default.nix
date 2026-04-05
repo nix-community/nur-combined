@@ -22,11 +22,11 @@
 
 let
   pname = "vicinae";
-  version = "0.20.9";
+  version = "0.20.10";
 
-  srcHash = "sha256-ax517n+zbfOvr2H+QfyqAq/6Ad3Qu3CnlaI4q6JfrXk=";
-  apiDepsHash = "sha256-Tr+m8MLaWR8wq+cYpQwZTIzRt2tgDIyc8vVda2x+k4k=";
-  extensionManagerDepsHash = "sha256-8ONawCmKxHwWS0Tx04MCpQmtWfIpJYU8RcqMtQiT/Sw=";
+  srcHash = "sha256-16r6itJWBq477SLZpwp64lETuLvugTWyBzLQyk9dgvE=";
+  apiDepsHash = "sha256-lIXhMBJHujs6d9fXEK8Q+sfjkKyFJEMEtKrQorkfPeU=";
+  extensionManagerDepsHash = "sha256-gpbS6MIHOSuHIfd4zDEB4EcMi9LHk9tPdnxwT0S0nbA=";
 
   src = fetchFromGitHub {
     owner = "vicinaehq";
