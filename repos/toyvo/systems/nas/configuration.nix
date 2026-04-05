@@ -23,6 +23,7 @@ in
     inputs.nixcfg.modules.nixos.defaults
     inputs.nixcfg.modules.nixos.filesystems
     inputs.nixcfg.modules.nixos.services.ollama
+    inputs.nixcfg.modules.nixos.services.signal-cli
     inputs.hermes-agent.nixosModules.default
     inputs.nixcfg.modules.nixos.containers.podman
     inputs.nixcfg.modules.nixos.containers.starr
@@ -287,6 +288,10 @@ in
     hibernate.enable = false;
     hybrid-sleep.enable = false;
   };
+  services.signal-cli = {
+    enable = true;
+    environmentFile = config.sops.secrets."hermes.env-signal-cli".path;
+  };
   services.hermes-agent = {
     enable = true;
     settings = {
@@ -304,6 +309,11 @@ in
     addToSystemPackages = true;
   };
   sops.secrets."hermes.env".owner = "hermes";
+  # Same secret decrypted a second time, owned by signal-cli so it can read SIGNAL_ACCOUNT
+  sops.secrets."hermes.env-signal-cli" = {
+    key = "hermes.env";
+    owner = "signal-cli";
+  };
   sops.secrets."cache-priv-key.pem" = { };
   sops.secrets."discord_bot.env" = {
     owner = "discord_bot";
