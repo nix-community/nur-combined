@@ -1461,8 +1461,8 @@
             "url": "https://github.com/lunik1/nur-packages"
         },
         "lxl66566": {
-            "rev": "48c89a0839bf34f6d898f01a8abe6888f4234e08",
-            "sha256": "1ww6qg24n9d5n69zlbyz5hp7yc4khzpzhia2bw61i9awpcj63y0a",
+            "rev": "7d2e84bf8bd5dbc71ed3d5a74b8ca0c7ae31097b",
+            "sha256": "1ai8l9vyaq6yvng78ms0f0jjwqwvj6vpr28rg7l6gm28436dp8zd",
             "url": "https://github.com/lxl66566/NUR"
         },
         "lykos153": {
@@ -2382,8 +2382,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "6a0f5ff588c3d6faea20121b8082bfae01e60073",
-            "sha256": "1qqbg1faddy2cg72ap02sdif5yfhlc9i3h61zs01y7vv0s3b303n",
+            "rev": "ba3014585bd3c26fb25e26b9b363041e233cb521",
+            "sha256": "0m19jv9r4jr58p35qxi6kwhzc5z1xhycw7s89b6fy845yrzzsh41",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
