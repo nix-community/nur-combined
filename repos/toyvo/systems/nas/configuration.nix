@@ -288,7 +288,16 @@ in
   };
   services.hermes-agent = {
     enable = true;
-    settings.model.default = "opencode-go/glm-5";
+    settings = {
+      model = {
+        default = "glm-5";
+        provider = "opencode-go";
+        base_url = "https://opencode.ai/zen/go/v1";
+        api_mode = "chat_completions";
+      };
+      toolsets = [ "hermes-cli" ];
+      display.personality = "kawaii";
+    };
     stateDir = "/mnt/POOL/hermes";
     environmentFiles = [ config.sops.secrets."hermes.env".path ];
     addToSystemPackages = true;
