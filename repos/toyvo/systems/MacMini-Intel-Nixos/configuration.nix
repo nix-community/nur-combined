@@ -18,7 +18,6 @@
     inputs.nixcfg.modules.nixos.defaults
     inputs.nixcfg.modules.nixos.filesystems
     inputs.nixos-hardware.nixosModules.apple-t2
-    inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko

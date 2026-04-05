@@ -72,20 +72,6 @@
         category = "Nas";
         displayName = "Discord Bot UI";
       };
-      portainer = {
-        port = 9443;
-        selfSigned = true;
-        displayName = "Portainer";
-        description = "Adhoc Container Management";
-        category = "Nas";
-        icon = "sh-portainer";
-        widget = {
-          type = "portainer";
-          url = "https://portainer.diekvoss.net";
-          key = "{{HOMEPAGE_VAR_PORTAINER_API_KEY}}";
-          env = "2";
-        };
-      };
       cockpit = {
         port = 9091;
         selfSigned = true;

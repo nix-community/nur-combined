@@ -21,7 +21,6 @@
     inputs.nixcfg.modules.nixos.gaming
     inputs.nixcfg.modules.nixos.services.desktopManager.cosmic
     inputs.jovian.nixosModules.jovian
-    inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko

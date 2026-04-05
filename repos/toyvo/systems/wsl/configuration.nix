@@ -14,7 +14,6 @@
     inputs.nixcfg.modules.os.users.toyvo
     inputs.nixcfg.modules.nixos.defaults
     inputs.nixos-wsl.nixosModules.wsl
-    inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko

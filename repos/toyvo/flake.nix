@@ -22,10 +22,6 @@
 
   inputs = {
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
-    arion = {
-      url = "github:hercules-ci/arion";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     catppuccin.url = "github:catppuccin/nix";
     devshell = {
       url = "github:numtide/devshell";
@@ -37,6 +33,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    hermes-agent.url = "github:NousResearch/hermes-agent";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

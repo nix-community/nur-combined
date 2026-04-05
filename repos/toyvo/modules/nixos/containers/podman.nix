@@ -19,8 +19,5 @@ in
       dockerCompat = true;
       dockerSocket.enable = true;
     };
-    virtualisation.arion = {
-      backend = "podman-socket";
-    };
   };
 }

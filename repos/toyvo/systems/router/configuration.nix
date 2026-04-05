@@ -24,7 +24,6 @@ in
     inputs.nixcfg.modules.nixos.wireguard.default
     ./kea.nix
     ./virtual-hosts.nix
-    inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko

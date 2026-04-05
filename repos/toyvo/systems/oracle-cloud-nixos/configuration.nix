@@ -19,12 +19,10 @@
     inputs.nixcfg.modules.nixos.monitoring.default
     inputs.nixcfg.modules.nixos.wireguard.default
     inputs.nixcfg.modules.nixos.containers.podman
-    inputs.nixcfg.modules.nixos.containers.portainer
     inputs.nixcfg.modules.nixos.containers.minecraft
     inputs.nixcfg.modules.nixos.containers.vintagestory
     inputs.nixcfg.modules.nixos.containers.terraria
     "${inputs.nixpkgs-unstable}/nixos/modules/profiles/qemu-guest.nix"
-    inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
@@ -127,7 +125,6 @@
     };
   };
   containerPresets = {
-    portainer.enable = true;
     minecraft = {
       enable = true;
       natInterface = "enp0s6";

@@ -18,7 +18,6 @@
     inputs.nixcfg.modules.nixos.filesystems
     inputs.nixcfg.modules.nixos.services.desktopManager.cosmic
     inputs.apple-silicon-support.nixosModules.apple-silicon-support
-    inputs.arion.nixosModules.arion
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
