@@ -4274,10 +4274,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.8.6";
+      version = "5.9.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4673195/floccus-5.8.6.xpi";
-      sha256 = "52a7333b9a4984df65d0ad4b0c4d26c832fff4925b3c428a994f6b17bea03cf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4752643/floccus-5.9.0.xpi";
+      sha256 = "48172cf1718709602b528977af9bdbba545e5fa2b539e4d52f23d72091418747";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -12818,10 +12818,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.3.21";
+      version = "26.4.4";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4735200/refined_github-26.3.21.xpi";
-      sha256 = "1a2087c885c552b5530fa85a7bb8b6d104ca0283b9a6345d4c13f70e7dd7369b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4752872/refined_github-26.4.4.xpi";
+      sha256 = "36d0c4681e37d0ad0a3eb289d71f55324143a37b28b7e2d67ab35427944a3a41";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -17053,10 +17053,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.14.3";
+      version = "1.15.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4724541/youtube_auto_hd_fps-1.14.3.xpi";
-      sha256 = "8fdf9bdca1cf115299a2a145efcae7795839ba10c1d492a0dc0e86154bed10ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4752953/youtube_auto_hd_fps-1.15.0.xpi";
+      sha256 = "bf0cf29437e885e12e0912f2b009005766904dc150522a459dcdcc4b0b5fcb6c";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
