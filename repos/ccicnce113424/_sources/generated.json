@@ -211,7 +211,7 @@
   "motrix-next": {
     "cargoLock": {
       "src-tauri/Cargo.lock": [
-        "sha256-J8r4FhTqlyV1ZqcjWtQO2w4I4GJVQ20pU0ksD89qNVk=/src-tauri/Cargo.lock",
+        "sha256-DeqHF36iH2kPi4F7RU5Ipde0lnwGWJqHfu4kz3znexg=/src-tauri/Cargo.lock",
         {}
       ]
     },
@@ -227,12 +227,12 @@
       "name": null,
       "owner": "AnInsomniacy",
       "repo": "motrix-next",
-      "rev": "v3.6.0",
-      "sha256": "sha256-J8r4FhTqlyV1ZqcjWtQO2w4I4GJVQ20pU0ksD89qNVk=",
+      "rev": "v3.6.1",
+      "sha256": "sha256-DeqHF36iH2kPi4F7RU5Ipde0lnwGWJqHfu4kz3znexg=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "v3.6.0"
+    "version": "v3.6.1"
   },
   "piliplus": {
     "cargoLock": null,
@@ -284,7 +284,7 @@
     "cargoLock": null,
     "date": "2026-04-04",
     "extract": {
-      "pubspec.lock": "sha256-DKqDl7MtPp+q6XTOuKLud_A6PAGRtNRbtxLFGe2MhiM=/pubspec.lock"
+      "pubspec.lock": "sha256-l8hbapegLOJln7mZHTCbJ0IzZj5cyAoZf74QqLOw2GY=/pubspec.lock"
     },
     "name": "pixes-git",
     "passthru": null,
@@ -296,12 +296,12 @@
       "name": null,
       "owner": "wgh136",
       "repo": "pixes",
-      "rev": "3300cd41fa9fc1f1930b288c4a75dffe0c69315c",
-      "sha256": "sha256-DKqDl7MtPp+q6XTOuKLud/A6PAGRtNRbtxLFGe2MhiM=",
+      "rev": "0b855494dccfd9517b066e03a770d2ceb3265dab",
+      "sha256": "sha256-l8hbapegLOJln7mZHTCbJ0IzZj5cyAoZf74QqLOw2GY=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "3300cd41fa9fc1f1930b288c4a75dffe0c69315c"
+    "version": "0b855494dccfd9517b066e03a770d2ceb3265dab"
   },
   "splayer-git": {
     "cargoLock": {
