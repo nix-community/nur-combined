@@ -164,6 +164,11 @@ in
       stateDir = "/mnt/POOL/open-webui";
       port = homelab.open-webui.services.open-webui.port;
       ollamaBaseUrl = "https://ollama.diekvoss.net";
+      environmentFile = config.sops.secrets."openwebui.env".path;
+      environment = {
+        # Hermes agent OpenAI-compatible API (host IP from container's perspective)
+        OPENAI_API_BASE_URL = "http://10.200.0.13:8642/v1";
+      };
     };
     immich = {
       enable = true;
@@ -290,7 +295,7 @@ in
   };
   services.signal-cli = {
     enable = true;
-    environmentFile = config.sops.secrets."hermes.env-signal-cli".path;
+    environmentFile = config.sops.secrets."signal-cli.env".path;
   };
   services.hermes-agent = {
     enable = true;
@@ -306,14 +311,11 @@ in
     };
     stateDir = "/mnt/POOL/hermes";
     environmentFiles = [ config.sops.secrets."hermes.env".path ];
+    environment.API_SERVER_HOST = "0.0.0.0";
     addToSystemPackages = true;
   };
   sops.secrets."hermes.env".owner = "hermes";
-  # Same secret decrypted a second time, owned by signal-cli so it can read SIGNAL_ACCOUNT
-  sops.secrets."hermes.env-signal-cli" = {
-    key = "hermes.env";
-    owner = "signal-cli";
-  };
+  sops.secrets."signal-cli.env".owner = "signal-cli";
   sops.secrets."cache-priv-key.pem" = { };
   sops.secrets."discord_bot.env" = {
     owner = "discord_bot";
@@ -324,6 +326,7 @@ in
   # read them without needing to match UIDs across the host/container boundary.
   # Nextcloud admin password bind-mounted into the nextcloud container; mode 0444 so
   # the nextcloud user inside the container can read it without UID alignment on the host.
+  sops.secrets."openwebui.env".mode = "0444";
   sops.secrets."nextcloud_admin_password".mode = "0444";
   sops.secrets."grafana-admin-password".mode = "0444";
   sops.secrets."grafana-secret-key".mode = "0444";
