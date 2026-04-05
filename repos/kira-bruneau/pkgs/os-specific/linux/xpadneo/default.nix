@@ -51,7 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Advanced Linux driver for Xbox One wireless controllers";
     homepage = "https://atar-axis.github.io/xpadneo";
     changelog = "https://github.com/atar-axis/xpadneo/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.gpl2Only;
+    license = with lib.licenses; [
+      gpl2Only
+      gpl3Plus
+    ];
     maintainers = with lib.maintainers; [ kira-bruneau ];
     platforms = lib.platforms.linux;
   };
