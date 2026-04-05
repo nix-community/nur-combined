@@ -308,11 +308,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-78Jm+6/iwJ2ntabSu512Rm1HP6c/OQIt4amQ0t5wr6M=",
+            "sha256": "sha256-ntkixS+3YUt/1T0R+Oz9XGc+jebf5BQyswU+Kpc7aYw=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.5-3/bilibili-asar-v1.17.5-3.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.6-1/bilibili-asar-v1.17.6-1.tar.gz"
         },
-        "version": "v1.17.5-3"
+        "version": "v1.17.6-1"
     },
     "bilibili-src": {
         "cargoLock": null,
@@ -328,12 +328,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.5-3",
-            "sha256": "sha256-bmvpJqoAJSizRCI9WMMHfnldLo0nyhu/TeOKhfs7wPM=",
+            "rev": "v1.17.6-1",
+            "sha256": "sha256-Hazy9zxGpiqRqNfH5V41kRio3f9PC6m5OHUTEzOeHXI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.5-3"
+        "version": "v1.17.6-1"
     },
     "bin-cpuflags-x86": {
         "cargoLock": null,
@@ -1072,12 +1072,12 @@
             "name": null,
             "owner": "TravMurav",
             "repo": "dtbloader",
-            "rev": "1.5.3",
-            "sha256": "sha256-+HirT++IdlAQBWSBJBVtUGvPvuFuDZ8aaxopNxEHsUY=",
+            "rev": "1.5.4",
+            "sha256": "sha256-2M1S8cBsP/wX8ODAIR3iL7tRBhtpruWRIpBjK7bDku8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.5.3"
+        "version": "1.5.4"
     },
     "dump978": {
         "cargoLock": null,
@@ -1659,7 +1659,7 @@
     },
     "hack3ric-flow": {
         "cargoLock": null,
-        "date": "2025-12-27",
+        "date": "2026-04-06",
         "extract": null,
         "name": "hack3ric-flow",
         "passthru": null,
@@ -1671,12 +1671,12 @@
             "name": null,
             "owner": "hack3ric",
             "repo": "flow",
-            "rev": "ee7cd1b73ddd8c968ecdf6e8439e3e7c47f78b90",
-            "sha256": "sha256-mecw9KKZCotRQUz3wkUnb96+d3PXMWaZD9wBGGLQkPo=",
+            "rev": "4a406621a71e806541c833181b9c2f5cf6fc759f",
+            "sha256": "sha256-4n7EU+F98dk3gHKEEof8cNa8WkOwxR17b4vPyHJ1rao=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ee7cd1b73ddd8c968ecdf6e8439e3e7c47f78b90"
+        "version": "4a406621a71e806541c833181b9c2f5cf6fc759f"
     },
     "hack3ric-flow-stable": {
         "cargoLock": null,
@@ -2295,12 +2295,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8664",
-            "sha256": "sha256-Y9FvhL+q8rvI+si0ctyhV9o4y+OWrVMHnXnz1iJqvqk=",
+            "rev": "b8668",
+            "sha256": "sha256-CAja5GlV3DMpj9/juF5t2q8v9a0LYC8zF0tSs0LMaqY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8664"
+        "version": "b8668"
     },
     "loralib": {
         "cargoLock": null,
@@ -4337,7 +4337,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-04-03",
+        "date": "2026-04-05",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4349,12 +4349,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "152ad843a94a5d13215ccb15eb8d739f3ffda9c9",
-            "sha256": "sha256-1GyViQa6jA/1KjONbZJStfTrzkPkK0H2c75kJF6Wvcs=",
+            "rev": "45db21f58eab5cd7aec61caa5e2e0e5a491c125f",
+            "sha256": "sha256-y/4R1wGl6aA2AvSNQa4kAyyiISg2OXaiiAbcpC0iinw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "152ad843a94a5d13215ccb15eb8d739f3ffda9c9"
+        "version": "45db21f58eab5cd7aec61caa5e2e0e5a491c125f"
     },
     "unigine-heaven": {
         "cargoLock": null,

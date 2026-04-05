@@ -165,20 +165,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.5-3";
+    version = "v1.17.6-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.5-3/bilibili-asar-v1.17.5-3.tar.gz";
-      hash = "sha256-78Jm+6/iwJ2ntabSu512Rm1HP6c/OQIt4amQ0t5wr6M=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.6-1/bilibili-asar-v1.17.6-1.tar.gz";
+      hash = "sha256-ntkixS+3YUt/1T0R+Oz9XGc+jebf5BQyswU+Kpc7aYw=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.5-3";
+    version = "v1.17.6-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.5-3";
-      hash = "sha256-bmvpJqoAJSizRCI9WMMHfnldLo0nyhu/TeOKhfs7wPM=";
+      tag = "v1.17.6-1";
+      hash = "sha256-Hazy9zxGpiqRqNfH5V41kRio3f9PC6m5OHUTEzOeHXI=";
     };
   };
   bin-cpuflags-x86 = {
@@ -555,13 +555,13 @@
   };
   dtbloader = {
     pname = "dtbloader";
-    version = "1.5.3";
+    version = "1.5.4";
     src = fetchFromGitHub {
       owner = "TravMurav";
       repo = "dtbloader";
-      tag = "1.5.3";
+      tag = "1.5.4";
       fetchSubmodules = true;
-      hash = "sha256-+HirT++IdlAQBWSBJBVtUGvPvuFuDZ8aaxopNxEHsUY=";
+      hash = "sha256-2M1S8cBsP/wX8ODAIR3iL7tRBhtpruWRIpBjK7bDku8=";
     };
   };
   dump978 = {
@@ -861,14 +861,14 @@
   };
   hack3ric-flow = {
     pname = "hack3ric-flow";
-    version = "ee7cd1b73ddd8c968ecdf6e8439e3e7c47f78b90";
+    version = "4a406621a71e806541c833181b9c2f5cf6fc759f";
     src = fetchFromGitHub {
       owner = "hack3ric";
       repo = "flow";
-      rev = "ee7cd1b73ddd8c968ecdf6e8439e3e7c47f78b90";
-      hash = "sha256-mecw9KKZCotRQUz3wkUnb96+d3PXMWaZD9wBGGLQkPo=";
+      rev = "4a406621a71e806541c833181b9c2f5cf6fc759f";
+      hash = "sha256-4n7EU+F98dk3gHKEEof8cNa8WkOwxR17b4vPyHJ1rao=";
     };
-    date = "2025-12-27";
+    date = "2026-04-06";
   };
   hack3ric-flow-stable = {
     pname = "hack3ric-flow-stable";
@@ -1182,12 +1182,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8664";
+    version = "b8668";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8664";
-      hash = "sha256-Y9FvhL+q8rvI+si0ctyhV9o4y+OWrVMHnXnz1iJqvqk=";
+      tag = "b8668";
+      hash = "sha256-CAja5GlV3DMpj9/juF5t2q8v9a0LYC8zF0tSs0LMaqY=";
     };
   };
   loralib = {
@@ -2225,15 +2225,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "152ad843a94a5d13215ccb15eb8d739f3ffda9c9";
+    version = "45db21f58eab5cd7aec61caa5e2e0e5a491c125f";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "152ad843a94a5d13215ccb15eb8d739f3ffda9c9";
+      rev = "45db21f58eab5cd7aec61caa5e2e0e5a491c125f";
       fetchSubmodules = true;
-      hash = "sha256-1GyViQa6jA/1KjONbZJStfTrzkPkK0H2c75kJF6Wvcs=";
+      hash = "sha256-y/4R1wGl6aA2AvSNQa4kAyyiISg2OXaiiAbcpC0iinw=";
     };
-    date = "2026-04-03";
+    date = "2026-04-05";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

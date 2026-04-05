@@ -6,7 +6,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.hack3ric-flow) pname version src;
 
-  cargoHash = "sha256-8cQYuk7p7VcQVdbZDU04XpbAMBoirpENAzyFJbyBEU4=";
+  cargoHash = "sha256-FEc5j2tMRCfU2nRYC/0gbdk4BkF99R88dWdJzgDUoVU=";
 
   # Check requires netlink privileges
   doCheck = false;
