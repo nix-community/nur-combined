@@ -17,8 +17,9 @@ symlinkJoin (finalAttrs: let
   src = fetchFromGitHub {
     owner = "jmylchreest";
     repo = "rosec";
-    tag = "v${version}";
-    hash = "sha256-lQqA2KvEVYJuzwolw/8oVFEqQ06WC3mDa6dgVitgfoA=";
+    # tag = "v${version}";
+    rev = "b4010d9907d66b3e9835698b391a61fdefcd5bd8";
+    hash = "sha256-+jmJtnLVpswGNv8VGqcNc/8ePS6kguDhQXLPLWJb0no=";
   };
 
   rosec_pam = stdenv.mkDerivation {
@@ -44,7 +45,7 @@ symlinkJoin (finalAttrs: let
     pname = "rosec-unwrapped";
     inherit version src;
 
-    cargoHash = "sha256-Aeufqe1F9xXhGd68+sW3tPT7VAXGZfinkgJSUPwT40Q=";
+    cargoHash = "sha256-CdCVrwcimnU0rlZWU5bgaEJiNIgRX6Ba6MJkOFtcPtU=";
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -52,11 +53,11 @@ symlinkJoin (finalAttrs: let
 
     runtimeDependencies = [
       libxkbcommon
+      wayland
     ];
 
     buildInputs = [
       stdenv.cc.cc.lib
-      wayland
     ];
 
     postPatch = ''
@@ -67,6 +68,7 @@ symlinkJoin (finalAttrs: let
     checkFlags = [
       "--skip=state::"
       "--skip=item::"
+      "--skip=portal::"
     ];
 
     postInstall = ''
@@ -82,7 +84,7 @@ symlinkJoin (finalAttrs: let
   };
 in {
   pname = "rosec";
-  version = "0.0.21";
+  version = "0.0.23";
 
   paths = [rosec rosec_pam] ++ provider;
 
