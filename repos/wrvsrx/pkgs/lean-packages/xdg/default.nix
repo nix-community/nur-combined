@@ -1,15 +1,9 @@
 {
-  stdenv,
-  lean4,
-  lakeSetupHook,
-  lib,
+  buildLakePackage,
   source,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
-  nativeBuildInputs = [
-    lean4
-    lakeSetupHook
-  ];
-})
+buildLakePackage {
+  pname = "lean4-${source.pname}";
+  inherit (source) src version;
+  leanPackageName = source.pname;
+}

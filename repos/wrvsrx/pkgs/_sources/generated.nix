@@ -6,50 +6,6 @@
   dockerTools,
 }:
 {
-  Cli = {
-    pname = "Cli";
-    version = "v4.29.0";
-    src = fetchFromGitHub {
-      owner = "leanprover";
-      repo = "lean4-cli";
-      rev = "v4.29.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-jCUl4sXVmwtYPuQecEUFH6mwFzPaQY7au4624EOiWjk=";
-    };
-  };
-  LeanSearchClient = {
-    pname = "LeanSearchClient";
-    version = "c5d5b8fe6e5158def25cd28eb94e4141ad97c843";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "LeanSearchClient";
-      rev = "c5d5b8fe6e5158def25cd28eb94e4141ad97c843";
-      fetchSubmodules = false;
-      sha256 = "sha256-L2aAwn3OeRLVt/VccLdBS0ogqmIIKAwnz94PpAOhaRc=";
-    };
-  };
-  Qq = {
-    pname = "Qq";
-    version = "v4.29.0";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "quote4";
-      rev = "v4.29.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-pNY5hv1nJbreCfU4EewIHCpiryIBv1ghWibrUW8vnQ0=";
-    };
-  };
-  aesop = {
-    pname = "aesop";
-    version = "v4.29.0";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "aesop";
-      rev = "v4.29.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-CNwxNig8OWjtfQRYyRnM/HGBn2oaNX5qP9CVT2eWNlg=";
-    };
-  };
   amgcl = {
     pname = "amgcl";
     version = "93827a00fc926d951c75f08fdb1d491912ff7065";
@@ -93,17 +49,6 @@
       rev = "v1.1.2";
       fetchSubmodules = false;
       sha256 = "sha256-hKIufS5o5tfsbVchwTJxms1n5Im1iTfY3KGWD1s5g9M=";
-    };
-  };
-  batteries = {
-    pname = "batteries";
-    version = "v4.29.0";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "batteries";
-      rev = "v4.29.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-sEIDi2i2FaLTgKYWt/kzqPrjMdf+bFURfhw6ZZWBawQ=";
     };
   };
   cmdlime = {
@@ -209,17 +154,6 @@
     };
     date = "2015-10-31";
   };
-  importGraph = {
-    pname = "importGraph";
-    version = "v4.29.0";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "import-graph";
-      rev = "v4.29.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-tqdO2qyWiJzEbK0yuu4+tiOXTEg9XJfGnI7z6Jh/abg=";
-    };
-  };
   jax-md = {
     pname = "jax-md";
     version = "0.2.8";
@@ -242,39 +176,6 @@
     src = fetchurl {
       url = "https://pypi.org/packages/source/k/keymap_drawer/keymap_drawer-0.22.1.tar.gz";
       sha256 = "sha256-DPkQbw5tpEMJuVqa2IiD9W5Fn9hxQZKHygu3x7oEobo=";
-    };
-  };
-  mathlib = {
-    pname = "mathlib";
-    version = "v4.29.0";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "mathlib4";
-      rev = "v4.29.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-fe+qS7gNxdLnACX3/jqToa9m7r1gbskY6kDJbm1ZefE=";
-    };
-  };
-  plausible = {
-    pname = "plausible";
-    version = "v4.29.0";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "plausible";
-      rev = "v4.29.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-08fNB2GK5AqDJ15n5Ol+HYqaSbsznyp4cerDo32bG50=";
-    };
-  };
-  proofwidgets = {
-    pname = "proofwidgets";
-    version = "v0.0.95";
-    src = fetchFromGitHub {
-      owner = "leanprover-community";
-      repo = "ProofWidgets4";
-      rev = "v0.0.95";
-      fetchSubmodules = false;
-      sha256 = "sha256-LETljr+QEU6CxprR3pB4hUzhgCD8PrIuiPOgTIdhHVM=";
     };
   };
   ptrace-time-hook = {
