@@ -108,7 +108,7 @@ lib.checkListOfEnum "catppuccin-gtk-theme: theme variants"
     meta = {
       description = "A GTK theme based on the colours of Catppuccin";
       license = lib.licenses.gpl3Only;
-      platforms = lib.platforms.unix;
+      platforms = lib.platforms.linux;
       homepage = "https://github.com/Fausto-Korpsvart/Catppuccin-GTK-Theme";
     };
   })
