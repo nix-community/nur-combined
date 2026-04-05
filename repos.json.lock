@@ -201,8 +201,8 @@
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
         "VZstless": {
-            "rev": "505adc88890cf182e03591566326f37b1c73778e",
-            "sha256": "0wk3x3c3syfnrqnlx8a8xr61sabhandl48hwipi04jagczcwjwjl",
+            "rev": "c8a95c7ef7c23fe4a38828057d2f4e1c0b488c24",
+            "sha256": "16f73p87mmvzhab3mfk9bv78zl9z2w2k9x2an98hp39r6hbj05cg",
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
