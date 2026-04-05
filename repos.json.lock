@@ -1375,8 +1375,8 @@
             "url": "https://github.com/kreisys/nur-packages"
         },
         "kuflierl": {
-            "rev": "40be7d354557382653ca1f3af45384e139199cd5",
-            "sha256": "06y7kgn0z8dj7pgdljnvcmbb1qf7y1fii014z0hf3in8xpk4vnln",
+            "rev": "057823cd0465f21454b9b02b3a5f5b1933d6f7fe",
+            "sha256": "1rq5crgh5hljw1w3pcj1vwwg25y327x32slka178hnglhndm59gc",
             "url": "https://github.com/kuflierl/NUR"
         },
         "kugland": {
@@ -1572,8 +1572,8 @@
             "url": "https://github.com/mikidep/nur-packages"
         },
         "mikilio": {
-            "rev": "b516761c2077b790263d00d12b225b4462bf3ab0",
-            "sha256": "0algc49gcbvml3drpk5jbnlsnicn7pl7gkpdcv8jc91dqjqhdcrd",
+            "rev": "1404efadc0b983dc7c8e4de42aa09187cc9b01d4",
+            "sha256": "0pak8w6c0rgbs30rn6nzpbqq95q4df0cyiqlmra7gdkcwblshy5p",
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
