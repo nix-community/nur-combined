@@ -607,8 +607,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "14b78e2f05c48376ce910c3920c6192761323ad1",
-            "sha256": "12vkqbwym3ic4fb3pzdd55pap2p83vzlnc78406c0wki43hs84qk",
+            "rev": "92da0f9f22564cfbba16e590c997e98037205c65",
+            "sha256": "1b5q60znqgh32gmwjjhldackvbnsmd92dwa1qx8h104al50hmvj2",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
