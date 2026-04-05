@@ -1,0 +1,70 @@
+name: Update packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      tmate:
+        description: 'Start a tmate session'
+        default: 'false'
+        required: false
+  schedule:
+    - cron: '23 8 * * *' # daily
+
+jobs:
+  update:
+    if: github.repository == 'UlyssesZh/ulypkgs'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          install_options: --no-daemon # pass NIX_GITHUB_PRIVATE_USERNAME etc to nix commands
+
+      - name: Git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Start tmate
+        uses: mxschmitt/action-tmate@v3
+        with:
+          detached: true
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.tmate == 'true' }}
+
+      - name: Update
+        id: update
+        run: |
+          nix-build nixpkgs.nix --no-out-link # update scripts generally uses nix-shell and nix-instantiate, which uses default.nix instead of flake.nix
+          nix run .#update
+        env:
+          NIX_PATH: nixpkgs=${{ github.workspace }}
+          NIX_UPDATE_MAKE_COMMIT: '1'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MEGA_EMAIL: ${{ secrets.MEGA_EMAIL }}
+          MEGA_PASSWORD: ${{ secrets.MEGA_PASSWORD }}
+          ITCHIO_API_KEY: ${{ secrets.ITCHIO_API_KEY }}
+
+      - name: Pull request
+        uses: peter-evans/create-pull-request@v8
+        if: steps.update.outputs.success == '1'
+        with:
+          title: "Update packages"
+          body: |
+            This pull request was automatically created by GitHub Actions to update packages. All updated packages have been successfully built.
+
+            <details><summary>Updated packages</summary>
+
+            ${{ steps.update.outputs.updates }}
+            </details>
+
+            [Workflow log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+      - name: Fail
+        if: steps.update.outputs.success != '1'
+        run: exit 1

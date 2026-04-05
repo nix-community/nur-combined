@@ -1,0 +1,34 @@
+name: Update flake
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 5 * * 0' # weekly
+
+jobs:
+  update:
+    if: github.repository == 'UlyssesZh/ulypkgs'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Update
+        run: nix flake update
+
+      - name: Pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: "Update flake"
+          commit-message: "Update flake"
+          sign-commits: true
+          body: |
+            This pull request was automatically created by GitHub Actions to update `flake.lock`.
+
+            [Workflow log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})

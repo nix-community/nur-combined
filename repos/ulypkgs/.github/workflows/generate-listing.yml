@@ -1,0 +1,32 @@
+name: Generate listing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+
+jobs:
+  generate-listing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Generate
+        run: |
+          mkdir -p listing
+          nix build .#listing
+          cp -L result listing/index.html
+
+      - name: Push
+        uses: crazy-max/ghaction-github-pages@v5
+        with:
+          target_branch: listing
+          build_dir: listing
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

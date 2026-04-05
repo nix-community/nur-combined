@@ -1,0 +1,65 @@
+diff --git a/renpy/loadsave.py b/renpy/loadsave.py
+index 9217027fe..455c4d28a 100644
+--- a/renpy/loadsave.py
++++ b/renpy/loadsave.py
+@@ -42,6 +42,7 @@ import renpy
+ from json import dumps as json_dumps
+ 
+ from renpy.compat.pickle import PROTOCOL, dump, loads
++from renpy.compat.pickle import dumps
+ 
+ 
+ # This is used as a quick and dirty way of versioning savegame
+diff --git a/renpy/display/im.py b/renpy/display/im.py
+index 90e677148..f109e50ad 100644
+--- a/renpy/display/im.py
++++ b/renpy/display/im.py
+@@ -896,7 +896,7 @@ class Composite(ImageBase):
+         self.images = [ image(i) for i in args[1::2] ]
+ 
+         # Only supports all the images having the same oversample factor
+-        self.oversample = self.images[0].get_oversample()
++        self.oversample = self.images[0].get_oversample() if self.images else 1
+ 
+     def get_hash(self):
+         rv = 0
+diff --git a/renpy/common/00compat.rpy b/renpy/common/00compat.rpy
+index 76e639e44..07742c38a 100644
+--- a/renpy/common/00compat.rpy
++++ b/renpy/common/00compat.rpy
+@@ -272,12 +272,17 @@ init -1100 python:
+             if version > (6, 99, 5):
+                 config.search_prefixes.append("images/")
+ 
+-            config.top_layers.remove("top")
+-            config.bottom_layers.remove("bottom")
+-            config.context_clear_layers.remove("top")
+-            config.context_clear_layers.remove("bottom")
+-
+-            config.sticky_layers.remove("master")
++            if "top" in config.layers:
++                config.top_layers.remove("top")
++            if "bottom" in config.layers:
++                config.bottom_layers.remove("bottom")
++            if "top" in config.context_clear_layers:
++                config.context_clear_layers.remove("top")
++            if "bottom" in config.context_clear_layers:
++                config.context_clear_layers.remove("bottom")
++
++            if "master" in config.sticky_layers:
++                config.sticky_layers.remove("master")
+ 
+             store._errorhandling._constant = True
+             store._gamepad._constant = True
+@@ -298,7 +303,10 @@ init -1100 python:
+ 
+         if _compat_versions(version, (7, 6, 99), (8, 1, 99)):
+             config.simple_box_reverse = True
+-            build.itch_channels = list(build.itch_channels.items())
++
++            if isinstance(build.itch_channels, list):
++                build.itch_channels = { k : v for k, v in build.itch_channels }
++
+             config.atl_pos_only = True
+             config.atl_pos_only_as_pos_or_kw = True
+             style.default.shaper = "freetype"

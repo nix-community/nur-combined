@@ -1,0 +1,36 @@
+diff --git a/renpy/exports/__init__.py b/renpy/exports/__init__.py
+index 1fde5a714..fd87d16a4 100644
+--- a/renpy/exports/__init__.py
++++ b/renpy/exports/__init__.py
+@@ -564,6 +564,7 @@ from renpy.exports.scriptexports import (
+     load_language,
+     load_module,
+     load_string,
++    loaded_modules,
+     munged_filename,
+ )
+ 
+diff --git a/renpy/main.py b/renpy/main.py
+index dc3af95eb..abeccde0e 100644
+--- a/renpy/main.py
++++ b/renpy/main.py
+@@ -481,6 +481,19 @@ def main():
+         print(time.time() - start)
+         sys.exit(0)
+ 
++    import re
++    pattern = re.compile(r"^(.*)\.rpym$")
++    for fn in renpy.exports.list_files(common=True):
++        m = pattern.match(fn)
++        if m:
++            name = m.group(1)
++            if name in renpy.exports.loaded_modules:
++                print("Module {} already loaded".format(name))
++            else:
++                print("Compiling module {}".format(name))
++                renpy.game.script.load_module(name)
++    sys.exit(0)
++
+     renpy.game.exception_info = 'After loading the script.'
+ 
+     # Find the save directory.
