@@ -1343,8 +1343,8 @@
             "url": "https://github.com/kinzoku-dev/nur-kinzoku"
         },
         "kira-bruneau": {
-            "rev": "ae59ab46afd8e6e8ae12c6459448a20066a86810",
-            "sha256": "1md6a2m74x06qm7q8arf7jvm9qcqj9a1krvlqx7zv6v4aq9wrm0c",
+            "rev": "3e0a04f128e2605a9941d4ad801608902a6cd34d",
+            "sha256": "0igmyr09mj9jnxnmvdpk5fha2ydsr6hlv8ws964gd503d7fbznsz",
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
         "kokakiwi": {
