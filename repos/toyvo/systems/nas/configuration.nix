@@ -25,7 +25,7 @@ in
     inputs.nixcfg.modules.nixos.services.ollama
     inputs.nixcfg.modules.nixos.services.signal-cli
     inputs.hermes-agent.nixosModules.default
-    inputs.nixcfg.modules.nixos.containers.podman
+    inputs.nixcfg.modules.nixos.podman
     inputs.nixcfg.modules.nixos.containers.starr
     inputs.nixcfg.modules.nixos.containers.open-webui
     inputs.nixcfg.modules.nixos.containers.monitoring
@@ -159,7 +159,6 @@ in
     monitoring.enable = true;
   };
   containerPresets = {
-    podman.enable = true;
     open-webui = {
       enable = true;
       natInterface = "eno1";

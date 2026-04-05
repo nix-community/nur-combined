@@ -47,7 +47,7 @@ in
                 "uinput"
                 cfg.toyvo.name
               ]
-              ++ lib.optionals (config.containerPresets.podman.enable or false) [ "podman" ];
+              ++ lib.optionals (config.virtualisation.podman.enable or false) [ "podman" ];
               initialHashedPassword = "$y$j9T$tkZ4b5vK1fCsRP0oWUb0e1$w0QbUEv9swXir33ivvM70RYTYflQszeLBi3vubYTqd8";
             })
           ]
