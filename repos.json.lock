@@ -1426,8 +1426,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "79f227550c4f18e3f7814fff77d1fd3e911dd758",
-            "sha256": "1smqg0p009d6gfrv5nhhipsab5v439bpki7vwvbkwdxdw1km3iw5",
+            "rev": "dc6dc920af5dbe36090b009c7123e0b8eed45f1a",
+            "sha256": "02f8gngli97ywkz2rvngcxz26kdy3hl3y6661f1bp0c961h7q4pi",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2377,8 +2377,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "acc394760310462a7d5c13f6e5db2238df755d4f",
-            "sha256": "08vpv2mqdpnzqjw69iddx41x2bzm3gcsqjf4vzh7ls70p560vgq7",
+            "rev": "d6ab18670864438e5eccc741241e591f06f58b31",
+            "sha256": "025n23jz4pg7frbc2dg9hbks8y3cdmpf4avkzfphryychci79406",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
