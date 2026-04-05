@@ -25,16 +25,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "motrix-next";
-  version = "3.6.0";
+  version = "3.6.1";
 
   src = fetchFromGitHub {
     owner = "AnInsomniacy";
     repo = "motrix-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-J8r4FhTqlyV1ZqcjWtQO2w4I4GJVQ20pU0ksD89qNVk=";
+    hash = "sha256-DeqHF36iH2kPi4F7RU5Ipde0lnwGWJqHfu4kz3znexg=";
   };
 
-  cargoHash = "sha256-rxsal3mtlJWkffL/9++GvbVgunL/YSOOyBz3JNmjghQ=";
+  cargoHash = "sha256-v+0dWo3w42wglv23Ydj0+Cb5HXF2fZ4Z0DC8EIsN5ww=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       src
       ;
     inherit pnpm;
-    hash = "sha256-rCer8jUaFJV2nIcq+cn0ZPYBRpB0Aa071Qusyarq65I=";
+    hash = "sha256-WvcN4LLRKiOxYEjImZ7VerwHFj33ELJvDKyP3F2UYG8=";
     fetcherVersion = 3;
   };
 
@@ -82,14 +82,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
       .plugins.updater = {"active": false, "pubkey": "", "endpoints": []}
     ' \
     src-tauri/tauri.conf.json | sponge src-tauri/tauri.conf.json
-  ''
-  + lib.optionalString stdenv.hostPlatform.isLinux ''
-    substituteInPlace $cargoDepsCopy/{,*/}libappindicator-sys-*/src/lib.rs \
-      --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
   '';
 
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libayatana-appindicator
+        ]
+      }
       --suffix PATH : ${
         lib.makeBinPath [
           desktop-file-utils
@@ -98,9 +99,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       }
       # Tricky way to make the protocol handler desktop file point to the wrapper
       --set-default APPIMAGE $out/bin/motrix-next
-      # fix Nvidia issues with Tauri
-      # https://github.com/tauri-apps/tauri/issues/9394#issuecomment-3795449374
-      --set-default __NV_DISABLE_EXPLICIT_SYNC 1
     )
     wrapGApp $out/bin/motrix-next
   '';
