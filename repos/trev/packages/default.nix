@@ -10,6 +10,7 @@ rec {
   bobgen-unstable = pkgs.callPackage ./bobgen/unstable.nix { inherit bobgen; };
   buf = pkgs.callPackage ./buf { inherit (pkgs) buf; };
   bumper = pkgs.callPackage ./bumper { };
+  catppuccin-gtk = pkgs.callPackage ./catppuccin-gtk { };
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
   deno = pkgs.callPackage ./deno { inherit (pkgs) deno; };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
