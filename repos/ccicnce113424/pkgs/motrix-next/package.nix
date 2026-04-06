@@ -115,8 +115,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ];
     sourceProvenance = with lib.sourceTypes; [
       fromSource
-      # bundled a modified aria2
-      # source available at https://github.com/AnInsomniacy/aria2-builder
+      # ships an upstream-provided aria2c binary (statically linked, max connections increased)
+      # source for this binary: https://github.com/AnInsomniacy/aria2-builder
       binaryNativeCode
     ];
     maintainers = with lib.maintainers; [ ccicnce113424 ];
