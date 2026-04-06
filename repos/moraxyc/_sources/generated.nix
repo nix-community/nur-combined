@@ -230,6 +230,17 @@
     };
     date = "2026-03-29";
   };
+  metacubex-geo = {
+    pname = "metacubex-geo";
+    version = "v1.1";
+    src = fetchFromGitHub {
+      owner = "metacubex";
+      repo = "geo";
+      rev = "v1.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-lwFBevf3iP90LgnfUqweCjPBJPr2vMFtRqQXXUC+cRA=";
+    };
+  };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
     version = "v4.0.0";

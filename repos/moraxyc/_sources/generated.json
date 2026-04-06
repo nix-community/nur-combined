@@ -393,6 +393,27 @@
         },
         "version": "0303f707788e3f6f2d2228a5dc55c9f94cfc19e6"
     },
+    "metacubex-geo": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "metacubex-geo",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "metacubex",
+            "repo": "geo",
+            "rev": "v1.1",
+            "sha256": "sha256-lwFBevf3iP90LgnfUqweCjPBJPr2vMFtRqQXXUC+cRA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.1"
+    },
     "mm-geofeed-verifier": {
         "cargoLock": null,
         "date": null,
