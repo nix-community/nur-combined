@@ -393,6 +393,27 @@
         },
         "version": "0303f707788e3f6f2d2228a5dc55c9f94cfc19e6"
     },
+    "meta-rules-converter": {
+        "cargoLock": null,
+        "date": "2025-12-01",
+        "extract": null,
+        "name": "meta-rules-converter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "MetaCubeX",
+            "repo": "meta-rules-converter",
+            "rev": "7dea27841a3579a633189830c98c08a0434e8b79",
+            "sha256": "sha256-PwM5EH4v4MWePVeSjIGjCSu1ACYCIQ/wVq4sBTbrF9M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "7dea27841a3579a633189830c98c08a0434e8b79"
+    },
     "metacubex-geo": {
         "cargoLock": null,
         "date": null,

@@ -162,3 +162,7 @@ cargo_lock = ["Cargo.lock"]
 [metacubex-geo]
 src.github = "metacubex/geo"
 fetch.github = "metacubex/geo"
+
+[meta-rules-converter]
+src.git = "https://github.com/MetaCubeX/meta-rules-converter"
+fetch.github = "MetaCubeX/meta-rules-converter"

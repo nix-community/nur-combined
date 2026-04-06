@@ -230,6 +230,18 @@
     };
     date = "2026-03-29";
   };
+  meta-rules-converter = {
+    pname = "meta-rules-converter";
+    version = "7dea27841a3579a633189830c98c08a0434e8b79";
+    src = fetchFromGitHub {
+      owner = "MetaCubeX";
+      repo = "meta-rules-converter";
+      rev = "7dea27841a3579a633189830c98c08a0434e8b79";
+      fetchSubmodules = false;
+      sha256 = "sha256-PwM5EH4v4MWePVeSjIGjCSu1ACYCIQ/wVq4sBTbrF9M=";
+    };
+    date = "2025-12-01";
+  };
   metacubex-geo = {
     pname = "metacubex-geo";
     version = "v1.1";
