@@ -1633,8 +1633,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "eb542e6f9d2b96263270af676b1a86fe2d3ad427",
-            "sha256": "1xzisy92xniif3wgy8bfxwxkgwhmbxaydzc07qrfkhnwsc4bsb7f",
+            "rev": "01f210eb8b5d0c5f2b59748fa98c09fe50025a7d",
+            "sha256": "1s9xdz4yrz1vgc995pj2kwk9wxxars8fgj4xx5zli9li2mxsdxdy",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2387,8 +2387,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "e31fbde0a9c444207be265228b687dab240da5ae",
-            "sha256": "0vrf5g2plrrr04ns2wi5m9wlhgm79k3wj3f7v8j2x5vh35qgxg86",
+            "rev": "a457f2d83bc86b2d51081825b87f2ffca2308081",
+            "sha256": "094jdh0nx04js4i6lmci1r9ba98k07183srz2g0n1gm078csqlxk",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
