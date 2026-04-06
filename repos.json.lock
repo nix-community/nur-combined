@@ -703,8 +703,8 @@
             "url": "https://github.com/DeeUnderscore/nur-packages"
         },
         "definfo": {
-            "rev": "05f7f6d26f7a94ceaaca3079181bd1dcc62c3b72",
-            "sha256": "1fwqhz8y22k7mzphx800mmc8386frb4nbwp8llqnmgbb3iwx32qg",
+            "rev": "48d90ec5e4d96c8f53a0ff661d8009d4956f6849",
+            "sha256": "0gbv140ifhw7dvhjc36sf6nbrjv7ig3205fhh05wjip8g7919v89",
             "url": "https://github.com/definfo/nur-packages"
         },
         "demivan": {
@@ -2105,8 +2105,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "f8df1456eb3ddf837e3743f1cb5bcfc7730d29d2",
-            "sha256": "14nnkwzvwyqmw8fxxsh4zyyx84j8ga1l9qclndjp3894qhdkfini",
+            "rev": "5b0fb7d54dea38c47e5c58058c166e790a0e0cf1",
+            "sha256": "13y1sjp2w1i3cdc6ww6yfclg7mb2ckkn26l4rz6s1q607nw8k8qb",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
