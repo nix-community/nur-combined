@@ -241,8 +241,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "2f2218d83d87740323c01eab966fc3314623efb3",
-            "sha256": "161r0zmj9mmclmd2ily64niqlzvxhgqvb3dqpxmbv350m9chdppj",
+            "rev": "2ef35aafcdb377f562b42432943ef49f1af71217",
+            "sha256": "1lwn7dqg0y07s9za4w0mkqqa503yrhf7r3pz0iq1zsjalz0dxlsk",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -2215,8 +2215,8 @@
             "url": "https://github.com/SkyLeite/nix-repository"
         },
         "slaier": {
-            "rev": "7dfe0383d7b7e58ec99828f11ac31b42968f780b",
-            "sha256": "0p6m395jypqij4mvj2ir2cfyqjsylmzmil4hdmks71f4yjf01m1x",
+            "rev": "b14501ed136a69b490e7073ea4db54c65a2d861b",
+            "sha256": "0i4rrmqxdikxbm0w1a3d70czpc1v190lb463aa16vb4j86nz2aii",
             "url": "https://github.com/slaier/nixos-config"
         },
         "smaret": {
