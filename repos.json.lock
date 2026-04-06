@@ -1914,8 +1914,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "f33864d0fed738f9dace98855b964c088ebd10eb",
-            "sha256": "1yx3a6g2d2bdjwrrnr5avhxgm103rf5sn4gfpj82gmxkxbw76fi1",
+            "rev": "7552e093ad74dcdf1b08b55c4408f9fae4eac58d",
+            "sha256": "091yix7lp586b5srby2vb1rwpvi27c887dvzn94kvjz90xc6jqdi",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
@@ -2215,8 +2215,8 @@
             "url": "https://github.com/SkyLeite/nix-repository"
         },
         "slaier": {
-            "rev": "b14501ed136a69b490e7073ea4db54c65a2d861b",
-            "sha256": "0i4rrmqxdikxbm0w1a3d70czpc1v190lb463aa16vb4j86nz2aii",
+            "rev": "7c757c0f6a1a2026492ffef4e12b1ae91cb9196f",
+            "sha256": "1cbw26nzr9c36gc0y5zdcrmrms4c0s7jl7s0bi60pcpzx539q159",
             "url": "https://github.com/slaier/nixos-config"
         },
         "smaret": {
