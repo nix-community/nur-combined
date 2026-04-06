@@ -77,13 +77,19 @@ let
 
     // Journal log collection — push to Loki
     loki.source.journal "systemd" {
-      forward_to = [loki.relabel.journal.receiver]
+      // relabel_rules runs inside the source where __journal_* labels are available.
+      // Forward directly to loki.write — NOT back through loki.relabel.journal, which
+      // would re-apply the rules on an entry that no longer has __journal_* labels and
+      // would overwrite unit/syslog_identifier with empty strings.
+      forward_to = [loki.write.default.receiver]
       relabel_rules = loki.relabel.journal.rules
       labels = {
         host = "${hostname}",
       }
     }
 
+    // Rules are referenced by loki.source.journal via relabel_rules above.
+    // The receiver of this component is intentionally unused.
     loki.relabel "journal" {
       rule {
         source_labels = ["__journal__SYSTEMD_UNIT"]
@@ -93,7 +99,7 @@ let
         source_labels = ["__journal_SYSLOG_IDENTIFIER"]
         target_label  = "syslog_identifier"
       }
-      forward_to = [loki.write.default.receiver]
+      forward_to = []
     }
 
     loki.write "default" {
