@@ -1158,8 +1158,8 @@
             "url": "https://github.com/iopq/nur-packages"
         },
         "itscrystalline": {
-            "rev": "e7d89104dda4e950d6bdcc4c5aaed24b31c032c9",
-            "sha256": "0jm27hjlh7qwhdwn33b1x1w0581rhfp006cls4rikc33s8hmrdz7",
+            "rev": "adb0fd5b6d29d68529819600e730a1a7b69bbce0",
+            "sha256": "0zls0n2cv4xg070hqc0kiqpalyx5hs9x33xfbsxbwrjrxzkg80l8",
             "url": "https://github.com/itscrystalline/nur-packages"
         },
         "iuricarras": {
