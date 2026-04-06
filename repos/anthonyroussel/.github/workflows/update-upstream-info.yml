@@ -18,7 +18,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v6.0.2
 
-      - uses: DeterminateSystems/nix-installer-action@v21
+      - uses: DeterminateSystems/nix-installer-action@v22
         with:
           github-token: ${{ secrets.GH_TOKEN }}
 
