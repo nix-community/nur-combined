@@ -1914,8 +1914,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "7552e093ad74dcdf1b08b55c4408f9fae4eac58d",
-            "sha256": "091yix7lp586b5srby2vb1rwpvi27c887dvzn94kvjz90xc6jqdi",
+            "rev": "99225dce9b1e5efe2d062f9dd311d55bd798ce01",
+            "sha256": "11bih8nl58q7h9wi3kvd07ljd4aary64acgjnyffga7fd6rbr1ga",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
@@ -2387,8 +2387,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "1385dbdd8b2b179cbbfd6f165106726b032396be",
-            "sha256": "0k405ixs37b5kmhhx8n7hsc1xl3y80mv7f4lz7qn65v1cxaqs55r",
+            "rev": "a32c7f6821e9dd71e930c397242464f3cb11996e",
+            "sha256": "1jz8hba2gqpxx4kkxkf4n0chwdibxlx3nmyg1lhcd3n69jrh0w5r",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
