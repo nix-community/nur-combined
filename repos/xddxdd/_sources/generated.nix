@@ -1098,14 +1098,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "ab0e07c3eead79aff5ce800179f7b6ac15fdd1de";
+    version = "8f08fd828f2b2741f653456ac01cc537a9ba6e1f";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "ab0e07c3eead79aff5ce800179f7b6ac15fdd1de";
-      hash = "sha256-AE+kIpuP5liN5pMYniBtt8vCMQcHpU2RsLLjPUuIImU=";
+      rev = "8f08fd828f2b2741f653456ac01cc537a9ba6e1f";
+      hash = "sha256-yCcoVkbzJVm1MjMvHiRAK3+cVFLd8OOXhztuKhTiZAo=";
     };
-    date = "2026-03-17";
+    date = "2026-04-05";
   };
   libqcef = {
     pname = "libqcef";
@@ -1182,12 +1182,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8668";
+    version = "b8681";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8668";
-      hash = "sha256-CAja5GlV3DMpj9/juF5t2q8v9a0LYC8zF0tSs0LMaqY=";
+      tag = "b8681";
+      hash = "sha256-OxO5qtuPGVgsy5nlCoEbAa8rT2fOh9OHkZLebxb9lyQ=";
     };
   };
   loralib = {
@@ -1918,14 +1918,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "4c15933d984bc9fffaba898379a2db88483cf7c5";
+    version = "ec9fcfc1da840902373c73ca82aa505d7bab2bdf";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "4c15933d984bc9fffaba898379a2db88483cf7c5";
-      hash = "sha256-pl3hCwKRzFEfWW9w8mEAM1OaqhFMFyjsFQiKmB4fbSQ=";
+      rev = "ec9fcfc1da840902373c73ca82aa505d7bab2bdf";
+      hash = "sha256-L4re582x2RKDobLu7jC33pm6koXfGNcNQ8Cn0gKCm8A=";
     };
-    date = "2026-04-02";
+    date = "2026-04-06";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
