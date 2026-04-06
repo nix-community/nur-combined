@@ -336,8 +336,8 @@
             "url": "https://github.com/anntnzrb/nurpkgs"
         },
         "anthonyroussel": {
-            "rev": "bf19dd7596519e8edefab128fa12304c17229daf",
-            "sha256": "0k9lhzrxki9xdjvv771z9wc1b8mwmc1czm040p0fd3c4gzr4mygj",
+            "rev": "a34ac4f7d5daf6c8dd0446cfa65de90a6277a33b",
+            "sha256": "1g1jzk3jarhd1c4z57qs824vlxjvw5ckqz6q2lwdmv6jblsiw7c4",
             "url": "https://github.com/anthonyroussel/nur-packages"
         },
         "aprilthepink": {
