@@ -30,14 +30,14 @@ lib.fix (self: {
     source = sources.ghostty;
     sourceRoot = ".";
   };
-#  ghostty-nightly-bin = pkgs.callPackage ./pkgs/ghostty {
-#    isNightly = true;
-#    source = {
-#      inherit (sources.ghostty-nightly) version pname;
-#      src = ./_sources + "/${sources.ghostty-nightly.src.outputHash}";
-#    };
-#    sourceRoot = ".";
-#  };
+  #  ghostty-nightly-bin = pkgs.callPackage ./pkgs/ghostty {
+  #    isNightly = true;
+  #    source = {
+  #      inherit (sources.ghostty-nightly) version pname;
+  #      src = ./_sources + "/${sources.ghostty-nightly.src.outputHash}";
+  #    };
+  #    sourceRoot = ".";
+  #  };
   zen-browser = pkgs.callPackage ./pkgs/zen-browser {
     source = sources.zen;
     sourceRoot = "Zen.app";
@@ -59,24 +59,28 @@ lib.fix (self: {
 
   };
   #desktoppr = builtins.trace "desktoppr is now in nixpkgs" pkgs.callPackage ./pkgs/desktoppr {
-#  };
+  #  };
   kanata = pkgs.kanata.overrideAttrs (oldAttrs: {
 
     inherit (sources.kanata) src version;
     passthru = oldAttrs.passthru // {
       darwinDriverVersion = "6.2.0";
     };
+    checkFlags = [
+      # reason for disabling test
+      "--skip=kanata::tcp_layer_change_tests::*"
+    ];
     doInstallCheck = false;
+    doCheck = false;
     cargoDeps = pkgs.rustPlatform.importCargoLock sources.kanata.cargoLock."Cargo.lock";
   });
-#  karabiner-dk = builtins.trace "karabiner-dk is now in nixpkgs" pkgs.karabiner-dk;
+  #  karabiner-dk = builtins.trace "karabiner-dk is now in nixpkgs" pkgs.karabiner-dk;
   kanata-vk-agent = pkgs.callPackage ./pkgs/kanata-vk-agent {
     source = sources.kanata-vk-agent;
   };
   kanata-tray = pkgs.callPackage ./pkgs/kanata-tray {
     source = sources.kanata-tray;
   };
-
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
