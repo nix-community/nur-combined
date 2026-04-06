@@ -19,13 +19,13 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "vidbee";
 
-  version = "1.3.7";
+  version = "1.3.8";
 
   src = fetchFromGitHub {
     owner = "nexmoe";
     repo = "VidBee";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TQobAAH2aGG7j4P6yEfx1G7FKfbfo+NLJ2OsBHZigCk=";
+    hash = "sha256-o+sIPGmYDbLR3xgKVP1BiXnGX9IzJxz5/9NIchiFhi8=";
   };
 
   pnpmDeps = fetchPnpmDeps {
