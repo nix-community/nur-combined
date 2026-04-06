@@ -1,0 +1,114 @@
+name: "Update packages"
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Every Monday at 9:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update-ccusage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Check for ccusage update
+      id: check
+      run: |
+        CURRENT_VERSION=$(grep 'version = ' pkgs/ccusage/default.nix | head -1 | sed 's/.*"\(.*\)".*/\1/')
+        LATEST_VERSION=$(curl -s https://registry.npmjs.org/ccusage/latest | jq -r '.version')
+        echo "current=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+        echo "latest=$LATEST_VERSION" >> "$GITHUB_OUTPUT"
+        if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+          echo "needs_update=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "needs_update=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Update ccusage
+      if: steps.check.outputs.needs_update == 'true'
+      run: |
+        LATEST_VERSION="${{ steps.check.outputs.latest }}"
+        NEW_HASH=$(nix-prefetch-url --unpack --type sha256 \
+          "https://registry.npmjs.org/ccusage/-/ccusage-${LATEST_VERSION}.tgz" 2>/dev/null \
+          | xargs nix hash convert --hash-algo sha256 --to sri)
+        sed -i "s/version = \".*\"/version = \"${LATEST_VERSION}\"/" pkgs/ccusage/default.nix
+        sed -i "s|sha256 = \".*\"|sha256 = \"${NEW_HASH}\"|" pkgs/ccusage/default.nix
+
+    - name: Create Pull Request
+      if: steps.check.outputs.needs_update == 'true'
+      uses: peter-evans/create-pull-request@v7
+      with:
+        branch: update/ccusage-${{ steps.check.outputs.latest }}
+        commit-message: "ccusage: ${{ steps.check.outputs.current }} -> ${{ steps.check.outputs.latest }}"
+        title: "ccusage: ${{ steps.check.outputs.current }} -> ${{ steps.check.outputs.latest }}"
+        body: |
+          Automated update of ccusage from `${{ steps.check.outputs.current }}` to `${{ steps.check.outputs.latest }}`.
+
+          Release: https://github.com/ryoppippi/ccusage/releases/tag/v${{ steps.check.outputs.latest }}
+        labels: automated
+
+  update-oneaws:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Get current oneaws version
+      id: before
+      run: |
+        VERSION=$(grep -A1 'oneaws = {' pkgs/oneaws/gemset.nix | grep version | sed 's/.*"\(.*\)".*/\1/' || true)
+        # Fallback: parse from Gemfile.lock
+        if [ -z "$VERSION" ]; then
+          VERSION=$(grep '    oneaws ' pkgs/oneaws/Gemfile.lock | awk '{print $2}' | tr -d '()')
+        fi
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+    - name: Update oneaws gems
+      run: |
+        cd pkgs/oneaws
+        nix shell nixpkgs#bundler nixpkgs#bundix -c bash -c '
+          bundle update
+          bundix
+        '
+
+    - name: Check for changes
+      id: check
+      run: |
+        if git diff --quiet pkgs/oneaws/; then
+          echo "needs_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "needs_update=true" >> "$GITHUB_OUTPUT"
+          VERSION=$(grep '    oneaws ' pkgs/oneaws/Gemfile.lock | awk '{print $2}' | tr -d '()')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Create Pull Request
+      if: steps.check.outputs.needs_update == 'true'
+      uses: peter-evans/create-pull-request@v7
+      with:
+        branch: update/oneaws-${{ steps.check.outputs.version }}
+        commit-message: "oneaws: ${{ steps.before.outputs.version }} -> ${{ steps.check.outputs.version }}"
+        title: "oneaws: ${{ steps.before.outputs.version }} -> ${{ steps.check.outputs.version }}"
+        body: |
+          Automated update of oneaws from `${{ steps.before.outputs.version }}` to `${{ steps.check.outputs.version }}`.
+
+          Release: https://github.com/pepabo/oneaws/releases/tag/v${{ steps.check.outputs.version }}
+        labels: automated
