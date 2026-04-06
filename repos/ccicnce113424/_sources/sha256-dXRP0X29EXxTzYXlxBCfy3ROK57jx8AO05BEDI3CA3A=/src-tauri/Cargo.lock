@@ -2833,7 +2833,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.6.1"
+version = "3.6.2-beta.3"
 dependencies = [
  "chrono",
  "core-foundation",

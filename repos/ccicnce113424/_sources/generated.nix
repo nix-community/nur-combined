@@ -131,16 +131,16 @@
   };
   motrix-next = {
     pname = "motrix-next";
-    version = "v3.6.1";
+    version = "v3.6.2-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.6.1";
+      rev = "v3.6.2-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-DeqHF36iH2kPi4F7RU5Ipde0lnwGWJqHfu4kz3znexg=";
+      sha256 = "sha256-dXRP0X29EXxTzYXlxBCfy3ROK57jx8AO05BEDI3CA3A=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-DeqHF36iH2kPi4F7RU5Ipde0lnwGWJqHfu4kz3znexg=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-dXRP0X29EXxTzYXlxBCfy3ROK57jx8AO05BEDI3CA3A=/src-tauri/Cargo.lock";
       outputHashes = {
 
       };
@@ -176,18 +176,18 @@
   };
   pixes-git = {
     pname = "pixes-git";
-    version = "0b855494dccfd9517b066e03a770d2ceb3265dab";
+    version = "c7ad38be3d1bd22f9d16913690bd744be519e1b2";
     src = fetchFromGitHub {
       owner = "wgh136";
       repo = "pixes";
-      rev = "0b855494dccfd9517b066e03a770d2ceb3265dab";
+      rev = "c7ad38be3d1bd22f9d16913690bd744be519e1b2";
       fetchSubmodules = false;
-      sha256 = "sha256-l8hbapegLOJln7mZHTCbJ0IzZj5cyAoZf74QqLOw2GY=";
+      sha256 = "sha256-RLZ/nyG+0BVC97j4o1ot4etLq58/WN3Y5o2YoyGXVlE=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-l8hbapegLOJln7mZHTCbJ0IzZj5cyAoZf74QqLOw2GY=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-RLZ_nyG+0BVC97j4o1ot4etLq58_WN3Y5o2YoyGXVlE=/pubspec.lock";
     };
-    date = "2026-04-04";
+    date = "2026-04-06";
   };
   splayer-git = {
     pname = "splayer-git";
