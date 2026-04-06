@@ -330,6 +330,30 @@
         },
         "version": "v1.2.0"
     },
+    "headscale-ui": {
+        "cargoLock": null,
+        "date": "2026-03-16",
+        "extract": {
+            "package-lock.json": "sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=/package-lock.json",
+            "package.json": "sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=/package.json"
+        },
+        "name": "headscale-ui",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "gurucomputing",
+            "repo": "headscale-ui",
+            "rev": "ce7569c8473b70f6f8359385f2dbd6af66f21e55",
+            "sha256": "sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "ce7569c8473b70f6f8359385f2dbd6af66f21e55"
+    },
     "libinput-three-finger-drag": {
         "cargoLock": null,
         "date": "2024-06-17",

@@ -2,6 +2,7 @@
   lib,
   buildNpmPackage,
   importNpmLock,
+  installDistHook,
 
   nodejs,
 
@@ -29,11 +30,6 @@ buildNpmPackage (finalAttrs: {
     npm run generate:api
   '';
 
-  installPhase = ''
-    runHook preInstall
-
-    cp -r build $out
-
-    runHook postInstall
-  '';
+  npmInstallHook = installDistHook;
+  installDistDir = "build";
 })

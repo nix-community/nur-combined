@@ -23,6 +23,9 @@ let
           }
           // pkgsArg
           // self.packages
+          // {
+            callPackage = self.callPackageWrapper pkgsArg;
+          }
         );
 
       pkgsFun =
@@ -57,11 +60,9 @@ let
       pkgsStatic = lib.mergeAttrs (pkgs.writers.writeText "pkgsStatic" "") (self.pkgsFun pkgs.pkgsStatic);
 
       packages = lib.mergeAttrs (self.pkgsFun pkgs) {
+        callPackage = self.callPackageWrapper pkgs;
         upstream = pkgs;
-        inherit (self)
-          pkgsCross
-          pkgsStatic
-          ;
+        inherit (self) pkgsCross pkgsStatic;
       };
     })).packages;
 in

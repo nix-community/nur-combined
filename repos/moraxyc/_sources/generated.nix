@@ -195,6 +195,21 @@
       "web/package-lock.json" = ./. + "/sha256-VXkRDVHrRbU2TEl47jUhEmjXCkGzJgGYLKZBE_m9Ka8=/web/package-lock.json";
     };
   };
+  headscale-ui = {
+    pname = "headscale-ui";
+    version = "ce7569c8473b70f6f8359385f2dbd6af66f21e55";
+    src = fetchFromGitHub {
+      owner = "gurucomputing";
+      repo = "headscale-ui";
+      rev = "ce7569c8473b70f6f8359385f2dbd6af66f21e55";
+      fetchSubmodules = false;
+      sha256 = "sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=/package-lock.json";
+      "package.json" = ./. + "/sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=/package.json";
+    };date = "2026-03-16";
+  };
   libinput-three-finger-drag = {
     pname = "libinput-three-finger-drag";
     version = "6acd3f84b551b855b5f21b08db55e95dae3305c5";
