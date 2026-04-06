@@ -64,6 +64,8 @@ in
       internalInterfaces = [ "ve-immich" ];
     };
 
+    systemd.nspawn.immich.execConfig.LinkJournal = "host";
+
     containers.immich = {
       autoStart = true;
       privateNetwork = true;
@@ -108,8 +110,6 @@ in
           };
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.immich ];
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

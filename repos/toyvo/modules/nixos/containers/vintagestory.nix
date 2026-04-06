@@ -85,6 +85,8 @@ in
       allowedUDPPorts = [ cfg.port ];
     };
 
+    systemd.nspawn.vintagestory.execConfig.LinkJournal = "host";
+
     containers.vintagestory = {
       autoStart = true;
       privateNetwork = true;
@@ -158,8 +160,6 @@ in
 
           networking.firewall.allowedTCPPorts = [ cfg.port ];
           networking.firewall.allowedUDPPorts = [ cfg.port ];
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

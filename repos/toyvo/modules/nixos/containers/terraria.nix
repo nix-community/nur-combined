@@ -107,6 +107,8 @@ in
       allowedUDPPorts = [ cfg.port ];
     };
 
+    systemd.nspawn.terraria.execConfig.LinkJournal = "host";
+
     containers.terraria = {
       autoStart = true;
       privateNetwork = true;
@@ -192,8 +194,6 @@ in
             cfg.restPort
           ];
           networking.firewall.allowedUDPPorts = [ cfg.port ];
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

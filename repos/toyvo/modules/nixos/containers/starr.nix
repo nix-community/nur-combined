@@ -162,6 +162,8 @@ in
       internalInterfaces = [ "ve-starr" ];
     };
 
+    systemd.nspawn.starr.execConfig.LinkJournal = "host";
+
     containers.starr = {
       autoStart = true;
       privateNetwork = true;
@@ -403,8 +405,6 @@ in
               '';
             };
           };
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

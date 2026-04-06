@@ -83,6 +83,8 @@ in
       internalInterfaces = [ "ve-jellyfin" ];
     };
 
+    systemd.nspawn.jellyfin.execConfig.LinkJournal = "host";
+
     containers.jellyfin = {
       autoStart = true;
       privateNetwork = true;
@@ -148,8 +150,6 @@ in
           };
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.jellyfin ];
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

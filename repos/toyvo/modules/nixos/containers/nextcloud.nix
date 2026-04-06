@@ -81,6 +81,8 @@ in
       internalInterfaces = [ "ve-nextcloud" ];
     };
 
+    systemd.nspawn.nextcloud.execConfig.LinkJournal = "host";
+
     containers.nextcloud = {
       autoStart = true;
       privateNetwork = true;
@@ -195,8 +197,6 @@ in
             80 # nginx serving nextcloud
             cfg.ports.collabora
           ];
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

@@ -74,6 +74,8 @@ in
       internalInterfaces = [ "ve-open-webui" ];
     };
 
+    systemd.nspawn."open-webui".execConfig.LinkJournal = "host";
+
     containers.open-webui = {
       autoStart = true;
       privateNetwork = true;
@@ -130,8 +132,6 @@ in
           ];
 
           networking.firewall.allowedTCPPorts = [ cfg.port ];
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

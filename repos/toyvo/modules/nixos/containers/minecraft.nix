@@ -131,6 +131,8 @@ in
       ];
     };
 
+    systemd.nspawn.minecraft.execConfig.LinkJournal = "host";
+
     containers.minecraft = {
       autoStart = true;
       privateNetwork = true;
@@ -162,8 +164,6 @@ in
             eula = true;
             openFirewall = true;
           } cfg.settings;
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };

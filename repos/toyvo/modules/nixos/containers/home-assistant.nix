@@ -66,6 +66,8 @@ in
       internalInterfaces = [ "ve-hass" ];
     };
 
+    systemd.nspawn.hass.execConfig.LinkJournal = "host";
+
     containers.hass = {
       autoStart = true;
       privateNetwork = true;
@@ -96,8 +98,6 @@ in
               };
             } cfg.haConfig;
           };
-
-          services.journald.extraConfig = "ForwardToHost=yes";
 
           system.stateVersion = "26.05";
         };
