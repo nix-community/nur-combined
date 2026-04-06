@@ -5,11 +5,11 @@
 }:
 mkZoteroAddon rec {
     pname = "ZotMoov";
-    version = "1.2.27";
+    version = "1.2.28";
 
     src = fetchurl {
         url = "https://github.com/wileyyugioh/zotmoov/releases/download/${version}/zotmoov-${version}-fx.xpi";
-        hash = "sha256-y89Pun0exbMa+Wq7BPdaBSkMtqmi3nHS5AH/qAuiyi4=";
+        hash = "sha256-H2zNIXbkAMSzg0CfhlL3qpBG5GY2jbrC+zUH4LEoCTc=";
     };
 
     addonId = "zotmoov@wileyy.com";
