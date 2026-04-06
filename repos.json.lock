@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "d6921020b8b81018a96b8c389ea503f467382ef0",
-            "sha256": "0vpaklp1llgn72zfyin6lrd6jqky5jji5gg51vcajyl6s93i1ik6",
+            "rev": "f47baf9a2b89240c94619bc5290ca5a0ddb9948b",
+            "sha256": "1sm0zz41pj9j6ihj4xv6kn6kgdcnbw22awr6j6g47qaj7hnlprv9",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "77d3bec6b5c3d8dfc126371e4f51e85ff783c490",
-            "sha256": "1275a2rhkv3ar3gv3c1xinm3daycs86lwbw2gjx1ys637arx6k1d",
+            "rev": "3acf23c194a909508f3385e5a1e0590d51ce5e6e",
+            "sha256": "172l1rx0n5kvbgpyknsclkv54bdfbdpiyp36xgdjlglsk9qqiis9",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
