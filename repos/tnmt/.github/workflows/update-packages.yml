@@ -45,7 +45,7 @@ jobs:
 
     - name: Create Pull Request
       if: steps.check.outputs.needs_update == 'true'
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       with:
         branch: update/ccusage-${{ steps.check.outputs.latest }}
         commit-message: "ccusage: ${{ steps.check.outputs.current }} -> ${{ steps.check.outputs.latest }}"
@@ -107,7 +107,7 @@ jobs:
 
     - name: Create Pull Request (version update)
       if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'true'
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       with:
         branch: update/oneaws-${{ steps.check.outputs.version }}
         commit-message: "oneaws: ${{ steps.before.outputs.version }} -> ${{ steps.check.outputs.version }}"
@@ -120,7 +120,7 @@ jobs:
 
     - name: Create Pull Request (dependency update)
       if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'false'
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       with:
         branch: update/oneaws-deps
         commit-message: "oneaws: update dependencies"
