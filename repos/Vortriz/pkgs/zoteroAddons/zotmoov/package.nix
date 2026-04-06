@@ -9,7 +9,7 @@ mkZoteroAddon rec {
 
     src = fetchurl {
         url = "https://github.com/wileyyugioh/zotmoov/releases/download/${version}/zotmoov-${version}-fx.xpi";
-        hash = "sha256-H2zNIXbkAMSzg0CfhlL3qpBG5GY2jbrC+zUH4LEoCTc=";
+        hash = "sha256-UfPQWLnMqB697s4CG8Jj/liHiLxNDjp8LW0ZbulL7bk=";
     };
 
     addonId = "zotmoov@wileyy.com";
