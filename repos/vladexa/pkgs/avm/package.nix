@@ -11,13 +11,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "avm";
-  version = "13.0.0";
+  version = "14.0.0";
 
   src = fetchFromGitLab {
     owner = "AOMediaCodec";
     repo = "avm";
     rev = "research-v${finalAttrs.version}";
-    hash = "sha256-y1sCFwisBHWMeTfCbb+xCuZJ03FOFlvgxjwPdyXBo0o=";
+    hash = "sha256-sjdaY2PeTPlaIWX+u0Ln7GhNYOei1B+J1bVEKuBHgR0=";
   };
 
   postPatch = ''
@@ -38,10 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     perl
     python3
     pkg-config
-  ];
-
-  cmakeFlags = [
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ];
 
   postInstall = ''
