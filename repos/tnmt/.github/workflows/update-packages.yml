@@ -98,10 +98,15 @@ jobs:
           echo "needs_update=true" >> "$GITHUB_OUTPUT"
           VERSION=$(grep '    oneaws ' pkgs/oneaws/Gemfile.lock | awk '{print $2}' | tr -d '()')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [ "${{ steps.before.outputs.version }}" != "$VERSION" ]; then
+            echo "version_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "version_changed=false" >> "$GITHUB_OUTPUT"
+          fi
         fi
 
-    - name: Create Pull Request
-      if: steps.check.outputs.needs_update == 'true'
+    - name: Create Pull Request (version update)
+      if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'true'
       uses: peter-evans/create-pull-request@v7
       with:
         branch: update/oneaws-${{ steps.check.outputs.version }}
@@ -111,4 +116,15 @@ jobs:
           Automated update of oneaws from `${{ steps.before.outputs.version }}` to `${{ steps.check.outputs.version }}`.
 
           Release: https://github.com/pepabo/oneaws/releases/tag/v${{ steps.check.outputs.version }}
+        labels: automated
+
+    - name: Create Pull Request (dependency update)
+      if: steps.check.outputs.needs_update == 'true' && steps.check.outputs.version_changed == 'false'
+      uses: peter-evans/create-pull-request@v7
+      with:
+        branch: update/oneaws-deps
+        commit-message: "oneaws: update dependencies"
+        title: "oneaws: update dependencies"
+        body: |
+          Automated dependency update for oneaws (version unchanged at `${{ steps.check.outputs.version }}`).
         labels: automated
