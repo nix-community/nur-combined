@@ -1633,8 +1633,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "9d9d9677a3a171d6cb97f2dd8748e0342112e5f7",
-            "sha256": "1vsp6swyqmr6mgl6b6jdfklsc34xpi34pzf45svfaankbckpbq2w",
+            "rev": "66c73cd3ee9717772bd21a8acb32f3818a8aa510",
+            "sha256": "0k12h4aglfq2mzdlx5l4w493vvb0cywi54a5chddkc9ynqc2s9xz",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2352,8 +2352,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "aa0f2f1156b33ecaff626a513a3ecea7ac183a65",
-            "sha256": "1cyjcslymafz2633cx4dkb2qwih8ldv90pdmr9413clww7pcd22r",
+            "rev": "5e359175ed9537b116f9987afdfc1287cc3c3e81",
+            "sha256": "0x5a2xmq4gldp7mb259n65jq3bmmgjjj8s118f5290kvsb4dacwl",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
