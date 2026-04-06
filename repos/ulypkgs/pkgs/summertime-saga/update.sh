@@ -1,13 +1,13 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl pup megacmd
+#!nix-shell -i bash -p curl pup megacmd playwright-scrape
 
-set -euo pipefail -x
+set -euo pipefail
 
 attr() {
   nix-instantiate --eval -A summertime-saga.$1 | tr -d '"'
 }
 
-webpage="$(curl -s https://summertimesaga.com/download)"
+webpage="$(playwright-scrape https://summertimesaga.com/download)"
 file_id="$(echo "$webpage" | pup 'h4:contains("Linux") + p > a:contains("mega") attr{href}' | head -n1 | sed 's|https://mega\.nz/#||')"
 if [[ "$file_id" == "$(attr src.fileId)" ]]; then
   echo "Already up to date." >&2

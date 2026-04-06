@@ -115,6 +115,12 @@ You can also use it as an overlay with flakes:
 }
 ```
 
+This package collection is also available on [NUR](https://github.com/nix-community/NUR):
+
+```shll
+nix run github:nix-community/NUR#repos.ulypkgs.hello
+```
+
 ## Binary caches
 
 Binary caches are available on Garnix's public caches,

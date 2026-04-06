@@ -103,6 +103,8 @@ let
       '';
     });
 
+    playwright-scrape = callPackage ./playwright-scrape { };
+
     # https://github.com/NixOS/nixpkgs/pull/504249
     rpatool = with pkgs.python3Packages; toPythonApplication rpatool;
 

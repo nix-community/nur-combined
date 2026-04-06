@@ -30,8 +30,8 @@ writeTextFile {
   + lib.concatMapAttrsStringSep "\n" (
     attr: package:
     let
-      updateScript' = package.passthru.updateScript or null;
-      updateScript = if lib.isList updateScript' then lib.escapeShellArgs updateScript' else updateScript';
+      updateScript' = package.updateScript.command or package.updateScript or null;
+      updateScript = if updateScript' != null then lib.escapeShellArgs (lib.toList updateScript') else null;
     in
     if !lib.isDerivation package then
       ''
@@ -50,6 +50,11 @@ writeTextFile {
         file="$(nix-instantiate --eval -A ${attr}.meta.position | cut -d'"' -f2)"
         file="''${file%:[0-9]*}"
         cp "$file" "$original"
+
+        export UPDATE_NIX_NAME="${package.name}"
+        export UPDATE_NIX_PNAME="${package.pname or ""}"
+        export UPDATE_NIX_OLD_VERSION="${package.version or ""}"
+        export UPDATE_NIX_ATTR_PATH="${attr}"
 
         if ${updateScript}; then
           echo "update: Updated '${attr}' successfully"
