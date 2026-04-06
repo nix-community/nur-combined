@@ -109,6 +109,8 @@ in
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.immich ];
 
+          services.journald.extraConfig = "ForwardToHost=yes";
+
           system.stateVersion = "26.05";
         };
     };

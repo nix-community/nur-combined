@@ -159,6 +159,8 @@ in
           networking.firewall.allowedTCPPorts = [ cfg.port ];
           networking.firewall.allowedUDPPorts = [ cfg.port ];
 
+          services.journald.extraConfig = "ForwardToHost=yes";
+
           system.stateVersion = "26.05";
         };
     };

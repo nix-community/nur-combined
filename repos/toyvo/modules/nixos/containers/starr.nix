@@ -404,6 +404,8 @@ in
             };
           };
 
+          services.journald.extraConfig = "ForwardToHost=yes";
+
           system.stateVersion = "26.05";
         };
     };

@@ -196,6 +196,8 @@ in
             cfg.ports.collabora
           ];
 
+          services.journald.extraConfig = "ForwardToHost=yes";
+
           system.stateVersion = "26.05";
         };
     };

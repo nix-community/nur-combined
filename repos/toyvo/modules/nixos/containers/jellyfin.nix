@@ -149,6 +149,8 @@ in
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.jellyfin ];
 
+          services.journald.extraConfig = "ForwardToHost=yes";
+
           system.stateVersion = "26.05";
         };
     };

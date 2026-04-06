@@ -96,6 +96,10 @@ let
         target_label  = "unit"
       }
       rule {
+        source_labels = ["__journal__hostname"]
+        target_label  = "machine"
+      }
+      rule {
         source_labels = ["__journal_syslog_identifier"]
         target_label  = "syslog_identifier"
       }
