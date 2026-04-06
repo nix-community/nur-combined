@@ -1,4 +1,7 @@
 { lib, pkgs, ... }:
+let
+  player = "tauon";
+in
 {
   programs.waybar = {
     enable = true;
@@ -9,7 +12,7 @@
       ];
       modules-center = [
         "custom/bluetooth-player"
-        "custom/spotify"
+        "custom/${player}"
       ];
       modules-right = [
         "tray"
@@ -45,18 +48,18 @@
         restart-interval = 2;
         exec-on-event = false;
       };
-      "custom/spotify" = {
-        format = "{icon} {}";
+      "custom/${player}" = {
+        format = "{icon} {text}";
         return-type = "json";
         max-length = 40;
         escape = true;
-        on-click = "${lib.getExe pkgs.playerctl} -p spotify play-pause";
-        on-click-right = "killall spotify";
+        on-click = "${lib.getExe pkgs.playerctl} -p ${player} play-pause";
+        on-click-right = "killall ${player}";
         smooth-scrolling-threshold = 10;
-        on-scroll-up = "${lib.getExe pkgs.playerctl} -p spotify next";
-        on-scroll-down = "${lib.getExe pkgs.playerctl} -p spotify previous";
-        exec = "${lib.getExe (pkgs.callPackage ./mediaplayer.nix {})} --player spotify 2> /dev/null";
-        exec-if = "pgrep spotify";
+        on-scroll-up = "${lib.getExe pkgs.playerctl} -p ${player} next";
+        on-scroll-down = "${lib.getExe pkgs.playerctl} -p ${player} previous";
+        exec = "${lib.getExe (pkgs.callPackage ./mediaplayer.nix {})} --player ${player} 2> /dev/null";
+        exec-if = "pgrep ${player}";
         restart-interval = 2;
       };
       tray = {
@@ -103,7 +106,9 @@
         format-alt = "{:%A, %B %d - %I:%M:%S %p}";
       };
     };
-    style = ./style.css;
+    style = pkgs.replaceVars ./style.css {
+      player = player;
+    };
     systemd.enable = true;
   };
 }

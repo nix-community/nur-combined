@@ -59,14 +59,14 @@
       },
       {
         "domain_suffix": ".cn",
-        "server": "dns-direct"
+        "server": "dns-local"
       },
       {
         "rule_set": [
           "geoip-cn",
           "geosite-cn"
         ],
-        "server": "dns-direct"
+        "server": "dns-local"
       }
     ],
     "final": "dns-remote",
@@ -148,9 +148,6 @@
       {
         "rule_set": [
           "geosite-microsoft"
-        ],
-        "domain": [
-          "cache.nixos.org"
         ],
         "outbound": "us"
       }

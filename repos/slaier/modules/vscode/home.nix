@@ -133,14 +133,9 @@ in
           platformio.platformio-vscode-ide
           skellock.just
         ] ++ (with pkgs.vscode-marketplace; [
-          google.geminicodeassist
           wokwi.wokwi-vscode
         ]);
         userSettings = {
-          "geminicodeassist.agentYoloMode" = true;
-          "geminicodeassist.enableTelemetry" = false;
-          "geminicodeassist.inlineSuggestions.enableAuto" = false;
-          "geminicodeassist.inlineSuggestions.nextEditPredictions" = false;
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "${lib.getExe pkgs.nil}";
           "nix.serverSettings" = {

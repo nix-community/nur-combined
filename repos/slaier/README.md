@@ -17,7 +17,7 @@ configurations. Other programs that can be simply included in
 | Terminal       | [Alacritty](https://github.com/alacritty/alacritty) |
 | Window Manager | [Niri](https://github.com/YaLTeR/niri)              |
 | Browser        | [Firefox](http://www.mozilla.com/en-US/firefox/)    |
-| Music Player   | [Spotify](https://www.spotify.com/)                 |
+| Music Player   | [Tauon](https://tauonmusicbox.rocks/)               |
 
 ## Themes
 

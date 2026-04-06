@@ -8,7 +8,7 @@ let
     journalctl --user -f -u "${serviceName}" | while IFS= read -r line; do
         echo "$line"
         if [[ "$line" == *starts || "$line" == *ends ]]; then
-          ${lib.getExe pkgs.playerctl} -p spotify play-pause
+          ${lib.getExe pkgs.playerctl} -p tauon play-pause
         fi
     done
   '';

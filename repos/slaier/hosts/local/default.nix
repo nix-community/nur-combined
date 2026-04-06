@@ -51,7 +51,6 @@
     filezilla
     freerdp
     gdu
-    gemini-cli
     geminicommit
     geo
     git
@@ -79,6 +78,7 @@
     pciutils
     python3
     qalculate-qt
+    qbittorrent-enhanced
     qpdfview
     qrencode
     rust-petname

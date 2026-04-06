@@ -3,7 +3,7 @@
 }
 
 #workspaces button,
-#custom-spotify,
+#custom-@player@,
 #custom-bluetooth-player,
 #tray,
 #pulseaudio,
@@ -30,7 +30,7 @@ tooltip {
     background-color: darkturquoise;
 }
 
-#custom-spotify,
+#custom-@player@,
 #custom-bluetooth-player
 {
     background-color: springgreen;
