@@ -506,7 +506,10 @@
     enable = true;
     jrePackage = pkgs.jdk25_headless;
     jvmOptions = [
-      "-cp ${pkgs.jdk25_headless}/share/java/libraries/jna-5.18.1.jar"
+      "-Djna.library.path=${pkgs.systemdLibs}/lib"
+      "--enable-native-access=ALL-UNNAMED"
+      "-XX:+UseCompactObjectHeaders"
+      "-XX:+UseZGC -XX:+ZGenerational"
     ];
   };
 

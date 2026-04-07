@@ -48,8 +48,9 @@ in
       serviceConfig = rec {
         ExecStart = ''
           ${cfg.jrePackage}/bin/java \
+            -Djna.tmpdir=/tmp \
             -Djdk.attach.allowAttachSelf=true -Dsun.net.useExclusiveBind=false \
-            -Dpbh.release=shirok1/flakes \
+            -Dpbh.release=github:shirok1/flakes \
             -Dpbh.datadir=/var/lib/${StateDirectory} \
             ${toString cfg.jvmOptions} \
             -jar ${cfg.package}/share/java/PeerBanHelper.jar
@@ -58,6 +59,7 @@ in
         WorkingDirectory = "/var/lib/${StateDirectory}";
         Restart = "on-failure";
         DynamicUser = true;
+        PrivateTmp = true;
       };
     };
   };
