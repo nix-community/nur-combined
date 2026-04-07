@@ -132,16 +132,16 @@
   };
   motrix-next = {
     pname = "motrix-next";
-    version = "v3.6.3";
+    version = "v3.6.4";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.6.3";
+      rev = "v3.6.4";
       fetchSubmodules = false;
-      sha256 = "sha256-u4t/QIRFDuvGPA4+p4OuS6tDnU6+ZmEJSfOYIh//NaQ=";
+      sha256 = "sha256-2Uxw56fDRQTTo4ApsjiMs+rmeZ4mF/9bVdUH9Dg6Qfw=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-u4t_QIRFDuvGPA4+p4OuS6tDnU6+ZmEJSfOYIh__NaQ=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-2Uxw56fDRQTTo4ApsjiMs+rmeZ4mF_9bVdUH9Dg6Qfw=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -177,16 +177,16 @@
   };
   pixes-git = {
     pname = "pixes-git";
-    version = "2794e76cb68175754080f5e14a8a28b7e6a91476";
+    version = "abf249b941dd5e4e9bd03ac2add8573bd669917b";
     src = fetchFromGitHub {
       owner = "wgh136";
       repo = "pixes";
-      rev = "2794e76cb68175754080f5e14a8a28b7e6a91476";
+      rev = "abf249b941dd5e4e9bd03ac2add8573bd669917b";
       fetchSubmodules = false;
-      sha256 = "sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=";
+      sha256 = "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt/OJn6ia6CmIc4=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt_OJn6ia6CmIc4=/pubspec.lock";
     };date = "2026-04-07";
   };
   splayer-git = {
@@ -237,20 +237,20 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "9ceefc02bc3f193db66c6e326141b29bd3d6748c";
+    version = "d3e1e09f72bf5bef8dbb639efdc13d1e2ee9ef29";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "9ceefc02bc3f193db66c6e326141b29bd3d6748c";
+      rev = "d3e1e09f72bf5bef8dbb639efdc13d1e2ee9ef29";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-9QvJ0aGKTM61DI6d3PJqoCNjK9vUTa6HcIpWxtULX+Y=";
     };
-    date = "2026-04-03";
+    date = "2026-04-07";
   };
   wild = {
     pname = "wild";
