@@ -31,7 +31,8 @@ writeTextFile {
     attr: package:
     let
       updateScript' = package.updateScript.command or package.updateScript or null;
-      updateScript = if updateScript' != null then lib.escapeShellArgs (lib.toList updateScript') else null;
+      updateScript =
+        if updateScript' != null then lib.escapeShellArgs (lib.toList updateScript') else null;
     in
     if !lib.isDerivation package then
       ''

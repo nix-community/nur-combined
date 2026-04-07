@@ -1,0 +1,71 @@
+commit f66e55d78aa67d6e33066185c4ed9de7284dfaaa
+Author: Ulysses Zhan <UlyssesZhan@gmail.com>
+Date:   Sun Apr 5 23:48:35 2026 -0700
+
+    Add option to disable downloading files (--no-files)
+
+diff --git a/PatreonDownloader.App/Models/CommandLineOptions.cs b/PatreonDownloader.App/Models/CommandLineOptions.cs
+index 4568575..6e0f086 100644
+--- a/PatreonDownloader.App/Models/CommandLineOptions.cs
++++ b/PatreonDownloader.App/Models/CommandLineOptions.cs
+@@ -8,6 +8,10 @@ namespace PatreonDownloader.App.Models
+     {
+         [Option("url", Required = true, HelpText = "Url of the creator's page")]
+         public string Url { get; set; }
++
++        [Option("no-files", Required = false, HelpText = "Do not download files (images, attachments, media, etc.). Useful when only post metadata like descriptions is needed.", Default = false)]
++        public bool NoFiles { get; set; }
++
+         [Option("descriptions", Required = false, HelpText = "Save post descriptions", Default = false)]
+         public bool SaveDescriptions { get; set; }
+         [Option("embeds", Required = false, HelpText = "Save embedded content metadata", Default = false)]
+diff --git a/PatreonDownloader.App/Program.cs b/PatreonDownloader.App/Program.cs
+index f829a43..fb3cb86 100644
+--- a/PatreonDownloader.App/Program.cs
++++ b/PatreonDownloader.App/Program.cs
+@@ -153,6 +153,7 @@ namespace PatreonDownloader.App
+                 UrlBlackList = (_configuration["UrlBlackList"] ?? "").ToLowerInvariant().Split("|").ToList(),
+                 UserAgent = "Patreon/126.9.0.15 (Android; Android 14; Scale/2.10)",
+                 CookieContainer = null,
++                NoFiles = commandLineOptions.NoFiles,
+                 SaveAvatarAndCover = commandLineOptions.SaveAvatarAndCover,
+                 SaveDescriptions = commandLineOptions.SaveDescriptions,
+                 SaveEmbeds = commandLineOptions.SaveEmbeds,
+diff --git a/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs b/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
+index 4a05085..b0254cd 100644
+--- a/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
++++ b/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
+@@ -19,6 +19,11 @@ namespace PatreonDownloader.Implementation.Models
+ 
+         public bool SaveAvatarAndCover { get; init; }
+ 
++        /// <summary>
++        /// If true, do not download remote files (images, attachments, media, etc.)
++        /// </summary>
++        public bool NoFiles { get; init; }
++
+         /// <summary>
+         /// Create a new directory for every post and store files of said post in that directory
+         /// </summary>
+diff --git a/PatreonDownloader.Implementation/PatreonPageCrawler.cs b/PatreonDownloader.Implementation/PatreonPageCrawler.cs
+index 7348648..0c69573 100644
+--- a/PatreonDownloader.Implementation/PatreonPageCrawler.cs
++++ b/PatreonDownloader.Implementation/PatreonPageCrawler.cs
+@@ -63,7 +63,7 @@ namespace PatreonDownloader.Implementation
+             List<ICrawledUrl> crawledUrls = new List<ICrawledUrl>();
+             Random rnd = new Random(Guid.NewGuid().GetHashCode());
+ 
+-            if (_patreonDownloaderSettings.SaveAvatarAndCover)
++            if (_patreonDownloaderSettings.SaveAvatarAndCover && !_patreonDownloaderSettings.NoFiles)
+             {
+                 _logger.Debug("Adding avatar and cover...");
+                 if(!string.IsNullOrWhiteSpace(patreonCrawlTargetInfo.AvatarUrl))
+@@ -87,7 +87,7 @@ namespace PatreonDownloader.Implementation
+ 
+                 ParsingResult result = await ParsePage(json);
+ 
+-                if(result.CrawledUrls.Count > 0)
++                if(!_patreonDownloaderSettings.NoFiles && result.CrawledUrls.Count > 0)
+                     crawledUrls.AddRange(result.CrawledUrls);
+ 
+                 nextPage = result.NextPage;

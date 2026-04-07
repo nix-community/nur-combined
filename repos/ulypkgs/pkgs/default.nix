@@ -103,6 +103,9 @@ let
       '';
     });
 
+    # https://github.com/NixOS/nixpkgs/pull/507156
+    patreon-downloader = callPackage ./patreon-downloader { };
+
     playwright-scrape = callPackage ./playwright-scrape { };
 
     # https://github.com/NixOS/nixpkgs/pull/504249

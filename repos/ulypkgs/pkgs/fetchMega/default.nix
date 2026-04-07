@@ -18,7 +18,9 @@ lib.extendMkDerivation {
     lib.fetchers.withNormalizedHash { } (
       {
         name ? null,
-        fileId,
+        fileId ? null,
+        folderId ? null,
+        pathInFolder ? null,
         password ? null,
 
         outputHash ? lib.fakeHash,
@@ -32,6 +34,13 @@ lib.extendMkDerivation {
         preferLocalBuild ? true,
         derivationArgs ? { },
       }:
+
+      assert lib.assertMsg (fileId != null || folderId != null) "set either fileId or folderId";
+      assert lib.assertMsg (fileId == null || folderId == null) "set either fileId or folderId, not both";
+      assert lib.assertMsg (
+        fileId == null || pathInFolder == null
+      ) "pathInFolder is only supported when folderId is set";
+
       let
         finalHashHasColon = lib.hasInfix ":" finalAttrs.hash;
         finalHashColonMatch = lib.match "([^:]+)[:](.*)" finalAttrs.hash;

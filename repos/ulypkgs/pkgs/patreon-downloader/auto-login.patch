@@ -1,0 +1,168 @@
+diff --git a/PatreonDownloader.App/Models/CommandLineOptions.cs b/PatreonDownloader.App/Models/CommandLineOptions.cs
+index 4568575..6077955 100644
+--- a/PatreonDownloader.App/Models/CommandLineOptions.cs
++++ b/PatreonDownloader.App/Models/CommandLineOptions.cs
+@@ -64,5 +64,11 @@ namespace PatreonDownloader.App.Models
+ 
+         [Option("proxy-server-address", Required = false, HelpText = "The address of proxy server to use in the following format: [<proxy-scheme>://]<proxy-host>[:<proxy-port>]. Supported protocols: http(s), socks4, socks4a, socks5.")]
+         public string ProxyServerAddress { get; set; }
++
++        [Option("email", Required = false, HelpText = "Patreon account email used for automatic login in the browser.")]
++        public string Email { get; set; }
++
++        [Option("password", Required = false, HelpText = "Patreon account password used for automatic login in the browser.")]
++        public string Password { get; set; }
+     }
+ }
+diff --git a/PatreonDownloader.App/Program.cs b/PatreonDownloader.App/Program.cs
+index f829a43..09467ec 100644
+--- a/PatreonDownloader.App/Program.cs
++++ b/PatreonDownloader.App/Program.cs
+@@ -166,7 +166,9 @@ namespace PatreonDownloader.App
+                 MaxFilenameLength = commandLineOptions.MaxFilenameLength,
+                 FallbackToContentTypeFilenames = commandLineOptions.FilenamesFallbackToContentType,
+                 ProxyServerAddress = commandLineOptions.ProxyServerAddress,
+-                IsUseLegacyFilenaming = commandLineOptions.IsUseLegacyFilenaming
++                IsUseLegacyFilenaming = commandLineOptions.IsUseLegacyFilenaming,
++                LoginEmail = commandLineOptions.Email,
++                LoginPassword = commandLineOptions.Password
+             };
+ 
+             if (settings.IsUseLegacyFilenaming && (settings.FileExistsAction == FileExistsAction.BackupIfDifferent || settings.FileExistsAction == FileExistsAction.ReplaceIfDifferent))
+diff --git a/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs b/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
+index 4a05085..cd7935d 100644
+--- a/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
++++ b/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
+@@ -54,6 +54,8 @@ namespace PatreonDownloader.Implementation.Models
+         public string CaptchaCookieRetrievalAddress { get { return "https://www.patreon.com/home"; } }
+         public Uri RemoteBrowserAddress { get; init; }
+         public bool IsHeadlessBrowser { get; init; }
++        public string LoginEmail { get; init; }
++        public string LoginPassword { get; init; }
+ 
+         public PatreonDownloaderSettings()
+         {
+Submodule submodules/UniversalDownloaderPlatform contains modified content
+diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs
+index 410e20c..18d1415 100644
+--- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs
++++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs
+@@ -32,5 +32,13 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Interfaces
+         /// Proxy server address
+         /// </summary>
+         public string ProxyServerAddress { get; init; }
++        /// <summary>
++        /// Email used for optional automatic login
++        /// </summary>
++        public string LoginEmail { get; init; }
++        /// <summary>
++        /// Password used for optional automatic login
++        /// </summary>
++        public string LoginPassword { get; init; }
+     }
+ }
+diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs
+index bc93511..8cdf0b0 100644
+--- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs
++++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs
+@@ -1,6 +1,7 @@
+ ﻿using System;
+ using System.Threading.Tasks;
+ using PuppeteerSharp;
++using PuppeteerSharp.Input;
+ 
+ namespace UniversalDownloaderPlatform.PuppeteerEngine.Interfaces.Wrappers.Browser
+ {
+@@ -15,6 +16,9 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Interfaces.Wrappers.Browse
+         Task SetUserAgentAsync(string userAgent);
+         Task<string> GetContentAsync();
+         Task<IWebRequest> WaitForRequestAsync(Func<IRequest, bool> predicate, WaitForOptions options = null);
++        Task WaitForSelectorAsync(string selector, WaitForSelectorOptions options = null);
++        Task TypeAsync(string selector, string text, TypeOptions options = null);
++        Task ClickAsync(string selector, ClickOptions options = null);
+         Task<CookieParam[]> GetCookiesAsync(params string[] urls);
+         Task CloseAsync(PageCloseOptions options = null);
+     }
+diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
+index 49cca23..0e4f33e 100644
+--- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
++++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
+@@ -100,6 +100,8 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine
+                     page.GoToAsync(_settings.LoginPageAddress, null);
+ #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+ 
++                    await TryAutoLogin(page);
++
+                     await page.WaitForRequestAsync(request => { return request.Url.Contains(_settings.LoginCheckAddress); });
+                 }
+                 else
+@@ -118,6 +120,32 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine
+             await page.CloseAsync();
+         }
+ 
++        private async Task TryAutoLogin(IWebPage page)
++        {
++            if (string.IsNullOrWhiteSpace(_settings.LoginEmail) || string.IsNullOrWhiteSpace(_settings.LoginPassword))
++                return;
++
++            _logger.Debug("Credentials were supplied, attempting automatic Patreon login");
++
++            const string emailSelector = "input[aria-label=\"Email\"]";
++            const string passwordSelector = "input[aria-label=\"Password\"]";
++            const string submitSelector = "button[type=\"submit\"]";
++
++            await page.WaitForSelectorAsync(emailSelector);
++            await Task.Delay(800);
++            await page.TypeAsync(emailSelector, _settings.LoginEmail);
++            await page.WaitForSelectorAsync(submitSelector);
++            await Task.Delay(300);
++            await page.ClickAsync(submitSelector);
++
++            await page.WaitForSelectorAsync(passwordSelector);
++            await Task.Delay(300);
++            await page.TypeAsync(passwordSelector, _settings.LoginPassword);
++            await page.WaitForSelectorAsync(submitSelector);
++            await Task.Delay(300);
++            await page.ClickAsync(submitSelector);
++        }
++
+         /// <summary>
+         /// Perform check if the received response contains data which can be used to assume that we are logged in
+         /// </summary>
+diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs
+index 09138ce..fe4f40e 100644
+--- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs
++++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs
+@@ -2,6 +2,7 @@
+ using System.Collections.Generic;
+ using System.Threading.Tasks;
+ using PuppeteerSharp;
++using PuppeteerSharp.Input;
+ using UniversalDownloaderPlatform.PuppeteerEngine.Interfaces.Wrappers.Browser;
+ 
+ namespace UniversalDownloaderPlatform.PuppeteerEngine.Wrappers.Browser
+@@ -55,6 +56,24 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Wrappers.Browser
+             return webRequest;
+         }
+ 
++        public async Task WaitForSelectorAsync(string selector, WaitForSelectorOptions options = null)
++        {
++            await ConfigurePage();
++            await _page.WaitForSelectorAsync(selector, options);
++        }
++
++        public async Task TypeAsync(string selector, string text, TypeOptions options = null)
++        {
++            await ConfigurePage();
++            await _page.TypeAsync(selector, text, options);
++        }
++
++        public async Task ClickAsync(string selector, ClickOptions options = null)
++        {
++            await ConfigurePage();
++            await _page.ClickAsync(selector, options);
++        }
++
+         public async Task<CookieParam[]> GetCookiesAsync(params string[] urls)
+         {
+             return await _page.GetCookiesAsync(urls);
