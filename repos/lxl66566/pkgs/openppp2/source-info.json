@@ -1,17 +1,28 @@
 {
-  "version": "v1.0.0.25226",
+  "owner": "lxl66566",
+  "version": "v1.0.0.26151",
   "hashes": {
     "x86_64-linux": {
       "io_uring_simd": {
-        "sha256": "0a3xbrrffw0ryb2cayyfgwgn5pkp355xnq77rn5n1pv3sfbvzj76",
+        "sha256": "a3d4e53d2e6ee4ebabc7420e803bec7aa7590d05afcfb513c9103c566c06b2f0",
         "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__pname__-linux-amd64-io-uring-simd.zip",
+        "targetSystem": "x86_64-unknown-linux-gnu"
+      },
+      "tc_io_uring_simd": {
+        "sha256": "343c007758b8e5e3a62238d2fb45421b1330fabe8c6797663289ecd0f0841c96",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__pname__-linux-amd64-tc-io-uring-simd.zip",
         "targetSystem": "x86_64-unknown-linux-gnu"
       }
     },
     "aarch64-linux": {
       "io_uring_simd": {
-        "sha256": "1rsgjsjb3nj4nn1pad10jb8fbwm7cg35vjrkwd3rgw861rxqmmyi",
+        "sha256": "ca86f166e0348607e633aa906baa37ca40b8892ce7c402e68f0f94f1708ea43a",
         "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__pname__-linux-aarch64-io-uring.zip",
+        "targetSystem": "aarch64-unknown-linux-gnu"
+      },
+      "tc_io_uring_simd": {
+        "sha256": "c890cfa00bba625a4dc61084339eb433fe46dcecdd475d3422632468c379f98c",
+        "template": "https://github.com/lxl66566/__pname__/releases/download/__version__/__pname__-linux-aarch64-tc-io-uring.zip",
         "targetSystem": "aarch64-unknown-linux-gnu"
       }
     }

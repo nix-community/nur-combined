@@ -29,5 +29,30 @@ let
     }
   );
 
+  tc = makeBinPackage (
+    commonArgs
+    // {
+      nixSystem = pkgs.stdenv.hostPlatform.system;
+      libc = "tc_io_uring_simd";
+    }
+  );
+
+  packages = lib.mapAttrs (
+    nixSystem: libcMap:
+    lib.mapAttrs (
+      libc: _:
+      makeBinPackage (
+        commonArgs
+        // {
+          inherit nixSystem libc;
+        }
+      )
+    ) libcMap
+  ) sourceInfo.hashes;
+
 in
-io_uring_simd
+io_uring_simd.overrideAttrs (oldAttrs: {
+  passthru = {
+    inherit tc packages;
+  };
+})

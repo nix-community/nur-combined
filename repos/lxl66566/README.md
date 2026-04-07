@@ -62,7 +62,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [fungi](https://github.com/enbop/fungi) | null | p2p tool cross platform |
 | [git-simple-encrypt](https://github.com/lxl66566/git-simple-encrypt) | null, musl | Encrypt/decrypt files in git repo using one password |
 | [git-sync-backup](https://github.com/lxl66566/git-sync-backup) | null, musl | Synchronize and backup files/folders using Git, cross-device & configurable |
-| [openppp2](https://github.com/liulilittle/openppp2) | null | Next-generation security network access technology, providing high-performance Virtual Ethernet tunneling service. |
+| [openppp2](https://github.com/liulilittle/openppp2) | null, tc | Next-generation security network access technology, providing high-performance Virtual Ethernet tunneling service. |
 | [system76-scheduler-niri](https://github.com/lxl66566/system76-scheduler-niri) | null, musl | Niri integration for system76-scheduler |
 | [urldecoder](https://github.com/lxl66566/urldecoder) | null, musl | Batch find and decode URLs in your text/files. very fast. |
 | [user-startup-rs](https://github.com/lxl66566/user-startup-rs) | null, musl | Simple cross-platform tool to make your command auto run on startup |
