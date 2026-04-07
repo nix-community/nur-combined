@@ -537,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "0d7d82fdbb16bf17b5bc488ba511ebbc80749d95",
-            "sha256": "0jzglsf4dnb3zmfw76mv2p4cif59crscd465shjmmwbhly5rs764",
+            "rev": "10598cb43f8d91d438bf9e75b55a2e4b8b21c888",
+            "sha256": "0xsjildg5i5yw1vqvqxas1da3jimix7fflx54rcvixg5f1p0aj4z",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1118,8 +1118,8 @@
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
-            "rev": "c19c5a6074a9d3d9b18f59616d57307cff7d8bbd",
-            "sha256": "1r8fcfiawbmm155xcs9nb1kx98c3zk4wyvg5dpbnjcamb1ndrks3",
+            "rev": "35432e80f27184af9f251593a5d196582a554883",
+            "sha256": "0akbbkwyg7f8cc1wqnqd72s1jshbxn7495n22w1swxq9z9p5h3hf",
             "url": "https://github.com/ijohanne/nur-packages"
         },
         "ilkecan": {
@@ -2432,8 +2432,8 @@
             "url": "https://github.com/uleenucks/nurpkgs"
         },
         "ulypkgs": {
-            "rev": "80bd6dc9bddd7ba2f7398e47d8a553575850aac5",
-            "sha256": "0k6xxxci05pjpgfsbzkvk5q5lljnivsi43r38w1avk1amkdn3xlb",
+            "rev": "20712ac51f9a8b5e8d35c867ad7c09d824f62d95",
+            "sha256": "0dinfywk1n9qq8xp5xriyhqygwhp82cbsjgnjalwwz2wmw1yywwb",
             "url": "https://github.com/UlyssesZh/ulypkgs"
         },
         "ungood": {
