@@ -13,28 +13,21 @@ on:
   workflow_dispatch:
 jobs:
   update-flake-lock:
-      runs-on: ubuntu-latest
-      permissions:
-        contents: write
-        id-token: write
-        issues: write
-        pull-requests: write
-      steps:
-        - uses: actions/checkout@v6
-        - uses: DeterminateSystems/nix-installer-action@v12
-        - uses: DeterminateSystems/magic-nix-cache-action@main
-        - id: update
-          uses: DeterminateSystems/update-flake-lock@v28
-          with:
-            commit-msg: "chore(flake.lock): update"
-            pr-title: "chore(flake.lock): update"
-            pr-labels: auto-merge
-            token: "${{ secrets.GITHUB_TOKEN }}"
-        - name: Merge
-          run: gh pr merge --auto "${{ steps.update.outputs.pull-request-number }}" --rebase
-          env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          if: ${{ steps.update.outputs.pull-request-number != '' }}
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v12
+      - name: Update flake.lock
+        run: nix flake update
+      - name: Commit flake.lock
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git diff --cached --quiet || git commit -m "chore(flake.lock): update"
+          git push
   tests:
     strategy:
       matrix:
@@ -56,7 +49,7 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - <YOUR_CACHIX_NAME>
+          - avycado13
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
