@@ -1158,8 +1158,8 @@
             "url": "https://github.com/iopq/nur-packages"
         },
         "itscrystalline": {
-            "rev": "adb0fd5b6d29d68529819600e730a1a7b69bbce0",
-            "sha256": "0zls0n2cv4xg070hqc0kiqpalyx5hs9x33xfbsxbwrjrxzkg80l8",
+            "rev": "ad0bd040dcd0b8370f2da6a293ea09569531a0da",
+            "sha256": "1zzf9ymzjnlmwygm0wxrhkm50dhb1q8pq5wli6mjfvgnl1ncjn6n",
             "url": "https://github.com/itscrystalline/nur-packages"
         },
         "iuricarras": {
@@ -2185,8 +2185,8 @@
             "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
-            "rev": "1520d6fb5d20fa4a588f2b6f521c255bba25a9dd",
-            "sha256": "0qnav4pr0n03qdw521s8n1mrkhpkcs3sbx8wjv7afrl3q315wchf",
+            "rev": "6c19d077c2e9f56d55a36d4aeb917e28668a2236",
+            "sha256": "1d63mj86khi7nsmda3wn49nywy1fmscl9wf3jvcrcyj6v1ja6c4g",
             "url": "https://github.com/shirok1/flakes"
         },
         "shymega": {
