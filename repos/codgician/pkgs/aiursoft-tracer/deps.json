@@ -26,8 +26,23 @@
   },
   {
     "pname": "Aiursoft.Canon",
+    "version": "10.0.6",
+    "hash": "sha256-tU3X/HcArWv8z326hGUB4vWfj5haGB9ThcRDTq6aV1k="
+  },
+  {
+    "pname": "Aiursoft.Canon.BackgroundJobs",
+    "version": "10.0.6",
+    "hash": "sha256-O66v4Jm/Y1YAap1BBuLuGOFXTOhic9x6Jptn/g0+Fr4="
+  },
+  {
+    "pname": "Aiursoft.Canon.ScheduledTasks",
     "version": "10.0.5",
-    "hash": "sha256-02NIUD2wFGdPPcEJRvTSr8oAvnV80WrLnoZer/UDqpk="
+    "hash": "sha256-ouwSpEW91Rw4FvELWV4mGebO+XMLpsOH1eeLqTjkDxg="
+  },
+  {
+    "pname": "Aiursoft.Canon.ServiceTaskQueue",
+    "version": "10.0.6",
+    "hash": "sha256-FV8H6SCSEUDLqotEgkkA0IZBM6igdVHrjMTURssTv4w="
   },
   {
     "pname": "Aiursoft.ClickhouseLoggerProvider",
