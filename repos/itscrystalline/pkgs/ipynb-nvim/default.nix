@@ -15,11 +15,12 @@ vimUtils.buildVimPlugin rec {
     hash = "sha256-L8g4GhZ4b0b8XzyEBdVDparWmTZ0yxNO+Sx/t+wVqj8=";
   };
 
-  pythonEnv = python3.withPackages (ps: with ps; [
-    ipykernel
-    jupyter-client
-    nbformat
-  ]);
+  pythonEnv = python3.withPackages (ps:
+    with ps; [
+      ipykernel
+      jupyter-client
+      nbformat
+    ]);
 
   postInstall = ''
     mkdir -p $out/python/.venv/bin
