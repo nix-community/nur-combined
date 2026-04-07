@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "2428e8c47f74b46bd0aa613407bec06c213deb60",
-            "sha256": "14c5b7biwnmlb2g5x7kvw160jrxkdd5gq6a2laj3wwbxp57wmm41",
+            "rev": "bec60118e6e57ff1181e1a0b9ac16a5d95b2afdd",
+            "sha256": "14j75ridncgq051wxk2jkcs56m3n58vywlmj49g3hzdc7asnfnrv",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
