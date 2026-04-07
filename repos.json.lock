@@ -2422,8 +2422,8 @@
             "url": "https://github.com/uleenucks/nurpkgs"
         },
         "ulypkgs": {
-            "rev": "6b57a044ceb9672d350c87fc6daebf2450bd0930",
-            "sha256": "04schgv8axi9lcrdlnvm5g0ni9a62yzgi444l4jzqcvl9mrmlf5d",
+            "rev": "e9d551be0cc60378a9e81d6b504b0afbcdba93be",
+            "sha256": "03nbxf3y710xwj7v6xv71n0cckrvri9cncridj82ixp7n2j2syhr",
             "url": "https://github.com/UlyssesZh/ulypkgs"
         },
         "ungood": {
