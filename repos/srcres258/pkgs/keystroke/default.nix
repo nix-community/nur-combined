@@ -34,6 +34,11 @@ in pkgs.rustPlatform.buildRustPackage {
   buildInputs = runtimeDeps;
   doCheck = false;
 
+  postPatch = ''
+    substituteInPlace src/tray.rs \
+      --replace-fail '!x.is_multiple_of(3)' 'x % 3 != 0'
+  '';
+
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath runtimeDeps}"
