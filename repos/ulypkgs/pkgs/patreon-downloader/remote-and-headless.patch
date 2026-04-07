@@ -1,0 +1,26 @@
+diff --git a/PatreonDownloader.App/Program.cs b/PatreonDownloader.App/Program.cs
+index f829a43..5576ebe 100644
+--- a/PatreonDownloader.App/Program.cs
++++ b/PatreonDownloader.App/Program.cs
+@@ -160,6 +160,7 @@ namespace PatreonDownloader.App
+                 DownloadDirectory = commandLineOptions.DownloadDirectory,
+                 FileExistsAction = commandLineOptions.FileExistsAction,
+                 IsCheckRemoteFileSize = !commandLineOptions.IsDisableRemoteFileSizeCheck,
++                RemoteBrowserAddress = string.IsNullOrWhiteSpace(commandLineOptions.RemoteBrowserAddress) ? null : new Uri(commandLineOptions.RemoteBrowserAddress),
+                 IsUseSubDirectories = commandLineOptions.UseSubDirectories,
+                 SubDirectoryPattern = commandLineOptions.SubDirectoryPattern,
+                 MaxSubdirectoryNameLength = commandLineOptions.MaxSubdirectoryNameLength,
+Submodule submodules/UniversalDownloaderPlatform contains modified content
+diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
+index 49cca23..c21efe7 100644
+--- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
++++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
+@@ -49,7 +49,7 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine
+             }
+             else
+             {
+-                _isHeadlessBrowser = false;
++                _isHeadlessBrowser = _settings.IsHeadlessBrowser;
+                 _isRemoteBrowser = false;
+                 _puppeteerEngine = new PuppeteerEngine(_isHeadlessBrowser, _settings.ProxyServerAddress) { UserAgent = settings.UserAgent };
+             }

@@ -38,6 +38,10 @@ buildDotnetModule (finalAttrs: {
 
     # https://github.com/AlexCSDev/PatreonDownloader/pull/287
     #./no-files.patch
+
+    # https://github.com/AlexCSDev/PatreonDownloader/pull/288
+    # https://github.com/AlexCSDev/UniversalDownloaderPlatform/pull/22
+    ./remote-and-headless.patch
   ];
 
   projectFile = "PatreonDownloader.App/PatreonDownloader.App.csproj";

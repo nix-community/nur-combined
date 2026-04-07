@@ -51,15 +51,6 @@ diff --git a/PatreonDownloader.Implementation/PatreonPageCrawler.cs b/PatreonDow
 index 7348648..0c69573 100644
 --- a/PatreonDownloader.Implementation/PatreonPageCrawler.cs
 +++ b/PatreonDownloader.Implementation/PatreonPageCrawler.cs
-@@ -63,7 +63,7 @@ namespace PatreonDownloader.Implementation
-             List<ICrawledUrl> crawledUrls = new List<ICrawledUrl>();
-             Random rnd = new Random(Guid.NewGuid().GetHashCode());
- 
--            if (_patreonDownloaderSettings.SaveAvatarAndCover)
-+            if (_patreonDownloaderSettings.SaveAvatarAndCover && !_patreonDownloaderSettings.NoFiles)
-             {
-                 _logger.Debug("Adding avatar and cover...");
-                 if(!string.IsNullOrWhiteSpace(patreonCrawlTargetInfo.AvatarUrl))
 @@ -87,7 +87,7 @@ namespace PatreonDownloader.Implementation
  
                  ParsingResult result = await ParsePage(json);
