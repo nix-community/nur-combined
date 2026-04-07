@@ -4,11 +4,11 @@
 set -euo pipefail
 
 attr() {
-  nix-instantiate --eval -A renpy.$1 | tr -d '"'
+  nix-instantiate --eval -A renpy_7.$1 | tr -d '"'
 }
 
 old_version="$(attr version)"
-nix-update renpy
+nix-update renpy_7 --version-regex '(7\.[0-9]+\.[0-9]+)'
 new_version="$(attr version)"
 if [[ "$old_version" == "$new_version" ]]; then
   exit 0
