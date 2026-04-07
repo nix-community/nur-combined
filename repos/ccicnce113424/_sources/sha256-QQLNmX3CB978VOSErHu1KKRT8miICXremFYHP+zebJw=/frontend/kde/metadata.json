@@ -13,9 +13,9 @@
     "Description[zh_CN]": "显示音乐播放器的实时歌词",
     "Description[zh_TW]": "顯示音樂播放器的實時歌詞",
     "Icon": "music-amarok",
-    "Id": "ink.chyk.LyricaPlasmoid",
+    "Id": "ink.chyk.lyricakde",
     "Name": "Lyrica",
-    "Version": "0.14",
+    "Version": "LYRICA_VERSION",
     "Website": "https://github.com/chiyuki0325/lyrica"
   },
   "X-Plasma-API-Minimum-Version": "6.0",

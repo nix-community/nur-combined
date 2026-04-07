@@ -43,9 +43,10 @@ src.github = "lxgw/LxgwWenkaiGB"
 
 [lyrica]
 cargo_lock = ["Cargo.lock"]
-extract = ["plasmoid/metadata.json"]
-fetch.github = "ccicnce113424/lyrica"
-src.git = "https://github.com/ccicnce113424/lyrica"
+extract = ["Cargo.toml", "frontend/kde/metadata.json"]
+fetch.github = "chiyuki0325/lyrica"
+src.branch = "v1"
+src.git = "https://github.com/chiyuki0325/lyrica"
 
 [motrix-next]
 cargo_lock = ["src-tauri/Cargo.lock"]

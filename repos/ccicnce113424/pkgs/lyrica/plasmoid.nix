@@ -3,21 +3,28 @@
   lib,
   stdenvNoCC,
   lyrica,
+  jq,
   qt6,
 }:
 let
   metadata = lib.importJSON lyrica.metadata;
 in
-stdenvNoCC.mkDerivation {
-  inherit (sources) pname src;
-  version = metadata.KPlugin.Version;
+stdenvNoCC.mkDerivation (finalAttrs: {
+  pname = sources.pname + "-plasmoid";
+  inherit (sources) src;
+  inherit (lyrica) version;
+
+  nativeBuildInputs = [ jq ];
 
   installPhase = ''
     runHook preInstall
 
     outputdir=share/plasma/plasmoids/${metadata.KPlugin.Id}
-    mkdir -p $out/$outputdir
-    cp -r plasmoid/* $out/$outputdir
+    mkdir -p $out/$outputdir/contents
+    cp -r frontend/kde/contents/* $out/$outputdir/contents
+
+    jq '.KPlugin.Version = "${finalAttrs.version}"' \
+      frontend/kde/metadata.json > $out/$outputdir/metadata.json
 
     substituteInPlace $out/$outputdir/contents/ui/main.qml \
       --replace-fail "\$HOME/.local/$outputdir/contents/bin/lyrica" "${lib.getExe lyrica}" \
@@ -32,7 +39,6 @@ stdenvNoCC.mkDerivation {
     maintainers = with lib.maintainers; [ ccicnce113424 ];
     description = "KDE Plasma lyrics widget focused on simplicity and integration";
     homepage = "https://github.com/chiyuki0325/lyrica";
-    changelog = "https://github.com/chiyuki0325/lyrica/releases/tag/${sources.version}";
     license = lib.licenses.mit;
   };
-}
+})

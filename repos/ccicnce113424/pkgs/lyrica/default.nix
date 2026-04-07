@@ -6,13 +6,10 @@
   openssl,
   dbus,
 }:
-let
-  metadata = lib.importJSON sources.extract."plasmoid/metadata.json";
-in
 rustPlatform.buildRustPackage {
   inherit (sources) pname src;
-  version = metadata.KPlugin.Version;
   cargoLock = sources.cargoLock."Cargo.lock";
+  inherit ((lib.importTOML sources.extract."Cargo.toml").package) version;
 
   nativeBuildInputs = [
     pkg-config
@@ -23,14 +20,13 @@ rustPlatform.buildRustPackage {
     dbus
   ];
 
-  metadata = sources.extract."plasmoid/metadata.json";
+  metadata = sources.extract."frontend/kde/metadata.json";
 
   meta = {
     mainProgram = "lyrica";
     maintainers = with lib.maintainers; [ ccicnce113424 ];
     description = "KDE Plasma lyrics widget focused on simplicity and integration";
     homepage = "https://github.com/chiyuki0325/lyrica";
-    changelog = "https://github.com/chiyuki0325/lyrica/releases/tag/${sources.version}";
     license = lib.licenses.mit;
   };
 }

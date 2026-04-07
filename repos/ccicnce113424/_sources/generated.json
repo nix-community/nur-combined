@@ -1,459 +1,460 @@
 {
-  "algermusicplayer-arm": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "algermusicplayer-arm",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-WaBw7pSstFxqTY6X41iojsJl4KEc5rEWVA3Z5+VqRBc=",
-      "type": "url",
-      "url": "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.1.0/AlgerMusicPlayer-5.1.0-linux-arm64.AppImage"
+    "algermusicplayer-arm": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "algermusicplayer-arm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-WaBw7pSstFxqTY6X41iojsJl4KEc5rEWVA3Z5+VqRBc=",
+            "type": "url",
+            "url": "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.1.0/AlgerMusicPlayer-5.1.0-linux-arm64.AppImage"
+        },
+        "version": "5.1.0"
     },
-    "version": "5.1.0"
-  },
-  "algermusicplayer-x86": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "algermusicplayer-x86",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-nYMDNSpyyCHRKIBhP++sA7FmodSHBUwRSPEM8yLFaF0=",
-      "type": "url",
-      "url": "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.1.0/AlgerMusicPlayer-5.1.0-linux-x86_64.AppImage"
+    "algermusicplayer-x86": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "algermusicplayer-x86",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-nYMDNSpyyCHRKIBhP++sA7FmodSHBUwRSPEM8yLFaF0=",
+            "type": "url",
+            "url": "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.1.0/AlgerMusicPlayer-5.1.0-linux-x86_64.AppImage"
+        },
+        "version": "5.1.0"
     },
-    "version": "5.1.0"
-  },
-  "danmakufactory": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "danmakufactory",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "hihkm",
-      "repo": "DanmakuFactory",
-      "rev": "v1.70",
-      "sha256": "sha256-dPgWVJuNOzTc+ocMyGHBb4ExB9P1Wu+uTQ62UejAAfE=",
-      "sparseCheckout": [],
-      "type": "github"
+    "danmakufactory": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "danmakufactory",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hihkm",
+            "repo": "DanmakuFactory",
+            "rev": "v1.70",
+            "sha256": "sha256-dPgWVJuNOzTc+ocMyGHBb4ExB9P1Wu+uTQ62UejAAfE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.70"
     },
-    "version": "v1.70"
-  },
-  "dxvk-gplall": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "dxvk-gplall",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-pnFfnyWQxxRiy67kzTAGOBSnQQ617ebUpS6mSBpWndU=",
-      "type": "url",
-      "url": "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-2.7.1-2/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.2.7.1-2.zip"
+    "dxvk-gplall": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dxvk-gplall",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-pnFfnyWQxxRiy67kzTAGOBSnQQ617ebUpS6mSBpWndU=",
+            "type": "url",
+            "url": "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-2.7.1-2/DXVK-GPLALL-MSVC-Windows-AVX2-O2-LTCG-AMD64.2.7.1-2.zip"
+        },
+        "version": "2.7.1-2"
     },
-    "version": "2.7.1-2"
-  },
-  "fxz": {
-    "cargoLock": null,
-    "date": "2022-01-09",
-    "extract": null,
-    "name": "fxz",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "conor42",
-      "repo": "fxz",
-      "rev": "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39",
-      "sha256": "sha256-3NL/3XXmZRv/fYviA2KL/LEx0xVnPk8t4WQt5yxZmA8=",
-      "sparseCheckout": [],
-      "type": "github"
+    "fxz": {
+        "cargoLock": null,
+        "date": "2022-01-09",
+        "extract": null,
+        "name": "fxz",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "conor42",
+            "repo": "fxz",
+            "rev": "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39",
+            "sha256": "sha256-3NL/3XXmZRv/fYviA2KL/LEx0xVnPk8t4WQt5yxZmA8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39"
     },
-    "version": "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39"
-  },
-  "jaq": {
-    "cargoLock": {
-      "Cargo.lock": [
-        "sha256-FhmnJm_MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=/Cargo.lock",
-        {}
-      ]
+    "jaq": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-FhmnJm_MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "jaq",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "01mf02",
+            "repo": "jaq",
+            "rev": "v3.0.0",
+            "sha256": "sha256-FhmnJm/MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.0.0"
     },
-    "date": null,
-    "extract": null,
-    "name": "jaq",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "01mf02",
-      "repo": "jaq",
-      "rev": "v3.0.0",
-      "sha256": "sha256-FhmnJm/MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=",
-      "sparseCheckout": [],
-      "type": "github"
+    "linux-enable-ir-emitter": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=/Cargo.lock",
+                {
+                    "ansipix-2.0.0": "sha256-RkwicughatQcuXnPIRtnL36xkfFzCsHDgL+VZCi46WY="
+                }
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "linux-enable-ir-emitter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "EmixamPP",
+            "repo": "linux-enable-ir-emitter",
+            "rev": "7.0.0-beta",
+            "sha256": "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "7.0.0-beta"
     },
-    "version": "v3.0.0"
-  },
-  "linux-enable-ir-emitter": {
-    "cargoLock": {
-      "Cargo.lock": [
-        "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=/Cargo.lock",
-        {
-          "ansipix-2.0.0": "sha256-RkwicughatQcuXnPIRtnL36xkfFzCsHDgL+VZCi46WY="
-        }
-      ]
+    "loveiwara": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "pubspec.lock": "sha256-Vdf3ERybsOXG8SlNmQ_QRtBu7RS0T9t0V22UTMjXTls=/pubspec.lock"
+        },
+        "name": "loveiwara",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "FoxSensei001",
+            "repo": "LoveIwara",
+            "rev": "0.4.4",
+            "sha256": "sha256-Vdf3ERybsOXG8SlNmQ/QRtBu7RS0T9t0V22UTMjXTls=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.4.4"
     },
-    "date": null,
-    "extract": null,
-    "name": "linux-enable-ir-emitter",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "EmixamPP",
-      "repo": "linux-enable-ir-emitter",
-      "rev": "7.0.0-beta",
-      "sha256": "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=",
-      "sparseCheckout": [],
-      "type": "github"
+    "lxgw-wenkai-gb": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lxgw-wenkai-gb",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-arcHfwuy5GK3FwikzJi7Qo0Cn/+6ShxLCoHin8RTpww=",
+            "type": "url",
+            "url": "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.522/lxgw-wenkai-gb-v1.522.tar.gz"
+        },
+        "version": "v1.522"
     },
-    "version": "7.0.0-beta"
-  },
-  "loveiwara": {
-    "cargoLock": null,
-    "date": null,
-    "extract": {
-      "pubspec.lock": "sha256-Vdf3ERybsOXG8SlNmQ_QRtBu7RS0T9t0V22UTMjXTls=/pubspec.lock"
+    "lyrica": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=/Cargo.lock",
+                {
+                    "netease-cloud-music-api-1.5.2": "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA="
+                }
+            ]
+        },
+        "date": "2026-04-07",
+        "extract": {
+            "Cargo.toml": "sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=/Cargo.toml",
+            "frontend/kde/metadata.json": "sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=/frontend/kde/metadata.json"
+        },
+        "name": "lyrica",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "chiyuki0325",
+            "repo": "lyrica",
+            "rev": "abc7cf2b176c7e38b652594bdcb6a3034ccef3d9",
+            "sha256": "sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "abc7cf2b176c7e38b652594bdcb6a3034ccef3d9"
     },
-    "name": "loveiwara",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "FoxSensei001",
-      "repo": "LoveIwara",
-      "rev": "0.4.4",
-      "sha256": "sha256-Vdf3ERybsOXG8SlNmQ/QRtBu7RS0T9t0V22UTMjXTls=",
-      "sparseCheckout": [],
-      "type": "github"
+    "motrix-next": {
+        "cargoLock": {
+            "src-tauri/Cargo.lock": [
+                "sha256-u4t_QIRFDuvGPA4+p4OuS6tDnU6+ZmEJSfOYIh__NaQ=/src-tauri/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "motrix-next",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "AnInsomniacy",
+            "repo": "motrix-next",
+            "rev": "v3.6.3",
+            "sha256": "sha256-u4t/QIRFDuvGPA4+p4OuS6tDnU6+ZmEJSfOYIh//NaQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.6.3"
     },
-    "version": "0.4.4"
-  },
-  "lxgw-wenkai-gb": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "lxgw-wenkai-gb",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-arcHfwuy5GK3FwikzJi7Qo0Cn/+6ShxLCoHin8RTpww=",
-      "type": "url",
-      "url": "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.522/lxgw-wenkai-gb-v1.522.tar.gz"
+    "piliplus": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "pubspec.lock": "sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=/pubspec.lock"
+        },
+        "name": "piliplus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bggRGjQaUbCoE",
+            "repo": "PiliPlus",
+            "rev": "2.0.2",
+            "sha256": "sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2.0.2"
     },
-    "version": "v1.522"
-  },
-  "lyrica": {
-    "cargoLock": {
-      "Cargo.lock": [
-        "sha256-ILonmoyhFNWhfqmuNIdhY7B0jsE+j0O909GxHAimKW4=/Cargo.lock",
-        {
-          "netease-cloud-music-api-1.5.1": "sha256-2Us08Hvz3IVj/O2iaZl5QlXuErX6d1JYTcDkzQNfTD4="
-        }
-      ]
+    "pixes": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "pubspec.lock": "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt_OJn6ia6CmIc4=/pubspec.lock"
+        },
+        "name": "pixes",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wgh136",
+            "repo": "pixes",
+            "rev": "v1.2.1",
+            "sha256": "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt/OJn6ia6CmIc4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.2.1"
     },
-    "date": "2026-03-03",
-    "extract": {
-      "plasmoid/metadata.json": "sha256-ILonmoyhFNWhfqmuNIdhY7B0jsE+j0O909GxHAimKW4=/plasmoid/metadata.json"
+    "pixes-git": {
+        "cargoLock": null,
+        "date": "2026-04-07",
+        "extract": {
+            "pubspec.lock": "sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=/pubspec.lock"
+        },
+        "name": "pixes-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wgh136",
+            "repo": "pixes",
+            "rev": "2794e76cb68175754080f5e14a8a28b7e6a91476",
+            "sha256": "sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2794e76cb68175754080f5e14a8a28b7e6a91476"
     },
-    "name": "lyrica",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "ccicnce113424",
-      "repo": "lyrica",
-      "rev": "cef566473193300ccaaca6945ef34524cf685a53",
-      "sha256": "sha256-ILonmoyhFNWhfqmuNIdhY7B0jsE+j0O909GxHAimKW4=",
-      "sparseCheckout": [],
-      "type": "github"
+    "splayer-git": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-hinLRjlUITIkJ0Fyuz_z32ODFKprWIW2m0UgEt_M2JE=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-04-06",
+        "extract": null,
+        "name": "splayer-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "imsyy",
+            "repo": "SPlayer",
+            "rev": "bea6f8f9b8283ec79ee5b3128e8122a16a7bf41c",
+            "sha256": "sha256-hinLRjlUITIkJ0Fyuz/z32ODFKprWIW2m0UgEt/M2JE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "bea6f8f9b8283ec79ee5b3128e8122a16a7bf41c"
     },
-    "version": "cef566473193300ccaaca6945ef34524cf685a53"
-  },
-  "motrix-next": {
-    "cargoLock": {
-      "src-tauri/Cargo.lock": [
-        "sha256-u4t_QIRFDuvGPA4+p4OuS6tDnU6+ZmEJSfOYIh__NaQ=/src-tauri/Cargo.lock",
-        {}
-      ]
+    "svt-av1-hdr": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "svt-av1-hdr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "juliobbv-p",
+            "repo": "svt-av1-hdr",
+            "rev": "v4.0.1",
+            "sha256": "sha256-jfyolWcPcfMzxjBszg1KY9eHc6KRsp41h3lQKsrgiDU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.0.1"
     },
-    "date": null,
-    "extract": null,
-    "name": "motrix-next",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "AnInsomniacy",
-      "repo": "motrix-next",
-      "rev": "v3.6.3",
-      "sha256": "sha256-u4t/QIRFDuvGPA4+p4OuS6tDnU6+ZmEJSfOYIh//NaQ=",
-      "sparseCheckout": [],
-      "type": "github"
+    "svt-av1-psyex": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "svt-av1-psyex",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "BlueSwordM",
+            "repo": "svt-av1-psyex",
+            "rev": "v3.0.2-B",
+            "sha256": "sha256-klfrbow8UtpIPwIgt8tK7FP7Jp6In9nxfOZrdi1PsHo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.0.2-B"
     },
-    "version": "v3.6.3"
-  },
-  "piliplus": {
-    "cargoLock": null,
-    "date": null,
-    "extract": {
-      "pubspec.lock": "sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=/pubspec.lock"
+    "uosc-danmaku": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "uosc-danmaku",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Tony15246",
+            "repo": "uosc_danmaku",
+            "rev": "v2.1.0",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.1.0"
     },
-    "name": "piliplus",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "bggRGjQaUbCoE",
-      "repo": "PiliPlus",
-      "rev": "2.0.2",
-      "sha256": "sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=",
-      "sparseCheckout": [],
-      "type": "github"
+    "uosc-danmaku-git": {
+        "cargoLock": null,
+        "date": "2026-04-03",
+        "extract": null,
+        "name": "uosc-danmaku-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Tony15246",
+            "repo": "uosc_danmaku",
+            "rev": "9ceefc02bc3f193db66c6e326141b29bd3d6748c",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "9ceefc02bc3f193db66c6e326141b29bd3d6748c"
     },
-    "version": "2.0.2"
-  },
-  "pixes": {
-    "cargoLock": null,
-    "date": null,
-    "extract": {
-      "pubspec.lock": "sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=/pubspec.lock"
+    "wild": {
+        "cargoLock": {
+            "rust/Cargo.lock": [
+                "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/rust/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": {
+            "pubspec.lock": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/pubspec.lock"
+        },
+        "name": "wild",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "niuhuan",
+            "repo": "wild",
+            "rev": "v0.0.14",
+            "sha256": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.14"
     },
-    "name": "pixes",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "wgh136",
-      "repo": "pixes",
-      "rev": "v1.2.1",
-      "sha256": "sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "v1.2.1"
-  },
-  "pixes-git": {
-    "cargoLock": null,
-    "date": "2026-04-07",
-    "extract": {
-      "pubspec.lock": "sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=/pubspec.lock"
-    },
-    "name": "pixes-git",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "wgh136",
-      "repo": "pixes",
-      "rev": "2794e76cb68175754080f5e14a8a28b7e6a91476",
-      "sha256": "sha256-VcU1owpFZELFc8ESBDhkHEQmPI1b2AAkLRrJ920E+PE=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "2794e76cb68175754080f5e14a8a28b7e6a91476"
-  },
-  "splayer-git": {
-    "cargoLock": {
-      "Cargo.lock": [
-        "sha256-hinLRjlUITIkJ0Fyuz_z32ODFKprWIW2m0UgEt_M2JE=/Cargo.lock",
-        {}
-      ]
-    },
-    "date": "2026-04-06",
-    "extract": null,
-    "name": "splayer-git",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "imsyy",
-      "repo": "SPlayer",
-      "rev": "bea6f8f9b8283ec79ee5b3128e8122a16a7bf41c",
-      "sha256": "sha256-hinLRjlUITIkJ0Fyuz/z32ODFKprWIW2m0UgEt/M2JE=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "bea6f8f9b8283ec79ee5b3128e8122a16a7bf41c"
-  },
-  "svt-av1-hdr": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "svt-av1-hdr",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "juliobbv-p",
-      "repo": "svt-av1-hdr",
-      "rev": "v4.0.1",
-      "sha256": "sha256-jfyolWcPcfMzxjBszg1KY9eHc6KRsp41h3lQKsrgiDU=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "v4.0.1"
-  },
-  "svt-av1-psyex": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "svt-av1-psyex",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "BlueSwordM",
-      "repo": "svt-av1-psyex",
-      "rev": "v3.0.2-B",
-      "sha256": "sha256-klfrbow8UtpIPwIgt8tK7FP7Jp6In9nxfOZrdi1PsHo=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "v3.0.2-B"
-  },
-  "uosc-danmaku": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "uosc-danmaku",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "Tony15246",
-      "repo": "uosc_danmaku",
-      "rev": "v2.1.0",
-      "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "v2.1.0"
-  },
-  "uosc-danmaku-git": {
-    "cargoLock": null,
-    "date": "2026-04-03",
-    "extract": null,
-    "name": "uosc-danmaku-git",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "Tony15246",
-      "repo": "uosc_danmaku",
-      "rev": "9ceefc02bc3f193db66c6e326141b29bd3d6748c",
-      "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "9ceefc02bc3f193db66c6e326141b29bd3d6748c"
-  },
-  "wild": {
-    "cargoLock": {
-      "rust/Cargo.lock": [
-        "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/rust/Cargo.lock",
-        {}
-      ]
-    },
-    "date": null,
-    "extract": {
-      "pubspec.lock": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=/pubspec.lock"
-    },
-    "name": "wild",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "niuhuan",
-      "repo": "wild",
-      "rev": "v0.0.14",
-      "sha256": "sha256-Bt2ZjivE0htq730N8HkjnjCMD1lsI5PHtCeIWGxZ9CQ=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "v0.0.14"
-  },
-  "zhuque": {
-    "cargoLock": null,
-    "date": null,
-    "extract": null,
-    "name": "zhuque",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-u4tmGnZD0ilqctnRBTCgCUlBnE5Sf7YXg/c8K6GowGI=",
-      "type": "url",
-      "url": "https://github.com/TrionesType/zhuque/releases/download/v0.212/ZhuqueFangsong-v0.212.zip"
-    },
-    "version": "v0.212"
-  }
+    "zhuque": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "zhuque",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-u4tmGnZD0ilqctnRBTCgCUlBnE5Sf7YXg/c8K6GowGI=",
+            "type": "url",
+            "url": "https://github.com/TrionesType/zhuque/releases/download/v0.212/ZhuqueFangsong-v0.212.zip"
+        },
+        "version": "v0.212"
+    }
 }
