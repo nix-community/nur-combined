@@ -291,8 +291,8 @@
             "url": "https://github.com/alarsyo/nixos-config"
         },
         "alejo7797": {
-            "rev": "fb75ee4063d5c2e0392e56c1b3d9ec9661a72c7f",
-            "sha256": "1njlm2p0aj0x8nn213x5k4difrm08xl6bfpsf61kx1ysch9g93l5",
+            "rev": "8027a1b3d24291744ad741ceb4833e8cc9c9754e",
+            "sha256": "0lkqdnvlllbdc08mkdlbminbzngpkv7h17gnfs20d9rmqkjd3mly",
             "url": "https://codeberg.org/alejo7797/nix-expressions"
         },
         "aleksana": {
@@ -1969,8 +1969,8 @@
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
         "prince213": {
-            "rev": "d62e32a40a1655ab1980444b2c36eca8fb197143",
-            "sha256": "0k33mxgib336x1mxyhh9iqrhy1jjwgdiz1vchc9z8fplja11r9a0",
+            "rev": "580d4daa6091e28f828f23343a9660051483c06a",
+            "sha256": "1vxh2qrmxm9hkq32769rffcl15r33d3a08d5qbhnwcmn65nqsaby",
             "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
