@@ -241,8 +241,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "26f91ceb77e2568460e9f369674d5853a5499973",
-            "sha256": "0kis5cgcxxdk50vvbkq2zxfg6klv1aha1by3fh4g7p9axc4r1ynw",
+            "rev": "c37aacdbfbf9ebdd47e53c27279819bbfbd58dc8",
+            "sha256": "0a5w54ap1b9ajpqqbq2cywznwxfijmzaqmkvsgsrkxw89n27hqkg",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
