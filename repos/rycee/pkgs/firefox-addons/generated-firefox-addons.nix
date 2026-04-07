@@ -2854,10 +2854,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "149.0.20260403.140140";
+      version = "150.0.20260406.90533";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4751352/dansk_da_language_pack-149.0.20260403.140140.xpi";
-      sha256 = "07f7ab3df55315026b970f2157f611876d5fee1e4b74c7eda611cb5e49f7598b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4754607/dansk_da_language_pack-150.0.20260406.90533.xpi";
+      sha256 = "55eb56bab97304a5f73d7106d2c81d684d2686bedb6510aa132a625cd7f94219";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3068,10 +3068,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "149.0.20260403.140140";
+      version = "150.0.20260406.90533";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4751343/deutsch_de_language_pack-149.0.20260403.140140.xpi";
-      sha256 = "930d42cc9e5d5b8bedf17aa5e3a6a509ae51a40339330260b774d02a93906303";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4754610/deutsch_de_language_pack-150.0.20260406.90533.xpi";
+      sha256 = "7be29be3f14460ec15b2cfa85619fcf90c5695fb73b34a5c7a2a197786846e52";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3545,10 +3545,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.68.2";
+      version = "2.68.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4723247/dualsub-2.68.2.xpi";
-      sha256 = "d4e6618d1068baf4972a2ac4409987fd261443cf0ac681b47b25d4bb15b25057";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4755383/dualsub-2.68.3.xpi";
+      sha256 = "17d1d1de40fab29ebd742d4948872f72771f884a3879868bad82a2c1f6978a57";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4546,10 +4546,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "149.0.20260403.140140";
+      version = "150.0.20260406.90533";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4751412/francais_language_pack-149.0.20260403.140140.xpi";
-      sha256 = "f3b6841702e08027d9d9a3293ddadb7e207ca84d9a082ea50769dbb3804e52b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4754573/francais_language_pack-150.0.20260406.90533.xpi";
+      sha256 = "bb5f8243059831ddedf6262b7bc30511d36fcced932635f069315bfcc378f9fe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4583,10 +4583,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "149.0.20260403.140140";
+      version = "150.0.20260406.90533";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4751355/gaidhlig_language_pack-149.0.20260403.140140.xpi";
-      sha256 = "87d72cfa97a7714604c4e71e4abff1d998cc1806c3111cf9f2e564103ebfdd0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4754598/gaidhlig_language_pack-150.0.20260406.90533.xpi";
+      sha256 = "5a309f3869d7a30c3ae89e6c49a564a6afad1e8c9d2ad1e2f8de703120c332e7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -11888,7 +11888,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/promnesia";
-        description = "Enhancement of your browsing history";
+        description = "Recall which pages you already visited, why and in which context";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -13138,10 +13138,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "149.0.20260403.140140";
+      version = "150.0.20260406.90533";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4751405/scots_language_pack-149.0.20260403.140140.xpi";
-      sha256 = "1fac227264e530257dd10d76d41a4196d22b08540465bd01edfafdd626f29e96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4754586/scots_language_pack-150.0.20260406.90533.xpi";
+      sha256 = "e739c0810f3a9c73708a869d00c860e06b3eb8f3e7abb3c1e961cd374113a0eb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14560,10 +14560,10 @@
     };
     "tetrio-plus" = buildMozillaXpiAddon {
       pname = "tetrio-plus";
-      version = "0.27.7";
+      version = "0.28.0";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4450796/tetrio_plus-0.27.7.xpi";
-      sha256 = "acb2d9f3bd7f063e7a7df3fba936a9ffe003c7c4d9a7fc88ba130eddadd787f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4754807/tetrio_plus-0.28.0.xpi";
+      sha256 = "62c2662db29ead416f2655d1b36baf7638ee42402652d50a2e60cb90b5947bf4";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for TETR.IO.";
@@ -14999,10 +14999,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.2.12";
+      version = "4.3.1";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4729676/tree_style_tab-4.2.12.xpi";
-      sha256 = "d3cb231306c108b5d0048b2b28a8ae4e84d4319a212c92ca1943fc1c3778be5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4750651/tree_style_tab-4.3.1.xpi";
+      sha256 = "c97b38d26969e88e73c18cb0120af892ee79767b0e0adf29b5943ff1dde9d363";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
