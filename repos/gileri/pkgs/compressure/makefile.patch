@@ -1,0 +1,15 @@
+diff --git a/Makefile.am b/Makefile.am
+index 35aa7be..84a216b 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -42,9 +42,8 @@ ComPressureServer_SOURCES =  ComPressureServer.cpp \
+                     Level.cpp Level.h \
+                     Misc.cpp Misc.h
+ 
+-ComPressureServer_CXXFLAGS = @CXXFLAGS@ @SDL2_CFLAGS@ 
++ComPressureServer_CXXFLAGS = @CXXFLAGS@ @SDL2_CFLAGS@ @SDL2_image_CFLAGS@ @SDL2_mixer_CFLAGS@ @SDL2_ttf_CFLAGS@ 
+ ComPressureServer_LDADD= -lz @ZSTD_LIBS@ -lpthread
+-ComPressureServer_LDFLAGS= -static
+ 
+ Level.string: Level.json stringify.py
+ 	./stringify.py Level.json > Level.string
