@@ -108,13 +108,11 @@ jobs:
     - name: Commit and push flake updates (scheduled only)
       if: github.event_name == 'schedule' && steps.flake-check.outputs.changed == 'true'
       uses: EndBug/add-and-commit@v9
+      continue-on-error: true
       with:
         author_name: github-actions
         author_email: github-actions[bot]@users.noreply.github.com
-        message: |
-          chore: update nix flake (automated)
-
-          Updated flake inputs via automated scheduled workflow.
+        message: "chore: update nix flake (automated)"
         add: flake.lock
         committer_name: github-actions
         committer_email: github-actions[bot]@users.noreply.github.com

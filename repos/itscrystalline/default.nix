@@ -20,4 +20,5 @@
   oracle-cloud-agent = pkgs.callPackage ./pkgs/oracle-cloud-agent {};
   oci-utils = pkgs.callPackage ./pkgs/oci-utils {};
   oci-image-migrate = pkgs.callPackage ./pkgs/oci-image-migrate {};
+  ipynb-nvim = pkgs.callPackage ./pkgs/ipynb-nvim {};
 }
