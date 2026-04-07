@@ -41,6 +41,7 @@ flutter.buildFlutterApplication {
         "images"
       ];
       icon = "loveiwara";
+      startupWMClass = "i_iwara";
     })
   ];
 

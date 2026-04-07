@@ -30,6 +30,7 @@ flutter.buildFlutterApplication (finalAttrs: {
         "Audio"
       ];
       icon = "kikoflu";
+      startupWMClass = "com.meteor.kikoflu";
     })
   ];
 
