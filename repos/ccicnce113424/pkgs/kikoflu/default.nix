@@ -39,8 +39,6 @@ flutter.buildFlutterApplication (finalAttrs: {
     imagemagick
   ];
 
-  buildInputs = [ mpv-unwrapped ];
-
   postFixup = ''
     wrapProgram $out/bin/KikoFlu \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ mpv-unwrapped ]}"
@@ -52,8 +50,8 @@ flutter.buildFlutterApplication (finalAttrs: {
   '';
 
   meta = {
-    description = "Unofficial pixiv app";
-    homepage = "https://github.com/wgh136/pixes";
+    description = "Kikoeru Flutter app";
+    homepage = "https://github.com/pa-jesusf/KikoFlu";
     mainProgram = "KikoFlu";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ccicnce113424 ];
