@@ -6,20 +6,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kodama";
-  version = "0.7.5-patch";
+  version = "0.9.9-alpha";
 
   src = fetchFromGitHub {
     owner = "kokic";
     repo = "kodama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-FsLWQt1Q1kyNL+g6vFzQpfpDouBt359iwRnDY6tcLZY=";
+    hash = "sha256-6uaZkpzEzH40sK8hd9Ey7zNqZ0W/Yo5ZwQp42xq+7Sk=";
   };
 
-  cargoHash = "sha256-tSAi6QhKgn7kU7kqs9DgH5qMHrKlw+N1+bV7Vv0GQbY=";
-
-  checkFlags = [
-    "--skip=process::embed_markdown::tests::test_is_assets_file"
-  ];
+  cargoHash = "sha256-YdK4DXmOJx+X6HTNqzH/NVct07SwkL4ZS+zAjjHPQ5g=";
 
   meta = {
     description = "Typst-friendly static Zettelkästen site generator";
