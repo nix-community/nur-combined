@@ -1002,6 +1002,11 @@
             "sha256": "0lwvcq09z0wglz9v6dp80ip9y9qxyfscl5r1r3z7b3yykslfzlk6",
             "url": "https://github.com/gigamonster256/nur-packages"
         },
+        "gileri": {
+            "rev": "e80baa56c4452b3a64703c761ed26cb79e7b2968",
+            "sha256": "11v3sx1p52xz9sq1w4xxx5g6x1zci48mpiv80456zhww34n678sj",
+            "url": "https://github.com/gileri/nur-packages"
+        },
         "glieske": {
             "rev": "32454f02733dbf6fdb6a0b1041e921b6a4fcbb91",
             "sha256": "17a88595gpl0cri57kbvxc65cj1x4hx8pas0w1i25rl526cnvcva",
@@ -1113,8 +1118,8 @@
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
-            "rev": "893090ffedcd22c9e2e3ccda8a795ed54fd0f9be",
-            "sha256": "0awyw1fjsrcglhhbpx7a6xxqj7gm30z1la3m1mxnbc20wqgbm9hz",
+            "rev": "49c67a0e67a0e3326d4cd511a4106cca3ac9e762",
+            "sha256": "0w9han47i8wydjvpb6zcxmv16fwm3sgsxxbjjvnm6q38phll958i",
             "url": "https://github.com/ijohanne/nur-packages"
         },
         "ilkecan": {
@@ -2253,6 +2258,11 @@
             "rev": "ae6a876526fa1737bfd88f927f122f507b85ae6b",
             "sha256": "1mc0fgpvzvn3mgw2vkhkayhjfzmsh12hfl1sma19304l0mlgiymq",
             "url": "https://github.com/souxd/souxd-nur"
+        },
+        "spektrafilm-art": {
+            "rev": "36c8afbbe736e0738ac6c4c1b5f3cbae1babbde4",
+            "sha256": "106lza5ndcm6m7ydb8xsbf6vkisj2y0qmfkfyr0m7mxpyfxc6ph2",
+            "url": "https://github.com/rafaelcgs10/spektrafilm-art"
         },
         "spitzeqc": {
             "rev": "d841fe5c7f41b7ea39d12650c52a8aaf425e924f",

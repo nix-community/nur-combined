@@ -622,6 +622,9 @@
         "gigamonster256": {
             "url": "https://github.com/gigamonster256/nur-packages"
         },
+        "gileri": {
+            "url": "https://github.com/gileri/nur-packages"
+        },
         "glieske": {
             "url": "https://github.com/glieske/nix-nur"
         },
@@ -1389,6 +1392,9 @@
         },
         "souxd": {
             "url": "https://github.com/souxd/souxd-nur"
+        },
+        "spektrafilm-art": {
+            "url": "https://github.com/rafaelcgs10/spektrafilm-art"
         },
         "spitzeqc": {
             "url": "https://github.com/spitzeqc/nur-packages"
