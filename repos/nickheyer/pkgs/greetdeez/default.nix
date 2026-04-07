@@ -11,18 +11,18 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "154ghfb0qg0jrf8ihhrw8qrvrwh8rzzxha43m454lkd66bc96pk1";
-    aarch64-linux = "0vcg9gbvx43yjqsak8jm67i56r4lrqvn1qy5mgyj6i0nwvr8d1cr";
+    x86_64-linux = "0gmhhndwfwmsnrc703sy6wc8aq70l7zvxxivwcki24dzxyg8a1lg";
+    aarch64-linux = "06p09w46bkfcmp3pacbgvlp6dklnci0landh48qvcg9igxn2x69d";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/nickheyer/GreetDeez/releases/download/v1.0.47/greetdeez_1.0.47_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/nickheyer/GreetDeez/releases/download/v1.0.47/greetdeez_1.0.47_linux_arm64.tar.gz";
+    x86_64-linux = "https://github.com/nickheyer/GreetDeez/releases/download/v1.0.48/greetdeez_1.0.48_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/nickheyer/GreetDeez/releases/download/v1.0.48/greetdeez_1.0.48_linux_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "greetdeez";
-  version = "1.0.47";
+  version = "1.0.48";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
