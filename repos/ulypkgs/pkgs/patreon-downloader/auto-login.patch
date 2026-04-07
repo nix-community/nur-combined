@@ -30,14 +30,14 @@ index f829a43..09467ec 100644
  
              if (settings.IsUseLegacyFilenaming && (settings.FileExistsAction == FileExistsAction.BackupIfDifferent || settings.FileExistsAction == FileExistsAction.ReplaceIfDifferent))
 diff --git a/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs b/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
-index 4a05085..e8fd0b2 100644
+index 4a05085..29d8eed 100644
 --- a/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
 +++ b/PatreonDownloader.Implementation/Models/PatreonDownloaderSettings.cs
 @@ -52,8 +52,11 @@ namespace PatreonDownloader.Implementation.Models
          public string LoginPageAddress { get { return "https://www.patreon.com/login"; } }
          public string LoginCheckAddress { get { return "https://www.patreon.com/api/badges?json-api-version=1.0&json-api-use-default-includes=false&include=[]"; } }
          public string CaptchaCookieRetrievalAddress { get { return "https://www.patreon.com/home"; } }
-+        public string TrackingAddress { get { return "https://www.patreon.com/api/tracking"; } }
++        public string AuthAddress { get { return "https://www.patreon.com/api/auth"; } }
          public Uri RemoteBrowserAddress { get; init; }
          public bool IsHeadlessBrowser { get; init; }
 +        public string LoginEmail { get; init; }
@@ -47,16 +47,16 @@ index 4a05085..e8fd0b2 100644
          {
 Submodule submodules/UniversalDownloaderPlatform contains modified content
 diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs
-index 410e20c..d3aec1b 100644
+index 410e20c..a1c1295 100644
 --- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs
 +++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/IPuppeteerSettings.cs
 @@ -21,6 +21,10 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Interfaces
          /// </summary>
          public string CaptchaCookieRetrievalAddress { get; }
          /// <summary>
-+        /// Address of API request for tracking used by Patreon login page. Finishing this request signifies being ready to enter credentials.
++        /// Address of API request for checking account existence used by Patreon login page. Finishing this request signifies being ready to enter password.
 +        /// </summary>
-+        public string TrackingAddress { get; }
++        public string AuthAddress { get; }
 +        /// <summary>
          /// Address of the remote browser, if not set internal browser will be used
          /// </summary>
@@ -76,7 +76,7 @@ index 410e20c..d3aec1b 100644
      }
  }
 diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs
-index bc93511..8cdf0b0 100644
+index bc93511..d725637 100644
 --- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs
 +++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Interfaces/Wrappers/Browser/IWebPage.cs
 @@ -1,6 +1,7 @@
@@ -87,10 +87,12 @@ index bc93511..8cdf0b0 100644
  
  namespace UniversalDownloaderPlatform.PuppeteerEngine.Interfaces.Wrappers.Browser
  {
-@@ -15,6 +16,9 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Interfaces.Wrappers.Browse
+@@ -15,6 +16,11 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Interfaces.Wrappers.Browse
          Task SetUserAgentAsync(string userAgent);
          Task<string> GetContentAsync();
          Task<IWebRequest> WaitForRequestAsync(Func<IRequest, bool> predicate, WaitForOptions options = null);
++        Task<IWebResponse> WaitForResponseAsync(Func<IResponse, bool> predicate, WaitForOptions options = null);
++        Task WaitForNetworkIdleAsync(WaitForNetworkIdleOptions options = null);
 +        Task WaitForSelectorAsync(string selector, WaitForSelectorOptions options = null);
 +        Task TypeAsync(string selector, string text, TypeOptions options = null);
 +        Task ClickAsync(string selector, ClickOptions options = null);
@@ -98,7 +100,7 @@ index bc93511..8cdf0b0 100644
          Task CloseAsync(PageCloseOptions options = null);
      }
 diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
-index 49cca23..a4811cc 100644
+index 49cca23..9e4f52b 100644
 --- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
 +++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
 @@ -23,7 +23,7 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine
@@ -146,7 +148,7 @@ index 49cca23..a4811cc 100644
                      await page.WaitForRequestAsync(request => { return request.Url.Contains(_settings.LoginCheckAddress); });
                  }
                  else
-@@ -118,6 +125,27 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine
+@@ -118,6 +125,36 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine
              await page.CloseAsync();
          }
  
@@ -156,14 +158,23 @@ index 49cca23..a4811cc 100644
 +            const string passwordSelector = "input[aria-label=\"Password\"]";
 +            const string submitSelector = "button[type=\"submit\"][aria-disabled=\"false\"]";
 +
-+            await page.WaitForRequestAsync(request => { return request.Url.Contains(_settings.TrackingAddress); });
++            await page.WaitForNetworkIdleAsync(new WaitForNetworkIdleOptions()
++            {
++                // The hanging requests are:
++                // https://accounts.google.com/gsi/client
++                // https://www.facebook.com/x/oauth/status
++                // https://www.google.com/recaptcha/enterprise/webworker.js
++                Concurrency = 3,
++                IdleTime = 1000
++            });
++
 +            await page.WaitForSelectorAsync(emailSelector);
 +            _logger.Debug("Entering email");
 +            await page.TypeAsync(emailSelector, _settings.LoginEmail);
 +            await page.WaitForSelectorAsync(submitSelector);
 +            await page.ClickAsync(submitSelector);
++            await page.WaitForResponseAsync(response => { return response.Url.Contains(_settings.AuthAddress); });
 +
-+            await page.WaitForRequestAsync(request => { return request.Url.Contains(_settings.TrackingAddress); });
 +            await page.WaitForSelectorAsync(passwordSelector);
 +            _logger.Debug("Entering password");
 +            await page.TypeAsync(passwordSelector, _settings.LoginPassword);
@@ -174,8 +185,21 @@ index 49cca23..a4811cc 100644
          /// <summary>
          /// Perform check if the received response contains data which can be used to assume that we are logged in
          /// </summary>
+diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/UniversalDownloaderPlatform.PuppeteerEngine.csproj b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/UniversalDownloaderPlatform.PuppeteerEngine.csproj
+index a2a0c00..cca715a 100644
+--- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/UniversalDownloaderPlatform.PuppeteerEngine.csproj
++++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/UniversalDownloaderPlatform.PuppeteerEngine.csproj
+@@ -9,7 +9,7 @@
+     <PackageReference Include="Ninject" Version="3.3.6" />
+     <PackageReference Include="ninject.extensions.conventions" Version="3.3.0" />
+     <PackageReference Include="NLog" Version="6.0.3" />
+-    <PackageReference Include="PuppeteerSharp" Version="20.2.2" />
++    <PackageReference Include="PuppeteerSharp" Version="24.40.0" />
+   </ItemGroup>
+ 
+   <ItemGroup>
 diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs
-index 09138ce..e7944d9 100644
+index 09138ce..71f1487 100644
 --- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs
 +++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/Wrappers/Browser/WebPage.cs
 @@ -2,6 +2,7 @@
@@ -186,10 +210,24 @@ index 09138ce..e7944d9 100644
  using UniversalDownloaderPlatform.PuppeteerEngine.Interfaces.Wrappers.Browser;
  
  namespace UniversalDownloaderPlatform.PuppeteerEngine.Wrappers.Browser
-@@ -55,6 +56,22 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Wrappers.Browser
+@@ -55,6 +56,36 @@ namespace UniversalDownloaderPlatform.PuppeteerEngine.Wrappers.Browser
              return webRequest;
          }
  
++        public async Task<IWebResponse> WaitForResponseAsync(Func<IResponse, bool> predicate, WaitForOptions options = null)
++        {
++            await ConfigurePage();
++            IResponse response = await _page.WaitForResponseAsync(predicate, options);
++            IWebResponse webResponse = new WebResponse(response);
++            return webResponse;
++        }
++
++        public async Task WaitForNetworkIdleAsync(WaitForNetworkIdleOptions options = null)
++        {
++            await ConfigurePage();
++            await _page.WaitForNetworkIdleAsync(options);
++        }
++
 +        public async Task WaitForSelectorAsync(string selector, WaitForSelectorOptions options = null)
 +        {
 +            await ConfigurePage();
