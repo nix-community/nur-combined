@@ -1118,8 +1118,8 @@
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
-            "rev": "3245b9724828c05a8a93ab99bb7627b453811724",
-            "sha256": "0ysvps60sh0xs6nfa413vszgjh1glc9b61rzswxlrpv0ljsdq3z3",
+            "rev": "c19c5a6074a9d3d9b18f59616d57307cff7d8bbd",
+            "sha256": "1r8fcfiawbmm155xcs9nb1kx98c3zk4wyvg5dpbnjcamb1ndrks3",
             "url": "https://github.com/ijohanne/nur-packages"
         },
         "ilkecan": {
@@ -2572,8 +2572,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "3ace87de130c2c8d37a9f3d3568d58faad3ce961",
-            "sha256": "166yq1wlc4i8x4111i580nml85fvv8gzlvbbc91jdpcw60pbyjpf",
+            "rev": "7eb19029a37598b53a7d235f47ad967a218500a2",
+            "sha256": "0al22hs0jcyvj2jp96dxb2v5r7mrhsn8n2ndmvx5i4vqx1grbsxr",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
