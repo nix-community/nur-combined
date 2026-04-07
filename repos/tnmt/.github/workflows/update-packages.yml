@@ -128,3 +128,63 @@ jobs:
         body: |
           Automated dependency update for oneaws (version unchanged at `${{ steps.check.outputs.version }}`).
         labels: automated
+
+  update-gogcli:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Check for gogcli update
+      id: check
+      run: |
+        CURRENT_VERSION=$(grep 'version = ' pkgs/gogcli/default.nix | head -1 | sed 's/.*"\(.*\)".*/\1/')
+        LATEST_VERSION=$(curl -s https://api.github.com/repos/steipete/gogcli/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+        echo "current=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+        echo "latest=$LATEST_VERSION" >> "$GITHUB_OUTPUT"
+        if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+          echo "needs_update=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "needs_update=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Update gogcli
+      if: steps.check.outputs.needs_update == 'true'
+      run: |
+        LATEST_VERSION="${{ steps.check.outputs.latest }}"
+        NEW_SRC_HASH=$(nix-prefetch-url --unpack --type sha256 \
+          "https://github.com/steipete/gogcli/archive/refs/tags/v${LATEST_VERSION}.tar.gz" 2>/dev/null \
+          | xargs nix hash convert --hash-algo sha256 --to sri)
+        sed -i "s/version = \".*\"/version = \"${LATEST_VERSION}\"/" pkgs/gogcli/default.nix
+        sed -i "s|hash = \"sha256-.*\"|hash = \"${NEW_SRC_HASH}\"|" pkgs/gogcli/default.nix
+        # Build to get correct vendorHash
+        VENDOR_HASH=$(nix-build -A gogcli 2>&1 | grep 'got:' | awk '{print $2}') || true
+        if [ -n "$VENDOR_HASH" ]; then
+          sed -i "s|vendorHash = \"sha256-.*\"|vendorHash = \"${VENDOR_HASH}\"|" pkgs/gogcli/default.nix
+        fi
+
+    - name: Verify build
+      if: steps.check.outputs.needs_update == 'true'
+      run: nix-build -A gogcli
+
+    - name: Create Pull Request
+      if: steps.check.outputs.needs_update == 'true'
+      uses: peter-evans/create-pull-request@v8
+      with:
+        branch: update/gogcli-${{ steps.check.outputs.latest }}
+        commit-message: "gogcli: ${{ steps.check.outputs.current }} -> ${{ steps.check.outputs.latest }}"
+        title: "gogcli: ${{ steps.check.outputs.current }} -> ${{ steps.check.outputs.latest }}"
+        body: |
+          Automated update of gogcli from `${{ steps.check.outputs.current }}` to `${{ steps.check.outputs.latest }}`.
+
+          Release: https://github.com/steipete/gogcli/releases/tag/v${{ steps.check.outputs.latest }}
+        labels: automated
