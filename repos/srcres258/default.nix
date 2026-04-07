@@ -38,6 +38,9 @@ in {
   jyyslide-util = pkgs.callPackage ./pkgs/jyyslide-util {
     inherit maintainers;
   };
+  keystroke = pkgs.callPackage ./pkgs/keystroke {
+    inherit maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
