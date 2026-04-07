@@ -23,6 +23,8 @@ let
     fetchSubmodules = true;
   };
 
+  pnpm = pnpm_10;
+
   web = stdenv.mkDerivation {
     inherit pname version src;
 
@@ -32,15 +34,15 @@ let
         version
         src
         ;
-      pnpm = pnpm_10;
-      fetcherVersion = 2;
+      inherit pnpm;
+      fetcherVersion = 3;
       hash = "sha256-opGy5af1SPXJTiVGZ2Y/UwMQuMRPAmXM41VJoyIxLHs=";
     };
 
     nativeBuildInputs = [
       nodejs
       pnpmConfigHook
-      pnpm_10
+      pnpm
     ];
 
     buildPhase = ''
