@@ -8,6 +8,6 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "time"
-      time: "06:30"
+      interval: "cron"
+      cronjob: "30 6 * * *"
       timezone: "Asia/Shanghai"
