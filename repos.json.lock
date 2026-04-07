@@ -96,8 +96,8 @@
             "url": "https://github.com/Emin017/nur-packages"
         },
         "Ev357": {
-            "rev": "7f39bcd449b5cfd960a65ec4074785fb1dcca61b",
-            "sha256": "1n0vbs6g2k6p9d08skv70walnsdj9i5gym995g6fs22rdracp8ha",
+            "rev": "46c06aa3e5c89a704df374b48b2250d0de376d15",
+            "sha256": "17ril04nc0n397q53cifql0cvc68pab8k2z0cy4x1hzd6s0w5aa6",
             "url": "https://github.com/Ev357/nur-packages"
         },
         "Ex-32": {
@@ -537,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "a57bb7bdf120264ceaeb7f4d44e07025294bff19",
-            "sha256": "13h7brmz2q70birjd6cqrhas7amwcw1jk5gbixsaqz8xcnifhlv0",
+            "rev": "59ff6431194551dbf1ab5f1d8da4a83fb578eb65",
+            "sha256": "147bqwixf4pcl4va5q8xjbgpvpl107raciknzy9xxhw97hqrm3h6",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
