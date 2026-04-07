@@ -70,6 +70,20 @@
       };
     };
   };
+  kikoflu = {
+    pname = "kikoflu";
+    version = "v3.1.1";
+    src = fetchFromGitHub {
+      owner = "pa-jesusf";
+      repo = "KikoFlu";
+      rev = "v3.1.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-I2i3NYv2TzqKvkDG8MFFefDcp8E4blxJ0M05wDKSj5Y=";
+    };
+    extract = {
+      "pubspec.lock" = ./. + "/sha256-I2i3NYv2TzqKvkDG8MFFefDcp8E4blxJ0M05wDKSj5Y=/pubspec.lock";
+    };
+  };
   linux-enable-ir-emitter = {
     pname = "linux-enable-ir-emitter";
     version = "7.0.0-beta";
@@ -237,7 +251,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

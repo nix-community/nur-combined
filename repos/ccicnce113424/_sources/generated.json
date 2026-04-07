@@ -112,6 +112,29 @@
         },
         "version": "v3.0.0"
     },
+    "kikoflu": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "pubspec.lock": "sha256-I2i3NYv2TzqKvkDG8MFFefDcp8E4blxJ0M05wDKSj5Y=/pubspec.lock"
+        },
+        "name": "kikoflu",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "pa-jesusf",
+            "repo": "KikoFlu",
+            "rev": "v3.1.1",
+            "sha256": "sha256-I2i3NYv2TzqKvkDG8MFFefDcp8E4blxJ0M05wDKSj5Y=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.1.1"
+    },
     "linux-enable-ir-emitter": {
         "cargoLock": {
             "Cargo.lock": [
@@ -387,7 +410,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
             "sparseCheckout": [],
             "type": "github"
         },

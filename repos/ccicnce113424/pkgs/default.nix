@@ -59,6 +59,12 @@ rec {
     version = stableVersion sources;
   };
 
+  kikoflu = pkgs.callPackage ./kikoflu rec {
+    sources = fetchedSrc.kikoflu;
+    version = stableVersion sources;
+    srcInfo = lib.importJSON ./kikoflu/src-info.json;
+  };
+
   linux-enable-ir-emitter = pkgs.callPackage ./linux-enable-ir-emitter rec {
     sources = fetchedSrc.linux-enable-ir-emitter;
     version = sources.version;

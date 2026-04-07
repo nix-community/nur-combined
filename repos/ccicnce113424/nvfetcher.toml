@@ -27,6 +27,11 @@ cargo_lock = ["Cargo.lock"]
 fetch.github = "01mf02/jaq"
 src.github_tag = "01mf02/jaq"
 
+[kikoflu]
+extract = ["pubspec.lock"]
+fetch.github = "pa-jesusf/KikoFlu"
+src.github = "pa-jesusf/KikoFlu"
+
 [linux-enable-ir-emitter]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "EmixamPP/linux-enable-ir-emitter"

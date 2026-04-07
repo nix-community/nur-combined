@@ -6,7 +6,8 @@ on:
   #     - main
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 6 * * *"
+      timezone: "Asia/Shanghai"
 
 concurrency:
   group: update-sources
@@ -35,6 +36,7 @@ jobs:
           nix run .#nvfetcher-bin
           git add .
           pkgs/daed/update.sh
+          pkgs/kikoflu/update.sh
           pkgs/loveiwara/update.sh
           pkgs/motrix-next/update.sh
           pkgs/piliplus/update.sh
