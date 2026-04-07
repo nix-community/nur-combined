@@ -21,7 +21,6 @@ mkOpencodePlugin rec {
 
   postInstall = ''
     cd "$out"
-
     tsc -p tsconfig.json
   '';
 
