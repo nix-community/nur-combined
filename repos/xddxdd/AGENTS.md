@@ -14,7 +14,10 @@
 ### 最佳实践
 
 - **保持二进制文件名与源码一致**：安装二进制文件时，使用与源码中相同的文件名，不要重命名
-- **使用 versionCheckHook**：在可能的情况下，为包添加 `versionCheckHook` 以验证版本一致性
+- **使用 versionCheckHook**：在可能的情况下，为包添加 `versionCheckHook` 以验证版本一致性。需要添加以下配置：
+  - 在 `nativeInstallCheckInputs` 中添加 `versionCheckHook`
+  - 设置 `doInstallCheck = true`
+  - 如果程序需要特定参数来显示版本，设置 `versionCheckProgramArg`（如 `--version`）
 - **禁用测试时启用安装检查**：如果设置 `doCheck = false` 禁用测试，必须同时设置 `doInstallCheck = true` 以确保 `versionCheckHook` 正常工作
 - **处理 execstack 标记**：打包上游二进制时如遇到 `cannot enable executable stack`，用 `execstack -c`（`pax-utils`）或 `patchelf --clear-execstack` 清理需要可执行栈的 ELF（常见于某些 `.so`）
 
@@ -52,6 +55,7 @@
 ### version（版本号）
 
 - **无 v 前缀**：版本号不应以 `v` 开头
+- **自动处理 v 前缀**：现有基础设施会自动从 nvfetcher 生成的版本号中移除 `v` 前缀，无需手动使用 `lib.removePrefix` 处理
 - **Git 提交哈希格式**：如果使用 Git 提交哈希作为版本，应使用类似 `unstable-2020-01-01` 的日期格式，而不是 40 位哈希值
 
 ### 构建阶段钩子

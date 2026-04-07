@@ -456,6 +456,10 @@ src.git = "https://github.com/KikoPlayProject/KikoPlayScript.git"
 fetch.github = "Kopano-dev/konnect"
 src.github_tag = "Kopano-dev/konnect"
 
+[kuake-cli]
+fetch.github = "zhangjingwei/kuake_cli"
+src.github = "zhangjingwei/kuake_cli"
+
 [kui]
 fetch.github = "abersheeran/kui"
 src.github_tag = "abersheeran/kui"

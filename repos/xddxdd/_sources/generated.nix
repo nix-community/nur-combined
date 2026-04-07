@@ -1046,6 +1046,16 @@
       hash = "sha256-y7SD+czD/jK/m0LbFq7qGjwJgBIXfTNrdsA3pzgD2xE=";
     };
   };
+  kuake-cli = {
+    pname = "kuake-cli";
+    version = "v1.4.0";
+    src = fetchFromGitHub {
+      owner = "zhangjingwei";
+      repo = "kuake_cli";
+      tag = "v1.4.0";
+      hash = "sha256-AE2II4KFrrY/XXLUzMUPr+XjmKF/IDZA6o+Ng/g88W0=";
+    };
+  };
   kui = {
     pname = "kui";
     version = "v1.14.1";
