@@ -33,6 +33,10 @@
     zot = { url = "github:project-zot/zot/v2.1.15"; flake = false; };
 
     # Other packages
+    hrafnsyn = {
+      url = "github:ijohanne/hrafnsyn";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     multicast-relay = { url = "github:alsmith/multicast-relay/2c0e4c743127066388de2c5fd6a7eed676d9b523"; flake = false; };
     nixpkgs-firefox-addons = { url = "github:ijohanne/nixpkgs-firefox-addons/215fb67222ad97261efd7a8bef65a2154586b335"; flake = false; };
     sddm-chili = { url = "github:MarianArlt/sddm-chili/6516d50176c3b34df29003726ef9708813d06271"; flake = false; };
@@ -50,7 +54,7 @@
       devSystems = packSystems;
       forPackSystems = f: nixpkgs.lib.genAttrs packSystems (system: f system);
       forDevSystems = f: nixpkgs.lib.genAttrs devSystems (system: f system);
-      sources = builtins.removeAttrs inputs [ "self" "nixpkgs" "prometheus-ecowitt-exporter" "prometheus-gardena-exporter" "prometheus-gpsd-exporter" "prometheus-tplink-p110-exporter" ];
+      sources = builtins.removeAttrs inputs [ "self" "nixpkgs" "hrafnsyn" "prometheus-ecowitt-exporter" "prometheus-gardena-exporter" "prometheus-gpsd-exporter" "prometheus-tplink-p110-exporter" ];
     in
     {
       legacyPackages = forPackSystems (system:
@@ -58,6 +62,7 @@
           pkgs = import nixpkgs { inherit system; };
           inherit sources;
         }) // {
+          hrafnsyn = inputs.hrafnsyn.packages.${system}.default;
           prometheus-ecowitt-exporter = inputs.prometheus-ecowitt-exporter.packages.${system}.default;
           prometheus-gardena-exporter = inputs.prometheus-gardena-exporter.packages.${system}.default;
           prometheus-gpsd-exporter = inputs.prometheus-gpsd-exporter.packages.${system}.default;
@@ -81,6 +86,7 @@
       overlays.default = import ./overlay.nix;
 
       nixosModules = (import ./modules) // {
+        hrafnsyn = inputs.hrafnsyn.nixosModules.default;
         multicast-relay = import ./modules/multicast-relay self;
         prometheus-gardena-exporter = inputs.prometheus-gardena-exporter.nixosModules.default;
         prometheus-gpsd-exporter = inputs.prometheus-gpsd-exporter.nixosModules.default;
