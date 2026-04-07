@@ -42,7 +42,7 @@ flutter.buildFlutterApplication {
   ];
 
   postInstall = ''
-    install -D debian/gui/pixes.png $out/share/pixmaps/pixes.png
+    install -D debian/gui/pixes.png $out/share/icons/hicolor/128x128/apps/pixes.png
   '';
 
   meta = {

@@ -8,6 +8,7 @@
   makeDesktopItem,
   copyDesktopItems,
   makeWrapper,
+  imagemagick,
 }:
 flutter.buildFlutterApplication (finalAttrs: {
   inherit (sources) pname src;
@@ -35,6 +36,7 @@ flutter.buildFlutterApplication (finalAttrs: {
   nativeBuildInputs = [
     copyDesktopItems
     makeWrapper
+    imagemagick
   ];
 
   buildInputs = [ mpv-unwrapped ];
@@ -45,7 +47,8 @@ flutter.buildFlutterApplication (finalAttrs: {
   '';
 
   postInstall = ''
-    install -D assets/icons/app_icon.svg $out/share/icons/hicolor/scalable/apps/kikoflu.svg
+    mkdir -p $out/share/icons/hicolor/512x512/apps
+    magick convert $src/assets/icons/app_icon_no_background.png -resize 512x512 $out/share/icons/hicolor/512x512/apps/kikoflu.png
   '';
 
   meta = {
