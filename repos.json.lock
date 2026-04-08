@@ -652,8 +652,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "bdca7103c3b2592bda0fb9f185b1d76fc7c4f6cc",
-            "sha256": "036nd6861nh9nm5p07mcgxp5m838aa5y9rd1kimgn2a3hv85ga6b",
+            "rev": "ece2150886e60b0fc81d9e8c3ead16660c2e8353",
+            "sha256": "04k4n235xm7gisbdzzvsgl4i38y7xpws34kl3gbdyvrpvcgvprkw",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
@@ -2597,8 +2597,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "8b3e3be7955fb4724cb1b1ad8c2b2b9a6d30bf3c",
-            "sha256": "0349vxw5hh6ni1g5ys31faav4dl2bc5bgqim07r7q6dy4idjxhnm",
+            "rev": "f143c27d7630703b5cdea30184b1109e38d5966c",
+            "sha256": "1yvw9rgdlffcvmk4bzrcp1q73l5i0pcj80i1fkqczxbk3kbnm8lk",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
