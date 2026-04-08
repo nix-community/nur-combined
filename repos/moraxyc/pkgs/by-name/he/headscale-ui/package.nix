@@ -19,6 +19,11 @@ buildNpmPackage (finalAttrs: {
   };
   npmConfigHook = importNpmLock.npmConfigHook;
 
+  preBuild = ''
+    substituteInPlace ./src/routes/settings.html/+page.svelte \
+      --replace-fail "insert-version" "${finalAttrs.version}"
+  '';
+
   nativeBuildInputs = [ nodejs ];
 
   npmInstallHook = installDistHook;
