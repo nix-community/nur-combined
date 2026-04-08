@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.16";
+    version = "v6.9.18";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.16";
-      hash = "sha256-MM9xPn8WYQsmjPbUA0W0DFUIclkfceVGZ16EpcDNOEk=";
+      tag = "v6.9.18";
+      hash = "sha256-boJT2PuoX/di6Fjb6j1q2oEoUv1o7jKOq6ay650QTUg=";
     };
   };
   cockpy = {
@@ -805,10 +805,10 @@
   };
   google-earth-pro = {
     pname = "google-earth-pro";
-    version = "7.3.7.1094";
+    version = "7.3.7.1155";
     src = fetchurl {
-      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.7.1094-r0_amd64.deb";
-      hash = "sha256-Gu88agdbFZ07fqm6/c9aQMx1pkQ5usQ29buVvqnpy+o=";
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.7.1155-r0_amd64.deb";
+      hash = "sha256-lWFGpO4fCywxK/najHzFQoftfCEFiYX/31nloJSzCyM=";
     };
   };
   gopherus = {
@@ -1192,12 +1192,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8692";
+    version = "b8709";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8692";
-      hash = "sha256-LFLs0OpN3MMqjIQIcTTG1HnzXbYoBscfvYk482SRf2s=";
+      tag = "b8709";
+      hash = "sha256-4zC5uh8Dmwy+9HNJnwYP6pFMs0DQKAzh8Tltp13KrEY=";
     };
   };
   loralib = {
@@ -1836,14 +1836,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "b88431689bf1f64d7177656122bce7840398f0cb";
+    version = "d998e2924405d8aaac8269ebdf7e56ff2a205baf";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "b88431689bf1f64d7177656122bce7840398f0cb";
-      hash = "sha256-us08yogL5yRCXEJs39sbi/z10GPsO9Tzy/TgY3c4wZw=";
+      rev = "d998e2924405d8aaac8269ebdf7e56ff2a205baf";
+      hash = "sha256-BYr9T/NkYXPFdxHgOPLy6IIQhSNKKsDbbg5UFORPL4M=";
     };
-    date = "2026-04-04";
+    date = "2026-04-08";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1986,14 +1986,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "eedf08a5f520cf9649823f7f4d849b66c7f3585b";
+    version = "47ecbdba682e327d560534ca4f4cb30bd8b029a4";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "eedf08a5f520cf9649823f7f4d849b66c7f3585b";
-      hash = "sha256-Ot+2kVM8OvcZQfh0/X4lzgbJ95GrSxmDvU6SmtMKwaA=";
+      rev = "47ecbdba682e327d560534ca4f4cb30bd8b029a4";
+      hash = "sha256-8OroD8viSpNwLUQvCHfmqmzFWrpgyrM7Fr2Vzh2kK/Q=";
     };
-    date = "2026-04-07";
+    date = "2026-04-08";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2235,15 +2235,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "45db21f58eab5cd7aec61caa5e2e0e5a491c125f";
+    version = "be58e7a2969b5af9c8a30d304a53118974608362";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "45db21f58eab5cd7aec61caa5e2e0e5a491c125f";
+      rev = "be58e7a2969b5af9c8a30d304a53118974608362";
       fetchSubmodules = true;
-      hash = "sha256-y/4R1wGl6aA2AvSNQa4kAyyiISg2OXaiiAbcpC0iinw=";
+      hash = "sha256-MlhGHXuWh6rpcnZAhERfNO4w1PAkETjgTWF6w1DqyG0=";
     };
-    date = "2026-04-05";
+    date = "2026-04-08";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.16",
-            "sha256": "sha256-MM9xPn8WYQsmjPbUA0W0DFUIclkfceVGZ16EpcDNOEk=",
+            "rev": "v6.9.18",
+            "sha256": "sha256-boJT2PuoX/di6Fjb6j1q2oEoUv1o7jKOq6ay650QTUg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.16"
+        "version": "v6.9.18"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1559,11 +1559,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Gu88agdbFZ07fqm6/c9aQMx1pkQ5usQ29buVvqnpy+o=",
+            "sha256": "sha256-lWFGpO4fCywxK/najHzFQoftfCEFiYX/31nloJSzCyM=",
             "type": "url",
-            "url": "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.7.1094-r0_amd64.deb"
+            "url": "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.7.1155-r0_amd64.deb"
         },
-        "version": "7.3.7.1094"
+        "version": "7.3.7.1155"
     },
     "gopherus": {
         "cargoLock": null,
@@ -2316,12 +2316,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8692",
-            "sha256": "sha256-LFLs0OpN3MMqjIQIcTTG1HnzXbYoBscfvYk482SRf2s=",
+            "rev": "b8709",
+            "sha256": "sha256-4zC5uh8Dmwy+9HNJnwYP6pFMs0DQKAzh8Tltp13KrEY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8692"
+        "version": "b8709"
     },
     "loralib": {
         "cargoLock": null,
@@ -3566,7 +3566,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2026-04-04",
+        "date": "2026-04-08",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3578,12 +3578,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "b88431689bf1f64d7177656122bce7840398f0cb",
-            "sha256": "sha256-us08yogL5yRCXEJs39sbi/z10GPsO9Tzy/TgY3c4wZw=",
+            "rev": "d998e2924405d8aaac8269ebdf7e56ff2a205baf",
+            "sha256": "sha256-BYr9T/NkYXPFdxHgOPLy6IIQhSNKKsDbbg5UFORPL4M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b88431689bf1f64d7177656122bce7840398f0cb"
+        "version": "d998e2924405d8aaac8269ebdf7e56ff2a205baf"
     },
     "qsp-stable": {
         "cargoLock": null,
@@ -3863,7 +3863,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-04-07",
+        "date": "2026-04-08",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3875,12 +3875,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "eedf08a5f520cf9649823f7f4d849b66c7f3585b",
-            "sha256": "sha256-Ot+2kVM8OvcZQfh0/X4lzgbJ95GrSxmDvU6SmtMKwaA=",
+            "rev": "47ecbdba682e327d560534ca4f4cb30bd8b029a4",
+            "sha256": "sha256-8OroD8viSpNwLUQvCHfmqmzFWrpgyrM7Fr2Vzh2kK/Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "eedf08a5f520cf9649823f7f4d849b66c7f3585b"
+        "version": "47ecbdba682e327d560534ca4f4cb30bd8b029a4"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4358,7 +4358,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-04-05",
+        "date": "2026-04-08",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4370,12 +4370,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "45db21f58eab5cd7aec61caa5e2e0e5a491c125f",
-            "sha256": "sha256-y/4R1wGl6aA2AvSNQa4kAyyiISg2OXaiiAbcpC0iinw=",
+            "rev": "be58e7a2969b5af9c8a30d304a53118974608362",
+            "sha256": "sha256-MlhGHXuWh6rpcnZAhERfNO4w1PAkETjgTWF6w1DqyG0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "45db21f58eab5cd7aec61caa5e2e0e5a491c125f"
+        "version": "be58e7a2969b5af9c8a30d304a53118974608362"
     },
     "unigine-heaven": {
         "cargoLock": null,
