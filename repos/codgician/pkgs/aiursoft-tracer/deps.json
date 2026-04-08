@@ -236,8 +236,8 @@
   },
   {
     "pname": "Microsoft.CodeCoverage",
-    "version": "18.3.0",
-    "hash": "sha256-fqKglbYvEb/77+rmUvLyLZSwROM1P9OW03Ub307WYZ8="
+    "version": "18.4.0",
+    "hash": "sha256-px8qchiuY5rkujAZ1wGEjuuhZdZmsRSp+FCiTmRUA1A="
   },
   {
     "pname": "Microsoft.Data.Sqlite.Core",
@@ -506,38 +506,33 @@
   },
   {
     "pname": "Microsoft.NET.Test.Sdk",
-    "version": "18.3.0",
-    "hash": "sha256-o2bILLF5i+XUoi8xZYgolU3CxLTdql5R/tEVWVnKFPU="
+    "version": "18.4.0",
+    "hash": "sha256-ak/emX4C4KQVzc0bSNK4bChS+dvb3FvxZbJNrmf/2+w="
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
-    "version": "2.1.0",
-    "hash": "sha256-SawLiz1fB3QbkkyEVloEj8UpQTAIZR7U9FZfqwCkGr0="
+    "version": "2.2.1",
+    "hash": "sha256-hvbhAK3OWK/v5I0lLYCoi7p+amiLR2f8ivj+hhmHQRM="
   },
   {
     "pname": "Microsoft.Testing.Extensions.TrxReport.Abstractions",
-    "version": "2.1.0",
-    "hash": "sha256-X54qc4Ey+3hm0e5eCY1R2me8b4zGrWzjesm9fGJWXys="
+    "version": "2.2.1",
+    "hash": "sha256-cRABkzxTVR3pSfir7PeIx06BxybBEEsOc5IUDg9rrJQ="
   },
   {
     "pname": "Microsoft.Testing.Extensions.VSTestBridge",
-    "version": "2.1.0",
-    "hash": "sha256-2m14uEmuEELn4Ci/CZNpKjhlnzq9vYvhgeiM03DZj7A="
+    "version": "2.2.1",
+    "hash": "sha256-JnqHUllMMJSTygha8IHOTqg5r7RiMRNJ2w3SFaiXly0="
   },
   {
     "pname": "Microsoft.Testing.Platform",
-    "version": "2.1.0",
-    "hash": "sha256-CbR0j0Dh65cMccO7L6ppx4b5iiXjqxjjfC9A85HeLuM="
+    "version": "2.2.1",
+    "hash": "sha256-5O/6jgbbMpCAshGe7bCsmuo0pdTHc6Mx6DsHXytUWVg="
   },
   {
     "pname": "Microsoft.Testing.Platform.MSBuild",
-    "version": "2.1.0",
-    "hash": "sha256-6T2tBSokr5/oiwqKASk18BieKqkIzDbYX32j1Hl1z1g="
-  },
-  {
-    "pname": "Microsoft.TestPlatform.ObjectModel",
-    "version": "18.0.1",
-    "hash": "sha256-oJbS7SZ46RzyOQ+gCysW7qJRy7V8RlQVa5d8uajb91M="
+    "version": "2.2.1",
+    "hash": "sha256-6tTDS+PF7lZMlQaJfcILRvjUuM67j4eT71YBLBacJPY="
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
@@ -545,9 +540,14 @@
     "hash": "sha256-3Y3OxAQsXl6sunQlSjfq31aLWykHQTj2o/TOVI/uy88="
   },
   {
+    "pname": "Microsoft.TestPlatform.ObjectModel",
+    "version": "18.4.0",
+    "hash": "sha256-ERL2goDaM0vUElW25DM/5lI2WplE5E6g9mhTegY0bC8="
+  },
+  {
     "pname": "Microsoft.TestPlatform.TestHost",
-    "version": "18.3.0",
-    "hash": "sha256-OkR+XvipAHPQbHywTwN8lVcMpyRs2MUJKCxJ5OfKAFk="
+    "version": "18.4.0",
+    "hash": "sha256-S4T/6xHvov8jDcbcuZAOoutMAEudUb3dMP7MyxVa8Fo="
   },
   {
     "pname": "Microsoft.VisualStudio.SolutionPersistence",
@@ -561,18 +561,18 @@
   },
   {
     "pname": "MSTest.Analyzers",
-    "version": "4.1.0",
-    "hash": "sha256-FeMIXYRPxXJCAKOk3dKWCtoNX3wC36NqC/IduOd1xTE="
+    "version": "4.2.1",
+    "hash": "sha256-3GRhxdHpHKKREWUmgTaxdmph7JSUjs+lQ1K2PLlFgZU="
   },
   {
     "pname": "MSTest.TestAdapter",
-    "version": "4.1.0",
-    "hash": "sha256-g7MuXzSJ2+ydwPzdBRzE8WFsjWSI3tf1X0rLNy7a9qU="
+    "version": "4.2.1",
+    "hash": "sha256-hXuViaAG+2j6ZciqCfDymb29yUR7A1yXD6oM7A2U81A="
   },
   {
     "pname": "MSTest.TestFramework",
-    "version": "4.1.0",
-    "hash": "sha256-ELpj0a6VDEIzY7RWsdyF/DREK8I/6CZen3OYO5dvloI="
+    "version": "4.2.1",
+    "hash": "sha256-ZljIMY8cvAYawFN2k8BrD18pMLudVgbqVXU/BuGedXc="
   },
   {
     "pname": "MySqlConnector",
