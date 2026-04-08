@@ -18,11 +18,13 @@ reIf (
       || (thisNode.nat && thisNode ? region && peerNode ? region && thisNode.region == peerNode.region);
     directConnect = peerNode: ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
 
+    extra_reg = (fromTOML (builtins.readFile ../registry.toml)).extra;
+
     trustedLinkLocalAddrs = lib.mapAttrsToList (_: v: macToLL v.mac) (
       lib.filterAttrs (
         k: v:
         (able2Connect v) && k != thisName && (builtins.hasAttr "region" v) && (v.region == thisNode.region)
-      ) lib.data.node
+      ) (lib.data.node // extra_reg)
     );
 
     llSetString = builtins.concatStringsSep ", " trustedLinkLocalAddrs;
@@ -71,7 +73,7 @@ reIf (
             )
         );
         AllowedPublicKeys = lib.mapAttrsToList (_: v: v.ygg_pubkey) (
-          lib.filterAttrs (k: _: k != thisName) lib.data.node
+          lib.filterAttrs (k: _: k != thisName) (lib.data.node // extra_reg)
         );
 
         MulticastInterfaces = lib.mkIf thisNode.nat [

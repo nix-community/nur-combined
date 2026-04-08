@@ -39,6 +39,7 @@
       network_config_dir = "/var/lib/containers/storage/networks";
     };
   };
+  networking.nftables.flushRuleset = lib.mkForce false;
   programs = {
     less.lessopen = null;
     command-not-found.enable = false;

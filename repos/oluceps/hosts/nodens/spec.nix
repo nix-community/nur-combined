@@ -22,14 +22,6 @@
   ## START FOR other user
   networking.nftables = {
     enable = true;
-    ruleset = ''
-      table inet filter {
-        chain output {
-        	type filter hook output priority filter; policy accept;
-        	ip6 daddr fdcc::/16 meta skuid 1010 reject with icmpv6 port-unreachable
-        }
-      }
-    '';
   };
   users.users.zgmx = {
     isNormalUser = true;

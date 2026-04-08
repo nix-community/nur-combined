@@ -83,21 +83,6 @@
       # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
       enable = true;
-
-      ruleset = ''
-        table ip nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
-        }
-        table ip6 nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
-        }
-      '';
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";

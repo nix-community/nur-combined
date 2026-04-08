@@ -103,6 +103,20 @@
   #   nameserver 127.0.0.1
   #   search nyaw.xyz
   # '';
+  boot.lanzaboote.measuredBoot = {
+    enable = true;
+    pcrs = [
+      0
+      2
+      3
+      4
+      7
+    ];
+    autoCryptenroll = {
+      enable = true;
+      device = config.boot.initrd.luks.devices."cryptroot".device;
+    };
+  };
 
   zramSwap = {
     enable = false;

@@ -40,28 +40,17 @@ in
     # };
 
     # # https://www.procustodibus.com/blog/2021/11/wireguard-nftables/
-    # networking.nftables.ruleset = # nft
-    #   ''
-    #     table inet filter {
-    #       set wg_interfaces {
-    #           type ifname
-    #           flags dynamic # Allows adding/removing elements from the command line
-    #           elements = { ${lib.concatMapStringsSep "," (n: "\"hts-${n}\"") (attrNames thisConn)} }
-    #       }
-    #     	chain forward {
-    #     		type filter hook forward priority filter; policy drop;
-
-    #     		ct state { established, related } accept
-
-    #     		ct state invalid drop
-
-    #     		oifname @wg_interfaces tcp flags syn / syn,rst tcp option maxseg size set rt mtu log prefix "[NFTABLES MSS_CLAMP] " level info
-
-    #     		iifname @wg_interfaces accept
-    #     		oifname @wg_interfaces accept
-    #     	}
-    #     }
-    #   '';
+    networking.nftables.tables.filter = {
+      family = "inet";
+      content = ''
+        chain forward {
+          type filter hook forward priority filter; policy accept;
+          
+          oifname "hts-0" tcp flags & (syn | rst) == syn tcp option maxseg size set rt mtu
+          iifname "hts-0" tcp flags & (syn | rst) == syn tcp option maxseg size set rt mtu
+        }
+      '';
+    };
     repack.yggdrasil.enable = true;
     # repack.wg-partial-mesh.enable = true;
     # services.zerotierone = {

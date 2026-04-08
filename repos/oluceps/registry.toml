@@ -74,6 +74,16 @@ iata = "NRT"
 city = "Tokyo"
 ygg_pubkey = "b382696fe2e84c8a33c51923453de48caa666745a9228582892b5703600725a9"
 
+
+[extra.edgeone]
+type = "ygg"
+region = 0
+censor = true
+nat = true
+user = "elen"
+ygg_pubkey = "00009960b687622088a805cc95cb5721584856bcc4268f3f51eed280877f8e28"
+mac = "c4:09:38:f2:3e:cb"
+
 # [node.nodens]
 # # dmit lax
 # id = 5

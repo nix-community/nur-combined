@@ -85,22 +85,40 @@ in
         "br0"
       ];
 
-      nftables.ruleset = ''
-        table ip6 nat {
-        	chain postrouting {
-        		type nat hook postrouting priority srcnat; policy accept;
-        		oifname eno1 ip6 saddr fdcc:1::/64 masquerade
-        	}
-        }
-        table inet filter {
-        	chain forward {
-            type filter hook forward priority filter; policy drop;
-            ct state { established, related } accept # allow package back
-            iifname "br0" accept
-            ip6 saddr fdcc::/16 ip6 daddr fdcc::/16 accept
-        	}
-        }
-      '';
+      nftables.tables = {
+        # ipv6 nat configuration
+        nat = {
+          family = "ip6";
+          content = ''
+            chain postrouting {
+              type nat hook postrouting priority srcnat; policy accept;
+              oifname "eno1" ip6 saddr fdcc:1::/64 masquerade
+            }
+          '';
+        };
+
+        # inet filter configuration
+        filter = {
+          family = "inet";
+          content = ''
+            chain forward {
+              type filter hook forward priority filter; policy drop;
+
+              # allow return traffic
+              ct state { established, related } accept
+
+              # allow traffic from bridge interface
+              iifname "br0" accept
+
+              # allow internal ula traffic
+              ip6 saddr fdcc::/16 ip6 daddr fdcc::/16 accept
+              
+              # warning: you might still need to add podman here if you want it to work
+              # iifname "podman*" accept
+            }
+          '';
+        };
+      };
 
       # nat = {
       #   enable = true;

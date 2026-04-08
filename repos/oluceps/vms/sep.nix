@@ -57,27 +57,45 @@
             allowedUDPPorts = [ 53 ];
           };
           networking.nftables.enable = true;
-          networking.nftables.ruleset = ''
-            table inet nat {
-              chain postrouting {
-                type nat hook postrouting priority srcnat; policy accept;
-                iifname "wg-ext" oifname "enp0s4" ip saddr 10.10.10.0/24 masquerade;
-                iifname "wg-ext" oifname "enp0s4" meta nfproto ipv6 snat to fec0::1;
-              }
-            }
-            table inet filter {
-              chain forward {
-                type filter hook forward priority filter; policy drop;
+          networking.nftables.tables = {
+            # nat table configuration
+            nat = {
+              family = "inet";
+              content = ''
+                chain postrouting {
+                  type nat hook postrouting priority srcnat; policy accept;
+                  
+                  # outbound nat for wireguard clients
+                  iifname "wg-ext" oifname "enp0s4" ip saddr 10.10.10.0/24 masquerade
+                  iifname "wg-ext" oifname "enp0s4" meta nfproto ipv6 snat to fec0::1
+                }
+              '';
+            };
 
-                ct state established,related accept
+            # filter table configuration
+            filter = {
+              family = "inet";
+              content = ''
+                chain forward {
+                  type filter hook forward priority filter; policy drop;
 
-                iifname "wg-ext" ip daddr 10.255.0.0 reject with icmp admin-prohibited
-                iifname "wg-ext" ip6 daddr fec0::/128 reject with icmpv6 admin-prohibited
+                  # allow return traffic
+                  ct state { established, related } accept
 
-                iifname "wg-ext" oifname "enp0s4" accept
-              }
-            }
-          '';
+                  # drop specific internal destinations for wg-ext
+                  iifname "wg-ext" ip daddr 10.255.0.0 reject with icmp admin-prohibited
+                  iifname "wg-ext" ip6 daddr fec0::/128 reject with icmpv6 admin-prohibited
+
+                  # allow wg-ext to access external network via enp0s4
+                  iifname "wg-ext" oifname "enp0s4" accept
+
+                  # vm, dont have podman
+                  # iifname "podman*" accept
+                  # oifname "podman*" accept
+                }
+              '';
+            };
+          };
           networking.enableIPv6 = true;
           # forbid end
 

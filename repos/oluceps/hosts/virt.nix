@@ -1,4 +1,9 @@
 {
+  networking.firewall = {
+    trustedInterfaces = [
+      "podman*"
+    ];
+  };
   virtualisation = {
     vmVariant = {
       virtualisation = {

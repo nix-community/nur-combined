@@ -6,7 +6,7 @@
       enable = true;
       publicKeyFile = config.vaultix.secrets."db.pem".path;
       privateKeyFile = config.vaultix.secrets."db.key".path;
-      configurationLimit = 16;
+      configurationLimit = 8;
     };
   };
 }

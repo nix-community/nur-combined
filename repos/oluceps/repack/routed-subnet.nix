@@ -50,14 +50,20 @@ reIf
           # the interface with upstream Internet access, TODO: change with host
           externalInterface = "eno1";
         };
-        nftables.ruleset = ''
-          table inet filter {
-          	chain forward {
+        nftables.tables.filter = {
+          family = "inet";
+          content = ''
+            chain forward {
               type filter hook forward priority filter; policy drop;
+
+              # allow new connections from vm1 to eno1
               iifname "vm1" oifname "eno1" ct state new accept
-          	}
-          }
-        '';
+
+              # note: you usually need this to allow return traffic
+              ct state { established, related } accept
+            }
+          '';
+        };
       };
       services.resolved.settings.Resolve.DNSStubListenerExtra = "10.255.0.0";
 
