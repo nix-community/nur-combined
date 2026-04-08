@@ -2190,8 +2190,8 @@
             "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
-            "rev": "6c19d077c2e9f56d55a36d4aeb917e28668a2236",
-            "sha256": "1d63mj86khi7nsmda3wn49nywy1fmscl9wf3jvcrcyj6v1ja6c4g",
+            "rev": "fa63ee7e9e7228bc60ccccebf382720021cbcbca",
+            "sha256": "1rnjhm4ag7xfmrhpkzl6nfiaidfwaw8x5a0xpay0r4v9d3bwq20h",
             "url": "https://github.com/shirok1/flakes"
         },
         "shymega": {
