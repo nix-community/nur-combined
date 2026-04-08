@@ -8790,10 +8790,10 @@
     };
     "mal-sync" = buildMozillaXpiAddon {
       pname = "mal-sync";
-      version = "0.12.2";
+      version = "0.12.3";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4617271/mal_sync-0.12.2.xpi";
-      sha256 = "77e07258ef6e7245e8ddaee0e8dcca0dd8d1820f614c1b3d3b2573a2e6db5391";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4710960/mal_sync-0.12.3.xpi";
+      sha256 = "1d9f086ffb81045f50991dca0070006cc548a1492af858f2dcf259301242ed8b";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -8815,9 +8815,11 @@
           "*://myanimelist.net/search/*"
           "*://malsync.moe/mal/oauth*"
           "*://malsync.moe/anilist/oauth*"
+          "*://malsync.moe/mangabaka/oauth*"
           "*://malsync.moe/shikimori/oauth*"
           "*://anilist.co/*"
           "*://kitsu.app/*"
+          "*://mangabaka.org/*"
           "*://simkl.com/*"
           "*://malsync.moe/pwa*"
           "*://mangadex.org/*"
@@ -8829,15 +8831,12 @@
           "*://*.www.turkanime.co/anime/*"
           "*://app.emby.media/*"
           "*://app.emby.tv/*"
-          "*://app.plex.tv/*"
           "*://www.netflix.com/*"
           "*://*.animeflv.net/anime/*"
           "*://*.animeflv.net/ver/*"
           "*://jkanime.net/*"
           "*://proxer.me/*"
           "*://proxer.net/*"
-          "*://*.aniflix.tv/*"
-          "*://*.aniflix.cc/*"
           "*://*.kaas.am/*"
           "*://*.kaas.ro/*"
           "*://*.kaas.to/*"
@@ -8847,6 +8846,9 @@
           "*://*.kickassanime.mx/*"
           "*://*.kaa.mx/*"
           "*://*.kaa.to/*"
+          "*://*.kaa.si/*"
+          "*://*.kickass-anime.ro/*"
+          "*://*.kickassanime.cx/*"
           "*://shinden.pl/episode/*"
           "*://shinden.pl/series/*"
           "*://shinden.pl/titles/*"
@@ -8862,7 +8864,6 @@
           "*://mangadenizi.com/*"
           "*://*.mangadenizi.net/*"
           "*://moeclip.com/*"
-          "*://mangalivre.net/*"
           "*://tmofans.com/*"
           "*://lectortmo.com/*"
           "*://visortmo.com/*"
@@ -8962,13 +8963,14 @@
           "*://animexin.dev/*"
           "*://monoschinos.com/*"
           "*://monoschinos2.com/*"
-          "*://smotret-anime.org/catalog/*"
-          "*://smotret-anime.online/catalog/*"
-          "*://smotret-anime.com/catalog/*"
-          "*://anime365.ru/catalog/*"
-          "*://anime-365.ru/catalog/*"
-          "*://smotret-anime.ru/catalog/*"
-          "*://smotretanime.ru/catalog/*"
+          "*://smotret-anime.org/*"
+          "*://smotret-anime.online/*"
+          "*://smotret-anime.com/*"
+          "*://anime365.ru/*"
+          "*://anime-365.ru/*"
+          "*://smotret-anime.ru/*"
+          "*://smotretanime.ru/*"
+          "*://smotret-anime.app/*"
           "*://animefire.net/*"
           "*://animefire.plus/*"
           "*://otakufr.co/*"
@@ -8982,7 +8984,6 @@
           "*://*.tranimeizle.top/*"
           "*://tranimeizle.io/*"
           "*://www.tranimeizle.io/*"
-          "*://*.animestreamingfr.fr/*"
           "*://furyosociety.com/*"
           "*://www.animeid.tv/*"
           "*://myanimelist.net/anime/*/*/episode/*"
@@ -9047,7 +9048,6 @@
           "*://mangas-origines.fr/oeuvre*"
           "*://*.bluesolo.org/manga/*"
           "*://disasterscans.com/*"
-          "*://dynasty-scans.com/*"
           "*://aniworld.to/*"
           "*://betteranime.net/anime/*"
           "*://*.manga.bilibili.com/*"
@@ -9073,15 +9073,18 @@
           "*://fmteam.fr/*"
           "*://www.animelon.com/*"
           "*://animelon.com/*"
-          "*://anime-sama.fr/*"
+          "*://anime-sama.tv/*"
+          "*://anime-sama.si/*"
+          "*://anime-sama.to/*"
           "*://anime-sama.org/*"
+          "*://anime-sama.fr/*"
+          "*://anime-sama.eu/*"
           "*://mangafire.to/*"
           "*://projectsuki.com/*"
           "*://animebuff.ru/anime/*"
           "*://animeonegai.com/*"
           "*://www.animeonegai.com/*"
           "*://*.animeko.co/*"
-          "*://animego.org/anime/*"
           "*://animego.me/anime/*"
           "*://*.luciferdonghua.in/*"
           "*://*.luciferdonghua.co.in/*"
@@ -9194,10 +9197,13 @@
           "*://aniboom.one/*"
           "*://x.anizium.co/*"
           "*://smotret-anime.org/translations/embed/*"
-          "*://smotret-anime.online/translations/embed/*"
-          "*://smotret-anime.com/translations/embed/*"
           "*://anime365.ru/translations/embed/*"
           "*://anime-365.ru/translations/embed/*"
+          "*://smotret-anime.online/translations/embed/*"
+          "*://smotret-anime.com/translations/embed/*"
+          "*://smotret-anime.ru/translations/embed/*"
+          "*://smotretanime.ru/translations/embed/*"
+          "*://smotret-anime.app/translations/embed/*"
           "*://*.pstream.net/e/*"
           "*://fusevideo.net/e/*"
           "*://fusevideo.io/e/*"
@@ -9221,6 +9227,9 @@
           "*://*.mixdrop.sn/e/*"
           "*://*.mixdrop.cv/e/*"
           "*://*.md3b0j6hj.com/e/*"
+          "*://*.m1xdrop.net/e/*"
+          "*://*.m1xdrop.com/e/*"
+          "*://*.m1xdrop.bz/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -9349,6 +9358,7 @@
           "*://vidmoly.me/*"
           "*://vidmoly.to/*"
           "*://vidmoly.net/*"
+          "*://vidmoly.biz/*"
           "*://upstream.to/*"
           "*://abcvideo.cc/*"
           "*://aparat.cam/*"
@@ -9394,6 +9404,12 @@
           "*://jilliandescribecompany.com/e/*"
           "*://lukesitturn.com/e/*"
           "*://mikaylaarealike.com/e/*"
+          "*://christopheruntilpoint.com/e/*"
+          "*://walterprettytheir.com/e/*"
+          "*://crystaltreatmenteast.com/e/*"
+          "*://myvidplay.com/e/*"
+          "*://lauradaydo.com/e/*"
+          "*://lancewhosedifficult.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -9483,6 +9499,7 @@
           "*://awish.pro/e/*"
           "*://hlswish.com/e/*"
           "*://swishsrv.com/e/*"
+          "*://guxhag.com/*"
           "*://alions.pro/v/*"
           "*://megaf.cc/e/*"
           "*://rogeriobetin.com/*"
@@ -9498,6 +9515,7 @@
           "*://megaup.site/e/*"
           "*://megaup.live/e/*"
           "*://4spromax.site/e/*"
+          "*://megaup22.online/e/*"
           "*://boosterx.stream/*"
           "*://player.zilla-networks.com/*"
           "*://megaplay.buzz/*"
@@ -9507,6 +9525,15 @@
           "*://emturbovid.com/*"
           "*://*.upns.live/*"
           "*://*.p2pstream.vip/*"
+          "*://player.anoboye.com/watch/*"
+          "*://zencloudz.cc/*"
+          "*://*.playerp2p.live/*"
+          "*://*.rpmvip.com/*"
+          "*://callistanise.com/*"
+          "*://habetar.com/*"
+          "*://yuguaab.com/*"
+          "*://allanime.day/*"
+          "*://allanime.uns.bio/*"
         ];
         platforms = platforms.all;
       };
@@ -10063,10 +10090,10 @@
     };
     "nekocap" = buildMozillaXpiAddon {
       pname = "nekocap";
-      version = "1.21.0";
+      version = "1.22.0";
       addonId = "nekocaption@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4670586/nekocap-1.21.0.xpi";
-      sha256 = "6f66f5520ee42ec53ffe3f6d4e0c67618b905911ef66fd75e2e57e7720da4004";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719765/nekocap-1.22.0.xpi";
+      sha256 = "b30a89e1eed12f9e915ebfbba2208bebbd88b8bbc0df4ad06c9072323fa39ff9";
       meta = with lib;
       {
         homepage = "https://nekocap.com";
@@ -11881,10 +11908,10 @@
     };
     "promnesia" = buildMozillaXpiAddon {
       pname = "promnesia";
-      version = "1.3.1";
+      version = "1.4.2";
       addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298718/promnesia-1.3.1.xpi";
-      sha256 = "1e98071a762cf21f772bab6fcd84fd878924cc5e58529edb2a93a509d1a2a6c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4756274/promnesia-1.4.2.xpi";
+      sha256 = "2139e9e391275a0115803ec46a33e0929c55a32ce9d57b5c8ff2d39718659bfe";
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/promnesia";
@@ -11898,9 +11925,6 @@
           "bookmarks"
           "history"
           "scripting"
-          "file:///*"
-          "http://*/"
-          "https://*/"
         ];
         platforms = platforms.all;
       };
@@ -11932,10 +11956,10 @@
     };
     "proton-pass" = buildMozillaXpiAddon {
       pname = "proton-pass";
-      version = "1.34.2";
+      version = "1.35.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4686427/proton_pass-1.34.2.xpi";
-      sha256 = "03b4b59bbca5acb95459c970fc83ede80c45c7b5b698afec29e53214239eea7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4719659/proton_pass-1.35.0.xpi";
+      sha256 = "5b5b254a5221df31e93aab5be469cb484526357cccea3bbaa73d914b12c0d468";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -15754,10 +15778,10 @@
     };
     "varia-integrator" = buildMozillaXpiAddon {
       pname = "varia-integrator";
-      version = "1.5.2";
+      version = "1.5.3";
       addonId = "giantpinkrobots@protonmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4744787/varia_integrator-1.5.2.xpi";
-      sha256 = "8e80d321cb77b3c1e2129d68e7a260142189cbc8cfbb2622a7b8405af8f3e098";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4756162/varia_integrator-1.5.3.xpi";
+      sha256 = "a086736192797b810b5e692c5a0c708125a3d834a1701c25ed22e5be63ad7a88";
       meta = with lib;
       {
         homepage = "https://giantpinkrobots.github.io/varia/";
