@@ -136,8 +136,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "57a39d3bf4739d590b227c650f7274d00b8dd522",
-            "sha256": "0vlwc73wmlgdlvb7mwvs9l9zxx42bwgsiy8s7015b0w5pafp5g2i",
+            "rev": "8f901b6d679392f2f962800d0a84808b799eaa05",
+            "sha256": "1sd9n5apd57g2rbhvkmbfx3f2d9cq5w2z2a87avvry3ikrribxvd",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -2175,8 +2175,8 @@
             "url": "https://github.com/Shados/nur-packages"
         },
         "shadowrz": {
-            "rev": "bf7dd5512b542f9490b18146034991ccda4e5218",
-            "sha256": "0jxkhlxvk0f884mzqxpy57f462zrv77ccz7c12h5jvmns66ksaca",
+            "rev": "36f56ae867b931dd59f881c71dc46f96db19ec85",
+            "sha256": "1d6c7ay36j7w6ylc0gcjh2ihga4xws8gvc9qfyi1f261kwinybsi",
             "url": "https://github.com/ShadowRZ/nur-packages"
         },
         "shamilton": {
@@ -2200,8 +2200,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "51e426edad948a06bb8943f82350880921f322a1",
-            "sha256": "0hv8f2qd39f72q8djlc1vi7dga4zb4q673pay5xqcb7wd9q43ixa",
+            "rev": "969297f29c73fd130bfa0ac9285a5d66ecea70f4",
+            "sha256": "01r57bjyx5qnxpczmgr0jv841kkzrrr5ba5dd2j470rc2pxbxn0m",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
