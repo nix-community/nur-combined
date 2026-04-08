@@ -146,16 +146,16 @@
   };
   motrix-next = {
     pname = "motrix-next";
-    version = "v3.6.4";
+    version = "v3.6.6-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.6.4";
+      rev = "v3.6.6-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-2Uxw56fDRQTTo4ApsjiMs+rmeZ4mF/9bVdUH9Dg6Qfw=";
+      sha256 = "sha256-nPTkgTNcvVk1CKTT26U79JVJpilDxqDnPiK3PGNKWbY=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-2Uxw56fDRQTTo4ApsjiMs+rmeZ4mF_9bVdUH9Dg6Qfw=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-nPTkgTNcvVk1CKTT26U79JVJpilDxqDnPiK3PGNKWbY=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -163,16 +163,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.2";
+    version = "2.0.3";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.2";
+      rev = "2.0.3";
       fetchSubmodules = false;
-      sha256 = "sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=";
+      sha256 = "sha256-jEH4NniZLhAxLrjcH4N70oWFJC5phjkO/4SiiTruRD0=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-6rQSNOryhFLeNeypWKNazOUQOev1BXf4nCea6+2nUwc=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-jEH4NniZLhAxLrjcH4N70oWFJC5phjkO_4SiiTruRD0=/pubspec.lock";
     };
   };
   pixes = {
@@ -256,15 +256,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "d3e1e09f72bf5bef8dbb639efdc13d1e2ee9ef29";
+    version = "6ba75030494c0e275da93abf07235dd3b1387e41";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "d3e1e09f72bf5bef8dbb639efdc13d1e2ee9ef29";
+      rev = "6ba75030494c0e275da93abf07235dd3b1387e41";
       fetchSubmodules = false;
-      sha256 = "sha256-9QvJ0aGKTM61DI6d3PJqoCNjK9vUTa6HcIpWxtULX+Y=";
+      sha256 = "sha256-GQgrY888fdDhKt2hdfb9n3RTn6cKLay4PAEoVEQ6Dzc=";
     };
-    date = "2026-04-07";
+    date = "2026-04-08";
   };
   wild = {
     pname = "wild";
