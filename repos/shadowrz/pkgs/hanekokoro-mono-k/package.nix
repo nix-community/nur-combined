@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
   iosevka,
-  installFonts,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -16,7 +15,13 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-VpLN9ykS1dkMh45Dhll9YOQv0hTxooABLcdwKtu5Zuk=";
   };
 
-  nativeBuildInputs = [ installFonts ];
+  installPhase = ''
+    runHook preInstall
+
+    install -Dm644 *.ttf -t $out/share/fonts/truetype
+
+    runHook postInstall
+  '';
 
   meta = with lib; {
     inherit (iosevka.meta) license platforms;
