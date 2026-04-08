@@ -319,9 +319,7 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      default = withSystem pkgs.stdenv.hostPlatform.system (
-        { config, ... }: config.packages.msd-lite
-      );
+      default = withSystem pkgs.stdenv.hostPlatform.system ({ config, ... }: config.packages.msd-lite);
       defaultText = lib.literalMD "`packages.msd-lite` from the shirok1/flakes flake";
       description = "The msd-lite package to use.";
     };

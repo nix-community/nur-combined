@@ -93,7 +93,7 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  documentation.man.generateCaches = false;
+  documentation.man.cache.enable = false;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
@@ -390,6 +390,8 @@
   #   };
   # };
 
+  services.nixseparatedebuginfod2.enable = true;
+
   systemd = {
     packages = [ pkgs.qbittorrent-nox ];
     services."qbittorrent-nox@shiroki" = {
@@ -458,7 +460,15 @@
       };
     };
     customComponents = with pkgs.home-assistant-custom-components; [
-      xiaomi_home
+      (xiaomi_home.overrideAttrs (oldAttrs: {
+        # src = inputs.ha-xiaomi-home;
+        src = pkgs.fetchFromGitHub {
+          owner = "XiaoMi";
+          repo = "ha_xiaomi_home";
+          rev = "pull/1658/head";
+          hash = "sha256-DSPNI/o9P2fu7UgbVvEtv7Uj77p5g5xCgAlFTolh/0o=";
+        };
+      }))
     ];
   };
 
@@ -508,10 +518,13 @@
     jvmOptions = [
       "-Djna.library.path=${pkgs.systemdLibs}/lib"
       "--enable-native-access=ALL-UNNAMED"
+      "-XX:+UseStringDeduplication"
       "-XX:+UseCompactObjectHeaders"
       "-XX:+UseZGC -XX:+ZGenerational"
     ];
   };
+
+  services.osmo-fl2k.enable = true;
 
   systemd.user.services.mihomo = {
     enable = true;
