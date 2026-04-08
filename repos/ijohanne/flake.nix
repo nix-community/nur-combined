@@ -63,6 +63,7 @@
           inherit sources;
         }) // {
           hrafnsyn = inputs.hrafnsyn.packages.${system}.default;
+          hrafnsyn-aircraft-db = inputs.hrafnsyn.packages.${system}.aircraftDb;
           prometheus-ecowitt-exporter = inputs.prometheus-ecowitt-exporter.packages.${system}.default;
           prometheus-gardena-exporter = inputs.prometheus-gardena-exporter.packages.${system}.default;
           prometheus-gpsd-exporter = inputs.prometheus-gpsd-exporter.packages.${system}.default;
