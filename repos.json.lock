@@ -918,8 +918,8 @@
             "url": "https://github.com/fooker/nur-packages"
         },
         "foolnotion": {
-            "rev": "3e4a2f1b9dd1fb14bd66c6a17fc0f82026b64218",
-            "sha256": "0gqn90db2h1f6f4nbpm3ysnz85yyp3yda20il8p2vdqfxdn8b8r8",
+            "rev": "ca4bc2e2d3faf195aba250fce03c179a9d55b252",
+            "sha256": "17axhwgp1mrvhpsm4mmhwpjb04ykaxlymk3sg4nqbc0mkbbfzldj",
             "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
@@ -2432,8 +2432,8 @@
             "url": "https://github.com/uleenucks/nurpkgs"
         },
         "ulypkgs": {
-            "rev": "02c9f4b641fd5e57f4ede973aa18d4b3e1ba42bb",
-            "sha256": "00m5l1rs6adc11ys77fc7x1zyqip5w0d8dnil0x647c4gamlfvb6",
+            "rev": "3eafb4ef5b62830847ccf6e08b67e4e722afa1f4",
+            "sha256": "1dhhbmvwsxgg7pwddl5y2cr1fk0prsan7hw24dacz5n31x36vr6x",
             "url": "https://github.com/UlyssesZh/ulypkgs"
         },
         "ungood": {
