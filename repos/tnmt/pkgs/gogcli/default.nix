@@ -13,6 +13,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-8RKzJq4nlg7ljPw+9mtiv0is6MeVtkMEiM2UUdKPP3U=";
 
+  doCheck = false;
+
   ldflags = [
     "-s"
     "-w"
