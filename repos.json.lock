@@ -241,8 +241,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "ea5c5aeebbef701ad9f8e57a37dd6ccda9212fb5",
-            "sha256": "1wj6ya92l88bi7mz7f97xggfxansx1yqdmi3bi4kp05zjdyr4aw3",
+            "rev": "d72ad141b5e9797f5e29d2e5ca65fed92df29b8f",
+            "sha256": "0lxff2dqccwdd04z1wsr2vc8ypjabfc76w4ca89w3lvn6a5n1pxk",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1919,8 +1919,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "8584a5b0159cb9407439de7a145bda68d0c072b9",
-            "sha256": "1r9d2jiy3khdqa3ha7f7n72dr6hy8gwwrqa3qv5rpq6py8jd7ri7",
+            "rev": "c232683247f8343c9d6d67b42d1bb9b499d4123e",
+            "sha256": "0dph6bvm1f4var1zdsd7kjp32j88rbzm588gqgpzq1fws05fqzg3",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
