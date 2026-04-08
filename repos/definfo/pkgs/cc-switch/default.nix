@@ -4,7 +4,7 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   pnpmConfigHook,
-  pnpm,
+  pnpm_10,
   pkg-config,
   cargo-tauri,
   wrapGAppsHook3,
@@ -17,24 +17,33 @@
   moreutils,
   nix-update-script,
 }:
-
+let
+  pnpm = pnpm_10.override { inherit nodejs; };
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cc-switch";
-  version = "3.11.1";
+  version = "3.12.3";
 
   src = fetchFromGitHub {
     owner = "farion1231";
     repo = "cc-switch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-x3kPrsPMk3itu5D9BWSMk5KLSIiL68HTn14yHVdAh8c=";
+    hash = "sha256-+gHxOAumI/ZUukFNc9ks22bkqbOky6F7MYZzGwrXRRc=";
   };
 
-  cargoHash = "sha256-+zp3YvXFzMozX6z04GWXEoQ1waWxY1nASM95jQ9e050=";
+  patches = [
+    ./0001-fix-match-tauri-deps-version-between-NPM-Rust.patch
+  ];
+
+  cargoLock = {
+    lockFileContents = builtins.readFile ./Cargo.lock;
+  };
 
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src;
-    fetcherVersion = 2;
-    hash = "sha256-G8Qw2Gs57FNoK+Jr5Yeq6K9XFH0+DrRNiliNPu966pk=";
+    inherit (finalAttrs) pname version src patches;
+    inherit pnpm;
+    fetcherVersion = 3;
+    hash = "sha256-KrE22BMYN2Yl/AlHJYc8WRVaFEwFWZBk6cbvwKhV/Qo=";
   };
 
   postPatch = ''
