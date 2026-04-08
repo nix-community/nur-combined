@@ -1744,8 +1744,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "bec530eda062aac003a2d4d0ad9dcaacb7530962",
-            "sha256": "0lhr93ml63lpl34qcgmvghgnsxi77pfdsvnc2d8zps3s8h6dmq57",
+            "rev": "69bec7933b55c29ee8546a8490171103fdfe433a",
+            "sha256": "1dhmsivbm3pi7m1anhb6wx9b2fk5vlvfxz27x89l6xy0v25kf9za",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
