@@ -50,7 +50,7 @@
     changelog = "https://www.waterfox.net/docs/releases/${version}/";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.darwin ++ ["x86_64-linux"];
-    maintainers = ["JoyfulCat" "Prinky"];
+    maintainers = with lib.maintainers; [JoyfulCat Prinky];
     mainProgram = "waterfox";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };

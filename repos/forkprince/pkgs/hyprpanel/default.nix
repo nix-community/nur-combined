@@ -66,7 +66,7 @@ buildGoModule rec {
     description = "An opinionated panel/shell for the Hyprland compositor.";
     homepage = "https://github.com/pdf/hyprpanel";
     license = lib.licenses.mit;
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     platforms = ["x86_64-linux"];
     mainProgram = "hyprpanel";
     sourceProvenance = [lib.sourceTypes.fromSource];

@@ -26,7 +26,18 @@ jobs:
         with:
           nix_conf: experimental-features = nix-command flakes
 
-      - name: Update Packages
+      - name: Update Packages (nix-update)
+        run: |
+          export NIX_PATH=nixpkgs=flake:nixpkgs
+          while IFS= read -r update_file; do
+            pkg=$(basename "$(dirname "$update_file")")
+            extra_args=$(cat "$update_file")
+            nix shell nixpkgs#nix-update -c nix-update $extra_args "$pkg"
+          done < <(find ./pkgs -name ".update" -type f)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Packages (bun)
         id: update
         run: |
           failed_apps=""

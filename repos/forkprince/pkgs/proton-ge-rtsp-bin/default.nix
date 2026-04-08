@@ -49,7 +49,7 @@ in
       '';
       homepage = "https://github.com/SpookySkeletons/proton-ge-rtsp";
       license = lib.licenses.bsd3;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = ["x86_64-linux"];
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

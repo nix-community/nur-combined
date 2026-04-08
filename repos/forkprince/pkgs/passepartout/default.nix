@@ -35,7 +35,7 @@ in
       description = "OpenVPN and WireGuard client";
       homepage = "https://passepartoutvpn.app/";
       license = lib.licenses.gpl3;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

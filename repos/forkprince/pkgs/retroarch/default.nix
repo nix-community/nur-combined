@@ -34,7 +34,7 @@ in
     meta = {
       description = "Multi-platform emulator frontend for libretro cores";
       homepage = "https://libretro.com";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl3Plus;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

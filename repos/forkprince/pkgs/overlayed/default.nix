@@ -38,7 +38,7 @@ in
       description = "Modern discord voice chat overlay";
       homepage = "https://github.com/overlayeddev/overlayed";
       changelog = "https://github.com/overlayeddev/overlayed/releases/tag/v${version}";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.agpl3Plus;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

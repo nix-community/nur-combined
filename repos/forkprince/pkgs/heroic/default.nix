@@ -39,7 +39,7 @@ in
       homepage = "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher";
       changelog = "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v${version}";
       license = lib.licenses.gpl3Only;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

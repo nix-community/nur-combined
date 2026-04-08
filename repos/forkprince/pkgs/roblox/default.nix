@@ -31,7 +31,7 @@ in
     meta = {
       description = "Online multiplayer game platform";
       homepage = "https://www.roblox.com";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.unfree;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

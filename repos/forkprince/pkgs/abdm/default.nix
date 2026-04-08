@@ -29,7 +29,7 @@
     homepage = "https://abdownloadmanager.com/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.darwin ++ ["x86_64-linux"];
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     mainProgram = "ab-download-manager";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };

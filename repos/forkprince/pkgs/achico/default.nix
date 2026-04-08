@@ -31,7 +31,7 @@ in
     meta = {
       description = "Minimal free macOS local file compressor app";
       homepage = "https://github.com/nuance-dev/achico/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.mit;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

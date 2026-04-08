@@ -31,7 +31,7 @@ in
     meta = {
       description = "Dreamcast emulator";
       homepage = "https://redream.io";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.unfree;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

@@ -31,7 +31,7 @@ in
     meta = {
       description = "Helper application for the Keka file archiver";
       homepage = "https://github.com/aonez/Keka/wiki/Default-application";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.unfree;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

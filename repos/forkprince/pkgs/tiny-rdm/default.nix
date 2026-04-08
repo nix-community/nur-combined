@@ -38,7 +38,7 @@ in
       description = "Modern, colorful, super lightweight Redis GUI client";
       homepage = "https://github.com/tiny-craft/tiny-rdm";
       license = lib.licenses.gpl3Plus;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

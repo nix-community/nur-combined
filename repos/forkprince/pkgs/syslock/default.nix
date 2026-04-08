@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple screen locker for wayland written in gtkmm 4.";
     mainProgram = "syslock";
     license = lib.licenses.wtfpl;
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     platforms = ["x86_64-linux"];
     sourceProvenance = [lib.sourceTypes.fromSource];
   };

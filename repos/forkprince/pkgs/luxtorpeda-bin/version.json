@@ -1,0 +1,15 @@
+{
+  "name": "Luxtorpeda",
+  "source": {
+    "type": "github-release",
+    "repo": "luxtorpeda-dev/luxtorpeda",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "luxtorpeda-v{version}.tar.xz",
+    "unpack": true
+  },
+  "version": "76.2.0",
+  "hash": "sha256-l1q+/+5TvSIvyEkVGNRKnGWygRjqXzj4bKfZfk9Zrd4="
+}

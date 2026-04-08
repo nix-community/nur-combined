@@ -31,7 +31,7 @@ in
     meta = {
       description = "Retro video game emulation";
       homepage = "https://openemu.org/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.mit;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

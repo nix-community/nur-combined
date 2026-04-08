@@ -37,7 +37,7 @@ in
     meta = {
       description = "GNU Image Manipulation Program";
       homepage = "https://www.gimp.org/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl3Plus;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

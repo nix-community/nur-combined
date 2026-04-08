@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     description = "Utility commands for the niri wayland compositor";
     homepage = "https://sr.ht/~tsdh/nirius/";
     license = lib.licenses.gpl3Plus;
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     platforms = lib.platforms.linux;
     mainProgram = "nirius";
     sourceProvenance = [lib.sourceTypes.fromSource];

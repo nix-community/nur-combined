@@ -21,7 +21,7 @@
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
     mainProgram = "fluxer-bin";
-    maintainers = ["WoutFontaine" "Prinky"];
+    maintainers = with lib.maintainers; [WoutFontaine Prinky];
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in

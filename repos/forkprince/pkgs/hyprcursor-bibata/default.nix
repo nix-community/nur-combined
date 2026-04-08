@@ -65,7 +65,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/LOSEARDES77/Bibata-Cursor-hyprcursor";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

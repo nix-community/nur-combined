@@ -25,11 +25,11 @@
     '';
     homepage = "https://beeper.com";
     license = lib.licenses.unfree;
-    maintainers = [
-      "jshcmpbll"
-      "edmundmiller"
-      "zh4ngx"
-      "Prinky"
+    maintainers = with lib.maintainers; [
+      jshcmpbll
+      edmundmiller
+      zh4ngx
+      Prinky
     ];
     platforms = lib.platforms.unix;
   };

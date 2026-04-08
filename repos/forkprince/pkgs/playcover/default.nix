@@ -31,7 +31,7 @@ in
     meta = {
       description = "Sideload iOS apps and games";
       homepage = "https://playcover.io/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl3Plus;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

@@ -20,7 +20,7 @@
     description = "Video player that can play online videos from YouTube, Bilibili etc";
     homepage = "https://github.com/coslyk/moonplayer";
     license = lib.licenses.gpl3Only;
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     mainProgram = "moonplayer";
     platforms = lib.platforms.unix;
   };

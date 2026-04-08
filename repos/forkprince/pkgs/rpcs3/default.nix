@@ -41,7 +41,7 @@ in
     meta = {
       description = "PS3 emulator/debugger";
       homepage = "https://rpcs3.net/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl2Only;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

@@ -58,7 +58,7 @@ in
       '';
       homepage = "https://github.com/dreamer/boxtron";
       license = lib.licenses.gpl2Only;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky ilkecan];
       platforms = ["x86_64-linux"];
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

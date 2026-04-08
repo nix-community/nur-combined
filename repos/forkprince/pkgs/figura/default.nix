@@ -31,7 +31,7 @@ in
     meta = {
       description = "Free macOS native app to remove image backgrounds locally";
       homepage = "https://github.com/nuance-dev/figura/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.mit;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

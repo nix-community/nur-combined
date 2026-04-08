@@ -38,7 +38,7 @@ in
     meta = {
       description = "Graphical tool for developing on containers and Kubernetes";
       homepage = "https://podman-desktop.io";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.asl20;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

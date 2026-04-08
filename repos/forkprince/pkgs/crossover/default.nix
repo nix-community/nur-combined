@@ -32,7 +32,7 @@ in
     meta = {
       description = "Tool to run Windows software";
       homepage = "https://www.codeweavers.com/products/crossover-mac";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.unfree;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

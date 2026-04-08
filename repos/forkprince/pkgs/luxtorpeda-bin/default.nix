@@ -1,5 +1,4 @@
 {
-  steamDisplayName ? "Proton-EM",
   stdenvNoCC,
   fetchzip,
   lib,
@@ -7,7 +6,7 @@
   ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation rec {
-    pname = "proton-em-bin";
+    pname = "luxtorpeda-bin";
     inherit (ver) version;
 
     src = fetchzip (lib.helper.getSingle ver);
@@ -36,24 +35,14 @@ in
       runHook postInstall
     '';
 
-    preFixup = ''
-      file="$steamcompattool/compatibilitytool.vdf"
-
-      substituteInPlace "$file" \
-        --replace-fail "proton-${version}-proton" "${steamDisplayName}"
-
-      substituteInPlace "$file" \
-        --replace-fail "proton-${version}" "${steamDisplayName}"
-    '';
-
     meta = {
       description = ''
-        A Development Oriented Compatibility tool for Steam Play based on Wine and additional components
+        Steam Play compatibility tool to run games using native Linux engines
 
         (This is intended for use in the `programs.steam.extraCompatPackages` option only.)
       '';
-      homepage = "https://github.com/Etaash-mathamsetty/Proton";
-      license = lib.licenses.bsd3;
+      homepage = "https://github.com/luxtorpeda-dev/luxtorpeda";
+      license = lib.licenses.gpl2Only;
       maintainers = with lib.maintainers; [Prinky];
       platforms = ["x86_64-linux"];
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

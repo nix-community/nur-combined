@@ -35,7 +35,7 @@ in
       description = "Run Stable Diffusion locally";
       homepage = "https://diffusionbee.com/";
       license = lib.licenses.agpl3Only;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

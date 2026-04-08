@@ -34,7 +34,7 @@ in
       description = "Yet another anime game launcher for ${title}";
       homepage = "https://github.com/yaagl/yet-another-anime-game-launcher";
       license = lib.licenses.mit;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

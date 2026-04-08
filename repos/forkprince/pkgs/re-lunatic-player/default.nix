@@ -157,9 +157,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Music player for Gensokyo Radio";
     homepage = "https://github.com/Prince527Github/Re-Lunatic-Player";
     license = lib.licenses.agpl3Plus;
-    maintainers = [
-      "Prince527"
-      "The25thWam"
+    maintainers = with lib.maintainers; [
+      Prinky
+      LMacrini
     ];
     platforms = with lib.platforms; linux ++ darwin;
     mainProgram = finalAttrs.pname;

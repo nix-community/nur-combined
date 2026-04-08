@@ -30,7 +30,7 @@ in
     meta = {
       description = "Send any size file between devices";
       homepage = "https://blip.net/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.unfree;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

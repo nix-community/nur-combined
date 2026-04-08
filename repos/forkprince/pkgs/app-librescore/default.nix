@@ -17,7 +17,7 @@
   meta = {
     description = "App to download sheet music";
     homepage = "https://github.com/LibreScore/app-librescore";
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     license = lib.licenses.mit;
     # platforms = lib.platforms.darwin ++ ["x86_64-linux"];
     # FIXME: Linux version does not work

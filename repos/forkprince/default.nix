@@ -82,6 +82,8 @@
   proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
   proton-dw-bin = lib.callPackage ./pkgs/proton-dw-bin {};
   proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
+
+  luxtorpeda-bin = lib.callPackage ./pkgs/luxtorpeda-bin {};
   boxtron-bin = lib.callPackage ./pkgs/boxtron-bin {};
 
   proton-cachyos-arm-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "arm";};

@@ -38,7 +38,7 @@ in
       description = "GUI for managing Git and GitHub";
       homepage = "https://desktop.github.com/";
       license = lib.licenses.mit;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

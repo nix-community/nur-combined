@@ -31,7 +31,7 @@ in
     meta = {
       description = "Image, video and clipboard optimiser";
       homepage = "https://lowtechguys.com/clop/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl3;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

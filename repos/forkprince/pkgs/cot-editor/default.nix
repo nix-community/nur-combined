@@ -31,7 +31,7 @@ in
     meta = {
       description = "Plain-text editor for web pages, program source codes and more";
       homepage = "https://coteditor.com/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.cc-by-nc-nd-40;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

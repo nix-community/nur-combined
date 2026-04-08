@@ -39,7 +39,7 @@ in
       homepage = "https://github.com/badabing2005/PixelFlasher";
       changelog = "https://github.com/badabing2005/PixelFlasher/releases/tag/v${version}";
       license = lib.licenses.agpl3Plus;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

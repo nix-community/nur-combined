@@ -39,7 +39,7 @@ in
       homepage = "https://github.com/SoftFever/OrcaSlicer";
       changelog = "https://github.com/SoftFever/OrcaSlicer/releases/tag/v${version}";
       license = lib.licenses.agpl3Only;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

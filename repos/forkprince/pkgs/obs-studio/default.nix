@@ -42,7 +42,7 @@ in
         video content, efficiently
       '';
       homepage = "https://obsproject.com";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = [lib.licenses.gpl2Plus];
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

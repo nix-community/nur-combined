@@ -31,7 +31,7 @@ in
     meta = {
       description = "Native macOS file converter app";
       homepage = "https://github.com/nuance-dev/convierto/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.mit;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

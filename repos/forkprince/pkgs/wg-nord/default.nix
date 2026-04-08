@@ -33,7 +33,7 @@ in
       description = "WireGuard configuration generator for NordVPN";
       homepage = "https://github.com/n-thumann/wg-nord";
       license = lib.licenses.mit;
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       platforms = lib.platforms.unix;
       mainProgram = "wg-nord";
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

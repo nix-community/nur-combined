@@ -19,7 +19,7 @@
     homepage = "https://github.com/imputnet/helium";
     changelog = "https://github.com/imputnet/helium/releases/tag/${version}";
     license = lib.licenses.gpl3;
-    maintainers = ["Ev357" "Prinky"];
+    maintainers = with lib.maintainers; [Ev357 Prinky LarsArtmann];
     platforms = lib.platforms.unix;
     mainProgram = "helium";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];

@@ -35,7 +35,7 @@ in
     meta = {
       description = "Server for forwarding iMessages to clients within the BlueBubbles App ecosystem";
       homepage = "https://github.com/BlueBubblesApp/bluebubbles-server";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.asl20;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

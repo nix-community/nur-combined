@@ -35,7 +35,7 @@ in
       description = "Digital distribution platform";
       longDescription = ''Steam is a video game digital distribution service and storefront from Valve.'';
       homepage = "https://store.steampowered.com/";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.unfreeRedistributable;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

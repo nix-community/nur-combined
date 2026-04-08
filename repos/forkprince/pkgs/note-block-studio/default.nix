@@ -13,7 +13,7 @@
     description = "An open-source Minecraft music maker.";
     homepage = "https://github.com/OpenNBS/NoteBlockStudio";
     license = lib.licenses.mit;
-    maintainers = ["Prinky"];
+    maintainers = with lib.maintainers; [Prinky];
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     platforms = lib.platforms.darwin ++ ["x86_64-linux"];
   };

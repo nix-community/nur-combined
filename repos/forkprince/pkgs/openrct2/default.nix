@@ -35,7 +35,7 @@ in
       description = "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
       homepage = "https://openrct2.io/";
       downloadPage = "https://github.com/OpenRCT2/OpenRCT2/releases";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl3Only;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];

@@ -59,7 +59,7 @@ in
       homepage = "https://lmstudio.ai/";
       license = lib.licenses.unfree;
       mainProgram = "lm-studio";
-      maintainers = ["Prinky" "crertel"];
+      maintainers = with lib.maintainers; [Prinky crertel];
       platforms = ["aarch64-darwin"];
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

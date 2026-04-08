@@ -34,7 +34,7 @@ in
     meta = {
       description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
       homepage = "https://dolphin-emu.org";
-      maintainers = ["Prinky"];
+      maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.gpl2Plus;
       platforms = lib.platforms.darwin;
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
