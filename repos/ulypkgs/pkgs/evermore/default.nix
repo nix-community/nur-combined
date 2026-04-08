@@ -53,7 +53,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "Choice-based visual novel made in Ren'py with tons of romance, mystery, humor, and much more";
+    description = "Adult visual novel about magical abilities, secret societies, and ancient evils";
     homepage = "https://prometheusevn.itch.io/evermore";
     downloadPage = "https://prometheusevn.itch.io/evermore";
     changelog = "https://prometheusevn.itch.io/evermore/devlog";

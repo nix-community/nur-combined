@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash nix-update html-xml-utils curl
+#!nix-shell -i bash -p bash common-updater-scripts html-xml-utils curl
 
 set -euo pipefail
 
@@ -8,9 +8,30 @@ attr() {
 }
 
 old_version="$(attr version)"
-nix-update renpy_7 --version-regex '(7\.[0-9]+\.[0-9]+)'
-new_version="$(attr version)"
+
+header=$(mktemp)
+new_version=""
+trap 'rm -f "$header"' EXIT
+
+url="https://api.github.com/repos/renpy/renpy/releases"
+while [[ -n "$url" ]]; do
+  body="$(curl -sSL -D "$header" "$url")"
+  new_version=$(echo "$body" | jq -r '.[] | .tag_name | select(startswith("7"))' | head -n 1)
+  if [[ -n "$new_version" ]] && [[ "$new_version" != "null" ]]; then
+    break
+  fi
+  url=$(grep -i '^link:' "$header" | sed -n 's/.*<\([^>]*\)>; rel="next".*/\1/p')
+done
+
+if [[ -n "$new_version" ]] && [[ "$new_version" != "null" ]]; then
+  echo "Latest version: $new_version" >&2
+else
+  echo "Cannot find the latest version" >&2
+  exit 1
+fi
+
 if [[ "$old_version" == "$new_version" ]]; then
+  echo "Already up to date" >&2
   exit 0
 fi
 
@@ -26,3 +47,5 @@ sed -i "s|$old_bin_src_hash|$new_bin_src_hash|" "$nix_file"
 old_bin_src_arm_hash="$(attr binSrcArm.hash)"
 new_bin_src_arm_hash="$(nix-hash --type sha256 --to-sri "$(nix-prefetch-url --unpack "$(attr binSrcArm.url)")")"
 sed -i "s|$old_bin_src_arm_hash|$new_bin_src_arm_hash|" "$nix_file"
+
+update-source-version renpy_7 $new_version

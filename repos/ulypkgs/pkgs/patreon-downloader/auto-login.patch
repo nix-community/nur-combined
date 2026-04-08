@@ -100,7 +100,7 @@ index bc93511..d725637 100644
          Task CloseAsync(PageCloseOptions options = null);
      }
 diff --git a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
-index 49cca23..aebc1c3 100644
+index 49cca23..8331ca0 100644
 --- a/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
 +++ b/submodules/UniversalDownloaderPlatform/UniversalDownloaderPlatform.PuppeteerEngine/PuppeteerCookieRetriever.cs
 @@ -7,6 +7,7 @@ using System.Threading.Tasks;
@@ -180,7 +180,7 @@ index 49cca23..aebc1c3 100644
 +                    Timeout = 10000,
 +                });
 +            }
-+            catch (WaitTaskTimeoutException) // In case there are other hanging requests (they seem to appear randomly)
++            catch (Exception ex) when (ex is WaitTaskTimeoutException || ex is TimeoutException) // In case there are other hanging requests (they seem to appear randomly)
 +            {
 +                _logger.Debug("Waiting for network idle timeout; proceed anyway and hope for the best");
 +            }
@@ -212,7 +212,7 @@ index 49cca23..aebc1c3 100644
 +                {
 +                    await page.WaitForSelectorAsync(submitSelector, new WaitForSelectorOptions() { Timeout = 3000 });
 +                }
-+                catch (WaitTaskTimeoutException)
++                catch (Exception ex) when (ex is WaitTaskTimeoutException || ex is TimeoutException)
 +                {
 +                    _logger.Debug($"Submit button did not appear; retrying {retry}/5");
 +                    await page.ClickAsync(selector, new ClickOptions()
