@@ -568,11 +568,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1775607007,
-        "narHash": "sha256-8qnrEDtCXsSswNiEiMCkCd3YZ3uD5KinbkwvBkbByL4=",
+        "lastModified": 1775607806,
+        "narHash": "sha256-IBRiN6VXJ9JswS1k/70KzN8j1cUqZlOfvee/8SKNlTE=",
         "owner": "ijohanne",
         "repo": "prometheus-ecowitt-exporter",
-        "rev": "af4ad98d39baf5aaaee67c3bdfbc9abd20a88a24",
+        "rev": "f7dbee117d6eb40b99ff396745e127a642615e2b",
         "type": "github"
       },
       "original": {
