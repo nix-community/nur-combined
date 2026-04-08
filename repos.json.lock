@@ -171,8 +171,8 @@
             "url": "https://git.gliroid.com/Pupyrinth/nur-packages"
         },
         "Red-Flake": {
-            "rev": "5d4e0d6668b369b48280db149eb53322c59483ee",
-            "sha256": "0w68d7qvc9ssd28kv52bz70a30xpm7phzl4djbg0yn357whyzx1b",
+            "rev": "6a0bd1172331d94043f226984ca188b8d49009fc",
+            "sha256": "01612acqddwsk06hkgf5cbb64hb27wd9l3mg4m4f48zpxc7sqm9s",
             "url": "https://github.com/Red-Flake/packages"
         },
         "Redrield": {
@@ -637,8 +637,8 @@
             "url": "https://github.com/cransom/nur-packages"
         },
         "crazazy": {
-            "rev": "673e07034fb01c802a9187b784da5f26f099cbb8",
-            "sha256": "176zbjxbs2z54s7a6imjfrpq9hpc846c54s1xgsc29w63abi3q2v",
+            "rev": "0f684c1529639104a695d686c9ab42240ebb3a6c",
+            "sha256": "1hzmywfb30vapphb82xzi1bh08p9dis2h8pfqdxb01l1p1ljbc41",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
