@@ -171,8 +171,8 @@
             "url": "https://git.gliroid.com/Pupyrinth/nur-packages"
         },
         "Red-Flake": {
-            "rev": "95628cf4c127ed5e70ca0778cbb040039663d899",
-            "sha256": "0zn0862kz68iqvwsff353q0sd4mxpnfl44s5z9k01v1199c023mz",
+            "rev": "5d4e0d6668b369b48280db149eb53322c59483ee",
+            "sha256": "0w68d7qvc9ssd28kv52bz70a30xpm7phzl4djbg0yn357whyzx1b",
             "url": "https://github.com/Red-Flake/packages"
         },
         "Redrield": {
