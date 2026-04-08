@@ -171,8 +171,8 @@
             "url": "https://git.gliroid.com/Pupyrinth/nur-packages"
         },
         "Red-Flake": {
-            "rev": "6a0bd1172331d94043f226984ca188b8d49009fc",
-            "sha256": "01612acqddwsk06hkgf5cbb64hb27wd9l3mg4m4f48zpxc7sqm9s",
+            "rev": "85eba6e2fe5b2794b1e46ed5de6e82eefe65008a",
+            "sha256": "0i9z50lig8f9s3cqvwb36kbhzljrgldnz62ak78prj41bsnlalqp",
             "url": "https://github.com/Red-Flake/packages"
         },
         "Redrield": {
@@ -1431,8 +1431,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "9bca32a14af5fa3b209ab50173d20a7decc2b17a",
-            "sha256": "06h4v1ql8rvla5zpm3s5hpy33j4y2kw6q9l0n4y4qpm0pnr00vyl",
+            "rev": "7e70fe31a61088c8e3406f86d8ef7bd4f6ee3a67",
+            "sha256": "10yb083csxam3vc30q7ix2il9iani0mpn5md9qvywxrwj3mrq6rw",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -2362,8 +2362,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "6cc09d45ec3abcace3be5e298fe6f33862a357db",
-            "sha256": "1hkwga1jd2p8cj2qkrf6vlnbjsmcrfl9qpw48d3xpcs3n5bbagph",
+            "rev": "91b13314ea6397f418d63aff8bff5141a9ac8c32",
+            "sha256": "1sqprdj6vdcx6dadnjam4zxznwyxq4qmp3bq3f1i91gwblfy1qyx",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
