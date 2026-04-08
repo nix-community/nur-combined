@@ -5,7 +5,7 @@
 *.out
 
 # Python files
-env/
+.venv/
 __pycache__/
 *.py[cod]
 .mypy_cache/

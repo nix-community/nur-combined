@@ -1,4 +1,4 @@
-local signtoggle = vim.api.nvim_create_augroup("signtoggle", { clear = true })
+local signtoggle = vim.api.nvim_create_augroup("ambroisie.signtoggle", { clear = true })
 
 -- Only show sign column for the currently focused buffer, if it has a number column
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "WinEnter" }, {

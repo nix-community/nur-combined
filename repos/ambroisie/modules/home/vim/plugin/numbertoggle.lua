@@ -1,7 +1,7 @@
 -- Show lines numbers
 vim.opt.number = true
 
-local numbertoggle = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
+local numbertoggle = vim.api.nvim_create_augroup("ambroisie.numbertoggle", { clear = true })
 
 -- Toggle numbers between relative and absolute when changing buffers
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {

@@ -82,7 +82,7 @@ local keys = {
 
     -- Disable option
     { "]o", group = "Disable option" },
-    { "]ob", desc = "Light background" },
+    { "]ob", desc = "Dark background" },
     { "]oc", desc = "Cursor line" },
     { "]od", desc = "Diff" },
     { "]of", "<cmd>FormatDisable<CR>", desc = "LSP Formatting" },
@@ -101,7 +101,7 @@ local keys = {
 
     -- Toggle option
     { "yo", group = "Toggle option" },
-    { "yob", desc = "Light background" },
+    { "yob", desc = "Toggle background" },
     { "yoc", desc = "Cursor line" },
     { "yod", desc = "Diff" },
     { "yof", "<cmd>FormatToggle<CR>", desc = "LSP Formatting" },

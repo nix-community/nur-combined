@@ -112,7 +112,7 @@ colorscheme gruvbox
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable search high-lighting while the search is on-going
 set hlsearch
-" Ignore case on search
+" Ignore case on search unless \C is in search terms
 set ignorecase
 " Ignore case unless there is an uppercase letter in the pattern
 set smartcase
