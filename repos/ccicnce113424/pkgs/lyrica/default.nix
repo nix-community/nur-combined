@@ -4,7 +4,6 @@
   rustPlatform,
   pkg-config,
   openssl,
-  dbus,
 }:
 rustPlatform.buildRustPackage {
   inherit (sources) pname src;
@@ -17,7 +16,6 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [
     openssl
-    dbus
   ];
 
   metadata = sources.extract."frontend/kde/metadata.json";
