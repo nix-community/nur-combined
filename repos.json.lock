@@ -241,8 +241,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "717ced58349364abcd7bcb5c7b9c6dcd28072313",
-            "sha256": "0nddj59fkdi0mn67xdvqv19p37hca8vij92ck9ngiqvivajxkf7p",
+            "rev": "4c846c338471d1dd58dfea2764befacc4dd36b91",
+            "sha256": "195vxp2082lfsvyzy044n9xcl2pf3zjiavxnik91a04a07rdmwqq",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -612,8 +612,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "47f019a72339eb56af5e57cc8a92d667ae179fa2",
-            "sha256": "0sclaxyj986s248fjx97rg7a1wnxrivj73zmqdb5in8r0kdc3fvb",
+            "rev": "906ce88a9c28450a1ce6a8699f46744634da0312",
+            "sha256": "06r6mzfqsx1fbi20lj6bwjhadyhzfqap93x4scyhld8k9r238rrw",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
