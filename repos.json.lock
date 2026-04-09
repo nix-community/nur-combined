@@ -668,8 +668,8 @@
             "url": "https://github.com/cwyc/nur-packages"
         },
         "dagger": {
-            "rev": "8c3c36c374daf93a3195f1890dbb0effcc3c0e2a",
-            "sha256": "02axn10r26yb4s03lmmwq043w9n04bcad3ck0ks13rnk46lg2c6a",
+            "rev": "4abe2b7e61d6bb1850bf5823022e9a55e08ed985",
+            "sha256": "14y6wzjwg3mwzdwkasifwxnhhq7xqzvvjgpgs5k83j6r5yx4f3cb",
             "url": "https://github.com/dagger/nix"
         },
         "dan4ik605743": {
