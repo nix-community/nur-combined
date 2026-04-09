@@ -16,10 +16,7 @@ mkOpencodePlugin rec {
 
   dependencyHash = "sha256-qCsznzTzW30UzTOxj0dU2dpHb8PVxaZldcgRzhlQmbg=";
 
-  postInstall = ''
-    cd "$out"
-    bun run build
-  '';
+  buildCommand = "bun run build";
 
   meta = {
     description = "OpenCode plugin for desktop notifications and sounds on permission, completion, and error events";

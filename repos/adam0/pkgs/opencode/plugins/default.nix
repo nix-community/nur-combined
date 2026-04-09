@@ -23,6 +23,7 @@
     version,
     src,
     dependencyHash ? null,
+    buildCommand ? null,
     meta ? {},
     ...
   }: let
@@ -67,6 +68,7 @@
   in
     stdenvNoCC.mkDerivation (
       (removeAttrs args [
+        "buildCommand"
         "dependencyHash"
         "meta"
       ])
@@ -79,8 +81,14 @@
 
           cp -r ${deps}/node_modules ./node_modules
 
+          runHook preBuild
+          ${lib.optionalString (buildCommand != null) buildCommand}
+          runHook postBuild
+
           mkdir -p "$out"
           cp -r . "$out/"
+
+          cd "$out"
 
           runHook postInstall
         '';

@@ -16,10 +16,7 @@ mkOpencodePlugin rec {
 
   dependencyHash = "sha256-mx5l95k3saYu7WYF7YDGziFZX9+YzZwk+UrogK1xlcQ=";
 
-  postInstall = ''
-    cd "$out"
-    bun build src/index.ts --outdir dist --target node --format esm
-  '';
+  buildCommand = "bun build src/index.ts --outdir dist --target node --format esm";
 
   meta = {
     description = "OpenCode plugin that strips emojis from agent outputs in Opencode";

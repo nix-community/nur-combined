@@ -16,9 +16,9 @@ mkOpencodePlugin rec {
 
   dependencyHash = "sha256-pOdO7KHWbNIayPlUz1ydVklMTqROL/evADFw9OYRT7U=";
 
+  buildCommand = "bun build index.ts --outdir dist --target node";
+
   postInstall = ''
-    cd "$out"
-    bun build index.ts --outdir dist --target node
     substituteInPlace package.json --replace-fail '"main": "index.ts"' '"main": "dist/index.js"'
   '';
 

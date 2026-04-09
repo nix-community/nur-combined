@@ -16,10 +16,7 @@ mkOpencodePlugin rec {
 
   dependencyHash = null;
 
-  postInstall = ''
-    cd "$out"
-    bun build src/index.ts --outdir dist --target node --format esm
-  '';
+  buildCommand = "bun build src/index.ts --outdir dist --target node --format esm";
 
   meta = {
     description = "OpenCode plugin that adds a /changelog command";

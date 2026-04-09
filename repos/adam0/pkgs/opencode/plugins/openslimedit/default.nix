@@ -16,9 +16,9 @@ mkOpencodePlugin rec {
 
   dependencyHash = null;
 
+  buildCommand = "bun build src/index.ts --outdir dist --target node --format esm";
+
   postInstall = ''
-    cd "$out"
-    bun build src/index.ts --outdir dist --target node --format esm
     substituteInPlace package.json --replace-fail '"./src/index.ts"' '"./index.js"'
     substituteInPlace package.json --replace-fail '"version": "${version}",' '"version": "${version}",\n  "main": "./index.js",'
     printf '%s\n' 'export { default } from "./dist/index.js"' > index.js

@@ -30,6 +30,14 @@
   pluginPackages = removeAttrs (callPackage ../pkgs/opencode/plugins {}) ["mkOpencodePlugin"];
   pluginNames = attrNames pluginPackages;
 
+  pluginSource = name:
+    if name == "auto-resume" && cfg.plugins.auto-resume.settings != null
+    then [
+      "file://${pluginPackages.${name}}"
+      cfg.plugins.auto-resume.settings
+    ]
+    else "file://${pluginPackages.${name}}";
+
   pluginOption = name:
     mkOption {
       default = {};
@@ -37,6 +45,22 @@
         options =
           {
             enable = mkEnableOption "the ${name} opencode plugin";
+          }
+          // optionalAttrs (name == "auto-resume") {
+            settings = mkOption {
+              type = types.nullOr jsonFormat.type;
+              default = null;
+              example = literalExpression ''
+                {
+                  chunkTimeoutMs = 45000;
+                  maxRetries = 3;
+                }
+              '';
+              description = ''
+                Inline configuration passed to the plugin as
+                `[ "file://..." { ... } ]` in `programs.opencode.settings.plugin`.
+              '';
+            };
           }
           // optionalAttrs (name == "notifier") {
             settings = mkOption {
@@ -58,7 +82,7 @@
 
   enabledPluginNames = filter (name: cfg.plugins.${name}.enable) pluginNames;
   pluginSources =
-    map (name: "file://${pluginPackages.${name}}") enabledPluginNames
+    map pluginSource enabledPluginNames
     ++ map (pkg: "file://${pkg}") cfg.plugins.extraPackages;
 in {
   options.programs.opencode.plugins = mkOption {

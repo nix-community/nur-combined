@@ -16,10 +16,7 @@ mkOpencodePlugin rec {
 
   dependencyHash = "sha256-mqg1Zx4ps51yESFRlvfQFRzO25ndLVnf59fRo15K4ig=";
 
-  postInstall = ''
-    cd "$out"
-    bun run build
-  '';
+  buildCommand = "bun run build";
 
   meta = {
     description = "OpenCode plugin to restrict AI access to files and directories using .ignore patterns";

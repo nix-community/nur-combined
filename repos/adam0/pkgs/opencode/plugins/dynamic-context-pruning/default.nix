@@ -19,10 +19,7 @@ mkOpencodePlugin rec {
 
   nativeBuildInputs = [typescript];
 
-  postInstall = ''
-    cd "$out"
-    tsc -p tsconfig.json
-  '';
+  buildCommand = "tsc -p tsconfig.json";
 
   meta = {
     description = "OpenCode plugin for dynamic context pruning and token usage optimization";

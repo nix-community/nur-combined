@@ -16,10 +16,7 @@ mkOpencodePlugin rec {
 
   dependencyHash = "sha256-+HAmAO4dJREPtY7I3g7mNu9ehAsWsTa+OWGb8qiN+KE=";
 
-  postInstall = ''
-    cd "$out"
-    bun build src/index.ts --outfile dist/index.js --target node --format esm
-  '';
+  buildCommand = "bun build src/index.ts --outfile dist/index.js --target node --format esm";
 
   meta = {
     description = "OpenCode plugin for skill-embedded MCP support with lazy loading";
