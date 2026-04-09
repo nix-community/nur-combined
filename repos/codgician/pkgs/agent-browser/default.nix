@@ -1,25 +1,93 @@
 {
   lib,
+  stdenv,
   fetchFromGitHub,
+  fetchPnpmDeps,
   rustPlatform,
+  nodejs,
+  pnpm,
+  pnpmConfigHook,
+  geist-font,
   nix-update-script,
   writableTmpDirAsHomeHook,
 }:
 
-rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "agent-browser";
-  version = "0.24.1";
+let
+  version = "0.25.3";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-/f2u/GywKEPo/rH7Yow3f6Cn6154Qf9MbIzZhWa7x0E=";
+    tag = "v${version}";
+    hash = "sha256-9wunuGSsxKqy9h3MMahW3hzZ+5iJrz/SotPRRGDu+kg=";
   };
+
+  # The Rust CLI embeds the dashboard UI via RustEmbed at compile time.
+  # Build the Next.js static export so it can be placed at the expected path.
+  dashboard = stdenv.mkDerivation {
+    pname = "agent-browser-dashboard";
+    inherit version src;
+
+    nativeBuildInputs = [
+      nodejs
+      pnpm
+      pnpmConfigHook
+    ];
+
+    __darwinAllowLocalNetworking = true;
+
+    pnpmDeps = fetchPnpmDeps {
+      pname = "agent-browser-dashboard";
+      inherit version src;
+      pnpmWorkspaces = [ "dashboard" ];
+      fetcherVersion = 3;
+      hash = "sha256-ldxmXpejqVN/xuWcdLYMwNPc1VZ1rdNwRrumy8Is3N4=";
+    };
+
+    pnpmWorkspaces = [ "dashboard" ];
+
+    # Replace Google Fonts fetch with a local font from nixpkgs since the
+    # Nix sandbox has no network access. Follows the same pattern as
+    # fosrl-pangolin in nixpkgs.
+    postPatch = ''
+      substituteInPlace packages/dashboard/src/app/layout.tsx --replace-fail \
+        '{ Geist } from "next/font/google"' \
+        'localFont from "next/font/local"'
+
+      substituteInPlace packages/dashboard/src/app/layout.tsx --replace-fail \
+        'Geist({ subsets: ["latin"], variable: "--font-sans" })' \
+        'localFont({ src: "./Geist-Regular.otf", variable: "--font-sans" })'
+
+      cp "${geist-font}/share/fonts/opentype/Geist-Regular.otf" \
+        packages/dashboard/src/app/Geist-Regular.otf
+    '';
+
+    buildPhase = ''
+      runHook preBuild
+      pnpm --filter dashboard build
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      cp -r packages/dashboard/out $out
+      runHook postInstall
+    '';
+  };
+in
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "agent-browser";
+  inherit version src;
 
   sourceRoot = "${finalAttrs.src.name}/cli";
 
-  cargoHash = "sha256-FotzoypumLksSqcdslvl+xJ5oojI4x77S9wcsiZXBCs=";
+  cargoHash = "sha256-vCxv2vKSWj5kIWhzWlbWNfEHrxnSg1i0nUBq6hWoQlM=";
+
+  # Place the pre-built dashboard where RustEmbed expects it (../packages/dashboard/out/).
+  postUnpack = ''
+    chmod u+w source/packages/dashboard
+    cp -r ${dashboard} source/packages/dashboard/out
+  '';
 
   nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 
@@ -31,7 +99,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cp -r ../skills $out/share/agent-browser/
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    inherit dashboard;
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--subpackage"
+        "dashboard"
+      ];
+    };
+  };
 
   meta = {
     description = "Headless browser automation CLI for AI agents";
