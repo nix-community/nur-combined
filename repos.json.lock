@@ -241,8 +241,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "834a406fe5e6ce631e2fff29e92fa4e8e25d1961",
-            "sha256": "0rdqpszqkkxpxxch7395s271lybap531xg7z8kdvn3bg3q8myq3n",
+            "rev": "453fbffa3f6873d077e324bdcdad9156b987ab96",
+            "sha256": "1gfdg77kpppgdq1k7c7xhvcv7458sh0j6hgc5dp98rimh38k5mqg",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -547,8 +547,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "charmbracelet": {
-            "rev": "07948132b68b0d28da4394bab5c01cd102c564da",
-            "sha256": "0brp0s6s5z5gnlrh0r563a96hm39vib2a6ggm87mzxfkay5wz69w",
+            "rev": "254d53103ee6b1c993255a4b7d30f80b706910ea",
+            "sha256": "1yj8xyi6gk82hi1gp5v7g7bvl210ixg8cjsj4vpnzddr7d112sxk",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
@@ -843,8 +843,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "dde0bfcaa7d7cf3ea1f9aa2a4656ae00ad6be5bc",
-            "sha256": "0i9b5r6dg8yvi06j5bg45bqmyh50bsin6j94fp9kl1l9l4mqva1a",
+            "rev": "859a48d3c01ba25af339a7b11424d072136af952",
+            "sha256": "1lhkfha2srz0j6d1yznlhbjqxnkddcsb1akl0xxqdsyss1j8xydq",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
