@@ -136,8 +136,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "8f901b6d679392f2f962800d0a84808b799eaa05",
-            "sha256": "1sd9n5apd57g2rbhvkmbfx3f2d9cq5w2z2a87avvry3ikrribxvd",
+            "rev": "53e673fba4aabe9e93a9958a1aa51af7c2f41487",
+            "sha256": "19wy9arn8ksalq2i9mr824mxmx6kx6igclcmn9q3jbxl2cgjfzjp",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -1744,8 +1744,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "5c196a1fe25e9c5d178e3e520f34f480a14f8603",
-            "sha256": "016gmh8kg6a326hrxzbym8rz18h5kwc6p0yqjx9y9f8ns17rgklx",
+            "rev": "a249edf79df593d3639e9bc4cf5e18ad7ca1a4b7",
+            "sha256": "1igv8wshibzrn7qsvmgipcn1grh27pm5h8hmh4xphsas9h10pw8n",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
