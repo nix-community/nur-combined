@@ -537,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "0763f753e54487e8c53a07e171cbbc7bfe23f1e4",
-            "sha256": "10bks3xfl0rxy50npa1j5pnq1d1n29qdj3l9x0rjps31jvizcb6n",
+            "rev": "dc182014dc6d44e428d96638f9a386f28af36f97",
+            "sha256": "0nx7q7f1sfwh4bin8qagvdlr18wvffrwbz56p6q71ajn9pa5wd69",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -928,8 +928,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "1530a816c304f207b75e7805a3cc9919fb6d8dd6",
-            "sha256": "1qmb5vz6ql7bbbqjl3md52dd4h7cbpam7rlhdzgidg8x4l4a6p9h",
+            "rev": "096a56673cae0a93af6d56ee7e22ebcd53be1e72",
+            "sha256": "11x93bgif0240crzj5g6d9z2qjf4pgdi5zqnwawmwsvpd6zrcdav",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
