@@ -76,19 +76,16 @@ in
         # nixos-unstable 20260310
         "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.25.7" =
           "sha256-18QmFEF57R+a9YCPXJd2nHgW8fg2EdcY3qhvWAfxbwI=";
-        # nixos-unstable-small 20260323
-        "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.26.1" =
-          "sha256-g0gq59trhLBzniqUPLuOktICa1CgOc/L+0A2en33nkY=";
-        # nixos-unstable 20260324
-        "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.25.8" =
-          "sha256-g0gq59trhLBzniqUPLuOktICa1CgOc/L+0A2en33nkY=";
+        "25.11pre-git:2.11.2:1.26.1" = "sha256-g0gq59trhLBzniqUPLuOktICa1CgOc/L+0A2en33nkY=";
+        "26.05pre-git:2.11.2:1.26.1" = "sha256-4Suk4D3TVcrKIvaHYFE5jG4gddyHrfaOsPzl9wxL4rw=";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
       lookupKey = "${srcHash}:${goVersion}";
+      lookupKeyNew = "${pkgs.lib.version}:${pkgs.caddy.version}:${goVersion}";
       pluginsHash =
-        caddyPluginsHashTable.${lookupKey}
-          or (throw "Unknown caddy source hash + Go version: ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
+        caddyPluginsHashTable.${lookupKeyNew} or caddyPluginsHashTable.${lookupKey}
+          or (throw "Unknown caddy source hash + Go version: ${lookupKeyNew} or ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
     in
     (goV3OverrideAttrs pkgs.caddy).withPlugins {
       # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
