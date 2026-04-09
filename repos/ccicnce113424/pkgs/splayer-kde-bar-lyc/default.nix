@@ -22,14 +22,14 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  # fixupPhase = ''
-  #   runHook preFixup
+  fixupPhase = ''
+    runHook preFixup
 
-  #   substituteInPlace $out/$outputdir/contents/ui/main.qml \
-  #     --replace-fail "import QtWebSockets" "import \"file:${qt6.qtwebsockets}/lib/qt-6/qml/QtWebSockets\""
+    substituteInPlace $out/$outputdir/contents/ui/main.qml \
+      --replace-fail "import QtWebSockets 1.0" "import \"file:${qt6.qtwebsockets}/lib/qt-6/qml/QtWebSockets\""
 
-  #   runHook postFixup
-  # '';
+    runHook postFixup
+  '';
 
   passthru.id = metadata.KPlugin.Id;
 
