@@ -120,6 +120,10 @@ rec {
     version = unstableVersion sources;
   };
 
+  splayer-kde-bar-lyc = pkgs.callPackage ./splayer-kde-bar-lyc {
+    sources = fetchedSrc.splayer-kde-bar-lyc;
+  };
+
   svt-av1-hdr = pkgs.callPackage ./svt-av1-psy rec {
     sources = fetchedSrc.svt-av1-hdr;
     version = stableVersion sources;

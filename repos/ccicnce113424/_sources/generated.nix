@@ -221,6 +221,20 @@
     };
     date = "2026-04-06";
   };
+  splayer-kde-bar-lyc = {
+    pname = "splayer-kde-bar-lyc";
+    version = "d89404376a2b27dbb58046ce6da894c1e83c9169";
+    src = fetchFromGitHub {
+      owner = "lrst6963";
+      repo = "Splayer-kde-bar-lyc";
+      rev = "d89404376a2b27dbb58046ce6da894c1e83c9169";
+      fetchSubmodules = false;
+      sha256 = "sha256-i/ZA2yMrBmexefwHa0xv9E8CwC4jRJYCwCe6Sycpih4=";
+    };
+    extract = {
+      "metadata.json" = ./. + "/sha256-i_ZA2yMrBmexefwHa0xv9E8CwC4jRJYCwCe6Sycpih4=/metadata.json";
+    };date = "2026-02-19";
+  };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
     version = "v4.0.1";
@@ -251,7 +265,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

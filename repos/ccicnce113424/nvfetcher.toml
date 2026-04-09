@@ -78,6 +78,11 @@ cargo_lock = ["Cargo.lock"]
 fetch.github = "imsyy/SPlayer"
 src.git = "https://github.com/imsyy/SPlayer"
 
+[splayer-kde-bar-lyc]
+extract = ["metadata.json"]
+fetch.github = "lrst6963/Splayer-kde-bar-lyc"
+src.git = "https://github.com/lrst6963/Splayer-kde-bar-lyc"
+
 [svt-av1-hdr]
 fetch.github = "juliobbv-p/svt-av1-hdr"
 src.github_tag = "juliobbv-p/svt-av1-hdr"

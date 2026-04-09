@@ -1,0 +1,22 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "lrsts",
+                "Email": "lrsts@qq.com"
+            }
+        ],
+        "Category": "Multimedia",
+        "Description": "在任务栏显示歌词",
+        "Icon": "media-player",
+        "Id": "org.splayer.lyc.lrsts",
+        "Name": "Splayer for Plasma 任务栏歌词",
+        "Version": "1.6",
+        "Website": "",
+        "License": "GPL-3.0"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

@@ -353,6 +353,29 @@
         },
         "version": "bea6f8f9b8283ec79ee5b3128e8122a16a7bf41c"
     },
+    "splayer-kde-bar-lyc": {
+        "cargoLock": null,
+        "date": "2026-02-19",
+        "extract": {
+            "metadata.json": "sha256-i_ZA2yMrBmexefwHa0xv9E8CwC4jRJYCwCe6Sycpih4=/metadata.json"
+        },
+        "name": "splayer-kde-bar-lyc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lrst6963",
+            "repo": "Splayer-kde-bar-lyc",
+            "rev": "d89404376a2b27dbb58046ce6da894c1e83c9169",
+            "sha256": "sha256-i/ZA2yMrBmexefwHa0xv9E8CwC4jRJYCwCe6Sycpih4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "d89404376a2b27dbb58046ce6da894c1e83c9169"
+    },
     "svt-av1-hdr": {
         "cargoLock": null,
         "date": null,
@@ -410,7 +433,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
             "sparseCheckout": [],
             "type": "github"
         },

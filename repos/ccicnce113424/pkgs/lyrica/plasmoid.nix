@@ -26,11 +26,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     jq '.KPlugin.Version = "${finalAttrs.version}"' \
       frontend/kde/metadata.json > $out/$outputdir/metadata.json
 
+    runHook postInstall
+  '';
+
+  fixupPhase = ''
+    runHook preFixup
+
     substituteInPlace $out/$outputdir/contents/ui/main.qml \
       --replace-fail "\$HOME/.local/$outputdir/contents/bin/lyrica" "${lib.getExe lyrica}" \
       --replace-fail "import QtWebSockets" "import \"file:${qt6.qtwebsockets}/lib/qt-6/qml/QtWebSockets\""
 
-    runHook postInstall
+    runHook postFixup
   '';
 
   passthru.id = metadata.KPlugin.Id;
