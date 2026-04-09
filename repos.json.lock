@@ -1603,8 +1603,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "bb7fdd3f68c6d40e54267e97ef967823e43919ad",
-            "sha256": "076cjcbi08wazcvk84s7arvc75lw5gcwpm74c4iqq2crglfz0pzq",
+            "rev": "96b7d2d0dfabfadf04035a4559661273f57b91e4",
+            "sha256": "159ay4fjl69v558lr3p3jkqkmw5342qm1ywsrj62s95s3sxrmfaw",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2110,8 +2110,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "eced9d6469dcdd1e1767fd329fe60abd1471e08e",
-            "sha256": "1vpfb49zx0s0vcnz7g10ascaij169nh6dkfzidncg3rh2gprv49l",
+            "rev": "c1db0626fa993fe4e773d4c83df4cbb9684e434f",
+            "sha256": "1gxcl59qirgxypdw58pfybzmcj6mfcjw951l864qynqy5dr77lyn",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
