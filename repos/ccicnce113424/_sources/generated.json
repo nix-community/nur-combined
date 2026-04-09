@@ -235,7 +235,7 @@
     "motrix-next": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-nPTkgTNcvVk1CKTT26U79JVJpilDxqDnPiK3PGNKWbY=/src-tauri/Cargo.lock",
+                "sha256-ayrXOD7WVH21XoYrdgEM8Hbp_Gk+2WP58hWpV5OchZE=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -251,18 +251,18 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.6.6-beta.2",
-            "sha256": "sha256-nPTkgTNcvVk1CKTT26U79JVJpilDxqDnPiK3PGNKWbY=",
+            "rev": "v3.6.6",
+            "sha256": "sha256-ayrXOD7WVH21XoYrdgEM8Hbp/Gk+2WP58hWpV5OchZE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.6.6-beta.2"
+        "version": "v3.6.6"
     },
     "piliplus": {
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-jEH4NniZLhAxLrjcH4N70oWFJC5phjkO_4SiiTruRD0=/pubspec.lock"
+            "pubspec.lock": "sha256-sCtxwHf7xpY8IYH0mC5JAcZJOLRuIOOiUKwOA4RkHxE=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -274,12 +274,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.0.3",
-            "sha256": "sha256-jEH4NniZLhAxLrjcH4N70oWFJC5phjkO/4SiiTruRD0=",
+            "rev": "2.0.3.1",
+            "sha256": "sha256-sCtxwHf7xpY8IYH0mC5JAcZJOLRuIOOiUKwOA4RkHxE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.0.3"
+        "version": "2.0.3.1"
     },
     "pixes": {
         "cargoLock": null,
@@ -433,7 +433,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
+            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -441,7 +441,7 @@
     },
     "uosc-danmaku-git": {
         "cargoLock": null,
-        "date": "2026-04-08",
+        "date": "2026-04-09",
         "extract": null,
         "name": "uosc-danmaku-git",
         "passthru": null,
@@ -453,12 +453,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "6ba75030494c0e275da93abf07235dd3b1387e41",
-            "sha256": "sha256-GQgrY888fdDhKt2hdfb9n3RTn6cKLay4PAEoVEQ6Dzc=",
+            "rev": "878403042c87982e55b62a4365dff7ab7dcebcab",
+            "sha256": "sha256-gzjTRU74rX/InCQSGM+Gs54t5AkaO1GpLMv1g5PJeAk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6ba75030494c0e275da93abf07235dd3b1387e41"
+        "version": "878403042c87982e55b62a4365dff7ab7dcebcab"
     },
     "wild": {
         "cargoLock": {
