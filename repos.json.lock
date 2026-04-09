@@ -2472,8 +2472,8 @@
             "url": "https://gitlab.com/vdemeester/home"
         },
         "vieb-nix": {
-            "rev": "ad236c148d37281a38fc17d4fbfe4d60d3654950",
-            "sha256": "0blyqqm9pi1cgbgzpv7jany2ppdcccjxb99gs6bajhd5xwxr4qsc",
+            "rev": "980dff47eec61233a60066edfed6e904c700e459",
+            "sha256": "1sbwfk7fvhr6d3741vwj3s1s1ll88slj54b729xga4gybvjkv4vr",
             "url": "https://github.com/tejing1/vieb-nix"
         },
         "vizqq": {
