@@ -2617,8 +2617,8 @@
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
         "ymstnt": {
-            "rev": "e060ee4c68b647b7eb711bfb4329aa980a2b67bb",
-            "sha256": "13d47qr46r5mx9pd0mzsh95fn9m28ch99ypsf7np3lavx1xksdri",
+            "rev": "f82efdca67c6f948a01b29a7f4cca860b041b1ad",
+            "sha256": "1mdaqmbgx5i5qjpll1cb5d2p55nhlzba28kxyan2bqdf8nq49iy5",
             "url": "https://github.com/ymstnt/nur-packages"
         },
         "ysndr": {
