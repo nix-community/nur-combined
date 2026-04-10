@@ -1,7 +1,7 @@
 name: Review & Dispatch
 on:
   pull_request:
-    branches: [ master, main ]
+    branches: [master, main]
 
 permissions:
   contents: read
@@ -24,7 +24,7 @@ jobs:
         with:
           path: pr
           token: ${{ secrets.GH_TOKEN }}
-      
+
       - name: Scan Current State
         run: |
           DEBUG=1 .github/script/scan.sh --impure > "$RUNNER_TEMP/new.json"
@@ -36,7 +36,7 @@ jobs:
       - name: Checkout Main (Base)
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: master
           path: base
           token: ${{ secrets.GH_TOKEN }}
 
