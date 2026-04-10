@@ -251,8 +251,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "40302e7730e80805875757b0afde911867ecb7fe",
-            "sha256": "1da7j9759250ib2ngdaasnmlmxbamnm9lyrvzq9pfbr0hhxrjwma",
+            "rev": "b1fb847db922439f3efcfeb50250b9f9ac1289cb",
+            "sha256": "13l22b2xdfkqy5q3ig3aki1q9057zsd45cbfjk6pdk4pic3zhlca",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -537,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "430b3c8ecc0b75e178d7377f87245a97c5d36c74",
-            "sha256": "1d3wqq5zsz9f4c9bmp3w7phw8xza9hlk397wb8qn7jms54k5cih8",
+            "rev": "57ba8035772174d9e82649d25685ba91303a2391",
+            "sha256": "0nrz8zgmi81qkwr66jdi3yl6g14k2xmmgs28fyxqj9a3r85vd5yn",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
