@@ -11,6 +11,9 @@ stdenvNoCC.mkDerivation {
   inherit (sources) pname src;
   version = metadata.KPlugin.Version;
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   installPhase = ''
     runHook preInstall
 

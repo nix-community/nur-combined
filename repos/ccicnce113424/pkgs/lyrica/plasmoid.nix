@@ -16,6 +16,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ jq ];
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   installPhase = ''
     runHook preInstall
 

@@ -56,6 +56,9 @@ customStdenv.mkDerivation (finalAttrs: {
     cpuinfo
   ];
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   meta = {
     homepage = "https://github.com/${finalAttrs.src.owner}/${finalAttrs.src.repo}";
     description = "Scalable Video Technology AV1 Encoder and Decoder";

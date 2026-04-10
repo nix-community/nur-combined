@@ -23,5 +23,8 @@ splayer.overrideAttrs (
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
 
     env.VITE_BUILD_TYPE = "dev";
+
+    strictDeps = true;
+    __structuredAttrs = true;
   }
 )

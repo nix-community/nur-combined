@@ -11,6 +11,9 @@ stdenvNoCC.mkDerivation (_final: {
 
   nativeBuildInputs = [ findutils ];
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   installPhase = ''
     runHook preInstall
 

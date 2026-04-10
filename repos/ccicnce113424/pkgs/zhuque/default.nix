@@ -15,6 +15,9 @@ stdenvNoCC.mkDerivation (_final: {
     findutils
   ];
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   sourceRoot = ".";
 
   installPhase = ''
