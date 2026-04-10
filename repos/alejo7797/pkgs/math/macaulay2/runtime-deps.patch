@@ -1,0 +1,21 @@
+diff --git a/Macaulay2/bin/CMakeLists.txt b/Macaulay2/bin/CMakeLists.txt
+--- a/Macaulay2/bin/CMakeLists.txt
++++ b/Macaulay2/bin/CMakeLists.txt
+@@ -98,11 +98,15 @@ endif()
+ # TODO: find a way to make this obsolete
+ 
+ if(APPLE)
+-  set(EXPORT_STRING [[DYLD_LIBRARY_PATH=`dirname "$0"`/../@CMAKE_INSTALL_LIBDIR@/Macaulay2/lib:$DYLD_LIBRARY_PATH]])
++  set(EXPORT_STRING [[DYLD_LIBRARY_PATH=@NIXPKGS_M2_LIBRARY_PATH@:$DYLD_LIBRARY_PATH]])
+ else()
+-  set(EXPORT_STRING   [[LD_LIBRARY_PATH=`dirname "$0"`/../@CMAKE_INSTALL_LIBDIR@/Macaulay2/lib:$LD_LIBRARY_PATH]])
++  set(EXPORT_STRING   [[LD_LIBRARY_PATH=@NIXPKGS_M2_LIBRARY_PATH@:$LD_LIBRARY_PATH]])
+ endif()
+ 
++string(APPEND EXPORT_STRING [[ PATH=@NIXPKGS_M2_PROGRAM_PATH@:$PATH]])
++
++string(APPEND EXPORT_STRING [[ R_LIBS_SITE=@NIXPKGS_M2_R_LIBS_SITE@:$R_LIBS_SITE]])
++
+ string(CONFIGURE "#!/bin/sh\n${EXPORT_STRING} exec `dirname \"$0\"`/M2@EXE@ \"$@\"" M2_CONTENT @ONLY)
+ file(MAKE_DIRECTORY ${M2_DIST_PREFIX}/${M2_INSTALL_BINDIR})
+ execute_process(
