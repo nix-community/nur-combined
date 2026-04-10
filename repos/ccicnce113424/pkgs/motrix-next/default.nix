@@ -2,8 +2,6 @@
   sources,
   version,
   hash,
-  lib,
-  stdenv,
   pnpm_10,
   fetchPnpmDeps,
   rustPlatform,
@@ -13,7 +11,7 @@ let
   motrix-next = callPackage ./package.nix { };
 in
 motrix-next.overrideAttrs (
-  final: prev: {
+  final: _prev: {
     inherit (sources) pname src;
     inherit version;
     pnpmDeps = fetchPnpmDeps {
