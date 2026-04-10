@@ -1,52 +1,108 @@
-{ lib, stdenv, fetchurl, makeWrapper, patchelf, dpkg,
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  patchelf,
+  dpkg,
 
-# Linked dynamic libraries.
-alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups, dbus, expat, fontconfig
-, freetype, gcc-unwrapped, gdk-pixbuf, glib, gtk3, gtk4, libdrm, libglvnd
-, libkrb5, libX11, libxcb, libXcomposite, libXcursor, libXdamage, libXext
-, libXfixes, libXi, libxkbcommon, libXrandr, libXrender, libXScrnSaver
-, libxshmfence, libXtst, libgbm, nspr, nss, pango, pipewire, vulkan-loader
-, wayland, # ozone/wayland
+  # Linked dynamic libraries.
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gcc-unwrapped,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  gtk4,
+  libdrm,
+  libglvnd,
+  libkrb5,
+  libX11,
+  libxcb,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libxkbcommon,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libxshmfence,
+  libXtst,
+  libgbm,
+  nspr,
+  nss,
+  pango,
+  pipewire,
+  vulkan-loader,
+  wayland, # ozone/wayland
 
-# Command line programs
-coreutils,
+  # Command line programs
+  coreutils,
 
-# command line arguments which are always set e.g "--disable-gpu"
-commandLineArgs ? "",
+  # command line arguments which are always set e.g "--disable-gpu"
+  commandLineArgs ? "",
 
-# Will crash without.
-systemd,
+  # Will crash without.
+  systemd,
 
-# Loaded at runtime.
-libexif, pciutils,
+  # Loaded at runtime.
+  libexif,
+  pciutils,
 
-# Additional dependencies according to other distros.
-## Ubuntu
-curl, liberation_ttf, util-linux, wget, xdg-utils,
-## Arch Linux.
-flac, harfbuzz, icu, libopus, libpng, snappy, speechd-minimal,
-## Gentoo
-bzip2, libcap,
+  # Additional dependencies according to other distros.
+  ## Ubuntu
+  curl,
+  liberation_ttf,
+  util-linux,
+  wget,
+  xdg-utils,
+  ## Arch Linux.
+  flac,
+  harfbuzz,
+  icu,
+  libopus,
+  libpng,
+  snappy,
+  speechd-minimal,
+  ## Gentoo
+  bzip2,
+  libcap,
 
-# Necessary for USB audio devices.
-libpulseaudio, pulseSupport ? true,
+  # Necessary for USB audio devices.
+  libpulseaudio,
+  pulseSupport ? true,
 
-adwaita-icon-theme, gsettings-desktop-schemas,
+  adwaita-icon-theme,
+  gsettings-desktop-schemas,
 
-# For video acceleration via VA-API (--enable-features=VaapiVideoDecoder)
-libva, libvaSupport ? true,
+  # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder)
+  libva,
+  libvaSupport ? true,
 
-# For Vulkan support (--enable-features=Vulkan)
-addDriverRunpath,
+  # For Vulkan support (--enable-features=Vulkan)
+  addDriverRunpath,
 
-# For QT support
-qt6,
+  # For QT support
+  qt6,
 
-# Edge AAD sync
-cacert, libsecret,
+  # Edge AAD sync
+  cacert,
+  libsecret,
 
-# Edge Specific
-libuuid, }:
+  # Edge Specific
+  libuuid,
+}:
 
 let
 
@@ -114,16 +170,17 @@ let
     gtk4
     qt6.qtbase
     qt6.qtwayland
-  ] ++ lib.optionals pulseSupport [ libpulseaudio ]
-    ++ lib.optionals libvaSupport [ libva ];
+  ]
+  ++ lib.optionals pulseSupport [ libpulseaudio ]
+  ++ lib.optionals libvaSupport [ libva ];
 
-in stdenv.mkDerivation (finalAttrs: {
+in
+stdenv.mkDerivation (finalAttrs: {
   pname = "microsoft-edge";
   version = "137.0.3296.83";
 
   src = fetchurl {
-    url =
-      "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_${finalAttrs.version}-1_amd64.deb";
+    url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_${finalAttrs.version}-1_amd64.deb";
     hash = "sha256-wbiijvxzyyM9lxoMtcQHFqZYChlsHh0hNQTwdgxPpZY=";
   };
 
@@ -131,7 +188,11 @@ in stdenv.mkDerivation (finalAttrs: {
   # ie, $out/share/microsoft/msedge/microsoft-edge
   strictDeps = false;
 
-  nativeBuildInputs = [ makeWrapper patchelf dpkg ];
+  nativeBuildInputs = [
+    makeWrapper
+    patchelf
+    dpkg
+  ];
 
   buildInputs = [
     # needed for XDG_ICON_DIRS
@@ -143,8 +204,7 @@ in stdenv.mkDerivation (finalAttrs: {
     gsettings-desktop-schemas
   ];
 
-  rpath = lib.makeLibraryPath deps + ":"
-    + lib.makeSearchPathOutput "lib" "lib64" deps;
+  rpath = lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
   binpath = lib.makeBinPath deps;
 
   installPhase = ''
@@ -161,9 +221,7 @@ in stdenv.mkDerivation (finalAttrs: {
 
     # replace bundled vulkan-loader
     rm -v $out/share/microsoft/$appname/libvulkan.so.1
-    ln -v -s -t "$out/share/microsoft/$appname" "${
-      lib.getLib vulkan-loader
-    }/lib/libvulkan.so.1"
+    ln -v -s -t "$out/share/microsoft/$appname" "${lib.getLib vulkan-loader}/lib/libvulkan.so.1"
 
     substituteInPlace $out/share/microsoft/$appname/microsoft-edge \
       --replace-fail 'CHROME_WRAPPER' 'WRAPPER'
@@ -222,8 +280,7 @@ in stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = ./update.py;
 
   meta = {
-    changelog =
-      "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel";
+    changelog = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel";
     description = "Web browser from Microsoft";
     homepage = "https://www.microsoft.com/en-us/edge";
     license = lib.licenses.unfree;

@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "git-credential-1password";
@@ -16,8 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A git credential helper for 1Password";
     homepage = "https://github.com/ethrgeist/git-credential-1password";
-    changelog =
-      "https://github.com/ethrgeist/git-credential-1password/releases/tag/v${version}";
+    changelog = "https://github.com/ethrgeist/git-credential-1password/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = [ ];
     mainProgram = "git-credential-1password";

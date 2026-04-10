@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildGoModule, nix-update-script, }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  nix-update-script,
+}:
 
 buildGoModule rec {
   pname = "md2puki";

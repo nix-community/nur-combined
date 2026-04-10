@@ -1,5 +1,17 @@
-{ fetchFromGitHub, fetchPnpmDeps, gnumake, lib, nodejs, node-gyp, pkg-config
-, pnpm, pnpmConfigHook, python3, sqlite, stdenv, }:
+{
+  fetchFromGitHub,
+  fetchPnpmDeps,
+  gnumake,
+  lib,
+  nodejs,
+  node-gyp,
+  pkg-config,
+  pnpm,
+  pnpmConfigHook,
+  python3,
+  sqlite,
+  stdenv,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "obsidian-headless";
@@ -54,8 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = ./update.sh;
 
   meta = {
-    description =
-      "Headless client for Obsidian Sync. Sync your vaults from the command line without the desktop app. ";
+    description = "Headless client for Obsidian Sync. Sync your vaults from the command line without the desktop app. ";
     homepage = "https://obsidian.md/sync";
     license = lib.licenses.unfree;
     mainProgram = "ob";

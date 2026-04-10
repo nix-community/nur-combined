@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, buildNpmPackage, nodejs_22, perl, python3, zip
-, unzip, xz, gawk, rsync, firefox-esr-140-unwrapped, makeDesktopItem
-, copyDesktopItems, libGL, pciutils, wrapGAppsHook3, nix-update-script, xvfb-run
-, doCheck ? false, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildNpmPackage,
+  nodejs_22,
+  perl,
+  python3,
+  zip,
+  unzip,
+  xz,
+  gawk,
+  rsync,
+  firefox-esr-140-unwrapped,
+  makeDesktopItem,
+  copyDesktopItems,
+  libGL,
+  pciutils,
+  wrapGAppsHook3,
+  nix-update-script,
+  xvfb-run,
+  doCheck ? false,
+}:
 let
   # note-editor needs nodejs 22. Any newer version fails to build zotero's fork of @benrbray/prosemirror-math during npm install.
   nodejs = nodejs_22;
@@ -133,13 +152,28 @@ let
     '';
   };
 
-in buildNpmPackage (finalAttrs: {
-  inherit pname version src nodejs;
+in
+buildNpmPackage (finalAttrs: {
+  inherit
+    pname
+    version
+    src
+    nodejs
+    ;
 
   npmDepsHash = "sha256-dtbA1V38u26gqWoN+kW/tnccl6HFX7p8fPAneq+mw6U=";
 
-  nativeBuildInputs =
-    [ perl python3 zip unzip xz gawk rsync copyDesktopItems wrapGAppsHook3 ];
+  nativeBuildInputs = [
+    perl
+    python3
+    zip
+    unzip
+    xz
+    gawk
+    rsync
+    copyDesktopItems
+    wrapGAppsHook3
+  ];
 
   patches = [
     ./avoid-git.patch
@@ -185,13 +219,16 @@ in buildNpmPackage (finalAttrs: {
     # Place firefox files at the right place.
     # The correct firefox version can be found in zotero/app/config.sh at `GECKO_VERSION_LINUX`.
     mkdir -p app/xulrunner/
-  '' + lib.optionalString stdenv.targetPlatform.isDarwin ''
+  ''
+  + lib.optionalString stdenv.targetPlatform.isDarwin ''
     cp -r "${firefox-esr-140-unwrapped}/Applications/Firefox ESR.app" app/xulrunner/Firefox.app
-  '' + lib.optionalString (!stdenv.targetPlatform.isDarwin) ''
+  ''
+  + lib.optionalString (!stdenv.targetPlatform.isDarwin) ''
     cp -r "${firefox-esr-140-unwrapped}/lib/firefox" "app/xulrunner/firefox-${stdenv.targetPlatform.parsed.kernel.name}-${
       lib.replaceString "aarch64" "arm64" stdenv.targetPlatform.parsed.cpu.name
     }"
-  '' + ''
+  ''
+  + ''
     chmod -R u+w app/xulrunner/
 
     ./app/scripts/dir_build
@@ -221,19 +258,27 @@ in buildNpmPackage (finalAttrs: {
       comment = finalAttrs.meta.description;
       desktopName = "Zotero";
       genericName = "Reference Management";
-      categories = [ "Office" "Database" ];
+      categories = [
+        "Office"
+        "Database"
+      ];
       startupNotify = true;
-      mimeTypes = [ "x-scheme-handler/zotero" "text/plain" ];
+      mimeTypes = [
+        "x-scheme-handler/zotero"
+        "text/plain"
+      ];
     })
   ];
 
   installPhase = ''
     runHook preInstall
-  '' + lib.optionalString stdenv.targetPlatform.isDarwin ''
+  ''
+  + lib.optionalString stdenv.targetPlatform.isDarwin ''
     # Copy package contents
     mkdir -p $out/Applications
     cp -r app/staging/Zotero.app $out/Applications/
-  '' + lib.optionalString (!stdenv.targetPlatform.isDarwin) ''
+  ''
+  + lib.optionalString (!stdenv.targetPlatform.isDarwin) ''
     # Copy package contents
     mkdir -p $out/lib/
     cp -r app/staging/*/. $out/lib/
@@ -247,13 +292,17 @@ in buildNpmPackage (finalAttrs: {
       install -Dm444 "app/linux/icons/icon''${size}.png" "$out/share/icons/hicolor/''${size}x''${size}/apps/zotero.png"
     done
     install -Dm444 "app/linux/icons/symbolic.svg" "$out/share/icons/hicolor/scalable/apps/zotero-symbolic.svg"
-  '' + ''
+  ''
+  + ''
     runHook postInstall
   '';
 
   preFixup = lib.optionalString (!stdenv.targetPlatform.isDarwin) ''
     gappsWrapperArgs+=(--suffix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ libGL pciutils ]
+      lib.makeLibraryPath [
+        libGL
+        pciutils
+      ]
     })
   '';
 
