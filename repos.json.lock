@@ -828,8 +828,8 @@
             "url": "https://github.com/edejong/nur-packages"
         },
         "eerieaerial": {
-            "rev": "6be305f3e6c63160375446e5f74e87b108d5eace",
-            "sha256": "0whcl2mih8j5ky9h70dwnyq6ripmnsfvh3b7pw4x98606fv81p2w",
+            "rev": "55b21c8bcb451611eb31ad9704c6aec45134961b",
+            "sha256": "0jpw2f412xhmykjgjvl0yb5zfp7y0702v7a9mcmr3jr0j7c9dbsr",
             "url": "https://github.com/eerieaerial/nur-packages"
         },
         "eeva": {
