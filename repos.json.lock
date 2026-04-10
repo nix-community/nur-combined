@@ -26,8 +26,8 @@
             "url": "https://github.com/7mind/7mind-nix"
         },
         "999eagle": {
-            "rev": "f85c6acfe0c7f7879695bd04d9a39e16da594d9a",
-            "sha256": "195h4zjpqm7cxzbkh7jn7gyyhls60l1vd5vhy5pgr466sckpqapg",
+            "rev": "379c233fd3b04fa0abd7448352beabe386f5d088",
+            "sha256": "10r1dpic4v6grw064cgm8j536lm9167iv2zm6gz6qisbh29mfyrc",
             "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
         "9glenda": {
@@ -843,8 +843,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "859a48d3c01ba25af339a7b11424d072136af952",
-            "sha256": "1lhkfha2srz0j6d1yznlhbjqxnkddcsb1akl0xxqdsyss1j8xydq",
+            "rev": "fc188ad5a2bbac98ff8801f9899f61a3669960f1",
+            "sha256": "0024mr9ss4aki89c58iaqlfw2fa980fwx7b8flywsnrx44m1bn92",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
