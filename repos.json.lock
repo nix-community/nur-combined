@@ -241,8 +241,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "a7a74ffc720300229a806806bbf3e3c4b1b895c0",
-            "sha256": "14w0g96fpbpapyi7lr1kfy7z0k4x2mp53zmn3c4fpaidn64bg2dl",
+            "rev": "51edd1d7271f394c66d4f2f3bb84191a9b55d2ff",
+            "sha256": "0xgwxd5w8amabsvz1gvc7ajxqq3mlhizxfb22vxa78l0nrsvsni0",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -612,8 +612,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "bf40d7f6d9d735f92b2d23af8dc1252b0f092047",
-            "sha256": "0dkjiynh529q7jr20am8lqpjxrq3m6hkmn0mp5yaxvcyqfj1kk1m",
+            "rev": "9d4b87424866664bbb60b7ce8ca60438d7923a8f",
+            "sha256": "070lhk7s6w5w4wpb1xr50qcnw9kdw9bihfrx19mmk811ps0v2m4m",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -1709,8 +1709,8 @@
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
-            "rev": "90e600636c57dd0632952301bfeb6ffb0b86651f",
-            "sha256": "0wj86fvjff1ic9hz2c4yf81hsrih1yal3pnsbj1hahzn0hlk0a9v",
+            "rev": "e371a04416dd73c5e293febdffa826df9a7c32dd",
+            "sha256": "0q0ckd550xnv50wk9b34sk9li2yinzbskn7rcl4zlgxq01vzc1yr",
             "url": "https://github.com/Nanamiiiii/nur"
         },
         "nasirhm": {
