@@ -16,7 +16,7 @@
       pkgs = import nixpkgs {inherit system;};
       packages = lib.filterAttrs (name: value: builtins.elem system (value.meta.platforms or [system])) (import ./default.nix {inherit pkgs;});
       isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-      skipBuild = n: isReserved n || n == "openmoji";
+      skipBuild = n: isReserved n || builtins.elem n [ "openmoji" "what" ];
       isBuildable = p: let
         licenseFromMeta = p.meta.license or [];
         licenseList =

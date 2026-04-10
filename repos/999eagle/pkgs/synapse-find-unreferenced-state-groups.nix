@@ -13,7 +13,6 @@ rustPlatform.buildRustPackage rec {
     rev = "e873f9a721e9a3a297ddf4299396cbf11d972b4d";
     hash = "sha256-o12mo5oyNFEuZuClH9ovKjo3C42n5wsj7hdb4R4pQUY=";
   };
-  useFetchCargoVendor = true;
   cargoHash = "sha256-zEbbON2UYOESksMRK+blhNLwdciYl5fPr8cP1UBf39w=";
 
   meta = {
@@ -21,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     description = "Finds unreferenced state groups persisted by synapse";
     homepage = "https://github.com/erikjohnston/synapse-find-unreferenced-state-groups";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [_999eagle];
+    maintainers = with lib.maintainers; [ _999eagle ];
   };
 }
