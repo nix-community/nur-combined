@@ -21,4 +21,5 @@
   oci-utils = pkgs.callPackage ./pkgs/oci-utils {};
   oci-image-migrate = pkgs.callPackage ./pkgs/oci-image-migrate {};
   ipynb-nvim = pkgs.callPackage ./pkgs/ipynb-nvim {};
+  box64-static = pkgs.callPackage ./pkgs/box64-static {};
 }
