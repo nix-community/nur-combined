@@ -537,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "4433e8a9faa4f68fcafb53bac0039c2cd010cc1c",
-            "sha256": "1q67i5lbgv9f0b7m3wgzwqa09q8kjd51px1b79bdhxdbhcah8751",
+            "rev": "089836d5f63350bff0a62d957095415eda8197b9",
+            "sha256": "0431v9251zkr8a80dms5r7rzhb016fxlnr2mys929gdnxzchli77",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1431,8 +1431,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "370d8c0d35dfc753997d4723cd8be615db1881ad",
-            "sha256": "1m5yr3b9krclrsp45frs7y3sy7wc8hfj3hn0yxc4kixy5m5y6zag",
+            "rev": "f14fcf84159bd05476d925c7ba36f6dac1a4fa47",
+            "sha256": "0k289hl4qghqyi11hp5fn9yl00q3skshi9v09mmddcfby3il42fl",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -2110,8 +2110,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "c1db0626fa993fe4e773d4c83df4cbb9684e434f",
-            "sha256": "1gxcl59qirgxypdw58pfybzmcj6mfcjw951l864qynqy5dr77lyn",
+            "rev": "65415051e904355712fc63e7a0bd14f20eddbe28",
+            "sha256": "16h14gizvrbsdfjqb6z2lrb8myfv97iilfq3kcdxn5xfvfv6kcll",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
