@@ -251,8 +251,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "63e881371b9e2ee8a84765106da6f2c12f582d7a",
-            "sha256": "1rd06cjjjxf9vkihxb88r04qrnrfa3c7m6p1p6l449ikgc22fmcz",
+            "rev": "40302e7730e80805875757b0afde911867ecb7fe",
+            "sha256": "1da7j9759250ib2ngdaasnmlmxbamnm9lyrvzq9pfbr0hhxrjwma",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -2552,8 +2552,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "9d97324704f192c5ca61022cfe25d2442aedd14e",
-            "sha256": "0jad8pgzsxz4rhkkwmh6ja5pi9in8xnnad222napiwdnw8c4dain",
+            "rev": "cdb48ddea71006536e43edd37189f0d1123c0c59",
+            "sha256": "0gpfwp822n52nfl1nz9az7rlnxxwfp47bdklk6p160kfvfkjf9fy",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
