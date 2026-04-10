@@ -1,17 +1,8 @@
-{
-  lib,
-  stdenvNoCC,
-  kdePackages,
-  fetchFromGitHub,
-  formats,
-  theme ? "astronaut",
-  themeConfig ? null,
-  unstableGitUpdater,
-}:
+{ lib, stdenvNoCC, kdePackages, fetchFromGitHub, formats, theme ? "astronaut"
+, themeConfig ? null, unstableGitUpdater, }:
 let
   overwriteConfig = (formats.ini { }).generate "${theme}.conf.user" themeConfig;
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   name = "sddm-astronaut-theme";
   version = "0-unstable-2025-12-06";
 

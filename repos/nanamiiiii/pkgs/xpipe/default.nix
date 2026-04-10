@@ -1,66 +1,35 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchzip,
-  makeDesktopItem,
-  autoPatchelfHook,
-  zlib,
-  fontconfig,
-  udev,
-  gtk3,
-  freetype,
-  alsa-lib,
-  makeShellWrapper,
-  libX11,
-  libXext,
-  libXdamage,
-  libXfixes,
-  libxcb,
-  libXcomposite,
-  libXcursor,
-  libXi,
-  libXrender,
-  libXtst,
-  libXxf86vm,
-  util-linux,
-  socat,
-  hicolor-icon-theme,
-}:
+{ stdenvNoCC, lib, fetchzip, makeDesktopItem, autoPatchelfHook, zlib, fontconfig
+, udev, gtk3, freetype, alsa-lib, makeShellWrapper, libX11, libXext, libXdamage
+, libXfixes, libxcb, libXcomposite, libXcursor, libXi, libXrender, libXtst
+, libXxf86vm, util-linux, socat, hicolor-icon-theme, }:
 
 let
   inherit (stdenvNoCC.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  arch =
-    {
-      x86_64-linux = "x86_64";
-      aarch64-linux = "arm64";
-    }
-    .${system} or throwSystem;
+  arch = {
+    x86_64-linux = "x86_64";
+    aarch64-linux = "arm64";
+  }.${system} or throwSystem;
 
-  hash =
-    {
-      x86_64-linux = "sha256-SpxjyD8tl9FzD385h7qTMpQ6vk8RZEtNM2a+lz9+qfM=";
-      aarch64-linux = "sha256-tudDGxfDV7Ki+lr/ub7t9bx86jm0g7NZ7FbVci+WbTs=";
-    }
-    .${system} or throwSystem;
+  hash = {
+    x86_64-linux = "sha256-SpxjyD8tl9FzD385h7qTMpQ6vk8RZEtNM2a+lz9+qfM=";
+    aarch64-linux = "sha256-tudDGxfDV7Ki+lr/ub7t9bx86jm0g7NZ7FbVci+WbTs=";
+  }.${system} or throwSystem;
 
   displayname = "XPipe";
 
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "xpipe";
   version = "15.7.1";
 
   src = fetchzip {
-    url = "https://github.com/xpipe-io/${pname}/releases/download/${version}/xpipe-portable-linux-${arch}.tar.gz";
+    url =
+      "https://github.com/xpipe-io/${pname}/releases/download/${version}/xpipe-portable-linux-${arch}.tar.gz";
     inherit hash;
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeShellWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeShellWrapper ];
 
   # Ignore libavformat dependencies as we don't need them
   autoPatchelfIgnoreMissingDeps = true;
@@ -121,23 +90,11 @@ stdenvNoCC.mkDerivation rec {
 
     makeShellWrapper "$out/opt/$pkg/bin/xpiped_raw" "$out/opt/$pkg/bin/xpiped" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          fontconfig
-          gtk3
-          udev
-          util-linux
-          socat
-        ]
+        lib.makeLibraryPath [ fontconfig gtk3 udev util-linux socat ]
       }"
     makeShellWrapper "$out/opt/$pkg/scripts/xpiped_debug_raw.sh" "$out/opt/$pkg/scripts/xpiped_debug.sh" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          fontconfig
-          gtk3
-          udev
-          util-linux
-          socat
-        ]
+        lib.makeLibraryPath [ fontconfig gtk3 udev util-linux socat ]
       }"
 
     runHook postInstall
@@ -149,15 +106,9 @@ stdenvNoCC.mkDerivation rec {
     downloadPage = "https://github.com/xpipe-io/${pname}/releases/latest";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     changelog = "https://github.com/xpipe-io/${pname}/releases/tag/${version}";
-    license = [
-      licenses.asl20
-      licenses.unfree
-    ];
+    license = [ licenses.asl20 licenses.unfree ];
     maintainers = with maintainers; [ crschnick ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     mainProgram = pname;
   };
 }

@@ -1,12 +1,5 @@
-{
-  fetchFromGitHub,
-  lib,
-  nix-update-script,
-  openssl,
-  pkg-config,
-  rustPlatform,
-  zlib,
-}:
+{ fetchFromGitHub, lib, nix-update-script, openssl, pkg-config, rustPlatform
+, zlib, }:
 rustPlatform.buildRustPackage rec {
   pname = "cargo-compete";
   version = "0.10.7";
@@ -18,14 +11,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-qlRVHSUVOqdTx4H3pE19Fy634742veTisHm6IqfKBUQ=";
   };
 
-  buildInputs = [
-    openssl
-    zlib
-  ];
+  buildInputs = [ openssl zlib ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   cargoHash = "sha256-lid1tyR8Y6lvjpeGJ4vGzqDTY6V2y/5rL9fGyjyF3yw=";
   doCheck = false; # this requires network access
@@ -39,7 +27,8 @@ rustPlatform.buildRustPackage rec {
       Supports AtCoder, Codeforces, and yukicoder. Other websites are available via online-judge-tools/api-client.
     '';
     homepage = "https://github.com/qryxip/cargo-compete";
-    changelog = "https://github.com/qryxip/cargo-compete/blob/master/CHANGELOG.md";
+    changelog =
+      "https://github.com/qryxip/cargo-compete/blob/master/CHANGELOG.md";
     license = lib.licenses.asl20;
     maintainers = [ ];
     platforms = lib.platforms.all;

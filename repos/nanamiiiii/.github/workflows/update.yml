@@ -33,6 +33,8 @@ jobs:
       run: nix-shell -p nix-update --run "nix-update --version=branch=main wl-x11-clipsync"
     - name: Update md2puki
       run: nix-shell -p nix-update --run "nix-update md2puki"
+    - name: Update git-credential-1password
+      run: nix-shell -p nix-update --run "nix-update git-credential-1password"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v8
       with:

@@ -1,21 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  unstableGitUpdater,
-  xclip,
-  wl-clipboard,
-  clipnotify,
-  python3,
-  makeWrapper,
-  which
-}:
+{ lib, stdenv, fetchFromGitHub, unstableGitUpdater, xclip, wl-clipboard
+, clipnotify, python3, makeWrapper, which }:
 stdenv.mkDerivation rec {
   name = "wl-x11-clipsync";
   version = "0-unstable-2025-01-30";
 
   pname = name;
-  
+
   src = fetchFromGitHub {
     owner = "arabianq";
     repo = "wl-x11-clipsync";
@@ -33,7 +23,9 @@ stdenv.mkDerivation rec {
     chmod +x $out/share/wl-x11-clipsync/clipsync
     patchShebangs --host $out/share/wl-x11-clipsync/clipsync
     makeWrapper $out/share/wl-x11-clipsync/clipsync $out/bin/clipsync \
-      --prefix PATH : "${lib.makeBinPath [ xclip wl-clipboard clipnotify which ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [ xclip wl-clipboard clipnotify which ]
+      }"
   '';
 
   passthru.updateScript = unstableGitUpdater { };

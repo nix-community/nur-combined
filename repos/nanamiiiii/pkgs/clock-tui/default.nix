@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  nix-update-script,
-}:
+{ lib, fetchFromGitHub, rustPlatform, nix-update-script, }:
 
 rustPlatform.buildRustPackage rec {
   pname = "clock-tui";
@@ -21,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "A clock app in terminal written in Rust, supports local clock, timer and stopwatch.";
+    description =
+      "A clock app in terminal written in Rust, supports local clock, timer and stopwatch.";
     homepage = "https://github.com/race604/clock-tui";
     license = lib.licenses.mit;
     maintainers = [ ];
