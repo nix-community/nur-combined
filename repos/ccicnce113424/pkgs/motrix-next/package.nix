@@ -84,7 +84,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     src-tauri/tauri.conf.json | sponge src-tauri/tauri.conf.json
   '';
 
-  preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
