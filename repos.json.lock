@@ -1709,8 +1709,8 @@
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
-            "rev": "95daa0e5fd32cbf428f82a982eabc736ae4b2d3c",
-            "sha256": "02knc7fjzkls3c4fzaadx477zmc4m3phbj72wlnvj2x6cffa0rl2",
+            "rev": "e32e7d485ca4c8ec2cc189f7fb7fe36b8aeaf8e9",
+            "sha256": "0hzz2mig9h2rhqk16ghayij4afsv24mipk2dpra5pbfcl4hp313w",
             "url": "https://github.com/Nanamiiiii/nur"
         },
         "nasirhm": {
