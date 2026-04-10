@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.3.7";
+  version = "4.3.4.7";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.3.7.xpi";
-  sha256 = "1ae62a87c1e433122d07c03508bceb611f9bbbc0945df6d5cb452afb0c9600fa";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.4.7.xpi";
+  sha256 = "36797b28969143f4eb326915a4b63b7423ed4d1faa2c5f5209c2c6125420faef";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -139,6 +139,7 @@ buildFirefoxXpiAddon {
       "*://*.charentelibre.fr/*"
       "*://*.charliehebdo.fr/*"
       "*://*.charlotteobserver.com/*"
+      "*://*.chicago.suntimes.com/*"
       "*://*.chicagobusiness.com/*"
       "*://*.chicagotribune.com/*"
       "*://*.chronicle.com/*"
@@ -359,6 +360,7 @@ buildFirefoxXpiAddon {
       "*://*.housebeautiful.com/*"
       "*://*.houstonchronicle.com/*"
       "*://*.hoy.es/*"
+      "*://*.huffingtonpost.it/*"
       "*://*.humanite.fr/*"
       "*://*.humo.be/*"
       "*://*.hydrogeninsight.com/*"
@@ -536,6 +538,7 @@ buildFirefoxXpiAddon {
       "*://*.medscape.com/*"
       "*://*.menshealth.com/*"
       "*://*.mercurynews.com/*"
+      "*://*.meretmarine.com/*"
       "*://*.merkur.de/*"
       "*://*.mexiconewsdaily.com/*"
       "*://*.miamiherald.com/*"
@@ -688,6 +691,7 @@ buildFirefoxXpiAddon {
       "*://*.rnd.de/*"
       "*://*.roadandtrack.com/*"
       "*://*.rollingstone.com/*"
+      "*://*.rotowire.com/*"
       "*://*.rp-online.de/*"
       "*://*.rp.pl/*"
       "*://*.rubbernews.com/*"
@@ -854,6 +858,7 @@ buildFirefoxXpiAddon {
       "*://*.tirebusiness.com/*"
       "*://*.tlz.de/*"
       "*://*.tokyo-np.co.jp/*"
+      "*://*.tomshardware.com/*"
       "*://*.topagrar.com/*"
       "*://*.torontosun.com/*"
       "*://*.towardsdatascience.com/*"
