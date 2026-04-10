@@ -103,11 +103,10 @@ Or, use variables from this repository in case I change them:
 |  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.4 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.4 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
-|  | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1130.68 | Browser from 360 |
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.1 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.19 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.22 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
@@ -140,7 +139,7 @@ Or, use variables from this repository in case I change them:
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
 |  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-03-17 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.04.07 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.04.10 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1155 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -221,7 +220,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.8 | Tencent QQ Music |
 |  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.5-b3-unstable-2026-03-11 | Interactive Fiction development platform (GUI application) |
-|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2026-04-08 | Interactive fiction development platform (Game Library) |
+|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2026-04-10 | Interactive fiction development platform (Game Library) |
 |  | `qtwebapp` | [qtwebapp](https://stefanfrings.de/qtwebapp/index-en.html) | 1.9.1 | HTTP server library in C++, inspired by Java Servlets |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.016.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.056.02 | Linux device driver for Realtek Ethernet controllers |
@@ -235,7 +234,7 @@ Or, use variables from this repository in case I change them:
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
-|  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-09 | Sipwise media proxy for Kamailio |
+|  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-10 | Sipwise media proxy for Kamailio |
 |  | `runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.9.0 | Python library for RunPod API and serverless worker SDK |
 |  | `runpodctl` | [runpodctl](https://www.runpod.io) | 2.1.9 | RunPod CLI for pod management |
 |  | `sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 9.06 | Original mouse cursors (pointers) for Windows, with minimalistic design |
@@ -261,7 +260,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-tropics` | [unigine-tropics](https://benchmark.unigine.com/tropics) | 1.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-valley` | [unigine-valley](https://benchmark.unigine.com/valley) | 1.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
-|  | `usque` | [usque](https://github.com/Diniboy1123/usque) | 1.4.2 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
+|  | `usque` | [usque](https://github.com/Diniboy1123/usque) | 2.0.1 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
 |  | `vbmeta-disable-verification` | [vbmeta-disable-verification](https://github.com/libxzr/vbmeta-disable-verification) | 1.0 | Patch Android vbmeta image and disable verification flags inside |
 |  | `vgpu-unlock-rs` | [vgpu-unlock-rs](https://github.com/mbilker/vgpu_unlock-rs) | 2.5.0 | Unlock vGPU functionality for consumer grade GPUs |
 |  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-03-25 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
@@ -272,9 +271,10 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `xstatic-asciinema-player` | [xstatic-asciinema-player](https://github.com/asciinema/asciinema-player) | 2.6.1.1 | Asciinema-player packaged for setuptools (easy_install) / pip |
 |  | `xstatic-font-awesome` | [xstatic-font-awesome](https://github.com/FortAwesome/Font-Awesome) | 4.7.0.0 | Font Awesome packaged for setuptools (easy_install) / pip |
-|  | `xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-09 | Sipwise media proxy for Kamailio (kernel module) |
+|  | `xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-10 | Sipwise media proxy for Kamailio (kernel module) |
 |  | `xue` | [xue](https://pypi.org/project/xue/) | 0.0.34 | Minimalist web front-end framework composed of HTMX and Python |
 |  | `xvcd` | [xvcd](https://github.com/RHSResearchLLC/xvcd) | 0-unstable-2019-11-20 | Xilinx Virtual Cable Daemon |
+| `Broken` | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 | `Broken` | `coqui-tts` | [coqui-tts](http://coqui.ai) | 0.22.0 | Deep learning toolkit for Text-to-Speech, battle-tested in research and production |
 | `Broken` | `douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | 0-unstable-2022-12-17 | Douban API server that provides an unofficial APIs for media information gathering |
 | `Deprecated` `x86_64-linux` | `inter-knot` | [inter-knot](https://inot.top) | 2.16.9+36 | (DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台 |
@@ -406,7 +406,7 @@ Or, use variables from this repository in case I change them:
 |  | `kernel-modules.nullfsvfs` | [nullfsvfs](https://github.com/abbbi/nullfsvfs) | 0.26 | Virtual black hole file system that behaves like /dev/null |
 |  | `kernel-modules.r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.016.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `kernel-modules.r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.056.02 | Linux device driver for Realtek Ethernet controllers |
-|  | `kernel-modules.xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-09 | Sipwise media proxy for Kamailio (kernel module) |
+|  | `kernel-modules.xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-10 | Sipwise media proxy for Kamailio (kernel module) |
 </details>
 
 <details>
@@ -420,7 +420,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 8.0.1 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.16.1 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 8731 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 8748 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.4.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -1087,10 +1087,9 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.4 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.4 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
-|  | `uncategorized.boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1130.68 | Browser from 360 |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.1 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.19 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.22 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-04 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
@@ -1114,7 +1113,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.54-0 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.04.07 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.04.10 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `uncategorized.glauth` | [glauth](https://github.com/glauth/glauth) | 2.4.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1155 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -1182,7 +1181,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.8 | Tencent QQ Music |
 |  | `uncategorized.qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `uncategorized.qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.5-b3-unstable-2026-03-11 | Interactive Fiction development platform (GUI application) |
-|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2026-04-08 | Interactive fiction development platform (Game Library) |
+|  | `uncategorized.qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2026-04-10 | Interactive fiction development platform (Game Library) |
 |  | `uncategorized.qtwebapp` | [qtwebapp](https://stefanfrings.de/qtwebapp/index-en.html) | 1.9.1 | HTTP server library in C++, inspired by Java Servlets |
 | `x86_64-linux` | `uncategorized.red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk |
 |  | `uncategorized.red-star-os-wallpapers` | [red-star-os-wallpapers](https://archive.org/details/RedStarOS) | 3.0 | Wallpapers from DPRK Red Star OS 3.0 |
@@ -1193,7 +1192,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20260315 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
-|  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-09 | Sipwise media proxy for Kamailio |
+|  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-10 | Sipwise media proxy for Kamailio |
 |  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 2.1.9 | RunPod CLI for pod management |
 |  | `uncategorized.sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 9.06 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `uncategorized.sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
@@ -1213,7 +1212,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-tropics` | [unigine-tropics](https://benchmark.unigine.com/tropics) | 1.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-valley` | [unigine-valley](https://benchmark.unigine.com/valley) | 1.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
-|  | `uncategorized.usque` | [usque](https://github.com/Diniboy1123/usque) | 1.4.2 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
+|  | `uncategorized.usque` | [usque](https://github.com/Diniboy1123/usque) | 2.0.1 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
 |  | `uncategorized.vbmeta-disable-verification` | [vbmeta-disable-verification](https://github.com/libxzr/vbmeta-disable-verification) | 1.0 | Patch Android vbmeta image and disable verification flags inside |
 |  | `uncategorized.vgpu-unlock-rs` | [vgpu-unlock-rs](https://github.com/mbilker/vgpu_unlock-rs) | 2.5.0 | Unlock vGPU functionality for consumer grade GPUs |
 |  | `uncategorized.vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-03-25 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
@@ -1223,6 +1222,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.57 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `uncategorized.wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `uncategorized.xvcd` | [xvcd](https://github.com/RHSResearchLLC/xvcd) | 0-unstable-2019-11-20 | Xilinx Virtual Cable Daemon |
+| `Broken` | `uncategorized.boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 | `Broken` | `uncategorized.douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | 0-unstable-2022-12-17 | Douban API server that provides an unofficial APIs for media information gathering |
 | `Broken` | `uncategorized.soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 | `Broken` | `uncategorized.uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
