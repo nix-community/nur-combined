@@ -14,5 +14,6 @@
   cargo-compete = pkgs.callPackage ./pkgs/cargo-compete { };
   git-credential-1password =
     pkgs.callPackage ./pkgs/git-credential-1password { };
+  obsidian-headless = pkgs.callPackage ./pkgs/obsidian-headless { };
   #zotero = pkgs.callPackage ./pkgs/zotero { };
 }
