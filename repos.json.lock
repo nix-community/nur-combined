@@ -1436,8 +1436,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "aa2f2f00f5fb21d27159feebc7c5b79865b2ae20",
-            "sha256": "0jqizrlmibmcrnblycgha3dlkfh6kq7brm6nx46zpkb7hx1vybbf",
+            "rev": "5b662468cbeba7e4b782879f2d45a8213177399c",
+            "sha256": "12yv8gd1c9r7vwxxy0qkp4sgmzhbkbf1b9i3xcbgpnmsvax8isak",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -1603,8 +1603,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "421d3375995b6e5b612e5c046fe2b7d3500ff935",
-            "sha256": "0c62jc9gq52rxf31zz68djdfq4mlhpbizb5zaqv9jviwjqig6ljw",
+            "rev": "81e3b333bc74b827693afb8d40db0dd615638505",
+            "sha256": "12m8wi8zp6gbfx9hvyk14id1wba5r400wap75lnqbyrpml5shhqx",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
