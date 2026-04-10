@@ -1709,8 +1709,8 @@
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
-            "rev": "e32e7d485ca4c8ec2cc189f7fb7fe36b8aeaf8e9",
-            "sha256": "0hzz2mig9h2rhqk16ghayij4afsv24mipk2dpra5pbfcl4hp313w",
+            "rev": "90e600636c57dd0632952301bfeb6ffb0b86651f",
+            "sha256": "0wj86fvjff1ic9hz2c4yf81hsrih1yal3pnsbj1hahzn0hlk0a9v",
             "url": "https://github.com/Nanamiiiii/nur"
         },
         "nasirhm": {
@@ -2402,8 +2402,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "7a1bb5742d53cafd0d878cd2d4f5f57f7c8ece9d",
-            "sha256": "1zqvv0yqw4msh0f9918pd3hv2wf5gj69q827dsl0lr2qvprn5v3a",
+            "rev": "e995477f17839405ad52bf84cc6cc9994add7d9d",
+            "sha256": "1hcqsxvvm47d47xjw89w657g9bpyarp41l1cnybzdvpq25dma0wf",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
