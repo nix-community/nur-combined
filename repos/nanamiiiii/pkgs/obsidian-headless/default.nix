@@ -1,4 +1,5 @@
 {
+  darwin,
   fetchFromGitHub,
   fetchPnpmDeps,
   gnumake,
@@ -34,7 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
     gnumake
     stdenv.cc
     node-gyp
-  ];
+  ]
+  ++ (lib.optional stdenv.hostPlatform.isDarwin [ darwin.cctools ]);
 
   buildInputs = [ sqlite ];
 
