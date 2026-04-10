@@ -38,6 +38,7 @@ jobs:
           pkgs/daed/update.sh
           pkgs/kikoflu/update.sh
           pkgs/loveiwara/update.sh
+          pkgs/lumine/update.sh
           pkgs/motrix-next/update.sh
           pkgs/piliplus/update.sh
           pkgs/pixes/update.sh

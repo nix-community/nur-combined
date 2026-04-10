@@ -186,6 +186,27 @@
         },
         "version": "0.4.4"
     },
+    "lumine": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lumine",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "moi-si",
+            "repo": "lumine",
+            "rev": "v0.8.0",
+            "sha256": "sha256-Weu4NMM64Mac55Ta657ojEhaz6Z7Eou/SwVDAYSN9V4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.8.0"
+    },
     "lxgw-wenkai-gb": {
         "cargoLock": null,
         "date": null,

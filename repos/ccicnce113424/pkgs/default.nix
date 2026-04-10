@@ -76,6 +76,12 @@ rec {
     srcInfo = lib.importJSON ./loveiwara/src-info.json;
   };
 
+  lumine = pkgs.callPackage ./lumine rec {
+    inherit (lib.importJSON ./lumine/src-info.json) hash;
+    sources = fetchedSrc.lumine;
+    version = stableVersion sources;
+  };
+
   lxgw-wenkai-gb = pkgs.callPackage ./lxgw-wenkai-gb rec {
     sources = fetchedSrc.lxgw-wenkai-gb;
     version = stableVersion sources;

@@ -115,6 +115,17 @@
       "pubspec.lock" = ./. + "/sha256-Vdf3ERybsOXG8SlNmQ_QRtBu7RS0T9t0V22UTMjXTls=/pubspec.lock";
     };
   };
+  lumine = {
+    pname = "lumine";
+    version = "v0.8.0";
+    src = fetchFromGitHub {
+      owner = "moi-si";
+      repo = "lumine";
+      rev = "v0.8.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-Weu4NMM64Mac55Ta657ojEhaz6Z7Eou/SwVDAYSN9V4=";
+    };
+  };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
     version = "v1.522";
