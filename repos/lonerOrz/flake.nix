@@ -49,7 +49,7 @@
           lib = nixpkgs.lib;
         in
         lib.filterAttrs (
-          _: v: lib.isDerivation v && lib.meta.availableOn system v
+          _: v: lib.isDerivation v && lib.meta.availableOn { inherit system; } v
         ) self.legacyPackages.${system}
       );
     };

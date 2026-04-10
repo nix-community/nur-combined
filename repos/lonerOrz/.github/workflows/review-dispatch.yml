@@ -1,0 +1,60 @@
+name: Review & Dispatch
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  detect-and-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            access-tokens = github.com=${{ secrets.GH_TOKEN }}
+
+      # 1. Scan PR Head (Current State)
+      - name: Checkout PR (Head)
+        uses: actions/checkout@v4
+        with:
+          path: pr
+          token: ${{ secrets.GH_TOKEN }}
+      
+      - name: Scan Current State
+        run: |
+          DEBUG=1 .github/script/scan.sh --impure > "$RUNNER_TEMP/new.json"
+        working-directory: pr
+        env:
+          NIXPKGS_ALLOW_UNFREE: 1
+
+      # 2. Scan Main Base (Baseline)
+      - name: Checkout Main (Base)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: base
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Scan Baseline
+        run: |
+          DEBUG=1 .github/script/scan.sh --impure > "$RUNNER_TEMP/old.json"
+        working-directory: base
+        env:
+          NIXPKGS_ALLOW_UNFREE: 1
+
+      # 3. Dispatch builds
+      - name: Dispatch Builds
+        run: |
+          .github/script/dispatch.sh \
+            --base "$RUNNER_TEMP/old.json" \
+            --head "$RUNNER_TEMP/new.json" \
+            --repo "${{ github.repository }}" \
+            --pr "${{ github.event.pull_request.number }}"
+        working-directory: pr
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

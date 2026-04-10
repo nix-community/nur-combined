@@ -14,19 +14,24 @@ pull_request_rules:
       - "title~=^Chore: auto update custom package.*"
       - label=auto_update_custom_package
       - label=github_actions
-      - check-success~=^Build and populate cache.*
+      # External action build
+      - label=build-pr-success
+      - check-success=flake check
+      # - check-success~=^Build and populate cache.*
     actions:
       merge:
         method: squash
-  # for update flake.lock action
+  # For update flake.lock action
   - name: Auto merge flake.lock updates
     conditions:
       - and:
           - "title~=^chore(deps): bump flake.lock$"
           - label=auto_update_flake
           - label=github_actions
+          # External action build
+          - label=build-pr-success
           - check-success=flake check
-          - check-success=Build and populate cache
+          # - check-success=Build and populate cache
     actions:
       merge:
         method: squash
