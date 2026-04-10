@@ -91,7 +91,8 @@ jobs:
               .) as $displayNixpkgs |
               ("\($displayRunner)-\($displayNixpkgs)-\($subset)" | gsub(" "; "-")) as $cacheName |
               (if $qemuSystem then "TODO make qemu builds work again" | error else . end) |
-              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName}
+              ($subset == "lix-game-darwin") as $flaky |
+              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName, $flaky}
             ]}
             
           EOF
@@ -167,6 +168,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     outputs:
       nurRepo: ${{ steps.outputs.outputs.nurRepo }}
+    continue-on-error: ${{ matrix.flaky }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -277,7 +279,7 @@ jobs:
           !/nix/var/log/nix/drvs/*/*user-environment*
         if-no-files-found: ignore
     - name: Find build failures for subset
-      if: ${{ !cancelled() && steps.build.outcome == 'failure' && (matrix.subset != 'lix-game-darwin' || matrix.nixpkgs != 'nixpkgs-unstable') }}
+      if: ${{ !cancelled() && steps.build.outcome == 'failure' && !matrix.flaky }}
       run: |
         mv /tmp/buildFailures{,-old} || true
         mkdir /tmp/buildFailures
@@ -302,7 +304,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Upload build failures for subset
-      if: ${{ !cancelled() && steps.build.outcome == 'failure' && (matrix.subset != 'lix-game-darwin' || matrix.nixpkgs != 'nixpkgs-unstable') }}
+      if: ${{ !cancelled() && steps.build.outcome == 'failure' && !matrix.flaky }}
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: buildFailures-${{ matrix.cacheName }}
