@@ -652,8 +652,8 @@
             "url": "https://github.com/CRTified/nur-packages"
         },
         "cryolitia": {
-            "rev": "63acb53449996659ded817b7f8fa214ecbab7e66",
-            "sha256": "0ydmplywc1nv42h03gcg180qfwsfyfzbm46m1fw9nrkirrmj5q66",
+            "rev": "dd9dbc6de29d0ea6621769f90b4213208d72617d",
+            "sha256": "00n8zz77sxvg67r6vn8b80fvnfpi4hjfy04qng06krmpfzv2li9w",
             "url": "https://github.com/Cryolitia/nur-packages"
         },
         "cvtx": {
@@ -1744,8 +1744,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "a249edf79df593d3639e9bc4cf5e18ad7ca1a4b7",
-            "sha256": "1igv8wshibzrn7qsvmgipcn1grh27pm5h8hmh4xphsas9h10pw8n",
+            "rev": "e06cba2d1e47025c1df81d8ae7c49799750435ba",
+            "sha256": "1qwnf27xzii4qj3qx9ir720i2022r3666hkrmkk79zdxich4dc8n",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
