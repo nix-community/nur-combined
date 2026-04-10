@@ -537,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "089836d5f63350bff0a62d957095415eda8197b9",
-            "sha256": "0431v9251zkr8a80dms5r7rzhb016fxlnr2mys929gdnxzchli77",
+            "rev": "3d7d47607a4a1babd61ffb7d45fd680643ea8452",
+            "sha256": "1vbbarrib860vmjv43acx4df011qfgh2vms5ynn407lay0rr298i",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1436,8 +1436,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "5b662468cbeba7e4b782879f2d45a8213177399c",
-            "sha256": "12yv8gd1c9r7vwxxy0qkp4sgmzhbkbf1b9i3xcbgpnmsvax8isak",
+            "rev": "c3ed2abb22d8f243f88381e70a93fe3b32a168f1",
+            "sha256": "1ya2nvk20fj2vcklz7bw5ahaa6wvhisbnd0g6ci24q43gjl5am62",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
