@@ -5,17 +5,17 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "rust-mcp-server";
-  version = "0.3.6";
+  version = "0.3.7";
 
   src = fetchFromGitHub {
     owner = "Vaiz";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-aXULI7zVh25wWy+w9zNyyRfxuXSV7MMUFIghScCQVlg=";
+    sha256 = "sha256-/6n6o9XuP73wGPEaRpTRJrviF9jVTVxXe5B1Dr4eFOc=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-acR6hs/OhVEG87b8BrX62VV64lahexQoJlpPU3ue6nM=";
+  cargoHash = "sha256-DDfdAnu2WBno+jmMknmyeyJuuhChTEElnCN8aYdIxP4=";
 
   meta = with lib; {
     description = "MCP server for development in Rust";
