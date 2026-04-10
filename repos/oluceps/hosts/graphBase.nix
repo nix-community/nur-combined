@@ -73,6 +73,7 @@
       pkgs.porsmo
       pkgs.libnotify # foot
       pkgs.bitwarden-cli
+      pkgs.gpu-screen-recorder
     ];
   xdg = {
     terminal-exec = {

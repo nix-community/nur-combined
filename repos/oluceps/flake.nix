@@ -398,7 +398,7 @@
       url = "github:vicinaehq/vicinae";
     };
     online-exporter.url = "/home/riro/Src/monitou";
-    nix-cachyos-kernel.url = "github:oluceps/nix-cachyos-kernel";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
     # nix-kernelsu-builder.url = "/home/riro/Src/nix-kernelsu-builder";
     # "github:xddxdd/nix-kernelsu-builder";
     run0-sudo-shim = {

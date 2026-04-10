@@ -5,7 +5,7 @@
 reIf {
   virtualisation.oci-containers.containers.ipex-llm-container = {
 
-    image = "intelanalytics/ipex-llm-inference-cpp-xpu:latest";
+    image = "intelanalytics/ipex-llm-inference-cpp-xpu:2.1.0-SNAPSHOT";
 
     volumes = [ "/var/lib/ollama:/models" ];
     # # pull = "always";
@@ -31,7 +31,7 @@ reIf {
     cmd = [
       "/bin/sh"
       "-c"
-      "/llm/scripts/start-ollama.sh && echo 'Startup script finished, container is now idling.' && sleep infinity"
+      "chmod +x /llm/scripts/start-ollama.sh && /llm/scripts/start-ollama.sh && echo 'Startup script finished, container is now idling.' && sleep infinity"
       # "sleep infinity"
     ];
     extraOptions = [

@@ -16,6 +16,7 @@
     memoryPercent = 80;
     algorithm = "zstd";
   };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   environment.systemPackages = with pkgs; [
     lsof
     wireguard-tools

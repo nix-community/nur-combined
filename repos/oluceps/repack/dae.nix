@@ -40,7 +40,7 @@ reIf {
             auto_config_kernel_parameter: true
             # sniffing_timeout: 50ms
             tls_implementation: utls
-            utls_imitate: chrome_auto
+            utls_imitate: ios_auto
             lan_interface: br0,podman0,podman1,podman2,podman3,docker0
             mptcp: true
             tls_fragment_length: '50-100'

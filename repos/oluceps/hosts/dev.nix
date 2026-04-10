@@ -171,6 +171,7 @@
             git-credential-oauth
             codex
             gemini-cli
+            docker-compose
             antigravity
             gh
             # zed-editor

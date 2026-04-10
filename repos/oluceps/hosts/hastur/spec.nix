@@ -178,7 +178,7 @@
     # conduwuit.enable = true;
     # mautrix-telegram.enable = true;
     # calibre.enable = true;
-    ipex.enable = true;
+    # ipex.enable = true;
     # alloy.enable = true;
     # zeek.enable = true;
     earlyoom.enable = true;

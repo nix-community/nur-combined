@@ -6,6 +6,7 @@
   lib,
   modulesPath,
   inputs',
+  inputs,
   pkgs,
   ...
 }:
@@ -48,16 +49,20 @@
     '';
     kernelPackages =
       # (inputs.nix-cachyos-kernel.mkFixedVersionKernelWith pkgs).linuxPackages-cachyos-latest-lto;
-      pkgs.linuxPackages_latest;
+      # inputs'.nix-cachyos-kernel.linuxPackages-cachyos-latest-lto-zen4;
+      let
+        helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
+
+        rawKernel = pkgs.cachyosKernels.linux-cachyos-latest-lto.override {
+          pname = "linux-cachyos-latest-lto-zen5";
+          processorOpt = "zen4";
+          extraMakeFlags = [ "KCFLAGS=-march=znver5" ];
+        };
+      in
+      helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor rawKernel);
+    # pkgs.linuxPackages_latest;
     # inputs'.nixpkgs-rstable.legacyPackages.linuxPackages;
     blacklistedKernelModules = [ "hid_nintendo" ];
-    # pkgs.linuxPackages_cachyos-server;
-    # binfmt.emulatedSystems = [
-    #   "riscv64-linux"
-    #   "aarch64-linux"
-    #   "mips64el-linux"
-    #   "mipsel-linux"
-    # ];
     kernelParams = [
       "amd_pstate=active"
       "amd_iommu=on"
