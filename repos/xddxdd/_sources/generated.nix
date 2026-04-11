@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.22";
+    version = "v6.9.23";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.22";
-      hash = "sha256-y+BDhcfNCOtY5wGNlN1wNQoB6+2VFzusd4hQs4/3iTg=";
+      tag = "v6.9.23";
+      hash = "sha256-4w+MhAN0BrL8o7ecnNMZ7pbGsY0CTewECvUtfpaDfSQ=";
     };
   };
   cockpy = {
@@ -1192,12 +1192,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8748";
+    version = "b8763";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8748";
-      hash = "sha256-57RU5aNACYrk4EXS+6Y3bd2zT0jv9Rs1auRSmcMPoL8=";
+      tag = "b8763";
+      hash = "sha256-FTDI3p9qBvqfMd81ewbO+RRF3fs01LSTM5xl3Ry8fjc=";
     };
   };
   loralib = {
@@ -1251,12 +1251,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.35.3";
+    version = "v1.35.4";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.35.3";
-      hash = "sha256-3PG20FqNn8syngxmzxjIr1C8u128RPFj+FjU494QTYA=";
+      tag = "v1.35.4";
+      hash = "sha256-n33vf7GC4Oucw4/dWXeXeThRrkmSCk1rfS4BWzOxl7I=";
     };
   };
   mtkclient = {
@@ -1836,14 +1836,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "b13a1a84ca20f34e9e7f8e12e9406e839bc42a99";
+    version = "fa6a13b17f7f1b4e9928ce4d0f1f05020a85ae1b";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "b13a1a84ca20f34e9e7f8e12e9406e839bc42a99";
-      hash = "sha256-4D0vlFNi3J43enxteLGNfp+OzgWD1bjXcMorSk4NaOU=";
+      rev = "fa6a13b17f7f1b4e9928ce4d0f1f05020a85ae1b";
+      hash = "sha256-s+6XzvC4A3T4i/bDH2FaXCSyuU7i1pBLZtWqsxn6CFQ=";
     };
-    date = "2026-04-10";
+    date = "2026-04-11";
   };
   qsp-stable = {
     pname = "qsp-stable";
