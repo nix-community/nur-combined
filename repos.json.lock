@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "bb8b710a00fb00efe01668298ed81986a43fa7bc",
-            "sha256": "1bkx3brv9cdz1kpwpmv09dxvz8ab3gamyzh68i6s5lzdrm05m4vg",
+            "rev": "b1958c796accb4dce2470db8537c90e59a5d7ccd",
+            "sha256": "05vdadspx42gxfs5rd0sz814ssib88c6irlwkh8rfqbn1scx524n",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -1113,8 +1113,8 @@
             "url": "https://github.com/ifd3f/nur-packages"
         },
         "ihaveamac": {
-            "rev": "76e9728218b7aa98dd5d56b3c00f225cfa84e39e",
-            "sha256": "1w18bj816fv6qgnz61p5jlypvbzmq2a37knd695j2hy2dqm2yi4l",
+            "rev": "29f9de236d69bcc6c0dabedbf2737ce6c2cc4892",
+            "sha256": "1vhrrxfyy0kmh6bafzblkz4vyn1f8r72520qirhriv36amry6ggr",
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
