@@ -45,10 +45,15 @@ let
     }
   '';
 
+  textfileDirLine = lib.optionalString (
+    cfg.textfileDirectory != null
+  ) "textfile_directory = \"${cfg.textfileDirectory}\"";
+
   alloyConfig = ''
     // Node metrics — push to Prometheus via remote_write
     prometheus.exporter.unix "node" {
       disable_collectors = ["mdadm"]
+      ${textfileDirLine}
     }
 
     prometheus.scrape "node" {
@@ -125,6 +130,18 @@ in
       default = lokiUrl;
       description = "Loki push API URL";
     };
+
+    textfileDirectory = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Directory for Prometheus textfile collector. When set, the unix exporter reads .prom files from here.";
+    };
+
+    alloyExtraConfig = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Additional Alloy configuration appended to the main config file.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -153,6 +170,6 @@ in
       ];
     };
 
-    environment.etc."alloy/config.alloy".text = alloyConfig;
+    environment.etc."alloy/config.alloy".text = alloyConfig + "\n" + cfg.alloyExtraConfig;
   };
 }

@@ -21,6 +21,7 @@ in
     inputs.nixcfg.modules.nixos.defaults
     inputs.nixcfg.modules.nixos.filesystems
     inputs.nixcfg.modules.nixos.monitoring.default
+    inputs.nixcfg.modules.nixos.monitoring.internet
     inputs.nixcfg.modules.nixos.wireguard.default
     ./kea.nix
     ./virtual-hosts.nix
@@ -349,6 +350,7 @@ in
       '';
     };
     monitoring.enable = true;
+    monitoring.internet.enable = true;
     wireguard-tunnel = {
       enable = true;
       role = "server";
