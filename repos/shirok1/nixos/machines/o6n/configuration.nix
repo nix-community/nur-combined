@@ -437,6 +437,9 @@
       "waqi"
       "xiaomi_ble"
 
+      "kegtron"
+      "ibeacon"
+
       "ffmpeg"
       "zeroconf"
     ];
