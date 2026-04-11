@@ -40,19 +40,19 @@
     		"sha256": "980de97507ad8917ffe171fa94fa56d1fde26ee4637141ed3779e0ff179ce6d8"
     	},
     	"telegram-desktop": {
-    		"version": "v6.6.3",
-    		"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v6.6.3/tsetup.6.6.3.beta.dmg",
-    		"sha256": "f6826ba9c1b2ab336062540c7965d003d3c7aa2680ffab4e6dd2a804cf52c8fb"
+    		"version": "v6.7.2",
+    		"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v6.7.2/tsetup.6.7.2.dmg",
+    		"sha256": "66909970cfec3548cd557632fe102404997845d73ce20e252df93e08fe15225d"
     	},
 			"ungoogled-chromium-x64": {
-    		"version": "146.0.7680.153-1.1",
-    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/146.0.7680.153-1.1/ungoogled-chromium_146.0.7680.153-1.1_x86_64-macos.dmg",
-    		"sha256": "f559bb85c06bf1817050e5bc0d282873d80c2b96310745634f47db3f9173602d"
+    		"version": "146.0.7680.177-1.1",
+    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/146.0.7680.177-1.1/ungoogled-chromium_146.0.7680.177-1.1_x86_64-macos.dmg",
+    		"sha256": "a4ef229f5640641fa8e91b1062a2780062582a8ad789683972006362db6f3c0a"
     	},
 			"ungoogled-chromium-arm64": {
-    		"version": "146.0.7680.153-1.1",
-    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/146.0.7680.153-1.1/ungoogled-chromium_146.0.7680.153-1.1_arm64-macos.dmg",
-    		"sha256": "3413383e43108dc8053b229dcbcf95e2ab891a0e7065d9882871928f75121e72"
+    		"version": "146.0.7680.177-1.1",
+    		"url": "https://github.com/ungoogled-software/ungoogled-chromium-macos/releases/download/146.0.7680.177-1.1/ungoogled-chromium_146.0.7680.177-1.1_arm64-macos.dmg",
+    		"sha256": "bcb75a9928de8931c1ee2ea9d4bba34e89f7e33af9f7129cc04f613cf24e1eb0"
     	},
 			"bambu-studio": {
     		"version": "v02.05.02.51",
