@@ -8,11 +8,11 @@
 sing-box-app.overrideAttrs (
   finalAttrs: previousAttrs: {
     pname = previousAttrs.pname + "-beta";
-    version = "1.14.0-alpha.9";
+    version = "1.14.0-alpha.11";
 
     src = fetchurl {
       url = "https://github.com/SagerNet/sing-box/releases/download/v${finalAttrs.version}/SFM-${finalAttrs.version}-Universal.pkg";
-      hash = "sha256-VtC8WsDd9mq4sJ8DjuxNEbbSpDoii1fcpiMJAEsXL1o=";
+      hash = "sha256-fSQCBNltmI2RTCaSrEPRO3k4h9Bbhuj0E0aAOd9/Fvs=";
     };
 
     meta = sing-box-beta.meta // {

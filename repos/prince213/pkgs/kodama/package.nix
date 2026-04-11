@@ -1,21 +1,24 @@
 {
   lib,
   fetchFromGitHub,
+  nix-update-script,
   rustPlatform,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kodama";
-  version = "0.9.9-alpha";
+  version = "0.9.9-gamma";
 
   src = fetchFromGitHub {
     owner = "kokic";
     repo = "kodama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6uaZkpzEzH40sK8hd9Ey7zNqZ0W/Yo5ZwQp42xq+7Sk=";
+    hash = "sha256-9YkxZ2zNiC//kfp1rPBUn9CoW6uI7VFaPgCdMH4Mtvw=";
   };
 
   cargoHash = "sha256-YdK4DXmOJx+X6HTNqzH/NVct07SwkL4ZS+zAjjHPQ5g=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Typst-friendly static Zettelkästen site generator";

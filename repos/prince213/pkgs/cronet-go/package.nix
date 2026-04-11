@@ -24,17 +24,20 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cronet-go";
-  version = "145.0.7632.159-unstable-2026-03-09";
+  version = "147.0.7727.49-1-unstable-2026-04-10";
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "cronet-go";
-    rev = "ea7cd33752aed62603775af3df946c1b83f4b0b3";
+    rev = "335e5bef5d88fc4474c9a70b865561f45a67de83";
     fetchSubmodules = true;
-    hash = "sha256-adLSUuw2IpiB/o5HPUkoSanSN5TnE776oBDEcNoYnHM=";
+    hash = "sha256-tWrMZ6F6zqLFJWPg8NvO6W/5bjEsemvQx4EIrz2aQ/c=";
   };
 
-  patches = lib.optional stdenvNoCC.hostPlatform.isDarwin (
+  patches = [
+    ./cflags.patch
+  ]
+  ++ lib.optional stdenvNoCC.hostPlatform.isDarwin (
     replaceVars ./libresolv.patch {
       libresolv = lib.getInclude darwin.libresolv;
     }

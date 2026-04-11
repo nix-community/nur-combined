@@ -4,6 +4,7 @@
   gn,
   lib,
   ninja,
+  nix-update-script,
   python3,
   stdenvNoCC,
   symlinkJoin,
@@ -19,16 +20,20 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "143.0.7499.109-2";
+  version = "147.0.7727.49-1";
 
   src = fetchFromGitHub {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QC8ygQYRkGyg+ZQq9SHkdv65+JTSXzknMU4zU7z6O6Y=";
+    hash = "sha256-XXs+wDNsgtqTEUWqB0JSxAOE9nqc9JLRkmsxdMJYO0k=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
+
+  patches = [
+    ./cflags.patch
+  ];
 
   nativeBuildInputs = [
     buildPackages.rustc.llvmPackages.bintools
@@ -88,6 +93,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Use Chromium's network stack to camouflage traffic";
