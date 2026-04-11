@@ -1638,8 +1638,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "f2ed7efcd97a0f73689840f6038241f6cae41f0c",
-            "sha256": "02gjwf04gp3v32xb7kifhb9px943ja0yr9x489cvjl2mh44m3gv0",
+            "rev": "1b741887726dd8745cc579f88b6fa3e759125247",
+            "sha256": "0f0h77hnkc650nma4j234f4bwwpkz2fsgi9f3db1qhwc18zd0m4s",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2110,8 +2110,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "65415051e904355712fc63e7a0bd14f20eddbe28",
-            "sha256": "16h14gizvrbsdfjqb6z2lrb8myfv97iilfq3kcdxn5xfvfv6kcll",
+            "rev": "28b164d30b5ab6820ef7e17281ae55c539ae9ff5",
+            "sha256": "0xgsrbh3k0vd8i2wbm0zch4wncdl1m57gzjzllmg193cp5kwnwzb",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
