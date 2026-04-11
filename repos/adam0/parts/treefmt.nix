@@ -3,12 +3,19 @@
 
   perSystem = _: {
     treefmt.programs = {
+      # keep-sorted start
       alejandra.enable = true;
       nixf-diagnose.enable = true;
       deadnix.enable = true;
       statix.enable = true;
+      # keep-sorted end
 
       rumdl-format.enable = true;
+
+      # keep-sorted start
+      yamlfmt.enable = true;
+      yamllint.enable = true;
+      # keep-sorted end
     };
   };
 }
