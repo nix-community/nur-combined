@@ -1113,8 +1113,8 @@
             "url": "https://github.com/ifd3f/nur-packages"
         },
         "ihaveamac": {
-            "rev": "29f9de236d69bcc6c0dabedbf2737ce6c2cc4892",
-            "sha256": "1vhrrxfyy0kmh6bafzblkz4vyn1f8r72520qirhriv36amry6ggr",
+            "rev": "9bdef82d17367dd039af9b60b616208d96201ccb",
+            "sha256": "1j0zlnkhc6c34ixn37x1gq6npm3g0rfha6f41s5mcvmpag9mxsf7",
             "url": "https://github.com/ihaveamac/nur-packages"
         },
         "ijohanne": {
