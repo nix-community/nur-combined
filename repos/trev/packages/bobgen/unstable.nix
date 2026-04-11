@@ -6,13 +6,13 @@
 
 bobgen.overrideAttrs (
   final: prev: {
-    version = "0.42.0-unstable-2026-04-05";
+    version = "0.42.0-unstable-2026-04-10";
 
     src = fetchFromGitHub {
       owner = "stephenafamo";
       repo = "bob";
-      rev = "50353154d23970235c43264d6c704f56b246b254";
-      hash = "sha256-IGZWtnkGVEkjC/N9GtTykBcsJsnvwZYAvxmA30UYSq0=";
+      rev = "ce9f085c8e3cb3beb3ec919d9c362bb9c49a4c7b";
+      hash = "sha256-CiTepia9RAADSyYrceS3b6MaN6lvwBDU+PxgqlSTGPM=";
     };
 
     vendorHash = "sha256-WzSUUgfWGz5XXq3iQrtpF91yOEr0QypTWq1rOJMntGQ=";
