@@ -1974,8 +1974,8 @@
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
         "prince213": {
-            "rev": "580d4daa6091e28f828f23343a9660051483c06a",
-            "sha256": "1vxh2qrmxm9hkq32769rffcl15r33d3a08d5qbhnwcmn65nqsaby",
+            "rev": "bbcbfdd24c2d47cb29e5d64c40f9ef08b1edb4c4",
+            "sha256": "0vnyks8fwyqnlp7l89xzg3di6z06zpzkc0jqdr20h2lx0i9a1zwn",
             "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
@@ -2190,8 +2190,8 @@
             "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
-            "rev": "fa63ee7e9e7228bc60ccccebf382720021cbcbca",
-            "sha256": "1rnjhm4ag7xfmrhpkzl6nfiaidfwaw8x5a0xpay0r4v9d3bwq20h",
+            "rev": "120f8dfc942b528168a55c7e9025923741e66e86",
+            "sha256": "1lblhk6rq52fwvnfb5fkjn0avzfbjzifdxaydwcf38qx136yyn1n",
             "url": "https://github.com/shirok1/flakes"
         },
         "shymega": {
