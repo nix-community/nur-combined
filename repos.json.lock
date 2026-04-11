@@ -1023,8 +1023,8 @@
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
-            "rev": "7fe77f06aa287d69b40fa55999c2b86edba89795",
-            "sha256": "0wlvmkk6bpilhx3hvdmy3fsglbasjwbl2zbwf5msiysnk8w3bv01",
+            "rev": "cb237561a18f9c480c088b8f01374b3f32dd483e",
+            "sha256": "0czi1zrh18ca6cjak9c19i07rh159dv1gwjbzlhw8xkv7gw2g03g",
             "url": "https://github.com/Grafcube/nur-packages"
         },
         "graham33": {
