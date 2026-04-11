@@ -1213,6 +1213,9 @@
         "pokon548": {
             "url": "https://github.com/pokon548/nur-packages"
         },
+        "pq": {
+            "url": "https://github.com/hostwithquantum/nur"
+        },
         "presto8": {
             "url": "https://github.com/presto8/nur-packages"
         },
@@ -1274,6 +1277,9 @@
         },
         "rewine": {
             "url": "https://github.com/wineee/nur-packages"
+        },
+        "rhencloud": {
+            "url": "https://github.com/RhenCloud/nur-packages"
         },
         "robertodr": {
             "url": "https://github.com/robertodr/nur-packages"

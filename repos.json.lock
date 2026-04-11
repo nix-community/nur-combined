@@ -537,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "57ba8035772174d9e82649d25685ba91303a2391",
-            "sha256": "0nrz8zgmi81qkwr66jdi3yl6g14k2xmmgs28fyxqj9a3r85vd5yn",
+            "rev": "86b79aec512116e337957dc8dcac4214b3ceaec0",
+            "sha256": "10facsvj4vzb1pi1iwg4d50qj29x8m0rrllwqyyv233amd8pfndw",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1963,6 +1963,11 @@
             "sha256": "0z87pzaqdsd6ncwlbymkjk0vd0mlwjycqcrws2cvwdvkh4xvgccl",
             "url": "https://github.com/pokon548/nur-packages"
         },
+        "pq": {
+            "rev": "27180af0f73cd30fa2196576343966b865a2eeff",
+            "sha256": "0d2gh73rc2r9ys246w26zkgkg3zbbzcg2whp64wvz753hcbk2agb",
+            "url": "https://github.com/hostwithquantum/nur"
+        },
         "presto8": {
             "rev": "c85b3bd6c6cfcde0ca3cc50d7557df3a056d2372",
             "sha256": "0x8g7ny7k0rabvm9q9cdhfkn9f8l1hg3vgp8wa8cx6yp5xji9w61",
@@ -2063,6 +2068,11 @@
             "rev": "bf4255285847466cccce9536ba6e6967d2b55579",
             "sha256": "036ddmqihz2fp37y2cpvabhap1gmyb2g2lm6lwrm56rykda5kzan",
             "url": "https://github.com/wineee/nur-packages"
+        },
+        "rhencloud": {
+            "rev": "7c9bb1a76e9af071258572ca5f9646f9d5cba9b4",
+            "sha256": "1zji30kdr59crxlbdcglqd1l8q9229jyhgd3mzg8lhswp16nglf8",
+            "url": "https://github.com/RhenCloud/nur-packages"
         },
         "robertodr": {
             "rev": "42c30c742c16de61c7817c13fc7657951f57a8d4",
