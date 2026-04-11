@@ -241,8 +241,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "82f64871f1309d1dbfcbcb40f07d947c68330760",
-            "sha256": "0ylyfgkb8lzhi1j35kbnhmwdd6wzlb3fhjmb7sxx83l7v5lpm8mq",
+            "rev": "70aa91ba631483a36ad0e76b0d895356b2f95c2d",
+            "sha256": "0k2gp227vazbhqpfw6wj0k9wdfylmshi5xlyfrmi43xdqg64p78v",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1744,8 +1744,8 @@
             "url": "https://github.com/nginxinc/nur"
         },
         "nickheyer": {
-            "rev": "e06cba2d1e47025c1df81d8ae7c49799750435ba",
-            "sha256": "1qwnf27xzii4qj3qx9ir720i2022r3666hkrmkk79zdxich4dc8n",
+            "rev": "939eca76321c169c20575143de29440c5cb706c7",
+            "sha256": "070f38par40gj88v550bmclapb4rgndacj5z763n4clqiw1a38cl",
             "url": "https://github.com/nickheyer/nixpkg"
         },
         "nighthawk": {
