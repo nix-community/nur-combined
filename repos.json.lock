@@ -612,8 +612,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "9d4b87424866664bbb60b7ce8ca60438d7923a8f",
-            "sha256": "070lhk7s6w5w4wpb1xr50qcnw9kdw9bihfrx19mmk811ps0v2m4m",
+            "rev": "0d8dab04e1606fd494a4c10d2c5f6cc794393b62",
+            "sha256": "0fww06xv4d30qf39z2p8986zhflyjj0i3yhhnhyldqbrxdmr1m3m",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -2205,8 +2205,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "f5cb2626e874f19fba6df6cd87e4dedc9ab18b8f",
-            "sha256": "1g73rxaimymg1v2g1ndi476i4n8hxwvvg5mpb9c47yialn1d9bxv",
+            "rev": "e116de478610f20f20f7827492de61d885da6a22",
+            "sha256": "19hqkv3agz52dpd4h4jzdnxwhxsy7p5a0sjik5l0p75d2r1p6xdh",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
