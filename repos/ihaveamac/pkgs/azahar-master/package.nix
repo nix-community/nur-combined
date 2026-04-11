@@ -2,14 +2,18 @@
 
 azahar.overrideAttrs (final: prev: {
   pname = "azahar";
-  version = "2125.0-rc1-unstable-2026-03-17";
+  version = "2125.0.1-unstable-2026-04-09";
   src = fetchFromGitHub {
     owner = "azahar-emu";
     repo = "azahar";
-    rev = "ab39df3ff047b2a8ae962fad51f8c83d5d995d4e";
-    hash = "sha256-WohUIYMJSFNg3Vl8lqD/oaH92uv3OFNfsVZNDgoezRE=";
+    rev = "b2faa299d5890a65ff979fcb379d2b20d0ca36fc";
+    hash = "sha256-ctdU5NvIDIVPaQEaDADZfipMKCP1pxqPMlNCikKhhAM=";
     fetchSubmodules = true;
   };
+
+  # remove unnecessary patch
+  # TODO: remove this removal once nixpkgs has caught up
+  patches = [];
 
   meta = prev.meta // {
     description = prev.meta.description + " (master branch)";
