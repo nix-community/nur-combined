@@ -928,8 +928,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "7559af3c799d890fcb946fffa356ccb60640edbe",
-            "sha256": "1mrn5v772wkc95wnbnkhgflj1908n46l7db9idwa8bpcmhyv582i",
+            "rev": "4ed8594d438bba0edb9215aec755d77550b6d6f9",
+            "sha256": "16p0yd36726z122pdbl94yxh9ddmvbgfp22qi6jis8zv8g4him9y",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -2397,8 +2397,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "3fa173ddfdc36d2a4de3dbb0c157bb584a76ba93",
-            "sha256": "0f4vib5w5q2rmqszbs5m4xmzhzadc84rdfxa0isymkvdq4mwwkfw",
+            "rev": "d526dc1e4232dc62016a7069c40d9a5d6d889069",
+            "sha256": "1falazw62gvbcy6qbhazddrh2yzwr2nvxkyy4vx9728nsb137slx",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
