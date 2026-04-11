@@ -18,8 +18,8 @@ symlinkJoin (finalAttrs: let
     owner = "jmylchreest";
     repo = "rosec";
     # tag = "v${version}";
-    rev = "b4010d9907d66b3e9835698b391a61fdefcd5bd8";
-    hash = "sha256-+jmJtnLVpswGNv8VGqcNc/8ePS6kguDhQXLPLWJb0no=";
+    rev = "d4649c1a41b0a297f1577b376ca46364e059e51f";
+    hash = "sha256-fiwh9mV+t1x0mwHXI5aUmBxXzSFRg/k39ho4qzgzLD0=";
   };
 
   rosec_pam = stdenv.mkDerivation {
@@ -45,7 +45,7 @@ symlinkJoin (finalAttrs: let
     pname = "rosec-unwrapped";
     inherit version src;
 
-    cargoHash = "sha256-CdCVrwcimnU0rlZWU5bgaEJiNIgRX6Ba6MJkOFtcPtU=";
+    cargoHash = "sha256-Vuzz+pnoph5BJ/usOegcGGC4kFqFhdN5LZjBHJzMbgA=";
 
     nativeBuildInputs = [
       autoPatchelfHook

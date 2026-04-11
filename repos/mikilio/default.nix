@@ -30,6 +30,7 @@ in
     gateway-st = callPackage ./pkgs/gateway-st {};
     rclone_zus = callPackage ./pkgs/rclone_zus {};
     rosec = callPackage ./pkgs/rosec {};
+    rosec-bitwarden-pm = pkgsCross.wasi32.callPackage ./pkgs/rosec/provider/rosec_bitwarden_pm.nix {};
     xdg-terminal-exec = callPackage ./pkgs/xdg-terminal-exec {};
     xmclib = callPackage ./pkgs/xmclib {};
     gaia = callPackage ./pkgs/gaia {};
