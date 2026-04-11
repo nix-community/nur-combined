@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "lazy-mcp";
@@ -19,8 +21,10 @@ mkOpencodePlugin rec {
   buildCommand = "bun build src/index.ts --outfile dist/index.js --target node --format esm";
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin for skill-embedded MCP support with lazy loading";
     homepage = "https://github.com/orionpax1997/opencode-lazy-mcp";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

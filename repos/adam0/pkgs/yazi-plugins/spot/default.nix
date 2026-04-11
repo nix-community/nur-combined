@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "spot.yazi";
@@ -23,8 +25,10 @@ mkYaziPlugin rec {
   '';
 
   meta = {
+    # keep-sorted start
     description = "framework to build your own spotter";
     homepage = "https://github.com/AminurAlam/yazi-plugins/tree/main/spot.yazi";
     license = lib.licenses.gpl3Only;
+    # keep-sorted end
   };
 }

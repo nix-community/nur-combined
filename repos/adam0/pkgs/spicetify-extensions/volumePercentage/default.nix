@@ -1,7 +1,9 @@
 {
+  # keep-sorted start
   fetchFromGitHub,
   lib,
   mkSpicetifyExtension,
+  # keep-sorted end
 }:
 mkSpicetifyExtension {
   src = fetchFromGitHub {
@@ -14,8 +16,10 @@ mkSpicetifyExtension {
   name = "volumePercentage.js";
 
   meta = with lib; {
+    # keep-sorted start
     description = "Show volume percentage in Spicetify";
     homepage = "https://github.com/jeroentvb/spicetify-volume-percentage";
     license = licenses.mit;
+    # keep-sorted end
   };
 }

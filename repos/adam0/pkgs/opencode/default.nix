@@ -1,38 +1,45 @@
 {
-  lib,
-  stdenv,
+  # keep-sorted start
   autoPatchelfHook ? null,
   fetchurl,
-  makeWrapper,
-  unzip,
-  wrapBuddy ? null,
   fzf,
+  lib,
+  makeWrapper,
   ripgrep,
-  versionCheckHook,
+  stdenv,
+  unzip,
   versionCheckHomeHook ? null,
+  versionCheckHook,
+  wrapBuddy ? null,
   writeShellScriptBin,
+  # keep-sorted end
 }: let
   pname = "opencode-vim";
   versionData = builtins.fromJSON (builtins.readFile ./hashes.json);
   inherit (versionData) version hashes;
 
   platformMap = {
-    x86_64-linux = {
-      asset = "ocv-linux-x64.tar.gz";
-      isZip = false;
-    };
-    aarch64-linux = {
-      asset = "ocv-linux-arm64.tar.gz";
-      isZip = false;
-    };
-    x86_64-darwin = {
-      asset = "ocv-darwin-x64.zip";
-      isZip = true;
-    };
+    # keep-sorted start block=yes newline_separated=yes
     aarch64-darwin = {
       asset = "ocv-darwin-arm64.zip";
       isZip = true;
     };
+
+    aarch64-linux = {
+      asset = "ocv-linux-arm64.tar.gz";
+      isZip = false;
+    };
+
+    x86_64-darwin = {
+      asset = "ocv-darwin-x64.zip";
+      isZip = true;
+    };
+
+    x86_64-linux = {
+      asset = "ocv-linux-x64.tar.gz";
+      isZip = false;
+    };
+    # keep-sorted end
   };
 
   platform = stdenv.hostPlatform.system;
@@ -61,9 +68,11 @@ in
 
     buildInputs = lib.optionals stdenv.hostPlatform.isLinux [stdenv.cc.cc.lib];
 
-    dontConfigure = true;
+    # keep-sorted start
     dontBuild = true;
+    dontConfigure = true;
     dontStrip = true;
+    # keep-sorted end
 
     unpackPhase =
       ''
@@ -88,8 +97,10 @@ in
       wrapProgram $out/bin/opencode \
         --prefix PATH : ${
         lib.makeBinPath [
+          # keep-sorted start
           fzf
           ripgrep
+          # keep-sorted end
         ]
       }
 
@@ -99,21 +110,29 @@ in
     passthru.category = "AI Coding Agents";
 
     meta = {
-      description = "OpenCode Vim terminal AI coding agent";
-      longDescription = ''
-        OpenCode Vim is a terminal-based coding agent.
-        This package tracks the leohenon/opencode fork with the opencode-vim feature set.
-      '';
-      homepage = "https://github.com/leohenon/opencode";
+      # keep-sorted start block=yes newline_separated=yes
       changelog = "https://github.com/leohenon/opencode/releases/tag/v${version}";
+
+      description = "OpenCode Vim terminal AI coding agent";
+
+      homepage = "https://github.com/leohenon/opencode";
+
       license = lib.licenses.mit;
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+
+      longDescription = "OpenCode Vim is a terminal-based coding agent. This package tracks the leohenon/opencode fork with the opencode-vim feature set.";
+
+      mainProgram = "opencode";
+
       platforms = [
-        "x86_64-linux"
+        # keep-sorted start
+        "aarch64-darwin"
         "aarch64-linux"
         "x86_64-darwin"
-        "aarch64-darwin"
+        "x86_64-linux"
+        # keep-sorted end
       ];
-      mainProgram = "opencode";
+
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      # keep-sorted end
     };
   }

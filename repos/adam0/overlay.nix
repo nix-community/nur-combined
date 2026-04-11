@@ -4,9 +4,11 @@
 _self: super: let
   inherit
     (builtins)
-    listToAttrs
-    filter
+    # keep-sorted start
     attrNames
+    filter
+    listToAttrs
+    # keep-sorted end
     ;
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";

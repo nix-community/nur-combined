@@ -1,8 +1,10 @@
 let
   inherit
     (builtins)
+    # keep-sorted start
     fromJSON
     readFile
+    # keep-sorted end
     ;
 
   lock = fromJSON (readFile ./flake.lock);

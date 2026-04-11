@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "quotes";
@@ -26,8 +28,10 @@ mkOpencodePlugin rec {
   '';
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin that replaces the default home tips with motivational quotes";
     homepage = "https://github.com/aerovato/opencode-quotes-plugin";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

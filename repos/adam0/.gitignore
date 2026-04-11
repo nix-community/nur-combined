@@ -1,4 +1,5 @@
-result
-result-*
+# keep-sorted start
+result*
 .direnv
 .rumdl_cache
+# keep-sorted end

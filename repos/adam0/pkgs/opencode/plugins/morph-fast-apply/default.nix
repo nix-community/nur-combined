@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "morph-fast-apply";
@@ -23,8 +25,10 @@ mkOpencodePlugin rec {
   '';
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin for Morph Fast Apply - 10x faster code editing with lazy edit markers.";
     homepage = "https://github.com/JRedeker/opencode-morph-fast-apply";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

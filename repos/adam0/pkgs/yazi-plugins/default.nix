@@ -1,28 +1,36 @@
 {
-  lib,
+  # keep-sorted start
   callPackage,
+  lib,
   stdenvNoCC,
+  # keep-sorted end
 }: let
   inherit
     (builtins)
-    readDir
+    # keep-sorted start
     mapAttrs
+    readDir
+    # keep-sorted end
     ;
   inherit
     (lib)
+    # keep-sorted start
     filterAttrs
     pipe
     platforms
     removeSuffix
+    # keep-sorted end
     ;
 
   root = ./.;
 
   mkYaziPlugin = args @ {
+    # keep-sorted start
+    installPhase ? null,
+    meta ? {},
     pname,
     src,
-    meta ? {},
-    installPhase ? null,
+    # keep-sorted end
     ...
   }: let
     pluginName = removeSuffix ".yazi" pname;
@@ -53,8 +61,10 @@
         meta =
           meta
           // {
+            # keep-sorted start
             description = meta.description or "";
             platforms = meta.platforms or platforms.all;
+            # keep-sorted end
             homepage =
               if (src ? owner && src.owner == "yazi-rs")
               then "https://github.com/yazi-rs/plugins/tree/main/${pname}"

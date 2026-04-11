@@ -9,16 +9,20 @@
   inherit (builtins) isAttrs;
   inherit
     (pkgs)
-    lib
+    # keep-sorted start
     callPackage
+    lib
+    # keep-sorted end
     ;
   inherit
     (lib)
-    isDerivation
-    recurseIntoAttrs
+    # keep-sorted start
     filesystem
     filterAttrs
+    isDerivation
     mapAttrs
+    recurseIntoAttrs
+    # keep-sorted end
     ;
 
   normalizePackage = v:
@@ -39,14 +43,18 @@
 in
   {
     # The `lib`, `modules`, and `overlays` names are special
+    # keep-sorted start
+    hmModules = import ./hm-modules; # Home Manager modules.
     lib = import ./lib {inherit pkgs;}; # functions
     modules = import ./modules; # NixOS modules
     overlays = import ./overlays; # nixpkgs overlays
-    hmModules = import ./hm-modules; # Home Manager modules.
+    # keep-sorted end
 
+    # keep-sorted start
     fishPlugins = recurseCallPackage ./pkgs/fish-plugins;
     opencodePlugins = recurseCallPackage ./pkgs/opencode/plugins;
     spicetifyExtensions = recurseCallPackage ./pkgs/spicetify-extensions;
     yaziPlugins = recurseCallPackage ./pkgs/yazi-plugins;
+    # keep-sorted end
   }
   // allPackages

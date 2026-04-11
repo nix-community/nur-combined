@@ -1,7 +1,9 @@
 {
+  # keep-sorted start
+  fetchFromGitHub,
   lib,
   rustPlatform,
-  fetchFromGitHub,
+  # keep-sorted end
 }:
 rustPlatform.buildRustPackage rec {
   pname = "rust-mcp-server";
@@ -18,10 +20,12 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-DDfdAnu2WBno+jmMknmyeyJuuhChTEElnCN8aYdIxP4=";
 
   meta = with lib; {
+    # keep-sorted start
     description = "MCP server for development in Rust";
     homepage = "https://github.com/Vaiz/rust-mcp-server";
     license = licenses.unlicense;
     mainProgram = pname;
     platforms = platforms.unix;
+    # keep-sorted end
   };
 }

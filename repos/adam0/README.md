@@ -5,7 +5,8 @@
 
   Personal [NUR](https://github.com/nix-community/NUR) repository with curated packages, plugin sets, and a Home Manager module for OpenCode plugins.
 
-  [![CI](https://img.shields.io/github/actions/workflow/status/adam01110/nur/build.yml?branch=main&style=flat-square&label=CI&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/build.yml)
+  [![CI](https://img.shields.io/github/actions/workflow/status/adam01110/nur/ci.yml?branch=main&style=flat-square&label=CI&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/ci.yml)
+  [![Build](https://img.shields.io/github/actions/workflow/status/adam01110/nur/build.yml?branch=main&style=flat-square&label=Build&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/build.yml)
   [![Repo Size](https://img.shields.io/github/repo-size/adam01110/nur?style=flat-square&label=repo%20size&labelColor=504945&color=3c3836)](https://github.com/adam01110/nur)
   [![Cachix](https://img.shields.io/badge/cachix-adam01110--nur-689d6a?style=flat-square&labelColor=504945&color=689d6a)](https://adam01110-nur.cachix.org)
   [![NUR](https://img.shields.io/badge/NUR-adam0-458588?style=flat-square&labelColor=504945&color=458588)](https://github.com/nix-community/NUR)

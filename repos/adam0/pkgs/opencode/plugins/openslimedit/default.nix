@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "openslimedit";
@@ -25,8 +27,10 @@ mkOpencodePlugin rec {
   '';
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin that reduces token usage by compressing tool metadata";
     homepage = "https://github.com/ASidorenkoCode/openslimedit";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

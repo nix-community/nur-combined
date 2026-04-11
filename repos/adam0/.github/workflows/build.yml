@@ -1,5 +1,6 @@
+# yamllint disable rule:document-start
 name: "Build and populate cache"
-on:
+'on':
   pull_request:
   push:
     branches:
@@ -71,8 +72,16 @@ jobs:
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
       - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        # yamllint disable rule:line-length
+        run: >-
+          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        # yamllint enable rule:line-length
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
         if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+        env:
+          NUR_REPO: ${{ matrix.nurRepo }}
+        # yamllint disable rule:line-length
+        run: >-
+          curl -XPOST "https://nur-update.nix-community.org/update?repo=$NUR_REPO"
+        # yamllint enable rule:line-length

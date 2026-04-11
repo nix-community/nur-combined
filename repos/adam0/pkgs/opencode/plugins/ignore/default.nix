@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "ignore";
@@ -19,8 +21,10 @@ mkOpencodePlugin rec {
   buildCommand = "bun run build";
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin to restrict AI access to files and directories using .ignore patterns";
     homepage = "https://github.com/lgladysz/opencode-ignore";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

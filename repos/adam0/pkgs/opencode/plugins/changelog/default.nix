@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "changelog";
@@ -19,8 +21,10 @@ mkOpencodePlugin rec {
   buildCommand = "bun build src/index.ts --outdir dist --target node --format esm";
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin that adds a /changelog command";
     homepage = "https://github.com/tobwen/opencode-changelog";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

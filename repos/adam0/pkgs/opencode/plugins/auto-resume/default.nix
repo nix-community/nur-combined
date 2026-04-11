@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "auto-resume";
@@ -19,8 +21,10 @@ mkOpencodePlugin rec {
   buildCommand = "bun run build";
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin that automatically resumes stalled LLM sessions.";
     homepage = "https://github.com/Mte90/opencode-auto-resume";
     license = lib.licenses.gpl3Plus;
+    # keep-sorted end
   };
 }

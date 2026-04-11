@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "preview-cbz.yazi";
@@ -23,8 +25,10 @@ mkYaziPlugin rec {
   '';
 
   meta = {
+    # keep-sorted start
     description = "comic books and manga";
     homepage = "https://github.com/AminurAlam/yazi-plugins/tree/main/preview-cbz.yazi";
     license = lib.licenses.gpl3Only;
+    # keep-sorted end
   };
 }

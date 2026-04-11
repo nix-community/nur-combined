@@ -1,5 +1,6 @@
+# yamllint disable rule:document-start
 name: update-flake-lock
-on:
+'on':
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * 5"

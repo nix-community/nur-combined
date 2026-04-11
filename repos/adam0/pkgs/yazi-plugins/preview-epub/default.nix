@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "preview-epub.yazi";
@@ -23,8 +25,10 @@ mkYaziPlugin rec {
   '';
 
   meta = {
+    # keep-sorted start
     description = "cover of `.epub` files";
     homepage = "https://github.com/AminurAlam/yazi-plugins/tree/main/preview-epub.yazi";
     license = lib.licenses.gpl3Only;
+    # keep-sorted end
   };
 }

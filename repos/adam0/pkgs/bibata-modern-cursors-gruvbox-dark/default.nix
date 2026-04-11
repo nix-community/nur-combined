@@ -1,9 +1,11 @@
 {
-  lib,
-  stdenvNoCC,
+  # keep-sorted start
+  clickgen,
   fetchFromGitHub,
   fetchzip,
-  clickgen,
+  lib,
+  stdenvNoCC,
+  # keep-sorted end
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors-gruvbox-dark";
@@ -42,9 +44,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    # keep-sorted start
     description = "Bibata modern cursor (Gruvbox dark & left variant)";
     homepage = "https://github.com/adam01110/bibata-cursor";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
+    # keep-sorted end
   };
 }

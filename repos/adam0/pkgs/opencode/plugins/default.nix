@@ -1,30 +1,38 @@
 {
-  lib,
-  callPackage,
-  stdenvNoCC,
+  # keep-sorted start
   bun,
+  callPackage,
+  lib,
+  stdenvNoCC,
+  # keep-sorted end
 }: let
   inherit
     (builtins)
-    readDir
+    # keep-sorted start
     mapAttrs
+    readDir
+    # keep-sorted end
     ;
   inherit
     (lib)
+    # keep-sorted start
     filterAttrs
     pipe
     platforms
+    # keep-sorted end
     ;
 
   root = ./.;
 
   mkOpencodePlugin = args @ {
-    pname,
-    version,
-    src,
-    dependencyHash ? null,
+    # keep-sorted start
     buildCommand ? null,
+    dependencyHash ? null,
     meta ? {},
+    pname,
+    src,
+    version,
+    # keep-sorted end
     ...
   }: let
     deps =
@@ -34,9 +42,11 @@
           pname = "${pname}-deps";
           inherit version src;
 
+          # keep-sorted start
           dontBuild = true;
           dontFixup = true;
           dontUnpack = true;
+          # keep-sorted end
 
           installPhase = ''
             mkdir -p "$out/node_modules"
@@ -49,8 +59,10 @@
 
           nativeBuildInputs = [bun];
 
+          # keep-sorted start
           dontBuild = true;
           dontFixup = true;
+          # keep-sorted end
 
           installPhase = ''
             export HOME="$TMPDIR"
@@ -68,9 +80,11 @@
   in
     stdenvNoCC.mkDerivation (
       (removeAttrs args [
+        # keep-sorted start
         "buildCommand"
         "dependencyHash"
         "meta"
+        # keep-sorted end
       ])
       // {
         nativeBuildInputs = [bun] ++ (args.nativeBuildInputs or []);
@@ -96,8 +110,10 @@
         meta =
           meta
           // {
+            # keep-sorted start
             description = meta.description or "";
             platforms = meta.platforms or platforms.unix;
+            # keep-sorted end
           };
       }
     );

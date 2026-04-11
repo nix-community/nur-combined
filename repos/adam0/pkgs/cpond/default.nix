@@ -1,8 +1,10 @@
 {
-  lib,
-  stdenv,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   ncurses,
+  stdenv,
+  # keep-sorted end
 }:
 stdenv.mkDerivation rec {
   pname = "cpond";
@@ -25,11 +27,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = {
+  meta = with lib; {
+    # keep-sorted start
     description = "Procedurally animated fish for your terminal";
     homepage = "https://github.com/ayuzur/cpond";
-    license = lib.licenses.mit;
+    license = licenses.mit;
     mainProgram = pname;
-    platforms = lib.platforms.unix;
+    platforms = platforms.unix;
+    # keep-sorted end
   };
 }

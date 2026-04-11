@@ -1,12 +1,14 @@
 {
-  lib,
-  stdenvNoCC,
+  # keep-sorted start
   fetchFromGitHub,
-  gtk3,
-  plasma5Packages,
-  gnome-icon-theme,
-  hicolor-icon-theme,
   folder-color ? "plasma",
+  gnome-icon-theme,
+  gtk3,
+  hicolor-icon-theme,
+  lib,
+  plasma5Packages,
+  stdenvNoCC,
+  # keep-sorted end
 }:
 stdenvNoCC.mkDerivation {
   pname = "gruvbox-plus-icons";
@@ -24,9 +26,11 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [gtk3];
 
   propagatedBuildInputs = [
-    plasma5Packages.breeze-icons
+    # keep-sorted start
     gnome-icon-theme
     hicolor-icon-theme
+    plasma5Packages.breeze-icons
+    # keep-sorted end
   ];
 
   installPhase = ''
@@ -43,14 +47,18 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  dontDropIconThemeCache = true;
+  # keep-sorted start
   dontBuild = true;
   dontConfigure = true;
+  dontDropIconThemeCache = true;
+  # keep-sorted end
 
   meta = with lib; {
+    # keep-sorted start
     description = "Icon pack for Linux desktops based on the Gruvbox color scheme";
     homepage = "https://github.com/SylEleuth/gruvbox-plus-icon-pack";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
+    # keep-sorted end
   };
 }

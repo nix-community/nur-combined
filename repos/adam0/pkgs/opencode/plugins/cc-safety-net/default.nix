@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "cc-safety-net";
@@ -17,8 +19,10 @@ mkOpencodePlugin rec {
   dependencyHash = null;
 
   meta = {
+    # keep-sorted start
     description = "A coding agent hook that acts as a safety net";
     homepage = "https://github.com/kenryu42/claude-code-safety-net";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

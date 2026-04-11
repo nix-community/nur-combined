@@ -1,5 +1,6 @@
+# yamllint disable rule:document-start
 name: CI
-on:
+'on':
   push:
     branches:
       - main

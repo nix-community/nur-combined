@@ -1,9 +1,11 @@
 {
-  lib,
-  stdenvNoCC,
+  # keep-sorted start
+  clickgen,
   fetchFromGitHub,
   fetchzip,
-  clickgen,
+  lib,
+  stdenvNoCC,
+  # keep-sorted end
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors-classic";
@@ -21,9 +23,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-oV+igawdHK1wbAZhuACxvcNrddcpAoJ/eWJR88kSrvw=";
   };
 
-  nativeBuildInputs = [
-    clickgen
-  ];
+  nativeBuildInputs = [clickgen];
 
   buildPhase = ''
     runHook preBuild
@@ -44,9 +44,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    # keep-sorted start
     description = "Bibata modern cursor (Classic & left variant)";
     homepage = "https://github.com/adam01110/bibata-cursor";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
+    # keep-sorted end
   };
 }

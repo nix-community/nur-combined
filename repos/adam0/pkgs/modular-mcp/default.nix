@@ -1,15 +1,19 @@
 {
-  lib,
-  stdenv,
-  fetchFromGitHub,
+  # keep-sorted start
   bun,
+  fetchFromGitHub,
+  lib,
   makeWrapper,
   nodejs-slim,
+  stdenv,
+  # keep-sorted end
 }: let
   inherit
     (lib)
+    # keep-sorted start
     getExe
     makeBinPath
+    # keep-sorted end
     ;
 
   pname = "modular-mcp";
@@ -53,15 +57,19 @@
 in
   stdenv.mkDerivation {
     inherit
+      # keep-sorted start
       pname
-      version
       src
+      version
+      # keep-sorted end
       ;
 
     nativeBuildInputs = [
+      # keep-sorted start
       bun
       makeWrapper
       nodejs-slim
+      # keep-sorted end
     ];
 
     buildPhase = ''
@@ -102,10 +110,12 @@ in
     '';
 
     meta = with lib; {
+      # keep-sorted start
       description = "A Model Context Protocol (MCP) proxy server that enables efficient management of large tool collections";
       homepage = "https://github.com/d-kimuson/modular-mcp";
       license = licenses.mit;
       mainProgram = pname;
       platforms = platforms.unix;
+      # keep-sorted end
     };
   }

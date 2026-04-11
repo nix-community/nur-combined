@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "ucp.yazi";
@@ -15,8 +17,10 @@ mkYaziPlugin rec {
   };
 
   meta = {
+    # keep-sorted start
     description = "Integrates yazi copy/paste with system clipboard similar to GUI file managers";
     homepage = "https://github.com/simla33/ucp.yazi";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

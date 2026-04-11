@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "faster-piper.yazi";
@@ -15,8 +17,10 @@ mkYaziPlugin rec {
   };
 
   meta = {
+    # keep-sorted start
     description = "Pipe any shell command as a cached previewer";
     homepage = "https://github.com/alberti42/faster-piper.yazi";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

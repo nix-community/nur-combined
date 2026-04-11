@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "confirm-open.yazi";
@@ -15,8 +17,10 @@ mkYaziPlugin rec {
   };
 
   meta = {
+    # keep-sorted start
     description = "A Yazi plugin to show a confirmation popup when opening a large number of files";
     homepage = "https://github.com/walldmtd/confirm-open.yazi";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromCodeberg,
+  lib,
   mkOpencodePlugin,
+  # keep-sorted end
 }:
 mkOpencodePlugin rec {
   pname = "unmoji";
@@ -19,8 +21,10 @@ mkOpencodePlugin rec {
   buildCommand = "bun build src/index.ts --outdir dist --target node --format esm";
 
   meta = {
+    # keep-sorted start
     description = "OpenCode plugin that strips emojis from agent outputs in Opencode";
     homepage = "https://codeberg.org/bastiangx/opencode-unmoji";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

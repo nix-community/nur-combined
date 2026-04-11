@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   buildFishPlugin,
   fetchFromGitHub,
+  lib,
+  # keep-sorted end
 }:
 buildFishPlugin {
   pname = "fzfish";
@@ -15,8 +17,10 @@ buildFishPlugin {
   };
 
   meta = {
+    # keep-sorted start
     description = "Configurable fzf completions for fish shell";
     homepage = "https://github.com/adam01110/FzFish";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

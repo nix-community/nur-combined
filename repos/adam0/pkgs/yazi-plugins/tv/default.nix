@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "tv.yazi";
@@ -15,8 +17,10 @@ mkYaziPlugin rec {
   };
 
   meta = {
+    # keep-sorted start
     description = "Yazi's fuzzy finder plugin, but using television";
     homepage = "https://github.com/cap153/tv.yazi";
     license = lib.licenses.mit;
+    # keep-sorted end
   };
 }

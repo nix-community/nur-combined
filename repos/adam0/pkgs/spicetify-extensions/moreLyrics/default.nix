@@ -1,7 +1,9 @@
 {
+  # keep-sorted start
   fetchFromGitHub,
   lib,
   mkSpicetifyExtension,
+  # keep-sorted end
 }:
 mkSpicetifyExtension {
   src = "${fetchFromGitHub {
@@ -14,8 +16,10 @@ mkSpicetifyExtension {
   name = "more-lyrics.js";
 
   meta = with lib; {
+    # keep-sorted start
     description = "Show more lyrics providers in Spicetify";
     homepage = "https://github.com/Kamiloo13/spicetify-extensions";
     license = licenses.mit;
+    # keep-sorted end
   };
 }

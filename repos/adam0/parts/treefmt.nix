@@ -5,8 +5,8 @@
     treefmt.programs = {
       # keep-sorted start
       alejandra.enable = true;
-      nixf-diagnose.enable = true;
       deadnix.enable = true;
+      nixf-diagnose.enable = true;
       statix.enable = true;
       # keep-sorted end
 
@@ -16,6 +16,8 @@
       yamlfmt.enable = true;
       yamllint.enable = true;
       # keep-sorted end
+
+      keep-sorted.enable = true;
     };
   };
 }

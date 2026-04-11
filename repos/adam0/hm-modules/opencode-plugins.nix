@@ -1,25 +1,31 @@
 {
+  # keep-sorted start
   config,
   lib,
   pkgs,
+  # keep-sorted end
   ...
 }: let
   inherit
     (builtins)
+    # keep-sorted start
     attrNames
     filter
+    # keep-sorted end
     ;
   inherit
     (lib)
+    # keep-sorted start
+    genAttrs
     literalExpression
+    mkAfter
     mkEnableOption
     mkIf
-    mkOption
-    types
-    mkAfter
-    genAttrs
-    optionalAttrs
     mkMerge
+    mkOption
+    optionalAttrs
+    types
+    # keep-sorted end
     ;
   inherit (pkgs) callPackage;
 

@@ -11,14 +11,16 @@
 {pkgs ? import <nixpkgs> {}}: let
   inherit
     (builtins)
-    isAttrs
-    concatLists
-    attrValues
-    listToAttrs
-    filter
-    attrNames
+    # keep-sorted start
     all
+    attrNames
+    attrValues
+    concatLists
+    filter
+    isAttrs
     isList
+    listToAttrs
+    # keep-sorted end
     ;
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
@@ -62,9 +64,13 @@
         (filter (n: !isReserved n)
           (attrNames nurAttrs))));
 in rec {
+  # keep-sorted start
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
+  # keep-sorted end
 
+  # keep-sorted start
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
+  # keep-sorted end
 }

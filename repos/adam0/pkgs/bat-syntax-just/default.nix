@@ -1,7 +1,9 @@
 {
+  # keep-sorted start
+  fetchFromGitHub,
   lib,
   stdenvNoCC,
-  fetchFromGitHub,
+  # keep-sorted end
 }:
 stdenvNoCC.mkDerivation {
   pname = "bat-syntax-just";
@@ -26,9 +28,11 @@ stdenvNoCC.mkDerivation {
   dontBuild = true;
 
   meta = with lib; {
+    # keep-sorted start
     description = "Just syntax definition for bat";
     homepage = "https://github.com/nk9/just_sublime";
     license = licenses.mit;
     platforms = platforms.all;
+    # keep-sorted end
   };
 }

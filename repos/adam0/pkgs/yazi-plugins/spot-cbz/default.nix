@@ -1,7 +1,9 @@
 {
-  lib,
+  # keep-sorted start
   fetchFromGitHub,
+  lib,
   mkYaziPlugin,
+  # keep-sorted end
 }:
 mkYaziPlugin rec {
   pname = "spot-cbz.yazi";
@@ -23,8 +25,10 @@ mkYaziPlugin rec {
   '';
 
   meta = {
+    # keep-sorted start
     description = "comic books that have ComicInfo.xml";
     homepage = "https://github.com/AminurAlam/yazi-plugins/tree/main/spot-cbz.yazi";
     license = lib.licenses.gpl3Only;
+    # keep-sorted end
   };
 }
