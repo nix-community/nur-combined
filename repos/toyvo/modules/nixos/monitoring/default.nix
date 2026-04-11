@@ -45,17 +45,26 @@ let
     }
   '';
 
-  textfileDirLine = lib.optionalString (
-    cfg.textfileDirectory != null
-  ) "textfile_directory = \"${cfg.textfileDirectory}\"";
+  unixExporterBlock =
+    if cfg.textfileDirectory != null then
+      ''
+        prometheus.exporter.unix "node" {
+          disable_collectors = ["mdadm"]
+          textfile {
+            directory = "${cfg.textfileDirectory}"
+          }
+        }
+      ''
+    else
+      ''
+        prometheus.exporter.unix "node" {
+          disable_collectors = ["mdadm"]
+        }
+      '';
 
   alloyConfig = ''
     // Node metrics — push to Prometheus via remote_write
-    prometheus.exporter.unix "node" {
-      disable_collectors = ["mdadm"]
-      ${textfileDirLine}
-    }
-
+    ${unixExporterBlock}
     prometheus.scrape "node" {
       targets    = prometheus.exporter.unix.node.targets
       forward_to = [prometheus.relabel.instance.receiver]
