@@ -7,11 +7,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm-extracts";
-  version = "260312";
+  version = "260410";
 
   src = fetchurl {
     url = "https://download.geofabrik.de/russia/northwestern-fed-district-${finalAttrs.version}.osm.pbf";
-    hash = "sha256-hjyxZYtuqIAGTDEHgYtYmtS4IG3l7/NLrNH0S3uWu48=";
+    hash = "sha256-qwk/fkp/+wILqeKMAk++S1J6ZPlF2Jk0OfDAk5qlqNo=";
   };
 
   dontUnpack = true;
@@ -27,6 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
       osmium export $region-boundary.osm -o $region-boundary.geojson
       osmium tags-filter -o $region-water.osm $region.osm.pbf a/natural=water
       osmium export $region-water.osm -o $region-water.geojson
+      osmium tags-filter -o $region-river.osm $region.osm.pbf a/waterway=river
+      osmium export $region-river.osm -o $region-river.geojson
     done
 
     runHook postBuild
