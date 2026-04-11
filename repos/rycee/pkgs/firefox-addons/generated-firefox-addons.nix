@@ -2854,10 +2854,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "150.0.20260408.91313";
+      version = "150.0.20260410.90436";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757016/dansk_da_language_pack-150.0.20260408.91313.xpi";
-      sha256 = "6fb6cb8d2833dcab8ba315cbdde5c0f9c361a59034fcb4b10df57af97b41ae6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4759633/dansk_da_language_pack-150.0.20260410.90436.xpi";
+      sha256 = "18ca589b83fdbc9746e4ae15baa9d9172863c84ed124a701012146deae281a9d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3068,10 +3068,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "150.0.20260408.91313";
+      version = "150.0.20260410.90436";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757033/deutsch_de_language_pack-150.0.20260408.91313.xpi";
-      sha256 = "f9b67c3b8e06aa8c419b2a1ac6029ba1314435949822bad9dc458c54ddc8fb47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4759636/deutsch_de_language_pack-150.0.20260410.90436.xpi";
+      sha256 = "c7f1288630e18166746ccc3b4c5d42d5a7cc2c3af05bd3d369bf61eb8aa0cbfa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3773,10 +3773,10 @@
     };
     "enhancer-for-nebula" = buildMozillaXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.5";
+      version = "1.7.6";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4735236/enhancer_for_nebula-1.7.5.xpi";
-      sha256 = "25d02046dbc6b6307d8b0d9c36697f7d4c2b2361d82059dc1af0dbe55493ba2a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4760257/enhancer_for_nebula-1.7.6.xpi";
+      sha256 = "21a91a3c581d77438a2b4ca7e4182fbd28493d532bd163e569bb1d3bd9db8808";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -4274,10 +4274,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.9.0";
+      version = "5.9.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4752643/floccus-5.9.0.xpi";
-      sha256 = "48172cf1718709602b528977af9bdbba545e5fa2b539e4d52f23d72091418747";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4759586/floccus-5.9.1.xpi";
+      sha256 = "fd10810c818a6168a1c5bb67d95af33a29ed21d5c4978bfa79fd5bb342376263";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -4546,10 +4546,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "150.0.20260408.91313";
+      version = "150.0.20260410.90436";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757008/francais_language_pack-150.0.20260408.91313.xpi";
-      sha256 = "bf8fc6596abf41c45bfb21b86a7ca7edf8e9bd452079f9562e05cec1ed3fbc3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4759717/francais_language_pack-150.0.20260410.90436.xpi";
+      sha256 = "756f49087eb92d43a68477c694815a3a0dbe633b451efca3978dbbb227053480";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4583,10 +4583,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "150.0.20260408.91313";
+      version = "150.0.20260410.90436";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757046/gaidhlig_language_pack-150.0.20260408.91313.xpi";
-      sha256 = "47640ac9aadbeb587bc3fde4b39bb82ec379b8cb2990343e1a56388f921a069d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4759653/gaidhlig_language_pack-150.0.20260410.90436.xpi";
+      sha256 = "37c61c694addb7eef1ddc7286756954c6cfd20df77c65beddc7141daf1e0ae73";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4743,10 +4743,10 @@
     };
     "github-isometric-contributions" = buildMozillaXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.2.5";
+      version = "1.2.6";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4759084/github_isometric_contributions-1.2.5.xpi";
-      sha256 = "f7c15022844a2cd2d7aa27766eaede59007dd38d34346420562c61e523308c0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4759677/github_isometric_contributions-1.2.6.xpi";
+      sha256 = "8f4bdf96d914df81b22be95e96426c48e2efeb5601b4393065216e45b11d8f4e";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
@@ -13188,10 +13188,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "150.0.20260408.91313";
+      version = "150.0.20260410.90436";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757101/scots_language_pack-150.0.20260408.91313.xpi";
-      sha256 = "5e3ee120f090055c601e646d20ea9703265bcd34b55295623d0652b5e3e94d77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4759705/scots_language_pack-150.0.20260410.90436.xpi";
+      sha256 = "b35cf8a0029b9b2a92a265118d0ac1a15e74365acb24132464c8ca98e077b3a2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15819,10 +15819,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.2.5.2";
+      version = "10.2.26.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4714322/video_downloadhelper-10.2.5.2.xpi";
-      sha256 = "9653585ea05aefd24ccb933a8778bb9cb8a014f4ee2f73cfb3e08738b1acf5b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4729133/video_downloadhelper-10.2.26.2.xpi";
+      sha256 = "23f0d69c29cbb22f6c4b17defe87a2aa22502a4abb57314c3768f71f652cdfe0";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -15843,19 +15843,25 @@
           "storage"
           "notifications"
           "contextMenus"
+          "unlimitedStorage"
           "*://*.youtube.com/*"
           "*://*.vimeo.com/*"
           "*://*.facebook.com/*"
           "*://*.instagram.com/*"
           "*://*.ok.ru/*"
           "*://*.m.ok.ru/*"
-          "*://vk.com/*"
-          "*://vk.ru/*"
-          "*://vkvideo.ru/*"
+          "*://*.vk.com/*"
+          "*://*.vk.ru/*"
+          "*://*.vkvideo.ru/*"
           "*://live.vkvideo.ru/*"
           "*://*.canva.com/*"
           "*://*.iq.com/*"
           "*://*.twitcasting.tv/*"
+          "*://*.bilibili.tv/*"
+          "*://*.bilibili.com/*"
+          "*://*.taiav.com/*"
+          "*://*.osmosis.org/*"
+          "*://*.kick.com/*"
           "https://v10.downloadhelper.net/activate*"
           "https://app.v10.downloadhelper.net/activate*"
           "https://v10.downloadhelper.net/changelog*"
