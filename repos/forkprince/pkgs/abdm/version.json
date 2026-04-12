@@ -13,6 +13,11 @@
       "hash": "sha256-yE8olbYAd5YLms1w08GJUv+pXkLOCVFqBgmfy5JxG08=",
       "unpack": false
     },
+    "aarch64-linux": {
+      "file": "ABDownloadManager_{version}_linux_arm64.tar.gz",
+      "hash": "sha256-LfJECGQhNrJB6/tRkB9hr8xePl407z+TQKxCpMAEAxI=",
+      "unpack": false
+    },
     "x86_64-darwin": {
       "file": "ABDownloadManager_{version}_mac_x64.tar.gz",
       "hash": "sha256-Hkyf+ES1wileBI3G0BuAllT48mZsO6sDEH2pH6WknVU=",
