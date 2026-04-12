@@ -101,6 +101,7 @@
        "\eG": "\C-a\C-kfd -j 1 -L\C-m"
 
        # nix stuff
+       "\eo\eh": "https://"
        "\eo\en": "/nix/store/"
        "\eo\eN": "/nixfs/"
 

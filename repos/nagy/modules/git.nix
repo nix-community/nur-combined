@@ -18,11 +18,15 @@ in
 
   programs.ssh.extraConfig = ''
     Host github.com gitlab.com git.sr.ht codeberg.org
+      User git
       IdentitiesOnly yes
-      IdentityFile ~/.ssh/id_nagy
+      # IdentityFile ~/.ssh/id_nagy
+      IdentityFile /run/user/%i/ssh_id_nagy
     Host git.wiit.one
+      User git
       IdentitiesOnly yes
-      IdentityFile ~/.ssh/id_nagywiit
+      # IdentityFile ~/.ssh/id_nagywiit
+      IdentityFile /run/user/%i/ssh_id_nagywiit
   '';
 
   programs.git = {
@@ -79,9 +83,9 @@ in
         };
         # https://baecher.dev/stdout/reproducible-git-bundles/
         # to make packs reproducible
-        pack.threads = 1;
-        # another attempt. untested.
-        index.threads = 1;
+        # pack.threads = 1;
+        # # another attempt. untested.
+        # index.threads = 1;
         tar = {
           "tar.xz".command = "${pkgs.xz}/bin/xz -c";
           "tar.bz2".command = "${pkgs.bzip2}/bin/bzip2 -c";
@@ -182,22 +186,19 @@ in
         };
       }
       {
-        includeIf."hasconfig:remote.*.url:git@github.com:*/**".path =
+        # url."git@github.com:".insteadOf = "https://github.com/";
+        # url."git@gitlab.com:".insteadOf = "https://gitlab.com/";
+        # url."git@git.sr.ht:".insteadOf = "https://git.sr.ht/";
+        # url."git@codeberg.org:".insteadOf = "https://codeberg.org/";
+        includeIf."hasconfig:remote.*.url:https://github.com/*/**".path =
           pkgs.writeText "gitconfig-includeIf" ''
             [commit]
                 gpgsign = true
           '';
       }
       {
-        includeIf."hasconfig:remote.*.url:git@github.com:wiit-cloud/**".path =
-          pkgs.writeText "gitconfig-includeIf" ''
-            [user]
-                email = daniel.nagy@wiit.cloud
-                signingkey = /home/user/.ssh/id_nagywiit
-          '';
-      }
-      {
-        includeIf."hasconfig:remote.*.url:git@git.wiit.one:*/**".path =
+        url."git@git.wiit.one:".insteadOf = "https://git.wiit.one/";
+        includeIf."hasconfig:remote.*.url:https://git.wiit.one/*/**".path =
           pkgs.writeText "gitconfig-includeIf" ''
             [commit]
                 gpgsign = true
