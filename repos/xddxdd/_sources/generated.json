@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.23",
-            "sha256": "sha256-4w+MhAN0BrL8o7ecnNMZ7pbGsY0CTewECvUtfpaDfSQ=",
+            "rev": "v6.9.24",
+            "sha256": "sha256-VG3CA4IgGDi1vVii8zRLtGUFMLwkt2IBLQNIDRYi5IA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.23"
+        "version": "v6.9.24"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2316,12 +2316,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8763",
-            "sha256": "sha256-FTDI3p9qBvqfMd81ewbO+RRF3fs01LSTM5xl3Ry8fjc=",
+            "rev": "b8766",
+            "sha256": "sha256-4L3eWifQruRAvx1R0BiPZi6vxtdTgK1skVtxuQRcUxE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8763"
+        "version": "b8766"
     },
     "loralib": {
         "cargoLock": null,
@@ -3336,7 +3336,7 @@
     },
     "pyosmocom": {
         "cargoLock": null,
-        "date": "2026-03-13",
+        "date": "2026-03-26",
         "extract": null,
         "name": "pyosmocom",
         "passthru": null,
@@ -3346,13 +3346,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e",
-            "sha256": "sha256-PIRr5V8hVaqyVl7zW8WJq+revjYDaJ+l/gPVUI9Cdk4=",
+            "rev": "75785e4500bc501dd15c48ad5587b76f78d08373",
+            "sha256": "sha256-ta45NLidA3PkXl5EyvsTxNL0FC3PlR5Nmd+T8k1HC2E=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitea.osmocom.org/osmocom/pyosmocom.git"
         },
-        "version": "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e"
+        "version": "75785e4500bc501dd15c48ad5587b76f78d08373"
     },
     "pysctp": {
         "cargoLock": null,
@@ -3777,11 +3777,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iNRDQsDg8G58mSkDnzoGUVfWX3YezIWVwl5CJMKB+wE=",
+            "sha256": "sha256-qIFkaDdivE7tOQmk0TpNB8wov5iazegX7eJjMB+lFe0=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260315/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260412/moegirl.dict.yaml"
         },
-        "version": "20260315"
+        "version": "20260412"
     },
     "rime-zhwiki": {
         "cargoLock": null,

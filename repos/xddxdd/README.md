@@ -106,7 +106,7 @@ Or, use variables from this repository in case I change them:
 |  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1130.68 | Browser from 360 |
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.1 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.23 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.24 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
@@ -212,7 +212,7 @@ Or, use variables from this repository in case I change them:
 |  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.12.1-unstable-2026-04-01 | Server control plane for Pterodactyl Panel |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
 |  | `pyhss` | [pyhss](https://github.com/nickvsnetworking/pyhss) | 1.0.2-unstable-2025-04-03 | Python HSS / Diameter Server |
-|  | `pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2026-03-13 | Python implementation of key Osmocom protocols/interfaces |
+|  | `pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2026-03-26 | Python implementation of key Osmocom protocols/interfaces |
 |  | `pysctp` | [pysctp](https://github.com/p1sec/pysctp) | 0.7.3 | SCTP stack for Python |
 |  | `pytorch-wpe` | [pytorch-wpe](https://github.com/nttcslab-sp/dnn_wpe) | 0.0.1 | WPE implementation using PyTorch |
 |  | `qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 10.2.2+ds-1 | Generic and open source machine emulator and virtualizer |
@@ -230,7 +230,7 @@ Or, use variables from this repository in case I change them:
 |  | `rime-custom-pinyin-dictionary` | [rime-custom-pinyin-dictionary](https://github.com/wuhgit/CustomPinyinDictionary) | 20260101 | 自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 0-unstable-2026-03-14 | RIME 词库增强 |
 |  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2026-04-06 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
-|  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20260315 | RIME dictionary file for entries from zh.moegirl.org.cn |
+|  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20260412 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
@@ -420,7 +420,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 8.0.1 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.16.1 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 8763 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 8766 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.4.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -1053,7 +1053,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.open-webui-kb-manager` | [open-webui-kb-manager](https://github.com/dubh3124/OpenWebUI-KB-Manager) | 0.2.0 | Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI |
 |  | `python3Packages.opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
 |  | `python3Packages.py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
-|  | `python3Packages.pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2026-03-13 | Python implementation of key Osmocom protocols/interfaces |
+|  | `python3Packages.pyosmocom` | [pyosmocom](https://gitea.osmocom.org/osmocom/pyosmocom) | 0-unstable-2026-03-26 | Python implementation of key Osmocom protocols/interfaces |
 |  | `python3Packages.pysctp` | [pysctp](https://github.com/p1sec/pysctp) | 0.7.3 | SCTP stack for Python |
 |  | `python3Packages.pytorch-wpe` | [pytorch-wpe](https://github.com/nttcslab-sp/dnn_wpe) | 0.0.1 | WPE implementation using PyTorch |
 |  | `python3Packages.rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
@@ -1089,7 +1089,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
 |  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1130.68 | Browser from 360 |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.1 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.23 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 6.9.24 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-04 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
@@ -1189,7 +1189,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.rime-custom-pinyin-dictionary` | [rime-custom-pinyin-dictionary](https://github.com/wuhgit/CustomPinyinDictionary) | 20260101 | 自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。 |
 |  | `uncategorized.rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 0-unstable-2026-03-14 | RIME 词库增强 |
 |  | `uncategorized.rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 0-unstable-2026-04-06 | Rime 配置：雾凇拼音 | 长期维护的简体词库 |
-|  | `uncategorized.rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20260315 | RIME dictionary file for entries from zh.moegirl.org.cn |
+|  | `uncategorized.rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20260412 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
 |  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.9-unstable-2026-04-10 | Sipwise media proxy for Kamailio |

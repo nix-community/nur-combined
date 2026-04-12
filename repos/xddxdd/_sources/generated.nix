@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.23";
+    version = "v6.9.24";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.23";
-      hash = "sha256-4w+MhAN0BrL8o7ecnNMZ7pbGsY0CTewECvUtfpaDfSQ=";
+      tag = "v6.9.24";
+      hash = "sha256-VG3CA4IgGDi1vVii8zRLtGUFMLwkt2IBLQNIDRYi5IA=";
     };
   };
   cockpy = {
@@ -1192,12 +1192,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8763";
+    version = "b8766";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8763";
-      hash = "sha256-FTDI3p9qBvqfMd81ewbO+RRF3fs01LSTM5xl3Ry8fjc=";
+      tag = "b8766";
+      hash = "sha256-4L3eWifQruRAvx1R0BiPZi6vxtdTgK1skVtxuQRcUxE=";
     };
   };
   loralib = {
@@ -1712,14 +1712,14 @@
   };
   pyosmocom = {
     pname = "pyosmocom";
-    version = "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e";
+    version = "75785e4500bc501dd15c48ad5587b76f78d08373";
     src = fetchgit {
       url = "https://gitea.osmocom.org/osmocom/pyosmocom.git";
-      rev = "bcf8b02b6a9d6b6e5738ed102501a2ba7fee105e";
+      rev = "75785e4500bc501dd15c48ad5587b76f78d08373";
       fetchSubmodules = false;
-      hash = "sha256-PIRr5V8hVaqyVl7zW8WJq+revjYDaJ+l/gPVUI9Cdk4=";
+      hash = "sha256-ta45NLidA3PkXl5EyvsTxNL0FC3PlR5Nmd+T8k1HC2E=";
     };
-    date = "2026-03-13";
+    date = "2026-03-26";
   };
   pysctp = {
     pname = "pysctp";
@@ -1939,10 +1939,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260315";
+    version = "20260412";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260315/moegirl.dict.yaml";
-      hash = "sha256-iNRDQsDg8G58mSkDnzoGUVfWX3YezIWVwl5CJMKB+wE=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260412/moegirl.dict.yaml";
+      hash = "sha256-qIFkaDdivE7tOQmk0TpNB8wov5iazegX7eJjMB+lFe0=";
     };
   };
   rime-zhwiki = {
