@@ -19,7 +19,7 @@ in
   lib3to6 = pyfinal.callPackage ./pkgs/lib3to6/default.nix { };
   markdown-katex = pyfinal.callPackage ./pkgs/markdown-katex/default.nix { inherit lib3to6; };
   protobuf-inspector = pyfinal.callPackage ./pkgs/protobuf-inspector/default.nix { };
-  pyghidra = pyfinal.callPackage ./pkgs/pyghidra/default.nix { };
+  # pyghidra = pyfinal.callPackage ./pkgs/pyghidra/default.nix { };
   pyinstxtractor-ng = pyfinal.callPackage ./pkgs/pyinstxtractor-ng/default.nix { inherit xdis; };
   xasm = pyfinal.callPackage ./pkgs/xasm/default.nix { inherit xdis x-python; };
   inherit xdis;
