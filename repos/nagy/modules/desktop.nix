@@ -41,7 +41,6 @@ in
     pkgs.scrot
     self.nsxivBigThumbs
     pkgs.xclip
-    pkgs.brave
     pkgs.pulsemixer
     pkgs.poppler-utils # pdf utils
     pkgs.yt-dlp
