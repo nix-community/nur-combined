@@ -1699,8 +1699,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "4489e851c067b1b6b40f0657f2df9aca9796ae1e",
-            "sha256": "0dwz093hn03l173nxi8rsk0gbvbgfv3vd3i055inqcyvnj4rfzzf",
+            "rev": "e966a86c31ca8a1e883d16c5ede4fea6174cad9a",
+            "sha256": "0ypz8gf0ym3n3gz77nqqgnv24612a9if7z4s7lkg3bcp6561x27s",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
@@ -2412,8 +2412,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "868b34080db056a2d3609c78db46d344c21a68e1",
-            "sha256": "0bqnwi4lfipz7h0p43y492d9wfgspd6zd2gm01qhhm5jx99bk4nc",
+            "rev": "810bad544329b6b24ce49cc9e14960eb52811d18",
+            "sha256": "1siamvxdvdj2fbzlc2izx2428nlqg8pzpva1xmffh87vxv37qwx1",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
