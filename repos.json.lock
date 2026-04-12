@@ -2050,8 +2050,8 @@
             "url": "https://github.com/rencire/nur-packages"
         },
         "renesat": {
-            "rev": "a4080a6c9e7cdb0cfc0be3e3cf17672a3a6439c4",
-            "sha256": "1zy5ail8fz47rha5fivjr88knahdksk3h1pm54in6rawyqax3ykx",
+            "rev": "6e553b193510f7aa8aac507b925f67346a408df6",
+            "sha256": "0hxmbpi28n14kh4nal9x9w7cx0xa919cf8b83rl2njspklpz9n9g",
             "url": "https://github.com/renesat/nur-renesat"
         },
         "ressu": {
