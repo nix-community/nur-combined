@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "d6466addd30afb15c87e281a2d37863833a8781d",
-            "sha256": "0bpa6icryvxdbyajr5inl7sgqhli60zb66ackahp8rh6rxk0zwpi",
+            "rev": "f3a0b5916a703d5d1b93c3bb317c2415775efd95",
+            "sha256": "1n29c8f3g14nq0bp3r8byarwbcy5indzx4crmkd7gqid02cdssdm",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -1699,8 +1699,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "ce67d239a131828103b5a14e39973eafdcc52132",
-            "sha256": "1jhqk1738w6nckd6g52vdi5i0kvx0zn6yvd4p80dfkvc1vbccmlb",
+            "rev": "d8eaf644cfa68805783303f5fb1ca387ef263cb3",
+            "sha256": "0za4ldfia95lsrylqn1d5im8vn4lx4vj08kdk82xjjk3aq7jmcii",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
