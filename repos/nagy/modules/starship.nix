@@ -26,6 +26,8 @@ in
         (lib.replaceStrings [ "[python]\n" ] [ "[python]\ndisabled = true\n" ])
         (lib.replaceStrings [ "[package]\n" ] [ "[package]\ndisabled = true\n" ])
         (lib.replaceStrings [ "[rust]\n" ] [ "[rust]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[deno]\n" ] [ "[deno]\ndisabled = true\n" ])
+        (lib.replaceStrings [ "[go]\n" ] [ "[go]\ndisabled = true\n" ])
         (lib.replaceStrings [ "[terraform]\n" ] [ "[terraform]\ndisabled = true\n" ])
       ]}
     '').outPath;

@@ -13,13 +13,15 @@
     pkgs.argocd
     pkgs.k9s
     pkgs.crane
-    pkgs.calicoctl
+    # pkgs.calicoctl
     pkgs.nerdctl
-    pkgs.cri-tools
+    # pkgs.cri-tools
     pkgs.kind
+    pkgs.kubeconform
 
-    # Userful tools for k8s development
+    # carvel tools, useful for k8s development
     pkgs.ytt
+    pkgs.vendir
     pkgs.yamllint
     pkgs.sops
     pkgs.kustomize
@@ -138,7 +140,7 @@
       "kubectl"
       "exec"
     ];
-    keti = [
+    keit = [
       "kubectl"
       "exec"
       "-it"
@@ -159,5 +161,8 @@
     #   "kubectl"
     #   "delete"
     # ];
+    kz = [
+      "kustomize"
+    ];
   };
 }
