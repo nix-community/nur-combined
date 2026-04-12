@@ -1,28 +1,28 @@
 [
   {
     "pname": "Aiursoft.AiurObserver",
-    "version": "10.0.0",
-    "hash": "sha256-d6tIGf28Kz39ytEWJsVIHZB3dDvv3xonpMb7XFTe1AM="
+    "version": "10.0.6",
+    "hash": "sha256-I0MaZoCh97gFiv+rylUFtQObPdiBbvZ5bC1gbEVsIsA="
   },
   {
     "pname": "Aiursoft.AiurObserver.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-ctqNN3129NJTuk5OaBGMZVUk4SkYTfP8JXwiiogiCMk="
+    "version": "10.0.6",
+    "hash": "sha256-LR2Swv3HeajKNfT0004nD/cNFQWdB1JpeMHbvs4bJU0="
   },
   {
     "pname": "Aiursoft.AiurObserver.Extensions",
-    "version": "10.0.0",
-    "hash": "sha256-qRxd9YZzxLmMcEDT9qENyHY/Fkk/yOQu8ildaW2KSnc="
+    "version": "10.0.6",
+    "hash": "sha256-S1IWzZraBc6fzD7T55ANqMQWWUmYucGyWbrOtoIO0mA="
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket",
-    "version": "10.0.5",
-    "hash": "sha256-uZcy6TfGy3lyDVxwfTYFUwCG4ObI3jNIo0ko7pwv7mY="
+    "version": "10.0.6",
+    "hash": "sha256-KylvLPTgoeKHFcDBvIkdKz/YhWcVblmuVHqdciN3C9s="
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket.Server",
-    "version": "10.0.5",
-    "hash": "sha256-V9LuFZUypSIQQ9z4A8pVvjGJlMPrtL6K1Y7A+8ym3HI="
+    "version": "10.0.6",
+    "hash": "sha256-Ln3hfv1Z7BWmzh25cmV+AicxW7bB9OpBJ/zbVfsHbDk="
   },
   {
     "pname": "Aiursoft.Canon",
