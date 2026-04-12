@@ -2175,8 +2175,8 @@
             "url": "https://github.com/stigtsp/nur"
         },
         "shackra": {
-            "rev": "149f8d20bc76f040b520aca67dfe0a7ef3695aa7",
-            "sha256": "0gzxq3wpxg1jcgsibkwqjg2ifbnqlv8dg50mdxjah1s1119fv34j",
+            "rev": "db10b390e0aad188eeb17dae0d39cd1fa344f5dc",
+            "sha256": "1l5xrh0jkwip6jir5jp87vl1lc1q3jxpqgadab5wyf8fkwiykq58",
             "url": "https://github.com/shackra/nur"
         },
         "shados": {
