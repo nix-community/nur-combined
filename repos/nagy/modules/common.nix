@@ -60,7 +60,6 @@ in
     optipng
     taplo
     libjxl
-    perl # needed for magit cherry spinout
     jqfmt
     jless
     self.all-converters

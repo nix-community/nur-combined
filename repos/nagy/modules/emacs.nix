@@ -16,6 +16,20 @@ let
     (
       nur.repos.nagy.emacsPackages # add all packages from this repository
       // {
+
+        magit = super.magit.overrideAttrs (
+          {
+            postPatch ? "",
+            ...
+          }:
+          {
+            # needed for magit cherry spinout
+            postPatch = postPatch + ''
+              substituteInPlace lisp/magit-sequence.el \
+                --replace-fail 'magit-perl-executable "perl"' 'magit-perl-executable "${lib.getExe pkgs.perl}"'
+            '';
+          }
+        );
         sotlisp = super.sotlisp.overrideAttrs {
           src = pkgs.fetchFromGitHub {
             owner = "nagy";
@@ -118,9 +132,11 @@ in
         [ epkgs.treesit-grammars.with-all-grammars ]
         ++ (mkDirectoryPackagesValues cfg.packageDirectories epkgs)
       ))
+      # perl # needed for magit cherry spinout
     ];
 
     # to allow "malloc-trim" to trim memory of emacs.
-    boot.kernel.sysctl."kernel.yama.ptrace_scope" = lib.mkForce 0;
+    # somehow it seems to work without this now.
+    # boot.kernel.sysctl."kernel.yama.ptrace_scope" = lib.mkForce 0;
   };
 }

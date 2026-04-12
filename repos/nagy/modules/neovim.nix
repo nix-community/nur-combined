@@ -26,7 +26,20 @@
         vim.opt.cursorline = true
         vim.opt.mouse = 'a'
         vim.opt.clipboard = 'unnamedplus'
-        vim.g.clipboard = 'osc52'
+
+        -- Just from ssh -> desktop, not desktop -> ssh
+        -- vim.g.clipboard = 'osc52'
+        -- vim.g.clipboard = {
+        --   name = 'OSC 52',
+        --   copy = {
+        --     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+        --     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+        --   },
+        --   paste = {
+        --     ['+'] = function() return {} end,
+        --     ['*'] = function() return {} end,
+        --   },
+        -- }
 
         -- Keybindings without a plugin
         vim.g.mapleader = " "

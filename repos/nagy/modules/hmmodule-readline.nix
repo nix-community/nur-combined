@@ -73,6 +73,9 @@
       "\e\C-Dm": dump-macros
       "\e\C-Dv": dump-variables
 
+      # Unbind
+      "\C-o":
+
       $if Bash
         # Do history expansion on !$/!^/!!/!* when space is pressed
         Space: magic-space

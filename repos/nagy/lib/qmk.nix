@@ -15,8 +15,23 @@
         src = pkgs.fetchFromGitHub {
           owner = "qmk";
           repo = "qmk_firmware";
-          rev = "0.26.0";
-          sha256 = "sha256-TfsLZ/xMUfL/B457YqXfVDhbixJoxnkIFoH6bpqam94=";
+          rev = "0.20.7";
+          hash = "sha256-S6EuLiMbJp7sgAVGV0M9DuinuVLwQ9hStjlA5w9VxOo=";
+          # Beginning with this firmware version or earlier, it seems
+          # that a key, when pressed with a combination, is only
+          # registered once the second key is released. For example
+          # super-q is only registered when q is released and not when
+          # pressed.
+          # Could it have something todo with the permissive hold feature?
+          # https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md
+          # maybe this could be the solution https://docs.qmk.fm/tap_hold#hold-on-other-key-press
+          # this could be the changelog entry: https://docs.qmk.fm/ChangeLog/20230528#i-m-t-i
+          # rev = "0.26.0";
+          # hash = "sha256-TfsLZ/xMUfL/B457YqXfVDhbixJoxnkIFoH6bpqam94=";
+          # rev = "0.27.9";
+          # hash = "sha256-bxzjcUYvDMoY6WZSpOpq2dJKHW/KgdUhPmkLoBvvbVg=";
+          # rev = "0.28.5";
+          # hash = "sha256-pY8WFXGihltJrakjaQgePlDUlpJBsibjmxOhKLmFIbY=";
           fetchSubmodules = true;
         };
 
