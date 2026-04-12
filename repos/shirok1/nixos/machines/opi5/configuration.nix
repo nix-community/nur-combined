@@ -233,6 +233,47 @@
     enable = true;
   };
 
+  services.home-assistant = {
+    enable = true;
+    openFirewall = true;
+    extraComponents = [
+      # Components required to complete the onboarding
+      "analytics"
+      "google_translate"
+      "met"
+      "radio_browser"
+      "shopping_list"
+      # Recommended for fast zlib compression
+      # https://www.home-assistant.io/integrations/isal
+      "isal"
+
+      "bthome"
+      "esphome"
+      "mqtt"
+      "mqtt_eventstream"
+      "mqtt_json"
+      "mqtt_room"
+      "mqtt_statestream"
+      "ping"
+      "qbittorrent"
+      "tasmota"
+      "upnp"
+      # "waqi"
+      "xiaomi_ble"
+
+      "ffmpeg"
+      "zeroconf"
+    ];
+    config = {
+      # Includes dependencies for a basic setup
+      # https://www.home-assistant.io/integrations/default_config/
+      default_config = { };
+      "automation ui" = "!include automations.yaml";
+      "scene ui" = "!include scenes.yaml";
+      "script ui" = "!include scripts.yaml";
+    };
+  };
+
   services.mosquitto = {
     enable = true;
     listeners = [
@@ -259,7 +300,7 @@
   };
 
   services.qbittorrent-clientblocker = {
-    enable = true;
+    enable = false;
     settings = {
       checkUpdate = false;
       clientType = "qBittorrent";
@@ -295,7 +336,7 @@
 
   services.komga = {
     enable = true;
-    port = 4568;
+    settings.server.port = 4568;
     openFirewall = true;
   };
 
