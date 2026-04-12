@@ -47,17 +47,10 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "expr": "probe_success{instance=\"router\", name=\"google-dns\"}",
+          "expr": "probe_success{instance=\"router\"}",
           "instant": true,
-          "legendFormat": "Google DNS",
+          "legendFormat": "{{name}}",
           "refId": "A"
-        },
-        {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "expr": "probe_success{instance=\"router\", name=\"cloudflare-dns\"}",
-          "instant": true,
-          "legendFormat": "Cloudflare DNS",
-          "refId": "B"
         }
       ],
       "title": "Internet Status",
