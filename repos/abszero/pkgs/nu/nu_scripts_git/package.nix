@@ -5,8 +5,8 @@ nu_scripts.overrideAttrs (
     src = fetchFromGitHub {
       owner = "nushell";
       repo = "nu_scripts";
-      rev = "cde594832fba2c21370278bcea1932ad449c2f6f";
-      hash = "sha256-I2FETue1KqS/3GKovgYblWrFteOepfGLjp4hWWoAZug=";
+      rev = "341154f469b0fbb5bc5b69e591ba97ebf0e58fdb";
+      hash = "sha256-94u6d6WyyyamUn4a4p8O9Ujl9R56p1JxthuS03B4auw=";
     };
   }
 )
