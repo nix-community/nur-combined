@@ -26,6 +26,10 @@ buildGoModule rec {
         "-X=github.com/surge-downloader/surge/cmd.BuildTime=1970-01-01T00:00:00Z"
     ];
 
+    postInstall = ''
+        mv $out/bin/Surge $out/bin/surge
+    '';
+
     meta = {
         description = "Surge is a blazing fast, open-source terminal (TUI) download manager built in Go";
         homepage = "https://github.com/surge-downloader/surge";
