@@ -1557,8 +1557,8 @@
             "url": "https://github.com/mhuesch/nur-packages"
         },
         "mic92": {
-            "rev": "e43e00ece5ca66066e39d6e1c123d26867103e1d",
-            "sha256": "1x638c8x229rjcmnpdildkz5z86qksrfailh1wih6szbdf3b781v",
+            "rev": "51fdd557671a44fa07304d5863f45710ef9512f7",
+            "sha256": "0b5r8lq58saraqvdxla6m4b7mgq6xs8fqzfgiifbjfnjikfd50wq",
             "url": "https://github.com/Mic92/nur-packages"
         },
         "mich-adams": {
@@ -2407,8 +2407,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "49c914803df544d8e05d547da595a59c31f15c02",
-            "sha256": "12lw5z50g3ha974p4z850bphyqiwmc2rsi32kvb44z7668gyk37p",
+            "rev": "9055d846fdd7a1e93f42d0884f4542aee5f6cb92",
+            "sha256": "16rv4d4p63w6ni98z5xn5rxiy4d54gfpgbnc9rwlf7vbfqnfd56s",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
