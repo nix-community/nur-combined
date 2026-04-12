@@ -81,19 +81,7 @@ let
       lib.mapAttrsToList mkPeer otherPeers;
 
     # Set up clients to use configured DNS servers
-    dns =
-      let
-        toInternalIps = peer: [
-          "${cfg.net.v4.subnet}.${toString peer.clientNum}"
-          "${cfg.net.v6.subnet}::${toString peer.clientNum}"
-        ];
-        # We know that `otherPeers` is an attribute set of servers
-        internalIps = lib.flatten
-          (lib.mapAttrsToList (_: peer: toInternalIps peer) otherPeers);
-        internalServers = lib.optionals cfg.dns.useInternal internalIps;
-      in
-      lib.mkIf (!thisPeerIsServer)
-        (internalServers ++ cfg.dns.additionalServers);
+    dns = cfg.dns.additionalServers;
   };
 in
 {
@@ -122,10 +110,6 @@ in
     };
 
     dns = {
-      useInternal = my.mkDisableOption ''
-        Use internal DNS servers from wireguard 'server'
-      '';
-
       additionalServers = mkOption {
         type = with types; listOf str;
         default = [

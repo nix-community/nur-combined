@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./adblock
     ./aria
     ./audiobookshelf
     ./backup

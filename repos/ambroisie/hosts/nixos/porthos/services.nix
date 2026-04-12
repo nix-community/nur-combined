@@ -6,10 +6,6 @@ in
 {
   # List services that you want to enable:
   my.services = {
-    # Hosts-based adblock using unbound
-    adblock = {
-      enable = true;
-    };
     # Audiobook and podcast library
     audiobookshelf = {
       enable = true;
