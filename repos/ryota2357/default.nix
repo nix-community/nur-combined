@@ -17,6 +17,7 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  macos-ime = pkgs.callPackage ./pkgs/macos-ime { source = sources.macos-ime; };
   mical = pkgs.callPackage ./pkgs/mical { source = sources.mical; };
   pleckjp-font = pkgs.callPackage ./pkgs/pleckjp-font { source = sources.pleckjp-font; };
   vm_stat2 = pkgs.callPackage ./pkgs/vm_stat2 { source = sources.vm_stat2; };

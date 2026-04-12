@@ -1,3 +1,7 @@
+[macos-ime]
+src.git = "https://github.com/ryota2357/macos-ime.git"
+fetch.github = "ryota2357/macos-ime"
+
 [mical]
 src.github_tag = "mical-lang/mical"
 fetch.github = "mical-lang/mical"
