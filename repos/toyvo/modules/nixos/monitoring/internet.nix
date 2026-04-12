@@ -97,11 +97,6 @@ in
             preferred_ip_protocol: ip4
     '';
 
-    # Create textfile directory owned by alloy user
-    systemd.tmpfiles.rules = [
-      "d ${textfileDir} 0755 alloy alloy -"
-    ];
-
     # Alloy needs CAP_NET_RAW to send ICMP packets
     systemd.services.alloy.serviceConfig = {
       AmbientCapabilities = [ "CAP_NET_RAW" ];
@@ -113,6 +108,9 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = "alloy";
+        ExecStartPre = [
+          "+${pkgs.coreutils}/bin/install -d -m 0755 -o alloy -g alloy /var/lib/alloy/textfiles"
+        ];
         ExecStart = speedtestScript;
       };
     };
