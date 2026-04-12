@@ -131,10 +131,9 @@ in
       ];
     };
 
-    systemd.nspawn.minecraft.execConfig.LinkJournal = "host";
-
     containers.minecraft = {
       autoStart = true;
+      extraFlags = [ "--link-journal=host" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;

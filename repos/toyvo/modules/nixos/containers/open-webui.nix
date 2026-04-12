@@ -74,10 +74,9 @@ in
       internalInterfaces = [ "ve-open-webui" ];
     };
 
-    systemd.nspawn."open-webui".execConfig.LinkJournal = "host";
-
     containers.open-webui = {
       autoStart = true;
+      extraFlags = [ "--link-journal=host" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;

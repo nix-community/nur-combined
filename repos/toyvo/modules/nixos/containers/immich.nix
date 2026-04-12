@@ -64,10 +64,9 @@ in
       internalInterfaces = [ "ve-immich" ];
     };
 
-    systemd.nspawn.immich.execConfig.LinkJournal = "host";
-
     containers.immich = {
       autoStart = true;
+      extraFlags = [ "--link-journal=host" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;

@@ -85,10 +85,9 @@ in
       allowedUDPPorts = [ cfg.port ];
     };
 
-    systemd.nspawn.vintagestory.execConfig.LinkJournal = "host";
-
     containers.vintagestory = {
       autoStart = true;
+      extraFlags = [ "--link-journal=host" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;

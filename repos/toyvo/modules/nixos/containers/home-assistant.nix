@@ -66,10 +66,9 @@ in
       internalInterfaces = [ "ve-hass" ];
     };
 
-    systemd.nspawn.hass.execConfig.LinkJournal = "host";
-
     containers.hass = {
       autoStart = true;
+      extraFlags = [ "--link-journal=host" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;

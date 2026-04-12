@@ -162,10 +162,9 @@ in
       internalInterfaces = [ "ve-starr" ];
     };
 
-    systemd.nspawn.starr.execConfig.LinkJournal = "host";
-
     containers.starr = {
       autoStart = true;
+      extraFlags = [ "--link-journal=host" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;

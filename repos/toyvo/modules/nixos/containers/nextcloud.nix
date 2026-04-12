@@ -81,10 +81,9 @@ in
       internalInterfaces = [ "ve-nextcloud" ];
     };
 
-    systemd.nspawn.nextcloud.execConfig.LinkJournal = "host";
-
     containers.nextcloud = {
       autoStart = true;
+      extraFlags = [ "--link-journal=host" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;

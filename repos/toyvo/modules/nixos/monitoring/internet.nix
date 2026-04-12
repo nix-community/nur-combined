@@ -109,7 +109,7 @@ in
         Type = "oneshot";
         User = "alloy";
         ExecStartPre = [
-          "+${pkgs.coreutils}/bin/install -d -m 0755 -o alloy -g alloy /var/lib/alloy/textfiles"
+          "+${pkgs.coreutils}/bin/install -d -m 0755 -o alloy -g alloy ${textfileDir}"
         ];
         ExecStart = speedtestScript;
       };
