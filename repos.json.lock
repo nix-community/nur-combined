@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "b1958c796accb4dce2470db8537c90e59a5d7ccd",
-            "sha256": "05vdadspx42gxfs5rd0sz814ssib88c6irlwkh8rfqbn1scx524n",
+            "rev": "ca7103ef510ae1756ed5a773be4d71ac15cd16e5",
+            "sha256": "1cr8098baj401gxn8xiyln0c99cfkn6zy20zikmpgf7cb8nxfnji",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "YisuiMilena": {
@@ -2407,8 +2407,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "812b24c9c8c7bf2c74628dc0433ef125a68e56ca",
-            "sha256": "09fkg2kgwpdxwkw3cjxl1y6b5iabi35ln0xgdzp8xy0l7xc51snw",
+            "rev": "3343b03cd19c1faaec950b1dff0f91b7b1d7cf4b",
+            "sha256": "0l23xyn1gndbmk5qawp04gfhkpn64fhipbgmh4yyp8qqirdni43a",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
