@@ -156,7 +156,17 @@ in
     };
     samba.enable = true;
     spice-vdagentd.enable = true;
-    monitoring.enable = true;
+    monitoring = {
+      enable = true;
+      containerJournals = [
+        "jellyfin"
+        "nextcloud"
+        "hass"
+        "immich"
+        "open-webui"
+        "starr"
+      ];
+    };
   };
   containerPresets = {
     open-webui = {
