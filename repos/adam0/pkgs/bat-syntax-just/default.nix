@@ -7,13 +7,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "bat-syntax-just";
-  version = "4148-1.1.5-unstable-2025-05-08";
+  version = "4148-1.1.5-unstable-2026-04-11";
 
   src = fetchFromGitHub {
     owner = "nk9";
     repo = "just_sublime";
-    rev = "f42cdb012b6033035ee46bfeac1ecd7dca460e55";
-    hash = "sha256-VxI5BPrNVOwIRwdZKm8OhTuXCVKOdG8OGKiCne9cwc8=";
+    rev = "36f84c22d5ab577c113792052d8debf5b304130e";
+    hash = "sha256-9xJQHEDQUQcMDwLmSv5V1+YyMINMSDipEydTtX6U/rc=";
   };
 
   installPhase = ''
