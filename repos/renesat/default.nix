@@ -46,6 +46,7 @@
     superseedr = pkgs.callPackage ./pkgs/superseedr {};
     hazelnut = pkgs.callPackage ./pkgs/hazelnut {inherit rustPlatform;};
     llmfit = pkgs.callPackage ./pkgs/llmfit {};
+    hexhog = pkgs.callPackage ./pkgs/hexhog {};
 
     tubefeed = pkgs.python3Packages.callPackage ./pkgs/tubefeed {};
     typy = pkgs.python3Packages.callPackage ./pkgs/typy {};
