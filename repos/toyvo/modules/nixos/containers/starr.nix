@@ -162,6 +162,10 @@ in
       internalInterfaces = [ "ve-starr" ];
     };
 
+    systemd.tmpfiles.rules = [
+      "d /var/lib/nixos-containers/starr/var/log/journal 0755 root systemd-journal -"
+    ];
+
     containers.starr = {
       autoStart = true;
       extraFlags = [ "--link-journal=host" ];

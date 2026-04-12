@@ -81,6 +81,10 @@ in
       internalInterfaces = [ "ve-nextcloud" ];
     };
 
+    systemd.tmpfiles.rules = [
+      "d /var/lib/nixos-containers/nextcloud/var/log/journal 0755 root systemd-journal -"
+    ];
+
     containers.nextcloud = {
       autoStart = true;
       extraFlags = [ "--link-journal=host" ];

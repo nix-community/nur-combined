@@ -64,6 +64,10 @@ in
       internalInterfaces = [ "ve-immich" ];
     };
 
+    systemd.tmpfiles.rules = [
+      "d /var/lib/nixos-containers/immich/var/log/journal 0755 root systemd-journal -"
+    ];
+
     containers.immich = {
       autoStart = true;
       extraFlags = [ "--link-journal=host" ];

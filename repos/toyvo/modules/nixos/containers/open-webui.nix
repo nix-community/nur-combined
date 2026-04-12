@@ -74,6 +74,10 @@ in
       internalInterfaces = [ "ve-open-webui" ];
     };
 
+    systemd.tmpfiles.rules = [
+      "d /var/lib/nixos-containers/open-webui/var/log/journal 0755 root systemd-journal -"
+    ];
+
     containers.open-webui = {
       autoStart = true;
       extraFlags = [ "--link-journal=host" ];
