@@ -181,8 +181,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "2e1f549a7923a8a4ba838f33ef4d334f79be04bf",
-            "sha256": "1wm9ndchp11n7b7zckmrqqcfz03aqiafjdzgxyxl61x36v6fji3r",
+            "rev": "c84a498d14cb0efffd0f1eb594891de2367a397e",
+            "sha256": "0n8giinhazc0xf899xf11vq9i5y32v28yfyc2fdp0psz561mkqq0",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -1058,8 +1058,8 @@
             "url": "https://github.com/heph2/nur-packages"
         },
         "hexadecimalDinosaur": {
-            "rev": "33534f6134a0c78f173e1e326efb51eba9676f91",
-            "sha256": "0nrd2h7bysn47pcrvbfsxgf51v1vxikxgscjdvs74mqz4kn6gyl2",
+            "rev": "1c6ed803db028b5aa9d752eebe4b53fc3bc391fc",
+            "sha256": "0fkgxi7jidqq2mjn5w975viknvrxpbp280ck6akbf6cqhp6ab81v",
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {
