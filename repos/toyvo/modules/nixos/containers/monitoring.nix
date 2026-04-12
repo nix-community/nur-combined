@@ -93,6 +93,10 @@ in
           hostPath = "${cfg.stateDir}/tempo";
           isReadOnly = false;
         };
+        "/etc/grafana/dashboards" = {
+          hostPath = "${./dashboards}";
+          isReadOnly = true;
+        };
       };
 
       config =
@@ -136,6 +140,14 @@ in
                   type = "tempo";
                   url = "http://localhost:3200";
                   access = "proxy";
+                }
+              ];
+              dashboards.settings.providers = [
+                {
+                  name = "homelab";
+                  options.path = "/etc/grafana/dashboards";
+                  disableDeletion = true;
+                  updateIntervalSeconds = 300;
                 }
               ];
             };
