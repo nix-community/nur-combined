@@ -136,8 +136,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "c50be317cc59023747e8c54aed7b91f5a5434652",
-            "sha256": "19lv9qa8ynbkjjgwkrw3k7p0jcv5dhzhwvjll71s4sbqxghw6ssi",
+            "rev": "4cf0d521ae49ab277b9bfe6bdf90f97c33c8fcf6",
+            "sha256": "06dgyhvvk780xarl1446y1flkmznz0r02d1if56ajx5pmkz7wmkq",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
@@ -1709,8 +1709,8 @@
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
-            "rev": "e371a04416dd73c5e293febdffa826df9a7c32dd",
-            "sha256": "0q0ckd550xnv50wk9b34sk9li2yinzbskn7rcl4zlgxq01vzc1yr",
+            "rev": "07edb177f244de63009030718a2d08978ea5bd36",
+            "sha256": "1rz1hn3bklw7nxvpswkhsi3gaqhkjfydac9as5hg3qccdmm0dl44",
             "url": "https://github.com/Nanamiiiii/nur"
         },
         "nasirhm": {
