@@ -612,8 +612,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "0d8dab04e1606fd494a4c10d2c5f6cc794393b62",
-            "sha256": "0fww06xv4d30qf39z2p8986zhflyjj0i3yhhnhyldqbrxdmr1m3m",
+            "rev": "5f22223ac6d2d5f6b80a7fc4aaff74306f497759",
+            "sha256": "17g4ww75r9ds0n2ggww7wc71fvjqnvqn7iki4mvim7k4ydw9mk9z",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -2412,8 +2412,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "17b02ac6c769eb6721362c63f5921973f10d0139",
-            "sha256": "1k7v7yazwvmj9z4bz4jmpz738ilx02izn84mhmw2989khv23yy7y",
+            "rev": "868b34080db056a2d3609c78db46d344c21a68e1",
+            "sha256": "0bqnwi4lfipz7h0p43y492d9wfgspd6zd2gm01qhhm5jx99bk4nc",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
