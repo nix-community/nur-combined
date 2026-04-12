@@ -81,7 +81,14 @@
       enable = true;
       settings.PasswordAuthentication = false;
     };
-    monitoring.enable = true;
+    monitoring = {
+      enable = true;
+      containerJournals = [
+        "minecraft"
+        "vintagestory"
+        "terraria"
+      ];
+    };
     wireguard-tunnel = {
       enable = true;
       role = "peer";
