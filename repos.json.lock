@@ -1058,8 +1058,8 @@
             "url": "https://github.com/heph2/nur-packages"
         },
         "hexadecimalDinosaur": {
-            "rev": "956889185caaaa24b184cfaae21d0b8af5783ed1",
-            "sha256": "1wmwjx3lrsr5ykvs9iahs02acz14csxbqzmaxvfvwrzxgdagxsqa",
+            "rev": "33534f6134a0c78f173e1e326efb51eba9676f91",
+            "sha256": "0nrd2h7bysn47pcrvbfsxgf51v1vxikxgscjdvs74mqz4kn6gyl2",
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {
