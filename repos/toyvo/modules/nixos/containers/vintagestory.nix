@@ -91,7 +91,7 @@ in
 
     containers.vintagestory = {
       autoStart = true;
-      extraFlags = [ "--link-journal=host" ];
+      extraFlags = [ "--link-journal=guest" ];
       privateNetwork = true;
       hostAddress = cfg.hostAddress;
       localAddress = cfg.localAddress;
