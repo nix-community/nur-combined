@@ -311,8 +311,8 @@
             "url": "https://gitlab.com/AlwinB/nur-packages"
         },
         "ambroisie": {
-            "rev": "2b387566d5041cfda095b6e6280069abe367aec2",
-            "sha256": "0x5g85cb7nv3z4q27yh2s3s0zs85srsn03kd4ki0pinr3cr58szl",
+            "rev": "bdb9ce7b7e2453137ad93c68571ccc367704cd32",
+            "sha256": "0vx98wa30mpf0yc8rkiznnqbd489n655r9m0cavnjl6xqqf9qszn",
             "url": "https://github.com/ambroisie/nix-config"
         },
         "amesgen": {
