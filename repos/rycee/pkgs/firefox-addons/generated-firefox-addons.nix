@@ -161,10 +161,10 @@
     };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
-      version = "3.0.3";
+      version = "3.0.4";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4738398/addy_io-3.0.3.xpi";
-      sha256 = "4817d1428401c2ca6c2eb1d20f0810e2658c4959ff2a9a922d8eb8c0e53dd5dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4760846/addy_io-3.0.4.xpi";
+      sha256 = "2ac22c2fdfe50d4ed135f881329829abf45c16813ba78e48c0e9165e8b31b3f1";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -17037,10 +17037,10 @@
     };
     "ycs-continued" = buildMozillaXpiAddon {
       pname = "ycs-continued";
-      version = "1.8.7";
+      version = "1.8.8";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4714564/ycs_continued-1.8.7.xpi";
-      sha256 = "b8e3b12b8621ec945e1c06347a99f2becbc6b409862249249dc4df622f01d8f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4761449/ycs_continued-1.8.8.xpi";
+      sha256 = "6de1242523210056051e3f62557db6a3b9fa1063d0f108883aa97460f7b8e394";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
