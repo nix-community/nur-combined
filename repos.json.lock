@@ -1869,8 +1869,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "c3add8f65db9ef246bd3d20f4a61c44c4f56008b",
-            "sha256": "0jkhmxvg894ws54lf2vj3pys2bv1cwdd04sjq7cpfb3b4dx1cwii",
+            "rev": "b9905c0a5b6cb7c441516f5949895176d8981e6f",
+            "sha256": "0cpyp0f9vyapsj773mjc3fsrnx011s1wyfqpcbrh22qaj6aq6p87",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
