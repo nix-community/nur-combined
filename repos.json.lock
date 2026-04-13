@@ -1441,8 +1441,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "25fab1db57c3dac04c0315f6b3fa7da72ab0515c",
-            "sha256": "15m977m0x155a5cdh6vjk3rjzx6lcczn8l2gx3lia361hlqfgrbf",
+            "rev": "1a97f92859e9afffba7e507cb9c833c141cc9c78",
+            "sha256": "0vl87p8mv8p183jr70jy47r2hp13f2p85ayxc1hjh2bmnjlrv7jm",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
@@ -2155,8 +2155,8 @@
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
         },
         "sedlund": {
-            "rev": "bf959376a88ef0ca515b1ce749671ba618d3b635",
-            "sha256": "0jjmamcx3hkg4ryam8kdf5vxg5ba882k5955gwgx17wir9x3jvv5",
+            "rev": "8683cf367b32399db6d0d56fcca451e8ee37e95c",
+            "sha256": "14s8inl3l14bmp90f8as3pyklncmj59653d3ilid92zhkdr199s2",
             "url": "https://github.com/sedlund/nur-packages"
         },
         "sehqlr": {
