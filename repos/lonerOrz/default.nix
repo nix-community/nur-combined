@@ -13,47 +13,45 @@ let
 
   addUpdateFile =
     drv: file:
-    drv.overrideAttrs (old: {
-      passthru = (old.passthru or { }) // {
-        updateFile = file;
-      };
-    });
+    if lib.isDerivation drv && drv ? overrideAttrs then
+      drv.overrideAttrs (old: {
+        passthru = (old.passthru or { }) // {
+          updateFile = file;
+        };
+      })
+    else
+      # 非派生包（函数、普通属性集）直接返回
+      drv;
 
-  importDir = lib.foldl' (
-    acc: name:
+  toEntry =
+    name:
     let
       path = dir + "/${name}";
       kind = entries.${name};
+      isNixFile = kind == "regular" && lib.hasSuffix ".nix" name;
+      subPath = path + "/${pkgFileName}";
+      hasDefaultNix = kind == "directory" && builtins.pathExists subPath;
     in
-
-    if kind == "regular" && lib.hasSuffix ".nix" name then
+    if isNixFile then
       let
-        relativePath = path;
-        drv = pkgs.callPackage relativePath { };
+        drv = pkgs.callPackage path { };
       in
-      acc
-      // {
-        "${lib.removeSuffix ".nix" name}" = addUpdateFile drv relativePath;
+      {
+        name = lib.removeSuffix ".nix" name;
+        value = addUpdateFile drv path;
       }
-
-    else if kind == "directory" then
+    else if hasDefaultNix then
       let
-        subPath = path + "/${pkgFileName}";
+        drv = pkgs.callPackage subPath { };
       in
-      if builtins.pathExists subPath then
-        let
-          drv = pkgs.callPackage subPath { };
-        in
-        acc
-        // {
-          "${name}" = addUpdateFile drv subPath;
-        }
-      else
-        acc
-
+      {
+        inherit name;
+        value = addUpdateFile drv subPath;
+      }
     else
-      acc
-  ) { } names;
+      null;
+
+  validEntries = builtins.filter (x: x != null) (map toEntry names);
 
 in
-importDir
+builtins.listToAttrs validEntries
