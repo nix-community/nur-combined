@@ -1924,8 +1924,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "2a30ba288373123c6ef4e42a6c03e36863c3ee63",
-            "sha256": "0v070sf64s6x04z1arx48i6c2bqdpbx8h3kv981avpcvikpcwg7j",
+            "rev": "9bc50a556715c50d3fd4bca97f8893c4ae40a712",
+            "sha256": "0pfid06qs9haqj5myrxrk14mjim9h5b503k08cnycyfn8vah6qgr",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
