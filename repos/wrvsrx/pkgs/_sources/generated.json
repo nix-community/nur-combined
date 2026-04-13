@@ -544,11 +544,11 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "xdg",
-            "rev": "0.3.0",
-            "sha256": "sha256-9A/tUdCifLYmWa/6wOCQTT01ZJc24db3VnO6WU+KYcM=",
+            "rev": "0.5.0",
+            "sha256": "sha256-9P/gWoQ9/63ALP1hnWXR5vu3R9uEw5Sp30LAdQ7+/mg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.3.0"
+        "version": "0.5.0"
     }
 }
