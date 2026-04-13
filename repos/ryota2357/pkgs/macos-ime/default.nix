@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Tiny macOS CLI to get, set, and list keyboard input sources";
-    homepage = "https://github.com/ryota2357/ime";
+    homepage = "https://github.com/ryota2357/macos-ime";
     license = lib.licenses.mit;
     platforms = lib.platforms.darwin;
     mainProgram = "ime";
