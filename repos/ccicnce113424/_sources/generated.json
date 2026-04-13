@@ -474,12 +474,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "e3597e0b1f06ae5b66d08cacec8efe9eba004c9b",
-            "sha256": "sha256-nkAHDnoy8x6TS0F4Rg+XPxYqWJAUnFJXGCjV6tso5lA=",
+            "rev": "180e555678bb5a4465ee2efb29ffdde64cddc3cc",
+            "sha256": "sha256-WzVGwUDam6oLDxD/a8hCsSC1HRFkMExint09KMLn7qI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e3597e0b1f06ae5b66d08cacec8efe9eba004c9b"
+        "version": "180e555678bb5a4465ee2efb29ffdde64cddc3cc"
     },
     "wild": {
         "cargoLock": {
