@@ -3,30 +3,27 @@
   stdenv,
   fetchFromGitHub,
   rustPlatform,
+  coreutils,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "gungraun-runner";
-  version = "0.17.0";
+  version = "0.18.1";
 
   src = fetchFromGitHub {
     owner = "gungraun";
     repo = "gungraun";
     tag = "v${version}";
-    hash = "sha256-8AuC5AqsiqXFomIEVPbRh1aYf/HQRg7oEVGiH6gdHFg=";
+    hash = "sha256-wiNG/g6JbM+M/ctLQTQM1IO6LeYhOukK2UrFIoaU9j0=";
   };
 
-  cargoHash = "sha256-ERBYOFMkd+jy6u/mpSCvm0GMOYPYRO6ZwH9iVhttJng=";
+  cargoHash = "sha256-KO/WidgNTObh4EmuCIcRI1gVEyrelPLhLx8QVa0f93U=";
 
   buildAndTestSubdir = "gungraun-runner";
 
-  checkFlags = [
-    "--skip test_runner_binary::test_version::test_library_version_equals_runner_version"
-    "--skip test_runner_binary::test_version::test_library_version_newer_than_runner_version::case_1_major"
-    "--skip test_runner_binary::test_version::test_library_version_newer_than_runner_version::case_2_minor"
-    "--skip test_runner_binary::test_version::test_library_version_newer_than_runner_version::case_3_patch"
-    "--skip test_runner_binary::test_version::test_library_version_not_submitted"
-    "--skip test_runner_binary::test_version::test_library_version_older_than_runner_version"
-  ];
+  postPatch = ''
+    substituteInPlace gungraun-runner/src/runner/args.rs \
+      --replace-fail "/bin/cat" "${lib.getExe' coreutils "cat"}"
+  '';
 
   meta = with lib; {
     description = "High-precision, one-shot and consistent benchmarking framework/harness for Rust. All Valgrind tools at your fingertips.";
