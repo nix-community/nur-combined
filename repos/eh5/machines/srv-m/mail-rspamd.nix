@@ -50,6 +50,28 @@ in
         actions {
           reject = "reject";
           quarantine = "add header";
+          softfail = "add header";
+        }
+      '';
+      "mx_check.conf".text = ''
+        enabled = true;
+      '';
+      "force_actions.conf".text = ''
+        REJECT_BAD_SPF {
+          action = "reject";
+          expression = "R_SPF_FAIL";
+        }
+
+        QUARANTINE_BAD_SPF {
+          action = "add header";
+          expression = "R_SPF_SOFTFAIL | R_SPF_DNSFAIL | R_SPF_NA | DMARC_POLICY_SOFTFAIL | DMARC_DNSFAIL";
+          require_action = ["no action", "greylist"];
+        }
+
+        BAYES_SPAM_UPGRADE {
+          action = "add header";
+          expression = "BAYES_SPAM";
+          require_action = ["greylist"];
         }
       '';
     };
