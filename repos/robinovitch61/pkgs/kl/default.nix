@@ -9,24 +9,24 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "0xwhqipjmzp4rk7akhyds59ga410f8wc3spcqxyvcr17p6301dym";
-    x86_64-linux = "1164319nn1jl1klxwpxdx8w2lhikn8p96xr6pk7f9bqys1wsdg0v";
-    aarch64-linux = "015lpz0cn630wf0lszrf0fhix2q45lrc02hd2blszydjhx4fby2x";
-    x86_64-darwin = "00p5hzqyf2vlc5vf51b97m29mwb7vwq4vg7lfzqy44aqhvyag0pw";
-    aarch64-darwin = "00p5hzqyf2vlc5vf51b97m29mwb7vwq4vg7lfzqy44aqhvyag0pw";
+    i686-linux = "1xfy0i1rvk9n8mdzbd98fygjp2lv83v1lawzxkkjm1yl44jk0p80";
+    x86_64-linux = "0d640ic8vhxpbmn7caypsxkfpc8755s936205jil66iy6sw9qskf";
+    aarch64-linux = "0im21wzb65vk64wpfh9cijbyf1xwp1hpdqgnfki4jkijxddhh2sn";
+    x86_64-darwin = "0v6g2nrivs019aaf5nmp9xy1ih0l371fab6ql7xajhqhl4jhaz0x";
+    aarch64-darwin = "0v6g2nrivs019aaf5nmp9xy1ih0l371fab6ql7xajhqhl4jhaz0x";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/kl/releases/download/v0.8.0/kl_0.8.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.8.0/kl_0.8.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.8.0/kl_0.8.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.8.0/kl_0.8.0_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.8.0/kl_0.8.0_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/kl/releases/download/v0.9.0/kl_0.9.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.9.0/kl_0.9.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.9.0/kl_0.9.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.9.0/kl_0.9.0_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.9.0/kl_0.9.0_Darwin_all.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "kl";
-  version = "0.8.0";
+  version = "0.9.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
