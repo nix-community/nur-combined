@@ -25,6 +25,9 @@ in {
         my-emacs
         gnuplot
         dtach
+
+        fd
+        ripgrep
       ];
     };
   };

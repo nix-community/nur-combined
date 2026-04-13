@@ -73,6 +73,12 @@ with prev; let
       (pkgs.writeShellScriptBin "screenshot" ''
         ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" -t png "${"$"}{1--}"
       '')
+
+      pkgs.fortls
+      pkgs.clang-tools
+
+      pkgs.fd
+      pkgs.ripgrep
     ];
 
     ## Optionally override derivations.

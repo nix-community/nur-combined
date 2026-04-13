@@ -44,6 +44,10 @@
   - [[#eat-emulate-a-terminal][Eat (emulate a terminal)]]
 - [[#syntax-modes][syntax modes]]
 - [[#bibtex][Bibtex]]
+- [[#lsp-language-server-server][LSP (Language-Server Server)]]
+- [[#godbolt-compiler-explorer-for-emacs][Godbolt compiler-explorer for Emacs]]
+  - [[#configuration][Configuration]]
+  - [[#integrations-cc][Integrations: C/C++]]
 
 * Package management
 :PROPERTIES:
@@ -232,20 +236,21 @@ You can use the bindings CTRL plus =/- for zooming in/out. You can also use CTRL
 
 ** Opening 2 files side-by-side
 
-https://stackoverflow.com/a/6697992
+Adapted from https://help-gnu-emacs.gnu.narkive.com/OFEfTzJt/ediff-from-command-line
 #+begin_src emacs-lisp
-(defun 2-windows-vertical-to-horizontal ()
-  (let ((buffers (mapcar 'window-buffer (window-list))))
-    (when (>= 2 (length buffers))
-      (delete-other-windows)
-      (set-window-buffer (split-window-horizontally) (cadr buffers)))))
+(defun command-line-sidebyside (switch)
+  (let ((file1 (find-file (pop command-line-args-left)))
+        (file2 (find-file (pop command-line-args-left))))
+    (delete-other-windows)
+    (set-window-buffer (selected-window) file1)
+    (set-window-buffer (split-window-horizontally) file2)
+    ))
 #+end_src
 
-To do this automatically on startup, add this function to emacs-startup-hook:
-
 #+begin_src emacs-lisp
-(add-hook 'emacs-startup-hook '2-windows-vertical-to-horizontal)
+(add-to-list 'command-switch-alist '("O" . command-line-sidebyside))
 #+end_src
+
 * Org Mode
 ** Enabling Table of Contents
 
@@ -531,6 +536,12 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 :END:
 #+begin_src emacs-lisp
 ;; Org Mode Configuration ------------------------------------------------------
+(defvar dg/denote-base-dir
+  (file-truename
+    (if (file-exists-p (expand-file-name "~/.my-computer"))
+      "~/git/org/denote/" "~/Documents/denote/"))
+  "Where I put my notes; I need to provision differently for personal and work computers.")
+
 
 (add-hook 'org-mode-hook
           (lambda ()
@@ -554,10 +565,10 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (add-hook 'org-babel-after-execute-hook 'ek/babel-ansi)
 
 (defun efs/org-font-setup ()
-    (org-display-inline-images)
-    (setq fill-column 75)
-    (abbrev-mode)
-    (org-indent-mode)
+  (org-display-inline-images)
+  (setq fill-column 75)
+  (abbrev-mode)
+  (org-indent-mode)
 
   ;; Replace list hyphen with dot
   (font-lock-add-keywords 'org-mode
@@ -576,20 +587,20 @@ Org-tempo is not a separate package but a module within org that can be enabled.
     (set-face-attribute (car face) nil :weight 'regular :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-;(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-date nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-footnote nil :inherit 'fixed-pitch)
-nil)
-; https://yannesposito.com/posts/0015-how-i-use-org-mode/index.html
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+                                        ;(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-date nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-footnote nil :inherit 'fixed-pitch)
+  nil)
+                                        ; https://yannesposito.com/posts/0015-how-i-use-org-mode/index.html
 
-(use-package org :ensure t
+(use-package org
   :hook (org-mode . efs/org-mode-setup)
   :init
   ;; Proper code blocks
@@ -649,10 +660,48 @@ nil)
 
     ;;; Look & Feel
 
-  ;; I like to have something different than ellipsis because I often use them
-  ;; myself.
-  ;;(setq org-ellipsis " [+]")
-  (setq org-agenda-files '("~/Documents/denotes"))
+  ;(setq org-agenda-files '("~/Documents/denotes"))
+  (defun dg/org-mode/agenda-files ()
+    "Return a list of note files containing 'agenda' tag.
+
+     Uses the fd command (see https://github.com/sharkdp/fd)
+
+     We want files to have the 'projects' `denote' keyword."
+    (let ((projects
+           (mapcar (lambda (el) (cdr el)) (dg/project/list-projects))))
+      ;; (dolist (file (jf/journal/list-current-journals))
+      ;;   (setq projects (cons file projects)))
+      ;; (when (file-exists-p jf/agenda-filename/scientist)
+      ;;   (setq projects (cons jf/agenda-filename/scientist projects)))
+      projects))
+
+  (cl-defun dg/project/list-projects (&key (project ".+")
+                                       (directory dg/denote-base-dir))
+    "Return a list of `cons' that match the given PROJECT.
+
+The `car' of the `cons' is the project (e.g. \"Take on Rules\").
+The `cdr' is the fully qualified path to that projects notes file.
+
+The DIRECTORY defaults to `org-directory' but you can specify
+otherwise."
+    (mapcar (lambda (line)
+              (let* ((slugs
+                       (s-split ":" line))
+                      (proj
+                        (s-trim (car (cdr slugs))))
+                      (filename
+                        (s-trim (car slugs))))
+                (cons proj filename)))
+      (split-string-and-unquote
+        (shell-command-to-string
+          (concat
+            "fd _project " directory " | xargs rg \"^#\\+PROJECT_NAME: +(" project ") *$\" "
+            " --ignore-case --follow --only-matching --no-ignore-vcs --with-filename "
+            "-r '$1' | tr '\n' '#'"))
+        "#")))
+
+  (setq org-agenda-files (dg/org-mode/agenda-files))
+
   (custom-set-faces '(org-ellipsis ((t (:foreground "gray40" :underline nil)))))
 
   (setq org-tags-column 69)
@@ -1372,7 +1421,7 @@ Delete the original subtree."
   :config
   (setq consult-notes-file-dir-sources
         '(("Denote"        ?n "~/Documents/denotes")
-          ("Work"           ?w "~/work/notes")))
+          ("Work"          ?w "~/work/notes")))
   (consult-notes-org-headings-mode)
   (when (locate-library "denote")
     (consult-notes-denote-mode))
@@ -1403,6 +1452,11 @@ Delete the original subtree."
 (use-package rust-mode :ensure t)
 (use-package yaml-mode :ensure t)
 (use-package ssh-config-mode :ensure t)
+(use-package cook-mode :ensure t
+  :vc (:url "https://github.com/cooklang/cook-mode"
+            :rev :newest
+            :branch "master")
+  )
 #+end_src
 
 * Bibtex
@@ -1423,3 +1477,79 @@ BibTeX is old but stable software that was last updated in 1988 and has as such 
        ("file" "Link to document file." ":")))
     (bibtex-align-at-equal-sign t))
 #+end_src
+
+* LSP (Language-Server Server)
+[[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/]]
+
+#+begin_src emacs-lisp
+(use-package lsp-mode
+  :init
+  (setq-default
+   ;; lsp-clangd-version "15.0.6"
+   lsp-keymap-prefix "C-c l"
+   lsp-use-plists t
+   lsp-clients-clangd-args
+   ;; (append lsp-clients-clangd-args
+   '(
+     "--header-insertion-decorators=0"
+     "--limit-references=0"
+     "--limit-results=0"
+     "--rename-file-limit=0"
+     "--j=4"
+     "--background-index"
+     ;; "-log=error"
+     ))
+
+  (setq lsp-enable-imenu nil) ; allow jumping to functions not catched by #ifdef
+  :hook ((f90-mode . lsp)
+         (fortran-mode . lsp)
+         (c-mode . lsp)
+         (c++-mode . lsp)
+         (c-or-c++-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+#+end_src
+
+* Godbolt compiler-explorer for Emacs
+
+[[https://gitlab.com/jgkamat/rmsbolt][RMSBolt]] is a supercharged implementation of the [[https://github.com/mattgodbolt/compiler-explorer][godbolt compiler-explorer]] for Emacs.
+
+RMSbolt tries to make it easy to see what your compiler is doing. It does this by showing you the assembly output of a given source code file. It also highlights which source code a given assembly block corresponds to, and vice versa. It supports more types of languages than any previous tool of its kind.
+
+#+begin_src emacs-lisp
+(use-package rmsbolt)
+#+end_src
+
+** Configuration
+
+RMSbolt is primarily configured with Emacs local variables. This lets you change compiler and rmsbolt options simply by editing a local variable block. The starter files have this block with some common settings:
+
+#+begin_example
+// Local Variables:
+// rmsbolt-command: "gcc -O0"
+// rmsbolt-disassemble: nil
+// End:
+#+end_example
+
+Note: the Local Variable block must be 3000 characters from the end of the file to work. Any method of setting buffer-local variables will work though.
+
+** Integrations: C/C++
+
+C/C++ will look for a compile_commands.json file in any directory higher than the source file. Once it finds one, it will parse the file trying to find a match for the current file, and if it finds one, it will compile using the flags present there. Many files (like headers) are not present in compile_commands.json and will not work (at this time).
+
+Because the compilation commands in compile_commands.json assume the files are compiled in order, please make sure to fully compile the project before beginning, otherwise, you could see compiler errors.
+
+In order to transform the given file, some flags are removed. This is the most brittle part of the current system, and could cause compile errors.
+
+On projects with a lot of imports, the resulting assembly file might be large, which may cause Emacs to hang.
+*** QuickStart Guide
+
+- Generate a compile_commands.json file, and ensure it is in a domineering directory.
+
+  #+begin_src sh
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
+  #+end_src
+
+- Compile the project completely. If you pass flags to your build system, make sure they are passed when generating compile_commands.json as well.
+- Open the file in question, and enable `rmsbolt-mode`.
+- Run `rmsbolt-compile`.
