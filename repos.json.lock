@@ -1243,8 +1243,8 @@
             "url": "https://github.com/jerrita/nur"
         },
         "jetcookies": {
-            "rev": "7cd30f710265f4d36d92b75bec0a2e56f1e96806",
-            "sha256": "0fx0qpzq6kx6ypy86bhh1qdv1s3m6v6hm7z6vx29q451y2dr77zb",
+            "rev": "648322a23625b5f9a2a559e753f7454b3c9c3d33",
+            "sha256": "1ivj4xb80ds174cf9l42i4r0d2q33zxca3ixqvb2p6f4nfqz9aiw",
             "url": "https://github.com/jetcookies/nur-packages"
         },
         "jitterbug": {
