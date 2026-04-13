@@ -743,8 +743,8 @@
             "url": "https://github.com/dezgeg/nur-packages"
         },
         "dguibert": {
-            "rev": "c3bcbd2aa877ae6f3ea331d9c0bd7d0a2ba78e66",
-            "sha256": "1l46qjh6j6advi41nvjr1gc9m1z09vangs01kkcqpvxzw9wplgmv",
+            "rev": "b1b2a80ebce3cb6633bffe73e7e630af90e39065",
+            "sha256": "1hvzgjmj78c1b6jvrczsp1wbc9rlk8r06v3w704mzpl9c1q8zv9d",
             "url": "https://github.com/dguibert/nur-packages"
         },
         "divanorama": {
