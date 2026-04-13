@@ -5,13 +5,14 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "veripb";
-  version = "3.0.2";
+  version = "3.0.2-unstable";
 
   src = fetchFromGitLab {
     owner = "MIAOresearch";
     repo = "software/VeriPB";
-    tag = version;
-    hash = "sha256-7cUxC4JBuNpJ/cEYyX2QE15i1z8lv7VjCALOvIgrrgc=";
+    rev = "4f3361cc34473ae782b08920e0512a4067b9603a";
+    # tag = version;
+    hash = "sha256-tG9wztQeb6erDVixnogkbPc3u47skBno+RF9/rmQa48=";
   };
 
   cargoHash = "sha256-TDLssYJxL7M80nQmR7HTtOA4AZDeD7qr9aQ37ZDbgAE=";
