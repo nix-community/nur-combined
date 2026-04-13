@@ -136,37 +136,37 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "abc7cf2b176c7e38b652594bdcb6a3034ccef3d9";
+    version = "1c1e8f5a0ccde40a53b4407926aedb8c39bbea22";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "abc7cf2b176c7e38b652594bdcb6a3034ccef3d9";
+      rev = "1c1e8f5a0ccde40a53b4407926aedb8c39bbea22";
       fetchSubmodules = false;
-      sha256 = "sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=";
+      sha256 = "sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=";
     };
     extract = {
-      "frontend/kde/metadata.json" = ./. + "/sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=/frontend/kde/metadata.json";
-      "Cargo.toml" = ./. + "/sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=/Cargo.toml";
+      "frontend/kde/metadata.json" = ./. + "/sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=/frontend/kde/metadata.json";
+      "Cargo.toml" = ./. + "/sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=/Cargo.toml";
     };cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-QQLNmX3CB978VOSErHu1KKRT8miICXremFYHP+zebJw=/Cargo.lock";
+      lockFile = ./. + "/sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.2" = "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA=";
       };
     };
-    date = "2026-04-07";
+    date = "2026-04-13";
   };
   motrix-next = {
     pname = "motrix-next";
-    version = "v3.6.10-beta.2";
+    version = "v3.6.10-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.6.10-beta.2";
+      rev = "v3.6.10-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-/alLi6ocDQKVgyNge1ZPrVvN11EoJZHa2V7t9mKZlWo=";
+      sha256 = "sha256-k/u+t+GQehPqRS78sBDec0rkJesXtsFzIKgR3b1muHA=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-_alLi6ocDQKVgyNge1ZPrVvN11EoJZHa2V7t9mKZlWo=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-k_u+t+GQehPqRS78sBDec0rkJesXtsFzIKgR3b1muHA=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -281,15 +281,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "38399a779e937c2e4ea0567f4b08ee936fa116ba";
+    version = "e3597e0b1f06ae5b66d08cacec8efe9eba004c9b";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "38399a779e937c2e4ea0567f4b08ee936fa116ba";
+      rev = "e3597e0b1f06ae5b66d08cacec8efe9eba004c9b";
       fetchSubmodules = false;
-      sha256 = "sha256-mpbT3HlBnlATexep093ulWETLOke5rWdfHSbeh/CGd4=";
+      sha256 = "sha256-nkAHDnoy8x6TS0F4Rg+XPxYqWJAUnFJXGCjV6tso5lA=";
     };
-    date = "2026-04-11";
+    date = "2026-04-13";
   };
   wild = {
     pname = "wild";

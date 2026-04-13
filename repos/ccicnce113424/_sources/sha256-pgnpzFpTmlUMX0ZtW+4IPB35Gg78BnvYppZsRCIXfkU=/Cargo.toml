@@ -1,6 +1,6 @@
 [package]
 name = "lyrica"
-version = "0.21.0"
+version = "0.22.0"
 edition = "2024"
 
 [dependencies]
@@ -8,16 +8,23 @@ tokio = { version = "1.50.0", features = ["full"] }
 actix = "0.13.5"
 actix-web = "4.13.0"
 actix-web-actors = "4.3.0"
+
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
+
+lazy_static = "1.5.0"
 url = "2.5.2"
 id3 = "1.16.4"
-ncm-api = { git = "https://github.com/chiyuki0325/netease-cloud-music-api.git", tag = "1.5.2-fix2", package = "netease-cloud-music-api" }
-lazy_static = "1.5.0"
 metaflac = "0.2.8"
-isahc = { version = "1.7.2", features = ["json"] }
+
+ncm-api = { git = "https://github.com/chiyuki0325/netease-cloud-music-api.git", tag = "1.5.2-fix2", package = "netease-cloud-music-api" }
+# forked from gmg137/netease-cloud-music-api
+isahc = { version = "1.7.2", features = ["json"] }  # Required by ncm-api
+tokio-tungstenite = "0.29"
+
 zbus = "5.4.0"
 futures-util = "0.3.32"
 async-trait = "0.1.89"
+
 log = "0.4.29"
 env_logger = "0.11.10"
