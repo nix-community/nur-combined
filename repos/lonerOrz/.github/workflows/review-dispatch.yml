@@ -20,7 +20,7 @@ jobs:
 
       # 1. Scan PR Head (Current State)
       - name: Checkout PR (Head)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: pr
           token: ${{ secrets.GH_TOKEN }}
@@ -34,7 +34,7 @@ jobs:
 
       # 2. Scan Main Base (Baseline)
       - name: Checkout Main (Base)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: master
           path: base
