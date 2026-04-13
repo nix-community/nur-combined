@@ -21,7 +21,7 @@ jobs:
       - name: Compress Build Craft
         run: |
           tar cvf "./$(date -I).tar" ./result/*
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           path: ./*.tar
           overwrite: true
