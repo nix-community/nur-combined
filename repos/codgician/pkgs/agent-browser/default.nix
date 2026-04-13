@@ -13,13 +13,13 @@
 }:
 
 let
-  version = "0.25.3";
+  version = "0.25.4";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     tag = "v${version}";
-    hash = "sha256-9wunuGSsxKqy9h3MMahW3hzZ+5iJrz/SotPRRGDu+kg=";
+    hash = "sha256-2Dv+ZY9cvcz6EIpI+gkV9w5eqQzpAD2N+yf4dJrmdwg=";
   };
 
   # The Rust CLI embeds the dashboard UI via RustEmbed at compile time.
@@ -81,7 +81,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/cli";
 
-  cargoHash = "sha256-vCxv2vKSWj5kIWhzWlbWNfEHrxnSg1i0nUBq6hWoQlM=";
+  cargoHash = "sha256-3vzVVHFo13ZLsbbXw7n9BE/YXBJwoxzhvfjuqOQwdfg=";
 
   # Place the pre-built dashboard where RustEmbed expects it (../packages/dashboard/out/).
   postUnpack = ''
