@@ -771,26 +771,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.04.10";
+    version = "2026.04.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.10/GeoLite2-ASN.mmdb";
-      hash = "sha256-yG3OuRPtm5wGm3RJNPdkThzIGN2P15RV2/4nLJZa/bM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.13/GeoLite2-ASN.mmdb";
+      hash = "sha256-Azc1sLBPlyhhPG2/5eGe6l4f57W/LSqlYA3Yh/DMj+8=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.04.10";
+    version = "2026.04.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.10/GeoLite2-City.mmdb";
-      hash = "sha256-mgQlB29znofvwcOqP5Eu5M0VJGxn/zXWmDXWw7bbOZM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.13/GeoLite2-City.mmdb";
+      hash = "sha256-FYURhxLA16pLFzKb0KrrVVEzM+tKdaquTVzJORiNnLU=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.04.10";
+    version = "2026.04.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.10/GeoLite2-Country.mmdb";
-      hash = "sha256-sBiEIDOHLxntnM77hj7JVPgCTbKukT0NTqFONazk66E=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.13/GeoLite2-Country.mmdb";
+      hash = "sha256-jVfhbJTHeyEAqD1fmwQeR+4BkwilFq+jCkGYiNs8cnw=";
     };
   };
   glauth = {
@@ -1192,12 +1192,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8766";
+    version = "b8779";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8766";
-      hash = "sha256-4L3eWifQruRAvx1R0BiPZi6vxtdTgK1skVtxuQRcUxE=";
+      tag = "b8779";
+      hash = "sha256-TpXoozA/HlrTb4VCJ2J+zFzDbzQErZE1cWc4P0Riisk=";
     };
   };
   loralib = {
@@ -1213,12 +1213,12 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.14-1";
+    version = "v0.22";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      tag = "v0.14-1";
-      hash = "sha256-Lo3PLZaeGVw9ZbTVxC5PQ3eKBXirYz+jEGEjf3m7OLw=";
+      tag = "v0.22";
+      hash = "sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=";
     };
   };
   magiskboot = {
@@ -1928,14 +1928,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "ec9fcfc1da840902373c73ca82aa505d7bab2bdf";
+    version = "2bd2983c6c74ea49b3a013f150ade7f3b8a27515";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "ec9fcfc1da840902373c73ca82aa505d7bab2bdf";
-      hash = "sha256-L4re582x2RKDobLu7jC33pm6koXfGNcNQ8Cn0gKCm8A=";
+      rev = "2bd2983c6c74ea49b3a013f150ade7f3b8a27515";
+      hash = "sha256-VRMaa5WY7nqIFI6x3lA2PoEFwdUBPGGOl3k4ThSz4RE=";
     };
-    date = "2026-04-06";
+    date = "2026-04-14";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2235,15 +2235,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "3a4ef8f383be50987b75541c61f4b912f854286f";
+    version = "7f69e25cbe0a8c751e81ba636dbe9c80e3cf55d9";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "3a4ef8f383be50987b75541c61f4b912f854286f";
+      rev = "7f69e25cbe0a8c751e81ba636dbe9c80e3cf55d9";
       fetchSubmodules = true;
-      hash = "sha256-MOFU+lpxgirph0IrVWnedw3RRJK9jRl7aHHVcDNb3OM=";
+      hash = "sha256-Isvr3KEEACs1xS7mGx4/s1sP0jj5/z+ALpoEU1zqrK4=";
     };
-    date = "2026-04-09";
+    date = "2026-04-13";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
