@@ -161,10 +161,10 @@
     };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
-      version = "3.0.4";
+      version = "3.0.5";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4760846/addy_io-3.0.4.xpi";
-      sha256 = "2ac22c2fdfe50d4ed135f881329829abf45c16813ba78e48c0e9165e8b31b3f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4761886/addy_io-3.0.5.xpi";
+      sha256 = "a22e2dbdbef589d1f3799f0385e6ed3b872e4af7dd137d82086b118872ddd17b";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -5137,10 +5137,10 @@
     };
     "gumbo-twitch-companion" = buildMozillaXpiAddon {
       pname = "gumbo-twitch-companion";
-      version = "1.21.3";
+      version = "1.21.5";
       addonId = "{59a39734-1e66-452e-a7b8-cc79f72062f0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4701614/gumbo_twitch_companion-1.21.3.xpi";
-      sha256 = "e05c9c04213cd629c2935d3ed140e8101ed76a0ffcdf972ef1d54d302b8ed59e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4762496/gumbo_twitch_companion-1.21.5.xpi";
+      sha256 = "1667867db3442ac922d27ac0fcd6f49e1a3518c3290ccd03af17a1cfefc23924";
       meta = with lib;
       {
         homepage = "https://github.com/seldszar/gumbo";
@@ -17111,10 +17111,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.15.0";
+      version = "1.16.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4752953/youtube_auto_hd_fps-1.15.0.xpi";
-      sha256 = "bf0cf29437e885e12e0912f2b009005766904dc150522a459dcdcc4b0b5fcb6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4761591/youtube_auto_hd_fps-1.16.0.xpi";
+      sha256 = "8225dfbb6dbccbf4cea4a8e2830770ac26355660298b62375a61e744b77132e0";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
@@ -17125,8 +17125,8 @@
           "storage"
           "https://www.youtube-nocookie.com/*"
           "https://www.youtube.com/*"
-          "https://youtube.googleapis.com/*"
           "https://music.youtube.com/*"
+          "https://youtube.googleapis.com/*"
         ];
         platforms = platforms.all;
       };
