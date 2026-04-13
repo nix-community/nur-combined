@@ -137,10 +137,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260315";
+    version = "20260412";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260315/moegirl.dict.yaml";
-      sha256 = "sha256-iNRDQsDg8G58mSkDnzoGUVfWX3YezIWVwl5CJMKB+wE=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260412/moegirl.dict.yaml";
+      sha256 = "sha256-qIFkaDdivE7tOQmk0TpNB8wov5iazegX7eJjMB+lFe0=";
     };
   };
   yazi-rs-plugins = {
