@@ -1,41 +1,38 @@
 ---
-description: git commit with NUR-style message
+description: Create commits that match this repo's current git style
 ---
 
-Commit changes to the NUR repository.
+Commit changes using the semantic style already present in this repository.
 
-## Commit Message Prefixes
+## Preferred message style
 
-Use these prefixes for commit messages:
-- `pkg:` - New package or package updates
-- `fix:` - Bug fixes in existing packages
-- `meta:` - Metadata changes (license, description, platforms)
-- `ci:` - CI/workflow changes
-- `chore:` - Maintenance tasks (formatting, cleanup)
-- `docs:` - Documentation updates
+Current history trends strongly toward semantic messages such as:
 
-## Format
+- `feat(pkgs): add hyprland-mcp-server package`
+- `fix(pkgs): correct grub-theme-yorha license metadata`
+- `docs(readme): add hyprland-mcp-server package entry`
+- `feat(lib): add configurable fetchPixiv helper`
 
-```
-<prefix> <package-name>: <short description>
-```
+## Common prefixes in this repo
 
-Examples:
-- `pkg: add waybar-vd v0.1.1`
-- `pkg: update mihomo-smart to 0-unstable-d45278b`
-- `fix: JMComic-qt missing libxcrypt-legacy`
-- `meta: fortune-mod-zh add sourceProvenance`
+- `feat(pkgs): ...`
+- `fix(pkgs): ...`
+- `chore(pkgs): ...`
+- `feat(lib): ...`
+- `refactor(default): ...`
+- `docs(readme): ...`
+- `docs(opencode): ...`
 
-## Pre-commit Checks
+## Before committing
 
-1. Package builds: `nix-build -A <package>`
-2. Hash is valid (not fakeHash)
-3. License is accurate
+1. Build or evaluate the affected package(s) or docs target.
+2. Ensure attr names and package references match `default.nix`.
+3. Keep docs changes aligned with current repo reality, not stale package lists.
 
-## Git Commands
+## Examples
 
-!`git diff`
+- `feat(lib): add configurable fetchPixiv helper`
+- `docs(readme): refresh package inventory and usage`
+- `docs(opencode): align command docs with current exports`
 
-!`git diff --cached`
-
-!`git status --short`
+!`git diff && printf '\n---STAGED---\n' && git diff --cached && printf '\n---STATUS---\n' && git status --short`

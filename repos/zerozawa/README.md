@@ -5,52 +5,79 @@
 ![Build and populate cache](https://github.com/lz37/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-zerozawa-blue.svg)](https://zerozawa.cachix.org)
 
-## Available Packages
+This repository currently exports **24 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
 
-### Manga/Comic Readers
+## Current Exports
 
-| Package | Description | Features |
-|---------|-------------|----------|
-| `JMComic-qt` | 禁漫天堂 (18comic) PC client | Qt6, Vulkan GPU acceleration, waifu2x upscaling |
-| `picacg-qt` | 哔咔漫画 (PicACG) PC client | Qt6, Vulkan GPU acceleration, waifu2x upscaling |
+### Packages
 
-### SR Vulkan (Super Resolution)
+#### Manga, novels, and media clients
 
 | Package | Description |
 |---------|-------------|
-| `sr-vulkan` | Vulkan-based super resolution library (v2.0.1.1) |
-| `sr-vulkan-model-waifu2x` | waifu2x models for sr-vulkan |
-| `sr-vulkan-model-realcugan` | realcugan models for sr-vulkan |
-| `sr-vulkan-model-realesrgan` | realesrgan models for sr-vulkan |
-| `sr-vulkan-model-realsr` | realsr models for sr-vulkan |
+| `JMComic-qt` | Qt-based 禁漫天堂 / 18comic desktop client with Vulkan upscaling support |
+| `picacg-qt` | Qt-based PicACG desktop client with Vulkan upscaling support |
+| `Fladder` | Flutter-based Jellyfin frontend |
+| `lightnovel-crawler` | Download light novels and generate e-books |
 
-### Other Tools
+#### Streaming, networking, and developer tools
 
 | Package | Description |
 |---------|-------------|
-| `Fladder` | Jellyfin client |
-| `StartLive` | Bilibili live streaming tool |
-| `bilibili_live_tui` | Bilibili live TUI client |
-| `mihomo-smart` | Mihomo (Clash.Meta) with smart configuration |
-| `wechat-web-devtools-linux` | WeChat Mini Program DevTools |
-| `fortune-mod-zh` | Chinese fortune cookies |
-| `fortune-mod-hitokoto` | Hitokoto (一言) fortune |
-| `mikusays` | Miku-themed quotes |
-| `waybar-vd` | Waybar with custom configuration |
-| `sddm-eucalyptus-drop` | SDDM theme |
-| `zsh-url-highlighter` | Zsh URL syntax highlighting |
+| `StartLive` | Bypass Bilibili LiveHime to obtain streaming addresses |
+| `bilibili_live_tui` | Terminal client for Bilibili danmaku send/receive workflows |
+| `mihomo-smart` | Mihomo fork with Smart Groups functionality |
+| `wechat-web-devtools-linux` | Linux build of the WeChat Mini Program DevTools |
 | `agentic-contract` | Policy engine CLI for AI agents |
-| `agentic-contract.mcp` | MCP server for AgenticContract |
-| `hyprland-mcp-server` | MCP server for Hyprland |
-| `mcp-cli` | Lightweight CLI to interact with MCP servers |
-| `snip` | CLI proxy that reduces LLM token consumption by filtering shell output |
+| `hyprland-mcp-server` | MCP server for Hyprland automation |
+| `mcp-cli` | Lightweight CLI for interacting with MCP servers |
+| `snip` | CLI proxy for reducing LLM token consumption by filtering shell output |
+
+#### Desktop customization and utilities
+
+| Package | Description |
+|---------|-------------|
+| `fortune-mod-zh` | Debian Chinese Team fortune database |
+| `fortune-mod-hitokoto` | Hitokoto fortune database |
+| `mikusays` | Hatsune Miku themed `cowsay`-style CLI |
+| `sddm-eucalyptus-drop` | Eucalyptus Drop SDDM theme |
+| `grub-theme-yorha` | YoRHa GRUB theme with selectable resolution |
+| `waybar-vd` | Rust Waybar helper for Hyprland virtual desktops |
+| `zsh-url-highlighter` | URL syntax highlighting plugin for zsh-syntax-highlighting |
+
+#### SR Vulkan ecosystem
+
+| Package | Description |
+|---------|-------------|
+| `sr-vulkan` | Vulkan-based super-resolution Python package |
+| `sr-vulkan-model-waifu2x` | waifu2x model package for `sr-vulkan` |
+| `sr-vulkan-model-realcugan` | realcugan model package for `sr-vulkan` |
+| `sr-vulkan-model-realesrgan` | realesrgan model package for `sr-vulkan` |
+| `sr-vulkan-model-realsr` | realsr model package for `sr-vulkan` |
+
+### Library helpers
+
+| Export | Description |
+|--------|-------------|
+| `lib.fetchPixiv` | Fetch Pixiv illustrations by id with configurable mirror and extension fallback |
+
+### Modules and overlays
+
+- `modules` currently exports an empty attribute set placeholder.
+- `overlays` currently exports an empty attribute set placeholder.
+
+## Source of Truth
+
+- `default.nix` is the authoritative export surface for packages plus `lib`, `modules`, and `overlays`.
+- `lib/default.nix` is the authoritative export surface for library helpers.
+- `ci.nix` defines what CI evaluates, builds, and caches.
+- `flake.nix` exposes `legacyPackages` and filtered `packages` for flake consumers.
 
 ## Usage
 
-### Using NUR
+### Using through NUR
 
 ```nix
-# In your configuration.nix or home.nix
 {
   imports = [
     (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz")
@@ -59,76 +86,100 @@
   environment.systemPackages = with pkgs.nur.repos.zerozawa; [
     JMComic-qt
     picacg-qt
-    sr-vulkan
-    # ... other packages
+    hyprland-mcp-server
+    snip
   ];
 }
 ```
 
-### Building Packages
-
-```bash
-# Build a specific package
-nix-build -A JMComic-qt
-nix-build -A picacg-qt
-nix-build -A sr-vulkan
-
-# Build all packages
-nix-build ci.nix -A cacheOutputs
-```
-
-### Using with Flakes
+### Using this repository as a flake input
 
 ```nix
 {
-  inputs.nur.url = "github:nix-community/NUR";
-
-  outputs = { self, nixpkgs, nur }: {
-    nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        { nixpkgs.overlays = [ nur.overlay ]; }
-        {
-          environment.systemPackages = with pkgs.nur.repos.zerozawa; [
-            JMComic-qt
-            picacg-qt
-          ];
-        }
-      ];
-    };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    zerozawa-nur.url = "github:lz37/nur";
   };
+
+  outputs = { self, nixpkgs, zerozawa-nur }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in {
+      packages.${system}.default = pkgs.buildEnv {
+        name = "example";
+        paths = [
+          zerozawa-nur.packages.${system}.mcp-cli
+          zerozawa-nur.packages.${system}.hyprland-mcp-server
+        ];
+      };
+    };
 }
 ```
 
-## SR Vulkan Notes
-
-The `sr-vulkan` package supports multiple upscaling models:
-- **waifu2x**: Best for anime/manga art
-- **realcugan**: Alternative anime upscaler
-- **realesrgan**: General purpose upscaler
-- **realsr**: Another general purpose upscaler
-
-Models are automatically linked when using `JMComic-qt` or `picacg-qt`. For custom use:
+### Using `lib.fetchPixiv`
 
 ```nix
-with pkgs.nur.repos.zerozawa; [
-  (sr-vulkan.override { sr-vulkan-models = [ sr-vulkan-model-waifu2x ]; })
-]
+let
+  repo = import ./. { pkgs = import <nixpkgs> { }; };
+in
+repo.lib.fetchPixiv {
+  id = 81554929;
+  p = 0;
+  sha256 = "sha256-...";
+
+  # Optional overrides
+  mirrors = [ "pixiv.re" "pixiv.cat" "pixiv.nl" ];
+  extensions = [ "jpg" "png" ];
+}
 ```
 
-## Binary Cache
-
-This repository is built and cached via Cachix:
+## Build and Check Commands
 
 ```bash
-# Add the cache
-nix run nixpkgs#cachix -- use zerozawa
+# Build a package exported from default.nix
+nix-build -A JMComic-qt
+nix-build -A hyprland-mcp-server
 
-# Or manually configure
-nix.settings.substituters = [ "https://zerozawa.cachix.org" ];
-nix.settings.trusted-public-keys = [ "zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ=" ];
+# Build through flake outputs
+nix build .#mcp-cli
+
+# Build what CI caches
+nix-build ci.nix -A cacheOutputs
+
+# Inspect flake outputs
+nix flake show
 ```
+
+## CI and Cache Notes
+
+- GitHub Actions builds this repository on push, pull request, schedule, and manual dispatch.
+- CI evaluates packages against multiple nixpkgs channels and builds `nix-build ci.nix -A cacheOutputs`.
+- `Fladder` has an additional CI sync check for `pkgs/Fladder/pubspec-lock.json`.
+- Binary cache is published to `https://zerozawa.cachix.org`.
+
+If you want to use the cache locally, prefer declarative Nix configuration instead of commands that mutate the local environment:
+
+```nix
+nix.settings.substituters = [
+  "https://zerozawa.cachix.org"
+  "https://nix-community.cachix.org"
+];
+
+nix.settings.trusted-public-keys = [
+  "zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ="
+  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+];
+```
+
+## Developer Tooling
+
+This repository also carries local OpenCode metadata in `.opencode/`:
+
+- `.opencode/command/` contains repo-specific command docs for build, check, commit, and update workflows.
+- `.opencode/skill/nix-packaging/` contains the local Nix packaging skill used for this repo.
+- `.opencode/opencode.jsonc` configures the OpenCode provider and a remote `context7` MCP server.
 
 ## License
 
-See individual package definitions for license information.
+See each package definition for its own license metadata.

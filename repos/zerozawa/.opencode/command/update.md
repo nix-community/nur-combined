@@ -1,43 +1,44 @@
 ---
-description: Update package to new version
+description: Update one exported package to a new upstream version
 ---
 
-Update a package to a new version.
+Update a single package exported from `default.nix`.
 
-## Update Steps
+## Workflow
 
-1. **Find new version**: Check upstream repository for latest release
-2. **Update version**: Change `version = "..."` in package file
-3. **Update hash**: Use `lib.fakeHash`, build, copy real hash from error
-4. **Test build**: `nix-build -A <package>`
-5. **Commit**: `pkg: update <package> to <version>`
+1. Find the package attr in `default.nix`.
+2. Open the corresponding file under `pkgs/`.
+3. Update version / rev / hash inputs.
+4. Rebuild the package with `nix-build -A <package-name>`.
+5. If needed, update repo docs when package inventory, naming, or behavior changed.
 
-## Hash Update Methods
+## Hash update methods
 
-### Method 1: Build with fakeHash
+### Fake hash workflow
+
 ```nix
 hash = lib.fakeHash;
 ```
-Build fails, copy real hash from error message.
 
-### Method 2: nix-prefetch-url
+Build once, copy the real hash from the failure output, then rebuild.
+
+### Prefetch helpers
+
 ```bash
 nix-prefetch-url --unpack "https://github.com/<owner>/<repo>/archive/refs/tags/v<version>.tar.gz"
-```
-
-### Method 3: nix-prefetch-github
-```bash
 nix-prefetch-github <owner> <repo> --rev v<version>
 ```
 
-## For Go/Rust Packages
+## Repo-specific reminders
 
-Also update:
-- `vendorHash` (Go)
-- `cargoHash` or `cargoLock` (Rust)
+- Rust packages may need `Cargo.lock` handling (`waybar-vd`).
+- Flutter packages may need lock/hash refresh and CI sync validation (`Fladder`).
+- Python GUI apps may need wrapper/runtime checks (`JMComic-qt`, `picacg-qt`).
+- npm packages may need `npmDepsHash` refresh (`hyprland-mcp-server`).
+- bun-built packages may need dependency/output hash refresh (`mcp-cli`).
 
-Same fakeHash trick works for these.
+## Examples
 
-## Arguments
-
-$ARGUMENTS - Package name to update
+- `nix-build -A mihomo-smart`
+- `nix-build -A Fladder`
+- `nix-build -A hyprland-mcp-server`

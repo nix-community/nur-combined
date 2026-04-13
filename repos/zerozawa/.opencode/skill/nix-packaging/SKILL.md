@@ -1,138 +1,170 @@
 ---
 name: nix-packaging
-description: Use this when writing or modifying Nix package definitions (.nix files). Covers stdenv, buildGoModule, buildRustPackage, buildFlutterApplication, and appimageTools patterns.
+description: Use this when writing or modifying Nix package definitions and related repo exports in this NUR repository.
 ---
 
 ## Use this when
 
-- Creating new packages in `pkgs/`
-- Updating existing package versions
-- Fixing build issues in Nix derivations
-- Adding dependencies to packages
+- Creating a new package under `pkgs/`
+- Updating an exported package version or hash
+- Fixing a build/runtime issue in an existing derivation
+- Adding or updating a library helper in `lib/`
+- Wiring exports through `default.nix` or `lib/default.nix`
 
-## Builder Patterns
+## Repository-specific ground rules
 
-### stdenv.mkDerivation (generic)
-```nix
-stdenv.mkDerivation {
-  pname = "...";
-  version = "...";
-  src = fetchFromGitHub { ... };
-  
-  nativeBuildInputs = [ pkg-config ];  # build-time tools
-  buildInputs = [ openssl ];            # libraries
-  
-  buildPhase = ''
-    runHook preBuild
-    make
-    runHook postBuild
-  '';
-  
-  installPhase = ''
-    runHook preInstall
-    mkdir -p "$out/bin"
-    install -m755 binary "$out/bin/"
-    runHook postInstall
-  '';
-}
-```
+- `default.nix` is the source of truth for exported packages.
+- `lib/default.nix` is the source of truth for library helpers and currently exports `fetchPixiv`.
+- `modules/default.nix` and `overlays/default.nix` are placeholders right now; do not document them as populated unless you add real entries.
+- CI behavior comes from `ci.nix`, not from guesswork.
 
-### buildGoModule
-```nix
-buildGoModule rec {
-  pname = "...";
-  version = "...";
-  src = fetchFromGitHub { ... };
-  
-  vendorHash = "sha256-...";  # or null if vendor/ included
-  
-  ldflags = [
-    "-s" "-w"
-    "-X main.version=${version}"
-  ];
-  
-  doCheck = false;  # if tests need network
-}
-```
+## Packaging styles actually used in this repo
 
-### buildRustPackage
+### Python applications and packages
+
+Used heavily for GUI apps and helpers.
+
+Examples:
+
+- `pkgs/JMComic-qt.nix`
+- `pkgs/picacg-qt.nix`
+- `pkgs/sr-vulkan.nix`
+
+Common patterns:
+
+- `python3Packages.buildPythonApplication`
+- `python3Packages.buildPythonPackage`
+- wrapper scripts for GUI entrypoints
+- Vulkan or site-packages symlink setup in `postInstall`
+
+### Rust packages
+
+Example: `pkgs/waybar-vd/default.nix`
+
 ```nix
 rustPlatform.buildRustPackage rec {
   pname = "...";
   version = "...";
-  src = fetchFromGitHub { ... };
-  
+
   cargoLock.lockFile = ./Cargo.lock;
-  
-  # If Cargo.lock not in source
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
   '';
-  
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
 }
 ```
 
-### appimageTools
-```nix
-let
-  src = fetchurl {
-    url = "...AppImage";
-    hash = "sha256-...";
-  };
-  appimageContents = appimageTools.extract { inherit pname version src; };
-in
-appimageTools.wrapAppImage {
-  inherit pname version;
-  src = appimageContents;
-  
-  extraPkgs = pkgs: [ pkgs.libxcrypt-legacy ];
-  
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications
-    cp ${appimageContents}/*.desktop $out/share/applications/
-  '';
-}
-```
+### Flutter packages
 
-### buildFlutterApplication
+Example: `pkgs/Fladder/default.nix`
+
 ```nix
 flutter.buildFlutterApplication rec {
   pname = "...";
   version = "...";
-  src = fetchFromGitHub { ... };
-  
-  pubspecLock = lib.importJSON ./pubspec.lock.json;
-  # OR using yq: importYaml "${src}/pubspec.lock";
-  
-  gitHashes = {
-    some_package = "sha256-...";
-  };
+  pubspecLock = lib.importJSON ./pubspec-lock.json;
+  gitHashes = { ... };
 }
 ```
 
-## Hash Techniques
+This repo also uses custom Flutter source builders and CI lockfile sync checks for `Fladder`.
 
-### Get hash from failed build
+### Go packages
+
+Example: `pkgs/mihomo-smart.nix`
+
 ```nix
-hash = lib.fakeHash;  # Placeholder
-# Build fails, copy real hash from error
+buildGoModule rec {
+  pname = "...";
+  version = "...";
+  vendorHash = "sha256-...";
+}
 ```
 
-### Prefetch methods
-```bash
-# URL
-nix-prefetch-url --unpack <url>
+### npm packages
 
-# GitHub
+Example: `pkgs/hyprland-mcp-server.nix`
+
+```nix
+buildNpmPackage rec {
+  pname = "...";
+  version = "...";
+  npmDepsHash = "sha256-...";
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  postInstall = ''
+    wrapProgram "$out/bin/${pname}" --prefix PATH : "${lib.makeBinPath [ ... ]}"
+  '';
+}
+```
+
+### bun + `stdenvNoCC` packages
+
+Example: `pkgs/mcp-cli.nix`
+
+This repo also contains packages that:
+
+- prebuild dependency trees as fixed-output derivations
+- use `bun install --frozen-lockfile`
+- compile a final CLI binary with `bun build --compile`
+
+### Generic derivations
+
+Examples:
+
+- `pkgs/grub-theme-yorha.nix`
+- custom source builders inside `pkgs/Fladder/default.nix`
+
+Use `stdenv.mkDerivation` or `stdenvNoCC.mkDerivation` for asset packages, extracted binaries, or custom build workflows.
+
+## Export wiring patterns
+
+### Package export in `default.nix`
+
+```nix
+some-package = pkgs.callPackage ./pkgs/some-package.nix { };
+```
+
+### Library export in `lib/default.nix`
+
+```nix
+{ pkgs }:
+{
+  someHelper = pkgs.callPackage ./someHelper/default.nix { };
+}
+```
+
+## Current repo-specific examples worth imitating
+
+- `JMComic-qt` / `picacg-qt`: Python GUI packaging plus runtime wrapping
+- `sr-vulkan`: model composition through `sr-vulkan-models`
+- `Fladder`: Flutter packaging with custom source builders and lockfile tooling
+- `hyprland-mcp-server`: npm packaging plus PATH wrapping
+- `fetchPixiv`: helper-style library export using `fetchurl` fallback URLs
+
+## Hash techniques
+
+### Build once with a fake hash
+
+```nix
+hash = lib.fakeHash;
+```
+
+Then rebuild and copy the real hash from the failure output.
+
+### Prefetch helpers
+
+```bash
+nix-prefetch-url --unpack <url>
 nix-prefetch-github owner repo --rev v1.0.0
 ```
 
 ## Checklist
 
-- [ ] Use `runHook pre/post*` in phases
-- [ ] Include complete `meta` block
-- [ ] License in list form: `[mit]`
-- [ ] Test build: `nix-build -A <pkg>`
-- [ ] Verify binary runs (if applicable)
+- [ ] Export wiring updated in `default.nix` or `lib/default.nix` if needed
+- [ ] Builder matches the closest existing package in this repo
+- [ ] `meta` is complete enough for CI filtering and flake exposure
+- [ ] License format matches current repo conventions or is improved deliberately
+- [ ] Build verified with `nix-build -A <pkg>` or equivalent
+- [ ] Runtime behavior checked for wrapped GUI / CLI tools
+- [ ] Docs updated if package inventory or repo behavior changed

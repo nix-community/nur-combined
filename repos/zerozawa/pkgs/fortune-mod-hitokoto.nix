@@ -7,13 +7,13 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  version = "1.0.431";
+  version = "1.0.522";
   pname = "fortune-mod-hitokoto";
   src = fetchFromGitHub {
     owner = "hitokoto-osc";
     repo = "sentences-bundle";
     rev = "v${version}";
-    hash = "sha256-aGh3j3pZRRjwvh70MDxY6/aTTi4nowHfEjK4RtmSn/U=";
+    hash = "sha256-4U4H2jwkuIqXDIlOHMB6+zXa84bmf5Ir0G7q4mtNzjE=";
   };
   nativeBuildInputs = [
     fortune
@@ -52,10 +52,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = ''一言开源社区官方提供的语句库，系 `hitokoto.cn` 数据打包集合。语句接口默认使用此库。(fortune 适配版本)'';
+    description = "一言开源社区官方提供的语句库，系 `hitokoto.cn` 数据打包集合。语句接口默认使用此库。(fortune 适配版本)";
     homepage = "https://github.com/hitokoto-osc/sentences-bundle";
     platforms = fortune.meta.platforms;
-    license = with licenses; [agpl3Only];
-    sourceProvenance = with sourceTypes; [fromSource];
+    license = with licenses; [ agpl3Only ];
+    sourceProvenance = with sourceTypes; [ fromSource ];
   };
 }

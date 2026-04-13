@@ -1,48 +1,53 @@
 ---
-description: Check package evaluation and build status
+description: Check evaluation, flake exports, and CI-relevant build status
 ---
 
-Check if packages can be evaluated and built.
+Check whether a package or the repository evaluates cleanly.
 
-## Evaluation Check
+## What to target
+
+- Use attribute names exported by `default.nix`.
+- `lib`, `modules`, and `overlays` are reserved attrs, not package targets.
+
+## Evaluation checks
+
+Single exported package:
 
 ```bash
-# Check if package evaluates
 nix-instantiate -A <package-name>
+```
 
-# Check all packages evaluate
+CI output dry run:
+
+```bash
 nix-instantiate ci.nix -A cacheOutputs --dry-run
 ```
 
-## Build Check
+## Build checks
 
 ```bash
-# Dry run (shows what would be built)
+# Dry run
 nix-build -A <package-name> --dry-run
 
-# Full build
+# Real build
 nix-build -A <package-name>
 ```
 
-## Flake Check
+## Flake checks
 
 ```bash
-# Validate flake
-nix flake check
-
-# Show all outputs
 nix flake show
+nix flake check
 ```
 
-## CI Simulation
+## CI notes
 
-```bash
-# Build what CI builds
-nix-build ci.nix -A cacheOutputs
-```
+`ci.nix` excludes reserved attrs and filters packages by:
 
-## Arguments
+- `meta.broken`
+- license freedom
+- `preferLocalBuild`
 
-$ARGUMENTS - Package name to check (optional, checks all if not provided)
+That means a package may exist in `default.nix` but still be excluded from `cacheOutputs`.
 
-!`nix-instantiate -A ${ARGUMENTS:-ci.nix}`
+!`if [ -n "$ARGUMENTS" ]; then nix-instantiate -A "$ARGUMENTS"; else nix-instantiate ci.nix -A cacheOutputs --dry-run; fi`

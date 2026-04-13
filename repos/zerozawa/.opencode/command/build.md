@@ -1,37 +1,53 @@
 ---
-description: Build and test Nix packages
+description: Build and test packages exported by this NUR repository
 ---
 
-Build and test a Nix package from this NUR repository.
+Build a package exported from `default.nix`.
 
-## Build Commands
+## What to target
+
+- Use **attribute names exported by `default.nix`**, not file paths.
+- Reserved attrs `lib`, `modules`, and `overlays` are **not** package build targets.
+
+Current examples:
+
+- `JMComic-qt`
+- `hyprland-mcp-server`
+- `mcp-cli`
+- `grub-theme-yorha`
+- `waybar-vd`
+
+## Build commands
 
 Single package:
+
 ```bash
 nix-build -A <package-name>
 ```
 
-All CI outputs:
-```bash
-nix-build ci.nix -A cacheOutputs
-```
+Build through flake output:
 
-Via flake:
 ```bash
 nix build .#<package-name>
 ```
 
-## Test Checklist
+Build what CI caches:
 
-1. Package builds without errors
-2. Binary runs correctly (if applicable)
-3. `meta` block is complete (description, homepage, platforms, license, sourceProvenance)
-4. No IFD issues in pure evaluation mode
+```bash
+nix-build ci.nix -A cacheOutputs
+```
 
-## Common Fixes
+## Build checklist
 
-- Missing hash: Use `lib.fakeHash`, build fails, copy real hash
-- Platform issues: Check `meta.platforms` matches target
-- License format: Use list form `license = with licenses; [mit];`
+1. The target builds successfully.
+2. Runtime wrapper behavior is correct for GUI/CLI packages.
+3. `meta` is complete enough for CI filtering and flake export.
+4. If the package is intended for binary cache, verify it does not rely on `preferLocalBuild = true`.
 
-!`nix-build -A $ARGUMENTS`
+## Repo-specific reminders
+
+- `Fladder` has extra Flutter-specific lockfile handling.
+- `JMComic-qt` and `picacg-qt` expect the model-linked `sr-vulkan` composition.
+- `hyprland-mcp-server` depends on runtime PATH wrapping for Hyprland tools.
+
+!`nix-build -A "$ARGUMENTS"`

@@ -1,220 +1,190 @@
 # AGENTS.md - Zerozawa's NUR Repository
 
-This is a **Nix User Repository (NUR)** containing custom Nix packages, modules, and overlays.
+This repository is a **Nix User Repository (NUR)** with package definitions, a small library surface, CI filtering logic, and local `.opencode` command/skill metadata.
 
-## Quick Reference
+## Source of Truth
 
-| Command | Description |
-|---------|-------------|
-| `nix-build -A <package>` | Build a specific package |
-| `nix-build ci.nix -A cacheOutputs` | Build all cacheable packages (CI) |
-| `nix flake check` | Check flake validity |
-| `nix flake show` | Show all flake outputs |
-| `nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'` | Check nixpkgs version |
-| `nix build .#<package>` | Build package via flake |
+When updating code or documentation, treat these files as authoritative:
 
-## Project Structure
+- `default.nix` - exported packages plus reserved attrs `lib`, `modules`, `overlays`
+- `lib/default.nix` - exported library helpers (currently `fetchPixiv`)
+- `flake.nix` - flake outputs (`legacyPackages`, filtered `packages`)
+- `ci.nix` - CI build/cache filtering rules
+- `modules/default.nix` - current modules namespace (placeholder)
+- `overlays/default.nix` - current overlays namespace (placeholder)
+- `.opencode/command/*.md` - repo-local OpenCode command docs
+- `.opencode/skill/nix-packaging/SKILL.md` - repo-local Nix packaging skill
+- `.opencode/opencode.jsonc` - OpenCode config and remote `context7` MCP setup
 
-```
+## Current Repository Shape
+
+```text
 nur/
-├── default.nix          # Main entry point - exports all packages
-├── flake.nix            # Flake definition (nixpkgs-unstable)
-├── ci.nix               # CI build logic - filters buildable/cacheable packages
-├── pkgs/                # Package definitions
-│   ├── <name>.nix       # Single-file packages
-│   └── <name>/          # Multi-file packages (e.g., waybar-vd/)
-│       └── default.nix
-├── lib/                 # Library functions
-├── modules/             # NixOS modules
-└── overlays/            # Nixpkgs overlays
+├── default.nix              # main export surface
+├── flake.nix                # flake outputs and cache config
+├── ci.nix                   # CI package/output filtering
+├── pkgs/                    # 24 exported package definitions
+├── lib/                     # library helpers (currently fetchPixiv)
+├── modules/                 # placeholder NixOS modules namespace
+├── overlays/                # placeholder overlays namespace
+└── .opencode/               # local command/skill/config metadata
 ```
 
-## Adding a New Package
+## Current Exports
 
-1. Create `pkgs/<package-name>.nix` (or `pkgs/<package-name>/default.nix` for complex packages)
-2. Add to `default.nix`: `<package-name> = pkgs.callPackage ./pkgs/<package-name>.nix {};`
-3. Test with: `nix-build -A <package-name>`
+### Reserved attrs
 
-## Code Style Guidelines
+- `lib`
+- `modules`
+- `overlays`
 
-### Package Definition Pattern
+### Library helpers
 
-```nix
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  # ... dependencies
-}:
-stdenv.mkDerivation rec {
-  pname = "package-name";
-  version = "1.0.0";
+- `fetchPixiv` - configurable Pixiv fetch helper with mirror and extension fallback
 
-  src = fetchFromGitHub {
-    owner = "...";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-...";
-  };
+### Modules and overlays
 
-  # Use runHook in phases
-  buildPhase = ''
-    runHook preBuild
-    # build commands
-    runHook postBuild
-  '';
+- `modules/default.nix` currently exports `{ }`
+- `overlays/default.nix` currently exports `{ }`
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p "$out/share/..."
-    # install commands
-    runHook postInstall
-  '';
+Do not document modules or overlays as active features unless they have been implemented.
 
-  meta = with lib; {
-    description = "Short description";
-    homepage = "https://...";
-    platforms = platforms.linux;  # or specific like: (intersectLists x86_64 linux)
-    license = with licenses; [mit];  # Always use list form
-    sourceProvenance = with sourceTypes; [fromSource];  # or binaryBytecode
-    mainProgram = pname;  # if applicable
-  };
-}
-```
+## Package Inventory Summary
 
-### Formatting Rules
+The repo currently exports 24 packages from `default.nix`, grouped roughly as:
 
-- Use `alejandra` or `nixpkgs-fmt` for formatting
-- Use `let ... in` for local bindings, placed BEFORE the derivation
-- Prefer `inherit` for passing through attributes
-- Use `rec` only when self-referencing is needed
-- Quote paths with spaces: `"$out/share/..."`
-- Always include `meta` block with: `description`, `homepage`, `platforms`, `license`, `sourceProvenance`
+- SR Vulkan ecosystem: `sr-vulkan` and four model packages
+- Qt/Python readers: `JMComic-qt`, `picacg-qt`
+- Media and streaming tools: `Fladder`, `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
+- MCP and developer tools: `agentic-contract`, `hyprland-mcp-server`, `mcp-cli`, `snip`, `wechat-web-devtools-linux`
+- Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
-### Import Style
+Always derive exact package names from `default.nix`, not from README snippets or memory files.
 
-```nix
-# Function arguments - one per line, alphabetized, with trailing comma
-{
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  ...
-}: 
-```
+## Common Build Patterns Actually Used Here
 
-### Hash Formats
+This repo is not limited to one packaging style. Examples worth following:
 
-- Use SRI format: `hash = "sha256-...";` (preferred)
-- Or named: `sha256 = "...";`
-- Get hash: `nix-prefetch-url --unpack <url>` or let build fail and copy
+- `python3Packages.buildPythonApplication` / `buildPythonPackage`
+  - Examples: `pkgs/JMComic-qt.nix`, `pkgs/picacg-qt.nix`, `pkgs/sr-vulkan.nix`
+- `flutter.buildFlutterApplication`
+  - Example: `pkgs/Fladder/default.nix`
+- `buildGoModule`
+  - Example: `pkgs/mihomo-smart.nix`
+- `rustPlatform.buildRustPackage`
+  - Example: `pkgs/waybar-vd/default.nix`
+- `buildNpmPackage`
+  - Example: `pkgs/hyprland-mcp-server.nix`
+- `bun` + `stdenvNoCC.mkDerivation`
+  - Example: `pkgs/mcp-cli.nix`
+- `stdenv.mkDerivation` / `stdenvNoCC.mkDerivation`
+  - Examples: `pkgs/grub-theme-yorha.nix`, custom source builders inside `pkgs/Fladder/default.nix`
 
-### Builder-Specific Patterns
+## Repo-Specific Packaging Notes
 
-**Go packages:**
-```nix
-buildGoModule rec {
-  vendorHash = "sha256-...";
-  ldflags = ["-s" "-w" "-X main.version=${version}"];
-  doCheck = false;  # if network required
-}
-```
+### Export wiring
 
-**Rust packages:**
-```nix
-rustPlatform.buildRustPackage rec {
-  cargoLock.lockFile = ./Cargo.lock;
-  postPatch = ''ln -s ${./Cargo.lock} Cargo.lock'';
-}
-```
+- Add new packages to `default.nix` with `pkgs.callPackage`.
+- Add new library helpers to `lib/default.nix`.
+- Reserved attrs `lib`, `modules`, and `overlays` are not normal package targets.
 
-**AppImage packages:**
-```nix
-appimageTools.wrapAppImage {
-  src = appimageTools.extract { inherit pname version src; };
-  extraPkgs = pkgs: [ ... ];
-}
-```
+### CI behavior (`ci.nix`)
 
-**Flutter packages:**
-```nix
-flutter.buildFlutterApplication rec {
-  pubspecLock = importYaml "${src}/pubspec.lock";
-  gitHashes = { ... };
-}
-```
+CI excludes reserved attrs and flattens derivations recursively when `recurseForDerivations = true`.
 
-## Testing
+Filtering behavior:
 
-### Local Testing
+- `meta.broken = true` -> excluded from CI builds
+- unfree licenses -> excluded from build/cache sets
+- `preferLocalBuild = true` -> buildable locally but excluded from cache set
+
+### Flake behavior (`flake.nix`)
+
+- `legacyPackages.<system>` imports `default.nix`
+- `packages.<system>` filters derivations by platform compatibility
+- `nixpkgs` is pinned to `nixpkgs-unstable`
+- the flake config also publishes Cachix substituters and trusted keys
+
+### Current implementation quirks worth remembering
+
+- `JMComic-qt` and `picacg-qt` rely on `sr-vulkan-with-models`, not plain `sr-vulkan`
+- `Fladder` has custom Flutter source builders and a CI sync check for `pubspec-lock.json`
+- `hyprland-mcp-server` is a wrapped npm package with runtime PATH injection for Hyprland tooling
+- `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL
+
+## Quick Commands
+
 ```bash
-# Build single package
-nix-build -A <package>
+# Build a package from default.nix
+nix-build -A JMComic-qt
 
-# Build with specific nixpkgs
-nix-build -A <package> --arg pkgs 'import <nixpkgs> {}'
+# Build from flake output
+nix build .#mcp-cli
 
-# Test flake build
-nix build .#<package>
-```
-
-### CI Testing
-```bash
-# Build all CI outputs (what GitHub Actions runs)
+# Build what CI caches
 nix-build ci.nix -A cacheOutputs
 
-# With uncached builder (faster CI)
-nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+# Inspect flake outputs
+nix flake show
+
+# Check nixpkgs version in the current channel setup
+nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 ```
 
-## CI/CD
+## `.opencode` Inventory
 
-- **GitHub Actions**: Runs on push/PR to main/master
-- **Cachix**: `zerozawa.cachix.org` - binary cache
-- **NUR**: Auto-updates via `nur-update.nix-community.org`
+### Commands
 
-### Package Filters in CI
+- `.opencode/command/build.md`
+- `.opencode/command/check.md`
+- `.opencode/command/commit.md`
+- `.opencode/command/update.md`
+- `.opencode/command/update-all.md`
 
-Packages are automatically filtered based on:
-- `meta.broken = true` - Excluded from builds
-- `meta.license.free = false` - Excluded (unfree)
-- `preferLocalBuild = true` - Excluded from cache
+These should stay aligned with real attr names from `default.nix` and real workflows from `ci.nix`, `flake.nix`, and package definitions.
+
+### Skills
+
+- `.opencode/skill/nix-packaging/SKILL.md`
+
+This skill should stay grounded in the packaging styles actually present in this repo, not only generic nixpkgs examples.
+
+### Config
+
+- `.opencode/opencode.jsonc` configures the provider and a remote `context7` MCP server.
+- `.opencode/package.json` currently depends on `@opencode-ai/plugin`.
+- `.opencode/.gitignore` excludes local dependency and lockfile state.
+
+## Documentation Maintenance Rules
+
+Update docs when any of the following changes:
+
+- package exports in `default.nix`
+- library exports in `lib/default.nix`
+- CI behavior in `ci.nix` or `.github/workflows/build.yml`
+- flake outputs or cache settings in `flake.nix`
+- local OpenCode commands, skills, or config under `.opencode/`
+
+Specific expectations:
+
+- `README.md` should describe the current export surface and user-facing usage.
+- `AGENTS.md` should describe contributor/agent workflow and source-of-truth files.
+- `.opencode/command/*.md` should describe current commands using actual attr names and workflows.
+- `.opencode/skill/nix-packaging/SKILL.md` should reflect current repo packaging patterns.
 
 ## Common Pitfalls
 
-1. **IFD (Import From Derivation)**: Packages using `builtins.readFile` on derived paths fail in pure evaluation. Mark with `preferLocalBuild = true` if unavoidable.
+1. **Documenting from memory instead of code**
+   - Re-read `default.nix`, `lib/default.nix`, and `.opencode/` before editing docs.
 
-2. **Missing hashes**: Use `lib.fakeHash` as placeholder, run build, copy real hash from error.
+2. **Treating placeholders as implemented features**
+   - `modules` and `overlays` are currently empty placeholders.
 
-3. **Platform restrictions**: Use `lib.platforms` helpers:
-   ```nix
-   platforms = with platforms; (intersectLists x86_64 linux);
-   ```
+3. **Using stale package lists**
+   - Derive package names from `default.nix`, not from old README tables or update scripts.
 
-4. **License format**: Always use list form even for single license:
-   ```nix
-   license = with licenses; [mit];  # NOT: license = licenses.mit;
-   ```
+4. **Forgetting CI/cache filters**
+   - A package being exported does not automatically mean it is cacheable.
 
-## Nix Language Tips
-
-```nix
-# Conditional inclusion
-nativeBuildInputs = [ pkg-config ] 
-  ++ lib.optionals cudaSupport [ cudaPackages.cuda_nvcc ];
-
-# String interpolation
-rev = "v${version}";
-
-# Attribute access with default
-(p.meta or {}).platforms or platforms.none
-
-# Filter attributes
-lib.filterAttrs (n: v: lib.isDerivation v) attrs
-```
-
-## External Resources
-
-- [NUR](https://github.com/nix-community/NUR) - Nix User Repository
-- [Nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/) - Package guidelines
-- [Nix Pills](https://nixos.org/guides/nix-pills/) - Learning Nix
+5. **Over-generalizing packaging guidance**
+   - Match the builder and style already used by the closest package in this repo.
