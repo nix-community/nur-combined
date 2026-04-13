@@ -1,53 +1,64 @@
-{ lib
-, fetchFromGitHub
-, symlinkJoin
-, buildNpmPackage
-, python3
-, pkg-config
-, vips
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchPnpmDeps,
+  pnpmConfigHook,
+  pnpm,
+  nodejs,
+  python3,
+  symlinkJoin,
 }:
 
 let
-  pname = "lfreader";
-  version = "3.5.0";
-  name = "${pname}-${version}";
+  name = "lfreader";
+  version = "4.0.1";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
     rev = "v${version}";
-    hash = "sha256-6ibxycJw8waOJkjb8KiXmQPr4sBjseK7b4X4cH0Z8io=";
+    hash = "sha256-K+BLAD58DljPxQuJuTYp+v90tVVjYTyYL+j2/0xX6eI=";
   };
 
-  frontendDrv = buildNpmPackage {
-    inherit pname version src;
-    name = "${name}-frontend";
+  # reference: https://nixos.org/manual/nixpkgs/unstable/#javascript-pnpm
+  frontendDrv = stdenv.mkDerivation (finalAttrs: {
+    pname = "${name}-frontend";
+    inherit version src;
     sourceRoot = "${src.name}/frontend";
 
-    npmDepsHash = "sha256-U6FqoArH8jrNoQdySTw6CLJlaGbUtOXAw+MEbxvdi14=";
-
-    # Required for sharp dependency (used by pwa-assets-generator)
     nativeBuildInputs = [
-      pkg-config
-      vips
+      nodejs # in case scripts are run outside of a pnpm call
+      pnpmConfigHook
+      pnpm # At least required by pnpmConfigHook, if not other (custom) phases
     ];
 
-    buildInputs = [
-      vips
-    ];
+    pnpmDeps = fetchPnpmDeps {
+      inherit (finalAttrs) pname version src sourceRoot;
+      fetcherVersion = 3;
+      hash = "sha256-Aw0AFyuUUTDZiwM8cMf7LWqnB6Hhq8ISntxI2qPtA9g=";
+    };
+
+    buildPhase = ''
+      runHook preBuild
+
+      pnpm build
+
+      runHook postBuild
+    '';
 
     installPhase = ''
       runHook preInstall
 
       mkdir -p $out/share
-      mv dist $out/share/${pname}
+      mv dist $out/share/${name}
 
       runHook postInstall
     '';
-  };
+  });
 
   backendDrv = python3.pkgs.buildPythonApplication {
-    inherit pname version src;
-    name = "${name}-backend";
+    pname = "${name}-backend";
+    inherit version src;
     sourceRoot = "${src.name}/backend";
 
     pyproject = true;
