@@ -698,8 +698,8 @@
             "url": "https://github.com/dawidsowa/nur-packages"
         },
         "dcsunset": {
-            "rev": "1a3a881b1690f11958c87f85d7a8cff53b91f8b4",
-            "sha256": "12pm9z9sfnzmzi2hkx4k954yz5v7lznc6a8729r4cnp432zp7x9j",
+            "rev": "a3d8db719591587610285e14278175b39c67c72d",
+            "sha256": "1s2f5adjij0rjhpz6m08dr9q9h1nb6n95dx9pkagj42ks2fwzz7j",
             "url": "https://github.com/DCsunset/nur-packages"
         },
         "deeunderscore": {
