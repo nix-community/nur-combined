@@ -9,19 +9,19 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "14kdybg28x9z7w1a5x34lp5dhgva0ikhijcs72ixj164m9lf72kk";
-    x86_64-linux = "0yzylp7jmkm8zagqjvmdzn2nl81sq4j6xwjah96jphb3fk48v9rg";
-    aarch64-linux = "0azv77cw4m0jv3y4gqc7152zv42ridyrgn0zh24a1v5wskfs64xz";
-    x86_64-darwin = "074zfyk9z59xair795h49x3swxmydmb6j7af5zfgf552mdcp9aw8";
-    aarch64-darwin = "1mh3137dxyxk9lmvvvnrynyxff800jvw4akgp70z0lvv29q4bqlh";
+    i686-linux = "1m9xzya72k1rgvg3xk4s9dx4v0z4069jf28fzjy8p77xv7krmpc5";
+    x86_64-linux = "01xyrgkx0s90xv03ay89vzm1zbh6hc9kwkl4kv2lgbjrd85llcyi";
+    aarch64-linux = "1nqn4fz64226qab9zlikbvaq1m2wrz1dlfmr2gysjl90ia46s8qh";
+    x86_64-darwin = "1zdvzyhxwadwvll8rk2vrwwvpm3qkdddv3qyy2i218rs0jh7ihyb";
+    aarch64-darwin = "1z7ajq6m1dyjrd5q71f8q01bqw0nrk68hn2ia7simxdgdqcbb74x";
   };
 
   urlMap = {
-    i686-linux = "https://download.runway.horse/runway/1.37.0/runway_Linux_i386.tar.gz";
-    x86_64-linux = "https://download.runway.horse/runway/1.37.0/runway_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://download.runway.horse/runway/1.37.0/runway_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://download.runway.horse/runway/1.37.0/runway_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://download.runway.horse/runway/1.37.0/runway_Darwin_arm64.tar.gz";
+    i686-linux = "https://download.runway.horse/runway/1.37.1/runway_Linux_i386.tar.gz";
+    x86_64-linux = "https://download.runway.horse/runway/1.37.1/runway_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://download.runway.horse/runway/1.37.1/runway_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://download.runway.horse/runway/1.37.1/runway_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://download.runway.horse/runway/1.37.1/runway_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
     i686-linux = "runway_Linux_i386";
@@ -33,7 +33,7 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "runway";
-  version = "1.37.0";
+  version = "1.37.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -49,8 +49,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "The runway CLI.";
-    homepage = "https://runway.planetary-quantum.com/";
+    description = "The Runway CLI.";
+    homepage = "https://www.runway.horse/";
     license = lib.licenses.unfree;
 
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
