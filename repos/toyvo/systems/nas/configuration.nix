@@ -143,6 +143,7 @@ in
     };
     # Immich doesn't support postgresql_17 yet;
     postgresql = {
+      enable = true;
       package = pkgs.postgresql_16;
       enableTCPIP = true;
       authentication = lib.mkOverride 10 ''
@@ -156,17 +157,7 @@ in
     };
     samba.enable = true;
     spice-vdagentd.enable = true;
-    monitoring = {
-      enable = true;
-      containerJournals = [
-        "jellyfin"
-        "nextcloud"
-        "hass"
-        "immich"
-        "open-webui"
-        "starr"
-      ];
-    };
+    monitoring.enable = true;
   };
   containerPresets = {
     open-webui = {
