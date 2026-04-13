@@ -133,6 +133,9 @@
         "Vortriz": {
             "url": "https://github.com/Vortriz/nur-packages"
         },
+        "XiaoXioe": {
+            "url": "https://github.com/XiaoXioe/nix-custompkgs"
+        },
         "YisuiMilena": {
             "url": "https://github.com/YisuiDenghua/nur-apps"
         },

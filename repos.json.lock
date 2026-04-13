@@ -215,6 +215,11 @@
             "sha256": "13jr23ci4disx7ca89k0yr3p6iwzh843pm40yixa2mxha3c18c04",
             "url": "https://github.com/Vortriz/nur-packages"
         },
+        "XiaoXioe": {
+            "rev": "225d6e2ac8d186f86455098dc2ece587626a0787",
+            "sha256": "08ahvjlcfr1g627y4wz38fm5w8qvcv3g0fvhdpabpnq6mh6nkkmj",
+            "url": "https://github.com/XiaoXioe/nix-custompkgs"
+        },
         "YisuiMilena": {
             "rev": "22499af4059bab7edcecae9009e4a40bda253769",
             "sha256": "1y91q1sk5sfjc2njnp7bnyhjfl6l5p4c08q27v00c41hy85xr4f2",
@@ -2125,8 +2130,8 @@
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
-            "rev": "88225045062e75265a94cebcfb29b893dac6175b",
-            "sha256": "15ry8jf4dlaml51crg9nn2jsv1m0nk08gx2ia4bjxy5998in75rx",
+            "rev": "c8501c9fd21d19d3ddcc0345e276c2f0132e532a",
+            "sha256": "0451mmsbjhgg61293hb01p0cpqin260zk5msqr71f16dlq1hb11r",
             "url": "https://github.com/ryota2357/nur-packages"
         },
         "rypkgs": {
