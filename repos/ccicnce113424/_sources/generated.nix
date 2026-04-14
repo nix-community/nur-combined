@@ -148,37 +148,37 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "1c1e8f5a0ccde40a53b4407926aedb8c39bbea22";
+    version = "e25c253a80f75ea093f0ddd961840d04063d7c93";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "1c1e8f5a0ccde40a53b4407926aedb8c39bbea22";
+      rev = "e25c253a80f75ea093f0ddd961840d04063d7c93";
       fetchSubmodules = false;
-      sha256 = "sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=";
+      sha256 = "sha256-/d6DENw2eu4jB13au/qYli3ePNCOciMAgAguRmEDWWo=";
     };
     extract = {
-      "frontend/kde/metadata.json" = ./. + "/sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=/frontend/kde/metadata.json";
-      "Cargo.toml" = ./. + "/sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=/Cargo.toml";
+      "frontend/kde/metadata.json" = ./. + "/sha256-_d6DENw2eu4jB13au_qYli3ePNCOciMAgAguRmEDWWo=/frontend/kde/metadata.json";
+      "Cargo.toml" = ./. + "/sha256-_d6DENw2eu4jB13au_qYli3ePNCOciMAgAguRmEDWWo=/Cargo.toml";
     };cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=/Cargo.lock";
+      lockFile = ./. + "/sha256-_d6DENw2eu4jB13au_qYli3ePNCOciMAgAguRmEDWWo=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.2" = "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA=";
       };
     };
-    date = "2026-04-13";
+    date = "2026-04-14";
   };
   motrix-next = {
     pname = "motrix-next";
-    version = "v3.6.10-beta.3";
+    version = "v3.6.11-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.6.10-beta.3";
+      rev = "v3.6.11-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-k/u+t+GQehPqRS78sBDec0rkJesXtsFzIKgR3b1muHA=";
+      sha256 = "sha256-53vfjkd6mM7sEunxwRehUcN0NCw8UwVLdsFVNTchx9I=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-k_u+t+GQehPqRS78sBDec0rkJesXtsFzIKgR3b1muHA=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-53vfjkd6mM7sEunxwRehUcN0NCw8UwVLdsFVNTchx9I=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -186,16 +186,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.3.2";
+    version = "2.0.4";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.3.2";
+      rev = "2.0.4";
       fetchSubmodules = false;
-      sha256 = "sha256-bfrkbvQvemKwMQDVbJugPFuVA0agmgtRwnL3DVuSoY0=";
+      sha256 = "sha256-e/chUgvE7oJPdVZ4tmgIYxfLD2R2Fs57Uo2xmn4hNTk=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-bfrkbvQvemKwMQDVbJugPFuVA0agmgtRwnL3DVuSoY0=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-e_chUgvE7oJPdVZ4tmgIYxfLD2R2Fs57Uo2xmn4hNTk=/pubspec.lock";
     };
   };
   pixes = {
