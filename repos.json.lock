@@ -376,8 +376,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "00cb80415da5ad38d747912e1a35d503411016c3",
-            "sha256": "1br2nn5q1m74fd61h40xjsv8j63lj061b0j0mnsxg5x5n7h4zlmh",
+            "rev": "66bf06ca4e582a1172bcf90d76fa2f3146a164a8",
+            "sha256": "1rwjklbv2dw0a4qiwqdpnmpb18xkb3sby96nca31b8300sypd886",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -853,8 +853,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "06175ddcdc65e59439fde909b8a3f407cce91a43",
-            "sha256": "0p0jjhh0ib4cwn5jhdsiygaz2pgb1zq9p94cgm4iv78lkkvzdbzn",
+            "rev": "6478515ed21aa0eaf2a9188bd2a27fdbaf0ddce3",
+            "sha256": "15jy5jcyzsrzk0i6fxw8jj2q7ivd0wx07s1xxp75yw1i35r06p9v",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
