@@ -14,6 +14,7 @@
 , nspr
 , alsa-lib
 , dbus
+, icu
 , xorg
 }:
 
@@ -54,6 +55,7 @@ stdenv.mkDerivation {
     nspr
     alsa-lib
     dbus
+    icu
     xorg.libX11
     xorg.libxcb
     xorg.libXi
@@ -83,9 +85,11 @@ stdenv.mkDerivation {
     # Create wrapper for the main executable
     if [ -f "$out/claude-desktop" ]; then
       mv "$out/claude-desktop" "$out/bin/claude-desktop.real"
-      makeWrapper "$out/bin/claude-desktop.real" "$out/bin/claude-desktop"
+      makeWrapper "$out/bin/claude-desktop.real" "$out/bin/claude-desktop" \
+        --set ICU_DATA_PATH "${icu}/share/icu"
     elif [ -f "$out/AppRun" ]; then
-      makeWrapper "$out/AppRun" "$out/bin/claude-desktop"
+      makeWrapper "$out/AppRun" "$out/bin/claude-desktop" \
+        --set ICU_DATA_PATH "${icu}/share/icu"
     fi
 
     # Install desktop file
