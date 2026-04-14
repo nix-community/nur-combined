@@ -13,6 +13,7 @@
 , nss
 , nspr
 , alsa-lib
+, pulseaudio
 , dbus
 , xorg
 }:
@@ -53,6 +54,7 @@ stdenv.mkDerivation {
     nss
     nspr
     alsa-lib
+    pulseaudio
     dbus
     xorg.libX11
     xorg.libxcb
@@ -85,24 +87,26 @@ stdenv.mkDerivation {
       ln -s "$out/icudtl.dat" "$out/bin/icudtl.dat"
     fi
 
-    # Create wrapper script that runs from the app root directory
+    # Create wrapper script that runs from the app root directory with audio support
     if [ -f "$out/claude-desktop" ]; then
       mv "$out/claude-desktop" "$out/.claude-desktop.real"
-      cat > "$out/bin/claude-desktop" << 'WRAPPER'
+      cat > "$out/bin/claude-desktop-runner" << 'WRAPPER'
 #!/bin/sh
 cd "$(dirname "$0")/.." || exit 1
-export LD_LIBRARY_PATH=".:./lib:$LD_LIBRARY_PATH"
 exec ./.claude-desktop.real "$@"
 WRAPPER
-      chmod +x "$out/bin/claude-desktop"
+      chmod +x "$out/bin/claude-desktop-runner"
+      makeWrapper "$out/bin/claude-desktop-runner" "$out/bin/claude-desktop" \
+        --prefix LD_LIBRARY_PATH : ".:./lib:${pulseaudio}/lib"
     elif [ -f "$out/AppRun" ]; then
-      cat > "$out/bin/claude-desktop" << 'WRAPPER'
+      cat > "$out/bin/claude-desktop-runner" << 'WRAPPER'
 #!/bin/sh
 cd "$(dirname "$0")/.." || exit 1
-export LD_LIBRARY_PATH=".:./lib:$LD_LIBRARY_PATH"
 exec ./AppRun "$@"
 WRAPPER
-      chmod +x "$out/bin/claude-desktop"
+      chmod +x "$out/bin/claude-desktop-runner"
+      makeWrapper "$out/bin/claude-desktop-runner" "$out/bin/claude-desktop" \
+        --prefix LD_LIBRARY_PATH : ".:./lib:${pulseaudio}/lib"
     fi
 
     # Install desktop file
