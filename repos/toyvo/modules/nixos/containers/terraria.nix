@@ -84,6 +84,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "terraria" ];
     networking.nat = {
       enable = true;
       externalInterface = cfg.natInterface;

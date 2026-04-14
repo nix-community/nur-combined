@@ -58,6 +58,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "hass" ];
     # Container is named 'hass' to keep the veth interface name (ve-hass) within
     # Linux's 15-character IFNAMSIZ limit. 've-home-assistant' would be 17 chars.
     networking.nat = {

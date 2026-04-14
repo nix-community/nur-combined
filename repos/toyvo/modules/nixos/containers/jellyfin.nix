@@ -73,6 +73,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "jellyfin" ];
     # Pin multimedia GID so bind-mounted media paths are accessible from inside the container
     users.groups.multimedia.gid = cfg.multimediaGid;
 

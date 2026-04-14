@@ -68,6 +68,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "open-webui" ];
     networking.nat = lib.mkIf (cfg.natInterface != null) {
       enable = true;
       externalInterface = cfg.natInterface;

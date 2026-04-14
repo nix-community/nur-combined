@@ -12,7 +12,8 @@ let
   hostname = config.networking.hostName;
 
   # Container journal readers — one loki.source.journal block per container
-  containerJournalConfig = lib.concatMapStrings (name:
+  containerJournalConfig = lib.concatMapStrings (
+    name:
     let
       label = lib.replaceStrings [ "-" ] [ "_" ] name;
     in
@@ -25,7 +26,8 @@ let
           host = "${hostname}",
         }
       }
-    '') cfg.containerJournals;
+    ''
+  ) cfg.containerJournals;
 
   # Detect which services are enabled on this machine
   caddyEnabled = config.services.caddy.enable;
@@ -165,7 +167,7 @@ in
 
     containerJournals = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
       description = "Container names to collect journal logs from (reads /var/lib/nixos-containers/<name>/var/log/journal).";
     };
 

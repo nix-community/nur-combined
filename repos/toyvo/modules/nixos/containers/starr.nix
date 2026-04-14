@@ -152,6 +152,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "starr" ];
     # Pin multimedia GID so bind-mounted paths are accessible from inside the container
     users.groups.multimedia.gid = cfg.multimediaGid;
 

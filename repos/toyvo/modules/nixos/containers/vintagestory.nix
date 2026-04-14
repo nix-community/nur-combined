@@ -62,6 +62,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "vintagestory" ];
     networking.nat = {
       enable = true;
       externalInterface = cfg.natInterface;

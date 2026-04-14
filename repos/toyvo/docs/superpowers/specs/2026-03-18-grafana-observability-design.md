@@ -6,16 +6,16 @@ Full observability (metrics, logs, alerting) across 8 NixOS machines using a NAS
 
 ## Fleet
 
-| Machine      | Role                                                   | IP                                | Architecture  |
+| Machine | Role | IP | Architecture |
 | ------------ | ------------------------------------------------------ | --------------------------------- | ------------- |
-| NAS          | Hub (Grafana, Prometheus, Loki) + services             | 10.1.0.3                          | x86_64-linux  |
-| Router       | Network, Caddy reverse proxy, DHCP, WireGuard endpoint | 10.1.0.1                          | x86_64-linux  |
-| Protectli    | Network, firewall, VLANs                               | 10.1.0.6                          | x86_64-linux  |
-| Oracle Cloud | Game servers, Caddy                                    | 149.130.210.149 / 10.100.0.2 (WG) | aarch64-linux |
-| rpi4b4a      | Edge node                                              | 10.1.0.10                         | aarch64-linux |
-| rpi4b8a      | Edge node                                              | 10.1.0.7                          | aarch64-linux |
-| rpi4b8b      | Edge node                                              | 10.1.0.8                          | aarch64-linux |
-| rpi4b8c      | Edge node                                              | 10.1.0.9                          | aarch64-linux |
+| NAS | Hub (Grafana, Prometheus, Loki) + services | 10.1.0.3 | x86_64-linux |
+| Router | Network, Caddy reverse proxy, DHCP, WireGuard endpoint | 10.1.0.1 | x86_64-linux |
+| Protectli | Network, firewall, VLANs | 10.1.0.6 | x86_64-linux |
+| Oracle Cloud | Game servers, Caddy | 149.130.210.149 / 10.100.0.2 (WG) | aarch64-linux |
+| rpi4b4a | Edge node | 10.1.0.10 | aarch64-linux |
+| rpi4b8a | Edge node | 10.1.0.7 | aarch64-linux |
+| rpi4b8b | Edge node | 10.1.0.8 | aarch64-linux |
+| rpi4b8c | Edge node | 10.1.0.9 | aarch64-linux |
 
 **Excluded:** All Darwin machines, laptops (MacBooks, PineBook, HP-Envy, HP-ZBook, Thinkpad), steamdeck-nixos, WSL.
 
@@ -226,29 +226,29 @@ Email notification channel initially. No external notification services.
 ### Phase 3 — WireGuard + Oracle
 
 12. Rename NAS ProtonVPN interface from `wg0` to `wg-proton` (update all namespace/route refs in `systems/nas/wireguard.nix`)
-1.  WireGuard module on Router (server) + Oracle (peer)
-1.  Open 51820/UDP on Router WAN interface (`enp2s0`)
-1.  Add `wg0` to Router's `networking.nat.internalInterfaces` for WG↔LAN forwarding
-1.  Alloy on Oracle
-1.  Caddy, Minecraft metrics on Oracle
+01. WireGuard module on Router (server) + Oracle (peer)
+01. Open 51820/UDP on Router WAN interface (`enp2s0`)
+01. Add `wg0` to Router's `networking.nat.internalInterfaces` for WG↔LAN forwarding
+01. Alloy on Oracle
+01. Caddy, Minecraft metrics on Oracle
 
 ### Phase 4 — RPis + Polish
 
 17. Alloy on RPi nodes
-1.  Service-specific dashboards (Jellyfin, Nextcloud, Immich, etc.)
-1.  Grafana alerting rules
+01. Service-specific dashboards (Jellyfin, Nextcloud, Immich, etc.)
+01. Grafana alerting rules
 
 ## Secrets (sops-nix)
 
 All secrets stored in `secrets.yaml`, encrypted with age keys per machine.
 
-| Secret Name                    | Used By                         | How to Generate                          |
+| Secret Name | Used By | How to Generate |
 | ------------------------------ | ------------------------------- | ---------------------------------------- |
-| `grafana-admin-password`       | NAS (Grafana)                   | `openssl rand -base64 32`                |
-| `loki-bearer-token`            | NAS (Loki) + all agents (Alloy) | `openssl rand -hex 32`                   |
-| `wireguard-router-private-key` | Router (WireGuard server)       | `wg genkey`                              |
-| `wireguard-oracle-private-key` | Oracle (WireGuard peer)         | `wg genkey`                              |
-| `immich-api-key`               | NAS (Prometheus scrape)         | Generate in Immich UI → Admin → API Keys |
+| `grafana-admin-password` | NAS (Grafana) | `openssl rand -base64 32` |
+| `loki-bearer-token` | NAS (Loki) + all agents (Alloy) | `openssl rand -hex 32` |
+| `wireguard-router-private-key` | Router (WireGuard server) | `wg genkey` |
+| `wireguard-oracle-private-key` | Oracle (WireGuard peer) | `wg genkey` |
+| `immich-api-key` | NAS (Prometheus scrape) | Generate in Immich UI → Admin → API Keys |
 
 **WireGuard key generation:**
 
@@ -311,15 +311,15 @@ sops secrets.yaml
 
 ## Firewall Changes
 
-| Machine    | Port  | Protocol | Direction        | Purpose                              |
+| Machine | Port | Protocol | Direction | Purpose |
 | ---------- | ----- | -------- | ---------------- | ------------------------------------ |
-| NAS        | 3000  | TCP      | Inbound (LAN)    | Grafana UI                           |
-| NAS        | 9090  | TCP      | Inbound (LAN)    | Prometheus (optional, for debugging) |
-| NAS        | 9091  | TCP      | Inbound (LAN)    | Cockpit (moved from 9090)            |
-| NAS        | 3100  | TCP      | Inbound (LAN)    | Loki push endpoint                   |
-| Router     | 51820 | UDP      | Inbound (WAN)    | WireGuard tunnel                     |
-| All agents | 12345 | TCP      | Inbound (LAN/WG) | Alloy metrics endpoint               |
-| Router     | 9547  | TCP      | Inbound (LAN)    | Kea exporter                         |
+| NAS | 3000 | TCP | Inbound (LAN) | Grafana UI |
+| NAS | 9090 | TCP | Inbound (LAN) | Prometheus (optional, for debugging) |
+| NAS | 9091 | TCP | Inbound (LAN) | Cockpit (moved from 9090) |
+| NAS | 3100 | TCP | Inbound (LAN) | Loki push endpoint |
+| Router | 51820 | UDP | Inbound (WAN) | WireGuard tunnel |
+| All agents | 12345 | TCP | Inbound (LAN/WG) | Alloy metrics endpoint |
+| Router | 9547 | TCP | Inbound (LAN) | Kea exporter |
 
 ## Notes
 

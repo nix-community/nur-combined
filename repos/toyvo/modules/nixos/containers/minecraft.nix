@@ -84,6 +84,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "minecraft" ];
     networking.nat = {
       enable = true;
       externalInterface = cfg.natInterface;

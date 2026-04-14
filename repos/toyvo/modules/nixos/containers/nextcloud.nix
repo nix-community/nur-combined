@@ -75,6 +75,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.monitoring.containerJournals = [ "nextcloud" ];
     networking.nat = {
       enable = true;
       externalInterface = cfg.natInterface;
