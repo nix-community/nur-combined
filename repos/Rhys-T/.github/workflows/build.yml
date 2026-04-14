@@ -103,7 +103,7 @@ jobs:
           echo -E "cachePrefix=$cachePrefix" >> "$GITHUB_OUTPUT"
       - name: Restore GHA cache of Nix cache
         id: cache
-        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: |
             ~/.cache/nix/*
@@ -139,7 +139,7 @@ jobs:
           "$result"
       - name: Get token for deleting cache
         if: ${{ steps.fetch.outputs.shouldDeleteCache == 'true' }}
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
         id: app-token
         with:
           # required
@@ -152,7 +152,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
       - name: Save GHA cache of Nix cache
-        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: |
             ~/.cache/nix/*
@@ -187,7 +187,7 @@ jobs:
         nix_conf: |
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem) || '' }}
     - name: Restore Nixpkgs cache
-      uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: |
             ~/.cache/nix/*
@@ -220,7 +220,7 @@ jobs:
           -I $PWD
     - name: Restore cached build failures
       id: restoreFailCache
-      uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
         path: /tmp/buildFailures
         key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
@@ -268,7 +268,7 @@ jobs:
         '
     - name: Upload build logs
       if: '!cancelled()'
-      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) || '' }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
         path: |
@@ -305,7 +305,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Upload build failures for subset
       if: ${{ !cancelled() && steps.build.outcome == 'failure' && !matrix.flaky }}
-      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: buildFailures-${{ matrix.cacheName }}
         path: /tmp/buildFailures/*.drv.json
@@ -341,7 +341,7 @@ jobs:
           path: /tmp/buildFailures
           merge-multiple: true
       - name: Save merged build failure cache
-        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: /tmp/buildFailures
           key: buildFailures-${{ github.run_id }}-${{ github.run_attempt }}
