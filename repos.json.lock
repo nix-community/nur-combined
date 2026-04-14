@@ -2075,8 +2075,8 @@
             "url": "https://github.com/wineee/nur-packages"
         },
         "rhencloud": {
-            "rev": "7c9bb1a76e9af071258572ca5f9646f9d5cba9b4",
-            "sha256": "1zji30kdr59crxlbdcglqd1l8q9229jyhgd3mzg8lhswp16nglf8",
+            "rev": "88e3e105bfc39e21d928aef2e0960182e85e1d81",
+            "sha256": "0l3v0myz55gfbmar629m3fprgmk0x1n61pry98sagpjx5qipwh6h",
             "url": "https://github.com/RhenCloud/nur-packages"
         },
         "robertodr": {
