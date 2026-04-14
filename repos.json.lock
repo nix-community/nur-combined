@@ -2357,8 +2357,8 @@
             "url": "https://github.com/thkoch2001/nur-packages"
         },
         "thomas725": {
-            "rev": "855289afdb7ce27901d84d483cdd433660ea2f6c",
-            "sha256": "175idp8qwffm2zyc0pgqp90mw9rxaa0hzc1kkpj1p30sh1chfw5c",
+            "rev": "81be7b01482f2afd7defd03d33aeced0e26f318c",
+            "sha256": "05nj7p64x6lsxkjqx8iszr8wh11kkp1h10dxq4d8l9c5cs15p1q5",
             "url": "https://github.com/thomas725/nur-packages"
         },
         "tilpner": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "5f425156559d852477420ba150310e2faf3e61f5",
-            "sha256": "0waib1pc670pma544d0srfnp28m2hdkcn01bmsa359fw0pachh27",
+            "rev": "1d504b849eb3804bbcffff812c25eb090e14d397",
+            "sha256": "05q3wc07h38y32s93g72ka8pp0g076z34g2hajcf669r6fhldr8g",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
