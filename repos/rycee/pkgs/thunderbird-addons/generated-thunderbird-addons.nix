@@ -1,5 +1,34 @@
 { buildMozillaXpiAddon, fetchurl, lib, stdenv }:
   {
+    "cardbook" = buildMozillaXpiAddon {
+      pname = "cardbook";
+      version = "104.9";
+      addonId = "cardbook@vigneau.philippe";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1045793/cardbook-104.9-tb.xpi?src=";
+      sha256 = "c3714c44aa3419df17b2217cae64325fc31d3cfa52b35d67ef18913bdf9c2b08";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.com/CardBook/CardBook";
+        description = "A new Thunderbird address book based on the CardDAV and vCard standards.\n\nTwitter: <a rel=\"nofollow\" href=\"https://twitter.com/CardBookAddon\">@CardBookAddon</a>";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "compose"
+          "accountsRead"
+          "messagesRead"
+          "addressBooks"
+          "clipboardRead"
+          "clipboardWrite"
+          "storage"
+          "unlimitedStorage"
+          "tabs"
+          "menus"
+          "menus.overrideContext"
+          "identity"
+          "downloads"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "dictionnaire-français1" = buildMozillaXpiAddon {
       pname = "dictionnaire-français1";
       version = "6.3.1webext";
@@ -67,6 +96,53 @@
         platforms = platforms.all;
       };
     };
+    "grammar-and-spell-checker" = buildMozillaXpiAddon {
+      pname = "grammar-and-spell-checker";
+      version = "8.11.2";
+      addonId = "languagetool-mailextension@languagetool.org";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1031394/grammatik_und_rechtschreibprufung_languagetool-8.11.2-tb.xpi?src=";
+      sha256 = "80168a2485e33ed7215d33542934630fd899d8e4aa646970ef13238ec68af2bc";
+      meta = with lib;
+      {
+        homepage = "https://languagetool.org/";
+        description = "Check your emails for spelling and grammar issues";
+        license = {
+          shortName = "languagetool";
+          fullName = "Custom License for LanguageTool";
+          url = "https://languagetool.org/legal/";
+          free = false;
+        };
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "storage"
+          "compose"
+          "menus"
+          "browserSettings"
+          "alarms"
+          "<all_urls>"
+          "http://*/*"
+          "https://*/*"
+          "file:///*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "html-source-editor" = buildMozillaXpiAddon {
+      pname = "html-source-editor";
+      version = "1.8";
+      addonId = "edithtmlsource@jobisoft.de";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1040652/html_source_editor-1.8-tb.xpi?src=";
+      sha256 = "c3ad5ab0d40af196c08b8544dd1dae473a8379155c3bfe558d8e413f09062f64";
+      meta = with lib;
+      {
+        homepage = "https://github.com/jobisoft/HtmlSourceEditor";
+        description = "Allows to edit the source of the currently composed message. A simple alternative to ThunderHTMLedit.";
+        license = licenses.mpl20;
+        mozPermissions = [ "compose" "menus" ];
+        platforms = platforms.all;
+      };
+    };
     "manually-sort-folders" = buildMozillaXpiAddon {
       pname = "manually-sort-folders";
       version = "2.3.0";
@@ -79,6 +155,39 @@
         description = "This extension allows you to manually sort (order) your folders in the folder pane of Thunderbird or automatically sort them, but in a better way. This extension also allows you to re-order accounts in the folder pane.";
         license = licenses.gpl2;
         mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "owl-for-exchange" = buildMozillaXpiAddon {
+      pname = "owl-for-exchange";
+      version = "1.4.9";
+      addonId = "owl@beonex.com";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1045258/eule_fur_exchange-1.4.9-tb.xpi?src=";
+      sha256 = "bd358bfe58f329a77c8d104eb9ae2b01aa5f31f9dda02fd5f5e3732861369c70";
+      meta = with lib;
+      {
+        homepage = "https://www.beonex.com/owl/";
+        description = "Allows you to use your Exchange and Office365 email account with Thunderbird using Outlook Web Access (OWA).";
+        license = {
+          shortName = "owl-for-exchange";
+          fullName = "End-User License Agreement (EULA) for Owl";
+          url = "https://addons.thunderbird.net/en-US/thunderbird/addon/owl-for-exchange/eula/";
+          free = false;
+        };
+        mozPermissions = [
+          "accountsRead"
+          "addressBooks"
+          "contextualIdentities"
+          "cookies"
+          "menus"
+          "storage"
+          "tabs"
+          "webNavigation"
+          "webRequest"
+          "webRequestBlocking"
+          "https://*/*"
+          "https://teams.microsoft.com/*"
+        ];
         platforms = platforms.all;
       };
     };

@@ -1,5 +1,8 @@
 [
   {
+    "slug": "cardbook"
+  },
+  {
     "slug": "dictionnaire-français1"
   },
   {
@@ -12,7 +15,30 @@
     "slug": "filter-manager"
   },
   {
+    "slug": "grammar-and-spell-checker",
+    "license": {
+      "tag": "custom",
+      "shortName": "languagetool",
+      "fullName": "Custom License for LanguageTool",
+      "url": "https://languagetool.org/legal/",
+      "free": false
+    }
+  },
+  {
+    "slug": "html-source-editor"
+  },
+  {
     "slug": "manually-sort-folders"
+  },
+  {
+    "slug": "owl-for-exchange",
+    "license": {
+      "tag": "custom",
+      "shortName": "owl-for-exchange",
+      "fullName": "End-User License Agreement (EULA) for Owl",
+      "url": "https://addons.thunderbird.net/en-US/thunderbird/addon/owl-for-exchange/eula/",
+      "free": false
+    }
   },
   {
     "slug": "provider-for-google-calendar"

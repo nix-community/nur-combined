@@ -1277,6 +1277,30 @@
         platforms = platforms.all;
       };
     };
+    "block-website" = buildMozillaXpiAddon {
+      pname = "block-website";
+      version = "0.5.7";
+      addonId = "{54e2eb33-18eb-46ad-a4e4-1329c29f6e17}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4620194/block_website-0.5.7.xpi";
+      sha256 = "85000c3363339bcdd6864261dda032f8d1f017b74f720824185dabe3f458865a";
+      meta = with lib;
+      {
+        homepage = "https://webextension.org/listing/block-site.html";
+        description = "A customizable, password-protected website blocker and redirector.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "notifications"
+          "alarms"
+          "contextMenus"
+          "declarativeNetRequestWithHostAccess"
+          "idle"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "blocktube" = buildMozillaXpiAddon {
       pname = "blocktube";
       version = "0.4.8";
@@ -8683,10 +8707,10 @@
     };
     "livetl" = buildMozillaXpiAddon {
       pname = "livetl";
-      version = "9.1.0";
+      version = "9.1.1";
       addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4763988/livetl-9.1.0.xpi";
-      sha256 = "3769d0d4fa399cdf1d0c1f403fa4f769bbff8a667e428eb00b491ce5b6b1d6c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4765198/livetl-9.1.1.xpi";
+      sha256 = "bf1182861cf5e8be7666c66a0716856782e025f7f0af4016e082b6dd77a060c4";
       meta = with lib;
       {
         homepage = "https://livetl.app/";
@@ -10980,6 +11004,36 @@
         platforms = platforms.all;
       };
     };
+    "page-assist" = buildMozillaXpiAddon {
+      pname = "page-assist";
+      version = "1.5.55";
+      addonId = "page-assist@nazeem";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4710051/page_assist-1.5.55.xpi";
+      sha256 = "d3272a2b8a188d75e3c38b98d545a555e6b751c17f57dfe2fe9f554a8d61739f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/n4ze3m/page-assist";
+        description = "Use your locally running AI models to assist you in your web browsing.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "scripting"
+          "unlimitedStorage"
+          "contextMenus"
+          "webRequest"
+          "webRequestBlocking"
+          "notifications"
+          "http://*/*"
+          "https://*/*"
+          "file://*/*"
+          "*://huggingface.co/*"
+          "*://ollama.com/*"
+          "*://www.youtube.com/watch*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "pakkujs" = buildMozillaXpiAddon {
       pname = "pakkujs";
       version = "2026.3.2";
@@ -11282,6 +11336,29 @@
         homepage = "https://github.com/polkadot-js/extension";
         description = "Manage your Polkadot accounts outside of dapps. Injects the accounts and allows signs transactions for a specific account.";
         mozPermissions = [ "storage" "tabs" "http://*/*" "https://*/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "port-authority" = buildMozillaXpiAddon {
+      pname = "port-authority";
+      version = "2.2.0";
+      addonId = "{6c00218c-707a-4977-84cf-36df1cef310f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4516988/port_authority-2.2.0.xpi";
+      sha256 = "432cde898230c6d432cf08a1ee7a605fcac8c620b8327d3f8da4f08944392731";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ACK-J/Port_Authoirty";
+        description = "Blocks malicious websites from port-scanning your computer/network and dynamically blocks all LexisNexis endpoints from running their invasive data collection scripts.";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "webRequest"
+          "webRequestBlocking"
+          "storage"
+          "tabs"
+          "notifications"
+          "dns"
+          "<all_urls>"
+        ];
         platforms = platforms.all;
       };
     };
@@ -12389,6 +12466,21 @@
           "storage"
           "webRequest"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "readingruler" = buildMozillaXpiAddon {
+      pname = "readingruler";
+      version = "1.8";
+      addonId = "{e1cad622-f77c-4035-8137-33b8296e5c9d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4001032/readingruler-1.8.xpi";
+      sha256 = "3baed915dacd20dd6f2b292afaa256ad9bc0fb346da6bb4f749b3d8c2c3f735d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/orentrutner/reading-ruler";
+        description = "Highlights the line of text you are reading.";
+        license = licenses.gpl3;
+        mozPermissions = [ "storage" "tabs" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
       };
     };
@@ -13975,10 +14067,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.2.7";
+      version = "3.3.0";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4763750/statshunters-3.2.7.xpi";
-      sha256 = "0040f3a57aa7c2c82b0f0ca3c1137e39071f6ecd4f1311d0aa8ff9cf253f2e81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4765019/statshunters-3.3.0.xpi";
+      sha256 = "705e133b8381061c48545512ccd2b2c406463d6eac58d2a39960fac842b3d184";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -14420,6 +14512,20 @@
         description = "Tab unload options for Tree Style Tab.";
         license = licenses.gpl3;
         mozPermissions = [ "storage" "menus" ];
+        platforms = platforms.all;
+      };
+    };
+    "tab-unloader-we" = buildMozillaXpiAddon {
+      pname = "tab-unloader-we";
+      version = "2020.1.2";
+      addonId = "tab-unloader-we@afnankhan";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3497629/tab_unloader_we-2020.1.2.xpi";
+      sha256 = "0424c8b3709955566b21c918e61fbb668e60904415b63b5f13485c88f2de3a59";
+      meta = with lib;
+      {
+        description = "Unload tabs to free up system resources";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "menus" "tabs" "bookmarks" "*://*/*" ];
         platforms = platforms.all;
       };
     };
