@@ -2140,8 +2140,8 @@
             "url": "https://github.com/ryota2357/nur-packages"
         },
         "rypkgs": {
-            "rev": "5aa982272791c4e355899255a44394fc3ef9da63",
-            "sha256": "0ncsy7cy6jan7x8yy2msxv4am1sasf9nb300qx9al5pcwqm83i60",
+            "rev": "b30501cef6a4fe10b0d32fa48453bda3d1706021",
+            "sha256": "0zxg6c01dzhb7pb15mfql0gl5qcfnn3g3jljw1r8plx3kwmfg6w7",
             "url": "https://github.com/Ryder-C/rypkgs"
         },
         "sagikazarmark": {
