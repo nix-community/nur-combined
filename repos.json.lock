@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "ba6441146ff355fd19dceec5fbf16bd3ed5213a8",
-            "sha256": "1ibyafkwwx7qn4x84i14wvn5div2xh721xg3d1xgyzy59a2s9yxv",
+            "rev": "3718a56228da73694d18951c833fe54cf8b3973d",
+            "sha256": "03i9dv0y26br40q5nsp7ily1m4yqyychqnpdvbijfdn1p27g8cyy",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -617,8 +617,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "51eb90cee849d8b0983891da0f806f994860108c",
-            "sha256": "0wqwphkzy61n5g57p8wzmphn0ymiz3shj9wd0i270ydyd4frf4jy",
+            "rev": "505216c7dbcf9802be64720f4885dae8cd3d0952",
+            "sha256": "03a5alywml3syrcal5d8j7hfygj2h52smb24qgyh2jqm21by1zy5",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/thkoch2001/nur-packages"
         },
         "thomas725": {
-            "rev": "fa21fb87e2770fec91c1937fe41d85f576d09ca3",
-            "sha256": "1m8mggl8k7gqcqwxfk45w635jlck222nj336pfphicra2nw41ass",
+            "rev": "928ad0712353135cb16b6ecd4fe59fbd0fc39cd2",
+            "sha256": "08c67ps0fi4xmmzss6v7rgxlv84iac04g2i9r4qmqmrpml3df9rj",
             "url": "https://github.com/thomas725/nur-packages"
         },
         "tilpner": {
@@ -2412,8 +2412,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "aa39516b2f9394823b7a7aace5e3d39d5a65e2de",
-            "sha256": "1qz81vmfb2f7wa72xqgnx1sg2f7rnqvdnwk4yq8ayjpl921nca2r",
+            "rev": "2ebcceaa0743ada10d2122a24579aac0c7b50d55",
+            "sha256": "19awdrkba8vrhyhj2s3cyvp5mc82p6dpvv1pi5l695p9pc5aqw84",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
