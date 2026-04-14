@@ -1023,8 +1023,8 @@
             "url": "https://github.com/glostis/nur-packages"
         },
         "goreleaser": {
-            "rev": "1da9f8ddec2c41c67e6555eddf33ea0515f02d98",
-            "sha256": "0a0lyvq4hzk3s3ig0rs62a72zj73vqk0s45sqdpfhf9hr2srha81",
+            "rev": "e333836c8582b20e438e83d97272ba29a1bc6867",
+            "sha256": "0afjbxy9h8wnzmff616ydwvzs949lrhq1piy3sda302355xwhmy9",
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
