@@ -2090,8 +2090,8 @@
             "url": "https://github.com/robertodr/nur-packages"
         },
         "robinovitch61": {
-            "rev": "51a65843af9fee8d9f0ce1853bb4f397af5cf7e7",
-            "sha256": "0f0g87z800p02ldrkkhvkjrg8lqcf2pcxr5awbwhmldvv8hjr6i1",
+            "rev": "981b4acfb673d9f91581bf49ffec347a09610bc4",
+            "sha256": "10jk5x2hxw3c06w5pla0drrfmj2lxr1w12k4q99dl4ck2x1dn12i",
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
@@ -2342,8 +2342,8 @@
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
         "the-code-fixer-23-nur": {
-            "rev": "3907b4eb796851546d93a3634c1bea85b038b636",
-            "sha256": "1dpsynb64bh4ymgp12xyh0kikij89iqhpbym5qkykbd38cx7ihs8",
+            "rev": "5aef68cb49f5ebacb7527026d5e4ad2323c1284f",
+            "sha256": "00cx696fan8098ryq7wwdzn38ad3n06qq3mnw5mqr3l07f7i0ynr",
             "url": "https://github.com/louiss0/the-code-fixer-23-nur"
         },
         "therobot2105": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "29a9ba421b80d42330b636f2edea490c0f896e33",
-            "sha256": "19r1486m40asjbz95cswqpjda8k22w09ms97ix669z6v9icbr40p",
+            "rev": "ceaf97d997163738e134874eeb5d336468a104e9",
+            "sha256": "1xj3va1i9ksfzl6xlripwi5mzdf906mi8crv3fjmv0lbnbrlgyk1",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
