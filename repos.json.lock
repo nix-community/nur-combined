@@ -571,6 +571,11 @@
             "sha256": "0yi3a1qwzb9i2rm08ja84wd7cqabpyw008inm6bj8bp915irhsxi",
             "url": "https://github.com/cherrypiejam/nur-packages"
         },
+        "chiasson": {
+            "rev": "ee1f72ff0106580a918a4048170a30a046b06983",
+            "sha256": "0pdapzlhvr8hi6g9q2sc3m0cckkf8wy7yi749qngkibcxrp41dg9",
+            "url": "https://git.chiasson.cloud/Olivier/nur-packages"
+        },
         "chigyutendies": {
             "rev": "9256cfa05731576a700b0dcb5d160eb74a4bfd55",
             "sha256": "0h558paa1gmpdy6kac1wq9mhd6qnk6yvk6c14iw0761bmws88pim",
@@ -1063,8 +1068,8 @@
             "url": "https://github.com/heph2/nur-packages"
         },
         "hexadecimalDinosaur": {
-            "rev": "1c6ed803db028b5aa9d752eebe4b53fc3bc391fc",
-            "sha256": "0fkgxi7jidqq2mjn5w975viknvrxpbp280ck6akbf6cqhp6ab81v",
+            "rev": "6a44f4c670ef01bec0c2b89171dc437a2ed34206",
+            "sha256": "05zni8n29dlyrllb1m48psxgmy18vsky5b4l5vpfy39y16faivai",
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {

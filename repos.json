@@ -357,6 +357,10 @@
         "cherrypiejam": {
             "url": "https://github.com/cherrypiejam/nur-packages"
         },
+        "chiasson": {
+            "type": "gitea",
+            "url": "https://git.chiasson.cloud/Olivier/nur-packages"
+        },
         "chigyutendies": {
             "url": "https://github.com/pillowtrucker/tooo000oooot"
         },
