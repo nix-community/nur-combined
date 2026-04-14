@@ -22,6 +22,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   cnm-player = pkgs.callPackage ./pkgs/cnm-player { };
+  piri = pkgs.callPackage ./pkgs/piri { };
   we-layerd = pkgs.callPackage ./pkgs/we-layerd { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
