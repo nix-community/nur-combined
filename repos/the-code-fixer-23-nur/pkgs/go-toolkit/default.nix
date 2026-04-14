@@ -11,22 +11,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "1y4vzygpwxqpl0gx11cszn5mlv3mw2myqyp5yhbq6n64971kllkh";
-    aarch64-linux = "0n3d2ggjm36nnk8q8a6rihgyvj6xsn43r4rghfjckyccrca5jbrn";
-    x86_64-darwin = "0ajrx70z0lvl0mmni3c5bqkvq1877p4lyny9bvv0s4gvdrsfa181";
-    aarch64-darwin = "152zmjm09z8bi0zzlrii3lqdagc3a91q532mvckjzmqiknfqizfd";
+    x86_64-linux = "16cckkjp5injcs2ixrqkbgba1rr53v82hl039h07mkkzfc6f3hyc";
+    aarch64-linux = "1898lsmnslmzmss48qxp1l64xg6gbsfsr6hq0idnjq55xnsdliz1";
+    x86_64-darwin = "0g04x6w7h4mdmfb9y024wmhlcrrs0r4c1nkiq99wj412p8711c9i";
+    aarch64-darwin = "0is3z2lsnis0gimfjnvlwrmybnf3qa97y4hw0yzv8jv0b26q5qs1";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.1/go-toolkit_0.2.1_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.1/go-toolkit_0.2.1_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.1/go-toolkit_0.2.1_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/louiss0/go-toolkit/releases/download/v0.2.1/go-toolkit_0.2.1_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/louiss0/go-toolkit/releases/download/v0.3.0/go-toolkit_0.3.0_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/louiss0/go-toolkit/releases/download/v0.3.0/go-toolkit_0.3.0_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/louiss0/go-toolkit/releases/download/v0.3.0/go-toolkit_0.3.0_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/louiss0/go-toolkit/releases/download/v0.3.0/go-toolkit_0.3.0_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "go-toolkit";
-  version = "0.2.1";
+  version = "0.3.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
