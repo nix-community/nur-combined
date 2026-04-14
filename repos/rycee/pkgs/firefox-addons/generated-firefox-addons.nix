@@ -9969,6 +9969,28 @@
         platforms = platforms.all;
       };
     };
+    "monochromate" = buildMozillaXpiAddon {
+      pname = "monochromate";
+      version = "1.5.2";
+      addonId = "{cdf4f419-70fa-491b-abcb-14bc1ad3d36f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4748236/monochromate-1.5.2.xpi";
+      sha256 = "723a8f971c19964dd16d9a04b123d436aa02a9b67caf02d753e1407cc633c63a";
+      meta = with lib;
+      {
+        homepage = "https://monochromate.lirena.in/";
+        description = "A browser extension that applies a grayscale filter to websites, reducing eye strain and helping prevent doomscrolling. Customize intensity, exclude sites, and browse more mindfully.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "scripting"
+          "alarms"
+          "commands"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "move-unloaded-tabs-for-tst" = buildMozillaXpiAddon {
       pname = "move-unloaded-tabs-for-tst";
       version = "2.4";
