@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "60e2883771d9e7bea1cde0fa61eba4e80d432f7a",
-            "sha256": "0ycqqchlb50p7k8blbck0mj9pgryjc3fjsq4892kgy5dl46mck04",
+            "rev": "f6f693f7f82c70b1cfa0c9b46b1645c3973df1d8",
+            "sha256": "01yykmdncsysjcdb7dbahmh875q11cyvnjxs9xb3l7i19zlaclwm",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -2357,8 +2357,8 @@
             "url": "https://github.com/thkoch2001/nur-packages"
         },
         "thomas725": {
-            "rev": "81be7b01482f2afd7defd03d33aeced0e26f318c",
-            "sha256": "05nj7p64x6lsxkjqx8iszr8wh11kkp1h10dxq4d8l9c5cs15p1q5",
+            "rev": "18dea86d4f2a9ede83f782a5434c0b0cc2ffae93",
+            "sha256": "0mjd806d5fyjqxc01mffvx6zpv2jifa4hannwkjlj39phfivp5ji",
             "url": "https://github.com/thomas725/nur-packages"
         },
         "tilpner": {
