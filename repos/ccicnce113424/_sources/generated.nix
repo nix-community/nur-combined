@@ -84,6 +84,18 @@
       "pubspec.lock" = ./. + "/sha256-I2i3NYv2TzqKvkDG8MFFefDcp8E4blxJ0M05wDKSj5Y=/pubspec.lock";
     };
   };
+  krunner-fd-plugin = {
+    pname = "krunner-fd-plugin";
+    version = "2aa89312b2979d552336a5b56e3710b7e8cf48e2";
+    src = fetchFromGitHub {
+      owner = "wangzk";
+      repo = "krunner-fd-plugin";
+      rev = "2aa89312b2979d552336a5b56e3710b7e8cf48e2";
+      fetchSubmodules = false;
+      sha256 = "sha256-nz6zp/e6A8OyRgjps0JA29t7K+DJY+nGeAuY09I/wMU=";
+    };
+    date = "2026-03-21";
+  };
   linux-enable-ir-emitter = {
     pname = "linux-enable-ir-emitter";
     version = "7.0.0-beta";

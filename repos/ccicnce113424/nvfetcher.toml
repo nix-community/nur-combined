@@ -32,6 +32,10 @@ extract = ["pubspec.lock"]
 fetch.github = "pa-jesusf/KikoFlu"
 src.github = "pa-jesusf/KikoFlu"
 
+[krunner-fd-plugin]
+fetch.github = "wangzk/krunner-fd-plugin"
+src.git = "https://github.com/wangzk/krunner-fd-plugin"
+
 [linux-enable-ir-emitter]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "EmixamPP/linux-enable-ir-emitter"

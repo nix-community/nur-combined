@@ -135,6 +135,27 @@
         },
         "version": "v3.1.1"
     },
+    "krunner-fd-plugin": {
+        "cargoLock": null,
+        "date": "2026-03-21",
+        "extract": null,
+        "name": "krunner-fd-plugin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wangzk",
+            "repo": "krunner-fd-plugin",
+            "rev": "2aa89312b2979d552336a5b56e3710b7e8cf48e2",
+            "sha256": "sha256-nz6zp/e6A8OyRgjps0JA29t7K+DJY+nGeAuY09I/wMU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2aa89312b2979d552336a5b56e3710b7e8cf48e2"
+    },
     "linux-enable-ir-emitter": {
         "cargoLock": {
             "Cargo.lock": [

@@ -65,6 +65,11 @@ rec {
     srcInfo = lib.importJSON ./kikoflu/src-info.json;
   };
 
+  krunner-fd-plugin = pkgs.callPackage ./krunner-fd-plugin rec {
+    sources = fetchedSrc.krunner-fd-plugin;
+    version = unstableVersion sources;
+  };
+
   linux-enable-ir-emitter = pkgs.callPackage ./linux-enable-ir-emitter rec {
     sources = fetchedSrc.linux-enable-ir-emitter;
     version = sources.version;
