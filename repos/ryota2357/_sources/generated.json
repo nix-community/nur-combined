@@ -1,7 +1,7 @@
 {
     "macos-ime": {
         "cargoLock": null,
-        "date": "2026-04-13",
+        "date": "2026-04-14",
         "extract": null,
         "name": "macos-ime",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "ryota2357",
             "repo": "macos-ime",
-            "rev": "748fd3f9e050729e7fa916ffed63bcdeb440acf1",
-            "sha256": "sha256-Pow98INUfKgLNxYARjwKPgBRYW1/i50B9hiyqP8bAh0=",
+            "rev": "f821b1b0b5405ed07f437d912bbf06f1acd67236",
+            "sha256": "sha256-dJ0wurfz4yxM8PbtGch5VT6tXfHMiI1N6/qXne3yY5c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "748fd3f9e050729e7fa916ffed63bcdeb440acf1"
+        "version": "f821b1b0b5405ed07f437d912bbf06f1acd67236"
     },
     "mical": {
         "cargoLock": {
@@ -63,7 +63,7 @@
     },
     "vm_stat2": {
         "cargoLock": null,
-        "date": "2026-04-13",
+        "date": "2026-04-14",
         "extract": null,
         "name": "vm_stat2",
         "passthru": null,
@@ -75,11 +75,11 @@
             "name": null,
             "owner": "ryota2357",
             "repo": "vm_stat2",
-            "rev": "a72c0e027931312d732e279c95ebc6025399db2d",
-            "sha256": "sha256-JKgLGOBYJkf6U22FoG+5peR4Wo68Py6u3RWwqqa765o=",
+            "rev": "1ad0d07ae4a64c7788fab580eaf247cbe8d01b3b",
+            "sha256": "sha256-dBD8DzcwJWioiJaOxnrhFd8dQdozjKPG12v7QO4LcF8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a72c0e027931312d732e279c95ebc6025399db2d"
+        "version": "1ad0d07ae4a64c7788fab580eaf247cbe8d01b3b"
     }
 }
