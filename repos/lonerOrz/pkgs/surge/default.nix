@@ -6,17 +6,17 @@
 
 buildGoModule (finalAttrs: {
   pname = "surge";
-  version = "0.8.0";
+  version = "0.8.1";
 
   # https://github.com/surge-downloader/surge
   src = fetchFromGitHub {
     owner = "SurgeDM";
     repo = "surge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-M6XlKd9JFVg7/01M5l7fjsi7HrcL+Smo+fQrhFRI7B0=";
+    hash = "sha256-oCphQweIkzt9XY29CyK8/XTaedwsMW/yaC+KybZ8iqg=";
   };
 
-  vendorHash = "sha256-pbKnMrfY/abu/Mj0HhDhTUSOlWl82kgIM0zXwtlQw/U=";
+  vendorHash = "sha256-0Lv8zZ6Bdlm3+hLyzsrfbapnf4SToxjsJSonXDx18iM=";
 
   ldflags = [
     "-s"
