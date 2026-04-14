@@ -2357,8 +2357,8 @@
             "url": "https://github.com/thkoch2001/nur-packages"
         },
         "thomas725": {
-            "rev": "5c6945d3b20d0df967060735a6b141b4af7ceb15",
-            "sha256": "09kgcbzcv71gb30hasnxjhs46mvarg28q4wa7fvcfy0h10brzdyl",
+            "rev": "475831a06de16d548e4f4cf6219230e8d67e0c1d",
+            "sha256": "0svflacibhxssssgn5g4adn6ix7f01hfs3i6vkriiivy719m8l2w",
             "url": "https://github.com/thomas725/nur-packages"
         },
         "tilpner": {
