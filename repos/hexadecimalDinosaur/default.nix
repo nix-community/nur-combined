@@ -22,6 +22,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   android-unpinner = p3.callPackage ./pkgs/android-unpinner { };
+  endcord = pkgs.callPackage ./pkgs/endcord { inherit (pythonPackages pkgs.python3) davey; };
   fzf-tab-completion = pkgs.callPackage ./pkgs/fzf-tab-completion { };
   jetbrains-fleet = pkgs.callPackage ./pkgs/jetbrains-fleet { };
   ttf-ms-win11 = pkgs.lib.recurseIntoAttrs ( import ./pkgs/ttf-ms-win11 { inherit pkgs; } );

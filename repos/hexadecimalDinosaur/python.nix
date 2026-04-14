@@ -12,8 +12,10 @@ let
   });
 in
 (rec {
+  davey = pyfinal.callPackage ./pkgs/davey/default.nix { };
   dearpygui = pyfinal.callPackage ./pkgs/dearpygui/default.nix { };
   decompyle3 = pyfinal.callPackage ./pkgs/decompyle3/default.nix { inherit xdis; };
+  django-colorfield = pyfinal.callPackage ./pkgs/django-colorfield/default.nix { };
   doc2dash = pyfinal.callPackage ./pkgs/doc2dash/default.nix { };
   flask-apscheduler = pyfinal.callPackage ./pkgs/flask-apscheduler/default.nix { };
   lib3to6 = pyfinal.callPackage ./pkgs/lib3to6/default.nix { };
