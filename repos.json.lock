@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "7426d5db926a58124f837df304f47498e03a167d",
-            "sha256": "1cqd2vjzxibh9cibr6yhcwm0g9fdx9amvzk9hx8nns9wj8av2n9x",
+            "rev": "fa88a929332a4d5b0023ce32b23cc84b0f8295c5",
+            "sha256": "1scwhclxjn9j63xy98w6lwrpghigqlvr3mylvx19cd0sygk0rn80",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -2130,8 +2130,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "aa4ce00b93355f7c64e6c2746b5b102f5e517370",
-            "sha256": "1l169g3yihxsgx156vhx4rxs1xdxyibqsaahn0dvr2pi3pi2jayk",
+            "rev": "95066e56aaa948f170747f57a20c99511a953eed",
+            "sha256": "0gblynk2hzfm8fm4pdhhylxsdsfc5aplmh6s6mp9cyfi9v2s2s12",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
