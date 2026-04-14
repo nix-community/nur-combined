@@ -1436,8 +1436,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "2e4f1726f0161407f81decf7dfa10de761bdb44d",
-            "sha256": "0va2a165vx10k4bwg5v3z2fkw87g8mc03fil5rwcf47dgyq990gz",
+            "rev": "3912202d7e9fe6ea902211fafa4bbf021ad5ffb9",
+            "sha256": "0xx17h1x13wvm94z4zpqxgx2ijzbnkncncbr8viyz71cjmrw8hj2",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -1643,8 +1643,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "36da7bd9b253f732388c9a13f28595ca962d1e42",
-            "sha256": "0xcdz49jamcwz0k5mpgss0yppgm39q2jl1n8wi43ym4xaz1x7ms7",
+            "rev": "c08e2c28ffac71b77149bfc5f79e570032c2de79",
+            "sha256": "123jz5rbw0dbbwfv98im3z8dvk91l3c4m7l883ng2h18845y969r",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
