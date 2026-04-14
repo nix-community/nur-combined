@@ -2125,8 +2125,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "6c0e7f01d9315f4806a187c2ec58d0f3b6961876",
-            "sha256": "1bv4hfcy84mrgs6613d6352r2ghiqylfld3d6n0vf9iz12zi47ar",
+            "rev": "ccfaa2303117e22752bda4e1a1bb07d17f38ea2d",
+            "sha256": "1z9kr7nx6ks303gc41i1rb8pa164wzaxz638avx186gr4aya875c",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
@@ -2612,8 +2612,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "30a5278b9f97959ee128cdac27374b9017b14431",
-            "sha256": "1id74n027n3i2pqc6jxas16vaqlnb3mnk4ysc8k56y58hwlfrm2r",
+            "rev": "c545f4a2ead41887c7b4ba1a3eab4c703c2f2adc",
+            "sha256": "1ajqjbrrgsmibjnv78izwagk0fl8sbzlhjpdll2si6a70wsvzj8x",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
