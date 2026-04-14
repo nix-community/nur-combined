@@ -91,6 +91,7 @@ stdenv.mkDerivation {
       cat > "$out/bin/claude-desktop" << 'WRAPPER'
 #!/bin/sh
 cd "$(dirname "$0")/.." || exit 1
+export LD_LIBRARY_PATH=".:./lib:$LD_LIBRARY_PATH"
 exec ./.claude-desktop.real "$@"
 WRAPPER
       chmod +x "$out/bin/claude-desktop"
@@ -98,6 +99,7 @@ WRAPPER
       cat > "$out/bin/claude-desktop" << 'WRAPPER'
 #!/bin/sh
 cd "$(dirname "$0")/.." || exit 1
+export LD_LIBRARY_PATH=".:./lib:$LD_LIBRARY_PATH"
 exec ./AppRun "$@"
 WRAPPER
       chmod +x "$out/bin/claude-desktop"
