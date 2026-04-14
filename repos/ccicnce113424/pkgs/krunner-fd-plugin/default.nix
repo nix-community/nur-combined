@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation {
     mkdir -p $out/bin
     makeWrapper ${pythonEnv.interpreter} $out/bin/fd-runner-dbus \
       --add-flags $out/share/fd-runner-dbus/fd-runner-dbus.py \
-      --prefix PATH : ${lib.makeBinPath [ fd ]}
+      --suffix PATH : ${lib.makeBinPath [ fd ]}
 
     install -D org.kde.runners.fd.desktop $out/share/krunner/dbusplugins/org.kde.runners.fd.desktop
 
