@@ -10,9 +10,9 @@ let
   all = pkgs.lib.attrsets.concatMapAttrs (
     name: value:
     pkgs.lib.filterAttrs (_: v: v != null) {
-      "${name}-amd64" = value.amd64 or null;
-      "${name}-arm64" = value.arm64 or null;
-      "${name}-arm" = value.arm or null;
+      "${name}-amd64" = value.x86_64-linux or null;
+      "${name}-arm64" = value.aarch64-linux or null;
+      "${name}-arm" = value.armv7l-linux or null;
     }
   ) images;
 
