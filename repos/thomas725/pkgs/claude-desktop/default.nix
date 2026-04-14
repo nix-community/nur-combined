@@ -14,7 +14,6 @@
 , nspr
 , alsa-lib
 , dbus
-, icu
 , xorg
 }:
 
@@ -55,7 +54,6 @@ stdenv.mkDerivation {
     nspr
     alsa-lib
     dbus
-    icu
     xorg.libX11
     xorg.libxcb
     xorg.libXi
@@ -82,14 +80,27 @@ stdenv.mkDerivation {
     # Remove extracted bin/claude-desktop if it exists to avoid conflicts
     rm -f "$out/bin/claude-desktop" "$out/bin/.claude-desktop-wrapped" 2>/dev/null || true
 
-    # Create wrapper for the main executable
+    # Symlink icudtl.dat to bin directory so it's found
+    if [ -f "$out/icudtl.dat" ]; then
+      ln -s "$out/icudtl.dat" "$out/bin/icudtl.dat"
+    fi
+
+    # Create wrapper script that runs from the app root directory
     if [ -f "$out/claude-desktop" ]; then
-      mv "$out/claude-desktop" "$out/bin/claude-desktop.real"
-      makeWrapper "$out/bin/claude-desktop.real" "$out/bin/claude-desktop" \
-        --set ICU_DATA_PATH "${icu}/share/icu"
+      mv "$out/claude-desktop" "$out/.claude-desktop.real"
+      cat > "$out/bin/claude-desktop" << 'WRAPPER'
+#!/bin/sh
+cd "$(dirname "$0")/.." || exit 1
+exec ./.claude-desktop.real "$@"
+WRAPPER
+      chmod +x "$out/bin/claude-desktop"
     elif [ -f "$out/AppRun" ]; then
-      makeWrapper "$out/AppRun" "$out/bin/claude-desktop" \
-        --set ICU_DATA_PATH "${icu}/share/icu"
+      cat > "$out/bin/claude-desktop" << 'WRAPPER'
+#!/bin/sh
+cd "$(dirname "$0")/.." || exit 1
+exec ./AppRun "$@"
+WRAPPER
+      chmod +x "$out/bin/claude-desktop"
     fi
 
     # Install desktop file
