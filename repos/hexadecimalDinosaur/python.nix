@@ -19,7 +19,7 @@ in
   doc2dash = pyfinal.callPackage ./pkgs/doc2dash/default.nix { };
   flask-apscheduler = pyfinal.callPackage ./pkgs/flask-apscheduler/default.nix { };
   lib3to6 = pyfinal.callPackage ./pkgs/lib3to6/default.nix { };
-  markdown-katex = pyfinal.callPackage ./pkgs/markdown-katex/default.nix { inherit lib3to6; };
+  markdown-katex = pyfinal.callPackage ./pkgs/markdown-katex/default.nix { inherit lib3to6; inherit (pkgs) katex; };
   protobuf-inspector = pyfinal.callPackage ./pkgs/protobuf-inspector/default.nix { };
   # pyghidra = pyfinal.callPackage ./pkgs/pyghidra/default.nix { };
   pyinstxtractor-ng = pyfinal.callPackage ./pkgs/pyinstxtractor-ng/default.nix { inherit xdis; };

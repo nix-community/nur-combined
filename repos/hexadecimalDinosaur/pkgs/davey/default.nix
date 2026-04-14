@@ -24,6 +24,7 @@ buildPythonPackage rec {
     inherit pname src version;
     hash = "sha256-kLLOuwGCfkByXt6LW8vGxS1JYQW+r/tW7dOiKx6M4k4=";
   };
+  extraRustcOpts = "-Zallow-features=unsigned_is_multiple_of";
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
