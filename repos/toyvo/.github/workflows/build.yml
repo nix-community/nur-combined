@@ -20,6 +20,7 @@ jobs:
       - name: Install nix
         uses: DeterminateSystems/determinate-nix-action@main
       - name: Update flake.lock
+        if: github.event_name != 'pull_request'
         uses: DeterminateSystems/update-flake-lock@main
         id: update-flake-lock
         with:
@@ -27,18 +28,42 @@ jobs:
           pr-labels: |
             dependencies
             automated
+      - name: Checkout PR branch
+        if: github.event_name != 'pull_request' && steps.update-flake-lock.outputs.pull-request-number != ''
+        run: |
+          PR_BRANCH=$(gh pr view ${{ steps.update-flake-lock.outputs.pull-request-number }} --json headRefName --jq .headRefName)
+          git fetch origin "$PR_BRANCH"
+          git checkout "$PR_BRANCH"
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Format code
         run: nix fmt
       - name: Commit formatting changes
+        id: format
         if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           if ! git diff --staged --quiet; then
-            git commit -m "style: auto-format"
-            git push
+            if [ -n "${{ steps.update-flake-lock.outputs.pull-request-number }}" ]; then
+              git commit -m "style: auto-format"
+              git pull --rebase
+              git push
+            else
+              BRANCH="format-code-$(date +%Y%m%d%H%M%S)"
+              git checkout -b "$BRANCH"
+              git commit -m "style: auto-format"
+              git push origin "$BRANCH"
+              FORMAT_PR_NUMBER=$(gh pr create \
+                --title "style: auto-format" \
+                --body "Automated formatting fixes." \
+                --base main | grep -oP '\d+$')
+              echo "pr_number=$FORMAT_PR_NUMBER" >> "$GITHUB_OUTPUT"
+            fi
           fi
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixos-unstable.lib.version'
       - name: Check evaluation
@@ -47,9 +72,14 @@ jobs:
         run: nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" -j 1 --eval-workers 1 --no-nom --cachix-cache toyvo --option accept-flake-config true
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: Merge flake.lock
-        if: steps.update-flake-lock.outputs.pull-request-number != ''
-        run: "gh pr merge --auto --squash ${{ steps.update-flake-lock.outputs.pull-request-number }}"
+      - name: Merge PR
+        if: steps.update-flake-lock.outputs.pull-request-number != '' || steps.format.outputs.pr_number != ''
+        run: |
+          PR_NUMBER="${{ steps.update-flake-lock.outputs.pull-request-number }}"
+          if [ -z "$PR_NUMBER" ]; then
+            PR_NUMBER="${{ steps.format.outputs.pr_number }}"
+          fi
+          gh pr merge --auto --squash "$PR_NUMBER"
         env:
           GH_TOKEN: ${{ github.token }}
   tests:
