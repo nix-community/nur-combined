@@ -1,70 +1,109 @@
 { lib
 , stdenv
-, fetchFromGitHub
-, electron
+, fetchurl
+, appimageTools
+, autoPatchelfHook
 , makeWrapper
 , wrapGAppsHook3
+, glib
+, gtk3
+, libnotify
+, libxkbcommon
+, mesa
+, nss
+, nspr
+, alsa-lib
+, dbus
+, xorg
 }:
 
-stdenv.mkDerivation rec {
-  pname = "claude-desktop";
-  version = "1.3.0";
-
-  src = fetchFromGitHub {
-    owner = "simongettkandt";
-    repo = "claude-ai-desktop-app";
-    rev = "2cc2b82b0da5660850b4585e96e73c11ecfddbf3";
-    hash = "sha256-E2QdHGsuo5W9nZ3xbaL+ZIpl8/n/TVPRxqbpVjOwWeM=";
+let
+  version = "1.3.0-beta.1";
+  releaseTag = "v.1.3.0-Beta.01";
+  appImage = fetchurl {
+    url = "https://github.com/simongettkandt/claude-ai-desktop-app/releases/download/${releaseTag}/Claude-Desktop-${version}.AppImage";
+    hash = "sha256-EauLt8SSPCwuZPmNlz7XknCMjlZ3CLGNwJc+vG05lHU=";
   };
+  appimageContents = appimageTools.extractType2 {
+    pname = "claude-desktop";
+    inherit version;
+    src = appImage;
+  };
+in
+stdenv.mkDerivation {
+  pname = "claude-desktop";
+  inherit version;
+
+  src = appImage;
+  dontUnpack = true;
+  dontBuild = true;
 
   nativeBuildInputs = [
+    autoPatchelfHook
     makeWrapper
     wrapGAppsHook3
   ];
 
   buildInputs = [
-    electron
+    glib
+    gtk3
+    libnotify
+    libxkbcommon
+    mesa
+    nss
+    nspr
+    alsa-lib
+    dbus
+    xorg.libX11
+    xorg.libxcb
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXinerama
+    xorg.libXcursor
+  ];
+
+  autoPatchelfIgnoreMissingDeps = [
+    "libdbusmenu-gtk.so.4"
+    "libdbusmenu-glib.so.4"
+    "libgtk-x11-2.0.so.0"
+    "libdbus-glib-1.so.2"
   ];
 
   installPhase = ''
     runHook preInstall
 
-    # Install app files to lib directory
-    mkdir -p "$out/lib/claude-desktop"
-    cp -r ./* "$out/lib/claude-desktop"
+    mkdir -p "$out/bin" "$out/share/applications"
 
-    # Remove unnecessary files
-    rm -rf "$out/lib/claude-desktop/.git" "$out/lib/claude-desktop/.github"
-    rm -f "$out/lib/claude-desktop/node_modules"
+    # Extract and copy the app contents
+    cp -r ${appimageContents}/* "$out/" || true
 
-    # Create a wrapper script that uses system electron
-    mkdir -p "$out/bin"
-    makeWrapper ${electron}/bin/electron "$out/bin/claude-desktop" \
-      --add-flags "$out/lib/claude-desktop/main.js"
+    # Remove extracted bin/claude-desktop if it exists to avoid conflicts
+    rm -f "$out/bin/claude-desktop" "$out/bin/.claude-desktop-wrapped" 2>/dev/null || true
+
+    # Create wrapper for the main executable
+    if [ -f "$out/claude-desktop" ]; then
+      mv "$out/claude-desktop" "$out/bin/claude-desktop.real"
+      makeWrapper "$out/bin/claude-desktop.real" "$out/bin/claude-desktop"
+    elif [ -f "$out/AppRun" ]; then
+      makeWrapper "$out/AppRun" "$out/bin/claude-desktop"
+    fi
 
     # Install desktop file
-    mkdir -p "$out/share/applications"
     cat > "$out/share/applications/claude-desktop.desktop" <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
 Name=Claude Desktop
 Comment=Claude AI Desktop Application for Linux
-Exec=claude-desktop %u
+Exec=$out/bin/claude-desktop %u
 Icon=electron
 Terminal=false
 Categories=Development;Utility;
 Keywords=claude;ai;assistant;
 EOF
 
-    # Install icon
-    mkdir -p "$out/share/icons/hicolor/256x256/apps"
-    cp "$out/lib/claude-desktop/icon.png" "$out/share/icons/hicolor/256x256/apps/claude-desktop.png"
-
     runHook postInstall
   '';
-
-  dontBuild = true;
 
   meta = with lib; {
     description = "Claude AI Desktop Application for Linux";
