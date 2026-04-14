@@ -11,10 +11,12 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
-  actions: write
+  checks: write
 jobs:
   Build:
     runs-on: ubuntu-latest
+    outputs:
+      on_pr_branch: ${{ steps.export-flag.outputs.on_pr_branch }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -33,8 +35,10 @@ jobs:
         if: github.ref == 'refs/heads/main' && steps.update-flake-lock.outputs.pull-request-number != ''
         run: |
           PR_BRANCH=$(gh pr view ${{ steps.update-flake-lock.outputs.pull-request-number }} --json headRefName --jq .headRefName)
-          git fetch origin "$PR_BRANCH"
+          git fetch origin "$PR_BRANCH" main
           git checkout "$PR_BRANCH"
+          git rebase origin/main
+          git push --force-with-lease origin "$PR_BRANCH"
           echo "ON_PR_BRANCH=true" >> "$GITHUB_ENV"
         env:
           GH_TOKEN: ${{ github.token }}
@@ -67,26 +71,30 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: Trigger CI on PR branch
-        if: github.ref == 'refs/heads/main'
-        run: |
-          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-          if [ "$CURRENT_BRANCH" != "main" ]; then
-            gh workflow run build.yml --ref "$CURRENT_BRANCH"
-          fi
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Export PR branch flag
+        id: export-flag
+        run: echo "on_pr_branch=${ON_PR_BRANCH:-false}" >> "$GITHUB_OUTPUT"
       - name: Show nixpkgs version
-        if: env.ON_PR_BRANCH != 'true'
         run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixos-unstable.lib.version'
       - name: Check evaluation
-        if: env.ON_PR_BRANCH != 'true'
         run: nix flake show
       - name: Build nix packages
-        if: env.ON_PR_BRANCH != 'true'
         run: nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" -j 1 --eval-workers 1 --no-nom --cachix-cache toyvo --option accept-flake-config true
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Report check to PR branch
+        if: env.ON_PR_BRANCH == 'true'
+        run: |
+          gh api repos/${{ github.repository }}/check-runs \
+            --method POST \
+            -f name="Build" \
+            -f head_sha="$(git rev-parse HEAD)" \
+            -f status="completed" \
+            -f conclusion="success" \
+            -f "output[title]=Build" \
+            -f "output[summary]=Build passed."
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Merge PR
         if: github.ref == 'refs/heads/main' && (steps.update-flake-lock.outputs.pull-request-number != '' || steps.format.outputs.pr_number != '')
         run: |
@@ -99,6 +107,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
   tests:
     needs: Build
+    if: needs.Build.outputs.on_pr_branch != 'true'
     strategy:
       matrix:
         nixPath:
