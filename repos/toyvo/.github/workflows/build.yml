@@ -11,6 +11,7 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
+  actions: write
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -20,7 +21,7 @@ jobs:
       - name: Install nix
         uses: DeterminateSystems/determinate-nix-action@main
       - name: Update flake.lock
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: DeterminateSystems/update-flake-lock@main
         id: update-flake-lock
         with:
@@ -29,18 +30,19 @@ jobs:
             dependencies
             automated
       - name: Checkout PR branch
-        if: github.event_name != 'pull_request' && steps.update-flake-lock.outputs.pull-request-number != ''
+        if: github.ref == 'refs/heads/main' && steps.update-flake-lock.outputs.pull-request-number != ''
         run: |
           PR_BRANCH=$(gh pr view ${{ steps.update-flake-lock.outputs.pull-request-number }} --json headRefName --jq .headRefName)
           git fetch origin "$PR_BRANCH"
           git checkout "$PR_BRANCH"
+          echo "ON_PR_BRANCH=true" >> "$GITHUB_ENV"
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Format code
         run: nix fmt
       - name: Commit formatting changes
         id: format
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -60,20 +62,33 @@ jobs:
                 --body "Automated formatting fixes." \
                 --base main | grep -oP '\d+$')
               echo "pr_number=$FORMAT_PR_NUMBER" >> "$GITHUB_OUTPUT"
+              echo "ON_PR_BRANCH=true" >> "$GITHUB_ENV"
             fi
           fi
         env:
           GH_TOKEN: ${{ github.token }}
+      - name: Trigger CI on PR branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          if [ "$CURRENT_BRANCH" != "main" ]; then
+            gh workflow run build.yml --ref "$CURRENT_BRANCH"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Show nixpkgs version
+        if: env.ON_PR_BRANCH != 'true'
         run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixos-unstable.lib.version'
       - name: Check evaluation
+        if: env.ON_PR_BRANCH != 'true'
         run: nix flake show
       - name: Build nix packages
+        if: env.ON_PR_BRANCH != 'true'
         run: nix run nixpkgs#nix-fast-build -- --skip-cached --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" -j 1 --eval-workers 1 --no-nom --cachix-cache toyvo --option accept-flake-config true
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Merge PR
-        if: steps.update-flake-lock.outputs.pull-request-number != '' || steps.format.outputs.pr_number != ''
+        if: github.ref == 'refs/heads/main' && (steps.update-flake-lock.outputs.pull-request-number != '' || steps.format.outputs.pr_number != '')
         run: |
           PR_NUMBER="${{ steps.update-flake-lock.outputs.pull-request-number }}"
           if [ -z "$PR_NUMBER" ]; then
