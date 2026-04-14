@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.24";
+    version = "v6.9.25";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.24";
-      hash = "sha256-VG3CA4IgGDi1vVii8zRLtGUFMLwkt2IBLQNIDRYi5IA=";
+      tag = "v6.9.25";
+      hash = "sha256-kgW+3HJAnXw5ib90QGhlc2yzl7kDxNu8dM5zu+6vyaQ=";
     };
   };
   cockpy = {
@@ -1108,14 +1108,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "b0853b2439d3cf00b7981cf99f009dad872cbe60";
+    version = "8bffe2e2343bb0fd9afd2496ee062164798c21f4";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b0853b2439d3cf00b7981cf99f009dad872cbe60";
-      hash = "sha256-DzXKWpki01V8F8DzedEz4bn+pwwojG8HKHSxUlBox4E=";
+      rev = "8bffe2e2343bb0fd9afd2496ee062164798c21f4";
+      hash = "sha256-P0ud7XoAWAufWEKwNgDVHQLAdsyh4uDKPeWWZv9XMMQ=";
     };
-    date = "2026-04-07";
+    date = "2026-04-14";
   };
   libqcef = {
     pname = "libqcef";
@@ -1192,12 +1192,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8779";
+    version = "b8792";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8779";
-      hash = "sha256-TpXoozA/HlrTb4VCJ2J+zFzDbzQErZE1cWc4P0Riisk=";
+      tag = "b8792";
+      hash = "sha256-u/oZktYuvApDqhZKZmQ9jPHiNy1Hk6abK6efliSJoF0=";
     };
   };
   loralib = {
@@ -1261,14 +1261,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "87a304eb06d12f9ecba4529d0ef12fda3a8bd20f";
+    version = "81a0abe77d1f3307f1b25e2df57f8133da78adb6";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "87a304eb06d12f9ecba4529d0ef12fda3a8bd20f";
-      hash = "sha256-/badw5wCDYKBSNbumh0Dujb4bBhM+meJfNR5s7u2rrA=";
+      rev = "81a0abe77d1f3307f1b25e2df57f8133da78adb6";
+      hash = "sha256-lL7enZfzToO7C4U3utvcgjVbMpixSAAtSNUtLMJmdz4=";
     };
-    date = "2026-04-02";
+    date = "2026-04-14";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1825,14 +1825,14 @@
   };
   qsp = {
     pname = "qsp";
-    version = "419066a0b135cff67e6516c62064208250546d16";
+    version = "0cac60ce0593ab7aba50f05e457282a694fca7e8";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "419066a0b135cff67e6516c62064208250546d16";
-      hash = "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=";
+      rev = "0cac60ce0593ab7aba50f05e457282a694fca7e8";
+      hash = "sha256-23Yx2DMHPQEIvY/UKLC6Dswz3rv10/7YLdb8DFB8DTY=";
     };
-    date = "2026-03-11";
+    date = "2026-04-14";
   };
   qsp-lib = {
     pname = "qsp-lib";
@@ -1847,12 +1847,12 @@
   };
   qsp-stable = {
     pname = "qsp-stable";
-    version = "v5.9.5-b3";
+    version = "v5.9.5";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      tag = "v5.9.5-b3";
-      hash = "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=";
+      tag = "v5.9.5";
+      hash = "sha256-23Yx2DMHPQEIvY/UKLC6Dswz3rv10/7YLdb8DFB8DTY=";
     };
   };
   qsp-wx = {
@@ -1986,12 +1986,12 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "af105c62610ee6e85d661a3b1d53b0b11017b2a3";
+    version = "071f3187076ecfbcacbf0a63ad3c6166a17d529b";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "af105c62610ee6e85d661a3b1d53b0b11017b2a3";
-      hash = "sha256-4kqaO78P83io284c1kbKf0Tk91/GSH4Kq1IRc1ZUjac=";
+      rev = "071f3187076ecfbcacbf0a63ad3c6166a17d529b";
+      hash = "sha256-fKjuEbmm17BUoQoGMScY05YCi9vQueOMfLaTZfhiQYA=";
     };
     date = "2026-04-10";
   };

@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.24",
-            "sha256": "sha256-VG3CA4IgGDi1vVii8zRLtGUFMLwkt2IBLQNIDRYi5IA=",
+            "rev": "v6.9.25",
+            "sha256": "sha256-kgW+3HJAnXw5ib90QGhlc2yzl7kDxNu8dM5zu+6vyaQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.24"
+        "version": "v6.9.25"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2148,7 +2148,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-04-07",
+        "date": "2026-04-14",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2160,12 +2160,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "b0853b2439d3cf00b7981cf99f009dad872cbe60",
-            "sha256": "sha256-DzXKWpki01V8F8DzedEz4bn+pwwojG8HKHSxUlBox4E=",
+            "rev": "8bffe2e2343bb0fd9afd2496ee062164798c21f4",
+            "sha256": "sha256-P0ud7XoAWAufWEKwNgDVHQLAdsyh4uDKPeWWZv9XMMQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b0853b2439d3cf00b7981cf99f009dad872cbe60"
+        "version": "8bffe2e2343bb0fd9afd2496ee062164798c21f4"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2316,12 +2316,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8779",
-            "sha256": "sha256-TpXoozA/HlrTb4VCJ2J+zFzDbzQErZE1cWc4P0Riisk=",
+            "rev": "b8792",
+            "sha256": "sha256-u/oZktYuvApDqhZKZmQ9jPHiNy1Hk6abK6efliSJoF0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8779"
+        "version": "b8792"
     },
     "loralib": {
         "cargoLock": null,
@@ -2445,7 +2445,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-04-02",
+        "date": "2026-04-14",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2457,12 +2457,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "87a304eb06d12f9ecba4529d0ef12fda3a8bd20f",
-            "sha256": "sha256-/badw5wCDYKBSNbumh0Dujb4bBhM+meJfNR5s7u2rrA=",
+            "rev": "81a0abe77d1f3307f1b25e2df57f8133da78adb6",
+            "sha256": "sha256-lL7enZfzToO7C4U3utvcgjVbMpixSAAtSNUtLMJmdz4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "87a304eb06d12f9ecba4529d0ef12fda3a8bd20f"
+        "version": "81a0abe77d1f3307f1b25e2df57f8133da78adb6"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
@@ -3545,7 +3545,7 @@
     },
     "qsp": {
         "cargoLock": null,
-        "date": "2026-03-11",
+        "date": "2026-04-14",
         "extract": null,
         "name": "qsp",
         "passthru": null,
@@ -3557,12 +3557,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qspgui",
-            "rev": "419066a0b135cff67e6516c62064208250546d16",
-            "sha256": "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=",
+            "rev": "0cac60ce0593ab7aba50f05e457282a694fca7e8",
+            "sha256": "sha256-23Yx2DMHPQEIvY/UKLC6Dswz3rv10/7YLdb8DFB8DTY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "419066a0b135cff67e6516c62064208250546d16"
+        "version": "0cac60ce0593ab7aba50f05e457282a694fca7e8"
     },
     "qsp-lib": {
         "cargoLock": null,
@@ -3599,12 +3599,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qspgui",
-            "rev": "v5.9.5-b3",
-            "sha256": "sha256-oTd/fSLcRJVoN1VlQQNUK/ohNfI0DCS9HEdEQylnW5w=",
+            "rev": "v5.9.5",
+            "sha256": "sha256-23Yx2DMHPQEIvY/UKLC6Dswz3rv10/7YLdb8DFB8DTY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.9.5-b3"
+        "version": "v5.9.5"
     },
     "qsp-wx": {
         "cargoLock": null,
@@ -3875,12 +3875,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "af105c62610ee6e85d661a3b1d53b0b11017b2a3",
-            "sha256": "sha256-4kqaO78P83io284c1kbKf0Tk91/GSH4Kq1IRc1ZUjac=",
+            "rev": "071f3187076ecfbcacbf0a63ad3c6166a17d529b",
+            "sha256": "sha256-fKjuEbmm17BUoQoGMScY05YCi9vQueOMfLaTZfhiQYA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "af105c62610ee6e85d661a3b1d53b0b11017b2a3"
+        "version": "071f3187076ecfbcacbf0a63ad3c6166a17d529b"
     },
     "rtpengine-stable": {
         "cargoLock": null,
