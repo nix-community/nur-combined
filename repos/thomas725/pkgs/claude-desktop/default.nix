@@ -97,7 +97,8 @@ exec ./.claude-desktop.real "$@"
 WRAPPER
       chmod +x "$out/bin/claude-desktop-runner"
       makeWrapper "$out/bin/claude-desktop-runner" "$out/bin/claude-desktop" \
-        --prefix LD_LIBRARY_PATH : ".:./lib:${pulseaudio}/lib"
+        --prefix LD_LIBRARY_PATH : ".:./lib:${pulseaudio}/lib" \
+        --inherit-argv0
     elif [ -f "$out/AppRun" ]; then
       cat > "$out/bin/claude-desktop-runner" << 'WRAPPER'
 #!/bin/sh
@@ -106,7 +107,8 @@ exec ./AppRun "$@"
 WRAPPER
       chmod +x "$out/bin/claude-desktop-runner"
       makeWrapper "$out/bin/claude-desktop-runner" "$out/bin/claude-desktop" \
-        --prefix LD_LIBRARY_PATH : ".:./lib:${pulseaudio}/lib"
+        --prefix LD_LIBRARY_PATH : ".:./lib:${pulseaudio}/lib" \
+        --inherit-argv0
     fi
 
     # Install desktop file
