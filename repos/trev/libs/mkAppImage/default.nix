@@ -48,17 +48,6 @@ let
     "armv7l-linux"
     "armv6l-linux"
   ];
-
-  crossPlatforms = [
-    "x86_64-linux-gnu"
-    "x86_64-linux-musl"
-    "aarch64-linux-gnu"
-    "aarch64-linux-musl"
-    "armv7l-linux-gnu"
-    "armv7l-linux-musl"
-    "armv6l-linux-gnu"
-    "armv6l-linux-musl"
-  ];
 in
 
 stdenvNoCC.mkDerivation {
@@ -123,9 +112,6 @@ stdenvNoCC.mkDerivation {
     mainProgram = name;
     platforms = builtins.filter (platform: builtins.elem platform platforms) (
       package.meta.platforms or platforms
-    );
-    crossPlatforms = builtins.filter (platform: builtins.elem platform crossPlatforms) (
-      package.meta.crossPlatforms or crossPlatforms
     );
   };
 }

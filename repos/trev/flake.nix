@@ -64,9 +64,11 @@
 
       packages = forEachSystem (
         system: pkgs:
-        import ./packages {
-          inherit system pkgs;
-        }
+        pkgs.lib.filterAttrs (_: v: builtins.elem system (v.meta.platforms or [ system ])) (
+          import ./packages {
+            inherit system pkgs;
+          }
+        )
       );
 
       bundlers = forEachSystem (

@@ -96,6 +96,28 @@ let
         # Add the current system if the --impure flag is used.
         systems ++ [ builtins.currentSystem ]
     );
+
+  platformsToCross =
+    platforms:
+    builtins.concatLists (
+      map (
+        platform:
+        if
+          platform == "x86_64-linux"
+          || platform == "aarch64-linux"
+          || platform == "armv7l-linux"
+          || platform == "armv6l-linux"
+        then
+          [
+            (platform + "-gnu")
+            (platform + "-musl")
+          ]
+        else
+          [
+            platform
+          ]
+      ) platforms
+    );
 in
 
 # Builds a map from <attr>.value to <attr>.<system>.value for each system.
@@ -211,10 +233,10 @@ eachSystemOp (
                       (prev.passthru or { })
                       // builtins.listToAttrs (
                         builtins.filter (pv: pv.value != null) (
-                          map (platform: {
-                            name = platform;
-                            value = fixPackage (crosspkgs.${platform}.${key}.${name} or null);
-                          }) (prev.meta.crossPlatforms or [ ])
+                          map (crossPlatform: {
+                            name = crossPlatform;
+                            value = fixPackage (crosspkgs.${crossPlatform}.${key}.${name} or null);
+                          }) (platformsToCross (prev.meta.platforms or [ ]))
                         )
                       );
                   }
