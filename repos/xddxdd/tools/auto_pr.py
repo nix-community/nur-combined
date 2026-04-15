@@ -86,20 +86,20 @@ def substitute_nvfetcher_references(
     # Step 1: replace "inherit (sources.xxx) pname version src;"
     def replace_inherit(match: re.Match[str]) -> str:
         fields = re.split(r"\s+", match[1])
-        result = ""
+        result = []
 
         if "pname" in fields:
-            result += f"pname = {ref_value.pname};\n"
+            result.append(f"pname = {ref_value.pname};")
         if "version" in fields:
-            result += f"version = {ref_value.version};\n"
+            result.append(f"version = {ref_value.version};")
         if "src" in fields:
-            result += (
-                f"src = {ref_value.src_with_version_replacement(use_final_attrs)};\n"
+            result.append(
+                f"src = {ref_value.src_with_version_replacement(use_final_attrs)};"
             )
 
-        return result
+        return "\n".join(result)
 
-    regex = r"^\s+inherit \(sources\." + ref_name + r"\) ((.|\n)+?);$"
+    regex = r"^[^\S\r\n]+inherit \(sources\." + ref_name + r"\) ((.|\n)+?);$"
     result = re.sub(regex, replace_inherit, result, flags=re.MULTILINE)
 
     # Step 2: replace direct references to sources.xxx.pname/version/src
