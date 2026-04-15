@@ -43,7 +43,7 @@ let
 in
 
 stdenvNoCC.mkDerivation {
-  inherit name;
+  inherit pname version;
   src = null; # we don't need any source files, since we'll be copying everything in the build phase
 
   nativeBuildInputs = [
