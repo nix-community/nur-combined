@@ -12,18 +12,18 @@ let
     if res.success then res.value else default;
 
   crossPlatforms = [
-    "x86_64-linux-gnu"
-    "x86_64-linux-musl"
+    "aarch64-darwin"
     "aarch64-linux-gnu"
     "aarch64-linux-musl"
-    "armv7l-linux-gnu"
-    "armv7l-linux-musl"
+    "aarch64-windows"
     "armv6l-linux-gnu"
     "armv6l-linux-musl"
-    "x86_64-windows"
-    "aarch64-windows"
+    "armv7l-linux-gnu"
+    "armv7l-linux-musl"
     "x86_64-darwin"
-    "aarch64-darwin"
+    "x86_64-linux-gnu"
+    "x86_64-linux-musl"
+    "x86_64-windows"
   ];
 in
 {

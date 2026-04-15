@@ -27,11 +27,23 @@ let
   apprun = pkgsStatic.callPackage ../../packages/bwrap-apprun { };
   runtime = pkgsStatic.callPackage ../../packages/type2-runtime { };
 
+  systemToCross =
+    system:
+    if
+      system == "x86_64-linux"
+      || system == "aarch64-linux"
+      || system == "armv7l-linux"
+      || system == "armv6l-linux"
+    then
+      if stdenv.hostPlatform.isStatic then system + "-musl" else system + "-gnu"
+    else
+      system;
+
   package =
     if
       (stdenv.hostPlatform.isStatic || (stdenv.hostPlatform.system != stdenv.buildPlatform.system))
     then
-      (src.${stdenv.hostPlatform.system} or src)
+      (src.${systemToCross stdenv.hostPlatform.system} or src)
     else
       src;
 
