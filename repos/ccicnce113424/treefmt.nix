@@ -6,7 +6,10 @@
     {
       treefmt = {
         projectRootFile = "flake.nix";
-        settings.excludes = [ "_sources/*" ];
+        settings.excludes = [
+          "_sources/*"
+          ".zed/*"
+        ];
         programs.nixfmt = {
           enable = true;
           priority = 0;

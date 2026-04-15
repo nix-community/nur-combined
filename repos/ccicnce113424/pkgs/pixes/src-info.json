@@ -1,5 +1,6 @@
 {
   "version": "v1.2.1",
+  "sourceSha256": "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt/OJn6ia6CmIc4=",
   "pubspecLock": {
     "packages": {
       "app_links": {
