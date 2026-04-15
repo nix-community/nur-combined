@@ -36,6 +36,11 @@ src.github = "pa-jesusf/KikoFlu"
 fetch.github = "wangzk/krunner-fd-plugin"
 src.git = "https://github.com/wangzk/krunner-fd-plugin"
 
+[krunner-zed]
+cargo_lock = ["Cargo.lock"]
+fetch.github = "hron/krunner-zed"
+src.github = "hron/krunner-zed"
+
 [linux-enable-ir-emitter]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "EmixamPP/linux-enable-ir-emitter"

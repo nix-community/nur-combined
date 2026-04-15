@@ -156,6 +156,32 @@
         },
         "version": "2aa89312b2979d552336a5b56e3710b7e8cf48e2"
     },
+    "krunner-zed": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-OYR4G0EKj_kDAZZ7qeNacwueMbzHeDyp1l+apLlGzLM=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "krunner-zed",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hron",
+            "repo": "krunner-zed",
+            "rev": "v0.1.1",
+            "sha256": "sha256-OYR4G0EKj/kDAZZ7qeNacwueMbzHeDyp1l+apLlGzLM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.1"
+    },
     "linux-enable-ir-emitter": {
         "cargoLock": {
             "Cargo.lock": [
@@ -475,7 +501,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
             "sparseCheckout": [],
             "type": "github"
         },

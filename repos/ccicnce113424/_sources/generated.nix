@@ -96,6 +96,23 @@
     };
     date = "2026-03-21";
   };
+  krunner-zed = {
+    pname = "krunner-zed";
+    version = "v0.1.1";
+    src = fetchFromGitHub {
+      owner = "hron";
+      repo = "krunner-zed";
+      rev = "v0.1.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-OYR4G0EKj/kDAZZ7qeNacwueMbzHeDyp1l+apLlGzLM=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-OYR4G0EKj_kDAZZ7qeNacwueMbzHeDyp1l+apLlGzLM=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+  };
   linux-enable-ir-emitter = {
     pname = "linux-enable-ir-emitter";
     version = "7.0.0-beta";
@@ -288,7 +305,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

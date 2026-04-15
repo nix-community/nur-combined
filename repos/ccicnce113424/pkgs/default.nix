@@ -70,6 +70,11 @@ rec {
     version = unstableVersion sources;
   };
 
+  krunner-zed = pkgs.callPackage ./krunner-zed rec {
+    sources = fetchedSrc.krunner-zed;
+    version = stableVersion sources;
+  };
+
   linux-enable-ir-emitter = pkgs.callPackage ./linux-enable-ir-emitter rec {
     sources = fetchedSrc.linux-enable-ir-emitter;
     version = sources.version;
