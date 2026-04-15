@@ -19,7 +19,7 @@ endif
 .PHONY: all
 #: Builds all packages.
 all:
-	nix-build --no-out-link
+	nix build --no-link --accept-flake-config .
 
 .PHONY: configure
 #: Sets up the environment to contribute to this repository.
@@ -30,7 +30,7 @@ configure:
 #: Runs validations to ensure all packages build successfully.
 check:
 	nix fmt
-	nix flake check --print-build-logs
+	nix flake check --print-build-logs --accept-flake-config
 
 .PHONY: clean
 #: Removes built packages from the nix store.
@@ -40,7 +40,7 @@ clean:
 .PHONY: push
 #: Builds and pushes derivations to cachix.
 push:
-	nix-build --no-out-link | ${OP} cachix push wwmoraes
+	ls -d1 $$(nix build --no-link --accept-flake-config --print-out-paths .)/* | xargs -n1 realpath | ${OP} cachix push wwmoraes
 
 .PHONY: submodules
 #: Checks out submodules to work in this repository.
@@ -69,20 +69,19 @@ queue-refresh:
 .PHONY: ${PKGS_SINGLE_FILE}
 #: Builds specific package.
 ${PKGS_SINGLE_FILE}: pkgs/%: pkgs/%.nix
-	$(info building $* with $^)
-	nix-build -A $* --no-out-link --repair --option substituters https://cache.nixos.org/
+	nix build --no-link --accept-flake-config --print-out-paths .#$*
 
 .PHONY: ${PKGS_IN_SUBDIR}
 #: Builds specific package.
 ${PKGS_IN_SUBDIR}: pkgs/%: pkgs/%/default.nix
-	nix-build -A $* --no-out-link --repair --option substituters https://cache.nixos.org/
+	nix build --no-link --accept-flake-config --print-out-paths .#$*
 
 .PHONY: ${PUSH_PKGS_SINGLE_FILE}
 #: Builds and pushes specific package.
 ${PUSH_PKGS_SINGLE_FILE}: push/%: pkgs/%.nix
-	nix-build -A $* --no-out-link | ${OP} cachix push wwmoraes
+	nix build --no-link --accept-flake-config --print-out-paths .#$* | ${OP} cachix push wwmoraes
 
 .PHONY: ${PUSH_PKGS_IN_SUBDIR}
 #: Builds and pushes specific package.
 ${PUSH_PKGS_IN_SUBDIR}: push/%: pkgs/%/default.nix
-	nix-build -A $* --no-out-link | ${OP} cachix push wwmoraes
+	nix build --no-link --accept-flake-config --print-out-paths .#$* | ${OP} cachix push wwmoraes
