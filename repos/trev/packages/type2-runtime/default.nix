@@ -79,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "runtime";
     description = "AppImage Type 2 runtime";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
+    platforms = lib.platforms.linux;
     homepage = "https://github.com/AppImage/type2-runtime";
     changelog = "https://github.com/AppImage/type2-runtime/commits/${finalAttrs.src.rev}/";
   };

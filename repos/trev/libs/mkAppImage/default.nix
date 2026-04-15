@@ -37,9 +37,13 @@ let
 
   platforms = [
     "x86_64-linux"
+    "x86_64-linux-musl"
     "aarch64-linux"
+    "aarch64-linux-musl"
     "armv7l-linux"
+    "armv7l-linux-musl"
     "armv6l-linux"
+    "armv6l-linux-musl"
   ];
 in
 
