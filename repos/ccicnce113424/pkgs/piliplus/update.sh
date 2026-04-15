@@ -19,15 +19,20 @@ src_info=$package_dir/src-info.json
 
 lock_path=$(jaq -r ".\"$package_name\".extract.\"pubspec.lock\"" _sources/generated.json)
 version=$(jaq -r ".\"$package_name\".src.rev" _sources/generated.json)
+source_sha256=$(jaq -r ".\"$package_name\".src.sha256" _sources/generated.json)
+if [[ -z $source_sha256 || $source_sha256 == "null" ]]; then
+  echo "Failed to read source sha256 from _sources/generated.json."
+  exit 1
+fi
 
 owner=$(jaq -r ".\"$package_name\".src.owner" _sources/generated.json)
 repo=$(jaq -r ".\"$package_name\".src.repo" _sources/generated.json)
 
-# 如果已有 src-info.json 且版本未变化且未指定 -f，则直接跳过后续操作
+# 如果已有 src-info.json 且源码哈希未变化且未指定 -f，则直接跳过后续操作
 if [[ -f $src_info && $force != true ]]; then
-  old_version=$(jaq -r '.version // empty' "$src_info" || true)
-  if [[ -n $old_version && $old_version == "$version" ]]; then
-    echo "src-info.json is up to date (version=$version), skipping."
+  old_source_sha256=$(jaq -r '.sourceSha256 // empty' "$src_info" || true)
+  if [[ -n $old_source_sha256 && $old_source_sha256 == "$source_sha256" ]]; then
+    echo "src-info.json is up to date (sourceSha256=$source_sha256), skipping."
     exit 0
   fi
 fi
@@ -88,9 +93,10 @@ fi
 
 jaq --from yaml -n \
   --arg version "$version" \
+  --arg sourceSha256 "$source_sha256" \
   --arg rev "$rev" \
   --argjson time "$time_val" \
   --argjson revCount "$rev_count" \
   --argjson gitHashes "$git_hashes_object" \
-  '{ version: $version, rev: $rev, time: $time, revCount: $revCount,
+  '{ version: $version, sourceSha256: $sourceSha256, rev: $rev, time: $time, revCount: $revCount,
      pubspecLock: input, gitHashes: $gitHashes }' "_sources/$lock_path" >"$src_info"

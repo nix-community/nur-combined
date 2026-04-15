@@ -25,6 +25,7 @@ rec {
     flake-parts.lib.mkFlake { inherit inputs; } {
       _module.args = { inherit nixConfig; };
       systems = [ "x86_64-linux" ];
+      debug = true;
       imports = [
         ./treefmt.nix
         # optional: introduce nixpkgs into perSystem

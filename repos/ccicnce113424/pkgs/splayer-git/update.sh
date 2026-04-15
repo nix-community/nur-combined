@@ -17,12 +17,17 @@ package_dir=$SCRIPT_DIR
 src_info=$package_dir/src-info.json
 
 version=$(jq -r ".\"$package_name\".src.rev" _sources/generated.json)
+source_sha256=$(jq -r ".\"$package_name\".src.sha256" _sources/generated.json)
+if [[ -z $source_sha256 || $source_sha256 == "null" ]]; then
+  echo "Failed to read source sha256 from _sources/generated.json."
+  exit 1
+fi
 
-# 如果已有 src-info.json 且版本未变化，且未指定 -f，则直接跳过
+# 如果已有 src-info.json 且源码哈希未变化，且未指定 -f，则直接跳过
 if [[ -f $src_info && $force != true ]]; then
-  old_version=$(jq -r '.version // empty' "$src_info" || true)
-  if [[ -n $old_version && $old_version == "$version" ]]; then
-    echo "src-info.json is up to date (version=$version), skipping."
+  old_source_sha256=$(jq -r '.sourceSha256 // empty' "$src_info" || true)
+  if [[ -n $old_source_sha256 && $old_source_sha256 == "$source_sha256" ]]; then
+    echo "src-info.json is up to date (sourceSha256=$source_sha256), skipping."
     exit 0
   fi
 fi
@@ -40,4 +45,5 @@ echo "SPlayer git deps hash is: $hash_splayer_git"
 jq -n \
   --arg version "$version" \
   --arg hash "$hash_splayer_git" \
-  '{ version: $version, hash: $hash }' >"$src_info"
+  --arg sourceSha256 "$source_sha256" \
+  '{ version: $version, hash: $hash, sourceSha256: $sourceSha256 }' >"$src_info"

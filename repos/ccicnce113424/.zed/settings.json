@@ -1,0 +1,28 @@
+// Folder-specific settings
+//
+// For a full list of overridable settings, and general information on folder-specific settings,
+// see the documentation: https://zed.dev/docs/configuring-zed#settings-files
+{
+  "languages": {
+    "Nix": {
+      "language_servers": ["nixd", "!nil"],
+    },
+  },
+  "lsp": {
+    "nixd": {
+      "settings": {
+        "nixpkgs": {
+          "expr": "(builtins.getFlake (builtins.toString ./.)).currentSystem.nixpkgs",
+        },
+        "options": {
+          "flake-parts": {
+            "expr": "(builtins.getFlake (builtins.toString ./.)).debug.options",
+          },
+          "flake-parts2": {
+            "expr": "(builtins.getFlake (builtins.toString ./.)).currentSystem.options",
+          },
+        },
+      },
+    },
+  },
+}
