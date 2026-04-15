@@ -27,7 +27,7 @@ buildRustPackage (finalAttrs: {
     mainProgram = "AppRun";
     description = "Bwrap AppRun implementation for Type 2 AppImages";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
+    platforms = lib.platforms.linux;
     homepage = "https://github.com/spotdemo4/nur/tree/main/pkgs/bwrap-apprun";
   };
 })
