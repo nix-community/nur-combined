@@ -8,6 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
     };
+    synology-nix-installer.url = "github:sini/synology-nix-installer";
 
   };
   outputs =
@@ -49,6 +50,7 @@
             inherit system;
             overlays = [
               self.overlays.default
+              inputs.synology-nix-installer.overlays.default
             ];
             config = { };
           };
@@ -59,9 +61,14 @@
           };
           devShells = import ./shell.nix { inherit pkgs system; };
           packages = lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system};
-          legacyPackages = import ./default.nix { inherit pkgs system; } // {
-            inherit treefmt;
-          };
+          legacyPackages =
+            import ./default.nix { inherit pkgs system; }
+            // {
+              inherit treefmt;
+            }
+            // lib.optionalAttrs (lib.hasSuffix "-linux" system) {
+              inherit (pkgs) nix-installer-static;
+            };
           formatter = treefmt.config.build.wrapper;
         };
 
