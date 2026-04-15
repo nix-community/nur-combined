@@ -376,8 +376,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "66bf06ca4e582a1172bcf90d76fa2f3146a164a8",
-            "sha256": "1rwjklbv2dw0a4qiwqdpnmpb18xkb3sby96nca31b8300sypd886",
+            "rev": "5b73f9e1ab00f31f9252a2c6d4b2a2b1a26a69b9",
+            "sha256": "074z5sxa43n6nr7vg88ys0vyzbbpnzdidrvb3cvfr52xfpqhkzhz",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -487,8 +487,8 @@
             "url": "https://github.com/blakat360/nur-packages"
         },
         "blemouzy": {
-            "rev": "cf4c98b26de3d23724fd0cd55bd6b8248596c208",
-            "sha256": "15g0vz1wpsgys1z2fnvfnxzavfcrgd5w8vqiv017y0432qam3zq2",
+            "rev": "d75055339db1dddad5fb79c9ac93da248615284f",
+            "sha256": "1ijc12wp3vmk99nrbmvavs916fm0zb5f5pvcagbz9msda2c3wfwp",
             "url": "https://github.com/blemouzy/nur-packages"
         },
         "boo15mario": {
@@ -1929,8 +1929,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "9bc50a556715c50d3fd4bca97f8893c4ae40a712",
-            "sha256": "0pfid06qs9haqj5myrxrk14mjim9h5b503k08cnycyfn8vah6qgr",
+            "rev": "d0efa70ba849e7abb0c634b748dfc85785b80a3b",
+            "sha256": "1wscfn6ix3ixi8yb21aihlfrznihv8czz03f155jyjlpbagvpxi9",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
