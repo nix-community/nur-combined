@@ -100,10 +100,6 @@ rec {
   lyrica = pkgs.callPackage ./lyrica {
     sources = fetchedSrc.lyrica;
   };
-  lyrica-plasmoid = pkgs.callPackage ./lyrica/plasmoid.nix {
-    sources = fetchedSrc.lyrica;
-    inherit lyrica;
-  };
 
   motrix-next = pkgs.callPackage ./motrix-next rec {
     inherit (lib.importJSON ./motrix-next/src-info.json) hash;
