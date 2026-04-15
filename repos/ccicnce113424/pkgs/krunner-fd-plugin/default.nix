@@ -4,7 +4,7 @@
   lib,
   stdenvNoCC,
   python3,
-  makeWrapper,
+  makeBinaryWrapper,
   fd,
 }:
 let
@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation {
   inherit (sources) pname src;
   inherit version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeBinaryWrapper ];
 
   strictDeps = true;
   __structuredAttrs = true;
