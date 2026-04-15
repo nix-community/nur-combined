@@ -4,12 +4,15 @@
   lib,
 }:
 
-pkg:
+{
+  src ? null,
+  ...
+}@args:
 
-{ ... }@args:
+assert src != null;
 
 let
-  package = if stdenv.hostPlatform.isStatic then (pkg.${stdenv.hostPlatform.system} or pkg) else pkg;
+  package = if stdenv.hostPlatform.isStatic then (src.${stdenv.hostPlatform.system} or src) else src;
   platforms = [
     "x86_64-linux"
     "aarch64-linux"
@@ -18,7 +21,7 @@ let
   ];
 in
 
-(dockerTools.buildLayeredImage (
+dockerTools.buildLayeredImage (
   args
   // {
     name = args.name or package.pname;
@@ -31,7 +34,7 @@ in
     };
 
     config = (args.config or { }) // {
-      Cmd = [ "${args.config.Cmd or (lib.meta.getExe package)}" ];
+      Entrypoint = [ "${args.config.Entrypoint or (lib.meta.getExe package)}" ];
       Labels =
         (args.config.Labels or { })
         // lib.filterAttrs (_: v: v != null) {
@@ -45,11 +48,4 @@ in
         };
     };
   }
-)).overrideAttrs
-  (
-    _: prev: {
-      passthru = (prev.passthru or { }) // {
-        inherit package;
-      };
-    }
-  )
+)

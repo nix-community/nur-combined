@@ -7,12 +7,11 @@
   writeClosure,
 }:
 
-pkg:
-
 {
-  pname ? pkg.pname or pkg.name,
-  version ? pkg.version or "unstable",
-  architecture ? pkg.stdenv.hostPlatform.go.GOARCH or stdenv.hostPlatform.go.GOARCH,
+  src ? null,
+  pname ? src.pname or src.name,
+  version ? src.version or "unstable",
+  architecture ? src.stdenv.hostPlatform.go.GOARCH or stdenv.hostPlatform.go.GOARCH,
   name ? "${pname}-${version}-${architecture}.AppImage",
 
   squashfsArgs ? [
@@ -22,10 +21,12 @@ pkg:
   ],
 }:
 
+assert src != null;
+
 let
   apprun = pkgsStatic.callPackage ../../packages/bwrap-apprun { };
   runtime = pkgsStatic.callPackage ../../packages/type2-runtime { };
-  package = if stdenv.hostPlatform.isStatic then (pkg.${stdenv.hostPlatform.system} or pkg) else pkg;
+  package = if stdenv.hostPlatform.isStatic then (src.${stdenv.hostPlatform.system} or src) else src;
 
   args = [
     "-offset $(stat -L -c%s ${lib.escapeShellArg (lib.getExe runtime)})" # squashfs comes after the runtime

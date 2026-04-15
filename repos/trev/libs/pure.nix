@@ -8,6 +8,4 @@
 }:
 {
   mkFlake = import ./mkFlake { inherit nixpkgs systems; };
-  mkImages = import ./mkImages { inherit nixpkgs; };
-  mkPackages = import ./mkPackages { inherit nixpkgs; };
 }
