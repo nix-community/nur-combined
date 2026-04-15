@@ -21,8 +21,8 @@ in
           {
             forSystems = [ name ];
             children = builtins.mapAttrs (_: _: {
-              shortDescription = "helper function";
-              what = "helper function";
+              shortDescription = "Helper function";
+              what = "Helper function";
             }) def;
           }
       ) output

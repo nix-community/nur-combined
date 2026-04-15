@@ -14,7 +14,7 @@ in
 {
   version = 1;
   doc = ''
-    The `images` flake output contains Open Container Initiative images stored in a `docker save`-formatted file.
+    The `appimages` flake output contains packages that have been bundled into AppImages.
   '';
   roles = {
     nix-build = { };
@@ -43,7 +43,7 @@ in
                       forSystems = [ attrs.system ];
                       shortDescription = attrs.meta.description or "";
                       derivationAttrPath = [ ];
-                      what = "Image";
+                      what = "AppImage";
                     }
                     // (if isSingle systems then { } else { children = recurse (prefix + attrName + ".") systems; })
 
@@ -56,7 +56,7 @@ in
                     }
                   else
                     {
-                      what = "unknown";
+                      what = "Unknown";
                     }
 
                 ) (throw "failed")

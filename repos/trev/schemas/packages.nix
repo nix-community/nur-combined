@@ -46,7 +46,7 @@ in
                       forSystems = [ attrs.system ];
                       shortDescription = attrs.meta.description or "";
                       derivationAttrPath = [ ];
-                      what = "package";
+                      what = "Package";
                     }
                     // (if isEmpty crosses then { } else { children = recurse (prefix + attrName + ".") crosses; })
 
@@ -59,7 +59,7 @@ in
                     }
                   else
                     {
-                      what = "unknown";
+                      what = "Unknown";
                     }
 
                 ) (throw "failed")
