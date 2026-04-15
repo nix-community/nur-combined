@@ -25,7 +25,7 @@ pkg:
 let
   apprun = pkgsStatic.callPackage ../../packages/bwrap-apprun { };
   runtime = pkgsStatic.callPackage ../../packages/type2-runtime { };
-  package = pkg.${stdenv.hostPlatform.system} or pkg;
+  package = if stdenv.hostPlatform.isStatic then (pkg.${stdenv.hostPlatform.system} or pkg) else pkg;
 
   args = [
     "-offset $(stat -L -c%s ${lib.escapeShellArg (lib.getExe runtime)})" # squashfs comes after the runtime
@@ -102,8 +102,8 @@ stdenvNoCC.mkDerivation {
 
   meta = (package.meta or { }) // {
     mainProgram = name;
-    platforms = builtins.filter (platform: builtins.elem platform platforms) (
-      package.meta.platforms or platforms
+    crossPlatforms = builtins.filter (platform: builtins.elem platform platforms) (
+      package.meta.crossPlatforms or package.meta.platforms or platforms
     );
   };
 }

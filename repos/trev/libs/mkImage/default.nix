@@ -9,7 +9,7 @@ pkg:
 { ... }@args:
 
 let
-  package = pkg.${stdenv.hostPlatform.system} or pkg;
+  package = if stdenv.hostPlatform.isStatic then (pkg.${stdenv.hostPlatform.system} or pkg) else pkg;
   platforms = [
     "x86_64-linux"
     "aarch64-linux"
@@ -25,8 +25,8 @@ in
     tag = args.tag or package.version;
     architecture = args.architecture or package.stdenv.hostPlatform.go.GOARCH;
     meta = (args.meta or package.meta or { }) // {
-      platforms = builtins.filter (platform: builtins.elem platform platforms) (
-        package.meta.platforms or platforms
+      crossPlatforms = builtins.filter (platform: builtins.elem platform platforms) (
+        package.meta.crossPlatforms or package.meta.platforms or platforms
       );
     };
 

@@ -178,7 +178,7 @@ eachSystemOp (
                       map (platform: {
                         name = platform;
                         value = fixPackage (crosspkgs.${platform}.${key}.${name} or null);
-                      }) (prev.meta.platforms or [ ])
+                      }) (prev.meta.crossPlatforms or prev.meta.platforms or [ ])
                     )
                   );
               }
