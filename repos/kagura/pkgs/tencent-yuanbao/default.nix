@@ -6,12 +6,12 @@
   _7zz,
 }:
 let
-  version = "2.57.0.629";
+  version = "2.64.0.637";
 
   # https://yuanbao.tencent.com/api/info/public/general
   source = {
-    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/8d12d1948fdcf687fba934075e2dc7c9/yuanbao_2.57.0.629_universal.dmg";
-    hash = "sha256-AUd83l/RGxKBH3p0Ow2DNgifGnGzBOTZOvHmRV98AF0=";
+    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/65a522f94e0c243ac6f6eda5f9845511/yuanbao_2.64.0.637_universal.dmg";
+    hash = "sha256-oIovFbNp0MM7AdWDpQYKwv2OJm+pjltoPts8frc5UPE=";
   };
   pkgName = "元宝";
 in
@@ -46,6 +46,8 @@ stdenvNoCC.mkDerivation rec {
     inherit version source;
     updateScript = ./update.sh;
   };
+
+  dontFixup = true;
 
   meta = {
     description = "Tencent Yuanbao";
