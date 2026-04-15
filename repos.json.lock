@@ -1648,8 +1648,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "c08e2c28ffac71b77149bfc5f79e570032c2de79",
-            "sha256": "123jz5rbw0dbbwfv98im3z8dvk91l3c4m7l883ng2h18845y969r",
+            "rev": "79f2af2f6b8bcb0f0c3fd2a5868d4346704ed4e3",
+            "sha256": "01xmrr1nbadzqsdm6nffixy4pnlw63aq8smxf5wdpydzhcwyvqd4",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "10a6cd12e69b54f802bf29e00b9a42a064a045ce",
-            "sha256": "19l4n6hp4bdiaxp02gyq85q1nn2hgys492yk4brcqcw5gw0fms3v",
+            "rev": "990800e05901e109bb387ba1690c701eca610334",
+            "sha256": "1h0yz2mi12snqczscndwmsp52lhisiq3f92iahkz0fank8j8gysp",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
