@@ -316,8 +316,8 @@
             "url": "https://gitlab.com/AlwinB/nur-packages"
         },
         "ambroisie": {
-            "rev": "bdb9ce7b7e2453137ad93c68571ccc367704cd32",
-            "sha256": "0vx98wa30mpf0yc8rkiznnqbd489n655r9m0cavnjl6xqqf9qszn",
+            "rev": "292b68523e71d9efa58cacc6794d2a893e43ab8b",
+            "sha256": "0lafwrgaw2s9bfg1d41kvj8msdq8h4nvsvfvra9km0lbdh5a3c6y",
             "url": "https://github.com/ambroisie/nix-config"
         },
         "amesgen": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "3c778d031ae2372e1e9e5a48a87524c47bb02e4b",
-            "sha256": "12xb833jays35vnw1dz8hx0qx4zlmpk5p7226xrpmsm21i755byn",
+            "rev": "a49a6da7217a17764bff900172f1aa2f2790446d",
+            "sha256": "0v2y9rhcnp1nxgylzs6fnqikd8sn0qyvfg5hz9l4qk1x2a45jyj8",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
