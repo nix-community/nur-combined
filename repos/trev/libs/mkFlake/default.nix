@@ -174,23 +174,28 @@ eachSystemOp (
       attrs
       // {
         ${key} = (attrs.${key} or { }) // {
-          ${system} = builtins.mapAttrs (
-            name: package:
-            package.overrideAttrs (
-              _: prev: {
-                passthru =
-                  (prev.passthru or { })
-                  // builtins.listToAttrs (
-                    builtins.filter (pv: pv.value != null) (
-                      map (platform: {
-                        name = platform;
-                        value = fixPackage (crosspkgs.${platform}.${key}.${name} or null);
-                      }) (prev.meta.crossPlatforms or prev.meta.platforms or [ ])
-                    )
-                  );
-              }
-            )
-          ) default.${key};
+          ${system} =
+            builtins.mapAttrs
+              (
+                name: package:
+                package.overrideAttrs (
+                  _: prev: {
+                    passthru =
+                      (prev.passthru or { })
+                      // builtins.listToAttrs (
+                        builtins.filter (pv: pv.value != null) (
+                          map (platform: {
+                            name = platform;
+                            value = fixPackage (crosspkgs.${platform}.${key}.${name} or null);
+                          }) (prev.meta.crossPlatforms or prev.meta.platforms or [ ])
+                        )
+                      );
+                  }
+                )
+              )
+              (
+                nixpkgs.lib.filterAttrs (_: v: builtins.elem system (v.meta.platforms or [ system ])) default.${key}
+              );
         };
       }
     else
