@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       ${patch ./patches/nix-skip-check-logs-path.patch}
       ${patch ./patches/nginx-oqs-curves.patch}
       ${patch ./patches/nginx-binary-remote-network.patch}
-      ${patch (sources.ja4-nginx-module.src + "/patches/nginx.patch")}
+      ${patch ./patches/nginx-ja4.patch}
       ${patch patchUring}
 
       install -Dm644 ${oqs-lookup}/oqs_lookup.c src/event/ngx_event_openssl_oqs_lookup.c

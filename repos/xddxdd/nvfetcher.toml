@@ -641,9 +641,9 @@ fetch.github = "matatonic/openedai-speech"
 src.github = "matatonic/openedai-speech"
 
 [openresty]
-fetch.url = "https://github.com/openresty/openresty/releases/download/v$ver/openresty-$ver.tar.gz"
-src.github = "openresty/openresty"
-src.prefix = "v"
+fetch.url = "https://openresty.org/download/openresty-$ver.tar.gz"
+src.webpage = "https://openresty.org/en/download.html"
+src.regex = "\"https://openresty.org/download/openresty-([0-9\\.]+).tar.gz\""
 
 [openssl-ech]
 fetch.github = "sftcd/openssl"

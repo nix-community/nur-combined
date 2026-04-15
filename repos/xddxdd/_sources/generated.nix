@@ -1497,10 +1497,10 @@
   };
   openresty = {
     pname = "openresty";
-    version = "1.27.1.2";
+    version = "1.29.2.3";
     src = fetchurl {
-      url = "https://github.com/openresty/openresty/releases/download/v1.27.1.2/openresty-1.27.1.2.tar.gz";
-      hash = "sha256-dPB29+NksqmabF+btTHCdhDHiYWr6Va0QrGSoilfdUg=";
+      url = "https://openresty.org/download/openresty-1.29.2.3.tar.gz";
+      hash = "sha256-MV5J+kVodH/sS9ralhTSuih+eu1LNDDX6iVoXiTMQ/8=";
     };
   };
   openssl-ech = {

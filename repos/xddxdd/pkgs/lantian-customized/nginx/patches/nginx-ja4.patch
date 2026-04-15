@@ -1,0 +1,511 @@
+diff --git a/src/event/ngx_event_openssl.c b/src/event/ngx_event_openssl.c
+index 05255d7..a680feb 100644
+--- a/src/event/ngx_event_openssl.c
++++ b/src/event/ngx_event_openssl.c
+@@ -1855,6 +1855,20 @@ ngx_ssl_create_connection(ngx_ssl_t *ssl, ngx_connection_t *c, ngx_uint_t flags)
+ 
+     c->ssl = sc;
+ 
++    // Initialize JA4 extension parsing state
++    sc->extensions_sz = 0;
++    sc->extensions = NULL;
++    sc->client_hello_parsed = 0;
++    sc->raw_client_hello = NULL;
++    sc->raw_client_hello_len = 0;
++
++    // Set up message callback to capture raw ClientHello
++    // This must be done before the handshake starts
++    if (!(flags & NGX_SSL_CLIENT)) {
++        SSL_set_msg_callback(sc->connection, ngx_ssl_msg_callback);
++        SSL_set_msg_callback_arg(sc->connection, c);
++    }
++
+     return NGX_OK;
+ }
+ 
+@@ -1897,6 +1911,282 @@ ngx_ssl_set_session(ngx_connection_t *c, ngx_ssl_session_t *session)
+     return NGX_OK;
+ }
+ 
++// Message callback to capture raw ClientHello
++void
++ngx_ssl_msg_callback(int write_p, int version, int content_type,
++    const void *buf, size_t len, SSL *ssl, void *arg)
++{
++    ngx_connection_t  *c;
++    const u_char      *p;
++
++    c = arg;
++
++    if (c == NULL || c->ssl == NULL) {
++        return;
++    }
++
++    ngx_log_debug4(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                   "ngx_ssl_msg_callback: write_p=%d, content_type=%d, len=%uz, parsed=%d",
++                   write_p, content_type, len, c->ssl->client_hello_parsed);
++
++    // Only process incoming handshake messages
++    if (write_p != 0 || content_type != 22) {  // 22 = handshake
++        return;
++    }
++
++    // Skip if already parsed
++    if (c->ssl->client_hello_parsed) {
++        return;
++    }
++
++    p = buf;
++
++    // Check if this is a ClientHello (type 1)
++    if (len < 1 || p[0] != 1) {
++        ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                       "ngx_ssl_msg_callback: not ClientHello, type=%d",
++                       len > 0 ? (int)p[0] : -1);
++        return;
++    }
++
++    // Store the raw ClientHello data
++    c->ssl->raw_client_hello = ngx_pnalloc(c->pool, len);
++    if (c->ssl->raw_client_hello == NULL) {
++        return;
++    }
++
++    ngx_memcpy(c->ssl->raw_client_hello, buf, len);
++    c->ssl->raw_client_hello_len = len;
++    c->ssl->client_hello_parsed = 1;
++
++    ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                   "Captured raw ClientHello: %uz bytes", len);
++}
++
++// Parse extensions from raw ClientHello data
++ngx_int_t
++ngx_ssl_parse_client_hello_extensions(ngx_connection_t *c)
++{
++    const u_char  *p, *end, *exts, *ext_end;
++    size_t         msg_len, sess_id_len, cipher_suites_len, comp_len;
++    size_t         exts_len, ext_type, ext_len;
++    ngx_array_t   *extensions;
++    unsigned int  *ext_ptr;
++    size_t         i;
++    char           hex_str[6];
++
++    if (c->ssl->raw_client_hello == NULL || c->ssl->raw_client_hello_len == 0) {
++        return NGX_ERROR;
++    }
++
++    p = c->ssl->raw_client_hello;
++    end = p + c->ssl->raw_client_hello_len;
++
++    // Skip handshake type (1 byte)
++    p++;
++
++    if (end - p < 3) {
++        return NGX_ERROR;
++    }
++
++    // Get message length (3 bytes)
++    msg_len = (p[0] << 16) | (p[1] << 8) | p[2];
++    p += 3;
++
++    if (end - p < (ngx_int_t)msg_len) {
++        return NGX_ERROR;
++    }
++
++    // Skip client version (2 bytes)
++    if (end - p < 2) {
++        return NGX_ERROR;
++    }
++    p += 2;
++
++    // Skip random (32 bytes)
++    if (end - p < 32) {
++        return NGX_ERROR;
++    }
++    p += 32;
++
++    // Get session ID length (1 byte)
++    if (end - p < 1) {
++        return NGX_ERROR;
++    }
++    sess_id_len = *p++;
++
++    // Skip session ID
++    if (end - p < (ssize_t)sess_id_len) {
++        return NGX_ERROR;
++    }
++    p += sess_id_len;
++
++    // Get cipher suites length (2 bytes)
++    if (end - p < 2) {
++        return NGX_ERROR;
++    }
++    cipher_suites_len = (p[0] << 8) | p[1];
++    p += 2;
++
++    // Parse cipher suites to detect SCSV values
++    if (end - p < (ssize_t)cipher_suites_len) {
++        return NGX_ERROR;
++    }
++
++    const u_char *cs_p = p;
++    const u_char *cs_end = p + cipher_suites_len;
++
++    while (cs_p + 1 < cs_end) {
++        unsigned int cipher = (cs_p[0] << 8) | cs_p[1];
++
++        // Check for TLS_EMPTY_RENEGOTIATION_INFO_SCSV (0x00ff)
++        if (cipher == 0x00ff) {
++            ngx_log_debug0(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                          "Detected TLS_EMPTY_RENEGOTIATION_INFO_SCSV (0x00ff)");
++        }
++
++        cs_p += 2;
++    }
++
++    p += cipher_suites_len;
++
++    // Get compression methods length (1 byte)
++    if (end - p < 1) {
++        return NGX_ERROR;
++    }
++    comp_len = *p++;
++
++    // Skip compression methods
++    if (end - p < (ssize_t)comp_len) {
++        return NGX_ERROR;
++    }
++    p += comp_len;
++
++    // Check if extensions are present
++    if (end - p < 2) {
++        // No extensions
++        return NGX_OK;
++    }
++
++    // Get extensions length (2 bytes)
++    exts_len = (p[0] << 8) | p[1];
++    p += 2;
++
++    if (end - p < (ssize_t)exts_len) {
++        return NGX_ERROR;
++    }
++
++    exts = p;
++    ext_end = p + exts_len;
++
++    // Create a temporary array to store all extension types
++    extensions = ngx_array_create(c->pool, 32, sizeof(unsigned int));
++    if (extensions == NULL) {
++        return NGX_ERROR;
++    }
++
++    // Parse all extensions
++    p = exts;
++    while (p + 3 < ext_end) {
++        ext_type = (p[0] << 8) | p[1];
++        ext_len = (p[2] << 8) | p[3];
++        p += 4;
++
++        if (ext_end - p < (ngx_int_t)ext_len) {
++            return NGX_ERROR;
++        }
++
++        // Add extension type to array
++        ext_ptr = ngx_array_push(extensions);
++        if (ext_ptr == NULL) {
++            return NGX_ERROR;
++        }
++        *ext_ptr = ext_type;
++
++        ngx_log_debug2(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                      "Found extension: 0x%04xi (length: %uz)", ext_type, ext_len);
++
++        // Check for supported_versions extension (0x002b)
++        if (ext_type == 0x002b && ext_len >= 3) {
++            const u_char *sv = p;
++            size_t list_len = sv[0];
++
++            if (list_len + 1 <= ext_len) {
++                const u_char *versions = sv + 1;
++                int highest = 0;
++
++                for (size_t j = 0; j + 1 < list_len; j += 2) {
++                    int ver = (versions[j] << 8) | versions[j + 1];
++
++                    // Skip GREASE values (RFC 8701)
++                    if ((ver & 0x0f0f) == 0x0a0a) {
++                        continue;
++                    }
++
++                    if (ver > highest) {
++                        highest = ver;
++                    }
++                }
++
++                if (highest != 0) {
++                    c->ssl->highest_supported_tls_client_version = highest;
++                    ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                                  "Highest TLS version from supported_versions: 0x%04xd",
++                                  highest);
++                }
++            }
++        }
++
++        p += ext_len;
++    }
++
++    // Convert extensions array to hex strings
++    c->ssl->extensions_sz = extensions->nelts;
++    c->ssl->extensions = ngx_palloc(c->pool, sizeof(char *) * extensions->nelts);
++
++    if (c->ssl->extensions == NULL) {
++        return NGX_ERROR;
++    }
++
++    ext_ptr = extensions->elts;
++    for (i = 0; i < extensions->nelts; i++) {
++        snprintf(hex_str, sizeof(hex_str), "%04x", ext_ptr[i]);
++
++        c->ssl->extensions[i] = ngx_pnalloc(c->pool, sizeof(hex_str));
++        if (c->ssl->extensions[i] == NULL) {
++            return NGX_ERROR;
++        }
++
++        ngx_memcpy(c->ssl->extensions[i], hex_str, sizeof(hex_str));
++
++        ngx_log_debug2(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                      "c->ssl->extensions[%uz] = %s", i, c->ssl->extensions[i]);
++    }
++
++    return NGX_OK;
++}
++
++// adds extensions to the ssl object for ja4 fingerprint
++int
++ngx_SSL_early_cb_fn(SSL *s, int *al, void *arg) {
++
++    ngx_connection_t  *c;
++
++    c = arg;
++
++    if (c == NULL) {
++        return 1;
++    }
++
++    if (c->ssl == NULL) {
++        return 1;
++    }
++
++    // Message callback is already set up in ngx_ssl_create_connection()
++    // This callback just needs to return success
++
++    return 1;
++}
+ 
+ ngx_int_t
+ ngx_ssl_handshake(ngx_connection_t *c)
+@@ -1917,6 +2207,9 @@ ngx_ssl_handshake(ngx_connection_t *c)
+ 
+     ngx_ssl_clear_error(c->log);
+ 
++    // client hello callback function on the session context, ja4 extensions
++    SSL_CTX_set_client_hello_cb (c->ssl->session_ctx, ngx_SSL_early_cb_fn, c);
++
+     n = SSL_do_handshake(c->ssl->connection);
+ 
+     ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
+@@ -1977,6 +2270,11 @@ ngx_ssl_handshake(ngx_connection_t *c)
+             return NGX_AGAIN;
+         }
+ 
++        // Parse raw ClientHello to get all extensions including ECH and ALPS
++        if (c->ssl->client_hello_parsed && c->ssl->extensions_sz == 0) {
++            ngx_ssl_parse_client_hello_extensions(c);
++        }
++
+         c->ssl->handshaked = 1;
+ 
+         return NGX_OK;
+@@ -2150,6 +2448,11 @@ ngx_ssl_try_early_data(ngx_connection_t *c)
+             return NGX_AGAIN;
+         }
+ 
++        // Parse raw ClientHello to get all extensions including ECH and ALPS
++        if (c->ssl->client_hello_parsed && c->ssl->extensions_sz == 0) {
++            ngx_ssl_parse_client_hello_extensions(c);
++        }
++
+         c->ssl->handshaked = 1;
+ 
+         return NGX_OK;
+diff --git a/src/event/ngx_event_openssl.h b/src/event/ngx_event_openssl.h
+index aa00e06..559903b 100644
+--- a/src/event/ngx_event_openssl.h
++++ b/src/event/ngx_event_openssl.h
+@@ -147,6 +147,30 @@ struct ngx_ssl_connection_s {
+     unsigned                    early_preread:1;
+     unsigned                    write_blocked:1;
+     unsigned                    sni_accepted:1;
++
++    // ja4
++    int             version;
++    int             highest_supported_tls_client_version;
++
++    size_t          ciphers_sz;
++    char **ciphers;
++
++    size_t          extensions_sz;
++    char **extensions;
++
++    size_t          sigalgs_sz;
++    char   **sigalgs_hash_values; // Array to store combined hash values like 0x0601
++    char *first_alpn; // first ALPN protocol provided by the client
++
++    // Raw ClientHello parsing
++    unsigned        client_hello_parsed:1;
++    u_char         *raw_client_hello;
++    size_t          raw_client_hello_len;
++
++
++    // ja4l
++    uint16_t handshake_roundtrip_microseconds; // a whole number - max is probably thousands
++    uint8_t ttl; // time to live - a whole number - max is 255
+ };
+ 
+ 
+@@ -400,4 +424,9 @@ extern int  ngx_ssl_client_hello_arg_index;
+ extern u_char  ngx_ssl_session_buffer[NGX_SSL_MAX_SESSION_SIZE];
+ 
+ 
++int ngx_SSL_early_cb_fn (SSL *s, int *al, void *arg);
++void ngx_ssl_msg_callback(int write_p, int version, int content_type,
++    const void *buf, size_t len, SSL *ssl, void *arg);
++ngx_int_t ngx_ssl_parse_client_hello_extensions(ngx_connection_t *c);
++
+ #endif /* _NGX_EVENT_OPENSSL_H_INCLUDED_ */
+diff --git a/src/event/quic/ngx_event_quic_ssl.c b/src/event/quic/ngx_event_quic_ssl.c
+index adc22b6..ac27324 100644
+--- a/src/event/quic/ngx_event_quic_ssl.c
++++ b/src/event/quic/ngx_event_quic_ssl.c
+@@ -691,6 +691,9 @@ ngx_quic_handshake(ngx_connection_t *c)
+ 
+     ssl_conn = c->ssl->connection;
+ 
++    /* ja4: Setting up a callback to collect TLS extensions */
++    SSL_CTX_set_client_hello_cb (c->ssl->session_ctx, ngx_SSL_early_cb_fn, c);
++
+     n = SSL_do_handshake(ssl_conn);
+ 
+     ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
+@@ -749,6 +752,11 @@ ngx_quic_handshake(ngx_connection_t *c)
+ 
+     c->ssl->handshaked = 1;
+ 
++    // Parse raw ClientHello to get all extensions including ECH and ALPS (QUIC)
++    if (c->ssl->client_hello_parsed && c->ssl->extensions_sz == 0) {
++        ngx_ssl_parse_client_hello_extensions(c);
++    }
++
+     frame = ngx_quic_alloc_frame(c);
+     if (frame == NULL) {
+         return NGX_ERROR;
+@@ -832,6 +840,74 @@ ngx_quic_crypto_provide(ngx_connection_t *c, ngx_uint_t level)
+     for (cl = out; cl; cl = cl->next) {
+         b = cl->buf;
+ 
++        // QUIC: Accumulate ClientHello from CRYPTO frames
++        // QUIC fragments large handshake messages across multiple CRYPTO frames
++        if (level == ssl_encryption_initial && !c->ssl->client_hello_parsed) {
++            const u_char *p = b->pos;
++            size_t len = b->last - b->pos;
++
++            if (len > 0) {
++                // Check if this is the start of a handshake message (type 1 = ClientHello)
++                if (c->ssl->raw_client_hello == NULL && len > 4 && p[0] == 1) {
++                    // Parse message length from first frame
++                    size_t msg_len = (p[1] << 16) | (p[2] << 8) | p[3];
++                    size_t total_len = 4 + msg_len;  // 1 byte type + 3 bytes length + message
++
++                    ngx_log_debug2(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                                  "QUIC: Starting ClientHello capture, msg_len=%uz, total=%uz",
++                                  msg_len, total_len);
++
++                    // Allocate buffer for complete message
++                    c->ssl->raw_client_hello = ngx_pnalloc(c->pool, total_len);
++                    if (c->ssl->raw_client_hello != NULL) {
++                        c->ssl->raw_client_hello_len = 0;  // Track how much we've received
++                    }
++                }
++
++                // Append this frame's data
++                if (c->ssl->raw_client_hello != NULL) {
++                    // Get expected total length from the header
++                    if (c->ssl->raw_client_hello_len >= 4) {
++                        size_t expected_len = 4 + ((c->ssl->raw_client_hello[1] << 16) |
++                                                   (c->ssl->raw_client_hello[2] << 8) |
++                                                   c->ssl->raw_client_hello[3]);
++
++                        // Bounds check: ensure frame data doesn't overflow the allocated buffer
++                        // Even though allocation is based on header length, a malicious client
++                        // could send more data than the header claimed
++                        if (c->ssl->raw_client_hello_len + len > expected_len) {
++                            ngx_log_error(NGX_LOG_ALERT, c->log, 0,
++                                         "QUIC frame data (%uz bytes accumulated) exceeds "
++                                         "ClientHello header length (%uz bytes), truncating",
++                                         c->ssl->raw_client_hello_len + len, expected_len);
++                            // Truncate to prevent buffer overflow
++                            len = expected_len - c->ssl->raw_client_hello_len;
++                        }
++                    }
++
++                    // Only copy if we have valid data to copy
++                    if (len > 0) {
++                        ngx_memcpy(c->ssl->raw_client_hello + c->ssl->raw_client_hello_len, p, len);
++                        c->ssl->raw_client_hello_len += len;
++                    }
++
++                    // Check if we have the complete message
++                    if (c->ssl->raw_client_hello_len >= 4) {
++                        size_t expected_len = 4 + ((c->ssl->raw_client_hello[1] << 16) |
++                                                   (c->ssl->raw_client_hello[2] << 8) |
++                                                   c->ssl->raw_client_hello[3]);
++
++                        if (c->ssl->raw_client_hello_len >= expected_len) {
++                            c->ssl->client_hello_parsed = 1;
++                            ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0,
++                                          "QUIC: Complete ClientHello captured: %uz bytes",
++                                          c->ssl->raw_client_hello_len);
++                        }
++                    }
++                }
++            }
++        }
++
+         if (!SSL_provide_quic_data(c->ssl->connection, ssl_level, b->pos,
+                                    b->last - b->pos))
+         {
+diff --git a/src/http/modules/ngx_http_ssl_module.c b/src/http/modules/ngx_http_ssl_module.c
+index 3778758..4be19e2 100644
+--- a/src/http/modules/ngx_http_ssl_module.c
++++ b/src/http/modules/ngx_http_ssl_module.c
+@@ -447,6 +447,18 @@ ngx_http_ssl_alpn_select(ngx_ssl_conn_t *ssl_conn, const unsigned char **out,
+     ngx_connection_t        *c;
+ 
+     c = ngx_ssl_get_connection(ssl_conn);
++    // add first alpn value for ja4 to c->ssl
++    if (c->ssl->first_alpn == NULL && inlen > 0) {
++        size_t alpn_len = in[0];
++        // bounds check: ensure buffer has enough data
++        if (alpn_len > 0 && inlen >= alpn_len + 1) {
++            c->ssl->first_alpn = ngx_palloc(c->pool, alpn_len + 1);
++            if (c->ssl->first_alpn != NULL) {
++                ngx_memcpy(c->ssl->first_alpn, &in[1], alpn_len);
++                c->ssl->first_alpn[alpn_len] = '\0';
++            }
++        }
++    }
+ #endif
+ 
+ #if (NGX_DEBUG)
