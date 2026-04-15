@@ -7,30 +7,39 @@
   buildFirefoxXpiAddon ? callPackage ../../lib/buildFirefoxXpiAddon.nix { },
 }:
 let
-  xpifile = buildNpmPackage (finalAttrs: {
-    pname = "obsidian-web-clipper";
-    version = "1.4.0";
+  xpifile = buildNpmPackage (
+    finalAttrs:
+    let
+      isVersionMismatch = finalAttrs.version == "1.5.0";
+      versionMismatch = if isVersionMismatch then "1.4.0" else finalAttrs.version;
+    in
+    {
+      pname = "obsidian-web-clipper";
+      version = "1.5.0";
 
-    src = fetchFromGitHub {
-      owner = "obsidianmd";
-      repo = "obsidian-clipper";
-      rev = finalAttrs.version;
-      hash = "sha256-jnW52ijsCXbxU/Yz0xWw37fxaVCB8gBMRTwa4QUuyFU=";
-    };
+      src = fetchFromGitHub {
+        owner = "obsidianmd";
+        repo = "obsidian-clipper";
+        rev = finalAttrs.version;
+        hash = "sha256-eB7v/e+DMP/MlrLp5I99qPbTYgAJCTul1+B+9A3HwyU=";
+      };
 
-    npmDepsHash = "sha256-APgIEqsY7LnMeJ/becvS7upsmQw9ksb1K66zFW7hqqY=";
-    npmBuildScript = "build:firefox";
+      patches = lib.optionals isVersionMismatch [ ./bump-defuddle-0.17.patch ];
 
-    installPhase = ''
-      runHook preInstall
+      npmDepsHash = "sha256-2T3hNSbL+5jsofKmRNjexNVvvgcIcWlyn+dBG4k7doE=";
+      npmBuildScript = "build:firefox";
 
-      cp builds/obsidian-web-clipper-${finalAttrs.version}-firefox.zip $out
+      installPhase = ''
+        runHook preInstall
 
-      runHook postInstall
-    '';
+        cp builds/obsidian-web-clipper-${versionMismatch}-firefox.zip $out
 
-    passthru.updateScript = nix-update-script { };
-  });
+        runHook postInstall
+      '';
+
+      passthru.updateScript = nix-update-script { };
+    }
+  );
 in
 buildFirefoxXpiAddon {
   inherit (xpifile) pname version;
