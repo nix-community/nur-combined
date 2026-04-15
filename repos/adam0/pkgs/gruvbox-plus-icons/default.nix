@@ -12,13 +12,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "gruvbox-plus-icons";
-  version = "6.3.0-unstable-2026-04-13";
+  version = "6.3.0-unstable-2026-04-14";
 
   src = fetchFromGitHub {
     owner = "SylEleuth";
     repo = "gruvbox-plus-icon-pack";
-    rev = "94cc28fe438d15c08e2815718c588f80f4cd1a6e";
-    hash = "sha256-6a6Jf0OJDYEsfM8PHIU/+0Hnhu4c/90kIOK8m34U/Fo=";
+    rev = "1486b79715dfae6b37f8b6fd41e6a5da4ce6d837";
+    hash = "sha256-vt231zA9rVUhA5PtCT8ixjpQfJUK2AKoWrri2zxGgOM=";
   };
 
   patches = [./folder-color.patch];
