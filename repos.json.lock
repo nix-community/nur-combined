@@ -256,8 +256,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "a2d2f013792bb790e58e6256287b5ee4917e6241",
-            "sha256": "10d37a15sckxmq3zzggh93065c53ki0mshs54q7k2faz919kbgls",
+            "rev": "68069dcedf4ecf3784b5c1b94ae4bb65ec9e42d3",
+            "sha256": "0mf8ihx16zpd8f7qzfwbzl5mv9zy4y4x8fysn1nhkvvn2kkpwdav",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "09889d637dcfd535bc9a728c35072e50506a70e8",
-            "sha256": "1j1fq6i4swg59y4x7973m8k56s1wq0hlg94v4gml4dfm9qzjbhi1",
+            "rev": "822339c920b544079d386974c0928ebfae8b38bd",
+            "sha256": "08r5i4v8n3sfq7bsh56gk861mdz9sq3lpmv7wpg9fh2afl8s757x",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
