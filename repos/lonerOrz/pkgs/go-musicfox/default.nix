@@ -8,14 +8,14 @@
   alsa-lib,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "go-musicfox";
   version = "4.8.2";
 
   src = fetchFromGitHub {
     owner = "go-musicfox";
     repo = "go-musicfox";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Lzz6lrdMyE9Wcu0RZi7KzF0MkjZT+djQcyOfHl+dF6w=";
   };
 
@@ -28,7 +28,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/go-musicfox/go-musicfox/internal/types.AppVersion=${version}"
+    "-X github.com/go-musicfox/go-musicfox/internal/types.AppVersion=${finalAttrs.version}"
   ];
 
   nativeBuildInputs = [
@@ -42,6 +42,12 @@ buildGoModule rec {
     alsa-lib
   ];
 
+  postInstall = ''
+    if [ -f "$out/bin/cmd" ]; then
+      mv $out/bin/cmd $out/bin/musicfox
+    fi
+  '';
+
   meta = {
     description = "Terminal netease cloud music client written in Go";
     homepage = "https://github.com/anhoder/go-musicfox";
@@ -49,4 +55,4 @@ buildGoModule rec {
     mainProgram = "musicfox";
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
-}
+})
