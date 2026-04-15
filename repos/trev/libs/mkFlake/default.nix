@@ -38,7 +38,10 @@ let
         overlays.libs
         overlays.packages
       ];
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        allowDeprecatedx86_64Darwin = true;
+      };
     };
 
   mkCrossPackages =
@@ -50,7 +53,10 @@ let
         overlays.libs
         overlays.packages
       ];
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        allowDeprecatedx86_64Darwin = true;
+      };
     };
 
   fixPackage =
