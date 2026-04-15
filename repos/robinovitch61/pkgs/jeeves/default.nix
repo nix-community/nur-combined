@@ -9,24 +9,24 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "1yx4lszql96br7ycrzvknbk42szzvsp5ph1zk8hgp8qjfkz8ydgy";
-    x86_64-linux = "11565q8vd0f949l025rjg8aji2i4hsw8kwckdzzlrzj2g7v7fp0s";
-    aarch64-linux = "0yzgzzkjvbg0gyfigq7k2r84cbwr1x7kxkprpgcf97ks2pg3rnpa";
-    x86_64-darwin = "0fqb5gmwd58hpv144d6r65xab49227vcvk1sgsphb8ijjqk2r5a8";
-    aarch64-darwin = "0fqb5gmwd58hpv144d6r65xab49227vcvk1sgsphb8ijjqk2r5a8";
+    i686-linux = "1wic95vzjsh4pzw5nmgfar86q3j62vqq86blckbr7d40fa087x9a";
+    x86_64-linux = "02ksna8sas5gikflb4nnny57ccf7fl8123pzg9lnkq4xqzk7vnsp";
+    aarch64-linux = "1rk38aqz62mzvr705mk5z0awb1drajb8r58ikr22pgk7c4588axg";
+    x86_64-darwin = "1cnjxvx8zv1f9bwabg5lpcigwmksp3md4dnwx0ayivjlpfdqlis2";
+    aarch64-darwin = "1cnjxvx8zv1f9bwabg5lpcigwmksp3md4dnwx0ayivjlpfdqlis2";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/jeeves/releases/download/v0.1.0/jeeves_0.1.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/jeeves/releases/download/v0.1.0/jeeves_0.1.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/jeeves/releases/download/v0.1.0/jeeves_0.1.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/jeeves/releases/download/v0.1.0/jeeves_0.1.0_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/jeeves/releases/download/v0.1.0/jeeves_0.1.0_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/jeeves/releases/download/v0.2.0/jeeves_0.2.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/jeeves/releases/download/v0.2.0/jeeves_0.2.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/jeeves/releases/download/v0.2.0/jeeves_0.2.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/jeeves/releases/download/v0.2.0/jeeves_0.2.0_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/jeeves/releases/download/v0.2.0/jeeves_0.2.0_Darwin_all.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "jeeves";
-  version = "0.1.0";
+  version = "0.2.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
