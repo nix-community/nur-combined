@@ -2667,8 +2667,8 @@
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
-            "rev": "e3a29bb0b02966e02a870221c52058fb0270ac59",
-            "sha256": "02rwgshy4ax7jkqy43bvrw5dagh904f702hwj0hmc70g6hv3s805",
+            "rev": "da7d646d755b0eb1c8ce61af09e82f7a5728f3b9",
+            "sha256": "1ydb2qc4fd1l8188s79nmgm8598nd0dnm7av3amgl2s1mn6w3rb7",
             "url": "https://github.com/zimeg/nur-packages"
         },
         "zjm54321": {
