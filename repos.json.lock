@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "be186ef2b0b9b80f24a4c42aacc07b28325659e3",
-            "sha256": "0rpgsl5h25dyqm0d76vr7k0w1ml6h787zx8mnmcibajhmdn7in2v",
+            "rev": "dd242b98a810e1d2936cee607b0ac52e7f1a7b9f",
+            "sha256": "058wkwfbzfcg8k3jj0vz60wlf95sq922hcdj1d50b2mwzj61h347",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
@@ -1333,8 +1333,8 @@
             "url": "https://github.com/k3a/nurpkgs"
         },
         "kagura": {
-            "rev": "7a1c768609d9ec106d5a60c6b30f1d88cec45fe7",
-            "sha256": "0nhbwkch90g3pq03i8mzhq6c16904yf0ln65d5742p61my5zb6w5",
+            "rev": "b146a18060e1d277801e185a30ee3a216b227ab3",
+            "sha256": "0milgjrv299wpsxaz5k57g8hpcdlb00ajs453sbv6g0waqqyvlzm",
             "url": "https://github.com/icewithcola/nur-packages"
         },
         "kakkun61": {
