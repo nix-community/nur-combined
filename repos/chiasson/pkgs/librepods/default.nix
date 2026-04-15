@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "librepods";
-  version = "0.1.0";
+  version = "0.2.0-alpha.2";
 
   src = fetchFromGitHub {
     owner = "kavishdevar";
     repo = "librepods";
-    rev = "linux-v${version}";
-    hash = "sha256-ZvHbSSW0rfcsNUORZURe0oBHQbnqmS5XT9ffVMwjIMU=";
+    rev = "v${version}";
+    hash = "sha256-37dLiXC+eO4f5waLKgMMpHXH1m6W54O/l2axJsnyU5M=";
   };
 
   sourceRoot = "${src.name}/linux";
