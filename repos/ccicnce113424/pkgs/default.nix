@@ -7,7 +7,7 @@ let
   stableVersion = src: lib.removePrefix "v" src.version;
   unstableVersion = src: "0-unstable-${src.date}";
 in
-rec {
+{
   algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
   daed = pkgs.callPackage ./daed { };
