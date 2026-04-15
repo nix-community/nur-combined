@@ -4,7 +4,7 @@
 let
   cfg = config.my.services.matrix;
 
-  adminPkg = pkgs.synapse-admin-etkecc;
+  adminPkg = pkgs.ketesa;
 
   domain = config.networking.domain;
   matrixDomain = "matrix.${domain}";
