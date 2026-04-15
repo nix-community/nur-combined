@@ -26,7 +26,14 @@ assert src != null;
 let
   apprun = pkgsStatic.callPackage ../../packages/bwrap-apprun { };
   runtime = pkgsStatic.callPackage ../../packages/type2-runtime { };
-  package = if stdenv.hostPlatform.isStatic then (src.${stdenv.hostPlatform.system} or src) else src;
+
+  package =
+    if
+      (stdenv.hostPlatform.isStatic || (stdenv.hostPlatform.system != stdenv.buildPlatform.system))
+    then
+      (src.${stdenv.hostPlatform.system} or src)
+    else
+      src;
 
   args = [
     "-offset $(stat -L -c%s ${lib.escapeShellArg (lib.getExe runtime)})" # squashfs comes after the runtime
