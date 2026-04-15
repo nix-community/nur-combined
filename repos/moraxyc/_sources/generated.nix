@@ -350,15 +350,15 @@
   };
   superpowers-skills = {
     pname = "superpowers-skills";
-    version = "917e5f53b16b115b70a3a355ed5f4993b9f8b73d";
+    version = "f9b088f7b3a6fe9d9a9a98e392ad13c9d47053a4";
     src = fetchFromGitHub {
       owner = "obra";
       repo = "superpowers";
-      rev = "917e5f53b16b115b70a3a355ed5f4993b9f8b73d";
+      rev = "f9b088f7b3a6fe9d9a9a98e392ad13c9d47053a4";
       fetchSubmodules = false;
-      sha256 = "sha256-FMaX6VMBC64OPdvXwhXKfHKnkdvdC2R9lZaU3BR/G3o=";
+      sha256 = "sha256-Nbfzvd7h7KrO9OW7W3DdUgDkQW11xSfZylFXLWJ8J5I=";
     };
-    date = "2026-04-06";
+    date = "2026-04-14";
   };
   udpxy = {
     pname = "udpxy";
@@ -373,29 +373,29 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202604122227";
+    version = "202604142239";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604122227/geoip.dat";
-      sha256 = "sha256-vigT3/SMMisJkY0YdM8AkIJcnMGsNUdACOIQ4JV1QH0=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604142239/geoip.dat";
+      sha256 = "sha256-3pm2ObPJyexYXLsgw0DAbShYBUiuz3wjH1jWzCsQFAU=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202604122227";
+    version = "202604142239";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604122227/geosite.dat";
-      sha256 = "sha256-ub9U32ePXyV+97xvFrgi0X5xHZuzseiWTiJj1FG1eWE=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604142239/geosite.dat";
+      sha256 = "sha256-11E3PIeatE6NYNPH9JM06GiBbkKKaVDZQGiuac383vg=";
     };
   };
   yass = {
     pname = "yass";
-    version = "1.24.4";
+    version = "1.24.5";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.24.4";
+      rev = "1.24.5";
       fetchSubmodules = true;
-      sha256 = "sha256-in8EAnpXl8618sjOb5tz30chY2qipv+Vgl9yESfznEg=";
+      sha256 = "sha256-QAqBf3Ld61LdJPgTLUGBoHSj/YEr/5cdzl4t+dA4bls=";
     };
   };
 }

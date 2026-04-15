@@ -601,7 +601,7 @@
     },
     "superpowers-skills": {
         "cargoLock": null,
-        "date": "2026-04-06",
+        "date": "2026-04-14",
         "extract": null,
         "name": "superpowers-skills",
         "passthru": null,
@@ -613,12 +613,12 @@
             "name": null,
             "owner": "obra",
             "repo": "superpowers",
-            "rev": "917e5f53b16b115b70a3a355ed5f4993b9f8b73d",
-            "sha256": "sha256-FMaX6VMBC64OPdvXwhXKfHKnkdvdC2R9lZaU3BR/G3o=",
+            "rev": "f9b088f7b3a6fe9d9a9a98e392ad13c9d47053a4",
+            "sha256": "sha256-Nbfzvd7h7KrO9OW7W3DdUgDkQW11xSfZylFXLWJ8J5I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "917e5f53b16b115b70a3a355ed5f4993b9f8b73d"
+        "version": "f9b088f7b3a6fe9d9a9a98e392ad13c9d47053a4"
     },
     "udpxy": {
         "cargoLock": null,
@@ -650,11 +650,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vigT3/SMMisJkY0YdM8AkIJcnMGsNUdACOIQ4JV1QH0=",
+            "sha256": "sha256-3pm2ObPJyexYXLsgw0DAbShYBUiuz3wjH1jWzCsQFAU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604122227/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604142239/geoip.dat"
         },
-        "version": "202604122227"
+        "version": "202604142239"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -665,11 +665,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ub9U32ePXyV+97xvFrgi0X5xHZuzseiWTiJj1FG1eWE=",
+            "sha256": "sha256-11E3PIeatE6NYNPH9JM06GiBbkKKaVDZQGiuac383vg=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604122227/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604142239/geosite.dat"
         },
-        "version": "202604122227"
+        "version": "202604142239"
     },
     "yass": {
         "cargoLock": null,
@@ -685,11 +685,11 @@
             "name": null,
             "owner": "hukeyue",
             "repo": "yass",
-            "rev": "1.24.4",
-            "sha256": "sha256-in8EAnpXl8618sjOb5tz30chY2qipv+Vgl9yESfznEg=",
+            "rev": "1.24.5",
+            "sha256": "sha256-QAqBf3Ld61LdJPgTLUGBoHSj/YEr/5cdzl4t+dA4bls=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.24.4"
+        "version": "1.24.5"
     }
 }
