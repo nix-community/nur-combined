@@ -101,6 +101,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = (package.meta or { }) // {
+    mainProgram = name;
     platforms = builtins.filter (platform: builtins.elem platform platforms) (
       package.meta.platforms or platforms
     );
