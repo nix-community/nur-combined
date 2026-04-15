@@ -10,6 +10,7 @@ rec {
   bobgen-unstable = pkgs.callPackage ./bobgen/unstable.nix { inherit bobgen; };
   buf = pkgs.callPackage ./buf { inherit (pkgs) buf; };
   bumper = pkgs.callPackage ./bumper { };
+  bwrap-apprun = pkgs.pkgsStatic.callPackage ./bwrap-apprun { };
   catppuccin-gtk = pkgs.callPackage ./catppuccin-gtk { };
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
   deno = pkgs.callPackage ./deno { inherit (pkgs) deno; };
@@ -31,8 +32,11 @@ rec {
   renovate = pkgs.callPackage ./renovate { };
   shellhook = pkgs.callPackage ./shellhook { };
   synchronicity = pkgs.python3Packages.callPackage ./synchronicity { };
+  type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { };
   uv-build = pkgs.python3Packages.callPackage ./uv-build { inherit (pkgs.python3Packages) uv-build; };
   yt-dlp = pkgs.python3Packages.callPackage ./yt-dlp { inherit yt-dlp-ejs; };
   yt-dlp-ejs = pkgs.python3Packages.callPackage ./yt-dlp/ejs.nix { };
   zig-protobuf = pkgs.callPackage ./zig-protobuf { };
+
+  test = libs.mkAppImage pysentry { };
 }

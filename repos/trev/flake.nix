@@ -64,12 +64,9 @@
 
       packages = forEachSystem (
         system: pkgs:
-        (import ./libs/mkPackages { inherit nixpkgs; }) pkgs (
-          pkgs:
-          import ./packages {
-            inherit system pkgs;
-          }
-        )
+        import ./packages {
+          inherit system pkgs;
+        }
       );
 
       bundlers = forEachSystem (

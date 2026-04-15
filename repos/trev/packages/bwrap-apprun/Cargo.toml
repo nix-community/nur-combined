@@ -1,0 +1,10 @@
+[package]
+name = "bwrap-apprun"
+version = "0.0.1"
+edition = "2024"
+
+[[bin]]
+name = "AppRun"
+path = "main.rs"
+
+[dependencies]

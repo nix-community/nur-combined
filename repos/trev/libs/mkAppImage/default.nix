@@ -1,116 +1,108 @@
 {
   lib,
-  runCommand,
-  squashfsTools,
-  callPackage,
   pkgsStatic,
+  squashfsTools,
+  stdenv,
+  stdenvNoCC,
+  writeClosure,
 }:
 
-# actual arguments
+pkg:
+
 {
-  program, # absolute path of executable to start
+  pname ? pkg.pname or pkg.name,
+  version ? pkg.version or "unstable",
+  architecture ? pkg.stdenv.hostPlatform.go.GOARCH or stdenv.hostPlatform.go.GOARCH,
+  name ? "${pname}-${version}-${architecture}.AppImage",
 
-  # output name
-  pname ? (lib.last (builtins.split "/" program)),
-  name ? "${pname}.AppImage",
-
-  # advanced appimage configuration
-  squashfsArgs ? [ ], # additional arguments to pass to mksquashfs
+  squashfsArgs ? [
+    "-b 1M"
+    "-comp zstd"
+    "-Xcompression-level 22"
+  ],
 }:
 
 let
-  runtime = pkgsStatic.callPackage ./runtime { };
-  apprun = callPackage ./apprun { };
+  apprun = pkgsStatic.callPackage ../../packages/bwrap-apprun { };
+  runtime = pkgsStatic.callPackage ../../packages/type2-runtime { };
+  package = pkg.${stdenv.hostPlatform.system} or pkg;
 
-  commonArgs = [
-    "-offset $(stat -L -c%s ${lib.escapeShellArg runtime})" # squashfs comes after the runtime
+  args = [
+    "-offset $(stat -L -c%s ${lib.escapeShellArg (lib.getExe runtime)})" # squashfs comes after the runtime
     "-all-root" # chown to root
+    "-no-recovery" # don't create a recovery file, since we won't be able to read it back anyway
   ]
   ++ squashfsArgs;
 
-  # Workaround for writeClosure bug.
-  #
-  # Due to a bug in Nix, writeClosure with a path *under* a nix store path (e.g.
-  # /nix/store/...-hello/bin/hello) raises the error "path '$program' is not in
-  # the Nix store".
-  #
-  # See: https://github.com/ralismark/nix-appimage/issues/16
-  # See: https://github.com/NixOS/nixpkgs/issues/316652
-  # See: https://github.com/NixOS/nix/pull/10549
-  #
-  # This should be fixed in the latest version of Nix, however version where
-  # this bug is present are still common, so we work around it by using the old
-  # implementation of writeReferencesToFile from
-  # https://github.com/NixOS/nixpkgs/blob/e99021ff754a204e38df619ac908ac92885636a4/pkgs/build-support/trivial-builders/default.nix#L628-L640
-  writeReferencesToFile =
-    path:
-    runCommand "runtime-deps"
-      {
-        exportReferencesGraph = [
-          "graph"
-          path
-        ];
-      }
-      ''
-        touch $out
-        while read path; do
-          echo $path >> $out
-          read dummy
-          read nrRefs
-          for ((i = 0; i < nrRefs; i++)); do read ref; done
-        done < graph
-      '';
+  platforms = [
+    "x86_64-linux"
+    "aarch64-linux"
+    "armv7l-linux"
+    "armv6l-linux"
+  ];
 in
-runCommand name
-  {
-    nativeBuildInputs = [
-      squashfsTools
-    ];
-  }
-  ''
-    if ! test -x ${program}; then
-      echo "entrypoint '${program}' is not executable"
+
+stdenvNoCC.mkDerivation {
+  inherit name;
+  src = null; # we don't need any source files, since we'll be copying everything in the build phase
+
+  nativeBuildInputs = [
+    squashfsTools
+  ];
+
+  dontUnpack = true;
+
+  configurePhase = ''
+    if ! test -x ${lib.getExe package}; then
+      echo "entrypoint '${lib.getExe package}' is not executable"
       exit 1
     fi
+  '';
 
-    ${./extra-files.sh} ${program}
+  buildPhase = ''
+    build=$(mktemp -u)
 
+    # finds extra files in derivation and copy to extras dir
+    ${./extra-files.sh} ${package}
+
+    # add the nix store closure and the entrypoint symlink
     mksquashfs ${
       builtins.concatStringsSep " " (
         [
-          # first run of mksquashfs copies the nix/store closure and additional files
-          "$(cat ${writeReferencesToFile program})"
-          "$out"
-
-          # additional files
-          (lib.concatMapStrings (x: " -p ${lib.escapeShellArg x}") [
-            # symlink entrypoint to the executable to run
-            "entrypoint s 555 0 0 ${program}"
-          ])
-
+          "$(cat ${writeClosure [ package ]})"
+          "$build"
+          "-p ${lib.escapeShellArg "entrypoint s 555 0 0 ${lib.getExe package}"}" # create symlink to the exe as the entrypoint
           "-no-strip" # don't strip leading dirs, to preserve the fact that everything's in the nix store
         ]
-        ++ commonArgs
+        ++ args
       )
     }
 
+    # add the AppRun and extras
     mksquashfs ${
       builtins.concatStringsSep " " (
         [
-          # second run of mksquashfs adds the apprun
-          # no -no-strip since we *do* want to strip leading dirs now
-          "${apprun}/*"
-          "$(find extras -mindepth 1 -maxdepth 1)" # to include .DirIcon
-          "$out"
-          "-no-recovery" # i don't know what a recovery file is but it gives "No such file or directory"
+          "${apprun}/bin/*" # add AppRun and its dependencies
+          "$(find extras -mindepth 1 -maxdepth 1)" # add extra files from the extras dir
+          "$build"
         ]
-        ++ commonArgs
+        ++ args
       )
     }
 
     # add the runtime to the start
-    dd if=${lib.escapeShellArg runtime} of=$out conv=notrunc
+    dd if=${lib.escapeShellArg (lib.getExe runtime)} of=$build conv=notrunc
+  '';
 
-    # make executable
-    chmod 755 $out
-  ''
+  installPhase = ''
+    mkdir -p $out/bin
+    mv $build $out/bin/${name}
+    chmod 755 $out/bin/${name}
+  '';
+
+  meta = (package.meta or { }) // {
+    platforms = builtins.filter (platform: builtins.elem platform platforms) (
+      package.meta.platforms or platforms
+    );
+  };
+}

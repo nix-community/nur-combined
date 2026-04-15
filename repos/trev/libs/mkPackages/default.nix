@@ -72,7 +72,7 @@ let
     else if package.stdenv.hostPlatform.isWindows then
       package.overrideAttrs (
         _: prev: {
-          meta = prev.meta // {
+          meta = (prev.meta or { }) // {
             mainProgram = "${prev.meta.mainProgram or prev.pname or prev.name}.exe";
           };
         }

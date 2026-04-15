@@ -65,7 +65,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Shell hook for nix development shells";
     mainProgram = "shellhook";
-    homepage = "https://github.com/spotdemo4/nur/tree/main/pkgs/shellhook/shellhook.sh";
+    homepage = "https://github.com/spotdemo4/nur/tree/main/pkgs/shellhook";
     platforms = lib.platforms.all;
   };
 })
