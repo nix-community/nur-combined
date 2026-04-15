@@ -1,6 +1,6 @@
 # Extra wireguard keys that are not hosts NixOS hosts
 let
-  keys = import ../../../../keys;
+  keys = import ../../../../../keys;
 
   all = [
     keys.users.ambroisie
