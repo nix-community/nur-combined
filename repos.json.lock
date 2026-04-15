@@ -552,8 +552,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "charmbracelet": {
-            "rev": "8e59e2d68e057b9e30dd066db30122bf273062f4",
-            "sha256": "1xwbd67fzy51mydyi1m5z77rz11l69gmai17silzs92mk0jc2lfh",
+            "rev": "d55b1cbb610ee1e19b1d47a81f29fc11061449d2",
+            "sha256": "11f4l0iknsd8swyp30zv40a4gz9xqcs7ia8zja1z2h0cxl0d4y9w",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
@@ -2090,8 +2090,8 @@
             "url": "https://github.com/robertodr/nur-packages"
         },
         "robinovitch61": {
-            "rev": "2ca980c9ad19c296eb11cee09d885e8d1ef88226",
-            "sha256": "1c29dd2rxb3akpxf156nkmr4kmgm8bf8rwlcch0gxf1i2laqgagl",
+            "rev": "55b0f48d083e50bf92cb397d657f8fbb41ea6523",
+            "sha256": "0wgs4nxjql5r6d30nhz4zx537mcvabgz540k7zddx7gvabvkrg8n",
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "822339c920b544079d386974c0928ebfae8b38bd",
-            "sha256": "08r5i4v8n3sfq7bsh56gk861mdz9sq3lpmv7wpg9fh2afl8s757x",
+            "rev": "8e63cf7fd303a1658e0d0e7c4e2fa36df1c9edc3",
+            "sha256": "1zarzssmxkbzyggnlnw97yyg0p5j4m9bawrhkg6h65prvn6rsyz9",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
