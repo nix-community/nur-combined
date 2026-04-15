@@ -15413,10 +15413,10 @@
     };
     "tweaks-for-youtube" = buildMozillaXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.88.1";
+      version = "3.88.2";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4750457/tweaks_for_youtube-3.88.1.xpi";
-      sha256 = "95d2d8cb88d47b5925f93d52977ccff1f7e2972dd3c28a319fa9bbe516f05dbc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4765351/tweaks_for_youtube-3.88.2.xpi";
+      sha256 = "8515941d451db1ff3225906f771cbd701d7b6928bc1ea7c685a42fdba2a3c2d0";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
