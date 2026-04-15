@@ -6,8 +6,10 @@
   pyudev,
 }:
 buildPythonPackage rec {
-  inherit (sources.smfc) pname version src;
+  inherit (sources.smfc) pname version;
   pyproject = true;
+
+  inherit (sources.smfc) src;
 
   build-system = [ setuptools ];
 

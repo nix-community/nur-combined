@@ -5,8 +5,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.xstatic-asciinema-player) pname version src;
+  inherit (sources.xstatic-asciinema-player) pname version;
   pyproject = true;
+
+  inherit (sources.xstatic-asciinema-player) src;
 
   build-system = [ setuptools ];
 

@@ -9,8 +9,10 @@
   websockets,
 }:
 buildPythonPackage rec {
-  inherit (sources.smartrent_py) pname version src;
+  inherit (sources.smartrent_py) pname version;
   pyproject = true;
+
+  inherit (sources.smartrent_py) src;
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -8,8 +8,10 @@
 }:
 
 buildPythonPackage {
-  inherit (sources.xue) pname version src;
+  inherit (sources.xue) pname version;
   pyproject = true;
+
+  inherit (sources.xue) src;
 
   build-system = [ setuptools ];
 

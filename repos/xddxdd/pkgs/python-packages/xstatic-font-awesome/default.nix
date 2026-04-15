@@ -5,8 +5,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.xstatic-font-awesome) pname version src;
+  inherit (sources.xstatic-font-awesome) pname version;
   pyproject = true;
+
+  inherit (sources.xstatic-font-awesome) src;
 
   build-system = [ setuptools ];
 

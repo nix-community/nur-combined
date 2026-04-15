@@ -10,8 +10,10 @@
   torchaudio,
 }:
 buildPythonPackage rec {
-  inherit (sources.silero-vad) pname version src;
+  inherit (sources.silero-vad) pname version;
   pyproject = true;
+
+  inherit (sources.silero-vad) src;
 
   pythonRelaxDeps = true;
 

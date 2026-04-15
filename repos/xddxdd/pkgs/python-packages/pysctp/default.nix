@@ -7,8 +7,10 @@
   lksctp-tools,
 }:
 buildPythonPackage rec {
-  inherit (sources.pysctp) pname version src;
+  inherit (sources.pysctp) pname version;
   pyproject = true;
+
+  inherit (sources.pysctp) src;
 
   build-system = [ setuptools ];
   buildInputs = [

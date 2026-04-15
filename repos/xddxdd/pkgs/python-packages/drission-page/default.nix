@@ -14,8 +14,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.drission-page) pname version src;
+  inherit (sources.drission-page) pname version;
   pyproject = true;
+
+  inherit (sources.drission-page) src;
 
   build-system = [ setuptools ];
   dependencies = [

@@ -7,8 +7,10 @@
   torch,
 }:
 buildPythonPackage rec {
-  inherit (sources.loralib) pname version src;
+  inherit (sources.loralib) pname version;
   pyproject = true;
+
+  inherit (sources.loralib) src;
 
   build-system = [ setuptools ];
 

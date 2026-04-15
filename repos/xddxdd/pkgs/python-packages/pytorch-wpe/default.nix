@@ -9,8 +9,10 @@
   torch-complex,
 }:
 buildPythonPackage rec {
-  inherit (sources.pytorch-wpe) pname version src;
+  inherit (sources.pytorch-wpe) pname version;
   pyproject = true;
+
+  inherit (sources.pytorch-wpe) src;
 
   build-system = [ setuptools ];
 

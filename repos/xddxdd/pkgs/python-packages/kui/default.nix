@@ -9,8 +9,10 @@
   typing-extensions,
 }:
 buildPythonPackage rec {
-  inherit (sources.kui) pname version src;
+  inherit (sources.kui) pname version;
   pyproject = true;
+
+  inherit (sources.kui) src;
 
   propagatedBuildInputs = [
     baize

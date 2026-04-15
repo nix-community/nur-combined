@@ -5,8 +5,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.opencc-python-reimplemented) pname version src;
+  inherit (sources.opencc-python-reimplemented) pname version;
   pyproject = true;
+
+  inherit (sources.opencc-python-reimplemented) src;
 
   build-system = [ setuptools ];
 

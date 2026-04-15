@@ -8,8 +8,10 @@
   packaging,
 }:
 buildPythonPackage rec {
-  inherit (sources.torch-complex) pname version src;
+  inherit (sources.torch-complex) pname version;
   pyproject = true;
+
+  inherit (sources.torch-complex) src;
 
   build-system = [ setuptools ];
 

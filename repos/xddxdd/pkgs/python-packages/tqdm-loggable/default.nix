@@ -7,8 +7,10 @@
   tqdm,
 }:
 buildPythonPackage {
-  inherit (sources.tqdm-loggable) pname version src;
+  inherit (sources.tqdm-loggable) pname version;
   pyproject = true;
+
+  inherit (sources.tqdm-loggable) src;
 
   propagatedBuildInputs = [
     poetry-core

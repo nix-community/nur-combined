@@ -16,8 +16,11 @@
 }:
 let
   osdlyricsPython = python3Packages.buildPythonPackage rec {
-    inherit (sources.osdlyrics) pname version src;
+    inherit (sources.osdlyrics) pname version;
     pyproject = true;
+
+    inherit (sources.osdlyrics) src;
+
     build-system = [ python3Packages.setuptools ];
 
     configurePhase =

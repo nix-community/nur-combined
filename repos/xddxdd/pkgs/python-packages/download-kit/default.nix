@@ -8,8 +8,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.download-kit) pname version src;
+  inherit (sources.download-kit) pname version;
   pyproject = true;
+
+  inherit (sources.download-kit) src;
 
   build-system = [ setuptools ];
   dependencies = [

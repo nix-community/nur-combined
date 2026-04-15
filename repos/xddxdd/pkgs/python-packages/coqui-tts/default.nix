@@ -44,8 +44,10 @@
   spacy,
 }:
 buildPythonPackage rec {
-  inherit (sources.coqui-tts) pname version src;
+  inherit (sources.coqui-tts) pname version;
   pyproject = true;
+
+  inherit (sources.coqui-tts) src;
 
   build-system = [ setuptools ];
 

@@ -7,8 +7,10 @@
   numpy,
 }:
 buildPythonPackage rec {
-  inherit (sources.kaldiio) pname version src;
+  inherit (sources.kaldiio) pname version;
   pyproject = true;
+
+  inherit (sources.kaldiio) src;
 
   build-system = [ setuptools ];
 

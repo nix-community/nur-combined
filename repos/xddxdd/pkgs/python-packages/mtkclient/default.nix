@@ -22,8 +22,10 @@
   unicorn,
 }:
 buildPythonPackage rec {
-  inherit (sources.mtkclient) pname version src;
+  inherit (sources.mtkclient) pname version;
   pyproject = true;
+
+  inherit (sources.mtkclient) src;
 
   buildInputs = [ keystone ];
   propagatedBuildInputs = [

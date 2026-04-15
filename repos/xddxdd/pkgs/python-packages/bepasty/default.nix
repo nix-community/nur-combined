@@ -21,8 +21,10 @@ let
   xstatic-bootstrap = callPackage ./xstatic-bootstrap-4.nix { };
 in
 buildPythonPackage rec {
-  inherit (sources.bepasty) pname version src;
+  inherit (sources.bepasty) pname version;
   pyproject = true;
+
+  inherit (sources.bepasty) src;
 
   propagatedBuildInputs = [
     flask

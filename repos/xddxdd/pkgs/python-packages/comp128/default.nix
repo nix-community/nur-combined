@@ -6,8 +6,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.comp128) pname version src;
+  inherit (sources.comp128) pname version;
   pyproject = true;
+
+  inherit (sources.comp128) src;
 
   build-system = [ setuptools ];
 

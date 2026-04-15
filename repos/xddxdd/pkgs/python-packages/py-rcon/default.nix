@@ -7,8 +7,10 @@
   tkinter,
 }:
 buildPythonPackage rec {
-  inherit (sources.py-rcon) pname version src;
+  inherit (sources.py-rcon) pname version;
   pyproject = true;
+
+  inherit (sources.py-rcon) src;
 
   build-system = [ setuptools ];
 

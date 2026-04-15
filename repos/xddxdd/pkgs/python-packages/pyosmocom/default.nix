@@ -8,8 +8,10 @@
   gsm0338,
 }:
 buildPythonPackage rec {
-  inherit (sources.pyosmocom) pname version src;
+  inherit (sources.pyosmocom) pname version;
   pyproject = true;
+
+  inherit (sources.pyosmocom) src;
 
   build-system = [ setuptools ];
   dependencies = [

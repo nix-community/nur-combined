@@ -7,8 +7,10 @@
   python-dotenv,
 }:
 buildPythonPackage rec {
-  inherit (sources.rootutils) pname version src;
+  inherit (sources.rootutils) pname version;
   pyproject = true;
+
+  inherit (sources.rootutils) src;
 
   build-system = [ setuptools ];
 

@@ -20,8 +20,10 @@
   urllib3,
 }:
 buildPythonPackage rec {
-  inherit (sources.modelscope) pname version src;
+  inherit (sources.modelscope) pname version;
   pyproject = true;
+
+  inherit (sources.modelscope) src;
 
   build-system = [ setuptools ];
 

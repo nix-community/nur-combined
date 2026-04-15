@@ -8,8 +8,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.click-loglevel) pname version src;
+  inherit (sources.click-loglevel) pname version;
   pyproject = true;
+
+  inherit (sources.click-loglevel) src;
 
   propagatedBuildInputs = [
     click

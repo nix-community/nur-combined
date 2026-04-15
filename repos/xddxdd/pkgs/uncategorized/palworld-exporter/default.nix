@@ -6,8 +6,10 @@
   py-rcon,
 }:
 python3Packages.buildPythonApplication rec {
-  inherit (sources.palworld-exporter) pname version src;
+  inherit (sources.palworld-exporter) pname version;
   pyproject = true;
+
+  inherit (sources.palworld-exporter) src;
 
   # Remove dependency on get_version package
   postPatch = ''

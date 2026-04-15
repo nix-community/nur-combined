@@ -11,8 +11,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.edge-tts) pname version src;
+  inherit (sources.edge-tts) pname version;
   pyproject = true;
+
+  inherit (sources.edge-tts) src;
 
   build-system = [ setuptools ];
   dependencies = [

@@ -30,8 +30,10 @@
   umap-learn,
 }:
 buildPythonPackage rec {
-  inherit (sources.funasr) pname version src;
+  inherit (sources.funasr) pname version;
   pyproject = true;
+
+  inherit (sources.funasr) src;
 
   build-system = [ setuptools ];
 
