@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "509925fd922b284b1f195e26f25e697b9a64ba59",
-            "sha256": "08wbq4bwg1klahi4x9mkhjiiphhqfkdx6xcivfh4l8y6mw13zj8q",
+            "rev": "767934e60ddcd71e060cef08284685159c9046cf",
+            "sha256": "14y6lid97q1pgqb2qbyhwh3yfkhcw8yr4sk2v5ldnqwmla66infw",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -647,8 +647,8 @@
             "url": "https://github.com/cransom/nur-packages"
         },
         "crazazy": {
-            "rev": "0f684c1529639104a695d686c9ab42240ebb3a6c",
-            "sha256": "1hzmywfb30vapphb82xzi1bh08p9dis2h8pfqdxb01l1p1ljbc41",
+            "rev": "533fb0bfc73e268f0116ebcae32843c7ddd24574",
+            "sha256": "0p355adv0d70vjp7j1wpmkkgp00cxc37zj9005s3m538d0vsv41m",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "d0a340f92fe3c8de7c52b174a34ab3e6ec046734",
-            "sha256": "1pqcsmad80sjhnzplgk9c263ynq6f4y4nvvjxp6d6favjnix44qd",
+            "rev": "4b8026a816abfc6ce6066f1a7234457ead2fb8ab",
+            "sha256": "0gj38x3pm6i8ksa27b0k154bhk8z677mw7ax379nnissi3n19a5v",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
