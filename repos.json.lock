@@ -2090,8 +2090,8 @@
             "url": "https://github.com/robertodr/nur-packages"
         },
         "robinovitch61": {
-            "rev": "981b4acfb673d9f91581bf49ffec347a09610bc4",
-            "sha256": "10jk5x2hxw3c06w5pla0drrfmj2lxr1w12k4q99dl4ck2x1dn12i",
+            "rev": "528419feb6a1eb112c300c171ee2e028d5d6487d",
+            "sha256": "1abck50v541rrdw2gs8sqvx4j0gaghqaghws2y93r3vc7aqv0m1w",
             "url": "https://github.com/robinovitch61/nur-packages"
         },
         "rogreat": {
@@ -2577,8 +2577,8 @@
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
-            "rev": "22624e78f3742dfd7200c03f72ae002dc300f0b8",
-            "sha256": "08cwpdy7q0ri5sql86rlm7klw2jsm454lzkl67jyq97kx921in9n",
+            "rev": "c9a398dd66e114f2e9ece45d5c7b65612be54675",
+            "sha256": "1x42z6h1lkjff85q0l0rg2b84mjkwvbqx4py2sknv3irfg6ak0wx",
             "url": "https://github.com/wwmoraes/nurpkgs"
         },
         "wyzdwdz": {
