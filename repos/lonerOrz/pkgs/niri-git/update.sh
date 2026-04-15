@@ -3,9 +3,9 @@ set -euo pipefail
 
 OWNER="niri-wm"
 REPO="niri"
-BRANCH="wip/branch"
-package_name="niri-blur"
-pname="niri-blur"
+BRANCH="main"
+package_name="niri-git"
+pname="niri-git"
 
 FAST_MODE=false
 if [[ ${1:-} == "--fast" ]]; then
@@ -74,5 +74,10 @@ if [ "$FAST_MODE" = false ]; then
 else
   echo "⚡ Fast mode enabled: skipping cargoHash update"
 fi
+
+# 6️⃣ Update version date
+today=$(date +%Y-%m-%d)
+sed -i "s|version = \"0-unstable-[0-9-]*\";|version = \"0-unstable-$today\";|" "$package_file"
+echo "📅 Version date updated to: $today"
 
 echo "🎉 Update completed! rev=$latest_rev"

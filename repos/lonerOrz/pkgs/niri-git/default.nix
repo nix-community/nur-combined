@@ -25,21 +25,18 @@
   withLto ? false,
   withNative ? false,
 }:
-let
-  raw-version = "25.11.0";
-in
 rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "niri-blur";
-  version = "${raw-version}" + "-feat-blur";
+  pname = "niri-git";
+  version = "0-unstable-2026-04-15";
 
   src = fetchFromGitHub {
     owner = "niri-wm";
     repo = "niri";
-    rev = "36627de0af457e4d90eb93c00b0f042bb4a206bb";
-    hash = "sha256-vf9vQwyaABwKq/ml4NhvW0LXRp1JCqFM3qksblXiNTE=";
+    rev = "4d214891017fa7b893df1140d24f76defba0eb88";
+    hash = "sha256-251qX0g75KcVtwCckXiOiqc+4VleJBDfiHiZ9v1c8Ro=";
   };
 
-  cargoHash = "sha256-soJYT6TavlyqtVqMD70QYDZ+8swn6TVXsFHadJxaxWo=";
+  cargoHash = "sha256-XbKhPJ/VxcLf4J2I6dekKnUvCnmoXndvQsLx2B04ihE=";
 
   outputs = [
     "out"
@@ -153,7 +150,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Scrollable-tiling Wayland compositor";
     homepage = "https://github.com/YaLTeR/niri";
-    changelog = "https://github.com/YaLTeR/niri/releases/tag/v${raw-version}";
+    changelog = "https://github.com/YaLTeR/niri/releases";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
