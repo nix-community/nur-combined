@@ -99,7 +99,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
         ]
       }
       # Tricky way to make the protocol handler desktop file point to the wrapper
-      --set-default APPIMAGE $out/bin/motrix-next
+      --set-default APPIMAGE motrix-next
     )
     wrapGApp $out/bin/motrix-next
   '';
