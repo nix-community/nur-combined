@@ -22,12 +22,19 @@ let
 
   platforms = [
     "x86_64-linux"
-    "x86_64-linux-musl"
     "aarch64-linux"
-    "aarch64-linux-musl"
     "armv7l-linux"
-    "armv7l-linux-musl"
     "armv6l-linux"
+  ];
+
+  crossPlatforms = [
+    "x86_64-linux-gnu"
+    "x86_64-linux-musl"
+    "aarch64-linux-gnu"
+    "aarch64-linux-musl"
+    "armv7l-linux-gnu"
+    "armv7l-linux-musl"
+    "armv6l-linux-gnu"
     "armv6l-linux-musl"
   ];
 in
@@ -39,8 +46,11 @@ dockerTools.buildLayeredImage (
     tag = args.tag or package.version;
     architecture = args.architecture or package.stdenv.hostPlatform.go.GOARCH;
     meta = (args.meta or package.meta or { }) // {
-      crossPlatforms = builtins.filter (platform: builtins.elem platform platforms) (
-        package.meta.crossPlatforms or package.meta.platforms or platforms
+      platforms = builtins.filter (platform: builtins.elem platform platforms) (
+        package.meta.platforms or platforms
+      );
+      crossPlatforms = builtins.filter (platform: builtins.elem platform crossPlatforms) (
+        package.meta.crossPlatforms or crossPlatforms
       );
     };
 

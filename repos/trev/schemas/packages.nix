@@ -10,6 +10,21 @@ let
       res = builtins.tryEval e;
     in
     if res.success then res.value else default;
+
+  crossPlatforms = [
+    "x86_64-linux-gnu"
+    "x86_64-linux-musl"
+    "aarch64-linux-gnu"
+    "aarch64-linux-musl"
+    "armv7l-linux-gnu"
+    "armv7l-linux-musl"
+    "armv6l-linux-gnu"
+    "armv6l-linux-musl"
+    "x86_64-windows"
+    "aarch64-windows"
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
 in
 {
   version = 1;
@@ -40,7 +55,7 @@ in
                 try (
                   if lib.isDerivation attrs then
                     let
-                      crosses = lib.filterAttrs (n: _: builtins.elem n (attrs.meta.platforms or [ ])) attrs;
+                      platforms = lib.filterAttrs (n: _: builtins.elem n crossPlatforms) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];
@@ -48,7 +63,7 @@ in
                       derivationAttrPath = [ ];
                       what = "Package";
                     }
-                    // (if isEmpty crosses then { } else { children = recurse (prefix + attrName + ".") crosses; })
+                    // (if isEmpty platforms then { } else { children = recurse (prefix + attrName + ".") platforms; })
 
                   else
 

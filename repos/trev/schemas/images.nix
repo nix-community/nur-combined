@@ -10,6 +10,17 @@ let
       res = builtins.tryEval e;
     in
     if res.success then res.value else default;
+
+  crossPlatforms = [
+    "x86_64-linux-gnu"
+    "x86_64-linux-musl"
+    "aarch64-linux-gnu"
+    "aarch64-linux-musl"
+    "armv7l-linux-gnu"
+    "armv7l-linux-musl"
+    "armv6l-linux-gnu"
+    "armv6l-linux-musl"
+  ];
 in
 {
   version = 1;
@@ -37,7 +48,7 @@ in
                 try (
                   if lib.isDerivation attrs then
                     let
-                      systems = lib.filterAttrs (n: _: builtins.elem n lib.systems.flakeExposed) attrs;
+                      platforms = lib.filterAttrs (n: _: builtins.elem n crossPlatforms) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];
@@ -45,7 +56,7 @@ in
                       derivationAttrPath = [ ];
                       what = "Image";
                     }
-                    // (if isSingle systems then { } else { children = recurse (prefix + attrName + ".") systems; })
+                    // (if isSingle platforms then { } else { children = recurse (prefix + attrName + ".") platforms; })
 
                   else
 

@@ -107,7 +107,7 @@ eachSystemOp (
 
     # https://github.com/NixOS/nixpkgs/blob/master/lib/systems/examples.nix
     crosspkgs = {
-      x86_64-linux = f system (
+      x86_64-linux-gnu = f system (
         mkCrossPackages system {
           config = "x86_64-unknown-linux-gnu";
         }
@@ -119,7 +119,7 @@ eachSystemOp (
         }
       );
 
-      aarch64-linux = f system (
+      aarch64-linux-gnu = f system (
         mkCrossPackages system {
           config = "aarch64-unknown-linux-gnu";
         }
@@ -131,7 +131,7 @@ eachSystemOp (
         }
       );
 
-      armv7l-linux = f system (
+      armv7l-linux-gnu = f system (
         mkCrossPackages system {
           config = "armv7l-unknown-linux-gnueabihf";
         }
@@ -143,7 +143,7 @@ eachSystemOp (
         }
       );
 
-      armv6l-linux = f system (
+      armv6l-linux-gnu = f system (
         mkCrossPackages system {
           config = "armv6l-unknown-linux-gnueabihf";
         }
@@ -201,35 +201,28 @@ eachSystemOp (
       attrs
       // {
         ${key} = (attrs.${key} or { }) // {
-          ${system} = builtins.mapAttrs (
-            name: package:
-            let
-              # If the package doesn't support the current system, try to find a cross-compiled version of it
-              correctPackage =
-                if builtins.elem system (package.meta.platforms or [ system ]) then
-                  package
-                else if system == "x86_64-darwin" then
-                  crosspkgs."x86_64-linux".${key}.${name}
-                else if system == "aarch64-darwin" then
-                  crosspkgs."aarch64-linux".${key}.${name}
-                else
-                  package;
-            in
-            correctPackage.overrideAttrs (
-              _: prev: {
-                passthru =
-                  (prev.passthru or { })
-                  // builtins.listToAttrs (
-                    builtins.filter (pv: pv.value != null) (
-                      map (platform: {
-                        name = platform;
-                        value = fixPackage (crosspkgs.${platform}.${key}.${name} or null);
-                      }) (prev.meta.crossPlatforms or prev.meta.platforms or [ ])
-                    )
-                  );
-              }
-            )
-          ) default.${key};
+          ${system} =
+            builtins.mapAttrs
+              (
+                name: package:
+                package.overrideAttrs (
+                  _: prev: {
+                    passthru =
+                      (prev.passthru or { })
+                      // builtins.listToAttrs (
+                        builtins.filter (pv: pv.value != null) (
+                          map (platform: {
+                            name = platform;
+                            value = fixPackage (crosspkgs.${platform}.${key}.${name} or null);
+                          }) (prev.meta.crossPlatforms or [ ])
+                        )
+                      );
+                  }
+                )
+              )
+              (
+                nixpkgs.lib.filterAttrs (_: v: builtins.elem system (v.meta.platforms or [ system ])) default.${key}
+              );
         };
       }
     else
