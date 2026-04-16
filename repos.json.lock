@@ -1974,8 +1974,8 @@
             "url": "https://github.com/pokon548/nur-packages"
         },
         "pq": {
-            "rev": "9e74ec73f5ab775a1c2c09dd820e491069d29609",
-            "sha256": "1m5b8z2fj7akqf2drrnb7q0xqwdwlpcrg62dhfadk4akvcl6c8iq",
+            "rev": "4278b0ae61660abca2d76c2898451b3c01bae3cf",
+            "sha256": "184vykns0lj9nmsdxj2cxkj5hdp07f940ya3xgdivkkb85wxlw1x",
             "url": "https://github.com/hostwithquantum/nur"
         },
         "presto8": {
