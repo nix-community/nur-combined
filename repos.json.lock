@@ -1623,8 +1623,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "805d005b20a18a1b194481e08288fef53a51b7a0",
-            "sha256": "16p0psigsdxkan37cx9c5sfc5cc6jvbl60rvb38lf4128sdg4x9k",
+            "rev": "2247b0f010abe0286f033c18013a5ffec050d30e",
+            "sha256": "03npka16hkv9pj8n8ff8wx8izxnnjn1hb1q8gj08m40x2ihw4vh7",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
