@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.image }}
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@91bbca32bfa8d48baf47c8b2c0a15ce89c5ff0aa # v1.42.0
+        uses: spotdemo4/nix-init@757d5ba1fa0749e877484703bece0e17c7bd5670 # v1.43.0
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
@@ -39,7 +39,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout
-        uses: spotdemo4/better-checkout@87336d3542f856e09b06c19d4bc470325776e6e3 # v0.9.0
+        uses: spotdemo4/better-checkout@a08be04e9f594479a4ac25b1a67d707190dd619e # v0.10.0
         with:
           app-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
@@ -55,7 +55,7 @@ jobs:
     steps:
       - id: init
         name: Initialize
-        uses: spotdemo4/nix-init@91bbca32bfa8d48baf47c8b2c0a15ce89c5ff0aa # v1.42.0
+        uses: spotdemo4/nix-init@757d5ba1fa0749e877484703bece0e17c7bd5670 # v1.43.0
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
