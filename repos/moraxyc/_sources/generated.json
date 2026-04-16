@@ -249,11 +249,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Azc1sLBPlyhhPG2/5eGe6l4f57W/LSqlYA3Yh/DMj+8=",
+            "sha256": "sha256-AA7ZwhbYnCtIHqGbs5ikAq5689ruAKWaw04OVfox9Nk=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.13/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.16/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.04.13"
+        "version": "2026.04.16"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -264,11 +264,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FYURhxLA16pLFzKb0KrrVVEzM+tKdaquTVzJORiNnLU=",
+            "sha256": "sha256-t0BNPJzM9hq3h3kIu8d6dsVxBcyKKcQjEZ8/WzhF6jw=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.13/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.16/GeoLite2-City.mmdb"
         },
-        "version": "2026.04.13"
+        "version": "2026.04.16"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -279,11 +279,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jVfhbJTHeyEAqD1fmwQeR+4BkwilFq+jCkGYiNs8cnw=",
+            "sha256": "sha256-5tXqnhiIT8Xi2m8yDyfu8Db9O0/eleUGZ3iWcvUzBog=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.13/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.16/GeoLite2-Country.mmdb"
         },
-        "version": "2026.04.13"
+        "version": "2026.04.16"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -601,7 +601,7 @@
     },
     "superpowers-skills": {
         "cargoLock": null,
-        "date": "2026-04-14",
+        "date": "2026-04-15",
         "extract": null,
         "name": "superpowers-skills",
         "passthru": null,
@@ -613,12 +613,12 @@
             "name": null,
             "owner": "obra",
             "repo": "superpowers",
-            "rev": "f9b088f7b3a6fe9d9a9a98e392ad13c9d47053a4",
-            "sha256": "sha256-Nbfzvd7h7KrO9OW7W3DdUgDkQW11xSfZylFXLWJ8J5I=",
+            "rev": "c4bbe651cb1bc5e7bec6f7effae2b946571f3258",
+            "sha256": "sha256-P2p3jimioQ5OSnwiM7tI+nX1b4xBv7UQ/3bg+c9AyTg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f9b088f7b3a6fe9d9a9a98e392ad13c9d47053a4"
+        "version": "c4bbe651cb1bc5e7bec6f7effae2b946571f3258"
     },
     "udpxy": {
         "cargoLock": null,
@@ -652,9 +652,9 @@
             "name": null,
             "sha256": "sha256-3pm2ObPJyexYXLsgw0DAbShYBUiuz3wjH1jWzCsQFAU=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604142239/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604152236/geoip.dat"
         },
-        "version": "202604142239"
+        "version": "202604152236"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -665,11 +665,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-11E3PIeatE6NYNPH9JM06GiBbkKKaVDZQGiuac383vg=",
+            "sha256": "sha256-8pT7EYB49MzPyama7nav5eIlrnc0cp8j1wqJa8hWb90=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604142239/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604152236/geosite.dat"
         },
-        "version": "202604142239"
+        "version": "202604152236"
     },
     "yass": {
         "cargoLock": null,
