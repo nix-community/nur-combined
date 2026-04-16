@@ -2382,8 +2382,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "91b13314ea6397f418d63aff8bff5141a9ac8c32",
-            "sha256": "1sqprdj6vdcx6dadnjam4zxznwyxq4qmp3bq3f1i91gwblfy1qyx",
+            "rev": "8171eeccf857fba0382f5ba14a7c4099398daf5b",
+            "sha256": "05cybsj5ilb8j2vmcvywrngqy1ag9sijiqx1pi8il0mnba7mjgfh",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "b81fccbbf502a1edd6a2a5009cfe470912b73099",
-            "sha256": "08psaa6qgybpbdq8r3jjcfarmrp3hn92m8q7mb9yiz78cn7jcjhk",
+            "rev": "49e46a8343b19668e7e9bd3c390469bccbc87489",
+            "sha256": "0jrcwhky7n31mv7w8pai2yv7bng88vd7dwpaz1s9qbmlgxf94z9w",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
