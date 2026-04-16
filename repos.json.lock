@@ -622,8 +622,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "446057af19d4ca7f3a564eee08d07971d34e9798",
-            "sha256": "1aw1nrwy07hsi6ii3q9ixh0fqll5sdcxrac5cqaf7bjgf547s24a",
+            "rev": "6d870f31b057eeda48835451058635dfb83a9e72",
+            "sha256": "156r446mzf61ww3fbckzvdsvs1k85iyahav1js5j60cmv30qsvwn",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -938,8 +938,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "5efbb45357b0dc82ced13ef998c5022c4a360cfe",
-            "sha256": "1kla8c7h7xx2g9p31x5rf8325xppi3f24k0l9jmpab1451dzb4qi",
+            "rev": "2fe5139d506ff8c71a933b5ca74213b40aafe284",
+            "sha256": "0dm47rqcs22cmp0vpy6pddlrfaksgc2fa72s7byipyilpr8fsd47",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -2160,8 +2160,8 @@
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
         },
         "sedlund": {
-            "rev": "8683cf367b32399db6d0d56fcca451e8ee37e95c",
-            "sha256": "14s8inl3l14bmp90f8as3pyklncmj59653d3ilid92zhkdr199s2",
+            "rev": "e20b18b1be41e6b30ce979c593e09822ece5cc2c",
+            "sha256": "1fd59zs3hydyshs5fyy4drn4j97g3yaf55lw3yz9l7x2y9cy99gq",
             "url": "https://github.com/sedlund/nur-packages"
         },
         "sehqlr": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "916eb924a1520a68dc8cca8fcfd9fb7b73766ba8",
-            "sha256": "0xqv7y0rjhzfsg43v5nljl7ssl8ngngdn0kxmx0715w2w0nbiym8",
+            "rev": "625dca76283bb923720d4ea5248b11ed8857a0ad",
+            "sha256": "00vs2j8yp977lwndz9ank6nmn3ff12bap3synkjkfi1fj61svpwi",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
