@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "658fddb89951fa9a13087dd578a0bf4cf9202152",
-            "sha256": "0qzaska8bgm9zbjb4rnwc6d8b3z7y2hrpa63gb6y5kar59xhqk4i",
+            "rev": "4f71392c0a047a41e8a61e27b4f04b8efbe5a17b",
+            "sha256": "1y325wnnylddk1vmxk5vlbqas89qv1sy8zh2jf4hxxklsg4h8p4f",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1103,8 +1103,8 @@
             "url": "https://git.sr.ht/~hutzdog/NUR"
         },
         "hythera": {
-            "rev": "cac1a4e0f74a2d329642f0603a6455da2b7a239f",
-            "sha256": "0z4f25hkhpfdfgn510db56hlqfjp5zmzrd45aak5hdhimg0yca6w",
+            "rev": "cb687e6711f94d3f96eeec086f73c6dda9a8c042",
+            "sha256": "13vfcvl17v0r18ljf8ajalm1aic7p7nqw5b6hxb1il4p3ir2x79h",
             "url": "https://github.com/Hythera/nur-packages"
         },
         "iagocq": {
@@ -1395,8 +1395,8 @@
             "url": "https://github.com/kreisys/nur-packages"
         },
         "kuflierl": {
-            "rev": "057823cd0465f21454b9b02b3a5f5b1933d6f7fe",
-            "sha256": "1rq5crgh5hljw1w3pcj1vwwg25y327x32slka178hnglhndm59gc",
+            "rev": "8476fabf1064893bf949286f927236a1cd929a92",
+            "sha256": "0fsp4gr7cz6j0ppa4ad24jqhkqy384glb9rc5r0zdipafass5fkg",
             "url": "https://github.com/kuflierl/NUR"
         },
         "kugland": {
