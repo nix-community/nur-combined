@@ -622,8 +622,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "6d870f31b057eeda48835451058635dfb83a9e72",
-            "sha256": "156r446mzf61ww3fbckzvdsvs1k85iyahav1js5j60cmv30qsvwn",
+            "rev": "18c2285f3eed31c20a8d1655a73d7de451131389",
+            "sha256": "1z058bh8bkxqyiml3i59sx2w9pbfhwk760zxh6nwcca8qqvd72wz",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -1929,8 +1929,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "d0efa70ba849e7abb0c634b748dfc85785b80a3b",
-            "sha256": "1wscfn6ix3ixi8yb21aihlfrznihv8czz03f155jyjlpbagvpxi9",
+            "rev": "ebeefd14925fa0e6a8a3ea955b47205e0aaa0f11",
+            "sha256": "1sakwxpcgd1hiyif2xiri9kfnx337j0pqwggb51z8qg4q3wjynh1",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
