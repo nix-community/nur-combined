@@ -8,11 +8,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (sources.lyrica) pname version src;
 
   postInstall = ''
-    mkdir -p $out/share/plasma/plasmoids/ink.chyk.LyricaPlasmoid
-    cp -r plasmoid/* $out/share/plasma/plasmoids/ink.chyk.LyricaPlasmoid
+    mkdir -p $out/share/plasma/plasmoids/ink.chyk.lyricakde
+    cp -r frontend/kde/* $out/share/plasma/plasmoids/ink.chyk.lyricakde
 
-    substituteInPlace $out/share/plasma/plasmoids/ink.chyk.LyricaPlasmoid/contents/ui/main.qml \
-      --replace-fail '$HOME/.local/share/plasma/plasmoids/ink.chyk.LyricaPlasmoid/contents/bin/lyrica' '${lyrica}/bin/lyrica'
+    substituteInPlace $out/share/plasma/plasmoids/ink.chyk.lyricakde/contents/ui/main.qml \
+      --replace-fail '$HOME/.local/share/plasma/plasmoids/ink.chyk.lyricakde/contents/bin/lyrica' '${lyrica}/bin/lyrica'
   '';
 
   meta = {
