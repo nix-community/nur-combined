@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.mail;
-  dovecot2Cfg = config.services.dovecot2;
+  dovecot2Cfg = config.services.dovecot2.settings;
   postfixCfg = config.services.postfix;
   secrets = config.sops.secrets;
   stateDir = "/var/lib/dovecot";
@@ -33,75 +33,203 @@ let
   };
 in
 {
+
   services.dovecot2 = {
     enable = true;
-    enableLmtp = true;
-    enableImap = true;
+    package = pkgs.dovecot_2_4;
+    createMailUser = false;
     enablePAM = false;
-    mailUser = cfg.vmailUser;
-    mailGroup = cfg.vmailGroup;
-    mailLocation = "maildir:~/Maildir";
-    sslServerCert = cfg.certFile;
-    sslServerKey = cfg.keyFile;
-    mailPlugins.globally.enable = [
-      "acl"
-      "zlib"
-      "mail_crypt"
-      "listescape"
-      "notify"
-      "mail_log"
-      "fts"
-      "fts_flatcurve"
-    ];
-    mailPlugins.perProtocol.imap.enable = [
-      "imap_acl"
-      "imap_zlib"
-      "imap_sieve"
-    ];
-    mailPlugins.perProtocol.lmtp.enable = [ "sieve" ];
-    mailboxes = {
-      Trash = {
-        auto = "subscribe";
-        specialUse = "Trash";
-      };
-      Archive = {
-        auto = "subscribe";
-        specialUse = "Archive";
-      };
-      Sent = {
-        auto = "subscribe";
-        specialUse = "Sent";
-      };
-      Drafts = {
-        auto = "subscribe";
-        specialUse = "Drafts";
-      };
-      Junk = {
-        auto = "subscribe";
-        specialUse = "Junk";
-      };
-      Spam.specialUse = "Junk";
-      Templates.auto = "create";
-    };
     sieve = {
       pipeBins = [
         "${pipeBin}/pipe/bin/sa-learn-spam.sh"
         "${pipeBin}/pipe/bin/sa-learn-ham.sh"
       ];
-      extensions = [
-        "variables"
-        "fileinto"
-        "envelope"
-        "subaddress"
-        "mailbox"
-        "duplicate"
-      ];
-      globalExtensions = [
-        "vnd.dovecot.environment"
-      ];
     };
-    sieve.scripts = {
-      after = builtins.toFile "spam.sieve" ''
+  };
+
+  services.dovecot2.settings = {
+    dovecot_config_version = "2.4.3";
+    dovecot_storage_version = "2.4.3";
+
+    protocols = {
+      lmtp = true;
+      imap = true;
+    };
+
+    mail_uid = cfg.vmailUser;
+    mail_gid = cfg.vmailGroup;
+
+    mail_home = "${cfg.maildirRoot}/%{user | domain}/%{user | username}";
+    mail_driver = "maildir";
+    mail_path = "~/Maildir";
+
+    "namespace inbox" = {
+      inbox = true;
+      separator = "/";
+
+      "mailbox Trash" = {
+        auto = "subscribe";
+        special_use = "\\Trash";
+      };
+      "mailbox Archive" = {
+        auto = "subscribe";
+        special_use = "\\Archive";
+      };
+      "mailbox Sent" = {
+        auto = "subscribe";
+        special_use = "\\Sent";
+      };
+      "mailbox Drafts" = {
+        auto = "subscribe";
+        special_use = "\\Drafts";
+      };
+      "mailbox Junk" = {
+        auto = "subscribe";
+        special_use = "\\Junk";
+      };
+      "mailbox Spam" = {
+        special_use = "\\Junk";
+      };
+    };
+
+    mailbox_list_storage_escape_char = "\"\\\\\"";
+
+    recipient_delimiter = "+";
+    lmtp_save_to_detail_mailbox = "no";
+
+    ssl_server_cert_file = cfg.certFile;
+    ssl_server_key_file = cfg.keyFile;
+    ssl_server_prefer_ciphers = "server";
+
+    auth_master_user_separator = "*";
+    auth_mechanisms = {
+      plain = true;
+      login = true;
+    };
+
+    haproxy_trusted_networks = "<${secrets.trustedNetworks.path}";
+
+    ldap_uris = "ldap://localhost";
+    ldap_auth_dn = "cn=admin,dc=eh5,dc=me";
+    ldap_auth_dn_password = "<${secrets.bindDnPw.path}";
+    ldap_base = "ou=domains,dc=eh5,dc=me";
+    "passdb ldap" = {
+      bind = true;
+      filter = "(&(objectClass=PostfixBookMailAccount)(mail=%{user | lower}))";
+      fields = {
+        user = "%{ldap:mail}";
+      };
+    };
+
+    "service auth" = {
+      "unix_listener postfix-auth" = {
+        mode = "0660";
+        user = postfixCfg.user;
+        group = postfixCfg.group;
+      };
+    };
+
+    "service lmtp" = {
+      "unix_listener postfix-lmtp" = {
+        mode = "0660";
+        user = postfixCfg.user;
+        group = postfixCfg.group;
+      };
+    };
+
+    imap_hibernate_timeout = "5s";
+    "service imap" = {
+      "unix_listener imap-master" = {
+        user = "$SET:default_internal_user";
+      };
+    };
+
+    "service imap-login" = {
+      "inet_listener imap" = {
+        port = 143;
+      };
+      "inet_listener imaps" = {
+        port = 993;
+        ssl = true;
+      };
+      "inet_listener imap_haproxy" = {
+        port = 10143;
+        haproxy = true;
+      };
+      "inet_listener imaps_haproxy" = {
+        port = 10993;
+        ssl = true;
+        haproxy = true;
+      };
+    };
+
+    "protocol lmtp" = {
+      mail_plugins = {
+        sieve = true;
+      };
+    };
+
+    "protocol imap" = {
+      mail_max_userip_connections = 100;
+      mail_plugins = {
+        imap_acl = true;
+        imap_sieve = true;
+      };
+    };
+
+    mail_plugins = {
+      acl = true;
+      mail_compress = true;
+      mail_crypt = true;
+      notify = true;
+      mail_log = true;
+      # fts = true;
+      # nix dovecot 2.4 not compiled with fts_flatcurve, disable for now
+      # fts_flatcurve = true;
+    };
+
+    acl_driver = "vfile";
+    acl_globals_only = true;
+    acl_sharing_map = {
+      "dict file" = {
+        path = "${cfg.maildirRoot}/shared-mailboxes.db";
+      };
+    };
+
+    "crypt_global_private_key main" = {
+      crypt_private_key_file = secrets."ecprivkey.pem".path;
+    };
+    crypt_global_public_key_file = secrets."ecpubkey.pem".path;
+
+    mail_compress_write_method = "lz4";
+
+    # fts_driver = "flatcurve";
+    # fts_autoindex = true;
+
+    # language_filters = "normalizer-icu snowball stopwords";
+    # "language en" = {
+    #   default = true;
+    #   language_filters = "lowercase snowball english-possessive stopwords";
+    # };
+
+    sieve_plugins = {
+      sieve_imapsieve = true;
+      sieve_extprograms = true;
+    };
+    sieve_extensions = {
+      "variables" = true;
+      "fileinto" = true;
+      "envelope" = true;
+      "subaddress" = true;
+      "mailbox" = true;
+      "duplicate" = true;
+    };
+    sieve_global_extensions = {
+      "vnd.dovecot.environment" = true;
+    };
+
+    "sieve_script after" = {
+      path = builtins.toFile "spam.sieve" ''
         require ["variables", "fileinto", "envelope", "subaddress", "mailbox", "duplicate"];
 
         if header :is "X-Spam" "Yes" {
@@ -122,122 +250,22 @@ in
         }
       '';
     };
-    imapsieve.mailbox = [
-      {
-        name = "Junk";
-        causes = [ "COPY" ];
-        before = ./files/imap_sieve/report-spam.sieve;
-      }
-      {
-        name = "*";
-        from = "JUNK";
-        causes = [ "COPY" ];
-        before = ./files/imap_sieve/report-ham.sieve;
-      }
-    ];
+
+    "imapsieve_from Junk" = {
+      "sieve_script ham" = {
+        type = "before";
+        cause = "copy";
+        path = ./files/imap_sieve/report-ham.sieve;
+      };
+    };
+    "mailbox Junk" = {
+      "sieve_script spam" = {
+        type = "before";
+        cause = "copy";
+        path = ./files/imap_sieve/report-spam.sieve;
+      };
+    };
   };
-
-  services.dovecot2.extraConfig = ''
-    mail_home = "${cfg.maildirRoot}/%d/%n"
-    mail_location = maildir:~/Maildir
-    mail_temp_dir = /dev/shm/
-    ssl_prefer_server_ciphers = yes
-
-    imap_hibernate_timeout = 5s
-
-    recipient_delimiter = +
-    lmtp_save_to_detail_mailbox = no
-
-    auth_mechanisms = plain login
-    auth_master_user_separator = *
-
-    lda_mailbox_autosubscribe = yes
-    lda_mailbox_autocreate = yes
-
-    haproxy_trusted_networks = <${secrets.trustedNetworks.path}
-
-    plugin {
-      acl = vfile
-      acl_shared_dict = file:/var/vmail/shared-mailboxes.db
-
-      listescape_char = "\\"
-
-      mail_crypt_global_private_key = <${secrets."ecprivkey.pem".path}
-      mail_crypt_global_public_key = <${secrets."ecpubkey.pem".path}
-      mail_crypt_save_version = 2
-
-      zlib_save = lz4
-
-      fts = flatcurve
-      fts_autoindex = yes
-      fts_enforced = body
-      fts_filters = lowercase stopwords snowball
-      fts_tokenizers = generic email-address
-      # sadly they don't have Chinese support,
-      # see https://doc.dovecot.org/settings/plugin/fts-plugin/#fts-languages
-      fts_languages = en
-    }
-
-    passdb {
-      driver = ldap
-      args = ${secrets.passdbLdap.path}
-    }
-
-    userdb {
-      driver = static
-      args = uid=${cfg.vmailUser} gid=${cfg.vmailGroup}
-    }
-
-    service auth {
-      unix_listener postfix-auth {
-        mode = 0660
-        user = ${postfixCfg.user}
-        group = ${postfixCfg.group}
-      }
-    }
-
-    service lmtp {
-      unix_listener postfix-lmtp {
-        mode = 0600
-        user = ${postfixCfg.user}
-        group = ${postfixCfg.group}
-      }
-    }
-
-    service imap {
-      unix_listener imap-master {
-        user = $default_internal_user
-      }
-    }
-
-    service imap-login {
-      inet_listener imap {
-        port = 143
-      }
-      inet_listener imaps {
-        port = 993
-        ssl = yes
-      }
-      inet_listener imap_haproxy {
-        port = 10143
-        haproxy = yes
-      }
-      inet_listener imaps_haproxy {
-        port = 10993
-        ssl = yes
-        haproxy = yes
-      }
-    }
-
-    protocol imap {
-      mail_max_userip_connections = 100
-    }
-
-    namespace inbox {
-      separator = /
-      inbox = yes
-    }
-  '';
 
   systemd.services.dovecot = {
     requires = [ "openldap.service" ];
@@ -245,18 +273,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    dovecot_pigeonhole
-    dovecot-fts-flatcurve
+    dovecot_pigeonhole_2_4
   ];
-
-  # nixpkgs.overlays = [
-  #   (
-  #     final: prev: {
-  #       dovecot_pigeonhole = prev.dovecot_pigeonhole.overrideAttrs (_: attrs: {
-  #         buildInputs = attrs.buildInputs ++ [ pkgs.openldap pkgs.cyrus_sasl ];
-  #         configureFlags = attrs.configureFlags ++ [ "--with-ldap=yes" ];
-  #       });
-  #     }
-  #   )
-  # ];
 }

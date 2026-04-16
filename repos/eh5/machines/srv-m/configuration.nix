@@ -6,7 +6,7 @@
 }:
 let
   secrets = config.sops.secrets;
-  dovecotUser = config.services.dovecot2.user;
+  dovecotUser = config.services.dovecot2.settings.mail_uid;
   postfixUser = config.services.postfix.user;
   rspamdUser = config.services.rspamd.user;
   caddyUser = config.services.caddy.user;
