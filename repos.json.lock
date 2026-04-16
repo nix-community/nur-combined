@@ -1238,8 +1238,8 @@
             "url": "https://github.com/jdev082/jdpkgs"
         },
         "jeffguorg": {
-            "rev": "566fe43f4cae0a76734ad289c88116acd7569c26",
-            "sha256": "1mdh4kiknsbld08q07903lhr1811vjx1h4blzw3xdyrg8i6a0xkv",
+            "rev": "15d1bf7acfdf5e868e36faf8d66dc3536e74a3fc",
+            "sha256": "1cj9hvymn7pv5dpgs4ghfbksfgbxzmr4am9gnx4v1107f7c4sm2v",
             "url": "https://github.com/jeffguorg/nur-packages"
         },
         "jerrita": {
@@ -1613,8 +1613,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "0290460608094a372994686604aa838b4e5e2076",
-            "sha256": "0ibj64iqcl6p25jq696nqw87sz58jaah6l09ys8p5b682ppsgd1n",
+            "rev": "6717cc75f71ecba8f60c031281288c44066be040",
+            "sha256": "11qivg7kihh2782pa3diif0r0ll6098i6svfkfa1pd2rsndn39x5",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
