@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "131267563c3623e135e0f2971d5df8bfd9303263",
-            "sha256": "0m31r9z6h34nbdarnjjv8szzps5g677pspnc4wl222xbicdisja0",
+            "rev": "ea1032559d7647a2f4d834778c0791e67c399b4e",
+            "sha256": "10p1bvg75b4bjdl8rgq09m9c3yp3hzy7f834ism7xpmxzx6ss04g",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -622,8 +622,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "a05f3b450f18829163032ea66d5cadf91da339e0",
-            "sha256": "0afdyrbklab62c7hk176sqrflkz300yh9wfv3rrww86262ivk9pr",
+            "rev": "446057af19d4ca7f3a564eee08d07971d34e9798",
+            "sha256": "1aw1nrwy07hsi6ii3q9ixh0fqll5sdcxrac5cqaf7bjgf547s24a",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
