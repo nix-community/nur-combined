@@ -11,22 +11,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "0v1vrpgi3zswxm0bl3v3pxlznb4hqd4d3i2dsr2f8g5pr1g9gvfg";
-    aarch64-linux = "062m2q546rcbiawf2id5kpzf95d0cgy561c0c9xyzg5lbgz6fnp2";
-    x86_64-darwin = "192syibhs4b18gjcv79dx71gpvrlx2hmzb4izcq4vi43cms9y9mb";
-    aarch64-darwin = "02cfrz5v4yl996jqk6vmrayd0s0ylvb64hlgz0kvwhz3r23yqa6y";
+    x86_64-linux = "14pbjbiya9is9skm1r5q7dwf3p26f2q4gx5ig03fasbjh52whkc6";
+    aarch64-linux = "0yw5m4w6hsk0zixj0wnmd84c6vcdc0lxskwlwf6ik3v8zmjnw0j4";
+    x86_64-darwin = "0wx5r21k5wl583v7y92san7wcglh0yqng6r6my9ads5hgi6mmv5i";
+    aarch64-darwin = "1hfwgykxw4apxd0r6dsdi7mqp38i8wknxwnk83zgnbc32fbvpmdi";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/Sheltons-CLI-Projects/javascript-package-delegator/releases/download/v3.0.2-alpha/javascript-package-delegator_3.0.2-alpha_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/Sheltons-CLI-Projects/javascript-package-delegator/releases/download/v3.0.2-alpha/javascript-package-delegator_3.0.2-alpha_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/Sheltons-CLI-Projects/javascript-package-delegator/releases/download/v3.0.2-alpha/javascript-package-delegator_3.0.2-alpha_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/Sheltons-CLI-Projects/javascript-package-delegator/releases/download/v3.0.2-alpha/javascript-package-delegator_3.0.2-alpha_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "javascript-package-delegator";
-  version = "3.0.2-alpha";
+  version = "4.0.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     description = "A CLI for executing JavaScript package manager commands based on lock files. Supports npm, yarn, pnpm, bun, and deno.";
-    homepage = "https://github.com/Sheltons-CLI-Projects/javascript-package-delegator";
+    homepage = "https://github.com/louiss0/javascript-package-delegator";
     license = lib.licenses.mit;
 
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
