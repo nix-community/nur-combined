@@ -803,8 +803,8 @@
             "url": "https://github.com/dtn7/nur-packages"
         },
         "dtomvan": {
-            "rev": "96d7c4232b9434ad83eaa15d743be8178d158ebb",
-            "sha256": "0zw1gxbpj2rlg6ck170l5w0hrm9nz6vkmxim7zha6fr5s81wpfnr",
+            "rev": "9b4e1b6f9992f601c1b799be45168fd6f420d6d9",
+            "sha256": "1fyhh59n45msjl4c02wiibmmpy03vaqs5rhqqr8pcma9d957iisq",
             "url": "https://github.com/dtomvan/nur-packages"
         },
         "dtz": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "d2e4965f2ecbca59a0c38289fd3da7082a1a2802",
-            "sha256": "0jrcwhky7n31mv7w8pai2yv7bng88vd7dwpaz1s9qbmlgxf94z9w",
+            "rev": "b81fccbbf502a1edd6a2a5009cfe470912b73099",
+            "sha256": "08psaa6qgybpbdq8r3jjcfarmrp3hn92m8q7mb9yiz78cn7jcjhk",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
