@@ -1223,8 +1223,8 @@
             "url": "https://github.com/jbarthelmes/nur-packages"
         },
         "jcranney": {
-            "rev": "2b9e31ce7b57b5fbae9b6bf281a825858dcd193a",
-            "sha256": "1yxra080ws5ijzw0pn1svzg3ndj8ng60lg1rqr3ak3zahwxxi82q",
+            "rev": "f026a0303d54c76d79ab692ce32b7989ecb803a5",
+            "sha256": "1h07zvi1q0qrr52q7bjpv87diaq828ir8lgcpxb3f8rhlgfph959",
             "url": "https://github.com/jcranney/nur-packages"
         },
         "jcs090218": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "688538c07e595eb1460109ab6e9947eb733d765d",
-            "sha256": "0jr2qzxmljkz0ffm6ck1dd5rd7vg8i2lp5li29720pb8glj920py",
+            "rev": "17196b2224e1dae615a1bb024088c88314b98245",
+            "sha256": "17582k4d9w9w5jvscy2h5cbml6c97gfsf2v574qp0mnhk8lwwf3s",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
