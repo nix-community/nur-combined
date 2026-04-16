@@ -6,7 +6,7 @@
   "formatter": {
     "external": {
       "command": "nix",
-      "arguments": ["fmt", "--", "{buffer_path}", "--stdin"]
+      "arguments": ["fmt", "--", "--stdin", "--", "{buffer_path}"]
     }
   },
   "languages": {
