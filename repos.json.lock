@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "dd242b98a810e1d2936cee607b0ac52e7f1a7b9f",
-            "sha256": "058wkwfbzfcg8k3jj0vz60wlf95sq922hcdj1d50b2mwzj61h347",
+            "rev": "e5cb4b0fdd01b26439c58610d3db359f89b4358d",
+            "sha256": "09mgb6bqppbcwjm5gdr8ni90dr5693ag764a4klq23ra2r7rb3vz",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
@@ -853,8 +853,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "6478515ed21aa0eaf2a9188bd2a27fdbaf0ddce3",
-            "sha256": "15jy5jcyzsrzk0i6fxw8jj2q7ivd0wx07s1xxp75yw1i35r06p9v",
+            "rev": "fa0d3f48dac2647e372c808c7864d0a11a6ae7f6",
+            "sha256": "0yqdjxpi32324js1zkm6436xa1pnx8lrk1r07cknjxw6rc0c7ip5",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
