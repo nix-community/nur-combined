@@ -46,7 +46,7 @@ jobs:
           done
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v8.1.0
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           branch: update_packages_action
           delete-branch: true
