@@ -2,21 +2,21 @@
   apple-sdk_15,
   buildMozillaMach,
   fetchFromGitHub,
-  icu76,
+  icu,
   lib,
   stdenv,
 }:
 buildMozillaMach rec {
   pname = "waterfox";
-  version = "6.6.8";
+  version = "6.6.11";
   applicationName = "Waterfox";
-  binaryName = pname;
+  binaryName = "waterfox";
   branding = "waterfox/browser/branding";
   src = fetchFromGitHub {
     owner = "BrowserWorks";
     repo = "Waterfox";
     tag = version;
-    hash = "sha256-w3bRG6/Lhmco71CTapXPjl2ZIk0KkPGCg90qyL+YCFk=";
+    hash = "sha256-Gp9n4PMWtAsptCTuoIN/vcL42TFAZh/wSWB7ptS0rME=";
     fetchSubmodules = true;
     preFetch = ''
       export GIT_CONFIG_COUNT=1
@@ -28,17 +28,17 @@ buildMozillaMach rec {
   extraBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     apple-sdk_15
   ];
+
   extraNativeBuildInputs = [
-    icu76
+    icu
   ];
-  extraConfigureFlags = [
-    "--with-app-basename=${applicationName}"
-  ];
+
   extraPatches = [
     ./remove-missing-icons.patch
   ]; # Some of the icons are missing and cause the build to crash. Removing them fixes the issue
+
   extraPostPatch = ''
-    rm .mozconfig .mozcinfig-*
+    rm .mozconfig .mozconfig-*
   ''; # buildMozillaMach will take care of the build arguments
 
   meta = {
@@ -49,7 +49,7 @@ buildMozillaMach rec {
     description = "A privacy-focused Firefox Fork";
     homepage = "https://www.waterfox.com";
     license = lib.licenses.mpl20;
-    mainProgram = pname;
+    mainProgram = "waterfox";
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
     platforms = lib.platforms.unix;
   };
