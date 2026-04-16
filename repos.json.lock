@@ -678,8 +678,8 @@
             "url": "https://github.com/cwyc/nur-packages"
         },
         "dagger": {
-            "rev": "4abe2b7e61d6bb1850bf5823022e9a55e08ed985",
-            "sha256": "14y6wzjwg3mwzdwkasifwxnhhq7xqzvvjgpgs5k83j6r5yx4f3cb",
+            "rev": "851584fd8093ab942b4aa833cdef53050b27279b",
+            "sha256": "1br7j27griprz95w49ijmn70l0cxiiyzgcfqh59qgcg2pdz2ahps",
             "url": "https://github.com/dagger/nix"
         },
         "dan4ik605743": {
@@ -2130,8 +2130,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "c09a1a34c147aefac0ff10017644ca17a3230e8c",
-            "sha256": "0bs6z82zrccc9a4l76nm7srqd70nqbwjzwbw45f04krd8685kd6a",
+            "rev": "501d3ee969edad2167e57a1499312cd4fdfdbc78",
+            "sha256": "13wy9k1d0mv85l619mldaz5r7jidikgp61av5smim6vx2xwmy5lg",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "ryota2357": {
