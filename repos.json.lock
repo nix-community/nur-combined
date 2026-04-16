@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "0bec7682c45dfa72268f3094d3800d5b972c7cbe",
-            "sha256": "00r0c202k99psd4fx817wan3xphr5na4q1jai73a64ffdmld9a0c",
+            "rev": "9938244d118348534e5e72d0fd937409567ee08b",
+            "sha256": "016dd83iy0km4gxd0zzh795dlsp0nijiizk7z99xs6iqxqcybp60",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1073,8 +1073,8 @@
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {
-            "rev": "c71088bc1980c724b85442f310e4b34f6a514806",
-            "sha256": "12pkpqd8rbc9q1myy8x602fi5bd5vd5wni1853l8nsqkvpzw8h5b",
+            "rev": "48c5937820062e1bfc741598d129d574499fca75",
+            "sha256": "09ps2gv9i9m5kwwjkv90wrf6ccrl2wwfi58rbgwx8lbg9bj4bhas",
             "url": "https://github.com/hhr2020/nur-packages"
         },
         "hilorioze": {
