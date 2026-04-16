@@ -11,19 +11,19 @@ let
     in
     if res.success then res.value else default;
 
-  crossPlatforms = [
-    "aarch64-darwin"
-    "aarch64-linux-gnu"
-    "aarch64-linux-musl"
-    "aarch64-windows"
-    "armv6l-linux-gnu"
-    "armv6l-linux-musl"
-    "armv7l-linux-gnu"
-    "armv7l-linux-musl"
-    "x86_64-darwin"
-    "x86_64-linux-gnu"
-    "x86_64-linux-musl"
-    "x86_64-windows"
+  platformConfigs = [
+    "x86_64-unknown-linux-gnu"
+    "x86_64-unknown-linux-musl"
+    "aarch64-unknown-linux-gnu"
+    "aarch64-unknown-linux-musl"
+    "armv7l-unknown-linux-gnueabihf"
+    "armv7l-unknown-linux-musleabihf"
+    "armv6l-unknown-linux-gnueabihf"
+    "armv6l-unknown-linux-musleabihf"
+    "x86_64-w64-mingw32"
+    "aarch64-w64-mingw32"
+    "x86_64-apple-darwin"
+    "arm64-apple-darwin"
   ];
 in
 {
@@ -55,7 +55,7 @@ in
                 try (
                   if lib.isDerivation attrs then
                     let
-                      platforms = lib.filterAttrs (n: _: builtins.elem n crossPlatforms) attrs;
+                      platforms = lib.filterAttrs (n: _: builtins.elem n platformConfigs) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];

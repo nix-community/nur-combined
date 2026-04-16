@@ -188,8 +188,8 @@ eachSystemOp (
                           map (crosspkg: {
                             name = crosspkg.platform.config;
                             value =
-                              if (nixpkgs.lib.meta.availableOn crosspkg.platform package) then
-                                fixPackage (crosspkg.packages.${key}.${name} or null)
+                              if (nixpkgs.lib.meta.availableOn (nixpkgs.lib.systems.elaborate crosspkg.platform) package) then
+                                fixPackage crosspkg.packages.${key}.${name}
                               else
                                 null;
                           }) crosspkgs
@@ -198,7 +198,11 @@ eachSystemOp (
                   }
                 )
               )
-              (nixpkgs.lib.filterAttrs (_: package: nixpkgs.lib.meta.availableOn system package) default.${key});
+              (
+                nixpkgs.lib.filterAttrs (
+                  _: package: nixpkgs.lib.meta.availableOn { inherit system; } package
+                ) default.${key}
+              );
         };
       }
     else
