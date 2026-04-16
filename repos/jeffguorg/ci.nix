@@ -30,18 +30,22 @@ let
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
+  excludedNames = [
+    "vagrant-vmware-utility"
+  ];
   nameValuePair = n: v: { name = n; value = v; };
 
   concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
 
   flattenPkgs = s:
     let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
+      f = n: p:
+        if elem n excludedNames then []
+        else if shouldRecurseForDerivations p then flattenPkgs p
         else if isDerivation p then [ p ]
         else [ ];
     in
-    concatMap f (attrValues s);
+    concatMap (n: f n s.${n}) (attrNames s);
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
