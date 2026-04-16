@@ -1,0 +1,38 @@
+{
+  maintainers,
+  pkgs,
+  ...
+}: let
+  python = pkgs.python312;
+  pythonEnv = pkgs.python312Packages;
+
+  pname = "adif-manage";
+  version = "0.1.0";
+in pythonEnv.buildPythonApplication {
+  inherit pname version;
+
+  src = pkgs.fetchFromGitHub {
+    owner = "srcres258";
+    repo = pname;
+    rev = "bd2fd0bf8dc39837fe71397c309ab5e6b31d7218";
+    sha256 = "sha256-C5LEBV16C+DDw0COJ6Yo9HSkzq5XES2kQCuRHW0SzsY=";
+  };
+
+  propagatedBuildInputs = with pythonEnv; [
+    prompt-toolkit
+  ];
+  nativeBuildInputs = with pythonEnv; [
+    hatchling
+  ];
+
+  format = "pyproject";
+
+  meta = with pkgs.lib; {
+    description = "ADIF ham log management program";
+    homepage = "https://github.com/srcres258/${pname}";
+    license = licenses.mit;
+    maintainers = with maintainers; [ srcres258 ];
+    platforms = platforms.linux;
+    mainProgram = pname;
+  };
+}

@@ -39,7 +39,10 @@ in {
     inherit maintainers;
   };
   keystroke = pkgs.callPackage ./pkgs/keystroke {
-    inherit maintainers;
+      inherit maintainers;
+  };
+  adif-manage = pkgs.callPackage ./pkgs/adif-manage {
+      inherit maintainers;
   };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
