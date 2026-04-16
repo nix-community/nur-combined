@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "dca6921fb2fc112f9f11933578ffa09d9112ecfa",
-            "sha256": "1r0rqvac3szrxgvqyxd93v44d00wn9bzcqf0f6k82z04xa5a4ffc",
+            "rev": "9659cca2b328e9cf407004fe1380ccaedd9629fa",
+            "sha256": "16dqrn6gg1nmhr1xc5sl8apkxpk8p822l7ksdgsgpf6dbzx6249h",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "ea1032559d7647a2f4d834778c0791e67c399b4e",
-            "sha256": "10p1bvg75b4bjdl8rgq09m9c3yp3hzy7f834ism7xpmxzx6ss04g",
+            "rev": "0bec7682c45dfa72268f3094d3800d5b972c7cbe",
+            "sha256": "00r0c202k99psd4fx817wan3xphr5na4q1jai73a64ffdmld9a0c",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
