@@ -1238,8 +1238,8 @@
             "url": "https://github.com/jdev082/jdpkgs"
         },
         "jeffguorg": {
-            "rev": "15d1bf7acfdf5e868e36faf8d66dc3536e74a3fc",
-            "sha256": "1cj9hvymn7pv5dpgs4ghfbksfgbxzmr4am9gnx4v1107f7c4sm2v",
+            "rev": "28e3d6b4090f4b3e158bc1d0b5492ae97ab43f42",
+            "sha256": "1znyww6kmg2wc9r59fsshxcq3i8azc7nqki1q3afcmsfg074ld54",
             "url": "https://github.com/jeffguorg/nur-packages"
         },
         "jerrita": {
