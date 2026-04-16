@@ -7,7 +7,6 @@
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
-  imagemagick,
   sqlite,
   alsa-lib,
   mpv-unwrapped,
@@ -48,7 +47,6 @@ flutter.buildFlutterApplication {
   nativeBuildInputs = [
     copyDesktopItems
     autoPatchelfHook
-    imagemagick
   ];
 
   buildInputs = [
@@ -74,8 +72,7 @@ flutter.buildFlutterApplication {
   '';
 
   postInstall = ''
-    mkdir -p $out/share/icons/hicolor/512x512/apps
-    magick convert $src/assets/icon/launcher_icon_v2.png -resize 512x512 $out/share/icons/hicolor/512x512/apps/loveiwara.png
+    install -D assets/icon/launcher_icon_v2.png $out/share/icons/loveiwara.png
   '';
 
   meta = {
