@@ -186,7 +186,7 @@ eachSystemOp (
                       // builtins.listToAttrs (
                         builtins.filter (pv: pv.value != null) (
                           map (cross: {
-                            name = cross.platform.config;
+                            name = nixpkgs.lib.systems.tripleFromSystem cross.platform;
                             value =
                               if (nixpkgs.lib.meta.availableOn cross.platform package) then
                                 fixPackage cross.flake.${key}.${name}
