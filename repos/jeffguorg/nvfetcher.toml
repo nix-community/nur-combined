@@ -1,5 +1,80 @@
-[cargo-create-tauri-app]
+[create-tauri-app]
 src.github_tag = "tauri-apps/create-tauri-app"
-src.include_regex = "create-tauri-app-v\\d+\\.\\d+\\.\\d+"
+src.include_regex = "^create-tauri-app-v.*$"
 fetch.github = "tauri-apps/create-tauri-app"
-extract = ["Cargo.lock"]
+cargo_lock = ["Cargo.lock"]
+cargo_locks = ["Cargo.lock"]
+
+[dingtalk-bin-amd64]
+src.cmd = "curl -s --show-headers https://www.dingtalk.com/win/d/qd=linux_amd64 | awk -F': ' '$1~/location/{print $2}' | sed -nE 's#.*com\\.alibabainc\\.dingtalk_([0-9.]+)_.*\\.deb.*#\\1#p'"
+fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$ver_amd64.deb"
+
+[claude-code-bin-arm64-linux]
+src.webpage = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest"
+src.regex = ".*"
+fetch.url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/$ver/linux-arm64/claude"
+
+[claude-code-bin-amd64-linux]
+src.webpage = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest"
+src.regex = ".*"
+fetch.url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/$ver/linux-x64/claude"
+
+[claude-code-bin-arm64-darwin]
+src.webpage = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest"
+src.regex = ".*"
+fetch.url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/$ver/darwin-arm64/claude"
+
+[claude-code-bin-amd64-darwin]
+src.webpage = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest"
+src.regex = ".*"
+fetch.url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/$ver/darwin-x64/claude"
+
+[codex]
+src.github = "openai/codex"
+src.use_max_tag = true
+src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
+fetch.github = "openai/codex"
+cargo_lock = ["codex-rs/Cargo.lock"]
+# backward compat
+cargo_locks = ["codex-rs/Cargo.lock"]
+
+[codex-bin-amd64-linux]
+src.github = "openai/codex"
+src.use_max_tag = true
+src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
+src.prefix = "rust-v"
+fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-x86_64-unknown-linux-gnu.zst"
+
+[codex-bin-arm64-linux]
+src.github = "openai/codex"
+src.use_max_tag = true
+src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
+src.prefix = "rust-v"
+fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-aarch64-unknown-linux-gnu.zst"
+
+[codex-bin-amd64-darwin]
+src.github = "openai/codex"
+src.use_max_tag = true
+src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
+src.prefix = "rust-v"
+fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-x86_64-apple-darwin.zst"
+
+[codex-bin-arm64-darwin]
+src.github = "openai/codex"
+src.use_max_tag = true
+src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
+src.prefix = "rust-v"
+fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-aarch64-apple-darwin.zst"
+
+[dingtalk-bin-arm64]
+src.cmd = "curl -s --show-headers https://www.dingtalk.com/win/d/qd=linux_arm64 | awk -F': ' '$1~/location/{print $2}' | sed -nE 's#.*com\\.alibabainc\\.dingtalk_([0-9.]+)_.*\\.deb.*#\\1#p'"
+fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$ver_arm64.deb"
+
+[kwok]
+src.github = "kubernetes-sigs/kwok"
+fetch.github = "kubernetes-sigs/kwok"
+
+[vagrant-vmware-utility]
+src.github_tag = "hashicorp/vagrant-vmware-desktop"
+src.include_regex = "^utility-v[0-9.]+$"
+fetch.github = "hashicorp/vagrant-vmware-desktop"

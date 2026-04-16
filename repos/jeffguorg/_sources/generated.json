@@ -1,11 +1,168 @@
 {
-    "cargo-create-tauri-app": {
-        "cargoLocks": null,
+    "claude-code-bin-amd64-darwin": {
+        "cargoLock": null,
         "date": null,
-        "extract": {
-            "Cargo.lock": "./cargo-create-tauri-app-create-tauri-app-v3.13.14/Cargo.lock"
+        "extract": null,
+        "name": "claude-code-bin-amd64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1Ilid5IMJTwr2l4K4Co+OUhvogNgPCslzCNlM9aFGP0=",
+            "type": "url",
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.110/darwin-x64/claude"
         },
-        "name": "cargo-create-tauri-app",
+        "version": "2.1.110"
+    },
+    "claude-code-bin-amd64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "claude-code-bin-amd64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-fs3eV7AC1ZJ+cE3LzgTqr7kjZE0xUlm6LmrG8HEhY6Q=",
+            "type": "url",
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.110/linux-x64/claude"
+        },
+        "version": "2.1.110"
+    },
+    "claude-code-bin-arm64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "claude-code-bin-arm64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-9FyxsHZfn8WS021xU/bB/w7Pw66cvJl+r/KwzSW/+fY=",
+            "type": "url",
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.110/darwin-arm64/claude"
+        },
+        "version": "2.1.110"
+    },
+    "claude-code-bin-arm64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "claude-code-bin-arm64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-/1vwNy0XAM+00jICHG4NQXIFwWOSSS2g+rxrUJ7u6So=",
+            "type": "url",
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.110/linux-arm64/claude"
+        },
+        "version": "2.1.110"
+    },
+    "codex": {
+        "cargoLock": {
+            "codex-rs/Cargo.lock": [
+                "sha256-wjiUMox9V5tFggNgaFyHXWhRlpPerK7W+U_eR2Ddbbc=/codex-rs/Cargo.lock",
+                {
+                    "crossterm-0.28.1": "sha256-6qCtfSMuXACKFb9ATID39XyFDIEMFDmbx6SSmNe+728=",
+                    "libwebrtc-0.3.26": "sha256-0HPuwaGcqpuG+Pp6z79bCuDu/DyE858VZSYr3DKZD9o=",
+                    "nucleo-0.5.0": "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=",
+                    "ratatui-0.29.0": "sha256-HBvT5c8GsiCxMffNjJGLmHnvG77A6cqEL+1ARurBXho=",
+                    "runfiles-0.1.0": "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=",
+                    "tokio-tungstenite-0.28.0": "sha256-hJAkvWxDjB9A9GqansahWhTmj/ekcelslLUTtwqI7lw=",
+                    "tungstenite-0.27.0": "sha256-AN5wql2X2yJnQ7lnDxpljNw0Jua40GtmT+w3wjER010="
+                }
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "codex",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "openai",
+            "repo": "codex",
+            "rev": "rust-v0.121.0",
+            "sha256": "sha256-wjiUMox9V5tFggNgaFyHXWhRlpPerK7W+U/eR2Ddbbc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "rust-v0.121.0"
+    },
+    "codex-bin-amd64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-bin-amd64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-bierBnH6lzpKESrM54ScdIZRMB6KtPWK4sAsQVgfE10=",
+            "type": "url",
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.121.0/codex-x86_64-apple-darwin.zst"
+        },
+        "version": "0.121.0"
+    },
+    "codex-bin-amd64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-bin-amd64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-8iyTiWE/ESy5Pj0fZ75ufgEiwK4VUNHFHibEtRe/gSg=",
+            "type": "url",
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.121.0/codex-x86_64-unknown-linux-gnu.zst"
+        },
+        "version": "0.121.0"
+    },
+    "codex-bin-arm64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-bin-arm64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-iexQTvFaA7uyqQ3ZC7WHqdKsO++UYgiKl7fAHf/BCzE=",
+            "type": "url",
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.121.0/codex-aarch64-apple-darwin.zst"
+        },
+        "version": "0.121.0"
+    },
+    "codex-bin-arm64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-bin-arm64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-JxWxOea59yKbHdk34SP4ewjW3fjMwHltPm82xtRRgXI=",
+            "type": "url",
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.121.0/codex-aarch64-unknown-linux-gnu.zst"
+        },
+        "version": "0.121.0"
+    },
+    "create-tauri-app": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-NBMOB_CQiJkm67oBO2CVYYMSHZw_iTjzzYWNj0Hk1jE=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "create-tauri-app",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -15,10 +172,83 @@
             "name": null,
             "owner": "tauri-apps",
             "repo": "create-tauri-app",
-            "rev": "create-tauri-app-v3.13.14",
-            "sha256": "sha256-bhmsN1OrhbTfaj3a7vab6OQGPSX/Fmv6mJRi42mF5X8=",
+            "rev": "create-tauri-app-v4.7.0",
+            "sha256": "sha256-NBMOB/CQiJkm67oBO2CVYYMSHZw/iTjzzYWNj0Hk1jE=",
+            "sparseCheckout": [],
             "type": "github"
         },
-        "version": "create-tauri-app-v3.13.14"
+        "version": "create-tauri-app-v4.7.0"
+    },
+    "dingtalk-bin-amd64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dingtalk-bin-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-7EkvEv6r7ONHAupH48/BoWSuLo2r3umwXnSjpeTeIdU=",
+            "type": "url",
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.1.0.6021101_amd64.deb"
+        },
+        "version": "8.1.0.6021101"
+    },
+    "dingtalk-bin-arm64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dingtalk-bin-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-SEKPcpWGmBWQDDQYZ7u9J5sOsXI2QofdeLshzt+0me8=",
+            "type": "url",
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.1.0.6021101_arm64.deb"
+        },
+        "version": "8.1.0.6021101"
+    },
+    "kwok": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kwok",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kubernetes-sigs",
+            "repo": "kwok",
+            "rev": "v0.7.0",
+            "sha256": "sha256-gtDGkAXbNCWUVGL4+C6mOkWwrPcik6+nGEQNrjLb57U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.7.0"
+    },
+    "vagrant-vmware-utility": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "vagrant-vmware-utility",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hashicorp",
+            "repo": "vagrant-vmware-desktop",
+            "rev": "utility-v1.0.24",
+            "sha256": "sha256-CdeJEVdQH3m/D8GsnkXGqaKcrWhqWM6vwcvs3VDA4Lc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "utility-v1.0.24"
     }
 }

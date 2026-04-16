@@ -1,0 +1,37 @@
+name: 'Auto update packages'
+on:
+  workflow_dispatch:
+  schedule:
+    # rebuild everyday at 5:55
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron: '55 5 * * *'
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nixPath:
+          - nixpkgs=channel:nixos-unstable-small
+    # env:
+    #   GIT_SSL_NO_VERIFY: 'true'
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install nix
+      uses: cachix/install-nix-action@v26
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Update nix flake lock
+      run: nix flake update
+    - name: Update Sources
+      run: |
+        nix run nixpkgs#nvfetcher
+        ./update-go-vendorHash.sh
+    - name: Commit back to repository
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: 'auto: update packages'

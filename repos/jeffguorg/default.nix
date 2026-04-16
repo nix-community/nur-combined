@@ -5,16 +5,33 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-
-{ pkgs ? import <nixpkgs> { } }: let
-  sources = pkgs.callPackage ./_sources/generated.nix {};
-in {
+{ pkgs ? (
+    let
+      inherit (builtins) fetchTree fromJSON readFile;
+      inherit ((fromJSON (readFile ./flake.lock)).nodes) nixpkgs gomod2nix;
+    in
+    import (fetchTree nixpkgs.locked) {
+      overlays = [
+        (import "${fetchTree gomod2nix.locked}/overlay.nix")
+      ];
+    }
+  )
+}:
+let
+  sources = pkgs.callPackage ./_sources/generated.nix { };
+  callPackage = pkgs.lib.callPackageWith (pkgs // { inherit sources; });
+in
+{
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  cargo-create-tauri-app = pkgs.callPackage ./pkgs/cargo-create-tauri-app {
-    inherit sources;
-  };
+  create-tauri-app = callPackage ./pkgs/create-tauri-app {};
+  claude-code-bin = callPackage ./pkgs/claude-code {};
+  codex = (callPackage ./pkgs/codex {}).codex;
+  codex-bin = (callPackage ./pkgs/codex {}).codex-bin;
+  dingtalk = callPackage ./pkgs/dingtalk {};
+  kwok = pkgs.callPackage ./pkgs/kwok/default.nix {};
+  vagrant-vmware-utility = callPackage ./pkgs/vagrant-vmware-utility.nix {};
 }
