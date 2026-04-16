@@ -155,10 +155,10 @@ eachSystemOp (
   # Merge outputs for each system.
   f: attrs: system:
   let
-    default = f system (mkPackages system);
-    crosspkgs = map (platform: {
-      inherit platform;
-      packages = mkCrossPackages system platform;
+    flake = f system (mkPackages system);
+    crosses = map (platform: {
+      platform = nixpkgs.lib.systems.elaborate platform;
+      flake = f system (mkCrossPackages system platform);
     }) platforms;
   in
 
@@ -168,7 +168,7 @@ eachSystemOp (
       # Set as <attr>.value
       attrs
       // {
-        ${key} = (attrs.${key} or { }) // default.${key};
+        ${key} = (attrs.${key} or { }) // flake.${key};
       }
     else if builtins.elem key crossAttrs then
       # Set as <attr>.<system>.value that merges cross-compilation outputs for each system
@@ -185,14 +185,14 @@ eachSystemOp (
                       (prev.passthru or { })
                       // builtins.listToAttrs (
                         builtins.filter (pv: pv.value != null) (
-                          map (crosspkg: {
-                            name = crosspkg.platform.config;
+                          map (cross: {
+                            name = cross.platform.config;
                             value =
-                              if (nixpkgs.lib.meta.availableOn (nixpkgs.lib.systems.elaborate crosspkg.platform) package) then
-                                fixPackage crosspkg.packages.${key}.${name}
+                              if (nixpkgs.lib.meta.availableOn cross.platform package) then
+                                fixPackage cross.flake.${key}.${name}
                               else
                                 null;
-                          }) crosspkgs
+                          }) crosses
                         )
                       );
                   }
@@ -201,7 +201,7 @@ eachSystemOp (
               (
                 nixpkgs.lib.filterAttrs (
                   _: package: nixpkgs.lib.meta.availableOn { inherit system; } package
-                ) default.${key}
+                ) flake.${key}
               );
         };
       }
@@ -210,8 +210,8 @@ eachSystemOp (
       attrs
       // {
         ${key} = (attrs.${key} or { }) // {
-          ${system} = default.${key};
+          ${system} = flake.${key};
         };
       }
-  ) attrs (builtins.attrNames default)
+  ) attrs (builtins.attrNames flake)
 ) systems
