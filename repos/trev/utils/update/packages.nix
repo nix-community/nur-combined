@@ -4,8 +4,7 @@
 }:
 let
   packages =
-    pkgs.lib.filterAttrs
-      (_: pkg: pkg ? meta && pkg.meta ? platforms && builtins.elem system pkg.meta.platforms)
+    pkgs.lib.filterAttrs (_: package: pkgs.lib.meta.availableOn { inherit system; } package)
       (
         import ../../packages {
           inherit system pkgs;

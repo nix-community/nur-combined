@@ -64,7 +64,7 @@
 
       packages = forEachSystem (
         system: pkgs:
-        pkgs.lib.filterAttrs (_: v: builtins.elem system (v.meta.platforms or [ system ])) (
+        pkgs.lib.filterAttrs (_: package: pkgs.lib.meta.availableOn { inherit system; } package) (
           import ./packages {
             inherit system pkgs;
           }
