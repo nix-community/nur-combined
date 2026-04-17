@@ -57,7 +57,7 @@ Formatting is configured through `treefmt-nix`.
 | `flake.nix` | Flake entrypoint using `flake-parts` |
 | `default.nix` | Classic NUR export surface |
 | `ci.nix` | CI build/cache selection |
-| `parts/` | Flake parts for packages, dev shell, and formatting |
+| `flake/` | Flake parts for packages, dev shell, and formatting |
 | `pkgs/` | Package definitions and grouped package sets |
 | `hm-modules/` | Exported Home Manager modules |
 | `scripts/` | Maintenance helpers |
