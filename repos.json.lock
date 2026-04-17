@@ -552,8 +552,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "charmbracelet": {
-            "rev": "f5c03c789c4f921c8f577d25383925e9469fc72b",
-            "sha256": "1rhzwfgps58qmfmxrmm72sa14z98hi2asqcaw32lhs8b8zrbi662",
+            "rev": "4ff778843c475d1c404899ba2cfcf99a6499d49c",
+            "sha256": "0pi7yzj0rg8wbwwhwxava4983xz9yzflz8jssb073cz9liznmi7j",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
@@ -622,8 +622,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "a549095d50a41880390e281eb1da6316358455fb",
-            "sha256": "06swzrwaxygrsxr9w4n683l9s5yvylcn6p10pvsbkx3w9s32v2ga",
+            "rev": "0d26f0bc95c7e4833d1ba43058da7281da98e272",
+            "sha256": "1n8bcyc75y5kyc1p8v1dswl8zaf8md55chclchfncrh5bix11v9h",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
