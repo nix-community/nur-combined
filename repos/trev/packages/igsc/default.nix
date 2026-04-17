@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "intel";
     repo = "igsc";
-    rev = "V${finalAttrs.version}";
+    tag = "V${finalAttrs.version}";
     hash = "sha256-eBN05r2o6MUTJvIrkwY2uic7afj6YMHvt/apHyyGgug=";
   };
 

@@ -20,7 +20,7 @@ let
   });
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "appimage-type2-runtime";
+  pname = "type2-runtime";
   version = "unstable-2026-03-07";
 
   src = fetchFromGitHub {
