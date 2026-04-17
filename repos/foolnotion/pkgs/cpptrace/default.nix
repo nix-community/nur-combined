@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libdwarf zstd ];
+  propagatedBuildInputs = [ libdwarf zstd ];
 
   cmakeFlags = [
     "-DCPPTRACE_GET_SYMBOLS_WITH_LIBDWARF=1"

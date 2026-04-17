@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ cpptrace magic-enum zstd libdwarf ];
+  propagatedBuildInputs = [ cpptrace magic-enum zstd libdwarf ];
 
   cmakeFlags = [
     "-DLIBASSERT_USE_EXTERNAL_CPPTRACE=1"
