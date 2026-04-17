@@ -10,8 +10,8 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 package_file="$script_dir/default.nix"
 
 echo "Checking latest version"
-latest_version=$("$script_dir/../../.github/script/github-tag-fetch.sh" "${owner}/${repo}")
-latest_version="${latest_version#v}"
+raw_tag=$("$script_dir/../../.github/script/github-tag-fetch.sh" "${owner}/${repo}")
+latest_version="${raw_tag#v}"
 echo "Latest version: $latest_version"
 
 current_version=$(grep -oP '^\s*version\s*=\s*"\K[0-9.]+' "$package_file")
@@ -24,18 +24,17 @@ fi
 
 echo "⚡ Update needed: $current_version -> $latest_version"
 
+bash +x $script_dir/patch.sh "$raw_tag"
+
 # Dummy hashes
 dummy_src="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
-dummy_pnpm="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+dummy_pnpm="sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB="
 
 # Update version
 sed -i -E "s|(version\s*=\s*\")[0-9.]+(\")|\1${latest_version}\2|" "$package_file"
 
-# Set dummy hashes for src and pnpmDeps
-sed -i -zE "s|(src = fetchFromGitHub \{[^}]*hash = \")[^\"]*(\")|\1${dummy_src}\2|" "$package_file"
-sed -i -zE "s|(pnpmDeps = fetchPnpmDeps \{[^}]*hash = \")[^\"]*(\")|\1${dummy_pnpm}\2|" "$package_file"
-
 echo "Building to get src hash..."
+sed -i -E '/baseSrc =/,/hash =/ s/(hash = ")[^"]*(")/\1'"$dummy_src"'\2/' "$package_file"
 output=$(nix build ./#vidbee 2>&1 || true)
 
 src_hash=$(echo "$output" | grep -oP 'got:\s*\Ksha256-[A-Za-z0-9+/=]+' | head -n1)
@@ -50,6 +49,7 @@ echo "New src hash: $src_hash"
 sed -i -zE "s|${dummy_src}|${src_hash}|" "$package_file"
 
 echo "Building to get pnpmDeps hash..."
+sed -i -E '/pnpmDeps = fetchPnpmDeps/,/hash =/ s/(hash = ")[^"]*(")/\1'"$dummy_pnpm"'\2/' "$package_file"
 output=$(nix build ./#vidbee 2>&1 || true)
 
 pnpm_hash=$(echo "$output" | grep -oP 'got:\s*\Ksha256-[A-Za-z0-9+/=]+' | head -n1)

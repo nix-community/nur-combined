@@ -1,0 +1,56 @@
+{
+  "name": "vidbee-workspace",
+  "private": true,
+  "scripts": {
+    "check": "pnpm --filter ./apps/desktop run check",
+    "check:i18n": "pnpm --filter ./apps/desktop run check:i18n",
+    "typecheck": "pnpm --filter ./apps/desktop run typecheck",
+    "dev": "pnpm --filter ./apps/desktop run dev",
+    "dev:update-notice": "pnpm --filter ./apps/desktop run dev:update-notice",
+    "start": "pnpm --filter ./apps/desktop run start",
+    "build": "pnpm --filter ./apps/desktop run build",
+    "setup": "pnpm --filter ./apps/desktop run setup",
+    "build:unpack": "pnpm --filter ./apps/desktop run build:unpack",
+    "build:win": "pnpm --filter ./apps/desktop run build:win",
+    "build:mac": "pnpm --filter ./apps/desktop run build:mac",
+    "build:linux": "pnpm --filter ./apps/desktop run build:linux",
+    "release": "pnpm --filter ./apps/desktop run release",
+    "db:generate": "pnpm --filter ./apps/desktop run db:generate",
+    "db:migrate": "pnpm --filter ./apps/desktop run db:migrate",
+    "fix": "pnpm --filter ./apps/desktop run fix",
+    "dev:desktop": "pnpm --filter ./apps/desktop run dev",
+    "build:desktop": "pnpm --filter ./apps/desktop run build",
+    "dev:api": "pnpm --filter ./apps/api run dev",
+    "start:api": "pnpm --filter ./apps/api run start",
+    "check:api": "pnpm --filter ./apps/api run check",
+    "dev:web": "pnpm --filter ./apps/web run dev",
+    "start:web": "pnpm -r --parallel --filter ./apps/api --filter ./apps/web run dev",
+    "build:web": "pnpm --filter ./apps/web run build",
+    "check:web": "pnpm --filter ./apps/web run check",
+    "dev:docs": "pnpm --filter ./apps/docs dev",
+    "build:docs": "pnpm --filter ./apps/docs build",
+    "dev:extension": "pnpm --filter ./apps/extension dev",
+    "build:extension": "pnpm --filter ./apps/extension build",
+    "zip:extension": "pnpm --filter ./apps/extension zip",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
+    "electron": "^38.3.0",
+    "husky": "^9.1.7"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "electron",
+      "esbuild"
+    ],
+    "overrides": {
+      "better-sqlite3": "12.8.0"
+    }
+  },
+  "dependencies": {
+    "@sentry/browser": "^10.49.0"
+  }
+}

@@ -1,4 +1,5 @@
 {
+  runCommand,
   fetchFromGitHub,
   lib,
   nodejs,
@@ -16,23 +17,35 @@
   ffmpeg,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+let
   pname = "vidbee";
 
   version = "1.3.10";
 
-  src = fetchFromGitHub {
+  baseSrc = fetchFromGitHub {
     owner = "nexmoe";
     repo = "VidBee";
-    tag = "v${finalAttrs.version}";
+    tag = "v${version}";
     hash = "sha256-7gzs12EE8fIX482OQUorBjFeigcxPlJpoIx/AjpLcg0=";
   };
+
+  src = runCommand "vidbee-src" { } ''
+    mkdir -p $out
+    cp -r ${baseSrc}/* $out/
+    chmod -R +w $out
+    cp ${./package.json} $out/package.json
+    cp ${./pnpm-lock.yaml} $out/pnpm-lock.yaml
+  '';
+
+in
+stdenv.mkDerivation (finalAttrs: {
+  inherit pname version src;
 
   pnpmDeps = fetchPnpmDeps {
     pname = finalAttrs.pname;
     inherit (finalAttrs) version src;
     pnpm = pnpm_10;
-    hash = "sha256-nq7tKqOIvfDyGMF8SvtTXn9x5ZpLJOAEuiBsLxAqVxM=";
+    hash = "sha256-7yWkkHta+eBDsN0LF/37UkhmPBDGs5yfucg5QuqFkuQ=";
     fetcherVersion = 3;
   };
 
@@ -120,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Remove dev dependencies to reduce closure size
     # Use --ignore-scripts to skip prepare scripts (husky)
-    CI=true pnpm prune --prod --ignore-scripts
+    CI=true pnpm prune --prod=false --ignore-scripts
 
     runHook postBuild
   '';
@@ -178,6 +191,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = ./update.sh;
 
   meta = {
     description = "A modern Electron application for downloading videos and audios";
