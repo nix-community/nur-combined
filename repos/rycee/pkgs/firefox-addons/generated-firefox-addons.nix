@@ -9779,10 +9779,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.0.37";
+      version = "1.0.38";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4740130/mergify-1.0.37.xpi";
-      sha256 = "2c258f7961732ed2247c44b52998ec86bf326b5379c9c974b3e108411fb6796c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4768348/mergify-1.0.38.xpi";
+      sha256 = "4aed7f14ab90e5d3d8fd172d1cd46059054deb56561830a01ddfcfdeaa2f86bf";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -14597,10 +14597,10 @@
     };
     "tabwrangler" = buildMozillaXpiAddon {
       pname = "tabwrangler";
-      version = "8.1.0";
+      version = "8.2.0";
       addonId = "{81b74d53-9416-4fb3-afa2-ab46684b253b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4753653/tabwrangler-8.1.0.xpi";
-      sha256 = "944398e054b9b6a47211841000afa95e1805f638b744238515f553d097c2f38a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4768538/tabwrangler-8.2.0.xpi";
+      sha256 = "4827e0589f1253f48d63e535e0c3b0e2b7d7ade24f9fd1070acffdd48692d4d3";
       meta = with lib;
       {
         homepage = "https://github.com/tabwrangler/tabwrangler/";
@@ -14611,6 +14611,7 @@
           "contextMenus"
           "sessions"
           "storage"
+          "tabGroups"
           "tabs"
         ];
         platforms = platforms.all;
@@ -17239,10 +17240,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.16.1";
+      version = "1.16.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4767055/youtube_auto_hd_fps-1.16.1.xpi";
-      sha256 = "47807b4b325c73043e1405bc6ff47051371861188a955f9ac257826796554f3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4761591/youtube_auto_hd_fps-1.16.0.xpi";
+      sha256 = "8225dfbb6dbccbf4cea4a8e2830770ac26355660298b62375a61e744b77132e0";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
