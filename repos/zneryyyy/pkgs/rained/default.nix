@@ -14,7 +14,7 @@
 
 buildDotnetModule rec {
   name = "rained";
-  version = "2.4.0";
+  version = "2.5.0";
 
   src = fetchgit {
     url = "https://github.com/pkhead/rained.git";
