@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "54f73871314b659e62e4076e82073aa066eddabe",
-            "sha256": "1nxavzvlpl4sq1kp8m30aj1r6rvna3fwqzg3hi4gql22a1i7krsh",
+            "rev": "f27e33ac95d4d33fe35e552d4d8a0c09232534e2",
+            "sha256": "1n8r1d9pql3gdrigi48y570981gi6sfq8s9n9qmx35xn80k2rh2s",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "46a6a9d6885d165da373204b21343e2957def539",
-            "sha256": "0l6xlwmbma3612jz66bddkmy44c56x17xx9vrs191kvwajxfavm6",
+            "rev": "ac66a2c3a2b4fc01f31d68812f3dc6b4857846ad",
+            "sha256": "1zsfgaxm8601vrcl2kavaq3xjqgdd71kca3llyrz2mgj9igjkhy1",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "7b695f595fef50fbd4de48787ff9da13c2c25199",
-            "sha256": "1cwqr4pf3a48gs6g8921i26x9lpcxlzgdds7137jgmv3ibfq5jrs",
+            "rev": "5f176e716ce397244dcfe92cf00815cdfab61aa9",
+            "sha256": "0gvrxpmpd1bawgcwl35cd7l0yh20z2ca55f06l7cv9jcyjrp4jdq",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
