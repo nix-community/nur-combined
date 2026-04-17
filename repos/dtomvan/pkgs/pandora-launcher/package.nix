@@ -38,10 +38,12 @@
 
   apple-sdk_15,
 
+  jdk25,
   jdk21,
   jdk17,
   jdk8,
   jdks ? [
+    jdk25
     jdk21
     jdk17
     jdk8
