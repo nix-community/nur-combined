@@ -44,13 +44,13 @@
   };
   helium-linux = {
     pname = "helium-linux";
-    version = "0.11.2.1";
+    version = "0.11.3.2";
     src = fetchFromGitHub {
       owner = "imputnet";
       repo = "helium-linux";
-      rev = "0.11.2.1";
+      rev = "0.11.3.2";
       fetchSubmodules = false;
-      sha256 = "sha256-QJ2wbsWmXcxbfWubfhVXGodOiwXRqzA5/Hj9TlY6x8c=";
+      sha256 = "sha256-d+EWjiKyhEsBTOlrsDA7h8RrTjAgPtXUt3KVc6baKeU=";
     };
   };
   helium-macos = {
