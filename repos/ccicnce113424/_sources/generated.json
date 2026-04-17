@@ -159,7 +159,7 @@
     "krunner-zed": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-OYR4G0EKj_kDAZZ7qeNacwueMbzHeDyp1l+apLlGzLM=/Cargo.lock",
+                "sha256-yG2pbISlDSrNJkmb2vSlg8WWXQk1xTBY77O2cvDUdX8=/Cargo.lock",
                 {}
             ]
         },
@@ -175,12 +175,12 @@
             "name": null,
             "owner": "hron",
             "repo": "krunner-zed",
-            "rev": "v0.1.1",
-            "sha256": "sha256-OYR4G0EKj/kDAZZ7qeNacwueMbzHeDyp1l+apLlGzLM=",
+            "rev": "v0.1.2",
+            "sha256": "sha256-yG2pbISlDSrNJkmb2vSlg8WWXQk1xTBY77O2cvDUdX8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.1"
+        "version": "v0.1.2"
     },
     "linux-enable-ir-emitter": {
         "cargoLock": {
@@ -303,7 +303,7 @@
     "motrix-next": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-zphEVNmq5cCoEKvvyS0adRIRKEb3lQm8lQc_UXJjAvk=/src-tauri/Cargo.lock",
+                "sha256-K1xoKm3MKv6pyKgxmOu14NPZkmID_zgfN3R1TCzsRMQ=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -319,12 +319,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.7.1-beta.2",
-            "sha256": "sha256-zphEVNmq5cCoEKvvyS0adRIRKEb3lQm8lQc/UXJjAvk=",
+            "rev": "v3.7.1-beta.3",
+            "sha256": "sha256-K1xoKm3MKv6pyKgxmOu14NPZkmID/zgfN3R1TCzsRMQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.7.1-beta.2"
+        "version": "v3.7.1-beta.3"
     },
     "piliplus": {
         "cargoLock": null,
@@ -398,11 +398,11 @@
     "splayer-git": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-1W_PmFo6ajnK3scU2NQoCGurjJjcTQEaQ3LOlJmB77Y=/Cargo.lock",
+                "sha256-vIiaIb__XM9Fdtp+E2kcy8HefgVV7F9Sr6Q81H0XmJ4=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-04-12",
+        "date": "2026-04-17",
         "extract": null,
         "name": "splayer-git",
         "passthru": null,
@@ -414,12 +414,12 @@
             "name": null,
             "owner": "imsyy",
             "repo": "SPlayer",
-            "rev": "2268036eee6a6cd3ef028bdca53ed7effa9ef09d",
-            "sha256": "sha256-1W/PmFo6ajnK3scU2NQoCGurjJjcTQEaQ3LOlJmB77Y=",
+            "rev": "ed080dd9e2176614092d2e18cbb5c243c5f3bcee",
+            "sha256": "sha256-vIiaIb//XM9Fdtp+E2kcy8HefgVV7F9Sr6Q81H0XmJ4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2268036eee6a6cd3ef028bdca53ed7effa9ef09d"
+        "version": "ed080dd9e2176614092d2e18cbb5c243c5f3bcee"
     },
     "splayer-kde-bar-lyc": {
         "cargoLock": null,
