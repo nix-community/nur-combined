@@ -63,10 +63,8 @@ in
   mihomo-smart = pkgs.callPackage ./pkgs/mihomo-smart.nix { };
   StartLive = pkgs.callPackage ./pkgs/StartLive.nix { };
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix { };
-  Fladder = pkgs.callPackage ./pkgs/Fladder { };
   mcp-cli = pkgs.callPackage ./pkgs/mcp-cli.nix { };
   agentic-contract = pkgs.callPackage ./pkgs/agentic-contract.nix { };
-  snip = pkgs.callPackage ./pkgs/snip.nix { };
   lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
   hyprland-mcp-server = pkgs.callPackage ./pkgs/hyprland-mcp-server.nix { };
 }

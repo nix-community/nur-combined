@@ -55,10 +55,10 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "wechat-web-devtools-linux";
-  version = "2.01.2510290-1";
+  version = "2.01.2510290-2";
   src = fetchurl {
     url = "https://github.com/msojocs/${pname}/releases/download/v${version}/WeChat_Dev_Tools_v${version}_x86_64_linux.tar.gz";
-    hash = "sha256-5tnw7IlmUUQh5WjL86uWQT98jYJv57mVbMuAxbMuAeY=";
+    hash = "sha256-LyRXmmhfbTIApzoXU9ayOmfRhVJbtQK2n0pJMwQgMuU=";
   };
 
   nativeBuildInputs = [

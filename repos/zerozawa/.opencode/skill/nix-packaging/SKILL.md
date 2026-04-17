@@ -53,21 +53,6 @@ rustPlatform.buildRustPackage rec {
 }
 ```
 
-### Flutter packages
-
-Example: `pkgs/Fladder/default.nix`
-
-```nix
-flutter.buildFlutterApplication rec {
-  pname = "...";
-  version = "...";
-  pubspecLock = lib.importJSON ./pubspec-lock.json;
-  gitHashes = { ... };
-}
-```
-
-This repo also uses custom Flutter source builders and CI lockfile sync checks for `Fladder`.
-
 ### Go packages
 
 Example: `pkgs/mihomo-smart.nix`
@@ -113,7 +98,6 @@ This repo also contains packages that:
 Examples:
 
 - `pkgs/grub-theme-yorha.nix`
-- custom source builders inside `pkgs/Fladder/default.nix`
 
 Use `stdenv.mkDerivation` or `stdenvNoCC.mkDerivation` for asset packages, extracted binaries, or custom build workflows.
 
@@ -138,7 +122,6 @@ some-package = pkgs.callPackage ./pkgs/some-package.nix { };
 
 - `JMComic-qt` / `picacg-qt`: Python GUI packaging plus runtime wrapping
 - `sr-vulkan`: model composition through `sr-vulkan-models`
-- `Fladder`: Flutter packaging with custom source builders and lockfile tooling
 - `hyprland-mcp-server`: npm packaging plus PATH wrapping
 - `fetchPixiv`: helper-style library export using `fetchurl` fallback URLs
 

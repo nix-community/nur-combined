@@ -49,33 +49,6 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Check paths
-        uses: dorny/paths-filter@v4
-        id: filter
-        with:
-          filters: |
-            fladder:
-              - 'pkgs/Fladder/**'
-      - name: Check pubspec-lock.json sync
-        id: pubspec-check
-        if: steps.filter.outputs.fladder == 'true'
-        run: |
-          nix run .#Fladder.pubspecLock2Json /tmp/new-pubspec-lock.json
-          if diff -q pkgs/Fladder/pubspec-lock.json /tmp/new-pubspec-lock.json > /dev/null; then
-            echo "synced=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "synced=false" >> "$GITHUB_OUTPUT"
-            cp /tmp/new-pubspec-lock.json pkgs/Fladder/pubspec-lock.json
-          fi
-      - name: Sync pubspec-lock.json
-        if: steps.pubspec-check.outputs.synced == 'false'
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add pkgs/Fladder/pubspec-lock.json
-          git commit -m "chore(fladder): sync pubspec-lock.json"
-          git push
-          exit 1  # Exit to let new commit trigger build
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup cachix

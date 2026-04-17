@@ -5,7 +5,7 @@
 ![Build and populate cache](https://github.com/lz37/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-zerozawa-blue.svg)](https://zerozawa.cachix.org)
 
-This repository currently exports **24 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
+This repository currently exports **22 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
 
 ## Current Exports
 
@@ -17,7 +17,6 @@ This repository currently exports **24 packages**, **1 library helper**, and pla
 |---------|-------------|
 | `JMComic-qt` | Qt-based 禁漫天堂 / 18comic desktop client with Vulkan upscaling support |
 | `picacg-qt` | Qt-based PicACG desktop client with Vulkan upscaling support |
-| `Fladder` | Flutter-based Jellyfin frontend |
 | `lightnovel-crawler` | Download light novels and generate e-books |
 
 #### Streaming, networking, and developer tools
@@ -31,7 +30,6 @@ This repository currently exports **24 packages**, **1 library helper**, and pla
 | `agentic-contract` | Policy engine CLI for AI agents |
 | `hyprland-mcp-server` | MCP server for Hyprland automation |
 | `mcp-cli` | Lightweight CLI for interacting with MCP servers |
-| `snip` | CLI proxy for reducing LLM token consumption by filtering shell output |
 
 #### Desktop customization and utilities
 
@@ -87,7 +85,6 @@ This repository currently exports **24 packages**, **1 library helper**, and pla
     JMComic-qt
     picacg-qt
     hyprland-mcp-server
-    snip
   ];
 }
 ```
@@ -155,7 +152,6 @@ nix flake show
 
 - GitHub Actions builds this repository on push, pull request, schedule, and manual dispatch.
 - CI evaluates packages against multiple nixpkgs channels and builds `nix-build ci.nix -A cacheOutputs`.
-- `Fladder` has an additional CI sync check for `pkgs/Fladder/pubspec-lock.json`.
 - Binary cache is published to `https://zerozawa.cachix.org`.
 
 If you want to use the cache locally, prefer declarative Nix configuration instead of commands that mutate the local environment:
