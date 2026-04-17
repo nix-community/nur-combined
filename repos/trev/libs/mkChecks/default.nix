@@ -61,7 +61,7 @@ builtins.mapAttrs (
             fileset =
               let
                 start = check.files or check.fileset or check.root;
-                files = if builtins.isList start then lib.fileset.unions start else start;
+                files = if builtins.isList start then lib.fileset.unions start else lib.fileset.fromSource start;
 
                 filtered =
                   if check ? filter then
