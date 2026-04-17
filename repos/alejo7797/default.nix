@@ -35,6 +35,8 @@
 
   massey-pari = self.callPackage ./pkgs/math/massey-pari { };
 
+  obsidianPackages = self.callPackage ./pkgs/obsidian { };
+
   regina-normal = self.callPackage ./pkgs/math/regina-normal { };
 
   sage = self.callPackage ./pkgs/math/sage { __sage = pkgs.sage; };
