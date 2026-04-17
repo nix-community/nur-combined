@@ -1,6 +1,5 @@
 {
   lib,
-  runtimeShell,
   stdenvNoCC,
 }:
 
@@ -11,14 +10,16 @@ in
 builtins.mapAttrs (
   name: check:
   let
+    nativeCheckInputs =
+      check.deps or check.packages or check.nativeBuildInputs or check.nativeCheckInputs or [ ];
+
     checkPhase = lib.strings.concatLines (
       [
         "runHook preCheck"
         "export HOME=$(mktemp -d)"
         "export TREEFMT_TREE_ROOT=$(pwd)"
+        (check.script or check.checkPhase or "")
       ]
-      ++ lib.optional (check ? checkPhase) check.checkPhase
-      ++ lib.optional (check ? script) check.script
       ++ lib.optional (check ? forEach) ''
         shopt -s globstar
 
@@ -39,20 +40,19 @@ builtins.mapAttrs (
       ++ [ "runHook postCheck" ]
     );
   in
+
   if check ? src && isDerivation check.src then
     check.src.overrideAttrs (
       final: prev: {
         inherit name checkPhase;
 
-        nativeCheckInputs =
-          (prev.nativeCheckInputs or [ ]) ++ (check.deps or check.packages or check.nativeBuildInputs or [ ]);
-
+        nativeCheckInputs = (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
         doCheck = true;
       }
     )
   else
     stdenvNoCC.mkDerivation (finalAttrs: {
-      inherit name checkPhase;
+      inherit name nativeCheckInputs checkPhase;
 
       src =
         if check ? root then
@@ -78,19 +78,10 @@ builtins.mapAttrs (
         else
           check.src;
 
-      nativeBuildInputs = check.deps or check.packages or check.nativeBuildInputs or [ ];
-
       dontConfigure = true;
       dontBuild = true;
       doCheck = true;
-
-      installPhase = ''
-        echo "#!${runtimeShell}" >> $out
-        echo "export PATH=${lib.makeBinPath finalAttrs.nativeBuildInputs}:$PATH" >> $out
-        echo "${finalAttrs.checkPhase}" >> $out
-        chmod +x $out
-      '';
-
+      installPhase = "touch $out";
       dontFixup = true;
     })
 )

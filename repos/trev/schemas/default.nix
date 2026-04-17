@@ -24,23 +24,6 @@ let
         }) output
       );
 
-    mkApp = system: app: {
-      forSystems = [ system ];
-      evalChecks.isValidApp =
-        app ? type
-        && app.type == "app"
-        && app ? program
-        && builtins.isString app.program
-        &&
-          removeAttrs app [
-            "type"
-            "program"
-            "meta"
-          ] == { };
-      what = "App";
-      shortDescription = app.meta.description or "";
-    };
-
     try =
       e: default:
       let
