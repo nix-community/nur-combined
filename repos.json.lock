@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "b5250c867a1861ce30c2660e8b1194acaa5a0fef",
-            "sha256": "15gaynmfmzkqfsprk47nii4iad37m8frndd63hf7h6b7z382f1ni",
+            "rev": "6c209eaf2b3a455b354bfe890d22394789a90033",
+            "sha256": "01zx602qb1xsm7dl9xi9qkr5wklfi3rpvp5vk1ywikbnksll8md0",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
