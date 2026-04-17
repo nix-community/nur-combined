@@ -1,0 +1,34 @@
+{
+  flake.modules.nixos.xmrig =
+    {
+      config,
+      ...
+    }:
+    {
+      systemd.services.xmrig.serviceConfig = {
+        CPUSchedulingPolicy = "idle";
+        Nice = 14;
+      };
+      services.xmrig = {
+        enable = false;
+        settings = {
+          autosave = true;
+          opencl = false;
+          cuda = false;
+          cpu = {
+            enable = true;
+            max-threads-hint = 95;
+          };
+          pools = [
+            {
+              url = "pool.supportxmr.com:443";
+              user = config.data.xmrAddr or "MISSING";
+              keepalive = true;
+              tls = true;
+              pass = config.networking.hostName;
+            }
+          ];
+        };
+      };
+    };
+}

@@ -80,6 +80,23 @@ in
   workspace "surf"
   workspace "chat"
   workspace "mail"
+  // Enable blur behind the foot terminal.
+  window-rule {
+      match app-id="^foot$"
+
+      background-effect {
+          blur true
+      }
+  }
+
+  // Enable blur behind the fuzzel launcher.
+  layer-rule {
+      match namespace="^vicinae$"
+
+      background-effect {
+          blur true
+      }
+  }
 
   window-rule {
       match app-id="Alacritty"

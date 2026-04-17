@@ -1,5 +1,5 @@
-theme = "rose_pine_dawn"
-# theme = "ayu_dark"
+# theme = "rose_pine_dawn"
+theme = "ayu"
 [editor]
 auto-pairs = true
 color-modes = true

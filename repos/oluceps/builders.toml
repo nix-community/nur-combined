@@ -1,0 +1,9 @@
+version = 1
+
+[machines.andesite]
+uri = "ssh://elen@192.168.0.20"
+jobs = 2
+speed-factor = 1.0
+system-types = ["x86_64-linux","i686-linux"]
+supported-features = ["kvm","big-parallel"]
+ssh-key = "/persist/keys/sept"

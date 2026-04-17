@@ -4,6 +4,8 @@
 
 # Solved
 
+## use `nftables.tables` dont use `nftables.ruleset`
+
 ## fix podman with read-only overlayfs /etc
 
 config:
@@ -27,3 +29,5 @@ failed to create network ollama-intel-arc_default: Error response from daemon: o
 ```
 
 due to my `/etc` is read only filesystem.
+
+this should not use `containersConf.settings` to specify rootful podman only config, place config in `/root/.config/containers` instead.

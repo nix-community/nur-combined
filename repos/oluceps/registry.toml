@@ -7,7 +7,7 @@ censor = true
 nat = true
 region = 0
 user = "riro"
-ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4XC7dGxwY7VUPr4t+NtWL+c7pTl8g568jdv6aRbhDZ"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLwF5MrA51dgjMuz5qbUcNXPRH1slpTDROMReuOtbLG"
 link_local_addr = "fe80::216:3eff:fe0f:37d8/64"
 wg_key = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM="
 # identifiers = [{ name = "hastur.local", type = "mdns" }]

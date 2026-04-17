@@ -1,7 +1,7 @@
 {
   lib,
+  config,
   pkgs,
-  user,
   ...
 }: # nu
 ''
@@ -74,7 +74,7 @@
 
 
 
-  let atuin_cache = "/home/${user}/.cache/atuin"
+  let atuin_cache = "/home/${config.identity.user}/.cache/atuin"
 
   if not ($atuin_cache | path exists) {
     mkdir $atuin_cache

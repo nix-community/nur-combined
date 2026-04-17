@@ -1,274 +1,16 @@
 {
   description = "oluceps' flake";
   outputs =
-    inputs@{
-      flake-parts,
-      vaultix,
-      self,
-      ...
-    }:
-    let
-      extraLibs = import ./hosts/lib.nix inputs;
-      flakeModules = map (n: inputs.${n}.flakeModule);
-      defaultOverlays = map (n: inputs.${n}.overlays.default);
-    in
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      { ... }:
-      {
-        imports =
-          (flakeModules [
-            "pre-commit-hooks"
-            "flake-root"
-          ])
-          ++ [
-            ./hosts
-            (import ./topo.nix extraLibs)
-            vaultix.flakeModules.default
-            inputs.nix-topology.flakeModule
-            # inputs.nix-kernelsu-builder.flakeModules.default
-            flake-parts.flakeModules.easyOverlay
-          ];
-        debug = true;
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-          "riscv64-linux"
-        ];
-        perSystem =
-          {
-            pkgs,
-            system,
-            config,
-            lib,
-            ...
-          }:
-          {
-            _module.args.pkgs = import inputs.nixpkgs {
-              inherit system;
-              overlays = defaultOverlays [
-                "fenix"
-                "self"
-                "nuenv"
-              ];
-              config = {
-                allowUnfreePredicate =
-                  pkg:
-                  builtins.elem (lib.getName pkg) [
-                    "veracrypt"
-                    "tetrio-desktop"
-                  ];
-              };
-            };
-            overlayAttrs = config.packages;
-
-            pre-commit = {
-              check.enable = true;
-              settings.hooks = {
-                nixfmt.enable = true;
-                detect-private-keys.enable = true;
-
-                dangerous-marker =
-                  let
-                    checkScript = pkgs.writeShellScript "check-dangerous.sh" ''
-                      if ${pkgs.ripgrep}/bin/rg --line-number --color=always --fixed-strings "# DANGEROUS:" "$@"; then
-                        echo -e "\n\033[0;31m[!] commit forbidden!\033[0m"
-                        exit 1
-                      fi
-                    '';
-                  in
-                  {
-                    enable = true;
-                    name = "Check for dangerous markers";
-
-                    entry = "${checkScript}";
-                    excludes = [ "flake\\.nix" ];
-
-                    language = "system";
-                    pass_filenames = true;
-                    types = [ "text" ];
-                  };
-              };
-            };
-
-            # flake-root.projectRootFile = ".top";
-            devShells.default = pkgs.mkShell {
-              shellHook = config.pre-commit.installationScript;
-              inputsFrom = [ config.flake-root.devShell ];
-              buildInputs = with pkgs; [
-                just
-                rage
-                b3sum
-                nushell
-                radicle-node
-              ];
-            };
-
-            packages =
-              (lib.packagesFromDirectoryRecursive {
-                inherit (pkgs) callPackage;
-                directory = ./pkgs/by-name;
-              })
-              // {
-                default = pkgs.symlinkJoin {
-                  name = "user-pkgs";
-                  paths = import ./userPkgs.nix { inherit pkgs; };
-                };
-              };
-            formatter = pkgs.nixfmt-tree;
-            # kernelsu = {
-            #   gki-kernelsu-next = {
-            #     anyKernelVariant = "kernelsu";
-            #     clangVersion = "latest";
-
-            #     kernelSU = {
-            #       src = pkgs.fetchFromGitHub {
-            #         owner = "tiann";
-            #         repo = "KernelSU";
-            #         rev = "5f751149bda1729c34379df8b01421ca57a1529b";
-            #         hash = "sha256-uuvypweCkERPPW4bLGKfJrZl3zOn7ZiSnmybr/CZdQ8=";
-            #       };
-            #       variant = "custom";
-            #       revision = "32179";
-            #       subdirectory = "KernelSU";
-            #     };
-            #     kernelConfig = ''
-            #       CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,integrity,selinux,smack,tomoyo,apparmor,bpf,baseband_guard"
-
-            #       CONFIG_BPF_STREAM_PARSER=y
-            #       CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=y
-            #       CONFIG_NETFILTER_XT_SET=y
-            #       CONFIG_IP_SET=y
-            #       CONFIG_IP_SET_MAX=65534
-            #       CONFIG_IP_SET_BITMAP_IP=y
-            #       CONFIG_IP_SET_BITMAP_IPMAC=y
-            #       CONFIG_IP_SET_BITMAP_PORT=y
-            #       CONFIG_IP_SET_HASH_IP=y
-            #       CONFIG_IP_SET_HASH_IPMARK=y
-            #       CONFIG_IP_SET_HASH_IPPORT=y
-            #       CONFIG_IP_SET_HASH_IPPORTIP=y
-            #       CONFIG_IP_SET_HASH_IPPORTNET=y
-            #       CONFIG_IP_SET_HASH_IPMAC=y
-            #       CONFIG_IP_SET_HASH_MAC=y
-            #       CONFIG_IP_SET_HASH_NETPORTNET=y
-            #       CONFIG_IP_SET_HASH_NET=y
-            #       CONFIG_IP_SET_HASH_NETNET=y
-            #       CONFIG_IP_SET_HASH_NETPORT=y
-            #       CONFIG_IP_SET_HASH_NETIFACE=y
-            #       CONFIG_IP_SET_LIST_SET=y
-            #       CONFIG_IP6_NF_NAT=y
-            #       CONFIG_IP6_NF_TARGET_MASQUERADE=y
-
-            #       CONFIG_TCP_CONG_ADVANCED=y
-            #       CONFIG_TCP_CONG_BBR=y
-            #       CONFIG_NET_SCH_FQ=y
-            #       CONFIG_TCP_CONG_BIC=n
-            #       CONFIG_TCP_CONG_WESTWOOD=n
-            #       CONFIG_TCP_CONG_HTCP=n
-            #       CONFIG_DEFAULT_BBR=y
-            #       CONFIG_TCP_WINDOW_SCALING=y
-
-            #       # Add additional tmpfs config setting
-            #       CONFIG_TMPFS_XATTR=y
-            #       CONFIG_TMPFS_POSIX_ACL=y
-
-            #       # Add additional config setting
-            #       CONFIG_IP_NF_TARGET_TTL=y
-            #       CONFIG_IP6_NF_TARGET_HL=y
-            #       CONFIG_IP6_NF_MATCH_HL=y
-            #     '';
-            #     bbg.enable = true;
-            #     susfs =
-            #       let
-            #         src = pkgs.fetchFromGitHub {
-            #           owner = "ShirkNeko";
-            #           repo = "susfs4ksu";
-            #           rev = "a442dda6e77c56d74d86b9009951d813642c0673";
-            #           hash = "sha256-zuzyjprh1OGsXQF9FI31BEEoParUoE9GFB6dcwxbad0=";
-            #         };
-            #       in
-            #       {
-            #         enable = false;
-            #         kernelPatch = null;
-            #         inherit src;
-            #       };
-
-            #     kernelDefconfigs = [
-            #       "gki_defconfig"
-            #     ];
-            #     kernelImageName = "Image";
-            #     kernelMakeFlags = [
-            #       "KCFLAGS=\"-w\""
-            #       "KCPPFLAGS=\"-w\""
-            #       "EXTRAVERSION=-android14-11-sukisu+susfs+bbg"
-            #       # "V=1"
-            #     ];
-            #     # kernelPatches = [
-            #     #   "${
-            #     #     pkgs.fetchFromGitHub {
-            #     #       owner = "WildPlusKernel";
-            #     #       repo = "kernel_patches";
-            #     #       rev = "2cbe9ad4797a468415f94d3e5fa8648333030971";
-            #     #       fetchSubmodules = false;
-            #     #       sha256 = "sha256-a+at4quoNttsxx8VtK7qOS4vVJZHSbdMK6hHUearDj8=";
-            #     #     }
-            #     #   }/69_hide_stuff.patch"
-            #     # ];
-            #     kernelSrc = lib.cleanSource /home/riro/Src/android-kernel/common;
-            #     oemBootImg = ./boot.img;
-            #   };
-            # };
-          };
-
-        flake = {
-          vaultix = {
-            nodes =
-              let
-                inherit (inputs.nixpkgs.lib) filterAttrs elem;
-              in
-              filterAttrs (
-                n: _:
-                !elem n [
-                  # "yidhra"
-                  "resq"
-                  "livecd"
-                  "bootstrap"
-                  "nodens"
-                  # "hastur"
-                  # "kaambl"
-                ]
-              ) self.nixosConfigurations;
-            identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
-            extraRecipients = [ extraLibs.data.keys.ageKey ];
-            defaultSecretDirectory = "./sec";
-            cache = "./sec/.cache";
-          };
-          lib = inputs.nixpkgs.lib.extend self.overlays.lib;
-
-          overlays.lib = final: prev: extraLibs;
-
-          nixosModules =
-            let
-              shadowedModules = [ ];
-              modules =
-                let
-                  genModule =
-                    dir: extraLibs.genFilteredDirAttrsV2 dir shadowedModules (n: import (dir + "/${n}.nix"));
-                in
-                (genModule ./modules) // { repack = ./repack; };
-
-              default =
-                { ... }:
-                {
-                  imports = builtins.attrValues modules;
-                };
-            in
-            modules // { inherit default; };
-        };
-      }
-    );
-
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
+      imports = [
+        (inputs.import-tree ./mod)
+      ];
+    };
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:oluceps/nixpkgs/nixos-subids";
+
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-rstable.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
@@ -294,8 +36,8 @@
     browser-previews = {
       url = "github:nix-community/browser-previews";
     };
-    vaultix.url = "github:milieuim/vaultix";
-    # vaultix.url = "/home/riro/Src/vaultix";
+    # vaultix.url = "github:milieuim/vaultix";
+    vaultix.url = "/home/riro/Src/vaultix";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -405,10 +147,10 @@
       url = "github:lordgrimmauld/run0-sudo-shim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    snm.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
     nuanmonito.url = "/home/riro/Src/nuanmonito";
     ranet.url = "/home/riro/Src/ranet";
     ranet-discover.url = "/home/riro/Src/ranet-discover";
+    import-tree.url = "github:vic/import-tree";
     self.submodules = true;
 
   };
