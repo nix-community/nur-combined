@@ -21,7 +21,7 @@ builtins.mapAttrs (
         (check.script or check.checkPhase or "")
       ]
       ++ lib.optional (check ? forEach) ''
-        shopt -s globstar
+        shopt -s globstar dotglob
 
         for_each() {
           local file="$1"
@@ -35,7 +35,7 @@ builtins.mapAttrs (
           fi
         done
 
-        shopt -u globstar
+        shopt -u globstar dotglob
       ''
       ++ [ "runHook postCheck" ]
     );
