@@ -46,13 +46,13 @@ for package in "${!updates[@]}"; do
     if [[ -n "${pr}" ]]; then
         echo "Editing pr"
         gh pr edit "${pr}" \
-            --title "chore(deps): update ${package} to v${version}" \
+            --title "chore(deps): update ${package} to ${version}" \
             --body "${body}"
     else
         echo "Creating pr"
         url=$(
             gh pr create \
-                --title "chore(deps): update ${package} to v${version}" \
+                --title "chore(deps): update ${package} to ${version}" \
                 --body "${body}" \
                 --head "update/${package}" \
                 --base main
@@ -65,7 +65,7 @@ for package in "${!updates[@]}"; do
         --auto \
         --delete-branch \
         --squash \
-        --subject "chore(deps): update ${package} to v${version} (#${pr})" \
+        --subject "chore(deps): update ${package} to ${version} (#${pr})" \
         --body "${body}"
 
     echo "Pruning branches"
