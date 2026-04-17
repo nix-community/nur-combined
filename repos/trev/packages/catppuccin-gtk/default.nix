@@ -59,7 +59,7 @@ lib.checkListOfEnum "catppuccin-gtk-theme: theme variants"
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     pname = "catppuccin-gtk";
-    version = "unstable-2025-10-23";
+    version = "0-unstable-2025-10-23";
 
     src = fetchFromGitHub {
       owner = "Fausto-Korpsvart";
