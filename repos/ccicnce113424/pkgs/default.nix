@@ -10,7 +10,7 @@ in
 {
   algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
-  daed = pkgs.callPackage ./daed { };
+  daed = pkgs.callPackage ./daed/package.nix { };
 
   danmakufactory = pkgs.callPackage ./danmakufactory rec {
     sources = fetchedSrc.danmakufactory;
