@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "c1e7666412a61cfa9d2b78245f3f9cfa427f1c08",
-            "sha256": "1hjij8zmnjj21k78ymm4kr82g1j771kr0kr81ymr02a341i5c277",
+            "rev": "9ffc611d6e802c2bbd5ef79e3f68f1ae3a51e474",
+            "sha256": "00jz0wixw7hfx30d8iks77ckbszpafnlb3mmyb25vm78g52xdmqd",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "cd374e10eda0afd1fa034b92517e69fbf1153997",
-            "sha256": "01g5b5b4zw7g13nwlvy1gkgqcy44b9nb95fhdxwbjm4fwxygc273",
+            "rev": "56ff48ade1a29f95153d8b565e3ebe34a5b24567",
+            "sha256": "0xcnr8y0v356di56787lx6npsbipw245n5yiwg9r5jkp55rpf4jc",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
