@@ -76,8 +76,16 @@ builtins.mapAttrs (
                     )
                   else
                     filtered;
+
+                included =
+                  if check ? include then
+                    lib.fileset.union ignored (
+                      if builtins.isList check.include then lib.fileset.unions check.include else check.include
+                    )
+                  else
+                    ignored;
               in
-              ignored;
+              included;
           }
         else
           check.src;
