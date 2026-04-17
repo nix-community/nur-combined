@@ -2,18 +2,6 @@
   lib,
   helpers,
 }:
-let
-  platformConfigs = [
-    "x86_64-unknown-linux-gnu"
-    "x86_64-unknown-linux-musl"
-    "aarch64-unknown-linux-gnu"
-    "aarch64-unknown-linux-musl"
-    "armv7l-unknown-linux-gnueabihf"
-    "armv7l-unknown-linux-musleabihf"
-    "armv6l-unknown-linux-gnueabihf"
-    "armv6l-unknown-linux-musleabihf"
-  ];
-in
 {
   version = 1;
   doc = ''
@@ -40,7 +28,7 @@ in
                 helpers.try (
                   if lib.isDerivation attrs then
                     let
-                      platforms = lib.filterAttrs (n: _: builtins.elem n platformConfigs) attrs;
+                      platforms = lib.filterAttrs (n: _: builtins.elem n helpers.platforms) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];

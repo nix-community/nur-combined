@@ -2,22 +2,6 @@
   lib,
   helpers,
 }:
-let
-  platformConfigs = [
-    "x86_64-unknown-linux-gnu"
-    "x86_64-unknown-linux-musl"
-    "aarch64-unknown-linux-gnu"
-    "aarch64-unknown-linux-musl"
-    "armv7l-unknown-linux-gnueabihf"
-    "armv7l-unknown-linux-musleabihf"
-    "armv6l-unknown-linux-gnueabihf"
-    "armv6l-unknown-linux-musleabihf"
-    "x86_64-w64-mingw32"
-    "aarch64-w64-mingw32"
-    "x86_64-apple-darwin"
-    "arm64-apple-darwin"
-  ];
-in
 {
   version = 1;
   doc = ''
@@ -47,22 +31,19 @@ in
                 helpers.try (
                   if lib.isDerivation attrs then
                     let
-                      platforms = builtins.filter (platform: builtins.hasAttr platform attrs) platformConfigs;
+                      platforms = lib.filterAttrs (n: _: builtins.elem n helpers.platforms) attrs;
                     in
                     {
                       forSystems = [ attrs.system ];
                       shortDescription = attrs.meta.description or "";
                       what = "Package";
+                      derivationAttrPath = [ ];
                     }
                     // (
-                      if builtins.length platforms == 0 then
-                        {
-                          derivationAttrPath = [ ];
-                        }
+                      if helpers.isSingle platforms then
+                        { }
                       else
-                        {
-                          derivationAttrPath = platforms;
-                        }
+                        { children = recurse (prefix + attrName + ".") platforms; }
                     )
 
                   else
