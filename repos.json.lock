@@ -1441,8 +1441,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "84a9500213dbdc7b13376f31ac01f7b39d137b6e",
-            "sha256": "1kiqvxa628xix5cc6d81clmzv7fkd4zhwqdk4bpypvfrx8a0ybxa",
+            "rev": "26cbaca5318869d440dcb9b9d0dae50a8eb6e5f5",
+            "sha256": "1hsg0xhxzlch7z00d0dc5snlvgmkcnjr1ipi9zsg6irhr6gkp1hn",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
