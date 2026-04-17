@@ -256,8 +256,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "be0aa8fd3090484bc3e01b74a4a289f5024c91d9",
-            "sha256": "0d0ywbzc8hw1k9cjq6q1sw5xb7pf3kd5c0kmxc1qzmpjianmyf9x",
+            "rev": "d61853a42edc1d1bdb17a9fc2f820d016444ffdd",
+            "sha256": "17fbcb83kx3cjjmynxfxjw7lkzmz69yg71v2aqhp23d36kfazr95",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -2662,8 +2662,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "68f6968b06672a78027fc2b213c934d22cd9180d",
-            "sha256": "10mbayn6f11hx7vi86i8dfscwz4g2x66gii84pl0rz8mddlakkpp",
+            "rev": "589f4ed64f6df86de21f0bd40c025cf9a33d22c9",
+            "sha256": "011ffir625ydhxm73wbmhh61wbkbvn0hqs05n6hbfanb8ylbk2mq",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
