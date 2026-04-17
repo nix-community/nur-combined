@@ -2,23 +2,20 @@
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
 }:
+let
+  libs = import ../libs { inherit system pkgs; };
+in
 {
-  docker =
+  image =
     drv:
-    import ./docker {
-      inherit drv pkgs;
+    libs.mkImage {
+      src = drv;
     };
 
-  docker-stream =
+  appimage =
     drv:
-    import ./docker/stream.nix {
-      inherit drv pkgs;
-    };
-
-  cross =
-    drv:
-    import ./cross {
-      inherit drv pkgs;
+    libs.mkAppImage {
+      src = drv;
     };
 }
 // import ./deno/all.nix {

@@ -131,29 +131,38 @@ devShells.x86_64-linux.default = pkgs.mkShell {
 
 OCI container images for docker/podman
 
-### nix
+### nix ([nixos/nix](https://hub.docker.com/r/nixos/nix))
 
-### ffmpeg
+```elm
+nix build github:spotdemo4/nur#images.x86_64-linux.nix &&
+docker load -i result
+```
+
+### ffmpeg ([linuxserver/ffmpeg](https://hub.docker.com/r/linuxserver/ffmpeg))
+
+```elm
+nix build github:spotdemo4/nur#images.x86_64-linux.ffmpeg &&
+docker load -i result
+```
 
 ## Bundlers
 
 A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-bundle)
 
-### deno-`system`
+### image
 
-Overrides `pkgs.buildNpmPackage` to build an npm package for the given system with [deno compile](https://docs.deno.com/runtime/reference/cli/compile/)
+A better alternative to `github:NixOS/bundlers#toDockerImage` that also sets `org.opencontainers.image` labels according to the packages `meta` attributes
 
 ```elm
-nix bundle --bundler github:spotdemo4/nur#deno-x86_64-linux
+nix bundle --bundler github:spotdemo4/nur#image
 ```
 
-### docker & docker-stream
+### appimage
 
-A better alternative to `github:NixOS/bundlers#toDockerImage` that also sets `org.opencontainers.image` labels according to the packages `meta` attributes.
+An alternative to [`ralismark/nix-appimage`](https://github.com/ralismark/nix-appimage) that uses bwrap to create compressed AppImages
 
 ```elm
-nix bundle --bundler github:spotdemo4/nur#docker # buildLayeredImage
-nix bundle --bundler github:spotdemo4/nur#docker-stream # streamLayeredImage
+nix bundle --bundler github:spotdemo4/nur#image
 ```
 
 ## Libs
