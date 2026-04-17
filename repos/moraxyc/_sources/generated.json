@@ -601,7 +601,7 @@
     },
     "superpowers-skills": {
         "cargoLock": null,
-        "date": "2026-04-15",
+        "date": "2026-04-16",
         "extract": null,
         "name": "superpowers-skills",
         "passthru": null,
@@ -613,12 +613,12 @@
             "name": null,
             "owner": "obra",
             "repo": "superpowers",
-            "rev": "c4bbe651cb1bc5e7bec6f7effae2b946571f3258",
-            "sha256": "sha256-P2p3jimioQ5OSnwiM7tI+nX1b4xBv7UQ/3bg+c9AyTg=",
+            "rev": "b55764852ac78870e65c6565fb585b6cd8b3c5c9",
+            "sha256": "sha256-cobQloF7Y6K0IC0/6xSnA2Io+fKgk2SRmCwoZZtVCco=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c4bbe651cb1bc5e7bec6f7effae2b946571f3258"
+        "version": "b55764852ac78870e65c6565fb585b6cd8b3c5c9"
     },
     "udpxy": {
         "cargoLock": null,
@@ -650,11 +650,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3pm2ObPJyexYXLsgw0DAbShYBUiuz3wjH1jWzCsQFAU=",
+            "sha256": "sha256-hf/zxYEfB/0WPm/IPIiRxJgAMVnct6SIhW/khTiHcYQ=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604152236/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604162234/geoip.dat"
         },
-        "version": "202604152236"
+        "version": "202604162234"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -665,11 +665,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8pT7EYB49MzPyama7nav5eIlrnc0cp8j1wqJa8hWb90=",
+            "sha256": "sha256-d44CO2JD8WRaBNKvnkHnuJDvn19idE5+pi2nM2Nlsws=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604152236/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604162234/geosite.dat"
         },
-        "version": "202604152236"
+        "version": "202604162234"
     },
     "yass": {
         "cargoLock": null,
