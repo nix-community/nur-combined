@@ -2316,12 +2316,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8816",
-            "sha256": "sha256-SSYvnTe5BI0HTgDedIIarDcDf7APA5fyw08bLiUPZhw=",
+            "rev": "b8833",
+            "sha256": "sha256-8AXOo0Yhbi3jpQFe4Ql+0HZDz/p708GdrbZVepNjITo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8816"
+        "version": "b8833"
     },
     "loralib": {
         "cargoLock": null,
@@ -3566,7 +3566,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2026-04-11",
+        "date": "2026-04-17",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3578,12 +3578,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "fa6a13b17f7f1b4e9928ce4d0f1f05020a85ae1b",
-            "sha256": "sha256-s+6XzvC4A3T4i/bDH2FaXCSyuU7i1pBLZtWqsxn6CFQ=",
+            "rev": "3ec3f0a30dbc5669e815a18c984970e8b21e2010",
+            "sha256": "sha256-Sj8QH1XqGrpdoXdLNyimdxsrKNmFavnMvs1ug2UWqxI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fa6a13b17f7f1b4e9928ce4d0f1f05020a85ae1b"
+        "version": "3ec3f0a30dbc5669e815a18c984970e8b21e2010"
     },
     "qsp-stable": {
         "cargoLock": null,
@@ -3863,7 +3863,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-04-16",
+        "date": "2026-04-17",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3875,12 +3875,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "11b02764dfd56f47cb2207017af9a6a8ee314e05",
-            "sha256": "sha256-McE2+RnvozhBsQAmetvxLJsPXFbH79cIAucOzZYsS1k=",
+            "rev": "4bf3644e1dda3d153147138eb661c789f63b6b45",
+            "sha256": "sha256-lh7/fXsouOE0Gv1omwoX+s5qlG8Sep+DA0Rk+Aoe1FM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "11b02764dfd56f47cb2207017af9a6a8ee314e05"
+        "version": "4bf3644e1dda3d153147138eb661c789f63b6b45"
     },
     "rtpengine-stable": {
         "cargoLock": null,

@@ -1192,12 +1192,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8816";
+    version = "b8833";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8816";
-      hash = "sha256-SSYvnTe5BI0HTgDedIIarDcDf7APA5fyw08bLiUPZhw=";
+      tag = "b8833";
+      hash = "sha256-8AXOo0Yhbi3jpQFe4Ql+0HZDz/p708GdrbZVepNjITo=";
     };
   };
   loralib = {
@@ -1836,14 +1836,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "fa6a13b17f7f1b4e9928ce4d0f1f05020a85ae1b";
+    version = "3ec3f0a30dbc5669e815a18c984970e8b21e2010";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "fa6a13b17f7f1b4e9928ce4d0f1f05020a85ae1b";
-      hash = "sha256-s+6XzvC4A3T4i/bDH2FaXCSyuU7i1pBLZtWqsxn6CFQ=";
+      rev = "3ec3f0a30dbc5669e815a18c984970e8b21e2010";
+      hash = "sha256-Sj8QH1XqGrpdoXdLNyimdxsrKNmFavnMvs1ug2UWqxI=";
     };
-    date = "2026-04-11";
+    date = "2026-04-17";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1986,14 +1986,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "11b02764dfd56f47cb2207017af9a6a8ee314e05";
+    version = "4bf3644e1dda3d153147138eb661c789f63b6b45";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "11b02764dfd56f47cb2207017af9a6a8ee314e05";
-      hash = "sha256-McE2+RnvozhBsQAmetvxLJsPXFbH79cIAucOzZYsS1k=";
+      rev = "4bf3644e1dda3d153147138eb661c789f63b6b45";
+      hash = "sha256-lh7/fXsouOE0Gv1omwoX+s5qlG8Sep+DA0Rk+Aoe1FM=";
     };
-    date = "2026-04-16";
+    date = "2026-04-17";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
