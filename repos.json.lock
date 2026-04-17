@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "6c209eaf2b3a455b354bfe890d22394789a90033",
-            "sha256": "01zx602qb1xsm7dl9xi9qkr5wklfi3rpvp5vk1ywikbnksll8md0",
+            "rev": "cd374e10eda0afd1fa034b92517e69fbf1153997",
+            "sha256": "01g5b5b4zw7g13nwlvy1gkgqcy44b9nb95fhdxwbjm4fwxygc273",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
@@ -2502,8 +2502,8 @@
             "url": "https://github.com/ViZiD/nur-vizqq"
         },
         "vladexa": {
-            "rev": "4a143fcc2bd260d07e40edbf3cffb81f31bbfca1",
-            "sha256": "1f28cq2db33cpd0q9hmgxl2hslcgafv5sr7ipzk4j2f4c3n05805",
+            "rev": "bc0abf1ca6bfbc96f083186041b311250b8f7183",
+            "sha256": "17lli56ly0286r59q38sph22gkynvdp9fw8hg8xmczzm6zjkqk50",
             "url": "https://github.com/VlaDexa/nur-packages"
         },
         "vojtechstep": {
