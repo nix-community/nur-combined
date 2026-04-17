@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "e5cb4b0fdd01b26439c58610d3db359f89b4358d",
-            "sha256": "09mgb6bqppbcwjm5gdr8ni90dr5693ag764a4klq23ra2r7rb3vz",
+            "rev": "52c3bb71b16487692fb422b279f819c154453557",
+            "sha256": "1bryr078kkxhn51vgiwh1cdx5ck1asaww80cp6pr73si7xfg9y03",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
@@ -703,8 +703,8 @@
             "url": "https://github.com/dawidsowa/nur-packages"
         },
         "dcsunset": {
-            "rev": "7fcdee629cf7841a3f2f66879b255418a75ec6a1",
-            "sha256": "0hg5zzr696aif801hs0z49m42x0r0cski762kpf4fpvkixjb6586",
+            "rev": "cd2e825064a4ac24b333a9041bdbb3f4971d41ab",
+            "sha256": "1yqbd3842b9srir8lsjck014r5fy2bvsidfr2dm87sg3ijwi6lqs",
             "url": "https://github.com/DCsunset/nur-packages"
         },
         "deeunderscore": {
