@@ -296,8 +296,8 @@
             "url": "https://github.com/alarsyo/nixos-config"
         },
         "alejo7797": {
-            "rev": "ace836eb5fff89e2f47583788d795303c1969986",
-            "sha256": "0gfy32a0h07r7vww0hfbdy2vsvg7qbfh8vvivac3b664772jldv6",
+            "rev": "b170afe6b4412bcf7117d65567c104ed646b0665",
+            "sha256": "1ja0gdckffccky7adm74jpsgwn7y3fmyrc6hznnssb6yajnb8r28",
             "url": "https://codeberg.org/alejo7797/nix-expressions"
         },
         "aleksana": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "0d7638d6b191e4b76be5b9ebfcdfea9b07b905e0",
-            "sha256": "0g6r24pvrqgkr9dv2spa7sbmmyhq9lxjkipy3ipqlnslmak6q03x",
+            "rev": "b5250c867a1861ce30c2660e8b1194acaa5a0fef",
+            "sha256": "15gaynmfmzkqfsprk47nii4iad37m8frndd63hf7h6b7z382f1ni",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
