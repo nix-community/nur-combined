@@ -1,16 +1,8 @@
 {
   lib,
+  helpers,
 }:
 let
-  isSingle = set: builtins.length (builtins.attrNames set) <= 1;
-  mkChildren = children: { inherit children; };
-  try =
-    e: default:
-    let
-      res = builtins.tryEval e;
-    in
-    if res.success then res.value else default;
-
   platformConfigs = [
     "x86_64-unknown-linux-gnu"
     "x86_64-unknown-linux-musl"
@@ -34,7 +26,7 @@ in
   defaultAttrPath = [ "default" ];
   inventory =
     output:
-    mkChildren (
+    helpers.mkChildren (
       builtins.mapAttrs (systemType: imagesForSystem: {
         forSystems = [ systemType ];
         children =
@@ -45,7 +37,7 @@ in
                 attrName: attrs:
 
                 # Necessary to deal with `AAAAAASomeThingsFailToEvaluate` etc. in Nixpkgs.
-                try (
+                helpers.try (
                   if lib.isDerivation attrs then
                     let
                       platforms = lib.filterAttrs (n: _: builtins.elem n platformConfigs) attrs;
@@ -56,7 +48,12 @@ in
                       derivationAttrPath = [ ];
                       what = "AppImage";
                     }
-                    // (if isSingle platforms then { } else { children = recurse (prefix + attrName + ".") platforms; })
+                    // (
+                      if helpers.isSingle platforms then
+                        { }
+                      else
+                        { children = recurse (prefix + attrName + ".") platforms; }
+                    )
 
                   else
 

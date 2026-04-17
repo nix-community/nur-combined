@@ -1,16 +1,8 @@
 {
   lib,
+  helpers,
 }:
 let
-  isEmpty = set: builtins.attrNames set == [ ];
-  mkChildren = children: { inherit children; };
-  try =
-    e: default:
-    let
-      res = builtins.tryEval e;
-    in
-    if res.success then res.value else default;
-
   platformConfigs = [
     "x86_64-unknown-linux-gnu"
     "x86_64-unknown-linux-musl"
@@ -41,7 +33,7 @@ in
   defaultAttrPath = [ "default" ];
   inventory =
     output:
-    mkChildren (
+    helpers.mkChildren (
       builtins.mapAttrs (systemType: packagesForSystem: {
         forSystems = [ systemType ];
         children =
@@ -52,18 +44,26 @@ in
                 attrName: attrs:
 
                 # Necessary to deal with `AAAAAASomeThingsFailToEvaluate` etc. in Nixpkgs.
-                try (
+                helpers.try (
                   if lib.isDerivation attrs then
                     let
-                      platforms = lib.filterAttrs (n: _: builtins.elem n platformConfigs) attrs;
+                      platforms = builtins.filter (platform: builtins.hasAttr platform attrs) platformConfigs;
                     in
                     {
                       forSystems = [ attrs.system ];
                       shortDescription = attrs.meta.description or "";
-                      derivationAttrPath = [ ];
                       what = "Package";
                     }
-                    // (if isEmpty platforms then { } else { children = recurse (prefix + attrName + ".") platforms; })
+                    // (
+                      if builtins.length platforms == 0 then
+                        {
+                          derivationAttrPath = [ ];
+                        }
+                      else
+                        {
+                          derivationAttrPath = platforms;
+                        }
+                    )
 
                   else
 

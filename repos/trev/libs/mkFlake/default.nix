@@ -160,6 +160,13 @@ let
     else
       package;
 
+  tryEval =
+    package:
+    let
+      res = builtins.tryEval package;
+    in
+    if res.success then res.value else null;
+
   # Applies a merge operation across systems.
   eachSystemOp =
     op: systems: f:
@@ -211,7 +218,7 @@ eachSystemOp (
                             name = cross.platform.config;
                             value =
                               if (nixpkgs.lib.meta.availableOn cross.platform package) then
-                                fixWindows (fixDarwin (fixStatic (cross.flake.${key}.${name})))
+                                tryEval (fixWindows (fixDarwin (fixStatic (cross.flake.${key}.${name}))))
                               else
                                 null;
                           }) crosses

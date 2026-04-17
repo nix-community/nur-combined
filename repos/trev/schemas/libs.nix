@@ -1,7 +1,4 @@
-{ }:
-let
-  mkChildren = children: { inherit children; };
-in
+{ helpers }:
 {
   version = 1;
   doc = ''
@@ -9,13 +6,13 @@ in
   '';
   inventory =
     output:
-    mkChildren (
+    helpers.mkChildren (
       builtins.mapAttrs (
         name: def:
         if builtins.isFunction def then
           {
             shortDescription = "helper function";
-            what = "helper function";
+            what = "Helper function";
           }
         else
           {
