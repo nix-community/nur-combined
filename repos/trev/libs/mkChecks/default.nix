@@ -43,7 +43,12 @@ builtins.mapAttrs (
 
   if check ? src && isDerivation check.src then
     check.src.overrideAttrs (
-      final: prev: {
+      _: prev:
+      (removeAttrs check [
+        "src"
+        "script"
+      ])
+      // {
         inherit name checkPhase;
 
         nativeCheckInputs = (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
