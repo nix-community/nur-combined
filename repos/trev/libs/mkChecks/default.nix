@@ -60,20 +60,24 @@ builtins.mapAttrs (
             root = check.root;
             fileset =
               let
-                set =
-                  if check ? fileset then
-                    check.fileset
-                  else if check ? filter then
-                    lib.fileset.fileFilter check.filter check.root
+                start = check.files or check.fileset or check.root;
+                files = if builtins.isList start then lib.fileset.unions start else start;
+
+                filtered =
+                  if check ? filter then
+                    lib.fileset.intersection files (lib.fileset.fileFilter check.filter check.root)
                   else
-                    check.root;
+                    files;
+
+                ignored =
+                  if check ? ignore then
+                    lib.fileset.difference filtered (
+                      if builtins.isList check.ignore then lib.fileset.unions check.ignore else check.ignore
+                    )
+                  else
+                    filtered;
               in
-              if check ? ignore then
-                lib.fileset.difference set (
-                  if builtins.isList check.ignore then lib.fileset.unions check.ignore else check.ignore
-                )
-              else
-                set;
+              ignored;
           }
         else
           check.src;
