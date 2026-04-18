@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "52c3bb71b16487692fb422b279f819c154453557",
-            "sha256": "1bryr078kkxhn51vgiwh1cdx5ck1asaww80cp6pr73si7xfg9y03",
+            "rev": "8d4ef5400b73ae17db69ee5637309e65688e7f28",
+            "sha256": "1si7jkhqbggvm7z2z7akafjfmwgs8r80hv3x398f340bj5kffh30",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
@@ -622,8 +622,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "92235e646ec720ccc2f2c0bb97718a9206ebdc3f",
-            "sha256": "0cy4yzk4isj8bxshiqdr9k4nw20pfjivm1wa3z7wwj0kck5v3mdz",
+            "rev": "9951b0e23cbed3990ce385df8e49a66219b07d76",
+            "sha256": "14jhv22wp13bhb8w976jiisxp9n4xkqgcjk6dll6n2gdaisglkr1",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -1028,8 +1028,8 @@
             "url": "https://github.com/glostis/nur-packages"
         },
         "goreleaser": {
-            "rev": "36cf4fbe39b6d8ea088a103dbd9550d66d7f342a",
-            "sha256": "1m76avbj27wpvcxv7w1rs65fz7cfr834zkrpg3mi7qvzjpc9pr9s",
+            "rev": "e0c99ef588ff64ae938fda0fcfd1e3cae78ba91f",
+            "sha256": "0bq0jk4sy57j52fsx73sidn7b1wb08zqzkrvyh4xw8yi2gni0yrf",
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
