@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = let
     githubSrc = pkgs.fetchFromGitHub {
-      owner = "mgmeyers";
+      owner = "obsidian-community";
       repo = "obsidian-style-settings";
       rev = "1.0.9";
       hash = "sha256-eNbZQ/u3mufwVX+NRJpMSk5uGVkWfW0koXKq7wg9d+I=";

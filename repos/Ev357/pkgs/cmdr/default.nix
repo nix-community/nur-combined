@@ -5,13 +5,13 @@
 }:
 pkgs.buildNpmPackage rec {
   pname = "cmdr";
-  version = "0.5.4";
+  version = "0.5.5";
 
   src = pkgs.fetchFromGitHub {
     owner = "phibr0";
     repo = "obsidian-commander";
     rev = version;
-    sha256 = "sha256-ROC21Rytve+FAy24lN+w697sAFvamUVIe6Uf+wo6yuI=";
+    sha256 = "sha256-48VA5jvg1h7XL5a8EjvTuueYFJnltOGGZWPutZgyNeE=";
   };
 
   npmDepsHash = "sha256-Gr3PzgSY4Tae6PWMvCsLtzcQu9SO8UUy2rU+8tWQbOs=";
