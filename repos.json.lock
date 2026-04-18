@@ -95,11 +95,6 @@
             "sha256": "0971wymfy4jmxfxzvhbfrmzx2r28sngz80bd4p9lhvp54s97jy37",
             "url": "https://github.com/Emin017/nur-packages"
         },
-        "Ev357": {
-            "rev": "d02739d7c831e05bb31ac980d6292067a8952c60",
-            "sha256": "0z5l3czhp4j9r2wmfx7qfwj9rv76ajyf6dwam5s7wpll5pwygbyv",
-            "url": "https://github.com/Ev357/nur-packages"
-        },
         "Ex-32": {
             "rev": "b312a7c76315acd71257444fa213be401c0d8444",
             "sha256": "0f0a1s0gkq0v701g21rwpai4d5gn6vr9zpymr9mry39b1f5ldmcr",
@@ -542,8 +537,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "9e394ef0a390b6b6d84326e64fa7c521462ed058",
-            "sha256": "11p95j9n9a6ynjcp5xf4z2dz4xd6w54rzxwlqa8z84a9bxw1jvdf",
+            "rev": "b748648340f71116c803d9919d495adfe01d7543",
+            "sha256": "1s27rdmmn82vl5pn41c9m9xk3wi1biz356jzrjx2xvarlh3i7gbj",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1979,8 +1974,8 @@
             "url": "https://github.com/hostwithquantum/nur"
         },
         "presto8": {
-            "rev": "c85b3bd6c6cfcde0ca3cc50d7557df3a056d2372",
-            "sha256": "0x8g7ny7k0rabvm9q9cdhfkn9f8l1hg3vgp8wa8cx6yp5xji9w61",
+            "rev": "b5e1543b787da95d7ae7c38b03b39c7d806dc682",
+            "sha256": "17pf6m1b0pjvcqpxr37wihsm4b4g4ycm8zgjnkpl3z0qq0086f5b",
             "url": "https://github.com/presto8/nur-packages"
         },
         "priegger": {
