@@ -162,7 +162,7 @@ nix bundle --bundler github:spotdemo4/nur#image
 An alternative to [`ralismark/nix-appimage`](https://github.com/ralismark/nix-appimage) that uses bwrap to create compressed AppImages
 
 ```elm
-nix bundle --bundler github:spotdemo4/nur#image
+nix bundle --bundler github:spotdemo4/nur#appimage
 ```
 
 ## Libs
