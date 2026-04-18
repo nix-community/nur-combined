@@ -1,16 +1,16 @@
 {
   lib,
+  fetchurl,
   stdenvNoCC,
-  curl,
-  cacert,
-  jq,
+  file,
+  ...
 }: {
-  # Pixiv illustration ID (required, positive integer or numeric string matching ^[1-9][0-9]*$)
+  # Pixiv illustration ID (required)
   id,
   # Page number, 0-based (default: 0 = first page)
   p ? 0,
-  # SHA256 hash of the image file (required)
-  sha256,
+  # Hash of the image file (required, SRI format like sha256-...)
+  hash,
   # Mirror domains to try, in order
   mirrors ? [
     "pixiv.re"
@@ -20,105 +20,62 @@
 }: let
   isValidId =
     (lib.isInt id && id > 0) || (lib.isString id && builtins.match "^[1-9][0-9]*$" id != null);
+
   idString = toString id;
+
   isNonEmptyString = value: lib.isString value && value != "";
 
-  # --- Internal drv: fetch raw image via API (non-fixed-output, allows network) ---
-  rawImage = stdenvNoCC.mkDerivation {
-    name = "pixiv-${idString}-p${toString p}-raw";
-    nativeBuildInputs = [curl cacert jq];
-    buildCommand = ''
-      # --- Parallel API probe across all mirrors ---
-      for mirror in ${lib.concatStringsSep " " mirrors}; do
-        (
-          curl -s -X POST "https://api.$mirror/v1/generate" \
-            -d "p=${idString}" \
-            -H "Content-Type: application/x-www-form-urlencoded" \
-            --cacert ${cacert}/etc/ssl/certs/ca-bundle.crt \
-            --connect-timeout 5 --max-time 15 \
-            > "$TMPDIR/api_$mirror.json" 2>/dev/null
-        ) &
-      done
-      wait
+  # Mirrors use first-page routes without a suffix and numbered routes with
+  # 1-based pages, while the public API exposes Pixiv-style 0-based page indices.
+  # jpg is not the true extension, but it can fetch png or gif images as well.
+  possiblePaths =
+    if p == 0
+    then [
+      "${idString}.jpg"
+      "${idString}-1.jpg"
+    ]
+    else ["${idString}-${toString (p + 1)}.jpg"];
 
-      # Pick first successful mirror
-      best_mirror=""
-      for mirror in ${lib.concatStringsSep " " mirrors}; do
-        if [ -f "$TMPDIR/api_$mirror.json" ] && [ "$(jq -r '.success' "$TMPDIR/api_$mirror.json" 2>/dev/null)" = "true" ]; then
-          best_mirror=$mirror
-          break
-        fi
-      done
-
-      if [ -z "$best_mirror" ]; then
-        echo "ERROR: All API mirrors failed for id=${idString}" >&2
-        exit 1
-      fi
-
-      cp "$TMPDIR/api_$best_mirror.json" $TMPDIR/api_response.json
-
-      # --- Extract download URL ---
-      multiple=$(jq -r '.multiple' $TMPDIR/api_response.json)
-      url=""
-      if [ "$multiple" = "true" ]; then
-        url=$(jq -r ".original_urls_proxy[${toString p}]" $TMPDIR/api_response.json)
-      else
-        url=$(jq -r '.original_url_proxy' $TMPDIR/api_response.json)
-      fi
-
-      # Fallback to mirror direct URL if API proxy is empty
-      if [ -z "$url" ] || [ "$url" = "null" ]; then
-        for ext in jpg png gif jpeg; do
-          for mirror in ${lib.concatStringsSep " " mirrors}; do
-            if [ "${toString p}" = "0" ]; then
-              for suffix in "$ext" "1.$ext"; do
-                candidate="https://$mirror/${idString}-$suffix"
-                code=$(curl -s -L -o /dev/null -w "%{http_code}" --cacert ${cacert}/etc/ssl/certs/ca-bundle.crt "$candidate")
-                if [ "$code" = "200" ]; then
-                  url="$candidate"
-                  break 3
-                fi
-              done
-            else
-              candidate="https://$mirror/${idString}-${toString (p + 1)}.$ext"
-              code=$(curl -s -L -o /dev/null -w "%{http_code}" --cacert ${cacert}/etc/ssl/certs/ca-bundle.crt "$candidate")
-              if [ "$code" = "200" ]; then
-                url="$candidate"
-                break 2
-              fi
-            fi
-          done
-        done
-      fi
-
-      if [ -z "$url" ] || [ "$url" = "null" ]; then
-        echo "ERROR: Could not determine download URL for id=${idString} p=${toString p}" >&2
-        exit 1
-      fi
-
-      # --- Extract extension from URL ---
-      ext=$(echo "$url" | sed 's/.*\.\([a-zA-Z0-9]*\)$/\1/')
-
-      # --- Download image ---
-      mkdir -p $out
-      curl -s -L "$url" --cacert ${cacert}/etc/ssl/certs/ca-bundle.crt > "$out/image.$ext"
-    '';
-  };
-
-  # --- IFD: read extension from rawImage output filename ---
-  files = builtins.readDir rawImage;
-  filename = lib.head (lib.attrNames files);
-  ext = lib.last (lib.splitString "." filename);
+  # Generate all URL candidates: route variants first, then mirrors.
+  urls = lib.concatMap (path: map (mirror: "https://${mirror}/${path}") mirrors) possiblePaths;
 in
   assert isValidId;
   assert lib.isInt p && p >= 0;
-  assert builtins.isList mirrors && mirrors != [] && builtins.all isNonEmptyString mirrors;
-  stdenvNoCC.mkDerivation {
-    name = "pixiv-${idString}-p${toString p}.${ext}";
-    nativeBuildInputs = [];
-    buildCommand = ''
-      cp ${rawImage}/${filename} $out
-    '';
-    outputHashAlgo = "sha256";
-    outputHash = sha256;
-  }
+  assert builtins.isList mirrors && mirrors != [] && builtins.all isNonEmptyString mirrors; let
+    tmpPixiv = stdenvNoCC.mkDerivation {
+      name = "pixiv-${idString}-p${toString p}";
+      src = fetchurl {
+        inherit urls hash;
+      };
+      nativeBuildInputs = [file];
+      dontUnpack = true;
+      dontBuild = true;
+      dontFixup = true;
+      installPhase = ''
+        # Detect real image type via file(1) and rename accordingly
+        mime=$(file -b --mime-type "$src")
+        case "$mime" in
+          image/jpeg) ext="jpg" ;;
+          image/png)  ext="png" ;;
+          image/gif)  ext="gif" ;;
+          *)          ext="jpg" ;;
+        esac
+        mkdir -p "$out"
+        ln -s "$src" "$out/${idString}-p${toString p}.$ext"
+        echo $ext > "$out/extension.txt"
+      '';
+    };
+    finalPixiv = stdenvNoCC.mkDerivation {
+      name = "pixiv-${idString}-p${toString p}.${
+        lib.removeSuffix "\n" (builtins.readFile "${tmpPixiv}/extension.txt")
+      }";
+      dontUnpack = true;
+      dontBuild = true;
+      dontFixup = true;
+      src = tmpPixiv;
+      installPhase = ''
+        ln -s "$src/${idString}-p${toString p}".* "$out"
+      '';
+    };
+  in
+    finalPixiv
