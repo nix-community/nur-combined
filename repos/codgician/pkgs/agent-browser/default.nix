@@ -89,9 +89,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cp -r ${dashboard} source/packages/dashboard/out
   '';
 
+  # `which_exists` spawns the external `which` binary at runtime to probe
+  # for optional tools; pin it to an absolute store path.
+  postPatch = ''
+    substituteInPlace src/doctor/helpers.rs src/install.rs --replace-fail \
+      '"which"' '"${lib.getExe which}"'
+  '';
+
   nativeCheckInputs = [
-    # doctor::helpers::which_exists spawns the external `which` binary
-    which
     writableTmpDirAsHomeHook
   ];
 
