@@ -7,13 +7,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kodama";
-  version = "0.9.9-gamma";
+  version = "0.9.9-delta";
 
   src = fetchFromGitHub {
     owner = "kokic";
     repo = "kodama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9YkxZ2zNiC//kfp1rPBUn9CoW6uI7VFaPgCdMH4Mtvw=";
+    hash = "sha256-cNzYPgybmXni/JYz9/1iZEpLn/R0nFV5e+24kSimcHU=";
   };
 
   cargoHash = "sha256-YdK4DXmOJx+X6HTNqzH/NVct07SwkL4ZS+zAjjHPQ5g=";

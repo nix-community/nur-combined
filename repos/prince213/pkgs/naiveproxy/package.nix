@@ -1,13 +1,17 @@
 {
+  apple-sdk_15,
   buildPackages,
+  darwin,
   fetchFromGitHub,
   gn,
   lib,
   ninja,
   nix-update-script,
   python3,
+  replaceVars,
   stdenvNoCC,
   symlinkJoin,
+  xcbuild,
 }:
 let
   llvmCcAndBintools = symlinkJoin {
@@ -33,14 +37,23 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   patches = [
     ./cflags.patch
-  ];
+  ]
+  ++ lib.optional stdenvNoCC.hostPlatform.isDarwin (
+    replaceVars ./libresolv.patch {
+      libresolvInc = lib.getInclude darwin.libresolv;
+      libresolvLib = lib.getLib darwin.libresolv;
+    }
+  );
 
   nativeBuildInputs = [
     buildPackages.rustc.llvmPackages.bintools
     gn
     ninja
     python3
-  ];
+  ]
+  ++ lib.optional stdenvNoCC.hostPlatform.isDarwin xcbuild;
+
+  buildInputs = lib.optional stdenvNoCC.hostPlatform.isDarwin apple-sdk_15;
 
   gnFlags = [
     "clang_base_path=\"${llvmCcAndBintools}\""
@@ -104,6 +117,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ prince213 ];
     mainProgram = "naive";
-    platforms = with lib.platforms; darwin ++ linux;
+    platforms = lib.platforms.darwin ++ lib.platforms.linux;
   };
 })

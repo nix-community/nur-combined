@@ -17,7 +17,7 @@
 }:
 let
   pname = "termius-app";
-  version = "9.37.5";
+  version = "9.37.6";
 
   meta = {
     description = "Desktop SSH Client";
@@ -36,16 +36,16 @@ let
 
   sources = {
     aarch64-darwin = fetchurl {
-      url = "https://web.archive.org/web/20260324105231if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
-      hash = "sha256-LZagd46XBaZvhh0zLsKwx2y0JE/iZIZEugUBqAig0U8=";
+      url = "https://web.archive.org/web/20260418063434if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
+      hash = "sha256-rk0Ur61wf+CqIO0rj8ePi5Pzk7UiczFk4D1kTLkqA7U=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://web.archive.org/web/20260324105323if_/https://autoupdate.termius.com/mac/Termius.zip";
-      hash = "sha256-zPdQnf4zt1onOiE/zg4W+nHAlF9WghKwnI2CuPpsRtQ=";
+      url = "https://web.archive.org/web/20260418063453if_/https://autoupdate.termius.com/mac/Termius.zip";
+      hash = "sha256-h/oPVhj4j7grL6hA81Y9xuJYdD8ORdqcgmxZoHPTLUE=";
     };
     x86_64-linux = fetchurl {
-      url = "https://deb.termius.com/pool/main/t/termius-app/termius-app_9.37.5_amd64.deb";
-      hash = "sha256-hOTgKHAaai1GjgE0sKIwVtvukokklquFgWkqUnN+egA=";
+      url = "https://deb.termius.com/pool/main/t/termius-app/termius-app_9.37.6_amd64.deb";
+      hash = "sha256-z4NvKi2mLAhlgn1/2D7scxRT1VWcl2y68zUFgAnIuLg=";
     };
   };
 
