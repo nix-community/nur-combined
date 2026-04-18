@@ -147,14 +147,12 @@ let
     else if package.stdenv.hostPlatform.isStatic then
       package.overrideAttrs (
         _: prev: {
-          outputs =
-            if prev ? outputs then
-              if builtins.elem "dev" prev.outputs then prev.outputs else prev.outputs ++ [ "dev" ]
-            else
-              [
-                "out"
-                "dev"
-              ];
+          postFixup = prev.postFixup or "" + ''
+            # HACK: Otherwise the result will have the entire buildInputs closure
+            # injected by the pkgsStatic stdenv
+            # <https://github.com/NixOS/nixpkgs/issues/83667>
+            rm -f $out/nix-support/propagated-build-inputs
+          '';
         }
       )
     else
