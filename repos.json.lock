@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "a3b803d477ca10fa9678746824b830e704f39d62",
-            "sha256": "0cwsgcyk5xf53a1qlf0g0rp3vby5a0aas0zgxa9vcx896rnmdyx0",
+            "rev": "4139776d769cfa6f7063a83bde2db32581614f6d",
+            "sha256": "1n9dzgl7lqapzvclb30v74rmi79r21s1l7y30d2nn33bklc9dhrk",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1623,8 +1623,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "ab92f5456b2760f0a03da973a5c1495193308535",
-            "sha256": "1bc9g0nscm52q65cj5h7dy4cj22igv78qs1877ngppw3yzi4387r",
+            "rev": "2459a6e80f8900e3adbd22034b88c9ad7dba3d02",
+            "sha256": "1pdb4ax7fpifgqdy7sy322kp5cp5ayjmajrgrgk8wv4sjjj66qk9",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -1929,8 +1929,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "ebeefd14925fa0e6a8a3ea955b47205e0aaa0f11",
-            "sha256": "1sakwxpcgd1hiyif2xiri9kfnx337j0pqwggb51z8qg4q3wjynh1",
+            "rev": "fa6fe8be0497672e9497f23b201d9e23812b41f1",
+            "sha256": "1c9fybrf6x4d798zzj9bxamv8g37imx104balgfd4f2llbznymi5",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
