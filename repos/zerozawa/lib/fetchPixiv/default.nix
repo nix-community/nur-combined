@@ -17,6 +17,7 @@
     "pixiv.cat"
     "pixiv.nl"
   ],
+  saveToshare ? true,
 }: let
   isValidId =
     (lib.isInt id && id > 0) || (lib.isString id && builtins.match "^[1-9][0-9]*$" id != null);
@@ -42,40 +43,64 @@ in
   assert isValidId;
   assert lib.isInt p && p >= 0;
   assert builtins.isList mirrors && mirrors != [] && builtins.all isNonEmptyString mirrors; let
-    tmpPixiv = stdenvNoCC.mkDerivation {
-      name = "pixiv-${idString}-p${toString p}";
-      src = fetchurl {
-        inherit urls hash;
-      };
-      nativeBuildInputs = [file];
-      dontUnpack = true;
-      dontBuild = true;
-      dontFixup = true;
-      installPhase = ''
-        # Detect real image type via file(1) and rename accordingly
-        mime=$(file -b --mime-type "$src")
-        case "$mime" in
-          image/jpeg) ext="jpg" ;;
-          image/png)  ext="png" ;;
-          image/gif)  ext="gif" ;;
-          *)          ext="jpg" ;;
-        esac
-        mkdir -p "$out"
-        ln -s "$src" "$out/${idString}-p${toString p}.$ext"
-        echo $ext > "$out/extension.txt"
-      '';
-    };
-    finalPixiv = stdenvNoCC.mkDerivation {
-      name = "pixiv-${idString}-p${toString p}.${
-        lib.removeSuffix "\n" (builtins.readFile "${tmpPixiv}/extension.txt")
-      }";
-      dontUnpack = true;
-      dontBuild = true;
-      dontFixup = true;
-      src = tmpPixiv;
-      installPhase = ''
-        ln -s "$src/${idString}-p${toString p}".* "$out"
-      '';
+    rawPixiv = fetchurl {
+      inherit urls hash;
     };
   in
-    finalPixiv
+    if !saveToshare
+    then let
+      tmpPixiv = stdenvNoCC.mkDerivation {
+        name = "pixiv-${idString}-p${toString p}";
+        src = rawPixiv;
+        nativeBuildInputs = [file];
+        dontUnpack = true;
+        dontBuild = true;
+        dontFixup = true;
+        installPhase = ''
+          # Detect real image type via file(1) and rename accordingly
+          mime=$(file -b --mime-type "$src")
+          case "$mime" in
+            image/jpeg) ext="jpg" ;;
+            image/png)  ext="png" ;;
+            image/gif)  ext="gif" ;;
+            *)          ext="jpg" ;;
+          esac
+          mkdir -p "$out"
+          ln -s "$src" "$out/${idString}-p${toString p}.$ext"
+          echo $ext > "$out/extension.txt"
+        '';
+      };
+    in
+      stdenvNoCC.mkDerivation {
+        name = "pixiv-${idString}-p${toString p}.${
+          lib.removeSuffix "\n" (builtins.readFile "${tmpPixiv}/extension.txt")
+        }";
+        dontUnpack = true;
+        dontBuild = true;
+        dontFixup = true;
+        src = tmpPixiv;
+        installPhase = ''
+          ln -s "$src/${idString}-p${toString p}".* "$out"
+        '';
+      }
+    else
+      stdenvNoCC.mkDerivation {
+        name = "pixiv-${idString}-p${toString p}";
+        dontUnpack = true;
+        dontBuild = true;
+        dontFixup = true;
+        nativeBuildInputs = [file];
+        src = rawPixiv;
+        installPhase = ''
+          # Detect real image type via file(1) and rename accordingly
+          mime=$(file -b --mime-type "$src")
+          case "$mime" in
+            image/jpeg) ext="jpg" ;;
+            image/png)  ext="png" ;;
+            image/gif)  ext="gif" ;;
+            *)          ext="jpg" ;;
+          esac
+          mkdir -p "$out/share/pixiv"
+          ln -s "$src" "$out/share/pixiv/${idString}-p${toString p}.$ext"
+        '';
+      }
