@@ -48,8 +48,7 @@ let
     pnpmWorkspaces = [ "dashboard" ];
 
     # Replace Google Fonts fetch with a local font from nixpkgs since the
-    # Nix sandbox has no network access. Follows the same pattern as
-    # fosrl-pangolin in nixpkgs.
+    # Nix sandbox has no network access.
     postPatch = ''
       substituteInPlace packages/dashboard/src/app/layout.tsx --replace-fail \
         '{ Geist } from "next/font/google"' \
@@ -84,7 +83,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-ENIGFhZ+pXIZvEFUA0No3HpeHtxgJohMgx6F0wNpmO0=";
 
-  # Place the pre-built dashboard where RustEmbed expects it (../packages/dashboard/out/).
+  # Place the pre-built dashboard where RustEmbed expects it
   postUnpack = ''
     chmod u+w source/packages/dashboard
     cp -r ${dashboard} source/packages/dashboard/out
