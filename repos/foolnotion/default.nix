@@ -199,6 +199,8 @@ rec {
 
   qobuz-linux = pkgs.callPackage ./pkgs/qobuz-linux { };
 
+  scidb = pkgs.callPackage ./pkgs/scidb { };
+
   ned14-status-code = pkgs.callPackage ./pkgs/ned14-status-code { };
   ned14-quickcpplib = pkgs.callPackage ./pkgs/ned14-quickcpplib {
     byte-lite = byte-lite;
