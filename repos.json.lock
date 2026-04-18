@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "6e4fb2b3f56b6adb3c40de0a2aa256c084f4adf6",
-            "sha256": "1kzvr92v3vi7fz1n93gl3h7y12vh2dibn368nysszm1b6hihr6p2",
+            "rev": "0e0b1e5c1b570a95c1c6ebdae5855873147d3dfb",
+            "sha256": "1ga7rsxgf5vs9rc9fxz3hvi7p6arycajhnxnfc0bq0ndpjg7skw0",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -928,8 +928,8 @@
             "url": "https://github.com/fooker/nur-packages"
         },
         "foolnotion": {
-            "rev": "956bc44ccf49f9b93c34fb6905a32d2671e93a28",
-            "sha256": "0nvi19q7hlmsks85dqj2xygdmpzq1az2lx86mxxw7h5xijw0vi2c",
+            "rev": "994e91ede0266fe77c5a176b7880e231cd2fa3f1",
+            "sha256": "1b2yhcir5y3gw19kdh7j2addmywfc3r3g0k17a6az328wa9gnbym",
             "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
