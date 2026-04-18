@@ -109,9 +109,6 @@
         "Red-Flake": {
             "url": "https://github.com/Red-Flake/packages"
         },
-        "Redrield": {
-            "url": "https://github.com/Redrield/nurpkgs"
-        },
         "Rhys-T": {
             "url": "https://github.com/Rhys-T/nur-packages"
         },
@@ -1372,9 +1369,6 @@
         },
         "sigprof": {
             "url": "https://github.com/sigprof/nur-packages"
-        },
-        "sikmir": {
-            "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
             "url": "https://github.com/skiletro/nur-repo"

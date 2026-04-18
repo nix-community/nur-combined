@@ -175,11 +175,6 @@
             "sha256": "0i9z50lig8f9s3cqvwb36kbhzljrgldnz62ak78prj41bsnlalqp",
             "url": "https://github.com/Red-Flake/packages"
         },
-        "Redrield": {
-            "rev": "c14d5d4cc35ac8863dc20190926d9f464af38817",
-            "sha256": "1rbg9fgvkfbh29zmhbhyn6bbs1mx1wp3zwxclrdxxwgqx6dnx5bz",
-            "url": "https://github.com/Redrield/nurpkgs"
-        },
         "Rhys-T": {
             "rev": "0467d56495b807ffe973c3c435dd1216d9e9d740",
             "sha256": "14awg0an2ii5gsqk3xxccdlfidiacf68ahxbzjj3ap1f0r0jgfch",
@@ -2223,11 +2218,6 @@
             "rev": "6950876ef38061ced3ce56d6df2d6699f737ed07",
             "sha256": "177x1xhvzham6f99xw6bk2krdliwsvfw9fzvnpnc3fhl4w1sn789",
             "url": "https://github.com/sigprof/nur-packages"
-        },
-        "sikmir": {
-            "rev": "9f96cb30998167ac75b6883a5dee3c637d200de0",
-            "sha256": "0zsa2i4air3p3f3qqy9rjsyamfswqgc2kjz7bpnhvc5ww6ppaapm",
-            "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
             "rev": "2604ffc5b67c0d5a177a41e159775f041e757922",
