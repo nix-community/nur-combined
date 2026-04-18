@@ -2225,8 +2225,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "426490875c05cee2fa9c9b383c33156f1e6fcb44",
-            "sha256": "00wwwwmnrlh0gqzcjmrbm53rkfav4znhdk8j7b6d2i4z43rzg6r9",
+            "rev": "9f96cb30998167ac75b6883a5dee3c637d200de0",
+            "sha256": "0zsa2i4air3p3f3qqy9rjsyamfswqgc2kjz7bpnhvc5ww6ppaapm",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
@@ -2662,8 +2662,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "589f4ed64f6df86de21f0bd40c025cf9a33d22c9",
-            "sha256": "011ffir625ydhxm73wbmhh61wbkbvn0hqs05n6hbfanb8ylbk2mq",
+            "rev": "3b5f6d415346385abfc7cd59d00b1994ce6d06e4",
+            "sha256": "1xhaxczklzfcbaak0lcf8gabcgz9624z953dq3h4h8d49l9a3hr7",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
