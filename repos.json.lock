@@ -928,8 +928,8 @@
             "url": "https://github.com/fooker/nur-packages"
         },
         "foolnotion": {
-            "rev": "7e06557de020fc35c6b2432f55d4523b67698be5",
-            "sha256": "185wmc4mq7yzxsqsmk21hjc47vkakcqf9cgpsjffy1rq2jmrblbd",
+            "rev": "956bc44ccf49f9b93c34fb6905a32d2671e93a28",
+            "sha256": "0nvi19q7hlmsks85dqj2xygdmpzq1az2lx86mxxw7h5xijw0vi2c",
             "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
