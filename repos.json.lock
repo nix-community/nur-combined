@@ -175,6 +175,11 @@
             "sha256": "0i9z50lig8f9s3cqvwb36kbhzljrgldnz62ak78prj41bsnlalqp",
             "url": "https://github.com/Red-Flake/packages"
         },
+        "Redrield": {
+            "rev": "b33050c2848c841a97a52acf0f3ecbf83b3c4221",
+            "sha256": "0ahh4891331s8yyw65j5j5x8gn2y80n0b194sv9s15rmmh2wk9df",
+            "url": "https://github.com/Redrield/nurpkgs"
+        },
         "Rhys-T": {
             "rev": "0467d56495b807ffe973c3c435dd1216d9e9d740",
             "sha256": "14awg0an2ii5gsqk3xxccdlfidiacf68ahxbzjj3ap1f0r0jgfch",
@@ -371,8 +376,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "fca834c7a7c4eef6027a75209503d547d041928a",
-            "sha256": "0kra0r64pjkys0hck9ysb19fb13r0lz25x7x5s0bq9rxv7akjpj8",
+            "rev": "66387f6d67a9656af4adfc2a6e538225662276e8",
+            "sha256": "0wqq4kfmggmi8vkmmnbj3mwg4fiv807xaiqaa1b72z4k553fzzz8",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -2219,6 +2224,11 @@
             "sha256": "177x1xhvzham6f99xw6bk2krdliwsvfw9fzvnpnc3fhl4w1sn789",
             "url": "https://github.com/sigprof/nur-packages"
         },
+        "sikmir": {
+            "rev": "8b2c228e370f2570774686f7a6c7e6b432ded79b",
+            "sha256": "1kdxbpsmff1wch1iwjv4f4xh19nsy4pnbvprh4zvl8krzaaq1kdp",
+            "url": "https://github.com/sikmir/nur-packages"
+        },
         "skiletro": {
             "rev": "2604ffc5b67c0d5a177a41e159775f041e757922",
             "sha256": "1y62lqha06nlmgrgbbl57djn565hkkgvslzpzxw2i71sxkbxc22c",
@@ -2652,8 +2662,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "c8cfad4f931c9d5eed13e9f23b745f7130d1d22c",
-            "sha256": "1p48hrawd6q1mgw2w26kkr5i0mfkp1cdkmfxxccilnjmvj1y84da",
+            "rev": "7c3008d4f005da382bdf81797e33bd8a24a9deb6",
+            "sha256": "0853mk0cnj2nhk5qpsbvwrc2sw7bsr6gzdnigr2hxx2pp7i5zzlm",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
