@@ -190,7 +190,8 @@ stdenv.mkDerivation rec {
     rm -f "$out/bin/sjeng-scidb" "$out/bin/stockfish-scidb"
     tkver="${lib.versions.majorMinor tk.version}"
     wrapProgram "$out/bin/tkscidb-beta" \
-      --set TK_LIBRARY "${tk}/lib/tk$tkver"
+      --set TK_LIBRARY "${tk}/lib/tk$tkver" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ tk tcl ]}"
   '';
 
   meta = with lib; {
