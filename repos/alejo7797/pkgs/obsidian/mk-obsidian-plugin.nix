@@ -5,6 +5,7 @@
   nodejs,
   obsidianManifestCheckHook,
 
+  idAttr ? "id",
   namePrefix ? "obsidian-plugin-",
   outFiles ? [
     "main.js"
@@ -22,6 +23,7 @@ lib.extendMkDerivation {
       manifest,
       nativeBuildInputs ? [ ],
       meta ? { },
+      passthru ? { },
       ...
     }:
     {
@@ -54,6 +56,10 @@ lib.extendMkDerivation {
       '';
 
       doInstallCheck = true;
+
+      passthru = passthru // {
+        manifestId = manifest.${idAttr};
+      };
 
       meta = meta // {
         platforms = meta.platforms or obsidian.meta.platforms;

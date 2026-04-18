@@ -9,6 +9,7 @@ lib.makeScope newScope (self: {
 
   buildObsidianTheme = self.buildObsidianPlugin.override {
     namePrefix = "obsidian-theme-";
+    idAttr = "name";
     outFiles = [ "manifest.json" "theme.css" ];
   };
 
