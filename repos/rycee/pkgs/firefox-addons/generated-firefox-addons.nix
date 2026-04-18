@@ -8781,10 +8781,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.3";
+      version = "1.1.4";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4751959/lockedin_yt-1.1.3.xpi";
-      sha256 = "99f7300e5f89f8f98caca3d370aced28eda2926cafb59dc89b8ccc9742f58792";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4769083/lockedin_yt-1.1.4.xpi";
+      sha256 = "f9daafca8efc5979149f9d785386df4a7ab68ac83807694867dd5163df143d8e";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -9779,10 +9779,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.0.38";
+      version = "1.0.39";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4768348/mergify-1.0.38.xpi";
-      sha256 = "4aed7f14ab90e5d3d8fd172d1cd46059054deb56561830a01ddfcfdeaa2f86bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4769000/mergify-1.0.39.xpi";
+      sha256 = "ab23ff5590dbab815ad4ef6d0dc4b786984eba9455525d87a81368bf9402f061";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
