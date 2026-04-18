@@ -11,6 +11,8 @@ buildGoModule (finalAttrs: {
   pname = "gelim";
   version = "0.13.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~hedy";
     repo = "gelim";

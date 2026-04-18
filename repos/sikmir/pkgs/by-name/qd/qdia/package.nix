@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "qdia";
   version = "0.53";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "sunderme";
     repo = "qdia";

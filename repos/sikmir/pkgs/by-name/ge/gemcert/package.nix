@@ -8,6 +8,8 @@ buildGoModule {
   pname = "gemcert";
   version = "2020-08-01";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~solderpunk";
     repo = "gemcert";

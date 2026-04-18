@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sdr-modem";
   version = "1.0.129";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "dernasherbrezon";
     repo = "sdr-modem";

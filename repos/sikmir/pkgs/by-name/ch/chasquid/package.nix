@@ -10,6 +10,8 @@ buildGoModule (finalAttrs: {
   pname = "chasquid";
   version = "1.17.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "albertito";
     repo = "chasquid";

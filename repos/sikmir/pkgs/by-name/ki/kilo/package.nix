@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "kilo";
   version = "0-unstable-2025-01-04";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "kilo";

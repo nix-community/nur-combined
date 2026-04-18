@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "imsg-compat";
   version = "8.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "bsd-ac";
     repo = "imsg-compat";

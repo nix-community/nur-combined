@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "hmq";
   version = "1.5.7";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "fhmq";
     repo = "hmq";

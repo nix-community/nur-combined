@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gpxeditor";
   version = "1.8.0";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://sourceforge/gpxeditor/GPX%20Editor/GPX%20Editor%20${finalAttrs.version}.zip";
     hash = "sha256-KgVwx79kOQzXJQaQK1VRWHJHIU4yBpCH/7pFh7G4D54=";

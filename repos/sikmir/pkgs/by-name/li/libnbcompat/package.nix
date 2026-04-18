@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libnbcompat";
   version = "1.0.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "archiecobbs";
     repo = "libnbcompat";

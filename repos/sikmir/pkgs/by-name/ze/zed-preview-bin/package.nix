@@ -9,6 +9,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed-preview";
   version = "0.221.3-pre";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "zed-industries";
     repo = "zed";

@@ -9,6 +9,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "maptourist";
   version = "2025-10-05";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-Caucasus-gmapsupp-RU_${finalAttrs.version}.zip";
     hash = "sha256-VCyJFUYE+ERw983Al5gNEum0Z+pLubH7kNMgyrIJA8I=";

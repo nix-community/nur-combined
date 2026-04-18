@@ -11,6 +11,8 @@ stdenv.mkDerivation rec {
   pname = "basecamp";
   version = "4.8.11";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://download.garmin.com/software/BaseCampforMac_${
       lib.replaceStrings [ "." ] [ "" ] version

@@ -27,6 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "messenger-gtk";
   version = "0.10.2";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://gnu/gnunet/messenger-gtk-${finalAttrs.version}.tar.gz";
     hash = "sha256-pWIOynWrC9cCpfqvgmD6rR6wFvoo2Gu94eEnEedn/P8=";

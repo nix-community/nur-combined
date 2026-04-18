@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "microjson";
   version = "0.1.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "semlanik";
     repo = "microjson";

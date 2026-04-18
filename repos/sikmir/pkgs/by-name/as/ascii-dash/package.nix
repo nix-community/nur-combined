@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ascii-dash";
   version = "1.3";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://sourceforge/ascii-dash/ASCII-DASH-${finalAttrs.version}.zip";
     hash = "sha256-j1knFVGCh2fwHIV0oauNqjzhEnxINFGjcjTXHQ5tPbc=";

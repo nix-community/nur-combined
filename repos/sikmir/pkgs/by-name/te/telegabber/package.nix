@@ -29,6 +29,8 @@ buildGoModule (finalAttrs: {
   pname = "telegabber";
   version = "1.12.8";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitea {
     domain = "dev.narayana.im";
     owner = "narayana";

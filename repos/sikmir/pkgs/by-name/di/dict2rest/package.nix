@@ -8,6 +8,8 @@ buildGoModule {
   pname = "dict2rest";
   version = "0-unstable-2016-12-05";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "felix";
     repo = "go-dict2rest";

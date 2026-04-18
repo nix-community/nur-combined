@@ -8,6 +8,8 @@ buildGoModule {
   pname = "shavit";
   version = "0-unstable-2020-03-14";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~yotam";
     repo = "shavit";

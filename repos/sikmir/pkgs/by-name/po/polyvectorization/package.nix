@@ -13,6 +13,8 @@ stdenv.mkDerivation {
   pname = "polyvectorization";
   version = "0-unstable-2019-08-23";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "bmpix";
     repo = "PolyVectorization";

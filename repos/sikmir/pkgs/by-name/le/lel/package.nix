@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "lel";
   version = "0.2";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://codemadness.org/releases/lel/lel-${finalAttrs.version}.tar.gz";
     hash = "sha256-y00PnBpIgQaT8V9VL7wvNPOvugFhLXmt0AqZYQY+7dg=";

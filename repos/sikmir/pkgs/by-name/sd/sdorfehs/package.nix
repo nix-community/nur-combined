@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sdorfehs";
   version = "1.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jcs";
     repo = "sdorfehs";

@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gfp-val3dity";
   version = "0.3.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "geoflow3d";
     repo = "gfp-val3dity";

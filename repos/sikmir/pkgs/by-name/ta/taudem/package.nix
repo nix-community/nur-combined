@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "taudem";
   version = "5.4.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "dtarb";
     repo = "TauDEM";

@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "poe";
   version = "2.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "poe";

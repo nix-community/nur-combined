@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "gpxchart";
   version = "0.0.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "tkrajina";
     repo = "gpxchart";

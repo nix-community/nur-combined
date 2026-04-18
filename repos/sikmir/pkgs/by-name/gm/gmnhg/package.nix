@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "gmnhg";
   version = "0.4.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "tdemin";
     repo = "gmnhg";

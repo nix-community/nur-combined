@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "lchat";
   version = "1.0-unstable-2024-07-14";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "younix";
     repo = "lchat";

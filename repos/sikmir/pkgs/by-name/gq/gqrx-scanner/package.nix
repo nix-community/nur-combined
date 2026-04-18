@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gqrx-scanner";
   version = "1.0.5";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "neural75";
     repo = "gqrx-scanner";

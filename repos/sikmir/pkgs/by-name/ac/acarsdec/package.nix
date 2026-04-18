@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "acarsdec";
   version = "4.4.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "f00b4r0";
     repo = "acarsdec";

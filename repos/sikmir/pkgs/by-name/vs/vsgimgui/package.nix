@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "vsgimgui";
   version = "0.7.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "vsg-dev";
     repo = "vsgImGui";

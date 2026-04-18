@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libumqtt";
   version = "1.1.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "zhaojh329";
     repo = "libumqtt";

@@ -10,6 +10,8 @@ stdenv.mkDerivation {
   pname = "freeopcua";
   version = "0-unstable-2023-05-30";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "FreeOpcUa";
     repo = "freeopcua";

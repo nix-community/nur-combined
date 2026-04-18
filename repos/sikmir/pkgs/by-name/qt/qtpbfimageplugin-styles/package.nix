@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "qtpbfimageplugin-styles";
   version = "2025-10-04";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "qtpbfimageplugin-styles";

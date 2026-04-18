@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mqtt-stresser";
   version = "4";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "inovex";
     repo = "mqtt-stresser";

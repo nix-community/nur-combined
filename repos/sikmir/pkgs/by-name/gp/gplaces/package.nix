@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gplaces";
   version = "0.19.8";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "dimkr";
     repo = "gplaces";

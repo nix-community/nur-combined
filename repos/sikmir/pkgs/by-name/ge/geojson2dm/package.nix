@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "geojson2dm";
   version = "0-unstable-2025-01-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~sikmir";
     repo = "geojson2dm";

@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mqtt-executor";
   version = "1.3.4";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "rainu";
     repo = "mqtt-executor";

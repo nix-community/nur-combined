@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rtklib";
   version = "2.4.3-b34";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "tomojitakasu";
     repo = "rtklib";

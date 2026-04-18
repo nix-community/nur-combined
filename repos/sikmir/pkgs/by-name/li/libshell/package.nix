@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libshell";
   version = "0.4.13";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "legionus";
     repo = "libshell";

@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gfp-gdal";
   version = "0.3.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "geoflow3d";
     repo = "gfp-gdal";

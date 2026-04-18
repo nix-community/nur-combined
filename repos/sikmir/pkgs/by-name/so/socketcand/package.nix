@@ -12,6 +12,8 @@ stdenv.mkDerivation {
   pname = "socketcand";
   version = "0.6.1-unstable-2025-05-21";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "linux-can";
     repo = "socketcand";

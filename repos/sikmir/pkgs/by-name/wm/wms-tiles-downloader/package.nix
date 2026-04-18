@@ -11,6 +11,8 @@ buildGoModule (finalAttrs: {
   pname = "wms-tiles-downloader";
   version = "0.3.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "lmikolajczak";
     repo = "wms-tiles-downloader";

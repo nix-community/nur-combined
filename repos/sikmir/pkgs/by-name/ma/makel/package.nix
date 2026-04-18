@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "makel";
   version = "0-unstable-2022-01-24";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "maandree";
     repo = "makel";

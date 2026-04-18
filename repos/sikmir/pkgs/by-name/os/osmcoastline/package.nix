@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "osmcoastline";
   version = "2.5.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osmcoastline";

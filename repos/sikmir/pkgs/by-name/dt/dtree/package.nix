@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "dtree";
   version = "0.2.12";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "dtree";

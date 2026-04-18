@@ -14,6 +14,8 @@ stdenv.mkDerivation {
   pname = "farbfeld-utils";
   version = "0-unstable-2025-10-12";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "bakkeby";
     repo = "farbfeld-utils";

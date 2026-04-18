@@ -9,6 +9,8 @@ buildGoModule {
   pname = "go-staticmaps";
   version = "0-unstable-2025-06-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "go-staticmaps";

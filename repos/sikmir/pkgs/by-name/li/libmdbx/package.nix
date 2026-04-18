@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libmdbx";
   version = "0.14.1";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://libmdbx.dqdkfa.ru/release/libmdbx-amalgamated-${finalAttrs.version}.tar.xz";
     hash = "sha256-LtuLWdtbKwIcdjQBD429u/lI7aYJlC3TAFEMbpO9XSU=";

@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "simple-cc";
   version = "0.1";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://www.simple-cc.org/releases/scc-${finalAttrs.version}.tar.gz";
     hash = "sha256-0oZUxtl1GxUMmeXLHhSn2SVQdOyaWzPn7IP4jnlcaS8=";

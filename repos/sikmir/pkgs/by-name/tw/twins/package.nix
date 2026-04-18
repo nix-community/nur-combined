@@ -9,6 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "twins";
   version = "1.0.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "tslocum";

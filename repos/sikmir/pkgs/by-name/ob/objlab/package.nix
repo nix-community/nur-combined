@@ -13,6 +13,8 @@ stdenv.mkDerivation {
   pname = "objlab";
   version = "0-unstable-2019-11-23";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "lighttransport";
     repo = "objlab";

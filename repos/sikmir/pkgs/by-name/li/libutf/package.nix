@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libutf";
   version = "0.1-unstable-2018-11-13";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "cls";
     repo = "libutf";

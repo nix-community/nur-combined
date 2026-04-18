@@ -18,6 +18,8 @@ stdenv.mkDerivation {
   pname = "gpx2video";
   version = "0-unstable-2025-08-31";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "progweb";
     repo = "gpx2video";

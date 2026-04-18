@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "lacc";
   version = "0-unstable-2022-05-21";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "larmel";
     repo = "lacc";

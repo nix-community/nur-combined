@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ish";
   version = "0.2";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://sourceforge/icmpshell/ish-v${finalAttrs.version}.tar.gz";
     hash = "sha256-C4vE8pWBay9RdL+q0PwzjaNMgqrTD8TyLTYkGwE9V4I=";

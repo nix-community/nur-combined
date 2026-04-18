@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "Amethyst";
   version = "0.21.2";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "ianyh";
     repo = "Amethyst";

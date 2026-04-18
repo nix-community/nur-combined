@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "winprom";
   version = "2.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "edwardearl";
     repo = "winprom";

@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mountains";
   version = "0-unstable-2025-10-16";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "akirmse";
     repo = "mountains";

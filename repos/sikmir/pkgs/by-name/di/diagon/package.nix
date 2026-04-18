@@ -37,6 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "diagon";
   version = "1.1.158";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "Diagon";

@@ -35,6 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft";
   version = "20220624-alt1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ushakov";
     repo = "mapsoft";

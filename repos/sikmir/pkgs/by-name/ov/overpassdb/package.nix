@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   pname = "overpassdb";
   inherit (osm-extracts) version;
 
+  __structuredAttrs = true;
+
   dontUnpack = true;
 
   nativeBuildInputs = [

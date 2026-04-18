@@ -22,6 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rrs";
   version = "1.9.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "maisvendoo";
     repo = "RRS";

@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ff-tools";
   version = "0-unstable-2019-06-08";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "sirjofri";
     repo = "ff-tools";

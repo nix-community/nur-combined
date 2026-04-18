@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "acp";
   version = "0.3.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "Contextualist";
     repo = "acp";

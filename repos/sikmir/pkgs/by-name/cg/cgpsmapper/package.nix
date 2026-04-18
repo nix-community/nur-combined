@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "cgpsmapper";
   version = "0093c";
 
+  __structuredAttrs = true;
+
   src = fetchwebarchive {
     url = "http://cgpsmapper.com/download/cgpsmapper-static.gz";
     timestamp = "20160817191046";

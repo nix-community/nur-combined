@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "revdiff";
   version = "0.10.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "umputun";
     repo = "revdiff";

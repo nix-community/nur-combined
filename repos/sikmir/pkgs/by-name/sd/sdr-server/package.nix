@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sdr-server";
   version = "1.1.26";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "dernasherbrezon";
     repo = "sdr-server";

@@ -8,6 +8,8 @@ buildGoModule {
   pname = "nanodns";
   version = "0-unstable-2021-10-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "Sina-Ghaderi";
     repo = "nanodns";

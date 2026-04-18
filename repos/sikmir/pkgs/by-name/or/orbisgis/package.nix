@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "orbisgis";
   version = "5.1.0";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "orbisgis";
     repo = "orbisgis";

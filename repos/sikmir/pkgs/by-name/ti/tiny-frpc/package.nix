@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "tiny-frpc";
   version = "0.1.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "gofrp";
     repo = "tiny-frpc";

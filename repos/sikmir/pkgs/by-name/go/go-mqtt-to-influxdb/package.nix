@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "go-mqtt-to-influxdb";
   version = "0.0.7";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "elgohr";
     repo = "mqtt-to-influxdb";

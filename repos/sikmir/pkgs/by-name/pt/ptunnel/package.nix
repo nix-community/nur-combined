@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ptunnel";
   version = "0.72";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://www.cs.uit.no/~daniels/PingTunnel/PingTunnel-${finalAttrs.version}.tar.gz";
     hash = "sha256-sxj3qn2IkYtiadBUp+JvBPl9iHD0e9Sadsssmcc0B6Q=";

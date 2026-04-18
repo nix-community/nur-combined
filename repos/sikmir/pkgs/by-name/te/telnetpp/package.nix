@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "telnetpp";
   version = "4.0.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "telnetpp";

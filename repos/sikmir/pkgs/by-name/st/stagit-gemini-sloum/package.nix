@@ -9,6 +9,8 @@ stdenv.mkDerivation {
   pname = "stagit-gemini";
   version = "2020-01-18";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitea {
     domain = "git.rawtext.club";
     owner = "sloum";

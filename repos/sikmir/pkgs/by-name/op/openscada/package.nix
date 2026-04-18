@@ -30,6 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "openscada";
   version = "0.9.8";
 
+  __structuredAttrs = true;
+
   main_src = fetchurl {
     url = "http://oscada.org/oscadaArch/0.9/openscada-${finalAttrs.version}.tar.xz";
     hash = "sha256-UuDdURwu/hL/b3sykumLbHZXMzLh8/qmKqEsBRcaZew=";

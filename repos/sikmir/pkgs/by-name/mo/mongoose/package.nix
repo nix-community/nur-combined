@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mongoose";
   version = "7.20";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "cesanta";
     repo = "mongoose";

@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mproxy";
   version = "0.2.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "mainflux";
     repo = "mproxy";

@@ -8,6 +8,8 @@ buildGoModule {
   pname = "gemini-ipfs-gateway";
   version = "0-unstable-2023-10-19";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~hsanjuan";
     repo = "gemini-ipfs-gateway";

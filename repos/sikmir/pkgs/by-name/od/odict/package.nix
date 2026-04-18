@@ -9,6 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "odict";
   version = "1.5.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "TheOpenDictionary";
     repo = "odict";

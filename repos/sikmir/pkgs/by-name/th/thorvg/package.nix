@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "thorvg";
   version = "1.0.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "thorvg";
     repo = "thorvg";

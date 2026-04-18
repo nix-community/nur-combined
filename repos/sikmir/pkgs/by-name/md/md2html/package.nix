@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "md2html";
   version = "2.0.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "nocd5";
     repo = "md2html";

@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "memphis";
   version = "0.2.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jiuka";
     repo = "memphis";

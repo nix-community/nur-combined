@@ -8,6 +8,8 @@ buildGoModule {
   pname = "wirefire";
   version = "0-unstable-2024-11-08";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "riyaz-ali";
     repo = "wirefire";

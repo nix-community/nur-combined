@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gloggery";
   version = "1.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "kconner";
     repo = "gloggery";

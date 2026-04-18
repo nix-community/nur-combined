@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "terminalpp";
   version = "4.0.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "terminalpp";

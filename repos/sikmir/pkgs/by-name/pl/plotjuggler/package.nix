@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "plotjuggler";
   version = "3.9.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "facontidavide";
     repo = "PlotJuggler";

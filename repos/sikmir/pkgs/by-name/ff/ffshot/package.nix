@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ffshot";
   version = "1.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "shinyblink";
     repo = "ffshot";

@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "qstudio";
   version = "5.01";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "timeseries";
     repo = "qstudio";

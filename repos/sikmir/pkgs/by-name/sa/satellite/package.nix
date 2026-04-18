@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "satellite";
   version = "1.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~gsthnz";
     repo = "satellite";

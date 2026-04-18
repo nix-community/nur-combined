@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gps-sdr-sim";
   version = "0-unstable-2024-12-23";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "osqzss";
     repo = "gps-sdr-sim";

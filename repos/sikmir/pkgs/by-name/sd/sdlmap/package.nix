@@ -12,6 +12,8 @@ stdenv.mkDerivation {
   pname = "sdlmap";
   version = "2014-02-09";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jhawthorn";
     repo = "sdlmap";

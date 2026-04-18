@@ -29,6 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "otm-armenia";
   inherit version;
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "der-stefan";
     repo = "OpenTopoMap";

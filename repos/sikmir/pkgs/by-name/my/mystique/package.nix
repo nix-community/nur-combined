@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mystique";
   version = "0-unstable-2022-11-25";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "TheThingsIndustries";
     repo = "mystique";

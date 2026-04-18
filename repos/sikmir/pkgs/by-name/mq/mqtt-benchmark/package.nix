@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mqtt-benchmark";
   version = "0.2.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "krylovsk";
     repo = "mqtt-benchmark";

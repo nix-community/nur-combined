@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "smrender";
   version = "4.5.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "rahra";
     repo = "smrender";

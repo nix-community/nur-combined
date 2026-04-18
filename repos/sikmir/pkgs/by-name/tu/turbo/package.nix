@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   pname = "turbo";
   version = "0-unstable-2025-08-26";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "magiblot";
     repo = "turbo";

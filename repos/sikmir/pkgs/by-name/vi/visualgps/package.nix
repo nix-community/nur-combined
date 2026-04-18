@@ -9,6 +9,8 @@ stdenv.mkDerivation {
   pname = "visualgps";
   version = "1.0-unstable-2020-03-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "VisualGPS";
     repo = "VisualGPSqt";

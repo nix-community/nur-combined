@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   pname = "libgarmin";
   version = "0-unstable-2008-12-27";
 
+  __structuredAttrs = true;
+
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/libgarmin/svn/libgarmin/dev";
     rev = "320";

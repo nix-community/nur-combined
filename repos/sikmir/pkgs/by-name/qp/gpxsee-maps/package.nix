@@ -29,6 +29,8 @@ stdenvNoCC.mkDerivation {
   pname = "gpxsee-maps";
   version = "2023-07-20";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "GPXSee-maps";

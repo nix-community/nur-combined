@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "osmosis";
   version = "0.49.2";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "openstreetmap";
     repo = "osmosis";

@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "dns-filter";
   version = "0-unstable-2021-04-14";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "depler";
     repo = "dns-filter";

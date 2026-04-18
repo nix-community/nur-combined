@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "sendmap20";
   version = "4.2";
 
+  __structuredAttrs = true;
+
   src = fetchwebarchive {
     url = "http://cgpsmapper.com/download/sendmap20.gz";
     timestamp = "20160622234550";

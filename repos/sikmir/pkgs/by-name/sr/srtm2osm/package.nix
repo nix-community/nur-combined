@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "srtm2osm";
   version = "1.16.5.0";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "mibe";
     repo = "Srtm2Osm";

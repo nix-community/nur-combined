@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
   version = "1.219.1.0";
 
+  __structuredAttrs = true;
+
   src =
     {
       "aarch64-darwin" = fetchzip {

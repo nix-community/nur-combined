@@ -9,6 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "comitium";
   version = "1.8.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~nytpu";
     repo = "comitium";

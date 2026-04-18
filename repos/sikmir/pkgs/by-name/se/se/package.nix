@@ -10,6 +10,8 @@ stdenv.mkDerivation {
   pname = "se";
   version = "3.0.1-unstable-2023-08-06";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "screen-editor";
     repo = "se";

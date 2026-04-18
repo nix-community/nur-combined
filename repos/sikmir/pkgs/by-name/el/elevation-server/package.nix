@@ -10,6 +10,8 @@ buildGoModule {
   pname = "elevation-server";
   version = "1.2.0-unstable-2024-09-11";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "elevation_server";

@@ -21,6 +21,8 @@ stdenv.mkDerivation {
   pname = "slazav-podm";
   version = "2025-05-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_podm";

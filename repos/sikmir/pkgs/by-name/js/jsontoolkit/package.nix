@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "jsontoolkit";
   version = "2.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "sourcemeta";
     repo = "jsontoolkit";

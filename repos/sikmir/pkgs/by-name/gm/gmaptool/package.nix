@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   pname = "gmaptool";
   inherit version;
 
+  __structuredAttrs = true;
+
   src = fetchzip {
     url = "https://www.gmaptool.eu/sites/default/files/${filename}";
     hash = "sha256-/hEkStsx6k6HU+WdqamP2FFFykEtIOrqh8JRLYr2yXE=";

@@ -9,6 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "vt2geojson";
   version = "0.1.6";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "wangyoucao577";
     repo = "vt2geojson";

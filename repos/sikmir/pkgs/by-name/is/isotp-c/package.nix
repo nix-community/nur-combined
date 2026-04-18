@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "isotp-c";
   version = "1.6.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "SimonCahill";
     repo = "isotp-c";

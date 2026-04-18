@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "edit";
   version = "0-unstable-2026-02-19";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~arthur-jacquin";
     repo = "edit";

@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "sbase";
   version = "0-unstable-2025-09-19";
 
+  __structuredAttrs = true;
+
   src = fetchgit {
     url = "git://git.suckless.org/sbase";
     rev = "055cc1ae1b3a13c3d8f25af0a4a3316590efcd48";

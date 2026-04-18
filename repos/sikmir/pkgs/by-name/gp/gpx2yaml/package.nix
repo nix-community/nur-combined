@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "gpx2yaml";
   version = "0-unstable-2025-01-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~sikmir";
     repo = "gpx2yaml";

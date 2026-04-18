@@ -8,6 +8,8 @@ buildGoModule {
   pname = "tsnsrv";
   version = "0-unstable-2025-12-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "boinkor-net";
     repo = "tsnsrv";

@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "volantmq";
   version = "0.4.0-rc.8";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "VolantMQ";
     repo = "volantmq";

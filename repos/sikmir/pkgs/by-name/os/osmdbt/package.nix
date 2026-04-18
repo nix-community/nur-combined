@@ -18,6 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "osmdbt";
   version = "0.9";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "osmdbt";

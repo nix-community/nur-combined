@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "iec104_client_control";
   version = "1.0.1-unstable-2026-02-26";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "PVKonovalov";
     repo = "iec104_client_control";

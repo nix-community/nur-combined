@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "heapusage";
   version = "2.17";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "d99kris";
     repo = "heapusage";

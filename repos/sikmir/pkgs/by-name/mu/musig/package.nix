@@ -12,6 +12,8 @@ buildGoModule (finalAttrs: {
   pname = "musig";
   version = "1.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "sfluor";
     repo = "musig";

@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "opcua-stack";
   version = "4.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ASNeG";
     repo = "OpcUaStack";

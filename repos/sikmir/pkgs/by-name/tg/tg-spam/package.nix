@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "tg-spam";
   version = "1.23.7";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "umputun";
     repo = "tg-spam";

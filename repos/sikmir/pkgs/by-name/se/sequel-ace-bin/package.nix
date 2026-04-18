@@ -9,6 +9,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sequel-ace";
   version = "4.1.7-20080";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "Sequel-Ace";
     repo = "Sequel-Ace";

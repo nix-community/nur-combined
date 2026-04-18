@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "json-tui";
   version = "1.4.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "json-tui";

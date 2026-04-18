@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "pista";
   version = "0.2.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "xandkar";
     repo = "pista";

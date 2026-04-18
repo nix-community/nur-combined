@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   pname = "routinodb";
   inherit (osm-extracts) version;
 
+  __structuredAttrs = true;
+
   dontUnpack = true;
 
   nativeBuildInputs = [ routino ];

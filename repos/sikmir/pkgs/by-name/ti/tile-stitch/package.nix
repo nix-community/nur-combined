@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "tile-stitch";
   version = "0-unstable-2019-07-11";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "e-n-f";
     repo = "tile-stitch";

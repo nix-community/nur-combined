@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rtlsdr-airband";
   version = "5.1.6";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "rtl-airband";
     repo = "RTLSDR-Airband";

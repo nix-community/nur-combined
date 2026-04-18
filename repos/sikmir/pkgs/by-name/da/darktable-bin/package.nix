@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "darktable-bin";
   version = "5.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "darktable-org";
     repo = "darktable";

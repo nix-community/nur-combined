@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "aprsc";
   version = "2.1.20";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "hessu";
     repo = "aprsc";

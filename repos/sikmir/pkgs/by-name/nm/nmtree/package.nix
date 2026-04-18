@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "nmtree";
   version = "1.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "archiecobbs";
     repo = "nmtree";

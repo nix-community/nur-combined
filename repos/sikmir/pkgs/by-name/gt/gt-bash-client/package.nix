@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gt-bash-client";
   version = "1.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "OPHoperHPO";
     repo = "GT-bash-client";

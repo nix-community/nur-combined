@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "qoiview";
   version = "0-unstable-2024-05-10";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "floooh";
     repo = "qoiview";

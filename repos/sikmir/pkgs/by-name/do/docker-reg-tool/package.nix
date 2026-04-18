@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "docker-reg-tool";
   version = "0-unstable-2023-10-26";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "byrnedo";
     repo = "docker-reg-tool";

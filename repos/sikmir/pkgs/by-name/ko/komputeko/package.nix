@@ -11,6 +11,8 @@ stdenvNoCC.mkDerivation {
   pname = "komputeko";
   version = "2021-05-28";
 
+  __structuredAttrs = true;
+
   src = fetchwebarchive {
     url = "https://komputeko.net/data.json";
     timestamp = "20210630073336";

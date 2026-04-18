@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "csvtools";
   version = "0-unstable-2023-10-10";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "DavyLandman";
     repo = "csvtools";

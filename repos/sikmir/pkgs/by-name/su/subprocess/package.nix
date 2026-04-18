@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "subprocess";
   version = "0.4.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "benman64";
     repo = "subprocess";

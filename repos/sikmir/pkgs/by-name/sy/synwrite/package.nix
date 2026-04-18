@@ -17,6 +17,8 @@ stdenv.mkDerivation rec {
   pname = "synwrite";
   version = "6.41.2780";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     urls = [
       "mirror://sourceforge/synwrite/Release/SynWrite.${version}.zip"

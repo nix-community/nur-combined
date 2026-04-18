@@ -19,6 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ais-catcher";
   version = "0.66";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jvde-github";
     repo = "AIS-catcher";

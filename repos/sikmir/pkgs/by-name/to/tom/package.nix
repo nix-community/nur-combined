@@ -12,6 +12,8 @@ stdenv.mkDerivation {
   pname = "tom";
   version = "2021-10-21";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = "tom";

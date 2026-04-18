@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "graphene";
   version = "2.14";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "graphene";

@@ -8,6 +8,8 @@ buildGoModule {
   pname = "rhttp";
   version = "0-unstable-2024-04-22";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "1buran";
     repo = "rHttp";

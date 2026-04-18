@@ -8,6 +8,8 @@ stdenv.mkDerivation {
   pname = "gpsdate";
   version = "0-unstable-2019-12-02";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "adamheinrich";
     repo = "gpsdate";

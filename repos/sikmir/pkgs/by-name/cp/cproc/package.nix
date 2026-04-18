@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "cproc";
   version = "0-unstable-2025-02-11";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~mcf";
     repo = "cproc";

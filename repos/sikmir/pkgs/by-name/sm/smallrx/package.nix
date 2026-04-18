@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "smallrx";
   version = "0-unstable-2018-12-18";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ha7ilm";
     repo = "smallrx";

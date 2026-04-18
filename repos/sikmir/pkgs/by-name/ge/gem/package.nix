@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gem";
   version = "0-unstable-2024-08-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "wrclark";
     repo = "gem";

@@ -33,6 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sasplanet";
   version = "260101";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "sasgis";
     repo = "sas.planet.src";

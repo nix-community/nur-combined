@@ -25,6 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libgeodesk";
   version = "2.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "clarisma";
     repo = "libgeodesk";

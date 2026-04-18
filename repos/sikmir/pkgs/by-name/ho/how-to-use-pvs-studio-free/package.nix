@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "how-to-use-pvs-studio-free";
   version = "7.41";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "viva64";
     repo = "how-to-use-pvs-studio-free";

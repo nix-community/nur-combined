@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "dragon";
   version = "1.2.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "mwh";
     repo = "dragon";

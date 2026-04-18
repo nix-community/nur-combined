@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "hurl";
   version = "0.8";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://codemadness.org/releases/hurl/hurl-${finalAttrs.version}.tar.gz";
     hash = "sha256-APrPH2qlB6+FRPUK1nItHxNySzVT26Ku0auGxNdrQsE=";

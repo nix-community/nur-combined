@@ -12,6 +12,8 @@ stdenv.mkDerivation {
   pname = "garminimg";
   version = "0-unstable-2024-11-26";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "kiozen";
     repo = "GarminImg";

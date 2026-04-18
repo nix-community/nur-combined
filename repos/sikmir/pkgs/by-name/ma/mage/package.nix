@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mage";
   version = "0.8-unstable-2022-12-30";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "explosion-mental";
     repo = "mage";

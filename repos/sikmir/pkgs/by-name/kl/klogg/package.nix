@@ -15,6 +15,8 @@ stdenv.mkDerivation rec {
   pname = "klogg";
   version = "2021-09-27";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "variar";
     repo = "klogg";

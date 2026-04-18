@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "chibicc";
   version = "0-unstable-2020-12-07";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "rui314";
     repo = "chibicc";

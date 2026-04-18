@@ -8,6 +8,8 @@ buildGoModule {
   pname = "gmnigit";
   version = "0-unstable-2022-01-10";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~kornellapacz";
     repo = "gmnigit";

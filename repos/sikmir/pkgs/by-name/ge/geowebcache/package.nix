@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "geowebcache";
   version = "1.26.2";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://sourceforge/geowebcache/geowebcache/${finalAttrs.version}/geowebcache-${finalAttrs.version}-war.zip";
     hash = "sha256-qs57WwOMkZMhgwkmPMIfO/aZ673B4as8kj5XEuoBPUs=";

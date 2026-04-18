@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "svtm";
   version = "0-unstable-2021-04-28";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jeremybobbin";
     repo = "svtm";

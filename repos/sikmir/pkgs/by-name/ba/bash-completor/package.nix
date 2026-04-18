@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "bash-completor";
   version = "0.2.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "adoyle-h";
     repo = "bash-completor";

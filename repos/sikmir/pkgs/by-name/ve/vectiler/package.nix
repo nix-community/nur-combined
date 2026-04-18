@@ -10,6 +10,8 @@ stdenv.mkDerivation {
   pname = "vectiler";
   version = "0.1.0-unstable-2024-05-20";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "karimnaaji";
     repo = "vectiler";

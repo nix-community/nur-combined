@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   pname = "gpxtools";
   version = "0-unstable-2023-08-13";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitea {
     domain = "notabug.org";
     owner = "irdvo";

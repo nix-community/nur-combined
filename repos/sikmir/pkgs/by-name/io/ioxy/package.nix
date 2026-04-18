@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "ioxy";
   version = "0-unstable-2023-08-20";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "NVISOsecurity";
     repo = "IOXY";

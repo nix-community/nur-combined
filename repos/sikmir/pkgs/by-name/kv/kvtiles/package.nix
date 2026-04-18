@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "kvtiles";
   version = "0-unstable-2024-01-24";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "akhenakh";
     repo = "kvtiles";

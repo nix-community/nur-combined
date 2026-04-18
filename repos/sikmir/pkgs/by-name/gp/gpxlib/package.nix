@@ -10,6 +10,8 @@ stdenv.mkDerivation {
   pname = "gpxlib";
   version = "0-unstable-2021-02-16";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "irdvo";
     repo = "gpxlib";

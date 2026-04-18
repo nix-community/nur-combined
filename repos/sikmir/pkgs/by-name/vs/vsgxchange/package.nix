@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "vsgxchange";
   version = "1.1.9";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "vsg-dev";
     repo = "vsgXchange";

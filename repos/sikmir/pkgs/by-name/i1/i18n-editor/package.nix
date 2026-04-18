@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "i18n-editor";
   version = "2.0.0-beta.1";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "jcbvm";
     repo = "i18n-editor";

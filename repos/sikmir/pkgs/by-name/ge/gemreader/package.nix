@@ -8,6 +8,8 @@ buildGoModule {
   pname = "gemreader";
   version = "0-unstable-2021-03-08";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
     repo = "gemreader";

@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "table";
   version = "0.7.20";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "table";

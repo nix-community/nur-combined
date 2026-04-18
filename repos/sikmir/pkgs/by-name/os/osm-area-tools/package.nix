@@ -18,6 +18,8 @@ stdenv.mkDerivation {
   pname = "osm-area-tools";
   version = "0-unstable-2024-12-16";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osm-area-tools";

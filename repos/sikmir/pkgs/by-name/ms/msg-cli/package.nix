@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "msg-cli";
   version = "0.1.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitea {
     domain = "forge.superkamiguru.org";
     owner = "MSG";

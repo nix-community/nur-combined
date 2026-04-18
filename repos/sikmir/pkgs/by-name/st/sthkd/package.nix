@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sthkd";
   version = "0-unstable-2020-11-15";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jeremybobbin";
     repo = "sthkd";

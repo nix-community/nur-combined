@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "ionscale";
   version = "0.18.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jsiebens";
     repo = "ionscale";

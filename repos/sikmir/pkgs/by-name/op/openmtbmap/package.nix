@@ -13,6 +13,8 @@ stdenv.mkDerivation {
   pname = "openmtbmap";
   version = "2020-06-10";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "btittelbach";
     repo = "openmtbmap_openvelomap_linux";

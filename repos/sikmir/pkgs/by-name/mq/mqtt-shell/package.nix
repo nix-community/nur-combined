@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mqtt-shell";
   version = "2.3.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "rainu";
     repo = "mqtt-shell";

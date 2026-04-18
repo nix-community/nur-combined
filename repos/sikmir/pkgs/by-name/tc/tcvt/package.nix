@@ -9,6 +9,8 @@ stdenv.mkDerivation {
   pname = "tcvt";
   version = "0-unstable-2022-09-28";
 
+  __structuredAttrs = true;
+
   src = fetchgit {
     url = "git://git.subdivi.de/~helmut/tcvt.git";
     rev = "4b6275c0617628c306c42b98b9c7f2107bf64d48";

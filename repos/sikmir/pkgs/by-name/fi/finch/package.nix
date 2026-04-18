@@ -10,6 +10,8 @@ buildGoModule (finalAttrs: {
   pname = "finch";
   version = "1.15.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";

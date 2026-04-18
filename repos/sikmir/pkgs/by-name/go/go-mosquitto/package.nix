@@ -11,6 +11,8 @@ buildGoModule (finalAttrs: {
   pname = "go-mosquitto";
   version = "1.0.8";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "mutablelogic";
     repo = "go-mosquitto";

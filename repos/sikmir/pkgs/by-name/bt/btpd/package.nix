@@ -9,6 +9,8 @@ stdenv.mkDerivation {
   pname = "btpd";
   version = "2020-04-07";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "btpd";
     repo = "btpd";

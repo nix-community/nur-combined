@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "qtester104";
   version = "2.7.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "riclolsen";
     repo = "qtester104";

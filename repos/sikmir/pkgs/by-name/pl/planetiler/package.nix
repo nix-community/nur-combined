@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "planetiler";
   version = "0.8.3";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "onthegomap";
     repo = "planetiler";

@@ -13,6 +13,8 @@ stdenv.mkDerivation {
   pname = "goestools";
   version = "0-unstable-2024-02-10";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "pietern";
     repo = "goestools";

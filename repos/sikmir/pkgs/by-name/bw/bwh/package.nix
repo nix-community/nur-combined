@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "bwh";
   version = "1.0.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitea {
     domain = "git.skyjake.fi";
     owner = "skyjake";

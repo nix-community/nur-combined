@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mqcontrol";
   version = "0.5.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "albertnis";
     repo = "mqcontrol";

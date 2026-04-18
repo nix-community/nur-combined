@@ -9,6 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "mqtt-proxy";
   version = "0.5.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "grepplabs";
     repo = "mqtt-proxy";

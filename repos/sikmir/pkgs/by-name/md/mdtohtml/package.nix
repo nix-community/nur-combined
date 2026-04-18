@@ -10,6 +10,8 @@ buildGoModule (finalAttrs: {
   pname = "mdtohtml";
   version = "0.1.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = "mdtohtml";

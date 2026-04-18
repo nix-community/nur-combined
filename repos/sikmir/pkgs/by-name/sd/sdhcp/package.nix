@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sdhcp";
   version = "0.1-unstable-2018-11-22";
 
+  __structuredAttrs = true;
+
   src = fetchgit {
     url = "git://git.2f30.org/sdhcp";
     rev = "8455fd2d090bd9b227340c30c92c6aa13302c91a";

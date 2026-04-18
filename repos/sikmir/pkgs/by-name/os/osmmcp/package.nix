@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "osmmcp";
   version = "0-unstable-2025-11-26";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "estebamod";
     repo = "osmmcp";

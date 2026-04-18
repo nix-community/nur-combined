@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "kefir";
   version = "0.5.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~jprotopopov";
     repo = "kefir";

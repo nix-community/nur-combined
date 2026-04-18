@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mqttfs";
   version = "0-unstable-2022-05-01";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "mburakov";
     repo = "mqttfs";

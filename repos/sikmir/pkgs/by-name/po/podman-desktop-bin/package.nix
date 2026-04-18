@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "podman-desktop";
   version = "1.15.0";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "containers";
     repo = "podman-desktop";

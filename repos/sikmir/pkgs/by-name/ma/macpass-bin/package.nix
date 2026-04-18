@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "MacPass";
   version = "0.8.1";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "MacPass";
     repo = "MacPass";

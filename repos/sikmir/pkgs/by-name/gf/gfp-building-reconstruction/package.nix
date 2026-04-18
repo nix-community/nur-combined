@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gfp-building-reconstruction";
   version = "0.4.8";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "geoflow3d";
     repo = "gfp-building-reconstruction";

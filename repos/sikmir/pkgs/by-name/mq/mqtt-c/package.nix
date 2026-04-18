@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "MQTT-C";
   version = "1.1.6";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "LiamBindle";
     repo = "MQTT-C";

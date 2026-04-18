@@ -8,6 +8,8 @@ buildGoModule {
   pname = "homescript";
   version = "0-unstable-2026-01-04";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "homescript-dev";
     repo = "server";

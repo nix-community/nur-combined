@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "webdump";
   version = "0.2";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://codemadness.org/releases/webdump/webdump-${finalAttrs.version}.tar.gz";
     hash = "sha256-rsYj92QujrRxHfdsJbP4S41/hO8iUXj+LGmvDzdfvbQ=";

@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "macsvg";
   version = "1.2.0";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "dsward2";
     repo = "macSVG";

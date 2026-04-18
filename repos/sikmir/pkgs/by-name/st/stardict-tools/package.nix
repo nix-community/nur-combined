@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "stardict-tools";
   version = "3.0.6.2";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://sourceforge/stardict-4/stardict-${finalAttrs.version}-2-src.7z";
     hash = "sha256-1XLfXs5v2ZvP5xqCN4x1+0BvkIGc8cHWrgiP0b0DP0U=";

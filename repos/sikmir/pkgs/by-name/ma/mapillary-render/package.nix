@@ -11,6 +11,8 @@ buildGoModule (finalAttrs: {
   pname = "mapillary-render";
   version = "1.1.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "mapillaryRender";

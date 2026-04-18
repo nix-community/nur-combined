@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "arduinojson";
   version = "6.20.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "bblanchon";
     repo = "ArduinoJson";

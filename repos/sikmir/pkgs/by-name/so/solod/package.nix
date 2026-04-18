@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "solod";
   version = "0-unstable-2026-04-08";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "solod-dev";
     repo = "solod";

@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mqtt-cli";
   version = "4.50.0";
 
+  __structuredAttrs = true;
+
   src = fetchfromgh {
     owner = "hivemq";
     repo = "mqtt-cli";

@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "git-tui";
   version = "1.3.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "git-tui";

@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libsockcanpp";
   version = "1.5.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "SimonCahill";
     repo = "libsockcanpp";

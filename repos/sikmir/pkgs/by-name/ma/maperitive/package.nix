@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "maperitive";
   version = "2.4.3";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "http://maperitive.net/download/Maperitive-${finalAttrs.version}.zip";
     hash = "sha256-yhslRj4CjUY0kviQTI7z8LvSiWvjf7K8+tDMeA9zNEk=";

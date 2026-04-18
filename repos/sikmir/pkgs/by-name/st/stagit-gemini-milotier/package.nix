@@ -9,6 +9,8 @@ stdenv.mkDerivation {
   pname = "stagit-gemini";
   version = "2022-07-08";
 
+  __structuredAttrs = true;
+
   src = fetchgit {
     url = "https://git.milotier.net/stagit-gemini";
     rev = "eddfa077851ffcdbdf377f7920fb481025f7ba31";

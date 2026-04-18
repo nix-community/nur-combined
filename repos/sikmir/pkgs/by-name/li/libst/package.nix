@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libst";
   version = "0-unstable-2021-06-06";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jeremybobbin";
     repo = "libst";

@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "geminid";
   version = "0-unstable-2022-04-15";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jovoro";
     repo = "geminid";

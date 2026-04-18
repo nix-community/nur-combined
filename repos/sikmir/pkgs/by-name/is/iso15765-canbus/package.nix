@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "iso15765-canbus";
   version = "2024-12-11";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "devcoons";
     repo = "iso15765-canbus";

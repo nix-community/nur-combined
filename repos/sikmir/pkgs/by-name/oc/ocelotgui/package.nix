@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ocelotgui";
   version = "2.6.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ocelot-inc";
     repo = "ocelotgui";

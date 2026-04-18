@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "aamath";
   version = "0.3";
 
+  __structuredAttrs = true;
+
   src = fetchwebarchive {
     url = "http://fuse.superglue.se/aamath/aamath-${finalAttrs.version}.tar.gz";
     timestamp = "20190303013301";

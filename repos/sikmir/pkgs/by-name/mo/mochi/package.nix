@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "mochi";
   version = "2.7.9";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "mochi-mqtt";
     repo = "server";

@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "osm-tags-transform";
   version = "0-unstable-2023-08-06";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osm-tags-transform";

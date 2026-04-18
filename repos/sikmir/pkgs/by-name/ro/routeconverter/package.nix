@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "routeconverter";
   version = "3.1";
 
+  __structuredAttrs = true;
+
   srcs = [
     (fetchurl {
       url = "https://static.routeconverter.com/download/previous-releases/${finalAttrs.version}/RouteConverterLinuxOpenSource.jar";

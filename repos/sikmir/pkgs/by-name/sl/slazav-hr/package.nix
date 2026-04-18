@@ -21,6 +21,8 @@ stdenv.mkDerivation {
   pname = "slazav-hr";
   version = "2025-12-08";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_hr";

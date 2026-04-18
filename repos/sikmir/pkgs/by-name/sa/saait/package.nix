@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "saait";
   version = "0.8";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://codemadness.org/releases/saait/saait-${finalAttrs.version}.tar.gz";
     hash = "sha256-ulYpErfzpSiE0pKyDroEdxmVQT5wFdNFT5Bf88AhBAQ=";

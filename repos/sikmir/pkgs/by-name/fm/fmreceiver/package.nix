@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "fmreceiver";
   version = "2.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "JvanKatwijk";
     repo = "sdr-j-fm";

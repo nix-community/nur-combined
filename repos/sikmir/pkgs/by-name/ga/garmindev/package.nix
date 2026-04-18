@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "garmindev";
   version = "0.3.4";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://sourceforge/qlandkartegt/garmindev-${finalAttrs.version}.tar.gz";
     sha256 = "1mc7rxdn9790pgbvz02xzipxp2dp9h4hfq87xgawa18sp9jqzhw6";

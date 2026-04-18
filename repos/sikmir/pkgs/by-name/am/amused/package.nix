@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "amused";
   version = "0.19";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = "amused";

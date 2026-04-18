@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "render_geojson";
   version = "0-unstable-2018-07-11";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "pedro-vicente";
     repo = "render_geojson";

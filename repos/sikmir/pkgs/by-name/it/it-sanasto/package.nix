@@ -11,6 +11,8 @@ stdenvNoCC.mkDerivation {
   pname = "it-sanasto";
   version = "2020-02-27";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "TimoSalomaki";
     repo = "IT-sanasto";

@@ -10,6 +10,8 @@ stdenv.mkDerivation {
   pname = "tvision";
   version = "0-unstable-2025-09-08";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "magiblot";
     repo = "tvision";

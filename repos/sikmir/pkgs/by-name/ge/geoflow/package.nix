@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "geoflow";
   version = "0.3.7";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "geoflow3d";
     repo = "geoflow";

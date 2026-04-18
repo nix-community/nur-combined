@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "radiolib";
   version = "7.6.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jgromes";
     repo = "RadioLib";

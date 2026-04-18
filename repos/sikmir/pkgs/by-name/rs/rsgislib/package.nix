@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rsgislib";
   version = "5.2.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "remotesensinginfo";
     repo = "rsgislib";

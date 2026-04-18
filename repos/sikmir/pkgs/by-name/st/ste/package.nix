@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ste";
   version = "0.7.7";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "ste";

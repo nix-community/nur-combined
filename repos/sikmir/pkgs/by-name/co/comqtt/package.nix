@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "comqtt";
   version = "2.6.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "wind-c";
     repo = "comqtt";

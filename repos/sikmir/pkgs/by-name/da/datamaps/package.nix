@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "datamaps";
   version = "0-unstable-2014-08-19";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "e-n-f";
     repo = "datamaps";

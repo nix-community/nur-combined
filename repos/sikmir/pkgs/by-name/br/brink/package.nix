@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "brink";
   version = "0.8.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jsiebens";
     repo = "brink";

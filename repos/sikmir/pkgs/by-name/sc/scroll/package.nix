@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "scroll";
   version = "0.1";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://dl.suckless.org/tools/scroll-${finalAttrs.version}.tar.gz";
     hash = "sha256-nrLVnOat9gEAvSFxsNIx3bR+J0sp3tAiVpYKEezO7tY=";

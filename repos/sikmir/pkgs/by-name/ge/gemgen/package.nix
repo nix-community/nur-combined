@@ -9,6 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "gemgen";
   version = "0.6.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~kota";
     repo = "gemgen";

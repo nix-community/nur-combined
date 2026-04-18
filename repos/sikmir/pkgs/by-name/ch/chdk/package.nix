@@ -21,6 +21,8 @@ stdenv.mkDerivation {
   pname = "chdk";
   inherit version;
 
+  __structuredAttrs = true;
+
   src = fetchzip {
     url = "https://app.assembla.com/spaces/chdk/subversion/source/${revision}/branches/${branch}?_format=zip";
     extension = "zip";

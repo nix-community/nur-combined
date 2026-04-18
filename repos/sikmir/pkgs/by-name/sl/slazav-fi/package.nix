@@ -20,6 +20,8 @@ stdenv.mkDerivation {
   pname = "slazav-fi";
   version = "2025-03-20";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_fi";

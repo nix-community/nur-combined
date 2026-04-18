@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "xfractint";
   version = "20.04p16";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://fractint.org/ftp/current/linux/xfractint-${finalAttrs.version}.tar.gz";
     hash = "sha256-TlQBz+wOb/odqzjjwXfhRFdyCWy+VUIAxRLt7qI8R60=";

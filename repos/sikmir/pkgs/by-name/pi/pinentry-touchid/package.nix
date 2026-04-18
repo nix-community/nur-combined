@@ -10,6 +10,8 @@ buildGoModule (finalAttrs: {
   pname = "pinentry-touchid";
   version = "0.0.3";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "jorgelbg";
     repo = "pinentry-touchid";

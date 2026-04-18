@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gfp-basic3d";
   version = "0.4.18";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "geoflow3d";
     repo = "gfp-basic3d";

@@ -10,6 +10,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "marta";
   version = "0.8.1";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://updates.marta.sh/release/Marta-${finalAttrs.version}.dmg";
     hash = "sha256-DbNkvLCy6q0CN8b4+8oheM4EaaLAQvH3O5zWVYxEyh8=";

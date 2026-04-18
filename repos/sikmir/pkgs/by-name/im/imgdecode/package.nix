@@ -8,6 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "imgdecode";
   version = "1.1";
 
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "mirror://sourceforge/garmin-img/imgdecode-${finalAttrs.version}.tar.gz";
     hash = "sha256-VQC9o/QOti6jTCYi4ktH6UKZLPLwLOUAfosZftf+uWc=";

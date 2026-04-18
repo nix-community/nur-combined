@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gnsstk";
   version = "15.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "SGL-UT";
     repo = "gnsstk";

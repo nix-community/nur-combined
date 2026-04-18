@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gps-whatsnew";
   version = "2017-01-23";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "centurn";
     repo = "gps-whatsnew";

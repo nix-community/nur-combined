@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "kealib";
   version = "1.6.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ubarsc";
     repo = "kealib";

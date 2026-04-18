@@ -18,6 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
   version = "0-unstable-2025-09-19";
 
+  __structuredAttrs = true;
+
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = "imscript";

@@ -11,6 +11,8 @@ buildGoModule {
   pname = "riffraff";
   version = "0.5.0-unstable-2022-10-25";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "mre";
     repo = "riffraff";

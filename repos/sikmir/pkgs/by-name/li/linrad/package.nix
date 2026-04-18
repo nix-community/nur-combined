@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   pname = "linrad";
   version = "2024-04-26";
 
+  __structuredAttrs = true;
+
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/linrad/code/trunk";
     rev = "1027";

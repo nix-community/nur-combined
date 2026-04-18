@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "serverpp";
   version = "0.3.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "serverpp";

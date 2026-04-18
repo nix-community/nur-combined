@@ -11,6 +11,8 @@ buildGoModule (finalAttrs: {
   pname = "shifu";
   version = "0.91.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "Edgenesis";
     repo = "shifu";

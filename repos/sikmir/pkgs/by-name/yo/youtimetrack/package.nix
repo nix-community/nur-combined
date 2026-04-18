@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "youtimetrack";
   version = "0.1.1";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "bullshitsoftware";
     repo = "youtimetrack";

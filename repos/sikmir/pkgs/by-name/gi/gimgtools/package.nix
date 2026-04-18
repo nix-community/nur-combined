@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gimgtools";
   version = "0.01-unstable-2013-09-19";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "wuyongzheng";
     repo = "gimgtools";

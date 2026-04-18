@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "cfiles";
   version = "1.8";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "mananapr";
     repo = "cfiles";

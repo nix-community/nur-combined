@@ -8,6 +8,8 @@ buildGoModule {
   pname = "janus-mqtt-proxy";
   version = "0-unstable-2022-02-19";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "phoenix-mstu";
     repo = "janus-mqtt-proxy";
