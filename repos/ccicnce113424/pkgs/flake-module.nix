@@ -4,9 +4,14 @@
     inputs.flake-parts.flakeModules.easyOverlay
   ];
   perSystem =
-    { pkgs, config, ... }:
     {
-      packages = import ./. { inherit pkgs; };
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
+    {
+      packages = lib.filterAttrs (_: lib.isDerivation) (import ./. { inherit pkgs; });
       overlayAttrs = config.packages;
     };
 

@@ -1,23 +1,23 @@
 {
   pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
 }:
 let
-  inherit (pkgs) lib;
   fetchedSrc = pkgs.callPackage ../_sources/generated.nix { };
   stableVersion = src: lib.removePrefix "v" src.version;
   unstableVersion = src: "0-unstable-${src.date}";
 in
-{
-  algermusicplayer = pkgs.callPackage ./algermusicplayer { inherit fetchedSrc; };
+lib.makeScope pkgs.newScope (self: {
+  algermusicplayer = self.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
-  daed = pkgs.callPackage ./daed/package.nix { };
+  daed = self.callPackage ./daed/package.nix { };
 
-  danmakufactory = pkgs.callPackage ./danmakufactory rec {
+  danmakufactory = self.callPackage ./danmakufactory rec {
     sources = fetchedSrc.danmakufactory;
     version = stableVersion sources;
   };
   # danmakufactory-git =
-  #   (pkgs.callPackage ./danmakufactory-git rec {
+  #   (self.callPackage ./danmakufactory-git rec {
   #     sources = fetchedSrc.danmakufactory-git;
   #     version = unstableVersion sources;
   #   }).overrideAttrs
@@ -25,13 +25,13 @@ in
   #       meta.broken = true;
   #     };
 
-  dxvk-gplall-bin-w32 = pkgs.callPackage ./dxvk-gplall-bin rec {
+  dxvk-gplall-bin-w32 = self.callPackage ./dxvk-gplall-bin rec {
     sources = fetchedSrc.dxvk-gplall;
     inherit (sources) version;
     sourceRoot = "x32";
   };
 
-  dxvk-gplall-bin-w64 = pkgs.callPackage ./dxvk-gplall-bin rec {
+  dxvk-gplall-bin-w64 = self.callPackage ./dxvk-gplall-bin rec {
     sources = fetchedSrc.dxvk-gplall;
     inherit (sources) version;
     sourceRoot = "x64";
@@ -54,94 +54,94 @@ in
       }
     );
 
-  jaq = pkgs.callPackage ./jaq rec {
+  jaq = self.callPackage ./jaq rec {
     sources = fetchedSrc.jaq;
     version = stableVersion sources;
   };
 
-  kikoflu = pkgs.callPackage ./kikoflu rec {
+  kikoflu = self.callPackage ./kikoflu rec {
     sources = fetchedSrc.kikoflu;
     version = stableVersion sources;
     srcInfo = lib.importJSON ./kikoflu/src-info.json;
   };
 
-  krunner-fd-plugin = pkgs.callPackage ./krunner-fd-plugin rec {
+  krunner-fd-plugin = self.callPackage ./krunner-fd-plugin rec {
     sources = fetchedSrc.krunner-fd-plugin;
     version = unstableVersion sources;
   };
 
-  krunner-zed = pkgs.callPackage ./krunner-zed rec {
+  krunner-zed = self.callPackage ./krunner-zed rec {
     sources = fetchedSrc.krunner-zed;
     version = stableVersion sources;
   };
 
-  linux-enable-ir-emitter = pkgs.callPackage ./linux-enable-ir-emitter rec {
+  linux-enable-ir-emitter = self.callPackage ./linux-enable-ir-emitter rec {
     sources = fetchedSrc.linux-enable-ir-emitter;
     version = sources.version;
   };
 
-  loveiwara = pkgs.callPackage ./loveiwara rec {
+  loveiwara = self.callPackage ./loveiwara rec {
     sources = fetchedSrc.loveiwara;
     version = stableVersion sources;
     srcInfo = lib.importJSON ./loveiwara/src-info.json;
   };
 
-  lumine = pkgs.callPackage ./lumine rec {
+  lumine = self.callPackage ./lumine rec {
     inherit (lib.importJSON ./lumine/src-info.json) hash;
     sources = fetchedSrc.lumine;
     version = stableVersion sources;
   };
 
-  lxgw-wenkai-gb = pkgs.callPackage ./lxgw-wenkai-gb rec {
+  lxgw-wenkai-gb = self.callPackage ./lxgw-wenkai-gb rec {
     sources = fetchedSrc.lxgw-wenkai-gb;
     version = stableVersion sources;
   };
 
-  lyrica = pkgs.callPackage ./lyrica {
+  lyrica = self.callPackage ./lyrica {
     sources = fetchedSrc.lyrica;
   };
 
-  motrix-next = pkgs.callPackage ./motrix-next rec {
+  motrix-next = self.callPackage ./motrix-next rec {
     inherit (lib.importJSON ./motrix-next/src-info.json) hash;
     sources = fetchedSrc.motrix-next;
     version = stableVersion sources;
   };
 
-  piliplus = pkgs.callPackage ./piliplus rec {
+  piliplus = self.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;
     srcInfo = lib.importJSON ./piliplus/src-info.json;
   };
 
-  pixes = pkgs.callPackage ./pixes rec {
+  pixes = self.callPackage ./pixes rec {
     sources = fetchedSrc.pixes;
     version = stableVersion sources;
     srcInfo = lib.importJSON ./pixes/src-info.json;
   };
-  pixes-git = pkgs.callPackage ./pixes rec {
+  pixes-git = self.callPackage ./pixes rec {
     sources = fetchedSrc.pixes-git;
     version = unstableVersion sources;
     srcInfo = lib.importJSON ./pixes/git/src-info.json;
   };
 
-  shijima-qt = pkgs.callPackage ./shijima-qt { };
+  shijima-qt = self.callPackage ./shijima-qt { };
 
-  splayer-git = pkgs.callPackage ./splayer-git rec {
+  splayer-git = self.callPackage ./splayer-git rec {
     inherit (lib.importJSON ./splayer-git/src-info.json) hash;
     sources = fetchedSrc.splayer-git;
     version = unstableVersion sources;
   };
 
-  splayer-kde-bar-lyc = pkgs.callPackage ./splayer-kde-bar-lyc {
+  splayer-kde-bar-lyc = self.callPackage ./splayer-kde-bar-lyc {
     sources = fetchedSrc.splayer-kde-bar-lyc;
   };
 
-  svt-av1-hdr = pkgs.callPackage ./svt-av1-psy rec {
+  svt-av1-hdr = self.callPackage ./svt-av1-psy rec {
     sources = fetchedSrc.svt-av1-hdr;
     version = stableVersion sources;
   };
 
-  svt-av1-psyex = pkgs.callPackage ./svt-av1-psy rec {
+  svt-av1-psyex = self.callPackage ./svt-av1-psy rec {
     sources = fetchedSrc.svt-av1-psyex;
     version = stableVersion sources;
   };
@@ -155,7 +155,7 @@ in
       version = unstableVersion sources;
     };
 
-  wild-reader = pkgs.callPackage ./wild-reader rec {
+  wild-reader = self.callPackage ./wild-reader rec {
     sources = fetchedSrc.wild;
     version = stableVersion sources;
     srcInfo = lib.importJSON ./wild-reader/src-info.json;
@@ -163,8 +163,8 @@ in
 
   # wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
 
-  zhuque = pkgs.callPackage ./zhuque rec {
+  zhuque = self.callPackage ./zhuque rec {
     sources = fetchedSrc.zhuque;
     version = stableVersion sources;
   };
-}
+})
