@@ -10,8 +10,16 @@
       lib,
       ...
     }:
+    let
+      packageSet = import ./. { inherit pkgs; };
+    in
     {
-      packages = lib.filterAttrs (_: lib.isDerivation) (import ./. { inherit pkgs; });
+      packages = lib.removeAttrs packageSet [
+        "callPackage"
+        "newScope"
+        "overrideScope"
+        "packages"
+      ];
       overlayAttrs = config.packages;
     };
 
