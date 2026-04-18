@@ -12,7 +12,11 @@
   pname ? src.pname or src.name,
   version ? src.version or "unstable",
   architecture ? src.stdenv.hostPlatform.go.GOARCH or stdenv.hostPlatform.go.GOARCH,
-  name ? "${pname}-${version}-${architecture}.AppImage",
+  name ?
+    if lib.strings.hasInfix "-" pname then
+      "${pname}_${version}_${architecture}.AppImage"
+    else
+      "${pname}-${version}-${architecture}.AppImage",
 
   squashfsArgs ? [
     "-b 1M"
@@ -46,8 +50,8 @@ let
 in
 
 stdenvNoCC.mkDerivation {
-  inherit pname version;
-  src = null; # we don't need any source files, since we'll be copying everything in the build phase
+  inherit name;
+  src = null;
 
   nativeBuildInputs = [
     squashfsTools
@@ -63,7 +67,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   buildPhase = ''
-    build=$(mktemp -u)
+    runHook preBuild
 
     # finds extra files in derivation and copy to extras dir
     ${./extra-files.sh} ${package}
@@ -73,7 +77,7 @@ stdenvNoCC.mkDerivation {
       builtins.concatStringsSep " " (
         [
           "$(cat ${writeClosure [ package ]})"
-          "$build"
+          "$out"
           "-p ${lib.escapeShellArg "entrypoint s 555 0 0 ${lib.getExe package}"}" # create symlink to the exe as the entrypoint
           "-no-strip" # don't strip leading dirs, to preserve the fact that everything's in the nix store
         ]
@@ -87,20 +91,24 @@ stdenvNoCC.mkDerivation {
         [
           "${apprun}/bin/*" # add AppRun and its dependencies
           "$(find extras -mindepth 1 -maxdepth 1)" # add extra files from the extras dir
-          "$build"
+          "$out"
         ]
         ++ args
       )
     }
 
     # add the runtime to the start
-    dd if=${lib.escapeShellArg (lib.getExe runtime)} of=$build conv=notrunc
+    dd if=${lib.escapeShellArg (lib.getExe runtime)} of=$out conv=notrunc
+
+    runHook postBuild
   '';
 
   installPhase = ''
-    mkdir -p $out/bin
-    mv $build $out/bin/${name}
-    chmod 755 $out/bin/${name}
+    runHook preInstall
+
+    chmod +x $out
+
+    runHook postInstall
   '';
 
   meta = (package.meta or { }) // {
