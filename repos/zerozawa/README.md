@@ -123,11 +123,10 @@ in
 repo.lib.fetchPixiv {
   id = 81554929;
   p = 0;
-  sha256 = "sha256-...";
+  hash = "sha256-...";
 
   # Optional overrides
   mirrors = [ "pixiv.re" "pixiv.cat" "pixiv.nl" ];
-  extensions = [ "jpg" "png" ];
 }
 ```
 
