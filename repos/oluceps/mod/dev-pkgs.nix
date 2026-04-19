@@ -68,7 +68,6 @@
               nodejs_latest
               wakelan
               lynx
-              opencode
               atuin
               yazi
               hexyl
@@ -84,10 +83,7 @@
               git-credential-oauth
               qrencode
               lazygit
-              codex
-              gemini-cli
               docker-compose
-              antigravity
               gh
               # zed-editor
               # vscode.fhs
@@ -128,6 +124,13 @@
               nix-update
               osgint
             ];
+            ai = [
+              antigravity
+              codex
+              gemini-cli
+              opencode
+              claude-code
+            ];
 
             lang = [
               [
@@ -136,6 +139,8 @@
                 lua-language-server
                 yaml-language-server
                 tree-sitter
+                typescript-language-server
+                biome
                 stylua
                 # biome
                 # black
