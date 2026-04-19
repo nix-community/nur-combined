@@ -101,7 +101,9 @@ lib.makeScope pkgs.newScope (self: {
     sources = fetchedSrc.lyrica;
   };
 
-  motrix-next = self.callPackage ./motrix-next rec {
+  motrix-next = self.callPackage ./motrix-next/package.nix { };
+
+  motrix-next-beta = self.callPackage ./motrix-next rec {
     inherit (lib.importJSON ./motrix-next/src-info.json) hash;
     sources = fetchedSrc.motrix-next;
     version = stableVersion sources;

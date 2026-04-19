@@ -40,6 +40,7 @@ jobs:
           pkgs/loveiwara/update.sh
           pkgs/lumine/update.sh
           pkgs/motrix-next/update.sh
+          pkgs/motrix-next/update-beta.sh
           pkgs/piliplus/update.sh
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
