@@ -39,7 +39,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-NFK1iKPysOhSI1r6j9E4XyyJc3bv5S5NaeelUOH91vM=";
+      sha256 = "sha256-JOkP0A2PMyrdVzV8+5qCymPKK2x0Vv3MKF1Mnfjp4kQ=";
     };
   };
   helium-linux = {
@@ -114,13 +114,13 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v7.1.20";
+    version = "v7.1.21";
     src = fetchFromGitHub {
       owner = "koekeishiya";
       repo = "yabai";
-      rev = "v7.1.20";
+      rev = "v7.1.21";
       fetchSubmodules = false;
-      sha256 = "sha256-g1LnrpX+t3yubX6CIRUxQ1vTp2vr242uvhj5empZoHI=";
+      sha256 = "sha256-I1A9L5zXIg4qVAM84DjdF2zGjSSPiJtw2K6D+iKVDLs=";
     };
   };
   zen = {
@@ -136,7 +136,7 @@
     version = "1.19.8b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg";
-      sha256 = "sha256-VsypzLR14woKiFrA+19702jY+HMa0tkD0tAwjeSx4Zo=";
+      sha256 = "sha256-luGTctBXR30YHEivzoEZhKNJSTlXhwM34T3H5D+YM34=";
     };
   };
 }
