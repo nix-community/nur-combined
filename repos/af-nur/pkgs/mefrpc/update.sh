@@ -7,7 +7,8 @@ VERSION=$(curl -s https://api.mefrp.com/api/auth/products | jq -r '.data[] | sel
 echo "VERSION: $VERSION"
 
 ALIST_API="https://drive.mcsl.com.cn/api/fs/list"
-LIST_JSON=$(curl -s -G "$ALIST_API" --data-urlencode "path=/ME-Frp/115Life/MEFrp-Core/$VERSION")
+SOURCE="Lanzou"
+LIST_JSON=$(curl -s -G "$ALIST_API" --data-urlencode "path=/ME-Frp/$SOURCE/MEFrp-Core/$VERSION")
 
 declare -A ARCH_MAP=(
     ["x86_64-linux"]="amd64"
@@ -24,9 +25,13 @@ declare -A ARCH_MAP=(
     ["arm-linux"]="arm"
 )
 
-to_sri() {
-    local hex="$1"
-    nix hash to-sri --type sha1 "$hex"
+download_and_hash() {
+    local url="$1"
+    local temp_file=$(mktemp)
+    trap "rm -f $temp_file" RETURN
+    
+    curl -sL "$url" -o "$temp_file"
+    nix hash file --sri --type sha256 "$temp_file"
 }
 
 cat <<EOF > sources.nix
@@ -39,15 +44,14 @@ EOF
 for nix_arch in "${!ARCH_MAP[@]}"; do
     core_arch=${ARCH_MAP[$nix_arch]}
     
-    # 在 JSON 中查找对应的文件名和哈希
-    # 匹配模式：mefrpc_linux_{arch}_{version}.tar
-    # 使用 jq 提取对应的 sha1
     TARGET_NAME="mefrpc_linux_${core_arch}_${VERSION}.tar"
     FILE_INFO=$(echo "$LIST_JSON" | jq -r ".data.content[] | select(.name == \"$TARGET_NAME\")")
     
     if [ -n "$FILE_INFO" ]; then
-        SHA1=$(echo "$FILE_INFO" | jq -r '.hash_info.sha1')
-        HASH=$(to_sri "$SHA1")
+        DOWNLOAD_URL="https://drive.mcsl.com.cn/d/ME-Frp/$SOURCE/MEFrp-Core/$VERSION/$TARGET_NAME"
+        
+        echo "Downloading $nix_arch ($core_arch)..."
+        HASH=$(download_and_hash "$DOWNLOAD_URL")
         echo "Found $nix_arch ($core_arch): $HASH"
         
         cat <<EOF >> sources.nix

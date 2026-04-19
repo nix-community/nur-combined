@@ -2,7 +2,7 @@
     sources = import ./sources.nix;
     currentSystem = stdenv.hostPlatform.system;
     pkgInfo = sources.platforms.${currentSystem} or (throw "Unsupported system: ${currentSystem}");
-    baseUrl = "https://drive.mcsl.com.cn/d/ME-Frp/115Life/MEFrp-Core/${sources.version}";
+    baseUrl = "https://drive.mcsl.com.cn/d/ME-Frp/Lanzou/MEFrp-Core/${sources.version}";
     fileName = "mefrpc_linux_${pkgInfo.arch}_${sources.version}.tar";
 in stdenv.mkDerivation rec {
     pname = "mefrpc";

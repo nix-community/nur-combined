@@ -4,51 +4,51 @@
   platforms = {
     "armv7l-linux" = {
       arch = "arm_hf";
-      hash = "sha1-8+XCelGNkakhvcZ09BGpft8P0Ck=";
+      hash = "sha256-035Nxp3vb7xndTMLCM+2KPAnJDn3C6UR+giMnOdSemo=";
     };
     "arm-linux" = {
       arch = "arm";
-      hash = "sha1-/ksXM4ySUAqlLU7ELM9g3/+5CAQ=";
+      hash = "sha256-0oEiJyTFZXby5WF3Ehj8FZRg5y9/ilxq+5jHfgZVcxY=";
     };
     "loongarch64-linux" = {
       arch = "loong64";
-      hash = "sha1-Y/du16RprMeEr+R4cnojZ5tcvKs=";
+      hash = "sha256-J5lkEkG92aHux8ucMnvc+qB0/w6tzP4Anas2nz+J9UA=";
     };
     "riscv64-linux" = {
       arch = "riscv64";
-      hash = "sha1-rf1R9lZwe/QjGj96LTQqM9qNu0g=";
+      hash = "sha256-T0fK7UVD6mEvZN+Z6FeGST5ZbP8SRSbKVCJXjTvUmP4=";
     };
     "aarch64-linux" = {
       arch = "arm64";
-      hash = "sha1-mv3STgac0nQ5pnMA9yeOV8RAxZg=";
+      hash = "sha256-FNMS7Sdj6bMbvX7w2swJE8susLAaN2Kh6KUsFMqCyQY=";
     };
     "x86_64-linux" = {
       arch = "amd64";
-      hash = "sha1-eLxYeilrorsSYZZoEvzKbucpHlE=";
+      hash = "sha256-K9FZy+Q5mXlgpzyVfFuQN6wUEhdMPnm9hjvylPFuDBM=";
     };
     "i686-linux" = {
       arch = "386";
-      hash = "sha1-kCPqYK0K7QXmRY7ZgVIwdsT3yG0=";
+      hash = "sha256-cWCL61xvDzkEvNXz+GcOD8vELSLd0isEcQzDr3UsOL8=";
     };
     "mips-linux" = {
       arch = "mips";
-      hash = "sha1-oPL/1pKPD9Zv+rlokMzyiavIqn8=";
+      hash = "sha256-jvHhl9IAOsvNfSJMqW9lWFktVZofIBuemBPnGxjR+4g=";
     };
     "s390x-linux" = {
       arch = "s390x";
-      hash = "sha1-M+Olz66s/EYQy6FsdoeedlqkhNE=";
+      hash = "sha256-yqGi+JK5y4P/RfBk3GLDh+nhWBnFnMhd2lf5U+e4rPM=";
     };
     "mips64-linux" = {
       arch = "mips64";
-      hash = "sha1-69CTKIST/pOIZvRVExISuBXXHC4=";
+      hash = "sha256-WcWOujgzMxn/9ZfTUm4A4hfx9ep0AAz+SRTyJgEnx0o=";
     };
     "mips64el-linux" = {
       arch = "mips64le";
-      hash = "sha1-ny52nJHptko9MIMqORkS6Kdc/2k=";
+      hash = "sha256-mDkJZfArJxEFgRtdzYdBED8emtY8S1RCvgIW0eu7lDE=";
     };
     "mipsel-linux" = {
       arch = "mipsle";
-      hash = "sha1-HaYZ2OpUHcgd7YsyxAo+b6zGzhM=";
+      hash = "sha256-st9tyxwSE1LEC2/j0yogqkVnajkND4zDnXty6IVPIG0=";
     };
   };
 }
