@@ -163,13 +163,13 @@
   };
   lumine = {
     pname = "lumine";
-    version = "v0.8.1";
+    version = "v0.9.0";
     src = fetchFromGitHub {
       owner = "moi-si";
       repo = "lumine";
-      rev = "v0.8.1";
+      rev = "v0.9.0";
       fetchSubmodules = false;
-      sha256 = "sha256-xw1z8wmyzGFkgq5M77GZe5NT2UxuG1wLOP3Viub2d40=";
+      sha256 = "sha256-tYEaKWNzkgmCk6tMAB2ZKdnI3LfX1tlJZYaeZcgzQZ0=";
     };
   };
   lxgw-wenkai-gb = {
@@ -203,16 +203,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.7.3-beta.1";
+    version = "v3.7.3-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.7.3-beta.1";
+      rev = "v3.7.3-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-YGlQNQTZQtYD25Oq+Wjvqx5MHY1xEZTcrs2U8kIsefY=";
+      sha256 = "sha256-/GufiST7z6Quj0LU6LcaawgXD/Yxh0a+P7Es8ZTgA60=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-YGlQNQTZQtYD25Oq+Wjvqx5MHY1xEZTcrs2U8kIsefY=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-_GufiST7z6Quj0LU6LcaawgXD_Yxh0a+P7Es8ZTgA60=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -294,13 +294,13 @@
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
-    version = "v4.0.1";
+    version = "v4.1.0";
     src = fetchFromGitHub {
       owner = "juliobbv-p";
       repo = "svt-av1-hdr";
-      rev = "v4.0.1";
+      rev = "v4.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-jfyolWcPcfMzxjBszg1KY9eHc6KRsp41h3lQKsrgiDU=";
+      sha256 = "sha256-n66RPDTfBsPCR/4y8dpU3Au1WZHpkpln899e2+LKxto=";
     };
   };
   svt-av1-psyex = {
@@ -322,7 +322,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {

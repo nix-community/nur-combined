@@ -273,12 +273,12 @@
             "name": null,
             "owner": "moi-si",
             "repo": "lumine",
-            "rev": "v0.8.1",
-            "sha256": "sha256-xw1z8wmyzGFkgq5M77GZe5NT2UxuG1wLOP3Viub2d40=",
+            "rev": "v0.9.0",
+            "sha256": "sha256-tYEaKWNzkgmCk6tMAB2ZKdnI3LfX1tlJZYaeZcgzQZ0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.8.1"
+        "version": "v0.9.0"
     },
     "lxgw-wenkai-gb": {
         "cargoLock": null,
@@ -329,7 +329,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-YGlQNQTZQtYD25Oq+Wjvqx5MHY1xEZTcrs2U8kIsefY=/src-tauri/Cargo.lock",
+                "sha256-_GufiST7z6Quj0LU6LcaawgXD_Yxh0a+P7Es8ZTgA60=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -345,12 +345,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.7.3-beta.1",
-            "sha256": "sha256-YGlQNQTZQtYD25Oq+Wjvqx5MHY1xEZTcrs2U8kIsefY=",
+            "rev": "v3.7.3-beta.2",
+            "sha256": "sha256-/GufiST7z6Quj0LU6LcaawgXD/Yxh0a+P7Es8ZTgA60=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.7.3-beta.1"
+        "version": "v3.7.3-beta.2"
     },
     "piliplus": {
         "cargoLock": null,
@@ -484,12 +484,12 @@
             "name": null,
             "owner": "juliobbv-p",
             "repo": "svt-av1-hdr",
-            "rev": "v4.0.1",
-            "sha256": "sha256-jfyolWcPcfMzxjBszg1KY9eHc6KRsp41h3lQKsrgiDU=",
+            "rev": "v4.1.0",
+            "sha256": "sha256-n66RPDTfBsPCR/4y8dpU3Au1WZHpkpln899e2+LKxto=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.0.1"
+        "version": "v4.1.0"
     },
     "svt-av1-psyex": {
         "cargoLock": null,
@@ -527,7 +527,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
+            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
             "sparseCheckout": [],
             "type": "github"
         },
