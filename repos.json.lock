@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "e854969f71b2a2ac349ad3dc810ecf2ffbc1ee83",
-            "sha256": "0m3515c2r9hpizh48s55xz7yw6kia0a9gg2z25rwm4fkqwy6yg6k",
+            "rev": "17282f773877f7e1b7e077f972477beb89cb21be",
+            "sha256": "1rlk693blhils46nw1bvpd9s51r2595fzqmlgryyhfm94lwr9r3k",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1874,8 +1874,8 @@
             "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
-            "rev": "cdb8285052de1cbb9db3883c15fec4dd2a2cce29",
-            "sha256": "17iggnw0kl9xh58jp547cpw0ai9bzkk3hn6cgqcc0lr8j7m8rj99",
+            "rev": "3bf5c76b2195c10f5c440eecc71813aba96debd2",
+            "sha256": "1k0lj9fkd4crp8byvhi39ag9k330lbbcz6fingfzg3cxzmg5s4my",
             "url": "https://github.com/oluceps/nixos-config"
         },
         "ondt": {
