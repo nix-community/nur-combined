@@ -37,7 +37,6 @@
           keep-outputs = true;
           keep-derivations = true;
           trusted-users = [
-            "remotebuild"
             config.identity.user
           ];
           trusted-public-keys = [

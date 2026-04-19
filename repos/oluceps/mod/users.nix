@@ -30,17 +30,22 @@
               initialHashedPassword = lib.mkForce config.data.keys.hashedPasswd;
               openssh.authorizedKeys.keys = authSSHKeys;
             };
-            remotebuild = {
-              isNormalUser = true;
-              createHome = false;
-              group = "remotebuild";
-
-              openssh.authorizedKeys.keys = [ config.data.keys.rBuildSshPubKey ];
-            };
 
             ${config.identity.user} = {
               linger = true;
               initialHashedPassword = lib.mkDefault config.data.keys.hashedPasswd;
+              subUidRanges = [
+                {
+                  startUid = 100000;
+                  count = 65536;
+                }
+              ];
+              subGidRanges = [
+                {
+                  startGid = 100000;
+                  count = 65536;
+                }
+              ];
               # home = "/home/${user}";
               # group = user;
               isNormalUser = true;

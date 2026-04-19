@@ -10,6 +10,7 @@
   perSystem =
     {
       lib,
+      self',
       ...
     }:
     {
@@ -52,7 +53,7 @@
                           }
                         ];
                       };
-                    }) (self.fn.conn { }).${n};
+                    }) (self'.fn.conn { }).${n};
 
                   };
                 }) (builtins.attrNames self.data.node)
@@ -79,7 +80,7 @@
             };
             networks.nat = {
               name = "NAT";
-              cidrv4 = "192.168.1.0/24";
+              cidrv4 = "192.168.0.0/24";
             };
           }
         )

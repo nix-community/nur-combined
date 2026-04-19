@@ -3,7 +3,7 @@
     services.postgresqlBackup = {
       enable = true;
       location = "/var/lib/backup/postgresql";
-      compression = "zstd";
+      compression = "none";
       startAt = "*-*-* 0,12:00:00";
     };
   };

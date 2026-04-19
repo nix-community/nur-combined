@@ -31,7 +31,6 @@ in
             owner = config.identity.user;
             mode = "400";
           };
-          "general.toml" = { };
         };
       };
       services.openssh.hostKeys = [
@@ -49,7 +48,6 @@ in
         secrets = {
           nuan = { };
           cfd = { };
-          "general.toml" = { };
           tg-session = {
             mode = "640";
             owner = "root";

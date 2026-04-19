@@ -9,7 +9,6 @@ let
     mkOption
     types
     mkIf
-    optionals
     ;
 
   cfg = config.services.sing-server;
@@ -41,6 +40,7 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       description = "sing-server Daemon";
+
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
@@ -48,7 +48,7 @@ in
         StateDirectory = "sing-server";
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        Restart = "on-failure";
+        Restart = "always";
       };
     };
   };

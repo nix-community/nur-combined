@@ -77,19 +77,26 @@
 
              routing {
                  pname(bird, systemd-networkd, smartdns,
-                       dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy, yggdrasil, zerotier-one, cloudflared) -> must_direct
+                       dnsproxy, coredns, mosdns, naive,
+                       hysteria, tuic-client, sing-box,
+                       juicity, mosproxy, yggdrasil,
+                       zerotier-one, cloudflared) -> must_direct
 
-                 pname(prometheus,ssh) -> direct
-                 # pname(chatmcp) -> ai
+                 pname(prometheus, ssh) -> direct
 
-                 pname(Misskey, conduit, tuwunel, conduwuit, .mautrix-telegr, arti, .synapse_homese) -> all
-                 dip(9.9.9.9) -> direct
+
+                 pname(Misskey, conduit, tuwunel, conduwuit,
+                       .mautrix-telegr, arti, .synapse_homese) -> all
+
                  dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
                  dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8', '200::/7') -> direct
-                 domain(geosite:anthropic) -> claude
+
+                 domain(geosite:anthropic) -> anthropic
+                 pname(claude) -> anthropic
 
                  domain(suffix:migadu.com) -> all
                  dport(465) -> v6
+
                  domain(geosite:google-gemini,google,openai,geosite:category-ai-chat-!cn,cloudflare) -> ai
                  domain(suffix: copilot.microsoft.com,
                      suffix: gateway-copilot.bingviz.microsoftapp.net,
