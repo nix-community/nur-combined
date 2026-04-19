@@ -114,13 +114,13 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v7.1.18";
+    version = "v7.1.20";
     src = fetchFromGitHub {
       owner = "koekeishiya";
       repo = "yabai";
-      rev = "v7.1.18";
+      rev = "v7.1.20";
       fetchSubmodules = false;
-      sha256 = "sha256-go3CsFxJCHpEJ8EGv9B5pXt/1AifGLM8S5TIXkhKgDc=";
+      sha256 = "sha256-g1LnrpX+t3yubX6CIRUxQ1vTp2vr242uvhj5empZoHI=";
     };
   };
   zen = {
@@ -136,7 +136,7 @@
     version = "1.19.8b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg";
-      sha256 = "sha256-luGTctBXR30YHEivzoEZhKNJSTlXhwM34T3H5D+YM34=";
+      sha256 = "sha256-VsypzLR14woKiFrA+19702jY+HMa0tkD0tAwjeSx4Zo=";
     };
   };
 }
