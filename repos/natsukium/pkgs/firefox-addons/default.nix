@@ -1,6 +1,6 @@
-{ buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
+{ buildMozillaXpiAddon, fetchurl, lib, stdenv }:
   {
-    "adguard-adblocker" = buildFirefoxXpiAddon {
+    "adguard-adblocker" = buildMozillaXpiAddon {
       pname = "adguard-adblocker";
       version = "5.3.0.8";
       addonId = "adguardadblocker@adguard.com";
@@ -30,7 +30,7 @@
         platforms = platforms.all;
       };
     };
-    "calilay" = buildFirefoxXpiAddon {
+    "calilay" = buildMozillaXpiAddon {
       pname = "calilay";
       version = "0.41.9";
       addonId = "{e2502f98-8bf2-11df-ade1-000c290539ce}";
@@ -54,7 +54,7 @@
         platforms = platforms.all;
       };
     };
-    "kiseppe-price-chart-kindle" = buildFirefoxXpiAddon {
+    "kiseppe-price-chart-kindle" = buildMozillaXpiAddon {
       pname = "kiseppe-price-chart-kindle";
       version = "2.0.11";
       addonId = "kiseppe_ff@example.com";

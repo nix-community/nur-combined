@@ -37,12 +37,12 @@ rec {
 
   my-firefox-addons = pkgs.lib.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/firefox-addons {
-      # buildFirefoxXpiAddon function vendored from https://gitlab.com/rycee/nur-expressions
+      # buildMozillaXpiAddon function vendored from https://gitlab.com/rycee/nur-expressions
       # Original source: https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/default.nix
       # Licensed under MIT License
       # Copyright (c) Robert Helgesson
       # Vendored to avoid "path is not valid" errors when running `nix flake check --no-build` in downstream flakes
-      buildFirefoxXpiAddon = pkgs.lib.makeOverridable (
+      buildMozillaXpiAddon = pkgs.lib.makeOverridable (
         {
           pname,
           version,

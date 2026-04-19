@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "381d78cc95a0632facecd3270fa1e261179d6750";
+    version = "a82a998223ac26ddf4e93ce6599957072f0ce3bc";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "381d78cc95a0632facecd3270fa1e261179d6750";
+      rev = "a82a998223ac26ddf4e93ce6599957072f0ce3bc";
       fetchSubmodules = false;
-      sha256 = "sha256-zFWsnr5FHzF416+ZlMSX97piXt+qOltQgVQQoxGls5Q=";
+      sha256 = "sha256-xiTJi3+NZfhcD4xsVZXXCNlGwWWInl68Y1te0RmFFAs=";
     };
-    date = "2026-03-05";
+    date = "2026-03-23";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -48,15 +48,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "8a7ab83dd48b6d1b0e22359c41e788ef55871295";
+    version = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "8a7ab83dd48b6d1b0e22359c41e788ef55871295";
+      rev = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
       fetchSubmodules = false;
-      sha256 = "sha256-PdG/fv2j4HMksePIEzWFaZHOP0OEvImh8sEEBwPLfd8=";
+      sha256 = "sha256-gmj5hxIX3uLy7iOiRzUtknT0TgwlRig9l1ZgmscF5t0=";
     };
-    date = "2026-02-10";
+    date = "2026-03-23";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -76,54 +76,54 @@
   };
   sbarlua = {
     pname = "sbarlua";
-    version = "437bd2031da38ccda75827cb7548e7baa4aa9978";
+    version = "dba9cc421b868c918d5c23c408544a28aadf2f2f";
     src = fetchFromGitHub {
       owner = "FelixKratz";
       repo = "SbarLua";
-      rev = "437bd2031da38ccda75827cb7548e7baa4aa9978";
+      rev = "dba9cc421b868c918d5c23c408544a28aadf2f2f";
       fetchSubmodules = false;
-      sha256 = "sha256-F0UfNxHM389GhiPQ6/GFbeKQq5EvpiqQdvyf7ygzkPg=";
+      sha256 = "sha256-lhLTrdufA3ALJ2S5HLdgNOr5seWIWEHkVhZNPObzbvI=";
     };
-    date = "2024-08-12";
+    date = "2026-03-06";
   };
   skills-ref = {
     pname = "skills-ref";
-    version = "09055204dd51d3034a6dd9253b3de93d28cd7c3e";
+    version = "b5ce2a438123f9f9c9b167c5af297c048f15395b";
     src = fetchFromGitHub {
       owner = "agentskills";
       repo = "agentskills";
-      rev = "09055204dd51d3034a6dd9253b3de93d28cd7c3e";
+      rev = "b5ce2a438123f9f9c9b167c5af297c048f15395b";
       fetchSubmodules = false;
-      sha256 = "sha256-RdZlUAebsXYQ6zatVFZd0SaSHaIdODhFgzzDeAU7GTw=";
+      sha256 = "sha256-s01Gh5h4r9596G0ap25zbHDrctYeW8pHaqfmE8xMtno=";
     };
-    date = "2026-03-05";
+    date = "2026-03-23";
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "158ae753bc5099ab12537c23152926c42b1f7c3a";
+    version = "d593d7952e271ba67795cb556871f459aa5da0f9";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "158ae753bc5099ab12537c23152926c42b1f7c3a";
+      rev = "d593d7952e271ba67795cb556871f459aa5da0f9";
       fetchSubmodules = false;
-      sha256 = "sha256-Ee55oGlNCoKwvDxaJyRCjqY89+DU2bP+7t8o/kkh8lU=";
+      sha256 = "sha256-HAC0xX9OCJI6xfgOsS8ntUv5N+0Hc8Q2AtHUx7ZmRjw=";
     };
-    date = "2026-01-04";
+    date = "2026-03-22";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.8.3925.76";
+    version = "7.9.3970.41";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.8.3925.76.universal.dmg";
-      sha256 = "sha256-SP+FEpfWE8lPsHu7NNAwhXYBgnqJ4dXa0z20rob+QYA=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.9.3970.41.universal.dmg";
+      sha256 = "sha256-WxASI28xD5EbPw4QGF7AI+WSUeN8iHDuGwRTiI+U1TI=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.19.1b";
+    version = "1.19.3b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.19.1b/zen.macos-universal.dmg";
-      sha256 = "sha256-BLPN2LA57nsk4vm8NnnBYwHbJh6L4LMU78Vb2adE5sg=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.19.3b/zen.macos-universal.dmg";
+      sha256 = "sha256-TqzzSX71eG7V1zcur0RMQmVuI5bWl8z0bySeuzUGmIQ=";
     };
   };
 }
