@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Generate GitHub App Token
       id: app-token
-      uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
+      uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
       with:
         app-id: ${{ secrets.APP_ID }}
         private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -19,7 +19,7 @@ jobs:
         token: ${{ steps.app-token.outputs.token }}
         persist-credentials: false
     - name: Install nix
-      uses: cachix/install-nix-action@1ca7d21a94afc7c957383a2d217460d980de4934 # v31.10.1
+      uses: cachix/install-nix-action@616559265b40713947b9c190a8ff4b507b5df49b # v31.10.4
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
@@ -29,7 +29,7 @@ jobs:
       run: nix develop -c update-readme
     - name: Create Pull Request
       id: cpr
-      uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
+      uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
       with:
         token: ${{ steps.app-token.outputs.token }}
         commit-message: "chore(deps): update flake inputs"
