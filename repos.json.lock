@@ -261,8 +261,8 @@
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
-            "rev": "aadf0d43fd5b0432e03be6630dd079953537f417",
-            "sha256": "0vggg6hghqq02dd64lgncawamp4z4d0b6cyyvi7ih7y3iq45m7v1",
+            "rev": "324b0aefcec43018a7d2438af33f5e9c0fe02ebe",
+            "sha256": "1z2smwp5m8427c6gz41a2x3nd9ziy20yaja7vqq5rmji7fkmhr3f",
             "url": "https://github.com/AstralFlare-owo/nur-packages"
         },
         "afreakk": {
@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "135c3e371ccf09aed1ef21b94dc51864b84ae69e",
-            "sha256": "0x7rhp0w51dv8b28djd6wl0lb60wz9f2z6a20jw85lblnmqfhmq9",
+            "rev": "75dd2bff9661453afdce14ce886ca3374cc22c5f",
+            "sha256": "194vb59z04f7d934j7c53mwhabqg5mn1wn5c13pfb96a5c473m3g",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1567,8 +1567,8 @@
             "url": "https://github.com/mhuesch/nur-packages"
         },
         "mic92": {
-            "rev": "51fdd557671a44fa07304d5863f45710ef9512f7",
-            "sha256": "0b5r8lq58saraqvdxla6m4b7mgq6xs8fqzfgiifbjfnjikfd50wq",
+            "rev": "de70c7a860fb2168055a0360eb628d27f3036b79",
+            "sha256": "0diq60y3vry8p2lhrbpsmf87y974s599lmv9k4r6vkn69c9jllg1",
             "url": "https://github.com/Mic92/nur-packages"
         },
         "mich-adams": {
