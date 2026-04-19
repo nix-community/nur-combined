@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "31a5d70005e66c81d344d89f283ab00acda5653b",
-            "sha256": "0f2n7kv1cm5xkzawz8qi3py79p6k1rxmd7ks24s3h2lh504w72cp",
+            "rev": "71759180d32af3809b071d217045e2734500f844",
+            "sha256": "0ii79v1dvss1v0bxdj5xx8wgjnap6nnivpy2sh9y76iwmi20wlg2",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -136,8 +136,8 @@
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
-            "rev": "e76907519eb45bef26923bda401051ac96f2451b",
-            "sha256": "0gz1nn7bb7f5sa8mmcczbjj7p6i549wx7sm0pnvvv6rwgf9y7c4l",
+            "rev": "bcef75dc0b511bd97ad53426fe96baadbcfba1be",
+            "sha256": "0pks40c0qm662a822zw6d7zyi7mml6gkmscc89y9gdfvji8i09k9",
             "url": "https://github.com/MiyakoMeow/nur-packages"
         },
         "MtFBella109": {
