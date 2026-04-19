@@ -296,8 +296,8 @@
             "url": "https://github.com/alarsyo/nixos-config"
         },
         "alejo7797": {
-            "rev": "4e60d8e84ff0fb395b282276038fc9454fb10491",
-            "sha256": "1ldipw7hxf1w0z4h8102jl6p88gls1hs9amyimvh1067kkm0gxxk",
+            "rev": "93804e4da984ccc96c95fec8cc7897cc799317d3",
+            "sha256": "0md6jlwybg5r04c2m0x7a40414smvzahwfy2i2ygw5f0rcj26x8g",
             "url": "https://codeberg.org/alejo7797/nix-expressions"
         },
         "aleksana": {
