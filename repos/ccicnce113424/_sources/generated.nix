@@ -70,6 +70,23 @@
       };
     };
   };
+  jj-lsp = {
+    pname = "jj-lsp";
+    version = "0.1.0";
+    src = fetchFromGitHub {
+      owner = "nilskch";
+      repo = "jj-lsp";
+      rev = "0.1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-Wj809KL9BCv3jDGBDTDF4isTPO68GOncNvflaqMMpBI=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-Wj809KL9BCv3jDGBDTDF4isTPO68GOncNvflaqMMpBI=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+  };
   kikoflu = {
     pname = "kikoflu";
     version = "v3.1.1";
@@ -305,7 +322,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

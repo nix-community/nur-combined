@@ -27,6 +27,11 @@ cargo_lock = ["Cargo.lock"]
 fetch.github = "01mf02/jaq"
 src.github_tag = "01mf02/jaq"
 
+[jj-lsp]
+cargo_lock = ["Cargo.lock"]
+fetch.github = "nilskch/jj-lsp"
+src.github = "nilskch/jj-lsp"
+
 [kikoflu]
 extract = ["pubspec.lock"]
 fetch.github = "pa-jesusf/KikoFlu"

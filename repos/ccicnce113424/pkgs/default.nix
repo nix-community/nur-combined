@@ -59,6 +59,11 @@ lib.makeScope pkgs.newScope (self: {
     version = stableVersion sources;
   };
 
+  jj-lsp = self.callPackage ./jj-lsp rec {
+    sources = fetchedSrc.jj-lsp;
+    inherit (sources) version;
+  };
+
   kikoflu = self.callPackage ./kikoflu rec {
     sources = fetchedSrc.kikoflu;
     version = stableVersion sources;
