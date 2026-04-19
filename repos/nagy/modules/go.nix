@@ -8,5 +8,9 @@
     pkgs.ginkgo
 
     pkgs.golangci-lint
+
+    # Debugger
+    pkgs.delve
+    # pkgs.gdlv
   ];
 }

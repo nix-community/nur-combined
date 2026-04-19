@@ -101,6 +101,8 @@
 
     ungron = [ "gron" "--ungron" ];
     pingc3 = [ "ping" "-c" "3" ];
+    e64 = [ "base64" ];
+    d64 = [ "base64" "-d" ];
 
     fd1 = [ "fd" "-j1" ];
     fd1f = [ "fd" "-j1" "-tf" ];
