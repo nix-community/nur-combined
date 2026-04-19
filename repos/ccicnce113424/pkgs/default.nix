@@ -105,7 +105,7 @@ lib.makeScope pkgs.newScope (self: {
 
   motrix-next-beta = self.callPackage ./motrix-next rec {
     inherit (lib.importJSON ./motrix-next/src-info.json) hash;
-    sources = fetchedSrc.motrix-next;
+    sources = fetchedSrc.motrix-next-beta;
     version = stableVersion sources;
   };
 
