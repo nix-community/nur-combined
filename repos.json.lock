@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "71759180d32af3809b071d217045e2734500f844",
-            "sha256": "0ii79v1dvss1v0bxdj5xx8wgjnap6nnivpy2sh9y76iwmi20wlg2",
+            "rev": "814b42c01281b17c395aca1304bb08725444d347",
+            "sha256": "0bxiiycmv9hkcbdwxivdjbvd2igm7ln3kiz87d7z4mi2hia8gx2p",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -296,8 +296,8 @@
             "url": "https://github.com/alarsyo/nixos-config"
         },
         "alejo7797": {
-            "rev": "1e9b6afde2b083819644120e9f00bbfa42445520",
-            "sha256": "0nnpzzqzzidw7vfpfjhl6wqxxi7gk1s4nvml9jcqbcglw6fbs2cz",
+            "rev": "4e60d8e84ff0fb395b282276038fc9454fb10491",
+            "sha256": "1ldipw7hxf1w0z4h8102jl6p88gls1hs9amyimvh1067kkm0gxxk",
             "url": "https://codeberg.org/alejo7797/nix-expressions"
         },
         "aleksana": {
