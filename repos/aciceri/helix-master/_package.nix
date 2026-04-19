@@ -17,8 +17,8 @@ let
   helixSource = fetchFromGitHub {
     owner = "helix-editor";
     repo = "helix";
-    rev = "03d2b4a7ab8e592817cca8e66bd8a32023103698";
-    hash = "sha256-+VP7mjmfD0J4dQYjwA1Co1WK0FiuOYT2fEMv2DhLhx0=";
+    rev = "0805bc8534bafaa9109f1839f4e771afb32c3391";
+    hash = "sha256-utPazkXA5Ef1KELKUDA+tMWkgeLlPhjmA6ma8NAWAe4=";
   };
 
   grammars = callPackage ./_grammars.nix { };
@@ -36,7 +36,7 @@ let
   );
 in
 rustPlatform.buildRustPackage (self: {
-  cargoHash = "sha256-MTOTvNxu+wZgEG9OHKMRBGMyVMIWVsYnRpnpkxYJd6E=";
+  cargoHash = "sha256-N6TceM8PJVyMDaJjmlVfiHGhdmnRK/w7lwgR7ScjDbA=";
 
   propagatedBuildInputs = [ runtimeDir ];
 
