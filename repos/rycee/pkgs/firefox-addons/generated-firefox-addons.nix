@@ -2516,10 +2516,10 @@
     };
     "copy-as-markdown" = buildMozillaXpiAddon {
       pname = "copy-as-markdown";
-      version = "3.5.0";
+      version = "3.6.0";
       addonId = "jid1-tfBgelm3d4bLkQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4691464/copy_as_markdown-3.5.0.xpi";
-      sha256 = "048c00f2c58e9415f2ce58f1d15281c849b0b851f035d44276a01df60e7c66d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4769995/copy_as_markdown-3.6.0.xpi";
+      sha256 = "f21866c82bfff86877e1070580c224d04f0815d46dbb161f75b4a72c4433c605";
       meta = with lib;
       {
         homepage = "https://github.com/yorkxin/copy-as-markdown";
@@ -17481,10 +17481,10 @@
     };
     "ytcfilter" = buildMozillaXpiAddon {
       pname = "ytcfilter";
-      version = "3.0.5";
+      version = "3.1.1";
       addonId = "{20f2dcdf-6f8d-4aeb-862b-b13174475d9c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365656/ytcfilter-3.0.5.xpi";
-      sha256 = "6afdf8869da1e3b08a6d84c55cc71c74b80ab82713dab69080e7dbeadc2dd92a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4770354/ytcfilter-3.1.1.xpi";
+      sha256 = "6f632a3f998cbd08db5f7b5de81040b8bff2aba536bb0a398aa3b9803c497ee2";
       meta = with lib;
       {
         description = "The most powerful and intuitive YouTube chat filter extension.";
