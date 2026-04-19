@@ -15,14 +15,16 @@ lib.makeScope newScope (self: {
 
   obsidianManifestCheckHook = self.callPackage ./obsidian-manifest-check-hook { };
 
-  codeblock-customizer = self.callPackage ./community-plugins/codeblock-customizer { };
+  calendar = self.callPackage ./plugins/calendar { };
+
+  codeblock-customizer = self.callPackage ./plugins/codeblock-customizer { };
 
   minimal = self.callPackage ./themes/minimal { };
 
-  minimal-settings = self.callPackage ./community-plugins/minimal-settings { };
+  minimal-settings = self.callPackage ./plugins/minimal-settings { };
 
-  style-settings = self.callPackage ./community-plugins/style-settings { };
+  style-settings = self.callPackage ./plugins/style-settings { };
 
-  vimrc-support = self.callPackage ./community-plugins/vimrc-support { };
+  vimrc-support = self.callPackage ./plugins/vimrc-support { };
 
 })
