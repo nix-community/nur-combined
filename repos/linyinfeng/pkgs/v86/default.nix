@@ -43,9 +43,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "x86 PC emulator and x86-to-wasm JIT, running in the browser";
     homepage = "https://copy.sh/v86";
-    maintainers = with maintainers; [ yinfeng ];
+    maintainers = with lib.maintainers; [ yinfeng ];
+    broken = !(lib.versionAtLeast lld.version "22.1.0");
   };
 })

@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-nHNY9zPrEjayzLV+mmjXApDgxa14keWsUojTOOV5Rr8=/Cargo.lock",
+                "sha256-TwtN8tEml_z0Js78jjWzEYV58Dg8a5YKxdEU9hBDtNs=/Cargo.lock",
                 {
                     "anthropic-0.0.8": "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA="
                 }
@@ -41,12 +41,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v1.16.0",
-            "sha256": "sha256-nHNY9zPrEjayzLV+mmjXApDgxa14keWsUojTOOV5Rr8=",
+            "rev": "v1.18.0",
+            "sha256": "sha256-TwtN8tEml/z0Js78jjWzEYV58Dg8a5YKxdEU9hBDtNs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.16.0"
+        "version": "v1.18.0"
     },
     "cowrie": {
         "cargoLock": null,
@@ -62,12 +62,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v2.9.14",
-            "sha256": "sha256-F+wm9VWa4qIkuec72zm2J4Eu7ZJzTYV29uy/Uj7uA3c=",
+            "rev": "v2.9.17",
+            "sha256": "sha256-VXHHMliScZI75i+3BqHYAIBDC6CDwuT8AHJSXsC5UJE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.9.14"
+        "version": "v2.9.17"
     },
     "dot-tar": {
         "cargoLock": {
@@ -169,12 +169,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.18.15-linux-260310T050801Z",
-            "sha256": "sha256-32/WDRSQN0tQsevvYJcWpPu/lP0px8h+rL7N4EL+fIw=",
+            "rev": "lts-v6.18.20-linux-260408T054548Z",
+            "sha256": "sha256-fsXikAmGY25bIGh8TLA3N/xVZd9Om6JLUB5zzSzwqpw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.18.15-linux-260310T050801Z"
+        "version": "lts-v6.18.20-linux-260408T054548Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
@@ -263,11 +263,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IRpSyQ1hWKBoH5doP4i/dXAgRS/fCmkHzuTv5LUMCHo=",
+            "sha256": "sha256-gOLnM7L6JKwQ/Jd6NC126uNjpjMMUYZN1KQt1c8qtK0=",
             "type": "url",
-            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.0/MoeKoe_Music_v1.6.0.AppImage"
+            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.1/MoeKoe_Music_v1.6.1.AppImage"
         },
-        "version": "v1.6.0"
+        "version": "v1.6.1"
     },
     "mstickereditor": {
         "cargoLock": {
@@ -504,7 +504,7 @@
     },
     "rime-emoji": {
         "cargoLock": null,
-        "date": "2025-03-31",
+        "date": "2026-03-24",
         "extract": null,
         "name": "rime-emoji",
         "passthru": null,
@@ -514,13 +514,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3dd83a264b4686b56abddedecbde75360cbbbfab",
-            "sha256": "sha256-TQYNzrX57gyJG4M7EklE21fs/WoaZTsd5IafMRG4Ob8=",
+            "rev": "d1dbb424124fc50452a179300c7f287dbcc0db64",
+            "sha256": "sha256-QqHauKSfyi+heseUTQ+gztjkdoSGGfw/jRorFxSiXOo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-emoji.git"
         },
-        "version": "3dd83a264b4686b56abddedecbde75360cbbbfab"
+        "version": "d1dbb424124fc50452a179300c7f287dbcc0db64"
     },
     "rime-essay": {
         "cargoLock": null,
@@ -544,7 +544,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-03-23",
+        "date": "2026-04-14",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -554,13 +554,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4e54d7edb1f50da477a8bf7aa23ef19e2e4e2c0c",
-            "sha256": "sha256-qm3YfbDljebp4k30fDYFL57Sx9SuX7otD4GwJ8t26Qc=",
+            "rev": "2bd2983c6c74ea49b3a013f150ade7f3b8a27515",
+            "sha256": "sha256-VRMaa5WY7nqIFI6x3lA2PoEFwdUBPGGOl3k4ThSz4RE=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "4e54d7edb1f50da477a8bf7aa23ef19e2e4e2c0c"
+        "version": "2bd2983c6c74ea49b3a013f150ade7f3b8a27515"
     },
     "rime-loengfan": {
         "cargoLock": null,
@@ -584,7 +584,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLock": null,
-        "date": "2026-01-06",
+        "date": "2026-04-18",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -594,13 +594,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d7b4e52f8021bbad5c5a99b2314ca1771cd6f222",
-            "sha256": "sha256-KSBwvr0xaC+3/TtIRwWY8j0Oan1sZYeJIek9xr24458=",
+            "rev": "0c6d8e37f00c3e43fd8d0ada42dab4eda0b3d811",
+            "sha256": "sha256-VuE1NaHIbfODpvDWCIqplWtPsx9+ai5hPfva8+DDD6M=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "d7b4e52f8021bbad5c5a99b2314ca1771cd6f222"
+        "version": "0c6d8e37f00c3e43fd8d0ada42dab4eda0b3d811"
     },
     "rime-pinyin-simp": {
         "cargoLock": null,
@@ -836,7 +836,7 @@
     },
     "v86": {
         "cargoLock": null,
-        "date": "2026-02-03",
+        "date": "2026-04-18",
         "extract": null,
         "name": "v86",
         "passthru": null,
@@ -846,13 +846,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "62fd36e0bbf3da60a24be75c5245cdb11c062908",
-            "sha256": "sha256-FnCmDfGmsdI0BSAXqdasWECMlOB6JvD144UaovceaZg=",
+            "rev": "3fdaaaa1431f76f9bc5a2f8383d6568f8fd184d2",
+            "sha256": "sha256-p+7IjxYVn+fRyWoLqRw8k1LNnBCptq8JuCA3NgjiYsM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "62fd36e0bbf3da60a24be75c5245cdb11c062908"
+        "version": "3fdaaaa1431f76f9bc5a2f8383d6568f8fd184d2"
     },
     "vlmcsd": {
         "cargoLock": null,
