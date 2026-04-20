@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "67dccaa675c8632c9b00b25c875e9b37998ff7b6",
-            "sha256": "1as7j5q0h620lx80hvw5mpli8bv391k8891sz4h5clsdznyh3f49",
+            "rev": "9ada0d60b2477b378cf93e890c8f72ff7637e8b0",
+            "sha256": "0p56viww6b61xll9hy2pci05y6q7506zn0vmjwh2drvgfhq4sv2w",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "bf868cee7fd87dc2bf454c51c633cda613037f86",
-            "sha256": "14rkfcy4vyq254ginzjqjwcq4vd25ka81pxvwjdcpsw4chlnw171",
+            "rev": "b02038f07cebfb1a9990701cecb08f40dacd92de",
+            "sha256": "0i3pjijzma8m6rxsc9xid6gbvxjyw7l0xh10jlii3ya91zzy95xd",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
