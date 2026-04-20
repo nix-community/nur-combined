@@ -50,7 +50,7 @@ let
 in
 
 stdenvNoCC.mkDerivation {
-  inherit name;
+  inherit name version;
   src = null;
 
   nativeBuildInputs = [
