@@ -19,6 +19,5 @@
   playwright-cli = pkgs.callPackage ./pkgs/playwright-cli { };
   rsql = pkgs.callPackage ./pkgs/rsql { };
   skills = pkgs.callPackage ./pkgs/skills { };
-  gh-clean-notifications = pkgs.callPackage ./pkgs/gh-clean-notifications { };
   sentry = pkgs.callPackage ./pkgs/sentry { };
 }

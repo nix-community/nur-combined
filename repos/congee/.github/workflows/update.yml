@@ -75,8 +75,14 @@ jobs:
           fi
           title=$(git log -1 --format=%s)
           branch="auto-update/${pkg}"
-          git checkout -b "$branch"
-          git push -u origin "$branch" --force-with-lease
+          git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch" || true
+          git checkout -B "$branch"
+          if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+            remote_sha=$(git rev-parse "refs/remotes/origin/$branch")
+            git push -u origin "$branch" --force-with-lease="refs/heads/$branch:$remote_sha"
+          else
+            git push -u origin "$branch"
+          fi
           gh pr create \
             --title "$title" \
             --body "Automated update by nix-update." \
