@@ -1431,8 +1431,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "3ee2a3eb074efe3dda6dede0aa662d78e5e1d362",
-            "sha256": "07vgn5ki3xqs7yfq1pjm8754jvmbr37m27q6gj2xg9j15kf68pbc",
+            "rev": "61b66cea1f303e5ea106313d9677ea88ea100947",
+            "sha256": "060if7l7l0ly4ihpi7dqzq80z076s9w076wcqa250inj147s0040",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
@@ -2572,8 +2572,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "3f9a4266ba4e1412fbf492d011564bfca30a58e1",
-            "sha256": "11r1k5xp5pqlirqgkghbsrv3984vyq5jry1macvb8xpcg2jrmb8p",
+            "rev": "71aa9275f09d4f28c0f56bb520179b3f9693eaad",
+            "sha256": "0fgdd33kx2g8l1kgf28yprr5j9zfaw10nk22cd0kwx11ry1hc67c",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
