@@ -299,12 +299,12 @@
             "name": null,
             "owner": "cyanheads",
             "repo": "git-mcp-server",
-            "rev": "v2.10.5",
-            "sha256": "sha256-+/wVcyBx28xKgU999o95TH1adwKtxUVGEEVEN8cxQ9M=",
+            "rev": "v2.11.0",
+            "sha256": "sha256-C02iJBPc7DqQRmv8z8axxGOze6iTyMETKucg9pBIN1A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.10.5"
+        "version": "v2.11.0"
     },
     "happydeliver": {
         "cargoLock": null,
@@ -650,11 +650,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hf/zxYEfB/0WPm/IPIiRxJgAMVnct6SIhW/khTiHcYQ=",
+            "sha256": "sha256-79VvS7JsZN2jILiDD7fl9RIXwohC7kCwvZWZOO/prqg=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604182228/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604192335/geoip.dat"
         },
-        "version": "202604182228"
+        "version": "202604192335"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -665,11 +665,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hCvo2QRbAfNo9a7ZUIp8w1TW//ZI5C0AtWfAU05yoxE=",
+            "sha256": "sha256-R5RZ7pGa+YRR1x3CvoU6fMO3Ss4Ay7lYlkv1kwk6Who=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604182228/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604192335/geosite.dat"
         },
-        "version": "202604182228"
+        "version": "202604192335"
     },
     "yass": {
         "cargoLock": null,
@@ -685,11 +685,11 @@
             "name": null,
             "owner": "hukeyue",
             "repo": "yass",
-            "rev": "1.24.5",
-            "sha256": "sha256-QAqBf3Ld61LdJPgTLUGBoHSj/YEr/5cdzl4t+dA4bls=",
+            "rev": "1.24.6",
+            "sha256": "sha256-ke7V0u6D8jBhZXy1nUlPNuosZiJxat378Ig3DtZRPEk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.24.5"
+        "version": "1.24.6"
     }
 }
