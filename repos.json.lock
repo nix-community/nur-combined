@@ -637,8 +637,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "17eb61a3d2ed1e113fee38a51e8902a17cc884cb",
-            "sha256": "05gc46z0x59dgwar93nh8fm27wq73msdd2c306sdn90s67d6zhpb",
+            "rev": "2c3c43b93330ff950322da0af6269c02eaeb4bf8",
+            "sha256": "1xn7b8adc25djyyj09vbqp6h2lm47ncyc4rw0k30pjy0bfrj3w6l",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
