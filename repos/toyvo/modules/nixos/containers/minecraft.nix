@@ -157,8 +157,6 @@ in
       config =
         { config, inputs, ... }:
         {
-          imports = [ inputs.nixcfg.modules.nixos.services.minecraft ];
-
           # Pin UID/GID to match stateDir ownership on the host
           users.users.minecraft.uid = lib.mkForce cfg.minecraftUid;
           users.groups.minecraft.gid = lib.mkForce cfg.minecraftGid;

@@ -1,0 +1,32 @@
+{...}: {
+  config.imports = [
+    ./defaults.nix
+    ./programs/bat.nix
+    ./programs/editors/helix.nix
+    ./programs/editors/ideavim.nix
+    ./programs/editors/neovim.nix
+    ./programs/editors/opencode.nix
+    ./programs/editors/zed.nix
+    ./programs/eza.nix
+    ./programs/git.nix
+    ./programs/gtk.nix
+    ./programs/kde.nix
+    ./programs/shells/bash.nix
+    ./programs/shells/fish.nix
+    ./programs/shells/ion.nix
+    ./programs/shells/nushell.nix
+    ./programs/shells/powershell.nix
+    ./programs/shells/zsh.nix
+    ./programs/ssh.nix
+    ./programs/terminals/alacritty.nix
+    ./programs/terminals/ghostty.nix
+    ./programs/terminals/hyper.nix
+    ./programs/terminals/kitty.nix
+    ./programs/terminals/rio.nix
+    ./programs/terminals/wezterm.nix
+    ./programs/volta.nix
+    ./programs/zellij.nix
+    ./users/chloe.nix
+    ./users/toyvo.nix
+  ];
+}

@@ -14,26 +14,8 @@ let
 in
 {
   imports = [
-    inputs.nixcfg.modules.os.defaults
-    inputs.nixcfg.modules.os.console
-    inputs.nixcfg.modules.os.dev
-    inputs.nixcfg.modules.os.podman
-    inputs.nixcfg.modules.os.users.toyvo
-    inputs.nixcfg.modules.os.users.chloe
-    inputs.nixcfg.modules.nixos.defaults
-    inputs.nixcfg.modules.nixos.filesystems
-    inputs.nixcfg.modules.nixos.services.ollama
-    inputs.nixcfg.modules.nixos.services.signal-cli
+    inputs.nixcfg.modules.nixos.default
     inputs.hermes-agent.nixosModules.default
-    inputs.nixcfg.modules.nixos.podman
-    inputs.nixcfg.modules.nixos.containers.starr
-    inputs.nixcfg.modules.nixos.containers.open-webui
-    inputs.nixcfg.modules.nixos.containers.monitoring
-    inputs.nixcfg.modules.nixos.containers.jellyfin
-    inputs.nixcfg.modules.nixos.containers.home-assistant
-    inputs.nixcfg.modules.nixos.containers.nextcloud
-    inputs.nixcfg.modules.nixos.containers.immich
-    inputs.nixcfg.modules.nixos.monitoring.default
     ./samba.nix
     ./homepage.nix
     inputs.catppuccin.nixosModules.catppuccin

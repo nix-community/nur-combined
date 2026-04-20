@@ -1,0 +1,35 @@
+{...}: {
+  config.imports = [
+    ../os
+    ./containers/home-assistant.nix
+    ./containers/immich.nix
+    ./containers/jellyfin.nix
+    ./containers/minecraft.nix
+    ./containers/monitoring.nix
+    ./containers/nextcloud.nix
+    ./containers/open-webui.nix
+    ./containers/starr.nix
+    ./containers/terraria.nix
+    ./containers/vintagestory.nix
+    ./defaults.nix
+    ./filesystems.nix
+    ./gaming.nix
+    ./mcsmanager.nix
+    ./monitoring/default.nix
+    ./monitoring/grafana.nix
+    ./monitoring/internet.nix
+    ./monitoring/loki.nix
+    ./monitoring/prometheus.nix
+    ./monitoring/tempo.nix
+    ./podman.nix
+    ./services/desktopManager/cosmic.nix
+    ./services/desktopManager/gnome.nix
+    ./services/desktopManager/plasma.nix
+    ./services/desktopManager/xfce.nix
+    ./services/minecraft.nix
+    ./services/ollama.nix
+    ./services/signal-cli.nix
+    ./vintagestory.nix
+    ./wireguard
+  ];
+}

@@ -14,15 +14,7 @@ let
 in
 {
   imports = [
-    inputs.nixcfg.modules.os.defaults
-    inputs.nixcfg.modules.os.console
-    inputs.nixcfg.modules.os.podman
-    inputs.nixcfg.modules.os.users.toyvo
-    inputs.nixcfg.modules.nixos.defaults
-    inputs.nixcfg.modules.nixos.filesystems
-    inputs.nixcfg.modules.nixos.monitoring.default
-    inputs.nixcfg.modules.nixos.monitoring.internet
-    inputs.nixcfg.modules.nixos.wireguard.default
+    inputs.nixcfg.modules.nixos.default
     ./kea.nix
     ./virtual-hosts.nix
     inputs.catppuccin.nixosModules.catppuccin

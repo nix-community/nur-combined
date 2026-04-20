@@ -9,11 +9,7 @@
 }:
 {
   imports = [
-    inputs.nixcfg.modules.os.defaults
-    inputs.nixcfg.modules.os.console
-    inputs.nixcfg.modules.os.podman
-    inputs.nixcfg.modules.os.users.toyvo
-    inputs.nixcfg.modules.nixos.defaults
+    inputs.nixcfg.modules.nixos.default
     "${inputs.nixos-unstable}/nixos/modules/profiles/qemu-guest.nix"
     inputs.catppuccin.nixosModules.catppuccin
     inputs.home-manager.nixosModules.default

@@ -1,33 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.nixcfg.modules.home.defaults
-    inputs.nixcfg.modules.home.users.toyvo
-    inputs.nixcfg.modules.home.programs.bat
-    inputs.nixcfg.modules.home.programs.eza
-    inputs.nixcfg.modules.home.programs.git
-    inputs.nixcfg.modules.home.programs.gtk
-    inputs.nixcfg.modules.home.programs.kde
-    inputs.nixcfg.modules.home.programs.ssh
-    inputs.nixcfg.modules.home.programs.volta
-    inputs.nixcfg.modules.home.programs.zellij
-    inputs.nixcfg.modules.home.programs.editors.helix
-    inputs.nixcfg.modules.home.programs.editors.ideavim
-    inputs.nixcfg.modules.home.programs.editors.neovim
-    inputs.nixcfg.modules.home.programs.editors.opencode
-    inputs.nixcfg.modules.home.programs.editors.zed
-    inputs.nixcfg.modules.home.programs.shells.bash
-    inputs.nixcfg.modules.home.programs.shells.fish
-    inputs.nixcfg.modules.home.programs.shells.ion
-    inputs.nixcfg.modules.home.programs.shells.nushell
-    inputs.nixcfg.modules.home.programs.shells.powershell
-    inputs.nixcfg.modules.home.programs.shells.zsh
-    inputs.nixcfg.modules.home.programs.terminals.alacritty
-    inputs.nixcfg.modules.home.programs.terminals.ghostty
-    inputs.nixcfg.modules.home.programs.terminals.hyper
-    inputs.nixcfg.modules.home.programs.terminals.kitty
-    inputs.nixcfg.modules.home.programs.terminals.rio
-    inputs.nixcfg.modules.home.programs.terminals.wezterm
+    inputs.nixcfg.modules.home.default
     inputs.plasma-manager.homeModules.plasma-manager
     inputs.catppuccin.homeModules.catppuccin
     inputs.nh.homeManagerModules.default

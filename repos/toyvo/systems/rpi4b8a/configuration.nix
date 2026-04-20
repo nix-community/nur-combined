@@ -10,13 +10,7 @@
 }:
 {
   imports = [
-    inputs.nixcfg.modules.os.defaults
-    inputs.nixcfg.modules.os.console
-    inputs.nixcfg.modules.os.podman
-    inputs.nixcfg.modules.os.users.toyvo
-    inputs.nixcfg.modules.nixos.defaults
-    inputs.nixcfg.modules.nixos.filesystems
-    inputs.nixcfg.modules.nixos.monitoring.default
+    inputs.nixcfg.modules.nixos.default
     inputs.catppuccin.nixosModules.catppuccin
     inputs.dioxus_monorepo.nixosModules.discord_bot
     inputs.disko.nixosModules.disko
