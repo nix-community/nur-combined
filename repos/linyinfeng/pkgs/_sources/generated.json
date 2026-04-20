@@ -836,7 +836,7 @@
     },
     "v86": {
         "cargoLock": null,
-        "date": "2026-04-18",
+        "date": "2026-04-20",
         "extract": null,
         "name": "v86",
         "passthru": null,
@@ -846,13 +846,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3fdaaaa1431f76f9bc5a2f8383d6568f8fd184d2",
-            "sha256": "sha256-p+7IjxYVn+fRyWoLqRw8k1LNnBCptq8JuCA3NgjiYsM=",
+            "rev": "88a92ae9f2650bf248040dc488fe58ab78ca15c6",
+            "sha256": "sha256-9tzzFgfqgw7OVBUK/J8Rjkmml95dbY0aU1Kx/Bzx+4k=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "3fdaaaa1431f76f9bc5a2f8383d6568f8fd184d2"
+        "version": "88a92ae9f2650bf248040dc488fe58ab78ca15c6"
     },
     "vlmcsd": {
         "cargoLock": null,
