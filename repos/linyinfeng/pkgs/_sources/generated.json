@@ -846,13 +846,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "88a92ae9f2650bf248040dc488fe58ab78ca15c6",
-            "sha256": "sha256-9tzzFgfqgw7OVBUK/J8Rjkmml95dbY0aU1Kx/Bzx+4k=",
+            "rev": "b0794c9f574a490edaa1db6160c45b0d348201ef",
+            "sha256": "sha256-JWxbrd9u7fQd27bnLvQK4DYXWVqDK/b7/7crVQlKdbo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "88a92ae9f2650bf248040dc488fe58ab78ca15c6"
+        "version": "b0794c9f574a490edaa1db6160c45b0d348201ef"
     },
     "vlmcsd": {
         "cargoLock": null,

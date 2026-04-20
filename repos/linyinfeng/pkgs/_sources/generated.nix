@@ -553,15 +553,15 @@
   };
   v86 = {
     pname = "v86";
-    version = "88a92ae9f2650bf248040dc488fe58ab78ca15c6";
+    version = "b0794c9f574a490edaa1db6160c45b0d348201ef";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "88a92ae9f2650bf248040dc488fe58ab78ca15c6";
+      rev = "b0794c9f574a490edaa1db6160c45b0d348201ef";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-9tzzFgfqgw7OVBUK/J8Rjkmml95dbY0aU1Kx/Bzx+4k=";
+      sha256 = "sha256-JWxbrd9u7fQd27bnLvQK4DYXWVqDK/b7/7crVQlKdbo=";
     };
     date = "2026-04-20";
   };
