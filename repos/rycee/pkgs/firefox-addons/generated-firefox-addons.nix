@@ -3128,10 +3128,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "7.3.4";
+      version = "7.3.5";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4766943/dictionaries-7.3.4.xpi";
-      sha256 = "d1ca3603883c01b4d436636361f69249d42685ad53247dc90f2ade7b561ce270";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4771573/dictionaries-7.3.5.xpi";
+      sha256 = "d9ada18a4828f80c0bef4fedd794e122497f3124bf09b341b3f5670e4fbe7368";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -7502,10 +7502,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.20";
+      version = "2.0.21";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4692365/kiss_translator-2.0.20.xpi";
-      sha256 = "78a7a91e7cafde9f93341e442fcf07e8582096fee979b9ffdb935cb66c089a82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4771189/kiss_translator-2.0.21.xpi";
+      sha256 = "68e52b8d4795c18f690cca7a8616d2b10f4ea44a1ec4facef2de5c62ead31462";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -13022,10 +13022,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.75";
+      version = "4.3.79";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4727370/remove_youtube_s_suggestions-4.3.75.xpi";
-      sha256 = "fba5b4349b88339b5b2543062a9726ec1b320acd43c2ba2bf8d0052713a76f42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4771798/remove_youtube_s_suggestions-4.3.79.xpi";
+      sha256 = "47d5b400a9740ccbfb4639da4e246170fbf7fd5caf7b924f5475ee3e761d3abd";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -14034,7 +14034,7 @@
       {
         homepage = "https://sponsor.ajay.app";
         description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
-        license = licenses.lgpl3;
+        license = licenses.gpl3;
         mozPermissions = [
           "storage"
           "scripting"
@@ -17240,10 +17240,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.16.0";
+      version = "1.17.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4761591/youtube_auto_hd_fps-1.16.0.xpi";
-      sha256 = "8225dfbb6dbccbf4cea4a8e2830770ac26355660298b62375a61e744b77132e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4771586/youtube_auto_hd_fps-1.17.0.xpi";
+      sha256 = "0888cb9ff2981d160ddd4070efb80ad138ea258170468a5a3299bcee94990dec";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
