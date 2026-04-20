@@ -114,13 +114,13 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v7.1.22";
+    version = "v7.1.23";
     src = fetchFromGitHub {
       owner = "koekeishiya";
       repo = "yabai";
-      rev = "v7.1.22";
+      rev = "v7.1.23";
       fetchSubmodules = false;
-      sha256 = "sha256-T3sZhJpoZJKQhZpGDyEhpw+dMXoaFO9PEd0g0jDcihc=";
+      sha256 = "sha256-6fvjwn2MBJ8LKShR3evLyS3BfoJ4yYtnaCif7c9faxc=";
     };
   };
   zen = {
