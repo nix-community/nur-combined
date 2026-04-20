@@ -193,7 +193,6 @@ in
           enable = true;
           lightbulb.enable = true;
           trouble.enable = true;
-          lspSignature.enable = true;
           lspconfig.sources.nix-lsp = lib.mkForce ''
             lspconfig.nil_ls.setup{
               capabilities = capabilities,
@@ -242,6 +241,7 @@ in
         statusline.lualine.enable = true;
         telescope.enable = true;
         autocomplete.blink-cmp.enable = true;
+        autocomplete.blink-cmp.setupOpts.signature.enabled = true;
         binds.whichKey.enable = true;
         git.enable = true;
       };
