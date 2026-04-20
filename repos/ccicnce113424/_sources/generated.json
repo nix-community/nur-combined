@@ -329,7 +329,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-_GufiST7z6Quj0LU6LcaawgXD_Yxh0a+P7Es8ZTgA60=/src-tauri/Cargo.lock",
+                "sha256-SDAIVA55d_NZA0q3l_mf4I8u_cvelqr1p8hgJ3u0lXo=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -345,12 +345,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.7.3-beta.2",
-            "sha256": "sha256-/GufiST7z6Quj0LU6LcaawgXD/Yxh0a+P7Es8ZTgA60=",
+            "rev": "v3.7.3",
+            "sha256": "sha256-SDAIVA55d/NZA0q3l/mf4I8u/cvelqr1p8hgJ3u0lXo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.7.3-beta.2"
+        "version": "v3.7.3"
     },
     "piliplus": {
         "cargoLock": null,
