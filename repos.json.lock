@@ -1979,8 +1979,8 @@
             "url": "https://github.com/hostwithquantum/nur"
         },
         "presto8": {
-            "rev": "c0dae60a803a333641bc574d7444639252d55fa4",
-            "sha256": "1bdn97mbgphqaz748m11yppxbibc5wf7mb1nf7fg8xcm7bi2r397",
+            "rev": "6b716a81cb69b9938d02d806d0925f3d28ba75f0",
+            "sha256": "1vixz230vam6fmcr2g2vmzf80jmhhscryxpabr22046ccxvbbbzf",
             "url": "https://github.com/presto8/nur-packages"
         },
         "priegger": {
