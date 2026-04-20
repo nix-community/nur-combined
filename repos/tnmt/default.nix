@@ -22,4 +22,5 @@
   oneaws = pkgs.callPackage ./pkgs/oneaws { };
   ccusage = pkgs.callPackage ./pkgs/ccusage { };
   gogcli = pkgs.callPackage ./pkgs/gogcli { };
+  kagiana = pkgs.callPackage ./pkgs/kagiana { };
 }

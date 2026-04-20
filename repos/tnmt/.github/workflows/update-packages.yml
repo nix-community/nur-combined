@@ -188,3 +188,63 @@ jobs:
 
           Release: https://github.com/steipete/gogcli/releases/tag/v${{ steps.check.outputs.latest }}
         labels: automated
+
+  update-kagiana:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Check for kagiana update
+      id: check
+      run: |
+        CURRENT_VERSION=$(grep 'version = ' pkgs/kagiana/default.nix | head -1 | sed 's/.*"\(.*\)".*/\1/')
+        LATEST_VERSION=$(curl -s https://api.github.com/repos/pyama86/kagiana/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+        echo "current=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+        echo "latest=$LATEST_VERSION" >> "$GITHUB_OUTPUT"
+        if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+          echo "needs_update=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "needs_update=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Update kagiana
+      if: steps.check.outputs.needs_update == 'true'
+      run: |
+        LATEST_VERSION="${{ steps.check.outputs.latest }}"
+        NEW_SRC_HASH=$(nix-prefetch-url --unpack --type sha256 \
+          "https://github.com/pyama86/kagiana/archive/refs/tags/v${LATEST_VERSION}.tar.gz" 2>/dev/null \
+          | xargs nix hash convert --hash-algo sha256 --to sri)
+        sed -i "s/version = \".*\"/version = \"${LATEST_VERSION}\"/" pkgs/kagiana/default.nix
+        sed -i "s|hash = \"sha256-.*\"|hash = \"${NEW_SRC_HASH}\"|" pkgs/kagiana/default.nix
+        # Build to get correct vendorHash
+        VENDOR_HASH=$(nix-build -A kagiana 2>&1 | grep 'got:' | awk '{print $2}') || true
+        if [ -n "$VENDOR_HASH" ]; then
+          sed -i "s|vendorHash = \"sha256-.*\"|vendorHash = \"${VENDOR_HASH}\"|" pkgs/kagiana/default.nix
+        fi
+
+    - name: Verify build
+      if: steps.check.outputs.needs_update == 'true'
+      run: nix-build -A kagiana
+
+    - name: Create Pull Request
+      if: steps.check.outputs.needs_update == 'true'
+      uses: peter-evans/create-pull-request@v8
+      with:
+        branch: update/kagiana-${{ steps.check.outputs.latest }}
+        commit-message: "kagiana: ${{ steps.check.outputs.current }} -> ${{ steps.check.outputs.latest }}"
+        title: "kagiana: ${{ steps.check.outputs.current }} -> ${{ steps.check.outputs.latest }}"
+        body: |
+          Automated update of kagiana from `${{ steps.check.outputs.current }}` to `${{ steps.check.outputs.latest }}`.
+
+          Release: https://github.com/pyama86/kagiana/releases/tag/v${{ steps.check.outputs.latest }}
+        labels: automated

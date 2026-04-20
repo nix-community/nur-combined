@@ -11,4 +11,5 @@
 |---------|-------------|
 | [ccusage](./pkgs/ccusage) | Claude Code usage analytics CLI tool |
 | [gogcli](./pkgs/gogcli) | Google CLI for Gmail, Calendar, Drive, and Contacts |
+| [kagiana](./pkgs/kagiana) | OAuth Authenticator & Vault Certificate Getter |
 | [oneaws](./pkgs/oneaws) | CLI tool for AWS authentication via OneLogin |
