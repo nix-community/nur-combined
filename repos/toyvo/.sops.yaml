@@ -8,8 +8,8 @@ keys:
   - &server_mac_mini_m1 age1058m4v4ylsrg5wyedy3lxcc0lps9t6sqhqd9y8zyq8d740v84afsvsrke9
   - &server_mac_mini_intel age19654camqtu0y2n6gdhttm4xrnm8sggnjztt0u40fgewlm9ku4f3qa347l0
   - &server_mac_mini_intel_nixos age1rn29fe3kpr2564fqj77z04fku4579kptusxm3lwatzg0fpkghpus48g75p
-  - &server_macbook_pro age1604q5hpr027v8dg4x96chgkf2cs2zgnq8ntg0ce6uat4umvn45ws6s6dhc
-  - &server_macbook_pro_nixos age1v3frajfater66nykc3rynceg359qwjpwlg48ne338w0zlkgr0ecq542f9f
+  - &server_macbook_pro age1xcz78gcqq5sfmsfm8y0fwrx6vfnz0uyvr0uvm3kl0tctv9s4jp5s8cmy0n
+  - &server_macbook_pro_nixos age1sax4ac6u8wp8qj5cmz6ha25v3fhvxt6mawdlvhef8tl98l7nyu2sqlq6vy
   - &server_nas age1cdhakptq68qa7w3kmszkmlygfgu94evze6x66l7ekafsr2jlyf0sfhq29x
   - &server_oracle_cloud_nixos age1qcasr36jkxpyy2ehpngdyvdg7nfvvqrv56pynzem6cvgtkw64das0frg26
   - &server_pinebook_pro age1vpstfqc4ratdd60ne5k38zr8jddnc3lvvadgkr4s8y2nkehl73xsemx7ny
