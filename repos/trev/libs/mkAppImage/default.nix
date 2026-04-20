@@ -50,7 +50,7 @@ let
 in
 
 stdenvNoCC.mkDerivation {
-  inherit name version;
+  inherit pname version;
   src = null;
 
   nativeBuildInputs = [
@@ -72,12 +72,14 @@ stdenvNoCC.mkDerivation {
     # finds extra files in derivation and copy to extras dir
     ${./extra-files.sh} ${package}
 
+    image=$(mktemp -u)
+
     # add the nix store closure and the entrypoint symlink
     mksquashfs ${
       builtins.concatStringsSep " " (
         [
           "$(cat ${writeClosure [ package ]})"
-          "$out"
+          "$image"
           "-p ${lib.escapeShellArg "entrypoint s 555 0 0 ${lib.getExe package}"}" # create symlink to the exe as the entrypoint
           "-no-strip" # don't strip leading dirs, to preserve the fact that everything's in the nix store
         ]
@@ -91,14 +93,14 @@ stdenvNoCC.mkDerivation {
         [
           "${apprun}/bin/*" # add AppRun and its dependencies
           "$(find extras -mindepth 1 -maxdepth 1)" # add extra files from the extras dir
-          "$out"
+          "$image"
         ]
         ++ args
       )
     }
 
     # add the runtime to the start
-    dd if=${lib.escapeShellArg (lib.getExe runtime)} of=$out conv=notrunc
+    dd if=${lib.escapeShellArg (lib.getExe runtime)} of=$image conv=notrunc
 
     runHook postBuild
   '';
@@ -106,7 +108,9 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    chmod +x $out
+    mkdir -p $out/bin
+    mv $image $out/bin/${name}
+    chmod +x $out/bin/${name}
 
     runHook postInstall
   '';
