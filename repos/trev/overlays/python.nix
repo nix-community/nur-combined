@@ -4,7 +4,7 @@ _: prev: {
     (pyfinal: pyprev: {
       modal = pyfinal.callPackage ../packages/modal { inherit (pyprev) synchronicity; };
       synchronicity = pyfinal.callPackage ../packages/synchronicity { };
-      uv-build = pyfinal.callPackage ../packages/uv-build { };
+      uv-build-latest = pyfinal.callPackage ../packages/uv-build { };
     })
   ];
 }
