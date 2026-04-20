@@ -376,8 +376,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "66387f6d67a9656af4adfc2a6e538225662276e8",
-            "sha256": "0wqq4kfmggmi8vkmmnbj3mwg4fiv807xaiqaa1b72z4k553fzzz8",
+            "rev": "0f1cd1fd0017d2fad92c813aa3c6233dda300088",
+            "sha256": "109arcs3wavzfsvpnf1blf1wdkjyjblv5yyb70gxbc8nk93yv6m3",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "f5a0b8f60805a47f4b8a669ae92434b19b1f4716",
-            "sha256": "0cvgi6319yp4r10hrpn7dmlw80xdihy4a6cwzvpy4wzphxd187zs",
+            "rev": "e74f761ad4ad1cad2af5173508c59a8138aa04b6",
+            "sha256": "1pyyfg3k39by6dzdb13c75jjblbxi9sxn48dc66i0yak3z7fvslj",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
