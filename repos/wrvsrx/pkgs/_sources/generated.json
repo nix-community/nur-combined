@@ -203,6 +203,27 @@
         },
         "version": "0.20.7"
     },
+    "get-environment": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "get-environment",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wrvsrx",
+            "repo": "get-environment",
+            "rev": "0.2.0",
+            "sha256": "sha256-qR1cgwVMtC0kEMJWs5Qj9MYD4fPni3Y78cgolVg8mhc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.2.0"
+    },
     "giraffe-wallpaper": {
         "cargoLock": null,
         "date": "2025-04-06",
@@ -544,11 +565,11 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "xdg",
-            "rev": "0.5.0",
-            "sha256": "sha256-9P/gWoQ9/63ALP1hnWXR5vu3R9uEw5Sp30LAdQ7+/mg=",
+            "rev": "0.7.0",
+            "sha256": "sha256-BQ+lc8R8GxK4ucin6rKMIL8R2ZzPiF2ezfRAb8AOePg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.5.0"
+        "version": "0.7.0"
     }
 }

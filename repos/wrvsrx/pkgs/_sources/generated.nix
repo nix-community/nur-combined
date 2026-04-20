@@ -118,6 +118,17 @@
       sha256 = "sha256-d2TtuZ0ZRl5XSiOFfl+XQgtNcg8GuovBigH58rgwHRw=";
     };
   };
+  get-environment = {
+    pname = "get-environment";
+    version = "0.2.0";
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "get-environment";
+      rev = "0.2.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-qR1cgwVMtC0kEMJWs5Qj9MYD4fPni3Y78cgolVg8mhc=";
+    };
+  };
   giraffe-wallpaper = {
     pname = "giraffe-wallpaper";
     version = "65a3b96f959d9ee95ee3e8333bbc4b9bbc510a40";
@@ -298,13 +309,13 @@
   };
   xdg = {
     pname = "xdg";
-    version = "0.5.0";
+    version = "0.7.0";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "xdg";
-      rev = "0.5.0";
+      rev = "0.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-9P/gWoQ9/63ALP1hnWXR5vu3R9uEw5Sp30LAdQ7+/mg=";
+      sha256 = "sha256-BQ+lc8R8GxK4ucin6rKMIL8R2ZzPiF2ezfRAb8AOePg=";
     };
   };
 }
