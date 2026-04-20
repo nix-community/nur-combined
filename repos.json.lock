@@ -1679,8 +1679,8 @@
             "url": "https://github.com/mrVanDalo/nur-packages"
         },
         "mrcpkgs": {
-            "rev": "8a0ee0ef15951eb6acdc27b75c65001d88596496",
-            "sha256": "0kv7wrcaqk6phr3c4m2fdrafjkszd8mgww28iyw8vb5l083j3q81",
+            "rev": "3b81c624d2f7f5046e706ef7ad0f317a479bc81b",
+            "sha256": "1gh4pqjrmn2hmaimndmqz9yvn37b29nm4qlz8ckkqj2vd9fifa2a",
             "url": "https://github.com/mrcjkb/nur-packages"
         },
         "mrene": {
