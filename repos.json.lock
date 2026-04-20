@@ -2160,8 +2160,8 @@
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
         },
         "sedlund": {
-            "rev": "e20b18b1be41e6b30ce979c593e09822ece5cc2c",
-            "sha256": "1fd59zs3hydyshs5fyy4drn4j97g3yaf55lw3yz9l7x2y9cy99gq",
+            "rev": "41463187a3cb1de460aed15daef0a699631f2b78",
+            "sha256": "1s2kg6plrsdc2al3h4hkjmmfbzlc5b2ad0bxrdv9j3j7ym5g5l3m",
             "url": "https://github.com/sedlund/nur-packages"
         },
         "sehqlr": {
