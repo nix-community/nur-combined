@@ -376,8 +376,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "0f1cd1fd0017d2fad92c813aa3c6233dda300088",
-            "sha256": "109arcs3wavzfsvpnf1blf1wdkjyjblv5yyb70gxbc8nk93yv6m3",
+            "rev": "71bd489faf71df049ec6296cf8331247273488a3",
+            "sha256": "15ly0cgk7xf4ma7wca1cmzw6wwwayjdg17w3hirgvxxyyxpy569k",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -637,8 +637,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "df133adba548269e0b10c00459c330611b7a9b98",
-            "sha256": "1xqchj05acssdv44knqnzb70b5ylcdrm4qgs5jngsmvimr0vlw1x",
+            "rev": "ce949dc348157838b4df64898692bc1fcba3422c",
+            "sha256": "1bl7a4jp82izh0zmn082ip14kbvhb4dggyjy7y6c1q5qkg75nng7",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
