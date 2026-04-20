@@ -21,7 +21,7 @@ writeShellScriptBin "pre-commit" ''
 // {
   meta = {
     description = "Pre-commit hook that formats staged changes with nix fmt";
-    homepage = "https://github.com/ToyVo/nixcfg";
+    homepage = "https://github.com/ToyVoDev/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "pre-commit";
   };

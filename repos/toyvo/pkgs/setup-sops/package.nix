@@ -14,7 +14,7 @@ writeShellScriptBin "setup-sops" ''
 // {
   meta = {
     description = "Create an age key and place it in the default sops location for editing";
-    homepage = "https://github.com/ToyVo/nixcfg";
+    homepage = "https://github.com/ToyVoDev/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "setup-sops";
   };

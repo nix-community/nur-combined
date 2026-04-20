@@ -16,7 +16,7 @@ writeShellScriptBin "pre-push" ''
 // {
   meta = {
     description = "Pre-push hook that evaluates and builds all nix packages";
-    homepage = "https://github.com/ToyVo/nixcfg";
+    homepage = "https://github.com/ToyVoDev/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "pre-push";
   };
