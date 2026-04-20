@@ -1623,8 +1623,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "a42513223f91c6a079ebf942ad298aa0a92ab997",
-            "sha256": "06rgv9ljgl38afz4inafqxp49rlzpky5mgpzij58m0q4f0amw43i",
+            "rev": "5d0a2ed692f18936b817fbd90d251ebe06c07230",
+            "sha256": "0y1zi719dsb6cwq6bhdsxvq7q66bkss35nhsan1s4qzi4za7qq2p",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2382,8 +2382,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "8171eeccf857fba0382f5ba14a7c4099398daf5b",
-            "sha256": "05cybsj5ilb8j2vmcvywrngqy1ag9sijiqx1pi8il0mnba7mjgfh",
+            "rev": "149895a81892fe03a36421f707c951fbf6e4a683",
+            "sha256": "0z8vnv29qfy4p9q6pz87wb92gr7hpabk4l1mv0kn4p3jl0zrpf7k",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
