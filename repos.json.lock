@@ -1446,8 +1446,8 @@
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
-            "rev": "b0e890e8a4c2a33d75a3c497629f37ffa7cc9b07",
-            "sha256": "0fjn41wsqjh2fnjxxalzg19623kf6gxfqw9rv732dfwmsnaajqwq",
+            "rev": "a49e36a1ccc79fb9c5a1957a62053cb069bf576e",
+            "sha256": "126712rdg7l0isg4y5s5v1wrnfv94knwj93aydarpm413ijb6cl7",
             "url": "https://github.com/lonerOrz/loneros-nur"
         },
         "lschuermann": {
