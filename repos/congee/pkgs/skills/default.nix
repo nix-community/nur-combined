@@ -1,36 +1,66 @@
 {
   lib,
   stdenv,
-  fetchzip,
+  fetchFromGitHub,
+  fetchPnpmDeps,
   makeWrapper,
   nodejs,
+  pnpm_10,
+  pnpmConfigHook,
   git,
 }:
 
-stdenv.mkDerivation rec {
+let
+  pnpm = pnpm_10;
+in
+stdenv.mkDerivation (finalAttrs: {
   pname = "skills";
-  version = "1.4.7";
+  version = "1.5.1";
 
-  src = fetchzip {
-    url = "https://registry.npmjs.org/${pname}/-/${pname}-${version}.tgz";
-    hash = "sha256-slmgq9sxicCfDYIDRW+BwDeZPKDpKVrjd7ubojz2pq4=";
+  src = fetchFromGitHub {
+    owner = "vercel-labs";
+    repo = "skills";
+    rev = "bc21a37a12b90fcb5aec051c91baf5b227b704b1";
+    hash = "sha256-JVJeottMyjxdiGPS7O4QsshKdbwbYcKMvwe/PB7I/Zw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+    nodejs
+    pnpmConfigHook
+    pnpm
+  ];
 
-  dontBuild = true;
+  pnpmDeps = fetchPnpmDeps {
+    inherit (finalAttrs) pname version src;
+    pnpm = pnpm;
+    fetcherVersion = 3;
+    hash = "sha256-0CS6BTjTj/TAnMNahTk4Vt/0/2eMxmCGUV9PwI8l4Ao=";
+  };
+
+  buildPhase = ''
+    runHook preBuild
+
+    pnpm exec obuild
+    find -name 'node_modules' -type d -prune -exec rm -rf {} +
+    pnpm install --offline --prod --ignore-scripts
+
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/${pname}
-    cp -r $src/* $out/lib/${pname}/
-    chmod -R u+w $out/lib/${pname}
+    mkdir -p $out/lib/${finalAttrs.pname}
+    cp -r bin dist package.json README.md ThirdPartyNoticeText.txt node_modules $out/lib/${finalAttrs.pname}/
 
     mkdir -p $out/bin
-    makeWrapper ${nodejs}/bin/node $out/bin/skills \
+    makeWrapper ${lib.getExe nodejs} $out/bin/skills \
       --prefix PATH : ${lib.makeBinPath [ git ]} \
-      --add-flags "$out/lib/${pname}/bin/cli.mjs"
+      --add-flags "$out/lib/${finalAttrs.pname}/bin/cli.mjs"
+    makeWrapper ${lib.getExe nodejs} $out/bin/add-skill \
+      --prefix PATH : ${lib.makeBinPath [ git ]} \
+      --add-flags "$out/lib/${finalAttrs.pname}/bin/cli.mjs"
 
     runHook postInstall
   '';
@@ -39,7 +69,7 @@ stdenv.mkDerivation rec {
   installCheckPhase = ''
     runHook preInstallCheck
     export HOME="$(mktemp -d)"
-    "$out/bin/skills" --version | head -n1 | grep -F "${version}"
+    "$out/bin/skills" --version | head -n1 | grep -F "${finalAttrs.version}"
     runHook postInstallCheck
   '';
 
@@ -48,8 +78,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vercel-labs/skills";
     downloadPage = "https://www.npmjs.com/package/skills";
     license = licenses.mit;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
     platforms = platforms.all;
     mainProgram = "skills";
   };
-}
+})
