@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "814b42c01281b17c395aca1304bb08725444d347",
-            "sha256": "0bxiiycmv9hkcbdwxivdjbvd2igm7ln3kiz87d7z4mi2hia8gx2p",
+            "rev": "f3f93579eef1641cde697e4335af9335fb0cfd9a",
+            "sha256": "1nl71140xc8fhz8k078y0vwfn538m9vgz5y5bwawv64y3sx49d1s",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -256,8 +256,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "60c502d267b7cec5cf7c6408c4e7012cb71bc875",
-            "sha256": "1s5vzcj6fawz3aam95mknn8zx72pfn6g794cvra53xp6l15w0prb",
+            "rev": "e04bd9393cce4463bb3d99b12e0e615c0a3740eb",
+            "sha256": "1cn8cy02xbnvizagxdv0hmv4vyzcqav86gqvp696drb46alxmhj8",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
