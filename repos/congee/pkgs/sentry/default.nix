@@ -9,21 +9,21 @@
 
 let
   pname = "sentry";
-  version = "0.22.0";
+  version = "0.28.1";
 
   src = fetchFromGitHub {
     owner = "getsentry";
     repo = "cli";
     rev = version;
-    hash = "sha256-Y+RVj+rfZMKS+BMTS2ua9GYPsGd5QbxKmnX47NWoMsY=";
+    hash = "sha256-J4ozDjMrtGc1nHA3AxYu913Ntb6rgGN4Qbkpl+IkCfI=";
   };
 
   # @sentry/api version pinned in bun.lock; determines the OpenAPI spec tag
-  sentryApiVersion = "0.54.0";
+  sentryApiVersion = "0.94.0";
 
   openapi-spec = fetchurl {
     url = "https://raw.githubusercontent.com/getsentry/sentry-api-schema/${sentryApiVersion}/openapi-derefed.json";
-    hash = "sha256-AolreXPKAtWSdXh9um4QRMQPgR+CeOfyfRHdgmBpGuQ=";
+    hash = "sha256-OvCdVV3pPl7JbHLlw+7piKiBVrN1XORzEwaf/gtHpiw=";
   };
 
   bunDeps = stdenv.mkDerivation {
@@ -36,8 +36,8 @@ let
     outputHashMode = "recursive";
     # bun installs platform-specific native deps, so the hash differs per system
     outputHash = {
-      x86_64-linux = "sha256-EvPtXqgMpjhikJLO3Xf6OMkn/dF3XXF6Y8ZQ2ioKGTo=";
-      aarch64-darwin = "sha256-G/FuIQD0siKOdGJBEucw1HW7tLiM/3UNkBmsnYDuZhY=";
+      x86_64-linux = "sha256-MvXQ0cCXWese3E+rvd8X1suH/N175XysTzxEWoTAAp0=";
+      aarch64-darwin = "sha256-UPDgbCA9VWS5OsZ59vUNZ1rd9ZmfRIl8C8r02geMcA8=";
     }.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
     buildPhase = ''
       runHook preBuild
@@ -73,6 +73,8 @@ stdenv.mkDerivation {
         'await (async () => ({ ok: true, json: async () => JSON.parse(require("fs").readFileSync("${openapi-spec}", "utf-8")) }))()'
 
     bun run generate:schema
+    bun run generate:docs
+    bun run generate:sdk
 
     # Build standalone binary for current platform
     # Public OAuth client ID for sentry.io, baked into official builds
