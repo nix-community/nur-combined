@@ -637,8 +637,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "3c99546d48703e983441f71a7963d7553526c78b",
-            "sha256": "1axgdha8w2jnjazfq2i8ca61m9fvzfxcx66l4ls0s3jc8raj55p1",
+            "rev": "87a76c4443e6d4fa829c72cb106550bd69609a3f",
+            "sha256": "1zkqjpinm4ca3pdykhz3xn9axsh4c7fjbzwqjhq4ra5v4w1955pz",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "bcea7ed3fd485265af1beedb74b7adfc051cccea",
-            "sha256": "07bqx93bmwy8ym5na26y2f1hw06266bk6lvlpf3lxpp8x0pqjd0m",
+            "rev": "0468c83a529647b6d95461821cfe41a4d16eb6d5",
+            "sha256": "15650h52720qczmp7yx97gwl87nsm09sbzid15lg9qf82dmwaxvf",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
