@@ -1,21 +1,21 @@
 {
   lib,
-  buildGoModule,
+  buildGo126Module,
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGo126Module rec {
   pname = "gh-image";
-  version = "0.2.0";
+  version = "unstable-2026-04-20";
 
   src = fetchFromGitHub {
     owner = "drogers0";
     repo = "gh-image";
-    rev = "v${version}";
-    hash = "sha256-UUImAoQoVcWN9uLRZA3Up0daQ4M9HEV5kDrBQU2F7NE=";
+    rev = "master";
+    hash = "sha256-4rSf0h5mK+D+K6TTdB4s6tFm4/Sez/8GlsePj76XmeA=";
   };
 
-  vendorHash = "sha256-QVr+MeqjnjzBrUjyMFOsTnONIJ2e1nFwr+szB8SaCuA=";
+  vendorHash = "sha256-YD0owtlnJyeytr8TTWcLNAEgXH5Nmd/9IJrg6TM9A3U=";
 
   env.CGO_ENABLED = 0;
 
@@ -36,7 +36,7 @@ buildGoModule rec {
   meta = {
     description = "GitHub CLI extension that uploads images to GitHub from the command line";
     homepage = "https://github.com/drogers0/gh-image";
-    changelog = "https://github.com/drogers0/gh-image/releases/tag/v${version}";
+    changelog = "https://github.com/drogers0/gh-image/commits/master";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ congee ];
     mainProgram = "gh-image";
