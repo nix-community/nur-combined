@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "1f24781b119622e28cb7b15b2892dd0e9fd9ca04",
-            "sha256": "00anf9bdn04xgqaaay69bp39d5kzv3h3r91fy3wisw5bbsc919mg",
+            "rev": "e937ef5ee64f0d30ebd3d8146dbbe098413b9e3e",
+            "sha256": "0anch21rwnb9f8336lwjkdw3wzlijaqlcpav6disr27hss1idcar",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "75eb700c1ca643d35c50b589bb7b8e4558b65903",
-            "sha256": "0kqqanih77clbhhcr3xddx7bzdk0znjh9168bdhl19z9f45py3a4",
+            "rev": "e6bcbfb4908574214c84cedfc7aa90be761a281d",
+            "sha256": "104v5qwdqvls0bjp20gzyk9rg27g6v6ln8lzb1085qwdgdrlr2b2",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
