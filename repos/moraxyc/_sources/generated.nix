@@ -171,13 +171,13 @@
   };
   git-mcp-server = {
     pname = "git-mcp-server";
-    version = "v2.11.0";
+    version = "v2.11.1";
     src = fetchFromGitHub {
       owner = "cyanheads";
       repo = "git-mcp-server";
-      rev = "v2.11.0";
+      rev = "v2.11.1";
       fetchSubmodules = false;
-      sha256 = "sha256-C02iJBPc7DqQRmv8z8axxGOze6iTyMETKucg9pBIN1A=";
+      sha256 = "sha256-SfI7Fwcrh5iGdr1DkZJ9lNy6WcYSDiJMsW1xezZLG+s=";
     };
   };
   happydeliver = {
@@ -281,21 +281,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "7dcd8e60d99a35423de975e252a4ebae446c9b65";
+    version = "82910b18db72035b5b3e1394a8f236e3e7e25016";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "7dcd8e60d99a35423de975e252a4ebae446c9b65";
+      rev = "82910b18db72035b5b3e1394a8f236e3e7e25016";
       fetchSubmodules = false;
-      sha256 = "sha256-2cKv4pzkid+dob3sUEIY09yKKgfijERjg23Qndc6ZyQ=";
+      sha256 = "sha256-96y16ScKqulAr6kJtvQnJozc2nmtAExgG4t76hc5+qI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-2cKv4pzkid+dob3sUEIY09yKKgfijERjg23Qndc6ZyQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-96y16ScKqulAr6kJtvQnJozc2nmtAExgG4t76hc5+qI=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-04-13";
+    date = "2026-04-20";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -373,18 +373,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202604192335";
+    version = "202604202237";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604192335/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604202237/geoip.dat";
       sha256 = "sha256-79VvS7JsZN2jILiDD7fl9RIXwohC7kCwvZWZOO/prqg=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202604192335";
+    version = "202604202237";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604192335/geosite.dat";
-      sha256 = "sha256-R5RZ7pGa+YRR1x3CvoU6fMO3Ss4Ay7lYlkv1kwk6Who=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604202237/geosite.dat";
+      sha256 = "sha256-FgYT8EcVHhO4r1RnEqd9Xq9SdL3BGdWsJr/XCLyszNE=";
     };
   };
   yass = {
