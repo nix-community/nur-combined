@@ -3,12 +3,13 @@
 brew2nur - Convert Homebrew formulae and casks into NUR Nix package derivations.
 
 Usage:
-    ./brew2nur.py <formula-or-cask-name> [--cask] [--output-dir DIR]
+    ./brew2nur.py <formula-or-cask-name> [--cask] [--tap TAP] [--output-dir DIR]
 
 Examples:
     ./brew2nur.py ripgrep
     ./brew2nur.py rectangle --cask
     ./brew2nur.py bat --output-dir ../pkgs
+    ./brew2nur.py myformula --tap owner/tap-name
 """
 
 import argparse
@@ -20,9 +21,15 @@ import sys
 import textwrap
 import urllib.request
 from pathlib import Path
+from typing import Optional, Tuple, List
 
 HOMEBREW_FORMULA_API = "https://formulae.brew.sh/api/formula/{}.json"
 HOMEBREW_CASK_API = "https://formulae.brew.sh/api/cask/{}.json"
+
+# For custom taps, we'll use the GitHub raw API
+# Tap format: owner/repo or owner/homebrew-repo
+HOMEBREW_TAP_FORMULA_RAW = "https://raw.githubusercontent.com/{tap}/HEAD/Formula/{name}.rb"
+HOMEBREW_TAP_CASK_RAW = "https://raw.githubusercontent.com/{tap}/HEAD/Casks/{name}.rb"
 
 LICENSE_MAP = {
     "MIT": "licenses.mit",
@@ -69,7 +76,43 @@ def fetch_json(url: str) -> dict:
         sys.exit(1)
 
 
-def nix_license(brew_license: str | None) -> str:
+def fetch_from_tap(tap: str, name: str, is_cask: bool = False) -> Optional[dict]:
+    """
+    Fetch formula/cask from a custom tap using brew command.
+    
+    Args:
+        tap: Tap name (e.g., 'owner/tap-name' or 'owner/homebrew-tap-name')
+        name: Package name
+        is_cask: Whether this is a cask
+    
+    Returns:
+        Dictionary with package info or None if not found
+    """
+    try:
+        # Use brew --json to get package info from tap
+        pkg_ref = f"{tap}/{name}"
+        cmd = ["brew", "info", pkg_ref, "--json=v2"]
+        
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        if result.returncode == 0:
+            data = json.loads(result.stdout)
+            if is_cask:
+                casks = data.get("casks", [])
+                return casks[0] if casks else None
+            else:
+                formulae = data.get("formulae", [])
+                return formulae[0] if formulae else None
+        else:
+            print(f"Error: {result.stderr}", file=sys.stderr)
+    except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
+        print(f"Error fetching from tap {tap}: {e}", file=sys.stderr)
+    except FileNotFoundError:
+        print("Error: 'brew' command not found. Install Homebrew first.", file=sys.stderr)
+    
+    return None
+
+
+def nix_license(brew_license: Optional[str]) -> str:
     if not brew_license:
         return "licenses.unfree"
     # Homebrew uses SPDX with some extras; handle simple cases and AND/OR
@@ -98,7 +141,7 @@ def prefetch_url(url: str) -> str:
         )
         return result2.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError):
-        return 'sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: run nix-prefetch-url'
+        return "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: run nix-prefetch-url"
 
 
 def prefetch_github(owner: str, repo: str, rev: str) -> str:
@@ -107,7 +150,7 @@ def prefetch_github(owner: str, repo: str, rev: str) -> str:
     return prefetch_url(url)
 
 
-def guess_github_info(urls: list[str]) -> tuple[str, str] | None:
+def guess_github_info(urls: List[str]) -> Optional[Tuple[str, str]]:
     """Try to extract owner/repo from homepage or URLs."""
     for url in urls:
         if "github.com" in url:
@@ -126,7 +169,9 @@ def generate_formula_nix(data: dict, do_prefetch: bool) -> str:
     homepage = data["homepage"] or ""
     license_str = data.get("license") or ""
 
-    urls_to_check = [homepage] + [u.get("url", "") for u in data.get("urls", {}).values()]
+    urls_to_check = [homepage] + [
+        u.get("url", "") for u in data.get("urls", {}).values()
+    ]
     # Also check the stable source URL
     stable_url = data.get("urls", {}).get("stable", {}).get("url", "")
     if stable_url:
@@ -143,7 +188,7 @@ def generate_formula_nix(data: dict, do_prefetch: bool) -> str:
         if do_prefetch:
             src_hash = prefetch_github(owner, repo, rev)
         else:
-            src_hash = 'sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash'
+            src_hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash"
 
         return textwrap.dedent(f"""\
             {{
@@ -186,7 +231,7 @@ def generate_formula_nix(data: dict, do_prefetch: bool) -> str:
         if do_prefetch and stable_url:
             src_hash = prefetch_url(stable_url)
         else:
-            src_hash = 'sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash'
+            src_hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash"
 
         return textwrap.dedent(f"""\
             {{
@@ -261,9 +306,9 @@ def generate_cask_nix(data: dict, do_prefetch: bool) -> str:
             )
             src_hash = result2.stdout.strip()
         except (subprocess.CalledProcessError, FileNotFoundError):
-            src_hash = 'sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash'
+            src_hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash"
     else:
-        src_hash = 'sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash'
+        src_hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=  # TODO: replace with real hash"
 
     # Replace #{version} with Nix interpolation
     nix_url = url.replace("#{version}", "${version}")
@@ -285,7 +330,11 @@ def generate_cask_nix(data: dict, do_prefetch: bool) -> str:
             runHook postInstall
           '';""")
 
-    unpack_tool = "undmg" if url.endswith(".dmg") else "unzip  # TODO: pick undmg or unzip based on archive type"
+    unpack_tool = (
+        "undmg"
+        if url.endswith(".dmg")
+        else "unzip  # TODO: pick undmg or unzip based on archive type"
+    )
 
     lines = [
         "{",
@@ -355,7 +404,14 @@ def main():
         description="Convert Homebrew formulae/casks into NUR Nix packages"
     )
     parser.add_argument("name", help="Homebrew formula or cask name")
-    parser.add_argument("--cask", action="store_true", help="Treat as a cask instead of a formula")
+    parser.add_argument(
+        "--cask", action="store_true", help="Treat as a cask instead of a formula"
+    )
+    parser.add_argument(
+        "--tap",
+        default=None,
+        help="Custom tap (e.g., 'owner/tap-name'). Omit to search main Homebrew repo",
+    )
     parser.add_argument(
         "--output-dir",
         default=None,
@@ -376,17 +432,31 @@ def main():
     brew_name = args.name.lower().strip()
     is_cask = args.cask
     do_prefetch = not args.no_prefetch
+    tap = args.tap
 
-    print(f"Fetching {'cask' if is_cask else 'formula'} info for '{brew_name}'...")
+    pkg_type = 'cask' if is_cask else 'formula'
+    tap_str = f" from tap '{tap}'" if tap else " from main Homebrew repo"
+    print(f"Fetching {pkg_type} info for '{brew_name}'{tap_str}...")
 
+    if tap:
+        # Fetch from custom tap
+        data = fetch_from_tap(tap, brew_name, is_cask)
+        if not data:
+            print(f"Error: {pkg_type} '{brew_name}' not found in tap '{tap}'", file=sys.stderr)
+            sys.exit(1)
+    else:
+        # Fetch from main Homebrew repo
+        if is_cask:
+            url = HOMEBREW_CASK_API.format(brew_name)
+            data = fetch_json(url)
+        else:
+            url = HOMEBREW_FORMULA_API.format(brew_name)
+            data = fetch_json(url)
+    
     if is_cask:
-        url = HOMEBREW_CASK_API.format(brew_name)
-        data = fetch_json(url)
         nix_content = generate_cask_nix(data, do_prefetch)
         pkg_name = data["token"]
     else:
-        url = HOMEBREW_FORMULA_API.format(brew_name)
-        data = fetch_json(url)
         nix_content = generate_formula_nix(data, do_prefetch)
         pkg_name = data["name"]
 
@@ -422,7 +492,9 @@ def main():
     print("  2. Fill in any TODOs (build inputs, install phase, hash)")
     print(f"  3. Test with: nix-build -A {pkg_name}")
     if not args.register:
-        print(f"  4. Add to default.nix:  {pkg_name} = pkgs.callPackage ./pkgs/{pkg_name} {{ }};")
+        print(
+            f"  4. Add to default.nix:  {pkg_name} = pkgs.callPackage ./pkgs/{pkg_name} {{ }};"
+        )
         print(f"     Or re-run with --register to do this automatically.")
 
 
