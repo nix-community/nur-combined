@@ -1734,10 +1734,10 @@
   "slint": {
     "nurl": {
       "args": {
-        "hash": "sha256-NTxJwVYq3o+9+BbBi4Lcj++mB4hvKAN3N+dRadXuBNo=",
+        "hash": "sha256-ugdB7gN3zTAGLm9Jk2hjuuZWxIYxEWYXW72qLpXM+1Q=",
         "owner": "slint-ui",
         "repo": "tree-sitter-slint",
-        "rev": "f11da7e62051ba8b9d4faa299c26de8aeedfc1cd"
+        "rev": "68b25244cec6eb9d7f8f790ef781c29c822d8f84"
       },
       "fetcher": "fetchFromGitHub"
     },
