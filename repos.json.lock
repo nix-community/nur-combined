@@ -1028,8 +1028,8 @@
             "url": "https://github.com/glostis/nur-packages"
         },
         "goreleaser": {
-            "rev": "ba3e9915dd340c6e073487c79af7cf5702b32743",
-            "sha256": "1hdnrqjsyvs5izxxpfb5ncl9bngcznla5lc2ihf9hmgizjranpp9",
+            "rev": "6ae60bba80dbbcc25bb4ee071506826f2b1c0bf6",
+            "sha256": "05dihl9m87j82jnqssklwzy85y2dba931drhjrmm3gvd9qfqmq8y",
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
@@ -1328,8 +1328,8 @@
             "url": "https://github.com/k0ral/nur-packages"
         },
         "k3a": {
-            "rev": "b7ebdcf5958a6d9604814bcf2b4e6db49b3459af",
-            "sha256": "0h06vm1n069bmpwq9zsqznhldk8h5hx5qfcahgsmgxyzfqwv8gf7",
+            "rev": "4a829eedf3ab35005538c31947b9d880b3ef73e9",
+            "sha256": "15ra70lybcli3662y26mdlw89raciql7v9i7yaannribg0imm102",
             "url": "https://github.com/k3a/nurpkgs"
         },
         "kagura": {
