@@ -2878,10 +2878,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "150.0.20260415.192539";
+      version = "151.0.20260420.143330";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4767181/dansk_da_language_pack-150.0.20260415.192539.xpi";
-      sha256 = "3c993aa435014cbb5ccdb8eca9e816bfbbbe79f973b31b2013f2e56c2f9824cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772814/dansk_da_language_pack-151.0.20260420.143330.xpi";
+      sha256 = "da3803135ddc18e3ed88b71f7213f11c667d417c99d86a44eb40c21d3455027e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3092,10 +3092,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "150.0.20260415.192539";
+      version = "151.0.20260420.143330";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4767186/deutsch_de_language_pack-150.0.20260415.192539.xpi";
-      sha256 = "8ea17e66370f7b9f8a446b577b4367fa8c9340b5365405b181fda63300adbf18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772804/deutsch_de_language_pack-151.0.20260420.143330.xpi";
+      sha256 = "0a9baf32aa4e9966a9170985e1acab31c767a9165c31a0d8125eb4675496efbc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3569,10 +3569,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.69.0";
+      version = "2.69.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4762679/dualsub-2.69.0.xpi";
-      sha256 = "219527d0dcf8ffb65403555156d6faa7373c780bed1eafc3311ae51dfd845849";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772330/dualsub-2.69.1.xpi";
+      sha256 = "a029023fabc9700e265e5defe4dc16533f60e23fab37f407f31394f0c1720eba";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4570,10 +4570,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "150.0.20260415.192539";
+      version = "151.0.20260420.143330";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4767210/francais_language_pack-150.0.20260415.192539.xpi";
-      sha256 = "16aeb5e85232ada642b0c7b20d042598085e64578a7d7704fb9434ed1486646d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772802/francais_language_pack-151.0.20260420.143330.xpi";
+      sha256 = "63d0371b5e4b5eda602455c9d270ee43b44148a59a7bfbb06b9f3b68cbc25db8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4607,10 +4607,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "150.0.20260415.192539";
+      version = "151.0.20260420.143330";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4767230/gaidhlig_language_pack-150.0.20260415.192539.xpi";
-      sha256 = "1ea8dfee4f8a0ad08224e39a9487acc180264d15663d282340b50e1d0993280a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772875/gaidhlig_language_pack-151.0.20260420.143330.xpi";
+      sha256 = "6f860d5060d2194a9d9f1124b552359a06a1238548f5e58c15b5436720fb86d9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4679,7 +4679,7 @@
       {
         homepage = "http://www.ghostery.com/";
         description = "The best privacy tool and ad blocker extension for Firefox. Stop trackers, speed up websites and block ads everywhere including YouTube and Facebook.";
-        license = licenses.mpl20;
+        license = licenses.gpl3;
         mozPermissions = [
           "alarms"
           "cookies"
@@ -8382,10 +8382,10 @@
     };
     "lingq-importer2" = buildMozillaXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.41";
+      version = "2.3.42";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4739181/lingq_importer2-2.3.41.xpi";
-      sha256 = "a95dc90efe37d05c26de1a2c3d005d2b61147a22604a17160660075012de368e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4773227/lingq_importer2-2.3.42.xpi";
+      sha256 = "d5f266ec8381903535314e323c3d30944cc8f7144f1791fe95b8097d965e7a5a";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -12982,10 +12982,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.4.4";
+      version = "26.4.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4752872/refined_github-26.4.4.xpi";
-      sha256 = "36d0c4681e37d0ad0a3eb289d71f55324143a37b28b7e2d67ab35427944a3a41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772939/refined_github-26.4.20.xpi";
+      sha256 = "d160e48b3d8dc4a6b46c774088d67fe557116dcd51dd6fa376c02eb0c51deb8a";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -13302,10 +13302,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "150.0.20260415.192539";
+      version = "151.0.20260420.143330";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4767193/scots_language_pack-150.0.20260415.192539.xpi";
-      sha256 = "b63a00fba30895427dfb5a53cd5fabc436435a7e7019ee2cd8c29456e2055efa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772861/scots_language_pack-151.0.20260420.143330.xpi";
+      sha256 = "5f4faf4369da1183ee6a281c9c77a0e00e0bcb3a9f08caa6f9bd98fa79d09ad1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";

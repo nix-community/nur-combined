@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "104.9";
+      version = "105.1";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1045793/cardbook-104.9-tb.xpi?src=";
-      sha256 = "c3714c44aa3419df17b2217cae64325fc31d3cfa52b35d67ef18913bdf9c2b08";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1046252/cardbook-105.1-tb.xpi?src=";
+      sha256 = "c8b91e1acd453ddef1a8c4d8666d992e93969731a389c520bbbef388e083cbff";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";
@@ -160,10 +160,10 @@
     };
     "owl-for-exchange" = buildMozillaXpiAddon {
       pname = "owl-for-exchange";
-      version = "1.4.9";
+      version = "1.5.0";
       addonId = "owl@beonex.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1045258/eule_fur_exchange-1.4.9-tb.xpi?src=";
-      sha256 = "bd358bfe58f329a77c8d104eb9ae2b01aa5f31f9dda02fd5f5e3732861369c70";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1046203/eule_fur_exchange-1.5.0-tb.xpi?src=";
+      sha256 = "8007e8793eb37e1aae5d4ca90b407674ff0c43971a444d1946791c632e115aaf";
       meta = with lib;
       {
         homepage = "https://www.beonex.com/owl/";
