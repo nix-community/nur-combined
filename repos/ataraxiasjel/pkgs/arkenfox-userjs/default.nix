@@ -6,12 +6,12 @@
 }:
 stdenv.mkDerivation rec {
   pname = "arkenfox-userjs";
-  version = "140.1";
+  version = "144.0";
   src = fetchFromGitHub {
     repo = "user.js";
     owner = "arkenfox";
     rev = version;
-    hash = "sha256-LPDiiEPOZu5Ah5vCLyCMT3w1uoBhUjyqoPWCOiLVLnw=";
+    hash = "sha256-oo3/j53+vDh0Y+uCMPFUGEc4bDr7uD4CzagEuQX5PM8=";
   };
 
   dontBuild = true;
