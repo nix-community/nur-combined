@@ -1623,8 +1623,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "5d0a2ed692f18936b817fbd90d251ebe06c07230",
-            "sha256": "0y1zi719dsb6cwq6bhdsxvq7q66bkss35nhsan1s4qzi4za7qq2p",
+            "rev": "fd0286c0a991dfb6834b138147c0c3b105fcca5e",
+            "sha256": "07r1lm7rk4dx3xk6raarniynxv6rjc8433wd3l8m3m1q7qcx88id",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "0468c83a529647b6d95461821cfe41a4d16eb6d5",
-            "sha256": "15650h52720qczmp7yx97gwl87nsm09sbzid15lg9qf82dmwaxvf",
+            "rev": "f331f8b5eec23e712b5016f6fd2c51b280b74a71",
+            "sha256": "1sf5g0h357kh2sp4w3w379wdjpafzbrv189dc1bn631md1naaq6n",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
