@@ -12,14 +12,156 @@
       "program": "fish"
     }
   },
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    }
+  },
   "agent": {
     "default_profile": "write",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-5-mini"
+      "provider": "OpenCode Go",
+      "model": "kimi-k2.6"
     }
   },
   "language_models": {
+    "openai_compatible": {
+      "OpenCode Go": {
+        "api_url": "https://opencode.ai/zen/go/v1",
+        "available_models": [
+          {
+            "name": "glm-5",
+            "max_tokens": 204800,
+            "max_output_tokens": 131072,
+            "max_completion_tokens": 204800,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "glm-5.1",
+            "max_tokens": 204800,
+            "max_output_tokens": 131072,
+            "max_completion_tokens": 204800,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "kimi-k2.5",
+            "max_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 262144,
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "kimi-k2.6",
+            "max_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 262144,
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "mimo-v2-omni",
+            "max_tokens": 262144,
+            "max_output_tokens": 64000,
+            "max_completion_tokens": 262144,
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "mimo-v2-pro",
+            "max_tokens": 1048576,
+            "max_output_tokens": 64000,
+            "max_completion_tokens": 1048576,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "minimax-m2.5",
+            "max_tokens": 204800,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 204800,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "minimax-m2.6",
+            "max_tokens": 204800,
+            "max_output_tokens": 131072,
+            "max_completion_tokens": 204800,
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "qwen3.5-plus",
+            "max_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 262144,
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          },
+          {
+            "name": "qwen3.6-plus",
+            "max_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 262144,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "chat_completions": true
+            }
+          }
+        ]
+      }
+    },
     "ollama": {
       "api_url": "https://ollama.diekvoss.net"
     }
