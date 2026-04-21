@@ -499,12 +499,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.30",
-            "sha256": "sha256-WmBn5nOMtwIIrVNGOzRMo/l7VUaRvSDUpBC2vgeHX1Q=",
+            "rev": "v6.9.31",
+            "sha256": "sha256-QBUQPP0YfTP+5GPeor9bj40A3sCrg/5auGZ/sVRF0CE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.30"
+        "version": "v6.9.31"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1397,11 +1397,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-KdbiaWYP2wL1XwWjXAxJSI1Smj1Ni62Fs4YUNnOyXK8=",
+            "sha256": "sha256-opezyVCwl+y2fQazIRI1UX9zG+7yzhCIXAjNMxdiras=",
             "type": "url",
-            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.54-0_amd64.deb"
+            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_amd64.deb"
         },
-        "version": "1.0.54-0"
+        "version": "1.0.56-0"
     },
     "fr24feed-arm64": {
         "cargoLock": null,
@@ -1427,11 +1427,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-E7tubFyXbF/nmIaGiS5Ge+0mumrjfeaeq3LTNdunwgo=",
+            "sha256": "sha256-5K5ZeCT+AhPPjJpQ7RfqrzlFQPcdWKwjsDW+VJpqEcs=",
             "type": "url",
-            "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.55-1_armhf.deb"
+            "url": "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.56-0_armhf.deb"
         },
-        "version": "1.0.55-1"
+        "version": "1.0.56-0"
     },
     "fr24feed-i386": {
         "cargoLock": null,
@@ -1442,11 +1442,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3h82anzjDEpx8XA0UtfJ1+bfAGVN13HI1JsE74gemdo=",
+            "sha256": "sha256-9bchUn01VHePbc8Z7ZP0YfDJiqIsAqKfNLGUM7XHO3A=",
             "type": "url",
-            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.54-0_i386.deb"
+            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_i386.deb"
         },
-        "version": "1.0.54-0"
+        "version": "1.0.56-0"
     },
     "ftp-proxy": {
         "cargoLock": null,
@@ -2148,7 +2148,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-04-15",
+        "date": "2026-04-21",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2160,12 +2160,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "3cb781fd4737c900ad755ee0bb9e1949d0f68955",
-            "sha256": "sha256-VwWXYgGjh+9nS4/4FP4HXbetfxuBGFDQh/gFwA6I5ps=",
+            "rev": "d8509387febc9e32466c86aab544d225d60c8e3c",
+            "sha256": "sha256-Z5bRBqjkKHfdK+pWRfK2XJVmiUB3cCwu31B3vgpmrHw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3cb781fd4737c900ad755ee0bb9e1949d0f68955"
+        "version": "d8509387febc9e32466c86aab544d225d60c8e3c"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2316,12 +2316,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8857",
-            "sha256": "sha256-cksrf+UN10G6B8yeYe/JbeHu2F9rNqwPJBR8cKIeiHI=",
+            "rev": "b8871",
+            "sha256": "sha256-L4B7cc6qH+iCg1e4fjORcxcH9Kc4hf3lfst/Z536smk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8857"
+        "version": "b8871"
     },
     "loralib": {
         "cargoLock": null,
@@ -2436,12 +2436,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "modelscope",
-            "rev": "v1.36.0",
-            "sha256": "sha256-IsJSqqQbNsvYw3liEV15+sPqj2BmdvSt/4yZ3AGa2GU=",
+            "rev": "v1.36.1",
+            "sha256": "sha256-dZBeceAo02FqiNABv5t9yfgPLrDnM37+pdr/U448PQw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.36.0"
+        "version": "v1.36.1"
     },
     "mtkclient": {
         "cargoLock": null,
@@ -2676,12 +2676,12 @@
             "name": null,
             "owner": "nginx",
             "repo": "njs",
-            "rev": "0.9.6",
-            "sha256": "sha256-MU1948qakc+ZSH30r2s0v3JZEtBoiuvUfRCfmzlpiEQ=",
+            "rev": "0.9.7",
+            "sha256": "sha256-ozmACYcr9kaAwjI0u4XEWqMx/dYBXzL/AoA+w73vOJM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.9.6"
+        "version": "0.9.7"
     },
     "ngx_brotli": {
         "cargoLock": null,
@@ -3566,7 +3566,7 @@
     },
     "qsp-lib": {
         "cargoLock": null,
-        "date": "2026-04-17",
+        "date": "2026-04-21",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -3578,12 +3578,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "3ec3f0a30dbc5669e815a18c984970e8b21e2010",
-            "sha256": "sha256-Sj8QH1XqGrpdoXdLNyimdxsrKNmFavnMvs1ug2UWqxI=",
+            "rev": "34bbe0e384c4511dd8647231b1da18387ca7c525",
+            "sha256": "sha256-5iBGcQ/5pmO27LtOuhPOia7My+ehnOQ0XR8AXCswvyc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3ec3f0a30dbc5669e815a18c984970e8b21e2010"
+        "version": "34bbe0e384c4511dd8647231b1da18387ca7c525"
     },
     "qsp-stable": {
         "cargoLock": null,

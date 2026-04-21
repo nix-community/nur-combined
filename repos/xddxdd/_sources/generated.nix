@@ -258,12 +258,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.30";
+    version = "v6.9.31";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.30";
-      hash = "sha256-WmBn5nOMtwIIrVNGOzRMo/l7VUaRvSDUpBC2vgeHX1Q=";
+      tag = "v6.9.31";
+      hash = "sha256-QBUQPP0YfTP+5GPeor9bj40A3sCrg/5auGZ/sVRF0CE=";
     };
   };
   cockpy = {
@@ -720,10 +720,10 @@
   };
   fr24feed-amd64 = {
     pname = "fr24feed-amd64";
-    version = "1.0.54-0";
+    version = "1.0.56-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.54-0_amd64.deb";
-      hash = "sha256-KdbiaWYP2wL1XwWjXAxJSI1Smj1Ni62Fs4YUNnOyXK8=";
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_amd64.deb";
+      hash = "sha256-opezyVCwl+y2fQazIRI1UX9zG+7yzhCIXAjNMxdiras=";
     };
   };
   fr24feed-arm64 = {
@@ -736,18 +736,18 @@
   };
   fr24feed-armhf = {
     pname = "fr24feed-armhf";
-    version = "1.0.55-1";
+    version = "1.0.56-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.55-1_armhf.deb";
-      hash = "sha256-E7tubFyXbF/nmIaGiS5Ge+0mumrjfeaeq3LTNdunwgo=";
+      url = "https://repo-feed.flightradar24.com/pool/raspberrypi-stable/f/fr24feed/fr24feed_1.0.56-0_armhf.deb";
+      hash = "sha256-5K5ZeCT+AhPPjJpQ7RfqrzlFQPcdWKwjsDW+VJpqEcs=";
     };
   };
   fr24feed-i386 = {
     pname = "fr24feed-i386";
-    version = "1.0.54-0";
+    version = "1.0.56-0";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.54-0_i386.deb";
-      hash = "sha256-3h82anzjDEpx8XA0UtfJ1+bfAGVN13HI1JsE74gemdo=";
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_i386.deb";
+      hash = "sha256-9bchUn01VHePbc8Z7ZP0YfDJiqIsAqKfNLGUM7XHO3A=";
     };
   };
   ftp-proxy = {
@@ -1108,14 +1108,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "3cb781fd4737c900ad755ee0bb9e1949d0f68955";
+    version = "d8509387febc9e32466c86aab544d225d60c8e3c";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "3cb781fd4737c900ad755ee0bb9e1949d0f68955";
-      hash = "sha256-VwWXYgGjh+9nS4/4FP4HXbetfxuBGFDQh/gFwA6I5ps=";
+      rev = "d8509387febc9e32466c86aab544d225d60c8e3c";
+      hash = "sha256-Z5bRBqjkKHfdK+pWRfK2XJVmiUB3cCwu31B3vgpmrHw=";
     };
-    date = "2026-04-15";
+    date = "2026-04-21";
   };
   libqcef = {
     pname = "libqcef";
@@ -1192,12 +1192,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8857";
+    version = "b8871";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8857";
-      hash = "sha256-cksrf+UN10G6B8yeYe/JbeHu2F9rNqwPJBR8cKIeiHI=";
+      tag = "b8871";
+      hash = "sha256-L4B7cc6qH+iCg1e4fjORcxcH9Kc4hf3lfst/Z536smk=";
     };
   };
   loralib = {
@@ -1251,12 +1251,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.36.0";
+    version = "v1.36.1";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.36.0";
-      hash = "sha256-IsJSqqQbNsvYw3liEV15+sPqj2BmdvSt/4yZ3AGa2GU=";
+      tag = "v1.36.1";
+      hash = "sha256-dZBeceAo02FqiNABv5t9yfgPLrDnM37+pdr/U448PQw=";
     };
   };
   mtkclient = {
@@ -1376,12 +1376,12 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.9.6";
+    version = "0.9.7";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      tag = "0.9.6";
-      hash = "sha256-MU1948qakc+ZSH30r2s0v3JZEtBoiuvUfRCfmzlpiEQ=";
+      tag = "0.9.7";
+      hash = "sha256-ozmACYcr9kaAwjI0u4XEWqMx/dYBXzL/AoA+w73vOJM=";
     };
   };
   ngx_brotli = {
@@ -1836,14 +1836,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "3ec3f0a30dbc5669e815a18c984970e8b21e2010";
+    version = "34bbe0e384c4511dd8647231b1da18387ca7c525";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "3ec3f0a30dbc5669e815a18c984970e8b21e2010";
-      hash = "sha256-Sj8QH1XqGrpdoXdLNyimdxsrKNmFavnMvs1ug2UWqxI=";
+      rev = "34bbe0e384c4511dd8647231b1da18387ca7c525";
+      hash = "sha256-5iBGcQ/5pmO27LtOuhPOia7My+ehnOQ0XR8AXCswvyc=";
     };
-    date = "2026-04-17";
+    date = "2026-04-21";
   };
   qsp-stable = {
     pname = "qsp-stable";
