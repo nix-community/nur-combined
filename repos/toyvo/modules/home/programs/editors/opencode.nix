@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  stablePkgs,
   ...
 }:
 
@@ -14,7 +15,7 @@
         mcp = {
           nixos = {
             type = "local";
-            command = [ (lib.getExe pkgs.mcp-nixos) ];
+            command = [ (lib.getExe stablePkgs.mcp-nixos) ];
             enabled = true;
           };
         };

@@ -43,7 +43,6 @@ in
           ninja
           nodejs
           pnpm
-          opencode
           prettier
           pipenv
           pkg-config
