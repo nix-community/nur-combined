@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "macOS GUI for anylinuxfs - mount Linux filesystems on macOS";
     homepage = "https://github.com/fenio/anylinuxfs-gui";
-    license = licenses.unfree;  # Most casks are proprietary
+    license = licenses.gpl3Plus;  # Most casks are proprietary
     maintainers = [ ];
     platforms = platforms.darwin;
   };
