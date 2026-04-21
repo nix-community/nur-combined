@@ -386,8 +386,8 @@
             "url": "https://github.com/avrahambenaram/nur-packages"
         },
         "avycado13": {
-            "rev": "87f1c648def46787294935aa2a4ec548c94a9150",
-            "sha256": "1dhkfcwaifx4clzzvl4kkx3jnqk7gym6cqncp7ci427wrxkfzmjg",
+            "rev": "51f83ba29e790893a3647b0093c4dfed827d6e62",
+            "sha256": "0a4ryw3yvd0i59i0vba2mskf7r8k50yl0jlywfhgxgzmxj8m8c4k",
             "url": "https://github.com/avycado13/nur-packages"
         },
         "awa2333": {
@@ -1613,8 +1613,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "6915e107037ccb909b9514d598c6fefa066aa6ee",
-            "sha256": "0dr5is8ghr147pj7hdv9xgdx5kaynvddj01adzzwfh2x5axayx2s",
+            "rev": "77e241c627075d2aaf09aebc5c84580813968eb7",
+            "sha256": "1169xingvp8sm2w0zgidhqrkfskxarsh2np4k36qddfb7zh7xdlk",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
