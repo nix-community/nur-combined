@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "f331f8b5eec23e712b5016f6fd2c51b280b74a71",
-            "sha256": "1sf5g0h357kh2sp4w3w379wdjpafzbrv189dc1bn631md1naaq6n",
+            "rev": "75eb700c1ca643d35c50b589bb7b8e4558b65903",
+            "sha256": "0kqqanih77clbhhcr3xddx7bzdk0znjh9168bdhl19z9f45py3a4",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
