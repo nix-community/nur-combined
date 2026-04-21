@@ -703,8 +703,8 @@
             "url": "https://github.com/dawidsowa/nur-packages"
         },
         "dcsunset": {
-            "rev": "cd2e825064a4ac24b333a9041bdbb3f4971d41ab",
-            "sha256": "1yqbd3842b9srir8lsjck014r5fy2bvsidfr2dm87sg3ijwi6lqs",
+            "rev": "fd503fe3ccfd60f8208a93ad7a6be358e10bb78f",
+            "sha256": "0zhsv6s3sk6i4ngs9mn3adr5f127z6rlfs0kzn94mm405j7mvr39",
             "url": "https://github.com/DCsunset/nur-packages"
         },
         "deeunderscore": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "9d9726d69240ab18a18d5b36ec0a8b8dc885edb1",
-            "sha256": "0r17msvaxdxlnfdl50k02mq4l3d41pak42gzmd4vsrag2sh7gcvn",
+            "rev": "0c12e4b6b31171d73159cde3b69a229598fe9bcb",
+            "sha256": "0fpvhnlszp8wl7951gvw7ga0p7f8naha31qc2207x6yxig6z9cgz",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
@@ -2502,8 +2502,8 @@
             "url": "https://github.com/ViZiD/nur-vizqq"
         },
         "vladexa": {
-            "rev": "bc0abf1ca6bfbc96f083186041b311250b8f7183",
-            "sha256": "17lli56ly0286r59q38sph22gkynvdp9fw8hg8xmczzm6zjkqk50",
+            "rev": "a7928709250a9e37a7bcd42798b75b0fdd1960f7",
+            "sha256": "1m80fxc8drjwn49ivch1p61gb2yw8gs6268n7lyw5l8ka8vxs2fd",
             "url": "https://github.com/VlaDexa/nur-packages"
         },
         "vojtechstep": {
