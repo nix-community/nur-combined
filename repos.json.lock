@@ -251,8 +251,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "9ed542cd9cf85b04cf2a8e751848412950ad772d",
-            "sha256": "0zzn7979gpjah760dk20kxwnmx2nfs6s3wkrlcg74fpj8c0sjsg3",
+            "rev": "d333b4f2592ba4011ceebc65481e61bf8eda7627",
+            "sha256": "0r8n8m4h5bc3bkdmkmsjb4bybx2mc7sl5pam9avs4029qnahlfdh",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
@@ -1028,8 +1028,8 @@
             "url": "https://github.com/glostis/nur-packages"
         },
         "goreleaser": {
-            "rev": "6ae60bba80dbbcc25bb4ee071506826f2b1c0bf6",
-            "sha256": "05dihl9m87j82jnqssklwzy85y2dba931drhjrmm3gvd9qfqmq8y",
+            "rev": "f90580ba30a379bc4fb4fb299d7e298c58662787",
+            "sha256": "1hcb8xgcybmbfjirk1cw62m06bjrmf6bbw070y22pbzkl8xr2jr7",
             "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
