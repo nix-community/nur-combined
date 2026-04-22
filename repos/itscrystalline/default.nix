@@ -22,4 +22,5 @@
   oci-image-migrate = pkgs.callPackage ./pkgs/oci-image-migrate {};
   ipynb-nvim = pkgs.callPackage ./pkgs/ipynb-nvim {};
   box64-static = pkgs.callPackage ./pkgs/box64-static {};
+  esp-config = pkgs.callPackage ./pkgs/esp-config {};
 }

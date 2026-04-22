@@ -1,6 +1,6 @@
 {
   box64,
-  mold-unwrapped,
+  mold,
   libc,
   lib,
 }:
@@ -10,7 +10,7 @@ box64.overrideAttrs (prev: {
       --replace-fail 'ASMFLAGS  -pipe -mcpu=cortex-a76' 'ASMFLAGS  -pipe -march=armv8.2-a+fp16+dotprod' \
       --replace-fail 'set(CMAKE_EXE_LINKER_FLAGS -static)' 'set(CMAKE_EXE_LINKER_FLAGS "-static -L${libc.static}/lib")'
   '';
-  nativeBuildInputs = prev.nativeBuildInputs ++ [mold-unwrapped];
+  nativeBuildInputs = prev.nativeBuildInputs ++ [mold];
   cmakeFlags =
     prev.cmakeFlags
     ++ [
