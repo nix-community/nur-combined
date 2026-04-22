@@ -25,16 +25,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "motrix-next";
-  version = "3.8.0";
+  version = "3.8.1";
 
   src = fetchFromGitHub {
     owner = "AnInsomniacy";
     repo = "motrix-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ymehJEMShfhOLLwWysTCuLrS4WmyWCwXma/6um6Q/Xw=";
+    hash = "sha256-1EBKZhcMP0Bs0WOCV2cIZIuvWv/6YmKBnT68dQ3MgN8=";
   };
 
-  cargoHash = "sha256-gRROkdeYYd+Jrvf40ZXh0qKaD/gembc+eWyctKaVjTk=";
+  cargoHash = "sha256-wKEhqxxV/ImWk7BevF68ItSDVZp80WXC+3ZNElTtysg=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
