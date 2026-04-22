@@ -9,11 +9,19 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      BASE_BRANCH: ${{ github.event.repository.default_branch }}
+      UPDATE_BRANCH: auto-update
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
+          ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
+      - name: Prepare update branch
+        run: |
+          git fetch origin "$BASE_BRANCH"
+          git checkout -B "$UPDATE_BRANCH" "origin/$BASE_BRANCH"
       - name: Setup git
         run: |
           git config user.name "github-actions[bot]"
@@ -50,7 +58,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if [ -n "$(git log origin/${{ github.ref_name }}..HEAD)" ]; then
+          if [ -n "$(git log origin/$BASE_BRANCH..HEAD)" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -58,14 +66,14 @@ jobs:
       - name: Generate PR description
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          git log origin/${{ github.ref_name }}..HEAD --pretty=format:'## %s%n%n%b' > /tmp/pr_body.md
+          git log origin/$BASE_BRANCH..HEAD --pretty=format:'## %s%n%n%b' > /tmp/pr_body.md
       - name: Create Pull Request
         if: steps.changes.outputs.has_changes == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git push origin HEAD:auto-update --force
-          gh pr create --base ${{ github.ref_name }} --head auto-update \
+          git push origin HEAD:"$UPDATE_BRANCH" --force
+          gh pr create --base "$BASE_BRANCH" --head "$UPDATE_BRANCH" \
             --title "Automated package updates" \
             --body-file /tmp/pr_body.md || \
-          gh pr edit auto-update --body-file /tmp/pr_body.md
+          gh pr edit "$UPDATE_BRANCH" --body-file /tmp/pr_body.md
