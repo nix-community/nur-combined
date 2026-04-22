@@ -2220,8 +2220,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "b4c0bdcbe4b5fe940b099b399d6df46045f547f5",
-            "sha256": "0ai52v045pp7x3bmlx4zdi6x8x9mr9xrmwj9l707qxg99sx9qcly",
+            "rev": "6e9065da1d80620d4fe70848e1ee640ee751e1d6",
+            "sha256": "1wfi85lxfvsd8wal8aknsqfp5xp88s6hcm98533jn3snifg147d4",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
