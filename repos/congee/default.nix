@@ -20,4 +20,5 @@
   rsql = pkgs.callPackage ./pkgs/rsql { };
   skills = pkgs.callPackage ./pkgs/skills { };
   sentry = pkgs.callPackage ./pkgs/sentry { };
+  engram = pkgs.callPackage ./pkgs/engram { };
 }
