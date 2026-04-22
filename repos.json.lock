@@ -256,8 +256,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "9f09c5a3e364f34dcc5f39c39f60be37f4dd59d2",
-            "sha256": "1y3p3knj0k5gcj42b2jys0xn96svja4hgvaq0hfic8vzdxan19bz",
+            "rev": "56ad10220659b9e2685a9e1a4cb3622aab9f541b",
+            "sha256": "0y9lxn0mqkcsa6dgi0735ccv8l3f0z49i7cmsyk220kjlhsm2l4c",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -1173,8 +1173,8 @@
             "url": "https://github.com/iopq/nur-packages"
         },
         "itscrystalline": {
-            "rev": "373b7d03025bcfb200da5721305469be3b7a2d92",
-            "sha256": "0s0n18l1zsy3fyhd2sycifgnni7nfyh3l1s61hk3cfa2942qspd9",
+            "rev": "59f3880c60bfcfb304e431c99d20ea4d389752f2",
+            "sha256": "0igzr8261skmk30q82l1ix6mnpnv285nywcm9zdf5zgi8g2ysy5a",
             "url": "https://github.com/itscrystalline/nur-packages"
         },
         "iuricarras": {
