@@ -3818,10 +3818,10 @@
     };
     "enhancer-for-youtube" = buildMozillaXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.132";
+      version = "2.0.133.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4693280/enhancer_for_youtube-2.0.132.xpi";
-      sha256 = "3cd273a63266cfe9a623dcf39ce5da170e970cb3284d63276ae4ed18e8c0f4f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4756023/enhancer_for_youtube-2.0.133.1.xpi";
+      sha256 = "89e209ab8351ff80b9077355da83a9d2a37ad12ab67a72f52462924a47bc5aec";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -8686,10 +8686,10 @@
     };
     "linkwarden" = buildMozillaXpiAddon {
       pname = "linkwarden";
-      version = "1.5.2";
+      version = "1.5.3";
       addonId = "jordanlinkwarden@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4738893/linkwarden-1.5.2.xpi";
-      sha256 = "8a3374e58cbd806a214354eaff33d884d18a361553627dff5bb47a63f6322f28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4774830/linkwarden-1.5.3.xpi";
+      sha256 = "3867e62b5c91055116a65cde72e354792f09c72d296c555dd4eea01a08b8b2f4";
       meta = with lib;
       {
         description = "The browser extension for Linkwarden.";
@@ -8781,14 +8781,14 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.4";
+      version = "1.1.5";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4769083/lockedin_yt-1.1.4.xpi";
-      sha256 = "f9daafca8efc5979149f9d785386df4a7ab68ac83807694867dd5163df143d8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4774299/lockedin_yt-1.1.5.xpi";
+      sha256 = "070cc407e2f714b4240319dd2d58a60442c06b4a0777b644117d8f79355adc07";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
-        description = "Hide YouTube Shorts, Feed, Irrelevant Search Results and many more with LockedIn, Plus its OPEN SOURCE!";
+        description = "Stop doomscrolling. Hide YouTube Shorts, feeds, and comments. Block the algorithm and stay LockedIn on what matters.";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -15178,10 +15178,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.3.1";
+      version = "4.3.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4750651/tree_style_tab-4.3.1.xpi";
-      sha256 = "c97b38d26969e88e73c18cb0120af892ee79767b0e0adf29b5943ff1dde9d363";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4769213/tree_style_tab-4.3.3.xpi";
+      sha256 = "cc2a68548e841c269feeea9d176475f5143c5438b196c6e6117dff5dfdc4fab0";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
