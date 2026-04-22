@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "8f191e27d287bfcfe8a1659cd5e7194c3335407a",
-            "sha256": "0cgj36hl28h812857ba2rz6w4yrc4xcpqcfljxavcx0592kgakgn",
+            "rev": "e9f87a4c792b980c9afef73405f5414402bf2473",
+            "sha256": "1ir8chfzfqdkjam0kabazh4a9pr9a8mdaxnz8zgl9dm9627vgj3s",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -316,8 +316,8 @@
             "url": "https://gitlab.com/AlwinB/nur-packages"
         },
         "ambroisie": {
-            "rev": "f5af7d3667d1c27374597f2d21eb25f31594c3b5",
-            "sha256": "0w4jqvv63f23fk1jam439klz2nd525p5n1xd34mpyxlnb2vbqjnn",
+            "rev": "eb15818f8592488493764b530b6aa2b1f8541a85",
+            "sha256": "1hcl5v2fam8k5nwb1ypw61cyanxn2bkw53ycg5j2x3a7cvc79xrj",
             "url": "https://github.com/ambroisie/nix-config"
         },
         "amesgen": {
@@ -637,8 +637,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "2c3c43b93330ff950322da0af6269c02eaeb4bf8",
-            "sha256": "1xn7b8adc25djyyj09vbqp6h2lm47ncyc4rw0k30pjy0bfrj3w6l",
+            "rev": "7c75317724a75bb71d2c6427c8b95eef12cf9f0b",
+            "sha256": "01pbvcz0fb48975kk84l2rjabzwzl6wyj4mk0vcslk5qkq0n887m",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
@@ -1597,8 +1597,8 @@
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
-            "rev": "935fee4331e0735a42b0273a811f40850ce772ca",
-            "sha256": "1ddv818sm00iwn6fzcd6ai2l05071drmpmr57d0hw5sh1yx0slis",
+            "rev": "7efb33adf25fb9baf05d85310dea0a6e4e8ac518",
+            "sha256": "1sbk5nfzyk2cy01ilsx49f0d39in4c8hq5kvf1sjd6qdj4pxd4vi",
             "submodules": true,
             "url": "https://github.com/milahu/nur-packages"
         },
