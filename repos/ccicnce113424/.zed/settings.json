@@ -6,12 +6,21 @@
   "formatter": {
     "external": {
       "command": "nix",
-      "arguments": ["fmt", "--", "--stdin", "--", "{buffer_path}"]
+      "arguments": [
+        "run",
+        "-f",
+        "./default.nix",
+        "currentSystem.formatter",
+        "--",
+        "--stdin",
+        "--",
+        "{buffer_path}"
+      ]
     }
   },
   "languages": {
     "Nix": {
-      "language_servers": ["nixd", "!nil"]
+      "language_servers": ["nixd", "jj_lsp", "!nil"]
     }
   },
   "lsp": {
