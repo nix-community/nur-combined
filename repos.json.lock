@@ -1476,8 +1476,8 @@
             "url": "https://github.com/lucassabreu/nur-packages"
         },
         "lunik1": {
-            "rev": "d9b75d866bed4c062a6195ade9ef799b642a4529",
-            "sha256": "11qskx4gkj17zpvnbmmw2lbmghhjrhfr4wkfj5mvxbprkdl163r8",
+            "rev": "244795426b1471f5aae5efe345f9f3e81fb25eb1",
+            "sha256": "00s28vih2952cgi8ybm2kmlciw9lvxbrh5j8y3lz3hz67pns7rbs",
             "url": "https://github.com/lunik1/nur-packages"
         },
         "lxl66566": {
@@ -2667,8 +2667,8 @@
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
-            "rev": "da7d646d755b0eb1c8ce61af09e82f7a5728f3b9",
-            "sha256": "1ydb2qc4fd1l8188s79nmgm8598nd0dnm7av3amgl2s1mn6w3rb7",
+            "rev": "49a29139b5a81cd8662ff68cab98e37b6831eb78",
+            "sha256": "1av7y0a3dm9cn82y04an85jf2rxzcggy98lg5hv6wc8mynqzasxk",
             "url": "https://github.com/zimeg/nur-packages"
         },
         "zjm54321": {
