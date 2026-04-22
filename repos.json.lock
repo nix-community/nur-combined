@@ -803,8 +803,8 @@
             "url": "https://github.com/dtn7/nur-packages"
         },
         "dtomvan": {
-            "rev": "9b4e1b6f9992f601c1b799be45168fd6f420d6d9",
-            "sha256": "1fyhh59n45msjl4c02wiibmmpy03vaqs5rhqqr8pcma9d957iisq",
+            "rev": "4b0baf3cab3ed2cfe92b0b4086a9aec9f9386022",
+            "sha256": "1igzj77bmbrz6rrsddygl0xdyciig9f0444h5cjrqxz7fgh9fxfg",
             "url": "https://github.com/dtomvan/nur-packages"
         },
         "dtz": {
@@ -853,8 +853,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "e15e266f26a1212117dc36313cc5c9e6b8c9cc36",
-            "sha256": "1jhannqbj59z36hzv1jjpcl89zyhj9031r2gp8s420fc042i0da5",
+            "rev": "7992535b66dbb1804a4ac84bf3954d6ea93b8fd0",
+            "sha256": "1wisq1yci85w6x7xkcwjindy2dj9hr93rj1zrm4ddamdlb4zi8jb",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
