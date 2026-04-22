@@ -12,7 +12,7 @@ https://discourse.nixos.org/t/how-to-provide-gstreamer-to-a-python-gtk-applicati
 { lib
 , fetchFromGitHub
 , gtk3
-, wrapGAppsHook
+, wrapGAppsHook3
 , gdk-pixbuf
 , gobject-introspection
 , gettext
@@ -24,6 +24,7 @@ https://discourse.nixos.org/t/how-to-provide-gstreamer-to-a-python-gtk-applicati
 , buildPythonPackage
 , pygobject3
 , chardet
+, setuptools
 }:
 
 buildPythonPackage rec {
@@ -35,6 +36,8 @@ buildPythonPackage rec {
     rev = "d851b882dda98f7fc5a7a6dc749ba8c405ad470a";
     hash = "sha256-g2EHIxeag3d4LioeuVQdbOaDcA09HdAJiF7Af9+7Xjs=";
   };
+  pyproject = true;
+  build-system = [ setuptools ];
   propagatedBuildInputs = [
     pygobject3 # gi
     gdk-pixbuf # Gdk
@@ -61,7 +64,7 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     gettext # msgfmt
-    wrapGAppsHook
+    wrapGAppsHook3
     gobject-introspection
     #intltool
   ];

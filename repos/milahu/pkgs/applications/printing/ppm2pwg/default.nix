@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ppm2pwg";
-  version = "unstable-2024-08-17";
+  version = "unstable-2026-01-04";
 
   src = fetchFromGitHub {
     owner = "attah";
     repo = "ppm2pwg";
-    rev = "0c770cbc86aa73a3257f4df683f898ad461cb0c1";
-    hash = "sha256-kcSx0FilehnVGYKkrpA9ItbJ6PrSjeKl80yqS5mwhD8=";
+    rev = "1c3ff22486bac6fcdb257f94245fb3d455ab2dce";
+    hash = "sha256-to9n7UXJUjywCoKcYw+u59jqY4CPjI5Jw3UE+8FGWnQ=";
     fetchSubmodules = true;
   };
 
@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   # https://github.com/attah/ppm2pwg/issues/26
   # TODO? use hexdump from nixpkgs
   installPhase = ''
-    for bin in ppm2pwg pwg2ppm pdf2printable baselinify ippclient hexdump ippdecode bsplit; do
+    exclude_bins='hexdump|minimime'
+    find . -mindepth 1 -maxdepth 1 -type f -executable -printf '%f\n' | grep -vxE "$exclude_bins" | while read bin; do
       install -D -m755 $bin $out/bin/$bin
     done
   '';

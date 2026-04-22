@@ -1,10 +1,10 @@
 { lib
-, python3
+, python
 , fetchFromGitHub
 , fetchurl
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonApplication rec {
   pname = "cdp-socket";
   version = "1.2.4";
   pyproject = true;
@@ -24,12 +24,12 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    python3.pkgs.setuptools
-    python3.pkgs.wheel
+    python.pkgs.setuptools
+    python.pkgs.wheel
   ];
 
   # https://github.com/kaliiiiiiiiii/CDP-Socket/blob/master/setup.py
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = with python.pkgs; [
     aiohttp
     websockets
     orjson

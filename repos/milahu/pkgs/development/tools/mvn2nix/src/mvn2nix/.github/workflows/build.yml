@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.2
-      - uses: cachix/install-nix-action@v12
+      - uses: cachix/install-nix-action@v20
       - uses: cachix/cachix-action@v8
         with:
           name: fzakaria
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.2
-    - uses: cachix/install-nix-action@v12
+    - uses: cachix/install-nix-action@v20
     - uses: cachix/cachix-action@v8
       with:
         name: fzakaria
@@ -33,9 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: cachix/install-nix-action@v12
+      - uses: cachix/install-nix-action@v20
         with:
-          install_url: https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20201221_9fab14a/install
           extra_nix_config: experimental-features = nix-command flakes
       - uses: cachix/cachix-action@v8
         with:
@@ -47,9 +46,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.2
-    - uses: cachix/install-nix-action@v12
+    - uses: cachix/install-nix-action@v20
       with:
-        install_url: https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20201221_9fab14a/install
         extra_nix_config: experimental-features = nix-command flakes
     - uses: cachix/cachix-action@v8
       with:

@@ -1,3 +1,5 @@
+__:warning: mvn2nix is seeking a maintainer. Please open an issue if you are interested.__
+
 <p align="center">
   <img src="logo.png" alt="mvn2nix" width="164" height="164">
 </p>

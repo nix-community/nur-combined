@@ -1,0 +1,5 @@
+https://github.com/NixOS/nix/pull/7340
+
+bitrot
+
+may take another 100 years to merge...

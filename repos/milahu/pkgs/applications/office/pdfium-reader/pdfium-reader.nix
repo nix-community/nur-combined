@@ -11,7 +11,7 @@
 #, pcre2 # for gtk3
 #, utillinux # mount for gtk3
 , freeglut # GL/glut.h
-, wrapGAppsHook
+, wrapGAppsHook3
 }:
 
 stdenv.mkDerivation rec {
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     # fix: pdfium_reader: GLib-GIO-ERROR: No GSettings schemas are installed on the system
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [

@@ -23,10 +23,6 @@ public class MavenArtifact {
         return url;
     }
 
-    public String getLayout() {
-        return layout;
-    }
-
     public String getSha256() {
         return sha256;
     }

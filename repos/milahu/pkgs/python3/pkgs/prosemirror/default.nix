@@ -6,7 +6,6 @@
 , cssselect
 , lxml
 , typing-extensions
-, codecov
 , coverage
 , lxml-stubs
 , mypy
@@ -38,7 +37,6 @@ buildPythonPackage rec {
 
   optional-dependencies = {
     dev = [
-      codecov
       coverage
       lxml-stubs
       mypy

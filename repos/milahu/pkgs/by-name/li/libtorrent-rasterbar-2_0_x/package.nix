@@ -1,35 +1,30 @@
 {
   lib,
   stdenv,
+  boost,
   fetchFromGitHub,
   cmake,
-  zlib,
-  boost,
   openssl,
   python3,
-  ncurses,
 }:
 
 let
-  version = "2.0.11";
-
   # Make sure we override python, so the correct version is chosen
   boostPython = boost.override {
     enablePython = true;
     python = python3;
   };
-
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libtorrent-rasterbar";
-  inherit version;
+  version = "2.0.11";
 
   src = fetchFromGitHub {
     owner = "arvidn";
     repo = "libtorrent";
-    tag = "v${version}";
-    hash = "sha256-iph42iFEwP+lCWNPiOJJOejISFF6iwkGLY9Qg8J4tyo=";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
+    hash = "sha256-iph42iFEwP+lCWNPiOJJOejISFF6iwkGLY9Qg8J4tyo=";
   };
 
   nativeBuildInputs = [
@@ -50,28 +45,49 @@ stdenv.mkDerivation {
   ];
 
   # https://github.com/arvidn/libtorrent/issues/6865
-  # https://github.com/NixOS/nixpkgs/issues/144170
   postPatch = ''
     substituteInPlace cmake/Modules/GeneratePkgConfig/target-compile-settings.cmake.in \
-      --replace-fail 'set(_INSTALL_LIBDIR "@CMAKE_INSTALL_LIBDIR@")' \
-                     'set(_INSTALL_LIBDIR "@CMAKE_INSTALL_LIBDIR@")
-                      set(_INSTALL_FULL_LIBDIR "@CMAKE_INSTALL_FULL_LIBDIR@")'
-    # a: libdir=''${prefix}//nix/store/...
-    # b: libdir=/nix/store/...
+      --replace-fail \
+        'set(_INSTALL_LIBDIR "@CMAKE_INSTALL_LIBDIR@")' \
+        'set(_INSTALL_LIBDIR "@CMAKE_INSTALL_LIBDIR@")
+         set(_INSTALL_FULL_LIBDIR "@CMAKE_INSTALL_FULL_LIBDIR@")'
+  ''
+  # a: libdir=''${prefix}//nix/store/...
+  # b: libdir=/nix/store/...
+  # https://github.com/NixOS/nixpkgs/issues/144170
+  + ''
     substituteInPlace cmake/Modules/GeneratePkgConfig/pkg-config.cmake.in \
       --replace-fail '$'{prefix}/@_INSTALL_LIBDIR@ @_INSTALL_FULL_LIBDIR@
   '';
 
+  /*
+    add distinfo files to fix pythonRuntimeDepsCheckHook
+    expected:
+    $ python -c "import importlib.metadata; print('libtorrent' in importlib.metadata.packages_distributions()); import libtorrent"; echo $?
+    True
+    0
+  */
   postInstall = ''
     moveToOutput "include" "$dev"
     moveToOutput "lib/${python3.libPrefix}" "$python"
+
+    # add distinfo files to fix pythonRuntimeDepsCheckHook
+    distinfo=$python/${python3.sitePackages}/libtorrent-${finalAttrs.version}.dist-info
+    mkdir -p "$distinfo"
+    echo "Metadata-Version: 2.1" > "$distinfo/METADATA"
+    echo "Name: libtorrent" >> "$distinfo/METADATA"
+    echo "Version: ${finalAttrs.version}" >> "$distinfo/METADATA"
+    echo "Summary: Fake metadata for pythonRuntimeDepsCheckHook" >> "$distinfo/METADATA"
+    echo "" > "$distinfo/RECORD"
   '';
 
   postFixup = ''
     substituteInPlace "$dev/lib/cmake/LibtorrentRasterbar/LibtorrentRasterbarTargets-release.cmake" \
       --replace-fail "\''${_IMPORT_PREFIX}/lib" "$out/lib"
-    # a: Cflags: ... -I/nix/store/x//nix/store/x-dev/include ...
-    # b: Cflags: ... -I/nix/store/x-dev/include ...
+  ''
+  # a: Cflags: ... -I/nix/store/x//nix/store/x-dev/include ...
+  # b: Cflags: ... -I/nix/store/x-dev/include ...
+  + ''
     substituteInPlace $dev/lib/pkgconfig/libtorrent-rasterbar.pc \
       --replace-fail "$out/$dev" "$dev"
   '';
@@ -83,14 +99,15 @@ stdenv.mkDerivation {
   ];
 
   cmakeFlags = [
-    "-Dpython-bindings=on"
+    (lib.cmakeBool "python-bindings" true)
   ];
 
-  meta = with lib; {
+  meta = {
     homepage = "https://libtorrent.org/";
-    description = "C++ BitTorrent implementation focusing on efficiency and scalability";
-    license = licenses.bsd3;
+    description = "Efficient feature complete C++ bittorrent implementation";
+    changelog = "https://github.com/arvidn/libtorrent/blob/${finalAttrs.src.tag}/ChangeLog";
+    license = lib.licenses.bsd3;
     maintainers = [ ];
-    platforms = platforms.unix;
+    platforms = lib.platforms.unix;
   };
-}
+})

@@ -567,18 +567,18 @@
       "hash": "sha256-00QQSm7mGdplmEA8JdA6qqrw9U6WRv01EkWN9Xyarrg="
     }
   },
-  "org.gradle:gradle-tooling-api:8.13": {
-    "gradle-tooling-api-8.13.jar": {
-      "url": "https://repo.gradle.org/gradle/libs-releases/org/gradle/gradle-tooling-api/8.13/gradle-tooling-api-8.13.jar",
-      "hash": "sha256-3oBit6r50rNd8cYtuwCXjFtBwFwMMOXy/Zz1kATw1dw="
+  "org.gradle:gradle-tooling-api:8.14.3": {
+    "gradle-tooling-api-8.14.3.jar": {
+      "url": "https://repo.gradle.org/gradle/libs-releases/org/gradle/gradle-tooling-api/8.14.3/gradle-tooling-api-8.14.3.jar",
+      "hash": "sha256-vBe7VVz8xs5jn3GsbU641ujeXrawq7H+x2CNmEWGsb4="
     },
-    "gradle-tooling-api-8.13.module": {
-      "url": "https://repo.gradle.org/gradle/libs-releases/org/gradle/gradle-tooling-api/8.13/gradle-tooling-api-8.13.module",
-      "hash": "sha256-x0zW6v/6m/u9BTCfD9eKyeCHDYBbuVKo9mPABkuGQtQ="
+    "gradle-tooling-api-8.14.3.module": {
+      "url": "https://repo.gradle.org/gradle/libs-releases/org/gradle/gradle-tooling-api/8.14.3/gradle-tooling-api-8.14.3.module",
+      "hash": "sha256-zLPSOpDK1upkzmpd+BdqQwX9pUiULfc5tDsudSqS/xM="
     },
-    "gradle-tooling-api-8.13.pom": {
-      "url": "https://repo.gradle.org/gradle/libs-releases/org/gradle/gradle-tooling-api/8.13/gradle-tooling-api-8.13.pom",
-      "hash": "sha256-5q1vZVgMqhOaE9Gg+WaPu3W7flYqnw6EEixjjrWyz4Q="
+    "gradle-tooling-api-8.14.3.pom": {
+      "url": "https://repo.gradle.org/gradle/libs-releases/org/gradle/gradle-tooling-api/8.14.3/gradle-tooling-api-8.14.3.pom",
+      "hash": "sha256-YMbw6a3xU4bIbmL/o+rS0BYH5WqxtIhXIkMN7IDuvbo="
     }
   },
   "org.gradle.kotlin:gradle-kotlin-dsl-plugins:5.2.0": {

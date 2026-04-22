@@ -1,0 +1,70 @@
+{
+  "dependencies": {
+    "@electron/remote": {
+      "specifier": "^2.0.10",
+      "version": "2.1.2(electron@27.3.11)"
+    },
+    "@octokit/core": {
+      "specifier": "5",
+      "version": "5.2.0"
+    }
+  },
+  "devDependencies": {
+    "@fontsource/open-sans": {
+      "specifier": "^4.5.14",
+      "version": "4.5.14"
+    },
+    "@radix-ui/colors": {
+      "specifier": "^0.1.8",
+      "version": "0.1.9"
+    }
+  },
+  "lockfileVersion": "6.0",
+  "overrides": {
+    "app-builder-lib@24.8.0": "patch:app-builder-lib@npm%3A24.8.0#./.yarn/patches/app-builder-lib-npm-24.8.0-51e1f5cd3f.patch"
+  },
+  "packages": {
+    "/7zip-bin@5.2.0": {
+      "dev": true,
+      "resolution": {
+        "integrity": "sha512-ukTPVhqG4jNzMro2qA9HSCSSVJN3aN7tlb+hfqYCt3ER0yWroeA2VR38MNrOHLQ/cVj+DaIMad0kFCtWWowh/A=="
+      }
+    },
+    "/@babel/core@7.24.5": {
+      "dependencies": {
+        "@babel/template": "7.24.0",
+        "@babel/traverse": "7.24.5",
+        "convert-source-map": "2.0.0",
+        "debug": "4.3.4"
+      },
+      "dev": true,
+      "engines": {
+        "node": ">=6.9.0"
+      },
+      "resolution": {
+        "integrity": "sha512-tVQRucExLQ02Boi4vdPp49svNGcfL2GhdTCT9aldhXgCJVAI21EtRfBettiuLUwce/7r6bFdgs6JFkcdTiFttA=="
+      },
+      "transitivePeerDependencies": [
+        "supports-color"
+      ]
+    },
+    "/body-parser@1.20.2": {
+      "dependencies": {
+        "bytes": "3.1.2",
+        "content-type": "1.0.5",
+        "debug": "2.6.9"
+      },
+      "engines": {
+        "node": ">= 0.8",
+        "npm": "1.2.8000 || >= 1.4.16"
+      },
+      "resolution": {
+        "integrity": "sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA=="
+      }
+    }
+  },
+  "settings": {
+    "autoInstallPeers": true,
+    "excludeLinksFromLockfile": false
+  }
+}

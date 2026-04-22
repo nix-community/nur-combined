@@ -33,7 +33,7 @@ let
 
     configUrl = "https://raw.githubusercontent.com/${src.owner}/${src.repo}/main/config.toml";
 
-    cargoSha256 = "sha256-wPV+ZY34OMbBrjmhvwjljbwmcUiPdWNHFU3ac7aVbIQ=";
+    cargoHash = "sha256-oGpe+kBf6kBboyx/YfbQBt1vvjtXd1n2pOH6FNcbF8M=";
 
     # FIXME "cargo test" rebuilds all dependencies
     # maybe because "cargo test" runs in a different env than "

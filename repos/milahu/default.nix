@@ -33,8 +33,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   spotify-adblock = callPackage ./pkgs/spotify-adblock/spotify-adblock.nix { };
 
-  ricochet-refresh = pkgs.libsForQt5.callPackage ./pkgs/ricochet-refresh/default.nix { };
-
   # FIXME Function called without required argument "electron_11"
   # aether-server = pkgs.libsForQt5.callPackage ./pkgs/aether-server/default.nix { };
 
@@ -108,17 +106,17 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # alias: python3.pkgs -> python3Packages
   # no: error: attribute 'newScope' missing
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
-  #python3 = pkgs.recurseIntoAttrs ((({
-  python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  #python3 = lib.recurseIntoAttrs ((({
+  python3 = lib.recurseIntoAttrs (((pkgs.python3 // {
     pkgs = python3Packages;
   })));
 
-  #python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
-  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  #python3 = lib.recurseIntoAttrs (((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
 
     # fix: error: attribute 'sitePackages' missing: python3.sitePackages
     #sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
@@ -130,14 +128,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     # https://github.com/NixOS/nixpkgs/commit/632c4f2c9ba1f88cd5662da7bedf2ca5f0cda4a9 # add scope
     #pkgs = (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
     #pkgs = (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
-    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
-    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+    #pkgs = lib.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
 
   # TODO better?
-  #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; (pkgs.python3.pkgs // {
-  #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
-  python3Packages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in ({
-  #python3Packages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in (pkgs.python3Packages // {
+  #python3Packages = lib.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; (pkgs.python3.pkgs // {
+  #python3Packages = lib.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
+  python3Packages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in ({
+  #python3Packages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in (pkgs.python3Packages // {
 
       # fix: error: attribute 'buildPythonPackage' missing: python3.pkgs.buildPythonPackage
       #python3 = pkgs.python3;
@@ -214,7 +212,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       # fix flask: ERROR: Could not find a version that satisfies the requirement Werkzeug>=2.3.3
       # nix-init ./pkgs/python3/pkgs/werkzeug/werkzeug.nix --url https://github.com/pallets/werkzeug
-      werkzeug = callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
+      # werkzeug = callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
 
       # https://github.com/NixOS/nixpkgs/pull/245320
       # python3Packages.flask: 2.2.5 -> 2.3.2
@@ -262,11 +260,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       some = callPackage ./pkgs/python3/pkgs/some/some.nix { };
 
       chromium-depot-tools = callPackage ./pkgs/build-support/chromium-depot-tools/chromium-depot-tools.nix { };
-
-      pypdfium2 = callPackage ./pkgs/python3/pkgs/pypdfium2/pypdfium2.nix {
-        # TODO remove
-        pdfium = pdfium-bin;
-      };
 
       stt = callPackage ./pkgs/python3/pkgs/stt/stt.nix { };
 
@@ -527,6 +520,115 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       sqlcipher-password-cracker-opencl = callPackage ./pkgs/development/python-modules/sqlcipher-password-cracker-opencl { };
 
+      btcache = callPackage ./pkgs/development/python-modules/btcache {
+        # https://github.com/milahu/nixpkgs/issues/95
+        # fix: missing python distinfo files
+        libtorrent-rasterbar =
+          (pkgs.python3Packages.toPythonModule (libtorrent-rasterbar-2_0_x.override { python3 = pkgs.python3; })).python;
+      };
+
+      deluge-ltconfig = callPackage ./pkgs/development/python-modules/deluge-ltconfig { };
+
+      robobrowser = callPackage ./pkgs/python3/pkgs/robobrowser { };
+
+      libgen-uploader = callPackage ./pkgs/python3/pkgs/libgen-uploader { };
+
+      opensubtitlescom = callPackage ./pkgs/python3/pkgs/opensubtitlescom { };
+
+      beaker-py = callPackage ./pkgs/python3/pkgs/beaker-py { };
+
+      petname = callPackage ./pkgs/python3/pkgs/petname { };
+
+      pytest-sphinx = callPackage ./pkgs/python3/pkgs/pytest-sphinx { };
+
+      types-cachetools = callPackage ./pkgs/python3/pkgs/types-cachetools { };
+
+      cached-path = callPackage ./pkgs/python3/pkgs/cached-path { };
+
+      lingua-language-detector = callPackage ./pkgs/python3/pkgs/lingua-language-detector { };
+
+      olmocr = callPackage ./pkgs/python3/pkgs/olmocr { };
+
+      nose = callPackage ./pkgs/development/python-modules/nose { };
+
+      pycodec2 = callPackage ./pkgs/development/python-modules/pycodec2 { };
+
+      lxst = callPackage ./pkgs/development/python-modules/lxst { };
+
+      sideband = callPackage ./pkgs/development/python-modules/sideband { };
+
+      reticulum-meshchat = callPackage ./pkgs/development/python-modules/reticulum-meshchat { };
+
+      lxmfy = callPackage ./pkgs/development/python-modules/lxmfy { };
+
+      reticulum-meshchatx = callPackage ./pkgs/development/python-modules/reticulum-meshchatx { };
+
+      pre-commit = callPackage ./pkgs/development/python-modules/pre-commit { };
+
+      surya = callPackage ./pkgs/development/python-modules/surya { };
+
+      asyncio-gevent = callPackage ./pkgs/development/python-modules/asyncio-gevent { };
+
+      aio-udp-server = callPackage ./pkgs/development/python-modules/aio-udp-server { };
+
+      py3-bencode = callPackage ./pkgs/development/python-modules/py3-bencode { };
+
+      aio-krpc-server = callPackage ./pkgs/development/python-modules/aio-krpc-server { };
+
+      aio-btdht = callPackage ./pkgs/development/python-modules/aio-btdht { };
+
+      validate-pyproject = callPackage ./pkgs/development/python-modules/validate-pyproject { };
+
+      cibuildwheel = callPackage ./pkgs/development/python-modules/cibuildwheel { };
+
+      doxapy = callPackage ./pkgs/development/python-modules/doxapy { };
+
+      binarize-pdf = callPackage ./pkgs/development/python-modules/binarize-pdf { };
+
+      ten-vad = callPackage ./pkgs/development/python-modules/ten-vad { };
+
+      deepgram-captions = callPackage ./pkgs/development/python-modules/deepgram-captions { };
+
+      deepgram-sdk = callPackage ./pkgs/development/python-modules/deepgram-sdk { };
+
+      zhconv = callPackage ./pkgs/development/python-modules/zhconv { };
+
+      pyvideotrans = callPackage ./pkgs/development/python-modules/pyvideotrans { };
+
+      diffq = callPackage ./pkgs/development/python-modules/diffq { };
+
+      treetable = callPackage ./pkgs/development/python-modules/treetable { };
+
+      dora-search = callPackage ./pkgs/development/python-modules/dora-search { };
+
+      musdb = callPackage ./pkgs/development/python-modules/musdb { };
+
+      museval = callPackage ./pkgs/development/python-modules/museval { };
+
+      stempeg = callPackage ./pkgs/development/python-modules/stempeg { };
+
+      openunmix = callPackage ./pkgs/development/python-modules/openunmix { };
+
+      demucs = callPackage ./pkgs/development/python-modules/demucs { };
+
+      conformer = callPackage ./pkgs/development/python-modules/conformer { };
+
+      praat-parselmouth = callPackage ./pkgs/development/python-modules/praat-parselmouth { };
+
+      pyloudnorm = callPackage ./pkgs/development/python-modules/pyloudnorm { };
+
+      pyrubberband = callPackage ./pkgs/development/python-modules/pyrubberband { };
+
+      sox = callPackage ./pkgs/development/python-modules/sox { };
+
+      resemble-perth = callPackage ./pkgs/development/python-modules/resemble-perth { };
+
+      s3tokenizer = callPackage ./pkgs/development/python-modules/s3tokenizer { };
+
+      chatterbox-tts = callPackage ./pkgs/development/python-modules/chatterbox-tts { };
+
+      videopython = callPackage ./pkgs/development/python-modules/videopython { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -563,7 +665,15 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   hocr-editor-qt = python3Packages.hocr-editor-qt;
 
+  olmocr = python3Packages.olmocr;
+
   sqlcipher-password-cracker-opencl = python3Packages.sqlcipher-password-cracker-opencl;
+
+  reticulum-meshchat = python3Packages.reticulum-meshchat;
+
+  reticulum-meshchatx = python3Packages.reticulum-meshchatx;
+
+  binarize-pdf = python3Packages.binarize-pdf;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
@@ -779,7 +889,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
 
-  nodePackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
+  nodePackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
 
     cowsay = callPackage ./pkgs/node/pkgs/cowsay/cowsay.nix { };
 
@@ -789,16 +899,22 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         # bootstrap npmlock2nix without pnpm-install-only
         npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
           pnpm-install-only = null;
+          # fix: nodejs.src: error: attribute 'src' missing
+          nodejs = pkgs.nodejs-slim;
         };
       };
       # FIXME scope
       nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
+      # fix: nodejs.src: error: attribute 'src' missing
+      nodejs = pkgs.nodejs-slim;
     };
 
     pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix {
       # bootstrap npmlock2nix without pnpm-install-only
       npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
         pnpm-install-only = null;
+        # fix: nodejs.src: error: attribute 'src' missing
+        nodejs = pkgs.nodejs-slim;
       };
     };
 
@@ -860,12 +976,15 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   fuse-zip = callPackage ./pkgs/tools/filesystems/fuse-zip/fuse-zip.nix { };
 
+  # FIXME Function called without required argument "addOpenGLRunpath"
+  /*
   ffmpeg-full = callPackage ./pkgs/development/libraries/ffmpeg/6.nix {
     inherit (pkgs.darwin.apple_sdk.frameworks)
       Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
       VideoDecodeAcceleration VideoToolbox;
     ffmpegVariant = "full";
   };
+  */
 
   dtmfdial = callPackage ./pkgs/tools/networking/dtmfdial/dtmfdial.nix { };
 
@@ -891,7 +1010,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
 
-  perlPackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.perlPackages.newScope (self: let inherit (self) callPackage; in ({
+  perlPackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.perlPackages.newScope (self: let inherit (self) callPackage; in ({
 
     AptPkg = callPackage ./pkgs/perl/pkgs/apt-pkg/apt-pkg.nix { };
 
@@ -939,7 +1058,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     transmission_noSystemd = pkgs.transmission.override { enableSystemd = false; };
   };
 
-  fetchtorrent-aria = callPackage ./pkgs/build-support/fetchtorrent-aria { };
+  # FIXME Function called without required argument "torrenttools"
+  # fetchtorrent-aria = callPackage ./pkgs/build-support/fetchtorrent-aria { };
 
   qaac = qaac-bwrap;
   qaac-bwrap = callPackage ./pkgs/applications/audio/qaac/bwrap.nix { };
@@ -997,7 +1117,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     pkgs = freetzPackages;
   };
 
-  freetzPackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (freetzPackagesSelf: let inherit (freetzPackagesSelf) callPackage; in ({
+  freetzPackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (freetzPackagesSelf: let inherit (freetzPackagesSelf) callPackage; in ({
 
     freetz = callPackage ./pkgs/tools/misc/freetz/pkgs/freetz { };
 
@@ -1073,10 +1193,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     abseil-cpp = pkgs.abseil-cpp_202103;
   };
 
+  # FIXME Function called without required argument "litecoind"
+  /*
   basicswap = pkgs.python3.pkgs.callPackage ./pkgs/applications/blockchains/basicswap {
     # FIXME scope
     inherit nano-node;
   };
+  */
 
   asmr = callPackage ./pkgs/applications/blockchains/asmr { };
 
@@ -1148,9 +1271,20 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # libtorrent-rasterbar = callPackage ./pkgs/development/libraries/libtorrent-rasterbar { };
 
+  qbittorrent = callPackage ./pkgs/applications/networking/p2p/qbittorrent { };
+
   qbittorrent-nox = callPackage ./pkgs/applications/networking/p2p/qbittorrent {
     guiSupport = false;
   };
+
+  # debug 100% cpu load
+  # https://github.com/arvidn/libtorrent/issues/7894
+  # https://github.com/arvidn/libtorrent/issues/7535
+  # still an issue after
+  # https://github.com/arvidn/libtorrent/pull/7950
+  qbittorrent-debug = pkgs.enableDebugging (callPackage ./pkgs/applications/networking/p2p/qbittorrent {
+    libtorrent-rasterbar = pkgs.enableDebugging (callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_1_x/package.nix { });
+  });
 
   test-fchmodat2 = callPackage ./pkgs/test/test-fchmodat2 { };
 
@@ -1190,7 +1324,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     ];
   };
 
-  nginxModules = pkgs.recurseIntoAttrs {
+  nginxModules = lib.recurseIntoAttrs {
 
     cgi = callPackage ./pkgs/servers/http/nginx/modules/cgi.nix { };
 
@@ -1257,7 +1391,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libtorrent-rasterbar-2_0_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_0_x/package.nix { };
 
-  libtorrent-rasterbar = libtorrent-rasterbar-2_0_x;
+  libtorrent-rasterbar-2_1_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_1_x/package.nix { };
+
+  libtorrent-rasterbar = libtorrent-rasterbar-2_1_x;
 
   # FIXME NUR CI fails to eval this: pkgsWithOverlay = import <nixpkgs> { ... }
   # rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
@@ -1283,6 +1419,50 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   bookpipeline = callPackage ./pkgs/by-name/bo/bookpipeline/package.nix { };
 
   thorium-reader = callPackage ./pkgs/by-name/th/thorium-reader/package.nix { };
+
+  nix-hell = callPackage ./pkgs/by-name/ni/nix-hell/package.nix { };
+
+  monero-gui-tor = callPackage ./pkgs/by-name/mo/monero-gui-tor/package.nix { };
+
+  # get the latest version of two versions of a package
+  getLatestVersion2 = p1: p2: (
+    if (builtins.compareVersions p1.version p2.version) == -1
+    then (
+      # builtins.trace "getLatestVersion2: p2: ${p2.name} > ${p1.name}"
+      p2
+    )
+    else (
+      # builtins.trace "getLatestVersion2: p1: ${p1.name} >= ${p2.name}"
+      p1
+    )
+  );
+
+  session-desktop = getLatestVersion2 pkgs.session-desktop (callPackage ./pkgs/by-name/se/session-desktop/package.nix { });
+
+  swig2 = callPackage ./pkgs/development/tools/misc/swig/2.x.nix { };
+
+  briar-desktop-bin = getLatestVersion2 pkgs.briar-desktop (callPackage ./pkgs/by-name/br/briar-desktop-bin/package.nix { });
+
+  inherit
+    (pkgs.callPackages ./pkgs/development/libraries/botan {
+      # botan3 only sensibly works with libcxxStdenv when building static binaries
+      stdenv = if pkgs.stdenv.hostPlatform.isStatic then pkgs.buildPackages.libcxxStdenv else pkgs.stdenv;
+    })
+    botan2
+    botan3
+    ;
+
+  retroshare = getLatestVersion2 pkgs.retroshare (pkgs.libsForQt5.callPackage ./pkgs/applications/networking/p2p/retroshare {
+    inherit botan2;
+  });
+
+  ricochet-refresh = getLatestVersion2 pkgs.ricochet-refresh (callPackage ./pkgs/by-name/ri/ricochet-refresh/package.nix { });
+
+  zeronet-conservancy = getLatestVersion2 pkgs.zeronet-conservancy (python3.pkgs.callPackage ./pkgs/applications/networking/p2p/zeronet-conservancy { });
+
+  project-nomad = callPackage ./pkgs/by-name/pr/project-nomad/package.nix { };
+
+  espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
 
 }
 

@@ -97,7 +97,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/PyFilesystem/pyfilesystem2";
     changelog = "https://github.com/PyFilesystem/pyfilesystem2/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [ ];
     platforms = platforms.unix;
   };
 }

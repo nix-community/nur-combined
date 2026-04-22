@@ -10,7 +10,7 @@
 , help2man
 , webkitgtk
 , itstool
-, wrapGAppsHook
+, wrapGAppsHook3
 }:
 
 stdenv.mkDerivation rec {
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     help2man
     webkitgtk
     itstool
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [

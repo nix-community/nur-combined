@@ -1,0 +1,264 @@
+{ lib }:
+
+let
+
+  replaceStringsInOrder = (replacements: input:
+    if builtins.length replacements == 0 then input else
+    let
+      a = builtins.elemAt replacements 0;
+      b = builtins.elemAt replacements 1;
+      input2 = builtins.replaceStrings [a] [b] input;
+      r2 = builtins.tail (builtins.tail replacements);
+    in
+    replaceStringsInOrder r2 input2
+  );
+
+  fromYAML = (input:
+    let
+      blocks = lib.flatten (builtins.split "\n\n" input);
+      lines = lib.flatten (builtins.split "\n" input);
+      #matchBlock = builtins.match "\n  /([^ ]+):\n(    .*)\n\n";
+      matchPnameVersion = builtins.match "  /([^ ]+):"; # "  /source-map-js@1.2.0:" -> [ "source-map-js@1.2.0" ]
+      matchPnameVersionSplit = builtins.match "  /([^ ]+)@([^ ]+):"; # "  /source-map-js@1.2.0:" -> [ "source-map-js" "1.2.0" ]
+
+/*
+    resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+*/
+      parseLine = (input:
+        let matches = builtins.match "    ([^ ]+): (.+)" input; in
+        if matches == null then null else
+        (
+        let
+          name = builtins.head matches;
+          value = builtins.elemAt matches 1;
+          parseBool = input: if input == "true" then true else false;
+          parseList = (input:
+            let matches = builtins.match "[[]([^][]*)[]]" input; in
+            if matches == null then input else # dont parse
+            lib.flatten (builtins.split " " (builtins.head matches))
+          );
+          parseMap = (input:
+            #builtins.trace "parseMap input ${builtins.toJSON input}"
+            (
+            let matches = builtins.match "[{]([^}{]*)[}]" input; in
+            if matches == null then input else # dont parse
+            let items = lib.flatten (builtins.split ", " (builtins.head matches)); in
+            builtins.listToAttrs (builtins.filter (x: x != null) (map parseItem items))
+            )
+          );
+          parseItem = (input:
+            let matches = builtins.match "([^ ]+): (.*)" input; in
+            #if matches == null then input else # dont parse
+            if matches == null then { name = input; value = null; } else # dont parse
+            (
+            {
+              name = builtins.head matches;
+              value = parseString (builtins.elemAt matches 1);
+            }
+            )
+          );
+          # TODO decode backslash escapes \" \' \n \\ ...
+          # TODO use unquote from nix-parsec?
+          parseString = (input:
+            let
+              matches1 = builtins.match "'(.*)'" input;
+              matches2 = builtins.match "\"(.*)\"" input;
+            in
+            if matches1 != null then builtins.head matches1 else
+            if matches2 != null then builtins.head matches2 else
+            input
+          );
+        in
+/*
+    "cpu": "[x64]",
+    "dev": "true",
+    "engines": "{node: '>=12'}",
+    "optional": "true",
+    "os": "[android]",
+    "requiresBuild": "true",
+    "resolution": "{integrity: sha512-8GDdlePJA8D6zlZYJV/jnrRAi6rOiNaCC/JclcXpB+KIuvfBN4owLtgzY2bsxnx666XjJx2kDPUmnTtR8qKQUg==}"
+*/
+        {
+          inherit name;
+          value = (
+            if (builtins.elem name ["dev" "optional" "hasBin" "requiresBuild"]) then parseBool value else
+            if (builtins.elem name ["cpu" "os"]) then parseList value else
+            if (builtins.elem name ["resolution" "engines"]) then parseMap value else
+            value
+          );
+        }
+        )
+      );
+
+      /*
+      note: sub-blocks are not parsed
+      this would require recursive non-greedy matching of the pattern "\n  (.*?)
+      but builtins.match does not support non-greedy matching...
+      TODO nix builtins.match non-greedy matching
+      example: peerDependencies, dependencies, transitivePeerDependencies
+        /@vitejs/plugin-react@3.1.0(vite@4.5.3):
+          resolution: {integrity: sha512-AfgcRL8ZBhAlc3BFdigClmTUMISmmzHn7sB2h9U1odvc5U/MjWXsAaz18b/WoppUTDBzxOJwo2VdClfUcItu9g==}
+          engines: {node: ^14.18.0 || >=16.0.0}
+          peerDependencies:
+            vite: ^4.1.0-beta.0
+          dependencies:
+            '@babel/core': 7.24.5
+            '@babel/plugin-transform-react-jsx-self': 7.24.5(@babel/core@7.24.5)
+            '@babel/plugin-transform-react-jsx-source': 7.24.1(@babel/core@7.24.5)
+            magic-string: 0.27.0
+            react-refresh: 0.14.2
+            vite: 4.5.3(@types/node@18.19.33)
+          transitivePeerDependencies:
+            - supports-color
+          dev: true
+      */
+
+      parseBlock = (input:
+        let
+          lines = lib.flatten (builtins.split "\n" input);
+          line0 = builtins.head lines;
+          linesRest = builtins.tail lines;
+          name = matchPnameVersion line0;
+        in
+        #builtins.trace "input ${builtins.toJSON input} -> name ${builtins.toJSON name}"
+        (
+        if name == null then null else
+        {
+          # note: name can be more complex than pname@version, for example
+          #   "@babel/plugin-transform-react-jsx-self@7.24.5(@babel/core@7.24.5)"
+          #   "react-use@17.5.0(react-dom@18.3.1)(react@18.3.1)"
+          name = builtins.head name;
+          value = builtins.listToAttrs (builtins.filter (x: x != null) (map parseLine linesRest));
+        }
+        )
+      );
+    in
+    builtins.listToAttrs (builtins.filter (x: x != null) (map parseBlock blocks))
+  );
+
+  fromYAMLZZZ = (input:
+    # builtins.fromJSON # TODO
+    (
+      "{" +
+      (replaceStringsInOrder
+      [
+        /*
+        "\nlockfileVersion:"
+        "\n\"lockfileVersion\":"
+
+        "\nsettings:"
+        "\n\"settings\":{"
+
+        "\n  autoInstallPeers:"
+        "\n  \"autoInstallPeers\":"
+
+        "\n  excludeLinksFromLockfile:"
+        "\n  \"excludeLinksFromLckfile\":"
+
+        "\noverrides:"
+        "\n\"overrides\":"
+
+        ": \""
+        ": \"\""
+
+        ": "
+        ": \""
+
+        ": \"\"\""
+        ": \""
+
+        "'"
+        "\\'"
+
+        "\n\n"
+        "},"
+
+        "\n"
+        "\",\n"
+
+        "},"
+        "},\n"
+
+        "\"false\""
+        "false"
+
+        "\"true\""
+        "true"
+        */
+
+        "\nl" "\n\"l"
+        "\ns" "\n\"s"
+        "\no" "\n\"o"
+        "\nd" "\n\"d"
+
+        "'" "\""
+
+        "\n    \""     "\n    \"\""
+        "\n    "       "\n    \""
+        "\n    \"\"\"" "\n    \""
+
+        "\n  \""     "\n  \"\""
+        "\n  "       "\n  \""
+        "\n  \"\"\"" "\n  \""
+
+        "\n  \"  \"" "\n    \""
+
+        "\": "     "\"\": "
+        ": "       "\": "
+        "\"\"\": " "\": "
+
+        ": \""     ": \"\""
+        ": "       ": \""
+        ": \"\"\"" ": \""
+
+        ":\n  " ": {\n  "
+
+        "\n  " "\"\n"
+        ": {\"\n  " ": {\n"
+
+      ]
+      /*
+      builtins.replaceStrings
+      [
+        "\nlockfileVersion:"
+        "\nsettings:"
+        "\n  autoInstallPeers:"
+        "\n  excludeLinksFromLockfile:"
+        "\noverrides:"
+        ": \""
+        ": "
+        ": \"\"\""
+        "'"
+        "\n\n"
+        "\n"
+        "},"
+      ]
+      [
+        "\n\"lockfileVersion\":"
+        "\n\"settings\":{"
+        "\n  \"autoInstallPeers\":"
+        "\n  \"excludeLinksFromLckfile\":"
+        "\n\"overrides\":"
+        ": \"\""
+        ": \""
+        ": \""
+        "\\'"
+        "},"
+        "\",\n"
+        "},\n"
+      ]
+      */
+      (
+        "\n" +
+        input +
+        #(builtins.substring 0 200 (builtins.readFile ./pnpm-lock.yaml)) +
+        "\n"
+      )
+    ) +
+    "}")
+  );
+in
+
+fromYAML

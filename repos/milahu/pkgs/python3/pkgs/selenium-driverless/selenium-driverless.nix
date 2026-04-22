@@ -8,14 +8,14 @@
 python3.pkgs.buildPythonPackage rec {
   pname = "selenium-driverless";
   # grep version src/selenium_driverless/__init__.py
-  version = "1.7.3";
+  version = "1.9.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kaliiiiiiiiii";
     repo = "Selenium-Driverless";
-    rev = "5f56548a3c2bade6d42edda7bcc8085fcf8afff0";
-    hash = "sha256-31Dpx9ot3PQ5Lwfe6XRjXrvBZnWHs7IY+Q9AAb2eYTw=";
+    rev = "ca333fd88b0b7722ac128e08deccbb5ffbd66b39";
+    hash = "sha256-wk+0W888dx62hNjZVzzVDHXMs6VNtXRBRWEM1rOe9yc=";
   };
 
   patches = [
@@ -23,8 +23,8 @@ python3.pkgs.buildPythonPackage rec {
     # https://github.com/kaliiiiiiiiii/Selenium-Driverless/issues/122
     # https://github.com/milahu/selenium_driverless
     (fetchurl {
-      url = "https://github.com/milahu/selenium_driverless/commit/9795a393a4e4c74f9453e1aefa12064eda8ccdcb.patch";
-      hash = "sha256-3RXbCLJOs10JjiEy/Wqyb7VE81KjWbi0DfJK9cMT4uU=";
+      url = "https://github.com/milahu/selenium_driverless/commit/93f02860142e1db6133cc79bff824844ab89b564.patch";
+      hash = "sha256-6kibaCYogqyUWN6uJrOkzs0KmD3XU+RRsGqKXbLz4ps=";
     })
   ];
 

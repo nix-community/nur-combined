@@ -30,7 +30,6 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     cffi
     cryptography
-    enum34
     idna
     parsley
     pyasn1

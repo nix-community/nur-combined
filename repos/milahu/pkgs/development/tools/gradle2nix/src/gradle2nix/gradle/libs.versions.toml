@@ -1,5 +1,5 @@
 [versions]
-gradle = "8.13"
+gradle = "8.14.3"
 junit = "5.8.2"
 # Intentionally using the version embedded in Gradle to reduce dependency count
 # See https://docs.gradle.org/current/userguide/compatibility.html#kotlin

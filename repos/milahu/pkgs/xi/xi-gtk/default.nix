@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gtk3, json-glib, vala, wrapGAppsHook, wrapXiFrontendHook }:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gtk3, json-glib, vala, wrapGAppsHook3, wrapXiFrontendHook }:
 
 stdenv.mkDerivation rec {
   name = "xi-gtk-${version}";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gtk3 json-glib vala
-    wrapGAppsHook
+    wrapGAppsHook3
     wrapXiFrontendHook
   ];
 

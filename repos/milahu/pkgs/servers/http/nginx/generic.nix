@@ -333,9 +333,5 @@ stdenv.mkDerivation {
           fpletz
           raitobezarius
         ];
-        teams = with teams; [
-          helsinki-systems
-          stridtech
-        ];
       };
 }

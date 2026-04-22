@@ -29,6 +29,8 @@
 #, mwparserfromhell
 
 #, wikitools3
+
+, setuptools
 }:
 
 let
@@ -44,6 +46,8 @@ let
       rev = "88e0149cce746d4fe8781da45ca6e0d772356237";
       sha256 = "sha256-LgnaNbcsyjlWBtvrgIxYHv56dutLdLwboGKWHeOizFQ=";
     };
+    pyproject = true;
+    build-system = [ setuptools ];
     checkInputs = [
       paste
       webob
@@ -74,6 +78,8 @@ let
       inherit pname version;
       sha256 = "sha256-C6OwfMNBfX0MD/tNSQHi4nBwutTwIVt3KMK6fpMV98I=";
     };
+    pyproject = true;
+    build-system = [ setuptools ];
     postPatch = ''
       substituteInPlace setup.py \
         --replace "'sseclient<0.0.23,>=0.0.18'" "'sseclient'"
@@ -108,6 +114,8 @@ let
       inherit pname version;
       sha256 = "sha256-kr7JUorjTScok8yvK1J9+FwxT/KM+7MFY0BGewldg0w=";
     };
+    pyproject = true;
+    build-system = [ setuptools ];
     doCheck = false;
   };
 
@@ -118,6 +126,8 @@ let
       inherit pname version;
       sha256 = "sha256-tJPmgG+xmFrRrylMVjZK66bqZ6NmVTvBG2W39SedABI=";
     };
+    pyproject = true;
+    build-system = [ setuptools poetry-core ];
     postPatch = ''
       # relax dependencies
       substituteInPlace setup.py \

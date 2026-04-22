@@ -182,7 +182,7 @@ stdenvNoCC.mkDerivation rec {
     # fix: wine: could not load ntdll.so
     # https://unix.stackexchange.com/a/670754/295986
     export WINEDLLPATH=${wine64}/lib/wine/x86_64-unix
-    exec ${wine64}/bin/wine64 $out/opt/qaac/''${bin}64.exe "\$@"
+    exec ${wine64}/bin/wine $out/opt/qaac/''${bin}64.exe "\$@"
     EOF
     chmod +x $out/bin/$bin
     done

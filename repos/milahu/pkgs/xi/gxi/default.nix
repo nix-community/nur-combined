@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, cmake, pkgconfig, freetype, gtk3, wrapGAppsHook, xi-core }:
+{ stdenv, fetchFromGitHub, rustPlatform, cmake, pkgconfig, freetype, gtk3, wrapGAppsHook3, xi-core }:
 
 rustPlatform.buildRustPackage rec {
   name = "gxi-unstable-${version}";
@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     gtk3
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   GXI_PLUGIN_DIR = "${placeholder "out"}/share/xi/plugins";

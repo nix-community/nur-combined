@@ -2,11 +2,12 @@
 , pkgs
 , pnpm-install-only ? null
 , nodejs-hide-symlinks ? null
+, nodejs
 }:
 
 let
   internal = pkgs.callPackage ./internal.nix {
-    inherit pnpm-install-only nodejs-hide-symlinks;
+    inherit pnpm-install-only nodejs-hide-symlinks nodejs;
   };
 
   separatePublicAndInternalAPI = api: extraAttributes: {

@@ -395,6 +395,11 @@ rec {
   # Description: Parses the lock file as json and returns an attribute set
   # Type: Path -> Set
   readPackageLikeFile = file:
+    let _file = file; in
+    let file = if (_file ? outPath) then _file.outPath else _file; in
+    (
+    if builtins.match ".*\\.yaml" (builtins.toString file) != null then readPackageLikeYAMLFile file else
+    (
     assert (builtins.typeOf file != "path" && builtins.typeOf file != "string") ->
       throw "file ${toString file} must be a path or string";
     let
@@ -406,7 +411,23 @@ rec {
     throw "The NPM lockfile must be a valid JSON object";
     # if a lockfile doesn't declare dependencies ensure that we have an empty
     # set. This makes the consuming code eaiser.
-    if json ? dependencies then json else json // { dependencies = { }; };
+    if json ? dependencies then json else json // { dependencies = { }; }
+    )
+  );
+
+  fromYAML = callPackage ./nix-yaml/from-yaml.nix { };
+
+  # FIXME implement ...
+  readPackageLikeYAMLFile = file: (
+    builtins.trace "parsing yaml file ${file}"
+    (
+    let
+      content = builtins.readFile file;
+      data = fromYAML content;
+    in
+    data
+    )
+  );
 
   # fixme: this fails when the common value is null
   listsHaveCommonValue = list1: list2:
@@ -736,6 +757,7 @@ rec {
   makeSourceAttrsV1 = name: dependency:
     assert !(dependency ? resolved) -> throw "Missing `resolved` attribute for dependency `${name}`.";
     assert !(dependency ? integrity) -> throw "Missing `integrity` attribute for dependency `${name}`.";
+    lib.traceSeq { _f = "makeSourceAttrsV1"; inherit name dependency; }
     {
       url = dependency.resolved;
       # FIXME: for backwards compatibility we should probably set the
@@ -781,7 +803,7 @@ rec {
           sourceOptions.packagesVersions."node_modules/${name}".version
         )
         else (
-          (builtins.trace "npmlock2nix: ${name}:latest -> ${name}:latest (FIXME find locked version in sourceOptions.packagesVersions names ${builtins.toJSON (builtins.attrNames sourceOptions.packagesVersions)})")
+          #(builtins.trace "npmlock2nix: ${name}:latest -> ${name}:latest (FIXME find locked version in sourceOptions.packagesVersions names ${builtins.toJSON (builtins.attrNames sourceOptions.packagesVersions)})")
           version
         ));
       dependencies = if (content ? dependencies) then lib.mapAttrs patchDep content.dependencies else { };
@@ -848,6 +870,8 @@ rec {
     in
     (getAttrs [ "src" "nodejs" ] attrs // node_modules_attrs);
 
+  # TODO rename sourceHashFunc to sourceHashFuncFunc
+  # or: rename sourceHashFunc to sourceHash
   # Description: Takes a dependency spec and a map of github sources/hashes and returns either the map or 'null'
   # Type: Set -> Set -> Set | null
   sourceHashFunc = githubSourceHashMap: spec:
@@ -856,7 +880,7 @@ rec {
         [ spec.value.org spec.value.repo spec.value.rev ]
         (
           lib.traceSeq
-            "[npmlock2nix] warning: missing attr in githubSourceHashMap: ${spec.value.org}.${spec.value.repo}.${spec.value.rev}"
+            ''[npmlock2nix] warning: missing item in githubSourceHashMap: "${spec.value.org}"."${spec.value.repo}"."${spec.value.rev}" = "";''
             null
         )
         githubSourceHashMap
@@ -901,6 +925,8 @@ rec {
         packagefile = readPackageLikeFile packageJson;
 
         sourceOptions = {
+          # TODO rename sourceHashFunc to sourceHash
+          # or: rename sourceHashFunc to sourceHashFuncFunc
           sourceHashFunc = sourceHashFunc githubSourceHashMap;
           inherit sourceOverrides symlinkNodeModules nodeHostCpuNames nodeHostOsNames;
           nodejs = if symlinkNodeModules then (nodejs-hide-symlinks.override { inherit nodejs; }) else nodejs;
