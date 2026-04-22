@@ -6,7 +6,7 @@
 
 buildGo126Module rec {
   pname = "gh-image";
-  version = "unstable-2026-04-20";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "drogers0";
