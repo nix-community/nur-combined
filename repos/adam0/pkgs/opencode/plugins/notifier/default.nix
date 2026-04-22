@@ -16,7 +16,7 @@ mkOpencodePlugin rec {
     hash = "sha256-Pji4jbFewkhD88SilwJAWzmkA+z3/u54KXN74aXjtHk=";
   };
 
-  dependencyHash = "sha256-qCsznzTzW30UzTOxj0dU2dpHb8PVxaZldcgRzhlQmbg=";
+  dependencyHash = "sha256-wk4j4raaEgdu2NQtCRRbXOyBDq4ZteRkJwGdgwKZSaI=";
 
   buildCommand = "bun run build";
 
