@@ -56,8 +56,8 @@
             "url": "https://github.com/AstroOrbis/nur"
         },
         "AusCyber": {
-            "rev": "fe5d5bfd10d6c3e2dda3aa7ec32c04e37a84d2b9",
-            "sha256": "1rfp4hlqqj1mpxv2m5g6ib9fpf2mhrbbz4fik4mx6q3fh45q95vs",
+            "rev": "8f191e27d287bfcfe8a1659cd5e7194c3335407a",
+            "sha256": "0cgj36hl28h812857ba2rz6w4yrc4xcpqcfljxavcx0592kgakgn",
             "url": "https://github.com/Auscyber/nur-packages"
         },
         "Baum": {
@@ -1769,8 +1769,8 @@
             "url": "https://github.com/nikolaizombie1/nur-packages"
         },
         "nikpkgs": {
-            "rev": "20ec3475f8ce478e58fb6c075c62ed0249faf3b0",
-            "sha256": "1bls4pylf9cbmjf4b3zdlw2dg32dj3ipa9gp1gvqqblsbfinnwvf",
+            "rev": "5c31823f0797ebe2e0cc96b6e092b703597d2520",
+            "sha256": "15x8ia6ds76rybd7lszna6p6q8d4z3abhggkwicn4pxgc0630zgh",
             "url": "https://github.com/nikp123/nur-packages"
         },
         "nim65s": {
@@ -2220,8 +2220,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "17545fce26b27ccb90c94473e5cfa716a6d1f556",
-            "sha256": "0ipryvazxbhcpzgdlljxdq6raikqrj8gihn4nda2csblcdsf1bhx",
+            "rev": "b4c0bdcbe4b5fe940b099b399d6df46045f547f5",
+            "sha256": "0ai52v045pp7x3bmlx4zdi6x8x9mr9xrmwj9l707qxg99sx9qcly",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
