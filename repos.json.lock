@@ -647,8 +647,8 @@
             "url": "https://github.com/cransom/nur-packages"
         },
         "crazazy": {
-            "rev": "533fb0bfc73e268f0116ebcae32843c7ddd24574",
-            "sha256": "0p355adv0d70vjp7j1wpmkkgp00cxc37zj9005s3m538d0vsv41m",
+            "rev": "903bf65975e5e910a668a6df801acd9b5bdca5e7",
+            "sha256": "0xb5jqipb2bchm1w0qh3821p1rhfp7fjvj2yh2vlshw6ad1wdk0j",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
@@ -1328,8 +1328,8 @@
             "url": "https://github.com/k0ral/nur-packages"
         },
         "k3a": {
-            "rev": "4a829eedf3ab35005538c31947b9d880b3ef73e9",
-            "sha256": "15ra70lybcli3662y26mdlw89raciql7v9i7yaannribg0imm102",
+            "rev": "1b08b9b0d92d90740e7d40b3a593957d59730093",
+            "sha256": "096h3fi5h51rn92gpqi2gxcs4rspfk46201q51zmxcm8w222vfb0",
             "url": "https://github.com/k3a/nurpkgs"
         },
         "kagura": {
@@ -1441,8 +1441,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "c077e17216699445557baa0e0d66915712eb54be",
-            "sha256": "07mq16vxw3ambz52n8yf86bgc8aygzy0kwzq6v6i4frlqamm84gb",
+            "rev": "d38f3b052a1d78d071c0b5be18aa696e76eb48da",
+            "sha256": "000lbjx3xmzcczvqbnaybkrx2f1mqyj2zdlbps67z4w0m60m4c1w",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
