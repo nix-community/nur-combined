@@ -30,7 +30,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = builtins.attrValues {
-    inherit (qt6) qtbase qtmultimedia qtsvg qt5compat;
+    inherit (qt6)
+      qtbase
+      qtmultimedia
+      qtsvg
+      qt5compat
+      ;
   };
 
   nativeBuildInputs = [
