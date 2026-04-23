@@ -938,8 +938,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "0cdc0b7ff0dfaf7f4946418781889c8fd0708f0a",
-            "sha256": "1rvfc797sh13q66brw2xvwyjpzfbwvgdamwnr7mgghzzpj67ky6k",
+            "rev": "2bfc39c6470d7311c60fa9d8c2b933df163b0349",
+            "sha256": "1wppw7xfpwgjwnfn9hp6k6njq8wgd0jpyv0bag6hr3d2084c5jkb",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "ff26ef1a450dfcc26a48f340f809fd505f0646bb",
-            "sha256": "138949s5l79ir9bn7lzx102fsm9x37mliv0p34k7dmdj3c07vvn8",
+            "rev": "58aacd20410393030f6f22e7e5ce9c4a8c9f5733",
+            "sha256": "0k794h4vq76afdbn7bjmddazy62r2jqn1fm9izfz4drmfqr2gbka",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
