@@ -2220,8 +2220,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "88b39054ca4619e00fc5b33bd0db6cfd5cc13fe2",
-            "sha256": "1gg8j6hsrxq7p8jlbgh31ci6zlhxk9nw71h3acdsiz25ddr7n2y4",
+            "rev": "57ee6f0ed5f520c8f557441c8e5964f9deb4edcd",
+            "sha256": "1zbxf82hzbpxpw89sb2sx6d5zjxx5n4hwwcck6nvav1g9j25gdd6",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
@@ -2617,8 +2617,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "0efbcfadf5c832aa867ff150b72840b78f642411",
-            "sha256": "0mniyx2mqjyl7qf0vvh9cl09q3mnw8qarcshwzl7kdr3ppgh4m5g",
+            "rev": "4a5db845990534e0ad4a5364d538a57e98295992",
+            "sha256": "0rd8c4hvsdjbmn1d2krr90fzf4glpjfkncr046n5rw5r6khy8y45",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
