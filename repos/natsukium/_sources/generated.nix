@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "a82a998223ac26ddf4e93ce6599957072f0ce3bc";
+    version = "5fb407896ad4578208c142f13c7a6c98724952bd";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "a82a998223ac26ddf4e93ce6599957072f0ce3bc";
+      rev = "5fb407896ad4578208c142f13c7a6c98724952bd";
       fetchSubmodules = false;
-      sha256 = "sha256-xiTJi3+NZfhcD4xsVZXXCNlGwWWInl68Y1te0RmFFAs=";
+      sha256 = "sha256-7kML/eqQ6qqgirrXhALIS/Gt5s10wfS8cO3Y3pn/KJk=";
     };
-    date = "2026-03-23";
+    date = "2026-04-23";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -48,15 +48,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
+    version = "e9e78a68fce3d88e5ab67dbc636c23c591a7202c";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "c2029a8819ad35d2bf1f3128d0e668ca0b6f5074";
+      rev = "e9e78a68fce3d88e5ab67dbc636c23c591a7202c";
       fetchSubmodules = false;
-      sha256 = "sha256-gmj5hxIX3uLy7iOiRzUtknT0TgwlRig9l1ZgmscF5t0=";
+      sha256 = "sha256-FFLrvbF71vjCrLnsEl+6M5kuuirhPIjpk5XAqE2LgVA=";
     };
-    date = "2026-03-23";
+    date = "2026-04-12";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -68,10 +68,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.6.3";
+    version = "3.7.0";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.6.3/qutebrowser-3.6.3-arm64.dmg";
-      sha256 = "sha256-Kk+uWs2QJouaD9U5ma3AJsR4HtqW/Blh8zM9Faj1u00=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.7.0/qutebrowser-3.7.0-arm64.dmg";
+      sha256 = "sha256-mBcCQb8Sov4d6r/8gSC3DcjgDlVbtxLDh1HESPBJVKM=";
     };
   };
   sbarlua = {
@@ -88,42 +88,42 @@
   };
   skills-ref = {
     pname = "skills-ref";
-    version = "b5ce2a438123f9f9c9b167c5af297c048f15395b";
+    version = "2d3e01f590f68bee2cb76a3200823e93b2cc9eaa";
     src = fetchFromGitHub {
       owner = "agentskills";
       repo = "agentskills";
-      rev = "b5ce2a438123f9f9c9b167c5af297c048f15395b";
+      rev = "2d3e01f590f68bee2cb76a3200823e93b2cc9eaa";
       fetchSubmodules = false;
-      sha256 = "sha256-s01Gh5h4r9596G0ap25zbHDrctYeW8pHaqfmE8xMtno=";
+      sha256 = "sha256-ulh77OnTtEP2zEIw9wvuajh89Okg8ekI/7OE7ZKQ1Uk=";
     };
-    date = "2026-03-23";
+    date = "2026-04-22";
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "d593d7952e271ba67795cb556871f459aa5da0f9";
+    version = "b530eac5a859ce2f8fa4d99fa5cd83b9d3199086";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "d593d7952e271ba67795cb556871f459aa5da0f9";
+      rev = "b530eac5a859ce2f8fa4d99fa5cd83b9d3199086";
       fetchSubmodules = false;
-      sha256 = "sha256-HAC0xX9OCJI6xfgOsS8ntUv5N+0Hc8Q2AtHUx7ZmRjw=";
+      sha256 = "sha256-OhHlG3ngNbvUSNqS/MFJpYI/cfbkxSxTPo8EiSwW/MU=";
     };
-    date = "2026-03-22";
+    date = "2026-04-02";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "7.9.3970.41";
+    version = "7.9.3970.59";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.9.3970.41.universal.dmg";
-      sha256 = "sha256-WxASI28xD5EbPw4QGF7AI+WSUeN8iHDuGwRTiI+U1TI=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.9.3970.59.universal.dmg";
+      sha256 = "sha256-WIeSy5fkc4lwDiPnRTutuVFwVShRjqy2xjXFLg0dZpg=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.19.3b";
+    version = "1.19.8b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.19.3b/zen.macos-universal.dmg";
-      sha256 = "sha256-TqzzSX71eG7V1zcur0RMQmVuI5bWl8z0bySeuzUGmIQ=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.19.8b/zen.macos-universal.dmg";
+      sha256 = "sha256-CLBogf6omfxPKtrJMjLAKKcTNLu6aUWgAmgnnjEQg1U=";
     };
   };
 }
