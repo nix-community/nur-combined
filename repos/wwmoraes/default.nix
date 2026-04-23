@@ -27,6 +27,7 @@ let
       kroki-cli = callPackage ./pkgs/kroki-cli.nix { };
       structurizr-cli = callPackage ./pkgs/structurizr-cli.nix { };
       structurizr-site-generatr = callPackage ./pkgs/structurizr-site-generatr.nix { };
+      update-motd = callPackage ./pkgs/update-motd.nix { };
       visudo = callPackage ./pkgs/visudo.nix { };
       yamlfixer = callPackage ./pkgs/yamlfixer.nix { };
     }
