@@ -161,6 +161,32 @@
         },
         "version": "fa2f366b0d75e54c2e381c0aefc3a8df8bf5794b"
     },
+    "nh": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-XBAcK8eImkhtFfzHSlHfYQELoa0F88Lgkqt0TrSBySs=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-04-21",
+        "extract": null,
+        "name": "nh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "XYenon",
+            "repo": "nh",
+            "rev": "3a05580c4279705ec3c62a83ecb7b26bc2a59d49",
+            "sha256": "sha256-XBAcK8eImkhtFfzHSlHfYQELoa0F88Lgkqt0TrSBySs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3a05580c4279705ec3c62a83ecb7b26bc2a59d49"
+    },
     "nix-package-versions": {
         "cargoLock": null,
         "date": "2025-06-19",

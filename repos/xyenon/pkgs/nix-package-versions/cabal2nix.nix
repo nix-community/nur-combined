@@ -97,7 +97,7 @@ mkDerivation {
     unordered-containers
   ];
   homepage = "https://github.com/githubuser/nix-package-versions#readme";
-  license = lib.licenses.bsd3;
+  license = lib.licensesSpdx."BSD-3-Clause";
   mainProgram = "nix-package-versions";
   maintainers = [ lib.maintainers.xyenon ];
 }

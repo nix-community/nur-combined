@@ -1,5 +1,5 @@
-#!/usr/bin/env nix
-#! nix shell nixpkgs#bash nixpkgs#cabal2nix --command bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p cabal2nix
 # shellcheck shell=bash
 
 set -euo pipefail

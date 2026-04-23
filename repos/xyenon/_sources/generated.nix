@@ -100,6 +100,24 @@
     moduleName = "github.com/mholt/caddy-webdav";
     date = "20260127042217";
   };
+  nh = {
+    pname = "nh";
+    version = "3a05580c4279705ec3c62a83ecb7b26bc2a59d49";
+    src = fetchFromGitHub {
+      owner = "XYenon";
+      repo = "nh";
+      rev = "3a05580c4279705ec3c62a83ecb7b26bc2a59d49";
+      fetchSubmodules = false;
+      sha256 = "sha256-XBAcK8eImkhtFfzHSlHfYQELoa0F88Lgkqt0TrSBySs=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-XBAcK8eImkhtFfzHSlHfYQELoa0F88Lgkqt0TrSBySs=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+    date = "2026-04-21";
+  };
   nix-package-versions = {
     pname = "nix-package-versions";
     version = "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe";

@@ -89,6 +89,9 @@ rec {
   prometheus-kvrocks-exporter = callPackage ./pkgs/prometheus-kvrocks-exporter {
     inherit kvrocksTestHook;
   };
-  nh-unwrapped = callPackage ./pkgs/nh { inherit (pkgs) nh-unwrapped; };
+  nh-unwrapped = callPackage ./pkgs/nh-unwrapped {
+    inherit (pkgs) nh-unwrapped;
+    source = sources.nh;
+  };
   xurl = callPackage ./pkgs/xurl { };
 }
