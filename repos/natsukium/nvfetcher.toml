@@ -6,7 +6,7 @@ fetch.github = "coder/claudecode.nvim"
 [copyq-darwin]
 src.github = "hluk/CopyQ"
 src.prefix = "v"
-fetch.url = "https://github.com/hluk/CopyQ/releases/download/v$ver/CopyQ-macos-12-m1.dmg.zip"
+fetch.url = "https://github.com/hluk/CopyQ/releases/download/v$ver/CopyQ-$ver-macos-12-m1.dmg"
 
 [emacs-plus]
 src.git = "https://github.com/d12frosted/homebrew-emacs-plus"

@@ -30,12 +30,10 @@ in
 
         nativeBuildInputs = [
           prev.undmg
-          prev.unzip
         ];
 
         unpackCmd = ''
-          unzip $curSrc
-          undmg CopyQ.dmg
+          undmg $curSrc
         '';
 
         sourceRoot = "CopyQ.app";
