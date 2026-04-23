@@ -1,0 +1,14 @@
+diff --git a/packages/bridge/src/sdk-process.ts b/packages/bridge/src/sdk-process.ts
+--- a/packages/bridge/src/sdk-process.ts
++++ b/packages/bridge/src/sdk-process.ts
+@@ -539,6 +539,9 @@
+         cwd: projectPath,
+         resume: options?.sessionId,
+         continue: options?.continueMode,
+         permissionMode: options?.permissionMode ?? "default",
++        ...(process.env.CLAUDE_CODE_EXECUTABLE
++          ? { pathToClaudeCodeExecutable: process.env.CLAUDE_CODE_EXECUTABLE }
++          : {}),
+         ...(options?.model ? { model: options.model } : {}),
+         ...buildThinkingOptions(options?.model),
+         ...(options?.effort ? { effort: options.effort } : {}),
