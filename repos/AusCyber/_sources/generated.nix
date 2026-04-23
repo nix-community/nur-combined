@@ -39,7 +39,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-4IkKltHleHTC2cbYzSOqIZ1CogW7hTXt+gzYMUTnWOY=";
+      sha256 = "sha256-FsoB6GN43AavTBxWiYt3lI9f8C6QanFH0DpxlY6zp3U=";
     };
   };
   helium-linux = {
