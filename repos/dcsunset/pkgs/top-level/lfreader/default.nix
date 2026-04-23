@@ -12,12 +12,12 @@
 
 let
   name = "lfreader";
-  version = "4.0.5";
+  version = "4.0.6";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
     rev = "v${version}";
-    hash = "sha256-5Uo4VSCUq5PjMuT6JDKOpdIvYgn/AOOV9Ve32wXTZ7M=";
+    hash = "sha256-OHeVnTYcGQh4lE8rE2ASWGk2tRcPz77nM/9PNYQsYzo=";
   };
 
   # reference: https://nixos.org/manual/nixpkgs/unstable/#javascript-pnpm
