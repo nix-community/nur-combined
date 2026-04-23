@@ -703,8 +703,8 @@
             "url": "https://github.com/dawidsowa/nur-packages"
         },
         "dcsunset": {
-            "rev": "fd503fe3ccfd60f8208a93ad7a6be358e10bb78f",
-            "sha256": "0zhsv6s3sk6i4ngs9mn3adr5f127z6rlfs0kzn94mm405j7mvr39",
+            "rev": "5327b9f0ddb793ea7d2a80ab6dace648c613a0d7",
+            "sha256": "033qm6z5i280mgdw9avyxjqggvm7v9ida9q23n0fiqwlxb5z75il",
             "url": "https://github.com/DCsunset/nur-packages"
         },
         "deeunderscore": {
@@ -1363,8 +1363,8 @@
             "url": "https://github.com/kinzoku-dev/nur-kinzoku"
         },
         "kira-bruneau": {
-            "rev": "38e4c1dbc84c7d1a9c73830e155d597c65c739d3",
-            "sha256": "0j8hsbxhbw9xahbi1hi9cianryy0i2f21p5xdr794njg2ds05hj2",
+            "rev": "348c27e2a928837899d18b1886979f4edd9724e0",
+            "sha256": "06b8pynxcs15vyal2x1xfr5zifgjmvl0rfb4n05y8bwibaq3nm3p",
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
         "kokakiwi": {
