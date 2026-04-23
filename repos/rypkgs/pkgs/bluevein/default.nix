@@ -8,13 +8,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bluevein";
-  version = "1.0.2";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "meowrch";
     repo = "BlueVein";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-jxzSFCt9s45iokFg4QjMLBtu6vl5Km0LLvMyWp1ZL2g=";
+    hash = "sha256-YlqzAo8vj0fuV26ynS5KL2gYquIb6kvD43hqRnX62qg=";
   };
 
   cargoHash = "sha256-qoHyi08hoPXxZaCe/yg5ESUI6gfr80iQT9PDB0v0zBg=";
