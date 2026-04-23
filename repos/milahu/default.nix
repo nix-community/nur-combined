@@ -241,12 +241,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # nix-init pkgs/python3/pkgs/flask-session2/flask-session2.nix --url https://github.com/christopherpickering/flask-session2
       flask-session2 = callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
-      # no: nix-init pkgs/python3/pkgs/flask-themes2/flask-themes2.nix --url https://github.com/sysr-q/flask-themes2
-      # update version: 0.1.3 -> 1.0.0
-      # https://github.com/sysr-q/flask-themes2/issues/13 # add git tags for pypi versions
-      # nix-init pkgs/python3/pkgs/flask-themes2/flask-themes2.nix --url https://pypi.org/project/Flask-Themes2/
-      flask-themes2 = callPackage ./pkgs/python3/pkgs/flask-themes2/flask-themes2.nix { };
-
       pyjsparser = callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
 
       js2py = callPackage ./pkgs/python3/pkgs/js2py/js2py.nix { };
@@ -630,6 +624,16 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       videopython = callPackage ./pkgs/development/python-modules/videopython { };
 
       local-llm-pdf-ocr = callPackage ./pkgs/development/python-modules/local-llm-pdf-ocr { };
+
+      dukpy = callPackage ./pkgs/development/python-modules/dukpy { };
+
+      flask-themes2 = callPackage ./pkgs/development/python-modules/flask-themes2 { };
+
+      py-mini-racer = callPackage ./pkgs/development/python-modules/py-mini-racer { };
+
+      aia-chaser = callPackage ./pkgs/development/python-modules/aia-chaser { };
+
+      pycurl = callPackage ./pkgs/development/python-modules/pycurl { };
 
     #}))); # python3.pkgs
 

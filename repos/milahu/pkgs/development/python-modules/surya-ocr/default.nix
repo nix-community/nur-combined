@@ -2,6 +2,7 @@
   lib,
   python3,
   fetchFromGitHub,
+  torch,
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {

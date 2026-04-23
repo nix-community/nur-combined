@@ -2,6 +2,7 @@
   lib,
   python3,
   fetchFromGitHub,
+  torch,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -44,6 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     requests
     smart-open
     torch
+    # torchWithCuda
     transformers
     zstandard
   ];
