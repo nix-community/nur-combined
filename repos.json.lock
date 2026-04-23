@@ -181,8 +181,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "0ee6f21fa2739529f7fa75013d36725a32474295",
-            "sha256": "0a4bkylx8dk3a66bxmkbnkwrgrmhr18qc8b4ss0qwnakqjw0x0kr",
+            "rev": "d46e443eaf40659f3305622295cedeee4f7b4ec3",
+            "sha256": "0lzvsckiwrc72r604qq6imrgpd0wkyw8xy2r4442yy0spla288s1",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -938,8 +938,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "2bfc39c6470d7311c60fa9d8c2b933df163b0349",
-            "sha256": "1wppw7xfpwgjwnfn9hp6k6njq8wgd0jpyv0bag6hr3d2084c5jkb",
+            "rev": "77cd42539ba9fbac07da451c156128830df02243",
+            "sha256": "0c6r8lwnx6q3ygafpa1b0kcwf925pq2mzk5094z5ggp0nm90s327",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
