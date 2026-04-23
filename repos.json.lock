@@ -1073,8 +1073,8 @@
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {
-            "rev": "a35e9672faca6febb37215a76a5904fe6194516a",
-            "sha256": "053v6rn6f55g17i1z1g0j1zdbkmvmr8qra1hjpgvv58kz0qmqiy9",
+            "rev": "66fade2b991dccab41ec128622723c51168bbe9a",
+            "sha256": "0kyhc8pr3djnw1q2gvgf5frb8h14i9347x5k8l8v2cv07drfxfry",
             "url": "https://github.com/hhr2020/nur-packages"
         },
         "hilorioze": {
@@ -2637,8 +2637,8 @@
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
         "ymstnt": {
-            "rev": "5d36dc250430932a21d0739e384f328e208895d8",
-            "sha256": "0aaqhci4jbc2cyz38i813p4h114dn0jyx0mxivv3wdq3k0vnmggs",
+            "rev": "9ea8299ddda1f1565abd163f13919ff1dd3a3bea",
+            "sha256": "0fk4ia1gj31m3ilwr840dwcy73faqwcsh98nwga01l9m3wv38rfg",
             "url": "https://github.com/ymstnt/nur-packages"
         },
         "ysndr": {
