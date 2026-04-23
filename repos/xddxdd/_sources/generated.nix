@@ -98,6 +98,16 @@
     };
     date = "2018-08-28";
   };
+  awawausb-native-stub = {
+    pname = "awawausb-native-stub";
+    version = "v0.1";
+    src = fetchFromGitHub {
+      owner = "ArcaneNibble";
+      repo = "awawausb";
+      tag = "v0.1";
+      hash = "sha256-9VxrTCVhax+R9T6fiGUZ6IbdFOzzP6qumlYcI4rkR8A=";
+    };
+  };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
     version = "v0.8.0";
@@ -211,6 +221,16 @@
       hash = "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=";
     };
   };
+  browser-control-mcp = {
+    pname = "browser-control-mcp";
+    version = "v1.5.1";
+    src = fetchFromGitHub {
+      owner = "eyalzh";
+      repo = "browser-control-mcp";
+      tag = "v1.5.1";
+      hash = "sha256-P0ZYjaHArngobtOf4C3j3LpuwfT4vZdJnoZnzeNoIWo=";
+    };
+  };
   browser360-amd64 = {
     pname = "browser360-amd64";
     version = "13.4.1130.70";
@@ -226,6 +246,17 @@
       url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.70-1_arm64.deb";
       hash = "sha256-VbE1CktTH6fc/Y2/HOaeAVkyQJcQllJclFrMGqUfvJI=";
     };
+  };
+  buname = {
+    pname = "buname";
+    version = "a62d3d214dafb92932f4e5478eebc212ae4cb57d";
+    src = fetchFromGitHub {
+      owner = "dramforever";
+      repo = "buname";
+      rev = "a62d3d214dafb92932f4e5478eebc212ae4cb57d";
+      hash = "sha256-5pzAhggb8BD/5uxMXdg53A/4DLXTdwP2iqx9iw6diA8=";
+    };
+    date = "2025-09-18";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1269,6 +1300,16 @@
       hash = "sha256-8w5yyqATkOvbDmexGdi9LWCW8BlkOg8gdcR1FEdSoSw=";
     };
     date = "2026-04-22";
+  };
+  n8n-openai-bridge = {
+    pname = "n8n-openai-bridge";
+    version = "v0.0.17";
+    src = fetchFromGitHub {
+      owner = "sveneisenschmidt";
+      repo = "n8n-openai-bridge";
+      tag = "v0.0.17";
+      hash = "sha256-tti1VBvY4UA1cGax99bRIkYWLbuuolI1MPbl9Ky1TxM=";
+    };
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";

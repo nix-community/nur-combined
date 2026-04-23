@@ -37,6 +37,10 @@ src.git = "https://github.com/arkadijs/asterisk-g72x.git"
 fetch.github = "traud/asterisk-gsm-efr"
 src.git = "https://github.com/traud/asterisk-gsm-efr.git"
 
+[awawausb-native-stub]
+fetch.github = "ArcaneNibble/awawausb"
+src.github = "ArcaneNibble/awawausb"
+
 [axiom-syslog-proxy]
 fetch.github = "axiomhq/axiom-syslog-proxy"
 src.github = "axiomhq/axiom-syslog-proxy"
@@ -88,6 +92,10 @@ src.github = "xddxdd/bird-lg-go"
 fetch.github = "open-quantum-safe/boringssl"
 src.github = "open-quantum-safe/boringssl"
 
+[browser-control-mcp]
+fetch.github = "eyalzh/browser-control-mcp"
+src.github = "eyalzh/browser-control-mcp"
+
 [browser360-amd64]
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_amd64.deb"
 src.aur = "browser360-bin"
@@ -95,6 +103,10 @@ src.aur = "browser360-bin"
 [browser360-arm64]
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_arm64.deb"
 src.aur = "browser360-bin"
+
+[buname]
+fetch.github = "dramforever/buname"
+src.git = "https://github.com/dramforever/buname.git"
 
 [calibre-cops]
 fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver-php84.zip"
@@ -547,6 +559,10 @@ src.github = "modelscope/modelscope"
 [mtkclient]
 fetch.github = "bkerler/mtkclient"
 src.git = "https://github.com/bkerler/mtkclient.git"
+
+[n8n-openai-bridge]
+fetch.github = "sveneisenschmidt/n8n-openai-bridge"
+src.github = "sveneisenschmidt/n8n-openai-bridge"
 
 [nbfc-linux-lantian]
 fetch.github = "xddxdd/nbfc-linux"

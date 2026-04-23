@@ -176,6 +176,27 @@
         },
         "version": "e91ef643a7ff341e1fdaa1c6ff63b3cdc52ac8b4"
     },
+    "awawausb-native-stub": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "awawausb-native-stub",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ArcaneNibble",
+            "repo": "awawausb",
+            "rev": "v0.1",
+            "sha256": "sha256-9VxrTCVhax+R9T6fiGUZ6IbdFOzzP6qumlYcI4rkR8A=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1"
+    },
     "axiom-syslog-proxy": {
         "cargoLock": null,
         "date": null,
@@ -398,6 +419,27 @@
         },
         "version": "OQS-BoringSSL-snapshot-2025-01"
     },
+    "browser-control-mcp": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "browser-control-mcp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "eyalzh",
+            "repo": "browser-control-mcp",
+            "rev": "v1.5.1",
+            "sha256": "sha256-P0ZYjaHArngobtOf4C3j3LpuwfT4vZdJnoZnzeNoIWo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.5.1"
+    },
     "browser360-amd64": {
         "cargoLock": null,
         "date": null,
@@ -427,6 +469,27 @@
             "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.70-1_arm64.deb"
         },
         "version": "13.4.1130.70"
+    },
+    "buname": {
+        "cargoLock": null,
+        "date": "2025-09-18",
+        "extract": null,
+        "name": "buname",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dramforever",
+            "repo": "buname",
+            "rev": "a62d3d214dafb92932f4e5478eebc212ae4cb57d",
+            "sha256": "sha256-5pzAhggb8BD/5uxMXdg53A/4DLXTdwP2iqx9iw6diA8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "a62d3d214dafb92932f4e5478eebc212ae4cb57d"
     },
     "calibre-cops": {
         "cargoLock": null,
@@ -2463,6 +2526,27 @@
             "type": "github"
         },
         "version": "34f72a35fa2e7620342ff153bd2039546048bd3c"
+    },
+    "n8n-openai-bridge": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "n8n-openai-bridge",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sveneisenschmidt",
+            "repo": "n8n-openai-bridge",
+            "rev": "v0.0.17",
+            "sha256": "sha256-tti1VBvY4UA1cGax99bRIkYWLbuuolI1MPbl9Ky1TxM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.17"
     },
     "nbfc-linux-lantian": {
         "cargoLock": null,
