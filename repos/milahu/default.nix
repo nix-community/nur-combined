@@ -565,7 +565,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pre-commit = callPackage ./pkgs/development/python-modules/pre-commit { };
 
-      surya = callPackage ./pkgs/development/python-modules/surya { };
+      surya-ocr = callPackage ./pkgs/development/python-modules/surya-ocr { };
 
       asyncio-gevent = callPackage ./pkgs/development/python-modules/asyncio-gevent { };
 
@@ -628,6 +628,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       chatterbox-tts = callPackage ./pkgs/development/python-modules/chatterbox-tts { };
 
       videopython = callPackage ./pkgs/development/python-modules/videopython { };
+
+      local-llm-pdf-ocr = callPackage ./pkgs/development/python-modules/local-llm-pdf-ocr { };
 
     #}))); # python3.pkgs
 

@@ -5,7 +5,7 @@
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
-  pname = "surya";
+  pname = "surya-ocr";
   version = "0.17.1";
   pyproject = true;
 
