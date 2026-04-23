@@ -1597,8 +1597,8 @@
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
-            "rev": "496595db5e755970a77627d0098d76d9ded57a44",
-            "sha256": "1w193zxc7kjxhb4dyfk4yzpc559f7zj8wxdynkz82sx586wpaqjn",
+            "rev": "7f534a3b502f03cb1474b3d703f6fcca20639617",
+            "sha256": "033969im4s2f9pbj1xxm4igz1lsd36vcb7wkb9f7xx50p1lzk3cl",
             "submodules": true,
             "url": "https://github.com/milahu/nur-packages"
         },
