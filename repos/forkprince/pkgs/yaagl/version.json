@@ -9,49 +9,49 @@
     "file": "Yaagl{0}{1}.app.tar.gz",
     "unpack": false
   },
-  "version": "0.3.12",
+  "version": "0.3.13",
   "variants": {
     "gi-cn": {
       "substitutions": [
         "",
         ""
       ],
-      "hash": "sha256-N6m/Qpu74I7IJlMzVzPquUAJc1QxRnlKydCsyf+dvTc="
+      "hash": "sha256-XXMrBLEyrUaxto9tZq1CKepgvtOlOQmNfHvmSLabFUc="
     },
     "gi-os": {
       "substitutions": [
         "",
         ".OS"
       ],
-      "hash": "sha256-XN+nApsJT79oW6nIdZFlwPFchJyWdF484Ie5iCGA/MY="
+      "hash": "sha256-rMJkWBsFk73QzJaZ6DMyap1nMumJrzXICo/t1QrNqM0="
     },
     "zzz-cn": {
       "substitutions": [
         ".ZZZ",
         ""
       ],
-      "hash": "sha256-tfbySjmvtx0CwTLBMsKgtuPQNCP9q2/XyO3Aqs8QjXg="
+      "hash": "sha256-2/03JGQ4UT/trJAQOfehqCLb3ZdNfEN7fHgjmwV62Kc="
     },
     "zzz-os": {
       "substitutions": [
         ".ZZZ",
         ".OS"
       ],
-      "hash": "sha256-WD6fTWpOyw7WChIMSuPZt7VC5j918ovCHOTNG2IE3Jk="
+      "hash": "sha256-Xsyf4L0GbpkQRT0eVq1S0Oj2zhE55B2SNUIlEGotlX4="
     },
     "hsr-cn": {
       "substitutions": [
         ".HSR",
         ""
       ],
-      "hash": "sha256-uALVkEKe2zjl2S6gYbWKQaq9XInie+PG58GB+OCKLgA="
+      "hash": "sha256-te9PLldqok4VniwCMlvjPgiKNLfhnT0vGg48YTjGzxs="
     },
     "hsr-os": {
       "substitutions": [
         ".HSR",
         ".OS"
       ],
-      "hash": "sha256-YvotKszchAQGhxtX5ilrhRL6ueE6G29BtehGnoxUIp8="
+      "hash": "sha256-3M74LcKOBeoqK4C1QiZq/MysSeRxS+5+qodeSD5IbQk="
     }
   }
 }
