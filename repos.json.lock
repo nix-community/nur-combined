@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "7fe65b8a7ed1af8d8a22c1917c6da9c8c812264d",
-            "sha256": "1x44yw162b3nfw1dndz3hdmhai4168mzv45zl1d3wjlw2db0xsas",
+            "rev": "76780f731e8343a2cb847a0208d3d418c143129a",
+            "sha256": "13l60ywayw0ghj7jq8p38qs265x2m0q9f725771s25lvy719as29",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
@@ -1729,8 +1729,8 @@
             "url": "https://github.com/nasirhm/nasirhmpkgs"
         },
         "natsukium": {
-            "rev": "38c3c101e40fd2b703dc65e85ca9c24aef736500",
-            "sha256": "0w3zfv97a5034f5h3qvlbnb7gs1584lz5ng66620yqj71im6313s",
+            "rev": "97cc6dcff1e8cd8fd23c85211af5338d45b699dd",
+            "sha256": "08j690b7cff8yk9rv99a27lh2ksbr71hx9vis7sk8vicripdgaw4",
             "url": "https://github.com/natsukium/nur-packages"
         },
         "nelonn": {
