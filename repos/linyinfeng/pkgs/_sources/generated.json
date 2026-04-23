@@ -263,11 +263,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gOLnM7L6JKwQ/Jd6NC126uNjpjMMUYZN1KQt1c8qtK0=",
+            "sha256": "sha256-edHxuZ6B9lnbO1vOkwHEyNhwOsXGLU3h+MvpGY0wVxg=",
             "type": "url",
-            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.1/MoeKoe_Music_v1.6.1.AppImage"
+            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.2/MoeKoe_Music_v1.6.2.AppImage"
         },
-        "version": "v1.6.1"
+        "version": "v1.6.2"
     },
     "mstickereditor": {
         "cargoLock": {
@@ -363,7 +363,7 @@
     },
     "plugin-git": {
         "cargoLock": null,
-        "date": "2026-04-19",
+        "date": "2026-04-21",
         "extract": null,
         "name": "plugin-git",
         "passthru": null,
@@ -373,13 +373,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "2a89882f38f28487cc28017f3e384a64e20726d6",
-            "sha256": "sha256-S1KKi2BkYcFzxGQ5k1D+hX6Siib1fxLV5IIHwQfhIrs=",
+            "rev": "083d039631979479c1bbdd9062cab46a17219518",
+            "sha256": "sha256-X1/Peu6G+VNe3b6QlwxO2HUE0yYeIq6j0dcx6ffvxOs=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/jhillyerd/plugin-git"
         },
-        "version": "2a89882f38f28487cc28017f3e384a64e20726d6"
+        "version": "083d039631979479c1bbdd9062cab46a17219518"
     },
     "pyim-greatdict": {
         "cargoLock": null,
@@ -836,7 +836,7 @@
     },
     "v86": {
         "cargoLock": null,
-        "date": "2026-04-20",
+        "date": "2026-04-21",
         "extract": null,
         "name": "v86",
         "passthru": null,
@@ -846,13 +846,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b0794c9f574a490edaa1db6160c45b0d348201ef",
-            "sha256": "sha256-JWxbrd9u7fQd27bnLvQK4DYXWVqDK/b7/7crVQlKdbo=",
+            "rev": "452df77fc53fb82491da1c34c3a17dbb7c45a5c6",
+            "sha256": "sha256-zVFugiLKfIV7td8bTKfMUlCnvvO5UOWtvMBZt1Oy6qY=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "b0794c9f574a490edaa1db6160c45b0d348201ef"
+        "version": "452df77fc53fb82491da1c34c3a17dbb7c45a5c6"
     },
     "vlmcsd": {
         "cargoLock": null,

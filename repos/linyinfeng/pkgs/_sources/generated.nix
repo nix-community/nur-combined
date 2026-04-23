@@ -158,10 +158,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.6.1";
+    version = "v1.6.2";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.1/MoeKoe_Music_v1.6.1.AppImage";
-      sha256 = "sha256-gOLnM7L6JKwQ/Jd6NC126uNjpjMMUYZN1KQt1c8qtK0=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.2/MoeKoe_Music_v1.6.2.AppImage";
+      sha256 = "sha256-edHxuZ6B9lnbO1vOkwHEyNhwOsXGLU3h+MvpGY0wVxg=";
     };
   };
   mstickereditor = {
@@ -228,17 +228,17 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "2a89882f38f28487cc28017f3e384a64e20726d6";
+    version = "083d039631979479c1bbdd9062cab46a17219518";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "2a89882f38f28487cc28017f3e384a64e20726d6";
+      rev = "083d039631979479c1bbdd9062cab46a17219518";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-S1KKi2BkYcFzxGQ5k1D+hX6Siib1fxLV5IIHwQfhIrs=";
+      sha256 = "sha256-X1/Peu6G+VNe3b6QlwxO2HUE0yYeIq6j0dcx6ffvxOs=";
     };
-    date = "2026-04-19";
+    date = "2026-04-21";
   };
   pyim-greatdict = {
     pname = "pyim-greatdict";
@@ -553,17 +553,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "b0794c9f574a490edaa1db6160c45b0d348201ef";
+    version = "452df77fc53fb82491da1c34c3a17dbb7c45a5c6";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "b0794c9f574a490edaa1db6160c45b0d348201ef";
+      rev = "452df77fc53fb82491da1c34c3a17dbb7c45a5c6";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-JWxbrd9u7fQd27bnLvQK4DYXWVqDK/b7/7crVQlKdbo=";
+      sha256 = "sha256-zVFugiLKfIV7td8bTKfMUlCnvvO5UOWtvMBZt1Oy6qY=";
     };
-    date = "2026-04-20";
+    date = "2026-04-21";
   };
   vlmcsd = {
     pname = "vlmcsd";

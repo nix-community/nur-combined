@@ -17,9 +17,9 @@ appimageTools.wrapType2 rec {
   extraInstallCommands = ''
     install -Dm644 ${appimageContents}/moekoemusic.desktop \
       $out/share/applications/${pname}.desktop
-    install -Dm644 ${appimageContents}/resources/icons/linux_512x512.png \
+    install -Dm644 ${appimageContents}/resources/icons/linux/512x512.png \
       $out/share/icons/hicolor/512x512/apps/${pname}.png
-    install -Dm644 ${appimageContents}/resources/icons/linux_256x256.png \
+    install -Dm644 ${appimageContents}/resources/icons/linux/256x256.png \
       $out/share/icons/hicolor/256x256/apps/${pname}.png
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace-fail 'Exec=AppRun' 'Exec=${pname}' \
