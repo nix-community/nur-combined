@@ -289,12 +289,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.34";
+    version = "v6.9.35";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.34";
-      hash = "sha256-nhdlLN3NqNqJ0t/rf1DB8x+KnxzcDI3ptyPUuC0ZmNg=";
+      tag = "v6.9.35";
+      hash = "sha256-XgZn1cOk6naqr5cO5lKqjqQWZZR8tlfNm8qKvXQE/cA=";
     };
   };
   cockpy = {
@@ -1139,14 +1139,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "d8509387febc9e32466c86aab544d225d60c8e3c";
+    version = "ef70dea7c85e5637f37828d75e5b9bb29dbfe513";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "d8509387febc9e32466c86aab544d225d60c8e3c";
-      hash = "sha256-Z5bRBqjkKHfdK+pWRfK2XJVmiUB3cCwu31B3vgpmrHw=";
+      rev = "ef70dea7c85e5637f37828d75e5b9bb29dbfe513";
+      hash = "sha256-HDwszZza+WkWhxXL54ueHzZpupOQ4C5BpusjzMlCfzg=";
     };
-    date = "2026-04-21";
+    date = "2026-04-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -1223,12 +1223,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8887";
+    version = "b8902";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8887";
-      hash = "sha256-5tEr8nfk7a4DH5LMVfAVbIw9hkqZrvBkjhUKwYJxZtU=";
+      tag = "b8902";
+      hash = "sha256-ykZYY/Ta6VNKzJTGUkEvSSvLf/SiAD7OpPby8LbsgnM=";
     };
   };
   loralib = {
@@ -1417,12 +1417,12 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.9.7";
+    version = "0.9.8";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      tag = "0.9.7";
-      hash = "sha256-ozmACYcr9kaAwjI0u4XEWqMx/dYBXzL/AoA+w73vOJM=";
+      tag = "0.9.8";
+      hash = "sha256-CuJy06X7a3c79tY0heycdCiSFIh41DmUEFzFDROlJAA=";
     };
   };
   ngx_brotli = {
@@ -1784,20 +1784,20 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "10.2.2+ds-1";
+    version = "11.0.0+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-1_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-TfewBQuuG0wD3dQYoVVlpVe2TVMPiI0SoJjNFadb53M=";
+      hash = "sha256-FkAc8f8v5XLclk1kgameaiqDjuict5Qo9SzdtYNpy9E=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "10.2.2+ds-1";
+    version = "11.0.0+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_10.2.2+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-1_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-+L+J2s0E5moeNFJr9uubTrG02mIF0NggOB8Mh8sNuLs=";
+      hash = "sha256-YcbCLSUONjN4DhPjtigWP7O2Da0W1ErlwIJ+7okkSKo=";
     };
   };
   qemu-user-static-armhf = {
@@ -1877,14 +1877,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "c7ea7384378297b754aa6ec3495a4aac8db10181";
+    version = "2dacdb42f0c39f9102a2a4ef01a85c55b8ff1bec";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "c7ea7384378297b754aa6ec3495a4aac8db10181";
-      hash = "sha256-8eNXrXyH4bmOnIaqrLQiqzxIzp8sf4Ucyphw61FyZx8=";
+      rev = "2dacdb42f0c39f9102a2a4ef01a85c55b8ff1bec";
+      hash = "sha256-74rv/QaqPVgt2YAvgufdpRq5eRIq93/MbHQSiVTbPXw=";
     };
-    date = "2026-04-22";
+    date = "2026-04-23";
   };
   qsp-stable = {
     pname = "qsp-stable";
