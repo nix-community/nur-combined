@@ -19,7 +19,7 @@ buildNpmPackage (finalAttrs: {
   '';
 
   meta = {
-    description = "FSimple backend service to store configuration server-side";
+    description = "Simple backend service to store configuration server-side";
     homepage = "https://github.com/VueTorrent/vuetorrent-backend";
     changelog = "https://github.com/VueTorrent/vuetorrent-backend/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl3Only;

@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication rec {
   meta = {
     mainProgram = "palworld_exporter";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Prometheus exporter for Palword Server";
+    description = "Prometheus exporter for Palworld Server";
     homepage = "https://github.com/palworldlol/palworld-exporter";
     license = with lib.licenses; [ mit ];
   };
