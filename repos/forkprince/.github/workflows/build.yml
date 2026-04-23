@@ -27,15 +27,45 @@ jobs:
           nix_conf: experimental-features = nix-command flakes
 
       - name: Update Packages (nix-update)
+        id: nix_update
         run: |
           export NIX_PATH=nixpkgs=flake:nixpkgs
+          failed_pkgs=""
           while IFS= read -r update_file; do
             pkg=$(basename "$(dirname "$update_file")")
             extra_args=$(cat "$update_file")
-            nix shell nixpkgs#nix-update -c nix-update $extra_args "$pkg"
+            if ! nix shell nixpkgs#nix-update -c nix-update $extra_args "$pkg"; then
+              echo "::warning::Failed to update $pkg with nix-update"
+              failed_pkgs="${failed_pkgs}${pkg}\n"
+            fi
           done < <(find ./pkgs -name ".update" -type f)
+          echo "failed_pkgs=${failed_pkgs}" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify nix-update Failures
+        if: steps.nix_update.outputs.failed_pkgs != ''
+        run: |
+          pkg_list=$(printf '%b' "${{ steps.nix_update.outputs.failed_pkgs }}" | sed '/^$/d' | sed 's/^/• /')
+          payload=$(jq -n \
+            --arg title "⚠️ nix-update failures" \
+            --arg pkgs "$pkg_list" \
+            --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{
+              username: "NUR",
+              avatar_url: "https://api.serversmp.xyz/upload/69a58cf144d40b74d08297dc.webp",
+              content: "@everyone",
+              embeds: [{
+                title: $title,
+                description: "The following packages failed to update with nix-update:\n```\n\($pkgs)\n```",
+                color: 16744272,
+                url: $url
+              }]
+            }')
+          curl -s -o /dev/null -w "%{http_code}" \
+            -H "Content-Type: application/json" \
+            -d "$payload" \
+            "${{ secrets.DISCORD }}"
 
       - name: Update Packages (bun)
         id: update
