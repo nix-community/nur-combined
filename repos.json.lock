@@ -251,8 +251,8 @@
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
-            "rev": "d333b4f2592ba4011ceebc65481e61bf8eda7627",
-            "sha256": "0r8n8m4h5bc3bkdmkmsjb4bybx2mc7sl5pam9avs4029qnahlfdh",
+            "rev": "5802249e79a2a32039b8bf9ae17eb7be6c20097c",
+            "sha256": "1c2q07lv9kkzrkw0qjkpx4va3pnni3sdcwf0hbdjrsi4sdc9y9ld",
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
