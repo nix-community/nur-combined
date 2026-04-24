@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ab-download-manager";
-  version = "1.8.7";
+  version = "1.8.8";
 
   src = fetchFromGitHub {
     owner = "amir1376";
     repo = "ab-download-manager";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-YDARV3pbT8jvWuYthgKN+XxgJdDuZNbfqvfddKnp1Ls=";
+    hash = "sha256-kEgv0XuOA9FKhBeDccc6x+iKCevInjQ6abP1pWhEs3U=";
   };
 
   nativeBuildInputs = [
