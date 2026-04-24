@@ -26,6 +26,9 @@
     pkgs.sops
     pkgs.kustomize
     pkgs.kustomize-sops
+
+    pkgs.hadolint
+    pkgs.dive
   ]
   ++ (lib.optionals (!config.services.k3s.enable) [
     pkgs.kubectl # this otherwise conflicts with the k3s provided binary
@@ -51,6 +54,10 @@
 
   nagy.shortcommands.commands = {
     k = [ "kubectl" ];
+    ka = [
+      "kubectl"
+      "apply"
+    ];
     kg = [
       "kubectl"
       "get"
@@ -140,6 +147,11 @@
       "kubectl"
       "exec"
     ];
+    kei = [
+      "kubectl"
+      "exec"
+      "-i"
+    ];
     keit = [
       "kubectl"
       "exec"
@@ -161,6 +173,10 @@
     #   "kubectl"
     #   "delete"
     # ];
+    kk = [
+      "kubectl"
+      "kustomize"
+    ];
     kz = [
       "kustomize"
     ];

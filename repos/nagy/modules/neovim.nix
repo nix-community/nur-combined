@@ -21,6 +21,8 @@
       '';
 
       customLuaRC = ''
+        vim.opt.ignorecase = true
+        vim.opt.smartcase = true
         -- Modern Neovim Options
         vim.opt.termguicolors = true
         vim.opt.cursorline = true

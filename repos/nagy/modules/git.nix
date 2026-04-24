@@ -48,6 +48,7 @@ in
           # co = "checkout"; # in included git aliases
           cl = "clone";
           cl1 = "clone --depth 1";
+          cl2 = "clone --depth 2";
           f = "fetch";
           lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
           lola = "lol --all";
@@ -65,6 +66,10 @@ in
         push = {
           default = "current";
         };
+        # Behaves badly when the remote does not exist
+        # remote = {
+        #   pushDefault = "origin";
+        # };
         pull.rebase = true;
         fetch.prune = true;
         include.path =

@@ -172,6 +172,12 @@ in
     # GitLab CLI
     GLAB_CHECK_UPDATE = "false";
     GLAB_SEND_TELEMETRY = "false";
+
+    # GitHub CLI
+    GH_TELEMETRY = "false";
+
+    # for `ls`
+    TIME_STYLE = "long-iso";
   };
 
   networking.nameservers = lib.mkDefault [ "1.1.1.1" ];
