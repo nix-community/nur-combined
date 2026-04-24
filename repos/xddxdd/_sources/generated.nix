@@ -289,12 +289,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.35";
+    version = "v6.9.36";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.35";
-      hash = "sha256-XgZn1cOk6naqr5cO5lKqjqQWZZR8tlfNm8qKvXQE/cA=";
+      tag = "v6.9.36";
+      hash = "sha256-Eml2MW7/H1ctw2lg1U6W3TyZ3SJKy+j+27/8aUf0ymQ=";
     };
   };
   cockpy = {
@@ -751,10 +751,10 @@
   };
   fr24feed-amd64 = {
     pname = "fr24feed-amd64";
-    version = "1.0.56-0";
+    version = "1.0.56-1";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_amd64.deb";
-      hash = "sha256-opezyVCwl+y2fQazIRI1UX9zG+7yzhCIXAjNMxdiras=";
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-1_amd64.deb";
+      hash = "sha256-6JeA7ofMX51z0vezZ8UeAb9tXwhia7C5Z768HbOPkO0=";
     };
   };
   fr24feed-arm64 = {
@@ -775,10 +775,10 @@
   };
   fr24feed-i386 = {
     pname = "fr24feed-i386";
-    version = "1.0.56-0";
+    version = "1.0.56-1";
     src = fetchurl {
-      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_i386.deb";
-      hash = "sha256-9bchUn01VHePbc8Z7ZP0YfDJiqIsAqKfNLGUM7XHO3A=";
+      url = "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-1_i386.deb";
+      hash = "sha256-Wuyc2ErSnGUOS/ZGJ59RXNyXAXzSyx51AJsitrH3AzI=";
     };
   };
   ftp-proxy = {
@@ -1183,18 +1183,18 @@
   };
   lightpanda-amd64 = {
     pname = "lightpanda-amd64";
-    version = "0.2.8";
+    version = "0.2.9";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.8/lightpanda-x86_64-linux";
-      hash = "sha256-jjpeBM9QhpmZCnigqGhuozmJEs2Ykf2pBRNCm4kjAwA=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.9/lightpanda-x86_64-linux";
+      hash = "sha256-VL65btP2Ob7MT9JjproKabYOXn4D72/lDZxjR6PqOV0=";
     };
   };
   lightpanda-arm64 = {
     pname = "lightpanda-arm64";
-    version = "0.2.8";
+    version = "0.2.9";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.8/lightpanda-aarch64-linux";
-      hash = "sha256-n1TyzDGw2t2Ge6BuzOWfiqWfeHY5R5jpeIKupoC1rRk=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.9/lightpanda-aarch64-linux";
+      hash = "sha256-jKHb2a+6w2hGbpWmCHyyiFyoTN08YphxebiycL4SAic=";
     };
   };
   linguaspark-core = {
@@ -1223,12 +1223,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8902";
+    version = "b8922";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8902";
-      hash = "sha256-ykZYY/Ta6VNKzJTGUkEvSSvLf/SiAD7OpPby8LbsgnM=";
+      tag = "b8922";
+      hash = "sha256-AohOT0H0VsLk/Kcp18YItYTDEGFEN3gaiPcNvAbWjy8=";
     };
   };
   loralib = {
@@ -1244,12 +1244,12 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.22";
+    version = "v0.23";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      tag = "v0.22";
-      hash = "sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=";
+      tag = "v0.23";
+      hash = "sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=";
     };
   };
   magiskboot = {
@@ -1282,12 +1282,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.36.1";
+    version = "v1.36.2";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.36.1";
-      hash = "sha256-dZBeceAo02FqiNABv5t9yfgPLrDnM37+pdr/U448PQw=";
+      tag = "v1.36.2";
+      hash = "sha256-Cf6s5AujXL5kP7OPVbYSvfkvtAYH/XQJy1BKA8f3sGs=";
     };
   };
   mtkclient = {
@@ -2027,14 +2027,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "2e7ff0001d7b56efd6d4992c6c7c8944e1bdcfdf";
+    version = "2a4e3de30bbd86e3b25c43616ba9dbe2b9febede";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "2e7ff0001d7b56efd6d4992c6c7c8944e1bdcfdf";
-      hash = "sha256-fa5TBzZc+keKkqFWapx+SxoyRxhkVRkZxWHgxfZdc6k=";
+      rev = "2a4e3de30bbd86e3b25c43616ba9dbe2b9febede";
+      hash = "sha256-IqOoN+CocS/o7kSj5aeJjkeHkNOaz70YgHKj+vDF9Uo=";
     };
-    date = "2026-04-22";
+    date = "2026-04-24";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2276,15 +2276,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "1582c38a6cb8c7ea234afdc5e58da4f1cff3ab9f";
+    version = "d2c4b223e18554e4defee424c827d3e9dde63a69";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "1582c38a6cb8c7ea234afdc5e58da4f1cff3ab9f";
+      rev = "d2c4b223e18554e4defee424c827d3e9dde63a69";
       fetchSubmodules = true;
-      hash = "sha256-F/A4CMG/UokEDnvuIYGNcpuaed7VZmJqTF10YGob9dc=";
+      hash = "sha256-LYU6GwV4Qo4Thf4WleJQAGGRJCNM+7SEyV8rNCKvppI=";
     };
-    date = "2026-04-22";
+    date = "2026-04-24";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

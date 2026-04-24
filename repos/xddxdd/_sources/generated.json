@@ -562,12 +562,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.9.35",
-            "sha256": "sha256-XgZn1cOk6naqr5cO5lKqjqQWZZR8tlfNm8qKvXQE/cA=",
+            "rev": "v6.9.36",
+            "sha256": "sha256-Eml2MW7/H1ctw2lg1U6W3TyZ3SJKy+j+27/8aUf0ymQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.9.35"
+        "version": "v6.9.36"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1460,11 +1460,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-opezyVCwl+y2fQazIRI1UX9zG+7yzhCIXAjNMxdiras=",
+            "sha256": "sha256-6JeA7ofMX51z0vezZ8UeAb9tXwhia7C5Z768HbOPkO0=",
             "type": "url",
-            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_amd64.deb"
+            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-1_amd64.deb"
         },
-        "version": "1.0.56-0"
+        "version": "1.0.56-1"
     },
     "fr24feed-arm64": {
         "cargoLock": null,
@@ -1505,11 +1505,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9bchUn01VHePbc8Z7ZP0YfDJiqIsAqKfNLGUM7XHO3A=",
+            "sha256": "sha256-Wuyc2ErSnGUOS/ZGJ59RXNyXAXzSyx51AJsitrH3AzI=",
             "type": "url",
-            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-0_i386.deb"
+            "url": "https://repo-feed.flightradar24.com/pool/linux-stable/f/fr24feed/fr24feed_1.0.56-1_i386.deb"
         },
-        "version": "1.0.56-0"
+        "version": "1.0.56-1"
     },
     "ftp-proxy": {
         "cargoLock": null,
@@ -2302,11 +2302,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jjpeBM9QhpmZCnigqGhuozmJEs2Ykf2pBRNCm4kjAwA=",
+            "sha256": "sha256-VL65btP2Ob7MT9JjproKabYOXn4D72/lDZxjR6PqOV0=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.8/lightpanda-x86_64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.9/lightpanda-x86_64-linux"
         },
-        "version": "0.2.8"
+        "version": "0.2.9"
     },
     "lightpanda-arm64": {
         "cargoLock": null,
@@ -2317,11 +2317,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-n1TyzDGw2t2Ge6BuzOWfiqWfeHY5R5jpeIKupoC1rRk=",
+            "sha256": "sha256-jKHb2a+6w2hGbpWmCHyyiFyoTN08YphxebiycL4SAic=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.8/lightpanda-aarch64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.2.9/lightpanda-aarch64-linux"
         },
-        "version": "0.2.8"
+        "version": "0.2.9"
     },
     "linguaspark-core": {
         "cargoLock": null,
@@ -2379,12 +2379,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b8902",
-            "sha256": "sha256-ykZYY/Ta6VNKzJTGUkEvSSvLf/SiAD7OpPby8LbsgnM=",
+            "rev": "b8922",
+            "sha256": "sha256-AohOT0H0VsLk/Kcp18YItYTDEGFEN3gaiPcNvAbWjy8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8902"
+        "version": "b8922"
     },
     "loralib": {
         "cargoLock": null,
@@ -2421,12 +2421,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "v0.22",
-            "sha256": "sha256-pgnpzFpTmlUMX0ZtW+4IPB35Gg78BnvYppZsRCIXfkU=",
+            "rev": "v0.23",
+            "sha256": "sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.22"
+        "version": "v0.23"
     },
     "magiskboot": {
         "cargoLock": null,
@@ -2499,12 +2499,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "modelscope",
-            "rev": "v1.36.1",
-            "sha256": "sha256-dZBeceAo02FqiNABv5t9yfgPLrDnM37+pdr/U448PQw=",
+            "rev": "v1.36.2",
+            "sha256": "sha256-Cf6s5AujXL5kP7OPVbYSvfkvtAYH/XQJy1BKA8f3sGs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.36.1"
+        "version": "v1.36.2"
     },
     "mtkclient": {
         "cargoLock": null,
@@ -3947,7 +3947,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-04-22",
+        "date": "2026-04-24",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3959,12 +3959,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "2e7ff0001d7b56efd6d4992c6c7c8944e1bdcfdf",
-            "sha256": "sha256-fa5TBzZc+keKkqFWapx+SxoyRxhkVRkZxWHgxfZdc6k=",
+            "rev": "2a4e3de30bbd86e3b25c43616ba9dbe2b9febede",
+            "sha256": "sha256-IqOoN+CocS/o7kSj5aeJjkeHkNOaz70YgHKj+vDF9Uo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2e7ff0001d7b56efd6d4992c6c7c8944e1bdcfdf"
+        "version": "2a4e3de30bbd86e3b25c43616ba9dbe2b9febede"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4442,7 +4442,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-04-22",
+        "date": "2026-04-24",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4454,12 +4454,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "1582c38a6cb8c7ea234afdc5e58da4f1cff3ab9f",
-            "sha256": "sha256-F/A4CMG/UokEDnvuIYGNcpuaed7VZmJqTF10YGob9dc=",
+            "rev": "d2c4b223e18554e4defee424c827d3e9dde63a69",
+            "sha256": "sha256-LYU6GwV4Qo4Thf4WleJQAGGRJCNM+7SEyV8rNCKvppI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1582c38a6cb8c7ea234afdc5e58da4f1cff3ab9f"
+        "version": "d2c4b223e18554e4defee424c827d3e9dde63a69"
     },
     "unigine-heaven": {
         "cargoLock": null,
