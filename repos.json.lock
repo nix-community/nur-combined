@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "9c90dbc20f7cd97ad505a50d59590b6b3b000ddc",
-            "sha256": "0x0gq08yjk4lfly2zsx3r6rg5vi6k2a3n153m5sm8a7cbsqqv6v2",
+            "rev": "487ba0bccf219a7acefbc32dd6b2bfe278537c04",
+            "sha256": "14hi4lshj9qf98x1zblxx2j96dbdljp53gfca042p9w7s2la3bnl",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1623,8 +1623,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "874c3406a1d1dd9bd260d9b9d7521a23eddd1c8c",
-            "sha256": "0a938z1f19qmb8zpqp74mwxyh4ifq3zfkrh8qaqlh0l07gn3bp2m",
+            "rev": "d234fe6d4da257a55c37362186f46c1f4f10a5be",
+            "sha256": "0fqymk0ln5xd8cd6yf9b3dwz6qrijzcrkp627q2jvsy3gd2niycs",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
