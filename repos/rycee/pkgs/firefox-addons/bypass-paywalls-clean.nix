@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.4.7";
+  version = "4.3.5.5";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.4.7.xpi";
-  sha256 = "36797b28969143f4eb326915a4b63b7423ed4d1faa2c5f5209c2c6125420faef";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.5.5.xpi";
+  sha256 = "458cef36bc335becfb5c19702e4c6361cb95c0794a4cb3cd2fb516c1e8603e4b";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -191,7 +191,7 @@ buildFirefoxXpiAddon {
       "*://*.dailyadvertiser.com.au/*"
       "*://*.dailyherald.com/*"
       "*://*.dailyliberal.com.au/*"
-      "*://*.dailymail.co.uk/*"
+      "*://*.dailymail.com/*"
       "*://*.dailypress.com/*"
       "*://*.dailyrecord.co.uk/*"
       "*://*.dailytelegraph.com.au/*"
@@ -310,6 +310,7 @@ buildFirefoxXpiAddon {
       "*://*.fortune.com/*"
       "*://*.foxnews.com/*"
       "*://*.fr.de/*"
+      "*://*.franc-tireur.fr/*"
       "*://*.freep.com/*"
       "*://*.freiepresse.de/*"
       "*://*.freitag.de/*"
@@ -522,7 +523,6 @@ buildFirefoxXpiAddon {
       "*://*.macrobusiness.com.au/*"
       "*://*.madison.com/*"
       "*://*.magazyn-kuchnia.pl/*"
-      "*://*.mailonsunday.co.uk/*"
       "*://*.mainichi.jp/*"
       "*://*.mallorcazeitung.es/*"
       "*://*.manoramaonline.com/*"
@@ -649,13 +649,11 @@ buildFirefoxXpiAddon {
       "*://*.philosophynow.org/*"
       "*://*.pilotonline.com/*"
       "*://*.pionline.com/*"
-      "*://*.piratewires.com/*"
       "*://*.pitchfork.com/*"
       "*://*.plasticsnews.com/*"
       "*://*.pnp.de/*"
       "*://*.politicaexterior.com/*"
       "*://*.politico.com/*"
-      "*://*.politis.fr/*"
       "*://*.polityka.pl/*"
       "*://*.popsci.com/*"
       "*://*.popularmechanics.com/*"
@@ -959,9 +957,9 @@ buildFirefoxXpiAddon {
       "*://*.adobedtm.com/*"
       "*://*.blink.net/*"
       "*://*.bwbx.io/*"
+      "*://*.californiatimes.com/*"
       "*://*.cedscdn.it/*"
       "*://*.cedsdigital.it/*"
-      "*://*.corriereobjects.it/*"
       "*://*.coxohio.com/*"
       "*://*.danzz.ch/*"
       "*://*.emol.cl/*"
@@ -973,6 +971,7 @@ buildFirefoxXpiAddon {
       "*://*.glanacion.com/*"
       "*://*.go.com/*"
       "*://*.hadrianpaywall.com/*"
+      "*://*.ith9ueyuhu.it/*"
       "*://*.mcclatchy.com/*"
       "*://*.ndcmediagroep.nl/*"
       "*://*.nhst.tech/*"
