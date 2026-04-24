@@ -7,7 +7,7 @@
 }:
 mkOpencodePlugin rec {
   pname = "auto-resume";
-  version = "1.0.8";
+  version = "1.0.9";
 
   src = fetchFromGitHub {
     owner = "Mte90";
