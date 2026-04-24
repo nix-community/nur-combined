@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "nirius";
-  version = "0.3.1";
+  version = "0.7.1";
 
   src = fetchFromSourcehut {
     owner = "~tsdh";
     repo = "nirius";
     rev = "${pname}-${version}";
-    hash = "sha256-PzsIEksOp8ZO3f2hGcZ+8X9SvlXKI2oRdi7Nelmlyxk=";
+    hash = "sha256-+OPJODiZs3+d3W8vnLCbza4axgIu6WBeC2j+JLN/Zgg=";
   };
 
-  cargoHash = "sha256-DPeAgwaVrzuzG2ufNuO16VtLArQeBE6no9uQbLSqiHQ=";
+  cargoHash = "sha256-lxyChCuo6ZtZ6Sd50xn2KyY7JTf3KCobZnI0AsM3CUE=";
 
   cargoBuildFlags = ["--all-features"];
 
