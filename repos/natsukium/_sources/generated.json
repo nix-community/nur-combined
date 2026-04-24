@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-04-23",
+        "date": "2026-04-24",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "5fb407896ad4578208c142f13c7a6c98724952bd",
-            "sha256": "sha256-7kML/eqQ6qqgirrXhALIS/Gt5s10wfS8cO3Y3pn/KJk=",
+            "rev": "55b91779432576a98d4cb7a0215237fb21a1cb0d",
+            "sha256": "sha256-6nVimkaSVYEpVUFrCEmtopLqo04h6Fzxhm44rIQKix4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5fb407896ad4578208c142f13c7a6c98724952bd"
+        "version": "55b91779432576a98d4cb7a0215237fb21a1cb0d"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -209,10 +209,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CLBogf6omfxPKtrJMjLAKKcTNLu6aUWgAmgnnjEQg1U=",
+            "sha256": "sha256-1JLCS0XUvDWN9bkq55vkBvKHnMRmINEYUu5p5QGsv/E=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.19.8b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.19.9b/zen.macos-universal.dmg"
         },
-        "version": "1.19.8b"
+        "version": "1.19.9b"
     }
 }
