@@ -1,6 +1,6 @@
 { lib, buildGo125Module, fetchFromGitHub }:
 let
-  version = "0.4.1";
+  version = "1.0.0";
 in
 buildGo125Module {
   pname = "mado";
@@ -10,7 +10,7 @@ buildGo125Module {
     owner = "peacock0803sz";
     repo = "darwin-mado";
     tag = "v${version}";
-    hash = "sha256-ANI7NdelvqqE+/YDHE8avSaWtub0oEHplioUxxwVgxI=";
+    hash = "sha256-PXYlRH18JKV8xEyNWPQ9hF1ZAqnZwYqek0m3fqmuN/A=";
   };
 
   vendorHash = "sha256-y8ZUtc70LFItESZsLtor/pd7vJusvCH4AwYzAl0y8u0=";
