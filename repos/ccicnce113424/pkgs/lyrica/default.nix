@@ -6,7 +6,6 @@
   jq,
   openssl,
   qt6,
-  fetchpatch2,
 }:
 let
   metadata = lib.importJSON sources.extract."frontend/kde/metadata.json";
@@ -23,13 +22,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     openssl
-  ];
-
-  patches = [
-    (fetchpatch2 {
-      url = "https://github.com/chiyuki0325/lyrica/pull/26.patch";
-      hash = "sha256-8lxQ10KRwauYynW8rcbZlujyqmwBWK49ddHYYj3Xwm0=";
-    })
   ];
 
   postInstall = ''

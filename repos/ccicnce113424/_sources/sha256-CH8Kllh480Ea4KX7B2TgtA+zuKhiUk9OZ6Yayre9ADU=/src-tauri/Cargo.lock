@@ -2974,6 +2974,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
 
 [[package]]
+name = "mime2ext"
+version = "0.1.54"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cbf6f36070878c42c5233846cd3de24cf9016828fd47bc22957a687298bb21fc"
+
+[[package]]
 name = "minimal-lexical"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3008,7 +3014,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.8.2"
+version = "3.8.3-beta.3"
 dependencies = [
  "axum",
  "chrono",
@@ -3019,6 +3025,7 @@ dependencies = [
  "keepawake",
  "log",
  "maxminddb",
+ "mime2ext",
  "objc2",
  "objc2-app-kit",
  "objc2-foundation",
@@ -3054,6 +3061,7 @@ dependencies = [
  "tower-http",
  "trash",
  "url",
+ "urlencoding",
  "windows-sys 0.59.0",
  "winreg 0.56.0",
  "zip 2.4.2",

@@ -182,37 +182,37 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "e25c253a80f75ea093f0ddd961840d04063d7c93";
+    version = "ef1f6f16db3e6bf8095b21e77af68968c7aaccdd";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "e25c253a80f75ea093f0ddd961840d04063d7c93";
+      rev = "ef1f6f16db3e6bf8095b21e77af68968c7aaccdd";
       fetchSubmodules = false;
-      sha256 = "sha256-/d6DENw2eu4jB13au/qYli3ePNCOciMAgAguRmEDWWo=";
+      sha256 = "sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=";
     };
     extract = {
-      "frontend/kde/metadata.json" = ./. + "/sha256-_d6DENw2eu4jB13au_qYli3ePNCOciMAgAguRmEDWWo=/frontend/kde/metadata.json";
-      "Cargo.toml" = ./. + "/sha256-_d6DENw2eu4jB13au_qYli3ePNCOciMAgAguRmEDWWo=/Cargo.toml";
+      "frontend/kde/metadata.json" = ./. + "/sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=/frontend/kde/metadata.json";
+      "Cargo.toml" = ./. + "/sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=/Cargo.toml";
     };cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-_d6DENw2eu4jB13au_qYli3ePNCOciMAgAguRmEDWWo=/Cargo.lock";
+      lockFile = ./. + "/sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.2" = "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA=";
       };
     };
-    date = "2026-04-14";
+    date = "2026-04-24";
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.8.2";
+    version = "v3.8.3-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.8.2";
+      rev = "v3.8.3-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-fcnVzooAtibwuNqrakClPoLCgRr7W1UDdN2YCxyUJuE=";
+      sha256 = "sha256-CH8Kllh480Ea4KX7B2TgtA+zuKhiUk9OZ6Yayre9ADU=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-fcnVzooAtibwuNqrakClPoLCgRr7W1UDdN2YCxyUJuE=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-CH8Kllh480Ea4KX7B2TgtA+zuKhiUk9OZ6Yayre9ADU=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
