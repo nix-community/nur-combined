@@ -552,8 +552,8 @@
             "url": "https://github.com/ihebchagra/nur-packages"
         },
         "charmbracelet": {
-            "rev": "540187079185049f3412550fbd290510f64afa8a",
-            "sha256": "1vjb8dfl5x0fvihnhk9d28rpkvmc83h5ih6z57i43nacjalrq4bj",
+            "rev": "d65dd4f83427f43e8d9b3446ae12d9f6e334a487",
+            "sha256": "0pddi89z3g5df7cdz2is62h9kvqqrh8d7k480wyissy1hq9k3882",
             "url": "https://github.com/charmbracelet/nur"
         },
         "chekist32": {
