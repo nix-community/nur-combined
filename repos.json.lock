@@ -1729,8 +1729,8 @@
             "url": "https://github.com/nasirhm/nasirhmpkgs"
         },
         "natsukium": {
-            "rev": "fdc43b787763bbe0e888f6f566133b4d15108b09",
-            "sha256": "0vr48y55idvj6a6ykb93q5khv8bg7px0sc12g0yqn75nx8sj9fja",
+            "rev": "da3828c1678f06131d1559449d031133cae65ef8",
+            "sha256": "1zpch1m45jwx6s7qdj3kmrvwml9k2hcdgz4vcnv9j19hvh6k5wn9",
             "url": "https://github.com/natsukium/nur-packages"
         },
         "nelonn": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "a9f811291f62a468088f4ad5062b654f34726dbf",
-            "sha256": "12114bka2r9hav3agn72k1wxf2m58bv9yr02521qhhxm21p1vqjw",
+            "rev": "6e8b4c2f71aadd813d99c6de8956213fea9112b0",
+            "sha256": "16wcd9z8wb386bzb5d6n6l5wnphygpsrq4r0f2cwg3rgnsfbsw97",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
