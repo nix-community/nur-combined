@@ -3,36 +3,36 @@
   rustPlatform,
   fetchFromGitHub,
   cmake,
+  pkg-config,
   protobuf,
+  openssl,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rmqtt";
-  version = "0.16.1";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "rmqtt";
     repo = "rmqtt";
     tag = finalAttrs.version;
-    hash = "sha256-9FhITQOnA4zZCYtBZJSmwf5st2wnGSi8MukiQ3bmTcU=";
+    hash = "sha256-7lJs1HtQCtS4MtNim9Aho7zc9H0goBGrCl91q0O1Zq4=";
   };
 
-  cargoLock.lockFile = ./Cargo.lock;
-
-  postPatch = ''
-    ln -s ${./Cargo.lock} Cargo.lock
-  '';
+  cargoHash = "sha256-htn+baGbvg920bYq6cCqJ/7ORwRNebSgFIJaRSJjZUQ=";
 
   nativeBuildInputs = [
     cmake
+    pkg-config
     protobuf
   ];
+
+  buildInputs = [ openssl ];
 
   meta = {
     description = "MQTT Broker";
     homepage = "https://github.com/rmqtt/rmqtt";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # error[E0603]: function `get_slot` is private
   };
 })

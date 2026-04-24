@@ -1,19 +1,21 @@
 diff --git c/mk/flags.mk i/mk/flags.mk
-index cc977f7a07..acc4ce050a 100644
+index 3c0887cf9a..254ab2bb77 100644
 --- c/mk/flags.mk
 +++ i/mk/flags.mk
-@@ -23,14 +23,14 @@ MODULE_CPPFLAGS ?=
- COMPILER ?= gcc
+@@ -27,15 +27,15 @@ LDFLAGS ?=
+ 
  CROSS_COMPILE ?=
  
--CXX     ?= $(CROSS_COMPILE)g++
--AR      ?= $(CROSS_COMPILE)ar
--AS      ?= $(CROSS_COMPILE)as
--LD      ?= $(CROSS_COMPILE)ld
--NM      ?= $(CROSS_COMPILE)nm
--OBJDUMP ?= $(CROSS_COMPILE)objdump
--OBJCOPY ?= $(CROSS_COMPILE)objcopy
--SIZE    ?= $(CROSS_COMPILE)size
+-GCC     := $(CROSS_COMPILE)gcc
+-GXX     := $(CROSS_COMPILE)g++
+-AR      := $(CROSS_COMPILE)ar
+-AS      := $(CROSS_COMPILE)as
+-LD      := $(CROSS_COMPILE)ld
+-NM      := $(CROSS_COMPILE)nm
+-OBJDUMP := $(CROSS_COMPILE)objdump
+-OBJCOPY := $(CROSS_COMPILE)objcopy
+-SIZE    := $(CROSS_COMPILE)size
++GCC     = $(CROSS_COMPILE)gcc
 +CXX     = $(CROSS_COMPILE)g++
 +AR      = $(CROSS_COMPILE)ar
 +AS      = $(CROSS_COMPILE)as
@@ -24,13 +26,13 @@ index cc977f7a07..acc4ce050a 100644
 +SIZE    = $(CROSS_COMPILE)size
  
  ifeq ($(COMPILER),clang)
- CC      := clang
-@@ -39,7 +39,7 @@ else
- CC      := $(CROSS_COMPILE)gcc
- LIBGCC_FINDER=$(CC) $(CFLAGS)
+ CC  := clang
+@@ -44,7 +44,7 @@ else
+ CC  := $(GCC)
+ CXX := $(GXX)
  endif
--CPP     ?= $(CC) -E
-+CPP     = $(CC) -E
+-CPP := $(CC) -E
++CPP = $(CC) -E
  
- CPPFLAGS += -D__EMBOX_VERSION__=\"$(EMBOX_VERSION)\"
- 
+ EMBOX_GCC := $(TOOLCHAIN_DIR)/embox-gcc
+ EMBOX_GXX := $(TOOLCHAIN_DIR)/embox-g++

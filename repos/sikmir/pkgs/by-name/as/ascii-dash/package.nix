@@ -46,10 +46,12 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10")
   ];
 
-  NIX_CFLAGS_COMPILE = [
-    "-Wno-error=mismatched-new-delete"
-  ]
-  ++ lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation";
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-Wno-error=mismatched-new-delete"
+    ]
+    ++ lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation"
+  );
 
   installPhase = ''
     install -Dm755 main $out/bin/ascii-dash

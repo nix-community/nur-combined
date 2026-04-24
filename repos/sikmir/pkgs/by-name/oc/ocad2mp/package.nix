@@ -23,13 +23,14 @@ stdenv.mkDerivation {
       --replace-fail "-lgcc" ""
   '';
 
-  NIX_CFLAGS_COMPILE = [
+  env.NIX_CFLAGS_COMPILE = toString [
     "-std=c++03"
     "-include stddef.h"
   ];
 
   makeFlags = [
-    "-f Makefile.gcc"
+    "-f"
+    "Makefile.gcc"
     "CFG=Release"
     "TARGET_ARCH_BITS=64"
   ];

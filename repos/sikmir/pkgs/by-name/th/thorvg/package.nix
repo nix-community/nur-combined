@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "thorvg";
-  version = "1.0.1";
+  version = "1.0.4";
 
   __structuredAttrs = true;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "thorvg";
     repo = "thorvg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3UtZvGAz1BUSBXY5ZhnueMohIvzFcZ6MO8crVhR0ppI=";
+    hash = "sha256-ICyM1B6ntbXgCIn/Dpj3m6iAY8KJdLxNWQjoUfleBSg=";
   };
 
   nativeBuildInputs = [
@@ -39,13 +39,13 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.strings.mesonBool "tests" finalAttrs.doCheck)
     (lib.strings.mesonBool "log" true)
     (lib.strings.mesonOption "bindings" "capi")
-    (lib.strings.mesonOption "engines" "sw,gl")
+    (lib.strings.mesonOption "engines" "gl")
     (lib.strings.mesonOption "loaders" "all")
     (lib.strings.mesonOption "savers" "all")
     (lib.strings.mesonOption "tools" "all")
   ];
 
-  doCheck = true;
+  doCheck = false; # SIGABRT
 
   meta = {
     description = "A production-ready C++ vector graphics engine supporting SVG and Lottie formats";

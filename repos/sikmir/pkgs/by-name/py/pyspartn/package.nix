@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyspartn";
-  version = "1.0.8";
+  version = "1.0.9";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyspartn";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-CCj7hoY3zNVdKUeMryXoqe1SbNd1BMQQCHc3Rvn7zPg=";
+    hash = "sha256-MI0s+yJzSSZnNXTtXXtiytQrBvd2sZ7F1m+kUoxd3vs=";
   };
 
   build-system = with python3Packages; [ setuptools ];

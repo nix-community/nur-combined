@@ -6,15 +6,15 @@
 
 stdenv.mkDerivation {
   pname = "qtpbfimageplugin-styles";
-  version = "2025-10-04";
+  version = "2026-04-13";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "qtpbfimageplugin-styles";
-    rev = "c8ea3f84d5cfd1fb69632cdaca1f87c7c3d12303";
-    hash = "sha256-0j89KF56G1je8xy0sTE4FzvUXDUxgE7BFb0hxNdqsJc=";
+    rev = "da4cec19f72df731ee24f8bd8a32dfdb35f950ab";
+    hash = "sha256-1wW4ynK0nvoFsouGBhPgA+JTDKUfAR0Az4ZgW6zlRic=";
   };
 
   installPhase = ''

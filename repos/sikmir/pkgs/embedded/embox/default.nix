@@ -30,19 +30,19 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
-  version = "0.7.0";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-S9ziXX0DGrrH3Lame2yfMYSYRcCp8jQ3l+yeqGlSJ0g=";
+    hash = "sha256-lMeYOPhjQmbTXhcs99XQ8RLij6fkUZ0X3x6QN6qnBXQ=";
   };
 
   patches = [ ./0001-fix-build.patch ];
 
   postPatch = ''
-    substituteInPlace mk/extbld/compiler_start.sh \
+    substituteInPlace mk/extbld/gen_compilers.sh \
       --replace "/usr/bin/env bash" "${lib.getExe bash}"
     substituteInPlace templates/aarch64/qemu/build.conf \
       --replace-fail "aarch64-elf" "aarch64-none-elf"
