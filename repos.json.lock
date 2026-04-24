@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "6fa3786500e5d15722c36ee94dc9518604b5f0a6",
-            "sha256": "19p07pnc1al9hsq0kpkp4djks0cq2af8ngldnkq639l2k6mb3ivh",
+            "rev": "9e24813c17184ab778ff2cc4e1f0f1ce1673dba3",
+            "sha256": "1if98f6h6dsj58m2wk9yakkjph1vvdsa36fx0xpxj2f8g0jx03fy",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
