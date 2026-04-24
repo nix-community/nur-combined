@@ -1709,8 +1709,8 @@
             "url": "https://github.com/n1kolasM/nur-packages"
         },
         "nagy": {
-            "rev": "4e9cee64a09cebeefe772a699d2e90b4a101e13d",
-            "sha256": "0miy4qkf3nrl5vqrrixp589dcv2p9a9zikh8y6kslla6j2v5gvz3",
+            "rev": "9d074490a9becf881e49dd5e28d1b7ee6576d60a",
+            "sha256": "1kmxnxn00w9ry96gzrxd3j47hbhjirykxa0x24rq71xky1jq4iqa",
             "url": "https://github.com/nagy/nur-packages"
         },
         "nakido": {
