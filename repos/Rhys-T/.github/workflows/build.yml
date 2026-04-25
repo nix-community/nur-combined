@@ -62,7 +62,7 @@ jobs:
               # "mame",
               "hbmame",
               "qemu-screamer",
-              "lix-game-darwin",
+              # "lix-game-darwin",
             empty] as $subsets |
             
             {include: [
