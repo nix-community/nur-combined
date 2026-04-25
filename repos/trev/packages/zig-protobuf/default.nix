@@ -3,7 +3,7 @@
   lib,
   nix-update-script,
   stdenv,
-  zig,
+  zig_0_15,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,27 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9E8Lw9nn5OqOElhrimHMdYaZQ06ouwAweWvMxrEajQM=";
   };
 
-  zigDeps =
-    (zig.fetchDeps {
-      inherit (finalAttrs) src pname version;
-      hash = "sha256-zqf9fK99IfmQ+UKzDxrUq1ocdpfI7kT3ijotx67OcO4=";
-    }).overrideAttrs
-      {
-        # waiting on https://github.com/NixOS/nixpkgs/pull/498646
-        buildCommand = ''
-          export ZIG_GLOBAL_CACHE_DIR=$(mktemp -d)
-
-          runHook unpackPhase
-
-          cd $sourceRoot
-          zig build --fetch=all
-
-          mv $ZIG_GLOBAL_CACHE_DIR/p $out
-        '';
-      };
+  zigDeps = zig_0_15.fetchDeps {
+    inherit (finalAttrs) src pname version;
+    hash = "sha256-zqf9fK99IfmQ+UKzDxrUq1ocdpfI7kT3ijotx67OcO4=";
+    fetchAll = true;
+  };
 
   nativeBuildInputs = [
-    zig.hook
+    zig_0_15.hook
   ];
 
   postConfigure = ''
