@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aw-watcher-media-player";
-  version = "1.1.3";
+  version = "1.1.4";
 
   src = fetchFromGitHub {
     owner = "2e3s";
     repo = "aw-watcher-media-player";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-25yTA0JsfwowjVn4QvDHXNHVA+u6CqcEo8s+aY6JfIo=";
+    hash = "sha256-DjoalKlnhUWEmun57G17/gtqifo3arcbkEw/vMVNWD0=";
   };
 
-  cargoHash = "sha256-9nkXSdxO/g8N2QyEW+zfoltN9ac+hSdoCXT2GEhKENE=";
+  cargoHash = "sha256-057Yjxac7BDb+7nohj51biUPHT1LN9iICihzp5cziWA=";
 
   nativeBuildInputs = [
     pkg-config
