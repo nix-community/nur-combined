@@ -1,8 +1,6 @@
-diff --git a/libtransmission/file-posix.cc b/libtransmission/file-posix.cc
-index 82840bfd..3d00b006 100644
---- a/libtransmission/file-posix.cc
-+++ b/libtransmission/file-posix.cc
-@@ -261,6 +261,46 @@ std::string_view tr_sys_path_basename(std::string_view path, tr_error** /*error*
+--- a/libtransmission/file-posix.cc	2026-04-24 23:42:47.224544795 -0700
++++ b/libtransmission/file-posix.cc	2026-04-24 23:43:01.597314700 -0700
+@@ -262,6 +262,45 @@
      return std::empty(path) ? "/"sv : path;
  }
  
@@ -32,7 +30,6 @@ index 82840bfd..3d00b006 100644
 +    auto const ext = ext_pos == std::string::npos ? ""s : std::string{ subpath.cbegin() + ext_pos, subpath.cend() };
 +
 +    auto cut_pos = basename_pos + 255 - ext.size() - suffix.size() - extra;
-+	// Avoid cutting at the middle of a UTF-8 character.
 +    for (auto iter = subpath.cbegin() + cut_pos; iter > subpath.cbegin() + basename_pos; --iter)
 +    {
 +        if ((*iter & 0xC0) == 0x80) --cut_pos;
@@ -49,31 +46,28 @@ index 82840bfd..3d00b006 100644
  // This function is adapted from Node.js's path.posix.dirname() function,
  // which is copyrighted by Joyent, Inc. and other Node contributors
  // and is distributed under MIT (SPDX:MIT) license.
-diff --git a/libtransmission/file-win32.cc b/libtransmission/file-win32.cc
-index dc562e4b..fefa89e8 100644
---- a/libtransmission/file-win32.cc
-+++ b/libtransmission/file-win32.cc
-@@ -581,6 +581,12 @@ std::string_view tr_sys_path_basename(std::string_view path, tr_error** error)
-     return !std::empty(path) ? path : "/"sv;
- }
+--- a/libtransmission/file-win32.cc	2026-04-24 23:42:47.224570524 -0700
++++ b/libtransmission/file-win32.cc	2026-04-24 23:43:05.491449841 -0700
+@@ -559,6 +559,12 @@
  
+ namespace
+ {
 +// Not implemented. May not need to at all. Return false to indicate subpath not changed.
 +bool tr_sys_path_limit_filename(std::string& subpath, std::string_view suffix, size_t extra)
 +{
 +    return false;
 +}
 +
- [[nodiscard]] static bool isWindowsDeviceRoot(char ch) noexcept
+ [[nodiscard]] bool isWindowsDeviceRoot(char ch) noexcept
  {
      return isalpha(static_cast<int>(ch)) != 0;
-diff --git a/libtransmission/file.h b/libtransmission/file.h
-index 6d19340f..66e29853 100644
---- a/libtransmission/file.h
-+++ b/libtransmission/file.h
-@@ -233,6 +233,21 @@ std::string tr_sys_path_resolve(std::string_view path, struct tr_error** error =
+--- a/libtransmission/file.h	2026-04-24 23:42:47.224609194 -0700
++++ b/libtransmission/file.h	2026-04-24 23:46:33.153306273 -0700
+@@ -232,6 +232,22 @@
   */
- std::string_view tr_sys_path_basename(std::string_view path, struct tr_error** error = nullptr);
+ std::string_view tr_sys_path_basename(std::string_view path, tr_error* error = nullptr);
  
++
 +/**
 +* @brief Limit filename length to 255.
 +*        Truncate basename at tail, append suffix, then append extension back.
@@ -92,34 +86,23 @@ index 6d19340f..66e29853 100644
  /**
   * @brief Portability wrapper for `dirname()`.
   *
-diff --git a/libtransmission/inout.cc b/libtransmission/inout.cc
-index 458cb05b..e99e9b48 100644
---- a/libtransmission/inout.cc
-+++ b/libtransmission/inout.cc
-@@ -72,7 +72,7 @@ enum class IoMode
-     Write
- };
- 
--bool getFilename(tr_pathbuf& setme, tr_torrent const* tor, tr_file_index_t file_index, IoMode io_mode)
-+bool getFilename(tr_pathbuf& setme, tr_torrent* tor, tr_file_index_t file_index, IoMode io_mode)
- {
-     if (auto found = tor->findFile(file_index); found)
+--- a/libtransmission/inout.cc	2026-04-24 23:42:47.224699132 -0700
++++ b/libtransmission/inout.cc	2026-04-24 23:44:04.017759917 -0700
+@@ -99,8 +99,17 @@
+     auto err = ENOENT;
+     if (writable)
      {
-@@ -89,7 +89,17 @@ bool getFilename(tr_pathbuf& setme, tr_torrent const* tor, tr_file_index_t file_
-     // Let's figure out where it goes so that we can create it.
-     auto const base = tor->currentDir();
-     auto const suffix = tor->session->isIncompleteFileNamingEnabled() ? tr_torrent_files::PartialFileSuffix : ""sv;
--    setme.assign(base, '/', tor->fileSubpath(file_index), suffix);
-+
-+    std::string subpath{ tor->fileSubpath(file_index) };
-+    auto const idstr = fmt::format("_{:x}-{}", file_index, tor->infoHashString()); // Avoid filename collision with best efforts.
-+    auto const changed = tr_sys_path_limit_filename(subpath, idstr, suffix.size());
-+    setme.assign(base, '/', subpath, suffix);
-+    if (changed)
-+    {
-+        tor->setFileSubpath(file_index, subpath);
-+        tor->setDirty();
-+        tor->markChanged();
-+    }
-     return true;
- }
++        // When writable=true we can safely cast away const since this is called from tr_ioWrite
++        auto& mutable_tor = const_cast<tr_torrent&>(tor);
+         auto const base = tor.current_dir();
+         auto const suffix = session.isIncompleteFileNamingEnabled() ? tr_torrent_files::PartialFileSuffix : ""sv;
++        auto subpath = std::string{ tor.file_subpath(file_index) };
++        auto const idstr = fmt::format("_{:x}-{}", file_index, tor.info_hash_string());
++        if (tr_sys_path_limit_filename(subpath, idstr, suffix.size()))
++        {
++            mutable_tor.set_file_subpath(file_index, subpath);
++            mutable_tor.save_resume_file();
++        }
+         auto const filename = tr_pathbuf{ base, '/', tor.file_subpath(file_index), suffix };
+         if (auto const fd = open_files.get(tor_id, file_index, writable, filename, prealloc, file_size); fd)
+         {
