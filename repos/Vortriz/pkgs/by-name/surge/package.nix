@@ -6,16 +6,16 @@
 
 buildGoModule rec {
     pname = "surge";
-    version = "0.8.0";
+    version = "0.8.3";
 
     src = fetchFromGitHub {
         owner = "surge-downloader";
         repo = "surge";
-        tag = "v0.8.0";
-        hash = "sha256-M6XlKd9JFVg7/01M5l7fjsi7HrcL+Smo+fQrhFRI7B0=";
+        tag = "v0.8.3";
+        hash = "sha256-uHCsisVe2O5hZ8W2kXmVd7IQ5QQZLKCx5EtywslSlI4=";
     };
 
-    vendorHash = "sha256-pbKnMrfY/abu/Mj0HhDhTUSOlWl82kgIM0zXwtlQw/U=";
+    vendorHash = "sha256-aOgs3wbTqYdknT/aiV1KeBRGMREz2segvTy5I+z6jgE=";
 
     doCheck = false;
 
