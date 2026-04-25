@@ -117,10 +117,10 @@
     };
     "adblocker-ultimate" = buildMozillaXpiAddon {
       pname = "adblocker-ultimate";
-      version = "3.8.48";
+      version = "4.2.6";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4685520/adblocker_ultimate-3.8.48.xpi";
-      sha256 = "d3709b81ca865498136130a1bb90d9b34f3f59481cef909f910dc3c7c66c5e72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4774157/adblocker_ultimate-4.2.6.xpi";
+      sha256 = "4a3c4de6f47f3572050095abe77b8c3cca9afc758ae7b7fe9a07854c18d9a123";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -133,8 +133,8 @@
           "webRequestBlocking"
           "webNavigation"
           "storage"
-          "unlimitedStorage"
           "contextMenus"
+          "cookies"
           "http://*/*"
           "https://*/*"
         ];
@@ -2559,10 +2559,10 @@
     };
     "copy-link-text" = buildMozillaXpiAddon {
       pname = "copy-link-text";
-      version = "1.6.6";
+      version = "1.6.7";
       addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4563651/copy_link_text_webextension-1.6.6.xpi";
-      sha256 = "909fa434170e57288d08fad67ff06d01f402196fdf87f564e20c045b67a5f8a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778762/copy_link_text_webextension-1.6.7.xpi";
+      sha256 = "0b25881a89dad2f7a01c896a496f3f42bce23963f56972b3a827c64cad95bd9e";
       meta = with lib;
       {
         homepage = "https://github.com/def00111/copy-link-text";
@@ -2694,10 +2694,10 @@
     };
     "csgo-trader-steam-trading" = buildMozillaXpiAddon {
       pname = "csgo-trader-steam-trading";
-      version = "3.5.3";
+      version = "3.6";
       addonId = "{988dd4f5-e8d5-49bf-a766-ff75b0e19fe2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4677294/csgo_trader_steam_trading-3.5.3.xpi";
-      sha256 = "b2ec7611c21edee5cf0c17b1ab35fa57cf8e97f72b4e13f3d4b25abdf3d6a388";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4770713/csgo_trader_steam_trading-3.6.xpi";
+      sha256 = "7778d5c1e2d6fe970addb226a1f1d88a1d43db5636b530a282c40ebcea436808";
       meta = with lib;
       {
         homepage = "https://csgotrader.app/";
@@ -2878,10 +2878,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260422.120759";
+      version = "151.0.20260424.90358";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775927/dansk_da_language_pack-151.0.20260422.120759.xpi";
-      sha256 = "dcb36bc6cd94b00665c411e6dc087a1a7cd49c5eaae002a3fd2b289b8a89dedf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778164/dansk_da_language_pack-151.0.20260424.90358.xpi";
+      sha256 = "b65dc8d353195261ba671b441d33a55fbe25c7df9fd1c21ccf5246678d253e2f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3092,10 +3092,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260422.120759";
+      version = "151.0.20260424.90358";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775928/deutsch_de_language_pack-151.0.20260422.120759.xpi";
-      sha256 = "6b2779309009a6d5f34f0bddc08c8cd3b4b275474a89e4a23ac5827471c4825d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778169/deutsch_de_language_pack-151.0.20260424.90358.xpi";
+      sha256 = "682cec5d9690b2ecbdf7c57bc083dad328d5c6f7d9a64a0fe62dcc651adb57dc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4570,10 +4570,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260422.120759";
+      version = "151.0.20260424.90358";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775899/francais_language_pack-151.0.20260422.120759.xpi";
-      sha256 = "aa188b3cbd9c708dcc1caf007e0273a4aafd6e34d7cc8e50c6f2f640fd3a0e74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778239/francais_language_pack-151.0.20260424.90358.xpi";
+      sha256 = "1af0314e646c0ecf45dc3992d7e735399c0758473fba6fff2e3c6266dbc6fdaa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4607,10 +4607,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260422.120759";
+      version = "151.0.20260424.90358";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775856/gaidhlig_language_pack-151.0.20260422.120759.xpi";
-      sha256 = "97139a2adff8954526f43641c2b287404ff038a0caa39bd78c79b4831c90c38c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778202/gaidhlig_language_pack-151.0.20260424.90358.xpi";
+      sha256 = "fff66561e41014354592104dc91639ee556b810042c680f95d78be1303be4297";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4953,10 +4953,10 @@
     };
     "grammarly" = buildMozillaXpiAddon {
       pname = "grammarly";
-      version = "8.936.0";
+      version = "8.937.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4700485/grammarly_1-8.936.0.xpi";
-      sha256 = "3d5d35d9fe42b3755f8e00f915a50d10737d7948924577dbfdedbb315e630128";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4774290/grammarly_1-8.937.0.xpi";
+      sha256 = "d8f2deca5a0d23d8d072ed24548d3897eef19bc871556b18d7c09e91c07139b7";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -6749,10 +6749,10 @@
     };
     "indie-wiki-buddy" = buildMozillaXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.14.2";
+      version = "3.14.4";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4727783/indie_wiki_buddy-3.14.2.xpi";
-      sha256 = "450c8c7629f377880688bedb770ac733e82aa15aa963ed39e199d69622b38523";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4773275/indie_wiki_buddy-3.14.4.xpi";
+      sha256 = "4bab840aef056b3e4c5d14aaeb99507fb1e58601d8da8c845a6b89738f49836d";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7601,10 +7601,10 @@
     };
     "lastpass-password-manager" = buildMozillaXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.151.5";
+      version = "4.152.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4731825/lastpass_password_manager-4.151.5.xpi";
-      sha256 = "32c872e52a8b30c17e7fc40d4115ec42cc193efc80b742aefa07ce13e5c94fed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4772519/lastpass_password_manager-4.152.4.xpi";
+      sha256 = "232cd155d75a1ac43e6dfc1e6a2071e3a58e2c5b517973840d6f7f51e07b1ef5";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -7627,6 +7627,7 @@
           "webRequest"
           "webRequestBlocking"
           "alarms"
+          "cookies"
           "http://*/*"
           "https://*/*"
           "https://lastpass.com/vault/*"
@@ -11974,10 +11975,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "2.0.0";
+      version = "2.1.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4758672/private_grammar_checker_harper-2.0.0.xpi";
-      sha256 = "f9dbec6273efb00803dd68cf506847ef3c4679500ac1d2768ac107d600fb65eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778851/private_grammar_checker_harper-2.1.0.xpi";
+      sha256 = "71a36f52277f904e8ba6fe5e3c4b8f1c9404fb35013781deb7ab874def22ce01";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -12081,10 +12082,10 @@
     };
     "proton-pass" = buildMozillaXpiAddon {
       pname = "proton-pass";
-      version = "1.36.0";
+      version = "1.36.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4755939/proton_pass-1.36.0.xpi";
-      sha256 = "78ca6bf3e22d3e02e687524cb96693237989f1f000ba1a08ac4dd153df4eb54e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4768005/proton_pass-1.36.1.xpi";
+      sha256 = "4dfa20fc6698114d4e36a964594db6e7bec74bfd5b87942e33a57f242b60bb04";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -12109,10 +12110,10 @@
     };
     "proton-vpn" = buildMozillaXpiAddon {
       pname = "proton-vpn";
-      version = "1.2.16";
+      version = "1.3.0";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4741264/proton_vpn_firefox_extension-1.2.16.xpi";
-      sha256 = "ab7fd773acae35f4020d6874daae98a1d1ac4db1f736fdbf70e232063f8b9600";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4773777/proton_vpn_firefox_extension-1.3.0.xpi";
+      sha256 = "f50f60178d77bfbaa6c9e4a2d7ec77b4cfa5ae984df9514f6f94c9a3dd4ca703";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -13302,10 +13303,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260422.120759";
+      version = "151.0.20260424.90358";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775851/scots_language_pack-151.0.20260422.120759.xpi";
-      sha256 = "262a263e2ab7955de082603d2a10780138cb5b70a3a67a5acaf2fe8822c06c7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778176/scots_language_pack-151.0.20260424.90358.xpi";
+      sha256 = "a8dcef4943262624ac3dd8f266030c24ec76e8767b8964d4d8490ff0d1268e15";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14026,15 +14027,15 @@
     };
     "sponsorblock" = buildMozillaXpiAddon {
       pname = "sponsorblock";
-      version = "6.1.3";
+      version = "6.1.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4744354/sponsorblock-6.1.3.xpi";
-      sha256 = "cc6ee2918298ce6a1754b462d0b54d9a96f545f65cd3ac69016332ebca1d100b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4773757/sponsorblock-6.1.5.xpi";
+      sha256 = "d8ec229aecb0b78e307a86d436496891b755f874c24c0f7324551c7ffd1b2e14";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
         description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
-        license = licenses.gpl3;
+        license = licenses.lgpl3;
         mozPermissions = [
           "storage"
           "scripting"
@@ -14069,10 +14070,10 @@
     };
     "startpage-private-search" = buildMozillaXpiAddon {
       pname = "startpage-private-search";
-      version = "2.0.3";
+      version = "2.1.0";
       addonId = "{20fc2e06-e3e4-4b2b-812b-ab431220cada}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4416483/startpage_private_search-2.0.3.xpi";
-      sha256 = "e22fdf5988a8134eef72d963891ab5c662f90a1fc061cd354f60529bd511ae40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4773151/startpage_private_search-2.1.0.xpi";
+      sha256 = "825c74e8d4ac40b29706fd64a3f7408bdb5d8cfef9b57a26f676ae1a3b9c3666";
       meta = with lib;
       {
         description = "This extension protects users from being tracked while allowing them to search the web in complete private mode.";
@@ -14089,10 +14090,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.3.1";
+      version = "3.3.2";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4765865/statshunters-3.3.1.xpi";
-      sha256 = "4175ac105ddd437f73bca8035150fb6941db75a120be3e05903fc507f02af4d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778518/statshunters-3.3.2.xpi";
+      sha256 = "e5948c50535c612fa9bdfa181ad2e6e528d2e0c7533097e92c30be93b57f6694";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -15066,10 +15067,10 @@
     };
     "tournesol" = buildMozillaXpiAddon {
       pname = "tournesol";
-      version = "3.11.0";
+      version = "3.11.1";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4679770/tournesol_extension-3.11.0.xpi";
-      sha256 = "f364517ff0fe809edacea0f11461877d149a38d445ca7fa8f0aedf833b9d81f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778297/tournesol_extension-3.11.1.xpi";
+      sha256 = "cb15b688e069fb5565899210acd69abdbf33736e32dff2bc22b1ec811e451896";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -15885,10 +15886,10 @@
     };
     "user-agent-string-switcher" = buildMozillaXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.6.6";
+      version = "0.6.7";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4593736/user_agent_string_switcher-0.6.6.xpi";
-      sha256 = "9c1fee29bd89a721f7af8d76a997aacad027d4f2b141cdb043ee9027b8967599";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4773733/user_agent_string_switcher-0.6.7.xpi";
+      sha256 = "979a04c9a380f10b715980935a6f3e870dfff3c8100cbe393d65b46db82ab257";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/useragent-switcher.html";
@@ -15899,6 +15900,7 @@
           "contextMenus"
           "scripting"
           "declarativeNetRequestWithHostAccess"
+          "webRequest"
         ];
         platforms = platforms.all;
       };
@@ -16327,10 +16329,10 @@
     };
     "violentmonkey" = buildMozillaXpiAddon {
       pname = "violentmonkey";
-      version = "2.35.0";
+      version = "2.37.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4704557/violentmonkey-2.35.0.xpi";
-      sha256 = "00d6ed07f730e4f5e15395d9a204ea91dff4e06e70c51f0df11edf54dc645ec9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4777100/violentmonkey-2.37.0.xpi";
+      sha256 = "5d04b402f391c3a3b826aed064bf771de41c94cbc8ccd8f7b3a3ce70cb01d735";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -17439,10 +17441,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.4.12";
+      version = "18.4.42";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757385/youtube_subscription_groups-18.4.12.xpi";
-      sha256 = "06c0b163857862b73c6c1b648cd942ce75acbf4707954b48e88d33b8e016c51d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4778432/youtube_subscription_groups-18.4.42.xpi";
+      sha256 = "13373accce2a95cc45b0299070e89fb788633f466644afb6d3a8cfb21de1ec29";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
