@@ -6,7 +6,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "nirius";
-  version = "0.7.1";
+  version = "nirius-0.7.1";
 
   src = fetchFromSourcehut {
     owner = "~tsdh";
