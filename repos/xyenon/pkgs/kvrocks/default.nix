@@ -27,7 +27,7 @@
   snappy,
   span-lite,
   spdlog,
-  xxHash,
+  xxhash,
   zlib-ng,
   zstd,
   # keep-sorted end
@@ -293,7 +293,7 @@ stdenv.mkDerivation (finalAttrs: {
     snappy
     span-lite
     spdlog
-    xxHash
+    xxhash
     zlib-ng'
     zstd
     # keep-sorted end
