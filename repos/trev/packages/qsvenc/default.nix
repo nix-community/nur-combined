@@ -27,7 +27,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qsvenc";
-  version = "8.08";
+  version = "8.10";
 
   hardeningDisable = [ "all" ];
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "rigaya";
     repo = "QSVEnc";
     tag = finalAttrs.version;
-    hash = "sha256-Oq+P+ZkJB9Wbit3yHW0pONJbIaBWCi8tvIA8ZZJm5rE=";
+    hash = "sha256-s9FiqGPLFg5EzLr3hGb0LXIrUgAcouTj9biREYWqy3w=";
     fetchSubmodules = true;
   };
 
@@ -69,9 +69,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    # Fix OpenCL 2.0+ compatibility
-    substituteInPlace QSVPipeline/rgy_opencl.cpp \
-      --replace 'img_desc.mem_object' 'img_desc.buffer'
+    # Upstream's configure script (as of 8.10) omits the new msmooth/msharpen
+    # filter sources, even though the .cpp/.cl files ship in the tree.
+    # Add them next to rgy_filter_smooth so the build links correctly.
+    substituteInPlace configure \
+      --replace-fail 'rgy_filter_smooth.cpp' 'rgy_filter_smooth.cpp       rgy_filter_msmooth.cpp     rgy_filter_msharpen.cpp' \
+      --replace-fail 'rgy_filter_smooth.cl' 'rgy_filter_smooth.cl     rgy_filter_msmooth.cl    rgy_filter_msharpen.cl'
   '';
 
   configurePhase = ''
