@@ -96,8 +96,8 @@
             "url": "https://github.com/Emin017/nur-packages"
         },
         "Ev357": {
-            "rev": "ce997f58e635598aba56b235949fd0a4400bea46",
-            "sha256": "1gnsdvv1qa71xw0idq4ffbdypbd63vr62al59nah68k0i1gxi7y4",
+            "rev": "591560cbdd93ee81a15f14ebfe1dee120135f5e6",
+            "sha256": "09g4bi9fqs05pzspkzq7piy39pkzdkirh2q8wmi96z1aw4db0w9r",
             "url": "https://github.com/Ev357/nur-packages"
         },
         "Ex-32": {
@@ -2592,8 +2592,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "b10364971cadeee6f7a867945ed1a6dd7d9fee40",
-            "sha256": "0qs0iqs9xzfppdy0jw6fjm38y32ahdvd9bfb72pdjhlfxj6g37ni",
+            "rev": "94453a1340da33acbda0291f04efde58002eea94",
+            "sha256": "128rvhgxyzv8pnicfzpjgs9nlcpwhil1cdzqhwvhq2wcnc54rqm1",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
