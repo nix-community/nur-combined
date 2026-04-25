@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       cp -r ${deps} $out
       chmod -R +w $out
 
-      TARGET_DIR=$(echo "$out"/linguaspark-*)
+      TARGET_DIR=$(echo "$out"/source-git-*/linguaspark-*)
       install -Dm755 ${linguaspark-core}/lib/liblinguaspark.so "$TARGET_DIR/linguaspark/build/liblinguaspark.so"
     '';
 
