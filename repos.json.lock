@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "4be1baaa9534fb333333204f6a1e8cf2dc0ca615",
-            "sha256": "13a3mxn55vnmcsfc23cvhhfbisigpz7238j72vx5vk3m316cs7fl",
+            "rev": "b913301e1c9bd402bfd8d36f0c8f8bc945dd75ed",
+            "sha256": "1r9p36czr8bpny84s4q8svmgvcn3kl7lvypk6dy9w1wrzdyjva0v",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "b02038f07cebfb1a9990701cecb08f40dacd92de",
-            "sha256": "0i3pjijzma8m6rxsc9xid6gbvxjyw7l0xh10jlii3ya91zzy95xd",
+            "rev": "98b84baba0965027b084d13706f74da4a3bb82ff",
+            "sha256": "07kq4nknv12f2ack2rds45lmajv8642zbjgxrxwq8mjdi7lzif54",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
