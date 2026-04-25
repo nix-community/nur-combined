@@ -803,8 +803,8 @@
             "url": "https://github.com/dtn7/nur-packages"
         },
         "dtomvan": {
-            "rev": "2c07055cc3a2ee95d9e8909090e1975d4f904865",
-            "sha256": "05waiwhy1x2d987zsxcsyrkf333yasbx7vgaakhspprgqnqgr8g7",
+            "rev": "ff9ae255e323bc46b24b98d597ddf92672e0dfb6",
+            "sha256": "010kjpgxwckwm30mxylaqvpfmxm5azwksdq2cdgqsl083pwd4nvn",
             "url": "https://github.com/dtomvan/nur-packages"
         },
         "dtz": {
