@@ -6,9 +6,11 @@
 openssl_3_6.overrideAttrs (old: {
   inherit (sources.openssl-ech) pname version src;
 
-  patches = (builtins.filter (p: !(lib.hasInfix "use-etc-ssl-certs.patch" "${p}")) old.patches) ++ [
-    ./use-etc-ssl-certs.patch
-  ];
+  patches =
+    (builtins.filter (
+      p: !(lib.hasInfix "use-etc-ssl-certs.patch" "${p}") && !(lib.hasInfix "aes-gcm-ppc" "${p}")
+    ) old.patches)
+    ++ [ ./use-etc-ssl-certs.patch ];
 
   meta = old.meta // {
     maintainers = with lib.maintainers; [ xddxdd ];

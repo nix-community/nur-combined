@@ -8,6 +8,10 @@ stdenv.mkDerivation rec {
   pname = "i915-sriov";
   inherit (sources.i915-sriov-dkms) version src;
 
+  patches = [
+    ./copy-from-user-fix.patch
+  ];
+
   hardeningDisable = [
     "pic"
     "format"

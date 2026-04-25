@@ -8,7 +8,7 @@
 buildGoModule (finalAttrs: {
   inherit (sources.kuake-cli) pname version src;
 
-  vendorHash = null;
+  vendorHash = "sha256-NHTKwUSIbNCUco88JbHOo3gt6S37ggee+LWNbHaRGEs=";
 
   doCheck = false;
 

@@ -1,0 +1,533 @@
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaBreadcrumbBarDelegate.cpp b/ElaWidgetTools/DeveloperComponents/ElaBreadcrumbBarDelegate.cpp
+index 4a07ac3..4d38323 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaBreadcrumbBarDelegate.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaBreadcrumbBarDelegate.cpp
+@@ -51,7 +51,7 @@ void ElaBreadcrumbBarDelegate::paint(QPainter* painter, const QStyleOptionViewIt
+         iconFont.setPixelSize(painter->font().pixelSize() * 0.785);
+         painter->setFont(iconFont);
+         itemRect.setX(itemRect.x() - itemRect.width() * 0.36);
+-        painter->drawText(itemRect, Qt::AlignCenter, QChar(ElaIconType::AngleRight));
++        painter->drawText(itemRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::AngleRight)));
+     }
+     painter->restore();
+ }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaCheckBoxStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaCheckBoxStyle.cpp
+index d1a73db..43ac80d 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaCheckBoxStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaCheckBoxStyle.cpp
+@@ -82,7 +82,7 @@ void ElaCheckBoxStyle::drawControl(ControlElement element, const QStyleOption* o
+                 QFont iconFont = QFont("ElaAwesome");
+                 iconFont.setPixelSize(_pCheckIndicatorWidth * 0.75);
+                 painter->setFont(iconFont);
+-                painter->drawText(checkRect, Qt::AlignCenter, QChar(ElaIconType::Check));
++                painter->drawText(checkRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::Check)));
+                 painter->restore();
+             }
+             else if (bopt->state.testFlag(QStyle::State_NoChange))
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaComboBoxStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaComboBoxStyle.cpp
+index 507ce85..bce2fc2 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaComboBoxStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaComboBoxStyle.cpp
+@@ -180,7 +180,7 @@ void ElaComboBoxStyle::drawComplexControl(ComplexControl control, const QStyleOp
+                 painter->translate(expandIconRect.x() + (qreal)expandIconRect.width() / 2, expandIconRect.y() + (qreal)expandIconRect.height() / 2);
+                 painter->rotate(_pExpandIconRotate);
+                 painter->translate(-expandIconRect.x() - (qreal)expandIconRect.width() / 2, -expandIconRect.y() - (qreal)expandIconRect.height() / 2);
+-                painter->drawText(expandIconRect, Qt::AlignCenter, QChar(ElaIconType::AngleDown));
++                painter->drawText(expandIconRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+                 painter->restore();
+             }
+         }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaDrawerHeader.cpp b/ElaWidgetTools/DeveloperComponents/ElaDrawerHeader.cpp
+index 86d7ba5..41728c8 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaDrawerHeader.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaDrawerHeader.cpp
+@@ -142,7 +142,7 @@ void ElaDrawerHeader::paintEvent(QPaintEvent* event)
+     painter.translate(expandIconRect.x() + (qreal)expandIconRect.width() / 2 - 2, expandIconRect.y() + (qreal)expandIconRect.height() / 2);
+     painter.rotate(_pExpandIconRotate);
+     painter.translate(-expandIconRect.x() - (qreal)expandIconRect.width() / 2 + 2, -expandIconRect.y() - (qreal)expandIconRect.height() / 2);
+-    painter.drawText(expandIconRect, Qt::AlignVCenter, QChar(ElaIconType::AngleDown));
++    painter.drawText(expandIconRect, Qt::AlignVCenter, QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+ 
+     painter.restore();
+ }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaFooterDelegate.cpp b/ElaWidgetTools/DeveloperComponents/ElaFooterDelegate.cpp
+index 8605b73..a339ddb 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaFooterDelegate.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaFooterDelegate.cpp
+@@ -181,7 +181,7 @@ void ElaFooterDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
+         QFont iconFont = QFont("ElaAwesome");
+         iconFont.setPixelSize(17);
+         painter->setFont(iconFont);
+-        painter->drawText(QRect(itemRect.x(), itemRect.y(), _iconAreaWidth, itemRect.height()), Qt::AlignCenter, QChar(node->getAwesome()));
++        painter->drawText(QRect(itemRect.x(), itemRect.y(), _iconAreaWidth, itemRect.height()), Qt::AlignCenter, QChar(static_cast<char16_t>(node->getAwesome())));
+         painter->restore();
+     }
+ 
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaMenuBarStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaMenuBarStyle.cpp
+index e88ea63..36c6214 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaMenuBarStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaMenuBarStyle.cpp
+@@ -55,7 +55,7 @@ void ElaMenuBarStyle::drawControl(ControlElement element, const QStyleOption* op
+             QFont iconFont = QFont("ElaAwesome");
+             iconFont.setPixelSize(18);
+             painter->setFont(iconFont);
+-            painter->drawText(topt->rect, Qt::AlignCenter, QChar(ElaIconType::AngleRight));
++            painter->drawText(topt->rect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::AngleRight)));
+             painter->restore();
+         }
+         return;
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaMenuStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaMenuStyle.cpp
+index aeafbda..62faa85 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaMenuStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaMenuStyle.cpp
+@@ -97,7 +97,7 @@ void ElaMenuStyle::drawControl(ControlElement element, const QStyleOption* optio
+                     QFont iconFont = QFont("ElaAwesome");
+                     iconFont.setPixelSize(_pMenuItemHeight * 0.57);
+                     painter->setFont(iconFont);
+-                    painter->drawText(QRectF(menuRect.x() + contentPadding, menuRect.y(), _iconWidth, menuRect.height()), Qt::AlignCenter, mopt->checked ? QChar(ElaIconType::Check) : QChar(ElaIconType::None));
++                    painter->drawText(QRectF(menuRect.x() + contentPadding, menuRect.y(), _iconWidth, menuRect.height()), Qt::AlignCenter, mopt->checked ? QChar(static_cast<char16_t>(ElaIconType::Check)) : QChar(static_cast<char16_t>(ElaIconType::None)));
+                     painter->restore();
+                 }
+                 else
+@@ -153,7 +153,7 @@ void ElaMenuStyle::drawControl(ControlElement element, const QStyleOption* optio
+                     QFont iconFont = QFont("ElaAwesome");
+                     iconFont.setPixelSize(18);
+                     painter->setFont(iconFont);
+-                    painter->drawText(QRect(menuRect.right() - 25, menuRect.y(), 25, menuRect.height()), Qt::AlignVCenter, QChar(ElaIconType::AngleRight));
++                    painter->drawText(QRect(menuRect.right() - 25, menuRect.y(), 25, menuRect.height()), Qt::AlignVCenter, QChar(static_cast<char16_t>(ElaIconType::AngleRight)));
+                     painter->restore();
+                 }
+                 painter->restore();
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaNavigationStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaNavigationStyle.cpp
+index 71ed0d8..7cfb73e 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaNavigationStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaNavigationStyle.cpp
+@@ -206,7 +206,7 @@ void ElaNavigationStyle::drawControl(ControlElement element, const QStyleOption*
+                 QFont iconFont = QFont("ElaAwesome");
+                 iconFont.setPixelSize(17);
+                 painter->setFont(iconFont);
+-                painter->drawText(QRect(itemRect.x(), itemRect.y(), _iconAreaWidth, itemRect.height()), Qt::AlignCenter, QChar(node->getAwesome()));
++                painter->drawText(QRect(itemRect.x(), itemRect.y(), _iconAreaWidth, itemRect.height()), Qt::AlignCenter, QChar(static_cast<char16_t>(node->getAwesome())));
+                 painter->restore();
+             }
+ 
+@@ -266,7 +266,7 @@ void ElaNavigationStyle::drawControl(ControlElement element, const QStyleOption*
+                             }
+                         }
+                         painter->translate(-expandIconRect.x() - (qreal)expandIconRect.width() / 2 + 1, -expandIconRect.y() - (qreal)expandIconRect.height() / 2);
+-                        painter->drawText(expandIconRect, Qt::AlignVCenter, QChar(ElaIconType::AngleDown));
++                        painter->drawText(expandIconRect, Qt::AlignVCenter, QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+                         painter->restore();
+                     }
+                     if (node->getIsChildHasKeyPoints())
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaRollerPickerContainer.cpp b/ElaWidgetTools/DeveloperComponents/ElaRollerPickerContainer.cpp
+index 0a56427..a62ee4a 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaRollerPickerContainer.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaRollerPickerContainer.cpp
+@@ -165,9 +165,9 @@ void ElaRollerPickerContainer::paintEvent(QPaintEvent* event)
+         painter.setFont(iconFont);
+         painter.setPen(ElaThemeColor(_themeMode, BasicText));
+         // 确定
+-        painter.drawText(_overButtonRect, Qt::AlignCenter, QChar(ElaIconType::Check));
++        painter.drawText(_overButtonRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::Check)));
+         // 取消
+-        painter.drawText(_cancelButtonRect, Qt::AlignCenter, QChar(ElaIconType::Xmark));
++        painter.drawText(_cancelButtonRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::Xmark)));
+     }
+     painter.restore();
+ }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaSpinBoxStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaSpinBoxStyle.cpp
+index 7f38a94..4bb06af 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaSpinBoxStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaSpinBoxStyle.cpp
+@@ -99,9 +99,9 @@ void ElaSpinBoxStyle::drawComplexControl(ComplexControl control, const QStyleOpt
+         iconFont.setPixelSize(17);
+         painter->setFont(iconFont);
+         painter->setPen(ElaThemeColor(_themeMode, BasicText));
+-        painter->drawText(addLineRect, Qt::AlignCenter, _pButtonMode == ElaSpinBoxType::PMSide ? QChar(ElaIconType::Plus) : QChar(ElaIconType::AngleUp));
++        painter->drawText(addLineRect, Qt::AlignCenter, _pButtonMode == ElaSpinBoxType::PMSide ? QChar(static_cast<char16_t>(ElaIconType::Plus)) : QChar(static_cast<char16_t>(ElaIconType::AngleUp)));
+         //减小图标
+-        painter->drawText(subLineRect, Qt::AlignCenter, _pButtonMode == ElaSpinBoxType::PMSide ? QChar(ElaIconType::Minus) : QChar(ElaIconType::AngleDown));
++        painter->drawText(subLineRect, Qt::AlignCenter, _pButtonMode == ElaSpinBoxType::PMSide ? QChar(static_cast<char16_t>(ElaIconType::Minus)) : QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+         painter->restore();
+         return;
+     }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaSuggestDelegate.cpp b/ElaWidgetTools/DeveloperComponents/ElaSuggestDelegate.cpp
+index d0174b6..735d5ee 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaSuggestDelegate.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaSuggestDelegate.cpp
+@@ -68,7 +68,7 @@ void ElaSuggestDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
+         QFont iconFont = QFont("ElaAwesome");
+         iconFont.setPixelSize(17);
+         painter->setFont(iconFont);
+-        painter->drawText(option.rect.x() + 11, option.rect.y() + 26, QChar(suggest->getElaIcon()));
++        painter->drawText(option.rect.x() + 11, option.rect.y() + 26, QChar(static_cast<char16_t>(suggest->getElaIcon())));
+     }
+     painter->restore();
+ }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaTabBarStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaTabBarStyle.cpp
+index 03cf7e4..b618c85 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaTabBarStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaTabBarStyle.cpp
+@@ -60,7 +60,7 @@ void ElaTabBarStyle::drawPrimitive(PrimitiveElement pe, const QStyleOption* opt,
+         iconFont.setPixelSize(16);
+         p->setFont(iconFont);
+         p->setPen(ElaThemeColor(_themeMode, BasicText));
+-        p->drawText(opt->rect, Qt::AlignCenter, QChar(ElaIconType::Xmark));
++        p->drawText(opt->rect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::Xmark)));
+         p->restore();
+         return;
+     }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaToolBarStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaToolBarStyle.cpp
+index 94d983c..97e86ab 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaToolBarStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaToolBarStyle.cpp
+@@ -113,7 +113,7 @@ void ElaToolBarStyle::drawControl(ControlElement element, const QStyleOption* op
+                 QFont iconFont = QFont("ElaAwesome");
+                 iconFont.setPixelSize(18);
+                 painter->setFont(iconFont);
+-                painter->drawText(bopt->rect, Qt::AlignCenter, QChar(ElaIconType::AngleRight));
++                painter->drawText(bopt->rect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::AngleRight)));
+             }
+             else
+             {
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaToolButtonStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaToolButtonStyle.cpp
+index b959274..01b1629 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaToolButtonStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaToolButtonStyle.cpp
+@@ -159,13 +159,13 @@ void ElaToolButtonStyle::_drawIndicator(QPainter* painter, const QStyleOptionToo
+         QFont iconFont = QFont("ElaAwesome");
+         iconFont.setPixelSize(0.75 * std::min(iconSize.width(), iconSize.height()));
+         painter->setFont(iconFont);
+-        int indicatorWidth = painter->fontMetrics().horizontalAdvance(QChar(ElaIconType::AngleDown));
++        int indicatorWidth = painter->fontMetrics().horizontalAdvance(QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+         QRect expandIconRect(toolButtonRect.right() - _contentMargin - indicatorWidth, toolButtonRect.y() + 1, indicatorWidth, toolButtonRect.height());
+         painter->setPen(ElaThemeColor(_themeMode, BasicText));
+         painter->translate(expandIconRect.center().x(), expandIconRect.y() + (qreal)expandIconRect.height() / 2);
+         painter->rotate(_pExpandIconRotate);
+         painter->translate(-expandIconRect.center().x() - 1, -expandIconRect.y() - (qreal)expandIconRect.height() / 2);
+-        painter->drawText(expandIconRect, Qt::AlignCenter, QChar(ElaIconType::AngleDown));
++        painter->drawText(expandIconRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+         painter->restore();
+     }
+ }
+@@ -345,7 +345,7 @@ qreal ElaToolButtonStyle::_calculateExpandIndicatorWidth(const QStyleOptionToolB
+     QFont iconFont = QFont("ElaAwesome");
+     iconFont.setPixelSize(0.75 * std::min(iconSize.width(), iconSize.height()));
+     painter->setFont(iconFont);
+-    int indicatorWidth = painter->fontMetrics().horizontalAdvance(QChar(ElaIconType::AngleDown));
++    int indicatorWidth = painter->fontMetrics().horizontalAdvance(QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+     painter->restore();
+     return indicatorWidth;
+ }
+diff --git a/ElaWidgetTools/DeveloperComponents/ElaTreeViewStyle.cpp b/ElaWidgetTools/DeveloperComponents/ElaTreeViewStyle.cpp
+index eae2d81..4bd2d1c 100644
+--- a/ElaWidgetTools/DeveloperComponents/ElaTreeViewStyle.cpp
++++ b/ElaWidgetTools/DeveloperComponents/ElaTreeViewStyle.cpp
+@@ -74,7 +74,7 @@ void ElaTreeViewStyle::drawPrimitive(PrimitiveElement element, const QStyleOptio
+                 iconFont.setPixelSize(17);
+                 painter->setFont(iconFont);
+                 painter->setPen(ElaThemeColor(_themeMode, BasicText));
+-                painter->drawText(indicatorRect, Qt::AlignVCenter | Qt::AlignRight, vopt->state.testFlag(QStyle::State_Open) ? QChar(ElaIconType::AngleDown) : QChar(ElaIconType::AngleRight));
++                painter->drawText(indicatorRect, Qt::AlignVCenter | Qt::AlignRight, vopt->state.testFlag(QStyle::State_Open) ? QChar(static_cast<char16_t>(ElaIconType::AngleDown)) : QChar(static_cast<char16_t>(ElaIconType::AngleRight)));
+                 painter->restore();
+             }
+         }
+@@ -173,7 +173,7 @@ void ElaTreeViewStyle::drawControl(ControlElement element, const QStyleOption* o
+                     iconFont.setPixelSize(checkRect.width() * 0.85);
+                     painter->setFont(iconFont);
+                     painter->setPen(ElaThemeColor(ElaThemeType::Dark, BasicText));
+-                    painter->drawText(checkRect, Qt::AlignCenter, QChar(ElaIconType::Check));
++                    painter->drawText(checkRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::Check)));
+                 }
+                 else if (vopt->checkState == Qt::PartiallyChecked)
+                 {
+diff --git a/ElaWidgetTools/ElaAcrylicUrlCard.cpp b/ElaWidgetTools/ElaAcrylicUrlCard.cpp
+index 4944277..03c2749 100644
+--- a/ElaWidgetTools/ElaAcrylicUrlCard.cpp
++++ b/ElaWidgetTools/ElaAcrylicUrlCard.cpp
+@@ -124,6 +124,6 @@ void ElaAcrylicUrlCard::paintEvent(QPaintEvent* event)
+     iconFont.setPixelSize(13);
+     painter.setFont(iconFont);
+     painter.setPen(ElaThemeColor(d->_themeMode, BasicText));
+-    painter.drawText(width - 1.5 * iconFont.pixelSize(), height() - iconFont.pixelSize(), QChar(ElaIconType::UpRightFromSquare));
++    painter.drawText(width - 1.5 * iconFont.pixelSize(), height() - iconFont.pixelSize(), QChar(static_cast<char16_t>(ElaIconType::UpRightFromSquare)));
+     painter.restore();
+ }
+diff --git a/ElaWidgetTools/ElaCalendarPicker.cpp b/ElaWidgetTools/ElaCalendarPicker.cpp
+index d4f6f7c..7bd7759 100644
+--- a/ElaWidgetTools/ElaCalendarPicker.cpp
++++ b/ElaWidgetTools/ElaCalendarPicker.cpp
+@@ -77,6 +77,6 @@ void ElaCalendarPicker::paintEvent(QPaintEvent* event)
+     QFont iconFont = QFont("ElaAwesome");
+     iconFont.setPixelSize(17);
+     painter.setFont(iconFont);
+-    painter.drawText(QRect(baseRect.right() - 25, 0, 15, height()), Qt::AlignVCenter | Qt::AlignRight, QChar(ElaIconType::CalendarRange));
++    painter.drawText(QRect(baseRect.right() - 25, 0, 15, height()), Qt::AlignVCenter | Qt::AlignRight, QChar(static_cast<char16_t>(ElaIconType::CalendarRange)));
+     painter.restore();
+ }
+diff --git a/ElaWidgetTools/ElaIcon.cpp b/ElaWidgetTools/ElaIcon.cpp
+index 21c0bed..bcc4e2e 100644
+--- a/ElaWidgetTools/ElaIcon.cpp
++++ b/ElaWidgetTools/ElaIcon.cpp
+@@ -23,7 +23,7 @@ QIcon ElaIcon::getElaIcon(ElaIconType::IconName awesome)
+     // painter.setBrush(QColor("#1570A5"));
+     iconFont.setPixelSize(25);
+     painter.setFont(iconFont);
+-    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(awesome));
++    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(awesome)));
+     painter.end();
+     return QIcon(pix);
+ }
+@@ -40,7 +40,7 @@ QIcon ElaIcon::getElaIcon(ElaIconType::IconName awesome, QColor iconColor)
+     // painter.setBrush(QColor("#1570A5"));
+     iconFont.setPixelSize(25);
+     painter.setFont(iconFont);
+-    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(awesome));
++    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(awesome)));
+     painter.end();
+     return QIcon(pix);
+ }
+@@ -56,7 +56,7 @@ QIcon ElaIcon::getElaIcon(ElaIconType::IconName awesome, int pixelSize)
+     iconFont.setPixelSize(pixelSize);
+     painter.setFont(iconFont);
+     // 画图形字体
+-    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(awesome));
++    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(awesome)));
+     painter.end();
+     return QIcon(pix);
+ }
+@@ -73,7 +73,7 @@ QIcon ElaIcon::getElaIcon(ElaIconType::IconName awesome, int pixelSize, QColor i
+     iconFont.setPixelSize(pixelSize);
+     painter.setFont(iconFont);
+     // 画图形字体
+-    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(awesome));
++    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(awesome)));
+     painter.end();
+     return QIcon(pix);
+ }
+@@ -89,7 +89,7 @@ QIcon ElaIcon::getElaIcon(ElaIconType::IconName awesome, int pixelSize, int fixe
+     iconFont.setPixelSize(pixelSize);
+     painter.setFont(iconFont);
+     // 画图形字体
+-    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(awesome));
++    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(awesome)));
+     painter.end();
+     return QIcon(pix);
+ }
+@@ -106,7 +106,7 @@ QIcon ElaIcon::getElaIcon(ElaIconType::IconName awesome, int pixelSize, int fixe
+     iconFont.setPixelSize(pixelSize);
+     painter.setFont(iconFont);
+     // 画图形字体
+-    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(awesome));
++    painter.drawText(pix.rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(awesome)));
+     painter.end();
+     return QIcon(pix);
+ }
+diff --git a/ElaWidgetTools/ElaIconButton.cpp b/ElaWidgetTools/ElaIconButton.cpp
+index c765a53..58f473e 100644
+--- a/ElaWidgetTools/ElaIconButton.cpp
++++ b/ElaWidgetTools/ElaIconButton.cpp
+@@ -62,7 +62,7 @@ ElaIconButton::ElaIconButton(ElaIconType::IconName awesome, QWidget* parent)
+     iconFont.setPixelSize(15);
+     this->setFont(iconFont);
+     d->_pAwesome = awesome;
+-    this->setText(QChar(awesome));
++    this->setText(QChar(static_cast<char16_t>(awesome)));
+     connect(this, &ElaIconButton::pIsSelectedChanged, this, [=]() {
+         update();
+     });
+@@ -91,7 +91,7 @@ ElaIconButton::ElaIconButton(ElaIconType::IconName awesome, int pixelSize, QWidg
+     iconFont.setPixelSize(pixelSize);
+     this->setFont(iconFont);
+     d->_pAwesome = awesome;
+-    this->setText(QChar(awesome));
++    this->setText(QChar(static_cast<char16_t>(awesome)));
+     connect(this, &ElaIconButton::pIsSelectedChanged, this, [=]() {
+         update();
+     });
+@@ -120,7 +120,7 @@ ElaIconButton::ElaIconButton(ElaIconType::IconName awesome, int pixelSize, int f
+     iconFont.setPixelSize(pixelSize);
+     this->setFont(iconFont);
+     d->_pAwesome = awesome;
+-    this->setText(QChar(awesome));
++    this->setText(QChar(static_cast<char16_t>(awesome)));
+     this->setFixedSize(fixedWidth, fixedHeight);
+     connect(this, &ElaIconButton::pIsSelectedChanged, this, [=]() {
+         update();
+@@ -138,7 +138,7 @@ void ElaIconButton::setAwesome(ElaIconType::IconName awesome)
+ {
+     Q_D(ElaIconButton);
+     d->_pAwesome = awesome;
+-    this->setText(QChar(awesome));
++    this->setText(QChar(static_cast<char16_t>(awesome)));
+ }
+ 
+ ElaIconType::IconName ElaIconButton::getAwesome() const
+@@ -237,7 +237,7 @@ void ElaIconButton::paintEvent(QPaintEvent* event)
+         painter.setPen(isEnabled() ? d->_themeMode == ElaThemeType::Light ? underMouse() ? d->_pLightHoverIconColor : d->_pLightIconColor : underMouse() ? d->_pDarkHoverIconColor
+                                                                                                                                                          : d->_pDarkIconColor
+                                    : ElaThemeColor(d->_themeMode, BasicTextDisable));
+-        painter.drawText(rect(), Qt::AlignCenter, QChar(d->_pAwesome));
++        painter.drawText(rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(d->_pAwesome)));
+     }
+     painter.restore();
+ }
+diff --git a/ElaWidgetTools/ElaKeyBinder.cpp b/ElaWidgetTools/ElaKeyBinder.cpp
+index a020cfd..d479103 100644
+--- a/ElaWidgetTools/ElaKeyBinder.cpp
++++ b/ElaWidgetTools/ElaKeyBinder.cpp
+@@ -118,7 +118,7 @@ void ElaKeyBinder::paintEvent(QPaintEvent* event)
+     painter.setPen(ElaThemeColor(d->_themeMode, BasicText));
+     QRect iconRect = rect();
+     iconRect.adjust(0, 0, -10, 0);
+-    painter.drawText(iconRect, Qt::AlignVCenter | Qt::AlignRight, QChar(ElaIconType::Pencil));
++    painter.drawText(iconRect, Qt::AlignVCenter | Qt::AlignRight, QChar(static_cast<char16_t>(ElaIconType::Pencil)));
+     painter.restore();
+     QLabel::paintEvent(event);
+ }
+\ No newline at end of file
+diff --git a/ElaWidgetTools/ElaMenu.cpp b/ElaWidgetTools/ElaMenu.cpp
+index 6fd0901..897a14e 100644
+--- a/ElaWidgetTools/ElaMenu.cpp
++++ b/ElaWidgetTools/ElaMenu.cpp
+@@ -71,14 +71,14 @@ ElaMenu* ElaMenu::addMenu(ElaIconType::IconName icon, const QString& title)
+ {
+     ElaMenu* menu = new ElaMenu(title, this);
+     QMenu::addAction(menu->menuAction());
+-    menu->menuAction()->setProperty("ElaIconType", QChar(icon));
++    menu->menuAction()->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     return menu;
+ }
+ 
+ QAction* ElaMenu::addElaIconAction(ElaIconType::IconName icon, const QString& text)
+ {
+     QAction* action = new QAction(text, this);
+-    action->setProperty("ElaIconType", QChar(icon));
++    action->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     QMenu::addAction(action);
+     return action;
+ }
+@@ -87,7 +87,7 @@ QAction* ElaMenu::addElaIconAction(ElaIconType::IconName icon, const QString& te
+ {
+     QAction* action = new QAction(text, this);
+     action->setShortcut(shortcut);
+-    action->setProperty("ElaIconType", QChar(icon));
++    action->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     QMenu::addAction(action);
+     return action;
+ }
+diff --git a/ElaWidgetTools/ElaMenuBar.cpp b/ElaWidgetTools/ElaMenuBar.cpp
+index 0b2faab..d502d16 100644
+--- a/ElaWidgetTools/ElaMenuBar.cpp
++++ b/ElaWidgetTools/ElaMenuBar.cpp
+@@ -64,7 +64,7 @@ ElaMenu* ElaMenuBar::addMenu(ElaIconType::IconName icon, const QString& title)
+ {
+     ElaMenu* menu = new ElaMenu(title, this);
+     menu->setMenuItemHeight(27);
+-    menu->menuAction()->setProperty("ElaIconType", QChar(icon));
++    menu->menuAction()->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     menu->menuAction()->setIcon(ElaIcon::getInstance()->getElaIcon(ElaIconType::Broom, 1));
+     QMenuBar::addAction(menu->menuAction());
+     return menu;
+@@ -73,7 +73,7 @@ ElaMenu* ElaMenuBar::addMenu(ElaIconType::IconName icon, const QString& title)
+ QAction* ElaMenuBar::addElaIconAction(ElaIconType::IconName icon, const QString& text)
+ {
+     QAction* action = new QAction(text, this);
+-    action->setProperty("ElaIconType", QChar(icon));
++    action->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     action->setIcon(ElaIcon::getInstance()->getElaIcon(ElaIconType::Broom, 1));
+     QMenuBar::addAction(action);
+     return action;
+@@ -83,7 +83,7 @@ QAction* ElaMenuBar::addElaIconAction(ElaIconType::IconName icon, const QString&
+ {
+     QAction* action = new QAction(text, this);
+     action->setShortcut(shortcut);
+-    action->setProperty("ElaIconType", QChar(icon));
++    action->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     action->setIcon(ElaIcon::getInstance()->getElaIcon(ElaIconType::Broom, 1));
+     QMenuBar::addAction(action);
+     return action;
+diff --git a/ElaWidgetTools/ElaMultiSelectComboBox.cpp b/ElaWidgetTools/ElaMultiSelectComboBox.cpp
+index 2d88533..f7f0d7a 100644
+--- a/ElaWidgetTools/ElaMultiSelectComboBox.cpp
++++ b/ElaWidgetTools/ElaMultiSelectComboBox.cpp
+@@ -200,7 +200,7 @@ void ElaMultiSelectComboBox::paintEvent(QPaintEvent* e)
+         painter.translate(expandIconRect.x() + (qreal)expandIconRect.width() / 2 - 2, expandIconRect.y() + (qreal)expandIconRect.height() / 2);
+         painter.rotate(d->_pExpandIconRotate);
+         painter.translate(-expandIconRect.x() - (qreal)expandIconRect.width() / 2 + 2, -expandIconRect.y() - (qreal)expandIconRect.height() / 2);
+-        painter.drawText(expandIconRect, Qt::AlignVCenter, QChar(ElaIconType::AngleDown));
++        painter.drawText(expandIconRect, Qt::AlignVCenter, QChar(static_cast<char16_t>(ElaIconType::AngleDown)));
+         painter.restore();
+     }
+ }
+diff --git a/ElaWidgetTools/ElaText.cpp b/ElaWidgetTools/ElaText.cpp
+index fa35e77..3d5e5a3 100644
+--- a/ElaWidgetTools/ElaText.cpp
++++ b/ElaWidgetTools/ElaText.cpp
+@@ -170,7 +170,7 @@ void ElaText::paintEvent(QPaintEvent* event)
+         iconFont.setPixelSize(this->font().pixelSize());
+         painter.setFont(iconFont);
+         painter.setPen(ElaThemeColor(d->_themeMode, BasicText));
+-        painter.drawText(rect(), Qt::AlignCenter, QChar(d->_pElaIcon));
++        painter.drawText(rect(), Qt::AlignCenter, QChar(static_cast<char16_t>(d->_pElaIcon)));
+         painter.restore();
+     }
+     else
+diff --git a/ElaWidgetTools/ElaToolBar.cpp b/ElaWidgetTools/ElaToolBar.cpp
+index 973e455..3f3394d 100644
+--- a/ElaWidgetTools/ElaToolBar.cpp
++++ b/ElaWidgetTools/ElaToolBar.cpp
+@@ -64,7 +64,7 @@ int ElaToolBar::getToolBarSpacing() const
+ QAction* ElaToolBar::addElaIconAction(ElaIconType::IconName icon, const QString& text)
+ {
+     QAction* action = new QAction(text, this);
+-    action->setProperty("ElaIconType", QChar(icon));
++    action->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     action->setIcon(ElaIcon::getInstance()->getElaIcon(ElaIconType::Broom, 1));
+     addAction(action);
+     return action;
+@@ -74,7 +74,7 @@ QAction* ElaToolBar::addElaIconAction(ElaIconType::IconName icon, const QString&
+ {
+     QAction* action = new QAction(text, this);
+     action->setShortcut(shortcut);
+-    action->setProperty("ElaIconType", QChar(icon));
++    action->setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     action->setIcon(ElaIcon::getInstance()->getElaIcon(ElaIconType::Broom, 1));
+     addAction(action);
+     return action;
+diff --git a/ElaWidgetTools/ElaToolButton.cpp b/ElaWidgetTools/ElaToolButton.cpp
+index 29b7910..12fd053 100644
+--- a/ElaWidgetTools/ElaToolButton.cpp
++++ b/ElaWidgetTools/ElaToolButton.cpp
+@@ -79,7 +79,7 @@ void ElaToolButton::setMenu(ElaMenu* menu)
+ 
+ void ElaToolButton::setElaIcon(ElaIconType::IconName icon)
+ {
+-    setProperty("ElaIconType", QChar(icon));
++    setProperty("ElaIconType", QChar(static_cast<char16_t>(icon)));
+     setIcon(ElaIcon::getInstance()->getElaIcon(ElaIconType::Broom, 1));
+ }
+ 
+diff --git a/ElaWidgetTools/private/ElaMessageBarPrivate.cpp b/ElaWidgetTools/private/ElaMessageBarPrivate.cpp
+index a9221d6..198ba88 100644
+--- a/ElaWidgetTools/private/ElaMessageBarPrivate.cpp
++++ b/ElaWidgetTools/private/ElaMessageBarPrivate.cpp
+@@ -330,7 +330,7 @@ void ElaMessageBarPrivate::_drawSuccess(QPainter* painter)
+     QFont iconFont = QFont("ElaAwesome");
+     iconFont.setPixelSize(12);
+     painter->setFont(iconFont);
+-    painter->drawText(_leftPadding, 0, q->width(), q->height(), Qt::AlignVCenter, QChar(ElaIconType::Check));
++    painter->drawText(_leftPadding, 0, q->width(), q->height(), Qt::AlignVCenter, QChar(static_cast<char16_t>(ElaIconType::Check)));
+     // 时间进度条绘制
+     QPainterPath clipPath;
+     clipPath.addRoundedRect(foregroundRect, _borderRadius, _borderRadius);
+@@ -412,7 +412,7 @@ void ElaMessageBarPrivate::_drawError(QPainter* painter)
+     QFont iconFont = QFont("ElaAwesome");
+     iconFont.setPixelSize(13);
+     painter->setFont(iconFont);
+-    painter->drawText(_leftPadding + 1, 0, q->width(), q->height(), Qt::AlignVCenter, QChar(ElaIconType::Xmark));
++    painter->drawText(_leftPadding + 1, 0, q->width(), q->height(), Qt::AlignVCenter, QChar(static_cast<char16_t>(ElaIconType::Xmark)));
+     // 时间进度条绘制
+     QPainterPath clipPath;
+     clipPath.addRoundedRect(foregroundRect, _borderRadius, _borderRadius);

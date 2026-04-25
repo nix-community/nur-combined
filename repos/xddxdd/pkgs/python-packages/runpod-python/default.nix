@@ -14,6 +14,7 @@
   inquirerpy,
   paramiko,
   prettytable,
+  psutil,
   py-cpuinfo,
   pynacl,
   requests,
@@ -50,6 +51,7 @@ buildPythonPackage rec {
     inquirerpy
     paramiko
     prettytable
+    psutil
     py-cpuinfo
     pynacl
     requests

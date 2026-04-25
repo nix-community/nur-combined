@@ -12,6 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     ./fix-install-path.patch
     ./revert-cmake-changes.patch
+    ./qt6-qchar-fix.patch
   ];
 
   # Qt CMake private include path is empty, generate one ourselves
