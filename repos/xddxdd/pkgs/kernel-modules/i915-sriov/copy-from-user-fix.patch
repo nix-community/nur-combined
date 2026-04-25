@@ -6,7 +6,7 @@ index 1234567..abcdefg 100644
  
  	/* We can use the cpu mem copy function because this is X86. */
  	vaddr = io_mapping_map_atomic_wc(mapping, base);
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 24)
 +	unwritten = copy_from_user_inatomic_nontemporal((void __force *)vaddr + offset,
 +#else
  	unwritten = __copy_from_user_inatomic_nocache((void __force *)vaddr + offset,
