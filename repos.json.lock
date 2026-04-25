@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "b913301e1c9bd402bfd8d36f0c8f8bc945dd75ed",
-            "sha256": "1r9p36czr8bpny84s4q8svmgvcn3kl7lvypk6dy9w1wrzdyjva0v",
+            "rev": "7a79d423ec7a230e2c94e29cce454f1d45e23df6",
+            "sha256": "0yaz3prf5sxjrxl29h30x279jklmg9n2zqnf0q51ig39n9kaxqy5",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
@@ -1018,8 +1018,8 @@
             "url": "https://github.com/gileri/nur-packages"
         },
         "glieske": {
-            "rev": "32454f02733dbf6fdb6a0b1041e921b6a4fcbb91",
-            "sha256": "17a88595gpl0cri57kbvxc65cj1x4hx8pas0w1i25rl526cnvcva",
+            "rev": "b9cd13c829de0b596bab9cdac8ebf7a0cb15eadc",
+            "sha256": "19056jpzayfv3dcqqq6wr6ilacwjsbfzchk4b465qqlgcq6hi6m7",
             "url": "https://github.com/glieske/nix-nur"
         },
         "glostis": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "f0156bc0dfb5b33e88b9e3b822cb9244f7c43be1",
-            "sha256": "1bp6b6yvs1mizc003fzfi4k524mvcf1mdbq7iax2ihscrckjwl9j",
+            "rev": "ed90848c8964efc9b693dbe54b032a9c0980bbc6",
+            "sha256": "17ab7xy4cc0ns2kip08qpgh5g86hs77irz2a6n7l3x2nmznw1sws",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
