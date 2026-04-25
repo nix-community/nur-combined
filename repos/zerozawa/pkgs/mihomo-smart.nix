@@ -4,7 +4,7 @@
   buildGoModule,
 }:
 let
-  rev = "bc21da0dc7f65f34329804b43fe74a9483a8a6f2";
+  rev = "1383218e2e3a1ec794bd46cefd77119c294bfcdf";
 in
 buildGoModule rec {
   pname = "mihomo-smart";
@@ -14,10 +14,10 @@ buildGoModule rec {
     owner = "vernesong";
     repo = "mihomo";
     inherit rev;
-    hash = "sha256-af7gtCaZMS/6TIaIJ/+/gH01Q8eE0jY1JD6IaoDM+Ss=";
+    hash = "sha256-Ji4WBVs0Hj9fwfUJFN1hrCu4V2pi3hk393m0LWEXyQk=";
   };
 
-  vendorHash = "sha256-mEyEIJTFlmSMR619ffrb7W5Y5L519qdVv2i7nSQ81rw=";
+  vendorHash = "sha256-ieeGQcaOGiipKOjh5/9UR+slLVvDOomXi0+QlKWNCR8=";
 
   excludedPackages = [ "./test" ];
 
