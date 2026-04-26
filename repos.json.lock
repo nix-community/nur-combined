@@ -1073,8 +1073,8 @@
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {
-            "rev": "66fade2b991dccab41ec128622723c51168bbe9a",
-            "sha256": "0kyhc8pr3djnw1q2gvgf5frb8h14i9347x5k8l8v2cv07drfxfry",
+            "rev": "3168e6835ac69cd35219c6ea2b0b34e1f5890f53",
+            "sha256": "102l5c8cvdj6zhpjnpmkm8kf8n2rvgvav6jshps3whwfia8pcls9",
             "url": "https://github.com/hhr2020/nur-packages"
         },
         "hilorioze": {
@@ -1238,8 +1238,8 @@
             "url": "https://github.com/jdev082/jdpkgs"
         },
         "jeffguorg": {
-            "rev": "514b90182df6d6fe8782b4c4714024c3994cee3e",
-            "sha256": "08c13vviq4syr82b59k8i1p7hdgp3nzkwz0a8vcdz72crvyl47is",
+            "rev": "ddef2e98739e421342e7592931bf966ca476cc01",
+            "sha256": "0kvksj7zs4xk2msa12cpl498spqa3yi1a6yg5h38g4fxdx6bpivq",
             "url": "https://github.com/jeffguorg/nur-packages"
         },
         "jerrita": {
