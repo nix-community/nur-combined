@@ -43,13 +43,13 @@ stdenvNoCC.mkDerivation (
   in
   {
     pname = "shanghaitech-mirror-frontend";
-    version = "0-unstable-2025-12-05";
+    version = "0-unstable-2026-01-06";
 
     src = fetchFromGitHub {
       owner = "ShanghaitechGeekPie";
       repo = "shanghaitech-mirror-frontend";
-      rev = "b6dfaf73463f605fa03c3dbd7a1cad8abfe7fd23";
-      hash = "sha256-dO+ZIDLE9ABUEm4rDGfssJdXIE/3UKDYVEybuddpQ+U=";
+      rev = "5a0df13c4c81c9fd9cf20aa813046b8ac3d390a7";
+      hash = "sha256-VB7Itl/4W8s7/eZ+8BzKgDrhINpFVyxsALb4j1kKF4g=";
     };
 
     nativeBuildInputs = [ bun ];
@@ -78,9 +78,6 @@ stdenvNoCC.mkDerivation (
 
     passthru = {
       bunDepsHashes = {
-        aarch64-darwin = "sha256-hxlnQ9Lob318LFqPvRDsXnzPzd3fu+euIJ2Pkqpd+qk=";
-        aarch64-linux = "sha256-g0OUyRSfvxGzkW/eR3YtjkGgufopTNMqNp5BiFjPALQ=";
-        x86_64-darwin = "sha256-kreD/+qP8eUPGEtlJ4G8/yOpta1CncaZuFlQsdCWG2E=";
         x86_64-linux = "sha256-zTYra2klcITr0dvdS5brIM6L0L8WfM8roIMCE96gylo=";
       };
     };
