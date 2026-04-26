@@ -16,11 +16,22 @@ runs:
       with:
         hatchet-protocol: rampage
 
+    - shell: bash
+      run: |
+        sudo mkdir -m0770 -p /nix/var/cache/ccache
+
     - name: Install Nix
       uses: DeterminateSystems/nix-installer-action@v20
+      with:
+        extra-conf: |
+          extra-sandbox-paths = /nix/var/cache/ccache
 
     - uses: cachix/cachix-action@v15
       with:
         name: slaier
         authToken: ${{ inputs.cachix_token }}
         extraPullNames: nix-community
+
+    - shell: bash
+      run: |
+        sudo chown --reference=/nix/store /nix/var/cache/ccache

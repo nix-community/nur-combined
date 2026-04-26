@@ -18,6 +18,7 @@
     "iommu=pt"
     "amdgpu.ppfeaturemask=0xfffd7fff"
     "zswap.enabled=1"
+    "ttm.pages_limit=6291456"
   ];
 
   services.fstrim.enable = true;
@@ -73,10 +74,10 @@
         FCTEMPS=${gpu}/pwm1=${gpu}/temp1_input
         FCFANS=${gpu}/pwm1=${gpu}/fan1_input
         MINTEMP=${gpu}/pwm1=55
-        MAXTEMP=${gpu}/pwm1=65
+        MAXTEMP=${gpu}/pwm1=70
         MINSTART=${gpu}/pwm1=75
         MINSTOP=${gpu}/pwm1=0
-        MAXPWM=${gpu}/pwm1=155
+        MAXPWM=${gpu}/pwm1=170
       '';
     };
 

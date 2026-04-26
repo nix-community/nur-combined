@@ -14,7 +14,7 @@ configurations. Other programs that can be simply included in
 | Launcher       | [Rofi-wayland](https://github.com/lbonn/rofi)       |
 | Shell          | [Fish](https://fishshell.com/)                      |
 | Status Bar     | [Waybar](https://github.com/alexays/waybar)         |
-| Terminal       | [Alacritty](https://github.com/alacritty/alacritty) |
+| Terminal       | [Ghostty](https://github.com/ghostty-org/ghostty)   |
 | Window Manager | [Niri](https://github.com/YaLTeR/niri)              |
 | Browser        | [Firefox](http://www.mozilla.com/en-US/firefox/)    |
 | Music Player   | [Tauon](https://tauonmusicbox.rocks/)               |

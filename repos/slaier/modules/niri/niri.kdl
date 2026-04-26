@@ -50,7 +50,7 @@ screenshot-path "~/.cache/screenshots/screenshot_from_%Y-%m-%d_%H-%M-%S.png"
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return { spawn "alacritty"; }
+    Mod+Return { spawn "ghostty" "+new-window"; }
     Mod+D { spawn "fuzzel"; }
     Super+Alt+L { spawn "swaylock"; }
 

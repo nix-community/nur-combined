@@ -1,9 +1,8 @@
 { inputs, config, lib, options, ... }:
 {
   nix.settings = {
-    auto-allocate-uids = true;
     auto-optimise-store = true;
-    experimental-features = "auto-allocate-uids cgroups nix-command flakes";
+    experimental-features = "cgroups nix-command flakes";
     flake-registry = "/etc/nix/registry.json";
     substituters = [
       "https://mirrors.ustc.edu.cn/nix-channels/store"
@@ -15,6 +14,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
     use-cgroups = true;
+    extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
   };
 
   nix.gc = {
@@ -37,6 +37,17 @@
 
   nixpkgs.config = {
     allowUnfree = true;
+    npmRegistryOverridesString = builtins.toJSON {
+      "registry.npmjs.org" = "https://mirrors.cloud.tencent.com/npm";
+    };
+  };
+
+  programs.ccache = {
+    enable = true;
+    cacheDir = "/nix/var/cache/ccache";
+    packageNames = [
+      "llama-cpp"
+    ];
   };
 
   system.stateVersion = "25.11";

@@ -27,6 +27,16 @@
       noProxy = "127.0.0.1,localhost,.lan";
     };
   };
+  boot.kernel.sysctl = {
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    "net.ipv4.tcp_window_scaling" = 1;
+    "net.ipv4.tcp_rmem" = "4096 87380 134217728";
+    "net.ipv4.tcp_wmem" = "4096 16384 134217728";
+    "net.core.rmem_max" = 134217728;
+    "net.core.wmem_max" = 134217728;
+    "net.ipv4.route.flush" = 1;
+  };
 
   documentation.man.generateCaches = false;
 
@@ -41,29 +51,39 @@
   programs.adb.enable = true;
   programs.nix-ld.enable = true;
   environment.systemPackages = with pkgs; [
+    # dailyuse
     abiword
-    alacritty
+    gnumeric
+    kodi-wayland
+    localsend
+    nomacs
+    pavucontrol
+    qalculate-qt
+    qbittorrent-enhanced
+    qpdfview
+    satty
+    scrcpy
+    ungoogled-chromium
+    # development
     arduino-ide
+    filezilla
+    freerdp
+    # cli
     bottom
     cloudflared
     curl
     doggo
-    filezilla
-    freerdp
     gdu
-    geminicommit
     geo
     git
-    gnumeric
     hydra-check
     hyperfine
     ianny
     iotop
+    jq
     just
     killall
-    kodi-wayland
     librespeed-cli
-    localsend
     lsof
     meld
     minicom
@@ -72,30 +92,22 @@
     neovim
     nix-tree
     nixpkgs-fmt
-    nomacs
     p7zip
-    pavucontrol
     pciutils
     python3
-    qalculate-qt
-    qbittorrent-enhanced
-    qpdfview
     qrencode
+    ripgrep
     rust-petname
-    satty
-    scrcpy
     sops
-    ungoogled-chromium
     unrar
     unzip
     usbutils
     wget
     xdg-utils
     ydict
+    yq-go
     yt-dlp
     zip
-    (makeElectronWrapper teams-for-linux)
-  ]
-  ;
+  ];
   nixpkgs.config.chromium.commandLineArgs = "--enable-wayland-ime --wayland-text-input-version=3";
 }

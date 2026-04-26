@@ -1,7 +1,7 @@
-{ pkgs, lib, utils, ... }:
+{ pkgs, lib, utils, inputs, ... }:
 let
   llama-cpp-vulkan = pkgs.llama-cpp-vulkan.overrideAttrs (prev: rec {
-    version = "8665";
+    version = "8833";
 
     outputs = [
       "out"
@@ -12,7 +12,7 @@ let
       owner = "ggml-org";
       repo = "llama.cpp";
       tag = "b${version}";
-      hash = "sha256-5rioYM989O6wXEtC3SWg7v3ZgMCSzE6/RyF6ILzY9rQ=";
+      hash = "sha256-5T71ts6xucoHH/1EfsmuJX+QFxtOVaY2PaAs0T/mL5c=";
       leaveDotGit = true;
       postFetch = ''
         git -C "$out" rev-parse --short HEAD > $out/COMMIT
@@ -26,10 +26,10 @@ let
       npmHooks.npmConfigHook
     ]);
 
-    buildInputs = prev.buildInputs ++ [ pkgs.openssl ];
+    buildInputs = prev.buildInputs ++ [ pkgs.openssl pkgs.spirv-headers ];
 
     npmRoot = "tools/server/webui";
-    npmDepsHash = "sha256-DxgUDVr+kwtW55C4b89Pl+j3u2ILmACcQOvOBjKWAKQ=";
+    npmDepsHash = "sha256-RAFtsbBGBjteCt5yXhrmHL39rIDJMCFBETgzId2eRRk=";
     npmDeps = pkgs.fetchNpmDeps {
       name = "${prev.pname}-${version}-npm-deps";
       inherit src;
@@ -72,24 +72,46 @@ in
         let
           preset = pkgs.writeText "llama-models.ini" (lib.generators.toINI { } {
             "*" = {
+              np = 1;
+              no-mmproj = true;
+              sleep-idle-seconds = 600;
               n-gpu-layers = 99;
               flash-attn = "on";
               fit = "on";
+              fit-target = 512;
+              prio = 3;
               kv-unified = true;
-            };
-            # Coder
-            "Llama-3.2-3B-Instruct" = {
-              hf = "unsloth/Llama-3.2-3B-Instruct-GGUF:Q4_K_M";
-            };
-            "Qwen3.5-4B" = {
-              hf = "unsloth/Qwen3.5-4B-GGUF:Q4_K_M";
-              temperature = 0.6;
-              top-p = 0.95;
-              top-k = 20;
-              min-p = 0.0;
-              presence-penalty = 0.0;
-              repeat-penalty = 1.0;
+              ctx-size = 16384;
+              repeat-penalty = 1.05;
               reasoning = "off";
+            };
+
+            # Coder
+            "Qwen3.6-35B-A3B" = {
+              hf = "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M";
+              temperature = 0.7;
+              top-p = 0.8;
+              top-k = 20;
+              min-p = 0;
+              presence-penalty = 1.5;
+              repeat-penalty = 1.0;
+              fit = "off";
+              ot = ''blk\.[1-2]?[0-9]\.ffn_.*exps.*=CPU'';
+              ctk = "q8_0";
+              ctv = "q8_0";
+              no-mmap = true;
+            };
+            "Jan-v3-4B-base-instruct" = {
+              hf = "janhq/Jan-v3-4B-base-instruct-gguf";
+              temperature = 0.7;
+              top-p = 0.8;
+              top-k = 20;
+              min-p = 0;
+              presence-penalty = 1.5;
+              repeat-penalty = 1.0;
+              ctx-size = 32768;
+              ctk = "q8_0";
+              ctv = "q8_0";
             };
             # OCR
             "Nanonets-OCR-s" = {
@@ -103,6 +125,8 @@ in
             "8080"
             "--models-preset"
             "${preset}"
+            "--models-max"
+            "1"
           ];
         in
         "${llama-cpp-vulkan}/bin/llama-server ${utils.escapeSystemdExecArgs args}";
@@ -160,5 +184,12 @@ in
             ;;
     esac
   '';
-  environment.systemPackages = [ (pkgs.callPackage ./claude-code-best.nix { }) ];
+  environment.systemPackages = [
+    llama-cpp-vulkan
+    (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ch/cherry-studio/package.nix" {
+      pnpm_10_29_2 = pkgs.pnpm;
+    })
+    (pkgs.callPackage ./aicommits.nix { })
+    (pkgs.callPackage ./claude-code-best.nix { })
+  ];
 }
