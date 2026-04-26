@@ -211,8 +211,8 @@
             "url": "https://github.com/atlarator/NUR-repo"
         },
         "Vortriz": {
-            "rev": "7a79d423ec7a230e2c94e29cce454f1d45e23df6",
-            "sha256": "0yaz3prf5sxjrxl29h30x279jklmg9n2zqnf0q51ig39n9kaxqy5",
+            "rev": "3f4935e9df8d9c64fb0284e4b0f1e8d3e7e7f9bb",
+            "sha256": "1yv4r36cf938jb3bzcjcy2f3m073p31cq0rq8zqs708vbpzcybh7",
             "url": "https://github.com/Vortriz/nur-packages"
         },
         "XiaoXioe": {
