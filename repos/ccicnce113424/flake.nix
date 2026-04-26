@@ -31,6 +31,8 @@ rec {
         # optional: introduce nixpkgs into perSystem
         ./nixpkgs.nix
         ./pkgs/flake-module.nix
+        ./modules/flake-module.nix
+        ./tests/flake-module.nix
         ./github-actions.nix
       ];
       perSystem =

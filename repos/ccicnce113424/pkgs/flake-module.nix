@@ -19,6 +19,7 @@
         "newScope"
         "overrideScope"
         "packages"
+        "nixosModules"
       ];
       overlayAttrs = config.packages;
     };

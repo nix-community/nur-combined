@@ -1,0 +1,5 @@
+{
+  nixosModules = {
+    daed = ./daed.nix;
+  };
+}
