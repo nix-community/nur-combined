@@ -1765,10 +1765,10 @@
     };
     "chameleon-ext" = buildMozillaXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.82.1";
+      version = "0.22.83.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4744257/chameleon_ext-0.22.82.1.xpi";
-      sha256 = "9bae16c38a09d0dec62515844cadf08e4245671e7602e9a6c1d378e09148318c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4779860/chameleon_ext-0.22.83.1.xpi";
+      sha256 = "ef0bf37a1a277765897f3f1f310a86a6b2e9a7554333a781331e2f6620f6e5e9";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -10486,10 +10486,10 @@
     };
     "nos2x-fox" = buildMozillaXpiAddon {
       pname = "nos2x-fox";
-      version = "1.18.0";
+      version = "1.19.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4662673/nos2x_fox-1.18.0.xpi";
-      sha256 = "c64befbfd7ffc3f6aef54311dba41261ad9ec82a65ced73983e92609c9c949a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4779805/nos2x_fox-1.19.0.xpi";
+      sha256 = "a25a3b14ad5af080ead779aa086f20b26290619b5c134d62c1cdc15d6054d0fe";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
@@ -15165,10 +15165,10 @@
     };
     "transparent-zen" = buildMozillaXpiAddon {
       pname = "transparent-zen";
-      version = "0.7.1";
+      version = "0.8.0";
       addonId = "{74186d10-f6f2-4f73-b33a-83bb72e50654}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4731611/transparent_zen-0.7.1.xpi";
-      sha256 = "7b360cad0d6e13c335df62abeffc770def047e2e10001c0c5fa8cd34d3e89137";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4779639/transparent_zen-0.8.0.xpi";
+      sha256 = "5bc3db7bc73f666bfda87abf663e96e2d33a10fdbea3e00f5a8e7c9fd9b651ea";
       meta = with lib;
       {
         description = "Applies custom styles to make your favorite websites transparent.";
