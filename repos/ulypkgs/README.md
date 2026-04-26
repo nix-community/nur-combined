@@ -66,7 +66,7 @@ To use it with flakes without fetching another instance of nixpkgs, you can make
 
 ```nix
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.ulypkgs.url = "github:UlyssesZh/ulypkgs";
   inputs.ulypkgs.inputs.nixpkgs.follows = "nixpkgs";
   outputs = { self, ulypkgs }: {
@@ -81,7 +81,7 @@ if there are multiple flake inputs that depend on ulypkgs):
 
 ```nix
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.ulypkgs.url = "github:UlyssesZh/ulypkgs";
   # this does not change the result but let's you fetch one less instance of nixpkgs if flake inputs are not fetched lazily
   inputs.ulypkgs.inputs.nixpkgs.follows = "nixpkgs";
@@ -102,7 +102,7 @@ You can also use it as an overlay with flakes:
 
 ```nix
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.ulypkgs.url = "github:UlyssesZh/ulypkgs";
   # this does not change the result but let's you fetch one less instance of nixpkgs if flake inputs are not fetched lazily
   inputs.ulypkgs.inputs.nixpkgs.follows = "nixpkgs";

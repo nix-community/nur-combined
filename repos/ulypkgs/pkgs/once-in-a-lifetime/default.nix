@@ -28,6 +28,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-HUnp56TCHGd7p25xqkNXI+nMlN9rjKJVUHP6jwWUF+w=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   icon = "game/gui/window_icon.png";
 
   nativeBuildInputs = [

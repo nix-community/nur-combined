@@ -9,6 +9,7 @@
   copyIcons,
   godot3WrapHook,
   genericUnpackHook,
+  desktopToDarwinBundle,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -22,6 +23,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-Y4WWBFjHO2DnoesfKEzWnvGQo1aeW5GVSfPWdUsgX5Q=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   icon = fetchWebIcon {
     url = finalAttrs.meta.homepage;
     hash = "sha256-k8xbE+LUvJYRfPq6vQ+10QdmWRqJCewO4qxQ4Yu5fUQ=";
@@ -33,7 +37,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     godot3WrapHook
     copyDesktopItems
     copyIcons
-  ];
+  ]
+  ++ lib.optional stdenvNoCC.hostPlatform.isDarwin desktopToDarwinBundle;
 
   desktopItems = [
     (makeDesktopItem {

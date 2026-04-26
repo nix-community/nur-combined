@@ -29,9 +29,6 @@ let
 
     fetchGoogleDrive = callPackage ./fetchGoogleDrive { };
 
-    # https://github.com/NixOS/nixpkgs/pull/505540
-    fetchItchIo = callPackage ./fetchItchIo { };
-
     fetchMediaFire = callPackage ./fetchMediaFire { };
 
     fetchMega = callPackage ./fetchMega { };
@@ -88,9 +85,6 @@ let
         });
     python2Packages = ulypkgsPackages.python2.pkgs;
 
-    # https://github.com/NixOS/nixpkgs/pull/504002
-    renpy = callPackage ./renpy { };
-
     renpy_7 = callPackage ./renpy_7 { };
 
     ### Applications
@@ -107,9 +101,6 @@ let
     patreon-downloader = callPackage ./patreon-downloader { };
 
     playwright-scrape = callPackage ./playwright-scrape { };
-
-    # https://github.com/NixOS/nixpkgs/pull/504249
-    rpatool = with pkgs.python3Packages; toPythonApplication rpatool;
 
     ### Games
 

@@ -3,5 +3,6 @@ let
   inherit (pythonPackages) callPackage;
 in
 {
-  rpatool = callPackage ./rpatool { };
+  # example:
+  # rpatool = callPackage ./rpatool { };
 }

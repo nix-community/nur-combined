@@ -10,6 +10,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "playwright-scrape";
   version = "0.1.0";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   dontUnpack = true;
 
   buildInputs = [ (python3.withPackages (ps: [ ps.playwright ])) ];

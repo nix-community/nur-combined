@@ -30,7 +30,7 @@ lib.extendMkDerivation {
         impureEnvVars ? [ ],
         passthru ? { },
         meta ? { },
-        preferLocalBuild ? true,
+        preferLocalBuild ? false,
         derivationArgs ? { },
       }:
 

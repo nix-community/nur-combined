@@ -26,6 +26,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-Ff0yCbW8IHLsKX9oww3DgZA0/Kiki0hWDUuqnA5jCAg=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   icon = "icon_p.ico";
 
   nativeBuildInputs = [

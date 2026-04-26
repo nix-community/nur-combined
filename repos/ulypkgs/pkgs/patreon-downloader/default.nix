@@ -13,6 +13,7 @@ buildDotnetModule (finalAttrs: {
   version = "32";
 
   __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "AlexCSDev";
@@ -46,7 +47,15 @@ buildDotnetModule (finalAttrs: {
 
   projectFile = "PatreonDownloader.App/PatreonDownloader.App.csproj";
   nugetDeps = ./deps.json;
-  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-sdk =
+    with dotnetCorePackages;
+    sdk_10_0
+    // {
+      inherit (sdk_9_0)
+        packages
+        targetPackages
+        ;
+    };
   dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
   dontDotnetFixup = true;

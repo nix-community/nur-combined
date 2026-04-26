@@ -24,6 +24,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-R3gPKh2/AMMY1hvEw0swBNSwC2tHU/AIP144APrgPl4=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     renpy7BuildHook
     copyInstallHook

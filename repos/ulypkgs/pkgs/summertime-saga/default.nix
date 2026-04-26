@@ -26,6 +26,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-QXda+a74gNK8Ff94B/v5p3yBq8gozVuNJGcqS8JlFyQ=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   icon = fetchurl {
     url = "https://summertimesaga.com/favicon.ico";
     hash = "sha256-yjYFVzTcMKbS151xsSTGaQMb5U8Vr+gGMvHnGDuhe60=";

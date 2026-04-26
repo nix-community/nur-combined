@@ -84,6 +84,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-QY6MMiagPVV+pCDM0FRD++r2fY3tD8qWmHj7fJKIxUQ=";
   };
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     copyDesktopItems
     makeBinaryWrapper
