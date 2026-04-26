@@ -10,6 +10,7 @@
   mpv-unwrapped,
   libplacebo,
   libappindicator,
+  webkitgtk_4_1,
 }:
 
 let
@@ -32,6 +33,7 @@ flutter341.buildFlutterApplication {
     mpv-unwrapped
     libplacebo
     libappindicator
+    webkitgtk_4_1
   ];
 
   preBuild = ''
