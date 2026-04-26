@@ -17,7 +17,7 @@ in
       email = "i+acme@eh5.me";
       keyType = "ec256";
       dnsProvider = "cloudflare";
-      credentialsFile = secrets.acmeEnv.path;
+      environmentFile = secrets.acmeEnv.path;
     };
     certs."eh5.me" = {
       extraDomainNames = [

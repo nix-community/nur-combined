@@ -32,4 +32,9 @@
       mode = "extra";
     };
   };
+
+  systemd.services.fail2ban = {
+    partOf = [ "nftables.service" ];
+    after = [ "nftables.service" ];
+  };
 }
