@@ -25,6 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   meta = {
+    changelog = "https://github.com/ArcaneNibble/awawausb/releases/tag/v${finalAttrs.version}";
     homepage = "https://github.com/ArcaneNibble/awawausb";
     description = "Native messaging stub for the awawausb WebUSB Firefox extension";
     license = lib.licenses.isc;

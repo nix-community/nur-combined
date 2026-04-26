@@ -26,6 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   meta = {
+    changelog = "https://github.com/go4retro/tcpser/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Hayes-compatible modem emulator that bridges serial ports to TCP/IP";
     homepage = "https://github.com/go4retro/tcpser";

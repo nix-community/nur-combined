@@ -63,6 +63,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   meta = {
+    changelog = "https://github.com/router-for-me/EasyCLI/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Desktop GUI from CLIProxyAPI";
     homepage = "https://github.com/router-for-me/EasyCLI";

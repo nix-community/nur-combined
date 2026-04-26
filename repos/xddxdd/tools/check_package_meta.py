@@ -209,7 +209,7 @@ def autocorrect_package_meta(
         version_prefix = ""
 
     if github_release_src and not meta.get("changelog"):
-        statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{version}}";'
+        statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{finalAttrs.version}}";'
         apply_package_meta_change(meta, statement)
 
     if github_fetch_src and not meta.get("homepage"):
@@ -316,7 +316,8 @@ def get_package_info(package_path: str) -> Optional[dict]:
         stderr=subprocess.PIPE,
     )
     if nix_output.returncode != 0:
-        if "refusing to evaluate" in nix_output.stderr:
+        # Match for both "Refusing" and "refusing"
+        if "efusing to evaluate" in nix_output.stderr:
             return None
         else:
             raise RuntimeError(nix_output.stderr)
