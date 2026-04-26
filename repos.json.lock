@@ -853,8 +853,8 @@
             "url": "https://github.com/Eggflaw/nur-packages"
         },
         "eh5": {
-            "rev": "597fb8022531c31e6408c05f684077d056e7b05c",
-            "sha256": "1syxvrw45s9g0akj7lkc7qqi8lrps11qhmk4nxhilw3va2bzhamx",
+            "rev": "eb423e04cdf437fed4600a5bec183a9092b13bfd",
+            "sha256": "1bgy2rrsr02jwdp4i2sja0bijgm72jnfafxxkzvlcj8knh8l5n1n",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
@@ -1163,8 +1163,8 @@
             "url": "https://github.com/instantOS/nix"
         },
         "ionutnechita": {
-            "rev": "f3a49348d7b6a0cb0f3185debdc955f868050621",
-            "sha256": "1ly7pa4fnsc4sqcdhgylc2arbrgima2zv1spa1s3bicb99bvd01y",
+            "rev": "d9a46acf29740b955e3d5b5bf92c6b85e5365fa5",
+            "sha256": "1j0gdniwfi40bjig1w23icv20429mkfpqmljmgxl854p2iz7cg7s",
             "url": "https://github.com/ionutnechita/ionutnechita-nur-packages"
         },
         "iopq": {
