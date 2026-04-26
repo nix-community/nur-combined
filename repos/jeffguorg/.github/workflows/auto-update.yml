@@ -9,28 +9,92 @@ on:
 jobs:
   auto-update:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
-        nixPath:
-          - nixpkgs=channel:nixos-unstable-small
-    # env:
-    #   GIT_SSL_NO_VERIFY: 'true'
+        include:
+          - name: create-tauri-app
+            package_list: create-tauri-app
+            filter: '^(create\-tauri\-app)$'
+          - name: dingtalk
+            package_list: dingtalk-bin-amd64, dingtalk-bin-arm64
+            filter: '^(dingtalk\-bin\-amd64|dingtalk\-bin\-arm64)$'
+          - name: claude-code
+            package_list: claude-code-bin-arm64-linux, claude-code-bin-amd64-linux, claude-code-bin-arm64-darwin, claude-code-bin-amd64-darwin
+            filter: '^(claude\-code\-bin\-arm64\-linux|claude\-code\-bin\-amd64\-linux|claude\-code\-bin\-arm64\-darwin|claude\-code\-bin\-amd64\-darwin)$'
+          - name: codex
+            package_list: codex, codex-bin-amd64-linux, codex-bin-arm64-linux, codex-bin-amd64-darwin, codex-bin-arm64-darwin
+            filter: '^(codex|codex\-bin\-amd64\-linux|codex\-bin\-arm64\-linux|codex\-bin\-amd64\-darwin|codex\-bin\-arm64\-darwin)$'
+          - name: kwok
+            package_list: kwok
+            filter: '^(kwok)$'
+          - name: vagrant-vmware-utility
+            package_list: vagrant-vmware-utility
+            filter: '^(vagrant\-vmware\-utility)$'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install nix
       uses: cachix/install-nix-action@v26
       with:
-        nix_path: "${{ matrix.nixPath }}"
+        nix_path: "nixpkgs=channel:nixos-unstable-small"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Update source group
+      run: |
+        echo "Updating: ${{ matrix.package_list }}"
+        nix run nixpkgs#nvfetcher -- --keep-going --filter '${{ matrix.filter }}'
+    - name: Export source patch
+      if: always()
+      run: |
+        mkdir -p artifacts
+        : > "artifacts/${{ matrix.name }}.patch"
+        if git diff --quiet -- _sources/generated.json _sources/generated.nix; then
+          echo "No source changes for ${{ matrix.name }}"
+          exit 0
+        fi
+        git diff --binary -- _sources/generated.json _sources/generated.nix > "artifacts/${{ matrix.name }}.patch"
+    - name: Upload source patch
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: source-update-${{ matrix.name }}
+        path: artifacts/${{ matrix.name }}.patch
+
+  merge-updates:
+    needs: auto-update
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install nix
+      uses: cachix/install-nix-action@v26
+      with:
+        nix_path: "nixpkgs=channel:nixos-unstable-small"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Download source patches
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        pattern: source-update-*
+    - name: Apply source patches
+      run: |
+        shopt -s nullglob
+        for patch in artifacts/*/*.patch; do
+          if [ ! -s "$patch" ]; then
+            continue
+          fi
+          git apply --3way "$patch"
+        done
     - name: Update nix flake lock
       run: nix flake update
-    - name: Update Sources
-      run: |
-        nix run nixpkgs#nvfetcher
-        ./update-go-vendorHash.sh
+    - name: Update Go vendor hashes
+      run: ./update-go-vendorHash.sh
     - name: Commit back to repository
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
