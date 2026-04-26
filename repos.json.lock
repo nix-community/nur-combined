@@ -542,8 +542,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "46090c55d9195e320f7fdbeb9e767f556fa5bae3",
-            "sha256": "0iir7i1rm353xs7a9h6rzpa3m2ibk4jscfp1mjid7vbbckfr8d6n",
+            "rev": "dcd76bd380fac9de880951cd5bf958b54f432782",
+            "sha256": "031vw35m0mygapa2izwlzchk5lw5y6ws371lxynwqxzp6sbxzn3v",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1989,8 +1989,8 @@
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
         "prince213": {
-            "rev": "7f44b0554a6fd81f09b0eb1d78211f24cb88c2a3",
-            "sha256": "023s1qr3i5njmc1js62cr13md2f8im1bkk9b97v0n9yqiqvcn3md",
+            "rev": "0e31f0c67b152e1daf6225bfa6a6686e765878ae",
+            "sha256": "0zqjqimg7166k63dibnnz8a02m73qscswvyabg9nm95nwrgp4b8p",
             "url": "https://github.com/Prince213/nix-packages"
         },
         "progsyn": {
