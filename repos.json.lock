@@ -1613,8 +1613,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "730a138e8df277be8aca2caec8535cd2997327af",
-            "sha256": "083hs2ykqpv9kf54vj1ihkzqr3vv6ndd2yjqv33yvifvl2n9hgsf",
+            "rev": "75257674a3c1d43f67bad0740c39a8c2dab42760",
+            "sha256": "14qx2azvdr8inhy4zb1r5zchrvcybqyvzh7jz5chwrd23r50hjbw",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
