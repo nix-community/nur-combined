@@ -38,11 +38,6 @@ lib.extendMkDerivation {
         obsidianManifestCheckHook
       ];
 
-      prePatch = ''
-        # TODO: Not needed after https://github.com/NixOS/nixpkgs/pull/487974/
-        export npmDeps
-      '';
-
       npmBuildScript = "build";
 
       installPhase = ''
