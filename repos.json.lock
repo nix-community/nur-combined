@@ -2240,8 +2240,8 @@
             "url": "https://github.com/SkyLeite/nix-repository"
         },
         "slaier": {
-            "rev": "7c757c0f6a1a2026492ffef4e12b1ae91cb9196f",
-            "sha256": "1cbw26nzr9c36gc0y5zdcrmrms4c0s7jl7s0bi60pcpzx539q159",
+            "rev": "0c0fd33f44c3b0af3ecf8c0dccb8f4acef0b003f",
+            "sha256": "0jx2i3rms1clp1vqsg5jn310xksinjra209yrnmps7jl2crli1nw",
             "url": "https://github.com/slaier/nixos-config"
         },
         "smaret": {
