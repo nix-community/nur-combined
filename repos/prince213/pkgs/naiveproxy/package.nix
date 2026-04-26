@@ -24,13 +24,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "147.0.7727.49-1";
+  version = "147.0.7727.49-2";
 
   src = fetchFromGitHub {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-XXs+wDNsgtqTEUWqB0JSxAOE9nqc9JLRkmsxdMJYO0k=";
+    hash = "sha256-jUZVYAAauWZ4rCR22JbbJzqzkkbX+wyEP+KFLbKzw4A=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -90,6 +90,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "use_nss_certs=false"
     "enable_backup_ref_ptr_support=false"
     "enable_dangling_raw_ptr_checks=false"
+    "use_clang_modules=false"
   ]
   ++ lib.optional stdenvNoCC.hostPlatform.isDarwin "enable_dsyms=false"
   ++ lib.optional (
