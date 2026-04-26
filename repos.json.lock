@@ -376,8 +376,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "244664405e73c174b280bf57a3b8277f43661d7e",
-            "sha256": "0780rv4lav6d62nvfk8lni27hjj69ja8s5cmihn8bap1l5624yzv",
+            "rev": "5196730e96da804a680721f2a9b39c4cd1de7650",
+            "sha256": "04zh9hl0q4934qhrii9q8g2bkdj4kqk1lwbxpq7pyc4j5rjq6kzm",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -2225,8 +2225,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "ad28e8cab9f90fb980808e8118975dfc56f6a730",
-            "sha256": "17hhkjp7fbrmrjwcmajg2618xibyv6922m02587cw62xvs5ajdy2",
+            "rev": "9a2f1b14b9353eab7a1b69fcd8fbbe85deee9128",
+            "sha256": "1zzd32isfvqcp55ybs6622bhcglk7rmq2p5dpv1bd62dhxz79xi1",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "skiletro": {
