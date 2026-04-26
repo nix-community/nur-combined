@@ -7,13 +7,13 @@
 }:
 mkYaziPlugin rec {
   pname = "spot-video.yazi";
-  version = "0-unstable-2026-04-20";
+  version = "0-unstable-2026-04-25";
 
   src = fetchFromGitHub {
     owner = "AminurAlam";
     repo = "yazi-plugins";
-    rev = "e2b07341a0569d511a11c51653b1b1dd4bcf3141";
-    hash = "sha256-lxttwyDwGsC77XUtLeACMrRznC54NitcJNKU1u9g/gE=";
+    rev = "8ed61d7c0cc1902963f59020d3c87f505adc8273";
+    hash = "sha256-KEz/o1Sk5hydzMSje/2u80hnuBnUyDxnMhyT00T4zQI=";
   };
 
   installPhase = ''
