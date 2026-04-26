@@ -35,6 +35,12 @@ in
       description = "Base directory; subdirectories nextcloud/ and postgresql/ are bind-mounted into the container";
     };
 
+    mediaDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/nixos-containers/nextcloud";
+      description = "Media directory; used for external storage bind mounts as alternative to the smb mounts";
+    };
+
     nextcloudAdminPasswordFile = lib.mkOption {
       type = lib.types.path;
       description = "Path to the Nextcloud admin password file on the host (decrypted by sops; bind-mounted read-only into the container)";
@@ -106,6 +112,10 @@ in
         # Nextcloud's bundled postgres — separate from the host's shared postgres instance
         "/var/lib/postgresql" = {
           hostPath = "${cfg.stateDir}/postgresql";
+          isReadOnly = false;
+        };
+        "/mnt" = {
+          hostPath = cfg.mediaDir;
           isReadOnly = false;
         };
       };
