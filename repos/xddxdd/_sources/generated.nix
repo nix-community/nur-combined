@@ -289,12 +289,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.38";
+    version = "v6.9.39";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.38";
-      hash = "sha256-vjSSDtyQpWj8Zv9n2Ra8ohoHfpOxdLTu4jUHCbC0p44=";
+      tag = "v6.9.39";
+      hash = "sha256-YVTUQsNLOWIBQ6Pjhlf+yRpi2XD4wb3/WXa+3IxGtXw=";
     };
   };
   cockpy = {
@@ -1223,12 +1223,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8931";
+    version = "b8941";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8931";
-      hash = "sha256-/elDZufGkeyFYvPUXjNha8ugdPjvEglOXuUPJF+dUK4=";
+      tag = "b8941";
+      hash = "sha256-3Zz1w0eJKZ0Lel32++x8UwnGjN++mRsZwgCYztclza8=";
     };
   };
   loralib = {
@@ -1615,10 +1615,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.11";
+    version = "9.3.12";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.11/PeerBanHelper_9.3.11.zip";
-      hash = "sha256-+yeet46Etb9mUuQTxZJ4Yjb1pelkZFj8f7Xcro1SiuE=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.12/PeerBanHelper_9.3.12.zip";
+      hash = "sha256-fzAFu3Yyd8dcU26xZ9uvtmlnyO06E2aBrGSB0qtPawY=";
     };
   };
   phpmyadmin = {
@@ -1969,12 +1969,12 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "569a20e937cea60e99136fb1b3e9d80111339704";
+    version = "085ff848dcc4f171e2a18bc7dd06ed18158152a0";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "569a20e937cea60e99136fb1b3e9d80111339704";
-      hash = "sha256-I9FfxuQOBvbVufXZsy4SHu8ZciB8OMXigq4dt2P4pN0=";
+      rev = "085ff848dcc4f171e2a18bc7dd06ed18158152a0";
+      hash = "sha256-cgAux2cZ4sWAhxbV8qAx3YF6NURABgbcJtC9g15AyYs=";
     };
     date = "2026-04-26";
   };
@@ -2276,13 +2276,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a164e23bece596c165372c1e1c18c812dc896eb1";
+    version = "ceb00e6c4c0b4faa0112057549f3c9b5d088943d";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a164e23bece596c165372c1e1c18c812dc896eb1";
+      rev = "ceb00e6c4c0b4faa0112057549f3c9b5d088943d";
       fetchSubmodules = true;
-      hash = "sha256-Gsg/lC3Oxz9VbFMGZzGKb1upxeMQax28L7tw1DTVSNc=";
+      hash = "sha256-MlZHaIwAqSYLQH7+c+2DvAM8+e/f87zNwVSoMv15kJk=";
     };
     date = "2026-04-26";
   };

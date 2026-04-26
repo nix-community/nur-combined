@@ -64,14 +64,13 @@ in
           lib.mkForce (
             import packages."${n}-patched" {
               inherit system;
-              config =
-                {
-                  inherit (v) allowUnfree permittedInsecurePackages;
-                }
-                // (lib.optionalAttrs (v.allowInsecurePredicate != null) {
-                  inherit (v) allowInsecurePredicate;
-                })
-                // v.settings;
+              config = {
+                inherit (v) allowUnfree permittedInsecurePackages;
+              }
+              // (lib.optionalAttrs (v.allowInsecurePredicate != null) {
+                inherit (v) allowInsecurePredicate;
+              })
+              // v.settings;
               inherit (v) overlays;
             }
           )
@@ -82,11 +81,17 @@ in
           let
             inherit ((import inputs.nixpkgs { inherit system; })) applyPatches;
           in
-          lib.nameValuePair "${n}-patched" (applyPatches {
-            name = "${n}-patched";
-            src = builtins.toString v.sourceInput;
-            inherit (v) patches;
-          })
+          lib.nameValuePair "${n}-patched" (
+            # Skip applyPatches if no patch, to avoid IFD when unnecessary
+            if v.patches != [ ] then
+              applyPatches {
+                name = "${n}-patched";
+                src = builtins.toString v.sourceInput;
+                inherit (v) patches;
+              }
+            else
+              v.sourceInput
+          )
         ) config.nixpkgs-options;
       };
     }
