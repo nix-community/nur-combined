@@ -1,7 +1,7 @@
 {
     "claudecode-nvim": {
         "cargoLock": null,
-        "date": "2026-03-04",
+        "date": "2026-04-27",
         "extract": null,
         "name": "claudecode-nvim",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "coder",
             "repo": "claudecode.nvim",
-            "rev": "432121f0f5b9bda041030d1e9e83b7ba3a93dd8f",
-            "sha256": "sha256-r8hAUpSsr8zNm+av8Mu5oILaTfEsXEnJmkzRmvi9pF8=",
+            "rev": "102d835c964069c9c5e37abaf05ae4f9c3ee6f00",
+            "sha256": "sha256-h8wYaWBKjKrb7hYYKYs5yUS5RI0JVFo8Emcy99YK6Qw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "432121f0f5b9bda041030d1e9e83b7ba3a93dd8f"
+        "version": "102d835c964069c9c5e37abaf05ae4f9c3ee6f00"
     },
     "copyq-darwin": {
         "cargoLock": null,
@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-04-26",
+        "date": "2026-04-27",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "bf3404f1574954292c866f2d3c9d1dcfc71bacc8",
-            "sha256": "sha256-OOk88DPBHBw4WO7PG9os9NXfDUiT7zvIMAPsCsXPax8=",
+            "rev": "f7c5c8ade84ccd8477b0c26715429e2d7183badb",
+            "sha256": "sha256-7IazyjlCi6R7wOnm7fJMXDC6XC2bz9Cb73ipxp2L2+U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bf3404f1574954292c866f2d3c9d1dcfc71bacc8"
+        "version": "f7c5c8ade84ccd8477b0c26715429e2d7183badb"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -209,10 +209,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1JLCS0XUvDWN9bkq55vkBvKHnMRmINEYUu5p5QGsv/E=",
+            "sha256": "sha256-KaImBdZma6P2hkeYKRkxS2BGb2QuWcbqekSCj0G4EXs=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.19.9b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.19.10b/zen.macos-universal.dmg"
         },
-        "version": "1.19.9b"
+        "version": "1.19.10b"
     }
 }
