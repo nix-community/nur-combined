@@ -14,7 +14,7 @@ in pythonEnv.buildPythonApplication {
   src = pkgs.fetchFromGitHub {
     owner = "srcres258";
     repo = pname;
-    rev = "bd2fd0bf8dc39837fe71397c309ab5e6b31d7218";
+    rev = "v0.2.0";
     sha256 = "sha256-C5LEBV16C+DDw0COJ6Yo9HSkzq5XES2kQCuRHW0SzsY=";
   };
 
