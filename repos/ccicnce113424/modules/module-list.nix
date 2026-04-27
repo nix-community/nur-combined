@@ -1,5 +1,8 @@
 {
   nixosModules = {
-    daed = ./daed.nix;
+    daed = {
+      disabledModules = [ "services/networking/daed.nix" ];
+      imports = [ ./daed.nix ];
+    };
   };
 }

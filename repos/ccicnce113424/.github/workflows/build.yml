@@ -73,7 +73,7 @@ jobs:
 
       - name: Check Nix Flake
         run: |
-          nix flake check
+          nix flake check -L
 
   all:
     name: All
