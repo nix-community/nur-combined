@@ -29,6 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
+      "--subpackage=gleamDeps"
       "--commit"
       finalAttrs.pname
     ];

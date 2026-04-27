@@ -35,7 +35,7 @@ lib.makeOverridable (
     (
       args'
       // {
-        name = "${pname}-gleam-deps";
+        pname = "${pname}-gleam-deps";
 
         nativeBuildInputs = [
           gleam
