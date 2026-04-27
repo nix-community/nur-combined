@@ -289,12 +289,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.9.39";
+    version = "v6.9.40";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.9.39";
-      hash = "sha256-YVTUQsNLOWIBQ6Pjhlf+yRpi2XD4wb3/WXa+3IxGtXw=";
+      tag = "v6.9.40";
+      hash = "sha256-HKTd3zKyeevmSQ7/f+Kv+LRLeg5wkgqhvyDCcM4SmLA=";
     };
   };
   cockpy = {
@@ -962,12 +962,12 @@
   };
   igsc = {
     pname = "igsc";
-    version = "V1.0.2";
+    version = "V1.1.0";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "igsc";
-      tag = "V1.0.2";
-      hash = "sha256-eBN05r2o6MUTJvIrkwY2uic7afj6YMHvt/apHyyGgug=";
+      tag = "V1.1.0";
+      hash = "sha256-WRSpazDjJXDHPE2jTraFC9Aocag/VXqghi4PWqyl8ec=";
     };
   };
   imewlconverter = {
@@ -1223,12 +1223,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b8941";
+    version = "b8951";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b8941";
-      hash = "sha256-3Zz1w0eJKZ0Lel32++x8UwnGjN++mRsZwgCYztclza8=";
+      tag = "b8951";
+      hash = "sha256-/FFpf9qqQArKLMhxujZfUfSMcRiaQmhEC8bL5a7T4Ns=";
     };
   };
   loralib = {
@@ -1969,14 +1969,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "085ff848dcc4f171e2a18bc7dd06ed18158152a0";
+    version = "3f57a6f69b3393f9fccaae216d3439325786a62f";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "085ff848dcc4f171e2a18bc7dd06ed18158152a0";
-      hash = "sha256-cgAux2cZ4sWAhxbV8qAx3YF6NURABgbcJtC9g15AyYs=";
+      rev = "3f57a6f69b3393f9fccaae216d3439325786a62f";
+      hash = "sha256-IexNxCENmeu7wXYuCFQ2FgIomm8x9+ahEGTzzpGBmvI=";
     };
-    date = "2026-04-26";
+    date = "2026-04-27";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2027,23 +2027,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "2a4e3de30bbd86e3b25c43616ba9dbe2b9febede";
+    version = "a5edfedc05debbe12c524326cdca1ce2b8b20379";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "2a4e3de30bbd86e3b25c43616ba9dbe2b9febede";
-      hash = "sha256-IqOoN+CocS/o7kSj5aeJjkeHkNOaz70YgHKj+vDF9Uo=";
+      rev = "a5edfedc05debbe12c524326cdca1ce2b8b20379";
+      hash = "sha256-R07fBsjuzKaY7z4SfRz7op6PSmM+VLnBRoq4uZvZqNg=";
     };
-    date = "2026-04-24";
+    date = "2026-04-27";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr11.5.1.51";
+    version = "mr14.1.1.7";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr11.5.1.51";
-      hash = "sha256-TmRzIKvNAloEqFyin8vevkdCXAhhk25xUNgPXhwhDsE=";
+      tag = "mr14.1.1.7";
+      hash = "sha256-AjW1Us8dOx/VV3/l2jyg4o9h/LVPmB8wmjNE01F2SYQ=";
     };
   };
   runpod-python = {
@@ -2276,15 +2276,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "ceb00e6c4c0b4faa0112057549f3c9b5d088943d";
+    version = "1cca8910e8e6c62a00ec61701c713cf59332337b";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "ceb00e6c4c0b4faa0112057549f3c9b5d088943d";
+      rev = "1cca8910e8e6c62a00ec61701c713cf59332337b";
       fetchSubmodules = true;
-      hash = "sha256-MlZHaIwAqSYLQH7+c+2DvAM8+e/f87zNwVSoMv15kJk=";
+      hash = "sha256-Mxp+PqRr82xNS5LAG1ox8JqD9rMXRpIfzm443y8BDfM=";
     };
-    date = "2026-04-26";
+    date = "2026-04-27";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
