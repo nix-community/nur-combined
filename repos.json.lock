@@ -2382,8 +2382,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "d026fe4af631aaaa644d89f34400b520611e3c88",
-            "sha256": "1hdp1cl4sbj4cvarmy5shbpxvr9i533x9kw9p5iv8wxyvbx65ax6",
+            "rev": "b7aae8aa0faa9925cb5b69c14e883bf83477c0a5",
+            "sha256": "056i26rckagfvkdpr5ahrf6019y70nrbm1ahvl2yf34h0d630vhc",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
