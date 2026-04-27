@@ -1,5 +1,5 @@
 {
-  python313Packages,
+  python3Packages,
   fetchPypi,
 }:
 with let
@@ -15,7 +15,7 @@ with let
     });
   };
 in
-python313Packages.override {
+python3Packages.override {
   inherit overrides;
 };
 buildPythonApplication rec {

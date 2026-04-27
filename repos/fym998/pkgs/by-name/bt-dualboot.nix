@@ -3,14 +3,14 @@
   fetchFromGitHub,
   lib,
   python313,
-  python313Packages,
+  python3Packages,
 }:
-python313Packages.buildPythonApplication {
+python3Packages.buildPythonApplication {
   pname = "bt-dualboot";
   version = "1.0.1";
   pyproject = true;
 
-  build-system = [ python313Packages.poetry-core ];
+  build-system = [ python3Packages.poetry-core ];
   dependencies = [ chntpw ];
 
   src = fetchFromGitHub {
