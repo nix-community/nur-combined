@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     homepage = "https://github.com/chillcicada/fonts/tree/typst-math";
     description = "Minimal fonts for Typst Math VS Code extension";
-    license = lib.licenses.unlicense;
+    license = lib.licenses.unfree;
     platforms = lib.platforms.all;
   };
 }
