@@ -13,7 +13,6 @@ rec {
   bwrap-apprun = pkgs.pkgsStatic.callPackage ./bwrap-apprun { };
   catppuccin-gtk = pkgs.callPackage ./catppuccin-gtk { };
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
-  deno = pkgs.callPackage ./deno { inherit (pkgs) deno; };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   ffmpeg-quality-metrics = pkgs.python3Packages.callPackage ./ffmpeg-quality-metrics { };
   flake-release = pkgs.callPackage ./flake-release { };

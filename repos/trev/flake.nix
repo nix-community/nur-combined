@@ -101,6 +101,7 @@
               shellcheck
 
               # format
+              treefmt
               nixfmt
               prettier
 
@@ -131,7 +132,7 @@
           vulnerable = pkgs.mkShell {
             packages = with pkgs; [
               flake-checker # flake
-              octoscan # actions
+              zizmor # actions
             ];
           };
         }
@@ -144,11 +145,11 @@
             root = ./.github/workflows;
             packages = with pkgs; [
               action-validator
-              octoscan
+              zizmor
             ];
             forEach = ''
               action-validator "$file"
-              octoscan scan "$file" --ignore macos-26
+              zizmor --offline "$file"
             '';
           };
 
@@ -204,6 +205,16 @@
             self.images."${system}"
       );
 
-      formatter = forEachSystem (system: pkgs: pkgs.nixfmt-tree);
+      formatter = forEachSystem (
+        system: pkgs:
+        pkgs.treefmt.withConfig {
+          configFile = ./treefmt.toml;
+          runtimeInputs = with pkgs; [
+            nixfmt
+            tombi
+            prettier
+          ];
+        }
+      );
     };
 }

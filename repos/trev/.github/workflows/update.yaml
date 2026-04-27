@@ -10,7 +10,6 @@ concurrency:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   pkgs:
@@ -22,6 +21,8 @@ jobs:
           - ubuntu-24.04-arm
           - macos-26
     runs-on: ${{ matrix.image }}
+    permissions:
+      id-token: write
     steps:
       - name: Initialize
         uses: spotdemo4/nix-init@78cb37091fca621cf273ed076027ebfbaf906457 # v1.44.2
@@ -52,6 +53,8 @@ jobs:
 
   renovate:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - id: init
         name: Initialize

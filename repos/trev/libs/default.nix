@@ -3,6 +3,7 @@
   pkgs ? import <nixpkgs> { inherit system; },
 }:
 {
+  denoCompile = pkgs.callPackage ./denoCompile { };
   gleamErlangHook = pkgs.callPackage ./gleamErlangHook { };
   gleamFetchDeps = pkgs.callPackage ./gleamFetchDeps { };
   gleamJavascriptHook = pkgs.callPackage ./gleamJavascriptHook { };

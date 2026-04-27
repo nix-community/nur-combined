@@ -7,11 +7,12 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   flake:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout
         uses: spotdemo4/nix-init@78cb37091fca621cf273ed076027ebfbaf906457 # v1.44.2
@@ -23,11 +24,13 @@ jobs:
 
   actions:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout
         uses: spotdemo4/nix-init@78cb37091fca621cf273ed076027ebfbaf906457 # v1.44.2
         with:
           shell: vulnerable
 
-      - name: Run octoscan
-        run: octoscan scan .github
+      - name: Run zizmor
+        run: zizmor .github
