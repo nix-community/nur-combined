@@ -58,13 +58,13 @@ buildPythonPackage rec {
   };
 
   meta = {
-    changelog = "https://github.com/yt-dlp/ejs/commits/${src.rev}";
     description = "External JavaScript for yt-dlp supporting many runtimes";
-    homepage = "https://github.com/yt-dlp/ejs/";
     license = with lib.licenses; [
       unlicense
       mit
       isc
     ];
+    homepage = "https://github.com/yt-dlp/ejs/";
+    changelog = "https://github.com/yt-dlp/ejs/commits/${src.rev}";
   };
 }

@@ -146,11 +146,11 @@ buildPythonApplication rec {
   };
 
   meta = {
-    changelog = "https://github.com/yt-dlp/yt-dlp/commits/${src.rev}";
-    description = "Feature-rich command-line audio/video downloader - master branch";
-    homepage = "https://github.com/yt-dlp/yt-dlp/";
-    license = lib.licenses.unlicense;
     mainProgram = "yt-dlp";
-    platforms = lib.platforms.all;
+    description = "Feature-rich command-line audio/video downloader - master branch";
+    license = lib.licenses.unlicense;
+    platforms = [ "x86_64-linux" ];
+    homepage = "https://github.com/yt-dlp/yt-dlp/";
+    changelog = "https://github.com/yt-dlp/yt-dlp/commits/${src.rev}";
   };
 }
