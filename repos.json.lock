@@ -713,8 +713,8 @@
             "url": "https://github.com/DeeUnderscore/nur-packages"
         },
         "definfo": {
-            "rev": "373b4ff4b936f908912d27dadd8c317be7e49087",
-            "sha256": "12qykl78j0lk1351hs68dndjz6lgavyn1ihn97za5kqv7z6wh38a",
+            "rev": "7597f9e8f89246188abe789ba51ecd6a8f12ebb3",
+            "sha256": "0is29har1gww49fjrwvx144zs248qhf3frpn682vazg0y3lmz9n3",
             "url": "https://github.com/definfo/nur-packages"
         },
         "demivan": {
@@ -1648,8 +1648,8 @@
             "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moraxyc": {
-            "rev": "ccdd849adafd2296a22903623287b50707570d83",
-            "sha256": "1ldsw0p837g1266kasmkyyhz6hr4rq9as00spg7jql1sp90ni8ay",
+            "rev": "fcd46c3efa7ea38f6b8aef135f741548c4c83cc5",
+            "sha256": "1mgpn5z996gs4mf00v1z2mfin7lz94p1vj4wxh0hj69lxsyk1bc7",
             "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
