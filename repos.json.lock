@@ -978,8 +978,8 @@
             "url": "https://github.com/TahlonBrahic/fuyu-no-nur"
         },
         "fym998": {
-            "rev": "60171d3ce492d330ca1d95a71f9a076c442e7a78",
-            "sha256": "0df42xllp6bkvav44y34ab4s87px2zzg5524493llbf7gra5xizm",
+            "rev": "04a4003779deff07ee9f75f5c9387bde44425793",
+            "sha256": "0471n1rg0z41qj8nn11is043n35n5aqkwlp75rc3cq10fh3qbrnk",
             "url": "https://github.com/fym998/nur-packages"
         },
         "gabr1sr": {
@@ -1719,8 +1719,8 @@
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
-            "rev": "07edb177f244de63009030718a2d08978ea5bd36",
-            "sha256": "1rz1hn3bklw7nxvpswkhsi3gaqhkjfydac9as5hg3qccdmm0dl44",
+            "rev": "ef32335f59e4b1e1782e75356be90f118c0d4ac2",
+            "sha256": "09wg79r1fqijq6i6m10i89ndn8cisiq5imi7hsa27a369ndxy6a7",
             "url": "https://github.com/Nanamiiiii/nur"
         },
         "nasirhm": {
