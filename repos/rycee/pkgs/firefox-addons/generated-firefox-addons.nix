@@ -1680,10 +1680,10 @@
     };
     "castkodi" = buildMozillaXpiAddon {
       pname = "castkodi";
-      version = "7.18.0";
+      version = "7.19.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4677320/castkodi-7.18.0.xpi";
-      sha256 = "50c3a2551302d3bdf91002d0c5ee0dcc8299ac7204763db208f436d486d73dda";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4780034/castkodi-7.19.0.xpi";
+      sha256 = "97389cd70a0b0695a7978c287fe3e44f89bba233583453524dd6dd02fabc824a";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -2559,10 +2559,10 @@
     };
     "copy-link-text" = buildMozillaXpiAddon {
       pname = "copy-link-text";
-      version = "1.6.7";
+      version = "1.6.8";
       addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778762/copy_link_text_webextension-1.6.7.xpi";
-      sha256 = "0b25881a89dad2f7a01c896a496f3f42bce23963f56972b3a827c64cad95bd9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4780317/copy_link_text_webextension-1.6.8.xpi";
+      sha256 = "8392d061385a27db45a5343400bb51dcebac04c143439cfa5fd6b8d492771acf";
       meta = with lib;
       {
         homepage = "https://github.com/def00111/copy-link-text";
@@ -3606,7 +3606,7 @@
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
-        description = "Actively protects your data in your current browser";
+        description = "⚡Protects your data. Private search with optional AI, private browsing, and ad blocking.";
         license = licenses.asl20;
         mozPermissions = [
           "contextMenus"
@@ -10030,10 +10030,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.12.3";
+      version = "1.12.4";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775084/mtab-1.12.3.xpi";
-      sha256 = "dad452989020e5ce517c54db2304941269366bf6e72779a6c9159d1a2e618889";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4779978/mtab-1.12.4.xpi";
+      sha256 = "3efe30f037debcb0a1cf05e3323427d7956a9e5de1deb15b3ad4f1acc2ff2b5c";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -14090,10 +14090,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.3.2";
+      version = "3.3.3";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778518/statshunters-3.3.2.xpi";
-      sha256 = "e5948c50535c612fa9bdfa181ad2e6e528d2e0c7533097e92c30be93b57f6694";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4780642/statshunters-3.3.3.xpi";
+      sha256 = "9f27a2e0e0d1cd97d37e066e703893b05d2ab6c27ebc2093a3ab2d24fd10d475";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -14858,10 +14858,10 @@
     };
     "themesong-for-youtube-music" = buildMozillaXpiAddon {
       pname = "themesong-for-youtube-music";
-      version = "1.3.0";
+      version = "1.3.1";
       addonId = "{6458ac08-a9d7-4e42-a1b0-f0c43bf90f7d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4605253/themesong_for_youtube_music-1.3.0.xpi";
-      sha256 = "edca74009cf6cedbab9c15dfda71e9a7a8ea215223a080fc8c7ae3bcba61b5e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4780877/themesong_for_youtube_music-1.3.1.xpi";
+      sha256 = "f1436df84b9896ab825ed7369ee6cb5f09abdd5edf7b4fecce36b5c26df8ecfc";
       meta = with lib;
       {
         homepage = "https://www.themesong.app";
@@ -16662,7 +16662,7 @@
       sha256 = "cca7a8015a4f2463dbab63102575b02acd922730b64a3167fce693efd1b7fa9b";
       meta = with lib;
       {
-        homepage = "https://web-scrobbler.com";
+        homepage = "https://webscrobbler.com";
         description = "Scrobble music all around the web!";
         license = licenses.mit;
         mozPermissions = [
