@@ -2075,8 +2075,8 @@
             "url": "https://github.com/rewardenv/nur"
         },
         "rewine": {
-            "rev": "bf4255285847466cccce9536ba6e6967d2b55579",
-            "sha256": "036ddmqihz2fp37y2cpvabhap1gmyb2g2lm6lwrm56rykda5kzan",
+            "rev": "7e910f1aff766991b71899e5d3af3db0fe30edc2",
+            "sha256": "1qavlidnz0f5qcwzy7yzk29j7h9aldkwyr5q11ianyhwj31kfg6l",
             "url": "https://github.com/wineee/nur-packages"
         },
         "rhencloud": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "bfa041a1f383615a5e6284adcfeef7458c90ca5a",
-            "sha256": "0y35yrag9bxncmwnx3mwlvm6zm22gghvs6a30c3ibdamq7vkc4gs",
+            "rev": "e1356ba034b8f4d51ef6d5dd58a637deab4382e2",
+            "sha256": "0msyvyayx10xd8i9ymqk8h9j3w1akyja37qrlbhnmijakddkh202",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
