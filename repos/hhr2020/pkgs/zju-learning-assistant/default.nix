@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "PeiPei233";
     repo = "zju-learning-assistant";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ZJ87aRPMzMGJS+UEDkgSMCjuZHV4u7dStv7rZ3Y+FO4=";
+    hash = "sha256-Ae896GFmufRSGkd/SWRdVwxUiMwlHNIdTm+sCbugvpY=";
   };
 
   cargoHash = "sha256-qyLPQoPFCVdBM9reA6aJnAXh2bgXA/jVDuRkvRF8hPU=";
