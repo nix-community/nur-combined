@@ -1333,8 +1333,8 @@
             "url": "https://github.com/k3a/nurpkgs"
         },
         "kagura": {
-            "rev": "b146a18060e1d277801e185a30ee3a216b227ab3",
-            "sha256": "0milgjrv299wpsxaz5k57g8hpcdlb00ajs453sbv6g0waqqyvlzm",
+            "rev": "6f3adf30e73b56a000a2b9dd3b770e733a50145f",
+            "sha256": "0w2syj7vxfmf9ns3pw19j20cfmyr4pzzq4xrj2j9jy8sj3hv3iaz",
             "url": "https://github.com/icewithcola/nur-packages"
         },
         "kakkun61": {
