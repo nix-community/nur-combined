@@ -373,29 +373,29 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202604252231";
+    version = "202604262232";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604252231/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604262232/geoip.dat";
       sha256 = "sha256-tBIMiH8sgS5fV1Ucg0F+xvZo7haZnLLGICIdDAY8zfQ=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202604252231";
+    version = "202604262232";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604252231/geosite.dat";
-      sha256 = "sha256-J/ndrQMKHN3aRQW63/Jbaic1bqDLRFHr8NecFy6Wok0=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604262232/geosite.dat";
+      sha256 = "sha256-WKhhqijeoQ8mNeegQuh0kSDqNIqRkeaiR83fOVUIW0Y=";
     };
   };
   yass = {
     pname = "yass";
-    version = "1.24.6";
+    version = "1.24.7";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.24.6";
+      rev = "1.24.7";
       fetchSubmodules = true;
-      sha256 = "sha256-ke7V0u6D8jBhZXy1nUlPNuosZiJxat378Ig3DtZRPEk=";
+      sha256 = "sha256-JaLMBv8NcVfmFp9MVE2bLPStCgIqwiELjRgq0v7VcIA=";
     };
   };
 }
