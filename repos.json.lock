@@ -181,8 +181,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "6f41f268ad041bce2c0f533b9e31a7ecbb5d8a70",
-            "sha256": "0mxf01xawyl1dphxc7bcrawgb0wffzjvm1c74vfvyz4kxkzmqs42",
+            "rev": "bb7ff0014b3005122f7649e5acde22af6be2535c",
+            "sha256": "1r70mjqhfmb6l8c54hh7skf9kpwic1f07y4mp1bcgbnzagha4axm",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
