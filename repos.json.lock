@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "cff86be0a0120287d8f49299ad43aa27ade784ce",
-            "sha256": "08bqi4aj4hrhx6m20r4m53b2rfjyklmgb27wqlrclpmh7mddd7bj",
+            "rev": "d5caacfc4a7430154a13c7d3c2f5efd691fa8aa1",
+            "sha256": "06gamka8wzyvi8l4vszdq0zw9vfbs4nih34cwij684sf8bfx32dr",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
@@ -2617,8 +2617,8 @@
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
         "xyenon": {
-            "rev": "1f9a0f467473950044239e5b70ea68255ee1ceab",
-            "sha256": "12fvnnbhk584fnpvzyvwsys9dplajaw1nrkyxr65y0wgy46zj2ha",
+            "rev": "23007cd91d58671ed42accb1a3c86d952f2f1892",
+            "sha256": "18pcqn6q0jvavjs2fznaqp4fxzzf8ppck31nnjkws8r9glc4w4aq",
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
