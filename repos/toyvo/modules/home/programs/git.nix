@@ -30,6 +30,7 @@ in
           core.autocrlf = "input";
           gpg.format = "ssh";
           init.defaultBranch = "main";
+          init.defaultRefFormat = "reftable";
           url."git@github.com:".pushInsteadOf = "https://github.com/";
           alias = {
             a = "add";

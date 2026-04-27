@@ -47,6 +47,7 @@
                   extraConfig =
                     if selfSigned then
                       ''
+                        header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
                         reverse_proxy https://${ip}:${toString port} {
                           transport http {
                             tls_insecure_skip_verify
@@ -54,7 +55,10 @@
                         }
                       ''
                     else
-                      "reverse_proxy http://${ip}:${toString port}";
+                      ''
+                        header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+                        reverse_proxy http://${ip}:${toString port}
+                      '';
                 };
               }
             ) services)
