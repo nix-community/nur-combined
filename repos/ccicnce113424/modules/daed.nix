@@ -1,7 +1,7 @@
 /*
   SPDX-License-Identifier: ISC AND MIT
 
-  This file is dual-licensed under the ISC License and the MIT License.
+  This file is licensed under the ISC License AND the MIT License.
   It contains code derived from https://github.com/daeuniverse/flake.nix
 
   --- ISC License ---
@@ -96,9 +96,7 @@ in
     };
 
     openFirewall = {
-      enable = mkEnableOption "opening `port` in the firewall" // {
-        default = true;
-      };
+      enable = mkEnableOption "opening `port` in the firewall";
       port = mkOption {
         type = types.port;
         default = 12345;
