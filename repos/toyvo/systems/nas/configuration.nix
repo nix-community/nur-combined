@@ -171,6 +171,7 @@ in
       enable = true;
       natInterface = "eno1";
       stateDir = "/mnt/POOL/nextcloud";
+      mediaDir = "/mnt/POOL";
       nextcloudAdminPasswordFile = config.sops.secrets."nextcloud_admin_password".path;
       package = pkgs.nextcloud33;
       extraAppNames = [
