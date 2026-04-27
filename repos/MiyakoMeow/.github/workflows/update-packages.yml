@@ -21,14 +21,27 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Parse substituters config
+        id: subs
+        shell: python
+        run: |
+          import tomllib, os
+          with open("substituters.toml", "rb") as f:
+              data = tomllib.load(f)
+          subs = [s["url"] for s in data["substituters"] if ".cn/" not in s["url"]]
+          keys = [s["public-key"] for s in data["substituters"] if "public-key" in s]
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"substituters={' '.join(subs)}\n")
+              out.write(f"trusted-public-keys={' '.join(keys)}\n")
+
       - name: Setup Nix
         uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
-            substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
-            trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            substituters = ${{ steps.subs.outputs.substituters }}
+            trusted-public-keys = ${{ steps.subs.outputs.trusted-public-keys }}
 
       - name: Install dependencies
         run: |
@@ -57,14 +70,27 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Parse substituters config
+        id: subs
+        shell: python
+        run: |
+          import tomllib, os
+          with open("substituters.toml", "rb") as f:
+              data = tomllib.load(f)
+          subs = [s["url"] for s in data["substituters"] if ".cn/" not in s["url"]]
+          keys = [s["public-key"] for s in data["substituters"] if "public-key" in s]
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"substituters={' '.join(subs)}\n")
+              out.write(f"trusted-public-keys={' '.join(keys)}\n")
+
       - name: Setup Nix
         uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
-            substituters = https://miyakomeow.cachix.org/ https://nix-community.cachix.org/ https://cache.nixos.org/
-            trusted-public-keys = miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            substituters = ${{ steps.subs.outputs.substituters }}
+            trusted-public-keys = ${{ steps.subs.outputs.trusted-public-keys }}
 
       - name: Install required tools
         run: |

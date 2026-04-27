@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     # 数据库驱动依赖
     unixODBC
     postgresql.lib
-    mysql80.client
+    libmysqlclient
     libxcrypt
 
     # 额外修复依赖

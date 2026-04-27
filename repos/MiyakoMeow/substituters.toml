@@ -1,0 +1,24 @@
+[[substituters]]
+url = "https://mirrors.ustc.edu.cn/nix-channels/store"
+
+[[substituters]]
+url = "https://mirrors.sjtug.sjtu.edu.cn/nix-channels/store"
+
+[[substituters]]
+url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+
+[[substituters]]
+url = "https://nix-community.cachix.org"
+public-key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+
+[[substituters]]
+url = "https://miyakomeow.cachix.org"
+public-key = "miyakomeow.cachix.org-1:85k7pjjK1Voo+kMHJx8w3nT1rlBow3+4/M+LsAuMCRY="
+
+[[substituters]]
+url = "https://cache.garnix.io"
+public-key = "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+
+[[substituters]]
+url = "https://cache.nixos.org"
+public-key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
