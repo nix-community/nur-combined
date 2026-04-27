@@ -774,6 +774,28 @@
         platforms = platforms.all;
       };
     };
+    "auto-reject-cookies" = buildMozillaXpiAddon {
+      pname = "auto-reject-cookies";
+      version = "1.7.3";
+      addonId = "auto-reject-cookies@example.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4751838/auto_reject_cookies-1.7.3.xpi";
+      sha256 = "93cede331f63169378188502e52f87bd41b672b2af0d5c62709eaa4153b3ab2d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/mjkuniversal/auto-reject-cookies";
+        description = "Automatically rejects cookie consent banners and sends Global Privacy Control signals. Supports 25+ consent platforms in 10+ languages. No data collection.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "auto-sort-bookmarks" = buildMozillaXpiAddon {
       pname = "auto-sort-bookmarks";
       version = "3.4.5";
@@ -2107,10 +2129,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.3.0";
+      version = "4.4.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4714690/click_and_read-4.3.0.xpi";
-      sha256 = "e2b6db638bf1704410cca25345596de3e3a297a77799d9d03dd08ea096e64bf1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781190/click_and_read-4.4.0.xpi";
+      sha256 = "1db42d66cd7684cffd0bcb0039d96eae16b24f4b473e262997adeaf51c555346";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -9613,10 +9635,10 @@
     };
     "material-icons-for-github" = buildMozillaXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.14.0";
+      version = "1.14.1";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4746796/material_icons_for_github-1.14.0.xpi";
-      sha256 = "820212207e29fe3fa53d078338f8f0f0f78731a0ee0af58206b2224137893d43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781117/material_icons_for_github-1.14.1.xpi";
+      sha256 = "b2c18c6cfb0e48aca68d218b57fac745dd54dce73b2310d67fddd40e65d5618e";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -17500,6 +17522,21 @@
           "https://studio.youtube.com/live_chat_replay*"
           "https://www.youtube.com/embed/ytcfilter_embed?*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "yubal" = buildMozillaXpiAddon {
+      pname = "yubal";
+      version = "0.1.0";
+      addonId = "yubal@guillevc.xyz";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4713932/yubal-0.1.0.xpi";
+      sha256 = "952c8123b11fe54fac3e56fd778e59039ba5a773305fb5658cb3aa20b5514724";
+      meta = with lib;
+      {
+        homepage = "https://yubal.guillevc.dev";
+        description = "Browser companion for yubal, a self-hosted YouTube Music library manager. Queue downloads and subscribe to playlists directly from YouTube pages.";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "activeTab" "tabs" ];
         platforms = platforms.all;
       };
     };

@@ -95,6 +95,9 @@
     "slug": "auto-referer"
   },
   {
+    "slug": "auto-reject-cookies"
+  },
+  {
     "slug": "auto-sort-bookmarks"
   },
   {
@@ -2496,6 +2499,9 @@
   },
   {
     "slug": "ytcfilter"
+  },
+  {
+    "slug": "yubal"
   },
   {
     "slug": "zen-internet"
