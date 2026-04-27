@@ -35,11 +35,11 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Audits Erlang & Elixir dependencies";
     mainProgram = "go_over";
-    homepage = "https://github.com/bwireman/go-over";
-    changelog = "https://github.com/bwireman/go-over/releases/tag/v${finalAttrs.version}";
+    description = "Audits Erlang & Elixir dependencies";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
+    homepage = "https://github.com/bwireman/go-over";
+    changelog = "https://github.com/bwireman/go-over/releases/tag/v${finalAttrs.version}";
   };
 })
