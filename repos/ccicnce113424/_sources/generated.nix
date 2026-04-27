@@ -292,6 +292,24 @@
       "metadata.json" = ./. + "/sha256-i_ZA2yMrBmexefwHa0xv9E8CwC4jRJYCwCe6Sycpih4=/metadata.json";
     };date = "2026-02-19";
   };
+  splayer-next-dev = {
+    pname = "splayer-next-dev";
+    version = "970725016267d40ee12f7d318ca4450a4598da72";
+    src = fetchFromGitHub {
+      owner = "SPlayer-Dev";
+      repo = "SPlayer-Next";
+      rev = "970725016267d40ee12f7d318ca4450a4598da72";
+      fetchSubmodules = false;
+      sha256 = "sha256-ILOyKh7F3QP9gWZzKizVrzQIMwaY4aqU+f885fxW3qU=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-ILOyKh7F3QP9gWZzKizVrzQIMwaY4aqU+f885fxW3qU=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+    date = "2026-04-27";
+  };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
     version = "v4.1.0";
@@ -322,7 +340,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

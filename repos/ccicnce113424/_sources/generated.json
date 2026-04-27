@@ -470,6 +470,32 @@
         },
         "version": "d89404376a2b27dbb58046ce6da894c1e83c9169"
     },
+    "splayer-next-dev": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-ILOyKh7F3QP9gWZzKizVrzQIMwaY4aqU+f885fxW3qU=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-04-27",
+        "extract": null,
+        "name": "splayer-next-dev",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SPlayer-Dev",
+            "repo": "SPlayer-Next",
+            "rev": "970725016267d40ee12f7d318ca4450a4598da72",
+            "sha256": "sha256-ILOyKh7F3QP9gWZzKizVrzQIMwaY4aqU+f885fxW3qU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "970725016267d40ee12f7d318ca4450a4598da72"
+    },
     "svt-av1-hdr": {
         "cargoLock": null,
         "date": null,
@@ -527,7 +553,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
             "sparseCheckout": [],
             "type": "github"
         },

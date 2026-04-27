@@ -101,6 +101,11 @@ extract = ["metadata.json"]
 fetch.github = "lrst6963/Splayer-kde-bar-lyc"
 src.git = "https://github.com/lrst6963/Splayer-kde-bar-lyc"
 
+[splayer-next-dev]
+cargo_lock = ["Cargo.lock"]
+fetch.github = "SPlayer-Dev/SPlayer-Next"
+src.git = "https://github.com/SPlayer-Dev/SPlayer-Next"
+
 [svt-av1-hdr]
 fetch.github = "juliobbv-p/svt-av1-hdr"
 src.github_tag = "juliobbv-p/svt-av1-hdr"

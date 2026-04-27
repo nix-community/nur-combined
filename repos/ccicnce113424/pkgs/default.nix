@@ -143,6 +143,12 @@ lib.makeScope pkgs.newScope (self: {
     sources = fetchedSrc.splayer-kde-bar-lyc;
   };
 
+  splayer-next-dev = self.callPackage ./splayer-next-dev rec {
+    inherit (lib.importJSON ./splayer-next-dev/src-info.json) hash;
+    sources = fetchedSrc.splayer-next-dev;
+    version = unstableVersion sources;
+  };
+
   svt-av1-hdr = self.callPackage ./svt-av1-psy rec {
     sources = fetchedSrc.svt-av1-hdr;
     version = stableVersion sources;
