@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   flake:
-    runs-on: blacksmith-32vcpu-ubuntu-2404-arm
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
     steps:
@@ -23,7 +23,7 @@ jobs:
         run: flake-checker -f
 
   actions:
-    runs-on: blacksmith-32vcpu-ubuntu-2404-arm
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
     steps:
