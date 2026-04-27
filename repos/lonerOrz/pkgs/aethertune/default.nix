@@ -10,17 +10,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aethertune";
-  version = "0.5.1";
+  version = "0.6.2";
 
   # https://github.com/nevermore23274/AetherTune
   src = fetchFromGitHub {
     owner = "nevermore23274";
     repo = "AetherTune";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pHXjZzTx3GPbo9tV6RgFvvRWxy0p5o/5QLlOi6gcm2Y=";
+    hash = "sha256-4ghIyd2QGnADXMgkBNiLDKbxP8tU9y1Lcu9Nh2TqGyE=";
   };
 
-  cargoHash = "sha256-g8hiyFivHlRqArEhdCJgJ4fddmxryBZ6u1U70xatzMs=";
+  cargoHash = "sha256-cGmlSBNqciDRNCzRZFd9EzobWiRTdytwcSQ6Z0zcbj4=";
 
   buildInputs = [ openssl ];
   nativeBuildInputs = [ pkg-config ];
