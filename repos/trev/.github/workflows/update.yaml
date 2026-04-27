@@ -17,9 +17,9 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - macos-26
+          - blacksmith-32vcpu-ubuntu-2404
+          - blacksmith-32vcpu-ubuntu-2404-arm
+          - blacksmith-12vcpu-macos-latest
     runs-on: ${{ matrix.image }}
     permissions:
       id-token: write
@@ -36,7 +36,7 @@ jobs:
 
   pkgs-pr:
     needs: pkgs
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2404-arm
     steps:
       - id: checkout
         name: Checkout
@@ -52,7 +52,7 @@ jobs:
           GH_TOKEN: ${{ steps.checkout.outputs.token }}
 
   renovate:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-32vcpu-ubuntu-2404-arm
     permissions:
       id-token: write
     steps:

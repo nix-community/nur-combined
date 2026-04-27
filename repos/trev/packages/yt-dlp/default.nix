@@ -149,7 +149,7 @@ buildPythonApplication rec {
     mainProgram = "yt-dlp";
     description = "Feature-rich command-line audio/video downloader - master branch";
     license = lib.licenses.unlicense;
-    platforms = [ "x86_64-linux" ];
+    platforms = lib.platforms.all;
     homepage = "https://github.com/yt-dlp/yt-dlp/";
     changelog = "https://github.com/yt-dlp/yt-dlp/commits/${src.rev}";
   };

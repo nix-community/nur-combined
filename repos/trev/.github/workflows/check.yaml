@@ -18,9 +18,9 @@ jobs:
     strategy:
       matrix:
         image:
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - macos-26
+          - blacksmith-32vcpu-ubuntu-2404
+          - blacksmith-32vcpu-ubuntu-2404-arm
+          - blacksmith-12vcpu-macos-latest
       fail-fast: false
     runs-on: ${{ matrix.image }}
     permissions:
@@ -48,9 +48,9 @@ jobs:
           - nixpkgs-unstable.tar.gz
           - nixos-unstable.tar.gz
         image:
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - macos-26
+          - blacksmith-32vcpu-ubuntu-2404
+          - blacksmith-32vcpu-ubuntu-2404-arm
+          - blacksmith-12vcpu-macos-latest
       fail-fast: false
     runs-on: ${{ matrix.image }}
     permissions:
@@ -72,7 +72,7 @@ jobs:
   trigger:
     needs: [check, build]
     if: github.event_name == 'push'
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2404-arm
     steps:
       - name: Trigger NUR update
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=trev"
