@@ -203,16 +203,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.8.4";
+    version = "v3.8.5-beta.4";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.8.4";
+      rev = "v3.8.5-beta.4";
       fetchSubmodules = false;
-      sha256 = "sha256-SzM3wiqVqBr6wQgElOMerAC6osUrVpBRrv+ZRxAElIA=";
+      sha256 = "sha256-bkQv86oLUtxXd7TqbuhXhJZZJ9zWjUkNTSiSYaWj+C4=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-SzM3wiqVqBr6wQgElOMerAC6osUrVpBRrv+ZRxAElIA=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-bkQv86oLUtxXd7TqbuhXhJZZJ9zWjUkNTSiSYaWj+C4=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -340,7 +340,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {
