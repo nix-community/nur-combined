@@ -978,8 +978,8 @@
             "url": "https://github.com/TahlonBrahic/fuyu-no-nur"
         },
         "fym998": {
-            "rev": "9536a72f9d62f7a679c723ae8c14a513d690359f",
-            "sha256": "1fp6rs2mh0lz42kjjg7qk87m6v8smjhzx0gvj00jfbsrwpbn2gkf",
+            "rev": "22152af1d797753149ee5609982f75a1c1477b29",
+            "sha256": "1m9pd71pwspbdlswlpy8icvcl81pqk83b03jsyxcxqp59f6b8zjv",
             "url": "https://github.com/fym998/nur-packages"
         },
         "gabr1sr": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "91b94b09b12532ac58e2b67846a2370f0c893160",
-            "sha256": "1aw0acmjxgi8pc3k2gc3fl728dqc98lyzfhir5w1ac6jcj687irl",
+            "rev": "b1cec5ab42b735bd9bc8b93e4cc1e9a0b80d59fe",
+            "sha256": "1xvn21aaq8yjji832vwngal7cp7vwkmf1wax9a1zhnq90fk58j8a",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
