@@ -2220,8 +2220,8 @@
             "url": "https://github.com/shymega/nixfigs-nur"
         },
         "sigprof": {
-            "rev": "57ee6f0ed5f520c8f557441c8e5964f9deb4edcd",
-            "sha256": "1zbxf82hzbpxpw89sb2sx6d5zjxx5n4hwwcck6nvav1g9j25gdd6",
+            "rev": "677360c70a4018a864f21eeafb9acbbd8f494994",
+            "sha256": "1wiqchck1gl61hah01vx98dxf31zaxxrjrs3hvn3ii1fi2nzzsdb",
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
@@ -2422,8 +2422,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "8c5e068f731a488730b87f6f4335772a3f25ec89",
-            "sha256": "05y37baipwzz4dd9i0ckmkbl91gz8lh5xksypg2hyhxk726lmivp",
+            "rev": "8c26f848e69869ee06dc514650f032fdec9b86ab",
+            "sha256": "1aw2x5byfhi22k2lpy1vdvks2gmi1kf3z9fm6bz99xbqnndilm4b",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
