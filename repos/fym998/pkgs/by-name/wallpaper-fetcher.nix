@@ -31,6 +31,7 @@ buildPythonApplication rec {
   dependencies = [
     requests
     rich
+    socksio
   ];
   meta = {
     homepage = "https://pypi.org/project/wallpaper-fetcher";
