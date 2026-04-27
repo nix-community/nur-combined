@@ -978,8 +978,8 @@
             "url": "https://github.com/TahlonBrahic/fuyu-no-nur"
         },
         "fym998": {
-            "rev": "981cae2efc82ce26d32edb36f1197b53832e6e17",
-            "sha256": "0sz8l7vkkxxlrcgvsik2avmb16m236vyddgnii3n2aziygkdxp3v",
+            "rev": "60171d3ce492d330ca1d95a71f9a076c442e7a78",
+            "sha256": "0df42xllp6bkvav44y34ab4s87px2zzg5524493llbf7gra5xizm",
             "url": "https://github.com/fym998/nur-packages"
         },
         "gabr1sr": {
@@ -1238,8 +1238,8 @@
             "url": "https://github.com/jdev082/jdpkgs"
         },
         "jeffguorg": {
-            "rev": "ddef2e98739e421342e7592931bf966ca476cc01",
-            "sha256": "0kvksj7zs4xk2msa12cpl498spqa3yi1a6yg5h38g4fxdx6bpivq",
+            "rev": "b965a968ff53a99f383ffbf07e52e093ea3f645a",
+            "sha256": "1pnksywx6wzi3vkv32zrlcamd49v3jh706s3y0nc1vrqzhypip2n",
             "url": "https://github.com/jeffguorg/nur-packages"
         },
         "jerrita": {
@@ -1623,8 +1623,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "babcad98c7d30860475155274e485b62a6c4d033",
-            "sha256": "19v7qr7s7wsj5prxd4blmf30pqgg2whxbcbgwp5anxcvp4az9sz8",
+            "rev": "c678dc3cb5c9b310fcd044191e3d98161240c5dd",
+            "sha256": "0cpl4mncxpa8zv9dyynf5n6ggnaz7kqnnn6lmd16q7l65ly60mxf",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
