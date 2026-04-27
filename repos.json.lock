@@ -2382,8 +2382,8 @@
             "url": "https://github.com/tinybeachthor/nur-packages"
         },
         "tnmt": {
-            "rev": "665191232b99906bee371714135943d5d47f4de9",
-            "sha256": "1474p0n7wlj58wd09n9kid2hb74msp0b9ysh539488zhvjav0xzq",
+            "rev": "d026fe4af631aaaa644d89f34400b520611e3c88",
+            "sha256": "1hdp1cl4sbj4cvarmy5shbpxvr9i533x9kw9p5iv8wxyvbx65ax6",
             "url": "https://github.com/tnmt/nur-packages"
         },
         "tokudan": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "24590a28ce0c181552e5491f73c646d778c788f9",
-            "sha256": "01x7i62na8v92v1z35bh0ciznzkpmq15v9bnhap03m3f84d0jxkb",
+            "rev": "a99a16a6cafae16e6c25847175386d0ecc7f0149",
+            "sha256": "1sqkais6q03nc4g35xmgxigpp41q4f56ay66fg9q5r6kkish73c0",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
