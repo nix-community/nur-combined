@@ -2295,8 +2295,8 @@
             "url": "https://github.com/splintah/nurpkgs"
         },
         "srcres258": {
-            "rev": "1488128a7a465fe3e67f027171cbd8298958b783",
-            "sha256": "0kj7a3kp6w38a27qln02ac4fj98xlrxv85lcqvk2w86iqlz0gpvi",
+            "rev": "b1f258569e22d8170bf4d094cbb3e152b32a81aa",
+            "sha256": "14a9d3rdp2jf9sccai4fch04qzwyvzcc1r9qji389yfbwyh1h3gm",
             "url": "https://github.com/srcres258/nur-packages"
         },
         "stupremee": {
@@ -2417,8 +2417,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "2ea58f00f7bbde657d9e67772e8fb21703faa2b8",
-            "sha256": "0igwh2nn40w399mrhpw01wqa0ay26gbh4x6f7q5f173lvi9kkir5",
+            "rev": "fd4837e23d8aac8f8502005e2dcb2d8a96fe0e72",
+            "sha256": "0sqghnrbv2a8370hn7b3xjzj8hx629329vfv963fby40mraywx0a",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
