@@ -246,8 +246,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "b597401627be09fc58d4a9ab7083fb3a7f7067c4",
-            "sha256": "10yl3dhg1fq9amkgdqwgg27n2pdva2n2vcxy64dx61ckibfvkbd5",
+            "rev": "4540485ae0229613f1cf69aeeec734cca4610b90",
+            "sha256": "1vkzc2nd6lmzmkpmfshrdxy68xdjvix9rhw1k1ns8h3dys0c5zpm",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1719,8 +1719,8 @@
             "url": "https://github.com/OkazakiNagisa/nix_nurpkgs"
         },
         "nanamiiiii": {
-            "rev": "ef32335f59e4b1e1782e75356be90f118c0d4ac2",
-            "sha256": "09wg79r1fqijq6i6m10i89ndn8cisiq5imi7hsa27a369ndxy6a7",
+            "rev": "22292b4bf211115d16b5662e9febe1c89afab7ff",
+            "sha256": "0ghaw2pmsvmcw30r9xv5c1pjfhhlx836hb25my6qafgcpn87z20g",
             "url": "https://github.com/Nanamiiiii/nur"
         },
         "nasirhm": {
