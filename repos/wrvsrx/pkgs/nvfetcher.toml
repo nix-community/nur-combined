@@ -23,10 +23,6 @@ fetch.github = "SEIAROTg/autobean-format"
 src.github_tag = "SEIAROTg/autobean-refactor"
 fetch.github = "SEIAROTg/autobean-refactor"
 
-[coc-zk]
-src.git = "https://github.com/wrvsrx/coc-zk"
-fetch.github = "wrvsrx/coc-zk"
-
 [cyCodeBase]
 src.git = "https://github.com/cemyuksel/cyCodeBase"
 fetch.github = "cemyuksel/cyCodeBase"
@@ -62,10 +58,6 @@ fetch.github = "kamchatka-volcano/sfun"
 [cmdlime]
 src.github = "kamchatka-volcano/cmdlime"
 fetch.github = "kamchatka-volcano/cmdlime"
-
-[coc-markdown]
-src.git = "https://github.com/wrvsrx/coc-markdown"
-fetch.github = "wrvsrx/coc-markdown"
 
 [v2ray-rules-dat-geoip]
 src.github_tag = "Loyalsoldier/v2ray-rules-dat"

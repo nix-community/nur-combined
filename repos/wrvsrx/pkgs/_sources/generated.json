@@ -125,48 +125,6 @@
         },
         "version": "4e8810b1a8637695171ed346ce68f6984e585ef4"
     },
-    "coc-markdown": {
-        "cargoLock": null,
-        "date": "2024-07-15",
-        "extract": null,
-        "name": "coc-markdown",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wrvsrx",
-            "repo": "coc-markdown",
-            "rev": "2b9e5e7cdf2e6d027ab226c36e1175ad5030ce62",
-            "sha256": "sha256-LzH2g0T8eqcjsGcv6kYHpbuymmzLOFhB0GWGTdtW0AM=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "2b9e5e7cdf2e6d027ab226c36e1175ad5030ce62"
-    },
-    "coc-zk": {
-        "cargoLock": null,
-        "date": "2024-07-15",
-        "extract": null,
-        "name": "coc-zk",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wrvsrx",
-            "repo": "coc-zk",
-            "rev": "0e6b90d1809514e853a8e80245b9e7eec71117c6",
-            "sha256": "sha256-zdHLynunpi+gxUUYVlslcQ6ckSg3dDmdz/aSdrJFte0=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0e6b90d1809514e853a8e80245b9e7eec71117c6"
-    },
     "cyCodeBase": {
         "cargoLock": null,
         "date": "2024-05-26",

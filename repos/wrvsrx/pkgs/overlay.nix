@@ -44,10 +44,6 @@ let
     inherit sources;
     pkgs = prev;
   };
-  vim-plugins-overlay = import ./vim-plugins-overlay {
-    inherit sources callPackage;
-    inherit (prev.vimUtils) buildVimPlugin;
-  };
   qt5-overlay = qfinal: qprev: {
     qt5ct = qprev.callPackage ./qt5ct {
       inherit (qprev)
@@ -82,7 +78,6 @@ toplevelPackages
 // {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [ python-overlay ];
   haskellPackages = prev.haskellPackages.extend haskell-overlay;
-  vimPlugins = prev.vimPlugins.extend vim-plugins-overlay;
   libsForQt5 = prev.libsForQt5.overrideScope qt5-overlay;
   kdePackages = prev.kdePackages.overrideScope kde-overlay;
   leanPackages = prev.leanPackages.overrideScope lean-overlay;
@@ -96,9 +91,6 @@ toplevelPackages
     );
     haskellPackages._packageNames = builtins.attrNames (
       haskell-overlay prev.haskellPackages prev.haskellPackages
-    );
-    vimPlugins._packageNames = builtins.attrNames (
-      vim-plugins-overlay prev.vimUtils.vimPlugins prev.vimUtils.vimPlugins
     );
     rimePackages._packageNames = builtins.attrNames rimePackages;
     kdePackages._packageNames = builtins.attrNames (kde-overlay prev.kdePackages prev.kdePackages);

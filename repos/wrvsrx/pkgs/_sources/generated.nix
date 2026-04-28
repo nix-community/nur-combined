@@ -74,30 +74,6 @@
     };
     date = "2018-05-31";
   };
-  coc-markdown = {
-    pname = "coc-markdown";
-    version = "2b9e5e7cdf2e6d027ab226c36e1175ad5030ce62";
-    src = fetchFromGitHub {
-      owner = "wrvsrx";
-      repo = "coc-markdown";
-      rev = "2b9e5e7cdf2e6d027ab226c36e1175ad5030ce62";
-      fetchSubmodules = false;
-      sha256 = "sha256-LzH2g0T8eqcjsGcv6kYHpbuymmzLOFhB0GWGTdtW0AM=";
-    };
-    date = "2024-07-15";
-  };
-  coc-zk = {
-    pname = "coc-zk";
-    version = "0e6b90d1809514e853a8e80245b9e7eec71117c6";
-    src = fetchFromGitHub {
-      owner = "wrvsrx";
-      repo = "coc-zk";
-      rev = "0e6b90d1809514e853a8e80245b9e7eec71117c6";
-      fetchSubmodules = false;
-      sha256 = "sha256-zdHLynunpi+gxUUYVlslcQ6ckSg3dDmdz/aSdrJFte0=";
-    };
-    date = "2024-07-15";
-  };
   cyCodeBase = {
     pname = "cyCodeBase";
     version = "6d3a2c9958d71794016119826d39206903e00d26";
