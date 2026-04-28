@@ -144,10 +144,11 @@ in
               dbhost = "/run/postgresql";
             };
             phpOptions = {
-              "opcache.interned_strings_buffer" = "16";
+              "opcache.interned_strings_buffer" = "32";
             };
             settings = {
               overwriteprotocol = "https";
+              "overwrite.cli.url" = "https://nextcloud.diekvoss.net";
               trusted_proxies = [ homelab.router.ip ];
               maintenance_window_start = 2;
               default_phone_region = "US";

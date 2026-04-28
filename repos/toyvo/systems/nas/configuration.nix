@@ -320,4 +320,30 @@ in
   # it can be bind-mounted read-only into the starr container, where the WireGuard
   # interface and network namespace are actually configured.
   sops.secrets."protonvpn-US-IL-503.key" = { };
+
+  # Set ACLs so container users can access external storage directories.
+  # These are applied at boot time by systemd-tmpfiles.
+  systemd.tmpfiles.rules = [
+    # Nextcloud user (UID 993) - needs rwx for external storage (upload/modify files)
+    "a /mnt/POOL/Public - - - - u:993:rwx"
+    "a /mnt/POOL/Collin - - - - u:993:rwx"
+    "a /mnt/POOL/Chloe - - - - u:993:rwx"
+    "A /mnt/POOL/Public - - - - u:993:rwx"
+    "A /mnt/POOL/Collin - - - - u:993:rwx"
+    "A /mnt/POOL/Chloe - - - - u:993:rwx"
+
+    # Starr services - need rwx for downloading and organizing media
+    # Multimedia group (GID 349) - used by most *arr services
+    "a /mnt/POOL/Public - - - - g:349:rwx"
+    "A /mnt/POOL/Public - - - - g:349:rwx"
+    # Individual starr service UIDs for explicit access
+    "a /mnt/POOL/Public - - - - u:350:rwx" # bazarr
+    "a /mnt/POOL/Public - - - - u:351:rwx" # prowlarr
+    "a /mnt/POOL/Public - - - - u:352:rwx" # readarr
+    "a /mnt/POOL/Public - - - - u:353:rwx" # qbittorrent
+    "A /mnt/POOL/Public - - - - u:350:rwx" # bazarr
+    "A /mnt/POOL/Public - - - - u:351:rwx" # prowlarr
+    "A /mnt/POOL/Public - - - - u:352:rwx" # readarr
+    "A /mnt/POOL/Public - - - - u:353:rwx" # qbittorrent
+  ];
 }
