@@ -18,4 +18,5 @@
   obsidian-headless = pkgs.callPackage ./pkgs/obsidian-headless { };
   #zotero = pkgs.callPackage ./pkgs/zotero { };
   npiperelay = pkgs.callPackage ./pkgs/npiperelay { };
+  tcardgen = pkgs.callPackage ./pkgs/tcardgen { };
 }
