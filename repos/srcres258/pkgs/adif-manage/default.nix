@@ -15,7 +15,7 @@ in pythonEnv.buildPythonApplication {
     owner = "srcres258";
     repo = pname;
     rev = "v0.2.0";
-    sha256 = "sha256-C5LEBV16C+DDw0COJ6Yo9HSkzq5XES2kQCuRHW0SzsY=";
+    sha256 = "sha256-8OXAgIgeFkmST9GexiFVmG8lcNRcMI660SV4L4zgobQ=";
   };
 
   propagatedBuildInputs = with pythonEnv; [
