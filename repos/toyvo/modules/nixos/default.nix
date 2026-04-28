@@ -29,6 +29,7 @@
     ./services/desktopManager/xfce.nix
     ./services/minecraft.nix
     ./services/ollama.nix
+    ./services/protonmail-bridge.nix
     ./services/signal-cli.nix
     ./vintagestory.nix
     ./wireguard

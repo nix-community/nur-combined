@@ -137,6 +137,7 @@ in
         host  discord_bot  discord_bot  10.1.0.0/16  scram-sha-256
       '';
     };
+    protonmail-bridge.enable = true;
     samba.enable = true;
     spice-vdagentd.enable = true;
     monitoring.enable = true;
@@ -185,6 +186,15 @@ in
         "richdocuments"
         "tasks"
       ];
+      smtp = {
+        host = config.containerPresets.nextcloud.hostAddress;
+        port = 1025;
+        secure = "tls";
+        username = "collin@diekvoss.com";
+        passwordFile = config.sops.secrets."protonmail-bridge-smtp-password".path;
+        fromAddress = "nextcloud";
+        domain = "diekvoss.net";
+      };
     };
     home-assistant = {
       enable = true;
@@ -245,6 +255,26 @@ in
       };
     };
   };
+  # Relay the bridge's localhost-only SMTP port to the nextcloud container's veth address.
+  # The bridge listens on 127.0.0.1:1025; socat forwards connections from the container.
+  systemd.services.protonmail-bridge-relay = {
+    description = "Relay protonmail-bridge SMTP to nextcloud container";
+    after = [
+      "network.target"
+      "protonmail-bridge.service"
+    ];
+    wants = [ "protonmail-bridge.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:1025,bind=${config.containerPresets.nextcloud.hostAddress},fork,reuseaddr TCP:127.0.0.1:1025";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      DynamicUser = true;
+    };
+  };
+
+  networking.firewall.interfaces."ve-nextcloud".allowedTCPPorts = [ 1025 ];
+
   fileSystems."/mnt/POOL" = {
     device = "/dev/disk/by-label/POOL";
     fsType = "btrfs";
@@ -314,6 +344,8 @@ in
   # the nextcloud user inside the container can read it without UID alignment on the host.
   sops.secrets."openwebui.env".mode = "0444";
   sops.secrets."nextcloud_admin_password".mode = "0444";
+  # Bridge generates a random per-account SMTP password on first login; store it here after setup.
+  sops.secrets."protonmail-bridge-smtp-password".mode = "0444";
   sops.secrets."grafana-admin-password".mode = "0444";
   sops.secrets."grafana-secret-key".mode = "0444";
   # The ProtonVPN private key is decrypted here on the host by sops-nix so that
