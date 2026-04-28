@@ -9,6 +9,7 @@
   '';
   roles = {
     nix-build = { };
+    nix-search = { };
   };
   appendSystem = true;
   defaultAttrPath = [ "default" ];

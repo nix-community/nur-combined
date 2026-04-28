@@ -5,7 +5,9 @@
     "aarch64-darwin"
     "x86_64-linux"
   ],
+  lib ? nixpkgs.lib,
 }:
+
 let
   # Flake output attributes that are not per-system
   ignoredAttrs = [
@@ -79,6 +81,10 @@ let
 
   overlays = import ../../overlays {
     inherit nixpkgs;
+  };
+
+  schemas = import ../../schemas {
+    inherit nixpkgs lib;
   };
 
   mkPackages =
@@ -179,61 +185,63 @@ in
 
 # Builds a map from <attr>.value to <attr>.<system>.value for each system.
 eachSystemOp (
-  # Merge outputs for each system.
   f: attrs: system:
+
   let
-    flake = f system (mkPackages system);
+    packages = mkPackages system;
+    flake = {
+      inherit schemas;
+      nixpkgs = packages;
+    }
+    // (f system packages);
+
     crosses = map (platform: {
-      platform = nixpkgs.lib.systems.elaborate platform;
+      platform = lib.systems.elaborate platform;
       flake = f system (mkCrossPackages system platform);
     }) platforms;
   in
 
   builtins.foldl' (
     attrs: key:
+
+    # Set as <attr>.value
     if builtins.elem key ignoredAttrs then
-      # Set as <attr>.value
       attrs
       // {
         ${key} = (attrs.${key} or { }) // flake.${key};
       }
+
+    # Set as <attr>.<system>.value that merges cross-compilation outputs for each system
     else if builtins.elem key crossAttrs then
-      # Set as <attr>.<system>.value that merges cross-compilation outputs for each system
       attrs
       // {
         ${key} = (attrs.${key} or { }) // {
-          ${system} =
-            builtins.mapAttrs
-              (
-                name: package:
-                package.overrideAttrs (
-                  _: prev: {
-                    passthru =
-                      (prev.passthru or { })
-                      // builtins.listToAttrs (
-                        builtins.filter (pv: pv.value != null) (
-                          map (cross: {
-                            name = cross.platform.config;
-                            value =
-                              if (nixpkgs.lib.meta.availableOn cross.platform package) then
-                                tryEval (fixWindows (fixDarwin (fixStatic (cross.flake.${key}.${name}))))
-                              else
-                                null;
-                          }) crosses
-                        )
-                      );
-                  }
-                )
-              )
-              (
-                nixpkgs.lib.filterAttrs (
-                  _: package: nixpkgs.lib.meta.availableOn { inherit system; } package
-                ) flake.${key}
-              );
+          ${system} = builtins.mapAttrs (
+            name: package:
+            package.overrideAttrs (
+              _: prev: {
+                passthru =
+                  (prev.passthru or { })
+                  // builtins.listToAttrs (
+                    builtins.filter (pv: pv.value != null) (
+                      map (cross: {
+                        name = cross.platform.config;
+                        value =
+                          if (lib.meta.availableOn cross.platform package) then
+                            tryEval (fixWindows (fixDarwin (fixStatic (cross.flake.${key}.${name}))))
+                          else
+                            null;
+                      }) crosses
+                    )
+                  );
+              }
+            )
+          ) (lib.filterAttrs (_: package: lib.meta.availableOn { inherit system; } package) flake.${key});
         };
       }
+
+    # Set as <attr>.<system>.value
     else
-      # Set as <attr>.<system>.value
       attrs
       // {
         ${key} = (attrs.${key} or { }) // {
