@@ -6,11 +6,13 @@
 }:
 {
   hardware.deviceTree.name = "rockchip/rk3328-nanopi-r2s.dtb";
-  # hardware.deviceTree.filter = "*rk3328-nanopi-r2s.dtb";
-  # hardware.deviceTree.overlays = [{
-  #   name = "sysled";
-  #   dtsFile = ./files/sysled.dts;
-  # }];
+  hardware.deviceTree.filter = "*rk3328-nanopi-r2s.dtb";
+  # hardware.deviceTree.overlays = [
+  #   {
+  #     name = "r2s-override";
+  #     dtsFile = ./files/override.dts;
+  #   }
+  # ];
 
   # NanoPi R2S's DTS has not been actively updated, so just use the prebuilt one to avoid rebuilding
   hardware.deviceTree.package = pkgs.lib.mkForce (
@@ -56,6 +58,8 @@
     kernelParams = [
       "console=ttyS2,1500000"
       "earlycon=uart8250,mmio32,0xff130000"
+      # will hangs until host connects, add it in /boot/extlinux/extlinux.conf to debug initrd boot
+      # "console=ttyGS0,115200"
       "mitigations=off"
     ];
     blacklistedKernelModules = [
@@ -69,13 +73,33 @@
 
   boot.initrd = {
     includeDefaultModules = false;
-    kernelModules = [ "mmc_block" ];
+    availableKernelModules = [
+      "g_serial"
+      "u_serial"
+      "libcomposite"
+      "usb_f_acm"
+    ];
+    kernelModules = [
+      "mmc_block"
+      "g_serial"
+    ];
   };
 
   boot.kernel.sysctl = {
     "vm.vfs_cache_pressure" = 10;
     "vm.dirty_ratio" = 50;
     "vm.swappiness" = 20;
+  };
+
+  systemd.services."serial-getty@ttyGS0" = {
+    serviceConfig = {
+      ExecStart = [
+        ""
+        "${pkgs.util-linux}/bin/agetty --login-program ${pkgs.shadow}/bin/login %I --keep-baud $TERM"
+      ];
+    };
+    wantedBy = [ "getty.target" ];
+    overrideStrategy = "asDropin";
   };
 
   powerManagement.cpuFreqGovernor = "schedutil";
