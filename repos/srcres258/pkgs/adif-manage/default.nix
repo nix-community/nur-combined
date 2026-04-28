@@ -7,7 +7,7 @@
   pythonEnv = pkgs.python312Packages;
 
   pname = "adif-manage";
-  version = "0.1.0";
+  version = "0.2.0";
 in pythonEnv.buildPythonApplication {
   inherit pname version;
 
