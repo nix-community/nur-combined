@@ -1370,9 +1370,6 @@
         "shymega": {
             "url": "https://github.com/shymega/nixfigs-nur"
         },
-        "sigprof": {
-            "url": "https://github.com/sigprof/nur-packages"
-        },
         "sikmir": {
             "url": "https://github.com/sikmir/nur-packages"
         },

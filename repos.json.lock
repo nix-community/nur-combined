@@ -2219,11 +2219,6 @@
             "sha256": "13hyyiw20xsw98pk25bixamv4nbi9zqm07icism3ly83sn5wx11m",
             "url": "https://github.com/shymega/nixfigs-nur"
         },
-        "sigprof": {
-            "rev": "677360c70a4018a864f21eeafb9acbbd8f494994",
-            "sha256": "1wiqchck1gl61hah01vx98dxf31zaxxrjrs3hvn3ii1fi2nzzsdb",
-            "url": "https://github.com/sigprof/nur-packages"
-        },
         "sikmir": {
             "rev": "9a2f1b14b9353eab7a1b69fcd8fbbe85deee9128",
             "sha256": "1zzd32isfvqcp55ybs6622bhcglk7rmq2p5dpv1bd62dhxz79xi1",
@@ -2572,8 +2567,8 @@
             "url": "https://github.com/Oliper202020/workman-nur"
         },
         "wrvsrx": {
-            "rev": "9447a97853031c3db2f565aee9b27291e8cf5ac2",
-            "sha256": "0ncr1gidqi8c1ybv7pwggl959jq84766y04c4w69p8049ga5wria",
+            "rev": "cb7959c8a2a37b93afbfecfc47a862d3aaaa989b",
+            "sha256": "1wml20fsy176y5c4r97vwainfy8qslnf470yq0x6plci7w5cdwzr",
             "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
