@@ -11,7 +11,7 @@
         name: def:
         if builtins.isFunction def then
           {
-            shortDescription = "helper function";
+            shortDescription = "Helper function";
             what = "Helper function";
           }
         else
