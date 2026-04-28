@@ -10,7 +10,7 @@ let
     import flake-compat {
       src = ./.;
       copySourceTreeToStore = false;
-      useBuiltinsFetchTree = true;
+      # useBuiltinsFetchTree = true;
     }
   );
 in
