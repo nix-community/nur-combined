@@ -2,3 +2,4 @@ builds:
   exclude:
     # these packages require itch.io API key to download src
     - packages.*.legbreaker
+    - packages.*.oppai-oppai-orbs

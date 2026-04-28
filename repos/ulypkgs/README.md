@@ -83,7 +83,7 @@ if there are multiple flake inputs that depend on ulypkgs):
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.ulypkgs.url = "github:UlyssesZh/ulypkgs";
-  # this does not change the result but let's you fetch one less instance of nixpkgs if flake inputs are not fetched lazily
+  # this does not change the result but lets you fetch one less instance of nixpkgs if flake inputs are not fetched lazily
   inputs.ulypkgs.inputs.nixpkgs.follows = "nixpkgs";
   outputs = { self, ulypkgs }: {
     packages.x86_64-linux.hello = (ulypkgs.call {

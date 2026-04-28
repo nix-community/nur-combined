@@ -43,6 +43,11 @@ let
         godot = pkgs.godot3;
       };
     };
+    godot43WrapHook = pkgs.godotWrapHook.override {
+      targetPackages = pkgs.targetPackages // {
+        inherit (pkgs.godotPackages_4_3) godot;
+      };
+    };
 
     # buildPhase
     renpyBuildHook = callPackage ./renpyBuildHook { };
@@ -113,6 +118,8 @@ let
     legbreaker = callPackage ./legbreaker { };
 
     once-in-a-lifetime = callPackage ./once-in-a-lifetime { };
+
+    oppai-oppai-orbs = callPackage ./oppai-oppai-orbs { };
 
     summertime-saga = callPackage ./summertime-saga { };
   };
