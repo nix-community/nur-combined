@@ -1329,7 +1329,7 @@ checksum = "aa9a19cbb55df58761df49b23516a86d432839add4af60fc256da840f66ed35b"
 
 [[package]]
 name = "fresh-core"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "anyhow",
  "lsp-types",
@@ -1344,7 +1344,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-editor"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "alacritty_terminal",
  "anyhow",
@@ -1407,7 +1407,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-gui"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "anyhow",
  "block2",
@@ -1426,7 +1426,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-languages"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "tree-sitter",
  "tree-sitter-bash",
@@ -1452,7 +1452,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-parser-js"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "anyhow",
  "oxc_allocator",
@@ -1467,7 +1467,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-api-macros"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1476,7 +1476,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-runtime"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "anyhow",
  "fresh-core",
@@ -1500,7 +1500,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-winterm"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "tracing",
  "windows-sys 0.61.2",
