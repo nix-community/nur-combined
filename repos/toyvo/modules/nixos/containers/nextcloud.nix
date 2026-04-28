@@ -205,6 +205,16 @@ in
               maintenance_window_start = 2;
               default_phone_region = "US";
               log_type = "file";
+            }
+            // lib.optionalAttrs (cfg.smtp != null) {
+              mail_smtpmode = "smtp";
+              mail_smtphost = cfg.smtp.host;
+              mail_smtpport = cfg.smtp.port;
+              mail_smtpsecure = cfg.smtp.secure;
+              mail_smtpauth = true;
+              mail_smtpname = cfg.smtp.username;
+              mail_from_address = cfg.smtp.fromAddress;
+              mail_domain = cfg.smtp.domain;
             };
             database.createLocally = true;
             extraApps = lib.genAttrs cfg.extraAppNames (
@@ -292,21 +302,8 @@ in
               after = [ "nextcloud-setup.service" ];
               requires = [ "nextcloud-setup.service" ];
               serviceConfig.Type = "oneshot";
-              # Reads the bridge-generated SMTP password from the bind-mounted secret at runtime.
-              # SSL stream options allow the bridge's self-signed cert over the local veth link.
               script = ''
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpmode --value smtp
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtphost --value ${lib.escapeShellArg cfg.smtp.host}
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpport --value ${toString cfg.smtp.port} --type integer
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpsecure --value ${lib.escapeShellArg cfg.smtp.secure}
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpauth --value 1 --type integer
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpname --value ${lib.escapeShellArg cfg.smtp.username}
                 ${occ}/bin/nextcloud-occ config:system:set mail_smtppassword --value "$(cat /run/secrets/nextcloud_smtp_password)"
-                ${occ}/bin/nextcloud-occ config:system:set mail_from_address --value ${lib.escapeShellArg cfg.smtp.fromAddress}
-                ${occ}/bin/nextcloud-occ config:system:set mail_domain --value ${lib.escapeShellArg cfg.smtp.domain}
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpstreamoptions ssl verify_peer --value false --type boolean
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpstreamoptions ssl verify_peer_name --value false --type boolean
-                ${occ}/bin/nextcloud-occ config:system:set mail_smtpstreamoptions ssl allow_self_signed --value true --type boolean
               '';
             }
           );

@@ -61,36 +61,6 @@ in
     # can auto-unlock headlessly on every subsequent start.
     environment.systemPackages = [
       cfg.package
-      # Query the running bridge's gRPC API for all accounts and their SMTP passwords.
-      # Must be run as root. Proto is baked in at build time; only standard imports needed.
-      (
-        let
-          bridgeProto = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/ProtonMail/proton-bridge/v${cfg.package.version}/internal/frontend/grpc/bridge.proto";
-            sha256 = "11zi4ppb2a181mv68cl3fg82ryll1q8hblinlbi1i184i012hdsa";
-          };
-        in
-        pkgs.writeShellScriptBin "protonmail-bridge-info" ''
-          set -euo pipefail
-          BRIDGE_PID=$(${pkgs.procps}/bin/pgrep -u protonmail-bridge -x protonmail-bridge 2>/dev/null || true)
-          if [ -z "$BRIDGE_PID" ]; then
-            echo "protonmail-bridge is not running" >&2; exit 1
-          fi
-          # Bridge listens on 127.0.0.1; exclude the SMTP (1025) and IMAP (1143) ports.
-          GRPC_PORT=$(${pkgs.iproute2}/bin/ss -tlnp src 127.0.0.1 \
-            | ${pkgs.gawk}/bin/awk -v pid="$BRIDGE_PID" \
-                '$0 ~ "pid="pid { split($4,a,":"); p=a[2]+0; if (p!=1025 && p!=1143 && p>1000) print p }' \
-            | head -1)
-          if [ -z "$GRPC_PORT" ]; then
-            echo "Could not find bridge gRPC port (bridge may not be fully initialized)" >&2; exit 1
-          fi
-          ${pkgs.grpcurl}/bin/grpcurl -plaintext \
-            -import-path ${pkgs.protobuf}/include \
-            -proto ${bridgeProto} \
-            "127.0.0.1:$GRPC_PORT" bridge.Bridge/GetUserList \
-          | ${pkgs.jq}/bin/jq '.users[] | {email: .username, smtpPassword: (.password | @base64d)}'
-        ''
-      )
       (pkgs.writeShellScriptBin "protonmail-bridge-setup" ''
         exec ${pkgs.util-linux}/bin/runuser -u protonmail-bridge -- \
           env \

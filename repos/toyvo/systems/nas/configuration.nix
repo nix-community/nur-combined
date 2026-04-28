@@ -189,7 +189,7 @@ in
       smtp = {
         host = config.containerPresets.nextcloud.hostAddress;
         port = 1025;
-        secure = "tls";
+        secure = "";
         username = "collin@diekvoss.com";
         passwordFile = config.sops.secrets."protonmail-bridge-smtp-password".path;
         fromAddress = "nextcloud";
@@ -303,6 +303,12 @@ in
     };
     spiceUSBRedirection.enable = true;
   };
+  security.sudo.extraConfig = ''
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
+  '';
+
   systemd.targets = {
     sleep.enable = false;
     suspend.enable = false;
