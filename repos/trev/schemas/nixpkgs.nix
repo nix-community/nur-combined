@@ -2,20 +2,19 @@
 {
   version = 1;
   doc = ''
-    The `pkgs` flake output contains the modified nixpkgs package set used by the project.
+    The `nixpkgs` flake output contains the modified nixpkgs package set used by the project.
     Primarily consumed by nixd to provide package & lib completion/information from it:
-    `(builtins.getFlake (builtins.toString ./.)).outputs.pkgs.${builtins.currentSystem}`
+    `(builtins.getFlake (builtins.toString ./.)).outputs.nixpkgs.''${builtins.currentSystem}`
   '';
   appendSystem = true;
   defaultAttrPath = [ ];
   inventory =
     output:
     helpers.mkChildren (
-      builtins.mapAttrs (system: formatter: {
+      builtins.mapAttrs (system: _: {
         forSystems = [ system ];
-        what = "Packages";
+        what = "Package set";
         shortDescription = "The modified nixpkgs package set used by the project";
-        derivationAttrPath = [ ];
         isFlakeCheck = false;
       }) output
     );

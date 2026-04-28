@@ -2,6 +2,9 @@
   nixpkgs ? <nixpkgs>,
   lib ? nixpkgs.lib,
 }:
+
+# https://manual.determinate.systems/protocols/flake-schemas.html
+
 let
   helpers = {
     mkChildren = children: { inherit children; };
@@ -49,6 +52,7 @@ let
     ];
   };
 in
+
 {
   appimages = import ./appimages.nix { inherit helpers lib; };
   apps = import ./apps.nix { inherit helpers; };
@@ -58,7 +62,7 @@ in
   formatter = import ./formatter.nix { inherit helpers; };
   images = import ./images.nix { inherit helpers lib; };
   libs = import ./libs.nix { inherit helpers; };
+  nixpkgs = import ./nixpkgs.nix { inherit helpers; };
   packages = import ./packages.nix { inherit helpers lib; };
-  pkgs = import ./pkgs.nix { inherit helpers; };
   schemas = import ./schemas.nix { inherit helpers; };
 }
