@@ -60,8 +60,10 @@ in
     # When prompted for a keyring password, leave it empty so the service
     # can auto-unlock headlessly on every subsequent start.
     environment.systemPackages = [
+      cfg.package
       (pkgs.writeShellScriptBin "protonmail-bridge-setup" ''
-        exec sudo -u protonmail-bridge \
+        exec ${pkgs.util-linux}/bin/runuser -u protonmail-bridge -- \
+          env \
           HOME=${stateDir} \
           XDG_DATA_HOME=${stateDir}/.local/share \
           XDG_CONFIG_HOME=${stateDir}/.config \
@@ -69,7 +71,8 @@ in
           XDG_RUNTIME_DIR=/run/protonmail-bridge \
           ${pkgs.dbus}/bin/dbus-run-session -- \
           ${pkgs.bash}/bin/bash -c '
-            ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --daemonize 2>/dev/null || true
+            eval "$(echo -n | ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --unlock 2>/dev/null)"
+            export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
             exec ${lib.getExe cfg.package} "$@"
           ' -- "$@"
       '')
@@ -107,7 +110,8 @@ in
           eval "$(${pkgs.dbus}/bin/dbus-launch --sh-syntax)"
           export DBUS_SESSION_BUS_ADDRESS
 
-          ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --daemonize 2>/dev/null || true
+          eval "$(echo -n | ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --unlock 2>/dev/null)"
+          export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
 
           exec ${lib.getExe cfg.package} --noninteractive${logLevel}
         '';
