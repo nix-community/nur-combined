@@ -67,7 +67,7 @@ in
         let
           bridgeProto = pkgs.fetchurl {
             url = "https://raw.githubusercontent.com/ProtonMail/proton-bridge/v${cfg.package.version}/internal/frontend/grpc/bridge.proto";
-            hash = "sha256-11zi4ppb2a181mv68cl3fg82ryll1q8hblinlbi1i184i012hdsa=";
+            sha256 = "11zi4ppb2a181mv68cl3fg82ryll1q8hblinlbi1i184i012hdsa";
           };
         in
         pkgs.writeShellScriptBin "protonmail-bridge-info" ''
@@ -103,7 +103,7 @@ in
           ${pkgs.bash}/bin/bash -c '
             eval "$(echo -n | ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --unlock 2>/dev/null)"
             export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
-            exec ${lib.getExe cfg.package} "$@"
+            exec ${lib.getExe cfg.package} --cli "$@"
           ' -- "$@"
       '')
     ];
