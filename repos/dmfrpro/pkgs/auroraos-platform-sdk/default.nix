@@ -51,8 +51,8 @@ let
 
   ubuntuChrootImage = pkgs.dockerTools.pullImage {
     imageName = "dmfrpro/ubuntu-trusty-android-rootfs";
-    imageDigest = "sha256:9cd74477a5a2110e1f69ba40b5f1debe946e2b3b39cb1fc1ee324b69ec41812b";
-    hash = "sha256-599BGTxZmGgrogj939O68tJn5ZCNOZio+Pq09nvmSmI=";
+    imageDigest = "sha256:37aef4f6f6f59b19fb2b651a0d0276f5efeb1a3b18c91913822d7fd6b075a9fa";
+    hash = "sha256-CcMLCWuMy+CJSS2nMQLfdU8eLwaTUoZ4rfuZsN6qOIw=";
     finalImageName = "dmfrpro/ubuntu-trusty-android-rootfs";
     finalImageTag = "latest";
   };
