@@ -161,10 +161,10 @@
     };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
-      version = "3.0.6";
+      version = "3.0.7";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775328/addy_io-3.0.6.xpi";
-      sha256 = "a6bbc730e64211eda46685b94c4434f5124227b60396ec1f3688b867a3bce9fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4782542/addy_io-3.0.7.xpi";
+      sha256 = "8cb2f9267a6c20fbe96cebb9660f1bc6b97dca996287a4d83ee7e4c4719f05c3";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -2900,10 +2900,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260424.90358";
+      version = "150.0.20260427.13024";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778164/dansk_da_language_pack-151.0.20260424.90358.xpi";
-      sha256 = "b65dc8d353195261ba671b441d33a55fbe25c7df9fd1c21ccf5246678d253e2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781899/dansk_da_language_pack-150.0.20260427.13024.xpi";
+      sha256 = "3a1562ef2f36d8000a6d457f020e5dae3245ceb0cab4b5291f8921938e2db4e0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3050,10 +3050,10 @@
     };
     "dearrow" = buildMozillaXpiAddon {
       pname = "dearrow";
-      version = "2.3.5";
+      version = "2.3.6";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4760405/dearrow-2.3.5.xpi";
-      sha256 = "4d83666ae933ce9b9a7061742e7776dcc98bfbbbe47e60d0a5b99271fc9f6085";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4777329/dearrow-2.3.6.xpi";
+      sha256 = "f33f140b7aba9c3bce646c5c8ebdf68c7c49ac0510fce1fd4d6e402e49cbe0a9";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -3114,10 +3114,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260424.90358";
+      version = "150.0.20260427.13024";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778169/deutsch_de_language_pack-151.0.20260424.90358.xpi";
-      sha256 = "682cec5d9690b2ecbdf7c57bc083dad328d5c6f7d9a64a0fe62dcc651adb57dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781895/deutsch_de_language_pack-150.0.20260427.13024.xpi";
+      sha256 = "18ba3dbb19b98b6927a12740f4c323e4ba3393e181b1f7d48ae2efacab66e9ee";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4592,10 +4592,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260424.90358";
+      version = "150.0.20260427.13024";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778239/francais_language_pack-151.0.20260424.90358.xpi";
-      sha256 = "1af0314e646c0ecf45dc3992d7e735399c0758473fba6fff2e3c6266dbc6fdaa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781873/francais_language_pack-150.0.20260427.13024.xpi";
+      sha256 = "ed1334f0541b9d67142bb7fb9273d4b2be8a85514b5dfe0282f487d7a455d895";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4629,10 +4629,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260424.90358";
+      version = "150.0.20260427.13024";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778202/gaidhlig_language_pack-151.0.20260424.90358.xpi";
-      sha256 = "fff66561e41014354592104dc91639ee556b810042c680f95d78be1303be4297";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781888/gaidhlig_language_pack-150.0.20260427.13024.xpi";
+      sha256 = "c41c572ea1e30fe026741a83d3f8236c93e8629cb63e7fca0f26f3c14b92b283";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -11133,10 +11133,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.11.1";
+      version = "5.11.2";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757551/passbolt-5.11.1.xpi";
-      sha256 = "3880b290e4082c664331ad64f423c6359a011e8472eb4b6e28d7b8d35ce0b36f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4775495/passbolt-5.11.2.xpi";
+      sha256 = "05447f28013916834bb94490ecade7b8a3c6086fa44de472a582709aab660947";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -12531,10 +12531,10 @@
     };
     "readwise-highlighter" = buildMozillaXpiAddon {
       pname = "readwise-highlighter";
-      version = "0.15.25";
+      version = "0.17.0";
       addonId = "team@readwise.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4579487/readwise_highlighter-0.15.25.xpi";
-      sha256 = "ece9919236ac1873a176dac09d45903cca7113584a3f7c3da9dc76eef114b836";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781975/readwise_highlighter-0.17.0.xpi";
+      sha256 = "8229be685f56e18b423701614de2e7a4c363952fc757101d8a9fbeecc57a68e4";
       meta = with lib;
       {
         homepage = "https://read.readwise.io";
@@ -13325,10 +13325,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260424.90358";
+      version = "150.0.20260427.13024";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778176/scots_language_pack-151.0.20260424.90358.xpi";
-      sha256 = "a8dcef4943262624ac3dd8f266030c24ec76e8767b8964d4d8490ff0d1268e15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4781943/scots_language_pack-150.0.20260427.13024.xpi";
+      sha256 = "1a898dd459c61b0f848a0f1337c96aab54955b864da6e2364b0c987e746e07a1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15003,10 +15003,10 @@
     };
     "tomato-clock" = buildMozillaXpiAddon {
       pname = "tomato-clock";
-      version = "7.2.0";
+      version = "7.3.1";
       addonId = "jid1-Kt2kYYgi32zPuw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4665932/tomato_clock-7.2.0.xpi";
-      sha256 = "fb9ff5a35038df2bd589c73514a608ea9adb342711076ab7a2cf99ddc3f4429f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4776082/tomato_clock-7.3.1.xpi";
+      sha256 = "0638b9e14683ff81cb1ee8447558bc7a098c7be408e9bad07cc0808e9b386bf2";
       meta = with lib;
       {
         homepage = "https://github.com/samueljun/tomato-clock";
