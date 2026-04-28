@@ -281,21 +281,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "82910b18db72035b5b3e1394a8f236e3e7e25016";
+    version = "f22c972d544cdff8058a7f39f3eb67d35418b84e";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "82910b18db72035b5b3e1394a8f236e3e7e25016";
+      rev = "f22c972d544cdff8058a7f39f3eb67d35418b84e";
       fetchSubmodules = false;
-      sha256 = "sha256-96y16ScKqulAr6kJtvQnJozc2nmtAExgG4t76hc5+qI=";
+      sha256 = "sha256-j0PfG2YUT3lhKWWucq4wVc9KCQ8ASSUTvc/Q6vj0Xmc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-96y16ScKqulAr6kJtvQnJozc2nmtAExgG4t76hc5+qI=/Cargo.lock";
+      lockFile = ./. + "/sha256-j0PfG2YUT3lhKWWucq4wVc9KCQ8ASSUTvc_Q6vj0Xmc=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-04-20";
+    date = "2026-04-27";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -373,18 +373,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202604262232";
+    version = "202604272244";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604262232/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604272244/geoip.dat";
       sha256 = "sha256-tBIMiH8sgS5fV1Ucg0F+xvZo7haZnLLGICIdDAY8zfQ=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202604262232";
+    version = "202604272244";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604262232/geosite.dat";
-      sha256 = "sha256-WKhhqijeoQ8mNeegQuh0kSDqNIqRkeaiR83fOVUIW0Y=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202604272244/geosite.dat";
+      sha256 = "sha256-rOi6gre4uYFiW0ng2ePVjGfaPINCS/lY0WWuwH5bNcw=";
     };
   };
   yass = {
