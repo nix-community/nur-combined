@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation {
   pname = "fabric-gray";
-  version = "0.0.1";
+  version = "0-unstable-2024-12-12";
 
   src = fetchFromGitHub {
     owner = "Fabric-Development";
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = {
     description = "system trays for everyone";

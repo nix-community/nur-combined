@@ -16,7 +16,7 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "pantry";
-  version = "0.1.0";
+  version = "0.2.0-unstable-2026-03-15";
 
   # https://github.com/lonerOrz/pantry
   src = fetchFromGitHub {
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage (finallAttrs: {
     libiconv
   ];
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = {
     description = "generic selector tool for handling various types of entries with text and image preview modes";

@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vxwm";
-  version = "0-unstable-2026-04-18";
+  version = "0-unstable-2026-04-17";
 
   src = fetchFromCodeberg {
     owner = "wh1tepearl";
@@ -78,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = with lib; {
     description = "Versatile X Window Manager — dwm fork with infinite tags and modular features";

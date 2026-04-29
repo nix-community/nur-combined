@@ -27,7 +27,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri-git";
-  version = "0-unstable-2026-04-27";
+  version = "26.04-unstable-2026-04-27";
 
   src = fetchFromGitHub {
     owner = "niri-wm";
@@ -145,7 +145,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   passthru.providedSessions = [ "niri" ];
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = {
     description = "Scrollable-tiling Wayland compositor";

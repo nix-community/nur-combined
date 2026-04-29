@@ -10,7 +10,7 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "zarumet";
-  version = "0.1.0";
+  version = "0-unstable-2026-03-15";
 
   # https://github.com/Immelancholy/Zarumet
   src = fetchFromGitHub {
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage (finallAttrs: {
 
   LIBCLANG_PATH = "${libclang.lib}/lib";
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = {
     description = "Zarumet is an mpd client for the terminal written in Rust";

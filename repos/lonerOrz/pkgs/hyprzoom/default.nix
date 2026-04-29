@@ -6,7 +6,7 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "hyprzoom";
-  version = "0.1.0";
+  version = "0-unstable-2025-12-18";
 
   # https://github.com/nouritsu/hyprzoom
   src = fetchFromGitHub {
@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage (finallAttrs: {
 
   cargoHash = "sha256-DFfLLML0DUhLHRiwCy7CG13EKlvAG0EIVi4yfJAwx/0=";
 
-  passthru.updateScript = "./update.sh";
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = with lib; {
     description = "Simple yet feature rich zoom utility for Hyprland";

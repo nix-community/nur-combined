@@ -6,7 +6,7 @@
 
 buildGoModule {
   pname = "fabric-cli";
-  version = "0.0.1";
+  version = "0-unstable-2025-08-24";
 
   src = fetchFromGitHub {
     owner = "Fabric-Development";
@@ -17,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-5luc8FqDuoKckrmO2Kc4jTmDmgDjcr3D4v5Z+OpAOs4=";
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = {
     description = "An alternative super-charged CLI for Fabric ";

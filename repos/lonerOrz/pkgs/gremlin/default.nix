@@ -140,7 +140,7 @@ python3Packages.buildPythonApplication {
       chmod +x $out/bin/gremlin-picker
     '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   # 等待上游素材下载逻辑完善
   passthru.autoUpdate = false;

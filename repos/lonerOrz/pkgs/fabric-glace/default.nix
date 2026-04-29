@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation {
   pname = "fabric-glace";
-  version = "0.0.1";
+  version = "0-unstable-2025-08-03";
 
   src = fetchFromGitHub {
     owner = "Fabric-Development";
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = {
     description = "system glace for everyone";
