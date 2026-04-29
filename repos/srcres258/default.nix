@@ -44,6 +44,9 @@ in {
   adif-manage = pkgs.callPackage ./pkgs/adif-manage {
       inherit maintainers;
   };
+  bibox = pkgs.callPackage ./pkgs/bibox {
+      inherit maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
