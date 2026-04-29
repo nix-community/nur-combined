@@ -192,8 +192,8 @@ in
         secure = "";
         username = "collin@diekvoss.com";
         passwordFile = config.sops.secrets."protonmail-bridge-smtp-password".path;
-        fromAddress = "nextcloud";
-        domain = "diekvoss.net";
+        fromAddress = "collin";
+        domain = "diekvoss.com";
       };
     };
     home-assistant = {

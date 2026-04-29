@@ -307,7 +307,11 @@ in
             in
             {
               wantedBy = [ "multi-user.target" ];
-              after = [ "nextcloud-setup.service" ];
+              after = [
+                "nextcloud-setup.service"
+                "nextcloud-mimetype-migrations.service"
+                "nextcloud-update-db.service"
+              ];
               requires = [ "nextcloud-setup.service" ];
               serviceConfig.Type = "oneshot";
               script = ''

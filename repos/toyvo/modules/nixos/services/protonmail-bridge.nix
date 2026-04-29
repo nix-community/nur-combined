@@ -69,12 +69,10 @@ in
           XDG_CONFIG_HOME=${stateDir}/.config \
           XDG_CACHE_HOME=${stateDir}/.cache \
           XDG_RUNTIME_DIR=/run/protonmail-bridge \
-          ${pkgs.dbus}/bin/dbus-run-session -- \
-          ${pkgs.bash}/bin/bash -c '
-            eval "$(echo -n | ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --unlock 2>/dev/null)"
-            export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
-            exec ${lib.getExe cfg.package} --cli "$@"
-          ' -- "$@"
+          ${pkgs.dbus}/bin/dbus-run-session \
+          --dbus-daemon=${pkgs.dbus}/bin/dbus-daemon \
+          -- \
+          ${lib.getExe cfg.package} --cli "$@"
       '')
     ];
 
@@ -107,12 +105,10 @@ in
           logLevel = lib.optionalString (cfg.logLevel != null) " --log-level ${cfg.logLevel}";
         in
         ''
-          exec ${pkgs.dbus}/bin/dbus-run-session --dbus-daemon=${pkgs.dbus}/bin/dbus-daemon -- \
-            ${pkgs.bash}/bin/bash -c '
-              eval "$(echo -n | ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --unlock 2>/dev/null)"
-              export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
-              exec ${lib.getExe cfg.package} --noninteractive${logLevel}
-            '
+          exec ${pkgs.dbus}/bin/dbus-run-session \
+            --dbus-daemon=${pkgs.dbus}/bin/dbus-daemon \
+            -- \
+            ${lib.getExe cfg.package} --noninteractive${logLevel}
         '';
     };
   };
