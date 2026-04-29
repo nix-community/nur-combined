@@ -6,7 +6,7 @@
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   pname = "xurl";
   version = "0.0.27-unstable-2026-03-23";
 
@@ -17,6 +17,11 @@ rustPlatform.buildRustPackage {
     hash = "sha256-M5GurO0O5LRDvFg6MtDZz40Qjdj3EKvzMiJWhVvwDwg=";
   };
 
+  postPatch = ''
+    substituteInPlace Cargo.toml \
+      --replace-fail 'version = "0.0.0-dev"' 'version = "${version}"' \
+      --replace-fail 'version = "=0.0.0-dev"' 'version = "=${version}"'
+  '';
   cargoHash = "sha256-us5+xKHjxO3d4tCnqSrvdoqi6v7ii+DdmIURykTcaH0=";
 
   nativeCheckInputs = [ git ];
