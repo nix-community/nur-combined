@@ -10,7 +10,10 @@
   defaultAttrPath = [ ];
   inventory =
     output:
-    helpers.mkChildren (
+    {
+      isLegacy = true; # not actually legacy, used to hide by default
+    }
+    // helpers.mkChildren (
       builtins.mapAttrs (system: _: {
         forSystems = [ system ];
         what = "Package set";
