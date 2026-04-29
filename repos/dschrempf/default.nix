@@ -21,9 +21,6 @@
   tiingo = pkgs.callPackage ./pkgs/finance/tiingo { };
 
   # Media.
-  mtplayer = pkgs.callPackage ./pkgs/media/mtplayer {
-    jre = (pkgs.jre.override { enableJavaFX = true; });
-  };
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib { };

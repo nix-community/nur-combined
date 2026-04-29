@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
   schedule:
     # Rebuild everyday at 3:32
     - cron: "32 3 * * *"
@@ -47,7 +46,7 @@ jobs:
       - name: Show Nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Setup Cachix
-        uses: cachix/cachix-action@v16
+        uses: cachix/cachix-action@v17
         # Don't replace <YOUR_CACHIX_NAME> here!
         if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
         with:
