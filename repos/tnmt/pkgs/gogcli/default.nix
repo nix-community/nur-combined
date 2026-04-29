@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
 
 buildGoModule rec {
   pname = "gogcli";
@@ -20,6 +20,8 @@ buildGoModule rec {
     "-w"
     "-X github.com/steipete/gogcli/internal/cmd.version=v${version}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Google CLI for Gmail, Calendar, Drive, and Contacts";

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchzip, nodejs_22, makeWrapper }:
+{ lib, stdenv, fetchzip, nodejs_22, makeWrapper, nix-update-script }:
 
 let
   nodejs = nodejs_22;
@@ -24,6 +24,8 @@ stdenv.mkDerivation {
     makeWrapper ${nodejs}/bin/node $out/bin/ccusage \
       --add-flags "$out/lib/ccusage/dist/index.js"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Claude Code usage analytics CLI tool";

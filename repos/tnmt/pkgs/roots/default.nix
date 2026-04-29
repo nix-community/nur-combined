@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
 
 buildGoModule rec {
   pname = "roots";
@@ -20,6 +20,8 @@ buildGoModule rec {
     "-w"
     "-X github.com/k1LoW/roots/version.Version=${version}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Tool for exploring multiple root directories, such as those in a monorepo project";
