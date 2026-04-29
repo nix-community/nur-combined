@@ -22,17 +22,21 @@
   sysprof,
   polkit,
   glib,
+  callPackage,
 }:
+
+let
+  current = lib.trivial.importJSON ./version.json;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "noctalia-qs";
-  version = "0.2.1";
+  version = current.version;
 
-  # https://github.com/noctalia-dev/noctalia-qs
   src = fetchFromGitHub {
     owner = "noctalia-dev";
     repo = "noctalia-qs";
-    rev = "8742a7a748c43bf44eb6862a8ebd3591ed71502d";
-    hash = "sha256-q5mWOEICcZzr+KnjIwDHV9EXiBxOC9cnBpxZbDAViU8=";
+    rev = current.rev;
+    hash = current.hash;
   };
 
   nativeBuildInputs = [
@@ -76,8 +80,15 @@ stdenv.mkDerivation (finalAttrs: {
   separateDebugInfo = true;
   dontStrip = false;
 
-
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    pname = "noctalia-qs";
+    versionFile = "pkgs/noctalia-qs/version.json";
+    fetchMetaCommand = "${(callPackage ../../utils/fetcher.nix { }).githubGit {
+      owner = "noctalia-dev";
+      repo = "noctalia-qs";
+      ref = "master";
+    }}";
+  };
 
   meta = {
     homepage = "https://github.com/noctalia-dev/noctalia-qs";

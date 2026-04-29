@@ -6,20 +6,23 @@
   makeWrapper,
   tree,
   imagemagick,
+  callPackage,
 }:
 let
+  current = lib.trivial.importJSON ./version.json;
+
   pname = "biu";
-  version = "1.16.0";
+  version = current.version;
 
   sourceMap = {
     x86_64-linux = fetchurl {
       url = "https://github.com/wood3n/biu/releases/download/v${version}/Biu-${version}-linux-x86_64.AppImage";
-      hash = "sha256-GNO2jgq3igBsiu3+d/5PGO73LwDcDU6M1aIN9Qlj7jI=";
+      hash = current.x86_64-linux-hash;
     };
 
     aarch64-linux = fetchurl {
       url = "https://github.com/wood3n/biu/releases/download/v${version}/Biu-${version}-linux-arm64.AppImage";
-      hash = "sha256-QTGKFS/huNgSDyT9QlBCmfETkcYPjZDXsBe5m7TcCmY=";
+      hash = current.aarch64-linux-hash;
     };
   };
 
@@ -60,7 +63,47 @@ appimageTools.wrapType2 {
       --add-flags "--disable-gpu"
   '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript =
+    let
+      versionFile = "pkgs/biu/version.json";
+    in
+    callPackage ../../utils/update.nix {
+      pname = "biu";
+      inherit versionFile;
+      updateStrategy = "none";
+
+      # 使用 lib.getExe 获取 json.nix 生成的可执行脚本路径
+      fetchMetaCommand = "${lib.getExe (
+        callPackage ../../utils/json.nix {
+          preScript = ''
+            VERSION=$(curl -sS https://api.github.com/repos/wood3n/biu/releases/latest | jq -r '.tag_name | ltrimstr("v")')
+
+            CURRENT_VERSION=$(jq -r '.version' "${versionFile}" 2>/dev/null || echo "")
+
+            if [ "$VERSION" = "$CURRENT_VERSION" ]; then
+              # 必须输出当前内容，以便 update.nix 判断 is_changed
+              cat "${versionFile}"
+              exit 0
+            fi
+
+            URL_X86="https://github.com/wood3n/biu/releases/download/v$VERSION/Biu-$VERSION-linux-x86_64.AppImage"
+            URL_ARM="https://github.com/wood3n/biu/releases/download/v$VERSION/Biu-$VERSION-linux-arm64.AppImage"
+
+            echo "[*] Prefetching x86_64 hash..." >&2
+            HASH_X86=$(nix-prefetch-url "$URL_X86" --type sha256 | xargs nix-hash --to-sri --type sha256)
+
+            echo "[*] Prefetching aarch64 hash..." >&2
+            HASH_ARM=$(nix-prefetch-url "$URL_ARM" --type sha256 | xargs nix-hash --to-sri --type sha256)
+          '';
+
+          commands = {
+            version = "echo $VERSION";
+            "x86_64-linux-hash" = "echo $HASH_X86";
+            "aarch64-linux-hash" = "echo $HASH_ARM";
+          };
+        }
+      )}";
+    };
 
   meta = {
     description = "Bilibili music desktop client";

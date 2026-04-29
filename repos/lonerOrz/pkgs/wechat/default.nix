@@ -2,7 +2,6 @@
   lib,
   fetchurl,
   stdenvNoCC,
-  xorg,
   glib,
   libxkbcommon,
   fontconfig,
@@ -40,13 +39,16 @@
   xcbutilrenderutil,
   makeShellWrapper,
   commandLineArgs ? "",
+  callPackage,
 }:
 let
+  current = lib.trivial.importJSON ./version.json;
+
   pname = "wechat";
-  version = "4.1.1.4";
+  version = current.version;
   src = fetchurl {
     url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb";
-    hash = "sha256-zmpcIBg5OD1qsBmMAm7OwnS9YoAwRK7GH9yiDgLHl+I=";
+    hash = current.hash;
   };
   inputs = [
     glib.out
@@ -130,7 +132,26 @@ stdenvNoCC.mkDerivation {
       --run 'exec $1 "$@"'
   '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    pname = "wechat";
+    versionFile = "pkgs/wechat/version.json";
+    fetchMetaCommand = lib.getExe (
+      callPackage ../../utils/json.nix {
+        preScript = ''
+          URL="https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb"
+
+          echo "[*] Downloading WeChat deb to extract version..." >&2
+          STORE_PATH=$(nix-prefetch-url --print-path "$URL" 2>/dev/null | tail -n1)
+
+          VERSION=$(${dpkg}/bin/dpkg-deb -f "$STORE_PATH" Version)
+        '';
+
+        commands = {
+          version = "echo $VERSION";
+        };
+      }
+    );
+  };
 
   meta = {
     description = "WeChat for Linux";

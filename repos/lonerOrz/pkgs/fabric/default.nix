@@ -11,29 +11,29 @@
   gdk-pixbuf,
   cinnamon-desktop,
   gnome-bluetooth,
+  callPackage,
 }:
 let
-  pygobject_hash = "sha256-jYNudbWogdRX7hYiyuSjK826KKC6ViGTrbO7tHJHIhI=";
-  src_hash = "sha256-l5H9z9kq8QKbO57xigIU132NaLWPULg23oVOS9E5Sqk=";
+  current = lib.trivial.importJSON ./version.json;
 
   pygobject_3_50 = python3Packages.pygobject3.overrideAttrs (old: {
     version = "3.50.0";
     src = fetchurl {
       url = "mirror://gnome/sources/pygobject/3.50/pygobject-3.50.0.tar.xz";
-      hash = "${pygobject_hash}";
+      hash = current.pygobject_hash;
     };
   });
 in
 python3Packages.buildPythonPackage {
   pname = "fabric";
-  version = "0.0.2";
+  version = current.version;
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Fabric-Development";
     repo = "fabric";
-    rev = "23cab85fc61f1cdbb5f60db0027dc57026ba05b7";
-    hash = "${src_hash}";
+    rev = current.rev;
+    hash = current.hash;
   };
 
   buildInputs = [
@@ -57,7 +57,14 @@ python3Packages.buildPythonPackage {
     psutil
   ];
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    pname = "fabric";
+    versionFile = "pkgs/fabric/version.json";
+    fetchMetaCommand = "${(callPackage ../../utils/fetcher.nix { }).githubGit {
+      owner = "Fabric-Development";
+      repo = "fabric";
+    }}";
+  };
 
   meta = {
     description = "Next-gen framework for building desktop widgets using Python";

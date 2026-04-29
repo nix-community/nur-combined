@@ -33,15 +33,20 @@
   webkitgtk_4_1,
   libsoup_3,
   libsecret,
+  callPackage,
 }:
+
+let
+  current = lib.trivial.importJSON ./version.json;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "antigravity";
-  version = "1.23.2-4781536860569600";
+  version = current.version;
 
   # https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.13.3-4533425205018624/linux-x64/Antigravity.tar.gz
   src = fetchurl {
     url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${finalAttrs.version}/linux-x64/Antigravity.tar.gz";
-    hash = "sha256-UjKkBI/0+hVoXZqYG6T7pXPil/PvybdvY455S693VyU=";
+    hash = current.hash;
   };
 
   nativeBuildInputs = [
@@ -98,7 +103,22 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    pname = "antigravity";
+    versionFile = "pkgs/antigravity/version.json";
+    fetchMetaCommand = lib.getExe (
+      callPackage ../../utils/json.nix {
+        commands = {
+          version = ''
+            curl -sL --compressed https://antigravity.google/ \
+            | grep -Eo 'main-[^"]+\.js' | head -n1 \
+            | xargs -I{} curl -sL --compressed "https://antigravity.google/{}" \
+            | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+-[0-9]+' | head -n1
+          '';
+        };
+      }
+    );
+  };
 
   meta = {
     description = "Google Antigravity — an internal Chrome/Electron-based development and onboarding tool";

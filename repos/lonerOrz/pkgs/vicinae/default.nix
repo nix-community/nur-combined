@@ -18,31 +18,30 @@
   abseil-cpp,
   wayland,
   libxml2,
+  callPackage,
 }:
 
 let
-  pname = "vicinae";
-  version = "0.20.14";
+  current = lib.trivial.importJSON ./version.json;
 
-  srcHash = "sha256-HfYLb4RdervjyJSrCdHJqyBov4Huej2wd5G1NBulTdQ=";
-  apiDepsHash = "sha256-lIXhMBJHujs6d9fXEK8Q+sfjkKyFJEMEtKrQorkfPeU=";
-  extensionManagerDepsHash = "sha256-gpbS6MIHOSuHIfd4zDEB4EcMi9LHk9tPdnxwT0S0nbA=";
+  pname = "vicinae";
+  version = current.version;
 
   src = fetchFromGitHub {
     owner = "vicinaehq";
     repo = "vicinae";
     tag = "v${version}";
-    sha256 = "${srcHash}";
+    hash = current.hash;
   };
 
   apiDeps = fetchNpmDeps {
     src = src + /src/typescript/api;
-    hash = "${apiDepsHash}";
+    hash = current.apiDepsHash;
   };
 
   extensionManagerDeps = fetchNpmDeps {
     src = src + /src/typescript/extension-manager;
-    hash = "${extensionManagerDepsHash}";
+    hash = current.extensionManagerDepsHash;
   };
 in
 gcc15Stdenv.mkDerivation (finalAttrs: {
@@ -108,7 +107,14 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
     }"
   ];
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    pname = "vicinae";
+    versionFile = "pkgs/vicinae/version.json";
+    fetchMetaCommand = "${(callPackage ../../utils/fetcher.nix { }).githubRelease {
+      owner = "vicinaehq";
+      repo = "vicinae";
+    }}";
+  };
 
   meta = with lib; {
     description = "A focused launcher for your desktop — native, fast, extensible";
