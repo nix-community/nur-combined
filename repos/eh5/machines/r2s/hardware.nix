@@ -2,8 +2,12 @@
   config,
   pkgs,
   lib,
+  enableUsbBoot,
   ...
 }:
+let
+  fsLabelSuffix = lib.optionalString enableUsbBoot "_USB";
+in
 {
   hardware.deviceTree.name = "rockchip/rk3328-nanopi-r2s.dtb";
   hardware.deviceTree.filter = "*rk3328-nanopi-r2s.dtb";
@@ -29,11 +33,11 @@
 
   fileSystems = {
     "/boot" = {
-      device = "/dev/disk/by-label/NIXOS_BOOT";
+      device = "/dev/disk/by-label/NIXOS_BOOT${fsLabelSuffix}";
       fsType = "ext4";
     };
     "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
+      device = "/dev/disk/by-label/NIXOS_SD${fsLabelSuffix}";
       fsType = "f2fs";
       options = [
         "compress_algorithm=zstd:6"

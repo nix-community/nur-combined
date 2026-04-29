@@ -71,16 +71,16 @@
     randomizedDelaySec = "30min";
   };
 
-  services.mosdns = {
-    enable = false;
-    configFile = config.sops.secrets."mosdns.yaml".path;
-  };
-  systemd.services.mosdns = {
-    preStart = ''
-      mkdir -p /var/lib/mosdns
-    '';
-  };
+  # services.mosdns = {
+  #   enable = false;
+  #   configFile = config.sops.secrets."mosdns.yaml".path;
+  # };
+  # systemd.services.mosdns = {
+  #   preStart = ''
+  #     mkdir -p /var/lib/mosdns
+  #   '';
+  # };
 
-  sops.secrets."mosdns.yaml".restartUnits = [ "mosdns.service" ];
-  services.v2ray-rules-dat.reloadServices = [ "mosdns.service" ];
+  # sops.secrets."mosdns.yaml".restartUnits = [ "mosdns.service" ];
+  # services.v2ray-rules-dat.reloadServices = [ "mosdns.service" ];
 }

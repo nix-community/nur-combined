@@ -3,6 +3,7 @@
   system ? "aarch64-linux",
   nixpkgs,
   sops-nix,
+  enableUsbBoot ? false
 }:
 let
   inherit (nixpkgs) lib;
@@ -24,6 +25,7 @@ lib.nixosSystem rec {
       {
         _module.args = {
           inherit nixpkgs;
+          inherit enableUsbBoot;
         };
         nix = {
           nixPath = [ "nixpkgs=${nixpkgs}" ];

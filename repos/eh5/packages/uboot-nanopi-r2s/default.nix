@@ -9,11 +9,13 @@ let
     NIX_LDFLAGS = "--no-warn-execstack --no-warn-rwx-segments";
     enableParallelBuilding = true;
   });
-  preBootScript = ''
+
+  preBootCmds = ''
     usb start
-    setenv stdin serial@ff130000,usbacm
-    setenv stdout serial@ff130000,usbacm
-    setenv stderr serial@ff130000,usbacm
+    setenv boot_targets usb mmc1
+  '';
+  bootCmds = ''
+    bootflow scan -lb
   '';
 in
 buildUBoot {
@@ -23,8 +25,11 @@ buildUBoot {
   ];
   extraConfig = ''
     CONFIG_ROCKCHIP_EXTERNAL_TPL=y
+    CONFIG_EFI_LOADER=n
+    CONFIG_BOOTSTD_FULL=y
     CONFIG_USE_PREBOOT=y
-    CONFIG_PREBOOT="${lib.replaceStrings [ "\n" ] [ ";" ] preBootScript}"
+    CONFIG_PREBOOT="${lib.replaceStrings [ "\n" ] [ ";" ] preBootCmds}"
+    CONFIG_BOOTCOMMAND="${lib.replaceStrings [ "\n" ] [ ";" ] bootCmds}"
     CONFIG_CMD_SAVEENV=y
     CONFIG_CMD_ERASEENV=y
     CONFIG_DM_USB_GADGET=y
