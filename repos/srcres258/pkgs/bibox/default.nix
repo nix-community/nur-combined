@@ -17,6 +17,8 @@ in pkgs.rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-ibSZbHwtSRRoX/IXBRTAMANcOaq6J3WlwobnBOoLkIM=";
 
+  cargoBuildFlags = [ "--ignore-rust-version" ];
+
   meta = with pkgs.lib; {
     description = "A TUI bibliography manager";
     homepage = "https://github.com/namil-k/${pname}";
@@ -24,5 +26,6 @@ in pkgs.rustPlatform.buildRustPackage {
     maintainers = with maintainers; [ srcres258 ];
     platforms = platforms.linux;
     mainProgram = pname;
+    broken = versionOlder pkgs.rustc.version "1.88.0";
   };
 }
