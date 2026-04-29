@@ -3,6 +3,8 @@
   pkgs ? import <nixpkgs> { inherit system; },
 }:
 {
+  bufFetchDeps = pkgs.callPackage ./bufFetchDeps { };
+  bufHook = pkgs.callPackage ./bufHook { };
   denoCompile = pkgs.callPackage ./denoCompile { };
   gleamErlangHook = pkgs.callPackage ./gleamErlangHook { };
   gleamFetchDeps = pkgs.callPackage ./gleamFetchDeps { };

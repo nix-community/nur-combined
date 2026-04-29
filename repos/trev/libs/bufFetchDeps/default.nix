@@ -3,9 +3,11 @@
   stdenvNoCC,
   buf,
 }:
+
 let
   buf' = buf;
 in
+
 lib.makeOverridable (
   {
     hash ? "",
@@ -13,6 +15,7 @@ lib.makeOverridable (
     buf ? buf',
     ...
   }@args:
+
   let
     args' = removeAttrs args [
       "hash"
@@ -27,6 +30,7 @@ lib.makeOverridable (
           outputHashAlgo = "sha256";
         };
   in
+
   stdenvNoCC.mkDerivation (
     finalAttrs:
     (

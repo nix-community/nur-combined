@@ -1,23 +1,31 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "files.associations": {
     "renovate.json": "jsonc",
     ".envrc.project": "dotenv",
     ".envrc": "dotenv"
   },
-
-  // nix
-  "nix.enableLanguageServer": true,
-  "nix.serverPath": "nixd",
-  "[nix]": {
-    "editor.defaultFormatter": "jnoortheen.nix-ide"
+  "explorer.fileNesting.patterns": {
+    ".envrc.project": ".envrc",
+    "flake.nix": "flake.lock,treefmt.toml",
+    "README.md": "*.md,LICENSE"
   },
-
-  // json
   "json.schemaDownload.trustedDomains": {
     "https://docs.renovatebot.com/": true
   },
 
-  // prettier
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  // nix
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nixd",
+  "nix.serverSettings": {
+    "nixd": {
+      "nixpkgs": {
+        "expr": "(builtins.getFlake (builtins.toString ./.)).outputs.nixpkgs.${builtins.currentSystem}"
+      }
+    }
+  },
+  "[nix]": {
+    "editor.defaultFormatter": "jnoortheen.nix-ide"
+  }
 }

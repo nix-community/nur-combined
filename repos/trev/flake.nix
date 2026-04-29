@@ -210,9 +210,9 @@
         pkgs.treefmt.withConfig {
           configFile = ./treefmt.toml;
           runtimeInputs = with pkgs; [
+            prettier
             nixfmt
             tombi
-            prettier
           ];
         }
       );
