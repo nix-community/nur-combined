@@ -13,7 +13,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v6
     - name: Install nix
-      uses: cachix/install-nix-action@V27
+      uses: cachix/install-nix-action@v31
       with:
         nix_path: "nixpkgs=channel:nixos-unstable-small"
         extra_nix_config: |
@@ -43,6 +43,6 @@ jobs:
     - name: Update Go vendor hashes
       run: ./update-go-vendorHash.sh
     - name: Commit back to repository
-      uses: stefanzweifel/git-auto-commit-action@v5
+      uses: stefanzweifel/git-auto-commit-action@v7
       with:
         commit_message: 'auto: update packages'
