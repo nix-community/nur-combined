@@ -14,5 +14,25 @@
   {
     "repo": "https://github.com/FBarrca/obsidian-calendar-plugin",
     "version": "1.5.13"
+  },
+  {
+    "repo": "https://github.com/obsidian-community/obsidian-kanban",
+    "version": "2.0.51"
+  },
+  {
+    "repo": "https://github.com/chhoumann/quickadd",
+    "version": "2.12.0"
+  },
+  {
+    "repo": "https://github.com/FlorianWoelki/obsidian-iconize",
+    "version": "2.14.7"
+  },
+  {
+    "repo": "https://github.com/obsidian-community/obsidian-style-settings",
+    "version": "1.0.9"
+  },
+  {
+    "repo": "https://github.com/roovo/obsidian-card-board",
+    "version": "0.7.9"
   }
 ]
