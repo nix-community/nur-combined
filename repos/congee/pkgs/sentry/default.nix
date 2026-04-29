@@ -9,13 +9,13 @@
 
 let
   pname = "sentry";
-  version = "0.28.1";
+  version = "0.29.1";
 
   src = fetchFromGitHub {
     owner = "getsentry";
     repo = "cli";
     rev = version;
-    hash = "sha256-J4ozDjMrtGc1nHA3AxYu913Ntb6rgGN4Qbkpl+IkCfI=";
+    hash = "sha256-8hMSOw2FXBLw5zPySZbWJLGRBP/uOtctJA/jxPCPYyQ=";
   };
 
   # @sentry/api version pinned in bun.lock; determines the OpenAPI spec tag
@@ -37,7 +37,7 @@ let
     # bun installs platform-specific native deps, so the hash differs per system
     outputHash = {
       x86_64-linux = "sha256-MvXQ0cCXWese3E+rvd8X1suH/N175XysTzxEWoTAAp0=";
-      aarch64-darwin = "sha256-UPDgbCA9VWS5OsZ59vUNZ1rd9ZmfRIl8C8r02geMcA8=";
+      aarch64-darwin = "sha256-jyS7h3VCSb0ygu9LIpdeJxKPfC5NixsNzoHCeb0Sldc=";
     }.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
     buildPhase = ''
       runHook preBuild
