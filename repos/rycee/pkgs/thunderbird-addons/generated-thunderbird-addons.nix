@@ -46,10 +46,10 @@
     };
     "eas-4-tbsync" = buildMozillaXpiAddon {
       pname = "eas-4-tbsync";
-      version = "4.17";
+      version = "4.18";
       addonId = "eas4tbsync@jobisoft.de";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1040394/provider_fur_exchange_activesync-4.17-tb.xpi?src=";
-      sha256 = "f564c4063e4bf603c81ca0ff5dfa3432fb946179a15208cc73022fd747a70466";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1046520/provider_fur_exchange_activesync-4.18-tb.xpi?src=";
+      sha256 = "2923e13adbcc2fadfe6fe4fa65f01c43b1782765ff2ed3cf125515e2df47584d";
       meta = with lib;
       {
         homepage = "https://github.com/jobisoft/EAS-4-TbSync";

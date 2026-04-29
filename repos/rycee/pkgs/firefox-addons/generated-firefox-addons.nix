@@ -5183,10 +5183,10 @@
     };
     "gumbo-twitch-companion" = buildMozillaXpiAddon {
       pname = "gumbo-twitch-companion";
-      version = "1.21.5";
+      version = "1.21.6";
       addonId = "{59a39734-1e66-452e-a7b8-cc79f72062f0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4762496/gumbo_twitch_companion-1.21.5.xpi";
-      sha256 = "1667867db3442ac922d27ac0fcd6f49e1a3518c3290ccd03af17a1cfefc23924";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4783480/gumbo_twitch_companion-1.21.6.xpi";
+      sha256 = "43cde56116be0f55323331977aa99e0c849d180b07762cea9dce56d79ac551d4";
       meta = with lib;
       {
         homepage = "https://github.com/seldszar/gumbo";
@@ -16477,10 +16477,10 @@
     };
     "wappalyzer" = buildMozillaXpiAddon {
       pname = "wappalyzer";
-      version = "6.12.0";
+      version = "6.12.1";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4769810/wappalyzer-6.12.0.xpi";
-      sha256 = "a2aa2d6337e34ff0319e61694b53d2795bddc35e714ea16e3b26cfadb70e608a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4782673/wappalyzer-6.12.1.xpi";
+      sha256 = "92909607a3c200c97b5a3045330ca32abfd65bfda58a4a03f8dc45be96e0c41b";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
