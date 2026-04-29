@@ -27,11 +27,12 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  agent-run = callPackage ./pkgs/agent-run.nix {};
   create-tauri-app = callPackage ./pkgs/create-tauri-app {};
   claude-code-bin = callPackage ./pkgs/claude-code {};
   codex = (callPackage ./pkgs/codex {}).codex;
   codex-bin = (callPackage ./pkgs/codex {}).codex-bin;
   dingtalk = callPackage ./pkgs/dingtalk {};
-  kwok = pkgs.callPackage ./pkgs/kwok/default.nix {};
+  kwok = callPackage ./pkgs/kwok/default.nix {};
   vagrant-vmware-utility = callPackage ./pkgs/vagrant-vmware-utility.nix {};
 }

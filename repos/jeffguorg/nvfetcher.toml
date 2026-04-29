@@ -1,3 +1,9 @@
+[agent-run]
+src.git = "https://git.jeffthecoder.xyz/public/agent-run.git"
+fetch.git = "https://git.jeffthecoder.xyz/public/agent-run.git"
+cargo_lock = ["Cargo.lock"]
+cargo_locks = ["Cargo.lock"]
+
 [create-tauri-app]
 src.github_tag = "tauri-apps/create-tauri-app"
 src.include_regex = "^create-tauri-app-v.*$"
