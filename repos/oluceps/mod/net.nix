@@ -390,17 +390,11 @@ in
                 DHCPv6Client = false;
                 # UseDNS = false;
               };
-              dhcpV4Config.RouteMetric = 2040;
-              dhcpV6Config.RouteMetric = 2046;
             };
 
             "30-rndis" = {
               matchConfig.Name = "rndis";
               DHCP = "yes";
-              dhcpV4Config.RouteMetric = 2044;
-              dhcpV6Config.RouteMetric = 2044;
-              dhcpV4Config.UseDNS = false;
-              dhcpV6Config.UseDNS = false;
               networkConfig = {
                 DNSSEC = true;
               };
@@ -408,8 +402,6 @@ in
             "25-ncm" = {
               matchConfig.Name = "ncm";
               DHCP = "yes";
-              dhcpV4Config.RouteMetric = 2044;
-              dhcpV6Config.RouteMetric = 2044;
               networkConfig = {
                 DNSSEC = true;
               };
@@ -417,6 +409,43 @@ in
           };
         };
 
+      }
+    ];
+  flake.modules.nixos."net/uubboo" =
+    { ... }:
+    lib.mkMerge [
+      common
+      {
+        networking = {
+          hostName = "uubboo";
+        };
+        systemd.network = {
+          enable = true;
+
+          wait-online = {
+            enable = true;
+            anyInterface = true;
+          };
+          links."10-eno1" = {
+            matchConfig.MACAddress = "c4:09:38:f2:3e:cb";
+            linkConfig.Name = "eno1";
+          };
+
+          networks."8-eno1" = {
+            matchConfig.Name = "eno1";
+            networkConfig = {
+              DHCP = "yes";
+              IPv4Forwarding = true;
+              IPv6Forwarding = true;
+              IPv6AcceptRA = true;
+              MulticastDNS = true;
+            };
+            ipv6AcceptRAConfig = {
+              DHCPv6Client = false;
+            };
+            linkConfig.RequiredForOnline = "routable";
+          };
+        };
       }
     ];
 }

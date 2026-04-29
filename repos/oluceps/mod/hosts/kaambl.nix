@@ -93,16 +93,17 @@
           options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
         '';
         kernelPackages =
-          let
-            helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
+          # let
+          #   helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
 
-            rawKernel = pkgs.cachyosKernels.linux-cachyos-bore-lto.override {
-              pname = "linux-cachyos-custom-kernel";
-              processorOpt = "zen4";
-              # extraMakeFlags = [ "KCFLAGS=-march=znver5" ];
-            };
-          in
-          helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor rawKernel);
+          #   rawKernel = pkgs.cachyosKernels.linux-cachyos-bore-lto.override {
+          #     pname = "linux-cachyos-custom-kernel";
+          #     processorOpt = "zen4";
+          #     # extraMakeFlags = [ "KCFLAGS=-march=znver5" ];
+          #   };
+          # in
+          # helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor rawKernel);
+          pkgs.linuxPackages_latest;
         blacklistedKernelModules = [ "hid_nintendo" ];
         kernelParams = [
           "amd_pstate=active"
@@ -217,6 +218,7 @@
         };
         cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
       };
+      networking.wireless.iwd.enable = true;
 
       systemd.tmpfiles.rules = [
         # "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"

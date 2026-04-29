@@ -40,6 +40,7 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       description = "sing-server Daemon";
+      restartIfChanged = false;
 
       serviceConfig = {
         DynamicUser = true;

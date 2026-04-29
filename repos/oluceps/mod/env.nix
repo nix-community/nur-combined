@@ -65,6 +65,7 @@
         # LD_LIBRARY_PATH = [ "${lib.getLib pkgs.pcsclite}/lib" ];
         DIRENV_CONFIG = "/etc/direnv";
 
+        CLAUDE_PACKAGE_MANAGER = "pnpm";
         CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
         CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
         NEOVIDE_MULTIGRID = "1";

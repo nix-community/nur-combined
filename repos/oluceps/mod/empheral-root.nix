@@ -72,6 +72,7 @@
           ".mongoshrc.js"
           # ".gitconfig"
           ".bash_history"
+          ".claude.json"
         ];
         directories = [
           "Src"
@@ -98,6 +99,7 @@
           ".local"
           ".mc"
           ".factorio"
+          ".claude"
           ".cargo"
           ".rustup"
           ".mozilla"

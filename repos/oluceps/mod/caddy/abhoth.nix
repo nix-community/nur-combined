@@ -44,7 +44,7 @@
                         {
                           tls = {
                             sni = [
-                              "www.kyoto-u.ac.jp"
+                              "www.ndl.go.jp"
                             ];
                           };
                         }

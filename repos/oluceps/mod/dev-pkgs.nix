@@ -67,6 +67,9 @@
               zoxide
               nodejs_latest
               wakelan
+              bun
+              pnpm
+              devcontainer
               lynx
               atuin
               yazi

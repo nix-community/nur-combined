@@ -9,7 +9,7 @@
     {
       options.subs.scriptPath = lib.mkOption {
         type = lib.types.str;
-        default = "/var/lib/private/subs/subs.ts";
+        default = config.vaultix.secrets.subs.path;
       };
       config = {
         systemd.services.subs = {

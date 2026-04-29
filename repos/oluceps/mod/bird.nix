@@ -84,6 +84,7 @@
         };
       };
       config = {
+        systemd.services.bird.restartIfChanged = false;
         services.bird = {
           enable = true;
           config = config.bird.baseConfig + config.bird.config;

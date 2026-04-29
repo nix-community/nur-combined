@@ -71,6 +71,7 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       description = "sing-box Daemon";
+      restartIfChanged = false;
       serviceConfig = {
         User = "sing-box";
         ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";

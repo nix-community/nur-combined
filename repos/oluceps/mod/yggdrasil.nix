@@ -13,7 +13,7 @@
         || (thisNode.nat && thisNode ? region && peerNode ? region && thisNode.region == peerNode.region);
       directConnect = peerNode: ((thisNode.nat && peerNode.nat) || (thisNode.censor == peerNode.censor));
 
-      extra_reg = (fromTOML (builtins.readFile ../registry.toml)).extra;
+      extra_reg = (fromTOML (builtins.readFile ../registry.toml)).extra or { };
 
       trustedLinkLocalAddrs = lib.mapAttrsToList (_: v: macToLL v.mac) (
         lib.filterAttrs (
@@ -32,7 +32,7 @@
             12344
           ];
           trustedInterfaces = [ "ygg0" ];
-          extraInputRules = lib.mkIf thisNode.nat ''
+          extraInputRules = lib.mkIf (thisNode.nat && (llSetString != "")) ''
             iifname { "eno1", "wlan0" } ip6 saddr { ${llSetString} } accept
           '';
         };

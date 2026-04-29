@@ -98,6 +98,7 @@
                 content = {
                   type = "swap";
                   randomEncryption = true;
+                  discardPolicy = "once";
                 };
               };
             };

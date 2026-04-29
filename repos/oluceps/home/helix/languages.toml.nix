@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, ... }: # toml
 ''
   [[language]]
   file-types = ["typ"]
@@ -54,14 +54,6 @@
 
   [language.formatter]
   command = "nixfmt"
-
-  [[language]]
-  name = "jsonc"
-  file-types = ["json","jsonc"]
-
-  [language.formatter]
-  args = ["--parser","json"]
-  command = "prettier"
 
   [language-server]
   [language-server.awk-language-server]

@@ -31,6 +31,7 @@
           let
             notEihort = lib.optionalString (!(config.networking.hostName == "eihort"));
           in
+          # d
           ''
             include {
                 secret.dae
@@ -80,10 +81,9 @@
                        dnsproxy, coredns, mosdns, naive,
                        hysteria, tuic-client, sing-box,
                        juicity, mosproxy, yggdrasil,
-                       zerotier-one, cloudflared) -> must_direct
+                       zerotier-one, cloudflared, xray) -> must_direct
 
                  pname(prometheus, ssh) -> direct
-
 
                  pname(Misskey, conduit, tuwunel, conduwuit,
                        .mautrix-telegr, arti, .synapse_homese) -> all

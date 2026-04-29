@@ -137,6 +137,7 @@
           ];
           requires = [ "network-online.target" ];
           reloadTriggers = [ configfile ];
+          restartIfChanged = false;
         };
       };
     };

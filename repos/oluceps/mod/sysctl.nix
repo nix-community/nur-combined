@@ -74,7 +74,7 @@
       "fs.protected_regular" = 2;
 
       "net.ipv4.tcp_slow_start_after_idle" = 0;
-      "vm.swappiness" = 150;
+      "vm.swappiness" = 70;
       "vm.max_map_count" = 2147483642;
       "net.ipv4.tcp_ecn" = 1;
     };

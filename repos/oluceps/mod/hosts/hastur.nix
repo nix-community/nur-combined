@@ -45,6 +45,7 @@
             secureboot
             home
             chrony
+            # xray
           ])
         )
         ++ [
@@ -53,8 +54,11 @@
 
       identity.user = "riro";
       incus.bridgeAddr = "fdcc:1::1/64";
+      # xray.configFile = config.vaultix.secrets.xray-cli.path;
+
       environment.systemPackages = [
         pkgs.nvtopPackages.intel
+        pkgs.chafa
         # pkgs.texlive.combined.scheme-full
       ];
 
@@ -69,8 +73,6 @@
           enable = true;
           pcrs = [
             0
-            2
-            3
             4
             7
           ];
@@ -123,6 +125,8 @@
           "zswap.enabled=1"
           "zswap.compressor=zstd"
           "zswap.zpool=zsmalloc"
+          "zswap.max_pool_percent=40"
+          "zswap.shrinker_enabled=1"
         ];
 
       };
@@ -134,6 +138,8 @@
       };
       systemd = {
         enableEmergencyMode = false;
+        # random encrypted swap
+        sleep.settings.Sleep.AllowHibernation = "no";
         settings.Manager = {
           RebootWatchdogSec = "20s";
           RuntimeWatchdogSec = "30s";

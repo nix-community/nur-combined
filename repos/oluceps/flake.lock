@@ -4309,10 +4309,11 @@
         "rust-overlay": "rust-overlay_10"
       },
       "locked": {
-        "dirtyRev": "34c680dc3124a145d14c776c6f343a5056961005-dirty",
-        "dirtyShortRev": "34c680d-dirty",
         "lastModified": 1770126251,
-        "narHash": "sha256-/B+g9jxn7unIPmYE6WkVuENjukzgCxdPyZzVqSjMzoE=",
+        "narHash": "sha256-GQ5FxZSo0FA35qq14F3g6RAdNykijwWujzJRwGU6Cnw=",
+        "ref": "refs/heads/fix-age-ident-pass-parse",
+        "rev": "34c680dc3124a145d14c776c6f343a5056961005",
+        "revCount": 229,
         "type": "git",
         "url": "file:///home/riro/Src/vaultix"
       },

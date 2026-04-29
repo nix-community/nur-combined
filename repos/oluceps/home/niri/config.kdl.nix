@@ -85,7 +85,7 @@ in
       match app-id="^foot$"
 
       background-effect {
-          blur true
+          xray true
       }
   }
 
@@ -94,7 +94,7 @@ in
       match namespace="^vicinae$"
 
       background-effect {
-          blur true
+          xray true
       }
   }
 
@@ -137,6 +137,23 @@ in
       match app-id=r#"^chromium-browser"#
       match app-id="thunderbird"
       open-maximized true
+  }
+  window-rule {
+      match app-id="Loupe"
+
+      popups {
+          // Matches the default libadwaita pop-up corner radius.
+          geometry-corner-radius 15
+
+          // Note: it'll look better to set background opacity
+          // through your GTK theme CSS and not here.
+          // This is just an example that makes it look obvious.
+          opacity 0.5
+
+          background-effect {
+              blur true
+          }
+      }
   }
 
   output "eDP-1" {

@@ -90,6 +90,7 @@ in
           Type = "oneshot";
           Environment = [ "RUSTIC_CACHE_DIR=/var/cache/rustic" ];
           PrivateTmp = true;
+          CPUWeight = 50;
           ExecStart =
             let
               profileArgs = lib.concatStringsSep " " (

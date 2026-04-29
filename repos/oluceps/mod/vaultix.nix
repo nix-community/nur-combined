@@ -15,7 +15,7 @@
         !elem n [
           # "yidhra"
           "resq"
-          "livecd"
+          "rescue"
           "bootstrap"
           "nodens"
           # "hastur"
@@ -28,13 +28,14 @@
     cache = "./sec/.cache";
   };
   flake.modules.nixos.vaultix =
-    { pkgs, lib, ... }:
+    { pkgs, ... }@args:
     {
-      imports = lib.singleton {
-        imports = [ (import (inputs.vaultix.outPath + "/module") { localSelf = self; }) ];
-        vaultix.package = withSystem pkgs.stdenv.hostPlatform.system (
-          { inputs', ... }: inputs'.vaultix.packages.default
-        );
-      };
+      imports = [
+        (import (inputs.vaultix.outPath + "/module") (args // { inherit self; }))
+      ];
+
+      vaultix.package = withSystem pkgs.stdenv.hostPlatform.system (
+        { inputs', ... }: inputs'.vaultix.packages.default
+      );
     };
 }

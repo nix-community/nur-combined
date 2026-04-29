@@ -5,7 +5,6 @@ with pkgs;
   eva
   paperback
   # termusic
-  chatmcp
   thunderbird
   amberol
   nix-weather

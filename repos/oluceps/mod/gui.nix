@@ -71,6 +71,7 @@
           pkgs.libnotify # foot
           pkgs.bitwarden-cli
           pkgs.gpu-screen-recorder
+          pkgs.mpv
         ];
       programs = {
         dconf.enable = true;

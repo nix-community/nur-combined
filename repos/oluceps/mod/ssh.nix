@@ -30,7 +30,7 @@
                     then
                       config.fn.getAddrFromCIDR v.unique_addr
                     else if v ? addrs then
-                      config.fn.getAddrFromCIDR v.unique_addr
+                      lib.elemAt v.addrs 0
                     else
                       (lib.elemAt v.identifiers 0).name
                   }
@@ -62,7 +62,7 @@
               IdentitiesOnly yes
               HashKnownHosts yes
         ''}"
-        "L+ /root/.ssh/config - - - - /home/${config.identity.user}/.ssh/config"
+        # "L+ /root/.ssh/config - - - - /home/${config.identity.user}/.ssh/config"
       ];
     };
 }

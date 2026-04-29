@@ -34,7 +34,8 @@
             vxlan-mesh
             yggdrasil
             chrony
-            sing-server
+            # sing-server
+            xray
             rustypaste
             subs
             ntfy
@@ -46,6 +47,7 @@
         ];
 
       identity.user = "elen";
+      xray.configFile = config.vaultix.secrets.xray.path;
 
       system = {
         # This headless machine uses to perform heavy task.

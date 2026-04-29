@@ -67,6 +67,14 @@ deploy:
     | gum choose --no-limit
     | split words
     | util d $in
+deploy-boot:
+    #!/usr/bin/env nu
+    use {{loc}}/util.nu
+    open registry.toml | $in.node | columns
+    | reduce {|it, acc| $it + (char newline) + $acc }
+    | gum choose --no-limit
+    | split words
+    | util d $in boot
 
 encrypt-new *args:
     #!/usr/bin/env nu

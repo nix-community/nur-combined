@@ -5,7 +5,7 @@
   ...
 }:
 {
-  os.bootstrap.module =
+  os.rescue.module =
     { pkgs, ... }:
     {
       imports = [
