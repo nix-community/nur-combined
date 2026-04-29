@@ -10,7 +10,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,62 +20,74 @@
     {
       self,
       nixpkgs,
-      flake-utils,
       treefmt-nix,
     }:
     let
-      # Load Go versions and hashes
-      goVersions = builtins.fromJSON (builtins.readFile ./pkgs/go/versions.json);
-      goHashes = builtins.fromJSON (builtins.readFile ./pkgs/go/hashes.json);
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      packageSet = import ./lib/packages.nix { inherit (nixpkgs) lib; };
 
-      # Helper to create a Go package for a specific version
-      makeGo =
-        prev: majorMinor:
+      perSystem =
+        system:
         let
-          version = goVersions.${majorMinor};
-          hashes = goHashes.${version};
-        in
-        prev.callPackage ./pkgs/go {
-          inherit version hashes;
-        };
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ packageSet.overlay ];
+          };
 
-      # Get the latest Go version (highest minor version)
-      # Filter out "next" to only consider stable versions
-      latestGoVersion = builtins.head (
-        builtins.sort (a: b: a > b) (builtins.filter (v: v != "next") (builtins.attrNames goVersions))
-      );
+          treefmtEval = treefmt-nix.lib.evalModule pkgs {
+            projectRootFile = "flake.nix";
 
-      # Overlay that adds our custom packages
-      overlay =
-        _final: prev:
-        let
-          # Create all go-bin_1_XX packages dynamically
-          dynamicGoPackages = builtins.listToAttrs (
-            map (majorMinor: {
-              name = "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor);
-              value = makeGo prev majorMinor;
-            }) (builtins.attrNames goVersions)
-          );
+            programs = {
+              nixfmt.enable = true;
+              deadnix.enable = true;
+              statix.enable = true;
+              ruff-format.enable = true;
+            };
+
+            settings = {
+              global.excludes = [
+                ".direnv/**"
+              ];
+
+              formatter = {
+                deadnix.priority = 1;
+                statix.priority = 2;
+                nixfmt.priority = 3;
+              };
+            };
+          };
         in
         {
-          zlint = prev.callPackage ./pkgs/zlint { };
-          zlint-unstable = prev.callPackage ./pkgs/zlint/unstable.nix { };
-          uvShellHook = prev.callPackage ./pkgs/uv/venv-shell-hook.nix { };
-          inbox = prev.callPackage ./pkgs/inbox { };
-          zigdoc = prev.callPackage ./pkgs/zigdoc { };
-          ziglint = prev.callPackage ./pkgs/ziglint { };
-          tracy = prev.callPackage ./pkgs/tracy { };
+          packages = packageSet.packagesFor pkgs;
+          formatter = treefmtEval.config.build.wrapper;
+          checks.formatting = treefmtEval.config.build.check self;
 
-          # Latest Go version as go-bin (automatically uses the highest version)
-          go-bin = makeGo prev latestGoVersion;
-        }
-        // dynamicGoPackages;
+          devShells.default = pkgs.mkShell {
+            packages = [
+              pkgs.just
+              pkgs.python3
+              pkgs.zon2nix
+              treefmtEval.config.build.wrapper
+              pkgs.nix-tree
+              pkgs.nix-diff
+            ];
+
+            shellHook = ''
+              just --list --unsorted
+            '';
+          };
+        };
+
+      allSystems = forAllSystems perSystem;
     in
     {
-      # Export the overlay for others to use
-      overlays.default = overlay;
+      overlays.default = packageSet.overlay;
 
-      # Project templates
       templates = {
         go = {
           path = ./templates/go;
@@ -104,101 +115,11 @@
         };
       };
 
-      # Default template
       defaultTemplate = self.templates.go;
-    }
-    // flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ overlay ];
-        };
 
-        # Configure treefmt-nix
-        treefmtEval = treefmt-nix.lib.evalModule pkgs {
-          projectRootFile = "flake.nix";
-
-          programs = {
-            nixfmt.enable = true; # Uses nixfmt-rfc-style by default
-            deadnix.enable = true;
-            statix.enable = true;
-          };
-
-          settings = {
-            global.excludes = [
-              ".direnv/**"
-              "pkgs/zlint/deps.nix" # Auto-generated file
-            ];
-
-            formatter = {
-              deadnix.priority = 1; # Remove unused code first
-              statix.priority = 2; # Fix anti-patterns second
-              nixfmt.priority = 3; # Format last
-            };
-          };
-        };
-      in
-      {
-        packages =
-          let
-            # Get all go-bin_1_XX package names dynamically
-            goPackageNames = map (
-              majorMinor: "go-bin_" + (builtins.replaceStrings [ "." ] [ "_" ] majorMinor)
-            ) (builtins.attrNames goVersions);
-            # Create attrset with all go packages
-            goPackages = builtins.listToAttrs (
-              map (name: {
-                inherit name;
-                value = pkgs.${name};
-              }) goPackageNames
-            );
-          in
-          {
-            inherit (pkgs)
-              zlint
-              zlint-unstable
-              go-bin
-              uvShellHook
-              inbox
-              zigdoc
-              ziglint
-              tracy
-              ;
-            default = self.packages.${system}.zlint;
-          }
-          // goPackages;
-
-        # Formatter for `nix fmt`
-        formatter = treefmtEval.config.build.wrapper;
-
-        # Formatting check for CI
-        checks = {
-          formatting = treefmtEval.config.build.check self;
-        };
-
-        # Development shell with Nix tooling
-        devShells.default = pkgs.mkShell {
-          packages = [
-            # Task runner
-            pkgs.just
-
-            # For update scripts
-            pkgs.python3
-            pkgs.zon2nix # Zig dependency generator
-
-            # Unified formatting via treefmt-nix (includes nixfmt, deadnix, statix)
-            treefmtEval.config.build.wrapper
-
-            # Nix utilities
-            pkgs.nix-tree # Visualize dependency trees
-            pkgs.nix-diff # Diff derivations
-          ];
-
-          shellHook = ''
-            just --list --unsorted
-          '';
-        };
-      }
-    );
+      packages = builtins.mapAttrs (_: s: s.packages) allSystems;
+      formatter = builtins.mapAttrs (_: s: s.formatter) allSystems;
+      checks = builtins.mapAttrs (_: s: s.checks) allSystems;
+      devShells = builtins.mapAttrs (_: s: s.devShells) allSystems;
+    };
 }

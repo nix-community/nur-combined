@@ -1,0 +1,10 @@
+{
+  "1.0.0": {
+    "aarch64-linux": "sha256-a3Z4LVHLhTNXjRACQYeUjCzhtBczRunN1M2JsSs8EbA=",
+    "x86_64-linux": "sha256-Kq1LNUgb2w7QVf1rQC7b8hb/y4r2skQGnuxLBqMR1y8="
+  },
+  "1.1.2-pre": {
+    "aarch64-linux": "sha256-wtxJ80l2AguihWeaygLVTZeIl57Bp+a5CpCrTp77evo=",
+    "x86_64-linux": "sha256-DmbeqMJ975TTo3L7VRbbT95Ax/U6qyh/HVTPoBnuiF4="
+  }
+}

@@ -1,4 +1,4 @@
-name: Update zlint
+name: Update Zed
 
 on:
   schedule:
@@ -22,14 +22,14 @@ jobs:
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
 
-      - name: Run zlint update script
+      - name: Run Zed update script
         run: |
-          nix develop -c just update-zlint
+          nix develop -c just update-zed
 
       - name: Check for changes
         id: verify-diff
         run: |
-          git diff --quiet pkgs/zlint/ || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet pkgs/zed/ || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Validate flake
         if: steps.verify-diff.outputs.changed == 'true'
@@ -38,28 +38,23 @@ jobs:
           nix flake check --no-build
           echo "✓ Flake checks passed"
 
-      - name: Build and test zlint packages
+      - name: Build Zed packages
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
-          echo "🏗️ Building zlint stable..."
-          nix build .#zlint --no-link
-          echo "✓ zlint stable builds successfully"
+          echo "🏗️ Building zed..."
+          nix build .#zed --no-link
+          echo "✓ zed builds successfully"
 
-          echo "🏗️ Building zlint-unstable..."
-          nix build .#zlint-unstable --no-link
-          echo "✓ zlint-unstable builds successfully"
-
-          # Test that zlint works
-          echo "🧪 Testing zlint binary..."
-          nix run .#zlint -- --version
-          echo "✓ zlint binary works"
+          echo "🏗️ Building zed-preview..."
+          nix build .#zed-preview --no-link
+          echo "✓ zed-preview builds successfully"
 
       - name: Commit and push changes
         if: steps.verify-diff.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'chore: update zlint versions'
-          file_pattern: 'pkgs/zlint/*.nix'
+          commit_message: 'chore: update zed version'
+          file_pattern: 'pkgs/zed/*'
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
@@ -67,16 +62,15 @@ jobs:
       - name: Summary
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
-          echo "### 🎉 zlint versions updated and validated!" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎉 Zed version updated and validated!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Validation:**" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ All packages build successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ zlint binary tested and working" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ zed and zed-preview build successfully" >> $GITHUB_STEP_SUMMARY
 
       - name: No changes
         if: steps.verify-diff.outputs.changed != 'true'
         run: |
           echo "### ℹ️ No updates available" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "zlint versions are already up to date." >> $GITHUB_STEP_SUMMARY
+          echo "Zed is already up to date." >> $GITHUB_STEP_SUMMARY

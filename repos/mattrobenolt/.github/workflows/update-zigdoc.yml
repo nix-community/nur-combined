@@ -1,10 +1,10 @@
-name: Update ziglint
+name: Update zigdoc
 
 on:
   schedule:
-    # Run daily at 3 AM UTC
-    - cron: '0 3 * * *'
-  workflow_dispatch: # Allow manual trigger
+    # Run daily at 3:15 AM UTC
+    - cron: '15 3 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,14 +22,14 @@ jobs:
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
 
-      - name: Run ziglint update script
+      - name: Run zigdoc update script
         run: |
-          nix develop -c just update-ziglint
+          nix develop -c just update-zigdoc
 
       - name: Check for changes
         id: verify-diff
         run: |
-          git diff --quiet pkgs/ziglint/ || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet pkgs/zigdoc/ || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Validate flake
         if: steps.verify-diff.outputs.changed == 'true'
@@ -38,24 +38,22 @@ jobs:
           nix flake check --no-build
           echo "✓ Flake checks passed"
 
-      - name: Build and test ziglint package
+      - name: Build and test zigdoc package
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
-          echo "🏗️ Building ziglint..."
-          nix build .#ziglint --no-link
-          echo "✓ ziglint builds successfully"
+          echo "🏗️ Building zigdoc..."
+          nix build .#zigdoc --no-link
+          echo "✓ zigdoc builds successfully"
 
-          # Test that ziglint works
-          echo "🧪 Testing ziglint binary..."
-          nix run .#ziglint -- --version
-          echo "✓ ziglint binary works"
+          echo "🧪 Testing zigdoc binary..."
+          nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
 
       - name: Commit and push changes
         if: steps.verify-diff.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'chore: update ziglint version'
-          file_pattern: 'pkgs/ziglint/*'
+          commit_message: 'chore: update zigdoc version'
+          file_pattern: 'pkgs/zigdoc/*'
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
@@ -63,16 +61,16 @@ jobs:
       - name: Summary
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
-          echo "### 🎉 ziglint version updated and validated!" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎉 zigdoc version updated and validated!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Validation:**" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Package builds successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ ziglint binary tested and working" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ zigdoc binary tested" >> $GITHUB_STEP_SUMMARY
 
       - name: No changes
         if: steps.verify-diff.outputs.changed != 'true'
         run: |
           echo "### ℹ️ No updates available" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "ziglint version is already up to date." >> $GITHUB_STEP_SUMMARY
+          echo "zigdoc version is already up to date." >> $GITHUB_STEP_SUMMARY

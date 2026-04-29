@@ -42,15 +42,6 @@ jobs:
           done
           echo "✓ All Go packages build successfully"
 
-      - name: Build all zlint packages
-        run: |
-          echo "🏗️ Building zlint packages..."
-          nix build .#zlint --no-link
-          echo "✓ zlint builds successfully"
-
-          nix build .#zlint-unstable --no-link
-          echo "✓ zlint-unstable builds successfully"
-
       - name: Build other packages
         run: |
           echo "🏗️ Building other packages..."
@@ -63,14 +54,17 @@ jobs:
           nix build .#ziglint --no-link
           echo "✓ ziglint builds successfully"
 
+          nix build .#zed --no-link
+          echo "✓ zed builds successfully"
+
+          nix build .#zed-preview --no-link
+          echo "✓ zed-preview builds successfully"
+
       - name: Test binaries
         run: |
           echo "🧪 Testing binaries..."
           nix run .#go-bin -- version
           echo "✓ go-bin works"
-
-          nix run .#zlint -- --version
-          echo "✓ zlint works"
 
           nix run .#inbox -- --help
           echo "✓ inbox works"
@@ -88,6 +82,5 @@ jobs:
           echo "**Validated:**" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All Go packages build successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ All zlint packages build successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ inbox, zigdoc, and ziglint build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ inbox, zigdoc, ziglint, zed, and zed-preview build successfully" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All binaries tested and working" >> $GITHUB_STEP_SUMMARY

@@ -56,11 +56,6 @@ jobs:
           nix build .#go-bin --no-link
           echo "✓ go-bin builds"
 
-          # Build zlint packages
-          nix build .#zlint --no-link
-          nix build .#zlint-unstable --no-link
-          echo "✓ zlint packages build"
-
           # Build inbox package
           nix build .#inbox --no-link
           echo "✓ inbox builds"
@@ -73,12 +68,17 @@ jobs:
           nix build .#ziglint --no-link
           echo "✓ ziglint builds"
 
+          nix build .#zed --no-link
+          echo "✓ zed builds"
+
+          nix build .#zed-preview --no-link
+          echo "✓ zed-preview builds"
+
       - name: Test binaries
         if: steps.verify-diff.outputs.changed == 'true'
         run: |
           echo "🧪 Testing binaries..."
           nix run .#go-bin -- version
-          nix run .#zlint -- --version
           nix run .#inbox -- --help
           nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
           nix run .#ziglint -- --version

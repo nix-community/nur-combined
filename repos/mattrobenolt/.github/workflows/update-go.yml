@@ -29,7 +29,7 @@ jobs:
       - name: Check for changes
         id: verify-diff
         run: |
-          git diff --quiet pkgs/go/versions.json pkgs/go/hashes.json || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet pkgs/go-bin/versions.json pkgs/go-bin/hashes.json || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Validate flake
         if: steps.verify-diff.outputs.changed == 'true'
@@ -55,7 +55,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: update Go versions'
-          file_pattern: 'pkgs/go/versions.json pkgs/go/hashes.json'
+          file_pattern: 'pkgs/go-bin/versions.json pkgs/go-bin/hashes.json'
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
@@ -67,7 +67,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Updated versions:**" >> $GITHUB_STEP_SUMMARY
           echo '```json' >> $GITHUB_STEP_SUMMARY
-          cat pkgs/go/versions.json >> $GITHUB_STEP_SUMMARY
+          cat pkgs/go-bin/versions.json >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Validation:**" >> $GITHUB_STEP_SUMMARY

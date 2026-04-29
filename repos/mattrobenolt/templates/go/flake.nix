@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     mattware = {
       url = "github:mattrobenolt/nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,27 +11,34 @@
   };
 
   outputs =
-    {
+    inputs@{
+      flake-parts,
       nixpkgs,
-      flake-utils,
       mattware,
       ...
     }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ mattware.overlays.default ];
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+
+      perSystem =
+        { system, ... }:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ mattware.overlays.default ];
+          };
+        in
+        {
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              go-bin
+              gopls
+            ];
+          };
         };
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            go-bin
-            gopls
-          ];
-        };
-      }
-    );
+    };
 }

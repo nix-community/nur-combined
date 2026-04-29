@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     mattware = {
       url = "github:mattrobenolt/nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,31 +11,37 @@
   };
 
   outputs =
-    {
+    inputs@{
+      flake-parts,
       nixpkgs,
-      flake-utils,
       mattware,
       ...
     }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ mattware.overlays.default ];
-        };
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          venvDir = ".venv";
-          packages = with pkgs; [
-            uv
-            uvShellHook
-          ];
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
 
-          UV_PYTHON_PREFERENCE = "only-managed";
-        };
+      perSystem =
+        { system, ... }:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ mattware.overlays.default ];
+          };
+        in
+        {
+          devShells.default = pkgs.mkShell {
+            venvDir = ".venv";
+            packages = with pkgs; [
+              uv
+              uvShellHook
+            ];
 
-      }
-    );
+            UV_PYTHON_PREFERENCE = "only-managed";
+          };
+        };
+    };
 }

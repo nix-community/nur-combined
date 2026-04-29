@@ -1,41 +1,47 @@
 # List available commands
 default:
-    @just --list
+    @just --list --unsorted
 
 # Format all Nix files (runs deadnix, statix, and nixfmt)
 fmt:
-    treefmt
+    nix fmt
 
-# Check formatting (verifies deadnix, statix, and nixfmt)
+# Check flake outputs and formatting
 check:
-    @echo "Checking formatting..."
-    @treefmt --fail-on-change && echo "✓ All files are properly formatted" || echo "✗ Some files need formatting (run 'just fmt' to fix)"
+    nix flake check
+
+# Build a package
+build package:
+    nix build ".#{{package}}"
+
+# Update one package by directory name under pkgs/
+update package:
+    ./pkgs/{{package}}/update.py
 
 # Update Go versions and hashes
 update-go:
-    @./pkgs/go/update.py
-
-# Update zlint stable and unstable packages
-update-zlint:
-    @./pkgs/zlint/update.py
+    @just update go-bin
 
 # Update inbox package
 update-inbox:
-    @./pkgs/inbox/update.py
+    @just update inbox
 
 # Update zigdoc package
 update-zigdoc:
-    @./pkgs/zigdoc/update.py
+    @just update zigdoc
 
 # Update ziglint package
 update-ziglint:
-    @./pkgs/ziglint/update.py
+    @just update ziglint
+
+# Update Zed package (stable + preview)
+update-zed:
+    @just update zed
 
 # Update all packages
 update-all:
-    @just update-go
-    @just update-zlint
-    @just update-inbox
-    @just update-zigdoc
-    @just update-ziglint
-
+    @just update go-bin
+    @just update inbox
+    @just update zigdoc
+    @just update ziglint
+    @just update zed

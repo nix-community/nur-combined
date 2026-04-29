@@ -1,0 +1,38 @@
+--- zigdoc-orig/build.zig	2026-04-10 15:25:16.478092000 -0700
++++ /dev/fd/11	2026-04-10 15:27:05.819081134 -0700
+@@ -1,5 +1,4 @@
+ const std = @import("std");
+-const ziglint = @import("ziglint");
+ 
+ pub fn build(b: *std.Build) void {
+     const target = b.standardTargetOptions(.{});
+@@ -66,13 +65,4 @@
+     });
+     fmt_step.dependOn(&fmt_check.step);
+     test_step.dependOn(fmt_step);
+-
+-    const lint_step = b.step("lint", "Run ziglint");
+-    const ziglint_dep = b.dependency("ziglint", .{ .optimize = .ReleaseFast });
+-    lint_step.dependOn(ziglint.addLint(
+-        b,
+-        ziglint_dep,
+-        &.{ b.path("src"), b.path("build.zig"), b.path("build_readme.zig") },
+-    ));
+-    test_step.dependOn(lint_step);
+ }
+--- zigdoc-orig/build.zig.zon	2026-04-10 15:25:16.478285000 -0700
++++ /dev/fd/11	2026-04-10 15:27:05.948289227 -0700
+@@ -3,12 +3,7 @@
+     .version = "0.0.0",
+     .fingerprint = 0x50a871f441c1a7ed,
+     .minimum_zig_version = "0.15.1",
+-    .dependencies = .{
+-        .ziglint = .{
+-            .url = "https://github.com/rockorager/ziglint/archive/refs/tags/v0.5.2.tar.gz",
+-            .hash = "ziglint-0.5.2-t0bwL2FwBQC5i-ifhKKv2ls5jGXHShJpuNhFVhiU-Tt-",
+-        },
+-    },
++    .dependencies = .{},
+     .paths = .{
+         "build.zig",
+         "build.zig.zon",
