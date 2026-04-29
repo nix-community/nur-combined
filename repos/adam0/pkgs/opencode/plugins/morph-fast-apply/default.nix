@@ -16,7 +16,7 @@ mkOpencodePlugin rec {
     hash = "sha256-XjZDwSPidAgNZHyIh6VjOiuDrjOeTFdC5fmTK0UZVm8=";
   };
 
-  dependencyHash = "sha256-pOdO7KHWbNIayPlUz1ydVklMTqROL/evADFw9OYRT7U=";
+  dependencyHash = "sha256-G4g5vBV8/4LRU+8aa4h2vzvuV17e+Dole07poz6r0Hc=";
 
   buildCommand = "bun build index.ts --outdir dist --target node";
 
