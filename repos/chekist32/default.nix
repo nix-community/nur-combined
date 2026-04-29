@@ -9,7 +9,9 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-
+let
+  obsidianPkgs = import ./pkgs/obsidian { inherit pkgs; };
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -18,4 +20,5 @@
 
   # pkgs
   inherit (import ./pkgs/litecoin { inherit pkgs; }) litecoin litecoin-cli;
+  obsidian-plugins = pkgs.lib.recurseIntoAttrs obsidianPkgs.plugins;
 }

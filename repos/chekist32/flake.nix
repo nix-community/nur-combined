@@ -39,6 +39,7 @@
               nixfmt.enable = true;
             };
           };
+          shell = import ./shell { inherit pkgs; };
         in
         {
           default = pkgs.mkShell {
@@ -47,6 +48,8 @@
               nixfmt
               nix-prefetch-github
               nix-prefetch-git
+
+              shell.generate-obsidian-plugins
             ];
             shellHook = pre-commit.shellHook;
           };
