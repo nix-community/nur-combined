@@ -215,6 +215,14 @@ in
               mail_smtpname = cfg.smtp.username;
               mail_from_address = cfg.smtp.fromAddress;
               mail_domain = cfg.smtp.domain;
+              # Bridge uses a self-signed cert; disable PHP SSL verification for this local veth connection.
+              mail_smtpstreamoptions = {
+                ssl = {
+                  verify_peer = false;
+                  verify_peer_name = false;
+                  allow_self_signed = true;
+                };
+              };
             };
             database.createLocally = true;
             extraApps = lib.genAttrs cfg.extraAppNames (

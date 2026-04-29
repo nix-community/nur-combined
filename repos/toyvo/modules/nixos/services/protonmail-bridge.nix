@@ -107,13 +107,12 @@ in
           logLevel = lib.optionalString (cfg.logLevel != null) " --log-level ${cfg.logLevel}";
         in
         ''
-          eval "$(${pkgs.dbus}/bin/dbus-launch --sh-syntax)"
-          export DBUS_SESSION_BUS_ADDRESS
-
-          eval "$(echo -n | ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --unlock 2>/dev/null)"
-          export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
-
-          exec ${lib.getExe cfg.package} --noninteractive${logLevel}
+          exec ${pkgs.dbus}/bin/dbus-run-session --dbus-daemon=${pkgs.dbus}/bin/dbus-daemon -- \
+            ${pkgs.bash}/bin/bash -c '
+              eval "$(echo -n | ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets --unlock 2>/dev/null)"
+              export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
+              exec ${lib.getExe cfg.package} --noninteractive${logLevel}
+            '
         '';
     };
   };
