@@ -15,7 +15,7 @@ makeSetupHook {
   ];
 
   substitutions = {
-    godot = lib.getExe targetPackages.godot;
+    godot = lib.getExe targetPackages.godot-runtime;
   };
 
   meta = {

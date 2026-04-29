@@ -40,12 +40,27 @@ let
     godotWrapHook = callPackage ./godotWrapHook { };
     godot3WrapHook = pkgs.godotWrapHook.override {
       targetPackages = pkgs.targetPackages // {
-        godot = pkgs.godot3;
+        godot-runtime = pkgs.godot3-runtime;
       };
     };
     godot43WrapHook = pkgs.godotWrapHook.override {
       targetPackages = pkgs.targetPackages // {
-        inherit (pkgs.godotPackages_4_3) godot;
+        godot-runtime = pkgs.godot_4_3-runtime;
+      };
+    };
+    godot44WrapHook = pkgs.godotWrapHook.override {
+      targetPackages = pkgs.targetPackages // {
+        godot-runtime = pkgs.godot_4_4-runtime;
+      };
+    };
+    godot45WrapHook = pkgs.godotWrapHook.override {
+      targetPackages = pkgs.targetPackages // {
+        godot-runtime = pkgs.godot_4_5-runtime;
+      };
+    };
+    godot46WrapHook = pkgs.godotWrapHook.override {
+      targetPackages = pkgs.targetPackages // {
+        godot-runtime = pkgs.godot_4_6-runtime;
       };
     };
 
@@ -78,9 +93,26 @@ let
 
     ### Development
 
+    godot3-runtime = callPackage ./godot3-runtime { };
+    godot3-mono-runtime = callPackage ./godot3-runtime {
+      godot3-export-templates = pkgs.godot3-mono-export-templates;
+    };
+    godot-runtime = callPackage ./godot-runtime { };
+    godot_4-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4; };
+    godot_4_3-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_3; };
+    godot_4_4-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_4; };
+    godot_4_5-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_5; };
+    godot_4_6-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_6; };
+    godot-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot-mono; };
+    godot_4-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4-mono; };
+    godot_4_3-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_3-mono; };
+    godot_4_4-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_4-mono; };
+    godot_4_5-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_5-mono; };
+    godot_4_6-mono-runtime = callPackage ./godot-runtime { godot = pkgs.godot_4_6-mono; };
+
     python2 =
       (pkgsSuper.python2.override {
-        self = ulypkgsPackages.python2;
+        self = pkgs.python2;
         packageOverrides = import ./python2/packages.nix;
       }).overrideAttrs
         (attrsSuper: {
@@ -88,7 +120,7 @@ let
             mainProgram = "python";
           };
         });
-    python2Packages = ulypkgsPackages.python2.pkgs;
+    python2Packages = pkgs.python2.pkgs;
 
     renpy_7 = callPackage ./renpy_7 { };
 
