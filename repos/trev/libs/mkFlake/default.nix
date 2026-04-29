@@ -95,6 +95,7 @@ let
         overlays.images
         overlays.libs
         overlays.packages
+        overlays.python
       ];
       config = {
         allowUnfree = true;
@@ -110,6 +111,7 @@ let
         overlays.images
         overlays.libs
         overlays.packages
+        overlays.python
       ];
       config = {
         allowUnfree = true;
