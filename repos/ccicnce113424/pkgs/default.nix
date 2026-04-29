@@ -64,6 +64,8 @@ lib.makeScope pkgs.newScope (self: {
     inherit (sources) version;
   };
 
+  kanzi-cpp = self.callPackage ./kanzi-cpp/package.nix { };
+
   kikoflu = self.callPackage ./kikoflu rec {
     sources = fetchedSrc.kikoflu;
     version = stableVersion sources;
