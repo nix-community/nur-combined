@@ -236,8 +236,8 @@
   },
   {
     "pname": "Microsoft.CodeCoverage",
-    "version": "18.5.0",
-    "hash": "sha256-QWjcHRqzCw1PoeyLoiOOKrzDT3RVpyyYXfRkYO55/Mc="
+    "version": "18.5.1",
+    "hash": "sha256-OnahMnRBbdlGSz+igNB0GaMS7PAppefPL1fWN1+cs0w="
   },
   {
     "pname": "Microsoft.Data.Sqlite.Core",
@@ -506,8 +506,8 @@
   },
   {
     "pname": "Microsoft.NET.Test.Sdk",
-    "version": "18.5.0",
-    "hash": "sha256-1o08u8Z//tb8eJOlAiax0CTuWU/XOaob4jwhwvGSGEk="
+    "version": "18.5.1",
+    "hash": "sha256-X69wQBKd5GvXfO7BaPWFcyrwfi/kZFVdH/axorIra5Y="
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
@@ -541,13 +541,13 @@
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
-    "version": "18.5.0",
-    "hash": "sha256-zVmDi9rKrIPRxv/2cELeJlTJSUyzaQqL7ihJqCIB7dQ="
+    "version": "18.5.1",
+    "hash": "sha256-CUuOoANj4lXhQAE1/265X6S+afmNxhpsICEIDqNzSXk="
   },
   {
     "pname": "Microsoft.TestPlatform.TestHost",
-    "version": "18.5.0",
-    "hash": "sha256-5PZK2V+HCbfB08OgH6Y9BYDFcU8h2ca+7ZMWIY4oPCY="
+    "version": "18.5.1",
+    "hash": "sha256-jtb74D0mqq7hu/nlCtV7IU2dXhviLrmGPER0ttdH2Dg="
   },
   {
     "pname": "Microsoft.VisualStudio.SolutionPersistence",
