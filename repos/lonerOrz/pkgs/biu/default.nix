@@ -70,7 +70,7 @@ appimageTools.wrapType2 {
     callPackage ../../utils/update.nix {
       pname = "biu";
       inherit versionFile;
-      updateStrategy = "none";
+      updateMethod = "none";
 
       # 使用 lib.getExe 获取 json.nix 生成的可执行脚本路径
       fetchMetaCommand = "${lib.getExe (
