@@ -147,10 +147,7 @@ in {
       })
 
       (mkIf cfg.plugins.quota.sidebar.enable {
-        xdg.configFile."opencode/tui.json".source = jsonFormat.generate "tui.json" {
-          "$schema" = "https://opencode.ai/tui.json";
-          plugin = ["file://${pluginPackages.quota}"];
-        };
+        programs.opencode.tui.plugin = mkAfter ["file://${pluginPackages.quota}"];
       })
     ]
   );

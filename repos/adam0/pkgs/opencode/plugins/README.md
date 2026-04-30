@@ -257,5 +257,5 @@ explicit entrypoint paths like `/dist/index.js`.
 `programs.opencode.plugins.quota.settings` accepts a JSON attrset/list/value,
 which is written to `opencode/opencode-quota/quota-toast.json`.
 
-`programs.opencode.plugins.quota.sidebar.enable` writes `opencode/tui.json` with
-the quota plugin package root so the TUI sidebar can load.
+`programs.opencode.plugins.quota.sidebar.enable` appends the quota plugin
+package root to `programs.opencode.tui.plugin` so the TUI sidebar can load.
