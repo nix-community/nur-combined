@@ -28,6 +28,7 @@
     # keep-sorted start
     buildCommand ? null,
     dependencyHash ? null,
+    dependencyInstallCommand ? "bun install --no-cache --production",
     meta ? {},
     pname,
     src,
@@ -67,7 +68,7 @@
           installPhase = ''
             export HOME="$TMPDIR"
 
-            bun install --no-cache --production
+            ${dependencyInstallCommand}
 
             mkdir -p "$out"
             cp -r node_modules "$out/"
@@ -83,6 +84,7 @@
         # keep-sorted start
         "buildCommand"
         "dependencyHash"
+        "dependencyInstallCommand"
         "meta"
         # keep-sorted end
       ])

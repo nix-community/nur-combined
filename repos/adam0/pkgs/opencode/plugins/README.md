@@ -23,6 +23,8 @@ paths with no runtime rebuild hacks.
 `mkOpencodePlugin` in `pkgs/opencode/plugins/default.nix`:
 
 - Copies dependencies to `./node_modules`.
+- Supports optional `dependencyInstallCommand` for plugins that need non-default
+  dependency installation.
 - Runs optional `buildCommand` before files are copied to `$out`.
 - Copies source tree to `$out`.
 - Runs `postInstall` after files are in `$out`.
