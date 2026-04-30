@@ -4,7 +4,15 @@ set -euo pipefail
 
 run_timestamp=$(date +%s)
 sed_replacements=()
+replace_files=()
 need_rebuild=()
+target_list="${1:-${GO_VENDORHASH_TARGETS:-}}"
+
+contains_target() {
+  local target="$1"
+
+  [[ -z "$target_list" || "$target_list" == *":${target}:"* ]]
+}
 
 derivations=(
   $(nix eval --impure --json --expr '
@@ -30,7 +38,19 @@ in
     ' | jq -r '.[]')
 )
 
+selected_derivations=()
 for DERIVATION_NAME in "${derivations[@]}"; do
+  if contains_target "$DERIVATION_NAME"; then
+    selected_derivations+=("${DERIVATION_NAME}")
+  fi
+done
+
+if [ "${#selected_derivations[@]}" -eq 0 ]; then
+  echo "no go vendor hash targets selected"
+  exit 0
+fi
+
+for DERIVATION_NAME in "${selected_derivations[@]}"; do
   if ! output="$(nix-build -E "
  let
   pkgs = (
@@ -52,7 +72,10 @@ in attrs.$DERIVATION_NAME
     got=$(echo "$output" | awk -F: '$1~/got/{print $2}' | xargs)
     if [ -n "$specified" -a -n "$got" ]; then
       echo "hash replacement detected. searching for hashes: $specified -> $got"
-      sed_replacements=("${sed_replacements[@]}" -e "s,$specified,$got,")
+      while IFS= read -r ENTRY; do
+        [ -n "$ENTRY" ] && replace_files+=("$ENTRY")
+      done < <(rg -l -F "$specified" --glob '*.nix' .)
+      sed_replacements=("${sed_replacements[@]}" "$specified" "$got")
       need_rebuild=("${need_rebuild[@]}" "${DERIVATION_NAME}")
     fi
   fi
@@ -63,9 +86,18 @@ if [ "${#sed_replacements[@]}" -eq 0 ]; then
   exit
 fi
 
-while IFS= read -r -d '' ENTRY; do
-  sed -i "${sed_replacements[@]}" $ENTRY
-done < <(find -type f -name '*.nix' -print0)
+if [ "${#replace_files[@]}" -eq 0 ]; then
+  echo "no nix files matched the old vendor hashes"
+  exit 1
+fi
+
+mapfile -t replace_files < <(printf '%s\n' "${replace_files[@]}" | sort -u)
+
+for ENTRY in "${replace_files[@]}"; do
+  for ((i = 0; i < ${#sed_replacements[@]}; i += 2)); do
+    sed -i "s,${sed_replacements[i]},${sed_replacements[i + 1]},g" "$ENTRY"
+  done
+done
 
 for DERIVATION_NAME in "${need_rebuild[@]}"; do
   nix-build -E "

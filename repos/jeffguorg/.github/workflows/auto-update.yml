@@ -20,28 +20,16 @@ jobs:
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Update source groups
+      id: update_sources
       run: |
-        update_group() {
-          local name="$1"
-          local package_list="$2"
-          local filter="$3"
-
-          echo "Updating [$name]: $package_list"
-          if ! nix run nixpkgs#nvfetcher -- --keep-going --filter "$filter"; then
-            echo "::warning title=nvfetcher partial failure::$name had update failures; continuing with other groups"
-          fi
-        }
-
-        update_group "create-tauri-app" "create-tauri-app" '^(create\-tauri\-app)$'
-        update_group "dingtalk" "dingtalk-bin-amd64, dingtalk-bin-arm64" '^(dingtalk\-bin\-amd64|dingtalk\-bin\-arm64)$'
-        update_group "claude-code" "claude-code-bin-arm64-linux, claude-code-bin-amd64-linux, claude-code-bin-arm64-darwin, claude-code-bin-amd64-darwin" '^(claude\-code\-bin\-arm64\-linux|claude\-code\-bin\-amd64\-linux|claude\-code\-bin\-arm64\-darwin|claude\-code\-bin\-amd64\-darwin)$'
-        update_group "codex" "codex, codex-bin-amd64-linux, codex-bin-arm64-linux, codex-bin-amd64-darwin, codex-bin-arm64-darwin" '^(codex|codex\-bin\-amd64\-linux|codex\-bin\-arm64\-linux|codex\-bin\-amd64\-darwin|codex\-bin\-arm64\-darwin)$'
-        update_group "kwok" "kwok" '^(kwok)$'
-        update_group "vagrant-vmware-utility" "vagrant-vmware-utility" '^(vagrant\-vmware\-utility)$'
+        bash ./scripts/auto-update.sh
     - name: Update nix flake lock
       run: nix flake update
     - name: Update Go vendor hashes
-      run: ./update-go-vendorHash.sh
+      if: steps.update_sources.outputs.go_vendorhash_targets != ''
+      env:
+        GO_VENDORHASH_TARGETS: ${{ steps.update_sources.outputs.go_vendorhash_targets }}
+      run: ./scripts/update-go-vendorHash.sh
     - name: Commit back to repository
       uses: stefanzweifel/git-auto-commit-action@v7
       with:

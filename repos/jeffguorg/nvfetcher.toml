@@ -49,14 +49,14 @@ src.github = "openai/codex"
 src.use_max_tag = true
 src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
 src.prefix = "rust-v"
-fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-x86_64-unknown-linux-gnu.zst"
+fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-x86_64-unknown-linux-musl.zst"
 
 [codex-bin-arm64-linux]
 src.github = "openai/codex"
 src.use_max_tag = true
 src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
 src.prefix = "rust-v"
-fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-aarch64-unknown-linux-gnu.zst"
+fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-aarch64-unknown-linux-musl.zst"
 
 [codex-bin-amd64-darwin]
 src.github = "openai/codex"
