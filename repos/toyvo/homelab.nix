@@ -89,6 +89,30 @@
         category = "Nas";
         icon = "sh-nixos";
       };
+      hermes_agent = {
+        port = 8642;
+        subdomain = "hermes-agent";
+        displayName = "Hermes Agent";
+        description = "Gateway API";
+        category = "Nas";
+        icon = "sh-hermes";
+      };
+      hermes_dashboard = {
+        port = 9119;
+        subdomain = "hermes-dashboard";
+        displayName = "Hermes Dashboard";
+        description = "Agent Dashboard";
+        category = "Nas";
+        icon = "sh-hermes";
+      };
+      hermes_webui = {
+        port = 8787;
+        subdomain = "hermes-webui";
+        displayName = "Hermes WebUI";
+        description = "Browser Chat Interface";
+        category = "Nas";
+        icon = "sh-hermes";
+      };
     };
   };
   immich = {

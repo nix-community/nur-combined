@@ -31,6 +31,8 @@
     ./services/minecraft.nix
     ./services/ollama.nix
     ./services/protonmail-bridge.nix
+    ./services/hermes-dashboard.nix
+    ./services/hermes-webui.nix
     ./services/signal-cli.nix
     ./vintagestory.nix
     ./wireguard

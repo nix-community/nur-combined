@@ -51,6 +51,8 @@ in
         5432
         8080
         8642 # hermes-agent API (reachable from open-webui container via veth)
+        9119 # hermes-dashboard
+        8787 # hermes-webui
       ];
       allowedUDPPorts = [
         53
@@ -160,7 +162,6 @@ in
       natInterface = "eno1";
       stateDir = "/mnt/POOL/immich";
       package = stablePkgs.immich;
-      immichUid = 354;
     };
     jellyfin = {
       enable = true;
@@ -318,6 +319,14 @@ in
   services.signal-cli = {
     enable = true;
     environmentFile = config.sops.secrets."signal-cli.env".path;
+  };
+  services.hermes-dashboard = {
+    enable = true;
+    stateDir = "/mnt/POOL/hermes";
+  };
+  services.hermes-webui = {
+    enable = true;
+    stateDir = "/mnt/POOL/hermes";
   };
   services.hermes-agent = {
     enable = true;
