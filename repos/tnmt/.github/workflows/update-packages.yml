@@ -15,6 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         package:
+          - ccpocket-bridge
           - ccusage
           - gogcli
           - kagiana
@@ -38,6 +39,8 @@ jobs:
         echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
     - name: Run nix-update
+      env:
+        NIXPKGS_ALLOW_UNFREE: "1"
       run: |
         nix shell nixpkgs#nix-update -c \
           nix-update --build -f ./default.nix ${{ matrix.package }}
