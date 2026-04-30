@@ -84,6 +84,8 @@
             };
           }
           // optionalAttrs (name == "quota") {
+            sidebar.enable = mkEnableOption "the opencode quota TUI sidebar";
+
             settings = mkOption {
               type = types.nullOr jsonFormat.type;
               default = null;
@@ -142,6 +144,13 @@ in {
       (mkIf (cfg.plugins.quota.settings != null) {
         xdg.configFile."opencode/opencode-quota/quota-toast.json".source =
           jsonFormat.generate "quota-toast.json" cfg.plugins.quota.settings;
+      })
+
+      (mkIf cfg.plugins.quota.sidebar.enable {
+        xdg.configFile."opencode/tui.json".source = jsonFormat.generate "tui.json" {
+          "$schema" = "https://opencode.ai/tui.json";
+          plugin = ["file://${pluginPackages.quota}"];
+        };
       })
     ]
   );
