@@ -36,14 +36,19 @@ stdenv.mkDerivation (finalAttrs: {
     meson
     ninja
     pkg-config
+    glib # glib-compile-schemas + setup hook for gsettings install dir
     wrapGAppsHook3
   ];
 
   buildInputs = [
-    glib
     gtk3
     gdk-pixbuf
   ];
+
+  # Upstream meson installs the gschema XML but never compiles it.
+  postInstall = ''
+    glib-compile-schemas "$out/share/glib-2.0/schemas"
+  '';
 
   passthru.updateScript = nix-update-script { };
 
