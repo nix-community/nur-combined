@@ -59,18 +59,6 @@ in
       description = "App names to enable from nextcloud's packages.apps (e.g. [ \"bookmarks\" \"calendar\" ])";
     };
 
-    nextcloudUid = lib.mkOption {
-      type = lib.types.int;
-      default = 993;
-      description = "Pinned UID for the nextcloud user (must match state dir ownership on host)";
-    };
-
-    nextcloudGid = lib.mkOption {
-      type = lib.types.int;
-      default = 991;
-      description = "Pinned GID for the nextcloud group (must match state dir ownership on host)";
-    };
-
     smtp = lib.mkOption {
       type = lib.types.nullOr (
         lib.types.submodule {
@@ -177,11 +165,11 @@ in
         {
           # Pin UIDs to match state dir ownership on the host
           users.users.nextcloud = {
-            uid = lib.mkForce cfg.nextcloudUid;
+            uid = lib.mkForce config.ids.uids.nextcloud;
             group = "nextcloud";
             isSystemUser = true;
           };
-          users.groups.nextcloud.gid = lib.mkForce cfg.nextcloudGid;
+          users.groups.nextcloud.gid = lib.mkForce config.ids.gids.nextcloud;
 
           networking.defaultGateway = cfg.hostAddress;
 

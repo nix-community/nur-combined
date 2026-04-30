@@ -16,7 +16,7 @@
           external_directory = {
             "${config.home.homeDirectory}/.config/opencode/**" = "allow";
             "${config.home.homeDirectory}/.local/share/opencode/**" = "allow";
-            "${config.home.homeDirectory}/FQ/**" = "allow";
+            "${config.home.homeDirectory}/.cargo/**" = "allow";
             "${config.home.homeDirectory}/Code/**" = "allow";
             "${config.home.homeDirectory}/Clone/**" = "allow";
             "${config.home.homeDirectory}/nixcfg/**" = "allow";

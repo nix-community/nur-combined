@@ -13,6 +13,7 @@
     ./containers/terraria.nix
     ./containers/vintagestory.nix
     ./defaults.nix
+    ./ids.nix
     ./filesystems.nix
     ./gaming.nix
     ./mcsmanager.nix

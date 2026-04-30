@@ -35,18 +35,6 @@ in
       description = "Host path bind-mounted into the container at /var/lib/vintagestory";
     };
 
-    vintagestoryUid = lib.mkOption {
-      type = lib.types.int;
-      default = 356;
-      description = "Pinned UID for the vintagestory user (static, below 400; chown stateDir to this UID before first start)";
-    };
-
-    vintagestoryGid = lib.mkOption {
-      type = lib.types.int;
-      default = 356;
-      description = "Pinned GID for the vintagestory group (static, below 400; chown stateDir to this GID before first start)";
-    };
-
     package = lib.mkOption {
       type = lib.types.package;
       default = inputs.nixcfg.packages.${system}.VintagestoryServer;
@@ -108,14 +96,14 @@ in
         { ... }:
         {
           users.users.vintagestory = {
-            uid = lib.mkForce cfg.vintagestoryUid;
+            uid = lib.mkForce config.ids.uids.vintagestory;
             description = "Vintage Story server service user";
             home = "/var/lib/vintagestory";
             createHome = true;
             isSystemUser = true;
             group = "vintagestory";
           };
-          users.groups.vintagestory.gid = lib.mkForce cfg.vintagestoryGid;
+          users.groups.vintagestory.gid = lib.mkForce config.ids.gids.vintagestory;
 
           systemd.tmpfiles.rules = [
             "d /var/lib/vintagestory 0750 vintagestory vintagestory -"

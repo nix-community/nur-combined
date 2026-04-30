@@ -40,36 +40,6 @@ in
       description = "Media pool path bind-mounted read-write into the container at /mnt";
     };
 
-    multimediaGid = lib.mkOption {
-      type = lib.types.int;
-      default = 349;
-      description = "Pinned GID for the multimedia group on both host and container";
-    };
-
-    bazarrUid = lib.mkOption {
-      type = lib.types.int;
-      default = 350;
-      description = "Pinned UID for the bazarr user (must match state dir ownership on host)";
-    };
-
-    prowlarrUid = lib.mkOption {
-      type = lib.types.int;
-      default = 351;
-      description = "Pinned UID for the prowlarr user (must match state dir ownership on host; prowlarr uses DynamicUser upstream so this is required)";
-    };
-
-    readarrUid = lib.mkOption {
-      type = lib.types.int;
-      default = 352;
-      description = "Pinned UID for the readarr user (must match state dir ownership on host)";
-    };
-
-    qbittorrentUid = lib.mkOption {
-      type = lib.types.int;
-      default = 353;
-      description = "Pinned UID for the qbittorrent user (must match state dir ownership on host)";
-    };
-
     protonvpn = {
       privateKeyFile = lib.mkOption {
         type = lib.types.path;
@@ -154,7 +124,7 @@ in
   config = lib.mkIf cfg.enable {
     services.monitoring.containerJournals = [ "starr" ];
     # Pin multimedia GID so bind-mounted paths are accessible from inside the container
-    users.groups.multimedia.gid = cfg.multimediaGid;
+    users.groups.multimedia.gid = config.ids.gids.multimedia;
 
     # NAT masquerade so the container can reach external indexers (Prowlarr, FlareSolverr)
     networking.nat = {
@@ -221,17 +191,17 @@ in
         { pkgs, ... }:
         {
           # Must match host GID so bind-mounted paths are writable
-          users.groups.multimedia.gid = cfg.multimediaGid;
+          users.groups.multimedia.gid = config.ids.gids.multimedia;
 
           # Pin UIDs to match state dir ownership on the host.
           # bazarr and readarr are not in nixpkgs ids.nix so their UIDs can diverge
           # across systems. prowlarr uses DynamicUser=yes upstream and requires an
           # explicit static user.
-          users.users.bazarr.uid = cfg.bazarrUid;
-          users.users.readarr.uid = cfg.readarrUid;
-          users.users.qbittorrent.uid = cfg.qbittorrentUid;
+          users.users.bazarr.uid = config.ids.uids.bazarr;
+          users.users.readarr.uid = config.ids.uids.readarr;
+          users.users.qbittorrent.uid = config.ids.uids.qbittorrent;
           users.users.prowlarr = {
-            uid = cfg.prowlarrUid;
+            uid = config.ids.uids.prowlarr;
             group = "prowlarr";
             isSystemUser = true;
           };

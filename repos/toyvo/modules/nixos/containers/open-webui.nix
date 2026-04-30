@@ -125,11 +125,11 @@ in
           };
 
           users.users.open-webui = {
-            uid = 357;
+            uid = config.ids.uids."open-webui";
             isSystemUser = true;
             group = "open-webui";
           };
-          users.groups.open-webui.gid = 357;
+          users.groups.open-webui.gid = config.ids.gids."open-webui";
 
           systemd.tmpfiles.rules = [
             "d /var/lib/open-webui 0750 open-webui open-webui -"

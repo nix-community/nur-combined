@@ -168,9 +168,9 @@ in
             group = "terraria";
             home = "/var/lib/terraria";
             createHome = true;
-            uid = 253;
+            uid = config.ids.uids.terraria;
           };
-          users.groups.terraria.gid = 253;
+          users.groups.terraria.gid = config.ids.gids.terraria;
 
           systemd.tmpfiles.rules = [
             "d /var/lib/terraria 0750 terraria terraria -"

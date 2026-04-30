@@ -36,18 +36,6 @@ in
       description = "Host path bind-mounted into the container at /var/lib/minecraft";
     };
 
-    minecraftUid = lib.mkOption {
-      type = lib.types.int;
-      default = 355;
-      description = "Pinned UID for the minecraft user (static, below 400; chown stateDir to this UID before first start)";
-    };
-
-    minecraftGid = lib.mkOption {
-      type = lib.types.int;
-      default = 355;
-      description = "Pinned GID for the minecraft group (static, below 400; chown stateDir to this GID before first start)";
-    };
-
     settings = lib.mkOption {
       type = lib.types.attrs;
       default = { };
@@ -158,8 +146,8 @@ in
         { config, inputs, ... }:
         {
           # Pin UID/GID to match stateDir ownership on the host
-          users.users.minecraft.uid = lib.mkForce cfg.minecraftUid;
-          users.groups.minecraft.gid = lib.mkForce cfg.minecraftGid;
+          users.users.minecraft.uid = lib.mkForce config.ids.uids.minecraft;
+          users.groups.minecraft.gid = lib.mkForce config.ids.gids.minecraft;
 
           services.minecraft-server = lib.recursiveUpdate {
             enable = true;

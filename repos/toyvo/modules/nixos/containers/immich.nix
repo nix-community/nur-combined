@@ -35,12 +35,6 @@ in
       description = "Base directory; subdirectories library/, postgresql/, and cache/ are bind-mounted into the container";
     };
 
-    immichUid = lib.mkOption {
-      type = lib.types.int;
-      default = 354;
-      description = "Pinned UID for the immich user (static, below 400 to avoid conflicts with NixOS dynamic system user allocation)";
-    };
-
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.immich;
@@ -96,7 +90,7 @@ in
         {
           # Pin UID to match state dir ownership on the host
           users.users.immich = {
-            uid = lib.mkForce cfg.immichUid;
+            uid = lib.mkForce config.ids.uids.immich;
             group = "immich";
             isSystemUser = true;
           };

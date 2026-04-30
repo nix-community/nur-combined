@@ -20,13 +20,13 @@ in
 
     uid = lib.mkOption {
       type = lib.types.int;
-      default = 355;
+      default = config.ids.uids."protonmail-bridge";
       description = "Pinned UID for the protonmail-bridge user (must be < 400).";
     };
 
     gid = lib.mkOption {
       type = lib.types.int;
-      default = 355;
+      default = config.ids.gids."protonmail-bridge";
       description = "Pinned GID for the protonmail-bridge group.";
     };
 

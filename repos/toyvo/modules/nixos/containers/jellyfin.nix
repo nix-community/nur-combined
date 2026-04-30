@@ -39,30 +39,6 @@ in
       description = "Media pool path bind-mounted read-only into the container at /mnt";
     };
 
-    multimediaGid = lib.mkOption {
-      type = lib.types.int;
-      default = 349;
-      description = "Pinned GID for the multimedia group on both host and container";
-    };
-
-    jellyfinUid = lib.mkOption {
-      type = lib.types.int;
-      default = 989;
-      description = "Pinned UID for the jellyfin user (must match state dir ownership on host)";
-    };
-
-    videoGid = lib.mkOption {
-      type = lib.types.int;
-      default = 26;
-      description = "Pinned GID for the video group (must match host; required for /dev/dri/card1 access)";
-    };
-
-    renderGid = lib.mkOption {
-      type = lib.types.int;
-      default = 303;
-      description = "Pinned GID for the render group (must match host; required for /dev/dri/renderD128 access)";
-    };
-
     ports = {
       jellyfin = lib.mkOption {
         type = lib.types.port;
@@ -75,7 +51,7 @@ in
   config = lib.mkIf cfg.enable {
     services.monitoring.containerJournals = [ "jellyfin" ];
     # Pin multimedia GID so bind-mounted media paths are accessible from inside the container
-    users.groups.multimedia.gid = cfg.multimediaGid;
+    users.groups.multimedia.gid = config.ids.gids.multimedia;
 
     # NAT masquerade so jellyfin can reach external metadata providers
     networking.nat = {
@@ -127,18 +103,16 @@ in
         { ... }:
         {
           # Must match host GID so bind-mounted media paths are readable
-          users.groups.multimedia = {
-            gid = cfg.multimediaGid;
-          };
+          users.groups.multimedia.gid = config.ids.gids.multimedia;
 
           # Match host GIDs so DRI device node permissions work inside the container
-          users.groups.video.gid = cfg.videoGid;
-          users.groups.render.gid = cfg.renderGid;
+          users.groups.video.gid = config.ids.gids.video;
+          users.groups.render.gid = config.ids.gids.render;
 
           # Pin UID to match state dir ownership on the host. sysusers only creates absent
           # users so a pre-existing dir with a different UID will not be chowned automatically.
           users.users.jellyfin = {
-            uid = lib.mkForce cfg.jellyfinUid;
+            uid = lib.mkForce config.ids.uids.jellyfin;
             group = "multimedia";
             extraGroups = [
               "video"
