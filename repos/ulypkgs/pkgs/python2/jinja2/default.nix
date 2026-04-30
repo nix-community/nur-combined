@@ -4,7 +4,7 @@
   buildPythonPackage,
   pythonOlder,
   fetchPypi,
-  Babel,
+  babel,
   markupsafe,
   pytestCheckHook,
 }:
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    Babel
+    babel
     markupsafe
   ];
 

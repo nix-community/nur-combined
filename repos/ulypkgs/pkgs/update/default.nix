@@ -3,6 +3,7 @@
   writeTextFile,
   runtimeShell,
   ulypkgsPackages,
+  basePath ? toString ../..,
   packages ? ulypkgsPackages,
 }:
 
@@ -16,21 +17,31 @@ writeTextFile {
 
     set -euo pipefail
 
-    export NIX_GITHUB_PRIVATE_USERNAME="$GITHUB_TOKEN"
+    export NIX_GITHUB_PRIVATE_USERNAME="''${GITHUB_TOKEN-}"
     export NIX_GITHUB_PRIVATE_PASSWORD=x-oauth-basic
-    export NIX_ITCHIO_API_KEY="$ITCHIO_API_KEY"
-    export NIX_MEGA_EMAIL="$MEGA_EMAIL"
-    export NIX_MEGA_PASSWORD="$MEGA_PASSWORD"
+    export NIX_ITCHIO_API_KEY="''${ITCHIO_API_KEY-}"
+    export NIX_MEGA_EMAIL="''${MEGA_EMAIL-}"
+    export NIX_MEGA_PASSWORD="$''${MEGA_PASSWORD-}"
 
     original="$(mktemp)"
     updates=()
     failedUpdates=()
     failedBuilds=()
+    scriptsRun=()
   ''
   + lib.concatMapAttrsStringSep "\n" (
     attr: package:
     let
-      updateScript' = package.updateScript.command or package.updateScript or null;
+      updateScriptFile = (builtins.unsafeGetAttrPos "updateScript" package).file;
+      updateScript' =
+        if
+          package ? updateScript
+          && lib.hasPrefix basePath updateScriptFile
+          && lib.hasPrefix updateScriptFile package.meta.position
+        then
+          package.updateScript.command or package.updateScript
+        else
+          null;
       updateScript =
         if updateScript' != null then lib.escapeShellArgs (lib.toList updateScript') else null;
     in
@@ -40,7 +51,7 @@ writeTextFile {
       ''
     else if updateScript == null then
       ''
-        echo "update: Skip updating '${attr}' because it does not have passthru.updateScript specified"
+        echo "update: Skip updating '${attr}' because it does not have passthru.updateScript specified in the repo"
       ''
     else
       ''
@@ -57,7 +68,11 @@ writeTextFile {
         export UPDATE_NIX_OLD_VERSION="${package.version or ""}"
         export UPDATE_NIX_ATTR_PATH="${attr}"
 
-        if ${updateScript}; then
+        if [[ " ''${scriptsRan[*]} " =~ " ${updateScript} " ]]; then
+          echo "update: Skip updating '${attr}' because its update script has already run"
+        elif script --return --log-out "${attr}.update.log" --command ${lib.escapeShellArg updateScript}; then
+          scriptsRan+=(${lib.escapeShellArg updateScript})
+
           echo "update: Updated '${attr}' successfully"
           new_version="$(nix-instantiate --eval -A ${attr}.version | cut -d'"' -f2)"
           echo "update: New version: $new_version"
@@ -75,7 +90,7 @@ writeTextFile {
             fi
 
             echo "update: Try building the new package..."
-            if nix build .#${attr} --show-trace --print-build-logs; then
+            if script --return --log-out "${attr}.build.log" --command 'nix build .#${attr} --show-trace --print-build-logs'; then
               echo "update: Built '${attr}' successfully"
               if [[ -n "$NIX_UPDATE_MAKE_COMMIT" ]]; then
                 git add -A
@@ -88,6 +103,8 @@ writeTextFile {
           fi
 
         else
+          scriptsRan+=(${updateScript})
+
           echo "update: Failed to update '${attr}'"
           failedUpdates+=(${attr})
         fi
@@ -98,22 +115,40 @@ writeTextFile {
 
     set +u
     GITHUB_OUTPUT="''${GITHUB_OUTPUT:-}"
+    GITHUB_STEP_SUMMARY="''${GITHUB_STEP_SUMMARY:-}"
     set -u
 
-    output_array() {
-      if [[ -z "$GITHUB_OUTPUT" ]]; then
-        return
+    output_title() {
+      echo "update: $1:"
+      if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
+        echo "## $1" >> "$GITHUB_STEP_SUMMARY"
+        echo >> "$GITHUB_STEP_SUMMARY"
       fi
-      echo "$1<<ARRAY_DELIMITER" >> "$GITHUB_OUTPUT"
-      shift
-      for element in "$@"; do
-        echo "$element" >> "$GITHUB_OUTPUT"
-      done
-      echo "ARRAY_DELIMITER" >> "$GITHUB_OUTPUT"
+      if [[ -n "$GITHUB_OUTPUT" ]]; then
+        echo "$2<<CHIMICHERRYCHANGA_ARRAY_DELIMITER" >> "$GITHUB_OUTPUT"
+      fi
     }
 
-    echo "update: All updated packages:"
-    output_array updates "''${updates[@]}"
+    output_array() {
+      for element in "$@"; do
+        echo "$element"
+        if [[ -n "$GITHUB_OUTPUT" ]]; then
+          echo "$element" >> "$GITHUB_OUTPUT"
+        fi
+        if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
+          echo "- $element" >> "$GITHUB_STEP_SUMMARY"
+        fi
+      done
+      if [[ -n "$GITHUB_OUTPUT" ]]; then
+        echo "CHIMICHERRYCHANGA_ARRAY_DELIMITER" >> "$GITHUB_OUTPUT"
+      fi
+      if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
+        echo >> "$GITHUB_STEP_SUMMARY"
+      fi
+    }
+
+    output_title "All updated packages" updates
+    output_array "''${updates[@]}"
 
     if (( ''${#failedUpdates[@]} == 0 && ''${#failedBuilds[@]} == 0 )); then
       echo "update: All succeeded"
@@ -122,17 +157,44 @@ writeTextFile {
       fi
 
     else
-      echo "update: Packages whose update scripts failed to run:"
-      echo "''${failedUpdates[@]}"
-      output_array failed-updates "''${failedUpdates[@]}"
+      output_title "Packages whose update scripts failed to run" failed-updates
+      output_array "''${failedUpdates[@]}"
 
-      echo "update: Updated packages that failed to build:"
-      echo "''${failedBuilds[@]}"
-      output_array failed-builds "''${failedBuilds[@]}"
+      output_title "Updated packages that failed to build" failed-builds
+      output_array "''${failedBuilds[@]}"
 
       if [[ -n "$GITHUB_OUTPUT" ]]; then
         echo "success=0" >> "$GITHUB_OUTPUT"
       fi
+    fi
+
+    if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
+      echo "## Logs" >> "$GITHUB_STEP_SUMMARY"
+      echo >> "$GITHUB_STEP_SUMMARY"
+      echo "### Update script logs" >> "$GITHUB_STEP_SUMMARY"
+      echo >> "$GITHUB_STEP_SUMMARY"
+      shopt -s nullglob
+      for log in *.update.log; do
+        attr="$(basename "$log" .update.log)"
+        echo "<details><summary>$attr</summary>" >> "$GITHUB_STEP_SUMMARY"
+        echo >> "$GITHUB_STEP_SUMMARY"
+        echo '``````console' >> "$GITHUB_STEP_SUMMARY"
+        cat "$log" >> "$GITHUB_STEP_SUMMARY"
+        echo '``````' >> "$GITHUB_STEP_SUMMARY"
+        echo >> "$GITHUB_STEP_SUMMARY"
+      done
+      echo "### Build logs" >> "$GITHUB_STEP_SUMMARY"
+      echo >> "$GITHUB_STEP_SUMMARY"
+      for log in *.build.log; do
+        attr="$(basename "$log" .build.log)"
+        echo "<details><summary>$attr</summary>" >> "$GITHUB_STEP_SUMMARY"
+        echo >> "$GITHUB_STEP_SUMMARY"
+        echo '``````console' >> "$GITHUB_STEP_SUMMARY"
+        cat "$log" >> "$GITHUB_STEP_SUMMARY"
+        echo '``````' >> "$GITHUB_STEP_SUMMARY"
+        echo >> "$GITHUB_STEP_SUMMARY"
+      done
+      shopt -u nullglob
     fi
   '';
 

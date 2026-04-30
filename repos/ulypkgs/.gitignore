@@ -3,3 +3,4 @@ result
 result-*
 /listing
 .vscode
+*.log

@@ -5,7 +5,7 @@
   pythonOlder,
   fetchFromGitHub,
   # propagatedBuildInputs
-  Babel,
+  babel,
   alabaster,
   docutils,
   imagesize,
@@ -47,7 +47,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    Babel
+    babel
     alabaster
     docutils
     imagesize

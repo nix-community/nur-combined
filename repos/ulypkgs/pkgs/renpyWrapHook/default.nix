@@ -11,7 +11,7 @@ makeSetupHook {
   propagatedBuildInputs = [ makeWrapper ];
 
   substitutions = {
-    renpy = lib.getExe targetPackages.renpy;
+    renpy = lib.getExe targetPackages.renpyMinimal;
   };
 
   meta = {

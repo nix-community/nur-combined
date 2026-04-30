@@ -8,9 +8,13 @@ in
     buildPythonPackageSuper = pythonPackagesSuper.buildPythonPackage;
   };
 
+  alabaster = callPackage ./alabaster { };
+
   apipkg = callPackage ./apipkg { };
 
   attrs = callPackage ./attrs { };
+
+  babel = callPackage ./babel { };
 
   backports-functools-lru-cache = callPackage ./backports-functools-lru-cache { };
 
@@ -54,6 +58,8 @@ in
 
   decorator = callPackage ./decorator/4.nix { };
 
+  defusedxml = callPackage ./defusedxml { };
+
   docutils = callPackage ./docutils { };
 
   enum = callPackage ./enum { };
@@ -77,6 +83,8 @@ in
   google-apputils = callPackage ./google-apputils { };
 
   greenlet = callPackage ./greenlet { };
+
+  html5lib = callPackage ./html5lib { };
 
   httpretty = callPackage ./httpretty/0.nix { };
 
@@ -183,6 +191,8 @@ in
 
   pytest_4 = callPackage ./pytest/4.nix { };
 
+  pytest-expect = callPackage ./pytest-expect { };
+
   pytest-forked = callPackage ./pytest-forked { };
 
   pytest-mock = callPackage ./pytest-mock { };
@@ -199,6 +209,8 @@ in
 
   qpid-python = callPackage ./qpid-python { };
 
+  readthedocs-sphinx-ext = callPackage ./readthedocs-sphinx-ext { };
+
   requests = callPackage ./requests { };
 
   s3transfer = callPackage ./s3transfer/0_4.nix { };
@@ -213,9 +225,17 @@ in
 
   six = callPackage ./six { };
 
-  sphinxcontrib-websupport = callPackage ./sphinxcontrib-websupport/1_1.nix { };
+  snowballstemmer = callPackage ./snowballstemmer { };
 
   sphinx = callPackage ./sphinx/2.nix { };
+
+  sphinx-rtd-theme = callPackage ./sphinx-rtd-theme { };
+
+  sphinxcontrib-jquery = callPackage ./sphinxcontrib-jquery { };
+
+  sphinxcontrib-websupport = callPackage ./sphinxcontrib-websupport { };
+
+  sqlalchemy = callPackage ./sqlalchemy { };
 
   time-machine = callPackage ./time-machine { };
 

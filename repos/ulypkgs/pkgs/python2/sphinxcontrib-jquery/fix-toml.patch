@@ -1,0 +1,49 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index da5074b..41dc99f 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["flit_core>=3.7"]
++requires = ["flit_core"]
+ build-backend = "flit_core.buildapi"
+ 
+ # project metadata
+@@ -7,8 +7,6 @@ build-backend = "flit_core.buildapi"
+ name = "sphinxcontrib-jquery"
+ description = "Extension to include jQuery on newer Sphinx releases"
+ readme = "README.rst"
+-license.text = "BSD Zero Clause License"
+-urls.Repository = "https://github.com/sphinx-contrib/jquery/"
+ requires-python = ">=2.7"
+ 
+ # Classifiers list: https://pypi.org/classifiers/
+@@ -39,11 +37,10 @@ dependencies = [
+ ]
+ dynamic = ["version"]
+ 
+-[[project.authors]]
+-name = "Adam Turner"
+-
+-[tool.flit.module]
+-name = "sphinxcontrib.jquery"
++[tool.flit.metadata]
++module = "sphinxcontrib"
++author = "Adam Turner"
++dist-name = "sphinxcontrib-jquery"
+ 
+ [tool.flit.sdist]
+ include = [
+diff --git a/sphinxcontrib/__init__.py b/sphinxcontrib/__init__.py
+new file mode 100644
+index 0000000..9e8e4b5
+--- /dev/null
++++ b/sphinxcontrib/__init__.py
+@@ -0,0 +1,7 @@
++"""Namespace package for sphinxcontrib."""
++
++__version__ = "4.1"
++
++import pkg_resources
++
++pkg_resources.declare_namespace(__name__)

@@ -1,13 +1,13 @@
 {
   lib,
   makeSetupHook,
-  renpy,
+  renpyMinimal,
 }:
 
 makeSetupHook {
   name = "renpy-build-hook";
 
-  propagatedBuildInputs = [ renpy ];
+  propagatedBuildInputs = [ renpyMinimal ];
 
   meta = {
     description = "Compile Ren'Py scripts in the existing source root";

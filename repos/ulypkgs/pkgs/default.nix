@@ -37,6 +37,7 @@ let
 
     genericUnpackHook = callPackage ./genericUnpackHook { };
 
+    # postInstall, preFixup
     godotWrapHook = callPackage ./godotWrapHook { };
     godot3WrapHook = pkgs.godotWrapHook.override {
       targetPackages = pkgs.targetPackages // {
@@ -66,7 +67,7 @@ let
 
     # buildPhase
     renpyBuildHook = callPackage ./renpyBuildHook { };
-    renpy7BuildHook = pkgs.renpyBuildHook.override { renpy = pkgs.renpy_7; };
+    renpy7BuildHook = pkgs.renpyBuildHook.override { renpyMinimal = pkgs.renpy_7Minimal; };
 
     # postFixup
     renpyPackHook = callPackage ./renpyPackHook { };
@@ -78,7 +79,7 @@ let
     renpyWrapHook = callPackage ./renpyWrapHook { };
     renpy7WrapHook = pkgs.renpyWrapHook.override {
       targetPackages = pkgs.targetPackages // {
-        renpy = pkgs.targetPackages.renpy_7;
+        renpyMinimal = pkgs.targetPackages.renpy_7Minimal;
       };
     };
 
@@ -123,6 +124,7 @@ let
     python2Packages = pkgs.python2.pkgs;
 
     renpy_7 = callPackage ./renpy_7 { };
+    renpy_7Minimal = pkgs.renpy_7.override { minimal = true; };
 
     ### Applications
 

@@ -4,7 +4,7 @@
   buildPythonPackage,
   fetchPypi,
   isPy3k,
-  pkgs,
+  sqlite,
 }:
 
 buildPythonPackage rec {
@@ -22,12 +22,15 @@ buildPythonPackage rec {
   # Since the `.egg' file is zipped, the `NEEDED' of the `.so' files
   # it contains is not taken into account.  Thus, we must explicitly make
   # it a propagated input.
-  propagatedBuildInputs = [ pkgs.sqlite ];
+  propagatedBuildInputs = [ sqlite ];
+
+  # src/sqlite_constants.h:764:19: error: initialization of ‘int’ from ‘void (*)(void *)’ makes integer from pointer without a cast [-Wint-conversion]
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion";
 
   patchPhase = ''
     substituteInPlace "setup.cfg"                                     \
-            --replace "/usr/local/include" "${pkgs.sqlite.dev}/include"   \
-            --replace "/usr/local/lib" "${pkgs.sqlite.out}/lib"
+            --replace "/usr/local/include" "${sqlite.dev}/include"   \
+            --replace "/usr/local/lib" "${sqlite.out}/lib"
     ${lib.optionalString (!stdenv.isDarwin) ''export LDSHARED="$CC -pthread -shared"''}
   '';
 

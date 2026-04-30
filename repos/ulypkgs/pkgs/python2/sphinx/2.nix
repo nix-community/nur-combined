@@ -14,7 +14,7 @@
   jinja2,
   pygments,
   alabaster,
-  Babel,
+  babel,
   snowballstemmer,
   six,
   sqlalchemy,
@@ -53,7 +53,7 @@ buildPythonPackage rec {
     jinja2
     pygments
     alabaster
-    Babel
+    babel
     setuptools
     snowballstemmer
     six

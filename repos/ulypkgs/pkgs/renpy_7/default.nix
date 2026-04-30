@@ -27,22 +27,28 @@
   zenity,
   zlib,
 
-  # set this to true if you want to use this package to develop and distribute games
-  # set this to false if you just want to use this package as a runtime to play games
-  withDistributedLibs ? false,
+  # the minimal package contains only compiled python and cython files, and the example projects and the launcher are removed
+  # one should use the minimal package in favor of the full package when packaging games, in which case only the game runtime is needed
+  minimal ? false,
+  # generating doc requires python 3
+  #withDoc ? !minimal,
+  # set this to true if you want to use this package to distribute games
+  # (to windows, linux, and macos, outside of nix; android, ios, and web are not supported)
+  withDistributedLibs ? !minimal,
   # set this to true if you additionally want to distribute games for aarch64-linux
   # this implies withDistributedLibs = true because it also includes the libraries for other platforms
   withAarch64LinuxDistributedLibs ?
     withDistributedLibs && stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isLinux,
-  # notice that you still cannot distribute for non-desktop platforms because they require downloading additional files
 }:
 
 # technically we can support cross-compilation by first compiling a renpy for the build platform besides a renpy for the host platform
 # and we can use the former to compile the rpy{,m} files but install the latter to $out
 # but let's not bother
-assert lib.assertMsg (
-  stdenv.hostPlatform == stdenv.buildPlatform
-) "Ren'Py cannot be cross-compiled because it needs to run itself during the build phase.";
+assert lib.assertMsg (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+  "Ren'Py cannot be cross-compiled because it needs to run itself during the build phase.";
+
+assert lib.assertMsg (!minimal || !withDistributedLibs && !withAarch64LinuxDistributedLibs)
+  "The distributed libraries are only useful when used with the Ren'Py launcher, which is not installed for the minimal Ren'Py package.";
 
 let
   pythonBuildTime = python2.withPackages (
@@ -88,10 +94,10 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   nativeBuildInputs = [
-    copyDesktopItems
     makeBinaryWrapper
     pythonBuildTime
   ]
+  ++ lib.optional (!minimal) copyDesktopItems
   ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   enableParallelBuilding = true;
@@ -107,6 +113,10 @@ stdenv.mkDerivation (finalAttrs: {
     # fix write_target looking for wrong file locations when launcher creates new project
     # https://github.com/renpy/renpy/pull/6978
     ./new-project-prefix.patch
+
+    # the distributed libs are not compatible with renpy built from source,
+    # so patch the launcher to look for renpy files in renpy-dist (where bin distribution from upstream is copied to) instead of renpy
+    ./distribute.patch
 
     # compatibility patches for old games
     # https://github.com/renpy/renpy/pull/6986
@@ -136,7 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
     version = '${finalAttrs.passthru.appver}'
     official = False
     nightly = False
-    # Look at https://renpy.org/latest.html for what to put.
+    # Look at https://renpy.org/latest-7.html for what to put.
     version_name = "Straight on Till Morning"
     EOF
   '';
@@ -168,6 +178,8 @@ stdenv.mkDerivation (finalAttrs: {
       zlib
       zlib.dev
     ];
+
+    PYTHONDONTWRITEBYTECODE = "1";
   };
 
   buildInputs = [
@@ -195,22 +207,23 @@ stdenv.mkDerivation (finalAttrs: {
     # because --inplace places them in the module dir mistakenly
     cp -r "$(find module/build -maxdepth 1 -type d -name 'lib.*' -print -quit)"/* .
 
-    # compile bundled rpy{,m} files so that they don't have to be compiled when used on the host platform
-    python renpy.py gui compile
-    python renpy.py tutorial compile
-    python renpy.py the_question compile
+    # so that these files won't need to be compiled on the host platform
+    # need to run this after the last command because the files patched by ./temp-compile-modules.patch are mistakenly compiled
+    python -m compileall renpy -q -d renpy -f
+
+    ${lib.optionalString (!minimal) ''
+      # compile bundled rpy{,m} files so that they don't have to be compiled when used on the host platform
+      python renpy.py gui compile
+      python renpy.py tutorial compile
+      python renpy.py the_question compile
+    ''}
 
     # there is no single command to compile all rpym files, so apply a temporary patch for doing that
     patch -p1 -i ${./temp-compile-modules.patch}
     python renpy.py . compile
     patch -p1 -R -i ${./temp-compile-modules.patch}
 
-    # so that these files won't need to be compiled on the host platform
-    # need to run this after the last command because the files patched by ./temp-compile-modules.patch are mistakenly compiled
-    python -m compileall renpy -q -d renpy -f
-
-    # these are populated when compiling but should not be there
-    rm -r {tutorial,the_question}/game/saves
+    ${lib.optionalString (!minimal) "rm -r {tutorial,the_question}/game/saves"}
 
     runHook postBuild
   '';
@@ -219,30 +232,35 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     module/setup.py install_lib -d $out/share/renpy
-    cp -ar sdk-fonts gui launcher renpy the_question tutorial renpy.py $out/share/renpy
+    cp -ar renpy renpy.py $out/share/renpy
 
-    # add zenity for file dialogs (https://github.com/renpy/renpy/blob/7.8.7.25031702/module/tinyfiledialogs/tinyfiledialogs.c#L172)
-    makeWrapper ${lib.getExe pythonRunTime} $out/bin/renpy \
-      --prefix PATH : "${lib.makeBinPath [ zenity ]}" \
-      --add-flags "$out/share/renpy/renpy.py"
-
-    # most commands (such as `distribute`) are commands of the launcher but not renpy itself
-    makeWrapper $out/bin/renpy $out/bin/renpy-launcher \
-      --add-flags "$out/share/renpy/launcher"
-
-    mkdir -p $out/share/icons/hicolor/{256x256,32x32}/apps
-    ln -s $out/share/renpy/launcher/game/images/window-icon.png $out/share/icons/hicolor/256x256/apps/renpy.png
-    ln -s $out/share/renpy/launcher/game/images/logo32.png $out/share/icons/hicolor/32x32/apps/renpy.png
-
-    ${
-      # have to use cp instead of symlinkJoin because renpy resolves symlinks to find its base dir
-      if withAarch64LinuxDistributedLibs then
-        "cp -ar ${finalAttrs.passthru.binSrcArm}/{update,lib} $out/share/renpy"
-      else if withDistributedLibs then
-        "cp -ar ${finalAttrs.passthru.binSrc}/{update,lib} $out/share/renpy"
-      else
-        ""
+    makeWrapper ${lib.getExe pythonRunTime} $out/bin/renpy --add-flags "$out/share/renpy/renpy.py" ${
+      # add zenity for file dialogs (https://github.com/renpy/renpy/blob/7.8.7.25031702/module/tinyfiledialogs/tinyfiledialogs.c#L172)
+      lib.optionalString (!minimal) "--prefix PATH : ${lib.makeBinPath [ zenity ]}"
     }
+
+    ${lib.optionalString minimal ''
+      # delete files not necessary at runtime
+      find $out/share/renpy/renpy -type f -regextype posix-egrep -regex '.*\.(py|pyx|pyd|pxd|pyi|pxi|rpy|rpym)$' -delete
+    ''}
+
+    ${lib.optionalString (!minimal) ''
+      cp -ar sdk-fonts gui launcher the_question tutorial $out/share/renpy
+
+      # most commands (such as `distribute`) are commands of the launcher but not renpy itself
+      makeWrapper $out/bin/renpy $out/bin/renpy-launcher --add-flags "$out/share/renpy/launcher"
+
+      mkdir -p $out/share/icons/hicolor/{256x256,32x32}/apps
+      ln -s $out/share/renpy/launcher/game/images/window-icon.png $out/share/icons/hicolor/256x256/apps/renpy.png
+      ln -s $out/share/renpy/launcher/game/images/logo32.png $out/share/icons/hicolor/32x32/apps/renpy.png
+    ''}
+
+    ${lib.optionalString (finalAttrs.passthru.distributedRenpy != null) ''
+      # have to use cp instead of symlinkJoin because renpy resolves symlinks to find its base dir
+      cp -ar ${finalAttrs.passthru.distributedRenpy}/{update,lib,renpy.sh} $out/share/renpy
+      # renpy packaged from source in this nix package is not compatible with the distributed libs
+      cp -ar ${finalAttrs.passthru.distributedRenpy}/renpy $out/share/renpy/renpy-dist
+    ''}
 
     runHook postInstall
   '';
@@ -258,8 +276,13 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  # keep the file redistributable
+  # keep the files in $out/share/renpy/{renpy-dist,lib,renpy.sh} redistributable
   dontStrip = true;
+  dontPatchShebangs = true;
+  dontPatchELF = true;
+  postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+    patchELF $out/share/renpy/renpy
+  '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
@@ -280,6 +303,14 @@ stdenv.mkDerivation (finalAttrs: {
       hash = "sha256-yRSUM+CAx+EDsWSQzZc1g6YGTLCm3b6/ejlFWpZy7ck=";
     };
 
+    distributedRenpy =
+      if withAarch64LinuxDistributedLibs then
+        finalAttrs.passthru.binSrcArm
+      else if withDistributedLibs then
+        finalAttrs.passthru.binSrc
+      else
+        null;
+
     updateScript = ./update.sh;
   };
 
@@ -294,6 +325,9 @@ stdenv.mkDerivation (finalAttrs: {
     sourceProvenance =
       with lib.sourceTypes;
       [ fromSource ]
-      ++ lib.optional (withDistributedLibs || withAarch64LinuxDistributedLibs) binaryNativeCode;
+      ++ lib.optionals (finalAttrs.passthru.distributedRenpy != null) [
+        binaryNativeCode # bundled python for windows, linux, and macos in the bin distribution from upstream
+        binaryBytecode # __pycache__ in the bin distribution from upstream
+      ];
   };
 })
