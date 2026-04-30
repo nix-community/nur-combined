@@ -36,7 +36,7 @@ jobs:
           nix run .#nvfetcher-bin
           git add .
           pkgs/daed/update.sh
-          pkgs/kanzi/update.sh
+          pkgs/kanzi-cpp/update.sh
           pkgs/kikoflu/update.sh
           pkgs/loveiwara/update.sh
           pkgs/lumine/update.sh
