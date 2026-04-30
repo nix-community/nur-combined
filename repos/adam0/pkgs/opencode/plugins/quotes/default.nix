@@ -12,8 +12,8 @@ mkOpencodePlugin rec {
   src = fetchFromGitHub {
     owner = "aerovato";
     repo = "opencode-${pname}-plugin";
-    rev = "55bce2d5c3f4b12c3b0b4dffdc3deb7e96b52c47";
-    hash = "sha256-TWOxOiF/zXFK4/wrytuRwdM08YveANc2zM33Bx3NbaE=";
+    rev = "v${version}";
+    hash = "sha256-RkPvTunug/E2y7bBMRe1mHnt9jRRdppbVR107yhR5Rs=";
   };
 
   dependencyHash = "sha256-QFxwoEhensQpiZHDR6D2+nzDz4WRN6XNV3A5yaXNZGE=";
@@ -23,7 +23,7 @@ mkOpencodePlugin rec {
     cp ${./build.ts} ./build.ts
     bun run build.ts
     substituteInPlace package.json \
-      --replace-fail '"version": "${version}",' '"version": "${version}",\n  "main": "./index.js",'
+      --replace-fail '"type": "module",' '"type": "module",\n  "main": "./index.js",'
     printf '%s\n' 'export { default } from "./dist/tui.js"' > index.js
   '';
 
