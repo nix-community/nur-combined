@@ -163,7 +163,8 @@ programs.opencode.settings.plugin = [
 This repository also exports a Home Manager module that adds
 `programs.opencode.plugins.<name>.enable`,
 `programs.opencode.plugins.auto-resume.settings`,
-`programs.opencode.plugins.notifier.settings`, and
+`programs.opencode.plugins.notifier.settings`,
+`programs.opencode.plugins.quota.settings`, and
 `programs.opencode.plugins.extraPackages`.
 
 When using flakes, enable the NUR overlay in configuration so `pkgs.nur` is
@@ -198,6 +199,16 @@ available on the existing package set, then import
               settings = {
                 chunkTimeoutMs = 45000;
                 maxRetries = 3;
+              };
+            };
+
+            plugins.quota = {
+              enable = true;
+              settings = {
+                enableToast = false;
+                enabledProviders = [ "copilot" "openai" ];
+                formatStyle = "allWindows";
+                percentDisplayMode = "used";
               };
             };
 
@@ -241,3 +252,6 @@ and writes the plugin entry as:
 
 The module still writes package-root plugin URLs under the hood, so do not use
 explicit entrypoint paths like `/dist/index.js`.
+
+`programs.opencode.plugins.quota.settings` accepts a JSON attrset/list/value,
+which is written to `opencode/opencode-quota/quota-toast.json`.

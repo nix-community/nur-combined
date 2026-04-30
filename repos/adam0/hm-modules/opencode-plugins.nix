@@ -82,6 +82,25 @@
                 The value is rendered to JSON and managed by Home Manager.
               '';
             };
+          }
+          // optionalAttrs (name == "quota") {
+            settings = mkOption {
+              type = types.nullOr jsonFormat.type;
+              default = null;
+              example = literalExpression ''
+                {
+                  enableToast = false;
+                  enabledProviders = ["copilot" "openai"];
+                  formatStyle = "allWindows";
+                  percentDisplayMode = "used";
+                }
+              '';
+              description = ''
+                Configuration written to
+                $XDG_CONFIG_HOME/opencode/opencode-quota/quota-toast.json.
+                The value is rendered to JSON and managed by Home Manager.
+              '';
+            };
           };
       };
     };
@@ -118,6 +137,11 @@ in {
       (mkIf (cfg.plugins.notifier.settings != null) {
         xdg.configFile."opencode/opencode-notifier.json".source =
           jsonFormat.generate "opencode-notifier.json" cfg.plugins.notifier.settings;
+      })
+
+      (mkIf (cfg.plugins.quota.settings != null) {
+        xdg.configFile."opencode/opencode-quota/quota-toast.json".source =
+          jsonFormat.generate "quota-toast.json" cfg.plugins.quota.settings;
       })
     ]
   );
