@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-04-28",
+        "date": "2026-04-30",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "07a2d5ea1f884f4e16b330eb0e7051c19646b15b",
-            "sha256": "sha256-Gtj5BcTPT3itVn22J4MrrZW6QnTa6ThvsPfp/QnCGmc=",
+            "rev": "7ee9128a45879d65818e68ff9ace892737833ef1",
+            "sha256": "sha256-xw4J5GbjqUsrCsKEzws6Kb7xbjoQQxUwkAIIxyh1uIY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "07a2d5ea1f884f4e16b330eb0e7051c19646b15b"
+        "version": "7ee9128a45879d65818e68ff9ace892737833ef1"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-WIeSy5fkc4lwDiPnRTutuVFwVShRjqy2xjXFLg0dZpg=",
+            "sha256": "sha256-tw29hg2syrqhKnLVn30E9HUCfQgWHZm8qEIfG1fgAIQ=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.9.3970.59.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.9.3970.60.universal.dmg"
         },
-        "version": "7.9.3970.59"
+        "version": "7.9.3970.60"
     },
     "zen-browser": {
         "cargoLock": null,
@@ -209,10 +209,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-KaImBdZma6P2hkeYKRkxS2BGb2QuWcbqekSCj0G4EXs=",
+            "sha256": "sha256-GSk5DYJUJnYD5PMjIMtAwe7B0KdBHMjgfQDnJ/0wJOI=",
             "type": "url",
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.19.10b/zen.macos-universal.dmg"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.19.11b/zen.macos-universal.dmg"
         },
-        "version": "1.19.10b"
+        "version": "1.19.11b"
     }
 }
