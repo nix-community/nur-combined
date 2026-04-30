@@ -48,19 +48,18 @@ def latest_stable_versions(releases: list[dict[str, Any]]) -> dict[str, str]:
     return versions
 
 
-def latest_prerelease() -> str | None:
+def latest_prerelease(after_minor: str) -> str | None:
     result = subprocess.run(
         ["git", "ls-remote", "--tags", "https://github.com/golang/go.git"],
         capture_output=True,
         text=True,
         check=True,
     )
-    min_minor = minor_number(MIN_GO_VERSION)
     prereleases: list[str] = []
     pattern = re.compile(r"refs/tags/go(1\.(\d+)(?:rc|beta)\d+)$")
     for line in result.stdout.splitlines():
         match = pattern.search(line)
-        if match and int(match.group(2)) >= min_minor:
+        if match and int(match.group(2)) > minor_number(after_minor):
             prereleases.append(match.group(1))
     return sorted(prereleases, reverse=True)[0] if prereleases else None
 
@@ -92,8 +91,9 @@ def main() -> None:
     releases = fetch_releases()
     versions = latest_stable_versions(releases)
 
+    latest_stable_minor = max(versions, key=minor_number)
     try:
-        next_version = latest_prerelease()
+        next_version = latest_prerelease(latest_stable_minor)
     except subprocess.CalledProcessError as error:
         print(f"Could not fetch Go prerelease tags: {error}")
         next_version = None
@@ -102,7 +102,7 @@ def main() -> None:
 
     existing_versions = load_json(VERSIONS_FILE)
     for key, value in existing_versions.items():
-        if key not in versions:
+        if key != "next" and key not in versions:
             print(f"Preserving pinned Go {key}: {value}")
             versions[key] = cast(str, value)
 

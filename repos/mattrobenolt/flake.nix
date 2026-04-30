@@ -76,10 +76,6 @@
               pkgs.nix-tree
               pkgs.nix-diff
             ];
-
-            shellHook = ''
-              just --list --unsorted
-            '';
           };
         };
 

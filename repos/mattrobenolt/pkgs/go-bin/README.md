@@ -17,7 +17,7 @@ The updater reads Go's official download API and uses the SHA256 checksums publi
 Packages are created dynamically from the latest available Go versions:
 
 - `go-bin` - Latest stable Go version (points to highest stable minor version)
-- `go-bin_next` - Latest prerelease (RC/beta) for testing upcoming features
+- `go-bin_next` - Latest prerelease (RC/beta), when one is available
 - `go-bin_1_26` - Go 1.26.x (latest patch)
 - `go-bin_1_25` - Go 1.25.x (latest patch)
 - `go-bin_1_24` - Go 1.24.x (latest patch)
@@ -62,7 +62,7 @@ The flake reads these JSON files and creates packages for each version. No code 
         packages = [
           pkgs.go-bin        # Latest stable
           # or
-          pkgs.go-bin_next   # Latest prerelease (RC/beta)
+          pkgs.go-bin_next   # Latest prerelease (RC/beta), when available
           # or
           pkgs.go-bin_1_24   # Specific minor version
         ];

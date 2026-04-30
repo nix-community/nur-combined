@@ -16,11 +16,5 @@
     "darwin-arm64": "sha256-Mq8VIr8+P/OXWGR4CkKcwLQdGQ7Hv5D6pmHW1kVm568=",
     "linux-amd64": "sha256-mQ5rS7uoFtw+4Snq6vS0LxfCgAuIohZsJlrBogAmIoI=",
     "linux-arm64": "sha256-yVih/hs2E5HbFjpIXiH18igULW+LWE9r74myb2bcWyM="
-  },
-  "1.26rc3": {
-    "darwin-amd64": "sha256-WmjpcChns8xT3N3tZDndR23V9AH7gnUeNGKOC6+IE8A=",
-    "darwin-arm64": "sha256-oDwXVKqrlgB34XVejB/I09qrI1sAQhjlp4mq3sTSHHg=",
-    "linux-amd64": "sha256-Xu9/uAeQ08Uzlgf3sXtLi3tnpMMi/GNs6ogg9JDO3gA=",
-    "linux-arm64": "sha256-fDvyA/eulUmZFNNYytJkQqOyJZrIp50OIfWc75IbWbs="
   }
 }
