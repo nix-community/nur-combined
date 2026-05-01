@@ -511,28 +511,28 @@
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
-    "version": "2.2.1",
-    "hash": "sha256-hvbhAK3OWK/v5I0lLYCoi7p+amiLR2f8ivj+hhmHQRM="
+    "version": "2.2.2",
+    "hash": "sha256-4rXpgfroh8MnLWjYxUtYo/VcErYe9gpCaz80np3r1CI="
   },
   {
     "pname": "Microsoft.Testing.Extensions.TrxReport.Abstractions",
-    "version": "2.2.1",
-    "hash": "sha256-cRABkzxTVR3pSfir7PeIx06BxybBEEsOc5IUDg9rrJQ="
+    "version": "2.2.2",
+    "hash": "sha256-aP+mw/Q5U6lfNmMJCzLqVMpZ+TnBMTqXH0VGhR2FvbI="
   },
   {
     "pname": "Microsoft.Testing.Extensions.VSTestBridge",
-    "version": "2.2.1",
-    "hash": "sha256-JnqHUllMMJSTygha8IHOTqg5r7RiMRNJ2w3SFaiXly0="
+    "version": "2.2.2",
+    "hash": "sha256-rtyA0w70swCKfz+ly6ev/BlNXH8WUHurfxsaWoo1LbA="
   },
   {
     "pname": "Microsoft.Testing.Platform",
-    "version": "2.2.1",
-    "hash": "sha256-5O/6jgbbMpCAshGe7bCsmuo0pdTHc6Mx6DsHXytUWVg="
+    "version": "2.2.2",
+    "hash": "sha256-azYgL1c9oVE1JDYs0HUWTClaIumw1xvxgmNz4Mx0q30="
   },
   {
     "pname": "Microsoft.Testing.Platform.MSBuild",
-    "version": "2.2.1",
-    "hash": "sha256-6tTDS+PF7lZMlQaJfcILRvjUuM67j4eT71YBLBacJPY="
+    "version": "2.2.2",
+    "hash": "sha256-uuhiI0aGFpM+I2ASh99rsfsRhKf8b/JUNx4Hcd2Ac6Q="
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
@@ -561,18 +561,18 @@
   },
   {
     "pname": "MSTest.Analyzers",
-    "version": "4.2.1",
-    "hash": "sha256-3GRhxdHpHKKREWUmgTaxdmph7JSUjs+lQ1K2PLlFgZU="
+    "version": "4.2.2",
+    "hash": "sha256-m6FRWUdYM9tuNnm7ehY+j1wIr2i12+0LeK5JcpJdp5M="
   },
   {
     "pname": "MSTest.TestAdapter",
-    "version": "4.2.1",
-    "hash": "sha256-hXuViaAG+2j6ZciqCfDymb29yUR7A1yXD6oM7A2U81A="
+    "version": "4.2.2",
+    "hash": "sha256-QFjHNHVyijmuq29MuhUNMnaWEcJWPWGVp21BQj0Hb7M="
   },
   {
     "pname": "MSTest.TestFramework",
-    "version": "4.2.1",
-    "hash": "sha256-ZljIMY8cvAYawFN2k8BrD18pMLudVgbqVXU/BuGedXc="
+    "version": "4.2.2",
+    "hash": "sha256-+yrzh3fmkvOMnqk+eYKQTC1267uKeUDcS3TV1+3Gnck="
   },
   {
     "pname": "MySqlConnector",
