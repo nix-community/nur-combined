@@ -24,7 +24,7 @@ let
 
   claude-code-bin =  sources."claude-code-bin-${arch}-${os}";
 in stdenv.mkDerivation rec {
-  pname = claude-code-bin.pname;
+  pname = "claude-code-bin";
   version = claude-code-bin.version;
 
   src = claude-code-bin.src;

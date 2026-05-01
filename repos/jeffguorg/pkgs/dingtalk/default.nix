@@ -147,7 +147,7 @@ let
   dingtalk = sources."dingtalk-bin-${arch}";
 in
 stdenv.mkDerivation rec {
-  pname = dingtalk.pname;
+  pname = "dingtalk-bin";
   version = dingtalk.version;
 
   src = dingtalk.src;

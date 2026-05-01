@@ -19,7 +19,16 @@
         (import "${fetchTree gomod2nix.locked}/overlay.nix")
       ];
     }
-  )
+  ),
+
+  # Exclude some packages from GitHub Actions builds by default.
+  # NOTE: To include them in local cache builds, run:
+  #   nix-build ci.nix -A cacheOutputs --arg excludedNames '[]'
+  excludedNames? [
+    "codex" # too long to build on Github actions
+    "dingtalk" # directly build from deb is faster in China
+    "vagrant-vmware-utility" # relies on VMWare Workstation, which is closed-source
+  ]
 }:
 
 with builtins;
@@ -30,9 +39,6 @@ let
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
-  excludedNames = [
-    "vagrant-vmware-utility"
-  ];
   nameValuePair = n: v: { name = n; value = v; };
 
   concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));

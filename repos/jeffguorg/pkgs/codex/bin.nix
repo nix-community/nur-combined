@@ -29,7 +29,7 @@ let
 
   codex-bin =  sources."codex-bin-${arch}-${os}";
 in stdenv.mkDerivation rec {
-  pname = codex-bin.pname;
+  pname = "codex-bin";
   version = codex-bin.version;
 
   src = codex-bin.src;
