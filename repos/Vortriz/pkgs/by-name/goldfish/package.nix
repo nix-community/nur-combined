@@ -5,13 +5,13 @@
 }:
 rustPlatform.buildRustPackage {
     pname = "goldfish";
-    version = "unstable-2025-11-02";
+    version = "unstable-2026-04-30";
 
     src = fetchFromGitHub {
         owner = "sameoldlab";
         repo = "goldfish";
-        rev = "4eb6d6964ef1c48fdfda87590c1041f71b58d36b";
-        hash = "sha256-+FlRwwtLFlzxcgtkdD47G/yrqYKgzo0pWKH1RIBli8A=";
+        rev = "84402bb43fdad781fea7d4374afb67a3cf6d77b6";
+        hash = "sha256-5WlcO6ixbiyVf187Ae7i+JENbtS+1YWKm9h6IYVha1M=";
     };
 
     cargoLock.lockFile = ./Cargo.lock;
