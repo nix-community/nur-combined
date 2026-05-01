@@ -47,15 +47,25 @@ let
       if ${systemctlUser} is-active xautolock-session.service; then
         ${systemctlUser} stop --user xautolock-session.service
         xset s off
+        xset s 0 0
+        xset -dpms
         ${notify} "Disabled Xautolock"
       else
         ${systemctlUser} start xautolock-session.service
         xset s on
+        xset s 0 0
+        xset +dpms
         ${notify} "Enabled Xautolock"
       fi
     '';
 in
 {
+  options.my.home.wm = with lib; {
+    windowManager = mkOption {
+      type = with types; nullOr (enum [ "i3" ]);
+    };
+  };
+
   config = lib.mkIf isEnabled {
     home.packages = with pkgs; [
       ambroisie.dragger # drag-and-drop from the CLI
@@ -64,6 +74,9 @@ in
       playerctl # Used by a mapping
       xdotool # Used by 'rofi-rbw', in a mapping
     ];
+
+    # Set `i3lock` as the (default) lock command
+    my.home.wm.screen-lock.command = lib.mkDefault "${lib.getExe pkgs.i3lock} -n -c 000000";
 
     xsession.windowManager.i3 = {
       enable = true;
@@ -123,7 +136,7 @@ in
           inherit modifier;
 
           criteria = [
-            { class = "^tridactyl_editor$"; }
+            { title = "^tridactyl_editor$"; }
             { class = "^Blueman-.*$"; }
             { title = "^htop$"; }
             { class = "^Thunderbird$"; instance = "Mailnews"; window_role = "filterlist"; }
@@ -387,5 +400,10 @@ in
         };
       };
     };
+
+    # Use a grey background
+    xsession.profileExtra = ''
+      ${lib.getExe pkgs.xsetroot} -solid '#333333'
+    '';
   };
 }

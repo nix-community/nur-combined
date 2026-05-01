@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   mkRelatedOption = description: relatedWMs:
     let
@@ -20,14 +20,14 @@ in
 
   options.my.home.wm = with lib; {
     windowManager = mkOption {
-      type = with types; nullOr (enum [ "i3" ]);
+      type = with types; nullOr (enum [ ]);
       default = null;
       example = "i3";
       description = "Which window manager to use for home session";
     };
 
     cursor = {
-      enable = mkRelatedOption "dunst configuration" [ "i3" ];
+      enable = mkRelatedOption "cursor configuration" [ "i3" ];
     };
 
     dunst = {
@@ -68,27 +68,12 @@ in
     };
 
     screen-lock = {
-      enable = mkRelatedOption "automatic X screen locker" [ "i3" ];
+      enable = mkRelatedOption "automatic screen locker" [ "i3" ];
 
       command = mkOption {
         type = types.str;
-        default = "${lib.getExe pkgs.i3lock} -n -c 000000";
         example = "\${lib.getExe pkgs.i3lock} -n -i lock.png";
         description = "Locker command to run";
-      };
-
-      cornerLock = {
-        enable = my.mkDisableOption ''
-          Move mouse to upper-left corner to lock instantly, lower-right corner to
-          disable auto-lock.
-        '';
-
-        delay = mkOption {
-          type = types.int;
-          default = 5;
-          example = 15;
-          description = "How many seconds before locking this way";
-        };
       };
 
       notify = {
@@ -100,17 +85,15 @@ in
           example = 15;
           description = ''
             How many seconds in advance should there be a notification.
-            This value must be at lesser than or equal to `cornerLock.delay`
-            when both options are enabled.
           '';
         };
       };
 
       timeout = mkOption {
-        type = types.ints.between 1 60;
+        type = types.int;
         default = 15;
         example = 1;
-        description = "Inactive time interval to lock the screen automatically";
+        description = "Inactive time interval (in minutes) to lock the screen automatically";
       };
     };
   };

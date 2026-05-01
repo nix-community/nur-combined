@@ -11,5 +11,8 @@ in
     my.hardware.bluetooth.enable = true;
 
     my.home.bluetooth.enable = true;
+
+    # This is redundant between NixOS and Home-Manager
+    services.blueman.withApplet = false;
   };
 }

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.profiles.x;
 in
@@ -10,12 +10,6 @@ in
   config = lib.mkIf cfg.enable {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
-    # Nice wallpaper
-    services.xserver.displayManager.lightdm.background =
-      let
-        wallpapers = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers";
-      in
-      "${wallpapers}/summer_1am/contents/images/2560x1600.jpg";
 
     # X configuration
     my.home.x.enable = true;
