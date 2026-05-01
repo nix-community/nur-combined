@@ -15,16 +15,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "lampghost-dev";
-  version = "0.3.1-unstable-2025-11-06";
+  version = "0.3.2-unstable-2026-05-01";
 
   src = fetchFromGitHub {
     owner = "Catizard";
     repo = "lampghost";
-    rev = "7ee51b8730121f4372a4de2bb309b25d1ab15480";
-    hash = "sha256-X7wPehdcpL2bwXoH7Q9mD5frLJbyMgdz2bJZvV+V4tw=";
+    rev = "35f8eacc41c881ba84d5ca1c4506a14cb3743912";
+    hash = "sha256-oOK4RlzlZ/cWek3RfeexD/xKCPVQEYBBWHyqIXLuOKQ=";
   };
 
-  vendorHash = "sha256-b2nWUsZjdNR2lmY9PPEhba/NsOn1K4nLDZhv71zxAK8=";
+  vendorHash = "sha256-RLs5BXXjob1HlA4AW2e29g4kln8dKOb++slmzE9JidU=";
 
   env = {
     CGO_ENABLED = 1;

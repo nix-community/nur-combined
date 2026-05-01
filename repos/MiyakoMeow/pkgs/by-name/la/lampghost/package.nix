@@ -14,16 +14,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "lampghost";
-  version = "0.3.1";
+  version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "Catizard";
     repo = "lampghost";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Ok4dP4I1UJrJNcc+iMt58r4xpV5siH5b1aEcgVZ/beY=";
+    hash = "sha256-oOK4RlzlZ/cWek3RfeexD/xKCPVQEYBBWHyqIXLuOKQ=";
   };
 
-  vendorHash = "sha256-b2nWUsZjdNR2lmY9PPEhba/NsOn1K4nLDZhv71zxAK8=";
+  vendorHash = "sha256-RLs5BXXjob1HlA4AW2e29g4kln8dKOb++slmzE9JidU=";
 
   env = {
     CGO_ENABLED = 1;
