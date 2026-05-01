@@ -439,7 +439,7 @@ in
             extraDomainNames = [ "*.${domain}" ];
             dnsProvider = "ovh";
             dnsPropagationCheck = false; # OVH is slow
-            inherit (cfg.acme) credentialsFile;
+            environmentFile = cfg.acme.credentialsFile;
           };
         };
     };
