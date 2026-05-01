@@ -4,7 +4,7 @@
   autoPatchelfHook,
   fetchurl,
   lz4,
-  xxhash,
+  xxHash,
   zlib,
   zstd,
 }:
@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     lz4
     stdenv.cc.cc.lib
-    xxhash
+    xxHash
     zlib
     zstd
   ];
