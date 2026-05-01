@@ -1,18 +1,7 @@
 {
   lib,
-  stdenv,
   rustPlatform,
-  fetchurl,
   installShellFiles,
-  clang,
-  cmake,
-  gitMinimal,
-  libclang,
-  makeBinaryWrapper,
-  pkg-config,
-  openssl,
-  libcap,
-  ripgrep,
   sources,
 }:
 let
@@ -26,6 +15,16 @@ rustPlatform.buildRustPackage {
   src = agentRunSource.src;
 
   cargoLock = agentRunSource.cargoLock."Cargo.lock";
+
+  nativeBuildInputs = [
+    installShellFiles
+  ];
+
+  postInstall = ''
+    installShellCompletion --cmd agent-run \
+      --bash <("$out/bin/agent-run" completion bash) \
+      --zsh <("$out/bin/agent-run" completion zsh)
+  '';
 
   #doCheck = false;
 

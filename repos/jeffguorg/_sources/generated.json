@@ -2,11 +2,11 @@
     "agent-run": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-WRJ43mJnfIbaahYgR7CoLJiw+6_9bjkkhX67aBjByKs=/Cargo.lock",
+                "sha256-5HIryODgVlO9vyb8BYzl_7+FAvNVNR8gUot5e3pJXuU=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-04-30",
+        "date": "2026-05-01",
         "extract": null,
         "name": "agent-run",
         "passthru": null,
@@ -16,13 +16,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "185e0bd9362d3c9c5a05be158963db6131d3c881",
-            "sha256": "sha256-WRJ43mJnfIbaahYgR7CoLJiw+6/9bjkkhX67aBjByKs=",
+            "rev": "cce129c93785b652fc00f1dcde9a3303af72ce24",
+            "sha256": "sha256-5HIryODgVlO9vyb8BYzl/7+FAvNVNR8gUot5e3pJXuU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://git.jeffthecoder.xyz/public/agent-run.git"
         },
-        "version": "185e0bd9362d3c9c5a05be158963db6131d3c881"
+        "version": "cce129c93785b652fc00f1dcde9a3303af72ce24"
     },
     "claude-code-bin-amd64-darwin": {
         "cargoLock": null,
