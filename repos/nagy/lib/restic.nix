@@ -9,7 +9,6 @@
       name,
       repo,
       shortcut ? null,
-      runtimeEnv ? { },
       fromRepo ? "",
     }:
     pkgs.writeShellApplication {
@@ -19,8 +18,7 @@
         RESTIC_REPOSITORY = repo;
         RESTIC_CACHE_DIR = "/tmp/restic-cache-${name}";
         RESTIC_FROM_REPOSITORY = fromRepo;
-      }
-      // runtimeEnv;
+      };
       derivationArgs.passthru = {
         inherit repo;
         shortcommands = lib.optionalAttrs (shortcut != null) {

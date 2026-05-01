@@ -1,9 +1,6 @@
-{
-  pkgs,
-  lib ? pkgs.lib,
-}:
+{ pkgs }:
 
-rec {
+{
 
   convertWasmToWat = pkgs.writeShellApplication {
     name = "convert-wasm-to-wat";
