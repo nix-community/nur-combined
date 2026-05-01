@@ -7,15 +7,15 @@
   pythonEnv = pkgs.python312Packages;
 
   pname = "adif-manage";
-  version = "0.2.0";
+  version = "0.2.1";
 in pythonEnv.buildPythonApplication {
   inherit pname version;
 
   src = pkgs.fetchFromGitHub {
     owner = "srcres258";
     repo = pname;
-    rev = "v0.2.0";
-    sha256 = "sha256-8OXAgIgeFkmST9GexiFVmG8lcNRcMI660SV4L4zgobQ=";
+    rev = "v0.2.1";
+    sha256 = "14zakjhy0jkm1pzzzrdmsdq1chnnki4vgla7v1x4zjg7i4qjyai5";
   };
 
   propagatedBuildInputs = with pythonEnv; [
