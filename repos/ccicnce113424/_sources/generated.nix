@@ -203,16 +203,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.8.5";
+    version = "v3.8.6-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.8.5";
+      rev = "v3.8.6-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-Y5i+0bAIb2YorO+PolBWlv0dFt/P6INPBfVEe3zG5Uc=";
+      sha256 = "sha256-RcS80TnZJ4SO4PHOY+KbDhBvO8J4ljbQC5qhewHAHyY=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-Y5i+0bAIb2YorO+PolBWlv0dFt_P6INPBfVEe3zG5Uc=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-RcS80TnZJ4SO4PHOY+KbDhBvO8J4ljbQC5qhewHAHyY=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -220,16 +220,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.5";
+    version = "2.0.6";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.5";
+      rev = "2.0.6";
       fetchSubmodules = false;
-      sha256 = "sha256-t5EDPUPjiaB76ZKXWI9/9XxqLF4wMiZp6liHYR9fF+0=";
+      sha256 = "sha256-jKF0FTTmq5xRB607iya3PtsgRFl73uXiuDA2oSGNbfs=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-t5EDPUPjiaB76ZKXWI9_9XxqLF4wMiZp6liHYR9fF+0=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-jKF0FTTmq5xRB607iya3PtsgRFl73uXiuDA2oSGNbfs=/pubspec.lock";
     };
   };
   pixes = {
@@ -294,21 +294,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "ccf59d8e6894e33b41d52354c3871c3a8cf59162";
+    version = "e610bf0697ed2f43dc799e3e9b36e92e9db1dc0f";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "ccf59d8e6894e33b41d52354c3871c3a8cf59162";
+      rev = "e610bf0697ed2f43dc799e3e9b36e92e9db1dc0f";
       fetchSubmodules = false;
-      sha256 = "sha256-LGWxFcQskYaHqYNt2dNjYPlk3cq60QLg3iM7Pwx+eiQ=";
+      sha256 = "sha256-nTaunUgpIlt74P30/l5j/xnhtfg8DjbcRNpwc5w4DfY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-LGWxFcQskYaHqYNt2dNjYPlk3cq60QLg3iM7Pwx+eiQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-nTaunUgpIlt74P30_l5j_xnhtfg8DjbcRNpwc5w4DfY=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-04-29";
+    date = "2026-04-30";
   };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
@@ -340,7 +340,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {
