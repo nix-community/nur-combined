@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Fetch the hashes of remote files";
     mainProgram = "fetch-hash";
-    homepage = "https://github.com/spotdemo4/nur/tree/main/pkgs/fetch-hash/fetch-hash.sh";
+    homepage = "https://github.com/spotdemo4/trevpkgs/tree/main/pkgs/fetch-hash/fetch-hash.sh";
     platforms = lib.platforms.all;
   };
 })

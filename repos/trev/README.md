@@ -1,8 +1,8 @@
 # trev's nix repository
 
-[![check](https://github.com/spotdemo4/nur/actions/workflows/check.yaml/badge.svg)](https://github.com/spotdemo4/nur/actions/workflows/check.yaml)
-[![vulnerable](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml/badge.svg)](https://github.com/spotdemo4/nur/actions/workflows/vulnerable.yaml)
-[![nix user repository](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml/badge.svg)](https://github.com/spotdemo4/nur/actions/workflows/sync.yaml)
+[![check](https://github.com/spotdemo4/trevpkgs/actions/workflows/check.yaml/badge.svg)](https://github.com/spotdemo4/trevpkgs/actions/workflows/check.yaml)
+[![vulnerable](https://github.com/spotdemo4/trevpkgs/actions/workflows/vulnerable.yaml/badge.svg)](https://github.com/spotdemo4/trevpkgs/actions/workflows/vulnerable.yaml)
+[![nix user repository](https://github.com/spotdemo4/trevpkgs/actions/workflows/sync.yaml/badge.svg)](https://github.com/spotdemo4/trevpkgs/actions/workflows/sync.yaml)
 
 Extra [packages](#packages), [bundlers](#bundlers), [images](#images) and [libs](#libs) for [nix](https://nixos.org/)
 
@@ -17,7 +17,7 @@ SQL query builder and ORM/Factory generator for Go
 - pending nixpkgs [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
 
 ```elm
-nix run github:spotdemo4/nur#bobgen
+nix run github:spotdemo4/trevpkgs#bobgen
 ```
 
 ### [bumper](https://github.com/spotdemo4/bumper)
@@ -25,7 +25,7 @@ nix run github:spotdemo4/nur#bobgen
 Version bumper for projects using git and semantic versioning
 
 ```elm
-nix run github:spotdemo4/nur#bumper
+nix run github:spotdemo4/trevpkgs#bumper
 ```
 
 ### [catppuccin-gtk](https://github.com/Fausto-Korpsvart/Catppuccin-GTK-Theme)
@@ -66,7 +66,7 @@ programs.zen-browser.profiles.default = {
 Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)
 
 ```elm
-nix run github:spotdemo4/nur#ffmpeg-quality-metrics
+nix run github:spotdemo4/trevpkgs#ffmpeg-quality-metrics
 ```
 
 ### [flake-release](https://github.com/spotdemo4/flake-release)
@@ -74,7 +74,7 @@ nix run github:spotdemo4/nur#ffmpeg-quality-metrics
 Flake package releaser
 
 ```elm
-nix run github:spotdemo4/nur#flake-release
+nix run github:spotdemo4/trevpkgs#flake-release
 ```
 
 ### [gleescript](https://github.com/lpil/gleescript)
@@ -82,7 +82,7 @@ nix run github:spotdemo4/nur#flake-release
 Bundles your Gleam-on-Erlang project into an escript
 
 ```elm
-nix run github:spotdemo4/nur#gleescript
+nix run github:spotdemo4/trevpkgs#gleescript
 ```
 
 ### [go-over](https://github.com/bwireman/go-over)
@@ -90,7 +90,7 @@ nix run github:spotdemo4/nur#gleescript
 A tool to audit Erlang & Elixir dependencies
 
 ```elm
-nix run github:spotdemo4/nur#go-over
+nix run github:spotdemo4/trevpkgs#go-over
 ```
 
 ### [helium](https://github.com/imputnet/helium)
@@ -98,7 +98,7 @@ nix run github:spotdemo4/nur#go-over
 Private, fast, and honest web browser
 
 ```elm
-nix run github:spotdemo4/nur#helium
+nix run github:spotdemo4/trevpkgs#helium
 ```
 
 ### [igsc](https://github.com/intel/igsc)
@@ -106,7 +106,7 @@ nix run github:spotdemo4/nur#helium
 Intel graphics system firmware update library
 
 ```elm
-nix run github:spotdemo4/nur#igsc
+nix run github:spotdemo4/trevpkgs#igsc
 ```
 
 ### [modal](https://pypi.org/project/modal)
@@ -124,7 +124,7 @@ buildInputs = with pkgs.python314Packages; [
 Nix hash fixer
 
 ```elm
-nix run github:spotdemo4/nur#nix-fix-hash
+nix run github:spotdemo4/trevpkgs#nix-fix-hash
 ```
 
 ### [nix-scan](https://github.com/spotdemo4/nix-scan)
@@ -132,7 +132,7 @@ nix run github:spotdemo4/nur#nix-fix-hash
 Nix vulnerability scanner
 
 ```elm
-nix run github:spotdemo4/nur#nix-scan
+nix run github:spotdemo4/trevpkgs#nix-scan
 ```
 
 ### [nvtop-exporter](https://github.com/spotdemo4/nvtop-exporter)
@@ -140,7 +140,7 @@ nix run github:spotdemo4/nur#nix-scan
 Prometheus exporter for nvtop
 
 ```elm
-nix run github:spotdemo4/nur#nvtop-exporter
+nix run github:spotdemo4/trevpkgs#nvtop-exporter
 ```
 
 ### [opengrep](https://github.com/opengrep/opengrep)
@@ -148,7 +148,7 @@ nix run github:spotdemo4/nur#nvtop-exporter
 Static code analysis engine to find security issues in code
 
 ```elm
-nix run github:spotdemo4/nur#opengrep
+nix run github:spotdemo4/trevpkgs#opengrep
 ```
 
 ### [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi)
@@ -158,7 +158,7 @@ Protobuf plugin for generating OpenAPI specs matching the Connect RPC interface
 - pending nixpkgs [NixOS#398495](https://github.com/NixOS/nixpkgs/pull/398495)
 
 ```elm
-nix run github:spotdemo4/nur#protoc-gen-connect-openapi
+nix run github:spotdemo4/trevpkgs#protoc-gen-connect-openapi
 ```
 
 ### [pysentry](https://github.com/nyudenkov/pysentry)
@@ -166,7 +166,7 @@ nix run github:spotdemo4/nur#protoc-gen-connect-openapi
 Scans your Python dependencies for known security vulnerabilities
 
 ```elm
-nix run github:spotdemo4/nur#pysentry
+nix run github:spotdemo4/trevpkgs#pysentry
 ```
 
 ### [qsvenc](https://github.com/rigaya/QSVEnc)
@@ -174,7 +174,7 @@ nix run github:spotdemo4/nur#pysentry
 QSV high-speed encoding performance experiment tool
 
 ```elm
-nix run github:spotdemo4/nur#qsvenc
+nix run github:spotdemo4/trevpkgs#qsvenc
 ```
 
 ### [renovate](https://github.com/renovatebot/renovate)
@@ -184,10 +184,10 @@ Cross-platform dependency update tool, with patches for nix
 - patched with [renovate#40282](https://github.com/renovatebot/renovate/pull/40282) to fix flake updates
 
 ```elm
-nix run github:spotdemo4/nur#renovate
+nix run github:spotdemo4/trevpkgs#renovate
 ```
 
-### [shellhook](https://github.com/spotdemo4/nur/blob/main/pkgs/shellhook/shellhook.sh)
+### [shellhook](https://github.com/spotdemo4/trevpkgs/blob/main/pkgs/shellhook/shellhook.sh)
 
 Shell hook for nix development shells
 
@@ -215,7 +215,7 @@ build-system = with pkgs.python314Packages; [
 A feature-rich command-line audio/video downloader; unstable version
 
 ```elm
-nix run github:spotdemo4/nur#yt-dlp
+nix run github:spotdemo4/trevpkgs#yt-dlp
 ```
 
 ### [zig-protobuf](https://github.com/Arwalk/zig-protobuf)
@@ -223,7 +223,7 @@ nix run github:spotdemo4/nur#yt-dlp
 A protobuf 3 implementation for zig
 
 ```elm
-nix run github:spotdemo4/nur#zig-protobuf
+nix run github:spotdemo4/trevpkgs#zig-protobuf
 ```
 
 ## Images
@@ -233,14 +233,14 @@ Docker container images
 ### nix ([nixos/nix](https://hub.docker.com/r/nixos/nix))
 
 ```sh
-nix build github:spotdemo4/nur#images.x86_64-linux.nix &&
+nix build github:spotdemo4/trevpkgs#images.x86_64-linux.nix &&
 docker load -i result
 ```
 
 ### ffmpeg ([linuxserver/ffmpeg](https://hub.docker.com/r/linuxserver/ffmpeg))
 
 ```sh
-nix build github:spotdemo4/nur#images.x86_64-linux.ffmpeg &&
+nix build github:spotdemo4/trevpkgs#images.x86_64-linux.ffmpeg &&
 docker load -i result
 ```
 
@@ -253,7 +253,7 @@ A collection of [nix bundlers](https://nix.dev/manual/nix/latest/command-ref/new
 A better alternative to `github:NixOS/bundlers#toDockerImage` that also sets `org.opencontainers.image` labels according to the packages `meta` attributes
 
 ```elm
-nix bundle --bundler github:spotdemo4/nur#image
+nix bundle --bundler github:spotdemo4/trevpkgs#image
 ```
 
 ### appimage
@@ -261,7 +261,7 @@ nix bundle --bundler github:spotdemo4/nur#image
 An alternative to [`ralismark/nix-appimage`](https://github.com/ralismark/nix-appimage) that uses bwrap to create compressed AppImages
 
 ```elm
-nix bundle --bundler github:spotdemo4/nur#appimage
+nix bundle --bundler github:spotdemo4/trevpkgs#appimage
 ```
 
 ## Libs
@@ -508,8 +508,8 @@ A flake for developing rust projects
   inputs = {
     systems.url = "github:nix-systems/default";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    trev = {
-      url = "github:spotdemo4/nur";
+    trevpkgs = {
+      url = "github:spotdemo4/trevpkgs";
       inputs.systems.follows = "systems";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -517,10 +517,10 @@ A flake for developing rust projects
 
   outputs =
     {
-      trev,
+      trevpkgs,
       ...
     }:
-    trev.libs.mkFlake (
+    trevpkgs.libs.mkFlake (
       system: pkgs: {
 
         # nix develop [#...]

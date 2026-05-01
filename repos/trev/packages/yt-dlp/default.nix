@@ -44,7 +44,7 @@ buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace yt_dlp/version.py \
-      --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "spotdemo4/nur likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
+      --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "spotdemo4/trevpkgs likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
     ${lib.optionalString javascriptSupport ''
       # deno is required for full YouTube support (since 2025.11.12).
       # This makes yt-dlp find deno even if it is used as a python dependency, i.e. in kodiPackages.sendtokodi.

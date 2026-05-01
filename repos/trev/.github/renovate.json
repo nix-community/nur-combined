@@ -5,7 +5,7 @@
   "onboarding": false,
   "requireConfig": "ignored",
   "platform": "github",
-  "repositories": ["spotdemo4/nur"],
+  "repositories": ["spotdemo4/trevpkgs"],
   "allowedCommands": ["nix-fix-hash --file utils/images"],
   "exposeAllEnv": true,
 
