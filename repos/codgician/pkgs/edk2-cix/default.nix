@@ -12,6 +12,34 @@
   nix-update-script,
 }:
 
+let
+  # Host stdenv is pinned to gcc 14 because edk2's BaseTools ships a vendored
+  # copy of Pccts (a pre-ANSI K&R parser generator under
+  # BaseTools/Source/C/VfrCompile/Pccts) whose source assumes the
+  # "implicit int / empty-parameter-list == unprototyped" C89 behaviour.
+  # gcc 15 rejects this with errors like
+  #   "too many arguments to function 'fpReach[q->ntype]'; expected 0, have 3"
+  # in VfrCompile/Pccts/dlg/fset.c when building VfrCompile. Until upstream
+  # edk2 modernises (or removes) Pccts we have to stay on gcc 14.
+  #
+  # acpica-tools 20260408 shipped a regression in iasl where the `printf` /
+  # `Printf` ASL macro triggers "Error 6010 - Internal compiler error
+  # (Invalid parse opcode in OpcGenerateAmlOpcode)" on every usage. The CIX
+  # SoC DSDT tables (Dsdt-ScmiMailbox.asl, Dsdt-Dpu.asl, Dsdt-AcpiRam.asl,
+  # ...) rely heavily on `printf` for debug logging, so compilation fails
+  # with 21 errors against AcpiSocTables. Pin to the previous release
+  # (20250807) which handles these macros correctly until upstream ships a
+  # fix.
+  acpica-tools-pinned = acpica-tools.overrideAttrs (_: rec {
+    version = "20250807";
+    src = fetchFromGitHub {
+      owner = "acpica";
+      repo = "acpica";
+      tag = version;
+      hash = "sha256-OY7jEirUDpzhgT9iCUYWeZmbCQl2R/agGIHXqJI/UBo=";
+    };
+  });
+in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "edk2-cix";
   version = "1.2.1";
@@ -35,7 +63,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   depsBuildBuild = [ gcc14Stdenv.cc ];
 
   nativeBuildInputs = [
-    acpica-tools
+    acpica-tools-pinned
     libuuid
     m4
     patchelf
