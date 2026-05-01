@@ -20,6 +20,7 @@ rec {
   igsc = pkgs.callPackage ./igsc { };
   nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-scan = pkgs.callPackage ./nix-scan { };
+  oxc-vscode = pkgs.callPackage ./oxc-vscode { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };
   pysentry = pkgs.callPackage ./pysentry { };
   qsvenc = pkgs.callPackage ./qsvenc { };
