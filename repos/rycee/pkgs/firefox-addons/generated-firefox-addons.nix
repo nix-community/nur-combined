@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildMozillaXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.8.0";
+      version = "1.8.1";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4670802/2fas_two_factor_authentication-1.8.0.xpi";
-      sha256 = "698cf4fa1597dda215d0cbea67817f7f88e5a79723ffbeb085208aaa4829eca6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4786178/2fas_two_factor_authentication-1.8.1.xpi";
+      sha256 = "0ce73b62fa4b05cc1464c041f5b12c30e276c3095072bce9775b464a82289226";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -1467,10 +1467,10 @@
     };
     "british-english-dictionary-2" = buildMozillaXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "4.0.6";
+      version = "4.0.7";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4709658/british_english_dictionary_2-4.0.6.xpi";
-      sha256 = "a0b5c46d2873bf17e63cf91d2d7a4752063b01d6358e2f8394150127785618f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4786955/british_english_dictionary_2-4.0.7.xpi";
+      sha256 = "261071c4a5d9aef17e0b7d5a4f3bbe95a4a555d52b0b20a88a3cf60cec988e96";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
@@ -7455,10 +7455,10 @@
     };
     "keeper-password-manager" = buildMozillaXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.5.0";
+      version = "17.8.0";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4659244/keeper_password_manager-17.5.0.xpi";
-      sha256 = "ccc6f3bfd66fff0ddfbea14bb87af8782ce45244a770085be5cd151feb93f827";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4758734/keeper_password_manager-17.8.0.xpi";
+      sha256 = "0c984fd661b7075d0cb2c51e991d46fa79b55406ec604d554ff96abc2166c6d4";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -7484,6 +7484,7 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
+          "privacy"
           "https://keepersecurity.com/vault/*"
           "https://keepersecurity.eu/vault/*"
           "https://keepersecurity.com.au/vault/*"
@@ -13385,10 +13386,10 @@
     };
     "search-by-image" = buildMozillaXpiAddon {
       pname = "search-by-image";
-      version = "8.5.1";
+      version = "8.5.2";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4752716/search_by_image-8.5.1.xpi";
-      sha256 = "9c1731bffc5662608f097bec032ed3fbccda54e15934386d8436b2a62a49f58a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4775193/search_by_image-8.5.2.xpi";
+      sha256 = "7e5cab1c46db6d59769b59dc481d1d17b0533f231341dd670ff718792d0b6605";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -16681,10 +16682,10 @@
     };
     "web-scrobbler" = buildMozillaXpiAddon {
       pname = "web-scrobbler";
-      version = "3.18.0";
+      version = "3.21.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4602485/web_scrobbler-3.18.0.xpi";
-      sha256 = "cca7a8015a4f2463dbab63102575b02acd922730b64a3167fce693efd1b7fa9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4757852/web_scrobbler-3.21.0.xpi";
+      sha256 = "91e3618a17139304695eae9f0109fa761dc988208e7f0c4716eb025c785cc188";
       meta = with lib;
       {
         homepage = "https://webscrobbler.com";
