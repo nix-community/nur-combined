@@ -4,12 +4,16 @@
   lib,
   stdenv,
   cmake,
+  ninja,
 }:
 stdenv.mkDerivation {
   inherit (sources) pname src;
   inherit version;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   strictDeps = true;
   __structuredAttrs = true;
