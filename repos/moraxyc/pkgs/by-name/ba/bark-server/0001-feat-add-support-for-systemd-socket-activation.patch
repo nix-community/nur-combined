@@ -1,4 +1,4 @@
-From b0067622252d58542df7178b13890c5b88dee102 Mon Sep 17 00:00:00 2001
+From 858f03ecc680f0c86fb816be14c0cb0c2816b188 Mon Sep 17 00:00:00 2001
 From: Moraxyc <i@qaq.li>
 Date: Mon, 22 Dec 2025 18:36:27 +0800
 Subject: [PATCH 1/2] feat: add support for systemd socket activation
@@ -10,27 +10,27 @@ Subject: [PATCH 1/2] feat: add support for systemd socket activation
  3 files changed, 22 insertions(+)
 
 diff --git a/go.mod b/go.mod
-index 78bfe06..537c0db 100644
+index 876d80e..b5bc625 100644
 --- a/go.mod
 +++ b/go.mod
 @@ -7,6 +7,7 @@ go 1.23.0
  toolchain go1.24.1
  
  require (
-+	github.com/coreos/go-systemd/v22 v22.6.0
++	github.com/coreos/go-systemd/v22 v22.7.0
  	github.com/go-sql-driver/mysql v1.8.1
  	github.com/gofiber/adaptor/v2 v2.2.1
- 	github.com/gofiber/fiber/v2 v2.52.9
+ 	github.com/gofiber/fiber/v2 v2.52.12
 diff --git a/go.sum b/go.sum
-index 5863aaf..ef4d4fe 100644
+index 09ef20a..aadb5f9 100644
 --- a/go.sum
 +++ b/go.sum
 @@ -10,6 +10,8 @@ github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLj
  github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
  github.com/buger/jsonparser v1.1.1 h1:2PnMjfWD7wBILjqQbt530v576A/cAbQvEW9gGIpYMUs=
  github.com/buger/jsonparser v1.1.1/go.mod h1:6RYKKt7H4d4+iWqouImQ9R2FZql3VbhNgx27UK13J/0=
-+github.com/coreos/go-systemd/v22 v22.6.0 h1:aGVa/v8B7hpb0TKl0MWoAavPDmHvobFe5R5zn0bCJWo=
-+github.com/coreos/go-systemd/v22 v22.6.0/go.mod h1:iG+pp635Fo7ZmV/j14KUcmEyWF+0X7Lua8rrTWzYgWU=
++github.com/coreos/go-systemd/v22 v22.7.0 h1:LAEzFkke61DFROc7zNLX/WA2i5J8gYqe0rSj9KI28KA=
++github.com/coreos/go-systemd/v22 v22.7.0/go.mod h1:xNUYtjHu2EDXbsxz1i41wouACIwT7Ybq9o0BQhMwD0w=
  github.com/cpuguy83/go-md2man/v2 v2.0.4 h1:wfIWP927BUkWJb2NmU/kNDYIBTh/ziUX91+lVfRxZq4=
  github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
  github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -79,5 +79,4 @@ index db5c1d6..f5137c2 100644
  		addr := c.String("addr")
  		logger.Infof("Bark Server Listen at: %s , Database: %s", addr, reflect.TypeOf(db))
 -- 
-2.51.2
-
+2.53.0

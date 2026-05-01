@@ -1,4 +1,4 @@
-From f1d695b1c9a0783b8dcc472aa6e538719d192b66 Mon Sep 17 00:00:00 2001
+From 85ca8fda610097a810045e344225b705f5997b91 Mon Sep 17 00:00:00 2001
 From: Moraxyc <i@qaq.li>
 Date: Mon, 22 Dec 2025 20:46:19 +0800
 Subject: [PATCH 2/2] feat: Add --shutdown-timeout for idle auto-termination
@@ -86,5 +86,5 @@ index f5137c2..e400e07 100644
  	}
  }
 -- 
-2.51.2
+2.53.0
 

@@ -18,7 +18,7 @@ upstream.bark-server.overrideAttrs (
     ];
 
     # nix-update auto
-    vendorHash = "sha256-eYSePxBEoVtqLJxA9/MxQOUMwnYnnZrIl/TcJ353HMQ=";
+    vendorHash = "sha256-Q7QeO9cW+Ao+bcQc95kTPO2ciTZsbeFT74gF6WFrwcA=";
 
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;
