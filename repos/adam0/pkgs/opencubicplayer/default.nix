@@ -132,7 +132,7 @@ in
                        'playerdevices=devpSDL3 devpALSA devpOSS devpNone devpDisk'
 
       wrapProgram "$out/bin/ocp" \
-        --add-flags -spdevpSDL3 \
+        --add-flags "-spdevpSDL3 -dcurses" \
         --set-default SDL_AUDIODRIVER pipewire
     '';
 
