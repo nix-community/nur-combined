@@ -17,21 +17,21 @@
         "arm64",
         ""
       ],
-      "hash": "sha256-xWamD11HFo97KVWEyp2DrOG6mpnl2GO4qb92Th4NElg="
+      "hash": "sha256-VNcK0cDoZWyo/hfvA0RJjDFV9/0MG/10TCVLSO/H2E8="
     },
     "v1": {
       "substitutions": [
         "x86_64",
         ""
       ],
-      "hash": "sha256-0V46lxFwHT/ppf6JEj9Uh/tf9Acw4PoFPl34MaZmXk8="
+      "hash": "sha256-MeWzwrlqhyLirYP5JrUOF1TicIkexvHOWvyJMGtISB4="
     },
     "v3": {
       "substitutions": [
         "x86_64",
         "_v3"
       ],
-      "hash": "sha256-mINDT2+bUiiuaV8dzx/K5mD3eIWaSe32jbTiztf6ez4="
+      "hash": "sha256-d0hpAXeOwC9pBzdvQWzL1GlNCu6l0iuzQV/ZHSHO4ok="
     },
     "v4": {
       "substitutions": [
