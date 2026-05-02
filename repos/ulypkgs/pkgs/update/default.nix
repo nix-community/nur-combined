@@ -182,6 +182,8 @@ writeTextFile {
         cat "$log" >> "$GITHUB_STEP_SUMMARY"
         echo '``````' >> "$GITHUB_STEP_SUMMARY"
         echo >> "$GITHUB_STEP_SUMMARY"
+        echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+        echo >> "$GITHUB_STEP_SUMMARY"
       done
       echo "### Build logs" >> "$GITHUB_STEP_SUMMARY"
       echo >> "$GITHUB_STEP_SUMMARY"
@@ -192,6 +194,8 @@ writeTextFile {
         echo '``````console' >> "$GITHUB_STEP_SUMMARY"
         cat "$log" >> "$GITHUB_STEP_SUMMARY"
         echo '``````' >> "$GITHUB_STEP_SUMMARY"
+        echo >> "$GITHUB_STEP_SUMMARY"
+        echo "</details>" >> "$GITHUB_STEP_SUMMARY"
         echo >> "$GITHUB_STEP_SUMMARY"
       done
       shopt -u nullglob

@@ -128,6 +128,8 @@ let
 
     ### Applications
 
+    find-itch-upload = callPackage ./find-itch-upload { };
+
     # testing purpose
     hello = pkgsSuper.hello.overrideAttrs (attrsSuper: {
       postPatch = ''
