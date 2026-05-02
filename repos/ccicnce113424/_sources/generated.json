@@ -259,27 +259,6 @@
         },
         "version": "0.4.4"
     },
-    "lumine": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "lumine",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "moi-si",
-            "repo": "lumine",
-            "rev": "v0.9.1",
-            "sha256": "sha256-MYrJKh9xeQTH3NxwszFw/YNA+/rfP9h6UU1xyfuZ6pU=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.9.1"
-    },
     "lxgw-wenkai-gb": {
         "cargoLock": null,
         "date": null,
@@ -329,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-_lqmFdushjNFtt8dwu3V0Dsnzgh9VxxNhq1fKwjBVUs=/src-tauri/Cargo.lock",
+                "sha256-g1m8hGJeOKnZKIjvKDHVowRP4g06GnjsoCmY8uzpl4M=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -345,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.8.6-beta.7",
-            "sha256": "sha256-/lqmFdushjNFtt8dwu3V0Dsnzgh9VxxNhq1fKwjBVUs=",
+            "rev": "v3.8.6",
+            "sha256": "sha256-g1m8hGJeOKnZKIjvKDHVowRP4g06GnjsoCmY8uzpl4M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.8.6-beta.7"
+        "version": "v3.8.6"
     },
     "piliplus": {
         "cargoLock": null,
