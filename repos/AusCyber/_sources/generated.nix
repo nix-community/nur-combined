@@ -20,10 +20,10 @@
     version = "flake-compat";
     src = fetchTarball {
       url = "https://git.lix.systems/lix-project/flake-compat/archive/main.tar.gz";
-      sha256 = "sha256-NKw96t+BgHIYzHUjkTK95FqYRVKB8DHpVhefWSz/kTw=";
+      sha256 = "sha256-Eg9b/rq/ECYwNwEXs5i9wHyhxNI0JrYx2srdI2uZMaQ=";
     };
     extract = {
-      "default.nix" = ./. + "/sha256-NKw96t+BgHIYzHUjkTK95FqYRVKB8DHpVhefWSz_kTw=/default.nix";
+      "default.nix" = ./. + "/sha256-Eg9b_rq_ECYwNwEXs5i9wHyhxNI0JrYx2srdI2uZMaQ=/default.nix";
     };
   };
   ghostty = {
@@ -39,7 +39,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-R7hf+nySWJuOXU6ezPhAoxwQ12OeYazYP0ijY2qITDw=";
+      sha256 = "sha256-869yFiAAQV1Gp8Y58T/rwRaDPqvJjG25wV5s4FyWDEU=";
     };
   };
   helium-linux = {
