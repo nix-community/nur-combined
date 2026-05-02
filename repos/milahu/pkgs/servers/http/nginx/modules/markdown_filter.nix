@@ -14,14 +14,24 @@ rec {
   src = (fetchFromGitHub {
     owner = "ukarim";
     repo = "ngx_markdown_filter_module";
-    # rev = "0.1.3";
-    # https://github.com/ukarim/ngx_markdown_filter_module/pull/6
-    rev = "11eef87a7966a72cbd10da1f80472b8b3a24c198";
-    hash = "sha256-Ap22bM2HZ/F0WjkdQSPF4XcowxclE2b45jaL5MvNF1A=";
+    rev = "0.1.7";
+    hash = "sha256-OZL0MuATZ1BnSOgJshf0AwQdWJbRkdjClmYVl9BEY+o=";
+    /*
+    owner = "milahu";
+    repo = "ngx_markdown_filter_module";
+    # https://github.com/ukarim/ngx_markdown_filter_module/pull/12
+    # use cmark-gfm without extra cflags
+    rev = "3e0362b4e60c5f26071bfa3d2418ec30cd0d0dbd";
+    hash = "sha256-i7orFQEuB9uoFQ+UUdWibJAy26Z6bjGsZqCSWdZ8UhE=";
+    */
   }) // {
     patchPhase = ''
       mv config_gfm config
     ''
+    /*
+      # alternative to -DWITH_CMARK_GFM=1
+      sed -i '1 i\#define WITH_CMARK_GFM 1' ngx_markdown_filter_module.c
+    */
     +
     # fix: raw HTML omitted
     # FIXME this is insecure

@@ -100,6 +100,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
+  # FIXME error: mkDerivation was called with unsupported hardening flags
   hardeningEnable = [ "pie" ];
 
   doCheck = true;

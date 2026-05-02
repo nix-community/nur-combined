@@ -219,27 +219,27 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # nix-init pkgs/python3/pkgs/flask/flask.nix --url https://github.com/pallets/flask
       # FIXME use python3.pkgs.werkzeug from this scope
       #flask = callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
-      flask = self.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+      # flask = self.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-caching/flask-caching.nix --url https://github.com/pallets-eco/flask-caching
       # FIXME: ERROR: Could not find a version that satisfies the requirement Flask<3 (from flask-caching) (from versions: none)
       # update?
-      flask-caching = callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
+      # flask-caching = callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
 
       # no: nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://github.com/colour-science/flask-compress
       # fix: LookupError: setuptools-scm was unable to detect version for /build/source.
       # Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
       # nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://pypi.org/project/flask-compress
-      flask-compress = callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
+      # flask-compress = callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-session/flask-session.nix --url https://github.com/pallets-eco/flask-session
-      flask-session = callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
+      # flask-session = callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-babel/flask-babel.nix --url https://github.com/python-babel/flask-babel
-      flask-babel = callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
+      # flask-babel = callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-session2/flask-session2.nix --url https://github.com/christopherpickering/flask-session2
-      flask-session2 = callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
+      # flask-session2 = callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
       pyjsparser = callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
 
@@ -629,11 +629,16 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       flask-themes2 = callPackage ./pkgs/development/python-modules/flask-themes2 { };
 
-      py-mini-racer = callPackage ./pkgs/development/python-modules/py-mini-racer { };
+      mini-racer = callPackage ./pkgs/development/python-modules/mini-racer {
+        # FIXME scope
+        v8 = callPackage ./pkgs/development/libraries/v8 { };
+      };
 
       aia-chaser = callPackage ./pkgs/development/python-modules/aia-chaser { };
 
       pycurl = callPackage ./pkgs/development/python-modules/pycurl { };
+
+      pdf-ocr-editor = callPackage ./pkgs/development/python-modules/pdf-ocr-editor { };
 
     #}))); # python3.pkgs
 
@@ -961,8 +966,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     pdfium = pdfium-bin;
   };
 
-  gclient2nix = callPackage ./pkgs/build-support/gclient2nix/gclient2nix.nix { };
-
   gclient = callPackage ./pkgs/build-support/gclient/gclient.nix { };
 
   # based on nixpkgs/pkgs/build-support/fetchipfs/default.nix
@@ -1075,11 +1078,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   redasm = callPackage ./pkgs/development/tools/analysis/redasm { };
 
+  /*
   opensshPackages = pkgs.dontRecurseIntoAttrs (callPackage ./pkgs/tools/networking/openssh {});
 
   openssh = opensshPackages.openssh.override {
     etcDir = "/etc/ssh";
   };
+  */
 
   fritzbox-reconnect = python3.pkgs.callPackage ./pkgs/tools/networking/fritzbox-reconnect { };
 
@@ -1304,20 +1309,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   nginx = nginxStable;
 
-  nginxQuic = callPackage ./pkgs/servers/http/nginx/quic.nix {
-    withPerl = false;
-    # We don't use `with` statement here on purpose!
-    # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
-    modules = [
-      pkgs.nginxModules.rtmp
-      # pkgs.nginxModules.dav
-      nginxModules.dav
-      pkgs.nginxModules.moreheaders
-    ];
-    # Use latest boringssl to allow http3 support
-    openssl = pkgs.quictls;
-  };
-
   nginxStable = callPackage ./pkgs/servers/http/nginx/stable.nix {
     withPerl = false;
     # We don't use `with` statement here on purpose!
@@ -1469,6 +1460,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   project-nomad = callPackage ./pkgs/by-name/pr/project-nomad/package.nix { };
 
   espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
+
+  v8 = callPackage ./pkgs/development/libraries/v8 { };
 
 }
 

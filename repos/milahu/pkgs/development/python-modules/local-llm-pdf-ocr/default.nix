@@ -1,7 +1,8 @@
-# FIXME text bbox positions are wrong in the PDF file
-# all bboxes are packed in the top-left corner
-
-# FIXME support AVIF image files (etc)
+# FIXME joined lines, and shifted following lines
+# https://github.com/ahnafnafee/local-llm-pdf-ocr/issues/2
+# possible solution: downgrade to opencv 4.11.0
+# https://lazamar.co.uk/nix-versions/?package=opencv&version=4.11.0&fullName=opencv-4.11.0&keyName=opencv&revision=e6f23dc08d3624daab7094b701aa3954923c6bbb&channel=nixpkgs-unstable#instructions
+# nix-shell -p opencv -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/e6f23dc08d3624daab7094b701aa3954923c6bbb.tar.gz
 
 # TODO dont depend on local LLM server
 # also offer a standalone tool like
@@ -17,53 +18,24 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "local-llm-pdf-ocr";
-  version = "0-unstable-2026-04-21-f12b8fe";
+  version = "0-unstable-2026-04-29-03a4dfd";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ahnafnafee";
     repo = "local-llm-pdf-ocr";
-    rev = "f12b8fe9040537c28d939756c9323b585577ea21";
-    hash = "sha256-Vb206zyprVCmDoy4d+Gu+nDpzsL/Yc/7BlyEedYkWXc=";
+    # https://github.com/ahnafnafee/local-llm-pdf-ocr/pull/5
+    rev = "03a4dfd414bf2afec0f1eafa1ea6ff441d7daf7a";
+    hash = "sha256-9rPaJyLxdb1ZQ9uRFkXF1JNtnpe78nBEqQDi+bE1Gz8=";
   };
 
   postPatch = ''
     # unpin dependencies
     sed -i -E 's/>=.*",$/",/' pyproject.toml
-
-    # fix: ModuleNotFoundError: No module named 'src'
-    grep -r -l -F " src.pdf_ocr" . |
-    grep '\.py$' |
-    xargs sed -i 's/ src\.pdf_ocr/ pdf_ocr/'
-
-    # move scripts to package
-    mv -t src/pdf_ocr main.py server.py static scripts tests
-
-    # add main script
-    # install server assets
-    cat >>pyproject.toml <<EOF
-    [project.scripts]
-    local-llm-pdf-ocr = "pdf_ocr.main:main"
-
-    [tool.setuptools]
-    include-package-data = true
-
-    [tool.setuptools.package-data]
-    pdf_ocr = ["static/*"]
-    EOF
-
-    # fix: print errors
-    substituteInPlace src/pdf_ocr/main.py \
-      --replace \
-        "    except Exception:" \
-        "$(
-          echo "    except Exception as exc:"
-          echo "        raise"
-        )"
   '';
 
   build-system = [
-    python3.pkgs.setuptools
+    python3.pkgs.hatchling
   ];
 
   dependencies = with python3.pkgs; [
@@ -91,7 +63,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   dontUsePytestCheck = true;
 
   meta = {
-    description = "Convert scanned PDFs into searchable text locally using Vision LLMs (olmOCR). 100% private, offline, and free. Features a modern Web UI & CLI";
+    description = "Convert scanned PDFs into searchable text locally using Vision LLMs (olmOCR)";
     homepage = "https://github.com/ahnafnafee/local-llm-pdf-ocr";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];

@@ -22,8 +22,8 @@
 , gocr
 , unrar
 , rhino
-# , spidermonkey
 , buildPythonApplication
+, setuptools
 }:
 
 buildPythonApplication rec {
@@ -31,14 +31,19 @@ buildPythonApplication rec {
 
   # versions https://github.com/pyload/pyload/issues/4339
   # https://pypi.org/project/pyload-ng/#history
-  version = "0.5.0b3.dev82"; # 2024-04-21
+  version = "0.5.0b3.c944b60";
 
   src = fetchFromGitHub {
-    owner = "pyload";
+    # https://github.com/milahu/pyload
+    owner = "milahu";
     repo = "pyload";
-    rev = "08a759aaf2f7f776801821f582e310bae6a09308";
-    hash = "sha256-B7W0r2QqhaY5lmocvZ8UVwG2y2Qz8CaHGIocQgVGt8U=";
+    rev = "c944b6064025633e7f006a5ab6817f2ef3bee928"; # 2026-04-28
+    hash = "sha256-hQlsT7ERXhYsDBv0Cggil4aL8gCBVXwOPjMfHx+gq2s=";
   };
+
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # relax versions
   postPatch = ''
@@ -56,7 +61,6 @@ buildPythonApplication rec {
     # TODO are these actually available on runtime?
     unrar # unfree
     rhino
-    # spidermonkey
     gocr
   ] ++ (with python3.pkgs; [
     pycurl
@@ -94,6 +98,17 @@ buildPythonApplication rec {
     colorlog # colorful console logging
     pillow # for some CAPTCHA plugin
     slixmpp # XMPP plugin
+
+    aia-chaser
+    #        >   - flask-session>=0.8.0 not satisfied by version 0.5.0
+    flask-wtf
+    defusedxml
+    mini-racer
+    pydantic
+    pyopenssl
+    timeout-decorator
+    jurigged
+    packaging
   ]);
 
   doCheck = false; # FIXME?

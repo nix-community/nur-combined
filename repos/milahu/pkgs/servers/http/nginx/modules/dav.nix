@@ -10,7 +10,7 @@
     name = "dav";
     owner = "mid1221213";
     repo = "nginx-dav-ext-module";
-    rev = "9f112cf8e396ea5e1bdc70cedfa4f5cbc48fe98a";
+    rev = "v4.0.1";
     hash = "sha256-BMYRH/BNuq/TTWPWdQJpz/Mx64vNEN7SQ/Swu3by92A=";
   };
 

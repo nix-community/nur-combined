@@ -8,8 +8,8 @@
   src = fetchFromGitHub {
     owner = "pjincz";
     repo = "nginx-cgi";
-    rev = "v0.13";
-    hash = "sha256-rQBiB/N3rnOArP8tJu0wYMTHU31MpGdqeaUcSPKhJKs=";
+    rev = "v0.15";
+    hash = "sha256-HsMn2VdiClioJV19YF+lUHX4Tn/NNSml06YNbbEPdUY=";
   };
   meta = with lib; {
     description = "Nginx CGI module";
