@@ -1,16 +1,27 @@
 {
+  stdenvNoCC,
   replaceVars,
-  writeShellScriptBin,
 }:
 
 builtins.mapAttrs (
   name: script:
   let
-    program = writeShellScriptBin name (
-      replaceVars ./app.sh {
+    program = stdenvNoCC.mkDerivation (finalAttrs: {
+      inherit name;
+
+      app = replaceVars ./app.sh {
         inherit script;
-      }
-    );
+      };
+
+      dontUnpack = true;
+      dontConfigure = true;
+      dontBuild = true;
+      doCheck = false;
+
+      installPhase = ''
+        install -D ${finalAttrs.app} $out/bin/${name}
+      '';
+    });
   in
   {
     type = "app";

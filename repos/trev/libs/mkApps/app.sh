@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-pushd "$(git rev-parse --show-toplevel)" || exit 1
+pushd "$(git rev-parse --show-toplevel)" > /dev/null || exit 1
 @script@
-popd || exit 1
+popd > /dev/null || exit 1
