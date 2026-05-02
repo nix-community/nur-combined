@@ -11,8 +11,8 @@ buildNpmPackage rec {
 
   src = fetchgit {
     url = "https://github.com/raycast/extensions";
-    rev = "9c95e439effe2625f88a051b520bfdfcf3ae2ae2";
-    sha256 = "sha256-bZLKe5xZc2RxEsF24zcAVMVkWct4nzFaIXkUkq1nlwA=";
+    rev = "4237b41dfaf3903de0f18b1d7fefb26290d92829";
+    sha256 = "sha256-hFT90i/Cb0EtWCEhXGQVQTISb8rFUPepKvSU5blRpm4=";
     sparseCheckout = [
       "/extensions/${pname}"
     ];
@@ -33,7 +33,7 @@ buildNpmPackage rec {
       update-source-version raycast-${pname} "${version}" --ignore-same-version --source-key=npmDeps
     '';
 
-  npmDepsHash = "sha256-wqaOwv41xafzGwZjrleEJYXmEA9X8jdB0RbSR9Ml8zw=";
+  npmDepsHash = "sha256-Wkg0hYYKEOxx7R3+aFc9rgDU06P0oErlPkIMn/Ze+aA=";
 
   installPhase =
     # bash

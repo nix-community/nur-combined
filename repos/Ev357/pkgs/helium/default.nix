@@ -8,16 +8,16 @@
   widevine-cdm,
   enableWideVine ? false,
 }: let
-  version = "0.11.5.1";
+  version = "0.11.7.1";
   repo = "https://github.com/imputnet/helium-linux";
   sourceMap = {
     x86_64-linux = fetchurl {
       url = "${repo}/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-Ni7IZ9UBafr+ss0BcQaRKqmlmJI4IV1jRAJ8jhcodlg=";
+      hash = "sha256-qzc135IP5F2btxtOMUGMz+0azJhYL9KI0lcPG2KjcxU=";
     };
     aarch64-linux = fetchurl {
       url = "${repo}/releases/download/${version}/helium-${version}-arm64.AppImage";
-      hash = "sha256-f3nTqFVlgOIObtvtA41w17zcguaxjc54I59anCPoM38=";
+      hash = "sha256-OfI7oDveklNmKef9u8RHInbKT+jldaXMDgs8BSdiaUs=";
     };
   };
 in
