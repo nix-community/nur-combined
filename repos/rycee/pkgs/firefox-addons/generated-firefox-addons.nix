@@ -2900,10 +2900,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260429.90326";
+      version = "151.0.20260501.90355";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4784800/dansk_da_language_pack-151.0.20260429.90326.xpi";
-      sha256 = "1c446a4edf68c0ce90ca9079558889aef428b710a6c8c3190cbb73ad6588c762";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787426/dansk_da_language_pack-151.0.20260501.90355.xpi";
+      sha256 = "8b6a826913a81f6a4f063598a14afe84afb0dd4ca7c85d717414bfe0b1af05ed";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3114,10 +3114,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260429.90326";
+      version = "151.0.20260501.90355";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4784804/deutsch_de_language_pack-151.0.20260429.90326.xpi";
-      sha256 = "e643896939db43ca7e3ae2c774d5073486c9e2d7221e689df82f60e630296dbc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787443/deutsch_de_language_pack-151.0.20260501.90355.xpi";
+      sha256 = "97c8f4dc7f6e17e30494e42f5c069a3f7bd23be0aad8340d0463189c8f6064e0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4592,10 +4592,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260429.90326";
+      version = "151.0.20260501.90355";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4784782/francais_language_pack-151.0.20260429.90326.xpi";
-      sha256 = "1f98b3263649a7c556887bbc1e083cbe1b25f30dee8b1b9730c2c40690d583e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787441/francais_language_pack-151.0.20260501.90355.xpi";
+      sha256 = "e6a45624911695fbd680fc349069667d73caf79f7e87dbb116e567ea113a52c7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4629,10 +4629,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260429.90326";
+      version = "151.0.20260501.90355";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4784722/gaidhlig_language_pack-151.0.20260429.90326.xpi";
-      sha256 = "cdeb57733903bad5b7be133e8cdb626852e95c4ce4d7ff48e5ec9d7c062527a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787527/gaidhlig_language_pack-151.0.20260501.90355.xpi";
+      sha256 = "35471039cdb480ba3b5dcc57f1607a288697631c4d4a1b36e70e7d24290b0f36";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -13006,10 +13006,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.4.20";
+      version = "26.5.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4772939/refined_github-26.4.20.xpi";
-      sha256 = "d160e48b3d8dc4a6b46c774088d67fe557116dcd51dd6fa376c02eb0c51deb8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787850/refined_github-26.5.1.xpi";
+      sha256 = "43714279847a724c1b88b5439487251dd712c8637c28bc3386ba7a4542bef538";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -13326,10 +13326,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260429.90326";
+      version = "151.0.20260501.90355";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4784808/scots_language_pack-151.0.20260429.90326.xpi";
-      sha256 = "8542e3dfb915df5c7108a5e4c58f26964ed130fe052aa6a4ad59de016b9fecd1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787485/scots_language_pack-151.0.20260501.90355.xpi";
+      sha256 = "d4b095c459a380b4d09ee420447192c9d62299c9ab29905508c61967d93e342b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -16948,10 +16948,10 @@
     };
     "whowrotethat" = buildMozillaXpiAddon {
       pname = "whowrotethat";
-      version = "0.22.4.0";
+      version = "0.23.0.0";
       addonId = "{7c53a467-2542-497a-86fb-59c2904a56d1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619047/whowrotethat-0.22.4.0.xpi";
-      sha256 = "dd221e62eb5dc18af7fc5173c54e20e7451ba03b6f447de6871f11a0c79c554c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787108/whowrotethat-0.23.0.0.xpi";
+      sha256 = "fe92b30a5063d15f5c108047c589e0d9942cc5f1c3a78035f335135b0b5dcce1";
       meta = with lib;
       {
         homepage = "https://www.mediawiki.org/wiki/WWT";
@@ -16961,10 +16961,13 @@
           "storage"
           "*://ar.wikipedia.org/*"
           "*://de.wikipedia.org/*"
+          "*://dsb.wikipedia.org/*"
           "*://en.wikipedia.org/*"
           "*://es.wikipedia.org/*"
           "*://eu.wikipedia.org/*"
+          "*://fa.wikipedia.org/*"
           "*://fr.wikipedia.org/*"
+          "*://hi.wikipedia.org/*"
           "*://hu.wikipedia.org/*"
           "*://id.wikipedia.org/*"
           "*://it.wikipedia.org/*"
@@ -16972,7 +16975,11 @@
           "*://nl.wikipedia.org/*"
           "*://pl.wikipedia.org/*"
           "*://pt.wikipedia.org/*"
+          "*://ru.wikipedia.org/*"
+          "*://sv.wikipedia.org/*"
           "*://tr.wikipedia.org/*"
+          "*://uk.wikipedia.org/*"
+          "*://vi.wikipedia.org/*"
         ];
         platforms = platforms.all;
       };
@@ -17159,10 +17166,10 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.0.7";
+      version = "2.0.8";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4718203/yang_addon-2.0.7.xpi";
-      sha256 = "e93dc08ca824cd9f88d39f220808e1288b754c8d883df600cd4b65b55adb9e30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4787145/yang_addon-2.0.8.xpi";
+      sha256 = "a268e39fdceeed9b97f6677d3ecc1c8086fdb1f4dec4bea0a9434b88fe96eefc";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
