@@ -93,11 +93,11 @@ lib.makeScope pkgs.newScope (self: {
     srcInfo = lib.importJSON ./loveiwara/src-info.json;
   };
 
-  lumine = self.callPackage ./lumine rec {
-    inherit (lib.importJSON ./lumine/src-info.json) hash;
-    sources = fetchedSrc.lumine;
-    version = stableVersion sources;
-  };
+  # lumine = self.callPackage ./lumine rec {
+  #   inherit (lib.importJSON ./lumine/src-info.json) hash;
+  #   sources = fetchedSrc.lumine;
+  #   version = stableVersion sources;
+  # };
 
   lxgw-wenkai-gb = self.callPackage ./lxgw-wenkai-gb rec {
     sources = fetchedSrc.lxgw-wenkai-gb;
