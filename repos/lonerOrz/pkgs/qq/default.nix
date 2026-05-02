@@ -21,7 +21,6 @@
   systemd,
   stdenv,
   undmg,
-  vips,
   at-spi2-core,
   autoPatchelfHook,
   makeShellWrapper,
@@ -36,12 +35,14 @@ let
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   pname = "qq";
   inherit (source) version src;
+
   passthru = {
     updateScript = ./update.sh;
     versionPolicy = {
       file = "source.nix";
     };
   };
+
   meta = {
     homepage = "https://im.qq.com/index/";
     description = "Messaging app";
@@ -56,6 +57,7 @@ let
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
 in
+
 if stdenv.hostPlatform.isDarwin then
   stdenv.mkDerivation {
     inherit
@@ -71,13 +73,12 @@ if stdenv.hostPlatform.isDarwin then
 
     installPhase = ''
       runHook preInstall
-
       mkdir -p $out/Applications
       cp -a QQ.app $out/Applications
-
       runHook postInstall
     '';
   }
+
 else
   stdenv.mkDerivation {
     inherit
@@ -107,8 +108,8 @@ else
       libkrb5
       libgbm
       nss
-      vips
       libXdamage
+      libssh2
     ];
 
     dontWrapGApps = true;
@@ -125,11 +126,13 @@ else
       cp -r opt $out/opt
       cp -r usr/share $out/share
 
+      rm -f $out/opt/QQ/resources/app/libssh2.so.1
+      rm -f $out/opt/QQ/resources/app/avsdk/bugly/libssh2.so.1
+
       substituteInPlace $out/share/applications/qq.desktop \
         --replace-fail "/opt/QQ/qq" "$out/bin/qq" \
         --replace-fail "/usr/share" "$out/share"
 
-      # 临时 HOME
       makeShellWrapper $out/opt/QQ/qq $out/bin/qq \
         --run 'REAL_HOME=$HOME' \
         --run 'TMP_HOME=$(mktemp -d -t qq-home.XXXXXX)' \
@@ -139,6 +142,7 @@ else
         --run 'export XDG_DATA_HOME=$REAL_HOME/.local/share' \
         --run 'trap "rm -rf $TMP_HOME" EXIT' \
         --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
+        --prefix LD_LIBRARY_PATH : "$out/opt/QQ/resources/app/sharp-lib" \
         --prefix LD_PRELOAD : "${lib.makeLibraryPath [ libssh2 ]}/libssh2.so.1" \
         --prefix LD_LIBRARY_PATH : "${
           lib.makeLibraryPath [
@@ -150,11 +154,6 @@ else
         --add-flags ${lib.escapeShellArg commandLineArgs} \
         "''${gappsWrapperArgs[@]}"
 
-      # Remove bundled libraries
-      rm -r $out/opt/QQ/resources/app/sharp-lib
-      rm -r $out/opt/QQ/resources/app/libssh2.so.1
-
-      # Re-link appindicator & notify
       ln -s ${libayatana-appindicator}/lib/libayatana-appindicator3.so \
         $out/opt/QQ/libappindicator3.so
       ln -s ${libnotify}/lib/libnotify.so \
