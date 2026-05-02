@@ -10,9 +10,10 @@
   pkgs ? import <nixpkgs> { allowUnfree = true; },
 }:
 {
-  # The `lib`, `modules`, and `overlays` names are special
+  # The `lib`, `modules`, `overlays`, and `tests` names are special.
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+  tests = import ./tests { inherit pkgs; }; # NixOS VM tests (one .nix per test)
 }
 // (import ./pkgs { inherit pkgs; })

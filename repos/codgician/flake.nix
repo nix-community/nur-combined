@@ -64,6 +64,14 @@
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
 
+      # NixOS VM tests live under ./tests and are surfaced in flake `checks`
+      # so `nix flake check` runs them and CI can build them by name. Each
+      # test is also referenced from its package's `passthru.tests`. VM
+      # tests are Linux-only, so checks are restricted to Linux systems.
+      checks = lib.genAttrs (lib.filter (lib.hasSuffix "-linux") systems) (
+        system: self.legacyPackages.${system}.tests or { }
+      );
+
       nixosModules = import ./modules;
     };
 }
