@@ -59,7 +59,7 @@
     nomacs
     pavucontrol
     qalculate-qt
-    qbittorrent-enhanced
+    qbittorrent
     qpdfview
     satty
     scrcpy
