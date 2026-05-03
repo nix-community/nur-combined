@@ -10,7 +10,7 @@
     "unpack": true
   },
   "force": true,
-  "version": "cachyos-10.0-20260424-slr",
+  "version": "cachyos-11.0-20260428-slr",
   "variants": {
     "arm": {
       "substitutions": [
@@ -32,13 +32,6 @@
         "_v3"
       ],
       "hash": "sha256-d0hpAXeOwC9pBzdvQWzL1GlNCu6l0iuzQV/ZHSHO4ok="
-    },
-    "v4": {
-      "substitutions": [
-        "x86_64",
-        "_v4"
-      ],
-      "hash": "sha256-hGuey2FiKig7SzazGfwg1zmDq1KhL7CB/0UPNS972BI="
     }
   }
 }
