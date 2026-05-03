@@ -10,7 +10,7 @@
       name = "nurPackages";
       option = lib.mkOption {
         type = lib.types.lazyAttrsOf lib.types.package;
-        default = [ ];
+        default = { };
       };
       file = ./by-name.nix;
     })
@@ -18,7 +18,7 @@
       name = "ciPackages";
       option = lib.mkOption {
         type = lib.types.lazyAttrsOf lib.types.package;
-        default = [ ];
+        default = { };
       };
       file = ./by-name.nix;
     })
@@ -34,7 +34,7 @@
       packages = legacyPackages.__drvPackages;
       ciPackages = legacyPackages.__ciPackages;
       nurPackages = legacyPackages.__nurPackages;
-      legacyPackages = import ../pkgs {
+      legacyPackages = import ../pkgs/top-level {
         inherit
           pkgs
           config

@@ -355,18 +355,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.10.0";
+    version = "1.10.3";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay_1.10.0_macOS_Universal.dmg";
-      sha256 = "sha256-KcProdsZ6E5xgY88Sa30tiI503zoclI1qGHGXue5MN4=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.3/NipaPlay_1.10.3_macOS_Universal.dmg";
+      sha256 = "sha256-mp8X/Yz55qnyDAra263Piyx+iJkmAdohKlbQRx1VJrw=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.10.0";
+    version = "1.10.3";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay-1.10.0-Linux-amd64.AppImage";
-      sha256 = "sha256-LSNnqkW7ZltuAPd7V035K6sV397kcJj6yO8m+Vp2Oqg=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.3/NipaPlay-1.10.3-Linux-amd64.AppImage";
+      sha256 = "sha256-XNG9xrj9Shv8PX+9mT2JqbNvvXr6cxxhPVj+uyCwX/I=";
     };
   };
   pixy2 = {

@@ -10,7 +10,7 @@ let
     # Unmaintained
     exloli-next = "unmaintained";
   }
-  // lib.mapAttrs (_n: _v: "discontinued") (lib.filesystem.readDir ./discontinued);
+  // lib.mapAttrs (_n: _v: "discontinued") (lib.filesystem.readDir ../discontinued);
 
   reasonMap = {
     upstreamed = "has been upstreamed to nixpkgs";

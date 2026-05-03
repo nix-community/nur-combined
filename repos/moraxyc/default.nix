@@ -2,4 +2,4 @@
   pkgs ? import <nixpkgs> { },
   ...
 }@args:
-(import ./pkgs/default.nix args).__nurPackages
+(import ./pkgs/top-level/default.nix args).__nurPackages
