@@ -4,7 +4,6 @@ let
 
   deprecatedPkgs = {
     # Upstreamed
-    hmcl = "upstreamed";
     sub-store = "upstreamed";
     sub-store-frontend = "upstreamed";
 

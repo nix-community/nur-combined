@@ -236,6 +236,25 @@
       "package.json" = ./. + "/sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=/package.json";
     };date = "2026-03-16";
   };
+  hmcl-dev-bin = {
+    pname = "hmcl-dev-bin";
+    version = "3.14.0.343";
+    src = fetchurl {
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.14.0.343/HMCL-3.14.0.343.jar";
+      sha256 = "sha256-aI7u4POi91EweLfqLs9GLJFA8IykPrycMeHADVopk84=";
+    };
+  };
+  hmcl-dev-src = {
+    pname = "hmcl-dev-src";
+    version = "v3.14.0.343";
+    src = fetchFromGitHub {
+      owner = "HMCL-dev";
+      repo = "HMCL";
+      rev = "v3.14.0.343";
+      fetchSubmodules = false;
+      sha256 = "sha256-zmgtg2GY58YcV0k8rP82KWlYT4Bv2kzTl5ScwDHXK9o=";
+    };
+  };
   libinput-three-finger-drag = {
     pname = "libinput-three-finger-drag";
     version = "6acd3f84b551b855b5f21b08db55e95dae3305c5";

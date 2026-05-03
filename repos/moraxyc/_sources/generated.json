@@ -399,6 +399,42 @@
         },
         "version": "ce7569c8473b70f6f8359385f2dbd6af66f21e55"
     },
+    "hmcl-dev-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hmcl-dev-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-aI7u4POi91EweLfqLs9GLJFA8IykPrycMeHADVopk84=",
+            "type": "url",
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.14.0.343/HMCL-3.14.0.343.jar"
+        },
+        "version": "3.14.0.343"
+    },
+    "hmcl-dev-src": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hmcl-dev-src",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "HMCL-dev",
+            "repo": "HMCL",
+            "rev": "v3.14.0.343",
+            "sha256": "sha256-zmgtg2GY58YcV0k8rP82KWlYT4Bv2kzTl5ScwDHXK9o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.14.0.343"
+    },
     "libinput-three-finger-drag": {
         "cargoLock": null,
         "date": "2024-06-17",

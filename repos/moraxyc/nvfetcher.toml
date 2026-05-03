@@ -180,3 +180,16 @@ fetch.github = "Willxup/cpa-usage-keeper"
 src.git = "https://github.com/Willxup/cpa-usage-keeper.git"
 fetch.github = "Willxup/cpa-usage-keeper"
 extract = ["web/package-lock.json", "web/package.json"]
+
+[hmcl-dev-src]
+src.github_tag = "HMCL-dev/HMCL"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.sort_version_key = "parse_version"
+fetch.github = "HMCL-dev/HMCL"
+
+[hmcl-dev-bin]
+src.github_tag = "HMCL-dev/HMCL"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.sort_version_key = "parse_version"
+src.prefix = "v"
+fetch.url = "https://github.com/HMCL-dev/HMCL/releases/download/v$ver/HMCL-$ver.jar"
