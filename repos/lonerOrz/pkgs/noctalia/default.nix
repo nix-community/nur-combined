@@ -25,6 +25,9 @@
   libwebp,
   glib,
   polkit,
+
+  withLto ? false,
+  withNative ? false,
 }:
 
 let
@@ -79,6 +82,12 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     polkit
   ];
+
+  mesonFlags = [
+    "-Db_lto=${lib.boolToString withLto}"
+  ];
+
+  NIX_CFLAGS_COMPILE = lib.optionalString withNative "-march=native -mtune=native";
 
   mesonBuildType = "release";
 
