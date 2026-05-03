@@ -1,0 +1,933 @@
+From ecbce74d254e4cf6a03887dfbf32f8e7a27dbd1d Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Sun, 3 May 2026 19:43:16 +0800
+Subject: [PATCH] feat: embed web assets in server binary
+
+---
+ .github/workflows/binary-dev-release.yml | 12 +---
+ .github/workflows/binary-release.yml     | 12 +---
+ Dockerfile                               |  3 +-
+ internal/api/auth_files_test.go          |  4 +-
+ internal/api/auth_test.go                | 16 ++---
+ internal/api/pricing_test.go             | 10 +--
+ internal/api/provider_metadata_test.go   |  8 +--
+ internal/api/router.go                   | 59 +++++++----------
+ internal/api/router_test.go              | 83 +++++++++---------------
+ internal/api/usage_analysis.go           | 22 +++----
+ internal/api/usage_analysis_test.go      |  4 +-
+ internal/api/usage_events_test.go        | 10 +--
+ internal/api/usage_overview_test.go      |  4 +-
+ internal/app/app.go                      | 24 +------
+ internal/app/app_test.go                 | 35 ----------
+ internal/redact/redact_test.go           |  2 +-
+ web/dist/.gitkeep                        |  0
+ web/static.go                            | 19 ++++++
+ 18 files changed, 124 insertions(+), 203 deletions(-)
+ create mode 100644 web/dist/.gitkeep
+ create mode 100644 web/static.go
+
+diff --git a/.github/workflows/binary-dev-release.yml b/.github/workflows/binary-dev-release.yml
+index 0ccfc7f..f3cf5fa 100644
+--- a/.github/workflows/binary-dev-release.yml
++++ b/.github/workflows/binary-dev-release.yml
+@@ -108,12 +108,10 @@ jobs:
+           set -euo pipefail
+           package_name="cpa-usage-keeper_dev_${PACKAGE_SUFFIX}_${GITHUB_SHA::7}_${GOOS}_${ASSET_ARCH}"
+           package_dir="dist/${package_name}"
+-          mkdir -p "${package_dir}/web" "${package_dir}/data"
++          mkdir -p "${package_dir}/data"
+ 
+           CGO_ENABLED=1 GOOS="${GOOS}" GOARCH="${GOARCH}" CC="${CC}" \
+             go build -trimpath -ldflags="-s -w" -o "${package_dir}/cpa-usage-keeper" ./cmd/server/main.go
+-
+-          cp -R web/dist "${package_dir}/web/dist"
+           cp .env.example README.md README.en.md LICENSE CONTRIBUTORS.md "${package_dir}/"
+           tar -czf "dist/${package_name}.tar.gz" -C dist "${package_name}"
+ 
+@@ -173,12 +171,10 @@ jobs:
+           set -euo pipefail
+           package_name="cpa-usage-keeper_dev_${PACKAGE_SUFFIX}_${GITHUB_SHA::7}_${GOOS}_${ASSET_ARCH}"
+           package_dir="dist/${package_name}"
+-          mkdir -p "${package_dir}/web" "${package_dir}/data"
++          mkdir -p "${package_dir}/data"
+ 
+           CGO_ENABLED=1 GOOS="${GOOS}" GOARCH="${GOARCH}" \
+             go build -trimpath -ldflags="-s -w" -o "${package_dir}/cpa-usage-keeper" ./cmd/server/main.go
+-
+-          cp -R web/dist "${package_dir}/web/dist"
+           cp .env.example README.md README.en.md LICENSE CONTRIBUTORS.md "${package_dir}/"
+           tar -czf "dist/${package_name}.tar.gz" -C dist "${package_name}"
+ 
+@@ -254,12 +250,10 @@ jobs:
+           set -euo pipefail
+           package_name="cpa-usage-keeper_dev_${PACKAGE_SUFFIX}_${GITHUB_SHA::7}_${GOOS}_${ASSET_ARCH}"
+           package_dir="dist/${package_name}"
+-          mkdir -p "${package_dir}/web" "${package_dir}/data"
++          mkdir -p "${package_dir}/data"
+ 
+           CGO_ENABLED=1 GOOS="${GOOS}" GOARCH="${GOARCH}" CC="${CC}" \
+             go build -trimpath -ldflags="-s -w" -o "${package_dir}/cpa-usage-keeper.exe" ./cmd/server/main.go
+-
+-          cp -R web/dist "${package_dir}/web/dist"
+           cp .env.example README.md README.en.md LICENSE CONTRIBUTORS.md "${package_dir}/"
+ 
+       - name: Archive binary package
+diff --git a/.github/workflows/binary-release.yml b/.github/workflows/binary-release.yml
+index 9c19321..1269e0c 100644
+--- a/.github/workflows/binary-release.yml
++++ b/.github/workflows/binary-release.yml
+@@ -61,12 +61,10 @@ jobs:
+           set -euo pipefail
+           package_name="cpa-usage-keeper_${VERSION}_${GOOS}_${ASSET_ARCH}"
+           package_dir="dist/${package_name}"
+-          mkdir -p "${package_dir}/web" "${package_dir}/data"
++          mkdir -p "${package_dir}/data"
+ 
+           CGO_ENABLED=1 GOOS="${GOOS}" GOARCH="${GOARCH}" CC="${CC}" \
+             go build -trimpath -ldflags="-s -w" -o "${package_dir}/cpa-usage-keeper" ./cmd/server/main.go
+-
+-          cp -R web/dist "${package_dir}/web/dist"
+           cp .env.example README.md README.en.md LICENSE CONTRIBUTORS.md "${package_dir}/"
+           tar -czf "dist/${package_name}.tar.gz" -C dist "${package_name}"
+ 
+@@ -125,12 +123,10 @@ jobs:
+           set -euo pipefail
+           package_name="cpa-usage-keeper_${VERSION}_${GOOS}_${ASSET_ARCH}"
+           package_dir="dist/${package_name}"
+-          mkdir -p "${package_dir}/web" "${package_dir}/data"
++          mkdir -p "${package_dir}/data"
+ 
+           CGO_ENABLED=1 GOOS="${GOOS}" GOARCH="${GOARCH}" \
+             go build -trimpath -ldflags="-s -w" -o "${package_dir}/cpa-usage-keeper" ./cmd/server/main.go
+-
+-          cp -R web/dist "${package_dir}/web/dist"
+           cp .env.example README.md README.en.md LICENSE CONTRIBUTORS.md "${package_dir}/"
+           tar -czf "dist/${package_name}.tar.gz" -C dist "${package_name}"
+ 
+@@ -205,12 +201,10 @@ jobs:
+           set -euo pipefail
+           package_name="cpa-usage-keeper_${VERSION}_${GOOS}_${ASSET_ARCH}"
+           package_dir="dist/${package_name}"
+-          mkdir -p "${package_dir}/web" "${package_dir}/data"
++          mkdir -p "${package_dir}/data"
+ 
+           CGO_ENABLED=1 GOOS="${GOOS}" GOARCH="${GOARCH}" CC="${CC}" \
+             go build -trimpath -ldflags="-s -w" -o "${package_dir}/cpa-usage-keeper.exe" ./cmd/server/main.go
+-
+-          cp -R web/dist "${package_dir}/web/dist"
+           cp .env.example README.md README.en.md LICENSE CONTRIBUTORS.md "${package_dir}/"
+ 
+       - name: Archive binary package
+diff --git a/Dockerfile b/Dockerfile
+index f2f857a..b4e240e 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -14,6 +14,8 @@ COPY go.mod go.sum ./
+ RUN go mod download
+ COPY cmd/ ./cmd/
+ COPY internal/ ./internal/
++COPY --from=web-builder /app/web/dist ./web/dist
++COPY web/static.go ./web/static.go
+ RUN CGO_ENABLED=1 GOOS=linux go build -o /out/cpa-usage-keeper ./cmd/server/main.go
+ 
+ FROM alpine:3.20
+@@ -24,7 +26,6 @@ RUN apk add --no-cache ca-certificates tzdata su-exec \
+ 	&& mkdir -p /data \
+ 	&& chown -R app:app /data
+ COPY --from=go-builder /out/cpa-usage-keeper /app/cpa-usage-keeper
+-COPY --from=web-builder /app/web/dist /app/web/dist
+ COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ VOLUME ["/data"]
+diff --git a/internal/api/auth_files_test.go b/internal/api/auth_files_test.go
+index 47275c4..6226f28 100644
+--- a/internal/api/auth_files_test.go
++++ b/internal/api/auth_files_test.go
+@@ -19,7 +19,7 @@ func (s authFileStub) ListAuthFiles(context.Context) ([]models.AuthFile, error)
+ }
+ 
+ func TestAuthFilesRouteReturnsEmptyResponseWithoutProvider(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/auth-files", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -31,7 +31,7 @@ func TestAuthFilesRouteReturnsEmptyResponseWithoutProvider(t *testing.T) {
+ }
+ 
+ func TestAuthFilesRouteReturnsStoredMetadata(t *testing.T) {
+-	router := NewRouter("", nil, nil, authFileStub{files: []models.AuthFile{{
++	router := NewRouter(nil, nil, nil, authFileStub{files: []models.AuthFile{{
+ 		AuthIndex: "2",
+ 		Name:      "Claude Desktop",
+ 		Email:     "user@example.com",
+diff --git a/internal/api/auth_test.go b/internal/api/auth_test.go
+index 733fb01..47ba682 100644
+--- a/internal/api/auth_test.go
++++ b/internal/api/auth_test.go
+@@ -11,7 +11,7 @@ import (
+ )
+ 
+ func TestAuthSessionReportsAuthenticatedWhenDisabled(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, nil, nil, AuthConfig{Enabled: false}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, AuthConfig{Enabled: false}, nil, "")
+ 	resp := httptest.NewRecorder()
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/auth/session", nil)
+ 
+@@ -25,7 +25,7 @@ func TestAuthSessionReportsAuthenticatedWhenDisabled(t *testing.T) {
+ func TestAuthProtectedRouteRequiresSessionWhenEnabled(t *testing.T) {
+ 	sessions := auth.NewSessionManager(time.Hour)
+ 	config := AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}
+-	router := NewRouter("", nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
+ 	resp := httptest.NewRecorder()
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/overview", nil)
+ 
+@@ -40,7 +40,7 @@ func TestAuthLoginSetsCookieAndUnlocksProtectedRoute(t *testing.T) {
+ 	sessions := auth.NewSessionManager(time.Hour)
+ 	config := AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}
+ 	handler := NewAuthHandler(config, sessions)
+-	router := NewRouter("", nil, nil, nil, nil, nil, config, handler, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, config, handler, "")
+ 
+ 	loginResp := httptest.NewRecorder()
+ 	loginReq := httptest.NewRequest(http.MethodPost, "/api/v1/auth/login", strings.NewReader(`{"password":"secret"}`))
+@@ -74,7 +74,7 @@ func TestAuthLoginSetsCookieAndUnlocksProtectedRoute(t *testing.T) {
+ func TestAuthLoginRejectsWrongPassword(t *testing.T) {
+ 	sessions := auth.NewSessionManager(time.Hour)
+ 	config := AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}
+-	router := NewRouter("", nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
+ 	resp := httptest.NewRecorder()
+ 	req := httptest.NewRequest(http.MethodPost, "/api/v1/auth/login", strings.NewReader(`{"password":"wrong"}`))
+ 	req.Header.Set("Content-Type", "application/json")
+@@ -89,7 +89,7 @@ func TestAuthLoginRejectsWrongPassword(t *testing.T) {
+ func TestAuthLoginRateLimitsRepeatedFailures(t *testing.T) {
+ 	sessions := auth.NewSessionManager(time.Hour)
+ 	config := AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}
+-	router := NewRouter("", nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
+ 
+ 	for i := 0; i < 5; i++ {
+ 		resp := httptest.NewRecorder()
+@@ -116,7 +116,7 @@ func TestAuthLoginRateLimitsRepeatedFailures(t *testing.T) {
+ func TestAuthLoginAllowsCorrectPasswordAfterRateLimitThreshold(t *testing.T) {
+ 	sessions := auth.NewSessionManager(time.Hour)
+ 	config := AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}
+-	router := NewRouter("", nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, config, NewAuthHandler(config, sessions), "")
+ 
+ 	for i := 0; i < 5; i++ {
+ 		resp := httptest.NewRecorder()
+@@ -144,7 +144,7 @@ func TestAuthLogoutDeletesSessionCookie(t *testing.T) {
+ 	sessions := auth.NewSessionManager(time.Hour)
+ 	config := AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}
+ 	handler := NewAuthHandler(config, sessions)
+-	router := NewRouter("", nil, nil, nil, nil, nil, config, handler, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, config, handler, "")
+ 
+ 	loginResp := httptest.NewRecorder()
+ 	loginReq := httptest.NewRequest(http.MethodPost, "/api/v1/auth/login", strings.NewReader(`{"password":"secret"}`))
+@@ -183,7 +183,7 @@ func TestSubpathAuthUsesPrefixedRoutesAndCookiePath(t *testing.T) {
+ 	sessions := auth.NewSessionManager(time.Hour)
+ 	config := AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour, BasePath: "/cpa"}
+ 	handler := NewAuthHandler(config, sessions)
+-	router := NewRouter("", nil, nil, nil, nil, nil, config, handler, "/cpa")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, config, handler, "/cpa")
+ 
+ 	sessionResp := httptest.NewRecorder()
+ 	sessionReq := httptest.NewRequest(http.MethodGet, "/cpa/api/v1/auth/session", nil)
+diff --git a/internal/api/pricing_test.go b/internal/api/pricing_test.go
+index 713a753..ad18e65 100644
+--- a/internal/api/pricing_test.go
++++ b/internal/api/pricing_test.go
+@@ -39,7 +39,7 @@ func (s *pricingStub) DeletePricing(_ context.Context, model string) error {
+ }
+ 
+ func TestPricingRoutesReturnEmptyResponsesWithoutProvider(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 
+ 	usedReq := httptest.NewRequest(http.MethodGet, "/api/v1/models/used", nil)
+ 	usedResp := httptest.NewRecorder()
+@@ -57,7 +57,7 @@ func TestPricingRoutesReturnEmptyResponsesWithoutProvider(t *testing.T) {
+ }
+ 
+ func TestPricingRoutesReturnConfiguredData(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, nil, &pricingStub{
++	router := NewRouter(nil, nil, nil, nil, nil, &pricingStub{
+ 		usedModels: []string{"claude-sonnet"},
+ 		pricing: []models.ModelPriceSetting{{
+ 			Model:                "claude-sonnet",
+@@ -91,7 +91,7 @@ func TestUpdatePricingRoute(t *testing.T) {
+ 			CachePricePer1M:      0.3,
+ 		},
+ 	}
+-	router := NewRouter("", nil, nil, nil, nil, provider, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, provider, AuthConfig{}, nil, "")
+ 
+ 	req := httptest.NewRequest(http.MethodPut, "/api/v1/pricing/claude-sonnet", strings.NewReader(`{"prompt_price_per_1m":3,"completion_price_per_1m":15,"cache_price_per_1m":0.3}`))
+ 	req.Header.Set("Content-Type", "application/json")
+@@ -112,7 +112,7 @@ func TestUpdatePricingRouteAcceptsModelInBody(t *testing.T) {
+ 			CachePricePer1M:      0.3,
+ 		},
+ 	}
+-	router := NewRouter("", nil, nil, nil, nil, provider, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, provider, AuthConfig{}, nil, "")
+ 
+ 	req := httptest.NewRequest(http.MethodPut, "/api/v1/pricing", strings.NewReader(`{"model":"openai/gpt-4.1","prompt_price_per_1m":3,"completion_price_per_1m":15,"cache_price_per_1m":0.3}`))
+ 	req.Header.Set("Content-Type", "application/json")
+@@ -129,7 +129,7 @@ func TestUpdatePricingRouteAcceptsModelInBody(t *testing.T) {
+ 
+ func TestDeletePricingRoute(t *testing.T) {
+ 	provider := &pricingStub{}
+-	router := NewRouter("", nil, nil, nil, nil, provider, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, provider, AuthConfig{}, nil, "")
+ 
+ 	req := httptest.NewRequest(http.MethodDelete, "/api/v1/pricing?model=openai%2Fgpt-4.1", nil)
+ 	resp := httptest.NewRecorder()
+diff --git a/internal/api/provider_metadata_test.go b/internal/api/provider_metadata_test.go
+index 38900d5..6f2a32a 100644
+--- a/internal/api/provider_metadata_test.go
++++ b/internal/api/provider_metadata_test.go
+@@ -20,7 +20,7 @@ func (s providerMetadataStub) ListProviderMetadata(context.Context) ([]models.Pr
+ }
+ 
+ func TestProviderMetadataRouteReturnsEmptyResponseWithoutProvider(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/provider-metadata", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -32,7 +32,7 @@ func TestProviderMetadataRouteReturnsEmptyResponseWithoutProvider(t *testing.T)
+ }
+ 
+ func TestProviderMetadataRouteReturnsStoredMetadata(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, providerMetadataStub{items: []models.ProviderMetadata{{
++	router := NewRouter(nil, nil, nil, nil, providerMetadataStub{items: []models.ProviderMetadata{{
+ 		LookupKey:    "sk-test-1234",
+ 		ProviderType: "openai",
+ 		DisplayName:  "ChatGPT Mirror",
+@@ -56,7 +56,7 @@ func TestProviderMetadataRouteReturnsStoredMetadata(t *testing.T) {
+ }
+ 
+ func TestProviderMetadataRouteHidesInternalErrors(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, providerMetadataStub{err: errors.New("database contains sk-secret-1234")}, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, providerMetadataStub{err: errors.New("database contains sk-secret-1234")}, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/provider-metadata", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -75,7 +75,7 @@ func TestProviderMetadataRouteHidesInternalErrors(t *testing.T) {
+ }
+ 
+ func TestProviderMetadataRouteDisambiguatesSameNamedProviders(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, providerMetadataStub{items: []models.ProviderMetadata{
++	router := NewRouter(nil, nil, nil, nil, providerMetadataStub{items: []models.ProviderMetadata{
+ 		{ID: 1, LookupKey: "sk-test-1234", ProviderType: "openai", DisplayName: "Shared"},
+ 		{ID: 2, LookupKey: "sk-test-5678", ProviderType: "openai", DisplayName: "Shared"},
+ 	}}, nil, AuthConfig{}, nil, "")
+diff --git a/internal/api/router.go b/internal/api/router.go
+index bbda27c..78c014a 100644
+--- a/internal/api/router.go
++++ b/internal/api/router.go
+@@ -4,10 +4,10 @@ import (
+ 	"bytes"
+ 	"context"
+ 	"errors"
++	"io"
++	"io/fs"
+ 	"net/http"
+-	"os"
+ 	"path"
+-	"path/filepath"
+ 	"strconv"
+ 	"strings"
+ 	"sync"
+@@ -46,7 +46,7 @@ type SyncRunner interface {
+ }
+ 
+ func NewRouter(
+-	staticDir string,
++	staticFS fs.FS,
+ 	statusProvider StatusProvider,
+ 	usageProvider service.UsageProvider,
+ 	authFileProvider service.AuthFileProvider,
+@@ -85,11 +85,12 @@ func NewRouter(
+ 	registerProviderMetadataRoutes(protected, providerMetadataProvider)
+ 	registerPricingRoutes(protected, pricingProvider)
+ 
+-	if staticDir != "" {
+-		if info, err := os.Stat(staticDir); err == nil && info.IsDir() {
+-			indexPath := filepath.Join(staticDir, "index.html")
++	if staticFS != nil {
++		if indexFile, err := staticFS.Open("index.html"); err == nil {
++			_ = indexFile.Close()
++			httpFS := http.FS(staticFS)
+ 			serveIndex := func(c *gin.Context) {
+-				indexHTML, err := renderIndexHTML(indexPath, basePath)
++				indexHTML, err := renderIndexHTML(staticFS, basePath)
+ 				if err != nil {
+ 					c.Status(http.StatusNotFound)
+ 					return
+@@ -98,7 +99,8 @@ func NewRouter(
+ 			}
+ 
+ 			appGroup.GET("/", serveIndex)
+-			appGroup.Static("/assets", filepath.Join(staticDir, "assets"))
++			assetsFS, _ := fs.Sub(staticFS, "assets")
++			appGroup.StaticFS("/assets", http.FS(assetsFS))
+ 			router.NoRoute(func(c *gin.Context) {
+ 				requestPath, ok := stripBasePath(basePath, c.Request.URL.Path)
+ 				if !ok {
+@@ -110,9 +112,10 @@ func NewRouter(
+ 					return
+ 				}
+ 
+-				if assetPath, ok := staticAssetPath(staticDir, requestPath); ok {
+-					if assetInfo, err := os.Stat(assetPath); err == nil && !assetInfo.IsDir() {
+-						c.File(assetPath)
++				if assetPath, ok := staticAssetPath(requestPath); ok {
++					if assetFile, err := staticFS.Open(assetPath); err == nil {
++						_ = assetFile.Close()
++						c.FileFromFS(assetPath, httpFS)
+ 						return
+ 					}
+ 				}
+@@ -125,8 +128,13 @@ func NewRouter(
+ 	return router
+ }
+ 
+-func renderIndexHTML(indexPath, basePath string) ([]byte, error) {
+-	indexHTML, err := os.ReadFile(indexPath)
++func renderIndexHTML(staticFS fs.FS, basePath string) ([]byte, error) {
++	indexFile, err := staticFS.Open("index.html")
++	if err != nil {
++		return nil, err
++	}
++	defer indexFile.Close()
++	indexHTML, err := io.ReadAll(indexFile)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -149,39 +157,20 @@ func cleanURLPath(requestPath string) string {
+ 	return cleaned
+ }
+ 
+-func staticAssetPath(staticDir, requestPath string) (string, bool) {
++func staticAssetPath(requestPath string) (string, bool) {
+ 	cleaned := cleanURLPath(requestPath)
+ 	if strings.Contains(cleaned, "\\") {
+ 		return "", false
+ 	}
+ 	relPath := strings.TrimPrefix(cleaned, "/")
+-	if relPath == "." || relPath == "" {
+-		return "", false
+-	}
+-	assetPath := filepath.Join(staticDir, relPath)
+-	staticRoot, err := filepath.Abs(staticDir)
+-	if err != nil {
++	if relPath == "" {
+ 		return "", false
+ 	}
+-	assetAbsolutePath, err := filepath.Abs(assetPath)
+-	if err != nil {
+-		return "", false
+-	}
+-	relativePath, err := filepath.Rel(staticRoot, assetAbsolutePath)
+-	if err != nil || relativePath == ".." || strings.HasPrefix(relativePath, ".."+string(filepath.Separator)) {
+-		return "", false
+-	}
+-	return assetPath, true
++	return relPath, true
+ }
+ 
+ func stripBasePath(basePath, requestPath string) (string, bool) {
+ 	cleaned := cleanURLPath(requestPath)
+-	if cleaned == "." {
+-		cleaned = "/"
+-	}
+-	if !strings.HasPrefix(cleaned, "/") {
+-		cleaned = "/" + cleaned
+-	}
+ 	if basePath == "" {
+ 		return cleaned, true
+ 	}
+diff --git a/internal/api/router_test.go b/internal/api/router_test.go
+index 8c75d75..9592815 100644
+--- a/internal/api/router_test.go
++++ b/internal/api/router_test.go
+@@ -2,16 +2,25 @@ package api
+ 
+ import (
+ 	"context"
++	"io/fs"
+ 	"net/http"
+ 	"net/http/httptest"
+-	"os"
+-	"path/filepath"
+ 	"testing"
++	"testing/fstest"
+ 	"time"
+ 
+ 	"cpa-usage-keeper/internal/poller"
+ )
+ 
++func testStaticFS(t *testing.T, files map[string]string) fs.FS {
++	t.Helper()
++	staticFS := fstest.MapFS{}
++	for name, content := range files {
++		staticFS[name] = &fstest.MapFile{Data: []byte(content), Mode: 0o644}
++	}
++	return staticFS
++}
++
+ type statusStub struct {
+ 	status poller.Status
+ }
+@@ -36,7 +45,7 @@ func (s *syncStatusStub) SyncNow(context.Context) error {
+ }
+ 
+ func TestHealthzReturnsOK(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/healthz", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -49,7 +58,7 @@ func TestHealthzReturnsOK(t *testing.T) {
+ 
+ func TestStatusReturnsPollerState(t *testing.T) {
+ 	lastRunAt := time.Date(2026, 4, 16, 12, 0, 0, 0, time.UTC)
+-	router := NewRouter("", statusStub{status: poller.Status{
++	router := NewRouter(nil, statusStub{status: poller.Status{
+ 		Running:     true,
+ 		SyncRunning: false,
+ 		LastRunAt:   lastRunAt,
+@@ -80,7 +89,7 @@ func TestStatusReturnsProjectTimezone(t *testing.T) {
+ 	t.Cleanup(func() { time.Local = previousLocal })
+ 	time.Local = location
+ 
+-	router := NewRouter("", nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/status", nil)
+ 	resp := httptest.NewRecorder()
+ 	router.ServeHTTP(resp, req)
+@@ -94,7 +103,7 @@ func TestStatusReturnsProjectTimezone(t *testing.T) {
+ }
+ 
+ func TestStatusReturnsEmptyStateWithoutProvider(t *testing.T) {
+-	router := NewRouter("", nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/status", nil)
+ 	resp := httptest.NewRecorder()
+ 	router.ServeHTTP(resp, req)
+@@ -110,7 +119,7 @@ func TestStatusReturnsEmptyStateWithoutProvider(t *testing.T) {
+ func TestManualSyncTriggersSyncRunner(t *testing.T) {
+ 	lastRunAt := time.Date(2026, 4, 16, 12, 0, 0, 0, time.UTC)
+ 	syncer := &syncStatusStub{status: poller.Status{Running: true, LastRunAt: lastRunAt, LastStatus: "completed"}}
+-	router := NewRouter("", syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodPost, "/api/v1/sync", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -130,7 +139,7 @@ func TestManualSyncTriggersSyncRunner(t *testing.T) {
+ 
+ func TestManualSyncReturnsConflictWhenAlreadyRunning(t *testing.T) {
+ 	syncer := &syncStatusStub{err: poller.ErrSyncAlreadyRunning}
+-	router := NewRouter("", syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodPost, "/api/v1/sync", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -146,7 +155,7 @@ func TestManualSyncReturnsWarningsAsSuccessfulStatus(t *testing.T) {
+ 		status: poller.Status{LastStatus: "completed_with_warnings", LastWarning: "metadata unavailable"},
+ 		err:    poller.ErrSyncCompletedWithWarnings,
+ 	}
+-	router := NewRouter("", syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodPost, "/api/v1/sync", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -163,7 +172,7 @@ func TestManualSyncReturnsWarningsAsSuccessfulStatus(t *testing.T) {
+ 
+ func TestManualSyncRateLimitsRepeatedRequests(t *testing.T) {
+ 	syncer := &syncStatusStub{status: poller.Status{LastStatus: "completed"}}
+-	router := NewRouter("", syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, syncer, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 
+ 	firstResp := httptest.NewRecorder()
+ 	firstReq := httptest.NewRequest(http.MethodPost, "/api/v1/sync", nil)
+@@ -185,7 +194,7 @@ func TestManualSyncRateLimitsRepeatedRequests(t *testing.T) {
+ 
+ func TestSubpathRoutesOnlyServePrefixedEndpoints(t *testing.T) {
+ 	lastRunAt := time.Date(2026, 4, 16, 12, 0, 0, 0, time.UTC)
+-	router := NewRouter("", statusStub{status: poller.Status{
++	router := NewRouter(nil, statusStub{status: poller.Status{
+ 		Running:   true,
+ 		LastRunAt: lastRunAt,
+ 	}}, nil, nil, nil, nil, AuthConfig{BasePath: "/cpa"}, nil, "/cpa")
+@@ -209,18 +218,12 @@ func TestSubpathRoutesOnlyServePrefixedEndpoints(t *testing.T) {
+ }
+ 
+ func TestSubpathStaticRoutesServeOnlyUnderPrefix(t *testing.T) {
+-	staticDir := t.TempDir()
+-	if err := os.WriteFile(filepath.Join(staticDir, "index.html"), []byte(`<html><head><script>window.__APP_BASE_PATH__ = "__APP_BASE_PATH__";</script></head><body>app</body></html>`), 0o644); err != nil {
+-		t.Fatalf("write index: %v", err)
+-	}
+-	if err := os.Mkdir(filepath.Join(staticDir, "assets"), 0o755); err != nil {
+-		t.Fatalf("mkdir assets: %v", err)
+-	}
+-	if err := os.WriteFile(filepath.Join(staticDir, "assets", "app.js"), []byte("console.log('ok')"), 0o644); err != nil {
+-		t.Fatalf("write asset: %v", err)
+-	}
++	staticFS := testStaticFS(t, map[string]string{
++		"index.html":    `<html><head><script>window.__APP_BASE_PATH__ = "__APP_BASE_PATH__";</script></head><body>app</body></html>`,
++		"assets/app.js": "console.log('ok')",
++	})
+ 
+-	router := NewRouter(staticDir, nil, nil, nil, nil, nil, AuthConfig{BasePath: "/cpa"}, nil, "/cpa")
++	router := NewRouter(staticFS, nil, nil, nil, nil, nil, AuthConfig{BasePath: "/cpa"}, nil, "/cpa")
+ 
+ 	for _, testCase := range []struct {
+ 		path       string
+@@ -230,6 +233,7 @@ func TestSubpathStaticRoutesServeOnlyUnderPrefix(t *testing.T) {
+ 		{path: "/cpa/", statusCode: http.StatusOK, contains: `window.__APP_BASE_PATH__ = "/cpa";`},
+ 		{path: "/cpa/dashboard", statusCode: http.StatusOK, contains: `window.__APP_BASE_PATH__ = "/cpa";`},
+ 		{path: "/cpa/assets/app.js", statusCode: http.StatusOK, contains: "console.log('ok')"},
++		{path: "/cpa/missing.html", statusCode: http.StatusOK, contains: `window.__APP_BASE_PATH__ = "/cpa";`},
+ 		{path: "/foo", statusCode: http.StatusNotFound},
+ 		{path: "/assets/app.js", statusCode: http.StatusNotFound},
+ 		{path: "/cpa/api/unknown", statusCode: http.StatusNotFound},
+@@ -253,42 +257,17 @@ func TestCleanURLPathUsesSlashSemantics(t *testing.T) {
+ }
+ 
+ func TestStaticAssetPathRejectsBackslashTraversal(t *testing.T) {
+-	staticDir := t.TempDir()
+-
+-	if _, ok := staticAssetPath(staticDir, `/..\.env`); ok {
++	if _, ok := staticAssetPath(`/..\.env`); ok {
+ 		t.Fatal("expected backslash traversal path to be rejected")
+ 	}
+ }
+ 
+-func TestStaticFallbackRejectsBackslashPath(t *testing.T) {
+-	staticDir := t.TempDir()
+-	if err := os.WriteFile(filepath.Join(staticDir, "index.html"), []byte("index page"), 0o644); err != nil {
+-		t.Fatalf("write index: %v", err)
+-	}
+-	if err := os.WriteFile(filepath.Join(staticDir, `..\.env`), []byte("sentinel secret"), 0o644); err != nil {
+-		t.Fatalf("write sentinel: %v", err)
+-	}
+-
+-	router := NewRouter(staticDir, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+-	resp := httptest.NewRecorder()
+-	req := httptest.NewRequest(http.MethodGet, `/..\.env`, nil)
+-	router.ServeHTTP(resp, req)
+-
+-	if contains(resp.Body.String(), "sentinel secret") {
+-		t.Fatalf("expected backslash path not to serve sentinel file, got %s", resp.Body.String())
+-	}
+-	if !contains(resp.Body.String(), "index page") {
+-		t.Fatalf("expected SPA fallback response, got %s", resp.Body.String())
+-	}
+-}
+-
+ func TestRootStaticRouteInjectsEmptyBasePath(t *testing.T) {
+-	staticDir := t.TempDir()
+-	if err := os.WriteFile(filepath.Join(staticDir, "index.html"), []byte(`<html><head><script>window.__APP_BASE_PATH__ = "__APP_BASE_PATH__";</script></head><body>app</body></html>`), 0o644); err != nil {
+-		t.Fatalf("write index: %v", err)
+-	}
++	staticFS := testStaticFS(t, map[string]string{
++		"index.html": `<html><head><script>window.__APP_BASE_PATH__ = "__APP_BASE_PATH__";</script></head><body>app</body></html>`,
++	})
+ 
+-	router := NewRouter(staticDir, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(staticFS, nil, nil, nil, nil, nil, AuthConfig{}, nil, "")
+ 	resp := httptest.NewRecorder()
+ 	req := httptest.NewRequest(http.MethodGet, "/", nil)
+ 	router.ServeHTTP(resp, req)
+diff --git a/internal/api/usage_analysis.go b/internal/api/usage_analysis.go
+index 2de60af..f96a1b4 100644
+--- a/internal/api/usage_analysis.go
++++ b/internal/api/usage_analysis.go
+@@ -15,17 +15,17 @@ type usageAnalysisResponse struct {
+ }
+ 
+ type usageAnalysisAPIPayload struct {
+-	APIKey         string                      `json:"api_key"`
+-	DisplayName    string                      `json:"display_name"`
+-	TotalRequests  int64                       `json:"total_requests"`
+-	SuccessCount   int64                       `json:"success_count"`
+-	FailureCount   int64                       `json:"failure_count"`
+-	InputTokens    int64                       `json:"input_tokens"`
+-	OutputTokens   int64                       `json:"output_tokens"`
+-	ReasoningTokens int64                      `json:"reasoning_tokens"`
+-	CachedTokens   int64                       `json:"cached_tokens"`
+-	TotalTokens    int64                       `json:"total_tokens"`
+-	Models         []usageAnalysisModelPayload `json:"models"`
++	APIKey          string                      `json:"api_key"`
++	DisplayName     string                      `json:"display_name"`
++	TotalRequests   int64                       `json:"total_requests"`
++	SuccessCount    int64                       `json:"success_count"`
++	FailureCount    int64                       `json:"failure_count"`
++	InputTokens     int64                       `json:"input_tokens"`
++	OutputTokens    int64                       `json:"output_tokens"`
++	ReasoningTokens int64                       `json:"reasoning_tokens"`
++	CachedTokens    int64                       `json:"cached_tokens"`
++	TotalTokens     int64                       `json:"total_tokens"`
++	Models          []usageAnalysisModelPayload `json:"models"`
+ }
+ 
+ type usageAnalysisModelPayload struct {
+diff --git a/internal/api/usage_analysis_test.go b/internal/api/usage_analysis_test.go
+index 91392af..9d3d5b4 100644
+--- a/internal/api/usage_analysis_test.go
++++ b/internal/api/usage_analysis_test.go
+@@ -82,7 +82,7 @@ func TestUsageAnalysisReturnsAggregatedRows(t *testing.T) {
+ 			LatencySampleCount: 2,
+ 		}},
+ 	}}
+-	router := NewRouter("", nil, provider, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/analysis?range=24h", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -116,7 +116,7 @@ func TestUsageAnalysisReturnsAggregatedRows(t *testing.T) {
+ }
+ 
+ func TestUsageAnalysisRequiresAuthWhenEnabled(t *testing.T) {
+-	router := NewRouter("", nil, &usageAnalysisStub{}, nil, nil, nil, AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}, nil, "")
++	router := NewRouter(nil, nil, &usageAnalysisStub{}, nil, nil, nil, AuthConfig{Enabled: true, LoginPassword: "secret", SessionTTL: time.Hour}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/analysis", nil)
+ 	resp := httptest.NewRecorder()
+ 
+diff --git a/internal/api/usage_events_test.go b/internal/api/usage_events_test.go
+index 9e46269..2b89601 100644
+--- a/internal/api/usage_events_test.go
++++ b/internal/api/usage_events_test.go
+@@ -75,7 +75,7 @@ func TestUsageEventsReturnsFilteredRows(t *testing.T) {
+ 		CachedTokens:    1,
+ 		TotalTokens:     18,
+ 	}}}
+-	router := NewRouter("", nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "2", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "sk-provider-key", ProviderType: "openai", DisplayName: "OpenAI Mirror", ProviderKey: "openai:OpenAI Mirror"}}}, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "2", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "sk-provider-key", ProviderType: "openai", DisplayName: "OpenAI Mirror", ProviderKey: "openai:OpenAI Mirror"}}}, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/events?range=24h", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -122,7 +122,7 @@ func TestUsageEventsReturnsFilteredRows(t *testing.T) {
+ 
+ func TestUsageEventsPassesPaginationAndServerFilters(t *testing.T) {
+ 	provider := &usageEventsStub{eventsPage: &service.UsageEventsPage{Events: []service.UsageEventRecord{}, TotalCount: 0, Page: 3, PageSize: 100, TotalPages: 0}}
+-	router := NewRouter("", nil, provider, nil, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "source-a", ProviderType: "openai", DisplayName: "Provider A", ProviderKey: "openai:Provider A"}}}, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, nil, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "source-a", ProviderType: "openai", DisplayName: "Provider A", ProviderKey: "openai:Provider A"}}}, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/events?page=3&page_size=100&model=claude-sonnet&source=openai:Provider%20A&result=failed", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -152,7 +152,7 @@ func TestUsageEventsReturnsFilterOptions(t *testing.T) {
+ 		Sources:    []string{"source-a", "source-b"},
+ 		TotalCount: 2, Page: 1, PageSize: 20, TotalPages: 1,
+ 	}}
+-	router := NewRouter("", nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "1", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "source-a", ProviderType: "openai", DisplayName: "Provider A", ProviderKey: "openai:Provider A"}, {LookupKey: "source-b", ProviderType: "anthropic", DisplayName: "Provider B", ProviderKey: "anthropic:Provider B"}}}, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "1", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "source-a", ProviderType: "openai", DisplayName: "Provider A", ProviderKey: "openai:Provider A"}, {LookupKey: "source-b", ProviderType: "anthropic", DisplayName: "Provider B", ProviderKey: "anthropic:Provider B"}}}, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/events", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -178,7 +178,7 @@ func TestUsageEventFilterOptionsReturnsStableModelsAndSources(t *testing.T) {
+ 		Models:  []string{"claude-sonnet", "gpt-5"},
+ 		Sources: []string{"source-a", "source-b"},
+ 	}}
+-	router := NewRouter("", nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "1", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "source-a", ProviderType: "openai", DisplayName: "Provider A", ProviderKey: "openai:Provider A"}, {LookupKey: "source-b", ProviderType: "anthropic", DisplayName: "Provider B", ProviderKey: "anthropic:Provider B"}}}, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "1", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "source-a", ProviderType: "openai", DisplayName: "Provider A", ProviderKey: "openai:Provider A"}, {LookupKey: "source-b", ProviderType: "anthropic", DisplayName: "Provider B", ProviderKey: "anthropic:Provider B"}}}, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/events/filters?range=24h&model=ignored&source=ignored&result=failed&page=3&page_size=20", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -217,7 +217,7 @@ func TestUsageCredentialsReturnsAggregatedRows(t *testing.T) {
+ 		Failed:       true,
+ 		RequestCount: 1,
+ 	}}}
+-	router := NewRouter("", nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "2", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "sk-provider-key", ProviderType: "openai", DisplayName: "OpenAI Mirror", ProviderKey: "openai:OpenAI Mirror"}}}, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "2", Email: "user@example.com", Type: "auth-file"}}}, providerMetadataStub{items: []models.ProviderMetadata{{LookupKey: "sk-provider-key", ProviderType: "openai", DisplayName: "OpenAI Mirror", ProviderKey: "openai:OpenAI Mirror"}}}, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/credentials?range=24h", nil)
+ 	resp := httptest.NewRecorder()
+ 
+diff --git a/internal/api/usage_overview_test.go b/internal/api/usage_overview_test.go
+index 438298d..5982aa3 100644
+--- a/internal/api/usage_overview_test.go
++++ b/internal/api/usage_overview_test.go
+@@ -68,7 +68,7 @@ func TestUsageOverviewResponseIncludesResolvedRangeAndTimezone(t *testing.T) {
+ 	time.Local = location
+ 
+ 	provider := &usageFilterStub{overview: &service.UsageOverviewSnapshot{}}
+-	router := NewRouter("", nil, provider, nil, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, nil, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/overview?range=custom&start=2026-04-20&end=2026-04-21", nil)
+ 	resp := httptest.NewRecorder()
+ 
+@@ -147,7 +147,7 @@ func TestUsageOverviewReturnsFilteredSnapshot(t *testing.T) {
+ 			}},
+ 		},
+ 	}}
+-	router := NewRouter("", nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "2", Email: "user@example.com", Type: "auth-file"}}}, nil, nil, AuthConfig{}, nil, "")
++	router := NewRouter(nil, nil, provider, authFileStub{files: []models.AuthFile{{AuthIndex: "2", Email: "user@example.com", Type: "auth-file"}}}, nil, nil, AuthConfig{}, nil, "")
+ 	req := httptest.NewRequest(http.MethodGet, "/api/v1/usage/overview?range=24h", nil)
+ 	resp := httptest.NewRecorder()
+ 
+diff --git a/internal/app/app.go b/internal/app/app.go
+index d0717ad..1cebe3b 100644
+--- a/internal/app/app.go
++++ b/internal/app/app.go
+@@ -5,8 +5,6 @@ import (
+ 	"errors"
+ 	"fmt"
+ 	"io"
+-	"os"
+-	"path/filepath"
+ 	"sync"
+ 	"time"
+ 
+@@ -18,6 +16,7 @@ import (
+ 	"cpa-usage-keeper/internal/poller"
+ 	"cpa-usage-keeper/internal/repository"
+ 	"cpa-usage-keeper/internal/service"
++	webui "cpa-usage-keeper/web"
+ 	"github.com/gin-gonic/gin"
+ 	"github.com/sirupsen/logrus"
+ 	"gorm.io/gorm"
+@@ -73,13 +72,6 @@ func NewWithOptions(options Options) (*App, error) {
+ }
+ 
+ func NewWithConfig(cfg config.Config) (*App, error) {
+-	staticDir := filepath.Join("web", "dist")
+-	if cwd, cwdErr := filepath.Abs("."); cwdErr == nil {
+-		if executablePath, exeErr := os.Executable(); exeErr == nil {
+-			staticDir = resolveStaticDir(cwd, filepath.Dir(executablePath))
+-		}
+-	}
+-
+ 	logCloser, err := logging.Configure(cfg)
+ 	if err != nil {
+ 		return nil, err
+@@ -134,7 +126,7 @@ func NewWithConfig(cfg config.Config) (*App, error) {
+ 		BackupMaintenance:       backupMaintenance,
+ 		LogCloser:               logCloser,
+ 		Router: api.NewRouter(
+-			staticDir,
++			webui.Static,
+ 			backgroundPoller,
+ 			usageService,
+ 			authFileService,
+@@ -163,18 +155,6 @@ func closeGormDB(db *gorm.DB) error {
+ 	return sqlDB.Close()
+ }
+ 
+-func resolveStaticDir(cwd, exeDir string) string {
+-	cwdStaticDir := filepath.Join(cwd, "web", "dist")
+-	if info, err := os.Stat(cwdStaticDir); err == nil && info.IsDir() {
+-		return cwdStaticDir
+-	}
+-	executableStaticDir := filepath.Join(exeDir, "web", "dist")
+-	if info, err := os.Stat(executableStaticDir); err == nil && info.IsDir() {
+-		return executableStaticDir
+-	}
+-	return cwdStaticDir
+-}
+-
+ func resolveUsageSyncMode(ctx context.Context, cfg config.Config) config.Config {
+ 	if cfg.UsageSyncMode != "auto" {
+ 		return cfg
+diff --git a/internal/app/app_test.go b/internal/app/app_test.go
+index 689aa55..5c78abb 100644
+--- a/internal/app/app_test.go
++++ b/internal/app/app_test.go
+@@ -4,8 +4,6 @@ import (
+ 	"bytes"
+ 	"context"
+ 	"errors"
+-	"os"
+-	"path/filepath"
+ 	"strings"
+ 	"testing"
+ 	"time"
+@@ -263,39 +261,6 @@ func TestNewWithConfigDoesNotProbeForExplicitModes(t *testing.T) {
+ 	}
+ }
+ 
+-func TestResolveStaticDirPrefersWorkingDirectory(t *testing.T) {
+-	cwd := t.TempDir()
+-	exeDir := t.TempDir()
+-	if err := os.MkdirAll(filepath.Join(cwd, "web", "dist"), 0o755); err != nil {
+-		t.Fatalf("create cwd static dir: %v", err)
+-	}
+-	if err := os.MkdirAll(filepath.Join(exeDir, "web", "dist"), 0o755); err != nil {
+-		t.Fatalf("create executable static dir: %v", err)
+-	}
+-
+-	staticDir := resolveStaticDir(cwd, exeDir)
+-
+-	expected := filepath.Join(cwd, "web", "dist")
+-	if staticDir != expected {
+-		t.Fatalf("expected working directory static dir %q, got %q", expected, staticDir)
+-	}
+-}
+-
+-func TestResolveStaticDirFallsBackToExecutableDirectory(t *testing.T) {
+-	cwd := t.TempDir()
+-	exeDir := t.TempDir()
+-	if err := os.MkdirAll(filepath.Join(exeDir, "web", "dist"), 0o755); err != nil {
+-		t.Fatalf("create executable static dir: %v", err)
+-	}
+-
+-	staticDir := resolveStaticDir(cwd, exeDir)
+-
+-	expected := filepath.Join(exeDir, "web", "dist")
+-	if staticDir != expected {
+-		t.Fatalf("expected executable directory static dir %q, got %q", expected, staticDir)
+-	}
+-}
+-
+ func TestTemporaryStartupSnapshotCleanupLogsStartAndSuccess(t *testing.T) {
+ 	logs := captureAppInfoLogs(t)
+ 	db, err := repository.OpenDatabase(testAppConfig(t, "legacy_export"))
+diff --git a/internal/redact/redact_test.go b/internal/redact/redact_test.go
+index a832870..bc1b499 100644
+--- a/internal/redact/redact_test.go
++++ b/internal/redact/redact_test.go
+@@ -53,7 +53,7 @@ func TestUsageSnapshotRedactsOnlyAPIKeys(t *testing.T) {
+ 							Source:    "source-a",
+ 							AuthIndex: "3",
+ 							Failed:    false,
+-							Tokens: cpa.TokenStats{TotalTokens: 42},
++							Tokens:    cpa.TokenStats{TotalTokens: 42},
+ 						}},
+ 					},
+ 				},
+diff --git a/web/dist/.gitkeep b/web/dist/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/web/static.go b/web/static.go
+new file mode 100644
+index 0000000..25f5d21
+--- /dev/null
++++ b/web/static.go
+@@ -0,0 +1,19 @@
++package web
++
++import (
++	"embed"
++	"io/fs"
++)
++
++//go:embed all:dist
++var dist embed.FS
++
++var Static fs.FS = mustSub(dist, "dist")
++
++func mustSub(fsys fs.FS, dir string) fs.FS {
++	sub, err := fs.Sub(fsys, dir)
++	if err != nil {
++		panic(err)
++	}
++	return sub
++}
+-- 
+2.53.0
+

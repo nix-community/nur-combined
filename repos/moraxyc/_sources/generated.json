@@ -109,6 +109,51 @@
         },
         "version": "OQS-BoringSSL-snapshot-2025-01"
     },
+    "cpa-usage-keeper": {
+        "cargoLock": null,
+        "date": "2026-05-03",
+        "extract": {
+            "web/package-lock.json": "sha256-7xBPKpOaea80_d83vOOPNfyUYUdB13mimNmQHwGN6Ik=/web/package-lock.json",
+            "web/package.json": "sha256-7xBPKpOaea80_d83vOOPNfyUYUdB13mimNmQHwGN6Ik=/web/package.json"
+        },
+        "name": "cpa-usage-keeper",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Willxup",
+            "repo": "cpa-usage-keeper",
+            "rev": "7e8b2707345d46f15180e2999e4da3733687d0a8",
+            "sha256": "sha256-7xBPKpOaea80/d83vOOPNfyUYUdB13mimNmQHwGN6Ik=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "7e8b2707345d46f15180e2999e4da3733687d0a8"
+    },
+    "cpa-usage-keeper-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "cpa-usage-keeper-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Willxup",
+            "repo": "cpa-usage-keeper",
+            "rev": "v1.3.3",
+            "sha256": "sha256-7xBPKpOaea80/d83vOOPNfyUYUdB13mimNmQHwGN6Ik=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.3"
+    },
     "english_words": {
         "cargoLock": null,
         "date": "2025-01-06",
@@ -536,11 +581,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MaVUfDysr8OrJHjVdWbrwYmHBDITzY/L8gidGiS/zXs=",
+            "sha256": "sha256-KcProdsZ6E5xgY88Sa30tiI503zoclI1qGHGXue5MN4=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.2/NipaPlay_1.10.2_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay_1.10.0_macOS_Universal.dmg"
         },
-        "version": "1.10.2"
+        "version": "1.10.0"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -551,11 +596,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-H0ifkHnYUXzz8YG0LFfr/Lj457PUOR46DcY846lWxeY=",
+            "sha256": "sha256-LSNnqkW7ZltuAPd7V035K6sV397kcJj6yO8m+Vp2Oqg=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.2/NipaPlay-1.10.2-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay-1.10.0-Linux-amd64.AppImage"
         },
-        "version": "1.10.2"
+        "version": "1.10.0"
     },
     "pixy2": {
         "cargoLock": null,

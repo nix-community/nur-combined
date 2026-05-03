@@ -69,6 +69,32 @@
       sha256 = "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=";
     };
   };
+  cpa-usage-keeper = {
+    pname = "cpa-usage-keeper";
+    version = "7e8b2707345d46f15180e2999e4da3733687d0a8";
+    src = fetchFromGitHub {
+      owner = "Willxup";
+      repo = "cpa-usage-keeper";
+      rev = "7e8b2707345d46f15180e2999e4da3733687d0a8";
+      fetchSubmodules = false;
+      sha256 = "sha256-7xBPKpOaea80/d83vOOPNfyUYUdB13mimNmQHwGN6Ik=";
+    };
+    extract = {
+      "web/package.json" = ./. + "/sha256-7xBPKpOaea80_d83vOOPNfyUYUdB13mimNmQHwGN6Ik=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-7xBPKpOaea80_d83vOOPNfyUYUdB13mimNmQHwGN6Ik=/web/package-lock.json";
+    };date = "2026-05-03";
+  };
+  cpa-usage-keeper-stable = {
+    pname = "cpa-usage-keeper-stable";
+    version = "v1.3.3";
+    src = fetchFromGitHub {
+      owner = "Willxup";
+      repo = "cpa-usage-keeper";
+      rev = "v1.3.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-7xBPKpOaea80/d83vOOPNfyUYUdB13mimNmQHwGN6Ik=";
+    };
+  };
   english_words = {
     pname = "english_words";
     version = "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c";
@@ -310,18 +336,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.10.2";
+    version = "1.10.0";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.2/NipaPlay_1.10.2_macOS_Universal.dmg";
-      sha256 = "sha256-MaVUfDysr8OrJHjVdWbrwYmHBDITzY/L8gidGiS/zXs=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay_1.10.0_macOS_Universal.dmg";
+      sha256 = "sha256-KcProdsZ6E5xgY88Sa30tiI503zoclI1qGHGXue5MN4=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.10.2";
+    version = "1.10.0";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.2/NipaPlay-1.10.2-Linux-amd64.AppImage";
-      sha256 = "sha256-H0ifkHnYUXzz8YG0LFfr/Lj457PUOR46DcY846lWxeY=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay-1.10.0-Linux-amd64.AppImage";
+      sha256 = "sha256-LSNnqkW7ZltuAPd7V035K6sV397kcJj6yO8m+Vp2Oqg=";
     };
   };
   pixy2 = {

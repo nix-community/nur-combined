@@ -171,3 +171,12 @@ fetch.github = "MetaCubeX/meta-rules-converter"
 src.git = "https://github.com/gurucomputing/headscale-ui"
 fetch.github = "gurucomputing/headscale-ui"
 extract = ["package-lock.json", "package.json"]
+
+[cpa-usage-keeper-stable]
+src.github = "Willxup/cpa-usage-keeper"
+fetch.github = "Willxup/cpa-usage-keeper"
+
+[cpa-usage-keeper]
+src.git = "https://github.com/Willxup/cpa-usage-keeper.git"
+fetch.github = "Willxup/cpa-usage-keeper"
+extract = ["web/package-lock.json", "web/package.json"]
