@@ -29,4 +29,9 @@
     github = "LarsArtmann";
     githubId = 23587853;
   };
+  edmundmiller = {
+    name = "Edmund Miller";
+    github = "edmundmiller";
+    githubId = 20095261;
+  };
 }
