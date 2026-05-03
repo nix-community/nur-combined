@@ -24,6 +24,7 @@ lib.mapAttrs' (
       ignoreConfigErrors = true;
       modDirVersion = "${ver0}-lantian-cachy";
       patches = patches.getPatches major;
+      cpusched = "bore";
       structuredExtraConfig = (import (./custom-config + "/${major}.nix") importArgs) // {
         LOCALVERSION = lib.kernel.freeform "-lantian-cachy";
       };
