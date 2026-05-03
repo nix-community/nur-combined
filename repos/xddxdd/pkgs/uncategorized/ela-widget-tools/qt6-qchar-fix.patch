@@ -140,10 +140,10 @@ diff --git a/ElaWidgetTools/DeveloperComponents/ElaSpinBoxStyle.cpp b/ElaWidgetT
 index 7f38a94..4bb06af 100644
 --- a/ElaWidgetTools/DeveloperComponents/ElaSpinBoxStyle.cpp
 +++ b/ElaWidgetTools/DeveloperComponents/ElaSpinBoxStyle.cpp
-@@ -99,9 +99,9 @@ void ElaSpinBoxStyle::drawComplexControl(ComplexControl control, const QStyleOpt
+@@ -109,9 +109,9 @@ void ElaSpinBoxStyle::drawComplexControl(ComplexControl control, const QStyleOpt
          iconFont.setPixelSize(17);
          painter->setFont(iconFont);
-         painter->setPen(ElaThemeColor(_themeMode, BasicText));
+         painter->setPen(isEnable ? ElaThemeColor(_themeMode, BasicText) : ElaThemeColor(_themeMode, BasicTextDisable));
 -        painter->drawText(addLineRect, Qt::AlignCenter, _pButtonMode == ElaSpinBoxType::PMSide ? QChar(ElaIconType::Plus) : QChar(ElaIconType::AngleUp));
 +        painter->drawText(addLineRect, Qt::AlignCenter, _pButtonMode == ElaSpinBoxType::PMSide ? QChar(static_cast<char16_t>(ElaIconType::Plus)) : QChar(static_cast<char16_t>(ElaIconType::AngleUp)));
          //减小图标

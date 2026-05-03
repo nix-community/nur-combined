@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index c0a68ee..1159551 100644
+index c0a68ee..9aa46fc 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -10,26 +10,11 @@ set(CMAKE_CXX_STANDARD 17)
+@@ -10,25 +10,13 @@ set(CMAKE_CXX_STANDARD 17)
  set(CMAKE_CXX_STANDARD_REQUIRED ON)
  add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
  
@@ -10,7 +10,7 @@ index c0a68ee..1159551 100644
 -SET(QT_SDK_DIR D:/Qt/5.15.2/msvc2019_64 CACHE PATH "QT SDK DIR" FORCE)
 -message("在CMAKE中配置 QT_SDK_DIR 选项指定QT路径; 当前路径: ${QT_SDK_DIR}")
 -SET(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/Install CACHE PATH "Installation path" FORCE)
--
+ 
  list(APPEND CMAKE_PREFIX_PATH ${QT_SDK_DIR})
  
  find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
@@ -20,20 +20,27 @@ index c0a68ee..1159551 100644
 -    message(FATAL_ERROR "你当前使用的QT版本不在维护范围内！可能出现编译失败或使用时崩溃问题，推荐QT版本为QT5.15.2 QT6.6.2 QT6.6.3！请知悉~")
 -    message(FATAL_ERROR "The QT version you are currently using is no longer under maintenance! There may be issues such as compilation failures or crashes during use. The recommended QT versions are QT5.15.2, QT6.6.2, and QT6.6.3! Please be advised")
 -endif ()
--
+ 
 -if (${QT_VERSION} VERSION_GREATER_EQUAL 6.5.3 AND ${QT_VERSION} VERSION_LESS_EQUAL 6.6.1)
 -    message(FATAL_ERROR "你当前使用的QT版本为不推荐版本！可能出现使用时异常或崩溃问题，推荐QT版本为QT5.15.2 QT6.6.2 QT6.6.3！请知悉~")
 -    message(FATAL_ERROR "The QT version you are currently using is not recommended! It may cause exceptions or crashes during operation. The recommended QT versions are QT5.15.2, QT6.6.2, and QT6.6.3! Please be advised")
 -endif ()
--
+ 
  if (NOT WIN32)
      add_link_options(-Wl,--disable-new-dtags)
-     set(CMAKE_SKIP_INSTALL_RPATH FALSE)
 diff --git a/ElaWidgetTools/CMakeLists.txt b/ElaWidgetTools/CMakeLists.txt
-index 0f35c3d..4637013 100644
+index 3c9a360..1d1af46 100644
 --- a/ElaWidgetTools/CMakeLists.txt
 +++ b/ElaWidgetTools/CMakeLists.txt
-@@ -45,9 +45,9 @@ if (MSVC)
+@@ -35,6 +35,7 @@ add_library(${PROJECT_NAME} ${LIB_TYPE}
+ 
+ FILE(GLOB EXPORT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+ target_include_directories(${PROJECT_NAME} PUBLIC
++    @QT_INCLUDE_DIRS@
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/private>
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DeveloperComponents>
+@@ -49,12 +50,10 @@ if (MSVC)
      set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
  endif ()
  
@@ -41,26 +48,35 @@ index 0f35c3d..4637013 100644
 -set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
 -set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
 +set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 +set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
  target_link_libraries(${PROJECT_NAME} PUBLIC
      Qt${QT_VERSION_MAJOR}::Widgets
-     Qt${QT_VERSION_MAJOR}::WidgetsPrivate
-@@ -63,13 +63,6 @@ endif ()
+-    Qt${QT_VERSION_MAJOR}::WidgetsPrivate
+ )
+ if (WIN32)
+     target_link_libraries(${PROJECT_NAME} PUBLIC
+@@ -67,9 +66,8 @@ endif ()
  install(
      TARGETS ${PROJECT_NAME}
      EXPORT ${PROJECT_NAME}
 -    ARCHIVE DESTINATION ${PROJECT_NAME}/lib
 -    LIBRARY DESTINATION ${PROJECT_NAME}/lib
 -    RUNTIME DESTINATION ${PROJECT_NAME}/bin
--)
--install(TARGETS ${PROJECT_NAME}
--    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/ElaWidgetToolsExample
--    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/ElaWidgetToolsExample
++    LIBRARY DESTINATION lib
++    RUNTIME DESTINATION bin
  )
+ 
  #if (MSVC AND NOT LIB_TYPE STREQUAL "STATIC")
- #    install(
-@@ -87,7 +80,7 @@ set(LIB_DIR lib)
+@@ -79,7 +77,7 @@ install(
+ #    )
+ #endif ()
+ 
+-install(FILES ${EXPORT_HEADERS} DESTINATION ${PROJECT_NAME}/include)
++install(FILES ${EXPORT_HEADERS} DESTINATION include)
+ 
+ set(INCLUDE_DIRS include)
+ set(LIBRARIES ${PROJECT_NAME})
+@@ -88,7 +86,7 @@ set(LIB_DIR lib)
  install(
      EXPORT ${PROJECT_NAME}
      FILE ${PROJECT_NAME}Targets.cmake
@@ -69,7 +85,7 @@ index 0f35c3d..4637013 100644
  )
  
  include(CMakePackageConfigHelpers)
-@@ -102,7 +95,6 @@ configure_package_config_file(
+@@ -103,9 +101,8 @@ configure_package_config_file(
      ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
      INSTALL_DESTINATION lib/cmake
      PATH_VARS INCLUDE_DIRS LIBRARIES LIB_DIR
@@ -77,6 +93,9 @@ index 0f35c3d..4637013 100644
  )
  
  install(
+-    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${PROJECT_NAME}/lib/cmake
++    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION lib/cmake
+ )
 diff --git a/ElaWidgetToolsExample/CMakeLists.txt b/ElaWidgetToolsExample/CMakeLists.txt
 index 063c40a..cb24186 100644
 --- a/ElaWidgetToolsExample/CMakeLists.txt

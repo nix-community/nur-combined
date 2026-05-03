@@ -11,7 +11,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./fix-install-path.patch
-    ./revert-cmake-changes.patch
     ./qt6-qchar-fix.patch
   ];
 
@@ -46,10 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
   ];
 
-  postInstall = ''
-    cp -r $out/ElaWidgetTools/* $out/
-    rm -rf $out/ElaWidgetTools
-  '';
+
 
   meta = {
     mainProgram = "ElaWidgetToolsExample";
