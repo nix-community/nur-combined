@@ -21,6 +21,11 @@ class VersionManager:
     def __init__(self, base_url: str = "https://api.vintagestory.at"):
         self.versions: list[Version] = []
         self.base_url: str = base_url
+        self.existing_versions: dict = {}
+        versions_json_path = self.find_version_json()
+        if os.path.exists(versions_json_path):
+            with open(versions_json_path, 'r') as f:
+                self.existing_versions = json.load(f)
 
 
     def fetch_versions(self):
@@ -47,12 +52,16 @@ class VersionManager:
             elif 'server' in versions[version_name]:
                 version.url = versions[version_name]["server"]["urls"]["cdn"]
 
-            # the api provides md5 hashes but sha256 is prefered for nix
-            version.hash = self.download_and_generate_sha256_hash(version.url)
+            existing = self.existing_versions.get(version.name)
+            if existing and existing.get('url') == version.url:
+                version.hash = existing['hash']
+                print(f"Version {version.name} already cached")
+            else:
+                # the api provides md5 hashes but sha256 is prefered for nix
+                version.hash = self.download_and_generate_sha256_hash(version.url)
+                print(f"Version {version.name} fetched")
 
             self.versions.append(version)
-
-            print(f"Version {version.name} fetched")
 
 
     def versions_to_json(self):
@@ -63,6 +72,7 @@ class VersionManager:
         )
 
 
+    @staticmethod
     def find_version_json() -> str:
         """
         Find the versions.json file in the same directory as this script

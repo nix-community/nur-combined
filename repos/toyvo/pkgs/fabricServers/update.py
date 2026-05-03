@@ -31,6 +31,11 @@ class VersionManager:
     def __init__(self, base_url: str = "https://meta.fabricmc.net/v2/versions"):
         self.versions: list[Version] = []
         self.base_url: str = base_url
+        self.existing_versions: dict = {}
+        versions_json_path = self.find_version_json()
+        if os.path.exists(versions_json_path):
+            with open(versions_json_path, 'r') as f:
+                self.existing_versions = json.load(f)
 
     def fetch_versions(self, not_before_minor_version: int = 14):
         """
@@ -118,8 +123,14 @@ class VersionManager:
         """
 
         for version in self.versions:
-            url = f"{self.base_url}/loader/{version.name}/{version.loader_version}/{version.installer_version}/server/jar"
-            version.hash = self.download_and_generate_sha256_hash(url)
+            existing = self.existing_versions.get(version.name)
+            if existing and existing.get('version') == version.full_name:
+                version.hash = existing['hash']
+                print(f"Version {version.full_name} already cached")
+            else:
+                url = f"{self.base_url}/loader/{version.name}/{version.loader_version}/{version.installer_version}/server/jar"
+                version.hash = self.download_and_generate_sha256_hash(url)
+                print(f"Version {version.full_name} fetched")
 
     def versions_to_json(self):
         return json.dumps(
@@ -128,6 +139,7 @@ class VersionManager:
             indent=4
         )
 
+    @staticmethod
     def find_version_json() -> str:
         """
         Find the versions.json file in the same directory as this script

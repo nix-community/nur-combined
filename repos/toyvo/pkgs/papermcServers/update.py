@@ -9,6 +9,9 @@ import json
 import requests
 
 
+GRAPHQL_URL = "https://fill.papermc.io/graphql"
+
+
 class Version:
     def __init__(self, name: str):
         self.name: str = name
@@ -19,7 +22,6 @@ class Version:
     def full_name(self):
         v_name = f"{self.name}-{self.build_number}"
 
-        # this will probably never happen because the download of a build with NoneType in URL would fail
         if not self.name or not self.build_number:
             print(f"Warning: version '{v_name}' contains NoneType!")
 
@@ -27,67 +29,123 @@ class Version:
 
 
 class VersionManager:
-    def __init__(self, base_url: str = "https://api.papermc.io/v2/projects/paper"):
+    def __init__(self):
         self.versions: list[Version] = []
-        self.base_url: str = base_url
+        self.existing_versions: dict = {}
+        versions_json_path = self.find_version_json()
+        if os.path.exists(versions_json_path):
+            with open(versions_json_path, 'r') as f:
+                self.existing_versions = json.load(f)
+
+    def graphql_query(self, query: str, variables: dict | None = None) -> dict:
+        """Execute a GraphQL query and return the data."""
+        payload = {"query": query}
+        if variables:
+            payload["variables"] = variables
+        response = requests.post(GRAPHQL_URL, json=payload, headers={"content-type": "application/json"})
+        response.raise_for_status()
+        result = response.json()
+        if "errors" in result:
+            raise RuntimeError(f"GraphQL errors: {result['errors']}")
+        return result["data"]
 
     def fetch_versions(self, not_before_minor_version: int = 14):
+        """Fetch all stable Paper versions from the GraphQL API."""
+        query = """
+        query {
+          project(key: "paper") {
+            versions(first: 100) {
+              nodes {
+                key
+                family {
+                  key
+                }
+              }
+            }
+          }
+        }
         """
-        Fetch all versions after given minor release
-        """
+        data = self.graphql_query(query)
+        version_nodes = data["project"]["versions"]["nodes"]
 
-        response = requests.get(self.base_url)
+        for node in version_nodes:
+            version_name = node["key"]
+            family = node["family"]["key"]
 
-        try:
-            response.raise_for_status()
+            # Skip pre-releases and release candidates
+            if 'pre' in version_name or 'rc' in version_name:
+                continue
 
-        except requests.exceptions.HTTPError as e:
-            print(e)
-            return
-
-        # we only want versions that are no pre-releases
-        release_versions = filter(
-            lambda v_name: ('pre' not in v_name and 'rc' not in v_name), response.json()["versions"])
-
-        for version_name in release_versions:
-
-            # split version string, convert to list ot int
-            version_split = version_name.split(".")
-            version_split = list(map(int, version_split))
-
-            # check if version is higher than 1.<not_before_sub_version>
-            if (version_split[0] > 1) or (version_split[0] == 1 and version_split[1] >= not_before_minor_version):
-                self.versions.append(Version(version_name))
-
-    def fetch_latest_version_builds(self):
-        """
-        Set latest build number to each version
-        """
-
-        for version in self.versions:
-            url = f"{self.base_url}/versions/{version.name}"
-            response = requests.get(url)
-
-            # check that we've got a good response
+            # Filter by version number
+            # Support both 1.X.Y and 26.X formats
             try:
-                response.raise_for_status()
+                parts = version_name.split(".")
+                if len(parts) >= 2:
+                    major = int(parts[0])
+                    minor = int(parts[1])
+                    if major > 1 or (major == 1 and minor >= not_before_minor_version):
+                        self.versions.append(Version(version_name))
+            except ValueError:
+                continue
 
-            except requests.exceptions.HTTPError as e:
-                print(e)
-                return
-
-            # the highest build in response.json()['builds']:
-            latest_build = response.json()['builds'][-1]
-            version.build_number = latest_build
-
-    def generate_version_hashes(self):
-        """
-        Generate and set the hashes for all registered versions (versions will are downloaded to memory)
-        """
-
+    def fetch_latest_builds(self):
+        """Fetch the latest build number and hash for each version."""
         for version in self.versions:
-            url = f"{self.base_url}/versions/{version.name}/builds/{version.build_number}/downloads/paper-{version.full_name}.jar"
-            version.hash = self.download_and_generate_sha256_hash(url)
+            query = """
+            query($version: String!) {
+              project(key: "paper") {
+                version(key: $version) {
+                  builds(last: 1) {
+                    nodes {
+                      number
+                      downloads {
+                        name
+                        url
+                        checksums {
+                          sha256
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            """
+            data = self.graphql_query(query, {"version": version.name})
+            build_nodes = data["project"]["version"]["builds"]["nodes"]
+
+            if not build_nodes:
+                print(f"No builds found for version {version.name}")
+                continue
+
+            build = build_nodes[0]
+            version.build_number = build["number"]
+
+            # Find the application download (the main jar)
+            downloads = build.get("downloads", [])
+            download = None
+            for d in downloads:
+                if d["name"].endswith(".jar"):
+                    download = d
+                    break
+
+            if not download:
+                print(f"No jar download found for version {version.full_name}")
+                continue
+
+            # Check cache
+            existing = self.existing_versions.get(version.name)
+            if existing and existing.get('version') == version.full_name:
+                version.hash = existing['hash']
+                print(f"Version {version.full_name} already cached")
+                continue
+
+            # Convert hex sha256 to SRI format (base64)
+            hex_hash = download["checksums"]["sha256"]
+            hash_bytes = bytes.fromhex(hex_hash)
+            b64_hash = base64.b64encode(hash_bytes).decode('utf-8')
+            version.hash = f"sha256-{b64_hash}"
+            print(f"Version {version.full_name} fetched")
 
     def versions_to_json(self):
         return json.dumps(
@@ -96,57 +154,20 @@ class VersionManager:
             indent=4
         )
 
+    @staticmethod
     def find_version_json() -> str:
-        """
-        Find the versions.json file in the same directory as this script
-        """
+        """Find the versions.json file in the same directory as this script."""
         return os.path.join(os.path.dirname(os.path.realpath(__file__)), "versions.json")
 
     def write_versions(self, file_name: str = find_version_json()):
-        """ write all processed versions to json """
-        # save json to versions.json
+        """Write all processed versions to json."""
         with open(file_name, 'w') as f:
             f.write(self.versions_to_json() + "\n")
-
-    @staticmethod
-    def download_and_generate_sha256_hash(url: str) -> str | None:
-        """
-        Fetch the tarball from the given URL.
-        Then generate a sha256 hash of the tarball.
-        """
-
-        try:
-            # Download the file from the URL
-            response = requests.get(url)
-            response.raise_for_status()
-
-        except requests.exceptions.RequestException as e:
-            print(f"Error: {e}")
-            return None
-
-        # Create a new SHA-256 hash object
-        sha256_hash = hashlib.sha256()
-
-        # Update the hash object with chunks of the downloaded content
-        for byte_block in response.iter_content(4096):
-            sha256_hash.update(byte_block)
-
-        # Get the hexadecimal representation of the hash
-        hash_value = sha256_hash.digest()
-
-        # Encode the hash value in base64
-        base64_hash = base64.b64encode(hash_value).decode('utf-8')
-
-        # Format it as "sha256-{base64_hash}"
-        sri_representation = f"sha256-{base64_hash}"
-
-        return sri_representation
 
 
 if __name__ == '__main__':
     version_manager = VersionManager()
 
     version_manager.fetch_versions()
-    version_manager.fetch_latest_version_builds()
-    version_manager.generate_version_hashes()
+    version_manager.fetch_latest_builds()
     version_manager.write_versions()

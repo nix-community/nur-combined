@@ -152,11 +152,19 @@
     "version": "1.21.9-59"
   },
   "1.21.10": {
-    "hash": "sha256-dOOibDKgncuyE67CehB0Z3OeJ7EtvoKxo+ekt9BZxzA=",
-    "version": "1.21.10-129"
+    "hash": "sha256-FYcD91om+ELqZWs9xtdb89HsF2uXosNjhNC4Czhxr1M=",
+    "version": "1.21.10-130"
   },
   "1.21.11": {
-    "hash": "sha256-zzdPKvnXHfzHU0Pze3IqerywkcV0ExuV47E8b8LLj64=",
-    "version": "1.21.11-69"
+    "hash": "sha256-bAmVQPzNJ+EHUNGtyzgvFVL7WqKBauryzB77I93Z498=",
+    "version": "1.21.11-131"
+  },
+  "26.1.1": {
+    "hash": "sha256-Q9CO1Sx69On3J2kSJQGlwV+Zx6zgxCij7vBA/T9v28U=",
+    "version": "26.1.1-29"
+  },
+  "26.1.2": {
+    "hash": "sha256-gLFbuCdrpir6Q810ZEFYvcg/Hclpjfb5AoFKqVfXvxs=",
+    "version": "26.1.2-59"
   }
 }

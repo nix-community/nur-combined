@@ -19,6 +19,10 @@ let
   # ARM64 patch releases from https://github.com/anegostudios/VintagestoryServerArm64
   # One release covers all patch versions within a major.minor version
   arm64Patches = {
+    "1.22" = {
+      url = "https://github.com/anegostudios/VintagestoryServerArm64/releases/download/1.22.0/vs_server_linux-arm64_1.22.0.tar.gz";
+      hash = "sha256-GRx/OliomkeEPnq40fsW1R8wMPemzq1jnHxIqQdnm/o=";
+    };
     "1.21" = {
       url = "https://github.com/anegostudios/VintagestoryServerArm64/releases/download/1.21.0/vs_server_linux-arm64_1.21.0.tar.gz";
       hash = "sha256-oPJrOZlBBVnx+isPPCcDZ/9Z1aKJ2ZBBnV8+MdGvWdE=";

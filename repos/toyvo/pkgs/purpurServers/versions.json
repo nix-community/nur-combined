@@ -136,7 +136,23 @@
     "version": "1.21.7-2477"
   },
   "1.21.8": {
-    "hash": "sha256-UzO8upDql8v/GPNWpWd4g0A3PJCx/2ZPNaTpG0CzAlg=",
-    "version": "1.21.8-2478"
+    "hash": "sha256-3XsifyVVYBw5zsCR32eCdfCoH6ftaM6VTsSSS7RXXEY=",
+    "version": "1.21.8-2497"
+  },
+  "1.21.9": {
+    "hash": "sha256-U813wJhwEg/nTUgIulTdIslbHxd9Tp2wPsGm0MQ7r70=",
+    "version": "1.21.9-2505"
+  },
+  "1.21.10": {
+    "hash": "sha256-QVl4Nnewi2OVeC5hUMsoZGxw7ZiLeUjAngGqWl6Q9Ug=",
+    "version": "1.21.10-2535"
+  },
+  "1.21.11": {
+    "hash": "sha256-7hmVEb8Klw7oRZ/jo1FwP+w3KT8AvC3hxct0bH5KzDQ=",
+    "version": "1.21.11-2568"
+  },
+  "26.1.2": {
+    "hash": "sha256-xINfBCJoII2tJ9pzy7CkVLK8/9D8QuRLnua7EtqMAww=",
+    "version": "26.1.2-2583"
   }
 }
