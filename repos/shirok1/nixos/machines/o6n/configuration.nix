@@ -543,6 +543,7 @@
   networking.firewall.allowedTCPPorts = [
     80
     443
+    5970
     8080
     8234
     9000
@@ -550,8 +551,10 @@
     21064 # Home Assistant HomeKit Bridge
     1400 # Home Assistant Sonos
     1443 # Home Assistant Sonos
+  networking.firewall.allowedUDPPorts = [
+    5970
+    13831
   ];
-  networking.firewall.allowedUDPPorts = [ 13831 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
