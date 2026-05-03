@@ -24,7 +24,10 @@
   passepartout = lib.callPackage ./pkgs/passepartout {};
   diffusionbee = lib.callPackage ./pkgs/diffusionbee {};
   redream-dev = lib.callPackage ./pkgs/redream-dev {};
+  betteraudio = lib.callPackage ./pkgs/betteraudio {};
+  linearmouse = lib.callPackage ./pkgs/linearmouse {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
+  finetune = lib.callPackage ./pkgs/linearmouse {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
   convierto = lib.callPackage ./pkgs/convierto {};

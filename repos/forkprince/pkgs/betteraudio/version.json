@@ -1,0 +1,14 @@
+{
+  "name": "BetterAudio",
+  "source": {
+    "type": "github-release",
+    "repo": "rokartur/BetterAudio",
+    "skip_prerelease": true
+  },
+  "asset": {
+    "file": "BetterAudio-{version}.zip",
+    "unpack": false
+  },
+  "version": "26.6.2",
+  "hash": "sha256-oLCKKlsEH02FibtLf0wnzy2We31+8ve/0JD0OuHwGas="
+}

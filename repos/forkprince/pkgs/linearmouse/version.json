@@ -1,0 +1,15 @@
+{
+  "name": "LinearMouse",
+  "source": {
+    "type": "github-release",
+    "repo": "linearmouse/linearmouse",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "LinearMouse.dmg",
+    "unpack": false
+  },
+  "version": "0.11.1",
+  "hash": "sha256-yI2jeB0gsuxA5WPaVzm9bES5GaGGXsWmZzDfKakEAsU="
+}

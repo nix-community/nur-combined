@@ -1,0 +1,15 @@
+{
+  "name": "FineTune",
+  "source": {
+    "type": "github-release",
+    "repo": "ronitsingh10/FineTune",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "FineTune.dmg",
+    "unpack": false
+  },
+  "version": "1.6.0",
+  "hash": "sha256-vT5A3mBaCOlNpTfx//ch4KqGWZixhMGO+BoWUt0foNY="
+}
