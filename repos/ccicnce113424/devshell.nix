@@ -1,5 +1,7 @@
 { pkgs, nvfetcher-bin }:
-pkgs.mkShell.override { stdenv = pkgs.stdenvNoCC; } {
+pkgs.mkShellNoCC {
+  preferLocalBuild = true;
+  allowSubstitutes = false;
   packages = with pkgs; [
     just
     nixd
