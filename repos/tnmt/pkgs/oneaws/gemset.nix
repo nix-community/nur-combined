@@ -14,10 +14,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0llkqgj1hzdnj1v0qk7v3lj09c0g7hy60pnmm23r5ksc92snm22q";
+      sha256 = "0asrqg47gp087wvx1cvhy1s7rpqx7r9q8kxnndfpggg3jp8dxrg6";
       type = "gem";
     };
-    version = "1.1242.0";
+    version = "1.1244.0";
   };
   aws-sdk-core = {
     dependencies = ["aws-eventstream" "aws-partitions" "aws-sigv4" "base64" "bigdecimal" "jmespath" "logger"];
@@ -138,10 +138,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0nnzdswa9l6w8k5ndgbv5al9f0jkg14dqwzyic4fjd5c1cls1nxd";
+      sha256 = "1jprknd4rf51cd718kmrp9whvf70xs5bg4xl4cd3p1fid3dswsvv";
       type = "gem";
     };
-    version = "0.8.1";
+    version = "0.9.0";
   };
   nokogiri = {
     dependencies = ["mini_portile2" "racc"];
