@@ -18,7 +18,15 @@ mode:
 }:
 let
   inherit (pkgs) lib;
-  inherit (import ../helpers/group.nix { inherit pkgs lib mode inputs; })
+  inherit
+    (import ../helpers/group.nix {
+      inherit
+        pkgs
+        lib
+        mode
+        inputs
+        ;
+    })
     doFlatGroupPackages
     doGroupPackages
     ifNotCI

@@ -46,19 +46,19 @@ stdenv.mkDerivation (finalAttrs: {
     libXxf86vm
     libXt
     xorgproto
-  ] ++ lib.optional withMesa libGLU;
+  ]
+  ++ lib.optional withMesa libGLU;
 
-  configureFlags =
-    [
-      "--enable-gtk2"
-      "--disable-precomp-headers"
-      "--enable-mediactrl"
-      "--enable-graphics_ctx"
-      (if compat24 then "--enable-compat24" else "--disable-compat24")
-      (if compat26 then "--enable-compat26" else "--disable-compat26")
-    ]
-    ++ lib.optional unicode "--enable-unicode"
-    ++ lib.optional withMesa "--with-opengl";
+  configureFlags = [
+    "--enable-gtk2"
+    "--disable-precomp-headers"
+    "--enable-mediactrl"
+    "--enable-graphics_ctx"
+    (if compat24 then "--enable-compat24" else "--disable-compat24")
+    (if compat26 then "--enable-compat26" else "--disable-compat26")
+  ]
+  ++ lib.optional unicode "--enable-unicode"
+  ++ lib.optional withMesa "--with-opengl";
 
   hardeningDisable = [ "format" ];
 

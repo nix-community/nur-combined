@@ -45,8 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
   ];
 
-
-
   meta = {
     mainProgram = "ElaWidgetToolsExample";
     maintainers = with lib.maintainers; [ xddxdd ];

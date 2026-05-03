@@ -25,13 +25,14 @@
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   thisSource = sources."${cpuName}" or null;
-  runtimeDependencies =
-    [ cups ]
-    ++ lib.optionals gtkSupport [
-      cairo
-      glib
-      gtk3
-    ];
+  runtimeDependencies = [
+    cups
+  ]
+  ++ lib.optionals gtkSupport [
+    cairo
+    glib
+    gtk3
+  ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
   result = stdenv.mkDerivation rec {
@@ -51,7 +52,8 @@ let
       xorg.libXrender
       xorg.libXtst
       zlib
-    ] ++ lib.optional stdenv.isAarch32 libffi;
+    ]
+    ++ lib.optional stdenv.isAarch32 libffi;
 
     nativeBuildInputs = [
       autoPatchelfHook

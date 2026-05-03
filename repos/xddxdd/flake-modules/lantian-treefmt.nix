@@ -1,9 +1,14 @@
-{ treefmt-nix, ... }:
+{ treefmt-nix, nixfmt-rs, ... }:
 {
   imports = [ treefmt-nix.flakeModule ];
 
   perSystem =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      system,
+      ...
+    }:
     {
       treefmt = {
         flakeFormatter = false;
@@ -32,8 +37,10 @@
           keep-sorted.enable = true;
           # # Disable for unable to handle multiple scripts with same name
           # mypy.enable = true;
-          # # Inconsistent styling
-          # nixfmt.enable = true;
+          nixfmt = {
+            enable = true;
+            package = nixfmt-rs.packages.${system}.default;
+          };
           shfmt.enable = true;
           statix.enable = true;
           toml-sort.enable = true;
