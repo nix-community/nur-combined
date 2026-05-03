@@ -16,6 +16,7 @@ let
     "protonmail-bridge" = 358;
     jellyfin = 359;
     nextcloud = 360;
+    hermes = 361;
   };
 
   ourGids = {
@@ -31,6 +32,7 @@ let
     "protonmail-bridge" = 358;
     jellyfin = 359;
     nextcloud = 360;
+    hermes = 361;
   };
 
   # Returns an attrset of { "<number>" = [ { name; value; } ... ]; } for any

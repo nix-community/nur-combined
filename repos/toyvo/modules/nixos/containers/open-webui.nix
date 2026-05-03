@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.containerPresets.open-webui;
+  ids = config.ids;
 in
 {
   options.containerPresets.open-webui = {
@@ -125,11 +126,11 @@ in
           };
 
           users.users.open-webui = {
-            uid = config.ids.uids."open-webui";
+            uid = ids.uids."open-webui";
             isSystemUser = true;
             group = "open-webui";
           };
-          users.groups.open-webui.gid = config.ids.gids."open-webui";
+          users.groups.open-webui.gid = ids.gids."open-webui";
 
           systemd.tmpfiles.rules = [
             "d /var/lib/open-webui 0750 open-webui open-webui -"

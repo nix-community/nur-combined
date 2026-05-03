@@ -117,7 +117,7 @@
       enable = true;
       natInterface = "enp0s6";
       stateDir = "/var/lib/minecraft";
-      minecraftUid = 355;
+
       settings = {
         declarative = false;
         package = pkgs.papermcServers.papermc-1_21_11;
@@ -138,7 +138,7 @@
       enable = true;
       natInterface = "enp0s6";
       stateDir = "/var/lib/vintagestory";
-      vintagestoryUid = 356;
+
     };
     terraria = {
       enable = true;

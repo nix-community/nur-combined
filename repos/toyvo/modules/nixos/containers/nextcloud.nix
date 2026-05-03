@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.containerPresets.nextcloud;
+  ids = config.ids;
 in
 {
   options.containerPresets.nextcloud = {
@@ -165,11 +166,11 @@ in
         {
           # Pin UIDs to match state dir ownership on the host
           users.users.nextcloud = {
-            uid = lib.mkForce config.ids.uids.nextcloud;
+            uid = lib.mkForce ids.uids.nextcloud;
             group = "nextcloud";
             isSystemUser = true;
           };
-          users.groups.nextcloud.gid = lib.mkForce config.ids.gids.nextcloud;
+          users.groups.nextcloud.gid = lib.mkForce ids.gids.nextcloud;
 
           networking.defaultGateway = cfg.hostAddress;
 

@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.containerPresets.starr;
+  ids = config.ids;
   vpnInterface = "wg-proton";
   vpnNamespace = "protonvpn0";
 in
@@ -124,7 +125,7 @@ in
   config = lib.mkIf cfg.enable {
     services.monitoring.containerJournals = [ "starr" ];
     # Pin multimedia GID so bind-mounted paths are accessible from inside the container
-    users.groups.multimedia.gid = config.ids.gids.multimedia;
+    users.groups.multimedia.gid = ids.gids.multimedia;
 
     # NAT masquerade so the container can reach external indexers (Prowlarr, FlareSolverr)
     networking.nat = {
@@ -191,17 +192,17 @@ in
         { pkgs, ... }:
         {
           # Must match host GID so bind-mounted paths are writable
-          users.groups.multimedia.gid = config.ids.gids.multimedia;
+          users.groups.multimedia.gid = ids.gids.multimedia;
 
           # Pin UIDs to match state dir ownership on the host.
           # bazarr and readarr are not in nixpkgs ids.nix so their UIDs can diverge
           # across systems. prowlarr uses DynamicUser=yes upstream and requires an
           # explicit static user.
-          users.users.bazarr.uid = config.ids.uids.bazarr;
-          users.users.readarr.uid = config.ids.uids.readarr;
-          users.users.qbittorrent.uid = config.ids.uids.qbittorrent;
+          users.users.bazarr.uid = ids.uids.bazarr;
+          users.users.readarr.uid = ids.uids.readarr;
+          users.users.qbittorrent.uid = ids.uids.qbittorrent;
           users.users.prowlarr = {
-            uid = config.ids.uids.prowlarr;
+            uid = ids.uids.prowlarr;
             group = "prowlarr";
             isSystemUser = true;
           };

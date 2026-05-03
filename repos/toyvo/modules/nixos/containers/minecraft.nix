@@ -8,6 +8,7 @@
 }:
 let
   cfg = config.containerPresets.minecraft;
+  ids = config.ids;
 in
 {
   options.containerPresets.minecraft = {
@@ -145,9 +146,11 @@ in
       config =
         { config, inputs, ... }:
         {
+          imports = [ inputs.nixcfg.modules.nixos.services.minecraft ];
+
           # Pin UID/GID to match stateDir ownership on the host
-          users.users.minecraft.uid = lib.mkForce config.ids.uids.minecraft;
-          users.groups.minecraft.gid = lib.mkForce config.ids.gids.minecraft;
+          users.users.minecraft.uid = lib.mkForce ids.uids.minecraft;
+          users.groups.minecraft.gid = lib.mkForce ids.gids.minecraft;
 
           services.minecraft-server = lib.recursiveUpdate {
             enable = true;

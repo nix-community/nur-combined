@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.containerPresets.terraria;
+  ids = config.ids;
   tmuxCmd = "${pkgs.tmux}/bin/tmux -S /var/lib/terraria/terraria.sock";
 in
 {
@@ -168,9 +169,9 @@ in
             group = "terraria";
             home = "/var/lib/terraria";
             createHome = true;
-            uid = config.ids.uids.terraria;
+            uid = ids.uids.terraria;
           };
-          users.groups.terraria.gid = config.ids.gids.terraria;
+          users.groups.terraria.gid = ids.gids.terraria;
 
           systemd.tmpfiles.rules = [
             "d /var/lib/terraria 0750 terraria terraria -"

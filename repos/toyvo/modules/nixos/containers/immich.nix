@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.containerPresets.immich;
+  ids = config.ids;
 in
 {
   options.containerPresets.immich = {
@@ -90,7 +91,7 @@ in
         {
           # Pin UID to match state dir ownership on the host
           users.users.immich = {
-            uid = lib.mkForce config.ids.uids.immich;
+            uid = lib.mkForce ids.uids.immich;
             group = "immich";
             isSystemUser = true;
           };

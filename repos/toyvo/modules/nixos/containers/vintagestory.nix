@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.containerPresets.vintagestory;
+  ids = config.ids;
 in
 {
   options.containerPresets.vintagestory = {
@@ -96,14 +97,14 @@ in
         { ... }:
         {
           users.users.vintagestory = {
-            uid = lib.mkForce config.ids.uids.vintagestory;
+            uid = lib.mkForce ids.uids.vintagestory;
             description = "Vintage Story server service user";
             home = "/var/lib/vintagestory";
             createHome = true;
             isSystemUser = true;
             group = "vintagestory";
           };
-          users.groups.vintagestory.gid = lib.mkForce config.ids.gids.vintagestory;
+          users.groups.vintagestory.gid = lib.mkForce ids.gids.vintagestory;
 
           systemd.tmpfiles.rules = [
             "d /var/lib/vintagestory 0750 vintagestory vintagestory -"

@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.containerPresets.jellyfin;
+  ids = config.ids;
 in
 {
   options.containerPresets.jellyfin = {
@@ -103,16 +104,16 @@ in
         { ... }:
         {
           # Must match host GID so bind-mounted media paths are readable
-          users.groups.multimedia.gid = config.ids.gids.multimedia;
+          users.groups.multimedia.gid = ids.gids.multimedia;
 
           # Match host GIDs so DRI device node permissions work inside the container
-          users.groups.video.gid = config.ids.gids.video;
-          users.groups.render.gid = config.ids.gids.render;
+          users.groups.video.gid = ids.gids.video;
+          users.groups.render.gid = ids.gids.render;
 
           # Pin UID to match state dir ownership on the host. sysusers only creates absent
           # users so a pre-existing dir with a different UID will not be chowned automatically.
           users.users.jellyfin = {
-            uid = lib.mkForce config.ids.uids.jellyfin;
+            uid = lib.mkForce ids.uids.jellyfin;
             group = "multimedia";
             extraGroups = [
               "video"
