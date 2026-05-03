@@ -20,6 +20,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   docker-sandboxes = pkgs.callPackage ./pkgs/docker-sandboxes { };
+  multica = pkgs.callPackage ./pkgs/multica { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
