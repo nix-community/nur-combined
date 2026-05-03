@@ -640,6 +640,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pdf-ocr-editor = callPackage ./pkgs/development/python-modules/pdf-ocr-editor { };
 
+      chandra-ocr = callPackage ./pkgs/development/python-modules/chandra-ocr { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
