@@ -20,6 +20,7 @@ let
           }
           // {
             inherit inputs;
+            nixpkgs = pkgs;
           }
           // pkgsArg
           // self.packages
@@ -61,7 +62,6 @@ let
 
       packages = lib.mergeAttrs (self.pkgsFun pkgs) {
         callPackage = self.callPackageWrapper pkgs;
-        upstream = pkgs;
         inherit (self) pkgsCross pkgsStatic;
       };
     })).packages;

@@ -1,10 +1,10 @@
 {
-  upstream,
+  nixpkgs,
   sources,
 
   source ? sources.bark-server,
 }:
-upstream.bark-server.overrideAttrs (
+nixpkgs.bark-server.overrideAttrs (
   finalAttrs: prevAttrs: {
     inherit (source) version src;
 

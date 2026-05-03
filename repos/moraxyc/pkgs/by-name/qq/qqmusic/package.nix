@@ -1,7 +1,7 @@
 {
   lib,
   stdenvNoCC,
-  upstream,
+  nixpkgs,
 
   fetchurl,
   undmg,
@@ -12,7 +12,7 @@ let
     sources.${stdenvNoCC.hostPlatform.system}
       or (throw "Unsupported platform: ${stdenvNoCC.hostPlatform.system}");
 
-  meta = upstream.qqmusic.meta // {
+  meta = nixpkgs.qqmusic.meta // {
     platforms = lib.attrNames sources;
   };
   passthru = {
@@ -22,7 +22,7 @@ let
   };
 in
 if stdenvNoCC.hostPlatform.isLinux then
-  upstream.qqmusic.overrideAttrs (prevAttrs: {
+  nixpkgs.qqmusic.overrideAttrs (prevAttrs: {
     inherit (srcInfo) version;
     inherit meta;
 
@@ -36,7 +36,7 @@ if stdenvNoCC.hostPlatform.isLinux then
   })
 else
   stdenvNoCC.mkDerivation (finalAttrs: {
-    inherit (upstream.qqmusic) pname;
+    inherit (nixpkgs.qqmusic) pname;
     inherit (srcInfo) version;
     inherit meta passthru;
 
