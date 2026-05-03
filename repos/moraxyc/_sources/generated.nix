@@ -310,18 +310,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.10.0";
+    version = "1.10.2";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay_1.10.0_macOS_Universal.dmg";
-      sha256 = "sha256-KcProdsZ6E5xgY88Sa30tiI503zoclI1qGHGXue5MN4=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.2/NipaPlay_1.10.2_macOS_Universal.dmg";
+      sha256 = "sha256-MaVUfDysr8OrJHjVdWbrwYmHBDITzY/L8gidGiS/zXs=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.10.0";
+    version = "1.10.2";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.0/NipaPlay-1.10.0-Linux-amd64.AppImage";
-      sha256 = "sha256-LSNnqkW7ZltuAPd7V035K6sV397kcJj6yO8m+Vp2Oqg=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.2/NipaPlay-1.10.2-Linux-amd64.AppImage";
+      sha256 = "sha256-H0ifkHnYUXzz8YG0LFfr/Lj457PUOR46DcY846lWxeY=";
     };
   };
   pixy2 = {
@@ -373,29 +373,29 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202605012242";
+    version = "202605022234";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605012242/geoip.dat";
-      sha256 = "sha256-BoQBGsBQdyUkFPCXmYpspP0dcoGDSWoO69iiq9aZDD4=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605022234/geoip.dat";
+      sha256 = "sha256-pAUICnzzXjsCRzCgcpN8Dclx6HDafWYW77o8qmk8pgo=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202605012242";
+    version = "202605022234";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605012242/geosite.dat";
-      sha256 = "sha256-y6g8i7aAO5bvZC3lpP7z/P8Al5Ig4KPRmVvn5AQmhLA=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605022234/geosite.dat";
+      sha256 = "sha256-gCxZQj+lSKK61Sc0E5OMxtP5RDI9qbHbpmIFWp381Uo=";
     };
   };
   yass = {
     pname = "yass";
-    version = "1.24.7";
+    version = "1.24.8";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.24.7";
+      rev = "1.24.8";
       fetchSubmodules = true;
-      sha256 = "sha256-JaLMBv8NcVfmFp9MVE2bLPStCgIqwiELjRgq0v7VcIA=";
+      sha256 = "sha256-SbCMvGY743Xld6A/xqXrxZUzvGdX2NOlCypYbWHx/dk=";
     };
   };
 }
