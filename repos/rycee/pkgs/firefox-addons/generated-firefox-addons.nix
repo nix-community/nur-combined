@@ -15188,10 +15188,10 @@
     };
     "transparent-zen" = buildMozillaXpiAddon {
       pname = "transparent-zen";
-      version = "0.8.0";
+      version = "0.8.1";
       addonId = "{74186d10-f6f2-4f73-b33a-83bb72e50654}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4779639/transparent_zen-0.8.0.xpi";
-      sha256 = "5bc3db7bc73f666bfda87abf663e96e2d33a10fdbea3e00f5a8e7c9fd9b651ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4788465/transparent_zen-0.8.1.xpi";
+      sha256 = "da7d8562827ef0111f38471a6ea8ec69e2634f60f257e9e4da6c81b7ed094c39";
       meta = with lib;
       {
         description = "Applies custom styles to make your favorite websites transparent.";
