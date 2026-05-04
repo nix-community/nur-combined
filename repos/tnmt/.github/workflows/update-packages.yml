@@ -17,7 +17,6 @@ jobs:
         package:
           - ccpocket-bridge
           - ccusage
-          - gogcli
           - kagiana
           - roots
           - git-wt

@@ -13,7 +13,6 @@
 | [ccusage](./pkgs/ccusage) | Claude Code usage analytics CLI tool |
 | [git-wt](./pkgs/git-wt) | Git subcommand for managing git worktrees |
 | [givy](./pkgs/givy) | Local GitHub-like git viewer with a web UI |
-| [gogcli](./pkgs/gogcli) | Google CLI for Gmail, Calendar, Drive, and Contacts |
 | [kagiana](./pkgs/kagiana) | OAuth Authenticator & Vault Certificate Getter |
 | [oneaws](./pkgs/oneaws) | CLI tool for AWS authentication via OneLogin |
 | [roots](./pkgs/roots) | Tool for exploring multiple root directories, such as those in a monorepo project |
