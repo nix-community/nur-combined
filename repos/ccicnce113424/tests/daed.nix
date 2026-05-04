@@ -1,7 +1,7 @@
 { lib, ... }:
 {
 
-  name = "dae";
+  name = "daed";
 
   meta = {
     maintainers = with lib.maintainers; [ ccicnce113424 ];

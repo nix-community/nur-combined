@@ -130,8 +130,23 @@ in
           "${lib.getExe cfg.package} run -c ${cfg.configDir} -l ${cfg.listen}"
         ];
         Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
+
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectHome = true;
+        ProtectSystem = "strict";
+        ReadWritePaths = [ cfg.configDir ];
+        ProtectControlGroups = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        LockPersonality = true;
+        RestrictSUIDSGID = true;
       };
     };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.configDir} 0755 root root - -"
+    ];
   };
   meta.maintainers = with lib.maintainers; [ ccicnce113424 ];
 }
