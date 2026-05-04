@@ -1,4 +1,9 @@
 name: "Build and populate cache"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
   push:
@@ -35,9 +40,8 @@ jobs:
         cachixName:
           - uriotv
         nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

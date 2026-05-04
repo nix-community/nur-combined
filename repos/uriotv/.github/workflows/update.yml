@@ -1,4 +1,9 @@
 name: "Update packages"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   schedule:
     # Run every Sunday at 3:00 AM
@@ -38,31 +43,35 @@ jobs:
         run: nix profile install nixpkgs#nix-update
 
       - name: Update packages
+        id: update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Initialize summary
-          echo "## Package Update Status" >> $GITHUB_STEP_SUMMARY
-          echo "| Package | Status | Message |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+          # Collect all summary lines into a single string
+          summary="## Package Update Status"
+          summary+=$'\n'"| Package | Status | Message |"
+          summary+=$'\n'"| --- | --- | --- |"
 
           FAILED=0
-          
+
           run_update() {
             local script=$1
             local pkg_name=$(basename $(dirname $script))
-            
+
             echo "::group::Updating $pkg_name"
-            
-            if output=$(./$script 2>&1); then
+
+            local output
+            if output=$(./"$script" 2>&1); then
+              local escaped="${output//$'\n'/<br>}"
               echo "✅ Success"
-              echo "| $pkg_name | ✅ Success | $output |" >> $GITHUB_STEP_SUMMARY
+              summary+=$'\n'"| $pkg_name | ✅ Success | <pre>$escaped</pre> |"
             else
+              local escaped="${output//$'\n'/<br>}"
               echo "❌ Failed"
-              echo "| $pkg_name | ❌ Failed | <pre>$output</pre> |" >> $GITHUB_STEP_SUMMARY
+              summary+=$'\n'"| $pkg_name | ❌ Failed | <pre>$escaped</pre> |"
               FAILED=1
             fi
-            
+
             echo "$output"
             echo "::endgroup::"
           }
@@ -76,7 +85,17 @@ jobs:
               run_update "$script"
             done
           fi
-          
+
+          # Write summary to step summary and step output
+          {
+            echo "$summary" >> "$GITHUB_STEP_SUMMARY"
+          }
+          {
+            echo "summary<<EOF"
+            echo "$summary"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
           if [ $FAILED -ne 0 ]; then
             echo "::error::Some packages failed to update"
             exit 1
@@ -84,10 +103,6 @@ jobs:
 
       - name: Check for changes
         id: changes
-        if: always() # Run even if updates failed (to save partial updates if desired, or skip)
-                     # Actually, if we exit 1 above, this might skip. User wants to know if it failed.
-                     # If we exit 1, the job is marked failed. Use 'if: success() || failure()' if we still want to commit partials? 
-                     # Let's keep strict failure for now as requested "wiem czy się udał czy nie".
         run: |
           if git diff --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -96,7 +111,7 @@ jobs:
           fi
 
       - name: Create Pull Request
-        if: steps.changes.outputs.has_changes == 'true' && success()
+        if: steps.changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.PAT_FOR_UPDATES }}
@@ -104,9 +119,9 @@ jobs:
           title: "chore: Auto-update packages"
           body: |
             This PR was automatically created by the update workflow.
-            
+
             See the [Build Log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
-            
-            ${{ github.step_summary }}
+
+            ${{ steps.update.outputs.summary }}
           branch: auto-update-packages
           delete-branch: true
