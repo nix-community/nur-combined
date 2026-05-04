@@ -8,8 +8,8 @@
   # Can be overridden to alter the display name in steam
   # This could be useful if multiple versions should be installed together
   steamDisplayName ? "Proton-CachyOS",
-  # Can be overriden to x86_64_v{3,4}, and possibly arm64 but I can't test the last one.
-  # I'm probably using v4
+  # Can be overriden to x86_64_v3, and possibly arm64 but I can't test the last one.
+  # I'm probably using v3
   archVersion ? "x86_64",
 }:
 stdenvNoCC.mkDerivation (
@@ -18,15 +18,14 @@ stdenvNoCC.mkDerivation (
     pureVersion = lib.removeSuffix "-${archVersion}" finalAttrs.version;
     fullname = "proton-cachyos-${pureVersion}-slr-${archVersion}";
     hashes = {
-      x86_64 = "sha256-EYhn6eZ84HSyYbEU5JwXPxNkKH5bxfm3ct5BBHx4Ul4=";
-      x86_64_v3 = "sha256-IPTLaRJkbrqfA7qqQOuRet6QVU6QGO6GUP/XRMPMGXg=";
-      x86_64_v4 = "sha256-L4TXgaCOlLjrK38nQ0+fshnYfdg61sVE49wyHg+BKhw=";
-      arm64 = "sha256-wn8IMivVsi9qrB/8v5K1yxCHPJdTpn5CJsT0tNcjG58=";
+      x86_64 = "sha256-DnyseyydF+gdu+QJs3PspXR3Bbd+/5UujHb4uxXN+Oc=";
+      x86_64_v3 = "sha256-Ba+muUD9stahXexvCK46E2Oqdkppb+x1EW3nnrkfElo=";
+      arm64 = "sha256-6c9IxR69uOYSeh2Cdce+M952caAW7Pt51YzCJ64n2pQ=";
     };
   in
   {
     pname = "proton-cachyos-bin";
-    version = "10.0-20260425-${archVersion}";
+    version = "11.0-20260429-${archVersion}";
 
     src = fetchzip {
       url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${pureVersion}-slr/${fullname}.tar.xz";
