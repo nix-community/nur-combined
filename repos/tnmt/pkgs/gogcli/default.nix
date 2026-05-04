@@ -1,6 +1,6 @@
-{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
+{ lib, buildGoModule, fetchFromGitHub, nix-update-script, go_1_26 }:
 
-buildGoModule rec {
+(buildGoModule.override { go = go_1_26; }) rec {
   pname = "gogcli";
   version = "0.14.0";
 

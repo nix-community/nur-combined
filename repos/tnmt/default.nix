@@ -26,4 +26,5 @@
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };
   roots = pkgs.callPackage ./pkgs/roots { };
   git-wt = pkgs.callPackage ./pkgs/git-wt { };
+  givy = pkgs.callPackage ./pkgs/givy { };
 }
