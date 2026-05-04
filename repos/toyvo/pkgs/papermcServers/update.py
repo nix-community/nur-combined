@@ -16,6 +16,7 @@ class Version:
     def __init__(self, name: str):
         self.name: str = name
         self.hash: str | None = None
+        self.url: str | None = None
         self.build_number: int | None = None
 
     @property
@@ -137,6 +138,7 @@ class VersionManager:
             existing = self.existing_versions.get(version.name)
             if existing and existing.get('version') == version.full_name:
                 version.hash = existing['hash']
+                version.url = existing.get('url', download['url'])
                 print(f"Version {version.full_name} already cached")
                 continue
 
@@ -145,11 +147,12 @@ class VersionManager:
             hash_bytes = bytes.fromhex(hex_hash)
             b64_hash = base64.b64encode(hash_bytes).decode('utf-8')
             version.hash = f"sha256-{b64_hash}"
+            version.url = download['url']
             print(f"Version {version.full_name} fetched")
 
     def versions_to_json(self):
         return json.dumps(
-            {version.name: {'hash': version.hash, 'version': version.full_name}
+            {version.name: {'hash': version.hash, 'version': version.full_name, 'url': version.url}
                 for version in self.versions},
             indent=4
         )

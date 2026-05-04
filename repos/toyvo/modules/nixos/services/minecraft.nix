@@ -249,7 +249,7 @@ in
               server = {
                 address = lib.mkOption {
                   type = lib.types.str;
-                  default = "127.0.0.1:${toString cfg.serverProperties.server-port}";
+                  default = "127.0.0.1:${toString cfg.serverProperties.server-port or 25566}";
                   example = "127.0.0.1:25566";
                   description = "Server address. Internal IP and port of server started by lazymc to proxy to. Port must be different from public port.";
                 };
@@ -574,11 +574,6 @@ in
 
             fi
           ''
-          + lib.optionalString cfg.lazymc.enable ''
-            ln -sf "${
-              ((pkgs.formats.toml { }).generate "lazymc.toml" cfg.lazymc.config)
-            }" "${cfg.dataDir}/lazymc.toml"
-          ''
         else
           ''
             if [ -e .declarative ]; then
@@ -586,6 +581,11 @@ in
             fi
           ''
       )
+      + lib.optionalString cfg.lazymc.enable ''
+        ln -sf "${
+          ((pkgs.formats.toml { }).generate "lazymc.toml" cfg.lazymc.config)
+        }" "${cfg.dataDir}/lazymc.toml"
+      ''
       + lib.optionalString (cfg.icon != null) ''
         ln -sf "${cfg.icon}" "${cfg.dataDir}/server-icon.png"
       '';

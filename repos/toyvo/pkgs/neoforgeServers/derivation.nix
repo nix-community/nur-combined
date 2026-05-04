@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   nixosTests,
-  jre_headless,
+  jre,
   makeWrapper,
   version,
   hash,
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     mkdir -p $out/bin $out/lib/minecraft
     cp -v $src $out/lib/minecraft/server.jar
 
-    makeWrapper ${jre_headless}/bin/java $out/bin/minecraft-server \
+    makeWrapper ${jre}/bin/java $out/bin/minecraft-server \
       --add-flags "-jar $out/lib/minecraft/server.jar nogui"
   '';
 
