@@ -10,28 +10,28 @@
     "unpack": true
   },
   "force": true,
-  "version": "cachyos-11.0-20260428-slr",
+  "version": "cachyos-11.0-20260429-slr",
   "variants": {
     "arm": {
       "substitutions": [
         "arm64",
         ""
       ],
-      "hash": "sha256-VNcK0cDoZWyo/hfvA0RJjDFV9/0MG/10TCVLSO/H2E8="
+      "hash": "sha256-6c9IxR69uOYSeh2Cdce+M952caAW7Pt51YzCJ64n2pQ="
     },
     "v1": {
       "substitutions": [
         "x86_64",
         ""
       ],
-      "hash": "sha256-MeWzwrlqhyLirYP5JrUOF1TicIkexvHOWvyJMGtISB4="
+      "hash": "sha256-DnyseyydF+gdu+QJs3PspXR3Bbd+/5UujHb4uxXN+Oc="
     },
     "v3": {
       "substitutions": [
         "x86_64",
         "_v3"
       ],
-      "hash": "sha256-d0hpAXeOwC9pBzdvQWzL1GlNCu6l0iuzQV/ZHSHO4ok="
+      "hash": "sha256-Ba+muUD9stahXexvCK46E2Oqdkppb+x1EW3nnrkfElo="
     }
   }
 }
