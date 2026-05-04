@@ -31,6 +31,7 @@
   config,
   pkgs,
   lib,
+  utils,
   ...
 }:
 
@@ -127,7 +128,14 @@ in
       serviceConfig = {
         ExecStart = [
           ""
-          "${lib.getExe cfg.package} run -c '${cfg.configDir}' -l '${cfg.listen}'"
+          (utils.escapeSystemdExecArgs [
+            (lib.getExe cfg.package)
+            "run"
+            "-c"
+            cfg.configDir
+            "-l"
+            cfg.listen
+          ])
         ];
         Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
 
@@ -184,7 +192,7 @@ in
       };
     };
     systemd.tmpfiles.rules = [
-      "d ${cfg.configDir} 0755 root root - -"
+      "d ${cfg.configDir} 0750 root root - -"
     ];
   };
   meta.maintainers = with lib.maintainers; [ ccicnce113424 ];
