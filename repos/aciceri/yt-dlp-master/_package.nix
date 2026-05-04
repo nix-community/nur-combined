@@ -8,12 +8,12 @@
 yt-dlp.overrideAttrs (
   finalAttrs: previousAttrs: {
     pname = "yt-dlp-master";
-    version = "2026.03.17-unstable-2026-04-19";
+    version = "2026.03.17-unstable-2026-05-03";
     src = fetchFromGitHub {
       owner = "yt-dlp";
       repo = "yt-dlp";
-      rev = "165ee77a2be1b3360f1b82e03a933348ecd13e41";
-      hash = "sha256-J0dMsfxRM6OBtyqsJyf+hbxUW3m3Soqpv3rqvzij6H8=";
+      rev = "35684c1171dd8b99da825cf43a0b2c06b43824b7";
+      hash = "sha256-r3wqC1uYjVa90EqzIdihdKUjA92hMjtNL9kVH7zG70o=";
     };
     postPatch = "";
     passthru = previousAttrs.passthru // {
