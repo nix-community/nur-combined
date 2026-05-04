@@ -1,0 +1,29 @@
+#pragma code_page(65001)
+1 ICON "../assets/ie-r.ico"
+
+1 VERSIONINFO
+FILEFLAGSMASK 0x3f
+FILEVERSION 0,1,1,0
+PRODUCTVERSION 0,1,1,0
+FILEOS 0x40004
+FILETYPE 0x1
+FILESUBTYPE 0x0
+FILEFLAGS 0x0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904b0"
+    BEGIN
+      VALUE "FileDescription", "Instant Eyedropper Reborn Tray Launcher"
+      VALUE "ProductName",     "IE-R"
+      VALUE "FileVersion",     "0.1.1"
+      VALUE "ProductVersion",  "0.1.1"
+      VALUE "OriginalFilename","ie-r-tray.exe"
+      VALUE "LegalCopyright",  "2006-2026 Konstantin Yagola"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 0x4b0
+  END
+END

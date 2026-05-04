@@ -1,0 +1,30 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!--
+    Instant Eyedropper Reborn - Cross Variant, Small Pupil
+  -->
+  <defs>
+    <!-- Base sector for the color wheel (60 degrees) -->
+    <path id="iris-sector" d="M 128 128 L 128 16 A 112 112 0 0 1 225 72 Z" />
+  </defs>
+
+  <!-- Iris: Color Wheel (Tokyo Night Palette) -->
+  <use href="#iris-sector" xlink:href="#iris-sector" fill="#f7768e" /> <!-- Pink -->
+  <use href="#iris-sector" xlink:href="#iris-sector" fill="#e0af68" transform="rotate(60 128 128)" /> <!-- Yellow -->
+  <use href="#iris-sector" xlink:href="#iris-sector" fill="#9ece6a" transform="rotate(120 128 128)" /> <!-- Green -->
+  <use href="#iris-sector" xlink:href="#iris-sector" fill="#7dcfff" transform="rotate(180 128 128)" /> <!-- Light Blue -->
+  <use href="#iris-sector" xlink:href="#iris-sector" fill="#7aa2f7" transform="rotate(240 128 128)" /> <!-- Dark Blue -->
+  <use href="#iris-sector" xlink:href="#iris-sector" fill="#bb9af7" transform="rotate(300 128 128)" /> <!-- Purple -->
+
+  <!-- Cross (over iris, under outline and pupil) -->
+  <line x1="128" y1="16" x2="128" y2="240" stroke="#565f89" stroke-width="10" />
+  <line x1="16" y1="128" x2="240" y2="128" stroke="#565f89" stroke-width="10" />
+
+  <!-- Outer Iris Outline (The Black Circle Frame) -->
+  <circle cx="128" cy="128" r="112" fill="none" stroke="#000000" stroke-width="16" />
+
+  <!-- Inner Pupil (Dark, 2x smaller) -->
+  <circle cx="128" cy="128" r="21" fill="#16161e" stroke="#565f89" stroke-width="2.5" />
+
+  <!-- Reflection (Highlight) -->
+  <circle cx="116" cy="112" r="9" fill="#ffffff" />
+</svg>

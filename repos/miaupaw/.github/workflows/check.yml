@@ -1,0 +1,40 @@
+name: Check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwayland-dev libxkbcommon-dev libdbus-1-dev libfontconfig-dev \
+            libpipewire-0.3-dev pkg-config libx11-dev libxcursor-dev libxrandr-dev libxi-dev
+      - run: cargo check
+      - run: cargo clippy -- -D warnings
+
+  windows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-gnu
+          components: clippy
+      - name: Install mingw linker
+        run: sudo apt-get update && sudo apt-get install -y gcc-mingw-w64-x86-64
+      - run: cargo check --target x86_64-pc-windows-gnu
+      - run: cargo clippy --target x86_64-pc-windows-gnu -- -D warnings
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-gnu
+          components: clippy
+      - run: cargo clippy --target x86_64-pc-windows-gnu -- -D warnings

@@ -1,0 +1,178 @@
+# ==============================================================================
+#   INSTANT EYEDROPPER REBORN (IE-R) — CONFIGURATION MANIFESTO
+# ==============================================================================
+#   Click. Color. Done.
+#   Constructive Cyberpunk Style. High Tech, High Spirit.
+# ==============================================================================
+
+# The magnifier is the core UI element — a floating zoomed-in pixel grid
+# that follows the cursor. Aperture controls how many source pixels are
+# captured (field of view), size controls the physical window on screen.
+# Both aperture and size MUST be ODD for pixel-perfect crosshair centering
+# (the "Optical Monolith" invariant — enforced at runtime).
+[magnifier]
+aperture = 15       # source pixels captured (field of view)
+aim_size = 1        # averaging field (alt+scroll): 1 = single pixel, 3 = 3×3 avg, etc. (odd, ≤ aperture)
+size = 141          # physical window size on screen (px)
+offset_x = 100      # horizontal offset from cursor
+offset_y = 0        # vertical offset from cursor
+jump_threshold = 10 # color sensitivity for Ctrl+Arrow jumps (higher = skip more gradients)
+
+# Interface colors in HEX (#RRGGBB).
+# These define the visual identity of the overlay.
+[colors]
+frame       = "#3D367E" # outer frame border
+aim         = "#FF3B3B" # crosshair targeting the center pixel
+grid        = "#000000" # grid lines between zoomed pixels (visible at high zoom)
+foreground  = "#8DFF9A" # color code text
+background  = "#070021" # frosted glass tint behind the text box
+
+# The HUD is a translucent help panel that slides in from the right edge.
+# It shows keybindings, current format, and capture backend info.
+# Glitch effects are purely cosmetic — a cyberpunk aesthetic touch.
+[hud]
+show = true
+heavy_glitch_chance = 12  # full-line displacement glitch (0-100%)
+light_glitch_chance = 35  # subtle character jitter (0-100%)
+chromatic_chance    = 80  # RGB channel split effect (0-100%)
+scanlines_intensity = 0.1 # CRT scanline overlay strength (0.0 - 1.0)
+
+# Font used for color code display inside the magnifier's text box.
+# Monospaced fonts are strongly recommended for consistent alignment.
+# Leading zeros (e.g. "003" vs "255") can be dimmed to reduce visual noise.
+[font]
+family = "JetBrainsMono Nerd Font"
+size = 48.0           # base font size in the overlay (px)
+dim_zeros = 0.2       # opacity of leading zeros (0.0 = invisible, 1.0 = full)
+padding_left = "  "   # decorative padding before text
+padding_right = "  "  # decorative padding after text
+
+# Spring physics drive all magnifier animations — position, size, and text
+# width transitions. The implicit Euler integrator is unconditionally stable,
+# so even huge dt spikes (compositor lag, wake from idle) won't cause jitter.
+# Glass opacity controls the frosted background behind color code text.
+[physics]
+blur_radius = 14          # box blur radius for the frosted glass effect
+glass_opacity = 0.55      # 0.0 = fully transparent, 1.0 = solid background color
+stiffness = 1000.0        # spring stiffness (higher = snappier response)
+damping = 45.0            # spring damping (higher = less overshoot)
+pop_effect = 2.0          # spawn animation: 0.0 = instant, <1.0 = slower, 1.0 = standard, >1.0 = snappier
+blink_effect = "converge" # final pick animation: "none" | "converge"
+
+# Color format templates control what gets copied to clipboard and how
+# it's displayed in the overlay. The "selected" field picks the active format.
+# In Deck Mode (Shift+Click for serial picks), colors are joined with deck_separator.
+[templates]
+selected = "html"
+float_precision = 20    # decimal places for float format (e.g. 0.34901960784313724)
+deck_separator = "{nl}" # separator between serial picks: "{nl}" for newline, or any string
+
+# Clipboard templates — what actually lands in your clipboard.
+# Tokens: {R},{G},{B} (hex), {rd},{gd},{bd} (decimal), {rf},{gf},{bf} (float),
+#         {h},{s},{l} (HSL), {h},{s},{v} (HSV), {c},{m},{y},{k} (CMYK), {long} (integer)
+[templates.copy]
+html    = "#{R}{G}{B}"
+hex     = "0x{R}{G}{B}"
+rgb     = "{rd}, {gd}, {bd}"
+float   = "{rf}, {gf}, {bf}"
+hsl     = "hsl({h}, {s}%, {l}%)"
+hsv     = "hsv({h}, {s}%, {v}%)"
+cmyk    = "cmyk({c}%, {m}%, {y}%, {k}%)"
+delphi  = "$00{B}{G}{R}"
+vb      = "&H00{B}{G}{R}&"
+long    = "{long}"
+
+# Display templates — overlay-only visual override.
+# Use {nl} for line breaks to split long formats across multiple lines.
+# These don't affect what gets copied — only what you see in the magnifier.
+[templates.show]
+line_spacing = 1.5
+html    = "#{R}{G}{B}"
+hex     = "0x{R}{G}{B}"
+rgb     = "{rd}, {gd}, {bd}"
+float   = "{rf}{nl}{gf}{nl}{bf}"
+hsl     = "{h}, {s}%, {l}%"
+hsv     = "{h}, {s}%, {v}%"
+cmyk    = "{c}%, {m}%, {y}%, {k}%"
+
+# Color history is shown in the system tray context menu.
+# Settings live here; picked colors are stored separately in
+# ~/.local/state/ie-r/history.toml (or $XDG_STATE_HOME/ie-r/history.toml).
+[history]
+size = 15             # max colors to remember
+reverse_order = true  # newest first in tray menu
+
+# Global system integration settings.
+[system]
+# Tray icon style. Controls what SNI sends to the tray host.
+# "color"      — full-color pixmap. Works everywhere, host cannot override. (default)
+# "mono"       — no pixmap, IconName="ie-r-symbolic". Host auto-tints to panel color.
+#                Works on Waybar/wlroots. KDE Plasma may not render correctly.
+# "mono-white" — explicit white pixmap. For dark panels when symbolic fails (KDE Plasma).
+# "mono-black" — explicit black pixmap. For light panels when symbolic fails.
+# "none"       — disable tray entirely. SNI is not registered.
+tray_icon = "color"
+
+# Inactivity watchdog timeout (seconds).
+# Automatically cancels the overlay if no movement/input is detected.
+# Set to 0 to disable. (default: 60)
+auto_cancel = 60
+
+# External menu program for wlroots compositors (Hyprland, Sway, niri…).
+# Format: TOML array — first element is the executable, rest are arguments.
+# If unset, auto-detects: rofi → wofi → fuzzel.
+# Example: menu_command = ["dmenu", "-i", "-p", "IE-R"]
+# menu_command = ["rofi", "-dmenu", "-p", "IE-R"]
+
+# Show a welcome balloon tip on Windows when the app starts for the first time
+# or when re-launched. (Windows only)
+welcome_balloon = true
+
+# Global hotkey — works on X11 and Windows.
+# On Wayland, use system-level shortcuts instead — see the Wayland section below.
+#
+# Format: "Modifier(s)+Key"
+#
+# Modifiers (case-insensitive, any combination):
+#   Alt      — Alt / Option
+#   Shift    — Shift
+#   Ctrl     — Control
+#   Super    — Win key (Windows) / Super (Linux) / Cmd (Mac)
+#
+# Key — physical key (no Shift!):
+#   Letters & digits:  A–Z, 0–9
+#   F-keys:            F1–F24
+#   Arrows:            Up, Down, Left, Right
+#   Punctuation:       , . / ; ' [ ] \ = - ` (use the symbol itself)
+#                      or by name: Comma, Slash, Backquote, etc.
+#   Other:             Space, Tab, Enter, Esc, Backspace,
+#                      Delete, Home, End, PageUp, PageDown,
+#                      Insert, PrintScreen, ScrollLock
+#   Numpad:            Num0–Num9, NumAdd, NumSubtract,
+#                      NumMultiply, NumDivide, NumEnter
+#   Media:             VolumeUp, VolumeDown, VolumeMute,
+#                      MediaPlay, MediaPause, MediaStop,
+#                      MediaTrackNext, MediaTrackPrev
+#
+# Note: ~ is Shift+`, so use ` not ~.
+# Shifted symbols (!@#$%...) are not supported.
+#
+# Examples:
+#   "Alt+Shift+X"       — default
+#   "Super+Shift+P"     — Win+Shift+P
+#   "Ctrl+`"            — Ctrl+backtick
+hotkey = "Alt+Shift+X"
+poll_interval_ms = 50  # X11 only: hotkey event queue poll interval (ms).
+
+# --- Wayland Environments (Hyprland, Plasma, Sway, GNOME) ---
+# Wayland's security model blocks active keyboard polling.
+# To trigger IE-R, bind system shortcuts to UNIX signals:
+#   SIGUSR1 (Pick Color): killall -SIGUSR1 ie-r
+#   SIGUSR2 (Open Menu):  killall -SIGUSR2 ie-r
+#
+# Hyprland example (add to hyprland.conf):
+#   bind = SUPER SHIFT, C, exec, pkill -SIGUSR1 ie-r
+#
+# General Linux / KDE / GNOME:
+#   Search for "Custom Shortcuts" in System Settings and assign
+#   commands: `pkill -SIGUSR1 ie-r` or `killall -SIGUSR1 ie-r`.

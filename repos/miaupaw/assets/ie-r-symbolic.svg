@@ -1,0 +1,14 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Instant Eyedropper Reborn — Symbolic Icon
+    White ink, transparent background. Optimized for dark panels.
+    Install to: hicolor/symbolic/apps/ie-r-symbolic.svg
+  -->
+
+  <!-- Outer disc + gap + pupil via evenodd: outer ring + transparent gap + central dot -->
+  <path fill-rule="evenodd" fill="currentColor" d="
+    M 128,128 m -114,0 a 114,114 0 1,0 228,0 a 114,114 0 1,0 -228,0 Z
+    M 128,128 m -94,0 a 94,94 0 1,0 188,0 a 94,94 0 1,0 -188,0 Z
+    M 128,128 m -32,0 a 32,32 0 1,0 64,0 a 32,32 0 1,0 -64,0 Z
+  " />
+</svg>

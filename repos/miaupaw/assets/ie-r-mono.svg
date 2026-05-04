@@ -1,0 +1,18 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Instant Eyedropper Reborn - Monochrome (Boring Mode) Icon
+    For modern minimalist trays and those who fear color.
+  -->
+
+  <!-- Iris: Solid Gray Circle -->
+  <circle cx="128" cy="128" r="112" fill="#a9b1d6" />
+
+  <!-- Outer Iris Outline (The Black Circle Frame) -->
+  <circle cx="128" cy="128" r="112" fill="none" stroke="#000000" stroke-width="16" />
+
+  <!-- Inner Pupil (Dark) -->
+  <circle cx="128" cy="128" r="42" fill="#16161e" stroke="#565f89" stroke-width="5" />
+
+  <!-- Reflection (Highlight) -->
+  <circle cx="104" cy="95" r="17" fill="#ffffff" />
+</svg>

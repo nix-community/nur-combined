@@ -1,0 +1,22 @@
+[Desktop Entry]
+Name=Instant Eyedropper Reborn
+Comment=Pixel-perfect color picker. Native Wayland/KWin implementation.
+# EXEC IMPORTANT: Must point to the actual binary or wrapper
+Exec=ie-r
+Icon=ie-r
+Type=Application
+Categories=Utility;Graphics;Development;
+StartupNotify=false
+Terminal=false
+
+StartupWMClass=ie-r
+SkipTaskbar=true
+
+# ------------------------------------------------------------------
+# THE MAGIC 🪄
+# This key tells KWin/Plasma that this application is allowed to
+# request access to the ScreenShot2 interface.
+# Without this, KWin treats us as a "Stranger" and blocks even 
+# interactive requests (NoAuthorized).
+# ------------------------------------------------------------------
+X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2

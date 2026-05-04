@@ -1,0 +1,195 @@
+INSTANT EYEDROPPER REBORN (IE-R) LICENSE AGREEMENT
+Version 1.0, 2026
+
+Copyright (c) 2006-2026 Konstantin Yagola. All rights reserved.
+https://instant-eyedropper.com
+
+
+1. DEFINITIONS
+
+"Software" means the Instant Eyedropper Reborn (IE-R) application,
+including its source code, compiled binaries, documentation, assets,
+icons, configuration files, and any associated materials distributed
+in this repository.
+
+"Author" means Konstantin Yagola, the sole copyright holder.
+
+"Individual" means a natural person acting in a personal capacity,
+or a sole proprietor, freelancer, or independent contractor with no
+employees.
+
+"Small Organization" means a legal entity with fewer than fifty (50)
+employees AND less than one million United States dollars
+(US $1,000,000) in annual gross revenue.
+
+"Commercial Organization" means any legal entity that does not
+qualify as a Small Organization under this Agreement.
+
+"Commercial Use" means use of the Software by or on behalf of a
+Commercial Organization, including but not limited to: use on
+company-owned or company-managed devices, use by employees or
+contractors in the course of their duties, or deployment as part
+of a commercial product, service, or workflow.
+
+"Derivative Work" means any modification, adaptation, translation,
+or work based upon the Software or any portion thereof.
+
+
+2. GRANT OF RIGHTS — FREE USE
+
+Subject to the terms of this Agreement, the Author grants a
+worldwide, royalty-free, non-exclusive, non-transferable license
+to any Individual or Small Organization to:
+
+  (a) Use the Software for any purpose, including professional work;
+  (b) Make private modifications to the Software for personal use;
+  (c) Copy and distribute the Software in unmodified form, provided
+      that this license agreement is included in its entirety.
+
+This grant is perpetual and irrevocable for any version of the
+Software released under this license, so long as the terms are met.
+
+
+3. RESTRICTIONS — ALL USERS
+
+The following restrictions apply to all users, regardless of
+license tier:
+
+  (a) NO PUBLIC DISTRIBUTION OF DERIVATIVE WORKS. You may not
+      publish, distribute, sublicense, or make publicly available
+      any Derivative Work of the Software, in source or binary form.
+      Private modifications for personal use are permitted under
+      Section 2(b).
+
+  (b) NO INCORPORATION. You may not incorporate the Software's
+      source code, in whole or in part, into another software
+      project, whether open-source or proprietary, without prior
+      written permission from the Author.
+
+  (c) NO REBRANDING. You may not remove, alter, or obscure any
+      copyright notices, trademarks, or attribution contained in
+      the Software. You may not distribute the Software under a
+      different name or imply that a modified version is the
+      official release.
+
+  (d) NO REVERSE ENGINEERING FOR COMPETING PRODUCTS. You may not
+      use the Software's source code as a reference, template, or
+      basis for developing a competing color-picking tool or
+      similar utility without prior written permission from the
+      Author.
+
+
+4. COMMERCIAL LICENSE
+
+Commercial Organizations must obtain a paid license before using
+the Software. Two tiers are available:
+
+  (a) SINGLE LICENSE — US $99 (one-time)
+      Grants one (1) named user within the organization the right
+      to install and use the Software on up to two (2) devices
+      (e.g., a workstation and a laptop). The license is
+      non-transferable between users.
+
+  (b) SITE LICENSE — US $999 (one-time)
+      Grants the purchasing organization an unlimited number of
+      installations and users at any number of locations. The
+      license is bound to the legal entity named at purchase.
+
+Commercial licenses are perpetual for the major version purchased
+and include minor/patch updates at no additional cost. Major version
+upgrades may require a new license at the Author's discretion.
+
+To purchase a commercial license, contact the Author at:
+https://instant-eyedropper.com/license
+
+
+5. CONTRIBUTIONS
+
+By submitting a pull request, patch, issue, or any other
+contribution ("Contribution") to this project, you agree to the
+following:
+
+  (a) You grant the Author a perpetual, worldwide, royalty-free,
+      irrevocable, non-exclusive license to use, reproduce, modify,
+      sublicense, and distribute your Contribution as part of the
+      Software, under any license the Author chooses.
+
+  (b) You represent that you have the legal right to grant this
+      license and that your Contribution does not infringe any
+      third-party rights.
+
+  (c) You understand that your Contribution may be used in both
+      free and commercially-licensed versions of the Software.
+
+This section constitutes the Contributor License Agreement (CLA)
+for the project.
+
+
+6. TRADEMARKS
+
+"Instant Eyedropper," "Instant Eyedropper Reborn," "IE-R," and
+the associated logos and icons are trademarks of Konstantin Yagola.
+
+You may not use these names, logos, or any confusingly similar marks
+in connection with any other software product, service, or project
+without prior written permission from the Author. This includes,
+but is not limited to, using the names in project titles, package
+names, domain names, or marketing materials.
+
+Fair use for purposes of identification, commentary, or review
+is permitted.
+
+
+7. DISCLAIMER OF WARRANTY
+
+THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+NONINFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR
+OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+8. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE AUTHOR'S
+TOTAL LIABILITY UNDER THIS AGREEMENT SHALL NOT EXCEED THE AMOUNT
+PAID BY YOU FOR THE SOFTWARE (IF ANY). IN NO EVENT SHALL THE AUTHOR
+BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
+PUNITIVE DAMAGES.
+
+
+9. TERMINATION
+
+This license terminates automatically if you breach any of its
+terms. Upon termination, you must cease all use of the Software
+and destroy all copies in your possession. Sections 3, 5, 6, 7,
+8, and 10 survive termination.
+
+
+10. GOVERNING LAW
+
+This Agreement shall be governed by and construed in accordance
+with the laws of Ukraine, without regard to its conflict-of-law
+provisions. Any disputes arising under this Agreement shall be
+resolved in the competent courts located in Kyiv, Ukraine.
+
+
+11. ENTIRE AGREEMENT
+
+This Agreement constitutes the entire agreement between you and
+the Author regarding the Software and supersedes all prior
+agreements, whether written or oral. The Author reserves the right
+to modify the terms of this Agreement for future releases of the
+Software. Your continued use of a new release constitutes
+acceptance of any updated terms accompanying that release.
+
+
+---
+
+For licensing inquiries:
+Konstantin Yagola
+https://instant-eyedropper.com/license
