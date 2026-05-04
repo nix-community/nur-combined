@@ -14,7 +14,7 @@ assert src != null;
 let
   package = src.${stdenv.hostPlatform.config} or src;
 
-  platforms = [
+  systems = [
     "x86_64-linux"
     "aarch64-linux"
     "armv7l-linux"
@@ -29,9 +29,9 @@ dockerTools.buildLayeredImage (
     tag = args.tag or package.version;
     architecture = args.architecture or package.stdenv.hostPlatform.go.GOARCH;
     meta = (args.meta or package.meta or { }) // {
-      platforms = builtins.filter (platform: builtins.elem platform platforms) (
-        package.meta.platforms or platforms
-      );
+      platforms = builtins.filter (
+        system: lib.meta.availableOn (lib.systems.elaborate system) package
+      ) systems;
     };
 
     config = (args.config or { }) // {

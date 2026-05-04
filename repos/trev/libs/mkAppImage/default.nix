@@ -41,7 +41,7 @@ let
   ]
   ++ squashfsArgs;
 
-  platforms = [
+  systems = [
     "x86_64-linux"
     "aarch64-linux"
     "armv7l-linux"
@@ -117,8 +117,8 @@ stdenvNoCC.mkDerivation {
 
   meta = (package.meta or { }) // {
     mainProgram = name;
-    platforms = builtins.filter (platform: builtins.elem platform platforms) (
-      package.meta.platforms or platforms
-    );
+    platforms = builtins.filter (
+      system: lib.meta.availableOn (lib.systems.elaborate system) package
+    ) systems;
   };
 }
