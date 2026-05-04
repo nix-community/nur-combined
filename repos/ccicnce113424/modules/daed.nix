@@ -141,7 +141,7 @@ in
 
         # Hardening
         NoNewPrivileges = true;
-        AmbientCapabilities = [ "" ];
+        AmbientCapabilities = [ ];
         CapabilityBoundingSet = [
           "CAP_BPF"
           "CAP_NET_BIND_SERVICE"
