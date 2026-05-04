@@ -7,7 +7,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
@@ -27,4 +29,5 @@
   roots = pkgs.callPackage ./pkgs/roots { };
   git-wt = pkgs.callPackage ./pkgs/git-wt { };
   givy = pkgs.callPackage ./pkgs/givy { };
+  mo = pkgs.callPackage ./pkgs/mo { };
 }

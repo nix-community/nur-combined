@@ -5,6 +5,8 @@
   fetchFromGitHub,
   nodejs,
   pnpm_10,
+  pnpmConfigHook,
+  fetchPnpmDeps,
   nix-update-script,
 }:
 
@@ -26,11 +28,13 @@ let
 
     nativeBuildInputs = [
       nodejs
-      pnpm_10.configHook
+      pnpmConfigHook
+      pnpm_10
     ];
 
-    pnpmDeps = pnpm_10.fetchDeps {
+    pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src sourceRoot;
+      pnpm = pnpm_10;
       fetcherVersion = 2;
       hash = "sha256-DNsOnoRLWJPCarOXHaKR4XyqPyE7PQWykm1cFDLtM/o=";
     };
