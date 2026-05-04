@@ -127,7 +127,7 @@ in
       serviceConfig = {
         ExecStart = [
           ""
-          "${lib.getExe cfg.package} run -c ${cfg.configDir} -l ${cfg.listen}"
+          "${lib.getExe cfg.package} run -c '${cfg.configDir}' -l '${cfg.listen}'"
         ];
         Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
 
@@ -161,7 +161,6 @@ in
           "AF_INET"
           "AF_INET6"
           "AF_NETLINK"
-          "AF_UNIX"
         ];
         RestrictNamespaces = [ "net" ];
         RestrictRealtime = true;
