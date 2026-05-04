@@ -87,6 +87,10 @@ extract = ["pubspec.lock"]
 fetch.github = "wgh136/pixes"
 src.git = "https://github.com/wgh136/pixes"
 
+[pwasio]
+fetch.github = "golfiros/pwasio"
+src.git = "https://github.com/golfiros/pwasio"
+
 [splayer-git]
 cargo_lock = ["Cargo.lock"]
 fetch.github = "imsyy/SPlayer"

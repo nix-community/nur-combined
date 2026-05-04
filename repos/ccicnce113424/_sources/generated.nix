@@ -249,6 +249,18 @@
       "pubspec.lock" = ./. + "/sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt_OJn6ia6CmIc4=/pubspec.lock";
     };date = "2026-04-07";
   };
+  pwasio = {
+    pname = "pwasio";
+    version = "aec11932e21b7469357cd754509263ab0152531b";
+    src = fetchFromGitHub {
+      owner = "golfiros";
+      repo = "pwasio";
+      rev = "aec11932e21b7469357cd754509263ab0152531b";
+      fetchSubmodules = false;
+      sha256 = "sha256-ZA+aSwobb0LWn3/I7Az4BM1V6fVGODxFHMJQU4TOYnU=";
+    };
+    date = "2026-04-18";
+  };
   splayer-git = {
     pname = "splayer-git";
     version = "ed080dd9e2176614092d2e18cbb5c243c5f3bcee";
@@ -329,7 +341,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

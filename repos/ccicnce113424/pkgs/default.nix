@@ -133,6 +133,11 @@ lib.makeScope pkgs.newScope (self: {
     srcInfo = lib.importJSON ./pixes/git/src-info.json;
   };
 
+  pwasio = self.callPackage ./pwasio rec {
+    sources = fetchedSrc.pwasio;
+    version = unstableVersion sources;
+  };
+
   shijima-qt = self.callPackage ./shijima-qt { };
 
   splayer-git = self.callPackage ./splayer-git rec {
