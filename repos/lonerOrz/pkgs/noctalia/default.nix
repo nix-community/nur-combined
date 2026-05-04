@@ -25,6 +25,7 @@
   libwebp,
   glib,
   polkit,
+  librsvg,
 
   withLto ? false,
   withNative ? false,
@@ -81,6 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     libwebp
     glib
     polkit
+    librsvg
   ];
 
   mesonFlags = [
