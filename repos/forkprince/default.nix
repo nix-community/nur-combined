@@ -27,11 +27,11 @@
   betteraudio = lib.callPackage ./pkgs/betteraudio {};
   linearmouse = lib.callPackage ./pkgs/linearmouse {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
-  finetune = lib.callPackage ./pkgs/linearmouse {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
   convierto = lib.callPackage ./pkgs/convierto {};
   crossover = lib.callPackage ./pkgs/crossover {};
+  finetune = lib.callPackage ./pkgs/finetune {};
   open-emu = lib.callPackage ./pkgs/open-emu {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};
   roblox = lib.callPackage ./pkgs/roblox {};
