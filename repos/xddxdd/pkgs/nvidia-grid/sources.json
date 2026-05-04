@@ -479,6 +479,46 @@
             "https://file.homelabproject.cc/p/foxipan/vGPU/16.12/NVIDIA-GRID-Linux-KVM-535.274.03-535.274.02-539.56.zip": "0zl9yvwirdhyzncg3nk46r7qqynfjh3816zh3x74p9l5kpv4mfrx"
         }
     },
+    "16.13": {
+        "guest": {
+            "persistenced_hash": "sha256-q061VN6om3UzbpWD7+tJJVgU/e2YCJF4IgEv53qx9ZA=",
+            "persistenced_version": "535.288.01",
+            "settings_hash": "sha256-hN4IWAD/M+th7brbzdBtgOQ2P1QUVrrWITgVGiuCxWw=",
+            "settings_version": "535.288.01",
+            "version": "535.288.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-q061VN6om3UzbpWD7+tJJVgU/e2YCJF4IgEv53qx9ZA=",
+            "persistenced_version": "535.288.01",
+            "settings_hash": "sha256-hN4IWAD/M+th7brbzdBtgOQ2P1QUVrrWITgVGiuCxWw=",
+            "settings_version": "535.288.01",
+            "version": "535.288.01"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.13/NVIDIA-GRID-Linux-KVM-535.288.01-539.64.zip": "1ri8xi4v8ss9bs89lyny7h66cka7zr1drzisy9gynany29ks7jxs"
+        }
+    },
+    "16.14": {
+        "guest": {
+            "persistenced_hash": "sha256-Dgt0cQeD+fV0aCqMIcHrrurHaGUPx/CIefaubTjYAT4=",
+            "persistenced_version": "535.309.01",
+            "settings_hash": "sha256-rGKUL/5JVL+1IILj1IxtVnBBpVoqsZAVG1F0qoD6t2E=",
+            "settings_version": "535.309.01",
+            "version": "535.309.01"
+        },
+        "host": {
+            "persistenced_hash": "sha256-Dgt0cQeD+fV0aCqMIcHrrurHaGUPx/CIefaubTjYAT4=",
+            "persistenced_version": "535.309.01",
+            "settings_hash": "sha256-rGKUL/5JVL+1IILj1IxtVnBBpVoqsZAVG1F0qoD6t2E=",
+            "settings_version": "535.309.01",
+            "version": "535.309.01"
+        },
+        "patches": {},
+        "urls": {
+            "https://file.homelabproject.cc/p/foxipan/vGPU/16.14/NVIDIA-GRID-Linux-KVM-535.309.01-539.72.zip": "1f0gcyjc9kcsihd52s9dmd8clma6x3p61g3vmqdw0a82166yayxz"
+        }
+    },
     "16.2": {
         "guest": {
             "persistenced_hash": "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=",
