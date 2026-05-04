@@ -272,6 +272,9 @@
       "scene ui" = "!include scenes.yaml";
       "script ui" = "!include scripts.yaml";
     };
+    customComponents = with pkgs.home-assistant-custom-components; [
+      xiaomi_home
+    ];
   };
 
   services.mosquitto = {
