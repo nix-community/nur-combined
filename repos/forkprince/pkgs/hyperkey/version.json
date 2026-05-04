@@ -1,0 +1,14 @@
+{
+  "name": "Hyperkey",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/hyperkey.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "1.56",
+  "asset": {
+    "url": "https://hyperkey.app/downloads/Hyperkey1.56.dmg",
+    "hash": "sha256-W+Tzq7YpaIeVqoesZJDBppOxQIR7vzbTg2L6yX37fx4="
+  }
+}

@@ -31,6 +31,8 @@
   dropshare = lib.callPackage ./pkgs/dropshare {};
   convierto = lib.callPackage ./pkgs/convierto {};
   crossover = lib.callPackage ./pkgs/crossover {};
+  dockdoor = lib.callPackage ./pkgs/dockdoor {};
+  hyperkey = lib.callPackage ./pkgs/hyperkey {};
   finetune = lib.callPackage ./pkgs/finetune {};
   open-emu = lib.callPackage ./pkgs/open-emu {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};

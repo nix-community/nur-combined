@@ -1,0 +1,14 @@
+{
+  "name": "DockDoor",
+  "source": {
+    "type": "github-release",
+    "repo": "ejbills/DockDoor",
+    "skip_prerelease": true
+  },
+  "asset": {
+    "file": "DockDoor.dmg",
+    "unpack": false
+  },
+  "version": "1.37",
+  "hash": "sha256-GiwOgkpt9LRKeN0TOUQIlT1LaBco4lj6U4OoH30ZC8E="
+}
