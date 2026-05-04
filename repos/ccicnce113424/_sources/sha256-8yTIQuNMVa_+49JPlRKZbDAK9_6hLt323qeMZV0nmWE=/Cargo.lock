@@ -525,7 +525,7 @@ dependencies = [
 
 [[package]]
 name = "krunner-zed"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "dirs",
  "freedesktop-desktop-entry",

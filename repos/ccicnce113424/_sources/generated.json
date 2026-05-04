@@ -185,7 +185,7 @@
     "krunner-zed": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-yG2pbISlDSrNJkmb2vSlg8WWXQk1xTBY77O2cvDUdX8=/Cargo.lock",
+                "sha256-8yTIQuNMVa_+49JPlRKZbDAK9_6hLt323qeMZV0nmWE=/Cargo.lock",
                 {}
             ]
         },
@@ -201,12 +201,12 @@
             "name": null,
             "owner": "hron",
             "repo": "krunner-zed",
-            "rev": "v0.1.2",
-            "sha256": "sha256-yG2pbISlDSrNJkmb2vSlg8WWXQk1xTBY77O2cvDUdX8=",
+            "rev": "v0.1.3",
+            "sha256": "sha256-8yTIQuNMVa/+49JPlRKZbDAK9/6hLt323qeMZV0nmWE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.2"
+        "version": "v0.1.3"
     },
     "linux-enable-ir-emitter": {
         "cargoLock": {
@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-CKQoM1jXbLZiXxBjvLqGttvxRqzPQKYKS9AxpVDkGKw=/src-tauri/Cargo.lock",
+                "sha256-+2HjCsuJjdCS7N_3XsLW8DvMC5aQeXwIRBplIhTV2SA=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.8.7-beta.2",
-            "sha256": "sha256-CKQoM1jXbLZiXxBjvLqGttvxRqzPQKYKS9AxpVDkGKw=",
+            "rev": "v3.8.7",
+            "sha256": "sha256-+2HjCsuJjdCS7N/3XsLW8DvMC5aQeXwIRBplIhTV2SA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.8.7-beta.2"
+        "version": "v3.8.7"
     },
     "piliplus": {
         "cargoLock": null,

@@ -3068,7 +3068,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.8.7-beta.2"
+version = "3.8.7"
 dependencies = [
  "axum",
  "chrono",
@@ -3090,6 +3090,7 @@ dependencies = [
  "rfd",
  "rusqlite",
  "sanitize-filename",
+ "semver",
  "serde",
  "serde_json",
  "strip-ansi-escapes",
