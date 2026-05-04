@@ -662,6 +662,9 @@
         "heph2": {
             "url": "https://github.com/heph2/nur-packages"
         },
+        "herver": {
+            "url": "https://github.com/herver/nur"
+        },
         "hexadecimalDinosaur": {
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
@@ -971,6 +974,9 @@
         },
         "mhuesch": {
             "url": "https://github.com/mhuesch/nur-packages"
+        },
+        "miaupaw": {
+            "url": "https://github.com/miaupaw/ie-r"
         },
         "mic92": {
             "url": "https://github.com/Mic92/nur-packages"
@@ -1436,6 +1442,9 @@
         },
         "tarantoj": {
             "url": "https://github.com/tarantoj/nur-packages"
+        },
+        "teformel": {
+            "url": "https://github.com/teformel/nur-packages"
         },
         "tehplague": {
             "url": "https://github.com/tehplague/NUR"
