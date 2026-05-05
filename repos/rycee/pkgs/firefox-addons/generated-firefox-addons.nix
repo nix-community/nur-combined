@@ -2427,10 +2427,10 @@
     };
     "control-panel-for-youtube" = buildMozillaXpiAddon {
       pname = "control-panel-for-youtube";
-      version = "1.33.1";
+      version = "1.33.2";
       addonId = "control-panel-for-youtube@jbscript.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4766902/control_panel_for_youtube-1.33.1.xpi";
-      sha256 = "d696d11271df8d305a7f0529039d7a6b4ed7ce638d871f83768c6b13e90991a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4780440/control_panel_for_youtube-1.33.2.xpi";
+      sha256 = "8c4ea499163a404804078df7e1d7791c094e7bbdd3abec053de94190a30c0dad";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-youtube";
@@ -2900,10 +2900,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260501.90355";
+      version = "151.0.20260504.90448";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787426/dansk_da_language_pack-151.0.20260501.90355.xpi";
-      sha256 = "8b6a826913a81f6a4f063598a14afe84afb0dd4ca7c85d717414bfe0b1af05ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4790767/dansk_da_language_pack-151.0.20260504.90448.xpi";
+      sha256 = "7b27e6ae7f21f8a78cf9c82b79628732eb3fca65d37adae93459a51cfd4712d6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3017,10 +3017,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2617.0";
+      version = "6.2619.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4773847/dashlane-6.2617.0.xpi";
-      sha256 = "146fe85d4c5765149af90e034be4ccfcb89a6fd99b4cb205884fdcfa6f1c0aff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4790403/dashlane-6.2619.0.xpi";
+      sha256 = "ef153c905506642f1c2f0fed417f0dead7b1917305e9c47c6c03c62060b56e86";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3114,10 +3114,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260501.90355";
+      version = "151.0.20260504.90448";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787443/deutsch_de_language_pack-151.0.20260501.90355.xpi";
-      sha256 = "97c8f4dc7f6e17e30494e42f5c069a3f7bd23be0aad8340d0463189c8f6064e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4790764/deutsch_de_language_pack-151.0.20260504.90448.xpi";
+      sha256 = "d57e8802d538cd591edd132d5ca9d4a139f17c11ebc2dc6960bd6274534eeab9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4592,10 +4592,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260501.90355";
+      version = "151.0.20260504.90448";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787441/francais_language_pack-151.0.20260501.90355.xpi";
-      sha256 = "e6a45624911695fbd680fc349069667d73caf79f7e87dbb116e567ea113a52c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4790801/francais_language_pack-151.0.20260504.90448.xpi";
+      sha256 = "a08186b59c5904666b1bf8a672ec9b6e14c18752335a241ca78a5f8cb2b3ef97";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4629,10 +4629,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260501.90355";
+      version = "151.0.20260504.90448";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787527/gaidhlig_language_pack-151.0.20260501.90355.xpi";
-      sha256 = "35471039cdb480ba3b5dcc57f1607a288697631c4d4a1b36e70e7d24290b0f36";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4790769/gaidhlig_language_pack-151.0.20260504.90448.xpi";
+      sha256 = "188d669ef9c16a69391c7625f780b65befef55eb90d9c93e0cc46bf341880269";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7167,10 +7167,10 @@
     };
     "jabref" = buildMozillaXpiAddon {
       pname = "jabref";
-      version = "3.1";
+      version = "3.2.2";
       addonId = "@jabfox";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748822/jabref-3.1.xpi";
-      sha256 = "c914b87e6b9eed40f5eff1efba3e621984813b1b15d5dab5c00bca7f7f4ac5fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4791467/jabref-3.2.2.xpi";
+      sha256 = "935acd20a9658a339371c79e30bfad89fb6902e1b9e69fcd72fbce669f582c9d";
       meta = with lib;
       {
         homepage = "http://www.jabref.org/";
@@ -13326,10 +13326,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260501.90355";
+      version = "151.0.20260504.90448";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787485/scots_language_pack-151.0.20260501.90355.xpi";
-      sha256 = "d4b095c459a380b4d09ee420447192c9d62299c9ab29905508c61967d93e342b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4790715/scots_language_pack-151.0.20260504.90448.xpi";
+      sha256 = "5303cfd4937a5fd1fd7844377b574fa4ca43950bfc55df23708b8e05c4facf94";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15479,10 +15479,10 @@
     };
     "ublacklist" = buildMozillaXpiAddon {
       pname = "ublacklist";
-      version = "9.5.0";
+      version = "9.6.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4724472/ublacklist-9.5.0.xpi";
-      sha256 = "d850b831eb3e20e1e6077bd48d363bb4ebcda7132c424bf98f8310277d582525";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4780523/ublacklist-9.6.0.xpi";
+      sha256 = "c10795325d2e6d10fa93b1a37fc5cc58ebb636af4294166d89e846cd312dafac";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
