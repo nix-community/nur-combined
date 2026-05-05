@@ -7,13 +7,13 @@
 }:
 mkOpencodePlugin rec {
   pname = "quotes";
-  version = "1.3.0";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "aerovato";
     repo = "opencode-${pname}-plugin";
     rev = "v${version}";
-    hash = "sha256-RkPvTunug/E2y7bBMRe1mHnt9jRRdppbVR107yhR5Rs=";
+    hash = "sha256-0h5B9GnBV1uBKvfk/AVryciZUhRMQSgVOATm9cMHvh0=";
   };
 
   dependencyHash = "sha256-QFxwoEhensQpiZHDR6D2+nzDz4WRN6XNV3A5yaXNZGE=";
