@@ -47,6 +47,7 @@
     cacheDir = "/nix/var/cache/ccache";
     packageNames = [
       "llama-cpp"
+      "stable-diffusion-cpp"
     ];
   };
 

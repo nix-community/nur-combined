@@ -69,6 +69,7 @@
     filezilla
     freerdp
     # cli
+    axel
     bottom
     cloudflared
     curl

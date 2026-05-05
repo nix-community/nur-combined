@@ -2,6 +2,7 @@
 let
   bg = "backgrounds/nixos/nix-wallpaper-dracula.png";
   bgPath = "${pkgs.nixos-artwork.wallpapers.dracula}/share/${bg}";
+  noproxy = cmd: "env -u http_proxy -u https_proxy -u ftp_proxy -u rsync_proxy -u all_proxy ${cmd}";
 in
 {
   home.packages = [ pkgs.swaybg ];
@@ -52,4 +53,16 @@ in
         }
       ];
     };
+  xdg.desktopEntries = {
+    "chromium-browser" = {
+      name = "Chromium (Custom)";
+      genericName = "Web Browser";
+      comment = "Access the Internet";
+      exec = noproxy "chromium %U";
+      icon = "chromium";
+      terminal = false;
+      startupNotify = true;
+      categories = [ "Network" "WebBrowser" ];
+    };
+  };
 }

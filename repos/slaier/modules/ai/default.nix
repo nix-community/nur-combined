@@ -189,6 +189,9 @@ in
     (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ch/cherry-studio/package.nix" {
       pnpm_10_29_2 = pkgs.pnpm;
     })
+    (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/st/stable-diffusion-cpp/package.nix" {
+      vulkanSupport = true;
+    })
     (pkgs.callPackage ./aicommits.nix { })
     (pkgs.callPackage ./claude-code-best.nix { })
   ];
