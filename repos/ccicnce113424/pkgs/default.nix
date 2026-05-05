@@ -156,12 +156,17 @@ lib.makeScope pkgs.newScope (self: {
     version = unstableVersion sources;
   };
 
-  svt-av1-hdr = self.callPackage ./svt-av1-psy rec {
+  svt-av1-essential = self.callPackage ./svt-av1-essential rec {
+    sources = fetchedSrc.svt-av1-essential;
+    version = stableVersion sources;
+  };
+
+  svt-av1-hdr = self.callPackage ./svt-av1-shared rec {
     sources = fetchedSrc.svt-av1-hdr;
     version = stableVersion sources;
   };
 
-  svt-av1-psyex = self.callPackage ./svt-av1-psy rec {
+  svt-av1-psyex = self.callPackage ./svt-av1-psyex rec {
     sources = fetchedSrc.svt-av1-psyex;
     version = stableVersion sources;
   };

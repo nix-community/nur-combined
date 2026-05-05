@@ -9,7 +9,6 @@
   yasm,
   ninja,
   pkg-config,
-  cpuinfo,
   libdovi,
   hdr10plus,
 }:
@@ -36,7 +35,7 @@ customStdenv.mkDerivation (finalAttrs: {
       {
         LIBDOVI_FOUND = true;
         LIBHDR10PLUS_RS_FOUND = true;
-        CMAKE_INTERPROCEDURAL_OPTIMIZATION = true;
+        SVT_AV1_LTO = true;
       };
 
   nativeBuildInputs = [
@@ -51,9 +50,6 @@ customStdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libdovi
     hdr10plus
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isx86_64 [
-    cpuinfo
   ];
 
   strictDeps = true;

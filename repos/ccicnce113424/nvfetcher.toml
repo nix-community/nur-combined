@@ -106,6 +106,10 @@ cargo_lock = ["Cargo.lock"]
 fetch.github = "SPlayer-Dev/SPlayer-Next"
 src.git = "https://github.com/SPlayer-Dev/SPlayer-Next"
 
+[svt-av1-essential]
+fetch.github = "nekotrix/SVT-AV1-Essential"
+src.github = "nekotrix/SVT-AV1-Essential"
+
 [svt-av1-hdr]
 fetch.github = "juliobbv-p/svt-av1-hdr"
 src.github_tag = "juliobbv-p/svt-av1-hdr"

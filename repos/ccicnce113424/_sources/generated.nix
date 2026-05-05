@@ -311,6 +311,17 @@
     };
     date = "2026-04-30";
   };
+  svt-av1-essential = {
+    pname = "svt-av1-essential";
+    version = "v4.0.1-Essential";
+    src = fetchFromGitHub {
+      owner = "nekotrix";
+      repo = "SVT-AV1-Essential";
+      rev = "v4.0.1-Essential";
+      fetchSubmodules = false;
+      sha256 = "sha256-Xyvlirf0lGocQL5xYeWOVKYpDRXNs3O70AotTho/FTE=";
+    };
+  };
   svt-av1-hdr = {
     pname = "svt-av1-hdr";
     version = "v4.1.0";
@@ -341,7 +352,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {
