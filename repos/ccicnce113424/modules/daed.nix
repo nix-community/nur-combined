@@ -145,7 +145,6 @@ in
           "CAP_BPF"
           "CAP_NET_BIND_SERVICE"
           "CAP_NET_ADMIN"
-          "CAP_NET_RAW"
           "CAP_SYS_ADMIN"
         ];
         PrivateTmp = true;
