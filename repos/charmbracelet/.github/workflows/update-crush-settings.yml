@@ -29,10 +29,6 @@ jobs:
         run: |
           cd scripts && go generate
 
-      - name: Format with alejandra
-        run: |
-          nix-shell -p alejandra --run "alejandra modules/crush/options/settings.nix"
-
       - name: Check for changes
         id: check_changes
         run: |
