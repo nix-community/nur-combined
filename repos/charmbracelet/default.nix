@@ -17,7 +17,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # charm: DEPRECATED - will be removed July 2026
   charm = pkgs.callPackage ./pkgs/charm { };
   confettysh = pkgs.callPackage ./pkgs/confettysh { };
   crush = pkgs.callPackage ./pkgs/crush { };
