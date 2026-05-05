@@ -147,7 +147,7 @@ in
           "CAP_NET_ADMIN"
           "CAP_SYS_ADMIN"
         ];
-        PrivateTmp = true;
+        PrivateTmp = "disconnected";
         PrivateIPC = true;
         PrivateDevices = true;
         PrivateMounts = true;
@@ -173,14 +173,19 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallFilter = [
+          "~@aio"
           "~@clock"
           "~@cpu-emulation"
           "~@debug"
+          "~@keyring"
           "~@module"
           "~@obsolete"
+          "~@pkey"
           "~@raw-io"
           "~@reboot"
           "~@resources"
+          "~@sandbox"
+          "~@setuid"
           "~@swap"
         ];
       };
