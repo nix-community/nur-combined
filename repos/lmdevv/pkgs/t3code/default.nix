@@ -3,20 +3,20 @@
 let
   inherit (stdenv) hostPlatform;
   pname = "t3code";
-  version = "0.0.21";
+  version = "0.0.22";
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.21/T3-Code-0.0.21-x86_64.AppImage";
-      hash = "sha256-eQCfskpl+JJOyaYY7ogYCi0ZCuWNRcEpseWMniS/LCQ=";
+      url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.22/T3-Code-0.0.22-x86_64.AppImage";
+      hash = "sha256-JUlF9G6KkvOy550HwndsnfYQBUlReRWCJUe6cqx/9Xc=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.21/T3-Code-0.0.21-x64.dmg";
-      hash = "sha256-v2Ee75uVOJgRit1l/TZoHU9/1Kc2gHdJfUYHseCqJj8=";
+      url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.22/T3-Code-0.0.22-x64.dmg";
+      hash = "sha256-TPCW9Ro7axPdbLWnPXwytLEQmvZYiT5onzrhMPuB8bc=";
     };
     aarch64-darwin = fetchurl {
-      url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.21/T3-Code-0.0.21-arm64.dmg";
-      hash = "sha256-8GsNf5n1sh1X444KxnIAQmFCKG3SUbMWK6pyXzUOp9w=";
+      url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.22/T3-Code-0.0.22-arm64.dmg";
+      hash = "sha256-1kah9FRS1JkPsugYKCc/dYfBjznyJiIS57ayNCTz6HE=";
     };
   };
 
