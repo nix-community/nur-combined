@@ -56,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     owner = "s-adi-dev";
     repo = "nmgui";
     tag = "v${version}";
-    hash = "sha256-HS/n40Ng8S5N14DtEH/upwlxdzwCoOEJA40EMdCcLw4=io";
+    hash = "sha256-HS/n40Ng8S5N14DtEH/upwlxdzwCoOEJA40EMdCcLw4=";
   };
 
   nativeBuildInputs = [

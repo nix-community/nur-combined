@@ -2,15 +2,18 @@
   appimageTools,
   lib,
   fetchurl,
+  callPackage,
 }:
 
 let
+  current = lib.trivial.importJSON ./version.json;
+
   pname = "openscreen";
-  version = "1.3.0";
+  version = current.version;
 
   src = fetchurl {
     url = "https://github.com/siddharthvaddem/openscreen/releases/download/v${version}/Openscreen-Linux-latest.AppImage";
-    hash = "sha256-586SothtZbr2DJAOp/pvAl64ScuddeVzIAcEe8mOmCE=";
+    hash = current.hash;
   };
 
   appimageContents = appimageTools.extractType2 {
@@ -32,6 +35,15 @@ appimageTools.wrapType2 {
     substituteInPlace $out/share/applications/openscreen.desktop \
       --replace-fail 'Exec=AppRun' 'Exec=${pname}'
   '';
+
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    pname = "openscreen";
+    versionFile = "pkgs/openscreen/version.json";
+    fetchMetaCommand = "${(callPackage ../../utils/fetcher.nix { }).githubRelease {
+      owner = "siddharthvaddem";
+      repo = "openscreen";
+    }}";
+  };
 
   meta = {
     description = "Screen recording and annotation tool";

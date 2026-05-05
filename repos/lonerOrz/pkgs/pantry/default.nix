@@ -16,7 +16,7 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "pantry";
-  version = "0.2.0-unstable-2026-03-15";
+  version = "0-unstable-2026-03-15";
 
   # https://github.com/lonerOrz/pantry
   src = fetchFromGitHub {

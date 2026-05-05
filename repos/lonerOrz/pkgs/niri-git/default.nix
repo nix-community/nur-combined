@@ -27,7 +27,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri-git";
-  version = "26.04-unstable-2026-05-02";
+  version = "0-unstable-2026-05-02";
 
   src = fetchFromGitHub {
     owner = "niri-wm";
