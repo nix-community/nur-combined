@@ -7,12 +7,12 @@
 
 buildGoModule rec {
   pname = "ssl-handshake";
-  version = "1.6.2";
+  version = "1.9";
   src = fetchFromGitHub {
     owner = "tuladhar";
     repo = "ssl-handshake";
     rev = "v${version}";
-    sha256 = "sha256-OJkFMYSf3rI/pdg4VblDhNxg8NspV0mj21zMbgM35gg=";
+    sha256 = "sha256-vddAfhqzYuL9vXH4lk7u34e8fM9nRlYBjvS6vRGJwIE=";
   };
 
   vendorHash = null;
