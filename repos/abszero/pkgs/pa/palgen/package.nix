@@ -5,7 +5,7 @@
 }:
 buildGoModule (final: {
   pname = "palgen";
-  version = "1.7.0-unstable-2026-04-25";
+  version = "0-unstable-2026-04-25";
 
   src = fetchFromGitHub {
     owner = "xyproto";

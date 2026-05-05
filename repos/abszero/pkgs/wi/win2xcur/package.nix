@@ -10,7 +10,7 @@ in
 
 buildPythonPackage rec {
   pname = "win2xcur";
-  version = "0.2.1-unstable-2026-05-05";
+  version = "0-unstable-2026-05-05";
 
   src = fetchFromGitHub {
     owner = "quantum5";
