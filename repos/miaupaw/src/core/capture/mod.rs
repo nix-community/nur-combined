@@ -489,3 +489,104 @@ pub fn capture_all_outputs() -> Result<PhysicalCanvas> {
     // Tier 2: DXGI Desktop Duplication (may return black on cold start)
     windows::capture_dxgi()
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Unit Tests
+// ══════════════════════════════════════════════════════════════════════════════
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use wayland_client::protocol::wl_output::Transform;
+
+    #[test]
+    fn test_apply_transform_identity() {
+        let capture = ScreenCapture {
+            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
+            width: 3,
+            height: 2,
+        };
+        let result = apply_transform(capture, Transform::Normal);
+        assert_eq!(result.width, 3);
+        assert_eq!(result.height, 2);
+        assert_eq!(result.xrgb_buffer, vec![1, 2, 3, 4, 5, 6]);
+    }
+
+    #[test]
+    fn test_apply_transform_flipped() {
+        // Source (3x2):
+        // [1, 2, 3]
+        // [4, 5, 6]
+        // Flipped (horizontal mirror):
+        // [3, 2, 1]
+        // [6, 5, 4]
+        let capture = ScreenCapture {
+            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
+            width: 3,
+            height: 2,
+        };
+        let result = apply_transform(capture, Transform::Flipped);
+        assert_eq!(result.width, 3);
+        assert_eq!(result.height, 2);
+        assert_eq!(result.xrgb_buffer, vec![3, 2, 1, 6, 5, 4]);
+    }
+
+    #[test]
+    fn test_apply_transform_90() {
+        // Source (3x2):
+        // [1, 2, 3]
+        // [4, 5, 6]
+        // 90 deg clockwise:
+        // [4, 1]
+        // [5, 2]
+        // [6, 3]
+        let capture = ScreenCapture {
+            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
+            width: 3,
+            height: 2,
+        };
+        let result = apply_transform(capture, Transform::_90);
+        assert_eq!(result.width, 2);
+        assert_eq!(result.height, 3);
+        assert_eq!(result.xrgb_buffer, vec![4, 1, 5, 2, 6, 3]);
+    }
+
+    #[test]
+    fn test_apply_transform_180() {
+        // Source (3x2):
+        // [1, 2, 3]
+        // [4, 5, 6]
+        // 180 deg:
+        // [6, 5, 4]
+        // [3, 2, 1]
+        let capture = ScreenCapture {
+            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
+            width: 3,
+            height: 2,
+        };
+        let result = apply_transform(capture, Transform::_180);
+        assert_eq!(result.width, 3);
+        assert_eq!(result.height, 2);
+        assert_eq!(result.xrgb_buffer, vec![6, 5, 4, 3, 2, 1]);
+    }
+
+    #[test]
+    fn test_apply_transform_270() {
+        // Source (3x2):
+        // [1, 2, 3]
+        // [4, 5, 6]
+        // 270 deg clockwise (or 90 deg counter-clockwise):
+        // [3, 6]
+        // [2, 5]
+        // [1, 4]
+        let capture = ScreenCapture {
+            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
+            width: 3,
+            height: 2,
+        };
+        let result = apply_transform(capture, Transform::_270);
+        assert_eq!(result.width, 2);
+        assert_eq!(result.height, 3);
+        assert_eq!(result.xrgb_buffer, vec![3, 6, 2, 5, 1, 4]);
+    }
+}
