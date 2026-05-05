@@ -9,8 +9,6 @@
 buildGoModule (finalAttrs: {
   inherit (source) pname version src;
 
-  patches = [ ./0001-feat-embed-web-assets-in-server-binary.patch ];
-
   # nix-update auto
   vendorHash = "sha256-3adkU3/TjS+kzeD2fONzyfxjMzphtEtBn5QRs24TCMQ=";
 

@@ -111,10 +111,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-05-03",
+        "date": "2026-05-05",
         "extract": {
-            "web/package-lock.json": "sha256-7xBPKpOaea80_d83vOOPNfyUYUdB13mimNmQHwGN6Ik=/web/package-lock.json",
-            "web/package.json": "sha256-7xBPKpOaea80_d83vOOPNfyUYUdB13mimNmQHwGN6Ik=/web/package.json"
+            "web/package-lock.json": "sha256-WkJBa33Qh+a5Zo9pzjTtUscxlH6Y9Oa_a0+tR8oCDbo=/web/package-lock.json",
+            "web/package.json": "sha256-WkJBa33Qh+a5Zo9pzjTtUscxlH6Y9Oa_a0+tR8oCDbo=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -126,12 +126,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "7e8b2707345d46f15180e2999e4da3733687d0a8",
-            "sha256": "sha256-7xBPKpOaea80/d83vOOPNfyUYUdB13mimNmQHwGN6Ik=",
+            "rev": "0f39eee282db0dfe04c3dc5e30c3326a74a7db1b",
+            "sha256": "sha256-WkJBa33Qh+a5Zo9pzjTtUscxlH6Y9Oa/a0+tR8oCDbo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7e8b2707345d46f15180e2999e4da3733687d0a8"
+        "version": "0f39eee282db0dfe04c3dc5e30c3326a74a7db1b"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -147,12 +147,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "v1.3.3",
-            "sha256": "sha256-7xBPKpOaea80/d83vOOPNfyUYUdB13mimNmQHwGN6Ik=",
+            "rev": "v1.4.0",
+            "sha256": "sha256-Qa+70JQ+Z7qvgonE+bM7Tlp6KDbgqFPclH48IXw9z8o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.3.3"
+        "version": "v1.4.0"
     },
     "english_words": {
         "cargoLock": null,
@@ -294,11 +294,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yAvh2/KxGqay8PLWqSiN3MWQqUHM2UxCMJP3mdLDrQA=",
+            "sha256": "sha256-gfjlfgSVk4X8j3AP7jXhPivILMlg7F3xWvDTypnQysQ=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.01/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.05.01"
+        "version": "2026.05.04"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -309,11 +309,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-lhvIGMuUOgqFiuYQF/vtqTBoGTYLd7qeoo+mgy+tGh0=",
+            "sha256": "sha256-hUK6Vm+MMIk7h3iWfyYuaPhc9uoeSAHCGxEv2jyD1Nw=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.01/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-City.mmdb"
         },
-        "version": "2026.05.01"
+        "version": "2026.05.04"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -324,11 +324,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wXPfKO9Sxw2wfINf148ExGvwk49gl7OcZFSwfNFEhZ0=",
+            "sha256": "sha256-pkDrdF5EPRsgc18CBUXQLBM9Am5sjl4kfVFAZmA/268=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.01/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-Country.mmdb"
         },
-        "version": "2026.05.01"
+        "version": "2026.05.04"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -564,11 +564,11 @@
     "mpv-danmaku": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-j0PfG2YUT3lhKWWucq4wVc9KCQ8ASSUTvc_Q6vj0Xmc=/Cargo.lock",
+                "sha256-Y_b+oCXrPTkktpS+3h6xcbfP+092DmCZ9t0+_98+q0Y=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-04-27",
+        "date": "2026-05-04",
         "extract": null,
         "name": "mpv-danmaku",
         "passthru": null,
@@ -580,12 +580,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "mpv-danmaku",
-            "rev": "f22c972d544cdff8058a7f39f3eb67d35418b84e",
-            "sha256": "sha256-j0PfG2YUT3lhKWWucq4wVc9KCQ8ASSUTvc/Q6vj0Xmc=",
+            "rev": "cc741cc42ac0952dc84b1b27448c871f9f135f4a",
+            "sha256": "sha256-Y/b+oCXrPTkktpS+3h6xcbfP+092DmCZ9t0+/98+q0Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f22c972d544cdff8058a7f39f3eb67d35418b84e"
+        "version": "cc741cc42ac0952dc84b1b27448c871f9f135f4a"
     },
     "mpv-danmaku-stable": {
         "cargoLock": null,
@@ -682,7 +682,7 @@
     },
     "superpowers-skills": {
         "cargoLock": null,
-        "date": "2026-04-30",
+        "date": "2026-05-04",
         "extract": null,
         "name": "superpowers-skills",
         "passthru": null,
@@ -694,12 +694,12 @@
             "name": null,
             "owner": "obra",
             "repo": "superpowers",
-            "rev": "e7a2d16476bf042e9add4699c9d018a90f86e4a6",
-            "sha256": "sha256-8/M/S0BUYurZkFqe6LemVtBQnPSxBNfy1C7Q6f92hjE=",
+            "rev": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7",
+            "sha256": "sha256-3E3rO6hR87JUfS3XV1Eaoz6SDWOftleWvN9UPNFEMjw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e7a2d16476bf042e9add4699c9d018a90f86e4a6"
+        "version": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7"
     },
     "udpxy": {
         "cargoLock": null,
@@ -733,9 +733,9 @@
             "name": null,
             "sha256": "sha256-pAUICnzzXjsCRzCgcpN8Dclx6HDafWYW77o8qmk8pgo=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605022234/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605042252/geoip.dat"
         },
-        "version": "202605022234"
+        "version": "202605042252"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -746,11 +746,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gCxZQj+lSKK61Sc0E5OMxtP5RDI9qbHbpmIFWp381Uo=",
+            "sha256": "sha256-74k7dzFYrS2Gcuy+0gJqKcH2GbMomRZ+pwNVmi2luQg=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605022234/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605042252/geosite.dat"
         },
-        "version": "202605022234"
+        "version": "202605042252"
     },
     "yass": {
         "cargoLock": null,
