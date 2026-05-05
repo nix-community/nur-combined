@@ -141,7 +141,6 @@ in
 
         # Hardening
         NoNewPrivileges = true;
-        AmbientCapabilities = [ ];
         CapabilityBoundingSet = [
           "CAP_BPF"
           "CAP_NET_BIND_SERVICE"
@@ -154,7 +153,7 @@ in
         PrivateDevices = true;
         PrivateMounts = true;
         KeyringMode = "private";
-        ProtectHome = true;
+        ProtectHome = "read-only";
         ProtectSystem = "strict";
         ReadWritePaths = [ cfg.configDir ];
         UMask = "0077";
@@ -173,10 +172,7 @@ in
         RestrictNamespaces = [ "net" ];
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
-        RemoveIPC = true;
         SystemCallArchitectures = "native";
-        SystemCallErrorNumber = "EPERM";
-        SystemCallLog = "all";
         SystemCallFilter = [
           "~@clock"
           "~@cpu-emulation"
@@ -188,7 +184,6 @@ in
           "~@resources"
           "~@swap"
         ];
-        DevicePolicy = "closed";
       };
     };
     systemd.tmpfiles.rules = [
