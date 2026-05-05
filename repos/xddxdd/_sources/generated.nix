@@ -1058,14 +1058,14 @@
   };
   kikoplay-script = {
     pname = "kikoplay-script";
-    version = "d22a92c40888c82bf17bb35aa28a077d0f019e74";
+    version = "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayScript";
-      rev = "d22a92c40888c82bf17bb35aa28a077d0f019e74";
-      hash = "sha256-oP86uJ7PrzQShP4mYxKA+cAZNrEQgDsjy7OrOV3ENac=";
+      rev = "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73";
+      hash = "sha256-DcWOALT4b0Q5toNZVnQTi+jLiz0Rua6+HyxZH1DlPWk=";
     };
-    date = "2026-05-04";
+    date = "2026-05-05";
   };
   konnect = {
     pname = "konnect";
@@ -1223,12 +1223,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9023";
+    version = "b9037";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9023";
-      hash = "sha256-oTB0kQbH1GqJkDZNkm6AZQOgj+hsDZk+R/1jDjauctU=";
+      tag = "b9037";
+      hash = "sha256-ZwSBWsn9h3Av18xI24iqraWhmv+xzutP+++aSw9y1tU=";
     };
   };
   loralib = {
@@ -1784,20 +1784,20 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "11.0.0+ds-1";
+    version = "11.0.0+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-2_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-FkAc8f8v5XLclk1kgameaiqDjuict5Qo9SzdtYNpy9E=";
+      hash = "sha256-sUlU/GPSHppswFFnaCylzqGPwV5r4GUZ3Rjv9yfNHtM=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "11.0.0+ds-1";
+    version = "11.0.0+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-2_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-YcbCLSUONjN4DhPjtigWP7O2Da0W1ErlwIJ+7okkSKo=";
+      hash = "sha256-t0uc5y3r/YwgPo/ijO9nrTmpgV1NvarDYo1NdsWg0lM=";
     };
   };
   qemu-user-static-armhf = {
@@ -1969,14 +1969,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "b4f780430bb8227d07583e4738f1c8f04d3079b8";
+    version = "fae516b9b7acec050d207effd8610fa031ced25c";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "b4f780430bb8227d07583e4738f1c8f04d3079b8";
-      hash = "sha256-3ltD+fT8Z09u11OMP6sgyw5lhsHNMkuhto27POX6uZA=";
+      rev = "fae516b9b7acec050d207effd8610fa031ced25c";
+      hash = "sha256-yNqYF/SRsjMMiuOdGWAL7mNwONP0GXQ/71HGn4z4sps=";
     };
-    date = "2026-05-04";
+    date = "2026-05-05";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2027,14 +2027,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "e3464b913aaeab54291b3f090443fe2d8f8fa1ec";
+    version = "833d48e89e791b1e9a22153052d23bd919892e91";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "e3464b913aaeab54291b3f090443fe2d8f8fa1ec";
-      hash = "sha256-6oxMMGR5WA1lHyNK2JkOcCVGb1+uEM5XSgzNylKoKUU=";
+      rev = "833d48e89e791b1e9a22153052d23bd919892e91";
+      hash = "sha256-gyTFPunnrYOSCRb0ZuNBvfH+6XW+jOZgoBDMDuDEmq8=";
     };
-    date = "2026-04-30";
+    date = "2026-05-05";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";

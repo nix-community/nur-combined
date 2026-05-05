@@ -2049,7 +2049,7 @@
     },
     "kikoplay-script": {
         "cargoLock": null,
-        "date": "2026-05-04",
+        "date": "2026-05-05",
         "extract": null,
         "name": "kikoplay-script",
         "passthru": null,
@@ -2061,12 +2061,12 @@
             "name": null,
             "owner": "KikoPlayProject",
             "repo": "KikoPlayScript",
-            "rev": "d22a92c40888c82bf17bb35aa28a077d0f019e74",
-            "sha256": "sha256-oP86uJ7PrzQShP4mYxKA+cAZNrEQgDsjy7OrOV3ENac=",
+            "rev": "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73",
+            "sha256": "sha256-DcWOALT4b0Q5toNZVnQTi+jLiz0Rua6+HyxZH1DlPWk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d22a92c40888c82bf17bb35aa28a077d0f019e74"
+        "version": "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73"
     },
     "konnect": {
         "cargoLock": null,
@@ -2379,12 +2379,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9023",
-            "sha256": "sha256-oTB0kQbH1GqJkDZNkm6AZQOgj+hsDZk+R/1jDjauctU=",
+            "rev": "b9037",
+            "sha256": "sha256-ZwSBWsn9h3Av18xI24iqraWhmv+xzutP+++aSw9y1tU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9023"
+        "version": "b9037"
     },
     "loralib": {
         "cargoLock": null,
@@ -3489,11 +3489,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-FkAc8f8v5XLclk1kgameaiqDjuict5Qo9SzdtYNpy9E=",
+            "sha256": "sha256-sUlU/GPSHppswFFnaCylzqGPwV5r4GUZ3Rjv9yfNHtM=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-1_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-2_amd64.deb"
         },
-        "version": "11.0.0+ds-1"
+        "version": "11.0.0+ds-2"
     },
     "qemu-user-static-arm64": {
         "cargoLock": null,
@@ -3504,11 +3504,11 @@
         "pinned": false,
         "src": {
             "name": "qemu.deb",
-            "sha256": "sha256-YcbCLSUONjN4DhPjtigWP7O2Da0W1ErlwIJ+7okkSKo=",
+            "sha256": "sha256-t0uc5y3r/YwgPo/ijO9nrTmpgV1NvarDYo1NdsWg0lM=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.0+ds-2_arm64.deb"
         },
-        "version": "11.0.0+ds-1"
+        "version": "11.0.0+ds-2"
     },
     "qemu-user-static-armhf": {
         "cargoLock": null,
@@ -3833,7 +3833,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-05-04",
+        "date": "2026-05-05",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3845,12 +3845,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "b4f780430bb8227d07583e4738f1c8f04d3079b8",
-            "sha256": "sha256-3ltD+fT8Z09u11OMP6sgyw5lhsHNMkuhto27POX6uZA=",
+            "rev": "fae516b9b7acec050d207effd8610fa031ced25c",
+            "sha256": "sha256-yNqYF/SRsjMMiuOdGWAL7mNwONP0GXQ/71HGn4z4sps=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4f780430bb8227d07583e4738f1c8f04d3079b8"
+        "version": "fae516b9b7acec050d207effd8610fa031ced25c"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -3947,7 +3947,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-04-30",
+        "date": "2026-05-05",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3959,12 +3959,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "e3464b913aaeab54291b3f090443fe2d8f8fa1ec",
-            "sha256": "sha256-6oxMMGR5WA1lHyNK2JkOcCVGb1+uEM5XSgzNylKoKUU=",
+            "rev": "833d48e89e791b1e9a22153052d23bd919892e91",
+            "sha256": "sha256-gyTFPunnrYOSCRb0ZuNBvfH+6XW+jOZgoBDMDuDEmq8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e3464b913aaeab54291b3f090443fe2d8f8fa1ec"
+        "version": "833d48e89e791b1e9a22153052d23bd919892e91"
     },
     "rtpengine-stable": {
         "cargoLock": null,
