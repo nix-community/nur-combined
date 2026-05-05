@@ -257,12 +257,12 @@ in {
         inherit (pkgs) lib fetchFromGitHub;
         inherit (if myLib.isDeprecated.picolisp then pkgs else self) picolisp;
         picolisp' = picolisp.overrideAttrs (old: {
-            version = "26.4.30";
+            version = "26.5.4";
             src = fetchFromGitHub {
                 owner = "picolisp";
                 repo = "pil21";
-                rev = "5cf52c58c7dd138f0ddec3617bd53af1d481a130";
-                hash = "sha256-Fa8fl1e/2ejUC36SIuNRrXpX8ihGIBag1ea7qjUgwmI=";
+                rev = "2c56c4774bc2f3cce02037bd19543acb114bcfd5";
+                hash = "sha256-5/Vuylg6/t9nJnoRWAeAgGWknwW6U0mR4Axwt6w3LoE=";
             };
             sourceRoot = null;
             passthru = (old.passthru or {}) // {
