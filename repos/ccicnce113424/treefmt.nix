@@ -2,13 +2,14 @@
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
   perSystem =
-    { ... }:
+    { pkgs, ... }:
     {
       treefmt = {
         projectRootFile = "flake.nix";
         settings.excludes = [ "*_sources/*" ];
         programs.nixfmt = {
           enable = true;
+          package = pkgs.nixfmt-rs;
           priority = 0;
         };
         programs.deadnix = {

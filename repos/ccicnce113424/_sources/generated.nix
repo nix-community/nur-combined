@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.8.7";
+    version = "v3.8.8-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.8.7";
+      rev = "v3.8.8-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-+2HjCsuJjdCS7N/3XsLW8DvMC5aQeXwIRBplIhTV2SA=";
+      sha256 = "sha256-EaZe3ypPINCGEj0dsna9Lq2UfVPOFLxeDOxXpZHbF8I=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-+2HjCsuJjdCS7N_3XsLW8DvMC5aQeXwIRBplIhTV2SA=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-EaZe3ypPINCGEj0dsna9Lq2UfVPOFLxeDOxXpZHbF8I=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -209,16 +209,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.6";
+    version = "2.0.7";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.6";
+      rev = "2.0.7";
       fetchSubmodules = false;
-      sha256 = "sha256-jKF0FTTmq5xRB607iya3PtsgRFl73uXiuDA2oSGNbfs=";
+      sha256 = "sha256-E0ezM87Ecw54XD/MccPhRjg4iQ8LJRewQKbH/bPV9MI=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-jKF0FTTmq5xRB607iya3PtsgRFl73uXiuDA2oSGNbfs=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-E0ezM87Ecw54XD_MccPhRjg4iQ8LJRewQKbH_bPV9MI=/pubspec.lock";
     };
   };
   pixes = {
@@ -263,21 +263,21 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "ed080dd9e2176614092d2e18cbb5c243c5f3bcee";
+    version = "843eb6e83e3eafe256bcf0a2821f3b8c5aecf642";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "ed080dd9e2176614092d2e18cbb5c243c5f3bcee";
+      rev = "843eb6e83e3eafe256bcf0a2821f3b8c5aecf642";
       fetchSubmodules = false;
-      sha256 = "sha256-vIiaIb//XM9Fdtp+E2kcy8HefgVV7F9Sr6Q81H0XmJ4=";
+      sha256 = "sha256-+mGA/JWlfMWG7/s9Q8h8mCmHUmS4xWsH/m40hMF4KWc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-vIiaIb__XM9Fdtp+E2kcy8HefgVV7F9Sr6Q81H0XmJ4=/Cargo.lock";
+      lockFile = ./. + "/sha256-+mGA_JWlfMWG7_s9Q8h8mCmHUmS4xWsH_m40hMF4KWc=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-04-17";
+    date = "2026-05-05";
   };
   splayer-kde-bar-lyc = {
     pname = "splayer-kde-bar-lyc";
