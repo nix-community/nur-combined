@@ -8,23 +8,23 @@
 {
   agent-run = {
     pname = "agent-run";
-    version = "4be34a7cb56b879b8d3187544c41a3a40d19a367";
+    version = "ea913bdaff205ad03d212f6d6feab9d66e836ab3";
     src = fetchgit {
       url = "https://git.jeffthecoder.xyz/public/agent-run.git";
-      rev = "4be34a7cb56b879b8d3187544c41a3a40d19a367";
+      rev = "ea913bdaff205ad03d212f6d6feab9d66e836ab3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-gFqSzK4AwyxTJYQzCZZjG9S904ShTyMZYBEwDVXpfeA=";
+      sha256 = "sha256-H5GnxkNINoioNTNaG7QUMC/aUks2OHJpyGywN6mfxvc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-gFqSzK4AwyxTJYQzCZZjG9S904ShTyMZYBEwDVXpfeA=/Cargo.lock";
+      lockFile = ./. + "/sha256-H5GnxkNINoioNTNaG7QUMC_aUks2OHJpyGywN6mfxvc=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-05-03";
+    date = "2026-05-05";
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
