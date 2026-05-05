@@ -15,7 +15,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "lampghost-dev";
-  version = "0.3.2-unstable-2026-05-01";
+  version = "0-unstable-2026-05-01";
 
   src = fetchFromGitHub {
     owner = "Catizard";
