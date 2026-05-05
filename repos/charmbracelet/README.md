@@ -60,6 +60,34 @@ outputs = { self, nixpkgs, nur, home-manager, ... }:
 }
 ```
 
+#### Nix-Darwin
+
+Add the flake as an input and include the desired module in your nix-darwin configuration:
+
+```nix
+inputs = {
+  nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  nix-darwin = {
+    url = "github:nix-darwin/nix-darwin";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+  nur = {
+    url = "github:charmbracelet/nur";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+};
+
+outputs = { self, nixpkgs, nur, nix-darwin, ... }:
+{
+  darwinConfigurations.example = nix-darwin.lib.evalConfig {
+    modules = [
+      nur.darwinModules.crush
+      { programs.crush.enable = true; }
+    ];
+  };
+}
+```
+
 ## Available Modules
 
 - **NixOS Modules**:
@@ -67,6 +95,9 @@ outputs = { self, nixpkgs, nur, home-manager, ... }:
 
 - **Home Manager Modules**:
   - `homeModules.crush`: Provides Home Manager integration for the `crush` tool.
+
+- **Nix-Darwin Modules**:
+  - `darwinModules.crush`: Provides Nix-Darwin integration for the `crush` tool.
 
 ## Configuration Options
 

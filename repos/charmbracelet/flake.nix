@@ -30,5 +30,6 @@
 
       nixosModules = modules.nixos;
       homeModules = modules.homeManager;
+      darwinModules = modules.darwin;
     };
 }
