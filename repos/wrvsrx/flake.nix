@@ -36,7 +36,6 @@
                 nvfetcher
                 nix-update
 
-                statix
                 treefmt
                 taplo
               ];
