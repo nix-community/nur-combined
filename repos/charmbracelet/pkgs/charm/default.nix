@@ -41,9 +41,10 @@ in pkgs.stdenv.mkDerivation {
   system = system;
 
   meta = with lib; {
-    description = "The Charm Tool and Library 🌟";
+    description = "The Charm Tool and Library 🌟 (deprecated: will be removed July 2026)";
     homepage = "https://charm.sh/";
     license = licenses.mit;
+    broken = true;
 
     platforms = [
       "aarch64-darwin"
