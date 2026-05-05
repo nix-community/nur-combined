@@ -47,6 +47,9 @@ in {
   bibox = pkgs.callPackage ./pkgs/bibox {
       inherit maintainers;
   };
+  sootty = pkgs.callPackage ./pkgs/sootty {
+      inherit maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
