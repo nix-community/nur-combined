@@ -138,10 +138,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1jprknd4rf51cd718kmrp9whvf70xs5bg4xl4cd3p1fid3dswsvv";
+      sha256 = "0msflv26i6i3jr9w761k4qdl7cp9zbhymjkn57b1w90pkjsndrvw";
       type = "gem";
     };
-    version = "0.9.0";
+    version = "0.9.1";
   };
   nokogiri = {
     dependencies = ["mini_portile2" "racc"];
