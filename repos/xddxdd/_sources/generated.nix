@@ -951,14 +951,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "43e97fd799cd612b0d1f19482a3684279bbe4b09";
+    version = "2421d3ff8c27a967ffc2c6a1d19e0f3790ace5a0";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "43e97fd799cd612b0d1f19482a3684279bbe4b09";
-      hash = "sha256-6okm1EToazYytMLUj6mgA5m2XZ94DQrQvfCrXdFZpXw=";
+      rev = "2421d3ff8c27a967ffc2c6a1d19e0f3790ace5a0";
+      hash = "sha256-hnZSTWgGRYRXoYWB/r4ViQ4OMJlNEj2SDH8jxxn1vso=";
     };
-    date = "2026-05-03";
+    date = "2026-05-06";
   };
   igsc = {
     pname = "igsc";
@@ -1223,12 +1223,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9037";
+    version = "b9048";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9037";
-      hash = "sha256-ZwSBWsn9h3Av18xI24iqraWhmv+xzutP+++aSw9y1tU=";
+      tag = "b9048";
+      hash = "sha256-fveIwM5q/PN3bJAS+T6EmIobSsTHw7e2Q9DWIwunS4Q=";
     };
   };
   loralib = {
@@ -1334,18 +1334,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "3.0.1";
+    version = "3.0.2";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.1/netboot.xyz.efi";
-      hash = "sha256-/MOoApIQjXjoQgb0Q075kP6IxbuDuzaHl6E14e7nzYM=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.2/netboot.xyz.efi";
+      hash = "sha256-4PbBxZPh2grQg/nXoOOjWAhR9gJqNgR53oriAUrv0i8=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "3.0.1";
+    version = "3.0.2";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.1/netboot.xyz.lkrn";
-      hash = "sha256-jRPqz/sdpJwuGTmtaaW/CMr1Ig35E8Oxh+UecgpYNyc=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.2/netboot.xyz.lkrn";
+      hash = "sha256-XuynuqxT/TVo+1FmhGmzPcQF8mF2TN+wxwxlp6HCSOE=";
     };
   };
   netns-exec = {
@@ -1969,14 +1969,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fae516b9b7acec050d207effd8610fa031ced25c";
+    version = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "fae516b9b7acec050d207effd8610fa031ced25c";
-      hash = "sha256-yNqYF/SRsjMMiuOdGWAL7mNwONP0GXQ/71HGn4z4sps=";
+      rev = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
+      hash = "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=";
     };
-    date = "2026-05-05";
+    date = "2026-05-06";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

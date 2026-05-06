@@ -1836,7 +1836,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLock": null,
-        "date": "2026-05-03",
+        "date": "2026-05-06",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -1848,12 +1848,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "43e97fd799cd612b0d1f19482a3684279bbe4b09",
-            "sha256": "sha256-6okm1EToazYytMLUj6mgA5m2XZ94DQrQvfCrXdFZpXw=",
+            "rev": "2421d3ff8c27a967ffc2c6a1d19e0f3790ace5a0",
+            "sha256": "sha256-hnZSTWgGRYRXoYWB/r4ViQ4OMJlNEj2SDH8jxxn1vso=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "43e97fd799cd612b0d1f19482a3684279bbe4b09"
+        "version": "2421d3ff8c27a967ffc2c6a1d19e0f3790ace5a0"
     },
     "igsc": {
         "cargoLock": null,
@@ -2379,12 +2379,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9037",
-            "sha256": "sha256-ZwSBWsn9h3Av18xI24iqraWhmv+xzutP+++aSw9y1tU=",
+            "rev": "b9048",
+            "sha256": "sha256-fveIwM5q/PN3bJAS+T6EmIobSsTHw7e2Q9DWIwunS4Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9037"
+        "version": "b9048"
     },
     "loralib": {
         "cargoLock": null,
@@ -2599,11 +2599,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/MOoApIQjXjoQgb0Q075kP6IxbuDuzaHl6E14e7nzYM=",
+            "sha256": "sha256-4PbBxZPh2grQg/nXoOOjWAhR9gJqNgR53oriAUrv0i8=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.1/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.2/netboot.xyz.efi"
         },
-        "version": "3.0.1"
+        "version": "3.0.2"
     },
     "netboot-xyz-lkrn": {
         "cargoLock": null,
@@ -2614,11 +2614,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jRPqz/sdpJwuGTmtaaW/CMr1Ig35E8Oxh+UecgpYNyc=",
+            "sha256": "sha256-XuynuqxT/TVo+1FmhGmzPcQF8mF2TN+wxwxlp6HCSOE=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.1/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/3.0.2/netboot.xyz.lkrn"
         },
-        "version": "3.0.1"
+        "version": "3.0.2"
     },
     "netns-exec": {
         "cargoLock": null,
@@ -3833,7 +3833,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-05-05",
+        "date": "2026-05-06",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -3845,12 +3845,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "fae516b9b7acec050d207effd8610fa031ced25c",
-            "sha256": "sha256-yNqYF/SRsjMMiuOdGWAL7mNwONP0GXQ/71HGn4z4sps=",
+            "rev": "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d",
+            "sha256": "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fae516b9b7acec050d207effd8610fa031ced25c"
+        "version": "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d"
     },
     "rime-moegirl": {
         "cargoLock": null,
