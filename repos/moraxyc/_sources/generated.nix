@@ -71,28 +71,28 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "0f39eee282db0dfe04c3dc5e30c3326a74a7db1b";
+    version = "5808976c06c0ce5c1d72377750be7baabb05b00a";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "0f39eee282db0dfe04c3dc5e30c3326a74a7db1b";
+      rev = "5808976c06c0ce5c1d72377750be7baabb05b00a";
       fetchSubmodules = false;
-      sha256 = "sha256-WkJBa33Qh+a5Zo9pzjTtUscxlH6Y9Oa/a0+tR8oCDbo=";
+      sha256 = "sha256-KdTYL/cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-WkJBa33Qh+a5Zo9pzjTtUscxlH6Y9Oa_a0+tR8oCDbo=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-WkJBa33Qh+a5Zo9pzjTtUscxlH6Y9Oa_a0+tR8oCDbo=/web/package-lock.json";
-    };date = "2026-05-05";
+      "web/package.json" = ./. + "/sha256-KdTYL_cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-KdTYL_cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=/web/package-lock.json";
+    };date = "2026-05-06";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.4.0";
+    version = "v1.5.0";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "v1.4.0";
+      rev = "v1.5.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Qa+70JQ+Z7qvgonE+bM7Tlp6KDbgqFPclH48IXw9z8o=";
+      sha256 = "sha256-KdTYL/cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=";
     };
   };
   english_words = {
@@ -418,18 +418,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202605042252";
+    version = "202605052250";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605042252/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605052250/geoip.dat";
       sha256 = "sha256-pAUICnzzXjsCRzCgcpN8Dclx6HDafWYW77o8qmk8pgo=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202605042252";
+    version = "202605052250";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605042252/geosite.dat";
-      sha256 = "sha256-74k7dzFYrS2Gcuy+0gJqKcH2GbMomRZ+pwNVmi2luQg=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605052250/geosite.dat";
+      sha256 = "sha256-VDHCN5I5zISqdZtGd7OmnXK863Tu/iOADnCOoDIuTCE=";
     };
   };
   yass = {
