@@ -17,7 +17,6 @@
 }:
 let
   pname = "termius-app";
-  version = "9.37.6";
 
   meta = {
     description = "Desktop SSH Client";
@@ -35,31 +34,36 @@ let
   };
 
   sources = {
-    aarch64-darwin = fetchurl {
-      url = "https://web.archive.org/web/20260418063434if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
-      hash = "sha256-rk0Ur61wf+CqIO0rj8ePi5Pzk7UiczFk4D1kTLkqA7U=";
+    aarch64-darwin = {
+      version = "9.37.6";
+      src = fetchurl {
+        url = "https://web.archive.org/web/20260418063434if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
+        hash = "sha256-rk0Ur61wf+CqIO0rj8ePi5Pzk7UiczFk4D1kTLkqA7U=";
+      };
     };
-    x86_64-darwin = fetchurl {
-      url = "https://web.archive.org/web/20260418063453if_/https://autoupdate.termius.com/mac/Termius.zip";
-      hash = "sha256-h/oPVhj4j7grL6hA81Y9xuJYdD8ORdqcgmxZoHPTLUE=";
+    x86_64-darwin = {
+      version = "9.37.6";
+      src = fetchurl {
+        url = "https://web.archive.org/web/20260418063453if_/https://autoupdate.termius.com/mac/Termius.zip";
+        hash = "sha256-h/oPVhj4j7grL6hA81Y9xuJYdD8ORdqcgmxZoHPTLUE=";
+      };
     };
-    x86_64-linux = fetchurl {
-      url = "https://deb.termius.com/pool/main/t/termius-app/termius-app_9.37.6_amd64.deb";
-      hash = "sha256-z4NvKi2mLAhlgn1/2D7scxRT1VWcl2y68zUFgAnIuLg=";
+    x86_64-linux = {
+      version = "9.38.1";
+      src = fetchurl {
+        url = "https://web.archive.org/web/20260506110927if_/https://deb.termius.com/pool/main/t/termius-app/termius-app_9.38.1_amd64.deb";
+        hash = "sha256-4GZcXe4pz/6GLzWf2zWExk+3GbMVwsopd49K9ApQtVc=";
+      };
     };
   };
 
   throwSystem = throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}";
-  src = sources.${stdenvNoCC.hostPlatform.system} or throwSystem;
+  source = sources.${stdenvNoCC.hostPlatform.system} or throwSystem;
 in
 if stdenvNoCC.hostPlatform.isDarwin then
   import ./darwin.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
+    inherit pname meta;
+    inherit (source) version src;
 
     inherit
       stdenvNoCC
@@ -68,12 +72,8 @@ if stdenvNoCC.hostPlatform.isDarwin then
   }
 else
   import ./linux.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
+    inherit pname meta;
+    inherit (source) version src;
 
     inherit
       alsa-lib
