@@ -1,5 +1,3 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  default = final: prev: import ../pkgs { pkgs = final; };
 }

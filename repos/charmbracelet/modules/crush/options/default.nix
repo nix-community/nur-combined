@@ -8,7 +8,7 @@ in
     enable = lib.mkEnableOption "Enable crush";
 
     package = lib.mkOption {
-      default = (pkgs.callPackage ../../../pkgs/crush { });
+      default = (import ../../../pkgs { inherit pkgs; }).crush;
       defaultText = "crush";
       description = "Package to use for crush";
     };

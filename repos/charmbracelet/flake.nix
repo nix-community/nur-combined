@@ -53,8 +53,13 @@
       );
 
       packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+        system:
+        nixpkgs.lib.filterAttrs (
+          _: v: nixpkgs.lib.isDerivation v && !(v.meta.broken or false)
+        ) self.legacyPackages.${system}
       );
+
+      overlays = import ./overlays;
 
       formatter = forAllSystems (system: (treefmt system).config.build.wrapper);
 
