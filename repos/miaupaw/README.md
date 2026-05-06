@@ -8,7 +8,7 @@ Click → Color → Done. Zero latency, pixel-perfect precision.
 
 ---
 
-IE-R is a color picker and daemon for Linux. It lives in your system tray, listens for hotkeys, and puts the color under your cursor into your clipboard instantly.
+IE-R (pronounced 'eyer') is a color picker and daemon for Linux. It lives in your system tray, listens for hotkeys, and puts the color under your cursor into your clipboard instantly.
 
 This is the resurrection of the original "Instant Eyedropper" tool, which has served users for over 20 years. Now it's a native Wayland app written from scratch in Rust. Same idea — but with everything users asked for over two decades finally built in.
 

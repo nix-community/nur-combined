@@ -148,7 +148,7 @@ fn build_menu_entries(snap: &crate::daemon::dbus_menu::MenuSnapshot) -> Vec<Menu
         action: Action::ToggleHUD,
     });
     entries.push(MenuEntry { label: "⚙ Edit Config".to_string(), rofi_line: None, action: Action::EditConfig });
-    entries.push(MenuEntry { label: "🌐 Homepage".to_string(),   rofi_line: None, action: Action::Homepage });
+    entries.push(MenuEntry { label: "⌂ Homepage".to_string(),   rofi_line: None, action: Action::Homepage });
     entries.push(MenuEntry { label: "ℹ About".to_string(),       rofi_line: None, action: Action::About });
     entries.push(MenuEntry { label: "✕ Quit".to_string(),        rofi_line: None, action: Action::Quit });
 

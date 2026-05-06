@@ -63,22 +63,22 @@ let
         update-desktop-database "$DESKTOP_DIR" 2>/dev/null || true
         gtk-update-icon-cache -f -t "$HOME/.local/share/icons/hicolor" 2>/dev/null || true
 
-        echo "✅ Desktop integration complete! IE-R is now in your application menu."
+        echo "✔ Desktop integration complete! IE-R is now in your application menu."
 
-        printf "❓ Add IE-R to Autostart? (y/N): "
+        printf "? Add IE-R to Autostart? (y/N): "
         read -r choice
         if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
             cp "$DESKTOP_DIR/ie-r.desktop" "$AUTOSTART_DIR/"
-            echo "🚀 Added to autostart!"
+            echo "✔ Added to autostart!"
         fi
 
         echo "--------------------------------------------------"
-        echo "💡 WAYLAND HOTKEYS TIP:"
+        echo "※ WAYLAND HOTKEYS TIP:"
         echo "Global hotkeys can be tricky on Wayland (GNOME/KDE)."
         echo "For perfect reliability, set a 'Custom Shortcut' in your OS settings:"
         echo "   Command: /usr/bin/pkill -SIGUSR1 -f ie-r"
         echo "--------------------------------------------------"
-        echo "🔗 Points to: $HERE/bin/ie-r"
+        echo "→ Points to: $HERE/bin/ie-r"
     '';
   };
 
@@ -98,12 +98,12 @@ let
         cp -v ${defaultPkg}/bin/ie-r $out/bin/.ie-r-raw
         chmod +w $out/bin/.ie-r-raw
 
-        echo "🔍 Harvesting REQUIRED runtime libraries..."
+        echo "▸ Harvesting REQUIRED runtime libraries..."
         # 1a. Gather direct dependencies of the binary
         ldd $out/bin/.ie-r-raw | awk '{print $3}' | grep "^/nix/store" > libs_list
 
         # 1b. Force-include X11/Wayland/Pipewire entry points for dlopen()
-        echo "🔦 Locating dlopen entry points (X11 + Wayland + Pipewire)..."
+        echo "▸ Locating dlopen entry points (X11 + Wayland + Pipewire)..."
         for lib in \
             ${pkgs.wayland}/lib/libwayland-client.so.0 \
             ${pkgs.libx11}/lib/libX11.so.6 \
@@ -129,7 +129,7 @@ let
         chmod +w $out/lib/* $out/bin/.ie-r-raw
         cp -vL "${pkgs.glibc.out}/lib/ld-linux-x86-64.so.2" $out/lib/
 
-        echo "✂️  Trimming XKB and Locale fat..."
+        echo "▸ Trimming XKB and Locale fat..."
         mkdir -p $out/share/xkb/{rules,keycodes,symbols,types,compat}
         cp -R ${pkgs.xkeyboard_config}/share/X11/xkb/rules/evdev*         $out/share/xkb/rules/
         cp -R ${pkgs.xkeyboard_config}/share/X11/xkb/keycodes/evdev       $out/share/xkb/keycodes/
@@ -227,11 +227,11 @@ let
     meta.description = "Build Linux portable bundle (ie-r-vVERSION.zip)";
     program = let
       script = pkgs.writeShellScriptBin "bundle-ie-r" '' # bash
-          echo -e "\033[1;32m🚀 Starting Divine Distribution...\033[0m"
+          echo -e "\033[1;32m▸ Starting Divine Distribution...\033[0m"
 
           BUNDLE_PATH=$(nix build .#portable --no-link --print-out-paths)
           if [ -z "$BUNDLE_PATH" ]; then
-              echo -e "\033[1;31m❌ Build failed\033[0m"
+              echo -e "\033[1;31m✖ Build failed\033[0m"
               exit 1
           fi
 
@@ -240,22 +240,22 @@ let
           FINAL_DIR="ie-r"
           ZIP_NAME="ie-r-$VERSION.zip"
 
-          echo "📦 Extracting and cleaning structure..."
+          echo "▸ Extracting and cleaning structure..."
           rm -rf "$STAGE_DIR" "$ZIP_NAME"
           mkdir -p "$STAGE_DIR/$FINAL_DIR"
 
           cp -rL "$BUNDLE_PATH"/* "$STAGE_DIR/$FINAL_DIR/"
 
-          echo "🔧 Leveling permissions (755)..."
+          echo "▸ Leveling permissions (755)..."
           chmod -R 755 "$STAGE_DIR/$FINAL_DIR"
 
-          echo "⚡ Archiving to $ZIP_NAME..."
+          echo "▸ Archiving to $ZIP_NAME..."
           cd "$STAGE_DIR"
           ${pkgs.zip}/bin/zip -rq "../../$ZIP_NAME" "$FINAL_DIR"
           cd - > /dev/null
 
-          echo -e "\033[1;32m✅ Done! Archive ready: ./$ZIP_NAME\033[0m"
-          echo "📂 Internal structure: $FINAL_DIR/{bin,lib,share}"
+          echo -e "\033[1;32m✔ Done! Archive ready: ./$ZIP_NAME\033[0m"
+          echo "· Internal structure: $FINAL_DIR/{bin,lib,share}"
       '';
     in "${script}/bin/bundle-ie-r";
   };

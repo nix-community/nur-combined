@@ -323,10 +323,13 @@ impl OverlayApp {
         match action {
             UserAction::Zoom(delta) => {
                 // Adjust aperture (field of view).
-                // Step of 2 preserves oddness and ensures perfect aim centering.
+                // Pure math: 10% step, minimum 2 pixels.
+                // At current < 20, the curve matches the standard step 2 (micro-level).
+                // Step is always even (bitwise & !1) to preserve the odd size invariant (Optical Monolith).
                 let current = self.config.magnifier.aperture as i32;
                 let limit = self.config.magnifier.size as i32;
-                let new_aperture = (current - delta * 2).clamp(1, limit);
+                let step = (current / 10).max(2) & !1;
+                let new_aperture = (current - delta * step).clamp(1, limit);
 
                 if new_aperture as u32 != self.config.magnifier.aperture {
                     self.config.magnifier.aperture = new_aperture as u32;
@@ -339,11 +342,10 @@ impl OverlayApp {
             }
             UserAction::ResizeMagnifier(delta) => {
                 // Change the physical window size on screen.
-                // Minimum 3 pixels ("hole") + 2 (border) = 5 pixels. Full freedom.
-                let current = self.config.magnifier.size as i32;
-                // Adaptive step: fine-grained at small sizes, coarse at large sizes.
+                // Pure math: 10% step, minimum 2 pixels.
                 // Step is always even (bitwise & !1) to preserve the odd size invariant (Optical Monolith).
-                let step = (current / 12).clamp(4, 40) & !1;
+                let current = self.config.magnifier.size as i32;
+                let step = (current / 10).max(2) & !1;
                 let mut new_size = (current + delta * step).clamp(15, 901);
                 new_size = magnifier::ensure_odd(new_size);
 
@@ -442,13 +444,16 @@ impl OverlayApp {
                 }
             }
             UserAction::ChangeAimSize(delta) => {
-                // Change the averaging field (aim capture field).
-                // Step of 2 preserves oddness for perfect centering.
+                // Pure math: 10% step, minimum 2 pixels.
+                // Step is always even (bitwise & !1) to preserve the odd size invariant (Optical Monolith).
                 // Capped at aperture — cannot average pixels that aren't displayed.
                 let current = self.config.magnifier.aim_size as i32;
                 let limit = self.config.magnifier.aperture as i32;
-                let new_aim = (current + delta * 2).clamp(1, limit);
-                let new_aim = magnifier::ensure_odd(new_aim);
+                let step = (current / 10).max(2) & !1;
+                let mut new_aim = current + delta * step;
+                new_aim = new_aim.clamp(1, limit);
+                new_aim = magnifier::ensure_odd(new_aim);
+                
                 if new_aim as u32 != self.config.magnifier.aim_size {
                     self.config.magnifier.aim_size = new_aim as u32;
                     self.invalidate_render();

@@ -30,7 +30,7 @@ let
   # Sets $_TRAY_EXE for later steps; trap cleans temps. --raw= embeds the
   # 256px PNG verbatim (Vista format) — pure-BMP 256px breaks windres.
   winArtifacts = '' # bash
-      echo "🎨 Generating native icons..."
+      echo "▸ Generating native icons..."
       _ICO_TMP=$(mktemp -d)
       _TRAY_OBJ=$(mktemp --suffix=.o)
       _TRAY_EXE=$(mktemp --suffix=.exe)
@@ -45,7 +45,7 @@ let
           $_ICO_TMP/64.png $_ICO_TMP/48.png \
           $_ICO_TMP/32.png $_ICO_TMP/16.png
 
-      echo "🔧 Compiling C tray launcher..."
+      echo "▸ Compiling C tray launcher..."
       ${mingwCC}/bin/x86_64-w64-mingw32-windres launcher/ie-r-tray.rc --codepage 65001 -O coff -o "$_TRAY_OBJ"
       ${mingwCC}/bin/x86_64-w64-mingw32-gcc -mwindows -O2 -s launcher/ie-r-tray.c "$_TRAY_OBJ" -o "$_TRAY_EXE"
   '';
@@ -74,7 +74,7 @@ let
     meta.description = "Build Windows NSIS installer (ie-r-setup-vVERSION.exe)";
     program = let
       script = pkgs.writeShellScriptBin "windows-installer-ie-r" '' # bash
-          echo -e "\033[1;32m📦 Building IE-R Windows Installer...\033[0m"
+          echo -e "\033[1;32m▸ Building IE-R Windows Installer...\033[0m"
           ${winArtifacts}
           ${winEnv}
           cargo build --release --target x86_64-pc-windows-gnu --bin ie-r || exit 1
@@ -88,7 +88,7 @@ let
               ${../assets/installer.nsi}
 
           rm -rf "$BUNDLE"
-          echo -e "\033[1;32m✅ Done! ie-r-setup-v${version}.exe ready.\033[0m"
+          echo -e "\033[1;32m✔ Done! ie-r-setup-v${version}.exe ready.\033[0m"
       '';
     in "${script}/bin/windows-installer-ie-r";
   };
@@ -99,7 +99,7 @@ let
     meta.description = "Build Windows portable bundle (ie-r-portable-vVERSION.zip)";
     program = let
       script = pkgs.writeShellScriptBin "windows-bundle-ie-r" '' # bash
-          echo -e "\033[1;32m🪟 Building IE-R Windows Portable...\033[0m"
+          echo -e "\033[1;32m▸ Building IE-R Windows Portable...\033[0m"
           ${winArtifacts}
           ${winEnv}
           cargo build --release --target x86_64-pc-windows-gnu --bin ie-r || exit 1
@@ -109,17 +109,17 @@ let
           FINAL_DIR="ie-r"
           ZIP_NAME="ie-r-portable-$VERSION.zip"
 
-          echo "📦 Assembling bundle..."
+          echo "▸ Assembling bundle..."
           rm -rf "$STAGE_DIR" "$ZIP_NAME"
           ${winBundleAssembly "$STAGE_DIR/$FINAL_DIR"}
 
-          echo "⚡ Archiving to $ZIP_NAME..."
+          echo "▸ Archiving to $ZIP_NAME..."
           cd "$STAGE_DIR"
           ${pkgs.zip}/bin/zip -rq "../../$ZIP_NAME" "$FINAL_DIR"
           cd - > /dev/null
 
-          echo -e "\033[1;32m✅ Done! Archive ready: ./$ZIP_NAME\033[0m"
-          echo "📂 ie-r/{ie-r.exe, fonts/, LICENSE, README.md, PRIVACY.md, SECURITY.md}"
+          echo -e "\033[1;32m✔ Done! Archive ready: ./$ZIP_NAME\033[0m"
+          echo "· ie-r/{ie-r.exe, fonts/, LICENSE, README.md, PRIVACY.md, SECURITY.md}"
       '';
     in "${script}/bin/windows-bundle-ie-r";
   };
