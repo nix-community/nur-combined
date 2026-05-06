@@ -3,6 +3,7 @@
   buildPackages,
   darwin,
   fetchFromGitHub,
+  fetchurl,
   gn,
   lib,
   ninja,
@@ -12,13 +13,16 @@
   stdenvNoCC,
   symlinkJoin,
   xcbuild,
+
+  withPgo ? true,
 }:
 let
+  llvmPackages = if withPgo then buildPackages.llvmPackages_22 else buildPackages.rustc.llvmPackages;
   llvmCcAndBintools = symlinkJoin {
     name = "llvmCcAndBintools";
     paths = [
-      buildPackages.rustc.llvmPackages.llvm
-      buildPackages.rustc.llvmPackages.stdenv.cc
+      llvmPackages.llvm
+      llvmPackages.stdenv.cc
     ];
   };
 in
@@ -45,8 +49,25 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     }
   );
 
+  postPatch =
+    let
+      pgoProfile =
+        finalAttrs.passthru.pgoProfiles.${
+          if stdenvNoCC.hostPlatform.isDarwin then
+            stdenvNoCC.hostPlatform.system
+          else if stdenvNoCC.hostPlatform.isLinux then
+            "any-linux"
+          else
+            throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}"
+        };
+    in
+    lib.optionalString withPgo ''
+      mkdir -p chrome/build/pgo_profiles
+      cp ${pgoProfile} chrome/build/pgo_profiles/${pgoProfile.name}
+    '';
+
   nativeBuildInputs = [
-    buildPackages.rustc.llvmPackages.bintools
+    llvmPackages.bintools
     gn
     ninja
     python3
@@ -100,7 +121,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ]
   ++ lib.optional (
     stdenvNoCC.hostPlatform.isLinux && stdenvNoCC.hostPlatform.isx86_64
-  ) "use_cfi_icall=false";
+  ) "use_cfi_icall=false"
+  ++ lib.optional withPgo "chrome_pgo_phase=2";
 
   ninjaFlags = [ "naive" ];
 
@@ -113,7 +135,23 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+    pgoProfiles = {
+      aarch64-darwin = fetchurl {
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-7778-1777396490-28f3bd2de3e5897faaeffb39ece6068b821b4568-01697e67ebd6a170e23bf1503bbc0c3723275c1b.profdata";
+        hash = "sha256-gsM4lTXXmAop3n+LGFW2pRwVtIkgp/LOLmaho1Lahhc=";
+      };
+      x86_64-darwin = fetchurl {
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-7778-1777374771-bf7aebabe8057c6700aa75240777f8557acfd474-d8efa9b284bd43eccbaf67df2d4a1deaa3c39b89.profdata";
+        hash = "sha256-gXmewWdgIDMfb8ujTQAoWaK4t3nabp4hXfPXsCxZi4M=";
+      };
+      any-linux = fetchurl {
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-7778-1777374771-45dd5813b3332165d1d1cd33a478e0a7b948195e-d8efa9b284bd43eccbaf67df2d4a1deaa3c39b89.profdata";
+        hash = "sha256-qRbwmZivUpte1ILYnFBusAbRBnv/YDaEoXd46LYeaCw=";
+      };
+    };
+  };
 
   meta = {
     description = "Use Chromium's network stack to camouflage traffic";
