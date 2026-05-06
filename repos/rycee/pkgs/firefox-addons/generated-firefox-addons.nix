@@ -14452,10 +14452,10 @@
     };
     "tab-reloader" = buildMozillaXpiAddon {
       pname = "tab-reloader";
-      version = "0.6.6";
+      version = "0.6.7.1";
       addonId = "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4538002/tab_reloader-0.6.6.xpi";
-      sha256 = "70797fcd147ff4d1269621c151e3ecbb4157c4a25c1120c370b0bdd9b5b39553";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4780245/tab_reloader-0.6.7.1.xpi";
+      sha256 = "31a373255ae188629ab121867eba5787fffdf61ab1fc0ba7adae64569d93fc6f";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-reloader.html";
