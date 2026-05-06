@@ -8,10 +8,10 @@
   dotnet-runtime_8 = dotnet-runtime_10;
 }).overrideAttrs
   rec {
-    version = "1.22.0-rc.8";
+    version = "1.22.0-rc.10";
     src = fetchzip {
       url = "https://cdn.vintagestory.at/gamefiles/unstable/vs_client_linux-x64_${version}.tar.gz";
-      hash = "sha256-UhlqGylu/ooErG0p1p06whIZjSSnEvpfR84/590ElW0=";
+      hash = "sha256-aAHb7qxKMNvzjy+JAcw5jr1Vx2gArIEr9LUYfyIr4XI=";
     };
     installPhase = ''
       runHook preInstall
