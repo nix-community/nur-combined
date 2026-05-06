@@ -3,6 +3,12 @@
 lib.mkOption {
   type = lib.types.submodule {
     options = {
+      hooks = lib.mkOption {
+        type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
+        default = null;
+        description = "User-defined shell commands that fire on hook events (e.g. PreToolUse)";
+      };
+
       lsp = lib.mkOption {
         type = lib.types.attrsOf (
           lib.types.submodule {
@@ -53,6 +59,12 @@ lib.mkOption {
                 type = lib.types.nullOr (lib.types.listOf lib.types.str);
                 default = null;
                 description = "Files or directories that indicate the project root";
+              };
+
+              timeout = lib.mkOption {
+                type = lib.types.nullOr lib.types.int;
+                default = 30;
+                description = "Timeout in seconds for LSP server initialization";
               };
 
             };
@@ -252,6 +264,12 @@ lib.mkOption {
               description = "Attribution settings for generated content";
             };
 
+            auto_lsp = lib.mkOption {
+              type = lib.types.nullOr lib.types.bool;
+              default = true;
+              description = "Automatically setup LSPs based on root markers";
+            };
+
             context_paths = lib.mkOption {
               type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
@@ -294,10 +312,22 @@ lib.mkOption {
               description = "Disable sending metrics";
             };
 
+            disable_notifications = lib.mkOption {
+              type = lib.types.nullOr lib.types.bool;
+              default = false;
+              description = "Disable desktop notifications";
+            };
+
             disable_provider_auto_update = lib.mkOption {
               type = lib.types.nullOr lib.types.bool;
               default = false;
               description = "Disable providers auto-update";
+            };
+
+            disabled_skills = lib.mkOption {
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
+              default = null;
+              description = "List of skill names to disable and hide from the agent";
             };
 
             disabled_tools = lib.mkOption {
@@ -310,6 +340,12 @@ lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = "AGENTS.md";
               description = "Name of the context file to create/update during project initialization";
+            };
+
+            progress = lib.mkOption {
+              type = lib.types.nullOr lib.types.bool;
+              default = true;
+              description = "Show indeterminate progress updates during long operations";
             };
 
             skills_paths = lib.mkOption {
@@ -357,6 +393,12 @@ lib.mkOption {
                     );
                     default = null;
                     description = "Diff mode for the TUI interface";
+                  };
+
+                  transparent = lib.mkOption {
+                    type = lib.types.nullOr lib.types.bool;
+                    default = false;
+                    description = "Enable transparent background for the TUI interface";
                   };
 
                 };
@@ -630,6 +672,21 @@ lib.mkOption {
       tools = lib.mkOption {
         type = lib.types.submodule {
           options = {
+            grep = lib.mkOption {
+              type = lib.types.submodule {
+                options = {
+                  timeout = lib.mkOption {
+                    type = lib.types.nullOr lib.types.int;
+                    default = null;
+                    description = "Timeout for the grep tool call";
+                  };
+
+                };
+              };
+              default = { };
+              description = "Grep";
+            };
+
             ls = lib.mkOption {
               type = lib.types.submodule {
                 options = {
