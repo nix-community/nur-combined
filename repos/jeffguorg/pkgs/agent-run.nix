@@ -3,10 +3,16 @@
   rustPlatform,
   installShellFiles,
   sources,
+  ...
 }:
 let
   agentRunSource = sources.agent-run;
   shortCommit = lib.substring 0 7 agentRunSource.version;
+  sourceInfo = {
+    BUILD_GIT_HASH = "${shortCommit}";
+    BUILD_GIT_DIRTY = "false";
+    BUILD_GIT_DATE = "${agentRunSource.date}";
+  };
 in
 rustPlatform.buildRustPackage {
   pname = "agent-run";
@@ -19,6 +25,7 @@ rustPlatform.buildRustPackage {
   nativeBuildInputs = [
     installShellFiles
   ];
+  inherit(sourceInfo) BUILD_GIT_HASH BUILD_GIT_DATE BUILD_GIT_DIRTY;
 
   postInstall = ''
     installShellCompletion --cmd agent-run \
