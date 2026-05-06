@@ -24,14 +24,14 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cronet-go";
-  version = "147.0.7727.49-1";
+  version = "148.0.7778.96-1-unstable-2026-05-02";
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "cronet-go";
-    tag = "v${finalAttrs.version}";
+    rev = "cd9fcba9981bf69c1aab541887d2758d84dc31f3";
     fetchSubmodules = true;
-    hash = "sha256-KCCgexecTkcDJ2Bu0HPXd6L2FYLpBqZ/DaqeQBLygo0=";
+    hash = "sha256-A2yPsLU3EaUQqmkpQFTEXW0tFfYckj0ZsEEzFMAX/OE=";
   };
 
   patches = [

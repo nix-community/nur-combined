@@ -24,13 +24,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "147.0.7727.49-2";
+  version = "148.0.7778.96-3";
 
   src = fetchFromGitHub {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-jUZVYAAauWZ4rCR22JbbJzqzkkbX+wyEP+KFLbKzw4A=";
+    hash = "sha256-MX8lnw6RkC36v1Vgxci0/JC3yI31Rokv4fGRvePuVH8=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -60,6 +60,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "clang_use_chrome_plugins=false"
 
     "is_official_build=true"
+    "is_chrome_branded=true"
+    "dcheck_always_on=true"
     "exclude_unwind_tables=true"
     "enable_resource_allowlist_generation=false"
     "symbol_level=0"
@@ -92,7 +94,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "enable_dangling_raw_ptr_checks=false"
     "use_clang_modules=false"
   ]
-  ++ lib.optional stdenvNoCC.hostPlatform.isDarwin "enable_dsyms=false"
+  ++ lib.optionals stdenvNoCC.hostPlatform.isDarwin [
+    "mac_allow_system_xcode_for_official_builds_for_testing=true"
+    "enable_dsyms=false"
+  ]
   ++ lib.optional (
     stdenvNoCC.hostPlatform.isLinux && stdenvNoCC.hostPlatform.isx86_64
   ) "use_cfi_icall=false";
