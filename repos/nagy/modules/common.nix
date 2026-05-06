@@ -52,7 +52,7 @@ in
     (rclone.overrideAttrs {
       patches = pkgs.fetchpatch {
         url = "https://github.com/rclone/rclone/compare/master...nagy:rclone:mount-readonly.patch";
-        hash = "sha256-KNAIwelGO3tmwKoAhk56gaMj8KDcdG3xpTQwBxhGyTk=";
+        hash = "sha256-b9LaD2K8psxCk65+6JH0c2deZUNq6L4YTlaQvxNE04c=";
       };
     })
     dool

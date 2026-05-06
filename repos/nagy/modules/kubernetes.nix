@@ -27,6 +27,7 @@
     pkgs.kustomize
     pkgs.kustomize-sops
     pkgs.argocd-vault-plugin
+    pkgs.butane
 
     pkgs.hadolint
     pkgs.dive
