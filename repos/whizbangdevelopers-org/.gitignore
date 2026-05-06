@@ -1,0 +1,6 @@
+# Nix build outputs
+result
+result-*
+
+# OS
+.DS_Store

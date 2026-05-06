@@ -1,0 +1,66 @@
+name: "Update Package"
+
+on:
+  repository_dispatch:
+    types: [qepton-release]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to update to (e.g., 1.0.14)'
+        required: true
+      hash:
+        description: 'Nix hash (sri format, e.g., sha256-xxx)'
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Get version and hash
+        id: info
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            VERSION="${{ github.event.client_payload.version }}"
+            HASH="${{ github.event.client_payload.hash }}"
+          else
+            VERSION="${{ github.event.inputs.version }}"
+            HASH="${{ github.event.inputs.hash }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "hash=$HASH" >> $GITHUB_OUTPUT
+
+      - name: Update qepton package
+        run: |
+          VERSION="${{ steps.info.outputs.version }}"
+          HASH="${{ steps.info.outputs.hash }}"
+
+          sed -i "s/version = \"[^\"]*\"/version = \"$VERSION\"/" pkgs/qepton/default.nix
+          sed -i "s|hash = \"sha256-[^\"]*\"|hash = \"$HASH\"|" pkgs/qepton/default.nix
+
+          echo "Updated to version $VERSION with hash $HASH"
+          cat pkgs/qepton/default.nix
+
+      - name: Test build
+        run: nix-build -A qepton
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pkgs/qepton/default.nix
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "qepton: ${{ steps.info.outputs.version }}"
+            git push
+            echo "✅ Pushed update for qepton ${{ steps.info.outputs.version }}"
+          fi

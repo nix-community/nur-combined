@@ -1,0 +1,3 @@
+{
+  # Add NixOS modules here
+}

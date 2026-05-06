@@ -1,0 +1,78 @@
+name: "Update Weaver Free"
+
+on:
+  repository_dispatch:
+    types: [weaver-free-release]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to update to (e.g., 1.0.0)'
+        required: true
+      hash:
+        description: 'Source SRI hash (sha256-xxx=) from Weaver-Free release tarball'
+        required: true
+      npmDepsHash:
+        description: 'npm deps SRI hash (sha256-xxx=)'
+        required: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Get version and hashes
+        id: info
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            VERSION="${{ github.event.client_payload.version }}"
+            HASH="${{ github.event.client_payload.hash }}"
+            NPM_HASH="${{ github.event.client_payload.npmDepsHash }}"
+          else
+            VERSION="${{ github.event.inputs.version }}"
+            HASH="${{ github.event.inputs.hash }}"
+            NPM_HASH="${{ github.event.inputs.npmDepsHash }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "hash=$HASH" >> $GITHUB_OUTPUT
+          echo "npm_hash=$NPM_HASH" >> $GITHUB_OUTPUT
+
+      - name: Update weaver-free package
+        run: |
+          VERSION="${{ steps.info.outputs.version }}"
+          HASH="${{ steps.info.outputs.hash }}"
+          NPM_HASH="${{ steps.info.outputs.npm_hash }}"
+
+          sed -i "s/version = \"[^\"]*\"/version = \"$VERSION\"/" pkgs/weaver-free/default.nix
+          # Source hash is the first hash = line after the src block
+          sed -i "0,/hash = \"sha256-[^\"]*\"/{s|hash = \"sha256-[^\"]*\"|hash = \"$HASH\"|}" pkgs/weaver-free/default.nix
+
+          if [ -n "$NPM_HASH" ]; then
+            sed -i "s|npmDepsHash = \"sha256-[^\"]*\"|npmDepsHash = \"$NPM_HASH\"|" pkgs/weaver-free/default.nix
+          fi
+
+          echo "Updated to version $VERSION"
+          cat pkgs/weaver-free/default.nix
+
+      - name: Test build
+        run: nix-build -A weaver-free
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pkgs/weaver-free/default.nix
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "weaver-free: ${{ steps.info.outputs.version }}"
+            git push
+            echo "Pushed update for weaver-free ${{ steps.info.outputs.version }}"
+          fi

@@ -1,0 +1,61 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    # Rebuild daily at 2:51 UTC — catches upstream nixpkgs breakage early.
+    - cron: '51 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        # Matches the namespace that will be registered in
+        # https://github.com/nix-community/NUR/blob/master/repos.json
+        nurRepo:
+          - whizbangdevelopers-org
+        # Build against multiple nixpkgs channels so upstream changes
+        # don't break the NUR consumer experience.
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+
+      - name: Install nix
+        uses: cachix/install-nix-action@ab739621df7a23f52766f9ccc97f38da6b7af14f  # v31.10.5
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+
+      - name: Trigger NUR update
+        # Fires after a successful build on any supported nixpkgs channel.
+        # Central NUR aggregator re-fetches this repo; downstream consumers
+        # of `pkgs.nur.repos.whizbangdevelopers-org.*` see the update.
+        if: ${{ github.event_name != 'pull_request' }}
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
