@@ -46,6 +46,7 @@ jobs:
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
           pkgs/splayer-git/update.sh
+          pkgs/splayer-next-dev/update.sh
           pkgs/wild-reader/update.sh
 
       - name: Create Pull Request
