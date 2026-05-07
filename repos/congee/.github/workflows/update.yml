@@ -38,6 +38,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         if: ${{ !inputs.package || inputs.package == matrix.package }}
+        with:
+          ssh-key: ${{ secrets.NUR_DEPLOY_KEY }}
       - uses: cachix/install-nix-action@v31
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         with:
