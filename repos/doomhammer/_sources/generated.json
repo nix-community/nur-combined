@@ -1,4 +1,30 @@
 {
+    "gitpane": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-D_mXhAdrRvSEVl+0DiC+R0yrLG50PJ5xTXnWLSQeCY0=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "gitpane",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "affromero",
+            "repo": "gitpane",
+            "rev": "v0.5.3",
+            "sha256": "sha256-D/mXhAdrRvSEVl+0DiC+R0yrLG50PJ5xTXnWLSQeCY0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.5.3"
+    },
     "hammerspoon": {
         "cargoLock": null,
         "date": null,
@@ -17,7 +43,7 @@
     "mermaid-rs-renderer": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-lQCloOhTqqEU8MNrkUmmJFdoOTEE3j5nvZJo21GJlMU=/Cargo.lock",
+                "sha256-iV9kiAaGMVDfWu2BGbalw5NmzmTEsbZWWCh6oQ9BroY=/Cargo.lock",
                 {}
             ]
         },
@@ -33,12 +59,12 @@
             "name": null,
             "owner": "1jehuang",
             "repo": "mermaid-rs-renderer",
-            "rev": "v0.2.1",
-            "sha256": "sha256-lQCloOhTqqEU8MNrkUmmJFdoOTEE3j5nvZJo21GJlMU=",
+            "rev": "v0.2.2",
+            "sha256": "sha256-iV9kiAaGMVDfWu2BGbalw5NmzmTEsbZWWCh6oQ9BroY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.1"
+        "version": "v0.2.2"
     },
     "omniwm": {
         "cargoLock": null,
@@ -49,15 +75,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QQcw36JDhD2p0aYIycUHdV5lXMH3ZHHJHVtRy/zhG2g=",
+            "sha256": "sha256-f2ByexWwgc9qzUC0wbXf0nDIMl4w1xtuUfXpmzA/CFc=",
             "type": "url",
-            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.5/OmniWM-v0.4.5.zip"
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.8.1/OmniWM-v0.4.8.1.zip"
         },
-        "version": "v0.4.5"
+        "version": "v0.4.8.1"
     },
     "paperwm-spoon": {
         "cargoLock": null,
-        "date": "2026-03-30",
+        "date": "2026-05-01",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -69,12 +95,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "e5f81eaa3f9e514de022d85d135b839e7163982e",
-            "sha256": "sha256-k3CtPkUWTGW4ul8IW6l02Y8zn3ziVcDSAPNZy5WJF/o=",
+            "rev": "97c88cb16fc9330f9e1f71cd8defc17fd865afe4",
+            "sha256": "sha256-EmPIcF2e19fs6Pv3eCC94DdwlB79qWTk3yPXUfZbCio=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e5f81eaa3f9e514de022d85d135b839e7163982e"
+        "version": "97c88cb16fc9330f9e1f71cd8defc17fd865afe4"
     },
     "powershell-beautifier": {
         "cargoLock": null,

@@ -20,6 +20,7 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  gitpane = pkgs.callPackage ./pkgs/gitpane { source = sources.gitpane; };
   hammerspoon = pkgs.callPackage ./pkgs/hammerspoon { source = sources.hammerspoon; };
   mermaid-rs-renderer = pkgs.callPackage ./pkgs/mermaid-rs-renderer {
     source = sources.mermaid-rs-renderer;
