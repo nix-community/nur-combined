@@ -39,7 +39,7 @@ let
     owner = "BerriAI";
     repo = "litellm";
     rev = version;
-    hash = "sha256-p6QuOJqZSeAA7FpuyQxqureFH76ip65z2WLWfDIr/Vc=";
+    hash = "sha256-kimkZabd+Jm4XcuMhR57DgSBHu57Q2qLrDDYus4tq24=";
   };
 
   # Pinned Prisma engines (v5.17.0 / commit 393aa359...). Required because
