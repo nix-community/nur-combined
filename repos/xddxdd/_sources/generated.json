@@ -391,12 +391,12 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "v1.4.4",
-            "sha256": "sha256-60QyqilUI0yNCTZrCyUZhQYFio0gP/Z5Lcb3btlQRaE=",
+            "rev": "v1.4.5",
+            "sha256": "sha256-xKDpaGnMv8e2OKV3547d7Jsq3VFNwayhCL2dGKVYSZM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.4.4"
+        "version": "v1.4.5"
     },
     "boringssl-oqs": {
         "cargoLock": null,
@@ -562,12 +562,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.10.8",
-            "sha256": "sha256-TFk6sa2qot/fj4cVhF046vPyccqefAu2SxScKYX3LXY=",
+            "rev": "v6.10.9",
+            "sha256": "sha256-V0cxqWTmV2mMrnNkkAXja5bzU11tG5GX1r8n7+9ES1A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.10.8"
+        "version": "v6.10.9"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1556,11 +1556,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gfjlfgSVk4X8j3AP7jXhPivILMlg7F3xWvDTypnQysQ=",
+            "sha256": "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.05.04"
+        "version": "2026.05.07"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1571,11 +1571,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hUK6Vm+MMIk7h3iWfyYuaPhc9uoeSAHCGxEv2jyD1Nw=",
+            "sha256": "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb"
         },
-        "version": "2026.05.04"
+        "version": "2026.05.07"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1586,11 +1586,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pkDrdF5EPRsgc18CBUXQLBM9Am5sjl4kfVFAZmA/268=",
+            "sha256": "sha256-btDxlCUBWP6MqtH8D3y5LkpNuaflQCF+vaIlEQJjGHk=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-Country.mmdb"
         },
-        "version": "2026.05.04"
+        "version": "2026.05.07"
     },
     "glauth": {
         "cargoLock": null,
@@ -1890,12 +1890,12 @@
             "name": null,
             "owner": "studyzy",
             "repo": "imewlconverter",
-            "rev": "v3.3.1",
-            "sha256": "sha256-+eVApayrwiiiotNV7QwKBBYUbOTkyp9qQA9Ny0KYCxM=",
+            "rev": "v3.4.0",
+            "sha256": "sha256-Bc2AMTy6qD+B0sS3sylSsR8nY4G3E3zjo+B0Tt+NLnE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.3.1"
+        "version": "v3.4.0"
     },
     "inter-knot": {
         "cargoLock": null,
@@ -2379,12 +2379,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9048",
-            "sha256": "sha256-fveIwM5q/PN3bJAS+T6EmIobSsTHw7e2Q9DWIwunS4Q=",
+            "rev": "b9061",
+            "sha256": "sha256-W7uBkp7Fvnv9MU45Lncz4RatQ5vdBosWhnYXmGlz7H4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9048"
+        "version": "b9061"
     },
     "loralib": {
         "cargoLock": null,
@@ -3947,7 +3947,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-05-05",
+        "date": "2026-05-07",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3959,12 +3959,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "833d48e89e791b1e9a22153052d23bd919892e91",
-            "sha256": "sha256-gyTFPunnrYOSCRb0ZuNBvfH+6XW+jOZgoBDMDuDEmq8=",
+            "rev": "7102c97120e70df859f5e35c521c5a5fd34bb209",
+            "sha256": "sha256-tBQ4nbUrBIGMQYa+DtuXNEjNSIdjsS3lgSb7S15xcD0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "833d48e89e791b1e9a22153052d23bd919892e91"
+        "version": "7102c97120e70df859f5e35c521c5a5fd34bb209"
     },
     "rtpengine-stable": {
         "cargoLock": null,

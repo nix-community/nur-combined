@@ -203,12 +203,12 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "v1.4.4";
+    version = "v1.4.5";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      tag = "v1.4.4";
-      hash = "sha256-60QyqilUI0yNCTZrCyUZhQYFio0gP/Z5Lcb3btlQRaE=";
+      tag = "v1.4.5";
+      hash = "sha256-xKDpaGnMv8e2OKV3547d7Jsq3VFNwayhCL2dGKVYSZM=";
     };
   };
   boringssl-oqs = {
@@ -289,12 +289,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.10.8";
+    version = "v6.10.9";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.10.8";
-      hash = "sha256-TFk6sa2qot/fj4cVhF046vPyccqefAu2SxScKYX3LXY=";
+      tag = "v6.10.9";
+      hash = "sha256-V0cxqWTmV2mMrnNkkAXja5bzU11tG5GX1r8n7+9ES1A=";
     };
   };
   cockpy = {
@@ -802,26 +802,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.04";
+    version = "2026.05.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-ASN.mmdb";
-      hash = "sha256-gfjlfgSVk4X8j3AP7jXhPivILMlg7F3xWvDTypnQysQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb";
+      hash = "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.04";
+    version = "2026.05.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-City.mmdb";
-      hash = "sha256-hUK6Vm+MMIk7h3iWfyYuaPhc9uoeSAHCGxEv2jyD1Nw=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb";
+      hash = "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.04";
+    version = "2026.05.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-Country.mmdb";
-      hash = "sha256-pkDrdF5EPRsgc18CBUXQLBM9Am5sjl4kfVFAZmA/268=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-Country.mmdb";
+      hash = "sha256-btDxlCUBWP6MqtH8D3y5LkpNuaflQCF+vaIlEQJjGHk=";
     };
   };
   glauth = {
@@ -972,12 +972,12 @@
   };
   imewlconverter = {
     pname = "imewlconverter";
-    version = "v3.3.1";
+    version = "v3.4.0";
     src = fetchFromGitHub {
       owner = "studyzy";
       repo = "imewlconverter";
-      tag = "v3.3.1";
-      hash = "sha256-+eVApayrwiiiotNV7QwKBBYUbOTkyp9qQA9Ny0KYCxM=";
+      tag = "v3.4.0";
+      hash = "sha256-Bc2AMTy6qD+B0sS3sylSsR8nY4G3E3zjo+B0Tt+NLnE=";
     };
   };
   inter-knot = {
@@ -1223,12 +1223,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9048";
+    version = "b9061";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9048";
-      hash = "sha256-fveIwM5q/PN3bJAS+T6EmIobSsTHw7e2Q9DWIwunS4Q=";
+      tag = "b9061";
+      hash = "sha256-W7uBkp7Fvnv9MU45Lncz4RatQ5vdBosWhnYXmGlz7H4=";
     };
   };
   loralib = {
@@ -2027,14 +2027,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "833d48e89e791b1e9a22153052d23bd919892e91";
+    version = "7102c97120e70df859f5e35c521c5a5fd34bb209";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "833d48e89e791b1e9a22153052d23bd919892e91";
-      hash = "sha256-gyTFPunnrYOSCRb0ZuNBvfH+6XW+jOZgoBDMDuDEmq8=";
+      rev = "7102c97120e70df859f5e35c521c5a5fd34bb209";
+      hash = "sha256-tBQ4nbUrBIGMQYa+DtuXNEjNSIdjsS3lgSb7S15xcD0=";
     };
-    date = "2026-05-05";
+    date = "2026-05-07";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
