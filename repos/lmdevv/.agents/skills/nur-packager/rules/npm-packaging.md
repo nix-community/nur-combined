@@ -1,0 +1,266 @@
+# Node.js/npm Packaging
+
+Package Node.js projects as Nix derivations using `buildNpmPackage` or `node2nix`.
+
+## Strategy Selection
+
+```
+Is it a CLI tool with pre-built binaries on GitHub Releases?
+├── YES → Use binary-release pattern (prefer binaries over npm build)
+└── NO → Continue
+
+Is it a simple npm package (single bin, no native addons)?
+├── YES → buildNpmPackage (recommended, simpler)
+└── NO → Continue
+
+Does it have native addons (node-gyp, .node files)?
+├── YES → buildNpmPackage with nativeBuildInputs
+│   └── Need: python3, pkg-config, node-gyp dependencies
+└── NO → Continue
+
+Is it a complex monorepo or has postinstall scripts?
+├── YES → buildNpmPackage with forceFetchDeps + postInstall
+└── NO → buildNpmPackage (standard)
+```
+
+## buildNpmPackage (Recommended)
+
+`buildNpmPackage` is the modern approach for packaging Node.js projects. It fetches npm dependencies and builds the project.
+
+### Basic Pattern
+
+```nix
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+}:
+
+buildNpmPackage rec {
+  pname = "my-tool";
+  version = "1.2.3";
+
+  src = fetchFromGitHub {
+    owner = "example";
+    repo = "my-tool";
+    rev = "v${version}";
+    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  };
+
+  npmDepsHash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
+
+  meta = with lib; {
+    description = "A CLI tool that does something useful";
+    homepage = "https://github.com/example/my-tool";
+    license = licenses.mit;
+    maintainers = [ "lmdevv" ];
+    mainProgram = "my-tool";
+  };
+}
+```
+
+### With npm Registry Source
+
+If the package is on npm and you don't need to build from GitHub:
+
+```nix
+{
+  lib,
+  buildNpmPackage,
+  fetchnpmrc,
+}:
+
+buildNpmPackage rec {
+  pname = "my-tool";
+  version = "1.2.3";
+
+  src = fetchnpmrc {
+    name = "${pname}-${version}";
+    registry = "https://registry.npmjs.org";
+    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  };
+
+  npmDepsHash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
+
+  meta = with lib; {
+    description = "A CLI tool";
+    homepage = "https://github.com/example/my-tool";
+    license = licenses.mit;
+    maintainers = [ "lmdevv" ];
+    mainProgram = "my-tool";
+  };
+}
+```
+
+### Getting npmDepsHash
+
+The first time, use a placeholder hash and Nix will tell you the correct one:
+
+```bash
+# Set npmDepsHash to an empty hash first:
+npmDepsHash = "";
+
+# Build and Nix will error with the correct hash:
+nix build .#my-tool
+# error: hash mismatch in fixed-output derivation ... expected sha256-... got sha256-CORRECT_HASH
+
+# Or pre-fetch manually:
+nix build .#my-tool 2>&1 | grep "got:" | awk '{print $2}'
+```
+
+### With Native Addons
+
+For packages that compile native code (node-gyp, bcrypt, etc.):
+
+```nix
+buildNpmPackage rec {
+  pname = "my-tool";
+  version = "1.2.3";
+
+  src = fetchFromGitHub {
+    owner = "example";
+    repo = "my-tool";
+    rev = "v${version}";
+    hash = "sha256-AAA...";
+  };
+
+  npmDepsHash = "sha256-BBB...";
+
+  nativeBuildInputs = [
+    python3
+    pkg-config
+  ];
+
+  buildInputs = [
+    openssl
+  ];
+
+  meta = with lib; { ... };
+}
+```
+
+### Complex: Skipping Postinstall Scripts
+
+Some packages run postinstall scripts that try to download binaries. Skip them:
+
+```nix
+buildNpmPackage rec {
+  pname = "my-tool";
+  version = "1.2.3";
+
+  src = fetchFromGitHub {
+    owner = "example";
+    repo = "my-tool";
+    rev = "v${version}";
+    hash = "sha256-AAA...";
+  };
+
+  npmDepsHash = "sha256-BBB...";
+
+  # Skip install scripts that try to download binaries
+  npmFlags = [ "--ignore-scripts" ];
+
+  # Then manually do what the script needed
+  postInstall = ''
+    # Manual setup if needed
+  '';
+
+  meta = with lib; { ... };
+}
+```
+
+### With Custom npm Install Hooks
+
+```nix
+buildNpmPackage rec {
+  pname = "my-tool";
+  version = "1.2.3";
+
+  src = fetchFromGitHub {
+    owner = "example";
+    repo = "my-tool";
+    rev = "v${version}";
+    hash = "sha256-AAA...";
+  };
+
+  npmDepsHash = "sha256-BBB...";
+
+  # Override build command
+  npmBuildScript = "build:production";
+
+  # Add extra npm flags
+  npmFlags = [ "--legacy-peer-deps" ];
+
+  meta = with lib; { ... };
+}
+```
+
+## node2nix (Legacy, Use Only When Necessary)
+
+Use `node2nix` when `buildNpmPackage` doesn't work, typically for:
+- Packages with complex native dependency chains
+- Projects that need custom node versions
+- Monorepos with workspace dependencies
+
+### Generating node2nix Files
+
+```bash
+# Install node2nix
+nix-shell -p node2nix
+
+# Generate from package.json in a repo
+node2nix -12 -l package-lock.json -c node2nix/default.nix
+
+# Generate from npm package name
+node2nix -12 -e node-env.nix -c node2nix/default.nix -p node2nix/packages.nix
+```
+
+### node2nix Package Structure
+
+```
+pkgs/my-tool/
+├── default.nix        # calls mkNodePackage
+├── node2nix/
+│   ├── default.nix    # generated by node2nix
+│   ├── node-env.nix   # generated by node2nix
+│   └── packages.nix   # generated by node2nix
+└── update.sh          # regeneration script
+```
+
+### node2nix default.nix
+
+```nix
+{ pkgs, system, nodejs }:
+
+let
+  nodeEnv = pkgs.callPackage ./node2nix/node-env.nix { };
+  nodePkgs = pkgs.callPackage ./node2nix/default.nix {
+    inherit nodeEnv;
+    inherit (pkgs) nodejs;
+  };
+in
+nodePkgs."my-tool"
+```
+
+## Common Pitfalls
+
+| Issue | Solution |
+|---|---|
+| `npmDepsHash` mismatch | Delete hash, rebuild, copy correct hash from error |
+| ERESOLVE errors | Add `npmFlags = [ "--legacy-peer-deps" ];` |
+| Native addon build fails | Add `python3`, `pkg-config`, `node-gyp` to nativeBuildInputs |
+| Postinstall downloads binary | Add `npmFlags = [ "--ignore-scripts" ];` and manually handle |
+| `ENOENT: no such file` | Check if `src` is missing files; use `fetchFromGitHub` not `fetchurl` for repos |
+| Binary name differs from package name | Add `meta.mainProgram = "actual-bin-name";` |
+| Needs global npm install | Use `makeWrapper` to wrap the binary correctly |
+
+## When to Prefer Binary Releases Over npm Build
+
+Even for npm packages, prefer binary releases when available:
+
+1. **Faster builds**: No npm dependency fetch/compile
+2. **More reliable**: No network issues during build
+3. **Less maintenance**: No npmDepsHash updates needed
+4. **Cross-platform**: Binaries often already built for all platforms
+
+Exception: Build from npm when you need to patch the source or when binary releases are incomplete.
