@@ -53,7 +53,7 @@ in
       };
 
       extraOptions = ''
-        experimental-features = nix-command flakes auto-allocate-uids no-url-literals
+        experimental-features = nix-command flakes auto-allocate-uids
         use-xdg-base-directories = true
         keep-outputs = true
         keep-derivations = true

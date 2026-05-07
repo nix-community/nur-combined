@@ -21,7 +21,6 @@ in
   config = mkIf cfg.enable {
     abszero = {
       profiles.graphical.enable = true;
-      hardware.keyboard.halo65.enable = true;
       boot.plymouth.enable = true;
       virtualisation.act.enable = true;
       i18n.inputMethod.fcitx5.enable = true;
@@ -40,7 +39,7 @@ in
       };
     };
 
-    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.10" ];
+    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
 
     hardware.keyboard.qmk.enable = true;
 
@@ -76,14 +75,14 @@ in
         jq
         kooha
         libreoffice-qt
-        lutris
+        # lutris
         minefair
         nautilus
         nudoku
         obsidian
         proton-pass
-        protonvpn-gui
-        # taisei
+        proton-vpn
+        taisei
         tenacity
         unzip
         vial

@@ -1,3 +1,4 @@
+# WARN: No longer maintained as of 2026-04-07
 { config, lib, ... }:
 
 let

@@ -81,7 +81,7 @@ let
     swapDevices = [
       {
         device = "/swap/swapfile";
-        size = 4096;
+        size = 2048;
         discardPolicy = "pages";
       }
     ];

@@ -15,6 +15,7 @@ in
 
   config.programs.helix = mkIf cfg.enable {
     enable = true;
+    package = pkgs.steelix;
     defaultEditor = true;
 
     settings = {
@@ -46,12 +47,9 @@ in
         lsp.display-inlay-hints = true;
 
         # Editing
-        auto-save = {
-          focus-lost = true;
-          after-delay = {
-            enable = true;
-            timeout = 300;
-          };
+        auto-save.after-delay = {
+          enable = true;
+          timeout = 300;
         };
         trim-final-newlines = true;
         trim-trailing-whitespace = true;
@@ -165,20 +163,22 @@ in
         #     "gpt"
         #   ];
         # }
-        # {
-        #   name = "clojure";
-        #   language-servers = [
-        #     "clojure-lsp"
-        #     "gpt"
-        #   ];
-        # }
-        # {
-        #   name = "css";
-        #   language-servers = [
-        #     "vscode-css-language-server"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "clojure";
+          language-servers = [
+            "clojure-lsp"
+            "tailwindcss-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "css";
+          language-servers = [
+            "tailwindcss-language-server"
+            "vscode-css-language-server"
+            "gpt"
+          ];
+        }
         {
           name = "devicetree";
           file-types = [
@@ -188,13 +188,14 @@ in
             "overlay"
           ];
         }
-        # {
-        #   name = "javascript";
-        #   language-servers = [
-        #     "ts"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "javascript";
+          language-servers = [
+            "ts"
+            "tailwindcss-language-server"
+            "gpt"
+          ];
+        }
         # {
         #   name = "json";
         #   language-servers = [
@@ -202,13 +203,14 @@ in
         #     "gpt"
         #   ];
         # }
-        # {
-        #   name = "html";
-        #   language-servers = [
-        #     "vscode-html-language-server"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "html";
+          language-servers = [
+            "vscode-html-language-server"
+            "tailwindcss-language-server"
+            "gpt"
+          ];
+        }
         # {
         #   name = "markdown";
         #   language-servers = [
@@ -252,20 +254,22 @@ in
         #     "gpt"
         #   ];
         # }
-        # {
-        #   name = "typescript";
-        #   language-servers = [
-        #     "ts"
-        #     "gpt"
-        #   ];
-        # }
-        # {
-        #   name = "vue";
-        #   language-servers = [
-        #     "vue-language-server"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "typescript";
+          language-servers = [
+            "ts"
+            "tailwindcss-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "vue";
+          language-servers = [
+            "vue-language-server"
+            "tailwindcss-language-server"
+            "gpt"
+          ];
+        }
         # {
         #   name = "yaml";
         #   language-servers = [
@@ -276,6 +280,10 @@ in
       ];
 
       language-server = {
+        tailwindcss-language-server = {
+          command = "tailwindcss-language-server";
+          args = [ "--stdio" ];
+        };
         # gpt = {
         #   command = "bash";
         #   # Use copilot by default
