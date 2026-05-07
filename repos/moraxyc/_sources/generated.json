@@ -111,10 +111,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-05-06",
+        "date": "2026-05-07",
         "extract": {
-            "web/package-lock.json": "sha256-KdTYL_cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=/web/package-lock.json",
-            "web/package.json": "sha256-KdTYL_cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=/web/package.json"
+            "web/package-lock.json": "sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=/web/package-lock.json",
+            "web/package.json": "sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -126,12 +126,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "5808976c06c0ce5c1d72377750be7baabb05b00a",
-            "sha256": "sha256-KdTYL/cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=",
+            "rev": "9f20a5b8f6adc8269728b51491f1957b0d6bf555",
+            "sha256": "sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5808976c06c0ce5c1d72377750be7baabb05b00a"
+        "version": "9f20a5b8f6adc8269728b51491f1957b0d6bf555"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -147,12 +147,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "v1.5.0",
-            "sha256": "sha256-KdTYL/cdSW6pBvKr7MWyHnItFL+CTs209H0w1U6K0qU=",
+            "rev": "v1.5.1",
+            "sha256": "sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.5.0"
+        "version": "v1.5.1"
     },
     "english_words": {
         "cargoLock": null,
@@ -344,12 +344,12 @@
             "name": null,
             "owner": "cyanheads",
             "repo": "git-mcp-server",
-            "rev": "v2.15.0",
-            "sha256": "sha256-rYR5DWmcRh863y+jLF4cnT8gwvu0f/+XtIrw08JLLx4=",
+            "rev": "v2.15.1",
+            "sha256": "sha256-CzKb4HRVrf/XyldYm69KJWn6cIpVAfz9Vg7q2j6SBdc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.15.0"
+        "version": "v2.15.1"
     },
     "happydeliver": {
         "cargoLock": null,
@@ -617,11 +617,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mp8X/Yz55qnyDAra263Piyx+iJkmAdohKlbQRx1VJrw=",
+            "sha256": "sha256-VJQ067v7FaC5q/0Xld/GdCmkkzflqwRY1H6qGQn5QPE=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.3/NipaPlay_1.10.3_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.4/NipaPlay_1.10.4_macOS_Universal.dmg"
         },
-        "version": "1.10.3"
+        "version": "1.10.4"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -632,11 +632,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XNG9xrj9Shv8PX+9mT2JqbNvvXr6cxxhPVj+uyCwX/I=",
+            "sha256": "sha256-SjpGfTj92faWcBoAjhxOslCOLjqF/uy/gIPxC6pj+qM=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.3/NipaPlay-1.10.3-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.4/NipaPlay-1.10.4-Linux-amd64.AppImage"
         },
-        "version": "1.10.3"
+        "version": "1.10.4"
     },
     "pixy2": {
         "cargoLock": null,
@@ -733,9 +733,9 @@
             "name": null,
             "sha256": "sha256-pAUICnzzXjsCRzCgcpN8Dclx6HDafWYW77o8qmk8pgo=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605052250/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605062243/geoip.dat"
         },
-        "version": "202605052250"
+        "version": "202605062243"
     },
     "v2ray-rules-dat-geosite": {
         "cargoLock": null,
@@ -746,11 +746,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VDHCN5I5zISqdZtGd7OmnXK863Tu/iOADnCOoDIuTCE=",
+            "sha256": "sha256-CJuk6VVRyeGkXz8Q85ij55sVMBwo1rkpQYoLjdKkDhw=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605052250/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605062243/geosite.dat"
         },
-        "version": "202605052250"
+        "version": "202605062243"
     },
     "yass": {
         "cargoLock": null,
