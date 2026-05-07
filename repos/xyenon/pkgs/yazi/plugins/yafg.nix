@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "yafg";
-  version = "0-unstable-2026-01-10";
+  version = "0-unstable-2026-05-06";
 
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "yafg.yazi";
-    rev = "dd03b133d6cd1ff92368360558da193517169f9e";
-    hash = "sha256-xTZ+6KRr85A4QpPWAE9QN1AnUVnCw/tvRvsWOmmayao=";
+    rev = "e6ba85125bfa4e3a60ef28b70949299712103b2a";
+    hash = "sha256-IKQscTTirtfbsXKzCmaokPDrQZqXa4MSY2+6DbEQluU=";
   };
 
   dontBuild = true;

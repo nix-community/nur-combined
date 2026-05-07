@@ -115,7 +115,7 @@
     },
     "mholt/caddy-l4": {
         "cargoLock": null,
-        "date": "20260504183635",
+        "date": "20260505065500",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
@@ -130,12 +130,12 @@
             "name": null,
             "owner": "mholt",
             "repo": "caddy-l4",
-            "rev": "d52df4e8a13b892bc47e9f3aca7c199fa83f1104",
-            "sha256": "sha256-A7sANoVQ7ABuByGq5IaH6F3J7eospTLImwBq6nq++6A=",
+            "rev": "714ee1ebaa2866e0e6a66ec362bd2dc041b5ada7",
+            "sha256": "sha256-w5JwAkxnWMZd1BAKdHS6A9qDDnOT/+JMUPRqz2KneUU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d52df4e8a13b892bc47e9f3aca7c199fa83f1104"
+        "version": "714ee1ebaa2866e0e6a66ec362bd2dc041b5ada7"
     },
     "mholt/caddy-webdav": {
         "cargoLock": null,
@@ -164,11 +164,11 @@
     "nh": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-XBAcK8eImkhtFfzHSlHfYQELoa0F88Lgkqt0TrSBySs=/Cargo.lock",
+                "sha256-M0_OK1XAlfpCq6OLmgNKcyS9NZK3dh9XjawrQ+3Nbe0=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-04-21",
+        "date": "2026-05-07",
         "extract": null,
         "name": "nh",
         "passthru": null,
@@ -180,12 +180,12 @@
             "name": null,
             "owner": "XYenon",
             "repo": "nh",
-            "rev": "3a05580c4279705ec3c62a83ecb7b26bc2a59d49",
-            "sha256": "sha256-XBAcK8eImkhtFfzHSlHfYQELoa0F88Lgkqt0TrSBySs=",
+            "rev": "8fd13dc7c4418a31e78f97a61c4b5c13df53a763",
+            "sha256": "sha256-M0/OK1XAlfpCq6OLmgNKcyS9NZK3dh9XjawrQ+3Nbe0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3a05580c4279705ec3c62a83ecb7b26bc2a59d49"
+        "version": "8fd13dc7c4418a31e78f97a61c4b5c13df53a763"
     },
     "nix-package-versions": {
         "cargoLock": null,
@@ -231,7 +231,7 @@
     },
     "rime-ice-unstable": {
         "cargoLock": null,
-        "date": "2026-05-04",
+        "date": "2026-05-06",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -243,12 +243,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "b4f780430bb8227d07583e4738f1c8f04d3079b8",
-            "sha256": "sha256-3ltD+fT8Z09u11OMP6sgyw5lhsHNMkuhto27POX6uZA=",
+            "rev": "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d",
+            "sha256": "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4f780430bb8227d07583e4738f1c8f04d3079b8"
+        "version": "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -267,7 +267,7 @@
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
-        "date": "2026-04-23",
+        "date": "2026-05-07",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -279,11 +279,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "ac82af3e10f9a32cecd9f87ac64b3f9de7c7aea7",
-            "sha256": "sha256-svc7I2E+tVMEUWUvIS6i3oTGfLq13eaI61T0c1MQ8qQ=",
+            "rev": "4ffa48f33465c22cce48c5d506295a3eb27c1979",
+            "sha256": "sha256-wr5QL493A175dRjYSyYpMMJax1RKWaZ3jAdFdL3XXTw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ac82af3e10f9a32cecd9f87ac64b3f9de7c7aea7"
+        "version": "4ffa48f33465c22cce48c5d506295a3eb27c1979"
     }
 }
