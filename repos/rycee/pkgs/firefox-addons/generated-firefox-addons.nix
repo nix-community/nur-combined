@@ -347,10 +347,10 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.9.0";
+      version = "1.14.1";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4677798/angular_devtools-1.9.0.xpi";
-      sha256 = "a99ea348f90c8404697638690cf7eba50887de81ac7a2df1174c3fff7f845e98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4757690/angular_devtools-1.14.1.xpi";
+      sha256 = "6dc7c803f9290432b4803b6c6471dd26cce45e9338879328848dbd3a4537573e";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -2900,10 +2900,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260504.90448";
+      version = "150.0.20260506.140522";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4790767/dansk_da_language_pack-151.0.20260504.90448.xpi";
-      sha256 = "7b27e6ae7f21f8a78cf9c82b79628732eb3fca65d37adae93459a51cfd4712d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4794464/dansk_da_language_pack-150.0.20260506.140522.xpi";
+      sha256 = "31eeb9df7b07f0abfddd86757e136181bd541277e781193c159263de0fe1e75a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -2995,10 +2995,10 @@
     };
     "darkreader" = buildMozillaXpiAddon {
       pname = "darkreader";
-      version = "4.9.124";
+      version = "4.9.125";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748915/darkreader-4.9.124.xpi";
-      sha256 = "ce703c98545999cee0b5c416f4fd4a3080f1405440f005d5c5cf23ac0868bcbd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4783321/darkreader-4.9.125.xpi";
+      sha256 = "21a9a18bc873e09b9b10f841a559807ce9e90738674c7eddb9f639c0663eaf28";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -3114,10 +3114,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260504.90448";
+      version = "150.0.20260506.140522";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4790764/deutsch_de_language_pack-151.0.20260504.90448.xpi";
-      sha256 = "d57e8802d538cd591edd132d5ca9d4a139f17c11ebc2dc6960bd6274534eeab9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4794460/deutsch_de_language_pack-150.0.20260506.140522.xpi";
+      sha256 = "2a097ac2b21f13422a12d85649772492a13b5677f672e57bdc80de2245946fb1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4592,10 +4592,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260504.90448";
+      version = "150.0.20260506.140522";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4790801/francais_language_pack-151.0.20260504.90448.xpi";
-      sha256 = "a08186b59c5904666b1bf8a672ec9b6e14c18752335a241ca78a5f8cb2b3ef97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4794483/francais_language_pack-150.0.20260506.140522.xpi";
+      sha256 = "5e57eae0bfb0bbf2f9748e2c39ba4e81497fe44df7ed12b2bd5f344ec7855046";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4629,10 +4629,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260504.90448";
+      version = "150.0.20260506.140522";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4790769/gaidhlig_language_pack-151.0.20260504.90448.xpi";
-      sha256 = "188d669ef9c16a69391c7625f780b65befef55eb90d9c93e0cc46bf341880269";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4794510/gaidhlig_language_pack-150.0.20260506.140522.xpi";
+      sha256 = "0111181479c9c6af7e6ac53ad26d61e28342468252add17237e1924c4bf3af6d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -13046,10 +13046,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.79";
+      version = "4.3.81";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4771798/remove_youtube_s_suggestions-4.3.79.xpi";
-      sha256 = "47d5b400a9740ccbfb4639da4e246170fbf7fd5caf7b924f5475ee3e761d3abd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4795073/remove_youtube_s_suggestions-4.3.81.xpi";
+      sha256 = "9b53f35586ba410f85eb2cb6683de353aa7b7254073d7c4f51098a7a60376caa";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -13326,10 +13326,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260504.90448";
+      version = "150.0.20260506.140522";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4790715/scots_language_pack-151.0.20260504.90448.xpi";
-      sha256 = "5303cfd4937a5fd1fd7844377b574fa4ca43950bfc55df23708b8e05c4facf94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4794492/scots_language_pack-150.0.20260506.140522.xpi";
+      sha256 = "d7a46d6b3ca30ab061f5479fdcae4cf0a212879af54a577d1d76cedc4903b318";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -17275,10 +17275,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.17.0";
+      version = "1.17.2";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4771586/youtube_auto_hd_fps-1.17.0.xpi";
-      sha256 = "0888cb9ff2981d160ddd4070efb80ad138ea258170468a5a3299bcee94990dec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4794892/youtube_auto_hd_fps-1.17.2.xpi";
+      sha256 = "701c2ae2528f9689b322632ab2f50a828d90e01c29d172c29b2f47a71971d73a";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
