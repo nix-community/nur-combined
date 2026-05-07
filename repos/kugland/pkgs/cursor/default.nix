@@ -6,12 +6,12 @@
 }:
 let
   pname = "cursor";
-  version = "2.6.19";
+  version = "3.2.21";
   sources = {
-    x86_64.url = "https://downloads.cursor.com/production/224838f96445be37e3db643a163a817c15b3606c/linux/x64/Cursor-2.6.19-x86_64.AppImage";
-    x86_64.hash = "sha256-KPHcY7KhcWTpiFPvHUXmP57ePOW1ouANYVtFMaSzN3Y=";
-    aarch64.url = "https://downloads.cursor.com/production/224838f96445be37e3db643a163a817c15b3606c/linux/arm64/Cursor-2.6.19-aarch64.AppImage";
-    aarch64.hash = "sha256-oyWGiuMkfEgwVd5c28CWfPjZHK3agtfrWZ54/Bk4c6E=";
+    x86_64.url = "https://downloads.cursor.com/production/806df57ed3b6f1ee0175140d38039a38574ec722/linux/x64/Cursor-3.2.21-x86_64.AppImage";
+    x86_64.hash = "sha256-1OtumCvJbLIoNflh1hrMz2at3k/FrqK+Qvhn/XGI2dU=";
+    aarch64.url = "https://downloads.cursor.com/production/806df57ed3b6f1ee0175140d38039a38574ec722/linux/arm64/Cursor-3.2.21-aarch64.AppImage";
+    aarch64.hash = "sha256-BEEZ4BkgDAJkM19TSMQQltJIiD0hsRXGP7BAHPZpHUc=";
   };
   src = fetchurl (
     if stdenv.hostPlatform.isx86_64
