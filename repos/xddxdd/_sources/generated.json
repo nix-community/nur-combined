@@ -2394,12 +2394,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9061",
-            "sha256": "sha256-W7uBkp7Fvnv9MU45Lncz4RatQ5vdBosWhnYXmGlz7H4=",
+            "rev": "b9080",
+            "sha256": "sha256-eLDQEKzFH+gyXI8i2Sxyg7JP2gO0W1WaSQdapYNpALc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9061"
+        "version": "b9080"
     },
     "loralib": {
         "cargoLock": null,
@@ -3962,7 +3962,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-05-07",
+        "date": "2026-05-08",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3974,12 +3974,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "7102c97120e70df859f5e35c521c5a5fd34bb209",
-            "sha256": "sha256-tBQ4nbUrBIGMQYa+DtuXNEjNSIdjsS3lgSb7S15xcD0=",
+            "rev": "cc0f04fba2327cc011d0598ba758f3ba18b1351b",
+            "sha256": "sha256-x4SaBZQKEGuW5HKlJZX+FgzeifFf0Gw4jHoQ9RL3e6w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7102c97120e70df859f5e35c521c5a5fd34bb209"
+        "version": "cc0f04fba2327cc011d0598ba758f3ba18b1351b"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4236,11 +4236,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-UeMHwlgeThoAKZGrPjp3UDyLB0xCaVmHqYSnOC0Kxa8=",
+            "sha256": "sha256-PIEypDv6m5WbDI/b3PmqAb2AkEf/T7waSq4OtxMx8F4=",
             "type": "url",
-            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.1.1867/Suwayomi-Server-v2.1.1867.jar"
+            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.2.2100/Suwayomi-Server-v2.2.2100.jar"
         },
-        "version": "v2.1.1867"
+        "version": "v2.2.2100"
     },
     "svp": {
         "cargoLock": null,
@@ -4457,7 +4457,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-05-02",
+        "date": "2026-05-08",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4469,12 +4469,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "7f9ece746163818a0628729a61598df711d21b78",
-            "sha256": "sha256-JcIpbQXHJNUYDq4cWJ7buGCpMSIBke4EB/C6LKVuS6I=",
+            "rev": "459e6544a1fd8bf03da65f0381983f2e454aaef8",
+            "sha256": "sha256-nQ+t7qaefVGheZNJD/IUjz27vXZ3ex9OUr2kIHL/oFs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7f9ece746163818a0628729a61598df711d21b78"
+        "version": "459e6544a1fd8bf03da65f0381983f2e454aaef8"
     },
     "unigine-heaven": {
         "cargoLock": null,

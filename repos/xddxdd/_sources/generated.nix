@@ -1231,12 +1231,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9061";
+    version = "b9080";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9061";
-      hash = "sha256-W7uBkp7Fvnv9MU45Lncz4RatQ5vdBosWhnYXmGlz7H4=";
+      tag = "b9080";
+      hash = "sha256-eLDQEKzFH+gyXI8i2Sxyg7JP2gO0W1WaSQdapYNpALc=";
     };
   };
   loralib = {
@@ -2035,14 +2035,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "7102c97120e70df859f5e35c521c5a5fd34bb209";
+    version = "cc0f04fba2327cc011d0598ba758f3ba18b1351b";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "7102c97120e70df859f5e35c521c5a5fd34bb209";
-      hash = "sha256-tBQ4nbUrBIGMQYa+DtuXNEjNSIdjsS3lgSb7S15xcD0=";
+      rev = "cc0f04fba2327cc011d0598ba758f3ba18b1351b";
+      hash = "sha256-x4SaBZQKEGuW5HKlJZX+FgzeifFf0Gw4jHoQ9RL3e6w=";
     };
-    date = "2026-05-07";
+    date = "2026-05-08";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2168,10 +2168,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v2.1.1867";
+    version = "v2.2.2100";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.1.1867/Suwayomi-Server-v2.1.1867.jar";
-      hash = "sha256-UeMHwlgeThoAKZGrPjp3UDyLB0xCaVmHqYSnOC0Kxa8=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.2.2100/Suwayomi-Server-v2.2.2100.jar";
+      hash = "sha256-PIEypDv6m5WbDI/b3PmqAb2AkEf/T7waSq4OtxMx8F4=";
     };
   };
   svp = {
@@ -2284,15 +2284,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "7f9ece746163818a0628729a61598df711d21b78";
+    version = "459e6544a1fd8bf03da65f0381983f2e454aaef8";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "7f9ece746163818a0628729a61598df711d21b78";
+      rev = "459e6544a1fd8bf03da65f0381983f2e454aaef8";
       fetchSubmodules = true;
-      hash = "sha256-JcIpbQXHJNUYDq4cWJ7buGCpMSIBke4EB/C6LKVuS6I=";
+      hash = "sha256-nQ+t7qaefVGheZNJD/IUjz27vXZ3ex9OUr2kIHL/oFs=";
     };
-    date = "2026-05-02";
+    date = "2026-05-08";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
