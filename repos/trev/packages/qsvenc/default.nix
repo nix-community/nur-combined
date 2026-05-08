@@ -1,33 +1,31 @@
 {
-  cargo-c,
-  cargo,
   cmake,
   cmrt,
   fetchFromGitHub,
   ffmpeg,
-  git,
   hdr10plus,
+  intel-compute-runtime,
   intel-media-driver,
   lib,
   libass,
   libdovi,
   libdrm,
   libva,
-  libvpl,
+  libx11,
   makeWrapper,
+  meson,
+  ninja,
   nix-update-script,
   ocl-icd,
   opencl-headers,
   pkg-config,
   stdenv,
   vpl-gpu-rt,
-  wget,
-  intel-compute-runtime,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qsvenc";
-  version = "8.10";
+  version = "8.11";
 
   hardeningDisable = [ "all" ];
 
@@ -35,18 +33,21 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "rigaya";
     repo = "QSVEnc";
     tag = finalAttrs.version;
-    hash = "sha256-s9FiqGPLFg5EzLr3hGb0LXIrUgAcouTj9biREYWqy3w=";
+    hash = "sha256-n53OjbiCtcaAGNajCxCYRf4JdqqVopW94HI7HnPFVdc=";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [
+    meson
+    ninja
     cmake
     pkg-config
-    cargo-c
-    git
-    wget
     makeWrapper
   ];
+
+  # cmake is only used to build the bundled libvpl submodule; don't let its
+  # setup hook hijack the configure phase from meson.
+  dontUseCmakeConfigure = true;
 
   buildInputs = [
     # libs
@@ -54,11 +55,10 @@ stdenv.mkDerivation (finalAttrs: {
     libdrm
     ffmpeg # libavcodec, libavformat, etc
     libass
-    libvpl
+    libx11
     opencl-headers
     ocl-icd
     libdovi
-    cargo
     hdr10plus
 
     # intel
@@ -69,42 +69,18 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    # Upstream's configure script (as of 8.10) omits the new msmooth/msharpen
-    # filter sources, even though the .cpp/.cl files ship in the tree.
-    # Add them next to rgy_filter_smooth so the build links correctly.
-    substituteInPlace configure \
-      --replace-fail 'rgy_filter_smooth.cpp' 'rgy_filter_smooth.cpp       rgy_filter_msmooth.cpp     rgy_filter_msharpen.cpp' \
-      --replace-fail 'rgy_filter_smooth.cl' 'rgy_filter_smooth.cl     rgy_filter_msmooth.cl    rgy_filter_msharpen.cl'
+    substituteInPlace meson.build \
+      --replace-fail \
+        "run_command('git', 'describe', '--tags', '--abbrev=0', check: true).stdout().strip()" \
+        "'${finalAttrs.version}'"
   '';
 
-  configurePhase = ''
-    runHook preConfigure
+  mesonFlags = [
+    (lib.mesonBool "enable_vapoursynth" false)
+    (lib.mesonBool "enable_avisynth" false)
+  ];
 
-    patchShebangs ./configure
-
-    # Use CXX for linking instead of ld
-    export LD="$CXX"
-
-    ./configure --enable-debug
-
-    runHook postConfigure
-  '';
-
-  buildPhase = ''
-    runHook preBuild
-
-    make
-
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-    cp -v qsvencc $out/bin/
-
-    # Wrap the binary to set necessary environment variables for Intel media drivers
+  postFixup = ''
     wrapProgram $out/bin/qsvencc \
       --prefix LD_LIBRARY_PATH : "${
         lib.makeLibraryPath [
@@ -119,9 +95,6 @@ stdenv.mkDerivation (finalAttrs: {
       --set LIBVA_DRIVER_NAME iHD \
       --prefix LIBVA_DRIVERS_PATH : "${intel-media-driver}/lib/dri" \
       --prefix OCL_ICD_VENDORS : "${intel-compute-runtime}/etc/OpenCL/vendors"
-
-
-    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script {
@@ -132,11 +105,11 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    homepage = "https://github.com/rigaya/QSVEnc";
     mainProgram = "qsvencc";
-    changelog = "https://github.com/rigaya/QSVEnc/releases/tag/${finalAttrs.src.tag}";
     description = "QSV high-speed encoding performance experiment tool";
     license = lib.licenses.mit;
     platforms = [ "x86_64-linux" ];
+    homepage = "https://github.com/rigaya/QSVEnc";
+    changelog = "https://github.com/rigaya/QSVEnc/releases/tag/${finalAttrs.src.tag}";
   };
 })

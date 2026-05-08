@@ -4,12 +4,7 @@
 command = "nixfmt"
 includes = ["*.nix"]
 
-[formatter.toml]
-command = "tombi"
-options = ["format"]
-includes = ["*.toml"]
-
-[formatter.prettier]
-command = "prettier"
+[formatter.oxfmt]
+command = "oxfmt"
 options = ["--write"]
-includes = ["*.yaml", "*.json", "*.md"]
+includes = ["*.json", "*.yaml", "*.toml", "*.md"]

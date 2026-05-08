@@ -1,3 +1,3 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "jnoortheen.nix-ide"]
+  "recommendations": ["oxc.oxc-vscode", "jnoortheen.nix-ide"]
 }

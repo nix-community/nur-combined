@@ -98,12 +98,14 @@
             shellHook = (pkgs.callPackage ./packages/shellhook { }).ref;
             packages = with pkgs; [
               # lint
+              nil
+              nixd
               shellcheck
 
               # format
-              treefmt
               nixfmt
-              prettier
+              oxfmt
+              treefmt
 
               # util
               nix-update
@@ -186,14 +188,14 @@
             '';
           };
 
-          prettier = {
+          oxfmt = {
             root = ./.;
-            filter = file: file.hasExt "yaml" || file.hasExt "json" || file.hasExt "md";
+            filter = file: file.hasExt "json" || file.hasExt "yaml" || file.hasExt "toml" || file.hasExt "md";
             packages = with pkgs; [
-              prettier
+              oxfmt
             ];
-            forEach = ''
-              prettier --check "$file"
+            script = ''
+              oxfmt --check
             '';
           };
         }
@@ -210,9 +212,8 @@
         pkgs.treefmt.withConfig {
           configFile = ./treefmt.toml;
           runtimeInputs = with pkgs; [
-            prettier
             nixfmt
-            tombi
+            oxfmt
           ];
         }
       );
