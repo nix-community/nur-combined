@@ -5,17 +5,25 @@
   nix-update-script,
 }:
 let
-  version = "0.12.1.1";
   pname = "helium";
+  version = "0.12.1.1";
 
   src = fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
     hash = "sha256-+UE+JqQtxbA5szPvAohapXlES21VBOdNsV6Ej1dRRfs=";
   };
+
+  contents = appimageTools.extract { inherit pname version src; };
 in
 
 appimageTools.wrapType2 {
   inherit pname version src;
+
+  extraInstallCommands = ''
+    install -m 444 -D ${contents}/helium.desktop $out/share/applications/helium.desktop
+    install -m 444 -D ${contents}/usr/share/icons/hicolor/256x256/apps/helium.png \
+      $out/share/icons/hicolor/256x256/apps/helium.png
+  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
