@@ -33,44 +33,12 @@ let
     pkgs = final;
   };
 
-  mapDisabledToBroken =
-    attrs:
-    (removeAttrs attrs [ "disabled" ])
-    // lib.optionalAttrs (attrs.disabled or false) {
-      meta = (attrs.meta or { }) // {
-        broken = attrs.disabled;
-      };
-    };
-
-  removeFlakeRoot = path: lib.removePrefix "${toString ../.}/" path;
-
-  fixUpdateScriptArgs =
-    drv:
-    drv
-    // {
-      updateScript =
-        if builtins.isList drv.updateScript then
-          [ (builtins.head drv.updateScript) ] ++ (map removeFlakeRoot (builtins.tail drv.updateScript))
-        else
-          drv.updateScript;
-    };
-
   pythonModulesOverlay =
     pyfinal:
-    import ./development/python-modules
-      {
-        inherit lib;
-        pkgs = final;
-      }
-      (
-        pyfinal
-        // {
-          buildPythonApplication =
-            attrs: fixUpdateScriptArgs (pyfinal.buildPythonApplication (mapDisabledToBroken attrs));
-          buildPythonPackage =
-            attrs: fixUpdateScriptArgs (pyfinal.buildPythonPackage (mapDisabledToBroken attrs));
-        }
-      );
+    import ./development/python-modules {
+      inherit lib;
+      pkgs = final;
+    } pyfinal;
 in
 
 # Automatically import packages in ./by-name
