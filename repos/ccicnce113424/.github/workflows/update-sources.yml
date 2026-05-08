@@ -29,23 +29,14 @@ jobs:
           nix_conf: |
             accept-flake-config = true
 
-      - name: Update flake inputs and sources
+      - name: Update sources
         run: |
           nix flake update
-          export NIX_PATH="nixpkgs=$(nix eval --raw .#nixpkgs)"
+          NIXPKGS_PATH=$(nix eval --raw .#nixpkgs)
+          export NIX_PATH="nixpkgs=$NIXPKGS_PATH"
           nix run .#nvfetcher-bin
           git add .
-
-      - name: Copy files from nixpkgs
-        run: |
-          NIXPKGS_PATH_IN_FLAKE_INPUTS=$(nix build --no-link --print-out-paths --file ./default.nix inputs.nixpkgs.outPath)
-          echo "nixpkgs path: $NIXPKGS_PATH_IN_FLAKE_INPUTS"
-          # Add copy commands here, e.g.:
-          # cp "$NIXPKGS_PATH_IN_FLAKE_INPUTS/some/file" ./target/path/
-          cp "$NIXPKGS_PATH_IN_FLAKE_INPUTS/pkgs/by-name/sp/splayer/package.nix" ./pkgs/splayer-git
-
-      - name: Run update scripts
-        run: |
+          cp "$NIXPKGS_PATH/pkgs/by-name/sp/splayer/package.nix" ./pkgs/splayer-git
           pkgs/daed/update.sh
           pkgs/kanzi-cpp/update.sh
           pkgs/kikoflu/update.sh
