@@ -50,6 +50,7 @@ let
     goPackages prev
     // {
       uvShellHook = prev.callPackage ../pkgs/uv/venv-shell-hook.nix { };
+      hunk = prev.callPackage ../pkgs/hunk/package.nix { };
       inbox = prev.callPackage ../pkgs/inbox/package.nix { };
       zigdoc = prev.callPackage ../pkgs/zigdoc/package.nix { };
       ziglint = prev.callPackage ../pkgs/ziglint/package.nix { };
@@ -74,6 +75,7 @@ in
       inherit (pkgs)
         go-bin
         uvShellHook
+        hunk
         inbox
         zigdoc
         ziglint

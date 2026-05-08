@@ -22,6 +22,10 @@ update package:
 update-go:
     @just update go-bin
 
+# Update hunk package
+update-hunk:
+    @just update hunk
+
 # Update inbox package
 update-inbox:
     @just update inbox
@@ -41,6 +45,7 @@ update-zed:
 # Update all packages
 update-all:
     @just update go-bin
+    @just update hunk
     @just update inbox
     @just update zigdoc
     @just update ziglint
