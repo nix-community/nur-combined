@@ -2,25 +2,31 @@
   lib,
   stdenvNoCC,
   sources,
+  source ? sources.v2ray-rules-dat,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "v2ray-rules-dat";
-  inherit (sources.v2ray-rules-dat-geoip) version;
+  version = source.date;
+  inherit (source) src;
 
-  srcs = [
-    sources.v2ray-rules-dat-geoip.src
-    sources.v2ray-rules-dat-geosite.src
+  outputs = [
+    "out"
+    "lists"
   ];
 
   dontConfigure = true;
   dontBuild = true;
-  dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm644 ${builtins.elemAt finalAttrs.srcs 0} $out/share/v2ray/geoip.dat
-    install -Dm644 ${builtins.elemAt finalAttrs.srcs 1} $out/share/v2ray/geosite.dat
+    sha256sum -c geoip.dat.sha256sum
+    sha256sum -c geosite.dat.sha256sum
+
+    mkdir -p $out/share/v2ray $lists
+    install -Dm644 geo{ip,site}.dat $out/share/v2ray
+
+    cp -r *.txt $lists
 
     runHook postInstall
   '';

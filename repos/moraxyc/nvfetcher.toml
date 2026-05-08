@@ -26,13 +26,10 @@ fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLi
 src.github = "P3TERX/GeoLite.mmdb"
 fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-Country.mmdb"
 
-[v2ray-rules-dat-geoip]
-src.github = "Loyalsoldier/v2ray-rules-dat"
-fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geoip.dat"
-
-[v2ray-rules-dat-geosite]
-src.github = "Loyalsoldier/v2ray-rules-dat"
-fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geosite.dat"
+[v2ray-rules-dat]
+src.git = "https://github.com/Loyalsoldier/v2ray-rules-dat.git"
+fetch.github = "Loyalsoldier/v2ray-rules-dat"
+src.branch = "release"
 
 [libinput-three-finger-drag]
 src.git = "https://github.com/marsqing/libinput-three-finger-drag"
