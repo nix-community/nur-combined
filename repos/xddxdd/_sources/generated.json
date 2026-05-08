@@ -320,6 +320,21 @@
         },
         "version": "9271618ebbdc5d21ac4dc4df9e72beb7ce644774"
     },
+    "bifrost": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "bifrost",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ghclAut2OyfqARYuMTkPmZHIRtdyQXUTqvoluPOTY9k=",
+            "type": "url",
+            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.0.tar.gz"
+        },
+        "version": "1.5.0"
+    },
     "bilibili": {
         "cargoLock": null,
         "date": null,

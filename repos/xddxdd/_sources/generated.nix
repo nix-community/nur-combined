@@ -173,6 +173,14 @@
     };
     date = "2024-05-12";
   };
+  bifrost = {
+    pname = "bifrost";
+    version = "1.5.0";
+    src = fetchurl {
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.0.tar.gz";
+      hash = "sha256-ghclAut2OyfqARYuMTkPmZHIRtdyQXUTqvoluPOTY9k=";
+    };
+  };
   bilibili = {
     pname = "bilibili";
     version = "v1.17.6-1";

@@ -72,6 +72,13 @@ fetch.github = "browsermt/bergamot-translator"
 git.fetchSubmodules = true
 src.git = "https://github.com/browsermt/bergamot-translator.git"
 
+[bifrost]
+fetch.url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v$ver.tar.gz"
+src.github_tag = "maximhq/bifrost"
+src.include_regex = "^transports/v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.from_pattern = "^transports/v(.*)$"
+src.to_pattern = "\\1"
+
 [bilibili]
 fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/$ver/bilibili-asar-$ver.tar.gz"
 src.github = "msojocs/bilibili-linux"
