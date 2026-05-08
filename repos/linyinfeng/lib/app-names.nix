@@ -61,6 +61,7 @@ let
     (trivial "mstickereditor")
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
+    (trivial "otf2psf")
     (trivial "ssl-handshake")
     (trivial "telegram-send")
     (trivial "tg-send")

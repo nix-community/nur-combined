@@ -158,10 +158,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.6.2";
+    version = "v1.6.3";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.2/MoeKoe_Music_v1.6.2.AppImage";
-      sha256 = "sha256-edHxuZ6B9lnbO1vOkwHEyNhwOsXGLU3h+MvpGY0wVxg=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.3/MoeKoe.Music-x86_64.AppImage";
+      sha256 = "sha256-MgajgWw9J8VwmyWS0ZR2MgIQuXJOVnzdcfIs6hA3CsI=";
     };
   };
   mstickereditor = {
@@ -211,6 +211,26 @@
 
       };
     };
+  };
+  otf2psf = {
+    pname = "otf2psf";
+    version = "10296b40cf2b1ff80d08f55699c3d21ec8693b99";
+    src = fetchgit {
+      url = "https://github.com/pcarrin2/otf2psf.git";
+      rev = "10296b40cf2b1ff80d08f55699c3d21ec8693b99";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-x+8ZgMLoP0Rchi5aVrn+kIYc2GEFwjvY1zhNXxkIk/0=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-x+8ZgMLoP0Rchi5aVrn+kIYc2GEFwjvY1zhNXxkIk_0=/Cargo.lock";
+      outputHashes = {
+
+      };
+    };
+    date = "2025-05-14";
   };
   plugin-bang-bang = {
     pname = "plugin-bang-bang";
@@ -281,17 +301,17 @@
   };
   rime-cangjie = {
     pname = "rime-cangjie";
-    version = "0ac8452eeb4abbcd8dd1f9e7314012310743285f";
+    version = "df74fd8ea4cb1fb720e90dd0c7bb50083a3906ae";
     src = fetchgit {
       url = "https://github.com/rime/rime-cangjie.git";
-      rev = "0ac8452eeb4abbcd8dd1f9e7314012310743285f";
+      rev = "df74fd8ea4cb1fb720e90dd0c7bb50083a3906ae";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-v8n3+73l9YbTexpA9C2356quioRwFRVcBY0IncolVoY=";
+      sha256 = "sha256-K9Gd+eNGV4dQc5m5XPAwHBDdU7uHYRa/Ve9jumoTBKM=";
     };
-    date = "2024-03-25";
+    date = "2026-05-08";
   };
   rime-cantonese = {
     pname = "rime-cantonese";
@@ -351,17 +371,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fae516b9b7acec050d207effd8610fa031ced25c";
+    version = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "fae516b9b7acec050d207effd8610fa031ced25c";
+      rev = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yNqYF/SRsjMMiuOdGWAL7mNwONP0GXQ/71HGn4z4sps=";
+      sha256 = "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=";
     };
-    date = "2026-05-05";
+    date = "2026-05-06";
   };
   rime-loengfan = {
     pname = "rime-loengfan";

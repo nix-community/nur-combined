@@ -53,6 +53,7 @@ packageSet = do
   moeKoeMusic
   mstickereditor
   niriTaskbar
+  otf2psf
   rlt
   tgSend
   yacd
@@ -171,3 +172,13 @@ mediawikiAuthManagerOAuth =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/" <> v <> "/AuthManagerOAuth.zip"
+
+otf2psf :: PackageSet ()
+otf2psf =
+  define $
+    package "otf2psf"
+      `sourceGit` url
+      `fetchGit` url
+      `hasCargoLock` ["Cargo.lock"]
+  where
+    url = "https://github.com/pcarrin2/otf2psf.git"
