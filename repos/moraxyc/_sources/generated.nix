@@ -267,6 +267,18 @@
     };
     date = "2024-06-17";
   };
+  loyalsoldier-geoip = {
+    pname = "loyalsoldier-geoip";
+    version = "51a33b3da711348a1f47c6462be63c8091ae4f65";
+    src = fetchFromGitHub {
+      owner = "Loyalsoldier";
+      repo = "geoip";
+      rev = "51a33b3da711348a1f47c6462be63c8091ae4f65";
+      fetchSubmodules = false;
+      sha256 = "sha256-t/4OQH03HdanGjLMmtTWJdJykC3Q5k0zU6lrsQmpsuI=";
+    };
+    date = "2026-05-07";
+  };
   manpage-zh = {
     pname = "manpage-zh";
     version = "v1.6.4.3";

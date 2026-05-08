@@ -31,6 +31,11 @@ src.git = "https://github.com/Loyalsoldier/v2ray-rules-dat.git"
 fetch.github = "Loyalsoldier/v2ray-rules-dat"
 src.branch = "release"
 
+[loyalsoldier-geoip]
+src.git = "https://github.com/Loyalsoldier/geoip.git"
+fetch.github = "Loyalsoldier/geoip"
+src.branch = "release"
+
 [libinput-three-finger-drag]
 src.git = "https://github.com/marsqing/libinput-three-finger-drag"
 fetch.github = "marsqing/libinput-three-finger-drag"

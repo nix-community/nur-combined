@@ -456,6 +456,27 @@
         },
         "version": "6acd3f84b551b855b5f21b08db55e95dae3305c5"
     },
+    "loyalsoldier-geoip": {
+        "cargoLock": null,
+        "date": "2026-05-07",
+        "extract": null,
+        "name": "loyalsoldier-geoip",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Loyalsoldier",
+            "repo": "geoip",
+            "rev": "51a33b3da711348a1f47c6462be63c8091ae4f65",
+            "sha256": "sha256-t/4OQH03HdanGjLMmtTWJdJykC3Q5k0zU6lrsQmpsuI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "51a33b3da711348a1f47c6462be63c8091ae4f65"
+    },
     "manpage-zh": {
         "cargoLock": null,
         "date": null,

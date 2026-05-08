@@ -1,4 +1,5 @@
 {
+  lib,
   stdenvNoCC,
   metacubex-geo,
   v2ray-rules-dat,
@@ -6,7 +7,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sing-rules-geo";
-  inherit (v2ray-rules-dat) version src meta;
+  inherit (v2ray-rules-dat) version src;
 
   outputs = [
     "out"
@@ -37,4 +38,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  meta = {
+    description = "sing-box geo rule sets converted from Loyalsoldier v2ray-rules-dat";
+    homepage = "https://github.com/Loyalsoldier/v2ray-rules-dat";
+    license = lib.licenses.gpl3Only;
+  };
 })
