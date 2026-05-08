@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchurl,
+  autoPatchelfHook,
 }:
 
 let
@@ -31,6 +32,18 @@ stdenv.mkDerivation {
   };
 
   sourceRoot = "hunkdiff-${target}";
+
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    autoPatchelfHook
+  ];
+
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    stdenv.cc.cc.lib
+  ];
+
+  # Bun standalone executables contain the JS bundle in the binary. Stripping leaves
+  # a runnable Bun runtime, but loses the Hunk entrypoint. Very funny, thanks.
+  dontStrip = true;
 
   installPhase = ''
     runHook preInstall
