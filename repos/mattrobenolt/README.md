@@ -24,6 +24,7 @@ See [`pkgs/go-bin/README.md`](./pkgs/go-bin/README.md) for implementation detail
 
 ### Other packages
 
+- [`hunk`](https://github.com/modem-dev/hunk) - Review-first terminal diff viewer for agent-authored changesets (pre-built binary)
 - `inbox` - A fast, beautiful, and distraction-free Gmail client for your terminal (pre-built binary)
 - `zed` / `zed-preview` - Linux Zed editor packages for stable and preview releases
 - `zigdoc` - Generate documentation from Zig source code
@@ -56,6 +57,7 @@ Add this repo as a flake input and apply the overlay:
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           pkgs.go-bin  # Latest Go
+          pkgs.hunk
           pkgs.inbox
         ];
       };
@@ -70,16 +72,19 @@ nix develop
 
 # Update packages
 just update go-bin
+just update hunk
 just update inbox
 just update-all
 
 # Build packages
 just build go-bin
 just build go-bin_1_24
+just build hunk
 just build inbox
 
 # Run packages
 nix run .#go-bin -- version
+nix run .#hunk -- --help
 nix run .#inbox -- --help
 ```
 
