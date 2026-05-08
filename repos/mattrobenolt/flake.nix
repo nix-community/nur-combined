@@ -84,6 +84,11 @@
     {
       overlays.default = packageSet.overlay;
 
+      homeModules = {
+        hunk = ./modules/home-manager/hunk.nix;
+        default = self.homeModules.hunk;
+      };
+
       templates = {
         go = {
           path = ./templates/go;
