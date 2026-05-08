@@ -13,32 +13,36 @@ builtins.mapAttrs (
     let
       nativeCheckInputs = check.packages or [ ];
 
-      checkPhase = lib.strings.concatLines (
-        [
-          "runHook preCheck"
-          "export HOME=$(mktemp -d)"
-          "export TREEFMT_TREE_ROOT=$(pwd)"
-          (check.script or "")
-        ]
-        ++ lib.optional (check ? forEach) ''
-          shopt -s globstar dotglob
+      checkScript =
+        if check ? forEach || builtins.match ".*\\$file.*" (check.script or "") != null then
+          ''
+            for_each() {
+              local file="$1"
+              ${check.forEach or check.script}
+            }
 
-          for_each() {
-            local file="$1"
-            ${check.forEach}
-          }
+            for file in ./**; do
+              if [[ -f "$file" ]]; then
+                echo "checking $file"
+                for_each "$(realpath "$file")"
+              fi
+            done
+          ''
+        else
+          check.script or "";
 
-          for file in ./**; do
-            if [[ -f "$file" ]]; then
-              echo "Checking $(basename "$file")"
-              for_each "$(realpath "$file")"
-            fi
-          done
+      checkPhase = ''
+        runHook preCheck
 
-          shopt -u globstar dotglob
-        ''
-        ++ [ "runHook postCheck" ]
-      );
+        export HOME=$(mktemp -d)
+        export TREEFMT_TREE_ROOT=$(pwd)
+        shopt -s globstar dotglob
+
+        ${checkScript}
+
+        shopt -u globstar dotglob
+        runHook postCheck
+      '';
 
       extraAttrs = removeAttrs check [
         "root"

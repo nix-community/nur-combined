@@ -149,7 +149,7 @@
               action-validator
               zizmor
             ];
-            forEach = ''
+            script = ''
               action-validator "$file"
               zizmor --offline "$file"
             '';
@@ -172,7 +172,7 @@
             packages = with pkgs; [
               nixfmt
             ];
-            forEach = ''
+            script = ''
               nixfmt --check "$file"
             '';
           };
@@ -183,12 +183,12 @@
             packages = with pkgs; [
               shellcheck
             ];
-            forEach = ''
+            script = ''
               shellcheck "$file"
             '';
           };
 
-          oxfmt = {
+          conf = {
             root = ./.;
             filter = file: file.hasExt "json" || file.hasExt "yaml" || file.hasExt "toml" || file.hasExt "md";
             packages = with pkgs; [
