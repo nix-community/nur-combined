@@ -14723,10 +14723,10 @@
     };
     "temporary-containers-plus" = buildMozillaXpiAddon {
       pname = "temporary-containers-plus";
-      version = "2.0.7";
+      version = "2.1.5";
       addonId = "{1ea2fa75-677e-4702-b06a-50fc7d06fe7e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4676920/temporary_containers_plus-2.0.7.xpi";
-      sha256 = "0bde8c8ca689b7f87fa6d00f6bd6ac2d75e6da58d73f827ec7530c4838e532a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4796436/temporary_containers_plus-2.1.5.xpi";
+      sha256 = "c80a73ee41302a7b34a73448e6f7f42c1fc684fb3e5b37fed0117e7ffcabbf19";
       meta = with lib;
       {
         homepage = "https://github.com/GodKratos/temporary-containers";
@@ -15090,10 +15090,10 @@
     };
     "tournesol" = buildMozillaXpiAddon {
       pname = "tournesol";
-      version = "3.11.1";
+      version = "3.11.2";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778297/tournesol_extension-3.11.1.xpi";
-      sha256 = "cb15b688e069fb5565899210acd69abdbf33736e32dff2bc22b1ec811e451896";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4795478/tournesol_extension-3.11.2.xpi";
+      sha256 = "536f68fe17346613be414b202542613de4f4b8b11168a14a913ff039f7241f72";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
