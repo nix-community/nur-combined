@@ -1,12 +1,12 @@
 {
+  fetchFromGitHub,
   lib,
   mktemp,
+  nix-update-script,
   runtimeShell,
   sd,
   shellcheck,
   stdenv,
-  fetchFromGitHub,
-  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -20,34 +20,31 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-tFW10OaXCAPiLjvAnMC6hkU9/BkQxB7cKLaoZWv9smU=";
   };
 
-  nativeBuildInputs = [
-    shellcheck
-  ];
-
-  runtimeInputs = [
-    mktemp
-    sd
-  ];
-
   unpackPhase = ''
     cp "$src/nix-fix-hash.sh" nix-fix-hash.sh
   '';
 
   dontBuild = true;
 
+  runtimeInputs = [
+    mktemp
+    sd
+  ];
   configurePhase = ''
     sed -i '1c\#!${runtimeShell}' nix-fix-hash.sh
     sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' nix-fix-hash.sh
   '';
 
   doCheck = true;
+  nativeCheckInputs = [
+    shellcheck
+  ];
   checkPhase = ''
     shellcheck nix-fix-hash.sh
   '';
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp nix-fix-hash.sh $out/bin/nix-fix-hash
+    install -D nix-fix-hash.sh $out/bin/fix-hash
   '';
 
   dontFixup = true;
@@ -60,10 +57,10 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
+    mainProgram = "fix-hash";
     description = "Nix hash fixer";
-    mainProgram = "nix-fix-hash";
+    platforms = lib.platforms.all;
     homepage = "https://github.com/spotdemo4/nix-fix-hash";
     changelog = "https://github.com/spotdemo4/nix-fix-hash/releases/tag/v${finalAttrs.version}";
-    platforms = lib.platforms.all;
   };
 })
