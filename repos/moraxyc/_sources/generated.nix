@@ -71,28 +71,28 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "9f20a5b8f6adc8269728b51491f1957b0d6bf555";
+    version = "04f739795321fb1deea888b2f3e603ff7c11eb3f";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "9f20a5b8f6adc8269728b51491f1957b0d6bf555";
+      rev = "04f739795321fb1deea888b2f3e603ff7c11eb3f";
       fetchSubmodules = false;
-      sha256 = "sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=";
+      sha256 = "sha256-HBHXifi6Y1y3dC5pBq8mH/SsFJ/k4wO+K7F+mHjjO/w=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=/web/package-lock.json";
-    };date = "2026-05-07";
+      "web/package.json" = ./. + "/sha256-HBHXifi6Y1y3dC5pBq8mH_SsFJ_k4wO+K7F+mHjjO_w=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-HBHXifi6Y1y3dC5pBq8mH_SsFJ_k4wO+K7F+mHjjO_w=/web/package-lock.json";
+    };date = "2026-05-08";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.5.1";
+    version = "v1.5.2";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "v1.5.1";
+      rev = "v1.5.2";
       fetchSubmodules = false;
-      sha256 = "sha256-E7RER+HIPaqi+vjjUmpX2nEFCfbXSzPvzc6NiKYk9XU=";
+      sha256 = "sha256-HBHXifi6Y1y3dC5pBq8mH/SsFJ/k4wO+K7F+mHjjO/w=";
     };
   };
   english_words = {
@@ -173,26 +173,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.04";
+    version = "2026.05.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-gfjlfgSVk4X8j3AP7jXhPivILMlg7F3xWvDTypnQysQ=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.04";
+    version = "2026.05.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-City.mmdb";
-      sha256 = "sha256-hUK6Vm+MMIk7h3iWfyYuaPhc9uoeSAHCGxEv2jyD1Nw=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb";
+      sha256 = "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.04";
+    version = "2026.05.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.04/GeoLite2-Country.mmdb";
-      sha256 = "sha256-pkDrdF5EPRsgc18CBUXQLBM9Am5sjl4kfVFAZmA/268=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-Country.mmdb";
+      sha256 = "sha256-btDxlCUBWP6MqtH8D3y5LkpNuaflQCF+vaIlEQJjGHk=";
     };
   };
   git-mcp-server = {
@@ -418,18 +418,18 @@
   };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
-    version = "202605062243";
+    version = "202605072256";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605062243/geoip.dat";
-      sha256 = "sha256-pAUICnzzXjsCRzCgcpN8Dclx6HDafWYW77o8qmk8pgo=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605072256/geoip.dat";
+      sha256 = "sha256-iqm0g48p6s6W7Jn/lxv2LLH/eV0c2nohDD1ePLhP4uY=";
     };
   };
   v2ray-rules-dat-geosite = {
     pname = "v2ray-rules-dat-geosite";
-    version = "202605062243";
+    version = "202605072256";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605062243/geosite.dat";
-      sha256 = "sha256-CJuk6VVRyeGkXz8Q85ij55sVMBwo1rkpQYoLjdKkDhw=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202605072256/geosite.dat";
+      sha256 = "sha256-zzOCoF0/Ek3aH5cqckp2kJdpLgNxGksdPHQeYkG21zM=";
     };
   };
   yass = {
