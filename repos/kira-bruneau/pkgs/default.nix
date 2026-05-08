@@ -33,12 +33,10 @@ let
     pkgs = final;
   };
 
-  pythonModulesOverlay =
-    pyfinal:
-    import ./development/python-modules {
-      inherit lib;
-      pkgs = final;
-    } pyfinal;
+  pythonModulesOverlay = import ./development/python-modules {
+    inherit lib;
+    pkgs = final;
+  };
 in
 
 # Automatically import packages in ./by-name
