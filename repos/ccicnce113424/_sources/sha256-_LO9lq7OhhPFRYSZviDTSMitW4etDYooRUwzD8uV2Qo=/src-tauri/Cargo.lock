@@ -3068,7 +3068,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.8.9-beta.2"
+version = "3.8.9-beta.5"
 dependencies = [
  "axum",
  "chrono",
@@ -3081,6 +3081,7 @@ dependencies = [
  "log",
  "maxminddb",
  "mime2ext",
+ "notify-rust",
  "objc2",
  "objc2-app-kit",
  "objc2-foundation",
@@ -3233,9 +3234,9 @@ dependencies = [
 
 [[package]]
 name = "notify-rust"
-version = "4.13.1"
+version = "4.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d782ebad628d1a24303e9a0aac4656115ceb482ba56c66c4af3d85530852d9a"
+checksum = "50ff2e74231b72c832d82982193b417f230945be6bdb5575b251d941d31adb00"
 dependencies = [
  "futures-lite",
  "log",

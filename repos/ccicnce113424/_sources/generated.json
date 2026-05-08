@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-gH4Pp2qblt83W23XQ+Uor4L5_aEC2R6f3l8WsnvGnUk=/src-tauri/Cargo.lock",
+                "sha256-_LO9lq7OhhPFRYSZviDTSMitW4etDYooRUwzD8uV2Qo=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.8.9-beta.2",
-            "sha256": "sha256-gH4Pp2qblt83W23XQ+Uor4L5/aEC2R6f3l8WsnvGnUk=",
+            "rev": "v3.8.9-beta.5",
+            "sha256": "sha256-/LO9lq7OhhPFRYSZviDTSMitW4etDYooRUwzD8uV2Qo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.8.9-beta.2"
+        "version": "v3.8.9-beta.5"
     },
     "piliplus": {
         "cargoLock": null,
@@ -473,11 +473,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-zQSgVMeGF1kRyseBeYTFKdD_497xogzL5ex2_5Rfxz0=/Cargo.lock",
+                "sha256-QPwFnG9Jj8sErnHxlnv6dLI3A2wIcDNfBwdqoNMR2ZI=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-05-07",
+        "date": "2026-05-08",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -489,12 +489,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "95ed1db309b552b2cff1cb16ed1df88b495a89cc",
-            "sha256": "sha256-zQSgVMeGF1kRyseBeYTFKdD/497xogzL5ex2/5Rfxz0=",
+            "rev": "dc7c7ba93d68760d903cb212c7d639ea94564317",
+            "sha256": "sha256-QPwFnG9Jj8sErnHxlnv6dLI3A2wIcDNfBwdqoNMR2ZI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "95ed1db309b552b2cff1cb16ed1df88b495a89cc"
+        "version": "dc7c7ba93d68760d903cb212c7d639ea94564317"
     },
     "svt-av1-essential": {
         "cargoLock": null,
