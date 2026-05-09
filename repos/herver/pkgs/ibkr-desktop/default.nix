@@ -8,13 +8,13 @@
 }:
 
 let
-  version = "3.0e";
+  version = "3.2c";
   pname = "ibkr-desktop";
 
   src = fetchurl {
     # Always serves the latest version; no versioned URL available
     url = "https://download2.interactivebrokers.com/installers/ntws/latest-standalone/ntws-latest-standalone-linux-x64.sh";
-    hash = "sha256:12bm96s87xrvfd70ims12lvvmyyv8lncxjh2gs84jlm02i2axb5h";
+    hash = "sha256-5/gyEUtYM5PVFFxnAWO0BQL1RRCT8qkKZPk4isfnVEc=";
     name = "${pname}-${version}-installer.sh";
   };
 
@@ -162,6 +162,8 @@ stdenv.mkDerivation {
     # lib/ must be a real writable directory so the app can download updated JARs.
     # Symlink each file individually; recurse into subdirs via symlinks.
     mkdir -p "\$IBKR_HOME/lib"
+    # Remove dangling symlinks from previous versions
+    find "\$IBKR_HOME/lib" -maxdepth 1 -type l ! -exec test -e {} \; -delete 2>/dev/null || true
     for f in "\$STORE_PATH"/lib/*; do
       base=\$(basename "\$f")
       if [ -d "\$f" ]; then
@@ -182,10 +184,11 @@ stdenv.mkDerivation {
     sed "s|@IBKR_HOME@|\$IBKR_HOME|g" "\$STORE_PATH/.install4j/response.varfile" \\
       > "\$IBKR_HOME/.install4j/response.varfile"
 
-    # Copy the launcher script so app_home resolves to the writable dir
-    if [ ! -f "\$IBKR_HOME/ntws" ] || [ "\$IBKR_HOME/ntws" -ot "\$STORE_PATH/ntws" ]; then
+    # Copy ntws whenever the store path changes
+    if [ ! -f "\$IBKR_HOME/.store-version" ] || [ "\$(cat "\$IBKR_HOME/.store-version")" != "\$STORE_PATH" ]; then
       cp -f "\$STORE_PATH/ntws" "\$IBKR_HOME/ntws"
       chmod +x "\$IBKR_HOME/ntws"
+      echo "\$STORE_PATH" > "\$IBKR_HOME/.store-version"
     fi
 
     export INSTALL4J_JAVA_HOME_OVERRIDE="\$STORE_PATH/jre"
