@@ -1,18 +1,28 @@
 [
   {
     "pname": "CSharpier",
-    "version": "0.27.3",
-    "hash": "sha256-9g5WA+ii6ovKVGwpTaNIhs/Oti9YLwd//UhbNbBkn8E="
+    "version": "0.30.6",
+    "hash": "sha256-A39F3ohTHZo8yYoyBOAUeW0bk98Za74Esz0Tx0tXgDI="
   },
   {
     "pname": "MinVer",
-    "version": "5.0.0",
-    "hash": "sha256-JdixKF3xb7JIoFy1IRNOS4motKFOcTzwSHPdJmpFvQY="
+    "version": "6.0.0",
+    "hash": "sha256-62/UgCFXi1iImNIxJMGelEhxVkoKcdldsxEuGo5IMEc="
   },
   {
     "pname": "SharpZipLib",
     "version": "1.4.2",
     "hash": "sha256-/giVqikworG2XKqfN9uLyjUSXr35zBuZ2FX2r8X/WUY="
+  },
+  {
+    "pname": "System.CommandLine",
+    "version": "2.0.0-beta4.22272.1",
+    "hash": "sha256-zSO+CYnMH8deBHDI9DHhCPj79Ce3GOzHCyH1/TiHxcc="
+  },
+  {
+    "pname": "System.Text.Encoding.CodePages",
+    "version": "9.0.0",
+    "hash": "sha256-OvtGrWDjuXdcIuMV504IDiBq9g8vtRIcn5w25x4W9HE="
   },
   {
     "pname": "UTF.Unknown",

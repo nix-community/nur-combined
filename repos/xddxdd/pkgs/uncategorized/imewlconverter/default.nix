@@ -14,8 +14,8 @@ buildDotnetModule (finalAttrs: {
 
   nativeBuildInputs = [ git ];
 
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = dotnetCorePackages.aspnetcore_10_0;
 
   meta = {
     changelog = "https://github.com/studyzy/imewlconverter/releases/tag/v${finalAttrs.version}";
