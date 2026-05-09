@@ -9,21 +9,21 @@
 
 let
   pname = "sentry";
-  version = "0.31.0";
+  version = "0.32.0";
 
   src = fetchFromGitHub {
     owner = "getsentry";
     repo = "cli";
     rev = version;
-    hash = "sha256-n8zPrewVPQJd3+NH71BaKdd/1RAbJN2voeVtsMe/rwE=";
+    hash = "sha256-pwO3dQbuZXf64PdLfmbuiM65Ah8cR712SHkYxmwJfBE=";
   };
 
   # @sentry/api version pinned in bun.lock; determines the OpenAPI spec tag
-  sentryApiVersion = "0.94.0";
+  sentryApiVersion = "0.141.0";
 
   openapi-spec = fetchurl {
     url = "https://raw.githubusercontent.com/getsentry/sentry-api-schema/${sentryApiVersion}/openapi-derefed.json";
-    hash = "sha256-OvCdVV3pPl7JbHLlw+7piKiBVrN1XORzEwaf/gtHpiw=";
+    hash = "sha256-GjGMWxTRVora4p2EwizEpvdcKbIbXHpn1/+fyKeCO+4=";
   };
 
   bunDeps = stdenv.mkDerivation {
@@ -36,8 +36,8 @@ let
     outputHashMode = "recursive";
     # bun installs platform-specific native deps, so the hash differs per system
     outputHash = {
-      x86_64-linux = "sha256-1ZGLcByb1DjRYoEkisjvBGtjMmEUj9RyEm2ajVu2UoI=";
-      aarch64-darwin = "sha256-jyS7h3VCSb0ygu9LIpdeJxKPfC5NixsNzoHCeb0Sldc=";
+      x86_64-linux = "sha256-qiQ5meo3tiRo4y7+kV25XPIITzxC75oUgYR24ZQRaGA=";
+      aarch64-darwin = "sha256-XsixZfs4U5EuVEqyLNikkNSm54pEX4wQuOM2uny3Cgs=";
     }.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
     buildPhase = ''
       runHook preBuild
