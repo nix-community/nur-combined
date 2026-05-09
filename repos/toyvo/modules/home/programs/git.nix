@@ -1,9 +1,15 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.programs.git;
 in
 {
   config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.opencommit ];
     catppuccin = {
       delta = {
         enable = true;
@@ -37,6 +43,8 @@ in
             aa = "add -A";
             b = "branch";
             ba = "branch -a";
+            ac = "!oco";
+            aca = "!git add -A && oco";
             c = "commit -m";
             ca = "commit -am";
             cam = "commit --amend --date=now";

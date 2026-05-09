@@ -51,8 +51,6 @@ in
 
   config = lib.mkIf cfg.enable {
     services.monitoring.containerJournals = [ "jellyfin" ];
-    # Pin multimedia GID so bind-mounted media paths are accessible from inside the container
-    users.groups.multimedia.gid = config.ids.gids.multimedia;
 
     # NAT masquerade so jellyfin can reach external metadata providers
     networking.nat = {
@@ -103,8 +101,6 @@ in
       config =
         { ... }:
         {
-          # Must match host GID so bind-mounted media paths are readable
-          users.groups.multimedia.gid = ids.gids.multimedia;
 
           # Match host GIDs so DRI device node permissions work inside the container
           users.groups.video.gid = ids.gids.video;
@@ -114,18 +110,17 @@ in
           # users so a pre-existing dir with a different UID will not be chowned automatically.
           users.users.jellyfin = {
             uid = lib.mkForce ids.uids.jellyfin;
-            group = "multimedia";
             extraGroups = [
               "video"
               "render"
             ];
             isSystemUser = true;
           };
+          users.groups.jellyfin.gid = lib.mkForce ids.gids.jellyfin;
 
           services.jellyfin = {
             enable = true;
             openFirewall = true;
-            group = "multimedia";
           };
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.jellyfin ];

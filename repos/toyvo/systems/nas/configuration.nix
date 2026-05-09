@@ -83,12 +83,22 @@ in
   };
   userPresets.chloe.enable = true;
   userPresets.toyvo.enable = true;
-  users.users.hermes.uid = config.ids.uids.hermes;
+  users.users.hermes = {
+    uid = config.ids.uids.hermes;
+    subUidRanges = [
+      {
+        startUid = 200000;
+        count = 65536;
+      }
+    ];
+    subGidRanges = [
+      {
+        startGid = 200000;
+        count = 65536;
+      }
+    ];
+  };
   users.groups.hermes.gid = config.ids.gids.hermes;
-  users.groups.multimedia.members = [
-    "chloe"
-    "toyvo"
-  ];
   fileSystemPresets.boot.enable = true;
   fileSystemPresets.btrfs.enable = true;
   services = {
@@ -310,6 +320,10 @@ in
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
+    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
+    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
+    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
+    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild *
   '';
 
   systemd.targets = {
@@ -374,71 +388,64 @@ in
   # These are applied at boot time by systemd-tmpfiles.
   systemd.tmpfiles.rules = [
     # Nextcloud user (UID 993) - needs rwx for external storage (upload/modify files)
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "a /mnt/POOL/Collin - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "A /mnt/POOL/Collin - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "a /mnt/POOL/Chloe - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "A /mnt/POOL/Chloe - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "a /mnt/POOL/nextcloud - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "A /mnt/POOL/nextcloud - - - - u:${toString config.ids.uids.nextcloud}:rwx"
-    "a /mnt/POOL/home-assistant - - - - u:${toString config.ids.uids.hass}:rwx"
-    "A /mnt/POOL/home-assistant - - - - u:${toString config.ids.uids.hass}:rwx"
-    "a /mnt/POOL/immich - - - - u:${toString config.ids.uids.immich}:rwx"
-    "A /mnt/POOL/immich - - - - u:${toString config.ids.uids.immich}:rwx"
-    "a /mnt/POOL/jellyfin - - - - u:${toString config.ids.uids.jellyfin}:rwx"
-    "A /mnt/POOL/jellyfin - - - - u:${toString config.ids.uids.jellyfin}:rwx"
-    "a /mnt/POOL/open-webui - - - - u:${toString config.ids.uids."open-webui"}:rwx"
-    "A /mnt/POOL/open-webui - - - - u:${toString config.ids.uids."open-webui"}:rwx"
-    "a /mnt/POOL/hermes - - - - u:${toString config.ids.uids.hermes}:rwx"
-    "A /mnt/POOL/hermes - - - - u:${toString config.ids.uids.hermes}:rwx"
-    "a /home/toyvo - - - - u:${toString config.ids.uids.hermes}:rwx"
-    "A /home/toyvo - - - - u:${toString config.ids.uids.hermes}:rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Collin - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Collin - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Chloe - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Chloe - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/nextcloud - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/nextcloud - - - - u:${toString config.ids.uids.nextcloud}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/home-assistant - - - - u:${toString config.ids.uids.hass}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/home-assistant - - - - u:${toString config.ids.uids.hass}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/immich - - - - u:${toString config.ids.uids.immich}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/immich - - - - u:${toString config.ids.uids.immich}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/jellyfin - - - - u:${toString config.ids.uids.jellyfin}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/jellyfin - - - - u:${toString config.ids.uids.jellyfin}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/open-webui - - - - u:${toString config.ids.uids."open-webui"}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/open-webui - - - - u:${toString config.ids.uids."open-webui"}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/hermes - - - - u:${toString config.ids.uids.hermes}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/hermes - - - - u:${toString config.ids.uids.hermes}:rwx,g::---,m::rwx"
+    "a /home/toyvo - - - - u:${toString config.ids.uids.hermes}:rwx,g::---,m::rwx"
+    "A /home/toyvo - - - - u:${toString config.ids.uids.hermes}:rwx,g::---,m::rwx"
 
     # Starr services - need rwx for downloading and organizing media
-    # Multimedia group (GID 349) - used by most *arr services
-    "a /mnt/POOL/Public - - - - g:${toString config.ids.gids.multimedia}:rwx"
-    "A /mnt/POOL/Public - - - - g:${toString config.ids.gids.multimedia}:rwx"
-    "a /mnt/POOL/jellyfin - - - - g:${toString config.ids.gids.multimedia}:rwx"
-    "A /mnt/POOL/jellyfin - - - - g:${toString config.ids.gids.multimedia}:rwx"
-    "a /mnt/POOL/starr - - - - g:${toString config.ids.gids.multimedia}:rwx"
-    "A /mnt/POOL/starr - - - - g:${toString config.ids.gids.multimedia}:rwx"
     # Individual starr service UIDs for explicit access
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.bazarr}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.bazarr}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.lidarr}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.lidarr}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.prowlarr}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.prowlarr}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.deluge}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.deluge}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.transmission}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.transmission}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.qbittorrent}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.qbittorrent}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.radarr}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.radarr}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.readarr}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.readarr}:rwx"
-    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.sonarr}:rwx"
-    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.sonarr}:rwx"
-    "a /mnt/POOL/starr/bazarr - - - - u:${toString config.ids.uids.bazarr}:rwx"
-    "A /mnt/POOL/starr/bazarr - - - - u:${toString config.ids.uids.bazarr}:rwx"
-    "a /mnt/POOL/starr/lidarr - - - - u:${toString config.ids.uids.lidarr}:rwx"
-    "A /mnt/POOL/starr/lidarr - - - - u:${toString config.ids.uids.lidarr}:rwx"
-    "a /mnt/POOL/starr/prowlarr - - - - u:${toString config.ids.uids.prowlarr}:rwx"
-    "A /mnt/POOL/starr/prowlarr - - - - u:${toString config.ids.uids.prowlarr}:rwx"
-    "a /mnt/POOL/starr/deluge - - - - u:${toString config.ids.uids.deluge}:rwx"
-    "A /mnt/POOL/starr/deluge - - - - u:${toString config.ids.uids.deluge}:rwx"
-    "a /mnt/POOL/starr/transmission - - - - u:${toString config.ids.uids.transmission}:rwx"
-    "A /mnt/POOL/starr/transmission - - - - u:${toString config.ids.uids.transmission}:rwx"
-    "a /mnt/POOL/starr/qbittorrent - - - - u:${toString config.ids.uids.qbittorrent}:rwx"
-    "A /mnt/POOL/starr/qbittorrent - - - - u:${toString config.ids.uids.qbittorrent}:rwx"
-    "a /mnt/POOL/starr/radarr - - - - u:${toString config.ids.uids.radarr}:rwx"
-    "A /mnt/POOL/starr/radarr - - - - u:${toString config.ids.uids.radarr}:rwx"
-    "a /mnt/POOL/starr/readarr - - - - u:${toString config.ids.uids.readarr}:rwx"
-    "A /mnt/POOL/starr/readarr - - - - u:${toString config.ids.uids.readarr}:rwx"
-    "a /mnt/POOL/starr/sonarr - - - - u:${toString config.ids.uids.sonarr}:rwx"
-    "A /mnt/POOL/starr/sonarr - - - - u:${toString config.ids.uids.sonarr}:rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.bazarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.bazarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.lidarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.lidarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.prowlarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.prowlarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.deluge}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.deluge}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.transmission}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.transmission}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.qbittorrent}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.qbittorrent}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.radarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.radarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.readarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.readarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/Public - - - - u:${toString config.ids.uids.sonarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/Public - - - - u:${toString config.ids.uids.sonarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/bazarr - - - - u:${toString config.ids.uids.bazarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/bazarr - - - - u:${toString config.ids.uids.bazarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/lidarr - - - - u:${toString config.ids.uids.lidarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/lidarr - - - - u:${toString config.ids.uids.lidarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/prowlarr - - - - u:${toString config.ids.uids.prowlarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/prowlarr - - - - u:${toString config.ids.uids.prowlarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/deluge - - - - u:${toString config.ids.uids.deluge}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/deluge - - - - u:${toString config.ids.uids.deluge}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/transmission - - - - u:${toString config.ids.uids.transmission}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/transmission - - - - u:${toString config.ids.uids.transmission}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/qbittorrent - - - - u:${toString config.ids.uids.qbittorrent}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/qbittorrent - - - - u:${toString config.ids.uids.qbittorrent}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/radarr - - - - u:${toString config.ids.uids.radarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/radarr - - - - u:${toString config.ids.uids.radarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/readarr - - - - u:${toString config.ids.uids.readarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/readarr - - - - u:${toString config.ids.uids.readarr}:rwx,g::---,m::rwx"
+    "a /mnt/POOL/starr/sonarr - - - - u:${toString config.ids.uids.sonarr}:rwx,g::---,m::rwx"
+    "A /mnt/POOL/starr/sonarr - - - - u:${toString config.ids.uids.sonarr}:rwx,g::---,m::rwx"
   ];
 }

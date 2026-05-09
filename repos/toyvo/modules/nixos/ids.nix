@@ -4,7 +4,6 @@ let
   # Adding them here lets the collision check catch future nixpkgs additions
   # that might claim the same numbers under a different name.
   ourUids = {
-    multimedia = 349;
     bazarr = 350;
     prowlarr = 351;
     readarr = 352;
@@ -20,7 +19,6 @@ let
   };
 
   ourGids = {
-    multimedia = 349;
     bazarr = 350;
     prowlarr = 351;
     readarr = 352;

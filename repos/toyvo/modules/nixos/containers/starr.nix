@@ -124,8 +124,6 @@ in
 
   config = lib.mkIf cfg.enable {
     services.monitoring.containerJournals = [ "starr" ];
-    # Pin multimedia GID so bind-mounted paths are accessible from inside the container
-    users.groups.multimedia.gid = ids.gids.multimedia;
 
     # NAT masquerade so the container can reach external indexers (Prowlarr, FlareSolverr)
     networking.nat = {
@@ -191,14 +189,14 @@ in
       config =
         { pkgs, ... }:
         {
-          # Must match host GID so bind-mounted paths are writable
-          users.groups.multimedia.gid = ids.gids.multimedia;
-
           # Pin UIDs to match state dir ownership on the host.
           # bazarr and readarr are not in nixpkgs ids.nix so their UIDs can diverge
           # across systems. prowlarr uses DynamicUser=yes upstream and requires an
           # explicit static user.
           users.users.bazarr.uid = ids.uids.bazarr;
+          users.users.sonarr.uid = ids.uids.sonarr;
+          users.users.lidarr.uid = ids.uids.lidarr;
+          users.users.radarr.uid = ids.uids.radarr;
           users.users.readarr.uid = ids.uids.readarr;
           users.users.qbittorrent.uid = ids.uids.qbittorrent;
           users.users.prowlarr = {
@@ -206,7 +204,13 @@ in
             group = "prowlarr";
             isSystemUser = true;
           };
-          users.groups.prowlarr = { };
+          users.groups.bazarr.gid = ids.gids.bazarr;
+          users.groups.sonarr.gid = ids.gids.sonarr;
+          users.groups.lidarr.gid = ids.gids.lidarr;
+          users.groups.radarr.gid = ids.gids.radarr;
+          users.groups.readarr.gid = ids.gids.readarr;
+          users.groups.qbittorrent.gid = ids.gids.qbittorrent;
+          users.groups.prowlarr.gid = ids.gids.prowlarr;
           systemd.services.prowlarr.serviceConfig.DynamicUser = lib.mkForce false;
 
           # ProtonVPN WireGuard in an isolated network namespace so all qbittorrent
@@ -238,7 +242,6 @@ in
             bazarr = {
               enable = true;
               openFirewall = true;
-              group = "multimedia";
               listenPort = cfg.ports.bazarr;
             };
             flaresolverr = {
@@ -249,7 +252,6 @@ in
             lidarr = {
               enable = true;
               openFirewall = true;
-              group = "multimedia";
               settings.server.port = cfg.ports.lidarr;
             };
             prowlarr = {
@@ -260,7 +262,6 @@ in
             qbittorrent = {
               enable = true;
               openFirewall = true;
-              group = "multimedia";
               webuiPort = cfg.ports.qbittorrent;
               # Disable built-in UPnP/NAT-PMP: ProtonVPN's gateway won't respond to
               # qbittorrent's own mapping requests through the tunnel — handled by
@@ -281,19 +282,16 @@ in
             radarr = {
               enable = true;
               openFirewall = true;
-              group = "multimedia";
               settings.server.port = cfg.ports.radarr;
             };
             readarr = {
               enable = true;
               openFirewall = true;
-              group = "multimedia";
               settings.server.port = cfg.ports.readarr;
             };
             sonarr = {
               enable = true;
               openFirewall = true;
-              group = "multimedia";
               settings.server.port = cfg.ports.sonarr;
             };
           };
@@ -323,7 +321,7 @@ in
             unitConfig.JoinsNamespaceOf = "qbittorrent.service";
             serviceConfig = {
               User = "qbittorrent";
-              Group = "multimedia";
+              Group = "qbittorrent";
               ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString cfg.ports.qbittorrent}";
               PrivateNetwork = "yes";
             };
@@ -350,7 +348,7 @@ in
             unitConfig.JoinsNamespaceOf = "qbittorrent.service";
             serviceConfig = {
               User = "qbittorrent";
-              Group = "multimedia";
+              Group = "qbittorrent";
               PrivateNetwork = "yes";
               Restart = "on-failure";
               RestartSec = "30s";
