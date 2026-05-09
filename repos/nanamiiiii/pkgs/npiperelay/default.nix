@@ -7,13 +7,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "npiperelay";
-  version = "1.11.1";
+  version = "1.11.2";
 
   src = fetchFromGitHub {
     owner = "albertony";
     repo = "npiperelay";
     tag = "v${version}";
-    hash = "sha256-3RXmYCtjbLHlo9FU0tIwfG6ma7mYZVERugJygDBBG18=";
+    hash = "sha256-YoKWk/D1aXczzq6XoPjtRLqepwW8UQk8Y1jvPtW7mPA=";
   };
 
   nativeBuildInputs = [ go ];
