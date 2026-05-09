@@ -114,26 +114,26 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v7.1.24";
+    version = "v7.1.25";
     src = fetchFromGitHub {
       owner = "koekeishiya";
       repo = "yabai";
-      rev = "v7.1.24";
+      rev = "v7.1.25";
       fetchSubmodules = false;
-      sha256 = "sha256-WyZbkIcqtVogvCfy/ee5Dk2+6OqXgMuVq6GzKKZ9F0A=";
+      sha256 = "sha256-61knfbahxxlJnVZy47347slsjUGiQUJyZh58G97SDkE=";
     };
   };
   zen = {
     pname = "zen";
-    version = "1.19.11b";
+    version = "1.19.12b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.19.11b/zen.macos-universal.dmg";
-      sha256 = "sha256-GSk5DYJUJnYD5PMjIMtAwe7B0KdBHMjgfQDnJ/0wJOI=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.19.12b/zen.macos-universal.dmg";
+      sha256 = "sha256-XFZJQdYRfoesfrTP4RsKH613K+LgLW8K9I0494i+oBI=";
     };
   };
   zen-twilight = {
     pname = "zen-twilight";
-    version = "1.19.11b";
+    version = "1.19.12b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg";
       sha256 = "sha256-vlztK+v182TMReLyNv+TFBKCSr47OA6GNyOn6Xc+hPQ=";
