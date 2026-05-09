@@ -183,20 +183,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.6-1";
+    version = "v1.17.6-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.6-1/bilibili-asar-v1.17.6-1.tar.gz";
-      hash = "sha256-ntkixS+3YUt/1T0R+Oz9XGc+jebf5BQyswU+Kpc7aYw=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.6-2/bilibili-asar-v1.17.6-2.tar.gz";
+      hash = "sha256-1JncX6UMCN6nDU55jq1gXSEaJV1cu9UCp70jkdbCqUQ=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.6-1";
+    version = "v1.17.6-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.6-1";
-      hash = "sha256-Hazy9zxGpiqRqNfH5V41kRio3f9PC6m5OHUTEzOeHXI=";
+      tag = "v1.17.6-2";
+      hash = "sha256-AVjN9axrxQ3XRQJyPmx2rkBHCnoIDlvPsfySBi6Dtpw=";
     };
   };
   bin-cpuflags-x86 = {
@@ -297,12 +297,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v6.10.9";
+    version = "v7.0.0";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v6.10.9";
-      hash = "sha256-V0cxqWTmV2mMrnNkkAXja5bzU11tG5GX1r8n7+9ES1A=";
+      tag = "v7.0.0";
+      hash = "sha256-pAsChv0zDJIQ8WDkAyPN1NJFuNcD32K2vRIl41K27aw=";
     };
   };
   cockpy = {
@@ -1231,12 +1231,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9080";
+    version = "b9090";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9080";
-      hash = "sha256-eLDQEKzFH+gyXI8i2Sxyg7JP2gO0W1WaSQdapYNpALc=";
+      tag = "b9090";
+      hash = "sha256-efHTptokRarsSeoKTsmxJgogbhdUvbRVIpQkHUb0DJU=";
     };
   };
   loralib = {

@@ -344,11 +344,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ntkixS+3YUt/1T0R+Oz9XGc+jebf5BQyswU+Kpc7aYw=",
+            "sha256": "sha256-1JncX6UMCN6nDU55jq1gXSEaJV1cu9UCp70jkdbCqUQ=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.6-1/bilibili-asar-v1.17.6-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.6-2/bilibili-asar-v1.17.6-2.tar.gz"
         },
-        "version": "v1.17.6-1"
+        "version": "v1.17.6-2"
     },
     "bilibili-src": {
         "cargoLock": null,
@@ -364,12 +364,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.6-1",
-            "sha256": "sha256-Hazy9zxGpiqRqNfH5V41kRio3f9PC6m5OHUTEzOeHXI=",
+            "rev": "v1.17.6-2",
+            "sha256": "sha256-AVjN9axrxQ3XRQJyPmx2rkBHCnoIDlvPsfySBi6Dtpw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.6-1"
+        "version": "v1.17.6-2"
     },
     "bin-cpuflags-x86": {
         "cargoLock": null,
@@ -577,12 +577,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v6.10.9",
-            "sha256": "sha256-V0cxqWTmV2mMrnNkkAXja5bzU11tG5GX1r8n7+9ES1A=",
+            "rev": "v7.0.0",
+            "sha256": "sha256-pAsChv0zDJIQ8WDkAyPN1NJFuNcD32K2vRIl41K27aw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.10.9"
+        "version": "v7.0.0"
     },
     "cockpy": {
         "cargoLock": null,
@@ -2394,12 +2394,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9080",
-            "sha256": "sha256-eLDQEKzFH+gyXI8i2Sxyg7JP2gO0W1WaSQdapYNpALc=",
+            "rev": "b9090",
+            "sha256": "sha256-efHTptokRarsSeoKTsmxJgogbhdUvbRVIpQkHUb0DJU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9080"
+        "version": "b9090"
     },
     "loralib": {
         "cargoLock": null,
