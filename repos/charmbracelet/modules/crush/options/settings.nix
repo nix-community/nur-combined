@@ -462,6 +462,12 @@ lib.mkOption {
                 description = "Additional HTTP headers to send with requests";
               };
 
+              flat_rate = lib.mkOption {
+                type = lib.types.nullOr lib.types.bool;
+                default = null;
+                description = "Flat-rate mode for this provider";
+              };
+
               id = lib.mkOption {
                 type = lib.types.nullOr lib.types.str;
                 default = null;
