@@ -17,7 +17,7 @@ mkOpencodePlugin rec {
     hash = "sha256-V8P/aaLeobSdfbFMNObUVlga8WEp5qJVST6k92qoP2g=";
   };
 
-  dependencyHash = "sha256-+VbW5R9zVDu2QSQud7DJ8sya/pR1aKNayzLZVF9hP9s=";
+  dependencyHash = "sha256-+kWxZBoIM+Q5wr7/S89/fexkqT98fObXmbCDm2tp3Uo=";
 
   nativeBuildInputs = [typescript];
 
