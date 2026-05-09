@@ -13,13 +13,13 @@
 }:
 
 let
-  version = "1.5.1";
+  version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "k1LoW";
     repo = "mo";
     rev = "v${version}";
-    hash = "sha256-ALozRRSjcQzOR3CM4m9ouuoUBgbNTsLLVgVG+2PhRKQ=";
+    hash = "sha256-fWtlkJHZBhI8YibcFNI5lvbS+LeUEHKsUrfDdkCYTQA=";
   };
 
   frontend = stdenv.mkDerivation (finalAttrs: {
