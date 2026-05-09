@@ -40,7 +40,7 @@ src.git = "https://github.com/rogersce/cnpy"
 fetch.github = "rogersce/cnpy"
 
 [amgcl]
-src.git = "https://github.com/ddemidov/amgcl"
+src.github = "ddemidov/amgcl"
 fetch.github = "ddemidov/amgcl"
 
 [structopt]

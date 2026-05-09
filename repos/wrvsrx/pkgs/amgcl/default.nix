@@ -4,7 +4,6 @@
   source,
 }:
 stdenv.mkDerivation {
-  inherit (source) pname src;
-  version = "1.4.5-unstable-" + source.date;
+  inherit (source) pname src version;
   nativeBuildInputs = [ cmake ];
 }

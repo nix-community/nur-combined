@@ -8,15 +8,14 @@
 {
   amgcl = {
     pname = "amgcl";
-    version = "93827a00fc926d951c75f08fdb1d491912ff7065";
+    version = "1.4.7";
     src = fetchFromGitHub {
       owner = "ddemidov";
       repo = "amgcl";
-      rev = "93827a00fc926d951c75f08fdb1d491912ff7065";
+      rev = "1.4.7";
       fetchSubmodules = false;
-      sha256 = "sha256-KXv3Jn70hhKkcVrqoS9gCaoZi9qSOScfKUxiRIWQ6Hs=";
+      sha256 = "sha256-gODU6U5uwiZTt70wQv19bA1xJHymxdUpn3OtIIesOXw=";
     };
-    date = "2025-08-27";
   };
   autobean-format = {
     pname = "autobean-format";

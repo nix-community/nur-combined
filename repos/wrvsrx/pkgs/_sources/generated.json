@@ -1,7 +1,7 @@
 {
     "amgcl": {
         "cargoLock": null,
-        "date": "2025-08-27",
+        "date": null,
         "extract": null,
         "name": "amgcl",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "ddemidov",
             "repo": "amgcl",
-            "rev": "93827a00fc926d951c75f08fdb1d491912ff7065",
-            "sha256": "sha256-KXv3Jn70hhKkcVrqoS9gCaoZi9qSOScfKUxiRIWQ6Hs=",
+            "rev": "1.4.7",
+            "sha256": "sha256-gODU6U5uwiZTt70wQv19bA1xJHymxdUpn3OtIIesOXw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "93827a00fc926d951c75f08fdb1d491912ff7065"
+        "version": "1.4.7"
     },
     "autobean-format": {
         "cargoLock": null,
