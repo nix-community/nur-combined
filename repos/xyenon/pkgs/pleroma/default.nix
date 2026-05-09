@@ -1,12 +1,11 @@
 {
   lib,
   beamPackages,
-  fetchFromGitLab,
+  fetchFromGitea,
   cmake,
   pkg-config,
   file,
   vips,
-  fetchFromGitHub,
   glib,
   exiftool,
   imagemagick,
@@ -15,35 +14,16 @@
   nix-update-script,
 }:
 
-let
-  # https://github.com/NixOS/nixpkgs/issues/474843
-  vips_8_17 = vips.overrideAttrs (
-    finalAttrs: _previousAttrs: {
-      version = "8.17.3";
-      src = fetchFromGitHub {
-        owner = "libvips";
-        repo = "libvips";
-        tag = "v${finalAttrs.version}";
-        hash = "sha256-yxjfkb2R3JPHbz0vCG4hkW9Davoc9MUPHL9Cqc+Ik0Y=";
-        # Remove unicode file names which leads to different checksums on HFS+
-        # vs. other filesystems because of unicode normalisation.
-        postFetch = ''
-          rm -r $out/test/test-suite/images/
-        '';
-      };
-    }
-  );
-in
 beamPackages.mixRelease rec {
   pname = "pleroma";
-  version = "2.10.0";
+  version = "2.10.2";
 
-  src = fetchFromGitLab {
+  src = fetchFromGitea {
     domain = "git.pleroma.social";
     owner = "pleroma";
     repo = "pleroma";
     rev = "v${version}";
-    hash = "sha256-kW4AcOYHtm8lVXRroDCUM7jY7o39JHx/J/mfy2XfBgs=";
+    hash = "sha256-5BFzV2alNDjO/bS08+V4idzFaXQLr+4pNlLLXayBqIE=";
   };
 
   patches = [
@@ -58,14 +38,14 @@ beamPackages.mixRelease rec {
   ];
   buildInputs = [
     file
-    vips_8_17
+    vips
     glib.dev
   ];
 
   mixFodDeps = beamPackages.fetchMixDeps {
     pname = "mix-deps-${pname}";
     inherit src version;
-    hash = "sha256-fBtjC2nLRyvUmdXaiGEwddDCbFQq1uxp9Dd5PHuTyoo=";
+    hash = "sha256-IMVGkX7hioMmHeUY1ajog0262qNQdd0xjJKLdGz1pLE=";
 
     postInstall = ''
       substituteInPlace "$out/http_signatures/mix.exs" \
@@ -126,7 +106,7 @@ beamPackages.mixRelease rec {
 
   meta = with lib; {
     description = "ActivityPub microblogging server";
-    homepage = "https://git.pleroma.social/pleroma/pleroma";
+    homepage = "https://pleroma.social";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ xyenon ];
     platforms = platforms.unix;
