@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bluevein";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "meowrch";
     repo = "BlueVein";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YlqzAo8vj0fuV26ynS5KL2gYquIb6kvD43hqRnX62qg=";
+    hash = "sha256-Qj1qiBhgBxmS5v/Wp9XdSCSSBGKWwpGFQg3/ymOvuR8=";
   };
 
-  cargoHash = "sha256-qoHyi08hoPXxZaCe/yg5ESUI6gfr80iQT9PDB0v0zBg=";
+  cargoHash = "sha256-oqueGWj3Rd+Bjos+vVHfKlNJ86G+1rEb/gXMZjGdxUc=";
 
   nativeBuildInputs = [
     pkg-config
