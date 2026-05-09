@@ -4,6 +4,7 @@
   fetchFromGitea,
   cmake,
   pkg-config,
+  writableTmpDirAsHomeHook,
   file,
   vips,
   glib,
@@ -35,6 +36,7 @@ beamPackages.mixRelease rec {
   nativeBuildInputs = [
     cmake
     pkg-config
+    writableTmpDirAsHomeHook
   ];
   buildInputs = [
     file
@@ -68,10 +70,6 @@ beamPackages.mixRelease rec {
   dontUseCmakeConfigure = true;
 
   env.VIX_COMPILATION_MODE = "PLATFORM_PROVIDED_LIBVIPS";
-
-  preBuild = ''
-    export HOME=$TMPDIR
-  '';
 
   postBuild = ''
     # Digest and compress static files
