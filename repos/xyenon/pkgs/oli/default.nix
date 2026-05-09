@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   runtimeShell,
+  cacert,
   nix-update-script,
 }:
 
@@ -23,11 +24,7 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-AcFqDL0+B9VU7j8OXb7P9Ke7H0rURxTaiKLFGwZU/1A=";
 
-  checkFlags = [
-    "--skip=edit::test_edit_file_content_replacement"
-    "--skip=edit::test_edit_existing_file_with_changes"
-    "--skip=edit::test_edit_new_file"
-  ];
+  nativeBuildInputs = [ cacert ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
