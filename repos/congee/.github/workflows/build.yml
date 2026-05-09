@@ -1,11 +1,11 @@
 name: "Build and populate cache"
 on:
-  pull_request:
+  # Branch pushes cover new branches, same-repo PR branches, and auto-update
+  # branches pushed via NUR_DEPLOY_KEY. Avoid also running pull_request here
+  # because that creates duplicate required checks.
   push:
     branches:
-      - main
-      - master
-      - 'auto-update/**'
+      - '**'
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
@@ -71,8 +71,8 @@ jobs:
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+          -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
+          -I "$PWD"
     - name: Build nix packages
       env:
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1  # for Darwin builds
