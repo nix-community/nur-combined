@@ -24,7 +24,7 @@ let
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib { inherit (pkgs) lib; }; # functions
   nixosModules = import ./nixos-modules; # NixOS modules
   homeModules = import ./home-modules; # Home Manager modules
   overlays = import ./overlays; # nixpkgs overlays

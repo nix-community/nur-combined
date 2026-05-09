@@ -14,6 +14,7 @@ in
 stdenvNoCC.mkDerivation {
   inherit (source) pname src;
   inherit version;
+  __structuredAttrs = true;
 
   dontUnpack = true;
   installPhase = ''

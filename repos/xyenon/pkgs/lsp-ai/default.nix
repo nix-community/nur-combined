@@ -11,9 +11,10 @@
 }:
 
 rustPlatform.buildRustPackage {
+  __structuredAttrs = true;
+
   pname = "lsp-ai";
   version = "0-unstable-2026-01-01";
-
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "lsp-ai";

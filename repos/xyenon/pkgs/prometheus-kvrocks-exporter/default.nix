@@ -7,9 +7,10 @@
 }:
 
 buildGoModule (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "kvrocks_exporter";
   version = "1.0.9";
-
   src = fetchFromGitHub {
     owner = "RocksLabs";
     repo = "kvrocks_exporter";

@@ -7,9 +7,10 @@
 }:
 
 rustPlatform.buildRustPackage {
+  __structuredAttrs = true;
+
   pname = "vodozemac-bindings-kazv";
   version = "0.2.1-unstable-2026-04-04";
-
   src = fetchgit {
     url = "https://r.lily-is.land/the-kazv-project/vodozemac-bindings.git";
     rev = "3cf688afc0c8d6fe77e3eb126888a5ddd191f23b";
@@ -39,11 +40,11 @@ rustPlatform.buildRustPackage {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = with lib; {
+  meta = {
     description = "Language bindings for vodozemac";
     homepage = "https://r.lily-is.land/the-kazv-project/vodozemac-bindings";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ xyenon ];
-    platforms = platforms.linux;
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ xyenon ];
+    platforms = lib.platforms.linux;
   };
 }

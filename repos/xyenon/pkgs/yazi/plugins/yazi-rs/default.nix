@@ -22,6 +22,7 @@ let
         stdenvNoCC.mkDerivation {
           pname = name;
           version = "0-unstable-${date}";
+          __structuredAttrs = true;
 
           inherit src;
 
@@ -35,11 +36,11 @@ let
             runHook postInstall
           '';
 
-          meta = with lib; {
+          meta = {
             inherit (value) description;
             homepage = "https://github.com/yazi-rs/plugins/tree/main/${name}.yazi";
-            license = licenses.mit;
-            maintainers = with maintainers; [ xyenon ];
+            license = lib.licenses.mit;
+            maintainers = with lib.maintainers; [ xyenon ];
           };
         }
       ) { inherit src; })

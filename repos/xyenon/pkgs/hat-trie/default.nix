@@ -6,9 +6,10 @@
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "hat-trie";
   version = "0.7.1";
-
   src = fetchFromGitHub {
     owner = "Tessil";
     repo = "hat-trie";

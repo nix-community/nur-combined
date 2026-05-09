@@ -5,13 +5,14 @@
   nix-update-script,
 }:
 
-buildGoModule rec {
+buildGoModule {
+  __structuredAttrs = true;
+
   pname = "go-check";
   version = "0-unstable-2025-06-14";
-
   src = fetchFromGitHub {
     owner = "Dreamacro";
-    repo = pname;
+    repo = "go-check";
     rev = "02e5362ac59c76133789e921c4207cc4a51fba26";
     hash = "sha256-6GjPcCJt84mG7llNdwniqhsNYbMZwxbEtP6akdFKwDc=";
   };
@@ -22,10 +23,10 @@ buildGoModule rec {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = with lib; {
+  meta = {
     description = "Check for outdated go module";
     homepage = "https://github.com/Dreamacro/go-check";
-    license = licenses.mit;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 }

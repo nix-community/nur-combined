@@ -6,9 +6,10 @@
 }:
 
 stdenvNoCC.mkDerivation {
+  __structuredAttrs = true;
+
   pname = "librime-qjs";
   version = "1.3.0-unstable-2026-03-27";
-
   src = fetchFromGitHub {
     owner = "HuangJian";
     repo = "librime-qjs";
@@ -32,10 +33,10 @@ stdenvNoCC.mkDerivation {
     tagFormat = "v*";
   };
 
-  meta = with lib; {
+  meta = {
     description = "Bring a fresh JavaScript plugin ecosystem to the Rime Input Method Engine";
     homepage = "https://github.com/HuangJian/librime-qjs";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 }

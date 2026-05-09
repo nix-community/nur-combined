@@ -19,6 +19,8 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "libkazv";
   version = "0.8.0-unstable-2026-04-10";
 
@@ -50,6 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   strictDeps = true;
+  enableParallelBuilding = true;
 
   cmakeFlags = [ (lib.cmakeBool "libkazv_BUILD_TESTS" finalAttrs.finalPackage.doCheck) ];
 
@@ -62,11 +65,11 @@ stdenv.mkDerivation (finalAttrs: {
     tagFormat = "v*";
   };
 
-  meta = with lib; {
+  meta = {
     description = "Sans-io C++ (gnu++17) matrix client library";
     homepage = "https://lily-is.land/kazv/libkazv";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ xyenon ];
-    platforms = platforms.linux;
+    license = lib.licenses.agpl3Plus;
+    maintainers = with lib.maintainers; [ xyenon ];
+    platforms = lib.platforms.linux;
   };
 })

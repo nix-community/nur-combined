@@ -6,14 +6,15 @@
   makeFontsConf,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "ModernX";
   version = "0.4.5";
-
   src = fetchFromGitHub {
     owner = "zydezu";
-    repo = pname;
-    rev = version;
+    repo = "ModernX";
+    rev = finalAttrs.version;
     hash = "sha256-a+StfEYQwt5NuELvanvZllrD2RQ0g9JBpCznMdSDM5Y=";
   };
 
@@ -42,10 +43,10 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     updateScript = nix-update-script { };
   };
 
-  meta = with lib; {
+  meta = {
     description = "A modern OSC UI replacement for MPV that retains the functionality of the default OSC";
     homepage = "https://github.com/zydezu/ModernX";
-    license = licenses.unlicense;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.unlicense;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 })

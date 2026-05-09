@@ -8,9 +8,10 @@
 }:
 
 rustPlatform.buildRustPackage {
+  __structuredAttrs = true;
+
   pname = "oli";
   version = "0-unstable-2026-05-07";
-
   src = fetchFromGitHub {
     owner = "apache";
     repo = "opendal-oli";
@@ -19,12 +20,12 @@ rustPlatform.buildRustPackage {
   };
 
   postPatch = ''
-    substituteInPlace tests/integration/edit.rs --replace-warn '#!/bin/bash' '#!${runtimeShell}'
+    substituteInPlace tests/integration/edit.rs --replace-fail '#!/bin/bash' '#!${runtimeShell}'
   '';
 
   cargoHash = "sha256-AcFqDL0+B9VU7j8OXb7P9Ke7H0rURxTaiKLFGwZU/1A=";
 
-  nativeBuildInputs = [ cacert ];
+  nativeCheckInputs = [ cacert ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

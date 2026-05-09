@@ -6,9 +6,10 @@
 }:
 
 stdenvNoCC.mkDerivation {
+  __structuredAttrs = true;
+
   pname = "fg";
   version = "0-unstable-2026-01-03";
-
   src = fetchFromGitHub {
     owner = "DreamMaoMao";
     repo = "fg.yazi";
@@ -33,10 +34,10 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = with lib; {
+  meta = {
     description = "Yazi plugin for rg search with fzf file preview";
     homepage = "https://github.com/DreamMaoMao/fg.yazi";
-    license = licenses.mit;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 }

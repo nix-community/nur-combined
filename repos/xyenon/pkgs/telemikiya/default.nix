@@ -7,9 +7,10 @@
 }:
 
 buildGoModule {
+  __structuredAttrs = true;
+
   pname = "telemikiya";
   version = "0-unstable-2025-06-23";
-
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "TeleMikiya";
@@ -27,12 +28,12 @@ buildGoModule {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = with lib; {
+  meta = {
     mainProgram = "telemikiya";
     description = "Hybrid message search tool for Telegram";
     homepage = "https://github.com/XYenon/TeleMikiya";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ xyenon ];
-    broken = versionOlder go.version "1.24.0";
+    license = lib.licenses.agpl3Plus;
+    maintainers = with lib.maintainers; [ xyenon ];
+    broken = lib.versionOlder go.version "1.24.0";
   };
 }

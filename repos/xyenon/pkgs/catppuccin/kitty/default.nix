@@ -7,6 +7,7 @@
 stdenvNoCC.mkDerivation {
   inherit (source) pname src;
   version = "0-unstable-${source.date}";
+  __structuredAttrs = true;
 
   dontBuild = true;
 
@@ -18,10 +19,10 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "😽 Soothing pastel theme for Kitty";
     homepage = "https://github.com/catppuccin/kitty";
-    license = licenses.mit;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 }

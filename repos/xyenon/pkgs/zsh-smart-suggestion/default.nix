@@ -7,14 +7,15 @@
 
 # To make use of this derivation, use the `programs.zsh.smart-suggestion.enable` option
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "zsh-smart-suggestion";
   version = "0.1.15";
-
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "smart-suggestion";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-kq4ixiSUKUlxni7w/5MjDxll900T0fxO1pIzfzg+MDE=";
   };
 
@@ -28,11 +29,11 @@ buildGoModule rec {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     description = "AI-powered command suggestions directly in your zsh shell";
     homepage = "https://github.com/XYenon/smart-suggestion";
-    license = licenses.unlicense;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.unlicense;
+    platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
-}
+})

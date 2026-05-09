@@ -6,9 +6,10 @@
 }:
 
 stdenvNoCC.mkDerivation {
+  __structuredAttrs = true;
+
   pname = "clipboard";
   version = "0-unstable-2026-05-08";
-
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "clipboard.yazi";
@@ -28,10 +29,10 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = with lib; {
+  meta = {
     description = "Clipboard sync plugin for Yazi that copies yanked file paths to the system clipboard";
     homepage = "https://github.com/XYenon/clipboard.yazi";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.agpl3Plus;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 }

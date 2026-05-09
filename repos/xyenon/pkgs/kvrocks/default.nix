@@ -106,6 +106,8 @@ let
       });
 in
 stdenv.mkDerivation (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "kvrocks";
   version = "2.15.0";
 
@@ -266,7 +268,6 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   strictDeps = true;
-
   nativeBuildInputs = [
     # keep-sorted start
     cmake

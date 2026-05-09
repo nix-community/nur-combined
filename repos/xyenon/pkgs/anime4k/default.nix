@@ -8,12 +8,13 @@
 let
   endLevel = if isHighEnd then "High" else "Low";
 in
-stdenvNoCC.mkDerivation (finalAttrs: rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "Anime4K";
   version = "4.0.1";
-
   src = fetchzip {
-    url = "https://github.com/Tama47/Anime4K/releases/download/v${version}/GLSL_Mac_Linux_${endLevel}-end.zip";
+    url = "https://github.com/Tama47/Anime4K/releases/download/v${finalAttrs.version}/GLSL_Mac_Linux_${endLevel}-end.zip";
     hash =
       if isHighEnd then
         "sha256-Ah9fnVCDsliUzbCkKFcnWjLqG0y5DYlXJkZAz/H/oLQ="
@@ -75,10 +76,10 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
       config = mpvConf;
     };
 
-  meta = with lib; {
+  meta = {
     description = "A High-Quality Real Time Upscaler for Anime Video";
     homepage = "https://github.com/Tama47/Anime4K";
-    license = licenses.mit;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 })

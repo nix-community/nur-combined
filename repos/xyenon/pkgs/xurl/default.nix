@@ -6,10 +6,11 @@
   nix-update-script,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "xurl";
   version = "0.0.27-unstable-2026-03-23";
-
   src = fetchFromGitHub {
     owner = "Xuanwo";
     repo = "xurl";
@@ -19,8 +20,8 @@ rustPlatform.buildRustPackage rec {
 
   postPatch = ''
     substituteInPlace Cargo.toml \
-      --replace-fail 'version = "0.0.0-dev"' 'version = "${version}"' \
-      --replace-fail 'version = "=0.0.0-dev"' 'version = "=${version}"'
+      --replace-fail 'version = "0.0.0-dev"' 'version = "${finalAttrs.version}"' \
+      --replace-fail 'version = "=0.0.0-dev"' 'version = "=${finalAttrs.version}"'
   '';
   cargoHash = "sha256-us5+xKHjxO3d4tCnqSrvdoqi6v7ii+DdmIURykTcaH0=";
 
@@ -35,4 +36,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ xyenon ];
     mainProgram = "xurl";
   };
-}
+})

@@ -6,9 +6,10 @@
 }:
 
 stdenvNoCC.mkDerivation {
+  __structuredAttrs = true;
+
   pname = "exifaudio";
   version = "0-unstable-2025-06-20";
-
   src = fetchFromGitHub {
     owner = "Sonico98";
     repo = "exifaudio.yazi";
@@ -28,10 +29,10 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = with lib; {
+  meta = {
     description = "Preview audio files metadata on yazi";
     homepage = "https://github.com/Sonico98/exifaudio.yazi";
-    license = licenses.mit;
-    maintainers = with maintainers; [ xyenon ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ xyenon ];
   };
 }

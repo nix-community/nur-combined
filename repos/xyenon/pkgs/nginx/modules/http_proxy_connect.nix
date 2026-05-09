@@ -43,8 +43,7 @@ let
           patchName = "proxy_connect_rewrite_102101";
         }
       ];
-in
-rec {
+
   name = "http_proxy_connect";
   src = fetchFromGitHub {
     inherit name;
@@ -53,6 +52,9 @@ rec {
     rev = "v0.0.7";
     hash = "sha256-Yob2Z+a3ex3Ji6Zz8J0peOYnKpYn5PlC9KsQNcHCL9o=";
   };
+in
+{
+  inherit name src;
 
   patches = [ "${src}/patch/${patch.patchName}.patch" ];
 
@@ -60,11 +62,11 @@ rec {
     with lib.strings;
     version: versionOlder version patch.versionOlder && versionAtLeast version patch.versionAtLeast;
 
-  meta = with lib; {
+  meta = {
     description = "Forward proxy module for CONNECT request handling";
     homepage = "https://github.com/chobits/ngx_http_proxy_connect_module";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ xyenon ];
-    broken = versionAtLeast nginxVersion "1.29.1";
+    license = with lib.licenses; [ bsd2 ];
+    maintainers = with lib.maintainers; [ xyenon ];
+    broken = lib.versionAtLeast nginxVersion "1.29.1";
   };
 }

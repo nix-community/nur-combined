@@ -102,12 +102,12 @@ beamPackages.mixRelease rec {
     updateScript = nix-update-script { };
   };
 
-  meta = with lib; {
+  meta = {
     description = "ActivityPub microblogging server";
     homepage = "https://pleroma.social";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ xyenon ];
-    platforms = platforms.unix;
-    broken = versionOlder beamPackages.erlang.version "26.0.0";
+    license = lib.licenses.agpl3Only;
+    maintainers = with lib.maintainers; [ xyenon ];
+    platforms = lib.platforms.unix;
+    broken = lib.versionOlder beamPackages.erlang.version "26.0.0";
   };
 }

@@ -20,9 +20,10 @@ let
   };
 in
 buildGo125Module (finalAttrs: {
+  __structuredAttrs = true;
+
   pname = "caddy";
   inherit version;
-
   src = fetchFromGitHub {
     owner = "caddyserver";
     repo = "caddy";
