@@ -113,14 +113,10 @@ in
     systemd.packages = [ cfg.package ];
 
     networking = lib.mkIf cfg.openFirewall.enable {
-      firewall =
-        let
-          portToOpen = cfg.openFirewall.port;
-        in
-        {
-          allowedTCPPorts = [ portToOpen ];
-          allowedUDPPorts = [ portToOpen ];
-        };
+      firewall = {
+        allowedTCPPorts = [ cfg.openFirewall.port ];
+        allowedUDPPorts = [ cfg.openFirewall.port ];
+      };
     };
 
     systemd.services.daed = {
