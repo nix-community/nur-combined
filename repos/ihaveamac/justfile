@@ -8,6 +8,7 @@ merge-master:
 	git push origin master
 
 update:
+	nix flake update --commit-lock-file
 	nix-update --version-regex='makerom-v(.*)' makerom
 	nix-update --version-regex='ctrtool-v(.*)' ctrtool
 	nix-update --version=branch wfs-tools

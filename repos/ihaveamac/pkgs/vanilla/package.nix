@@ -35,13 +35,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "vanilla";
-  version = "continuous-unstable-2026-04-06";
+  version = "continuous-unstable-2026-04-30";
 
   src = fetchFromGitHub {
     owner = "vanilla-wiiu";
     repo = pname;
-    rev = "bf1a6805197e6f395af41559435376a8b3922de1";
-    hash = "sha256-atnROMuBNsGX+zoyBeDx3W0Cj4UOxcb626znnkwFxDM=";
+    rev = "54e5451549bf4a1bf5e4a9f9503fdb00065c56c0";
+    hash = "sha256-VyV8+lh5YxOs8H+3bXzp/Zjoo2RaAe7mXKzaV+kD8Sw=";
   };
 
   passthru = { inherit hostap; };
@@ -77,9 +77,6 @@ stdenv.mkDerivation rec {
     substituteInPlace pipe/linux/CMakeLists.txt \
         --replace-fail "https://github.com/rolandoislas/drc-hostap.git" "${hostap}" \
         --replace-fail "--branch master" "--branch fetchgit"
-
-    substituteInPlace cmake/FindLibNL.cmake \
-    --replace-fail /usr/include/libnl3 ${lib.getDev libnl}/include/libnl3
   '';
 
   postInstall = ''
