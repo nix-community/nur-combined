@@ -1,7 +1,13 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq nix perl moreutils
+#!nix-shell -i bash -p git curl jq nix perl moreutils
 
 PKG_DIR="$(realpath "$(dirname "$0")")"
+if [[ ! -w "$PKG_DIR" ]]; then
+    REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+    if [[ -n "$REPO_ROOT" ]]; then
+        PKG_DIR="$REPO_ROOT/pkgs/by-name/qq/qqmusic"
+    fi
+fi
 SOURCES_FILE="$PKG_DIR/sources.json"
 
 is_empty_or_null() {

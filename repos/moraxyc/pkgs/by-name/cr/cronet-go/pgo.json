@@ -1,0 +1,14 @@
+{
+  "any-linux": {
+    "name": "chrome-linux-7727-1774978896-38e5deba67117246fc20e2afbaafb6ff138882a3-3f44451a3565db8934451c0ce67293ed93a78b74.profdata",
+    "hash": "sha256-83cw/u1s4avsgOWMxRmDALU+Tma7zcD+Y8c7tEGgfAM="
+  },
+  "x86_64-darwin": {
+    "name": "chrome-mac-7727-1774957166-b9e7a37e5b33e656182969bf29771f133ac9adcf-394b7455cca2cea77a24891fa7efb8eb969a2111.profdata",
+    "hash": "sha256-BVwXbWnrTZo97PqkewF6JQ424g5FI50r9f+BHRvCzBc="
+  },
+  "aarch64-darwin": {
+    "name": "chrome-mac-arm-7727-1774978896-d6578768eb396b2d26831a39eb5052bef331d240-3f44451a3565db8934451c0ce67293ed93a78b74.profdata",
+    "hash": "sha256-+dhJEKy8TT5SaRqH53LsqG8hVhV5DfCD2Oaw+usB3aQ="
+  }
+}

@@ -3,21 +3,27 @@
   stdenvNoCC,
   symlinkJoin,
   fetchurl,
-  llvmPackages,
   buildPackages,
   apple-sdk_15,
   darwin,
   ninja,
   python3,
   xcbuild,
+  llvmPackages ? buildPackages.llvmPackages,
 
   sources,
   source ? sources.cronet-go,
 
-  withPgo ? true,
+  withPgo ? stdenvNoCC.hostPlatform == stdenvNoCC.buildPlatform,
 }:
 let
-  nativeLlvm = buildPackages.buildPackages.llvmPackages;
+  llvmPgoPackageStr = "llvmPackages_22";
+  llvm = if withPgo then buildPackages.${llvmPgoPackageStr} else llvmPackages;
+  nativeLlvm =
+    if withPgo then
+      buildPackages.buildPackages.${llvmPgoPackageStr}
+    else
+      buildPackages.buildPackages.llvmPackages;
   isCrossLinux =
     stdenvNoCC.hostPlatform.isLinux && stdenvNoCC.hostPlatform != stdenvNoCC.buildPlatform;
   chromiumLinuxTargetTriples = {
@@ -43,42 +49,39 @@ let
     "x86_64-darwin"
     "aarch64-darwin"
   ];
+  pgoProfiles = lib.mapAttrs (
+    _: v:
+    fetchurl {
+      name = v.name;
+      url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/${v.name}";
+      hash = v.hash;
+    }
+  ) (lib.importJSON ./pgo.json);
+
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (source) pname version src;
 
-  postPatch =
-    let
-      pgoProfile =
-        finalAttrs.passthru.pgoProfiles.${
-          if stdenvNoCC.hostPlatform.isDarwin then
-            stdenvNoCC.hostPlatform.system
-          else if stdenvNoCC.hostPlatform.isLinux then
-            "any-linux"
-          else
-            throw "Unsupported system for PGO: ${stdenvNoCC.hostPlatform.system}"
-        };
-    in
-    ''
-      substituteInPlace naiveproxy/src/build/config/compiler/BUILD.gn \
-        --replace-fail 'cflags += [ "-fno-lifetime-dse" ]' '# cflags += [ "-fno-lifetime-dse" ]' \
-        --replace-fail '"-fsanitize-ignore-for-ubsan-feature=array-bounds"' '# "-fsanitize-ignore-for-ubsan-feature=array-bounds"' \
-        --replace-fail '"-Wno-unsafe-buffer-usage-in-static-sized-array"' '# "-Wno-unsafe-buffer-usage-in-static-sized-array"'
-    ''
-    + lib.optionalString (isCrossLinux && finalAttrs.passthru.chromiumLinuxTargetTriple != null) ''
-      substituteInPlace naiveproxy/src/build/config/compiler/BUILD.gn \
-        --replace-warn '--target=${finalAttrs.passthru.chromiumLinuxTargetTriple}' '--target=${stdenvNoCC.hostPlatform.config}'
-    ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
-      patchShebangs naiveproxy/src/build/toolchain/apple/linker_driver.py
+  postPatch = ''
+    substituteInPlace naiveproxy/src/build/config/compiler/BUILD.gn \
+      --replace-fail 'cflags += [ "-fno-lifetime-dse" ]' '# cflags += [ "-fno-lifetime-dse" ]' \
+      --replace-fail '"-fsanitize-ignore-for-ubsan-feature=array-bounds"' '# "-fsanitize-ignore-for-ubsan-feature=array-bounds"' \
+      --replace-fail '"-Wno-unsafe-buffer-usage-in-static-sized-array"' '# "-Wno-unsafe-buffer-usage-in-static-sized-array"'
+  ''
+  + lib.optionalString (isCrossLinux && finalAttrs.passthru.chromiumLinuxTargetTriple != null) ''
+    substituteInPlace naiveproxy/src/build/config/compiler/BUILD.gn \
+      --replace-warn '--target=${finalAttrs.passthru.chromiumLinuxTargetTriple}' '--target=${stdenvNoCC.hostPlatform.config}'
+  ''
+  + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
+    patchShebangs naiveproxy/src/build/toolchain/apple/linker_driver.py
 
-      substituteInPlace naiveproxy/src/build/config/mac/BUILD.gn \
-        --replace-fail 'common_mac_flags = []' 'common_mac_flags = [ "-I${lib.getInclude darwin.libresolv}/include" ]'
-    ''
-    + lib.optionalString withPgo ''
-      mkdir -p naiveproxy/src/chrome/build/pgo_profiles
-      cp ${pgoProfile} naiveproxy/src/chrome/build/pgo_profiles/${pgoProfile.name}
-    '';
+    substituteInPlace naiveproxy/src/build/config/mac/BUILD.gn \
+      --replace-fail 'common_mac_flags = []' 'common_mac_flags = [ "-I${lib.getInclude darwin.libresolv}/include" ]'
+  ''
+  + lib.optionalString withPgo ''
+    mkdir -p naiveproxy/src/chrome/build/pgo_profiles
+    cp ${finalAttrs.passthru.pgoProfile} naiveproxy/src/chrome/build/pgo_profiles/${finalAttrs.passthru.pgoProfile.name}
+  '';
 
   outputs = [
     "out"
@@ -87,7 +90,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
 
   nativeBuildInputs = [
-    buildPackages.llvmPackages.bintools
+    llvm.bintools
     ninja
     python3
   ]
@@ -102,11 +105,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     CRONET_GO_ENABLE_PGO = lib.optionalString withPgo "1";
   }
   // lib.optionalAttrs isCrossLinux {
-    CC = lib.getExe' finalAttrs.passthru.clangBasePath "${llvmPackages.stdenv.cc.targetPrefix}cc";
-    CXX = lib.getExe' finalAttrs.passthru.clangBasePath "${llvmPackages.stdenv.cc.targetPrefix}c++";
-    AR = lib.getExe' llvmPackages.bintools "${llvmPackages.stdenv.cc.targetPrefix}ar";
-    NM = lib.getExe' llvmPackages.bintools "${llvmPackages.stdenv.cc.targetPrefix}nm";
-    READELF = lib.getExe' llvmPackages.bintools "${llvmPackages.stdenv.cc.targetPrefix}readelf";
+    CC = lib.getExe' finalAttrs.passthru.clangBasePath "${llvm.stdenv.cc.targetPrefix}cc";
+    CXX = lib.getExe' finalAttrs.passthru.clangBasePath "${llvm.stdenv.cc.targetPrefix}c++";
+    AR = lib.getExe' llvm.bintools "${llvm.stdenv.cc.targetPrefix}ar";
+    NM = lib.getExe' llvm.bintools "${llvm.stdenv.cc.targetPrefix}nm";
+    READELF = lib.getExe' llvm.bintools "${llvm.stdenv.cc.targetPrefix}readelf";
     BUILD_CC = lib.getExe' nativeLlvm.stdenv.cc "cc";
     BUILD_CXX = lib.getExe' nativeLlvm.stdenv.cc "c++";
     BUILD_AR = lib.getExe' nativeLlvm.bintools "ar";
@@ -145,33 +148,29 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    # nix-update auto -s build-naive --override-filename pkgs/by-name/cr/cronet-go/build-naive.nix
+    # nix-update auto -u
+    updateScript = ./update.sh;
     build-naive = buildPackages.callPackage ./build-naive.nix {
       source = buildPackages.sources.cronet-go;
     };
     clangBasePath = symlinkJoin {
       name = "llvmCcAndBintools";
       paths = [
-        llvmPackages.llvm
-        llvmPackages.stdenv.cc
+        llvm.llvm
+        llvm.stdenv.cc
       ];
     };
     chromiumLinuxTargetTriple = chromiumLinuxTargetTriples.${stdenvNoCC.hostPlatform.config} or null;
     goTarget = "${stdenvNoCC.hostPlatform.go.GOOS}/${stdenvNoCC.hostPlatform.go.GOARCH}";
-    pgoProfiles = {
-      aarch64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-7778-1777396490-28f3bd2de3e5897faaeffb39ece6068b821b4568-01697e67ebd6a170e23bf1503bbc0c3723275c1b.profdata";
-        hash = "sha256-gsM4lTXXmAop3n+LGFW2pRwVtIkgp/LOLmaho1Lahhc=";
+    pgoProfile =
+      pgoProfiles.${
+        if stdenvNoCC.hostPlatform.isDarwin then
+          stdenvNoCC.hostPlatform.system
+        else if stdenvNoCC.hostPlatform.isLinux then
+          "any-linux"
+        else
+          throw "Unsupported system for PGO: ${stdenvNoCC.hostPlatform.system}"
       };
-      x86_64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-7778-1777374771-bf7aebabe8057c6700aa75240777f8557acfd474-d8efa9b284bd43eccbaf67df2d4a1deaa3c39b89.profdata";
-        hash = "sha256-gXmewWdgIDMfb8ujTQAoWaK4t3nabp4hXfPXsCxZi4M=";
-      };
-      any-linux = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-7778-1777374771-45dd5813b3332165d1d1cd33a478e0a7b948195e-d8efa9b284bd43eccbaf67df2d4a1deaa3c39b89.profdata";
-        hash = "sha256-qRbwmZivUpte1ILYnFBusAbRBnv/YDaEoXd46LYeaCw=";
-      };
-    };
   };
 
   meta = {
