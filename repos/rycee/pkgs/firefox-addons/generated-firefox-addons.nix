@@ -7358,16 +7358,23 @@
     };
     "karakeep" = buildMozillaXpiAddon {
       pname = "karakeep";
-      version = "1.2.9";
+      version = "1.2.10";
       addonId = "addon@karakeep.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4702886/karakeep-1.2.9.xpi";
-      sha256 = "e1a2e0221be6b87e27f1269a684f37d2995f542bbd98db173149c2c87a6e1f4c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4798190/karakeep-1.2.10.xpi";
+      sha256 = "111e9542bbda2df221538b03f437d75b62a48ed9543da7ba3b5f2568957acd0e";
       meta = with lib;
       {
         homepage = "https://karakeep.app";
         description = "An extension to bookmark links to karakeep.app";
         license = licenses.agpl3Only;
-        mozPermissions = [ "storage" "tabs" "contextMenus" ];
+        mozPermissions = [
+          "storage"
+          "tabs"
+          "contextMenus"
+          "activeTab"
+          "scripting"
+          "https://karakeep.invalid/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -15900,10 +15907,10 @@
     };
     "uppity" = buildMozillaXpiAddon {
       pname = "uppity";
-      version = "2.2";
+      version = "2.3";
       addonId = "{16cbd87c-eb99-4f5c-9825-83cf13ab7ff8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4797165/uppity-2.2.xpi";
-      sha256 = "13e700ca47b8a7496dab5c035b954914ac08480dd2c257da155845a2a5c1aff9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4798173/uppity-2.3.xpi";
+      sha256 = "8df0d87d548d4e9458303ef50a3eb91826888ff225e3aeaa886d662b0a44a5e5";
       meta = with lib;
       {
         homepage = "https://github.com/arantius/uppity";
