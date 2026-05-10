@@ -124,12 +124,16 @@ main() {
     fi
   fi
 
-  if [ "$ver" = "$cur" ]; then
+  if [ "$ver" = "$cur" ] && [ -z "${FORCE_VERSION:-}" ]; then
     echo "hunk is already up-to-date ($ver)."
     exit 0
   fi
 
-  echo "Updating hunk: $cur -> $ver"
+  if [ "$ver" = "$cur" ]; then
+    echo "Refreshing hunk hashes for version $ver"
+  else
+    echo "Updating hunk: $cur -> $ver"
+  fi
 
   declare -A OS_BY_SYSTEM=(
     [x86_64-linux]=linux
@@ -159,7 +163,7 @@ main() {
     "$ver" \
     "${HASH[x86_64-linux]}" \
     "${HASH[aarch64-linux]}" \
-    "${HASH[x86_64_darwin]}" \
+    "${HASH[x86_64-darwin]}" \
     "${HASH[aarch64-darwin]}"
 
   echo "Update complete."
