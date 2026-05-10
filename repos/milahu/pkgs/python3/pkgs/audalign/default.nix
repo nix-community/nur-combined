@@ -1,91 +1,84 @@
-{ lib
-, python3
-, ffmpeg
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  matplotlib,
+  numpy,
+  pydub,
+  scipy,
+  setuptools,
+  tqdm,
+  noisereduce,
+  torch,
+  pytest,
+  pytest-xdist,
+  pillow,
+  scikit-image,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonPackage (finalAttrs: {
   pname = "audalign";
-  version = "1.2.4";
+  version = "1.3.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "benfmiller";
     repo = "audalign";
-    rev = "v${version}";
-    hash = "sha256-ldB4TxXfkmbTeslwARTjzrra+Xt+NZOeiFwrslIAEPc=";
+    # tag = "v${finalAttrs.version}";
+    # https://github.com/benfmiller/audalign/pull/70
+    rev = "a281758a0aceae9fd1276d150bf8424cdd05a1ac";
+    hash = "sha256-Tyd0xRo7zW3wbKGWWBoqrIj29LyfG1CyUMbHl9JprTk=";
   };
 
   postPatch = ''
-    # unpin versions
-    sed -i 's/==.*//' requirements.txt
-    # fix import check
-    # fix: cannot cache function 'x': no locator available
-    export NUMBA_CACHE_DIR=$TMP
+    # unpin dependencies
+    sed -i 's/==.*",/",/' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    python3.pkgs.setuptools
-    python3.pkgs.wheel
+  build-system = [
+    hatchling
   ];
 
-  propagatedBuildInputs = [
-    ffmpeg
-  ] ++ (with python3.pkgs; [
-    appdirs
-    attrs
-    audioread
-    certifi
-    cffi
-    charset-normalizer
-    contourpy
-    cycler
-    decorator
-    exceptiongroup
-    execnet
-    fonttools
-    idna
-    imageio
-    iniconfig
-    joblib
-    kiwisolver
-    librosa
-    llvmlite
+  dependencies = [
     matplotlib
-    networkx
-    noisereduce
-    numba
     numpy
-    packaging
-    pillow
-    pluggy
-    pooch
-    pycparser
     pydub
-    pyparsing
-    python-dateutil
-    pywavelets
-    requests
-    resampy
-    scikit-image
-    scikit-learn
     scipy
-    six
-    soundfile
-    threadpoolctl
-    tifffile
-    tomli
+    setuptools
     tqdm
-    urllib3
-  ]);
 
-  pythonImportsCheck = [ "audalign" ];
+    # option "visrecognize" for audalign.VisualRecognizer and audalign.fine_align
+    pillow
+    scikit-image
+  ];
 
-  meta = with lib; {
+  optional-dependencies = {
+    noisereduce = [
+      noisereduce
+      torch
+    ];
+    test = [
+      pytest
+      pytest-xdist
+    ];
+    /*
+    visrecognize = [
+      pillow
+      scikit-image
+    ];
+    */
+  };
+
+  pythonImportsCheck = [
+    "audalign"
+  ];
+
+  meta = {
     description = "Package for aligning audio files through audio fingerprinting";
     homepage = "https://github.com/benfmiller/audalign";
-    changelog = "https://github.com/benfmiller/audalign/blob/${src.rev}/CHANGELOG.md";
-    license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    changelog = "https://github.com/benfmiller/audalign/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ ];
   };
-}
+})

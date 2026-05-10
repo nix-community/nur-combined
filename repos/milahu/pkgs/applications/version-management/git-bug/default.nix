@@ -43,7 +43,7 @@ buildGoModule rec {
     description = "Distributed bug tracker embedded in Git";
     homepage = "https://github.com/git-bug/git-bug";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ royneary DeeUnderscore sudoforge ];
+    maintainers = with maintainers; [ royneary DeeUnderscore ];
     mainProgram = "git-bug";
   };
 }

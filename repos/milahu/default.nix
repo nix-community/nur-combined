@@ -642,6 +642,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       chandra-ocr = callPackage ./pkgs/development/python-modules/chandra-ocr { };
 
+      libfmp = callPackage ./pkgs/development/python-modules/libfmp { };
+
+      music21 = callPackage ./pkgs/development/python-modules/music21 { };
+
+      pretty-midi = callPackage ./pkgs/development/python-modules/pretty-midi { };
+
+      synctoolbox = callPackage ./pkgs/development/python-modules/synctoolbox { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -1048,9 +1056,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     sqliteBranch = "reuse-schema";
   };
 
+  /*
   tree-sitter = pkgs.makeOverridable (callPackage ./pkgs/development/tools/parsing/tree-sitter) {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security CoreServices;
   };
+  */
 
   vdhcoapp = callPackage ./pkgs/tools/video/vdhcoapp { };
 
@@ -1331,6 +1341,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
     dav = callPackage ./pkgs/servers/http/nginx/modules/dav.nix { };
 
+    tree_sitter_filter = callPackage ./pkgs/servers/http/nginx/modules/tree_sitter_filter.nix { };
+
   };
 
   bbcode = callPackage ./pkgs/development/libraries/bbcode { };
@@ -1464,6 +1476,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
 
   v8 = callPackage ./pkgs/development/libraries/v8 { };
+
+  lingua-rs = callPackage ./pkgs/by-name/li/lingua-rs/package.nix { };
 
 }
 
