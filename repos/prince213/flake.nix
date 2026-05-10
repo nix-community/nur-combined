@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    systems.url = "github:nix-systems/default";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,6 +14,7 @@
       self,
       nixpkgs,
       flake-parts,
+      systems,
       treefmt-nix,
       ...
     }:
@@ -20,12 +22,7 @@
       imports = [
         treefmt-nix.flakeModule
       ];
-      systems = [
-        "aarch64-darwin"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
+      systems = import systems;
       flake = {
         modulePackages.ngbe = ./pkgs/ngbe;
         nixosModules.default = ./modules/nixos;
