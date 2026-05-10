@@ -430,25 +430,25 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "64717c91872326b0e7d69b6148d14f299fd26349";
+    version = "ce4975e56e832e3d78a1f1f88e8f8e45bb5869ed";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "64717c91872326b0e7d69b6148d14f299fd26349";
+      rev = "ce4975e56e832e3d78a1f1f88e8f8e45bb5869ed";
       fetchSubmodules = false;
-      sha256 = "sha256-rMNnbg/Qocza9PEJkJ4p6sj7x0mvbsT+mhc63FBJYb8=";
+      sha256 = "sha256-iUu7T7zADxF0DGR83weH8q8mJLEYsu1I/7de8HIreBs=";
     };
-    date = "2026-05-08";
+    date = "2026-05-09";
   };
   yass = {
     pname = "yass";
-    version = "1.24.8";
+    version = "1.24.9";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.24.8";
+      rev = "1.24.9";
       fetchSubmodules = true;
-      sha256 = "sha256-SbCMvGY743Xld6A/xqXrxZUzvGdX2NOlCypYbWHx/dk=";
+      sha256 = "sha256-/2Pcn8J9A8v/2haSCVItFdKsfEKYcPmQwd5wWsK1FmA=";
     };
   };
 }
