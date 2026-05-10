@@ -43,5 +43,5 @@ self: super:
     fArgs = if builtins.isFunction imported then builtins.functionArgs imported else { };
     requiresInputs = fArgs ? inputs' || fArgs ? inputs;
   in
-  if requiresInputs && !self._nurHasAllModuleArgs then null else self.callPackage imported { }
+  if requiresInputs && !self._nurHasAllModuleArgs then null else self._nurCallPackage imported { }
 ) packageFiles

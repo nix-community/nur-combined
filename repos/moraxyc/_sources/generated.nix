@@ -95,6 +95,29 @@
       sha256 = "sha256-/uFFqN1kypMSt2CJFoXWjwr8MXiqEqr02s3a5bf+tgU=";
     };
   };
+  cronet-go = {
+    pname = "cronet-go";
+    version = "f5688124addcca1ff0a468773d6574b569e39f15";
+    src = fetchFromGitHub {
+      owner = "SagerNet";
+      repo = "cronet-go";
+      rev = "f5688124addcca1ff0a468773d6574b569e39f15";
+      fetchSubmodules = true;
+      sha256 = "sha256-Vntqm+aRTcOoQ9gI09l7k9OU7uGdpFQxFKWHmwTn5Q4=";
+    };
+    date = "2026-04-15";
+  };
+  cronet-go-stable = {
+    pname = "cronet-go-stable";
+    version = "v147.0.7727.49-1";
+    src = fetchFromGitHub {
+      owner = "SagerNet";
+      repo = "cronet-go";
+      rev = "v147.0.7727.49-1";
+      fetchSubmodules = false;
+      sha256 = "sha256-97tA4EGK0zMhIrt7rvQpuFzoDQfNEu2sRo5/BewsceY=";
+    };
+  };
   english_words = {
     pname = "english_words";
     version = "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c";
@@ -363,6 +386,17 @@
       rev = "v1.9.0";
       fetchSubmodules = false;
       sha256 = "sha256-N+Vi+mbKGogO6PgONqiegbrHGh+5BePePkU9+Irate0=";
+    };
+  };
+  naiveproxy = {
+    pname = "naiveproxy";
+    version = "v148.0.7778.96-4";
+    src = fetchFromGitHub {
+      owner = "klzgrad";
+      repo = "naiveproxy";
+      rev = "v148.0.7778.96-4";
+      fetchSubmodules = false;
+      sha256 = "sha256-M0jLu+ZGywrNEyFgip4rgnJurPDoRc43Xq3U+/5R7YI=";
     };
   };
   nipaplay-reload-darwin = {

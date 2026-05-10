@@ -13,16 +13,17 @@ in
 self: super: {
   _nurHasAllModuleArgs = config ? allModuleArgs;
 
-  callPackage = lib.callPackageWith (
+  _nurCallPackage = lib.callPackageWith (
     lib.optionalAttrs (config ? allModuleArgs) {
       inherit (config.allModuleArgs) self' inputs' system;
     }
     // {
-      inherit inputs nixpkgs;
+      inherit inputs;
+      nixpkgs = super;
     }
     // self
     // {
-      callPackage = self.callPackage;
+      callPackage = self._nurCallPackage;
     }
   );
 

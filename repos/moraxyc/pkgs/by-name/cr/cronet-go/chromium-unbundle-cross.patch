@@ -1,0 +1,44 @@
+diff --git a/naiveproxy/src/build/toolchain/linux/unbundle/BUILD.gn b/naiveproxy/src/build/toolchain/linux/unbundle/BUILD.gn
+index 5b44963..270c81f 100644
+--- a/naiveproxy/src/build/toolchain/linux/unbundle/BUILD.gn
++++ b/naiveproxy/src/build/toolchain/linux/unbundle/BUILD.gn
+@@ -9,6 +9,7 @@ gcc_toolchain("default") {
+   cxx = getenv("CXX")
+   ar = getenv("AR")
+   nm = getenv("NM")
++  readelf = getenv("READELF")
+   ld = cxx
+ 
+   extra_cflags = getenv("CFLAGS")
+@@ -27,6 +28,7 @@ gcc_toolchain("host") {
+   cxx = getenv("BUILD_CXX")
+   ar = getenv("BUILD_AR")
+   nm = getenv("BUILD_NM")
++  readelf = getenv("BUILD_READELF")
+   ld = cxx
+ 
+   extra_cflags = getenv("BUILD_CFLAGS")
+@@ -35,7 +37,8 @@ gcc_toolchain("host") {
+   extra_ldflags = getenv("BUILD_LDFLAGS")
+ 
+   toolchain_args = {
+-    current_cpu = current_cpu
+-    current_os = current_os
++    current_cpu = host_cpu
++    current_os = host_os
++    v8_current_cpu = target_cpu
+   }
+ }
+diff --git a/naiveproxy/src/build/config/compiler/BUILD.gn b/naiveproxy/src/build/config/compiler/BUILD.gn
+index 161ef24..e5a4c2d 100644
+--- a/naiveproxy/src/build/config/compiler/BUILD.gn
++++ b/naiveproxy/src/build/config/compiler/BUILD.gn
+@@ -2636,7 +2636,7 @@
+ # 2. Remove the thin_archive config, so that the .a file actually contains all
+ #    .o files, instead of just references to .o files in the build directoy
+ config("thin_archive") {
+-  if ((is_apple && use_lld) || (is_linux && !is_clang) || current_os == "aix") {
++  if ((is_apple && use_lld) || (is_linux && !use_lld) || current_os == "aix") {
+     # The macOS and iOS linker ld64.ldd doesn't support thin archive without
+     # symbol table, gcc on linux also throws the error `archive has no index`.
+     # AIX does support -s option, not -S option.
