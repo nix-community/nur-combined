@@ -1,0 +1,51 @@
+diff --git a/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c b/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c
+index ccf35f4..74dfee0 100644
+--- a/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c
++++ b/kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c
+@@ -3256,7 +3256,9 @@ static int vgpu_msix_set_vector_signal(vgpu_dev_t *vgpu_dev,
+ #endif
+         eventfd_ctx_put(vgpu_dev->intr_info.msix[vector].trigger);
+         vgpu_dev->intr_info.msix[vector].trigger = NULL;
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 17, 0)
+         vgpu_dev->intr_info.msix[vector].producer.token = NULL;
++#endif
+         free_irq(vgpu_dev->intr_info.msix[vector].allocated_irq, vgpu_dev);
+         vgpu_dev->intr_info.msix[vector].allocated_irq = INVALID_IRQ;
+     }
+@@ -3280,18 +3282,26 @@ static int vgpu_msix_set_vector_signal(vgpu_dev_t *vgpu_dev,
+     vgpu_dev->intr_info.msix[vector].allocated_irq = irq;
+     vgpu_dev->intr_info.msix[vector].trigger = trigger;
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 17, 0)
+     vgpu_dev->intr_info.msix[vector].producer.token = trigger;
++#endif
+     vgpu_dev->intr_info.msix[vector].producer.irq = irq;
+ 
+ #if defined(NV_ENABLE_APICV_PRESENT)
+     if (enable_apicv == NV_TRUE)
+     {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 17, 0)
+         ret = irq_bypass_register_producer(&vgpu_dev->intr_info.msix[vector].producer);
++#else
++        ret = irq_bypass_register_producer(&vgpu_dev->intr_info.msix[vector].producer, trigger, irq);
++#endif
+         if (ret)
+         {
+             NV_VGPU_DEV_LOG(VGPU_INFO, vgpu_dev,
+                             "Failed to register producer irq token %d\n", ret);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 17, 0)
+             vgpu_dev->intr_info.msix[vector].producer.token = NULL;
++#endif
+         }
+     }
+ #endif
+@@ -3320,7 +3330,9 @@ static void vgpu_msix_disable(vgpu_dev_t *vgpu_dev)
+ #endif
+                 eventfd_ctx_put(vgpu_dev->intr_info.msix[i].trigger);
+                 vgpu_dev->intr_info.msix[i].trigger = NULL;
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 17, 0)
+                 vgpu_dev->intr_info.msix[i].producer.token = NULL;
++#endif
+                 free_irq(vgpu_dev->intr_info.msix[i].allocated_irq, vgpu_dev);
+                 vgpu_dev->intr_info.msix[i].allocated_irq = INVALID_IRQ;
+             }

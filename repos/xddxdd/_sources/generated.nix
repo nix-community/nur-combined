@@ -255,6 +255,14 @@
       hash = "sha256-VbE1CktTH6fc/Y2/HOaeAVkyQJcQllJclFrMGqUfvJI=";
     };
   };
+  browseros = {
+    pname = "browseros";
+    version = "0.44.0.1";
+    src = fetchurl {
+      url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.44.0.1/BrowserOS_v0.44.0.1_x64.AppImage";
+      hash = "sha256-ALnyVMnexYy48br9qbWaEbOZm7hJR9g39a9nYzbWXwo=";
+    };
+  };
   buname = {
     pname = "buname";
     version = "a62d3d214dafb92932f4e5478eebc212ae4cb57d";

@@ -19,14 +19,14 @@
   pkgs,
   pkgsi686Linux,
   kernel,
-  perl,
-  nukeReferences,
-  which,
   libarchive,
   jq,
+  zstd,
+  # Options
+  useGLVND ? true,
+  useProfiles ? true,
 }:
 let
-  nameSuffix = "-${kernel.version}";
   i686bundled = true;
 
   libPathFor =
@@ -51,55 +51,34 @@ let
     );
 in
 kernel.stdenv.mkDerivation (finalAttrs: {
-  name = "nvidia-x11-${version}${nameSuffix}";
+  pname = "nvidia-x11-vgpu";
 
   builder = ./vgpu-builder.sh;
 
-  inherit version src;
-
+  inherit
+    version
+    src
+    useGLVND
+    useProfiles
+    ;
   inherit
     patches
     prePatch
     patchFlags
+    postPatch
     ;
   inherit preInstall postInstall;
   inherit (kernel.stdenv.hostPlatform) system;
   inherit i686bundled;
 
-  postPatch = postPatch + ''
-    substituteInPlace kernel/nvidia-vgpu-vfio/nvidia-vgpu-vfio.c \
-      --replace-quiet "no_llseek," "NULL,"
-    substituteInPlace kernel/nvidia-vgpu-vfio/vgpu-ctldev.c \
-      --replace-quiet "void nv_free_vgpu_type_info()" "void nv_free_vgpu_type_info(void)"
-  '';
-
   outputs = [
     "out"
     "bin"
+    "modsrc"
     "vgpuConfig"
   ]
   ++ lib.optional i686bundled "lib32";
   outputDev = "bin";
-
-  kernel = kernel.dev;
-  kernelVersion = kernel.modDirVersion;
-
-  makeFlags =
-    (kernel.commonMakeFlags or kernel.makeFlags)
-    ++ [
-      "IGNORE_PREEMPT_RT_PRESENCE=1"
-      "NV_BUILD_SUPPORTS_HMM=1"
-      "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
-      "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ]
-    ++ lib.optionals kernel.stdenv.cc.isClang [
-      "C_INCLUDE_PATH=${lib.getLib kernel.stdenv.cc.cc}/lib/clang/${lib.versions.major kernel.stdenv.cc.cc.version}/include"
-    ];
-
-  hardeningDisable = [
-    "pic"
-    "format"
-  ];
 
   dontStrip = true;
   dontPatchELF = true;
@@ -108,23 +87,22 @@ kernel.stdenv.mkDerivation (finalAttrs: {
   libPath32 = lib.optionalString i686bundled (libPathFor pkgsi686Linux);
 
   nativeBuildInputs = [
-    perl
-    nukeReferences
-    which
     libarchive
     jq
-  ]
-  ++ kernel.moduleBuildDependencies;
-
-  disallowedReferences = [ kernel.dev ];
+    zstd
+  ];
 
   passthru = {
-    settings = callPackage (import ./settings.nix settingsSha256) {
+    mod = callPackage ./kernel-modules.nix {
+      inherit kernel;
       nvidia_x11 = finalAttrs.finalPackage;
     };
-    persistenced = callPackage (import ./persistenced.nix persistencedSha256) {
-      nvidia_x11 = finalAttrs.finalPackage;
-    };
+    settings = callPackage (import (
+      pkgs.path + "/pkgs/os-specific/linux/nvidia-x11/settings.nix"
+    ) finalAttrs.finalPackage settingsSha256) { };
+    persistenced = callPackage (import (
+      pkgs.path + "/pkgs/os-specific/linux/nvidia-x11/persistenced.nix"
+    ) finalAttrs.finalPackage persistencedSha256) { };
     inherit persistencedVersion settingsVersion;
     compressFirmware = false;
   };

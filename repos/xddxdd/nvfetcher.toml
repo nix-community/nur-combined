@@ -111,6 +111,12 @@ src.aur = "browser360-bin"
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_arm64.deb"
 src.aur = "browser360-bin"
 
+[browseros]
+fetch.url = "https://github.com/browseros-ai/BrowserOS/releases/download/v$ver/BrowserOS_v$ver_x64.AppImage"
+src.github = "browseros-ai/BrowserOS"
+src.include_regex = "^v[0-9]"
+src.prefix = "v"
+
 [buname]
 fetch.github = "dramforever/buname"
 src.git = "https://github.com/dramforever/buname.git"

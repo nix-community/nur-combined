@@ -55,7 +55,7 @@ _: {
 
         readme = ''
           set -euo pipefail
-          nix build .#_meta.readme
+          nix build --show-trace .#_meta.readme
           cat result > README.md
         '';
 

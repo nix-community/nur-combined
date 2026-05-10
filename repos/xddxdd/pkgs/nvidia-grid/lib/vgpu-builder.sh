@@ -8,33 +8,6 @@ unpackFile() {
   sourceRoot=.
 }
 
-buildPhase() {
-  runHook preBuild
-
-  if [ -n "$bin" ]; then
-    # Create the module.
-    echo "Building linux driver against kernel: $kernel"
-    cd kernel
-    unset src # used by the nv makefile
-
-    # Disable config checks
-    if [ -f "conftest.sh" ]; then
-      sed -i "s/test_configuration_option /true /g" conftest.sh
-    fi
-
-    if [ -f "nvidia-vgpu-vfio/vgpu-vfio-mdev.c" ]; then
-      sed -i "s#int nv_vfio_mdev_register_driver()#int nv_vfio_mdev_register_driver(void)#g" nvidia-vgpu-vfio/vgpu-vfio-mdev.c
-      sed -i "s#void nv_vfio_mdev_unregister_driver()#void nv_vfio_mdev_unregister_driver(void)#g" nvidia-vgpu-vfio/vgpu-vfio-mdev.c
-    fi
-
-    make $makeFlags -j $NIX_BUILD_CORES module
-
-    cd ..
-  fi
-
-  runHook postBuild
-}
-
 installPhase() {
   runHook preInstall
 
@@ -69,13 +42,9 @@ installPhase() {
     install -Dm755 nvidia.fixed $out/lib/systemd/system-sleep/nvidia
   fi
 
-  if [ -n "$bin" ]; then
-    # Install the kernel module.
-    mkdir -p $bin/lib/modules/$kernelVersion/misc
-    for i in $(find ./kernel -name '*.ko'); do
-      nuke-refs $i
-      cp $i $bin/lib/modules/$kernelVersion/misc/
-    done
+  # Install the proprietary kernel module build files.
+  if [ -n "$modsrc" ]; then
+    cp -r kernel $modsrc
   fi
 
   # All libs except GUI-only are installed now, so fixup them.
