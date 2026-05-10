@@ -2,7 +2,7 @@
 
 see all packages: <https://nur.nix-community.org/repos/mio/> How to use (NUR guide) <https://nur.nix-community.org/documentation/> You will want to use `nur.repos.mio.*`
 
-Some packages are fully broken or mostly broken.
+Some packages are fully broken or mostly broken. Some packages are deprecated without a clear marking. I am not putting efforts to maintain this package collections to a quality that is ready to support other users beyond my personal usage.
 
 + linux: x86_64-v3, aarch64
 + darwin: aarch64
