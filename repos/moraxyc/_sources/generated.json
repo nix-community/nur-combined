@@ -336,11 +336,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=",
+            "sha256": "sha256-g27A3SY6bXwLuLJDlRCkhQthqvfEDmNOXFxO8w/qoas=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.05.07"
+        "version": "2026.05.10"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -351,11 +351,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=",
+            "sha256": "sha256-2jPoz77t5Z8FVq3UeXDbo+4HHY/5zta3oCOc93B/Ye8=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-City.mmdb"
         },
-        "version": "2026.05.07"
+        "version": "2026.05.10"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -366,11 +366,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-btDxlCUBWP6MqtH8D3y5LkpNuaflQCF+vaIlEQJjGHk=",
+            "sha256": "sha256-XkHcqD3sVtW/kRTqlVrGpWg1CMkwck0h1FanowyxtkY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-Country.mmdb"
         },
-        "version": "2026.05.07"
+        "version": "2026.05.10"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -476,6 +476,27 @@
             "type": "github"
         },
         "version": "v3.14.0.343"
+    },
+    "hysteria-realm-server": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hysteria-realm-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "apernet",
+            "repo": "hysteria-realm-server",
+            "rev": "v1.0.1",
+            "sha256": "sha256-u7X1YRUBe9FFc28jWfOFQJ1Q2a7LmS3Ej5I7zUa40/o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.1"
     },
     "libinput-three-finger-drag": {
         "cargoLock": null,
@@ -670,27 +691,6 @@
             "type": "github"
         },
         "version": "v1.9.0"
-    },
-    "naiveproxy": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "naiveproxy",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "klzgrad",
-            "repo": "naiveproxy",
-            "rev": "v148.0.7778.96-4",
-            "sha256": "sha256-M0jLu+ZGywrNEyFgip4rgnJurPDoRc43Xq3U+/5R7YI=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v148.0.7778.96-4"
     },
     "nipaplay-reload-darwin": {
         "cargoLock": null,

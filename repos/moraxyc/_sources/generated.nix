@@ -196,26 +196,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.07";
+    version = "2026.05.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-g27A3SY6bXwLuLJDlRCkhQthqvfEDmNOXFxO8w/qoas=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.07";
+    version = "2026.05.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb";
-      sha256 = "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-City.mmdb";
+      sha256 = "sha256-2jPoz77t5Z8FVq3UeXDbo+4HHY/5zta3oCOc93B/Ye8=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.07";
+    version = "2026.05.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-Country.mmdb";
-      sha256 = "sha256-btDxlCUBWP6MqtH8D3y5LkpNuaflQCF+vaIlEQJjGHk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-Country.mmdb";
+      sha256 = "sha256-XkHcqD3sVtW/kRTqlVrGpWg1CMkwck0h1FanowyxtkY=";
     };
   };
   git-mcp-server = {
@@ -276,6 +276,17 @@
       rev = "v3.14.0.343";
       fetchSubmodules = false;
       sha256 = "sha256-zmgtg2GY58YcV0k8rP82KWlYT4Bv2kzTl5ScwDHXK9o=";
+    };
+  };
+  hysteria-realm-server = {
+    pname = "hysteria-realm-server";
+    version = "v1.0.1";
+    src = fetchFromGitHub {
+      owner = "apernet";
+      repo = "hysteria-realm-server";
+      rev = "v1.0.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-u7X1YRUBe9FFc28jWfOFQJ1Q2a7LmS3Ej5I7zUa40/o=";
     };
   };
   libinput-three-finger-drag = {
@@ -386,17 +397,6 @@
       rev = "v1.9.0";
       fetchSubmodules = false;
       sha256 = "sha256-N+Vi+mbKGogO6PgONqiegbrHGh+5BePePkU9+Irate0=";
-    };
-  };
-  naiveproxy = {
-    pname = "naiveproxy";
-    version = "v148.0.7778.96-4";
-    src = fetchFromGitHub {
-      owner = "klzgrad";
-      repo = "naiveproxy";
-      rev = "v148.0.7778.96-4";
-      fetchSubmodules = false;
-      sha256 = "sha256-M0jLu+ZGywrNEyFgip4rgnJurPDoRc43Xq3U+/5R7YI=";
     };
   };
   nipaplay-reload-darwin = {
