@@ -592,12 +592,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.0.0",
-            "sha256": "sha256-pAsChv0zDJIQ8WDkAyPN1NJFuNcD32K2vRIl41K27aw=",
+            "rev": "v7.0.2",
+            "sha256": "sha256-fvnKMkeqFRzF7CTtuoKZzrBQ07VUun/8WXG6PbRg3Zw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.0.0"
+        "version": "v7.0.2"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1586,11 +1586,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=",
+            "sha256": "sha256-g27A3SY6bXwLuLJDlRCkhQthqvfEDmNOXFxO8w/qoas=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.05.07"
+        "version": "2026.05.10"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1601,11 +1601,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=",
+            "sha256": "sha256-2jPoz77t5Z8FVq3UeXDbo+4HHY/5zta3oCOc93B/Ye8=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-City.mmdb"
         },
-        "version": "2026.05.07"
+        "version": "2026.05.10"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1616,11 +1616,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-btDxlCUBWP6MqtH8D3y5LkpNuaflQCF+vaIlEQJjGHk=",
+            "sha256": "sha256-XkHcqD3sVtW/kRTqlVrGpWg1CMkwck0h1FanowyxtkY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-Country.mmdb"
         },
-        "version": "2026.05.07"
+        "version": "2026.05.10"
     },
     "glauth": {
         "cargoLock": null,
@@ -2409,12 +2409,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9090",
-            "sha256": "sha256-efHTptokRarsSeoKTsmxJgogbhdUvbRVIpQkHUb0DJU=",
+            "rev": "b9101",
+            "sha256": "sha256-dQ0KsUsiTYJXtWuU16yTbHiyWCspw5WofQVjvrY2OVc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9090"
+        "version": "b9101"
     },
     "loralib": {
         "cargoLock": null,

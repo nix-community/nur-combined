@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.0.0";
+    version = "v7.0.2";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.0.0";
-      hash = "sha256-pAsChv0zDJIQ8WDkAyPN1NJFuNcD32K2vRIl41K27aw=";
+      tag = "v7.0.2";
+      hash = "sha256-fvnKMkeqFRzF7CTtuoKZzrBQ07VUun/8WXG6PbRg3Zw=";
     };
   };
   cockpy = {
@@ -818,26 +818,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.07";
+    version = "2026.05.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb";
-      hash = "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-ASN.mmdb";
+      hash = "sha256-g27A3SY6bXwLuLJDlRCkhQthqvfEDmNOXFxO8w/qoas=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.07";
+    version = "2026.05.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb";
-      hash = "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-City.mmdb";
+      hash = "sha256-2jPoz77t5Z8FVq3UeXDbo+4HHY/5zta3oCOc93B/Ye8=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.07";
+    version = "2026.05.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-Country.mmdb";
-      hash = "sha256-btDxlCUBWP6MqtH8D3y5LkpNuaflQCF+vaIlEQJjGHk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-Country.mmdb";
+      hash = "sha256-XkHcqD3sVtW/kRTqlVrGpWg1CMkwck0h1FanowyxtkY=";
     };
   };
   glauth = {
@@ -1239,12 +1239,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9090";
+    version = "b9101";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9090";
-      hash = "sha256-efHTptokRarsSeoKTsmxJgogbhdUvbRVIpQkHUb0DJU=";
+      tag = "b9101";
+      hash = "sha256-dQ0KsUsiTYJXtWuU16yTbHiyWCspw5WofQVjvrY2OVc=";
     };
   };
   loralib = {
