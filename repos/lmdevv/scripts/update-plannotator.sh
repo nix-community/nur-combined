@@ -90,8 +90,8 @@ if count != 1:
 
 for system, hash_ in replacements.items():
     text, count = re.subn(
-        rf'({re.escape(system)}\s*=\s*")[^"]+(";)',
-        rf'\1{hash_}\2',
+        rf'("{re.escape(system)}"\s*=\s*")[^"]+(";)',
+        rf'\g<1>{hash_}\2',
         text,
         count=1,
     )
