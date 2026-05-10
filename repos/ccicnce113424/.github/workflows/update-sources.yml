@@ -37,6 +37,7 @@ jobs:
           nix run .#nvfetcher-bin
           git add .
           cp "$NIXPKGS_PATH/pkgs/by-name/sp/splayer/package.nix" ./pkgs/splayer-git
+          cp "$NIXPKGS_PATH/pkgs/by-name/mo/motrix-next/package.nix" ./pkgs/motrix-next
           pkgs/daed/update.sh
           pkgs/kanzi-cpp/update.sh
           pkgs/kikoflu/update.sh
