@@ -47,4 +47,8 @@ nixpkgs.sing-box.overrideAttrs (previousAttrs: {
       CGO_CFLAGS = "-I${lib.getDev cronet-go}/include/cronet-go";
       CGO_LDFLAGS = "-fuse-ld=lld";
     };
+
+  passthru = (previousAttrs.passthru or { }) // {
+    _ignoreOverride = true;
+  };
 })

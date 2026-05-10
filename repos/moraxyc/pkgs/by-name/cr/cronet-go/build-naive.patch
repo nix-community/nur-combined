@@ -4,14 +4,14 @@ Taken from https://github.com/Prince213/nix-packages/blob/main/pkgs/sing-box-bet
 +++ b/cmd/build-naive/cmd_build.go
 @@ -211,7 +211,7 @@ func runGetClang(t Target) {
  }
-
+ 
  func buildTarget(t Target) {
 -	runGetClang(t)
 +	// runGetClang(t)
-
+ 
  	outputDirectory := getOutputDirectory(t)
-
-@@ -244,16 +244,24 @@ func buildTarget(t Target) {
+ 
+@@ -244,16 +244,27 @@ func buildTarget(t Target) {
  		"optimize_for_size=true",
  		fmt.Sprintf("target_os=\"%s\"", t.OS),
  		fmt.Sprintf("target_cpu=\"%s\"", t.CPU),
@@ -26,6 +26,9 @@ Taken from https://github.com/Prince213/nix-packages/blob/main/pkgs/sing-box-bet
 +			"host_toolchain=\"//build/toolchain/linux/unbundle:host\"",
 +			"use_lld=false",
 +		)
++	}
++	if os.Getenv("CRONET_GO_ENABLE_PGO") == "1" {
++		args = append(args, "chrome_pgo_phase=2")
 +	}
  
  	switch t.OS {
