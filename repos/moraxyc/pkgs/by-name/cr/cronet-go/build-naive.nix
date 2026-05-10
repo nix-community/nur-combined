@@ -11,9 +11,6 @@ buildGoModule {
   pname = source.pname + "-build-naive";
   inherit (source) version src;
   vendorHash = "sha256-tVIKTznnducPfATK151TpC3UV2U852TyclBTSgh/H6U=";
-  overrideModAttrs = _: _: {
-    nativeBuildInputs = [ ];
-  };
   patches = [
     (replaceVars ./build-naive.patch {
       gn = lib.getExe gn;
