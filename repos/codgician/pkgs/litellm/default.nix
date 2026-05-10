@@ -31,15 +31,22 @@
 }:
 
 let
-  version = "v1.83.14-stable.patch.1";
+  version = "v1.83.14-stable.patch.3";
 
   # Single source of truth for all three packages in the LiteLLM monorepo:
   # main `litellm`, `litellm-proxy-extras`, and `litellm-enterprise`.
+  #
+  # `rev` is pinned to a commit SHA, not the `version` tag, because BerriAI
+  # treats `vX.Y.Z-stable.patch.N` as a mutable release train that can be
+  # re-pushed after publication; their own create-release workflow
+  # recommends pinning by commit hash for that reason. Using `rev = version`
+  # caused CI to fetch a different archive than the recorded hash whenever
+  # the tag was moved upstream.
   src = fetchFromGitHub {
     owner = "BerriAI";
     repo = "litellm";
-    rev = version;
-    hash = "sha256-kimkZabd+Jm4XcuMhR57DgSBHu57Q2qLrDDYus4tq24=";
+    rev = "cd340909219a0b9cba8e61092ad5da13687d61e2"; # ${version}
+    hash = "sha256-1nUwRbtC1NWmDN/0wptBrWfS8mXyZBAmkdVblSkbNgM=";
   };
 
   # Pinned Prisma engines (v5.17.0 / commit 393aa359...). Required because

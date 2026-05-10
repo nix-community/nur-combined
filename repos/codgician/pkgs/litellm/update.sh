@@ -24,7 +24,7 @@ else
     | jq -r '.[0].tag_name')
 fi
 
-old_tag=$(sed -nE 's/^\s*version = "(1\.[^"]+)";/\1/p' "$nixfile" | head -1)
+old_tag=$(sed -nE 's/^\s*version = "(v?1\.[^"]+)";/\1/p' "$nixfile" | head -1)
 
 if [[ "$old_tag" == "$new_tag" ]]; then
   echo "litellm is already at $old_tag, nothing to do."
@@ -33,14 +33,27 @@ fi
 
 echo "Bumping litellm: $old_tag -> $new_tag"
 
+# Resolve the tag to an immutable commit SHA. BerriAI treats
+# `vX.Y.Z-stable.patch.N` as a mutable release train and re-pushes those
+# tags after publication, so we record the commit SHA in `rev` and only
+# keep the tag string in `version` for changelog/display purposes.
+new_rev=$(curl -fsSL "https://api.github.com/repos/BerriAI/litellm/git/ref/tags/$new_tag" \
+  | jq -r '.object.sha')
+if [[ -z "$new_rev" || "$new_rev" == "null" ]]; then
+  echo "ERROR: could not resolve tag $new_tag to a commit SHA" >&2
+  exit 1
+fi
+
 new_hash=$(nix-prefetch-url --unpack \
-  "https://github.com/BerriAI/litellm/archive/$new_tag.tar.gz" 2>/dev/null \
+  "https://github.com/BerriAI/litellm/archive/$new_rev.tar.gz" 2>/dev/null \
   | tail -1)
 new_sri=$(nix hash convert --to sri --hash-algo sha256 "$new_hash")
 
 src_path=$(nix-prefetch-url --unpack --print-path \
-  "https://github.com/BerriAI/litellm/archive/$new_tag.tar.gz" 2>/dev/null \
+  "https://github.com/BerriAI/litellm/archive/$new_rev.tar.gz" 2>/dev/null \
   | tail -1)
+
+old_rev=$(sed -nE 's/^\s*rev = "([0-9a-f]{40})".*$/\1/p' "$nixfile" | head -1)
 
 new_extras_ver=$(sed -nE 's/^version = "([^"]+)".*$/\1/p' \
   "$src_path/litellm-proxy-extras/pyproject.toml" | head -1)
@@ -62,6 +75,7 @@ old_enterprise_ver=$(sed -nE 's/^\s*version = "(0\.1\.[^"]+)";/\1/p' "$nixfile" 
 
 sed -i \
   -e "s|version = \"$old_tag\"|version = \"$new_tag\"|" \
+  -e "s|rev = \"$old_rev\"|rev = \"$new_rev\"|" \
   -e "s|hash = \"sha256-[^\"]\\+\"|hash = \"$new_sri\"|" \
   "$nixfile"
 
