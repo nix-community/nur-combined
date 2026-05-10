@@ -22,19 +22,17 @@ sing-box.overrideAttrs (previousAttrs: {
 
   vendorHash = "sha256-YUbsnzEyEegXWM1NpBuP/9a4Hd5LvWVUs5uu2NvjXoQ=";
 
-  preBuild =
-    (previousAttrs.preBuild or "")
+  postConfigure =
+    (previousAttrs.postConfigure or "")
     + lib.optionalString withNaiveOutbound ''
-      if test -d vendor; then
-        pushd vendor/github.com/sagernet/cronet-go
-        chmod -R u+w .
-        cp -r ${cronet-go}/ .
-        # for !withStaticCronet
-        patch -p1 < ${./cronet-go.patch}
-        substituteInPlace internal/cronet/loader_unix.go \
-          --subst-var out
-        popd
-      fi
+      pushd vendor/github.com/sagernet/cronet-go
+      chmod -R u+w .
+      cp -r ${cronet-go}/ .
+      # for !withStaticCronet
+      patch -p1 < ${./cronet-go.patch}
+      substituteInPlace internal/cronet/loader_unix.go \
+        --subst-var out
+      popd
     '';
 
   nativeBuildInputs =
