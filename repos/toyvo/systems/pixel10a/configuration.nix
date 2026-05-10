@@ -9,11 +9,11 @@
 }:
 {
   imports = [
-    inputs.nixcfg.modules.nixos.default
+    # inputs.nixcfg.modules.nixos.default
     "${inputs.nixos-unstable}/nixos/modules/profiles/qemu-guest.nix"
-    inputs.catppuccin.nixosModules.catppuccin
+    # inputs.catppuccin.nixosModules.catppuccin
     inputs.home-manager.nixosModules.default
-    inputs.nh.nixosModules.default
+    # inputs.nh.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nixos-avf.nixosModules.avf
     inputs.nixos-unstable.nixosModules.notDetected
@@ -32,7 +32,7 @@
     };
     sharedModules = [ ./home.nix ];
   };
-  home-manager.users.toyvo.programs.beets.enable = lib.mkForce false;
+  # home-manager.users.toyvo.programs.beets.enable = lib.mkForce false;
   networking = {
     hostName = "pixel10a";
     networkmanager.enable = lib.mkForce false;
@@ -43,7 +43,7 @@
       settings.PasswordAuthentication = false;
     };
   };
-  userPresets.toyvo.enable = true;
-  avf.defaultUser = "toyvo";
-  users.users.toyvo.initialHashedPassword = lib.mkForce "";
+  # userPresets.toyvo.enable = true;
+  # avf.defaultUser = "toyvo";
+  # users.users.toyvo.initialHashedPassword = lib.mkForce "";
 }
