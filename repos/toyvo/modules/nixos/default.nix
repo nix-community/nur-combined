@@ -34,6 +34,7 @@
     ./services/hermes-dashboard.nix
     ./services/hermes-webui.nix
     ./services/signal-cli.nix
+    ./tmpfiles.nix
     ./vintagestory.nix
     ./wireguard
   ];

@@ -49,11 +49,14 @@ in
               ]
               ++ lib.optionals (config.virtualisation.podman.enable or false) [ "podman" ];
               initialHashedPassword = "$y$j9T$tkZ4b5vK1fCsRP0oWUb0e1$w0QbUEv9swXir33ivvM70RYTYflQszeLBi3vubYTqd8";
+              uid = config.ids.uids.toyvo;
             })
           ]
         );
       };
-      groups.${cfg.toyvo.name} = lib.mkIf pkgs.stdenv.isLinux { };
+      groups.${cfg.toyvo.name} = lib.mkIf pkgs.stdenv.isLinux {
+        gid = config.ids.gids.toyvo;
+      };
     };
     nix.settings.trusted-users = [
       cfg.toyvo.name

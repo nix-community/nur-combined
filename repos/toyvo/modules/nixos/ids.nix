@@ -16,6 +16,8 @@ let
     jellyfin = 359;
     nextcloud = 360;
     hermes = 361;
+    toyvo = 1000;
+    chloe = 1001;
   };
 
   ourGids = {
@@ -31,6 +33,8 @@ let
     jellyfin = 359;
     nextcloud = 360;
     hermes = 361;
+    toyvo = 1000;
+    chloe = 1001;
   };
 
   # Returns an attrset of { "<number>" = [ { name; value; } ... ]; } for any
