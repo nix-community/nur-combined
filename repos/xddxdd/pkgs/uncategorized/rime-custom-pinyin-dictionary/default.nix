@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation {
 
     cp dict/data CustomPinyinDictionary_Fcitx.dict
     libime_pinyindict -d CustomPinyinDictionary_Fcitx.dict temp.txt
-    ImeWlConverterCmd -i:libpy temp.txt -o:rime CustomPinyinDictionary.dict.yaml
+    ImeWlConverterCmd -i libpy -o rime -O CustomPinyinDictionary.dict.yaml temp.txt
 
     runHook postBuild
   '';
