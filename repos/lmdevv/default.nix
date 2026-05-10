@@ -21,4 +21,5 @@
   t3code = pkgs.callPackage ./pkgs/t3code { };
   hunk = pkgs.callPackage ./pkgs/hunk { };
   plannotator = pkgs.callPackage ./pkgs/plannotator { };
+  linear-cli = pkgs.callPackage ./pkgs/linear-cli { };
 }
