@@ -31,11 +31,19 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - <YOUR_CACHIX_NAME>
+        # litellm tracks BerriAI's dev branch and depends on bleeding-edge
+        # python deps (e.g. fastuuid) that have not yet landed in stable
+        # release channels. Pin CI to unstable so package builds match what
+        # flake.nix consumers actually see.
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
     runs-on: ubuntu-latest
+    env:
+      # litellm-enterprise is unfreeRedistributable. ci.nix's `isBuildable`
+      # filter would skip it, but nixpkgs throws on meta evaluation for
+      # unfree packages before that filter runs unless this env var is set.
+      NIXPKGS_ALLOW_UNFREE: "1"
     steps:
       - uses: thiagokokada/free-disk-space@main
         continue-on-error: true
@@ -69,12 +77,8 @@ jobs:
       - name: Check evaluation
         run: |
           nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org \
-            --option restrict-eval true \
             --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-            -I $PWD
+            --drv-path --show-trace
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Trigger NUR update
