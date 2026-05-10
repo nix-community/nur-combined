@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  pruner = pkgs.callPackage ./pkgs/pruner { };
   some-sass-language-server = pkgs.callPackage ./pkgs/some-sass-language-server { };
   gh-image = pkgs.callPackage ./pkgs/gh-image { };
   rsql = pkgs.callPackage ./pkgs/rsql { };
