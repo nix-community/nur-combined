@@ -64,13 +64,13 @@ in
       privateKeyFile = config.sops.secrets.wireguard-router-private-key.path;
       peers = [
         {
-          peerPublicKey = "G78etq+AQlSTd1fOXTpxt+mSB5A+kozeUFfagXz49Ws=";
-          peerAllowedIPs = [ "10.100.0.2/32" ];
+          publicKey = "G78etq+AQlSTd1fOXTpxt+mSB5A+kozeUFfagXz49Ws=";
+          allowedIPs = [ "10.100.0.2/32" ];
           persistentKeepalive = 25;
         }
         {
-          peerPublicKey = "94cgu2UpmNSwFldrufSwCuUW65dTB0GikxG/HF+JMg4=";
-          peerAllowedIPs = [ "10.100.0.3/32" ];
+          publicKey = "94cgu2UpmNSwFldrufSwCuUW65dTB0GikxG/HF+JMg4=";
+          allowedIPs = [ "10.100.0.3/32" ];
           persistentKeepalive = 25;
         }
       ];
