@@ -71,28 +71,28 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "a3a988fd0dd677b789f77ecb8516926ac4b859f6";
+    version = "de16b053864d524a549f0ee643242e4dd9bb524d";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "a3a988fd0dd677b789f77ecb8516926ac4b859f6";
+      rev = "de16b053864d524a549f0ee643242e4dd9bb524d";
       fetchSubmodules = false;
-      sha256 = "sha256-/uFFqN1kypMSt2CJFoXWjwr8MXiqEqr02s3a5bf+tgU=";
+      sha256 = "sha256-5xjyjZOZG24CHPL5TNK4+8QNuQj+i29D+PYH9f/wkNE=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-_uFFqN1kypMSt2CJFoXWjwr8MXiqEqr02s3a5bf+tgU=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-_uFFqN1kypMSt2CJFoXWjwr8MXiqEqr02s3a5bf+tgU=/web/package-lock.json";
-    };date = "2026-05-08";
+      "web/package.json" = ./. + "/sha256-5xjyjZOZG24CHPL5TNK4+8QNuQj+i29D+PYH9f_wkNE=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-5xjyjZOZG24CHPL5TNK4+8QNuQj+i29D+PYH9f_wkNE=/web/package-lock.json";
+    };date = "2026-05-11";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.5.3";
+    version = "v1.6.0";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "v1.5.3";
+      rev = "v1.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-/uFFqN1kypMSt2CJFoXWjwr8MXiqEqr02s3a5bf+tgU=";
+      sha256 = "sha256-EfRgdzsoyofgd2MBgZL1CMu7VCnxGGAgsvm/ETshaRY=";
     };
   };
   cronet-go = {
@@ -464,25 +464,25 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "ce4975e56e832e3d78a1f1f88e8f8e45bb5869ed";
+    version = "693d0bd36248b8ee98d86adfde571fc86646b554";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "ce4975e56e832e3d78a1f1f88e8f8e45bb5869ed";
+      rev = "693d0bd36248b8ee98d86adfde571fc86646b554";
       fetchSubmodules = false;
-      sha256 = "sha256-iUu7T7zADxF0DGR83weH8q8mJLEYsu1I/7de8HIreBs=";
+      sha256 = "sha256-iANntZy/rALvJ3xrW2I5p+B8bTl6XEhgkilgUWXJg6k=";
     };
-    date = "2026-05-09";
+    date = "2026-05-10";
   };
   yass = {
     pname = "yass";
-    version = "1.24.9";
+    version = "1.24.10";
     src = fetchFromGitHub {
       owner = "hukeyue";
       repo = "yass";
-      rev = "1.24.9";
+      rev = "1.24.10";
       fetchSubmodules = true;
-      sha256 = "sha256-/2Pcn8J9A8v/2haSCVItFdKsfEKYcPmQwd5wWsK1FmA=";
+      sha256 = "sha256-EBybDkdL+8BVZczH7Iq2d2BhKM43klOVOAyMP9SSsR8=";
     };
   };
 }
