@@ -93,6 +93,7 @@ in
 
   "wireguard/private-key.age".publicKeys = all;
 
+  "woodpecker/forgejo.age".publicKeys = all;
   "woodpecker/gitea.age".publicKeys = all;
   "woodpecker/secret.age".publicKeys = all;
   "woodpecker/ssh/private-key.age".publicKeys = all;

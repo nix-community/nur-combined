@@ -181,7 +181,7 @@ in
       port = 3035;
       rpcPort = 3036;
       runners = [ "docker" "exec" ];
-      secretFile = secrets."woodpecker/gitea".path;
+      secretFile = secrets."woodpecker/forgejo".path;
       sharedSecretFile = secrets."woodpecker/secret".path;
     };
   };
