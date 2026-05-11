@@ -63,19 +63,13 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
         };
         RegisterClassExW(&wc);
 
-        // ── Claim foreground rights BEFORE creating the window ───────────
-        // SetForegroundWindow only succeeds if the calling process is currently
-        // foreground. After a hotkey fires, Windows may return focus to the
-        // previous app before we get here — so we lock foreground rights first
-        // using the desktop window as a proxy. This is the documented technique
-        // for hotkey-triggered overlay apps.
-        let _ = SetForegroundWindow(GetDesktopWindow());
-
         // ── Create fullscreen popup ──────────────────────────────────────
         // WS_EX_TOOLWINDOW: ensures no taskbar entry and keeps us out of Alt-Tab.
         // WS_EX_TOPMOST: keeps us above other windows.
+        // WS_EX_NOACTIVATE: window never takes focus — keyboard input comes via
+        // WH_KEYBOARD_LL hook instead, so other apps keep their focus undisturbed.
         let hwnd = CreateWindowExW(
-            WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
+            WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE,
             class_name,
             windows::core::w!("IE-R"),
             WS_POPUP | WS_VISIBLE,
@@ -149,16 +143,19 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
 
         SetWindowLongPtrW(hwnd, GWLP_USERDATA, (&*state) as *const Win32State as isize);
 
+        // ── Install low-level keyboard hook ──────────────────────────────
+        // WS_EX_NOACTIVATE means WM_KEYDOWN never arrives — hook fills that role.
+        // Active only for overlay lifetime; input is swallowed while overlay is up.
+        HOOK_HWND.with(|c| c.set(hwnd.0 as isize));
+        let hhook = SetWindowsHookExW(WH_KEYBOARD_LL, Some(keyboard_hook), None, 0)
+            .inspect_err(|_| { HOOK_HWND.with(|c| c.set(0)); })?;
+        let mhook = SetWindowsHookExW(WH_MOUSE_LL, Some(mouse_hook), None, 0)
+            .inspect_err(|_| { let _ = UnhookWindowsHookEx(hhook); HOOK_HWND.with(|c| c.set(0)); })?;
+
         log_step("Overlay", &format!(
             "Win32 window {}×{} @ ({},{}) — init {}ms",
             vw, vh, vx, vy, start.elapsed().as_millis(),
         ));
-
-        // ── Grab keyboard focus ──────────────────────────────────────────
-        // WS_EX_NOACTIVATE prevents auto-activation (no taskbar flash),
-        // but we need keyboard input — explicitly grab focus after window is visible.
-        let _ = SetForegroundWindow(hwnd);
-        let _ = SetFocus(hwnd);
 
         // ── Initial render ───────────────────────────────────────────────
         render_frame(&mut state, hwnd);
@@ -209,6 +206,9 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
         }
 
         // ── Cleanup ──────────────────────────────────────────────────────
+        let _ = UnhookWindowsHookEx(hhook);
+        let _ = UnhookWindowsHookEx(mhook);
+        HOOK_HWND.with(|c| c.set(0));
         // Detach state pointer before drop
         SetWindowLongPtrW(hwnd, GWLP_USERDATA, 0);
         let _ = DestroyWindow(hwnd);
@@ -226,6 +226,9 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
 // Internal state
 // ══════════════════════════════════════════════════════════════════════════════
 
+/// Internal state of the Win32 overlay, attached to the HWND via GWLP_USERDATA.
+/// This acts as the bridge between the OS-specific rendering/input state and
+/// the cross-platform `OverlayApp` logic.
 struct Win32State {
     app: OverlayApp,
     hdc_mem: HDC,
@@ -302,6 +305,66 @@ unsafe fn render_frame(state: &mut Win32State, hwnd: HWND) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// WH_KEYBOARD_LL hook — focus-independent keyboard input
+// ══════════════════════════════════════════════════════════════════════════════
+
+// Private messages for LL hook → wnd_proc bridge.
+// Offset from WM_APP by 100 to avoid collision if other subsystems use WM_APP+0..+N.
+// Reserved range: WM_APP+100 .. WM_APP+102.
+const WM_HOOK_KEYDOWN:   u32 = WM_APP + 100; // keyboard LL hook: key down
+const WM_HOOK_KEYUP:     u32 = WM_APP + 101; // keyboard LL hook: key up
+const WM_HOOK_WHEEL:     u32 = WM_APP + 102; // mouse LL hook: wheel delta
+
+thread_local! {
+    // HWND of the active overlay window; 0 when no overlay is running.
+    // Written by run_overlay, read by keyboard_hook (same thread).
+    static HOOK_HWND: std::cell::Cell<isize> = const { std::cell::Cell::new(0) };
+}
+
+unsafe extern "system" fn mouse_hook(code: i32, wparam: WPARAM, lparam: LPARAM) -> LRESULT {
+    unsafe {
+        if code >= 0 {
+            let hwnd_val = HOOK_HWND.with(|c| c.get());
+            if hwnd_val != 0 && wparam.0 as u32 == WM_MOUSEWHEEL {
+                let ms = &*(lparam.0 as *const MSLLHOOKSTRUCT);
+                let delta = (ms.mouseData >> 16) as i16;
+                let _ = PostMessageW(HWND(hwnd_val as *mut _), WM_HOOK_WHEEL, WPARAM(delta as usize), LPARAM(0));
+                return LRESULT(1); // swallow — redirected manually above
+            }
+        }
+        CallNextHookEx(HHOOK::default(), code, wparam, lparam)
+    }
+}
+
+unsafe extern "system" fn keyboard_hook(code: i32, wparam: WPARAM, lparam: LPARAM) -> LRESULT {
+    unsafe {
+        if code >= 0 {
+            let hwnd_val = HOOK_HWND.with(|c| c.get());
+            if hwnd_val != 0 {
+                let kb = &*(lparam.0 as *const KBDLLHOOKSTRUCT);
+                let vk = VIRTUAL_KEY(kb.vkCode as u16);
+                let is_down = wparam.0 == WM_KEYDOWN as usize
+                    || wparam.0 == WM_SYSKEYDOWN as usize;
+
+                // Post to our window only for keys we actually handle.
+                if is_overlay_action_key(vk) || is_modifier_key(vk) {
+                    let msg = if is_down { WM_HOOK_KEYDOWN } else { WM_HOOK_KEYUP };
+                    let _ = PostMessageW(HWND(hwnd_val as *mut _), msg, WPARAM(kb.vkCode as usize), LPARAM(0));
+                }
+
+                // Swallow only action keys. Modifiers and everything else pass
+                // through — this preserves OS keyboard state (no "stuck" modifiers
+                // on overlay exit) and lets RegisterHotKey match the second press.
+                if is_overlay_action_key(vk) {
+                    return LRESULT(1);
+                }
+            }
+        }
+        CallNextHookEx(HHOOK::default(), code, wparam, lparam)
+    }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // Win32 message handler
 // ══════════════════════════════════════════════════════════════════════════════
 
@@ -320,6 +383,9 @@ unsafe extern "system" fn wnd_proc(
         WM_MOUSEMOVE => {
             let x = (lparam.0 & 0xFFFF) as i16 as f64;
             let y = ((lparam.0 >> 16) & 0xFFFF) as i16 as f64;
+            if state.app.physical_mouse_pos == Some((x, y)) {
+                return LRESULT(0);
+            }
             state.app.update_physical_mouse(x, y);
 
             // Detect current monitor and store its bounds in canvas-local coords.
@@ -355,73 +421,44 @@ unsafe extern "system" fn wnd_proc(
             dispatch(state, UserAction::PickColor { serial: true });
             LRESULT(0)
         }
-        WM_RBUTTONDOWN => {
+        WM_RBUTTONDOWN => LRESULT(0), // eat — cancel fires on button up
+        WM_RBUTTONUP => {
             dispatch(state, UserAction::Cancel);
-            LRESULT(0)
+            LRESULT(0) // don't call DefWindowProc — it would generate WM_CONTEXTMENU
         }
+        WM_CONTEXTMENU => LRESULT(0), // defensive: eat in case it arrives anyway
 
         // ── Mouse wheel ──────────────────────────────────────────
+        // WM_MOUSEWHEEL is dead with WS_EX_NOACTIVATE (wheel goes to focused
+        // window). Kept as defensive fallback; real path is WM_HOOK_WHEEL.
         WM_MOUSEWHEEL => {
-            let raw_delta = (wparam.0 >> 16) as i16;
-            let steps = if raw_delta > 0 { 1 } else { -1 };
-            let action = if state.ctrl {
-                UserAction::ChangeFontSize(steps)
-            } else if state.shift {
-                UserAction::ResizeMagnifier(steps)
-            } else if state.alt {
-                UserAction::ChangeAimSize(steps)
-            } else {
-                UserAction::Zoom(steps)
-            };
-            dispatch(state, action);
+            handle_wheel(state, (wparam.0 >> 16) as i16);
             LRESULT(0)
         }
 
-        // ── Keyboard ─────────────────────────────────────────────
-        // WM_SYSKEYDOWN/UP: Alt sends system key messages, not regular ones.
-        // Handle both identically so Alt modifier and Alt+key combos work.
+        // ── Keyboard (dead with WS_EX_NOACTIVATE) ────────────────
+        // WM_KEY* never arrive when window has no focus. Kept as defensive
+        // fallback; real path is WM_HOOK_KEYDOWN / WM_HOOK_KEYUP via keyboard hook.
         WM_KEYDOWN | WM_SYSKEYDOWN => {
-            let vk = VIRTUAL_KEY(wparam.0 as u16);
-            match vk {
-                VK_ESCAPE => dispatch(state, UserAction::Cancel),
-                VK_RETURN => dispatch(state, UserAction::PickColor { serial: state.shift }),
-                VK_SPACE  => dispatch(state, UserAction::PickColor { serial: true }),
-                VK_OEM_3  => dispatch(state, UserAction::ToggleHud), // `/~ key
-                VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN => {
-                    let (dx, dy) = arrow_delta(vk);
-                    let action = if state.shift || state.ctrl {
-                        UserAction::Jump(dx, dy)
-                    } else {
-                        UserAction::Nudge(dx, dy)
-                    };
-                    dispatch(state, action);
-                }
-                // Digit keys 0-9 → format selection
-                vk if is_digit_vk(vk) => {
-                    let digit = digit_from_vk(vk);
-                    dispatch(state, UserAction::SelectFormatDigit(digit));
-                }
-                // Modifier tracking
-                VK_SHIFT | VK_LSHIFT | VK_RSHIFT => state.shift = true,
-                VK_CONTROL | VK_LCONTROL | VK_RCONTROL => state.ctrl = true,
-                VK_MENU | VK_LMENU | VK_RMENU => state.alt = true,
-                _ => {}
-            }
+            handle_key_down(state, VIRTUAL_KEY(wparam.0 as u16));
+            LRESULT(0)
+        }
+        WM_KEYUP | WM_SYSKEYUP => {
+            handle_key_up(state, VIRTUAL_KEY(wparam.0 as u16));
             LRESULT(0)
         }
 
-        WM_KEYUP | WM_SYSKEYUP => {
-            let vk = VIRTUAL_KEY(wparam.0 as u16);
-            match vk {
-                VK_SHIFT | VK_LSHIFT | VK_RSHIFT => state.shift = false,
-                VK_CONTROL | VK_LCONTROL | VK_RCONTROL => state.ctrl = false,
-                VK_MENU | VK_LMENU | VK_RMENU => state.alt = false,
-                VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN => {
-                    let (dx, dy) = arrow_delta(vk);
-                    state.app.handle_action(UserAction::KeyRelease { dx, dy });
-                }
-                _ => {}
-            }
+        // ── LL hook paths (WS_EX_NOACTIVATE — primary input channel) ─────
+        WM_HOOK_WHEEL => {
+            handle_wheel(state, wparam.0 as i16);
+            LRESULT(0)
+        }
+        WM_HOOK_KEYDOWN => {
+            handle_key_down(state, VIRTUAL_KEY(wparam.0 as u16));
+            LRESULT(0)
+        }
+        WM_HOOK_KEYUP => {
+            handle_key_up(state, VIRTUAL_KEY(wparam.0 as u16));
             LRESULT(0)
         }
 
@@ -445,12 +482,74 @@ unsafe extern "system" fn wnd_proc(
 // Helpers
 // ══════════════════════════════════════════════════════════════════════════════
 
+/// Handle key-down event. Single source of truth for both WM_KEYDOWN (defensive
+/// fallback) and WM_HOOK_KEYDOWN (LL hook primary path).
+fn handle_key_down(state: &mut Win32State, vk: VIRTUAL_KEY) {
+    match vk {
+        VK_ESCAPE => dispatch(state, UserAction::Cancel),
+        VK_RETURN => dispatch(state, UserAction::PickColor { serial: state.shift }),
+        VK_SPACE  => dispatch(state, UserAction::PickColor { serial: true }),
+        VK_OEM_3  => dispatch(state, UserAction::ToggleHud), // `/~ key
+        VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN => {
+            let (dx, dy) = arrow_delta(vk);
+            let action = if state.shift || state.ctrl {
+                UserAction::Jump(dx, dy)
+            } else {
+                UserAction::Nudge(dx, dy)
+            };
+            dispatch(state, action);
+        }
+        vk if is_digit_vk(vk) => {
+            dispatch(state, UserAction::SelectFormatDigit(digit_from_vk(vk)));
+        }
+        // Modifier tracking
+        VK_SHIFT | VK_LSHIFT | VK_RSHIFT => state.shift = true,
+        VK_CONTROL | VK_LCONTROL | VK_RCONTROL => state.ctrl = true,
+        VK_MENU | VK_LMENU | VK_RMENU => state.alt = true,
+        _ => {}
+    }
+}
+
+/// Handle key-up event. Single source of truth for both WM_KEYUP (defensive
+/// fallback) and WM_HOOK_KEYUP (LL hook primary path).
+fn handle_key_up(state: &mut Win32State, vk: VIRTUAL_KEY) {
+    match vk {
+        VK_SHIFT | VK_LSHIFT | VK_RSHIFT => state.shift = false,
+        VK_CONTROL | VK_LCONTROL | VK_RCONTROL => state.ctrl = false,
+        VK_MENU | VK_LMENU | VK_RMENU => state.alt = false,
+        VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN => {
+            let (dx, dy) = arrow_delta(vk);
+            state.app.handle_action(UserAction::KeyRelease { dx, dy });
+            state.needs_redraw = true;
+        }
+        _ => {}
+    }
+}
+
+/// Handle mouse wheel delta. Single source of truth for both WM_MOUSEWHEEL
+/// (defensive fallback) and WM_HOOK_WHEEL (LL hook primary path).
+fn handle_wheel(state: &mut Win32State, raw_delta: i16) {
+    let steps = if raw_delta > 0 { 1 } else { -1 };
+    let action = if state.ctrl {
+        UserAction::ChangeFontSize(steps)
+    } else if state.shift {
+        UserAction::ResizeMagnifier(steps)
+    } else if state.alt {
+        UserAction::ChangeAimSize(steps)
+    } else {
+        UserAction::Zoom(steps)
+    };
+    dispatch(state, action);
+}
+
+/// Helper to send an action to the core OverlayApp and request a redraw.
 #[inline]
 fn dispatch(state: &mut Win32State, action: UserAction) {
     state.app.handle_action(action);
     state.needs_redraw = true;
 }
 
+/// Converts a virtual key into an (x, y) directional vector for jump/nudge actions.
 #[inline]
 fn arrow_delta(vk: VIRTUAL_KEY) -> (i32, i32) {
     match vk {
@@ -462,12 +561,37 @@ fn arrow_delta(vk: VIRTUAL_KEY) -> (i32, i32) {
     }
 }
 
+/// Checks if the virtual key corresponds to a digit (0-9).
 #[inline]
 fn is_digit_vk(vk: VIRTUAL_KEY) -> bool {
     vk.0 >= 0x30 && vk.0 <= 0x39
 }
 
+/// Extracts the integer value from a digit virtual key.
+/// Note: '0' maps to index 10 to match the 1...0 keyboard layout order.
 #[inline]
 fn digit_from_vk(vk: VIRTUAL_KEY) -> usize {
     if vk.0 == 0x30 { 10 } else { (vk.0 - 0x30) as usize }
+}
+
+/// Keys the overlay actively handles — swallowed by the LL hook to prevent
+/// them from leaking to the focused application.
+#[inline]
+fn is_overlay_action_key(vk: VIRTUAL_KEY) -> bool {
+    matches!(vk,
+        VK_ESCAPE | VK_RETURN | VK_SPACE | VK_OEM_3 |
+        VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN
+    ) || is_digit_vk(vk)
+}
+
+/// Modifier keys — tracked locally but MUST pass through the hook to preserve
+/// OS keyboard state. Swallowing these causes "stuck modifiers" on overlay exit
+/// and breaks RegisterHotKey matching.
+#[inline]
+fn is_modifier_key(vk: VIRTUAL_KEY) -> bool {
+    matches!(vk,
+        VK_SHIFT | VK_LSHIFT | VK_RSHIFT |
+        VK_CONTROL | VK_LCONTROL | VK_RCONTROL |
+        VK_MENU | VK_LMENU | VK_RMENU
+    )
 }

@@ -251,10 +251,7 @@ unsafe extern "system" fn about_wnd_proc(
         }
 
         WM_KEYDOWN => {
-            let vk = wparam.0 as u16;
-            if vk == VK_ESCAPE.0 {
-                PostQuitMessage(0);
-            }
+            PostQuitMessage(0);
             LRESULT(0)
         }
 
@@ -287,6 +284,12 @@ unsafe extern "system" fn about_wnd_proc(
                         crate::daemon::open_homepage();
                     }
             }
+            PostQuitMessage(0);
+            LRESULT(0)
+        }
+
+        WM_RBUTTONDOWN | WM_MBUTTONDOWN => {
+            PostQuitMessage(0);
             LRESULT(0)
         }
 

@@ -485,7 +485,7 @@ fn draw_base(
         ("CTRL + SCROLL", "ADJUST CODE SIZE"),
         ("ALT + SCROLL", "ADJUST AIM FIELD"),
         #[cfg(windows)]
-        (config.system.hotkey.as_str(), "DEFAULT HOTKEY"),
+        (config.system.hotkey.as_str(), "GLOBAL HOTKEY"),
         #[cfg(not(windows))]
         ("SIGUSR1 ie-r", "WAYLAND TRIGGER"),
         ("~", "HUD [ ON / OFF ]"),
