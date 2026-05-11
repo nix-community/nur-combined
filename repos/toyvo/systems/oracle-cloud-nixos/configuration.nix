@@ -61,6 +61,22 @@
         27005
       ];
     };
+    wireguard.interfaces.wg0 = {
+      ips = [ "10.100.0.2/24" ];
+      privateKeyFile = config.sops.secrets.wireguard-oracle-private-key.path;
+      peers = [
+        {
+          publicKey = "9EZ8ZiCF34RiMr06QiKBIYGckS9DFUBeX85boFhz2yo=";
+          allowedIPs = [
+            "10.100.0.0/24"
+            "10.1.0.0/24"
+            "10.200.0.0/16"
+          ];
+          persistentKeepalive = 25;
+          endpoint = "toyvo.dev:51820";
+        }
+      ];
+    };
   };
   profiles.defaults.enable = true;
   environment.systemPackages = with pkgs; [
@@ -72,19 +88,6 @@
       settings.PasswordAuthentication = false;
     };
     monitoring.enable = true;
-    wireguard-tunnel = {
-      enable = true;
-      role = "peer";
-      address = "10.100.0.2/24";
-      privateKeySecret = "wireguard-oracle-private-key";
-      peerPublicKey = "9EZ8ZiCF34RiMr06QiKBIYGckS9DFUBeX85boFhz2yo=";
-      peerEndpoint = "toyvo.dev:51820";
-      peerAllowedIPs = [
-        "10.100.0.0/24"
-        "10.1.0.0/24"
-        "10.200.0.0/16"
-      ];
-    };
     caddy = {
       enable = true;
       email = "collin@diekvoss.com";

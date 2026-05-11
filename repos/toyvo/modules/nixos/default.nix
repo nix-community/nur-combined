@@ -36,6 +36,5 @@
     ./services/signal-cli.nix
     ./tmpfiles.nix
     ./vintagestory.nix
-    ./wireguard
   ];
 }

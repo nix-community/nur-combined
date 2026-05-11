@@ -5,15 +5,12 @@
   homelab,
   stablePkgs,
   unstablePkgs,
+  config,
   ...
 }:
 {
   imports = [
-    # inputs.nixcfg.modules.nixos.default
-    "${inputs.nixos-unstable}/nixos/modules/profiles/qemu-guest.nix"
-    # inputs.catppuccin.nixosModules.catppuccin
     inputs.home-manager.nixosModules.default
-    # inputs.nh.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nixos-avf.nixosModules.avf
     inputs.nixos-unstable.nixosModules.notDetected
@@ -32,10 +29,25 @@
     };
     sharedModules = [ ./home.nix ];
   };
-  # home-manager.users.toyvo.programs.beets.enable = lib.mkForce false;
+  avf.defaultUser = "toyvo";
   networking = {
     hostName = "pixel10a";
-    networkmanager.enable = lib.mkForce false;
+    wireguard.interfaces.wg0 = {
+      ips = [ "10.100.0.3/24" ];
+      privateKeyFile = config.sops.secrets.wireguard-pixel10a-private-key.path;
+      peers = [
+        {
+          publicKey = "9EZ8ZiCF34RiMr06QiKBIYGckS9DFUBeX85boFhz2yo=";
+          allowedIPs = [
+            "10.1.0.0/24"
+            "10.100.0.0/24"
+            "10.200.0.0/24"
+          ];
+          persistentKeepalive = 25;
+          endpoint = "toyvo.dev:51820";
+        }
+      ];
+    };
   };
   services = {
     openssh = {
@@ -43,7 +55,6 @@
       settings.PasswordAuthentication = false;
     };
   };
-  # userPresets.toyvo.enable = true;
-  # avf.defaultUser = "toyvo";
-  # users.users.toyvo.initialHashedPassword = lib.mkForce "";
+  sops.secrets.wireguard-pixel10a-private-key = { };
+  system.stateVersion = "26.05";
 }

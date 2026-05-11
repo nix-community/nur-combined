@@ -58,6 +58,23 @@ in
         "wg0"
       ];
     };
+    wireguard.interfaces.wg0 = {
+      ips = [ "10.100.0.1/24" ];
+      listenPort = 51820;
+      privateKeyFile = config.sops.secrets.wireguard-router-private-key.path;
+      peers = [
+        {
+          peerPublicKey = "G78etq+AQlSTd1fOXTpxt+mSB5A+kozeUFfagXz49Ws=";
+          peerAllowedIPs = [ "10.100.0.2/32" ];
+          persistentKeepalive = 25;
+        }
+        {
+          peerPublicKey = "94cgu2UpmNSwFldrufSwCuUW65dTB0GikxG/HF+JMg4=";
+          peerAllowedIPs = [ "10.100.0.3/32" ];
+          persistentKeepalive = 25;
+        }
+      ];
+    };
     firewall = {
       enable = true;
       # Port 53 is for DNS, 22 is for SSH, 67/68 is for DHCP, 80 is for HTTP, 443 is for HTTPS
@@ -343,14 +360,6 @@ in
     };
     monitoring.enable = true;
     monitoring.internet.enable = true;
-    wireguard-tunnel = {
-      enable = true;
-      role = "server";
-      address = "10.100.0.1/24";
-      privateKeySecret = "wireguard-router-private-key";
-      peerPublicKey = "G78etq+AQlSTd1fOXTpxt+mSB5A+kozeUFfagXz49Ws=";
-      peerAllowedIPs = [ "10.100.0.2/32" ];
-    };
     cloudflare-dyndns = {
       enable = true;
       domains = [
