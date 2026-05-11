@@ -107,3 +107,8 @@ fetch.github = "wrvsrx/get-environment"
 [xdg]
 src.github_tag = "wrvsrx/xdg"
 fetch.github = "wrvsrx/xdg"
+
+[xdg-user-dirs]
+src.github_tag = "wrvsrx/xdg-user-dirs"
+fetch.github = "wrvsrx/xdg-user-dirs"
+
