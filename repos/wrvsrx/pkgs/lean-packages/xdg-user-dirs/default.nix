@@ -8,7 +8,7 @@ let
   self = buildLakePackage {
     pname = "lean4-${source.pname}";
     inherit (source) src version;
-    leanPackageName = source.pname;
+    leanPackageName = "«xdg-user-dirs»";
     leanDeps = [ xdg ];
 
     doCheck = true;
