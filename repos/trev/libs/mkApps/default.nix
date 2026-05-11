@@ -1,6 +1,6 @@
 {
-  stdenvNoCC,
   replaceVars,
+  stdenvNoCC,
 }:
 
 builtins.mapAttrs (
