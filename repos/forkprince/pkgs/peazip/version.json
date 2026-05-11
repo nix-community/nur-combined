@@ -5,15 +5,15 @@
     "repo": "peazip/PeaZip",
     "skip_prerelease": true
   },
-  "version": "11.0.0",
+  "version": "11.1.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "peazip-{version}.DARWIN.aarch64.dmg",
-      "hash": "sha256-qfyHdTPcuwCk6FqMBVecP8VPY5HVQNWNeGP4TzxhcOQ="
+      "hash": "sha256-0zmDTkbj8tHB25d07KPJNvN0BRKK3U+DFRZ40pDKVLE="
     },
     "x86_64-darwin": {
       "file": "peazip-{version}.DARWIN.x86_64.dmg",
-      "hash": "sha256-wzOimlRsaqgxosa8mUcQV5Do+kqHTCtPt5WmuUDB//4="
+      "hash": "sha256-68p71SUIJgOc7wRI7oYf2rvm41PAsZXJEIraqcCz4+o="
     }
   }
 }
