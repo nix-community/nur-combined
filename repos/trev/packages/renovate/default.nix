@@ -18,13 +18,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
-  version = "43.170.14";
+  version = "43.170.18";
 
   src = fetchFromGitHub {
     owner = "renovatebot";
     repo = "renovate";
     tag = finalAttrs.version;
-    hash = "sha256-wASX6LsItt6Bwr4AtJzbi8pB6IKNuYU2+VtVpf2wKmo=";
+    hash = "sha256-6H0sKp3n/H06G52/vNvf1zQqdqg+s+ihh/9jigMbtTU=";
   };
 
   patches = [
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 2;
-    hash = "sha256-KhzAOSSrTL9DoSc5kxzRI3VlXztg3sKVcfvzJ2Z4Tus=";
+    hash = "sha256-GHQLb+dm6TPrQ8a1pk7AewpGw8OgbZ22yV5U0K/4ghI=";
   };
 
   env.COREPACK_ENABLE_STRICT = 0;
@@ -68,9 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
     find -name 'node_modules' -type d -exec rm -rf {} \; || true
     pnpm install --offline --prod --ignore-scripts
   ''
-  # The optional dependencies re2 and better-sqlite3 are not built by pnpm and need to be built manually.
+  # The optional dependency re2 is not built by pnpm and need to be built manually.
   # If re2 is not built, you will get an annoying warning when you run renovate.
-  # better-sqlite3 is required.
   + ''
     pushd node_modules/.pnpm/re2*/node_modules/re2
 
@@ -80,12 +79,6 @@ stdenv.mkDerivation (finalAttrs: {
     export npm_config_nodedir=${nodejs}
     npm run rebuild
     rm -rf build/Release/{obj.target,.deps} vendor
-
-    popd
-
-    pushd node_modules/.pnpm/better-sqlite3*/node_modules/better-sqlite3
-    npm run build-release
-    rm -rf build/Release/{obj.target,sqlite3.a,.deps} deps
 
     popd
 
