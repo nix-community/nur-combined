@@ -125,7 +125,6 @@
       enable = true;
       natInterface = "enp0s6";
       stateDir = "/var/lib/minecraft";
-
       settings = {
         declarative = false;
         package = inputs.nixcfg.packages.${system}.papermc-26_1_2;
@@ -146,7 +145,6 @@
       enable = true;
       natInterface = "enp0s6";
       stateDir = "/var/lib/vintagestory";
-
     };
     terraria = {
       enable = true;

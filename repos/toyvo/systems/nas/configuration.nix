@@ -348,7 +348,7 @@ in
     enable = true;
     settings = {
       model = {
-        default = "glm-5";
+        default = "kimi-k2.6";
         provider = "opencode-go";
         base_url = "https://opencode.ai/zen/go/v1";
         api_mode = "chat_completions";
@@ -358,7 +358,10 @@ in
     };
     stateDir = "/mnt/POOL/hermes";
     environmentFiles = [ config.sops.secrets."hermes.env".path ];
-    environment.API_SERVER_HOST = "0.0.0.0";
+    environment = {
+      API_SERVER_HOST = "0.0.0.0";
+      WIKI_PATH = "/mnt/POOL/hermes/wiki";
+    };
     addToSystemPackages = true;
   };
   # Allow hermes-agent to use sudo for nixos-rebuild (upstream sets NoNewPrivileges=true)

@@ -101,7 +101,6 @@ in
       config =
         { ... }:
         {
-
           # Match host GIDs so DRI device node permissions work inside the container
           users.groups.video.gid = ids.gids.video;
           users.groups.render.gid = ids.gids.render;

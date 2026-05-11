@@ -1,179 +1,18 @@
 {
-  "edit_predictions": {
-    "provider": "copilot"
-  },
-  "git_panel": {
-    "tree_view": true,
-    "sort_by_path": true
-  },
-  "icon_theme": "Catppuccin Frappé",
-  "terminal": {
-    "shell": {
-      "program": "fish"
-    }
+  "agent": {
+    "default_model": { "model": "kimi-k2.6", "provider": "OpenCode Go" },
+    "default_profile": "write"
   },
   "agent_servers": {
-    "opencode": {
-      "type": "registry"
-    }
+    "claude-acp": { "type": "registry" },
+    "opencode": { "type": "registry" }
   },
-  "agent": {
-    "default_profile": "write",
-    "default_model": {
-      "provider": "OpenCode Go",
-      "model": "kimi-k2.6"
-    }
-  },
-  "language_models": {
-    "openai_compatible": {
-      "OpenCode Go": {
-        "api_url": "https://opencode.ai/zen/go/v1",
-        "available_models": [
-          {
-            "name": "glm-5",
-            "max_tokens": 204800,
-            "max_output_tokens": 131072,
-            "max_completion_tokens": 204800,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "glm-5.1",
-            "max_tokens": 204800,
-            "max_output_tokens": 131072,
-            "max_completion_tokens": 204800,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "kimi-k2.5",
-            "max_tokens": 262144,
-            "max_output_tokens": 65536,
-            "max_completion_tokens": 262144,
-            "capabilities": {
-              "tools": true,
-              "images": true,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "kimi-k2.6",
-            "max_tokens": 262144,
-            "max_output_tokens": 65536,
-            "max_completion_tokens": 262144,
-            "capabilities": {
-              "tools": true,
-              "images": true,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "mimo-v2-omni",
-            "max_tokens": 262144,
-            "max_output_tokens": 64000,
-            "max_completion_tokens": 262144,
-            "capabilities": {
-              "tools": true,
-              "images": true,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "mimo-v2-pro",
-            "max_tokens": 1048576,
-            "max_output_tokens": 64000,
-            "max_completion_tokens": 1048576,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "minimax-m2.5",
-            "max_tokens": 204800,
-            "max_output_tokens": 65536,
-            "max_completion_tokens": 204800,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "minimax-m2.6",
-            "max_tokens": 204800,
-            "max_output_tokens": 131072,
-            "max_completion_tokens": 204800,
-            "capabilities": {
-              "tools": true,
-              "images": true,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "qwen3.5-plus",
-            "max_tokens": 262144,
-            "max_output_tokens": 65536,
-            "max_completion_tokens": 262144,
-            "capabilities": {
-              "tools": true,
-              "images": true,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          },
-          {
-            "name": "qwen3.6-plus",
-            "max_tokens": 262144,
-            "max_output_tokens": 65536,
-            "max_completion_tokens": 262144,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "prompt_cache_key": true,
-              "chat_completions": true
-            }
-          }
-        ]
-      }
-    },
-    "ollama": {
-      "api_url": "https://ollama.diekvoss.net"
-    }
-  },
-  "theme": "Catppuccin Frappé",
-  "ui_font_size": 16,
-  "buffer_font_size": 16,
-  "format_on_save": "on",
-  "autosave": "on_focus_change",
   "auto_update": false,
+  "autosave": "on_focus_change",
   "buffer_font_family": "MonaspiceNe Nerd Font",
   "buffer_font_features": {
+    "calt": true,
+    "dlig": true,
     "ss01": true,
     "ss02": true,
     "ss03": true,
@@ -181,24 +20,188 @@
     "ss05": true,
     "ss06": true,
     "ss07": true,
-    "ss08": true,
-    "calt": true,
-    "dlig": true
+    "ss08": true
   },
-  "formatter": [
-    {
-      "language_server": {
-        "name": "rust-analyzer"
-      }
+  "buffer_font_size": 16,
+  "context_servers": {
+    "mcp-server-brave-search": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
     },
-    {
-      "external": {
-        "command": "sed",
-        "arguments": ["-e", "s/ *$//"]
+    "mcp-server-github": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
+    }
+  },
+  "edit_predictions": {
+    "provider": "open_ai_compatible_api",
+    "open_ai_compatible_api": {
+      "api_url": "https://opencode.ai/zen/go/v1/completions",
+      "model": "kimi-k2.6",
+      "prompt_format": "infer",
+      "max_output_tokens": 512
+    }
+  },
+  "format_on_save": "on",
+  "formatter": [
+    { "language_server": { "name": "rust-analyzer" } },
+    { "external": { "arguments": ["-e", "s/ *$//"], "command": "sed" } }
+  ],
+  "git_panel": { "sort_by_path": true, "tree_view": true },
+  "icon_theme": "Catppuccin Frappé",
+  "inlay_hints": { "enabled": true },
+  "language_models": {
+    "ollama": { "api_url": "https://ollama.diekvoss.net" },
+    "openai_compatible": {
+      "OpenCode Go": {
+        "api_url": "https://opencode.ai/zen/go/v1",
+        "available_models": [
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 204800,
+            "max_output_tokens": 131072,
+            "max_tokens": 204800,
+            "name": "glm-5"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 204800,
+            "max_output_tokens": 131072,
+            "max_tokens": 204800,
+            "name": "glm-5.1"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_tokens": 262144,
+            "name": "kimi-k2.5"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_tokens": 262144,
+            "name": "kimi-k2.6"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 262144,
+            "max_output_tokens": 64000,
+            "max_tokens": 262144,
+            "name": "mimo-v2-omni"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 1048576,
+            "max_output_tokens": 64000,
+            "max_tokens": 1048576,
+            "name": "mimo-v2-pro"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 204800,
+            "max_output_tokens": 65536,
+            "max_tokens": 204800,
+            "name": "minimax-m2.5"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 204800,
+            "max_output_tokens": 131072,
+            "max_tokens": 204800,
+            "name": "minimax-m2.6"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_tokens": 262144,
+            "name": "qwen3.5-plus"
+          },
+          {
+            "capabilities": {
+              "chat_completions": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+              "tools": true
+            },
+            "max_completion_tokens": 262144,
+            "max_output_tokens": 65536,
+            "max_tokens": 262144,
+            "name": "qwen3.6-plus"
+          }
+        ]
       }
     }
-  ],
+  },
   "languages": {
+    "JSON": {
+      "tab_size": 4,
+      "formatter": {
+        "external": {
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
+          "command": "prettier"
+        }
+      }
+    },
     "JavaScript": {
       "code_actions_on_format": {
         "source.fixAll.eslint": true,
@@ -206,34 +209,23 @@
       },
       "formatter": {
         "external": {
-          "command": "prettier",
-          "arguments": ["--stdin-filepath", "{buffer_path}"]
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
+          "command": "prettier"
         }
       }
     },
-    "JSON": {
-      "tab_size": 4
-    },
-    "Nix": {
-      "language_servers": ["nil", "!nixd"]
-    }
+    "Nix": { "language_servers": ["nil", "!nixd"] }
   },
-  "inlay_hints": {
-    "enabled": true
-  },
-  "vim_mode": true,
   "lsp": {
     "nil": {
       "initialization_options": {
-        "formatting": {
-          "command": ["nixfmt"]
-        },
-        "nix": {
-          "flake": {
-            "autoArchive": true
-          }
-        }
+        "formatting": { "command": ["nixfmt"] },
+        "nix": { "flake": { "autoArchive": true } }
       }
     }
-  }
+  },
+  "terminal": { "shell": { "program": "fish" } },
+  "theme": "Catppuccin Frappé (Blue Blur+)",
+  "ui_font_size": 16,
+  "vim_mode": true
 }

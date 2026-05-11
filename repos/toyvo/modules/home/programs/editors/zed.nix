@@ -1,30 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
   cfg = config.programs.zed-editor;
-  baseSettings = builtins.fromJSON (builtins.readFile ./zed-settings.json);
-  settingsWithSecrets = baseSettings // {
-    context_servers = (baseSettings.context_servers or { }) // {
-      "mcp-server-brave-search" = {
-        enabled = true;
-        remote = false;
-        settings = {
-          brave_api_key = config.sops.placeholder.brave_api_key;
-        };
-      };
-      "mcp-server-github" = {
-        enabled = true;
-        remote = false;
-        settings = {
-          github_personal_access_token = config.sops.placeholder.${cfg.githubPatSecret};
-        };
-      };
-    };
-  };
 in
 {
   options.programs.zed-editor = {
@@ -35,16 +15,11 @@ in
     };
   };
 
+  #
+
   config = lib.mkIf cfg.enable {
-    sops.secrets.brave_api_key = { };
-    sops.secrets.${cfg.githubPatSecret} = { };
-
-    sops.templates."zed-settings" = {
-      content = builtins.toJSON settingsWithSecrets;
-      path = "${config.xdg.configHome}/zed/settings.json";
-      mode = "0600";
-    };
-
+    xdg.configFile."zed/settings.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixcfg/modules/home/programs/editors/zed-settings.json";
     home.packages = [ cfg.package ];
   };
 }
