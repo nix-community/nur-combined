@@ -95,6 +95,7 @@ let
         overlays.packages
         overlays.images
         overlays.libs
+        overlays.trev
       ];
       config = {
         allowUnfree = true;

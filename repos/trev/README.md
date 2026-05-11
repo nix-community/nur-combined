@@ -1,8 +1,8 @@
 # trev's nix repository
 
-[![check](https://github.com/spotdemo4/trevpkgs/actions/workflows/check.yaml/badge.svg)](https://github.com/spotdemo4/trevpkgs/actions/workflows/check.yaml)
-[![vulnerable](https://github.com/spotdemo4/trevpkgs/actions/workflows/vulnerable.yaml/badge.svg)](https://github.com/spotdemo4/trevpkgs/actions/workflows/vulnerable.yaml)
-[![nix user repository](https://github.com/spotdemo4/trevpkgs/actions/workflows/sync.yaml/badge.svg)](https://github.com/spotdemo4/trevpkgs/actions/workflows/sync.yaml)
+[![check](https://img.shields.io/github/actions/workflow/status/spotdemo4/trevpkgs/check.yaml?branch=main&logo=github&logoColor=%23bac2de&label=check&labelColor=%23313244)](https://github.com/spotdemo4/trevpkgs/actions/workflows/check.yaml)
+[![vulnerable](https://img.shields.io/github/actions/workflow/status/spotdemo4/trevpkgs/vulnerable.yaml?branch=main&logo=github&logoColor=%23bac2de&label=vulnerable&labelColor=%23313244)](https://github.com/spotdemo4/trevpkgs/actions/workflows/vulnerable.yaml)
+[![nix user repository](https://img.shields.io/github/actions/workflow/status/spotdemo4/trevpkgs/sync.yaml?branch=main&logo=github&logoColor=%23bac2de&label=sync&labelColor=%23313244)](https://github.com/spotdemo4/trevpkgs/actions/workflows/sync.yaml)
 
 Extra [packages](#packages), [bundlers](#bundlers), [images](#images) and [libs](#libs) for [nix](https://nixos.org/)
 
@@ -119,12 +119,12 @@ buildInputs = with pkgs.python314Packages; [
 ];
 ```
 
-### [nix-fix-hash](https://github.com/spotdemo4/nix-fix-hash)
+### [fix-hash](https://github.com/spotdemo4/nix-fix-hash)
 
 Nix hash fixer
 
 ```elm
-nix run github:spotdemo4/trevpkgs#nix-fix-hash
+nix run github:spotdemo4/trevpkgs#fix-hash
 ```
 
 ### [nix-scan](https://github.com/spotdemo4/nix-scan)

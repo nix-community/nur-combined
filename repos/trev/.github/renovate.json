@@ -6,7 +6,7 @@
   "requireConfig": "ignored",
   "platform": "github",
   "repositories": ["spotdemo4/trevpkgs"],
-  "allowedCommands": ["nix-fix-hash --file utils/images"],
+  "allowedCommands": ["fix-hash --file utils/images"],
   "exposeAllEnv": true,
 
   // repository
@@ -62,7 +62,7 @@
       "groupName": "docker images",
       "pinDigests": true,
       "postUpgradeTasks": {
-        "commands": ["nix-fix-hash --file utils/images"]
+        "commands": ["fix-hash --file utils/images"]
       }
     },
     {

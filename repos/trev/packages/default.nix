@@ -18,7 +18,7 @@ rec {
   go-over = pkgs.callPackage ./go-over { inherit (libs) gleamErlangHook gleamFetchDeps; };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
-  nix-fix-hash = pkgs.callPackage ./nix-fix-hash { };
+  fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   oxc-vscode = pkgs.callPackage ./oxc-vscode { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };
