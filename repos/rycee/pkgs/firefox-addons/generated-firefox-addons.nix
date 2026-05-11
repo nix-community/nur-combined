@@ -13019,10 +13019,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.5.1";
+      version = "26.5.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787850/refined_github-26.5.1.xpi";
-      sha256 = "43714279847a724c1b88b5439487251dd712c8637c28bc3386ba7a4542bef538";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4799573/refined_github-26.5.10.xpi";
+      sha256 = "869681afa89a5462a0dd83a7951249c2ac420efb877002c20eefc54789ecb21e";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -14126,10 +14126,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.3.3";
+      version = "3.3.4";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4780642/statshunters-3.3.3.xpi";
-      sha256 = "9f27a2e0e0d1cd97d37e066e703893b05d2ab6c27ebc2093a3ab2d24fd10d475";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4799069/statshunters-3.3.4.xpi";
+      sha256 = "48c2c486357e0866bedff70bafa94038aac39cf5d3ab469de003da6c51f2a669";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -16961,10 +16961,10 @@
     };
     "whowrotethat" = buildMozillaXpiAddon {
       pname = "whowrotethat";
-      version = "0.23.0.0";
+      version = "0.23.1.0";
       addonId = "{7c53a467-2542-497a-86fb-59c2904a56d1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787108/whowrotethat-0.23.0.0.xpi";
-      sha256 = "fe92b30a5063d15f5c108047c589e0d9942cc5f1c3a78035f335135b0b5dcce1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4799934/whowrotethat-0.23.1.0.xpi";
+      sha256 = "a4cf50081635906498e3f362b22b32a1db53a4b079ef41e34dbcc5acb05e4461";
       meta = with lib;
       {
         homepage = "https://www.mediawiki.org/wiki/WWT";
@@ -16973,12 +16973,15 @@
         mozPermissions = [
           "storage"
           "*://ar.wikipedia.org/*"
+          "*://ce.wikipedia.org/*"
+          "*://cs.wikipedia.org/*"
           "*://de.wikipedia.org/*"
           "*://dsb.wikipedia.org/*"
           "*://en.wikipedia.org/*"
           "*://es.wikipedia.org/*"
           "*://eu.wikipedia.org/*"
           "*://fa.wikipedia.org/*"
+          "*://fi.wikipedia.org/*"
           "*://fr.wikipedia.org/*"
           "*://hi.wikipedia.org/*"
           "*://hu.wikipedia.org/*"
@@ -16986,9 +16989,13 @@
           "*://it.wikipedia.org/*"
           "*://ja.wikipedia.org/*"
           "*://nl.wikipedia.org/*"
+          "*://no.wikipedia.org/*"
           "*://pl.wikipedia.org/*"
           "*://pt.wikipedia.org/*"
+          "*://ro.wikipedia.org/*"
           "*://ru.wikipedia.org/*"
+          "*://sh.wikipedia.org/*"
+          "*://sr.wikipedia.org/*"
           "*://sv.wikipedia.org/*"
           "*://tr.wikipedia.org/*"
           "*://uk.wikipedia.org/*"
