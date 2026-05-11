@@ -241,14 +241,14 @@ eachSystemOp (
               )
               (
                 lib.filterAttrs (
-                  _: package:
+                  name: package:
                   let
                     res = builtins.tryEval package;
                   in
                   if res.success then
                     lib.meta.availableOn { inherit system; } package
                   else
-                    builtins.warn "Failed to evaluate ${key}.${_} for system ${system}" false
+                    builtins.warn "Failed to evaluate ${key}.${name} for system ${system}" false
                 ) flake.${key}
               );
         };
