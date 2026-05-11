@@ -60,7 +60,6 @@ let
     {
       config = "x86_64-w64-mingw32";
       libc = "ucrt";
-      isStatic = true;
     }
     {
       config = "x86_64-apple-darwin";
