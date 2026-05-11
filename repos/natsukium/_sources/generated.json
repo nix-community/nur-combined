@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-05-10",
+        "date": "2026-05-11",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "171473ee7c3fa970f19980dc311503573c60c8cc",
-            "sha256": "sha256-mhNlz9c62VHX6716HUHKOqSjOy9uTl65GnpwPtOD+4w=",
+            "rev": "4de32bfd3f594e8eb964ccf422acad41ff752729",
+            "sha256": "sha256-0tRYqc9v13BFiCVGBEN7E4hMo2npihTLkxmzdBsbTas=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "171473ee7c3fa970f19980dc311503573c60c8cc"
+        "version": "4de32bfd3f594e8eb964ccf422acad41ff752729"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -73,7 +73,7 @@
     },
     "paperwm-spoon": {
         "cargoLock": null,
-        "date": "2026-05-01",
+        "date": "2026-05-10",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -85,12 +85,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "97c88cb16fc9330f9e1f71cd8defc17fd865afe4",
-            "sha256": "sha256-EmPIcF2e19fs6Pv3eCC94DdwlB79qWTk3yPXUfZbCio=",
+            "rev": "c6ee4c18ef9234a9dce1cd3c88d1d0e705481e80",
+            "sha256": "sha256-BwDrW8ItjZot0unyRXtFXnHqXq7/gojn+vTB5sY2G8A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "97c88cb16fc9330f9e1f71cd8defc17fd865afe4"
+        "version": "c6ee4c18ef9234a9dce1cd3c88d1d0e705481e80"
     },
     "qmk-toolbox": {
         "cargoLock": null,
