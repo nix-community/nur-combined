@@ -18,6 +18,7 @@
   };
   outputs =
     {
+      self,
       flake-parts,
       ...
     }@inputs:
@@ -33,6 +34,9 @@
       systems = import inputs.systems;
       flake = {
         lib = import ./lib;
+        hydraJobs = {
+          inherit (self) ciPackages;
+        };
       };
       perSystem =
         {
