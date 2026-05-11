@@ -60,12 +60,7 @@ let
     {
       config = "x86_64-w64-mingw32";
       libc = "ucrt";
-    }
-    {
-      config = "aarch64-w64-mingw32";
-      libc = "ucrt";
-      rust.rustcTarget = "aarch64-pc-windows-gnullvm";
-      useLLVM = true;
+      isStatic = true;
     }
     {
       config = "x86_64-apple-darwin";
