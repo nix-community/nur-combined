@@ -6,12 +6,12 @@
   _7zz,
 }:
 let
-  version = "2.65.0.636";
+  version = "2.67.0.614";
 
   # https://yuanbao.tencent.com/api/info/public/general
   source = {
-    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/39a13267cfd82307786c3b62939288cc/yuanbao_2.65.0.636_universal.dmg";
-    hash = "sha256-4e0NLuhrj1i/RVcnSt/pziMj+N1UENsjSJOd/te/H9k=";
+    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/a79118d3e2c8cf7e1216dcfa6bc35e34/yuanbao_2.67.0.614_universal.dmg";
+    hash = "sha256-JZuINOT/FvhZn+lmAiQLpbT+qClSfI2ORnvsMT1uc8c=";
   };
   pkgName = "元宝";
 in
@@ -23,12 +23,17 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl source;
 
+  dontPatch = true;
+  dontConfigure = true;
+  dontBuild = true;
+  dontFixup = true;
+
   nativeBuildInputs = [
     _7zz
   ];
 
   unpackCmd = ''
-    7zz x -snld ${src}
+    7zz x -snld -xr'!*com.apple.provenance'  ${src}
   '';
 
   sourceRoot = "./${pkgName}";
@@ -37,7 +42,7 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/Applications
-    cp -R ./${pkgName}.app $out/Applications
+    cp -R ./*.app $out/Applications/
 
     runHook postInstall
   '';
@@ -46,8 +51,6 @@ stdenvNoCC.mkDerivation rec {
     inherit version source;
     updateScript = ./update.sh;
   };
-
-  dontFixup = true;
 
   meta = {
     description = "Tencent Yuanbao";
