@@ -1155,14 +1155,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "0e325ccc2d96d37e7433ff8938550d8111b3931c";
+    version = "9fb382e12fc8264fb1e1379c6b7dab27a42382c5";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "0e325ccc2d96d37e7433ff8938550d8111b3931c";
-      hash = "sha256-Hik9IZ17QneVk6cNKMcMzUi0gNVdazMiBL3T4c3sf9g=";
+      rev = "9fb382e12fc8264fb1e1379c6b7dab27a42382c5";
+      hash = "sha256-23Dvz3zxVBnfz8DoJBhApKAg9Xe33VSHUiZE8IntIJI=";
     };
-    date = "2026-05-01";
+    date = "2026-05-11";
   };
   libqcef = {
     pname = "libqcef";
@@ -1239,12 +1239,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9101";
+    version = "b9110";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9101";
-      hash = "sha256-dQ0KsUsiTYJXtWuU16yTbHiyWCspw5WofQVjvrY2OVc=";
+      tag = "b9110";
+      hash = "sha256-RUIzslenhgcBcXt2z/yE8a1qlsWYeyEEJBKW7jwHk/k=";
     };
   };
   loralib = {
@@ -1996,10 +1996,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260412";
+    version = "20260511";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260412/moegirl.dict.yaml";
-      hash = "sha256-qIFkaDdivE7tOQmk0TpNB8wov5iazegX7eJjMB+lFe0=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260511/moegirl.dict.yaml";
+      hash = "sha256-rtrwuPNvh0krobTDP3oTrAswYj9ALCZITrfudW5EXfc=";
     };
   };
   rime-zhwiki = {
@@ -2043,14 +2043,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "cc0f04fba2327cc011d0598ba758f3ba18b1351b";
+    version = "d86f51ac547a8718ddee03efc9399be2e3dc049e";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "cc0f04fba2327cc011d0598ba758f3ba18b1351b";
-      hash = "sha256-x4SaBZQKEGuW5HKlJZX+FgzeifFf0Gw4jHoQ9RL3e6w=";
+      rev = "d86f51ac547a8718ddee03efc9399be2e3dc049e";
+      hash = "sha256-vcfmbcsEiow7Q9A4XMDhHAtBs9wb2HIgjRm8d6OD6fw=";
     };
-    date = "2026-05-08";
+    date = "2026-05-11";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";

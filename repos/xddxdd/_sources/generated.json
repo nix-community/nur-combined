@@ -2241,7 +2241,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-05-01",
+        "date": "2026-05-11",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2253,12 +2253,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "0e325ccc2d96d37e7433ff8938550d8111b3931c",
-            "sha256": "sha256-Hik9IZ17QneVk6cNKMcMzUi0gNVdazMiBL3T4c3sf9g=",
+            "rev": "9fb382e12fc8264fb1e1379c6b7dab27a42382c5",
+            "sha256": "sha256-23Dvz3zxVBnfz8DoJBhApKAg9Xe33VSHUiZE8IntIJI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0e325ccc2d96d37e7433ff8938550d8111b3931c"
+        "version": "9fb382e12fc8264fb1e1379c6b7dab27a42382c5"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2409,12 +2409,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9101",
-            "sha256": "sha256-dQ0KsUsiTYJXtWuU16yTbHiyWCspw5WofQVjvrY2OVc=",
+            "rev": "b9110",
+            "sha256": "sha256-RUIzslenhgcBcXt2z/yE8a1qlsWYeyEEJBKW7jwHk/k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9101"
+        "version": "b9110"
     },
     "loralib": {
         "cargoLock": null,
@@ -3891,11 +3891,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qIFkaDdivE7tOQmk0TpNB8wov5iazegX7eJjMB+lFe0=",
+            "sha256": "sha256-rtrwuPNvh0krobTDP3oTrAswYj9ALCZITrfudW5EXfc=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260412/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260511/moegirl.dict.yaml"
         },
-        "version": "20260412"
+        "version": "20260511"
     },
     "rime-zhwiki": {
         "cargoLock": null,
@@ -3977,7 +3977,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-05-08",
+        "date": "2026-05-11",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3989,12 +3989,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "cc0f04fba2327cc011d0598ba758f3ba18b1351b",
-            "sha256": "sha256-x4SaBZQKEGuW5HKlJZX+FgzeifFf0Gw4jHoQ9RL3e6w=",
+            "rev": "d86f51ac547a8718ddee03efc9399be2e3dc049e",
+            "sha256": "sha256-vcfmbcsEiow7Q9A4XMDhHAtBs9wb2HIgjRm8d6OD6fw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cc0f04fba2327cc011d0598ba758f3ba18b1351b"
+        "version": "d86f51ac547a8718ddee03efc9399be2e3dc049e"
     },
     "rtpengine-stable": {
         "cargoLock": null,
