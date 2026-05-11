@@ -29,6 +29,7 @@
   glpk,
   gmp,
   gtest,
+  jansson,
   libffi,
   libxml2,
   mpfi,
@@ -90,13 +91,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "macaulay2";
-  version = "1.25.11";
+  version = "1.26.05";
 
   src = fetchFromGitHub {
     owner = "Macaulay2";
     repo = "M2";
     rev = "release-${finalAttrs.version}";
-    hash = "sha256-MX3PRBIXbzaGJYbPRBdLE9/D7WbhVQGpmZuo45wJjcs=";
+    hash = "sha256-UiPLownaFtuYFUlZhBl+Nl/sRZRhG9OUwepZtFTkTqc=";
     fetchSubmodules = true;
   };
 
@@ -149,6 +150,7 @@ stdenv.mkDerivation (finalAttrs: {
     flint
     givaro
     gtest
+    jansson
     libffi
     libxml2
     mpfi
@@ -182,6 +184,13 @@ stdenv.mkDerivation (finalAttrs: {
     # Disable native x86_64 SIMD instructions.
     (lib.cmakeBool "BUILD_NATIVE" false)
 
+    # Don't leak kernel version into the build output.
+    (lib.cmakeFeature "ISSUE" "NixOS")
+    (lib.cmakeFeature "CMAKE_SYSTEM_VERSION" "")
+
+    # Upstream tries to link statically by default.
+    (lib.cmakeBool "STATIC_BOOST" stdenv.hostPlatform.isStatic)
+
     # Do not copy packages' example output back to the source tree.
     (lib.cmakeFeature "CacheExampleOutput" "false")
 
@@ -189,7 +198,7 @@ stdenv.mkDerivation (finalAttrs: {
     # See: https://github.com/Macaulay2/M2/issues/2218
     (lib.cmakeOptionType "path" "READLINE_ROOT_DIR" "${lib.getDev readline}")
 
-    # Upstream expects these to be relative.
+    # Upstream expects these to be relative, as is their right.
     (lib.cmakeFeature "CMAKE_INSTALL_BINDIR" "bin")
     (lib.cmakeFeature "CMAKE_INSTALL_DATAROOTDIR" "share")
     (lib.cmakeFeature "CMAKE_INSTALL_DOCDIR" "share/doc/Macaulay2")
@@ -216,6 +225,9 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/Macaulay2/M2/issues/1706#issuecomment-747592740
     TERM=dumb ninja M2-tests-ComputationsBook
 
+    # WARN: https://github.com/Macaulay2/M2/commit/ef58e8b6edd17112321d85c88ef6e903a7246758
+    TERM=dumb ninja M2-unit-tests
+
     # FIXME: Reconfigure to pick up the 4000+ package tests.
     # See: https://github.com/Macaulay2/M2/blob/release-1.25.11/M2/Macaulay2/packages/CMakeLists.txt#L224
     cmake .
@@ -236,13 +248,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     # https://github.com/Macaulay2/M2/issues/1706
     "normal/command.m2"
+    "normal/gbf4.m2"
     "normal/threads.m2"
 
-    # FIXME: Times out, fails :(.
-    "normal/gbf4.m2"
-
-    # FIXME: Out of memory.
-    "normal/release-checklist.m2"
+    # FIXME: https://github.com/Macaulay2/M2/pull/4040
+    "normal/RRi.m2"
   ];
 
   desktopItems = [

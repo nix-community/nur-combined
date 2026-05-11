@@ -114,8 +114,6 @@ stdenv.mkDerivation (finalAttrs: {
   nativeCheckInputs = [
     perl
     hexdump
-  ]
-  ++ lib.optionals stdenv.buildPlatform.isDarwin [
     locale
   ];
 

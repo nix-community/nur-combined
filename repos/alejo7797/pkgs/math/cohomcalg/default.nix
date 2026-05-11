@@ -15,6 +15,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9kKKfb8STiCjaHiWgYEQsERNTnOXlwN8axIBJHg43zk=";
   };
 
+  postPatch = ''
+    substituteInPlace Makefile --replace-fail 'g++' '$(CXX)'
+  '';
+
   enableParallelBuilding = true;
 
   installPhase = ''
