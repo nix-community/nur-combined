@@ -1,53 +1,23 @@
 {
+  buildRustPackage ? rustPlatform.buildRustPackage,
   fetchFromGitHub,
   lib,
-  mktemp,
   nix-update-script,
-  runtimeShell,
-  sd,
-  shellcheck,
-  stdenv,
+  rustPlatform,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+buildRustPackage (finalAttrs: {
   pname = "nix-fix-hash";
-  version = "0.1.1";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nix-fix-hash";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tFW10OaXCAPiLjvAnMC6hkU9/BkQxB7cKLaoZWv9smU=";
+    hash = "sha256-FrGEQN6PK7ah0SFsfhI0VpcFCztW5+P1U95/5qFzGa8=";
   };
 
-  unpackPhase = ''
-    cp "$src/nix-fix-hash.sh" nix-fix-hash.sh
-  '';
-
-  dontBuild = true;
-
-  runtimeInputs = [
-    mktemp
-    sd
-  ];
-  configurePhase = ''
-    sed -i '1c\#!${runtimeShell}' nix-fix-hash.sh
-    sed -i '2c\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' nix-fix-hash.sh
-  '';
-
-  doCheck = true;
-  nativeCheckInputs = [
-    shellcheck
-  ];
-  checkPhase = ''
-    shellcheck nix-fix-hash.sh
-  '';
-
-  installPhase = ''
-    install -D nix-fix-hash.sh $out/bin/fix-hash
-  '';
-
-  dontFixup = true;
+  cargoHash = "sha256-MAMYGQpjPNEA053SXPvZ5mfc574UgCoLs2s2Q5xvGFo=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -59,6 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     mainProgram = "fix-hash";
     description = "Nix hash fixer";
+    license = lib.licenses.mit;
     platforms = lib.platforms.all;
     homepage = "https://github.com/spotdemo4/nix-fix-hash";
     changelog = "https://github.com/spotdemo4/nix-fix-hash/releases/tag/v${finalAttrs.version}";
