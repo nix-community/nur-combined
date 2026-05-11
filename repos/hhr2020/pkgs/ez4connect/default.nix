@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ez4connect";
-  version = "1.5.2";
+  version = "1.6.3";
 
   src = fetchFromGitHub {
     owner = "chenx-dust";
     repo = "EZ4Connect";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-sJgmO6+VRQARiQtalg+Q5rIRwF/iMZ0rxHvREdMv6dM=";
+    hash = "sha256-uDnSz4cm5n9JoyrV8NCPLPye4IjCxeK2rRksnOkwKeo=";
   };
 
   nativeBuildInputs = [
