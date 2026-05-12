@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   sources,
   source ? sources.aliyundrive-webdav,
 
@@ -35,5 +36,6 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "aliyundrive-webdav";
+    broken = stdenv.hostPlatform.isLoongArch64;
   };
 })
