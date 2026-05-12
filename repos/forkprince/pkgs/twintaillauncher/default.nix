@@ -1,7 +1,9 @@
 {
+  gsettings-desktop-schemas,
   libayatana-appindicator,
   libappindicator-gtk3,
   autoPatchelfHook,
+  wrapGAppsHook3,
   webkitgtk_4_1,
   makeWrapper,
   gdk-pixbuf,
@@ -15,8 +17,6 @@
   glib,
   gtk3,
   lib,
-  gsettings-desktop-schemas,
-  wrapGAppsHook3,
 }:
 let
   ver = lib.helper.read ./version.json;
@@ -30,12 +30,13 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     autoPatchelfHook
-    makeWrapper
     wrapGAppsHook3
+    makeWrapper
     dpkg
   ];
 
   buildInputs = [
+    gsettings-desktop-schemas
     libayatana-appindicator
     libappindicator-gtk3
     webkitgtk_4_1
@@ -46,7 +47,6 @@ stdenv.mkDerivation {
     pango
     glib
     gtk3
-    gsettings-desktop-schemas
   ];
 
   unpackPhase = ''
