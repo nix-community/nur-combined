@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-05-11",
+        "date": "2026-05-12",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "4de32bfd3f594e8eb964ccf422acad41ff752729",
-            "sha256": "sha256-0tRYqc9v13BFiCVGBEN7E4hMo2npihTLkxmzdBsbTas=",
+            "rev": "96d968ab999c1e8b7b93f141341db4ab462b4d79",
+            "sha256": "sha256-6PmwGSG7OndU/evmOeKy5LzDshn7iBlKllG9cUqhoEs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4de32bfd3f594e8eb964ccf422acad41ff752729"
+        "version": "96d968ab999c1e8b7b93f141341db4ab462b4d79"
     },
     "hammerspoon": {
         "cargoLock": null,
