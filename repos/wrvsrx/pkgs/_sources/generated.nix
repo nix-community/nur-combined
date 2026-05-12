@@ -304,4 +304,15 @@
       sha256 = "sha256-s62/B5MUn5Dk6gjYbE6UN3H1+bnEF3iwjQxsPkm/me8=";
     };
   };
+  xml = {
+    pname = "xml";
+    version = "0.1.0";
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "xml";
+      rev = "0.1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-bEJ7WTvH4+8N7LyhZW7LM/0HXtFpeoubKpNt1bkBXZE=";
+    };
+  };
 }
