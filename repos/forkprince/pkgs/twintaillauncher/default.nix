@@ -17,7 +17,7 @@
   glib,
   gtk3,
   lib,
-  # Steam Runtime / game compatibility
+  # Game compatibility
   mesa,
   libglvnd,
   libdrm,
@@ -139,7 +139,7 @@ buildFHSEnv {
     # Game runtime dependencies
     mangohud
     gamemode
-    # Graphics libraries (for Steam Runtime and games)
+    # Graphics libraries
     mesa
     libglvnd
     libdrm
@@ -178,10 +178,11 @@ buildFHSEnv {
     export __NV_DISABLE_EXPLICIT_SYNC=1
     export XDG_DATA_DIRS="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:$XDG_DATA_DIRS"
     export GIO_EXTRA_MODULES="${glib.out}/lib/gio/modules"
+    # GLib networking modules for WebKit TLS/SSL support (required for CDN image loading)
     export GIO_MODULE_DIR="${glib-networking}/lib/gio/modules"
   '';
 
-  runScript = "twintaillauncher";
+  runScript = "${unwrapped}/bin/twintaillauncher";
 
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"
