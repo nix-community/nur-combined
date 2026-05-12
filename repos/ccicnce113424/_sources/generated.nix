@@ -171,24 +171,24 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "ef1f6f16db3e6bf8095b21e77af68968c7aaccdd";
+    version = "9f832e8647dbed8ecb7af673018bae3895e69fbb";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "ef1f6f16db3e6bf8095b21e77af68968c7aaccdd";
+      rev = "9f832e8647dbed8ecb7af673018bae3895e69fbb";
       fetchSubmodules = false;
-      sha256 = "sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=";
+      sha256 = "sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=";
     };
     extract = {
-      "frontend/kde/metadata.json" = ./. + "/sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=/frontend/kde/metadata.json";
-      "Cargo.toml" = ./. + "/sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=/Cargo.toml";
+      "frontend/kde/metadata.json" = ./. + "/sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=/frontend/kde/metadata.json";
+      "Cargo.toml" = ./. + "/sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=/Cargo.toml";
     };cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=/Cargo.lock";
+      lockFile = ./. + "/sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=/Cargo.lock";
       outputHashes = {
         "netease-cloud-music-api-1.5.2" = "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA=";
       };
     };
-    date = "2026-04-24";
+    date = "2026-05-12";
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
