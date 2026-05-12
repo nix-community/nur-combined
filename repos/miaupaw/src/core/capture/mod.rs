@@ -7,10 +7,6 @@ pub mod wlr;
 #[cfg(windows)]
 pub mod windows;
 
-// Re-export for X11 connector and backwards compatibility.
-#[cfg(unix)]
-pub use portal::capture_screen;
-
 use anyhow::Result;
 #[cfg(unix)]
 use crate::core::terminal::{log_step, log_warn};

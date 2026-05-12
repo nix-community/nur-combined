@@ -1,33 +1,25 @@
 // ══════════════════════════════════════════════════════════════════════════════
 //   1. KWin DBus (silent → interactive retry)
-//   3. Spectacle CLI (last resort, KDE-only)
-// XDG Desktop Portal + Spectacle — cross-DE fallback for screen capture.
+// XDG Desktop Portal — cross-DE single-capture fallback for Wayland.
 //
-// capture_screen() — cascade:
-//   1. KWin DBus (silent → interactive retry)
-//   2. XDG Desktop Portal (async, via ashpd)
-//   3. Spectacle CLI (last resort, KDE-only)
-//
-// Used as Tier 3 in capture_all_outputs() and as the only path
-// for the X11 connector (capture::capture_screen → portal::capture_screen).
+// capture_screen() cascade: KWin DBus → XDG Portal.
+// Used as Tier 3 in capture_all_outputs(); the X11 connector goes through
+// capture_x11_root() (native XCB) instead.
 // ══════════════════════════════════════════════════════════════════════════════
 
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use image::RgbaImage;
-use std::fs::File;
-use std::io::BufReader;
-use std::process::Command;
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 use crate::core::terminal::{log_step, log_warn, log_info};
 use super::{ScreenCapture, rgba_to_capture};
 
-/// **Main Calibre.** Attempts to capture the framebuffer by the fastest available method.
+/// Single-capture cascade. Returns one frame the size of the visible virtual
+/// desktop (per-output slicing happens on top via splitter heuristic).
 ///
 /// Protocol hierarchy:
 ///   1. `KWin ScreenShot2 DBus` — Direct inject into compositor (<10ms). KDE Wayland only.
 ///   2. `XDG Desktop Portal`    — Fallback bus. Cross-DE, but slow (~700ms first init).
-///   3. `Spectacle`             — If even the portal is dead, invoke the external tool (last resort).
 pub fn capture_screen(dbus_conn: Option<&zbus::blocking::Connection>) -> Result<ScreenCapture> {
     let start_total = Instant::now();
 
@@ -58,18 +50,10 @@ pub fn capture_screen(dbus_conn: Option<&zbus::blocking::Connection>) -> Result<
 
     // 2. XDG Desktop Portal (cross-DE fallback)
     let rt_handle = tokio::runtime::Handle::current();
-    match rt_handle.block_on(capture_via_portal()) {
-        Ok(img) => {
-            log_step("Capture", &format!("XDG Portal: {}ms", start_total.elapsed().as_millis()));
-            return Ok(rgba_to_capture(&img));
-        }
-        Err(e) => {
-            log_warn(&format!("Portal failed: {}. Falling back to Spectacle...", e));
-        }
-    }
-
-    // 3. Last resort: Spectacle (KDE-only)
-    capture_via_spectacle()
+    let img = rt_handle.block_on(capture_via_portal())
+        .map_err(|e| anyhow::anyhow!("All capture methods failed (Portal): {}", e))?;
+    log_step("Capture", &format!("XDG Portal: {}ms", start_total.elapsed().as_millis()));
+    Ok(rgba_to_capture(&img))
 }
 
 /// **XDG Desktop Portal Screenshot**
@@ -111,55 +95,4 @@ async fn capture_via_portal() -> Result<RgbaImage> {
     let _ = std::fs::remove_file(path);
 
     Ok(img)
-}
-
-fn capture_via_spectacle() -> Result<ScreenCapture> {
-    let output_path = "/tmp/ie-r-capture.png";
-    // -m / --current: capture only the monitor under cursor.
-    // Without this Spectacle uses XCB on the X11 root window and returns the
-    // entire Xinerama bounding box (virtual desktop), which the X11 connector
-    // then squishes into a single-monitor window ("double vision" bug).
-    // Per-monitor mode matches the launch-monitor window 1:1 — no smoosh.
-    let status = match Command::new("spectacle")
-        .arg("-b")
-        .arg("-n")
-        .arg("-m")
-        .arg("-o")
-        .arg(output_path)
-        .status()
-    {
-        Ok(s) => s,
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
-            log_warn("spectacle is not installed — last-resort capture path unavailable.");
-            log_warn("Install it via your package manager (e.g. `sudo pacman -S spectacle`,");
-            log_warn("`apt install kde-spectacle`, `dnf install spectacle`), or ensure that");
-            log_warn("xdg-desktop-portal is running so the Portal path succeeds first.");
-            return Err(anyhow!("spectacle binary not found in PATH"));
-        }
-        Err(e) => return Err(anyhow!("failed to spawn spectacle: {}", e)),
-    };
-    if !status.success() {
-        log_warn(&format!("spectacle exited unsuccessfully ({status}) — capture file may be missing"));
-    }
-
-    let start_wait = Instant::now();
-    let mut image_result: Result<ScreenCapture> = Err(anyhow!("File not found"));
-    while start_wait.elapsed() < Duration::from_secs(2) {
-        if let Ok(file) = File::open(output_path) {
-            let reader = image::ImageReader::new(BufReader::new(file)).with_guessed_format()?;
-            if let Ok(dyn_img) = reader.decode() {
-                let cap = rgba_to_capture(&dyn_img.to_rgba8());
-                log_step("Capture", &format!(
-                    "Spectacle: {}ms ({}x{})",
-                    start_wait.elapsed().as_millis(), cap.width, cap.height,
-                ));
-                image_result = Ok(cap);
-                break;
-            }
-        }
-        std::thread::sleep(Duration::from_millis(50));
-    }
-
-    let _ = std::fs::remove_file(output_path);
-    image_result.map_err(|e| anyhow!("All capture methods failed: {}", e))
 }

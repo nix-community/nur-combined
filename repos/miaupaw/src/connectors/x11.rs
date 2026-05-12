@@ -42,6 +42,12 @@ struct X11OverlayWindow {
     shift_pressed: bool,
     ctrl_pressed: bool,
     alt_pressed: bool,
+    /// Monitor rects in canvas-local (= root X11) coordinates: (x, y, w, h).
+    /// Used to clamp magnifier to the current monitor, same as Win32 connector.
+    monitors: Vec<(i32, i32, i32, i32)>,
+    /// Previous frame's dirty rects — swapped with app.dirty_rects around render()
+    /// so the render loop can restore background only in changed regions (fast path).
+    prev_dirty_rects: std::collections::VecDeque<(i32, i32, usize, usize)>,
 }
 
 impl X11OverlayWindow {
@@ -56,6 +62,8 @@ impl X11OverlayWindow {
             shift_pressed: false,
             ctrl_pressed: false,
             alt_pressed: false,
+            monitors: Vec::new(),
+            prev_dirty_rects: std::collections::VecDeque::with_capacity(12),
         }
     }
 
@@ -66,6 +74,7 @@ impl X11OverlayWindow {
         event_loop: &ActiveEventLoop,
         coords: Option<(i32, i32)>,
         dbus_conn: Option<&zbus::blocking::Connection>,
+        root_size: Option<(u32, u32)>,
     ) {
         if self.window.is_some() {
             return;
@@ -96,11 +105,13 @@ impl X11OverlayWindow {
         let window = Arc::new(event_loop.create_window(win_attr).unwrap());
         window.set_cursor(CursorIcon::Crosshair);
 
-        // Explicitly request the current monitor size
-        // (override_redirect windows do not go fullscreen automatically).
-        if let Some(monitor) = window.current_monitor() {
-            let size = monitor.size();
-            let _ = window.request_inner_size(size);
+        // Explicitly set the window size.
+        // Priority: root_size from XCB (giant window = full virtual desktop),
+        // fallback — current Winit monitor (single-monitor mode).
+        if let Some((rw, rh)) = root_size {
+            let _ = window.request_inner_size(winit::dpi::PhysicalSize::new(rw, rh));
+        } else if let Some(monitor) = window.current_monitor() {
+            let _ = window.request_inner_size(monitor.size());
         }
 
         // Show the window and immediately request focus.
@@ -169,6 +180,17 @@ impl X11OverlayWindow {
         // After this, Winit will start receiving real CursorMoved events.
         let _ = window.set_cursor_grab(winit::window::CursorGrabMode::Confined);
 
+        // Collect monitor rects in canvas-local (= root X11) coords.
+        // On X11 the root window is at (0,0), so XRandR positions are directly
+        // canvas-local — no virtual-screen-origin offset needed (unlike Win32).
+        self.monitors = event_loop.available_monitors()
+            .map(|m| {
+                let pos = m.position();
+                let sz = m.size();
+                (pos.x, pos.y, sz.width as i32, sz.height as i32)
+            })
+            .collect();
+
         self.window = Some(window);
         self.surface = Some(surface);
         self.ignored_stale_pos = x11_stale_pos;
@@ -176,6 +198,9 @@ impl X11OverlayWindow {
         // at a stale position, but that is better than an invisible eyedropper.
         self.mouse_pos = Some(initial_pos);
         self.app.update_physical_mouse(initial_pos.x, initial_pos.y);
+
+        // Set initial monitor_rect so magnifier clamps correctly from the first frame.
+        self.app.monitor_rect = Self::monitor_rect_at(&self.monitors, initial_pos.x as i32, initial_pos.y as i32);
     }
 
     /// XQueryPointer: accurate coordinates on native X11, stale under XWayland.
@@ -214,6 +239,14 @@ impl X11OverlayWindow {
         Some(winit::dpi::PhysicalPosition::new(x as f64, y as f64))
     }
 
+    /// Find the monitor rect containing (cx, cy); returns the nearest if none match.
+    fn monitor_rect_at(monitors: &[(i32, i32, i32, i32)], cx: i32, cy: i32) -> Option<(i32, i32, i32, i32)> {
+        monitors.iter()
+            .find(|&&(mx, my, mw, mh)| cx >= mx && cx < mx + mw && cy >= my && cy < my + mh)
+            .copied()
+            .or_else(|| monitors.first().copied())
+    }
+
     /// Tears down the window (surface drop -> X11 DestroyWindow).
     fn destroy_window(&mut self) {
         self.surface = None;
@@ -229,21 +262,44 @@ impl X11OverlayWindow {
                 return;
             }
 
-            let width = size.width as usize;
-            let height = size.height as usize;
+            let (width, height) = (size.width, size.height);
 
             let _ = surface.resize(
-                NonZeroU32::new(size.width).unwrap(),
-                NonZeroU32::new(size.height).unwrap(),
+                NonZeroU32::new(width).unwrap(),
+                NonZeroU32::new(height).unwrap(),
             );
 
             let mut buffer = surface.buffer_mut().unwrap();
             let canvas = &mut *buffer;
 
-            // Render the core (magnifier, glassmorphism, text, dirty rects).
-            self.app.render(canvas, width as u32, height as u32);
+            // DIRTY RECT CONTRACT (mirrors Win32 connector):
+            //   1. Swap saved dirty_rects INTO app so render() restores background
+            //      only in the previous frame's changed regions (fast path).
+            //   2. render() returns partial=true and fills CURRENT frame's rects.
+            //   3. present_with_damage receives each rect verbatim — no super-bbox
+            //      hack like Wayland (compositor fractional-scaling seams don't
+            //      exist on X11; softbuffer SHM put_image handles per-rect cleanly).
+            //   4. Swap back to save them for the next frame.
+            std::mem::swap(&mut self.app.dirty_rects, &mut self.prev_dirty_rects);
+            let partial = self.app.render(canvas, width, height);
 
-            buffer.present().unwrap();
+            if partial && !self.app.dirty_rects.is_empty() {
+                let damage: Vec<softbuffer::Rect> = self.app.dirty_rects.iter()
+                    .filter_map(|&(dx, dy, dw, dh)| {
+                        let x = dx.max(0) as u32;
+                        let y = dy.max(0) as u32;
+                        let w = (dw as i32).min(width as i32 - dx.max(0)) as u32;
+                        let h = (dh as i32).min(height as i32 - dy.max(0)) as u32;
+                        NonZeroU32::new(w).zip(NonZeroU32::new(h))
+                            .map(|(w, h)| softbuffer::Rect { x, y, width: w, height: h })
+                    })
+                    .collect();
+                buffer.present_with_damage(&damage).unwrap();
+            } else {
+                buffer.present().unwrap();
+            }
+
+            std::mem::swap(&mut self.app.dirty_rects, &mut self.prev_dirty_rects);
         }
     }
 
@@ -268,6 +324,9 @@ impl X11OverlayWindow {
 
                 self.mouse_pos = Some(position);
                 self.app.update_physical_mouse(position.x, position.y);
+                self.app.monitor_rect = Self::monitor_rect_at(
+                    &self.monitors, position.x as i32, position.y as i32,
+                );
 
                 if let Some(window) = &self.window {
                     window.request_redraw();
@@ -372,27 +431,29 @@ impl X11DaemonApp {
         log_info("Launching overlay...");
         let mut perf = self.svc.reload_config();
 
-        if let Ok(capture) = capture::capture_screen(self.svc.dbus_conn.as_ref()) {
-            // Detect scaling factor from primary monitor (X11 implementation quirk)
-            let scale_factor = event_loop.primary_monitor().map(|m| m.scale_factor()).unwrap_or(1.0);
-            perf.log("Screen captured");
+        match capture_x11_root() {
+            Ok(capture) => {
+                let root_size = (capture.width, capture.height);
+                perf.log("Screen captured (XCB root)");
 
-            let app = OverlayApp::from_capture(
-                capture,
-                None, // No wl_output on X11
-                self.svc.config.clone(),
-                self.svc.cached_font_data.clone(),
-                self.svc.hud_font_data.clone(),
-                "COMPOSITOR: X11".to_string(),
-                scale_factor,
-            );
-            let mut ow = X11OverlayWindow::new(app);
-            ow.create_window(event_loop, coords, self.svc.dbus_conn.as_ref());
-            perf.log("Overlay window created & visible");
+                let app = OverlayApp::from_capture(
+                    capture,
+                    None, // No wl_output on X11
+                    self.svc.config.clone(),
+                    self.svc.cached_font_data.clone(),
+                    self.svc.hud_font_data.clone(),
+                    "COMPOSITOR: X11".to_string(),
+                    1.0, // X11 native: scale_factor = 1.0 (logical == physical)
+                );
+                let mut ow = X11OverlayWindow::new(app);
+                ow.create_window(event_loop, coords, self.svc.dbus_conn.as_ref(), Some(root_size));
+                perf.log("Overlay window created & visible");
 
-            self.overlay = Some(ow);
-        } else {
-            log_error("Failed to capture screen.");
+                self.overlay = Some(ow);
+            }
+            Err(e) => {
+                log_error(&format!("Failed to capture screen via XCB: {}", e));
+            }
         }
     }
 
@@ -711,6 +772,63 @@ impl ApplicationHandler<UserEvent> for X11DaemonApp {
             Instant::now() + Duration::from_millis(self.svc.config.system.poll_interval_ms);
         event_loop.set_control_flow(ControlFlow::WaitUntil(next_frame_time));
     }
+}
+
+// ─── Native X11 Capture ──────────────────────────────────────────────────────
+
+/// Capture the full virtual desktop via XCB `get_image` on the root window.
+///
+/// Returns a ScreenCapture sized to the X11 root (= virtual desktop that
+/// spans all monitors). The overlay window is created at the same size, so
+/// cursor and capture coordinates match 1:1 with no heuristics.
+fn capture_x11_root() -> anyhow::Result<capture::ScreenCapture> {
+    use x11rb::connection::Connection;
+    use x11rb::protocol::xproto::{ConnectionExt, ImageFormat};
+
+    let (conn, screen_num) = x11rb::connect(None)
+        .map_err(|e| anyhow::anyhow!("XCB connect failed: {}", e))?;
+    let screen = &conn.setup().roots[screen_num];
+    let root = screen.root;
+
+    let geom = conn.get_geometry(root)
+        .map_err(|e| anyhow::anyhow!("get_geometry request failed: {}", e))?
+        .reply()
+        .map_err(|e| anyhow::anyhow!("get_geometry reply failed: {}", e))?;
+
+    let w = geom.width;
+    let h = geom.height;
+    log_step("X11", &format!("Root geometry: {}x{}", w, h));
+
+    let reply = conn.get_image(
+        ImageFormat::Z_PIXMAP,
+        root,
+        0, 0, w, h,
+        !0u32, // plane_mask: all planes
+    ).map_err(|e| anyhow::anyhow!("get_image request failed: {}", e))?
+    .reply()
+    .map_err(|e| anyhow::anyhow!("get_image reply failed: {}", e))?;
+
+    let data = &reply.data;
+    let pixel_count = w as usize * h as usize;
+    let expected_bytes = pixel_count * 4;
+
+    if data.len() < expected_bytes {
+        return Err(anyhow::anyhow!(
+            "XCB get_image: short data {} < {} expected ({}x{} @ 4bpp)",
+            data.len(), expected_bytes, w, h
+        ));
+    }
+
+    // ZPixmap on 24-bit TrueColor (little-endian): 4 bytes per pixel BGRX
+    // u32::from_le_bytes([B,G,R,X]) = 0xXXRRGGBB = our XRGB format (top byte unused).
+    let xrgb: Vec<u32> = data[..expected_bytes]
+        .chunks_exact(4)
+        .map(|c| u32::from_le_bytes([c[0], c[1], c[2], c[3]]) & 0x00FF_FFFF)
+        .collect();
+
+    log_step("Capture", &format!("XCB root: {}x{} ({} px)", w, h, xrgb.len()));
+
+    Ok(capture::ScreenCapture { xrgb_buffer: xrgb, width: w as u32, height: h as u32 })
 }
 
 // ─── Public Entry Point ──────────────────────────────────────────────────────
