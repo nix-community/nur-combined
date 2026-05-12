@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "frobby";
-  version = "0.9.7";
+  version = "0.9.9";
 
   outputs = [
     "out"
@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "Macaulay2";
     repo = "frobby";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-nGDYtnV8J+Be2kAxnxP7WvsBBhPs+tbEmMexWcBVAuQ=";
+    hash = "sha256-LndLfORnypLqFgNMPEJ8jc2Fa2xWWgYS9rZ7gGFbwwo=";
   };
 
   nativeBuildInputs = [

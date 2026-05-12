@@ -12,7 +12,7 @@
   ctestCheckHook,
   ninja,
   pkg-config,
-  texlive,
+  texliveBasic,
   copyDesktopItems,
 
   # Libraries
@@ -132,7 +132,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     pkg-config
     bison
-    texlive.combined.scheme-basic
+    texliveBasic
     copyDesktopItems
   ];
 
