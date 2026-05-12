@@ -19,7 +19,7 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
       - name: Install GH AW CLI
-        uses: github/gh-aw-actions/setup-cli@cc81570b4572ee3ccd62613812c2505f13160de5 # v0.73.0
+        uses: github/gh-aw-actions/setup-cli@28ffccfcaa92868c8160807f95519789a590defc # v0.74.0
       - name: Compile
         run: gh aw compile
       - name: Commit and push changes
