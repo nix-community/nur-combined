@@ -48,9 +48,7 @@ let
     qt5ct = qprev.callPackage ./qt5ct {
       inherit (qprev)
         qt5ct
-        kconfig
-        kconfigwidgets
-        kiconthemes
+        __internalKF5
         ;
     };
   };

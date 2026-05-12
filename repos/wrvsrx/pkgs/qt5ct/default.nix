@@ -4,9 +4,7 @@
   wrapQtAppsHook,
   qttools,
   qtquickcontrols2,
-  kconfig,
-  kconfigwidgets,
-  kiconthemes,
+  __internalKF5,
   qtbase,
 }:
 qt5ct.overrideAttrs (old: {
@@ -17,9 +15,9 @@ qt5ct.overrideAttrs (old: {
   ];
   buildInputs = old.buildInputs ++ [
     qtquickcontrols2
-    kconfig
-    kconfigwidgets
-    kiconthemes
+    __internalKF5.kconfig
+    __internalKF5.kconfigwidgets
+    __internalKF5.kiconthemes
   ];
   patches = [ ./qt5ct-shenanigans.patch ];
   cmakeFlags = [
