@@ -15,6 +15,8 @@
   glib,
   gtk3,
   lib,
+  gsettings-desktop-schemas,
+  wrapGAppsHook3,
 }:
 let
   ver = lib.helper.read ./version.json;
@@ -29,6 +31,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
+    wrapGAppsHook3
     dpkg
   ];
 
@@ -43,6 +46,7 @@ stdenv.mkDerivation {
     pango
     glib
     gtk3
+    gsettings-desktop-schemas
   ];
 
   unpackPhase = ''
@@ -79,7 +83,9 @@ stdenv.mkDerivation {
           glib
           gtk3
         ]
-      }
+      } \
+      --prefix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
+      --prefix GIO_EXTRA_MODULES : "${glib.out}/lib/gio/modules"
 
     runHook postInstall
   '';
