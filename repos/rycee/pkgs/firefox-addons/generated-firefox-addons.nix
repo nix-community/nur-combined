@@ -2900,10 +2900,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260508.144322";
+      version = "150.0.20260511.200624";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4797346/dansk_da_language_pack-151.0.20260508.144322.xpi";
-      sha256 = "1f83d1b756c1da3416ef2141f3be1f776a3978789c1dd5dc9be03ee95401350e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4801605/dansk_da_language_pack-150.0.20260511.200624.xpi";
+      sha256 = "199f6d22f0b389032815f48a4d7f588da9399f0ea707fcbd99505eb5ff255050";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3114,10 +3114,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260508.144322";
+      version = "150.0.20260511.200624";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4797378/deutsch_de_language_pack-151.0.20260508.144322.xpi";
-      sha256 = "a1201e1e4f2b3b649d285ab6781ff27dddd8307f22d803f670d711a79fc1d138";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4801602/deutsch_de_language_pack-150.0.20260511.200624.xpi";
+      sha256 = "301c176f1f92abccf29eb38c4508d72df67bd20e41d6623b280e80265c456601";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3621,10 +3621,10 @@
     };
     "duckduckgo-privacy-essentials" = buildMozillaXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2026.1.12";
+      version = "2026.4.28";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4663303/duckduckgo_for_firefox-2026.1.12.xpi";
-      sha256 = "afec0b87108daed3a0017a8a1d5485c196b0a1a27831dc85d53b67400b39e55b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4785961/duckduckgo_for_firefox-2026.4.28.xpi";
+      sha256 = "24513500e5f8d21e13e31274ef55f80b8971d4f0244bf7a1956e66392894b97f";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -4598,10 +4598,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260508.144322";
+      version = "150.0.20260511.200624";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4797312/francais_language_pack-151.0.20260508.144322.xpi";
-      sha256 = "3e0c30994efddeb0eccb87b171296e29d4d4a2f44597a632a3ab73b0bca139bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4801544/francais_language_pack-150.0.20260511.200624.xpi";
+      sha256 = "54ed76f2f2772e5243361a53f0d899abf736e297601450b1e9cf15084e7c7209";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4635,10 +4635,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260508.144322";
+      version = "150.0.20260511.200624";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4797304/gaidhlig_language_pack-151.0.20260508.144322.xpi";
-      sha256 = "22a43847b60473bb9b98dd2c5a1700abc8b30fe2f048f60dd47f8ab0f7cf029e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4801571/gaidhlig_language_pack-150.0.20260511.200624.xpi";
+      sha256 = "bb5af2b796e63c341227679ad85509aab85277aa7fe72ca680ffaeb4d01bae3a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7358,10 +7358,10 @@
     };
     "karakeep" = buildMozillaXpiAddon {
       pname = "karakeep";
-      version = "1.2.10";
+      version = "1.2.11";
       addonId = "addon@karakeep.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4798190/karakeep-1.2.10.xpi";
-      sha256 = "111e9542bbda2df221538b03f437d75b62a48ed9543da7ba3b5f2568957acd0e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4800400/karakeep-1.2.11.xpi";
+      sha256 = "bf090952fb45a322910af468549cd2f41e19635169030bf35144a9224b4a3e50";
       meta = with lib;
       {
         homepage = "https://karakeep.app";
@@ -9870,10 +9870,10 @@
     };
     "metamask" = buildMozillaXpiAddon {
       pname = "metamask";
-      version = "13.27.0";
+      version = "13.28.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4778735/ether_metamask-13.27.0.xpi";
-      sha256 = "438130ff2f16e3d791a93ecfda8512e97fe0a03cf38ba24f8741790e3993a0e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4785425/ether_metamask-13.28.0.xpi";
+      sha256 = "483f206fefab53d5dfadadf6ec9638a97787d02ed552fc6bac5d635c862ccc95";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -13339,10 +13339,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260508.144322";
+      version = "150.0.20260511.200624";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4797375/scots_language_pack-151.0.20260508.144322.xpi";
-      sha256 = "99e56f70720fa47ebeced0ce70c4bfbafc5bbe0315e90f8d9d815f7738c329d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4801609/scots_language_pack-150.0.20260511.200624.xpi";
+      sha256 = "67d6eac3f382c3c036cc91012b5e5b7c1751d9b084e1213d7867463d12e4ac9c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15053,10 +15053,10 @@
     };
     "topcashback-cashback-coupons" = buildMozillaXpiAddon {
       pname = "topcashback-cashback-coupons";
-      version = "7.5.0.0";
+      version = "7.7.1.0";
       addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4675730/topcashback_cashback_coupons-7.5.0.0.xpi";
-      sha256 = "2e92fde0f65e176f723bafd6a855428fe655afed299436b0135a3f349e57be49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4800256/topcashback_cashback_coupons-7.7.1.0.xpi";
+      sha256 = "e54f279a0e77f6e875aa810e910daa8972a33b228fa853d09ac8fa9728a33110";
       meta = with lib;
       {
         homepage = "https://www.topcashback.com";
