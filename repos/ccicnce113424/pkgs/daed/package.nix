@@ -9,6 +9,7 @@
   fetchFromGitHub,
   lib,
   _experimental-update-script-combinators,
+  nixosTests,
   nix-update-script,
 }:
 let
@@ -91,7 +92,7 @@ buildGoModule (finalAttrs: {
     make CFLAGS="-D__REMOVE_BPF_PRINTK -fno-stack-protector -Wno-unused-command-line-argument" \
       NOSTRIP=y \
       WEB_DIST=dist \
-      AppName=${finalAttrs.pname} \
+      AppName=daed \
       VERSION=${finalAttrs.version} \
       OUTPUT=$out/bin/daed \
       bundle
@@ -107,6 +108,7 @@ buildGoModule (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) web;
+    tests = { inherit (nixosTests) daed; };
     updateScript = _experimental-update-script-combinators.sequence [
       (nix-update-script {
         attrPath = "daed.web";

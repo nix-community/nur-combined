@@ -102,7 +102,7 @@ in
         type = types.port;
         default = 12345;
         description = ''
-          Port to be opened. Consist with field `tproxy_port` in config file.
+          Port to be opened. Consist with `Transparent Proxy Port` in daed configuration.
         '';
       };
     };
