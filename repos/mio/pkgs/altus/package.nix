@@ -18,20 +18,25 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "altus";
-  version = "5.7.2";
+  version = "5.8.0";
 
   src = fetchFromGitHub {
     owner = "amanharwara";
     repo = "altus";
     tag = finalAttrs.version;
-    hash = "sha256-cQMi2t0E1EtpGt6/4WZ/Wbgy2tYhZbPmUkKNclQWD4I=";
+    hash = "sha256-a0rRwdMx0WgMfLdRsnKlVLK6HCB0zdTLmZfIYkxQe2g=";
   };
+
+  patches = [
+    # Remove after upstream updates to Yarn 4.14.
+    ./yarn-4.14-support.patch
+  ];
 
   missingHashes = ./missing-hashes.json;
 
   offlineCache = yarn-berry.fetchYarnBerryDeps {
-    inherit (finalAttrs) src missingHashes;
-    hash = "sha256-J1jTh3St2t4UiANM043raL/iSU3313aXAoP0oQnzKGE=";
+    inherit (finalAttrs) src missingHashes patches;
+    hash = "sha256-FBceJN8ejhbwnoPViggFTo+pOP6qjKmFlHVsJIdO27o=";
   };
 
   nativeBuildInputs = [
