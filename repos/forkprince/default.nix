@@ -4,6 +4,7 @@
   lib = import ./lib {inherit pkgs;};
 
   hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
+  twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
   hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
   syslock = lib.callPackage ./pkgs/syslock {};
   nirius = lib.callPackage ./pkgs/nirius {};

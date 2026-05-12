@@ -29,7 +29,8 @@ async function check(file, { config, force, repo = null }) {
   const version = (config.source.skip_prerelease || !config.source.query) ? releases[0].tag_name : eval(`(${JSON.stringify(releases)})${config.source.query}`);
   if (!version) throw new Error("Failed to extract version from GitHub releases");
 
-  const parsed = version.replace(/^v/, "");
+  const prefix = config.source.tag_prefix || "";
+  const parsed = prefix ? version.replace(new RegExp(`^${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`), "") : version.replace(/^v/, "");
 
   console.log(`Latest version: ${parsed}`);
 
