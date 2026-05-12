@@ -14,10 +14,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0asrqg47gp087wvx1cvhy1s7rpqx7r9q8kxnndfpggg3jp8dxrg6";
+      sha256 = "07da9w33fawd8wk6zrqjjhlgil4zry728ycq3ijym93vig9xg740";
       type = "gem";
     };
-    version = "1.1244.0";
+    version = "1.1246.0";
   };
   aws-sdk-core = {
     dependencies = ["aws-eventstream" "aws-partitions" "aws-sigv4" "base64" "bigdecimal" "jmespath" "logger"];
