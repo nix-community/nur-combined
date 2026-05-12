@@ -54,9 +54,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   installPhase = ''
-    cd minegrub
-    mkdir -p $out/grub/themes/minegrub
-    cp *.png *.pf2 theme.txt $out/grub/themes/minegrub
+    mkdir -p $out
+    cp minegrub/*.png minegrub/*.pf2 minegrub/theme.txt $out
   '';
 
   meta = {
