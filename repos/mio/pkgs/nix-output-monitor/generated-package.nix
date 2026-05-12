@@ -36,10 +36,10 @@
 }:
 mkDerivation {
   pname = "nix-output-monitor";
-  version = "2.1.8-unstable-20260117";
+  version = "2.1.8";
   src = fetchzip {
-    url = "https://code.maralorn.de/maralorn/nix-output-monitor/archive/7f35aa1270409bfd6ab947c5a168a07ae796a555.tar.gz";
-    sha256 = "02p9dp33ivfzpq1y4k3kdx0bvvz9p35f8kxfhijaiy4n8i489bbk";
+    url = "https://code.maralorn.de/maralorn/nix-output-monitor/archive/212da5efbd06628f9fefd0c686ff950a1e093911.tar.gz";
+    sha256 = "005a2wyk8yl3zam6wcpgzffn10ch8g6v8yg7b75rq61qf0ia4v1m";
   };
   isLibrary = true;
   isExecutable = true;
@@ -131,7 +131,7 @@ mkDerivation {
   ];
   homepage = "https://code.maralorn.de/maralorn/nix-output-monitor";
   description = "Processes output of Nix commands to show helpful and pretty information";
-  license = lib.licenses.agpl3Plus;
+  license = lib.licensesSpdx."EUPL-1.2";
   mainProgram = "nom";
   maintainers = [ lib.maintainers.maralorn ];
 }
