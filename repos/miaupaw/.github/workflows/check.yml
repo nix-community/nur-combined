@@ -5,6 +5,9 @@ on:
     branches: [master]
   pull_request:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   linux:
     runs-on: ubuntu-latest
@@ -32,9 +35,4 @@ jobs:
       - name: Install mingw linker
         run: sudo apt-get update && sudo apt-get install -y gcc-mingw-w64-x86-64
       - run: cargo check --target x86_64-pc-windows-gnu
-      - run: cargo clippy --target x86_64-pc-windows-gnu -- -D warnings
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-pc-windows-gnu
-          components: clippy
       - run: cargo clippy --target x86_64-pc-windows-gnu -- -D warnings
