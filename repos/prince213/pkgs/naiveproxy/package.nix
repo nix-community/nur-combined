@@ -28,13 +28,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "148.0.7778.96-3";
+  version = "148.0.7778.96-5";
 
   src = fetchFromGitHub {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MX8lnw6RkC36v1Vgxci0/JC3yI31Rokv4fGRvePuVH8=";
+    hash = "sha256-HkiLrCOC1bK6AgyRVk3DzXV6tp5f/qFJpfHep00jPzc=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";

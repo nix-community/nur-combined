@@ -24,14 +24,14 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cronet-go";
-  version = "148.0.7778.96-1-unstable-2026-05-02";
+  version = "148.0.7778.96-1-unstable-2026-05-11";
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "cronet-go";
-    rev = "cd9fcba9981bf69c1aab541887d2758d84dc31f3";
+    rev = "e7f6f6f5b7ce226f686f6cb5d068a63da6657ccd";
     fetchSubmodules = true;
-    hash = "sha256-A2yPsLU3EaUQqmkpQFTEXW0tFfYckj0ZsEEzFMAX/OE=";
+    hash = "sha256-wTgJy/ZfsoTpRJCEEDEAQo/bVK7Tn2z5qnAURveWnKg=";
   };
 
   patches = [
@@ -75,7 +75,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     build-naive = buildGoModule {
       pname = finalAttrs.pname + "-build-naive";
       inherit (finalAttrs) version src;
-      vendorHash = "sha256-tVIKTznnducPfATK151TpC3UV2U852TyclBTSgh/H6U=";
+      vendorHash = "sha256-pyeE+JPuRQEjNzrF+o9jslBcBM1vruuL+I/DCIa2BG0=";
       patches = [
         (replaceVars ./build-naive.patch {
           gn = lib.getExe gn;

@@ -7,13 +7,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aidoku-cli";
-  version = "0-unstable-2026-05-04";
+  version = "0-unstable-2026-05-08";
 
   src = fetchFromGitHub {
     owner = "Aidoku";
     repo = "aidoku-rs";
-    rev = "339b240f49d7d07e6fb77d722b53ab6bfce3961c";
-    hash = "sha256-Anrn8zfKGSUbVjLL4uRJXTyPdxxyk0JJ+P0SoXcK8Gc=";
+    rev = "4c2e2585d1557fc1f9c4c96298446d024f308ee6";
+    hash = "sha256-ZudsgI8Weqygsu9S1e1+xXHCoaGGdSHdBkTlQ7FLdNY=";
   };
 
   cargoHash = "sha256-6I/P/GJzttOHEOYrtkRUf7Mcuoj3fBr6ES1ZVByN7ZU=";
