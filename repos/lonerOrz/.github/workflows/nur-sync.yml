@@ -1,5 +1,9 @@
 name: NUR Sync Check
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 # 触发条件：master 有新提交或手动触发
 on:
   push:
