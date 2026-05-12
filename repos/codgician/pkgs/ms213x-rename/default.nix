@@ -7,7 +7,7 @@
 
 buildGoModule rec {
   pname = "ms213x-rename";
-  version = "0.0.2-unstable-2025-01-14";
+  version = "0-unstable-2025-01-14";
 
   src = fetchFromGitHub {
     owner = "Starainrt";
