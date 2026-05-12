@@ -1,10 +1,1 @@
 extends: MH0386
-queue_rules:
-  - name: Nix Flake
-    allow_queue_branch_edit: true
-    autoqueue: true
-    queue_conditions:
-      - author = renovate[bot]
-      - files ~= ^(flake.lock|devenv.lock)$
-    merge_conditions:
-      - deployment-success = test
