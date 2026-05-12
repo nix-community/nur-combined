@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   buildNpmPackage,
   importNpmLock,
   installDistHook,
@@ -34,5 +35,6 @@ buildNpmPackage (finalAttrs: {
     homepage = "https://github.com/gurucomputing/headscale-ui";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ moraxyc ];
+    broken = stdenv.hostPlatform.isLoongArch64;
   };
 })

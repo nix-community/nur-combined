@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   buildGoModule,
   callPackage,
   sources,
@@ -36,5 +37,6 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "cpa-usage-keeper";
+    broken = stdenv.hostPlatform.isLoongArch64;
   };
 })
