@@ -17,4 +17,12 @@ box64.overrideAttrs (prev: {
       (lib.cmakeBool "WITH_MOLD" true)
       (lib.cmakeBool "STATICBUILD" true)
     ];
+
+  meta.platforms = [
+    "aarch64-linux"
+    "riscv64-linux"
+    "powerpc64le-linux"
+    "loongarch64-linux"
+    "mips64el-linux"
+  ];
 })
