@@ -523,12 +523,12 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "xdg",
-            "rev": "0.16.0",
-            "sha256": "sha256-Urw4KJESiDLEg9fZ8haNlq5iP+P92bcHdgieIR/Xjvg=",
+            "rev": "0.17.0",
+            "sha256": "sha256-+gTXSkGEW8a/2kv61zefKjdcIzcfRKmcb8KN8PcP/Tw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.16.0"
+        "version": "0.17.0"
     },
     "xdg-user-dirs": {
         "cargoLock": null,
