@@ -15,7 +15,7 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "minegrub-theme";
-  version = "2026-04-07";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "Lxtharia";
