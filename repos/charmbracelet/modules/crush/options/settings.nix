@@ -303,7 +303,7 @@ lib.mkOption {
             disable_default_providers = lib.mkOption {
               type = lib.types.nullOr lib.types.bool;
               default = false;
-              description = "Ignore all default/embedded providers. When enabled";
+              description = "Ignore all default/embedded providers. When enabled, providers must be fully specified in the config file with base_url, models, and api_key - no merging with defaults occurs";
             };
 
             disable_metrics = lib.mkOption {
@@ -453,7 +453,7 @@ lib.mkOption {
               extra_body = lib.mkOption {
                 type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
                 default = null;
-                description = "Additional fields to include in request bodies";
+                description = "Additional fields to include in request bodies, only works with openai-compatible providers";
               };
 
               extra_headers = lib.mkOption {
