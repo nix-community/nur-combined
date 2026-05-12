@@ -17,6 +17,15 @@
   glib,
   gtk3,
   lib,
+  # Shell and core utilities
+  bash,
+  coreutils,
+  findutils,
+  gnugrep,
+  gnused,
+  which,
+  perl,
+  python3,
   # Game compatibility
   mesa,
   libglvnd,
@@ -136,6 +145,16 @@ buildFHSEnv {
     nss
     # WebKitGTK networking (required for image loading from CDNs)
     glib-networking
+    # Shell and core utilities (required for game launch scripts)
+    bash
+    coreutils
+    findutils
+    gnugrep
+    gnused
+    which
+    # Wine/Proton support (for downloaded runners)
+    perl
+    python3
     # Game runtime dependencies
     mangohud
     gamemode
