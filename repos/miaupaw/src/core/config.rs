@@ -537,7 +537,7 @@ impl Config {
         toml.push_str("]\n");
         fs::write(&path, toml)
             .map_err(|e| format!("Error writing {:?}: {}", path, e))?;
-        log_step("Config", &format!("Saved history: {:?}", path));
+        log_step("Config", &format!("Saved history: \"{}\"", path.display()));
         Ok(())
     }
 
@@ -549,13 +549,13 @@ impl Config {
             match toml_edit::de::from_str::<Config>(&content) {
                 Ok(mut config) => {
                     loaded_from_config = true;
-                    if !silent { log_step("Config", &format!("Target confirmed: {}", path.display())); }
+                    if !silent { log_step("Config", &format!("Target confirmed: \"{}\"", path.display())); }
                     let legacy_colors = config.history.colors.clone();
                     config.history.colors = Self::load_history_colors(&Self::get_history_path(), legacy_colors);
                     config
                 }
                 Err(e) => {
-                    log_error(&format!("Error parsing {}: {}", path.display(), e));
+                    log_error(&format!("Error parsing \"{}\": {}", path.display(), e));
                     Self::backup_broken_file(&path, "config");
                     log_warn("Falling back to defaults. Backup created.");
                     let _ = fs::write(&path, DEFAULT_CONFIG_TEMPLATE);
@@ -572,7 +572,7 @@ impl Config {
                 &format!(r#"hotkey = "{}""#, DEFAULT_HOTKEY_WINDOWS),
             ); }
             let _ = fs::write(&path, template);
-            log_step("Config", &format!("Initialized new config from template: {}", path.display()));
+            log_step("Config", &format!("Initialized new config from template: \"{}\"", path.display()));
             #[allow(unused_mut)]
             let mut config = Self::default();
             #[cfg(windows)]
@@ -636,7 +636,7 @@ impl Config {
             return;
         }
         if fs::write(&path, output).is_ok() {
-            log_step("Config", &format!("Saved changes: {}", path.display()));
+            log_step("Config", &format!("Saved changes: \"{}\"", path.display()));
         }
     }
 
