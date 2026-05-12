@@ -23,4 +23,5 @@
   ipynb-nvim = pkgs.callPackage ./pkgs/ipynb-nvim {};
   box64-static = pkgs.callPackage ./pkgs/box64-static {};
   esp-config = pkgs.callPackage ./pkgs/esp-config {};
+  direnv-nvim = pkgs.callPackage ./pkgs/direnv-nvim {};
 }
