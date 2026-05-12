@@ -1,0 +1,32 @@
+name: GitHub Agentic Workflows Compile
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+  push:
+    paths:
+      - .github/workflows/**/*.md
+      - .github/workflows/*.md
+permissions:
+  contents: write
+jobs:
+  compile:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Install GH AW CLI
+        uses: github/gh-aw-actions/setup-cli@cc81570b4572ee3ccd62613812c2505f13160de5 # v0.73.0
+      - name: Compile
+        run: gh aw compile
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
+        with:
+          commit_message: "gh-aw: Compile"
+          commit_options: --no-verify
+          push_options: --force
+          file_pattern: .github/
+          
