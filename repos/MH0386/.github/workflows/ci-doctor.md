@@ -18,7 +18,9 @@ if: ${{ github.event.workflow_run.conclusion == 'failure' }}
 
 permissions: read-all
 
-network: defaults
+network:
+  allowed:
+    - default-safe-outputs
 
 safe-outputs:
   create-issue:
@@ -29,6 +31,8 @@ safe-outputs:
 tools:
   cache-memory: true
   web-fetch:
+  github:
+    mode: gh-proxy
 
 engine: codex
 
