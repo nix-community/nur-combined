@@ -175,10 +175,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.5.0";
+    version = "1.5.1";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.0.tar.gz";
-      hash = "sha256-ghclAut2OyfqARYuMTkPmZHIRtdyQXUTqvoluPOTY9k=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.1.tar.gz";
+      hash = "sha256-RquwiHJztecf8DKrMkbPee75YTbAGiyVGgjTPs7gAWI=";
     };
   };
   bilibili = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.0.2";
+    version = "v7.0.4";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.0.2";
-      hash = "sha256-fvnKMkeqFRzF7CTtuoKZzrBQ07VUun/8WXG6PbRg3Zw=";
+      tag = "v7.0.4";
+      hash = "sha256-LvKTPKtzz3m/B5R2EgU1dUlRO/zaJcIRtv+pDKkXBSg=";
     };
   };
   cockpy = {
@@ -988,12 +988,12 @@
   };
   imewlconverter = {
     pname = "imewlconverter";
-    version = "v3.4.0";
+    version = "v3.4.1";
     src = fetchFromGitHub {
       owner = "studyzy";
       repo = "imewlconverter";
-      tag = "v3.4.0";
-      hash = "sha256-Bc2AMTy6qD+B0sS3sylSsR8nY4G3E3zjo+B0Tt+NLnE=";
+      tag = "v3.4.1";
+      hash = "sha256-8ERtMOlMJR7MjUnr+1djpFou0WWKzQTIPiNPTGew3YI=";
     };
   };
   inter-knot = {
@@ -1155,14 +1155,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "9fb382e12fc8264fb1e1379c6b7dab27a42382c5";
+    version = "e2a79a3cb883856dc213f25d0802c65b91f52f96";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "9fb382e12fc8264fb1e1379c6b7dab27a42382c5";
-      hash = "sha256-23Dvz3zxVBnfz8DoJBhApKAg9Xe33VSHUiZE8IntIJI=";
+      rev = "e2a79a3cb883856dc213f25d0802c65b91f52f96";
+      hash = "sha256-zu2Agiwtyz3so9JLfSSxpYpQLKMkc0psX6qYq0LOf84=";
     };
-    date = "2026-05-11";
+    date = "2026-05-12";
   };
   libqcef = {
     pname = "libqcef";
@@ -1239,12 +1239,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9110";
+    version = "b9124";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9110";
-      hash = "sha256-RUIzslenhgcBcXt2z/yE8a1qlsWYeyEEJBKW7jwHk/k=";
+      tag = "b9124";
+      hash = "sha256-ce5PhrBoU+uzRyBozbLyuee5L0f8d8YwgXK4967Ak90=";
     };
   };
   loralib = {
@@ -2043,14 +2043,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "d86f51ac547a8718ddee03efc9399be2e3dc049e";
+    version = "6cc463d3548919140b03db8c98cebc7300fb5a60";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "d86f51ac547a8718ddee03efc9399be2e3dc049e";
-      hash = "sha256-vcfmbcsEiow7Q9A4XMDhHAtBs9wb2HIgjRm8d6OD6fw=";
+      rev = "6cc463d3548919140b03db8c98cebc7300fb5a60";
+      hash = "sha256-2n2/PTVbVpLDxnWA7vh8TWENgCnjUSteShtDSKyBRiI=";
     };
-    date = "2026-05-11";
+    date = "2026-05-12";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";

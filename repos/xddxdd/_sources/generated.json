@@ -329,11 +329,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ghclAut2OyfqARYuMTkPmZHIRtdyQXUTqvoluPOTY9k=",
+            "sha256": "sha256-RquwiHJztecf8DKrMkbPee75YTbAGiyVGgjTPs7gAWI=",
             "type": "url",
-            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.0.tar.gz"
+            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.1.tar.gz"
         },
-        "version": "1.5.0"
+        "version": "1.5.1"
     },
     "bilibili": {
         "cargoLock": null,
@@ -592,12 +592,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.0.2",
-            "sha256": "sha256-fvnKMkeqFRzF7CTtuoKZzrBQ07VUun/8WXG6PbRg3Zw=",
+            "rev": "v7.0.4",
+            "sha256": "sha256-LvKTPKtzz3m/B5R2EgU1dUlRO/zaJcIRtv+pDKkXBSg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.0.2"
+        "version": "v7.0.4"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1920,12 +1920,12 @@
             "name": null,
             "owner": "studyzy",
             "repo": "imewlconverter",
-            "rev": "v3.4.0",
-            "sha256": "sha256-Bc2AMTy6qD+B0sS3sylSsR8nY4G3E3zjo+B0Tt+NLnE=",
+            "rev": "v3.4.1",
+            "sha256": "sha256-8ERtMOlMJR7MjUnr+1djpFou0WWKzQTIPiNPTGew3YI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.4.0"
+        "version": "v3.4.1"
     },
     "inter-knot": {
         "cargoLock": null,
@@ -2241,7 +2241,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-05-11",
+        "date": "2026-05-12",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2253,12 +2253,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "9fb382e12fc8264fb1e1379c6b7dab27a42382c5",
-            "sha256": "sha256-23Dvz3zxVBnfz8DoJBhApKAg9Xe33VSHUiZE8IntIJI=",
+            "rev": "e2a79a3cb883856dc213f25d0802c65b91f52f96",
+            "sha256": "sha256-zu2Agiwtyz3so9JLfSSxpYpQLKMkc0psX6qYq0LOf84=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9fb382e12fc8264fb1e1379c6b7dab27a42382c5"
+        "version": "e2a79a3cb883856dc213f25d0802c65b91f52f96"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2409,12 +2409,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9110",
-            "sha256": "sha256-RUIzslenhgcBcXt2z/yE8a1qlsWYeyEEJBKW7jwHk/k=",
+            "rev": "b9124",
+            "sha256": "sha256-ce5PhrBoU+uzRyBozbLyuee5L0f8d8YwgXK4967Ak90=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9110"
+        "version": "b9124"
     },
     "loralib": {
         "cargoLock": null,
@@ -3977,7 +3977,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-05-11",
+        "date": "2026-05-12",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -3989,12 +3989,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "d86f51ac547a8718ddee03efc9399be2e3dc049e",
-            "sha256": "sha256-vcfmbcsEiow7Q9A4XMDhHAtBs9wb2HIgjRm8d6OD6fw=",
+            "rev": "6cc463d3548919140b03db8c98cebc7300fb5a60",
+            "sha256": "sha256-2n2/PTVbVpLDxnWA7vh8TWENgCnjUSteShtDSKyBRiI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d86f51ac547a8718ddee03efc9399be2e3dc049e"
+        "version": "6cc463d3548919140b03db8c98cebc7300fb5a60"
     },
     "rtpengine-stable": {
         "cargoLock": null,
