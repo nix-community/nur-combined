@@ -13,7 +13,7 @@
 , libdrm
 , gtk3
 , mesa
-, qt515
+, qt5
 , zlib
 , xorg
 , atk
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     libdrm
     gtk3
     mesa
-    qt515.full
+    qt5.full
     zlib
     freetype
     fontconfig
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     libdrm
     gtk3
     mesa
-    qt515.full
+    qt5.full
     zlib
     atk
     nspr

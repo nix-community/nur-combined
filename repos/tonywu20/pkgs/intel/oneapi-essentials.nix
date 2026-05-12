@@ -1,4 +1,5 @@
 { lib
+, autoPatchelfHook
 , stdenv
 , fetchurl
 , glibc
@@ -13,7 +14,7 @@
 , libdrm
 , gtk3
 , mesa
-, qt515
+, qt5
 , zlib
 , xorg
 , atk
@@ -31,6 +32,11 @@
 , freetype
 , fontconfig
 , xml2
+, gcc
+, rdma-core
+, hwloc
+, ucx
+, libpsm2
 }:
 
 stdenv.mkDerivation rec {
@@ -58,7 +64,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ file ];
+  nativeBuildInputs = [ file autoPatchelfHook gcc ];
 
   propagatedBuildInputs = [
     glibc
@@ -72,10 +78,14 @@ stdenv.mkDerivation rec {
     libdrm
     gtk3
     mesa
-    qt515.full
+    qt5.full
     zlib
     freetype
     fontconfig
+    rdma-core
+    hwloc
+    ucx
+    libpsm2
     xorg.xorgproto
     xorg.libX11
     xorg.libXt
@@ -98,7 +108,7 @@ stdenv.mkDerivation rec {
     libdrm
     gtk3
     mesa
-    qt515.full
+    qt5.full
     zlib
     atk
     nspr
@@ -118,6 +128,11 @@ stdenv.mkDerivation rec {
     xorg.libXfixes
     xorg.libXrandr
     xml2
+  ];
+  autoPatchelfIgnoreMissingDeps = [
+    "libQt6*.so.6"
+    "libhwloc.so.5"
+    "libze_loader.so.1"
   ];
 
   phases = [ "installPhase" "fixupPhase" "installCheckPhase" "distPhase" ];
@@ -164,24 +179,28 @@ stdenv.mkDerivation rec {
     rm -rf $out/tmp
   '';
 
+  fixupPhase = ''
+    autoPatchelf $out
+  '';
+
   postFixup = ''
     echo "Fixing rights..."
     chmod u+w -R $out
-    echo "Patching rpath and interpreter..."
-    for dir in `find $out -mindepth 1 -maxdepth 1 -type d`
-    do
-      echo "   $dir"
-      for file in `find $dir -type f -exec file {} + | grep ELF| awk -F: '{print $1}'`
-      do
-          echo "       $file"
-          patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath '$ORIGIN'":${glibc}/lib:$libPath:$dir/latest/lib64:$out/${version_dir}/lib" $file 2>/dev/null || true
-      done
-    done
+    # echo "Patching rpath and interpreter..."
+    # for dir in `find $out -mindepth 1 -maxdepth 1 -type d`
+    # do
+    #   echo "   $dir"
+    #   for file in `find $dir -type f -exec file {} + | grep ELF| awk -F: '{print $1}'`
+    #   do
+    #       echo "       $file"
+    #       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath '$ORIGIN'":$(cat $NIX_CC/nix-support/orig-libc)/lib:$(cat $NIX_CC/nix-support/orig-cc)/lib64:$(cat $NIX_CC/nix-support/orig-cc)/lib" $file 2>/dev/null || true
+    #   done
+    # done
     # Add missing lib into DT_NEEDED of clang
-    clang_binary=`find $out -type f -name "clang"`
-    xfortcom_binary=`find $out -type f -name "xfortcom"`
-    patchelf --add-needed libstdc++.so.6 $clang_binary
-    patchelf --add-needed libstdc++.so.6 $xfortcom_binary
+    # clang_binary=`find $out -type f -name "clang"`
+    # xfortcom_binary=`find $out -type f -name "xfortcom"`
+    # patchelf --add-needed libstdc++.so.6 $clang_binary
+    # patchelf --add-needed libstdc++.so.6 $xfortcom_binary
   '';
 
   meta = {

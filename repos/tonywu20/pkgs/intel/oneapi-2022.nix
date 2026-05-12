@@ -13,7 +13,7 @@
 , libdrm
 , gtk3
 , mesa
-, qt515
+, qt5
 , zlib
 , xorg
 , atk
@@ -46,10 +46,12 @@ stdenv.mkDerivation rec {
     (fetchurl {
       url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262_offline.sh";
       sha256 = "03qx6sb58mkhc7iyc8va4y1ihj6l3155dxwmqj8dfw7j2ma7r5f6";
+      curlOptsList = [ "-Huser-agent: curl/8.13.0" ];
     })
     (fetchurl {
       url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18679/l_HPCKit_p_2022.2.0.191_offline.sh";
       sha256 = "0swz4w9bn58wwqjkqhjqnkcs8k8ms9nn9s8k7j5w6rzvsa6817d2";
+      curlOptsList = [ "-Huser-agent: curl/8.13.0" ];
     })
   ];
 
@@ -67,7 +69,7 @@ stdenv.mkDerivation rec {
     libdrm
     gtk3
     mesa
-    qt515.full
+    qt5.full
     zlib
     freetype
     fontconfig
@@ -93,7 +95,7 @@ stdenv.mkDerivation rec {
     libdrm
     gtk3
     mesa
-    qt515.full
+    qt5.full
     zlib
     atk
     nspr
