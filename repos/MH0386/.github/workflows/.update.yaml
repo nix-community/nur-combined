@@ -1,0 +1,39 @@
+name: Update NUR packages
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+permissions:
+  contents: write
+jobs:
+  update:
+    name: Update
+    runs-on: ubuntu-latest
+    environment: update
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Install nix
+        uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Setup cachix
+        uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
+        with:
+          name: mh0386
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - name: Configure git identity
+        run: |
+          git config user.name "Mohamed Hisham Abdelzaher"
+          git config user.email "mohamed.hisham.abdelzaher@gmail.com"
+      - name: Update
+        run: >-
+          nix shell nixpkgs#nix-update nixpkgs#jq -c sh -lc
+          "nix eval --json .#packages.x86_64-linux | jq -r 'keys[]' | xargs -r -n1 nix-update --commit"
+      - name: Push changes
+        run: git push --no-verify
