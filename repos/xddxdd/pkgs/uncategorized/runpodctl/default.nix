@@ -7,7 +7,7 @@
 buildGoModule (finalAttrs: {
   inherit (sources.runpodctl) pname version src;
 
-  vendorHash = "sha256-8Cdj5ZXmfooEh+MlaROjxVsAW6rZfPW7HNy86qnvAJA=";
+  vendorHash = "sha256-pbHVaNm/mcWQDBmPAYHBLS70VfDY4B3AvKhbNx25eOI=";
 
   postFixup = ''
     rm -f $out/bin/docs

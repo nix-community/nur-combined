@@ -175,10 +175,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.5.1";
+    version = "1.5.2";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.1.tar.gz";
-      hash = "sha256-RquwiHJztecf8DKrMkbPee75YTbAGiyVGgjTPs7gAWI=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.2.tar.gz";
+      hash = "sha256-PlMboCd9IJOEGqzE4TMqP8DDK2L2iXjgt5+6HYAJgJA=";
     };
   };
   bilibili = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.0.4";
+    version = "v7.0.6";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.0.4";
-      hash = "sha256-LvKTPKtzz3m/B5R2EgU1dUlRO/zaJcIRtv+pDKkXBSg=";
+      tag = "v7.0.6";
+      hash = "sha256-KIrz5K47hFhkfVRB/mDjjnge+l4JKUGiLajw/Ur6Rxg=";
     };
   };
   cockpy = {
@@ -818,26 +818,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.10";
+    version = "2026.05.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-ASN.mmdb";
-      hash = "sha256-g27A3SY6bXwLuLJDlRCkhQthqvfEDmNOXFxO8w/qoas=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-ASN.mmdb";
+      hash = "sha256-SoClx3oAz8m9JwA2jnCIGhoTGJbKWtr0C/tP95F/zOk=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.10";
+    version = "2026.05.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-City.mmdb";
-      hash = "sha256-2jPoz77t5Z8FVq3UeXDbo+4HHY/5zta3oCOc93B/Ye8=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-City.mmdb";
+      hash = "sha256-AivTznrDwLcHV6mKy/cR2azW2crbddc05JmB7/E0vu0=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.10";
+    version = "2026.05.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-Country.mmdb";
-      hash = "sha256-XkHcqD3sVtW/kRTqlVrGpWg1CMkwck0h1FanowyxtkY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-Country.mmdb";
+      hash = "sha256-80ZDalYWv4B/Wdtvxe2F70mFP+P6skzden8DeYiXLqo=";
     };
   };
   glauth = {
@@ -1155,14 +1155,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "e2a79a3cb883856dc213f25d0802c65b91f52f96";
+    version = "4956ce72a18ccebb6b6468fa3cef4ba9759b3cf2";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "e2a79a3cb883856dc213f25d0802c65b91f52f96";
-      hash = "sha256-zu2Agiwtyz3so9JLfSSxpYpQLKMkc0psX6qYq0LOf84=";
+      rev = "4956ce72a18ccebb6b6468fa3cef4ba9759b3cf2";
+      hash = "sha256-OMvs91NIMLxpzUBSsOoBJWuSLZ0WTMY0zEiQZ+yiHok=";
     };
-    date = "2026-05-12";
+    date = "2026-05-13";
   };
   libqcef = {
     pname = "libqcef";
@@ -1199,18 +1199,18 @@
   };
   lightpanda-amd64 = {
     pname = "lightpanda-amd64";
-    version = "0.2.9";
+    version = "0.3.0";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.9/lightpanda-x86_64-linux";
-      hash = "sha256-VL65btP2Ob7MT9JjproKabYOXn4D72/lDZxjR6PqOV0=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.0/lightpanda-x86_64-linux";
+      hash = "sha256-JW+Ny0VnbFPCai5aQKmmDYRP6zh9f0PCCSWYL6K+cjo=";
     };
   };
   lightpanda-arm64 = {
     pname = "lightpanda-arm64";
-    version = "0.2.9";
+    version = "0.3.0";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.2.9/lightpanda-aarch64-linux";
-      hash = "sha256-jKHb2a+6w2hGbpWmCHyyiFyoTN08YphxebiycL4SAic=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.0/lightpanda-aarch64-linux";
+      hash = "sha256-ZrBs4swGdDckWTSgeC1XRpHe5j7hws3H6Umy786XZMA=";
     };
   };
   linguaspark-core = {
@@ -1239,12 +1239,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9124";
+    version = "b9134";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9124";
-      hash = "sha256-ce5PhrBoU+uzRyBozbLyuee5L0f8d8YwgXK4967Ak90=";
+      tag = "b9134";
+      hash = "sha256-VqlkBUnVynCZtXAC3q8bBwNjgCxZwpmMpfzorp5EwmM=";
     };
   };
   loralib = {
@@ -2043,14 +2043,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "6cc463d3548919140b03db8c98cebc7300fb5a60";
+    version = "efd96fd820ce8fcd20620b376260bc93550326fe";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "6cc463d3548919140b03db8c98cebc7300fb5a60";
-      hash = "sha256-2n2/PTVbVpLDxnWA7vh8TWENgCnjUSteShtDSKyBRiI=";
+      rev = "efd96fd820ce8fcd20620b376260bc93550326fe";
+      hash = "sha256-zL0FNVKgJ0v414M0ZCyo4jDO8TInJ7EDgcpk0ZlNzbQ=";
     };
-    date = "2026-05-12";
+    date = "2026-05-13";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2074,12 +2074,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.2.0";
+    version = "v2.3.0";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.2.0";
-      hash = "sha256-kv77st3dihVbIXBTjhmBl04h5HneMPo9+zMwAgnldak=";
+      tag = "v2.3.0";
+      hash = "sha256-Lqmo/AZyxTIJjCePIagZosWnQxRZXLC228TaQDSz8Pk=";
     };
   };
   sam-toki-mouse-cursors = {
