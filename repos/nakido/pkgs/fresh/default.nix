@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
   };
 
   pname = "fresh";
-  version = "0.2.21";
+  version = "0.3.5";
 
   src = fetchurl {
     url = "https://github.com/sinelaw/fresh/releases/download/v${version}/fresh-editor-x86_64-unknown-linux-gnu.tar.xz";
-    hash = "sha256-CxXZ9EUmtQZQ2wIa8FQb6Y97R5EwX1YJzktYtxzD0No=";
+    hash = "sha256-cw15MuN05IDqBgjVJulogpyJl1/J6kWUDVTtlKtPDMA=";
   };
 
   nativeBuildInputs = [
