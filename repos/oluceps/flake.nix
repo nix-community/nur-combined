@@ -21,9 +21,14 @@
     nixpkgs-origin-vaul.url = "github:NixOS/nixpkgs?rev=ccfbb9cd5859cc51c9d720b47b08e48d1aff633f";
 
     nix-topology.url = "github:oddlama/nix-topology";
+    limes.url = "/home/riro/Src/limes-project/limes";
     niri = {
       url = "github:YaLTeR/niri";
       # inputs.nixpkgs.follows = "nixpkgs";
+    };
+    auto-cpufreq = {
+      url = "github:AdnanHodzic/auto-cpufreq";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     xwayland-satellite = {
       url = "github:Supreeeme/xwayland-satellite";
@@ -92,8 +97,8 @@
       url = "github:tadfisher/android-nixpkgs";
     };
     # path:/home/riro/Src/flake.nix
-    dae.url = "github:daeuniverse/flake.nix";
-    # dae.url = "/home/elen/Src/flake.nix";
+    # dae.url = "github:daeuniverse/flake.nix";
+    dae.url = "/home/riro/Src/flake.nix";
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;
     nuenv.url = "github:DeterminateSystems/nuenv";

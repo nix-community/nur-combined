@@ -34,6 +34,7 @@
             yggdrasil
             chrony
             dae
+            prometheus
           ])
         )
         ++ [
@@ -41,6 +42,42 @@
         ];
 
       identity.user = "elen";
+
+      environment.etc."alloy/config.alloy".text = ''
+        discovery.relabel "journal" {
+        	targets = []
+        	rule {
+        		source_labels = ["__journal__systemd_unit"]
+        		target_label  = "unit"
+        	}
+        }
+        loki.source.journal "sshd" {
+        	forward_to    = [loki.write.default.receiver]
+        	relabel_rules = discovery.relabel.journal.rules
+        	matches       = "_SYSTEMD_UNIT=sshd.service"
+        	max_age       = "12h0m0s"
+        	labels        = {
+        		host = "${config.networking.hostName}",
+        		job  = "systemd-journal",
+        	}
+        }
+        loki.source.journal "sudo" {
+        	forward_to    = [loki.write.default.receiver]
+        	relabel_rules = discovery.relabel.journal.rules
+        	matches       = "_COMM=sudo"
+        	max_age       = "12h0m0s"
+        	labels        = {
+        		host = "${config.networking.hostName}",
+        		job  = "systemd-journal",
+        	}
+        }
+        loki.write "default" {
+        	endpoint {
+        		url = "http://[fdcc::3]:3030/loki/api/v1/push"
+        	}
+        	external_labels = {}
+        }
+      '';
 
       system = {
         stateVersion = "26.05";
@@ -83,6 +120,7 @@
           ];
         };
         sing-box.enable = true;
+        alloy.enable = true;
       };
 
       nixpkgs = {

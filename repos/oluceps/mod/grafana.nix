@@ -16,6 +16,7 @@
             oauth_allow_insecure_email_lookup = true;
           };
           security.secret_key = "$__file{${config.vaultix.secrets.grafana-secretkey.path}}";
+          feature_toggles.dashboardNewLayouts = true;
         };
       };
       vaultix.secrets = {

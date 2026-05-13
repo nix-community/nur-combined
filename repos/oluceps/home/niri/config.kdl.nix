@@ -67,7 +67,7 @@ in
       // instead of power off.
       // Uncomment this if you would like to configure the power button elsewhere
       // (i.e. logind.conf).
-      // disable-power-key-handling
+      disable-power-key-handling
   }
 
   environment {

@@ -45,7 +45,7 @@
 
       config = {
         vaultix.secrets.caddy = { };
-        networking.firewall = {
+        networking.firewall = lib.mkIf (!config.data.node.${config.networking.hostName}.nat) {
           allowedTCPPorts = [
             80
             443

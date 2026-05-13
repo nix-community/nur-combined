@@ -68,8 +68,14 @@ in
     systemd.services.sing-box = {
       # unitConfig.Conflicts = [ "dnsproxy.service" ];
       wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      after = [
+        "network-online.target"
+        "systemd-networkd-wait-online.service"
+      ];
+      wants = [
+        "network-online.target"
+        "systemd-networkd-wait-online.service"
+      ];
       description = "sing-box Daemon";
       restartIfChanged = false;
       serviceConfig = {

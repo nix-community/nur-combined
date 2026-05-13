@@ -10,11 +10,15 @@
     {
 
       systemd.services = {
-        # systemd-networkd.serviceConfig.TimeoutStopSec = "10s";
-        nix-daemon.serviceConfig = {
-          MemoryAccounting = true;
-          MemoryMax = "90%";
-          OOMScoreAdjust = 500;
+        nix-daemon = {
+
+          # systemd-networkd.serviceConfig.TimeoutStopSec = "10s";
+          serviceConfig = {
+            MemoryAccounting = true;
+            MemoryMax = "90%";
+            OOMScoreAdjust = 500;
+            Slice = "proxy.slice";
+          };
         };
       };
       nix = {
@@ -55,8 +59,8 @@
             # "https://cache.lix.systems"
           ]
           ++ (map (n: "https://${n}.cachix.org") [
-            "nix-community"
-            "nixpkgs-wayland"
+            # "nix-community"
+            # "nixpkgs-wayland"
             "microvm"
             "devenv"
           ]);

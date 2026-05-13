@@ -21,17 +21,14 @@ let
       firewall = {
         enable = true;
         checkReversePath = false;
+        logRefusedConnections = true;
         trustedInterfaces = [
           "virbr0"
           "podman*"
         ];
         allowedUDPPorts = [
-          5353
-          1901
         ];
         allowedTCPPorts = [
-          8080
-          1901
         ];
       };
       nftables = {
@@ -76,7 +73,6 @@ in
             anyInterface = true;
             ignoredInterfaces = [
               "wlan0"
-              "wg0"
             ];
           };
           links = {
@@ -311,7 +307,6 @@ in
               IPv4Forwarding = true;
               IPv6Forwarding = true;
               IPv6AcceptRA = true;
-              MulticastDNS = true;
             };
 
             address = [
@@ -341,12 +336,8 @@ in
           enable = true;
 
           wait-online = {
-            enable = false;
+            enable = true;
             anyInterface = true;
-            ignoredInterfaces = [
-              "wlan0"
-              "wg0"
-            ];
           };
           links = {
 
@@ -412,11 +403,12 @@ in
       }
     ];
   flake.modules.nixos."net/uubboo" =
-    { ... }:
+    { config, ... }:
     lib.mkMerge [
       common
       {
         networking = {
+          hosts = config.data.hosts.${config.networking.hostName};
           hostName = "uubboo";
         };
         systemd.network = {

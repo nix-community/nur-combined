@@ -92,11 +92,19 @@
                   };
                 };
               };
-              encryptedSwap = {
+              # encryptedSwap = {
+              #   size = "16G";
+              #   content = {
+              #     type = "swap";
+              #     randomEncryption = true;
+              #   };
+              # };
+              plainSwap = {
                 size = "16G";
                 content = {
                   type = "swap";
-                  randomEncryption = true;
+                  discardPolicy = "both";
+                  resumeDevice = true; # resume from hiberation from this device
                 };
               };
             };

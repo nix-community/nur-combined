@@ -44,7 +44,6 @@ let
           "rqbit"
           "seed"
           "alert"
-          "tgs"
           "jellyfin"
           "cache"
         ];
@@ -71,6 +70,7 @@ let
         kaambl = sum;
         hastur = sum;
         eihort = sum;
+        uubboo = sum;
       }
     )
       { lib = lib; };
@@ -85,11 +85,10 @@ let
       keys = {
         hashedPasswd = "$y$j9T$dQkjYyrZxZn1GnoZLRRLE1$nvNuCnEvJr9235CX.VXabEUve/Bx00YB5E8Kz/ewZW0";
         ageKey = "age1jr2x2m85wtte9p0s7d833e0ug8xf3cf8a33l9kjprc9vlxmvjycq05p2qq";
-        sshPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEv3S53gBU3Hqvr5o5g+yrn1B7eiaE5Y/OIFlTwU+NEG";
-        sshPubKey2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMDcYqby4TnhKV6xGyuZUtxOmTtXjKYp8r+uCxbGph65";
+        sshPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEv3S53gBU3Hqvr5o5g+yrn1B7eiaE5Y/OIFlTwU+NEG"; # rotated Sat  9 May 04:42:32 +08 2026
+        sshPubKey2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMDcYqby4TnhKV6xGyuZUtxOmTtXjKYp8r+uCxbGph65"; # sept
         skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
         skSshPubKey2 = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIEPx+g4PE7PvUHVHf4LdHvcv4Lb2oEl4isyIQxRJAoApAAAADnNzaDoxNzMzODEwOTE5";
-        rBuildSshPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOspyYctRvUtO2UMSkQEyUmjrTtsyIyIFCfvpJYHa78r";
       };
       node = node-data;
       inherit hosts;

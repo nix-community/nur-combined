@@ -24,10 +24,32 @@
           		target_label  = "unit"
           	}
           }
-          loki.source.journal "journal" {
+          loki.source.journal "sshd" {
               max_age       = "12h0m0s"
               relabel_rules = discovery.relabel.journal.rules
               forward_to    = [loki.write.default.receiver]
+              matches       = "_SYSTEMD_UNIT=sshd.service"
+              labels        = {
+                  host = "${config.networking.hostName}",
+                  job  = "systemd-journal",
+              }
+          }
+          loki.source.journal "sudo" {
+              max_age       = "12h0m0s"
+              relabel_rules = discovery.relabel.journal.rules
+              forward_to    = [loki.write.default.receiver]
+              matches       = "_COMM=sudo"
+              labels        = {
+                  host = "${config.networking.hostName}",
+                  job  = "systemd-journal",
+                  comm = "sudo",
+              }
+          }
+          loki.source.journal "kernel" {
+              max_age       = "12h0m0s"
+              relabel_rules = discovery.relabel.journal.rules
+              forward_to    = [loki.write.default.receiver]
+              matches       = "_TRANSPORT=kernel"
               labels        = {
                   host = "${config.networking.hostName}",
                   job  = "systemd-journal",
@@ -78,8 +100,8 @@
               source  = "dst"
               db      = "${
                 pkgs.fetchurl {
-                  url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.22/GeoLite2-ASN.mmdb";
-                  hash = "sha256-lmVe58V98L3KaMxwR6vwfa97nboE1yodYZeUTZIoIDo=";
+                  url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb";
+                  hash = "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=";
                 }
               }"
               db_type = "asn"
@@ -88,8 +110,8 @@
               source  = "dst"
               db      = "${
                 pkgs.fetchurl {
-                  url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.04.22/GeoLite2-City.mmdb";
-                  hash = "sha256-O2gPxVNp2lddreoNXdaetySWxV0rDemu48JMuW/i1YE=";
+                  url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb";
+                  hash = "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=";
                 }
               }"
               db_type = "city"

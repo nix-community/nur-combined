@@ -42,9 +42,11 @@
             scrutiny
             earlyoom
             dae
+            # limes
             secureboot
             home
             chrony
+            prometheus
             # xray
           ])
         )
@@ -59,8 +61,45 @@
       environment.systemPackages = [
         pkgs.nvtopPackages.intel
         pkgs.chafa
+        pkgs.mcp-grafana
         # pkgs.texlive.combined.scheme-full
       ];
+      environment.etc."alloy/config.alloy".text = ''
+        discovery.relabel "journal" {
+        	targets = []
+        	rule {
+        		source_labels = ["__journal__systemd_unit"]
+        		target_label  = "unit"
+        	}
+        }
+        loki.source.journal "sshd" {
+        	forward_to    = [loki.write.default.receiver]
+        	relabel_rules = discovery.relabel.journal.rules
+        	matches       = "_SYSTEMD_UNIT=sshd.service"
+        	max_age       = "12h0m0s"
+        	labels        = {
+        		host = "${config.networking.hostName}",
+        		job  = "systemd-journal",
+        	}
+        }
+        loki.source.journal "sudo" {
+        	forward_to    = [loki.write.default.receiver]
+        	relabel_rules = discovery.relabel.journal.rules
+        	matches       = "_COMM=sudo"
+        	max_age       = "12h0m0s"
+        	labels        = {
+        		host = "${config.networking.hostName}",
+        		job  = "systemd-journal",
+        		comm = "sudo",
+        	}
+        }
+        loki.write "default" {
+        	endpoint {
+        		url = "http://[fdcc::3]:3030/loki/api/v1/push"
+        	}
+        	external_labels = {}
+        }
+      '';
 
       system = {
         # This headless machine uses to perform heavy task.
@@ -147,7 +186,6 @@
       };
       services = {
         # Did you read the comment?
-
         blueman.enable = true;
         syncthing = {
           enable = true;
@@ -180,6 +218,7 @@
         ];
         sing-box.enable = true;
         gvfs.enable = false;
+        alloy.enable = true;
 
         xserver.videoDrivers = [ "modesetting" ];
       };

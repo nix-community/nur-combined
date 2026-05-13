@@ -44,6 +44,7 @@
             secureboot
             home
             chrony
+            auto-cpufreq
           ])
         )
         ++ [
@@ -112,6 +113,7 @@
           "zswap.enabled=1"
           "zswap.compressor=zstd"
           "zswap.zpool=zsmalloc"
+          "mem_sleep_default=deep"
         ];
 
       };
@@ -127,6 +129,11 @@
           RebootWatchdogSec = "20s";
           RuntimeWatchdogSec = "30s";
         };
+        sleep.settings.Sleep = {
+          HibernateDelaySec = "1m";
+          SuspendState = "mem";
+        };
+        services.sing-box.after = [ "iwd.service" ];
       };
       services = {
         # Did you read the comment?
@@ -138,9 +145,12 @@
 
         blueman.enable = true;
         logind = {
-          settings.Login.HandleLidSwitch = "suspend";
-          settings.Login.HandlePowerKey = "poweroff"; # it sucks. laptop
-          settings.Login.HandlePowerKeyLongPress = "poweroff";
+          settings.Login = {
+            HandleLidSwitch = "suspend-then-hibernate";
+            HandlePowerKey = "hibernate"; # it sucks. laptop
+            HandlePowerKeyLongPress = "poweroff";
+            IdleAction = "suspend";
+          };
         };
 
         metrics.enable = true;

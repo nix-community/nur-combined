@@ -2,7 +2,7 @@
   flake.modules.nixos.sysctl = _: {
     boot.kernel.sysctl = {
       "kernel.panic" = 10;
-      "kernel.sysrq" = 1;
+      "kernel.sysrq" = 183;
       # max read buffer
       # max write buffer
       "fs.file-max" = 6553560;
@@ -17,21 +17,24 @@
       #
       #
       "net.ipv4.conf.all.arp_accept" = 1;
-      "net.ipv4.fib_multipath_hash_policy" = 1;
+      # "net.ipv4.fib_multipath_hash_policy" = 1;
 
       "net.ipv6.conf.all.accept_ra" = 2;
       "net.ipv6.conf.all.forwarding" = 1;
       "net.ipv6.conf.all.accept_redirects" = 0;
       "net.ipv4.conf.all.forwarding" = 1;
       "net.ipv4.conf.all.rp_filter" = 0;
+      "net.ipv6.conf.all.rp_filter" = 0;
+      "net.ipv4.conf.lo.rp_filter" = 0;
+      "net.ipv6.conf.lo.rp_filter" = 0;
 
       # Ignore ICMP broadcasts to avoid participating in Smurf attacks
-      "net.ipv4.icmp_echo_ignore_broadcasts" = 0;
+      "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
       # Ignore bad ICMP errors
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
       # Reverse-path filter for spoof protection
       # SYN flood protection
-      "net.ipv4.tcp_syncookies" = 0;
+      "net.ipv4.tcp_syncookies" = 1;
       "net.ipv4.tcp_syn_retries" = 2;
       # Do not accept ICMP redirects (prevent MITM attacks)
       "net.ipv4.conf.all.secure_redirects" = 1;
@@ -77,6 +80,7 @@
       "vm.swappiness" = 70;
       "vm.max_map_count" = 2147483642;
       "net.ipv4.tcp_ecn" = 1;
+      "net.ipv6.tcp_ecn" = 1;
     };
 
   };

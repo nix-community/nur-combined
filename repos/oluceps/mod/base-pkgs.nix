@@ -15,6 +15,7 @@
             tor
             arti
             oniux
+            conntrack-tools
           ]
 
           [

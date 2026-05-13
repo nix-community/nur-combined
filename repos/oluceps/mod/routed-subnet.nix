@@ -3,8 +3,6 @@
   flake.modules.nixos.routed-subnet =
     {
       lib,
-      pkgs,
-      config,
       ...
     }:
     let

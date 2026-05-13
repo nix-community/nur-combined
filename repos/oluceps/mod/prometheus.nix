@@ -110,7 +110,7 @@
                 job_name = "tg-online";
                 scheme = "http";
                 metrics_path = "/metrics";
-                static_configs = [ { targets = [ "localhost:8087" ]; } ];
+                static_configs = [ { targets = [ "[fdcc::3]:8087" ]; } ];
               }
               {
                 job_name = "seaweedfs_metrics";
@@ -131,7 +131,12 @@
                 job_name = "synapse_metrics";
                 scheme = "http";
                 metrics_path = "/_synapse/metrics";
-                static_configs = [ { targets = [ "localhost:9031" ]; } ];
+                static_configs = [ { targets = [ "[fdcc::3]:9031" ]; } ];
+              }
+              {
+                job_name = "uubboo_wgmesh_metrics";
+                scheme = "http";
+                static_configs = [ { targets = [ "[fdcc::6]:9586" ]; } ];
               }
               {
                 job_name = "chrony_metrics";

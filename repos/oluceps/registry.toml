@@ -25,7 +25,7 @@ user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ8LFIGiv5IEqra7/ky0b0UgWdTGPY1CPA9cH8rMnyf"
 link_local_addr = "fe80::216:3eff:fe66:f780/64"
 wg_key = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg="
-addrs = ["192.168.0.26"]
+addrs = ["192.168.0.70"]
 ygg_pubkey = "6368e736160c39e887509a1fba75e16f357ee92910a44edb77e135bbc87889c5"
 # identifiers = [{ name = "kaambl.local", type = "mdns" }]
 mac = "38:d5:7a:e2:19:7b"

@@ -36,7 +36,7 @@
                   }
                   User ${v.user}
                   AddKeysToAgent yes
-                  ForwardAgent yes
+                  # ForwardAgent yes
             '') hosts
           )}
           Host gitee.com

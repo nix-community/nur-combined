@@ -164,11 +164,12 @@
               v:
               map (a: {
                 Destination = if (getFamily a == "ip6") then a + "/128" else a + "/32";
-                Scope = "link";
               }) v.addrs
             ) (lib.attrValues (lib.filterAttrs (_: v: !v.nat && !v.censor) config.data.node))
           );
-          networkConfig.DHCP = false;
+          networkConfig = {
+            DHCP = false;
+          };
           linkConfig.RequiredForOnline = false;
         };
 

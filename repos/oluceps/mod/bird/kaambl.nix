@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.nixos."bird/uubboo" =
+  flake.modules.nixos."bird/kaambl" =
     { config, ... }:
     {
       imports = [ self.modules.nixos.bird ];

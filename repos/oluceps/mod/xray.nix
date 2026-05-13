@@ -8,6 +8,7 @@
       config = {
 
         systemd.services.xray.restartIfChanged = false;
+        networking.firewall.allowedTCPPorts = [ 54432 ];
         services.xray = {
           enable = true;
           settingsFile = config.xray.configFile;

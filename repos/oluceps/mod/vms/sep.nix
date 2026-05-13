@@ -213,6 +213,10 @@
                   configFile = "/var/lib/hy/config.yml";
                 };
               };
+              services.xray = {
+                enable = true;
+                settingsFile = "/var/lib/hy/xray.json";
+              };
               services.openssh = {
                 enable = true;
                 settings = {

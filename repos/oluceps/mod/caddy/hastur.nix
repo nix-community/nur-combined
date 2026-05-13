@@ -40,15 +40,6 @@
                       handle = [
                         {
                           handler = "reverse_proxy";
-                          upstreams = [ { dial = "localhost:9000"; } ];
-                        }
-                      ];
-                      match = [ { host = [ "s3.nyaw.xyz" ]; } ];
-                    }
-                    {
-                      handle = [
-                        {
-                          handler = "reverse_proxy";
                           headers = {
                             request = {
                               set = {

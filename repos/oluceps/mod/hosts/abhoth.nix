@@ -87,6 +87,42 @@
         };
 
       };
+      environment.etc."alloy/config.alloy".text = ''
+        discovery.relabel "journal" {
+        	targets = []
+        	rule {
+        		source_labels = ["__journal__systemd_unit"]
+        		target_label  = "unit"
+        	}
+        }
+        loki.source.journal "sshd" {
+        	forward_to    = [loki.write.default.receiver]
+        	relabel_rules = discovery.relabel.journal.rules
+        	matches       = "_SYSTEMD_UNIT=sshd.service"
+        	max_age       = "12h0m0s"
+        	labels        = {
+        		host = "${config.networking.hostName}",
+        		job  = "systemd-journal",
+        	}
+        }
+        loki.source.journal "sudo" {
+        	forward_to    = [loki.write.default.receiver]
+        	relabel_rules = discovery.relabel.journal.rules
+        	matches       = "_COMM=sudo"
+        	max_age       = "12h0m0s"
+        	labels        = {
+        		host = "${config.networking.hostName}",
+        		job  = "systemd-journal",
+        	}
+        }
+        loki.write "default" {
+        	endpoint {
+        		url = "http://[fdcc::3]:3030/loki/api/v1/push"
+        	}
+        	external_labels = {}
+        }
+      '';
+
       systemd = {
         enableEmergencyMode = false;
         settings.Manager = {
@@ -95,6 +131,7 @@
         };
       };
       services = {
+        alloy.enable = true;
         yggdrasil.settings.AllowedPublicKeys = [
           "870b1f8c965df2b3220d9d6e4e8457f8f025f641873d00266adb3275d9025f14"
         ];
