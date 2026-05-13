@@ -22,18 +22,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
-  version = "1.17.5-3";
+  version = "1.17.6-2";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "bilibili-linux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bmvpJqoAJSizRCI9WMMHfnldLo0nyhu/TeOKhfs7wPM=";
+    hash = "sha256-AVjN9axrxQ3XRQJyPmx2rkBHCnoIDlvPsfySBi6Dtpw=";
   };
 
   bilibiliInstaller = fetchurl {
-    url = "https://web.archive.org/web/20260214125654/https://dl.hdslb.com/mobile/fixed/bili_win/bili_win-install.exe";
-    hash = "sha256-m0SKH4PPAb/Fi1jcc6pEHMmVBesNQidD4H4pD4jaDnE=";
+    url = "https://dl.hdslb.com/mobile/fixed/bili_win/bili_win-install.exe";
+    hash = "sha256-8KRIBAtQs3TdMqeALDL96QscIozMrvZf/LoEY8q/eco=";
   };
 
   pnpmDeps = fetchPnpmDeps {

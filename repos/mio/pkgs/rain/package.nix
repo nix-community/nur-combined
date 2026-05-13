@@ -1,6 +1,6 @@
 {
   lib,
-  flutter338,
+  flutter,
   fetchFromGitHub,
   copyDesktopItems,
   makeDesktopItem,
@@ -12,15 +12,15 @@
   geoclue2,
 }:
 
-flutter338.buildFlutterApplication rec {
+flutter.buildFlutterApplication rec {
   pname = "rain";
-  version = "1.3.9";
+  version = "1.3.10";
 
   src = fetchFromGitHub {
     owner = "darkmoonight";
     repo = "Rain";
     tag = "v${version}";
-    hash = "sha256-w8bDsb7SfXfnf8Ie1axpW5A+DpwlNendDsbUYoMqHTk=";
+    hash = "sha256-j7b7LzNpEmXBuMP5VqGN+ltzpFi8DTVsAij4aDTJA5Y=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;

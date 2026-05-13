@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  fetchFromGitHub,
   cmake,
   pkg-config,
   boost,
@@ -27,11 +27,14 @@
 
 stdenv.mkDerivation rec {
   pname = "supertux";
-  version = "0.7.0-beta.1";
+  version = "0.7.0-rev.1";
 
-  src = fetchurl {
-    url = "https://github.com/SuperTux/supertux/releases/download/v${version}/SuperTux-v${version}-Source.tar.gz";
-    sha256 = "sha256-3n+NGkVWp0770BUbhIAvcKtyuquf5jtOOCQlsYtqfEE=";
+  src = fetchFromGitHub {
+    owner = "SuperTux";
+    repo = "supertux";
+    tag = "v${version}";
+    hash = "sha256-2eglyRMriDYzAMC480xUM/ZU4bCMK/O+kMCWs4203Lg=";
+    fetchSubmodules = true;
   };
 
   postPatch = ''
@@ -42,24 +45,7 @@ stdenv.mkDerivation rec {
       'cmake_minimum_required(VERSION 3.22)' \
       'cmake_minimum_required(VERSION 4.0)'
 
-    substituteInPlace external/sexp-cpp/CMakeLists.txt --replace-fail \
-      'cmake_minimum_required(VERSION 3.0)' \
-      'cmake_minimum_required(VERSION 4.0)'
-
-    substituteInPlace external/tinygettext/CMakeLists.txt --replace-fail \
-      'cmake_minimum_required(VERSION 3.0)' \
-      'cmake_minimum_required(VERSION 4.0)'
-    substituteInPlace external/SDL_ttf/CMakeLists.txt --replace-fail \
-      'cmake_minimum_required(VERSION 3.0)' \
-      'cmake_minimum_required(VERSION 4.0)'
-    substituteInPlace external/discord-sdk/CMakeLists.txt --replace-fail \
-      'cmake_minimum_required (VERSION 3.2.0)' \
-      'cmake_minimum_required (VERSION 4.0)'
-
     # Fix upstream bug in git_project_version where 'out' variable is undefined
-    substituteInPlace mk/cmake/GetGitRevisionDescription.cmake --replace-fail \
-      'parent_set(''${out} ''${out}-NOTFOUND)' \
-      '# parent_set(''${out} ''${out}-NOTFOUND)'
   '';
 
   nativeBuildInputs = [

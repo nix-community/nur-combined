@@ -66,7 +66,7 @@ let
 
   linuxdeployPluginAppimage = fetchurl {
     url = "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage";
-    hash = "sha256-BPa/jVUOXQVXD5dUB6q/7Bt8/yJh9o5ihMx96e3hi9g=";
+    hash = "sha256-Egjmp7HiZG4/sAbeqQC3K9hI7IYyS5l5t8lD8hHGacg=";
   };
 
   appimageTools =
@@ -99,13 +99,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.10.0";
+  version = "3.11.0";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-0JF35A0/qF5LirMZN5YL/ZSwer2LmrLINX0OarLgryw=";
+    hash = "sha256-mTqwQt5S/8jDKZK6COK+JMxQnc1XT8jKIzyyNIkv65s=";
   };
 
   patches = [

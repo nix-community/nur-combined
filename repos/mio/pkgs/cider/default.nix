@@ -18,19 +18,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cider";
-  version = "1.6.3-unstable-20260321";
+  version = "1.6.3-unstable-2026-05-12";
 
   src = fetchFromGitHub {
     owner = "taoky";
     repo = "Cider";
-    rev = "033400e90ed303bc5ab114c2952d6011f744cd93";
-    hash = "sha256-btVH71WF0QDuElfygPnkWNDAMl/urhwTf7McvAeORf8=";
+    rev = "504436ddbcc569816f4be83eaeaede83983a261a";
+    hash = "sha256-8YaN0/Y+CMa2C+mylN79VMBEplOKNhcDu3UpJMoYfrg=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 2;
-    hash = "sha256-I0bep6dE9ea7ik8wtiQHSYC52v3YbX+7fNEIIVvZ7pE=";
+    hash = "sha256-jaCWK13QhpVoJzCYxZTyqDVqEoNUiBEdrsIFDb+sy2A=";
   };
 
   nativeBuildInputs = [

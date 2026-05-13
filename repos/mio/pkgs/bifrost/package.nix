@@ -30,7 +30,7 @@
   nix,
   coreutils,
   findutils,
-  libsForQt5,
+  kdePackages,
 }:
 
 let
@@ -284,7 +284,7 @@ stdenv.mkDerivation {
               rpm
             ]
             ++ lib.optionals stdenv.isLinux [
-              libsForQt5.kconfig
+              kdePackages.kconfig
             ]
           )
         }:$PATH"

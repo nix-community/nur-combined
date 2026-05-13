@@ -15,7 +15,7 @@ version="${1:-$(
     | tail -n1
 )}"
 
-current_version=$(sed -n 's/^[[:space:]]*version = "\(.*\)";/\1/p' pkgs/downkyicore/package.nix | head -n1)
+current_version=$(sed -n 's/^[[:space:]]*version = "\(.*\)";/\1/p' by-name/downkyicore/package.nix | head -n1)
 
 if [[ -z "$version" ]]; then
   echo "Could not determine version" >&2
@@ -41,8 +41,8 @@ git clone --depth 1 --branch "v${version}" "$repo_url" "$tmpdir/src"
   nuget-to-json "$NUGET_PACKAGES" > "$tmpdir/deps.json"
 )
 
-sed -i "s/version = \\\".*\\\";/version = \\\"${version}\\\";/" pkgs/downkyicore/package.nix
-sed -i "s|hash = \\\"sha256-.*\\\";|hash = \\\"${sri_hash}\\\";|" pkgs/downkyicore/package.nix
+sed -i "s/version = \\\".*\\\";/version = \\\"${version}\\\";/" by-name/downkyicore/package.nix
+sed -i "s|hash = \\\"sha256-.*\\\";|hash = \\\"${sri_hash}\\\";|" by-name/downkyicore/package.nix
 cp "$tmpdir/deps.json" tmp.deps.json
 python - <<'PY'
 import json
@@ -75,7 +75,7 @@ for entry in data:
         filtered[name] = entry
 
 deduped = sorted(filtered.values(), key=lambda item: item["pname"].lower())
-with open("pkgs/downkyicore/deps.json", "w") as fh:
+with open("by-name/downkyicore/deps.json", "w") as fh:
     json.dump(deduped, fh, indent=2, ensure_ascii=False)
 PY
 rm -f tmp.deps.json
@@ -84,8 +84,8 @@ echo "Updated to ${version}"
 
 # Commit changes if inside a git repo
 if command -v git >/dev/null 2>&1 && [ -d .git ]; then
-  if ! git diff --quiet -- pkgs/downkyicore/package.nix pkgs/downkyicore/deps.json; then
-    git add pkgs/downkyicore/package.nix pkgs/downkyicore/deps.json
+  if ! git diff --quiet -- by-name/downkyicore/package.nix by-name/downkyicore/deps.json; then
+    git add by-name/downkyicore/package.nix by-name/downkyicore/deps.json
     git commit -m "downkyicore: ${current_version:-unknown} -> ${version}" || true
   else
     echo "No changes to commit"
