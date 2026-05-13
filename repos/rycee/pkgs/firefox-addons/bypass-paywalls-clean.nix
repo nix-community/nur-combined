@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.6.5";
+  version = "4.3.7.0";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.6.5.xpi";
-  sha256 = "a5a06dfe31f690e5b08c4a335631a1f2bb8d84527480fbf2d8a15b11a06dbffb";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.7.0.xpi";
+  sha256 = "24cbfd2c451b2f76d8c26cd321a511d9a4840d18cf6af7bbb291a5fe211e7357";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -105,7 +105,6 @@ buildFirefoxXpiAddon {
       "*://*.bostonglobe.com/*"
       "*://*.bostonherald.com/*"
       "*://*.braunschweiger-zeitung.de/*"
-      "*://*.brill.com/*"
       "*://*.brisbanetimes.com.au/*"
       "*://*.britannica.com/*"
       "*://*.bt.no/*"
@@ -563,6 +562,7 @@ buildFirefoxXpiAddon {
       "*://*.musicomh.com/*"
       "*://*.mv-voice.com/*"
       "*://*.nation.africa/*"
+      "*://*.nationalgeographic.com.es/*"
       "*://*.nationalgeographic.com/*"
       "*://*.nationalgeographic.it/*"
       "*://*.nationalgeographic.nl/*"

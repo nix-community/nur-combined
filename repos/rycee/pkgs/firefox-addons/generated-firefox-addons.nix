@@ -260,10 +260,10 @@
     };
     "alby" = buildMozillaXpiAddon {
       pname = "alby";
-      version = "3.14.1";
+      version = "3.14.2";
       addonId = "extension@getalby.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4668366/alby-3.14.1.xpi";
-      sha256 = "a9be04bd7b9dba189e808f14a3766aaebdc27b920e27e838497ca073289d5a87";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4730930/alby-3.14.2.xpi";
+      sha256 = "53c7dc0c93d1ddd41cbe8f6c8f29982c9941d4c59d15fa4990f57473db916522";
       meta = with lib;
       {
         homepage = "https://getAlby.com/";
@@ -418,21 +418,21 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "1.3.1";
+      version = "2.1.5";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3865261/archivebox_exporter-1.3.1.xpi";
-      sha256 = "b50223ee208308c40ed6d96c24c7ea2085f956fe45bbe0b1aed9a837a6af73b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4803207/archivebox_exporter-2.1.5.xpi";
+      sha256 = "f262ee47af2b7b74d0710bf65933648a0643cebdf075c4ec29ac3924b9db71ba";
       meta = with lib;
       {
         homepage = "https://github.com/ArchiveBox/archivebox-browser-extension";
         description = "Automatically or manually send pages to your ArchiveBox for archival.";
         license = licenses.mit;
         mozPermissions = [
-          "history"
-          "contextMenus"
           "storage"
-          "alarms"
-          "*://*/*"
+          "scripting"
+          "activeTab"
+          "contextMenus"
+          "unlimitedStorage"
         ];
         platforms = platforms.all;
       };
@@ -2129,10 +2129,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.4.0";
+      version = "4.4.1";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4781190/click_and_read-4.4.0.xpi";
-      sha256 = "1db42d66cd7684cffd0bcb0039d96eae16b24f4b473e262997adeaf51c555346";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4802509/click_and_read-4.4.1.xpi";
+      sha256 = "b2ff4a878ebabd2d6a86afee9805254aa87819d8c51d193c5fd09cebc9783686";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -3765,10 +3765,10 @@
     };
     "elasticvue" = buildMozillaXpiAddon {
       pname = "elasticvue";
-      version = "1.14.0";
+      version = "1.15.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4723810/elasticvue-1.14.0.xpi";
-      sha256 = "fd57c4b6da2bf1a77bcbb116189805b7aec9aa532b068f8b975a836ed43765eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4802717/elasticvue-1.15.0.xpi";
+      sha256 = "cd0bac523334a100a9e51d1a14f919e5a3b61539a3b4517dec6759aedf750061";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -4730,10 +4730,10 @@
     };
     "ghosttext" = buildMozillaXpiAddon {
       pname = "ghosttext";
-      version = "24.8.10";
+      version = "26.5.12";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4334686/ghosttext-24.8.10.xpi";
-      sha256 = "86bfd2d31bf60c88e4ae72dbc1636977e88ce5603d01cf87b981db5b5bb98e21";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4801976/ghosttext-26.5.12.xpi";
+      sha256 = "82b920dae323578d5dc45d0715cf47e01de61b672f6dbcd1f0bd562da1e38ab1";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -7468,10 +7468,10 @@
     };
     "keeper-password-manager" = buildMozillaXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.8.0";
+      version = "17.9.0";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4758734/keeper_password_manager-17.8.0.xpi";
-      sha256 = "0c984fd661b7075d0cb2c51e991d46fa79b55406ec604d554ff96abc2166c6d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4791303/keeper_password_manager-17.9.0.xpi";
+      sha256 = "1fba367bd084ec6d7c4331b0af8e22fa3603b4ca404e8c57422bcf5e2cd5492a";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -7491,6 +7491,7 @@
           "browsingData"
           "webNavigation"
           "scripting"
+          "declarativeNetRequestWithHostAccess"
           "clipboardWrite"
           "http://*/*"
           "https://*/*"
@@ -8818,10 +8819,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.5";
+      version = "1.1.6";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4774299/lockedin_yt-1.1.5.xpi";
-      sha256 = "070cc407e2f714b4240319dd2d58a60442c06b4a0777b644117d8f79355adc07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4803234/lockedin_yt-1.1.6.xpi";
+      sha256 = "b55aa76c4fe32b942fe018cc947312e2738738ac67fd6079ca53631530a421af";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -10537,10 +10538,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.16";
+      version = "13.6.19";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4777406/noscript-13.6.16.xpi";
-      sha256 = "defefcf3b0fab49a1ab085c1b94e51d82b6baf208a49506aeb68641655110f87";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4794904/noscript-13.6.19.xpi";
+      sha256 = "81b5c21eb18dde2ca0b82f5a8664149417a567ba99ebc67959774fb1dc0bf10e";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -13156,10 +13157,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.26114";
+      version = "0.2.0.26122";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4777511/ruffle_rs-0.2.0.26114.xpi";
-      sha256 = "433678637447201283c95d7baaeb042648c5ddd2d1f6498cdbe9db3444af7e9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4788130/ruffle_rs-0.2.0.26122.xpi";
+      sha256 = "1b28adb187e9f9b77f5fc45c1b066b6379cf52b57711346bdb8bae0ce8f8a43a";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -14126,10 +14127,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.3.4";
+      version = "3.3.5";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4799069/statshunters-3.3.4.xpi";
-      sha256 = "48c2c486357e0866bedff70bafa94038aac39cf5d3ab469de003da6c51f2a669";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4802034/statshunters-3.3.5.xpi";
+      sha256 = "fcd7b5a39155b1d37a27154280a5c7c863524e97aaf7e117795a51665e6b2b5f";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -14328,10 +14329,10 @@
     };
     "super-agent" = buildMozillaXpiAddon {
       pname = "super-agent";
-      version = "3.48";
+      version = "4.0";
       addonId = "{a9cc4ef5-1149-47a9-8b94-490f324fe157}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4723028/super_agent-3.48.xpi";
-      sha256 = "0dcb111cc0338a41ba4d417b91bb4aaa84107906b7aa8b83a93f1cfb376f1dc2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4803313/super_agent-4.0.xpi";
+      sha256 = "f39e4c5e6f33b07aacc1e85dc0aa6fad8f00131066a1130e88fbef92da605ce6";
       meta = with lib;
       {
         description = "Super Agent automatically fills out website's cookie consent forms for you based on your preferences. Super Agent will save you a lot of clicks and let you take control of your privacy in a very easy way.";
@@ -15907,10 +15908,10 @@
     };
     "uppity" = buildMozillaXpiAddon {
       pname = "uppity";
-      version = "2.3";
+      version = "2.3.1";
       addonId = "{16cbd87c-eb99-4f5c-9825-83cf13ab7ff8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4798173/uppity-2.3.xpi";
-      sha256 = "8df0d87d548d4e9458303ef50a3eb91826888ff225e3aeaa886d662b0a44a5e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4802346/uppity-2.3.1.xpi";
+      sha256 = "7739ab54756f0f693bc0e84555c5b42a598fff9d9b295432666537fd5834a004";
       meta = with lib;
       {
         homepage = "https://github.com/arantius/uppity";
@@ -17096,10 +17097,10 @@
     };
     "windscribe" = buildMozillaXpiAddon {
       pname = "windscribe";
-      version = "3.4.14.1";
+      version = "3.4.14.2";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4585722/windscribe-3.4.14.1.xpi";
-      sha256 = "ca09e250631e63c259b89934c5b337daefba6206d2ea3714df8bb20ca523ff78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4783903/windscribe-3.4.14.2.xpi";
+      sha256 = "e004d7835b171f45628c57981abe2a0e546f414ea86f255ff79afc4b6d279111";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
@@ -17236,10 +17237,10 @@
     };
     "yomitan" = buildMozillaXpiAddon {
       pname = "yomitan";
-      version = "26.4.6.0";
+      version = "26.4.27.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4764159/yomitan-26.4.6.0.xpi";
-      sha256 = "35a73e6ded9dae9ec289be438209a2bc83b0898944c09589a03484cdbfe68954";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4791598/yomitan-26.4.27.0.xpi";
+      sha256 = "215649b8811d9ce53047188331abde346e0b4093881c0e50b59da434035c0a26";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
