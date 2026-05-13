@@ -8,26 +8,26 @@
     "x86_64-linux": {
       "repo": "imputnet/helium-linux",
       "file": "helium-{version}-x86_64.AppImage",
-      "hash": "sha256-+UE+JqQtxbA5szPvAohapXlES21VBOdNsV6Ej1dRRfs=",
-      "version": "0.12.1.1"
+      "hash": "sha256-6bQuymGyoyusl4t9/z9K2udXH6hL8XNaqvUSlb0XxV0=",
+      "version": "0.12.2.1"
     },
     "aarch64-linux": {
       "repo": "imputnet/helium-linux",
       "file": "helium-{version}-arm64.AppImage",
-      "hash": "sha256-8TJ/1alUtEM7KgZOdc8cmVkIXjKdBbxtEZhO/08Pouo=",
-      "version": "0.12.1.1"
+      "hash": "sha256-HzmIKMd3aAJZcdt6JReCzklFtjIhnPVvrO6kGNvg5zw=",
+      "version": "0.12.2.1"
     },
     "x86_64-darwin": {
       "repo": "imputnet/helium-macos",
       "file": "helium_{version}_x86_64-macos.dmg",
-      "hash": "sha256-ItgbztU/ih8Pe6YVJV7pVphLtpDaEjIWSl6QyI7gUhA=",
-      "version": "0.12.1.1"
+      "hash": "sha256-qY5mnTv4bvKK03nXB8TgeEbKhhncWcMBIsp1t7g+nCc=",
+      "version": "0.12.2.1"
     },
     "aarch64-darwin": {
       "repo": "imputnet/helium-macos",
       "file": "helium_{version}_arm64-macos.dmg",
-      "hash": "sha256-JLziPZ1Hl0WMpOgN5eliSeAjw/NQhtURQZvqWdQdJyk=",
-      "version": "0.12.1.1"
+      "hash": "sha256-dL06YLVdgmZmEzrNJUKld5S+fXWwPMYAqPBD80RMvio=",
+      "version": "0.12.2.1"
     }
   }
 }
