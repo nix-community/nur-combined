@@ -1,15 +1,11 @@
 {
-  inputs,
-  stdenv,
+  nvfetcher-bin ? null,
 }:
 
-let
-  nvfetcher = inputs.nvfetcher.packages.${stdenv.hostPlatform.system}.default or null;
-in
-if nvfetcher == null then
+if nvfetcher-bin == null then
   null
 else
-  nvfetcher.overrideAttrs (
+  nvfetcher-bin.overrideAttrs (
     finalAttrs: prevAttrs: {
       passthru = (prevAttrs.passthru or { }) // {
         _ignoreOverride = true;
