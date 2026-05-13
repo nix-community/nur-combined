@@ -14,10 +14,7 @@ self: super: {
   _nurHasAllModuleArgs = config ? allModuleArgs;
 
   _nurCallPackage = lib.callPackageWith (
-    lib.optionalAttrs (config ? allModuleArgs) {
-      inherit (config.allModuleArgs) self' inputs' system;
-    }
-    // {
+    {
       inherit inputs;
       nixpkgs = super;
     }

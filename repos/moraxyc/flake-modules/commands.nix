@@ -1,10 +1,9 @@
-{ inputs, ... }:
 {
   perSystem =
     {
-      self',
-      pkgs,
       lib,
+      pkgs,
+      config,
       ...
     }:
     let
@@ -14,18 +13,18 @@
         # Nvfetcher
         KEY_FLAG=""
         [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-        ${lib.getExe self'.packages.nvfetcher} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
+        ${lib.getExe config.packages.nvfetcher} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
       '';
     in
     {
       devShells.default = pkgs.mkShell {
-        buildInputs = [
+        inherit (config.pre-commit.settings) shellHook;
+        nativeBuildInputs = config.pre-commit.settings.enabledPackages;
+        buildInputs = with pkgs; [
           updater
-        ]
-        ++ (with pkgs; [
           just
           nix-output-monitor
-        ]);
+        ];
       };
     };
 }

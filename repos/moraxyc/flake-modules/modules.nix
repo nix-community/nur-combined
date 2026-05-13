@@ -1,15 +1,17 @@
 { lib, ... }:
 let
-  generateModules =
-    path:
-    lib.mapAttrs' (name: _: {
-      name = lib.removeSuffix ".nix" name;
-      value = import (path + "/${name}");
-    }) (lib.filterAttrs (name: _: lib.hasSuffix ".nix" name) (builtins.readDir path));
+  modulesFromList =
+    moduleList:
+    lib.listToAttrs (
+      map (path: {
+        name = lib.removeSuffix ".nix" (baseNameOf path);
+        value = import path;
+      }) moduleList
+    );
 in
 {
   flake = {
-    nixosModules = generateModules ../modules/nixos;
-    darwinModules = generateModules ../modules/darwin;
+    nixosModules = modulesFromList (import ../nixos/modules/module-list.nix);
+    darwinModules = modulesFromList (import ../darwin/modules/module-list.nix);
   };
 }

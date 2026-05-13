@@ -265,30 +265,29 @@ in
     systemd.services.alist = {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      preStart =
-        ''
-          umask 0077
-          mkdir -p ${cfg.dataDir}
-          ${utils.genJqSecretsReplacementSnippet cfg.settings "/run/alist/new"}
-        ''
-        + (
-          if cfg.allowModify then
-            ''
-              if [ -e "${cfg.dataDir}/config.json" ]; then
-                cp "${cfg.dataDir}/config.json" /run/alist/old
-                ${lib.getExe pkgs.jq} -s '.[0] * .[1]' /run/alist/old /run/alist/new > /run/alist/result
-                cp /run/alist/result "${cfg.dataDir}/config.json"
-              else
-                cp "/run/alist/new" "${cfg.dataDir}/config.json"
-              fi
-              rm -f /run/alist/{old,new,result}
-            ''
-          else
-            ''
-              cp /run/alist/new "${cfg.dataDir}/config.json"
-              rm -f /run/alist/new
-            ''
-        );
+      preStart = ''
+        umask 0077
+        mkdir -p ${cfg.dataDir}
+        ${utils.genJqSecretsReplacementSnippet cfg.settings "/run/alist/new"}
+      ''
+      + (
+        if cfg.allowModify then
+          ''
+            if [ -e "${cfg.dataDir}/config.json" ]; then
+              cp "${cfg.dataDir}/config.json" /run/alist/old
+              ${lib.getExe pkgs.jq} -s '.[0] * .[1]' /run/alist/old /run/alist/new > /run/alist/result
+              cp /run/alist/result "${cfg.dataDir}/config.json"
+            else
+              cp "/run/alist/new" "${cfg.dataDir}/config.json"
+            fi
+            rm -f /run/alist/{old,new,result}
+          ''
+        else
+          ''
+            cp /run/alist/new "${cfg.dataDir}/config.json"
+            rm -f /run/alist/new
+          ''
+      );
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

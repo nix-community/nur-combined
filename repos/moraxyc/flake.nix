@@ -2,11 +2,17 @@
   description = "Moraxyc's NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
-
     systems.url = "github:nix-systems/triplet";
-
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # extraPackages
     nvfetcher = {
@@ -30,21 +36,15 @@
         ./flake-modules/modules.nix
         ./flake-modules/nix-config.nix
         ./flake-modules/overlay.nix
+        ./flake-modules/treefmt.nix
+        ./flake-modules/git-hooks.nix
       ];
       systems = import inputs.systems;
       flake = {
         lib = import ./lib;
         hydraJobs = {
-          inherit (self) ciPackages;
+          inherit (self) ciPackages nixosTests;
         };
       };
-      perSystem =
-        {
-          pkgs,
-          ...
-        }:
-        {
-          formatter = pkgs.nixfmt-rs;
-        };
     };
 }

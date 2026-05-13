@@ -55,7 +55,7 @@ in
         type = lib.types.bool;
         default = true;
         description = ''
-          Whether the config.yaml is writeable by Nezha.
+          Whether the config.yaml is writable by Nezha.
 
           If this option is disabled, changes on the web interface won't
           be possible. If an config.yaml is present, it will be overwritten.

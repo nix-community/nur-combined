@@ -1,4 +1,5 @@
 # shellcheck shell=bash disable=SC2206
+# shellcheck disable=SC2154
 
 installDistHook() {
     echo "Executing installDistHook"

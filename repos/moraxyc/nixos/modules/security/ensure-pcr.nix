@@ -35,11 +35,11 @@ in
         default = null;
         description = ''
           The expected value of PCR 15 after all luks partitions have been unlocked
-          Should be a 64 character hex string as ouput by the sha256 field of
+          Should be a 64 character hex string as output by the sha256 field of
           'systemd-analyze pcrs 15 --json=short'
           If set to null (the default) it will not check the value.
           If the check fails the boot will abort and you will be dropped into an emergency shell, if enabled.
-          In ermergency shell type:
+          In emergency shell type:
           'systemctl disable check-pcrs'
           'systemctl default'
           to continue booting
@@ -74,7 +74,7 @@ in
             echo "PCR 15 check failed"
             exit 1
           else
-            echo "PCR 15 check suceed"
+            echo "PCR 15 check succeed"
           fi
         '';
         serviceConfig = {
@@ -108,11 +108,11 @@ in
               KeyringMode = "shared";
               OOMScoreAdjust = 500;
               ImportCredential = "cryptsetup.*";
-              ExecStart = ''${getExe' sdcfg.package "systemd-cryptsetup"} attach '${device.name}' '${device.value.device}' '-' '${
+              ExecStart = "${getExe' sdcfg.package "systemd-cryptsetup"} attach '${device.name}' '${device.value.device}' '-' '${
                 device.value.crypttabExtraOpts ++ (optional device.value.allowDiscards "discard")
                 |> concatStringsSep ","
-              }' '';
-              ExecStop = ''${getExe' sdcfg.package "systemd-cryptsetup"} detach '${device.name}' '';
+              }' ";
+              ExecStop = "${getExe' sdcfg.package "systemd-cryptsetup"} detach '${device.name}' ";
             };
             after = [
               "cryptsetup-pre.target"

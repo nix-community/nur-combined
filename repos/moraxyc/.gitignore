@@ -8,3 +8,5 @@ secrets.toml
 /shell.nix
 /maintainers
 /ci
+
+.pre-commit-config.yaml

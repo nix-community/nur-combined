@@ -36,12 +36,4 @@ self: super:
 {
   _nurPackageNames = builtins.attrNames packageFiles;
 }
-// mapAttrs (
-  name: path:
-  let
-    imported = import path;
-    fArgs = if builtins.isFunction imported then builtins.functionArgs imported else { };
-    requiresInputs = fArgs ? inputs' || fArgs ? inputs;
-  in
-  if requiresInputs && !self._nurHasAllModuleArgs then null else self._nurCallPackage imported { }
-) packageFiles
+// mapAttrs (name: path: self._nurCallPackage (import path) { }) packageFiles

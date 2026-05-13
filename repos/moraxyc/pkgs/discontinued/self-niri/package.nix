@@ -16,7 +16,7 @@ if package != null then
         cp -r ${prevAttrs.src} source
         pushd source
           chmod -R +w .
-          patch -p1 < ${./0001-input-Change-swipe-gesture-to-match-four-finger-usag.patch}
+          patch -p1 < ${./0001-input-Change-swipe-gesture-to-match-four-finger-usage.patch}
           patch -p1 < ${./remote-desktop.patch}
         popd
 

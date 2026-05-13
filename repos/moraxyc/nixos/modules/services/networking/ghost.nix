@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.services.gost';
+  cfg = config.services.ghost';
   settingsFormat = pkgs.formats.json { };
   gen-config = pkgs.writeShellApplication {
     name = "gen-config";
@@ -19,10 +19,10 @@ let
 in
 {
   options = {
-    services.gost' = {
+    services.ghost' = {
       enable = lib.mkEnableOption "";
 
-      package = lib.mkPackageOption pkgs "gost" { };
+      package = lib.mkPackageOption pkgs "ghost" { };
 
       settings = lib.mkOption {
         type = lib.types.submodule {
@@ -30,7 +30,7 @@ in
         };
         default = { };
         description = ''
-          The gost configuration, see https://gost.run/ for documentation.
+          The ghost configuration, see https://gost.run/ for documentation.
 
           Options containing secret data should be set to an attribute set
           containing the attribute `_secret` - a string pointing to a file
@@ -40,10 +40,10 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    systemd.services.gost = {
+    systemd.services.ghost = {
       enableStrictShellChecks = true;
       serviceConfig = {
-        RuntimeDirectory = "gost";
+        RuntimeDirectory = "ghost";
         ExecStart = "${lib.getExe cfg.package} -C /run/gost/config.json";
         ExecStartPre = "+${lib.getExe gen-config}";
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p git nix nix-update jq moreutils
+# shellcheck shell=bash
 set -euo pipefail
 
 PKG_DIR="$(realpath "$(dirname "$0")")"
