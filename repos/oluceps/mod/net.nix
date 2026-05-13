@@ -47,7 +47,9 @@ in
     (lib.mkMerge [
       {
         networking = {
-          hosts = config.data.hosts.${config.networking.hostName};
+          hosts = config.data.hosts.${config.networking.hostName} // {
+            "localhost" = [ "alert.nyaw.xyz" ];
+          };
           hostName = "hastur"; # Define your hostname.
           firewall = {
             allowedTCPPorts = [
@@ -148,7 +150,9 @@ in
     (lib.mkMerge [
       {
         networking = {
-          hosts = config.data.hosts.${config.networking.hostName};
+          hosts = config.data.hosts.${config.networking.hostName} // {
+            "localhost" = [ "alert.nyaw.xyz" ];
+          };
           hostName = "eihort"; # Define your hostname.
           firewall = {
             allowedTCPPorts = [ 21027 ];
@@ -408,7 +412,9 @@ in
       common
       {
         networking = {
-          hosts = config.data.hosts.${config.networking.hostName};
+          hosts = config.data.hosts.${config.networking.hostName} // {
+            "localhost" = [ "alert.nyaw.xyz" ];
+          };
           hostName = "uubboo";
         };
         systemd.network = {

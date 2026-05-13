@@ -21,6 +21,20 @@
           inherit replacement;
         }
       ];
+      fqdn_instance_relabel = [
+        {
+          source_labels = [ "__address__" ];
+          regex = "(.+)\.nyaw\.xyz(:\d+)?";
+          target_label = "instance";
+          replacement = "$1";
+        }
+      ];
+      fdcc_instance_relabel = map (name: {
+        source_labels = [ "__address__" ];
+        regex = "\[fdcc::${toString (config.data.node.${name}.id + 1)}\]:\d+";
+        target_label = "instance";
+        replacement = name;
+      }) (builtins.attrNames config.data.node);
 
     in
     {
@@ -30,11 +44,11 @@
           mode = "400";
         };
         prom = {
-          owner = "victoriametrics";
+          owner = "vmagent";
           mode = "400";
         };
         syncthing-hastur-api = {
-          owner = "victoriametrics";
+          owner = "vmagent";
           mode = "400";
         };
       };
@@ -43,7 +57,7 @@
         alertmanager.serviceConfig.LoadCredential = [
           "notifychan:${config.vaultix.secrets.notifychan.path}"
         ];
-        victoriametrics.serviceConfig.LoadCredential = (map (config.fn.genCredPath)) [
+        vmagent.serviceConfig.LoadCredential = (map (config.fn.genCredPath)) [
           "prom"
           "syncthing-hastur-api"
         ];
@@ -51,15 +65,29 @@
 
       services.victoriametrics = {
         enable = true;
-        listenAddress = "[fdcc::3]:9090";
+        listenAddress = "[fdcc::${toString (config.data.node.${config.networking.hostName}.id + 1)}]:9090";
         extraOptions = [
           "-enableTCP6"
+          "-dedup.minScrapeInterval=10s"
         ];
         retentionPeriod = "60d";
+      };
+      services.vmagent = {
+        enable = true;
+        extraArgs = [
+          "-remoteWrite.maxDiskUsagePerURL=1GB"
+          "-remoteWrite.queues=2"
+          "-remoteWrite.url=http://[fdcc::1]:9090/api/v1/write"
+          "-remoteWrite.url=http://[fdcc::3]:9090/api/v1/write"
+          "-remoteWrite.url=http://[fdcc::6]:9090/api/v1/write"
+          "-enableTCP6"
+          "-remoteWrite.tmpDataPath=/var/cache/vmagent"
+        ];
+
         prometheusConfig = {
           scrape_configs =
             let
-              secPath = "/run/credentials/victoriametrics.service/prom";
+              secPath = "/run/credentials/vmagent.service/prom";
             in
             [
               {
@@ -71,6 +99,7 @@
                 };
                 metrics_path = "/caddy";
                 static_configs = [ { inherit targets; } ];
+                relabel_configs = fqdn_instance_relabel;
               }
               {
                 job_name = "ncps";
@@ -79,6 +108,7 @@
                     targets = [ "[fdcc::3]:8501" ];
                   }
                 ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "metrics";
@@ -88,6 +118,7 @@
                   password_file = secPath;
                 };
                 static_configs = [ { inherit targets; } ];
+                relabel_configs = fqdn_instance_relabel;
               }
               {
                 job_name = "metrics-sept";
@@ -111,32 +142,38 @@
                 scheme = "http";
                 metrics_path = "/metrics";
                 static_configs = [ { targets = [ "[fdcc::3]:8087" ]; } ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "seaweedfs_metrics";
                 scheme = "http";
                 static_configs = [ { targets = [ "[fdcc::3]:9768" ]; } ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "centre_psql_metrics";
                 scheme = "http";
                 static_configs = [ { targets = [ "[fdcc::3]:9187" ]; } ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "ntfy_metrics";
                 scheme = "http";
                 static_configs = [ { targets = [ "[fdcc::4]:9099" ]; } ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "synapse_metrics";
                 scheme = "http";
                 metrics_path = "/_synapse/metrics";
                 static_configs = [ { targets = [ "[fdcc::3]:9031" ]; } ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "uubboo_wgmesh_metrics";
                 scheme = "http";
                 static_configs = [ { targets = [ "[fdcc::6]:9586" ]; } ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "chrony_metrics";
@@ -152,26 +189,7 @@
                     ];
                   }
                 ];
-                relabel_configs = [
-                  {
-                    source_labels = [ "__address__" ];
-                    regex = "\[fdcc::1\]:9123";
-                    target_label = "instance";
-                    replacement = "hastur.nyaw.xyz";
-                  }
-                  {
-                    source_labels = [ "__address__" ];
-                    regex = "\[fdcc::2\]:9123";
-                    target_label = "instance";
-                    replacement = "kaambl.nyaw.xyz";
-                  }
-                  {
-                    source_labels = [ "__address__" ];
-                    regex = "\[fdcc::3\]:9123";
-                    target_label = "instance";
-                    replacement = "eihort.nyaw.xyz";
-                  }
-                ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "syncthing_metrics";
@@ -183,16 +201,9 @@
                     ];
                   }
                 ];
-                relabel_configs = [
-                  {
-                    source_labels = [ "__address__" ];
-                    regex = "\[fdcc::1\]:8384";
-                    target_label = "instance";
-                    replacement = "hastur.nyaw.xyz";
-                  }
-                ];
+                relabel_configs = fdcc_instance_relabel;
 
-                authorization.credentials_file = "/run/credentials/victoriametrics.service/syncthing-hastur-api";
+                authorization.credentials_file = "/run/credentials/vmagent.service/syncthing-hastur-api";
 
               }
               {
@@ -206,20 +217,7 @@
                     ];
                   }
                 ];
-                relabel_configs = [
-                  {
-                    source_labels = [ "__address__" ];
-                    regex = "\[fdcc::1\]:3903";
-                    target_label = "instance";
-                    replacement = "hastur.nyaw.xyz";
-                  }
-                  {
-                    source_labels = [ "__address__" ];
-                    regex = "\[fdcc::2\]:3903";
-                    target_label = "instance";
-                    replacement = "kaambl.nyaw.xyz";
-                  }
-                ];
+                relabel_configs = fdcc_instance_relabel;
               }
               {
                 job_name = "stalwart_metrics";
@@ -348,14 +346,24 @@
             ];
         };
       };
-      services.vmalert.instances.main.settings = {
-        "notifier.url" =
-          let
-            cfg = config.services.prometheus;
-          in
-          [ "${cfg.alertmanager.listenAddress}:${toString cfg.alertmanager.port}" ];
-        "datasource.url" = "http://localhost:9090";
-        rule = {
+      services.vmalert.instances.main = {
+        enable = true;
+        settings = {
+          "notifier.url" =
+            let
+              cfg = config.services.prometheus;
+            in
+            [ "http://${cfg.alertmanager.listenAddress}:${toString cfg.alertmanager.port}" ];
+          "datasource.url" = "http://[fdcc::${
+            toString (config.data.node.${config.networking.hostName}.id + 1)
+          }]:9090";
+          "remoteWrite.url" = "http://[fdcc::${
+            toString (config.data.node.${config.networking.hostName}.id + 1)
+          }]:9090";
+          "enableTCP6" = true;
+        };
+
+        rules = {
           groups = [
             {
               name = "metrics";
@@ -393,6 +401,22 @@
                 }
               ];
             }
+            {
+              name = "pier_health";
+              rules = [
+                {
+                  alert = "PierDown";
+                  annotations = {
+                    summary = "bridge node offline";
+                  };
+                  expr = ''up{job="metrics",instance="eihort"} == 0'';
+                  for = "1m";
+                  labels = {
+                    severity = "critical";
+                  };
+                }
+              ];
+            }
           ];
         };
       };
@@ -427,7 +451,7 @@
         alertmanager = {
           enable = true;
           webExternalUrl = "https://alert.nyaw.xyz";
-          listenAddress = "[fdcc::3]";
+          listenAddress = "[fdcc::${toString (config.data.node.${config.networking.hostName}.id + 1)}]";
           port = 9093;
           logLevel = "info";
           extraFlags = [ ''--cluster.listen-address=""'' ];
@@ -445,12 +469,31 @@
                   }
                 ];
               }
+              {
+                name = "bridge-channel";
+                telegram_configs = [
+                  {
+                    bot_token_file = "/run/credentials/alertmanager.service/notifychan";
+                    chat_id = -1003020363451;
+                  }
+                ];
+              }
             ];
             route = {
               receiver = "telegram";
               group_wait = "30s";
               group_interval = "2m";
               repeat_interval = "10m";
+              routes = [
+                {
+                  matchers = [ "alertname = \"PierDown\"" ];
+                  receiver = "bridge-channel";
+                  group_wait = "30s";
+                  group_interval = "2m";
+                  repeat_interval = "20m";
+                  continue = false;
+                }
+              ];
             };
           };
         };
