@@ -43,7 +43,7 @@ let
         printf '%s\n' \
             '[Desktop Entry]' \
             'Name=Instant Eyedropper Reborn' \
-            'Comment=Pixel-perfect color picker. Native Wayland/KWin implementation.' \
+            'Comment=Pixel-perfect color picker. Native Wayland/X11.' \
             "Exec=$HERE/bin/ie-r" \
             'Icon=ie-r' \
             'Type=Application' \

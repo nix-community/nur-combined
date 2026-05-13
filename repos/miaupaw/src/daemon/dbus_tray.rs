@@ -156,7 +156,7 @@ impl TrayItem {
     fn context_menu(&self, _x: i32, _y: i32) {
         log_step("DBus", "ContextMenu → external menu");
         let proxy = self.proxy.clone();
-        tokio::spawn(crate::daemon::rofi_menu::show_menu(proxy));
+        tokio::spawn(crate::daemon::pipe_menu::show_menu(proxy));
     }
 
     // Explicit polite shutdown method (used by new instances)

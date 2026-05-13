@@ -520,7 +520,14 @@ impl X11DaemonApp {
                 }
             }
             Err(e) => {
-                log_warn(&format!("KWin Scripting not available (expected on non-KDE): {}", e));
+                log_warn("KWin Scripting not available (expected on non-KDE):");
+                let err_str = e.to_string();
+                if let Some((first, second)) = err_str.split_once(": ") {
+                    log_warn(&format!("{}:", first));
+                    log_warn(second);
+                } else {
+                    log_warn(&err_str);
+                }
             }
         }
     }
@@ -840,7 +847,12 @@ use crate::core::terminal::print_logo;
 pub fn run_x11_daemon(svc: ColorService) -> Result<()> {
     print_logo();
     log_info("X11 Winit backend active");
-    log_info("SIGUSR1 not available in X11 mode. Use hotkey or tray icon.");
+    log_info("...");
+    log_info("To trigger IE-R, bind system shortcuts to UNIX signals:");
+    log_info("SIGUSR1 (Pick Color): pkill -SIGUSR1 ie-r");
+    log_info("SIGUSR2 (Open Menu):  pkill -SIGUSR2 ie-r");
+    log_info("i3/bspwm/sxhkd example:");
+    log_info("bindsym $mod+Shift+p exec pkill -SIGUSR1 ie-r");
 
     let scout = Scout::new(&svc.config.system.hotkey)?;
 
@@ -867,7 +879,32 @@ pub fn run_x11_daemon(svc: ColorService) -> Result<()> {
 
     // Wire up DBusTray via universal EventSender
     let sender = EventSender::from_winit(proxy);
-    let tray = DBusTray::new(sender)?;
+    let tray = DBusTray::new(sender.clone())?;
+
+    // Universal POSIX signal interception (SIGUSR1/SIGUSR2) via Tokio.
+    // The entire x11.rs module is cfg(unix) gated in mod.rs,
+    // so we can use tokio::signal::unix safely without local cfgs.
+    use tokio::signal::unix::{signal, SignalKind};
+    let sender_sig = sender.clone();
+    rt.spawn(async move {
+        if let (Ok(mut sig1), Ok(mut sig2)) = (
+            signal(SignalKind::user_defined1()),
+            signal(SignalKind::user_defined2()),
+        ) {
+            loop {
+                tokio::select! {
+                    _ = sig1.recv() => {
+                        log_info("Received SIGUSR1 (X11). Launching overlay.");
+                        sender_sig.send(UserEvent::LaunchOverlay(None));
+                    }
+                    _ = sig2.recv() => {
+                        log_info("Received SIGUSR2 (X11). Launching menu.");
+                        tokio::spawn(crate::daemon::pipe_menu::show_menu(sender_sig.clone()));
+                    }
+                }
+            }
+        }
+    });
 
     let mut app = X11DaemonApp::new(svc, tray, scout);
 

@@ -6,7 +6,7 @@ pub mod dbus_tray;
 pub mod about_win;
 pub mod event_sender;
 #[cfg(unix)]
-pub mod rofi_menu;
+pub mod pipe_menu;
 #[cfg(windows)]
 pub mod tray_win;
 pub mod scout;

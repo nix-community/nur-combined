@@ -258,7 +258,7 @@ fn run_wayland_daemon() -> Result<()> {
                 } else if event.signal() == calloop::signals::Signal::SIGUSR2 {
                     log_info("Received SIGUSR2. Launching menu.");
                     let proxy = sender_for_signals.clone();
-                    tokio::spawn(daemon::rofi_menu::show_menu(proxy));
+                    tokio::spawn(daemon::pipe_menu::show_menu(proxy));
                 }
             },
         )

@@ -320,9 +320,9 @@ impl DBusMenu {
         &self,
         _ids: Vec<i32>,
     ) -> Result<(Vec<i32>, Vec<i32>)> {
-        if !crate::daemon::rofi_menu::has_native_popup() {
+        if !crate::daemon::pipe_menu::has_native_popup() {
             let proxy = self.proxy.clone();
-            tokio::spawn(crate::daemon::rofi_menu::show_menu(proxy));
+            tokio::spawn(crate::daemon::pipe_menu::show_menu(proxy));
         }
         Ok((Vec::new(), Vec::new()))
     }
