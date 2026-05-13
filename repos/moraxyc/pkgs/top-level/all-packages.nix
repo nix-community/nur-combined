@@ -4,6 +4,7 @@
   inputs,
   nixpkgs,
   makePackageSet,
+  nur-moraxyc,
 }:
 let
   nurPythonPackagesExtensions = [
@@ -15,7 +16,7 @@ self: super: {
 
   _nurCallPackage = lib.callPackageWith (
     {
-      inherit inputs;
+      inherit inputs nur-moraxyc;
       nixpkgs = super;
     }
     // self

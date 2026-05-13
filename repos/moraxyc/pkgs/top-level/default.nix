@@ -3,6 +3,7 @@
   lib ? pkgs.lib,
   config ? { },
   inputs ? { },
+  self ? null,
   ...
 }:
 let
@@ -20,6 +21,7 @@ let
       inputs
       makePackageSet
       ;
+    nur-moraxyc = self;
     nixpkgs = pkgs;
   };
 

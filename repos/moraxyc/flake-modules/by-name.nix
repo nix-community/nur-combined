@@ -2,6 +2,7 @@
   lib,
   flake-parts-lib,
   inputs,
+  self,
   ...
 }:
 {
@@ -51,6 +52,7 @@
           config
           lib
           inputs
+          self
           ;
       };
     };
