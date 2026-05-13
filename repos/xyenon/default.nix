@@ -93,5 +93,7 @@ rec {
     inherit (pkgs) nh-unwrapped;
     source = sources.nh;
   };
+  waypipe-darwin = callPackage ./pkgs/waypipe-darwin { };
+  cocoa-way = callPackage ./pkgs/cocoa-way { inherit waypipe-darwin; };
   xurl = callPackage ./pkgs/xurl { };
 }
