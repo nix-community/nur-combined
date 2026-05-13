@@ -32,8 +32,10 @@ jobs:
           git config user.name "Mohamed Hisham Abdelzaher"
           git config user.email "mohamed.hisham.abdelzaher@gmail.com"
       - name: Update
+        env:
+          NIXPKGS_ALLOW_UNFREE: "1"
         run: >-
           nix shell nixpkgs#nix-update nixpkgs#jq -c sh -lc
-          "nix eval --json .#packages.x86_64-linux | jq -r 'keys[]' | xargs -r -n1 nix-update --commit"
+          "nix eval --impure --json .#packages.x86_64-linux | jq -r 'keys[]' | xargs -r -n1 nix-update --commit"
       - name: Push changes
         run: git push --no-verify

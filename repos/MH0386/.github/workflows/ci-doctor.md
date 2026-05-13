@@ -7,7 +7,7 @@ description: |
 
 on:
   workflow_run:
-    workflows: ["Build and populate cache"] # Monitor the CI workflow specifically
+    workflows: ["Build and populate cache", "Update NUR packages", "GitHub Agentic Workflows Compile"] # Monitor the CI workflow specifically
     types:
       - completed
     branches:
