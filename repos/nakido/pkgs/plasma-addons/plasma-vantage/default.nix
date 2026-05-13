@@ -12,7 +12,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.mpl20;
     sourceProvenance = with sourceTypes; [ fromSource ];
     platforms = platforms.linux;
-    mainProgram = null;
   };
 
   pname = "plasma-vantage";

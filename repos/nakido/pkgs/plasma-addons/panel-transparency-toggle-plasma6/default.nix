@@ -11,7 +11,6 @@ stdenvNoCC.mkDerivation {
     license = licenses.gpl2Only;
     sourceProvenance = with sourceTypes; [ fromSource ];
     platforms = platforms.linux;
-    mainProgram = null;
   };
 
   pname = "panel-transparency-toggle-plasma6";

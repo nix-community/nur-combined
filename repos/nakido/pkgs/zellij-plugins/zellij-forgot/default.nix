@@ -11,7 +11,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.free; # TODO License not defined in repo
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = platforms.linux;
-    mainProgram = null;
   };
 
   pname = "zellij-forgot";

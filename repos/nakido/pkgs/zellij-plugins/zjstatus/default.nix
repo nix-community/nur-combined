@@ -11,7 +11,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.mit;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = platforms.linux;
-    mainProgram = null;
   };
 
   pname = "zjstatus";
