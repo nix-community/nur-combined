@@ -22,7 +22,8 @@
   docker-sandboxes = pkgs.callPackage ./pkgs/docker-sandboxes { };
   multica = pkgs.callPackage ./pkgs/multica { };
   gh-aw = pkgs.callPackage ./pkgs/gh-aw { };
-  
+  tinyfish = pkgs.callPackage ./pkgs/tinyfish { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
