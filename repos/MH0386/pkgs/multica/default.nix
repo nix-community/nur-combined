@@ -7,7 +7,7 @@
 
 appimageTools.wrapType2 rec {
   pname = "multica";
-  version = "0.2.24";
+  version = "0.2.32";
 
   src =
     passthru.sources.${stdenv.hostPlatform.system}
@@ -17,7 +17,7 @@ appimageTools.wrapType2 rec {
     sources = {
       x86_64-linux = fetchurl {
         url = "https://github.com/multica-ai/multica/releases/download/v${version}/multica-desktop-${version}-linux-x86_64.AppImage";
-        hash = "sha256-nKzrF36lffpTmW/x/c7lvAcJSW9TAsAIPALPIjgD/gw=";
+        hash = "sha256-MW43x9ufmGdxpIynLppPmZ1l20kTEM0feoVfaARcJWs=";
       };
       aarch64-linux = fetchurl {
         url = "https://github.com/multica-ai/multica/releases/download/v${version}/multica-desktop-${version}-linux-arm64.AppImage";

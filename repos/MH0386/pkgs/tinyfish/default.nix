@@ -6,11 +6,11 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "tinyfish";
-  version = "0.1.5";
+  version = "0.1.6";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@tiny-fish/cli/-/cli-${finalAttrs.version}.tgz";
-    hash = "sha256-l2APVx3y6OQq4fkjCVex6OoT8DmLT9mq2HabzVVbwN0=";
+    hash = "sha256-vmZjZYKnJ8IadMl1Gq9Q84YXQcNhfVmLQp/lrr4SHQI=";
   };
 
   npmDepsHash = "sha256-cDQ6nv7WzpdYvv2DX601jGsWKDxvJ1YmiIwIDqvplPc=";

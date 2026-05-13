@@ -11,7 +11,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "docker-sandboxes";
-  version = "0.28.3";
+  version = "0.29.0";
 
   src =
     finalAttrs.passthru.sources.${stdenv.hostPlatform.system}
@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     sources = {
       x86_64-linux = fetchurl {
         url = "https://github.com/docker/sbx-releases/releases/download/v${finalAttrs.version}/DockerSandboxes-linux.tar.gz";
-        hash = "sha256-vIAA2Z0NjSXcDTk71d/CHWf6O/COCGunCylN6RVqWDE=";
+        hash = "sha256-mweLT49D93t5SdldPSj9wYPTWu8/ruce3oAWX/Gotz0=";
       };
     };
   };
