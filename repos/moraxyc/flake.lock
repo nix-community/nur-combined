@@ -147,16 +147,16 @@
     },
     "systems_2": {
       "locked": {
-        "lastModified": 1752412590,
-        "narHash": "sha256-cuN68pxsh41k/uHlO5CfHyqiqPJhAIgZk0xPNE/2MjE=",
-        "owner": "Moraxyc",
-        "repo": "nix-systems",
-        "rev": "b84721dd32de3875986c6df7ef8a58d04e42a5f3",
+        "lastModified": 1776166891,
+        "narHash": "sha256-bI8yrEGjrohR5hkQox7UrxDH7XqrYMwI8SL/LrJ1+S8=",
+        "owner": "nix-systems",
+        "repo": "triplet",
+        "rev": "6de7bc09397911ce03636afbcf6118745ab2cda0",
         "type": "github"
       },
       "original": {
-        "owner": "Moraxyc",
-        "repo": "nix-systems",
+        "owner": "nix-systems",
+        "repo": "triplet",
         "type": "github"
       }
     }
