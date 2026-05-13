@@ -1,4 +1,5 @@
 # NOTE: I do not want to talk about this package. It is a mess.
+# FIXME: This package is broken on NixOS 25.11 so use unstable or wait for 26.05
 {
   gsettings-desktop-schemas,
   libayatana-appindicator,
