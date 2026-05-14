@@ -5,3 +5,6 @@ local goal="switch" *FLAGS="":
 
 rollback:
   sudo nixos-rebuild test --flake .#local --rollback
+
+iso:
+  nix build .#nixosConfigurations.installer.config.system.build.isoImage

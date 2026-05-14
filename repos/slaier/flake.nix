@@ -56,21 +56,28 @@
         filename = "package.nix";
         transformer = pkg: pkgs.callPackage pkg { };
       };
-      overlays = mylib.fromDirectoryRecursive {
+      packageOverlays = mylib.fromDirectoryRecursive {
+        directory = ./modules;
+        filename = "package.nix";
+        transformer = pkg:
+          let
+            name = builtins.baseNameOf (builtins.dirOf pkg);
+          in
+          final: prev:
+            assert !(lib.hasAttr name prev);
+            {
+              "${name}" = final.callPackage pkg { };
+            };
+      };
+      overlays = (mylib.fromDirectoryRecursive {
         directory = ./modules;
         filename = "overlay.nix";
         transformer = import;
-      };
+      }) // packageOverlays;
     in
     {
-      packages.${system} = (mylib.flattenAttrset packages) // {
-        nixos-installer = pkgs.writeShellScriptBin "nixos-installer" ''
-          exec nixos-install --flake "${self}#${hostname}" "$@"
-        '';
-      };
+      packages.${system} = mylib.flattenAttrset packages;
       formatter.${system} = pkgs.nixpkgs-fmt;
-      inherit overlays;
-      inherit nixosModules;
       nixosConfigurations.${hostname} = lib.nixosSystem {
         modules = with inputs; [
           darkmatter-grub-theme.nixosModule
@@ -91,9 +98,6 @@
               bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
               niri.overlays.niri
               nix-vscode-extensions.overlays.default
-              (final: _prev: {
-                niriswitcher = final.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ni/niriswitcher/package.nix" { };
-              })
             ];
 
             home-manager = {
@@ -110,55 +114,10 @@
           })
         ];
       };
-      nixosConfigurations."ins" = self.nixosConfigurations.${hostname}.extendModules {
-        modules = [
-          {
-            environment.systemPackages = [
-              self.packages.${system}.nixos-fs-init
-              self.packages.${system}.nixos-fs-mount
-              self.packages.${system}.nixos-installer
-            ];
-            networking.hostName = "ins";
-          }
-        ];
-      };
-      nixosConfigurations."ins-iso" = lib.nixosSystem {
+      nixosConfigurations."installer" = lib.nixosSystem {
         inherit system;
         modules = [
-          ({ pkgs, modulesPath, ... }: {
-            imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
-            isoImage.squashfsCompression = "gzip -Xcompression-level 1";
-            environment.systemPackages = with pkgs; [
-              git
-              self.packages.${system}.nixos-fs-init
-              self.packages.${system}.nixos-fs-mount
-              self.packages.${system}.nixos-installer
-            ];
-            environment.etc."install-closure".source =
-              let
-                closureInfo = pkgs.closureInfo {
-                  rootPaths = [
-                    self.nixosConfigurations.${hostname}.config.system.build.toplevel
-                  ];
-                };
-              in
-              "${closureInfo}/store-paths";
-            nix.settings = {
-              auto-allocate-uids = true;
-              auto-optimise-store = true;
-              experimental-features = "auto-allocate-uids cgroups nix-command flakes";
-              substituters = [
-                "https://mirrors.ustc.edu.cn/nix-channels/store"
-                "https://slaier.cachix.org"
-                "https://nix-community.cachix.org"
-              ];
-              trusted-public-keys = [
-                "slaier.cachix.org-1:NyXPOqlxuGWgyn0ApNHMopkbix3QjMUAcR+JOjjxLtU="
-                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-              ];
-              use-cgroups = true;
-            };
-          })
+          ./hosts/installer
         ];
       };
       devShells.${system}.default = with pkgs; mkShell {

@@ -64,5 +64,15 @@ in
       startupNotify = true;
       categories = [ "Network" "WebBrowser" ];
     };
+    "scrcpy" = {
+      name = "scrcpy";
+      genericName = "Android Remote Control";
+      comment = "Display and control your Android device";
+      exec = noproxy "scrcpy --video-bit-rate 16M --render-driver=opengl -f -S";
+      icon = "scrcpy";
+      terminal = false;
+      categories = [ "Utility" "RemoteAccess" ];
+      startupNotify = false;
+    };
   };
 }

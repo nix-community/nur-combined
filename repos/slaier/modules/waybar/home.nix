@@ -58,7 +58,7 @@ in
         smooth-scrolling-threshold = 10;
         on-scroll-up = "${lib.getExe pkgs.playerctl} -p ${player} next";
         on-scroll-down = "${lib.getExe pkgs.playerctl} -p ${player} previous";
-        exec = "${lib.getExe (pkgs.callPackage ./mediaplayer.nix {})} --player ${player} 2> /dev/null";
+        exec = "${lib.getExe pkgs.mediaplayer} --player ${player} 2> /dev/null";
         exec-if = "pgrep ${player}";
         restart-interval = 2;
       };

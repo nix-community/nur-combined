@@ -109,7 +109,7 @@ in
               min-p = 0;
               presence-penalty = 1.5;
               repeat-penalty = 1.0;
-              ctx-size = 32768;
+              ctx-size = 49152;
               ctk = "q8_0";
               ctv = "q8_0";
             };
@@ -184,7 +184,9 @@ in
             ;;
     esac
   '';
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
+    aicommits
+    claude-code-best
     llama-cpp-vulkan
     (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ch/cherry-studio/package.nix" {
       pnpm_10_29_2 = pkgs.pnpm;
@@ -192,7 +194,5 @@ in
     (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/st/stable-diffusion-cpp/package.nix" {
       vulkanSupport = true;
     })
-    (pkgs.callPackage ./aicommits.nix { })
-    (pkgs.callPackage ./claude-code-best.nix { })
   ];
 }
