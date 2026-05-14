@@ -45,6 +45,10 @@
     ];
   };
 
+  environment.variables = {
+    RUSTICL_ENABLE = "radeonsi";
+  };
+
   environment.systemPackages = with pkgs; [
     amdgpu_top
     clinfo
