@@ -1479,6 +1479,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   lingua-rs = callPackage ./pkgs/by-name/li/lingua-rs/package.nix { };
 
+  losslesscut = callPackage ./pkgs/by-name/lo/losslesscut/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
