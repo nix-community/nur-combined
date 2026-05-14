@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+attr="$1"
+
+nix-instantiate \
+  --show-trace \
+  --eval \
+  --json \
+  --arg 'lib' '(import <nixpkgs> { }).lib' \
+  --arg 'pkgs' 'import <nixpkgs> { }' \
+  --attr "$attr" \
+  'library/demo.lib.nix' \
+| jq --join-output '.' # Pending NixOS/nix#7654

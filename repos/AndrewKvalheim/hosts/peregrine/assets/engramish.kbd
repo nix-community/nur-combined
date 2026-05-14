@@ -1,0 +1,33 @@
+(defalias
+  coa (tap-hold-next 200 (around lsft ralt) ralt)
+  s-a (around lsft lalt)
+  tfn (tap-hold-next 200 tab (layer-toggle fn))
+)
+
+(defsrc
+            `                 sys -   =   yen  ]    \
+       tab  1    2    3   4   5   6   7   8    9    0    [
+       g    q    w    e    r    t    y    u    i    o    p
+   caps a    s    d    f    ret  h    j    k    l    ;
+    c    z    x    spc  v    b    n    m    ,   . /  '
+     lalt lctl lmet               lsft ralt rctl rmet ro
+)
+
+
+(deflayer main
+            ░         hangupphone ░   ░   ░    ░    ░
+       ░    ░    ░    ░   ░   ░   ░   ░   ░    ░    ░    ░
+       ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░
+   ░    ░    ░    ░    ░    ░    ░    ░    ░    ░    ░
+    ░    ░    ░    ░    ░    ░    ░    ░    ░   ░ ░  ░
+     ░    ░    @tfn               ░    @coa lalt lmet ░
+)
+
+(deflayer fn
+            ░                 ░   ░   ░   ░    ░    ░
+       ░    ░    ░    ░   ░   ░   ░   ░   ░    ░    ░    ░
+       C-o  esc  pgup up   pgdn ░    ░    ░    ░    ░    ░
+   C-[  home left down rght end  ░    ░    ░    ░    rctl
+    ░    ░    ░    C-p  ░    ░    ░    ░    ░   ░ ░  ░
+     ░    ░    ░                  ░    @s-a ░   ░    ░
+)

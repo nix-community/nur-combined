@@ -1,22 +1,28 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  inherit (config.home) homeDirectory;
+  inherit (lib) escapeShellArg getExe getExe';
+  inherit (pkgs) substitute writeShellScript;
+
+  system = import <nixpkgs/nixos> { };
+in
 {
   imports = [
-    ../../common/user.nix
-    ./local/user.nix
+    ../../user.nix
+    ./user.local.nix
   ];
 
   # Nix
   home.stateVersion = "22.05"; # Permanent
 
+  # System configuration
+  system = system.config;
+
   # Host parameters
   host = {
-    background = "file://${./resources/background.jpg}";
-    cores = 16;
-    display_density = 1.75;
-    display_width = 3840;
+    dir = ./.;
     firefox.profile = "ahrdm58c.default";
-    local = ./local;
   };
 
   # Unfree packages
@@ -25,54 +31,57 @@
   ];
 
   # Display
-  xdg.dataFile."icc/ThinkPad-P16s-OLED.icc".source = ./resources/ThinkPad-P16s-OLED.icc;
+  xdg.dataFile."icc/ThinkPad-P16s-OLED.icc".source = ./assets/ThinkPad-P16s-OLED.icc;
 
-  # Applications
+  # Modules
+  programs.watson.enable = true;
+  programs.yt-dlp.enable = true;
+
+  # Packages
   home.packages = with pkgs; [
     album-art
-    alpaca
     attachments
-    audacity
     awscli2
     calibre
     chromium
     decompiler-mc
     digikam
+    dino
     email-hash
     fastnbt-tools
+    filter-imf
     fontforge-gtk
+    freecad
     gpsprune
     graphviz
     hugin
-    jan
     jitsi-meet-electron
     josm
-    kdenlive
+    kdePackages.kdenlive
     libreoffice
     losslesscut-bin
     mark-applier
     mcaselector
     nvtopPackages.amd
-    python3Packages.meshtastic
     meshtastic-url
     minemap
     nbt-explorer
     picard
-    prismlauncher
+    (prismlauncher.override { jdks = [ jdk25 ]; })
+    prusa-slicer
     qgis
     rapid-photo-downloader
     signal-desktop
     soundconverter
+    tenacity
     thunderbird
-    tor-browser-bundle-bin
+    tor-browser
     transmission_4-gtk
     video-trimmer
-    watson
-    whatsapp-for-linux
+    wasistlos
     whipper
     wireguard-vanity-address
     wireshark
-    yt-dlp
   ];
   xdg.dataFile."JOSM/plugins/imagery_used.jar".source = "${pkgs.josm-imagery-used}/share/JOSM/plugins/imagery_used.jar";
 
@@ -86,17 +95,41 @@
   };
 
   # Password store
-  programs.gopass.settings.mounts.path = "${config.home.homeDirectory}/akorg/resource/password-store";
+  programs.gopass.settings.mounts.path = "${homeDirectory}/akorg/resource/password-store";
 
   # Notes
   programs.joplin-desktop.extraConfig = let filesystem = 2 /* enum */; in {
     "sync.target" = filesystem;
-    "sync.${toString filesystem}.path" = "${config.home.homeDirectory}/akorg/resource/joplin-sync";
+    "sync.${toString filesystem}.path" = "${homeDirectory}/akorg/resource/joplin-sync";
+  };
+
+  # GNOME Shell launcher scripts
+  launcherScripts = with pkgs; {
+    "IMF → filtered IMF" = "kitty ${escapeShellArg (writeShellScript "filter-imf" ''
+        ${getExe' wl-clipboard "wl-paste"} --no-newline --type 'text' \
+        | CLICOLOR_FORCE='✓' ${getExe filter-imf} \
+        | ${getExe' wl-clipboard "wl-copy"} --type 'TEXT'
+      '')}";
+  };
+
+  # Workaround for dino/dino#299
+  xdg.configFile."autostart/im.dino.Dino.desktop".source = substitute {
+    src = "${pkgs.dino}/share/applications/im.dino.Dino.desktop";
+    substitutions = [ "--replace-fail" "Exec=dino %U" "Exec=dino --gapplication-service" ];
+  };
+
+  # Unison
+  services.unison.pairs = {
+    "3d-printing" = {
+      when = "run-media-ak-ANDREW.mount"; # TODO: Provide escapeSystemdPath in Home Manager
+      roots = [ "${homeDirectory}/akorg/project/current/3d-printing" "/run/media/ak/ANDREW/3d-printing" ];
+      commandOptions.fat = "true";
+    };
   };
 
   # Environment
   home.sessionVariables = {
-    ATTACHMENTS_ENV = config.home.homeDirectory + "/.attachments.env";
-    EMAIL_HASH_DB = config.home.homeDirectory + "/akorg/resource/email-hash/email-hash.db";
+    ATTACHMENTS_ENV = "${homeDirectory}/.attachments.env";
+    EMAIL_HASH_DB = "${homeDirectory}/akorg/resource/email-hash/email-hash.db";
   };
 }

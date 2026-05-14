@@ -1,0 +1,14 @@
+Replace dynamic Git hash with placeholder
+
+--- a/build.rs
++++ b/build.rs
+@@ -1,8 +1,2 @@
+-use std::process::Command;
+-
+ fn main() {
+-    let output = Command::new("git")
+-        .args(["rev-parse", "HEAD"])
+-        .output()
+-        .unwrap();
+-    let git_hash = String::from_utf8(output.stdout).unwrap();
++    let git_hash = "@git_hash@";

@@ -48,35 +48,39 @@ sudo nix-channel --add 'https://github.com/xddxdd/nix-math/archive/master.tar.gz
 # User
 nix-channel --add "https://github.com/nix-community/home-manager/archive/release-$RELEASE.tar.gz" 'home-manager'
 nix-channel --add 'https://nixos.org/channels/nixos-unstable' 'unstable'
+nix-channel --add 'https://nixos.org/channels/nixos-unstable-small' 'unstable-small'
 nix-channel --add 'https://github.com/nix-community/nix-vscode-extensions/archive/master.tar.gz' 'community-vscode-extensions'
 ```
 
 Configuration structure:
 
 ```bash
-git clone 'git@gitlab.com:Andrew/configuration.git' "$HOME/src/configuration"
+git clone 'git@codeberg.org/AndrewKvalheim/configuration.git' "$HOME/src/configuration"
 ln -rs "$HOME/src/configuration/hosts/$HOST/system.nix" '/etc/nixos/configuration.nix'
 ln -rs "$HOME/src/configuration/hosts/$HOST/user.nix" "$HOME/.config/home-manager/home.nix"
-ln -rs "$HOME/src/configuration/common/packages.nix" "$HOME/.config/nixpkgs/overlays/packages.nix"
+ln -rs "$HOME/src/configuration/hosts/$HOST/packages.local.nix" "$HOME/.config/nixpkgs/overlays/packages.local.nix"
+ln -rs "$HOME/src/configuration/packages.nix" "$HOME/.config/nixpkgs/overlays/packages.nix"
 ```
 
 GnuPG initialization:
 
 ```bash
-gpg --import 'common/resources/andrew.asc'
+gpg --import 'library/assets/andrew.asc'
 gpg --card-status
 ```
 
 Host-specific secrets:
 
 ```bash
+# /etc/secrets
+sudo mkdir '/etc/secrets'
+sudo chmod o= '/etc/secrets'
+
 # U2F
 pamu2fcfg > '/etc/u2f-mappings' # Keychain
 pamu2fcfg -n >> '/etc/u2f-mappings' # Backup
 
 # Wireguard
-sudo mkdir '/var/lib/wireguard'
-gopass show --password "wireguard/$HOST" | sudo tee '/var/lib/wireguard/wg0.key' >/dev/null
-sudo chown root:systemd-network '/var/lib/wireguard/wg0.key'
-sudo chmod 640 '/var/lib/wireguard/wg0.key'
+gopass show --password "wireguard/$HOST" | sudo tee '/etc/secrets/wg0.key' >/dev/null
+sudo chmod o= '/etc/secrets/wg0.key'
 ```

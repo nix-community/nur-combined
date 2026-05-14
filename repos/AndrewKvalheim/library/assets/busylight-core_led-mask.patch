@@ -1,0 +1,15 @@
+Allow masking BlinkStick LEDs via `LED_MASK`
+
+--- i/src/busylight_core/vendors/agile_innovative/implementation/state.py
++++ w/src/busylight_core/vendors/agile_innovative/implementation/state.py
+@@ -9 +9,2 @@
+ import contextlib
++from os import environ
+@@ -56 +57,2 @@
+         """
++        self._mask = int(environ.get("LED_MASK", 2**nleds - 1))
+@@ -70,2 +72,2 @@
+-        for color in self.colors:
+-            buf.extend(color)
++        for i, color in enumerate(self.colors):
++            buf.extend(color if self._mask >> i & 1 else (0, 0, 0))

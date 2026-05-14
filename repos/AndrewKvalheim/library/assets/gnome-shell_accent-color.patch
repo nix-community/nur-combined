@@ -1,0 +1,7 @@
+Match accent color to custom palette
+
+--- i/src/st/st-theme-context.c
++++ w/src/st/st-theme-context.c
+@@ -35 +35 @@
+-#define ACCENT_COLOR_ORANGE "#ed5b00"
++#define ACCENT_COLOR_ORANGE "#da7e00" /* Palette orange darkened for 3:1 text contrast ratio */

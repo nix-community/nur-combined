@@ -3,10 +3,15 @@
 set -Eeu
 
 root="$(readlink --canonicalize -- "$(dirname -- "$0")/..")"
+pname="${1:-}"
 
 # Mock nixpkgs
-trap 'rm -f "$root/default.nix"' EXIT; cat > "$root/default.nix" << NIX
-{}: import <nixpkgs> { overlays = [ (import ./common/packages.nix) ]; }
+trap 'rm -f "$root/default.nix" "$root/shell.nix"' EXIT
+cat > "$root/default.nix" << NIX
+{}: import <nixpkgs> { overlays = [ (import ./packages.nix) ]; }
+NIX
+cat > "$root/shell.nix" << NIX
+{ pkgs ? import <nixpkgs> { } }: pkgs.mkShell { }
 NIX
 
 # Run update scripts
@@ -14,12 +19,19 @@ nixpkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
   --arg include-overlays "(import $root { }).overlays" \
   --arg keep-going 'true' \
+  --argstr max-workers '8' \
   --arg predicate "(
-    let prefix = \"$root/packages/\"; prefixLen = builtins.stringLength prefix;
-    in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
-  )"
+    let pname = \"$pname\"; prefix = \"$root/library/\"; prefixLen = builtins.stringLength prefix;
+    in (_: p: p.meta ? position && (builtins.substring 0 prefixLen p.meta.position) == prefix && (pname == \"\" || p.pname == pname))
+  )" \
+  --argstr skip-prompt 'true'
 
 # Clean up
 if [[ -f "$root/update-git-commits.txt" ]]; then
   cat "$root/update-git-commits.txt" && rm "$root/update-git-commits.txt"
+fi
+
+# Run external update scripts
+if [[ -z "$pname" || "$pname" == 'buildJosmPlugin' ]]; then
+  "$root"/tasks/update-buildJosmPlugin
 fi

@@ -5,21 +5,29 @@ let
 in
 {
   imports = [
-    ../../common/system.nix
+    ../../system.nix
     <nixos-hardware/common/cpu/intel/alder-lake> # TODO: Contribute P8
     /etc/nixos/hardware-configuration.nix
-    ./local/system.nix
+    ./system.local.nix
   ];
 
   # Host parameters
   host = {
     name = "peregrine";
-    local = ./local;
-    resources = ./resources;
+    dir = ./.;
+    metrics = rec {
+      cpuCores = 4;
+      cpuMarkMulti = 5345;
+      cpuMarkSingle = 1894;
+      displayDensity = 1.0;
+      displayWidth = 1280;
+      ramGb = 12 - vramGb;
+      vramGb = 0 /* 8 MB */;
+    };
   };
 
   # Kernel
-  boot.kernelPackages = pkgs.linuxPackages_6_14;
+  boot.kernelPackages = pkgs.linuxPackages_6_19;
   boot.consoleLogLevel = 3 /* error */; # Hide https://bbs.archlinux.org/viewtopic.php?id=300997
 
   # Display
@@ -32,16 +40,16 @@ in
     #         ░    ░    ░    ░   ░   ░   ░   ░   ░    ░    ░    ⌫
     #         q    w    e    r    t    y    u    i    o    p    ⌦
     #     ░    ░    ░    ░    ░    g    ░    ░    ░    ░    ↵
-    #      ⇧    ░    ░    ░    ░    ░    ░    m    ░   ░ ░  ⇧
-    #       ⎈    ❖    ⎇                  ␣    ░    ⎈   ;    '
+    #      ⇧    ░    ░    c    ░    ░    ░    ░    ░   ░ ░  ⇧
+    #       ⎈    ❖    ⎇                  ␣    ░    ░   ;    '
     #                                            ≣
     # To:
     #              ░                     -   =   ¥    ]    \
     #         ░    ░    ░    ░   ░   ░   ░   ░   ░    ░    ░    [
     #         g    q    w    e    r    t    y    u    i    o    p
     #     ░    ░    ░    ░    ░    ↵    ░    ░    ░    ░    ;
-    #      m    ░    ░    ░    ░    ░    ░    ␣    ░   ░ ░  '
-    #       ⎇    ⎈    ❖                  ⇧    ░    ⎙   ❖    ろ
+    #      c    ░    ░    ␣    ░    ░    ░    ░    ░   ░ ░  '
+    #       ⎇    ⎈    ❖                  ⇧    ░    ░   ❖    ろ
     #                                            ★
     evdev:name:SINO WEALTH USB TOUCHPAD KEYBOARD:*
       KEYBOARD_KEY_7002f=minus
@@ -63,14 +71,13 @@ in
       KEYBOARD_KEY_7004c=p
       KEYBOARD_KEY_7000a=enter
       KEYBOARD_KEY_70028=semicolon
-      KEYBOARD_KEY_700e1=m
-      KEYBOARD_KEY_70010=space
+      KEYBOARD_KEY_700e1=c
+      KEYBOARD_KEY_70006=space
       KEYBOARD_KEY_700e5=apostrophe
       KEYBOARD_KEY_700e0=leftalt
       KEYBOARD_KEY_700e3=leftctrl
       KEYBOARD_KEY_700e2=leftmeta
       KEYBOARD_KEY_7002c=leftshift
-      KEYBOARD_KEY_700e4=sysrq
       KEYBOARD_KEY_70033=rightmeta
       KEYBOARD_KEY_70034=ro
       KEYBOARD_KEY_70065=favorites
@@ -82,15 +89,15 @@ in
 
   # Filesystems
   # TODO: Set `chattr +i` on intermittent mount points
-  fileSystems = let base = { fsType = "nfs"; options = [ "noauto" "user" ]; }; in {
+  fileSystems = let base = { fsType = "nfs4"; options = [ "noauto" "nconnect=4" "noatime" "user" ]; }; in {
     "/home/ak/annex" = base // { device = "closet.home.arpa:/mnt/hdd/home-ak-annex"; };
-    "/home/ak/services-hdd" = base // { device = "closet.home.arpa:/mnt/hdd/services"; };
-    "/home/ak/services-ssd" = base // { device = "closet.home.arpa:/mnt/ssd/services"; };
+    "/home/ak/satellite" = base // { device = "satellite.home.arpa:/home/ak/src/configuration"; };
+    "/home/ak/services" = base // { device = "closet.home.arpa:/mnt/hdd/services"; };
   };
   security.wrappers = with pkgs; {
     # Workaround for NixOS/nixpkgs#24913, NixOS/nixpkgs#9848
-    "mount.nfs" = { source = getExe' nfs-utils "mount.nfs"; owner = "root"; group = "root"; setuid = true; };
-    "umount.nfs" = { source = getExe' nfs-utils "umount.nfs"; owner = "root"; group = "root"; setuid = true; };
+    "mount.nfs4" = { source = getExe' nfs-utils "mount.nfs4"; owner = "root"; group = "root"; setuid = true; };
+    "umount.nfs4" = { source = getExe' nfs-utils "umount.nfs4"; owner = "root"; group = "root"; setuid = true; };
   };
 
   # Networking

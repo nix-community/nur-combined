@@ -1,3 +1,7 @@
 # Local configuration
-local/
-*.local.nix
+*.local.*
+
+# tasks/update
+/default.nix
+/shell.nix
+/update-git-commits.txt

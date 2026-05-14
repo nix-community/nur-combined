@@ -1,19 +1,24 @@
 { pkgs }:
 
+let
+  inherit (builtins) filter toFile;
+  inherit (lib) findFirst hasInfix recursiveUpdate remove versionAtLeast versionOlder warnIf warnIfNot;
+  inherit (pkgs) callPackage fetchFromGitHub lib;
+in
 # Published as nur.repos.AndrewKvalheim (https://nur.nix-community.org/repos/andrewkvalheim/)
 rec {
   hmModules = {
-    nixpkgs-issue-55674 = import ./packages/nixpkgs-issue-55674.nix;
-    xcompose = import ./packages/xcompose.nix;
+    nixpkgs-issue-55674 = import ./library/nixpkgs-issue-55674.user.nix;
+    xcompose = import ./library/xcompose.user.nix;
   };
 
   modules = {
-    nixpkgs-issue-55674 = import ./packages/nixpkgs-issue-55674.nix;
-    nixpkgs-issue-163080 = import ./packages/nixpkgs-issue-163080.nix;
+    nixpkgs-issue-55674 = import ./library/nixpkgs-issue-55674.system.nix;
+    nixpkgs-issue-163080 = import ./library/nixpkgs-issue-163080.system.nix;
   };
 
   lib = {
-    inherit (import ./common/resources/lib.nix { inherit (pkgs) lib; })
+    inherit (import ./library/utilities.lib.nix { inherit (pkgs) lib; })
       chebyshev
       chebyshevWithDomain
       contrastRatio
@@ -21,70 +26,102 @@ rec {
       oklchToCss
       oklchToLinearRgb
       rgbToHex
-      sgr;
+      sgr
+      uniqueBy;
   };
 
-  apex = pkgs.callPackage ./packages/apex.nix { };
-  blocky-ui = pkgs.callPackage ./packages/blocky-ui.nix { };
-  buildJosmPlugin = pkgs.callPackage ./packages/buildJosmPlugin.nix { };
-  cavif = pkgs.callPackage ./packages/cavif.nix { };
-  ch57x-keyboard-tool = pkgs.callPackage ./packages/ch57x-keyboard-tool.nix { };
-  co2monitor = pkgs.callPackage ./packages/co2monitor.nix { };
-  decompiler-mc = pkgs.callPackage ./packages/decompiler-mc.nix { };
-  dmarc-report-notifier = (pkgs.callPackage ./packages/dmarc-report-notifier.nix {
-    python3Packages = (pkgs.python3.override {
-      packageOverrides = resolved: pythonPackages: {
+  ai-robots-txt = callPackage ./library/ai-robots-txt.pkg.nix { };
+  apex = callPackage ./library/apex.pkg.nix { };
+  blocky-ui = callPackage ./library/blocky-ui.pkg.nix { };
+  buildJosmPlugin = callPackage ./library/buildJosmPlugin.fn.nix { };
+  busyserve = (callPackage ./library/busyserve.pkg.nix { });
+  caddy-with-cache-route53 = (pkgs.caddy.withPlugins {
+    plugins = [
+      "github.com/caddy-dns/route53@v1.6.2"
+      "github.com/caddyserver/cache-handler@v0.16.0"
+    ];
+    hash = {
+      "2.11.2@1.25.8" = "sha256-2vfw7z9wWSA41QfYuQaxVmo3Xp2UQtB8ahRkc3Xm4JM=";
+      "2.11.2@1.25.9" = "sha256-lOsLtP+MhLoH8q3J8e1HwoCeSNpoiGwDd6I2YbpklWc=";
+      "2.11.2@1.26.2" = "sha256-4n1XYs6wl2cvULgpFD/P3QMKtMuX1DxDA/NqBZ5E7N8=";
+      "2.11.3@1.26.2" = "sha256-qgfYs26NEVVGFNrfxSg6a782Hn2QJYmPAzNGh9fJyiw=";
+    }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
+  }).overrideAttrs (c: recursiveUpdate c { meta.broken = versionOlder pkgs.go.version "1.25.6"; /* Pending NixOS/nixpkgs#480465 */ });
+  ch57x-keyboard-tool = callPackage ./library/ch57x-keyboard-tool.pkg.nix { };
+  chunker = callPackage ./library/chunker.pkg.nix { };
+  co2monitor = callPackage ./library/co2monitor.pkg.nix { };
+  decompiler-mc = callPackage ./library/decompiler-mc.pkg.nix { };
+  dmarc-report-notifier = callPackage ./library/dmarc-report-notifier.pkg.nix {
+    python313Packages = (pkgs.python313.override {
+      packageOverrides = _: pythonPackages: {
         # Pending NixOS/nixpkgs#337081
-        msgraph-core = pkgs.lib.warnIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
-          (pkgs.lib.findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules);
-        # Pending NixOS/nixpkgs#352871
-        opensearch-py = pythonPackages.opensearch-py.overridePythonAttrs (opensearch-py: {
-          disabledTests = opensearch-py.disabledTests ++ [
-            "test_basicauth_in_request_session"
-            "test_callable_in_request_session"
-            "test_security_plugin"
-          ];
-        });
-        # Pending NixOS/nixpkgs#357642 (followup to NixOS/nixpkgs#345326)
-        parsedmarc = pythonPackages.parsedmarc.overridePythonAttrs (parsedmarc: {
-          propagatedBuildInputs = parsedmarc.propagatedBuildInputs ++ [ resolved.pygelf ];
-        });
-        # Pending NixOS/nixpkgs#357642 (followup to NixOS/nixpkgs#345326)
-        pygelf = pkgs.lib.warnIf (pythonPackages ? pygelf) "python3Packages.pygelf is no longer missing"
-          pythonPackages.buildPythonPackage
-          rec {
-            pname = "pygelf";
-            version = "0.4.2";
-            pyproject = true;
-            src = pythonPackages.fetchPypi {
-              inherit pname version;
-              hash = "sha256-0LuPRf9kipoYdxP0oFwJ9oX8uK3XsEu3Rx8gBxvRGq0=";
-            };
-            build-system = [ pythonPackages.setuptools ];
-          };
+        msgraph-core = warnIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
+          (findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules);
       };
     }).pkgs;
-  }).overrideAttrs (d: {
-    meta = d.meta // {
-      broken = pkgs.lib.versionAtLeast pkgs.python3Packages.httpx.version "0.28"; # Dependency of msgraph-core
-    };
+  };
+  easy-timeline = (callPackage ./library/easy-timeline.pkg.nix { }).overrideAttrs (e: recursiveUpdate e {
+    meta.broken = versionAtLeast pkgs.stdenv.cc.version "15"; # Ploticus is broken by NixOS/nixpkgs#475479
   });
-  fastnbt-tools = pkgs.callPackage ./packages/fastnbt-tools.nix { };
-  fediblockhole = pkgs.callPackage ./packages/fediblockhole.nix { };
-  git-diff-image = pkgs.callPackage ./packages/git-diff-image.nix { };
-  gpx-reduce = pkgs.callPackage ./packages/gpx-reduce.nix { };
-  iptables_exporter = pkgs.callPackage ./packages/iptables_exporter.nix { };
-  josm-imagery-used = pkgs.callPackage ./packages/josm-imagery-used.nix { inherit buildJosmPlugin; };
-  little-a-map = pkgs.callPackage ./packages/little-a-map.nix { };
-  mark-applier = pkgs.callPackage ./packages/mark-applier.nix { };
-  meshtastic-url = pkgs.callPackage ./packages/meshtastic-url.nix { };
-  minemap = pkgs.callPackage ./packages/minemap.nix { };
-  mqtt-connect = pkgs.callPackage ./packages/mqtt-connect.nix { };
-  mqtt-protobuf-to-json = pkgs.callPackage ./packages/mqtt-protobuf-to-json.nix { };
-  nbt-explorer = pkgs.callPackage ./packages/nbt-explorer.nix { };
-  pngquant-interactive = pkgs.callPackage ./packages/pngquant-interactive.nix { };
-  spf-check = pkgs.callPackage ./packages/spf-check.nix { };
-  spf-tree = pkgs.callPackage ./packages/spf-tree.nix { };
-  tile-stitch = pkgs.callPackage ./packages/tile-stitch.nix { };
-  zsh-completion-sync = pkgs.callPackage ./packages/zsh-completion-sync.nix { };
+  fastnbt-tools = callPackage ./library/fastnbt-tools.pkg.nix { };
+  fediblockhole = callPackage ./library/fediblockhole.pkg.nix { };
+  git-diff-image = callPackage ./library/git-diff-image.pkg.nix { };
+  gpx-reduce = callPackage ./library/gpx-reduce.pkg.nix { };
+  incremental-compress = callPackage ./library/incremental-compress.pkg.nix { };
+  iptables_exporter = callPackage ./library/iptables_exporter.pkg.nix { };
+  josm-imagery-used = callPackage ./library/josm-imagery-used.pkg.nix { inherit buildJosmPlugin; };
+  journal-brief = callPackage ./library/journal-brief.pkg.nix { };
+  little-a-map = callPackage ./library/little-a-map.pkg.nix { };
+  mark-applier = callPackage ./library/mark-applier.pkg.nix { };
+  meshtastic-url = (callPackage ./library/meshtastic-url.pkg.nix { }).overrideAttrs (m: recursiveUpdate m {
+    meta.broken = with pkgs.python3Packages; (versionAtLeast "2.7.8" meshtastic.version) && (versionAtLeast tabulate.version "0.10");
+  });
+  minemap = callPackage ./library/minemap.pkg.nix { };
+  nbt-explorer = callPackage ./library/nbt-explorer.pkg.nix { };
+  office-hours = (callPackage ./library/office-hours.pkg.nix {
+    python3 = pkgs.python3.override {
+      packageOverrides = _: pythonPackages: with pythonPackages; {
+        icalendar = warnIf (versionAtLeast icalendar.version "7") "Version override of icalendar is no longer necessary"
+          (icalendar.overridePythonAttrs (icalendar: rec {
+            version = "7.0.3";
+            src = icalendar.src.override { tag = "v${version}"; hash = "sha256-wPzndvrXhxspcdqmm1ile6aXeJQznoM7oCqXRR1zGMw="; };
+            patches = [ (toFile "no-dynamic-version.patch" "--- a/pyproject.toml\n+++ b/pyproject.toml\n@@ -38,4 +38 @@\n-# These attributes are dynamically generated by hatch-vcs\n-dynamic = [\n-    \"version\"\n-]\n+version = \"${version}\"\n") ];
+            outputs = remove "doc" icalendar.outputs;
+            nativeBuildInputs = filter (p: ! hasInfix "sphinx" p.pname) icalendar.nativeBuildInputs;
+          }));
+        sunrisesunset = warnIf (pythonPackages ? sunrisesunset) "Packaging of sunrisesunset is no longer necessary"
+          (buildPythonPackage rec {
+            pname = "sunrisesunset";
+            version = "1.0.2";
+            src = fetchFromGitHub { owner = "cnobile2012"; repo = "sunrisesunset"; tag = "v${version}"; hash = "sha256-FvEhOClakdvPf5tNRHqvK/12TI6UN+d+NswW69JT1EA="; };
+            format = "setuptools";
+            pythonImportsCheck = [ "sunrisesunset" ];
+          });
+      };
+    };
+  }).overrideAttrs (o: recursiveUpdate o {
+    meta.broken = pkgs.python3Packages.requests-ratelimiter.meta.broken; # NixOS/nixpkgs#497999
+  });
+  oxvg = callPackage ./library/oxvg.pkg.nix { };
+  pdfalyzer = callPackage ./library/pdfalyzer.pkg.nix { };
+  pngquant-interactive = callPackage ./library/pngquant-interactive.pkg.nix { };
+  smartcut = callPackage ./library/smartcut.pkg.nix { };
+  spf-check = callPackage ./library/spf-check.pkg.nix { };
+  spf-tree = callPackage ./library/spf-tree.pkg.nix { };
+  stretch-break = callPackage ./library/stretch-break.pkg.nix { };
+  tile-stitch = callPackage ./library/tile-stitch.pkg.nix { };
+  udon = callPackage ./library/udon.pkg.nix {
+    python3 = pkgs.python3.override {
+      packageOverrides = _: pythonPackages: with pythonPackages; {
+        config = buildPythonPackage rec {
+          pname = "config";
+          version = "0.5.1";
+          src = pkgs.fetchPypi { inherit pname version; extension = "zip"; hash = "sha256-LdSgOqOD0wcR1aMyWhhY3iJTKNYZUKhb5bdMEA9jAW0="; };
+          format = "pyproject";
+          nativeBuildInputs = [ setuptools ];
+        };
+      };
+    };
+  };
+  wireguard-vanity-address = callPackage ./library/wireguard-vanity-address.pkg.nix { };
 }

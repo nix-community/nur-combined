@@ -1,0 +1,13 @@
+Customize color scheme
+
+Re htop-dev/htop#1416
+
+--- a/CRT.c
++++ b/CRT.c
+@@ -122,3 +122,3 @@
+-      [PANEL_HEADER_FOCUS] = ColorPair(Black, Green),
+-      [PANEL_HEADER_UNFOCUS] = ColorPair(Black, Green),
+-      [PANEL_SELECTION_FOCUS] = ColorPair(Black, Cyan),
++      [PANEL_HEADER_FOCUS] = ColorPair(Black, Blue),
++      [PANEL_HEADER_UNFOCUS] = ColorPair(Black, Blue),
++      [PANEL_SELECTION_FOCUS] = ColorPair(Black, Magenta),
