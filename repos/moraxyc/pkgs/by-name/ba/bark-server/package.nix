@@ -19,7 +19,7 @@ nixpkgs.bark-server.overrideAttrs (
     ];
 
     # nix-update auto
-    vendorHash = "sha256-eAxqD8VodexNi/MPQGHSC/dsBIvkl469ZMHEZ6XUQ+Y=";
+    vendorHash = "sha256-Q8ByawOpa7magYiD938mihFqjpLrOYaItiTn0cfXlHw=";
 
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;

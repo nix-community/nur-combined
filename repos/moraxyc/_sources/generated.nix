@@ -37,15 +37,15 @@
   };
   bark-server = {
     pname = "bark-server";
-    version = "ee58c6ab3dbc27971e55114aaa75191e4fee3733";
+    version = "b08c6aa38040e8863fe4f9d48d2c7e08b5428fdb";
     src = fetchFromGitHub {
       owner = "Finb";
       repo = "bark-server";
-      rev = "ee58c6ab3dbc27971e55114aaa75191e4fee3733";
+      rev = "b08c6aa38040e8863fe4f9d48d2c7e08b5428fdb";
       fetchSubmodules = false;
-      sha256 = "sha256-WSjpxUCVhz4wQCUy+2ZyzVE+OhE6+7F1Kb/c9yswLqs=";
+      sha256 = "sha256-8sxcF1cTO7IQCr6bSPJ/ngCcU7EXRZaCmMWiuZ1dTBk=";
     };
-    date = "2026-04-28";
+    date = "2026-05-13";
   };
   bark-server-stable = {
     pname = "bark-server-stable";
@@ -71,51 +71,51 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "88d370cadb5b1551361772ebbbf0dac81193aaca";
+    version = "cc449c89bfb95cebdb2e1f5bea535b461b2f2549";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "88d370cadb5b1551361772ebbbf0dac81193aaca";
+      rev = "cc449c89bfb95cebdb2e1f5bea535b461b2f2549";
       fetchSubmodules = false;
-      sha256 = "sha256-GllozEOQrh4Bf8BY30z2WSKrXhajZikbwhRiyXaL0C0=";
+      sha256 = "sha256-Pntb3itRZlUATYEDfVE9bwzpCN5Y7832Eh9BnVUdUhw=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-GllozEOQrh4Bf8BY30z2WSKrXhajZikbwhRiyXaL0C0=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-GllozEOQrh4Bf8BY30z2WSKrXhajZikbwhRiyXaL0C0=/web/package-lock.json";
-    };date = "2026-05-13";
+      "web/package.json" = ./. + "/sha256-Pntb3itRZlUATYEDfVE9bwzpCN5Y7832Eh9BnVUdUhw=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-Pntb3itRZlUATYEDfVE9bwzpCN5Y7832Eh9BnVUdUhw=/web/package-lock.json";
+    };date = "2026-05-14";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.6.2";
+    version = "v1.6.3";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "v1.6.2";
+      rev = "v1.6.3";
       fetchSubmodules = false;
-      sha256 = "sha256-GllozEOQrh4Bf8BY30z2WSKrXhajZikbwhRiyXaL0C0=";
+      sha256 = "sha256-7yrP/AcNrdtomsRkWPwhuFUdzS20vu+jg93lP3GR5pY=";
     };
   };
   cronet-go = {
     pname = "cronet-go";
-    version = "f5688124addcca1ff0a468773d6574b569e39f15";
+    version = "e7f6f6f5b7ce226f686f6cb5d068a63da6657ccd";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "cronet-go";
-      rev = "f5688124addcca1ff0a468773d6574b569e39f15";
+      rev = "e7f6f6f5b7ce226f686f6cb5d068a63da6657ccd";
       fetchSubmodules = true;
-      sha256 = "sha256-Vntqm+aRTcOoQ9gI09l7k9OU7uGdpFQxFKWHmwTn5Q4=";
+      sha256 = "sha256-wTgJy/ZfsoTpRJCEEDEAQo/bVK7Tn2z5qnAURveWnKg=";
     };
-    date = "2026-04-15";
+    date = "2026-05-11";
   };
   cronet-go-stable = {
     pname = "cronet-go-stable";
-    version = "v147.0.7727.49-1";
+    version = "v148.0.7778.96-1";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "cronet-go";
-      rev = "v147.0.7727.49-1";
+      rev = "v148.0.7778.96-1";
       fetchSubmodules = false;
-      sha256 = "sha256-97tA4EGK0zMhIrt7rvQpuFzoDQfNEu2sRo5/BewsceY=";
+      sha256 = "sha256-iVnsp4olfu9j0Foo3oZ4WY8Iv7ZtYOb+Dcf7ep3UtP4=";
     };
   };
   english_words = {
@@ -196,26 +196,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.10";
+    version = "2026.05.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-g27A3SY6bXwLuLJDlRCkhQthqvfEDmNOXFxO8w/qoas=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-SoClx3oAz8m9JwA2jnCIGhoTGJbKWtr0C/tP95F/zOk=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.10";
+    version = "2026.05.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-City.mmdb";
-      sha256 = "sha256-2jPoz77t5Z8FVq3UeXDbo+4HHY/5zta3oCOc93B/Ye8=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-City.mmdb";
+      sha256 = "sha256-AivTznrDwLcHV6mKy/cR2azW2crbddc05JmB7/E0vu0=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.10";
+    version = "2026.05.13";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.10/GeoLite2-Country.mmdb";
-      sha256 = "sha256-XkHcqD3sVtW/kRTqlVrGpWg1CMkwck0h1FanowyxtkY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-Country.mmdb";
+      sha256 = "sha256-80ZDalYWv4B/Wdtvxe2F70mFP+P6skzden8DeYiXLqo=";
     };
   };
   git-mcp-server = {
@@ -303,15 +303,15 @@
   };
   loyalsoldier-geoip = {
     pname = "loyalsoldier-geoip";
-    version = "51a33b3da711348a1f47c6462be63c8091ae4f65";
+    version = "fed048beddda2cd4ff7b5efa6b2a56a91a1cbfc7";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "geoip";
-      rev = "51a33b3da711348a1f47c6462be63c8091ae4f65";
+      rev = "fed048beddda2cd4ff7b5efa6b2a56a91a1cbfc7";
       fetchSubmodules = false;
-      sha256 = "sha256-t/4OQH03HdanGjLMmtTWJdJykC3Q5k0zU6lrsQmpsuI=";
+      sha256 = "sha256-6Pf09zlwySk7mByK/bSrS7yquv5AGVrxccRBX/Dy904=";
     };
-    date = "2026-05-07";
+    date = "2026-05-14";
   };
   manpage-zh = {
     pname = "manpage-zh";
@@ -464,15 +464,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "8cba009d19100042ed3ebb79c66fcfb01efbab52";
+    version = "d2d6a77b45636c8fd92a84b9c6f2a7d6ebf1dc96";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "8cba009d19100042ed3ebb79c66fcfb01efbab52";
+      rev = "d2d6a77b45636c8fd92a84b9c6f2a7d6ebf1dc96";
       fetchSubmodules = false;
-      sha256 = "sha256-wsoutpAZvv4a5AVNwbGQIGvqhbpOrgZIF42VoxXSwng=";
+      sha256 = "sha256-/5zK5JSk4jvgoZqtD8sft5vhQKkmvREMyoKKrQP+W1k=";
     };
-    date = "2026-05-12";
+    date = "2026-05-13";
   };
   yass = {
     pname = "yass";

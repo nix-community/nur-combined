@@ -1,39 +1,45 @@
-From 858f03ecc680f0c86fb816be14c0cb0c2816b188 Mon Sep 17 00:00:00 2001
+From c4ce6b33b4c7f5b9cc807e0ec83254adfbf7a57a Mon Sep 17 00:00:00 2001
 From: Moraxyc <i@qaq.li>
 Date: Mon, 22 Dec 2025 18:36:27 +0800
 Subject: [PATCH 1/2] feat: add support for systemd socket activation
 
 ---
  go.mod  |  1 +
- go.sum  |  2 ++
+ go.sum  |  8 ++++++++
  main.go | 19 +++++++++++++++++++
- 3 files changed, 22 insertions(+)
+ 3 files changed, 28 insertions(+)
 
 diff --git a/go.mod b/go.mod
-index 876d80e..b5bc625 100644
+index 5ca4b21..4dd5178 100644
 --- a/go.mod
 +++ b/go.mod
-@@ -7,6 +7,7 @@ go 1.23.0
- toolchain go1.24.1
+@@ -5,6 +5,7 @@ module github.com/finb/bark-server/v2
+ go 1.25.5
  
  require (
 +	github.com/coreos/go-systemd/v22 v22.7.0
- 	github.com/go-sql-driver/mysql v1.8.1
+ 	github.com/go-sql-driver/mysql v1.10.0
  	github.com/gofiber/adaptor/v2 v2.2.1
- 	github.com/gofiber/fiber/v2 v2.52.12
+ 	github.com/gofiber/fiber/v2 v2.52.13
 diff --git a/go.sum b/go.sum
-index 09ef20a..aadb5f9 100644
+index bd6964e..2b902c5 100644
 --- a/go.sum
 +++ b/go.sum
-@@ -10,6 +10,8 @@ github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLj
- github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
- github.com/buger/jsonparser v1.1.2 h1:frqHqw7otoVbk5M8LlE/L7HTnIq2v9RX6EJ48i9AxJk=
- github.com/buger/jsonparser v1.1.2/go.mod h1:6RYKKt7H4d4+iWqouImQ9R2FZql3VbhNgx27UK13J/0=
+@@ -8,6 +8,14 @@ github.com/clipperhouse/uax29/v2 v2.7.0 h1:+gs4oBZ2gPfVrKPthwbMzWZDaAFPGYK72F0NJ
+ github.com/clipperhouse/uax29/v2 v2.7.0/go.mod h1:EFJ2TJMRUaplDxHKj1qAEhCtQPW2tJSwu5BF98AuoVM=
+ github.com/cpuguy83/go-md2man/v2 v2.0.7 h1:zbFlGlXEAKlwXpmvle3d8Oe3YnkKIK4xSRTd3sHPnBo=
+ github.com/cpuguy83/go-md2man/v2 v2.0.7/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
++github.com/bahlo/generic-list-go v0.2.0 h1:5sz/EEAK+ls5wF+NeqDpk5+iNdMDXrh3z3nPnH1Wvgk=
++github.com/bahlo/generic-list-go v0.2.0/go.mod h1:2KvAjgMlE5NNynlg/5iLrrCCZ2+5xWbdbCW3pNTGyYg=
++github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
++github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
++github.com/buger/jsonparser v1.1.2 h1:frqHqw7otoVbk5M8LlE/L7HTnIq2v9RX6EJ48i9AxJk=
++github.com/buger/jsonparser v1.1.2/go.mod h1:6RYKKt7H4d4+iWqouImQ9R2FZql3VbhNgx27UK13J/0=
 +github.com/coreos/go-systemd/v22 v22.7.0 h1:LAEzFkke61DFROc7zNLX/WA2i5J8gYqe0rSj9KI28KA=
 +github.com/coreos/go-systemd/v22 v22.7.0/go.mod h1:xNUYtjHu2EDXbsxz1i41wouACIwT7Ybq9o0BQhMwD0w=
- github.com/cpuguy83/go-md2man/v2 v2.0.4 h1:wfIWP927BUkWJb2NmU/kNDYIBTh/ziUX91+lVfRxZq4=
- github.com/cpuguy83/go-md2man/v2 v2.0.4/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
  github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
+ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 diff --git a/main.go b/main.go
 index db5c1d6..f5137c2 100644
 --- a/main.go
