@@ -115,16 +115,16 @@
   };
   krunner-zed = {
     pname = "krunner-zed";
-    version = "v0.1.3";
+    version = "v0.1.4";
     src = fetchFromGitHub {
       owner = "hron";
       repo = "krunner-zed";
-      rev = "v0.1.3";
+      rev = "v0.1.4";
       fetchSubmodules = false;
-      sha256 = "sha256-8yTIQuNMVa/+49JPlRKZbDAK9/6hLt323qeMZV0nmWE=";
+      sha256 = "sha256-sK4ZG7BC1itXUWeDu9fHfUSHSWyQ0d56gRCSzIUApgI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-8yTIQuNMVa_+49JPlRKZbDAK9_6hLt323qeMZV0nmWE=/Cargo.lock";
+      lockFile = ./. + "/sha256-sK4ZG7BC1itXUWeDu9fHfUSHSWyQ0d56gRCSzIUApgI=/Cargo.lock";
       outputHashes = {
         
       };
@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.8.10-beta.1";
+    version = "v3.8.10-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.8.10-beta.1";
+      rev = "v3.8.10-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-P2DkG2uR2/kyAzTNCBPqPJt5SLqOx/ezY/oIWpoWZ74=";
+      sha256 = "sha256-rfRr7gRRILqy/YxFuXlhjz3Fq/gqXH5lUJZRLtFVl68=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-P2DkG2uR2_kyAzTNCBPqPJt5SLqOx_ezY_oIWpoWZ74=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-rfRr7gRRILqy_YxFuXlhjz3Fq_gqXH5lUJZRLtFVl68=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
