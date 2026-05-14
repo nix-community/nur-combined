@@ -7,11 +7,11 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "aicommits";
-  version = "3.1.1";
+  version = "3.2.0";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/aicommits/-/${pname}-${version}.tgz";
-    hash = "sha256-yDJgZ7HedmZSdc6FuepjDVKAk9knvhAACzwin06H/XU=";
+    hash = "sha256-1Hf+Oq/OSxY5EA5GYarh43A6Vf6gGd8GDDMoeda/Gos=";
   };
 
   sourceRoot = "package";

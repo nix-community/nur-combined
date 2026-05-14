@@ -123,6 +123,7 @@
       devShells.${system}.default = with pkgs; mkShell {
         packages = [
           just
+          nix-update
           nixos-rebuild
           sops
         ];

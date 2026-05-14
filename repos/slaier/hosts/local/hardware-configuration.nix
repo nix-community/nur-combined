@@ -37,24 +37,11 @@
     enableGraphical = true;
   };
 
-  nixpkgs.overlays = [
-    (_final: prev: {
-      rocmPackages = prev.rocmPackages.overrideScope (
-        _final: prev: {
-          clr = (prev.clr.override {
-            localGpuTargets = [ "gfx803" ];
-          }).overrideAttrs (prev: {
-            patches = prev.patches ++ [ ./clr.patch ];
-          });
-        }
-      );
-    })
-  ];
-
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
-      rocmPackages.clr.icd
+      mesa.opencl
     ];
   };
 

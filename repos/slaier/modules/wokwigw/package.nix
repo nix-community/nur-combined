@@ -7,16 +7,16 @@
 
 buildGoModule rec {
   pname = "wokwigw";
-  version = "1.3.0";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "wokwi";
     repo = "wokwigw";
     rev = "v${version}";
-    hash = "sha256-pCkWvRKb5xNQcT9BXaXbz56LaylmE+au8uWBB2D+9gs=";
+    hash = "sha256-V/99dpaJjUZlMrjAGSI8xSMQGYS/YLP08DDa89Ymv6w=";
   };
 
-  vendorHash = "sha256-+5VStC4hKebsUJjtGm7/PnscVlpKYFf9BM5fwfDfFMA=";
+  vendorHash = "sha256-i9/O21iFxwk2YWneWeBXDm79EeMnuoA6MQ74A7KVKIE=";
 
   buildInputs = [
     libpcap
@@ -28,7 +28,7 @@ buildGoModule rec {
     description = "Wokwi IoT Network Gateway";
     homepage = "https://github.com/wokwi/wokwigw";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = [ ];
     mainProgram = "wokwigw";
   };
 }

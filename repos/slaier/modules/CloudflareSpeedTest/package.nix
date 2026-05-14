@@ -5,16 +5,16 @@
 
 buildGoModule rec {
   pname = "CloudflareSpeedTest";
-  version = "2.2.5";
+  version = "2.3.5";
 
   src = fetchFromGitHub {
     owner = "XIU2";
     repo = "CloudflareSpeedTest";
     rev = "v${version}";
-    hash = "sha256-j95THaMm4nOoKiz+Qq2CHZofHmuU+h1s5IHCwwDiIc0=";
+    hash = "sha256-C/LvXIC2ng5FtEDMhoxilTayKVplJfzD27QLT7pbSVY=";
   };
 
-  vendorHash = "sha256-CHhXprObZvVU2XY2Ja9JFvFCY2YoxMyaGsd3/IpVI2c=";
+  vendorHash = "sha256-4h3Jf3K6uEm79KAy46v69wby01zf2tfdZxGeTyUXvdk=";
 
   ldflags = [ "-s" "-w" ];
 

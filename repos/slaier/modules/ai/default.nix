@@ -1,56 +1,4 @@
 { pkgs, lib, utils, inputs, ... }:
-let
-  llama-cpp-vulkan = pkgs.llama-cpp-vulkan.overrideAttrs (prev: rec {
-    version = "8833";
-
-    outputs = [
-      "out"
-      "dev"
-    ];
-
-    src = pkgs.fetchFromGitHub {
-      owner = "ggml-org";
-      repo = "llama.cpp";
-      tag = "b${version}";
-      hash = "sha256-5T71ts6xucoHH/1EfsmuJX+QFxtOVaY2PaAs0T/mL5c=";
-      leaveDotGit = true;
-      postFetch = ''
-        git -C "$out" rev-parse --short HEAD > $out/COMMIT
-        find "$out" -name .git -print0 | xargs -0 rm -rf
-      '';
-    };
-
-    nativeBuildInputs = prev.nativeBuildInputs ++ (with pkgs; [
-      installShellFiles
-      nodejs
-      npmHooks.npmConfigHook
-    ]);
-
-    buildInputs = prev.buildInputs ++ [ pkgs.openssl pkgs.spirv-headers ];
-
-    npmRoot = "tools/server/webui";
-    npmDepsHash = "sha256-RAFtsbBGBjteCt5yXhrmHL39rIDJMCFBETgzId2eRRk=";
-    npmDeps = pkgs.fetchNpmDeps {
-      name = "${prev.pname}-${version}-npm-deps";
-      inherit src;
-      preBuild = ''
-        pushd ${npmRoot}
-      '';
-      hash = npmDepsHash;
-    };
-
-    preConfigure = ''
-      prependToVar cmakeFlags "-DLLAMA_BUILD_COMMIT:STRING=$(cat COMMIT)"
-      pushd ${npmRoot}
-      npm run build
-      popd
-    '';
-
-    cmakeFlags = prev.cmakeFlags ++ [
-      (lib.cmakeBool "LLAMA_OPENSSL" true)
-    ];
-  });
-in
 {
   systemd.services.llama-cpp = {
     description = "LLaMA C++ server";
@@ -129,7 +77,7 @@ in
             "1"
           ];
         in
-        "${llama-cpp-vulkan}/bin/llama-server ${utils.escapeSystemdExecArgs args}";
+        "${pkgs.llama-cpp-unstable}/bin/llama-server ${utils.escapeSystemdExecArgs args}";
       Restart = "on-failure";
       RestartSec = 300;
 
@@ -187,7 +135,7 @@ in
   environment.systemPackages = with pkgs; [
     aicommits
     claude-code-best
-    llama-cpp-vulkan
+    llama-cpp-unstable
     (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ch/cherry-studio/package.nix" {
       pnpm_10_29_2 = pkgs.pnpm;
     })

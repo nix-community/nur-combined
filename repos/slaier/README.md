@@ -38,7 +38,6 @@ Here is an overview of the folders' structure:
   - `**/overlay.nix`: NixOS overlay.
   - `**/package.nix`: Package source.
   - `**/packages.nix`: Package set source.
-  - `**/update.sh`: The shell script to update package's version.
 - `outputs`: Flake outputs.
 - `default.nix`: NUR main.
 - `flake.nix`: Flake main.
