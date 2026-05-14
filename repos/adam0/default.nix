@@ -52,7 +52,6 @@ in
 
     # keep-sorted start
     fishPlugins = recurseCallPackage ./pkgs/fish-plugins;
-    ghosttyCursorShaders = recurseCallPackage ./pkgs/ghostty-cursor-shaders;
     opencodePlugins = recurseCallPackage ./pkgs/opencode/plugins;
     spicetifyExtensions = recurseCallPackage ./pkgs/spicetify-extensions;
     yaziPlugins = recurseCallPackage ./pkgs/yazi-plugins;
