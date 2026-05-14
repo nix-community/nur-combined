@@ -20,8 +20,6 @@ stdenvNoCC.mkDerivation {
     runHook preInstall
 
     install -Dm644 init.lua $out/init.lua
-    install -Dm644 init.lua $out/hyprsplit/init.lua
-    install -Dm644 init.lua $out/share/lua/5.4/hyprsplit/init.lua
 
     runHook postInstall
   '';
