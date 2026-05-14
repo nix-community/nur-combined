@@ -47,7 +47,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     description = "Set of tools and libraries to help with automated testing";
     homepage = "https://avocado-framework.github.io/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ VZstless ];
     mainProgram = "avocado";
   };
 })

@@ -35,7 +35,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Open-source runtime for math. MATLAB syntax";
     homepage = "https://runmat.com/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ VZstless ];
     mainProgram = "runmat";
   };
 })

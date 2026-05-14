@@ -212,7 +212,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://www.warp.dev";
     license = lib.licenses.agpl3Only;
     # VZstless: I don't want to adopt this fxxking thing, bring it orphaned!
-    maintainers = with lib.maintainers; [ ];
     mainProgram = "warp-oss";
     platforms = lib.platforms.linux;
   };

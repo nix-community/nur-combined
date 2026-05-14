@@ -51,7 +51,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "A GPU-rendered terminal emulator with inline 3D graphics";
     homepage = "https://ratty-term.org/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ VZstless ];
     mainProgram = "ratty";
   };
 })
