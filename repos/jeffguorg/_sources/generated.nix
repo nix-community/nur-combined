@@ -130,6 +130,38 @@
       };
     };
   };
+  cursor-cli-bin-amd64-darwin = {
+    pname = "cursor-cli-bin-amd64-darwin";
+    version = "2026.05.09-0afadcc";
+    src = fetchurl {
+      url = "https://downloads.cursor.com/lab/2026.05.09-0afadcc/darwin/x64/agent-cli-package.tar.gz";
+      sha256 = "sha256-9MB+tFW+ZyvqRau/XVCjh1zms9kmyJzlzqDeMJ7Utos=";
+    };
+  };
+  cursor-cli-bin-amd64-linux = {
+    pname = "cursor-cli-bin-amd64-linux";
+    version = "2026.05.09-0afadcc";
+    src = fetchurl {
+      url = "https://downloads.cursor.com/lab/2026.05.09-0afadcc/linux/x64/agent-cli-package.tar.gz";
+      sha256 = "sha256-IN0HzbHi5rrvi7fgjKcM5tl1T4TJ8lYlYtQC52NE9Xw=";
+    };
+  };
+  cursor-cli-bin-arm64-darwin = {
+    pname = "cursor-cli-bin-arm64-darwin";
+    version = "2026.05.09-0afadcc";
+    src = fetchurl {
+      url = "https://downloads.cursor.com/lab/2026.05.09-0afadcc/darwin/arm64/agent-cli-package.tar.gz";
+      sha256 = "sha256-htzK+PAkiH7L1tQjr7yK0Pk+8kAXkSSG7tPImYMi0oY=";
+    };
+  };
+  cursor-cli-bin-arm64-linux = {
+    pname = "cursor-cli-bin-arm64-linux";
+    version = "2026.05.09-0afadcc";
+    src = fetchurl {
+      url = "https://downloads.cursor.com/lab/2026.05.09-0afadcc/linux/arm64/agent-cli-package.tar.gz";
+      sha256 = "sha256-xoTyqP7Nyq+dt2OyRR5mb3B8FQw7lPZuvBb0BcVW+4c=";
+    };
+  };
   dingtalk-bin-amd64 = {
     pname = "dingtalk-bin-amd64";
     version = "8.1.0.6021101";

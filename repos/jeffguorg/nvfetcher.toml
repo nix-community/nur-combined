@@ -1,3 +1,23 @@
+[cursor-cli-bin-amd64-linux]
+src.webpage = "https://cursor.com/install"
+src.regex = "downloads\\.cursor\\.com/lab/([\\w.\\-]+)/"
+fetch.url = "https://downloads.cursor.com/lab/$ver/linux/x64/agent-cli-package.tar.gz"
+
+[cursor-cli-bin-arm64-linux]
+src.webpage = "https://cursor.com/install"
+src.regex = "downloads\\.cursor\\.com/lab/([\\w.\\-]+)/"
+fetch.url = "https://downloads.cursor.com/lab/$ver/linux/arm64/agent-cli-package.tar.gz"
+
+[cursor-cli-bin-amd64-darwin]
+src.webpage = "https://cursor.com/install"
+src.regex = "downloads\\.cursor\\.com/lab/([\\w.\\-]+)/"
+fetch.url = "https://downloads.cursor.com/lab/$ver/darwin/x64/agent-cli-package.tar.gz"
+
+[cursor-cli-bin-arm64-darwin]
+src.webpage = "https://cursor.com/install"
+src.regex = "downloads\\.cursor\\.com/lab/([\\w.\\-]+)/"
+fetch.url = "https://downloads.cursor.com/lab/$ver/darwin/arm64/agent-cli-package.tar.gz"
+
 [agent-run]
 src.git = "https://git.jeffthecoder.xyz/public/agent-run.git"
 fetch.git = "https://git.jeffthecoder.xyz/public/agent-run.git"

@@ -27,6 +27,7 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  cursor-cli-bin = callPackage ./pkgs/cursor-cli {};
   agent-run = callPackage ./pkgs/agent-run.nix {};
   create-tauri-app = callPackage ./pkgs/create-tauri-app {};
   claude-code-bin = callPackage ./pkgs/claude-code {};
