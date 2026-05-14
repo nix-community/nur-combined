@@ -141,6 +141,43 @@ normalize_unstable_version_format() {
   sed -E -i "0,/version = \"([^\"]+-)?unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})\";/s|version = \"([^\"]+-)?unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})\";|version = \"${escaped_prefix}-unstable-${date_part}\";|" "${file_path}"
 }
 
+refresh_opencode_plugin_dependency_hash() {
+  local attr_path=$1
+  local file_path=$2
+  local build_output
+  local dependency_hash
+  local escaped_hash
+
+  if [[ "${attr_path}" != opencodePlugins.* ]]; then
+    return 0
+  fi
+
+  if ! grep -Eq 'dependencyHash = "sha256-[^"]+";' "${file_path}"; then
+    return 0
+  fi
+
+  sed -E -i '0,/dependencyHash = "sha256-[^"]+";/s|dependencyHash = "sha256-[^"]+";|dependencyHash = lib.fakeHash;|' "${file_path}"
+
+  set +e
+  build_output=$(nix-build -A "${attr_path}" --no-out-link 2>&1)
+  local build_status=$?
+  set -e
+
+  if [ "${build_status}" -eq 0 ]; then
+    return 0
+  fi
+
+  dependency_hash=$(printf '%s\n' "${build_output}" | sed -n -E 's/^[[:space:]]*got:[[:space:]]*(sha256-[A-Za-z0-9+/=]+)$/\1/p')
+  if [ -z "${dependency_hash}" ]; then
+    printf 'Failed to refresh dependencyHash for %s\n' "${attr_path}" >&2
+    printf '%s\n' "${build_output}" >&2
+    return 1
+  fi
+
+  escaped_hash=$(printf '%s' "${dependency_hash}" | sed -e 's/[&|\\]/\\&/g')
+  sed -E -i "0,/dependencyHash = lib\.fakeHash;/s|dependencyHash = lib\.fakeHash;|dependencyHash = \"${escaped_hash}\";|" "${file_path}"
+}
+
 version_is_older() {
   local candidate=$1
   local baseline=$2
@@ -378,6 +415,13 @@ run_updates_from_file() {
     after_version=$(read_package_version "file" "${attrset}" "${attr}")
     if [ -n "${file_path}" ] && [ -f "${file_path}" ]; then
       normalize_unstable_version_format "${file_path}" "${before_version}" "${after_version}"
+      if ! refresh_opencode_plugin_dependency_hash "${attr_path}" "${file_path}"; then
+        if [ -n "${backup_file}" ]; then
+          cp "${backup_file}" "${file_path}"
+        fi
+        cleanup_backup_file "${backup_file}"
+        continue
+      fi
       after_version=$(read_package_version "file" "${attrset}" "${attr}")
     fi
 
