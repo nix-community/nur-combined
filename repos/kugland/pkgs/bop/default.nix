@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "zealtv";
     repo = "bop";
-    tag = version;
+    rev = version;
     hash = "sha256-z6DgURAYw4hnuY1mYhUWB4Gre/DyikEmyxtaCoBG60M=";
   };
 
