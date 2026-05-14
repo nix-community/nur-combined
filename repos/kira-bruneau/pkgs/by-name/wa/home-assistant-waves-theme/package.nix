@@ -22,7 +22,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      # Skip leading dot from version
+      "--version-regex"
+      "^v\\.?([\\d.]+)$"
+    ];
+  };
 
   meta = {
     description = "Blend of 2 themes found within the Home Assistant community";
