@@ -1,37 +1,107 @@
-# nur-packages-template
-
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
-
-## Setup
-
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
-
-## README template
-
 # nur-packages
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+Jeff Guo 的个人 [NUR](https://github.com/nix-community/NUR) 仓库，主要收集自己日常 NixOS / Home Manager 配置中需要、但暂未直接使用 nixpkgs 的包。
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+![Build and populate cache](https://github.com/jeffguorg/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+[![Cachix Cache](https://img.shields.io/badge/cachix-jeffguorg-blue.svg)](https://jeffguorg.cachix.org)
 
-<!--
-Uncomment this if you use travis:
+## 用法
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+推荐通过官方 NUR flake 引入，这也是 `/etc/nixos` 中当前使用的方式：
 
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  };
+
+  outputs = inputs@{ nixpkgs, nur, ... }: {
+    nixosConfigurations.example = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        {
+          nixpkgs = {
+            config.allowUnfree = true;
+            overlays = [
+              nur.overlays.default
+            ];
+          };
+        }
+      ];
+    };
+  };
+}
+```
+
+启用 `nur.overlays.default` 后，本仓库的包会出现在 `pkgs.nur.repos.jeffguorg` 下。例如：
+
+```nix
+{ pkgs, ... }: {
+  environment.systemPackages = [
+    pkgs.nur.repos.jeffguorg.agent-run
+    pkgs.nur.repos.jeffguorg.claude-code-bin
+    pkgs.nur.repos.jeffguorg.codex-bin
+    pkgs.nur.repos.jeffguorg.create-tauri-app
+  ];
+
+  systemd.packages = [
+    pkgs.nur.repos.jeffguorg.vagrant-vmware-utility
+  ];
+}
+```
+
+如果想使用本仓库的 Cachix 缓存，可以在 Nix 配置中加入：
+
+```nix
+{
+  nix.settings = {
+    substituters = [
+      "https://jeffguorg.cachix.org"
+      "https://cache.nixos.org/"
+    ];
+    trusted-public-keys = [
+      "jeffguorg.cachix.org-1:hR16e5/t0lGrjNwKk8gnWKzh/h9lt2R4aR6JBDNQaaE="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
+  };
+}
+```
+
+本地开发或临时构建时，也可以直接从仓库根目录构建导出的包：
+
+```console
+nix build .#codex-bin
+nix build .#claude-code-bin
+nix-build -A agent-run
+```
+
+## 仓库内容
+
+当前 `default.nix` 导出的内容：
+
+| 属性名 | 说明 |
+| --- | --- |
+| `agent-run` | 统一管理和启动常见 coding agent 的命令行工具。 |
+| `cursor-cli-bin` | Cursor Agent CLI 官方二进制包，主程序为 `cursor-agent`。 |
+| `claude-code-bin` | Claude Code 官方二进制包，主程序为 `claude`。 |
+| `codex` | 从源码构建的 OpenAI Codex CLI。 |
+| `codex-bin` | OpenAI Codex CLI 官方二进制包。 |
+| `create-tauri-app` | `tauri-apps/create-tauri-app` 的 Rust 包。 |
+| `dingtalk` | 钉钉 Linux 桌面端打包。 |
+| `kwok` | Kubernetes SIGs 的 KWOK / `kwokctl` 工具。 |
+| `vagrant-vmware-utility` | Vagrant VMware Utility，适配 NixOS 上的 VMware Workstation 路径和 systemd 服务。 |
+| `lib` | NUR 保留属性，目前没有自定义函数。 |
+| `modules` | NUR 保留属性，目前没有自定义 NixOS module。 |
+| `overlays` | NUR 保留属性，目前没有额外 overlay。 |
+
+源码版本由 `nvfetcher.toml` 管理，生成结果位于 `_sources/`。Go 包的 vendor hash 更新由 `scripts/update-go-vendorHash.sh` 处理。
+
+## 自动更新与 CI
+
+仓库有两个 GitHub Actions workflow：
+
+- `Build and populate cache`：在 push、pull request、手动触发时运行，并按计划每天 `03:40 UTC` 构建、填充 `jeffguorg` Cachix 缓存，同时触发 NUR 更新。
+- `Auto update packages`：支持手动触发，并按计划每天 `05:55 UTC` 运行 `scripts/auto-update.sh`、`nix flake update`，必要时更新 Go vendor hash，然后以 `auto: update packages` 自动提交回仓库。
