@@ -308,6 +308,13 @@ in
     win-spice
     distrobox
     signal-cli
+    git
+    btop
+    tree
+    tmux
+    pre-commit
+    eza
+    tldr
   ];
   virtualisation = {
     libvirtd = {
@@ -396,15 +403,21 @@ in
   ];
 
   # Set ACLs so container users can access external storage directories.
-  # These are applied at boot time by systemd-tmpfiles.
+  # systemd-tmpfiles handles default ACLs (for new files); the apply-generated-acls
+  # service recursively applies ACLs to existing files at boot.
   systemd.tmpfiles.generateRules = {
+    # Mutual home access: hermes, toyvo, and chloe can access each other's homes.
     "/home/toyvo" = with config.ids.uids; [
       hermes
       toyvo
     ];
-    "/home/toyvo/nixcfg" = with config.ids.uids; [ hermes ];
-    "/home/toyvo/nixcfg/systems" = with config.ids.uids; [ hermes ];
-    "/home/toyvo/nixcfg/systems/nas" = with config.ids.uids; [ hermes ];
+    "/home/chloe" = with config.ids.uids; [ chloe ];
+    "/mnt/POOL/hermes" = with config.ids.uids; [
+      hermes
+      toyvo
+    ];
+
+    # Shared data directories.
     "/mnt/POOL/Chloe" = with config.ids.uids; [
       chloe
       nextcloud
@@ -412,11 +425,13 @@ in
     "/mnt/POOL/Collin" = with config.ids.uids; [
       nextcloud
       toyvo
+      hermes
     ];
     "/mnt/POOL/Public" = with config.ids.uids; [
       bazarr
       chloe
       deluge
+      hermes
       lidarr
       nextcloud
       prowlarr
@@ -427,23 +442,42 @@ in
       toyvo
       transmission
     ];
-    "/mnt/POOL/hermes" = with config.ids.uids; [
+
+    # All starr users can access each other's subdirectories.
+    "/mnt/POOL/starr" = with config.ids.uids; [
+      bazarr
+      deluge
       hermes
+      lidarr
+      prowlarr
+      qbittorrent
+      radarr
+      readarr
+      sonarr
+      toyvo
+      transmission
+    ];
+
+    # Service-specific directories.
+    "/mnt/POOL/home-assistant" = with config.ids.uids; [
+      hass
       toyvo
     ];
-    "/mnt/POOL/home-assistant" = with config.ids.uids; [ hass ];
-    "/mnt/POOL/immich" = with config.ids.uids; [ immich ];
-    "/mnt/POOL/jellyfin" = with config.ids.uids; [ jellyfin ];
-    "/mnt/POOL/nextcloud" = with config.ids.uids; [ nextcloud ];
-    "/mnt/POOL/open-webui" = with config.ids.uids; [ open-webui ];
-    "/mnt/POOL/starr/bazarr" = with config.ids.uids; [ bazarr ];
-    "/mnt/POOL/starr/deluge" = with config.ids.uids; [ deluge ];
-    "/mnt/POOL/starr/lidarr" = with config.ids.uids; [ lidarr ];
-    "/mnt/POOL/starr/prowlarr" = with config.ids.uids; [ prowlarr ];
-    "/mnt/POOL/starr/qbittorrent" = with config.ids.uids; [ qbittorrent ];
-    "/mnt/POOL/starr/radarr" = with config.ids.uids; [ radarr ];
-    "/mnt/POOL/starr/readarr" = with config.ids.uids; [ readarr ];
-    "/mnt/POOL/starr/sonarr" = with config.ids.uids; [ sonarr ];
-    "/mnt/POOL/starr/transmission" = with config.ids.uids; [ transmission ];
+    "/mnt/POOL/immich" = with config.ids.uids; [
+      immich
+      toyvo
+    ];
+    "/mnt/POOL/jellyfin" = with config.ids.uids; [
+      jellyfin
+      toyvo
+    ];
+    "/mnt/POOL/nextcloud" = with config.ids.uids; [
+      nextcloud
+      toyvo
+    ];
+    "/mnt/POOL/open-webui" = with config.ids.uids; [
+      open-webui
+      toyvo
+    ];
   };
 }

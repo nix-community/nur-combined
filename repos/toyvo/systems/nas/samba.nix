@@ -22,6 +22,8 @@
           "guest account" = "nobody";
           "map to guest" = "bad user";
           "log level" = "2 auth_audit:5";
+          "inherit acls" = "yes";
+          "inherit permissions" = "yes";
         };
         public = {
           path = "/mnt/POOL/Public";
@@ -30,7 +32,7 @@
           "guest ok" = "no";
           "create mask" = "0664";
           "directory mask" = "0775";
-          "force user" = "nobody";
+          "force user" = "toyvo";
           "force group" = "users";
           "valid users" = "@users";
         };
