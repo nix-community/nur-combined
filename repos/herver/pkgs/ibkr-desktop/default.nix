@@ -8,13 +8,13 @@
 }:
 
 let
-  version = "3.2c";
+  version = "3.2d";
   pname = "ibkr-desktop";
 
   src = fetchurl {
     # Always serves the latest version; no versioned URL available
     url = "https://download2.interactivebrokers.com/installers/ntws/latest-standalone/ntws-latest-standalone-linux-x64.sh";
-    hash = "sha256-5/gyEUtYM5PVFFxnAWO0BQL1RRCT8qkKZPk4isfnVEc=";
+    hash = "sha256-DXYImPF8NE5nz1asDJiUrnWPVynacHoDMOqkPweSAuY=";
     name = "${pname}-${version}-installer.sh";
   };
 
