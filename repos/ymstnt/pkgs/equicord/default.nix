@@ -16,13 +16,13 @@ stdenv.mkDerivation (finalAttrs: {
   # the Equicord repository. Dates as tags (and automatic releases) were the compromise
   # we came to with upstream. Please do not change the version schema (e.g., to semver)
   # unless upstream changes the tag schema from dates.
-  version = "2026-05-08";
+  version = "2026-05-15";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = "${finalAttrs.version}";
-    hash = "sha256-VHfyqLFXH/W0NiSqeFkw+D2ckErld2lq3tWnMYBHESE=";
+    hash = "sha256-guBFjRq62aYrgNg0IRIzhkw5E+nusM0paJoxtriqAF0=";
   };
 
   pnpmDeps = fetchPnpmDeps {
