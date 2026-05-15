@@ -80,9 +80,10 @@ version_mode_for() {
   pick_version_mode "${version}"
 }
 
-attribute_file_path_from_file() {
-  local attrset=$1
-  local attr=$2
+attribute_file_path() {
+  local source_kind=$1
+  local attrset=$2
+  local attr=$3
   local escaped_attr
   local position
   local file_path
@@ -90,7 +91,11 @@ attribute_file_path_from_file() {
   local candidate
 
   escaped_attr=$(escape_nix_string "${attr}")
-  position=$(nix eval --raw --file default.nix "${attrset}" --apply "pkgs: let pkg = builtins.getAttr \"${escaped_attr}\" pkgs; in if builtins.isAttrs pkg && pkg ? meta && pkg.meta ? position then pkg.meta.position else \"\"" 2>/dev/null || true)
+  if [ "${source_kind}" = "flake" ]; then
+    position=$(nix eval --raw ".#${attrset}" --apply "pkgs: let pkg = builtins.getAttr \"${escaped_attr}\" pkgs; in if builtins.isAttrs pkg && pkg ? meta && pkg.meta ? position then pkg.meta.position else \"\"" 2>/dev/null || true)
+  else
+    position=$(nix eval --raw --file default.nix "${attrset}" --apply "pkgs: let pkg = builtins.getAttr \"${escaped_attr}\" pkgs; in if builtins.isAttrs pkg && pkg ? meta && pkg.meta ? position then pkg.meta.position else \"\"" 2>/dev/null || true)
+  fi
 
   if [ -z "${position}" ]; then
     return 1
@@ -141,16 +146,14 @@ normalize_unstable_version_format() {
   sed -E -i "0,/version = \"([^\"]+-)?unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})\";/s|version = \"([^\"]+-)?unstable-([0-9]{4}-[0-9]{2}-[0-9]{2})\";|version = \"${escaped_prefix}-unstable-${date_part}\";|" "${file_path}"
 }
 
-refresh_opencode_plugin_dependency_hash() {
-  local attr_path=$1
-  local file_path=$2
+refresh_dependency_hash() {
+  local source_kind=$1
+  local attr_path=$2
+  local file_path=$3
   local build_output
+  local build_status
   local dependency_hash
   local escaped_hash
-
-  if [[ "${attr_path}" != opencodePlugins.* ]]; then
-    return 0
-  fi
 
   if ! grep -Eq 'dependencyHash = "sha256-[^"]+";' "${file_path}"; then
     return 0
@@ -159,8 +162,12 @@ refresh_opencode_plugin_dependency_hash() {
   sed -E -i '0,/dependencyHash = "sha256-[^"]+";/s|dependencyHash = "sha256-[^"]+";|dependencyHash = lib.fakeHash;|' "${file_path}"
 
   set +e
-  build_output=$(nix-build -A "${attr_path}" --no-out-link 2>&1)
-  local build_status=$?
+  if [ "${source_kind}" = "flake" ]; then
+    build_output=$(nix build ".#${attr_path}" --no-link 2>&1)
+  else
+    build_output=$(nix-build -A "${attr_path}" --no-out-link 2>&1)
+  fi
+  build_status=$?
   set -e
 
   if [ "${build_status}" -eq 0 ]; then
@@ -216,9 +223,45 @@ run_updates() {
   for attr in "${attrs[@]}"; do
     local attr_path="${attrset}.${attr}"
     local version_mode
+    local file_path
+    local backup_file=""
+    local before_version
+    local after_version
 
+    before_version=$(read_package_version "flake" "${attrset}" "${attr}")
     version_mode=$(version_mode_for "flake" "${attrset}" "${attr}")
-    run_nix_update "flake" "${version_mode}" "${attr_path}" || true
+    file_path=$(attribute_file_path "flake" "${attrset}" "${attr}" || true)
+
+    if [ -n "${file_path}" ] && [ -f "${file_path}" ]; then
+      backup_file=$(mktemp)
+      TEMP_BACKUP_FILES+=("${backup_file}")
+      cp "${file_path}" "${backup_file}"
+    fi
+
+    if ! run_nix_update "flake" "${version_mode}" "${attr_path}"; then
+      cleanup_backup_file "${backup_file}"
+      continue
+    fi
+
+    after_version=$(read_package_version "flake" "${attrset}" "${attr}")
+    if [ -n "${file_path}" ] && [ -f "${file_path}" ]; then
+      normalize_unstable_version_format "${file_path}" "${before_version}" "${after_version}"
+      if ! refresh_dependency_hash "flake" "${attr_path}" "${file_path}"; then
+        if [ -n "${backup_file}" ]; then
+          cp "${backup_file}" "${file_path}"
+        fi
+        cleanup_backup_file "${backup_file}"
+        continue
+      fi
+      after_version=$(read_package_version "flake" "${attrset}" "${attr}")
+    fi
+
+    if [ -n "${backup_file}" ] && should_block_downgrade "${before_version}" "${after_version}" && version_is_older "${after_version}" "${before_version}"; then
+      printf 'Reverting apparent downgrade for %s (%s -> %s)\n' "${attr_path}" "${before_version}" "${after_version}" >&2
+      cp "${backup_file}" "${file_path}"
+    fi
+
+    cleanup_backup_file "${backup_file}"
   done
 }
 
@@ -399,7 +442,7 @@ run_updates_from_file() {
 
     before_version=$(read_package_version "file" "${attrset}" "${attr}")
     version_mode=$(version_mode_for "file" "${attrset}" "${attr}")
-    file_path=$(attribute_file_path_from_file "${attrset}" "${attr}" || true)
+    file_path=$(attribute_file_path "file" "${attrset}" "${attr}" || true)
 
     if [ -n "${file_path}" ] && [ -f "${file_path}" ]; then
       backup_file=$(mktemp)
@@ -415,7 +458,7 @@ run_updates_from_file() {
     after_version=$(read_package_version "file" "${attrset}" "${attr}")
     if [ -n "${file_path}" ] && [ -f "${file_path}" ]; then
       normalize_unstable_version_format "${file_path}" "${before_version}" "${after_version}"
-      if ! refresh_opencode_plugin_dependency_hash "${attr_path}" "${file_path}"; then
+      if ! refresh_dependency_hash "file" "${attr_path}" "${file_path}"; then
         if [ -n "${backup_file}" ]; then
           cp "${backup_file}" "${file_path}"
         fi

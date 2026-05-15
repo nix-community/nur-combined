@@ -16,7 +16,7 @@ mkOpencodePlugin rec {
     hash = "sha256-P6saPaegM7Rxsaiia54TnZ41ovAdjJEQkRZkgM2aVLE=";
   };
 
-  dependencyHash = "sha256-OL9rO9aNaJ+C5ZJ3PdGaC6v9sGtWtbdPK+VPYewC4jM=";
+  dependencyHash = "sha256-zJPK5s3b6Kc0xvl3A48VyJtwmBohHhN8QEQN+9dRyFA=";
   dependencyInstallCommand = "BUN_CONFIG_SKIP_SAVE_LOCKFILE=1 bun install --no-cache --ignore-scripts";
 
   buildCommand = ''
