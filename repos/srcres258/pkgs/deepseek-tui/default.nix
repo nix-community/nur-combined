@@ -45,5 +45,6 @@ in pkgs.rustPlatform.buildRustPackage {
     maintainers = with maintainers; [ srcres258 ];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "deepseek";
+    broken = versionOlder pkgs.rustc.version "1.88.0";
   };
 }
