@@ -27,4 +27,5 @@
   lsp-document-highlight-nvim = pkgs.callPackage ./pkgs/lsp-document-highlight-nvim {};
   pretty_hover-nvim = pkgs.callPackage ./pkgs/pretty_hover-nvim {};
   tiny-inline-diagnostic-nvim = pkgs.callPackage ./pkgs/tiny-inline-diagnostic-nvim {};
+  inc-rename-nvim = pkgs.callPackage ./pkgs/inc-rename-nvim {};
 }
