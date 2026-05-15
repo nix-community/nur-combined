@@ -16,6 +16,7 @@ let
       fg = callPackage ./fg { };
       yafg = callPackage ./yafg.nix { };
       ouch = callPackage ./ouch.nix { };
+      keep-preferences = callPackage ./keep-preferences.nix { };
       yazi-rs = callPackage ./yazi-rs { source = sources.yazi-rs-plugins; };
     };
 in
