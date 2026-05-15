@@ -9,6 +9,7 @@
   - `flake.nix` (flake outputs)
   - `.github/workflows/build.yml` (canonical CI commands)
 - No JS/TS project metadata (`package.json`, `tsconfig`, ESLint, Prettier) is present.
+- `result/` directories are nix-build symlinks (git-ignored); ignore them in directory listings.
 
 ## Policy Files Check
 At authoring time, repository does **not** contain:
@@ -128,18 +129,48 @@ inherit pname version;
 - Most packages use `pkgs.fetchFromGitHub` (mostly from owner `srcres258`).
 - Some files use `hash` (newer nixpkgs convention), some use `sha256`. Follow whichever the file already uses.
 - Binary packages use `fetchzip` or `fetchurl`.
+- Rust packages require BOTH `hash` (for src) and `cargoHash` (for cargo vendor deps).
 
 ### Python package patterns
 Three approaches observed in the repo:
-1. **`buildPythonApplication`** – for CLI apps (`ag`, `jyyslide-util`, `adif-manage`). Uses `format = "pyproject"` and `propagatedBuildInputs`.
+1. **`buildPythonApplication`** – for CLI apps (`ag`, `jyyslide-util`, `adif-manage`, `sootty`). Uses `format = "pyproject"` (or `format = "setuptools"` for `sootty`) and `propagatedBuildInputs`.
 2. **`buildPythonPackage`** – for libraries (`simple-toml-configurator`). Uses `pyproject = true`, `build-system`, and `dependencies` (newer nixpkgs python infrastructure).
 3. No Python packages use `buildPythonPackage` with `buildPythonPackage rec { ... }` — prefer the patterns above.
+
+### Rust package patterns
+Rust packages (`deepseek-tui`, `waveql`, `bibox`, `keystroke`) use `pkgs.rustPlatform.buildRustPackage`:
+```nix
+{ maintainers, pkgs, ... }: let
+  pname = "my-rust-app";
+  version = "1.0.0";
+in pkgs.rustPlatform.buildRustPackage {
+  inherit pname version;
+  src = pkgs.fetchFromGitHub { ... };
+  cargoHash = "sha256-...";
+  # ...
+}
+```
+
+**Key conventions for Rust packages:**
+- Always provide BOTH `hash` (source) and `cargoHash` (Cargo.lock deps).
+- `doCheck = false` is common (no test infrastructure wired).
+- Conditional `broken` with `versionOlder` for MSRV:
+  ```nix
+  broken = versionOlder pkgs.rustc.version "1.88.0";
+  ```
+- Platform support: `platforms.linux` or `platforms.linux ++ platforms.darwin`.
+- Multiple build targets: use `cargoBuildFlags = [ "--package" "foo" "--package" "bar" ]`.
+- Ignore MSRV in upstream: `cargoBuildFlags = [ "--ignore-rust-version" ]`.
+- Linux-native deps: include `autoPatchelfHook` in `nativeBuildInputs` with `pkgs.lib.optionals pkgs.stdenv.isLinux`.
+- GTK apps (`keystroke`): use `wrapGAppsHook4`, `buildInputs` for GTK deps, and `preFixup` with `gappsWrapperArgs`.
+- Source patches: `postPatch` with `substituteInPlace` (example: `pkgs/keystroke/default.nix`).
 
 ### Metadata expectations
 Include a meaningful `meta` block when possible:
 - `description`, `homepage`, `license`, `maintainers`
 - `platforms` and `mainProgram` where applicable
 - `broken = true` for known-broken packages (example: `jlc-assistant`)
+- Conditional `broken` for version-gated packages (Rust MSRV: `versionOlder pkgs.rustc.version "1.88.0"`)
 - `sourceProvenance` for binary/distributed artifacts (example: `lceda-pro`, `vivado-2022_2` use `binaryNativeCode`, `binaryBytecode`, `binaryData`)
 
 ### Error handling and safety
@@ -150,6 +181,8 @@ Include a meaningful `meta` block when possible:
 
 ### Derivation quirk
 - `pkgs/vivado-2022_2/default.nix` wraps its derivation in `buildFHSEnv` for FHS compatibility — this is uncommon and worth noting if touching that package.
+- `pkgs/peerbanhelper/default.nix` uses `stdenvNoCC.mkDerivation (finalAttrs: { ... })` instead of `rec` — a newer nixpkgs pattern that avoids the `rec` pitfall.
+- `pkgs/example-package/default.nix` uses the old `rec` pattern — this is a template, not a production package. Prefer `finalAttrs` for new derivations.
 
 ## Critical Files to Inspect Before Editing
 - Package exports: `default.nix`
