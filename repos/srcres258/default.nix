@@ -53,6 +53,9 @@ in {
   sootty = pkgs.callPackage ./pkgs/sootty {
       inherit maintainers;
   };
+  waveql = pkgs.callPackage ./pkgs/waveql {
+      inherit maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
