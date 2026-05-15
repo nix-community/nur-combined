@@ -1,74 +1,74 @@
 name: "Auto update packages"
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "10 3 * * *"
+    workflow_dispatch:
+    schedule:
+        - cron: "10 3 * * *"
 jobs:
-  build:
-    name: update
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+    build:
+        name: update
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v6
 
-      - name: Prepare Nix Environment
-        uses: ./.github/prepare-nix
-        with:
-          GH_PAT: ${{ secrets.GH_PAT }}
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-          ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
-          ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
-          ONLY_NIX: true
+            - name: Prepare Nix Environment
+              uses: ./.github/prepare-nix
+              with:
+                  GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+                  ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+                  ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
+                  ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
+                  ONLY_NIX: true
 
-      - name: Cache Nvfetcher Database
-        id: cache-nvfetcher
-        uses: actions/cache@v5
-        with:
-          path: ~/.local/share/nvfetcher
-          key: nvfetcher
+            - name: Cache Nvfetcher Database
+              id: cache-nvfetcher
+              uses: actions/cache@v5
+              with:
+                  path: ~/.local/share/nvfetcher
+                  key: nvfetcher
 
-      - name: Flake update
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          nix flake update --commit-lock-file
+            - name: Flake update
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  nix flake update --commit-lock-file
 
-      - name: Fetch new versions
-        run: |
-          cat > secrets.toml <<EOF
-          [keys]
-          github = "${{ secrets.GITHUB_TOKEN }}"
-          EOF
+            - name: Fetch new versions
+              run: |
+                  cat > secrets.toml <<EOF
+                  [keys]
+                  github = "${{ secrets.GITHUB_TOKEN }}"
+                  EOF
 
-          nix develop -c update-packages
+                  nix develop -c update-packages
 
-          rm -f secrets.toml
+                  rm -f secrets.toml
 
-      - name: copy nixpkgs scripts
-        run: |
-          NIXPKGS=$(nix-instantiate --eval -E '<nixpkgs>')
-          cp -r $NIXPKGS/{ci,shell.nix,maintainers} .
-          chmod -R +w .
-          sed -i "s|./../../default.nix|$NIXPKGS|g" maintainers/scripts/update.nix
+            - name: copy nixpkgs scripts
+              run: |
+                  NIXPKGS=$(nix-instantiate --eval -E '<nixpkgs>')
+                  cp -r $NIXPKGS/{ci,shell.nix,maintainers} .
+                  chmod -R +w .
+                  sed -i "s|./../../default.nix|$NIXPKGS|g" maintainers/scripts/update.nix
 
-      - name: Update vendor hashes (nix-update)
-        run: |
-          export NIXPKGS_ALLOW_UNFREE=1
-          grep -rl "# nix-update auto" pkgs/by-name | while read -r file; do
-              pkg_name=$(basename $(dirname "$file"))
-              extra_args=$(sed -n 's/.*# nix-update auto//p' "$file" | xargs)
+            - name: Update vendor hashes (nix-update)
+              run: |
+                  export NIXPKGS_ALLOW_UNFREE=1
+                  grep -rl "# nix-update auto" pkgs/by-name | while read -r file; do
+                      pkg_name=$(basename $(dirname "$file"))
+                      extra_args=$(sed -n 's/.*# nix-update auto//p' "$file" | xargs)
 
-              echo "Detected auto-update marker for: $pkg_name"
+                      echo "Detected auto-update marker for: $pkg_name"
 
-              nix shell nixpkgs#nix-update --inputs-from . \
-                -c nix-update "$pkg_name" --version=skip $extra_args \
-                --update-script-args "--arg include-overlays '[(self: super: (import ./default.nix {}))]'"
-          done
+                      nix shell nixpkgs#nix-update --inputs-from . \
+                        -c nix-update "$pkg_name" --version=skip $extra_args \
+                        --update-script-args "--arg include-overlays '[(self: super: (import ./default.nix {}))]'"
+                  done
 
-      - name: Commit changes
-        run: |
-          git add _sources pkgs/by-name
-          git diff --staged --quiet || git commit -m "chore: update nvfetcher & vendor hashes"
-          git push
+            - name: Commit changes
+              run: |
+                  git add _sources pkgs/by-name
+                  git diff --staged --quiet || git commit -m "chore: update nvfetcher & vendor hashes"
+                  git push
