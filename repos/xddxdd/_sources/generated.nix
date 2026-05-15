@@ -276,10 +276,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "4.3.1";
+    version = "4.3.3";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.3.1/cops-4.3.1-php84.zip";
-      hash = "sha256-oUfP81ViJvvKUhFvCOlvuXBACKV2PvWNCLdCb90BxBU=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.3.3/cops-4.3.3-php84.zip";
+      hash = "sha256-3WocxAWsw/gbuWZ89BciGqz8l8l7WE92OySOURmL4fU=";
     };
   };
   cef-binary = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.0.6";
+    version = "v7.0.7";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.0.6";
-      hash = "sha256-KIrz5K47hFhkfVRB/mDjjnge+l4JKUGiLajw/Ur6Rxg=";
+      tag = "v7.0.7";
+      hash = "sha256-rQonYlDjFqVhZylFP16gtij8f4GOFU+7l8hH7rszWlM=";
     };
   };
   cockpy = {
@@ -613,12 +613,12 @@
   };
   dump978 = {
     pname = "dump978";
-    version = "v10.2";
+    version = "v11.0";
     src = fetchFromGitHub {
       owner = "flightaware";
       repo = "dump978";
-      tag = "v10.2";
-      hash = "sha256-HXNn8Hmgfv7TzSGVntxnwguCf2P9bc5pi/zbOAaYEkY=";
+      tag = "v11.0";
+      hash = "sha256-phXdZNin0wuV8lSOUIgQ1IvtqH+WClD2ApuI8nftQUo=";
     };
   };
   easycli = {
@@ -1155,14 +1155,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "4956ce72a18ccebb6b6468fa3cef4ba9759b3cf2";
+    version = "077e32a94f39af02209dbbc680bf8a43b774b305";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "4956ce72a18ccebb6b6468fa3cef4ba9759b3cf2";
-      hash = "sha256-OMvs91NIMLxpzUBSsOoBJWuSLZ0WTMY0zEiQZ+yiHok=";
+      rev = "077e32a94f39af02209dbbc680bf8a43b774b305";
+      hash = "sha256-G45X/8CgTjp7mfsI3Z2EQ+pu7/eyhxBAldJHwJjzv7o=";
     };
-    date = "2026-05-13";
+    date = "2026-05-15";
   };
   libqcef = {
     pname = "libqcef";
@@ -1239,12 +1239,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9134";
+    version = "b9165";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9134";
-      hash = "sha256-VqlkBUnVynCZtXAC3q8bBwNjgCxZwpmMpfzorp5EwmM=";
+      tag = "b9165";
+      hash = "sha256-mKlTqrYAK8THnmRlywxVvkG4+oKe3Ye/mhu65vZBTyg=";
     };
   };
   loralib = {
@@ -1260,12 +1260,12 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.23";
+    version = "v0.24";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      tag = "v0.23";
-      hash = "sha256-ASL8UiznK9grM0Xw5mp2IYwrg70VJwzCs9pInW7zkwA=";
+      tag = "v0.24";
+      hash = "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=";
     };
   };
   magiskboot = {
@@ -1288,22 +1288,22 @@
   };
   metee = {
     pname = "metee";
-    version = "6.2.1";
+    version = "6.2.3";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "metee";
-      tag = "6.2.1";
-      hash = "sha256-TMHc/0N1DUx+aKOCrfBRoQgKj968FIq+FcusyLG0oPI=";
+      tag = "6.2.3";
+      hash = "sha256-ac4ypAi8voTpHB5D1V6WoA6MBO4zf45Tx4JL6Gl+468=";
     };
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.36.3";
+    version = "v1.37.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.36.3";
-      hash = "sha256-4AmilIVmsfi+mS+iUhd4MX8n/U8gowkL0dnFpJ90iGQ=";
+      tag = "v1.37.0";
+      hash = "sha256-kGcu1iojClUhj8KS+TY0WU8+dKRanqbkJmXwSE0EoLk=";
     };
   };
   mtkclient = {
@@ -1985,14 +1985,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
+    version = "c0364c0f3bbf9559c992f166795d6eb474a4a745";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
-      hash = "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=";
+      rev = "c0364c0f3bbf9559c992f166795d6eb474a4a745";
+      hash = "sha256-QLZrYqYqPiTfOmFE/Oo8YSp3IavqyLyZxnQ52N5+es0=";
     };
-    date = "2026-05-06";
+    date = "2026-05-14";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2043,23 +2043,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "efd96fd820ce8fcd20620b376260bc93550326fe";
+    version = "b1c20eec6a91983cd418b510d876265b038859e0";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "efd96fd820ce8fcd20620b376260bc93550326fe";
-      hash = "sha256-zL0FNVKgJ0v414M0ZCyo4jDO8TInJ7EDgcpk0ZlNzbQ=";
+      rev = "b1c20eec6a91983cd418b510d876265b038859e0";
+      hash = "sha256-wCrI8qEfA2xiJKaw+Jmxx4fwQsrt6NxOvJ6jrwKAHUM=";
     };
-    date = "2026-05-13";
+    date = "2026-05-15";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr26.0.1.4";
+    version = "mr14.1.1.11";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr26.0.1.4";
-      hash = "sha256-sHgJb10bORAF4lwlVvWJO+/9ufGPAY2G5ngf9Ng6uU8=";
+      tag = "mr14.1.1.11";
+      hash = "sha256-jw05NVy/cQ6dZxYMqCAtHSPdhy+5P/D4ByulCstsB4w=";
     };
   };
   runpod-python = {
@@ -2415,12 +2415,12 @@
   };
   vuetorrent-backend = {
     pname = "vuetorrent-backend";
-    version = "v2.7.2";
+    version = "v2.7.3";
     src = fetchFromGitHub {
       owner = "VueTorrent";
       repo = "vuetorrent-backend";
-      tag = "v2.7.2";
-      hash = "sha256-KFxXoNIFiV0Yez5lgUkYi/XaDNkeFKjhoZm/5RI5Tl8=";
+      tag = "v2.7.3";
+      hash = "sha256-/zsv18BmpjhJ1UrXCtnynzvULWI8YqzhcUWNaCo84Ls=";
     };
   };
   wechat-uos = {
