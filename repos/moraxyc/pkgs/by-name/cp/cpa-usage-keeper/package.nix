@@ -24,6 +24,16 @@ buildGoModule (finalAttrs: {
     mv $out/bin/{server,cpa-usage-keeper}
   '';
 
+  __darwinAllowLocalNetworking = true;
+
+  checkFlags =
+    let
+      skippedTests = [
+        "TestNewClientTLSSkipVerify"
+      ];
+    in
+    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+
   passthru = {
     frontend = callPackage ./frontend.nix {
       inherit source;

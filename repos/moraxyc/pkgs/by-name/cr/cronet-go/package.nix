@@ -66,6 +66,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace naiveproxy/src/build/config/compiler/BUILD.gn \
       --replace-fail 'cflags += [ "-fno-lifetime-dse" ]' '# cflags += [ "-fno-lifetime-dse" ]' \
       --replace-fail '"-fsanitize-ignore-for-ubsan-feature=array-bounds"' '# "-fsanitize-ignore-for-ubsan-feature=array-bounds"' \
+      --replace-fail '"-fsanitize-ignore-for-ubsan-feature=return"' '# "-fsanitize-ignore-for-ubsan-feature=return"' \
       --replace-fail '"-Wno-unsafe-buffer-usage-in-static-sized-array"' '# "-Wno-unsafe-buffer-usage-in-static-sized-array"'
   ''
   + lib.optionalString (isCrossLinux && finalAttrs.passthru.chromiumLinuxTargetTriple != null) ''
