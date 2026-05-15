@@ -277,16 +277,16 @@
     "lyrica": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=/Cargo.lock",
+                "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=/Cargo.lock",
                 {
                     "netease-cloud-music-api-1.5.2": "sha256-6YgH9HhgBX+1tT4ysXtqtLENSD2wwhyhcJrB5q/5LTA="
                 }
             ]
         },
-        "date": "2026-05-12",
+        "date": "2026-05-15",
         "extract": {
-            "Cargo.toml": "sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=/Cargo.toml",
-            "frontend/kde/metadata.json": "sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=/frontend/kde/metadata.json"
+            "Cargo.toml": "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=/Cargo.toml",
+            "frontend/kde/metadata.json": "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=/frontend/kde/metadata.json"
         },
         "name": "lyrica",
         "passthru": null,
@@ -298,12 +298,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "9f832e8647dbed8ecb7af673018bae3895e69fbb",
-            "sha256": "sha256-+yWq3qpkzK3XwmRYGEb1SifcH0p4reFPh3VLbHZWnrk=",
+            "rev": "4fab122046a66e111cfddf5980e307e361139e26",
+            "sha256": "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9f832e8647dbed8ecb7af673018bae3895e69fbb"
+        "version": "4fab122046a66e111cfddf5980e307e361139e26"
     },
     "motrix-next-beta": {
         "cargoLock": {
@@ -335,7 +335,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-y7X6hsFfpZ5etwfotaUF5sF0aUeSjQjcljO66+eCqrA=/pubspec.lock"
+            "pubspec.lock": "sha256-yLbivIJHYtRfmlAeR78GY6+9vKZtLePc0uID_JxgHng=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -347,12 +347,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.0.7.1",
-            "sha256": "sha256-y7X6hsFfpZ5etwfotaUF5sF0aUeSjQjcljO66+eCqrA=",
+            "rev": "2.0.7.2",
+            "sha256": "sha256-yLbivIJHYtRfmlAeR78GY6+9vKZtLePc0uID/JxgHng=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.0.7.1"
+        "version": "2.0.7.2"
     },
     "pixes": {
         "cargoLock": null,
@@ -424,11 +424,11 @@
     "splayer-git": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-+mGA_JWlfMWG7_s9Q8h8mCmHUmS4xWsH_m40hMF4KWc=/Cargo.lock",
+                "sha256-BhVUwVlaQBEzolR5YpHDSG__DDl8drSXWvS2Tp7jFqw=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-05-05",
+        "date": "2026-05-15",
         "extract": null,
         "name": "splayer-git",
         "passthru": null,
@@ -440,12 +440,12 @@
             "name": null,
             "owner": "imsyy",
             "repo": "SPlayer",
-            "rev": "843eb6e83e3eafe256bcf0a2821f3b8c5aecf642",
-            "sha256": "sha256-+mGA/JWlfMWG7/s9Q8h8mCmHUmS4xWsH/m40hMF4KWc=",
+            "rev": "e9e2ffce8c5a8d5c8b91f4cec2e4432c4ed7e3ab",
+            "sha256": "sha256-BhVUwVlaQBEzolR5YpHDSG//DDl8drSXWvS2Tp7jFqw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "843eb6e83e3eafe256bcf0a2821f3b8c5aecf642"
+        "version": "e9e2ffce8c5a8d5c8b91f4cec2e4432c4ed7e3ab"
     },
     "splayer-kde-bar-lyc": {
         "cargoLock": null,

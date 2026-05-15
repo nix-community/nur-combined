@@ -1,9 +1,9 @@
 {
-  "version": "2.0.7.1",
-  "sourceSha256": "sha256-y7X6hsFfpZ5etwfotaUF5sF0aUeSjQjcljO66+eCqrA=",
-  "rev": "1a45b5cb4ac8a1e082d72040c8a12b954b267bbb",
-  "time": 1778381522,
-  "revCount": 4946,
+  "version": "2.0.7.2",
+  "sourceSha256": "sha256-yLbivIJHYtRfmlAeR78GY6+9vKZtLePc0uID/JxgHng=",
+  "rev": "ad6c0e0d157650a76d22c3634cd93f433ed6eeb0",
+  "time": 1778812800,
+  "revCount": 4956,
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
@@ -448,16 +448,6 @@
         "source": "hosted",
         "version": "1.0.2"
       },
-      "cupertino_icons": {
-        "dependency": "direct main",
-        "description": {
-          "name": "cupertino_icons",
-          "sha256": "41e005c33bd814be4d3096aff55b1908d419fde52ca656c8c47719ec745873cd",
-          "url": "https://pub.dev"
-        },
-        "source": "hosted",
-        "version": "1.0.9"
-      },
       "dart_style": {
         "dependency": "transitive",
         "description": {
@@ -663,12 +653,13 @@
       "file_picker": {
         "dependency": "direct main",
         "description": {
-          "name": "file_picker",
-          "sha256": "1d4afa261268e59863af47b9f9dd9a230502d4c702b9d9183353646fe6d5b6e1",
-          "url": "https://pub.dev"
+          "path": ".",
+          "ref": "dev",
+          "resolved-ref": "8cf6cfa7078aa69c2c7b08d9ad636a1040456852",
+          "url": "https://github.com/bggRGjQaUbCoE/flutter_file_picker.git"
         },
-        "source": "hosted",
-        "version": "12.0.0-beta.1"
+        "source": "git",
+        "version": "12.0.0-beta.3"
       },
       "file_selector_linux": {
         "dependency": "transitive",
@@ -990,11 +981,12 @@
       "font_awesome_flutter": {
         "dependency": "direct main",
         "description": {
-          "name": "font_awesome_flutter",
-          "sha256": "f50ce90dbe26d977415b9540400d6778bef00894aced6358ae578abd92b14b10",
-          "url": "https://pub.dev"
+          "path": ".",
+          "ref": "v10.9.0",
+          "resolved-ref": "cf4a19ece5cb296d73d90f0d73106f779c85fa26",
+          "url": "https://github.com/bggRGjQaUbCoE/font_awesome_flutter.git"
         },
-        "source": "hosted",
+        "source": "git",
         "version": "10.9.0"
       },
       "get": {
@@ -1423,7 +1415,7 @@
         "description": {
           "path": ".",
           "ref": "const",
-          "resolved-ref": "c11f18c031f1045900dc3e817f7519eb863c2550",
+          "resolved-ref": "2bb68d1de3c7bb8c6117fce54d43da65a2387163",
           "url": "https://github.com/bggRGjQaUbCoE/material_design_icons_flutter.git"
         },
         "source": "git",
@@ -2420,11 +2412,11 @@
         "dependency": "transitive",
         "description": {
           "name": "vector_graphics",
-          "sha256": "6409a25046024f0f8c5d8a59fec314081e81f9d436b66ca4015a8b49772bf445",
+          "sha256": "4d35a36400983c3457c289d4d553b5308f506ea84f7e51c7a564651b5525209a",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "1.2.0"
+        "version": "1.2.1"
       },
       "vector_graphics_codec": {
         "dependency": "transitive",
@@ -2440,11 +2432,11 @@
         "dependency": "transitive",
         "description": {
           "name": "vector_graphics_compiler",
-          "sha256": "06f0c50f88a1a020f95138dcc14ef4d5a039ced3f89b386209e6763dfa2cefa0",
+          "sha256": "98e7e94de127b46a86ef46197fff84ff99f3d3b80a708390d717ad731efef598",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "1.2.1"
+        "version": "1.2.2"
       },
       "vector_math": {
         "dependency": "direct main",
@@ -2490,11 +2482,11 @@
         "dependency": "transitive",
         "description": {
           "name": "wakelock_plus_platform_interface",
-          "sha256": "14b2e5b9e35c2631e656913c47adecdd71633ae92896a27a64c8f1fcfabc21cc",
+          "sha256": "b13f99e992e7ae6a152e16c5559d3c07ff445b13330192662494e614ca3e7d7b",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "1.5.0"
+        "version": "1.5.1"
       },
       "watcher": {
         "dependency": "transitive",
@@ -2629,11 +2621,13 @@
     "chat_bottom_container": "sha256-+R1MiDMO4onCMXiJ7MJtJVAwyEJcikTyONwp+HibqA0=",
     "desktop_webview_window": "sha256-KWON5aTPlVVrLidmnfpV+syWPYEngChOvkN7miIFjvE=",
     "extended_nested_scroll_view": "sha256-ocjIy7gpCikoqRMqY4oGw/p9YaQ2v2clhon2pIzTXk4=",
+    "file_picker": "sha256-qbbO532AN54xpJSQhZ9F2yVN6fmKWcz3x8jPzMiIetE=",
     "floating": "sha256-0Xd9dsXJCQ/r/8Nb16oM+M8Jdw+r4QzGmU++HpqF/v0=",
     "flutter_smart_dialog": "sha256-sehrQraEWmYvUd9pdG4l3edbtR4yTcJOqPbuhzIrih4=",
     "flutter_sortable_wrap": "sha256-Qj9Lzh+pJy+vHznGt5M3xwoJtaVtt00fxm4JJXL4bFI=",
+    "font_awesome_flutter": "sha256-EcrAmglNHxm16gWTi4nYbTfKx0CCprllIyvlvYlz8wY=",
     "get": "sha256-zQ2m29nKCEjGvresMaDBo1oYfQ6WrFVbMSitcGmxyhU=",
-    "material_design_icons_flutter": "sha256-KMwjnzJJj8nemCqUCSwYafPOwTYbtoHNenxstocJtz4=",
+    "material_design_icons_flutter": "sha256-t2ENlgb3ZRIc6jvufVwKGcty+3Te6/+XP10YDBrosYM=",
     "media_kit": "sha256-tly3av5ojuasf+bXkOzLImcEm9oP25Y2flQDMV21T1s=",
     "media_kit_libs_android_video": "sha256-tly3av5ojuasf+bXkOzLImcEm9oP25Y2flQDMV21T1s=",
     "media_kit_libs_ios_video": "sha256-mB3GN5Sc4oxUaW7xOgORaRzP9hKcRpcPxhmraKs/AMg=",
