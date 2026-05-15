@@ -1,0 +1,113 @@
+diff --git a/bin/forester/main.ml b/bin/forester/main.ml
+index 1111111..2222222 100644
+--- a/bin/forester/main.ml
++++ b/bin/forester/main.ml
+@@ -153,6 +153,7 @@ let arg_config =
+   Arg.(value & pos 0 file "forest.toml" & info [] ~docv: "FOREST" ~doc)
+ 
+ let build_cmd ~env =
++  let eio_env = env in
+   let arg_dev =
+     let doc = "Run forester in development mode; this will attach source file locations to the generated json." in
+     Arg.value @@ Arg.flag @@ Arg.info ["dev"] ~doc
+@@ -171,7 +172,7 @@ let build_cmd ~env =
+   Cmd.v
+     info
+     Term.(
+-      const (build ~env)
++      const (build ~env:eio_env)
+       $ arg_logs
+       $ arg_config
+       $ arg_dev
+@@ -179,6 +180,7 @@ let build_cmd ~env =
+     )
+ 
+ let new_tree_cmd ~env =
++  let eio_env = env in
+   let arg_prefix =
+     let doc = "The namespace prefix for the created tree." in
+     Arg.value @@
+@@ -207,7 +209,7 @@ let new_tree_cmd ~env =
+   Cmd.v
+     info
+     Term.(
+-      const (new_tree ~env)
++      const (new_tree ~env:eio_env)
+       $ arg_config
+       $ arg_dest_dir
+       $ arg_prefix
+@@ -216,6 +218,7 @@ let new_tree_cmd ~env =
+     )
+ 
+ let complete_cmd ~env =
++  let eio_env = env in
+   let arg_title =
+     let doc = "The tree title prefix to complete." in
+     Arg.value @@
+@@ -225,12 +228,13 @@ let complete_cmd ~env =
+   in
+   let doc = "Complete a tree title." in
+   let info = Cmd.info "complete" ~version ~doc in
+-  Cmd.v info Term.(const (complete ~env) $ arg_config $ arg_title)
++  Cmd.v info Term.(const (complete ~env:eio_env) $ arg_config $ arg_title)
+ 
+ let query_all_cmd ~env =
++  let eio_env = env in
+   let doc = "List all trees in JSON format" in
+   let info = Cmd.info "all" ~version ~doc in
+-  Cmd.v info Term.(const (query_all ~env) $ arg_config)
++  Cmd.v info Term.(const (query_all ~env:eio_env) $ arg_config)
+ 
+ let query_cmd ~env =
+   let doc = "Query your forest" in
+@@ -238,6 +242,7 @@ let query_cmd ~env =
+   Cmd.group info [query_all_cmd ~env]
+ 
+ let init_cmd ~env =
++  let eio_env = env in
+   let arg_dir =
+     let doc = "The directory in which to initialize the forest" in
+     Arg.value @@ Arg.opt (Arg.some Arg.string) None @@ Arg.info ["dir"] ~docv: "DIR" ~doc
+@@ -250,7 +255,7 @@ let init_cmd ~env =
+   ]
+   in
+   let info = Cmd.info "init" ~version ~doc ~man in
+-  Cmd.v info Term.(const (init ~env) $ arg_dir)
++  Cmd.v info Term.(const (init ~env:eio_env) $ arg_dir)
+ 
+ let lsp ~env _ config =
+   let config = Config_parser.parse_forest_config_file config in
+@@ -259,6 +264,7 @@ let lsp ~env _ config =
+     ~config
+ 
+ let lsp_cmd ~env =
++  let eio_env = env in
+   let man = [
+     `S Manpage.s_description;
+     `P "The $(tname) command starts the forester language server.";
+@@ -269,7 +275,7 @@ let lsp_cmd ~env =
+   Cmd.v
+     info
+     Term.(
+-      const (lsp ~env)
++      const (lsp ~env:eio_env)
+       $ arg_logs
+       $ arg_config
+     )
+@@ -281,6 +287,7 @@ let server ~env _ port config =
+   Server.run ~env ~port ~forest theme_location
+ 
+ let app_cmd ~env =
++  let eio_env = env in
+   let open Cmdliner in
+   let man = [
+     `S Manpage.s_description;
+@@ -301,7 +308,7 @@ let app_cmd ~env =
+   Cmd.v
+     info
+     Term.(
+-      const (server ~env)
++      const (server ~env:eio_env)
+       $ arg_logs
+       $ arg_port
+       $ arg_config
