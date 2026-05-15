@@ -13,12 +13,12 @@ rec {
   catppuccin-gtk = pkgs.callPackage ./catppuccin-gtk { };
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
+  fix-hash = pkgs.callPackage ./fix-hash { };
   flake-release = pkgs.callPackage ./flake-release { };
   gleescript = pkgs.callPackage ./gleescript { inherit (libs) gleamErlangHook gleamFetchDeps; };
   go-over = pkgs.callPackage ./go-over { inherit (libs) gleamErlangHook gleamFetchDeps; };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
-  fix-hash = pkgs.callPackage ./nix-fix-hash { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };
   pysentry = pkgs.callPackage ./pysentry { };
