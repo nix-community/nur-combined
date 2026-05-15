@@ -102,6 +102,12 @@ lib.mkOption {
                 description = "List of tools from this MCP server to disable";
               };
 
+              enabled_tools = lib.mkOption {
+                type = lib.types.nullOr (lib.types.listOf lib.types.str);
+                default = null;
+                description = "Allow list of tools from this MCP server";
+              };
+
               env = lib.mkOption {
                 type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
                 default = null;
@@ -279,7 +285,7 @@ lib.mkOption {
             data_directory = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = ".crush";
-              description = "Directory for storing application data (relative to working directory)";
+              description = "Directory for storing application data. Relative paths are resolved against the working directory; absolute paths are used as-is.";
             };
 
             debug = lib.mkOption {
