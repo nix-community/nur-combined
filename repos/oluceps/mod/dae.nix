@@ -43,14 +43,14 @@
                  check_tolerance: 50ms
                  wan_interface: auto
                  allow_insecure: false
-                 pprof_port: 9901
+                 # pprof_port: 9901
                  dial_mode: domain
-                 disable_waiting_network: true
+                 disable_waiting_network: false
                  auto_config_kernel_parameter: true
                  tls_implementation: utls
                  utls_imitate: ios_auto
                  lan_interface: br0,podman0,podman1,podman2,podman3,docker0
-                 mptcp: true
+                 mptcp: false
                  tls_fragment_length: '50-100'
                  tls_fragment_interval: '10-20'
                  fallback_resolver: '8.8.8.8:53'

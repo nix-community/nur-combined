@@ -250,7 +250,6 @@
               cosmic-term
               hyperfine
               acpi
-              swww
               distrobox
               gum
               dmidecode

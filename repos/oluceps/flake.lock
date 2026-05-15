@@ -523,16 +523,17 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "dirtyRev": "87281ee152b189d1d0c7840c476ef9eed6e33d8d-dirty",
-        "dirtyShortRev": "87281ee-dirty",
         "lastModified": 1778001093,
-        "narHash": "sha256-If/l3ZHINWHZFjO8dOqH9l2JZxd/+HzWWoli2va7NoA=",
-        "type": "git",
-        "url": "file:///home/riro/Src/flake.nix"
+        "narHash": "sha256-JSPe258LVV3zEpxoM03POYMjNNj8wXUzliIrkDOgHD0=",
+        "owner": "daeuniverse",
+        "repo": "flake.nix",
+        "rev": "87281ee152b189d1d0c7840c476ef9eed6e33d8d",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/riro/Src/flake.nix"
+        "owner": "daeuniverse",
+        "repo": "flake.nix",
+        "type": "github"
       }
     },
     "devenv": {

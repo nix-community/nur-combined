@@ -448,55 +448,69 @@
             };
           };
         };
-        alertmanager = {
-          enable = true;
-          webExternalUrl = "https://alert.nyaw.xyz";
-          listenAddress = "[fdcc::${toString (config.data.node.${config.networking.hostName}.id + 1)}]";
-          port = 9093;
-          logLevel = "info";
-          extraFlags = [ ''--cluster.listen-address=""'' ];
-          configuration = {
-            global = {
-              resolve_timeout = "2m";
-            };
-            receivers = [
-              {
-                name = "telegram";
-                telegram_configs = [
-                  {
-                    bot_token_file = "/run/credentials/alertmanager.service/notifychan";
-                    chat_id = -1002215131569;
-                  }
-                ];
-              }
-              {
-                name = "bridge-channel";
-                telegram_configs = [
-                  {
-                    bot_token_file = "/run/credentials/alertmanager.service/notifychan";
-                    chat_id = -1003020363451;
-                  }
-                ];
-              }
-            ];
-            route = {
-              receiver = "telegram";
-              group_wait = "30s";
-              group_interval = "2m";
-              repeat_interval = "10m";
-              routes = [
+        alertmanager =
+          let
+            localId = config.data.node.${config.networking.hostName}.id;
+            localAddr = "[fdcc::${toString (localId + 1)}]";
+          in
+          {
+            enable = true;
+            webExternalUrl = "https://alert.nyaw.xyz";
+            listenAddress = localAddr;
+            port = 9093;
+            logLevel = "info";
+            extraFlags = [
+              ''--cluster.listen-address="${localAddr}:9094"''
+            ]
+            ++ (map (i: "--cluster.peer=${localAddr}:9094") (
+              builtins.filter (n: n != localId + 1) [
+                1
+                3
+                6
+              ]
+            ));
+            configuration = {
+              global = {
+                resolve_timeout = "2m";
+              };
+              receivers = [
                 {
-                  matchers = [ "alertname = \"PierDown\"" ];
-                  receiver = "bridge-channel";
-                  group_wait = "30s";
-                  group_interval = "2m";
-                  repeat_interval = "20m";
-                  continue = false;
+                  name = "telegram";
+                  telegram_configs = [
+                    {
+                      bot_token_file = "/run/credentials/alertmanager.service/notifychan";
+                      chat_id = -1002215131569;
+                    }
+                  ];
+                }
+                {
+                  name = "bridge-channel";
+                  telegram_configs = [
+                    {
+                      bot_token_file = "/run/credentials/alertmanager.service/notifychan";
+                      chat_id = -1003020363451;
+                    }
+                  ];
                 }
               ];
+              route = {
+                receiver = "telegram";
+                group_wait = "30s";
+                group_interval = "2m";
+                repeat_interval = "10m";
+                routes = [
+                  {
+                    matchers = [ "alertname = \"PierDown\"" ];
+                    receiver = "bridge-channel";
+                    group_wait = "30s";
+                    group_interval = "2m";
+                    repeat_interval = "60m";
+                    continue = false;
+                  }
+                ];
+              };
             };
           };
-        };
       };
     };
 }
