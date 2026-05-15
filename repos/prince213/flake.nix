@@ -61,6 +61,7 @@
             inherit (pkgs)
               aidoku-cli
               anytype-darwin
+              cloudnet
               cronet-go
               feishu-darwin
               gallant
@@ -77,7 +78,6 @@
               sing-box-app-beta
               sing-box-beta
               termius-app
-              vips_8_14_5
               wubi98-fonts
               ;
           };

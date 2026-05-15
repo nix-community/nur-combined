@@ -42,5 +42,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/NanoBillion/gallant";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ prince213 ];
+    broken = true;
   };
 }
