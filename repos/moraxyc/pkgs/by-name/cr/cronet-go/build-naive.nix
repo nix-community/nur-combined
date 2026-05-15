@@ -10,7 +10,7 @@
 buildGoModule {
   pname = source.pname + "-build-naive";
   inherit (source) version src;
-  vendorHash = "sha256-tVIKTznnducPfATK151TpC3UV2U852TyclBTSgh/H6U=";
+  vendorHash = "sha256-pyeE+JPuRQEjNzrF+o9jslBcBM1vruuL+I/DCIa2BG0=";
   patches = [
     (replaceVars ./build-naive.patch {
       gn = lib.getExe gn;

@@ -111,10 +111,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-05-14",
+        "date": "2026-05-15",
         "extract": {
-            "web/package-lock.json": "sha256-Pntb3itRZlUATYEDfVE9bwzpCN5Y7832Eh9BnVUdUhw=/web/package-lock.json",
-            "web/package.json": "sha256-Pntb3itRZlUATYEDfVE9bwzpCN5Y7832Eh9BnVUdUhw=/web/package.json"
+            "web/package-lock.json": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI_2fhLORhhSiHgPkh6X0=/web/package-lock.json",
+            "web/package.json": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI_2fhLORhhSiHgPkh6X0=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -126,12 +126,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "cc449c89bfb95cebdb2e1f5bea535b461b2f2549",
-            "sha256": "sha256-Pntb3itRZlUATYEDfVE9bwzpCN5Y7832Eh9BnVUdUhw=",
+            "rev": "f4cff4e6169eae715225ee4014a891b0e73b0e5f",
+            "sha256": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI/2fhLORhhSiHgPkh6X0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cc449c89bfb95cebdb2e1f5bea535b461b2f2549"
+        "version": "f4cff4e6169eae715225ee4014a891b0e73b0e5f"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -147,12 +147,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "v1.6.3",
-            "sha256": "sha256-7yrP/AcNrdtomsRkWPwhuFUdzS20vu+jg93lP3GR5pY=",
+            "rev": "v1.7.1",
+            "sha256": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI/2fhLORhhSiHgPkh6X0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.6.3"
+        "version": "v1.7.1"
     },
     "cronet-go": {
         "cargoLock": null,
@@ -450,11 +450,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aI7u4POi91EweLfqLs9GLJFA8IykPrycMeHADVopk84=",
+            "sha256": "sha256-hQcjORaPkxfC1ERxXlan1b2mcJsacx8EApsf6KZTGug=",
             "type": "url",
-            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.14.0.343/HMCL-3.14.0.343.jar"
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.14.0.344/HMCL-3.14.0.344.jar"
         },
-        "version": "3.14.0.343"
+        "version": "3.14.0.344"
     },
     "hmcl-dev-src": {
         "cargoLock": null,
@@ -470,12 +470,12 @@
             "name": null,
             "owner": "HMCL-dev",
             "repo": "HMCL",
-            "rev": "v3.14.0.343",
-            "sha256": "sha256-zmgtg2GY58YcV0k8rP82KWlYT4Bv2kzTl5ScwDHXK9o=",
+            "rev": "v3.14.0.344",
+            "sha256": "sha256-MYkOGPxQr+UcQQf2PEskTM1jNU9p/r0CPb3280tvaaE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.14.0.343"
+        "version": "v3.14.0.344"
     },
     "hysteria-realm-server": {
         "cargoLock": null,
@@ -808,7 +808,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-05-13",
+        "date": "2026-05-14",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -820,12 +820,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "d2d6a77b45636c8fd92a84b9c6f2a7d6ebf1dc96",
-            "sha256": "sha256-/5zK5JSk4jvgoZqtD8sft5vhQKkmvREMyoKKrQP+W1k=",
+            "rev": "390eca0de9146db6aa6059c596514e8097f0b1c8",
+            "sha256": "sha256-H++gAfyTspU5VGTJZSbouCFz71N73yrC4BuTMyxV4dY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d2d6a77b45636c8fd92a84b9c6f2a7d6ebf1dc96"
+        "version": "390eca0de9146db6aa6059c596514e8097f0b1c8"
     },
     "yass": {
         "cargoLock": null,
@@ -841,11 +841,11 @@
             "name": null,
             "owner": "hukeyue",
             "repo": "yass",
-            "rev": "1.24.11",
-            "sha256": "sha256-7+yoIYgVJbwC0cQ3aDWv6HdBTaETK0KJ1cPeBEdazAE=",
+            "rev": "1.24.12",
+            "sha256": "sha256-iM7V9K5VcxEflUR8ju+O+eHArBDwI3wPlHqGblTlZA0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1.24.11"
+        "version": "1.24.12"
     }
 }
