@@ -211,6 +211,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.etagHash = "23a68ccad3fafd19ad06f87b7db0706c";
+
   meta = {
     description = "Interactive Brokers desktop trading platform (ibkr-desktop)";
     homepage = "https://www.interactivebrokers.com";

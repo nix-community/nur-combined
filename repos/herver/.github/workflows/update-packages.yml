@@ -1,0 +1,63 @@
+name: Update packages
+on:
+  schedule:
+    - cron: '15 6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Run update scripts
+      run: |
+        for dir in pkgs/*/; do
+          pkg=$(basename "$dir")
+          if [ -x "$dir/update.sh" ]; then
+            echo "::group::Checking $pkg"
+            "$dir/update.sh" || echo "::warning::$pkg update script failed"
+            echo "::endgroup::"
+          fi
+        done
+    - name: Create PRs for updated packages
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        if git diff --quiet; then
+          echo "No updates found"
+          exit 0
+        fi
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        for dir in pkgs/*/; do
+          pkg=$(basename "$dir")
+          if ! git diff --quiet -- "$dir"; then
+            version=$(grep 'version = ' "$dir/default.nix" | head -1 | sed 's/.*"\(.*\)".*/\1/')
+            branch="update/${pkg}-${version}"
+            git stash
+            git checkout -b "$branch"
+            git stash pop
+            git add "$dir"
+            git commit -m "$pkg: update to ${version}"
+            git push -u origin "$branch"
+            existing=$(gh pr list --head "$branch" --json number --jq length)
+            if [ "$existing" = "0" ]; then
+              gh pr create \
+                --title "$pkg: update to ${version}" \
+                --body "Automated update detected a new \`${pkg}\` release (\`${version}\`)." \
+                --base main
+            fi
+            git checkout main
+          fi
+        done
