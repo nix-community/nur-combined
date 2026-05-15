@@ -24,4 +24,7 @@
   box64-static = pkgs.callPackage ./pkgs/box64-static {};
   esp-config = pkgs.callPackage ./pkgs/esp-config {};
   direnv-nvim = pkgs.callPackage ./pkgs/direnv-nvim {};
+  lsp-document-highlight-nvim = pkgs.callPackage ./pkgs/lsp-document-highlight-nvim {};
+  pretty_hover-nvim = pkgs.callPackage ./pkgs/pretty_hover-nvim {};
+  tiny-inline-diagnostic-nvim = pkgs.callPackage ./pkgs/tiny-inline-diagnostic-nvim {};
 }
