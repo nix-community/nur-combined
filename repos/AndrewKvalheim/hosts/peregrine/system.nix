@@ -27,7 +27,7 @@ in
   };
 
   # Kernel
-  boot.kernelPackages = pkgs.linuxPackages_6_19;
+  boot.kernelPackages = pkgs.linuxPackages_7_0;
   boot.consoleLogLevel = 3 /* error */; # Hide https://bbs.archlinux.org/viewtopic.php?id=300997
 
   # Display
