@@ -29,8 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 2;
-    hash = "sha256-jaCWK13QhpVoJzCYxZTyqDVqEoNUiBEdrsIFDb+sy2A=";
+    fetcherVersion = 3;
+    prePnpmInstall = ''
+      sed -i '/^overrides:/,+2d' pnpm-lock.yaml
+    '';
+    hash = "sha256-lE3FdkKI8/eGbLwjyh9759o//eCoVtMnq/Iatkvhazg=";
   };
 
   nativeBuildInputs = [
@@ -54,6 +57,10 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     # Avoid pnpm trying to self-manage the version (network access) in the build.
     sed -i '/"packageManager":/d' package.json
+    # pnpm 11 no longer treats package.json's pnpm.overrides as lockfile
+    # overrides, so the old lockfile metadata trips frozen installs even though
+    # the locked graph itself is usable.
+    sed -i '/^overrides:/,+2d' pnpm-lock.yaml
   '';
 
   patches = [
@@ -71,7 +78,6 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s "$ELECTRON_HEADERS_DIR/include/node/config.gypi" "$ELECTRON_HEADERS_DIR/config.gypi"
     export npm_config_nodedir="$ELECTRON_HEADERS_DIR"
 
-    pnpm config set nodedir ${nodejs_22}
     pnpm install --offline --frozen-lockfile
     pnpm run build
 
