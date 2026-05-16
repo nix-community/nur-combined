@@ -28,14 +28,13 @@ let
       configFile = format.generate "vault-agent-${name}.json" instance.settings;
     in
     {
+      script = ''
+        mkdir -p ${lib.escapeShellArg (dirOf instance.settings.pid_file)}
+        chown ${lib.escapeShellArg "${instance.user}:${instance.group}"} ${lib.escapeShellArg (dirOf instance.settings.pid_file)}
+        exec ${lib.getExe instance.package} agent -config=${configFile} -log-level=debug
+      '';
       serviceConfig = {
         Label = "org.nixos.vault-agent-${name}";
-
-        script = ''
-          mkdir -p ${lib.escapeShellArg (dirOf instance.settings.pid_file)}
-          chown ${lib.escapeShellArg "${instance.user}:${instance.group}"} ${lib.escapeShellArg (dirOf instance.settings.pid_file)}
-          exec ${lib.getExe instance.package} agent -config ${configFile}
-        '';
 
         UserName = instance.user;
         GroupName = instance.group;
@@ -48,6 +47,10 @@ let
 
         # Rough equivalent to TimeoutStopSec = "30s".
         ExitTimeOut = 30;
+      }
+      // lib.optionalAttrs instance.debug {
+        StandardOutPath = "/Library/Logs/vault-agent/${name}/stdout";
+        StandardErrorPath = "/Library/Logs/vault-agent/${name}/stderr";
       };
     };
 in
@@ -70,6 +73,8 @@ in
             };
 
             package = mkPackageOption pkgs "vault" { };
+
+            debug = lib.mkEnableOption "verbose log";
 
             user = mkOption {
               type = types.str;
