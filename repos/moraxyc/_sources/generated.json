@@ -111,10 +111,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-05-15",
+        "date": "2026-05-16",
         "extract": {
-            "web/package-lock.json": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI_2fhLORhhSiHgPkh6X0=/web/package-lock.json",
-            "web/package.json": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI_2fhLORhhSiHgPkh6X0=/web/package.json"
+            "web/package-lock.json": "sha256-_gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=/web/package-lock.json",
+            "web/package.json": "sha256-_gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -126,12 +126,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "f4cff4e6169eae715225ee4014a891b0e73b0e5f",
-            "sha256": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI/2fhLORhhSiHgPkh6X0=",
+            "rev": "203e418896887233936063a41f4b49004811c21b",
+            "sha256": "sha256-/gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f4cff4e6169eae715225ee4014a891b0e73b0e5f"
+        "version": "203e418896887233936063a41f4b49004811c21b"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -147,16 +147,16 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "v1.7.1",
-            "sha256": "sha256-J6mC+PVQsyu5CqI3+2bhaxNI/2fhLORhhSiHgPkh6X0=",
+            "rev": "v1.7.2",
+            "sha256": "sha256-/gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.7.1"
+        "version": "v1.7.2"
     },
     "cronet-go": {
         "cargoLock": null,
-        "date": "2026-05-11",
+        "date": "2026-05-16",
         "extract": null,
         "name": "cronet-go",
         "passthru": null,
@@ -168,12 +168,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "cronet-go",
-            "rev": "e7f6f6f5b7ce226f686f6cb5d068a63da6657ccd",
-            "sha256": "sha256-wTgJy/ZfsoTpRJCEEDEAQo/bVK7Tn2z5qnAURveWnKg=",
+            "rev": "ec86c1492fc83355bcbd96c90f9828c432498f3a",
+            "sha256": "sha256-1BB3d+SgQneanY/ll6C0gaj5v3FQwqIH/6UM/yXZGNg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e7f6f6f5b7ce226f686f6cb5d068a63da6657ccd"
+        "version": "ec86c1492fc83355bcbd96c90f9828c432498f3a"
     },
     "cronet-go-stable": {
         "cargoLock": null,
@@ -808,7 +808,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-05-14",
+        "date": "2026-05-15",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -820,12 +820,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "390eca0de9146db6aa6059c596514e8097f0b1c8",
-            "sha256": "sha256-H++gAfyTspU5VGTJZSbouCFz71N73yrC4BuTMyxV4dY=",
+            "rev": "4391a2415e01b01d4ff0a4d49253bec1120927e3",
+            "sha256": "sha256-4ioaoTXpl4W95COSJ3XBw8XYkqvDzPwgpJD5QImCKUs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "390eca0de9146db6aa6059c596514e8097f0b1c8"
+        "version": "4391a2415e01b01d4ff0a4d49253bec1120927e3"
     },
     "yass": {
         "cargoLock": null,

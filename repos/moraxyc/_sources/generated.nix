@@ -71,41 +71,41 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "f4cff4e6169eae715225ee4014a891b0e73b0e5f";
+    version = "203e418896887233936063a41f4b49004811c21b";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "f4cff4e6169eae715225ee4014a891b0e73b0e5f";
+      rev = "203e418896887233936063a41f4b49004811c21b";
       fetchSubmodules = false;
-      sha256 = "sha256-J6mC+PVQsyu5CqI3+2bhaxNI/2fhLORhhSiHgPkh6X0=";
+      sha256 = "sha256-/gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-J6mC+PVQsyu5CqI3+2bhaxNI_2fhLORhhSiHgPkh6X0=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-J6mC+PVQsyu5CqI3+2bhaxNI_2fhLORhhSiHgPkh6X0=/web/package-lock.json";
-    };date = "2026-05-15";
+      "web/package.json" = ./. + "/sha256-_gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-_gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=/web/package-lock.json";
+    };date = "2026-05-16";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.7.1";
+    version = "v1.7.2";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "v1.7.1";
+      rev = "v1.7.2";
       fetchSubmodules = false;
-      sha256 = "sha256-J6mC+PVQsyu5CqI3+2bhaxNI/2fhLORhhSiHgPkh6X0=";
+      sha256 = "sha256-/gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=";
     };
   };
   cronet-go = {
     pname = "cronet-go";
-    version = "e7f6f6f5b7ce226f686f6cb5d068a63da6657ccd";
+    version = "ec86c1492fc83355bcbd96c90f9828c432498f3a";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "cronet-go";
-      rev = "e7f6f6f5b7ce226f686f6cb5d068a63da6657ccd";
+      rev = "ec86c1492fc83355bcbd96c90f9828c432498f3a";
       fetchSubmodules = true;
-      sha256 = "sha256-wTgJy/ZfsoTpRJCEEDEAQo/bVK7Tn2z5qnAURveWnKg=";
+      sha256 = "sha256-1BB3d+SgQneanY/ll6C0gaj5v3FQwqIH/6UM/yXZGNg=";
     };
-    date = "2026-05-11";
+    date = "2026-05-16";
   };
   cronet-go-stable = {
     pname = "cronet-go-stable";
@@ -464,15 +464,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "390eca0de9146db6aa6059c596514e8097f0b1c8";
+    version = "4391a2415e01b01d4ff0a4d49253bec1120927e3";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "390eca0de9146db6aa6059c596514e8097f0b1c8";
+      rev = "4391a2415e01b01d4ff0a4d49253bec1120927e3";
       fetchSubmodules = false;
-      sha256 = "sha256-H++gAfyTspU5VGTJZSbouCFz71N73yrC4BuTMyxV4dY=";
+      sha256 = "sha256-4ioaoTXpl4W95COSJ3XBw8XYkqvDzPwgpJD5QImCKUs=";
     };
-    date = "2026-05-14";
+    date = "2026-05-15";
   };
   yass = {
     pname = "yass";
