@@ -14,13 +14,13 @@
 }:
 buildDotnetModule (finalAttrs: {
   pname = "stalker-gamma-cli";
-  version = "1.29.0";
+  version = "1.30.0";
 
   src = fetchFromGitHub {
     owner = "FaithBeam";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    sha256 = "sha256-UwEXxf7NZPhoIwiOWxtFv4VD8+eAzQyeH5jnh54QdjE=";
+    sha256 = "sha256-37negE/XHlX8KS4e731O1vTFGyhfBQXTgqqAUh2cc3Y=";
   };
 
   projectFile = "stalker-gamma-cli/stalker-gamma-cli.csproj";
