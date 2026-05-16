@@ -34,7 +34,6 @@
   proton-cachyos-arm64 = pkgs.callPackage ./pkgs/proton-cachyos/package.nix {
     archVersion = "arm64";
   };
-  proton-cachyos-v4 = throw "upstream stopped building v4 :(";
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
