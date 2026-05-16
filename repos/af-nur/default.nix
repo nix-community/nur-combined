@@ -16,6 +16,7 @@
 
   classin = pkgs.callPackage ./pkgs/classin { };
   mefrpc = pkgs.callPackage ./pkgs/mefrpc { };
+  xwaylandvideobridge = pkgs.kdePackages.callPackage ./pkgs/xwaylandvideobridge { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
