@@ -21,8 +21,7 @@ in
     settings = lib.mkOption {
       type = lib.types.submodule {
         freeformType = settingsFormat.type;
-        options = {
-        };
+        options = { };
       };
     };
     clientSecretFile = lib.mkOption {
@@ -60,7 +59,7 @@ in
         KeepAlive = true;
         RunAtLoad = true;
       }
-      // lib.optionalString cfg.debug {
+      // lib.optionalAttrs cfg.debug {
         StandardOutPath = "/Library/Logs/nezha-agent/stdout";
         StandardErrorPath = "/Library/Logs/nezha-agent/stderr";
       };

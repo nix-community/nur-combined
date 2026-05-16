@@ -10,10 +10,12 @@ let
   sources = lib.importJSON ./sources.json;
   srcInfo =
     sources.${stdenvNoCC.hostPlatform.system}
+      or sources.${lib.optionalString stdenvNoCC.hostPlatform.isDarwin "any-darwin"}
       or (throw "Unsupported platform: ${stdenvNoCC.hostPlatform.system}");
 
   meta = nixpkgs.qqmusic.meta // {
-    platforms = lib.attrNames sources;
+    platforms = lib.remove "any-darwin" (lib.attrNames sources) ++ lib.platforms.darwin;
+    maintainers = with lib.maintainers; [ moraxyc ];
   };
   passthru = {
     # nix-update auto -u
