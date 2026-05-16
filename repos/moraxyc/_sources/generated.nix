@@ -27,12 +27,9 @@
   aliyundrive-webdav-stable = {
     pname = "aliyundrive-webdav-stable";
     version = "v2.3.3";
-    src = fetchFromGitHub {
-      owner = "messense";
-      repo = "aliyundrive-webdav";
-      rev = "v2.3.3";
-      fetchSubmodules = false;
-      sha256 = "sha256-LN2HdmhcPk6RCrRZdV3A8InoYgqJSHC2XjjuKZLfVaI=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   bark-server = {
@@ -50,12 +47,9 @@
   bark-server-stable = {
     pname = "bark-server-stable";
     version = "v2.3.4";
-    src = fetchFromGitHub {
-      owner = "Finb";
-      repo = "bark-server";
-      rev = "v2.3.4";
-      fetchSubmodules = false;
-      sha256 = "sha256-pr/LE86m1ngzvXEqnixrgPP0bswzLf7iQtluqKwYiu4=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   boringssl-oqs = {
@@ -71,28 +65,25 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "203e418896887233936063a41f4b49004811c21b";
+    version = "6dabd9512befb2b0b64a18c77126237e6cfa2013";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "203e418896887233936063a41f4b49004811c21b";
+      rev = "6dabd9512befb2b0b64a18c77126237e6cfa2013";
       fetchSubmodules = false;
-      sha256 = "sha256-/gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=";
+      sha256 = "sha256-VCXTIqK7xRnoZ21RSF3GjQa7qOQOFplhD2oBxW0sUdI=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-_gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-_gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=/web/package-lock.json";
-    };date = "2026-05-16";
+      "web/package.json" = ./. + "/sha256-VCXTIqK7xRnoZ21RSF3GjQa7qOQOFplhD2oBxW0sUdI=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-VCXTIqK7xRnoZ21RSF3GjQa7qOQOFplhD2oBxW0sUdI=/web/package-lock.json";
+    };date = "2026-05-17";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
     version = "v1.7.2";
-    src = fetchFromGitHub {
-      owner = "Willxup";
-      repo = "cpa-usage-keeper";
-      rev = "v1.7.2";
-      fetchSubmodules = false;
-      sha256 = "sha256-/gEogN9saXJMsdK0nel6tASD1TY7RrJdK973Xjd0Wd0=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   cronet-go = {
@@ -110,12 +101,49 @@
   cronet-go-stable = {
     pname = "cronet-go-stable";
     version = "v148.0.7778.96-1";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
+  dae = {
+    pname = "dae";
+    version = "c7e02968f8baa425798b05dd4ab4142e3c20f568";
     src = fetchFromGitHub {
-      owner = "SagerNet";
-      repo = "cronet-go";
-      rev = "v148.0.7778.96-1";
-      fetchSubmodules = false;
-      sha256 = "sha256-iVnsp4olfu9j0Foo3oZ4WY8Iv7ZtYOb+Dcf7ep3UtP4=";
+      owner = "daeuniverse";
+      repo = "dae";
+      rev = "c7e02968f8baa425798b05dd4ab4142e3c20f568";
+      fetchSubmodules = true;
+      sha256 = "sha256-61yNOhRPSH5+Y4Y7G1hi3OHxkTBa4FpaA5JRUYIQETE=";
+    };
+    date = "2026-05-06";
+  };
+  dae-stable = {
+    pname = "dae-stable";
+    version = "v1.1.0";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
+  daed = {
+    pname = "daed";
+    version = "1e35217375eb11f4fe1c4c4dae60cce9d99ee466";
+    src = fetchFromGitHub {
+      owner = "daeuniverse";
+      repo = "daed";
+      rev = "1e35217375eb11f4fe1c4c4dae60cce9d99ee466";
+      fetchSubmodules = true;
+      sha256 = "sha256-bStNwS562xwXJVB9fI1L5jIKZYwN5Ufu9iMJvrlv0Ik=";
+    };
+    date = "2026-05-09";
+  };
+  daed-stable = {
+    pname = "daed-stable";
+    version = "1.27.0";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   english_words = {
@@ -186,36 +214,33 @@
   flapalerted-stable = {
     pname = "flapalerted-stable";
     version = "v4.4.1";
-    src = fetchFromGitHub {
-      owner = "Kioubit";
-      repo = "FlapAlerted";
-      rev = "v4.4.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-nbwRAIWenqjGBH/wbps/v82hb3W/wR79UGI7Sdo2bh8=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.13";
+    version = "2026.05.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-SoClx3oAz8m9JwA2jnCIGhoTGJbKWtr0C/tP95F/zOk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-re/wxIuk+1YLQ39BFGfXw1dLzZCauqyctErBydXS6BY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.13";
+    version = "2026.05.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-City.mmdb";
-      sha256 = "sha256-AivTznrDwLcHV6mKy/cR2azW2crbddc05JmB7/E0vu0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-City.mmdb";
+      sha256 = "sha256-BvCsoLkGLOzDpPbr4ZAoujIbG0lCU0yHD9SYdPopL+4=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.13";
+    version = "2026.05.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-Country.mmdb";
-      sha256 = "sha256-80ZDalYWv4B/Wdtvxe2F70mFP+P6skzden8DeYiXLqo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-Country.mmdb";
+      sha256 = "sha256-cw0qVcJXolFfyx9BqBFuIBnLb4QI4+Sc1e3Ch4pSRPU=";
     };
   };
   git-mcp-server = {
@@ -391,12 +416,9 @@
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
     version = "v1.9.0";
-    src = fetchFromGitHub {
-      owner = "moraxyc";
-      repo = "mpv-danmaku";
-      rev = "v1.9.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-N+Vi+mbKGogO6PgONqiegbrHGh+5BePePkU9+Irate0=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   nipaplay-reload-darwin = {
@@ -482,7 +504,7 @@
       repo = "yass";
       rev = "1.24.12";
       fetchSubmodules = true;
-      sha256 = "sha256-iM7V9K5VcxEflUR8ju+O+eHArBDwI3wPlHqGblTlZA0=";
+      sha256 = "sha256-pQSyvltPwlx6MnT2GGhTLyHCNbUb0L4DX2HXmbkZkHM=";
     };
   };
 }

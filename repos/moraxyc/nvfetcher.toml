@@ -8,7 +8,7 @@ fetch.github = "Kioubit/FlapAlerted"
 
 [flapalerted-stable]
 src.github = "Kioubit/FlapAlerted"
-fetch.github = "Kioubit/FlapAlerted"
+fetch.url = "file:///dev/null"
 
 [pixy2]
 src.git = "https://github.com/charmedlabs/pixy2"
@@ -54,7 +54,7 @@ fetch.github = "maxmind/mm-geofeed-verifier"
 
 [bark-server-stable]
 src.github = "Finb/bark-server"
-fetch.github = "Finb/bark-server"
+fetch.url = "file:///dev/null"
 
 [bark-server]
 src.git = "https://github.com/Finb/bark-server.git"
@@ -86,7 +86,7 @@ fetch.github = "mautrix/telegramgo"
 
 [aliyundrive-webdav-stable]
 src.github = "messense/aliyundrive-webdav"
-fetch.github = "messense/aliyundrive-webdav"
+fetch.url = "file:///dev/null"
 
 [aliyundrive-webdav]
 src.git = "https://github.com/messense/aliyundrive-webdav.git"
@@ -95,7 +95,7 @@ cargo_lock = ['Cargo.lock']
 
 [mpv-danmaku-stable]
 src.github = "moraxyc/mpv-danmaku"
-fetch.github = "moraxyc/mpv-danmaku"
+fetch.url = "file:///dev/null"
 
 [mpv-danmaku]
 src.git = "https://github.com/moraxyc/mpv-danmaku.git"
@@ -134,10 +134,10 @@ src.github = "happyDomain/happydeliver"
 fetch.github = "happyDomain/happydeliver"
 extract = ["web/package-lock.json", "web/package.json"]
 
-[yass]
-src.github = "hukeyue/yass"
-fetch.github = "hukeyue/yass"
-git.fetchSubmodules = true
+# [yass]
+# src.github = "hukeyue/yass"
+# fetch.github = "hukeyue/yass"
+# git.fetchSubmodules = true
 
 [superpowers-skills]
 src.git = "https://github.com/obra/superpowers.git"
@@ -176,7 +176,7 @@ extract = ["package-lock.json", "package.json"]
 
 [cpa-usage-keeper-stable]
 src.github = "Willxup/cpa-usage-keeper"
-fetch.github = "Willxup/cpa-usage-keeper"
+fetch.url = "file:///dev/null"
 
 [cpa-usage-keeper]
 src.git = "https://github.com/Willxup/cpa-usage-keeper.git"
@@ -203,9 +203,29 @@ git.fetchSubmodules = true
 
 [cronet-go-stable]
 src.github = "SagerNet/cronet-go"
-fetch.github = "SagerNet/cronet-go"
-git.fetchSubmodules = false
+fetch.url = "file:///dev/null"
 
 [hysteria-realm-server]
 src.github = "apernet/hysteria-realm-server"
 fetch.github = "apernet/hysteria-realm-server"
+
+[dae-stable]
+src.github = "daeuniverse/dae"
+fetch.url = "file:///dev/null"
+
+[dae]
+src.git = "https://github.com/daeuniverse/dae.git"
+fetch.github = "daeuniverse/dae"
+git.fetchSubmodules = true
+
+[daed-stable]
+src.github_tag = "daeuniverse/daed"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.sort_version_key = "parse_version"
+src.prefix = "v"
+fetch.url = "file:///dev/null"
+
+[daed]
+src.git = "https://github.com/daeuniverse/daed.git"
+fetch.github = "daeuniverse/daed"
+git.fetchSubmodules = true
