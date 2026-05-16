@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildMozillaXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.26.1";
+      version = "1.27.2";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4649272/10ten_ja_reader-1.26.1.xpi";
-      sha256 = "dded5e22efda4314ae7764ac95145acead6992f1500ddb56376d686d0ab23702";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4796856/10ten_ja_reader-1.27.2.xpi";
+      sha256 = "4c429187e27547153abf9ea30f9c5f9311641f690c001dc9b0e0486b40474377";
       meta = with lib;
       {
         homepage = "https://10ten.life";
@@ -6679,10 +6679,10 @@
     };
     "immersive-translate" = buildMozillaXpiAddon {
       pname = "immersive-translate";
-      version = "1.29.3";
+      version = "1.29.4";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4803692/immersive_translate-1.29.3.xpi";
-      sha256 = "37c6736b3c806fbb04ab120b0243214040bb7f8fa290972b06d8a1f8613448e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4805603/immersive_translate-1.29.4.xpi";
+      sha256 = "19bfcb99aa3d695f61ab2bb66888a83364c65c16fce1ff2fb5e5c25a88ed76cd";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7279,10 +7279,10 @@
     };
     "kagi-privacy-pass" = buildMozillaXpiAddon {
       pname = "kagi-privacy-pass";
-      version = "1.0.8";
+      version = "1.0.9";
       addonId = "privacypass@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4590992/kagi_privacy_pass-1.0.8.xpi";
-      sha256 = "cef78a0a5ac989e0c6f32602a9a45e5a0f760591f9bd0ee4d1f6603c5b9a4018";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4792232/kagi_privacy_pass-1.0.9.xpi";
+      sha256 = "5216d992c9c5bf7dc3144513f98be5e019e869f2a8cc03440f9de86ef9b34eee";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -7293,6 +7293,7 @@
           "storage"
           "alarms"
           "webRequest"
+          "webRequestBlocking"
           "cookies"
         ];
         platforms = platforms.all;
@@ -11113,10 +11114,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.108";
+      version = "1.0.115";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4776843/paperpile_addon-1.0.108.xpi";
-      sha256 = "6fc80528aa0fde328619bc9266f3611402a1d95bb0151db949b0e4effa2cbb7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4806812/paperpile_addon-1.0.115.xpi";
+      sha256 = "456fc9794f0b717e1d1fa82774577dca20e51e32630f78e4a57a1241bd67571f";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -11135,6 +11136,7 @@
           "storage"
           "unlimitedStorage"
           "declarativeNetRequestWithHostAccess"
+          "alarms"
           "*://app.paperpile.com/*"
         ];
         platforms = platforms.all;
@@ -13130,10 +13132,10 @@
     };
     "rsspreview" = buildMozillaXpiAddon {
       pname = "rsspreview";
-      version = "3.34";
+      version = "3.35.1";
       addonId = "{7799824a-30fe-4c67-8b3e-7094ea203c94}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4591015/rsspreview-3.34.xpi";
-      sha256 = "56689158d2b548769b42ca8e4cfc317cef87c16cd284bdf7ab6db2772a50e290";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4807431/rsspreview-3.35.1.xpi";
+      sha256 = "14e9beab2b0e56eb002092cb091f6d3e7c82608e1a0e70510314fd22bbae2a41";
       meta = with lib;
       {
         homepage = "https://github.com/aureliendavid/rsspreview";
@@ -15446,10 +15448,10 @@
     };
     "tweaks-for-youtube" = buildMozillaXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.88.2";
+      version = "3.89.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4765351/tweaks_for_youtube-3.88.2.xpi";
-      sha256 = "8515941d451db1ff3225906f771cbd701d7b6928bc1ea7c685a42fdba2a3c2d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4807843/tweaks_for_youtube-3.89.0.xpi";
+      sha256 = "16b8f73230342e70f035566d2c24b19d07d19f5eee0cdc79a6a2c7e4c5842fb9";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
@@ -17498,10 +17500,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.5.7";
+      version = "18.5.8";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4800365/youtube_subscription_groups-18.5.7.xpi";
-      sha256 = "8be874330deb6d5b7b84f79ad3564541ce400433dfd82b534cf7cec083c2897e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4806211/youtube_subscription_groups-18.5.8.xpi";
+      sha256 = "412f3b702331b9184ba1b584cb97d6bcd8c1e09702e1a2aaad244a942485f4bc";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
