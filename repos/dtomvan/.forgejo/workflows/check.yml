@@ -1,0 +1,9 @@
+on:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: nix
+    steps:
+      - uses: actions/checkout@v4
+      - run: nix develop -c just check-nur-eval
