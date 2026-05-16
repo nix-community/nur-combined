@@ -61,33 +61,33 @@
   },
   {
     "pname": "Aiursoft.CSTools",
-    "version": "10.0.4",
-    "hash": "sha256-Y5/ypJtSxS2/CH1nv2EzOkuaVGJnPf/ejSfAbqwi1Gc="
+    "version": "10.0.5",
+    "hash": "sha256-orKm4xVMZSI9YZNcy5+uDj1GaR7H/8VExwUKB5SERC4="
   },
   {
     "pname": "Aiursoft.DbTools",
-    "version": "10.0.19",
-    "hash": "sha256-F4RjRqo7iCPqppIVr4bWZWGm6ZHLdwX4XLL+7/1rthA="
+    "version": "10.0.20",
+    "hash": "sha256-gFNcRCbbt3j4j8aGYIqJ44DzG1C3ZSio89z7XKsdJqo="
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.19",
-    "hash": "sha256-/RQR0hSqkq4kPGyVhAWe6xIvgA1dNE3O2b3FNkBmaIo="
+    "version": "10.0.20",
+    "hash": "sha256-CXk7x+57SNlyu/c2TUoTR7QIAUSGRbfcITcga5ae9hg="
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.19",
-    "hash": "sha256-OgB0zyiOXP0EDDKpU51iC6Qat7m5lWU0j/VFqxdtuxs="
+    "version": "10.0.20",
+    "hash": "sha256-LB57QAhXwRdF1l/vA81nwlnZ55Af5o4m59Y+IVJQZzk="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.19",
-    "hash": "sha256-OrRSmxrl5PXP5nEI+W4Uvp7G9GkX+0Z87VGGrMwYjFI="
+    "version": "10.0.20",
+    "hash": "sha256-5Mk57/f6mzLMTshX6yVjKNOceo4xbAXPXMNU3A71Y+g="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.19",
-    "hash": "sha256-FQfUocOnzXD0rAeKwWjJZEZmSnc3SYdychF1duPEf8Q="
+    "version": "10.0.20",
+    "hash": "sha256-B4jqg2YMR4Cjnez5DSBC8F5fn6TH1PD/upzlSHpiz1o="
   },
   {
     "pname": "Aiursoft.EntityFrameworkCore.MySql",
@@ -106,13 +106,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.9",
-    "hash": "sha256-wo89TsSL1TrTvXo/nEhqaUBcs+2iVpsNQFgeUel2Zjc="
+    "version": "10.0.10",
+    "hash": "sha256-hZDrgRph9JmX6ct2szMpJiYQth1HJJzeyC62WU4G0Ts="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.11",
-    "hash": "sha256-o8JfcnyAL6rIT2g30Amz7pqmRFCbPOZ7uknOPBdMfTo="
+    "version": "10.0.12",
+    "hash": "sha256-lPjGW9AJzdO0y2IxpctSfTfnqldP+yWEmaB6HtcT9bg="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
