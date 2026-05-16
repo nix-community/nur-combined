@@ -73,6 +73,7 @@
               qqmusic-darwin
               rime-wubi98
               rindex
+              rustledger
               shanghaitech-mirror-frontend
               sing-box-app
               sing-box-app-beta
