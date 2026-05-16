@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   nodejs,
-  pnpm,
+  pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
   electron,
@@ -18,6 +18,13 @@
   autoPatchelfHook,
 }:
 
+let
+  # Pin the pnpm major so the offline-store layout (and therefore
+  # `pnpmDeps.hash`) is stable across nixpkgs bumps of the default `pnpm`
+  # attribute. The upstream lockfile is `lockfileVersion: '9.0'`, which is
+  # produced by pnpm 9/10.
+  pnpm = pnpm_10;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "nanokvm-usb";
   version = "1.1.4";
@@ -57,8 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
       sourceRoot
       ;
     inherit pnpm;
-    fetcherVersion = 2;
-    hash = "sha256-C8GMbvPuIe5HDzdxOQDJ/jZv38Iy9Qc0PBOa2WRoHbI=";
+    fetcherVersion = 3;
+    hash = "sha256-2Ct2u4FoMEFfSm7i1BSa4317puMzFgh35J0L5hci75U=";
   };
 
   buildInputs = lib.optionals stdenv.isLinux [
