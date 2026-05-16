@@ -461,14 +461,16 @@
             logLevel = "info";
             extraFlags = [
               ''--cluster.listen-address="${localAddr}:9094"''
-            ]
-            ++ (map (i: "--cluster.peer=${localAddr}:9094") (
-              builtins.filter (n: n != localId + 1) [
-                1
-                3
-                6
-              ]
-            ));
+            ];
+            clusterPeers = (
+              map (i: "[fdcc::${toString i}]") (
+                builtins.filter (n: n != localId + 1) [
+                  1
+                  3
+                  6
+                ]
+              )
+            );
             configuration = {
               global = {
                 resolve_timeout = "2m";
