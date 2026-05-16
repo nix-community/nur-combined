@@ -30,6 +30,20 @@
         platforms = platforms.all;
       };
     };
+    "dictionary-german" = buildMozillaXpiAddon {
+      pname = "dictionary-german";
+      version = "2.1";
+      addonId = "de-DE@dictionaries.addons.mozilla.org";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1021549/german_dictionary-2.1.xpi?src=";
+      sha256 = "ceb6e0c7076e36e0f70d1375f9763690079cce55f3feceeaeea9dfdb8b1cb47f";
+      meta = with lib;
+      {
+        description = "German Dictionary (new Orthography) for spellchecking in Mozilla products";
+        license = licenses.lgpl21;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "dictionnaire-français1" = buildMozillaXpiAddon {
       pname = "dictionnaire-français1";
       version = "6.3.1webext";
@@ -264,6 +278,20 @@
           "storage"
           "tabs"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "tb-langpack-de" = buildMozillaXpiAddon {
+      pname = "tb-langpack-de";
+      version = "151.0.20260512.160707";
+      addonId = "langpack-de@thunderbird.mozilla.org";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1046826/deutsch_de_language_pack-151.0.20260512.160707-tb.xpi?src=";
+      sha256 = "de67a378dd23d8215a45e0fbe33b540839fec59d5301bb1c59d160b89b7fe7c2";
+      meta = with lib;
+      {
+        description = "Deutsch (de) Language Pack";
+        license = licenses.mpl20;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };

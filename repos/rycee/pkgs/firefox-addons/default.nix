@@ -27,16 +27,16 @@ let
 
     asbplayer =
       let
-        version = "1.12.0";
+        version = "1.17.0";
       in
       buildMozillaXpiAddon {
         pname = "asbplayer";
         inherit version;
         addonId = "{e4b27483-2e73-4762-b2ec-8d988a143a40}";
-        url = "https://github.com/killergerbah/asbplayer/releases/download/v${version}/asbplayer-extension-${version}-firefox.xpi";
-        sha256 = "sha256-HBlO0MJSjopaLYccWYLlTZlt3nrVNHCP1H7bJVcxm1E=";
+        url = "https://github.com/asbplayer/asbplayer/releases/download/v${version}/asbplayer-extension-${version}-firefox.xpi";
+        sha256 = "sha256-TjNO5XPjS/W0WPM6CoJgNMCM7mIdVqWHL8YCyOKrzJI=";
         meta = with lib; {
-          homepage = "https://github.com/killergerbah/asbplayer";
+          homepage = "https://github.com/asbplayer/asbplayer";
           description = "Browser-based media player and Chrome extension for subtitle sentence mining ";
           license = licenses.mit;
           mozPermissions = [

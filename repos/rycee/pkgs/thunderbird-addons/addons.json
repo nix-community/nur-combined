@@ -3,6 +3,9 @@
     "slug": "cardbook"
   },
   {
+    "slug": "dictionary-german"
+  },
+  {
     "slug": "dictionnaire-français1"
   },
   {
@@ -56,6 +59,9 @@
   {
     "slug": "send-later-3",
     "pname": "send-later"
+  },
+  {
+    "slug": "tb-langpack-de"
   },
   {
     "slug": "tbkeys-lite"

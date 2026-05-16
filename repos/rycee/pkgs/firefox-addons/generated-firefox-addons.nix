@@ -4671,6 +4671,21 @@
         platforms = platforms.all;
       };
     };
+    "geomys-source-links" = buildMozillaXpiAddon {
+      pname = "geomys-source-links";
+      version = "1.0.2";
+      addonId = "pkg-geomys-dev@geomys.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4695503/geomys_source_links-1.0.2.xpi";
+      sha256 = "7f046208941d3d0bad1cf2433644e18b937746ec4d868ecc24d6cb7b529dba86";
+      meta = with lib;
+      {
+        homepage = "https://pkg.geomys.dev";
+        description = "Redirect pkg.go.dev source links to pkg.geomys.dev, which displays the canonical source from the Go Modules Mirror.";
+        license = licenses.bsd2;
+        mozPermissions = [ "https://pkg.go.dev/*" ];
+        platforms = platforms.all;
+      };
+    };
     "gesturefy" = buildMozillaXpiAddon {
       pname = "gesturefy";
       version = "3.2.18";
@@ -9810,6 +9825,21 @@
         platforms = platforms.all;
       };
     };
+    "merge-window" = buildMozillaXpiAddon {
+      pname = "merge-window";
+      version = "1.0.3resigned1";
+      addonId = "{6d0b1446-4a7c-40e9-9bcf-568a8e26d00b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4272427/merge_window-1.0.3resigned1.xpi";
+      sha256 = "91d90941e189a0425872cfd2a929a5338099d27f0c3aad27a9dc6d66f01a1cb7";
+      meta = with lib;
+      {
+        homepage = "https://github.com/jonathanKingston/merge-windows";
+        description = "Merges the tabs from multiple windows together into one window.\n\nExtension won't show context menu item when there aren't more than one window of the same type to merge together.\n\nPrivate windows will only merge with private windows not normal.";
+        license = licenses.mpl20;
+        mozPermissions = [ "tabs" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
       version = "1.0.39";
@@ -13132,10 +13162,10 @@
     };
     "rsspreview" = buildMozillaXpiAddon {
       pname = "rsspreview";
-      version = "3.35.1";
+      version = "3.36";
       addonId = "{7799824a-30fe-4c67-8b3e-7094ea203c94}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4807431/rsspreview-3.35.1.xpi";
-      sha256 = "14e9beab2b0e56eb002092cb091f6d3e7c82608e1a0e70510314fd22bbae2a41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4808415/rsspreview-3.36.xpi";
+      sha256 = "752522133933750e4aeb8104036d875ecace481ed2b9f971ea77f2763d4568d0";
       meta = with lib;
       {
         homepage = "https://github.com/aureliendavid/rsspreview";
@@ -15077,10 +15107,10 @@
     };
     "torrent-control" = buildMozillaXpiAddon {
       pname = "torrent-control";
-      version = "0.2.47";
+      version = "0.2.48";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4703527/torrent_control-0.2.47.xpi";
-      sha256 = "bd75046e281fc2c2769f6ade4095d420c251a9bb29c88518029167f6d5d9f282";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4808292/torrent_control-0.2.48.xpi";
+      sha256 = "bba10288c9c60665fb4da67f82ce24b77a042444f48725e691ed497476e599f9";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -15400,10 +15430,10 @@
     };
     "tubearchivist-companion" = buildMozillaXpiAddon {
       pname = "tubearchivist-companion";
-      version = "0.4.2";
+      version = "0.5.0";
       addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4575122/tubearchivist_companion-0.4.2.xpi";
-      sha256 = "aee6d7f41bf0f9f4aad83b2675b7b568aa5ba5f6c1ca6ea09d770c867ae2b81c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4808129/tubearchivist_companion-0.5.0.xpi";
+      sha256 = "66f01c45bc67943bfcc2a6ec27aff95fc550304f21a363da98bad8ef2d982d6f";
       meta = with lib;
       {
         homepage = "https://github.com/tubearchivist/browser-extension";
@@ -15484,6 +15514,35 @@
         description = "Automatic twitch channel points collection. Click on the icon to disable the extension (becomes grey). If the icon is colorful, it means it's working. Wait for the collect points button to appear on the screen and see it being automatically claimed.";
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" "storage" "tabs" "*://*.twitch.tv/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "twitch_5" = buildMozillaXpiAddon {
+      pname = "twitch_5";
+      version = "2025.6.16";
+      addonId = "twitch5@coolcmd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4514838/twitch_5-2025.6.16.xpi";
+      sha256 = "4a15770726ed283e4fdcdbede7054338d9ced46a3a631048e3c54ee32c3e210c";
+      meta = with lib;
+      {
+        description = "Alternate player of live broadcasts for Twitch.tv website.";
+        license = licenses.bsd3;
+        mozPermissions = [
+          "storage"
+          "cookies"
+          "webRequest"
+          "webRequestBlocking"
+          "clipboardWrite"
+          "*://*.twitch.tv/*"
+          "*://*.twitchcdn.net/*"
+          "*://*.ttvnw.net/*"
+          "*://*.jtvnw.net/*"
+          "*://*.live-video.net/*"
+          "*://*.akamaized.net/*"
+          "*://*.cloudfront.net/*"
+          "https://www.twitch.tv/*"
+          "https://m.twitch.tv/*"
+        ];
         platforms = platforms.all;
       };
     };

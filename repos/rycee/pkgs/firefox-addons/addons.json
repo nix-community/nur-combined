@@ -769,6 +769,9 @@
     "slug": "geminize"
   },
   {
+    "slug": "geomys-source-links"
+  },
+  {
     "slug": "gesturefy"
   },
   {
@@ -1231,6 +1234,9 @@
   },
   {
     "slug": "media-url-timestamper"
+  },
+  {
+    "slug": "merge-window"
   },
   {
     "slug": "mergify",
@@ -2194,6 +2200,13 @@
   },
   {
     "slug": "twitch-auto-points"
+  },
+  {
+    "slug": "twitch_5",
+    "license": {
+      "tag": "predefined",
+      "shortName": "bsd3"
+    }
   },
   {
     "slug": "twiter-x-video-downloader"
