@@ -30,13 +30,13 @@ let
       # Overriding to match 7.2.1 requirement from pyproject
       edge-tts-7 = self.buildPythonPackage rec {
         pname = "edge-tts";
-        version = "7.2.1";
+        version = "7.2.7";
         pyproject = true;
         src = fetchFromGitHub {
           owner = "rany2";
           repo = "edge-tts";
           rev = "${version}";
-          hash = "sha256-Q1mtdvX79yRhpmTXU398kw6dM4M3D1tQE78Bh7+p/uY=";
+          hash = "sha256-KlQJ9U5RgifpqVKw5BrPwBFJYZHKibMUlyb3aX+4qf8=";
         };
         build-system = [ self.setuptools ];
         dependencies = [
@@ -45,6 +45,31 @@ let
           self.tabulate
           self.typing-extensions
         ];
+      };
+
+      moviepy_1 = self.buildPythonPackage rec {
+        pname = "moviepy";
+        version = "1.0.3";
+        pyproject = true;
+        src = fetchPypi {
+          inherit pname version;
+          hash = "sha256-KITjXReIB32z/4nnY8W6e/3b166RCMm8gJ57pY+kM/U=";
+        };
+        build-system = [ self.setuptools ];
+        postPatch = ''
+          substituteInPlace setup.py \
+            --replace-fail "decorator>=4.0.2,<5.0" "decorator>=4.0.2"
+        '';
+        dependencies = [
+          self.decorator
+          self.imageio
+          self.imageio-ffmpeg
+          self.numpy
+          self.proglog
+          self.requests
+          self.tqdm
+        ];
+        doCheck = false;
       };
 
       html2image = self.buildPythonPackage rec {
@@ -155,14 +180,14 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "pixelle-video";
-  version = "0.1.12";
+  version = "0.1.15";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "AIDC-AI";
     repo = "Pixelle-Video";
     rev = "refs/tags/v${version}"; # Assuming tag exists, otherwise fallback to main
-    hash = "sha256-fLUfqpwOKOPbTAlDsTc7r7AtUi5w9+mveMdUPHV/XCU=";
+    hash = "sha256-Z0RCPj8778pjm9cCUqI0prFs6zLCW9WDyT4i7rKeHf4=";
   };
 
   build-system = [
@@ -198,6 +223,7 @@ python.pkgs.buildPythonApplication rec {
     uvicorn
     python-multipart
     beautifulsoup4
+    moviepy_1
   ];
 
   meta = {

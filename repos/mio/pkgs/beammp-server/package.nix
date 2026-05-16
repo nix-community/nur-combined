@@ -40,13 +40,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "beammp-server";
-  version = "3.9.0";
+  version = "3.9.2";
 
   src = fetchFromGitHub {
     owner = "BeamMP";
     repo = "BeamMP-Server";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-XV/F5BU2PpeIilq3GlSVgiGEx0njlFr6PTyLsR57gAc=";
+    hash = "sha256-lUN+uu95whVsLIJxMUHyvk4QmfHzfhNDSfAUf6lIzkI=";
   };
 
   strictDeps = true;
@@ -93,6 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     "-DCMAKE_TOOLCHAIN_FILE="
+    "-DCMAKE_CXX_FLAGS=-Wno-template-body -Wno-error=null-dereference"
     "-DBeamMP-Server_CHECKOUT_GIT_SUBMODULES=OFF"
     "-DBeamMP-Server_ENABLE_UNIT_TESTING=OFF"
   ];

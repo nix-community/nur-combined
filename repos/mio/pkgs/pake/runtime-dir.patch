@@ -1,131 +1,55 @@
 diff --git a/bin/builders/BaseBuilder.ts b/bin/builders/BaseBuilder.ts
-index 60176a2..70b785c 100644
 --- a/bin/builders/BaseBuilder.ts
 +++ b/bin/builders/BaseBuilder.ts
-@@ -112,6 +112,7 @@ export default abstract class BaseBuilder {
- 
-     const timeout = this.getInstallTimeout();
-     const buildEnv = this.getBuildEnvironment();
+@@ -68,6 +68,7 @@
+     const packageManager = await detectPackageManager();
+     const timeout = getInstallTimeout();
+     const buildEnv = getBuildEnvironment();
 +    const skipInstall = process.env.PAKE_SKIP_INSTALL === '1';
  
      // Show helpful message for first-time users
      if (!tauriTargetPathExists) {
-@@ -124,44 +125,16 @@ export default abstract class BaseBuilder {
- 
-     let usedMirror = isChina;
+@@ -84,20 +85,26 @@
+       );
+     }
  
 -    try {
--      if (isChina) {
--        logger.info(
--          `✺ Located in China, using ${packageManager}/rsProxy CN mirror.`,
--        );
--        const projectCnConf = path.join(tauriSrcPath, 'rust_proxy.toml');
--        await fsExtra.copy(projectCnConf, projectConf);
--        await shellExec(
--          `cd "${npmDirectory}" && ${packageManager} install${registryOption}${peerDepsOption}`,
--          timeout,
--          { ...buildEnv, CI: 'true' },
--        );
--      } else {
--        await shellExec(
--          `cd "${npmDirectory}" && ${packageManager} install${peerDepsOption}`,
--          timeout,
--          { ...buildEnv, CI: 'true' },
--        );
--      }
+-      await shellExec(getInstallCommand(packageManager, useCnMirror), timeout, {
+-        ...buildEnv,
+-        CI: 'true',
+-      });
 -      spinner.succeed(chalk.green('Package installed!'));
--    } catch (error: unknown) {
--      // If installation times out and we haven't tried the mirror yet, retry with mirror
--      if (
--        error instanceof Error &&
--        error.message.includes('timed out') &&
--        !usedMirror
--      ) {
--        spinner.fail(
--          chalk.yellow('Installation timed out, retrying with CN mirror...'),
--        );
+-    } catch (error) {
+-      spinner.fail(chalk.red('Installation failed'));
+-      if (!useCnMirror) {
 -        logger.info(
--          '✺ Retrying installation with CN mirror for better speed...',
+-          `✺ If downloads are slow in China, retry with ${CN_MIRROR_ENV}=1 to use CN mirrors.`,
 -        );
--
--        const retrySpinner = getSpinner('Retrying installation...');
--        usedMirror = true;
--
--        try {
 +    if (skipInstall) {
 +      spinner.succeed(
 +        chalk.green('Skipping dependency install (PAKE_SKIP_INSTALL=1)'),
 +      );
 +    } else {
 +      try {
-+        if (isChina) {
-+          logger.info(
-+            `✺ Located in China, using ${packageManager}/rsProxy CN mirror.`,
-+          );
-           const projectCnConf = path.join(tauriSrcPath, 'rust_proxy.toml');
-           await fsExtra.copy(projectCnConf, projectConf);
-           await shellExec(
-@@ -169,16 +142,50 @@ export default abstract class BaseBuilder {
-             timeout,
-             { ...buildEnv, CI: 'true' },
-           );
--          retrySpinner.succeed(
--            chalk.green('Package installed with CN mirror!'),
-+        } else {
-+          await shellExec(
-+            `cd "${npmDirectory}" && ${packageManager} install${peerDepsOption}`,
-+            timeout,
-+            { ...buildEnv, CI: 'true' },
-           );
--        } catch (retryError) {
--          retrySpinner.fail(chalk.red('Installation failed'));
--          throw retryError;
-         }
--      } else {
--        spinner.fail(chalk.red('Installation failed'));
--        throw error;
++        await shellExec(getInstallCommand(packageManager, useCnMirror), timeout, {
++          ...buildEnv,
++          CI: 'true',
++        });
 +        spinner.succeed(chalk.green('Package installed!'));
-+      } catch (error: unknown) {
-+        // If installation times out and we haven't tried the mirror yet, retry with mirror
-+        if (
-+          error instanceof Error &&
-+          error.message.includes('timed out') &&
-+          !usedMirror
-+        ) {
-+          spinner.fail(
-+            chalk.yellow('Installation timed out, retrying with CN mirror...'),
-+          );
++      } catch (error) {
++        spinner.fail(chalk.red('Installation failed'));
++        if (!useCnMirror) {
 +          logger.info(
-+            '✺ Retrying installation with CN mirror for better speed...',
++            `✺ If downloads are slow in China, retry with ${CN_MIRROR_ENV}=1 to use CN mirrors.`,
 +          );
-+
-+          const retrySpinner = getSpinner('Retrying installation...');
-+          usedMirror = true;
-+
-+          try {
-+            const projectCnConf = path.join(tauriSrcPath, 'rust_proxy.toml');
-+            await fsExtra.copy(projectCnConf, projectConf);
-+            await shellExec(
-+              `cd "${npmDirectory}" && ${packageManager} install${registryOption}${peerDepsOption}`,
-+              timeout,
-+              { ...buildEnv, CI: 'true' },
-+            );
-+            retrySpinner.succeed(
-+              chalk.green('Package installed with CN mirror!'),
-+            );
-+          } catch (retryError) {
-+            retrySpinner.fail(chalk.red('Installation failed'));
-+            throw retryError;
-+          }
-+        } else {
-+          spinner.fail(chalk.red('Installation failed'));
-+          throw error;
 +        }
++        throw error;
        }
+-      throw error;
      }
  
+     if (!tauriTargetPathExists) {
 diff --git a/bin/builders/LinuxBuilder.ts b/bin/builders/LinuxBuilder.ts
-index e8450da..d1c91a5 100644
 --- a/bin/builders/LinuxBuilder.ts
 +++ b/bin/builders/LinuxBuilder.ts
 @@ -1,7 +1,9 @@
@@ -138,7 +62,7 @@ index e8450da..d1c91a5 100644
  
  export default class LinuxBuilder extends BaseBuilder {
    private buildFormat: string;
-@@ -68,6 +70,9 @@ export default class LinuxBuilder extends BaseBuilder {
+@@ -71,6 +73,9 @@
    // Override buildAndCopy to ensure currentBuildType is synced if called directly, though the loop above handles it most of the time.
    async buildAndCopy(url: string, target: string) {
      this.currentBuildType = target;
@@ -148,7 +72,7 @@ index e8450da..d1c91a5 100644
      await super.buildAndCopy(url, target);
    }
  
-@@ -138,4 +143,18 @@ export default class LinuxBuilder extends BaseBuilder {
+@@ -136,4 +141,18 @@
      }
      return super.getArchSpecificPath();
    }
@@ -168,10 +92,9 @@ index e8450da..d1c91a5 100644
 +  }
  }
 diff --git a/bin/helpers/tauriConfig.ts b/bin/helpers/tauriConfig.ts
-index c083f51..8025848 100644
 --- a/bin/helpers/tauriConfig.ts
 +++ b/bin/helpers/tauriConfig.ts
-@@ -30,7 +30,10 @@ const platformConfig = platformConfigs[platform];
+@@ -30,7 +30,10 @@
  
  let tauriConfig = {
    ...CommonConf,
@@ -184,7 +107,6 @@ index c083f51..8025848 100644
      ...CommonConf.app,
      trayIcon: {
 diff --git a/bin/utils/dir.ts b/bin/utils/dir.ts
-index c261667..79a9cda 100644
 --- a/bin/utils/dir.ts
 +++ b/bin/utils/dir.ts
 @@ -1,11 +1,90 @@

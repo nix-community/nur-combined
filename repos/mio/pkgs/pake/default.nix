@@ -99,13 +99,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.11.0";
+  version = "3.11.5";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-mTqwQt5S/8jDKZK6COK+JMxQnc1XT8jKIzyyNIkv65s=";
+    hash = "sha256-xnfhmneTQ/0DzCmg/qCllDzXWI8Y40VmOEL+8Ie6MVU=";
   };
 
   patches = [
@@ -129,7 +129,10 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-SsiU/u2Oenl8ym0cfHSoOgBEXpLJVUm5yIdzwE5D08U=";
+    prePnpmInstall = ''
+      sed -i '/^overrides:/,+2d' pnpm-lock.yaml
+    '';
+    hash = "sha256-m18kLGJeRHFDFbXnAur0s25089P9yF/0Lg84V4S3Afs=";
   };
 
   env = {
@@ -146,12 +149,16 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     # Avoid pnpm trying to self-manage the version (network access) in the build.
     sed -i '/"packageManager":/d' package.json
+    # pnpm 11 no longer treats package.json's pnpm.overrides as lockfile
+    # overrides, so the old lockfile metadata trips frozen installs even though
+    # the locked graph itself is usable.
+    sed -i '/^overrides:/,+2d' pnpm-lock.yaml
   '';
 
   buildPhase = ''
     runHook preBuild
 
-    pnpm config set nodedir ${nodejs_22}
+    export npm_config_nodedir=${nodejs_22}
     pnpm install --offline --frozen-lockfile
     pnpm run cli:build
 
