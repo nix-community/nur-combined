@@ -3068,7 +3068,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.8.10-beta.2"
+version = "3.9.0-beta.2"
 dependencies = [
  "axum",
  "chrono",
