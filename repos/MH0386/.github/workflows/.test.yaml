@@ -1,0 +1,29 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    environment: test
+    permissions:
+      checks: write
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Devenv
+        uses: AlphaSphereDotAI/helpr_action/ci/setup/devenv@a904e46f45629ec2d6224ed949f3644768ba2d69 # v0.0.73
+      - name: Run tests
+        run: devenv test
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
+        if: success() || failure()
+        with:
+          commit_message: "devenv: Apply Fixes"
+          commit_options: --no-verify

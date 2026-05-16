@@ -13,7 +13,7 @@ buildNpmPackage (finalAttrs: {
     hash = "sha256-vmZjZYKnJ8IadMl1Gq9Q84YXQcNhfVmLQp/lrr4SHQI=";
   };
 
-  npmDepsHash = "sha256-cDQ6nv7WzpdYvv2DX601jGsWKDxvJ1YmiIwIDqvplPc=";
+  npmDepsHash = "sha256-9d/OUMGc6K0taIbwbwQA00KoYmFc9WXRRzvXUpXGaSQ=";
 
   postPatch = "cp ${./package-lock.json} package-lock.json";
 
@@ -22,6 +22,8 @@ buildNpmPackage (finalAttrs: {
   doInstallCheck = true;
 
   nativeInstallCheckInputs = [ versionCheckHook ];
+
+  passthru.updateScript = ./update-lockfile.sh;
 
   meta = {
     description = "CLI for running TinyFish web automations from the terminal";
