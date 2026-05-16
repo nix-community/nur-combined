@@ -723,6 +723,17 @@
       hash = "sha256-rRVRUY69M5Nz8MwarePlqy2JIOX8MP0nz6Ia2pwmkTA=";
     };
   };
+  firefox-stealth = {
+    pname = "firefox-stealth";
+    version = "cbfb363b0afa33ce5bfca7e441569ac0602fb465";
+    src = fetchFromGitHub {
+      owner = "feder-cr";
+      repo = "firefox-stealth";
+      rev = "cbfb363b0afa33ce5bfca7e441569ac0602fb465";
+      hash = "sha256-N3yoG/ZgCwVhur1uKX6KMEHilR5Xzmd9pvbMbpx0QHM=";
+    };
+    date = "2026-05-15";
+  };
   flapalerted = {
     pname = "flapalerted";
     version = "v4.4.1";

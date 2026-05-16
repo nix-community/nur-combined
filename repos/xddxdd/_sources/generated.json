@@ -1397,6 +1397,27 @@
         },
         "version": "3.1.0"
     },
+    "firefox-stealth": {
+        "cargoLock": null,
+        "date": "2026-05-15",
+        "extract": null,
+        "name": "firefox-stealth",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "feder-cr",
+            "repo": "firefox-stealth",
+            "rev": "cbfb363b0afa33ce5bfca7e441569ac0602fb465",
+            "sha256": "sha256-N3yoG/ZgCwVhur1uKX6KMEHilR5Xzmd9pvbMbpx0QHM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cbfb363b0afa33ce5bfca7e441569ac0602fb465"
+    },
     "flapalerted": {
         "cargoLock": null,
         "date": null,
