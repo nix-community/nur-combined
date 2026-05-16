@@ -102,6 +102,10 @@ attribute_file_path() {
   fi
 
   file_path=${position%%:*}
+  if [ "${source_kind}" = "flake" ] && [[ "${file_path}" =~ ^/nix/store/[^/]+-source(/.*)$ ]]; then
+    file_path="${PWD}${BASH_REMATCH[1]}"
+  fi
+
   if [ -z "${file_path}" ] || [ ! -f "${file_path}" ]; then
     return 1
   fi
