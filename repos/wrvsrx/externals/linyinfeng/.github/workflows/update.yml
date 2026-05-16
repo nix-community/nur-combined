@@ -55,6 +55,7 @@ jobs:
       run: |
         sudo locale-gen en_US.UTF-8
     - name: Run update
+      id: update
       env:
         LANG: en_US.UTF-8
       run: |
@@ -70,7 +71,7 @@ jobs:
         ###### Changelog
 
         ```text
-        ${{ env.CHANGELOG }}
+        ${{ steps.update.outputs.changelog }}
         ```
         EOF
 

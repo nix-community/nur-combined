@@ -48,6 +48,7 @@ lib.makeScope newScope (
     niri-taskbar = callPackage ./niri-taskbar { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
+    otf2psf = callPackage ./otf2psf { };
     plangothic = callPackage ./plangothic { };
     rcon-cli = callPackage ./rcon-cli { };
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
@@ -56,7 +57,7 @@ lib.makeScope newScope (
     ssl-handshake = callPackage ./ssl-handshake { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };
-    trojan = callPackage ./trojan { };
+    v86 = callPackage ./v86 { };
     vlmcsd = callPackage ./vlmcsd { };
     yacd = callPackage ./yacd { };
     zeronsd = callPackage ./zeronsd { };

@@ -19,7 +19,6 @@ packageSet = do
   ghPkg "estkme-group" "lpac"
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "microsoft" "secureboot_objects"
-  ghPkg "trojan-gfw" "trojan"
   gitPkg "libva-v4l2" "https://github.com/mxsrc/libva-v4l2.git"
   gitPkg "pyim-greatdict" "https://github.com/tumashu/pyim-greatdict.git"
   gitPkg "rime-bopomofo" "https://github.com/rime/rime-bopomofo.git"
@@ -39,6 +38,7 @@ packageSet = do
   gitPkg "rime-wubi" "https://github.com/rime/rime-wubi.git"
   gitPkg "rime-wugniu" "https://github.com/rime/rime-wugniu.git"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
+  gitPkg "v86" "https://github.com/copy/v86.git"
   gitPkgBranch "gnome-shell-mobile-shell" "https://gitlab.gnome.org/verdre/gnome-shell.git" "mobile-shell"
   gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
   -- keep-sorted end
@@ -53,6 +53,7 @@ packageSet = do
   moeKoeMusic
   mstickereditor
   niriTaskbar
+  otf2psf
   rlt
   tgSend
   yacd
@@ -133,7 +134,7 @@ moeKoeMusic =
       `sourceGitHub` ("iAJue", "MoeKoeMusic")
       `fetchUrl` url
   where
-    url (Version v) = "https://github.com/iAJue/MoeKoeMusic/releases/download/" <> v <> "/MoeKoe_Music_" <> v <> ".AppImage"
+    url (Version v) = "https://github.com/iAJue/MoeKoeMusic/releases/download/" <> v <> "/MoeKoe.Music-x86_64.AppImage"
 
 zeronsd :: PackageSet ()
 zeronsd =
@@ -171,3 +172,13 @@ mediawikiAuthManagerOAuth =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/" <> v <> "/AuthManagerOAuth.zip"
+
+otf2psf :: PackageSet ()
+otf2psf =
+  define $
+    package "otf2psf"
+      `sourceGit` url
+      `fetchGit` url
+      `hasCargoLock` ["Cargo.lock"]
+  where
+    url = "https://github.com/pcarrin2/otf2psf.git"

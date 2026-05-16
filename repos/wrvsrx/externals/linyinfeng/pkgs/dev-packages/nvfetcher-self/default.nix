@@ -23,5 +23,6 @@ drv.overrideAttrs (old: {
   meta = with lib; {
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ yinfeng ];
+    broken = !(lib.versionAtLeast haskellPackages.nvfetcher.version "0.8");
   };
 })

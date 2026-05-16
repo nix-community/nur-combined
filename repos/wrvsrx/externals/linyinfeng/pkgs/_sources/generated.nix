@@ -8,27 +8,27 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "v1.10";
+    version = "v1.11.1";
     src = fetchFromGitHub {
       owner = "awslabs";
       repo = "aws-sigv4-proxy";
-      rev = "v1.10";
+      rev = "v1.11.1";
       fetchSubmodules = false;
-      sha256 = "sha256-DC9JJeMdwxKeALQYA53BmMdAxQlUfPowAEul7+dTh4s=";
+      sha256 = "sha256-ni5uE9Sa2PblePxg+mZBQ0jD8YHugfIXhtNRuLrQCzY=";
     };
   };
   baibot = {
     pname = "baibot";
-    version = "v1.12.0";
+    version = "v1.18.0";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.12.0";
+      rev = "v1.18.0";
       fetchSubmodules = false;
-      sha256 = "sha256-bc0OeqS52a1iIblor9QLIUG+0hUESRyrCVN8eIvzfiE=";
+      sha256 = "sha256-TwtN8tEml/z0Js78jjWzEYV58Dg8a5YKxdEU9hBDtNs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-bc0OeqS52a1iIblor9QLIUG+0hUESRyrCVN8eIvzfiE=/Cargo.lock";
+      lockFile = ./. + "/sha256-TwtN8tEml_z0Js78jjWzEYV58Dg8a5YKxdEU9hBDtNs=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
       };
@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.9.4";
+    version = "v2.9.18";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.9.4";
+      rev = "v2.9.18";
       fetchSubmodules = false;
-      sha256 = "sha256-njEkzDDoPUiyKynqGtxhhB6enm7Nb4ThNWvzTaHeBsk=";
+      sha256 = "sha256-wqyzowDgMPHDVfPxra7fRK9h3HtdwPnJcrzFlCVu7rk=";
     };
   };
   dot-tar = {
@@ -106,24 +106,24 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.12.61-linux-251210T000847Z";
+    version = "lts-v6.18.23-linux-260427T075939Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.12.61-linux-251210T000847Z";
+      rev = "lts-v6.18.23-linux-260427T075939Z";
       fetchSubmodules = false;
-      sha256 = "sha256-zUyxp7WZqqzP3JoXjGndmx4ks4hDdMBUAVaSKWc9f1M=";
+      sha256 = "sha256-K7VZKB3LLYk1Ff2o/PNJM5dEYVxncDA/2mqOM8U430U=";
     };
   };
   linux-intel-mainline-tracking = {
     pname = "linux-intel-mainline-tracking";
-    version = "mainline-tracking-v6.11.10-linux-241202T040109Z";
+    version = "mainline-tracking-v6.17.11-linux-260128T080735Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "mainline-tracking";
-      rev = "mainline-tracking-v6.11.10-linux-241202T040109Z";
+      rev = "mainline-tracking-v6.17.11-linux-260128T080735Z";
       fetchSubmodules = false;
-      sha256 = "sha256-TlqDEFCu4IPmAm0NYHD5fyQy38Ce6BZbGEDu1FpJXd8=";
+      sha256 = "sha256-+gEB6KJNZHFUooiwf/S+BNlRJw+8MldVV32a5y6lhSk=";
     };
   };
   lpac = {
@@ -158,10 +158,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.5.4";
+    version = "v1.6.3";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.5.4/MoeKoe_Music_v1.5.4.AppImage";
-      sha256 = "sha256-d6KsIZCkqb4RzlByy1+5Bi9OZImU3/YbXyVX99d2o00=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.3/MoeKoe.Music-x86_64.AppImage";
+      sha256 = "sha256-MgajgWw9J8VwmyWS0ZR2MgIQuXJOVnzdcfIs6hA3CsI=";
     };
   };
   mstickereditor = {
@@ -212,6 +212,26 @@
       };
     };
   };
+  otf2psf = {
+    pname = "otf2psf";
+    version = "10296b40cf2b1ff80d08f55699c3d21ec8693b99";
+    src = fetchgit {
+      url = "https://github.com/pcarrin2/otf2psf.git";
+      rev = "10296b40cf2b1ff80d08f55699c3d21ec8693b99";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-x+8ZgMLoP0Rchi5aVrn+kIYc2GEFwjvY1zhNXxkIk/0=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-x+8ZgMLoP0Rchi5aVrn+kIYc2GEFwjvY1zhNXxkIk_0=/Cargo.lock";
+      outputHashes = {
+
+      };
+    };
+    date = "2025-05-14";
+  };
   plugin-bang-bang = {
     pname = "plugin-bang-bang";
     version = "ec991b80ba7d4dda7a962167b036efc5c2d79419";
@@ -228,17 +248,17 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "4ac0104bd4805f0272f23e93cc44150cca8a44f0";
+    version = "dd1f559c01cde4cf0d16581b60e20d29f33c0665";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "4ac0104bd4805f0272f23e93cc44150cca8a44f0";
+      rev = "dd1f559c01cde4cf0d16581b60e20d29f33c0665";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ft3wygoKID1oh1S1eV9DyzyhROG4Q5o3wxzkZEsDNbs=";
+      sha256 = "sha256-ByEqv5mZ6S9K+Pkpf1Dybwfqh3x++3AhXaMtw0I3wDo=";
     };
-    date = "2025-12-24";
+    date = "2026-05-05";
   };
   pyim-greatdict = {
     pname = "pyim-greatdict";
@@ -267,45 +287,45 @@
   };
   rime-bopomofo = {
     pname = "rime-bopomofo";
-    version = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
+    version = "a8c35a4ae3998ac0cdbd02fbb42c883ecada4279";
     src = fetchgit {
       url = "https://github.com/rime/rime-bopomofo.git";
-      rev = "1859af68a927ba3cd5afb8c47feedcecf874dab2";
+      rev = "a8c35a4ae3998ac0cdbd02fbb42c883ecada4279";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-gHir+jt36CgHkAweaWBOiAsk4ixyDbdu8rEGftU/3vQ=";
+      sha256 = "sha256-XKe5y3sKcsc1hZGphGji3rfZKf2kvsPm4HuztI8rvko=";
     };
-    date = "2025-07-29";
+    date = "2026-01-06";
   };
   rime-cangjie = {
     pname = "rime-cangjie";
-    version = "0ac8452eeb4abbcd8dd1f9e7314012310743285f";
+    version = "df74fd8ea4cb1fb720e90dd0c7bb50083a3906ae";
     src = fetchgit {
       url = "https://github.com/rime/rime-cangjie.git";
-      rev = "0ac8452eeb4abbcd8dd1f9e7314012310743285f";
+      rev = "df74fd8ea4cb1fb720e90dd0c7bb50083a3906ae";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-v8n3+73l9YbTexpA9C2356quioRwFRVcBY0IncolVoY=";
+      sha256 = "sha256-K9Gd+eNGV4dQc5m5XPAwHBDdU7uHYRa/Ve9jumoTBKM=";
     };
-    date = "2024-03-25";
+    date = "2026-05-08";
   };
   rime-cantonese = {
     pname = "rime-cantonese";
-    version = "7f5875f7732c6db7b8b7247607b9878cf6dd7ca7";
+    version = "ec6ee73e83138fc47e658bbdc7a6b1d67e3075fc";
     src = fetchgit {
       url = "https://github.com/rime/rime-cantonese.git";
-      rev = "7f5875f7732c6db7b8b7247607b9878cf6dd7ca7";
+      rev = "ec6ee73e83138fc47e658bbdc7a6b1d67e3075fc";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-x0uCcyqF/oeBRMgXW1rqHen52k+61ctm5DYnJ37rXqw=";
+      sha256 = "sha256-ePoZAuAFk83DjybVpJMtpsITrYsQX2u1mqED29/zsag=";
     };
-    date = "2025-12-25";
+    date = "2026-03-08";
   };
   rime-double-pinyin = {
     pname = "rime-double-pinyin";
@@ -323,45 +343,45 @@
   };
   rime-emoji = {
     pname = "rime-emoji";
-    version = "3dd83a264b4686b56abddedecbde75360cbbbfab";
+    version = "d1dbb424124fc50452a179300c7f287dbcc0db64";
     src = fetchgit {
       url = "https://github.com/rime/rime-emoji.git";
-      rev = "3dd83a264b4686b56abddedecbde75360cbbbfab";
+      rev = "d1dbb424124fc50452a179300c7f287dbcc0db64";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-TQYNzrX57gyJG4M7EklE21fs/WoaZTsd5IafMRG4Ob8=";
+      sha256 = "sha256-QqHauKSfyi+heseUTQ+gztjkdoSGGfw/jRorFxSiXOo=";
     };
-    date = "2025-03-31";
+    date = "2026-03-24";
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "e0160b8ef723a423e84ee52b53614ac3382f6d16";
+    version = "425cc5d152a84389b6fde0ed85929abbfdea401d";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "e0160b8ef723a423e84ee52b53614ac3382f6d16";
+      rev = "425cc5d152a84389b6fde0ed85929abbfdea401d";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-3MQx1ctwMVN5fMnAK9XLrRh4wUqD/g+TflE5YOVGQKQ=";
+      sha256 = "sha256-6SBhb7wwNq7NCPWhTJrf4n8X2HAZjS+doz93G0e1WYc=";
     };
-    date = "2025-11-03";
+    date = "2026-05-02";
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "3a9a76e2c58181d3980a1cdeb6dda55a67605f2d";
+    version = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "3a9a76e2c58181d3980a1cdeb6dda55a67605f2d";
+      rev = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-FWPh3RJMNhbhUysE8B2C0b+Wz2Bo/oSA49h1HzRBCAI=";
+      sha256 = "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=";
     };
-    date = "2025-12-31";
+    date = "2026-05-06";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -379,17 +399,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "a53cdf4fd6141cd3a5c2006ae882311e5132fca0";
+    version = "0c6d8e37f00c3e43fd8d0ada42dab4eda0b3d811";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "a53cdf4fd6141cd3a5c2006ae882311e5132fca0";
+      rev = "0c6d8e37f00c3e43fd8d0ada42dab4eda0b3d811";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-rUcpxqmk30v19/woj3eKkiYHjnObfdnS6uqlknfRK8c=";
+      sha256 = "sha256-VuE1NaHIbfODpvDWCIqplWtPsx9+ai5hPfva8+DDD6M=";
     };
-    date = "2025-11-13";
+    date = "2026-04-18";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
@@ -407,17 +427,17 @@
   };
   rime-prelude = {
     pname = "rime-prelude";
-    version = "3c602fdb0dcca7825103e281efc50ef7580f99ec";
+    version = "541e03e0f36ff42318848046a3b61ac47483dca3";
     src = fetchgit {
       url = "https://github.com/rime/rime-prelude.git";
-      rev = "3c602fdb0dcca7825103e281efc50ef7580f99ec";
+      rev = "541e03e0f36ff42318848046a3b61ac47483dca3";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-R9sxeCe1e2A3pn//iGwRr3eTTpgxprjEEjlo15/O19c=";
+      sha256 = "sha256-8eJc1n935KjmjvDRFksZKErt694keDeDxFRvzs++luQ=";
     };
-    date = "2025-04-20";
+    date = "2026-03-21";
   };
   rime-quick = {
     pname = "rime-quick";
@@ -508,28 +528,28 @@
   };
   secureboot_objects = {
     pname = "secureboot_objects";
-    version = "v1.6.2-signed";
+    version = "v1.6.4-signed";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "secureboot_objects";
-      rev = "v1.6.2-signed";
+      rev = "v1.6.4-signed";
       fetchSubmodules = false;
-      sha256 = "sha256-Wh3uIlEC68ALQishLFdL3Dg3ZO/KH+twIEhhw4P7Usw=";
+      sha256 = "sha256-KLy6+vlkVP1s/ZAIQbZK5/FjM3Sfu3RUi6Qbq1M2if4=";
     };
   };
   telegram-send = {
     pname = "telegram-send";
-    version = "38cd39fb0eac6c58e886c11706ae39f58991af55";
+    version = "f5466fc2b8b8b9aaa55dd28fb80b6ae138b578d8";
     src = fetchgit {
       url = "https://github.com/rahiel/telegram-send.git";
-      rev = "38cd39fb0eac6c58e886c11706ae39f58991af55";
+      rev = "f5466fc2b8b8b9aaa55dd28fb80b6ae138b578d8";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-DeEz1cVor2GBoQrDIHNWr5IYnPgBsTWr5xMuSM38MBw=";
+      sha256 = "sha256-kc6btKN+IclmbRx6Lko2Jw0XxVaKVo/AnhYsW6C2G4Y=";
     };
-    date = "2023-10-07";
+    date = "2026-01-27";
   };
   tg-send = {
     pname = "tg-send";
@@ -551,16 +571,19 @@
     };
     date = "2023-03-25";
   };
-  trojan = {
-    pname = "trojan";
-    version = "v1.16.0";
-    src = fetchFromGitHub {
-      owner = "trojan-gfw";
-      repo = "trojan";
-      rev = "v1.16.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=";
+  v86 = {
+    pname = "v86";
+    version = "fc6ffc1734bc223436813692ab431578b906f32a";
+    src = fetchgit {
+      url = "https://github.com/copy/v86.git";
+      rev = "fc6ffc1734bc223436813692ab431578b906f32a";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-6Knc41D9uhamj5OrM/KMjY0MA8iwfSoMohpti8pNJuA=";
     };
+    date = "2026-05-03";
   };
   vlmcsd = {
     pname = "vlmcsd";
