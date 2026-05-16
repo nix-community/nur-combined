@@ -38,6 +38,7 @@ let
       seadrive-fuse = final.callPackage ./seadrive-fuse { };
       sing-box-beta = final.callPackage ./sing-box/beta.nix { };
       sing-box-extended = final.callPackage ./sing-box/extended.nix { };
+      stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
       syncyomi = final.callPackage ./syncyomi { };
       telemt = final.callPackage ./telemt { };
       waydroid-script = final.python3Packages.callPackage ./waydroid-script { };
