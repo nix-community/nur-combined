@@ -5,7 +5,7 @@
   fetchPnpmDeps,
   rustPlatform,
   nodejs,
-  pnpm,
+  pnpm_10,
   pnpmConfigHook,
   geist-font,
   nix-update-script,
@@ -14,6 +14,13 @@
 }:
 
 let
+  # Pin the pnpm major so the offline-store layout (and therefore
+  # `pnpmDeps.hash`) is stable across nixpkgs bumps of the default `pnpm`
+  # attribute. The upstream lockfile is `lockfileVersion: '9.0'`, which is
+  # produced by pnpm 9/10; pinning to 10 keeps us aligned with what
+  # contributors run locally.
+  pnpm = pnpm_10;
+
   version = "0.27.0";
 
   src = fetchFromGitHub {
@@ -39,10 +46,10 @@ let
 
     pnpmDeps = fetchPnpmDeps {
       pname = "agent-browser-dashboard";
-      inherit version src;
+      inherit version src pnpm;
       pnpmWorkspaces = [ "dashboard" ];
       fetcherVersion = 3;
-      hash = "sha256-e7KlsuqS1YRcdQbKJwH9Dd6N28tYM3nPinJB5ZzSbp4=";
+      hash = "sha256-ldxmXpejqVN/xuWcdLYMwNPc1VZ1rdNwRrumy8Is3N4=";
     };
 
     pnpmWorkspaces = [ "dashboard" ];
