@@ -31,7 +31,7 @@
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... } @inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... } @inputs:
     let
       system = "x86_64-linux";
       hostname = "local";
@@ -40,6 +40,7 @@
       mylib = import ./lib { inherit lib; };
       overlayList = mylib.recursiveValuesToList overlays;
       pkgs = import nixpkgs { inherit system; overlays = overlayList; };
+      pkgsUnstable = import nixpkgs-unstable { inherit system; overlays = overlayList; };
 
       nixosModules = mylib.fromDirectoryRecursive {
         directory = ./modules;
@@ -98,6 +99,9 @@
               bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
               niri.overlays.niri
               nix-vscode-extensions.overlays.default
+              (final: prev: {
+                litellmUnstable = pkgsUnstable.litellm;
+              })
             ];
 
             home-manager = {

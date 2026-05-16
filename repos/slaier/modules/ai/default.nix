@@ -1,5 +1,71 @@
-{ pkgs, lib, utils, inputs, ... }:
+{ config, lib, pkgs, utils, inputs, ... }:
 {
+  services.litellm = {
+    enable = true;
+    package = pkgs.litellmUnstable;
+    port = 4000;
+    environmentFile = config.sops.secrets.litellm.path;
+    settings = {
+      model_list = [
+        {
+          model_name = "gemini-chat";
+          litellm_params = {
+            model = "gemini/gemini-3.1-flash-lite";
+            api_base = "os.environ/GEMINI_API_BASE";
+            api_key = "os.environ/GEMINI_API_KEY";
+            rpm = 15;
+            tpm = 250000;
+            weight = 1;
+          };
+        }
+        {
+          model_name = "gemini-chat";
+          litellm_params = {
+            model = "gemini/gemma-4-26b-a4b-it";
+            api_base = "os.environ/GEMINI_API_BASE";
+            api_key = "os.environ/GEMINI_API_KEY";
+            rpm = 15;
+            weight = 3;
+          };
+        }
+        {
+          model_name = "gemini-chat";
+          litellm_params = {
+            model = "gemini/gemma-4-31b-it";
+            api_base = "os.environ/GEMINI_API_BASE";
+            api_key = "os.environ/GEMINI_API_KEY";
+            rpm = 15;
+            weight = 3;
+          };
+        }
+        {
+          model_name = "gemini-embedding";
+          litellm_params = {
+            model = "gemini/gemini-embedding-2";
+            api_base = "os.environ/GEMINI_API_BASE";
+            api_key = "os.environ/GEMINI_API_KEY";
+            rpm = 100;
+            tpm = 30000;
+          };
+        }
+        {
+          model_name = "gemini-embedding";
+          litellm_params = {
+            model = "gemini/gemini-embedding-1";
+            api_base = "os.environ/GEMINI_API_BASE";
+            api_key = "os.environ/GEMINI_API_KEY";
+            rpm = 100;
+            tpm = 30000;
+          };
+        }
+      ];
+    };
+  };
+  sops.secrets.litellm = {
+    format = "dotenv";
+    key = "";
+    sopsFile = ../../secrets/litellm.env;
+  };
   systemd.services.llama-cpp = {
     description = "LLaMA C++ server";
     after = [ "network.target" ];
@@ -22,14 +88,14 @@
             "*" = {
               np = 1;
               no-mmproj = true;
+              no-warmup = true;
               sleep-idle-seconds = 600;
               n-gpu-layers = 99;
               flash-attn = "on";
               fit = "on";
-              fit-target = 512;
+              fit-target = 1024;
               prio = 3;
               kv-unified = true;
-              ctx-size = 16384;
               repeat-penalty = 1.05;
               reasoning = "off";
             };
@@ -44,10 +110,9 @@
               presence-penalty = 1.5;
               repeat-penalty = 1.0;
               fit = "off";
-              ot = ''blk\.[1-2]?[0-9]\.ffn_.*exps.*=CPU'';
+              ot = ''blk\.[0-9]+\.ffn_.*exps.*=CPU'';
               ctk = "q8_0";
               ctv = "q8_0";
-              no-mmap = true;
             };
             "Jan-v3-4B-base-instruct" = {
               hf = "janhq/Jan-v3-4B-base-instruct-gguf";
@@ -57,9 +122,20 @@
               min-p = 0;
               presence-penalty = 1.5;
               repeat-penalty = 1.0;
-              ctx-size = 49152;
               ctk = "q8_0";
               ctv = "q8_0";
+            };
+            "Qwen2.5-Coder-1.5B-CodeFIM" = {
+              hf = "mradermacher/Qwen2.5-Coder-1.5B-CodeFIM-GGUF:Q4_K_M";
+            };
+            "FastApply-1.5B-v1.0" = {
+              hf = "MaziyarPanahi/FastApply-1.5B-v1.0-GGUF:Q5_K_M";
+            };
+            "nomic-embed-text-v1.5" = {
+              hf = "nomic-ai/nomic-embed-text-v1.5-GGUF:F32";
+            };
+            "zerank-1-small" = {
+              hf = "mradermacher/zerank-1-small-GGUF:Q4_K_M";
             };
             # OCR
             "Nanonets-OCR-s" = {
@@ -73,8 +149,6 @@
             "8080"
             "--models-preset"
             "${preset}"
-            "--models-max"
-            "1"
           ];
         in
         "${pkgs.llama-cpp-unstable}/bin/llama-server ${utils.escapeSystemdExecArgs args}";
@@ -132,15 +206,17 @@
             ;;
     esac
   '';
-  environment.systemPackages = with pkgs; [
-    aicommits
-    claude-code-best
-    llama-cpp-unstable
-    (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ch/cherry-studio/package.nix" {
-      pnpm_10_29_2 = pkgs.pnpm;
-    })
-    (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/st/stable-diffusion-cpp/package.nix" {
-      vulkanSupport = true;
-    })
-  ];
+  environment.systemPackages = assert !(lib.hasAttr "stable-diffusion-cpp" pkgs); with pkgs;
+    [
+      aicommits
+      claude-code-best
+      llama-cpp-unstable
+      (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ch/cherry-studio/package.nix" {
+        pnpm_10_29_2 = pkgs.pnpm;
+      })
+      (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/st/stable-diffusion-cpp/package.nix" {
+        vulkanSupport = true;
+        stdenv = ccacheStdenv;
+      })
+    ];
 }
