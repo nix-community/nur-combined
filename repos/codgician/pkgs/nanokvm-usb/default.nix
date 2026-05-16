@@ -159,7 +159,16 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  # Upstream tag `1.1.0` is missing the `v` prefix used by every other release,
+  # which trips nix-update's version sorting (alpha < numeric) and causes it to
+  # pick `1.1.0` as the latest. Restrict to tags shaped like `vX.Y.Z` so the
+  # comparison stays sane.
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "v(.*)"
+    ];
+  };
 
   meta = with lib; {
     description = "NanoKVM-USB Desktop (Electron + React client)";

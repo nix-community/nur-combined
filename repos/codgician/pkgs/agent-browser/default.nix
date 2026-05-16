@@ -42,7 +42,7 @@ let
       inherit version src;
       pnpmWorkspaces = [ "dashboard" ];
       fetcherVersion = 3;
-      hash = "sha256-ldxmXpejqVN/xuWcdLYMwNPc1VZ1rdNwRrumy8Is3N4=";
+      hash = "sha256-e7KlsuqS1YRcdQbKJwH9Dd6N28tYM3nPinJB5ZzSbp4=";
     };
 
     pnpmWorkspaces = [ "dashboard" ];
