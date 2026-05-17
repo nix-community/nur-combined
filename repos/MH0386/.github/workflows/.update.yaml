@@ -36,7 +36,7 @@ jobs:
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: >-
-          nix shell nixpkgs#nix-update nixpkgs#jq -c sh -lc
-          "nix eval --impure --json .#packages.x86_64-linux | jq -r 'keys[]' | xargs -r -n1 nix-update --commit"
+          nix shell nixpkgs#nix-update nixpkgs#jq -c sh -lc "nix eval --impure --json .#packages.x86_64-linux | jq -r 'keys[]'
+          | xargs -r -n1 nix-update --commit"
       - name: Push changes
         run: git push --no-verify

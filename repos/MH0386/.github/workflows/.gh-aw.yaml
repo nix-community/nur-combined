@@ -32,4 +32,3 @@ jobs:
           commit_options: --no-verify
           push_options: --force
           file_pattern: .github/
-          

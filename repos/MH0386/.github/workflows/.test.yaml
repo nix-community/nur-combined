@@ -3,10 +3,6 @@ on:
   push:
     branches:
       - main
-permissions:
-  deployments: write
-  security-events: write
-  actions: read
 jobs:
   test:
     name: Test
@@ -20,9 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
       - name: Setup Devenv
-        uses: AlphaSphereDotAI/helpr_action/ci/setup/devenv@a904e46f45629ec2d6224ed949f3644768ba2d69 # v0.0.73
+        uses: AlphaSphereDotAI/helpr_action/ci/setup/devenv@9c1ce69965cda95a280f4da04d418ea8eaf7bf50 # v0.0.84
       - name: Run tests
         run: devenv test
       - name: Commit
