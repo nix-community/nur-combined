@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, gnuradio-boost181
-, spdlog
-, gmp
-, mpir
-, boost181
-, volk
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gnuradio-boost181,
+  spdlog,
+  gmp,
+  mpir,
+  boost181,
+  volk,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,19 +33,21 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = let 
-    gnuradio = gnuradio-boost181; 
-  in [
-    gnuradio
-    spdlog
-    gmp
-    mpir
-    boost181
-    volk
-    mpir
-    gnuradio.python.pkgs.pybind11
-    gnuradio.python.pkgs.numpy
-  ];
+  buildInputs =
+    let
+      gnuradio = gnuradio-boost181;
+    in
+    [
+      gnuradio
+      spdlog
+      gmp
+      mpir
+      boost181
+      volk
+      mpir
+      gnuradio.python.pkgs.pybind11
+      gnuradio.python.pkgs.numpy
+    ];
 
   meta = with lib; {
     description = "GNU Radio PDU Utilities";

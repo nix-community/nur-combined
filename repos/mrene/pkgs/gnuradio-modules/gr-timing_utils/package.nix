@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, gnuradio-boost181
-, spdlog
-, gmp
-, mpir
-, boost181
-, volk
-, gr-pdu_utils
-, gr-sandia_utils
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gnuradio-boost181,
+  spdlog,
+  gmp,
+  mpir,
+  boost181,
+  volk,
+  gr-pdu_utils,
+  gr-sandia_utils,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,20 +30,22 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = let 
-    gnuradio = gnuradio-boost181; 
-  in [
-    gnuradio
-    spdlog
-    gmp
-    mpir
-    boost181
-    volk
-    gnuradio.python.pkgs.pybind11
-    gnuradio.python.pkgs.numpy
-    gr-sandia_utils
-    gr-pdu_utils
-  ];
+  buildInputs =
+    let
+      gnuradio = gnuradio-boost181;
+    in
+    [
+      gnuradio
+      spdlog
+      gmp
+      mpir
+      boost181
+      volk
+      gnuradio.python.pkgs.pybind11
+      gnuradio.python.pkgs.numpy
+      gr-sandia_utils
+      gr-pdu_utils
+    ];
 
   meta = with lib; {
     description = "GNU Radio Timing Utilties";

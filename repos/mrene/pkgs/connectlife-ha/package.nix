@@ -18,11 +18,17 @@ let
     hash = "sha256-GSlh0oSB+ZKWScQVkBZZoAGcZcIXQIiU0JvXpPzQWrc=";
   };
 
-  connectlife = home-assistant.python.pkgs.callPackage ./connectlife.nix {};
+  connectlife = home-assistant.python.pkgs.callPackage ./connectlife.nix { };
 in
 
 buildHomeAssistantComponent rec {
-  inherit pname version owner domain src;
+  inherit
+    pname
+    version
+    owner
+    domain
+    src
+    ;
 
   dontBuild = true;
 

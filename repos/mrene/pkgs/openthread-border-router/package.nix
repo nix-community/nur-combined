@@ -1,29 +1,30 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, systemdLibs
-, avahi
-, protobuf
-, jsoncpp
-, boost
-, libnetfilter_queue
-, libnfnetlink
-, nodejs
-, buildNpmPackage
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  systemdLibs,
+  avahi,
+  protobuf,
+  jsoncpp,
+  boost,
+  libnetfilter_queue,
+  libnfnetlink,
+  nodejs,
+  buildNpmPackage,
+  python3,
 }:
 let
   pname = "ot-br-posix";
   version = "thread-reference-20250612";
 
   src = fetchFromGitHub {
-      owner = "openthread";
-      repo = "ot-br-posix";
-      rev = "f2a7208dd470e5fd8e8064359ea7bd3942f9ca08";
-      hash = "sha256-/Fztdh/+02AW0o+7YPfX6C1LXCcqK9/R95t04unLSwA=";
-      fetchSubmodules = true;
+    owner = "openthread";
+    repo = "ot-br-posix";
+    rev = "f2a7208dd470e5fd8e8064359ea7bd3942f9ca08";
+    hash = "sha256-/Fztdh/+02AW0o+7YPfX6C1LXCcqK9/R95t04unLSwA=";
+    fetchSubmodules = true;
   };
 
   # hass-addons contains a few patches
@@ -73,7 +74,7 @@ stdenv.mkDerivation {
     ln -sf ${frontendModules}/lib/node_modules/otbr-web/node_modules ./src/web/web-service/frontend/
   '';
 
-  buildInputs =[
+  buildInputs = [
     avahi
     systemdLibs
     protobuf

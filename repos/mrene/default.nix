@@ -6,9 +6,13 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { } }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { },
+}:
 
-(pkgs.callPackage ./pkgs {}) // {
+(pkgs.callPackage ./pkgs { })
+// {
   # The `lib`, `modules`, and `overlays` names are special
   lib = pkgs.callPackage ./lib { }; # functions
   modules = import ./modules; # NixOS modules

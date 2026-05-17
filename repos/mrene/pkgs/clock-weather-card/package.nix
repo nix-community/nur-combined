@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nodejs
-, yarn-berry_4
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nodejs,
+  yarn-berry_4,
 }:
 
 stdenv.mkDerivation (finalAttrs: {

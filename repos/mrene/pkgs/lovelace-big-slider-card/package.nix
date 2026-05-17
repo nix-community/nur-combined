@@ -34,7 +34,7 @@ buildNpmPackage rec {
   '';
 
   npmDepsHash = "sha256-vOKkh2gO/YeEyS3BDWDJdQWy1sZzXPAF4PEi7IJ8bE8=";
-  
+
   meta = {
     description = "A card with a big slider for light entities in Home Assistant";
     homepage = "https://github.com/nicufarmache/lovelace-big-slider-card";

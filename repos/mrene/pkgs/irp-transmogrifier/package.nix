@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, maven
-, libxslt
-, jre
-, makeWrapper
+{
+  lib,
+  fetchFromGitHub,
+  maven,
+  libxslt,
+  jre,
+  makeWrapper,
 }:
 
 maven.buildMavenPackage rec {
@@ -17,7 +18,11 @@ maven.buildMavenPackage rec {
     hash = "sha256-nG5TMtdUoiJQ+SXlCbxfhU5WVpgLwV3vFDxj4yeGKYI=";
   };
 
-  nativeBuildInputs = [ libxslt jre makeWrapper ];
+  nativeBuildInputs = [
+    libxslt
+    jre
+    makeWrapper
+  ];
 
   mvnHash = "sha256-kifaJzPCheWAoiv7XUT96v8xuid8gJqAD26RaaJEXs8=";
   mvnParameters = "-Dmaven.gitcommitid.skip=true -Dgit.commit.id=${src.rev}";

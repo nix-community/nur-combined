@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, gnuradio-boost181
-, spdlog
-, gmp
-, mpir
-, boost
-, volk
-, gr-pdu_utils
-, gr-sandia_utils
-, gr-timing_utils
-, llvmPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gnuradio-boost181,
+  spdlog,
+  gmp,
+  mpir,
+  boost,
+  volk,
+  gr-pdu_utils,
+  gr-sandia_utils,
+  gr-timing_utils,
+  llvmPackages,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,21 +32,24 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = let 
-    gnuradio = gnuradio-boost181; 
-  in [
-    gnuradio
-    spdlog
-    gmp
-    mpir
-    boost
-    volk
-    gnuradio.python.pkgs.pybind11
-    gnuradio.python.pkgs.numpy
-    gr-sandia_utils
-    gr-pdu_utils
-    gr-timing_utils 
-  ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ];
+  buildInputs =
+    let
+      gnuradio = gnuradio-boost181;
+    in
+    [
+      gnuradio
+      spdlog
+      gmp
+      mpir
+      boost
+      volk
+      gnuradio.python.pkgs.pybind11
+      gnuradio.python.pkgs.numpy
+      gr-sandia_utils
+      gr-pdu_utils
+      gr-timing_utils
+    ]
+    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ];
 
   meta = with lib; {
     description = "Bursty modem utilities";

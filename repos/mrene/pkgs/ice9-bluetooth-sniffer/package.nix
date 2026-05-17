@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, cmake
-, pkg-config
-, liquid-dsp
-, hackrf
-, libbladeRF
-, uhd
-, fftwFloat
-, unixtools
-, darwin ? null
-, lld ? null
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  pkg-config,
+  liquid-dsp,
+  hackrf,
+  libbladeRF,
+  uhd,
+  fftwFloat,
+  unixtools,
+  darwin ? null,
+  lld ? null,
 }:
 
 stdenv.mkDerivation {
@@ -29,14 +30,20 @@ stdenv.mkDerivation {
     ./usrp-fixes.patch
   ];
 
-  cmakeFlags = lib.optional stdenv.isDarwin (lib.cmakeFeature "CMAKE_EXE_LINKER_FLAGS" "-fuse-ld=lld");
+  cmakeFlags = lib.optional stdenv.isDarwin (
+    lib.cmakeFeature "CMAKE_EXE_LINKER_FLAGS" "-fuse-ld=lld"
+  );
 
   # On Darwin platforms:
   # error: call to undeclared function '_NSGetExecutablePath'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-implicit-function-declaration";
 
-  nativeBuildInputs = [ cmake pkg-config unixtools.xxd ] ++ 
-    lib.optionals stdenv.isDarwin [ lld ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    unixtools.xxd
+  ]
+  ++ lib.optionals stdenv.isDarwin [ lld ];
 
   buildInputs = [
     liquid-dsp
@@ -44,7 +51,8 @@ stdenv.mkDerivation {
     hackrf
     uhd
     fftwFloat
-  ] ++ lib.optionals stdenv.isDarwin [
+  ]
+  ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.IOSurface
     darwin.apple_sdk.frameworks.QuartzCore
   ];

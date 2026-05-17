@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildNpmPackage
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildNpmPackage,
 }:
 
 buildNpmPackage rec {
@@ -24,7 +25,6 @@ buildNpmPackage rec {
 
     runHook postInstall
   '';
-
 
   passthru = {
     entrypoint = "slider-entity-row.js";

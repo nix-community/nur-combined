@@ -55,7 +55,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = [
-  ] ++ lib.optionals stdenv.isDarwin [
+  ]
+  ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.AppKit
     darwin.apple_sdk.frameworks.CoreFoundation
     darwin.apple_sdk.frameworks.CoreGraphics
@@ -63,14 +64,15 @@ rustPlatform.buildRustPackage rec {
     darwin.apple_sdk.frameworks.Foundation
     darwin.apple_sdk.frameworks.Metal
     darwin.apple_sdk.frameworks.QuartzCore
-  ] ++ lib.optionals stdenv.isLinux [
+  ]
+  ++ lib.optionals stdenv.isLinux [
     libxkbcommon
     xorg.libX11
     xorg.libXi
     sensors
     vulkan-loader
   ];
-  
+
   env = {
     LMSENSORS_PATH = "${sensors}";
   };

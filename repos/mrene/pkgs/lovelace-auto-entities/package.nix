@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildNpmPackage
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildNpmPackage,
 }:
 
 buildNpmPackage rec {
@@ -14,7 +15,7 @@ buildNpmPackage rec {
     rev = "v${version}";
     hash = "sha256-yMqf4LA/fBTIrrYwacUTb2fL758ZB1k471vdsHAiOj8=";
   };
-  
+
   npmDepsHash = "sha256-XLhTLK08zW1BFj/PI8/61FWzoyvWi5X5sEkGlF1IuZU=";
 
   installPhase = ''
@@ -25,7 +26,6 @@ buildNpmPackage rec {
 
     runHook postInstall
   '';
-
 
   passthru = {
     entrypoint = "auto-entities.js";

@@ -33,7 +33,10 @@ buildGoModule rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [less more]; # Tests expect a pager in $PATH
+  nativeCheckInputs = [
+    less
+    more
+  ]; # Tests expect a pager in $PATH
 
   passthru = {
     tests.version = testers.testVersion {
@@ -41,10 +44,10 @@ buildGoModule rec {
       command = "jira version";
       inherit version;
     };
-    updateScript = nix-update-script {};
+    updateScript = nix-update-script { };
   };
 
-  nativeBuildInputs = [installShellFiles];
+  nativeBuildInputs = [ installShellFiles ];
   postInstall = ''
     installShellCompletion --cmd jira \
       --bash <($out/bin/jira completion bash) \
@@ -60,7 +63,10 @@ buildGoModule rec {
     homepage = "https://github.com/ankitpokhrel/jira-cli";
     changelog = "https://github.com/ankitpokhrel/jira-cli/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [anthonyroussel mrene];
+    maintainers = with maintainers; [
+      anthonyroussel
+      mrene
+    ];
     platforms = platforms.all;
   };
 }

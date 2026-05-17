@@ -15,9 +15,12 @@ buildGoModule rec {
     hash = "sha256-t5A0kFqi2q0z7zBszrGvK54vQpZG948E8byL39UfL68=";
   };
 
-  vendorHash = "sha256-E/Y4kW5xy7YamUP5bxFmDCAK6RqiqGN7DpEPG1MaCHc=";
+  vendorHash = "sha256-3BSvjt9fprjin5kbDJK1cPkzys1BH8iDEIex9WdDo8s=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = {
     description = "Terminal API client for HTTP/GraphQL/gRPC with support for SSH tunnels, WebSockets, SSE, workflows, profiling, OpenAPI and response diffs";

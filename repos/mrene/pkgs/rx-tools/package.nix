@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, soapysdr-with-plugins
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  soapysdr-with-plugins,
 }:
 
 stdenv.mkDerivation rec {

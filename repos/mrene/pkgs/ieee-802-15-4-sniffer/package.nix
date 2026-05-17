@@ -1,23 +1,33 @@
-{ lib, stdenvNoCC, gnuradio-boost181, gnuradio-modules }:
+{
+  lib,
+  stdenvNoCC,
+  gnuradio-boost181,
+  gnuradio-modules,
+}:
 
-let 
+let
   gnuradio = gnuradio-boost181;
   gnuradioPackages = {
     inherit (gnuradio-modules) gr-foo gr-ieee-802-15-4;
   };
-  gr = (gnuradio.override {
-    extraPackages = builtins.attrValues gnuradioPackages;
-    extraPythonPackages = with gnuradio.python.pkgs; [ soapysdr ];
-  }) // {
-    pkgs = gnuradio.pkgs.overrideScope (final: prev: gnuradioPackages);
-  };
+  gr =
+    (gnuradio.override {
+      extraPackages = builtins.attrValues gnuradioPackages;
+      extraPythonPackages = with gnuradio.python.pkgs; [ soapysdr ];
+    })
+    // {
+      pkgs = gnuradio.pkgs.overrideScope (final: prev: gnuradioPackages);
+    };
 in
 stdenvNoCC.mkDerivation {
   pname = "ieee-802-15-4-sniffer";
   version = "1.0";
   src = ./.;
 
-  nativeBuildInputs = [ gr.unwrapped gr.python.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    gr.unwrapped
+    gr.python.pkgs.wrapPython
+  ];
   buildInputs = [ gr.pythonEnv ];
 
   buildPhase = ''
@@ -32,8 +42,7 @@ stdenvNoCC.mkDerivation {
     $GRCC soapy-oqpsk-sniffer.grc
 
     runHook postBuild
-    '';
-
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -64,4 +73,3 @@ stdenvNoCC.mkDerivation {
     platforms = gnuradio.meta.platforms;
   };
 }
-

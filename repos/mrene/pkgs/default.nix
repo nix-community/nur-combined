@@ -1,6 +1,6 @@
 { callPackage }:
 let
-  localLib = callPackage ../lib {};
+  localLib = callPackage ../lib { };
 in
 
 localLib.scopeFromDirectoryRecursive {
