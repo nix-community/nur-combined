@@ -80,7 +80,7 @@
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.7.2";
+    version = "v1.7.3";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -486,25 +486,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "4391a2415e01b01d4ff0a4d49253bec1120927e3";
+    version = "8277589524926c5578516ddd1fc64f24726f7aa4";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "4391a2415e01b01d4ff0a4d49253bec1120927e3";
+      rev = "8277589524926c5578516ddd1fc64f24726f7aa4";
       fetchSubmodules = false;
-      sha256 = "sha256-4ioaoTXpl4W95COSJ3XBw8XYkqvDzPwgpJD5QImCKUs=";
+      sha256 = "sha256-CqnQuMGHeELcset5IkMbmiiFp13g7TdYmfeJFdF6WZc=";
     };
-    date = "2026-05-15";
-  };
-  yass = {
-    pname = "yass";
-    version = "1.24.12";
-    src = fetchFromGitHub {
-      owner = "hukeyue";
-      repo = "yass";
-      rev = "1.24.12";
-      fetchSubmodules = true;
-      sha256 = "sha256-pQSyvltPwlx6MnT2GGhTLyHCNbUb0L4DX2HXmbkZkHM=";
-    };
+    date = "2026-05-16";
   };
 }

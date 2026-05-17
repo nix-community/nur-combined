@@ -134,7 +134,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v1.7.2"
+        "version": "v1.7.3"
     },
     "cronet-go": {
         "cargoLock": null,
@@ -844,7 +844,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-05-15",
+        "date": "2026-05-16",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -856,32 +856,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "4391a2415e01b01d4ff0a4d49253bec1120927e3",
-            "sha256": "sha256-4ioaoTXpl4W95COSJ3XBw8XYkqvDzPwgpJD5QImCKUs=",
+            "rev": "8277589524926c5578516ddd1fc64f24726f7aa4",
+            "sha256": "sha256-CqnQuMGHeELcset5IkMbmiiFp13g7TdYmfeJFdF6WZc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4391a2415e01b01d4ff0a4d49253bec1120927e3"
-    },
-    "yass": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "yass",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "hukeyue",
-            "repo": "yass",
-            "rev": "1.24.12",
-            "sha256": "sha256-pQSyvltPwlx6MnT2GGhTLyHCNbUb0L4DX2HXmbkZkHM=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "1.24.12"
+        "version": "8277589524926c5578516ddd1fc64f24726f7aa4"
     }
 }
