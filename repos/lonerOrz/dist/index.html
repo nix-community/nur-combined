@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>loneros-nur</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="container">
+      <div class="hero">
+        <span class="hero-badge">Nix User Repository</span>
+
+        <h1>loneros-nur</h1>
+
+        <p>
+          loneros' personal Nix User Repository (NUR) package index.
+        </p>
+      </div>
+
+      <div class="toolbar">
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-label">📦 Total Packages</div>
+
+            <div class="stat-value" id="package-count">0</div>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <span class="search-icon"> ⌕ </span>
+
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search packages..."
+          />
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="table-scroll">
+          <table id="packages-table">
+            <thead>
+              <tr>
+                <th data-sort="name">
+                  Package
+                  <span class="sort-indicator">↕</span>
+                </th>
+
+                <th data-sort="version">
+                  Version
+                  <span class="sort-indicator">↕</span>
+                </th>
+
+                <th data-sort="license">
+                  License
+                  <span class="sort-indicator">↕</span>
+                </th>
+
+                <th data-sort="description">
+                  Description
+                  <span class="sort-indicator">↕</span>
+                </th>
+
+                <th>
+                  Usage
+                </th>
+
+                <th>
+                  Links
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="packages-body"></tbody>
+          </table>
+        </div>
+
+        <div class="empty" id="empty-state">No matching packages found.</div>
+      </div>
+
+      <div class="footer">
+        Generated from evaluated Nix metadata ·
+
+        <a href="https://github.com/lonerOrz/loneros-nur" target="_blank">
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 # 🧃 My NUR Repository
 
+> Browse all packages at **[lonerorz.github.io/loneros-nur](https://lonerorz.github.io/loneros-nur)** — a searchable web index.
+
 **NUR Sync Status:** [![NUR Sync Status](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml/badge.svg)](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml)
 
 ---
