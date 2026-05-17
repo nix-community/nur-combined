@@ -1,1 +1,1 @@
---flake --use-update-script
+--flake --use-update-script --version-regex 'nirius-(.*)'

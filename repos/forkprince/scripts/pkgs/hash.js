@@ -3,7 +3,7 @@ const { slug } = require("./text");
 module.exports = async (url, unpack = false) => {
   const filename = slug(url) || "download";
 
-  const args = ["store", "prefetch-file", encodeURI(url), "--json", "--name", filename];
+  const args = ["store", "prefetch-file", encodeURI(decodeURI(url)), "--json", "--name", filename];
 
   if (unpack) args.push("--unpack");
 
