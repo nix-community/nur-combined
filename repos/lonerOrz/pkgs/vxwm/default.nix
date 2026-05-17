@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vxwm";
-  version = "0-unstable-2026-05-15";
+  version = "0-unstable-2026-05-16";
 
   src = fetchFromCodeberg {
     owner = "wh1tepearl";
     repo = "vxwm";
-    rev = "5cea6641a17989d6a2b34a77dfcdf489c82fc602";
-    hash = "sha256-3TO+F1wYVNn2cIEGn5ky+q2uzgTW2tQPBMGaQevvhRc=";
+    rev = "c0ad915d0a91a28c95b4d7112b146a515efb6db0";
+    hash = "sha256-KdN51NOZe1wjg2oZXW19TM4PxseyUqwLo2OamMY5C0Q=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isStatic pkg-config;
@@ -69,6 +69,8 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-fail 'dbus-run-session vxwm' "dbus-run-session $out/bin/vxwm"
 
       sed -i -E "s|^[[:space:]]*vxwm |$out/bin/vxwm |" rvx
+
+      sed -i '/{ ClkWinTitle.*zoom/d' config.def.h
 
       # custom config
       ${lib.optionalString (conf != null) ''
