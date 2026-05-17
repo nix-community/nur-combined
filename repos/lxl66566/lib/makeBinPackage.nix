@@ -48,6 +48,10 @@ currentStdenv.mkDerivation {
   dontBuild = true;
   dontCheck = true;
 
+  # avoid substituters
+  preferLocalBuild = true;
+  allowSubstitutes = false;
+
   nativeBuildInputs = otherNativeBuildInputs ++ lib.optional (lib.hasSuffix ".zip" finalUrl) unzip;
 
   buildInputs = lib.optional (libc == "gnu") stdenv.cc.cc.lib;

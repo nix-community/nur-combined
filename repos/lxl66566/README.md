@@ -63,6 +63,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [git-simple-encrypt](https://github.com/lxl66566/git-simple-encrypt) | null, musl | Encrypt/decrypt files in git repo using one password |
 | [git-sync-backup](https://github.com/lxl66566/git-sync-backup) | null, musl | Synchronize and backup files/folders using Git, cross-device & configurable |
 | [openppp2](https://github.com/liulilittle/openppp2) | null, tc | Next-generation security network access technology, providing high-performance Virtual Ethernet tunneling service. |
+| [selector4nix](https://github.com/lxl66566/selector4nix) | null, musl | Nix substituter proxy with parallel cache queries and latency-aware selection |
 | [system76-scheduler-niri](https://github.com/lxl66566/system76-scheduler-niri) | null, musl | Niri integration for system76-scheduler |
 | [urldecoder](https://github.com/lxl66566/urldecoder) | null, musl | Batch find and decode URLs in your text/files. very fast. |
 | [user-startup-rs](https://github.com/lxl66566/user-startup-rs) | null, musl | Simple cross-platform tool to make your command auto run on startup |
@@ -75,6 +76,29 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 ```nix
 {
   services.system76-scheduler-niri.enable = true;
+}
+```
+
+### selector4nix
+
+reference to [StarryReverie/selector4nix](https://github.com/StarryReverie/selector4nix) for example config.
+
+```nix
+{
+  services.selector4nix = {
+    enable = true;
+    settings = {
+      server = {
+        ip = "127.0.0.1";
+        port = 5496;
+      };
+      substituters = [
+        {
+          url = "https://cache.nixos.org/";
+        }
+      ];
+    };
+  };
 }
 ```
 
