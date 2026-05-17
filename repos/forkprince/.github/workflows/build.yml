@@ -153,6 +153,9 @@ jobs:
             -d "$payload" \
             "${{ secrets.DISCORD }}"
 
+      - name: Update flake
+        run: nix flake update
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"

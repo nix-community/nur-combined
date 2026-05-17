@@ -1,4 +1,8 @@
+# NOTE: Widevine does not work on MacOS
 {
+  enableWidevine ? false,
+  # google-chrome ? null,
+  widevine-cdm ? null,
   appimageTools,
   stdenvNoCC,
   fetchurl,
@@ -19,7 +23,7 @@
     homepage = "https://github.com/imputnet/helium";
     changelog = "https://github.com/imputnet/helium/releases/tag/${version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [Ev357 Prinky LarsArtmann];
+    maintainers = with lib.maintainers; [Prinky Ev357 LarsArtmann];
     platforms = lib.platforms.unix;
     mainProgram = "helium";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
@@ -43,10 +47,29 @@ in
         cp -r Helium.app $out/Applications/
         runHook postInstall
       '';
+
+      # installPhase = ''
+      #   runHook preInstall
+
+      #   mkdir -p $out/Applications
+      #   cp -r Helium.app $out/Applications/
+
+      #   ${lib.optionalString enableWidevine ''
+      #     cp -R "${google-chrome}/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Libraries/WidevineCdm" "$out/Applications/Helium.app/Contents/Frameworks/Helium Framework.framework/Libraries"
+      #   ''}
+
+      #   runHook postInstall
+      # '';
     }
   else
     appimageTools.wrapType2 {
-      inherit pname version src meta;
+      inherit pname version src;
+
+      meta =
+        meta
+        // lib.optionalAttrs enableWidevine {
+          license = lib.licenses.unfree;
+        };
 
       extraInstallCommands = let
         contents = appimageTools.extract {inherit pname version src;};
@@ -60,5 +83,10 @@ in
 
         install -d $out/share/lib/${pname}
         cp -r ${contents}/opt/${pname}/locales $out/share/lib/${pname}/
+
+        ${lib.optionalString enableWidevine ''
+          ln -sf ${widevine-cdm}/share/google/chrome/WidevineCdm \
+            $out/opt/${pname}/WidevineCdm
+        ''}
       '';
     }
