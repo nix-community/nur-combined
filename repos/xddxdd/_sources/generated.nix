@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.0.7";
+    version = "v7.1.10";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.0.7";
-      hash = "sha256-rQonYlDjFqVhZylFP16gtij8f4GOFU+7l8hH7rszWlM=";
+      tag = "v7.1.10";
+      hash = "sha256-dx8y6dvOuUQuzWKyOs9Dwf6TwrWjw/zfF3oS8rmXhQc=";
     };
   };
   cockpy = {
@@ -725,14 +725,14 @@
   };
   firefox-stealth = {
     pname = "firefox-stealth";
-    version = "cbfb363b0afa33ce5bfca7e441569ac0602fb465";
+    version = "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e";
     src = fetchFromGitHub {
       owner = "feder-cr";
       repo = "firefox-stealth";
-      rev = "cbfb363b0afa33ce5bfca7e441569ac0602fb465";
-      hash = "sha256-N3yoG/ZgCwVhur1uKX6KMEHilR5Xzmd9pvbMbpx0QHM=";
+      rev = "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e";
+      hash = "sha256-gA11Fs+oq8csLTZxvcQBCjvD8uRw69xrg11nRFApGEs=";
     };
-    date = "2026-05-15";
+    date = "2026-05-16";
   };
   flapalerted = {
     pname = "flapalerted";
@@ -829,26 +829,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.13";
+    version = "2026.05.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-ASN.mmdb";
-      hash = "sha256-SoClx3oAz8m9JwA2jnCIGhoTGJbKWtr0C/tP95F/zOk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-ASN.mmdb";
+      hash = "sha256-re/wxIuk+1YLQ39BFGfXw1dLzZCauqyctErBydXS6BY=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.13";
+    version = "2026.05.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-City.mmdb";
-      hash = "sha256-AivTznrDwLcHV6mKy/cR2azW2crbddc05JmB7/E0vu0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-City.mmdb";
+      hash = "sha256-BvCsoLkGLOzDpPbr4ZAoujIbG0lCU0yHD9SYdPopL+4=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.13";
+    version = "2026.05.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-Country.mmdb";
-      hash = "sha256-80ZDalYWv4B/Wdtvxe2F70mFP+P6skzden8DeYiXLqo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-Country.mmdb";
+      hash = "sha256-cw0qVcJXolFfyx9BqBFuIBnLb4QI4+Sc1e3Ch4pSRPU=";
     };
   };
   glauth = {
@@ -1085,14 +1085,14 @@
   };
   kikoplay-script = {
     pname = "kikoplay-script";
-    version = "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73";
+    version = "356c379794c862456f790345817d5d8ef6ab6d40";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayScript";
-      rev = "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73";
-      hash = "sha256-DcWOALT4b0Q5toNZVnQTi+jLiz0Rua6+HyxZH1DlPWk=";
+      rev = "356c379794c862456f790345817d5d8ef6ab6d40";
+      hash = "sha256-hTP+beAPcBbQ6q0qc29vBIzMo2DEWFD7JkM6EamdU7I=";
     };
-    date = "2026-05-05";
+    date = "2026-05-17";
   };
   konnect = {
     pname = "konnect";
@@ -1250,12 +1250,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9165";
+    version = "b9198";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9165";
-      hash = "sha256-mKlTqrYAK8THnmRlywxVvkG4+oKe3Ye/mhu65vZBTyg=";
+      tag = "b9198";
+      hash = "sha256-pz9+JlPwgmZN4tDi3fOC8B7weOa5cKaYE/TtXH/lcVs=";
     };
   };
   loralib = {
@@ -1289,12 +1289,12 @@
   };
   mautrix-gmessages = {
     pname = "mautrix-gmessages";
-    version = "v0.2604.0";
+    version = "v0.2605.0";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "gmessages";
-      tag = "v0.2604.0";
-      hash = "sha256-NeGtg0KZVNeRvemuOXqKU1ozTu2DhFHxzWduEs5+zos=";
+      tag = "v0.2605.0";
+      hash = "sha256-ScsjUmQZsB86hT+EqIoI4V3KX3T1sV9C4/3ytcLV8O0=";
     };
   };
   metee = {
@@ -2325,15 +2325,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "459e6544a1fd8bf03da65f0381983f2e454aaef8";
+    version = "710db8137ed98b5f9e7a8c61bb47e4466b3596e4";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "459e6544a1fd8bf03da65f0381983f2e454aaef8";
+      rev = "710db8137ed98b5f9e7a8c61bb47e4466b3596e4";
       fetchSubmodules = true;
-      hash = "sha256-nQ+t7qaefVGheZNJD/IUjz27vXZ3ex9OUr2kIHL/oFs=";
+      hash = "sha256-SVOSz4Ofled8kY04qPPqBxdMd+auF6gmvuOLGk1KF1k=";
     };
-    date = "2026-05-08";
+    date = "2026-05-16";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

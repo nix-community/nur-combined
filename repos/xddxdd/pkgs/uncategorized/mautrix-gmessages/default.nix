@@ -14,7 +14,7 @@
 buildGoModule (finalAttrs: {
   inherit (sources.mautrix-gmessages) pname version src;
 
-  vendorHash = "sha256-At9VWLn6gD2MxT0df9LEGE7Kpy7ksrfd3+XL9YRfWHQ=";
+  vendorHash = "sha256-rEcPW/egdx2AhXWqpjpaXbIjbmU9fShOKSv4fUZiX0w=";
 
   buildInputs = lib.optional (!withGoolm) olm;
   tags = lib.optional withGoolm "goolm";

@@ -592,12 +592,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.0.7",
-            "sha256": "sha256-rQonYlDjFqVhZylFP16gtij8f4GOFU+7l8hH7rszWlM=",
+            "rev": "v7.1.10",
+            "sha256": "sha256-dx8y6dvOuUQuzWKyOs9Dwf6TwrWjw/zfF3oS8rmXhQc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.0.7"
+        "version": "v7.1.10"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1399,7 +1399,7 @@
     },
     "firefox-stealth": {
         "cargoLock": null,
-        "date": "2026-05-15",
+        "date": "2026-05-16",
         "extract": null,
         "name": "firefox-stealth",
         "passthru": null,
@@ -1411,12 +1411,12 @@
             "name": null,
             "owner": "feder-cr",
             "repo": "firefox-stealth",
-            "rev": "cbfb363b0afa33ce5bfca7e441569ac0602fb465",
-            "sha256": "sha256-N3yoG/ZgCwVhur1uKX6KMEHilR5Xzmd9pvbMbpx0QHM=",
+            "rev": "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e",
+            "sha256": "sha256-gA11Fs+oq8csLTZxvcQBCjvD8uRw69xrg11nRFApGEs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cbfb363b0afa33ce5bfca7e441569ac0602fb465"
+        "version": "3f0cb699fdfeb83ce86ba2fb0f92b86fceab5d0e"
     },
     "flapalerted": {
         "cargoLock": null,
@@ -1607,11 +1607,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SoClx3oAz8m9JwA2jnCIGhoTGJbKWtr0C/tP95F/zOk=",
+            "sha256": "sha256-re/wxIuk+1YLQ39BFGfXw1dLzZCauqyctErBydXS6BY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.05.13"
+        "version": "2026.05.16"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -1622,11 +1622,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-AivTznrDwLcHV6mKy/cR2azW2crbddc05JmB7/E0vu0=",
+            "sha256": "sha256-BvCsoLkGLOzDpPbr4ZAoujIbG0lCU0yHD9SYdPopL+4=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-City.mmdb"
         },
-        "version": "2026.05.13"
+        "version": "2026.05.16"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -1637,11 +1637,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-80ZDalYWv4B/Wdtvxe2F70mFP+P6skzden8DeYiXLqo=",
+            "sha256": "sha256-cw0qVcJXolFfyx9BqBFuIBnLb4QI4+Sc1e3Ch4pSRPU=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.13/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.16/GeoLite2-Country.mmdb"
         },
-        "version": "2026.05.13"
+        "version": "2026.05.16"
     },
     "glauth": {
         "cargoLock": null,
@@ -2100,7 +2100,7 @@
     },
     "kikoplay-script": {
         "cargoLock": null,
-        "date": "2026-05-05",
+        "date": "2026-05-17",
         "extract": null,
         "name": "kikoplay-script",
         "passthru": null,
@@ -2112,12 +2112,12 @@
             "name": null,
             "owner": "KikoPlayProject",
             "repo": "KikoPlayScript",
-            "rev": "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73",
-            "sha256": "sha256-DcWOALT4b0Q5toNZVnQTi+jLiz0Rua6+HyxZH1DlPWk=",
+            "rev": "356c379794c862456f790345817d5d8ef6ab6d40",
+            "sha256": "sha256-hTP+beAPcBbQ6q0qc29vBIzMo2DEWFD7JkM6EamdU7I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d6227ae0a82e8694aef6fcdf13fd9c42bdc06f73"
+        "version": "356c379794c862456f790345817d5d8ef6ab6d40"
     },
     "konnect": {
         "cargoLock": null,
@@ -2430,12 +2430,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9165",
-            "sha256": "sha256-mKlTqrYAK8THnmRlywxVvkG4+oKe3Ye/mhu65vZBTyg=",
+            "rev": "b9198",
+            "sha256": "sha256-pz9+JlPwgmZN4tDi3fOC8B7weOa5cKaYE/TtXH/lcVs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9165"
+        "version": "b9198"
     },
     "loralib": {
         "cargoLock": null,
@@ -2508,12 +2508,12 @@
             "name": null,
             "owner": "mautrix",
             "repo": "gmessages",
-            "rev": "v0.2604.0",
-            "sha256": "sha256-NeGtg0KZVNeRvemuOXqKU1ozTu2DhFHxzWduEs5+zos=",
+            "rev": "v0.2605.0",
+            "sha256": "sha256-ScsjUmQZsB86hT+EqIoI4V3KX3T1sV9C4/3ytcLV8O0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2604.0"
+        "version": "v0.2605.0"
     },
     "metee": {
         "cargoLock": null,
@@ -4535,7 +4535,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-05-08",
+        "date": "2026-05-16",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4547,12 +4547,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "459e6544a1fd8bf03da65f0381983f2e454aaef8",
-            "sha256": "sha256-nQ+t7qaefVGheZNJD/IUjz27vXZ3ex9OUr2kIHL/oFs=",
+            "rev": "710db8137ed98b5f9e7a8c61bb47e4466b3596e4",
+            "sha256": "sha256-SVOSz4Ofled8kY04qPPqBxdMd+auF6gmvuOLGk1KF1k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "459e6544a1fd8bf03da65f0381983f2e454aaef8"
+        "version": "710db8137ed98b5f9e7a8c61bb47e4466b3596e4"
     },
     "unigine-heaven": {
         "cargoLock": null,
