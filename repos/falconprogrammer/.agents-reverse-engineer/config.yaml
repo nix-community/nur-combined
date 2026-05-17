@@ -1,0 +1,169 @@
+# agents-reverse-engineer configuration
+# See: https://github.com/GeoloeG-IsT/agents-reverse-engineer
+
+# ============================================================================
+# FILE & DIRECTORY EXCLUSIONS
+# ============================================================================
+exclude:
+  # Custom glob patterns to exclude (e.g., ["*.log", "temp/**"])
+  # Default patterns exclude AI-generated documentation files
+  patterns:
+    - AGENTS.md
+    - AGENTS.override.md
+    - CLAUDE.md
+    - OPENCODE.md
+    - GEMINI.md
+    - "**/AGENTS.md"
+    - "**/AGENTS.override.md"
+    - "**/CLAUDE.md"
+    - "**/OPENCODE.md"
+    - "**/GEMINI.md"
+    - "*.local.md"
+    - "**/*.local.md"
+    - "AGENTS.*.md"
+    - "**/AGENTS.*.md"
+    - "*.lock"
+    - package-lock.json
+    - yarn.lock
+    - pnpm-lock.yaml
+    - bun.lock
+    - bun.lockb
+    - Gemfile.lock
+    - Cargo.lock
+    - poetry.lock
+    - composer.lock
+    - go.sum
+    - .gitignore
+    - .gitattributes
+    - .gitkeep
+    - .env
+    - "**/.env"
+    - "**/.env.*"
+    - "*.log"
+    - "*.sum"
+    - "**/*.sum"
+    - "**/SKILL.md"
+
+  # Vendor directories to exclude from analysis
+  # These are typically package managers, build outputs, or version control
+  vendorDirs:
+    - node_modules
+    - vendor
+    - .git
+    - dist
+    - build
+    - __pycache__
+    - .next
+    - venv
+    - .venv
+    - target
+    - .cargo
+    - .gradle
+    - .agents-reverse-engineer
+    - .agents
+    - .planning
+    - .claude
+    - .codex
+    - .opencode
+    - .gemini
+    - .vscode
+
+  # Binary file extensions to exclude from analysis
+  # These files cannot be meaningfully analyzed as text
+  binaryExtensions:
+    - .png
+    - .jpg
+    - .jpeg
+    - .gif
+    - .bmp
+    - .ico
+    - .webp
+    - .zip
+    - .tar
+    - .gz
+    - .rar
+    - .7z
+    - .exe
+    - .dll
+    - .so
+    - .dylib
+    - .mp3
+    - .mp4
+    - .wav
+    - .pdf
+    - .woff
+    - .woff2
+    - .ttf
+    - .eot
+    - .class
+    - .pyc
+
+# ============================================================================
+# DISCOVERY OPTIONS
+# ============================================================================
+options:
+  # Whether to follow symbolic links during traversal
+  followSymlinks: false
+
+  # Maximum file size in bytes (files larger than this are skipped)
+  # Default: 1048576 (1MB)
+  maxFileSize: 1048576
+
+# ============================================================================
+# OUTPUT FORMATTING
+# ============================================================================
+output:
+  # Whether to use colors in terminal output
+  colors: true
+
+# ============================================================================
+# GENERATION SETTINGS
+# ============================================================================
+generation:
+  # Target compression ratio for .sum files (0.1-1.0)
+  # - 0.10 = very concise (aggressive compression, ~10% of source size)
+  # - 0.25 = standard (default, ~25% of source size)
+  # - 0.50 = detailed (verbose, ~50% of source size)
+  # Lower values produce more compact summaries but may omit some details.
+  # The annex mechanism bypasses compression for reproduction-critical content.
+  compressionRatio: 0.25
+
+# ============================================================================
+# AI SERVICE CONFIGURATION
+# ============================================================================
+ai:
+  # AI CLI backend to use
+  # Options: 'claude', 'codex', 'gemini', 'opencode', 'auto' (auto-detect from PATH)
+  backend: auto
+
+  # Model identifier (backend-specific)
+  # Claude:   sonnet | opus | haiku | sonnet[1m] | opusplan
+  #           claude-opus-4-6, claude-sonnet-4-5-20250929, claude-haiku-4-5
+  # Codex:    gpt-5.3-codex | gpt-5.2-codex | gpt-5.1-codex-max | gpt-5.1-codex
+  #           gpt-5-codex | gpt-5-codex-mini
+  # Gemini:   gemini-3-pro-preview | gemini-3-flash-preview
+  #           gemini-2.5-pro | gemini-2.5-flash
+  # OpenCode: provider/model format — e.g. anthropic/claude-sonnet-4-5,
+  #           openai/gpt-5, google/gemini-2.5, groq/..., ollama/...
+  model: sonnet
+
+  # Subprocess timeout in milliseconds
+  # Default: 300,000ms (5 minutes)
+  # Increase for very large files or slow connections
+  timeoutMs: 300000
+
+  # Maximum number of retries for transient errors
+  # Default: 3
+  maxRetries: 3
+
+  # Number of concurrent AI calls (parallelism)
+  # Range: 1-20, Default: auto-detected from CPU cores and available memory
+  # Current machine default: 20
+  # Uncomment to override:
+  # concurrency: 20
+
+  # Telemetry settings
+  telemetry:
+    # Number of most recent run logs to keep on disk
+    # Logs stored in .agents-reverse-engineer/logs/
+    keepRuns: 50

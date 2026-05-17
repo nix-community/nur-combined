@@ -27,6 +27,7 @@ in
 	cco = pkgs.callPackage pkgs/cco {};
 	g13d = pkgs.callPackage pkgs/g13d {};
 	gitignore-template = p_312.callPackage pkgs/gitignore-template {};
+	opencode = pkgs.callPackage pkgs/opencode {};
 	opencode-sst = pkgs.callPackage pkgs/opencode-sst {};
 	python-jwt_311 = p_311.callPackage pkgs/python-jwt {python-ver = 311;};
 	python-jwt_312 = p_312.callPackage pkgs/python-jwt {python-ver = 312;};

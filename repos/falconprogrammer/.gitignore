@@ -3,3 +3,9 @@ result-*
 
 .direnv
 .opencode
+
+# agents-reverse-engineer
+*.sum
+.agents-reverse-engineer/GENERATION-PLAN.md
+.agents-reverse-engineer/progress*.log
+.agents-reverse-engineer/logs/

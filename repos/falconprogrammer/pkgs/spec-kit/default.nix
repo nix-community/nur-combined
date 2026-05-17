@@ -3,24 +3,27 @@
 , fetchFromGitHub
 , hatchling
 , typer
+, click
 , rich
-, httpx
 , platformdirs
 , readchar
-, truststore
+, pyyaml
+, packaging
+, pathspec
+, json5
 , ...
 }:
 
 buildPythonApplication rec {
   pname = "spec-kit";
-  version = "0.0.91";
+  version = "0.8.11";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "github";
     repo = "spec-kit";
     rev = "v${version}";
-    hash = "sha256-4Xe2dy5mb8g/IGl9piFkVoNa2bu3nypbBFw+BUe4Og8=";
+    hash = "sha256-2x6GEboJXm0LWByv+tXoNZrbrG12Fqd3ZGVrp/LzMNY=";
   };
 
   nativeBuildInputs = [
@@ -29,11 +32,14 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [
     typer
+    click
     rich
-    httpx
     platformdirs
     readchar
-    truststore
+    pyyaml
+    packaging
+    pathspec
+    json5
   ];
 
   pythonImportsCheck = [ "specify_cli" ];
@@ -44,6 +50,6 @@ buildPythonApplication rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
     mainProgram = "specify";
-    broken = lib.versionOlder truststore.version "0.10.4";
+    broken = lib.versionOlder typer.version "0.24.0";
   };
 }

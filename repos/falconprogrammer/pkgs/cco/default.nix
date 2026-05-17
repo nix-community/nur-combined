@@ -39,10 +39,13 @@ stdenv.mkDerivation rec {
     install -Dm755 cco $out/share/cco/cco
     install -Dm755 sandbox $out/share/cco/sandbox
 
+    # Install runtime library modules (sourced by cco at startup)
+    cp -r lib $out/share/cco/
+
     # Install seccomp BPF filters for Linux sandboxing
     cp seccomp/*.bpf $out/share/cco/seccomp/ 2>/dev/null || true
 
-    # Create wrapper that sets up PATH and CCO_INSTALL_DIR
+    # Create wrapper that sets up PATH and CCO_INSTALLATION_DIR
     # Use --suffix so system bubblewrap (with AppArmor profile) takes precedence
     makeWrapper $out/share/cco/cco $out/bin/cco \
       --suffix PATH : ${lib.makeBinPath [
@@ -57,7 +60,7 @@ stdenv.mkDerivation rec {
         procps
         docker
       ]} \
-      --set CCO_INSTALL_DIR $out/share/cco
+      --set CCO_INSTALLATION_DIR $out/share/cco
 
     # Also wrap sandbox script for standalone use
     makeWrapper $out/share/cco/sandbox $out/bin/cco-sandbox \
@@ -67,7 +70,7 @@ stdenv.mkDerivation rec {
         findutils
         file
       ]} \
-      --set CCO_INSTALL_DIR $out/share/cco
+      --set CCO_INSTALLATION_DIR $out/share/cco
 
     runHook postInstall
   '';
