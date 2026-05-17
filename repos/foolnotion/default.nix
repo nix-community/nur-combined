@@ -125,8 +125,6 @@ rec {
 
   linasm = pkgs.callPackage ./pkgs/linasm { };
 
-  libnano = pkgs.callPackage ./pkgs/libnano { };
-
   plutovg = pkgs.callPackage ./pkgs/plutovg { };
 
   lunasvg = pkgs.callPackage ./pkgs/lunasvg { plutovg = plutovg; };
