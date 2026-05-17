@@ -9,6 +9,7 @@
 
 | Package | Description | Update Policy |
 | :--- | :--- | :--- |
+| **`optiscaler-client`** | Modern manager for OptiScaler | **Auto** (Weekly) |
 | **`wowup-cf`** | World of Warcraft addon manager with CurseForge support (AppImage) | **Auto** (Weekly) |
 | **`scopebuddy`** | ScopeBuddy application | **Auto** (Weekly) |
 | **`cybergrub2077`** | Cyberpunk 2077 inspired GRUB theme | **Auto** (Weekly) |

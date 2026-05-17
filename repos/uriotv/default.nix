@@ -22,6 +22,7 @@
   cybergrub2077 = pkgs.callPackage ./pkgs/cybergrub2077 { };
 
   # Applications
+  optiscaler-client = pkgs.callPackage ./pkgs/optiscaler-client { };
   wowup-cf = pkgs.callPackage ./pkgs/wowup-cf { };
 
   # Tools
