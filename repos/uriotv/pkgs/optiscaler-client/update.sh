@@ -9,6 +9,7 @@ cd "$repo_root"
 
 nix-update \
   --flake "$pkg" \
+  --src-only \
   --use-github-releases \
   --version-regex 'OptiscalerClient-(.*)'
 
