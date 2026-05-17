@@ -56,8 +56,28 @@ jobs:
             - name: Update vendor hashes (nix-update)
               run: |
                   export NIXPKGS_ALLOW_UNFREE=1
+                  old_json=$(git show HEAD:_sources/generated.json 2>/dev/null || echo '{}')
+                  new_json=$(<_sources/generated.json)
+                  changed_sources=$(jq -rn \
+                      --argjson old "$old_json" \
+                      --argjson new "$new_json" \
+                      '$new | keys[] | . as $k | select($old[$k].version != $new[$k].version)')
+
+                  if [ -z "$changed_sources" ]; then
+                      echo "No nvfetcher source changes detected, skipping nix-update"
+                      exit 0
+                  fi
+
+                  echo "Changed sources: $changed_sources"
+
                   grep -rl "# nix-update auto" pkgs/by-name | while read -r file; do
                       pkg_name=$(basename $(dirname "$file"))
+
+                      if ! echo "$changed_sources" | grep -qx "$pkg_name"; then
+                          echo "Skipping $pkg_name: source not changed by nvfetcher"
+                          continue
+                      fi
+
                       extra_args=$(sed -n 's/.*# nix-update auto//p' "$file" | xargs)
 
                       echo "Detected auto-update marker for: $pkg_name"
