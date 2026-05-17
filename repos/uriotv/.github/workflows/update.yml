@@ -46,6 +46,7 @@ jobs:
         id: update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPDATE_PACKAGE: ${{ inputs.package }}
         run: |
           # Collect all summary lines into a single string
           summary="## Package Update Status"
@@ -56,7 +57,10 @@ jobs:
 
           run_update() {
             local script=$1
-            local pkg_name=$(basename $(dirname $script))
+            local pkg_dir
+            local pkg_name
+            pkg_dir=$(dirname "$script")
+            pkg_name=$(basename "$pkg_dir")
 
             echo "::group::Updating $pkg_name"
 
@@ -77,8 +81,19 @@ jobs:
           }
 
           # If specific package requested, update only that
-          if [ -n "${{ github.event.inputs.package }}" ]; then
-            run_update "pkgs/${{ github.event.inputs.package }}/update.sh"
+          if [ -n "$UPDATE_PACKAGE" ]; then
+            if [[ ! "$UPDATE_PACKAGE" =~ ^[A-Za-z0-9._-]+$ ]]; then
+              echo "::error::Invalid package name: $UPDATE_PACKAGE"
+              exit 1
+            fi
+
+            script="pkgs/$UPDATE_PACKAGE/update.sh"
+            if [ ! -x "$script" ]; then
+              echo "::error::No executable update script found at $script"
+              exit 1
+            fi
+
+            run_update "$script"
           else
             # Update all packages
             for script in pkgs/*/update.sh; do
@@ -96,7 +111,7 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-          if [ $FAILED -ne 0 ]; then
+          if [ "$FAILED" -ne 0 ]; then
             echo "::error::Some packages failed to update"
             exit 1
           fi
@@ -105,16 +120,16 @@ jobs:
         id: changes
         run: |
           if git diff --quiet; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
           else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Create Pull Request
         if: steps.changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.PAT_FOR_UPDATES }}
+          token: ${{ secrets.PAT_FOR_UPDATES || secrets.GITHUB_TOKEN }}
           commit-message: "chore: auto-update packages"
           title: "chore: Auto-update packages"
           body: |
