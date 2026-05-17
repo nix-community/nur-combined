@@ -41,10 +41,98 @@ let
     gtkSupport = true;
   };
 
-  base = haskellPackages.callCabal2nix "gifcurry" src { };
+  package = haskellPackages.callPackage (
+    {
+      mkDerivation,
+      aeson,
+      base,
+      bytestring,
+      cairo,
+      cmdargs,
+      directory,
+      filemanip,
+      filepath,
+      gi-cairo,
+      gi-gdk3,
+      gi-gdkpixbuf,
+      gi-gio,
+      gi-glib,
+      gi-gobject,
+      gi-gst,
+      gi-gstbase,
+      gi-gstvideo,
+      gi-gtk3,
+      gi-pango,
+      haskell-gi,
+      haskell-gi-base,
+      pango,
+      process,
+      pureMD5,
+      system-fileio,
+      system-filepath,
+      temporary,
+      text,
+      time,
+      transformers,
+      yaml,
+    }:
+    mkDerivation {
+      pname = "Gifcurry";
+      inherit src version;
+      isLibrary = true;
+      isExecutable = true;
+      enableSeparateDataOutput = true;
+
+      libraryHaskellDepends = [
+        base
+        bytestring
+        directory
+        filemanip
+        filepath
+        process
+        temporary
+        text
+        yaml
+      ];
+
+      executableHaskellDepends = [
+        aeson
+        base
+        bytestring
+        cairo
+        cmdargs
+        directory
+        filemanip
+        filepath
+        gi-cairo
+        gi-gdk3
+        gi-gdkpixbuf
+        gi-gio
+        gi-glib
+        gi-gobject
+        gi-gst
+        gi-gstbase
+        gi-gstvideo
+        gi-gtk3
+        gi-pango
+        haskell-gi
+        haskell-gi-base
+        pango
+        process
+        pureMD5
+        system-fileio
+        system-filepath
+        temporary
+        text
+        time
+        transformers
+        yaml
+      ];
+    }
+  ) { };
 in
 haskell.lib.doJailbreak (
-  base.overrideAttrs (old: {
+  package.overrideAttrs (old: {
     inherit src version;
 
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
