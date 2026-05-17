@@ -598,7 +598,7 @@ th[data-sort].sorted .sort-indicator {
     padding: 10px 0;
     border: none;
     display: flex;
-    align-items: flex-start;
+    align-items: baseline;
     gap: 8px;
     vertical-align: middle;
     font-size: 13px;
@@ -611,7 +611,7 @@ th[data-sort].sorted .sort-indicator {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--muted);
-    min-width: 70px;
+    width: 75px;
     flex-shrink: 0;
     padding-top: 2px;
   }
@@ -639,5 +639,22 @@ th[data-sort].sorted .sort-indicator {
   .homepage-link {
     display: inline-block;
     padding: 6px 0;
+  }
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -2,6 +2,15 @@ const canvas = document.getElementById("particles-canvas");
 const ctx = canvas.getContext("2d");
 
 let particles = [];
+let particlesPaused = false;
+
+function debounce(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -25,6 +34,10 @@ function initParticles() {
 }
 
 function animateParticles() {
+  if (particlesPaused) {
+    requestAnimationFrame(animateParticles);
+    return;
+  }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   particles.forEach((p) => {
@@ -48,8 +61,18 @@ function animateParticles() {
 initParticles();
 animateParticles();
 window.addEventListener("resize", resizeCanvas);
+document.addEventListener("visibilitychange", () => {
+  particlesPaused = document.hidden;
+});
 
 async function loadPackages() {
+  const tbody = document.getElementById("packages-body");
+  const loadingRow = document.createElement("tr");
+  loadingRow.id = "loading-row";
+  loadingRow.innerHTML =
+    '<td colspan="6" style="text-align:center;padding:48px 0"><div class="spinner"></div><div style="margin-top:16px;color:var(--muted);font-size:14px">Loading packages...</div></td>';
+  tbody.appendChild(loadingRow);
+
   try {
     const response = await fetch("./packages.json");
 
@@ -57,8 +80,13 @@ async function loadPackages() {
       throw new Error(`HTTP ${response.status}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    const lr = document.getElementById("loading-row");
+    if (lr) lr.remove();
+    return data;
   } catch (err) {
+    const lr = document.getElementById("loading-row");
+    if (lr) lr.remove();
     console.error("Failed to load packages:", err);
 
     const empty = document.getElementById("empty-state");
@@ -225,8 +253,9 @@ async function main() {
 
   const searchInput = document.getElementById("search-input");
 
+  const debouncedFilter = debounce((value) => filterPackages(value), 150);
   searchInput.addEventListener("input", (e) => {
-    filterPackages(e.target.value);
+    debouncedFilter(e.target.value);
   });
 
   document.querySelectorAll("th[data-sort]").forEach((th) => {
