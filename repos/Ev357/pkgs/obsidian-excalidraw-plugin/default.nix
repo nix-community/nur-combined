@@ -39,10 +39,12 @@ in
         nix-update ${pname} --flake
       '';
 
-    npmDepsHash = "sha256-dtUq2y4nF1tbE/gQaRVdRNOuo78Fh7awpJFjkrvutbo=";
+    npmDepsHash = "sha256-IcpIlD/3i30+ipFgt1cwoR7KFm+nRgN92dXDiH8i0Pg=";
 
     patches =
-      []
+      [
+        ./npm-install.patch
+      ]
       ++ lib.optional enableHiddenScriptPatch ./hidden-script.patch;
 
     postPatch =
@@ -50,8 +52,6 @@ in
       ''
         cp ${./package-lock.json} package-lock.json
       '';
-
-    npmBuildScript = "build:all";
 
     installPhase =
       # bash

@@ -1,12 +1,12 @@
 diff --git a/src/core/main.ts b/src/core/main.ts
-index 294daaa6..cc198ce8 100644
+index e5505823..3a7a5cee 100644
 --- a/src/core/main.ts
 +++ b/src/core/main.ts
-@@ -1075,12 +1075,11 @@ export default class ExcalidrawPlugin extends Plugin {
+@@ -1682,12 +1682,11 @@ export default class ExcalidrawPlugin extends Plugin {
      const path = this.settings.startupScriptPath.endsWith(".md")
        ? this.settings.startupScriptPath
        : `${this.settings.startupScriptPath}.md`;
--    const f = this.app.vault.getAbstractFileByPath(path);
+-    const f = this.app.vault.getFileByPath(path);
 -    if (!f || !(f instanceof TFile)) {
 +    if (!(await this.app.vault.adapter.exists(path))) {
        new Notice(`Startup script not found: ${path}`);

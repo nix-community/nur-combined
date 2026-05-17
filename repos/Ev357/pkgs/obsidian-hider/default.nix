@@ -16,13 +16,7 @@ in
       sha256 = "sha256-YFKzLcMmXip3PqZN9+TwW8k6hqY6nc3XFGf1QTBdzsg=";
     };
 
-    npmDepsHash = "sha256-4LVgsQV8ovszOfn/3lreyDPZpnlnsxAD//uPBzUkhRI=";
-
-    postPatch =
-      # bash
-      ''
-        cp ${./package-lock.json} package-lock.json
-      '';
+    npmDepsHash = "sha256-MH7dZMs5qjCPMPe2QM2akbDgwN74vwVGGsA8PgVH1wA=";
 
     installPhase =
       # bash
