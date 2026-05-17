@@ -16,10 +16,10 @@
     },
     "x86_64-darwin": {
       "repo": "RPCS3/rpcs3-binaries-mac",
-      "file": "rpcs3-v0.0.40-19375-08c92662_macos.7z",
+      "file": "rpcs3-v0.0.40-19376-61a26048_macos.7z",
       "query": "[0].assets[0].name",
-      "hash": "sha256-YvxfeLSmNj/52T/vFo5wtptfpc7vyB9K55zCWNt4t5Y=",
-      "version": "build-08c926622da1c3cd0213ac6b06eda07c31e55c7d"
+      "hash": "sha256-xwaJQrVCvcY2aul0XyZVOj8ujd+KwPt7vC2PzRpVE8E=",
+      "version": "build-61a2604824b01382bf57651b85f87b811306c2de"
     }
   }
 }
