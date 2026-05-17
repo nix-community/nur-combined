@@ -606,6 +606,11 @@ src.git = "https://github.com/pekman/netns-exec.git"
 fetch.github = "fullcone-nat-nftables/nft-fullcone"
 src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"
 
+[nginx-auth-jwt]
+fetch.github = "kjdev/nginx-auth-jwt"
+git.fetchSubmodules = true
+src.github = "kjdev/nginx-auth-jwt"
+
 [nginx-module-geoip2]
 fetch.github = "leev/ngx_http_geoip2_module"
 src.git = "https://github.com/leev/ngx_http_geoip2_module.git"
@@ -625,6 +630,11 @@ src.git = "https://github.com/vozlt/nginx-module-vts.git"
 [nginx-njs]
 fetch.github = "nginx/njs"
 src.github_tag = "nginx/njs"
+
+[nginx-oidc]
+fetch.github = "kjdev/nginx-oidc"
+git.fetchSubmodules = true
+src.github = "kjdev/nginx-oidc"
 
 [ngx_brotli]
 fetch.github = "u5surf/ngx_brotli"

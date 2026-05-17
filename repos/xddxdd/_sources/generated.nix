@@ -1398,6 +1398,17 @@
     };
     date = "2023-05-17";
   };
+  nginx-auth-jwt = {
+    pname = "nginx-auth-jwt";
+    version = "0.11.0";
+    src = fetchFromGitHub {
+      owner = "kjdev";
+      repo = "nginx-auth-jwt";
+      tag = "0.11.0";
+      fetchSubmodules = true;
+      hash = "sha256-vM2pt76tiJKEdNx8Mj4L8v5eu2HuIEmETI1aQbC9AA4=";
+    };
+  };
   nginx-module-geoip2 = {
     pname = "nginx-module-geoip2";
     version = "445df24ef3781e488cee3dfe8a1e111997fc1dfe";
@@ -1450,6 +1461,17 @@
       repo = "njs";
       tag = "0.9.8";
       hash = "sha256-CuJy06X7a3c79tY0heycdCiSFIh41DmUEFzFDROlJAA=";
+    };
+  };
+  nginx-oidc = {
+    pname = "nginx-oidc";
+    version = "0.3.0";
+    src = fetchFromGitHub {
+      owner = "kjdev";
+      repo = "nginx-oidc";
+      tag = "0.3.0";
+      fetchSubmodules = true;
+      hash = "sha256-+WK9Bmhvo8YtNw10sEhLb3IVG0AN7fkwrb0GU6KrMn8=";
     };
   };
   ngx_brotli = {

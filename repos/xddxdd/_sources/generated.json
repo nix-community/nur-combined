@@ -2713,6 +2713,27 @@
         },
         "version": "07d93b626ce5ea885cd16f9ab07fac3213c355d9"
     },
+    "nginx-auth-jwt": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nginx-auth-jwt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kjdev",
+            "repo": "nginx-auth-jwt",
+            "rev": "0.11.0",
+            "sha256": "sha256-vM2pt76tiJKEdNx8Mj4L8v5eu2HuIEmETI1aQbC9AA4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.11.0"
+    },
     "nginx-module-geoip2": {
         "cargoLock": null,
         "date": "2024-04-02",
@@ -2817,6 +2838,27 @@
             "type": "github"
         },
         "version": "0.9.8"
+    },
+    "nginx-oidc": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nginx-oidc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kjdev",
+            "repo": "nginx-oidc",
+            "rev": "0.3.0",
+            "sha256": "sha256-+WK9Bmhvo8YtNw10sEhLb3IVG0AN7fkwrb0GU6KrMn8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.3.0"
     },
     "ngx_brotli": {
         "cargoLock": null,

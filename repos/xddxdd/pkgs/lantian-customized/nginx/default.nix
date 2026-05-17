@@ -7,6 +7,8 @@
   brotli,
   gd,
   git,
+  hiredis,
+  jansson,
   libmaxminddb,
   liburing,
   libxcrypt,
@@ -51,6 +53,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     brotli
     gd
+    hiredis
+    jansson
     libmaxminddb
     liburing
     libxcrypt
@@ -76,6 +80,8 @@ stdenv.mkDerivation rec {
         "stream-echo-nginx-module"
         "zstd-nginx-module"
         "ja4-nginx-module"
+        "nginx-auth-jwt"
+        "nginx-oidc"
       ];
 
       patch = p: "echo ${p} && patch -p1 < ${p}";
@@ -154,6 +160,8 @@ stdenv.mkDerivation rec {
     "--add-module=bundle/stream-echo-nginx-module"
     "--add-module=bundle/zstd-nginx-module"
     "--add-module=bundle/ja4-nginx-module/src"
+    "--add-module=bundle/nginx-auth-jwt"
+    "--add-module=bundle/nginx-oidc"
     # "--without-http_encrypted_session_module" # Conflict with quic stuff
 
     # NixOS paths
