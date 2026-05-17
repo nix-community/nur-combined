@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - main
+permissions:
+  deployments: write
+  security-events: write
+  actions: read
 jobs:
   test:
     name: Test
