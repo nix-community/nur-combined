@@ -184,12 +184,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Tk looks for its script library via TK_LIBRARY; without this the GUI
-  # fails to start because the Nix store path is not where Tk expects it.
   postInstall = ''
     rm -f "$out/bin/sjeng-scidb" "$out/bin/stockfish-scidb"
     tkver="${lib.versions.majorMinor tk.version}"
-    wrapProgram "$out/bin/tkscidb-beta" \
+    makeWrapper "$out/bin/tkscidb-beta" "$out/bin/scidb" \
+      --add-flags "$out/bin/scidb-beta" \
       --set TK_LIBRARY "${tk}/lib/tk$tkver" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ tk tcl ]}"
   '';

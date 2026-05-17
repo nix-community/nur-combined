@@ -111,7 +111,7 @@ rec {
 
   kumi = pkgs.callPackage ./pkgs/kumi { inherit copacabana; };
 
-  lexy = pkgs.callPackage ./pkgs/lexy { };
+  foonathan-lexy = pkgs.callPackage ./pkgs/foonathan-lexy { };
 
   libdwarf = pkgs.callPackage ./pkgs/libdwarf { };
 

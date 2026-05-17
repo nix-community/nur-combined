@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cpp-lazy";
-  version = "8.0.0";
+  version = "8.0.1";
 
   src = fetchFromGitHub {
     owner = "MarcDirven";
     repo = "cpp-lazy";
     rev = "v${version}";
-    hash = "sha256-tNEAbQs3fHXp+nUPRkIA1UoNnOlr8MZHBwyZlP19Nyg=";
+    hash = "sha256-eJ7rcRYvOcUDolMVz1y2XPfc0OiAUbgGAf7dGmbwhnQ=";
   };
 
   nativeBuildInputs = [ cmake ];

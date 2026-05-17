@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xad";
-  version = "1.8.0";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "auto-differentiation";
     repo = "xad";
     rev = "v${version}";
-    hash = "sha256-64U3NUEcHbXxsP1isdqsYXzahjO08nEzizLuJpfzqxM=";
+    hash = "sha256-hisxhKxSQDzNqz/BRpoZtnTunRTk/W9iSWtmoZDZ8YM=";
   };
 
   nativeBuildInputs = [ cmake ];

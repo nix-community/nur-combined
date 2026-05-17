@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "kumi";
-  version = "3.1";
+  version = "4.0";
 
   src = fetchFromGitHub {
     owner = "jfalcou";
     repo = "kumi";
     rev = "v${version}";
-    hash = "sha256-9/l5GcnLRgSUq4RG7w7dzWmvpk2Z2FKJChiu6668qXo=";
+    hash = "sha256-AEXbeeSMmB96sEo7UgSAb9aDfUZhARj8E3eOSARO+Uc=";
   };
 
   nativeBuildInputs = [ cmake cpm-cmake ];

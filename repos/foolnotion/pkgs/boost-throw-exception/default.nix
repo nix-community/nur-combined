@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-throw-exception";
-  version = "1.90.0";
+  version = "1.91.0";
 
   src = fetchFromGitHub {
     owner = "boostorg";
     repo = "throw_exception";
     rev = "boost-${version}";
-    sha256 = "sha256-kqpcApJQv9vbhRF0YyVuHJtv6J+hvlve9KuzWHyxLT8=";
+    sha256 = "sha256-jRYmeNE1W7KykpCgsVqCm5OcgCd/3N6N/70+XHprtYE=";
   };
 
   dontConfigure = true;

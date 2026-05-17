@@ -4,7 +4,7 @@
 
 stdenv.mkDerivation rec {
   pname = "autodiff";
-  version = "v1.1.2";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "autodiff";

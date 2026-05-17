@@ -4,7 +4,7 @@
 
 stdenv.mkDerivation rec {
   pname = "cppitertools";
-  version = "2.1";
+  version = "2.3";
 
   src = fetchFromGitHub {
     owner = "ryanhaining";

@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "vectorclass";
-  version = "2.02.01";
+  version = "2.02.03";
 
   src = fetchFromGitHub {
     owner = "vectorclass";
     repo = "version2";
     rev = "v${version}";
-    sha256 = "sha256-45qt0vGz6ibEmcoPZDOeroSivoVnFkvMEihjXJXa8lU=";
+    sha256 = "sha256-gRaEjDT+SmtA8sObleltBJhAM4WWyKCJw6vS5uS+wgs=";
   };
 
   installPhase = ''

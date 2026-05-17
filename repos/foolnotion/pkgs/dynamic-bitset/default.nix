@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "dynamic_bitset";
-  version = "1.3.2";
+  version = "1.3.3";
 
   src = fetchFromGitHub {
     owner = "pinam45";
     repo = "dynamic_bitset";
     rev = "v${version}";
-    sha256 = "sha256-+1OFvfXyYQ07VVLUol6jhQoB0lSkODy9fLpW/1FWpPo=";
+    sha256 = "sha256-lk4yAeEnr5BiV7hkMgH3b5z6xVBf7iWe7A7xmJ4FIzo=";
   };
 
   nativeBuildInputs = [ cmake ];

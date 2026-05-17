@@ -3,13 +3,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "libdwarf";
-  version = "2.0.0";
+  version = "2.3.1";
 
   src = fetchFromGitHub {
     owner = "davea42";
     repo = "libdwarf-code";
     rev = "v${version}";
-    hash = "sha256-SsFg+7zGBEGxDSzfiIP5bxdttlBkhEiEQWaU12hINas=";
+    hash = "sha256-azVCzQt9oA40YACa9PkdNt0D8vWRNHXXGoSFOYNJxgA=";
   };
 
   nativeBuildInputs = [ cmake ];

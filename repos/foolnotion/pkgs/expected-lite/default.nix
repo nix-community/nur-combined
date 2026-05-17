@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "expected-lite";
-  version = "0.8.0";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "martinmoene";
     repo = "expected-lite";
     rev = "v${version}";
-    sha256 = "sha256-8Lf+R7wC7f2YliXqhR6pwVVSLZ6qheu7YOV5jHc0Cjc=";
+    sha256 = "sha256-nxwdymBNbd+RuL8rKi2Fx2gC68TnJe7WnoN0O01lecQ=";
   };
 
   nativeBuildInputs = [ cmake ];

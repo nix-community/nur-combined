@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-type-index";
-  version = "1.90.0";
+  version = "1.91.0";
 
   src = fetchFromGitHub {
     owner = "boostorg";
     repo = "type_index";
     rev = "boost-${version}";
-    sha256 = "sha256-kYtO2jIkZq/Tc4VUNfH8ETpwVQK+ykBEc/S+r2YiXsE=";
+    sha256 = "sha256-4EJhzd6aTLhk1TzwG6TgBYNF/eFvvOO//eWh2+kgZnk=";
   };
 
   dontConfigure = true;

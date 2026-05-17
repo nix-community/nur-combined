@@ -4,7 +4,7 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-hana";
-  version = "1.90.0";
+  version = "1.91.0";
 
   src = fetchFromGitHub {
     owner = "boostorg";
