@@ -54,9 +54,21 @@ body::before {
   inset: -20%;
 
   background:
-    radial-gradient(circle at 20% 20%, rgba(88, 166, 255, 0.12), transparent 40%),
-    radial-gradient(circle at 80% 30%, rgba(126, 231, 135, 0.08), transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(210, 168, 255, 0.08), transparent 40%);
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(88, 166, 255, 0.12),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(126, 231, 135, 0.08),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(210, 168, 255, 0.08),
+      transparent 40%
+    );
 
   filter: blur(80px);
 
@@ -156,18 +168,28 @@ body::before {
 
   padding: 14px 18px;
 
-  background: linear-gradient(135deg, rgba(22, 27, 34, 0.8) 0%, rgba(36, 54, 66, 0.6) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(22, 27, 34, 0.8) 0%,
+    rgba(36, 54, 66, 0.6) 100%
+  );
   border: 1px solid rgba(88, 166, 255, 0.15);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   border-radius: 12px;
 
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(88, 166, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(88, 166, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .stat-label {
@@ -210,7 +232,10 @@ body::before {
 
   outline: none;
 
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .search-box input:focus {
@@ -262,7 +287,22 @@ body::before {
 }
 
 .table-scroll {
-  overflow-x: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.table-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+.table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 table {
@@ -280,7 +320,7 @@ th:nth-child(2),
 td:nth-child(2) {
   width: 10%;
   white-space: normal;
-  word-break: break-all;
+  word-break: keep-all;
 }
 
 th:nth-child(3),
@@ -341,7 +381,9 @@ td {
 }
 
 tbody tr {
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 tbody tr:hover {
@@ -490,6 +532,26 @@ th[data-sort].sorted .sort-indicator {
   td {
     padding: 16px;
   }
+
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 28%;
+  }
+
+  th:nth-child(5),
+  td:nth-child(5) {
+    width: 16%;
+  }
+
+  th:nth-child(6),
+  td:nth-child(6) {
+    width: 16%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -503,5 +565,79 @@ th[data-sort].sorted .sort-indicator {
 
   .stat-card {
     width: 100%;
+  }
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 4px 16px;
+    background: rgba(22, 27, 34, 0.6);
+  }
+
+  tbody tr:hover {
+    box-shadow: none;
+    background: rgba(22, 27, 34, 0.6);
+  }
+
+  td {
+    width: 100% !important;
+    padding: 10px 0;
+    border: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    vertical-align: middle;
+    font-size: 13px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    min-width: 70px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  td code {
+    font-size: 12px;
+    padding: 4px 8px;
+    word-break: break-all;
+  }
+
+  .version {
+    white-space: normal;
+  }
+
+  .install-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+
+  .homepage-link {
+    display: inline-block;
+    padding: 6px 0;
   }
 }

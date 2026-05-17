@@ -110,15 +110,8 @@ function normalizeLicense(license) {
     return license.map(normalizeLicense).join(", ");
   }
 
-  return (
-    license.shortName ||
-    license.spdxId ||
-    license.fullName ||
-    "unknown"
-  );
+  return license.shortName || license.spdxId || license.fullName || "unknown";
 }
-
-
 
 function renderTable(packages) {
   const tbody = document.getElementById("packages-body");
@@ -127,19 +120,19 @@ function renderTable(packages) {
     .map(
       (pkg) => `
         <tr>
-          <td>
+          <td data-label="Package">
             <code>${escapeHtml(pkg.name)}</code>
           </td>
 
-          <td class="version">${escapeHtml(pkg.version || "unknown")}</td>
+          <td data-label="Version" class="version">${escapeHtml(pkg.version || "unknown")}</td>
 
-          <td>
+          <td data-label="License">
             <span class="license-badge">${escapeHtml(normalizeLicense(pkg.license))}</span>
           </td>
 
-          <td class="description">${escapeHtml(pkg.description || "")}</td>
+          <td data-label="Description" class="description">${escapeHtml(pkg.description || "")}</td>
 
-          <td>
+          <td data-label="Usage">
             <button
               class="install-btn"
               onclick="copyToClipboard('${escapeHtml(getInstallCommand(pkg.name))}', this)"
@@ -152,7 +145,7 @@ function renderTable(packages) {
             </button>
           </td>
 
-          <td>
+          <td data-label="Links">
             ${
               pkg.homepage
                 ? `<a href="${escapeHtml(pkg.homepage)}" target="_blank" class="homepage-link">Homepage</a>`
