@@ -1,10 +1,9 @@
 {
-  wrapFirefox,
   firefox-unwrapped,
   lib,
   sources,
 }:
-wrapFirefox (firefox-unwrapped.overrideAttrs (old: {
+firefox-unwrapped.overrideAttrs (old: {
   postPatch = (old.postPatch or "") + ''
     for F in ${sources.firefox-stealth.src}/*.patch; do
       echo "$F"
@@ -19,4 +18,4 @@ wrapFirefox (firefox-unwrapped.overrideAttrs (old: {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Firefox with anti fingerprinting modifications";
   };
-})) { }
+})
