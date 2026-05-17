@@ -228,7 +228,11 @@ jobs:
         id: build
         continue-on-error: true
         run: |
-          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs 2>&1 | tee build.log
+          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix \
+            -A cacheOutputs \
+            --arg pkgs "import <nixpkgs> {}" \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            2>&1 | tee build.log
           exit_code=${PIPESTATUS[0]}
           if [ $exit_code -ne 0 ] || grep -q "nix build failed" build.log; then
             exit 1
