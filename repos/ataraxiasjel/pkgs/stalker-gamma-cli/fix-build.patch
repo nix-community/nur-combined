@@ -1,0 +1,11 @@
+diff --git a/Directory.Build.props b/Directory.Build.props
+index 3177d4a..e3aac5e 100644
+--- a/Directory.Build.props
++++ b/Directory.Build.props
+@@ -3,6 +3,5 @@
+     <TargetFramework>net10.0</TargetFramework>
+     <Nullable>enable</Nullable>
+     <ImplicitUsings>enable</ImplicitUsings>
+-    <PublishAot>true</PublishAot>
+   </PropertyGroup>
+ </Project>
