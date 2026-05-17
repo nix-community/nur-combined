@@ -37,6 +37,8 @@ buildNpmPackage (finalAttrs: {
     substituteInPlace prisma/seed.mts \
       --replace-fail "import { PrismaClient } from '@prisma/client';" \
         "import prismaClientPkg from '@prisma/client'; const { PrismaClient } = prismaClientPkg;"
+    # storybook output is not used, skip it
+    substituteInPlace package.json --replace-fail "nx run ui:build-storybook" "true"
   '';
 
   nativeBuildInputs = [
