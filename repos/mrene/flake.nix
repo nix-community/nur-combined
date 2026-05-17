@@ -5,7 +5,8 @@
     extra-substituters = [ "https://nixcache.mathieurene.com/nur" ];
     extra-trusted-public-keys = [ "nur:/HeC3enYzhY920VJrGNSUdMOqXUh3Y/zLo3+f5IZjfM=" ];
   };
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
       systems = [
         "x86_64-linux"
@@ -20,11 +21,17 @@
       lib = nixpkgs.lib;
     in
     {
-      packages = forAllSystems (system: 
+      packages = forAllSystems (
+        system:
         let
-          pkgs = import nixpkgs { inherit system; config = { allowUnfree = true; }; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
         in
-          pkgs.callPackage ./pkgs {}
+        pkgs.callPackage ./pkgs { }
       );
     };
 }

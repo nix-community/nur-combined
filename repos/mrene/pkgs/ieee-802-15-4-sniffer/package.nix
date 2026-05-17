@@ -13,7 +13,7 @@ let
   };
 in
 stdenvNoCC.mkDerivation {
-  name = "ieee-802-15-4-sniffer";
+  pname = "ieee-802-15-4-sniffer";
   version = "1.0";
   src = ./.;
 

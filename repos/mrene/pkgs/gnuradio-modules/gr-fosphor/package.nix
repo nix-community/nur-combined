@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gr-fosphor";
-  version = "unstable-2024-03-23";
+  version = "0-unstable-2024-03-23";
 
   # src = ./gr-fosphor;
   src = fetchFromGitHub {

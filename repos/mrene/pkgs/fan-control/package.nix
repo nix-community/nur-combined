@@ -28,7 +28,7 @@ in
 
 rustPlatform.buildRustPackage rec {
   pname = "fan-control";
-  version = "2025.3.0";
+  version = "26.01";
 
   inherit src;
 

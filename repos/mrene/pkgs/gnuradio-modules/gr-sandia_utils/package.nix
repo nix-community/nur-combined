@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gr-sandia-utils";
-  version = "unstable-2022-12-05";
+  version = "0-unstable-2022-12-05";
 
 
   src = fetchFromGitHub {

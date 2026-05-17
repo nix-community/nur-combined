@@ -22,7 +22,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gr-smart-meters";
-  version = "unstable-2023-09-25";
+  version = "0-unstable-2023-09-25";
 
   src = fetchFromGitHub {
     owner = "BitBangingBytes";

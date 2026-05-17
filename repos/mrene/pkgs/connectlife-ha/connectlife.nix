@@ -3,19 +3,20 @@
   buildPythonPackage,
   fetchFromGitHub,
   aiohttp,
+  cryptography,
   hatchling,
 }:
 
 buildPythonPackage rec {
   pname = "connectlife";
-  version = "0.5.4";
+  version = "0.7.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "oyvindwe";
     repo = "connectlife";
     rev = "v${version}";
-    hash = "sha256-KZOOLAg6Uq8E7oqArTvw4O1vfZO08bRnODH+UZLubGU=";
+    hash = "sha256-3B4PRb20giRDqLT/KA8Bo++bRNKhVTWoQHwvDkA3vIA=";
   };
 
   build-system = [
@@ -24,6 +25,7 @@ buildPythonPackage rec {
 
   dependencies = [
     aiohttp
+    cryptography
   ];
 
   pythonImportsCheck = [
