@@ -17,6 +17,8 @@ rec {
 
   aria-csv = pkgs.callPackage ./pkgs/aria-csv { };
 
+  consolas-nl = pkgs.callPackage ./pkgs/consolas-nl { };
+
   asmjit = pkgs.callPackage ./pkgs/asmjit { };
 
   autodiff = pkgs.callPackage ./pkgs/autodiff { };
