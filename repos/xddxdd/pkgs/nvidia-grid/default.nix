@@ -41,7 +41,7 @@ let
               sha256 = v;
             }
           ) source.patches)
-          ++ lib.optionals (lib.hasPrefix "16." version) [
+          ++ lib.optionals (lib.versionAtLeast version "16.0" && lib.versionOlder version "16.14") [
             ./patches/vfio-16.patch
           ];
       };
