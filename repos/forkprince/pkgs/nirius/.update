@@ -1,1 +1,1 @@
---flake --use-update-script --version-regex 'nirius-(.*)'
+--flake --use-update-script --version-regex 'nirius-(\d+\.\d+\.\d+)'
