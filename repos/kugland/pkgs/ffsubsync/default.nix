@@ -5,10 +5,10 @@
 ,
 }: python312Packages.buildPythonPackage rec {
   pname = "ffsubsync";
-  version = "0.4.26";
+  version = "0.4.31";
   src = python312Packages.fetchPypi {
     inherit pname version;
-    sha256 = "sha256-GsA6gy7bqdqIzu7XU+Laqk5iC2Mv15SXEMsxUWthFBA=";
+    sha256 = "sha256-mgH3m8EkO4pVJC37eDLQqTMU44b3AGK5nKM6xkQPksc=";
   };
   pyproject = true;
   build-system = with python312Packages; [ setuptools ];

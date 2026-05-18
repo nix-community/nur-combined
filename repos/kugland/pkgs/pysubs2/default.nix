@@ -4,14 +4,13 @@
 }:
 python3Packages.buildPythonPackage rec {
   pname = "pysubs2";
-  version = "1.6.1";
+  version = "1.8.1";
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "sha256-AmFhHnFzX/d2OXLFGcclk8gGPvy5A5xUr2XzG4HOwRY=";
+    sha256 = "sha256-rzoohkPah9trsT295w6UyVcHZcyPZCOxwh3hHxbXNNo=";
   };
   pyproject = true;
-  build-system = with python3Packages; [ setuptools ];
-  buildInputs = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ hatchling ];
   meta = with lib; {
     description = "A Python library for editing subtitle files";
     homepage = "https://github.com/tkarabela/pysubs2";
