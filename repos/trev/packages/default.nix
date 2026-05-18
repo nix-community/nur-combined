@@ -25,7 +25,7 @@ rec {
   qsvenc = pkgs.callPackage ./qsvenc { };
   renovate = pkgs.callPackage ./renovate { };
   shellhook = pkgs.callPackage ./shellhook { };
-  type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { };
+  type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { inherit (pkgs) nix-update-script; };
   zig-protobuf = pkgs.callPackage ./zig-protobuf { };
 }
 // import ./python.nix { pythonPackages = pkgs.python3Packages; }

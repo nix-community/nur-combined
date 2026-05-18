@@ -7,7 +7,7 @@
 }:
 
 buildRustPackage (finalAttrs: {
-  pname = "nix-fix-hash";
+  pname = "fix-hash";
   version = "0.3.0";
 
   src = fetchFromGitHub {
