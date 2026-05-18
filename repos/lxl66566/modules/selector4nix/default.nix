@@ -29,7 +29,13 @@ in
     };
 
     logLevel = lib.mkOption {
-      type = lib.types.enum [ "error" "warn" "info" "debug" "trace" ];
+      type = lib.types.enum [
+        "error"
+        "warn"
+        "info"
+        "debug"
+        "trace"
+      ];
       default = "info";
       description = "The verbosity of the logging output";
     };
@@ -55,7 +61,11 @@ in
     };
 
     configureSubstituter = lib.mkOption {
-      type = lib.types.enum [ "keep" "prepend" "overwrite" ];
+      type = lib.types.enum [
+        "keep"
+        "prepend"
+        "overwrite"
+      ];
       default = "keep";
       description = "Whether to configure the substituter list";
     };
@@ -71,7 +81,7 @@ in
 
         serviceConfig = {
           Type = "simple";
-          ExecStart = "${cfg.package}/bin/selector4nix";
+          ExecStart = "${cfg.package}/bin/selector4nix --no-log-timestamp";
           Environment = [
             "SELECTOR4NIX_CONFIG_FILE=${configFile}"
             "RUST_LOG=selector4nix=${cfg.logLevel}"
