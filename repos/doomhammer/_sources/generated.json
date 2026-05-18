@@ -75,11 +75,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pEzd45aFC/MeN2XbxPpOMrouZUyQ+CDqBSrc8tRa5Fg=",
+            "sha256": "sha256-1w4tGVtJbWM6SegJVbV/7bQmF21IhKJLzSyCXT1SOJ8=",
             "type": "url",
-            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.9.1/OmniWM-v0.4.9.1.zip"
+            "url": "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.9.2/OmniWM-v0.4.9.2.zip"
         },
-        "version": "v0.4.9.1"
+        "version": "v0.4.9.2"
     },
     "paperwm-spoon": {
         "cargoLock": null,
