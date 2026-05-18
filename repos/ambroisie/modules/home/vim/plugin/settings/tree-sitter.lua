@@ -76,7 +76,7 @@ local function treesitter_try_attach(buf, language)
     -- Syntax highlighting
     vim.treesitter.start(buf, language)
     -- Indentation
-    vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+    vim.bo[buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
 
     return true
 end

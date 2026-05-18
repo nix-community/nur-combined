@@ -57,6 +57,7 @@ lualine.setup({
     },
     extensions = {
         "fugitive",
+        "man",
         "quickfix",
         {
             sections = {

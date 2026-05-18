@@ -26,6 +26,11 @@ oil.setup({
                 end
             end,
         },
+        -- Use better `cd` mappings
+        ["`"] = false,
+        ["~"] = false,
+        ["g`"] = { "actions.cd", mode = "n" },
+        ["g~"] = { "actions.cd", opts = { scope = "win" }, mode = "n" },
     },
 })
 
