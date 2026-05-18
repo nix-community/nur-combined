@@ -65,22 +65,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "6dabd9512befb2b0b64a18c77126237e6cfa2013";
+    version = "788d4ae93934552a8038e804928bee2ab40aaf57";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "6dabd9512befb2b0b64a18c77126237e6cfa2013";
+      rev = "788d4ae93934552a8038e804928bee2ab40aaf57";
       fetchSubmodules = false;
-      sha256 = "sha256-VCXTIqK7xRnoZ21RSF3GjQa7qOQOFplhD2oBxW0sUdI=";
+      sha256 = "sha256-y0bjcp+PF2RpSrc68OpvM3jgCsXwfxaxON/W+fM18O4=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-VCXTIqK7xRnoZ21RSF3GjQa7qOQOFplhD2oBxW0sUdI=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-VCXTIqK7xRnoZ21RSF3GjQa7qOQOFplhD2oBxW0sUdI=/web/package-lock.json";
-    };date = "2026-05-17";
+      "web/package.json" = ./. + "/sha256-y0bjcp+PF2RpSrc68OpvM3jgCsXwfxaxON_W+fM18O4=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-y0bjcp+PF2RpSrc68OpvM3jgCsXwfxaxON_W+fM18O4=/web/package-lock.json";
+    };date = "2026-05-18";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.7.3";
+    version = "v1.7.4";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -349,18 +349,6 @@
       sha256 = "sha256-EcgRNxdxjhv73dDqw8G5lpgD5VvKNHaSoBst6N0LOjo=";
     };
   };
-  mautrix-telegramgo = {
-    pname = "mautrix-telegramgo";
-    version = "0303f707788e3f6f2d2228a5dc55c9f94cfc19e6";
-    src = fetchFromGitHub {
-      owner = "mautrix";
-      repo = "telegramgo";
-      rev = "0303f707788e3f6f2d2228a5dc55c9f94cfc19e6";
-      fetchSubmodules = false;
-      sha256 = "sha256-2qworo9N13TlJwFusOhsmgx/2UloxOI1UOwLIBnQ7h4=";
-    };
-    date = "2026-03-29";
-  };
   meta-rules-converter = {
     pname = "meta-rules-converter";
     version = "7dea27841a3579a633189830c98c08a0434e8b79";
@@ -486,14 +474,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "8277589524926c5578516ddd1fc64f24726f7aa4";
+    version = "9673aea93ed553d66a76e009fcd85ce4e3f04e8d";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "8277589524926c5578516ddd1fc64f24726f7aa4";
+      rev = "9673aea93ed553d66a76e009fcd85ce4e3f04e8d";
       fetchSubmodules = false;
-      sha256 = "sha256-CqnQuMGHeELcset5IkMbmiiFp13g7TdYmfeJFdF6WZc=";
+      sha256 = "sha256-jze8m0ZvGNdh9bOjJfKTfuux84k/ihw+sxJXhvT07Uk=";
     };
-    date = "2026-05-16";
+    date = "2026-05-17";
   };
 }
