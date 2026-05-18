@@ -22,14 +22,14 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "libkazv";
-  version = "0.8.0-unstable-2026-04-10";
+  version = "0.8.0-unstable-2026-05-10";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "the-kazv-project";
     repo = "libkazv";
-    rev = "7a14e636677b3cb703a300e3b023284a51b1ef9e";
-    hash = "sha256-YqN0YvHc7C3n4HacYvM9zg03xpCOWzJHRkDzDhFODCM=";
+    rev = "5d1dcb91cacdea97bcb1d066966430b2a102c2bc";
+    hash = "sha256-XKw7S++NapQ5BnHGV2Cw6htpcY2kLhhB5KeLgVcyx9E=";
   };
 
   nativeBuildInputs = [

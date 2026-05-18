@@ -9,12 +9,12 @@ stdenvNoCC.mkDerivation {
   __structuredAttrs = true;
 
   pname = "clipboard";
-  version = "0-unstable-2026-05-08";
+  version = "0-unstable-2026-05-10";
   src = fetchFromGitHub {
     owner = "XYenon";
     repo = "clipboard.yazi";
-    rev = "bda3e093fa3950ca1106a407d65ad30255d9d240";
-    hash = "sha256-s74faAFyUX7CC6lTxf0UAcq6KZeoxtaoqWDIFjhnxoI=";
+    rev = "68b506d9a9c2c5dde01a078a589520f551d05fe5";
+    hash = "sha256-jNBwkcFb9i5Z6BSMfkTOyrK7HZohAT/yB3cxcCOG54w=";
   };
 
   dontBuild = true;

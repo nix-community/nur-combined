@@ -231,7 +231,7 @@
     },
     "rime-ice-unstable": {
         "cargoLock": null,
-        "date": "2026-05-14",
+        "date": "2026-05-18",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -243,12 +243,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "c0364c0f3bbf9559c992f166795d6eb474a4a745",
-            "sha256": "sha256-QLZrYqYqPiTfOmFE/Oo8YSp3IavqyLyZxnQ52N5+es0=",
+            "rev": "a5d123bcb5d3f259560c262bd6e1fb64bfd92fb3",
+            "sha256": "sha256-z/5Vf/i4IdkxNUObOhfW4T7wP0fICmSCgpKu2E2zI1M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c0364c0f3bbf9559c992f166795d6eb474a4a745"
+        "version": "a5d123bcb5d3f259560c262bd6e1fb64bfd92fb3"
     },
     "rime-moegirl": {
         "cargoLock": null,
