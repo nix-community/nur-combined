@@ -33,7 +33,7 @@ buildPythonPackage rec {
       src
       ;
     fetcherVersion = 3;
-    hash = "sha256-UUI2+aZ73EqptqRfdO8IRw5v7e49m0i/+YKictQlyzg=";
+    hash = "sha256-GGy/6MdpMiZUMU3RSuRNWeR+weuq0iEq/DOjHQYC6Nw=";
   };
 
   build-system = [
