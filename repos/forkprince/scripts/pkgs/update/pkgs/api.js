@@ -18,8 +18,13 @@ async function single(file, { config, force }) {
 
   console.log(`Update: ${config.version} → ${parsed}`);
 
-  const url = eval(`(${raw})${config.source.url_path}`);
-  if (!url) throw new Error("Failed to extract URL from API response");
+  let url;
+
+  if (config.source.url_path) {
+    url = eval(`(${raw})${config.source.url_path}`);
+    if (!url) throw new Error("Failed to extract URL from API response");
+  } else if (config.asset?.url) url = config.asset.url.replace(/\{version\}/g, parsed);
+  else throw new Error("Failed to extract URL from API response");
 
   console.log(`Downloading ${url}`);
 

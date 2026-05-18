@@ -21,6 +21,7 @@
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
+  folder-preview-pro = lib.callPackage ./pkgs/folder-preview-pro {};
   creality-print = lib.callPackage ./pkgs/creality-print {};
   passepartout = lib.callPackage ./pkgs/passepartout {};
   diffusionbee = lib.callPackage ./pkgs/diffusionbee {};
