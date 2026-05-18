@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.1.10";
+    version = "v7.1.14";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.1.10";
-      hash = "sha256-dx8y6dvOuUQuzWKyOs9Dwf6TwrWjw/zfF3oS8rmXhQc=";
+      tag = "v7.1.14";
+      hash = "sha256-p8QXze/f+DgXcguE9hYMnRh5AXJb+TTOXz0pFxkfxeM=";
     };
   };
   cockpy = {
@@ -1166,14 +1166,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "077e32a94f39af02209dbbc680bf8a43b774b305";
+    version = "f28cef1199553a71264269c86f0d13f90906e51f";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "077e32a94f39af02209dbbc680bf8a43b774b305";
-      hash = "sha256-G45X/8CgTjp7mfsI3Z2EQ+pu7/eyhxBAldJHwJjzv7o=";
+      rev = "f28cef1199553a71264269c86f0d13f90906e51f";
+      hash = "sha256-V8ig4A8Njbvv5Kpue0a1nv4HTf/bEL/RDoOWbUoJlF0=";
     };
-    date = "2026-05-15";
+    date = "2026-05-18";
   };
   libqcef = {
     pname = "libqcef";
@@ -1250,12 +1250,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9198";
+    version = "b9219";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9198";
-      hash = "sha256-pz9+JlPwgmZN4tDi3fOC8B7weOa5cKaYE/TtXH/lcVs=";
+      tag = "b9219";
+      hash = "sha256-H3KiYuZ5/Jjp6o3Ifp4KpAnAsyozouQVt6idE60XJIg=";
     };
   };
   loralib = {
@@ -1400,13 +1400,13 @@
   };
   nginx-auth-jwt = {
     pname = "nginx-auth-jwt";
-    version = "0.11.0";
+    version = "0.12.0";
     src = fetchFromGitHub {
       owner = "kjdev";
       repo = "nginx-auth-jwt";
-      tag = "0.11.0";
+      tag = "0.12.0";
       fetchSubmodules = true;
-      hash = "sha256-vM2pt76tiJKEdNx8Mj4L8v5eu2HuIEmETI1aQbC9AA4=";
+      hash = "sha256-rTF05t2U/b6C18FWF6/T/j0s9vBIOabB2ncSYYMtP8A=";
     };
   };
   nginx-module-geoip2 = {
@@ -1465,13 +1465,13 @@
   };
   nginx-oidc = {
     pname = "nginx-oidc";
-    version = "0.3.0";
+    version = "0.4.0";
     src = fetchFromGitHub {
       owner = "kjdev";
       repo = "nginx-oidc";
-      tag = "0.3.0";
+      tag = "0.4.0";
       fetchSubmodules = true;
-      hash = "sha256-+WK9Bmhvo8YtNw10sEhLb3IVG0AN7fkwrb0GU6KrMn8=";
+      hash = "sha256-95A3Jao53DKblNIFcJz0pBx21stfvaYWoTlQza7Ia1A=";
     };
   };
   ngx_brotli = {
@@ -2018,14 +2018,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "c0364c0f3bbf9559c992f166795d6eb474a4a745";
+    version = "a5d123bcb5d3f259560c262bd6e1fb64bfd92fb3";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "c0364c0f3bbf9559c992f166795d6eb474a4a745";
-      hash = "sha256-QLZrYqYqPiTfOmFE/Oo8YSp3IavqyLyZxnQ52N5+es0=";
+      rev = "a5d123bcb5d3f259560c262bd6e1fb64bfd92fb3";
+      hash = "sha256-z/5Vf/i4IdkxNUObOhfW4T7wP0fICmSCgpKu2E2zI1M=";
     };
-    date = "2026-05-14";
+    date = "2026-05-18";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2076,23 +2076,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "b1c20eec6a91983cd418b510d876265b038859e0";
+    version = "27b968cde510a84e34d3c1b2c349333338881644";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "b1c20eec6a91983cd418b510d876265b038859e0";
-      hash = "sha256-wCrI8qEfA2xiJKaw+Jmxx4fwQsrt6NxOvJ6jrwKAHUM=";
+      rev = "27b968cde510a84e34d3c1b2c349333338881644";
+      hash = "sha256-EsVJ0uR4FnlpdUpeDARbnhHYQggG/OpzQYJ9wfZ3xc0=";
     };
-    date = "2026-05-15";
+    date = "2026-05-18";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr14.1.1.11";
+    version = "mr14.1.1.13";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr14.1.1.11";
-      hash = "sha256-jw05NVy/cQ6dZxYMqCAtHSPdhy+5P/D4ByulCstsB4w=";
+      tag = "mr14.1.1.13";
+      hash = "sha256-7nP/m67MzGTW1vLRaPM6J4vxLpw3dFhTev2PdZoLNAw=";
     };
   };
   runpod-python = {
