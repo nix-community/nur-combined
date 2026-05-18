@@ -7,13 +7,13 @@
 
 buildGoModule rec {
   pname = "md2puki";
-  version = "0.3.1";
+  version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "Nanamiiiii";
     repo = "md2puki";
     rev = "v${version}";
-    sha256 = "sha256-TBbZmOzWVn8aw1ROjc6DeyWphxVJaOKqq/tbQ1PCN2M=";
+    sha256 = "sha256-lwuaQG2iWHSlHCsxQw7SY4Y2zZ8YQUMFoYwfwO/6UyI=";
   };
 
   vendorHash = "sha256-tErz6GXAJv1wf84IV8fezqgLCGAZIrIu52xpkiQNfzc=";
