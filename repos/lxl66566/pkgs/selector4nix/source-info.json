@@ -1,24 +1,24 @@
 {
-  "owner": "lxl66566",
-  "version": "v0.3.0",
+  "owner": "StarryReverie",
+  "version": "v0.3.1",
   "hashes": {
     "aarch64-linux": {
       "gnu": {
-        "sha256": "6533c828b1ae14686abc0f42c56d7c06803589a5df29da662bd7a6a8e96e90c0",
+        "sha256": "7051cfb31c78c52c6fae463db579d38a3bb20948ad705818ef9624ca5905ce74",
         "targetSystem": "aarch64-unknown-linux-gnu"
       },
       "musl": {
-        "sha256": "294e7b48d85f924201b99f7055247a7655bcb70a7fcb301706463e4e0a5608d3",
+        "sha256": "6cdf918d71c6304ed1f29d6461fee16e742ee6129d0e5070e26bc5a564e50ec0",
         "targetSystem": "aarch64-unknown-linux-musl"
       }
     },
     "x86_64-linux": {
       "gnu": {
-        "sha256": "ab1790649f7f7c0536dc5d109583054fbd3fe6d0a71dd85cc1c954b727f7e42b",
+        "sha256": "6545dd1fc9529d984f28c0b6e90e3358a4aa401308b78f5e14fda073bc425adc",
         "targetSystem": "x86_64-unknown-linux-gnu"
       },
       "musl": {
-        "sha256": "09152507ba04fed7945b9257ca9d197dda31c6b2f25286ef67acc3f265fe8298",
+        "sha256": "7b446fd81f726a4596d9dbde824947daabc1f47f49eb3988d6a8de3188e8da4c",
         "targetSystem": "x86_64-unknown-linux-musl"
       }
     }
