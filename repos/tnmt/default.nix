@@ -28,5 +28,6 @@
   roots = pkgs.callPackage ./pkgs/roots { };
   git-wt = pkgs.callPackage ./pkgs/git-wt { };
   givy = pkgs.callPackage ./pkgs/givy { };
+  herdr = pkgs.callPackage ./pkgs/herdr { };
   mo = pkgs.callPackage ./pkgs/mo { };
 }

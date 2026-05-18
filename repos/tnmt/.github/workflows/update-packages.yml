@@ -21,7 +21,11 @@ jobs:
           - roots
           - git-wt
           - givy
+          - herdr
           - mo
+        include:
+          - package: herdr
+            systems: "x86_64-linux aarch64-linux x86_64-darwin aarch64-darwin"
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
@@ -43,8 +47,17 @@ jobs:
       env:
         NIXPKGS_ALLOW_UNFREE: "1"
       run: |
-        nix shell nixpkgs#nix-update -c \
-          nix-update --build -f ./default.nix ${{ matrix.package }}
+        SYSTEMS="${{ matrix.systems }}"
+        SYSTEMS="${SYSTEMS:-x86_64-linux}"
+        for sys in $SYSTEMS; do
+          if [ "$sys" = "x86_64-linux" ]; then
+            nix shell nixpkgs#nix-update -c \
+              nix-update --system "$sys" --build -f ./default.nix ${{ matrix.package }}
+          else
+            nix shell nixpkgs#nix-update -c \
+              nix-update --system "$sys" -f ./default.nix ${{ matrix.package }}
+          fi
+        done
 
     - name: Detect changes
       id: after
