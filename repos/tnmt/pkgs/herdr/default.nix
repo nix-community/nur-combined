@@ -19,11 +19,11 @@ let
     };
     "x86_64-darwin" = {
       asset = "herdr-macos-x86_64";
-      hash = "sha256-hKp/OMg1tOtao4wpZggTAjzyMXjkZUHEucJgcS/lLVE=";
+      hash = "sha256-5yMqu9BWiHuv4Pa4Hlj1njPK/XrGCeO8w1S44A77Bjc=";
     };
     "aarch64-darwin" = {
       asset = "herdr-macos-aarch64";
-      hash = "sha256-5yMqu9BWiHuv4Pa4Hlj1njPK/XrGCeO8w1S44A77Bjc=";
+      hash = "sha256-hKp/OMg1tOtao4wpZggTAjzyMXjkZUHEucJgcS/lLVE=";
     };
   };
 
