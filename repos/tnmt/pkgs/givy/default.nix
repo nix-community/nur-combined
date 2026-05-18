@@ -11,13 +11,13 @@
 }:
 
 let
-  version = "0.6.1";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "hokaccha";
     repo = "givy";
     rev = "v${version}";
-    hash = "sha256-BbApYzugK3LDaPOliaCaVvFrQKV36stMOO78tiEFEng=";
+    hash = "sha256-kkUvcWQseRH/GdPHaTwyI2qZBF9YxGmmMlfoqspU6gs=";
   };
 
   frontend = stdenv.mkDerivation (finalAttrs: {

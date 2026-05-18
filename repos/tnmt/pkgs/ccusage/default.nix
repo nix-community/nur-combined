@@ -2,7 +2,7 @@
 
 let
   nodejs = nodejs_22;
-  version = "18.0.11";
+  version = "19.0.2";
 in
 stdenv.mkDerivation {
   pname = "ccusage";
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url = "https://registry.npmjs.org/ccusage/-/ccusage-${version}.tgz";
-    sha256 = "sha256-6MTCtMjE72uhcnj9zTkP2PIU7yKVXG+tby54o0gcTWQ=";
+    sha256 = "sha256-vZwWiVEQG6sbc4Z9IIgN9hXS2FvkMSW/7n09/o7ZI/I=";
     stripRoot = true;
   };
 
