@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "1nh8v4c07mmd5zicy06jsz9cq3ag0dpn1xgjsgy37ksil4d33b1r";
-    aarch64-linux = "0f384ac5nfcgj07qivfn38d0wpc9aw8l6ls22idya93di4lq0a7j";
-    x86_64-darwin = "1wl8cigvmn58yqa8q9hqapnwmacpwiviw2i2rs7hs2qy44kjkzjr";
-    aarch64-darwin = "03szgxmcnbp7g2skc8jpvagfv3jwxvjrmz7x47vhab9x2n3zlk1c";
+    x86_64-linux = "0b2mks0gjllvnr1jbbxasv1mphb7qv3hg19vzwxjq9gs4lvwarcc";
+    aarch64-linux = "1jkiplwpn8sd92akrfis2s53yh4ljhfz6wyvznhp10937aqi63lh";
+    x86_64-darwin = "0046i79assygnm601prhvr7b1faz88hsvfwmb1rlw11lqk99p8z5";
+    aarch64-darwin = "1iqgyq7y5dh6xg492zfpmc47cd18pgyw1m7izc2757c5mkbrj6d9";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/shopware/shopware-cli/releases/download/0.14.8/shopware-cli_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/shopware/shopware-cli/releases/download/0.14.8/shopware-cli_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/shopware/shopware-cli/releases/download/0.14.8/shopware-cli_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/shopware/shopware-cli/releases/download/0.14.8/shopware-cli_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/shopware/shopware-cli/releases/download/0.14.10/shopware-cli_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/shopware/shopware-cli/releases/download/0.14.10/shopware-cli_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/shopware/shopware-cli/releases/download/0.14.10/shopware-cli_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/shopware/shopware-cli/releases/download/0.14.10/shopware-cli_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "shopware-cli";
-  version = "0.14.8";
+  version = "0.14.10";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
