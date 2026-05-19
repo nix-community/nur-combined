@@ -99,7 +99,12 @@ beamPackages.mixRelease rec {
     # the package
     elixirPackage = beamPackages.elixir;
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--url=https://git.pleroma.social/pleroma/pleroma.git"
+        "--version-regex=^v(2\\..*)$"
+      ];
+    };
   };
 
   meta = {

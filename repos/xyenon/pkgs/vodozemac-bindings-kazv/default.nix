@@ -38,7 +38,12 @@ rustPlatform.buildRustPackage {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=^v(.*)$"
+    ];
+  };
 
   meta = {
     description = "Language bindings for vodozemac";

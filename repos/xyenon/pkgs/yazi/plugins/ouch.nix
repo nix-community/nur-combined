@@ -27,7 +27,12 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=^v(.*)$"
+    ];
+  };
 
   meta = {
     description = "Yazi plugin to preview archives";

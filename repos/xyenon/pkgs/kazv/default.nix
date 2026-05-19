@@ -88,7 +88,12 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-Dkazv_KF_QT_MAJOR_VERSION=6" ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=^v(.*)$"
+    ];
+  };
 
   meta = {
     description = "Convergent qml/kirigami matrix client based on libkazv";

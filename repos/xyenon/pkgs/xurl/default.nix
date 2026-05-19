@@ -27,7 +27,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeCheckInputs = [ git ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=^v(.*)$"
+    ];
+  };
 
   meta = {
     description = "Client for AI Agents URLs";
