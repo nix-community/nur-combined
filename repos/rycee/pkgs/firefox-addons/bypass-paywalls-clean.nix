@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.7.2";
+  version = "4.3.7.5";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.7.2.xpi";
-  sha256 = "cee9170879119cf16ab1e74ce18577e3e83123aefc5508deff0ec73e0fb63b21";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.7.5.xpi";
+  sha256 = "8e464b2b3a0c8d2d23b1c437acb54e46df9e6f85f9a07c5e050130aa9d081551";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -425,6 +425,7 @@ buildFirefoxXpiAddon {
       "*://*.kansascity.com/*"
       "*://*.kathimerini.gr/*"
       "*://*.kentucky.com/*"
+      "*://*.kleinezeitung.at/*"
       "*://*.kn-online.de/*"
       "*://*.knack.be/*"
       "*://*.knoxnews.com/*"
@@ -888,6 +889,7 @@ buildFirefoxXpiAddon {
       "*://*.variety.com/*"
       "*://*.varmatin.com/*"
       "*://*.vegetariantimes.com/*"
+      "*://*.vibilagare.se/*"
       "*://*.vice.com/*"
       "*://*.vikatan.com/*"
       "*://*.vn.at/*"
@@ -994,6 +996,7 @@ buildFirefoxXpiAddon {
       "*://*.fnetcore-api-prod.azurewebsites.net/*"
       "*://*.funkemedien.de/*"
       "*://*.mediafin.be/*"
+      "*://*.styria.com/*"
       "*://codebeautify.org/*"
       "*://gitflic.ru/*"
       "*://*/*"
