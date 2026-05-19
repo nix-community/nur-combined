@@ -76,9 +76,9 @@ fetch.github = "Finb/bark-server"
 # src.github = "GZTimeWalker/GZCTF"
 # fetch.github = "GZTimeWalker/GZCTF"
 
-# [mautrix-telegramgo]
-# src.git = "https://github.com/mautrix/telegramgo.git"
-# fetch.github = "mautrix/telegramgo"
+[mautrix-telegram]
+src.github = "mautrix/telegram"
+fetch.github = "mautrix/telegram"
 
 # [new-api]
 # src.github = "QuantumNous/new-api"

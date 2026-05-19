@@ -2,6 +2,7 @@
   # keep-sorted start case=no numeric=yes
   ./security/ensure-pcr.nix
   ./services/misc/hentai-at-home.nix
+  ./services/misc/mautrix-telegram.nix
   ./services/networking/ddns-go.nix
   ./services/networking/gost.nix
   ./services/networking/mosdns.nix
