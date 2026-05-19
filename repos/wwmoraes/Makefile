@@ -19,7 +19,7 @@ endif
 .PHONY: all
 #: Builds all packages.
 all:
-	nix build --no-link --accept-flake-config .
+	nix build --no-link --accept-flake-config --print-out-paths .
 
 .PHONY: configure
 #: Sets up the environment to contribute to this repository.

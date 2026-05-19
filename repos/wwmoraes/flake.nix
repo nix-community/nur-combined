@@ -1,7 +1,7 @@
 {
   description = "William Artero's nix user repository";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/25.05?shallow=1";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11?shallow=1";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     treefmt-nix = {
@@ -30,26 +30,25 @@
 
   outputs =
     inputs@{
-      flake-parts,
       self,
-      systems,
-      treefmt-nix,
       ...
     }:
-    (flake-parts.lib.mkFlake { inherit inputs; } {
+    (inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
+
       flake = {
-        darwinModules = import ./modules/darwin;
-        homeManagerModules = import ./modules/home-manager;
-        nixosModules = import ./modules/nixos;
-        treefmtModules = import ./modules/treefmt;
-        overlays.default =
-          final: prev:
-          prev.lib.recursiveUpdate prev {
-            nur.repos.wwmoraes = import ./default.nix {
-              inherit (prev) system;
-              pkgs = prev;
+        overlays = (import ./overlays) // {
+          default =
+            final: prev:
+            prev.lib.recursiveUpdate prev {
+              nur.repos.wwmoraes = import ./default.nix {
+                inherit (prev) system;
+                pkgs = prev;
+              };
             };
-          };
+        };
       };
 
       perSystem =
@@ -61,9 +60,9 @@
           ...
         }:
         let
-          treefmt = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+          drvPackages = lib.filterAttrs (_: v: lib.isDerivation v) self'.legacyPackages;
         in
-        rec {
+        {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = [
@@ -73,30 +72,29 @@
             config = { };
           };
 
-          checks = self.packages.${system} // {
-            build = pkgs.linkFarmFromDrvs "wwmoraes-nurpkgs" (builtins.attrValues packages);
-            formatting = treefmt.config.build.check self;
-          };
+          checks = drvPackages;
           devShells = import ./shell.nix { inherit pkgs system; };
-          packages =
-            let
-              packages = lib.filterAttrs (_: v: lib.isDerivation v) self'.legacyPackages;
-            in
-            {
-              default = pkgs.linkFarmFromDrvs "nurpkgs" (builtins.attrValues packages);
-            }
-            // packages;
+          # explicitly skip modules as they break nix flake check; in fact the
+          # upstream NUR suggestion is an abuse of the packages attribute. They
+          # are still accessible through legacyPackages.
+          #
+          # Instead the default.nix provides manually set modules attributes
+          # which are compatible with the NUR paths. The advantage to that is
+          # I can have extra, unsupported module class groups as well, such as
+          # treefmt modules.
+          #
+          # See https://github.com/nix-community/NUR/blob/main/README.md#user-content-nixos-modules-overlays-and-library-function-support
+          packages = drvPackages // {
+            default = pkgs.linkFarmFromDrvs "nurpkgs" (builtins.attrValues drvPackages);
+          };
+
           legacyPackages =
             import ./default.nix { inherit pkgs system; }
-            // {
-              inherit treefmt;
-            }
             // lib.optionalAttrs (lib.hasSuffix "-linux" system) {
               inherit (pkgs) nix-installer-static;
             };
-          formatter = treefmt.config.build.wrapper;
         };
 
-      systems = import systems;
+      systems = import inputs.systems;
     });
 }

@@ -14,30 +14,27 @@ let
     };
   };
   callPackage = nixpkgs.lib.callPackageWith (nixpkgs // self);
-  self =
-    rec {
-      hmModules = homeManagerModules;
-      homeManagerModules = import ./modules/home-manager;
-      treefmtModules = import ./modules/treefmt;
-
-      codecov-cli-bin = callPackage ./pkgs/codecov-cli-bin.nix { };
-      git-credential-azure = callPackage ./pkgs/git-credential-azure.nix { };
-      goutline = callPackage ./pkgs/goutline { };
-      kroki = callPackage ./pkgs/kroki.nix { };
-      kroki-cli = callPackage ./pkgs/kroki-cli.nix { };
-      structurizr-cli = callPackage ./pkgs/structurizr-cli.nix { };
-      structurizr-site-generatr = callPackage ./pkgs/structurizr-site-generatr.nix { };
-      update-motd = callPackage ./pkgs/update-motd.nix { };
-      visudo = callPackage ./pkgs/visudo.nix { };
-      yamlfixer = callPackage ./pkgs/yamlfixer.nix { };
-    }
-    // pkgs.lib.optionalAttrs pkgs.stdenvNoCC.isLinux rec {
-      modules = nixosModules;
-      nixosModules = import ./modules/nixos;
-    }
-    // pkgs.lib.optionalAttrs pkgs.stdenvNoCC.isDarwin rec {
-      modules = darwinModules;
-      darwinModules = import ./modules/darwin;
+  self = {
+    modules = {
+      darwin = import ./modules/darwin;
+      flake = import ./modules/flake;
+      home = import ./modules/home-manager;
+      nixos = import ./modules/nixos;
+      treefmt = import ./modules/treefmt;
     };
+
+    overlays = import ./overlays;
+
+    codecov-cli-bin = callPackage ./pkgs/codecov-cli-bin.nix { };
+    git-credential-azure = callPackage ./pkgs/git-credential-azure.nix { };
+    goutline = callPackage ./pkgs/goutline { };
+    kroki = callPackage ./pkgs/kroki.nix { };
+    kroki-cli = callPackage ./pkgs/kroki-cli.nix { };
+    structurizr-cli = callPackage ./pkgs/structurizr-cli.nix { };
+    structurizr-site-generatr = callPackage ./pkgs/structurizr-site-generatr.nix { };
+    update-motd = callPackage ./pkgs/update-motd.nix { };
+    visudo = callPackage ./pkgs/visudo.nix { };
+    yamlfixer = callPackage ./pkgs/yamlfixer.nix { };
+  };
 in
 self

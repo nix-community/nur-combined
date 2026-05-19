@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "yamlfixer";
   version = "0.9.15";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "opt-nc";
     repo = "yamlfixer";
-    rev = version;
+    tag = finalAttrs.version;
     sha256 = "sha256-sZCQ60SP0nGke2Ia9MGJrQVBviQOO4aO8ne51tLJbHs=";
   };
 
@@ -31,4 +31,4 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/opt-nc/yamlfixer";
     maintainers = [ maintainers.wwmoraes ];
   };
-}
+})

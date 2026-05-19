@@ -4,14 +4,14 @@
   lib,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "kroki-cli";
   version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "yuzutech";
-    repo = pname;
-    rev = "v${version}";
+    repo = "kroki-cli";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-KdP06tNeXPOyQB8gRYcxABHrjgzKtmxz2VudpjsofYE=";
   };
 
@@ -28,4 +28,4 @@ buildGoModule rec {
     mainProgram = "kroki";
     maintainers = with maintainers; [ wwmoraes ];
   };
-}
+})

@@ -5,7 +5,7 @@
   darwin ? { },
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "codecov-cli-bin";
   version = "9.0.4";
 
@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     in
     fetchurl {
       inherit hash;
-      url = "https://cli.codecov.io/v${version}/${os}/codecov";
+      url = "https://cli.codecov.io/v${finalAttrs.version}/${os}/codecov";
     };
 
   dontUnpack = true;
@@ -63,4 +63,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/codecov/codecov-cli";
     maintainers = [ maintainers.wwmoraes ];
   };
-}
+})

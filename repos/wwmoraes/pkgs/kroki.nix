@@ -7,12 +7,12 @@
   stdenvNoCC,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kroki";
   version = "0.25.0";
 
   src = fetchurl {
-    url = "https://github.com/yuzutech/kroki/releases/download/v${version}/kroki-standalone-server-v${version}.jar";
+    url = "https://github.com/yuzutech/kroki/releases/download/v${finalAttrs.version}/kroki-standalone-server-v${finalAttrs.version}.jar";
     hash = "sha256-G8BWxunuqRJ+NsLeZ8LWQ0xVoZvgoxwQvgobOjd5tiw=";
   };
 
@@ -41,4 +41,4 @@ stdenvNoCC.mkDerivation rec {
     maintainers = with lib.maintainers; [ wwmoraes ];
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
   };
-}
+})

@@ -5,14 +5,14 @@
   ...
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "goutline";
   version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "1pkg";
-    repo = pname;
-    rev = "v${version}";
+    repo = "goutline";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Cqsl8yWWKTWdVsFILBgucmVxysAuKU587SjEmi7Mrh8=";
   };
 
@@ -27,4 +27,4 @@ buildGoModule rec {
     mainProgram = "goutline";
     maintainers = with maintainers; [ wwmoraes ];
   };
-}
+})

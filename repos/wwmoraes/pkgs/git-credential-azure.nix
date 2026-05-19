@@ -4,14 +4,14 @@
   lib,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "git-credential-azure";
   version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "hickford";
     repo = "git-credential-azure";
-    rev = "refs/tags/v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-/N+KZU89QUc4qEbZwnHjvbdbobvGXZqEekszlDN9AI4=";
   };
 
@@ -30,4 +30,4 @@ buildGoModule rec {
     maintainers = with maintainers; [ wwmoraes ];
     platforms = platforms.all;
   };
-}
+})
