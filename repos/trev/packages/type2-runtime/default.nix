@@ -21,7 +21,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "type2-runtime";
-  version = "continuous-unstable-2026-03-07";
+  version = "20251108-unstable-2026-03-07";
 
   src = fetchFromGitHub {
     owner = "AppImage";
