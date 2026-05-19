@@ -15,7 +15,6 @@ let
     optionalString
     ;
   inherit (builtins) elem;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   inherit (config.lib.catppuccin) toTitleCase;
   cfg = config.abszero.themes.catppuccin;
   ctpCfg = config.catppuccin;
@@ -45,7 +44,7 @@ in
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
   options.abszero.themes.catppuccin.gtk = {
-    enable = mkExternalEnableOption config "magnetic-catppuccin-gtk theme";
+    enable = mkEnableOption "magnetic-catppuccin-gtk theme";
 
     gnomeShellTheme = mkEnableOption "Whether to use the gnome shell theme.";
 

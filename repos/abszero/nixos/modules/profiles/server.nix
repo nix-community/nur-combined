@@ -7,15 +7,14 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.profiles.server;
 in
 
 {
   imports = [ ./base.nix ];
 
-  options.abszero.profiles.server.enable = mkExternalEnableOption config "server profile";
+  options.abszero.profiles.server.enable = mkEnableOption "server profile";
 
   config = mkIf cfg.enable {
     abszero = {
@@ -23,7 +22,7 @@ in
       services.openssh.enable = true;
     };
 
-    # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-server;
+    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-server;
 
     # UTC is the default but we explicitly set it to disallow imperative changing.
     time.timeZone = "UTC";

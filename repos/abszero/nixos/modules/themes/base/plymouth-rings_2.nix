@@ -6,16 +6,13 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.base.plymouth;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
   options.abszero.themes.base.plymouth.rings_2 =
-    mkExternalEnableOption config "rings_2 plymouth theme from plymouth-themes";
+    mkEnableOption "rings_2 plymouth theme from plymouth-themes";
 
   config.boot.plymouth = mkIf cfg.rings_2 {
     enable = true;

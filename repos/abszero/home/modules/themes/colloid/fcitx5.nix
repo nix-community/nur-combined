@@ -1,15 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.colloid.fcitx5;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.themes.colloid.fcitx5.enable = mkExternalEnableOption config "colloid fcitx5 theme";
+  options.abszero.themes.colloid.fcitx5.enable = mkEnableOption "colloid fcitx5 theme";
 
   config.xdg.configFile."fcitx5/conf/classicui.conf".text = mkIf cfg.enable ''
     Theme=plasma

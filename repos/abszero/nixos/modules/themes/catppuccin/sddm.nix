@@ -1,8 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.catppuccin;
 in
 
@@ -13,7 +12,7 @@ in
   ];
 
   options.abszero.themes.catppuccin.sddm.enable =
-    mkExternalEnableOption config "catppuccin sddm theme. Complementary to catppuccin/nix";
+    mkEnableOption "catppuccin sddm theme. Complementary to catppuccin/nix";
 
   config = mkIf cfg.sddm.enable {
     abszero.themes.catppuccin = {

@@ -2,9 +2,8 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf singleton;
+  inherit (lib) mkEnableOption mkIf singleton;
   inherit (lib.generators) toINI;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.hardware.xiaomi-redmibook-16-pro-2024;
 
   keyboardCfg = {
@@ -67,12 +66,9 @@ let
 in
 
 {
-  imports = [
-    ../../../lib/modules/config/abszero.nix
-    ../services/hardware/kanata.nix
-  ];
+  imports = [ ../services/hardware/kanata.nix ];
 
-  options.abszero.hardware.xiaomi-redmibook-16-pro-2024.enable = mkExternalEnableOption config ''
+  options.abszero.hardware.xiaomi-redmibook-16-pro-2024.enable = mkEnableOption ''
     Xiaomi Redmibook 16 Pro 2024 configuration complementary to
     `inputs.nixos-hardware.nixosModules.xiaomi-redmibook-16-pro-2024`. Due to
     the nixos-hardware module being effective on import, it's not imported by

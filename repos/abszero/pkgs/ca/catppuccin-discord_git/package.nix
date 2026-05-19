@@ -2,9 +2,10 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  mkYarnModules,
+  fetchYarnDeps,
+  yarnConfigHook,
+  yarnBuildHook,
   nodejs,
-  yarn,
   themes0 ? [ ],
 }:
 
@@ -32,31 +33,16 @@ stdenv.mkDerivation (final: {
     hash = "sha256-rxvHIifq5CYIBPwFA2SpOrWT+sG/z0ItXT3sx2wbEqg=";
   };
 
-  nodeModules = mkYarnModules {
-    pname = "${final.pname}-node-modules";
-    version = final.version;
-
-    packageJSON = final.src + "/package.json";
+  yarnOfflineCache = fetchYarnDeps {
     yarnLock = final.src + "/yarn.lock";
+    hash = "sha256-BhE3aKyA/LBErjWx+lbEVb/CIXhqHkXbV+9U2djIBhs=";
   };
 
   nativeBuildInputs = [
+    yarnConfigHook
+    yarnBuildHook
     nodejs
-    yarn
   ];
-
-  buildPhase = ''
-    runHook preBuild
-
-    export HOME=$(mktemp -d)
-    ln -s "$nodeModules/node_modules" node_modules
-    yarn --offline release
-
-    runHook postBuild
-  '';
-
-  # Stop yarn from trying to build a binary in distPhase
-  distPhase = "true";
 
   installPhase = ''
     runHook preInstall

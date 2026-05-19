@@ -6,12 +6,12 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-teacache";
-  version = "0-unstable-2025-08-21";
+  version = "0-unstable-2026-03-08";
 
   src = fetchFromGitHub {
-    owner = "chenpipi0807";
+    owner = "choovin";
     repo = "ComfyUI-TeaCache";
-    rev = "c981a119454a2bd7fb13d9fbabac6377f3ceb2b0";
+    rev = "b437dd97b656e5f091b16e4d6a84194d2f5d6734";
     hash = "sha256-ImOSAS8rnCGETJUIHFex1nBstHuDnjr+Z3l1znRXNvU=";
   };
 
@@ -31,8 +31,8 @@ stdenvNoCC.mkDerivation (final: {
   '';
 
   meta = {
-    description = "TeaCache integration for ComfyUI (fork with qwen-image support)";
-    homepage = "https://github.com/chenpipi0807/ComfyUI-TeaCache";
+    description = "TeaCache integration for ComfyUI (fork with fixes for latest version)";
+    homepage = "https://github.com/choovin/ComfyUI-TeaCache";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ weathercold ];
   };

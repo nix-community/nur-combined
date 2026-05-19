@@ -7,19 +7,17 @@
 
 let
   inherit (lib)
+    mkEnableOption
     mkDefault
     mkIf
     const
     genAttrs
     ;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.profiles.base;
 in
 
 {
-  imports = [ ../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.profiles.base.enable = mkExternalEnableOption config "base profile";
+  options.abszero.profiles.base.enable = mkEnableOption "base profile";
 
   config = mkIf cfg.enable {
     abszero.boot.quiet = true;

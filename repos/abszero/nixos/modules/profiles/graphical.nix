@@ -7,15 +7,14 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.profiles.graphical;
 in
 
 {
   imports = [ ./base.nix ];
 
-  options.abszero.profiles.graphical.enable = mkExternalEnableOption config "graphical profile";
+  options.abszero.profiles.graphical.enable = mkEnableOption "graphical profile";
 
   config = mkIf cfg.enable {
     abszero = {
@@ -90,7 +89,7 @@ in
       resolved = {
         enable = true;
         settings.Resolve = {
-          FallbackDNS = []; # Disable fallback DNS
+          FallbackDNS = [ ]; # Disable fallback DNS
           DNSOverTLS = "true";
           DNSSEC = "true";
           LLMNR = "false"; # For security

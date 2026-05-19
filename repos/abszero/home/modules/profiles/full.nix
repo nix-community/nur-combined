@@ -1,15 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkDefault mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkDefault mkIf;
   cfg = config.abszero.profiles.full;
 in
 
 {
   imports = [ ./base.nix ];
 
-  options.abszero.profiles.full.enable = mkExternalEnableOption config "full profile";
+  options.abszero.profiles.full.enable = mkEnableOption "full profile";
 
   config = mkIf cfg.enable {
     abszero = {

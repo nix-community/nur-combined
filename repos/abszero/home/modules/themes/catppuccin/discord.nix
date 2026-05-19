@@ -6,9 +6,8 @@
 }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkEnableOption mkIf;
   inherit (builtins) readFile;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.themes.catppuccin;
   ctpCfg = config.catppuccin;
 
@@ -29,8 +28,7 @@ in
 {
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
-  options.abszero.themes.catppuccin.discord.enable =
-    mkExternalEnableOption config "catppuccin discord theme";
+  options.abszero.themes.catppuccin.discord.enable = mkEnableOption "catppuccin discord theme";
 
   config = mkIf cfg.discord.enable {
     abszero.themes.catppuccin.enable = true;

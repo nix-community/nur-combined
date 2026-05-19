@@ -1,9 +1,8 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkEnableOption mkIf;
   inherit (lib.generators) toINIWithGlobalSection mkKeyValueDefault mkValueStringDefault;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.themes.catppuccin;
   ctpCfg = config.catppuccin;
 in
@@ -15,7 +14,7 @@ in
   ];
 
   options.abszero.themes.catppuccin.fcitx5.enable =
-    mkExternalEnableOption config "catppuccin fcitx5 theme. Complementary to catppuccin/nix";
+    mkEnableOption "catppuccin fcitx5 theme. Complementary to catppuccin/nix";
 
   # We don't enable catppuccin.fcitx.enable because we use the NixOS module
   config = mkIf cfg.fcitx5.enable {

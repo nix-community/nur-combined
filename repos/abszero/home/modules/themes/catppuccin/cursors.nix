@@ -2,7 +2,6 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.themes.catppuccin;
 in
 
@@ -13,7 +12,7 @@ in
   ];
 
   options.abszero.themes.catppuccin.cursors = {
-    enable = mkExternalEnableOption config "catppuccin cursor theme. Complementary to catppuccin/nix";
+    enable = mkEnableOption "catppuccin cursor theme. Complementary to catppuccin/nix";
     monochromeAccent = mkEnableOption "using polarity for accent";
   };
 

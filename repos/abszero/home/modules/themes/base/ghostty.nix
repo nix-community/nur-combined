@@ -1,15 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.base.ghostty;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.themes.base.ghostty.enable = mkExternalEnableOption config "base ghostty theme";
+  options.abszero.themes.base.ghostty.enable = mkEnableOption "base ghostty theme";
 
   config.programs.ghostty.settings = mkIf cfg.enable {
     window-padding-x = 8;

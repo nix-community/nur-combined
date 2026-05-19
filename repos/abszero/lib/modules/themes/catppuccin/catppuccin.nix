@@ -5,21 +5,19 @@
 let
   inherit (lib)
     types
+    mkEnableOption
     mkOption
     mkDefault
     mkIf
     toUpper
     ;
   inherit (builtins) substring;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.themes.catppuccin;
 in
 
 {
-  imports = [ ../../config/abszero.nix ];
-
   options.abszero.themes.catppuccin = {
-    enable = mkExternalEnableOption config "configuration for catppuccin/nix";
+    enable = mkEnableOption "configuration for catppuccin/nix";
 
     polarity = mkOption {
       type = types.enum [

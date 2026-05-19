@@ -6,18 +6,15 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.catppuccin;
 in
 
 {
-  imports = [
-    ../../../../lib/modules/themes/catppuccin/catppuccin.nix
-  ];
+  imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
   options.abszero.themes.catppuccin.plymouth.enable =
-    mkExternalEnableOption config "catppuccin plymouth theme. Complementary to catppuccin/nix";
+    mkEnableOption "catppuccin plymouth theme. Complementary to catppuccin/nix";
 
   config = mkIf cfg.plymouth.enable {
     abszero.themes.catppuccin.enable = true;

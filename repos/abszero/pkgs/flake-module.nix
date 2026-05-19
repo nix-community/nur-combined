@@ -13,7 +13,7 @@ in
         name = "all-packages";
         buildInputs = filter (pkg: pkg ? meta.broken -> !pkg.meta.broken) (attrValues packages);
         dontUnpack = true;
-        installPhase = ''mkdir -p $out'';
+        installPhase = "mkdir -p $out";
       };
       packages = import ./. { inherit pkgs; };
     };

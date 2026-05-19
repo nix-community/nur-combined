@@ -6,8 +6,7 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.catppuccin;
   ctpCfg = config.catppuccin;
 
@@ -23,8 +22,7 @@ in
     ../../services/desktop-managers/plasma6.nix
   ];
 
-  options.abszero.themes.catppuccin.plasma6.enable =
-    mkExternalEnableOption config "catppuccin plasma 6 theme";
+  options.abszero.themes.catppuccin.plasma6.enable = mkEnableOption "catppuccin plasma 6 theme";
 
   config = mkIf cfg.plasma6.enable {
     abszero = {

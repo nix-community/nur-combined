@@ -7,7 +7,6 @@ let
     mkMerge
     singleton
     ;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.themes.catppuccin;
   ctpCfg = config.catppuccin;
 
@@ -18,7 +17,7 @@ in
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
   options.abszero.themes.catppuccin.niri = {
-    enable = mkExternalEnableOption config "catppuccin niri theme";
+    enable = mkEnableOption "catppuccin niri theme";
     enableCompactLayout = mkEnableOption "compact layout designed for tablets and small laptops";
   };
 

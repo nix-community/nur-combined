@@ -7,12 +7,12 @@
 
 let
   inherit (lib)
+    mkEnableOption
     mkPackageOption
     mkMerge
     mkBefore
     mkIf
     ;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.themes.colloid.firefox;
   firefoxCfg = config.abszero.programs.firefox;
 
@@ -21,7 +21,7 @@ in
 
 {
   options.abszero.themes.colloid.firefox = {
-    enable = mkExternalEnableOption config "colloid firefox theme";
+    enable = mkEnableOption "colloid firefox theme";
     package = mkPackageOption pkgs "colloid-gtk-theme" { };
   };
 

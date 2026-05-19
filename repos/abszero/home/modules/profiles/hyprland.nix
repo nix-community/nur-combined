@@ -6,15 +6,14 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.profiles.hyprland;
 in
 
 {
   imports = [ ./full.nix ];
 
-  options.abszero.profiles.hyprland.enable = mkExternalEnableOption config "hyprland profile";
+  options.abszero.profiles.hyprland.enable = mkEnableOption "hyprland profile";
 
   config = mkIf cfg.enable {
     abszero = {

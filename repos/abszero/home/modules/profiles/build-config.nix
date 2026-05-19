@@ -7,16 +7,14 @@
 }:
 
 let
-  inherit (lib) mkIf optionalAttrs;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf optionalAttrs;
   cfg = config.abszero.profiles.buildConfig;
 in
 
 {
   imports = [ ./base.nix ];
 
-  options.abszero.profiles.buildConfig.enable =
-    mkExternalEnableOption config "profile that disables every package";
+  options.abszero.profiles.buildConfig.enable = mkEnableOption "profile that disables every package";
 
   config = mkIf cfg.enable {
     abszero.profiles.base.enable = true;

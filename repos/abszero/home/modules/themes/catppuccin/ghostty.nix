@@ -1,8 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkForce;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.abszero.themes.catppuccin;
 in
 
@@ -13,8 +12,7 @@ in
     ./fonts.nix
   ];
 
-  options.abszero.themes.catppuccin.ghostty.enable =
-    mkExternalEnableOption config "Ghostty terminal emulator";
+  options.abszero.themes.catppuccin.ghostty.enable = mkEnableOption "Ghostty terminal emulator";
 
   config = mkIf cfg.ghostty.enable {
     abszero.themes = {

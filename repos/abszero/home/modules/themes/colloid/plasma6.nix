@@ -6,16 +6,12 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.colloid.plasma6;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.themes.colloid.plasma6.enable =
-    mkExternalEnableOption config "colloid plasma 6 theme";
+  options.abszero.themes.colloid.plasma6.enable = mkEnableOption "colloid plasma 6 theme";
 
   config.home.packages =
     with pkgs;

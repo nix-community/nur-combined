@@ -6,16 +6,12 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.colloid.fonts;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.themes.colloid.fonts.enable =
-    mkExternalEnableOption config "fonts to use with colloid theme";
+  options.abszero.themes.colloid.fonts.enable = mkEnableOption "fonts to use with colloid theme";
 
   config = mkIf cfg.enable {
     fonts.fontconfig.enable = true;

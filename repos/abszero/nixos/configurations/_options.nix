@@ -58,6 +58,7 @@ in
           inherit inputs;
         };
         modules = flatten [
+          inputs.charmbracelet.nixosModules.crush
           inputs.disko.nixosModules.disko
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nixified-ai.nixosModules.comfyui
@@ -67,7 +68,6 @@ in
           (toModuleList ../modules)
           c.modules
           {
-            abszero.enableExternalModulesByDefault = false;
             nixpkgs.overlays = [
               (_: prev: import ../../pkgs { pkgs = prev; })
               inputs.nix-cachyos-kernel.overlays.default

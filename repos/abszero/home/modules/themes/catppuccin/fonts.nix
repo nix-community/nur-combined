@@ -6,16 +6,13 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.catppuccin;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
   options.abszero.themes.catppuccin.fonts.enable =
-    mkExternalEnableOption config "fonts to use with catppuccin theme";
+    mkEnableOption "fonts to use with catppuccin theme";
 
   config = mkIf cfg.fonts.enable {
     fonts.fontconfig = {

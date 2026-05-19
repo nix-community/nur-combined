@@ -2,8 +2,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.hardware.dell-inspiron-7405;
 
   keyboardCfg = {
@@ -76,12 +75,9 @@ let
 in
 
 {
-  imports = [
-    ../../../lib/modules/config/abszero.nix
-    ../services/hardware/kanata.nix
-  ];
+  imports = [ ../services/hardware/kanata.nix ];
 
-  options.abszero.hardware.dell-inspiron-7405.enable = mkExternalEnableOption config ''
+  options.abszero.hardware.dell-inspiron-7405.enable = mkEnableOption ''
     Dell Inspiron 7405 configuration complementary to
     `inputs.nixos-hardware.nixosModules.dell-inspiron-7405`. Due to the
     nixos-hardware module being effective on import, it is not imported by this

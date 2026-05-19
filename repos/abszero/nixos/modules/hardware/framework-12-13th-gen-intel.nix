@@ -6,8 +6,12 @@
 }:
 
 let
-  inherit (lib) mkIf mkDefault optionalAttrs;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkDefault
+    optionalAttrs
+    ;
   cfg = config.abszero.hardware.framework-12-13th-gen-intel;
 
   keyboardCfg = {
@@ -70,12 +74,9 @@ let
 in
 
 {
-  imports = [
-    ../../../lib/modules/config/abszero.nix
-    ../services/hardware/kanata.nix
-  ];
+  imports = [ ../services/hardware/kanata.nix ];
 
-  options.abszero.hardware.framework-12-13th-gen-intel.enable = mkExternalEnableOption config ''
+  options.abszero.hardware.framework-12-13th-gen-intel.enable = mkEnableOption ''
     Framework laptop 12 13th gen Intel configuration complementary to
     `inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel`. Due to the nixos-hardware
     module being effective on import, it's not imported by this module; you have to import them

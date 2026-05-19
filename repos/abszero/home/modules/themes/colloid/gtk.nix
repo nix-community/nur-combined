@@ -6,15 +6,12 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.colloid.gtk;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.themes.colloid.gtk.enable = mkExternalEnableOption config "colloid gtk theme";
+  options.abszero.themes.colloid.gtk.enable = mkEnableOption "colloid gtk theme";
 
   config.gtk = mkIf cfg.enable {
     theme = {

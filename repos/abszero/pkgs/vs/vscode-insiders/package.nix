@@ -24,11 +24,11 @@ let
 
   sha256 =
     {
-      x86_64-linux = "1sjbwvrx7bpsiwszshkd52yh8r39xnqjay723lbh2ala23hj089z";
-      x86_64-darwin = "1r3rl6i5hmhy4wk9h3pfip23g9vrj90mlzghqmfjh03306iw43fw";
-      aarch64-linux = "0sr0cwmvvxy7fwjpdlx1zpy0hr7bqap9hpv4j0vgmy4khb83dvia";
-      aarch64-darwin = "0yvq23z5lyhk877mff89igxi88wkh0q42aiizhfx5yfr4sci2v0m";
-      armv7l-linux = "049c8q27r5nq4j6r3k1amlfrb52l92cl3djgdx42snmzg7mhncf1";
+      x86_64-linux = "1rjbyz7vmbzqh0ngpax4gmhafm4gpy5lnj554lds6p5nqx799r1r";
+      x86_64-darwin = "0m38lc2zr8sp6p5cqmlb8d4jn20rph1hnnzmy16s2b53mdinp3vj";
+      aarch64-linux = "02nb4dda7vfspww971ih9r28ydgrmnabpdricq1ymq0cy1rzai5d";
+      aarch64-darwin = "0rd4b3rixd4kk1z4f4kl83jgvwzjwz7k94w10qh6cdq6qnfah4hv";
+      armv7l-linux = "199a9spw7ffk2axki88pwa384vc02sgh70vqf4gazs15nfqwklpl";
     }
     .${system} or throwSystem;
 in
@@ -50,7 +50,7 @@ buildVscode rec {
   };
   sourceRoot = "";
 
-  tests = {};
+  tests = { };
 
   meta = with lib; {
     description = ''

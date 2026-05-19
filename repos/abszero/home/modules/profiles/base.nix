@@ -1,15 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkDefault;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf mkDefault;
   cfg = config.abszero.profiles.base;
 in
 
 {
-  imports = [ ../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.profiles.base.enable = mkExternalEnableOption config "base profile";
+  options.abszero.profiles.base.enable = mkEnableOption "base profile";
 
   config = mkIf cfg.enable {
     nixpkgs.config.allowUnfree = true;

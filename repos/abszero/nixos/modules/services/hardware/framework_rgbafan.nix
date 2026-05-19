@@ -9,22 +9,20 @@ let
   inherit (builtins) concatStringsSep length;
   inherit (lib)
     types
+    mkEnableOption
     mkPackageOption
     mkOption
     mkIf
     singleton
     getExe
     ;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.services.hardware.framework_rgbafan;
   package = cfg.package.override { inherit (cfg) nLeds; };
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
   options.abszero.services.hardware.framework_rgbafan = {
-    enable = mkExternalEnableOption config "simple tool to animate the fan on Framework Desktop";
+    enable = mkEnableOption "simple tool to animate the fan on Framework Desktop";
     package = mkPackageOption pkgs "framework_rgbafan" { };
     mode = mkOption {
       type = types.enum [

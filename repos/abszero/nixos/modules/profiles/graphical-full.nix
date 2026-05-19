@@ -7,16 +7,14 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.profiles.graphical-full;
 in
 
 {
   imports = [ ./graphical.nix ];
 
-  options.abszero.profiles.graphical-full.enable =
-    mkExternalEnableOption config "graphical-full profile";
+  options.abszero.profiles.graphical-full.enable = mkEnableOption "graphical-full profile";
 
   config = mkIf cfg.enable {
     abszero = {

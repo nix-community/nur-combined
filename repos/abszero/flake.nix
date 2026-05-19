@@ -45,6 +45,10 @@
         home-manager.follows = "home-manager";
       };
     };
+    charmbracelet = {
+      url = "github:charmbracelet/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # bocchi-cursors = {
     #   url = "github:Weathercold/Bocchi-Cursors";
     #   inputs = {

@@ -6,8 +6,12 @@
 }:
 
 let
-  inherit (lib) types mkOption mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib)
+    types
+    mkEnableOption
+    mkOption
+    mkIf
+    ;
   cfg = config.abszero.services.xray;
 
   presets = [
@@ -18,10 +22,10 @@ let
 in
 
 {
-  imports = map (s: ./${s}.nix) presets ++ [ ../../../../../lib/modules/config/abszero.nix ];
+  imports = map (s: ./${s}.nix) presets;
 
   options.abszero.services.xray = {
-    enable = mkExternalEnableOption config "anti-censorship platform";
+    enable = mkEnableOption "anti-censorship platform";
     preset = mkOption {
       type = types.enum presets;
       description = "The config preset to use";

@@ -53,7 +53,7 @@ buildVscode rec {
   };
   inherit sourceRoot;
 
-  tests = {};
+  tests = { };
 
   meta = with lib; {
     description = ''

@@ -6,15 +6,14 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.profiles.niri;
 in
 
 {
   imports = [ ./full.nix ];
 
-  options.abszero.profiles.niri.enable = mkExternalEnableOption config "niri profile";
+  options.abszero.profiles.niri.enable = mkEnableOption "niri profile";
 
   config = mkIf cfg.enable {
     abszero = {

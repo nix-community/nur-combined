@@ -2,8 +2,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.hardware.keyboard.halo65;
 
   keyboardCfg = {
@@ -60,13 +59,9 @@ let
 in
 
 {
-  imports = [
-    ../../../../lib/modules/config/abszero.nix
-    ../../services/hardware/kanata.nix
-  ];
+  imports = [ ../../services/hardware/kanata.nix ];
 
-  options.abszero.hardware.keyboard.halo65.enable =
-    mkExternalEnableOption config "halo65 configuration";
+  options.abszero.hardware.keyboard.halo65.enable = mkEnableOption "halo65 configuration";
 
   config = mkIf cfg.enable {
     abszero.services.kanata.enable = true;

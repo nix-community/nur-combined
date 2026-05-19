@@ -1,8 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.catppuccin;
 in
 
@@ -14,7 +13,7 @@ in
   ];
 
   options.abszero.themes.catppuccin.foot.enable =
-    mkExternalEnableOption config "catppuccin foot theme. Complementary to catppuccin/nix";
+    mkEnableOption "catppuccin foot theme. Complementary to catppuccin/nix";
 
   config = mkIf cfg.foot.enable {
     abszero.themes = {

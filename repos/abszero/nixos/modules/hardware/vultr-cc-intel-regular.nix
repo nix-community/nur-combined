@@ -1,15 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.hardware.vultr-cc-intel-regular;
 in
 
 {
-  imports = [ ../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.hardware.vultr-cc-intel-regular.enable = mkExternalEnableOption config ''
+  options.abszero.hardware.vultr-cc-intel-regular.enable = mkEnableOption ''
     Vultr Cloud Compute - Intel - Regular Performance configuration complementary
     to `inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only`. Due to
     the nixos-hardware module being effective on import, it is not imported by

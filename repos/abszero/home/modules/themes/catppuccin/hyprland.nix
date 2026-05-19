@@ -1,16 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.catppuccin;
 in
 
 {
   imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
-  options.abszero.themes.catppuccin.hyprland.enable =
-    mkExternalEnableOption config "catppuccin hyprland theme";
+  options.abszero.themes.catppuccin.hyprland.enable = mkEnableOption "catppuccin hyprland theme";
 
   config = mkIf cfg.hyprland.enable {
     abszero.themes.catppuccin.enable = true;

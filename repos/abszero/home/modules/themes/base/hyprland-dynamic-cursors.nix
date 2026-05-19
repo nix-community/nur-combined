@@ -6,16 +6,12 @@
 }:
 
 let
-  inherit (lib) mkIf;
-  inherit (lib.abszero.modules) mkExternalEnableOption;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.base.hyprland.dynamicCursors;
 in
 
 {
-  imports = [ ../../../../lib/modules/config/abszero.nix ];
-
-  options.abszero.themes.base.hyprland.dynamicCursors.enable =
-    mkExternalEnableOption config "hypr-dynamic-cursors";
+  options.abszero.themes.base.hyprland.dynamicCursors.enable = mkEnableOption "hypr-dynamic-cursors";
 
   config.wayland.windowManager.hyprland = mkIf cfg.enable {
     plugins = with pkgs.hyprlandPlugins; [ hypr-dynamic-cursors ];

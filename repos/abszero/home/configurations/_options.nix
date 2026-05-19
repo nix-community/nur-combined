@@ -77,7 +77,6 @@ in
           (toModuleList ../modules)
           c.modules
           {
-            abszero.enableExternalModulesByDefault = false;
             nixpkgs.overlays = [
               (_: prev: import ../../pkgs { pkgs = prev; })
               inputs.niri.overlays.niri

@@ -32,6 +32,10 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    charmbracelet = {
+      url = "github:charmbracelet/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Utils
     flake-parts = {
