@@ -76,6 +76,10 @@ cargo_lock = ["src-tauri/Cargo.lock"]
 fetch.github = "AnInsomniacy/motrix-next"
 src.github_tag = "AnInsomniacy/motrix-next"
 
+[ntfsprogs-plus]
+fetch.github = "ntfsprogs-plus/ntfsprogs-plus"
+src.git = "https://github.com/ntfsprogs-plus/ntfsprogs-plus"
+
 [piliplus]
 extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"

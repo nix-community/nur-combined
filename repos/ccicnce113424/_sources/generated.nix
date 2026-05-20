@@ -221,6 +221,18 @@
       };
     };
   };
+  ntfsprogs-plus = {
+    pname = "ntfsprogs-plus";
+    version = "53943daef955cc2a4a405c8e37c62478e4272fec";
+    src = fetchFromGitHub {
+      owner = "ntfsprogs-plus";
+      repo = "ntfsprogs-plus";
+      rev = "53943daef955cc2a4a405c8e37c62478e4272fec";
+      fetchSubmodules = false;
+      sha256 = "sha256-IYo8J5bxzDYvJ1sF0nG2F6r+oDHsep0oLroNKH77JrQ=";
+    };
+    date = "2026-05-07";
+  };
   piliplus = {
     pname = "piliplus";
     version = "2.0.7.2";

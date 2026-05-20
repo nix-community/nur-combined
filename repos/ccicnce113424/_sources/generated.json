@@ -351,6 +351,27 @@
         },
         "version": "v3.9.0-beta.2"
     },
+    "ntfsprogs-plus": {
+        "cargoLock": null,
+        "date": "2026-05-07",
+        "extract": null,
+        "name": "ntfsprogs-plus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ntfsprogs-plus",
+            "repo": "ntfsprogs-plus",
+            "rev": "53943daef955cc2a4a405c8e37c62478e4272fec",
+            "sha256": "sha256-IYo8J5bxzDYvJ1sF0nG2F6r+oDHsep0oLroNKH77JrQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "53943daef955cc2a4a405c8e37c62478e4272fec"
+    },
     "piliplus": {
         "cargoLock": null,
         "date": null,

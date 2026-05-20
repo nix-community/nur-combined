@@ -5,7 +5,7 @@
 let
   fetchedSrc = pkgs.callPackage ../_sources/generated.nix { };
   stableVersion = src: lib.removePrefix "v" src.version;
-  unstableVersion = src: "0-unstable-${src.date}";
+  unstableVersion = src: ver: "${toString ver}-unstable-${src.date}";
 in
 lib.makeScope pkgs.newScope (self: {
   algermusicplayer = self.callPackage ./algermusicplayer { inherit fetchedSrc; };
@@ -44,7 +44,7 @@ lib.makeScope pkgs.newScope (self: {
     pkgs.xz.overrideAttrs (
       _final: prev: {
         pname = "fxz";
-        version = unstableVersion sources;
+        version = unstableVersion sources 0;
         inherit (sources) src;
         postPatch = null;
         nativeBuildInputs = [ pkgs.autoreconfHook ];
@@ -74,7 +74,7 @@ lib.makeScope pkgs.newScope (self: {
 
   krunner-fd-plugin = self.callPackage ./krunner-fd-plugin rec {
     sources = fetchedSrc.krunner-fd-plugin;
-    version = unstableVersion sources;
+    version = unstableVersion sources 0;
   };
 
   krunner-zed = self.callPackage ./krunner-zed rec {
@@ -96,7 +96,7 @@ lib.makeScope pkgs.newScope (self: {
   lumine = self.callPackage ./lumine rec {
     inherit (lib.importJSON ./lumine/src-info.json) hash;
     sources = fetchedSrc.lumine;
-    version = unstableVersion sources;
+    version = unstableVersion sources 0;
   };
 
   lxgw-wenkai-gb = self.callPackage ./lxgw-wenkai-gb rec {
@@ -116,6 +116,10 @@ lib.makeScope pkgs.newScope (self: {
     version = stableVersion sources;
   };
 
+  ntfsprogs-plus = self.callPackage ./ntfsprogs-plus {
+    sources = fetchedSrc.ntfsprogs-plus;
+  };
+
   piliplus = self.callPackage ./piliplus rec {
     sources = fetchedSrc.piliplus;
     inherit (sources) version;
@@ -129,21 +133,20 @@ lib.makeScope pkgs.newScope (self: {
   };
   pixes-git = self.callPackage ./pixes rec {
     sources = fetchedSrc.pixes-git;
-    version = unstableVersion sources;
+    version = unstableVersion sources self.pixes.version;
     srcInfo = lib.importJSON ./pixes/git/src-info.json;
   };
 
   pwasio = self.callPackage ./pwasio rec {
     sources = fetchedSrc.pwasio;
-    version = unstableVersion sources;
+    version = unstableVersion sources 0;
   };
 
   shijima-qt = self.callPackage ./shijima-qt { };
 
-  splayer-git = self.callPackage ./splayer-git rec {
+  splayer-git = self.callPackage ./splayer-git {
     inherit (lib.importJSON ./splayer-git/src-info.json) hash;
     sources = fetchedSrc.splayer-git;
-    version = unstableVersion sources;
   };
 
   splayer-kde-bar-lyc = self.callPackage ./splayer-kde-bar-lyc {
@@ -153,7 +156,7 @@ lib.makeScope pkgs.newScope (self: {
   splayer-next-dev = self.callPackage ./splayer-next-dev rec {
     inherit (lib.importJSON ./splayer-next-dev/src-info.json) hash;
     sources = fetchedSrc.splayer-next-dev;
-    version = unstableVersion sources;
+    version = unstableVersion sources 0;
   };
 
   svt-av1-essential = self.callPackage ./svt-av1-essential rec {
@@ -175,10 +178,10 @@ lib.makeScope pkgs.newScope (self: {
     let
       sources = fetchedSrc.uosc-danmaku-git;
     in
-    pkgs.mpvScripts.uosc-danmaku.overrideAttrs {
+    pkgs.mpvScripts.uosc-danmaku.overrideAttrs (prev: {
       inherit (sources) src;
-      version = unstableVersion sources;
-    };
+      version = unstableVersion sources prev.version;
+    });
 
   wild-reader = self.callPackage ./wild-reader rec {
     sources = fetchedSrc.wild;

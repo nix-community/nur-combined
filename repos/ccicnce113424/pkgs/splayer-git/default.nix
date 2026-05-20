@@ -1,6 +1,5 @@
 {
   sources,
-  version,
   hash,
   pnpm_10,
   fetchPnpmDeps,
@@ -11,9 +10,9 @@ let
   splayer = callPackage ./package.nix { };
 in
 splayer.overrideAttrs (
-  final: _prev: {
+  final: prev: {
     inherit (sources) pname src;
-    inherit version;
+    version = "${prev.version}-unstable-${sources.date}";
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
       inherit hash;
