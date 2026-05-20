@@ -5,7 +5,7 @@
     scripts = with pkgs.mpvScripts; [
       autoload
       chapterskip
-      mpv-cheatsheet
+      mpv-cheatsheet-ng
       thumbfast
       uosc
     ];

@@ -25,6 +25,7 @@ gestures {
 
 spawn-at-startup "bash" "-c" "swaybg -i $XDG_DATA_HOME/backgrounds/nixos/nix-wallpaper-dracula.png"
 spawn-at-startup "niriswitcher"
+spawn-at-startup "qbittorrent"
 
 window-rule {
     match app-id=r#"^scrcpy-mask$"#

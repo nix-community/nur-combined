@@ -30,10 +30,8 @@
 
   nix.nixPath = [
     "nixpkgs=${inputs.nixpkgs}"
-    "nixpkgs-unstable=${inputs.nixpkgs-unstable}"
   ];
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
-  nix.registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -45,10 +43,8 @@
   programs.ccache = {
     enable = true;
     cacheDir = "/nix/var/cache/ccache";
-    packageNames = [
-      "llama-cpp"
-    ];
+    packageNames = [ ];
   };
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

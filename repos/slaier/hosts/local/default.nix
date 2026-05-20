@@ -38,21 +38,20 @@
     "net.ipv4.route.flush" = 1;
   };
 
-  documentation.man.generateCaches = false;
+  documentation.man.cache.enable = false;
 
   nix.settings = {
-    cores = 11;
     keep-outputs = true;
   };
   services.earlyoom.enable = true;
 
   services.speechd.enable = false;
 
-  programs.adb.enable = true;
   programs.nix-ld.enable = true;
   environment.systemPackages = with pkgs; [
     # dailyuse
     abiword
+    ariang
     gnumeric
     kodi-wayland
     localsend
@@ -69,6 +68,7 @@
     filezilla
     freerdp
     # cli
+    android-tools
     axel
     bottom
     cloudflared

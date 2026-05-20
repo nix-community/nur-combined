@@ -15,7 +15,7 @@ jobs:
       - name: Set up Nix
         uses: ./.github/actions/setup_nix
         with:
-          channel: nixos-25.11
+          channel: nixos-unstable
           cachix_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Check system
         uses: ./.github/actions/check_system

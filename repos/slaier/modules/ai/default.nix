@@ -1,8 +1,12 @@
-{ config, lib, pkgs, utils, inputs, ... }:
+{ config, lib, pkgs, utils, ... }:
 {
   services.litellm = {
     enable = true;
-    package = pkgs.litellmUnstable;
+    package = pkgs.litellm.overrideAttrs (prev: {
+      propagatedBuildInputs = prev.propagatedBuildInputs ++ [
+        pkgs.python3Packages.diskcache
+      ];
+    });
     port = 4000;
     environmentFile = config.sops.secrets.litellm.path;
     settings = {
@@ -58,9 +62,28 @@
             tpm = 30000;
           };
         }
+        {
+          model_name = "mimo-v2.5-pro";
+          litellm_params = {
+            model = "xiaomi_mimo/mimo-v2.5-pro";
+            api_base = "os.environ/XIAOMI_MIMO_API_BASE";
+            api_key = "os.environ/XIAOMI_MIMO_API_KEY";
+            rpm = 100;
+            tpm = 10000000;
+          };
+        }
       ];
+      litellm_settings = {
+        cache = true;
+        cache_params = {
+          type = "disk";
+          disk_cache_dir = "/var/cache/litellm";
+        };
+        drop_params = true;
+      };
     };
   };
+  systemd.services.litellm.serviceConfig.CacheDirectory = "litellm";
   sops.secrets.litellm = {
     format = "dotenv";
     key = "";
@@ -101,8 +124,8 @@
             };
 
             # Coder
-            "Qwen3.6-35B-A3B" = {
-              hf = "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M";
+            "Qwen3.6-35B-A3B-MTP" = {
+              hf = "unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q4_K_XL";
               temperature = 0.7;
               top-p = 0.8;
               top-k = 20;
@@ -111,8 +134,11 @@
               repeat-penalty = 1.0;
               fit = "off";
               ot = ''blk\.[0-9]+\.ffn_.*exps.*=CPU'';
+              ctx-size = 204800;
               ctk = "q8_0";
               ctv = "q8_0";
+              spec-type = "draft-mtp";
+              spec-draft-n-max = 1;
             };
             "Jan-v3-4B-base-instruct" = {
               hf = "janhq/Jan-v3-4B-base-instruct-gguf";
@@ -206,17 +232,12 @@
             ;;
     esac
   '';
-  environment.systemPackages = assert !(lib.hasAttr "stable-diffusion-cpp" pkgs); with pkgs;
+  environment.systemPackages = with pkgs;
     [
       aicommits
+      cherry-studio
       claude-code-best
       llama-cpp-unstable
-      (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/ch/cherry-studio/package.nix" {
-        pnpm_10_29_2 = pkgs.pnpm;
-      })
-      (pkgs.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/st/stable-diffusion-cpp/package.nix" {
-        vulkanSupport = true;
-        stdenv = ccacheStdenv;
-      })
+      stable-diffusion-cpp-vulkan
     ];
 }

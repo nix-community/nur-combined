@@ -1,9 +1,8 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
@@ -16,7 +15,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -31,7 +30,7 @@
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... } @inputs:
+  outputs = { self, nixpkgs, ... } @inputs:
     let
       system = "x86_64-linux";
       hostname = "local";
@@ -40,7 +39,6 @@
       mylib = import ./lib { inherit lib; };
       overlayList = mylib.recursiveValuesToList overlays;
       pkgs = import nixpkgs { inherit system; overlays = overlayList; };
-      pkgsUnstable = import nixpkgs-unstable { inherit system; overlays = overlayList; };
 
       nixosModules = mylib.fromDirectoryRecursive {
         directory = ./modules;
@@ -99,9 +97,6 @@
               bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
               niri.overlays.niri
               nix-vscode-extensions.overlays.default
-              (final: prev: {
-                litellmUnstable = pkgsUnstable.litellm;
-              })
             ];
 
             home-manager = {

@@ -5,10 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ### Build and development
-- `just test` - Build and test packages in the modules
-- `just switch` - Build and switch to current NixOS configuration (`./hosts/local/default.nix`)
+- `just` - Test current NixOS configuration (`sudo nixos-rebuild test`)
+- `just local switch` - Build and switch to current NixOS configuration (`./hosts/local/default.nix`)
 - `just rollback` - Test rollback to previous generation
-- `nix flake update` - Update all flake inputs
+- `just iso` - Build installer ISO image
+- `just update` - Update all flake inputs and specific packages via `nix-update`
 - `nix build .#nixosConfigurations.local.config.system.build.toplevel` - Build the local NixOS system
 - `nix run .#devShells.default` - Start the development shell with just, nixos-rebuild, and sops
 
@@ -50,17 +51,18 @@ Each program module typically has:
 - `default.nix` - NixOS system module with `config.xxx = { ... }`
 - `home.nix` - Home manager module with `home.configHome.xxx = { ... }`
 - `package.nix` - Optional buildable package using `pkgs.callPackage`
+- `overlay.nix` - Optional NixOS overlay
 
 ### Key patterns
 - **Recursive imports**: `modules/` directory is processed via `lib.fromDirectoryRecursive` in `flake.nix`
 - **Home-manager**: Uses `users.nixos.imports` to import all `home.nix` files
-- **Packages**: Collected via `default.nix` which traverses `modules/` for `package.nix` files
+- **Packages**: Collected via `default.nix` which traverses `modules/` for `package.nix` files; these are also automatically converted to overlays
 - **CI**: `ci.nix` defines buildable/cacheable packages for GitHub Actions
 - **Secrets**: Encrypted with sops using age keys stored in `secrets/secrets.yaml`
 
 ### Inputs
-- `nixpkgs/nixos-25.11` (stable), `nixpkgs/nixos-unstable` (unstable)
-- `home-manager/release-25.11`
+- `nixpkgs/nixos-unstable`
+- `home-manager/master`
 - `NUR` (Nix Unstable Repository)
 - `sops-nix` (encrypted secrets)
 - Custom inputs like niri, bluetooth-player, etc.

@@ -1,8 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 {
   home.sessionVariables = {
     EDITOR = "code -w";
-    CONTINUE_GLOBAL_DIR = "${config.xdg.configHome}/continue";
   };
   home.packages = with pkgs; [
     clang
@@ -24,8 +23,7 @@
       '';
     });
     mutableExtensionsDir = false;
-    extensions = (with pkgs.vscode-extensions; [
-      continue.continue
+    profiles.default.extensions = (with pkgs.vscode-extensions; [
       eamodio.gitlens
       file-icons.file-icons
       jnoortheen.nix-ide
@@ -125,11 +123,6 @@
         "workbench.commandPalette.preserveInput" = true;
         "workbench.editor.enablePreviewFromCodeNavigation" = true;
         "workbench.iconTheme" = "file-icons";
-        "yaml.schemas" = {
-          "file://${config.home.homeDirectory}/.vscode/extensions/Continue.continue/config-yaml-schema.json" = [
-            ".continue/**/*.yaml"
-          ];
-        };
 
         "direnv.restart.automatic" = true;
         "markdown-preview-enhanced.previewTheme" = "monokai.css";
@@ -158,27 +151,4 @@
       enable-crash-reporter = false;
       crash-reporter-id = "ed2b3d47-3938-47db-a79b-19c13fe3bc1f";
     };
-  xdg.configFile."continue/config.yaml".text = builtins.toJSON {
-    name = "Local Agent";
-    version = "1.0.0";
-    schema = "v1";
-    models =
-      let
-        mkModel = { name, provider ? "openai", model ? name, apiBase, roles }: {
-          inherit name provider model apiBase roles;
-          apiKey = "dummy";
-        };
-        litellm = "http://localhost:4000/v1";
-        llama-cpp = "http://localhost:8080/v1";
-      in
-      [
-        (mkModel { name = "gemini-chat"; apiBase = litellm; roles = [ "chat" "edit" ]; })
-        (mkModel { name = "Qwen3.6-35B-A3B"; apiBase = llama-cpp; roles = [ "chat" "edit" ]; })
-        (mkModel { name = "Qwen2.5-Coder-1.5B-CodeFIM"; apiBase = llama-cpp; roles = [ "autocomplete" ]; })
-        (mkModel { name = "FastApply-1.5B-v1.0"; apiBase = llama-cpp; roles = [ "apply" ]; })
-        (mkModel { name = "gemini-embedding"; apiBase = litellm; roles = [ "embed" ]; })
-        (mkModel { name = "nomic-embed-text-v1.5"; apiBase = llama-cpp; roles = [ "embed" ]; })
-        (mkModel { name = "zerank-1-small"; apiBase = llama-cpp; roles = [ "rerank" ]; })
-      ];
-  };
 }

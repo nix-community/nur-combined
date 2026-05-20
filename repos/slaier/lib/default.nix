@@ -69,7 +69,7 @@ rec {
             let
               path = append directory name;
             in
-            if type == "directory" then
+            if type == "directory" && !hasPrefix "_" name then
               {
                 # recurse into directories
                 "${name}" = fromDirectoryRecursive (

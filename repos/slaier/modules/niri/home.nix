@@ -17,7 +17,7 @@ in
     in
     {
       enable = true;
-      systemdTarget = "niri.service";
+      systemdTargets = [ "niri.service" ];
       timeouts = [
         {
           timeout = 300; # in seconds
@@ -33,25 +33,12 @@ in
           resumeCommand = display "on";
         }
       ];
-      events = [
-        {
-          event = "before-sleep";
-          # adding duplicated entries for the same event may not work
-          command = (display "off") + "; " + lock;
-        }
-        {
-          event = "after-resume";
-          command = display "on";
-        }
-        {
-          event = "lock";
-          command = (display "off") + "; " + lock;
-        }
-        {
-          event = "unlock";
-          command = display "on";
-        }
-      ];
+      events = {
+        before-sleep = (display "off") + "; " + lock;
+        after-resume = display "on";
+        lock = (display "off") + "; " + lock;
+        unlock = display "on";
+      };
     };
   xdg.desktopEntries = {
     "chromium-browser" = {
