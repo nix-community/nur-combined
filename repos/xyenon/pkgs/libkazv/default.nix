@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
   cmake,
   pkg-config,
   lager,
@@ -24,8 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libkazv";
   version = "0.8.0-unstable-2026-05-10";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "the-kazv-project";
     repo = "libkazv";
     rev = "5d1dcb91cacdea97bcb1d066966430b2a102c2bc";

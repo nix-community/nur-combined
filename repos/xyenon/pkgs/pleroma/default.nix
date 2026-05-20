@@ -1,7 +1,7 @@
 {
   lib,
   beamPackages,
-  fetchFromGitea,
+  fetchFromForgejo,
   cmake,
   pkg-config,
   writableTmpDirAsHomeHook,
@@ -19,7 +19,7 @@ beamPackages.mixRelease rec {
   pname = "pleroma";
   version = "2.10.2";
 
-  src = fetchFromGitea {
+  src = fetchFromForgejo {
     domain = "git.pleroma.social";
     owner = "pleroma";
     repo = "pleroma";

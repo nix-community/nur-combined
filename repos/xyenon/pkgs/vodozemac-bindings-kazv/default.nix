@@ -1,6 +1,6 @@
 {
-  fetchgit,
   rustPlatform,
+  fetchFromForgejo,
   perl,
   nix-update-script,
   lib,
@@ -11,8 +11,11 @@ rustPlatform.buildRustPackage {
 
   pname = "vodozemac-bindings-kazv";
   version = "0.2.1-unstable-2026-04-04";
-  src = fetchgit {
-    url = "https://r.lily-is.land/the-kazv-project/vodozemac-bindings.git";
+  src = fetchFromForgejo {
+    domain = "r.lily-is.land";
+    forceFetchGit = true;
+    owner = "the-kazv-project";
+    repo = "vodozemac-bindings";
     rev = "3cf688afc0c8d6fe77e3eb126888a5ddd191f23b";
     hash = "sha256-OWYLUgqf2ThNF2wbbrzlHsPmDpWbltwNEE4qY3QTZI0=";
   };

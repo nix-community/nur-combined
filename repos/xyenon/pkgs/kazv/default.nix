@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
   wrapQtAppsHook,
   cmake,
   pkg-config,
@@ -38,8 +38,7 @@ stdenv.mkDerivation {
   pname = "kazv";
   version = "0.6.0-unstable-2026-05-10";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "the-kazv-project";
     repo = "kazv";
     fetchSubmodules = true;
