@@ -1,6 +1,6 @@
 {
   python3,
-  model2vec, vicinity, bm25s, tree-sitter-language-pack,
+  model2vec, vicinity, bm25s, tree-sitter-language-pack, pathspec,
   fetchFromGitHub,
 }:
 let
@@ -19,8 +19,6 @@ python.pkgs.buildPythonPackage {
     inherit sha256;
   };
 
-  patches = [ ./01-remove-version-restriction-on-language-pack.patch ];
-
   pyproject = true;
 
   build-system = with python.pkgs; [
@@ -36,5 +34,9 @@ python.pkgs.buildPythonPackage {
     pathspec
     tree-sitter
     tree-sitter-language-pack
+
+    # For the MCP server
+    mcp
+    watchfiles
   ];
 }
