@@ -6,8 +6,8 @@ niri.overrideAttrs (
   finalAttrs: oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ [
       (fetchpatch {
-        url = "https://github.com/wrvsrx/niri/compare/tag_no-import-environment_1%5E..tag_no-import-environment_1.patch";
-        hash = "sha256-8PHqgjc1Iva/8i2E0sNAFU5VMV+2inAphy1cRV5mYGs=";
+        url = "https://github.com/wrvsrx/niri/compare/tag_session-env-flag%5E..tag_session-env-flag.patch";
+        hash = "sha256-EDZZdFpbgPcIBJYU/L9tqXctGk1dboZbErEt0GIKhVw=";
       })
       (fetchpatch {
         url = "https://github.com/wrvsrx/niri/compare/tag_support-shm-sharing_4~19..tag_support-shm-sharing_4.patch";
