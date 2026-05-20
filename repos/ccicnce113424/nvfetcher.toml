@@ -56,6 +56,10 @@ extract = ["pubspec.lock"]
 fetch.github = "FoxSensei001/LoveIwara"
 src.github = "FoxSensei001/LoveIwara"
 
+[lumine]
+fetch.git = "https://codeberg.org/PonyCW26/lumine.git"
+src.git = "https://codeberg.org/PonyCW26/lumine.git"
+
 [lxgw-wenkai-gb]
 fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-wenkai-gb-$ver.tar.gz"
 src.github = "lxgw/LxgwWenkaiGB"

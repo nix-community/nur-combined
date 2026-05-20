@@ -161,6 +161,20 @@
       "pubspec.lock" = ./. + "/sha256-Vdf3ERybsOXG8SlNmQ_QRtBu7RS0T9t0V22UTMjXTls=/pubspec.lock";
     };
   };
+  lumine = {
+    pname = "lumine";
+    version = "6ef98efdaf60567edf9c8d868142b682575b69b9";
+    src = fetchgit {
+      url = "https://codeberg.org/PonyCW26/lumine.git";
+      rev = "6ef98efdaf60567edf9c8d868142b682575b69b9";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-MYrJKh9xeQTH3NxwszFw/YNA+/rfP9h6UU1xyfuZ6pU=";
+    };
+    date = "2026-05-01";
+  };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
     version = "v1.522";
