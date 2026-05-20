@@ -34,15 +34,15 @@
   };
   bark-server = {
     pname = "bark-server";
-    version = "b08c6aa38040e8863fe4f9d48d2c7e08b5428fdb";
+    version = "478659ecdd75a38185d7275d154d78e9c2b752b4";
     src = fetchFromGitHub {
       owner = "Finb";
       repo = "bark-server";
-      rev = "b08c6aa38040e8863fe4f9d48d2c7e08b5428fdb";
+      rev = "478659ecdd75a38185d7275d154d78e9c2b752b4";
       fetchSubmodules = false;
-      sha256 = "sha256-8sxcF1cTO7IQCr6bSPJ/ngCcU7EXRZaCmMWiuZ1dTBk=";
+      sha256 = "sha256-dKjZ0hAf2sLLmM8gqEWUZV1SXJdIjze9YZumU/iOVYM=";
     };
-    date = "2026-05-13";
+    date = "2026-05-20";
   };
   bark-server-stable = {
     pname = "bark-server-stable";
@@ -328,15 +328,15 @@
   };
   loyalsoldier-geoip = {
     pname = "loyalsoldier-geoip";
-    version = "fed048beddda2cd4ff7b5efa6b2a56a91a1cbfc7";
+    version = "751f5802feeb6cda0dce775b6328eff812dbde3a";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "geoip";
-      rev = "fed048beddda2cd4ff7b5efa6b2a56a91a1cbfc7";
+      rev = "751f5802feeb6cda0dce775b6328eff812dbde3a";
       fetchSubmodules = false;
-      sha256 = "sha256-6Pf09zlwySk7mByK/bSrS7yquv5AGVrxccRBX/Dy904=";
+      sha256 = "sha256-bPO3bFWuqt+SqIyN24ExAWLuxN0KozZ17anc918cNmg=";
     };
-    date = "2026-05-14";
+    date = "2026-05-19";
   };
   manpage-zh = {
     pname = "manpage-zh";
@@ -485,14 +485,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "1b09a59d1592ec779d93c451ce91a543884030a4";
+    version = "6845f2a7381bec2b3fdd7796ef0a060050a914a7";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "1b09a59d1592ec779d93c451ce91a543884030a4";
+      rev = "6845f2a7381bec2b3fdd7796ef0a060050a914a7";
       fetchSubmodules = false;
-      sha256 = "sha256-c9go0nAVS8pjpeIGtoRniSCS39RAHGVCS6Vx9tTlkgA=";
+      sha256 = "sha256-6p0bEs06W9c37ytBHHZrXr4GWIDS77vkr5P/b5HW90w=";
     };
-    date = "2026-05-18";
+    date = "2026-05-19";
   };
 }
