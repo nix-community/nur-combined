@@ -131,8 +131,8 @@
   },
   {
     "pname": "coverlet.collector",
-    "version": "10.0.0",
-    "hash": "sha256-0cU5wHZfwQFJFXugC19kiRo9XU1jV4ApbDKuRaL72Vc="
+    "version": "10.0.1",
+    "hash": "sha256-6nZ5qWvy1SPYM9SfYbZEdGGrErdnOPluZXgJJ/hiarw="
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
