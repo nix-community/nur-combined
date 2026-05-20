@@ -7206,10 +7206,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.22";
+      version = "0.22.1";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4758253/javascript_restrictor-0.22.xpi";
-      sha256 = "c8f232a3e760d962a35ec09839fbec66ef3ed714570fd097990cb5721cc98ea3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4812786/javascript_restrictor-0.22.1.xpi";
+      sha256 = "44731bf703161c051c058b660715c4e7b1b6f0b84af3625dcf1d88b65ec4b83f";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -7294,10 +7294,10 @@
     };
     "kagi-privacy-pass" = buildMozillaXpiAddon {
       pname = "kagi-privacy-pass";
-      version = "1.0.9";
+      version = "1.0.12";
       addonId = "privacypass@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4792232/kagi_privacy_pass-1.0.9.xpi";
-      sha256 = "5216d992c9c5bf7dc3144513f98be5e019e869f2a8cc03440f9de86ef9b34eee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4812979/kagi_privacy_pass-1.0.12.xpi";
+      sha256 = "65cd7881f1ee87e91a3353e2408ab9f60773d669d8c4e7741e074553a5c99a15";
       meta = with lib;
       {
         homepage = "https://kagi.com";
