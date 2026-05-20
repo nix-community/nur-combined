@@ -9,13 +9,13 @@
 }:
 mkOpencodePlugin rec {
   pname = "quota";
-  version = "3.4.0-unstable-2026-05-15";
+  version = "3.4.0-unstable-2026-05-20";
 
   src = fetchFromGitHub {
     owner = "slkiser";
     repo = "opencode-${pname}";
-    rev = "c9ad112d8d894a0a8af0b8e6f793977a3d3e3938";
-    hash = "sha256-wRlnlCtLOCikcuPDV12CRtAxGvqNjvmy0hiMnvWW6Lw=";
+    rev = "2aff077a5442f29806cb6fa5e6a8826e1306b95c";
+    hash = "sha256-QrjmU96FbLAAl6HRTZyX8ZhHH3b2Qb8dji7LdI27iv4=";
   };
 
   dependencyHash = "sha256-+ovDgEx5QI0ZooWoaOr/EAwo7qp6YGfw6DAPN+6mQuI=";

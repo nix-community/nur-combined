@@ -7,13 +7,13 @@
 }:
 mkOpencodePlugin rec {
   pname = "auto-resume";
-  version = "1.0.9";
+  version = "1.0.11";
 
   src = fetchFromGitHub {
     owner = "Mte90";
     repo = "opencode-${pname}";
     rev = "v${version}";
-    hash = "sha256-ekZ1IHFm2OG65lMBXg9G+2GaurDwhiiAjqtQqtRRrvk=";
+    hash = "sha256-AZ79BPf+3TnUXag8dLEnplpIgUlq7QTerWPii5cM/98=";
   };
 
   dependencyHash = "sha256-e52Gddw3FDKju1Ze2sn+/mjpRi8wYs8wuiCQ2T5u6sE=";

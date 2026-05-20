@@ -1,9 +1,21 @@
 {
-  "version": "1.15.3-ocv.3.51",
+  "version": "1.15.5-ocv.3.61",
+  "updater": {
+    "type": "github-release-assets",
+    "owner": "leohenon",
+    "repo": "opencode",
+    "tagPrefix": "v",
+    "assets": {
+      "aarch64-darwin": "ocv-darwin-arm64.zip",
+      "aarch64-linux": "ocv-linux-arm64.tar.gz",
+      "x86_64-darwin": "ocv-darwin-x64.zip",
+      "x86_64-linux": "ocv-linux-x64.tar.gz"
+    }
+  },
   "hashes": {
-    "aarch64-darwin": "sha256-HalS3M/TMnqR24tB9ZcOHjY7nJ8tMN8tTJqLCXg/7GQ=",
-    "x86_64-darwin": "sha256-Cdjrl1/RDivOIFy4tWGbI+WyE5d2ZNe1kSi6l4Cts5g=",
-    "x86_64-linux": "sha256-J5NnrnjieS57uYw4onZ+zppIUI/Soc0cGBS30jjkUNQ=",
-    "aarch64-linux": "sha256-GnWafjYecsUwzCcyjV6HEwwza1e4NzgFNkAUIp0tJPA="
+    "aarch64-darwin": "sha256-vJh9MphFotxLh+5IXpqMycerqJKkaAdJFYnwdfGaoQ8=",
+    "aarch64-linux": "sha256-Use01sf7CD17OqIFESiqDik7ZS1Sb/drn//+++0DwDk=",
+    "x86_64-darwin": "sha256-kNhXEamqyxAflzROwJeEj33kcon2kEez3xfgCIcpt1k=",
+    "x86_64-linux": "sha256-90LIRVFAadoyMBEkCrNLcRNm+qucRbfWdpObKv/i+lE="
   }
 }
