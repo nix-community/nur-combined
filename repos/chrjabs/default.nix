@@ -49,6 +49,9 @@ rec {
 
   # Gungraun benchmark runner
   gungraun-runner = pkgs.callPackage ./pkgs/gungraun-runner { };
+
+  # Solver execution tool
+  runsolver = pkgs.callPackage ./pkgs/runsolver { };
 }
 // pkgs.lib.attrsets.optionalAttrs (rust-overlay != null) {
   # Kani - Rust model checker
