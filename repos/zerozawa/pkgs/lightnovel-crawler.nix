@@ -93,23 +93,24 @@ let
 
   pyease-grpc = python3Packages.buildPythonPackage rec {
     pname = "pyease-grpc";
-    version = "1.7.0";
+    version = "1.8.0";
     format = "wheel";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/70/26/f1437aedd58397cc3b572cedeb10e2f565fd508120a4b47dbcaacea586d9/pyease_grpc-1.7.0-py3-none-any.whl";
-      hash = "sha256-J5BH4D8h9LZeviUdUnUEqPZNhMz6AotQu6DnMVMh8F4=";
+      url = "https://files.pythonhosted.org/packages/5c/61/c6115917527812eca3fd147cd389ef33a0bc342de7545c34f8125682e1aa/pyease_grpc-1.8.0-py3-none-any.whl";
+      hash = "sha256-aaBRF8+I8xCze/RVtRo/o1LqClN9eJSGepHrdExrJ6E=";
     };
     propagatedBuildInputs = with python3Packages; [
       grpcio
       protobuf
       requests
     ];
+    pythonRemoveDeps = [ "grpcio" ];
     doCheck = false;
   };
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.2.1";
+  version = "4.5.0";
 
   pyproject = true;
 
@@ -117,7 +118,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-CiWLO+f54DJLBHgXmLljeoO6YCRcsKL5TDt2B8I95Rs=";
+    hash = "sha256-3nsNxlZYUoNxk3qy03enVxqWBI3jctrdEamHvDf1Nt4=";
   };
 
   build-system = with python3Packages; [
