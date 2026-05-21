@@ -1397,27 +1397,6 @@
         },
         "version": "3.1.0"
     },
-    "firefox-stealth": {
-        "cargoLock": null,
-        "date": "2026-05-18",
-        "extract": null,
-        "name": "firefox-stealth",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "feder-cr",
-            "repo": "firefox-stealth",
-            "rev": "1f70b4ae9d210c51eecdcf0f6d1f507416f0ecdf",
-            "sha256": "sha256-HUL5BMdiKGJ0Jn43eWTmLY2dSNzwq7q0SBVjujZZ8Do=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "1f70b4ae9d210c51eecdcf0f6d1f507416f0ecdf"
-    },
     "flapalerted": {
         "cargoLock": null,
         "date": null,
@@ -1962,6 +1941,27 @@
             "url": "https://github.com/share121/inter-knot/releases/download/v2.16.9+36/inter_knot_linux.zip"
         },
         "version": "v2.16.9+36"
+    },
+    "invisible-firefox": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "invisible-firefox",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "feder-cr",
+            "repo": "invisible-firefox",
+            "rev": "stealth-head/v150.0.1",
+            "sha256": "sha256-BGbDsM+2awDptg1jqPz9cLxCHKsB4fcgSv8FAlbzedc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "stealth-head/v150.0.1"
     },
     "ja4-nginx-module": {
         "cargoLock": null,
@@ -3088,11 +3088,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MV5J+kVodH/sS9ralhTSuih+eu1LNDDX6iVoXiTMQ/8=",
+            "sha256": "sha256-Ob2sIYJJt5F0ZOYVms/+8loyCuia2usjUU8Hj0c0l70=",
             "type": "url",
-            "url": "https://openresty.org/download/openresty-1.29.2.3.tar.gz"
+            "url": "https://openresty.org/download/openresty-1.29.2.4.tar.gz"
         },
-        "version": "1.29.2.3"
+        "version": "1.29.2.4"
     },
     "openssl-ech": {
         "cargoLock": null,

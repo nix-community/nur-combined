@@ -113,6 +113,15 @@ stdenv.mkDerivation rec {
         --replace-fail '@nixStoreDirLen@' "''${#NIX_STORE}"
       popd
 
+      # Fix duplicate nxe-json and nxe-jwx between nginx-auth-jwt and nginx-oidc
+      pushd bundle/nginx-oidc
+      substituteInPlace config \
+        --replace-fail '$nxe_json_module_srcs' "" \
+        --replace-fail '$nxe_jwx_module_srcs' "" \
+        --replace-fail '$nxe_json_module_libs' "" \
+        --replace-fail '$nxe_jwx_module_libs' ""
+      popd
+
       pushd bundle/ngx_brotli
       rm -rf deps
       substituteInPlace filter/config \
