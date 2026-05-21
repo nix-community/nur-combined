@@ -2421,10 +2421,10 @@
     };
     "control-panel-for-youtube" = buildMozillaXpiAddon {
       pname = "control-panel-for-youtube";
-      version = "1.33.2";
+      version = "1.33.3";
       addonId = "control-panel-for-youtube@jbscript.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4780440/control_panel_for_youtube-1.33.2.xpi";
-      sha256 = "8c4ea499163a404804078df7e1d7791c094e7bbdd3abec053de94190a30c0dad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4812042/control_panel_for_youtube-1.33.3.xpi";
+      sha256 = "ce950bd2647a22301ef94c045572ba31ae01b834fe119d17b868f30c7fa04974";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-youtube";
@@ -2894,10 +2894,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "152.0.20260518.152802";
+      version = "151.0.20260520.211922";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4811669/dansk_da_language_pack-152.0.20260518.152802.xpi";
-      sha256 = "c941717d022ee175ee855edf1bc3cc170f347441bef8fc1d4253e11c16b769e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4815113/dansk_da_language_pack-151.0.20260520.211922.xpi";
+      sha256 = "863ada1923ffeb64f628be88b6d49fe570490b77aed2068b5886d1fbe3883a45";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3108,10 +3108,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "152.0.20260518.152802";
+      version = "151.0.20260520.211922";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4811672/deutsch_de_language_pack-152.0.20260518.152802.xpi";
-      sha256 = "f784a1fe3aa7b6210a7ed2657cb793bd87aa25b9c3b5f56b00f1031df811eaac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4815101/deutsch_de_language_pack-151.0.20260520.211922.xpi";
+      sha256 = "35ea2f7ad75112a839e146a48c2d3c85d64b7c83b2de3e87354c5cbb4997b147";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3144,10 +3144,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "7.3.5";
+      version = "7.4.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4771573/dictionaries-7.3.5.xpi";
-      sha256 = "d9ada18a4828f80c0bef4fedd794e122497f3124bf09b341b3f5670e4fbe7368";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4814859/dictionaries-7.4.0.xpi";
+      sha256 = "5021b462373c9e99428ae5e1a082e6a78e96e11a8410c49386664fb41d6fa92a";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -3888,7 +3888,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/alct/export-tabs-urls";
-        description = "List the URLs of all the open tabs and copy that list to clipboard or export it to a file.\n\nFeatures:\n- include titles\n- custom format (e.g. markdown, html…)\n- filter tabs\n- limit to current window\n- list non-HTTP(s) URLs\n- ignore pinned tabs";
+        description = "List open tab URLs and titles, copy them to clipboard or save them to a file. Features: custom format (Markdown, HTML…), RegExp tab filter, group by window/tab group.";
         license = licenses.gpl3;
         mozPermissions = [ "storage" "tabs" "tabGroups" ];
         platforms = platforms.all;
@@ -4592,10 +4592,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "152.0.20260518.152802";
+      version = "151.0.20260520.211922";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4811584/francais_language_pack-152.0.20260518.152802.xpi";
-      sha256 = "8708d671fd55acebda4a23efafa2613943b7f96ac3a950a4e2d947829e7773d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4815140/francais_language_pack-151.0.20260520.211922.xpi";
+      sha256 = "a0b95b1e9eb0e8ab37a319b1c2baea1ffd7d83278b821bee25fc5f32fd0f22fe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4629,10 +4629,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "152.0.20260518.152802";
+      version = "151.0.20260520.211922";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4811626/gaidhlig_language_pack-152.0.20260518.152802.xpi";
-      sha256 = "28bdc24da0d9b196aa1718c9f1804604cc1d43d7dff7e38b900e06bd4271d0c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4815174/gaidhlig_language_pack-151.0.20260520.211922.xpi";
+      sha256 = "b6e3874c9a909b36fad39485961971fdc6559e8e95d6d605c59b141caa168da2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9843,10 +9843,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.0.39";
+      version = "1.1.1";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4769000/mergify-1.0.39.xpi";
-      sha256 = "ab23ff5590dbab815ad4ef6d0dc4b786984eba9455525d87a81368bf9402f061";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4814002/mergify-1.1.1.xpi";
+      sha256 = "7f9a736281ddbe01403210de0bfbe8713e197b3829ac396469fcb792c4454757";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -13047,10 +13047,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.5.13";
+      version = "26.5.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4804659/refined_github-26.5.13.xpi";
-      sha256 = "b0d14dcaa4a7248b82aabb38eaac454782dcb9083cd9b721b847e68f6ab9a1bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4813558/refined_github-26.5.20.xpi";
+      sha256 = "c1bfc7f2461fdc3a5853b238fe155be6e099c59a45e5a579e5dbc354340f2b55";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -13184,10 +13184,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.2.0.26134";
+      version = "0.3.0.26139";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4805134/ruffle_rs-0.2.0.26134.xpi";
-      sha256 = "00a8f162fe8ba99d71f5aa8f4f401e07910e78dabaccc57371da9b1901e144bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4812048/ruffle_rs-0.3.0.26139.xpi";
+      sha256 = "48fb0c7e6fc8b2e9d7ae6ee1f5a8ec0ed8f9fc34ac1123d0f61c8b5f01b20206";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -13367,10 +13367,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "152.0.20260518.152802";
+      version = "151.0.20260520.211922";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4811605/scots_language_pack-152.0.20260518.152802.xpi";
-      sha256 = "1e10b139bb555664e0b9813329175c6b33beeff32e3bb70cf878ce0deb01d1ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4815145/scots_language_pack-151.0.20260520.211922.xpi";
+      sha256 = "a4371baade1ee3cbd4895215c0fcb320f667ed987165b36c9785bdd734588ec1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -17464,10 +17464,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.23.0";
+      version = "2.24.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4769229/youtube_no_translation-2.23.0.xpi";
-      sha256 = "3a64e30fc83ab6610c009765a34457125956f27a906f049c7e4e3750b86e5a30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4813872/youtube_no_translation-2.24.0.xpi";
+      sha256 = "db45e3b52d0f8a149d8994f8cb3fed3ee41e30473f18858156f1d842f5b209f6";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
