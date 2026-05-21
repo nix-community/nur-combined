@@ -16,13 +16,13 @@
 }:
 buildDotnetModule (finalAttrs: {
   pname = "stalker-gamma-cli";
-  version = "1.30.0";
+  version = "1.34.0";
 
   src = fetchFromGitHub {
     owner = "FaithBeam";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    sha256 = "sha256-37negE/XHlX8KS4e731O1vTFGyhfBQXTgqqAUh2cc3Y=";
+    sha256 = "sha256-yRa1RCqCNgQwWQZXstDaVUV3jpNgFaUNW4mcHiG9JjE=";
   };
 
   projectFile = "stalker-gamma-cli/stalker-gamma-cli.csproj";
@@ -34,13 +34,15 @@ buildDotnetModule (finalAttrs: {
   dotnetInstallFlags = [ "-p:AssemblyVersion=1.0.0" ];
   executables = [ "stalker-gamma" ];
 
+  runtimeDeps = [ curl-impersonate ];
+
   nativeBuildInputs = [ copyDesktopItems ];
 
   patches = [
     ./fix-build.patch
     (replaceVars ./fix-paths.patch {
       _7zz = lib.getExe _7zz-rar;
-      curl = lib.getExe curl-impersonate;
+      # curl = lib.getExe curl-impersonate;
       tar = lib.getExe gnutar;
       unzip = lib.getExe unzip;
       cacert = "${cacert}/etc/ssl/certs/ca-bundle.crt";

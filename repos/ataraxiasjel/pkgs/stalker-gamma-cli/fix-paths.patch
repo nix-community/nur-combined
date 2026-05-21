@@ -1,72 +1,60 @@
+diff --git a/LibCurlImpersonate/CurlHttp.cs b/LibCurlImpersonate/CurlHttp.cs
+index 950495c..8595637 100644
+--- a/LibCurlImpersonate/CurlHttp.cs
++++ b/LibCurlImpersonate/CurlHttp.cs
+@@ -11,7 +11,7 @@ public class CurlHttp : IDisposable
+         Path.GetDirectoryName(AppContext.BaseDirectory)
+     );
+ 
+-    private static readonly string PathToCacert = Path.Join(CurDir, "cacert.pem");
++    private static readonly string PathToCacert = "@cacert@";
+ 
+     public static IEnumerable<string> FetchLines(
+         string url,
 diff --git a/Stalker.Gamma/Models/StalkerGammaSettings.cs b/Stalker.Gamma/Models/StalkerGammaSettings.cs
-index e3c9699..2b82594 100644
+index 37aeed2..938bf21 100644
 --- a/Stalker.Gamma/Models/StalkerGammaSettings.cs
 +++ b/Stalker.Gamma/Models/StalkerGammaSettings.cs
-@@ -19,8 +19,8 @@ public class StalkerGammaSettings
+@@ -19,7 +19,7 @@ public class StalkerGammaSettings
      public string ModOrganizer244Md5 { get; set; } = "e2bb7233cdab78f56912ebf4a0091768";
      public string ModOrganizer252Md5 { get; set; } = "b223ce1297107adbabb3fbaa3769eb2b";
      public int DownloadThreads { get; set; } = 2;
 -    public string PathToUnzip = "unzip";
 -    public string PathTo7Z = OperatingSystem.IsWindows() ? "7zz.exe" : "7zz";
--    public string PathToCurl = OperatingSystem.IsWindows() ? "curl.exe" : "curl-impersonate";
 -    public string PathToTar = "tar";
 +    public string PathToUnzip = "@unzip@";
 +    public string PathTo7Z = "@_7zz@";
-+    public string PathToCurl = "@curl@";
 +    public string PathToTar = "@tar@";
  }
-diff --git a/Stalker.Gamma/Utilities/CurlUtility.cs b/Stalker.Gamma/Utilities/CurlUtility.cs
-index b5a261a..ec98498 100644
---- a/Stalker.Gamma/Utilities/CurlUtility.cs
-+++ b/Stalker.Gamma/Utilities/CurlUtility.cs
-@@ -47,7 +47,7 @@ public partial class CurlUtility(StalkerGammaSettings settings)
-     {
-         var stdOut = new StringBuilder();
-         var stdErr = new StringBuilder();
--        args.AddRange("--cacert", Path.Join(AppContext.BaseDirectory, "resources", "cacert.pem"));
-+        args.AddRange("--cacert", "@cacert@");
-         args.AddImpersonation();
-         var exitCode = await RunProcessUtility.RunProcessAsync(
-             PathToCurlImpersonate,
 diff --git a/stalker-gamma-cli/Commands/Anomaly.cs b/stalker-gamma-cli/Commands/Anomaly.cs
-index 6015638..7c12cbd 100644
+index 5ecea5f..a407240 100644
 --- a/stalker-gamma-cli/Commands/Anomaly.cs
 +++ b/stalker-gamma-cli/Commands/Anomaly.cs
-@@ -58,15 +58,8 @@ public class AnomalyInstallCmd(
+@@ -60,11 +60,7 @@ public class AnomalyInstallCmd(
          ValidateActiveProfile.Validate(_logger, _cliSettings.ActiveProfile);
          var anomaly = _cliSettings.ActiveProfile!.Anomaly;
          var cache = _cliSettings.ActiveProfile!.Cache;
 -        var resourcesPath = Path.Join(Path.GetDirectoryName(AppContext.BaseDirectory), "resources");
--        stalkerGammaSettings.PathToCurl = Path.Join(
--            resourcesPath,
--            OperatingSystem.IsWindows() ? "curl.exe" : "curl-impersonate"
--        );
 -        stalkerGammaSettings.PathTo7Z = Path.Join(
 -            resourcesPath,
 -            OperatingSystem.IsWindows() ? "7zz.exe" : "7zz"
 -        );
-+        stalkerGammaSettings.PathToCurl = "@curl@";
 +        stalkerGammaSettings.PathTo7Z = "@_7zz@";
  
          var anomalyInstaller = (AnomalyInstaller)
              downloadableRecordFactory.CreateAnomalyRecord(cache, anomaly);
 diff --git a/stalker-gamma-cli/Services/SetupUtilitiesService.cs b/stalker-gamma-cli/Services/SetupUtilitiesService.cs
-index 3c97061..a91960e 100644
+index debe352..82120e8 100644
 --- a/stalker-gamma-cli/Services/SetupUtilitiesService.cs
 +++ b/stalker-gamma-cli/Services/SetupUtilitiesService.cs
-@@ -6,14 +6,8 @@ public class SetupUtilitiesService(StalkerGammaSettings settings)
+@@ -6,10 +6,7 @@ public class SetupUtilitiesService(StalkerGammaSettings settings)
  {
      public void Setup()
      {
--        settings.PathToCurl = Path.Join(
--            ResourcesPath,
--            OperatingSystem.IsWindows() ? "curl.exe" : "curl-impersonate"
--        );
 -        settings.PathTo7Z = Path.Join(
 -            ResourcesPath,
 -            OperatingSystem.IsWindows() ? "7zz.exe" : "7zz"
 -        );
-+        settings.PathToCurl = "@curl@";
 +        settings.PathTo7Z = "@_7zz@";
      }
  
