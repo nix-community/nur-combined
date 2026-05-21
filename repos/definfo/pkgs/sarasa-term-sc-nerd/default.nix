@@ -4,6 +4,7 @@
   stdenvNoCC,
   fetchurl,
   _7zz,
+  nix-update-script,
   variance ? "hinted",
 }:
 
@@ -13,7 +14,7 @@ assert lib.asserts.assertOneOf "Font variance" variance [
 ];
 
 let
-  version = "test";
+  version = "2.3.1";
 
   source = {
     hinted = fetchurl {
@@ -50,6 +51,8 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=v(.*)" ]; };
 
   meta = with lib; {
     description = "Nerd font based on Sarasa Term SC";
