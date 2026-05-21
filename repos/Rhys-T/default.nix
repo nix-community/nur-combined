@@ -339,6 +339,8 @@ in {
     
     powder = callPackage ./pkgs/powder {};
     
+    agent-safehouse = callPackage ./pkgs/agent-safehouse {};
+    
     xinvaders3d = callPackage ./pkgs/xinvaders3d {};
     
     # Backported updates from <https://github.com/NixOS/nixpkgs/pull/419640>

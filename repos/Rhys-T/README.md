@@ -16,6 +16,10 @@ Uncomment this if you use travis:
 
 ## Package-specific notes
 
+### `agent-safehouse`
+
+Upstream doesn't add the Nix store to the sandbox by default, which prevents the agent from running anything that was installed via Nix - or running at all, if the agent _itself_ was installed via Nix. By default, this derivation applies a patch based on my unfinished pull request [eugene1g/agent-safehouse/97](https://github.com/eugene1g/agent-safehouse/pull/97) to fix this. To use upstream as-is, do `agent-safehouse.override { useNixPatch = false; }`.
+
 ### `drl`
 
 DRL (formerly DoomRL) expects to run with the game directory as its working directory, containing both the read-only game data and mutable state. Obviously that doesn't work very well with Nix, so I'm using a similar approach to [the `sdlpop` derivation](https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/sd/sdlpop/package.nix): `drl` is actually a wrapper script that links/copies the game data into `${XDG_DATA_HOME:-$HOME/.local/share}/drl` as appropriate, then runs the game from there. It won't replace any file/directory there that isn't a symlink into the Nix store, so you can always override any of the files you need to.
