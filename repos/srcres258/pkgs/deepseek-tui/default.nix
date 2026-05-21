@@ -4,7 +4,7 @@
   ...
 }: let
   pname = "deepseek-tui";
-  version = "0.8.37";
+  version = "0.8.39";
 in pkgs.rustPlatform.buildRustPackage {
   inherit pname version;
 
@@ -12,10 +12,10 @@ in pkgs.rustPlatform.buildRustPackage {
     owner = "Hmbown";
     repo = "DeepSeek-TUI";
     rev = "v${version}";
-    hash = "sha256-mSSnTSSlmnDeKXGh+O8Qvg8th6W2ML4oCVcSvcEDwZs=";
+    hash = "sha256-CpJ+98frA09F5KRzj5FSy2xZ5EfQJx4FdRiVc7HhDF8=";
   };
 
-  cargoHash = "sha256-0BeUs+a2nk5DhSfNJWmdQBTDjlrtsdXR+/nzQbe+6ec=";
+  cargoHash = "sha256-VAZusLxuEieCTb+afiQmPejE7gVJC9hBSNr0icRhMMQ=";
 
   nativeBuildInputs = with pkgs; [
     pkg-config
