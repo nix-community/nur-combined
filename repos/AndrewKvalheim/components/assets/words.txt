@@ -156,6 +156,8 @@ Broadcom
 Brotli
 browsable
 Browserslist
+bryophyte
+bryophytes
 BTC
 Btrfs
 btw
@@ -253,6 +255,7 @@ cofounded
 cofounder
 Colemak
 Collabora
+collinearity
 Colmena
 combinators
 comedically
@@ -1358,6 +1361,7 @@ Shokz
 Shopify
 shortcode
 Shotwell
+showable
 shrublands
 Sidekiq
 siestaed

@@ -35,19 +35,17 @@ rec {
   blocky-ui = callPackage ./library/blocky-ui.pkg.nix { };
   buildJosmPlugin = callPackage ./library/buildJosmPlugin.fn.nix { };
   busyserve = (callPackage ./library/busyserve.pkg.nix { });
-  caddy-with-cache-route53 = (pkgs.caddy.withPlugins {
+  caddy-with-cache-route53 = pkgs.caddy.withPlugins {
     plugins = [
       "github.com/caddy-dns/route53@v1.6.2"
       "github.com/caddyserver/cache-handler@v0.16.0"
     ];
     hash = {
-      "2.11.2@1.25.8" = "sha256-2vfw7z9wWSA41QfYuQaxVmo3Xp2UQtB8ahRkc3Xm4JM=";
-      "2.11.2@1.25.9" = "sha256-lOsLtP+MhLoH8q3J8e1HwoCeSNpoiGwDd6I2YbpklWc=";
-      "2.11.2@1.26.2" = "sha256-4n1XYs6wl2cvULgpFD/P3QMKtMuX1DxDA/NqBZ5E7N8=";
       "2.11.3@1.25.9" = "sha256-gllJbg4jXd911bIITcXf0ZBSev55DH/Kmba/ItLDTOc=";
       "2.11.3@1.26.2" = "sha256-qgfYs26NEVVGFNrfxSg6a782Hn2QJYmPAzNGh9fJyiw=";
+      "2.11.3@1.26.3" = "sha256-K6x1EveX4relEXykwRkJzmm7/uhABZnf3DdyTjiprTU=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
-  }).overrideAttrs (c: recursiveUpdate c { meta.broken = versionOlder pkgs.go.version "1.25.6"; /* Pending NixOS/nixpkgs#480465 */ });
+  };
   ch57x-keyboard-tool = callPackage ./library/ch57x-keyboard-tool.pkg.nix { };
   chunker = callPackage ./library/chunker.pkg.nix { };
   co2monitor = callPackage ./library/co2monitor.pkg.nix { };
