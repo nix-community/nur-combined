@@ -8,20 +8,20 @@
 }:
 
 let
-  version = "3.2f";
-  pname = "ibkr-desktop";
+  version = "10.47.1b";
+  pname = "ibkr-gateway";
 
   src = fetchurl {
     # Always serves the latest version; no versioned URL available
-    url = "https://download2.interactivebrokers.com/installers/ntws/latest-standalone/ntws-latest-standalone-linux-x64.sh";
-    hash = "sha256-brziCbgz5pUtHSPXsGNHGcBqf2fTYbdAS993TxrBDiw=";
+    url = "https://download2.interactivebrokers.com/installers/ibgateway/latest-standalone/ibgateway-latest-standalone-linux-x64.sh";
+    hash = "sha256-sXJ4Edghsg74GpVeG5q5jiOG2q+C54BAif4Nsn6UGic=";
     name = "${pname}-${version}-installer.sh";
   };
 
-  # The installer requires exactly Zulu JRE 17.0.10 and rejects other versions
+  # The installer requires exactly Zulu JRE 17.0.16 with JavaFX
   jre = fetchurl {
-    url = "https://download2.interactivebrokers.com/installers/jres/linux-amd64-17.0.10.0.101-zulu-nojavafx.tar.gz";
-    hash = "sha256:02zrsfmscxw1632kxwlg9k53rifp385q37xz5kj1y4cvdfgsr2j0";
+    url = "https://download2.interactivebrokers.com/installers/jres/linux-amd64-17.0.16.0.101-zulu.tar.gz";
+    hash = "sha256-URNn2Anw+/XilDrffw1KwJxvFYt43/c0vfn5ioeRiEI=";
   };
 in
 stdenv.mkDerivation {
@@ -33,53 +33,25 @@ stdenv.mkDerivation {
     pkgs.patchelf
   ];
 
-  # Libraries required by the bundled Qt 6.8.3 native .so files
+  # Libraries required by the bundled JRE (Swing/JavaFX rendering)
   buildInputs = with pkgs; [
     stdenv.cc.cc.lib # libstdc++
     zlib
-    zstd
     glib
-    dbus
     fontconfig
     freetype
     libGL
-    libglvnd
+    mesa
     xorg.libX11
     xorg.libxcb
     xorg.libXext
     xorg.libXi
-    xorg.libXrandr
     xorg.libXrender
     xorg.libXtst
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXfixes
-    xorg.libxshmfence
-    xorg.libxkbfile
-    libxkbcommon
-    xorg.xcbutilcursor
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
     alsa-lib
     libpulseaudio
-    gtk3
-    cairo
-    pango
-    gdk-pixbuf
-    atk
-    nss
-    nspr
-    mesa
-    libdrm
-    expat
-    krb5
-    udev
   ];
 
-  # Some bundled Qt plugins reference optional Qt modules not included
-  # (Qt6OpenGLWidgets, Qt63DCore, Qt6VirtualKeyboard, etc.)
   autoPatchelfIgnoreMissingDeps = true;
 
   dontUnpack = true;
@@ -112,13 +84,12 @@ stdenv.mkDerivation {
     bash installer.sh -q -dir $out
 
     # Remove installer artifacts
-    rm -f $out/uninstall $out/"IBKR Desktop.desktop"
+    rm -f $out/uninstall $out/"IB Gateway 10.47.desktop"
 
     # Fix hardcoded build-time paths in install4j config
-    # Use a placeholder that the wrapper script will replace at runtime
     substituteInPlace $out/.install4j/response.varfile \
-      --replace-fail "appConfigDir=/build/ntws" "appConfigDir=@IBKR_HOME@" \
-      --replace-fail '"/build/ntws"' '"@IBKR_HOME@"'
+      --replace-fail "jtsConfigDir=/build/Jts" "jtsConfigDir=@IBGW_HOME@/Jts" \
+      --replace-fail '"/build/Jts"' '"@IBGW_HOME@/Jts"'
 
     runHook postBuild
   '';
@@ -129,15 +100,15 @@ stdenv.mkDerivation {
     mkdir -p $out/bin $out/share/applications $out/share/icons/hicolor/256x256/apps
 
     # Icon
-    cp $out/.install4j/ntws.png $out/share/icons/hicolor/256x256/apps/ibkr-desktop.png
+    cp $out/.install4j/ibgateway.png $out/share/icons/hicolor/256x256/apps/ibkr-gateway.png
 
     # Desktop file
-    cat > $out/share/applications/ibkr-desktop.desktop <<'DESKTOP'
+    cat > $out/share/applications/ibkr-gateway.desktop <<'DESKTOP'
     [Desktop Entry]
     Type=Application
-    Name=IBKR Desktop
-    Exec=ibkr-desktop %U
-    Icon=ibkr-desktop
+    Name=IB Gateway
+    Exec=ibkr-gateway %U
+    Icon=ibkr-gateway
     Categories=Office;Finance;
     StartupWMClass=install4j-launcher-Main
     DESKTOP
@@ -148,78 +119,69 @@ stdenv.mkDerivation {
 
     # Create a launcher script that sets up a writable app directory.
     # The install4j launcher expects to write config/logs next to itself.
-    cat > $out/bin/ibkr-desktop <<LAUNCHER
+    cat > $out/bin/ibkr-gateway <<LAUNCHER
     #!/usr/bin/env bash
     STORE_PATH="$out"
-    IBKR_HOME="\''${XDG_DATA_HOME:-\$HOME/.local/share}/ibkr-desktop"
-    mkdir -p "\$IBKR_HOME"
+    IBGW_HOME="\''${XDG_DATA_HOME:-\$HOME/.local/share}/ibkr-gateway"
+    mkdir -p "\$IBGW_HOME"
 
     # Symlink read-only store contents into the writable directory
-    for item in data ntws.vmoptions; do
-      ln -sfn "\$STORE_PATH/\$item" "\$IBKR_HOME/\$item"
+    for item in data ibgateway.vmoptions; do
+      [ -e "\$STORE_PATH/\$item" ] && ln -sfn "\$STORE_PATH/\$item" "\$IBGW_HOME/\$item"
     done
 
-    # lib/ must be a real writable directory so the app can download updated JARs.
-    # Symlink each file individually; recurse into subdirs via symlinks.
-    mkdir -p "\$IBKR_HOME/lib"
+    # jars/ must be a real writable directory so the app can download updated JARs.
+    mkdir -p "\$IBGW_HOME/jars"
     # Remove dangling symlinks from previous versions
-    find "\$IBKR_HOME/lib" -maxdepth 1 -type l ! -exec test -e {} \; -delete 2>/dev/null || true
-    for f in "\$STORE_PATH"/lib/*; do
+    find "\$IBGW_HOME/jars" -maxdepth 1 -type l ! -exec test -e {} \; -delete 2>/dev/null || true
+    for f in "\$STORE_PATH"/jars/*; do
       base=\$(basename "\$f")
-      if [ -d "\$f" ]; then
-        ln -sfn "\$f" "\$IBKR_HOME/lib/\$base"
-      else
-        ln -sfn "\$f" "\$IBKR_HOME/lib/\$base"
-      fi
+      ln -sfn "\$f" "\$IBGW_HOME/jars/\$base"
     done
 
     # Create a local .install4j with a patched response.varfile
-    mkdir -p "\$IBKR_HOME/.install4j"
+    mkdir -p "\$IBGW_HOME/.install4j"
     for f in "\$STORE_PATH"/.install4j/*; do
       base=\$(basename "\$f")
       if [ "\$base" != "response.varfile" ]; then
-        ln -sfn "\$f" "\$IBKR_HOME/.install4j/\$base"
+        ln -sfn "\$f" "\$IBGW_HOME/.install4j/\$base"
       fi
     done
-    sed "s|@IBKR_HOME@|\$IBKR_HOME|g" "\$STORE_PATH/.install4j/response.varfile" \\
-      > "\$IBKR_HOME/.install4j/response.varfile"
+    sed "s|@IBGW_HOME@|\$IBGW_HOME|g" "\$STORE_PATH/.install4j/response.varfile" \\
+      > "\$IBGW_HOME/.install4j/response.varfile"
 
-    # Copy ntws whenever the store path changes
-    if [ ! -f "\$IBKR_HOME/.store-version" ] || [ "\$(cat "\$IBKR_HOME/.store-version")" != "\$STORE_PATH" ]; then
-      cp -f "\$STORE_PATH/ntws" "\$IBKR_HOME/ntws"
-      chmod +x "\$IBKR_HOME/ntws"
-      echo "\$STORE_PATH" > "\$IBKR_HOME/.store-version"
+    # Copy launcher whenever the store path changes
+    if [ ! -f "\$IBGW_HOME/.store-version" ] || [ "\$(cat "\$IBGW_HOME/.store-version")" != "\$STORE_PATH" ]; then
+      cp -f "\$STORE_PATH/ibgateway" "\$IBGW_HOME/ibgateway"
+      chmod +x "\$IBGW_HOME/ibgateway"
+      echo "\$STORE_PATH" > "\$IBGW_HOME/.store-version"
     fi
 
     export INSTALL4J_JAVA_HOME_OVERRIDE="\$STORE_PATH/jre"
     export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
     export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ ]; }}"
-    export QT_QPA_PLATFORM=xcb
-    export QTWEBENGINE_DISABLE_SANDBOX=1
-    export LD_LIBRARY_PATH="$out/lib/qt/lib:${lib.makeLibraryPath [
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [
       pkgs.libGL
-      pkgs.vulkan-loader
       pkgs.fontconfig.lib
-      pkgs.udev
     ]}\''${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}"
 
-    cd "\$IBKR_HOME"
-    exec "\$IBKR_HOME/ntws" "\$@"
+    cd "\$IBGW_HOME"
+    exec "\$IBGW_HOME/ibgateway" "\$@"
     LAUNCHER
-    chmod +x $out/bin/ibkr-desktop
+    chmod +x $out/bin/ibkr-gateway
 
     runHook postInstall
   '';
 
-  passthru.etagHash = "bdbb58b774e89da9fc374f23554bce24";
+  passthru.etagHash = "56d115305699439ea51ebc6be7c501b3";
 
   meta = {
-    description = "Interactive Brokers desktop trading platform (ibkr-desktop)";
+    description = "Interactive Brokers Gateway for automated trading";
     homepage = "https://www.interactivebrokers.com";
-    downloadPage = "https://www.interactivebrokers.com/en/trading/ibkr-desktop.php";
+    downloadPage = "https://www.interactivebrokers.com/en/trading/ibgateway-latest.php";
     license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
-    mainProgram = "ibkr-desktop";
+    mainProgram = "ibkr-gateway";
   };
 }

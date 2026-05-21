@@ -8,6 +8,8 @@
 [![Cachix Cache](https://img.shields.io/badge/cachix-herver-blue.svg)](https://herver.cachix.org)
 
 ## Packages
+ * [IB Gateway](https://www.interactivebrokers.com/en/trading/ibgateway-latest.php)
+ * [IBKR Desktop](https://www.interactivebrokers.com/en/trading/ibkr-desktop.php)
  * [Proton Meet](https://proton.me/meet)
  * [TrackAudio](https://github.com/pierr3/TrackAudio)
  * [vATIS](https://github.com/vatis-project/vatis)
