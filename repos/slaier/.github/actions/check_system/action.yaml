@@ -11,6 +11,12 @@ runs:
       id: build
       shell: bash
       run: |
+        for _ in {1..3}; do
+          if nix build --max-jobs 4 --cores 4 --no-link \
+            .#nixosConfigurations.local.config.system.build.toplevel; then
+            break
+          fi
+        done
         out_path=$(nix build \
           .#nixosConfigurations.local.config.system.build.toplevel \
           --no-link \
