@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  flutter338,
+  flutter,
   fetchFromGitHub,
   autoPatchelfHook,
   alsa-lib,
@@ -13,16 +13,16 @@
 }:
 
 let
-  version = "2.1.1";
+  version = "2.1.2";
 
   src = fetchFromGitHub {
     owner = "Predidit";
     repo = "Kazumi";
     tag = version;
-    hash = "sha256-zXqSc89swNQ/zYLyqBOShJScqWFlsKC6+qHwHl5Pd1Y=";
+    hash = "sha256-H+zP7LOCyvtlDpxzfUtlodtJk1ZiJJqWcvkdY4aOhj8=";
   };
 in
-flutter338.buildFlutterApplication {
+flutter.buildFlutterApplication {
   pname = "kazumi";
   inherit version src;
 

@@ -1,5 +1,6 @@
 {
   "audio_service_mpris": "sha256-IVv1ioBpiK0VbnOFqnc9NbNn3Z+l9VN2clpCQjckBRo=",
+  "audio_service_win": "sha256-OZq2waTr0WLJ6uki/VLdUBdDdui25PvXnMNFohs7gjs=",
   "desktop_webview_window": "sha256-KWON5aTPlVVrLidmnfpV+syWPYEngChOvkN7miIFjvE=",
   "media_kit": "sha256-R9fHCJxkPa1kp1yn69LMgyF+QJ7k84AOm8Aa9qcKNIc=",
   "media_kit_libs_android_video": "sha256-R9fHCJxkPa1kp1yn69LMgyF+QJ7k84AOm8Aa9qcKNIc=",
@@ -10,5 +11,5 @@
   "media_kit_libs_video": "sha256-R9fHCJxkPa1kp1yn69LMgyF+QJ7k84AOm8Aa9qcKNIc=",
   "media_kit_libs_windows_video": "sha256-R9fHCJxkPa1kp1yn69LMgyF+QJ7k84AOm8Aa9qcKNIc=",
   "media_kit_video": "sha256-R9fHCJxkPa1kp1yn69LMgyF+QJ7k84AOm8Aa9qcKNIc=",
-  "webview_windows": "sha256-5iNB/h6TzMOTxp98flg7jt2XZn0bFU6wSvYjjUXt3bk="
+  "webview_windows": "sha256-afBTwbam9YA0xvIYMtiJe+CKi8GWit1HqDR3J72r2o0="
 }
