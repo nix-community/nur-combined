@@ -16,7 +16,7 @@
           version = "ba2685d1803672262638f752edb0ae97932b58fa";
         }
       ];
-      vendorHash = "sha256-bnY7vHM3cZZaijOM7rGcWm14ANsnqIGFSvIOIY2bCaQ="; # for 26.05-unstable
+      vendorHash = "sha256-NBk5cLvsc7IMsuiAIfKx/xh/+RiPzH1DIDLUPzCQGGg="; # for 26.05-unstable
     };
     config = ''
       . {

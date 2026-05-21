@@ -59,6 +59,7 @@ let
             # nur.repos.nagy.modules.lua
             nur.repos.nagy.modules.ncdu
             nur.repos.nagy.modules.nix
+            nur.repos.nagy.modules.openstack
             nur.repos.nagy.modules.opentofu
             nur.repos.nagy.modules.python
             nur.repos.nagy.modules.pytr

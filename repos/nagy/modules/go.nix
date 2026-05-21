@@ -13,4 +13,9 @@
     pkgs.delve
     # pkgs.gdlv
   ];
+
+  environment.sessionVariables = {
+    # https://go.dev/doc/telemetry
+    GOTELEMETRY = "off";
+  };
 }
