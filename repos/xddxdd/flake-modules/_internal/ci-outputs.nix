@@ -21,6 +21,14 @@ let
     };
     file = ./ci-outputs.nix;
   };
+  hydraPackagesOptionModule = flake-parts-lib.mkTransposedPerSystemModule {
+    name = "hydraPackages";
+    option = lib.mkOption {
+      type = lib.types.lazyAttrsOf lib.types.package;
+      default = [ ];
+    };
+    file = ./ci-outputs.nix;
+  };
   packagesWithCudaOptionModule = flake-parts-lib.mkTransposedPerSystemModule {
     name = "packagesWithCuda";
     option = lib.mkOption {
@@ -42,6 +50,7 @@ in
   imports = [
     ciPackagesOptionModule
     ciPackagesWithCudaOptionModule
+    hydraPackagesOptionModule
     packagesWithCudaOptionModule
     legacyPackagesWithCudaOptionModule
   ];
@@ -68,6 +77,10 @@ in
             pkgs = pkgsWithCuda;
           }
         ))
+        // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
+      );
+      hydraPackages = lib.filterAttrs (n: isBuildable) (
+        (flattenPkgs (import ../../pkgs "hydra" { inherit inputs pkgs; }))
         // (lib.mapAttrs' (n: v: lib.nameValuePair "nvfetcher-src-${n}" v.src or null) sources)
       );
     };
