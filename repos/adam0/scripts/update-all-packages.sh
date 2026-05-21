@@ -188,6 +188,66 @@ read_package_version() {
       in if builtins.isAttrs pkg && pkg ? version then pkg.version else \"\"" 2>/dev/null || true
 }
 
+read_package_src_url() {
+	local source_kind=$1
+	local attrset=$2
+	local attr=$3
+	local escaped_attr
+
+	escaped_attr=$(escape_nix_string "${attr}")
+	nix_eval_attrset "${source_kind}" "${attrset}" "
+    pkgs:
+      let pkg = builtins.getAttr \"${escaped_attr}\" pkgs;
+      in if builtins.isAttrs pkg && pkg ? src && pkg.src ? url then pkg.src.url else \"\"" 2>/dev/null || true
+}
+
+github_repo_from_url() {
+	local url=$1
+	local repo
+
+	if [[ ! "${url}" =~ ^https://github\.com/([^/]+)/([^/]+)(/|$) ]]; then
+		return 1
+	fi
+
+	repo=${BASH_REMATCH[2]}
+	repo=${repo%.git}
+
+	printf '%s %s' "${BASH_REMATCH[1]}" "${repo}"
+}
+
+latest_release_prefix_for_package() {
+	local source_kind=$1
+	local attrset=$2
+	local attr=$3
+	local baseline_prefix=$4
+	local src_url
+	local repo_ref
+	local owner
+	local repo
+	local latest_tag
+	local latest_version
+
+	src_url=$(read_package_src_url "${source_kind}" "${attrset}" "${attr}")
+	repo_ref=$(github_repo_from_url "${src_url}" || true)
+	if [ -z "${repo_ref}" ]; then
+		return 0
+	fi
+
+	read -r owner repo <<<"${repo_ref}"
+	latest_tag=$(latest_github_release_tag "${owner}" "${repo}")
+	latest_version=$(strip_tag_prefix "${latest_tag}" v)
+
+	if [[ ! "${latest_version}" =~ ^[0-9] ]]; then
+		return 0
+	fi
+
+	if [ -n "${baseline_prefix}" ] && version_is_older "${latest_version}" "${baseline_prefix}"; then
+		return 0
+	fi
+
+	printf '%s' "${latest_version}"
+}
+
 version_mode_for_version() {
 	local version=$1
 
@@ -294,10 +354,14 @@ run_nix_update() {
 }
 
 normalize_unstable_version_format() {
-	local file_path=$1
-	local previous_version=$2
-	local current_version=$3
+	local source_kind=$1
+	local attrset=$2
+	local attr=$3
+	local file_path=$4
+	local previous_version=$5
+	local current_version=$6
 	local prefix=0
+	local release_prefix
 	local date_part
 	local escaped_prefix
 
@@ -309,6 +373,11 @@ normalize_unstable_version_format() {
 
 	if [[ "${previous_version}" =~ ^([A-Za-z0-9.+-]+)-unstable-[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
 		prefix=${BASH_REMATCH[1]}
+	fi
+
+	release_prefix=$(latest_release_prefix_for_package "${source_kind}" "${attrset}" "${attr}" "${prefix}")
+	if [ -n "${release_prefix}" ]; then
+		prefix=${release_prefix}
 	fi
 
 	escaped_prefix=$(printf '%s' "${prefix}" | sed -e 's/[&|\\]/\\&/g')
@@ -378,13 +447,19 @@ should_block_downgrade() {
 
 postprocess_package_update() {
 	local source_kind=$1
-	local attr_path=$2
-	local file_path=$3
-	local backup_file=$4
-	local before_version=$5
-	local after_version=$6
+	local attrset=$2
+	local attr=$3
+	local attr_path=$4
+	local file_path=$5
+	local backup_file=$6
+	local before_version=$7
+	local after_version=$8
 
-	normalize_unstable_version_format "${file_path}" "${before_version}" "${after_version}"
+	normalize_unstable_version_format "${source_kind}" "${attrset}" "${attr}" "${file_path}" "${before_version}" "${after_version}"
+
+	if [ -n "${backup_file}" ] && cmp -s "${backup_file}" "${file_path}"; then
+		return 0
+	fi
 
 	if ! refresh_dependency_hash "${source_kind}" "${attr_path}" "${file_path}"; then
 		restore_backup_file "${backup_file}" "${file_path}"
@@ -454,7 +529,7 @@ run_package_update() {
 	after_version=$(read_package_version "${source_kind}" "${attrset}" "${attr}")
 
 	if [ -n "${file_path}" ] && [ -f "${file_path}" ]; then
-		if ! postprocess_package_update "${source_kind}" "${attr_path}" "${file_path}" "${backup_file}" "${before_version}" "${after_version}"; then
+		if ! postprocess_package_update "${source_kind}" "${attrset}" "${attr}" "${attr_path}" "${file_path}" "${backup_file}" "${before_version}" "${after_version}"; then
 			end_file_transaction
 			cleanup_backup_file "${backup_file}"
 			return 0
@@ -516,8 +591,19 @@ manifest_value() {
 latest_github_release_tag() {
 	local owner=$1
 	local repo=$2
+	local response
+	local status
 
-	curl_fetch "https://api.github.com/repos/${owner}/${repo}/releases/latest" | json_query -r '.tag_name // empty'
+	set +e
+	response=$(curl_fetch "https://api.github.com/repos/${owner}/${repo}/releases/latest" 2>/dev/null)
+	status=$?
+	set -e
+
+	if [ "${status}" -ne 0 ]; then
+		return 0
+	fi
+
+	printf '%s\n' "${response}" | json_query -r '.tag_name // empty'
 }
 
 strip_tag_prefix() {
