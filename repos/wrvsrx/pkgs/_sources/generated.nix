@@ -140,6 +140,18 @@
     };
     date = "2015-10-31";
   };
+  iwe-nvim = {
+    pname = "iwe-nvim";
+    version = "e6efe64c308e2a2708c1ae9c82749f46b3fe45e0";
+    src = fetchFromGitHub {
+      owner = "iwe-org";
+      repo = "iwe.nvim";
+      rev = "e6efe64c308e2a2708c1ae9c82749f46b3fe45e0";
+      fetchSubmodules = false;
+      sha256 = "sha256-/ggxBpwnnXC9GC9usw8KjacgWLlwlwdyOzZN1m2z+zY=";
+    };
+    date = "2026-05-17";
+  };
   jax-md = {
     pname = "jax-md";
     version = "0.2.8";

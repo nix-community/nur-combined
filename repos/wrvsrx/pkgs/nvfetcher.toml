@@ -115,3 +115,7 @@ fetch.github = "wrvsrx/xdg-user-dirs"
 [xml]
 src.github_tag = "wrvsrx/xml"
 fetch.github = "wrvsrx/xml"
+
+[iwe-nvim]
+src.git = "https://github.com/iwe-org/iwe.nvim"
+fetch.github = "iwe-org/iwe.nvim"

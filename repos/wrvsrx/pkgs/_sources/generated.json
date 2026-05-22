@@ -245,6 +245,27 @@
         },
         "version": "7e48d2bda0f94fc96b2d8b2917d5ef306ba83c97"
     },
+    "iwe-nvim": {
+        "cargoLock": null,
+        "date": "2026-05-17",
+        "extract": null,
+        "name": "iwe-nvim",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iwe-org",
+            "repo": "iwe.nvim",
+            "rev": "e6efe64c308e2a2708c1ae9c82749f46b3fe45e0",
+            "sha256": "sha256-/ggxBpwnnXC9GC9usw8KjacgWLlwlwdyOzZN1m2z+zY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e6efe64c308e2a2708c1ae9c82749f46b3fe45e0"
+    },
     "jax-md": {
         "cargoLock": null,
         "date": null,
