@@ -2,12 +2,16 @@
   sources,
   hash,
   pnpm_10,
+  electron_40,
   fetchPnpmDeps,
   rustPlatform,
   callPackage,
 }:
 let
-  splayer = callPackage ./package.nix { };
+  splayer = callPackage ./package.nix {
+    # 续命，不过electron 40很快也要eol了
+    electron_39 = electron_40;
+  };
 in
 splayer.overrideAttrs (
   final: prev: {
