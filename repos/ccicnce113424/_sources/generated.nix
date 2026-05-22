@@ -35,10 +35,10 @@
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
-    version = "2.7.1-3";
+    version = "2.7.1-4";
     src = fetchurl {
-      url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-2.7.1-3/DXVK-GPLALL-MSVC-Windows-AVX2-O1_Oi_Ob3-LTCG-AMD64.2.7.1-3.zip";
-      sha256 = "sha256-bFpNw2uA76sOENZ8bNbAQBuryshxioo4LzuiIeLwmG4=";
+      url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-2.7.1-4/DXVK-GPLALL-MSVC-Windows-AVX2-O1_Oi_Ob3-LTCG-AMD64.2.7.1-4.zip";
+      sha256 = "sha256-GB+GHCLSgfv6HQxjEQACzZVK5kUtGKPzBCm+M5z6nIA=";
     };
   };
   fxz = {
@@ -206,16 +206,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.0";
+    version = "v3.9.1-beta.1";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.0";
+      rev = "v3.9.1-beta.1";
       fetchSubmodules = false;
-      sha256 = "sha256-qeI9lXykd1LxX/x7Ls5I7wxJGwsd5X/XOryin6V9zsc=";
+      sha256 = "sha256-CFUclGFmLrWkzoEGFkn4A0+fxvhij8N3BqFKj9c+Fw8=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-qeI9lXykd1LxX_x7Ls5I7wxJGwsd5X_XOryin6V9zsc=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-CFUclGFmLrWkzoEGFkn4A0+fxvhij8N3BqFKj9c+Fw8=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
