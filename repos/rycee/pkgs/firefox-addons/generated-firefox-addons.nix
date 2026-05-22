@@ -1405,10 +1405,10 @@
     };
     "bookmarkhub" = buildMozillaXpiAddon {
       pname = "bookmarkhub";
-      version = "0.0.4";
+      version = "1.0.2";
       addonId = "{9c37f9a3-ea04-4a2b-9fcc-c7a814c14311}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815080/bookmarkhub-0.0.4.xpi";
-      sha256 = "15132a6223fd79141b65bb41e8289946ef36eb26cb1cb2cdfa6aadb54cb1e3ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4754295/bookmarkhub-1.0.2.xpi";
+      sha256 = "3c86ed5643f47bb63396087e1bbe721ae0efd440e00e8ea3b3b9eb0661284a86";
       meta = with lib;
       {
         homepage = "https://www.github.com/dudor/BookmarkHub";
@@ -1416,9 +1416,9 @@
         mozPermissions = [
           "bookmarks"
           "storage"
+          "alarms"
           "notifications"
-          "https://*.github.com/"
-          "https://*.githubusercontent.com/"
+          "identity"
         ];
         platforms = platforms.all;
       };
@@ -10746,10 +10746,10 @@
     };
     "okta-browser-plugin" = buildMozillaXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.45.0";
+      version = "6.46.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4619979/okta_browser_plugin-6.45.0.xpi";
-      sha256 = "cc5749bbe1333e45428bb786fdd0581ec4d757b45e97e1befb78bf2515208ed6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4807793/okta_browser_plugin-6.46.0.xpi";
+      sha256 = "007547000c9438c21f4ccd09ab447582be11d49c3b16b23ebfa03b2479cc8418";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -14684,10 +14684,10 @@
     };
     "tampermonkey" = buildMozillaXpiAddon {
       pname = "tampermonkey";
-      version = "5.4.1";
+      version = "5.5.0";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4624137/tampermonkey-5.4.1.xpi";
-      sha256 = "60f3f2bc86d43a3f5704b4878490beb7f4c44d27c14ac8747845082fe1773ad0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4797143/tampermonkey-5.5.0.xpi";
+      sha256 = "190031c78dbc5696114835601f2c8e6b855ad1e134df5df278f8fc158c065908";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
@@ -14711,6 +14711,7 @@
           "contextMenus"
           "clipboardWrite"
           "cookies"
+          "contextualIdentities"
           "downloads"
           "<all_urls>"
         ];
