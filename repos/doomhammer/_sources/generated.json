@@ -2,7 +2,7 @@
     "gitpane": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-+tyG6bzWEicVMvjFlw6ItEcYfOssB_K2JS9qkG89oaY=/Cargo.lock",
+                "sha256-PVIclNcA4Aiytf4JKjRq20gA8Kh7h362Nbq9tXUdRsY=/Cargo.lock",
                 {}
             ]
         },
@@ -18,12 +18,12 @@
             "name": null,
             "owner": "affromero",
             "repo": "gitpane",
-            "rev": "v0.6.2",
-            "sha256": "sha256-+tyG6bzWEicVMvjFlw6ItEcYfOssB/K2JS9qkG89oaY=",
+            "rev": "v0.7.0",
+            "sha256": "sha256-PVIclNcA4Aiytf4JKjRq20gA8Kh7h362Nbq9tXUdRsY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.6.2"
+        "version": "v0.7.0"
     },
     "hammerspoon": {
         "cargoLock": null,
