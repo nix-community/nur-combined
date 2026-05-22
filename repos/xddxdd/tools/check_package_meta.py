@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3Packages.toml -p nixfmt-rfc-style
+#!nix-shell -i python3 -p python3 -p python3Packages.toml -p nixfmt
 import argparse
 import json
 import multiprocessing as mp
@@ -142,6 +142,25 @@ def format_with_nixfmt(nix_file: str) -> str:
     return p.communicate(nix_file)[0]
 
 
+def is_finalattrs(meta: dict) -> bool:
+    if not meta.get("position"):
+        return False
+
+    match = re.search(r"/(pkgs/.+\.nix):", meta["position"], re.IGNORECASE)
+    if not match:
+        print(f"Cannot find nix file for {meta['position']}")
+        return False
+    nix_file = match[1]
+
+    try:
+        with open(nix_file) as f:
+            nix_str = f.read()
+        return "finalAttrs" in nix_str
+    except FileNotFoundError:
+        print(f"Cannot open file {nix_file}")
+        return False
+
+
 def apply_package_meta_change(meta: dict, statement: str):
     if not meta.get("position"):
         return
@@ -208,8 +227,13 @@ def autocorrect_package_meta(
     else:
         version_prefix = ""
 
+    use_finalattrs = is_finalattrs(meta)
+
     if github_release_src and not meta.get("changelog"):
-        statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{finalAttrs.version}}";'
+        if use_finalattrs:
+            statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{finalAttrs.version}}";'
+        else:
+            statement = f'changelog = "https://github.com/{github_release_src}/releases/tag/{version_prefix}${{version}}";'
         apply_package_meta_change(meta, statement)
 
     if github_fetch_src and not meta.get("homepage"):
@@ -233,7 +257,7 @@ def verify_package(
         DescriptionCheck(package_path, package_meta),
         LicenseCheck(package_path, package_meta),
         MaintainersCheck(package_path, package_meta),
-        PackageInfoCheck(package_path, package_meta, package_info["env"]),
+        PackageInfoCheck(package_path, package_meta, package_info.get("env")),
         HomepageCheck(package_path, package_meta),
     ]
 

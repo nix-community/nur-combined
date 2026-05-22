@@ -68,6 +68,10 @@ jobs:
           github = "${{ secrets.GITHUB_TOKEN }}"
           EOF
 
+          sudo mkdir -p /nix/tmpdir2
+          sudo chown "$(whoami)" /nix/tmpdir2
+          export TMPDIR=/nix/tmpdir2
+
           nix run .#update
           nix run .#update-hashes
 

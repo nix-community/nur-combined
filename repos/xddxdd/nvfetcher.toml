@@ -146,6 +146,11 @@ fetch.github = "lilmayofuksu/pyenet"
 git.fetchSubmodules = true
 src.git = "https://github.com/lilmayofuksu/pyenet.git"
 
+[command-code]
+fetch.url = "https://registry.npmjs.org/command-code/-/command-code-$ver.tgz"
+src.webpage = "https://registry.npmjs.org/command-code/latest"
+src.regex = "\"version\":\"([^\"]+)\""
+
 [comp128]
 fetch.github = "Takuto88/comp128-python"
 src.github = "Takuto88/comp128-python"
@@ -295,6 +300,10 @@ src.git = "https://github.com/alexjp/env-dedup.git"
 [etherguard]
 fetch.github = "KusakabeShi/EtherGuard-VPN"
 src.github = "KusakabeShi/EtherGuard-VPN"
+
+[extenddb]
+fetch.github = "ExtendDB/extenddb"
+src.github = "ExtendDB/extenddb"
 
 [fake-ollama]
 fetch.github = "spoonnotfound/fake-ollama"
@@ -659,14 +668,6 @@ src.github = "abbbi/nullfsvfs"
 [oci-arm-host-capacity]
 fetch.github = "hitrov/oci-arm-host-capacity"
 src.git = "https://github.com/hitrov/oci-arm-host-capacity.git"
-
-[one-api-amd64]
-fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api"
-src.github = "songquanpeng/one-api"
-
-[one-api-arm64]
-fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api-arm64"
-src.github = "songquanpeng/one-api"
 
 [open-webui-kb-manager]
 fetch.github = "dubh3124/OpenWebUI-KB-Manager"

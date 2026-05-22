@@ -9,7 +9,7 @@ let
     inherit (sources.browseros) pname src version;
   };
 in
-appimageTools.wrapType2 {
+appimageTools.wrapType2 rec {
   inherit (sources.browseros) pname src version;
 
   extraInstallCommands = ''
@@ -20,6 +20,7 @@ appimageTools.wrapType2 {
   '';
 
   meta = {
+    changelog = "https://github.com/browseros-ai/BrowserOS/releases/tag/${version}";
     homepage = "https://www.browseros.com";
     description = "Open source agentic browser";
     license = lib.licenses.agpl3Only;
