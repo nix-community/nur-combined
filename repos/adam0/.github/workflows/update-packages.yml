@@ -1,6 +1,6 @@
 # yamllint disable rule:document-start
 name: update-packages
-'on':
+"on":
   workflow_dispatch:
   schedule:
     - cron: "0 2 * * *"
@@ -24,8 +24,8 @@ jobs:
             substituters = https://cache.nixos.org https://adam01110-nur.cachix.org/
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= adam01110-nur.cachix.org-1:43B8awTREG19aQ20luDD9BkxijKG/Q7hf8voMzS1X9I=
           # yamllint enable rule:line-length
-      - name: Run nix-update for all packages
-        run: ./scripts/update-all-packages.sh
+      - name: Update packages
+        run: python3 -m updater
       - name: Import gpg key
         uses: crazy-max/ghaction-import-gpg@v7
         with:

@@ -1,0 +1,20 @@
+[project]
+name = "nur"
+version = "0.0.0"
+requires-python = ">=3.13"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ty.environment]
+extra-paths = [".."]
+
+[tool.ty.src]
+include = ["."]
+
+[tool.uv]
+package = false

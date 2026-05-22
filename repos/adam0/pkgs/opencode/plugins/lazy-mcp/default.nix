@@ -7,7 +7,7 @@
 }:
 mkOpencodePlugin rec {
   pname = "lazy-mcp";
-  version = "1.0.3";
+  version = "1.0.3-unstable-2026-03-24";
 
   src = fetchFromGitHub {
     owner = "orionpax1997";

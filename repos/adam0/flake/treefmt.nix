@@ -10,6 +10,12 @@
       statix.enable = true;
       # keep-sorted end
 
+      ruff-check = {
+        enable = true;
+        extendSelect = ["I"];
+      };
+      ruff-format.enable = true;
+
       rumdl-format.enable = true;
 
       # keep-sorted start

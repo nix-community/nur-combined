@@ -47,7 +47,7 @@ Formatting is configured through `treefmt-nix`.
 ## Automation
 
 - `build.yml`: evaluates the repository and builds cacheable outputs against `nixpkgs-unstable`, `nixos-unstable`, and `nixos-stable`.
-- `update-packages.yml`: runs `./scripts/update-all-packages.sh` and opens a signed pull request.
+- `update-packages.yml`: runs `python3 -m updater` and opens a signed pull request.
 - `update-flake-lock.yml`: refreshes `flake.lock` weekly.
 
 ## Layout

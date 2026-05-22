@@ -1,5 +1,11 @@
 # keep-sorted start
-result*
 .direnv
+.mypy_cache
+.pytest_cache
+.ruff_cache
 .rumdl_cache
+__pycache__/
+*.egg-info/
+*.py[cod]
+result*
 # keep-sorted end
