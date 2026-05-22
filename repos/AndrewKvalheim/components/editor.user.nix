@@ -98,7 +98,7 @@ in
         tamasfe.even-better-toml
         timonwong.shellcheck
         unifiedjs.vscode-mdx
-        volkerdobler.insertnums
+        # volkerdobler.insertnums # FIXME: Unavailable
         webfreak.advanced-local-formatters
         xaver.clang-format
       ];
