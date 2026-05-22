@@ -4,7 +4,7 @@
   ...
 }: let
   pname = "waveql";
-  version = "0.1.0";
+  version = "0.2.0";
 in pkgs.rustPlatform.buildRustPackage {
   inherit pname version;
 
@@ -12,10 +12,10 @@ in pkgs.rustPlatform.buildRustPackage {
     owner = "srcres258";
     repo = "waveql";
     rev = "v${version}";
-    hash = "sha256-WkZ1IsD6kAxVJI/DKipwwWVSv8v1Dz+nvExIfDZEJRo=";
+    hash = "sha256-zQth+TSif/ikj1748Kye7Pl86zLWAOZe1Z2S2UGHgrY=";
   };
 
-  cargoHash = "sha256-RKl4OXLy/r7wKPBqgQscGx03o/yt0rkYvyxo0TNXTao=";
+  cargoHash = "sha256-Tf28s+CW5YqN7kNVh3t7mMBzGLh5ETONxESjgdeINdE=";
 
   meta = with pkgs.lib; {
     description = "A high-performance VCD/FST waveform query CLI for AI Agents and humans";

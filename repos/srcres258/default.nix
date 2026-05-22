@@ -56,6 +56,9 @@ in {
   waveql = pkgs.callPackage ./pkgs/waveql {
       inherit maintainers;
   };
+  pywellen-mcp = pkgs.callPackage ./pkgs/pywellen-mcp {
+      inherit maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
