@@ -10,6 +10,9 @@
 | Package | Description | Update Policy |
 | :--- | :--- | :--- |
 | **`optiscaler-client`** | Modern manager for OptiScaler | **Auto** (Weekly) |
+| **`optiscaler-install`** | Downloader and launcher for the official OptiScaler Linux setup script | Manual (runtime latest) |
+| **`optipatcher-install`** | Downloader for the latest OptiPatcher ASI plugin | Manual (runtime latest) |
+| **`rimsort-appimage`** | Open source mod manager for RimWorld (AppImage) | **Auto** (Weekly) |
 | **`wowup-cf`** | World of Warcraft addon manager with CurseForge support (AppImage) | **Auto** (Weekly) |
 | **`scopebuddy`** | ScopeBuddy application | **Auto** (Weekly) |
 | **`cybergrub2077`** | Cyberpunk 2077 inspired GRUB theme | **Auto** (Weekly) |

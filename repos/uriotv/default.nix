@@ -23,9 +23,12 @@
 
   # Applications
   optiscaler-client = pkgs.callPackage ./pkgs/optiscaler-client { };
+  rimsort-appimage = pkgs.callPackage ./pkgs/rimsort-appimage { };
   wowup-cf = pkgs.callPackage ./pkgs/wowup-cf { };
 
   # Tools
+  optipatcher-install = pkgs.callPackage ./pkgs/optipatcher-install { };
+  optiscaler-install = pkgs.callPackage ./pkgs/optiscaler-install { };
   scopebuddy = pkgs.callPackage ./pkgs/scopebuddy { };
   # Launcher
   vs-launcher = pkgs.callPackage ./pkgs/vs-launcher { };
