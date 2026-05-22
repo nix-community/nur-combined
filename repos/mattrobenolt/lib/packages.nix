@@ -52,6 +52,7 @@ let
       uvShellHook = prev.callPackage ../pkgs/uv/venv-shell-hook.nix { };
       hunk = prev.callPackage ../pkgs/hunk/package.nix { };
       inbox = prev.callPackage ../pkgs/inbox/package.nix { };
+      prismacat = prev.callPackage ../pkgs/prismacat/package.nix { };
       zigdoc = prev.callPackage ../pkgs/zigdoc/package.nix { };
       ziglint = prev.callPackage ../pkgs/ziglint/package.nix { };
       tracy = prev.callPackage ../pkgs/tracy/package.nix { };
@@ -77,6 +78,7 @@ in
         uvShellHook
         hunk
         inbox
+        prismacat
         zigdoc
         ziglint
         tracy

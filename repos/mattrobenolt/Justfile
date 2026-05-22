@@ -1,52 +1,64 @@
-# List available commands
+[private]
 default:
     @just --list --unsorted
 
-# Format all Nix files (runs deadnix, statix, and nixfmt)
+[doc("Format all Nix files with the flake formatter")]
+[group("checks")]
 fmt:
     nix fmt
 
-# Check flake outputs and formatting
+[doc("Check flake outputs and formatting")]
+[group("checks")]
 check:
     nix flake check
 
-# Build a package
+[arg("package", pattern="^[A-Za-z0-9._+-]+$")]
+[doc("Build a flake package")]
+[group("packages")]
 build package:
-    nix build ".#{{package}}"
+    nix build ".#{{ package }}"
 
-# Update one package by directory name under pkgs/
+[arg("package", pattern="^[A-Za-z0-9._+-]+$")]
+[doc("Update one package by directory name under pkgs/")]
+[group("updates")]
 update package:
-    ./pkgs/{{package}}/update.py
+    ./pkgs/{{ package }}/update.py
 
-# Update Go versions and hashes
+[doc("Update Go versions and hashes")]
+[group("updates")]
 update-go:
     @just update go-bin
 
-# Update hunk package
+[doc("Update hunk package")]
+[group("updates")]
 update-hunk:
     @just update hunk
 
-# Update inbox package
+[doc("Update inbox package")]
+[group("updates")]
 update-inbox:
     @just update inbox
 
-# Update zigdoc package
+[doc("Update prismacat package")]
+[group("updates")]
+update-prismacat:
+    @just update prismacat
+
+[doc("Update zigdoc package")]
+[group("updates")]
 update-zigdoc:
     @just update zigdoc
 
-# Update ziglint package
+[doc("Update ziglint package")]
+[group("updates")]
 update-ziglint:
     @just update ziglint
 
-# Update Zed package (stable + preview)
+[doc("Update Zed package (stable + preview)")]
+[group("updates")]
 update-zed:
     @just update zed
 
-# Update all packages
-update-all:
-    @just update go-bin
-    @just update hunk
-    @just update inbox
-    @just update zigdoc
-    @just update ziglint
-    @just update zed
+[doc("Update all packages")]
+[group("updates")]
+update-all: update-go update-hunk update-inbox update-prismacat update-zigdoc update-ziglint update-zed

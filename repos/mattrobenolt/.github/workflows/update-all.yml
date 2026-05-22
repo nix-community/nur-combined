@@ -60,6 +60,10 @@ jobs:
           nix build .#inbox --no-link
           echo "✓ inbox builds"
 
+          # Build prismacat package
+          nix build .#prismacat --no-link
+          echo "✓ prismacat builds"
+
           # Build zigdoc package
           nix build .#zigdoc --no-link
           echo "✓ zigdoc builds"
@@ -80,6 +84,7 @@ jobs:
           echo "🧪 Testing binaries..."
           nix run .#go-bin -- version
           nix run .#inbox -- --help
+          nix run .#prismacat -- --help
           nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
           nix run .#ziglint -- --version
           echo "✓ All binaries work"
