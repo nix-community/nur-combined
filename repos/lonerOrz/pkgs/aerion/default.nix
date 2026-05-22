@@ -118,32 +118,17 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "aerion";
       updateMethod = "none";
       fetchMetaCommand = "${lib.getExe (
-        callPackage ../../utils/json.nix {
-          preScript = ''
-            VERSION=$(curl -sS https://api.github.com/repos/hkdb/aerion/releases/latest | jq -r '.tag_name | ltrimstr("v")')
-
-            CURRENT_VERSION=$(jq -r '.version' "${versionFile}" 2>/dev/null || echo "")
-
-            if [ "$VERSION" = "$CURRENT_VERSION" ]; then
-              cat "${versionFile}"
-              exit 0
-            fi
-
-            URL_X86="https://github.com/hkdb/aerion/releases/download/v$VERSION/aerion-linux-amd64.tar.gz"
-            URL_ARM="https://github.com/hkdb/aerion/releases/download/v$VERSION/aerion-linux-arm64.tar.gz"
-
-            echo "[*] Prefetching x86_64 hash..." >&2
-            HASH_X86=$(nix-prefetch-url --unpack "$URL_X86" --type sha256 | xargs nix-hash --to-sri --type sha256)
-
-            echo "[*] Prefetching aarch64 hash..." >&2
-            HASH_ARM=$(nix-prefetch-url --unpack "$URL_ARM" --type sha256 | xargs nix-hash --to-sri --type sha256)
+        callPackage ../../utils/fetch-urls.nix {
+          inherit versionFile;
+          versionCommand = ''
+            curl -sS https://api.github.com/repos/hkdb/aerion/releases/latest \
+              | jq -r '.tag_name | ltrimstr("v")'
           '';
-
-          commands = {
-            version = "echo $VERSION";
-            "x86_64-linux-hash" = "echo $HASH_X86";
-            "aarch64-linux-hash" = "echo $HASH_ARM";
+          hashUrls = {
+            x86_64-linux = "https://github.com/hkdb/aerion/releases/download/v$VERSION/aerion-linux-amd64.tar.gz";
+            aarch64-linux = "https://github.com/hkdb/aerion/releases/download/v$VERSION/aerion-linux-arm64.tar.gz";
           };
+          prefetchUnpack = true;
         }
       )}";
     };

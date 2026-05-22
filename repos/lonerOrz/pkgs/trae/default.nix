@@ -219,32 +219,16 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "trae";
       updateMethod = "none";
       fetchMetaCommand = "${lib.getExe (
-        callPackage ../../utils/json.nix {
-          preScript = ''
+        callPackage ../../utils/fetch-urls.nix {
+          inherit versionFile;
+          versionCommand = ''
             # Trae has no GitHub releases or version API - distributed via CDN only
             # Find the latest version from https://www.trae.ai/download or manually update VERSION
-            VERSION="2.3.29372"
-
-            CURRENT_VERSION=$(jq -r '.version' "${versionFile}" 2>/dev/null || echo "")
-            if [ "$VERSION" = "$CURRENT_VERSION" ]; then
-              cat "${versionFile}"
-              exit 0
-            fi
-
-            URL_X86="https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/$VERSION/linux/Trae-linux-x64.deb"
-            URL_ARM="https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/$VERSION/linux/Trae-linux-arm64.deb"
-
-            echo "[*] Prefetching x86_64 hash..." >&2
-            HASH_X86=$(nix-prefetch-url "$URL_X86" --type sha256 | xargs nix-hash --to-sri --type sha256)
-
-            echo "[*] Prefetching aarch64 hash..." >&2
-            HASH_ARM=$(nix-prefetch-url "$URL_ARM" --type sha256 | xargs nix-hash --to-sri --type sha256)
+            echo "2.3.29372"
           '';
-
-          commands = {
-            version = "echo $VERSION";
-            "x86_64-linux-hash" = "echo $HASH_X86";
-            "aarch64-linux-hash" = "echo $HASH_ARM";
+          hashUrls = {
+            x86_64-linux = "https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/$VERSION/linux/Trae-linux-x64.deb";
+            aarch64-linux = "https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/$VERSION/linux/Trae-linux-arm64.deb";
           };
         }
       )}";

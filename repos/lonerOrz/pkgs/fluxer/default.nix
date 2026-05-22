@@ -5,21 +5,24 @@
   appimageTools,
   makeWrapper,
   tree,
+  callPackage,
 }:
 let
+  current = lib.trivial.importJSON ./version.json;
+
   pname = "fluxer";
-  version = "0.0.8";
+  version = current.version;
 
   sourceMap = {
     x86_64-linux = fetchurl {
       url = "https://api.fluxer.app/dl/desktop/stable/linux/x64/latest/appimage";
-      hash = "sha256-GdoBK+Z/d2quEIY8INM4IQy5tzzIBBM+3CgJXQn0qAw=";
+      hash = current.x86_64-linux-hash;
     };
 
     # 如果官方有提供 arm64 版本的 AppImage，更新脚本会自动替换HASH
     aarch64-linux = fetchurl {
       url = "https://api.fluxer.app/dl/desktop/stable/linux/arm64/latest/appimage";
-      hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      hash = current.aarch64-linux-hash;
     };
   };
 
@@ -56,7 +59,29 @@ appimageTools.wrapType2 {
       --add-flags "--disable-gpu"
   '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript =
+    let
+      versionFile = "pkgs/fluxer/version.json";
+    in
+    callPackage ../../utils/update.nix {
+      inherit versionFile;
+      pname = "fluxer";
+      updateMethod = "none";
+      fetchMetaCommand = "${lib.getExe (
+        callPackage ../../utils/fetch-urls.nix {
+          inherit versionFile;
+          versionCommand = ''
+            curl -sI "https://api.fluxer.app/dl/desktop/stable/linux/x64/latest/appimage" \
+              | grep -i "^content-disposition:" \
+              | sed -n 's/.*fluxer-stable-\([0-9.]*\)-x86_64\.AppImage.*/\1/p'
+          '';
+          hashUrls = {
+            x86_64-linux = "https://api.fluxer.app/dl/desktop/stable/linux/x64/latest/appimage";
+            aarch64-linux = "https://api.fluxer.app/dl/desktop/stable/linux/arm64/latest/appimage";
+          };
+        }
+      )}";
+    };
 
   meta = {
     description = "Fluxer Desktop Application";

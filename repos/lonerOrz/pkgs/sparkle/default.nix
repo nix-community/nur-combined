@@ -13,19 +13,24 @@
   libayatana-appindicator,
   libGL,
   musl,
+  callPackage,
 }:
 
 let
-  sources = import ./sources.nix;
-  systemSrc = sources.${stdenv.hostPlatform.system};
+  current = lib.trivial.importJSON ./version.json;
+
+  pname = "sparkle";
+  version = current.version;
 in
 stdenv.mkDerivation {
-  pname = "sparkle";
-  version = "1.7.0";
+  inherit pname version;
 
   src = fetchurl {
-    url = systemSrc.url;
-    hash = systemSrc.hash;
+    url = "https://github.com/INKCR0W/sparkle/releases/download/${version}/sparkle-linux-${version}-${{
+      x86_64-linux = "amd64";
+      aarch64-linux = "arm64";
+    }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")}.deb";
+    hash = current.${stdenv.hostPlatform.system + "-hash"};
   };
 
   nativeBuildInputs = [
@@ -62,7 +67,28 @@ stdenv.mkDerivation {
       } $out/opt/sparkle/sparkle
   '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript =
+    let
+      versionFile = "pkgs/sparkle/version.json";
+    in
+    callPackage ../../utils/update.nix {
+      inherit versionFile;
+      pname = "sparkle";
+      updateMethod = "none";
+      fetchMetaCommand = "${lib.getExe (
+        callPackage ../../utils/fetch-urls.nix {
+          inherit versionFile;
+          versionCommand = ''
+            curl -sS https://api.github.com/repos/INKCR0W/sparkle/releases/latest \
+              | jq -r '.tag_name'
+          '';
+          hashUrls = {
+            x86_64-linux = "https://github.com/INKCR0W/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-amd64.deb";
+            aarch64-linux = "https://github.com/INKCR0W/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-arm64.deb";
+          };
+        }
+      )}";
+    };
 
   meta = {
     description = "Another Mihomo GUI";
