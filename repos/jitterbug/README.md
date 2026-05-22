@@ -1,9 +1,15 @@
 # nur-packages
 This repo contains packages for RF decoding on NixOS.
 
-![Build and populate cache](https://github.com/JuniorISAJitterbug/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
-[![Cachix Cache](https://img.shields.io/badge/cachix-jitterbug-blue.svg)](https://jitterbug.cachix.org)
+[![Actions Badge]](../../actions/workflows/build.yml)
+[![Cachix Badge]](https://jitterbug.cachix.org)
+[![License Badge]](LICENSE)
 
+<!-- badge images -->
+
+[Actions Badge]: https://img.shields.io/github/actions/workflow/status/JuniorIsAJitterbug/nur-packages/build.yml
+[Cachix Badge]: https://img.shields.io/badge/cachix-jitterbug-blue.svg
+[License Badge]: https://img.shields.io/github/license/JuniorIsAJitterbug/nur-packages
 
 ## Packages
 ### Decoders
@@ -12,13 +18,12 @@ This repo contains packages for RF decoding on NixOS.
 
 ### Tools
 - [cxadc-vhs-server[-jitterbug]](https://github.com/namazso/cxadc_vhs_server)
+- [decode-orc[-unstable]](https://github.com/simoninns/decode-orc) [^1]
 - [ld-decode-tools[-unstable]](https://github.com/simoninns/ld-decode-tools) [^1]
 - [tbc-raw-stack](https://github.com/namazso/tbc-raw-stack)
 - [tbc-tools[-unstable]](https://github.com/harrypm/tbc-tools) [^1]
 - [tbc-video-export](https://github.com/JuniorIsAJitterbug/tbc-video-export) [^1]
 - [vhs-decode-auto-audio-align](https://gitlab.com/wolfre/vhs-decode-auto-audio-align)
-- [vhs-decode-tools[-unstable]](https://github.com/oyvindln/vhs-decode) [^1]
-- ~~[decode-orc[-unstable]](https://github.com/simoninns/decode-orc)~~ [^1]
 
 ### Hardware
 - [cxadc](https://github.com/happycube/cxadc-linux3)
@@ -38,16 +43,12 @@ This repo contains packages for RF decoding on NixOS.
 
 ### Dependencies
 - [binnah](https://gitlab.com/wolfre/binnah) *(vhs-decode-auto-audio-align)*
-- [ezpwd-reed-solomon](https://github.com/pjkundert/ezpwd-reed-solomon) *(ld-decode-tools[-unstable], tbc-tools[-unstable], vhs-decode-tools[-unstable])*
-- [hsdaoh[-unstable]](https://github.com/Stefan-Olt/hsdaoh) *(misrc-tools[-unstable])*
-- [qwt-(qt5|qt6)](https://qwt.sourceforge.net) *(tbc-tools[-unstable], vhs-decode-tools[-unstable])*
-- ~~[nodeeditor[-unstable]](https://github.com/paceholder/nodeeditor)~~ [^2]
+- [ezpwd-reed-solomon](https://github.com/pjkundert/ezpwd-reed-solomon) *(ld-decode-tools, tbc-tools[-unstable])*
+- [hsdaoh[-misrc[-unstable]]](https://github.com/Stefan-Olt/hsdaoh) *(misrc-tools[-unstable])*
+- [nodeeditor[-unstable]](https://github.com/paceholder/nodeeditor) *(decode-orc[-unstable])*
 
 ## Modules
 - [cxadc](modules/cxadc/README.md)
-- [vhs-decode](modules/vhs-decode/README.md)
-- ~~[ld-decode](modules/ld-decode/README.md)~~ [^1]
-
+- [decode](modules/decode/README.md)
 
 [^1]: Upstream project provides flake
-[^2]: Dependency no longer required
