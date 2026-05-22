@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vxwm";
-  version = "0-unstable-2026-05-16";
+  version = "0-unstable-2026-05-22";
 
   src = fetchFromCodeberg {
     owner = "wh1tepearl";
     repo = "vxwm";
-    rev = "c0ad915d0a91a28c95b4d7112b146a515efb6db0";
-    hash = "sha256-KdN51NOZe1wjg2oZXW19TM4PxseyUqwLo2OamMY5C0Q=";
+    rev = "5eb297142aa4bcabd7f6094af66bcffc8cf2b0a9";
+    hash = "sha256-eOTOLwu/vDHFZZdc5ZqfQzHYnQTzAgWogV8744l8D/g=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isStatic pkg-config;
