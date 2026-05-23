@@ -11,22 +11,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "14pbjbiya9is9skm1r5q7dwf3p26f2q4gx5ig03fasbjh52whkc6";
-    aarch64-linux = "0yw5m4w6hsk0zixj0wnmd84c6vcdc0lxskwlwf6ik3v8zmjnw0j4";
-    x86_64-darwin = "0wx5r21k5wl583v7y92san7wcglh0yqng6r6my9ads5hgi6mmv5i";
-    aarch64-darwin = "1hfwgykxw4apxd0r6dsdi7mqp38i8wknxwnk83zgnbc32fbvpmdi";
+    x86_64-linux = "0dv3gxikxnc0y2ikc4r58c9az8c5dr0r56xq2fbj00y5fbl7i62v";
+    aarch64-linux = "1y3j6l80w1s9hmz841hv8ca67y1jkl80fmr6fwdfwv9mx827ii1l";
+    x86_64-darwin = "0ga4s2wj663jzjddpr2p7cp11lvx2wzr5zvccq3km9dd6gb5kgka";
+    aarch64-darwin = "0fmklqiyjva8cn9wn7gfw1293w8zpici29vv455mp6yaz8cl2plm";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v4.0.0/javascript-package-delegator_4.0.0_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v5.0.0/javascript-package-delegator_5.0.0_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/louiss0/javascript-package-delegator/releases/download/v5.0.0/javascript-package-delegator_5.0.0_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v5.0.0/javascript-package-delegator_5.0.0_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/louiss0/javascript-package-delegator/releases/download/v5.0.0/javascript-package-delegator_5.0.0_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "javascript-package-delegator";
-  version = "4.0.0";
+  version = "5.0.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
