@@ -10,11 +10,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "free-download-manager";
-  version = "6.33.2.6656";
+  version = "6.34.0.6878";
 
   src = fetchurl {
     url = "http://debrepo.freedownloadmanager.org/pool/main/f/freedownloadmanager/freedownloadmanager_${version}_amd64.deb";
-    sha256 = "sha256-n1Y6h9xXeqU6LO6h66qlnT9wsjFYqToaAPJ8sTYL9Gg=";
+    sha256 = "sha256-A8PGbnsNCO00c/XPIDaW7JdN++tXScpKCI5gJnN6O+U=";
   };
 
   nativeBuildInputs = with pkgs; [
