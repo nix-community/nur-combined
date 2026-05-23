@@ -16,6 +16,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  crimsondesert-ultimatemodsmanager = pkgs.callPackage ./pkgs/crimsondesert-ultimatemodsmanager { };
   gupax = pkgs.callPackage ./pkgs/gupax { };
   sparrow-wifi = pkgs.callPackage ./pkgs/sparrow-wifi { };
   steam-optionx = pkgs.callPackage ./pkgs/steam-optionx { };
