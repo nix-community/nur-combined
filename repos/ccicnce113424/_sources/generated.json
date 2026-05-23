@@ -328,7 +328,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-CFUclGFmLrWkzoEGFkn4A0+fxvhij8N3BqFKj9c+Fw8=/src-tauri/Cargo.lock",
+                "sha256-kl9_sowk_vEqBFNrv+u581rgL_4JnPlALrtMTROLtjs=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -344,12 +344,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.1-beta.1",
-            "sha256": "sha256-CFUclGFmLrWkzoEGFkn4A0+fxvhij8N3BqFKj9c+Fw8=",
+            "rev": "v3.9.1-beta.2",
+            "sha256": "sha256-kl9/sowk/vEqBFNrv+u581rgL/4JnPlALrtMTROLtjs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.1-beta.1"
+        "version": "v3.9.1-beta.2"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -443,7 +443,7 @@
     },
     "pwasio": {
         "cargoLock": null,
-        "date": "2026-04-18",
+        "date": "2026-05-23",
         "extract": null,
         "name": "pwasio",
         "passthru": null,
@@ -455,12 +455,12 @@
             "name": null,
             "owner": "golfiros",
             "repo": "pwasio",
-            "rev": "aec11932e21b7469357cd754509263ab0152531b",
-            "sha256": "sha256-ZA+aSwobb0LWn3/I7Az4BM1V6fVGODxFHMJQU4TOYnU=",
+            "rev": "7373d56a378807191cc5f9b15fff9b456e7ab8ce",
+            "sha256": "sha256-XmYf5gbYet7sJxtOfRyDofSKVmaL1XD6LeDInugyUCE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "aec11932e21b7469357cd754509263ab0152531b"
+        "version": "7373d56a378807191cc5f9b15fff9b456e7ab8ce"
     },
     "splayer-git": {
         "cargoLock": {
