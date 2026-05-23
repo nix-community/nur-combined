@@ -99,10 +99,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-05-21",
+        "date": "2026-05-23",
         "extract": {
-            "web/package-lock.json": "sha256-W6UfHWFrUkH_jP55a73oe_vcyY+ZZb3fZ7O4xh1VcpE=/web/package-lock.json",
-            "web/package.json": "sha256-W6UfHWFrUkH_jP55a73oe_vcyY+ZZb3fZ7O4xh1VcpE=/web/package.json"
+            "web/package-lock.json": "sha256-NbJZ4t027TnRPGj+6iewNP_3D2GVHUv8nd+FCA68xmw=/web/package-lock.json",
+            "web/package.json": "sha256-NbJZ4t027TnRPGj+6iewNP_3D2GVHUv8nd+FCA68xmw=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -114,12 +114,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "465a82e0c40d8e2bb604e5e85701ac94eb7f924c",
-            "sha256": "sha256-W6UfHWFrUkH/jP55a73oe/vcyY+ZZb3fZ7O4xh1VcpE=",
+            "rev": "84250ccb0229d7b89b419d7c9cfd2947a194fd7b",
+            "sha256": "sha256-NbJZ4t027TnRPGj+6iewNP/3D2GVHUv8nd+FCA68xmw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "465a82e0c40d8e2bb604e5e85701ac94eb7f924c"
+        "version": "84250ccb0229d7b89b419d7c9cfd2947a194fd7b"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -134,7 +134,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v1.8.2"
+        "version": "v1.8.3"
     },
     "cronet-go": {
         "cargoLock": null,
@@ -210,7 +210,7 @@
     },
     "daed": {
         "cargoLock": null,
-        "date": "2026-05-09",
+        "date": "2026-05-22",
         "extract": null,
         "name": "daed",
         "passthru": null,
@@ -222,12 +222,12 @@
             "name": null,
             "owner": "daeuniverse",
             "repo": "daed",
-            "rev": "1e35217375eb11f4fe1c4c4dae60cce9d99ee466",
-            "sha256": "sha256-bStNwS562xwXJVB9fI1L5jIKZYwN5Ufu9iMJvrlv0Ik=",
+            "rev": "4d6a43331f2f6e25961935b9e7ac09a7568bb2b4",
+            "sha256": "sha256-UjWjyzfRBeR+7lvtCgGcME3embik4oPQfPrRjUw/Smc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1e35217375eb11f4fe1c4c4dae60cce9d99ee466"
+        "version": "4d6a43331f2f6e25961935b9e7ac09a7568bb2b4"
     },
     "daed-stable": {
         "cargoLock": null,
@@ -378,11 +378,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EtRy1UugkbdNIBtMWCx7E8FIuvXDQj0L//AAk/FUD3k=",
+            "sha256": "sha256-ji4yN7YFkLZLqQR/SPVCVHY4dzRgDDu/meVifnI3wAA=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.19/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.22/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.05.19"
+        "version": "2026.05.22"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -393,11 +393,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BvCsoLkGLOzDpPbr4ZAoujIbG0lCU0yHD9SYdPopL+4=",
+            "sha256": "sha256-Bu64OitHM1VoM6Ux66murEs1/kFN3AsJHox+w8lgHrY=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.19/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.22/GeoLite2-City.mmdb"
         },
-        "version": "2026.05.19"
+        "version": "2026.05.22"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -408,11 +408,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cw0qVcJXolFfyx9BqBFuIBnLb4QI4+Sc1e3Ch4pSRPU=",
+            "sha256": "sha256-0HSoc8DbZ1XA1/Iu/ox20U/V1LzapfxelAUI6FF+mbo=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.19/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.22/GeoLite2-Country.mmdb"
         },
-        "version": "2026.05.19"
+        "version": "2026.05.22"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -844,7 +844,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-05-21",
+        "date": "2026-05-22",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -856,11 +856,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "8009ade67a2b73df2a76274e82a1f3ff2c41292e",
-            "sha256": "sha256-FHp8LKMrDLfM/7XKs2zAKLatq8PS31YrwbZo5VuuAXE=",
+            "rev": "485576d25908e3a7ea980b2e00e524689c4a896c",
+            "sha256": "sha256-YggvoqiGgzOKernePUBS3Mc7AwzeH8Ebvub+5W3z6sU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8009ade67a2b73df2a76274e82a1f3ff2c41292e"
+        "version": "485576d25908e3a7ea980b2e00e524689c4a896c"
     }
 }
