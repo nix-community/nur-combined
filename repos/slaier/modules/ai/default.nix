@@ -1,4 +1,7 @@
 { config, lib, pkgs, utils, ... }:
+let
+  llama-cpp = pkgs.llama-cpp-vulkan;
+in
 {
   services.litellm = {
     enable = true;
@@ -177,7 +180,7 @@
             "${preset}"
           ];
         in
-        "${pkgs.llama-cpp-unstable}/bin/llama-server ${utils.escapeSystemdExecArgs args}";
+        "${llama-cpp}/bin/llama-server ${utils.escapeSystemdExecArgs args}";
       Restart = "on-failure";
       RestartSec = 300;
 
@@ -237,7 +240,7 @@
       aicommits
       cherry-studio
       claude-code-best
-      llama-cpp-unstable
+      llama-cpp
       stable-diffusion-cpp-vulkan
     ];
 }

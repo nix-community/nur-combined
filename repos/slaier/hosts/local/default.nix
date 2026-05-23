@@ -49,9 +49,12 @@
 
   programs.nix-ld.enable = true;
   environment.systemPackages = with pkgs; [
-    # dailyuse
+    # gui
     abiword
+    arduino-ide
     ariang
+    filezilla
+    freerdp
     gnumeric
     kodi-wayland
     localsend
@@ -63,14 +66,11 @@
     satty
     scrcpy
     ungoogled-chromium
-    # development
-    arduino-ide
-    filezilla
-    freerdp
     # cli
     android-tools
     axel
     bottom
+    cachix
     cloudflared
     curl
     doggo
@@ -100,6 +100,7 @@
     ripgrep
     rust-petname
     sops
+    tmux
     unrar
     unzip
     usbutils

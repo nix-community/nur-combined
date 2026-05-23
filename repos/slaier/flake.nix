@@ -38,7 +38,16 @@
       lib = nixpkgs.lib;
       mylib = import ./lib { inherit lib; };
       overlayList = mylib.recursiveValuesToList overlays;
-      pkgs = import nixpkgs { inherit system; overlays = overlayList; };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = overlayList;
+        config = {
+          allowUnfree = true;
+          npmRegistryOverridesString = builtins.toJSON {
+            "registry.npmjs.org" = "https://mirrors.cloud.tencent.com/npm";
+          };
+        };
+      };
 
       nixosModules = mylib.fromDirectoryRecursive {
         directory = ./modules;
