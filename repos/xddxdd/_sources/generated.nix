@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.1.19";
+    version = "v7.1.20";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.1.19";
-      hash = "sha256-Fzc1jXvTVrnTfO4tuEtRjBSUYivqpGDZUIbLQQxaG+k=";
+      tag = "v7.1.20";
+      hash = "sha256-vzaZDcdKsS1WtwxpHMq5gizmG/vcvWEf/15o5QK+Vxo=";
     };
   };
   cockpy = {
@@ -338,10 +338,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.26.24";
+    version = "0.26.25";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.26.24.tgz";
-      hash = "sha256-XpQ6Ffif/isoQgajkdOUDYDqsoZzHM1kyVdjbgFD43o=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.26.25.tgz";
+      hash = "sha256-tGvNYfQ+wVMkETRcKN/37XMC2U4dQ82oM0ABzmtdbP8=";
     };
   };
   comp128 = {
@@ -825,14 +825,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "7a70f18e709578bd5b6e7919135322a0cc52210a";
+    version = "6be96163dec3e38f0bd67569ec867781ac2dc3b9";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "7a70f18e709578bd5b6e7919135322a0cc52210a";
-      hash = "sha256-lQkAjMDvO+5AQHlbjDhai1og4hsFRcd9/xjlIuoaBAM=";
+      rev = "6be96163dec3e38f0bd67569ec867781ac2dc3b9";
+      hash = "sha256-zySLwDw4xMuLJohA7X1epYsybTgzhCHxilfQwLp90dE=";
     };
-    date = "2026-05-22";
+    date = "2026-05-24";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1267,12 +1267,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9286";
+    version = "b9297";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9286";
-      hash = "sha256-7gDzqLdFAvjts0yONhlbnqtrmJIxCBx3EuFcPzlVb8o=";
+      tag = "b9297";
+      hash = "sha256-ey3YleKVJOtVJXuB8vO2Lf8YCqQr6LNH3KagKdFULqg=";
     };
   };
   loralib = {
@@ -1461,14 +1461,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "f8e2054258c5702f70130b8258f6bb342f95c676";
+    version = "3e14ff771e85db46baeff3f2018a047a8a1402c3";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "f8e2054258c5702f70130b8258f6bb342f95c676";
-      hash = "sha256-4N/QfyqO/aJ6P+SkCiz9CBOWM0p34j9jyVQF+QLd1xY=";
+      rev = "3e14ff771e85db46baeff3f2018a047a8a1402c3";
+      hash = "sha256-VgRL9xeqSIodLu56GdDbRqB2skaT25Lz25cigzSmDF8=";
     };
-    date = "2026-05-21";
+    date = "2026-05-23";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1712,12 +1712,12 @@
   };
   plasma-smart-video-wallpaper-reborn = {
     pname = "plasma-smart-video-wallpaper-reborn";
-    version = "v2.12.0";
+    version = "v2.13.0";
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      tag = "v2.12.0";
-      hash = "sha256-W63D2mm6KrmedNpauZwXdrKCv6siD+PtxLg8IHd/L/0=";
+      tag = "v2.13.0";
+      hash = "sha256-X7HazOc+AMo4BGPGwYkledYJ5gYrm0vBeMU2aQMOG+Q=";
     };
   };
   plasma-yesplaymusic-lyric = {
@@ -1751,23 +1751,23 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "ac814095055e999aa60c2cd1aac7f6ac45ee1742";
+    version = "c2de795725e4178dc8c3eb359466dcde8ae3e681";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "ac814095055e999aa60c2cd1aac7f6ac45ee1742";
-      hash = "sha256-kLa21sh8XilEstn+hNGN6ABl2SoS3HbT9NqcTlLx9Mo=";
+      rev = "c2de795725e4178dc8c3eb359466dcde8ae3e681";
+      hash = "sha256-3N/ldGLPCsbzQspLbtFOKzt2WZAqzd/RfIRQRnbpZ2E=";
     };
-    date = "2026-04-01";
+    date = "2026-05-23";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
-    version = "v1.12.1";
+    version = "v1.12.2";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      tag = "v1.12.1";
-      hash = "sha256-VfUGm7uJwEo6Xl274KL3SsSOct4kix230gIF2QNdviE=";
+      tag = "v1.12.2";
+      hash = "sha256-3N/ldGLPCsbzQspLbtFOKzt2WZAqzd/RfIRQRnbpZ2E=";
     };
   };
   py-rcon = {
@@ -2019,14 +2019,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "785489b3220dfca98d7ce632e590f416faea4fdf";
+    version = "e0b1588f8ca405fb81dfd92235ecd5bdccfa18ce";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "785489b3220dfca98d7ce632e590f416faea4fdf";
-      hash = "sha256-VWPkFb9KNzHo/WAVk7lkuowWUgg6eMfyLgKkuVpgwNc=";
+      rev = "e0b1588f8ca405fb81dfd92235ecd5bdccfa18ce";
+      hash = "sha256-3R/g2QKPY3KkZGjGNQP8GcaVT/LkN3FkBmpyQz5sSfI=";
     };
-    date = "2026-05-22";
+    date = "2026-05-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2077,12 +2077,12 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "c5fef5e0d43f12a3b9fb52442df6f477f05078e3";
+    version = "4203e10c1e6642b1a620c797e07d98500b9604ca";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "c5fef5e0d43f12a3b9fb52442df6f477f05078e3";
-      hash = "sha256-LbSmUwgJ5K0fodl66xN910VZgA2sBfQLM12Rva6sRDs=";
+      rev = "4203e10c1e6642b1a620c797e07d98500b9604ca";
+      hash = "sha256-JupNyxGzO6u7hjBbsu/X9fyhVXUsEC42BTjGmGFa56Y=";
     };
     date = "2026-05-22";
   };
