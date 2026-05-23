@@ -1,19 +1,23 @@
 {
+  copyDesktopItems,
   fetchFromGitHub,
   fetchPypi,
+  imagemagick,
   lib,
+  makeDesktopItem,
   python3Packages,
   rustPlatform,
+  xvfb,
 }:
 let
-  version = "0-unstable-2026-05-22";
+  version = "0-unstable-2026-05-23";
   src = fetchFromGitHub {
     owner = "RoGreat";
     repo = "CrimsonDesert-UltimateModsManager";
     rev = "36bb623559d3b56befe9f52495bd70b72dc87fb8";
     hash = "sha256-4/homaH0v19OeMXnVIF41bU5wNPnw2Q2/O0s9Ej2O5o=";
   };
-  cdumm-native = python3Packages.buildPythonApplication (finalAttrs: {
+  cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
     inherit src version;
     pname = "cdumm-native";
     pyproject = true;
@@ -33,7 +37,7 @@ let
     ];
   });
 
-  pysidesix-frameless-window = python3Packages.buildPythonApplication (finalAttrs: {
+  pysidesix-frameless-window = python3Packages.buildPythonPackage (finalAttrs: {
     pname = "pysidesix-frameless-window";
     version = "0.8.0";
     pyproject = true;
@@ -53,7 +57,7 @@ let
       maintainers = with lib.maintainers; [ RoGreat ];
     };
   });
-  pyside6-fluent-widgets = python3Packages.buildPythonApplication (finalAttrs: {
+  pyside6-fluent-widgets = python3Packages.buildPythonPackage (finalAttrs: {
     pname = "pyside6-fluent-widgets";
     version = "1.11.2";
     pyproject = true;
@@ -77,7 +81,7 @@ let
       maintainers = with lib.maintainers; [ RoGreat ];
     };
   });
-  privatebin = python3Packages.buildPythonApplication (finalAttrs: {
+  privatebin = python3Packages.buildPythonPackage (finalAttrs: {
     pname = "privatebin";
     version = "0.3.0";
     src = fetchFromGitHub {
@@ -127,13 +131,58 @@ python3Packages.buildPythonApplication (finalAttrs: {
     psutil
     pyside6
     pyside6-fluent-widgets
+    xxhash
+  ];
+
+  nativeCheckInputs = [
+    xvfb
+  ]
+  ++ (with python3Packages; [
+    pytestCheckHook
+    pytest-qt
+    pytest-xvfb
+  ]);
+
+  disabledTestPaths = [
+    "tests/test_pamt_cache_honors_cdmods_path.py::test_pamt_cache_uses_parent_when_called_with_vanilla"
+    "tests/test_pamt_cache_honors_cdmods_path.py::test_pamt_cache_uses_pointer_for_real_game_dir"
+    "tests/test_platform.py::TestOpenPathErrorLogging::test_oserror_logs_path_and_reason"
+    "tests/test_transactional_io_absolute_path_guard.py::test_stage_file_rejects_absolute_path"
+  ];
+
+  nativeBuildInputs = [
+    copyDesktopItems
+    imagemagick
+  ];
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "cdumm";
+      desktopName = "CDUMM";
+      icon = "cdumm";
+      exec = "cdumm";
+      comment = "Crimson Desert Ultimate Mods Manager";
+      categories = [ "Game" ];
+    })
   ];
 
   postInstall = ''
-    cp -a src/cdumm/translations $out/${python3Packages.python.sitePackages}/cdumm/translations
+    cp -a src/cdumm/translations $out/${python3Packages.python.sitePackages}/cdumm
+    cp -a schemas $out/${python3Packages.python.sitePackages}
+    cp -a field_schema $out/${python3Packages.python.sitePackages}
+    for i in 16 24 48 64 96 128 256 512 1024; do
+      mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
+      magick assets/cdumm-logo.png -resize ''${i}x''${i}  \
+        $out/share/icons/hicolor/''${i}x''${i}/apps/cdumm.png
+    done
+    cp -a assets $out/${python3Packages.python.sitePackages}
   '';
 
-  doCheck = false;
+  preFixup = ''
+    makeWrapperArgs+=(
+      --suffix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+    )
+  '';
 
   meta = {
     description = "Crimson Desert Ultimate Mods Manager";
