@@ -26,6 +26,7 @@
   glib,
   polkit,
   librsvg,
+  jemalloc,
 
   withLto ? false,
   withNative ? false,
@@ -83,6 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     polkit
     librsvg
+    jemalloc
   ];
 
   mesonFlags = [
