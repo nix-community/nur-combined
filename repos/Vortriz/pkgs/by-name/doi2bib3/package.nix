@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication {
     pname = "doi2bib3";
-    version = "1.1.0";
+    version = "1.1.1";
     pyproject = true;
 
     src = fetchFromGitHub {
         owner = "archisman-panigrahi";
         repo = "doi2bib3";
-        tag = "v1.1.0";
-        hash = "sha256-MOIIoibK9yOxAKiHKfk9g9DP9jgsFqJcQk1CLeR244s=";
+        tag = "v1.1.1";
+        hash = "sha256-M0nhDU1sG8CgKBER/rIzcEXUaAFp8gTJ/aQAw4YJh1c=";
     };
 
     build-system = with python3Packages; [
