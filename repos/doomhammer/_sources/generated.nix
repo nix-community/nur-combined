@@ -8,16 +8,16 @@
 {
   gitpane = {
     pname = "gitpane";
-    version = "v0.7.2";
+    version = "v0.7.3";
     src = fetchFromGitHub {
       owner = "affromero";
       repo = "gitpane";
-      rev = "v0.7.2";
+      rev = "v0.7.3";
       fetchSubmodules = false;
-      sha256 = "sha256-jUXgA02wLO5VDZ1HFMP9ThlOkdp+fNWqyk0LbFJxCMU=";
+      sha256 = "sha256-4lJ+aLuHC0bdSfTX0jsiYzzHwVddbMfQiFBKQoawld4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-jUXgA02wLO5VDZ1HFMP9ThlOkdp+fNWqyk0LbFJxCMU=/Cargo.lock";
+      lockFile = ./. + "/sha256-4lJ+aLuHC0bdSfTX0jsiYzzHwVddbMfQiFBKQoawld4=/Cargo.lock";
       outputHashes = {
         
       };
@@ -50,10 +50,10 @@
   };
   omniwm = {
     pname = "omniwm";
-    version = "v0.4.9.3";
+    version = "v0.4.9.4";
     src = fetchurl {
-      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.9.3/OmniWM-v0.4.9.3.zip";
-      sha256 = "sha256-Uly7qMH0K7R5RroFUBcpx0Ncx5kBu9vBuBwQT07px6g=";
+      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.4.9.4/OmniWM-v0.4.9.4.zip";
+      sha256 = "sha256-4rXUQUCks4DgA9TwxNEioLAaMNTjxr4ZVvpaK1o4Ag8=";
     };
   };
   paperwm-spoon = {
