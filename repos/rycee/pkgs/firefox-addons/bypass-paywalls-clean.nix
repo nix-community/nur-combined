@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.7.6";
+  version = "4.3.7.7";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.7.6.xpi";
-  sha256 = "4c3e5c279ce57159ab129a4bf4e34b1deba79052143f51f64c41240aad16fc2b";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.7.7.xpi";
+  sha256 = "ca959ccf174494c7d0504175b8c9f3b8aaec47fd065a92825f092de673c81233";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -383,7 +383,6 @@ buildFirefoxXpiAddon {
       "*://*.inc.com/*"
       "*://*.inc42.com/*"
       "*://*.independent.co.uk/*"
-      "*://*.independent.ie/*"
       "*://*.indianexpress.com/*"
       "*://*.indiatimes.com/*"
       "*://*.indiatoday.in/*"
@@ -572,6 +571,7 @@ buildFirefoxXpiAddon {
       "*://*.nationalreview.com/*"
       "*://*.nature.com/*"
       "*://*.nautil.us/*"
+      "*://*.nbcnews.com/*"
       "*://*.ndtvprofit.com/*"
       "*://*.neuepresse.de/*"
       "*://*.newcastleherald.com.au/*"
