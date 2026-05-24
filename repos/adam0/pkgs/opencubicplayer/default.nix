@@ -60,14 +60,14 @@
 in
   stdenv.mkDerivation {
     pname = "opencubicplayer";
-    version = "0-unstable-2026-05-22";
+    version = "0-unstable-2026-05-23";
 
     src = fetchFromGitHub {
       owner = "mywave82";
       repo = "opencubicplayer";
-      rev = "a3140aa220d0da088dbe22835aefa80f034696a6";
+      rev = "989606c40e022df1c6d9582995a44f2d62e31645";
       fetchSubmodules = true;
-      hash = "sha256-G5JKgDJkDEUY39rzQzJ7Msor6f8sCuBiaU0gMuWXumo=";
+      hash = "sha256-SKVG5/e1tKUi0TVvcI6pwbaONMMleEJ18DTK0ViOYoo=";
     };
 
     nativeBuildInputs = [
