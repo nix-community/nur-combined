@@ -62,6 +62,8 @@ in
 
   docutils = callPackage ./docutils { };
 
+  ecdsa = callPackage ./ecdsa { };
+
   enum = callPackage ./enum { };
 
   enum34 = callPackage ./enum34 { };
