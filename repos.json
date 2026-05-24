@@ -642,6 +642,9 @@
         "glostis": {
             "url": "https://github.com/glostis/nur-packages"
         },
+        "goblinkingdev": {
+            "url": "https://github.com/goblinkingdev/nur-packages"
+        },
         "goreleaser": {
             "url": "https://github.com/goreleaser/nur"
         },
@@ -841,6 +844,9 @@
         "kapack": {
             "file": "nur.nix",
             "url": "https://github.com/oar-team/nur-kapack"
+        },
+        "karotte128": {
+            "url": "https://github.com/karotte128/nur-packages"
         },
         "kf5grd": {
             "url": "https://github.com/kf5grd/nur-packages"
@@ -1105,6 +1111,9 @@
         },
         "nikpkgs": {
             "url": "https://github.com/nikp123/nur-packages"
+        },
+        "niky": {
+            "url": "https://github.com/kyv001/niky-packages"
         },
         "nim65s": {
             "url": "https://github.com/nim65s/nur-packages"
@@ -1508,6 +1517,9 @@
         "trevorriles": {
             "url": "https://github.com/trevorriles/nur-packages"
         },
+        "tsukumo": {
+            "url": "https://github.com/Thukumo/NUR"
+        },
         "tuckershea": {
             "url": "https://github.com/tuckershea/nur-packages"
         },
@@ -1647,6 +1659,9 @@
         },
         "zachcoyle": {
             "url": "https://github.com/zachcoyle/nur-packages"
+        },
+        "zeal": {
+            "url": "https://github.com/zzzealed/nur-packages"
         },
         "zeratax": {
             "url": "https://github.com/ZerataX/nur-packages"
