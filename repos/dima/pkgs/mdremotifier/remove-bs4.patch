@@ -1,0 +1,12 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 622aa39..e61fddf 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -21,7 +21,6 @@ classifiers = [
+ dependencies = [
+   "beautifulsoup4 >=4,<5",
+   "types-beautifulsoup4",
+-  "bs4==0.0.2",
+   "colorama >=0.4,<1",
+   'importlib-metadata; python_version < "3.8"',
+   "mistletoe >=1,<2",

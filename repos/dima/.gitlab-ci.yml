@@ -1,0 +1,31 @@
+stages:
+  - build
+
+variables:
+  NIX_PATH: nixpkgs=channel:nixos-25.11
+
+.build_flake_template:
+  stage: build
+  image: nixos/nix:2.18.1
+  script:
+    - nix --extra-experimental-features 'nix-command flakes' build .#"$FLAKE_PATH"
+
+build_flakes:
+  extends: .build_flake_template
+  parallel:
+    matrix:
+      - FLAKE_PATH:
+          - obsidian-smart-typography
+          - obsidian-better-markdown-links
+          - obsidian-show-whitespace
+          - obsidian-filename-heading-sync
+          - obsidian-folder-notes
+          - imohash
+          - hashdir
+          - nbt
+          - jdnbtexplorer
+          - mdremotifier
+          - codemaxxing
+          - obsidian-privacy-screen
+          - rich-13-9-4
+          - rich-argparse-rich-13-9-4

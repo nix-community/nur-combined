@@ -1,0 +1,13 @@
+diff --git a/tsconfig.json b/tsconfig.json
+index e251470..d0f28aa 100644
+--- a/tsconfig.json
++++ b/tsconfig.json
+@@ -15,7 +15,7 @@
+     "module": "NodeNext",
+     "moduleResolution": "NodeNext",
+     "noEmit": true,
+-    "skipLibCheck": false,
++    "skipLibCheck": true,
+     "target": "ESNext",
+     "types": [
+       "node",
