@@ -24,7 +24,7 @@ specify {
   ansible-vault-pass-client = any;
   apex = any;
   attachments = any;
-  aws-sam-cli = { version = "≠1.143.0"; } /* NixOS/nixpkgs#459334 */ // { broken = a: versionAtLeast "1.154.0" a.version && versionAtLeast (findFirst (p: p.pname == "ruamel-yaml") null a.passthru.dependencies).version "0.19"; search = pin "28b0c9a726c808030179c680756f9840172dc9d7" "sha256-W3ZsYpy0B56cznd7rbYGUMTVdj/J5T5kkyHe7zovQYI="; } /* https://hydra.nixos.org/build/322100022 */;
+  aws-sam-cli = { version = "≠1.143.0"; } /* NixOS/nixpkgs#459334 */ // { broken = a: versionAtLeast "1.154.0" a.version && versionAtLeast (findFirst (p: p.pname == "ruamel-yaml") null a.passthru.dependencies).version "0.19"; } /* https://hydra.nixos.org/build/322100022 */;
   blocky-ui = any;
   busyserve = any;
   caddy-with-cache-route53 = any;
