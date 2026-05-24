@@ -2,6 +2,7 @@
   copyDesktopItems,
   fetchFromGitHub,
   fetchPypi,
+  fetchpatch2,
   imagemagick,
   lib,
   makeDesktopItem,
@@ -10,12 +11,12 @@
   xvfb,
 }:
 let
-  version = "0-unstable-2026-05-23";
+  version = "3.3.12";
   src = fetchFromGitHub {
-    owner = "RoGreat";
+    owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
-    rev = "36bb623559d3b56befe9f52495bd70b72dc87fb8";
-    hash = "sha256-4/homaH0v19OeMXnVIF41bU5wNPnw2Q2/O0s9Ej2O5o=";
+    tag = "v${version}";
+    hash = "sha256-4894imPo4pRaczuuxIdmRX9JmoS7nz6F1Zz6yXNYBBE=";
   };
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
     inherit src version;
@@ -113,6 +114,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
   pname = "crimsondesert-ultimatemodsmanager";
   pyproject = true;
 
+  patches = [
+    # https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/pull/123
+    (fetchpatch2 {
+      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/compare/6c21db655270db9b002a2f49931972ab3af7e2ad...f9766aa4b5c5d3643288d221ea73065edf82cbe6.diff?full_index=1";
+      hash = "sha256-hMUZM0LTUFm4FpMCQ6so5VfeIlCOX5zqSXs43bKKp3k=";
+    })
+  ];
+
   build-system = with python3Packages; [
     setuptools
   ];
@@ -165,6 +174,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
       categories = [ "Game" ];
     })
   ];
+
+  preBuild = ''
+    cat >> pyproject.toml << EOL
+
+    [project.scripts]
+    cdumm = "cdumm.main:main"
+    EOL
+  '';
 
   postInstall = ''
     cp -a src/cdumm/translations $out/${python3Packages.python.sitePackages}/cdumm
