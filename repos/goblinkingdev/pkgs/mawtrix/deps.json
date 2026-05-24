@@ -1,0 +1,107 @@
+[
+  {
+    "pname": "DeviceId",
+    "version": "6.11.0",
+    "hash": "sha256-I3zx80nYN9wz9xSJSBdhb41QcqVWJA7b1Al0MGRmR8k="
+  },
+  {
+    "pname": "Markdig",
+    "version": "1.1.3",
+    "hash": "sha256-NbAy/XovL7fFNvpxIqaBmdvNtKLghOGXcy+EoIIh/Bw="
+  },
+  {
+    "pname": "Microsoft.Extensions.Configuration",
+    "version": "10.0.7",
+    "hash": "sha256-2RqDs7+dXtGY78E5jSd1qyKu+dMQkbzv+oMY09SEJm0="
+  },
+  {
+    "pname": "Microsoft.Extensions.Configuration.Abstractions",
+    "version": "10.0.7",
+    "hash": "sha256-MnUJzZYnl089xuVi6kpt9kymBIvYun9U+Itd12dM5Co="
+  },
+  {
+    "pname": "Microsoft.Extensions.Configuration.Binder",
+    "version": "10.0.7",
+    "hash": "sha256-lU4G801+Cy3ua+S2slY5UVHOPXdF0I7r3lYX38mQSPw="
+  },
+  {
+    "pname": "Microsoft.Extensions.DependencyInjection",
+    "version": "10.0.7",
+    "hash": "sha256-dICogdaqa5mHqyvFA0lTomFa39Dqm4nn7Pit6qi6eQY="
+  },
+  {
+    "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
+    "version": "10.0.7",
+    "hash": "sha256-uQmTQarMn0fuZV03MyCb78Ex+96cuqFHNO5SyFOPkJk="
+  },
+  {
+    "pname": "Microsoft.Extensions.Diagnostics",
+    "version": "10.0.7",
+    "hash": "sha256-Sd0ZsXgO7w/35vOKN1B0CZdcIcMJnf/Z/8POSikTyRk="
+  },
+  {
+    "pname": "Microsoft.Extensions.Diagnostics.Abstractions",
+    "version": "10.0.7",
+    "hash": "sha256-ocntk68Qa3ccHGEnzmZuKdBWdQEnp4PgwJk63bSRjDA="
+  },
+  {
+    "pname": "Microsoft.Extensions.Http",
+    "version": "10.0.7",
+    "hash": "sha256-cbTDyODUPitTBOn88A5R5/QGPzOTCT7qeyP2gG6WOS0="
+  },
+  {
+    "pname": "Microsoft.Extensions.Logging",
+    "version": "10.0.7",
+    "hash": "sha256-AUOet0nWZHB132XCPuyUp5xTFNnWjHhoOtzooFcXHk4="
+  },
+  {
+    "pname": "Microsoft.Extensions.Logging.Abstractions",
+    "version": "10.0.7",
+    "hash": "sha256-/ITLUXgcs5tRDdeileNlmNB92V25CRd1FGBocChJj0g="
+  },
+  {
+    "pname": "Microsoft.Extensions.Options",
+    "version": "10.0.7",
+    "hash": "sha256-XtyfdZ26kjnuCF/YHbdGdsIeR/nxSW7yyQZ04sOa9RU="
+  },
+  {
+    "pname": "Microsoft.Extensions.Options.ConfigurationExtensions",
+    "version": "10.0.7",
+    "hash": "sha256-6UBnB1ouWwRkVEGt5xLfXZvpYsCQQJijKvBlBCJOmmM="
+  },
+  {
+    "pname": "Microsoft.Extensions.Primitives",
+    "version": "10.0.7",
+    "hash": "sha256-cQBhL1IkRl1lxaZImAZBVS39CfWkB+J6+hJVEVBE35I="
+  },
+  {
+    "pname": "Microsoft.Win32.SystemEvents",
+    "version": "10.0.7",
+    "hash": "sha256-MVwrKDJRc1edEUnX000dUETV3FZ6N3cHhLxi0CqptwU="
+  },
+  {
+    "pname": "Newtonsoft.Json",
+    "version": "13.0.4",
+    "hash": "sha256-8JCB1FdAW681qXP6DFDWvycu1oPyVoxaYgpJ2pUvZSk="
+  },
+  {
+    "pname": "SixLabors.ImageSharp",
+    "version": "3.1.8",
+    "hash": "sha256-cE9BQfbCvJ0Mf+fQiTD8elOZEPcfZHjDz2BHdiO+D08="
+  },
+  {
+    "pname": "SixPix",
+    "version": "0.3.2",
+    "hash": "sha256-CgmrVGt4VP1/rkXLphP8JsJ5eqlt54ciEz+Gkrs8Z7I="
+  },
+  {
+    "pname": "System.Diagnostics.DiagnosticSource",
+    "version": "10.0.7",
+    "hash": "sha256-2W9kOPRKoh4Vr/KHTsU+c22cRmyCj8acYVs06bXuZ6Q="
+  },
+  {
+    "pname": "System.Drawing.Common",
+    "version": "10.0.7",
+    "hash": "sha256-0ZiKiZt5tZYsyBxKPjZnuiuVe7hMtQgu5WfZ8oPRGig="
+  }
+]
