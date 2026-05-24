@@ -7283,10 +7283,10 @@
     };
     "justdeleteme" = buildMozillaXpiAddon {
       pname = "justdeleteme";
-      version = "1.6.0";
+      version = "1.7.0";
       addonId = "{6f54ad3f-042f-408f-8f06-ab631fe1a64f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4525473/justdeleteme-1.6.0.xpi";
-      sha256 = "6341537b3e6eea6135d3e1d19db6a2ac0304bf0bdb5f86179f1ea16d7ca21179";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4818989/justdeleteme-1.7.0.xpi";
+      sha256 = "cfd6a754ec2780f8b0cfb7c4f86cfb283236caf5bfa155a98d27b61d00c93804";
       meta = with lib;
       {
         description = "JustDeleteMe.xyz extension for Firefox-based browsers.";
@@ -8833,10 +8833,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.6";
+      version = "1.1.7";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4803234/lockedin_yt-1.1.6.xpi";
-      sha256 = "b55aa76c4fe32b942fe018cc947312e2738738ac67fd6079ca53631530a421af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4818656/lockedin_yt-1.1.7.xpi";
+      sha256 = "07bb8c7f3ff673aa4933ef9da6826c47399460833f84bdf121dbc82ea9b4ab13";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -9664,10 +9664,10 @@
     };
     "material-icons-for-github" = buildMozillaXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.15.0";
+      version = "1.16.0";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4816966/material_icons_for_github-1.15.0.xpi";
-      sha256 = "9c1f00ce64e153aa62f57fcd930d06a75ff5ab6e4f7a72d17286166b2d79b56e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4818683/material_icons_for_github-1.16.0.xpi";
+      sha256 = "b15ebc0006b5a1fcbdf35123d28472cc8984be6f61a0ee6676ddd3eb0842383c";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
