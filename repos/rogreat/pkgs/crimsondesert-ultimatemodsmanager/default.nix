@@ -141,6 +141,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     py7zr
     pyside6
     pyside6-fluent-widgets
+    websocket-client
     xxhash
   ];
 
@@ -169,10 +170,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     (makeDesktopItem {
       name = "cdumm";
       desktopName = "CDUMM";
+      genericName = "Crimson Desert Ultimate Mods Manager";
       icon = "cdumm";
       exec = "cdumm";
-      comment = "Crimson Desert Ultimate Mods Manager";
-      categories = [ "Game" ];
+      categories = [ "Utility" ];
     })
   ];
 
@@ -204,7 +205,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   meta = {
     description = "Crimson Desert Ultimate Mods Manager";
-    homepage = "https://github.com/RoGreat/CrimsonDesert-UltimateModsManager";
+    homepage = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "cdumm";
