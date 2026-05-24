@@ -485,14 +485,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "485576d25908e3a7ea980b2e00e524689c4a896c";
+    version = "f0775a6710e231ea0c277950f1a2cb37dfe60e6f";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "485576d25908e3a7ea980b2e00e524689c4a896c";
+      rev = "f0775a6710e231ea0c277950f1a2cb37dfe60e6f";
       fetchSubmodules = false;
-      sha256 = "sha256-YggvoqiGgzOKernePUBS3Mc7AwzeH8Ebvub+5W3z6sU=";
+      sha256 = "sha256-wjdBGQeuedcmi5J3O0AIaxtqt4OMYlmxT0YwO9ROk50=";
     };
-    date = "2026-05-22";
+    date = "2026-05-23";
   };
 }
