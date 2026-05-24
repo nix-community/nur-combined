@@ -6,10 +6,10 @@
 
 sing-box-app.overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.14.0-alpha.24";
+  version = "1.14.0-alpha.25";
 
   src = previousAttrs.src.overrideAttrs {
-    hash = "sha256-UEhlyW32ofGXmn9D6EnOWdYl6CqgHKwYLyMd1rGVbJo=";
+    hash = "sha256-AFvqEtr55QI0OfJNFX23uLq6wBIzdI5M68hb4RHrXso=";
   };
 
   meta = sing-box-beta.meta // {

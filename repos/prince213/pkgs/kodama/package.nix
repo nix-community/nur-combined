@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kodama";
-  version = "0.9.9-delta";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "kokic";
     repo = "kodama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-cNzYPgybmXni/JYz9/1iZEpLn/R0nFV5e+24kSimcHU=";
+    hash = "sha256-vATf+cgZWNIKA9Bai/wc2j2ntDmNalWdi91u4UTsiZE=";
   };
 
-  cargoHash = "sha256-YdK4DXmOJx+X6HTNqzH/NVct07SwkL4ZS+zAjjHPQ5g=";
+  cargoHash = "sha256-YGkI6+/7gyywBPMBjwT9Lz99Gia2ETKpRyvebe0zzYQ=";
 
   passthru.updateScript = nix-update-script { };
 
