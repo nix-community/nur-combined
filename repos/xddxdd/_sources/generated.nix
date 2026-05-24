@@ -825,14 +825,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "6be96163dec3e38f0bd67569ec867781ac2dc3b9";
+    version = "45753a72cbfefb1aa279414812298960fd75aeae";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "6be96163dec3e38f0bd67569ec867781ac2dc3b9";
-      hash = "sha256-zySLwDw4xMuLJohA7X1epYsybTgzhCHxilfQwLp90dE=";
+      rev = "45753a72cbfefb1aa279414812298960fd75aeae";
+      hash = "sha256-c04q86XKzsFxRYZehqFJG6R7v3v43XkFNr81Ys/uM5g=";
     };
-    date = "2026-05-24";
+    date = "2026-05-25";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1267,12 +1267,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9297";
+    version = "b9305";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9297";
-      hash = "sha256-ey3YleKVJOtVJXuB8vO2Lf8YCqQr6LNH3KagKdFULqg=";
+      tag = "b9305";
+      hash = "sha256-TsleTV12rW+35OvHxkWJo42Lhp6FkSyozxiK71yjfRg=";
     };
   };
   loralib = {
@@ -1461,14 +1461,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "3e14ff771e85db46baeff3f2018a047a8a1402c3";
+    version = "e6724a3b811f63264a49a8a8d1d4a5c8b48665ec";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "3e14ff771e85db46baeff3f2018a047a8a1402c3";
-      hash = "sha256-VgRL9xeqSIodLu56GdDbRqB2skaT25Lz25cigzSmDF8=";
+      rev = "e6724a3b811f63264a49a8a8d1d4a5c8b48665ec";
+      hash = "sha256-j+KMZk+0RgxAFaAFA9hDoeKcIRg3fGacyBFAMMsC2mU=";
     };
-    date = "2026-05-23";
+    date = "2026-05-24";
   };
   nginx-njs = {
     pname = "nginx-njs";

@@ -1594,7 +1594,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-05-24",
+        "date": "2026-05-25",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1606,12 +1606,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "6be96163dec3e38f0bd67569ec867781ac2dc3b9",
-            "sha256": "sha256-zySLwDw4xMuLJohA7X1epYsybTgzhCHxilfQwLp90dE=",
+            "rev": "45753a72cbfefb1aa279414812298960fd75aeae",
+            "sha256": "sha256-c04q86XKzsFxRYZehqFJG6R7v3v43XkFNr81Ys/uM5g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6be96163dec3e38f0bd67569ec867781ac2dc3b9"
+        "version": "45753a72cbfefb1aa279414812298960fd75aeae"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2466,12 +2466,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9297",
-            "sha256": "sha256-ey3YleKVJOtVJXuB8vO2Lf8YCqQr6LNH3KagKdFULqg=",
+            "rev": "b9305",
+            "sha256": "sha256-TsleTV12rW+35OvHxkWJo42Lhp6FkSyozxiK71yjfRg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9297"
+        "version": "b9305"
     },
     "loralib": {
         "cargoLock": null,
@@ -2835,7 +2835,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-05-23",
+        "date": "2026-05-24",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2847,12 +2847,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "3e14ff771e85db46baeff3f2018a047a8a1402c3",
-            "sha256": "sha256-VgRL9xeqSIodLu56GdDbRqB2skaT25Lz25cigzSmDF8=",
+            "rev": "e6724a3b811f63264a49a8a8d1d4a5c8b48665ec",
+            "sha256": "sha256-j+KMZk+0RgxAFaAFA9hDoeKcIRg3fGacyBFAMMsC2mU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3e14ff771e85db46baeff3f2018a047a8a1402c3"
+        "version": "e6724a3b811f63264a49a8a8d1d4a5c8b48665ec"
     },
     "nginx-njs": {
         "cargoLock": null,
