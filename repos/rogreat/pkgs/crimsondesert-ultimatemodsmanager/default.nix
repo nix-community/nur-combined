@@ -138,6 +138,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     lz4
     privatebin
     psutil
+    py7zr
     pyside6
     pyside6-fluent-widgets
     xxhash
