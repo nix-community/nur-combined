@@ -2,7 +2,7 @@
   __sage,
   pythonOverlay,
   pkgs,
-  extraPythonPackages ? _: [],
+  extraPythonPackages ? _: [ ],
   ...
 }:
 
@@ -10,7 +10,7 @@ __sage.override {
 
   pkgs = pkgs.extend (
     _: prev: {
-      python3 = prev.python3.override { packageOverrides = pythonOverlay; };
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [ pythonOverlay ];
     }
   );
 
