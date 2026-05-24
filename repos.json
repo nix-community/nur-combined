@@ -471,6 +471,10 @@
         "dguibert": {
             "url": "https://github.com/dguibert/nur-packages"
         },
+        "dima": {
+            "type": "gitlab",
+            "url": "https://gitlab.com/shdima/nur-packages"
+        },
         "divanorama": {
             "url": "https://github.com/divanorama/nur-packages"
         },
@@ -686,9 +690,6 @@
         "hutzdog": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~hutzdog/NUR"
-        },
-        "hythera": {
-            "url": "https://github.com/Hythera/nur-packages"
         },
         "iagocq": {
             "file": "nur.nix",
