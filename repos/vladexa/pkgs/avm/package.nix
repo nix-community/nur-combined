@@ -4,16 +4,16 @@
   yasm,
   perl,
   pkg-config,
-  fetchFromGitLab,
+  fetchFromGitHub,
   python3,
   lib,
   ...
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "avm";
-  version = "14.0.0";
+  version = "15.0.0";
 
-  src = fetchFromGitLab {
+  src = fetchFromGitHub {
     owner = "AOMediaCodec";
     repo = "avm";
     rev = "research-v${finalAttrs.version}";
