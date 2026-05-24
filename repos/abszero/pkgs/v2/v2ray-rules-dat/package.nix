@@ -5,9 +5,9 @@
 }:
 
 let
-  version = "202605222252";
+  version = "202605232247";
   geoipHash = "04qp9p599534vngdcqjnyhay87kff81f9iz7ddkwzicnp5sz5sfj";
-  geositeHash = "0jgqivss6fmfwdvc9nqsmiv5yj8v9fi4gl7v297g7564g3ga4bky";
+  geositeHash = "0zxdnk60mkpwhy5ym3ih6l8mw2p3zf7fln3s3ff4k58gkc4jbka1";
 
   repo = "https://github.com/Loyalsoldier/v2ray-rules-dat";
   geoip = fetchurl {
