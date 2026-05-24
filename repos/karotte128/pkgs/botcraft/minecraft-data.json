@@ -1,0 +1,305 @@
+{
+    "versions": {
+        "1.12.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/0f275bc1547d01fa5f56ba34bdc87d981ee12daf/client.jar",
+                "hash": "sha256-itoH2l7nfa01J71yePvQXuH8ill4E7IWqHGi19ZMxk8="
+            }
+        },
+        "1.13": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/c0b970952cdd279912da384cdbfc0c26e6c6090b/client.jar",
+                "hash": "sha256-2Ael7ZQotsFrZIiP0rf6dtz1xV0G+W98DEd2LD/D4m4="
+            }
+        },
+        "1.13.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/8de235e5ec3a7fce168056ea395d21cbdec18d7c/client.jar",
+                "hash": "sha256-8LTPbRqHrhUPh6U1ZRE4ynuCva2IU/dufdv/HdYQrIc="
+            }
+        },
+        "1.13.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/30bfe37a8db404db11c7edf02cb5165817afb4d9/client.jar",
+                "hash": "sha256-NBCIe6ZS8leSx2db+vkUDnO2DpPPvxE6gD+KmMsFwPk="
+            }
+        },
+        "1.14": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/7a762a59345c13af7d87111207a93f5a8607f6c0/client.jar",
+                "hash": "sha256-k5B8vwZVql8Q0EnvpNdF9CUO7MXQ1dEmgEbuwxRPMjo="
+            }
+        },
+        "1.14.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/55ba86ddcbc3579397f41910463ffd4056e1e523/client.jar",
+                "hash": "sha256-cZTRMmz3lvYqxV88tW+FHCMolWOa4nUQ8yB9WnP5GBQ="
+            }
+        },
+        "1.14.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/ca6c5a139045967229975c0c0b7f93e78b4314c2/client.jar",
+                "hash": "sha256-m3QMn9SVWYESXr080Ia6qLQ5KWPQQ6NIC1uUKpZjfCU="
+            }
+        },
+        "1.14.3": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/af100b34ec7ef2b8b9cf7775b544d21d690dddec/client.jar",
+                "hash": "sha256-QGMGJndDOYjgEvulPkLkwhrbaRmsfwYfGfPG51szTgc="
+            }
+        },
+        "1.14.4": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/8c325a0c5bd674dd747d6ebaa4c791fd363ad8a9/client.jar",
+                "hash": "sha256-s7KnmOLWe1ZgCP5KA3Z64sf/P4x7pnUee3H8cplnLQo="
+            }
+        },
+        "1.15": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/7b07fd09d1e3aae1bc7a1304fedc73bfe5d81800/client.jar",
+                "hash": "sha256-Qe7ma0yOdsAYdFpjpGoVCXzBxkgslLOIAQVJOKAQshs="
+            }
+        },
+        "1.15.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/8b11614bea9293592a947ea8f4fd72981ea66677/client.jar",
+                "hash": "sha256-bijs0AjQyl4dzTRtvCiCQw8Cp3p4hk1XrMSfyLwbU1g="
+            }
+        },
+        "1.15.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/e3f78cd16f9eb9a52307ed96ebec64241cc5b32d/client.jar",
+                "hash": "sha256-SnMAinPzgkt8cRdQpaN1Vt+GFPGTwKUx4pLa0VmnOnw="
+            }
+        },
+        "1.16": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/228fdf45541c4c2fe8aec4f20e880cb8fcd46621/client.jar",
+                "hash": "sha256-AHQO9EddTNCh1wZPiWAvdZxF/5r+KdqbDuC5A367KnE="
+            }
+        },
+        "1.16.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/c9abbe8ee4fa490751ca70635340b7cf00db83ff/client.jar",
+                "hash": "sha256-tIMee2OxBYj/BuqGMiEI2RbFNkRvOuo66Yi3/j4fZu8="
+            }
+        },
+        "1.16.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/653e97a2d1d76f87653f02242d243cdee48a5144/client.jar",
+                "hash": "sha256-GZYPTjxg8nI/NhhE0rQCC4vyFgvZGh4e/ejOWupP9z0="
+            }
+        },
+        "1.16.3": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/1321521b2caf934f7fc9665aab7e059a7b2bfcdf/client.jar",
+                "hash": "sha256-2oUZe6vZiafeMYd0z12XvO+V6JpwyfqaTIGARj6Vifo="
+            }
+        },
+        "1.16.4": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/1952d94a0784e7abda230aae6a1e8fc0522dba99/client.jar",
+                "hash": "sha256-1nQEZO4r3zfShcXTaNLhZJdJJCf7V4Pi2zSCu/AHntA="
+            }
+        },
+        "1.16.5": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/37fd3c903861eeff3bc24b71eed48f828b5269c8/client.jar",
+                "hash": "sha256-ALXrvDPpXqiMGrgGAVmcmCfpqoYdk8zCz8u/2ZboYmM="
+            }
+        },
+        "1.17": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/1cf89c77ed5e72401b869f66410934804f3d6f52/client.jar",
+                "hash": "sha256-FBIih9TkJWwtZeyMDM+jtWRISV+jzKvIfQ8O60+hww8="
+            }
+        },
+        "1.17.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/8d9b65467c7913fcf6f5b2e729d44a1e00fde150/client.jar",
+                "hash": "sha256-pJtKVsW74Vye2f5T76mlkfJlofW6fWqpc5pY6nqSt50="
+            }
+        },
+        "1.18": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/d49eb6caed53d23927648c97451503442f9e26fd/client.jar",
+                "hash": "sha256-OB4JDvIlhFJhE7zM8mrjijEKIglNFMLQ3scrcf32Wqo="
+            }
+        },
+        "1.18.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/7e46fb47609401970e2818989fa584fd467cd036/client.jar",
+                "hash": "sha256-c3wopWyJgPzYV0RlxhU4696PURvdA1xp0MvieVP4kqo="
+            }
+        },
+        "1.18.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/2e9a3e3107cca00d6bc9c97bf7d149cae163ef21/client.jar",
+                "hash": "sha256-HQnjY5ZEtrIlRJlGnQdlzABaKG0Z8/pZWw7Y+weXHsc="
+            }
+        },
+        "1.19": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/c0898ec7c6a5a2eaa317770203a1554260699994/client.jar",
+                "hash": "sha256-/9T7MDfUEQCFtNPS3Ee3YGlVKOsUKSw+X3x1iYPG12Q="
+            }
+        },
+        "1.19.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/90d438c3e432add8848a9f9f368ce5a52f6bc4a7/client.jar",
+                "hash": "sha256-FG1AGM/tUMXndIOUBlMJHxhtLuqa1C/ECTn1xy1rf1I="
+            }
+        },
+        "1.19.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/055b30d860ead928cba3849ba920c88b6950b654/client.jar",
+                "hash": "sha256-4axl3ptHG2kWzEV/3P8Awbr6wXAnqnkQDE34k7PZVts="
+            }
+        },
+        "1.19.3": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/977727ec9ab8b4631e5c12839f064092f17663f8/client.jar",
+                "hash": "sha256-tyKMI9vImIEpVhrzkY3UaVd96ELS6zx9q+ADFr+aRNY="
+            }
+        },
+        "1.19.4": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/958928a560c9167687bea0cefeb7375da1e552a8/client.jar",
+                "hash": "sha256-DnnPfwfBB+mh/iLtcD5HI3K0QUnmQRSUTwgRq70l8+w="
+            }
+        },
+        "1.20": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/e575a48efda46cf88111ba05b624ef90c520eef1/client.jar",
+                "hash": "sha256-Wsnq0TV0b18nBI8uAdjVvcLavE2RQi9z7yQ19MPSSv8="
+            }
+        },
+        "1.20.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/0c3ec587af28e5a785c0b4a7b8a30f9a8f78f838/client.jar",
+                "hash": "sha256-VrcTNtK0/f/Rl/VllbDak+MqlG9484Kimbj0uSdYuw8="
+            }
+        },
+        "1.20.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/82d1974e75fc984c5ed4b038e764e50958ac61a0/client.jar",
+                "hash": "sha256-+hoZvlalBkJjCKu8HK2F8pmn/G2uQzVVk1G6AkZxP9o="
+            }
+        },
+        "1.20.3": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/b178a327a96f2cf1c9f98a45e5588d654a3e4369/client.jar",
+                "hash": "sha256-vvIZOCJJAt2SXi2J3P4dJUBlbUz3pavSuT4EAtE1xlU="
+            }
+        },
+        "1.20.4": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/fd19469fed4a4b4c15b2d5133985f0e3e7816a8a/client.jar",
+                "hash": "sha256-kiGrRhpJG/lmHNjnc6XmYqqkPWAPp5cLjBK7+wQxuDg="
+            }
+        },
+        "1.20.5": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/c6b92b2374a629f20802bb284f98a4ee790e950a/client.jar",
+                "hash": "sha256-SdWUmtuxAhp+sAwblJ+eOZNLECScv4bSUAR3TRs/9RA="
+            }
+        },
+        "1.20.6": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/05b6f1c6b46a29d6ea82b4e0d42190e42402030f/client.jar",
+                "hash": "sha256-At/TRawa1VaS1dvISGrH5P6nLNVKxJSnnNSJYwSOVrI="
+            }
+        },
+        "1.21": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/0e9a07b9bb3390602f977073aa12884a4ce12431/client.jar",
+                "hash": "sha256-S1a8m0Tefoj5+7UucWwYJA2jRGn8uvpe0udbBNYGF+g="
+            }
+        },
+        "1.21.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/30c73b1c5da787909b2f73340419fdf13b9def88/client.jar",
+                "hash": "sha256-SZ9ol9GDdRZoDzEUBy2BBuEcmtzZM/5c8FG1UQibDJk="
+            }
+        },
+        "1.21.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/c7ac2d0d86f4ca416cab9064ff8a281852ad0c7b/client.jar",
+                "hash": "sha256-YTCR2g9iQmro3Pmvsw62OUhfSTuBzaOiuWsfuKa5l2w="
+            }
+        },
+        "1.21.3": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/6f67d19b4467240639cb2c368ffd4b94ba889705/client.jar",
+                "hash": "sha256-JRkMVWvFbREHBjjMqzs8bv12u5aEySomgKTeAcPHE4s="
+            }
+        },
+        "1.21.4": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/a7e5a6024bfd3cd614625aa05629adf760020304/client.jar",
+                "hash": "sha256-wXxFDG5yzFEpfapXzjj4AKoBzwIrdD2qIaBRLTJtiU4="
+            }
+        },
+        "1.21.5": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/b88808bbb3da8d9f453694b5d8f74a3396f1a533/client.jar",
+                "hash": "sha256-UiZyrSC0YMAsLjm2xQNe9qhJryjrEasqx+spPTlajBE="
+            }
+        },
+        "1.21.6": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/740a125b83dd3447feaa3c5e891ead7fbb21ae28/client.jar",
+                "hash": "sha256-lZLfhYfW0+wDNMhzrUMtx2AG1hKa/c6afqxSY4M5oko="
+            }
+        },
+        "1.21.7": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/a2db1ea98c37b2d00c83f6867fb8bb581a593e07/client.jar",
+                "hash": "sha256-bQqmTGoK7jJwJTMX9R6egW+UzTsWtE9dYFYVw5/GL7k="
+            }
+        },
+        "1.21.8": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/a19d9badbea944a4369fd0059e53bf7286597576/client.jar",
+                "hash": "sha256-6nTpxektAflfPTkZbdtzThmgd6WLTEM8NBCUh9YAJ28="
+            }
+        },
+        "1.21.9": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/ce92fd8d1b2460c41ceda07ae7b3fe863a80d045/client.jar",
+                "hash": "sha256-QMCjLEZgH3H2ph2unxJiAt7VzEU8+42m5CrnPyo/XBs="
+            }
+        },
+        "1.21.10": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/d3bdf582a7fa723ce199f3665588dcfe6bf9aca8/client.jar",
+                "hash": "sha256-5lygKLxY2hK/hBMGbJDs1NSMlPs1HZu9Iuzf9ch/lII="
+            }
+        },
+        "1.21.11": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/ba2df812c2d12e0219c489c4cd9a5e1f0760f5bd/client.jar",
+                "hash": "sha256-FHPJSJrFD9o8Q1BJp2pw1hoQuGENsn9bqdh1a2hs070="
+            }
+        },
+        "26.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/191771837687b766537a8c4607cb6fad79c533a1/client.jar",
+                "hash": "sha256-vGGUxhVmtYfxlgkNcwaY8hkRcPdYCtsUPk/4OZOdOEA="
+            }
+        },
+        "26.1.1": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/377031a9e733ba8ab4d355959a8f6fb8eb707556/client.jar",
+                "hash": "sha256-jBCb5hd/QNENCv2CCwZUL5YJWXh0JCuW4WxbDcnh/vM="
+            }
+        },
+        "26.1.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/4e618f09a0c649dde3fdf829df443ce0b8831e65/client.jar",
+                "hash": "sha256-sbMVhXJmZEXv8B6C+tjH3i5JU9ttNU8xFzDXeoNZ0LA="
+            }
+        }
+    },
+    "latest": "26.1.2"
+}
