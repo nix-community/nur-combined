@@ -14,7 +14,11 @@ if [[ -n "$password" ]]; then
 fi
 
 if [[ -n "$fileId" ]]; then
-  mega-get "${megaPasswordFlags[@]}" "https://mega.nz/#$fileId" "$out"
+  if [[ "$fileId" == *"#"* ]]; then
+    mega-get "${megaPasswordFlags[@]}" "https://mega.nz/file/$fileId" "$out"
+  else
+    mega-get "${megaPasswordFlags[@]}" "https://mega.nz/#$fileId" "$out"
+  fi
 elif [[ -z "$pathInFolder" ]]; then
   mega-get "${megaPasswordFlags[@]}" "https://mega.nz/folder/$folderId" "$out"
 elif [[ -n "$megaLoggedIn" ]]; then
