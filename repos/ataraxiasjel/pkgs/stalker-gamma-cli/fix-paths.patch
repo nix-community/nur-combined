@@ -27,7 +27,7 @@ index 37aeed2..938bf21 100644
 +    public string PathToTar = "@tar@";
  }
 diff --git a/stalker-gamma-cli/Commands/Anomaly.cs b/stalker-gamma-cli/Commands/Anomaly.cs
-index 5ecea5f..a407240 100644
+index 5ecea5f..06c7ef8 100644
 --- a/stalker-gamma-cli/Commands/Anomaly.cs
 +++ b/stalker-gamma-cli/Commands/Anomaly.cs
 @@ -60,11 +60,7 @@ public class AnomalyInstallCmd(
@@ -39,7 +39,7 @@ index 5ecea5f..a407240 100644
 -            resourcesPath,
 -            OperatingSystem.IsWindows() ? "7zz.exe" : "7zz"
 -        );
-+        stalkerGammaSettings.PathTo7Z = "@_7zz@";
++        stalkerGammaSettings.PathToTar = "@tar@";
  
          var anomalyInstaller = (AnomalyInstaller)
              downloadableRecordFactory.CreateAnomalyRecord(cache, anomaly);
