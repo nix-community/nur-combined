@@ -17,16 +17,16 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "AOMediaCodec";
     repo = "avm";
     rev = "research-v${finalAttrs.version}";
-    hash = "sha256-sjdaY2PeTPlaIWX+u0Ln7GhNYOei1B+J1bVEKuBHgR0=";
+    hash = "sha256-EDQCFY0Kdqy7+k7lug1X4JPuG26LVlLHAlMhd0z0kPc=";
   };
 
   postPatch = ''
-    substituteInPlace build/cmake/pkg_config.cmake \
+    substituteInPlace cmake/pkg_config.cmake \
       --replace-fail \
         'file(APPEND "''${pkgconfig_file}" "libdir=\''${exec_prefix}/''${libdir}\n\n")' \
         'file(APPEND "''${pkgconfig_file}" "libdir=\''${CMAKE_INSTALL_FULL_LIBDIR}\n\n")'
 
-    substituteInPlace build/cmake/pkg_config.cmake \
+    substituteInPlace cmake/pkg_config.cmake \
       --replace-fail \
         'file(APPEND "''${pkgconfig_file}" "includedir=\''${prefix}/''${includedir}\n")' \
         'file(APPEND "''${pkgconfig_file}" "includedir=\''${CMAKE_INSTALL_FULL_INCLUDEDIR}\n")'
