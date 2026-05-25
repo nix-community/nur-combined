@@ -2,7 +2,7 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-  nodejs_20,
+  nodejs,
   jq,
   makeWrapper,
   krb5,
@@ -31,7 +31,7 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "habitica";
-  version = "5.47.9";
+  version = "5.48.0";
 
   outputs = [
     "out"
@@ -43,10 +43,10 @@ buildNpmPackage (finalAttrs: {
     owner = "HabitRPG";
     repo = "habitica";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3JTlOLifGnP78PoYZ15rXm4W0qpBo46npb4RrI8nr9A=";
+    hash = "sha256-e9+f1X63aMfQoMr7f3OpZdMp5xQF/S1vm+AU0cniMhE=";
   };
 
-  npmDepsHash = "sha256-CbcURBhwWMSgnMGrMjFfVTe/Pf6hfKpIVvvqaiurEO4=";
+  npmDepsHash = "sha256-YWlrVzWysXPCgD4NIB6vO+48p6KQIPQTzrMPfl8luNs=";
 
   postPatch = ''
     sed -i /postinstall/d package.json
@@ -56,7 +56,7 @@ buildNpmPackage (finalAttrs: {
   makeCacheWritable = true;
   npmFlags = [ "--legacy-peer-deps" ];
 
-  nodejs = nodejs_20;
+  nodejs = nodejs;
 
   nativeBuildInputs = [
     jq
@@ -99,7 +99,7 @@ buildNpmPackage (finalAttrs: {
       website/common/transpiled-babel \
       website/transpiled-babel
 
-    makeWrapper ${lib.getExe nodejs_20} "$out/bin/habitica" \
+    makeWrapper ${lib.getExe nodejs} "$out/bin/habitica" \
       --set NODE_ENV production \
       --chdir "$out/lib/node_modules/habitica" \
       --add-flags website/transpiled-babel/index.js

@@ -9,13 +9,13 @@
 
 melpaBuild (finalAttrs: {
   pname = "majutsu";
-  version = "0.6.0-unstable-2026-05-02";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "0WD0";
     repo = "majutsu";
-    rev = "f33d37bd158de1217df85e5b889267c7cbd8eca9";
-    hash = "sha256-km8AaLPK8jV8zA3nxTJuoLJuO9SJT9hS0MqB2J0wX+4=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-pdumBo9AwfpIZPolcFPGCIzTlNdH1mkagl6CcMcHBK0=";
   };
 
   packageRequires = [
@@ -23,7 +23,7 @@ melpaBuild (finalAttrs: {
     evil
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Magit for jujutsu";
