@@ -1,4 +1,10 @@
-{ inputs, config, lib, options, ... }:
+{
+  inputs,
+  config,
+  lib,
+  options,
+  ...
+}:
 {
   nix.settings = {
     auto-optimise-store = true;

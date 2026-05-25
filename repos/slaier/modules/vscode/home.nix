@@ -6,7 +6,6 @@
   home.packages = with pkgs; [
     clang
     clang-tools
-    jsonnet-language-server
     meson
     mesonlsp
     muon
@@ -15,15 +14,9 @@
   ];
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode.overrideAttrs (prev: {
-      preFixup = prev.preFixup + ''
-        gappsWrapperArgs+=(
-          --unset NIXOS_OZONE_WL
-        )
-      '';
-    });
     mutableExtensionsDir = false;
-    profiles.default.extensions = (with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
+      anthropic.claude-code
       eamodio.gitlens
       file-icons.file-icons
       jnoortheen.nix-ide
@@ -35,8 +28,6 @@
       ms-python.vscode-pylance
       ms-vscode-remote.remote-containers
       ms-vscode-remote.remote-ssh
-      ms-vscode.cpptools
-      platformio.platformio-vscode-ide
       redhat.vscode-yaml
       rust-lang.rust-analyzer
       shardulm94.trailing-spaces
@@ -46,9 +37,7 @@
       timonwong.shellcheck
       tyriar.sort-lines
       yzhang.markdown-all-in-one
-    ]) ++ (with pkgs.vscode-marketplace; [
-      wokwi.wokwi-vscode
-    ]);
+    ];
     profiles.default = {
       keybindings = [
         {
@@ -89,14 +78,12 @@
         "editor.inlayHints.enabled" = "off";
         "editor.minimap.enabled" = false;
         "editor.renderWhitespace" = "all";
-        "editor.rulers" = [ 80 120 ];
+        "editor.rulers" = [
+          80
+          120
+        ];
         "extensions.autoCheckUpdates" = false;
         "extensions.autoUpdate" = false;
-        "extensions.allowed" = {
-          "*" = true;
-          "ms-vscode.cpptools" = false;
-          "platformio.platformio-ide" = false;
-        };
         "files.insertFinalNewline" = true;
         "files.trimFinalNewlines" = true;
         "files.trimTrailingWhitespace" = true;
@@ -124,6 +111,17 @@
         "workbench.editor.enablePreviewFromCodeNavigation" = true;
         "workbench.iconTheme" = "file-icons";
 
+        "claudeCode.claudeProcessWrapper" = lib.getExe (
+          pkgs.writeShellApplication {
+            name = "claude-launcher";
+            text = ''
+              shift
+              exec claude-mimo "$@"
+            '';
+          }
+        );
+        "claudeCode.disableLoginPrompt" = true;
+        "claudeCode.preferredLocation" = "panel";
         "direnv.restart.automatic" = true;
         "markdown-preview-enhanced.previewTheme" = "monokai.css";
         "mesonbuild.buildFolder" = "build";
@@ -132,23 +130,22 @@
         "mesonbuild.linter.muon.enabled" = true;
         "redhat.telemetry.enabled" = false;
         "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "${lib.getExe pkgs.nil}";
+        "nix.serverPath" = "${lib.getExe pkgs.nixd}";
         "nix.serverSettings" = {
-          nil.formatting.command = [ (lib.getExe pkgs.nixpkgs-fmt) ];
-          nix = {
-            autoEvalInputs = true;
-            nixpkgsInputName = "nixpkgs";
+          nixd = {
+            nixpkgs.expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }";
+            formatting.command = [ (lib.getExe pkgs.nixfmt) ];
+            options.nixos.expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.local.options";
           };
         };
-        "platformio-ide.customPyPiIndexUrl" = "https://mirror.nju.edu.cn/pypi/web/simple";
+        "nix.hiddenLanguageServerErrors" = [ "textDocument/definition" ];
         "remote.autoForwardPorts" = false;
       };
     };
   };
-  home.file.".vscode/argv.json".text = builtins.toJSON
-    {
-      password-store = "gnome-libsecret";
-      enable-crash-reporter = false;
-      crash-reporter-id = "ed2b3d47-3938-47db-a79b-19c13fe3bc1f";
-    };
+  home.file.".vscode/argv.json".text = builtins.toJSON {
+    password-store = "gnome-libsecret";
+    enable-crash-reporter = false;
+    crash-reporter-id = "ed2b3d47-3938-47db-a79b-19c13fe3bc1f";
+  };
 }

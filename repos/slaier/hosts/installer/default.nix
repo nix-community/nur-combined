@@ -1,4 +1,9 @@
-{ lib, pkgs, modulesPath, ... }:
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 let
   nixos-fs-init = pkgs.replaceVarsWith {
     src = ./nixos-fs-init.sh;
@@ -6,14 +11,17 @@ let
     isExecutable = true;
 
     replacements = {
-      path = lib.makeBinPath (with pkgs; [
-        btrfs-progs
-        coreutils
-        dosfstools
-        parted
-        mount
-        umount
-      ]);
+      path = lib.makeBinPath (
+        with pkgs;
+        [
+          btrfs-progs
+          coreutils
+          dosfstools
+          parted
+          mount
+          umount
+        ]
+      );
     };
   };
 
@@ -23,12 +31,15 @@ let
     isExecutable = true;
 
     replacements = {
-      path = lib.makeBinPath (with pkgs; [
-        btrfs-progs
-        coreutils
-        mount
-        umount
-      ]);
+      path = lib.makeBinPath (
+        with pkgs;
+        [
+          btrfs-progs
+          coreutils
+          mount
+          umount
+        ]
+      );
     };
   };
 in

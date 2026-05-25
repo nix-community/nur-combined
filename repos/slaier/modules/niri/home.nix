@@ -49,7 +49,10 @@ in
       icon = "chromium";
       terminal = false;
       startupNotify = true;
-      categories = [ "Network" "WebBrowser" ];
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
     };
     "scrcpy" = {
       name = "scrcpy";
@@ -58,7 +61,10 @@ in
       exec = noproxy "scrcpy --video-bit-rate 16M --render-driver=opengl -f -S";
       icon = "scrcpy";
       terminal = false;
-      categories = [ "Utility" "RemoteAccess" ];
+      categories = [
+        "Utility"
+        "RemoteAccess"
+      ];
       startupNotify = false;
     };
   };

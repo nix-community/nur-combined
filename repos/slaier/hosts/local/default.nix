@@ -1,19 +1,21 @@
 { pkgs, ... }:
 {
-  imports =
-    [
-      { programs.command-not-found.enable = false; }
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    { programs.command-not-found.enable = false; }
+    ./hardware-configuration.nix
+  ];
 
   home-manager.users.nixos.imports = [
-    ({ lib, ... }: {
-      xdg.configFile."pip/pip.conf".text = lib.generators.toINI { } {
-        global = {
-          index-url = "https://mirror.nju.edu.cn/pypi/web/simple";
+    (
+      { lib, ... }:
+      {
+        xdg.configFile."pip/pip.conf".text = lib.generators.toINI { } {
+          global = {
+            index-url = "https://mirror.nju.edu.cn/pypi/web/simple";
+          };
         };
-      };
-    })
+      }
+    )
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -23,7 +25,7 @@
   networking = {
     firewall.enable = false;
     proxy = {
-      default = "http://127.0.0.1:7890";
+      default = "http://local.lan:7890";
       noProxy = "127.0.0.1,localhost,.lan";
     };
   };

@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
@@ -9,9 +10,19 @@
 
     fontconfig = {
       defaultFonts = {
-        serif = [ "FantasqueSansM Nerd Font Mono" "Microsoft YaHei" ];
-        sansSerif = [ "FantasqueSansM Nerd Font Mono" "Microsoft YaHei" ];
-        monospace = [ "FantasqueSansM Nerd Font Mono" "Microsoft YaHei" "Noto Color Emoji" ];
+        serif = [
+          "FantasqueSansM Nerd Font Mono"
+          "Microsoft YaHei"
+        ];
+        sansSerif = [
+          "FantasqueSansM Nerd Font Mono"
+          "Microsoft YaHei"
+        ];
+        monospace = [
+          "FantasqueSansM Nerd Font Mono"
+          "Microsoft YaHei"
+          "Noto Color Emoji"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };

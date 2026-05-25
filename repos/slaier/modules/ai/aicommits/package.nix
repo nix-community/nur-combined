@@ -1,9 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, makeWrapper
-, nodejs_24
-,
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
+  nodejs_24,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "aicommits";

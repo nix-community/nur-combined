@@ -4,17 +4,27 @@
     "/" = {
       label = "${config.networking.hostName}-nixos";
       fsType = "btrfs";
-      options = [ "compress=zstd" "subvol=root" ];
+      options = [
+        "compress=zstd"
+        "subvol=root"
+      ];
     };
     "/nix" = {
       label = "${config.networking.hostName}-nixos";
       fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" "subvol=nix" ];
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=nix"
+      ];
     };
     "/swap" = {
       label = "${config.networking.hostName}-nixos";
       fsType = "btrfs";
-      options = [ "noatime" "subvol=swap" ];
+      options = [
+        "noatime"
+        "subvol=swap"
+      ];
     };
     "/boot" = {
       label = "${config.networking.hostName}-boot";

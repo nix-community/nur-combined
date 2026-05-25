@@ -1,15 +1,30 @@
-{ config, lib, modulesPath, pkgs, ... }:
 {
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-      ./filesystem.nix
-    ];
+  config,
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./filesystem.nix
+  ];
 
   boot.tmp.cleanOnBoot = true;
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "it87" "kvm-amd" ];
+  boot.kernelModules = [
+    "it87"
+    "kvm-amd"
+  ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
   boot.extraModprobeConfig = ''
     options it87 ignore_resource_conflict=1

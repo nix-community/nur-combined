@@ -1,4 +1,8 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 let
   llama-cpp = pkgs.llama-cpp-vulkan;
 in
@@ -92,155 +96,82 @@ in
     key = "";
     sopsFile = ../../secrets/litellm.env;
   };
-  systemd.services.llama-cpp = {
-    description = "LLaMA C++ server";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+  services.llama-cpp = {
+    enable = true;
+    package = llama-cpp;
+    extraFlags = [
+      "--models-max"
+      "1"
+    ];
+    modelsPreset = {
+      "*" = {
+        np = 1;
+        no-mmproj = true;
+        no-warmup = true;
+        sleep-idle-seconds = 600;
+        n-gpu-layers = 99;
+        flash-attn = "on";
+        fit = "on";
+        fit-target = 1024;
+        prio = 3;
+        kv-unified = true;
+        repeat-penalty = 1.05;
+        reasoning = "off";
+      };
 
-    serviceConfig = {
-      Type = "idle";
-      KillSignal = "SIGINT";
-      StateDirectory = "llama-cpp";
-      CacheDirectory = "llama-cpp";
-      WorkingDirectory = "/var/lib/llama-cpp";
-      Environment = [
-        "LLAMA_CACHE=/var/cache/llama-cpp"
-        "HOME=/var/cache/llama-cpp"
-        "HF_ENDPOINT=https://hf-mirror.com"
-      ];
-      ExecStart =
-        let
-          preset = pkgs.writeText "llama-models.ini" (lib.generators.toINI { } {
-            "*" = {
-              np = 1;
-              no-mmproj = true;
-              no-warmup = true;
-              sleep-idle-seconds = 600;
-              n-gpu-layers = 99;
-              flash-attn = "on";
-              fit = "on";
-              fit-target = 1024;
-              prio = 3;
-              kv-unified = true;
-              repeat-penalty = 1.05;
-              reasoning = "off";
-            };
-
-            # Coder
-            "Qwen3.6-35B-A3B-MTP" = {
-              hf = "unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q4_K_XL";
-              temperature = 0.7;
-              top-p = 0.8;
-              top-k = 20;
-              min-p = 0;
-              presence-penalty = 1.5;
-              repeat-penalty = 1.0;
-              fit = "off";
-              ot = ''blk\.[0-9]+\.ffn_.*exps.*=CPU'';
-              ctx-size = 204800;
-              ctk = "q8_0";
-              ctv = "q8_0";
-              spec-type = "draft-mtp";
-              spec-draft-n-max = 1;
-            };
-            "Jan-v3-4B-base-instruct" = {
-              hf = "janhq/Jan-v3-4B-base-instruct-gguf";
-              temperature = 0.7;
-              top-p = 0.8;
-              top-k = 20;
-              min-p = 0;
-              presence-penalty = 1.5;
-              repeat-penalty = 1.0;
-              ctk = "q8_0";
-              ctv = "q8_0";
-            };
-            "Qwen2.5-Coder-1.5B-CodeFIM" = {
-              hf = "mradermacher/Qwen2.5-Coder-1.5B-CodeFIM-GGUF:Q4_K_M";
-            };
-            "FastApply-1.5B-v1.0" = {
-              hf = "MaziyarPanahi/FastApply-1.5B-v1.0-GGUF:Q5_K_M";
-            };
-            "nomic-embed-text-v1.5" = {
-              hf = "nomic-ai/nomic-embed-text-v1.5-GGUF:F32";
-            };
-            "zerank-1-small" = {
-              hf = "mradermacher/zerank-1-small-GGUF:Q4_K_M";
-            };
-            # OCR
-            "Nanonets-OCR-s" = {
-              hf = "unsloth/Nanonets-OCR-s-GGUF:UD-Q4_K_XL";
-            };
-          });
-          args = [
-            "--host"
-            "127.0.0.1"
-            "--port"
-            "8080"
-            "--models-preset"
-            "${preset}"
-          ];
-        in
-        "${llama-cpp}/bin/llama-server ${utils.escapeSystemdExecArgs args}";
-      Restart = "on-failure";
-      RestartSec = 300;
-
-      # for GPU acceleration
-      PrivateDevices = false;
-
-      # hardening
-      DynamicUser = true;
-      CapabilityBoundingSet = "";
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-        "AF_UNIX"
-      ];
-      NoNewPrivileges = true;
-      PrivateMounts = true;
-      PrivateTmp = true;
-      PrivateUsers = true;
-      ProtectClock = true;
-      ProtectControlGroups = true;
-      ProtectHome = true;
-      ProtectKernelLogs = true;
-      ProtectKernelModules = true;
-      ProtectKernelTunables = true;
-      ProtectSystem = "strict";
-      MemoryDenyWriteExecute = true;
-      LockPersonality = true;
-      RemoveIPC = true;
-      RestrictNamespaces = true;
-      RestrictRealtime = true;
-      RestrictSUIDSGID = true;
-      SystemCallArchitectures = "native";
-      SystemCallFilter = [
-        "@system-service"
-        "~@privileged"
-      ];
-      SystemCallErrorNumber = "EPERM";
-      ProtectProc = "invisible";
-      ProtectHostname = true;
-      ProcSubset = "pid";
+      "preset/Qwen3.6-35B-A3B-MTP" = {
+        hf = "unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q4_K_XL";
+        temperature = 0.7;
+        top-p = 0.8;
+        top-k = 20;
+        min-p = 0;
+        presence-penalty = 1.5;
+        repeat-penalty = 1.0;
+        fit = "off";
+        ot = ''blk\.[0-9]+\.ffn_.*exps.*=CPU'';
+        ctx-size = 204800;
+        ctk = "q8_0";
+        ctv = "q8_0";
+        spec-type = "draft-mtp";
+        spec-draft-n-max = 1;
+      };
+      "preset/Qwen3.5-4B-MTP" = {
+        hf = "unsloth/Qwen3.5-4B-MTP-GGUF:UD-Q4_K_XL";
+        temperature = 0.7;
+        top-p = 0.8;
+        top-k = 20;
+        min-p = 0;
+        presence-penalty = 1.5;
+        repeat-penalty = 1.0;
+        ctk = "q8_0";
+        ctv = "q8_0";
+      };
+      "preset/Jan-v3-4B-base-instruct" = {
+        hf = "janhq/Jan-v3-4B-base-instruct-gguf";
+        temperature = 0.7;
+        top-p = 0.8;
+        top-k = 20;
+        min-p = 0;
+        presence-penalty = 1.5;
+        repeat-penalty = 1.0;
+        ctk = "q8_0";
+        ctv = "q8_0";
+      };
+      "preset/Qwen2.5-Coder-3B-Instruct-128K" = {
+        hf = "unsloth/Qwen2.5-Coder-3B-Instruct-128K-GGUF:Q4_K_M";
+        ctk = "q8_0";
+        ctv = "q8_0";
+      };
     };
   };
-  environment.etc."systemd/system-sleep/suspend-llama.sh".source = pkgs.writeShellScriptBin "suspend-llama.sh" ''
-    #!/bin/sh
-
-    case "$1" in
-        pre)
-            systemctl stop llama-cpp.service
-            ;;
-        post)
-            systemctl start llama-cpp.service
-            ;;
-    esac
-  '';
-  environment.systemPackages = with pkgs;
-    [
-      aicommits
-      cherry-studio
-      claude-code-best
-      llama-cpp
-      stable-diffusion-cpp-vulkan
-    ];
+  systemd.services.llama-cpp.serviceConfig.Environment = [
+    "HOME=/var/cache/llama-cpp"
+    "HF_ENDPOINT=https://hf-mirror.com"
+  ];
+  environment.systemPackages = with pkgs; [
+    aicommits
+    cherry-studio
+    llama-cpp
+    stable-diffusion-cpp-vulkan
+  ];
 }

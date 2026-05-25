@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, wrapGAppsHook3
-, gobject-introspection
-, glib
-, playerctl
-, python3
+{
+  lib,
+  stdenv,
+  wrapGAppsHook3,
+  gobject-introspection,
+  glib,
+  playerctl,
+  python3,
 }:
 
 stdenv.mkDerivation {

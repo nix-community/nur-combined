@@ -6,63 +6,50 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Build and development
 - `just` - Test current NixOS configuration (`sudo nixos-rebuild test`)
-- `just local switch` - Build and switch to current NixOS configuration (`./hosts/local/default.nix`)
+- `just local switch` - Build and switch to current NixOS configuration
+- `just local <goal>` - Run any nixos-rebuild goal (e.g., `just local boot`, `just local test`)
 - `just rollback` - Test rollback to previous generation
 - `just iso` - Build installer ISO image
 - `just update` - Update all flake inputs and specific packages via `nix-update`
-- `nix build .#nixosConfigurations.local.config.system.build.toplevel` - Build the local NixOS system
-- `nix run .#devShells.default` - Start the development shell with just, nixos-rebuild, and sops
+- `nix build .#nixosConfigurations.local.config.system.build.toplevel` - Build the full system
+- `nix fmt` - Format all Nix files (uses `nixfmt-tree`)
 
 ### Package management
 - `nix-env -f . -qa` - List all buildable packages
-- `nix-env -f . -qa --meta` - List packages with meta information
 - `nix build .#modules/<package-name>.package` - Build a specific package from modules
 
 ### Secrets
-- `sops --decrypt secrets/<filename>` - Decrypt secret files in `secrets/` directory
-- `watch_file outputs/devShells.nix` - Watch dev shell output (from .envrc)
+- `sops --decrypt secrets/<filename>` - Decrypt a secret file
+
+### Dev shell
+- `.envrc` is configured for direnv — entering the repo auto-loads the dev shell with `just`, `nixos-rebuild`, `sops`, and `nix-update`.
 
 ## Architecture
 
-This is a NixOS dotfiles/configuration repository using Nix flakes. The structure is:
+NixOS dotfiles/configuration repository using Nix flakes. Single host (`local`) targeting `x86_64-linux`.
 
-```
-nixos-config/
-├── flake.nix           # Main flake definition with inputs and outputs
-├── default.nix         # Collects all package.nix files from modules/
-├── hosts/              # NixOS system configurations
-│   └── local/         # Primary configuration (develop environment)
-│       └── default.nix # System modules + home-manager users.nixos
-├── modules/            # Organized configuration modules
-│   ├── common/        # Base system settings
-│   ├── <program>/     # Individual program configurations
-│   │   ├── default.nix   # NixOS module
-│   │   ├── home.nix      # Home manager module
-│   │   └── package.nix   # Buildable package (optional)
-│   └── installer/     # Installation scripts (nixos-fs-init, nixos-fs-mount)
-├── lib/               # Reusable Nix functions (in lib/default.nix)
-├── secrets/           # Encrypted secrets (sops managed)
-├── ci.nix             # CI package set definition
-└── justfile           # Task runner (just, justfile)
-```
+### Module auto-discovery
 
-### Module structure
-Each program module typically has:
-- `default.nix` - NixOS system module with `config.xxx = { ... }`
-- `home.nix` - Home manager module with `home.configHome.xxx = { ... }`
-- `package.nix` - Optional buildable package using `pkgs.callPackage`
-- `overlay.nix` - Optional NixOS overlay
+The core mechanism is `lib.fromDirectoryRecursive` (`lib/default.nix`), which recursively walks `modules/` and collects files by name:
+
+- `default.nix` → NixOS system modules
+- `home.nix` → Home Manager modules (imported into `users.nixos`)
+- `package.nix` → Buildable packages (also auto-converted to overlays)
+- `overlay.nix` → Additional NixOS overlays
+
+Directories prefixed with `_` are skipped during traversal.
+
+`packages.nix` (distinct from `package.nix`) defines a package set via `lib.makePackageSet`, used by the root `default.nix` for NUR-style package collection.
 
 ### Key patterns
-- **Recursive imports**: `modules/` directory is processed via `lib.fromDirectoryRecursive` in `flake.nix`
-- **Home-manager**: Uses `users.nixos.imports` to import all `home.nix` files
-- **Packages**: Collected via `default.nix` which traverses `modules/` for `package.nix` files; these are also automatically converted to overlays
-- **CI**: `ci.nix` defines buildable/cacheable packages for GitHub Actions
-- **Secrets**: Encrypted with sops using age keys stored in `secrets/secrets.yaml`
+
+- **flake.nix** is the entry point: it builds `nixosModules`, `homeModules`, `packages`, and `overlays` from the same `modules/` tree using `fromDirectoryRecursive` with different filenames.
+- **Home-manager** is integrated as a NixOS module; all `home.nix` files are collected and passed via `users.nixos.imports`.
+- **Overlays**: `package.nix` files are automatically wrapped as overlays (asserting no name collisions). `overlay.nix` files provide custom overlays.
+- **ci.nix**: Filters packages for CI — excludes broken, unfree, and `preferLocalBuild` packages.
+- **Secrets**: sops-nix with age key defined in `.sops.yaml`. Secret files live in `secrets/` and are decrypted at build time.
 
 ### Inputs
-- `nixpkgs/nixos-unstable`
-- `home-manager/master`
-- `NUR` (Nix Unstable Repository)
-- `sops-nix` (encrypted secrets)
-- Custom inputs like niri, bluetooth-player, etc.
+- `nixpkgs/nixos-unstable`, `home-manager/master`, `NUR`, `sops-nix`
+- `niri` (tiling Wayland compositor), `bluetooth-player`
+- `darkmatter-grub-theme`, `nix-index-database`

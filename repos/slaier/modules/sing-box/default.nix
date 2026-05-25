@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   services.sing-box.enable = true;
   systemd.services.sing-box.serviceConfig.ExecStartPre = lib.mkForce (

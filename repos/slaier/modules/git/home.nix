@@ -1,4 +1,9 @@
-{ config, pkgs, nixosConfig, ... }:
+{
+  config,
+  pkgs,
+  nixosConfig,
+  ...
+}:
 {
   sops.secrets.github_token = {
     path = "${config.xdg.configHome}/git/credentials";
@@ -19,8 +24,9 @@
       rebase.autoSquash = true;
       rebase.autoStash = true;
       gpg.format = "ssh";
-      gpg.ssh.allowedSignersFile = ''${pkgs.writeText "allowedSigners.txt"
-          ''${config.programs.git.settings.user.email} ${nixosConfig.programs.ssh.knownHosts."local.lan".publicKey}''}'';
+      gpg.ssh.allowedSignersFile = "${pkgs.writeText "allowedSigners.txt" "${config.programs.git.settings.user.email} ${
+        nixosConfig.programs.ssh.knownHosts."local.lan".publicKey
+      }"}";
       user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519";
       commit.gpgsign = true;
       alias = {

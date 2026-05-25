@@ -25,12 +25,10 @@
       url = "github:slaier/bluetooth-player";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... } @inputs:
+  outputs =
+    { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
       hostname = "local";
@@ -67,25 +65,28 @@
       packageOverlays = mylib.fromDirectoryRecursive {
         directory = ./modules;
         filename = "package.nix";
-        transformer = pkg:
+        transformer =
+          pkg:
           let
             name = builtins.baseNameOf (builtins.dirOf pkg);
           in
           final: prev:
-            assert !(lib.hasAttr name prev);
-            {
-              "${name}" = final.callPackage pkg { };
-            };
+          assert !(lib.hasAttr name prev);
+          {
+            "${name}" = final.callPackage pkg { };
+          };
       };
-      overlays = (mylib.fromDirectoryRecursive {
-        directory = ./modules;
-        filename = "overlay.nix";
-        transformer = import;
-      }) // packageOverlays;
+      overlays =
+        (mylib.fromDirectoryRecursive {
+          directory = ./modules;
+          filename = "overlay.nix";
+          transformer = import;
+        })
+        // packageOverlays;
     in
     {
       packages.${system} = mylib.flattenAttrset packages;
-      formatter.${system} = pkgs.nixpkgs-fmt;
+      formatter.${system} = pkgs.nixfmt-tree;
       nixosConfigurations.${hostname} = lib.nixosSystem {
         modules = with inputs; [
           darkmatter-grub-theme.nixosModule
@@ -94,32 +95,34 @@
           nix-index-database.nixosModules.nix-index
           nur.modules.nixos.default
           sops-nix.nixosModules.sops
-          ({ config, lib, ... }: {
-            _module.args = {
-              inherit inputs;
-            };
-            imports = (mylib.recursiveValuesToList nixosModules) ++ [
-              ./hosts/local
-            ];
-
-            nixpkgs.overlays = overlayList ++ [
-              bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
-              niri.overlays.niri
-              nix-vscode-extensions.overlays.default
-            ];
-
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              sharedModules = [
-                sops-nix.homeManagerModules.sops
-                nix-index-database.homeModules.nix-index
+          (
+            { config, lib, ... }:
+            {
+              _module.args = {
+                inherit inputs;
+              };
+              imports = (mylib.recursiveValuesToList nixosModules) ++ [
+                ./hosts/local
               ];
-              users.nixos.imports = mylib.recursiveValuesToList homeModules;
-            };
 
-            networking.hostName = lib.mkDefault hostname;
-          })
+              nixpkgs.overlays = overlayList ++ [
+                bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
+                niri.overlays.niri
+              ];
+
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                sharedModules = [
+                  sops-nix.homeManagerModules.sops
+                  nix-index-database.homeModules.nix-index
+                ];
+                users.nixos.imports = mylib.recursiveValuesToList homeModules;
+              };
+
+              networking.hostName = lib.mkDefault hostname;
+            }
+          )
         ];
       };
       nixosConfigurations."installer" = lib.nixosSystem {
@@ -128,13 +131,15 @@
           ./hosts/installer
         ];
       };
-      devShells.${system}.default = with pkgs; mkShell {
-        packages = [
-          just
-          nix-update
-          nixos-rebuild
-          sops
-        ];
-      };
+      devShells.${system}.default =
+        with pkgs;
+        mkShell {
+          packages = [
+            just
+            nix-update
+            nixos-rebuild
+            sops
+          ];
+        };
     };
 }

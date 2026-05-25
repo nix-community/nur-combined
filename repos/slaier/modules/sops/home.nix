@@ -1,4 +1,9 @@
-{ lib, config, nixosConfig, ... }:
+{
+  lib,
+  config,
+  nixosConfig,
+  ...
+}:
 {
   sops = {
     defaultSopsFile = nixosConfig.sops.defaultSopsFile;
