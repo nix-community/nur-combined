@@ -10,6 +10,11 @@
     "hash": "sha256-NbAy/XovL7fFNvpxIqaBmdvNtKLghOGXcy+EoIIh/Bw="
   },
   {
+    "pname": "Meowtrix.Sdk",
+    "version": "1.0.9",
+    "hash": "sha256-FJnLswiOOB8iu5MQxtNHX6u1X33JATqz5PTYDWfNKBU="
+  },
+  {
     "pname": "Microsoft.Extensions.Configuration",
     "version": "10.0.7",
     "hash": "sha256-2RqDs7+dXtGY78E5jSd1qyKu+dMQkbzv+oMY09SEJm0="

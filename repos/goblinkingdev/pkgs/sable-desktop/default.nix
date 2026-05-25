@@ -10,6 +10,7 @@
   makeWrapper,
   electron,
   makeDesktopItem,
+  git,
   glib,
   nss,
   nspr,
@@ -83,8 +84,8 @@ let
   sableSrc = fetchFromGitHub {
     owner = "SableClient";
     repo = "Sable";
-    rev = "v1.16.1";
-    hash = "sha256-4CJ9a6EUtT70G6iWnaaSlC3DWqF1zQrkeH9PTu8xyC8=";
+    rev = "v1.17.0";
+    hash = "sha256-hWh/xfyuEQTjqf/k5HJ32wFdOHRWXWqAh6q1pdk4Ih4=";
   };
 
   sableWebApp = stdenv.mkDerivation {
@@ -92,18 +93,24 @@ let
     version = "dev";
     src = sableSrc;
 
+    postPatch = ''
+      sed -i '/@cloudflare\/vite-plugin/d' vite.config.ts
+      sed -i '/cloudflare({/,/}),/d' vite.config.ts
+    '';
+
     nativeBuildInputs = [
       nodejs_24
       pnpm
       pnpmConfigHook
+      git
     ];
 
     pnpmDeps = fetchPnpmDeps {
       pname = "sable-webapp";
       version = "dev";
       src = sableSrc;
-      fetcherVersion = 2;
-      hash = "sha256-RP+Djby8eYWjLqnPute4/AYoZ/tm/Gwfb3dcoZcRptY="; 
+      fetcherVersion = 3;
+      hash = "sha256-H23DzNbMAAoRJEAwOphuL35AV+2NMAO4jtHWlBDM08U=";
     };
 
     buildPhase = ''
@@ -135,16 +142,16 @@ let
 in
 buildNpmPackage {
   pname = "sable-desktop";
-  version = "1.0.3-1.16.1";
+  version = "1.0.4-1.17.0";
 
   src = fetchFromGitHub {
     owner = "goblinkingdev";
     repo = "sable-electron";
-    rev = "v1.0.3-1.16.1";
-    hash = "sha256-M/CHm77NPJXVqSSFrbjG9fK9haja9aznp364LBogSYE=";
+    rev = "v1.0.4-1.17.0";
+    hash = "sha256-EiDytYU13U7203tJh82iG9GQQEzzWhWTjtHUQUE0C04=";
   };
 
-  npmDepsHash = "sha256-oR9b/Gr+PDsTt0E/S+dkop1oKt4oph1/zyEVFvF2oDY=";
+  npmDepsHash = "sha256-G2/ScYmscMPep8m4gqOtRZ9Awjh2+idP4H0EkU6lSFU=";
 
   nativeBuildInputs = [
     nodejs_24
@@ -172,6 +179,7 @@ buildNpmPackage {
     mkdir -p $out/lib/sable-desktop $out/bin $out/share/applications
 
     cp -r dist-electron package.json $out/lib/sable-desktop/
+    cp -r node_modules $out/lib/sable-desktop/node_modules
     cp -r ${sableWebApp} $out/lib/sable-desktop/dist
 
     makeWrapper ${electron}/bin/electron $out/bin/sable-desktop \
@@ -190,7 +198,7 @@ buildNpmPackage {
   meta = with lib; {
     description = "Unofficial Electron desktop wrapper for Sable Matrix client";
     homepage = "https://github.com/goblinkingdev/sable-electron";
-    changelog = "https://github.com/goblinkingdev/commits/master";
+    changelog = "https://github.com/goblinkingdev/sable-electron/commits/master";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ "goblinkingdev" ];
     mainProgram = "sable-desktop";

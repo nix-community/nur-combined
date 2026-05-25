@@ -14,8 +14,8 @@ buildDotnetModule rec {
   src = fetchFromGitHub {
     owner = "Entarno54";
     repo = "Mawtrix";
-    rev = "v8";
-    hash = "sha256-xDn1/VORrYtsDUKCHnRHn7j6dtRqxexjBZKamnzuotw=";
+    rev = "v0.8";
+    hash = "sha256-SmcMAgGOCTbkzI5xxpdT1rdpPLr8t7xIPZfCSrUSi08=";
   };
 
   nugetDeps = ./deps.json;
