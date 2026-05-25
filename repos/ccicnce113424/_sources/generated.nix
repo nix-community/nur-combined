@@ -115,16 +115,16 @@
   };
   krunner-zed = {
     pname = "krunner-zed";
-    version = "v0.1.4";
+    version = "v0.1.5";
     src = fetchFromGitHub {
       owner = "hron";
       repo = "krunner-zed";
-      rev = "v0.1.4";
+      rev = "v0.1.5";
       fetchSubmodules = false;
-      sha256 = "sha256-sK4ZG7BC1itXUWeDu9fHfUSHSWyQ0d56gRCSzIUApgI=";
+      sha256 = "sha256-Oaeo6SjMmB39jWMWJAK8aT20HrJ/7vo1rNVhW1Z6/qs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-sK4ZG7BC1itXUWeDu9fHfUSHSWyQ0d56gRCSzIUApgI=/Cargo.lock";
+      lockFile = ./. + "/sha256-Oaeo6SjMmB39jWMWJAK8aT20HrJ_7vo1rNVhW1Z6_qs=/Cargo.lock";
       outputHashes = {
         
       };
@@ -321,21 +321,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "1eddd07d5c53e2ad27d0fae571b662f500dafb22";
+    version = "aba5d6e20580596140ca79f9f72a539dbb6de9ed";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "1eddd07d5c53e2ad27d0fae571b662f500dafb22";
+      rev = "aba5d6e20580596140ca79f9f72a539dbb6de9ed";
       fetchSubmodules = false;
-      sha256 = "sha256-IxpofLyIccKYE0CscuHpxeIBPVLKk8QPMJRHVwZLRXw=";
+      sha256 = "sha256-c7a5vdSx/0KfNaXXlQ1cub0qnb2Z4EiSKaP86zQPN3M=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-IxpofLyIccKYE0CscuHpxeIBPVLKk8QPMJRHVwZLRXw=/Cargo.lock";
+      lockFile = ./. + "/sha256-c7a5vdSx_0KfNaXXlQ1cub0qnb2Z4EiSKaP86zQPN3M=/Cargo.lock";
       outputHashes = {
-        
+        "ffmpeg_audio-0.1.0" = "sha256-IDrlbzwqTALZDJklAwEuRtPN1OFQobZz+MEdkmc7tqQ=";
       };
     };
-    date = "2026-05-21";
+    date = "2026-05-25";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
