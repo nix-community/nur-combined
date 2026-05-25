@@ -110,7 +110,7 @@ let
       version = "dev";
       src = sableSrc;
       fetcherVersion = 3;
-      hash = "sha256-H23DzNbMAAoRJEAwOphuL35AV+2NMAO4jtHWlBDM08U=";
+      hash = "sha256-DlWFD0AJp/KD15SU8/1L0RAj7J+66zY8hwiu19AlO0I=";
     };
 
     buildPhase = ''
