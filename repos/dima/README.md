@@ -18,9 +18,9 @@ Links
 
 * [Repository][1]
 * [Source][2]
-* [Pull Request][3]
+* [Pull request][3]
 * [Commit][4]
-* [Merge Commit][5]
+* [Merge commit][5]
 
 [1]: https://nur.nix-community.org/repos/dima/ (This project in the NUR)
 [2]: https://gitlab.com/-/p/79327771 (The source code of this project on GitLab)
