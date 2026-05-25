@@ -120,10 +120,10 @@
   };
   baidunetdisk = {
     pname = "baidunetdisk";
-    version = "4.17.7";
+    version = "4.17.8";
     src = fetchurl {
-      url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/4.17.7/baidunetdisk_4.17.7_amd64.deb";
-      hash = "sha256-UOwY8FYmoT9X7wNGMEFtSBaCvBAYU58zOX1ccbxlOz0=";
+      url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/4.17.8/baidunetdisk_4.17.8_amd64.deb";
+      hash = "sha256-rTpM4/29u0TT4Vf6By9pLAYpvn5ulOkVHPw0CMDVuiM=";
     };
   };
   baidupcs-go = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.1.20";
+    version = "v7.1.22";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.1.20";
-      hash = "sha256-vzaZDcdKsS1WtwxpHMq5gizmG/vcvWEf/15o5QK+Vxo=";
+      tag = "v7.1.22";
+      hash = "sha256-giqvkkbmz4eXeVgPwhIHkIAHkUTQ6hVt7LjwMkZ/hEY=";
     };
   };
   cockpy = {
@@ -338,10 +338,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.26.25";
+    version = "0.27.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.26.25.tgz";
-      hash = "sha256-tGvNYfQ+wVMkETRcKN/37XMC2U4dQ82oM0ABzmtdbP8=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.27.1.tgz";
+      hash = "sha256-W2xzJnf5LRPD+AKMJtrDYn9GIydZHTmepO8opxIFRWw=";
     };
   };
   comp128 = {
@@ -825,37 +825,37 @@
   };
   funasr = {
     pname = "funasr";
-    version = "45753a72cbfefb1aa279414812298960fd75aeae";
+    version = "8ca7fb2b8c07ffc31cc3c7ce9fa2b901c054f51a";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "45753a72cbfefb1aa279414812298960fd75aeae";
-      hash = "sha256-c04q86XKzsFxRYZehqFJG6R7v3v43XkFNr81Ys/uM5g=";
+      rev = "8ca7fb2b8c07ffc31cc3c7ce9fa2b901c054f51a";
+      hash = "sha256-9/DPiJ1QxPcRmR4aL0rLRz/6MNNUc+NqbZ5fef+YHTA=";
     };
-    date = "2026-05-25";
+    date = "2026-05-26";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.22";
+    version = "2026.05.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.22/GeoLite2-ASN.mmdb";
-      hash = "sha256-ji4yN7YFkLZLqQR/SPVCVHY4dzRgDDu/meVifnI3wAA=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.25/GeoLite2-ASN.mmdb";
+      hash = "sha256-zyCnnfXaLWh3i+p8xPws1GJWr+RNOeGH2CrImmSX4/I=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.22";
+    version = "2026.05.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.22/GeoLite2-City.mmdb";
-      hash = "sha256-Bu64OitHM1VoM6Ux66murEs1/kFN3AsJHox+w8lgHrY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.25/GeoLite2-City.mmdb";
+      hash = "sha256-C6Y0TXUapWFJAF/fM7XVCNBOM1ToWcQkd1CpHEvY/SU=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.22";
+    version = "2026.05.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.22/GeoLite2-Country.mmdb";
-      hash = "sha256-0HSoc8DbZ1XA1/Iu/ox20U/V1LzapfxelAUI6FF+mbo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.25/GeoLite2-Country.mmdb";
+      hash = "sha256-X/Uy+9bttTwQNaAW1G7XY3L7WtQi1/WembN6tfUs5Bk=";
     };
   };
   glauth = {
@@ -1267,12 +1267,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9305";
+    version = "b9318";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9305";
-      hash = "sha256-TsleTV12rW+35OvHxkWJo42Lhp6FkSyozxiK71yjfRg=";
+      tag = "b9318";
+      hash = "sha256-+4iApx2JwrjyI5AKDotZz+lkf6vRKywMtQ4rVX4s8yg=";
     };
   };
   loralib = {
@@ -1588,10 +1588,10 @@
   };
   openresty = {
     pname = "openresty";
-    version = "1.29.2.4";
+    version = "1.29.2.5";
     src = fetchurl {
-      url = "https://openresty.org/download/openresty-1.29.2.4.tar.gz";
-      hash = "sha256-Ob2sIYJJt5F0ZOYVms/+8loyCuia2usjUU8Hj0c0l70=";
+      url = "https://openresty.org/download/openresty-1.29.2.5.tar.gz";
+      hash = "sha256-MZXmZclwI0GQUdxR0ZXp93Sj0A7W582KN1HEci6gqME=";
     };
   };
   openssl-ech = {
@@ -2326,15 +2326,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "710db8137ed98b5f9e7a8c61bb47e4466b3596e4";
+    version = "11213cdaca99ac24ee4091a528cb81e48880a539";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "710db8137ed98b5f9e7a8c61bb47e4466b3596e4";
+      rev = "11213cdaca99ac24ee4091a528cb81e48880a539";
       fetchSubmodules = true;
-      hash = "sha256-SVOSz4Ofled8kY04qPPqBxdMd+auF6gmvuOLGk1KF1k=";
+      hash = "sha256-9bIRT1iO6V9TLBD5PRpp01c8NYDfJ6QcJYxUTYWdo1s=";
     };
-    date = "2026-05-16";
+    date = "2026-05-25";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
