@@ -13,5 +13,6 @@ in
   flake = {
     nixosModules = modulesFromList (import ../nixos/modules/module-list.nix);
     darwinModules = modulesFromList (import ../darwin/modules/module-list.nix);
+    homeModules = modulesFromList (import ../home/modules/module-list.nix);
   };
 }
