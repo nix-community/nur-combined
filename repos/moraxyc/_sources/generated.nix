@@ -65,22 +65,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "84250ccb0229d7b89b419d7c9cfd2947a194fd7b";
+    version = "2e0903fc9ce477fd9b7e71fdc227bd5d38559023";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "84250ccb0229d7b89b419d7c9cfd2947a194fd7b";
+      rev = "2e0903fc9ce477fd9b7e71fdc227bd5d38559023";
       fetchSubmodules = false;
-      sha256 = "sha256-NbJZ4t027TnRPGj+6iewNP/3D2GVHUv8nd+FCA68xmw=";
+      sha256 = "sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-NbJZ4t027TnRPGj+6iewNP_3D2GVHUv8nd+FCA68xmw=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-NbJZ4t027TnRPGj+6iewNP_3D2GVHUv8nd+FCA68xmw=/web/package-lock.json";
-    };date = "2026-05-23";
+      "web/package.json" = ./. + "/sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=/web/package-lock.json";
+    };date = "2026-05-24";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.8.3";
+    version = "v1.8.4";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -286,21 +286,21 @@
   };
   hmcl-dev-bin = {
     pname = "hmcl-dev-bin";
-    version = "3.14.0.344";
+    version = "3.15.0.345";
     src = fetchurl {
-      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.14.0.344/HMCL-3.14.0.344.jar";
-      sha256 = "sha256-hQcjORaPkxfC1ERxXlan1b2mcJsacx8EApsf6KZTGug=";
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.15.0.345/HMCL-3.15.0.345.jar";
+      sha256 = "sha256-pm1CQSxVqrZQe+/vODWgSaV/oCa1Z1lUcZLRx1zTOzU=";
     };
   };
   hmcl-dev-src = {
     pname = "hmcl-dev-src";
-    version = "v3.14.0.344";
+    version = "v3.15.0.345";
     src = fetchFromGitHub {
       owner = "HMCL-dev";
       repo = "HMCL";
-      rev = "v3.14.0.344";
+      rev = "v3.15.0.345";
       fetchSubmodules = false;
-      sha256 = "sha256-MYkOGPxQr+UcQQf2PEskTM1jNU9p/r0CPb3280tvaaE=";
+      sha256 = "sha256-gtYSQB0MCXvax3Oj8D+TZwnNxmk4b+8Trau+66T9Y2I=";
     };
   };
   hysteria-realm-server = {
@@ -485,14 +485,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "f0775a6710e231ea0c277950f1a2cb37dfe60e6f";
+    version = "98ecd507dc1de457d4728d17d00fc31d7a6078e2";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "f0775a6710e231ea0c277950f1a2cb37dfe60e6f";
+      rev = "98ecd507dc1de457d4728d17d00fc31d7a6078e2";
       fetchSubmodules = false;
-      sha256 = "sha256-wjdBGQeuedcmi5J3O0AIaxtqt4OMYlmxT0YwO9ROk50=";
+      sha256 = "sha256-P4Qejxh+pQkLMhlnuxRn/elgMM9I6MMCS7aLhQmTSy0=";
     };
-    date = "2026-05-23";
+    date = "2026-05-24";
   };
 }
