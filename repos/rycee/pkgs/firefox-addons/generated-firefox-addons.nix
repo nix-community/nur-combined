@@ -418,16 +418,21 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.0.1";
+      version = "3.2.3";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4804760/archivebox_exporter-3.0.1.xpi";
-      sha256 = "9643fb53769e17700a83628a0b22fc148f2ba369f9193d277f425477bd339180";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4820668/archivebox_exporter-3.2.3.xpi";
+      sha256 = "cf540508a91c8bcddaf980ffb462f03c9998b121805d2e9f9fe8fea0150014dd";
       meta = with lib;
       {
         homepage = "https://github.com/ArchiveBox/archivebox-browser-extension";
         description = "Automatically or manually send pages to your ArchiveBox for archival.";
         license = licenses.mit;
-        mozPermissions = [ "storage" "activeTab" "contextMenus" "<all_urls>" ];
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "contextMenus"
+          "unlimitedStorage"
+        ];
         platforms = platforms.all;
       };
     };
@@ -9664,10 +9669,10 @@
     };
     "material-icons-for-github" = buildMozillaXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.16.0";
+      version = "1.16.1";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4818683/material_icons_for_github-1.16.0.xpi";
-      sha256 = "b15ebc0006b5a1fcbdf35123d28472cc8984be6f61a0ee6676ddd3eb0842383c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4819856/material_icons_for_github-1.16.1.xpi";
+      sha256 = "b8aefaef558d8a1e9759627a77343ca2fea7bb22801ab5694427135352d94ded";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -13038,10 +13043,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.5.20";
+      version = "26.5.24";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4813558/refined_github-26.5.20.xpi";
-      sha256 = "c1bfc7f2461fdc3a5853b238fe155be6e099c59a45e5a579e5dbc354340f2b55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4819673/refined_github-26.5.24.xpi";
+      sha256 = "be216e58b24ea4af52c0758294348a3324d73d092de5eb42603e5088ec954016";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -14914,10 +14919,10 @@
     };
     "themesong-for-youtube-music" = buildMozillaXpiAddon {
       pname = "themesong-for-youtube-music";
-      version = "1.3.2";
+      version = "1.3.3";
       addonId = "{6458ac08-a9d7-4e42-a1b0-f0c43bf90f7d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4805168/themesong_for_youtube_music-1.3.2.xpi";
-      sha256 = "7cc4497bb7d232cf8817c08d171b0f8cee1d69bb335180afe010ac978f5b6176";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4820351/themesong_for_youtube_music-1.3.3.xpi";
+      sha256 = "b1fa04056510e616413f3bbdb81b9832378c06acd8d70499fa3d80b9cc6d235b";
       meta = with lib;
       {
         homepage = "https://www.themesong.app";
