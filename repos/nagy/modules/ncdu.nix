@@ -8,6 +8,7 @@ let
     --show-itemcount
     --apparent-size
     --exclude-kernfs
+    --one-file-system
   '';
 in
 {

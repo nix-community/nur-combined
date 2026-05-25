@@ -24,16 +24,15 @@ in
 
   users.users."user".openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVwcaKID2HpE4ZRYClT1URJCRXiSPsJR4FC5TwnlmCS"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP3LpZ81RkReP5MG3A+MoRB93E+XENLCFh9qmQNcuXV daniel.nagy@wiit.cloud"
   ];
   users.users."root".openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVwcaKID2HpE4ZRYClT1URJCRXiSPsJR4FC5TwnlmCS"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP3LpZ81RkReP5MG3A+MoRB93E+XENLCFh9qmQNcuXV daniel.nagy@wiit.cloud"
   ];
 
   environment.systemPackages = with pkgs; [
     jq
     yq-go
+    jaq
     socat
     unzip
     pv
@@ -65,11 +64,14 @@ in
     self.all-converters
     glab
     jc
+    eza
 
     # for man pages
     (lib.getMan pkgs.msmtp)
     (lib.getMan pkgs.isync)
     pkgs.darkhttpd
+
+    pkgs.universal-ctags
   ];
 
   # tmpfs on all machines

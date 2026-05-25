@@ -22,11 +22,6 @@ in
       IdentitiesOnly yes
       # IdentityFile ~/.ssh/id_nagy
       IdentityFile /run/user/%i/ssh_id_nagy
-    Host git.wiit.one
-      User git
-      IdentitiesOnly yes
-      # IdentityFile ~/.ssh/id_nagywiit
-      IdentityFile /run/user/%i/ssh_id_nagywiit
   '';
 
   programs.git = {
@@ -40,7 +35,6 @@ in
           format = "ssh";
           ssh.allowedSignersFile = pkgs.writeText "allowed_signers" ''
             danielnagy@posteo.de ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEVwcaKID2HpE4ZRYClT1URJCRXiSPsJR4FC5TwnlmCS
-            daniel.nagy@wiit.cloud ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP3LpZ81RkReP5MG3A+MoRB93E+XENLCFh9qmQNcuXV
           '';
         };
         alias = {
@@ -182,6 +176,11 @@ in
             textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
             binary = true;
           };
+          # https://getsops.io/docs/#showing-diffs-in-cleartext-in-git
+          sopsdiffer = {
+            textconv = "${pkgs.sops}/bin/sops decrypt";
+            binary = true;
+          };
           orgmode = {
             xfuncname = "^(\\*+.*)$";
           };
@@ -199,17 +198,6 @@ in
           pkgs.writeText "gitconfig-includeIf" ''
             [commit]
                 gpgsign = true
-          '';
-      }
-      {
-        url."git@git.wiit.one:".insteadOf = "https://git.wiit.one/";
-        includeIf."hasconfig:remote.*.url:https://git.wiit.one/*/**".path =
-          pkgs.writeText "gitconfig-includeIf" ''
-            [commit]
-                gpgsign = true
-            [user]
-                email = daniel.nagy@wiit.cloud
-                signingkey = /home/user/.ssh/id_nagywiit
           '';
       }
     ];
