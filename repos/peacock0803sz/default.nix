@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   deck = pkgs.callPackage ./pkgs/deck { };
+  deno = pkgs.callPackage ./pkgs/deno { };
   gwq = pkgs.callPackage ./pkgs/gwq { };
   mado = pkgs.callPackage ./pkgs/mado { };
   notizen = pkgs.callPackage ./pkgs/mado { };
