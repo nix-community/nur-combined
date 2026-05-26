@@ -24,40 +24,40 @@ in
           "config.local"
         ];
 
-        matchBlocks = {
+        settings = {
           "github.com" = {
-            hostname = "github.com";
-            identityFile = "~/.ssh/shared_rsa";
-            user = "git";
+            HostName = "github.com";
+            IdentityFile = "~/.ssh/shared_rsa";
+            User = "git";
           };
 
           "gitlab.com" = {
-            hostname = "gitlab.com";
-            identityFile = "~/.ssh/shared_rsa";
-            user = "git";
+            HostName = "gitlab.com";
+            IdentityFile = "~/.ssh/shared_rsa";
+            User = "git";
           };
 
           "git.sr.ht" = {
-            hostname = "git.sr.ht";
-            identityFile = "~/.ssh/shared_rsa";
-            user = "git";
+            HostName = "git.sr.ht";
+            IdentityFile = "~/.ssh/shared_rsa";
+            User = "git";
           };
 
           "git.belanyi.fr" = {
-            hostname = "git.belanyi.fr";
-            identityFile = "~/.ssh/shared_rsa";
-            user = "git";
+            HostName = "git.belanyi.fr";
+            IdentityFile = "~/.ssh/shared_rsa";
+            User = "git";
           };
 
           porthos = {
-            hostname = "37.187.146.15";
-            identityFile = "~/.ssh/shared_rsa";
-            user = "ambroisie";
+            HostName = "37.187.146.15";
+            IdentityFile = "~/.ssh/shared_rsa";
+            User = "ambroisie";
           };
 
           # `*` is automatically made the last match block by the module
           "*" = {
-            addKeysToAgent = "yes";
+            AddKeysToAgent = "yes";
           };
         };
       };
