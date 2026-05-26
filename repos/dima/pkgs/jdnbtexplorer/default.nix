@@ -25,6 +25,15 @@ pkgs.python3Packages.buildPythonPackage {
 		nbt
 	];
 
+	postInstall = ''
+		mkdir -p $out/share/applications/
+		mkdir -p $out/share/icons/hicolor/256x256/apps/
+
+		cp jdNBTExplorer/Logo.png $out/share/icons/hicolor/256x256/apps/page.codeberg.JakobDev.jdNBTExplorer.png
+
+		cp ./deploy/page.codeberg.JakobDev.jdNBTExplorer.desktop $out/share/applications/
+	'';
+
 	meta = with pkgs.lib; {
 		description = "Editor for Minecraft NBT files";
 		license = licenses.gpl3Only;
