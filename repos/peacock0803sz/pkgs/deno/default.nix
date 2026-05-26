@@ -11,6 +11,7 @@
 , protobuf
 , openssl
 , glib
+, simdutf
 }:
 
 let
@@ -60,7 +61,7 @@ rustPlatform.buildRustPackage {
     protobuf
   ];
 
-  buildInputs = [ openssl ]
+  buildInputs = [ openssl simdutf ]
     ++ lib.optionals stdenv.isLinux [ glib ];
 
   LIBCLANG_PATH = lib.makeLibraryPath [ llvmPackages_20.clang-unwrapped.lib ];
