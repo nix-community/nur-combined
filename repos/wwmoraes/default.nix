@@ -30,6 +30,7 @@ let
     goutline = callPackage ./pkgs/goutline { };
     kroki = callPackage ./pkgs/kroki.nix { };
     kroki-cli = callPackage ./pkgs/kroki-cli.nix { };
+    laminar-client = callPackage ./pkgs/laminar-client { };
     structurizr-cli = callPackage ./pkgs/structurizr-cli.nix { };
     structurizr-site-generatr = callPackage ./pkgs/structurizr-site-generatr.nix { };
     update-motd = callPackage ./pkgs/update-motd.nix { };

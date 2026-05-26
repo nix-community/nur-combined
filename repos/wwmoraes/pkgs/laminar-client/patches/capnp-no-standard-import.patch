@@ -1,0 +1,13 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index ae86ce9..5b32f78 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -69,7 +69,7 @@ endmacro()
+ 
+ # Generates Cap'n Proto interface from definition file
+ add_custom_command(OUTPUT laminar.capnp.c++ laminar.capnp.h
+-    COMMAND capnp compile -oc++:${CMAKE_BINARY_DIR}
++    COMMAND capnp --no-standard-import compile -oc++:${CMAKE_BINARY_DIR}
+     --src-prefix=${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/laminar.capnp
+     DEPENDS src/laminar.capnp)
+ 
