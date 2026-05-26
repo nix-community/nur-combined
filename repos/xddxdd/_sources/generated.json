@@ -329,11 +329,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tCWXkIlRH0A8q2UfnRCAHuHz9Fbey/fUs5PXoxycTkM=",
+            "sha256": "sha256-x9SLvPrlQqkgJNhKKN3rvV+Nm1wQ7/eDmkZoXRbAyi8=",
             "type": "url",
-            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.4.tar.gz"
+            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.5.tar.gz"
         },
-        "version": "1.5.4"
+        "version": "1.5.5"
     },
     "bilibili": {
         "cargoLock": null,
@@ -592,12 +592,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.1.22",
-            "sha256": "sha256-giqvkkbmz4eXeVgPwhIHkIAHkUTQ6hVt7LjwMkZ/hEY=",
+            "rev": "v7.1.23",
+            "sha256": "sha256-swFGXYtgenBzUhBvhgyte3zA5VLSRFM9HHtTIgwfaE0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.1.22"
+        "version": "v7.1.23"
     },
     "cockpy": {
         "cargoLock": null,
@@ -650,11 +650,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-W2xzJnf5LRPD+AKMJtrDYn9GIydZHTmepO8opxIFRWw=",
+            "sha256": "sha256-vgiAtxmNuVDVVrAUe+PgM0gv5n4Y9aa80HewoLA7ZrY=",
             "type": "url",
-            "url": "https://registry.npmjs.org/command-code/-/command-code-0.27.1.tgz"
+            "url": "https://registry.npmjs.org/command-code/-/command-code-0.27.3.tgz"
         },
-        "version": "0.27.1"
+        "version": "0.27.3"
     },
     "comp128": {
         "cargoLock": null,
@@ -1118,11 +1118,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-5DddNTZRmh0kQwJw4ocd4wFYNrMBy9+5ZYMjTm1u9ME=",
+            "sha256": "sha256-Ww7I0pTPIcp3oh3OpE6kzvojyNahnSi+OovSGG0kNy4=",
             "type": "url",
-            "url": "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.1.2.tar.gz"
+            "url": "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.1.3.tar.gz"
         },
-        "version": "4.1.1.2"
+        "version": "4.1.1.3"
     },
     "drone-file-secret": {
         "cargoLock": null,
@@ -1447,12 +1447,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "v4.4.1",
-            "sha256": "sha256-nbwRAIWenqjGBH/wbps/v82hb3W/wR79UGI7Sdo2bh8=",
+            "rev": "v4.4.2",
+            "sha256": "sha256-egNrqSCMndD55hgerhgpHHhT8fOZteKoZE6d6EbDxik=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.4.1"
+        "version": "v4.4.2"
     },
     "flaresolverr-21hsmw": {
         "cargoLock": null,
@@ -1594,7 +1594,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-05-26",
+        "date": "2026-05-27",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1606,12 +1606,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "8ca7fb2b8c07ffc31cc3c7ce9fa2b901c054f51a",
-            "sha256": "sha256-9/DPiJ1QxPcRmR4aL0rLRz/6MNNUc+NqbZ5fef+YHTA=",
+            "rev": "39530728fec2450e55904f5358de9f39327dccdb",
+            "sha256": "sha256-2sy/AADRa4GjaYKfPlE9dAspHgahrZzC/a61ZMn4pC8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8ca7fb2b8c07ffc31cc3c7ce9fa2b901c054f51a"
+        "version": "39530728fec2450e55904f5358de9f39327dccdb"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2389,11 +2389,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JW+Ny0VnbFPCai5aQKmmDYRP6zh9f0PCCSWYL6K+cjo=",
+            "sha256": "sha256-75Fgb0PFCxchzJIOvReSVnqwJ+xVq8o2UZDmF5jOhc4=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.0/lightpanda-x86_64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.1/lightpanda-x86_64-linux"
         },
-        "version": "0.3.0"
+        "version": "0.3.1"
     },
     "lightpanda-arm64": {
         "cargoLock": null,
@@ -2404,11 +2404,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZrBs4swGdDckWTSgeC1XRpHe5j7hws3H6Umy786XZMA=",
+            "sha256": "sha256-08r1gOUJ8YCxpOTAlNsRKIkO2pSPaTXVOlGPbjqSIj0=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.0/lightpanda-aarch64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.1/lightpanda-aarch64-linux"
         },
-        "version": "0.3.0"
+        "version": "0.3.1"
     },
     "linguaspark-core": {
         "cargoLock": null,
@@ -2466,12 +2466,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9318",
-            "sha256": "sha256-+4iApx2JwrjyI5AKDotZz+lkf6vRKywMtQ4rVX4s8yg=",
+            "rev": "b9351",
+            "sha256": "sha256-HgSY+OMfmR1TOV0fQj8kT4g7NOmBXCFtputEy3ashcM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9318"
+        "version": "b9351"
     },
     "loralib": {
         "cargoLock": null,
@@ -4046,7 +4046,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-05-22",
+        "date": "2026-05-26",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -4058,12 +4058,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "4203e10c1e6642b1a620c797e07d98500b9604ca",
-            "sha256": "sha256-JupNyxGzO6u7hjBbsu/X9fyhVXUsEC42BTjGmGFa56Y=",
+            "rev": "7a4feef1ffdc44e6ff84e85bd2c3bed865164f5a",
+            "sha256": "sha256-NMbA4w2thFR+KIcOmI7KDokWTfWH/eCCWlrlCqsEVWI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4203e10c1e6642b1a620c797e07d98500b9604ca"
+        "version": "7a4feef1ffdc44e6ff84e85bd2c3bed865164f5a"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4079,12 +4079,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "mr14.1.1.13",
-            "sha256": "sha256-7nP/m67MzGTW1vLRaPM6J4vxLpw3dFhTev2PdZoLNAw=",
+            "rev": "mr13.5.1.14",
+            "sha256": "sha256-ggIh3I1uwKVq0zirlVM9l0SHuYGieYQmXrUBuE46e4Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "mr14.1.1.13"
+        "version": "mr13.5.1.14"
     },
     "runpod-python": {
         "cargoLock": null,

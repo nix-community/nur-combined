@@ -175,10 +175,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.5.4";
+    version = "1.5.5";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.4.tar.gz";
-      hash = "sha256-tCWXkIlRH0A8q2UfnRCAHuHz9Fbey/fUs5PXoxycTkM=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.5.tar.gz";
+      hash = "sha256-x9SLvPrlQqkgJNhKKN3rvV+Nm1wQ7/eDmkZoXRbAyi8=";
     };
   };
   bilibili = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.1.22";
+    version = "v7.1.23";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.1.22";
-      hash = "sha256-giqvkkbmz4eXeVgPwhIHkIAHkUTQ6hVt7LjwMkZ/hEY=";
+      tag = "v7.1.23";
+      hash = "sha256-swFGXYtgenBzUhBvhgyte3zA5VLSRFM9HHtTIgwfaE0=";
     };
   };
   cockpy = {
@@ -338,10 +338,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.27.1";
+    version = "0.27.3";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.27.1.tgz";
-      hash = "sha256-W2xzJnf5LRPD+AKMJtrDYn9GIydZHTmepO8opxIFRWw=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.27.3.tgz";
+      hash = "sha256-vgiAtxmNuVDVVrAUe+PgM0gv5n4Y9aa80HewoLA7ZrY=";
     };
   };
   comp128 = {
@@ -581,10 +581,10 @@
   };
   drission-page = {
     pname = "drission-page";
-    version = "4.1.1.2";
+    version = "4.1.1.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.1.2.tar.gz";
-      hash = "sha256-5DddNTZRmh0kQwJw4ocd4wFYNrMBy9+5ZYMjTm1u9ME=";
+      url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.1.3.tar.gz";
+      hash = "sha256-Ww7I0pTPIcp3oh3OpE6kzvojyNahnSi+OovSGG0kNy4=";
     };
   };
   drone-file-secret = {
@@ -743,12 +743,12 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "v4.4.1";
+    version = "v4.4.2";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      tag = "v4.4.1";
-      hash = "sha256-nbwRAIWenqjGBH/wbps/v82hb3W/wR79UGI7Sdo2bh8=";
+      tag = "v4.4.2";
+      hash = "sha256-egNrqSCMndD55hgerhgpHHhT8fOZteKoZE6d6EbDxik=";
     };
   };
   flaresolverr-21hsmw = {
@@ -825,14 +825,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "8ca7fb2b8c07ffc31cc3c7ce9fa2b901c054f51a";
+    version = "39530728fec2450e55904f5358de9f39327dccdb";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "8ca7fb2b8c07ffc31cc3c7ce9fa2b901c054f51a";
-      hash = "sha256-9/DPiJ1QxPcRmR4aL0rLRz/6MNNUc+NqbZ5fef+YHTA=";
+      rev = "39530728fec2450e55904f5358de9f39327dccdb";
+      hash = "sha256-2sy/AADRa4GjaYKfPlE9dAspHgahrZzC/a61ZMn4pC8=";
     };
-    date = "2026-05-26";
+    date = "2026-05-27";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1227,18 +1227,18 @@
   };
   lightpanda-amd64 = {
     pname = "lightpanda-amd64";
-    version = "0.3.0";
+    version = "0.3.1";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.0/lightpanda-x86_64-linux";
-      hash = "sha256-JW+Ny0VnbFPCai5aQKmmDYRP6zh9f0PCCSWYL6K+cjo=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.1/lightpanda-x86_64-linux";
+      hash = "sha256-75Fgb0PFCxchzJIOvReSVnqwJ+xVq8o2UZDmF5jOhc4=";
     };
   };
   lightpanda-arm64 = {
     pname = "lightpanda-arm64";
-    version = "0.3.0";
+    version = "0.3.1";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.0/lightpanda-aarch64-linux";
-      hash = "sha256-ZrBs4swGdDckWTSgeC1XRpHe5j7hws3H6Umy786XZMA=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.1/lightpanda-aarch64-linux";
+      hash = "sha256-08r1gOUJ8YCxpOTAlNsRKIkO2pSPaTXVOlGPbjqSIj0=";
     };
   };
   linguaspark-core = {
@@ -1267,12 +1267,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9318";
+    version = "b9351";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9318";
-      hash = "sha256-+4iApx2JwrjyI5AKDotZz+lkf6vRKywMtQ4rVX4s8yg=";
+      tag = "b9351";
+      hash = "sha256-HgSY+OMfmR1TOV0fQj8kT4g7NOmBXCFtputEy3ashcM=";
     };
   };
   loralib = {
@@ -2077,23 +2077,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "4203e10c1e6642b1a620c797e07d98500b9604ca";
+    version = "7a4feef1ffdc44e6ff84e85bd2c3bed865164f5a";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "4203e10c1e6642b1a620c797e07d98500b9604ca";
-      hash = "sha256-JupNyxGzO6u7hjBbsu/X9fyhVXUsEC42BTjGmGFa56Y=";
+      rev = "7a4feef1ffdc44e6ff84e85bd2c3bed865164f5a";
+      hash = "sha256-NMbA4w2thFR+KIcOmI7KDokWTfWH/eCCWlrlCqsEVWI=";
     };
-    date = "2026-05-22";
+    date = "2026-05-26";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr14.1.1.13";
+    version = "mr13.5.1.14";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr14.1.1.13";
-      hash = "sha256-7nP/m67MzGTW1vLRaPM6J4vxLpw3dFhTev2PdZoLNAw=";
+      tag = "mr13.5.1.14";
+      hash = "sha256-ggIh3I1uwKVq0zirlVM9l0SHuYGieYQmXrUBuE46e4Y=";
     };
   };
   runpod-python = {
