@@ -357,14 +357,6 @@ in
     };
   };
 
-  # Pending nix-community/home-manager#8738
-  xdg.configFile."tirith/policy.yaml".text = toYAML { } {
-    severity_overrides = {
-      plain_http_to_sink = "LOW";
-      raw_ip_url = "LOW";
-    };
-  };
-
   xdg.configFile."zsh/abbreviations".text = toAbbrs {
     a = "git add --patch";
     aw = "add-words";
@@ -408,10 +400,6 @@ in
     stash = "git stash save --include-untracked";
     undo = "git restore --patch";
   };
-
-  home.packages = with pkgs; [
-    tirith # Used by tirith shell hook (Pending nix-community/home-manager#8738)
-  ];
 
   home.sessionVariables.EZA_COLORS = concatStringsSep ":" (mapAttrsToList (k: v: "${k}=${(v null).on}") (with sgr; {
     ur = dim white; # permission user-read

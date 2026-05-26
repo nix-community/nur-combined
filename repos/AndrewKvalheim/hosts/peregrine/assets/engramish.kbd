@@ -26,8 +26,8 @@
 (deflayer fn
             ░                 ░   ░   ░   ░    ░    ░
        ░    ░    ░    ░   ░   ░   ░   ░   ░    ░    ░    ░
-       C-o  esc  pgup up   pgdn ░    ░    ░    ░    ░    ░
-   C-[  home left down rght end  ░    ░    ░    ░    rctl
+       ░    esc  pgup up   pgdn ░    ░    ░    ░    ░    ░
+   C-;  home left down rght end  ░    ░    ░    ░    rctl
     ░    ░    ░    C-p  ░    ░    ░    ░    ░   ░ ░  ░
      ░    ░    ░                  ░    @s-a ░   ░    ░
 )

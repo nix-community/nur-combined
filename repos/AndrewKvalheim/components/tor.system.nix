@@ -11,6 +11,7 @@ let
 in
 {
   options.host.tor = {
+    bridge-transport = mkOption { type = str; default = "obfs4"; };
     bridges = mkOption { type = listOf str; };
   };
 
@@ -31,7 +32,7 @@ in
 
         settings = optionalAttrs (length host.tor.bridges > 0) {
           Bridge = host.tor.bridges;
-          ClientTransportPlugin = "webtunnel exec ${getExe lyrebird}";
+          ClientTransportPlugin = "${host.tor.bridge-transport} exec ${getExe lyrebird}";
           UseBridges = true;
         };
       };

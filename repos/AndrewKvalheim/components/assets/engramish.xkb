@@ -23,40 +23,40 @@ xkb_symbols "basic" {
   key <AD02> { [ y, Y, bracketright ] };
   key <AD03> { [ o, O, braceright ] };
   key <AD04> { [ u, U, parenright ] };
-  key <AD05> { [ leftdoublequotemark, rightdoublequotemark, quotedbl ] };
+  key <AD05> { [ rightsinglequotemark, leftsinglequotemark, apostrophe ] };
   key <AD06> { [ ampersand, bar, question ] };
-  key <AD07> { [ l, L, 7 ] };
-  key <AD08> { [ d, D, 8 ] };
-  key <AD09> { [ w, W, 9 ] };
+  key <AD07> { [ d, D, 7 ] };
+  key <AD08> { [ n, N, 8 ] };
+  key <AD09> { [ g, G, 9 ] };
   key <AD10> { [ v, V, asterisk ] };
-  key <AD11> { [ z, Z, dollar ] };
-  key <AD12> { [ F14, F14, F13 ] }; // ja [ (left bracket)
-  key <BKSL> { [ F15, F15, F15 ] }; // ja ] (right bracket) a.k.a. <AC12>
+  key <AD11> { [ q, Q, dollar ] };
+  key <AD12> { [ F14, F14, F14 ] }; // ja [ (left bracket)
+  key <BKSL> { [ asciitilde ] }; // ja ] (right bracket) a.k.a. <AC12>
 
   key <CAPS> { [ BackSpace, BackSpace, Delete ] }; // ja 英数 (eisū: alphanumeric)
-  key <AC01> { [ c, C, less ] };
+  key <AC01> { [ h, H, less ] };
   key <AC02> { [ i, I, bracketleft ] };
-  key <AC03> { [ e, E, braceleft ] };
-  key <AC04> { [ a, A, parenleft ] };
-  key <AC05> { [ rightsinglequotemark, leftsinglequotemark, apostrophe ] };
+  key <AC03> { [ a, A, braceleft ] };
+  key <AC04> { [ e, E, parenleft ] };
+  key <AC05> { [ leftdoublequotemark, rightdoublequotemark, quotedbl ] };
   key <AC06> { [ comma, colon, minus ] };
-  key <AC07> { [ h, H, 4 ] };
-  key <AC08> { [ t, T, 5 ] };
+  key <AC07> { [ t, T, 4 ] };
+  key <AC08> { [ r, R, 5 ] };
   key <AC09> { [ s, S, 6 ] };
-  key <AC10> { [ n, N, 0 ] };
+  key <AC10> { [ c, C, 0 ] };
   key <AC11> { [ slash, backslash, numbersign ] };
 
-  key <AB01> { [ x, X, percent ] };
-  key <AB02> { [ j, J, at ] };
-  key <AB03> { [ g, G, grave ] };
-  key <AB04> { [ k, K, exclam ] };
-  key <AB05> { [ q, Q, asciicircum ] };
+  key <AB01> { [ j, J, at ] };
+  key <AB02> { [ x, X, percent ] };
+  key <AB03> { [ k, K, grave ] };
+  key <AB04> { [ w, W, exclam ] };
+  key <AB05> { [ z, Z, asciicircum ] };
   key <AB06> { [ period, semicolon, equal ] };
-  key <AB07> { [ r, R, 1 ] };
-  key <AB08> { [ m, M, 2 ] };
+  key <AB07> { [ m, M, 1 ] };
+  key <AB08> { [ l, L, 2 ] };
   key <AB09> { [ f, F, 3 ] };
   key <AB10> { [ p, P, plus ] };
-  key <AB11> { [ asciitilde ] }; // only ja ろ (ro)
+  key <AB11> { [ F15, F15, F15 ] }; // only ja ろ (ro)
 
   // key <NFER> { [ Muhenkan ] }; // only ja 無変換 (muhenkan: non-conversion to kanji)
   key <SPCE> { [ space, space, underscore ] };
