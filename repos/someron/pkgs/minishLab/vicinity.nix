@@ -1,4 +1,5 @@
 {
+  lib,
   python3,
   fetchFromGitHub,
 }:
@@ -17,6 +18,14 @@ python.pkgs.buildPythonPackage {
     repo = pname;
     rev = version;
     inherit sha256;
+  };
+
+  meta = {
+    description = "Lightweight Nearest Neighbors with Flexible Backends";
+    homepage = "https://github.com/MinishLab/vicinity";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
 
   pyproject = true;

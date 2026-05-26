@@ -1,4 +1,5 @@
 {
+  lib,
   python3,
   fetchFromGitHub,
 }:
@@ -17,6 +18,14 @@ python.pkgs.buildPythonPackage {
     repo = pname;
     rev = version;
     inherit sha256;
+  };
+
+  meta = {
+    description = "Fast State-of-the-Art Static Embeddings";
+    homepage = "https://github.com/MinishLab/model2vec";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
 
   pyproject = true;

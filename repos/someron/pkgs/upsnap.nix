@@ -3,23 +3,23 @@
   fetchzip,
 }:
 let
-  version = "5.2.7";
+  version = "5.3.5";
   artifacts = {
     aarch64-linux = {
-      systemName = "linux_armv64";
-      hash = "sha256-6ELo0bIc0G1Dm8xquNmVWQ4yxEk3CAIit1rbyAJTY9M=";
+      systemName = "linux_arm64";
+      hash = "sha256-ZXak9h54IMvPJzFY69TkMAbz505IWxDFSgeAFJLokRw=";
     };
     x86_64-linux = {
       systemName = "linux_amd64";
-      hash = "sha256-m5PLdMGGh8QDQH+gVBUpUUXICjcqvHSSg3FefnTKi+c=";
+      hash = "sha256-Y/GNtST16AMwW98N+jixJWcOWi3RW0Qda7WeMdMcKfQ=";
     };
     aarch64-darwin = {
       systemName = "darwin_arm64";
-      hash = "sha256-MdkMFd3wV3nBdG8nZS0Ueur6n5wODbZB4CnnrpfyRmY=";
+      hash = "sha256-3j0UZ0TcW/tyH7ZeChx0ILbH/2UYdvsMohrkuDbxulQ=";
     };
     x86_64-darwin = {
       systemName = "darwin_amd64";
-      hash = "sha256-ufXP/yw2tpDPpkN6u0zkMlDFPNWfwRD9vuUAnQhajvk=";
+      hash = "sha256-eI0YIaAw296kqhx5hkYXXIARQf9IMzJthDhhq01kkMg=";
     };
   };
   artifact = artifacts.${stdenv.hostPlatform.system};

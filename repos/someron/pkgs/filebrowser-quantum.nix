@@ -5,13 +5,13 @@
   fetchFromGitHub,
 }:
 let
-  version = "v1.1.2-stable";
-  commitHash = "207bc39bf7fde64c81c502309881268adb41de8d";
+  version = "v1.3.3-stable";
+  commitHash = "28e9b81e438e65e1af2979d4a7e66f1a433fe720";
   src = fetchFromGitHub {
     owner = "gtsteffaniak";
     repo = "filebrowser";
     tag = version;
-    hash = "sha256-WUYfl4mUyAK5Z+Yjrde0qmLBVh/JZslIk/oBVAF3lgk=";
+    hash = "sha256-Q4TtC5x/nAbeZzICH9R9LBqe/8tbQOFR8vAImhQ5sYM=";
   };
   frontend = buildNpmPackage {
     name = "filebrowser-quantum-frontend";
@@ -68,5 +68,5 @@ buildGoModule {
 
   doCheck = false;
 
-  vendorHash = "sha256-j7zNwkW9EBzmzVLmENTkmxSaokdxsTxdI3CkTEMhnG4=";
+  vendorHash = "sha256-Fq5FqsZ4m5j+UIn1RsElhNUb4guwI9wo48SjQdvESRU=";
 }

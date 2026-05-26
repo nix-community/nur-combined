@@ -1,4 +1,5 @@
 {
+  lib,
   python3,
   fetchFromGitHub,
 }:
@@ -21,6 +22,14 @@ python.pkgs.buildPythonPackage {
     repo = pname;
     rev = version;
     inherit sha256;
+  };
+
+  meta = {
+    description = "Fast BM25 search in Python, powered by Numpy and Numba";
+    homepage = "https://github.com/xhluca/bm25s";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
 
   pyproject = true;

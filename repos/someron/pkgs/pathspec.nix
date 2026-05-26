@@ -1,4 +1,5 @@
 {
+  lib,
   python3,
   fetchFromGitHub,
 }:
@@ -17,6 +18,14 @@ python.pkgs.buildPythonPackage {
     repo = "python-pathspec";
     rev = version;
     inherit sha256;
+  };
+
+  meta = {
+    description = "Utility library for gitignore style pattern matching of file paths.";
+    homepage = "https://github.com/cpburnz/python-pathspec";
+    license = lib.licenses.AND [ lib.licenses.mpl20 lib.licenses.mit ];
+    platforms = lib.platforms.all;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
 
   pyproject = true;
