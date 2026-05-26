@@ -26,23 +26,23 @@
   },
   {
     "pname": "Aiursoft.Canon",
-    "version": "10.0.9",
-    "hash": "sha256-1+q/OvxN59mhTd5RorMINxjnNx0lLen5nkBiJCTI5m0="
+    "version": "10.0.10",
+    "hash": "sha256-+tV2SwVWVplYZLAgCxR0Pz2IPY12m1VzXazDQEkS8fw="
   },
   {
     "pname": "Aiursoft.Canon.BackgroundJobs",
-    "version": "10.0.9",
-    "hash": "sha256-kwSey1KfeUEPwgf2ztjrM5ZhQknaGG5Po9rNDkxyazI="
+    "version": "10.0.10",
+    "hash": "sha256-/k/Ad31KeIeYETP2Mqvx046Lk8BG/RyNxH9ULMKcZPs="
   },
   {
     "pname": "Aiursoft.Canon.ScheduledTasks",
-    "version": "10.0.8",
-    "hash": "sha256-Kj+Tc+H7sqjRvh/w20iEdAaIqCByGhjToNsXMmjny2U="
+    "version": "10.0.10",
+    "hash": "sha256-xmJh3PEK1Owwk2885rP0T/HIgYvfkAU7T64gCCBmUJU="
   },
   {
     "pname": "Aiursoft.Canon.ServiceTaskQueue",
-    "version": "10.0.9",
-    "hash": "sha256-tC11H9rfsIWYk3BmvjmpYc44LZU5uPAN+aDDYiMg1j4="
+    "version": "10.0.11",
+    "hash": "sha256-oNqf+6cAxVE5yPCIhN4iMEicW8Qm0r3H/qc1bTTECT0="
   },
   {
     "pname": "Aiursoft.ClickhouseLoggerProvider",
