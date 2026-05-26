@@ -328,7 +328,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-kl9_sowk_vEqBFNrv+u581rgL_4JnPlALrtMTROLtjs=/src-tauri/Cargo.lock",
+                "sha256-sirb+K8WKLpid6ggh+QPxcxJ71dElLOnEujlyqzKIPQ=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -344,12 +344,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.1-beta.2",
-            "sha256": "sha256-kl9/sowk/vEqBFNrv+u581rgL/4JnPlALrtMTROLtjs=",
+            "rev": "v3.9.1-beta.4",
+            "sha256": "sha256-sirb+K8WKLpid6ggh+QPxcxJ71dElLOnEujlyqzKIPQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.1-beta.2"
+        "version": "v3.9.1-beta.4"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -514,13 +514,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-c7a5vdSx_0KfNaXXlQ1cub0qnb2Z4EiSKaP86zQPN3M=/Cargo.lock",
+                "sha256-Hn9Ep579Jk7i5U5rXTuTz6O6Mg5+QOYCn5_MqQM3yf8=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-IDrlbzwqTALZDJklAwEuRtPN1OFQobZz+MEdkmc7tqQ="
                 }
             ]
         },
-        "date": "2026-05-25",
+        "date": "2026-05-26",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -532,12 +532,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "aba5d6e20580596140ca79f9f72a539dbb6de9ed",
-            "sha256": "sha256-c7a5vdSx/0KfNaXXlQ1cub0qnb2Z4EiSKaP86zQPN3M=",
+            "rev": "5d8c715eb89c3de1608ac4c6e4f755726de0377d",
+            "sha256": "sha256-Hn9Ep579Jk7i5U5rXTuTz6O6Mg5+QOYCn5/MqQM3yf8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "aba5d6e20580596140ca79f9f72a539dbb6de9ed"
+        "version": "5d8c715eb89c3de1608ac4c6e4f755726de0377d"
     },
     "svt-av1-essential": {
         "cargoLock": null,

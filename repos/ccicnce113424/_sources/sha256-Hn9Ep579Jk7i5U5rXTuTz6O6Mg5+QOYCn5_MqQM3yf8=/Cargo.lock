@@ -290,6 +290,7 @@ dependencies = [
  "rodio",
  "rustfft",
  "signalsmith-stretch",
+ "thiserror 2.0.18",
  "time",
  "tokio",
  "tracing",
