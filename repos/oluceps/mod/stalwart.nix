@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.stalwart =
-    { config, ... }:
+    { lib, config, ... }:
     {
       vaultix.secrets.stalwart = {
         owner = "stalwart-mail";
@@ -12,7 +12,10 @@
         587
         465
       ];
-      systemd.services.stalwart.serviceConfig.EnvironmentFile = config.vaultix.secrets.stalwart.path;
+      systemd.services.stalwart.serviceConfig = {
+        EnvironmentFile = config.vaultix.secrets.stalwart.path;
+        Restart = lib.mkForce "always";
+      };
       services.stalwart = {
         enable = true;
         stateVersion = "1";

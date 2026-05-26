@@ -16,7 +16,7 @@
           hostName = "cache.nyaw.xyz";
           maxSize = "200G";
           lru.schedule = "0 2 * * *";
-          databaseURL = "postgresql://ncps@localhost:5432/ncps?sslmode=disable";
+          databaseURL = "postgresql:///ncps?host=/run/postgresql";
           storage.s3 = {
             bucket = "ncps";
             endpoint = "https://s3.nyaw.xyz";

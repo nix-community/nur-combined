@@ -14,6 +14,7 @@
           "catppuccin"
           "nix-topology"
           "self"
+          "hjem"
         ];
   };
 }

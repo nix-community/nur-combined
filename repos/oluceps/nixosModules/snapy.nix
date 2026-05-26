@@ -87,7 +87,14 @@ in
                     # link to latest
                     ln -sfn $snapshot_place $latest_place
                     # clean outdated
-                    ls ${s.source}/.snapshots | where { || $in.type != "symlink" } | where { |i| ((date now) - ($i.name | path basename | into datetime --format $date_format)) > ${s.keep} } | each { |d| ${btrfs} sub del $d.name }
+                    ls ${s.source}/.snapshots
+                      | where { || $in.type != "symlink" }
+                      | each { |i|
+                          try {
+                            let snap_time = ($i.name | path basename | into datetime)
+                            if ((date now) - $snap_time) > ${s.keep} { ${btrfs} sub del $i.name }
+                          }
+                        }
                   '';
                 }
               );

@@ -58,11 +58,11 @@
                 "wireshark"
                 "tss"
               ];
-              shell = pkgs.fish;
+              shell = pkgs.bash;
 
               openssh.authorizedKeys.keys = authSSHKeys;
             };
-            root.shell = pkgs.fish;
+            root.shell = pkgs.bash;
           };
           groups.nixosvmtest = { };
           groups.${config.identity.user} = { };

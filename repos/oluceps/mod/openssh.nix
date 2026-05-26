@@ -1,6 +1,11 @@
 {
   flake.modules.nixos.openssh =
-    { lib, ... }:
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
     {
       services.openssh = {
         enable = true;
@@ -14,6 +19,7 @@
             "sntrup761x25519-sha512"
             "sntrup761x25519-sha512@openssh.com"
           ];
+          TrustedUserCAKeys = toString (pkgs.writeText "sshCA" config.data.keys.sshCAPubKey);
         };
         authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
         extraConfig = ''

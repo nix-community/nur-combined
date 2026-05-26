@@ -2,6 +2,8 @@
   flake.modules.nixos.ime =
     { pkgs, ... }:
     {
+      programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+
       i18n = {
 
         inputMethod = {

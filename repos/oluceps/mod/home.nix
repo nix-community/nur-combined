@@ -11,11 +11,12 @@
       homeCfgAttr = import ../home { inherit pkgs lib config; };
     in
     {
-      systemd.tmpfiles.rules =
-        (map (n: "d /home/${user}/.config/${n} - ${user} ${user} - -") homeCfgAttr.dirs)
-        ++ (lib.foldlAttrs (
-          acc: n: v:
-          acc ++ lib.singleton "L+ ${n} - ${user} ${user} - ${v}"
-        ) [ ] homeCfgAttr.files);
+      hjem.users.${user} = {
+        enable = true;
+        xdg.config.files = lib.mapAttrs' (path: src: {
+          name = lib.removePrefix "/home/${user}/.config/" path;
+          value.source = src;
+        }) homeCfgAttr.files;
+      };
     };
 }
