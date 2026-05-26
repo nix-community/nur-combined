@@ -2899,10 +2899,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "152.0.20260522.90425";
+      version = "151.0.20260525.130955";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4817421/dansk_da_language_pack-152.0.20260522.90425.xpi";
-      sha256 = "eee76e95c9fc3f02c3a3acb1c2d69dd09b68906fe94cca41a31fe701ef02502e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4821791/dansk_da_language_pack-151.0.20260525.130955.xpi";
+      sha256 = "28b0094ef516433fe3d54997a9c67de46ced314792225fb69b8686e0f6275bf9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3115,10 +3115,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "152.0.20260522.90425";
+      version = "151.0.20260525.130955";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4817439/deutsch_de_language_pack-152.0.20260522.90425.xpi";
-      sha256 = "9a1f82e4ff670c94a4773a1b8f7da27691a0be8989303e34e8c23dcb0fcb1baf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4821796/deutsch_de_language_pack-151.0.20260525.130955.xpi";
+      sha256 = "54e0928e3c610eb2d84ac23755fd9fc6242ab250a31e95bba9a90c24482b3420";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4599,10 +4599,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "152.0.20260522.90425";
+      version = "151.0.20260525.130955";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4817459/francais_language_pack-152.0.20260522.90425.xpi";
-      sha256 = "db9d99a88de4948b0da4be81371992c49ce7e717840a38083e40f9016ff1467f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4821797/francais_language_pack-151.0.20260525.130955.xpi";
+      sha256 = "174b22bb110c1feefe5cf534839813b8194e9d4c88108182601cb917e4665814";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4636,10 +4636,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "152.0.20260522.90425";
+      version = "151.0.20260525.130955";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4817411/gaidhlig_language_pack-152.0.20260522.90425.xpi";
-      sha256 = "a46a8c742742e99fedc59d66db9daa00e87753daf6e6bc55a67df0d207070500";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4821819/gaidhlig_language_pack-151.0.20260525.130955.xpi";
+      sha256 = "c3208d4d3b35de57a962549005ac51acd70c724bdeecdfb57202b0fd57971a9e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -13363,10 +13363,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "152.0.20260522.90425";
+      version = "151.0.20260525.130955";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4817471/scots_language_pack-152.0.20260522.90425.xpi";
-      sha256 = "f0254efb8e69f961a6b8bb1b1e7c2b57aa690a20d9008fb73435b7f87d1682d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4821834/scots_language_pack-151.0.20260525.130955.xpi";
+      sha256 = "e3b78d792c067a56ddacd8ffafea3a185b8fa2c47500de29a2729a4e8ed134a3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15226,10 +15226,10 @@
     };
     "transparent-zen" = buildMozillaXpiAddon {
       pname = "transparent-zen";
-      version = "0.9.0";
+      version = "0.9.1";
       addonId = "{74186d10-f6f2-4f73-b33a-83bb72e50654}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4817740/transparent_zen-0.9.0.xpi";
-      sha256 = "c1da907694bd3047c288150fd54b48160eade46b491e9671ee5cbfcdb101e6b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4821180/transparent_zen-0.9.1.xpi";
+      sha256 = "672c874dc1b646a0bf744186816ed9367ee27af55652c1cad1dae5d26eb2f81a";
       meta = with lib;
       {
         description = "Applies custom styles to make your favorite websites transparent.";
