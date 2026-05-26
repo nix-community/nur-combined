@@ -14,16 +14,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rsql";
-  version = "0.19.3";
+  version = "0.19.4";
 
   src = fetchFromGitHub {
     owner = "theseus-rs";
     repo = "rsql";
     rev = "v${version}";
-    hash = "sha256-+QYBh4cyEyXWebG3A4+Pf+jIoHTmJJyXw3zmnMPAVJE=";
+    hash = "sha256-sOppcQzXTfTXbQW6klwgAAw820Iq22hR1ldQ6lv6+/Q=";
   };
 
-  cargoHash = "sha256-z3s4Nkl72ejiu2hyE4gDVrVEnBBCle2ZPUK9IUepHUc=";
+  cargoHash = "sha256-YeJKAER+sr28FbR4xPHNbRoC2vDa8NZMzs+klfFjs6Q=";
 
   nativeBuildInputs = [
     pkg-config
