@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     domain = "invent.kde.org";
     owner = "graphics";
     repo = "krita";
-    rev = "369d001f542820c3fc7dc9b4ddd086924aff7157";
-    hash = "sha256-10v/KTZmtjseAOPRYY887UFErlGDjCBEi3NLWjco7X8=";
+    rev = "859b81454e2c2c111439e4806de087543176108f";
+    hash = "sha256-RITz38YC1apONjgb0jPjzZ0H67RrPUzLyS6bdMlE3YY=";
   };
 
   passthru.updateScript =

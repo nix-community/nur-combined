@@ -20,7 +20,6 @@
   hyprshot = pkgs.callPackage ./pkgs/hyprshot {};
   krita = pkgs.callPackage ./pkgs/krita {};
   krita-unwrapped = pkgs.libsForQt5.callPackage ./pkgs/krita-unwrapped {};
-  linux-patched = pkgs.callPackage ./pkgs/linux-patched {};
   obsidian-excalidraw-plugin = pkgs.callPackage ./pkgs/obsidian-excalidraw-plugin {};
   obsidian-excalidraw-plugin-patched = pkgs.callPackage ./pkgs/obsidian-excalidraw-plugin {
     enableHiddenScriptPatch = true;
