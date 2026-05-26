@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , rustPlatform
+, rustc
 , fetchurl
 , fetchFromGitHub
 , llvmPackages_20
@@ -87,5 +88,6 @@ rustPlatform.buildRustPackage {
     license = lib.licenses.mit;
     mainProgram = "deno";
     platforms = lib.attrNames rustyV8Targets;
+    broken = lib.versionOlder rustc.version "1.95.0";
   };
 }
