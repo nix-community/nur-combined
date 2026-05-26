@@ -9,8 +9,6 @@ on:
       - '.gitignore'
       - 'git-town.toml'
       - '**/README.md'
-  schedule:
-    - cron:  '25 3 * * *'
   workflow_dispatch:
 jobs:
   build:

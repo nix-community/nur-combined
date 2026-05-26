@@ -26,5 +26,6 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@v28
         with:
           token: ${{ secrets.NIX_UPDATE_PR_TOKEN }}
+          pr-labels: "automated"
       - name: Print PR number
         run: echo Pull request number is ${{ steps.update.outputs.pull-request-number }}.
