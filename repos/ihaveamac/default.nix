@@ -74,6 +74,7 @@ rec {
   azahar-master = callPackage ./pkgs/azahar-master/package.nix { };
   vacuumtube = callPackage ./pkgs/vacuumtube/package.nix { };
   rofs-extract = callPackage ./pkgs/rofs-extract/package.nix { };
+  linux-devmgmt = qt6.callPackage ./pkgs/linux-devmgmt/package.nix { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 

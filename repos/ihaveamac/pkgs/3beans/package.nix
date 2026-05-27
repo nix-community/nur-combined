@@ -24,13 +24,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "3beans";
-  version = "0-unstable-2026-05-07";
+  version = "0-unstable-2026-05-23";
 
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "ba676a558ad3a210331f06dc1ad50383d947ef96";
-    hash = "sha256-c5E0uCIetEj5ZBeNZbYVQH2ZF1/gn348MNG1XZnsxww=";
+    rev = "9d8f75d65c4a9b758844076aaa150e6a95a9a36d";
+    hash = "sha256-FgBrQD/s5ZUH541IQFuFjzg5kLpygFbVGSvHZnQdLjI=";
   };
 
   buildInputs = [
@@ -57,17 +57,18 @@ stdenv.mkDerivation rec {
     if stdenv.isDarwin then
       ''
         contents=$out/Applications/3Beans.app/Contents
-        mkdir -p $contents
+        mkdir -p $contents/{MacOS,Resources}
         cp meta/Info.plist $contents
-        mkdir $contents/MacOS
         cp 3beans $contents/MacOS/3beans
+        cp icon/mac.icns $contents/Resources/3Beans.icns
         ln -s $contents/MacOS/3beans $out/bin/3beans
       ''
     else
       ''
-        mkdir -p $out/share/applications
+        mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
         cp 3beans $out/bin
         cp meta/com.hydra.threebeans.desktop $out/share/applications
+        cp icon/linux.png $out/share/icons/hicolor/256x256/apps/com.hydra.threebeans.png
       ''
   );
 
