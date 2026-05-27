@@ -11,12 +11,12 @@
   xvfb,
 }:
 let
-  version = "3.3.13";
+  version = "3.3.14";
   src = fetchFromGitHub {
     owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
     tag = "v${version}";
-    hash = "sha256-jTdy04evr9hVYUqjheUdeDL3n7YB6sCWisN+GeGgzXQ=";
+    hash = "sha256-Blu+/CSDvCiXnQxmvFgn1WRIUgKMGEigZ7NuFnUcRfU=";
   };
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
     inherit src version;
