@@ -106,13 +106,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.10",
-    "hash": "sha256-hZDrgRph9JmX6ct2szMpJiYQth1HJJzeyC62WU4G0Ts="
+    "version": "10.0.11",
+    "hash": "sha256-dS4ZQh5yLzpGvzgcNUL2w/9jmh6jYQxKyBszgQ/Hcgc="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.12",
-    "hash": "sha256-lPjGW9AJzdO0y2IxpctSfTfnqldP+yWEmaB6HtcT9bg="
+    "version": "10.0.13",
+    "hash": "sha256-1ey1SWxz0FS4au4JtkqhdK+Za8FakE5Q+kGf5b7GPck="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
@@ -236,8 +236,8 @@
   },
   {
     "pname": "Microsoft.CodeCoverage",
-    "version": "18.5.1",
-    "hash": "sha256-OnahMnRBbdlGSz+igNB0GaMS7PAppefPL1fWN1+cs0w="
+    "version": "18.6.0",
+    "hash": "sha256-rxJjgFmEmS9+zzocT279IfR7J0pOhDZE527bvkttKBg="
   },
   {
     "pname": "Microsoft.Data.Sqlite.Core",
@@ -506,8 +506,8 @@
   },
   {
     "pname": "Microsoft.NET.Test.Sdk",
-    "version": "18.5.1",
-    "hash": "sha256-X69wQBKd5GvXfO7BaPWFcyrwfi/kZFVdH/axorIra5Y="
+    "version": "18.6.0",
+    "hash": "sha256-tzlCrp1WgmQdB05yJpib6PeGkH0juPUrw4wu/79H7yw="
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
@@ -541,13 +541,13 @@
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
-    "version": "18.5.1",
-    "hash": "sha256-CUuOoANj4lXhQAE1/265X6S+afmNxhpsICEIDqNzSXk="
+    "version": "18.6.0",
+    "hash": "sha256-Q+GpQZxEw0g/tUsQBkTWtRtbwljCum3LimIuqTELWQo="
   },
   {
     "pname": "Microsoft.TestPlatform.TestHost",
-    "version": "18.5.1",
-    "hash": "sha256-jtb74D0mqq7hu/nlCtV7IU2dXhviLrmGPER0ttdH2Dg="
+    "version": "18.6.0",
+    "hash": "sha256-Ez1zC2QiamrlgXO/LlKuLGnD7wJFrWk8w5zYlSkwyJw="
   },
   {
     "pname": "Microsoft.VisualStudio.SolutionPersistence",
@@ -581,8 +581,8 @@
   },
   {
     "pname": "Net.Codecrete.QrCodeGenerator",
-    "version": "2.1.0",
-    "hash": "sha256-F9yJ8sn59CY76dUaFoHw5F1Aoi1Figqn+4zU5lVELXI="
+    "version": "3.0.0",
+    "hash": "sha256-1qjOQgvAEaboMALKgvVo4gdtWBtRn9R46N6gQ7dU1Q4="
   },
   {
     "pname": "Newtonsoft.Json",
