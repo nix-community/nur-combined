@@ -18,14 +18,14 @@ stdenvNoCC.mkDerivation (
     pureVersion = lib.removeSuffix "-${archVersion}" finalAttrs.version;
     fullname = "proton-cachyos-${pureVersion}-slr-${archVersion}";
     hashes = {
-      x86_64 = "sha256-thTq7GV0Dim9FAjpA0/Hx/eDu88SR0woI+/zzEEdyRM=";
-      x86_64_v3 = "sha256-MDVGzDVLjj+duMGP8wXwtRORu8KP2vIAt6orHbVvHpk=";
-      arm64 = "sha256-/hg+oUeAMJuYHo1EfmW8rMUnOBBYDErcYvasJGwhZKI=";
+      x86_64 = "sha256-LJ7y/RQigzNYm1YQ6gt3vTzHwc//jRFcc9Ot5RJwCgg=";
+      x86_64_v3 = "sha256-kUzi6ZRBNSGwipBkPvkLRPRod6V33TpmY4Jmi6IVk0Q=";
+      arm64 = "sha256-EHTX2kO7skm84zWHYVr4qs4EB2xmO7SqK4WKJLrohlk=";
     };
   in
   {
     pname = "proton-cachyos-bin";
-    version = "11.0-20260519-${archVersion}";
+    version = "11.0-20260520-${archVersion}";
 
     src = fetchzip {
       url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${pureVersion}-slr/${fullname}.tar.xz";
