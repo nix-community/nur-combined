@@ -11,5 +11,5 @@ This repository contains three types of packages:
 | Type       | Description                                             |
 |------------|---------------------------------------------------------|
 | `custom`   | Packages I maintain outside nixpkgs (e.g., `moonplayer`, `yaagl`). |
-| `modified` | Packages adjusted to my needs (e.g., `beeper-nightly`). |
-| `support`  | Packages patched for extra platforms/architectures (e.g., `gimp`, `dolphin-emu`). |
+| `modified` | Packages adjusted to my needs (e.g., `beeper-nightly` , `osu-tachyon`). |
+| `support`  | Packages patched for extra platforms/architectures (e.g., `gimp`, `heroic`). |

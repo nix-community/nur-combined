@@ -1,6 +1,6 @@
 # NOTE
 # this was taken from https://github.com/NixOS/nixpkgs/pull/479368, credits to all people involved
-# converting to buildFHSEnv was done by AI, needs cleanup
+# then gepbird converted it to use buildFHSEnv which was done by AI and needs cleanup
 #
 # then I (prinky) took this from https://github.com/nix-community/nur-combined/blob/main/repos/gepbird/pkgs/hytale-launcher/default.nix#L95
 # and added auto updating

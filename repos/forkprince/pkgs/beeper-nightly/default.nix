@@ -53,6 +53,8 @@ in
       '';
 
       postFixup = ''
+        # FIXME: These are broken
+
         # disable auto update
         for f in "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs; do
           [ -f "$f" ] || continue
