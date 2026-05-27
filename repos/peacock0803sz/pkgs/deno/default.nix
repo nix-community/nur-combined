@@ -1,94 +1,60 @@
 { lib
 , stdenv
-, rustPlatform
-, rustc
+, stdenvNoCC
 , fetchurl
-, fetchFromGitHub
-, llvmPackages_20
-, lld_20
-, pkg-config
-, cmake
-, protobuf
-, openssl
-, glib
-, simdutf
+, unzip
+, autoPatchelfHook
 }:
 
 let
   version = "2.8.0";
-  rustyV8Version = "149.0.0";
 
-  rustyV8Targets = {
+  targets = {
     "x86_64-linux" = "x86_64-unknown-linux-gnu";
     "aarch64-linux" = "aarch64-unknown-linux-gnu";
     "aarch64-darwin" = "aarch64-apple-darwin";
   };
 
-  rustyV8Hashes = {
-    "x86_64-linux" = "sha256-0t6wy0nHj+lzwWwh1TqP5I80grBVhv1Ho5p3WvL9hmU=";
-    "aarch64-linux" = "sha256-e0g5jR5kpzMyx9mjjQOBjap044mEJpxSNlYYUZA4vg8=";
-    "aarch64-darwin" = "sha256-IKHRBNDkTKix851ApZTSvjSUrNX4kztgaLYQFFNrI0U=";
+  hashes = {
+    "x86_64-linux" = "sha256-viyLU8jKHWa+dv65saUkQZ2nCLANTKB0z1xjPIHBYns=";
+    "aarch64-linux" = "sha256-kzpqfSmFlXJxzSCFpaWhgyOYqiIaNU2qtWNRls8su64=";
+    "aarch64-darwin" = "sha256-26gTuLadYhjP+xElK55OYDbKLJ15hDzeNntLNpqvljQ=";
   };
 
   system = stdenv.hostPlatform.system;
-  rustyV8Target = rustyV8Targets.${system}
+  target = targets.${system}
     or (throw "deno: unsupported system ${system}");
-
-  rustyV8 = fetchurl {
-    url = "https://github.com/denoland/rusty_v8/releases/download/v${rustyV8Version}/librusty_v8_release_${rustyV8Target}.a.gz";
-    sha256 = rustyV8Hashes.${system};
-  };
-
-  src = fetchFromGitHub {
-    owner = "denoland";
-    repo = "deno";
-    tag = "v${version}";
-    hash = "sha256-boHK278ET2uadBldr2Q8NT58RZa9xrCC4IQcoCtf3U0=";
-  };
 in
-rustPlatform.buildRustPackage {
+stdenvNoCC.mkDerivation {
   pname = "deno";
-  inherit version src;
+  inherit version;
 
-  cargoHash = "sha256-1vHgkLWqwTt3tO4qSkfqwCj5KMfKCT3kscChf2FrkH8=";
+  src = fetchurl {
+    url = "https://github.com/denoland/deno/releases/download/v${version}/deno-${target}.zip";
+    hash = hashes.${system};
+  };
 
-  nativeBuildInputs = [
-    llvmPackages_20.clang
-    lld_20
-    llvmPackages_20.libllvm
-    pkg-config
-    cmake
-    protobuf
+  nativeBuildInputs = [ unzip ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    stdenv.cc.cc.lib
   ];
 
-  buildInputs = [ openssl simdutf ]
-    ++ lib.optionals stdenv.isLinux [ glib ];
-
-  LIBCLANG_PATH = lib.makeLibraryPath [ llvmPackages_20.clang-unwrapped.lib ];
-  RUSTY_V8_ARCHIVE = rustyV8;
-
-  buildPhase = ''
-    runHook preBuild
-    unset AS
-    cargo build --release --bin deno --offline
-    runHook postBuild
-  '';
+  sourceRoot = ".";
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/bin
-    cp target/release/deno $out/bin/
+    install -Dm755 deno $out/bin/deno
     runHook postInstall
   '';
-
-  doCheck = false;
 
   meta = {
     description = "A modern runtime for JavaScript and TypeScript";
     homepage = "https://deno.com/";
     license = lib.licenses.mit;
     mainProgram = "deno";
-    platforms = lib.attrNames rustyV8Targets;
-    broken = lib.versionOlder rustc.version "1.95.0";
+    platforms = lib.attrNames targets;
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }
