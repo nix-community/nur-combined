@@ -43,11 +43,9 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore: update crush schema options"
-          title: "Update Crush schema options"
-          body: |
-            This PR updates the Crush module options from the latest schema.
-
-            Generated automatically by the daily schema update workflow.
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore: update crush schema options"
+          body: ""
           branch: "update-crush-schema"
           base: "master"
           delete-branch: true

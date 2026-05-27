@@ -61,9 +61,10 @@ jobs:
       - name: Open pull request
         uses: peter-evans/create-pull-request@v8
         with:
-          commit-message: "Update NUR packages"
-          title: "Update NUR packages"
-          body: "This PR updates the NUR packages in the repository."
+          commit-message: "chore: update nur packages"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore: update nur packages"
+          body: ""
           branch: "update-nur-packages"
           base: "master"
           paths: "default.nix"
