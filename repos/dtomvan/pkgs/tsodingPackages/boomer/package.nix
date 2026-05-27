@@ -12,13 +12,13 @@
 }:
 buildNimPackage (finalAttrs: {
   pname = "boomer";
-  version = "0-unstable-2024-02-08";
+  version = "0-unstable-2026-05-24";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "boomer";
-    rev = "dfd4e1f5514e2a9d7c7a6429c1c0642c2021e792";
-    hash = "sha256-o65/VVxttriA5Qqt35lLKkWIZYS7T4VBBuYdAIGUmx8=";
+    rev = "97189f7ef07859a86420ef11258ca29527774d9c";
+    hash = "sha256-GxrPoDU1vj0SGuji/vinRu7WThY/J7LTdIdrOG4WOwo=";
   };
 
   lockFile = ./lock.json;
