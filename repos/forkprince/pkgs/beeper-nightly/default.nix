@@ -54,13 +54,22 @@ in
 
       postFixup = ''
         # disable auto update
-        sed -i 's/auto_update_disabled:[^,}]*/auto_update_disabled:true/g' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
+        for f in "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs; do
+          [ -f "$f" ] || continue
+          sed -i 's/auto_update_disabled:[^,}]*/auto_update_disabled:true/g' "$f"
+        done
 
         # prevent updates
-        sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs
+        for f in "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs; do
+          [ -f "$f" ] || continue
+          sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$f"
+        done
 
         # hide version status element on about page otherwise a error message is shown
-        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/renderer/PrefsPanes-"*.js
+        for f in "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/renderer/"*.css; do
+          [ -f "$f" ] || continue
+          sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$f"
+        done
       '';
     }
   else
