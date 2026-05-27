@@ -1,0 +1,20 @@
+{
+  "name": "muxy",
+  "source": {
+    "type": "github-release",
+    "repo": "muxy-app/muxy",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.28.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "Muxy-{version}-arm64.dmg",
+      "hash": "sha256-sAjBK9EolDBEolxeu7CEv/7CONqwDrda8m2BpaYXZgQ="
+    },
+    "x86_64-darwin": {
+      "file": "Muxy-{version}-x86_64.dmg",
+      "hash": "sha256-PL/O9XlB7Y2QxoQNuWLujxFXq79Dg9IhlKOyzYbOZeE="
+    }
+  }
+}
