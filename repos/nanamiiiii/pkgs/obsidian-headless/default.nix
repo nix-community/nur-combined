@@ -16,14 +16,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "obsidian-headless";
-  version = "0-unstable-2026-03-22";
-  rev = "5f51535b744625ee2cf47d61f704d4d9276590b7";
+  version = "0-unstable-2026-05-27";
+  rev = "42422908098f4b1a034d5035b411bcbd1e5d1671";
 
   src = fetchFromGitHub {
     owner = "obsidianmd";
     repo = "obsidian-headless";
     rev = "${finalAttrs.rev}";
-    hash = "sha256-RnLiCbAgetMO8pXYNjNW7fPeR8O7/Zz2i/x5OXOL+8U=";
+    hash = "sha256-4MPPxHgrhZ6AOt65a/yI3ECQDv9UHuChUemSHPf+SH0=";
   };
 
   nativeBuildInputs = [
