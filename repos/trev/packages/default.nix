@@ -26,7 +26,7 @@ rec {
   renovate = pkgs.callPackage ./renovate { };
   shellhook = pkgs.callPackage ./shellhook { };
   type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { inherit (pkgs) nix-update-script; };
-  xdg-desktop-portal-hyprland = pkgs.callPackage ./xdg-desktop-portal-hyprland { };
+  xdg-desktop-portal-luminous = pkgs.callPackage ./xdg-desktop-portal-luminous { };
   zig-protobuf = pkgs.callPackage ./zig-protobuf { };
 }
 // import ./python.nix { pythonPackages = pkgs.python3Packages; }
