@@ -6,13 +6,13 @@
 
 buildGo126Module rec {
   pname = "gh-image";
-  version = "0.3.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "drogers0";
     repo = "gh-image";
     rev = "master";
-    hash = "sha256-4rSf0h5mK+D+K6TTdB4s6tFm4/Sez/8GlsePj76XmeA=";
+    hash = "sha256-dfnnFja5s7QAVMWQyNptOV3cU2V2d7Pd2G5nUq3DN9E=";
   };
 
   vendorHash = "sha256-YD0owtlnJyeytr8TTWcLNAEgXH5Nmd/9IJrg6TM9A3U=";
