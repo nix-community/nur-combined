@@ -23,6 +23,14 @@
         );
     in
     {
-      packages = forAllSystems ({ pkgs, system }: import ./default.nix { inherit pkgs; });
+      packages = forAllSystems ({ pkgs, system }:
+        let
+          pkgsWithUnfree = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
+        import ./default.nix { pkgs = pkgsWithUnfree; }
+      );
     };
 }

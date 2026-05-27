@@ -11,4 +11,6 @@ rec {
   birt-designer = pkgs.callPackage ./pkgs/birt-designer { jdk = pkgs.jdk21; };
   beurer_bf100_parser = pkgs.callPackage ./pkgs/beurer_bf100_parser { };
   claude-desktop = pkgs.callPackage ./pkgs/claude-desktop { };
+  claude-desktop-source = pkgs.callPackage ./pkgs/claude-desktop/build-from-source.nix { };
+  claw = pkgs.callPackage ./pkgs/claw { };
 }
