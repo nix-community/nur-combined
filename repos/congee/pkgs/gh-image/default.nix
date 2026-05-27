@@ -11,8 +11,8 @@ buildGo126Module rec {
   src = fetchFromGitHub {
     owner = "drogers0";
     repo = "gh-image";
-    rev = "master";
-    hash = "sha256-dfnnFja5s7QAVMWQyNptOV3cU2V2d7Pd2G5nUq3DN9E=";
+    rev = "v${version}";
+    hash = "sha256-lH73UueHmEvuD0nkTobmq+EMqCy9rMeIMvLL8/jYE3U=";
   };
 
   vendorHash = "sha256-YD0owtlnJyeytr8TTWcLNAEgXH5Nmd/9IJrg6TM9A3U=";
@@ -22,6 +22,7 @@ buildGo126Module rec {
   ldflags = [
     "-s"
     "-w"
+    "-X main.version=${version}"
   ];
 
   doCheck = false;
