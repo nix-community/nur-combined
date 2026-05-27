@@ -124,9 +124,7 @@ async function platforms(file, { config, force }) {
 
       const releases = (await getReleases(instance, repo, config.source.skip_prerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
-      const version = config.source.skip_prerelease
-        ? releases[0].tag_name
-        : eval(`(${JSON.stringify(releases)})${config.source.query}`);
+      const version = config.source.skip_prerelease ? releases[0].tag_name : eval(`(${JSON.stringify(releases)})${config.source.query}`);
       if (!version) continue;
 
       const parsed = version.replace(/^v/, "");

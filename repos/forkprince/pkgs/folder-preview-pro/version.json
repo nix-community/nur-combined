@@ -2,12 +2,12 @@
   "name": "Folder Preview Pro",
   "source": {
     "type": "api",
-    "url": "https://pins.twint.us.kg/api/snapshots/folder-preview-pro/latest.zip",
+    "url": "https://pins.twint.us.kg/api/snapshots/folder-preview-pro/latest",
     "version_path": ".hash"
   },
   "version": "f72fff3de11bb404c9569575e614365a431e37b810cf52bdbd41f224310d427e",
   "asset": {
-    "url": "https://pins.twint.us.kg/api/download/f72fff3de11bb404c9569575e614365a431e37b810cf52bdbd41f224310d427e.zip",
+    "url": "https://pins.twint.us.kg/api/download/{version}.zip",
     "hash": "sha256-9y//PeEbtATJVpV15hQ2WkMeN7gQz1K9vUHyJDENQn4="
   }
 }

@@ -18,19 +18,23 @@ async function single(file, { config, force }) {
 
   console.log(`Update: ${config.version} → ${parsed}`);
 
-  let url;
+  let url, template = false;
 
   if (config.source.url_path) {
     url = eval(`(${raw})${config.source.url_path}`);
     if (!url) throw new Error("Failed to extract URL from API response");
-  } else if (config.asset?.url) url = config.asset.url.replace(/\{version\}/g, parsed);
-  else throw new Error("Failed to extract URL from API response");
+  } else if (config.asset?.url) {
+    url = config.asset.url.replace(/\{version\}/g, parsed);
+    template = true;
+  } else throw new Error("Failed to extract URL from API response");
 
   console.log(`Downloading ${url}`);
 
   const hash = await getHash(url);
 
-  await update.single(file, { version: parsed, asset: { ...config.asset, url, hash } });
+  const asset = template ? { ...config.asset, hash } : { ...config.asset, url, hash };
+
+  await update.single(file, { version: parsed, asset });
 
   console.log(`Updated to version ${parsed}`);
 }
@@ -63,12 +67,14 @@ async function platforms(file, { config, force }) {
       continue;
     }
 
-    let final;
+    let download, template = false;
 
     const url_path = settings.url_path || config.source.url_path;
 
-    if (!url_path) final = apply(settings.url.replace(/\{version\}/g, parsed), settings.substitutions);
-    else {
+    if (!url_path) {
+      download = apply(settings.url.replace(/\{version\}/g, parsed), settings.substitutions);
+      template = true;
+    } else {
       let link = apply(config.source.url, settings.substitutions);
 
       const api = await (await fetch(link)).json();
@@ -77,16 +83,20 @@ async function platforms(file, { config, force }) {
 
       link = eval(`(${JSON.stringify(api)})${url}`);
 
-      final = link;
+      download = link;
     }
 
-    if (!final) throw new Error("Failed to extract URL from API response");
+    if (!download) throw new Error("Failed to extract URL from API response");
 
-    console.log(`Downloading ${final} (${platform})`);
+    console.log(`Downloading ${download} (${platform})`);
 
-    const hash = await getHash(final);
+    const hash = await getHash(download);
 
-    await update.platforms(file, { platform, url: final, hash });
+    await update.platforms(file, {
+      platform,
+      url: template ? undefined : download,
+      hash
+    });
 
     console.log(`Updated ${platform} to version ${parsed}`);
 
