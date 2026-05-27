@@ -1,0 +1,1201 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 335014ce..7abdec7c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -62,6 +62,7 @@ pkg_check_modules(
+   libpipewire-0.3>=1.1.82
+   libspa-0.2
+   libdrm
++  uuid
+   gbm
+   hyprlang>=0.2.0
+   hyprutils>=0.2.6
+@@ -132,7 +133,10 @@ protocolnew("${HYPRLAND_PROTOCOLS}/protocols" "hyprland-toplevel-export-v1"
+             true)
+ protocolnew("${HYPRLAND_PROTOCOLS}/protocols" "hyprland-toplevel-mapping-v1"
+         true)
++protocolnew("${HYPRLAND_PROTOCOLS}/protocols" "hyprland-input-capture-v1"
++            true)
+ protocolnew("stable/linux-dmabuf" "linux-dmabuf-v1" false)
++protocolnew("unstable/xdg-output" "xdg-output-unstable-v1" false)
+ protocolnew("staging/ext-foreign-toplevel-list" "ext-foreign-toplevel-list-v1" false)
+ 
+ # Installation
+diff --git a/hyprland-share-picker/meson.build b/hyprland-share-picker/meson.build
+index ef29621e..7a426579 100644
+--- a/hyprland-share-picker/meson.build
++++ b/hyprland-share-picker/meson.build
+@@ -18,6 +18,6 @@ executable('hyprland-share-picker',
+   sources,
+   ui_files,
+   moc,
+-  dependencies: qtdep,
++  dependencies: [qtdep, dependency('hyprutils')],
+   install: true
+ )
+diff --git a/hyprland.portal b/hyprland.portal
+index d3e2cbe7..cbaafa83 100644
+--- a/hyprland.portal
++++ b/hyprland.portal
+@@ -1,4 +1,4 @@
+ [portal]
+ DBusName=org.freedesktop.impl.portal.desktop.hyprland
+-Interfaces=org.freedesktop.impl.portal.Screenshot;org.freedesktop.impl.portal.ScreenCast;org.freedesktop.impl.portal.GlobalShortcuts;
++Interfaces=org.freedesktop.impl.portal.Screenshot;org.freedesktop.impl.portal.ScreenCast;org.freedesktop.impl.portal.GlobalShortcuts;org.freedesktop.impl.portal.InputCapture;
+ UseIn=wlroots;Hyprland;sway;Wayfire;river;
+diff --git a/meson.build b/meson.build
+index bcae2b2c..c2a26759 100644
+--- a/meson.build
++++ b/meson.build
+@@ -61,6 +61,9 @@ install_data(
+ 	'hyprland.portal',
+ 	install_dir: join_paths(get_option('datadir'), 'xdg-desktop-portal', 'portals'),
+ )
++version = run_command('cat', files('VERSION'), check: true).stdout().strip()
++
++add_project_arguments(f'-DXDPH_VERSION="@version@"', language : 'cpp')
+ 
+ inc = include_directories('.', 'protocols')
+ 
+diff --git a/protocols/meson.build b/protocols/meson.build
+index de23510c..233edd91 100644
+--- a/protocols/meson.build
++++ b/protocols/meson.build
+@@ -4,7 +4,7 @@ wayland_protos = dependency('wayland-protocols',
+ )
+ 
+ hyprland_protos = dependency('hyprland-protocols',
+-	version: '>=0.6.4',
++	version: '>=0.7.0',
+ 	fallback: 'hyprland-protocols',
+ )
+ 
+@@ -23,7 +23,9 @@ client_protocols = [
+ 	hl_protocol_dir / 'protocols/hyprland-toplevel-export-v1.xml',
+ 	hl_protocol_dir / 'protocols/hyprland-toplevel-mapping-v1.xml',
+ 	hl_protocol_dir / 'protocols/hyprland-global-shortcuts-v1.xml',
++	hl_protocol_dir / 'protocols/hyprland-input-capture-v1.xml',
+ 	wl_protocol_dir / 'stable/linux-dmabuf/linux-dmabuf-v1.xml',
++	wl_protocol_dir / 'unstable/xdg-output/xdg-output-unstable-v1.xml',
+ 	wl_protocol_dir / 'staging/ext-foreign-toplevel-list/ext-foreign-toplevel-list-v1.xml',
+ ]
+ 
+diff --git a/src/core/PortalManager.cpp b/src/core/PortalManager.cpp
+index cf733a34..404e9255 100644
+--- a/src/core/PortalManager.cpp
++++ b/src/core/PortalManager.cpp
+@@ -1,9 +1,9 @@
+ #include "PortalManager.hpp"
+ #include "../helpers/Log.hpp"
+ #include "../helpers/MiscFunctions.hpp"
++#include "xdg-output-unstable-v1.hpp"
+ 
+ #include <pipewire/pipewire.h>
+-#include <poll.h>
+ #include <sys/mman.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+@@ -19,12 +19,43 @@ SOutput::SOutput(SP<CCWlOutput> output_) : output(output_) {
+ 
+         Debug::log(LOG, "Found output name {}", name);
+     });
+-    output->setMode([this](CCWlOutput* r, uint32_t flags, int32_t width, int32_t height, int32_t refresh) { //
++    output->setMode([this](CCWlOutput* r, uint32_t flags, int32_t width_, int32_t height_, int32_t refresh) {
+         refreshRate = refresh;
++        width       = width_;
++        height      = height_;
+     });
+-    output->setGeometry([this](CCWlOutput* r, int32_t x, int32_t y, int32_t physical_width, int32_t physical_height, int32_t subpixel, const char* make, const char* model,
+-                               int32_t transform_) { //
+-        transform = (wl_output_transform)transform_;
++    output->setGeometry(
++        [this](CCWlOutput* r, int32_t x_, int32_t y_, int32_t physical_width, int32_t physical_height, int32_t subpixel, const char* make, const char* model, int32_t transform_) {
++            transform = (wl_output_transform)transform_;
++            x         = x_;
++            y         = y_;
++        });
++    output->setScale([this](CCWlOutput* r, uint32_t factor_) { scale = factor_; });
++    output->setDone([](CCWlOutput* r) {
++        if (g_pPortalManager->m_sPortals.inputCapture != nullptr)
++            g_pPortalManager->m_sPortals.inputCapture->zonesChanged();
++    });
++}
++
++void CPortalManager::setupXDGOutput(SOutput* output) {
++    if (!m_sWaylandConnection.xdgOutputManager || !output || output->xdgOutput)
++        return;
++
++    output->xdgOutput = makeShared<CCZxdgOutputV1>(m_sWaylandConnection.xdgOutputManager->sendGetXdgOutput(output->output->resource()));
++
++    output->xdgOutput->setLogicalPosition([output](CCZxdgOutputV1* r, int32_t x, int32_t y) {
++        output->logicalX             = x;
++        output->logicalY             = y;
++        output->logicalPositionValid = true;
++    });
++    output->xdgOutput->setLogicalSize([output](CCZxdgOutputV1* r, int32_t width, int32_t height) {
++        output->logicalWidth         = width;
++        output->logicalHeight        = height;
++        output->logicalSizeValid     = true;
++    });
++    output->xdgOutput->setDone([](CCZxdgOutputV1* r) {
++        if (g_pPortalManager->m_sPortals.inputCapture != nullptr)
++            g_pPortalManager->m_sPortals.inputCapture->zonesChanged();
+     });
+ }
+ 
+@@ -64,7 +95,16 @@ void CPortalManager::onGlobal(uint32_t name, const char* interface, uint32_t ver
+         m_sPortals.globalShortcuts = std::make_unique<CGlobalShortcutsPortal>(makeShared<CCHyprlandGlobalShortcutsManagerV1>(
+             (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_global_shortcuts_manager_v1_interface, version)));
+     }
+-
++    if (INTERFACE == hyprland_input_capture_manager_v1_interface.name)
++        m_sPortals.inputCapture = std::make_unique<CInputCapturePortal>(makeShared<CCHyprlandInputCaptureManagerV1>(
++            (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_input_capture_manager_v1_interface, version)));
++    else if (INTERFACE == zxdg_output_manager_v1_interface.name) {
++        m_sWaylandConnection.xdgOutputManager = makeShared<CCZxdgOutputManagerV1>(
++            (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &zxdg_output_manager_v1_interface, std::min(version, 3u)));
++
++        for (auto& output : m_vOutputs)
++            setupXDGOutput(output.get());
++    }
+     else if (INTERFACE == hyprland_toplevel_export_manager_v1_interface.name) {
+         m_sWaylandConnection.hyprlandToplevelMgr = makeShared<CCHyprlandToplevelExportManagerV1>(
+             (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_toplevel_export_manager_v1_interface, version));
+@@ -76,6 +116,7 @@ void CPortalManager::onGlobal(uint32_t name, const char* interface, uint32_t ver
+                                      (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &wl_output_interface, version))))
+                                  .get();
+         POUTPUT->id = name;
++        setupXDGOutput(POUTPUT);
+     }
+ 
+     else if (INTERFACE == zwp_linux_dmabuf_v1_interface.name) {
+@@ -267,6 +308,9 @@ void CPortalManager::init() {
+ 
+     Debug::log(LOG, "Gathering exported interfaces");
+ 
++    wl_display_roundtrip(m_sWaylandConnection.display);
++    // A second roundtrip lets per-output protocol objects created from registry
++    // globals, such as xdg_output, receive their initial state.
+     wl_display_roundtrip(m_sWaylandConnection.display);
+ 
+     if (!m_sPortals.screencopy)
+@@ -294,32 +338,21 @@ void CPortalManager::init() {
+ }
+ 
+ void CPortalManager::startEventLoop() {
++    addFdToEventLoop(m_pConnection->getEventLoopPollData().fd, POLLIN, nullptr);
++    addFdToEventLoop(wl_display_get_fd(m_sWaylandConnection.display), POLLIN, nullptr);
++    addFdToEventLoop(pw_loop_get_fd(m_sPipewire.loop), POLLIN, nullptr);
+ 
+-    pollfd pollfds[] = {
+-        {
+-            .fd     = m_pConnection->getEventLoopPollData().fd,
+-            .events = POLLIN,
+-        },
+-        {
+-            .fd     = wl_display_get_fd(m_sWaylandConnection.display),
+-            .events = POLLIN,
+-        },
+-        {
+-            .fd     = pw_loop_get_fd(m_sPipewire.loop),
+-            .events = POLLIN,
+-        },
+-    };
+-
+-    std::thread pollThr([this, &pollfds]() {
++    std::thread pollThr([this]() {
+         while (1) {
+-            int ret = poll(pollfds, 3, 5000 /* 5 seconds, reasonable. It's because we might need to terminate */);
++
++            int ret = poll(m_sEventLoopInternals.pollFds.data(), m_sEventLoopInternals.pollFds.size(), 5000 /* 5 seconds, reasonable. It's because we might need to terminate */);
+             if (ret < 0) {
+                 Debug::log(CRIT, "[core] Polling fds failed with {}", strerror(errno));
+                 g_pPortalManager->terminate();
+             }
+ 
+             for (size_t i = 0; i < 3; ++i) {
+-                if (pollfds[i].revents & POLLHUP) {
++                if (m_sEventLoopInternals.pollFds.data()->revents & POLLHUP) {
+                     Debug::log(CRIT, "[core] Disconnected from pollfd id {}", i);
+                     g_pPortalManager->terminate();
+                 }
+@@ -392,13 +425,13 @@ void CPortalManager::startEventLoop() {
+ 
+         m_mEventLock.lock();
+ 
+-        if (pollfds[0].revents & POLLIN /* dbus */) {
++        if (m_sEventLoopInternals.pollFds[0].revents & POLLIN /* dbus */) {
+             while (m_pConnection->processPendingEvent()) {
+                 ;
+             }
+         }
+ 
+-        if (pollfds[1].revents & POLLIN /* wl */) {
++        if (m_sEventLoopInternals.pollFds[1].revents & POLLIN /* wl */) {
+             wl_display_flush(m_sWaylandConnection.display);
+             if (wl_display_prepare_read(m_sWaylandConnection.display) == 0) {
+                 wl_display_read_events(m_sWaylandConnection.display);
+@@ -408,12 +441,18 @@ void CPortalManager::startEventLoop() {
+             }
+         }
+ 
+-        if (pollfds[2].revents & POLLIN /* pw */) {
++        if (m_sEventLoopInternals.pollFds[2].revents & POLLIN /* pw */) {
+             while (pw_loop_iterate(m_sPipewire.loop, 0) != 0) {
+                 ;
+             }
+         }
+ 
++        for (pollfd p : m_sEventLoopInternals.pollFds) {
++            if (p.revents & POLLIN && m_sEventLoopInternals.pollCallbacks.contains(p.fd)) {
++                m_sEventLoopInternals.pollCallbacks[p.fd]();
++            }
++        }
++
+         std::vector<CTimer*> toRemove;
+         for (auto& t : m_sTimersThread.timers) {
+             if (t->passed()) {
+@@ -442,6 +481,7 @@ void CPortalManager::startEventLoop() {
+     m_sPortals.screencopy.reset();
+     m_sPortals.screenshot.reset();
+     m_sHelpers.toplevel.reset();
++    m_sPortals.inputCapture.reset();
+ 
+     m_pConnection.reset();
+     pw_loop_destroy(m_sPipewire.loop);
+@@ -463,6 +503,10 @@ SOutput* CPortalManager::getOutputFromName(const std::string& name) {
+     return nullptr;
+ }
+ 
++std::vector<std::unique_ptr<SOutput>> const& CPortalManager::getAllOutputs() {
++    return m_vOutputs;
++}
++
+ static char* gbm_find_render_node(drmDevice* device) {
+     drmDevice* devices[64];
+     char*      render_node = NULL;
+@@ -512,6 +556,20 @@ void CPortalManager::addTimer(const CTimer& timer) {
+     m_sTimersThread.loopSignal.notify_all();
+ }
+ 
++void CPortalManager::addFdToEventLoop(int fd, short events, std::function<void()> callback) {
++    m_sEventLoopInternals.pollFds.emplace_back(pollfd{.fd = fd, .events = POLLIN});
++
++    if (callback == nullptr)
++        return;
++
++    m_sEventLoopInternals.pollCallbacks[fd] = callback;
++}
++
++void CPortalManager::removeFdFromEventLoop(int fd) {
++    std::erase_if(m_sEventLoopInternals.pollFds, [fd](const pollfd& p) { return p.fd == fd; });
++    m_sEventLoopInternals.pollCallbacks.erase(fd);
++}
++
+ void CPortalManager::terminate() {
+     m_bTerminate = true;
+ 
+diff --git a/src/core/PortalManager.hpp b/src/core/PortalManager.hpp
+index 0394a3b5..a7f5760d 100644
+--- a/src/core/PortalManager.hpp
++++ b/src/core/PortalManager.hpp
+@@ -8,10 +8,12 @@
+ #include "../portals/Screencopy.hpp"
+ #include "../portals/Screenshot.hpp"
+ #include "../portals/GlobalShortcuts.hpp"
++#include "../portals/InputCapture.hpp"
+ #include "../helpers/Timer.hpp"
+ #include "../shared/ToplevelManager.hpp"
+ #include "../shared/ToplevelMappingManager.hpp"
+ #include <gbm.h>
++#include <poll.h>
+ #include <xf86drm.h>
+ 
+ #include "hyprland-toplevel-export-v1.hpp"
+@@ -27,13 +29,28 @@
+ 
+ struct pw_loop;
+ 
++class CCZxdgOutputManagerV1;
++class CCZxdgOutputV1;
++
+ struct SOutput {
+     SOutput(SP<CCWlOutput>);
+     std::string         name;
+     SP<CCWlOutput>      output      = nullptr;
++    SP<CCZxdgOutputV1>  xdgOutput   = nullptr;
+     uint32_t            id          = 0;
+     float               refreshRate = 60.0;
+     wl_output_transform transform   = WL_OUTPUT_TRANSFORM_NORMAL;
++    uint32_t            width       = 0;
++    uint32_t            height      = 0;
++    int32_t             x           = 0;
++    int32_t             y           = 0;
++    double              scale       = 1.0;
++    int32_t             logicalX    = 0;
++    int32_t             logicalY    = 0;
++    int32_t             logicalWidth  = 0;
++    int32_t             logicalHeight = 0;
++    bool                logicalPositionValid = false;
++    bool                logicalSizeValid     = false;
+ };
+ 
+ struct SDMABUFModifier {
+@@ -45,13 +62,14 @@ class CPortalManager {
+   public:
+     CPortalManager();
+ 
+-    void                init();
++    void                                         init();
+ 
+-    void                onGlobal(uint32_t name, const char* interface, uint32_t version);
+-    void                onGlobalRemoved(uint32_t name);
++    void                                         onGlobal(uint32_t name, const char* interface, uint32_t version);
++    void                                         onGlobalRemoved(uint32_t name);
+ 
+-    sdbus::IConnection* getConnection();
+-    SOutput*            getOutputFromName(const std::string& name);
++    sdbus::IConnection*                          getConnection();
++    SOutput*                                     getOutputFromName(const std::string& name);
++    std::vector<std::unique_ptr<SOutput>> const& getAllOutputs();
+ 
+     struct {
+         pw_loop* loop = nullptr;
+@@ -61,6 +79,7 @@ class CPortalManager {
+         std::unique_ptr<CScreencopyPortal>      screencopy;
+         std::unique_ptr<CScreenshotPortal>      screenshot;
+         std::unique_ptr<CGlobalShortcutsPortal> globalShortcuts;
++        std::unique_ptr<CInputCapturePortal>    inputCapture;
+     } m_sPortals;
+ 
+     struct {
+@@ -74,6 +93,7 @@ class CPortalManager {
+         SP<CCHyprlandToplevelExportManagerV1> hyprlandToplevelMgr;
+         SP<CCZwpLinuxDmabufV1>                linuxDmabuf;
+         SP<CCZwpLinuxDmabufFeedbackV1>        linuxDmabufFeedback;
++        SP<CCZxdgOutputManagerV1>             xdgOutputManager;
+         SP<CCWlShm>                           shm;
+         gbm_bo*                               gbm       = nullptr;
+         gbm_device*                           gbmDevice = nullptr;
+@@ -95,20 +115,26 @@ class CPortalManager {
+ 
+     gbm_device*                  createGBMDevice(drmDevice* dev);
+ 
++    void                         addFdToEventLoop(int fd, short events, std::function<void()> callback);
++    void                         removeFdFromEventLoop(int fd);
++
+     // terminate after the event loop has been created. Before we can exit()
+     void terminate();
+ 
+   private:
+     void  startEventLoop();
++    void  setupXDGOutput(SOutput* output);
+ 
+     bool  m_bTerminate = false;
+     pid_t m_iPID       = 0;
+ 
+     struct {
+-        std::condition_variable loopSignal;
+-        std::mutex              loopMutex;
+-        std::atomic<bool>       shouldProcess = false;
+-        std::mutex              loopRequestMutex;
++        std::condition_variable              loopSignal;
++        std::mutex                           loopMutex;
++        std::atomic<bool>                    shouldProcess = false;
++        std::mutex                           loopRequestMutex;
++        std::vector<pollfd>                  pollFds;
++        std::map<int, std::function<void()>> pollCallbacks;
+     } m_sEventLoopInternals;
+ 
+     struct {
+diff --git a/src/helpers/MiscFunctions.cpp b/src/helpers/MiscFunctions.cpp
+index 7307ba3c..9119b09b 100644
+--- a/src/helpers/MiscFunctions.cpp
++++ b/src/helpers/MiscFunctions.cpp
+@@ -7,6 +7,10 @@
+ #include <vector>
+ #include <string>
+ #include <algorithm>
++#include <sys/mman.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <uuid/uuid.h>
+ 
+ #include <hyprutils/os/Process.hpp>
+ using namespace Hyprutils::OS;
+@@ -55,3 +59,84 @@ bool inShellPath(const std::string& exec) {
+ 
+     return std::ranges::any_of(paths, [&exec](std::string& path) { return access((path + "/" + exec).c_str(), X_OK) == 0; });
+ }
++
++std::string getRandomUUID() {
++    std::string uuid;
++    uuid_t      uuid_;
++    uuid_generate_random(uuid_);
++    return std::format("{:02x}{:02x}{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}-{:02x}{:02x}{:02x}{:02x}{:02x}{:02x}", (uint16_t)uuid_[0], (uint16_t)uuid_[1],
++                       (uint16_t)uuid_[2], (uint16_t)uuid_[3], (uint16_t)uuid_[4], (uint16_t)uuid_[5], (uint16_t)uuid_[6], (uint16_t)uuid_[7], (uint16_t)uuid_[8],
++                       (uint16_t)uuid_[9], (uint16_t)uuid_[10], (uint16_t)uuid_[11], (uint16_t)uuid_[12], (uint16_t)uuid_[13], (uint16_t)uuid_[14], (uint16_t)uuid_[15]);
++}
++
++std::pair<int, std::string> openExclusiveShm() {
++    // Only absolute paths can be shared across different shm_open() calls
++    std::string name = "/" + getRandomUUID();
++
++    for (size_t i = 0; i < 69; ++i) {
++        int fd = shm_open(name.c_str(), O_RDWR | O_CREAT | O_EXCL, 0600);
++        if (fd >= 0)
++            return {fd, name};
++    }
++
++    return {-1, ""};
++}
++
++int allocateSHMFile(size_t len) {
++    auto [fd, name] = openExclusiveShm();
++    if (fd < 0)
++        return -1;
++
++    shm_unlink(name.c_str());
++
++    int ret;
++    do {
++        ret = ftruncate(fd, len);
++    } while (ret < 0 && errno == EINTR);
++
++    if (ret < 0) {
++        close(fd);
++        return -1;
++    }
++
++    return fd;
++}
++
++bool allocateSHMFilePair(size_t size, int* rw_fd_ptr, int* ro_fd_ptr) {
++    auto [fd, name] = openExclusiveShm();
++    if (fd < 0) {
++        return false;
++    }
++
++    // CLOEXEC is guaranteed to be set by shm_open
++    int ro_fd = shm_open(name.c_str(), O_RDONLY, 0);
++    if (ro_fd < 0) {
++        shm_unlink(name.c_str());
++        close(fd);
++        return false;
++    }
++
++    shm_unlink(name.c_str());
++
++    // Make sure the file cannot be re-opened in read-write mode (e.g. via
++    // "/proc/self/fd/" on Linux)
++    if (fchmod(fd, 0) != 0) {
++        close(fd);
++        close(ro_fd);
++        return false;
++    }
++
++    int ret;
++    do {
++        ret = ftruncate(fd, size);
++    } while (ret < 0 && errno == EINTR);
++    if (ret < 0) {
++        close(fd);
++        close(ro_fd);
++        return false;
++    }
++
++    *rw_fd_ptr = fd;
++    *ro_fd_ptr = ro_fd;
++    return true;
++}
+diff --git a/src/helpers/MiscFunctions.hpp b/src/helpers/MiscFunctions.hpp
+index f335a834..194d2486 100644
+--- a/src/helpers/MiscFunctions.hpp
++++ b/src/helpers/MiscFunctions.hpp
+@@ -5,4 +5,6 @@
+ std::string execAndGet(const char* cmd);
+ void        addHyprlandNotification(const std::string& icon, float timeMs, const std::string& color, const std::string& message);
+ bool        inShellPath(const std::string& exec);
+-void        sendEmptyDbusMethodReply(sdbus::MethodCall& call, u_int32_t responseCode);
+\ No newline at end of file
++void        sendEmptyDbusMethodReply(sdbus::MethodCall& call, u_int32_t responseCode);
++int         allocateSHMFile(size_t len);
++bool        allocateSHMFilePair(size_t size, int* rw_fd_ptr, int* ro_fd_ptr);
+diff --git a/src/main.cpp b/src/main.cpp
+index cdeb83d7..e5c3ed35 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -42,4 +42,4 @@ int main(int argc, char** argv, char** envp) {
+     g_pPortalManager->init();
+ 
+     return 0;
+-}
+\ No newline at end of file
++}
+diff --git a/src/meson.build b/src/meson.build
+index b76a85f2..b141521a 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -13,6 +13,7 @@ executable('xdg-desktop-portal-hyprland',
+     dependency('sdbus-c++'),
+     dependency('threads'),
+     dependency('wayland-client'),
++    dependency('uuid'),
+   ],
+   include_directories: inc,
+   install: true,
+diff --git a/src/portals/InputCapture.cpp b/src/portals/InputCapture.cpp
+new file mode 100644
+index 00000000..e611d682
+--- /dev/null
++++ b/src/portals/InputCapture.cpp
+@@ -0,0 +1,563 @@
++#include "InputCapture.hpp"
++
++#include "../core/PortalManager.hpp"
++#include "../helpers/Log.hpp"
++#include "../shared/Session.hpp"
++#include "hyprland-input-capture-v1.hpp"
++#include <algorithm>
++#include <cmath>
++#include <cstdint>
++#include <hyprutils/memory/UniquePtr.hpp>
++#include <memory>
++#include <sdbus-c++/Error.h>
++#include <set>
++#include <sdbus-c++/Types.h>
++#include <sdbus-c++/VTableItems.h>
++#include <string>
++#include <sys/socket.h>
++#include <sys/un.h>
++#include <unordered_map>
++#include <vector>
++#include <wayland-client-core.h>
++#include <wayland-util.h>
++
++namespace {
++int32_t logicalSize(uint32_t size, double scale) {
++    if (scale <= 0.0)
++        return static_cast<int32_t>(size);
++    return std::max(1, static_cast<int32_t>(std::lround(static_cast<double>(size) / scale)));
++}
++
++struct SLogicalOutputGeometry {
++    std::string name;
++    int32_t     x      = 0;
++    int32_t     y      = 0;
++    int32_t     width  = 0;
++    int32_t     height = 0;
++    double      scale  = 1.0;
++    bool        fromXDGOutput = false;
++};
++
++SLogicalOutputGeometry getLogicalGeometry(const std::unique_ptr<SOutput>& output) {
++    if (output->logicalPositionValid && output->logicalSizeValid) {
++        return {
++            .name          = output->name,
++            .x             = output->logicalX,
++            .y             = output->logicalY,
++            .width         = output->logicalWidth,
++            .height        = output->logicalHeight,
++            .scale         = output->scale,
++            .fromXDGOutput = true,
++        };
++    }
++
++    return {
++        .name          = output->name,
++        .x             = output->x,
++        .y             = output->y,
++        .width         = logicalSize(output->width, output->scale),
++        .height        = logicalSize(output->height, output->scale),
++        .scale         = output->scale,
++        .fromXDGOutput = false,
++    };
++}
++
++bool rangeContains(int start, int end, int value) {
++    return start <= value && value <= end;
++}
++
++bool intervalOverlapsInclusive(int a1, int a2, int b1, int b2) {
++    return std::max(a1, b1) <= std::min(a2, b2);
++}
++
++bool isVerticalBarrierOnExteriorBoundary(int x, int y1, int y2) {
++    std::set<int> breakpoints = {y1, y2 + 1};
++
++    for (const auto& output : g_pPortalManager->getAllOutputs()) {
++        const auto logical = getLogicalGeometry(output);
++        if (logical.width <= 0 || logical.height <= 0)
++            return false;
++
++        const int top    = logical.y;
++        const int bottom = logical.y + logical.height - 1;
++        if (!intervalOverlapsInclusive(y1, y2, top, bottom))
++            continue;
++
++        if (x == logical.x || x == logical.x + logical.width) {
++            breakpoints.insert(std::max(y1, top));
++            breakpoints.insert(std::min(y2, bottom) + 1);
++        }
++    }
++
++    const std::vector<int> points{breakpoints.begin(), breakpoints.end()};
++    for (size_t i = 0; i + 1 < points.size(); ++i) {
++        const int segmentStart = points[i];
++        const int segmentEnd   = points[i + 1] - 1;
++        if (segmentStart > segmentEnd)
++            continue;
++
++        bool hasLeftMonitor  = false;
++        bool hasRightMonitor = false;
++        for (const auto& output : g_pPortalManager->getAllOutputs()) {
++            const auto logical = getLogicalGeometry(output);
++            if (logical.width <= 0 || logical.height <= 0)
++                return false;
++
++            const int top    = logical.y;
++            const int bottom = logical.y + logical.height - 1;
++            if (!intervalOverlapsInclusive(segmentStart, segmentEnd, top, bottom))
++                continue;
++
++            if (x == logical.x + logical.width && rangeContains(top, bottom, segmentStart))
++                hasLeftMonitor = true;
++
++            if (x == logical.x && rangeContains(top, bottom, segmentStart))
++                hasRightMonitor = true;
++        }
++
++        if (hasLeftMonitor == hasRightMonitor)
++            return false;
++    }
++
++    return true;
++}
++
++bool isHorizontalBarrierOnExteriorBoundary(int y, int x1, int x2) {
++    std::set<int> breakpoints = {x1, x2 + 1};
++
++    for (const auto& output : g_pPortalManager->getAllOutputs()) {
++        const auto logical = getLogicalGeometry(output);
++        if (logical.width <= 0 || logical.height <= 0)
++            return false;
++
++        const int left  = logical.x;
++        const int right = logical.x + logical.width - 1;
++        if (!intervalOverlapsInclusive(x1, x2, left, right))
++            continue;
++
++        if (y == logical.y || y == logical.y + logical.height) {
++            breakpoints.insert(std::max(x1, left));
++            breakpoints.insert(std::min(x2, right) + 1);
++        }
++    }
++
++    const std::vector<int> points{breakpoints.begin(), breakpoints.end()};
++    for (size_t i = 0; i + 1 < points.size(); ++i) {
++        const int segmentStart = points[i];
++        const int segmentEnd   = points[i + 1] - 1;
++        if (segmentStart > segmentEnd)
++            continue;
++
++        bool hasTopMonitor    = false;
++        bool hasBottomMonitor = false;
++        for (const auto& output : g_pPortalManager->getAllOutputs()) {
++            const auto logical = getLogicalGeometry(output);
++            if (logical.width <= 0 || logical.height <= 0)
++                return false;
++
++            const int left  = logical.x;
++            const int right = logical.x + logical.width - 1;
++            if (!intervalOverlapsInclusive(segmentStart, segmentEnd, left, right))
++                continue;
++
++            if (y == logical.y + logical.height && rangeContains(left, right, segmentStart))
++                hasTopMonitor = true;
++
++            if (y == logical.y && rangeContains(left, right, segmentStart))
++                hasBottomMonitor = true;
++        }
++
++        if (hasTopMonitor == hasBottomMonitor)
++            return false;
++    }
++
++    return true;
++}
++
++bool isBarrierValid(int x1, int y1, int x2, int y2) {
++    if (x1 != x2 && y1 != y2) //At least one axis should be aligned
++        return false;
++
++    if (x1 == x2 && y1 == y2) //The barrier should have non-null area
++        return false;
++
++    if (x1 > x2)
++        std::swap(x1, x2);
++
++    if (y1 > y2)
++        std::swap(y1, y2);
++
++    if (x1 == x2)
++        return isVerticalBarrierOnExteriorBoundary(x1, y1, y2);
++
++    return isHorizontalBarrierOnExteriorBoundary(y1, x1, x2);
++}
++} // namespace
++
++CInputCapturePortal::CInputCapturePortal(SP<CCHyprlandInputCaptureManagerV1> mgr) : m_sState(mgr) {
++    Debug::log(LOG, "[input-capture] initializing input capture portal");
++
++    m_pObject = sdbus::createObject(*g_pPortalManager->getConnection(), OBJECT_PATH);
++
++    m_pObject
++        ->addVTable(
++            sdbus::registerMethod("CreateSession")
++                .implementedAs([this](sdbus::ObjectPath o1, sdbus::ObjectPath o2, std::string s1, std::string s2, std::unordered_map<std::string, sdbus::Variant> m) {
++                    return onCreateSession(o1, o2, s1, s2, m);
++                }),
++            sdbus::registerMethod("GetZones").implementedAs([this](sdbus::ObjectPath o1, sdbus::ObjectPath o2, std::string s, std::unordered_map<std::string, sdbus::Variant> m) {
++                return onGetZones(o1, o2, s, m);
++            }),
++            sdbus::registerMethod("SetPointerBarriers")
++                .implementedAs([this](sdbus::ObjectPath o1, sdbus::ObjectPath o2, std::string s, std::unordered_map<std::string, sdbus::Variant> m,
++                                      std::vector<std::unordered_map<std::string, sdbus::Variant>> v, uint32_t u) { return onSetPointerBarriers(o1, o2, s, m, v, u); }),
++            sdbus::registerMethod("Enable").implementedAs(
++                [this](sdbus::ObjectPath o, std::string s, std::unordered_map<std::string, sdbus::Variant> m) { return onEnable(o, s, m); }),
++
++            sdbus::registerMethod("Disable").implementedAs(
++                [this](sdbus::ObjectPath o, std::string s, std::unordered_map<std::string, sdbus::Variant> m) { return onDisable(o, s, m); }),
++
++            sdbus::registerMethod("Release").implementedAs(
++                [this](sdbus::ObjectPath o, std::string s, std::unordered_map<std::string, sdbus::Variant> m) { return onRelease(o, s, m); }),
++            sdbus::registerMethod("ConnectToEIS").implementedAs([this](sdbus::ObjectPath o, std::string s, std::unordered_map<std::string, sdbus::Variant> m) {
++                return onConnectToEIS(o, s, m);
++            }),
++            sdbus::registerProperty("SupportedCapabilities").withGetter([] { return (uint32_t)(1 | 2); }),
++            sdbus::registerProperty("version").withGetter([] { return (uint32_t)(1); }),
++            sdbus::registerSignal("Activated").withParameters<sdbus::ObjectPath, std::unordered_map<std::string, sdbus::Variant>>(),
++            sdbus::registerSignal("Disabled").withParameters<sdbus::ObjectPath, std::unordered_map<std::string, sdbus::Variant>>(),
++            sdbus::registerSignal("Deactivated").withParameters<sdbus::ObjectPath, std::unordered_map<std::string, sdbus::Variant>>(),
++            sdbus::registerSignal("ZonesChanged").withParameters<sdbus::ObjectPath, std::unordered_map<std::string, sdbus::Variant>>())
++        .forInterface(INTERFACE_NAME);
++
++    for (auto& o : g_pPortalManager->getAllOutputs())
++        Debug::log(LOG, "{} {}x{}", o->name, o->width, o->height);
++
++    Debug::log(LOG, "[input-capture] init successful");
++}
++
++void complete(sdbus::MethodCall& call) {
++    auto reply = call.createReply();
++    reply << (uint32_t)0;
++    reply << std::unordered_map<std::string, sdbus::Variant>{};
++    reply.send();
++}
++
++dbUasv CInputCapturePortal::onCreateSession(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID, std::string parentWindow,
++                                            std::unordered_map<std::string, sdbus::Variant> options) {
++    Debug::log(LOG, "[input-capture] New session:");
++
++    uint32_t capabilities = 0;
++    if (options.contains("capabilities")) {
++        try {
++            capabilities = options["capabilities"].get<uint32_t>();
++        } catch (std::exception& e) {
++            Debug::log(WARN, "[input-capture] Invalid capabilities option: {}", e.what());
++            return {1, {}};
++        }
++    }
++
++    Debug::log(LOG, "[input-capture]  | {}", requestHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | appid: {}", appID);
++    Debug::log(LOG, "[input-capture]  | parent_window: {}", parentWindow);
++    Debug::log(LOG, "[input-capture]  | capabilities : {}", capabilities);
++
++    std::string sessionId = "input-capture-" + std::to_string(sessionCounter++);
++    Debug::log(LOG, "[input-capture]  | sessionId : {}", sessionId);
++
++    const std::shared_ptr<SSession> session =
++        std::make_shared<SSession>(requestHandle, sessionHandle, sessionId, capabilities, m_sState.manager->sendCreateSession(sessionId.c_str()));
++
++    sessions.emplace(sessionHandle, session);
++
++    std::unordered_map<std::string, sdbus::Variant> results;
++    results["capabilities"] = sdbus::Variant{(uint)3};
++    results["session_id"]   = sdbus::Variant{sessionId};
++    return {0, results};
++}
++
++CInputCapturePortal::SSession::SSession(sdbus::ObjectPath requestHandle_, sdbus::ObjectPath sessionHandle_, std::string sessionId_, uint32_t capabilities_, wl_proxy* proxy) :
++    requestHandle(requestHandle_), sessionHandle(sessionHandle_), sessionId(sessionId_), capabilities(capabilities_), whandle(std::make_unique<CCHyprlandInputCaptureV1>(proxy)) {
++
++    session            = createDBusSession(sessionHandle);
++    session->onDestroy = [this]() {
++        whandle->sendDisable();
++        Debug::log(LOG, "[input-capture] Session {} destroyed", sessionHandle.c_str());
++        session.release();
++        whandle.reset();
++        dead = true;
++    };
++
++    request            = createDBusRequest(requestHandle);
++    request->onDestroy = [this]() { request.release(); };
++
++    whandle->setActivated([this](CCHyprlandInputCaptureV1*, uint32_t activationId, wl_fixed_t x, wl_fixed_t y, uint32_t borderId) {
++        g_pPortalManager->m_sPortals.inputCapture->activate(sessionHandle, activationId, x, y, borderId);
++    });
++    whandle->setDeactivated([this](CCHyprlandInputCaptureV1*, uint32_t activationId) { g_pPortalManager->m_sPortals.inputCapture->deactivate(sessionHandle, activationId); });
++    whandle->setDisabled([this](CCHyprlandInputCaptureV1*) { g_pPortalManager->m_sPortals.inputCapture->disable(sessionHandle); });
++    whandle->setEisFd([this](CCHyprlandInputCaptureV1*, int32_t fd) { eisFD = fd; });
++}
++
++dbUasv CInputCapturePortal::onGetZones(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[input-capture] New GetZones request:");
++    Debug::log(LOG, "[input-capture]  | {}", requestHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | appid: {}", appID);
++
++    if (!sessionValid(sessionHandle))
++        return {1, {}};
++
++    std::vector<sdbus::Struct<uint32_t, uint32_t, int32_t, int32_t>> zones;
++    uint32_t zoneId = 0;
++    for (auto& o : g_pPortalManager->getAllOutputs()) {
++        const auto logical = getLogicalGeometry(o);
++        zones.push_back(sdbus::Struct(static_cast<uint32_t>(logical.width), static_cast<uint32_t>(logical.height), logical.x, logical.y));
++        Debug::log(LOG, "[input-capture]  | zone {} output {} pos {}x{} size {}x{} scale {} source {}", zoneId++, logical.name, logical.x, logical.y, logical.width,
++                   logical.height, logical.scale, logical.fromXDGOutput ? "xdg-output" : "wl_output-fallback");
++    }
++
++    std::unordered_map<std::string, sdbus::Variant> results;
++    results["zones"]    = sdbus::Variant{zones};
++    results["zone_set"] = sdbus::Variant{lastZoneSet};
++    Debug::log(LOG, "[input-capture]  | zoneSet: {}", lastZoneSet);
++    return {0, results};
++}
++
++dbUasv CInputCapturePortal::onSetPointerBarriers(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID,
++                                                 std::unordered_map<std::string, sdbus::Variant> opts, std::vector<std::unordered_map<std::string, sdbus::Variant>> barriers,
++                                                 uint32_t zoneSet) {
++    Debug::log(LOG, "[input-capture] New SetPointerBarriers request:");
++
++    Debug::log(LOG, "[input-capture]  | {}", requestHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | appid: {}", appID);
++
++    if (!sessionValid(sessionHandle))
++        return {1, {}};
++
++    Debug::log(LOG, "[input-capture]  | zoneSet: {}", zoneSet);
++
++    std::vector<uint> failedBarriers;
++    if (zoneSet != lastZoneSet) {
++        for (const auto& b : barriers) {
++            if (!b.contains("barrier_id"))
++                continue;
++
++            try {
++                failedBarriers.push_back(b.at("barrier_id").get<uint>());
++            } catch (std::exception& e) { Debug::log(WARN, "[input-capture] invalid barrier_id in stale zone set request: {}", e.what()); }
++        }
++
++        Debug::log(WARN, "[input-capture] Invalid zone set {}, current {}, discarding {} barriers", zoneSet, lastZoneSet, failedBarriers.size());
++
++        std::unordered_map<std::string, sdbus::Variant> results;
++        results["failed_barriers"] = sdbus::Variant{failedBarriers};
++        return {0, results};
++    }
++
++    auto& session = sessions[sessionHandle];
++    session->barrierIdMap.clear();
++    session->whandle->sendClearBarriers();
++
++    for (const auto& b : barriers) {
++        if (!b.contains("barrier_id") || !b.contains("position")) {
++            Debug::log(WARN, "[input-capture] barrier missing barrier_id or position");
++            continue;
++        }
++
++        uint id = 0;
++        int  x1, y1, x2, y2;
++
++        try {
++            id = b.at("barrier_id").get<uint>();
++
++            sdbus::Struct<int, int, int, int> p = b.at("position").get<sdbus::Struct<int, int, int, int>>();
++            x1                                  = p.get<0>();
++            y1                                  = p.get<1>();
++            x2                                  = p.get<2>();
++            y2                                  = p.get<3>();
++        } catch (std::exception& e) {
++            Debug::log(WARN, "[input-capture] invalid barrier payload: {}", e.what());
++            failedBarriers.push_back(id);
++            continue;
++        }
++
++        Debug::log(LOG, "[input-capture]  | barrier request {} [{}, {}] [{}, {}] zoneSet {}", id, x1, y1, x2, y2, zoneSet);
++        const bool valid = isBarrierValid(x1, y1, x2, y2);
++        if (id == 0) {
++            Debug::log(LOG, "[input-capture]  | barrier: 0 invalid (skipping)");
++            failedBarriers.push_back(id);
++            continue;
++        }
++
++        if (!valid) {
++            Debug::log(LOG, "[input-capture]  | barrier: {} [{}, {}] [{}, {}] valid: false", id, x1, y1, x2, y2);
++            failedBarriers.push_back(id);
++            continue;
++        }
++
++        // Clients may reuse barrier_id values in one request. Use a unique internal
++        // ID per barrier and map activation callbacks back to the client ID.
++        uint32_t internalId = this->barrierIdCounter++;
++        if (internalId == 0)
++            internalId = this->barrierIdCounter++;
++
++        session->barrierIdMap[internalId] = id;
++
++        const uint32_t ux1 = static_cast<uint32_t>(x1);
++        const uint32_t uy1 = static_cast<uint32_t>(y1);
++        const uint32_t ux2 = static_cast<uint32_t>(x2);
++        const uint32_t uy2 = static_cast<uint32_t>(y2);
++        Debug::log(LOG, "[input-capture]  | forwarding barrier {} as logical coords [{}, {}] [{}, {}] internal {}", id, ux1, uy1, ux2, uy2, internalId);
++        session->whandle->sendAddBarrier(zoneSet, internalId, ux1, uy1, ux2, uy2);
++    }
++
++    std::unordered_map<std::string, sdbus::Variant> results;
++    results["failed_barriers"] = sdbus::Variant{failedBarriers};
++    return {0, results};
++}
++
++dbUasv CInputCapturePortal::onDisable(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[input-capture] New Disable request:");
++    Debug::log(LOG, "[input-capture]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | appid: {}", appID);
++
++    if (!sessionValid(sessionHandle))
++        return {1, {}};
++
++    sessions[sessionHandle]->whandle->sendDisable();
++    return {0, {}};
++}
++
++dbUasv CInputCapturePortal::onEnable(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[input-capture] New Enable request:");
++    Debug::log(LOG, "[input-capture]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | appid: {}", appID);
++
++    if (!sessionValid(sessionHandle)) {
++        Debug::log(WARN, "[input-capture] Unknown session handle: {}", sessionHandle.c_str());
++        return {1, {}};
++    }
++
++    sessions[sessionHandle]->whandle->sendEnable();
++    return {0, {}};
++}
++
++dbUasv CInputCapturePortal::onRelease(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[input-capture] New Release request:");
++    Debug::log(LOG, "[input-capture]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | appid: {}", appID);
++
++    if (!sessionValid(sessionHandle))
++        return {1, {}};
++
++    if (!opts.contains("activation_id")) {
++        Debug::log(WARN, "[input-capture] Release missing activation_id");
++        return {1, {}};
++    }
++
++    uint32_t activationId = 0;
++    try {
++        activationId = opts["activation_id"].get<uint32_t>();
++    } catch (std::exception& e) {
++        Debug::log(WARN, "[input-capture] invalid activation_id: {}", e.what());
++        return {1, {}};
++    }
++    Debug::log(LOG, "[input-capture]  | activationId: {}", activationId);
++
++    double x = -1;
++    double y = -1;
++    if (opts.contains("cursor_position")) {
++        try {
++            auto [px, py] = opts["cursor_position"].get<sdbus::Struct<double, double>>();
++            Debug::log(LOG, "[input-capture]  | cursorPosition: {} {}", px, py);
++            x = px;
++            y = py;
++        } catch (std::exception& e) { Debug::log(WARN, "[input-capture] invalid cursor_position: {}", e.what()); }
++    }
++    sessions[sessionHandle]->whandle->sendRelease(activationId, x, y); //TODO: send pointer position for warping
++
++    return {0, {}};
++}
++
++sdbus::UnixFd CInputCapturePortal::onConnectToEIS(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[input-capture] New ConnectToEIS request:");
++    Debug::log(LOG, "[input-capture]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[input-capture]  | appid: {}", appID);
++
++    if (!sessionValid(sessionHandle))
++        throw sdbus::Error{sdbus::Error::Name{"org.freedesktop.portal.Error.Failed"}, "No input-capture session found"};
++
++    for (size_t i = 0; i < 3 && sessions[sessionHandle]->eisFD < 0; ++i) {
++        if (wl_display_roundtrip(g_pPortalManager->m_sWaylandConnection.display) < 0)
++            break;
++    }
++
++    if (sessions[sessionHandle]->eisFD < 0)
++        throw sdbus::Error{sdbus::Error::Name{"org.freedesktop.portal.Error.Failed"}, "EIS fd is not ready"};
++
++    return (sdbus::UnixFd)sessions[sessionHandle]->eisFD;
++}
++
++bool CInputCapturePortal::sessionValid(sdbus::ObjectPath sessionHandle) {
++    if (!sessions.contains(sessionHandle)) {
++        Debug::log(WARN, "[input-capture] Unknown session handle: {}", sessionHandle.c_str());
++        return false;
++    }
++
++    return !sessions[sessionHandle]->dead;
++}
++
++void CInputCapturePortal::removeSession(sdbus::ObjectPath sessionHandle) {
++    sessions.erase(sessionHandle);
++}
++
++void CInputCapturePortal::zonesChanged() {
++    if (sessions.empty())
++        return;
++
++    Debug::log(LOG, "[input-capture] Monitor layout has changed, notifing clients");
++    lastZoneSet++;
++
++    for (auto& [key, value] : sessions) {
++        if (!sessionValid(value->sessionHandle))
++            continue;
++
++        std::unordered_map<std::string, sdbus::Variant> options;
++        options["zone_set"] = sdbus::Variant{lastZoneSet - 1};
++        m_pObject->emitSignal("ZonesChanged").onInterface(INTERFACE_NAME).withArguments(value->sessionHandle, options);
++    }
++}
++
++void CInputCapturePortal::activate(sdbus::ObjectPath sessionHandle, uint32_t activationId, double x, double y, uint32_t borderId) {
++    Debug::log(LOG, "[input-capture] activate, activationId {}, barrierId {}, x {}, y {}", activationId, borderId, x, y);
++    if (!sessionValid(sessionHandle))
++        return;
++
++    const auto&  session         = sessions[sessionHandle];
++    const auto   mappedBarrierId = session->barrierIdMap.find(borderId);
++    const uint32_t clientBarrierId = mappedBarrierId != session->barrierIdMap.end() ? mappedBarrierId->second : borderId;
++
++    Debug::log(LOG, "[input-capture]  | activation mapping: internal barrier {} -> client barrier {}, mapped: {}, activationId {}, x {}, y {}", borderId, clientBarrierId,
++               mappedBarrierId != session->barrierIdMap.end(), activationId, x, y);
++
++    std::unordered_map<std::string, sdbus::Variant> results;
++    results["activation_id"]   = sdbus::Variant{activationId};
++    results["cursor_position"] = sdbus::Variant{sdbus::Struct<double, double>(x, y)};
++    results["barrier_id"]      = sdbus::Variant{clientBarrierId};
++
++    m_pObject->emitSignal("Activated").onInterface(INTERFACE_NAME).withArguments(sessionHandle, results);
++}
++
++void CInputCapturePortal::deactivate(sdbus::ObjectPath sessionHandle, uint32_t activationId) {
++    std::unordered_map<std::string, sdbus::Variant> options;
++    options["activation_id"] = sdbus::Variant{activationId};
++    m_pObject->emitSignal("Deactivated").onInterface(INTERFACE_NAME).withArguments(sessionHandle, options);
++}
++
++void CInputCapturePortal::disable(sdbus::ObjectPath sessionHandle) {
++    std::unordered_map<std::string, sdbus::Variant> options;
++    m_pObject->emitSignal("Disabled").onInterface(INTERFACE_NAME).withArguments(sessionHandle, options);
++}
+diff --git a/src/portals/InputCapture.hpp b/src/portals/InputCapture.hpp
+new file mode 100644
+index 00000000..30e66890
+--- /dev/null
++++ b/src/portals/InputCapture.hpp
+@@ -0,0 +1,73 @@
++#pragma once
++#include "../dbusDefines.hpp"
++#include "hyprland-input-capture-v1.hpp"
++#include "../includes.hpp"
++#include "../shared/Session.hpp"
++#include <sdbus-c++/Types.h>
++
++enum ClientStatus {
++    CREATED,   //Is ready to be activated
++    ENABLED,   //Is ready for receiving inputs
++    ACTIVATED, //Currently receiving inputs
++    STOPPED    //Can no longer be activated
++};
++
++struct SBarrier {
++    uint id;
++    int  x1, y1, x2, y2;
++};
++
++const static sdbus::InterfaceName INTERFACE_NAME = sdbus::InterfaceName{"org.freedesktop.impl.portal.InputCapture"};
++const static sdbus::ObjectPath    OBJECT_PATH    = sdbus::ObjectPath{"/org/freedesktop/portal/desktop"};
++
++class CInputCapturePortal {
++  public:
++    CInputCapturePortal(SP<CCHyprlandInputCaptureManagerV1> mgr);
++    void zonesChanged();
++
++  private:
++    struct {
++        SP<CCHyprlandInputCaptureManagerV1> manager;
++    } m_sState;
++
++    struct SSession {
++        SSession(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string sessionId, uint32_t capabilities, wl_proxy* proxy);
++
++        sdbus::ObjectPath requestHandle, sessionHandle;
++        std::string       sessionId;
++        uint32_t          capabilities = 0;
++        int32_t           eisFD        = -1;
++        bool              dead         = false;
++        std::unordered_map<uint32_t, uint32_t> barrierIdMap;
++
++        //
++        std::unique_ptr<SDBusRequest>             request;
++        std::unique_ptr<SDBusSession>             session;
++        std::unique_ptr<CCHyprlandInputCaptureV1> whandle;
++    };
++
++    std::unordered_map<std::string, const std::shared_ptr<SSession>> sessions;
++    //
++    std::unique_ptr<sdbus::IObject> m_pObject;
++    uint                            sessionCounter = 0;
++    uint                            lastZoneSet    = 1;
++    uint32_t                        barrierIdCounter = 1;
++
++    //
++    dbUasv        onCreateSession(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID, std::string parentWindow,
++                                  std::unordered_map<std::string, sdbus::Variant> options);
++    dbUasv        onGetZones(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onSetPointerBarriers(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts,
++                                       std::vector<std::unordered_map<std::string, sdbus::Variant>> barriers, uint32_t zoneSet);
++    dbUasv        onEnable(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onDisable(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onRelease(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts);
++    sdbus::UnixFd onConnectToEIS(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts);
++
++    bool          sessionValid(sdbus::ObjectPath sessionHandle);
++    void          removeSession(sdbus::ObjectPath sessionHandle);
++
++    void          activate(sdbus::ObjectPath sessionHandle, uint32_t activationId, double x, double y, uint32_t borderId);
++    void          deactivate(sdbus::ObjectPath sessionHandle, uint32_t activationId);
++    void          disable(sdbus::ObjectPath sessionHandle);
++};
+diff --git a/subprojects/hyprland-protocols b/subprojects/hyprland-protocols
+index 3a5c2bda..bd153e76 160000
+--- a/subprojects/hyprland-protocols
++++ b/subprojects/hyprland-protocols
+@@ -1 +1 @@
+-Subproject commit 3a5c2bda1c1a4e55cc1330c782547695a93f05b2
++Subproject commit bd153e76f751f150a09328dbdeb5e4fab9d23622
