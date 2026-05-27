@@ -65,22 +65,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "2e0903fc9ce477fd9b7e71fdc227bd5d38559023";
+    version = "021d832cf82ff75f1ce2e2512d101012e09d459b";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "2e0903fc9ce477fd9b7e71fdc227bd5d38559023";
+      rev = "021d832cf82ff75f1ce2e2512d101012e09d459b";
       fetchSubmodules = false;
-      sha256 = "sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=";
+      sha256 = "sha256-x1QI+T3G1grJXcoYeFHzY26thZTjSWK3q6qe2Q+ZCn0=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=/web/package-lock.json";
-    };date = "2026-05-24";
+      "web/package.json" = ./. + "/sha256-x1QI+T3G1grJXcoYeFHzY26thZTjSWK3q6qe2Q+ZCn0=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-x1QI+T3G1grJXcoYeFHzY26thZTjSWK3q6qe2Q+ZCn0=/web/package-lock.json";
+    };date = "2026-05-26";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.8.4";
+    version = "v1.8.5";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -108,15 +108,15 @@
   };
   dae = {
     pname = "dae";
-    version = "c7e02968f8baa425798b05dd4ab4142e3c20f568";
+    version = "3d15ff7d0c7e663c99c5ea2976b513580546f3eb";
     src = fetchFromGitHub {
       owner = "daeuniverse";
       repo = "dae";
-      rev = "c7e02968f8baa425798b05dd4ab4142e3c20f568";
+      rev = "3d15ff7d0c7e663c99c5ea2976b513580546f3eb";
       fetchSubmodules = true;
-      sha256 = "sha256-61yNOhRPSH5+Y4Y7G1hi3OHxkTBa4FpaA5JRUYIQETE=";
+      sha256 = "sha256-RnHaUBb0dR3yDqNu+tYuYxNH0FQMI3QBmKVDi5IGShk=";
     };
-    date = "2026-05-06";
+    date = "2026-05-27";
   };
   dae-stable = {
     pname = "dae-stable";
@@ -201,19 +201,19 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "c60dbfe31c0428eed62cad6299e26bee466dbe28";
+    version = "cd28c91ee0abdc8db5c8f1adea35c5dd7a2b58ac";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "c60dbfe31c0428eed62cad6299e26bee466dbe28";
+      rev = "cd28c91ee0abdc8db5c8f1adea35c5dd7a2b58ac";
       fetchSubmodules = false;
-      sha256 = "sha256-BezfSkw1ri7Au4s8EMcgQfiS1aLz7emBY4N+9z/TqoE=";
+      sha256 = "sha256-egNrqSCMndD55hgerhgpHHhT8fOZteKoZE6d6EbDxik=";
     };
-    date = "2026-03-31";
+    date = "2026-05-26";
   };
   flapalerted-stable = {
     pname = "flapalerted-stable";
-    version = "v4.4.1";
+    version = "v4.4.2";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -422,18 +422,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.10.6";
+    version = "1.10.7";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.6/NipaPlay_1.10.6_macOS_Universal.dmg";
-      sha256 = "sha256-rQvXIpZzQy85Yv/sdURZ6Hn1+7vKntgtKejC6Adyxgc=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.7/NipaPlay_1.10.7_macOS_Universal.dmg";
+      sha256 = "sha256-6plYETg+v3dQ2//Q/m2FXJm6QTfWkoXvCzERh0OjklU=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.10.6";
+    version = "1.10.7";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.6/NipaPlay-1.10.6-Linux-amd64.AppImage";
-      sha256 = "sha256-kosy4YsUsARXRz8AU0WbAfdKiGvzye32zuSuQPq85TA=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.7/NipaPlay-1.10.7-Linux-amd64.AppImage";
+      sha256 = "sha256-2K0+tnJGEs7V4eRAwgBPWhAVP1T1Ui2xN4CkrdjgSJ8=";
     };
   };
   pixy2 = {
@@ -485,14 +485,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "c822cdf3f17206fd1e3133b401a89447018ee5f7";
+    version = "86d6e2052c08dddafef8eb2ab313fee2631620f9";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "c822cdf3f17206fd1e3133b401a89447018ee5f7";
+      rev = "86d6e2052c08dddafef8eb2ab313fee2631620f9";
       fetchSubmodules = false;
-      sha256 = "sha256-2ORttMSRhraOnyyHd3R3WWNkEmv54Zl0rIbXOtVj05I=";
+      sha256 = "sha256-SVPSJrLQzjCxoPB0qVvWwZDCJfVQUKk0bzR+37g0LBw=";
     };
-    date = "2026-05-25";
+    date = "2026-05-26";
   };
 }

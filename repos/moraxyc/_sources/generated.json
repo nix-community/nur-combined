@@ -99,10 +99,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-05-24",
+        "date": "2026-05-26",
         "extract": {
-            "web/package-lock.json": "sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=/web/package-lock.json",
-            "web/package.json": "sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=/web/package.json"
+            "web/package-lock.json": "sha256-x1QI+T3G1grJXcoYeFHzY26thZTjSWK3q6qe2Q+ZCn0=/web/package-lock.json",
+            "web/package.json": "sha256-x1QI+T3G1grJXcoYeFHzY26thZTjSWK3q6qe2Q+ZCn0=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -114,12 +114,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "2e0903fc9ce477fd9b7e71fdc227bd5d38559023",
-            "sha256": "sha256-nHMxhbv1MT7jRLI9KtO+8T7RG9nhKc7iMMq4lDpg5fY=",
+            "rev": "021d832cf82ff75f1ce2e2512d101012e09d459b",
+            "sha256": "sha256-x1QI+T3G1grJXcoYeFHzY26thZTjSWK3q6qe2Q+ZCn0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2e0903fc9ce477fd9b7e71fdc227bd5d38559023"
+        "version": "021d832cf82ff75f1ce2e2512d101012e09d459b"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -134,7 +134,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v1.8.4"
+        "version": "v1.8.5"
     },
     "cronet-go": {
         "cargoLock": null,
@@ -174,7 +174,7 @@
     },
     "dae": {
         "cargoLock": null,
-        "date": "2026-05-06",
+        "date": "2026-05-27",
         "extract": null,
         "name": "dae",
         "passthru": null,
@@ -186,12 +186,12 @@
             "name": null,
             "owner": "daeuniverse",
             "repo": "dae",
-            "rev": "c7e02968f8baa425798b05dd4ab4142e3c20f568",
-            "sha256": "sha256-61yNOhRPSH5+Y4Y7G1hi3OHxkTBa4FpaA5JRUYIQETE=",
+            "rev": "3d15ff7d0c7e663c99c5ea2976b513580546f3eb",
+            "sha256": "sha256-RnHaUBb0dR3yDqNu+tYuYxNH0FQMI3QBmKVDi5IGShk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c7e02968f8baa425798b05dd4ab4142e3c20f568"
+        "version": "3d15ff7d0c7e663c99c5ea2976b513580546f3eb"
     },
     "dae-stable": {
         "cargoLock": null,
@@ -335,7 +335,7 @@
     },
     "flapalerted": {
         "cargoLock": null,
-        "date": "2026-03-31",
+        "date": "2026-05-26",
         "extract": null,
         "name": "flapalerted",
         "passthru": null,
@@ -347,12 +347,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "c60dbfe31c0428eed62cad6299e26bee466dbe28",
-            "sha256": "sha256-BezfSkw1ri7Au4s8EMcgQfiS1aLz7emBY4N+9z/TqoE=",
+            "rev": "cd28c91ee0abdc8db5c8f1adea35c5dd7a2b58ac",
+            "sha256": "sha256-egNrqSCMndD55hgerhgpHHhT8fOZteKoZE6d6EbDxik=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c60dbfe31c0428eed62cad6299e26bee466dbe28"
+        "version": "cd28c91ee0abdc8db5c8f1adea35c5dd7a2b58ac"
     },
     "flapalerted-stable": {
         "cargoLock": null,
@@ -367,7 +367,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v4.4.1"
+        "version": "v4.4.2"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -737,11 +737,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rQvXIpZzQy85Yv/sdURZ6Hn1+7vKntgtKejC6Adyxgc=",
+            "sha256": "sha256-6plYETg+v3dQ2//Q/m2FXJm6QTfWkoXvCzERh0OjklU=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.6/NipaPlay_1.10.6_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.7/NipaPlay_1.10.7_macOS_Universal.dmg"
         },
-        "version": "1.10.6"
+        "version": "1.10.7"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -752,11 +752,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kosy4YsUsARXRz8AU0WbAfdKiGvzye32zuSuQPq85TA=",
+            "sha256": "sha256-2K0+tnJGEs7V4eRAwgBPWhAVP1T1Ui2xN4CkrdjgSJ8=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.6/NipaPlay-1.10.6-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.7/NipaPlay-1.10.7-Linux-amd64.AppImage"
         },
-        "version": "1.10.6"
+        "version": "1.10.7"
     },
     "pixy2": {
         "cargoLock": null,
@@ -844,7 +844,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-05-25",
+        "date": "2026-05-26",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -856,11 +856,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "c822cdf3f17206fd1e3133b401a89447018ee5f7",
-            "sha256": "sha256-2ORttMSRhraOnyyHd3R3WWNkEmv54Zl0rIbXOtVj05I=",
+            "rev": "86d6e2052c08dddafef8eb2ab313fee2631620f9",
+            "sha256": "sha256-SVPSJrLQzjCxoPB0qVvWwZDCJfVQUKk0bzR+37g0LBw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c822cdf3f17206fd1e3133b401a89447018ee5f7"
+        "version": "86d6e2052c08dddafef8eb2ab313fee2631620f9"
     }
 }
