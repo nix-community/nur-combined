@@ -120,7 +120,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
   #  ${pkgs.aria2}/bin/aria2c -s65536 -j65536 -x16 -k1M "$@"
   #'';
   # audacity4 = nodarwin (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { });
-  cb = pkgs.callPackage ./pkgs/cb { };
   electron_castlabs_38 = pkgs.callPackage ./pkgs/electron-castlabs-38 { };
   cider = pkgs.callPackage ./pkgs/cider {
     electron = electron_castlabs_38;
@@ -128,14 +127,12 @@ lib.filesystem.packagesFromDirectoryRecursive {
   local-ai = pkgs.callPackage ./pkgs/local-ai/package.nix { };
   local-ai-cuda = local-ai.override { with_cublas = true; };
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
-  miscutil = pkgs.callPackage ./pkgs/miscutil { };
   gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
   browser-115-bin = pkgs.callPackage ./pkgs/115-browser-bin { };
   youku-bin = pkgs.callPackage ./pkgs/youku-bin/package.nix { };
   dtv = pkgs.callPackage ./pkgs/dtv/package.nix { };
   browseros = pkgs.callPackage ./pkgs/browseros { };
   icloud-for-linux = pkgs.callPackage ./pkgs/icloud-for-linux { };
-  icloud-mail = pkgs.callPackage ./pkgs/icloud-mail { };
   github-store = pkgs.callPackage ./pkgs/github-store { };
   # currently no changes so just use nixpkgs version of bionic-translation and art-standalone
   bionic-translation = pkgs.bionic-translation; # pkgs.callPackage ./pkgs/bionic-translation/package.nix { };

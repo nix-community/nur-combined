@@ -40,7 +40,11 @@ rustPlatform.buildRustPackage rec {
   cargoDeps = stdenv.mkDerivation {
     name = "dtv-vendor";
     inherit src;
-    nativeBuildInputs = [ rustPlatform.cargoSetupHook cargo cacert ];
+    nativeBuildInputs = [
+      rustPlatform.cargoSetupHook
+      cargo
+      cacert
+    ];
     buildPhase = ''
       export CARGO_HOME=$(mktemp -d)
       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
