@@ -21,24 +21,32 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sjtu-canvas-helper";
-  version = "2.0.4";
+  version = "3.0.2";
 
   src = fetchFromGitHub {
     owner = "Okabe-Rintarou-0";
     repo = "SJTU-Canvas-Helper";
     tag = "app-v${finalAttrs.version}";
-    hash = "sha256-O50nVE0AzXDmNUiilwOswivuGJKUrDJVquIumcPP6d4=";
+    hash = "sha256-CC26aVAPZkT6hhG+6iLIBdncl+jWgI9XxGaBMIbttbk=";
   };
 
-  cargoHash = "sha256-RPWhGLs36ODfphC6nO+72m+dV71kQ7MWvgDqIPCIKBY=";
-
+  cargoHash = "sha256-8Wwc/nchLvYQEdqGy70uizIx+mr2rc5Q42RvCFYPJow=";
   yarnOfflineCache = fetchYarnDeps {
-    yarnLock = finalAttrs.src + "/yarn.lock";
-    hash = "sha256-H3P7ObzOw+Solxk6BJ9ruue63MnUiSK3RszoV0OLZDY=";
+    yarnLock = ./yarn.lock;
+    hash = "sha256-d7HoZSDBVzmYTbR9nkXlWPXoTgtMTSYdIjv7Rzyv7MM=";
   };
 
-  postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
-    ${jq}/bin/jq '.bundle.createUpdaterArtifacts = false' src-tauri/tauri.conf.json | ${moreutils}/bin/sponge src-tauri/tauri.conf.json
+  postPatch = ''
+    # Replace upstream yarn.lock with our regenerated one that
+    # includes the missing @ant-design/colors resolution and
+    # pins @tauri-apps/plugin-dialog to match the Rust crate.
+    cp ${./yarn.lock} yarn.lock
+    # Also patch package.json to match: dialog lockfile entry uses exact 2.4.2
+    ${lib.getExe jq} '.dependencies."@tauri-apps/plugin-dialog" = "2.4.2"' package.json |\
+      ${lib.getExe' moreutils "sponge"} package.json
+  '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+    ${lib.getExe jq} '.bundle.createUpdaterArtifacts = false' src-tauri/tauri.conf.json |\
+      ${lib.getExe' moreutils "sponge"} src-tauri/tauri.conf.json
   '';
 
   nativeBuildInputs = [

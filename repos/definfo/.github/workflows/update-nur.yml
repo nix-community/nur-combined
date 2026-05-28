@@ -15,7 +15,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
       - name: Install nix
@@ -27,7 +27,7 @@ jobs:
       - name: Update package version
         uses: definfo/nix-update-action@94f7c65342dd5fe1bfea392d46f3e51b01beb34a # v1.1.1
         with:
-          blacklist: "aya,aya-minimal,nsub" # aya/aya-minimal: dedup; nsub: archived
+          blacklist: "nsub,sjtu-canvas-helper" # nsub: archived; sjtu-canvas-helper: patched
           pr-labels: |
             auto merge
             package-update

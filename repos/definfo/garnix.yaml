@@ -1,5 +1,0 @@
-builds:
-  - exclude:
-      - "packages.x86_64-darwin.waylrc"
-      - "packages.aarch64-darwin.waylrc"
-

@@ -33,7 +33,6 @@
       systems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
 
@@ -55,7 +54,6 @@
             projectRootFile = "flake.nix";
             settings.global.excludes = [
               ".github/dependabot.yml"
-              "garnix.yaml"
               "LICENSE"
             ];
 
@@ -69,7 +67,7 @@
               };
               shfmt.enable = true;
               statix.enable = true;
-              # zizmor.enable = true;
+              zizmor.enable = true;
             };
           };
 
@@ -88,7 +86,7 @@
 
           packages = lib.filterAttrs (_: v: lib.isDerivation v) self'.legacyPackages;
 
-          devShells.default = pkgs.mkShell {
+          devShells.default = pkgs.mkShellNoCC {
             inputsFrom = [
               config.treefmt.build.devShell
               config.pre-commit.devShell

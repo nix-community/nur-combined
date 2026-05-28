@@ -1,0 +1,5 @@
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        actions/checkout: ref-pin
