@@ -117,8 +117,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   patches = [
     # https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/pull/123
     (fetchpatch2 {
-      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/compare/022043f0eb683ee51a0a0f087368a4d26c0e393a...04b39b81d766a833999a639991070c58ddadb2ea.diff?full_index=1";
-      hash = "sha256-JD74TZqufoOq0PuWEF04jC5OIg1eIzfsVFgRIE4wp/o=";
+      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/compare/022043f0eb683ee51a0a0f087368a4d26c0e393a...b17f9e792416a16cdd6df3c53140bd71eeb954a1.diff?full_index=1";
+      hash = "sha256-ddMmEcr3Tw6SY2qRdrXkd8d4dq4gXds7vMNCQuncPPU=";
     })
   ];
 
@@ -170,10 +170,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
     (makeDesktopItem {
       name = "cdumm";
       desktopName = "CDUMM";
-      genericName = "Crimson Desert Ultimate Mods Manager";
+      genericName = "Mod Manager";
+      comment = "Crimson Desert Ultimate Mods Manager";
       icon = "cdumm";
       exec = "cdumm";
+      terminal = false;
       categories = [ "Utility" ];
+      startupNotify = true;
+      startupWMClass = "cdumm";
     })
   ];
 
@@ -199,7 +203,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   preFixup = ''
     makeWrapperArgs+=(
-      --suffix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+      --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
     )
   '';
 
