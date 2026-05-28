@@ -19,8 +19,6 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  cc-switch = pkgs.callPackage ./pkgs/cc-switch { };
-  cc-switch-cli = pkgs.callPackage ./pkgs/cc-switch-cli { };
   dnsmasq-china-list_smartdns = pkgs.callPackage ./pkgs/dnsmasq-china-list_smartdns { };
   kikoplay = pkgs.callPackage ./pkgs/kikoplay { };
   nsub = pkgs.callPackage ./pkgs/nsub { };
