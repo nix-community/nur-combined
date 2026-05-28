@@ -5,13 +5,13 @@
 }:
 buildGoModule (final: {
   pname = "palgen";
-  version = "1.7.0-unstable-2026-04-25";
+  version = "1.7.2-unstable-2026-05-28";
 
   src = fetchFromGitHub {
     owner = "xyproto";
     repo = final.pname;
-    rev = "97218961a46dc6432c6d784c34800da34f4f8dc3";
-    hash = "sha256-pGtpjRnebUT8eNC2tZswNi4CDwhtyexBC3cFCF2jjGY=";
+    rev = "81f35d44df66ab8352532bb8a42d403294a9f691";
+    hash = "sha256-dYN4mCtYP1Gvn0gZvcb2UyEcPWw+WG0/83afuh4B3FQ=";
   };
 
   vendorHash = null;
