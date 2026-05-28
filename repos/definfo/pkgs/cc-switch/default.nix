@@ -40,7 +40,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src patches;
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      patches
+      ;
     inherit pnpm;
     fetcherVersion = 3;
     hash = "sha256-KrE22BMYN2Yl/AlHJYc8WRVaFEwFWZBk6cbvwKhV/Qo=";
