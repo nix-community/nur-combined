@@ -9,12 +9,12 @@
 in
   pkgs.buildNpmPackage rec {
     pname = "obsidian-excalidraw-plugin";
-    version = "2.23.6";
+    version = "2.23.7";
 
     src = pkgs.fetchFromGitHub {
       inherit owner repo;
       rev = version;
-      sha256 = "sha256-+3TIcluewrWV93iuSCBbD8Gpx0qdt3JAPgblPUb/JEA=";
+      sha256 = "sha256-n51/POxIfu0yJ2QMNiI+AhxosOfQCxYjYRgjk6oVnoE=";
     };
 
     passthru.updateScript =
@@ -33,13 +33,16 @@ in
         git clone --quiet --config advice.detachedHead=false --depth 1 --branch "$TAG" "https://github.com/${owner}/${repo}" "$WORKDIR"
         pushd "$WORKDIR" > /dev/null
         npm install --package-lock-only --ignore-scripts
+
+        sed -i 's/\r$//' package-lock.json
+
         popd > /dev/null
         cp "$WORKDIR/package-lock.json" pkgs/${pname}/
 
         nix-update ${pname} --flake
       '';
 
-    npmDepsHash = "sha256-DnP2Gx7uly1652AlVnW+TbETVsZTgoYU5gvDVvl50wc=";
+    npmDepsHash = "sha256-7OTdQ+2zUOPFLrXInrrWfDtuGZ/5E9yEPcx8KzZan5w=";
 
     patches =
       [

@@ -32,6 +32,9 @@ in
         git clone --quiet --config advice.detachedHead=false --depth 1 --branch "$TAG" "https://github.com/${owner}/${repo}" "$WORKDIR"
         pushd "$WORKDIR" > /dev/null
         npm install --package-lock-only --ignore-scripts
+
+        sed -i 's/\r$//' package-lock.json
+
         popd > /dev/null
         cp "$WORKDIR/package-lock.json" pkgs/${pname}/
 
