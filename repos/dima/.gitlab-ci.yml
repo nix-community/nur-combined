@@ -29,3 +29,4 @@ build_flakes:
           - obsidian-privacy-screen
           - rich-13-9-4
           - rich-argparse-rich-13-9-4
+          - playit-agent

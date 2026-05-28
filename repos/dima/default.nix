@@ -5,6 +5,7 @@ rec {
 	imohash = pkgs.callPackage ./pkgs/imohash { };
 	hashdir = pkgs.callPackage ./pkgs/hashdir { inherit imohash; };
 	jdnbtexplorer = pkgs.callPackage ./pkgs/jdnbtexplorer { inherit nbt; };
+	playit-agent = pkgs.callPackage ./pkgs/playit-agent { };
 	mdremotifier = pkgs.callPackage ./pkgs/mdremotifier { inherit rich-13-9-4 rich-argparse-rich-13-9-4; };
 	nbt = pkgs.callPackage ./pkgs/nbt { };
 	obsidian-better-markdown-links = pkgs.callPackage ./pkgs/obsidian-better-markdown-links { };
