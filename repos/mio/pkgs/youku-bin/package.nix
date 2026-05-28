@@ -32,6 +32,8 @@
   libxi,
   libxrender,
   libxscrnsaver,
+  libXtst,
+  gtk3,
   nspr,
   nss,
   pango,
@@ -89,6 +91,8 @@ stdenv.mkDerivation (finalAttrs: {
     libxi
     libxrender
     libxscrnsaver
+    libXtst
+    gtk3
     zlib
     stdenv.cc.cc.lib
     systemd
@@ -117,9 +121,9 @@ stdenv.mkDerivation (finalAttrs: {
     # Fix desktop file
     if [ -f "$out/share/applications/YouKu.desktop" ]; then
       substituteInPlace "$out/share/applications/YouKu.desktop" \
-        --replace-fail "/opt/优酷/YouKu" "youku" \
-        --replace-fail "/opt/优酷/resources/assets/images/app_icon32.png" "youku" \
-        --replace-fail "Categories=Viedo;" "Categories=AudioVideo;"
+        --replace-warn "/opt/优酷/YouKu" "youku" \
+        --replace-warn "/opt/优酷/resources/assets/images/app_icon32.png" "youku" \
+        --replace-warn "Categories=Viedo;" "Categories=AudioVideo;"
       
       mv "$out/share/applications/YouKu.desktop" "$out/share/applications/youku.desktop"
     fi

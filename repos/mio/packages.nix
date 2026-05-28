@@ -132,6 +132,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
   gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
   browser-115-bin = pkgs.callPackage ./pkgs/115-browser-bin { };
   youku-bin = pkgs.callPackage ./pkgs/youku-bin/package.nix { };
+  dtv = pkgs.callPackage ./pkgs/dtv/package.nix { };
   browseros = pkgs.callPackage ./pkgs/browseros { };
   icloud-for-linux = pkgs.callPackage ./pkgs/icloud-for-linux { };
   icloud-mail = pkgs.callPackage ./pkgs/icloud-mail { };
