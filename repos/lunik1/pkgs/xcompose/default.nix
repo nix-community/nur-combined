@@ -6,15 +6,15 @@
   perl,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "xcompose";
-  version = "unstable-2024-03-11";
+  version = "unstable-2025-06-05";
 
   src = fetchFromGitHub {
     owner = "kragen";
     repo = "xcompose";
-    rev = "8b5a6a0c788fd0a4b921d9d3737174defb863873";
-    sha256 = "sha256-6EjQErdBOd5hqcrdaf88E1UZVYIc3FOfv34hvUwOWdA=";
+    rev = "4d8eab4d05a19537ce79294ae0459fdae78ffb20";
+    sha256 = "sha256-vKY4u5Z2IL111orLLkkF4AoVzqluKG/VQhNUUCqO/k8=";
   };
 
   nativeBuildInputs = [
