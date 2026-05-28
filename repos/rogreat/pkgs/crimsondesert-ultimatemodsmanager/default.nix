@@ -117,8 +117,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   patches = [
     # https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/pull/123
     (fetchpatch2 {
-      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/compare/6c21db655270db9b002a2f49931972ab3af7e2ad...f9766aa4b5c5d3643288d221ea73065edf82cbe6.diff?full_index=1";
-      hash = "sha256-hMUZM0LTUFm4FpMCQ6so5VfeIlCOX5zqSXs43bKKp3k=";
+      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/compare/022043f0eb683ee51a0a0f087368a4d26c0e393a...04b39b81d766a833999a639991070c58ddadb2ea.diff?full_index=1";
+      hash = "sha256-JD74TZqufoOq0PuWEF04jC5OIg1eIzfsVFgRIE4wp/o=";
     })
   ];
 
