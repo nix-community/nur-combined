@@ -14,4 +14,10 @@ in
 		inherit pname version;
 
 		cargoHash = "sha256-Wf8eJTSTAxo56t/ImRXzn7wl1mo4y4D/TQ5JHGoPCrc=";
+
+		meta = with pkgs.lib; {
+			homepage = "https://github.com/playit-cloud/playit-agent";
+			license = licenses.bsd2;
+			description = "Make Your Game Server Public in Minutes";
+		};
 	}
