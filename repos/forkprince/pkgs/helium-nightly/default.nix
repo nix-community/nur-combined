@@ -11,12 +11,11 @@
   ...
 }: let
   ver = lib.helper.read ./version.json;
-  platform = stdenvNoCC.hostPlatform.system;
 
   pname = "helium";
-  src = fetchurl (lib.helper.getPlatform platform ver);
+  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
-  version = lib.helper.getVersion platform ver;
+  version = lib.helper.getVersion stdenvNoCC.hostPlatform.system ver;
 
   meta = {
     description = "Private, fast, and honest web browser (nightly builds)";
@@ -31,36 +30,24 @@
 in
   if stdenvNoCC.isDarwin
   then
-    stdenvNoCC.mkDerivation {
+    stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
       nativeBuildInputs = [_7zz];
 
-      sourceRoot = ".";
-
-      dontBuild = true;
-      dontFixup = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        cp -r Helium.app $out/Applications/
-        runHook postInstall
-      '';
-
       # installPhase = ''
       #   runHook preInstall
-
+      #
       #   mkdir -p $out/Applications
       #   cp -r Helium.app $out/Applications/
-
+      #
       #   ${lib.optionalString enableWidevine ''
       #     cp -R "${google-chrome}/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Libraries/WidevineCdm" "$out/Applications/Helium.app/Contents/Frameworks/Helium Framework.framework/Libraries"
       #   ''}
-
+      #
       #   runHook postInstall
       # '';
-    }
+    })
   else
     appimageTools.wrapType2 {
       inherit pname version src;

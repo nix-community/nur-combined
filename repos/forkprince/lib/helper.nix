@@ -191,4 +191,46 @@
     in
       plat.version or ver.version
     else ver.version;
+
+  mkDarwin = {
+    pname,
+    version,
+    src,
+    meta,
+    nativeBuildInputs ? [],
+    unpackPhase ? null,
+    postFixup ? null,
+    extraInstall ? "",
+  }:
+    {
+      inherit pname version src;
+
+      sourceRoot = ".";
+
+      dontBuild = true;
+      dontFixup = postFixup == null;
+
+      inherit nativeBuildInputs;
+    }
+    // lib.optionalAttrs (unpackPhase != null) {inherit unpackPhase;}
+    // lib.optionalAttrs (postFixup != null) {inherit postFixup;}
+    // {
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/Applications
+        app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
+        cp -R "$app" $out/Applications/
+
+        ${extraInstall}
+
+        runHook postInstall
+      '';
+
+      meta =
+        {
+          platforms = lib.platforms.darwin;
+          sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+        }
+        // meta;
+    };
 }

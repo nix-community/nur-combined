@@ -27,32 +27,20 @@
 in
   if stdenv.isDarwin
   then
-    stdenv.mkDerivation {
+    stdenv.mkDerivation (lib.helper.mkDarwin {
       inherit pname;
       inherit (ver) version;
+
+      src = fetchurl (lib.helper.getSingle ver);
+
+      nativeBuildInputs = [unzip];
 
       meta =
         base
         // {
           sourceProvenance = [lib.sourceTypes.binaryNativeCode];
         };
-
-      src = fetchurl (lib.helper.getSingle ver);
-
-      nativeBuildInputs = [unzip];
-
-      sourceRoot = ".";
-
-      dontBuild = true;
-      dontFixup = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        cp -r "MoonPlayer.app" $out/Applications/
-        runHook postInstall
-      '';
-    }
+    })
   else
     stdenv.mkDerivation rec {
       inherit pname;

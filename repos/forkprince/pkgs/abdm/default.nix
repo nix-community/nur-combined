@@ -17,10 +17,9 @@
   lib,
 }: let
   ver = lib.helper.read ./version.json;
-  platform = stdenvNoCC.hostPlatform.system;
 
   pname = "ab-download-manager";
-  src = fetchurl (lib.helper.getPlatform platform ver);
+  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
   inherit (ver) version;
 
@@ -36,21 +35,9 @@
 in
   if stdenvNoCC.isDarwin
   then
-    stdenvNoCC.mkDerivation {
+    stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
-
-      sourceRoot = ".";
-
-      dontBuild = true;
-      dontFixup = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        cp -r ABDownloadManager.app $out/Applications/
-        runHook postInstall
-      '';
-    }
+    })
   else
     stdenvNoCC.mkDerivation rec {
       inherit pname version src meta;

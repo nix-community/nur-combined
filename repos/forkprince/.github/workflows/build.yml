@@ -1,7 +1,6 @@
 name: "Build/Populate Cache"
 on:
   push:
-    branches: [main]
   schedule:
     - cron: '05 7 * * *'
   workflow_dispatch:
@@ -170,7 +169,7 @@ jobs:
 
   tests:
     needs: update
-    if: always() && needs.update.result != 'failure' && github.ref == 'refs/heads/main'
+    if: always() && needs.update.result != 'failure'
 
     strategy:
       matrix:
@@ -190,7 +189,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          ref: main
+          ref: ${{ github.ref_name }}
 
       - name: Maximize Space
         if: runner.os == 'Linux'
@@ -208,6 +207,7 @@ jobs:
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
       - name: Setup Cachix
+        if: github.ref == 'refs/heads/main'
         uses: cachix/cachix-action@v17
         with:
           name: forkprince
@@ -239,7 +239,7 @@ jobs:
           fi
 
       - name: Notify Build Failures
-        if: steps.build.outcome == 'failure'
+        if: steps.build.outcome == 'failure' && github.ref == 'refs/heads/main'
         run: |
           payload=$(jq -n \
             --arg title "❌ NUR build failures on ${{ matrix.os }}" \

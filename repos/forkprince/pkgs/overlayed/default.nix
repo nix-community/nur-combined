@@ -4,44 +4,25 @@
   fetchurl,
   unzip,
   lib,
-  ...
 }:
 if stdenvNoCC.isDarwin
 then let
   ver = lib.helper.read ./version.json;
-
-  src = fetchurl (lib.helper.getSingle ver);
-
-  inherit (ver) version;
 in
-  stdenvNoCC.mkDerivation {
+  stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
     pname = "overlayed";
+    inherit (ver) version;
 
-    inherit version src;
+    src = fetchurl (lib.helper.getSingle ver);
 
     nativeBuildInputs = [unzip];
-
-    sourceRoot = ".";
-
-    dontBuild = true;
-    dontFixup = true;
-
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/Applications
-      app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
-      cp -R "$app" $out/Applications/
-      runHook postInstall
-    '';
 
     meta = {
       description = "Modern discord voice chat overlay";
       homepage = "https://github.com/overlayeddev/overlayed";
-      changelog = "https://github.com/overlayeddev/overlayed/releases/tag/v${version}";
+      changelog = "https://github.com/overlayeddev/overlayed/releases/tag/v${ver.version}";
       maintainers = with lib.maintainers; [Prinky];
       license = lib.licenses.agpl3Plus;
-      platforms = lib.platforms.darwin;
-      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
-  }
+  })
 else overlayed

@@ -6,7 +6,6 @@
   fetchurl,
   unzip,
   lib,
-  ...
 }: let
   ver = lib.helper.read ./version.json;
   platform = stdenvNoCC.hostPlatform.system;
@@ -19,32 +18,17 @@
     description = "Fluxer desktop client";
     homepage = "https://fluxer.app";
     license = lib.licenses.agpl3Only;
-    platforms = lib.platforms.unix;
     mainProgram = "fluxer-bin";
     maintainers = with lib.maintainers; [WoutFontaine Prinky];
-    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
   if stdenvNoCC.isDarwin
   then
-    stdenvNoCC.mkDerivation {
+    stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
       nativeBuildInputs = [unzip];
-
-      sourceRoot = ".";
-
-      dontBuild = true;
-      dontFixup = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
-        cp -R "$app" $out/Applications/
-        runHook postInstall
-      '';
-    }
+    })
   else let
     appimageContents = appimageTools.extractType2 {inherit pname version src;};
 

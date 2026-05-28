@@ -36,13 +36,12 @@
   nss,
 }: let
   ver = lib.helper.read ./version.json;
-  platform = stdenv.hostPlatform.system;
 
   pname = "waterfox";
 
   inherit (ver) version;
 
-  src = fetchurl (lib.helper.getPlatform platform ver);
+  src = fetchurl (lib.helper.getPlatform stdenv.hostPlatform.system ver);
 
   meta = {
     description = "Fast and Private Web Browser";
@@ -57,23 +56,11 @@
 in
   if stdenv.isDarwin
   then
-    stdenv.mkDerivation {
+    stdenv.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
       nativeBuildInputs = [_7zz];
-
-      sourceRoot = ".";
-
-      dontBuild = true;
-      dontFixup = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        cp -r Waterfox.app $out/Applications/
-        runHook postInstall
-      '';
-    }
+    })
   else let
     desktopItem = makeDesktopItem {
       name = "waterfox";

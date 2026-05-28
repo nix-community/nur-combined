@@ -23,7 +23,7 @@ in
     url = "https://github.com/ForkPrince/tap/raw/c60a096fb2552904ec5eada157bcc8427eba13d9/Apps/Note%20Block%20Studio.dmg";
     name = lib.helper.extractName url;
   in
-    stdenv.mkDerivation {
+    stdenv.mkDerivation (lib.helper.mkDarwin {
       inherit pname version meta;
 
       src = fetchurl {
@@ -32,20 +32,7 @@ in
       };
 
       nativeBuildInputs = [_7zz];
-
-      sourceRoot = ".";
-
-      dontBuild = true;
-      dontFixup = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
-        cp -R "$app" $out/Applications/
-        runHook postInstall
-      '';
-    }
+    })
   else let
     url = "https://github.com/ForkPrince/homebrew-tap/raw/refs/heads/main/Apps/Minecraft%20Note%20Block%20Studio%20(Snapshot%202025.08.02).appimage";
     name = lib.helper.extractName url;

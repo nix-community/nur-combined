@@ -4,15 +4,12 @@
   beeper,
   unzip,
   lib,
-  ...
 }: let
   ver = lib.helper.read ./version.json;
-  platform = stdenvNoCC.hostPlatform.system;
 
   pname = "beeper-nightly";
-  name = "${pname}-${version}";
 
-  src = fetchurl (lib.helper.getPlatform platform ver);
+  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 
   inherit (ver) version;
 
@@ -36,21 +33,10 @@
 in
   if stdenvNoCC.isDarwin
   then
-    stdenvNoCC.mkDerivation {
+    stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
       nativeBuildInputs = [unzip];
-
-      sourceRoot = ".";
-
-      dontBuild = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        cp -r "Beeper Nightly.app" $out/Applications/
-        runHook postInstall
-      '';
 
       postFixup = ''
         # FIXME: These are broken
@@ -73,8 +59,8 @@ in
           sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$f"
         done
       '';
-    }
+    })
   else
     beeper.overrideAttrs (old: {
-      inherit pname name version src meta;
+      inherit pname version src meta;
     })

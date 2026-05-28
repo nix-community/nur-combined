@@ -4,7 +4,6 @@
   fetchurl,
   _7zz,
   lib,
-  ...
 }: let
   ver = lib.helper.read ./version.json;
   platform = stdenvNoCC.hostPlatform.system;
@@ -21,30 +20,15 @@
     license = lib.licenses.mit;
     # platforms = lib.platforms.darwin ++ ["x86_64-linux"];
     # FIXME: Linux version does not work
-    platforms = lib.platforms.darwin;
-    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
   if stdenvNoCC.isDarwin
   then
-    stdenvNoCC.mkDerivation {
+    stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
       nativeBuildInputs = [_7zz];
-
-      sourceRoot = ".";
-
-      dontBuild = true;
-      dontFixup = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
-        cp -R "$app" $out/Applications/
-        runHook postInstall
-      '';
-    }
+    })
   else
     appimageTools.wrapType2 {
       inherit pname version src meta;
