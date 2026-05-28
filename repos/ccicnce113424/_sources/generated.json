@@ -29,27 +29,6 @@
         },
         "version": "5.1.0"
     },
-    "danmakufactory": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "danmakufactory",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "hihkm",
-            "repo": "DanmakuFactory",
-            "rev": "v1.70",
-            "sha256": "sha256-dPgWVJuNOzTc+ocMyGHBb4ExB9P1Wu+uTQ62UejAAfE=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v1.70"
-    },
     "dxvk-gplall": {
         "cargoLock": null,
         "date": null,
@@ -617,7 +596,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
             "sparseCheckout": [],
             "type": "github"
         },

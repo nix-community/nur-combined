@@ -22,17 +22,6 @@
       sha256 = "sha256-nYMDNSpyyCHRKIBhP++sA7FmodSHBUwRSPEM8yLFaF0=";
     };
   };
-  danmakufactory = {
-    pname = "danmakufactory";
-    version = "v1.70";
-    src = fetchFromGitHub {
-      owner = "hihkm";
-      repo = "DanmakuFactory";
-      rev = "v1.70";
-      fetchSubmodules = false;
-      sha256 = "sha256-dPgWVJuNOzTc+ocMyGHBb4ExB9P1Wu+uTQ62UejAAfE=";
-    };
-  };
   dxvk-gplall = {
     pname = "dxvk-gplall";
     version = "2.7.1-4";
@@ -378,7 +367,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

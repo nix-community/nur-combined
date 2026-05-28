@@ -12,19 +12,6 @@ lib.makeScope pkgs.newScope (self: {
 
   daed = self.callPackage ./daed/package.nix { };
 
-  danmakufactory = self.callPackage ./danmakufactory rec {
-    sources = fetchedSrc.danmakufactory;
-    version = stableVersion sources;
-  };
-  # danmakufactory-git =
-  #   (self.callPackage ./danmakufactory-git rec {
-  #     sources = fetchedSrc.danmakufactory-git;
-  #     version = unstableVersion sources;
-  #   }).overrideAttrs
-  #     {
-  #       meta.broken = true;
-  #     };
-
   dxvk-gplall-bin-w32 = self.callPackage ./dxvk-gplall-bin rec {
     sources = fetchedSrc.dxvk-gplall;
     inherit (sources) version;
