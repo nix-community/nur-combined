@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pnpm_10_29_2,
+  pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
@@ -23,7 +23,7 @@
 }:
 let
   electron = electron_41;
-  pnpm = pnpm_10_29_2;
+  pnpm = pnpm_10;
   shareDir = "$out/share/SPlayer-Next";
 in
 stdenv.mkDerivation (finalAttrs: {

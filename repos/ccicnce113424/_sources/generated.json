@@ -307,7 +307,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-sirb+K8WKLpid6ggh+QPxcxJ71dElLOnEujlyqzKIPQ=/src-tauri/Cargo.lock",
+                "sha256-FX9TVyVoe8X1P0H0Uk2MjrL1yoAYngXuB6L4SiFqLrI=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -323,12 +323,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.1-beta.4",
-            "sha256": "sha256-sirb+K8WKLpid6ggh+QPxcxJ71dElLOnEujlyqzKIPQ=",
+            "rev": "v3.9.2-beta.1",
+            "sha256": "sha256-FX9TVyVoe8X1P0H0Uk2MjrL1yoAYngXuB6L4SiFqLrI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.1-beta.4"
+        "version": "v3.9.2-beta.1"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -493,13 +493,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Hn9Ep579Jk7i5U5rXTuTz6O6Mg5+QOYCn5_MqQM3yf8=/Cargo.lock",
+                "sha256-oplnXXFDC7sem0W6mlJygnSqE95evHTkxb9y8RSLEu4=/Cargo.lock",
                 {
-                    "ffmpeg_audio-0.1.0": "sha256-IDrlbzwqTALZDJklAwEuRtPN1OFQobZz+MEdkmc7tqQ="
+                    "ffmpeg_audio-0.1.0": "sha256-DWPgG3DSKXi7rUCEt7nM+RevtKXx3QPLHRrV3Sq0Xo0="
                 }
             ]
         },
-        "date": "2026-05-26",
+        "date": "2026-05-28",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -511,12 +511,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "5d8c715eb89c3de1608ac4c6e4f755726de0377d",
-            "sha256": "sha256-Hn9Ep579Jk7i5U5rXTuTz6O6Mg5+QOYCn5/MqQM3yf8=",
+            "rev": "439e06aac4fd7cdb1d7cfae9fc5817491948645c",
+            "sha256": "sha256-oplnXXFDC7sem0W6mlJygnSqE95evHTkxb9y8RSLEu4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5d8c715eb89c3de1608ac4c6e4f755726de0377d"
+        "version": "439e06aac4fd7cdb1d7cfae9fc5817491948645c"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -596,7 +596,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
+            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -604,7 +604,7 @@
     },
     "uosc-danmaku-git": {
         "cargoLock": null,
-        "date": "2026-04-13",
+        "date": "2026-05-28",
         "extract": null,
         "name": "uosc-danmaku-git",
         "passthru": null,
@@ -616,12 +616,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "180e555678bb5a4465ee2efb29ffdde64cddc3cc",
-            "sha256": "sha256-WzVGwUDam6oLDxD/a8hCsSC1HRFkMExint09KMLn7qI=",
+            "rev": "9048f905c18c9fada3147c786075e5ab0ef83e36",
+            "sha256": "sha256-ckqkHfZklZRN/IkSwjMOD7n3sLhZq2S9BhJnOcGEnec=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "180e555678bb5a4465ee2efb29ffdde64cddc3cc"
+        "version": "9048f905c18c9fada3147c786075e5ab0ef83e36"
     },
     "wild": {
         "cargoLock": {
