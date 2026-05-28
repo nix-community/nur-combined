@@ -9,19 +9,19 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "1bsls3q43dc14iiqlr1iyxh0kadfp5vq1kz18p5zr39h47rhbxs4";
-    x86_64-linux = "1gls42qk6lnj55q7a3mcyv0gaganbsb5qsvh166cnypppr64rp33";
-    aarch64-linux = "1h6ix3zj0v1sczmqz8mcac2w2jzz4halwyiprzrad6ch24xai4jw";
-    x86_64-darwin = "0v23zycl8pj1nggl7q7dj7gk1x808m9ps6n90niksqc4vvalpfjp";
-    aarch64-darwin = "1nafv0b8a8ywz51ziag5dnr54bxmpqdpmyrv2xylpiwi3g1bkq03";
+    i686-linux = "0x0g68gim8jpiscsa1spjlp80k844hq890xd2mwqmgqn66icp3c1";
+    x86_64-linux = "1lr19859c6bmiksps38s816svgyajxvrc6wzfmi8h2rlvm4sh3nn";
+    aarch64-linux = "00hsbdd10ch3nvf8p9ijrf4q7qka5zi4fafk6n25bn7iakh2406m";
+    x86_64-darwin = "0ghrzjain23kygm1smsfmplvppi8cndmzz3rak1dwdpnsly3fh69";
+    aarch64-darwin = "0pgjn4l06qsniisjm651awdj7srd2616dny5bk4ridal61q4c38n";
   };
 
   urlMap = {
-    i686-linux = "https://download.runway.horse/runway/1.40.0/runway_Linux_i386.tar.gz";
-    x86_64-linux = "https://download.runway.horse/runway/1.40.0/runway_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://download.runway.horse/runway/1.40.0/runway_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://download.runway.horse/runway/1.40.0/runway_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://download.runway.horse/runway/1.40.0/runway_Darwin_arm64.tar.gz";
+    i686-linux = "https://download.runway.horse/runway/1.41.0/runway_Linux_i386.tar.gz";
+    x86_64-linux = "https://download.runway.horse/runway/1.41.0/runway_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://download.runway.horse/runway/1.41.0/runway_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://download.runway.horse/runway/1.41.0/runway_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://download.runway.horse/runway/1.41.0/runway_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
     i686-linux = "runway_Linux_i386";
@@ -33,7 +33,7 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "runway";
-  version = "1.40.0";
+  version = "1.41.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
