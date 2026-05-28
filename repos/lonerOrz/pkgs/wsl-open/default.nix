@@ -6,7 +6,7 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "wsl-open";
-  version = "0-unstable-2026-05-17";
+  version = "0.1.0-unstable-2026-05-17";
 
   # https://github.com/lonerOrz/wsl-open.git
   src = fetchFromGitHub {
