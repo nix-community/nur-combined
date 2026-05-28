@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildMozillaXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.8.1";
+      version = "1.8.2";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4786178/2fas_two_factor_authentication-1.8.1.xpi";
-      sha256 = "0ce73b62fa4b05cc1464c041f5b12c30e276c3095072bce9775b464a82289226";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824064/2fas_two_factor_authentication-1.8.2.xpi";
+      sha256 = "4d00800f721896ded87b3a639434b8419573d5fd4b85003ad5edd2d8f14c180a";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -2905,10 +2905,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260525.130955";
+      version = "152.0.20260527.90612";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4821791/dansk_da_language_pack-151.0.20260525.130955.xpi";
-      sha256 = "28b0094ef516433fe3d54997a9c67de46ced314792225fb69b8686e0f6275bf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824520/dansk_da_language_pack-152.0.20260527.90612.xpi";
+      sha256 = "c76f7f398fb665e72f66965ed3463c16aa19554aa8eae49d526937d4f7c67a93";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3121,10 +3121,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260525.130955";
+      version = "152.0.20260527.90612";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4821796/deutsch_de_language_pack-151.0.20260525.130955.xpi";
-      sha256 = "54e0928e3c610eb2d84ac23755fd9fc6242ab250a31e95bba9a90c24482b3420";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824522/deutsch_de_language_pack-152.0.20260527.90612.xpi";
+      sha256 = "f05063eafda9cfdd0b05954401179395306b4111c6d2f5d2cb037b2a8f3373c2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4605,10 +4605,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260525.130955";
+      version = "152.0.20260527.90612";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4821797/francais_language_pack-151.0.20260525.130955.xpi";
-      sha256 = "174b22bb110c1feefe5cf534839813b8194e9d4c88108182601cb917e4665814";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824450/francais_language_pack-152.0.20260527.90612.xpi";
+      sha256 = "e6a74de120f1e8f9b4798c20d93e575e74bbe4b215f0054f131fbee4488c2824";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4642,10 +4642,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260525.130955";
+      version = "152.0.20260527.90612";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4821819/gaidhlig_language_pack-151.0.20260525.130955.xpi";
-      sha256 = "c3208d4d3b35de57a962549005ac51acd70c724bdeecdfb57202b0fd57971a9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824538/gaidhlig_language_pack-152.0.20260527.90612.xpi";
+      sha256 = "f382a5e7239f77a3497278003f640f3913d26d196ec69ed75d0d3d63be3d9ea7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9857,10 +9857,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.1.1";
+      version = "1.2.0";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4814002/mergify-1.1.1.xpi";
-      sha256 = "7f9a736281ddbe01403210de0bfbe8713e197b3829ac396469fcb792c4454757";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824199/mergify-1.2.0.xpi";
+      sha256 = "aabc8bebbf98c091553977546d9ac5e7e9d910602dc187bfe010dfd5e3255c4d";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -11067,10 +11067,10 @@
     };
     "owasp-penetration-testing-kit" = buildMozillaXpiAddon {
       pname = "owasp-penetration-testing-kit";
-      version = "9.9.1";
+      version = "9.9.5";
       addonId = "pentestkit@DenisPodgurskii";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4785173/owasp_penetration_testing_kit-9.9.1.xpi";
-      sha256 = "3a36fbdd8b260b272d4d2e542e009b34df1a1415aa037b8b80fa6456c4aba8b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824703/owasp_penetration_testing_kit-9.9.5.xpi";
+      sha256 = "a986e755bddcd0439241ad264c9e7d4baf133ee7c9a49857f481288b5809f2b0";
       meta = with lib;
       {
         homepage = "https://pentestkit.co.uk/";
@@ -13369,10 +13369,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260525.130955";
+      version = "152.0.20260527.90612";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4821834/scots_language_pack-151.0.20260525.130955.xpi";
-      sha256 = "e3b78d792c067a56ddacd8ffafea3a185b8fa2c47500de29a2729a4e8ed134a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824495/scots_language_pack-152.0.20260527.90612.xpi";
+      sha256 = "b4616a1008cdd1dd4494b22b9b0c1fada0526349d15aa3352ef73f5fb4dd954c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
