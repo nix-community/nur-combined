@@ -36,10 +36,22 @@ jobs:
       - run: $update --version=branch=main colloid-gtk-theme_git
         continue-on-error: true
 
-      - run: $update --version=branch=main comfyui-teacache
+      - run: $update comfyui-anima-booster
         continue-on-error: true
 
       - run: $update comfyui-autocomplete-plus
+        continue-on-error: true
+
+      - run: $update comfyui-lora-manager
+        continue-on-error: true
+
+      - run: $update --version=branch=main comfyui-manager # TODO: drop git after next release
+        continue-on-error: true
+
+      - run: $update --version=branch=main comfyui-prompt-manager
+        continue-on-error: true
+
+      - run: $update --version=branch=main comfyui-teacache
         continue-on-error: true
 
       - run: $update --version=branch=main framework_rgbafan
@@ -52,6 +64,9 @@ jobs:
         continue-on-error: true
 
       - run: $update --version=branch=main palgen
+        continue-on-error: true
+
+      - run: $update --version=branch=sageattention-1 sageattention_1
         continue-on-error: true
 
       - run: $update --version=branch=master win2xcur

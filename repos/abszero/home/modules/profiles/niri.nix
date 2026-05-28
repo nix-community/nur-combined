@@ -25,9 +25,9 @@ in
     };
 
     home.packages = with pkgs; [
-      albert
       brillo
       smile
+      vicinae
     ];
 
     programs.niri.settings = {
@@ -36,13 +36,13 @@ in
         XF86MonBrightnessUp.action = spawn "sudo" "brillo" "-qu" "200000" "-A" "5";
 
         "Mod+Ctrl+t".action = spawn "foot";
-        "Mod+Ctrl+slash".action = spawn "albert" "show";
+        "Mod+Ctrl+slash".action = spawn "vicinae" "open";
         "Mod+Ctrl+b".action = spawn "zen-beta";
         "Mod+Ctrl+period".action = spawn "smile";
       };
 
       spawn-at-startup = [
-        { command = [ "albert" ]; }
+        { command = [ "vicinae" "server" ]; }
       ];
     };
   };

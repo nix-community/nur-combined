@@ -24,12 +24,34 @@ in
                 context_window = 64000;
                 default_max_tokens = 6400;
               }
+              {
+                name = "gpt-oss 120B Derestricted";
+                id = "gpt-oss-120b-Derestricted:latest";
+                context_window = 64000;
+                default_max_tokens = 6400;
+              }
             ];
           };
         })
       ];
-      # Remove attribution in commit and PR
-      options.attribution.generated_with = false;
+      mcp = {
+        context7 = {
+          type = "http";
+          url = "https://mcp.context7.com/mcp";
+          headers.CONTEXT7_API_KEY = "$CONTEXT7_API_KEY";
+        };
+        firecrawl = {
+          type = "http";
+          url = "https://mcp.firecrawl.dev/$FIRECRAWL_API_KEY/v2/mcp";
+        };
+      };
+      lsp = {
+        nix.command = "nixd";
+      };
+      options = {
+        # Remove attribution in commit and PR
+        attribution.generated_with = false;
+      };
     };
   };
 }

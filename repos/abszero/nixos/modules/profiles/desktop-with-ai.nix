@@ -7,6 +7,7 @@
 }:
 
 let
+  inherit (pkgs) stdenvNoCC;
   inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.profiles.desktopWithAI;
 in
@@ -29,20 +30,29 @@ in
         acceleration = "rocm";
         extraFlags = [
           "--highvram"
-          "--preview-method=auto"
+          "--use-pytorch-cross-attention"
+          # FIXME: Fails with cryptic error
+          # "--use-sage-attention"
         ];
-        customNodes = [
-          pkgs.comfyui-autocomplete-plus
-          pkgs.comfyuiPackages.comfyui-res4lyf
-          pkgs.comfyuiPackages.comfyui-rgthree
-          # pkgs.comfyui-teacache
+        customNodes = with pkgs; [
+          (comfyui-anima-booster.override {
+            sageattention = null;
+          })
+          comfyui-manager
+          comfyuiPackages.comfyui-res4lyf
+          # Install dependencies for plugins managed by ComfyUI-Manager
+          (stdenvNoCC.mkDerivation {
+            name = "comfyui-custom-nodes-dependencies";
+            src = emptyDirectory;
+            propagatedBuildInputs =
+              comfyuiPackages.comfyui-rgthree.propagatedBuildInputs ++ comfyui-lora-manager.propagatedBuildInputs;
+          })
         ];
       };
       sillytavern.enable = true;
     };
 
     environment.systemPackages = with pkgs; [
-      context7-mcp
       skills
     ];
   };
