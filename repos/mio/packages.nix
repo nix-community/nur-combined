@@ -131,9 +131,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
   browser-115-bin = pkgs.callPackage ./pkgs/115-browser-bin { };
   youku-bin = pkgs.callPackage ./pkgs/youku-bin/package.nix { };
   dtv = pkgs.callPackage ./pkgs/dtv/package.nix { };
-  browseros = pkgs.callPackage ./pkgs/browseros { };
-  icloud-for-linux = pkgs.callPackage ./pkgs/icloud-for-linux { };
-  github-store = pkgs.callPackage ./pkgs/github-store { };
   # currently no changes so just use nixpkgs version of bionic-translation and art-standalone
   bionic-translation = pkgs.bionic-translation; # pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
   art-standalone = pkgs.art-standalone;
