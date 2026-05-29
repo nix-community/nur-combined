@@ -321,7 +321,7 @@ lib.mkOption {
             disable_notifications = lib.mkOption {
               type = lib.types.nullOr lib.types.bool;
               default = false;
-              description = "Disable desktop notifications";
+              description = "Deprecated: Use notification_style instead. Disable desktop notifications";
             };
 
             disable_provider_auto_update = lib.mkOption {
@@ -346,6 +346,20 @@ lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = "AGENTS.md";
               description = "Name of the context file to create/update during project initialization";
+            };
+
+            notification_style = lib.mkOption {
+              type = lib.types.nullOr (
+                lib.types.enum [
+                  "auto"
+                  "native"
+                  "osc"
+                  "bell"
+                  "disabled"
+                ]
+              );
+              default = "auto";
+              description = "Notification style to use. Options: auto (default)";
             };
 
             progress = lib.mkOption {
