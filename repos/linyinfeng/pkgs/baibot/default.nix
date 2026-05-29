@@ -23,6 +23,6 @@ rustPlatform.buildRustPackage {
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ yinfeng ];
     # TODO see https://github.com/matrix-org/matrix-rust-sdk/issues/6254
-    broken = !(lib.versionAtLeast rustc.version "1.85") || lib.versionAtLeast rustc.version "1.94";
+    broken = !(lib.versionAtLeast rustc.version "1.93");
   };
 }

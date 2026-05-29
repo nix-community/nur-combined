@@ -7,6 +7,7 @@
   rime-luna-pinyin,
   rime-essay,
   rime-prelude,
+  rime-cangjie,
 }:
 
 stdenv.mkDerivation {
@@ -20,6 +21,7 @@ stdenv.mkDerivation {
   buildInputs = [
     rime-prelude
     rime-essay
+    rime-cangjie
   ];
 
   installPhase = ''

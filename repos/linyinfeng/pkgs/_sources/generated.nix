@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.18.0";
+    version = "v1.19.3";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.18.0";
+      rev = "v1.19.3";
       fetchSubmodules = false;
-      sha256 = "sha256-TwtN8tEml/z0Js78jjWzEYV58Dg8a5YKxdEU9hBDtNs=";
+      sha256 = "sha256-Fr1CvFocb/VAYQGykXXZ6CCfvC31bKB/tr1aoA4oIME=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-TwtN8tEml_z0Js78jjWzEYV58Dg8a5YKxdEU9hBDtNs=/Cargo.lock";
+      lockFile = ./. + "/sha256-Fr1CvFocb_VAYQGykXXZ6CCfvC31bKB_tr1aoA4oIME=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
       };
@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v2.9.18";
+    version = "v3.0.0";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v2.9.18";
+      rev = "v3.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-wqyzowDgMPHDVfPxra7fRK9h3HtdwPnJcrzFlCVu7rk=";
+      sha256 = "sha256-g5cJFkyzcSQXQVPq4iU6kQ+T6yESM+v9OktuTdZhb4E=";
     };
   };
   dot-tar = {
@@ -106,13 +106,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.18.23-linux-260427T075939Z";
+    version = "lts-v6.18.33-linux-260525T005258Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.18.23-linux-260427T075939Z";
+      rev = "lts-v6.18.33-linux-260525T005258Z";
       fetchSubmodules = false;
-      sha256 = "sha256-K7VZKB3LLYk1Ff2o/PNJM5dEYVxncDA/2mqOM8U430U=";
+      sha256 = "sha256-14z0m6o2yoUJNN2ExmMBOtptAWVKuEK3DyTRVfpWtis=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -158,10 +158,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.6.3";
+    version = "v1.6.4";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.3/MoeKoe.Music-x86_64.AppImage";
-      sha256 = "sha256-MgajgWw9J8VwmyWS0ZR2MgIQuXJOVnzdcfIs6hA3CsI=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.4/MoeKoe.Music-x86_64.AppImage";
+      sha256 = "sha256-5dijbRwnfEMhj5uwEDZO1Av2o4peSkCsaAwrSCEtKUg=";
     };
   };
   mstickereditor = {
@@ -214,23 +214,23 @@
   };
   otf2psf = {
     pname = "otf2psf";
-    version = "10296b40cf2b1ff80d08f55699c3d21ec8693b99";
+    version = "e40b09e574ef178f2ef4d065746b1de11677784d";
     src = fetchgit {
       url = "https://github.com/pcarrin2/otf2psf.git";
-      rev = "10296b40cf2b1ff80d08f55699c3d21ec8693b99";
+      rev = "e40b09e574ef178f2ef4d065746b1de11677784d";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-x+8ZgMLoP0Rchi5aVrn+kIYc2GEFwjvY1zhNXxkIk/0=";
+      sha256 = "sha256-OZSZoBo/Waoix2gB9FFnlY3Tqw3U+sTsaqIBOXtW2Dk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-x+8ZgMLoP0Rchi5aVrn+kIYc2GEFwjvY1zhNXxkIk_0=/Cargo.lock";
+      lockFile = ./. + "/sha256-OZSZoBo_Waoix2gB9FFnlY3Tqw3U+sTsaqIBOXtW2Dk=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2025-05-14";
+    date = "2026-05-27";
   };
   plugin-bang-bang = {
     pname = "plugin-bang-bang";
@@ -287,29 +287,29 @@
   };
   rime-bopomofo = {
     pname = "rime-bopomofo";
-    version = "a8c35a4ae3998ac0cdbd02fbb42c883ecada4279";
+    version = "6085c9a38a4a728047862b33d67eee18aa86f3b9";
     src = fetchgit {
       url = "https://github.com/rime/rime-bopomofo.git";
-      rev = "a8c35a4ae3998ac0cdbd02fbb42c883ecada4279";
+      rev = "6085c9a38a4a728047862b33d67eee18aa86f3b9";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-XKe5y3sKcsc1hZGphGji3rfZKf2kvsPm4HuztI8rvko=";
+      sha256 = "sha256-aY+ZgSi3RRzPLdZaut72PKu96gOF0/PL308Qb1+y1d0=";
     };
-    date = "2026-01-06";
+    date = "2026-05-09";
   };
   rime-cangjie = {
     pname = "rime-cangjie";
-    version = "df74fd8ea4cb1fb720e90dd0c7bb50083a3906ae";
+    version = "d3ea6bf24e0c9cf593788210945226582bcb4bc9";
     src = fetchgit {
       url = "https://github.com/rime/rime-cangjie.git";
-      rev = "df74fd8ea4cb1fb720e90dd0c7bb50083a3906ae";
+      rev = "d3ea6bf24e0c9cf593788210945226582bcb4bc9";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-K9Gd+eNGV4dQc5m5XPAwHBDdU7uHYRa/Ve9jumoTBKM=";
+      sha256 = "sha256-KOaDUrp1nrTl4tAHNpjVlU1JiizkuL1Fg+0Y7muDcHk=";
     };
     date = "2026-05-08";
   };
@@ -371,17 +371,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
+    version = "e0b1588f8ca405fb81dfd92235ecd5bdccfa18ce";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d";
+      rev = "e0b1588f8ca405fb81dfd92235ecd5bdccfa18ce";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=";
+      sha256 = "sha256-3R/g2QKPY3KkZGjGNQP8GcaVT/LkN3FkBmpyQz5sSfI=";
     };
-    date = "2026-05-06";
+    date = "2026-05-23";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -399,17 +399,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "0c6d8e37f00c3e43fd8d0ada42dab4eda0b3d811";
+    version = "ba97605aa00b4a972c1bfcd705b957fcd90b192c";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "0c6d8e37f00c3e43fd8d0ada42dab4eda0b3d811";
+      rev = "ba97605aa00b4a972c1bfcd705b957fcd90b192c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-VuE1NaHIbfODpvDWCIqplWtPsx9+ai5hPfva8+DDD6M=";
+      sha256 = "sha256-mrzjqfdkLOm9vv95KSZYB+vak8JwrJHYT8PQVTeyt+k=";
     };
-    date = "2026-04-18";
+    date = "2026-05-09";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
@@ -427,31 +427,31 @@
   };
   rime-prelude = {
     pname = "rime-prelude";
-    version = "541e03e0f36ff42318848046a3b61ac47483dca3";
+    version = "082425ea0684bca36474415d4a0e8db9b016487e";
     src = fetchgit {
       url = "https://github.com/rime/rime-prelude.git";
-      rev = "541e03e0f36ff42318848046a3b61ac47483dca3";
+      rev = "082425ea0684bca36474415d4a0e8db9b016487e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-8eJc1n935KjmjvDRFksZKErt694keDeDxFRvzs++luQ=";
+      sha256 = "sha256-roHPpaAbsnQgnz6kupMz/kHFQWwshRYojNsdS5iFApI=";
     };
-    date = "2026-03-21";
+    date = "2026-05-09";
   };
   rime-quick = {
     pname = "rime-quick";
-    version = "3fe5911ba608cb2df1b6301b76ad1573bd482a76";
+    version = "82b95c7de8124dae27a8e6ee17ee9e991f4ec244";
     src = fetchgit {
       url = "https://github.com/rime/rime-quick.git";
-      rev = "3fe5911ba608cb2df1b6301b76ad1573bd482a76";
+      rev = "82b95c7de8124dae27a8e6ee17ee9e991f4ec244";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-yctopPkng3QQLhDRuHP5gpEmTx0UCO5pKXzjUv1BcCE=";
+      sha256 = "sha256-LoVSOKrPBWeMw254KxtT0AdhQHORDkb43eEh6dlfqC4=";
     };
-    date = "2019-01-20";
+    date = "2026-05-13";
   };
   rime-stroke = {
     pname = "rime-stroke";
@@ -573,17 +573,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "fc6ffc1734bc223436813692ab431578b906f32a";
+    version = "e37189a4ad6ce4138e7168508f07553d0d3b6b3f";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "fc6ffc1734bc223436813692ab431578b906f32a";
+      rev = "e37189a4ad6ce4138e7168508f07553d0d3b6b3f";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-6Knc41D9uhamj5OrM/KMjY0MA8iwfSoMohpti8pNJuA=";
+      sha256 = "sha256-wi1TuY3YJh/7HiXx+7/COn1vuhgvUE1JX1bddDAXGz4=";
     };
-    date = "2026-05-03";
+    date = "2026-05-19";
   };
   vlmcsd = {
     pname = "vlmcsd";
