@@ -22,6 +22,13 @@
   rofi-network-manager = pkgs.callPackage ./pkgs/rofi-network-manager { };
   rofi-screenshot-wayland = pkgs.callPackage ./pkgs/rofi-screenshot-wayland { };
   lemminx-maven = pkgs.callPackage ./pkgs/lemminx-maven { };
+
+  # Pi coding agent packages
+  pi-acp = pkgs.callPackage ./pkgs/pi-acp {};
+  piPackages = import ./pkgs/pi-packages {
+    inherit pkgs;
+    lib = pkgs.lib;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
