@@ -195,16 +195,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.2-beta.1";
+    version = "v3.9.2-beta.4";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.2-beta.1";
+      rev = "v3.9.2-beta.4";
       fetchSubmodules = false;
-      sha256 = "sha256-FX9TVyVoe8X1P0H0Uk2MjrL1yoAYngXuB6L4SiFqLrI=";
+      sha256 = "sha256-xacVE07iEEXEoVw9hCY9CGm2tzcqtL3//yWqayf8xnc=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-FX9TVyVoe8X1P0H0Uk2MjrL1yoAYngXuB6L4SiFqLrI=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-xacVE07iEEXEoVw9hCY9CGm2tzcqtL3__yWqayf8xnc=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -310,21 +310,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "439e06aac4fd7cdb1d7cfae9fc5817491948645c";
+    version = "925e69700d924969dc490f8b1b9a28a7bff0fda9";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "439e06aac4fd7cdb1d7cfae9fc5817491948645c";
+      rev = "925e69700d924969dc490f8b1b9a28a7bff0fda9";
       fetchSubmodules = false;
-      sha256 = "sha256-oplnXXFDC7sem0W6mlJygnSqE95evHTkxb9y8RSLEu4=";
+      sha256 = "sha256-r+qN37VBIqWPHJ2dwjwO8U3DGS9d0mCSTljSfmaDhCY=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-oplnXXFDC7sem0W6mlJygnSqE95evHTkxb9y8RSLEu4=/Cargo.lock";
+      lockFile = ./. + "/sha256-r+qN37VBIqWPHJ2dwjwO8U3DGS9d0mCSTljSfmaDhCY=/Cargo.lock";
       outputHashes = {
-        "ffmpeg_audio-0.1.0" = "sha256-DWPgG3DSKXi7rUCEt7nM+RevtKXx3QPLHRrV3Sq0Xo0=";
+        "ffmpeg_audio-0.1.0" = "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I=";
       };
     };
-    date = "2026-05-28";
+    date = "2026-05-29";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -367,7 +367,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {
