@@ -5,7 +5,8 @@
   appimageTools,
 }:
 appimageTools.wrapType2 rec {
-  inherit (sources) pname src;
+  pname = "waywallen";
+  inherit (sources) src;
   inherit version;
 
   extraInstallCommands =

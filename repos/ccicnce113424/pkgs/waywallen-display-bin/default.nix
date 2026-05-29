@@ -8,7 +8,8 @@
   qt6,
 }:
 stdenv.mkDerivation {
-  inherit (sources) pname src;
+  pname = "waywallen-display";
+  inherit (sources) src;
   inherit version;
 
   nativeBuildInputs = [
