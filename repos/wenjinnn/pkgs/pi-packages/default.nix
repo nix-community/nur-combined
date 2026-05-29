@@ -87,7 +87,7 @@ let
     "@juicesharp/rpiv-todo" = mkScopedPackage "@juicesharp" "rpiv-todo" {
       version = "1.15.0";
       hash = "sha256-LHfWoEzjl4kxbM8HcPPjmqwxQmZ+ILrow6IEtl5KeV0=";
-      npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      npmDepsHash = "sha256-djLJ3FO5W3GQzOyXEk36A0jW/wMls6YjRFJn12cv1/s=";
       description = "A todo list for the model, rendered as a live overlay that survives /reload and conversation compaction";
       homepage = "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-todo";
     };
