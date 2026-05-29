@@ -329,11 +329,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-x9SLvPrlQqkgJNhKKN3rvV+Nm1wQ7/eDmkZoXRbAyi8=",
+            "sha256": "sha256-MTX3lsNnM3cTNVFrux9ZOyOCDJAaqLeaKVZgCFUctz8=",
             "type": "url",
-            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.5.tar.gz"
+            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.6.tar.gz"
         },
-        "version": "1.5.5"
+        "version": "1.5.6"
     },
     "bilibili": {
         "cargoLock": null,
@@ -592,12 +592,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.1.28",
-            "sha256": "sha256-HC2McUg4agl85Cju20aDNR0iSWPrD5c/f0DxUo86fsM=",
+            "rev": "v7.1.31",
+            "sha256": "sha256-9Ro0dMG5wq3yVXxvSWjuEyW3pKa73bVR7yQ+PZ3owIU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.1.28"
+        "version": "v7.1.31"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1606,12 +1606,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "b8d736ef8496ee42fac450c6df74ffde64d7b643",
-            "sha256": "sha256-2DUeHHP7OJljzSIZtPY25gGJVNrArzuwQ9VvQ5EAYp4=",
+            "rev": "11b04b8581a9e08dde3ab1016caafd852a4419e4",
+            "sha256": "sha256-9kHYL6lW/WiFKQdOhG8lBm0xpaxOYZWaf2gwYVf/D7A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b8d736ef8496ee42fac450c6df74ffde64d7b643"
+        "version": "11b04b8581a9e08dde3ab1016caafd852a4419e4"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2466,12 +2466,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9384",
-            "sha256": "sha256-MtHxX2HgoacDx0fGb8aOLCE6cmkY0/G8Z8bmJyndzLo=",
+            "rev": "b9414",
+            "sha256": "sha256-g61zWjWrUpK7g0yWOIJ0cnO+RJVR48qq9dhkM+DdCCs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9384"
+        "version": "b9414"
     },
     "loralib": {
         "cargoLock": null,
@@ -3250,11 +3250,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fzAFu3Yyd8dcU26xZ9uvtmlnyO06E2aBrGSB0qtPawY=",
+            "sha256": "sha256-wWwgiUCUj8nZjfKjD+ych3k62ul2OKTZv9XHMsnCNnc=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.12/PeerBanHelper_9.3.12.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.13/PeerBanHelper_9.3.13.zip"
         },
-        "version": "9.3.12"
+        "version": "9.3.13"
     },
     "phpmyadmin": {
         "cargoLock": null,
@@ -3414,7 +3414,7 @@
     },
     "pterodactyl-wings": {
         "cargoLock": null,
-        "date": "2026-05-23",
+        "date": "2026-05-29",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3426,12 +3426,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "c2de795725e4178dc8c3eb359466dcde8ae3e681",
-            "sha256": "sha256-3N/ldGLPCsbzQspLbtFOKzt2WZAqzd/RfIRQRnbpZ2E=",
+            "rev": "eb65e27ae077a63e38518c490768486af1cd86a9",
+            "sha256": "sha256-+iEKAliBJlM/Af5uBGzv4B/zkcXSF9sBvSswMwhu5/w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c2de795725e4178dc8c3eb359466dcde8ae3e681"
+        "version": "eb65e27ae077a63e38518c490768486af1cd86a9"
     },
     "pterodactyl-wings-stable": {
         "cargoLock": null,
@@ -3447,12 +3447,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "v1.12.2",
-            "sha256": "sha256-3N/ldGLPCsbzQspLbtFOKzt2WZAqzd/RfIRQRnbpZ2E=",
+            "rev": "v1.12.3",
+            "sha256": "sha256-+iEKAliBJlM/Af5uBGzv4B/zkcXSF9sBvSswMwhu5/w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.12.2"
+        "version": "v1.12.3"
     },
     "py-rcon": {
         "cargoLock": null,
@@ -4046,7 +4046,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-05-28",
+        "date": "2026-05-29",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -4058,12 +4058,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "d0b380272c3b7a216c632a3ae154b8c3730564dc",
-            "sha256": "sha256-sAnbiCVcI8AFUdJHrhDcZZ8++C9v/vHUIUPLhmB9UjE=",
+            "rev": "7b4182716026f9bcc4b3b15371f5f58217ffe5ad",
+            "sha256": "sha256-9uYVnZuZ072nyzV72GxDUXDPfDdejkWids5fsE/gn6s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d0b380272c3b7a216c632a3ae154b8c3730564dc"
+        "version": "7b4182716026f9bcc4b3b15371f5f58217ffe5ad"
     },
     "rtpengine-stable": {
         "cargoLock": null,

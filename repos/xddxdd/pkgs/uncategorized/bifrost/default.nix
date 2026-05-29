@@ -10,7 +10,7 @@ buildGoModule (finalAttrs: {
 
   sourceRoot = "bifrost-transports-v${finalAttrs.version}/transports";
 
-  vendorHash = "sha256-RQwYplhaoxsZmYtrpGN1ffjhb6nLgVaPtw2MRek6SyY=";
+  vendorHash = "sha256-+OnQo4MOC43nr0RRws5KMSIEWItb85VpA48l7HfouPs=";
 
   env.CGO_ENABLED = 1;
   GOWORK = "off";

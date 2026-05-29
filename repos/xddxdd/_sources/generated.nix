@@ -175,10 +175,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.5.5";
+    version = "1.5.6";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.5.tar.gz";
-      hash = "sha256-x9SLvPrlQqkgJNhKKN3rvV+Nm1wQ7/eDmkZoXRbAyi8=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.6.tar.gz";
+      hash = "sha256-MTX3lsNnM3cTNVFrux9ZOyOCDJAaqLeaKVZgCFUctz8=";
     };
   };
   bilibili = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.1.28";
+    version = "v7.1.31";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.1.28";
-      hash = "sha256-HC2McUg4agl85Cju20aDNR0iSWPrD5c/f0DxUo86fsM=";
+      tag = "v7.1.31";
+      hash = "sha256-9Ro0dMG5wq3yVXxvSWjuEyW3pKa73bVR7yQ+PZ3owIU=";
     };
   };
   cockpy = {
@@ -825,12 +825,12 @@
   };
   funasr = {
     pname = "funasr";
-    version = "b8d736ef8496ee42fac450c6df74ffde64d7b643";
+    version = "11b04b8581a9e08dde3ab1016caafd852a4419e4";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "b8d736ef8496ee42fac450c6df74ffde64d7b643";
-      hash = "sha256-2DUeHHP7OJljzSIZtPY25gGJVNrArzuwQ9VvQ5EAYp4=";
+      rev = "11b04b8581a9e08dde3ab1016caafd852a4419e4";
+      hash = "sha256-9kHYL6lW/WiFKQdOhG8lBm0xpaxOYZWaf2gwYVf/D7A=";
     };
     date = "2026-05-29";
   };
@@ -1267,12 +1267,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9384";
+    version = "b9414";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9384";
-      hash = "sha256-MtHxX2HgoacDx0fGb8aOLCE6cmkY0/G8Z8bmJyndzLo=";
+      tag = "b9414";
+      hash = "sha256-g61zWjWrUpK7g0yWOIJ0cnO+RJVR48qq9dhkM+DdCCs=";
     };
   };
   loralib = {
@@ -1665,10 +1665,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.12";
+    version = "9.3.13";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.12/PeerBanHelper_9.3.12.zip";
-      hash = "sha256-fzAFu3Yyd8dcU26xZ9uvtmlnyO06E2aBrGSB0qtPawY=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.13/PeerBanHelper_9.3.13.zip";
+      hash = "sha256-wWwgiUCUj8nZjfKjD+ych3k62ul2OKTZv9XHMsnCNnc=";
     };
   };
   phpmyadmin = {
@@ -1751,23 +1751,23 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "c2de795725e4178dc8c3eb359466dcde8ae3e681";
+    version = "eb65e27ae077a63e38518c490768486af1cd86a9";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "c2de795725e4178dc8c3eb359466dcde8ae3e681";
-      hash = "sha256-3N/ldGLPCsbzQspLbtFOKzt2WZAqzd/RfIRQRnbpZ2E=";
+      rev = "eb65e27ae077a63e38518c490768486af1cd86a9";
+      hash = "sha256-+iEKAliBJlM/Af5uBGzv4B/zkcXSF9sBvSswMwhu5/w=";
     };
-    date = "2026-05-23";
+    date = "2026-05-29";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
-    version = "v1.12.2";
+    version = "v1.12.3";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      tag = "v1.12.2";
-      hash = "sha256-3N/ldGLPCsbzQspLbtFOKzt2WZAqzd/RfIRQRnbpZ2E=";
+      tag = "v1.12.3";
+      hash = "sha256-+iEKAliBJlM/Af5uBGzv4B/zkcXSF9sBvSswMwhu5/w=";
     };
   };
   py-rcon = {
@@ -2077,14 +2077,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "d0b380272c3b7a216c632a3ae154b8c3730564dc";
+    version = "7b4182716026f9bcc4b3b15371f5f58217ffe5ad";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "d0b380272c3b7a216c632a3ae154b8c3730564dc";
-      hash = "sha256-sAnbiCVcI8AFUdJHrhDcZZ8++C9v/vHUIUPLhmB9UjE=";
+      rev = "7b4182716026f9bcc4b3b15371f5f58217ffe5ad";
+      hash = "sha256-9uYVnZuZ072nyzV72GxDUXDPfDdejkWids5fsE/gn6s=";
     };
-    date = "2026-05-28";
+    date = "2026-05-29";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
