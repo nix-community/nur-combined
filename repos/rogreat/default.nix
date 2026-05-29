@@ -10,13 +10,25 @@
   pkgs ? import <nixpkgs> { },
 }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  crimsondesert-ultimatemodsmanager = pkgs.callPackage ./pkgs/crimsondesert-ultimatemodsmanager { };
+  # Python libraries
+  python3Packages = rec {
+    privatebin = pkgs.python3Packages.callPackage ./pkgs/privatebin { };
+    pyside6-fluent-widgets = pkgs.python3Packages.callPackage ./pkgs/pyside6-fluent-widgets {
+      inherit pysidesix-frameless-window;
+    };
+    pysidesix-frameless-window = pkgs.python3Packages.callPackage ./pkgs/pysidesix-frameless-window { };
+  };
+
+  # Applications
+  crimsondesert-ultimatemodsmanager = pkgs.callPackage ./pkgs/crimsondesert-ultimatemodsmanager {
+    inherit (python3Packages) privatebin pyside6-fluent-widgets;
+  };
   gupax = pkgs.callPackage ./pkgs/gupax { };
   sparrow-wifi = pkgs.callPackage ./pkgs/sparrow-wifi { };
   steam-optionx = pkgs.callPackage ./pkgs/steam-optionx { };
