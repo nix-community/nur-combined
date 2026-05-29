@@ -104,8 +104,6 @@ writeTextFile {
 
     ![Build and populate cache](https://github.com/xddxdd/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
-    [![built with garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fxddxdd%2Fnur-packages)](https://garnix.io)
-
     ## Warning
 
     This NUR contains packages customized for my own use. These packages reside categories starting with `lantian`. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
@@ -135,9 +133,8 @@ writeTextFile {
             # Setup QEMU userspace emulation that works with Docker
             inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
 
-            # Binary cache (optional, choose any one, or see guide below)
+            # Binary cache (optional, see guide below)
             inputs.nur-xddxdd.nixosModules.nix-cache-attic
-            inputs.nur-xddxdd.nixosModules.nix-cache-garnix
           ];
         };
       };
@@ -146,9 +143,7 @@ writeTextFile {
 
     ## Binary Cache
 
-    This NUR automatically builds and pushes build artifacts to several binary caches. You can use any one of them to speed up your build.
-
-    ### Self-hosted (Attic)
+    This NUR automatically builds and pushes build artifacts to my binary cache. You can use it to speed up your build.
 
     ```nix
     {
@@ -163,24 +158,6 @@ writeTextFile {
     {
       nix.settings.substituters = [ nur.repos.xddxdd._meta.atticUrl ];
       nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.atticPublicKey ];
-    }
-    ```
-
-    ### Garnix.io
-
-    ```nix
-    {
-      nix.settings.substituters = [ "${_meta.garnixUrl}" ];
-      nix.settings.trusted-public-keys = [ "${_meta.garnixPublicKey}" ];
-    }
-    ```
-
-    Or, use variables from this repository in case I change them:
-
-    ```nix
-    {
-      nix.settings.substituters = [ nur.repos.xddxdd._meta.garnixUrl ];
-      nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.garnixPublicKey ];
     }
     ```
 
