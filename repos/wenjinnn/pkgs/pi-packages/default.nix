@@ -84,6 +84,25 @@ let
       homepage = "https://github.com/juicesharp/rpiv-mono";
     };
 
+    "@juicesharp/rpiv-todo" = mkScopedPackage "@juicesharp" "rpiv-todo" {
+      version = "1.15.0";
+      hash = "sha256-LHfWoEzjl4kxbM8HcPPjmqwxQmZ+ILrow6IEtl5KeV0=";
+      npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      description = "A todo list for the model, rendered as a live overlay that survives /reload and conversation compaction";
+      homepage = "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-todo";
+    };
+
+    # ── Plan Review Extensions ──────────────────────────────────────────────
+
+    "@plannotator/pi-extension" = mkScopedPackage "@plannotator" "pi-extension" {
+      version = "0.19.24";
+      hash = "sha256-+Ebc3flG53Mt6nvQqJrt3lGSTFwIW5nBaLSSdtL0Y1M=";
+      npmDepsHash = "sha256-0pC+ZNiCt0ibPTtQgySVdV+v3nUTPVO+ck+ZgF9QuF0=";
+      description = "Plannotator Pi extension - interactive plan review with annotations, annotate agent messages, and review code/PRs";
+      homepage = "https://github.com/backnotprop/plannotator";
+      license = pkgs.lib.licenses.mit;  # MIT OR Apache-2.0
+    };
+
     # ── TODO: Add more packages ──────────────────────────────────────────────
     # Use the update script to get hashes:
     #   ./pkgs/pi-packages/scripts/update-pi-package.sh <package-name> [version]

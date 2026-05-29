@@ -169,6 +169,8 @@ if [[ -f "$PIPACKAGES_FILE" ]]; then
     ["@gotgenes/pi-subagents"]="gotgenes/pi-packages"
     ["@juicesharp/rpiv-ask-user-question"]="juicesharp/rpiv-mono"
     ["@juicesharp/rpiv-btw"]="juicesharp/rpiv-mono"
+    ["@juicesharp/rpiv-todo"]="juicesharp/rpiv-mono"
+    ["@plannotator/pi-extension"]="backnotprop/plannotator"
   )
 
   for package in "${!PACKAGE_SOURCES[@]}"; do
