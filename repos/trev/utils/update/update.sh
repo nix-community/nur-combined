@@ -3,6 +3,9 @@
 system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
 echo "Updating packages for ${system}"
 
+nixpkgs=$(nix eval --raw --inputs-from . 'nixpkgs#path')
+export NIX_PATH="nixpkgs=${nixpkgs}"
+
 json=$(nix eval --file "$(dirname "${BASH_SOURCE[0]}")/packages.nix" --json packages)
 readarray -t packages < <(echo "${json}" | jq -r -S '. | keys[]')
 readarray -t commands < <(echo "${json}" | jq -r -S '. | values[]')

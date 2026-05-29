@@ -22,18 +22,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal-luminous";
-  version = "0.1.18";
+  version = "0.1.19";
 
   src = fetchFromGitHub {
-    owner = "spotdemo4";
+    owner = "waycrate";
     repo = "xdg-desktop-portal-luminous";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QHu+3A/q2C8QccxiBXp0VWoKSnK661czCVmvePUeJ88=";
+    hash = "sha256-vZ90v+/GK1QJR+3tdzHSHO/eiXEQV1pH2cxrGeZpID0=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-mUQGwLnjmZCnYNMscLIC8Gyh/ahZ5OWF9DyBlVvwYU0=";
+    hash = "sha256-vp9kdsBp/p5NrzO4/JZiC9kyWmSpw/tShSfpOYtngTk=";
   };
 
   nativeBuildInputs = [
@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--commit"
-      "${finalAttrs.pname}-latest"
+      finalAttrs.pname
     ];
   };
 
