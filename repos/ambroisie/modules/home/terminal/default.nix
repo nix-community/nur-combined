@@ -16,11 +16,11 @@ in
 
   options.my.home = with lib; {
     terminal = {
-      program = mkOption {
-        type = with types; nullOr (enum [ "alacritty" "termite" ]);
+      default = mkOption {
+        type = with types; nullOr (enum [ ]);
         default = null;
         example = "termite";
-        description = "Which terminal to use for home session";
+        description = "Which default terminal to use for home session";
       };
 
       colors = {
@@ -56,7 +56,7 @@ in
     };
   };
 
-  config.home.sessionVariables = lib.mkIf (cfg.program != null) {
-    TERMINAL = cfg.program;
+  config.home.sessionVariables = lib.mkIf (cfg.default != null) {
+    TERMINAL = cfg.default;
   };
 }

@@ -25,7 +25,7 @@
     # Network-Manager applet
     nm-applet.enable = true;
     # Terminal
-    terminal.program = "alacritty";
+    terminal.default = "alacritty";
     # Transmission remote
     trgui.enable = true;
     # Zathura document viewer

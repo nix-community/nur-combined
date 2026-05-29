@@ -3,8 +3,8 @@ let
   isEnabled = config.my.home.wm.windowManager == "i3";
 
   terminal =
-    if config.my.home.terminal.program != null
-    then config.my.home.terminal.program
+    if config.my.home.terminal.default != null
+    then config.my.home.terminal.default
     else "i3-sensible-terminal";
 
   alt = "Mod1"; # `Alt` key

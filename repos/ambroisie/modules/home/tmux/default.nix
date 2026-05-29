@@ -31,9 +31,9 @@ in
         };
       });
 
-      default = { ${config.my.home.terminal.program} = { }; };
+      default = { ${config.my.home.terminal.default} = { }; };
       defaultText = literalExpression ''
-        { ''${config.my.home.terminal.program} = { }; };
+        { ''${config.my.home.terminal.default} = { }; };
       '';
       example = { xterm-256color = { }; };
       description = ''

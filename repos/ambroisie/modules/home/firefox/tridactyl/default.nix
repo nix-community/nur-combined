@@ -2,7 +2,7 @@
 let
   cfg = config.my.home.firefox.tridactyl;
 
-  term = config.my.home.terminal.program;
+  term = config.my.home.terminal.default;
 
   vimCommandLine =
     let

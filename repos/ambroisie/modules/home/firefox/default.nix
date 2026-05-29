@@ -64,7 +64,13 @@ in
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false; # Disable pocket
           "browser.tabs.groups.smart.enabled" = false; # No AI
           "browser.tabs.groups.smart.userEnabled" = false; # No AI
+          "browser.urlbar.quicksuggest.enabled" = false; # Sponsored recommendations
           "browser.urlbar.trimURLs" = false; # Always show the `http://` prefix
+          "extensions.formautofill.addresses.capture.enabled" = false; # Don't prompt to save addresses
+          "extensions.formautofill.addresses.enabled" = false; # Don't auto-fill addresses
+          "extensions.formautofill.addresses.supported" = "off"; # Don't prompt to save addresses
+          "extensions.formautofill.creditCards.enabled" = false; # Don't auto-fill cards
+          "extensions.formautofill.creditCards.supported" = "off"; # Don't prompt to save cards
           "extensions.ml.enabled" = false; # No AI
           "extensions.pocket.enabled" = false; # Disable pocket
           "media.eme.enabled" = true; # Enable DRM
