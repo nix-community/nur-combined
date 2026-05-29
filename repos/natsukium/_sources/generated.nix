@@ -48,15 +48,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "1f626dc47ef6ccf7101a0d117d5a308c8762217c";
+    version = "3a6d076c5169d693e6271d5af5038036bd591bbd";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "1f626dc47ef6ccf7101a0d117d5a308c8762217c";
+      rev = "3a6d076c5169d693e6271d5af5038036bd591bbd";
       fetchSubmodules = false;
-      sha256 = "sha256-w0C34wCjnQVpRdBCBKIRdNmVl1dde1PqNG6qN4LRiAo=";
+      sha256 = "sha256-H9A7nwt0NkyPqN+iOZ9BU24dkAvvfZxucVSPhNx9WPA=";
     };
-    date = "2026-05-27";
+    date = "2026-05-29";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
@@ -112,10 +112,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "8.0.4033.34";
+    version = "8.0.4033.35";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.0.4033.34.universal.dmg";
-      sha256 = "sha256-fkphOkjC6K37h4CzUbxafbkTAHhmGPyonOmVqQnCJ6I=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.0.4033.35.universal.dmg";
+      sha256 = "sha256-x32iWbwX9R/JwO7gyjq3IgiN5zLfBj6VCVNvakrMai4=";
     };
   };
   zen-browser = {
