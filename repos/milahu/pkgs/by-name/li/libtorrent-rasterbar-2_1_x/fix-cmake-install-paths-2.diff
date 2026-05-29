@@ -1,0 +1,16 @@
+diff --git a/cmake/Modules/GeneratePkgConfig/generate-pkg-config.cmake.in b/cmake/Modules/GeneratePkgConfig/generate-pkg-config.cmake.in
+index d641f2e49..146f82b41 100644
+--- a/cmake/Modules/GeneratePkgConfig/generate-pkg-config.cmake.in
++++ b/cmake/Modules/GeneratePkgConfig/generate-pkg-config.cmake.in
+@@ -36,7 +36,10 @@ function(split_library_dirs _libraries _base_library_dir _library_dirs_var _libr
+ 	set(${_library_names_var} "${libs}" PARENT_SCOPE)
+ endfunction()
+ 
+-split_library_dirs("${_TARGET_INTERFACE_LINK_LIBRARIES}" "${CMAKE_INSTALL_PREFIX}/${_INSTALL_LIBDIR}" _lib_dirs _library_names)
++# -"${CMAKE_INSTALL_PREFIX}/${_INSTALL_LIBDIR}"
++# +"${_INSTALL_LIBDIR}"
++# split_library_dirs("${_TARGET_INTERFACE_LINK_LIBRARIES}" "${CMAKE_INSTALL_PREFIX}/${_INSTALL_LIBDIR}" _lib_dirs _library_names)
++split_library_dirs("${_TARGET_INTERFACE_LINK_LIBRARIES}" "${_INSTALL_LIBDIR}" _lib_dirs _library_names)
+ set(_linker_options "${_library_names}")
+ list(FILTER _linker_options INCLUDE REGEX "^-.*")
+ list(FILTER _library_names EXCLUDE REGEX "^-.*")

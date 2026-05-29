@@ -62,6 +62,24 @@ stdenv.mkDerivation (finalAttrs: {
         'function loadMifiLink() {' \
         'function loadMifiLink() { return undefined;'
 
+    # fix path to locales
+    substituteInPlace src/main/i18nCommon.ts \
+      --replace-fail \
+        "return join('locales', subPath);" \
+        "return join('$out/opt/losslesscut/locales', subPath);"
+
+    # FIXME Error: app.getSystemLocale() can only be called after app is ready
+    # so maybe app.getLocale is just called too early?
+    #
+    # fix default locale
+    # app.getLocale() always returns "en-US" (why?)
+    # app.getSystemLocale() returns the locale from the `LANG` environment variable
+    false &&
+    substituteInPlace src/main/i18n.ts \
+      --replace-fail \
+        "app.getLocale()" \
+        "app.getSystemLocale()"
+
     # add version to versions.json
     jq --arg v "${finalAttrs.version}" '
     if any(.[]; .version == $v)
@@ -131,6 +149,8 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/opt/losslesscut
 
     cp -v package.json $out/opt/losslesscut
+
+    cp -r locales $out/opt/losslesscut
 
 
 

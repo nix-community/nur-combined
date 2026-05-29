@@ -1,0 +1,14 @@
+diff --git a/cmake/Modules/GeneratePkgConfig.cmake b/cmake/Modules/GeneratePkgConfig.cmake
+index 49a14a6cb..22df91c12 100644
+--- a/cmake/Modules/GeneratePkgConfig.cmake
++++ b/cmake/Modules/GeneratePkgConfig.cmake
+@@ -52,6 +52,9 @@ function(_get_target_property_merging_configs _var_name _target_name _property_n
+ 	# but we need INSTALL_INTERFACE here.
+ 	# See https://gitlab.kitware.com/cmake/cmake/issues/17984
+ 	string(REPLACE "$<BUILD_INTERFACE:" "$<0:" vals "${vals}")
++	# replace absolute paths first
++	# dont concat absolute paths to CMAKE_INSTALL_PREFIX like $out/$out
++	string(REPLACE "$<INSTALL_INTERFACE:/" "$<1:/" vals "${vals}")
+ 	string(REPLACE "$<INSTALL_INTERFACE:" "\${CMAKE_INSTALL_PREFIX}/$<1:" vals "${vals}")
+ 	set(${_var_name} "${vals}" PARENT_SCOPE)
+ endfunction()

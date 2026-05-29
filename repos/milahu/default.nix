@@ -943,6 +943,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
     js2nix = callPackage ./pkgs/development/tools/js2nix { };
 
+    isolated-vm = callPackage ./pkgs/node/pkgs/isolated-vm { };
+
   })));
 
   inherit (nodePackages)
@@ -1475,11 +1477,27 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
 
+  nixVersions = pkgs.lib.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/tools/package-management/nix {
+      # storeDir = config.nix.storeDir or "/nix/store";
+      # stateDir = config.nix.stateDir or "/nix/var";
+      # fix: error: undefined variable 'config'
+      storeDir = "/nix/store";
+      stateDir = "/nix/var";
+    }
+  );
+
+  nix = nixVersions.stable;
+
   v8 = callPackage ./pkgs/development/libraries/v8 { };
 
   lingua-rs = callPackage ./pkgs/by-name/li/lingua-rs/package.nix { };
 
   losslesscut = callPackage ./pkgs/by-name/lo/losslesscut/package.nix { };
+
+  webcrack = callPackage ./pkgs/by-name/we/webcrack/package.nix { };
+
+  pnpm-better-sqlite3 = callPackage ./pkgs/by-name/pn/pnpm-better-sqlite3/package.nix { };
 
 }
 

@@ -18,16 +18,16 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtorrent-rasterbar";
-  version = "2.1.0-pre-2026-03-28";
+  version = "2.1.0-pre-2026-05-18";
 
   src = fetchFromGitHub {
     owner = "arvidn";
     repo = "libtorrent";
     # there are no tags for version 2.1 yet
     # tag = "v${finalAttrs.version}";
-    rev = "aa59c7c583e00e7b91f324d0792279d4637ab899";
+    rev = "712daab918cc34944ad04ef7dee89d673685291d";
     fetchSubmodules = true;
-    hash = "sha256-5K9+TnGYbbVx2FAXyUp71QPRWMe3HMYAIZVCS936QOM=";
+    hash = "sha256-JXpIVobrTEhusftZ+3lWWc96D8kzREmXz2exwZb4R5A=";
   };
 
   nativeBuildInputs = [
@@ -51,6 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
     # 1 out of 1 hunk FAILED -- saving rejects to file bindings/python/CMakeLists.txt.rej
     # # provide distutils alternative for python 3.12
     # ./distutils.patch
+
+    # no... see postConfigure
+    # ./fix-cmake-install-paths.diff
+    # ./fix-cmake-install-paths-2.diff
   ];
 
   # https://github.com/arvidn/libtorrent/issues/6865
@@ -74,6 +78,20 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "\''${CMAKE_INSTALL_PREFIX}/@CMAKE_INSTALL_LIBDIR@/pkgconfig" "$dev/lib/pkgconfig"
   */
 
+  # TODO fix source
+  # no:
+  # ./fix-cmake-install-paths.diff
+  # ./fix-cmake-install-paths-2.diff
+  # fix install path
+  # - $out/$out/lib/pkgconfig/libtorrent-rasterbar.pc
+  # + $out/lib/pkgconfig/libtorrent-rasterbar.pc
+  postConfigure = ''
+    substituteInPlace torrent-rasterbar-pkgconfig/generate-pkg-config.cmake \
+      --replace-fail \
+        'DESTINATION "''${CMAKE_INSTALL_PREFIX}/'"$out"'/lib/pkgconfig"' \
+        'DESTINATION "'"$out"'/lib/pkgconfig"'
+  '';
+
   postInstall = ''
     moveToOutput "include" "$dev"
     moveToOutput "lib/${python3.libPrefix}" "$python"
@@ -83,12 +101,16 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace $dev/lib/cmake/LibtorrentRasterbar/LibtorrentRasterbarTargets-*.cmake \
       --replace-fail "\''${_IMPORT_PREFIX}/lib" "$out/lib"
   ''
+  # does not exist
+  /*
   # a: Cflags: ... -I/nix/store/x//nix/store/x-dev/include ...
   # b: Cflags: ... -I/nix/store/x-dev/include ...
   + ''
     substituteInPlace $dev/lib/pkgconfig/libtorrent-rasterbar.pc \
       --replace-fail "$out/$dev" "$dev"
-  '';
+  ''
+  */
+  ;
 
   outputs = [
     "out"
