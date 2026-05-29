@@ -623,6 +623,21 @@
         },
         "version": "9048f905c18c9fada3147c786075e5ab0ef83e36"
     },
+    "waywallen-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "waywallen-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-pyX+50+2joBuXKu8XLvTpsbkTfDskf+7dYjMn534/yk=",
+            "type": "url",
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.1.6/waywallen-0.1.6-x86_64.AppImage"
+        },
+        "version": "0.1.6"
+    },
     "waywallen-display-bin": {
         "cargoLock": null,
         "date": null,

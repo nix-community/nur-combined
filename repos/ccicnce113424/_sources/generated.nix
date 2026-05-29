@@ -382,6 +382,14 @@
     };
     date = "2026-05-28";
   };
+  waywallen-bin = {
+    pname = "waywallen-bin";
+    version = "0.1.6";
+    src = fetchurl {
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.1.6/waywallen-0.1.6-x86_64.AppImage";
+      sha256 = "sha256-pyX+50+2joBuXKu8XLvTpsbkTfDskf+7dYjMn534/yk=";
+    };
+  };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
     version = "0.2.3";

@@ -170,6 +170,11 @@ lib.makeScope pkgs.newScope (self: {
       version = unstableVersion sources prev.version;
     });
 
+  waywallen-bin = self.callPackage ./waywallen-bin rec {
+    sources = fetchedSrc.waywallen-bin;
+    inherit (sources) version;
+  };
+
   waywallen-display-bin = self.callPackage ./waywallen-display-bin rec {
     sources = fetchedSrc.waywallen-display-bin;
     inherit (sources) version;

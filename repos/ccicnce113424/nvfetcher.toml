@@ -130,6 +130,11 @@ src.github = "Tony15246/uosc_danmaku"
 fetch.github = "Tony15246/uosc_danmaku"
 src.git = "https://github.com/Tony15246/uosc_danmaku"
 
+[waywallen-bin]
+fetch.url = "https://github.com/waywallen/waywallen/releases/download/v$ver/waywallen-$ver-x86_64.AppImage"
+src.prefix = "v"
+src.github = "waywallen/waywallen"
+
 [waywallen-display-bin]
 fetch.url = "https://github.com/waywallen/waywallen-display/releases/download/v$ver/waywallen-kde-$ver-x86_64-embed.zip"
 src.prefix = "v"
