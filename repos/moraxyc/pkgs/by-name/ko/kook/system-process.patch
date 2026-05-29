@@ -1,0 +1,6 @@
+5a6,10
+>   module.exports = {
+>     getSimpleTaskListInfo: () => [],
+>     getAllProcessSimpleInfo: () => [],
+>   }
+>   return

@@ -1,0 +1,3 @@
+73a74,75
+>   Logger.warn('[screenshot] disabled: bundled kook-screenshot is macOS-only')
+>   return null
