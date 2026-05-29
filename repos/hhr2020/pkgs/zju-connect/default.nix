@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "zju-connect";
-  version = "1.0.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "Mythologyli";
     repo = "zju-connect";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JS0C8j5tAYTrOa7ZYxnq9vSqHJk/YZO/qPX5E+cFhVc=";
+    hash = "sha256-luB1Zv5lzkyAt7BAH3jtXEnwXsUbodT/uqkaD8rbmCI=";
   };
 
-  vendorHash = "sha256-H+WtDkq8FckXuriEQNh1vhsGIkw1U7RlhQeAbO0jUXQ=";
+  vendorHash = "sha256-lDxroSrPwwYF2w7qXR+PQYkre8E+nOwPzDiMoeScjO0=";
 
   ldflags = [ "-s" ];
 
