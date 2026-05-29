@@ -5,6 +5,9 @@ on:
     - cron: '05 7 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   update:
     if: github.event_name != 'push'
@@ -15,13 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
       - name: Install Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
       - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v34
+        uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035  # v34
         with:
           nix_conf: experimental-features = nix-command flakes
 
@@ -186,17 +189,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
 
       - name: Maximize Space
         if: runner.os == 'Linux'
-        uses: wimpysworld/nothing-but-nix@v10
+        uses: wimpysworld/nothing-but-nix@687c797a730352432950c707ab493fcc951818d7  # v10
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3  # v31.10.6
         with:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
@@ -208,7 +211,7 @@ jobs:
 
       - name: Setup Cachix
         if: github.ref == 'refs/heads/main'
-        uses: cachix/cachix-action@v17
+        uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71  # v17
         with:
           name: forkprince
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
