@@ -31,8 +31,8 @@ in
 		NODE_OPTIONS = "--openssl-legacy-provider";
 
 		installPhase = ''
-			mkdir -p $out/lib
-			cp dist/build/main.js dist/build/manifest.json dist/build/styles.css $out/lib
+			mkdir -p $out
+			cp dist/build/main.js dist/build/manifest.json dist/build/styles.css $out
 		'';
 
 		meta = with pkgs.lib; {

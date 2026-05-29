@@ -20,8 +20,8 @@ in
 		];
 
 		installPhase = ''
-			mkdir -p $out/lib
-			cp build/main.js build/manifest.json $out/lib
+			mkdir -p $out
+			cp build/main.js build/manifest.json $out
 		'';
 
 		meta = with pkgs.lib; {

@@ -25,8 +25,8 @@ in
 		'';
 
 		installPhase = ''
-			mkdir -p $out/lib
-			cp main.js styles.css manifest.json $out/lib
+			mkdir -p $out
+			cp main.js styles.css manifest.json $out
 		'';
 
 		meta = with pkgs.lib; {

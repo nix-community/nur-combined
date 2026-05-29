@@ -14,8 +14,8 @@ pkgs.buildNpmPackage {
 	npmDepsHash = "sha256-Ift/wBuj8z1FXMb3qitT4OmQR5tNTcrKDxaFXVtF0S0=";
 
 	installPhase = ''
-		mkdir -p $out/lib
-		cp main.js styles.css manifest.json $out/lib
+		mkdir -p $out
+		cp main.js styles.css manifest.json $out
 	'';
 
 	meta = with pkgs.lib; {

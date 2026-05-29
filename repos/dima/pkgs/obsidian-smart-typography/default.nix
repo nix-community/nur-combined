@@ -41,8 +41,8 @@ in
 		'';
 
 		installPhase = ''
-			mkdir -p $out/lib
-			cp main.js manifest.json $out/lib
+			mkdir -p $out
+			cp main.js manifest.json $out
 		'';
 
 		meta = with pkgs.lib; {
