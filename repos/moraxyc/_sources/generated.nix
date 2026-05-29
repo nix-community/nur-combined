@@ -65,18 +65,18 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "76f678b9706bc65e5aca5c27f67755b05b4bfeea";
+    version = "db056ad126192d8357bfd9f3dd1a400086cb654e";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "76f678b9706bc65e5aca5c27f67755b05b4bfeea";
+      rev = "db056ad126192d8357bfd9f3dd1a400086cb654e";
       fetchSubmodules = false;
-      sha256 = "sha256-GBAMg413gE/K6RuaOp1/yeeIqkEU84psd87q7ynttIA=";
+      sha256 = "sha256-uIl8nuprk8OYdlAo8TKBLVugO1eiCxXw6YPUAkZy/go=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-GBAMg413gE_K6RuaOp1_yeeIqkEU84psd87q7ynttIA=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-GBAMg413gE_K6RuaOp1_yeeIqkEU84psd87q7ynttIA=/web/package-lock.json";
-    };date = "2026-05-27";
+      "web/package.json" = ./. + "/sha256-uIl8nuprk8OYdlAo8TKBLVugO1eiCxXw6YPUAkZy_go=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-uIl8nuprk8OYdlAo8TKBLVugO1eiCxXw6YPUAkZy_go=/web/package-lock.json";
+    };date = "2026-05-28";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
@@ -201,15 +201,15 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "cd28c91ee0abdc8db5c8f1adea35c5dd7a2b58ac";
+    version = "1d090a8ce9a4c3c9d7bbba99520b4eae14c418ce";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "cd28c91ee0abdc8db5c8f1adea35c5dd7a2b58ac";
+      rev = "1d090a8ce9a4c3c9d7bbba99520b4eae14c418ce";
       fetchSubmodules = false;
-      sha256 = "sha256-egNrqSCMndD55hgerhgpHHhT8fOZteKoZE6d6EbDxik=";
+      sha256 = "sha256-LK4LAVbZbcmxa7YABJMZuscD1qvTSnVWbXFuih9jzog=";
     };
-    date = "2026-05-26";
+    date = "2026-05-28";
   };
   flapalerted-stable = {
     pname = "flapalerted-stable";
@@ -221,26 +221,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.05.25";
+    version = "2026.05.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.25/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-zyCnnfXaLWh3i+p8xPws1GJWr+RNOeGH2CrImmSX4/I=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.28/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-3dna3KgYB7vkEMAHpzIx08s/KhjRAQpJUUMI+EADKtA=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.05.25";
+    version = "2026.05.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.25/GeoLite2-City.mmdb";
-      sha256 = "sha256-C6Y0TXUapWFJAF/fM7XVCNBOM1ToWcQkd1CpHEvY/SU=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.28/GeoLite2-City.mmdb";
+      sha256 = "sha256-67jtz5N4a5ZDtkdMljTv5bwDm2JWM6YskJlfsgnUlkc=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.05.25";
+    version = "2026.05.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.25/GeoLite2-Country.mmdb";
-      sha256 = "sha256-X/Uy+9bttTwQNaAW1G7XY3L7WtQi1/WembN6tfUs5Bk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.28/GeoLite2-Country.mmdb";
+      sha256 = "sha256-x3rB1+ZLP80URwRWFfw677PtiG4XZgjFaLAfKflV4ho=";
     };
   };
   git-mcp-server = {
@@ -485,14 +485,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "2f55ba1c71c605bfd8e24f9ce14349f195a6f1d7";
+    version = "5ce6da8ab9e0f5e1806b2e45e4dfe2cd10c7a4b6";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "2f55ba1c71c605bfd8e24f9ce14349f195a6f1d7";
+      rev = "5ce6da8ab9e0f5e1806b2e45e4dfe2cd10c7a4b6";
       fetchSubmodules = false;
-      sha256 = "sha256-oE36S2Fp42cIInKoUU1BlIxh7RhMCKjsdP5n7DixZyA=";
+      sha256 = "sha256-oDN8fP7rAzfvBmhSdY4j27JJmRBVqnIKPKLTvtDnqyk=";
     };
-    date = "2026-05-27";
+    date = "2026-05-28";
   };
 }
