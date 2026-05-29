@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   makeWrapper,
-  rofi-wayland,
+  rofi,
   slurp,
   grim,
   ffmpeg,
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/rofi-screenshot \
       --prefix PATH ":" ${
         lib.makeBinPath [
-          rofi-wayland
+          rofi
           slurp
           grim
           ffmpeg
