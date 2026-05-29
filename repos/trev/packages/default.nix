@@ -12,6 +12,7 @@ rec {
   bwrap-apprun = pkgs.pkgsStatic.callPackage ./bwrap-apprun { };
   catppuccin-gtk = pkgs.callPackage ./catppuccin-gtk { };
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
+  codex-commit = pkgs.callPackage ./codex-commit { };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   fix-hash = pkgs.callPackage ./fix-hash { };
   flake-release = pkgs.callPackage ./flake-release { };
