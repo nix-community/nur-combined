@@ -148,8 +148,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
   };
   beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
   chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
-  dl-librescore = pkgs.callPackage ./pkgs/dl-librescore/package.nix { };
-  superTux = pkgs.callPackage ./pkgs/superTux/package.nix { };
   ogre-1_11 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-1_11/package.nix { });
   angelscript_2_35_1 = v3overrideAttrs (
     pkgs.angelscript.overrideAttrs (
@@ -179,10 +177,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     socketw = socketw;
     angelscript = angelscript_2_35_1;
   };
-  rain = pkgs.callPackage ./pkgs/rain/package.nix { };
-  overmorrow = pkgs.callPackage ./pkgs/overmorrow/package.nix { };
-  ccleste = pkgs.callPackage ./pkgs/ccleste/package.nix { };
-  pixelle-video = pkgs.callPackage ./pkgs/pixelle-video/package.nix { };
 
   firefox_nightly-unwrapped = v3override (
     v3overrideAttrs (
@@ -201,13 +195,9 @@ lib.filesystem.packagesFromDirectoryRecursive {
     libName = "betterbird";
   };
 
-  bifrost = pkgs.callPackage ./pkgs/bifrost/package.nix { };
-  bifrost-unwrapped = bifrost.unwrapped;
-
   eden = nodarwin (v3overrideAttrs (pkgs.callPackage ./pkgs/eden/package.nix { }));
 
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
-  needy-girl-overdose-theme = pkgs.callPackage ./pkgs/needy-girl-overdose-theme { };
   zw3d = pkgs.callPackage ./pkgs/zw3d {
     notoFontsCjk = pkgs.noto-fonts-cjk-sans;
   };
@@ -222,12 +212,8 @@ lib.filesystem.packagesFromDirectoryRecursive {
   apple-music-pake = pkgs.callPackage ./pkgs/apple-music-pake/package.nix {
     inherit makePakeApp;
   };
-  altus = pkgs.callPackage ./pkgs/altus/package.nix { };
   apple-music-desktop = pkgs.callPackage ./pkgs/apple-music-desktop/package.nix {
     electron = electron_castlabs_38;
-  };
-
-  ladybird = pkgs.callPackage ./pkgs/ladybird/package.nix {
   };
 
   #systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
