@@ -596,7 +596,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -622,6 +622,21 @@
             "type": "github"
         },
         "version": "9048f905c18c9fada3147c786075e5ab0ef83e36"
+    },
+    "waywallen-display-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "waywallen-display-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-TIpiU4626+jhtJfuDRA4x/NNhMlZHHsp/CLM5PAtXo4=",
+            "type": "url",
+            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.2.3/waywallen-kde-0.2.3-x86_64-embed.zip"
+        },
+        "version": "0.2.3"
     },
     "wild": {
         "cargoLock": {

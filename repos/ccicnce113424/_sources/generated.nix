@@ -367,7 +367,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {
@@ -381,6 +381,14 @@
       sha256 = "sha256-ckqkHfZklZRN/IkSwjMOD7n3sLhZq2S9BhJnOcGEnec=";
     };
     date = "2026-05-28";
+  };
+  waywallen-display-bin = {
+    pname = "waywallen-display-bin";
+    version = "0.2.3";
+    src = fetchurl {
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.3/waywallen-kde-0.2.3-x86_64-embed.zip";
+      sha256 = "sha256-TIpiU4626+jhtJfuDRA4x/NNhMlZHHsp/CLM5PAtXo4=";
+    };
   };
   wild = {
     pname = "wild";
