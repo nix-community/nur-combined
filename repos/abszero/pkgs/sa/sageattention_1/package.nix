@@ -5,7 +5,7 @@
 }:
 python3Packages.buildPythonPackage (final: {
   pname = "sageattention";
-  version = "1-unstable-2025-08-05";
+  version = "2.2.0-unstable-2025-08-05";
   format = "setuptools";
 
   src = fetchFromGitHub {
