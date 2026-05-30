@@ -72,6 +72,7 @@ in
         cp -r ${contents}/opt/${pname}/locales $out/share/lib/${pname}/
 
         ${lib.optionalString enableWidevine ''
+          install -d $out/opt/${pname}
           ln -sf ${widevine-cdm}/share/google/chrome/WidevineCdm \
             $out/opt/${pname}/WidevineCdm
         ''}
