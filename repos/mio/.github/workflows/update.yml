@@ -36,10 +36,6 @@ jobs:
         cd pkgs/lmms
         ./update.sh
 
-    - name: Update firefox nightly
-      continue-on-error: true
-      run: nix run .#firefox_nightly-unwrapped.passthru.updateScript
-
     - name: Update nss-git
       continue-on-error: true
       run: nix run .#nss_git.passthru.updateScript

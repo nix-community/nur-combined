@@ -178,17 +178,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
     angelscript = angelscript_2_35_1;
   };
 
-  firefox_nightly-unwrapped = v3override (
-    v3overrideAttrs (
-      pkgs.callPackage ./pkgs/firefox-nightly {
-        nss_git = nss_git;
-        nyxUtils = nyxUtils;
-        icu78 = pkgs.icu78 or icu.icu78;
-      }
-    )
-  );
 
-  firefox_nightly = pkgs.wrapFirefox firefox_nightly-unwrapped { };
   betterbird-unwrapped = v3overrideAttrs (pkgs.callPackage ./pkgs/betterbird { });
   betterbird = pkgs.wrapThunderbird betterbird-unwrapped {
     applicationName = "betterbird";
