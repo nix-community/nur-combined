@@ -167,12 +167,15 @@ if [[ -f "$PIPACKAGES_FILE" ]]; then
     ["pi-web-access"]="nicobailon/pi-web-access"
     ["pi-hermes-memory"]="chandra447/pi-hermes-memory"
     ["@gotgenes/pi-subagents"]="gotgenes/pi-packages"
+    ["@gotgenes/pi-permission-system"]="gotgenes/pi-packages"
+    ["@gotgenes/pi-permission-system"]="gotgenes/pi-packages"
     ["@juicesharp/rpiv-ask-user-question"]="juicesharp/rpiv-mono"
     ["@juicesharp/rpiv-btw"]="juicesharp/rpiv-mono"
     ["@juicesharp/rpiv-todo"]="juicesharp/rpiv-mono"
     ["@plannotator/pi-extension"]="backnotprop/plannotator"
     ["@llblab/pi-telegram"]="llblab/pi-telegram"
     ["@tmustier/pi-usage-extension"]="tmustier/pi-usage-extension"
+    ["pi-permission-system"]="MasuRii/pi-permission-system"
   )
 
   for package in "${!PACKAGE_SOURCES[@]}"; do
