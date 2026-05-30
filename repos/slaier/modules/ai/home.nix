@@ -39,14 +39,14 @@ in
       key = config.sops.secrets.anthropic_auth_token.path;
       base = "https://token-plan-cn.xiaomimimo.com/anthropic";
       model = "mimo-v2.5-pro";
-      haiku = "mimo-v2-flash";
+      haiku = "mimo-v2.5";
       sonnet = "mimo-v2.5";
     })
     (mkCluade "qwen" {
       key = writeText "dummy" "dummy";
       base = "http://127.0.0.1:8080";
       model = "preset/Qwen3.6-35B-A3B-MTP";
-      haiku = "preset/Qwen2.5-Coder-3B-Instruct-128K";
+      haiku = "preset/Qwen3.5-4B-MTP";
       sonnet = "preset/Qwen3.5-4B-MTP";
     })
   ];

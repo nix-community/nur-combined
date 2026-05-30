@@ -121,7 +121,7 @@
           }
         );
         "claudeCode.disableLoginPrompt" = true;
-        "claudeCode.preferredLocation" = "panel";
+        "claudeCode.preferredLocation" = "sidebar";
         "direnv.restart.automatic" = true;
         "markdown-preview-enhanced.previewTheme" = "monokai.css";
         "mesonbuild.buildFolder" = "build";
