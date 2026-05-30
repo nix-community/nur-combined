@@ -107,7 +107,6 @@ let
     day = alacrittyMyTheme false;
     night = alacrittyMyTheme true;
   };
-  alacrittyLiveConfigPath = "/run/user/$UID/alacritty-conf.toml";
   getAlaText =
     hmmodule:
     let
@@ -119,7 +118,7 @@ let
   mkAlacrittySwitcher =
     name: hmmodule:
     (pkgs.writeShellScriptBin "ala-${name}" ''
-      cat < '${getAlaText hmmodule}' > ${alacrittyLiveConfigPath}
+      cat < '${getAlaText hmmodule}' > "$XDG_RUNTIME_DIR/alacritty-conf.toml"
     '');
   alacrittyCombined = pkgs.symlinkJoin {
     name = "ala-switchers";
@@ -127,7 +126,7 @@ let
       (pkgs.writeShellScriptBin "alacritty" ''
         exec ${pkgs.alacritty}/bin/alacritty \
           --option live_config_reload=true \
-          --config-file ${alacrittyLiveConfigPath} "$@"
+          --config-file "$XDG_RUNTIME_DIR/alacritty-conf.toml" "$@"
       '')
     ]
     ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules)
