@@ -103,6 +103,16 @@ let
       license = pkgs.lib.licenses.mit;  # MIT OR Apache-2.0
     };
 
+    # ── Messaging Extensions ─────────────────────────────────────────────────
+
+    "@llblab/pi-telegram" = mkScopedPackage "@llblab" "pi-telegram" {
+      version = "0.13.2";
+      hash = "sha256-9vOwRiuqtQwxQOJWv7t17GNnLLT2CzBGMvP50T/jzR8=";
+      npmDepsHash = "";  # No dependencies, only peer dependencies
+      description = "Telegram integration for Pi coding agent";
+      homepage = "https://github.com/llblab/pi-telegram";
+    };
+
     # ── TODO: Add more packages ──────────────────────────────────────────────
     # Use the update script to get hashes:
     #   ./pkgs/pi-packages/scripts/update-pi-package.sh <package-name> [version]
