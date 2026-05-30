@@ -6,12 +6,12 @@
 }:
 mpvScripts.buildLua {
   pname = "playlist-dir-conf";
-  version = "0-unstable-2026-04-02";
+  version = "0-unstable-2026-05-31";
   src = fetchFromGitHub {
     owner = "zzzealed";
     repo = "mpv-playlist-dir-conf";
-    rev = "aac34c612a1ded93abf9234cf78be05acbce9b95";
-    hash = "sha256-lbaJ3WsEPxigrUFzS/ip6d6cfGT5bMDOFdYF+yIxIWE=";
+    rev = "2f6f1678a05c923cc0ce83ab1d4e2ead54baa179";
+    hash = "sha256-WxCwRWQcRnvLiIpc9g9cAfBn2VVvRwhriAGGWDaO0rU=";
   };
   passthru.updateScript = unstableGitUpdater { };
   meta = {
