@@ -41,10 +41,9 @@ stdenv.mkDerivation {
 
     install -Dm755 $src $out/libexec/claude
 
-    # The native binary self-updates into ~/.claude and would run that copy
-    # instead of this one; pin to the Nix version by disabling the updater.
     makeWrapper $out/libexec/claude $out/bin/claude \
-      --set-default DISABLE_AUTOUPDATER 1
+      --set-default DISABLE_AUTOUPDATER 1 \
+      --set-default DISABLE_INSTALLATION_CHECKS 1
 
     runHook postInstall
   '';
