@@ -9,7 +9,7 @@
   vulkan-loader,
   wayland-scanner,
   wayland,
-  xorg,
+  libX11,
 }:
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.vk-hdr-layer) pname version src;
@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     vulkan-loader
     wayland
     wayland-scanner
-    xorg.libX11
+    libX11
   ];
 
   meta = {

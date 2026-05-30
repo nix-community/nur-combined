@@ -12,7 +12,11 @@
   freetype,
   libffi,
   openssl,
-  xorg,
+  libX11,
+  libXext,
+  libXi,
+  libXrender,
+  libXtst,
   zlib,
   # runtime dependencies
   cups,
@@ -46,11 +50,11 @@ let
       freetype
       openssl
       stdenv.cc.cc.lib # libstdc++.so.6
-      xorg.libX11
-      xorg.libXext
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXtst
+      libX11
+      libXext
+      libXi
+      libXrender
+      libXtst
       zlib
     ]
     ++ lib.optional stdenv.isAarch32 libffi;

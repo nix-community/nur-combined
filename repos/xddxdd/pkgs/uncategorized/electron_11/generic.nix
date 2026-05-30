@@ -21,7 +21,16 @@
   gdk-pixbuf,
   nss,
   nspr,
-  xorg,
+  libX11,
+  libxcb,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libxkbfile,
+  libXScrnSaver,
+  libxshmfence,
   pango,
   systemd,
   pciutils,
@@ -92,14 +101,14 @@ let
       gtk3
       nss
       nspr
-      xorg.libX11
-      xorg.libxcb
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libxkbfile
+      libX11
+      libxcb
+      libXcomposite
+      libXdamage
+      libXext
+      libXfixes
+      libXrandr
+      libxkbfile
       pango
       pciutils
       stdenv.cc.cc.lib
@@ -109,9 +118,9 @@ let
       libdrm
       mesa
     ]
-    ++ lib.optionals (lib.versionOlder version "10.0.0") [ xorg.libXScrnSaver ]
+    ++ lib.optionals (lib.versionOlder version "10.0.0") [ libXScrnSaver ]
     ++ lib.optionals (lib.versionAtLeast version "11.0.0") [ libxkbcommon ]
-    ++ lib.optionals (lib.versionAtLeast version "12.0.0") [ xorg.libxshmfence ]
+    ++ lib.optionals (lib.versionAtLeast version "12.0.0") [ libxshmfence ]
     ++ lib.optionals (lib.versionAtLeast version "17.0.0") [ libGL ]
   );
 

@@ -61,7 +61,27 @@
   rtmpdump,
   udev,
   util-linux,
-  xorg,
+  libICE,
+  libSM,
+  libX11,
+  libxcb,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXmu,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libXt,
+  libXtst,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
 }:
 ################################################################################
 # Mostly based on dingtalk-bin package from AUR:
@@ -125,27 +145,27 @@ let
     rtmpdump
     udev
     util-linux
-    xorg.libICE
-    xorg.libSM
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXinerama
-    xorg.libXmu
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXScrnSaver
-    xorg.libXt
-    xorg.libXtst
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
+    libICE
+    libSM
+    libX11
+    libxcb
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXinerama
+    libXmu
+    libXrandr
+    libXrender
+    libXScrnSaver
+    libXt
+    libXtst
+    xcbutilimage
+    xcbutilkeysyms
+    xcbutilrenderutil
+    xcbutilwm
   ];
 in
 stdenv.mkDerivation (finalAttrs: {

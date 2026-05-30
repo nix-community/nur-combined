@@ -9,7 +9,13 @@
   libportal,
   pipewire,
   opencv,
-  xorg,
+  libX11,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libXtst,
 }:
 # https://github.com/xddxdd/nur-packages/issues/71
 stdenv.mkDerivation {
@@ -28,13 +34,13 @@ stdenv.mkDerivation {
     pipewire
     opencv
     # X11 依赖 (Hook 需要操作 X11 窗口)
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libXtst
+    libX11
+    libXcomposite
+    libXdamage
+    libXext
+    libXfixes
+    libXrandr
+    libXtst
   ];
   # 修复构建错误：这是库文件，不需要 wrap
   dontWrapQtApps = true;

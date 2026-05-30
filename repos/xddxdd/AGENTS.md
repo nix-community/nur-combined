@@ -20,6 +20,7 @@
   - 如果程序需要特定参数来显示版本，设置 `versionCheckProgramArg`（如 `--version`）
 - **禁用测试时启用安装检查**：如果设置 `doCheck = false` 禁用测试，必须同时设置 `doInstallCheck = true` 以确保 `versionCheckHook` 正常工作
 - **处理 execstack 标记**：打包上游二进制时如遇到 `cannot enable executable stack`，用 `execstack -c`（`pax-utils`）或 `patchelf --clear-execstack` 清理需要可执行栈的 ELF（常见于某些 `.so`）
+- **使用顶层 Xorg 包**：Xorg 相关的库和工具现在可以直接作为顶层包引用，不要使用 `xorg.` 前缀。例如使用 `libX11` 而不是 `xorg.libX11`，使用 `xcbutilimage` 而不是 `xorg.xcbutilimage`
 
 ## 包元数据规范
 

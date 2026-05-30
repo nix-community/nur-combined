@@ -15,18 +15,18 @@ let
     libglvnd
     openal
     stdenv.cc.cc.lib
-    xorg.libICE
-    xorg.libSM
-    xorg.libX11
-    xorg.libXau
-    xorg.libxcb
-    xorg.libXcursor
-    xorg.libXdmcp
-    xorg.libXext
-    xorg.libXi
-    xorg.libXinerama
-    xorg.libXrandr
-    xorg.libXrender
+    libICE
+    libSM
+    libX11
+    libXau
+    libxcb
+    libXcursor
+    libXdmcp
+    libXext
+    libXi
+    libXinerama
+    libXrandr
+    libXrender
     zlib
   ];
 

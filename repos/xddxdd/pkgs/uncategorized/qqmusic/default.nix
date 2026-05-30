@@ -27,7 +27,18 @@
   pango,
   pciutils,
   udev,
-  xorg,
+  libX11,
+  libxcb,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libXtst,
 }:
 ################################################################################
 # Mostly based on qqmusic-bin package from AUR:
@@ -63,18 +74,18 @@ stdenv.mkDerivation (finalAttrs: {
     pango
     pciutils
     udev
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXScrnSaver
-    xorg.libXtst
+    libX11
+    libxcb
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrandr
+    libXrender
+    libXScrnSaver
+    libXtst
   ];
 
   unpackPhase = ''

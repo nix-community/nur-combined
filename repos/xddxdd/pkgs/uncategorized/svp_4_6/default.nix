@@ -20,7 +20,7 @@
   socat,
   vapoursynth,
   xdg-utils,
-  xorg,
+  libX11,
   zenity,
   # MPV dependencies
   mpv-unwrapped,
@@ -71,7 +71,7 @@ let
     stdenv.cc.cc.lib
     vapoursynth
     xdg-utils
-    xorg.libX11
+    libX11
   ];
 
   svp-dist = stdenv.mkDerivation (finalAttrs: {

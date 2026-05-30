@@ -47,7 +47,27 @@
   systemd,
   vulkan-loader,
   wayland,
-  xorg,
+  libICE,
+  libSM,
+  libX11,
+  libxcb,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXft,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libxshmfence,
+  libXt,
+  libXtst,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
   zlib,
 }:
 ################################################################################
@@ -102,27 +122,27 @@ let
     systemd
     vulkan-loader
     wayland
-    xorg.libICE
-    xorg.libSM
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXft
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXScrnSaver
-    xorg.libxshmfence
-    xorg.libXt
-    xorg.libXtst
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
+    libICE
+    libSM
+    libX11
+    libxcb
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXft
+    libXi
+    libXrandr
+    libXrender
+    libXScrnSaver
+    libxshmfence
+    libXt
+    libXtst
+    xcbutilimage
+    xcbutilkeysyms
+    xcbutilrenderutil
+    xcbutilwm
     zlib
   ];
 

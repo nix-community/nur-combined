@@ -6,7 +6,7 @@
   makeWrapper,
   runCommand,
   chromium,
-  xorg,
+  xorgserver,
   undetected-chromedriver,
   ...
 }:
@@ -40,7 +40,7 @@ let
   path = lib.makeBinPath [
     chromium-wrapped
     undetected-chromedriver
-    xorg.xorgserver
+    xorgserver
   ];
 in
 stdenv.mkDerivation {

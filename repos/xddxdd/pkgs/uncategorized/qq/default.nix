@@ -18,7 +18,7 @@
   nss,
   pciutils,
   systemd,
-  xorg,
+  libXdamage,
 }:
 let
   libraries = [
@@ -34,7 +34,7 @@ let
     nss
     pciutils
     systemd
-    xorg.libXdamage
+    libXdamage
   ];
 
   source =
