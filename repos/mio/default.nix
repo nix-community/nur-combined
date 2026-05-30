@@ -49,8 +49,8 @@ in
       # To check current key: nix eval --impure --expr 'let pkgs = import <nixpkgs> {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
       # From local nixpkgs repo: nix eval --impure --expr 'let pkgs = import ./. {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
       caddyPluginsHashTable = {
-        "26.05pre-git:2.11.3:1.26.3" = "";
-        "26.11pre-git:2.11.3:1.26.3" = "";
+        "26.05pre-git:2.11.3:1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
+        "26.11pre-git:2.11.3:1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;

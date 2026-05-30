@@ -178,7 +178,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     angelscript = angelscript_2_35_1;
   };
 
-
   betterbird-unwrapped = v3overrideAttrs (pkgs.callPackage ./pkgs/betterbird { });
   betterbird = pkgs.wrapThunderbird betterbird-unwrapped {
     applicationName = "betterbird";
