@@ -112,7 +112,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "darling";
-  version = "0.1.20251023-unstable-2025-12-14";
+  version = "0.1.20260222";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
