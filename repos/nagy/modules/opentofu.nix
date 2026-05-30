@@ -16,6 +16,8 @@ in
     # pkgs.opentofu-ls
     self.pug
 
+    pkgs.terragrunt
+
   ];
 
   environment.sessionVariables.PUG_PROGRAM = "tofu";

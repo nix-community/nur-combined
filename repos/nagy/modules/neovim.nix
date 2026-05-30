@@ -55,8 +55,10 @@
         vim.opt.wildignore:append("**/node_modules/*")
 
         require("modus-themes").setup({
-          style                     = "modus_vivendi",
-          variant                   = "default",
+          style = "modus_vivendi",
+          variants = {
+            modus_vivendi = "default",
+          },
         })
         vim.cmd("colorscheme modus")
       '';
