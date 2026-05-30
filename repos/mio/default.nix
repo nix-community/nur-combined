@@ -49,41 +49,8 @@ in
       # To check current key: nix eval --impure --expr 'let pkgs = import <nixpkgs> {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
       # From local nixpkgs repo: nix eval --impure --expr 'let pkgs = import ./. {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
       caddyPluginsHashTable = {
-        # nixpkgs-unstable 2025-11-04
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.2" =
-          "sha256-+3itNp/as78n584eDu9byUvH5LQmEsFrX3ELrVjWmEw=";
-        # staging-next 20251107
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.3" =
-          "sha256-hfIP97+TKcQkGg6s19VQcz9bS1wqzSBtqVTbtDc4HSQ=";
-        # release-25.05 20251107
-        "sha256-hzDd2BNTZzjwqhc/STbSAHnNlP7g1cFuMehqU1LumQE=:1.24.9" =
-          "sha256-lraVVvjqWpQJmlHhpfWZwC9S0Gvx7nQR6Nzmt0oEOLw=";
-        # staging-next 20251116
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.4" =
-          "sha256-cZLVVKeEoSO4im0wGJfwzpAknPs2WFFJpTtDMcaGwhk=";
-        # nixos-25.11 20251218
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.5" =
-          "sha256-rNeWnktP6HU+tT10hT6q/ZcIJeJmtu7VFhcXrgcFflM=";
-        # nixos-25.11 20260211
-        "sha256-KvikafRYPFZ0xCXqDdji1rxlkThEDEOHycK8GP5e8vk=:1.25.6" =
-          "sha256-WzhF5560CgM6a3frbv3JxyNZA9D7WYhWab5Ds9WEO0k=";
-        # nixos-unstable-small 20260224
-        "sha256-8NvRodMtq9Yrock7QRvF6ZOjuqpiK0KS3UeJzYcIbsg=:1.25.5" =
-          "sha256-1oLtb7TmXRjElHOUouXzH2emMB+bz5YHtj9xdwetItA=";
-        # nixos-unstable 20260224
-        "sha256-8NvRodMtq9Yrock7QRvF6ZOjuqpiK0KS3UeJzYcIbsg=:1.25.7" =
-          "sha256-7giclWYDZTZqqrQedQzfMuDSFMS1gLFh9ISXE9Wm9Oo=";
-        # nixos-unstable 20260310
-        "sha256-QoGq8+lhaSQuC1VwIYE8h8N/ZC1ozfmIwmsIPk29Jos=:1.25.7" =
-          "sha256-18QmFEF57R+a9YCPXJd2nHgW8fg2EdcY3qhvWAfxbwI=";
-        "25.11pre-git:2.11.2:1.25.8" = "sha256-g0gq59trhLBzniqUPLuOktICa1CgOc/L+0A2en33nkY=";
-        "26.05pre-git:2.11.2:1.26.1" = "sha256-4Suk4D3TVcrKIvaHYFE5jG4gddyHrfaOsPzl9wxL4rw=";
-        "26.05pre-git:2.11.2:1.26.2" = "sha256-Oe8v5J6euUT2zkE/lXrreIlOK21Ol0OlaeSdOOTYvgc=";
-        "25.11pre-git:2.11.2:1.25.9" = "sha256-6UhBPypnLv4qHhqWrLHXGMBzH3mLKotnVN2DF/YUSGc=";
-        "25.11pre-git:2.11.3:1.25.9" = "sha256-UBJkcrgUfEYYBxIWkS+0+fHt6JYff6a2FMA8IUr3mLU=";
-        "26.05pre-git:2.11.3:1.26.2" = "sha256-b7BpKLESNP15EaAnuk/Sa8R2bzjOsY2A6oHGc5UYXdc=";
-        "26.05pre-git:2.11.3:1.26.3" = "sha256-ksRl1VHN1lUQhYsuXJ5zeUNbeDO9/hGo1jJbKR1spWQ=";
-        "26.11pre-git:2.11.3:1.26.3" = "sha256-ksRl1VHN1lUQhYsuXJ5zeUNbeDO9/hGo1jJbKR1spWQ=";
+        "26.05pre-git:2.11.3:1.26.3" = "";
+        "26.11pre-git:2.11.3:1.26.3" = "";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
@@ -97,8 +64,8 @@ in
       # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
       # https://github.com/NixOS/nixpkgs/pull/358586
       plugins = [
-        "github.com/caddy-dns/cloudflare@v0.2.2"
-        "github.com/porech/caddy-maxmind-geolocation@v1.0.1"
+        "github.com/caddy-dns/cloudflare@v0.2.4"
+        "github.com/porech/caddy-maxmind-geolocation@v1.0.3"
         # "github.com/hslatman/caddy-crowdsec-bouncer/http@main"
       ];
       hash = pluginsHash;
