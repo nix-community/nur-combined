@@ -24,7 +24,7 @@ async function single(file, { config, force }) {
     url = eval(`(${raw})${config.source.url_path}`);
     if (!url) throw new Error("Failed to extract URL from API response");
   } else if (config.asset?.url) {
-    url = config.asset.url.replace(/\{version\}/g, parsed);
+    url = config.asset.url.replace(/\{version:(\d+)\}/g, (_, n) => parsed.split(".").slice(0, +n).join(".")).replace(/\{version\}/g, parsed);
     template = true;
   } else throw new Error("Failed to extract URL from API response");
 
@@ -72,7 +72,7 @@ async function platforms(file, { config, force }) {
     const url_path = settings.url_path || config.source.url_path;
 
     if (!url_path) {
-      download = apply(settings.url.replace(/\{version\}/g, parsed), settings.substitutions);
+      download = apply(settings.url.replace(/\{version:(\d+)\}/g, (_, n) => parsed.split(".").slice(0, +n).join(".")).replace(/\{version\}/g, parsed), settings.substitutions);
       template = true;
     } else {
       let link = apply(config.source.url, settings.substitutions);

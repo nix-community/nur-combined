@@ -22,11 +22,18 @@
     version,
     repo ? "",
     template,
-  }:
-    builtins.replaceStrings
-    ["{version}" "{repo}"]
-    [version repo]
-    template;
+  }: let
+    parts = lib.splitString "." version;
+    result = builtins.replaceStrings ["{version}" "{repo}"] [version repo] template;
+  in
+    builtins.foldl'
+    (t: n:
+      builtins.replaceStrings ["{version:${toString n}}"] [
+        (builtins.concatStringsSep "." (lib.take n parts))
+      ]
+      t)
+    result
+    (lib.range 1 (builtins.length parts));
 
   applySubstitutions = subs: let
     applySubs = t: idx:

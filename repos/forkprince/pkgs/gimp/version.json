@@ -8,12 +8,12 @@
   "version": "3.2.4",
   "platforms": {
     "x86_64-darwin": {
-      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-3.0.8-x86_64.dmg",
-      "hash": "sha256-bR4rCPf7FkJn/bDm0YhZoqTxhlWj/sPPpveZXwyt4ZM="
+      "url": "https://download.gimp.org/gimp/v{version:2}/macos/gimp-{version}-x86_64.dmg",
+      "hash": "sha256-hSFKOIaHcY0wFp2IsieU1rComEm8x6pFb0r7g8Eya+g="
     },
     "aarch64-darwin": {
-      "url": "https://download.gimp.org/gimp/v3.0/macos/gimp-3.0.8-arm64.dmg",
-      "hash": "sha256-0U688v/UkgpJGVt/L9UMrhIME18+5pR6CO/qLdw4kTQ="
+      "url": "https://download.gimp.org/gimp/v{version:2}/macos/gimp-{version}-arm64.dmg",
+      "hash": "sha256-KUwBbcp3lZmRKaOLRi+A+sPBPLlj5t6dBO611uUZOSs="
     }
   }
 }
