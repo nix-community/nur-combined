@@ -1109,6 +1109,21 @@
         },
         "version": "9b182be2ee4bf003c892e1312440e1e5d93eff2c"
     },
+    "drission-get": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "drission-get",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-efcvUoYMuG4zyAroeE1fakrtlV2ToTRQHgGnuwJU7I8=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/d/drissionget/drissionget-1.1.0.tar.gz"
+        },
+        "version": "1.1.0"
+    },
     "drission-page": {
         "cargoLock": null,
         "date": null,
@@ -1123,6 +1138,21 @@
             "url": "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.1.4.tar.gz"
         },
         "version": "4.1.1.4"
+    },
+    "drission-record": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "drission-record",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-hjMFvAmuxYFYBF9F62k14VuprBXjWJIBBbIPSnMLLtc=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/d/drissionrecord/drissionrecord-2.0.1.tar.gz"
+        },
+        "version": "2.0.1"
     },
     "drone-file-secret": {
         "cargoLock": null,

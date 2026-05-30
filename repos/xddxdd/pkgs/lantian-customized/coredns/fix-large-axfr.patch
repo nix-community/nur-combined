@@ -1,8 +1,6 @@
-diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index 306519dc2..ccd829950 100644
---- a/plugin/forward/forward.go
-+++ b/plugin/forward/forward.go
-@@ -160,13 +160,14 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+--- a/plugin/forward/forward.go	2026-05-29 22:07:59.185638107 -0700
++++ b/plugin/forward/forward.go	2026-05-29 22:08:55.468691985 -0700
+@@ -161,13 +161,14 @@
  		})
  
  		var (
@@ -20,7 +18,7 @@ index 306519dc2..ccd829950 100644
  
  			if err == proxyPkg.ErrCachedClosed { // Remote side closed conn, can only happen with TCP.
  				continue
-@@ -210,6 +211,25 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+@@ -211,6 +212,25 @@
  			break
  		}
  
@@ -46,20 +44,18 @@ index 306519dc2..ccd829950 100644
  		// Check if the reply is correct; if not return FormErr.
  		if !state.Match(ret) {
  			debug.Hexdumpf(ret, "Wrong reply for id: %d, %s %d", ret.Id, state.QName(), state.QType())
-diff --git a/plugin/pkg/proxy/connect.go b/plugin/pkg/proxy/connect.go
-index 4026cfbdd..2c7b01201 100644
---- a/plugin/pkg/proxy/connect.go
-+++ b/plugin/pkg/proxy/connect.go
-@@ -94,7 +94,7 @@ func (t *Transport) Dial(proto string) (*persistConn, bool, error) {
+--- a/plugin/pkg/proxy/connect.go	2026-05-29 22:07:59.207777554 -0700
++++ b/plugin/pkg/proxy/connect.go	2026-05-29 22:08:24.646622293 -0700
+@@ -103,7 +103,7 @@
  }
  
  // Connect selects an upstream, sends the request and waits for a response.
--func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options) (*dns.Msg, error) {
+-func (p *Proxy) Connect(_ctx context.Context, state request.Request, opts Options) (*dns.Msg, error) {
 +func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options) (*dns.Msg, []dns.RR, error) {
  	start := time.Now()
  
  	var proto string
-@@ -109,12 +109,61 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+@@ -118,12 +118,61 @@
  
  	pc, cached, err := p.transport.Dial(proto)
  	if err != nil {
@@ -122,7 +118,7 @@ index 4026cfbdd..2c7b01201 100644
  	pc.c.SetWriteDeadline(time.Now().Add(maxTimeout))
  	// records the origin Id before upstream.
  	originId := state.Req.Id
-@@ -126,12 +175,11 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+@@ -135,12 +184,10 @@
  	if err := pc.c.WriteMsg(state.Req); err != nil {
  		pc.c.Close() // not giving it back
  		if err == io.EOF && cached {
@@ -132,12 +128,12 @@ index 4026cfbdd..2c7b01201 100644
 -		return nil, err
 +		return nil, nil, err
  	}
- 
+-
 -	var ret *dns.Msg
  	pc.c.SetReadDeadline(time.Now().Add(p.readTimeout))
  	for {
  		ret, err = pc.c.ReadMsg()
-@@ -150,13 +198,13 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+@@ -159,13 +206,13 @@
  
  			pc.c.Close() // not giving it back
  			if err == io.EOF && cached {
@@ -153,7 +149,7 @@ index 4026cfbdd..2c7b01201 100644
  		}
  		// drop out-of-order responses
  		if state.Req.Id == ret.Id {
-@@ -175,7 +223,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts Options
+@@ -184,7 +231,7 @@
  
  	requestDuration.WithLabelValues(p.proxyName, p.addr, rc).Observe(time.Since(start).Seconds())
  
@@ -162,11 +158,9 @@ index 4026cfbdd..2c7b01201 100644
  }
  
  const cumulativeAvgWeight = 4
-diff --git a/plugin/pkg/proxy/proxy_test.go b/plugin/pkg/proxy/proxy_test.go
-index afb66204b..f5231f98d 100644
---- a/plugin/pkg/proxy/proxy_test.go
-+++ b/plugin/pkg/proxy/proxy_test.go
-@@ -36,7 +36,7 @@ func TestProxy(t *testing.T) {
+--- a/plugin/pkg/proxy/proxy_test.go	2026-05-29 22:07:59.207763123 -0700
++++ b/plugin/pkg/proxy/proxy_test.go	2026-05-29 22:08:24.646661828 -0700
+@@ -36,7 +36,7 @@
  	rec := dnstest.NewRecorder(&test.ResponseWriter{})
  	req := request.Request{Req: m, W: rec}
  
@@ -175,7 +169,7 @@ index afb66204b..f5231f98d 100644
  	if err != nil {
  		t.Errorf("Failed to connect to testdnsserver: %s", err)
  	}
-@@ -67,7 +67,7 @@ func TestProxyTLSFail(t *testing.T) {
+@@ -67,7 +67,7 @@
  	rec := dnstest.NewRecorder(&test.ResponseWriter{})
  	req := request.Request{Req: m, W: rec}
  
@@ -184,3 +178,21 @@ index afb66204b..f5231f98d 100644
  	if err == nil {
  		t.Fatal("Expected *not* to receive reply, but got one")
  	}
+@@ -121,7 +121,7 @@
+ 				Req: m,
+ 			}
+ 
+-			resp, err := p.Connect(context.Background(), req, tc.opts)
++			resp, _, err := p.Connect(context.Background(), req, tc.opts)
+ 			if err != nil {
+ 				t.Fatalf("Connect failed: %v", err)
+ 			}
+@@ -214,7 +214,7 @@
+ 		recorder := dnstest.NewRecorder(&test.ResponseWriter{})
+ 		request := request.Request{Req: queryMsg, W: recorder}
+ 
+-		response, err := p.Connect(context.Background(), request, options)
++		_, response, err := p.Connect(context.Background(), request, options)
+ 		if err != nil {
+ 			t.Errorf("Failed to connect to testdnsserver: %s", err)
+ 		}

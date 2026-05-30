@@ -62,7 +62,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (206 packages)</summary>
+<summary>Package set: (Uncategorized) (208 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -102,7 +102,9 @@ Or, use variables from this repository in case I change them:
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.2.1-unstable-2022-11-06 | DN42 Pingfinder |
 |  | `download-kit` | [download-kit](https://github.com/g1879/DownloadKit) | 2.0.7 | Simple to use multi-threaded download toolkit |
 |  | `dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | 0-unstable-2024-11-20 | DPDK kernel modules or add-ons |
+|  | `drission-get` | [drission-get](https://DrissionPage.cn/DrissionGet) | 1.1.0 | Multi-threaded file download toolkit |
 |  | `drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.1.4 | Python based web automation tool |
+|  | `drission-record` | [drission-record](https://gitcode.com/g1879/DrissionRecord) | 2.0.1 | Python data recording toolkit |
 |  | `drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-25 | Secret provider for Drone CI that reads secrets from a given folder |
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `dump978` | [dump978](https://github.com/flightaware/dump978) | 11.0 | FlightAware's 978MHz UAT demodulator |
@@ -1266,7 +1268,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: python3Packages (30 packages)</summary>
+<summary>Package set: python3Packages (32 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1275,7 +1277,9 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `python3Packages.data-recorder` | [data-recorder](https://github.com/g1879/DataRecorder) | 3.6.2 | Python-based toolkit to record data into files |
 |  | `python3Packages.download-kit` | [download-kit](https://github.com/g1879/DownloadKit) | 2.0.7 | Simple to use multi-threaded download toolkit |
+|  | `python3Packages.drission-get` | [drission-get](https://DrissionPage.cn/DrissionGet) | 1.1.0 | Multi-threaded file download toolkit |
 |  | `python3Packages.drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.1.4 | Python based web automation tool |
+|  | `python3Packages.drission-record` | [drission-record](https://gitcode.com/g1879/DrissionRecord) | 2.0.1 | Python data recording toolkit |
 |  | `python3Packages.edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.8 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
 |  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-05-29 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |

@@ -11,6 +11,7 @@
   fusepy,
   keystone-engine,
   hatchling,
+  mfusepy,
   mock,
   pycryptodome,
   pycryptodomex,
@@ -35,6 +36,7 @@ buildPythonPackage rec {
     fusepy
     keystone-engine
     hatchling
+    mfusepy
     mock
     pycryptodome
     pycryptodomex

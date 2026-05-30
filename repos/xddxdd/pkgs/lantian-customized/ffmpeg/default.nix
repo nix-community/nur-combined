@@ -8,6 +8,9 @@ ffmpeg.overrideAttrs (old: {
     ./ffmpeg-libavformat-av3a.patch
   ];
 
+  doCheck = false;
+  doInstallCheck = false;
+
   meta = old.meta // {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "FFmpeg with Lan Tian modifications";

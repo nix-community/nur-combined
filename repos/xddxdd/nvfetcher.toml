@@ -256,9 +256,17 @@ src.pypi = "DownloadKit"
 fetch.git = "git://dpdk.org/dpdk-kmods"
 src.git = "git://dpdk.org/dpdk-kmods"
 
+[drission-get]
+fetch.url = "https://pypi.org/packages/source/d/drissionget/drissionget-$ver.tar.gz"
+src.pypi = "DrissionGet"
+
 [drission-page]
 fetch.url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-$ver.tar.gz"
 src.pypi = "DrissionPage"
+
+[drission-record]
+fetch.url = "https://pypi.org/packages/source/d/drissionrecord/drissionrecord-$ver.tar.gz"
+src.pypi = "DrissionRecord"
 
 [drone-file-secret]
 fetch.github = "xddxdd/drone-file-secret"

@@ -579,12 +579,28 @@
     };
     date = "2024-11-20";
   };
+  drission-get = {
+    pname = "drission-get";
+    version = "1.1.0";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/d/drissionget/drissionget-1.1.0.tar.gz";
+      hash = "sha256-efcvUoYMuG4zyAroeE1fakrtlV2ToTRQHgGnuwJU7I8=";
+    };
+  };
   drission-page = {
     pname = "drission-page";
     version = "4.1.1.4";
     src = fetchurl {
       url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.1.4.tar.gz";
       hash = "sha256-TGJEhcvFduFHftt3zZKjGEcE99bQ/QGSjJRKXma6Rxk=";
+    };
+  };
+  drission-record = {
+    pname = "drission-record";
+    version = "2.0.1";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/d/drissionrecord/drissionrecord-2.0.1.tar.gz";
+      hash = "sha256-hjMFvAmuxYFYBF9F62k14VuprBXjWJIBBbIPSnMLLtc=";
     };
   };
   drone-file-secret = {

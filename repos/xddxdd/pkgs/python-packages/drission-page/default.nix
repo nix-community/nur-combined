@@ -6,12 +6,13 @@
   requests,
   lxml,
   cssselect,
-  download-kit,
   websocket-client,
   click,
   tldextract,
   psutil,
   setuptools,
+  drission-get,
+  drission-record,
 }:
 buildPythonPackage rec {
   inherit (sources.drission-page) pname version;
@@ -24,11 +25,12 @@ buildPythonPackage rec {
     requests
     lxml
     cssselect
-    download-kit
+    drission-get
     websocket-client
     click
     tldextract
     psutil
+    drission-record
   ];
 
   pythonImportsCheck = [

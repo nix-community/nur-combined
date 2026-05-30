@@ -24,6 +24,7 @@
   sentencepiece,
   soundfile,
   tensorboardx,
+  tiktoken,
   torch-complex,
   torchaudio,
   tqdm,
@@ -57,6 +58,7 @@ buildPythonPackage rec {
     sentencepiece
     soundfile
     tensorboardx
+    tiktoken
     torch-complex
     torchaudio
     tqdm

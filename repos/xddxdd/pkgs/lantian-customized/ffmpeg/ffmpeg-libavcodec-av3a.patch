@@ -2,20 +2,20 @@ diff --git a/libavcodec/Makefile b/libavcodec/Makefile
 index fb22541f8d..bd6da17d81 100644
 --- a/libavcodec/Makefile
 +++ b/libavcodec/Makefile
-@@ -1219,6 +1219,7 @@ OBJS-$(CONFIG_APV_PARSER)              += apv_parser.o
- OBJS-$(CONFIG_AV1_PARSER)              += av1_parser.o av1_parse.o
- OBJS-$(CONFIG_AVS2_PARSER)             += avs2.o avs2_parser.o
- OBJS-$(CONFIG_AVS3_PARSER)             += avs3_parser.o
-+OBJS                                   += av3a_parser.o
+@@ -1248,6 +1248,7 @@ OBJS-$(CONFIG_AVS3_PARSER)             += avs3_parser.o
  OBJS-$(CONFIG_BMP_PARSER)              += bmp_parser.o
  OBJS-$(CONFIG_CAVSVIDEO_PARSER)        += cavs_parser.o
  OBJS-$(CONFIG_COOK_PARSER)             += cook_parser.o
++OBJS                                   += av3a_parser.o
+ OBJS-$(CONFIG_CRI_PARSER)              += cri_parser.o
+ OBJS-$(CONFIG_DCA_PARSER)              += dca_parser.o dca_exss.o dca.o \
+                                           dca_sample_rate_tab.o
 diff --git a/libavcodec/av3a_parser.c b/libavcodec/av3a_parser.c
 new file mode 100644
 index 0000000000..4c4cb5d87a
 --- /dev/null
 +++ b/libavcodec/av3a_parser.c
-@@ -0,0 +1,492 @@
+@@ -0,0 +1,493 @@
 +/*
 + * av3a parser
 + *
@@ -44,6 +44,7 @@ index 0000000000..4c4cb5d87a
 +#include "libavutil/samplefmt.h"
 +#include "libavutil/intreadwrite.h"
 +#include "parser.h"
++#include "parser_internal.h"
 +#include "get_bits.h"
 +
 +/* AVS3 header */
@@ -503,16 +504,16 @@ index 0000000000..4c4cb5d87a
 +    return buf_size;
 +}
 +
-+const AVCodecParser ff_av3a_parser = {
-+    .codec_ids = { AV_CODEC_ID_AVS3DA },
++const FFCodecParser ff_av3a_parser = {
++    PARSER_CODEC_LIST(AV_CODEC_ID_AVS3DA),
 +    .priv_data_size = sizeof(AVS3AParseContext),
-+    .parser_parse = raw_av3a_parse,
++    .parse          = raw_av3a_parse,
 +};
 diff --git a/libavcodec/codec_desc.c b/libavcodec/codec_desc.c
 index a065556e51..e195f9e137 100644
 --- a/libavcodec/codec_desc.c
 +++ b/libavcodec/codec_desc.c
-@@ -3495,6 +3495,13 @@ static const AVCodecDescriptor codec_descriptors[] = {
+@@ -3557,6 +3557,13 @@ static const AVCodecDescriptor codec_descriptors[] = {
          .long_name = NULL_IF_CONFIG_SMALL("G.728"),
          .props     = AV_CODEC_PROP_INTRA_ONLY | AV_CODEC_PROP_LOSSY,
      },
@@ -523,17 +524,17 @@ index a065556e51..e195f9e137 100644
 +        .long_name = NULL_IF_CONFIG_SMALL("AVS3 Audio"),
 +        .props     = AV_CODEC_PROP_LOSSY,
 +    },
- 
-     /* subtitle codecs */
      {
+         .id        = AV_CODEC_ID_AHX,
+         .type      = AVMEDIA_TYPE_AUDIO,
 diff --git a/libavcodec/codec_id.h b/libavcodec/codec_id.h
-index c4842e61ff..bf3158b13b 100644
+index 3fd2ab3886..bf3158b13b 100644
 --- a/libavcodec/codec_id.h
 +++ b/libavcodec/codec_id.h
-@@ -556,6 +556,7 @@ enum AVCodecID {
-     AV_CODEC_ID_QOA,
+@@ -564,6 +564,7 @@ enum AVCodecID {
      AV_CODEC_ID_LC3,
      AV_CODEC_ID_G728,
+     AV_CODEC_ID_AHX,
 +    AV_CODEC_ID_AVS3DA,
  
      /* subtitle codecs */
@@ -542,14 +543,14 @@ diff --git a/libavcodec/parsers.c b/libavcodec/parsers.c
 index b12c48f79f..f303ecce64 100644
 --- a/libavcodec/parsers.c
 +++ b/libavcodec/parsers.c
-@@ -29,6 +29,7 @@ extern const AVCodecParser ff_apv_parser;
- extern const AVCodecParser ff_av1_parser;
- extern const AVCodecParser ff_avs2_parser;
- extern const AVCodecParser ff_avs3_parser;
-+extern const AVCodecParser ff_av3a_parser;
- extern const AVCodecParser ff_bmp_parser;
- extern const AVCodecParser ff_cavsvideo_parser;
- extern const AVCodecParser ff_cook_parser;
+@@ -48,6 +48,7 @@ extern const FFCodecParser ff_apv_parser;
+ extern const FFCodecParser ff_av1_parser;
+ extern const FFCodecParser ff_avs2_parser;
+ extern const FFCodecParser ff_avs3_parser;
++extern const FFCodecParser ff_av3a_parser;
+ extern const FFCodecParser ff_bmp_parser;
+ extern const FFCodecParser ff_cavsvideo_parser;
+ extern const FFCodecParser ff_cook_parser;
 diff --git a/libavcodec/utils.c b/libavcodec/utils.c
 index cfa35d0e04..a038a8c13a 100644
 --- a/libavcodec/utils.c
@@ -558,7 +559,7 @@ index cfa35d0e04..a038a8c13a 100644
      case AV_CODEC_ID_MP2:
      case AV_CODEC_ID_MUSEPACK7:    return 1152;
      case AV_CODEC_ID_AC3:          return 1536;
-+    case AV_CODEC_ID_AVS3DA:       return 1024;  // avs3p3/audio vivid fixed frame size
++    case AV_CODEC_ID_AVS3DA:       return 1024;
      case AV_CODEC_ID_FTR:          return 1024;
      }
  
@@ -582,7 +583,7 @@ index 981dd8cf0d..3db33d37a7 100644
      { STREAM_TYPE_VIDEO_DIRAC,    AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_DIRAC      },
      { STREAM_TYPE_VIDEO_AVS2,     AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_AVS2       },
      { STREAM_TYPE_VIDEO_AVS3,     AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_AVS3       },
-+    { STREAM_TYPE_VIDEO_AVS3DA,   AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_AVS3DA     }, /* avs3 audio */
++    { STREAM_TYPE_VIDEO_AVS3DA,   AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_AVS3DA     },
      { STREAM_TYPE_VIDEO_VC1,      AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_VC1        },
      { 0 },
  };
@@ -590,7 +591,7 @@ index 981dd8cf0d..3db33d37a7 100644
      { MKTAG('I', 'D', '3', ' '), AVMEDIA_TYPE_DATA,  AV_CODEC_ID_TIMED_ID3 },
      { MKTAG('V', 'C', '-', '1'), AVMEDIA_TYPE_VIDEO, AV_CODEC_ID_VC1   },
      { MKTAG('O', 'p', 'u', 's'), AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_OPUS  },
-+    { MKTAG('a', 'v', '3', 'a'), AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_AVS3DA}, /* AVS3 Audio descriptor Tag */
++    { MKTAG('a', 'v', '3', 'a'), AVMEDIA_TYPE_AUDIO, AV_CODEC_ID_AVS3DA},
      { 0 },
  };
  
@@ -605,4 +606,3 @@ index 2bc53447d0..52b7c842f9 100644
 +#define STREAM_TYPE_VIDEO_AVS3DA    0xd5
  #define STREAM_TYPE_VIDEO_VC1       0xea
  #define STREAM_TYPE_VIDEO_DIRAC     0xd1
- 
