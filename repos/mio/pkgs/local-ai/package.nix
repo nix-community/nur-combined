@@ -110,39 +110,45 @@ let
         src = fetchFromGitHub {
           owner = "ggerganov";
           repo = "llama.cpp";
-          rev = "516a4ca9b5f2fa72c2a71f412929a67cf76a6213";
-          hash = "sha256-oestuqPbrSSOa+GKQrtIuqqIAaweMxqkBcfpY1GUDpo=";
+          rev = "751ebd17a58a8a513994509214373bb9e6a3d66c";
+          hash = "sha256-lKlghscGFFfprhJ5P+TRvWb2LapVklaAtH/qY0RNWz0=";
           fetchSubmodules = true;
         };
+        npmDeps = null;
+        npmConfigHook = null;
+        preConfigure = "";
+        postConfigure = "";
         postPatch = ''
-          cd examples
+          cd tools
           if [ -d ${src}/backend/cpp/llama-cpp ]; then
             cp -r --no-preserve=mode ${src}/backend/cpp/llama-cpp grpc-server
           else
             cp -r --no-preserve=mode ${src}/backend/cpp/llama grpc-server
           fi
-          if [ -d llava ]; then
-            cp llava/clip* llava/llava.* grpc-server
+          if [ -d ../examples/llava ]; then
+            cp ../examples/llava/clip* ../examples/llava/llava.* grpc-server
           fi
-          cp ../tools/server/server-*.cpp grpc-server/
-          cp ../tools/server/server-*.h grpc-server/
+          # copy all server sources (including chat-auto-parser.h and server-chat.cpp
+          # added in newer llama.cpp revisions); exclude CMakeLists.txt and server.cpp
+          # (LocalAI's grpc-server has its own CMakeLists.txt and uses grpc-server.cpp)
+          for f in server/*; do
+            fname=$(basename "$f")
+            case "$fname" in CMakeLists.txt|server.cpp) continue ;; esac
+            cp -r "$f" grpc-server/
+          done
           cp ../vendor/nlohmann/json.hpp grpc-server/json.hpp
           cp ../vendor/cpp-httplib/httplib.h grpc-server/httplib.h
           cp ${src}/backend/backend.proto grpc-server
-          substituteInPlace grpc-server/grpc-server.cpp \
-            --replace-warn "params.fit_params_target = 1024 * 1024 * 1024;" \
-              "params.fit_params_target.assign(params.fit_params_target.size(), 1024ull * 1024 * 1024);"
-          substituteInPlace grpc-server/grpc-server.cpp \
-            --replace-warn "params.fit_params_target = static_cast<size_t>(std::stoi(optval_str)) * 1024 * 1024;" \
-              "params.fit_params_target.assign(params.fit_params_target.size(), static_cast<size_t>(std::stoi(optval_str)) * 1024 * 1024);"
           sed -i grpc-server/CMakeLists.txt \
             -e '/get_filename_component/ s;[.\/]*backend/;;' \
             -e '$a\install(TARGETS ''${TARGET} RUNTIME)'
           cd ..
-          printf "\nadd_subdirectory(examples/grpc-server)" >> CMakeLists.txt
+          printf "\nadd_subdirectory(tools/grpc-server)" >> CMakeLists.txt
         '';
         cmakeFlags = prev.cmakeFlags ++ [
           (lib.cmakeBool "BUILD_SHARED_LIBS" false)
+          (lib.cmakeBool "GGML_BACKEND_DL" false)
+          (lib.cmakeBool "GGML_CPU_ALL_VARIANTS" false)
           (lib.cmakeBool "GGML_AVX" enable_avx)
           (lib.cmakeBool "GGML_AVX2" enable_avx2)
           (lib.cmakeBool "GGML_AVX512" enable_avx512)
@@ -155,7 +161,7 @@ let
           openssl
           curl
         ];
-        nativeBuildInputs = (prev.nativeBuildInputs or [ ]) ++ [ git ];
+        nativeBuildInputs = lib.filter (x: !(lib.hasPrefix "npm-" (x.name or ""))) (prev.nativeBuildInputs or [ ]) ++ [ git ];
         postInstall = ''
           if [ -e $out/bin/llama-cli ]; then
             ln -sf $out/bin/llama-cli $out/bin/llama
@@ -392,12 +398,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "3.9.0";
+  version = "4.3.5";
   src = fetchFromGitHub {
     owner = "go-skynet";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-oYKO50xvat5128JuEyH/tTQO4eH2EcSblglEtL1QSNI=";
+    hash = "sha256-3+s8Wt1b7sDt1qZ79I7ZL5n95rbr1n/ea3V7wAzP9Gk=";
   };
 
   prepare-sources =
@@ -416,7 +422,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-yC6e+BbwrK9qYHWmnnsOWUvCpQxUGY7Y6+WPezHwxWA=";
+    vendorHash = "sha256-6JbDN6t6z7FtbjhZg4DMdVk2fvkB4d2eOFGgvBy7rlQ=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 
@@ -433,13 +439,6 @@ let
           -e '/^libsd/ s,$, $(COMBINED_LIB),'
       fi
 
-      substituteInPlace backend/cpp/llama-cpp/grpc-server.cpp \
-        --replace-warn "params.fit_params_target = 1024 * 1024 * 1024;" \
-          "params.fit_params_target.assign(params.fit_params_target.size(), 1024ull * 1024 * 1024);"
-      substituteInPlace backend/cpp/llama-cpp/grpc-server.cpp \
-        --replace-warn "params.fit_params_target = static_cast<size_t>(std::stoi(optval_str)) * 1024 * 1024;" \
-          "params.fit_params_target.assign(params.fit_params_target.size(), static_cast<size_t>(std::stoi(optval_str)) * 1024 * 1024);"
-
     ''
     + lib.optionalString with_cublas ''
       sed -i Makefile \
@@ -452,13 +451,18 @@ let
       cp ${llama-cpp-grpc}/bin/grpc-server backend-assets/grpc/llama-cpp-fallback
       cp ${llama-cpp-grpc}/bin/grpc-server backend-assets/grpc/llama-cpp-grpc
 
-      mkdir -p backend/cpp/llama/llama.cpp
+      mkdir -p backend/cpp/llama-cpp/llama.cpp
 
       mkdir -p backend-assets/util
       cp ${llama-cpp-rpc}/bin/llama-rpc-server backend-assets/util/llama-cpp-rpc-server
 
       mkdir -p backend/go/image/stablediffusion-ggml
       cp -r --no-preserve=mode,ownership ${stable-diffusion}/build backend/go/image/stablediffusion-ggml/build
+
+      # satisfy go:embed directive for react UI with a dummy file
+      # LocalAI gracefully handles a missing UI if the file is empty/invalid
+      mkdir -p core/http/react-ui/dist
+      touch core/http/react-ui/dist/index.html
 
       # avoid rebuild of prebuilt make targets
       touch backend-assets/grpc/* backend-assets/util/*
