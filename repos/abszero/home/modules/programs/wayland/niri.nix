@@ -104,9 +104,9 @@ in
             action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
             allow-when-locked = true;
           };
-          Print.action = screenshot;
+          Print.action.screenshot = [ ];
           "Shift+Print".action.screenshot-screen = [ ];
-          "Ctrl+Print".action = screenshot-window;
+          "Ctrl+Print".action.screenshot-window = [ ];
         };
 
         layer-rules = [
