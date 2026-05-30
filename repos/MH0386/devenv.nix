@@ -47,7 +47,6 @@ _:
   git-hooks.hooks = {
     mdsh.enable = true;
     shellcheck.enable = true;
-    action-validator.enable = true;
     actionlint.enable = true;
     nixfmt.enable = true;
     check-added-large-files.enable = true;
