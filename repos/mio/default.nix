@@ -83,6 +83,7 @@ in
         "25.11pre-git:2.11.3:1.25.9" = "sha256-UBJkcrgUfEYYBxIWkS+0+fHt6JYff6a2FMA8IUr3mLU=";
         "26.05pre-git:2.11.3:1.26.2" = "sha256-b7BpKLESNP15EaAnuk/Sa8R2bzjOsY2A6oHGc5UYXdc=";
         "26.05pre-git:2.11.3:1.26.3" = "sha256-ksRl1VHN1lUQhYsuXJ5zeUNbeDO9/hGo1jJbKR1spWQ=";
+        "26.11pre-git:2.11.3:1.26.3" = "sha256-ksRl1VHN1lUQhYsuXJ5zeUNbeDO9/hGo1jJbKR1spWQ=";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
