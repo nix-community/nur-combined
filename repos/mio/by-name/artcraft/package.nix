@@ -29,12 +29,12 @@
   libayatana-appindicator,
 }:
 let
-  version = "0.11.0";
+  version = "0.32.0";
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "artcraft";
     tag = "artcraft-v${version}";
-    hash = "sha256-ZNw2hbT1lDoOJtQpp7L26S+oCCdcp5bwVMg5OBfUbGk=";
+    hash = "sha256-xtKgGbHopP4BYqbdmcAhiJu+E0cME+NLqriRIEQo308=";
   };
   frontendSrc = runCommand "artcraft-frontend-src-${version}" { } ''
     cp -r ${src}/frontend $out
@@ -61,7 +61,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   npmRoot = "frontend";
   npmDeps = fetchNpmDeps {
     src = frontendSrc;
-    hash = "sha256-hzH2Q62V6J5CD1Ho/ISFE5uh6HCqV2+gzUNTi25819E=";
+    hash = "sha256-fZnA6PggchqTNv7Zb7glz3ALfPQnbgZgzKmThoaSvO4=";
   };
   npmDepsFetcherVersion = 2;
   makeCacheWritable = true;
@@ -71,7 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildAndTestSubdir = "crates/desktop/artcraft";
-  cargoHash = "sha256-Q/+zJJypBoUfWqsE9l0bKIX7FAAHjgdCCA4Wo8CHeIo=";
+  cargoHash = "sha256-ZJSgBpgPqeoRriFldE2IemAk0pnXFJZe/38fDTxOL9g=";
 
   nativeBuildInputs = [
     cargo-tauri.hook
@@ -157,7 +157,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       {} +
 
     substituteInPlace crates/desktop/artcraft/tauri.conf.json \
-      --replace-fail '"beforeBuildCommand": "nx run artcraft:build"' '"beforeBuildCommand": "true"'
+      --replace-fail '"beforeBuildCommand": "npx run artcraft:build"' '"beforeBuildCommand": "true"'
   '';
 
   preBuild = ''
@@ -169,24 +169,29 @@ rustPlatform.buildRustPackage (finalAttrs: {
       model_type TEXT,
       provider TEXT,
       provider_job_id TEXT,
+      prompt_token TEXT,
       frontend_caller TEXT,
       frontend_subscriber_id TEXT,
       frontend_subscriber_payload TEXT,
       is_dismissed_by_user INTEGER NOT NULL DEFAULT 0,
+      queue_status_url TEXT,
+      queue_response_url TEXT,
+      on_complete_batch_token TEXT,
       on_complete_primary_media_file_token TEXT,
       on_complete_primary_media_file_class TEXT,
-      on_complete_batch_token TEXT,
       on_complete_primary_media_file_cdn_url TEXT,
       on_complete_primary_media_file_thumbnail_url_template TEXT,
-      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      completed_at DATETIME
+      on_failure_type TEXT,
+      on_failure_message TEXT,
+      created_at INTEGER NOT NULL DEFAULT (unixepoch('now')),
+      updated_at INTEGER NOT NULL DEFAULT (unixepoch('now')),
+      completed_at INTEGER DEFAULT NULL
     );
     EOF
     sqlite3 /tmp/tasks.sqlite < /tmp/tasks-schema.sql
 
     vendorDir="$(find /build -maxdepth 1 -type d -name '*-vendor' | head -n1)"
-    cqFile="$vendorDir/concurrent-queue-2.3.0/src/lib.rs"
+    cqFile="$(find "$vendorDir" -maxdepth 2 -type d -name 'concurrent-queue-*' | head -n1)/src/lib.rs"
 
     perl -0pi -e 's#\n    /// Attempts to pop an item from the queue\.\n#\n    /// Forcefully pushes an item into the queue.\n    ///\n    /// If the queue is full, this method removes and returns an existing item.\n    /// If the queue is closed, the pushed item is returned as an error.\n    pub fn force_push(&self, value: T) -> Result<Option<T>, ForcePushError<T>> {\n        match self.push(value) {\n            Ok(()) => Ok(None),\n            Err(PushError::Closed(value)) => Err(ForcePushError(value)),\n            Err(PushError::Full(value)) => match self.pop() {\n                Ok(oldest) => match self.push(value) {\n                    Ok(()) => Ok(Some(oldest)),\n                    Err(PushError::Closed(value)) | Err(PushError::Full(value)) => {\n                        Err(ForcePushError(value))\n                    }\n                },\n                Err(PopError::Empty) | Err(PopError::Closed) => Err(ForcePushError(value)),\n            },\n        }\n    }\n\n    /// Attempts to pop an item from the queue.\n#s' "$cqFile"
 
