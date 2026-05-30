@@ -9,11 +9,11 @@
 
 ocamlPackages.buildDunePackage rec {
   pname = "forester";
-  version = "5.0";
+  version = "5ab7277c8f8528fd8825dfccd5583c64b8751e5e";
 
   src = fetchurl {
     url = "https://git.sr.ht/~jonsterling/ocaml-forester/archive/${version}.tar.gz";
-    hash = "sha256-do3l/eF98Nvy710ZiUgEYotrCfhhvqrHhi5hhkbOOnU=";
+    hash = "sha256-ungXrJFgoSRrZoQCmIN2MrotpNVGz3YlA5tsQ4AgDyE=";
   };
 
   strictDeps = true;
