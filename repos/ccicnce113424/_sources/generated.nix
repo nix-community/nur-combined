@@ -195,16 +195,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.2-beta.4";
+    version = "v3.9.3-beta.1";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.2-beta.4";
+      rev = "v3.9.3-beta.1";
       fetchSubmodules = false;
-      sha256 = "sha256-xacVE07iEEXEoVw9hCY9CGm2tzcqtL3//yWqayf8xnc=";
+      sha256 = "sha256-Oph4+QTKa+42V3iXNBzqPaePt3nnKnajJ/p45/J9xHw=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-xacVE07iEEXEoVw9hCY9CGm2tzcqtL3__yWqayf8xnc=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-Oph4+QTKa+42V3iXNBzqPaePt3nnKnajJ_p45_J9xHw=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -372,15 +372,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "9048f905c18c9fada3147c786075e5ab0ef83e36";
+    version = "cbf930ffdd7cbcf201fe2a40a75200c8b896291d";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "9048f905c18c9fada3147c786075e5ab0ef83e36";
+      rev = "cbf930ffdd7cbcf201fe2a40a75200c8b896291d";
       fetchSubmodules = false;
-      sha256 = "sha256-ckqkHfZklZRN/IkSwjMOD7n3sLhZq2S9BhJnOcGEnec=";
+      sha256 = "sha256-abWfXYgA67VDELprKri7uS9cChr2gKwNBuwPv+Psd7w=";
     };
-    date = "2026-05-28";
+    date = "2026-05-30";
   };
   waywallen-bin = {
     pname = "waywallen-bin";
@@ -392,10 +392,10 @@
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.2.3";
+    version = "0.2.4";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.3/waywallen-kde-0.2.3-x86_64-embed.zip";
-      sha256 = "sha256-TIpiU4626+jhtJfuDRA4x/NNhMlZHHsp/CLM5PAtXo4=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.4/waywallen-kde-0.2.4-x86_64-embed.zip";
+      sha256 = "sha256-UzaR09n3EpK64uu5ISYaApct1dB6n9uU80djw8c7kPM=";
     };
   };
   wild = {
