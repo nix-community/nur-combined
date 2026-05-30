@@ -13,13 +13,13 @@
 }:
 
 let
-  version = "2.1.2";
+  version = "2.1.3";
 
   src = fetchFromGitHub {
     owner = "Predidit";
     repo = "Kazumi";
     tag = version;
-    hash = "sha256-H+zP7LOCyvtlDpxzfUtlodtJk1ZiJJqWcvkdY4aOhj8=";
+    hash = "sha256-GpHLqqvjfgLRICIHO7YPLdzrQWHexJlg0ilqCJkkOfw=";
   };
 in
 flutter.buildFlutterApplication {
@@ -78,6 +78,12 @@ flutter.buildFlutterApplication {
         '';
       };
   };
+
+  postPatch = ''
+    substituteInPlace \
+      lib/pages/plugin_editor/plugin_view_page.dart \
+      --replace-fail "onReorderItem:" "onReorder:"
+  '';
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
