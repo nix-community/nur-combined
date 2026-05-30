@@ -113,6 +113,14 @@ let
       homepage = "https://github.com/llblab/pi-telegram";
     };
 
+    "@tmustier/pi-usage-extension" = mkScopedPackage "@tmustier" "pi-usage-extension" {
+      version = "0.3.2";
+      hash = "sha256-9n3tNqsjMXBF3bGVEv2WKdezpXJOjHzw49KGKlCc7Pg=";
+      npmDepsHash = "";  # No dependencies, only peer dependencies
+      description = "Usage tracking extension for Pi coding agent";
+      homepage = "https://github.com/tmustier/pi-usage-extension";
+    };
+
     # ── TODO: Add more packages ──────────────────────────────────────────────
     # Use the update script to get hashes:
     #   ./pkgs/pi-packages/scripts/update-pi-package.sh <package-name> [version]

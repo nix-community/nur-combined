@@ -172,6 +172,7 @@ if [[ -f "$PIPACKAGES_FILE" ]]; then
     ["@juicesharp/rpiv-todo"]="juicesharp/rpiv-mono"
     ["@plannotator/pi-extension"]="backnotprop/plannotator"
     ["@llblab/pi-telegram"]="llblab/pi-telegram"
+    ["@tmustier/pi-usage-extension"]="tmustier/pi-usage-extension"
   )
 
   for package in "${!PACKAGE_SOURCES[@]}"; do
