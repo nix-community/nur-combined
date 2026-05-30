@@ -5,11 +5,11 @@
 }:
 pkgs.appimageTools.wrapType2 rec {
   pname = "hayase";
-  version = "6.4.70";
+  version = "6.4.73";
 
   src = pkgs.fetchurl {
     url = "https://api.hayase.watch/files/linux-hayase-${version}-linux.AppImage";
-    hash = "sha256-0/5gIud8bVc1wnF92cXilGt+CJpiXRL07c/jGnasTQg=";
+    hash = "sha256-teG1Vv5KRVlMfW2yfOtz2wIQ6vg11f5QBoCcBLYkSnU=";
   };
 
   passthru.updateScript =
