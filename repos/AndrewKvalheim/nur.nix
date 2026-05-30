@@ -59,9 +59,7 @@ rec {
       };
     }).pkgs;
   };
-  easy-timeline = (callPackage ./library/easy-timeline.pkg.nix { }).overrideAttrs (e: recursiveUpdate e {
-    meta.broken = versionAtLeast pkgs.stdenv.cc.version "15"; # Ploticus is broken by NixOS/nixpkgs#475479
-  });
+  easy-timeline = callPackage ./library/easy-timeline.pkg.nix { };
   fastnbt-tools = callPackage ./library/fastnbt-tools.pkg.nix { };
   fediblockhole = callPackage ./library/fediblockhole.pkg.nix { };
   git-diff-image = callPackage ./library/git-diff-image.pkg.nix { };
@@ -72,9 +70,7 @@ rec {
   journal-brief = callPackage ./library/journal-brief.pkg.nix { };
   little-a-map = callPackage ./library/little-a-map.pkg.nix { };
   mark-applier = callPackage ./library/mark-applier.pkg.nix { };
-  meshtastic-url = (callPackage ./library/meshtastic-url.pkg.nix { }).overrideAttrs (m: recursiveUpdate m {
-    meta.broken = with pkgs.python3Packages; (versionAtLeast "2.7.8" meshtastic.version) && (versionAtLeast tabulate.version "0.10");
-  });
+  meshtastic-url = callPackage ./library/meshtastic-url.pkg.nix { };
   minemap = callPackage ./library/minemap.pkg.nix { };
   nbt-explorer = callPackage ./library/nbt-explorer.pkg.nix { };
   office-hours = (callPackage ./library/office-hours.pkg.nix {
@@ -102,9 +98,17 @@ rec {
     meta.broken = pkgs.python3Packages.requests-ratelimiter.meta.broken; # NixOS/nixpkgs#497999
   });
   oxvg = callPackage ./library/oxvg.pkg.nix { };
-  pdfalyzer = callPackage ./library/pdfalyzer.pkg.nix { };
+  pdfalyzer = callPackage ./library/pdfalyzer.pkg.nix {
+    python3Packages = (pkgs.python3.override {
+      packageOverrides = _: pythonPackages: with pythonPackages; {
+        pypdf = pypdf.overridePythonAttrs (pypdf: rec {
+          version = "6.6.0";
+          src = pypdf.src.override { tag = version; hash = "sha256-C1ZFqqLFtxWOuLUT7KFSfWIE6a9xDPCFtOakzYP4NMY="; };
+        });
+      };
+    }).pkgs;
+  };
   pngquant-interactive = callPackage ./library/pngquant-interactive.pkg.nix { };
-  smartcut = callPackage ./library/smartcut.pkg.nix { };
   spf-check = callPackage ./library/spf-check.pkg.nix { };
   spf-tree = callPackage ./library/spf-tree.pkg.nix { };
   stretch-break = callPackage ./library/stretch-break.pkg.nix { };

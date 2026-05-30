@@ -38,7 +38,7 @@ specify {
   dawarich.patch = ./library/assets/dawarich_viridis.patch;
   decompiler-mc = any;
   dmarc-report-converter = any;
-  dmarc-report-notifier.search = pin "a82ccc39b39b621151d6732718e3e250109076fa" "sha256-gf2AmWVTs8lEq7z/3ZAsgnZDhWIckkb+ZnAo5RzSxJg="; # Pending https://github.com/domainaware/parsedmarc/commit/dd9ef90773d4bdd00da63bc987fb3d45a07e08dd#commitcomment-178034508
+  dmarc-report-notifier = any;
   easy-timeline = any;
   email-hash = any;
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/com.tomjwatson.Emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
@@ -95,7 +95,6 @@ specify {
   pythonPackages.busylight-core.patch = ./library/assets/busylight-core_led-mask.patch;
   pythonPackages.busylight-for-humans.patch = ./library/assets/busylight-for-humans_fix-speed.patch; # Pending ≥0.45.3
   signal-desktop.args = [ "--use-tray-icon" ];
-  smartcut = any;
   snitch = any;
   spf-check = any;
   spf-tree = any;

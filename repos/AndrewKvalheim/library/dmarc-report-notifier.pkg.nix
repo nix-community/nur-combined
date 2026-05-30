@@ -10,14 +10,14 @@ let
 in
 python313Packages.buildPythonApplication rec {
   pname = "dmarc-report-notifier";
-  version = "1.1.12";
+  version = "1.1.13";
   meta = {
     description = "Headless periodic DMARC report handler";
     homepage = "https://codeberg.org/AndrewKvalheim/dmarc-report-notifier";
     license = licenses.gpl3;
     mainProgram = "dmarc-report-notifier";
     broken = with python313Packages; ! versionsSatisfied [
-      [ parsedmarc "≥8.3.2,<9" ]
+      [ parsedmarc "≥9.6.0,<10" ]
     ];
   };
 
@@ -28,7 +28,7 @@ python313Packages.buildPythonApplication rec {
     owner = "AndrewKvalheim";
     repo = "dmarc-report-notifier";
     rev = "refs/tags/v${version}";
-    hash = "sha256-UXM4As3eWCKdptqsAsbfAZd+5RqA2Yi7Nth53tOhO0s=";
+    hash = "sha256-F/bTSqfZEvTS4rFkjDVjYj59ck5BZ2fzN0crexPGpB4=";
   };
 
   format = "pyproject";
