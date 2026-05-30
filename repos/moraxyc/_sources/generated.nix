@@ -65,22 +65,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "db056ad126192d8357bfd9f3dd1a400086cb654e";
+    version = "ed6c69dd9628446680d589c9b9c41b06d4bdc1f1";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "db056ad126192d8357bfd9f3dd1a400086cb654e";
+      rev = "ed6c69dd9628446680d589c9b9c41b06d4bdc1f1";
       fetchSubmodules = false;
-      sha256 = "sha256-uIl8nuprk8OYdlAo8TKBLVugO1eiCxXw6YPUAkZy/go=";
+      sha256 = "sha256-lnnLj6p7xf3CtGwDUBThwwGvjWl7RxyJq2lW+QscoZg=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-uIl8nuprk8OYdlAo8TKBLVugO1eiCxXw6YPUAkZy_go=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-uIl8nuprk8OYdlAo8TKBLVugO1eiCxXw6YPUAkZy_go=/web/package-lock.json";
-    };date = "2026-05-28";
+      "web/package.json" = ./. + "/sha256-lnnLj6p7xf3CtGwDUBThwwGvjWl7RxyJq2lW+QscoZg=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-lnnLj6p7xf3CtGwDUBThwwGvjWl7RxyJq2lW+QscoZg=/web/package-lock.json";
+    };date = "2026-05-29";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.8.6";
+    version = "v1.8.7";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -462,15 +462,15 @@
   };
   superpowers-skills = {
     pname = "superpowers-skills";
-    version = "f2cbfbefebbfef77321e4c9abc9e949826bea9d7";
+    version = "6fd4507659784c351abbd2bc264c7162cfd386dc";
     src = fetchFromGitHub {
       owner = "obra";
       repo = "superpowers";
-      rev = "f2cbfbefebbfef77321e4c9abc9e949826bea9d7";
+      rev = "6fd4507659784c351abbd2bc264c7162cfd386dc";
       fetchSubmodules = false;
-      sha256 = "sha256-3E3rO6hR87JUfS3XV1Eaoz6SDWOftleWvN9UPNFEMjw=";
+      sha256 = "sha256-P/FD8HTQO+QzvMe3A/B2v2vjs8T6ZmIYH3MPp79dSzo=";
     };
-    date = "2026-05-04";
+    date = "2026-05-29";
   };
   udpxy = {
     pname = "udpxy";
@@ -485,14 +485,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "5ce6da8ab9e0f5e1806b2e45e4dfe2cd10c7a4b6";
+    version = "d84f8d2251ab291a9707745a1a67ec051b6b8ed0";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "5ce6da8ab9e0f5e1806b2e45e4dfe2cd10c7a4b6";
+      rev = "d84f8d2251ab291a9707745a1a67ec051b6b8ed0";
       fetchSubmodules = false;
-      sha256 = "sha256-oDN8fP7rAzfvBmhSdY4j27JJmRBVqnIKPKLTvtDnqyk=";
+      sha256 = "sha256-ygwB7+lFDVmwAErFO3mEklDw/SjfTpFmdsI7ShybIF0=";
     };
-    date = "2026-05-28";
+    date = "2026-05-29";
   };
 }
