@@ -10,8 +10,8 @@ mpvScripts.buildLua {
   src = fetchFromGitHub {
     owner = "zzzealed";
     repo = "mpv-playlist-dir-conf";
-    rev = "2f6f1678a05c923cc0ce83ab1d4e2ead54baa179";
-    hash = "sha256-WxCwRWQcRnvLiIpc9g9cAfBn2VVvRwhriAGGWDaO0rU=";
+    rev = "a4ac6866acfee6d53863811871754377100825d7";
+    hash = "sha256-0ESkiYZfjvNxzUnBaqmQJPMbodLEkNwki8efnSDUHcQ=";
   };
   passthru.updateScript = unstableGitUpdater { };
   meta = {
