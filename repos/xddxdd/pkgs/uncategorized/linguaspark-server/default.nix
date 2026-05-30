@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     let
       deps = rustPlatform.fetchCargoVendor {
         inherit (finalAttrs) pname version src;
-        hash = "sha256-nWQy4Dw7Jfvoae+y1fWEUDks5y3cmuo6hohKQtkpvxM=";
+        hash = "sha256-/pP4OrTSNg4Up+X7hQgw6sCEl1UU0vA4pd9MxtuJwks=";
       };
     in
     runCommand "${finalAttrs.pname}-deps" { } ''
