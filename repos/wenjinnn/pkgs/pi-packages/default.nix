@@ -129,6 +129,16 @@ let
       homepage = "https://github.com/tmustier/pi-usage-extension";
     };
 
+    # ── Voice & TTS Extensions ──────────────────────────────────────────────────
+
+    "@wenjinnn/pi-mimo-voice" = mkScopedPackage "@wenjinnn" "pi-mimo-voice" {
+      version = "1.0.9";
+      hash = "sha256-sdtdorgAj1hdGOfT7VWQiRyoyUEPLocg7gmCE3HTazU=";
+      npmDepsHash = "";  # No dependencies, only peer dependencies
+      description = "MiMo voice synthesis extension for Pi coding agent";
+      homepage = "https://github.com/wenjinnn/pi-mimo-voice";
+    };
+
     # ── Permission Extensions ──────────────────────────────────────────────────
 
     "pi-permission-system" = mkPackage "pi-permission-system" {
