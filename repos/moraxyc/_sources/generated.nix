@@ -201,15 +201,15 @@
   };
   flapalerted = {
     pname = "flapalerted";
-    version = "1d090a8ce9a4c3c9d7bbba99520b4eae14c418ce";
+    version = "3482ef60c83567644a44af9024490f3313d6caee";
     src = fetchFromGitHub {
       owner = "Kioubit";
       repo = "FlapAlerted";
-      rev = "1d090a8ce9a4c3c9d7bbba99520b4eae14c418ce";
+      rev = "3482ef60c83567644a44af9024490f3313d6caee";
       fetchSubmodules = false;
-      sha256 = "sha256-LK4LAVbZbcmxa7YABJMZuscD1qvTSnVWbXFuih9jzog=";
+      sha256 = "sha256-zQUgrymmesbj5/hGEYGabiQXQtpw8ykzs/ZrD+J++G0=";
     };
-    date = "2026-05-28";
+    date = "2026-05-31";
   };
   flapalerted-stable = {
     pname = "flapalerted-stable";
@@ -485,14 +485,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "d84f8d2251ab291a9707745a1a67ec051b6b8ed0";
+    version = "5b1ec569a832eb98707d489554e2eb1a941a47fe";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "d84f8d2251ab291a9707745a1a67ec051b6b8ed0";
+      rev = "5b1ec569a832eb98707d489554e2eb1a941a47fe";
       fetchSubmodules = false;
-      sha256 = "sha256-ygwB7+lFDVmwAErFO3mEklDw/SjfTpFmdsI7ShybIF0=";
+      sha256 = "sha256-UJc1/ntnT51pFkpwPHMuAX6nC6DcPNJ/rYyMFBFjqfU=";
     };
-    date = "2026-05-29";
+    date = "2026-05-30";
   };
 }

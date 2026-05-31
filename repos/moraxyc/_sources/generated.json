@@ -335,7 +335,7 @@
     },
     "flapalerted": {
         "cargoLock": null,
-        "date": "2026-05-28",
+        "date": "2026-05-31",
         "extract": null,
         "name": "flapalerted",
         "passthru": null,
@@ -347,12 +347,12 @@
             "name": null,
             "owner": "Kioubit",
             "repo": "FlapAlerted",
-            "rev": "1d090a8ce9a4c3c9d7bbba99520b4eae14c418ce",
-            "sha256": "sha256-LK4LAVbZbcmxa7YABJMZuscD1qvTSnVWbXFuih9jzog=",
+            "rev": "3482ef60c83567644a44af9024490f3313d6caee",
+            "sha256": "sha256-zQUgrymmesbj5/hGEYGabiQXQtpw8ykzs/ZrD+J++G0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1d090a8ce9a4c3c9d7bbba99520b4eae14c418ce"
+        "version": "3482ef60c83567644a44af9024490f3313d6caee"
     },
     "flapalerted-stable": {
         "cargoLock": null,
@@ -844,7 +844,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-05-29",
+        "date": "2026-05-30",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -856,11 +856,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "d84f8d2251ab291a9707745a1a67ec051b6b8ed0",
-            "sha256": "sha256-ygwB7+lFDVmwAErFO3mEklDw/SjfTpFmdsI7ShybIF0=",
+            "rev": "5b1ec569a832eb98707d489554e2eb1a941a47fe",
+            "sha256": "sha256-UJc1/ntnT51pFkpwPHMuAX6nC6DcPNJ/rYyMFBFjqfU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d84f8d2251ab291a9707745a1a67ec051b6b8ed0"
+        "version": "5b1ec569a832eb98707d489554e2eb1a941a47fe"
     }
 }
