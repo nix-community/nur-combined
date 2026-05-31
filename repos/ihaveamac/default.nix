@@ -75,6 +75,8 @@ rec {
   vacuumtube = callPackage ./pkgs/vacuumtube/package.nix { };
   rofs-extract = callPackage ./pkgs/rofs-extract/package.nix { };
   linux-devmgmt = qt6.callPackage ./pkgs/linux-devmgmt/package.nix { };
+  rsync_341 = callPackage ./pkgs/rsync-3.4.1/default.nix { };
+  rrsync_341 = callPackage ./pkgs/rsync-3.4.1/rrsync.nix { rsync = rsync_341; };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
