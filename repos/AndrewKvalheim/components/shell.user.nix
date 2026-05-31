@@ -5,7 +5,6 @@ let
   inherit (config.home) homeDirectory;
   inherit (config.programs) delta;
   inherit (lib) concatLines concatStrings escapeShellArg genAttrs getExe getExe' init last mapAttrsToList mapAttrsToListRecursive mkMerge mkOrder toList;
-  inherit (lib.generators) toYAML;
   inherit (pkgs) runtimeShell starship-jj;
   inherit (pkgs.writers) writeTOML;
   inherit (import ../library/utilities.lib.nix { inherit lib; }) sgr tryEscapeShellArgs;
