@@ -11,13 +11,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "avm";
-  version = "15.0.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "AOMediaCodec";
     repo = "avm";
-    rev = "research-v${finalAttrs.version}";
-    hash = "sha256-EDQCFY0Kdqy7+k7lug1X4JPuG26LVlLHAlMhd0z0kPc=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-dmMQfOP71DdjHZw6DpbiiOB5a9khIu6QnZ0F5WsMuM8=";
   };
 
   postPatch = ''
