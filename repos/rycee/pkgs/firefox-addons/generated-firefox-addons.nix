@@ -1792,10 +1792,10 @@
     };
     "chameleon-ext" = buildMozillaXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.83.1";
+      version = "0.22.84.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4779860/chameleon_ext-0.22.83.1.xpi";
-      sha256 = "ef0bf37a1a277765897f3f1f310a86a6b2e9a7554333a781331e2f6620f6e5e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4829077/chameleon_ext-0.22.84.1.xpi";
+      sha256 = "702e517c8b53e0e5037b9609a75b05191d371d7d772e07966545ca61e499b18e";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -6500,10 +6500,10 @@
     };
     "hyperchat" = buildMozillaXpiAddon {
       pname = "hyperchat";
-      version = "3.2.0";
+      version = "3.3.0";
       addonId = "{14a15c41-13f4-498e-986c-7f00435c4d00}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4763987/hyperchat-3.2.0.xpi";
-      sha256 = "dbcb501506dc125e0937679dc34d21cb01242aac5db47fd543380ab6b1276321";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4828891/hyperchat-3.3.0.xpi";
+      sha256 = "7d68cc54865abb43b94bcd6b5d522370d0e504035d6e041eaddee5302999813a";
       meta = with lib;
       {
         homepage = "https://livetl.app/hyperchat/";
@@ -8771,10 +8771,10 @@
     };
     "livetl" = buildMozillaXpiAddon {
       pname = "livetl";
-      version = "9.1.1";
+      version = "9.2.0";
       addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4765198/livetl-9.1.1.xpi";
-      sha256 = "bf1182861cf5e8be7666c66a0716856782e025f7f0af4016e082b6dd77a060c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4828893/livetl-9.2.0.xpi";
+      sha256 = "6493e3f72914c11abc93efb4f8a6c3ba62c5a6af80d537c6b6ba8717ee95d9e1";
       meta = with lib;
       {
         homepage = "https://livetl.app/";
@@ -14035,10 +14035,10 @@
     };
     "sonarr-radarr-lidarr-search" = buildMozillaXpiAddon {
       pname = "sonarr-radarr-lidarr-search";
-      version = "3.1.0.0";
+      version = "3.1.1.0";
       addonId = "sonarr-radarr-lidarr-autosearch@robgreen.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4826537/sonarr_radarr_lidarr_search-3.1.0.0.xpi";
-      sha256 = "34ed0b3b56c78c0254023efb332b58110f23815403b4ed89b797ffaf0c46ec4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4829357/sonarr_radarr_lidarr_search-3.1.1.0.xpi";
+      sha256 = "cc7094c9b224bcd0a69d91eaff2ba184f032b2284f3e8a68672a34c2e5cc563b";
       meta = with lib;
       {
         homepage = "https://github.com/trossr32/sonarr-radarr-lidarr-autosearch-browser-extension";
