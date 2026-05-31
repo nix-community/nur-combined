@@ -175,12 +175,12 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "get-environment",
-            "rev": "0.2.0",
-            "sha256": "sha256-qR1cgwVMtC0kEMJWs5Qj9MYD4fPni3Y78cgolVg8mhc=",
+            "rev": "0.3.0",
+            "sha256": "sha256-y0+j7istK7pxc0pW4g/qpYNByH866+zLC6ic0k3upzY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.2.0"
+        "version": "0.3.0"
     },
     "giraffe-wallpaper": {
         "cargoLock": null,

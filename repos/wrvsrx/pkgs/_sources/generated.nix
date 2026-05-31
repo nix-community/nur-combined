@@ -95,13 +95,13 @@
   };
   get-environment = {
     pname = "get-environment";
-    version = "0.2.0";
+    version = "0.3.0";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "get-environment";
-      rev = "0.2.0";
+      rev = "0.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-qR1cgwVMtC0kEMJWs5Qj9MYD4fPni3Y78cgolVg8mhc=";
+      sha256 = "sha256-y0+j7istK7pxc0pW4g/qpYNByH866+zLC6ic0k3upzY=";
     };
   };
   giraffe-wallpaper = {
