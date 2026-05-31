@@ -29,7 +29,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     pygame
   ];
 
-  pytestFlagsArray = [
+  pytestFlags = [
     "-W"
     "ignore::DeprecationWarning"
   ];

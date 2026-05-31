@@ -2,10 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  python311Packages,
+  python3Packages,
 }:
 
-python311Packages.buildPythonPackage {
+python3Packages.buildPythonPackage {
   pname = "pyimagequant";
   version = "0-unstable-2022-06-10";
   pyproject = true;
@@ -23,9 +23,9 @@ python311Packages.buildPythonPackage {
     rm BUILD
   '';
 
-  build-system = with python311Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
-  dependencies = with python311Packages; [ cython ];
+  dependencies = with python3Packages; [ cython ];
 
   pythonImportsCheck = [ "imagequant" ];
 

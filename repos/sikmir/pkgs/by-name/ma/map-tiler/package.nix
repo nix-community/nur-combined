@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  python311Packages,
+  python3Packages,
   fetchFromGitHub,
   gobject-introspection,
   pango,
@@ -12,27 +12,24 @@
   wrapGAppsHook3,
 }:
 
-python311Packages.buildPythonApplication {
+python3Packages.buildPythonApplication {
   pname = "map-tiler";
-  version = "0-unstable-2022-08-06";
+  version = "0-unstable-2026-03-28";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "map-tiler";
-    rev = "5554d207730e2cbcb59004a50c83c9420769a49c";
-    hash = "sha256-suBS0jCGX09mY2fc2UsWr1ptySZkA68Kp6iSIJQeWuA=";
+    rev = "f4749cbf64f226218ae3c03ec8aa35a249e70300";
+    hash = "sha256-VD7MmG7V551fODLIfu/Xwv+841IFvfyTdCa+5LFh4XY=";
   };
 
   postPatch = ''
-    substituteInPlace setup.cfg \
-      --replace-fail " @ git+https://github.com/wladich/thinplatespline.git" "" \
-      --replace-fail " @ git+https://github.com/wladich/maprec.git" "" \
-      --replace-fail " @ git+https://github.com/wladich/ozi_map.git" "" \
-      --replace-fail " @ git+https://github.com/wladich/pyimagequant.git" ""
+    substituteInPlace pyproject.toml \
+      --replace-fail "uv_build>=0.9.21,<0.10.0" uv_build
   '';
 
-  build-system = with python311Packages; [ setuptools ];
+  build-system = with python3Packages; [ uv-build ];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -44,7 +41,9 @@ python311Packages.buildPythonApplication {
     pango
   ];
 
-  dependencies = with python311Packages; [
+  pythonRelaxDeps = true;
+
+  dependencies = with python3Packages; [
     pyyaml
     pyproj
     pypng

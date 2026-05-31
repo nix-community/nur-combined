@@ -4,7 +4,7 @@
   fetchsvn,
   cmake,
   nasm,
-  libX11,
+  libx11,
 }:
 
 stdenv.mkDerivation {
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     nasm
   ];
 
-  buildInputs = [ libX11 ];
+  buildInputs = [ libx11 ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result";
 

@@ -2,7 +2,8 @@
   lib,
   stdenv,
   fetchurl,
-  xorg,
+  libx11,
+  libxft,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,8 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   buildInputs = [
-    xorg.libX11
-    xorg.libXft
+    libx11
+    libxft
   ];
 
   makeFlags = [ "PREFIX=$(out)" ];
@@ -28,6 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "/usr/bin/gcc" "gcc" \
       --replace-fail "/usr/bin/install" "install"
   '';
+
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
   meta = {
     description = "Fractal generator";

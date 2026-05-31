@@ -7,18 +7,19 @@
   pyspartn,
   pyubx2,
   pyubxutils,
+  pyunigps,
 }:
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pygnssutils";
-  version = "1.1.22";
+  version = "1.2.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pygnssutils";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-OiNXm+AT+1zNpRhZ4FkBrsrtjURzKhyoVYORTciMg0w=";
+    hash = "sha256-uOFCc3swtBWQViBtyQH/gIYb0nHnYrZEMNINZoiRrR4=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -32,6 +33,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     pyspartn
     pyubx2
     pyubxutils
+    pyunigps
   ];
 
   pythonImportsCheck = [ "pygnssutils" ];

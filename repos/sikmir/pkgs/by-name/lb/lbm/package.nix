@@ -4,7 +4,9 @@
   fetchFromGitLab,
   pkg-config,
   dbus,
-  xorg,
+  libx11,
+  libxft,
+  libxinerama,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -26,9 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     dbus
-    xorg.libX11
-    xorg.libXft
-    xorg.libXinerama
+    libx11
+    libxft
+    libxinerama
   ];
 
   makeFlags = [ "CC:=$(CC)" ];

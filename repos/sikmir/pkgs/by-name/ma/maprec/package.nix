@@ -1,12 +1,12 @@
 {
   lib,
   stdenv,
-  python311Packages,
+  python3Packages,
   fetchFromGitHub,
   thinplatespline,
 }:
 
-python311Packages.buildPythonPackage {
+python3Packages.buildPythonPackage {
   pname = "maprec";
   version = "0-unstable-2023-04-18";
   pyproject = true;
@@ -23,9 +23,9 @@ python311Packages.buildPythonPackage {
       --replace-fail " @ git+https://github.com/wladich/thinplatespline.git" ""
   '';
 
-  build-system = with python311Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
-  dependencies = with python311Packages; [
+  dependencies = with python3Packages; [
     pyyaml
     pyproj
     thinplatespline

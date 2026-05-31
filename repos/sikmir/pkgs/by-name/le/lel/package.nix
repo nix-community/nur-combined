@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  libX11,
+  libx11,
   farbfeld,
   farbfeld-utils,
 }:
@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "lel" "$out/bin/lel"
   '';
 
-  buildInputs = [ libX11 ];
+  buildInputs = [ libx11 ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

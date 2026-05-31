@@ -28,7 +28,7 @@ python3Packages.buildPythonPackage {
 
   doCheck = false;
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlags = [ "tests/unit_tests" ];
 
   meta = {
     description = "cython wrapper for khash";

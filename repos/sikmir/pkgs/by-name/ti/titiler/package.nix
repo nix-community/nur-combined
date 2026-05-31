@@ -12,13 +12,13 @@
 }:
 let
   pname = "titiler";
-  version = "1.2.0";
+  version = "2.0.3";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     tag = version;
-    hash = "sha256-SisZc/m3id+E6lGwPsTSezfw2atMop3APYZVXK3LPPI=";
+    hash = "sha256-Jh5DLzZCe37FSVbtBqeaIGZfK6awF1ymtl3KB6am9bs=";
   };
 
   meta = {
@@ -35,6 +35,8 @@ let
     pyproject = true;
 
     build-system = with python3Packages; [ hatchling ];
+
+    pythonRelaxDeps = true;
 
     dependencies = with python3Packages; [
       fastapi
@@ -119,6 +121,49 @@ let
       ]
       ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
   });
+
+  titiler-xarray = python3Packages.buildPythonPackage (finalAttrs: {
+    inherit version src meta;
+    pname = "${pname}.xarray";
+    sourceRoot = "${src.name}/src/titiler/xarray";
+    pyproject = true;
+
+    build-system = with python3Packages; [ hatchling ];
+
+    dependencies = with python3Packages; [
+      titiler-core
+      xarray
+      rioxarray
+      obstore
+      zarr
+      starlette-cramjam
+      pydantic-settings
+    ];
+
+    optional-dependencies = {
+      fs = with python3Packages; [
+        h5netcdf
+        h5py
+        fsspec
+        s3fs
+        aiohttp
+        gcsfs
+        requests
+      ];
+    };
+
+    nativeCheckInputs =
+      with python3Packages;
+      [
+        pytestCheckHook
+      ]
+      ++ lib.flatten (builtins.attrValues finalAttrs.passthru.optional-dependencies);
+
+    disabledTests = [
+      "test_io_fs_open_dataset"
+      "test_io_open_zarr"
+    ];
+  });
 in
 python3Packages.buildPythonPackage (finalAttrs: {
   inherit
@@ -144,6 +189,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     titiler-extensions.optional-dependencies.stac
     titiler-mosaic
     titiler-mosaic.optional-dependencies.mosaicjson
+    titiler-xarray
+    titiler-xarray.optional-dependencies.fs
   ];
 
   nativeCheckInputs = with python3Packages; [

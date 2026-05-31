@@ -4,7 +4,9 @@
   buildNimPackage,
   fetchFromGitHub,
   pkg-config,
-  xorg,
+  libx11,
+  libxft,
+  libxinerama,
 }:
 
 buildNimPackage rec {
@@ -22,10 +24,10 @@ buildNimPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = with xorg; [
-    libX11
-    libXft
-    libXinerama
+  buildInputs = [
+    libx11
+    libxft
+    libxinerama
   ];
 
   postInstall = ''

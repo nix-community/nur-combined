@@ -3,7 +3,11 @@
   stdenv,
   fetchFromGitHub,
   pkg-config,
-  xorg,
+  libx11,
+  libxft,
+  libxrandr,
+  libxtst,
+  libxi,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -21,12 +25,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = with xorg; [
-    libX11
-    libXft
-    libXrandr
-    libXtst
-    libXi
+  buildInputs = [
+    libx11
+    libxft
+    libxrandr
+    libxtst
+    libxi
   ];
 
   installFlags = [ "PREFIX=$(out)" ];

@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   fetchPnpmDeps,
+  fetchpatch,
   nodejs,
   pnpm,
   pnpmConfigHook,
@@ -20,6 +21,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-s3A33o0jV2edkav2VvkbjRqFJ/qpo+EAATPgc2ZR5JA=";
   };
 
+  patches = [
+    # https://github.com/tyrasd/overpass-turbo/pull/840
+    (fetchpatch {
+      url = "https://github.com/tyrasd/overpass-turbo/commit/867d1a61994379da7cf3f8821bbc84796d59e769.patch";
+      hash = "sha256-HjFfToksyBMSIK+D1AezWMTLdlMvKlwNGN0P86LnTCk=";
+    })
+  ];
+
   postPatch = ''
     substituteInPlace vite.config.mts \
       --replace-fail "git log -1 --format=%cd --date=short" "echo ${finalAttrs.version}" \
@@ -29,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-lyz1bcr7bnD5Wp9Srxn6dOH+gVdEQVF6xxuVE3Av3yc=";
+    hash = "sha256-+o21KuMzbwCpZxXefSz6f+o71lHCMGIOc0ltOOihT/M=";
   };
 
   nativeBuildInputs = [

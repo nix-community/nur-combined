@@ -1,21 +1,21 @@
 {
   lib,
   stdenv,
-  python311Packages,
+  python3Packages,
   fetchFromGitHub,
   maprec,
 }:
 
-python311Packages.buildPythonPackage {
+python3Packages.buildPythonPackage {
   pname = "ozi-map";
-  version = "0-unstable-2022-08-05";
+  version = "0-unstable-2025-01-26";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "ozi_map";
-    rev = "abd9e86d621ef5de89986e92b9e97e54b3173af4";
-    hash = "sha256-leYn+Z0BLptvtmHglwvmhzjHUZh0XEZ9LEBQHDCjfNc=";
+    rev = "e45c55ca9dd3a7082fe60048a304e5d48d5c2cad";
+    hash = "sha256-cfe1mCwbHDl3CN3dMtG6CF+oK4gDHnjjho2OgHWiYew=";
   };
 
   postPatch = ''
@@ -23,9 +23,9 @@ python311Packages.buildPythonPackage {
       --replace-fail " @ git+https://github.com/wladich/maprec.git" ""
   '';
 
-  build-system = with python311Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
-  dependencies = with python311Packages; [
+  dependencies = with python3Packages; [
     maprec
     pyproj
   ];

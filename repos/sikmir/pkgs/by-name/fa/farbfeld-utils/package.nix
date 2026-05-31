@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   libGL,
-  libX11,
+  libx11,
   libxrender,
   SDL,
   ghostscript,
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     sqlite
   ]
   ++ lib.optionals stdenv.isLinux [
-    libX11
+    libx11
     libxrender
   ];
 

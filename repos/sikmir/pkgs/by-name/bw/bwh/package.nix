@@ -7,7 +7,7 @@
   makeWrapper,
   SDL2,
   the-foundation,
-  libX11,
+  libx11,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
     the-foundation
   ]
-  ++ lib.optional stdenv.isLinux libX11;
+  ++ lib.optional stdenv.isLinux libx11;
 
   installPhase = lib.optionalString stdenv.isDarwin ''
     runHook preInstall

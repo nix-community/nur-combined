@@ -1,10 +1,10 @@
 {
   lib,
-  python311Packages,
+  python3Packages,
   fetchFromGitHub,
 }:
 
-python311Packages.buildPythonPackage {
+python3Packages.buildPythonPackage {
   pname = "thinplatespline";
   version = "0-unstable-2024-02-06";
   pyproject = true;
@@ -16,7 +16,7 @@ python311Packages.buildPythonPackage {
     hash = "sha256-1U5WEPFH5dhf2lkfZY6rrwlUNq/rY2mSlgEZVnReyng=";
   };
 
-  build-system = with python311Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
   doCheck = false;
 

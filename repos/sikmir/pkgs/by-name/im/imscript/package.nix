@@ -10,21 +10,21 @@
   libtiff,
   libwebp,
   fftwFloat,
-  libX11,
+  libx11,
   gsl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
-  version = "0-unstable-2025-09-19";
+  version = "0-unstable-2026-05-12";
 
   __structuredAttrs = true;
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = "imscript";
-    rev = "3ef0973bb1dfc58452f4b896141d958729ca1693";
-    hash = "sha256-Y4hekufXsTLBs/EcYuBDqgpAS0P0yoDU8Oiz4N+vXFQ=";
+    rev = "a383764115b15f89d63e86118c1b0da94cc3fcb8";
+    hash = "sha256-7O53lDU6s4CzP1D4SZk2x7Y+ZLyUQeD/YbDHUzXxLBQ=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     libtiff
     libwebp
     fftwFloat
-    libX11
+    libx11
     gsl
   ];
 

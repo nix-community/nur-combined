@@ -6,31 +6,29 @@
 }:
 
 python3Packages.buildPythonPackage (finalAttrs: {
-  pname = "pyubx2";
-  version = "1.3.0";
+  pname = "pyunigps";
+  version = "1.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
-    repo = "pyubx2";
+    repo = "pyunigps";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zbE1EWG7j1MDv9yCx5SOS9rOtRVx2zNR38alJaDWY+I=";
+    hash = "sha256-UuXtJTzsmjdYuWXt3bqQzj5sZLMfczVnCnDNt+X4lP4=";
   };
 
   build-system = with python3Packages; [ setuptools ];
-
-  pythonRelaxDeps = [ "pynmeagps" ];
 
   dependencies = with python3Packages; [
     pynmeagps
     pyrtcm
   ];
 
-  pythonImportsCheck = [ "pyubx2" ];
+  pythonImportsCheck = [ "pyunigps" ];
 
   meta = {
-    description = "UBX protocol parser and generator";
-    homepage = "https://github.com/semuconsulting/pyubx2";
+    description = "Unicore UNI protocol parser and generator";
+    homepage = "https://github.com/semuconsulting/pyunigps";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };
