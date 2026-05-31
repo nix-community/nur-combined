@@ -1,0 +1,8 @@
+{
+  "hashes": {
+    "darwin_arm64": "sha256-BgMkD26nAO9qa+ZDTfyLdYKgcIuLgvwpS+eR3Qi7l3M=",
+    "linux_amd64": "sha256-aGh1SlJ2qYPD+dMcuMc+TLZtqCfjZWy7rlbe4p/FT20=",
+    "linux_arm64": "sha256-yLKjDbx4G9Os1/kL1lSz9YEaVN/fYeks1616aPToXNg="
+  },
+  "version": "0.1.0"
+}

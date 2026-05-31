@@ -44,6 +44,11 @@ update-inbox:
 update-prismacat:
     @just update prismacat
 
+[doc("Update txtar package")]
+[group("updates")]
+update-txtar:
+    @just update txtar
+
 [doc("Update zigdoc package")]
 [group("updates")]
 update-zigdoc:
@@ -61,4 +66,4 @@ update-zed:
 
 [doc("Update all packages")]
 [group("updates")]
-update-all: update-go update-hunk update-inbox update-prismacat update-zigdoc update-ziglint update-zed
+update-all: update-go update-hunk update-inbox update-prismacat update-txtar update-zigdoc update-ziglint update-zed
