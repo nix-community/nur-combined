@@ -81,20 +81,20 @@ Modul `freqtrade-setup` memungkinkan kamu mendeploy lingkungan kerja Freqtrade y
 
 ### Cara Penggunaan
 
-Tambahkan import dan opsi berikut ke dalam `home.nix` kamu:
+Tambahkan *import* dan opsi berikut ke dalam `home.nix` kamu:
 
 ```nix
 { config, inputs, ... }:
 {
   imports = [
-    inputs.custompkgs.homeManagerModules.freqtrade-setup
+    inputs.custompkgs.homeModules.freqtrade-setup
   ];
 
   programs.freqtrade-setup = {
     enable = true;
     
-    # (Opsional) Direktori tempat bot akan diinstal
-    configDir = "${config.home.homeDirectory}/bot-trading"; 
+    # Direktori tempat core mesin Freqtrade & .venv akan diinstal (terpisah dari data pengguna)
+    configDir = "${config.home.homeDirectory}/freqtrade-core"; 
     
     # (Opsional) Branch repositori Freqtrade yang digunakan
     branch = "stable"; 
@@ -103,10 +103,34 @@ Tambahkan import dan opsi berikut ke dalam `home.nix` kamu:
     extraPip = [ 
       "scipy" 
       "optuna" 
+      "plotly"
     ];
+
+    # (Opsional) Manajemen otomatisasi background service via Systemd
+    service = {
+      enable = true;
+      
+      bots = {
+        # Kamu bisa mendefinisikan banyak bot sekaligus (bot1, bot2, dst)
+        bot-utama = {
+          enable = true;
+          
+          # Folder tempat config.json, database SQLite, dan folder user_data/strategies berada
+          strategiesDir = "/path/ke/folder/strategi/kamu";
+          
+          # Nama class strategi yang akan dijalankan
+          strategyRun = "NamaStrategiKamu";
+          
+          # (Opsional) Nama file konfigurasi, default: config.json
+          configFile = "config.json";
+          
+          # (Opsional) Argumen CLI tambahan saat bot dieksekusi
+          extraOpts = [ "--dry-run" ]; 
+        };
+      };
+    };
   };
 }
-
 ```
 
 ### CLI Commands yang Tersedia

@@ -19,53 +19,53 @@ let
     ]
   );
 
+  # Kumpulkan hanya bot yang nilai enable-nya true
+  enabledBots = filterAttrs (name: botCfg: botCfg.enable) cfg.service.bots;
+
   setupScript = pkgs.writeShellScriptBin "freqtrade-setup" ''
     DIR="${cfg.configDir}"
     MARKER_FILE="$DIR/.nix_branch_marker"
 
     show_help() {
       echo "=== Freqtrade Setup Utility ==="
-      echo "Perintah pembantu otomatisasi lingkungan kerja Freqtrade via Nix."
-      echo ""
-      echo "Penggunaan:"
-      echo "  freqtrade-setup          Menjalankan instalasi/inisialisasi awal"
-      echo "  freqtrade-setup --help   Menampilkan pesan bantuan ini"
-      echo "  freqtrade-setup -h       Menampilkan pesan bantuan ini"
-      echo ""
-      echo "Konfigurasi Saat Ini (via Home Manager):"
-      echo "  Direktori Target : $DIR"
-      echo "  Branch Git       : ${cfg.branch}"
-      echo "  Paket Pip Ekstra : ${if extraPipStr == "" then "(Tidak ada)" else extraPipStr}"
+      echo "  freqtrade-setup          : Inisialisasi awal / sinkronisasi branch"
+      echo "  freqtrade-update         : Reset dan rakit ulang dari nol"
+      exit 0
     }
 
-    # Penanganan argumen --help
-    if [ "''${1:-}" = "--help" ] || [ "''${1:-}" = "-h" ]; then
-      show_help
-      exit 0
-    fi
+    if [ "''${1:-}" = "--help" ] || [ "''${1:-}" = "-h" ]; then show_help; fi
 
     echo "🚀 Memeriksa lingkungan Freqtrade di: $DIR"
-    mkdir -p "$DIR"
-    cd "$DIR" || exit 1
+    mkdir -p "$DIR" && cd "$DIR" || exit 1
 
-    # OTOMATISASI DETEKSI PERUBAHAN BRANCH
     if [ -f "$MARKER_FILE" ]; then
       OLD_BRANCH=$(cat "$MARKER_FILE")
       if [ "$OLD_BRANCH" != "${cfg.branch}" ]; then
-        echo "🔄 Deteksi perubahan konfigurasi branch di Home Manager ($OLD_BRANCH -> ${cfg.branch})!"
-        echo "🗑️  Menghapus folder lama secara otomatis untuk menghindari konflik versi..."
+        echo "🔄 Deteksi perubahan branch ($OLD_BRANCH -> ${cfg.branch})! Menghapus versi lama..."
+
+        ${
+          if cfg.service.enable then
+            ''
+              echo "🛑 Menghentikan servis yang berjalan..."
+              ${concatStringsSep "\n" (
+                mapAttrsToList (botName: _: "systemctl --user stop freqtrade-${botName} || true") enabledBots
+              )}
+            ''
+          else
+            ""
+        }
+
         rm -rf freqtrade .venv
       fi
     fi
 
-    # Otomatisasi Git Init & Clone
     if [ ! -d ".git" ]; then ${pkgs.git}/bin/git init -q; fi
+
     if [ ! -d "freqtrade" ]; then
       echo "📥 Mengunduh Freqtrade branch [${cfg.branch}]..."
       ${pkgs.git}/bin/git clone --depth=1 -b "${cfg.branch}" https://github.com/freqtrade/freqtrade freqtrade
     fi
 
-    # Membangun Virtual Environment
     if [ ! -d ".venv" ]; then
       echo "🐍 Membangun Virtual Environment..."
       ${pkgs.python313}/bin/python -m venv .venv
@@ -74,27 +74,53 @@ let
     source .venv/bin/activate
 
     if [ ! -f ".venv/bin/freqtrade" ]; then
-      echo "📦 Menginstal dependensi inti Freqtrade..."
+      echo "📦 Menginstal dependensi inti..."
       pip install -q -e freqtrade/
     fi
 
     if [ -n "${extraPipStr}" ]; then
-      echo "📦 Menginstal dependensi ekstra: ${extraPipStr}..."
+      echo "📦 Menginstal dependensi ekstra..."
       pip install -q ${extraPipStr}
     fi
 
-    # Simpan status branch saat ini ke file penanda
     echo "${cfg.branch}" > "$MARKER_FILE"
-    echo "✅ Semua siap! Gunakan perintah 'freqtrade' untuk memulai."
+
+    ${
+      if cfg.service.enable then
+        ''
+          echo "⚙️  Membangunkan daemon Systemd..."
+          systemctl --user daemon-reload
+          ${concatStringsSep "\n" (
+            mapAttrsToList (botName: _: ''
+              echo "▶️  Menyalakan servis bot: ${botName}..."
+              systemctl --user start freqtrade-${botName} || true
+            '') enabledBots
+          )}
+        ''
+      else
+        ""
+    }
+
+    echo "✅ Setup selesai! Freqtrade siap beraksi."
   '';
 
   updateScript = pkgs.writeShellScriptBin "freqtrade-update" ''
     DIR="${cfg.configDir}"
-    echo "🚨 Memulai pembersihan total lingkungan Freqtrade..."
-    echo "🗑️  Menghapus folder: $DIR/freqtrade dan $DIR/.venv"
-    rm -rf "$DIR/freqtrade" "$DIR/.venv" "$DIR/.nix_branch_marker"
+    echo "🚨 Memulai pembersihan total..."
 
-    echo "🔄 Menjalankan ulang inisialisasi awal..."
+    ${
+      if cfg.service.enable then
+        ''
+          echo "🛑 Mematikan semua bot yang berjalan..."
+          ${concatStringsSep "\n" (
+            mapAttrsToList (botName: _: "systemctl --user stop freqtrade-${botName} || true") enabledBots
+          )}
+        ''
+      else
+        ""
+    }
+
+    rm -rf "$DIR/freqtrade" "$DIR/.venv" "$DIR/.nix_branch_marker"
     "${setupScript}/bin/freqtrade-setup"
   '';
 
@@ -103,10 +129,8 @@ let
     export PYTHONWARNINGS="ignore:The HMAC key is"
 
     VENV_BIN="${cfg.configDir}/.venv/bin/freqtrade"
-
     if [ ! -x "$VENV_BIN" ]; then
-      echo "⚠️  Lingkungan belum siap atau baru saja diubah."
-      echo "💡 Silakan jalankan perintah 'freqtrade-setup' terlebih dahulu!"
+      echo "⚠️  Lingkungan belum siap. Jalankan 'freqtrade-setup' terlebih dahulu!"
       exit 1
     fi
 
@@ -115,27 +139,104 @@ let
 
 in
 {
+  # ==========================================
+  # DEKLARASI OPSI / INTERFAKS KONFIGURASI
+  # ==========================================
   options.programs.freqtrade-setup = {
     enable = mkEnableOption "Aktifkan Freqtrade Global Setup";
+
     configDir = mkOption {
       type = types.str;
       default = "${config.home.homeDirectory}/.local/share/freqtrade-dev";
     };
+
     branch = mkOption {
       type = types.str;
       default = "stable";
     };
+
     extraPip = mkOption {
       type = types.listOf types.str;
       default = [ ];
     };
+
+    service = {
+      enable = mkEnableOption "Aktifkan otomatisasi background service (Systemd)";
+
+      bots = mkOption {
+        description = "Definisi instance bot Freqtrade";
+        default = { };
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              enable = mkOption {
+                type = types.bool;
+                default = true;
+                description = "Aktifkan atau matikan eksekusi bot ini di Systemd";
+              };
+              strategiesDir = mkOption { type = types.str; };
+              strategyRun = mkOption { type = types.str; };
+              configFile = mkOption {
+                type = types.str;
+                default = "config.json";
+              };
+              extraOpts = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+              };
+            };
+          }
+        );
+      };
+    };
   };
 
+  # ==========================================
+  # IMPLEMENTASI / EKSEKUSI
+  # ==========================================
   config = mkIf cfg.enable {
     home.packages = [
-      setupScript # Menyediakan perintah 'freqtrade-setup'
-      updateScript # Menyediakan perintah 'freqtrade-update'
-      globalWrapper # Menyediakan perintah 'freqtrade' global
+      setupScript
+      updateScript
+      globalWrapper
     ];
+
+    # GENERATOR SYSTEMD USER SERVICES
+    systemd.user.services = mkIf cfg.service.enable (
+      mapAttrs' (
+        botName: botCfg:
+        nameValuePair "freqtrade-${botName}" {
+          Unit = {
+            Description = "Freqtrade Daemon - ${botName}";
+            After = [ "network.target" ];
+          };
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
+          Service = {
+            Type = "simple";
+            WorkingDirectory = botCfg.strategiesDir;
+
+            Environment = [
+              "LD_LIBRARY_PATH=${cLibs}"
+              "PYTHONWARNINGS=ignore:The HMAC key is"
+            ];
+
+            ExecCondition = "${pkgs.coreutils}/bin/test -x ${cfg.configDir}/.venv/bin/freqtrade";
+
+            ExecStart = ''
+              ${cfg.configDir}/.venv/bin/freqtrade trade \
+                --config ${botCfg.strategiesDir}/${botCfg.configFile} \
+                --userdir ${botCfg.strategiesDir}/user_data \
+                --strategy ${botCfg.strategyRun} \
+                ${escapeShellArgs botCfg.extraOpts}
+            '';
+
+            Restart = "always";
+            RestartSec = "10s";
+          };
+        }
+      ) enabledBots
+    );
   };
 }
