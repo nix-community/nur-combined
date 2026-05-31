@@ -15,12 +15,12 @@ Repositori ini ditenagai sepenuhnya oleh **Nix Flakes** untuk menjamin integrasi
 Paket-paket mandiri yang bisa dieksekusi langsung atau diinstal secara global:
 | Nama Paket | Deskripsi |
 | :--- | :--- |
-| `binance` | *[Tambahkan deskripsi singkat di sini]* |
-| `disbox` | *[Tambahkan deskripsi singkat di sini]* |
-| `streambert` | *[Tambahkan deskripsi singkat di sini]* |
-| `teldrive` | *[Tambahkan deskripsi singkat di sini]* |
+| `binance` | Utilitas / Klien CLI untuk ekosistem dan trading Binance. |
+| `disbox` | Alat bantu untuk menjadikan Discord sebagai media penyimpanan *cloud*. |
+| `streambert` | Utilitas *streaming* / pemrosesan media. |
+| `teldrive` | *Mount* atau gunakan Telegram API sebagai penyimpanan *cloud* tak terbatas. |
 | `uabea` | Unity Assets Bundle Extractor Avalon. |
-| `vimmdl` | *[Tambahkan deskripsi singkat di sini]* |
+| `vimmdl` | CLI *downloader* untuk mengunduh ROM konsol retro / berkas dari Vimm's Lair. |
 
 ### 🧩 Home Manager Modules
 Modul deklaratif untuk mengotomatiskan setup lingkungan kerja:
