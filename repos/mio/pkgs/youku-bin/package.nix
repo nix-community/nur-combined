@@ -43,6 +43,7 @@
   udev,
   systemd,
   fontconfig,
+  freetype,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -99,6 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     systemd
     udev
     fontconfig
+    freetype
   ];
 
   unpackPhase = ''
@@ -141,6 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
         )
       }" \
       --prefix XDG_DATA_DIRS : "${addDriverRunpath.driverLink}/share" \
+      --set FONTCONFIG_FILE /etc/fonts/fonts.conf \
       --add-flags "--no-sandbox"
 
     # Install icons (using standard sizes if available)

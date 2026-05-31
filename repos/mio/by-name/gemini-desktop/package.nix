@@ -51,8 +51,10 @@ buildNpmPackage rec {
   installPhase = ''
     runHook preInstall
 
+    npm prune --omit=dev --no-save
+
     mkdir -p $out/lib/gemini-desktop
-    cp -r dist dist-electron package.json $out/lib/gemini-desktop/
+    cp -r dist dist-electron package.json node_modules $out/lib/gemini-desktop/
 
     install -Dm644 build/icon.png $out/share/pixmaps/gemini-desktop.png
 
