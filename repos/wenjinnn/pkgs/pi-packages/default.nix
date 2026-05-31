@@ -149,6 +149,16 @@ let
       homepage = "https://github.com/MasuRii/pi-permission-system";
     };
 
+    # ── WeChat Extensions ──────────────────────────────────────────────────────
+
+    "pi-weixinbot" = mkPackage "pi-weixinbot" {
+      version = "1.0.5";
+      hash = "sha256-VXLAWvezKghW7ehTTXv6PPgUnqYYj+PXWYigasKtfpc=";
+      npmDepsHash = "sha256-ZtNQEIY2FN2Xx6Ob8nE7FA8muNCFiW076kgBtg9EtSc=";
+      description = "微信机器人 extension for pi，支持扫码登录和消息收发";
+      homepage = "https://github.com/huang-x-h/pi-weixinbot";
+    };
+
     # ── TODO: Add more packages ──────────────────────────────────────────────
     # Use the update script to get hashes:
     #   ./pkgs/pi-packages/scripts/update-pi-package.sh <package-name> [version]
