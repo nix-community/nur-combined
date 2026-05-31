@@ -95,6 +95,25 @@ stdenv.mkDerivation (finalAttrs: {
       '. * {"version":$v}' \
       package.json |
       sponge package.json
+
+    # patch lockfile version 9 for yarn 4.14
+    # TODO check the actual lockfile version
+    # NOTE this is also done in update.sh
+    echo "yarn version ${yarn-berry.version}"
+    # builtins.compareVersions a b
+    # +1: a > b
+    #  0: a == b
+    # -1: a < b
+    ${if (builtins.compareVersions yarn-berry.version "4.14") != -1 then "" else ''
+    # yarn-berry.version < 4.14
+    echo "not patching lockfile version 9 for yarn ${yarn-berry.version}"
+    echo "error: this build requires yarn >=4.14"
+    exit 1
+    ''}
+    # yarn-berry.version >= 4.14
+    # yarn 4.14 requires lockfile version 9
+    echo "patching lockfile version 9 for yarn ${yarn-berry.version}"
+    sed -i '1,5 s/version: 8$/version: 9/' yarn.lock
   '';
 
   nativeBuildInputs = [
@@ -219,7 +238,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   offlineCache = yarn-berry.fetchYarnBerryDeps {
     inherit (finalAttrs) src missingHashes;
-    hash = "sha256-0HMeaTm4jx5FFwTVeqQOJMfTlWnNKTsJRjQEGz1zJmY="; # offlineCache.hash
+    inherit (finalAttrs) postPatch;
+    nativeBuildInputs = [
+      jq
+      moreutils # sponge
+      yarn-berry.yarn-berry-fetcher
+    ];
+    hash = "sha256-o0u9dAoo0sTEV+kjQg8TjRNAIcx8fqfk79HsDwAXriA="; # offlineCache.hash
   };
 
   meta = {

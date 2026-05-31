@@ -6,17 +6,36 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
-
-/*
-# pin nixpkgs
 {
-  pkgs ? import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/f5dad40450d272a1ea2413f4a67ac08760649e89.tar.gz";
-    sha256 = "06nq3rn63csy4bx0dkbg1wzzm2jgf6cnfixq1cx4qikpyzixca6i";
-  }) { }
+  pkgs ? import <nixpkgs> { },
+  config ? null,
 }:
-*/
+
+# if true then throw "test5" else
+
+let _pkgs = pkgs; in
+
+let
+  pkgs =
+  if true then builtins.trace "nur.repos.milahu: using system nixpkgs ${<nixpkgs>}" _pkgs else
+  # pin nixpkgs
+  # fixme: this breaks unfree packages
+  # error: Refusing to evaluate package 'brother-hll5100dn-lpr-3.5.1-1' in /nix/store/8ax444vhz7dyrqqf4v641x451w6a97r0-source/pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix:139 because it has an unfree license (‘unfree’)
+  (
+    # pin nixpkgs to use cached pytorch
+    # https://wiki.nixos.org/wiki/FAQ/Pinning_Nixpkgs
+    # https://hydra.nixos-cuda.org/job/nixos-cuda/channel-unstable/python3Packages.torch.x86_64-linux
+    let rev = "657e2fa0760e27167cdacb1ec5d84782be312013"; sha256 = "0aappfv34kdv70y1k9kqql80g01fvl0bxyj5rd8df35fdcijnwvw"; in # 2026-05-21
+    # let rev = ""; sha256 = ""; in
+    builtins.trace "nur.repos.milahu: using pinned nixpkgs ${rev}"
+    import (fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz";
+      inherit sha256;
+    }) {
+      config.cudaSupport = true;
+    }
+  );
+in
 
 pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 

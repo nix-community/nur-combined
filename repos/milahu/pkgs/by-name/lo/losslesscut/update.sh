@@ -55,6 +55,11 @@ wget -N "$git_remote/raw/$tag/yarn.lock"
 stat yarn.lock
 stat missing-hashes.json || true
 
+# patch lockfile version 9 for yarn 4.14
+# TODO check the actual lockfile version
+echo "patching lockfile version 9"
+sed -i '1,5 s/version: 8$/version: 9/' yarn.lock
+
 yarn-berry-fetcher missing-hashes yarn.lock >missing-hashes.json
 
 offlineCache_hash="$(yarn-berry-fetcher prefetch yarn.lock missing-hashes.json)"
