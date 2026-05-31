@@ -6,11 +6,11 @@
 
 let
   pname = "browseros";
-  version = "0.37.0.3";
+  version = "0.44.0.1";
 
   src = fetchurl {
-    url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.37.0/BrowserOS_v${version}_x64.AppImage";
-    hash = "sha256-nGnPRb2J86sA9d9XD3U/CPYAK+zimqzwb46JjNwm/4o=";
+    url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
+    hash = "sha256-ALnyVMnexYy48br9qbWaEbOZm7hJR9g39a9nYzbWXwo=";
   };
 
   appimageContents = appimageTools.extractType2 {

@@ -40,13 +40,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "beammp-server";
-  version = "3.9.2";
+  version = "3.9.3";
 
   src = fetchFromGitHub {
     owner = "BeamMP";
     repo = "BeamMP-Server";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-lUN+uu95whVsLIJxMUHyvk4QmfHzfhNDSfAUf6lIzkI=";
+    hash = "sha256-XE87QHU8lmCzgZt/Ointt5SFL6TAxFVaN3ESnCBRe7Q=";
   };
 
   strictDeps = true;
@@ -89,6 +89,10 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace cmake/StandardSettings.cmake \
       --replace 'CHECKOUT_GIT_SUBMODULES "If git is found, initialize all submodules." ON' \
                 'CHECKOUT_GIT_SUBMODULES "If git is found, initialize all submodules." OFF'
+
+    substituteInPlace src/TLuaEngine.cpp \
+      --replace 'Result->MarkReadyError(std::move(Res));' 'Result->MarkReadyError(sol::protected_function_result(std::move(Res)));' \
+      --replace 'Result->MarkReadySuccess(std::move(Res));' 'Result->MarkReadySuccess(sol::protected_function_result(std::move(Res)));'
   '';
 
   cmakeFlags = [
