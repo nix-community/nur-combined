@@ -42,6 +42,7 @@
   zlib,
   udev,
   systemd,
+  fontconfig,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -97,6 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     stdenv.cc.cc.lib
     systemd
     udev
+    fontconfig
   ];
 
   unpackPhase = ''
@@ -147,6 +149,13 @@ stdenv.mkDerivation (finalAttrs: {
         mv "$out/share/icons/hicolor/''${size}x''${size}/apps/YouKu.png" "$out/share/icons/hicolor/''${size}x''${size}/apps/youku.png"
       fi
     done
+
+    # Fallback: copy icon from app resources if not in hicolor
+    if [ -f "$out/opt/youku/resources/assets/images/app_icon256.png" ]; then
+      install -Dm644 "$out/opt/youku/resources/assets/images/app_icon256.png" "$out/share/pixmaps/youku.png"
+    elif [ -f "$out/opt/youku/resources/assets/images/app_icon32.png" ]; then
+      install -Dm644 "$out/opt/youku/resources/assets/images/app_icon32.png" "$out/share/pixmaps/youku.png"
+    fi
 
     # Remove conflicting swiftshader bundled libraries if needed, though electron usually prefers its own unless stripped.
     # autoPatchelfHook will handle patching the bundled electron binaries.
