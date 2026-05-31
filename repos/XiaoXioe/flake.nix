@@ -9,20 +9,22 @@
     { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; config.allowUnfree = true;};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
       lib = nixpkgs.lib;
 
       pkgsPath = ./pkgs;
 
-      # Baca isi direktori ./pkgs, lalu saring agar hanya mengambil tipe "directory"
       packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
 
-      # Ambil nama-nama direktorinya saja menjadi sebuah list (misal: [ "disbox" "freqtrade" ... ])
       packageNames = builtins.attrNames packageDirs;
     in
     {
       packages.${system} = lib.genAttrs packageNames (
         name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }
       );
+      homeModules.freqtrade-setup = import ./modules/freqtrade-setup.nix;
     };
 }
