@@ -132,8 +132,8 @@ let
     # ── Voice & TTS Extensions ──────────────────────────────────────────────────
 
     "@wenjinnn/pi-mimo-voice" = mkScopedPackage "@wenjinnn" "pi-mimo-voice" {
-      version = "1.0.9";
-      hash = "sha256-sdtdorgAj1hdGOfT7VWQiRyoyUEPLocg7gmCE3HTazU=";
+      version = "1.1.0";
+      hash = "sha256-Dtjaqu7iGtyCuLz3wwnSnt8GZi216+8gOOjrFIgUm+k=";
       npmDepsHash = "";  # No dependencies, only peer dependencies
       description = "MiMo voice synthesis extension for Pi coding agent";
       homepage = "https://github.com/wenjinnn/pi-mimo-voice";
