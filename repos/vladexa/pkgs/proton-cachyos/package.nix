@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (
     fullname = "proton-cachyos-${pureVersion}-slr-${archVersion}";
     hashes = {
       x86_64 = "sha256-OrZfLv0FV+fhDuhbmcbMhtylDTMwTfRAvENh/v7iIr8=";
-      x86_64_v3 = "sha256-3njeS9g/lvXsjoz8uvXzjdI1GoPi210rPgXmQ9OpeZQ=";
+      x86_64_v3 = "sha256-Vy4asQ9UfvkD+ZWi+7Le7GjUfMR7QZcGtOQ0msYni7w=";
       arm64 = "sha256-w4xVtdW+9ROnCEUMzkg0cy/07oPbjtGV2NSOQEtn+CM=";
     };
   in
