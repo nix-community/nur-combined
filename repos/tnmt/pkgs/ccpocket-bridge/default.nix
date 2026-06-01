@@ -42,6 +42,13 @@ buildNpmPackage (finalAttrs: {
     # workspace so the installed package is self-contained.
     mv node_modules "$bridgeOut/node_modules"
 
+    # Workspace-local deps (e.g. @anthropic-ai/claude-agent-sdk, which can't
+    # hoist because it collides with @anthropic-ai/sdk at the root) live under
+    # packages/bridge/node_modules. Merge them into the hoisted tree.
+    if [ -d packages/bridge/node_modules ]; then
+      cp -rn packages/bridge/node_modules/. "$bridgeOut/node_modules/"
+    fi
+
     # Self-referential workspace symlink dangles once node_modules is moved.
     rm -f "$bridgeOut/node_modules/@ccpocket/bridge"
 
