@@ -12,7 +12,7 @@ let
   inherit (lib) licenses;
   inherit (import ../library/utilities.lib.nix { inherit lib; }) versionsSatisfied;
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (pdfalyzer: {
   pname = "pdfalyzer";
   version = "1.19.6";
   meta = {
@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication rec {
   passthru.updateScript = nix-update-script { };
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (pdfalyzer) pname version;
     hash = "sha256-iI3zJS9z/igTKgF4JLxg96aGxqBYAPOwJvdvSO5lXdM=";
   };
 
@@ -42,4 +42,4 @@ python3Packages.buildPythonApplication rec {
   ];
 
   nativeCheckInputs = [ versionCheckHook ]; # Pending nixos/nixpkgs#420531
-}
+})

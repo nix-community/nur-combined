@@ -62,6 +62,16 @@ ln -rs "$HOME/src/configuration/hosts/$HOST/packages.local.nix" "$HOME/.config/n
 ln -rs "$HOME/src/configuration/packages.nix" "$HOME/.config/nixpkgs/overlays/packages.nix"
 ```
 
+Hardware key enrollment:
+
+```bash
+sudo systemd-cryptenroll --fido2-device='auto' '/dev/disk/by-partlabel/pv-enc' # Keychain
+sudo systemd-cryptenroll --fido2-device='auto' '/dev/disk/by-partlabel/pv-enc' # Backup
+
+pamu2fcfg | sudo tee '/etc/u2f-mappings' >/dev/null # Keychain
+pamu2fcfg -n | sudo tee --append '/etc/u2f-mappings' >/dev/null # Backup
+```
+
 GnuPG initialization:
 
 ```bash
@@ -75,10 +85,6 @@ Host-specific secrets:
 # /etc/secrets
 sudo mkdir '/etc/secrets'
 sudo chmod o= '/etc/secrets'
-
-# U2F
-pamu2fcfg > '/etc/u2f-mappings' # Keychain
-pamu2fcfg -n >> '/etc/u2f-mappings' # Backup
 
 # Wireguard
 gopass show --password "wireguard/$HOST" | sudo tee '/etc/secrets/wg0.key' >/dev/null

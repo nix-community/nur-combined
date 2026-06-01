@@ -35,7 +35,7 @@ in
     xdg.configFile."Joplin/Custom Dictionary.txt" = { force = true; source = formats.chromium; };
 
     # VSCodium
-    programs.vscode.profiles.default.userSettings = {
+    programs.vscodium.profiles.default.userSettings = {
       "cSpell.minWordLength" = 2;
       "cSpell.customDictionaries" = {
         custom.path = formats.plaintext;

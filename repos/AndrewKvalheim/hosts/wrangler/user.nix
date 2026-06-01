@@ -32,7 +32,7 @@ in
   };
 
   # Unfree packages
-  allowedUnfree = [
+  nixpkgs.config.allowUnfreePackages = [
     "zoom"
   ];
 

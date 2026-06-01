@@ -1,9 +1,0 @@
-Revert damage inflicted by “AI” coding agent
-
-Partially reverts JnyJny/busylight#487
-
---- i/src/busylight/api/v1/effects/service.py
-+++ w/src/busylight/api/v1/effects/service.py
-@@ -73 +73 @@
--        interval = self._get_speed_interval(speed, 0.00625)
-+        interval = self._get_speed_interval(speed, 1 / 16)

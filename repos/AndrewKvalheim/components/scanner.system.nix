@@ -4,7 +4,7 @@ let
   identity = import ../library/identity.lib.nix { inherit lib; };
 in
 {
-  allowedUnfree = [ "brother-udev-rule-type1" "brscan4" "brscan4-etc-files" ];
+  nixpkgs.config.allowUnfreePackages = [ "brother-udev-rule-type1" "brscan4" "brscan4-etc-files" ];
 
   hardware.sane = { enable = true; brscan4.enable = true; };
 

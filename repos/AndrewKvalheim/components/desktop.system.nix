@@ -8,7 +8,6 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.gnome.excludePackages = with pkgs; [
     epiphany
-    geary
     gnome-calculator
     gnome-maps
     gnome-music

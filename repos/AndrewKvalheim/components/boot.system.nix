@@ -1,8 +1,9 @@
 { lib, pkgs, ... }:
 
 let
-  inherit (lib) removePrefix;
+  inherit (lib) escapeShellArg removePrefix;
 
+  identity = import ../library/identity.lib.nix { inherit lib; };
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
 in
 {
@@ -16,7 +17,19 @@ in
       };
     };
 
-    plymouth.enable = true;
+    plymouth.enable = false; # Expose contact information
+
+    initrd.systemd.services.contact-information = {
+      unitConfig.DefaultDependencies = false;
+      wantedBy = [ "systemd-ask-password-console.service" ];
+      before = [ "systemd-ask-password-console.service" ];
+
+      script = ''
+        echo ${escapeShellArg identity.contactNotice} > /dev/console
+      '';
+
+      serviceConfig.Type = "oneshot";
+    };
   };
 
   console = {

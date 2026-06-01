@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 let
-  inherit (lib) getExe' throwIf versionAtLeast;
+  inherit (lib) getExe';
 
   identity = import ../../library/identity.lib.nix { inherit lib; };
 in
@@ -29,7 +29,6 @@ in
   };
 
   # Workaround for drm/amd#3787, drm/amd#3925, drm/amd#4141
-  boot.kernelPackages = throwIf (versionAtLeast pkgs.linux.version "6.18") "Kernel no longer requires override" pkgs.linuxPackages_6_18;
   boot.kernelParams = [ "amdgpu.dcdebugmask=0x10" ];
 
   # Hardware
@@ -116,9 +115,6 @@ in
 
   # Wireshark
   programs.wireshark.enable = true;
-
-  # Android Debug Bridge (ADB)
-  programs.adb.enable = true;
 
   # Devices
   services.udev.packages = with pkgs; [ espressif-serial ];

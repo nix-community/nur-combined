@@ -17,10 +17,10 @@ in
     networking.networkmanager.wifi.macAddress = "stable" /* hashed */;
 
     # DNS
-    services.resolved.dnssec = "false";
-    services.resolved.extraConfig = ''
-      StaleRetentionSec=3600
-    '';
+    services.resolved.settings.Resolve = {
+      DNSSEC = false;
+      StaleRetentionSec = 3600;
+    };
 
     # Permissions
     users.users.${identity.username}.extraGroups = [ "networkmanager" ];

@@ -8,12 +8,10 @@ in
 # Published as nur.repos.AndrewKvalheim (https://nur.nix-community.org/repos/andrewkvalheim/)
 rec {
   hmModules = {
-    nixpkgs-issue-55674 = import ./library/nixpkgs-issue-55674.user.nix;
     xcompose = import ./library/xcompose.user.nix;
   };
 
   modules = {
-    nixpkgs-issue-55674 = import ./library/nixpkgs-issue-55674.system.nix;
     nixpkgs-issue-163080 = import ./library/nixpkgs-issue-163080.system.nix;
   };
 
@@ -41,8 +39,6 @@ rec {
       "github.com/caddyserver/cache-handler@v0.16.0"
     ];
     hash = {
-      "2.11.3@1.25.9" = "sha256-gllJbg4jXd911bIITcXf0ZBSev55DH/Kmba/ItLDTOc=";
-      "2.11.3@1.26.2" = "sha256-qgfYs26NEVVGFNrfxSg6a782Hn2QJYmPAzNGh9fJyiw=";
       "2.11.3@1.26.3" = "sha256-K6x1EveX4relEXykwRkJzmm7/uhABZnf3DdyTjiprTU=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
   };

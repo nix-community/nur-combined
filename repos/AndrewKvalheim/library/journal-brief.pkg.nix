@@ -7,7 +7,7 @@
 let
   inherit (lib) escapeShellArg licenses;
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (journal-brief: {
   pname = "journal-brief";
   version = "1.1.8";
   meta = {
@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
   passthru.updateScript = nix-update-script { };
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (journal-brief) pname version;
     hash = "sha256-lY1U5dcRVl/79IEz/l0KN4SAlQs9djIK/VN47TfPdhE=";
   };
 
@@ -36,10 +36,10 @@ python3Packages.buildPythonApplication rec {
   doInstallCheck = true;
   # Pending compatibility with versionCheckHook
   installCheckPhase = ''
-    help="$($out/bin/${escapeShellArg meta.mainProgram} --help)"
+    help="$($out/bin/${escapeShellArg journal-brief.meta.mainProgram} --help)"
     echo "$help"
     [[ "$help" == *'usage: journal-brief'* ]]
     [[ "$help" != *'version'* ]]
-    [[ "$help" != *${escapeShellArg version}* ]]
+    [[ "$help" != *${escapeShellArg journal-brief.version}* ]]
   '';
-}
+})

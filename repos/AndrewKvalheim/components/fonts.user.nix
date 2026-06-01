@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  allowedUnfree = [
+  nixpkgs.config.allowUnfreePackages = [
     "affine-font"
     "corefonts"
   ];

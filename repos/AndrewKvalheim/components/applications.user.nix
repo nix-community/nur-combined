@@ -24,7 +24,7 @@ in
 
   config = {
     # Unfree packages
-    allowedUnfree = [
+    nixpkgs.config.allowUnfreePackages = [
       "ffmpeg"
       "vagrant"
     ];
@@ -108,7 +108,6 @@ in
       efficient-compression-tool
       exiftool
       eyedropper
-      fast-cli
       (ffmpeg.override { withUnfree = true; withFdkAac = true; })
       file
       fstl
@@ -174,7 +173,7 @@ in
       smartmontools
       sqlitebrowser
       step-cli
-      nodePackages.svgo
+      svgo
       texlive.pkgs.albatross
       trash-cli
       uniscribe
@@ -190,9 +189,9 @@ in
       wireguard-tools
       wl-clipboard
       xan
+      xev
       xh
       xkcdpass
-      xorg.xev
       yq
     ];
 

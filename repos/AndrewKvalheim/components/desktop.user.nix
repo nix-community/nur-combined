@@ -42,9 +42,6 @@ in
       ]);
     };
 
-    # Backend
-    dconf.settings."org/gnome/mutter".experimental-features = [ "scale-monitor-framebuffer" ]; # Workaround for paperwm/PaperWM#938
-
     # Theme
     dconf.settings."org/gnome/desktop/interface".accent-color = "orange";
     dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";

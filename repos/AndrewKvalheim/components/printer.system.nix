@@ -4,7 +4,7 @@ let
   identity = import ../library/identity.lib.nix { inherit lib; };
 in
 {
-  allowedUnfree = [ "brgenml1lpr" ];
+  nixpkgs.config.allowUnfreePackages = [ "brgenml1lpr" ];
 
   services.printing = { enable = true; drivers = with pkgs; [ brgenml1cupswrapper ]; };
 

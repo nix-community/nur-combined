@@ -26,14 +26,13 @@ let
   };
 in
 {
-  allowedUnfree = [
+  nixpkgs.config.allowUnfreePackages = [
     "vscode-extension-mhutchie-git-graph"
     "vscode-extension-ms-vsliveshare-vsliveshare"
   ];
 
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
-    package = pkgs.vscodium;
     mutableExtensionsDir = false;
 
     profiles.default = {
@@ -118,6 +117,14 @@ in
       ];
 
       userSettings = with palette.hex; {
+        # Permissions
+        "json.schemaDownload.trustedDomains" = {
+          "https://biomejs.dev" = true;
+          "https://json-schema.org/" = true;
+          "https://json.schemastore.org/" = true;
+          "https://www.schemastore.org/" = true;
+        };
+
         # Dependencies
         "biome.lsp.bin" = getExe pkgs.biome;
         "clang-format.executable" = getExe' pkgs.clang-tools "clang-format";
@@ -128,7 +135,7 @@ in
         "nix.serverPath" = getExe pkgs.nil;
         "nix.serverSettings".nil.formatting.command = [ (getExe pkgs.nixpkgs-fmt) ];
         "php.validate.executablePath" = getExe pkgs.php;
-        "prettier.prettierPath" = "${pkgs.nodePackages.prettier}/lib/node_modules/prettier/index.cjs"; # Pending prettier/prettier-vscode#3100
+        "prettier.prettierPath" = "${pkgs.prettier}/lib/node_modules/prettier/index.cjs";
         "python.formatting.blackPath" = getExe pkgs.black;
         "rubyLsp.customRubyCommand" = "PATH=${makeBinPath (with pkgs; [ nodejs ruby ruby-lsp ])}:$PATH";
         "ruff.path" = [ (getExe pkgs.ruff) ];
@@ -136,7 +143,7 @@ in
         "rufo.exe" = getExe pkgs.rufo;
         "rust-analyzer.server.path" = getExe pkgs.rust-analyzer;
         "shellcheck.executablePath" = getExe pkgs.shellcheck;
-        "stylelint.stylelintPath" = "${pkgs.nodePackages.stylelint}/lib/node_modules/stylelint";
+        "stylelint.stylelintPath" = "${pkgs.stylelint}/lib/node_modules/stylelint";
 
         # Custom formatters
         "advancedLocalFormatters.formatters" = with pkgs; [

@@ -26,7 +26,7 @@ in
   };
 
   # Unfree packages
-  allowedUnfree = [
+  nixpkgs.config.allowUnfreePackages = [
     "attachments"
   ];
 
@@ -57,6 +57,7 @@ in
     hugin
     jitsi-meet-electron
     josm
+    karere
     kdePackages.kdenlive
     libreoffice
     losslesscut-bin
@@ -78,7 +79,6 @@ in
     tor-browser
     transmission_4-gtk
     video-trimmer
-    wasistlos
     whipper
     wireguard-vanity-address
     wireshark

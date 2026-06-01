@@ -8,7 +8,7 @@ let
   inherit (builtins) placeholder;
   inherit (lib) licenses;
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (fediblockhole: {
   pname = "fediblockhole";
   version = "0.4.6";
   meta = {
@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   src = fetchPypi {
-    inherit pname version;
+    inherit (fediblockhole) pname version;
     hash = "sha256-zqwvAF0mskQKIcW7pQ/f1jjTe1RJjonaIyKaqvcH+1k=";
   };
 
@@ -33,5 +33,5 @@ python3Packages.buildPythonApplication rec {
   ];
 
   nativeCheckInputs = [ versionCheckHook ]; # Pending nixos/nixpkgs#420531
-  versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
-}
+  versionCheckProgram = "${placeholder "out"}/bin/${fediblockhole.meta.mainProgram}";
+})

@@ -149,7 +149,7 @@ in
         };
 
         custom = mapAttrs (_: c: { shell = [ runtimeShell "--noprofile" "--norc" ]; } // c) {
-          # Workaround for starship/starship#5932, lanastara_foss/starship-jj#5
+          # Workaround for lanastara_foss/starship-jj#5
           git_branch = {
             require_repo = true;
             when = "! jj --ignore-working-copy root";
@@ -157,7 +157,7 @@ in
             format = "$output";
           };
 
-          # Workaround for starship/starship#5932, lanastara_foss/starship-jj#5
+          # Workaround for lanastara_foss/starship-jj#5
           git_commit = {
             require_repo = true;
             when = "! jj --ignore-working-copy root";

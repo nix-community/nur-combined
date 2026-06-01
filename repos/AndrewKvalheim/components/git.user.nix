@@ -264,7 +264,11 @@ in
     };
   };
 
-  programs.mergiraf.enable = true;
+  programs.mergiraf = {
+    enable = true;
+    enableGitIntegration = true;
+    enableJujutsuIntegration = true;
+  };
 
   # Reference: https://github.com/idursun/jjui/blob/main/internal/config/default/config.toml
   xdg.configFile."jjui/config.toml".source = writeTOML "jjui-config" {
