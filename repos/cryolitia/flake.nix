@@ -64,12 +64,9 @@
     let
       systems = [
         "x86_64-linux"
-        "i686-linux"
         "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
+        # "riscv64-linux"
 
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
 
@@ -77,8 +74,7 @@
         "x86_64-linux"
         "i686-linux"
         "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
+        # "riscv64-linux"
       ];
 
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
@@ -138,8 +134,6 @@
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
-
-      packages-summary = builtins.mapAttrs (name: value: value.meta) packages.x86_64-linux;
 
       lib = import ./lib { pkgs = nixpkgs; };
 
