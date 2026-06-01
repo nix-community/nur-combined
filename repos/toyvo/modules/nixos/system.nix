@@ -5,15 +5,14 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg.system;
 in
 {
-  config = lib.mkIf cfg.defaults.enable {
-    networking = {
-      networkmanager.enable = true;
-      nftables.enable = true;
-    };
+  options.nixcfg.system.enable = lib.mkEnableOption "system defaults (timezone, locale, stateVersion, autoUpgrade, services, packages)";
+
+  config = lib.mkIf cfg.enable {
     time.timeZone = "America/Chicago";
+
     i18n = {
       defaultLocale = "en_US.UTF-8";
       extraLocaleSettings = {
@@ -28,6 +27,7 @@ in
         LC_TIME = "C.UTF-8";
       };
     };
+
     catppuccin = rec {
       enable = true;
       flavor = "frappe";
@@ -38,44 +38,18 @@ in
       };
       plymouth.enable = true;
     };
+
     console.useXkbConfig = true;
+
     programs = {
       ssh.startAgent = false;
       gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
       };
-      nix-ld = {
-        enable = true;
-        libraries =
-          with pkgs;
-          (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs)
-          ++ (appimageTools.defaultFhsEnvArgs.targetPkgs pkgs)
-          ++ [
-            SDL
-            SDL_image
-            SDL_mixer
-            SDL_ttf
-            freeglut
-            fuse
-            fuse3
-            icu
-            libclang.lib
-            libdbusmenu
-            libgcc
-            libxcrypt-legacy
-            libxml2
-            mesa
-            pcre
-            pcre-cpp
-            pcre2
-            python3
-            stdenv.cc.cc
-            xz
-          ];
-      };
       command-not-found.enable = false;
     };
+
     services = {
       xserver.xkb = {
         layout = "us";
@@ -83,39 +57,22 @@ in
       };
       pcscd.enable = true;
       udev.packages = with pkgs; [ yubikey-personalization ];
-      printing.enable = cfg.gui.enable;
-      pipewire = lib.mkIf cfg.gui.enable {
+      printing.enable = config.nixcfg.gui.enable;
+      pipewire = lib.mkIf config.nixcfg.gui.enable {
         enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
       };
-      flatpak.enable = cfg.gui.enable;
+      flatpak.enable = config.nixcfg.gui.enable;
       fwupd.enable = true;
-      kanata = {
-        enable = true;
-        keyboards.usbKeyboard = {
-          devices = [
-            "/dev/input/by-path/pci-0000:27:00.3-usb-0:3:1.0-event-kbd"
-            "/dev/input/by-path/pci-0000:27:00.3-usbv2-0:3:1.0-event-kbd"
-          ];
-          extraDefCfg = "process-unmapped-keys yes";
-          config = ''
-            (defsrc
-              caps
-            )
-
-            (defalias
-              caps (tap-hold 100 100 esc lctl)
-            )
-
-            (deflayer base
-              @caps
-            )
-          '';
-        };
-      };
     };
+
+    xdg.portal = lib.mkIf config.nixcfg.gui.enable {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
+
     system = {
       stateVersion = "26.05";
       autoUpgrade = {
@@ -130,20 +87,11 @@ in
         randomizedDelaySec = "45min";
       };
     };
+
     security.rtkit.enable = true;
+
     nix.optimise.automatic = true;
-    boot = {
-      loader.systemd-boot.configurationLimit = lib.mkIf config.boot.loader.systemd-boot.enable 3;
-      binfmt.registrations.appimage = {
-        wrapInterpreterInShell = false;
-        interpreter = lib.getExe pkgs.appimage-run;
-        recognitionType = "magic";
-        offset = 0;
-        mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
-        magicOrExtension = ''\x7fELF....AI\x02'';
-      };
-      plymouth.enable = true;
-    };
+
     environment.systemPackages =
       with pkgs;
       [

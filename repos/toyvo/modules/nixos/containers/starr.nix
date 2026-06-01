@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config.containerPresets.starr;
+  cfg = config.nixcfg.containers.starr;
   ids = config.ids;
   vpnInterface = "wg-proton";
   vpnNamespace = "protonvpn0";
 in
 {
-  options.containerPresets.starr = {
+  options.nixcfg.containers.starr = {
     enable = lib.mkEnableOption "Starr suite NixOS container";
 
     hostAddress = lib.mkOption {

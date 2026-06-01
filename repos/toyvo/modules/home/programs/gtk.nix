@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg;
 in
 {
-  config = lib.mkIf (cfg.defaults.enable && cfg.gui.enable && pkgs.stdenv.isLinux) {
+  config = lib.mkIf (cfg.gui.enable && pkgs.stdenv.isLinux) {
     xdg.enable = true;
     gtk = {
       enable = true;
@@ -17,11 +17,13 @@ in
         size = 10;
       };
       iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.catppuccin-papirus-folders.override {
-          flavor = config.catppuccin.flavor;
-          accent = config.catppuccin.accent;
-        };
+        name = lib.mkDefault "Papirus-Dark";
+        package = lib.mkDefault (
+          pkgs.catppuccin-papirus-folders.override {
+            flavor = config.catppuccin.flavor;
+            accent = config.catppuccin.accent;
+          }
+        );
       };
       cursorTheme = {
         name = config.home.pointerCursor.name;

@@ -6,11 +6,11 @@
   ...
 }:
 let
-  cfg = config.containerPresets.vintagestory;
+  cfg = config.nixcfg.containers.vintagestory;
   ids = config.ids;
 in
 {
-  options.containerPresets.vintagestory = {
+  options.nixcfg.containers.vintagestory = {
     enable = lib.mkEnableOption "Vintage Story NixOS container";
 
     hostAddress = lib.mkOption {

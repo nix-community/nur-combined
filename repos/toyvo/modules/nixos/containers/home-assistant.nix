@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.containerPresets.home-assistant;
+  cfg = config.nixcfg.containers.home-assistant;
 in
 {
-  options.containerPresets.home-assistant = {
+  options.nixcfg.containers.home-assistant = {
     enable = lib.mkEnableOption "Home Assistant NixOS container";
 
     hostAddress = lib.mkOption {

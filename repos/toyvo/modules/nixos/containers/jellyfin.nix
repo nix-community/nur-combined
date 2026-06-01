@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.containerPresets.jellyfin;
+  cfg = config.nixcfg.containers.jellyfin;
   ids = config.ids;
 in
 {
-  options.containerPresets.jellyfin = {
+  options.nixcfg.containers.jellyfin = {
     enable = lib.mkEnableOption "Jellyfin NixOS container";
 
     hostAddress = lib.mkOption {

@@ -25,7 +25,11 @@ in
     home-manager.users.root = {
       home.username = "root";
       home.homeDirectory = rootHomeDirectory;
-      profiles.defaults.enable = true;
+      nixcfg.shells.enable = true;
+      nixcfg.tools.enable = true;
+      nixcfg.session.enable = true;
+      nixcfg.sops-home.enable = true;
+      nixcfg.catppuccin-home.enable = true;
       programs.zsh.enableCompletion = false;
     };
   };

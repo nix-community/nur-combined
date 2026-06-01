@@ -5,26 +5,12 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg.nix;
 in
 {
-  imports = [ ./gui.nix ];
+  options.nixcfg.nix.enable = lib.mkEnableOption "nix configuration";
 
-  options.profiles.defaults.enable = lib.mkEnableOption "Enable Defaults";
-
-  config = lib.mkIf cfg.defaults.enable {
-    home-manager = {
-      backupFileExtension = "${
-        inputs.self.shortRev or inputs.self.dirtyShortRev or inputs.self.lastModifiedDate
-      }.old";
-      useUserPackages = true;
-      sharedModules = [
-        {
-          nix.package = lib.mkForce config.nix.package;
-          home.sessionVariables.NIXPKGS_ALLOW_UNFREE = 1;
-        }
-      ];
-    };
+  config = lib.mkIf cfg.enable {
     nix = {
       settings = {
         experimental-features = [
@@ -49,10 +35,6 @@ in
       nixPath = [
         "nixpkgs=${inputs.nixos-unstable}"
       ];
-    };
-    sops = {
-      defaultSopsFile = ../../secrets.yaml;
-      age.keyFile = "/var/sops/age/keys.txt";
     };
   };
 }

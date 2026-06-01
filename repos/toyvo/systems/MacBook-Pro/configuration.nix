@@ -31,8 +31,16 @@
       ./home.nix
     ];
   };
-  profiles = {
-    defaults.enable = true;
+  nixcfg = {
+    nix.enable = true;
+    security.enable = true;
+    home-manager.enable = true;
+    darwin.touchid.enable = true;
+    darwin.homebrew.enable = true;
+    darwin.keyboard.enable = true;
+    darwin.bash.enable = true;
+    darwin.terminfo.enable = true;
+    gui.enable = true;
     dev.enable = true;
   };
   userPresets.toyvo.enable = true;

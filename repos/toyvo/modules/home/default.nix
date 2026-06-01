@@ -1,7 +1,13 @@
 { ... }:
 {
   imports = [
-    ./defaults.nix
+    ./catppuccin.nix
+    ./easyeffects.nix
+    ./gui.nix
+    ./session.nix
+    ./shells.nix
+    ./sops.nix
+    ./tools.nix
     ./programs/bat.nix
     ./programs/editors/helix.nix
     ./programs/editors/ideavim.nix

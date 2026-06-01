@@ -7,11 +7,11 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg;
 in
 {
   options = {
-    profiles.dev.enable = lib.mkEnableOption "Development Programs to be available outside of a devshell";
+    nixcfg.dev.enable = lib.mkEnableOption "Development Programs to be available outside of a devshell";
   };
 
   config = lib.mkIf cfg.dev.enable {

@@ -9,9 +9,9 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    sops.secrets.opencode_api_key = lib.mkIf config.profiles.toyvo.enable { };
+    sops.secrets.opencode_api_key = lib.mkIf config.nixcfg.users.toyvo.enable { };
     # see https://models.dev/?search=opencode&sort=output-costper&order=asc if considering different models, same api key, but url is different https://opencode.ai/zen/v1 vs https://opencode.ai/zen/go/v1
-    sops.templates.opencommit = lib.mkIf config.profiles.toyvo.enable {
+    sops.templates.opencommit = lib.mkIf config.nixcfg.users.toyvo.enable {
       content = ''
         OCO_MODEL=mimo-v2.5-free
         OCO_API_URL=https://opencode.ai/zen/v1
@@ -34,7 +34,7 @@ in
         OCO_HOOK_AUTO_UNCOMMENT=false
       '';
     };
-    home.activation.opencommit = lib.mkIf config.profiles.toyvo.enable (
+    home.activation.opencommit = lib.mkIf config.nixcfg.users.toyvo.enable (
       lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         rm -f $HOME/.opencommit
         ln -s ${config.sops.templates.opencommit.path} $HOME/.opencommit
@@ -45,7 +45,7 @@ in
       ''
     );
 
-    home.packages = lib.mkIf config.profiles.toyvo.enable [ pkgs.opencommit ];
+    home.packages = lib.mkIf config.nixcfg.users.toyvo.enable [ pkgs.opencommit ];
     catppuccin = {
       delta = {
         enable = true;

@@ -7,7 +7,7 @@
 {
   home.packages =
     with pkgs;
-    lib.mkIf (stdenv.isLinux && config.profiles.gui.enable) [
+    lib.mkIf (stdenv.isLinux && config.nixcfg.gui.enable) [
       ghostty
     ];
   xdg.configFile."ghostty/config".text = ''

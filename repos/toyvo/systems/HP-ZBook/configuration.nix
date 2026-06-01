@@ -48,8 +48,14 @@
     kernelModules = [ "kvm-intel" ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
-  profiles = {
-    defaults.enable = true;
+  nixcfg = {
+    nix.enable = true;
+    security.enable = true;
+    home-manager.enable = true;
+    networking.enable = true;
+    system.enable = true;
+    boot.enable = true;
+    nix-ld.enable = true;
     gui.enable = true;
   };
   userPresets.toyvo.enable = true;

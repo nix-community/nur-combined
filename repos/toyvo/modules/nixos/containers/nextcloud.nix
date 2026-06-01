@@ -6,11 +6,11 @@
   ...
 }:
 let
-  cfg = config.containerPresets.nextcloud;
+  cfg = config.nixcfg.containers.nextcloud;
   ids = config.ids;
 in
 {
-  options.containerPresets.nextcloud = {
+  options.nixcfg.containers.nextcloud = {
     enable = lib.mkEnableOption "Nextcloud + Collabora NixOS container";
 
     hostAddress = lib.mkOption {

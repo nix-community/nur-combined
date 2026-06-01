@@ -4,25 +4,14 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.nixcfg.darwin.bash;
+in
 {
-  config = lib.mkIf config.profiles.defaults.enable {
-    security.pam.services.sudo_local.touchIdAuth = true;
-    system = {
-      stateVersion = 6;
-      keyboard = {
-        enableKeyMapping = true;
-        remapCapsLockToControl = true;
-      };
-      primaryUser = config.userPresets.toyvo.name;
-    };
-    environment.variables.TERMINFO_DIRS = lib.mkForce (
-      map (path: path + "/share/terminfo") config.environment.profiles
-      ++ [
-        "/usr/share/terminfo"
-        # Add ghostty terminfo from homebrew
-        "/Applications/Ghostty.app/Contents/Resources/terminfo"
-      ]
-    );
+  options.nixcfg.darwin.bash.enable =
+    lib.mkEnableOption "bash configuration with custom interactive shell init";
+
+  config = lib.mkIf cfg.enable {
     programs = {
       bash = {
         enable = true;
@@ -50,43 +39,6 @@
           fi
         '';
       };
-    };
-    homebrew = {
-      enable = true;
-      onActivation = {
-        autoUpdate = true;
-        upgrade = true;
-        cleanup = "zap";
-      };
-      casks = [
-        {
-          name = "firefox";
-        }
-        {
-          name = "ghostty";
-        }
-        {
-          name = "jetbrains-toolbox";
-        }
-        {
-          name = "onlyoffice";
-        }
-        {
-          name = "podman-desktop";
-        }
-        {
-          name = "proton-drive";
-        }
-        {
-          name = "proton-mail";
-        }
-        {
-          name = "proton-pass";
-        }
-        {
-          name = "protonvpn";
-        }
-      ];
     };
   };
 }

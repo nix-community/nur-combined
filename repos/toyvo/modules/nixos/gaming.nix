@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.profiles.gaming;
+  cfg = config.nixcfg.gaming;
 in
 {
-  options.profiles.gaming.enable = lib.mkEnableOption "Enable various gaming programs";
+  options.nixcfg.gaming.enable = lib.mkEnableOption "Enable various gaming programs";
 
   config = lib.mkIf cfg.enable {
     programs = {

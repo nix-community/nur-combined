@@ -50,11 +50,17 @@
     ];
     kernelModules = [ "kvm-amd" ];
   };
-  profiles = {
-    defaults.enable = true;
+  nixcfg = {
+    nix.enable = true;
+    security.enable = true;
+    home-manager.enable = true;
+    networking.enable = true;
+    system.enable = true;
+    boot.enable = true;
+    nix-ld.enable = true;
+    gui.enable = true;
     dev.enable = true;
     gaming.enable = true;
-    gui.enable = true;
   };
   userPresets.toyvo.enable = true;
   fileSystemPresets.efi.enable = true;

@@ -43,10 +43,16 @@
       "sdhci_pci"
     ];
   };
-  profiles = {
-    defaults.enable = true;
-    dev.enable = true;
+  nixcfg = {
+    nix.enable = true;
+    security.enable = true;
+    home-manager.enable = true;
+    networking.enable = true;
+    system.enable = true;
+    boot.enable = true;
+    nix-ld.enable = true;
     gui.enable = true;
+    dev.enable = true;
   };
   userPresets.toyvo.enable = true;
   fileSystemPresets = {

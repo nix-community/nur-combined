@@ -78,7 +78,18 @@
       ];
     };
   };
-  profiles.defaults.enable = true;
+  nixcfg = {
+    nix.enable = true;
+    security.enable = true;
+    home-manager.enable = true;
+    networking.enable = true;
+    system.enable = true;
+    boot.enable = true;
+    shells.enable = true;
+    tools.enable = true;
+    session.enable = true;
+    sops-home.enable = true;
+  };
   environment.systemPackages = with pkgs; [
     packwiz
   ];
@@ -120,7 +131,7 @@
       %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
     '';
   };
-  containerPresets = {
+  nixcfg.containers = {
     minecraft = {
       enable = true;
       natInterface = "enp0s6";

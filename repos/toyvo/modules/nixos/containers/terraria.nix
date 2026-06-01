@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.containerPresets.terraria;
+  cfg = config.nixcfg.containers.terraria;
   ids = config.ids;
   tmuxCmd = "${pkgs.tmux}/bin/tmux -S /var/lib/terraria/terraria.sock";
 in
 {
-  options.containerPresets.terraria = {
+  options.nixcfg.containers.terraria = {
     enable = lib.mkEnableOption "Terraria (TShock) NixOS container";
 
     hostAddress = lib.mkOption {

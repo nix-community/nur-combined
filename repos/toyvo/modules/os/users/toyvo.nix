@@ -8,7 +8,7 @@
 let
   cfg = config.userPresets;
   homePath = if pkgs.stdenv.isDarwin then "/Users" else "/home";
-  enableGui = config.profiles.gui.enable or false;
+  enableGui = config.nixcfg.gui.enable or false;
 in
 {
   options.userPresets = {
@@ -64,10 +64,14 @@ in
     home-manager.users.${cfg.toyvo.name} = {
       home.username = cfg.toyvo.name;
       home.homeDirectory = "${homePath}/${cfg.toyvo.name}";
-      profiles = {
-        defaults.enable = true;
+      nixcfg = {
+        shells.enable = true;
+        tools.enable = true;
+        session.enable = true;
+        sops-home.enable = true;
+        catppuccin-home.enable = true;
         gui.enable = enableGui;
-        toyvo.enable = true;
+        users.toyvo.enable = true;
       };
     };
 

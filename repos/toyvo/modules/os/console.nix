@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg.system;
 in
 {
-  config = lib.mkIf cfg.defaults.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       zsh.enable = true;
       fish.enable = true;

@@ -6,11 +6,11 @@
   ...
 }:
 let
-  cfg = config.containerPresets.immich;
+  cfg = config.nixcfg.containers.immich;
   ids = config.ids;
 in
 {
-  options.containerPresets.immich = {
+  options.nixcfg.containers.immich = {
     enable = lib.mkEnableOption "Immich NixOS container";
 
     hostAddress = lib.mkOption {

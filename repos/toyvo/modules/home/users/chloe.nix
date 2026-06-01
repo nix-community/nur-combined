@@ -5,15 +5,15 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg;
 in
 {
-  options.profiles.chloe.enable = lib.mkEnableOption "Enable chloe profile";
+  options.nixcfg.users.chloe.enable = lib.mkEnableOption "Enable chloe profile";
 
-  config = lib.mkIf cfg.chloe.enable {
+  config = lib.mkIf cfg.users.chloe.enable {
     home.packages =
       with pkgs;
-      lib.optionals config.profiles.gui.enable [
+      lib.optionals config.nixcfg.gui.enable [
         spotify
         discord
       ];

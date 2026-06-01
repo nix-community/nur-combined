@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg;
 in
 {
-  options.profiles.gui.enable = lib.mkEnableOption "GUI Applications" // {
+  options.nixcfg.gui.enable = lib.mkEnableOption "GUI Applications" // {
     # macs will always have GUI enabled
     default = pkgs.stdenv.isDarwin;
   };

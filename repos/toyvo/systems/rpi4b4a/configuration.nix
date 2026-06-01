@@ -47,7 +47,18 @@
       "usb_storage"
     ];
   };
-  profiles.defaults.enable = true;
+  nixcfg = {
+    nix.enable = true;
+    security.enable = true;
+    home-manager.enable = true;
+    networking.enable = true;
+    system.enable = true;
+    boot.enable = true;
+    shells.enable = true;
+    tools.enable = true;
+    session.enable = true;
+    sops-home.enable = true;
+  };
   userPresets.toyvo.enable = true;
   fileSystemPresets.sd.enable = true;
   services.monitoring.enable = true;

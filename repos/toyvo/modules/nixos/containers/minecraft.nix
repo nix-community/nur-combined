@@ -7,11 +7,11 @@
   ...
 }:
 let
-  cfg = config.containerPresets.minecraft;
+  cfg = config.nixcfg.containers.minecraft;
   ids = config.ids;
 in
 {
-  options.containerPresets.minecraft = {
+  options.nixcfg.containers.minecraft = {
     enable = lib.mkEnableOption "Minecraft NixOS container";
 
     hostAddress = lib.mkOption {

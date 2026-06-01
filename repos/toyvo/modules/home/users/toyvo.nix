@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.profiles;
+  cfg = config.nixcfg;
 in
 {
   imports = [
@@ -14,9 +14,9 @@ in
     ../programs/editors/zed.nix
   ];
 
-  options.profiles.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
+  options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
 
-  config = lib.mkIf cfg.toyvo.enable {
+  config = lib.mkIf cfg.users.toyvo.enable {
     home.sessionVariables.EDITOR = "nvim";
     programs = {
       alacritty.enable = cfg.gui.enable;

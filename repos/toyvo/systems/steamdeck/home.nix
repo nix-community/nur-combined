@@ -37,9 +37,13 @@
       })
     ];
   };
-  profiles = {
-    chloe.enable = true;
-    defaults.enable = true;
+  nixcfg = {
     gui.enable = true;
+    shells.enable = true;
+    tools.enable = true;
+    session.enable = true;
+    sops-home.enable = true;
+    catppuccin-home.enable = true;
+    users.chloe.enable = true;
   };
 }

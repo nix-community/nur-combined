@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.containerPresets.open-webui;
+  cfg = config.nixcfg.containers.open-webui;
   ids = config.ids;
 in
 {
-  options.containerPresets.open-webui = {
+  options.nixcfg.containers.open-webui = {
     enable = lib.mkEnableOption "Open WebUI NixOS container";
 
     hostAddress = lib.mkOption {

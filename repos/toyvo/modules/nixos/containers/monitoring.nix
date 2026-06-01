@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.containerPresets.monitoring;
+  cfg = config.nixcfg.containers.monitoring;
 in
 {
-  options.containerPresets.monitoring = {
+  options.nixcfg.containers.monitoring = {
     enable = lib.mkEnableOption "Monitoring stack NixOS container";
 
     hostAddress = lib.mkOption {

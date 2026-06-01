@@ -7,7 +7,7 @@
 let
   cfg = config.userPresets;
   homePath = if pkgs.stdenv.isDarwin then "/Users" else "/home";
-  enableGui = config.profiles.gui.enable;
+  enableGui = config.nixcfg.gui.enable;
 in
 {
   options.userPresets = {
@@ -50,9 +50,13 @@ in
     home-manager.users.${cfg.chloe.name} = lib.mkIf cfg.chloe.enable {
       home.username = cfg.chloe.name;
       home.homeDirectory = "${homePath}/${cfg.chloe.name}";
-      profiles = {
-        chloe.enable = true;
-        defaults.enable = true;
+      nixcfg = {
+        users.chloe.enable = true;
+        shells.enable = true;
+        tools.enable = true;
+        session.enable = true;
+        sops-home.enable = true;
+        catppuccin-home.enable = true;
         gui.enable = enableGui;
       };
     };
