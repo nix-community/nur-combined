@@ -1,7 +1,0 @@
-builds:
-  exclude:
-    - "packages.x86_64-linux.shed" # broken
-    - "packages.x86_64-linux.koil" # there's already a check that build this
-    - "packages.x86_64-linux.vintagestory-beta" # unfree
-  include:
-    - "*.x86_64-linux.*"
