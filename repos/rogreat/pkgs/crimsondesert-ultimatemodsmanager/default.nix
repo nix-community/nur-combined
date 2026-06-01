@@ -1,7 +1,6 @@
 {
   copyDesktopItems,
   fetchFromGitHub,
-  fetchpatch2,
   imagemagick,
   lib,
   makeDesktopItem,
