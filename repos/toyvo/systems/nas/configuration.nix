@@ -16,6 +16,7 @@ in
   imports = [
     inputs.nixcfg.modules.nixos.default
     inputs.hermes-agent.nixosModules.default
+    inputs.odysseus.nixosModules.default
     ./samba.nix
     ./homepage.nix
     inputs.catppuccin.nixosModules.catppuccin
@@ -108,6 +109,7 @@ in
         8642 # hermes-agent API (reachable from open-webui container via veth)
         9119 # hermes-dashboard
         8787 # hermes-webui
+        7000 # odysseus
       ];
       allowedUDPPorts = [
         53
@@ -195,6 +197,10 @@ in
     ollama = {
       enable = true;
       port = homelab.${hostName}.services.ollama.port;
+    };
+    odysseus = {
+      enable = true;
+      port = homelab.${hostName}.services.odysseus.port;
     };
     openssh = {
       enable = true;

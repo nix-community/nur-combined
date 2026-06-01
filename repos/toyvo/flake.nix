@@ -45,6 +45,10 @@
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     mac-app-util.url = "github:hraban/mac-app-util";
     nh.url = "github:toyvo/nh";
+    odysseus = {
+      url = "github:ToyVo/odysseus/feat-add-nix-darwin";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixos-unstable";

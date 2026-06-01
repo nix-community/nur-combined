@@ -114,6 +114,14 @@
         category = "Nas";
         icon = "sh-hermes";
       };
+      odysseus = {
+        port = 7000;
+        subdomain = "odysseus";
+        category = "Nas";
+        displayName = "Odysseus";
+        description = "AI Assistant";
+        icon = "sh-odysseus";
+      };
     };
   };
   immich = {
