@@ -282,6 +282,16 @@
       hash = "sha256-3WocxAWsw/gbuWZ89BciGqz8l8l7WE92OySOURmL4fU=";
     };
   };
+  cardpointers-cli = {
+    pname = "cardpointers-cli";
+    version = "v1.0.7";
+    src = fetchFromGitHub {
+      owner = "cardpointers";
+      repo = "cli";
+      tag = "v1.0.7";
+      hash = "sha256-rK7CgcPmNt7uIQUG4Ek/4TU7bG1bSCyF3UddfTAJlo0=";
+    };
+  };
   cef-binary = {
     pname = "cef-binary";
     version = "fecf00339545d2819224333cc506d5aa22ae8008";

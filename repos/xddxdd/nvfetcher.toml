@@ -125,6 +125,10 @@ src.git = "https://github.com/dramforever/buname.git"
 fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver-php84.zip"
 src.github = "mikespub-org/seblucas-cops"
 
+[cardpointers-cli]
+fetch.github = "cardpointers/cli"
+src.github = "cardpointers/cli"
+
 [cef-binary]
 fetch.github = "martyr-deepin/cef-binary"
 src.git = "https://github.com/martyr-deepin/cef-binary.git"
