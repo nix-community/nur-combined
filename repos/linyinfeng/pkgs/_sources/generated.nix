@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v3.0.0";
+    version = "v3.0.1";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v3.0.0";
+      rev = "v3.0.1";
       fetchSubmodules = false;
-      sha256 = "sha256-g5cJFkyzcSQXQVPq4iU6kQ+T6yESM+v9OktuTdZhb4E=";
+      sha256 = "sha256-+cfaBGYA2E8WcdEpDZasKW0Oya71vf8/mk3PycgvHl0=";
     };
   };
   dot-tar = {
@@ -399,17 +399,17 @@
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
-    version = "ba97605aa00b4a972c1bfcd705b957fcd90b192c";
+    version = "c0c4151a0d0c7cccd4df716f32d588117178e4ce";
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
-      rev = "ba97605aa00b4a972c1bfcd705b957fcd90b192c";
+      rev = "c0c4151a0d0c7cccd4df716f32d588117178e4ce";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-mrzjqfdkLOm9vv95KSZYB+vak8JwrJHYT8PQVTeyt+k=";
+      sha256 = "sha256-b4P5A95M5gyNx04pFp5Ch6+67pRd9unDoVB4fh5UgfQ=";
     };
-    date = "2026-05-09";
+    date = "2026-06-01";
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";

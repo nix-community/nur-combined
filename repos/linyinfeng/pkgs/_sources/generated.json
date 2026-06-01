@@ -62,12 +62,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v3.0.0",
-            "sha256": "sha256-g5cJFkyzcSQXQVPq4iU6kQ+T6yESM+v9OktuTdZhb4E=",
+            "rev": "v3.0.1",
+            "sha256": "sha256-+cfaBGYA2E8WcdEpDZasKW0Oya71vf8/mk3PycgvHl0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.0.0"
+        "version": "v3.0.1"
     },
     "dot-tar": {
         "cargoLock": {
@@ -609,7 +609,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLock": null,
-        "date": "2026-05-09",
+        "date": "2026-06-01",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -619,13 +619,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ba97605aa00b4a972c1bfcd705b957fcd90b192c",
-            "sha256": "sha256-mrzjqfdkLOm9vv95KSZYB+vak8JwrJHYT8PQVTeyt+k=",
+            "rev": "c0c4151a0d0c7cccd4df716f32d588117178e4ce",
+            "sha256": "sha256-b4P5A95M5gyNx04pFp5Ch6+67pRd9unDoVB4fh5UgfQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "ba97605aa00b4a972c1bfcd705b957fcd90b192c"
+        "version": "c0c4151a0d0c7cccd4df716f32d588117178e4ce"
     },
     "rime-pinyin-simp": {
         "cargoLock": null,
