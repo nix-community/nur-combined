@@ -20,7 +20,7 @@ in
             ahead = "⇡$count";
             behind = "⇣$count";
             diverged = "⇡$ahead_count⇣$behind_count";
-            stashes = "📦$count";
+            stashed = "📦$count";
           };
         };
       };
