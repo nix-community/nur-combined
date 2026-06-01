@@ -8,16 +8,16 @@
 {
   gitpane = {
     pname = "gitpane";
-    version = "v0.7.3";
+    version = "v0.7.10";
     src = fetchFromGitHub {
       owner = "affromero";
       repo = "gitpane";
-      rev = "v0.7.3";
+      rev = "v0.7.10";
       fetchSubmodules = false;
-      sha256 = "sha256-4lJ+aLuHC0bdSfTX0jsiYzzHwVddbMfQiFBKQoawld4=";
+      sha256 = "sha256-UT7LZ8oYPQgqgxDXdn8aXL7aukGcS9+cvDH6Jj8fi3g=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-4lJ+aLuHC0bdSfTX0jsiYzzHwVddbMfQiFBKQoawld4=/Cargo.lock";
+      lockFile = ./. + "/sha256-UT7LZ8oYPQgqgxDXdn8aXL7aukGcS9+cvDH6Jj8fi3g=/Cargo.lock";
       outputHashes = {
         
       };
@@ -58,15 +58,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "1f626dc47ef6ccf7101a0d117d5a308c8762217c";
+    version = "3a6d076c5169d693e6271d5af5038036bd591bbd";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "1f626dc47ef6ccf7101a0d117d5a308c8762217c";
+      rev = "3a6d076c5169d693e6271d5af5038036bd591bbd";
       fetchSubmodules = false;
-      sha256 = "sha256-w0C34wCjnQVpRdBCBKIRdNmVl1dde1PqNG6qN4LRiAo=";
+      sha256 = "sha256-H9A7nwt0NkyPqN+iOZ9BU24dkAvvfZxucVSPhNx9WPA=";
     };
-    date = "2026-05-27";
+    date = "2026-05-29";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";

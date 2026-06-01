@@ -2,7 +2,7 @@
     "gitpane": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-4lJ+aLuHC0bdSfTX0jsiYzzHwVddbMfQiFBKQoawld4=/Cargo.lock",
+                "sha256-UT7LZ8oYPQgqgxDXdn8aXL7aukGcS9+cvDH6Jj8fi3g=/Cargo.lock",
                 {}
             ]
         },
@@ -18,12 +18,12 @@
             "name": null,
             "owner": "affromero",
             "repo": "gitpane",
-            "rev": "v0.7.3",
-            "sha256": "sha256-4lJ+aLuHC0bdSfTX0jsiYzzHwVddbMfQiFBKQoawld4=",
+            "rev": "v0.7.10",
+            "sha256": "sha256-UT7LZ8oYPQgqgxDXdn8aXL7aukGcS9+cvDH6Jj8fi3g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.7.3"
+        "version": "v0.7.10"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -83,7 +83,7 @@
     },
     "paperwm-spoon": {
         "cargoLock": null,
-        "date": "2026-05-27",
+        "date": "2026-05-29",
         "extract": null,
         "name": "paperwm-spoon",
         "passthru": null,
@@ -95,12 +95,12 @@
             "name": null,
             "owner": "mogenson",
             "repo": "PaperWM.spoon",
-            "rev": "1f626dc47ef6ccf7101a0d117d5a308c8762217c",
-            "sha256": "sha256-w0C34wCjnQVpRdBCBKIRdNmVl1dde1PqNG6qN4LRiAo=",
+            "rev": "3a6d076c5169d693e6271d5af5038036bd591bbd",
+            "sha256": "sha256-H9A7nwt0NkyPqN+iOZ9BU24dkAvvfZxucVSPhNx9WPA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1f626dc47ef6ccf7101a0d117d5a308c8762217c"
+        "version": "3a6d076c5169d693e6271d5af5038036bd591bbd"
     },
     "powershell-beautifier": {
         "cargoLock": null,
