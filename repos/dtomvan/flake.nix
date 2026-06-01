@@ -2,13 +2,50 @@
   description = "Packages from my personal dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    puntbestanden = {
+      url = "github:dtomvan/puntbestanden";
+      inputs.catppuccin.follows = "";
+      inputs.copyparty.follows = "";
+      inputs.deploy-rs.follows = "";
+      inputs.devshell.follows = "";
+      inputs.direnv-instant.follows = "";
+      inputs.disko.follows = "";
+      inputs.flake-parts.follows = "";
+      inputs.home-manager.follows = "";
+      inputs.lazy-apps.follows = "";
+      inputs.mwg.follows = "";
+      inputs.ncro.follows = "";
+      inputs.nix-cache-beacon.follows = "";
+      inputs.nix-index-database.follows = "";
+      inputs.nixos-small.follows = "";
+      inputs.nixvim.follows = "";
+      inputs.noctalia.follows = "";
+      inputs.noctalia-shell.follows = "";
+      inputs.nur.follows = "";
+      inputs.plasma-manager.follows = "";
+      inputs.sops.follows = "";
+      inputs.srvos.follows = "";
+      inputs.tasks.follows = "";
+      inputs.treefmt-nix.follows = "";
+    };
+    nixpkgs.follows = "puntbestanden/nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
     systems.url = "github:nix-systems/default";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./modules/devshell.nix
+        ./modules/eval-check.nix
+        ./modules/formatter.nix
+        ./modules/koil-test.nix
+        ./modules/nixos.nix
+        ./modules/packages.nix
+        ./modules/systems.nix
+      ];
+    };
 }
