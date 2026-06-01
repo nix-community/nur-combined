@@ -3,35 +3,10 @@
   lib,
   fetchurl,
   dpkg,
-  autoPatchelfHook,
+  copyDesktopItems,
   makeWrapper,
-  wrapGAppsHook3,
+  electron,
   nix-update-script,
-  alsa-lib,
-  at-spi2-atk,
-  at-spi2-core,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  glib,
-  gtk3,
-  libdrm,
-  libnotify,
-  libsecret,
-  libusb1,
-  libuuid,
-  libxcb,
-  libxkbcommon,
-  libxkbfile,
-  libxshmfence,
-  libxtst,
-  mesa,
-  nspr,
-  nss,
-  pango,
-  systemd,
-  xorg,
 }:
 stdenv.mkDerivation rec {
   pname = "symbol-desktop-wallet";
@@ -43,47 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    autoPatchelfHook
+    copyDesktopItems
     dpkg
     makeWrapper
-    wrapGAppsHook3
-  ];
-
-  buildInputs = [
-    alsa-lib
-    at-spi2-atk
-    at-spi2-core
-    cairo
-    cups
-    dbus
-    expat
-    glib
-    gtk3
-    libdrm
-    libnotify
-    libsecret
-    libusb1
-    libuuid
-    libxcb
-    libxkbcommon
-    libxkbfile
-    libxshmfence
-    libxtst
-    mesa
-    nspr
-    nss
-    pango
-    systemd
-    xorg.libX11
-    xorg.libXScrnSaver
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXrender
   ];
 
   unpackPhase = ''
@@ -94,33 +31,29 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
   dontConfigure = true;
-  dontWrapGApps = true;
-
-  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/opt $out/bin $out/share/applications
+    mkdir -p "$out/share/symbol-desktop-wallet"
+    cp "opt/Symbol Wallet/resources/app.asar" \
+      "$out/share/symbol-desktop-wallet/app.asar"
+    cp -r "opt/Symbol Wallet/resources/app.asar.unpacked" \
+      "$out/share/symbol-desktop-wallet/app.asar.unpacked"
 
-    cp -r "opt/Symbol Wallet" "$out/opt/Symbol Wallet"
-    cp -r usr/share/icons $out/share/icons
+    cp -r usr/share/icons "$out/share/icons"
 
     install -Dm644 usr/share/applications/symbol-desktop-wallet.desktop \
-      $out/share/applications/symbol-desktop-wallet.desktop
+      "$out/share/applications/symbol-desktop-wallet.desktop"
+    substituteInPlace "$out/share/applications/symbol-desktop-wallet.desktop" \
+      --replace-fail '"/opt/Symbol Wallet/symbol-desktop-wallet" %U' \
+      "$out/bin/symbol-desktop-wallet %U"
 
-    substituteInPlace $out/share/applications/symbol-desktop-wallet.desktop \
-      --replace-fail '"/opt/Symbol Wallet/symbol-desktop-wallet"' \
-      "$out/bin/symbol-desktop-wallet"
+    makeWrapper "${lib.getExe electron}" "$out/bin/symbol-desktop-wallet" \
+      --add-flags "$out/share/symbol-desktop-wallet/app.asar" \
+      --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto}"
 
     runHook postInstall
-  '';
-
-  postFixup = ''
-    makeWrapper "$out/opt/Symbol Wallet/symbol-desktop-wallet" \
-      "$out/bin/symbol-desktop-wallet" \
-      --add-flags "--no-sandbox" \
-      "''${gappsWrapperArgs[@]}"
   '';
 
   passthru.updateScript = nix-update-script { };
@@ -131,6 +64,9 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     platforms = [ "x86_64-linux" ];
     mainProgram = "symbol-desktop-wallet";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
   };
 }
