@@ -30,4 +30,23 @@ in
   inherit potracer;
   supernote-tool = pkgs.python3Packages.callPackage ./pkgs/supernote-tool { inherit potracer; };
   trigger = pkgs.callPackage ./pkgs/trigger { };
+  vscode-extensions = {
+    mcu-debug.peripheral-viewer =
+      pkgs.callPackage ./pkgs/vscode-extensions/mcu-debug.peripheral-viewer
+        { };
+    mcu-debug-rtos-views = pkgs.callPackage ./pkgs/vscode-extensions/mcu-debug.rtos-views { };
+    nordic-semiconductor.nrf-devicetree =
+      pkgs.callPackage ./pkgs/vscode-extensions/nordic-semiconductor.nrf-devicetree
+        { };
+    nordic-semiconductor.nrf-kconfig =
+      pkgs.callPackage ./pkgs/vscode-extensions/nordic-semiconductor.nrf-devicetree
+        { };
+    nordic-semiconductor.nrf-terminal =
+      pkgs.callPackage ./pkgs/vscode-extensions/nordic-semiconductor.nrf-terminal
+        { };
+    plorefice.devicetree = pkgs.callPackage ./pkgs/vscode-extensions/plorefice.devicetree { };
+    yocto-project.yocto-bitbake =
+      pkgs.callPackage ./pkgs/vscode-extensions/yocto-project.yocto-bitbake
+        { };
+  };
 }
