@@ -1,0 +1,75 @@
+diff --git a/cmake/avm_install.cmake b/cmake/avm_install.cmake
+index 4e83055efd..fab26be591 100644
+--- a/cmake/avm_install.cmake
++++ b/cmake/avm_install.cmake
+@@ -47,8 +47,8 @@
+         ${CMAKE_COMMAND} ARGS -DAVM_CONFIG_DIR=${AVM_CONFIG_DIR}
+         -DAVM_ROOT=${AVM_ROOT} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+         -DCMAKE_INSTALL_BINDIR=${CMAKE_INSTALL_BINDIR}
+-        -DCMAKE_INSTALL_INCLUDEDIR=${CMAKE_INSTALL_INCLUDEDIR}
+-        -DCMAKE_INSTALL_LIBDIR=${CMAKE_INSTALL_LIBDIR}
++        -DCMAKE_INSTALL_FULL_INCLUDEDIR=${CMAKE_INSTALL_FULL_INCLUDEDIR}
++        -DCMAKE_INSTALL_FULL_LIBDIR=${CMAKE_INSTALL_FULL_LIBDIR}
+         -DCMAKE_PROJECT_NAME=${CMAKE_PROJECT_NAME}
+         -DCONFIG_MULTITHREAD=${CONFIG_MULTITHREAD}
+         -DHAVE_PTHREAD_H=${HAVE_PTHREAD_H} -P
+@@ -89,16 +89,16 @@
+     # Setup the install rules.
+     install(
+       FILES ${AVM_INSTALL_INCS}
+-      DESTINATION "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}/avm")
++      DESTINATION "${CMAKE_INSTALL_FULL_INCLUDEDIR}/avm")
+     install(
+       FILES "${AVM_PKG_CONFIG_FILE}"
+-      DESTINATION "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/pkgconfig")
++      DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}/pkgconfig")
+     install(TARGETS ${AVM_INSTALL_LIBS}
+-            DESTINATION "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
++            DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}")
+ 
+     if(ENABLE_EXAMPLES)
+       install(TARGETS ${AVM_INSTALL_BINS}
+-              DESTINATION "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}")
++              DESTINATION "${CMAKE_INSTALL_BINDIR}")
+     endif()
+   endif()
+ endmacro()
+diff --git a/cmake/output.patch b/cmake/output.patch
+new file mode 100644
+index 0000000000..e69de29bb2
+diff --git a/cmake/pkg_config.cmake b/cmake/pkg_config.cmake
+index 5f6f446025..54f23d54a6 100644
+--- a/cmake/pkg_config.cmake
++++ b/cmake/pkg_config.cmake
+@@ -15,8 +15,8 @@
+     "AVM_CONFIG_DIR"
+     "CMAKE_INSTALL_PREFIX"
+     "CMAKE_INSTALL_BINDIR"
+-    "CMAKE_INSTALL_INCLUDEDIR"
+-    "CMAKE_INSTALL_LIBDIR"
++    "CMAKE_INSTALL_FULL_INCLUDEDIR"
++    "CMAKE_INSTALL_FULL_LIBDIR"
+     "CMAKE_PROJECT_NAME"
+     "CONFIG_MULTITHREAD"
+     "HAVE_PTHREAD_H")
+@@ -41,15 +41,15 @@
+ endif()
+ 
+ # Write pkg-config info.
+-set(prefix "${CMAKE_INSTALL_PREFIX}")
+-set(bindir "${CMAKE_INSTALL_BINDIR}")
+-set(includedir "${CMAKE_INSTALL_INCLUDEDIR}")
+-set(libdir "${CMAKE_INSTALL_LIBDIR}")
++get_filename_component(prefix "${CMAKE_INSTALL_FULL_INCLUDEDIR}" DIRECTORY)
++get_filename_component(exec_prefix "${CMAKE_INSTALL_FULL_LIBDIR}" DIRECTORY)
++get_filename_component(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}" NAME)
++get_filename_component(libdir "${CMAKE_INSTALL_FULL_LIBDIR}" NAME)
+ set(pkgconfig_file "${AVM_CONFIG_DIR}/avm.pc")
+ string(TOLOWER ${CMAKE_PROJECT_NAME} pkg_name)
+ file(WRITE "${pkgconfig_file}" "# libavm pkg-config.\n")
+ file(APPEND "${pkgconfig_file}" "prefix=${prefix}\n")
+-file(APPEND "${pkgconfig_file}" "exec_prefix=\${prefix}\n")
++file(APPEND "${pkgconfig_file}" "exec_prefix=${exec_prefix}\n")
+ file(APPEND "${pkgconfig_file}" "includedir=\${prefix}/${includedir}\n")
+ file(APPEND "${pkgconfig_file}" "libdir=\${exec_prefix}/${libdir}\n\n")
+ file(APPEND "${pkgconfig_file}" "Name: ${pkg_name}\n")

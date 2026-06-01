@@ -6,4 +6,4 @@ cd "$SCRIPT_DIR/.."
 
 NIX_FILE="$SCRIPT_DIR/package.nix"
 
-nix-update --use-github-releases kanzi-cpp
+nix-update dav2d
