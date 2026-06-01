@@ -30,4 +30,5 @@
   givy = pkgs.callPackage ./pkgs/givy { };
   herdr = pkgs.callPackage ./pkgs/herdr { };
   mo = pkgs.callPackage ./pkgs/mo { };
+  symbol-desktop-wallet = pkgs.callPackage ./pkgs/symbol-desktop-wallet { };
 }
