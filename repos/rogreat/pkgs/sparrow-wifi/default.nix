@@ -11,14 +11,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "sparrow-wifi";
-  version = "0-unstable-2026-02-24";
+  version = "2.0";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "ghostop14";
     repo = "sparrow-wifi";
-    rev = "ab1fe0e517dec20f147a2bccc42e122fcdb5ba00";
-    hash = "sha256-Q5mGLi4cTF+7GqddueDIAhlROzGVCQjSlyUn/0nnLK0=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-rmN7hGnt+zDAsRdJXC2KmJrhgmjxCPZgjpRlQ/HbPZA=";
   };
 
   dependencies = with python3Packages; [
@@ -39,25 +39,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 sparrow-wifi.py $out/bin/sparrow-wifi
-    modules=(
-      "sparrowbluetooth"
-      "sparrowcommon"
-      "sparrowdialogs"
-      "sparrowgps"
-      "sparrowhackrf"
-      "sparrowmap"
-      "sparrowrpi"
-      "sparrowtablewidgets"
-      "sparrowwifiagent"
-      "telemetry"
-      "wirelessengine"
-    )
-    for module in "''${modules[@]}"; do
-      install -Dm444 $module.py $out/${python3Packages.python.sitePackages}/$module.py
-    done
+    install -D sparrow-wifi.py $out/bin/sparrow-wifi
+    mkdir -p $out/${python3Packages.python.sitePackages}
+    cp *.py $out/${python3Packages.python.sitePackages}
+    rm -f $out/${python3Packages.python.sitePackages}/sparrow-wifi.py
     mkdir -p $out/share/icons/hicolor/64x64/apps
-    magick wifi_icon.png -background none -resize 64x64 -gravity center -extent 64x64 $out/share/icons/hicolor/64x64/apps/sparrow_wifi.png
+    magick wifi_icon.png -resize 64x64 -gravity center -extent 64x64 \
+        $out/share/icons/hicolor/64x64/apps/sparrow_wifi.png
     runHook postInstall
   '';
 
@@ -68,7 +56,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       icon = "sparrow_wifi";
       exec = "sparrow-wifi";
       comment = "WiFi and Bluetooth Analyzer";
-      categories = [ "Network" ];
+      categories = [ "Utility" ];
     })
   ];
 
