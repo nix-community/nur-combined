@@ -17,3 +17,6 @@ jobs:
       install-command: curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
       extra-conf: |
         extra-experimental-features = nix-command flakes pipe-operator
+        
+    secrets:
+      ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
