@@ -1,76 +1,94 @@
 {
-  darwin,
-  fetchFromGitHub,
-  fetchPnpmDeps,
-  gnumake,
   lib,
-  nodejs,
-  node-gyp,
-  pkg-config,
-  pnpm,
-  pnpmConfigHook,
-  python3,
-  sqlite,
   stdenv,
+  fetchFromGitHub,
+  nodejs_22,
+  srcOnly,
+  node-gyp,
+  pnpm_9,
+  fetchPnpmDeps,
+  pnpmConfigHook,
+  makeWrapper,
+  python3,
+  cctools,
 }:
 
+let
+  nodeSources = srcOnly nodejs_22;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "obsidian-headless";
-  version = "0-unstable-2026-05-27";
-  rev = "42422908098f4b1a034d5035b411bcbd1e5d1671";
+  version = "0.0.10";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "obsidianmd";
     repo = "obsidian-headless";
-    rev = "${finalAttrs.rev}";
+    tag = "${finalAttrs.version}";
     hash = "sha256-4MPPxHgrhZ6AOt65a/yI3ECQDv9UHuChUemSHPf+SH0=";
   };
 
-  nativeBuildInputs = [
-    nodejs
-    pnpmConfigHook
-    pnpm
-    python3
-    pkg-config
-    gnumake
-    stdenv.cc
-    node-gyp
-  ]
-  ++ (lib.optional stdenv.hostPlatform.isDarwin [ darwin.cctools ]);
-
-  buildInputs = [ sqlite ];
-
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src;
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      postPatch
+      ;
+    pnpm = pnpm_9;
     fetcherVersion = 3;
-    hash = "sha256-mhf9C221F16MwcReWy2UnSqa6jpOqGlH4DPLpu88Jsw=";
+    hash = "sha256-Y/atHIJQzrt6ctpI2ks7Mj0bnTCQx4d5mDtY/YIEcow=";
   };
+
+  nativeBuildInputs = [
+    nodejs_22
+    node-gyp
+    pnpmConfigHook
+    pnpm_9
+    makeWrapper
+    python3
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    cctools.libtool
+  ];
+
+  postPatch = ''
+    cp ${./pnpm-lock.yaml} ./pnpm-lock.yaml
+  '';
 
   buildPhase = ''
     runHook preBuild
-    pushd node_modules/.pnpm/better-sqlite3@12.6.2/node_modules/better-sqlite3
-    node-gyp rebuild
+
+    pushd node_modules/better-sqlite3
+    npm run build-release --offline "--nodedir=${nodeSources}"
+    mv build/Release/better_sqlite3.node .
+    rm -rf build
+    mkdir -p build/Release
+    mv better_sqlite3.node build/Release/
     popd
+
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/lib/node_modules/obsidian-headless
-    cp -r cli.js node_modules package.json $out/lib/node_modules/obsidian-headless/
-    [ -d btime ] && cp -r btime $out/lib/node_modules/obsidian-headless/
+
+    mkdir -p $out/lib/obsidian-headless
+    cp -r cli.js btime node_modules package.json $out/lib/obsidian-headless/
+
     mkdir -p $out/bin
-    ln -s $out/lib/node_modules/obsidian-headless/cli.js $out/bin/ob
-    chmod +x $out/bin/ob
+    makeWrapper ${lib.getExe nodejs_22} $out/bin/ob \
+      --add-flags $out/lib/obsidian-headless/cli.js
+
     runHook postInstall
   '';
 
-  passthru.updateScript = ./update.sh;
-
   meta = {
-    description = "Headless client for Obsidian Sync. Sync your vaults from the command line without the desktop app. ";
-    homepage = "https://obsidian.md/sync";
-    license = lib.licenses.unfree;
+    description = "Headless client for Obsidian Sync and Obsidian Publish. Sync and publish your vaults from the command line without the desktop app";
+    homepage = "https://github.com/obsidianmd/obsidian-headless";
+    license = lib.licenses.unlicense;
     mainProgram = "ob";
   };
 })
