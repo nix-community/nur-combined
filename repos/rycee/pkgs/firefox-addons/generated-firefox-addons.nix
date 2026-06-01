@@ -1502,10 +1502,10 @@
     };
     "browserpass" = buildMozillaXpiAddon {
       pname = "browserpass";
-      version = "3.11.0";
+      version = "3.12.0";
       addonId = "browserpass@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4542488/browserpass_ce-3.11.0.xpi";
-      sha256 = "11acffd3dbfe0be493c7855669dd24faf325dda8a2ee0ee67148969500f5d778";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4830437/browserpass_ce-3.12.0.xpi";
+      sha256 = "22c5b7167ce4f29422a7621c2c01f252f6fc29582684bdcd553db4adefca1e63";
       meta = with lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
@@ -1523,6 +1523,7 @@
           "storage"
           "webRequest"
           "webRequestAuthProvider"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -15238,10 +15239,10 @@
     };
     "transparent-zen" = buildMozillaXpiAddon {
       pname = "transparent-zen";
-      version = "0.9.2.1";
+      version = "0.9.3";
       addonId = "{74186d10-f6f2-4f73-b33a-83bb72e50654}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4825700/transparent_zen-0.9.2.1.xpi";
-      sha256 = "5e692a9e88e42da7023c02ad50d73267ce7831bd6f8de4083af8c6cb9f78d24b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4829903/transparent_zen-0.9.3.xpi";
+      sha256 = "96daeea3e80913e478318f3a5918c70eb053b3784946b320e69c13a43802fca2";
       meta = with lib;
       {
         description = "Applies custom styles to make your favorite websites transparent.";
