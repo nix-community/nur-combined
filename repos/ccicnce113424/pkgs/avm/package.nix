@@ -41,10 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   __structuredAttrs = true;
 
-  cmakeFlags = [
-    (lib.cmakeBool "BUILD_SHARED_LIBS" true)
-  ];
-
   passthru.updateScript = gitUpdater {
     url = "https://github.com/AOMediaCodec/avm";
     rev-prefix = "v";
