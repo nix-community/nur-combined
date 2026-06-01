@@ -42,6 +42,7 @@ if hasDeps then
       ${lib.optionalString (packageLockJson != null) "cp ${packageLockJson} package-lock.json"}
       
       # Remove devDependencies and peerDependencies to avoid installing them
+      # Also remove @earendil-works/* from dependencies (private, not on npm)
       if [ -f package.json ]; then
         ${pkgs.nodejs}/bin/node -e "
           const fs = require('fs');
@@ -49,6 +50,12 @@ if hasDeps then
           delete pkg.devDependencies;
           delete pkg.peerDependencies;
           delete pkg.peerDependenciesMeta;
+          if (pkg.dependencies) {
+            for (const key of Object.keys(pkg.dependencies)) {
+              if (key.startsWith('@earendil-works/')) delete pkg.dependencies[key];
+            }
+            if (Object.keys(pkg.dependencies).length === 0) delete pkg.dependencies;
+          }
           fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
         "
       fi
