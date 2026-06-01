@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchurl,
+  ...
 }:
 stdenv.mkDerivation rec {
   pname = "mcsmanager-web";

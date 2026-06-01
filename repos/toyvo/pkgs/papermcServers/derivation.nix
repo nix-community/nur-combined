@@ -8,6 +8,7 @@
   hash,
   url,
   udev,
+  ...
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {

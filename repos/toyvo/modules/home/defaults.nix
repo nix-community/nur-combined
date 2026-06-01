@@ -25,6 +25,7 @@ in
     };
     home = {
       stateVersion = "26.05";
+      enableNixpkgsReleaseCheck = false;
       sessionPath =
         lib.optionals config.programs.volta.enable [
           "${config.programs.volta.voltaHome}/bin"
@@ -86,6 +87,12 @@ in
         settings = {
           right_format = "$time";
           time.disabled = false;
+          git_status = {
+            ahead = "⇡$count";
+            behind = "⇣$count";
+            diverged = "⇡$ahead_count⇣$behind_count";
+            stashes = "📦$count";
+          };
         };
       };
       zoxide.enable = true;
@@ -99,6 +106,7 @@ in
       powershell.enable = true;
       nvim.enable = true;
       nix-index-database.comma.enable = true;
+      man.package = pkgs.man;
     };
     services.easyeffects = lib.mkIf (pkgs.stdenv.isLinux && cfg.gui.enable) {
       enable = true;
@@ -107,6 +115,8 @@ in
       (pkgs.writeShellScriptBin "sops-nix-user" "${config.launchd.agents.sops-nix.config.Program}")
     ];
     catppuccin = {
+      enable = true;
+      autoEnable = true;
       flavor = lib.mkDefault "frappe";
       accent = lib.mkDefault "red";
     };

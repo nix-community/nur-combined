@@ -7,6 +7,7 @@
   makeWrapper,
   version,
   hash,
+  ...
 }:
 
 stdenv.mkDerivation {

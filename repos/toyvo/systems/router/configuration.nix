@@ -11,6 +11,55 @@
 }:
 let
   inherit (config.networking) hostName;
+  internalHosts = lib.pipe homelab [
+    (lib.filterAttrs (_: host: host ? ip && lib.hasPrefix "10.1.0." host.ip))
+    (lib.mapAttrsToList (
+      name: host: {
+        inherit name;
+        type = "A";
+        value = host.ip;
+        ttl = "300";
+      }
+    ))
+  ];
+  primaryZones = [
+    "internal"
+    "home.arpa"
+  ];
+  forwarderZones = [
+    {
+      zone = "diekvoss.com";
+      protocol = "Quic";
+      forwarder = "dns.quad9.net:853 (9.9.9.9)";
+    }
+    {
+      zone = "diekvoss.net";
+      protocol = "Quic";
+      forwarder = "dns.quad9.net:853 (9.9.9.9)";
+    }
+    {
+      zone = "toyvo.dev";
+      protocol = "Quic";
+      forwarder = "dns.quad9.net:853 (9.9.9.9)";
+    }
+  ];
+  zoneRecords = lib.flatten (
+    lib.map (zone: map (host: host // { inherit zone; }) internalHosts) primaryZones
+  );
+  blocklistUrls = [
+    "https://big.oisd.nl/domainswild2"
+    "https://nsfw.oisd.nl/domainswild2"
+    "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts"
+  ];
+  forwarders = [
+    "dns.quad9.net:853 (9.9.9.9)"
+    "dns.quad9.net:853 (149.112.112.112)"
+  ];
+  # JSON data files for configure-technitium (avoids env var quote mangling)
+  zoneRecordsFile = pkgs.writeText "zone-records.json" (builtins.toJSON zoneRecords);
+  forwarderZonesFile = pkgs.writeText "forwarder-zones.json" (builtins.toJSON forwarderZones);
+  blocklistUrlsFile = pkgs.writeText "blocklist-urls.json" (builtins.toJSON blocklistUrls);
+  forwardersFile = pkgs.writeText "forwarders.json" (builtins.toJSON forwarders);
 in
 {
   imports = [
@@ -47,7 +96,25 @@ in
     domain = "diekvoss.net";
     useNetworkd = true;
     useDHCP = false;
-    nameservers = [ "127.0.1.53" ];
+    nameservers = [ "127.0.0.1" ];
+    # Local /etc/hosts backup for when DNS is down or during bootstrap
+    hosts = {
+      "127.0.0.1" = [ "localhost" ];
+      "::1" = [ "localhost" ];
+    }
+    // (lib.pipe homelab [
+      (lib.filterAttrs (
+        _: host: lib.hasPrefix "10.1.0." (host.ip or "") || lib.hasPrefix "10.200." (host.ip or "")
+      ))
+      (lib.mapAttrsToList (
+        name: host:
+        lib.nameValuePair host.ip [
+          "${name}.diekvoss.net"
+          name
+        ]
+      ))
+      lib.listToAttrs
+    ]);
     nat = {
       enable = true;
       externalInterface = "enp2s0";
@@ -295,60 +362,23 @@ in
     };
     resolved = {
       enable = true;
-      settings.Resolve.DNSStubListenerExtra = "10.1.0.1";
     };
-    adguardhome = {
+    technitium-dns-server = {
       enable = true;
-      port = homelab.${hostName}.services.adguard.port;
-      mutableSettings = false;
-      settings = {
-        user_rules = [
-          # Need to allow split.io for my work
-          "@@||split.io^"
-        ];
-        dns = {
-          bind_hosts = [ "127.0.1.53" ];
-          bootstrap_dns = [ "9.9.9.9" ];
-        };
-        filters = [
-          {
-            enabled = true;
-            url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
-            name = "AdGuard DNS filter";
-            id = 1;
-          }
-          {
-            enabled = true;
-            url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt";
-            name = "AdAway Default Blocklist";
-            id = 2;
-          }
-          {
-            enabled = true;
-            url = "https://big.oisd.nl";
-            name = "OISD Blocklist Big";
-            id = 3;
-          }
-          {
-            enabled = true;
-            url = "https://nsfw.oisd.nl";
-            name = "OISD Blocklist NSFW";
-            id = 4;
-          }
-        ];
-        filtering = {
-          filtering_enabled = true;
-          rewrites = lib.mapAttrsToList (
-            hostname:
-            { ip, ... }:
-            {
-              enabled = true;
-              domain = "${lib.toLower hostname}.internal";
-              answer = ip;
-            }
-          ) (lib.filterAttrs (hostname: hostConf: lib.hasAttr "ip" hostConf) homelab);
-        };
-      };
+      openFirewall = false;
+    };
+    # Alloy scrapes local exporters and pushes to Prometheus remote-write
+    monitoring = {
+      enable = true;
+      internet.enable = true;
+      alloyExtraConfig = ''
+        prometheus.scrape "technitium" {
+          targets = [{"__address__" = "localhost:9187"}]
+          forward_to = [prometheus.relabel.instance.receiver]
+          scrape_interval = "30s"
+        }
+      '';
+      textfileDirectory = "/var/lib/alloy/textfiles";
     };
     caddy = {
       enable = true;
@@ -358,8 +388,6 @@ in
         }
       '';
     };
-    monitoring.enable = true;
-    monitoring.internet.enable = true;
     cloudflare-dyndns = {
       enable = true;
       domains = [
@@ -368,6 +396,88 @@ in
       ];
       proxied = false;
       apiTokenFile = config.sops.secrets.cloudflare_w_dns_r_zone_token.path;
+    };
+  };
+  systemd.services.technitium-dns-server.serviceConfig.LogsDirectory = "technitium";
+  # Prometheus exporter for Technitium stats + query-log threat scanning
+  systemd.services.technitium-exporter = {
+    description = "Technitium DNS Prometheus Exporter";
+    after = [
+      "network.target"
+      "technitium-dns-server.service"
+    ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      User = "root";
+      Group = "root";
+      Environment = [
+        "TECHNITIUM_URL=http://127.0.0.1:${toString homelab.${hostName}.services.technitium.port}"
+        "EXPORTER_PORT=9187"
+        "EXPORTER_ADDR=127.0.0.1"
+        "TECHNITIUM_TOKEN_FILE=${config.sops.secrets.technitium_api_key.path}"
+        "TECHNITIUM_ADMIN_PASS_FILE=${config.sops.secrets.technitium_admin_password.path}"
+      ];
+      ExecStart = lib.getExe inputs.nixcfg.packages.${system}.technitium-exporter;
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+  };
+  # Periodic network device inventory (ARP + Kea + Technitium clients)
+  systemd.services.network-inventory = {
+    description = "Collect network device inventory";
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      Group = "root";
+      SupplementaryGroups = [ "systemd-journal" ];
+      Environment = [
+        "INVENTORY_OUTPUT=/var/lib/alloy/textfiles/network_inventory.prom"
+        "KEA_LEASES=/var/lib/kea/dhcp4.leases"
+        "TECHNITIUM_URL=http://127.0.0.1:${toString homelab.${hostName}.services.technitium.port}"
+        "TECHNITIUM_TOKEN_FILE=${config.sops.secrets.technitium_api_key.path}"
+      ];
+      ExecStartPre = "+${pkgs.coreutils}/bin/install -d -m 0755 -o root -g root /var/lib/alloy/textfiles";
+      ExecStart = lib.getExe inputs.nixcfg.packages.${system}.network-inventory;
+    };
+  };
+  systemd.timers.network-inventory = {
+    description = "Periodic network device inventory";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "2min";
+      OnUnitActiveSec = "5min";
+      Persistent = true;
+    };
+  };
+  # Configure Technitium DNS Server built-in zones, blocklists, and forwarders
+  systemd.services.configure-technitium = {
+    description = "Configure Technitium DNS Server via API";
+    after = [
+      "network.target"
+      "technitium-dns-server.service"
+    ];
+    requires = [ "technitium-dns-server.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      Group = "root";
+      Environment = [
+        "TECHNITIUM_URL=http://127.0.0.1:${toString homelab.${hostName}.services.technitium.port}"
+        "TECHNITIUM_TOKEN_FILE=${config.sops.secrets.technitium_api_key.path}"
+        "TECHNITIUM_ADMIN_PASS_FILE=${config.sops.secrets.technitium_admin_password.path}"
+        "TECHNITIUM_ZONE_RECORDS_FILE=${zoneRecordsFile}"
+        "TECHNITIUM_FORWARDER_ZONES_FILE=${forwarderZonesFile}"
+        "TECHNITIUM_BLOCKLISTS_FILE=${blocklistUrlsFile}"
+        "TECHNITIUM_FORWARDERS_FILE=${forwardersFile}"
+      ];
+      ExecStart = lib.getExe (
+        pkgs.writeScriptBin "configure-technitium" ''
+          #!${pkgs.python3}/bin/python3
+          ${builtins.readFile ./configure-technitium.py}
+        ''
+      );
     };
   };
   security.acme =
@@ -395,5 +505,7 @@ in
   sops.secrets = {
     cloudflare_w_dns_r_zone_token = { };
     "wireguard-router-private-key" = { };
+    technitium_api_key = { };
+    technitium_admin_password = { };
   };
 }

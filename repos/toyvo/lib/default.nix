@@ -1,5 +1,6 @@
 {
   lib,
+  inputs,
 }:
 with builtins;
 with lib;
@@ -16,6 +17,8 @@ rec {
   };
 
   # These ones are actually used by us!
+  mkWrappedProgram = pkgs: (import ./mkWrappedProgram.nix) { inherit pkgs inputs; };
+
   readDirRecursive =
     path:
     mapAttrs (
@@ -66,27 +69,33 @@ rec {
         value = (import (concatStringsSep "/" ([ dir ] ++ path)));
       }) (readDirRecursive dir);
   callDirPackageWithRecursive =
-    pkgs: dir:
-    mapAttrs (_: f: f { }) (
+    pkgs: dir: extraArgs:
+    let
+      scope = recursiveUpdate pkgs extraArgs;
+    in
+    mapAttrs (_: f: f extraArgs) (
       fix (
         nurPkgs:
         filterAndMapAttrsRecursive' (path: value: (last path == "package.nix") && value == "regular") (
           path: _: {
             path = dropEnd 1 path;
             value =
-              _:
-              callPackageWith (recursiveUpdate pkgs (mapAttrs (_: f: f { }) nurPkgs)) (concatStringsSep "/" (
-                [ dir ] ++ path
-              )) { };
+              args:
+              callPackageWith (recursiveUpdate scope (mapAttrs (_: f: f extraArgs) nurPkgs)) (concatStringsSep "/"
+                ([ dir ] ++ path)
+              ) args;
           }) (readDirRecursive dir)
       )
     );
   callDirPackageWithRecursive' =
-    pkgs: dir:
+    pkgs: dir: extraArgs:
+    let
+      scope = recursiveUpdate pkgs extraArgs;
+    in
     filterAndMapAttrsRecursive' (path: value: (last path == "package.nix") && value == "regular") (
       path: {
         path = dropEnd 1 path;
-        value = callPackageWith pkgs (concatStringsSep "/" ([ dir ] ++ path)) { };
+        value = callPackageWith scope (concatStringsSep "/" ([ dir ] ++ path)) { };
       }) (readDirRecursive dir);
 
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";

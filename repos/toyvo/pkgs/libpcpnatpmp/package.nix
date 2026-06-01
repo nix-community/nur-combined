@@ -3,6 +3,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  ...
 }:
 stdenv.mkDerivation {
   pname = "libpcpnatpmp";

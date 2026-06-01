@@ -74,7 +74,7 @@ in
       in
       lib.nameValuePair (cfg.configName or name) (
         home-manager.lib.homeManagerConfiguration {
-          pkgs = args.stablePkgs;
+          pkgs = args.unstablePkgs;
           extraSpecialArgs = args;
           modules = [ ./${name}/home.nix ];
         }

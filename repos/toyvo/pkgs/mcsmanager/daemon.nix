@@ -4,6 +4,7 @@
   fetchurl,
   autoPatchelfHook,
   gcc-unwrapped,
+  ...
 }:
 stdenv.mkDerivation rec {
   pname = "mcsmanager-daemon";

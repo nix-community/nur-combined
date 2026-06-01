@@ -3,6 +3,7 @@
   stdenv,
   age,
   lib,
+  ...
 }:
 writeShellScriptBin "setup-sops" ''
   destination="$HOME/${if stdenv.isDarwin then "Library/Application Support" else ".config"}/sops/age"

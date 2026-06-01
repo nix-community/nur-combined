@@ -1,11 +1,19 @@
 {
+  "cli_default_open_behavior": "new_window",
   "agent": {
-    "default_model": { "model": "kimi-k2.6", "provider": "OpenCode Go" },
+    "default_model": {
+      "model": "kimi-k2.6",
+      "provider": "OpenCode Go"
+    },
     "default_profile": "write"
   },
   "agent_servers": {
-    "claude-acp": { "type": "registry" },
-    "opencode": { "type": "registry" }
+    "claude-acp": {
+      "type": "registry"
+    },
+    "opencode": {
+      "type": "registry"
+    }
   },
   "auto_update": false,
   "autosave": "on_focus_change",
@@ -23,6 +31,7 @@
     "ss08": true
   },
   "buffer_font_size": 16,
+  "code_lens": "on",
   "context_servers": {
     "mcp-server-brave-search": {
       "enabled": true,
@@ -46,14 +55,30 @@
   },
   "format_on_save": "on",
   "formatter": [
-    { "language_server": { "name": "rust-analyzer" } },
-    { "external": { "arguments": ["-e", "s/ *$//"], "command": "sed" } }
+    {
+      "language_server": {
+        "name": "rust-analyzer"
+      }
+    },
+    {
+      "external": {
+        "arguments": ["-e", "s/ *$//"],
+        "command": "sed"
+      }
+    }
   ],
-  "git_panel": { "sort_by_path": true, "tree_view": true },
+  "git_panel": {
+    "sort_by_path": true,
+    "tree_view": true
+  },
   "icon_theme": "Catppuccin Frappé",
-  "inlay_hints": { "enabled": true },
+  "inlay_hints": {
+    "enabled": true
+  },
   "language_models": {
-    "ollama": { "api_url": "https://ollama.diekvoss.net" },
+    "ollama": {
+      "api_url": "https://ollama.diekvoss.net"
+    },
     "openai_compatible": {
       "OpenCode Go": {
         "api_url": "https://opencode.ai/zen/go/v1",
@@ -214,18 +239,41 @@
         }
       }
     },
-    "Nix": { "language_servers": ["nil", "!nixd"] }
+    "Nix": {
+      "language_servers": ["nil", "!nixd"]
+    },
+    "http": {
+      "inlay_hints": {
+        "enabled": true
+      }
+    }
   },
   "lsp": {
     "nil": {
       "initialization_options": {
-        "formatting": { "command": ["nixfmt"] },
-        "nix": { "flake": { "autoArchive": true } }
+        "formatting": {
+          "command": ["nixfmt"]
+        },
+        "nix": {
+          "flake": {
+            "autoArchive": true
+          }
+        }
       }
     }
   },
-  "terminal": { "shell": { "program": "fish" } },
-  "theme": "Catppuccin Frappé (Blue Blur+)",
+  "terminal": {
+    "shell": {
+      "program": "fish"
+    }
+  },
+  "theme": {
+    "dark": "Catppuccin Frappé (red)",
+    "light": "Catppuccin Frappé (red)"
+  },
   "ui_font_size": 16,
-  "vim_mode": true
+  "vim_mode": true,
+  "auto_install_extensions": {
+    "catppuccin-icons": true
+  }
 }

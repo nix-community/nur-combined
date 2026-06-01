@@ -1,4 +1,4 @@
-{ writeShellScriptBin, lib }:
+{ writeShellScriptBin, lib, ... }:
 writeShellScriptBin "pre-commit" ''
   echo "Stashing unstaged changes..."
   git commit --allow-empty --no-verify --message 'Save index'

@@ -21,6 +21,7 @@
             "${config.home.homeDirectory}/Clone/**" = "allow";
             "${config.home.homeDirectory}/nixcfg/**" = "allow";
             "/nix/**" = "allow";
+            "/tmp/**" = "allow";
           };
         };
 

@@ -11,10 +11,12 @@
   url,
   version,
   zlib,
+  ...
 }:
 
 let
   isAarch64 = stdenv.hostPlatform.isAarch64;
+  runtimeBin = if lib.versionOlder version "1.18.8" then "mono" else "dotnet";
 
   # ARM64 patch releases from https://github.com/anegostudios/VintagestoryServerArm64
   # One release covers all patch versions within a major.minor version
@@ -91,9 +93,10 @@ stdenv.mkDerivation {
       tar xzf ${arm64Src} -C $out/lib/VintagestoryServer
     ''}
 
-    # version 1.21+ should use dotnet-runtime_8
-    # older versions should use dotnet-runtime_7
-    makeWrapper ${dotnet-runtime}/bin/dotnet $out/bin/VintagestoryServer \
+    # version 1.22.x+ requires dotnet-runtime_10
+    # version 1.18.8 - 1.21.x requires dotnet-runtime_8
+    # version 1.18.7 and older requires mono
+    makeWrapper ${dotnet-runtime}/bin/${runtimeBin} $out/bin/VintagestoryServer \
       --add-flags "$out/lib/VintagestoryServer/VintagestoryServer.dll"
 
     runHook postInstall

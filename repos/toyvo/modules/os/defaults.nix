@@ -14,7 +14,9 @@ in
 
   config = lib.mkIf cfg.defaults.enable {
     home-manager = {
-      backupFileExtension = "${inputs.self.shortRev or inputs.self.dirtyShortRev}.old";
+      backupFileExtension = "${
+        inputs.self.shortRev or inputs.self.dirtyShortRev or inputs.self.lastModifiedDate
+      }.old";
       useUserPackages = true;
       sharedModules = [
         {

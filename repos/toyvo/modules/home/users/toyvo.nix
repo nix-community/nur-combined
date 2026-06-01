@@ -87,8 +87,8 @@ in
       ssh =
         let
           identityConfig = {
-            identitiesOnly = true;
-            identityFile = [
+            IdentitiesOnly = "yes";
+            IdentityFile = [
               config.sops.secrets.ssh_toyvo_auth_ed25519.path
               config.sops.secrets.yubikey_usbc_ed25519_sk.path
               config.sops.secrets.yubikey_usba_ed25519_sk.path
@@ -97,55 +97,51 @@ in
         in
         {
           enable = true;
-          matchBlocks."github.com" = {
-            identitiesOnly = true;
-            identityFile = [
+          settings."github.com" = {
+            IdentitiesOnly = "yes";
+            IdentityFile = [
               config.sops.secrets.github_toyvo_auth_ed25519.path
               config.sops.secrets.yubikey_usbc_ed25519_sk.path
               config.sops.secrets.yubikey_usba_ed25519_sk.path
             ];
           };
-          matchBlocks."oracle" = identityConfig // {
-            user = "toyvo";
-            hostname = "oracle-cloud-nixos.internal";
+          settings."oracle" = identityConfig // {
+            User = "toyvo";
+            HostName = "oracle-cloud-nixos.internal";
           };
-          matchBlocks."router" = identityConfig // {
-            user = "toyvo";
-            hostname = "router.internal";
+          settings."router" = identityConfig // {
+            User = "toyvo";
+            HostName = "router.internal";
           };
-          matchBlocks."nas" = identityConfig // {
-            user = "toyvo";
-            hostname = "nas.internal";
+          settings."nas" = identityConfig // {
+            User = "toyvo";
+            HostName = "nas.internal";
           };
-          matchBlocks."protectli" = identityConfig // {
-            user = "toyvo";
-            hostname = "protectli.internal";
+          settings."protectli" = identityConfig // {
+            User = "toyvo";
+            HostName = "protectli.internal";
           };
-          matchBlocks."macmini-m1" = identityConfig // {
-            user = "toyvo";
-            hostname = "macmini-m1.internal";
-            extraOptions = {
-              RemoteCommand = "fish --login";
-              RequestTTY = "yes";
-            };
+          settings."macmini-m1" = identityConfig // {
+            User = "toyvo";
+            HostName = "macmini-m1.internal";
+            RemoteCommand = "fish --login";
+            RequestTTY = "yes";
           };
-          matchBlocks."macmini-intel" = identityConfig // {
-            user = "toyvo";
-            hostname = "macmini-intel.internal";
-            extraOptions = {
-              RemoteCommand = "fish --login";
-              RequestTTY = "yes";
-            };
+          settings."macmini-intel" = identityConfig // {
+            User = "toyvo";
+            HostName = "macmini-intel.internal";
+            RemoteCommand = "fish --login";
+            RequestTTY = "yes";
           };
-          matchBlocks."windows-desktop" = identityConfig // {
-            user = "toyvo";
-            hostname = "windows-desktop.internal";
+          settings."windows-desktop" = identityConfig // {
+            User = "toyvo";
+            HostName = "windows-desktop.internal";
           };
-          matchBlocks."steamdeck-nixos" = identityConfig // {
-            user = "toyvo";
-            hostname = "steamdeck-nixos.internal";
+          settings."steamdeck-nixos" = identityConfig // {
+            User = "toyvo";
+            HostName = "steamdeck-nixos.internal";
           };
-          matchBlocks."10.1.0.*" = identityConfig;
+          settings."10.1.0.*" = identityConfig;
         };
       zed-editor = {
         enable = cfg.gui.enable;

@@ -63,6 +63,7 @@ in
         exec ${cfg.package}/bin/hermes dashboard \
           --host ${cfg.host} \
           --port ${toString cfg.port} \
+          --insecure \
           --no-open
       '';
     };

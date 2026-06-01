@@ -203,10 +203,10 @@ in
                   formatting = {
                     command = {"${lib.getExe pkgs.nixfmt}"},
                   },
-                },
-                ["nix"] = {
-                  flake = {
-                    autoArchive = true,
+                  nix = {
+                    flake = {
+                      autoArchive = true,
+                    },
                   },
                 },
               },

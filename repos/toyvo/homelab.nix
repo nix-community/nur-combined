@@ -8,17 +8,18 @@
     # mac = "7c:2b:e1:13:0e:1e";
     # mac = "7c:2b:e1:13:0e:1f";
     # mac = "7c:2b:e1:13:0e:20";
-    services.adguard = {
-      port = 3000;
-      displayName = "AdGuard Home";
-      description = "DNS Adblocker";
+    services.technitium = {
+      port = 5380;
+      subdomain = "dns";
+      displayName = "Technitium DNS";
+      description = "DNS Server with Threat Detection";
       category = "Router";
-      icon = "sh-adguard-home";
+      icon = "sh-technitium";
       widget = {
-        type = "adguard";
-        url = "https://adguard.diekvoss.net";
-        username = "{{HOMEPAGE_VAR_ADGUARD_USERNAME}}";
-        password = "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}";
+        type = "technitium";
+        url = "https://dns.diekvoss.net";
+        username = "{{HOMEPAGE_VAR_TECHNITIUM_USERNAME}}";
+        password = "{{HOMEPAGE_VAR_TECHNITIUM_PASSWORD}}";
       };
     };
   };

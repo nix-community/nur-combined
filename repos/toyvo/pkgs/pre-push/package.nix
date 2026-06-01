@@ -1,4 +1,4 @@
-{ writeShellScriptBin, lib }:
+{ writeShellScriptBin, lib, ... }:
 writeShellScriptBin "pre-push" ''
   echo "Check evaluation"
   nix flake show
