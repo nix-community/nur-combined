@@ -1,24 +1,29 @@
 {
   lib,
   stdenv,
-  bun,
+  nodejs,
+  darwin,
   fetchFromGitHub,
+  fetchPnpmDeps,
   fetchurl,
+  pnpm_10,
+  pnpmConfigHook,
   versionCheckHook,
 }:
 
 let
   pname = "sentry";
-  version = "0.34.0";
+  version = "0.35.0";
+  pnpm = pnpm_10;
 
   src = fetchFromGitHub {
     owner = "getsentry";
     repo = "cli";
     rev = version;
-    hash = "sha256-OURZ6ZSv7PHkw+Yb/njp2b3Jf5EOfzTNG4zbS1iZ5mc=";
+    hash = "sha256-CpQyzvD7aMJWS8a0piwHLEdjl8rUF2XbiGo5yP/enK4=";
   };
 
-  # @sentry/api version pinned in bun.lock; determines the OpenAPI spec tag
+  # @sentry/api version pinned in pnpm-lock.yaml; determines the OpenAPI spec tag
   sentryApiVersion = "0.141.0";
 
   openapi-spec = fetchurl {
@@ -26,60 +31,47 @@ let
     hash = "sha256-GjGMWxTRVora4p2EwizEpvdcKbIbXHpn1/+fyKeCO+4=";
   };
 
-  bunDeps = stdenv.mkDerivation {
-    name = "${pname}-bun-deps-${version}";
-    inherit src;
-    nativeBuildInputs = [ bun ];
-    dontFixup = true;
-    dontConfigure = true;
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    # bun installs platform-specific native deps, so the hash differs per system
-    outputHash = {
-      x86_64-linux = "sha256-qiQ5meo3tiRo4y7+kV25XPIITzxC75oUgYR24ZQRaGA=";
-      aarch64-darwin = "sha256-XsixZfs4U5EuVEqyLNikkNSm54pEX4wQuOM2uny3Cgs=";
-    }.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
-    buildPhase = ''
-      runHook preBuild
-      export HOME=$TMPDIR
-      bun install --frozen-lockfile
-      runHook postBuild
-    '';
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out
-      cp -r node_modules $out/
-      runHook postInstall
-    '';
+  pnpmDeps = fetchPnpmDeps {
+    inherit pname version src pnpm;
+    fetcherVersion = 3;
+    hash = "sha256-ZOg6Sgepzk/9xEf+EZLKN8GpYCAoQ9e8RMuMYrg+X6M=";
   };
 in
 stdenv.mkDerivation {
   inherit pname version src;
+  inherit pnpmDeps;
 
-  nativeBuildInputs = [ bun ];
+  nativeBuildInputs = [
+    nodejs
+    pnpm
+    pnpmConfigHook
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    darwin.sigtool
+  ];
 
   buildPhase = ''
     runHook preBuild
-    export HOME=$TMPDIR
-
-    # Link pre-fetched dependencies
-    cp -r ${bunDeps}/node_modules node_modules
-    chmod -R u+w node_modules
 
     # Generate API schema using pre-fetched OpenAPI spec
     mkdir -p src/generated
     substituteInPlace script/generate-api-schema.ts \
       --replace-fail 'await fetch(openApiUrl)' \
         'await (async () => ({ ok: true, json: async () => JSON.parse(require("fs").readFileSync("${openapi-spec}", "utf-8")) }))()'
+    substituteInPlace script/build.ts \
+      --replace-fail 'const NODE_VERSION = "lts";' \
+        'const NODE_VERSION = "${nodejs.version}";'
 
-    bun run generate:schema
-    bun run generate:docs
-    bun run generate:sdk
+    # Fossilize resolves Node via its own cache and otherwise fetches it from nodejs.org.
+    # Seed the cache with nixpkgs' Node binary to keep the build offline and reproducible.
+    export FOSSILIZE_CACHE_DIR="$TMPDIR/fossilize-cache"
+    fossilizePlatform="$(node -e 'process.stdout.write((process.platform === "win32" ? "win" : process.platform) + "-" + process.arch)')"
+    mkdir -p "$FOSSILIZE_CACHE_DIR"
+    cp ${nodejs}/bin/node "$FOSSILIZE_CACHE_DIR/node-v${nodejs.version}-$fossilizePlatform"
+    chmod u+wx "$FOSSILIZE_CACHE_DIR/node-v${nodejs.version}-$fossilizePlatform"
 
-    # Build standalone binary for current platform
     # Public OAuth client ID for sentry.io, baked into official builds
     export SENTRY_CLIENT_ID=1d673b81d60ef84c951359c36296972ca6fd41bd8f45acd2d3a783a3b3c28e41
-    bun run script/build.ts --single
+    pnpm run build
 
     runHook postBuild
   '';
@@ -91,8 +83,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # Bun-compiled binaries embed JS in the ELF; stripping corrupts them
+  # Fossilize strips before SEA injection; Nix stripping after injection corrupts the executable
   dontStrip = true;
+
+  postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    codesign --force --sign - "$out/bin/sentry"
+  '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
