@@ -52,6 +52,16 @@ buildNpmPackage (finalAttrs: {
     # Self-referential workspace symlink dangles once node_modules is moved.
     rm -f "$bridgeOut/node_modules/@ccpocket/bridge"
 
+    # claude-agent-sdk 0.3.x ProcessTransport spawns child processes but never
+    # attaches an error listener to the child's stdin Writable. When ccpocket
+    # races two codex app-server children (history canonicaliser + main
+    # session) the loser's stdin closes, the next async write emits EPIPE on
+    # the Socket, and the unhandled error crashes the bridge. Silence those
+    # async stdin errors so the synchronous try/catch in write() keeps owning
+    # the error path.
+    sed -i "s|processStdin=this.process.stdin|&,this.processStdin.on('error',()=>{})|" \
+      "$bridgeOut/node_modules/@anthropic-ai/claude-agent-sdk/sdk.mjs"
+
     mkdir -p $out/bin
     ln -s "$bridgeOut/dist/cli.js" $out/bin/ccpocket-bridge
     chmod +x "$bridgeOut/dist/cli.js"
