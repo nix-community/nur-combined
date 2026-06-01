@@ -9,9 +9,10 @@
 
 {
   src ? null,
-  pname ? src.pname or src.name,
-  version ? src.version or "unstable",
-  architecture ? src.stdenv.hostPlatform.go.GOARCH or stdenv.hostPlatform.go.GOARCH,
+  package ? src.${stdenv.hostPlatform.config} or src, # try to use cross-compilation version of the package if it exists
+  pname ? package.pname or package.name,
+  version ? package.version or "unstable",
+  architecture ? package.stdenv.hostPlatform.go.GOARCH or stdenv.hostPlatform.go.GOARCH,
   name ?
     if lib.strings.hasInfix "-" pname then
       "${pname}_${version}_${architecture}.AppImage"
@@ -26,13 +27,11 @@
 }:
 
 assert src != null;
+assert package != null;
 
 let
   apprun = pkgsStatic.callPackage ../../packages/bwrap-apprun { };
   runtime = pkgsStatic.callPackage ../../packages/type2-runtime { };
-
-  # Try to use cross-compilation version of the package if it exists
-  package = src.${stdenv.hostPlatform.config} or src;
 
   args = [
     "-offset $(stat -L -c%s ${lib.escapeShellArg (lib.getExe runtime)})" # squashfs comes after the runtime

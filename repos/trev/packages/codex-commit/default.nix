@@ -23,8 +23,8 @@ buildRustPackage (final: {
     description = "codex commit message generator";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    homepage = "https://trev.zip/llc/rust";
-    changelog = "https://trev.zip/llc/rust/releases/tag/v${final.version}";
-    downloadPage = "https://trev.zip/llc/rust/releases/releases/tag/v${final.version}";
+    homepage = "https://trev.zip/llc/codex-commit";
+    changelog = "https://trev.zip/llc/codex-commit/releases/tag/v${final.version}";
+    downloadPage = "https://trev.zip/llc/codex-commit/releases/releases/tag/v${final.version}";
   };
 })
