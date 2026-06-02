@@ -35,6 +35,7 @@ in
     mcu-debug.debug-tracker-vscode =
       pkgs.callPackage ./pkgs/vscode-extensions/mcu-debug.debug-tracker-vscode
         { };
+    mcu-debug.memory-view = pkgs.callPackage ./pkgs/vscode-extensions/mcu-debug.memory-view { };
     mcu-debug.peripheral-viewer =
       pkgs.callPackage ./pkgs/vscode-extensions/mcu-debug.peripheral-viewer
         { };
