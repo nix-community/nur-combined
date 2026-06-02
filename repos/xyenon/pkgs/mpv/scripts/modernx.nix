@@ -10,12 +10,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "ModernX";
-  version = "0.4.5";
+  version = "0.4.6";
   src = fetchFromGitHub {
     owner = "zydezu";
     repo = "ModernX";
     rev = finalAttrs.version;
-    hash = "sha256-a+StfEYQwt5NuELvanvZllrD2RQ0g9JBpCznMdSDM5Y=";
+    hash = "sha256-jK35LmihSCF789AJhKlySg6fXurAe5uuHNsgFjt0+iY=";
   };
 
   dontBuild = true;

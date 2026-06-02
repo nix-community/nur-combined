@@ -102,21 +102,21 @@
   };
   nh = {
     pname = "nh";
-    version = "ef278133e9736282548aefe434fa70f2e921f811";
+    version = "86c47ff780a0b0f6e91e32f3a7c6b94931b62e3e";
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "ef278133e9736282548aefe434fa70f2e921f811";
+      rev = "86c47ff780a0b0f6e91e32f3a7c6b94931b62e3e";
       fetchSubmodules = false;
-      sha256 = "sha256-liDsH6Ufn4MlqPTxV8SoXDD30x9M/jDar9yFkOuf6Oc=";
+      sha256 = "sha256-BPv4/2WpeR8lvI/r6i0bpd2pEazaHKFXwtftGjMV2y0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-liDsH6Ufn4MlqPTxV8SoXDD30x9M_jDar9yFkOuf6Oc=/Cargo.lock";
+      lockFile = ./. + "/sha256-BPv4_2WpeR8lvI_r6i0bpd2pEazaHKFXwtftGjMV2y0=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-05-20";
+    date = "2026-05-28";
   };
   nix-package-versions = {
     pname = "nix-package-versions";
@@ -143,15 +143,15 @@
   };
   rime-ice-unstable = {
     pname = "rime-ice-unstable";
-    version = "e0b1588f8ca405fb81dfd92235ecd5bdccfa18ce";
+    version = "04dcf953f8527fb6207b2bdbafd2e9a7492bf348";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "e0b1588f8ca405fb81dfd92235ecd5bdccfa18ce";
+      rev = "04dcf953f8527fb6207b2bdbafd2e9a7492bf348";
       fetchSubmodules = false;
-      sha256 = "sha256-3R/g2QKPY3KkZGjGNQP8GcaVT/LkN3FkBmpyQz5sSfI=";
+      sha256 = "sha256-ScVLxDwyi/Mrcxp7kOxJzWglp8JfLlSMfn9b5gGoVDY=";
     };
-    date = "2026-05-23";
+    date = "2026-06-01";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -163,14 +163,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "c2c16c83dd6c754c38893030848a162bb2422ca2";
+    version = "598cdb671401574ac27aeee257e2f3b0c80610a1";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "c2c16c83dd6c754c38893030848a162bb2422ca2";
+      rev = "598cdb671401574ac27aeee257e2f3b0c80610a1";
       fetchSubmodules = false;
-      sha256 = "sha256-BdisAHsLHNqtuDu8rtBZZaqiTeL60pQOWKsRct35VZM=";
+      sha256 = "sha256-bqGN6JxbU+/o7TlM/Cm9Qj/s1McA4pB5QWArGZPcme4=";
     };
-    date = "2026-05-26";
+    date = "2026-05-31";
   };
 }
