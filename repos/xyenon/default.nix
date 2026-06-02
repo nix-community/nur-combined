@@ -96,4 +96,5 @@ rec {
   waypipe-darwin = callPackage ./pkgs/waypipe-darwin { };
   cocoa-way = callPackage ./pkgs/cocoa-way { inherit waypipe-darwin; };
   xurl = callPackage ./pkgs/xurl { };
+  attic-client = callPackage ./pkgs/attic { };
 }

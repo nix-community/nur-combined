@@ -60,6 +60,15 @@ jobs:
           name: ${{ matrix.cachixName }}
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - &setupAttic
+        name: Setup attic
+        uses: XYenon/attic-action@v0
+        with:
+          endpoint: "https://attic.xyenon.download"
+          cache: xyenon
+          token: ${{ secrets.ATTIC_AUTH_TOKEN }}
+          install-command: "nix profile install --accept-flake-config .#attic-client"
+          push-args: "-j 1"
       - name: Check evaluation
         run: |
           nix-env -f . -qa \* --meta --xml \
@@ -86,5 +95,6 @@ jobs:
       - *checkoutRepository
       - *installNix
       - *setupCachix
+      - *setupAttic
       - name: Build nix packages
         run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --flake ".#cacheOutputAttrs.$(nix eval --raw --impure --expr builtins.currentSystem)"
