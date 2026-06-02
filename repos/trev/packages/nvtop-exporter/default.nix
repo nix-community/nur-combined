@@ -9,24 +9,24 @@
   prometheus-client,
   pydantic,
   setuptools,
-  uv-build,
+  uv-build-latest,
 }:
 
-buildPythonPackage (finalAttrs: {
+buildPythonPackage (final: {
   pname = "nvtop-exporter";
-  version = "0.0.10";
+  version = "0.0.11";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nvtop-exporter";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-xjJA6DMvWbBL+Ih2Al2Ybfcpn4yoB49e8FGxs9wYRQ4=";
+    tag = "v${final.version}";
+    hash = "sha256-89bsdstpFwt5MgW4Bbvt3+kPvzW7CYFCw0d+xtR6Xho=";
   };
 
   build-system = [
     setuptools
-    uv-build
+    uv-build-latest
   ];
 
   pythonRelaxDeps = true;
@@ -46,16 +46,16 @@ buildPythonPackage (finalAttrs: {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--commit"
-      finalAttrs.pname
+      final.pname
     ];
   };
 
   meta = {
     description = "Prometheus exporter for nvtop";
     mainProgram = "nvtop-exporter";
-    homepage = "https://github.com/spotdemo4/nvtop-exporter";
-    changelog = "https://github.com/spotdemo4/nvtop-exporter/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
+    homepage = "https://github.com/spotdemo4/nvtop-exporter";
+    changelog = "https://github.com/spotdemo4/nvtop-exporter/releases/tag/v${final.version}";
   };
 })

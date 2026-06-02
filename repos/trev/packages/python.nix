@@ -3,7 +3,7 @@
 }:
 rec {
   modal = pythonPackages.callPackage ./modal { inherit synchronicity; };
-  nvtop-exporter = pythonPackages.callPackage ./nvtop-exporter { };
+  nvtop-exporter = pythonPackages.callPackage ./nvtop-exporter { inherit uv-build-latest; };
   opengrep = pythonPackages.callPackage ./opengrep { };
   synchronicity = pythonPackages.callPackage ./synchronicity { };
   uv-build-latest = pythonPackages.callPackage ./uv-build { };
