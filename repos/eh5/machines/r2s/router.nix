@@ -47,9 +47,16 @@
     settings = {
       no-resolv = true;
       strict-order = true;
-      server = [ "127.0.0.1#5353" "223.5.5.5#53" ];
+      server = [
+        "127.0.0.1#5353"
+        "223.5.5.5#53"
+      ];
       local = "/lan/";
-      interface = "intern0";
+      interface = [
+        "intern0"
+        "extern0"
+      ];
+      no-dhcp-interface = "extern0";
       bind-interfaces = true;
       address = "/nixos-r2s.lan/192.168.1.1";
       # TODO: build additional hosts from DHCPv6 leases and LAN interface addresses

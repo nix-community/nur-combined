@@ -34,7 +34,6 @@ in
       ];
     };
   };
-  security.dhparams.enable = true;
 
   # sing-box
   services.sing-box = {
