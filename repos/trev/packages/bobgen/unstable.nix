@@ -6,7 +6,7 @@
 
 bobgen.overrideAttrs (
   final: prev: {
-    version = "0-unstable-2026-05-28";
+    version = "0.45.0-unstable-2026-05-28";
 
     src = fetchFromGitHub {
       owner = "stephenafamo";
