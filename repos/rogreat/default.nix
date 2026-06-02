@@ -29,7 +29,10 @@ rec {
   crimsondesert-ultimatemodsmanager = pkgs.callPackage ./pkgs/crimsondesert-ultimatemodsmanager {
     inherit (python3Packages) privatebin pyside6-fluent-widgets;
   };
-  gupax = pkgs.callPackage ./pkgs/gupax { };
+  cuprate = pkgs.callPackage ./pkgs/cuprate { };
+  gupax = pkgs.callPackage ./pkgs/gupax {
+    inherit cuprate;
+  };
   sparrow-wifi = pkgs.callPackage ./pkgs/sparrow-wifi { };
   steam-optionx = pkgs.callPackage ./pkgs/steam-optionx { };
 }
