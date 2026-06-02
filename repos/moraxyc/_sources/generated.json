@@ -842,6 +842,21 @@
         },
         "version": "1.0-25.2"
     },
+    "uuremote": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "uuremote",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-P/iJl2+DMpfURicpHKJfqi7Wi2HBWQRtfRYRfsSMSKI=",
+            "type": "url",
+            "url": "https://a56.gdl.netease.com/uuyc_4.26.0.pkg"
+        },
+        "version": "4.26.0"
+    },
     "v2ray-rules-dat": {
         "cargoLock": null,
         "date": "2026-06-01",

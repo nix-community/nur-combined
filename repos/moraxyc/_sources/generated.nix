@@ -483,6 +483,14 @@
       sha256 = "sha256-v+w4Y6MyJqUrgwuYUYTZW0Zn1jhW4vEpgBEQyEjvkzg=";
     };
   };
+  uuremote = {
+    pname = "uuremote";
+    version = "4.26.0";
+    src = fetchurl {
+      url = "https://a56.gdl.netease.com/uuyc_4.26.0.pkg";
+      sha256 = "sha256-P/iJl2+DMpfURicpHKJfqi7Wi2HBWQRtfRYRfsSMSKI=";
+    };
+  };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
     version = "c1525566583b67d054b9331ce869bf68d2776f19";

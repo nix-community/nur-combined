@@ -229,3 +229,8 @@ fetch.url = "file:///dev/null"
 src.git = "https://github.com/daeuniverse/daed.git"
 fetch.github = "daeuniverse/daed"
 git.fetchSubmodules = true
+
+[uuremote]
+src.httpheader = "https://api.nrd.nie.163.com/api/v1/release/dl/4?channel=gwqd"
+src.regex = 'uuyc[._-]v?(\d+(?:\.\d+)+)\.pkg'
+fetch.url = "https://a56.gdl.netease.com/uuyc_$ver.pkg"
