@@ -1,5 +1,5 @@
 #!/bin/bash
-### original script from Adrien Linuxtricks (credit: https://github.com/aaaaadrien)
+### original script by Adrien Linuxtricks (credit: https://github.com/aaaaadrien)
 
 ARGS=$1
 
