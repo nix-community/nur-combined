@@ -1,98 +1,49 @@
 {
-  fetchFromGitHub,
-  file,
-  findutils,
-  forgejo-cli,
-  gh,
-  gnused,
-  jq,
+  buildGoModule,
+  fetchFromGitea,
   lib,
-  makeWrapper,
-  manifest-tool,
-  mktemp,
-  ncurses,
   nix-update-script,
-  runtimeShell,
-  shellcheck,
-  skopeo,
-  stdenv,
-  tea,
+  pkg-config,
   xz,
-  zip,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+buildGoModule (final: {
   pname = "flake-release";
-  version = "0.17.0";
+  version = "0.18.1";
 
-  src = fetchFromGitHub {
-    owner = "spotdemo4";
+  src = fetchFromGitea {
+    domain = "trev.zip";
+    owner = "llc";
     repo = "flake-release";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-16NXkMnNRtOZ8NZeQ6lttAfWrAYV1AQm10RJml+q2pU=";
+    rev = "v${final.version}";
+    hash = "sha256-rhm3D4cWx8DGGXVWTojlWkSTwtPZYCS+oMPQc3CoxZg=";
   };
 
+  vendorHash = "sha256-nXT4Tanl7b9b36IRxvHbQapH/caQ8U2fWLtJSggNxxE=";
+
+  tags = [ "containers_image_openpgp" ];
+
   nativeBuildInputs = [
-    makeWrapper
-    shellcheck
+    pkg-config
   ];
-
-  runtimeInputs = [
-    file
-    findutils
-    forgejo-cli
-    gh
-    gnused
-    jq
-    manifest-tool
-    mktemp
-    ncurses
-    skopeo
-    tea
-    xz
-    zip
+  buildInputs = [
+    xz.dev
+    xz.out
   ];
-
-  unpackPhase = ''
-    cp -a "$src/." .
-  '';
-
-  dontBuild = true;
-
-  configurePhase = ''
-    chmod +w src
-    sed -i '1c\#!${runtimeShell}' src/flake-release.sh
-    sed -i '2i\export PATH="${lib.makeBinPath finalAttrs.runtimeInputs}:$PATH"' src/flake-release.sh
-  '';
-
-  doCheck = true;
-  checkPhase = ''
-    shellcheck **/*.sh
-  '';
-
-  installPhase = ''
-    mkdir -p $out/lib/flake-release
-    cp -R src/*.sh $out/lib/flake-release
-
-    mkdir -p $out/bin
-    makeWrapper "$out/lib/flake-release/flake-release.sh" "$out/bin/flake-release"
-  '';
-
-  dontFixup = true;
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--commit"
-      finalAttrs.pname
+      final.pname
     ];
   };
 
   meta = {
-    description = "Flake package releaser";
     mainProgram = "flake-release";
-    homepage = "https://github.com/spotdemo4/flake-release";
-    changelog = "https://github.com/spotdemo4/flake-release/releases/tag/v${finalAttrs.version}";
+    description = "Flake package releaser";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.unix;
+    homepage = "https://trev.zip/llc/flake-release";
+    changelog = "https://trev.zip/llc/flake-release/releases/tag/v${final.version}";
   };
 })
