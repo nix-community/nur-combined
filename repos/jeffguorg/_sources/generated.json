@@ -2,7 +2,7 @@
     "agent-run": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-geGG8qyc3c1YeZn9h6JpYVJAvedqv5icBg67kZ+vqVQ=/Cargo.lock",
+                "sha256-rQL+WnU0ZVeDnx6+kWzpmpTq11fUAfRhR0KH_aIzD2g=/Cargo.lock",
                 {}
             ]
         },
@@ -16,13 +16,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c979a6f5bb190c0943b4fbdcf5ec805df6d3160d",
-            "sha256": "sha256-geGG8qyc3c1YeZn9h6JpYVJAvedqv5icBg67kZ+vqVQ=",
+            "rev": "5151e84f70006f7c6776331021151f97bcbee065",
+            "sha256": "sha256-rQL+WnU0ZVeDnx6+kWzpmpTq11fUAfRhR0KH/aIzD2g=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://git.jeffthecoder.xyz/public/agent-run.git"
         },
-        "version": "c979a6f5bb190c0943b4fbdcf5ec805df6d3160d"
+        "version": "5151e84f70006f7c6776331021151f97bcbee065"
     },
     "claude-code-bin-amd64-darwin": {
         "cargoLock": null,

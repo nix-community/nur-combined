@@ -8,18 +8,18 @@
 {
   agent-run = {
     pname = "agent-run";
-    version = "c979a6f5bb190c0943b4fbdcf5ec805df6d3160d";
+    version = "5151e84f70006f7c6776331021151f97bcbee065";
     src = fetchgit {
       url = "https://git.jeffthecoder.xyz/public/agent-run.git";
-      rev = "c979a6f5bb190c0943b4fbdcf5ec805df6d3160d";
+      rev = "5151e84f70006f7c6776331021151f97bcbee065";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-geGG8qyc3c1YeZn9h6JpYVJAvedqv5icBg67kZ+vqVQ=";
+      sha256 = "sha256-rQL+WnU0ZVeDnx6+kWzpmpTq11fUAfRhR0KH/aIzD2g=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-geGG8qyc3c1YeZn9h6JpYVJAvedqv5icBg67kZ+vqVQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-rQL+WnU0ZVeDnx6+kWzpmpTq11fUAfRhR0KH_aIzD2g=/Cargo.lock";
       outputHashes = {
         
       };
