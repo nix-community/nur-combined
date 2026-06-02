@@ -44,7 +44,7 @@ in
       pkgs.callPackage ./pkgs/vscode-extensions/nordic-semiconductor.nrf-devicetree
         { };
     nordic-semiconductor.nrf-kconfig =
-      pkgs.callPackage ./pkgs/vscode-extensions/nordic-semiconductor.nrf-devicetree
+      pkgs.callPackage ./pkgs/vscode-extensions/nordic-semiconductor.nrf-kconfig
         { };
     nordic-semiconductor.nrf-terminal =
       pkgs.callPackage ./pkgs/vscode-extensions/nordic-semiconductor.nrf-terminal
