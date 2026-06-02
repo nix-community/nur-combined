@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Cuprate";
     repo = "cuprate";
-    tag = "cuprated-${finalAttrs.version}";
-    hash = "sha256-MEvbeuWDjvKvrU1FRs3mGp+OXMxuzN3UcLOmFnJz9q4=";
+    rev = "bc059f047651a743565330e8fe533e4f5a81d388";
+    hash = "sha256-j8La9+eSC1EPz+Vl+aY+z4HmS6vTyGQjnk9Rj1Md59E=";
     leaveDotGit = true;
   };
 

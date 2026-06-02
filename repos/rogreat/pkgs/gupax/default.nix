@@ -25,7 +25,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "gupax-io";
     repo = "gupax";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LEVJI3AWrr85g+X0Xt1uuvD1AtXB9UCHiacp4i0egP0=";
+    hash = "sha256-BBFovEZwjZNcC8eEnp3IgQf70O1QCJ+tdwxHk+vUp1E=";
+    leaveDotGit = true;
   };
 
   cargoHash = "sha256-7Kew11N/rakHLhKBu+BUM3f4AP9xDZl1xARpbyqHCFY=";
@@ -92,7 +93,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "GUI Uniting P2Pool And XMRig";
     homepage = "https://gupax.io";
-    changelog = "https://github.com/hinto-janai/gupax/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "gupax";
