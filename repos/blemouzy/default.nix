@@ -31,6 +31,10 @@ in
   supernote-tool = pkgs.python3Packages.callPackage ./pkgs/supernote-tool { inherit potracer; };
   trigger = pkgs.callPackage ./pkgs/trigger { };
   vscode-extensions = {
+    cschlosser.doxdocgen = pkgs.callPackage ./pkgs/vscode-extensions/cschlosser.doxdocgen { };
+    mcu-debug.debug-tracker-vscode =
+      pkgs.callPackage ./pkgs/vscode-extensions/mcu-debug.debug-tracker-vscode
+        { };
     mcu-debug.peripheral-viewer =
       pkgs.callPackage ./pkgs/vscode-extensions/mcu-debug.peripheral-viewer
         { };
