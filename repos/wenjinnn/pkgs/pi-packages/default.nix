@@ -191,6 +191,26 @@ let
       homepage = "https://github.com/jonjonrankin/pi-caveman";
     };
 
+    # ── Guardrails Extensions ────────────────────────────────────────────────
+
+    "@aliou/pi-guardrails" = mkScopedPackage "@aliou" "pi-guardrails" {
+      version = "0.13.1";
+      hash = "sha256-W+fAMF2sHjB1CWrgsFaNNnREoXhdFCLrWup2ZyLcpkI=";
+      npmDepsHash = "sha256-bz/xEfH6UX38v7oEbbkbqxo4+h/glYBgBQin0rlTGIQ=";
+      description = "Guardrails extension for Pi coding agent";
+      homepage = "https://github.com/aliou/pi-guardrails";
+    };
+
+    # ── Code Analysis Extensions ──────────────────────────────────────────────
+
+    "pi-lens" = mkPackage "pi-lens" {
+      version = "3.8.47";
+      hash = "sha256-KI7LZ3gJynAoXq2McMthR4b0/6fGPAnhwpwhAbUkOUo=";
+      npmDepsHash = "sha256-C/4wlBTIAT//q/ahXmV0DeRJe8FoIVoyXOSGqNzeNlA=";
+      description = "Code lens and analysis extension for Pi coding agent";
+      homepage = "https://pi.dev/packages/pi-lens";
+    };
+
     # ── TODO: Add more packages ──────────────────────────────────────────────
     # Use the update script to get hashes:
     #   ./pkgs/pi-packages/scripts/update-pi-package.sh <package-name> [version]

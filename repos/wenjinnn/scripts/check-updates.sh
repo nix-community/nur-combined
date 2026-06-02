@@ -182,6 +182,8 @@ if [[ -f "$PIPACKAGES_FILE" ]]; then
     ["pi-intercom"]="nicobailon/pi-intercom"
     ["pi-caveman"]="jonjonrankin/pi-caveman"
     ["pi-weixinbot"]="huang-x-h/pi-weixinbot"
+    ["@aliou/pi-guardrails"]="aliou/pi-guardrails"
+    ["pi-lens"]="pi-dev/pi-lens"
   )
 
   for package in "${!PACKAGE_SOURCES[@]}"; do
