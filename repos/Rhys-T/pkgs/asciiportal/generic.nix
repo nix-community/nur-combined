@@ -9,7 +9,7 @@
         smpeg = (old.smpeg.override {
             SDL = SDL_compat';
         }).overrideAttrs (old: lib.optionalAttrs (builtins.length SDL_compat.propagatedBuildInputs == 0) {
-            buildInputs = (old.buildInputs or []) ++ libx11;
+            buildInputs = (old.buildInputs or []) ++ [libx11];
         });
     });
     

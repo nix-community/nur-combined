@@ -12,7 +12,14 @@
 # See <https://github.com/NixOS/nixpkgs/issues/402811>
 let pkgs' = pkgs; in
 let
-overlays = pkgs'.lib.optional (with pkgs'; (
+overlays = pkgs'.lib.optional (pkgs'?sdl12-compat) (self: super: {
+    # Renamed in Nixpkgs, and I'm trying to make sure this all works with allowAliases = false.
+    # But I don't feel like rewriting all the individual packages right now.
+    # See: <https://github.com/NixOS/nixpkgs/pull/522006>
+    # Will probably need to be extended as the changes continue.
+    # See: <https://github.com/NixOS/nixpkgs/issues/522007>
+    SDL_compat = self.sdl12-compat;
+}) ++ pkgs'.lib.optional (with pkgs'; (
     lib.getName SDL2 == "sdl2-compat" &&
     lib.getVersion sdl2-compat == "2.32.54"
 )) (self: super: {
@@ -30,7 +37,7 @@ overlays = pkgs'.lib.optional (with pkgs'; (
             hash = "sha256-Xg886KX54vwGANIhTAFslzPw/sZs2SvpXzXUXcOKgMs=";
         };
     });
-}) ++ pkgs'.lib.optional (builtins.elem null pkgs'.SDL_compat.buildInputs) (self: super: {
+}) ++ pkgs'.lib.optional (builtins.elem null (pkgs'.sdl12-compat or pkgs'.SDL_compat).buildInputs) (self: super: {
     SDL_compat = super.SDL_compat.overrideAttrs (old: {
         buildInputs = builtins.filter (p: p != null) old.buildInputs;
     });
