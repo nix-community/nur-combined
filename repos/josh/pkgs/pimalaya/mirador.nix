@@ -6,6 +6,7 @@
   fetchFromGitHub,
   stdenv,
   apple-sdk,
+  dbus,
   installShellFiles,
   installShellCompletions ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
   installManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
@@ -13,20 +14,32 @@
   buildFeatures ? [ ],
   nix-update-script,
 }:
+let
+  inherit (stdenv.hostPlatform) isLinux isAarch64;
+
+  dbus' = dbus.overrideAttrs (old: {
+    env = (old.env or { }) // {
+      NIX_CFLAGS_COMPILE =
+        (old.env.NIX_CFLAGS_COMPILE or "")
+        # required for D-Bus on Linux AArch64
+        + lib.optionalString (isLinux && isAarch64) " -mno-outline-atomics";
+    };
+  });
+in
 rustPlatform.buildRustPackage rec {
   __structuredAttrs = true;
 
   pname = "mirador";
-  version = "root-unstable-2025-01-18";
+  version = "root-unstable-2026-06-01";
 
   src = fetchFromGitHub {
     owner = "pimalaya";
     repo = "mirador";
-    rev = "7bd89a58ee71a33768be8a11f994b138dfa7464f";
-    hash = "sha256-/6ZThG+vl0uH1io/vOiveQqixYJvbStGpLH90NlN6EY=";
+    rev = "2b50652eb23f826d647b399d942df73c48691f2e";
+    hash = "sha256-Mv3xznNsLKiXhcMBdaIgiMFpZvGwDr19vM8KD0kNSU0=";
   };
 
-  cargoHash = "sha256-JtLVk+Y58N66C4xUO2p3+MvO67AFdTPkkkXxYT3a1Hw=";
+  cargoHash = "sha256-PBt9V7La1j3uruYARkzmYzysbZnN9jKIhPUGyY1KxGI=";
 
   inherit buildNoDefaultFeatures buildFeatures;
 
@@ -35,7 +48,7 @@ rustPlatform.buildRustPackage rec {
   ]
   ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
 
-  buildInputs = lib.optional stdenv.hostPlatform.isDarwin apple-sdk;
+  buildInputs = lib.optional stdenv.hostPlatform.isDarwin apple-sdk ++ lib.optional isLinux dbus';
 
   doCheck = false;
   auditable = false;
@@ -48,20 +61,19 @@ rustPlatform.buildRustPackage rec {
     cp assets/mirador@.service "$out"/share/services/
   ''
   + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    "$out"/bin/mirador man "$out"/share/man
+    "$out"/bin/mirador manuals "$out"/share/man
   ''
   + lib.optionalString installManPages ''
     installManPage "$out"/share/man/*
   ''
   + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    "$out"/bin/mirador completion bash > "$out"/share/completions/mirador.bash
-    "$out"/bin/mirador completion elvish > "$out"/share/completions/mirador.elvish
-    "$out"/bin/mirador completion fish > "$out"/share/completions/mirador.fish
-    "$out"/bin/mirador completion powershell > "$out"/share/completions/mirador.powershell
-    "$out"/bin/mirador completion zsh > "$out"/share/completions/mirador.zsh
+    "$out"/bin/mirador completions -d "$out"/share/completions bash elvish fish powershell zsh
   ''
   + lib.optionalString installShellCompletions ''
-    installShellCompletion "$out"/share/completions/mirador.{bash,fish,zsh}
+    installShellCompletion --cmd mirador \
+      --bash "$out"/share/completions/mirador.bash \
+      --fish "$out"/share/completions/mirador.fish \
+      --zsh "$out"/share/completions/_mirador
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
@@ -71,7 +83,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "mirador";
     homepage = "https://github.com/pimalaya/mirador";
     changelog = "${homepage}/blob/v${version}/CHANGELOG.md";
-    license = lib.licenses.mit;
+    license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ soywod ];
   };
 }

@@ -20,13 +20,13 @@ let
 in
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "tccpolicy";
-  version = "0.1.0-unstable-2025-08-18";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "tccpolicy";
-    rev = "298cd6da21fad1de86af922abc10902e9d6c3f63";
-    hash = "sha256-C2Lqjaj41I2DdnmW7a0APMrZOuwyT7KWbvAp9R059Mk=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-HPTQ+ebGNvfaMKtn8gqXrxG+PDAqmpdWWhmRIyaSXhU=";
   };
 
   nativeBuildInputs = [
@@ -54,19 +54,13 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
-    help =
-      runCommand "test-tccpolicy-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          tccpolicy --help
-          touch $out
-        '';
+    help = runCommand "test-tccpolicy-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      tccpolicy --help
+      touch $out
+    '';
   };
 
   meta = {

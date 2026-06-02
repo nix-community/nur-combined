@@ -4,39 +4,23 @@ on:
   push:
   workflow_dispatch:
 
-permissions:
-  id-token: "write"
-  contents: "read"
-
 env:
   NIX_ABORT_ON_WARN: "1"
+  NIXPKGS_ALLOW_UNFREE: "1"
 
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - "ubuntu-24.04"
-          - "ubuntu-24.04-arm"
-          - "macos-15"
+        system:
+          - aarch64-darwin
+          - aarch64-linux
+          - x86_64-linux
 
-    runs-on: ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.system }}"]
 
     steps:
-      - uses: DeterminateSystems/nix-installer-action@main
-        with:
-          determinate: true
-          extra-conf: |
-            accept-flake-config = true
-            allow-import-from-derivation = false
-
-      - uses: cachix/cachix-action@v16
-        with:
-          name: josh
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-          installCommand: nix profile install nixpkgs#cachix
-
       - name: Check flake
         run: |
           nix flake check --keep-going --print-build-logs github:${{ github.repository }}/${{ github.sha }}

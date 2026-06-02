@@ -8,13 +8,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-iperf3-exporter";
-  version = "1.2.2";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "edgard";
     repo = "iperf3_exporter";
     tag = "${finalAttrs.version}";
-    hash = "sha256-A2zqv1CWDuIAuEGm4LnjZ0notnQtJltGlAQd9ce6DZQ=";
+    hash = "sha256-GZgSNBK0ka+m+GxPQUZIKG+6F3HkrGKo43fgh8CoFVs=";
   };
 
   vendorHash = "sha256-tA0lx6xOVLw5uZzxYXkAE6IpaW4WjaB25w/AsH4piw8=";

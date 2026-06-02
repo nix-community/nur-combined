@@ -8,23 +8,26 @@ on:
 permissions:
   contents: write
 
+env:
+  NIXPKGS_ALLOW_UNFREE: "1"
+
 jobs:
   update:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - "ubuntu-24.04"
-          # - "ubuntu-24.04-arm"
-          - "macos-15"
+        system:
+          - aarch64-darwin
+          # - aarch64-linux
+          - x86_64-linux
 
-    runs-on: ${{ matrix.os }}
+    runs-on: [self-hosted, "${{ matrix.system }}"]
 
     steps:
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
         with:
-          app-id: ${{ vars.GH_APP_ID }}
+          client-id: ${{ vars.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - name: Get GitHub App User ID
@@ -33,38 +36,35 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
-      - uses: DeterminateSystems/nix-installer-action@main
-        with:
-          extra-conf: |
-            accept-flake-config = true
-
-      - uses: cachix/cachix-action@v16
-        with:
-          name: josh
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Configure git commit author
         run: |
-          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
-          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          git config --local user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config --local user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
 
       - id: attrs
         name: Get package attributes to update
         run: |
-          nix eval --raw --file ./internal/update-script-attrs.nix | tee "$GITHUB_OUTPUT"
+          set -o pipefail
+          nix eval --raw --impure --file ./internal/update-script-attrs.nix | tee "$GITHUB_OUTPUT"
         env:
           FLAKE_URI: ${{ github.workspace }}
 
       - name: Run update-script
         run: |
-          echo "$UPDATE_NIX_ATTRS" | jq --raw-output '.[]' | while read -r attr; do
+          set -o pipefail
+          exit_code=0
+          while read -r attr; do
             printf "\n\n==== Updating %s ====\n" "$attr" >&2
-            UPDATE_NIX_ATTR_PATH="$attr" nix run --file ./internal/update-script.nix
-          done
+            if ! UPDATE_NIX_ATTR_PATH="$attr" nix run --file ./internal/update-script.nix; then
+              echo "::error::Update failed for $attr" >&2
+              exit_code=1
+            fi
+          done <<<"$(jq --raw-output '.[]' <<<"$UPDATE_NIX_ATTRS")"
+          exit $exit_code
         env:
           FLAKE_URI: ${{ github.workspace }}
           UPDATE_NIX_ATTRS: ${{ steps.attrs.outputs.attrs }}

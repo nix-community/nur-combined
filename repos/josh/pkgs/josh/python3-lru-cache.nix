@@ -6,13 +6,13 @@
 }:
 python3Packages.buildPythonPackage rec {
   pname = "lru-cache";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "lru-cache-python";
     tag = "v${version}";
-    hash = "sha256-CYBSoBLNa29NPHwgmaYaegMzsJF0Jndik/rYwVTKdVk=";
+    hash = "sha256-p+pQdBBRxWwyymvWUtvcs3dVAuyE+nAzZj1jAi8tKFk=";
   };
 
   pyproject = true;

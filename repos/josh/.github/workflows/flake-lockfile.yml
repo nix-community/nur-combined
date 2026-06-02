@@ -3,18 +3,18 @@ name: Flake
 on: pull_request
 
 permissions:
-  id-token: "write"
   contents: "read"
+  pull-requests: "write"
 
 jobs:
   lockfile-drv-changed:
-    runs-on: ubuntu-24.04
+    runs-on: self-hosted
 
     steps:
       - name: Check changed files
         id: changed
         run: |
-          files=$(gh pr diff "$PR_NUMBER" --name-only)
+          files=$(gh pr diff "$PR_URL" --name-only | xargs -n1 basename | sort -u)
           if [ "$files" = "flake.lock" ]; then
             echo "only_lock_changed=true" | tee -a "$GITHUB_OUTPUT"
           else
@@ -22,24 +22,20 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
 
-      - uses: DeterminateSystems/nix-installer-action@main
-        if: steps.changed.outputs.only_lock_changed == 'true'
-        with:
-          extra-conf: |
-            accept-flake-config = true
-
-      - name: Install nix-flake-diff-packages
+      - name: Install gh-actions-compare-pr-flake-lockfile
         if: steps.changed.outputs.only_lock_changed == 'true'
         run: |
-          nix profile install github:josh/nixbits#nix-flake-diff-packages
+          nix build github:josh/nixbits#gh-actions-compare-pr-flake-lockfile
+          readlink -f result/bin >>"$GITHUB_PATH"
+          rm result
 
       - name: Compare head and base flake packages
         if: steps.changed.outputs.only_lock_changed == 'true'
-        run: |
-          nix-flake-diff-packages --changes "$BASE_FLAKE" "$HEAD_FLAKE"
+        run: gh-actions-compare-pr-flake-lockfile
         env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
           BASE_FLAKE: "github:${{ github.event.pull_request.base.repo.full_name }}/${{ github.event.pull_request.base.sha }}"
           HEAD_FLAKE: "github:${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.sha }}"

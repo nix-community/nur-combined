@@ -1,20 +1,21 @@
 {
   lib,
   fetchFromGitHub,
+  nur,
   python3Packages,
   runCommand,
   nix-update-script,
 }:
 let
-  imdb-plex-sync = python3Packages.buildPythonApplication {
+  imdb-plex-sync = python3Packages.buildPythonApplication rec {
     pname = "imdb-plex-sync";
-    version = "0.1.1-unstable-2025-08-20";
+    version = "0.2.0";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "imdb-plex-sync";
-      rev = "0d277f61df992d6a4fd3f9d4e3e8bbf9d12e0471";
-      hash = "sha256-9lzWuCcTwXN58SSae5G9JNTP4wm3s/8JTgQgMnNKxVQ=";
+      tag = "v${version}";
+      hash = "sha256-nRGxekhGjaxU7uLAvIpB/B6+zx3ztlWkjG4kMg0yRbA=";
     };
 
     pyproject = true;
@@ -25,7 +26,7 @@ let
 
     dependencies = with python3Packages; [
       click
-      polars
+      nur.repos.josh.polars
     ];
 
     meta = {
@@ -44,7 +45,7 @@ imdb-plex-sync.overrideAttrs (
   in
   {
     passthru = previousAttrs.passthru // {
-      updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+      updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
       tests = {
         help =

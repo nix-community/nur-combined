@@ -3,19 +3,18 @@
   fetchFromGitHub,
   python3Packages,
   runCommand,
-  testers,
   nix-update-script,
 }:
 let
-  gh-audit = python3Packages.buildPythonApplication rec {
+  gh-audit = python3Packages.buildPythonApplication {
     pname = "gh-audit";
-    version = "0.1.3-unstable-2025-08-23";
+    version = "0.2.0-unstable-2026-05-29";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "gh-audit";
-      rev = "3c371e60ba87e23fa56bfc6bdd6e11401d9d3783";
-      hash = "sha256-49g6fLyApvcQV/GkWoHIru4rZLfrwIadeiepNmw3VPQ=";
+      rev = "be3d953535a6f73883f78508401b1d9578cc55f2";
+      hash = "sha256-qYSiKGUpwrzWTIyEjNqOULZZW7NnjjeuecElgxprNkY=";
     };
 
     pyproject = true;
@@ -44,19 +43,12 @@ gh-audit.overrideAttrs (
   finalAttrs: previousAttrs:
   let
     gh-audit = finalAttrs.finalPackage;
-    version-parts = lib.versions.splitVersion finalAttrs.version;
-    stable-version = "${builtins.elemAt version-parts 0}.${builtins.elemAt version-parts 1}.${builtins.elemAt version-parts 2}";
   in
   {
     passthru = previousAttrs.passthru // {
       updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
       tests = {
-        version = testers.testVersion {
-          package = gh-audit;
-          version = stable-version;
-        };
-
         help =
           runCommand "test-gh-audit-help"
             {

@@ -1,6 +1,7 @@
 {
   lib,
   fetchFromGitHub,
+  nur,
   python3Packages,
   runCommand,
   nix-update-script,
@@ -8,13 +9,13 @@
 let
   tmdb-index = python3Packages.buildPythonApplication {
     pname = "tmdb-index";
-    version = "1.0.0-unstable-2025-08-25";
+    version = "1.0.0-unstable-2026-05-21";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "tmdb-index";
-      rev = "935ab426e3c6e375ebc547b7b5e98e5f7058bb97";
-      hash = "sha256-I712AQqkszn96a6piEab3you+LjyRkcwZgrDac3plwQ=";
+      rev = "2ddbe04df3881f714d3f55cd54ee0876c03094b2";
+      hash = "sha256-srczM5NgO9ijZxuRHl22g5X3Z/a7FFdc/C5hoTSe2qE=";
     };
 
     pyproject = true;
@@ -25,7 +26,7 @@ let
 
     dependencies = with python3Packages; [
       click
-      polars
+      nur.repos.josh.polars
       tqdm
     ];
 
@@ -35,8 +36,7 @@ let
       license = lib.licenses.mit;
       platforms = lib.platforms.all;
       mainProgram = "tmdb-index";
-      # FIXME: Broken on nixos-25.05
-      broken = python3Packages.polars.version == "1.27.1";
+      broken = lib.strings.versionOlder python3Packages.polars.version "1.30";
     };
   };
 in

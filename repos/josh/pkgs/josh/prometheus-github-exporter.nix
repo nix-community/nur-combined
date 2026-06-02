@@ -8,16 +8,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-github-exporter";
-  version = "1.1.0-unstable-2025-08-11";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "github_exporter";
-    rev = "73cd6346af4b8b49e81b88d2069c5c363a0688f4";
-    hash = "sha256-nJJ6C5l+fx9pj1UKEc0o0rrTCiTUQGC4kiGLp5tTEaQ=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-sg1OAyQVFsX++36MTYbX9IEe3HPdgcFel01LzGVhVyU=";
   };
 
-  vendorHash = "sha256-6JOi1tu9IZhwEikgdSdLvbl9awmYTxqlcSVWHfs7Sqg=";
+  vendorHash = "sha256-cyx09mLPDLTahzGwjQfkR1o9F2CQ8rlreQPyqJe8ERc=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
@@ -31,7 +31,7 @@ buildGoModule (finalAttrs: {
     install -D --mode=0444 --target-directory $out/lib/systemd/system ./systemd/*
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     version = testers.testVersion {

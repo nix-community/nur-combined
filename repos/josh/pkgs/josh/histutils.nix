@@ -4,22 +4,20 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-rustPlatform.buildRustPackage {
-  __structuredAttrs = true;
-
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "histutils";
-  version = "0.1.0-unstable-2025-08-19";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "histutils";
-    rev = "e68440fd5f90274ba626439dc4dc4fe1613949dc";
-    hash = "sha256-MY7rnX4SMMHCrbAkQt/YEfR3La3j8vg/fagZbHvuoGE=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-uA7BJmrvB2mOmURoOqzTNJbFIKcwdQoa5btGX8RiTJI=";
   };
 
-  cargoHash = "sha256-qefQqJmgufN+ituYISGh3W7aZd17xhhZDx/jl2X+v2U=";
+  cargoHash = "sha256-AhQPL6+v9PyS9eGBWl52/EYAFrKSrX2Xbqqf7ODx2To=";
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   meta = {
     description = "Import, export or merge zsh or fish history files.";
@@ -27,4 +25,4 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/josh/histutils";
     license = lib.licenses.mit;
   };
-}
+})

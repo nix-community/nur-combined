@@ -8,16 +8,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-tailscale-exporter";
-  version = "1.0.0-unstable-2025-08-11";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "tailscale_exporter";
-    rev = "f88fc1113a45e185803bcf5c5b51c0ce8e771cec";
-    hash = "sha256-jqY49MvmDOh7IrpveyR8TndCxLpu6PFQUfBRn0vTt10=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-PtYsQyZpq4UCtXwTH3ZCi7bq8TnB+cJ9x7uSEY6ZW9Y=";
   };
 
-  vendorHash = "sha256-JbqQu2WSfnWLulXchEyXKpmLmDlyZ8RMrDSJM4BYWVA=";
+  vendorHash = "sha256-vgbnJjAWAi+4zEutm+dra+athNDt13Z2kRL47hEHcfo=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
@@ -31,7 +31,7 @@ buildGoModule (finalAttrs: {
     install -D --mode=0444 --target-directory $out/lib/systemd/system ./systemd/*
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     version = testers.testVersion {

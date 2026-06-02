@@ -2,17 +2,24 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
   pname = "unpoller-dashboards";
-  version = "2.0.0";
+  version = "0-unstable-2026-01-25";
 
   src = fetchFromGitHub {
     owner = "unpoller";
     repo = "dashboards";
-    rev = "e1b7c4958fd4e5dd70e0db050422c53d2bce4f0f";
-    hash = "sha256-RsUxkVbWwM1hx/x3Z2VQTCbLBNPlX61SzLjJKw6fYiQ=";
+    rev = "0fe7c05d1bf4326b217688316601324d0890493b";
+    hash = "sha256-XLhmOoeTBhKxYs8tLeWy3ng7rLzaCjt0Dhn7pAuL0Vk=";
   };
+
+  outputs = [
+    "out"
+    "influxdb"
+    "prometheus"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -20,10 +27,26 @@ stdenvNoCC.mkDerivation {
     mkdir $out
     cp -R ./v2.0.0/*.json $out/
 
+    mkdir $influxdb
+    for src in ./v2.0.0/*InfluxDB.json; do
+      basename=$(basename "$src")
+      dst=''${basename/ - InfluxDB/}
+      cp "$src" "$influxdb/$dst"
+    done
+    substituteInPlace $influxdb/*.json --replace-warn ' - InfluxDB' ""
+
+    mkdir $prometheus
+    for src in ./v2.0.0/*Prometheus.json; do
+      basename=$(basename "$src")
+      dst=''${basename/ - Prometheus/}
+      cp "$src" "$prometheus/$dst"
+    done
+    substituteInPlace $prometheus/*.json --replace-warn ' - Prometheus' ""
+
     runHook postInstall
   '';
 
-  # passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "UniFi Poller Grafana Dashboards";

@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "socket-vmnet";
-  version = "1.2.1";
+  version = "1.2.2";
 
   __structuredAttrs = true;
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "lima-vm";
     repo = "socket_vmnet";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MbmfCS8gG7XVbG7mVXGen7F/chEIyTvWSoHfwIiF+2s=";
+    hash = "sha256-D5Z4aml82h397ho48HFeXwR6y2XkopFIKjO09jUgFdo=";
   };
 
   nativeBuildInputs = [

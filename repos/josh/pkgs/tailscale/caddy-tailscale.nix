@@ -2,21 +2,21 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  nix-update-script,
   runCommand,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "caddy-tailscale";
-  version = "0-unstable-2025-05-08";
+  version = "0-unstable-2026-01-06";
 
   src = fetchFromGitHub {
     owner = "tailscale";
     repo = "caddy-tailscale";
-    rev = "642f61fea3ccc6b04caf381e2f3bc945aa6af9cc";
-    hash = "sha256-oVywoZH7+FcBPP1l+kKjh+deiI6+H/N//phAuiSC4tc=";
+    rev = "bb080c4414acd465d8be93b4d8f907dbb2ab2544";
+    hash = "sha256-YUHq69igcvFecLLYhnGv2cr24hYA5hrdxH0n53c0EL0=";
   };
 
-  vendorHash = "sha256-eed3AuRhRO66xFg+447xLv7otAHbzAUuhxMcNugZMOA=";
+  vendorHash = "sha256-nA5J6HUg8wxHnNa2o1Zpf9+nXF9b8nq8h/mmpybXKxg=";
 
   env.CGO_ENABLED = 0;
   ldflags = [

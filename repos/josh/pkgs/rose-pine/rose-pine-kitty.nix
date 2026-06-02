@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "rose-pine-kitty";
-  version = "0-unstable-2023-09-02";
+  version = "0-unstable-2025-11-05";
 
   src = fetchFromGitHub {
     owner = "rose-pine";
     repo = "kitty";
-    rev = "788bf1bf1a688dff9bbacbd9e516d83ac7dbd216";
-    hash = "sha256-AcMVkliLGuabZVGkfQPLhfspkaTZxPG5GyuJdzA4uSg=";
+    rev = "efd4f01cb9887feaa7114ff21a887464295d0205";
+    hash = "sha256-GyRyflUVp1BHg6S0emZ6ViALx8L130npnfyZQmdxhfA=";
   };
 
   installPhase = ''
