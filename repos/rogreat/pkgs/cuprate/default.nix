@@ -11,17 +11,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cuprate";
-  version = "0.0.9-unstable-2026-05-27";
+  version = "0.0.9";
 
   src = fetchFromGitHub {
     owner = "Cuprate";
     repo = "cuprate";
-    rev = "e00df6190472f7140d6866d8f2bf3b00786e2f8b";
-    hash = "sha256-SeJka5CwgplmMOAZGldnZq3RcanBxm7Zo5gseeh+koc=";
+    tag = "cuprated-${finalAttrs.version}";
+    hash = "sha256-MEvbeuWDjvKvrU1FRs3mGp+OXMxuzN3UcLOmFnJz9q4=";
     leaveDotGit = true;
   };
 
-  cargoHash = "sha256-eHuLB++eRzGYcx7ZC4n2AdlWdqlO6JZDMPdSTVb+lPg=";
+  cargoHash = "sha256-NDZb/DLNP35EKqsoLz/AallYyeHcm9M+DtNxZzq+PFQ=";
 
   nativeBuildInputs = [
     cmake
