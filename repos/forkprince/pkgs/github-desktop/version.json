@@ -5,15 +5,15 @@
     "repo": "desktop/desktop",
     "skip_prerelease": true
   },
-  "version": "release-3.5.11",
+  "version": "release-3.5.12",
   "platforms": {
     "aarch64-darwin": {
       "file": "GitHub.Desktop-arm64.zip",
-      "hash": "sha256-s8BgxOUykxsvgRqC87HEoZHoKhHoQQv5UJdY60g92bU="
+      "hash": "sha256-nq/R6gmauDrXyoK4BYDn685UVXMdPtfUfOpt42FSxYk="
     },
     "x86_64-darwin": {
       "file": "GitHub.Desktop-x64.zip",
-      "hash": "sha256-8CAjREjZBHmmg1RAxTtGETysq9OZBGPgASNpeifzyK0="
+      "hash": "sha256-ZLvVQT/8y5KilZRmI2WE/JIDtfPuVl9FYCqvLZ38dkM="
     }
   }
 }
