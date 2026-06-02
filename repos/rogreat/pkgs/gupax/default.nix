@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "gupax-io";
     repo = "gupax";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BBFovEZwjZNcC8eEnp3IgQf70O1QCJ+tdwxHk+vUp1E=";
+    hash = "sha256-LEVJI3AWrr85g+X0Xt1uuvD1AtXB9UCHiacp4i0egP0=";
   };
 
   cargoHash = "sha256-7Kew11N/rakHLhKBu+BUM3f4AP9xDZl1xARpbyqHCFY=";
