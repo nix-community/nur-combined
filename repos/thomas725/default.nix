@@ -13,4 +13,5 @@ rec {
   claude-desktop = pkgs.callPackage ./pkgs/claude-desktop { };
   claude-desktop-source = pkgs.callPackage ./pkgs/claude-desktop/build-from-source.nix { };
   claw = pkgs.callPackage ./pkgs/claw { };
+  pi = pkgs.callPackage ./pkgs/pi { };
 }

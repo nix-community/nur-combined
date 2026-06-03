@@ -47,23 +47,16 @@ stdenv.mkDerivation {
 
   # Build phase: install dependencies and build AppImage
   buildPhase = ''
-    set -x  # Verbose output for debugging
+    set -ex
 
-    # Install dependencies with timeout and verbose output
     echo "Installing npm dependencies..."
-    timeout 300 npm install --no-save --no-audit --no-fund 2>&1 || true
-
-    echo "Verifying npm install completed..."
-    if [ ! -d node_modules ]; then
-      echo "ERROR: node_modules directory not created"
-      exit 1
-    fi
+    npm install --no-save --no-audit --no-fund --prefer-offline < /dev/null
 
     echo "Building AppImage with electron-builder..."
-    timeout 600 npm run build-appimage -- --publish never || true
+    npm run build-appimage -- --publish never < /dev/null
 
-    echo "Checking for output..."
-    ls -lah dist/ || echo "dist/ directory not found"
+    echo "Verifying build output..."
+    ls -lah dist/
   '';
 
   installPhase = ''
