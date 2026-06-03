@@ -7,7 +7,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.extenddb) pname version src;
 
-  cargoHash = "sha256-m0sC1oK1cRaSVyZyp532PkC5/CkZN80Pk42krWDLNB0=";
+  cargoHash = "sha256-QRLKwuTSKnOmTXmP00y3rmxKqqT80UIUNRXCDSDjK24=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

@@ -315,12 +315,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.1.40";
+    version = "v7.1.44";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.1.40";
-      hash = "sha256-6BgdZ7HR9SazqITzMsL3KwqNR44ErS57pnn4gfGHcpE=";
+      tag = "v7.1.44";
+      hash = "sha256-Dls6P4+f1+RclU10LlQDnD/R0JayyldNX2UurQus1Zw=";
     };
   };
   cockpy = {
@@ -348,10 +348,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.31.2";
+    version = "0.32.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.31.2.tgz";
-      hash = "sha256-1TxUHQECTE5Qwou7LXHr8H3/lUbz5qXSquKqFJfgEKc=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.32.1.tgz";
+      hash = "sha256-MCA4H2vgrSW1LMKiz9UfY1UuGHOMAKVOHKoRO3/PutE=";
     };
   };
   comp128 = {
@@ -591,10 +591,10 @@
   };
   drission-get = {
     pname = "drission-get";
-    version = "1.1.0";
+    version = "1.2.0";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/d/drissionget/drissionget-1.1.0.tar.gz";
-      hash = "sha256-efcvUoYMuG4zyAroeE1fakrtlV2ToTRQHgGnuwJU7I8=";
+      url = "https://pypi.org/packages/source/d/drissionget/drissionget-1.2.0.tar.gz";
+      hash = "sha256-W1wV3oAlIkyqYR2PZDysLhIq8gCj79VpVeZcySlSGi4=";
     };
   };
   drission-page = {
@@ -719,12 +719,12 @@
   };
   extenddb = {
     pname = "extenddb";
-    version = "v0.1.0";
+    version = "v0.1.1";
     src = fetchFromGitHub {
       owner = "ExtendDB";
       repo = "extenddb";
-      tag = "v0.1.0";
-      hash = "sha256-edM1kZBlHgh/zTT4NN+8TLBXpoC6box+wplmbX1Eg24=";
+      tag = "v0.1.1";
+      hash = "sha256-cJ9ZkJ/1yJmbzhSC+XV2LS1jk/mOh5u+fUOP5BjTS3I=";
     };
   };
   fake-ollama = {
@@ -1293,12 +1293,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9484";
+    version = "b9496";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9484";
-      hash = "sha256-6ScHEDTVELr1Ix01FWK4A1qpG0N4LtJvsZhfSpSzC1g=";
+      tag = "b9496";
+      hash = "sha256-6gBrekH0O5s4+40FrFVoqp7EQWgJPbwY6PnKRjqJEac=";
     };
   };
   loralib = {
@@ -1443,13 +1443,13 @@
   };
   nginx-auth-jwt = {
     pname = "nginx-auth-jwt";
-    version = "0.13.1";
+    version = "0.14.0";
     src = fetchFromGitHub {
       owner = "kjdev";
       repo = "nginx-auth-jwt";
-      tag = "0.13.1";
+      tag = "0.14.0";
       fetchSubmodules = true;
-      hash = "sha256-i8uPUXnfysj0gmXBQ9g1IRrYkW0+Gu8YPPBDdyDC2lY=";
+      hash = "sha256-hxaWQtIOPMPoqZhQieelM+gfC3l+4IscVhIHIXeHKFo=";
     };
   };
   nginx-module-geoip2 = {
@@ -1777,14 +1777,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "8e49c7c0eda815d3ada171831876a1c14c493026";
+    version = "8ee23b1de486a6c45285195377cb048afeba35a3";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "8e49c7c0eda815d3ada171831876a1c14c493026";
-      hash = "sha256-tqY+ujl8bZ0RrM9nO2pRpOdhYtZIkRzFOsrtdIBMQXU=";
+      rev = "8ee23b1de486a6c45285195377cb048afeba35a3";
+      hash = "sha256-DuuEM3o3sXEIVNU1C2NynENHpC6wv6hqwZ9w4jAmdgg=";
     };
-    date = "2026-06-02";
+    date = "2026-06-03";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -2045,14 +2045,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "04dcf953f8527fb6207b2bdbafd2e9a7492bf348";
+    version = "476bb816a0b2289e65a357085e36c501682f17b1";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "04dcf953f8527fb6207b2bdbafd2e9a7492bf348";
-      hash = "sha256-ScVLxDwyi/Mrcxp7kOxJzWglp8JfLlSMfn9b5gGoVDY=";
+      rev = "476bb816a0b2289e65a357085e36c501682f17b1";
+      hash = "sha256-x+YTjwllDy96qmmzhW55XPqvfKev9ruQ/1bfq8xjeqM=";
     };
-    date = "2026-06-01";
+    date = "2026-06-03";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2103,14 +2103,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "67ab631168dd786631b9643f1d10757cedb7d0be";
+    version = "94615933eb96bb6ea83989339dc3e49f0efca0ba";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "67ab631168dd786631b9643f1d10757cedb7d0be";
-      hash = "sha256-aOZMJbmfPY1GTlU/ChNXjcYJ28Gsn6f1F60hLEHjr1I=";
+      rev = "94615933eb96bb6ea83989339dc3e49f0efca0ba";
+      hash = "sha256-414PXol1wqMAm9Q59DilGpv69uM4vzWxsKEFv9ZNlwg=";
     };
-    date = "2026-06-02";
+    date = "2026-06-03";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2352,15 +2352,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a028fc05396b46cf5eb61930fb3b0feaf5e68bea";
+    version = "717e63a9738d9d2bf60da40167f30f02aff0ac48";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a028fc05396b46cf5eb61930fb3b0feaf5e68bea";
+      rev = "717e63a9738d9d2bf60da40167f30f02aff0ac48";
       fetchSubmodules = true;
-      hash = "sha256-PILSq2bCzjF1Hufw3KglNkW+uYqO8x1PfPBmnwKBnRo=";
+      hash = "sha256-gWnXmlrIFOOQ+xkanjupYJw7gfl2DJY77E22qrERdmg=";
     };
-    date = "2026-06-02";
+    date = "2026-06-03";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
