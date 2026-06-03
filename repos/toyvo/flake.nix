@@ -46,7 +46,7 @@
     mac-app-util.url = "github:hraban/mac-app-util";
     nh.url = "github:toyvo/nh";
     odysseus = {
-      url = "github:ToyVo/odysseus/feat-add-nix-darwin";
+      url = "github:ToyVo/odysseus/feat-add-modules";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     nix-darwin = {
