@@ -14,20 +14,7 @@
   python3,
   pkg-config,
   alsa-lib,
-  ffmpeg,
   libclang,
-  bzip2,
-  gmp,
-  xz,
-  lame,
-  libtheora,
-  libogg,
-  xvidcore,
-  soxr,
-  libvdpau,
-  libx11,
-  openapv,
-  openssl,
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -41,14 +28,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260517";
+  version = "1.0.0-20260604";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "1eddd07d5c53e2ad27d0fae571b662f500dafb22"; # No releases yet
+    rev = "f396e11371515f73b07e97b760fff21a2a947ad4"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-IxpofLyIccKYE0CscuHpxeIBPVLKk8QPMJRHVwZLRXw=";
+    hash = "sha256-zAd71lD8G6b/MCOWM1HxFakI3VnQ4SlSHLgAhP8eJnI=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -59,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 3;
-    hash = "sha256-QrXGDRCeZP/UO9o1ASwWW6hh95HHn9hyDHruxpAutPI=";
+    hash = "sha256-f76umaMZwZmf42w7RNjI52BGmNuy1GcquZ++nG122S4=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -68,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-AsuPQ+cgWU0c+6piczE57/weItENEJRmne6JPffuc2o=";
+    hash = "sha256-DTZVRcO/yWGqWA/sqbYdQjwMNJkKSaBFsXooi+sKO1A=";
   };
 
   nativeBuildInputs = [
@@ -82,47 +69,24 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
     copyDesktopItems
     pkg-config
-    alsa-lib
-    ffmpeg
     libclang
-    stdenv.cc
     autoPatchelfHook
   ];
 
-
   buildInputs = [
-    openssl
-    ffmpeg
-    bzip2
-    gmp
-    xz
-    lame
-    libtheora
-    libogg
-    xvidcore
-    soxr
-    libvdpau
-    libx11
-    openapv
+    alsa-lib
   ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-    LIBCLANG_PATH="${libclang.lib}/lib"; # What is this for?
-    BINDGEN_EXTRA_CLANG_ARGS = "-I${stdenv.cc.libc.dev}/include";
+    LIBCLANG_PATH="${libclang.lib}/lib"; # Or cargo wouldn't find libclang.so
+    BINDGEN_EXTRA_CLANG_ARGS = "-I${stdenv.cc.libc.dev}/include"; # to provide standard headers for bindgen
   };
 
   postPatch = ''
     # Workaround for https://github.com/electron/electron/issues/31121
     substituteInPlace electron/main/utils/nativeLoader.ts \
       --replace-fail 'process.resourcesPath' "'$out/share/splayer-next/resources'"
-
-    # ffmpeg-next static feature needs all transitive deps' static libs,
-    # which nixpkgs ffmpeg doesn't fully provide. Remove static → dynamic link.
-    substituteInPlace native/audio-engine/Cargo.toml \
-      --replace-fail '"static",' ""
-
-
   '';
 
   buildPhase = ''
@@ -170,10 +134,6 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --set-default ELECTRON_IS_DEV 0 \
-      --prefix LD_PRELOAD : "${ffmpeg.lib}/lib/libavformat.so" \
-      --prefix LD_PRELOAD : "${ffmpeg.lib}/lib/libavcodec.so" \
-      --prefix LD_PRELOAD : "${ffmpeg.lib}/lib/libavutil.so" \
-      --prefix LD_PRELOAD : "${ffmpeg.lib}/lib/libswresample.so" \
       --inherit-argv0
 
     runHook postInstall
@@ -201,12 +161,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Simple Netease Cloud Music player, Next version";
     homepage = "https://github.com/SPlayer-Dev/SPlayer-Next";
-    license = lib.licenses.agpl3Only; # Inferred from original version. Next version has no visible license.
+    license = lib.licenses.agpl3Only;
     mainProgram = "splayer-next";
     platforms = lib.platforms.linux;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
     ];
   };
-
 })
