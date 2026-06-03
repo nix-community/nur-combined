@@ -2,7 +2,6 @@
 {
   imports = [
     ./aliases
-    ./anki
     ./atuin
     ./bat
     ./bitwarden
