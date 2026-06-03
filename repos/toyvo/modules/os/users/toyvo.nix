@@ -22,6 +22,7 @@ in
   };
 
   config = lib.mkIf cfg.toyvo.enable {
+    programs.fish.enable = true;
     sops.secrets.toyvo_hashed_password.neededForUsers = true;
     users = {
       users = {

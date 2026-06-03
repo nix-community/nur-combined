@@ -54,7 +54,7 @@
     };
     odysseus = {
       enable = true;
-      port = homelab.${config.networking.hostName}.services.odysseus.port;
+      port = homelab.MacMini-M1.services.odysseus.port;
     };
   };
 }
