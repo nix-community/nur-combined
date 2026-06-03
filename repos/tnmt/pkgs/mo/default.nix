@@ -41,9 +41,9 @@ let
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
       pnpm = pnpm_10;
-      fetcherVersion = 2;
+      fetcherVersion = 3;
       sourceRoot = "${src.name}/internal/frontend";
-      hash = "sha256-bjVW04Tm7sy+N690b9JjI4HlVJ9tjla+V16MIpr8nAA=";
+      hash = "sha256-nUYd3UdRUntpKU/o0qhHI8X0rlpFLyQ9W8mnCPcngXM=";
     };
 
     pnpmRoot = "internal/frontend";

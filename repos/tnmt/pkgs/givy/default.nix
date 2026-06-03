@@ -35,8 +35,8 @@ let
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src sourceRoot;
       pnpm = pnpm_10;
-      fetcherVersion = 2;
-      hash = "sha256-DNsOnoRLWJPCarOXHaKR4XyqPyE7PQWykm1cFDLtM/o=";
+      fetcherVersion = 3;
+      hash = "sha256-gTpkBLWIexz4focNnIcfLnowEPLIJ+lc6Qfju8nK58Y=";
     };
 
     buildPhase = ''
