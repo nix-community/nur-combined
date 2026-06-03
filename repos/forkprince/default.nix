@@ -16,7 +16,10 @@
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   equicord = lib.callPackage ./pkgs/equicord {};
+  wg-nord = lib.callPackage ./pkgs/wg-nord {};
   hytale = lib.callPackage ./pkgs/hytale {};
+  mcman = lib.callPackage ./pkgs/mcman {};
+  sfw = lib.callPackage ./pkgs/sfw {};
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
   bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
@@ -36,7 +39,6 @@
   hyperkey = lib.callPackage ./pkgs/hyperkey {};
   finetune = lib.callPackage ./pkgs/finetune {};
   open-emu = lib.callPackage ./pkgs/open-emu {};
-  wg-nord = lib.callPackage ./pkgs/wg-nord {};
   roblox = lib.callPackage ./pkgs/roblox {};
   figura = lib.callPackage ./pkgs/figura {};
   achico = lib.callPackage ./pkgs/achico {};
@@ -44,7 +46,6 @@
   muxy = lib.callPackage ./pkgs/muxy {};
   blip = lib.callPackage ./pkgs/blip {};
   clop = lib.callPackage ./pkgs/clop {};
-  sfw = lib.callPackage ./pkgs/sfw {};
 
   github-desktop = lib.callPackage ./pkgs/github-desktop {};
   sublime-text = lib.callPackage ./pkgs/sublime-text {};
