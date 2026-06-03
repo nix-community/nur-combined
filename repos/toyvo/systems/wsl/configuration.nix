@@ -40,10 +40,6 @@
     networking.enable = true;
     system.enable = true;
     boot.enable = true;
-    shells.enable = true;
-    tools.enable = true;
-    session.enable = true;
-    sops-home.enable = true;
   };
   userPresets.toyvo.enable = true;
   wsl.enable = true;
