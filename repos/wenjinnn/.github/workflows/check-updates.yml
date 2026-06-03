@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Check for upstream updates
       id: check
@@ -32,7 +32,7 @@ jobs:
 
     - name: Create issue if updates found
       if: steps.check.outputs.updates_found == 'true'
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         script: |
           const fs = require('fs');
