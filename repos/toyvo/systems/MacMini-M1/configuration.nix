@@ -28,7 +28,7 @@
     darwin.bash.enable = true;
     darwin.terminfo.enable = true;
     gui.enable = true;
-    console.enable = true;
+    system.enable = true;
     dev.enable = true;
   };
   userPresets.toyvo.enable = true;

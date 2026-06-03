@@ -1261,11 +1261,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780500293,
-        "narHash": "sha256-PBn3G04h6xNDPrbNEKzLXlIDjdhDh3nKzn1gyS3RJYk=",
+        "lastModified": 1780505183,
+        "narHash": "sha256-nBuov71jx+CfVM56M9k9HoK1QY8EA7zJpnejGt6JKC4=",
         "owner": "ToyVo",
         "repo": "odysseus",
-        "rev": "85ca6c0facf409d6ea353d131e21867e0d29ca09",
+        "rev": "17f0a37259bb9b7f9f3f4ac0dfaa3678f8068922",
         "type": "github"
       },
       "original": {
