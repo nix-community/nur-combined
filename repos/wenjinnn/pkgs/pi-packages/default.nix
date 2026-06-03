@@ -211,6 +211,16 @@ let
       homepage = "https://pi.dev/packages/pi-lens";
     };
 
+    # ── MCP Extensions ─────────────────────────────────────────────────────────
+
+    "context-mode" = mkPackage "context-mode" {
+      version = "1.0.162";
+      hash = "sha256-+JlqjuxMhLysVJ80NoJET8loNX7sCgSYCAjx3OcxSKA=";
+      npmDepsHash = "sha256-udcrbJD1K/RBVn0r2ixoqMVEkaQwj42C7nCt092BAjI=";
+      description = "MCP plugin that saves 98% of your context window with sandboxed code execution and FTS5 knowledge base";
+      homepage = "https://github.com/mksglu/context-mode";
+    };
+
     # ── TODO: Add more packages ──────────────────────────────────────────────
     # Use the update script to get hashes:
     #   ./pkgs/pi-packages/scripts/update-pi-package.sh <package-name> [version]

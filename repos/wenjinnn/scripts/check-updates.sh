@@ -184,6 +184,7 @@ if [[ -f "$PIPACKAGES_FILE" ]]; then
     ["pi-weixinbot"]="huang-x-h/pi-weixinbot"
     ["@aliou/pi-guardrails"]="aliou/pi-guardrails"
     ["pi-lens"]="pi-dev/pi-lens"
+    ["context-mode"]="mksglu/context-mode"
   )
 
   for package in "${!PACKAGE_SOURCES[@]}"; do
