@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/deniz-blue/mcman";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [Prinky];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     mainProgram = "mcman";
   };
 }
