@@ -1,22 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.my.home.terminal.termite;
-  inherit (config.my.home.terminal) colors;
+  cfg = config.my.home.terminal;
 in
 {
-  options.my.home.terminal = with lib; {
-    default = mkOption {
-      type = with types; nullOr (enum [ "termite" ]);
-    };
-
-    termite = {
-      enable = mkEnableOption "termite" // {
-        default = config.my.home.terminal.default == "termite";
-      };
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.program == "termite") {
     programs.termite = {
       enable = true;
 
@@ -37,11 +24,11 @@ in
 
 
       # Colors
-      backgroundColor = colors.background;
-      cursorColor = colors.cursor;
-      foregroundColor = colors.foreground;
-      foregroundBoldColor = colors.foregroundBold;
-      colorsExtra = with colors; ''
+      backgroundColor = cfg.colors.background;
+      cursorColor = cfg.colors.cursor;
+      foregroundColor = cfg.colors.foreground;
+      foregroundBoldColor = cfg.colors.foregroundBold;
+      colorsExtra = with cfg.colors; ''
         # Normal colors
         color0 = ${black}
         color1 = ${red}
