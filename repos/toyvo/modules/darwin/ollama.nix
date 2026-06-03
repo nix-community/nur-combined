@@ -67,23 +67,29 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
     launchd.daemons.ollama = {
+      # Use the `command` form so nix-darwin wraps it with `wait4path /nix/store`.
+      # A bare serviceConfig.ProgramArguments pointing into /nix/store fails to
+      # exec at early boot before the Nix store is mounted (launchd EX_CONFIG /
+      # exit 78), which throttles the daemon out so it never serves.
+      command = "${lib.getExe cfg.package} serve";
       serviceConfig = {
         Label = "ollama";
         StandardOutPath = "${cfg.home}/launchd.stdout.log";
         StandardErrorPath = "${cfg.home}/launchd.stderr.log";
-        EnvironmentVariables = cfg.environmentVariables // {
+        EnvironmentVariables = {
+          # Tunable defaults — overridable per host via `environmentVariables`.
+          OLLAMA_DEBUG = "1";
+          OLLAMA_CONTEXT_LENGTH = "8192"; # 32000 is heavy for an 8 GB box
+          OLLAMA_FLASH_ATTENTION = "1";
+          OLLAMA_KEEP_ALIVE = "5m"; # don't pin models resident for 24h
+        }
+        // cfg.environmentVariables
+        // {
+          # Derived from the options — authoritative, not overridable.
           HOME = cfg.home;
           OLLAMA_MODELS = cfg.models;
           OLLAMA_HOST = "${cfg.host}:${toString cfg.port}";
-          OLLAMA_DEBUG = "1";
-          OLLAMA_CONTEXT_LENGTH = "32000";
-          OLLAMA_FLASH_ATTENTION = "1";
-          OLLAMA_KEEP_ALIVE = "24h";
         };
-        ProgramArguments = [
-          "${lib.getExe cfg.package}"
-          "serve"
-        ];
         UserName = config.system.primaryUser;
         GroupName = "staff";
         ExitTimeOut = 30;
