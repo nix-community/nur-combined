@@ -4,6 +4,8 @@
   fetchFromGitHub,
   xcursorgen,
   inkscape,
+  makeFontsConf,
+  glib,
   colors ? {
     base = "3c3836"; # black
     main = "d79921"; # yellow
@@ -21,14 +23,27 @@ stdenvNoCC.mkDerivation {
     rev = "940a5d30e52f8c827fa249d2bbcc4af889534888";
     hash = "sha256-GR+d+jrbeIGpqal5krx83PxuQto2PQTO3unQ+jaJf6s=";
   };
+
   buildInputs = [
     xcursorgen
     inkscape
+    glib
   ];
+
+  postPatch = ''
+    patchShebangs .
+  '';
+
+  preBuild = ''
+    # Shut up inkscape's warnings about creating profile directory
+    export HOME="$TMPDIR"
+  '';
+
+  # Fontconfig error: Cannot load default config file: No such file: (null)
+  env.FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
   buildPhase = ''
     export HOME=$(pwd)
-    unset DISPLAY
       SRC=$PWD/src
       cd "$SRC"
       cp -r svg custom
@@ -38,10 +53,10 @@ stdenvNoCC.mkDerivation {
 
     # Create function from buildall.sh
     cd "$SRC"; mkdir -p x1 x1_25 x1_5 x2; cd "$SRC"/custom
-    	find . -name "*.svg" -type f -exec sh -c 'inkscape -o "../x1/''${0%.svg}.png" -w 32 -h 32 $0' {} \;
-    	find . -name "*.svg" -type f -exec sh -c 'inkscape -o "../x1_25/''${0%.svg}.png" -w 40 -w 40 $0' {} \;
-    	find . -name "*.svg" -type f -exec sh -c 'inkscape -o "../x1_5/''${0%.svg}.png" -w 48 -w 48 $0' {} \;
-    	find . -name "*.svg" -type f -exec sh -c 'inkscape -o "../x2/''${0%.svg}.png" -w 64 -w 64 $0' {} \;
+    	find . -name "*.svg" -type f -exec sh -c 'inkscape --batch-process -o "../x1/''${0%.svg}.png" -w 32 -h 32 $0 1>/dev/null 2>&1' {} \;
+    	find . -name "*.svg" -type f -exec sh -c 'inkscape --batch-process -o "../x1_25/''${0%.svg}.png" -w 40 -w 40 $0 1>/dev/null 2>&1' {} \;
+    	find . -name "*.svg" -type f -exec sh -c 'inkscape --batch-process -o "../x1_5/''${0%.svg}.png" -w 48 -w 48 $0 1>/dev/null 2>&1' {} \;
+    	find . -name "*.svg" -type f -exec sh -c 'inkscape --batch-process -o "../x2/''${0%.svg}.png" -w 64 -w 64 $0 1>/dev/null 2>&1' {} \;
     	cd "$SRC"; OUTPUT="$BUILD"/cursors ALIASES="$SRC"/cursorList
 
     	if [ ! -d "$BUILD" ]; then mkdir "$BUILD"; fi
@@ -89,6 +104,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/TeddyBearKilla/Afterglow-Cursors-Recolored";
     platforms = lib.platforms.all;
     license = lib.licenses.gpl3Plus;
-	maintainers = [];
+    maintainers = [ ];
   };
 }
