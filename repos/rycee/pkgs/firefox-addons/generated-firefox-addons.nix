@@ -117,10 +117,10 @@
     };
     "adblocker-ultimate" = buildMozillaXpiAddon {
       pname = "adblocker-ultimate";
-      version = "4.2.6";
+      version = "4.2.9";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4774157/adblocker_ultimate-4.2.6.xpi";
-      sha256 = "4a3c4de6f47f3572050095abe77b8c3cca9afc758ae7b7fe9a07854c18d9a123";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4824302/adblocker_ultimate-4.2.9.xpi";
+      sha256 = "0f3f8355f8b3642ca0c1ec6b445bf06a264edabd2b3a0b4cde450c5b40a14c0a";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -1872,10 +1872,10 @@
     };
     "chrome-mask" = buildMozillaXpiAddon {
       pname = "chrome-mask";
-      version = "8.0.0";
+      version = "9.0.0";
       addonId = "chrome-mask@overengineer.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618461/chrome_mask-8.0.0.xpi";
-      sha256 = "a088564677248e9ab004ed91d072c7a38cf1d231710efa0bf737bda791a22170";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4822042/chrome_mask-9.0.0.xpi";
+      sha256 = "292dc0ccd360a6893ea34f3b70457ce29516760d64a3ae2c9d61f2687ec7ac7c";
       meta = with lib;
       {
         homepage = "https://github.com/skyschub/chrome-mask";
@@ -3058,10 +3058,10 @@
     };
     "dearrow" = buildMozillaXpiAddon {
       pname = "dearrow";
-      version = "2.3.7";
+      version = "2.3.8";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4820758/dearrow-2.3.7.xpi";
-      sha256 = "ffb71bfdbb1280891aa9af9685b7d877585daf5690b3987f3392c5a36a8dbcab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4826435/dearrow-2.3.8.xpi";
+      sha256 = "0f5945b833f0629330357979b8dd004bb099923dc95907bddd727b8b974ad6fa";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -3629,10 +3629,10 @@
     };
     "duckduckgo-privacy-essentials" = buildMozillaXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2026.4.28";
+      version = "2026.5.22";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4785961/duckduckgo_for_firefox-2026.4.28.xpi";
-      sha256 = "24513500e5f8d21e13e31274ef55f80b8971d4f0244bf7a1956e66392894b97f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4822648/duckduckgo_for_firefox-2026.5.22.xpi";
+      sha256 = "8f7e5834248beca062ad7501edcaec9e1b367be260729520d73b4bbbb086e356";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -6767,10 +6767,10 @@
     };
     "impulse-blocker" = buildMozillaXpiAddon {
       pname = "impulse-blocker";
-      version = "1.2.0";
+      version = "1.3.0";
       addonId = "{3a7ab27c-6a20-4d24-9fda-5e38f8992556}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3710342/impulse_blocker-1.2.0.xpi";
-      sha256 = "b6be12a475fdc57197ed753a75cdde9143d3e0f6ddbca07a02cc8ed87decd27a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4825127/impulse_blocker-1.3.0.xpi";
+      sha256 = "1525ceb64ce36600ba07fa926e42abb905838c8b78706f52b32dc93e7fbac627";
       meta = with lib;
       {
         homepage = "https://github.com/raicem/impulse-blocker";
@@ -10026,10 +10026,10 @@
     };
     "momentumdash" = buildMozillaXpiAddon {
       pname = "momentumdash";
-      version = "2.26.5";
+      version = "2.26.7";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4774848/momentumdash-2.26.5.xpi";
-      sha256 = "0019bbc9bdf635e1d294dd048082bd92ca6c32096a2e5c213ab953627fa4c02e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4822138/momentumdash-2.26.7.xpi";
+      sha256 = "62227bfc0e8440b84c81ef1cbe1405c5f8359d63d13c3f325bf44545cdf67133";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -13188,10 +13188,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.3.0.26147";
+      version = "0.3.0.26149";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4823678/ruffle_rs-0.3.0.26147.xpi";
-      sha256 = "52a5f0e76373824189d9ee0495a8e225a45cc6a556150d085dce7d28b4139dd3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4826629/ruffle_rs-0.3.0.26149.xpi";
+      sha256 = "407743eb79474a9a18469af47818a81f4ebe124fa4b410e6125bc8d1d12cdf7e";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
