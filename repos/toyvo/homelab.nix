@@ -384,12 +384,22 @@
     mac = "4c:20:b8:de:e4:01";
     # Wifi
     # mac = "4c:20:b8:df:d1:5b";
-    services.ollama = {
-      port = 11434;
-      category = "MacMini";
-      displayName = "Ollama";
-      description = "Ollama API";
-      icon = "sh-ollama";
+    services = {
+      ollama = {
+        port = 11434;
+        category = "MacMini";
+        displayName = "Ollama";
+        description = "Ollama API";
+        icon = "sh-ollama";
+      };
+      odysseus = {
+        port = 7000;
+        subdomain = "ody";
+        category = "Nas";
+        displayName = "Odysseus";
+        description = "AI Assistant";
+        icon = "sh-odysseus";
+      };
     };
   };
   MacMini-Intel = {

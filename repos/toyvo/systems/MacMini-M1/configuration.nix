@@ -4,6 +4,7 @@
   homelab,
   stablePkgs,
   unstablePkgs,
+  config,
   ...
 }:
 {
@@ -15,6 +16,7 @@
     inputs.nix-index-database.darwinModules.nix-index
     inputs.nur.modules.darwin.default
     inputs.sops-nix.darwinModules.sops
+    inputs.odysseus.darwinModules.default
   ];
   nixcfg = {
     nix.enable = true;
@@ -43,11 +45,16 @@
       ./home.nix
     ];
   };
-  services.ollama = {
-    enable = true;
-    host = "0.0.0.0";
-    port = homelab.MacMini-M1.services.ollama.port;
-    # temporary until 1.20.2 lands in nixos-unstable
-    package = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin.ollama;
+  services = {
+    ollama = {
+      enable = true;
+      host = "0.0.0.0";
+      port = homelab.MacMini-M1.services.ollama.port;
+      package = unstablePkgs.ollama;
+    };
+    odysseus = {
+      enable = true;
+      port = homelab.${config.networking.hostName}.services.odysseus.port;
+    };
   };
 }
