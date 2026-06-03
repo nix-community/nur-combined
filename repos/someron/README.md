@@ -97,6 +97,13 @@ The build for this package is really hacky. Use the version included in nixpkgs.
 - License: MIT
 - Attribute: `nur.repos.someron.pkgs.beszel-provisioner`
 
+#### simple-llm-router
+- Source: https://codeberg.org/someron/simple-llm-router
+- Description: A simple LLM-proxy that uses OpenRouter-Style model ids to address models from multiple providers.
+- Current Version: v1.0.0 *(2026-06-03)*
+- License: MIT
+- Attribute: `nur.repos.someron.pkgs.simple-llm-router`
+
 #### carddav-immich-bday-sync
 - Source: [in this repo](pkgs/carddav-immich-bday-sync/src/)
 - Description: Sync the birthdays of your contacts on a CardDAV server to your Immich instance.
