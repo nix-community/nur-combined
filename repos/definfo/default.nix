@@ -18,7 +18,6 @@
 
   cli-proxy-api = pkgs.callPackage ./pkgs/cli-proxy-api { };
   dnsmasq-china-list_smartdns = pkgs.callPackage ./pkgs/dnsmasq-china-list_smartdns { };
-  kikoplay = pkgs.callPackage ./pkgs/kikoplay { };
   nsub = pkgs.callPackage ./pkgs/nsub { };
   sarasa-term-sc-nerd = pkgs.callPackage ./pkgs/sarasa-term-sc-nerd { };
   waylrc = pkgs.callPackage ./pkgs/waylrc { };
