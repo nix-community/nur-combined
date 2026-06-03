@@ -1,6 +1,5 @@
 # NOTE: Based on the official flake (https://github.com/deniz-blue/mcman/blob/main/flake.nix)
 {
-  nix-update-script,
   fetchFromGitHub,
   rustPlatform,
   pkg-config,
@@ -35,8 +34,6 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     cp -r $src/res $out/res
   '';
-
-  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Powerful Minecraft Server Manager CLI";
