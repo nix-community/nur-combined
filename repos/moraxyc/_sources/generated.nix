@@ -65,22 +65,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "3ee2634cba4e55fbcce3306ccc0eaee9536afc16";
+    version = "503333e16bc535011c3441b0c33da5f1ffca98f4";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "3ee2634cba4e55fbcce3306ccc0eaee9536afc16";
+      rev = "503333e16bc535011c3441b0c33da5f1ffca98f4";
       fetchSubmodules = false;
-      sha256 = "sha256-TZ3fi1PnPN6Iey10cHbajeAcmvFQP7JHxlPLkw8J278=";
+      sha256 = "sha256-XdeZo2JcjUiTZqOpORdWf3J/TCSxJtnmWmbNpOAEJEU=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-TZ3fi1PnPN6Iey10cHbajeAcmvFQP7JHxlPLkw8J278=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-TZ3fi1PnPN6Iey10cHbajeAcmvFQP7JHxlPLkw8J278=/web/package-lock.json";
+      "web/package.json" = ./. + "/sha256-XdeZo2JcjUiTZqOpORdWf3J_TCSxJtnmWmbNpOAEJEU=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-XdeZo2JcjUiTZqOpORdWf3J_TCSxJtnmWmbNpOAEJEU=/web/package-lock.json";
     };date = "2026-06-02";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.9.1";
+    version = "v1.10.0";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -493,14 +493,14 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "c1525566583b67d054b9331ce869bf68d2776f19";
+    version = "01ee6d4168b045aa06d34b6be2592d57aba3b65e";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "c1525566583b67d054b9331ce869bf68d2776f19";
+      rev = "01ee6d4168b045aa06d34b6be2592d57aba3b65e";
       fetchSubmodules = false;
-      sha256 = "sha256-4tSIT5z9JknrotFrPj0V9yV+MwiMENmWkC9cirfZixI=";
+      sha256 = "sha256-JCFeuptkjnB56eEM8h8bIGFbgr3kHnskfBObSdhS4m4=";
     };
-    date = "2026-06-01";
+    date = "2026-06-02";
   };
 }

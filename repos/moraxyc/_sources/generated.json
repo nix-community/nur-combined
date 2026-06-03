@@ -101,8 +101,8 @@
         "cargoLock": null,
         "date": "2026-06-02",
         "extract": {
-            "web/package-lock.json": "sha256-TZ3fi1PnPN6Iey10cHbajeAcmvFQP7JHxlPLkw8J278=/web/package-lock.json",
-            "web/package.json": "sha256-TZ3fi1PnPN6Iey10cHbajeAcmvFQP7JHxlPLkw8J278=/web/package.json"
+            "web/package-lock.json": "sha256-XdeZo2JcjUiTZqOpORdWf3J_TCSxJtnmWmbNpOAEJEU=/web/package-lock.json",
+            "web/package.json": "sha256-XdeZo2JcjUiTZqOpORdWf3J_TCSxJtnmWmbNpOAEJEU=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -114,12 +114,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "3ee2634cba4e55fbcce3306ccc0eaee9536afc16",
-            "sha256": "sha256-TZ3fi1PnPN6Iey10cHbajeAcmvFQP7JHxlPLkw8J278=",
+            "rev": "503333e16bc535011c3441b0c33da5f1ffca98f4",
+            "sha256": "sha256-XdeZo2JcjUiTZqOpORdWf3J/TCSxJtnmWmbNpOAEJEU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3ee2634cba4e55fbcce3306ccc0eaee9536afc16"
+        "version": "503333e16bc535011c3441b0c33da5f1ffca98f4"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -134,7 +134,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v1.9.1"
+        "version": "v1.10.0"
     },
     "cronet-go": {
         "cargoLock": null,
@@ -859,7 +859,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-06-01",
+        "date": "2026-06-02",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -871,11 +871,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "c1525566583b67d054b9331ce869bf68d2776f19",
-            "sha256": "sha256-4tSIT5z9JknrotFrPj0V9yV+MwiMENmWkC9cirfZixI=",
+            "rev": "01ee6d4168b045aa06d34b6be2592d57aba3b65e",
+            "sha256": "sha256-JCFeuptkjnB56eEM8h8bIGFbgr3kHnskfBObSdhS4m4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c1525566583b67d054b9331ce869bf68d2776f19"
+        "version": "01ee6d4168b045aa06d34b6be2592d57aba3b65e"
     }
 }
