@@ -2,9 +2,17 @@
   attic-client,
   fetchFromGitHub,
   rustPlatform,
-}:
+  ...
+}@args:
 
-attic-client.overrideAttrs (
+let
+  overrideArgs = builtins.removeAttrs args [
+    "attic-client"
+    "fetchFromGitHub"
+    "rustPlatform"
+  ];
+in
+(attic-client.override overrideArgs).overrideAttrs (
   finalAttrs: _prevAttrs: {
     src = fetchFromGitHub {
       owner = "XYenon";
