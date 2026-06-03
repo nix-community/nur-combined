@@ -161,7 +161,9 @@ let
           openssl
           curl
         ];
-        nativeBuildInputs = lib.filter (x: !(lib.hasPrefix "npm-" (x.name or ""))) (prev.nativeBuildInputs or [ ]) ++ [ git ];
+        nativeBuildInputs =
+          lib.filter (x: !(lib.hasPrefix "npm-" (x.name or ""))) (prev.nativeBuildInputs or [ ])
+          ++ [ git ];
         postInstall = ''
           if [ -e $out/bin/llama-cli ]; then
             ln -sf $out/bin/llama-cli $out/bin/llama

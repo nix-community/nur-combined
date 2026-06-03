@@ -90,15 +90,16 @@ lib.filesystem.packagesFromDirectoryRecursive {
   */
   # https://github.com/musescore/MuseScore/pull/28073
   # https://github.com/githubwbp1988/MuseScore/tree/alex
-  # audit: https://github.com/musescore/MuseScore/compare/master...githubwbp1988:MuseScore:alex
+  # https://github.com/githubwbp1988/MuseScore/tree/develop
+  # audit: https://github.com/musescore/MuseScore/compare/main...githubwbp1988:MuseScore:develop
   musescore-alex = v3override (
     pkgs.musescore.overrideAttrs (old: {
-      version = "4.6.3-alex-unstable-20251228";
+      version = "4.6.3-alex-unstable-20260417";
       src = pkgs.fetchFromGitHub {
         owner = "githubwbp1988";
         repo = "MuseScore";
-        rev = "399388be12cf369619befae3de3ec852c4d2b07c";
-        hash = "sha256-1NFhA2xgBuml9wzTpTz2Xrn0uPEVXX4zn3mJBh37hMI=";
+        rev = "076b5ccac40cf25ce24f6cd480a6c0eae3311ace";
+        hash = "sha256-VMysCO9LlNX8aiqBZtsseF6224RY20AXJMq8xrjnaR4=";
       };
       patches = [ ];
     })
