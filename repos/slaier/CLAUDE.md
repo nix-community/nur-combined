@@ -49,6 +49,18 @@ Directories prefixed with `_` are skipped during traversal.
 - **ci.nix**: Filters packages for CI — excludes broken, unfree, and `preferLocalBuild` packages.
 - **Secrets**: sops-nix with age key defined in `.sops.yaml`. Secret files live in `secrets/` and are decrypted at build time.
 
+### Hosts
+
+`hosts/local/` contains hardware-specific configuration (AMD CPU/GPU, btrfs with subvolumes, Logitech peripherals, networking with proxy). `hosts/installer/` defines a minimal ISO image.
+
+### CI
+
+GitHub Actions (`.github/workflows/test.yml`) builds the full NixOS system module and checks packages. Uses Cachix for binary caching. Triggers on push to `develop` and pull requests.
+
+### Non-flake entry point
+
+`default.nix` provides NUR compatibility by walking `modules/` for `package.nix`/`packages.nix` files. `ci.nix` filters these into `buildPkgs` and `cachePkgs` (excluding broken, unfree, and `preferLocalBuild` packages).
+
 ### Inputs
 - `nixpkgs/nixos-unstable`, `home-manager/master`, `NUR`, `sops-nix`
 - `niri` (tiling Wayland compositor), `bluetooth-player`

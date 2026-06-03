@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   rtkMD = pkgs.runCommand "claude-rtk-md" { } ''
     mkdir -p $out
@@ -22,10 +27,10 @@ let
         ANTHROPIC_AUTH_TOKEN=$(cat ${key})
         export ANTHROPIC_AUTH_TOKEN
         export ANTHROPIC_BASE_URL=${base};
-        export ANTHROPIC_MODEL=${model};
-        export ANTHROPIC_DEFAULT_HAIKU_MODEL=${haiku};
-        export ANTHROPIC_DEFAULT_SONNET_MODEL=${sonnet};
-        export ANTHROPIC_DEFAULT_OPUS_MODEL=${opus};
+        export ANTHROPIC_MODEL="${model}";
+        export ANTHROPIC_DEFAULT_HAIKU_MODEL="${haiku}";
+        export ANTHROPIC_DEFAULT_SONNET_MODEL="${sonnet}";
+        export ANTHROPIC_DEFAULT_OPUS_MODEL="${opus}";
 
         export CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1
         exec claude --add-dir "${rtkMD}" "$@"
@@ -38,16 +43,16 @@ in
     (mkCluade "mimo" {
       key = config.sops.secrets.anthropic_auth_token.path;
       base = "https://token-plan-cn.xiaomimimo.com/anthropic";
-      model = "mimo-v2.5-pro";
-      haiku = "mimo-v2.5";
-      sonnet = "mimo-v2.5";
+      model = "mimo-v2.5-pro[1m]";
+      haiku = "mimo-v2.5[1m]";
+      sonnet = "mimo-v2.5[1m]";
     })
     (mkCluade "qwen" {
       key = writeText "dummy" "dummy";
       base = "http://127.0.0.1:8080";
-      model = "preset/Qwen3.6-35B-A3B-MTP";
-      haiku = "preset/Qwen3.5-4B-MTP";
-      sonnet = "preset/Qwen3.5-4B-MTP";
+      model = "preset/Qwen3.6-35B-A3B-MTP[256k]";
+      haiku = "preset/Qwen3.5-4B-MTP[128k]";
+      sonnet = "preset/Qwen3.5-4B-MTP[128k]";
     })
   ];
   sops.secrets.anthropic_auth_token = { };
@@ -57,6 +62,10 @@ in
     configDir = "${config.xdg.configHome}/claude";
 
     settings = {
+      statusLine = {
+        type = "command";
+        command = "${lib.getExe pkgs.ccometixline}";
+      };
       hooks = {
         PreToolUse = [
           {
