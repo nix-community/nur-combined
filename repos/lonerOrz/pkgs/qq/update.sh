@@ -3,81 +3,94 @@
 
 set -euo pipefail
 
-# Package metadata
-# https://github.com/TencentQQ/linuxqq
-# QQ 使用多渠道源（macOS/Linux），不遵循标准 GitHub release 模式
-
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$script_dir"
 
-# 回退机制
+# ── 日志函数 ──────────────────────────────────────────────
+log_info()    { echo "[INFO] $*"; }
+log_warn()    { echo "[WARN] $*"; }
+log_success() { echo "[OK]   $*"; }
+log_skip()    { echo "[SKIP] $*"; }
+
+# ── 回退机制 ──────────────────────────────────────────────
 backup="$(mktemp)"
 cp "sources.nix" "$backup" 2>/dev/null || true
-
-rollback() {
-  echo "⚠️  更新失败，回滚 sources.nix"
-  cp "$backup" "sources.nix" 2>/dev/null || true
-}
+rollback() { log_warn "更新失败，回滚 sources.nix"; cp "$backup" "sources.nix" 2>/dev/null || true; }
 trap rollback EXIT
 
-# 工具函数
+# ── 工具函数 ──────────────────────────────────────────────
 
-# Fetch JSON payload from URL
-fetch_payload() {
-    local url="$1"
-    curl -s "$url" | grep -oP 'var params\s*=\s*\K\{[^;]*\}'
+fetch_payload() { curl -s "$1" | grep -oP 'var params\s*=\s*\K\{[^;]*\}'; }
+extract_version() { jq -r .version <<<"$1"; }
+fetch_sri_hash() { "$script_dir/../../.github/script/fetch-sri-hash.sh" "$1"; }
+version_gt() { [[ "$(printf '%s\n%s' "$1" "$2" | sort -V | tail -n1)" == "$1" && "$1" != "$2" ]]; }
+
+get_attr_field() {
+    local attr="$1" field="$2"
+    if [[ -f sources.nix ]]; then
+        sed -n "/${attr} = {/,/};/p" sources.nix \
+            | grep "${field} =" \
+            | awk -F\" '{printf "%s", $2}'
+    fi
 }
 
-# Extract version from payload
-fetch_version_info() {
-    local payload="$1"
-    jq -r .version <<<"$payload"
+extract_vernum() {
+    local platform="$1" raw_version="$2"
+    if [[ "$platform" == "darwin" ]]; then
+        sed 's/ *(.*)//' <<<"$raw_version"
+    else
+        awk -F'[- ]' '{print $1}' <<<"$raw_version"
+    fi
 }
 
-# Get nix-prefetch-url hash (SRI)
-fetch_url_hash() {
-    local url="$1"
-    "$script_dir/../../.github/script/fetch-sri-hash.sh" "$url"
+check_and_update() {
+    local platform="$1" arch="$2" old_raw_version="$3"
+    local new_raw_version="$4" new_url="$5"
+    local old_vernum="" new_vernum=""
+
+    new_vernum=$(extract_vernum "$platform" "$new_raw_version")
+
+    if [[ -n "$old_raw_version" ]]; then
+        old_vernum=$(extract_vernum "$platform" "$old_raw_version")
+    fi
+
+    if [[ -z "$old_vernum" ]] || version_gt "$new_vernum" "$old_vernum"; then
+        log_info "$platform $arch: ${old_vernum:-无} -> $new_vernum"
+        FINAL_VERSION="${new_vernum}-${today}"
+        FINAL_URL="$new_url"
+        FINAL_HASH="$(fetch_sri_hash "$new_url")"
+        NEED_UPDATE=true
+    else
+        log_skip "$platform $arch: $new_vernum (≤ $old_vernum)"
+        FINAL_VERSION="$old_raw_version"
+        FINAL_URL="$(get_attr_field "${arch}-${platform}" url)"
+        FINAL_HASH="$(get_attr_field "${arch}-${platform}" hash)"
+        NEED_UPDATE=false
+    fi
 }
 
-# Compare versions
-version_gt() {
-    local v1="$1" v2="$2"
-    [[ "$(printf '%s\n%s' "$v1" "$v2" | sort -V | tail -n1)" == "$v1" ]] && [[ "$v1" != "$v2" ]]
-}
-
+# ── 主流程 ────────────────────────────────────────────────
 update_needed=false
 today=$(date +%F)
 
 # macOS
 darwin_payload=$(fetch_payload "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/macOSConfig.js")
-darwin_version=$(fetch_version_info "$darwin_payload")
-darwin_vernum=$(echo "$darwin_version" | sed 's/ *(.*)//')
+darwin_raw_version=$(extract_version "$darwin_payload")
 darwin_url=$(jq -r .downloadUrl <<<"$darwin_payload")
+old_darwin_version=$(get_attr_field "any-darwin" version)
 
-old_darwin_version=""
-old_darwin_vernum=""
-
-if [[ -f sources.nix ]]; then
-    old_darwin_version=$(sed -n '/any-darwin = {/,/};/p' sources.nix | grep version | awk -F\" '{print $2}' || true)
-    old_darwin_vernum=$(echo "$old_darwin_version" | awk -F- '{print $1}')
-fi
-
-if [[ -z "$old_darwin_vernum" ]] || version_gt "$darwin_vernum" "$old_darwin_vernum"; then
-    echo "✅ macOS version update: $old_darwin_vernum → $darwin_vernum"
-    final_darwin_version="$darwin_vernum-$today"
-    final_darwin_hash=$(fetch_url_hash "$darwin_url")
-    update_needed=true
-else
-    echo "⚪ macOS version $darwin_vernum ≤ $old_darwin_vernum, skip"
-    final_darwin_version="$old_darwin_version"
-    final_darwin_hash=$(sed -n '/any-darwin = {/,/};/p' sources.nix | grep hash | awk -F\" '{print $2}')
-fi
+NEED_UPDATE=false
+check_and_update "darwin" "any" "$old_darwin_version" "$darwin_raw_version" "$darwin_url"
+darwin_need_update=$NEED_UPDATE
+darwin_final_version=$FINAL_VERSION
+darwin_final_url=$FINAL_URL
+darwin_final_hash=$FINAL_HASH
 
 # Linux
 linux_payload=$(fetch_payload "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js")
+linux_raw_version=$(extract_version "$linux_payload")
 
-declare -A final_linux_versions final_linux_urls final_linux_hashes
+declare -A linux_final_version linux_final_url linux_final_hash linux_need_update
 
 for arch in aarch64 x86_64; do
     if [[ "$arch" == "aarch64" ]]; then
@@ -86,35 +99,24 @@ for arch in aarch64 x86_64; do
         linux_url=$(jq -r .x64DownloadUrl.deb <<<"$linux_payload")
     fi
 
-    linux_version=$(fetch_version_info "$linux_payload")
-    linux_vernum=$(echo "$linux_version" | awk -F'[- ]' '{print $1}')
+    old_linux_version=$(get_attr_field "${arch}-linux" version)
 
-    old_linux_version=""
-    old_linux_vernum=""
+    NEED_UPDATE=false
+    check_and_update "linux" "$arch" "$old_linux_version" "$linux_raw_version" "$linux_url"
+    linux_need_update[$arch]=$NEED_UPDATE
+    linux_final_version[$arch]=$FINAL_VERSION
+    linux_final_url[$arch]=$FINAL_URL
+    linux_final_hash[$arch]=$FINAL_HASH
 
-    if [[ -f sources.nix ]]; then
-        old_linux_version=$(sed -n "/$arch-linux = {/,/};/p" sources.nix | grep version | awk -F\" '{print $2}' || true)
-        old_linux_vernum=$(echo "$old_linux_version" | awk -F- '{print $1}')
-    fi
-
-    if [[ -z "$old_linux_vernum" ]] || version_gt "$linux_vernum" "$old_linux_vernum"; then
-        echo "✅ Linux $arch version update: $old_linux_vernum → $linux_vernum"
-        final_linux_versions[$arch]="$linux_vernum-$today"
-        final_linux_urls[$arch]="$linux_url"
-        final_linux_hashes[$arch]=$(fetch_url_hash "$linux_url")
-        update_needed=true
-    else
-        echo "⚪ Linux $arch version $linux_vernum ≤ $old_linux_vernum, skip"
-        final_linux_versions[$arch]="$old_linux_version"
-        final_linux_urls[$arch]=$(sed -n "/$arch-linux = {/,/};/p" sources.nix | grep url | awk -F\" '{print $2}')
-        final_linux_hashes[$arch]=$(sed -n "/$arch-linux = {/,/};/p" sources.nix | grep hash | awk -F\" '{print $2}')
-    fi
+    $NEED_UPDATE && update_needed=true
 done
 
-# Write sources.nix
+$darwin_need_update && update_needed=true
+
+# 生成 sources.nix
 if ! $update_needed; then
     echo ""
-    echo "✅ 所有架构已是最新版本，无需更新"
+    log_info "所有架构已是最新版本，无需更新"
     trap - EXIT
     rm -f "$backup"
     exit 0
@@ -126,10 +128,10 @@ cat >sources.nix <<EOF
 { fetchurl }:
 let
   any-darwin = {
-    version = "$final_darwin_version";
+    version = "$darwin_final_version";
     src = fetchurl {
-      url = "$darwin_url";
-      hash = "$final_darwin_hash";
+      url = "$darwin_final_url";
+      hash = "$darwin_final_hash";
     };
   };
 in
@@ -138,24 +140,23 @@ in
   x86_64-darwin = any-darwin;
 
   aarch64-linux = {
-    version = "${final_linux_versions[aarch64]}";
+    version = "${linux_final_version[aarch64]}";
     src = fetchurl {
-      url = "${final_linux_urls[aarch64]}";
-      hash = "${final_linux_hashes[aarch64]}";
+      url = "${linux_final_url[aarch64]}";
+      hash = "${linux_final_hash[aarch64]}";
     };
   };
 
   x86_64-linux = {
-    version = "${final_linux_versions[x86_64]}";
+    version = "${linux_final_version[x86_64]}";
     src = fetchurl {
-      url = "${final_linux_urls[x86_64]}";
-      hash = "${final_linux_hashes[x86_64]}";
+      url = "${linux_final_url[x86_64]}";
+      hash = "${linux_final_hash[x86_64]}";
     };
   };
 }
 EOF
 
-# 成功，解除回滚
 trap - EXIT
 rm -f "$backup"
-echo "✅ Update finished successfully"
+log_success "更新完成"
