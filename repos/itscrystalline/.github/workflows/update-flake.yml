@@ -1,0 +1,128 @@
+name: Update flake lockfile
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 1,4,7"
+
+jobs:
+  build:
+    name: "update flake lockfiles"
+    runs-on: ubuntu-latest-arm
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with: 
+        token: ${{ secrets.PUDDLE_TOKEN }}
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v30
+      with:
+        nix_path: nixpkgs=channel:nixos-26.05
+        extra_nix_config: |
+          extra-substituters = http://cache.crys
+          extra-trusted-public-keys = mingzhu:V0KsUipFnrBNsfUD8VI0rFXQpgE3KKJfRby9Jm8cLTQ=
+          connect-timeout = 30
+          fallback = true
+          access-tokens = github.com=${{ secrets.GH_TOKEN }}
+
+    - name: Update flake.lock
+      id: update
+      run: |
+        nix flake update 2> >(tee /dev/stderr) | awk '
+          /^• Updated input/ {in_update = 1; print; next}
+          in_update && !/^warning:/ {print}
+          /^$/ {in_update = 0}
+        ' > update.log
+
+        echo "UPDATE_LOG<<EOF" >> $GITHUB_ENV
+        cat update.log >> $GITHUB_ENV 
+        echo "EOF" >> $GITHUB_ENV
+
+        rm update.log
+
+    - name: Write PR body template
+      uses: https://github.com/DamianReeves/write-file-action@v1.3
+      with:
+        path: pr_body.template
+        contents: |
+          automatically updated:
+
+          ```
+          ${{ env.UPDATE_LOG }}
+          ```
+
+    - name: Generate PR body
+      uses: pedrolamas/handlebars-action@v2.4.0 # v2.4.0
+      with:
+        files: "pr_body.template"
+        output-filename: "pr_body.md"
+    - name: Save PR body
+      id: pr_body
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: "pr_body.md"
+
+    - name: Remove temporary files
+      run: |
+        rm pr_body.template
+        rm pr_body.md
+
+    - name: Commit to new branch
+      uses: EndBug/add-and-commit@v10 
+      id: commit
+      with:
+        author_name: puddle
+        author_email: puddle@git.iw2tryhard.dev
+        message: |
+          automated: Update `flake.lock`
+
+          ${{ steps.pr_body.outputs.content }}
+        new_branch: update-flake-lock 
+
+    - name: Create Pull Request
+      id: create-pr
+      if: steps.commit.outputs.committed == 'true'
+      env:
+        TOKEN: ${{ secrets.PUDDLE_TOKEN }}
+        FORGEJO_SERVER_URL: ${{ forgejo.server_url }}
+        REPO: ${{ forgejo.repository }}
+        DESC: ${{ steps.pr_body.outputs.content }}
+      run: |
+        jq -n \
+          --arg body "$DESC" \
+          '{base: "main", body: $body, head: "update-flake-lock", title: "chore: Update flake (automated)"}' \
+        | curl -X POST -s --fail \
+          -H "Authorization: token $TOKEN" \
+          -H "Content-Type: applocation/json" \
+          --data-binary @- \
+          "$FORGEJO_SERVER_URL/api/v1/repos/$REPO/pulls" \
+        | jq ".number" > pr
+
+        echo -n "pr=$(cat pr)" >> $FORGEJO_OUTPUT
+
+    - name: Enable automatic merge
+      if: steps.create-pr.outputs.pr > 0
+      id: auto-merge
+      env:
+        TOKEN: ${{ secrets.PUDDLE_TOKEN }}
+        FORGEJO_SERVER_URL: ${{ forgejo.server_url }}
+        REPO: ${{ forgejo.repository }}
+        PR_NUMBER: ${{ steps.create-pr.outputs.pr }}
+        PAYLOAD: |
+          {
+            "Do": "merge",
+            "delete_branch_after_merge": true,
+            "merge_when_checks_succeed": true,
+            "force_merge": false
+          }
+      run: |
+        curl --fail -s -X POST \
+          -H "Authorization: token $TOKEN" \
+          -H "Content-Type: application/json" \
+          -d "$PAYLOAD" \
+          "$FORGEJO_SERVER_URL/api/v1/repos/$REPO/pulls/$PR_NUMBER/merge"
+
+    - name: PR number
+      run: echo 'PR ${{ steps.create-pr.outputs.pr }}'

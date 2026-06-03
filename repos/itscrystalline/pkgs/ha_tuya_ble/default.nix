@@ -4,7 +4,7 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
 }: let
-  inherit (pkgs.home-assistant.python.pkgs) tuya-iot-py-sdk pycountry;
+  inherit (pkgs.home-assistant.python3Packages) tuya-iot-py-sdk pycountry;
 in
   buildHomeAssistantComponent rec {
     owner = "jbsky";
