@@ -35,7 +35,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "vanilla";
-  version = "0-unstable-2026-05-14";
+  version = "continuous-unstable-2026-05-14";
 
   src = fetchFromGitHub {
     owner = "vanilla-wiiu";
