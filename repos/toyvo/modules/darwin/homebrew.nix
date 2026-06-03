@@ -17,6 +17,7 @@ in
         autoUpdate = true;
         upgrade = true;
         cleanup = "zap";
+        extraFlags = ["--force"]
       };
       casks = [
         {
