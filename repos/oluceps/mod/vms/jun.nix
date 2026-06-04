@@ -223,6 +223,8 @@
                 htop
                 q
                 lsof
+                git
+                helix
               ];
               services.openssh = {
                 enable = true;

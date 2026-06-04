@@ -1,0 +1,177 @@
+{
+    "GeoLite2-ASN": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "GeoLite2-ASN",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-gV2WHyQkoJeS/d87m/rcAArUFrJt5RI7jOUVqJwikjo=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.04/GeoLite2-ASN.mmdb"
+        },
+        "version": "2026.06.04"
+    },
+    "GeoLite2-City": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "GeoLite2-City",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-LNlsqjAuxBb2nzwphJfVIQizgvQYUi1mrZftC53eD4A=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.04/GeoLite2-City.mmdb"
+        },
+        "version": "2026.06.04"
+    },
+    "alist": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "alist",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "AlistGo",
+            "repo": "alist",
+            "rev": "v3.61.0",
+            "sha256": "sha256-m0zyhtlpmE7isceOap3QVZfYCWolfktnErSW5EvBN3Q=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.61.0"
+    },
+    "dnsproxy": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dnsproxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "AdguardTeam",
+            "repo": "dnsproxy",
+            "rev": "v0.81.4",
+            "sha256": "sha256-KHun1/Da6wfOuMc9D8AJrgZg5PwuXAY6IVajSHa3rRE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.81.4"
+    },
+    "lxgw-neo-xihei": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lxgw-neo-xihei",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-7YRfB+nDHUhzPuWyjuZUIwx7tLKjjhP9JutNWRnAw3w=",
+            "type": "url",
+            "url": "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v1.302/LXGWNeoXiHei.ttf"
+        },
+        "version": "v1.302"
+    },
+    "metacubexd": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "metacubexd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-XEMxJukQFdH110jQoBf9ObB+kvh6doxVZ947PNJpyW8=",
+            "type": "url",
+            "url": "https://github.com/MetaCubeX/metacubexd/releases/download/v1.251.1/compressed-dist.tgz"
+        },
+        "version": "v1.251.1"
+    },
+    "mosdns": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "mosdns",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "IrineSistiana",
+            "repo": "mosdns",
+            "rev": "v5.3.4",
+            "sha256": "sha256-N0JY0brs9IXx3L+sz66JniRaBzY0bGD8PawJ1WA3tkw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v5.3.4"
+    },
+    "phantun": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-Syz2W0IYm9nzu2Ph09uJxeo_odznDC9aMe+TEMhWurc=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "phantun",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dndx",
+            "repo": "phantun",
+            "rev": "v0.8.1",
+            "sha256": "sha256-Syz2W0IYm9nzu2Ph09uJxeo/odznDC9aMe+TEMhWurc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.8.1"
+    },
+    "restls": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-nlQdBwxHVbpOmb9Wq+ap2i4KI1zJYT3SEqvedDbVH8Q=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "restls",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "3andne",
+            "repo": "restls",
+            "rev": "v0.1.1",
+            "sha256": "sha256-nlQdBwxHVbpOmb9Wq+ap2i4KI1zJYT3SEqvedDbVH8Q=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.1"
+    }
+}

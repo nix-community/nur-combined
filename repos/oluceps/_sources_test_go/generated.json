@@ -1,0 +1,23 @@
+{
+    "alist": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "alist",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "AlistGo",
+            "repo": "alist",
+            "rev": "v3.61.0",
+            "sha256": "sha256-m0zyhtlpmE7isceOap3QVZfYCWolfktnErSW5EvBN3Q=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.61.0"
+    }
+}

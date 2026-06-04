@@ -1,16 +1,23 @@
 {
   fetchurl,
+  fetchFromGitHub,
+  dockerTools,
+  fetchgit,
   stdenv,
   lib,
 }:
-
-stdenv.mkDerivation rec {
-  pname = "lxgw-neo-xihei";
-  version = "1.218.1";
-  src = fetchurl {
-    url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v${version}/LXGWNeoXiHei.ttf";
-    hash = "sha256-ZWotvGj2LpQbi3t6mVBL8kE19JC4X6VqkIXSQSuyjR0=";
+let
+  sources = import ../../_sources/generated.nix {
+    inherit
+      fetchurl
+      fetchgit
+      fetchFromGitHub
+      dockerTools
+      ;
   };
+in
+stdenv.mkDerivation rec {
+  inherit (sources.lxgw-neo-xihei) pname version src;
   dontUnpack = true;
   installPhase = ''
     mkdir -p $out/share/fonts/truetype/

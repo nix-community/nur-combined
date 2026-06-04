@@ -1,19 +1,24 @@
 {
   lib,
   buildGoModule,
+  fetchurl,
+  fetchgit,
   fetchFromGitHub,
+  dockerTools,
 }:
 
-buildGoModule rec {
-  pname = "dnsproxy";
-  version = "0.73.2";
-
-  src = fetchFromGitHub {
-    owner = "AdguardTeam";
-    repo = "dnsproxy";
-    rev = "v${version}";
-    hash = "sha256-Xxi23Cwm389fsDcYa3qJ9GhDZVXwh/LiWPfiYMuG5Js=";
+let
+  sources = import ../../_sources/generated.nix {
+    inherit
+      fetchurl
+      fetchgit
+      fetchFromGitHub
+      dockerTools
+      ;
   };
+in
+buildGoModule {
+  inherit (sources.dnsproxy) pname version src;
 
   vendorHash = "sha256-tyEp0vY8hWE8jTvkxKuqQJcgeey+c50pxREpmlZWE24=";
 
@@ -21,7 +26,7 @@ buildGoModule rec {
     "-s"
     "-w"
     "-X"
-    "github.com/AdguardTeam/dnsproxy/internal/version.version=${version}"
+    "github.com/AdguardTeam/dnsproxy/internal/version.version=${sources.dnsproxy.version}"
   ];
 
   # Development tool dependencies; not part of the main project

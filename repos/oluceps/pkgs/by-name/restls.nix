@@ -1,21 +1,25 @@
 {
+  fetchurl,
   fetchFromGitHub,
+  dockerTools,
+  fetchgit,
   rustPlatform,
   lib,
 }:
-
-rustPlatform.buildRustPackage rec {
-  pname = "restls";
-  version = "0.1.1";
-
-  src = fetchFromGitHub {
-    owner = "3andne";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-nlQdBwxHVbpOmb9Wq+ap2i4KI1zJYT3SEqvedDbVH8Q=";
+let
+  sources = import ../../_sources/generated.nix {
+    inherit
+      fetchurl
+      fetchgit
+      fetchFromGitHub
+      dockerTools
+      ;
   };
+in
+rustPlatform.buildRustPackage rec {
+  inherit (sources.restls) pname version src;
 
-  cargoHash = "sha256-hub64iZNVw/BJjibtDnJ3boIU27DEbYSlMLhFFVJ9ps=";
+  cargoLock = sources.restls.cargoLock."Cargo.lock";
 
   meta = with lib; {
     homepage = "https://github.com/3andne/restls";

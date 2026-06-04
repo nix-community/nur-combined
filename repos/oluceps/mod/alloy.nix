@@ -98,22 +98,12 @@
 
             stage.geoip {
               source  = "dst"
-              db      = "${
-                pkgs.fetchurl {
-                  url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-ASN.mmdb";
-                  hash = "sha256-sHzzmC1UAx4b7FKTeNbBrrLO49cC1vW6bFfjRMLzBN0=";
-                }
-              }"
+              db      = let sources = import ../_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; }; in sources.GeoLite2-ASN.src;
               db_type = "asn"
             }
             stage.geoip {
               source  = "dst"
-              db      = "${
-                pkgs.fetchurl {
-                  url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.05.07/GeoLite2-City.mmdb";
-                  hash = "sha256-dWoBxHhgrO57DGzu1FFrS5IKSBMRcUCHlVXBMAcC9MI=";
-                }
-              }"
+              db      = let sources = import ../_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; }; in sources.GeoLite2-City.src;
               db_type = "city"
             }
 

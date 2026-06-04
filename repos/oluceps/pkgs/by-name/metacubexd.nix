@@ -1,14 +1,25 @@
-{ fetchurl, stdenvNoCC }:
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "metacubexd";
-  version = "1.129.0";
-  src = fetchurl {
-    url = "https://github.com/MetaCubeX/metacubexd/releases/download/v${finalAttrs.version}/compressed-dist.tgz";
-    hash = "sha256-qfmmhtC+FY9VHkeYGJPr6NqbJByLBMEsm8y8ZQkBICE=";
+{
+  fetchurl,
+  fetchFromGitHub,
+  dockerTools,
+  fetchgit,
+  stdenvNoCC,
+}:
+let
+  sources = import ../../_sources/generated.nix {
+    inherit
+      fetchurl
+      fetchgit
+      fetchFromGitHub
+      dockerTools
+      ;
   };
+in
+stdenvNoCC.mkDerivation {
+  inherit (sources.metacubexd) pname version src;
   sourceRoot = ".";
   installPhase = ''
     mkdir -p $out
     cp -r ./* $out
   '';
-})
+}

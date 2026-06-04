@@ -1,0 +1,41 @@
+# --- GeoIP Databases ---
+[GeoLite2-ASN]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-ASN.mmdb"
+
+[GeoLite2-City]
+src.github = "P3TERX/GeoLite.mmdb"
+fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-City.mmdb"
+
+# --- Mainstream Go Packages ---
+[alist]
+src.github = "AlistGo/alist"
+fetch.github = "AlistGo/alist"
+
+[dnsproxy]
+src.github = "AdguardTeam/dnsproxy"
+fetch.github = "AdguardTeam/dnsproxy"
+
+[mosdns]
+src.github = "IrineSistiana/mosdns"
+fetch.github = "IrineSistiana/mosdns"
+
+# --- Mainstream Rust Packages ---
+[restls]
+src.github = "3andne/restls"
+fetch.github = "3andne/restls"
+cargo_lock = ["Cargo.lock"]
+
+[phantun]
+src.github = "dndx/phantun"
+fetch.github = "dndx/phantun"
+cargo_lock = ["Cargo.lock"]
+
+# --- Fonts & Assets ---
+[metacubexd]
+src.github = "MetaCubeX/metacubexd"
+fetch.url = "https://github.com/MetaCubeX/metacubexd/releases/download/$ver/compressed-dist.tgz"
+
+[lxgw-neo-xihei]
+src.github = "lxgw/LxgwNeoXiHei"
+fetch.url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/$ver/LXGWNeoXiHei.ttf"
