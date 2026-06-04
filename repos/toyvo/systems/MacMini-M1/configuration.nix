@@ -55,6 +55,13 @@
     };
     odysseus = {
       enable = true;
+      extraPythonPackages =
+        ps: with ps; [
+          hf-transfer
+          rembg
+          diffusers
+        ];
+      llamaCpp.enable = true;
       port = homelab.MacMini-M1.services.odysseus.port;
     };
   };

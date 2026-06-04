@@ -1261,16 +1261,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1780505183,
-        "narHash": "sha256-nBuov71jx+CfVM56M9k9HoK1QY8EA7zJpnejGt6JKC4=",
-        "owner": "ToyVo",
+        "lastModified": 1780591329,
+        "narHash": "sha256-2O2/S0aQ+c8R0BmVe3S3bTI1WswWQqne0ZKkSH2kbe8=",
+        "owner": "pewdiepie-archdaemon",
         "repo": "odysseus",
-        "rev": "17f0a37259bb9b7f9f3f4ac0dfaa3678f8068922",
+        "rev": "9b7b9d89175916c5b871a346a5ba948070bce434",
         "type": "github"
       },
       "original": {
-        "owner": "ToyVo",
-        "ref": "feat-add-modules",
+        "owner": "pewdiepie-archdaemon",
+        "ref": "pull/2568/head",
         "repo": "odysseus",
         "type": "github"
       }
