@@ -1,3 +1,8 @@
+{ utils, ... }:
+
+let
+  inherit (utils) escapeSystemdPath;
+in
 {
   # zswap
   boot.zswap.enable = true;
@@ -27,6 +32,7 @@
     "x-systemd.device-timeout=infinity" # Await LUKS prompt
   ];
   services.btrfs.autoScrub.enable = true;
+  systemd.services."btrfs-scrub-${escapeSystemdPath "/"}".unitConfig.ConditionACPower = true;
   security.sudo.allowedCommands = [ "/run/current-system/sw/bin/btrfs balance start --enqueue -dusage=50 -musage=50 /" ];
 
   # /boot

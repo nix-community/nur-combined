@@ -377,6 +377,7 @@ DKIM
 DMARC
 DNS
 DNSCrypt
+dnsmasq
 DNSSEC
 DNT
 Dockerfile
