@@ -82,6 +82,8 @@ in
     whipper
     wireguard-vanity-address
     wireshark
+    yubico-piv-tool
+    yubikey-manager
   ];
   xdg.dataFile."JOSM/plugins/imagery_used.jar".source = "${pkgs.josm-imagery-used}/share/JOSM/plugins/imagery_used.jar";
 
