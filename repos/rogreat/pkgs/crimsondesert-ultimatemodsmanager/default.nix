@@ -103,16 +103,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
     cat >> pyproject.toml << EOL
 
     [project.scripts]
-    cdumm = "cdumm.main:main"
+    cdumm = "cdumm.main:args"
     EOL
 
     substituteInPlace src/cdumm/main.py \
-        --replace-fail 'main()' 'cdumm()' \
-        --replace-fail 'if __name__ == "__main__":' 'def main():'
+        --replace-fail 'if __name__ == "__main__":' 'def args():'
 
     substituteInPlace src/cdumm/engine/nxm_handler.py \
-        --replace-fail 'return f"{exe} -m cdumm.main --nxm %u"' \
-        'return "cdumm --nxm %u"'
+        --replace-fail 'return f"{exe} -m cdumm.main --nxm %u"' 'return "cdumm --nxm %u"'
   '';
 
   postInstall = ''
