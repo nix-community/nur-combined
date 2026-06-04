@@ -76,13 +76,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "linux-wallpaperengine";
-  version = "0-unstable-2026-06-03";
+  version = "0-unstable-2026-06-04";
 
   src = fetchFromGitHub {
     owner = "Almamu";
     repo = "linux-wallpaperengine";
-    rev = "8a00ff79309eb4a117bea1d16eb56a4fb9dc958c";
-    hash = "sha256-hdEOGz2WfUiF51yxLUwbpv5Tb4lfhXwvHpHE2hb7+sE=";
+    rev = "f38303d63d610a9f7cea08e78e0fd015d6b8c6d1";
+    hash = "sha256-wU/W3iJYb7SkDs6GZOmOFyJtAxDa+Ztm5+uzpTxqwQE=";
     fetchSubmodules = true;
   };
 

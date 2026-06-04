@@ -25,16 +25,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "phonto";
-  version = "0.3.2";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "museslabs";
     repo = "phonto";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-DMCD/0g7edCZ2kZ2byLxkL3g7Fxcc+h6Qd/qGCqv1wQ=";
+    hash = "sha256-FRCSE11ZasKk/bDJdmoG1Tk8ZXh4JP5AWVZlTXO24os=";
   };
 
-  cargoHash = "sha256-E+YrQm7ZeyDn1SY1/JhpUzVv+R2DYBtPoTeVWF6yoT8=";
+  cargoHash = "sha256-Hn2ZdhJI8jihNapcyQFrsiqa9S8N3TzO+Xu9Ma3iLso=";
 
   nativeBuildInputs = [
     pkg-config
