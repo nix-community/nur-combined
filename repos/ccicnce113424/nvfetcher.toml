@@ -14,6 +14,10 @@ src.github_tag = "Digger1955/dxvk-gplasync-lowlatency"
 src.include_regex = "^DXVK-GPLALL-.+"
 src.prefix = "DXVK-GPLALL-"
 
+[enimul]
+fetch.github = "lzpls/enimul"
+src.github = "lzpls/enimul"
+
 [fxz]
 fetch.github = "conor42/fxz"
 src.git = "https://github.com/conor42/fxz"
@@ -51,10 +55,6 @@ src.github_tag = "EmixamPP/linux-enable-ir-emitter"
 extract = ["pubspec.lock"]
 fetch.github = "FoxSensei001/LoveIwara"
 src.github = "FoxSensei001/LoveIwara"
-
-[lumine]
-fetch.git = "https://codeberg.org/PonyCW26/lumine.git"
-src.git = "https://codeberg.org/PonyCW26/lumine.git"
 
 [lxgw-wenkai-gb]
 fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-wenkai-gb-$ver.tar.gz"

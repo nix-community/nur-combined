@@ -12,7 +12,7 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/../.." && pwd)
 cd "$REPO_ROOT"
 
-package_name="lumine"
+package_name="enimul"
 package_dir=$SCRIPT_DIR
 src_info=$package_dir/src-info.json
 
@@ -33,17 +33,17 @@ if [[ -f $src_info && $force != true ]]; then
 fi
 
 build_output=$(nix build --impure --expr "((import ./pkgs {}).${package_name}.overrideAttrs { vendorHash = \"\"; }).goModules" 2>&1) || true
-echo "Lumine vendor build output is:"
+echo "Enimul vendor build output is:"
 echo "$build_output"
-hash_lumine_vendor=$(tr -s ' ' <<<$build_output | grep -Po "got: \K.+$")
-if [ -z "$hash_lumine_vendor" ]; then
+hash_enimul_vendor=$(tr -s ' ' <<<$build_output | grep -Po "got: \K.+$")
+if [ -z "$hash_enimul_vendor" ]; then
   echo "Failed to extract hash from build output."
   exit 1
 fi
-echo "Lumine vendor hash is: $hash_lumine_vendor"
+echo "Enimul vendor hash is: $hash_enimul_vendor"
 
 jq -n \
   --arg version "$version" \
-  --arg hash "$hash_lumine_vendor" \
+  --arg hash "$hash_enimul_vendor" \
   --arg sourceSha256 "$source_sha256" \
   '{ version: $version, hash: $hash, sourceSha256: $sourceSha256 }' >"$src_info"

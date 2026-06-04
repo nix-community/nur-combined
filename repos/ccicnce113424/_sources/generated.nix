@@ -30,6 +30,17 @@
       sha256 = "sha256-GB+GHCLSgfv6HQxjEQACzZVK5kUtGKPzBCm+M5z6nIA=";
     };
   };
+  enimul = {
+    pname = "enimul";
+    version = "v0.1.1";
+    src = fetchFromGitHub {
+      owner = "lzpls";
+      repo = "enimul";
+      rev = "v0.1.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-MB36CHrCvtQa5SX/HKw5rYCmPZ4LPXoaNcGUeE/rrAg=";
+    };
+  };
   fxz = {
     pname = "fxz";
     version = "f12d7eb3ecebcfa5e2d3dc8a016772b3cd101f39";
@@ -149,20 +160,6 @@
     extract = {
       "pubspec.lock" = ./. + "/sha256-Vdf3ERybsOXG8SlNmQ_QRtBu7RS0T9t0V22UTMjXTls=/pubspec.lock";
     };
-  };
-  lumine = {
-    pname = "lumine";
-    version = "6ef98efdaf60567edf9c8d868142b682575b69b9";
-    src = fetchgit {
-      url = "https://codeberg.org/PonyCW26/lumine.git";
-      rev = "6ef98efdaf60567edf9c8d868142b682575b69b9";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-MYrJKh9xeQTH3NxwszFw/YNA+/rfP9h6UU1xyfuZ6pU=";
-    };
-    date = "2026-05-01";
   };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
@@ -367,7 +364,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

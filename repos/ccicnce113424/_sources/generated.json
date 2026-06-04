@@ -44,6 +44,27 @@
         },
         "version": "2.7.1-4"
     },
+    "enimul": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "enimul",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lzpls",
+            "repo": "enimul",
+            "rev": "v0.1.1",
+            "sha256": "sha256-MB36CHrCvtQa5SX/HKw5rYCmPZ4LPXoaNcGUeE/rrAg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.1"
+    },
     "fxz": {
         "cargoLock": null,
         "date": "2022-01-09",
@@ -237,26 +258,6 @@
             "type": "github"
         },
         "version": "0.4.4"
-    },
-    "lumine": {
-        "cargoLock": null,
-        "date": "2026-05-01",
-        "extract": null,
-        "name": "lumine",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "6ef98efdaf60567edf9c8d868142b682575b69b9",
-            "sha256": "sha256-MYrJKh9xeQTH3NxwszFw/YNA+/rfP9h6UU1xyfuZ6pU=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://codeberg.org/PonyCW26/lumine.git"
-        },
-        "version": "6ef98efdaf60567edf9c8d868142b682575b69b9"
     },
     "lxgw-wenkai-gb": {
         "cargoLock": null,
@@ -596,7 +597,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
+            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
             "sparseCheckout": [],
             "type": "github"
         },

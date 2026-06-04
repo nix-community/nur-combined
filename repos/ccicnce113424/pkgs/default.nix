@@ -28,6 +28,12 @@ lib.makeScope pkgs.newScope (self: {
     sourceRoot = "x64";
   };
 
+  enimul = self.callPackage ./enimul rec {
+    inherit (lib.importJSON ./enimul/src-info.json) hash;
+    sources = fetchedSrc.enimul;
+    version = stableVersion sources;
+  };
+
   fxz =
     let
       sources = fetchedSrc.fxz;
@@ -82,12 +88,6 @@ lib.makeScope pkgs.newScope (self: {
     sources = fetchedSrc.loveiwara;
     version = stableVersion sources;
     srcInfo = lib.importJSON ./loveiwara/src-info.json;
-  };
-
-  lumine = self.callPackage ./lumine rec {
-    inherit (lib.importJSON ./lumine/src-info.json) hash;
-    sources = fetchedSrc.lumine;
-    version = unstableVersion sources 0;
   };
 
   lxgw-wenkai-gb = self.callPackage ./lxgw-wenkai-gb rec {
