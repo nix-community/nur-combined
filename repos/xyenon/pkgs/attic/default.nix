@@ -17,8 +17,8 @@ in
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "attic";
-      rev = "126f76c382c7accd270b44adebf2fcb6de6c4892";
-      hash = "sha256-mlZfpK1iWINSAGJTh6sW0FoUusOujaiZuvyzaD3ZWuw=";
+      rev = "b30f058edb4d1973a9ef38137c89d15ff36d88a0";
+      hash = "sha256-Gv3kEwcrindJmsoJGkhq1PkQS8Fzq18MyPQ+aStTFgE=";
     };
 
     cargoHash = "sha256-VCw5eRoa9ftghI0yQPTj72GR5Cnfq7B7VwddqjOrTag=";
