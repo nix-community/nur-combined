@@ -347,10 +347,10 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.15.0";
+      version = "1.15.1";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4804277/angular_devtools-1.15.0.xpi";
-      sha256 = "203575cf59cd5dfa818b54e73f98dafd9aa0b605a4d206d8af428f3c7d49f3a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834732/angular_devtools-1.15.1.xpi";
+      sha256 = "1008f793e8a42031effb795c4a2001355e40ec5d15d0f124b8d0489d115edcf1";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -1275,10 +1275,10 @@
     };
     "bitwarden" = buildMozillaXpiAddon {
       pname = "bitwarden";
-      version = "2026.4.0";
+      version = "2026.5.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4796063/bitwarden_password_manager-2026.4.0.xpi";
-      sha256 = "ccbdf6c3a11c8655d4fe9bdfcf5f16c4c9ff2d8732fadbb85396a2123274ae10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4827854/bitwarden_password_manager-2026.5.0.xpi";
+      sha256 = "8ebb475518a330b88b4e2cba0864c5ca11bed390739cb84fbf256e938c91b6d9";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -3001,10 +3001,10 @@
     };
     "darkreader" = buildMozillaXpiAddon {
       pname = "darkreader";
-      version = "4.9.125";
+      version = "4.9.126";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4783321/darkreader-4.9.125.xpi";
-      sha256 = "21a9a18bc873e09b9b10f841a559807ce9e90738674c7eddb9f639c0663eaf28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834907/darkreader-4.9.126.xpi";
+      sha256 = "b0bd9127a60a5af8db6fa23de81f304a4ec5d7d3cd7e6e301e3eaa42339528a7";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -4288,10 +4288,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "6.1.98";
+      version = "6.1.99";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4785554/flagfox-6.1.98.xpi";
-      sha256 = "4f5ed2ce6a14b710e8eadf73562f24654d5607ef1cb4ffc1402edd469a4fd717";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4829498/flagfox-6.1.99.xpi";
+      sha256 = "bf39e4c5e71cd7ee2afe02f069632964b5b8c4c08c31837e8c59a1013a5bca9c";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4682,6 +4682,31 @@
         description = "Explore Project Gemini sites from Firefox!";
         license = licenses.mit;
         mozPermissions = [ "activeTab" "storage" "webNavigation" ];
+        platforms = platforms.all;
+      };
+    };
+    "geo-spoof" = buildMozillaXpiAddon {
+      pname = "geo-spoof";
+      version = "1.19.8";
+      addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4823910/geo_spoof-1.19.8.xpi";
+      sha256 = "079b53832fa1620fdf1984c0315c15735be2ec7783827da95ac7a82452c43ca6";
+      meta = with lib;
+      {
+        homepage = "https://www.geospoof.com";
+        description = "Spoof your browser's geolocation, timezone, and WebRTC to match your VPN — or any location you choose.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "privacy"
+          "scripting"
+          "alarms"
+          "webRequest"
+          "webRequestBlocking"
+          "webRequestFilterResponse"
+          "webRequestFilterResponse.serviceWorkerScript"
+          "<all_urls>"
+        ];
         platforms = platforms.all;
       };
     };
@@ -6742,10 +6767,10 @@
     };
     "improved-tube" = buildMozillaXpiAddon {
       pname = "improved-tube";
-      version = "4.2026";
+      version = "4.2027";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4723468/youtube_addon-4.2026.xpi";
-      sha256 = "fdd964bb8b157e1cc7983ea1b5ca4dab4fe56690098eb23ba0c4726381766535";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4828211/youtube_addon-4.2027.xpi";
+      sha256 = "2012c7af0ce0f261c90189ee261c802e6a9307e5d5ce0fe8bc9eefbbd5d486dc";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -7463,10 +7488,10 @@
     };
     "keepassxc-browser" = buildMozillaXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.10.1";
+      version = "1.10.3";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4750788/keepassxc_browser-1.10.1.xpi";
-      sha256 = "f358471e7f5545a64ab69f4897127033197a8d9cde5746324b1dae241a2b0a29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4831838/keepassxc_browser-1.10.3.xpi";
+      sha256 = "4df9c54e0a293aa2e37e9bcf97ec307a35a00e78cebaa9a68edba552c07c4568";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -7565,10 +7590,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.21";
+      version = "2.0.22";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4771189/kiss_translator-2.0.21.xpi";
-      sha256 = "68e52b8d4795c18f690cca7a8616d2b10f4ea44a1ec4facef2de5c62ead31462";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4836376/kiss_translator-2.0.22.xpi";
+      sha256 = "1e8e6748f3ad07aadba8ef876f4f11997787e302186473e69d74a52df316949f";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -8447,10 +8472,10 @@
     };
     "lingq-importer2" = buildMozillaXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.42";
+      version = "2.3.47";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4773227/lingq_importer2-2.3.42.xpi";
-      sha256 = "d5f266ec8381903535314e323c3d30944cc8f7144f1791fe95b8097d965e7a5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4836175/lingq_importer2-2.3.47.xpi";
+      sha256 = "c886a71b6ed5e5125d173384c81e8bf10884b8dfc129605b9a07ab354884d53b";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -8463,6 +8488,24 @@
           "scripting"
           "https://*.netflix.com/*"
           "https://*.primevideo.com/*"
+          "https://*.amazon.de/gp/video/*"
+          "https://*.amazon.de/-/*/gp/video/*"
+          "https://*.amazon.co.jp/gp/video/*"
+          "https://*.amazon.co.jp/-/*/gp/video/*"
+          "https://*.amazon.it/gp/video/*"
+          "https://*.amazon.it/-/*/gp/video/*"
+          "https://*.amazon.fr/gp/video/*"
+          "https://*.amazon.fr/-/*/gp/video/*"
+          "https://*.amazon.es/gp/video/*"
+          "https://*.amazon.es/-/*/gp/video/*"
+          "https://*.amazon.nl/gp/video/*"
+          "https://*.amazon.nl/-/*/gp/video/*"
+          "https://*.amazon.pl/gp/video/*"
+          "https://*.amazon.pl/-/*/gp/video/*"
+          "https://*.amazon.se/gp/video/*"
+          "https://*.amazon.se/-/*/gp/video/*"
+          "https://*.amazon.com.tr/gp/video/*"
+          "https://*.amazon.com.tr/-/*/gp/video/*"
           "https://*.youtube.com/*"
           "https://tv.apple.com/*"
           "https://*.lingq.com/*"
@@ -10861,10 +10904,10 @@
     };
     "onepassword-password-manager" = buildMozillaXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.12.21.2";
+      version = "8.12.22.17";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4814970/1password_x_password_manager-8.12.21.2.xpi";
-      sha256 = "b99e94df968cceb6aa488bbde72c3fe0df81e44564540c32880b48760dc8a4c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4833104/1password_x_password_manager-8.12.22.17.xpi";
+      sha256 = "48e326c7cd966b3737a5ffd97111bf9066becb109efedd057da4a50377ce2a7d";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -13188,10 +13231,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.3.0.26149";
+      version = "0.3.0.26154";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4826629/ruffle_rs-0.3.0.26149.xpi";
-      sha256 = "407743eb79474a9a18469af47818a81f4ebe124fa4b410e6125bc8d1d12cdf7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4833742/ruffle_rs-0.3.0.26154.xpi";
+      sha256 = "a856538d699a56e12b049b8014a04bf4d7c4bc7a19efb3a6296bb39ff59a89ff";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -14324,10 +14367,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.3.29.24";
+      version = "2.3.30";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4827127/styl_us-2.3.29.24.xpi";
-      sha256 = "4aa7112f4919e91ace0d367179f39882d406e087d9db8ff3a5fbe1d1294997a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4827922/styl_us-2.3.30.xpi";
+      sha256 = "f7dfd9fc245c7c452d665dfb1640585d5015b08faed4114f0b28ef90b6575dbd";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -16435,10 +16478,10 @@
     };
     "violentmonkey" = buildMozillaXpiAddon {
       pname = "violentmonkey";
-      version = "2.40.0";
+      version = "2.41.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4825194/violentmonkey-2.40.0.xpi";
-      sha256 = "a2ce72e66a8aebb8aedf39f5c556cde2cf461da214cd9f3c9b130f0c73071841";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4830363/violentmonkey-2.41.0.xpi";
+      sha256 = "42d184788bd2f6a291956dd31cd45daa7b4a5d1b19bf1c74fb0ae76e456fa36b";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
