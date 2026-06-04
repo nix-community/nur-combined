@@ -33,7 +33,7 @@ let
 in
 stdenv.mkDerivation (chunker: {
   pname = "chunker";
-  version = "1.17.0";
+  version = "1.18.1";
   meta = {
     description = "Convert Minecraft worlds between game versions";
     homepage = "https://www.chunker.app/";
@@ -49,7 +49,7 @@ stdenv.mkDerivation (chunker: {
     rev = "refs/tags/${chunker.version}";
   } // (if (versionAtLeast release "26.05") then {
     postCheckout = fakeGitInit;
-    hash = "sha256-+zy70jTT092hrqCwJOXwwERl4mQ3scaHBCsGYsYSHJ8=";
+    hash = "sha256-R+ZzlmqgLe4GlY9M2l1gosAxspZye/GyTBIgpEQh+To=";
   } else {
     leaveDotGit = true;
     hash = "sha256-pelYD/4mHk68UjmJsjokq3ymKUfZJgD5v98P5WXqbwA=";

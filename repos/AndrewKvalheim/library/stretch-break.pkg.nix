@@ -15,8 +15,8 @@
 , gtk4
 , libadwaita
 , libnotify
-, libX11
-, libXScrnSaver
+, libx11
+, libxscrnsaver
 , pango
 , pkg-config
 }:
@@ -66,8 +66,8 @@ rustPlatform.buildRustPackage (stretch-break: {
     gtk4
     libadwaita
     libnotify
-    libX11
-    libXScrnSaver
+    libx11
+    libxscrnsaver
     pango
   ];
 

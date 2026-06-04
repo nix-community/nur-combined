@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) add all attrValues ceil concatLists elem elemAt filter foldl' getAttr hasAttr head isFunction isString length listToAttrs mapAttrs match split stringLength tail toJSON;
-  inherit (lib) concatLines concatImapStringsSep concatMapStrings concatMapStringsSep escapeShellArg fixedWidthNumber flip fold id ifilter0 imap0 isList max min mod nameValuePair pipe range removeSuffix splitString stringToCharacters throwIf throwIfNot toCamelCase toHexString versionAtLeast versionOlder zipAttrsWith;
+  inherit (lib) concatLines concatImapStringsSep concatMapStrings concatMapStringsSep escapeShellArg fixedWidthNumber flip foldr id ifilter0 imap0 isList max min mod nameValuePair pipe range removeSuffix splitString stringToCharacters throwIf throwIfNot toCamelCase toHexString versionAtLeast versionOlder zipAttrsWith;
   inherit (lib.strings) replicate;
   inherit (import <nix-math> { inherit lib; }) cos pi pow round sin;
 
@@ -20,7 +20,7 @@ rec {
     let
       a0 = head coefficients;
       recurrence = a: { b1, b2 }: { b1 = a + 2.0 * x * b1 - b2; b2 = b1; };
-      inherit (fold recurrence ({ b1 = 0; b2 = 0; }) (tail coefficients)) b1 b2;
+      inherit (foldr recurrence ({ b1 = 0; b2 = 0; }) (tail coefficients)) b1 b2;
       b0 = 2.0 * x * b1 - b2;
     in
     0.5 * (a0 + b0 - b2);
@@ -31,7 +31,7 @@ rec {
   columns = sep: items:
     let
       columnsCount = max 1 ((terminalWidth + sepWidth) / (columnWidth + sepWidth));
-      columnWidth = fold max 0 (map printableLength items);
+      columnWidth = foldr max 0 (map printableLength items);
       fullRowsCount = itemsCount / columnsCount;
       itemsCount = length items;
       lastRowItemsCount = mod itemsCount columnsCount;
@@ -92,7 +92,7 @@ rec {
   frame = color: text:
     let
       lines = splitString "\n" (removeSuffix "\n" text);
-      pad = printablePad (fold max 0 (map printableLength lines));
+      pad = printablePad (foldr max 0 (map printableLength lines));
     in
     concatLines ([
       (color "┌───${pad "─" ""}───┐")
@@ -143,7 +143,7 @@ rec {
       "Not representable in sRGB\n   Target: ${oklchToCss target}\n  Clamped: ${oklchToCss clamped}"
       result;
 
-  printableLength = text: fold add 0 (map (v: if isList v then 0 else asciiStringLength v) (split "\\[[^m]*m" text));
+  printableLength = text: foldr add 0 (map (v: if isList v then 0 else asciiStringLength v) (split "\\[[^m]*m" text));
 
   printablePad = width: placeholder: text: text + replicate (max 0 (width - printableLength text)) placeholder;
 

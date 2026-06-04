@@ -4,11 +4,9 @@ with import ./library/override-utils.lib.nix { inherit stable; nur = ./nur.nix; 
 
 let
   inherit (lib) hasInfix makeBinPath throwIf;
-  inherit (lib.versions) majorMinor;
   inherit (stable) fetchurl lib;
 
-  issue-182 = throwIf (resolved.vscodium.vscodeVersion != resolved.vscodium.version) "vscodium.vscodeVersion is now accurate" "${majorMinor resolved.vscodium.version}.0"; # Pending nix-community/nix-vscode-extensions#182
-  community-vscode-extensions = (import <community-vscode-extensions>).extensions.${stable.stdenv.hostPlatform.system}.forVSCodeVersion issue-182;
+  community-vscode-extensions = (import <community-vscode-extensions>).extensions.${stable.stdenv.hostPlatform.system}.forVSCodeVersion resolved.vscodium.vscodeVersion;
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
@@ -83,7 +81,7 @@ specify {
   pdfalyzer = any;
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
-  python39.search = pin "f62d6734af4581af614cab0f2aa16bcecfc33c11" "sha256-DlWElYYHKaUsGX/pfyIUO8aQHCPAia1THVR0RbtCJQ0=";
+  python39.search = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f62d6734af4581af614cab0f2aa16bcecfc33c11.tar.gz") { overlays = [ ]; };
   pythonPackages.busylight-core.patch = ./library/assets/busylight-core_led-mask.patch;
   signal-desktop.args = [ "--use-tray-icon" ];
   spf-check = any;

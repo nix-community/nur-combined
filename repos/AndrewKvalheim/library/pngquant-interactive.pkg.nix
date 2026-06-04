@@ -8,9 +8,9 @@
 , cmake
 , curl
 , git
-, libXcursor
-, libXfixes
-, libXinerama
+, libxcursor
+, libxfixes
+, libxinerama
 , mesa
 , pango
 , pkg-config
@@ -48,9 +48,9 @@ rustPlatform.buildRustPackage (pngquant-interactive: {
     pkg-config
   ];
   buildInputs = [
-    libXcursor
-    libXfixes
-    libXinerama
+    libxcursor
+    libxfixes
+    libxinerama
     mesa
     pango
   ];

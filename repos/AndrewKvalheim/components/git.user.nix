@@ -279,16 +279,21 @@ in
       "revisions selected" = { fg = "white"; bg = white-dark; };
     };
 
-    keys = {
-      preview = {
-        half_page_down = [ "pgdown" ];
-        half_page_up = [ "pgup" ];
-      };
-    };
+    actions = [
+      {
+        name = "tug";
+        lua = ''
+          jj_async("tug")
+          revisions.refresh()
+        '';
+      }
+    ];
 
-    custom_commands = {
-      tug = { args = [ "tug" ]; key = [ "alt+t" ]; };
-    };
+    bindings = [
+      { scope = "revisions"; key = "alt+t"; action = "tug"; }
+      { scope = "ui.preview"; key = "pgdown"; action = "ui.preview_half_page_down"; }
+      { scope = "ui.preview"; key = "pgup"; action = "ui.preview_half_page_up"; }
+    ];
 
     revisions.revset = "::(present(@) | ancestors(immutable_heads().., 2) | trunk() | tags() | bookmarks() | remote_bookmarks())";
   };
