@@ -161,10 +161,10 @@
     };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
-      version = "3.0.7";
+      version = "3.0.8";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4782542/addy_io-3.0.7.xpi";
-      sha256 = "8cb2f9267a6c20fbe96cebb9660f1bc6b97dca996287a4d83ee7e4c4719f05c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834306/addy_io-3.0.8.xpi";
+      sha256 = "93c5e22a55cf44bd89e14bc0fd97f8ca83d277370223b082f92d33e9017c1d81";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -1381,7 +1381,7 @@
       meta = with lib;
       {
         homepage = "https://bonjourr.fr";
-        description = "Improve your web browsing experience with Bonjourr, a beautiful, customizable and lightweight homepage inspired by iOS.";
+        description = "A beautiful and customizable new tab page inspired by iOS, designed for a calm and focused browsing experience.";
         license = licenses.gpl3;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
@@ -2906,10 +2906,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "151.0.20260601.110758";
+      version = "152.0.20260603.90317";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831738/dansk_da_language_pack-151.0.20260601.110758.xpi";
-      sha256 = "1ad6074fd8631d4a51a46033127a7c728d94c319cca8301f6d4f632a5c116b49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834527/dansk_da_language_pack-152.0.20260603.90317.xpi";
+      sha256 = "173addb3ad4b47079059fb8012c4cb7ae48a226af8bba51cf2b4749a5e0ad87c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3122,10 +3122,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "151.0.20260601.110758";
+      version = "152.0.20260603.90317";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831744/deutsch_de_language_pack-151.0.20260601.110758.xpi";
-      sha256 = "2d047d43f7bd4ad3490f50684af655df0237dcfed47277e5fc81d36c243f9c1a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834526/deutsch_de_language_pack-152.0.20260603.90317.xpi";
+      sha256 = "503cba6f621b7aa428b76218acc3ab98e1024bd344067fd822da373474b2b49d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4440,7 +4440,7 @@
       sha256 = "8db1c64799a60f7121d51a6e9f6b041871598344927c95afe830c27880f0885d";
       meta = with lib;
       {
-        homepage = "https://getfoxyproxy.org";
+        homepage = "https://getfoxyproxy.org/";
         description = "FoxyProxy is an open-source, advanced proxy management tool that completely replaces Firefox's limited proxying capabilities. No paid accounts are necessary; bring your own proxies or buy from any vendor. The original proxy tool, since 2006.";
         license = licenses.gpl2;
         mozPermissions = [
@@ -4606,10 +4606,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "151.0.20260601.110758";
+      version = "152.0.20260603.90317";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831794/francais_language_pack-151.0.20260601.110758.xpi";
-      sha256 = "4e04636776b9fdf00f6301316f129cdd4aac5b3816c24278b91d49770b115b19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834504/francais_language_pack-152.0.20260603.90317.xpi";
+      sha256 = "865e0a79eeb0de43d96129d19f47ffb1a7416129bbdc493a40ccb46f2b7c8669";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4643,10 +4643,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "151.0.20260601.110758";
+      version = "152.0.20260603.90317";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831769/gaidhlig_language_pack-151.0.20260601.110758.xpi";
-      sha256 = "a34be91342799d4e72fc24a9296bc0bc0731beb84d78d06d7d0b2c545ffbf2c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834426/gaidhlig_language_pack-152.0.20260603.90317.xpi";
+      sha256 = "5750f0d267b5695d9e993f13b35b509e2d9c65fb29f7d13a2f791be0470daffb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8846,10 +8846,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.7";
+      version = "1.1.8";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4818656/lockedin_yt-1.1.7.xpi";
-      sha256 = "07bb8c7f3ff673aa4933ef9da6826c47399460833f84bdf121dbc82ea9b4ab13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834295/lockedin_yt-1.1.8.xpi";
+      sha256 = "d5bcce5b09d5707fc1437901c911e0f75f969060255382350c3871c3b38fe64b";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -11069,10 +11069,10 @@
     };
     "owasp-penetration-testing-kit" = buildMozillaXpiAddon {
       pname = "owasp-penetration-testing-kit";
-      version = "9.9.5";
+      version = "9.9.7";
       addonId = "pentestkit@DenisPodgurskii";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4824703/owasp_penetration_testing_kit-9.9.5.xpi";
-      sha256 = "a986e755bddcd0439241ad264c9e7d4baf133ee7c9a49857f481288b5809f2b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4835100/owasp_penetration_testing_kit-9.9.7.xpi";
+      sha256 = "a1d78c38a5e77be1e7337a9f981d4df6b0dc6015c46f3d1164b9bf378febf334";
       meta = with lib;
       {
         homepage = "https://pentestkit.co.uk/";
@@ -11080,12 +11080,12 @@
         mozPermissions = [
           "<all_urls>"
           "activeTab"
+          "alarms"
           "cookies"
           "notifications"
           "storage"
           "unlimitedStorage"
           "tabs"
-          "history"
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
@@ -11096,10 +11096,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.67";
+      version = "1.5.68";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4820169/page_assist-1.5.67.xpi";
-      sha256 = "6858726015f63159ecbf612d05561003f9dbcfc464d402bbdf523ae866871c48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4830093/page_assist-1.5.68.xpi";
+      sha256 = "2aa5b7f94308281c3c25258bdba4b15a125d2bc586e1c4be9eb01158460b0275";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -12331,10 +12331,10 @@
     };
     "pywalfox" = buildMozillaXpiAddon {
       pname = "pywalfox";
-      version = "2.1.0";
+      version = "2.1.1";
       addonId = "pywalfox@frewacom.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4651382/pywalfox-2.1.0.xpi";
-      sha256 = "1a4a8c863e3a9853764670712b4e1faca687d30d056655f15669c7ab103cc1e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834767/pywalfox-2.1.1.xpi";
+      sha256 = "b7a7a86d1d49a8309758ce1d38492975abe07a61e3788e2d913c70a4d07758b4";
       meta = with lib;
       {
         homepage = "https://github.com/frewacom/Pywalfox";
@@ -13167,10 +13167,10 @@
     };
     "rsspreview" = buildMozillaXpiAddon {
       pname = "rsspreview";
-      version = "3.36.1";
+      version = "4.0";
       addonId = "{7799824a-30fe-4c67-8b3e-7094ea203c94}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4809557/rsspreview-3.36.1.xpi";
-      sha256 = "d0541b1af153713a10e8c1c62b6e7c08dec377969400a590f3838cd2a1a038a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834803/rsspreview-4.0.xpi";
+      sha256 = "b4cfc663158b0ab51483e6ceda8672ab4ec6c2e04e44dda49e2316629c1c33db";
       meta = with lib;
       {
         homepage = "https://github.com/aureliendavid/rsspreview";
@@ -13371,10 +13371,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "151.0.20260601.110758";
+      version = "152.0.20260603.90317";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831782/scots_language_pack-151.0.20260601.110758.xpi";
-      sha256 = "f0ea54b4b133566caf64a8e472a31e83d7462a656e794f108db26083f32d068c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4834479/scots_language_pack-152.0.20260603.90317.xpi";
+      sha256 = "4d9b71b2cd3c591472bf53507cd87942a49b84adac7402e695973c0c2dae3cab";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
