@@ -7,13 +7,13 @@
 }:
 mkYaziPlugin rec {
   pname = "spot-audio.yazi";
-  version = "0-unstable-2026-05-29";
+  version = "0-unstable-2026-06-02";
 
   src = fetchFromGitHub {
     owner = "AminurAlam";
     repo = "yazi-plugins";
-    rev = "0fd127f963dc1afa228cc0fcc76c796331f7c74f";
-    hash = "sha256-AW7PQJ9P6oYZHyH2Vp8CgWGGDy/yhscOl5PWFiv+mqA=";
+    rev = "6206bae4c7887915db1cdf3b353a044578763195";
+    hash = "sha256-xTYYLbrqb1cZeQzaWPzldBfpx3r5s2XyeRTYBA8jbq4=";
   };
 
   installPhase = ''
