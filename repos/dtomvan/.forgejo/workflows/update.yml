@@ -6,6 +6,7 @@ on:
 
 jobs:
   update:
+    runs-on: nix
     uses: https://git.toostveen.nl/tom/puntbestanden/.forgejo/workflows/update.yml@hoofdlijn
     secrets:
       GPG_PRIVKEY: ${{ secrets.GPG_PRIVKEY }}
