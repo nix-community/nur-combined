@@ -19,7 +19,7 @@ in
   options.services.prometheus.exporters.kvrocks = {
     enable = mkEnableOption "the prometheus kvrocks exporter";
 
-    package = mkPackageOption pkgs "nur.repos.xyenon.prometheus-kvrocks-exporter" { };
+    package = mkPackageOption pkgs "prometheus-kvrocks-exporter" { };
 
     port = mkOption {
       type = types.port;

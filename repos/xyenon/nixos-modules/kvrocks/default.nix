@@ -35,7 +35,7 @@ in
     services.kvrocks = {
       enable = lib.mkEnableOption "Kvrocks server";
 
-      package = lib.mkPackageOption pkgs "nur.repos.xyenon.kvrocks" { };
+      package = lib.mkPackageOption pkgs "kvrocks" { };
 
       user = lib.mkOption {
         type = lib.types.str;
