@@ -38,11 +38,11 @@
 
 let
   pname = "rimsort";
-  version = "1.1.2";
+  version = "1.2.2";
 
   src = fetchurl {
     url = "https://github.com/RimSort/RimSort/releases/download/v${version}/RimSort-v${version}-x86_64.AppImage";
-    sha256 = "sha256-+S6lzmJ9Elck84fIrANOva66XPXz1p9hGP0nEcbS/mU=";
+    sha256 = "sha256-lX07rpnzabVbHz7de/wxgIwdlTmWSSRvFy4RrM9WKPQ=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
