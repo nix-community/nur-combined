@@ -126,5 +126,6 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "ghostfolio";
+    platforms = [ "x86_64-linux" ]; # for hydra
   };
 })
