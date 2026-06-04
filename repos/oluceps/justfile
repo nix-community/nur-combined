@@ -123,6 +123,9 @@ check:
 update:
     nix flake update --commit-lock-file
 
+update-pkgs:
+    nix run nixpkgs#nvfetcher -- --build-dir _sources
+
 overwrite-local:
     mc mirror --overwrite --remove r2/sec/Sec {{ home }}/Sec/
 

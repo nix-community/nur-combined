@@ -72,6 +72,20 @@
           pkgs.bitwarden-cli
           pkgs.gpu-screen-recorder
           pkgs.mpv
+          (pkgs.makeDesktopItem {
+            name = "helix-foot";
+            desktopName = "Helix in Foot";
+            genericName = "Text Editor";
+            exec = "foot hx %F";
+            terminal = false;
+            icon = "helix";
+            type = "Application";
+            categories = [
+              "TextEditor"
+              "Development"
+            ];
+            mimeTypes = [ "text/plain" ];
+          })
         ];
       programs = {
         dconf.enable = true;

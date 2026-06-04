@@ -81,7 +81,7 @@
             "application/x-shellscript"
             "text/x-c"
             "text/x-c++"
-          ] (_: "Helix.desktop")
+          ] (_: "helix-foot.desktop")
           // lib.genAttrs [
             "video/mp4"
             "video/mkv"
