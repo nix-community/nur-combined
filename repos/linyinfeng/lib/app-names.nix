@@ -68,6 +68,11 @@ let
     (trivial "vlmcsd")
     (trivial "zeronsd")
     {
+      "deepseek-reasonix" = {
+        "reasonix" = "reasonix";
+      };
+    }
+    {
       "dpt-rp1-py" = {
         "dpt-rp1-py" = "dptrp1";
       };
