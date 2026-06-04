@@ -133,6 +133,27 @@ lib.makeScope pkgs.newScope (self: {
     version = unstableVersion sources 0;
   };
 
+  scx_flow = pkgs.scx.rustscheds.overrideAttrs (
+    final: _prev: {
+      pname = "scx_flow";
+      version = "3.0.2";
+      src = pkgs.fetchFromGitHub {
+        owner = "galpt";
+        repo = "scx";
+        rev = "scx_flow-v3.0.2";
+        hash = "sha256-NEzYl+FGY7JqEvPnXBFfVPsaCKejBoGNdF46OrCHbnQ=";
+      };
+      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+        inherit (final)
+          pname
+          version
+          src
+          ;
+        hash = "sha256-3GD+9KJpst4Muiat5/XccA4oqWG4/S2eDNMTQjXk8Bg=";
+      };
+    }
+  );
+
   shijima-qt = self.callPackage ./shijima-qt { };
 
   splayer-git = self.callPackage ./splayer-git {
