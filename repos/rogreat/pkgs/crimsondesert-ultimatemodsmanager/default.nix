@@ -95,22 +95,19 @@ python3Packages.buildPythonApplication (finalAttrs: {
       comment = "Crimson Desert Ultimate Mods Manager";
       icon = "cdumm";
       exec = "cdumm";
+      terminal = false;
       categories = [ "Utility" ];
+      startupNotify = true;
+      startupWMClass = "cdumm";
     })
   ];
 
-  prePatch = ''
+  preBuild = ''
     cat >> pyproject.toml << EOL
 
     [project.scripts]
-    cdumm = "cdumm.main:args"
+    cdumm = "cdumm.main:main"
     EOL
-
-    substituteInPlace src/cdumm/main.py \
-        --replace-fail 'if __name__ == "__main__":' 'def args():'
-
-    substituteInPlace src/cdumm/engine/nxm_handler.py \
-        --replace-fail 'return f"{exe} -m cdumm.main --nxm %u"' 'return "cdumm --nxm %u"'
   '';
 
   postInstall = ''
