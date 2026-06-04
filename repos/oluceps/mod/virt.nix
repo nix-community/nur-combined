@@ -4,7 +4,6 @@
     {
 
       users.users.${config.identity.user}.extraGroups = [
-        "podman"
         "video"
         "render"
       ];

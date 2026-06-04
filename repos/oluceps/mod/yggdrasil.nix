@@ -75,11 +75,11 @@
               Beacon = true;
               Listen = true;
             }
-            {
+            (lib.optionalAttrs (config.networking.hostName == "kaambl") {
               Regex = "wlan.*";
               Beacon = true;
               Listen = true;
-            }
+            })
           ];
           IfName = "ygg0";
         };

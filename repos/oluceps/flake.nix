@@ -19,6 +19,7 @@
     nixpkgs-factorio.url = "github:NixOS/nixpkgs?rev=1b9bd8dd0fd5b8be7fc3435f7446272354624b01";
     nixpkgs-fix-mautrix.url = "github:NixOS/nixpkgs?rev=f6c9cba6ba89bd2d2f64c4a9e70e19b234784154";
     nixpkgs-origin-vaul.url = "github:NixOS/nixpkgs?rev=ccfbb9cd5859cc51c9d720b47b08e48d1aff633f";
+    hermes-agent.url = "github:NousResearch/hermes-agent";
 
     nix-topology.url = "github:oddlama/nix-topology";
     limes.url = "/home/riro/Src/limes-project/limes";

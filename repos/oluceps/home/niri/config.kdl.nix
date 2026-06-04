@@ -173,6 +173,7 @@ in
    scale 2.0
 
    mode "3840x2160@60.000"
+   max-bpc 10
   }
 
   output "Samsung Electric Company S24R35x H4TM706141" {

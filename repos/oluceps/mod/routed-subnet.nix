@@ -6,7 +6,7 @@
       ...
     }:
     let
-      maxVMs = 1;
+      maxVMs = 2;
     in
     {
       systemd.network.networks = builtins.listToAttrs (
@@ -51,8 +51,9 @@
             chain forward {
               type filter hook forward priority filter; policy drop;
 
-              # allow new connections from vm1 to eno1
-              iifname "vm1" oifname "eno1" ct state new accept
+              ${lib.concatMapStringsSep "\n" (
+                i: "iifname \"vm${toString i}\" oifname \"eno1\" ct state new accept"
+              ) (lib.range 1 maxVMs)}
 
               # note: you usually need this to allow return traffic
               ct state { established, related } accept

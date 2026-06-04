@@ -49,7 +49,7 @@
                  auto_config_kernel_parameter: true
                  tls_implementation: utls
                  utls_imitate: ios_auto
-                 lan_interface: br0,podman0,podman1,podman2,podman3,docker0
+                 lan_interface: br0,podman0,podman1,podman2,podman3,docker0,vm2
                  mptcp: false
                  tls_fragment_length: '50-100'
                  tls_fragment_interval: '10-20'

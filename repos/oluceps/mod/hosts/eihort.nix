@@ -172,12 +172,7 @@
         sing-box.enable = true;
         metrics.enable = true;
         online-exporter.instances.zro = {
-          # sessionFile = config.vaultix.secrets.tgexp.path;
-          environment = [
-            "TG_API_HASH=d524b414d21f4d37f08684c1df41ac9c"
-            "TG_API_ID=611335"
-            "MONITOR_USER_IDS=454999736,6280888824,594807459"
-          ];
+          environmentFile = config.vaultix.secrets.monitou.path;
         };
 
         # ranet-discover = {

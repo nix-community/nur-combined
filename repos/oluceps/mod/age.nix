@@ -48,6 +48,7 @@ in
         secrets = {
           nuan = { };
           cfd = { };
+          monitou = { };
           tg-session = {
             mode = "640";
             owner = "root";

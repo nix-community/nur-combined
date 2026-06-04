@@ -48,6 +48,7 @@
             chrony
             prometheus
             # xray
+            june
           ])
         )
         ++ [
