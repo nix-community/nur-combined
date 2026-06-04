@@ -32,7 +32,7 @@ in
         Type = "simple";
         DynamicUser = true;
         StateDirectory = "violet";
-        ExecStart = "${lib.getExe cfg.package} -c $\{STATE_DIRECTORY}/config.yaml";
+        ExecStart = "${lib.getExe cfg.package} -c \${STATE_DIRECTORY}/config.yaml";
         Restart = "on-failure";
       };
     };

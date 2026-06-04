@@ -48,7 +48,7 @@
                 "--disk-cache-dir=\"$XDG_RUNTIME_DIR/chromium-cache\""
                 "--oauth2-client-id=77185425430.apps.googleusercontent.com"
                 "--oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT"
-                "--user-data-dir=\"$\{XDG_CONFIG_HOME:-$\{HOME}/.config}/chromium-sync\""
+                "--user-data-dir=\"\${XDG_CONFIG_HOME:-\${HOME}/.config}/chromium-sync\""
               ];
               enableWideVine = true;
             };

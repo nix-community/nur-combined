@@ -6,16 +6,19 @@ with builtins;
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+  isBuildable =
+    p:
+    !(p.meta.broken or false)
+    && (if p.meta ? license && p.meta.license ? free then p.meta.license.free else true);
   isCacheable = p: !(p.preferLocalBuild or false);
-  shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
+  shouldRecurseForDerivations = p: isAttrs p && (p.recurseForDerivations or false);
 
   nameValuePair = n: v: {
     name = n;
     value = v;
   };
 
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
+  concatMap = if builtins ? concatMap then builtins.concatMap else (f: xs: concatLists (map f xs));
 
   flattenPkgs =
     s:

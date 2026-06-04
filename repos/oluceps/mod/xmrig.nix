@@ -22,7 +22,7 @@
           pools = [
             {
               url = "pool.supportxmr.com:443";
-              user = config.data.xmrAddr or "MISSING";
+              user = if config.data ? xmrAddr then config.data.xmrAddr else "MISSING";
               keepalive = true;
               tls = true;
               pass = config.networking.hostName;

@@ -26,12 +26,12 @@
           in
           [
             module
-            (nixos."age/${name}" or { }) # secret accompany with host
-            (nixos."net/${name}" or { })
-            (nixos."disko/${name}" or { })
-            (nixos."backup/${name}" or { })
-            (nixos."caddy/${name}" or { })
-            (nixos."bird/${name}" or { })
+            (if nixos ? "age/${name}" then nixos."age/${name}" else { }) # secret accompany with host
+            (if nixos ? "net/${name}" then nixos."net/${name}" else { })
+            (if nixos ? "disko/${name}" then nixos."disko/${name}" else { })
+            (if nixos ? "backup/${name}" then nixos."backup/${name}" else { })
+            (if nixos ? "caddy/${name}" then nixos."caddy/${name}" else { })
+            (if nixos ? "bird/${name}" then nixos."bird/${name}" else { })
           ];
       }
     );

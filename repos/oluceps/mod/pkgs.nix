@@ -19,11 +19,17 @@
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
-        overlays = map (i: inputs.${i}.overlays.default or inputs.${i}.overlays.${i}) [
-          "fenix"
-          "self"
-          "nuenv"
-        ];
+        overlays =
+          map
+            (
+              i:
+              if inputs.${i}.overlays ? "default" then inputs.${i}.overlays.default else inputs.${i}.overlays.${i}
+            )
+            [
+              "fenix"
+              "self"
+              "nuenv"
+            ];
         config = {
           allowUnfreePredicate =
             pkg:

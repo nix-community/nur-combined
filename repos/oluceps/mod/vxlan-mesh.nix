@@ -122,13 +122,20 @@
             lib.mapAttrsToList (
               name: peerNode:
               let
-                potentialEndpoints = lib.filter (addr: !lib.hasPrefix "fdcc:" addr) (peerNode.addrs or [ ]);
+                potentialEndpoints = lib.filter (addr: !lib.hasPrefix "fdcc:" addr) (
+                  if peerNode ? addrs then peerNode.addrs else [ ]
+                );
 
                 v6Addr = lib.findFirst (addr: getFamily addr == "ip6") null potentialEndpoints;
                 v4Addr = lib.findFirst (addr: getFamily addr == "ip4") null potentialEndpoints;
                 endpointAddr = if v6Addr != null then "[${v6Addr}]" else v4Addr;
                 # region the same, or target is public ip
-                directConnect = ((thisNode.region or null) == (peerNode.region or null)) || !(peerNode.nat or true);
+                directConnect =
+                  (
+                    (if thisNode ? region then thisNode.region else null)
+                    == (if peerNode ? region then peerNode.region else null)
+                  )
+                  || !(if peerNode ? nat then peerNode.nat else true);
               in
               if name == hostName then
                 [ ]

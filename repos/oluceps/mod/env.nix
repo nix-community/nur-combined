@@ -61,7 +61,11 @@
         # WLR_RENDERER = "vulkan";
         PATH = [ "/home/${config.identity.user}/.npm-packages/bin" ];
         RAD_HOME = "/home/${config.identity.user}/.local/share/radicle";
-        NTFY_AUTH_FILE = config.services.ntfy-sh.settings.auth-file or "";
+        NTFY_AUTH_FILE =
+          if config.services.ntfy-sh.settings ? auth-file then
+            config.services.ntfy-sh.settings.auth-file
+          else
+            "";
         # LD_LIBRARY_PATH = [ "${lib.getLib pkgs.pcsclite}/lib" ];
         DIRENV_CONFIG = "/etc/direnv";
 

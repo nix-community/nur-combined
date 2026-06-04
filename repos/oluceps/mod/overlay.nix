@@ -7,14 +7,20 @@
       nixpkgs.overlays = (
         withSystem "x86_64-linux" (
           { inputs', ... }:
-          (map (i: inputs.${i}.overlays.default or inputs.${i}.overlays.${i}) [
-            "fenix"
-            "nuenv"
-            "dae"
-            "niri"
-            "nix-cachyos-kernel"
-            "run0-sudo-shim"
-          ])
+          (map
+            (
+              i:
+              if inputs.${i}.overlays ? "default" then inputs.${i}.overlays.default else inputs.${i}.overlays.${i}
+            )
+            [
+              "fenix"
+              "nuenv"
+              "dae"
+              "niri"
+              "nix-cachyos-kernel"
+              "run0-sudo-shim"
+            ]
+          )
           ++ [
             (
               final: prev:

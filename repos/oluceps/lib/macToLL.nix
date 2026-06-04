@@ -32,7 +32,7 @@ let
   rest3 = builtins.substring 6 2 cleanMac;
   rest4 = builtins.substring 8 4 cleanMac;
 
-  newC2 = invertMap.${c2} or (throw "invalid mac character: ${c2}");
+  newC2 = if invertMap ? ${c2} then invertMap.${c2} else (throw "invalid mac character: ${c2}");
 
   b1 = "${c1}${newC2}${rest1}";
   b2 = "${rest2}ff";

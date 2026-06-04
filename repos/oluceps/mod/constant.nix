@@ -10,7 +10,7 @@ let
     let
       m = i: inputs.${i}.nixosModules;
     in
-    i: (m i).default or (m i).${i}
+    i: if (m i) ? "default" then (m i).default else (m i).${i}
   );
 
   mask = "/128";
@@ -128,7 +128,10 @@ let
   };
 
   mkFn = pkgs: {
-    genOverlays = map (i: inputs.${i}.overlays.default or inputs.${i}.overlays.${i});
+    genOverlays = map (
+      i:
+      if inputs.${i}.overlays ? "default" then inputs.${i}.overlays.default else inputs.${i}.overlays.${i}
+    );
     conn = import ../lib/conn.nix node-data;
     targetsFromNodes = (import ../lib/nodesToTargets.nix { inherit (pkgs) lib; }) node-data;
     macToLL = (import ../lib/macToLL.nix { inherit (pkgs) lib; });

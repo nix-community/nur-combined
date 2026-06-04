@@ -30,7 +30,7 @@ in
         StateDirectory = "alist";
         RuntimeDirectory = "alist";
         Environment = [ "TMP_DIR=\${RUNTIME_DIRECTORY}" ];
-        ExecStart = "${lib.getExe cfg.package} server --data $\{STATE_DIRECTORY} --log-std";
+        ExecStart = "${lib.getExe cfg.package} server --data \${STATE_DIRECTORY} --log-std";
         Restart = "on-failure";
         WorkingDirectory = "/var/lib/alist";
         PrivateTmp = true;

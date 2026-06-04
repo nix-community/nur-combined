@@ -77,7 +77,7 @@ in
               Type = "simple";
               DynamicUser = true;
               LoadCredential = [ "config:${s.configFile}" ] ++ s.credentials;
-              ExecStart = "${s.package}/bin/ss${binSuffix} -c $\{CREDENTIALS_DIRECTORY}/config";
+              ExecStart = "${s.package}/bin/ss${binSuffix} -c \${CREDENTIALS_DIRECTORY}/config";
               AmbientCapabilities = [
                 "CAP_NET_ADMIN"
                 "CAP_NET_BIND_SERVICE"

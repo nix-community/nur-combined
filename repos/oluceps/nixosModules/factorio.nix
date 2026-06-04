@@ -320,7 +320,7 @@ in
             if cfg.serverSettingsFile == "" then
               serverSettingsFile
             else
-              "$\{CREDENTIALS_DIRECTORY}/server-settings.json"
+              "\${CREDENTIALS_DIRECTORY}/server-settings.json"
           }"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
           (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
@@ -329,7 +329,7 @@ in
               if cfg.serverAdminsFile == "" then
                 serverAdminsFile
               else
-                "$\{CREDENTIALS_DIRECTORY}/server-admins.json"
+                "\${CREDENTIALS_DIRECTORY}/server-admins.json"
             }"
           )
         ];

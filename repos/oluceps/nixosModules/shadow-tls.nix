@@ -37,7 +37,7 @@ in
                 Load extra credentials.
                 Could be written as systemd `LoadCredentials` format e.g.
                 `["key:/etc/shadow-tls-key"]` and access in config with
-                `/run/credentials/shadow-tls-$\{name}.service/key`
+                `/run/credentials/shadow-tls-''${name}.service/key`
               '';
             };
             openFirewall = mkOption {
@@ -86,7 +86,7 @@ in
         serviceConfig = {
           Type = "simple";
           DynamicUser = true;
-          ExecStart = "${opts.package}/bin/shadow-tls config -c $\{CREDENTIALS_DIRECTORY}/config";
+          ExecStart = "${opts.package}/bin/shadow-tls config -c \${CREDENTIALS_DIRECTORY}/config";
           LoadCredential = [ "config:${opts.configFile}" ] ++ opts.credentials;
           AmbientCapabilities = [
             "CAP_NET_ADMIN"

@@ -37,7 +37,7 @@ in
                 Load extra credentials.
                 Could be written as systemd `LoadCredentials` format e.g.
                 `["key:/etc/juicity-key"]` and access in config with
-                `/run/credentials/juicity-$\{name}.service/key`
+                `/run/credentials/juicity-''${name}.service/key`
               '';
             };
             openFirewall = mkOption {
@@ -90,7 +90,7 @@ in
           {
             Type = "simple";
             DynamicUser = true;
-            ExecStart = "${opts.package}/bin/juicity-${binSuffix} run -c $\{CREDENTIALS_DIRECTORY}/config";
+            ExecStart = "${opts.package}/bin/juicity-${binSuffix} run -c \${CREDENTIALS_DIRECTORY}/config";
             LoadCredential = [ "config:${opts.configFile}" ] ++ opts.credentials;
             AmbientCapabilities = [
               "CAP_NET_ADMIN"

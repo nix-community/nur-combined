@@ -80,7 +80,7 @@ in
       restartIfChanged = false;
       serviceConfig = {
         User = "sing-box";
-        ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
+        ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c \${CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
         LoadCredential = [ ("config.json:" + cfg.configFile) ];
         StateDirectory = "sing";
         CapabilityBoundingSet = [
