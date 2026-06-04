@@ -115,7 +115,7 @@
     },
     "mholt/caddy-l4": {
         "cargoLock": null,
-        "date": "20260513141457",
+        "date": "20260603064814",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
@@ -130,12 +130,12 @@
             "name": null,
             "owner": "mholt",
             "repo": "caddy-l4",
-            "rev": "45e9c728448b3109dff3e342321a3ad3eda5de64",
-            "sha256": "sha256-P6ltBzCQLELDtIQkQ2E3xoNBjCyLvwCoWWztyRoR7ZI=",
+            "rev": "1d459d3c0a3232499a5f2b6122c4e90786d93a11",
+            "sha256": "sha256-t8ReLpV1hNvQkZKQBoYzc4gvqCRk96+OqKHoddFdBy8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "45e9c728448b3109dff3e342321a3ad3eda5de64"
+        "version": "1d459d3c0a3232499a5f2b6122c4e90786d93a11"
     },
     "mholt/caddy-webdav": {
         "cargoLock": null,
@@ -222,16 +222,16 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "2026.03.26",
-            "sha256": "sha256-hRtA1cYAQm7M+dPSThedqKogr8YMkP9WQFEZw5pdCbU=",
+            "rev": "2026.06.03",
+            "sha256": "sha256-MHPvFGdCnmHtgPqLkV+JJ3LHjcDeIs5yqexmHnWgRIc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2026.03.26"
+        "version": "2026.06.03"
     },
     "rime-ice-unstable": {
         "cargoLock": null,
-        "date": "2026-06-01",
+        "date": "2026-06-03",
         "extract": null,
         "name": "rime-ice-unstable",
         "passthru": null,
@@ -243,12 +243,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "04dcf953f8527fb6207b2bdbafd2e9a7492bf348",
-            "sha256": "sha256-ScVLxDwyi/Mrcxp7kOxJzWglp8JfLlSMfn9b5gGoVDY=",
+            "rev": "476bb816a0b2289e65a357085e36c501682f17b1",
+            "sha256": "sha256-x+YTjwllDy96qmmzhW55XPqvfKev9ruQ/1bfq8xjeqM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "04dcf953f8527fb6207b2bdbafd2e9a7492bf348"
+        "version": "476bb816a0b2289e65a357085e36c501682f17b1"
     },
     "rime-moegirl": {
         "cargoLock": null,
