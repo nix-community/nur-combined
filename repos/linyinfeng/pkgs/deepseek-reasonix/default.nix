@@ -8,15 +8,15 @@
 
 buildGoModule rec {
   pname = "reasonix";
-  version = "1.0.0";
+  version = "1.1.0";
   src = fetchFromGitHub {
     owner = "esengine";
     repo = "DeepSeek-Reasonix";
     rev = "v${version}";
-    sha256 = "sha256-67n4DRCOW6QMbNIvGmiRlb0DvBkmD0LricPFVwa6rag=";
+    sha256 = "sha256-fRFqlXGAUcnB0zumwtr7NNzfHVdFu679n9J4ki7Yk3I=";
   };
 
-  vendorHash = "sha256-JguEYEkC+UfC4SQdZ9czCjUaoi9qyUktQ65Di8emZ4A=";
+  vendorHash = "sha256-ObDfNr9Olc6mFfIYx3yb4UxesZD+HXzN7mjxr/iT2p4=";
 
   subPackages = [
     "cmd/reasonix"
