@@ -7,14 +7,14 @@
 
 buildGoModule (finalAttrs: {
   pname = "panix";
-  version = "0.7.0";
+  version = "0.7.1";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "mihakrumpestar";
     repo = "panix";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Nran1Kop3BXYcUFoAb97WUOOL20PqAFA4sq3N/utv2U=";
+    hash = "sha256-SWnagD8xfQP2p23mpJvCtOGyviiU9z2Vv7K06kQqSZ8=";
   };
 
   subPackages = [ "cmd/panix" ];
