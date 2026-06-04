@@ -18,7 +18,7 @@ let
     "editor.autoSurround" = "never";
   };
   monospace = {
-    "editor.fontFamily" = "'Iosevka Custom Mono'";
+    "editor.fontFamily" = "'Iosevka Custom Mono', 'Noto Sans CJK JP', 'Last Resort High-Efficiency'";
     "editor.wrappingStrategy" = "simple";
   };
   prettier = {

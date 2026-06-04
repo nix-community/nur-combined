@@ -227,6 +227,7 @@ ciphertext
 cis
 Citra
 cityscape
+CJK
 cjs
 clades
 cladogram

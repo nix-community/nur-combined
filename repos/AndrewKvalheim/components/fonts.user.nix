@@ -12,6 +12,8 @@
     iosevka-custom.mono
     iosevka-custom.proportional
     iosevka-custom.term
+    last-resort
+    noto-fonts-cjk-sans
     noto-fonts-color-emoji
     roboto
     roboto-mono

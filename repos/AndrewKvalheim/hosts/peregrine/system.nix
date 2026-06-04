@@ -44,19 +44,19 @@ in
     #       ⎈    ❖    ⎇                  ␣    ░    ░   ;    '
     #                                            ≣
     # To:
-    #              ░                     -   =   ¥    ]    \
+    #              ░                     -   =   ¥    ]    ろ
     #         ░    ░    ░    ░   ░   ░   ░   ░   ░    ░    ░    [
     #         g    q    w    e    r    t    y    u    i    o    p
     #     ░    ░    ░    ░    ░    ↵    ░    ░    ░    ░    ;
     #      c    ░    ░    ␣    ░    ░    ░    ░    ░   ░ ░  '
-    #       ⎇    ⎈    ❖                  ⇧    ░    ░   ❖    ろ
+    #       ⎇    ⎈    ❖                  ⇧    ░    ░   ❖    \
     #                                            ★
     evdev:name:SINO WEALTH USB TOUCHPAD KEYBOARD:*
       KEYBOARD_KEY_7002f=minus
       KEYBOARD_KEY_70030=equal
       KEYBOARD_KEY_70031=yen
       KEYBOARD_KEY_7002d=rightbrace
-      KEYBOARD_KEY_7002e=backslash
+      KEYBOARD_KEY_7002e=ro
       KEYBOARD_KEY_7002a=leftbrace
       KEYBOARD_KEY_70014=g
       KEYBOARD_KEY_7001a=q
@@ -79,7 +79,7 @@ in
       KEYBOARD_KEY_700e2=leftmeta
       KEYBOARD_KEY_7002c=leftshift
       KEYBOARD_KEY_70033=rightmeta
-      KEYBOARD_KEY_70034=ro
+      KEYBOARD_KEY_70034=backslash
       KEYBOARD_KEY_70065=favorites
   '';
   services.kmonad.keyboards.default.device = "/dev/input/by-id/usb-SINO_WEALTH_USB_TOUCHPAD_KEYBOARD-event-if00";

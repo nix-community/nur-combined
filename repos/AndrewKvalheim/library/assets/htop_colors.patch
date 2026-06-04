@@ -11,3 +11,12 @@ Re htop-dev/htop#1416
 +      [PANEL_HEADER_FOCUS] = ColorPair(Black, Blue),
 +      [PANEL_HEADER_UNFOCUS] = ColorPair(Black, Blue),
 +      [PANEL_SELECTION_FOCUS] = ColorPair(Black, Magenta),
+@@ -207,4 +207,4 @@
+-      [SCREENS_OTH_BORDER] = ColorPair(Blue, Blue),
+-      [SCREENS_OTH_TEXT] = ColorPair(Black, Blue),
+-      [SCREENS_CUR_BORDER] = ColorPair(Green, Green),
+-      [SCREENS_CUR_TEXT] = ColorPair(Black, Green),
++      [SCREENS_OTH_BORDER] = ColorPair(Green, Green),
++      [SCREENS_OTH_TEXT] = ColorPair(Black, Green),
++      [SCREENS_CUR_BORDER] = ColorPair(Blue, Blue),
++      [SCREENS_CUR_TEXT] = ColorPair(Black, Blue),

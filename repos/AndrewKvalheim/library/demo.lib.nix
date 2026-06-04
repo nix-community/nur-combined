@@ -10,6 +10,10 @@ in
 {
   inherit contactNotice;
 
+  ansi = concatLines (map
+    (name: colors.ansi.${name}.sgr "██ ${name}")
+    [ "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" ]);
+
   palette = with sgr; concatLines (mapAttrsToList
     (name: { css, hex, sgr, ... }: "${sgr "██ ${name}"} ${brightBlack "${css} ≈ ${hex}"}")
     (filterAttrs (_: a: a ? css) colors)
