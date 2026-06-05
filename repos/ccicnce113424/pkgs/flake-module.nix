@@ -14,16 +14,14 @@
       packageSet = import ./. { inherit pkgs; };
     in
     {
-      packages = lib.filterAttrsRecursive (_: p: lib.isDerivation p && !(p.meta.broken or false)) (
-        removeAttrs packageSet [
-          "callPackage"
-          "newScope"
-          "overrideScope"
-          "packages"
-          "nixosModules"
-        ]
-      );
-      overlayAttrs = config.packages;
+      packages = lib.removeAttrs packageSet [
+        "callPackage"
+        "newScope"
+        "overrideScope"
+        "packages"
+        "nixosModules"
+      ];
+      overlayAttrs = lib.filterAttrsRecursive (_: p: !(p.meta.broken or false)) config.packages;
     };
 
   flake = {
